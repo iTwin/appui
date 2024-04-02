@@ -2,13 +2,12 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { render } from "@testing-library/react";
 import * as React from "react";
 import { ToolbarHelper, UiFramework } from "../../appui-react";
 import { CommandItemDef } from "../../appui-react/shared/CommandItemDef";
 import { BasicToolWidget } from "../../appui-react/widgets/BasicToolWidget";
-import TestUtils, { childStructure } from "../TestUtils";
+import { childStructure } from "../TestUtils";
 
 describe("BasicToolWidget", () => {
   beforeEach(() => {
@@ -23,16 +22,6 @@ describe("BasicToolWidget", () => {
         return DOMRect.fromRect({ width: 300, height: 300 });
       }
     );
-  });
-
-  beforeEach(async () => {
-    await TestUtils.initializeUiFramework();
-    await NoRenderApp.startup();
-  });
-
-  afterEach(async () => {
-    await IModelApp.shutdown();
-    TestUtils.terminateUiFramework();
   });
 
   it("BasicToolWidget should render correctly", () => {

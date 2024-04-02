@@ -25,8 +25,6 @@ describe("KeyboardShortcut", () => {
   let testCommand2: CommandItemDef;
 
   beforeEach(async () => {
-    await TestUtils.initializeUiFramework();
-
     testCommand = new CommandItemDef({
       commandId: "testCommand",
       iconSpec: "icon-placeholder",
@@ -44,10 +42,6 @@ describe("KeyboardShortcut", () => {
         testspy();
       },
     });
-  });
-
-  afterEach(() => {
-    TestUtils.terminateUiFramework();
   });
 
   beforeEach(() => {

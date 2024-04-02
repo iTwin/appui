@@ -6,7 +6,6 @@ import * as React from "react";
 import * as moq from "typemoq";
 import { fireEvent, render, screen } from "@testing-library/react";
 import type { IModelConnection } from "@itwin/core-frontend";
-import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import type { CardInfo, SheetData } from "../../appui-react";
 import {
   CardContainer,
@@ -14,23 +13,13 @@ import {
   SheetsModalFrontstage,
   UiFramework,
 } from "../../appui-react";
-import TestUtils, { selectorMatches, userEvent } from "../TestUtils";
+import { selectorMatches, userEvent } from "../TestUtils";
 
 describe("SheetsModalFrontstage", () => {
   let modal: SheetsModalFrontstage;
   let theUserTo: ReturnType<typeof userEvent.setup>;
   beforeEach(() => {
     theUserTo = userEvent.setup();
-  });
-
-  beforeEach(async () => {
-    await TestUtils.initializeUiFramework();
-    await NoRenderApp.startup();
-  });
-
-  afterEach(async () => {
-    await IModelApp.shutdown();
-    TestUtils.terminateUiFramework();
   });
 
   const connection = moq.Mock.ofType<IModelConnection>();

@@ -66,13 +66,8 @@ class TestNestedFrontstage extends FrontstageProvider {
 }
 
 describe("NestedFrontstage", async () => {
-  beforeEach(async () => {
-    await TestUtils.initializeUiFramework();
-    UiFramework.frontstages.clearFrontstageProviders();
-  });
-
   afterEach(() => {
-    TestUtils.terminateUiFramework();
+    UiFramework.frontstages.clearFrontstageProviders();
   });
 
   it("activeNestedFrontstage should return undefined if none active", () => {

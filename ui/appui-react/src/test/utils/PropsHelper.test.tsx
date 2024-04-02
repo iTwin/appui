@@ -5,18 +5,9 @@
 import * as React from "react";
 import { ConditionalStringValue } from "@itwin/appui-abstract";
 import { PropsHelper } from "../../appui-react";
-import TestUtils from "../TestUtils";
 import { SvgCut } from "@itwin/itwinui-icons-react";
 
 describe("PropsHelper", () => {
-  beforeEach(async () => {
-    await TestUtils.initializeUiFramework();
-  });
-
-  afterEach(() => {
-    TestUtils.terminateUiFramework();
-  });
-
   it("Shallow Equals", () => {
     const obj1 = {
       firstName: "John",

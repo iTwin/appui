@@ -3,7 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import type { ContentLayoutProps } from "@itwin/appui-abstract";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 import type {
@@ -19,11 +18,7 @@ import {
   FrontstageProvider,
   UiFramework,
 } from "../../appui-react";
-import TestUtils, {
-  childStructure,
-  selectorMatches,
-  userEvent,
-} from "../TestUtils";
+import { childStructure, selectorMatches, userEvent } from "../TestUtils";
 import { render, screen, waitFor } from "@testing-library/react";
 
 describe("ContentLayout", () => {
@@ -99,9 +94,6 @@ describe("ContentLayout", () => {
   });
 
   beforeEach(async () => {
-    await TestUtils.initializeUiFramework();
-    await NoRenderApp.startup();
-
     const frontstageProvider = new TestFrontstage2();
     UiFramework.frontstages.addFrontstageProvider(frontstageProvider);
     const frontstageDef = await UiFramework.frontstages.getFrontstageDef(
@@ -111,8 +103,6 @@ describe("ContentLayout", () => {
   });
 
   afterEach(async () => {
-    await IModelApp.shutdown();
-    TestUtils.terminateUiFramework();
     UiFramework.frontstages.clearFrontstageProviders();
   });
 
@@ -615,8 +605,6 @@ describe("SingleContentLayout", () => {
   }
 
   beforeEach(async () => {
-    await TestUtils.initializeUiFramework();
-    await NoRenderApp.startup();
     UiFramework.frontstages.clearFrontstageProviders();
 
     const frontstageProvider = new TestFrontstage1();
@@ -625,11 +613,6 @@ describe("SingleContentLayout", () => {
       TestFrontstage1.stageId
     );
     await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
-  });
-
-  afterEach(async () => {
-    await IModelApp.shutdown();
-    TestUtils.terminateUiFramework();
   });
 
   it("Should set active if floating content exists", async () => {

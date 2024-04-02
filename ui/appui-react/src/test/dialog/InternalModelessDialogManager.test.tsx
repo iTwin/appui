@@ -10,9 +10,8 @@ import {
   ModelessDialogRenderer,
   UiFramework,
 } from "../../appui-react";
-import TestUtils, { userEvent } from "../TestUtils";
+import { userEvent } from "../TestUtils";
 import { render, screen, waitFor } from "@testing-library/react";
-import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { InternalModelessDialogManager } from "../../appui-react/dialog/InternalModelessDialogManager";
 
 describe("InternalModelessDialogManager", () => {
@@ -28,21 +27,16 @@ describe("InternalModelessDialogManager", () => {
     spy();
   }
 
-  beforeEach(async () => {
-    await TestUtils.initializeUiFramework(true);
-    await NoRenderApp.startup();
-
+  beforeEach(() => {
     UiFramework.dialogs.modeless.onModelessDialogChangedEvent.addListener(
       handleModelessDialogChanged
     );
   });
 
-  afterEach(async () => {
+  afterEach(() => {
     InternalModelessDialogManager.onModelessDialogChangedEvent.removeListener(
       handleModelessDialogChanged
     );
-    await IModelApp.shutdown();
-    TestUtils.terminateUiFramework(); // clear out the framework key
   });
 
   it("ModelessDialogManager methods", () => {

@@ -3,26 +3,14 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { fireEvent, render, waitFor } from "@testing-library/react";
 import {
   ActivityCenterField,
   MessageManager,
   StatusBar,
 } from "../../appui-react";
-import TestUtils from "../TestUtils";
 
 describe("ActivityCenter", () => {
-  beforeEach(async () => {
-    await NoRenderApp.startup();
-    await TestUtils.initializeUiFramework();
-  });
-
-  afterEach(async () => {
-    TestUtils.terminateUiFramework();
-    await IModelApp.shutdown();
-  });
-
   it("should show ActivityCenterField", async () => {
     const { findByText, findByTitle } = render(
       <StatusBar>

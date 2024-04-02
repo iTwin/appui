@@ -15,14 +15,6 @@ import { TabIdContext } from "../../appui-react/layout/widget/ContentRenderer";
 import TestUtils from "../TestUtils";
 
 describe("useWidgetDirection", () => {
-  beforeEach(async () => {
-    await TestUtils.initializeUiFramework();
-  });
-
-  afterEach(() => {
-    TestUtils.terminateUiFramework();
-  });
-
   it("should return 'vertical'", async () => {
     await TestUtils.flushAsyncOperations();
 

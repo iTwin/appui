@@ -3,17 +3,8 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { CustomItemDef } from "../../appui-react/shared/CustomItemDef";
-import TestUtils from "../TestUtils";
 
 describe("CustomItemDef", () => {
-  beforeEach(async () => {
-    await TestUtils.initializeUiFramework();
-  });
-
-  afterEach(() => {
-    TestUtils.terminateUiFramework();
-  });
-
   it("CustomItemDef with no commandId should get generated id", () => {
     const item = new CustomItemDef({});
 

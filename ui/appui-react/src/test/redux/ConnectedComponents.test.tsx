@@ -122,9 +122,4 @@ describe("ConnectedContent", () => {
     expect(span2.innerHTML).to.be.eq(defaultViewId);
     expect(span3.innerHTML).to.be.eq(viewportControlId);
   });
-
-  afterEach(() => {
-    // clear out the framework key
-    TestUtils.terminateUiFramework();
-  });
 });

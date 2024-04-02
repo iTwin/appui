@@ -4,11 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { Logger } from "@itwin/core-bentley";
-import {
-  IModelApp,
-  LengthDescription,
-  NoRenderApp,
-} from "@itwin/core-frontend";
+import { IModelApp, LengthDescription } from "@itwin/core-frontend";
 import type {
   AbstractToolbarProps,
   DialogItem,
@@ -48,7 +44,7 @@ describe("PopupManager", () => {
     "requestNextAnimation"
   )!;
 
-  beforeEach(async () => {
+  beforeEach(() => {
     Object.defineProperty(window, "localStorage", {
       get: () => myLocalStorage,
     });
@@ -58,13 +54,9 @@ describe("PopupManager", () => {
     Object.defineProperty(IModelApp, "requestNextAnimation", {
       get: () => requestNextAnimation,
     });
-
-    await TestUtils.initializeUiFramework();
-    // use mock renderer so standards tools are registered.
-    await NoRenderApp.startup();
   });
 
-  afterEach(async () => {
+  afterEach(() => {
     // restore the overriden property getter
     Object.defineProperty(window, "localStorage", propertyDescriptorToRestore);
     Object.defineProperty(
@@ -72,9 +64,6 @@ describe("PopupManager", () => {
       "requestNextAnimation",
       rnaDescriptorToRestore
     );
-  });
-
-  beforeEach(() => {
     PopupManager.clearPopups();
   });
 

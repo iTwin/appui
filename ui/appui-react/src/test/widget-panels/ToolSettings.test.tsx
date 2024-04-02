@@ -34,20 +34,9 @@ import {
   addWidgetToolSettings,
 } from "../../appui-react/layout/state/internal/ToolSettingsStateHelpers";
 import { addFloatingWidget } from "../../appui-react/layout/state/internal/WidgetStateHelpers";
-import TestUtils, { childStructure } from "../TestUtils";
-import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
+import { childStructure } from "../TestUtils";
 
 describe("WidgetPanelsToolSettings", () => {
-  beforeEach(async () => {
-    await NoRenderApp.startup();
-    await TestUtils.initializeUiFramework();
-  });
-
-  afterEach(async () => {
-    TestUtils.terminateUiFramework();
-    await IModelApp.shutdown();
-  });
-
   it("should not render w/o tool settings top center zone", () => {
     vi.spyOn(
       UiFramework.frontstages,

@@ -9,7 +9,7 @@ import type { IModelRpcProps } from "@itwin/core-common";
 import type { Id64String } from "@itwin/core-bentley";
 import { Logger } from "@itwin/core-bentley";
 import type { IModelConnection, ViewState } from "@itwin/core-frontend";
-import { IModelApp, SelectionSet } from "@itwin/core-frontend";
+import { SelectionSet } from "@itwin/core-frontend";
 import type { CursorMenuPayload, UserSettingsProvider } from "../appui-react";
 import {
   AccuDrawPopupManager,
@@ -45,15 +45,8 @@ describe("UiFramework localStorage Wrapper", () => {
   });
 
   describe("UiFramework", () => {
-    beforeEach(() => {
-      TestUtils.terminateUiFramework();
-    });
-
-    afterEach(() => {
-      TestUtils.terminateUiFramework();
-    });
-
     it("store should throw Error without initialize", () => {
+      TestUtils.terminateUiFramework();
       expect(() => UiFramework.store).to.throw(Error);
     });
 
@@ -120,6 +113,7 @@ describe("UiFramework localStorage Wrapper", () => {
     });
 
     it("calling initialize twice should log", async () => {
+      TestUtils.terminateUiFramework();
       const spyLogger = vi.spyOn(Logger, "logInfo");
       expect(UiFramework.initialized).to.be.false;
       await UiFramework.initialize(TestUtils.store);
@@ -129,27 +123,21 @@ describe("UiFramework localStorage Wrapper", () => {
     });
 
     it("test default frameworkState key", async () => {
-      await TestUtils.initializeUiFramework();
       expect(UiFramework.frameworkStateKey).to.equal("frameworkState");
-      TestUtils.terminateUiFramework();
     });
 
     it("IsUiVisible", async () => {
-      await TestUtils.initializeUiFramework();
       UiFramework.setIsUiVisible(false);
       expect(UiFramework.getIsUiVisible()).to.be.false;
-      TestUtils.terminateUiFramework();
     });
 
     it("ColorTheme", async () => {
       await TestUtils.initializeUiFramework();
       UiFramework.setColorTheme(ColorTheme.Dark);
       expect(UiFramework.getColorTheme()).toEqual(ColorTheme.Dark);
-      TestUtils.terminateUiFramework();
     });
 
     it("test selection scope state data", async () => {
-      await TestUtils.initializeUiFramework();
       expect(UiFramework.getActiveSelectionScope()).to.equal("element");
       const scopes = UiFramework.getAvailableSelectionScopes();
       expect(scopes.length).to.be.greaterThan(0);
@@ -157,23 +145,19 @@ describe("UiFramework localStorage Wrapper", () => {
       // since "file" is not a valid scope the active scope should still be element
       UiFramework.setActiveSelectionScope("file");
       expect(UiFramework.getActiveSelectionScope()).to.equal("element");
-      TestUtils.terminateUiFramework();
     });
 
     it("WidgetOpacity", async () => {
-      await TestUtils.initializeUiFramework();
+      await TestUtils.initializeUiFramework(true);
       const testValue = 0.5;
       UiFramework.setWidgetOpacity(testValue);
       expect(UiFramework.getWidgetOpacity()).toEqual(testValue);
-      TestUtils.terminateUiFramework();
     });
 
     it("ActiveIModelId", async () => {
-      await TestUtils.initializeUiFramework();
       const testValue = "Test";
       UiFramework.setActiveIModelId(testValue);
       expect(UiFramework.getActiveIModelId()).toEqual(testValue);
-      TestUtils.terminateUiFramework();
     });
 
     class testSettingsProvider implements UserSettingsProvider {
@@ -185,7 +169,6 @@ describe("UiFramework localStorage Wrapper", () => {
     }
 
     it("SessionState setters/getters", async () => {
-      await TestUtils.initializeUiFramework();
       const settingsProvider = new testSettingsProvider();
       UiFramework.registerUserSettingsProvider(settingsProvider);
 
@@ -669,44 +652,17 @@ describe("UiFramework localStorage Wrapper", () => {
     });
   });
 
-  // before we can test setting scope to a valid scope id we must make sure Presentation Manager is initialized.
-  describe("Requires Presentation", () => {
-    const shutdownIModelApp = async () => {
-      if (IModelApp.initialized) await IModelApp.shutdown();
-    };
-
-    beforeEach(async () => {
-      await shutdownIModelApp();
-    });
-
-    describe("initialize and setActiveSelectionScope", () => {
-      it("creates manager instances", async () => {
-        await TestUtils.initializeUiFramework();
-        UiFramework.setActiveSelectionScope("element");
-        TestUtils.terminateUiFramework();
-
-        await shutdownIModelApp();
-      });
-    });
-  });
-
   describe("ConnectionEvents", () => {
     const imodelToken: IModelRpcProps = { key: "" };
     const imodelMock = moq.Mock.ofType<IModelConnection>();
     let ss: SelectionSet;
 
     beforeEach(async () => {
-      await TestUtils.initializeUiFramework(false);
-
       imodelMock.reset();
       imodelMock.setup((x) => x.getRpcProps()).returns(() => imodelToken);
 
       ss = new SelectionSet(imodelMock.object);
       imodelMock.setup((x) => x.selectionSet).returns(() => ss);
-    });
-
-    afterEach(() => {
-      TestUtils.terminateUiFramework();
     });
 
     it("SessionState setIModelConnection", async () => {

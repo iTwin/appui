@@ -14,11 +14,7 @@ import {
   BackstageComposerStageLauncher,
   UiFramework,
 } from "../../appui-react";
-import TestUtils, {
-  childStructure,
-  selectorMatches,
-  userEvent,
-} from "../TestUtils";
+import { childStructure, selectorMatches, userEvent } from "../TestUtils";
 import { render, screen } from "@testing-library/react";
 
 /** @internal */
@@ -49,14 +45,6 @@ describe("BackstageComposerItem", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
   beforeEach(() => {
     theUserTo = userEvent.setup();
-  });
-
-  beforeEach(async () => {
-    await TestUtils.initializeUiFramework();
-  });
-
-  afterEach(() => {
-    TestUtils.terminateUiFramework();
   });
 
   describe("BackstageComposerActionItem", () => {

@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { render } from "@testing-library/react";
-import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
+import { IModelApp } from "@itwin/core-frontend";
 import type {
   DialogItem,
   DialogItemValue,
@@ -15,7 +15,6 @@ import type {
 import { PropertyEditorParamTypes } from "@itwin/appui-abstract";
 import type { SyncToolSettingsPropertiesEventArgs } from "../../appui-react";
 import { SyncUiEventDispatcher } from "../../appui-react";
-import TestUtils from "../TestUtils";
 import { InternalToolSettingsManager } from "../../appui-react/toolsettings/InternalToolSettingsManager";
 
 // cSpell:Ignore USELENGTH
@@ -59,16 +58,6 @@ describe("InternalToolSettingsManager", () => {
       isStrict: false,
     },
   };
-
-  beforeEach(async () => {
-    await TestUtils.initializeUiFramework();
-    await NoRenderApp.startup();
-  });
-
-  afterEach(async () => {
-    TestUtils.terminateUiFramework();
-    await IModelApp.shutdown();
-  });
 
   it("check initial values", () => {
     expect(InternalToolSettingsManager.useDefaultToolSettingsProvider).to.be

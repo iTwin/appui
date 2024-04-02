@@ -7,7 +7,7 @@ import { Provider } from "react-redux";
 import * as moq from "typemoq";
 
 import type { IModelConnection } from "@itwin/core-frontend";
-import { IModelApp, NoRenderApp, SelectionSet } from "@itwin/core-frontend";
+import { SelectionSet } from "@itwin/core-frontend";
 import { render } from "@testing-library/react";
 import type { IModelRpcProps } from "@itwin/core-common";
 import {
@@ -18,18 +18,6 @@ import {
 import TestUtils from "../TestUtils";
 
 describe("useActiveIModelConnection", () => {
-  beforeEach(async () => {
-    await TestUtils.initializeUiFramework();
-
-    // use mock renderer so standards tools are registered.
-    await NoRenderApp.startup();
-  });
-
-  afterEach(async () => {
-    await IModelApp.shutdown();
-    TestUtils.terminateUiFramework();
-  });
-
   describe("useActiveIModelConnection Hook", () => {
     const imodelMock = moq.Mock.ofType<IModelConnection>();
     const imodelToken: IModelRpcProps = { key: "" };

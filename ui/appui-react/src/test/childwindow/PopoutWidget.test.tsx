@@ -6,20 +6,11 @@ import * as React from "react";
 import { render } from "@testing-library/react";
 import { WidgetDef, WidgetState } from "../../appui-react";
 import { PopoutWidget } from "../../appui-react/childwindow/PopoutWidget";
-import TestUtils from "../TestUtils";
 
 describe("PopoutWidget", () => {
   const widgetDef = WidgetDef.create({
     id: "w1",
     defaultState: WidgetState.Open,
-  });
-
-  beforeEach(async () => {
-    await TestUtils.initializeUiFramework();
-  });
-
-  afterEach(() => {
-    TestUtils.terminateUiFramework();
   });
 
   it("will render", () => {

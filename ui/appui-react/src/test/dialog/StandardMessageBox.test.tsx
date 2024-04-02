@@ -6,20 +6,12 @@ import * as React from "react";
 import { MessageBoxIconType, MessageBoxType } from "@itwin/core-frontend";
 import { render, screen } from "@testing-library/react";
 import { StandardMessageBox } from "../../appui-react";
-import TestUtils, { childStructure, userEvent } from "../TestUtils";
+import { childStructure, userEvent } from "../TestUtils";
 
 describe("StandardMessageBox", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
   beforeEach(() => {
     theUserTo = userEvent.setup();
-  });
-
-  beforeEach(async () => {
-    await TestUtils.initializeUiFramework();
-  });
-
-  afterEach(() => {
-    TestUtils.terminateUiFramework();
   });
 
   it("OK button & NoSymbol", async () => {

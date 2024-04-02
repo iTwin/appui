@@ -4,7 +4,6 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { Provider } from "react-redux";
-import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import TestUtils, { userEvent } from "../TestUtils";
 import { render, screen } from "@testing-library/react";
 import { SectionsStatusField } from "../../appui-react";
@@ -13,16 +12,6 @@ describe(`SectionsField`, () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
   beforeEach(() => {
     theUserTo = userEvent.setup();
-  });
-
-  beforeEach(async () => {
-    await TestUtils.initializeUiFramework();
-    await NoRenderApp.startup();
-  });
-
-  afterEach(async () => {
-    await IModelApp.shutdown();
-    TestUtils.terminateUiFramework();
   });
 
   it("should open/close on click", async () => {

@@ -9,7 +9,6 @@ import type {
   OrthographicViewState,
   ScreenViewport,
 } from "@itwin/core-frontend";
-import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import type { ViewportContentControl } from "../../appui-react";
 import {
   BasicNavigationWidget,
@@ -17,7 +16,7 @@ import {
   ToolbarHelper,
   UiFramework,
 } from "../../appui-react";
-import TestUtils, { childStructure } from "../TestUtils";
+import { childStructure } from "../TestUtils";
 import { render } from "@testing-library/react";
 
 describe("BasicNavigationWidget", () => {
@@ -33,15 +32,6 @@ describe("BasicNavigationWidget", () => {
         return DOMRect.fromRect({ width: 300, height: 300 });
       }
     );
-  });
-  beforeEach(async () => {
-    await TestUtils.initializeUiFramework();
-    await NoRenderApp.startup();
-  });
-
-  afterEach(async () => {
-    await IModelApp.shutdown();
-    TestUtils.terminateUiFramework();
   });
 
   it("BasicNavigationWidget should render correctly", () => {

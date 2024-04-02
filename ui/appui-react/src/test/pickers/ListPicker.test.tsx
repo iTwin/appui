@@ -3,8 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
-
 import type { ListItem } from "../../appui-react";
 import {
   ExpandableSection,
@@ -27,10 +25,8 @@ const setEnabled = vi.fn();
 describe("ListPicker", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
 
-  beforeEach(async () => {
+  beforeEach(() => {
     theUserTo = userEvent.setup();
-    await TestUtils.initializeUiFramework();
-    await NoRenderApp.startup();
 
     listItems = [];
     const listItem: ListItem = {
@@ -65,11 +61,6 @@ describe("ListPicker", () => {
       children: [],
     };
     listItems.push(emptyContainerItem);
-  });
-
-  afterEach(async () => {
-    TestUtils.terminateUiFramework();
-    await IModelApp.shutdown();
   });
 
   it("should render correctly", () => {

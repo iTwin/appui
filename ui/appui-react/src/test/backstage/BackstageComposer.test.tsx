@@ -12,7 +12,7 @@ import {
   UiItemsManager,
   useGroupedItems,
 } from "../../appui-react";
-import TestUtils, { selectorMatches, userEvent } from "../TestUtils";
+import { selectorMatches, userEvent } from "../TestUtils";
 import {
   getActionItem,
   getStageLauncherItem,
@@ -91,16 +91,8 @@ class TestUiItemsProvider implements UiItemsProvider {
 }
 
 describe("BackstageComposer", () => {
-  beforeEach(async () => {
-    await TestUtils.initializeUiFramework();
-  });
-
   beforeEach(() => {
     TestUiItemsProvider.sampleStatusVisible = true;
-  });
-
-  afterEach(() => {
-    TestUtils.terminateUiFramework();
   });
 
   it("should render", async () => {

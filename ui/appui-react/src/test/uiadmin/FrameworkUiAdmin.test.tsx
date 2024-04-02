@@ -31,8 +31,7 @@ import {
 } from "../../appui-react";
 import { ClearKeyinPaletteHistoryTool } from "../../appui-react/tools/KeyinPaletteTools";
 import * as keyinExports from "../../appui-react/popup/KeyinPalettePanel";
-import TestUtils from "../TestUtils";
-import { IModelApp, NoRenderApp, Tool } from "@itwin/core-frontend";
+import { Tool } from "@itwin/core-frontend";
 import { Button } from "@itwin/itwinui-react";
 
 class TestDialogUiDataProvider extends DialogLayoutDataProvider {
@@ -169,7 +168,7 @@ describe("FrameworkUiAdmin", () => {
   let uiAdmin: FrameworkUiAdmin;
 
   // avoid problems due to no real localization resources by return dummy values for englishKeyin and keyin properties.
-  beforeEach(async () => {
+  beforeEach(() => {
     Object.defineProperty(Tool, "englishKeyin", {
       get: () => {
         return "english";
@@ -183,13 +182,9 @@ describe("FrameworkUiAdmin", () => {
     });
 
     uiAdmin = new FrameworkUiAdmin();
-    await TestUtils.initializeUiFramework();
-    await NoRenderApp.startup();
   });
 
-  afterEach(async () => {
-    await IModelApp.shutdown();
-    TestUtils.terminateUiFramework();
+  afterEach(() => {
     Object.defineProperty(Tool, "englishKeyin", descriptorToRestore1);
     Object.defineProperty(Tool, "keyin", descriptorToRestore2);
   });

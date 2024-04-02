@@ -93,14 +93,6 @@ describe("ToolUiProvider", () => {
 
   const testToolId = "ToolUiProvider-TestTool";
 
-  beforeEach(async () => {
-    await TestUtils.initializeUiFramework();
-  });
-
-  afterEach(() => {
-    TestUtils.terminateUiFramework();
-  });
-
   class Frontstage1 extends FrontstageProvider {
     public static stageId = "ToolUiProvider-TestFrontstage";
 

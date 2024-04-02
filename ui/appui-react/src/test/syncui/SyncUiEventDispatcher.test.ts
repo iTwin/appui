@@ -3,9 +3,8 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as moq from "typemoq";
-import type { IModelRpcProps } from "@itwin/core-common";
-import type { IModelConnection, ScreenViewport } from "@itwin/core-frontend";
-import { IModelApp, NoRenderApp, SelectionSet } from "@itwin/core-frontend";
+import type { ScreenViewport } from "@itwin/core-frontend";
+import { IModelApp } from "@itwin/core-frontend";
 import type {
   ActiveContentChangedEventArgs,
   ContentControlActivatedEventArgs,
@@ -18,20 +17,11 @@ import type {
   WidgetStateChangedEventArgs,
 } from "../../appui-react";
 import { SyncUiEventDispatcher, UiFramework } from "../../appui-react";
-import TestUtils from "../TestUtils";
 import type { UiSyncEventArgs } from "../../appui-react/syncui/UiSyncEvent";
 
 const timeToWaitForUiSyncCallback = 60;
 
 describe("SyncUiEventDispatcher", () => {
-  beforeEach(async () => {
-    await TestUtils.initializeUiFramework();
-  });
-
-  afterEach(() => {
-    TestUtils.terminateUiFramework();
-  });
-
   beforeEach(() => {
     SyncUiEventDispatcher.setTimeoutPeriod(2);
   });
@@ -243,17 +233,6 @@ describe("SyncUiEventDispatcher", () => {
   });
 
   describe("SelectedViewportChanged", () => {
-    beforeEach(async () => {
-      await TestUtils.initializeUiFramework();
-      await NoRenderApp.startup();
-      SyncUiEventDispatcher.initialize();
-    });
-
-    afterEach(async () => {
-      await IModelApp.shutdown();
-      TestUtils.terminateUiFramework();
-    });
-
     it("handles onSelectedViewportChanged", () => {
       IModelApp.viewManager.onSelectedViewportChanged.raiseEvent({});
     });

@@ -14,7 +14,6 @@ import {
   NavigationAidControl,
   UiFramework,
 } from "../../appui-react";
-import TestUtils from "../TestUtils";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 
 describe("ContentGroup", () => {
@@ -33,14 +32,6 @@ describe("ContentGroup", () => {
       this.reactNode = <div>Test</div>;
     }
   }
-
-  beforeEach(async () => {
-    await TestUtils.initializeUiFramework();
-  });
-
-  afterEach(() => {
-    TestUtils.terminateUiFramework();
-  });
 
   it("ContentGroup.getContentControl should throw Error if content type is not Content or Viewport", () => {
     const contentProps: ContentProps = {

@@ -9,7 +9,6 @@ import { UiFramework } from "../../appui-react";
 import { ToolWidgetComposer } from "../../appui-react/widgets/ToolWidgetComposer";
 import { BackstageAppButton } from "../../appui-react/widgets/BackstageAppButton";
 import TestUtils, { childStructure, storageMock } from "../TestUtils";
-import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 
 describe("FrameworkAccuDraw localStorage Wrapper", () => {
   const localStorageToRestore = Object.getOwnPropertyDescriptor(
@@ -29,16 +28,6 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
   });
 
   describe("ToolWidgetComposer", () => {
-    beforeEach(async () => {
-      await TestUtils.initializeUiFramework();
-      await NoRenderApp.startup();
-    });
-
-    afterEach(async () => {
-      TestUtils.terminateUiFramework();
-      await IModelApp.shutdown();
-    });
-
     it("ToolWidgetComposer should render correctly", () => {
       const { container } = render(<ToolWidgetComposer />);
 

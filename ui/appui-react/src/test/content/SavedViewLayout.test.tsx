@@ -22,9 +22,7 @@ import type { ScreenViewport, ViewState } from "@itwin/core-frontend";
 import {
   DrawingViewState,
   EmphasizeElements,
-  IModelApp,
   IModelConnection,
-  NoRenderApp,
   SheetViewState,
   SpatialViewState,
   SubCategoriesCache,
@@ -47,7 +45,6 @@ import {
   ViewportContentControl,
 } from "../../appui-react";
 import { ViewUtilities } from "../../appui-react/utils/ViewUtilities";
-import TestUtils from "../TestUtils";
 
 describe("StageContentLayout", () => {
   const extents = Vector3d.create(400, 400);
@@ -188,24 +185,21 @@ describe("StageContentLayout", () => {
   const viewportMock = moq.Mock.ofType<ScreenViewport>();
 
   beforeEach(async () => {
-    await TestUtils.initializeUiFramework();
-    await NoRenderApp.startup();
-
     // Required for StageContentLayout
     UiFramework.controls.register("TestViewport", TestViewportContentControl);
-  });
 
-  beforeEach(async () => {
     vi.spyOn(IModelReadRpcInterface, "getClientForRouting").mockReturnValue(
       rpcMock.object
     );
 
-    UiFramework.controls.unregister("TestViewport");
+    UiFramework.frontstages.clearFrontstageProviders();
+
+    viewportMock.reset();
+    viewportMock.setup((x) => x.view).returns(() => viewState);
   });
 
-  afterEach(async () => {
-    await IModelApp.shutdown();
-    TestUtils.terminateUiFramework();
+  afterEach(() => {
+    UiFramework.controls.unregister("TestViewport");
   });
 
   class TestViewportContentControl extends ViewportContentControl {
@@ -252,13 +246,6 @@ describe("StageContentLayout", () => {
       };
     }
   }
-
-  beforeEach(async () => {
-    UiFramework.frontstages.clearFrontstageProviders();
-
-    viewportMock.reset();
-    viewportMock.setup((x) => x.view).returns(() => viewState);
-  });
 
   it("should create and parse Spatial saved view layout", async () => {
     const vs = SpatialViewState.createFromProps(

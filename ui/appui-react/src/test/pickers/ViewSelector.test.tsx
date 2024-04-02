@@ -6,9 +6,7 @@ import * as React from "react";
 import * as moq from "typemoq";
 import {
   DrawingViewState,
-  IModelApp,
   IModelConnection,
-  NoRenderApp,
   SheetViewState,
   SpatialViewState,
 } from "@itwin/core-frontend";
@@ -66,18 +64,6 @@ describe("ViewSelector", () => {
     });
   beforeEach(() => {
     theUserTo = userEvent.setup();
-  });
-
-  beforeEach(async () => {
-    await TestUtils.initializeUiFramework();
-    await NoRenderApp.startup();
-    await TestUtils.flushAsyncOperations();
-  });
-
-  afterEach(async () => {
-    await IModelApp.shutdown();
-    await TestUtils.flushAsyncOperations();
-    TestUtils.terminateUiFramework();
   });
 
   it("should support empty props", async () => {

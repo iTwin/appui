@@ -5,17 +5,8 @@
 import { render, screen } from "@testing-library/react";
 import * as React from "react";
 import { ElementTooltip } from "../../appui-react";
-import TestUtils from "../TestUtils";
 
 describe("ElementTooltip", () => {
-  beforeEach(async () => {
-    await TestUtils.initializeUiFramework();
-  });
-
-  afterEach(() => {
-    TestUtils.terminateUiFramework();
-  });
-
   it("showTooltip & hideTooltip set isTooltipVisible appropriately", () => {
     const divElement = document.createElement("div");
     render(<ElementTooltip />);

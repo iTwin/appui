@@ -4,17 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import { CoreTools } from "../../appui-react/tools/CoreToolDefinitions";
 import { ItemList, ItemMap } from "../../appui-react/shared/ItemMap";
-import TestUtils from "../TestUtils";
 
 describe("ItemMap & ItemList", () => {
-  beforeEach(async () => {
-    await TestUtils.initializeUiFramework();
-  });
-
-  afterEach(() => {
-    TestUtils.terminateUiFramework();
-  });
-
   describe("ItemMap", () => {
     it("constructor should add an item correctly", () => {
       const selectItem = CoreTools.selectElementCommand;

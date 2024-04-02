@@ -5,20 +5,12 @@
 import { render, screen } from "@testing-library/react";
 import * as React from "react";
 import { MessageManager, ValidationTextbox } from "../../appui-react";
-import TestUtils, { userEvent } from "../TestUtils";
+import { userEvent } from "../TestUtils";
 
 describe("ValidationTextbox", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
   beforeEach(() => {
     theUserTo = userEvent.setup();
-  });
-
-  beforeEach(async () => {
-    await TestUtils.initializeUiFramework();
-  });
-
-  afterEach(() => {
-    TestUtils.terminateUiFramework();
   });
 
   const onValueChanged = vi.fn();

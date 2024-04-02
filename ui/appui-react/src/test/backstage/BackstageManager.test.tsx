@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { renderHook } from "@testing-library/react-hooks";
 import { waitFor } from "@testing-library/react";
 import { UiFramework } from "../../appui-react";
@@ -12,18 +11,8 @@ import {
   useIsBackstageOpen,
 } from "../../appui-react/backstage/BackstageManager";
 import { InternalBackstageManager } from "../../appui-react/backstage/InternalBackstageManager";
-import TestUtils from "../TestUtils";
 
 describe("BackstageManager", () => {
-  beforeEach(async () => {
-    await TestUtils.initializeUiFramework();
-    await NoRenderApp.startup();
-  });
-  afterEach(async () => {
-    await IModelApp.shutdown();
-    TestUtils.terminateUiFramework();
-  });
-
   it("should open backstage", () => {
     const manager = new BackstageManager();
     const spy = vi.fn();
@@ -175,13 +164,7 @@ describe("useIsBackstageOpen", () => {
 
 describe("useBackstageManager", () => {
   it("returns UiFramework.backstageManager instance", async () => {
-    await TestUtils.initializeUiFramework();
-    await NoRenderApp.startup();
-
     const { result } = renderHook(() => useBackstageManager());
     expect(result.current).to.equal(UiFramework.backstage);
-
-    await IModelApp.shutdown();
-    TestUtils.terminateUiFramework();
   });
 });

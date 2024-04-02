@@ -14,14 +14,6 @@ import {
 import TestUtils from "../TestUtils";
 
 describe("SelectionInfoField", () => {
-  beforeEach(async () => {
-    await TestUtils.initializeUiFramework();
-  });
-
-  afterEach(async () => {
-    TestUtils.terminateUiFramework();
-  });
-
   it("SelectionInfoField should render with 0", () => {
     UiFramework.frameworkState!.sessionState.numItemsSelected = 0;
     const component = render(

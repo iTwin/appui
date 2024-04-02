@@ -2,14 +2,12 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import type { IModelAppOptions } from "@itwin/core-frontend";
 import {
   BeButtonEvent,
   CompassMode,
   CurrentState,
   IModelApp,
   ItemField,
-  NoRenderApp,
   RotationMode,
 } from "@itwin/core-frontend";
 import TestUtils, { storageMock } from "../TestUtils";
@@ -35,23 +33,9 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
   });
 
   describe("FrameworkAccuDraw", () => {
-    beforeEach(async () => {
-      await TestUtils.initializeUiFramework();
-
-      const opts: IModelAppOptions = {};
-      opts.accuDraw = new FrameworkAccuDraw();
-      await NoRenderApp.startup(opts);
-    });
-
-    afterEach(async () => {
-      await IModelApp.shutdown();
-      TestUtils.terminateUiFramework();
-      beforeEach(async () => {
-        const accuDraw = new FrameworkAccuDraw();
-        vi.spyOn(IModelApp, "accuDraw", "get").mockImplementation(
-          () => accuDraw
-        );
-      });
+    beforeEach(() => {
+      const accuDraw = new FrameworkAccuDraw();
+      vi.spyOn(IModelApp, "accuDraw", "get").mockReturnValue(accuDraw);
     });
 
     it("FrameworkAccuDraw.displayNotifications should set & return correctly", () => {

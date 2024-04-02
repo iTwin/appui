@@ -12,17 +12,8 @@ import type {
   SpatialViewState,
 } from "@itwin/core-frontend";
 import { ViewUtilities } from "../../appui-react";
-import TestUtils from "../TestUtils";
 
 describe("ViewUtilities", () => {
-  beforeEach(async () => {
-    await TestUtils.initializeUiFramework();
-  });
-
-  afterEach(() => {
-    TestUtils.terminateUiFramework();
-  });
-
   it("should get bis base class name", () => {
     const bisBaseClass = ViewUtilities.getBisBaseClass(
       "xyz:SheetViewDefinition"

@@ -4,7 +4,6 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { render, screen } from "@testing-library/react";
-import { NoRenderApp } from "@itwin/core-frontend";
 import {
   ConfigurableCreateInfo,
   MessageManager,
@@ -15,18 +14,10 @@ import {
   StatusBarSpaceBetween,
   StatusBarWidgetControl,
 } from "../../appui-react";
-import TestUtils from "../TestUtils";
 
 describe("StatusBar", () => {
-  beforeEach(async () => {
-    await NoRenderApp.startup();
-    await TestUtils.initializeUiFramework();
-
+  afterEach(() => {
     MessageManager.clearMessages();
-  });
-
-  afterEach(async () => {
-    TestUtils.terminateUiFramework();
   });
 
   it("StatusBar should render children correctly", () => {

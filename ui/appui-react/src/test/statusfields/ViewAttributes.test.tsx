@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { Provider } from "react-redux";
-import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
+import { IModelApp } from "@itwin/core-frontend";
 import { render, screen } from "@testing-library/react";
 import { StatusBar, ViewAttributesStatusField } from "../../appui-react";
 import TestUtils, { userEvent } from "../TestUtils";
@@ -13,16 +13,6 @@ describe(`ViewAttributes`, () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
   beforeEach(() => {
     theUserTo = userEvent.setup();
-  });
-
-  beforeEach(async () => {
-    await TestUtils.initializeUiFramework();
-    await NoRenderApp.startup();
-  });
-
-  afterEach(async () => {
-    await IModelApp.shutdown();
-    TestUtils.terminateUiFramework();
   });
 
   it("should open/close on click", async () => {

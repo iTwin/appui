@@ -10,18 +10,10 @@ import {
 } from "@itwin/core-frontend";
 import { RelativePosition } from "@itwin/appui-abstract";
 import { AppNotificationManager, PointerMessage } from "../../appui-react";
-import TestUtils, { selectorMatches } from "../TestUtils";
+import { selectorMatches } from "../TestUtils";
 import { render, screen } from "@testing-library/react";
 
 describe("PointerMessage", () => {
-  beforeEach(async () => {
-    await TestUtils.initializeUiFramework();
-  });
-
-  afterEach(() => {
-    TestUtils.terminateUiFramework();
-  });
-
   let notifications: AppNotificationManager;
   let details: NotifyMessageDetails;
   const viewport = document.activeElement as HTMLElement;

@@ -12,13 +12,7 @@ import {
 import * as React from "react";
 import { Key } from "ts-key-enum";
 import { ColorByName, ColorDef } from "@itwin/core-common";
-import type { IModelAppOptions } from "@itwin/core-frontend";
-import {
-  CompassMode,
-  IModelApp,
-  ItemField,
-  NoRenderApp,
-} from "@itwin/core-frontend";
+import { CompassMode, IModelApp, ItemField } from "@itwin/core-frontend";
 import { Orientation } from "@itwin/core-react";
 import TestUtils, { selectAllBeforeType, userEvent } from "../TestUtils";
 import { FrameworkAccuDraw } from "../../appui-react/accudraw/FrameworkAccuDraw";
@@ -26,42 +20,13 @@ import { AccuDrawFieldContainer } from "../../appui-react/accudraw/AccuDrawField
 import type { AccuDrawUiSettings } from "../../appui-react/accudraw/AccuDrawUiSettings";
 import { UiFramework } from "../../appui-react";
 
-// cspell:ignore uiadmin
-
-function requestNextAnimation() {}
-
 describe("AccuDrawFieldContainer", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
   beforeEach(() => {
     theUserTo = userEvent.setup();
-  });
-  const rnaDescriptorToRestore = Object.getOwnPropertyDescriptor(
-    IModelApp,
-    "requestNextAnimation"
-  )!;
 
-  beforeEach(async () => {
-    // Avoid requestAnimationFrame exception during test by temporarily replacing function that calls it.
-    // Tried replacing window.requestAnimationFrame first but that did not work.
-    Object.defineProperty(IModelApp, "requestNextAnimation", {
-      get: () => requestNextAnimation,
-    });
-
-    await TestUtils.initializeUiFramework();
-
-    const opts: IModelAppOptions = {};
-    opts.accuDraw = new FrameworkAccuDraw();
-    await NoRenderApp.startup(opts);
     const accuDraw = new FrameworkAccuDraw();
-    vi.spyOn(IModelApp, "accuDraw", "get").mockImplementation(() => accuDraw);
-  });
-
-  afterEach(async () => {
-    Object.defineProperty(
-      IModelApp,
-      "requestNextAnimation",
-      rnaDescriptorToRestore
-    );
+    vi.spyOn(IModelApp, "accuDraw", "get").mockReturnValue(accuDraw);
   });
 
   it("should render Vertical", () => {
@@ -403,11 +368,11 @@ describe("AccuDrawFieldContainer", () => {
 
         let labelElements = wrapper.queryAllByLabelText(labelTest);
         await waitFor(() => {
-          expect(labelElements.length).toEqual(count);
+          expect(labelElements).toHaveLength(count);
         });
 
         const inputElements = wrapper.container.querySelectorAll("input");
-        expect(inputElements.length).toEqual(count);
+        expect(inputElements).toHaveLength(count);
         for (const inputElement of inputElements) {
           expect(inputElement.getAttribute("style")).toEqual(
             "display: inline; background-color: rgb(255, 0, 0); color: rgb(0, 0, 0);"
@@ -415,23 +380,23 @@ describe("AccuDrawFieldContainer", () => {
         }
 
         const iElements = wrapper.container.querySelectorAll(`i.${iconTest}`);
-        expect(iElements.length).toEqual(count);
+        expect(iElements).toHaveLength(count);
 
         FrameworkAccuDraw.uiStateStorage = emptySettings;
         expect(spy).toHaveBeenCalledTimes(2);
         await waitFor(() => {
           labelElements = wrapper.queryAllByLabelText(labelTest);
-          expect(labelElements.length).toEqual(0);
+          expect(labelElements).toHaveLength(0);
         });
 
         FrameworkAccuDraw.uiStateStorage = undefined;
         expect(spy).toHaveBeenCalledTimes(3);
         labelElements = wrapper.queryAllByLabelText(labelTest);
-        expect(labelElements.length).toEqual(0);
+        expect(labelElements).toHaveLength(0);
       };
 
       IModelApp.accuDraw.setCompassMode(CompassMode.Rectangular);
-      expect(wrapper.queryAllByLabelText(labelTest).length).toEqual(0);
+      expect(wrapper.queryAllByLabelText(labelTest)).toHaveLength(0);
       FrameworkAccuDraw.uiStateStorage = fullSettings;
       await TestUtils.flushAsyncOperations();
       await settingsTest(3);
@@ -439,7 +404,7 @@ describe("AccuDrawFieldContainer", () => {
       spy.mockReset();
 
       IModelApp.accuDraw.setCompassMode(CompassMode.Polar);
-      expect(wrapper.queryAllByLabelText(labelTest).length).toEqual(0);
+      expect(wrapper.queryAllByLabelText(labelTest)).toHaveLength(0);
       FrameworkAccuDraw.uiStateStorage = fullSettings;
       await TestUtils.flushAsyncOperations();
       await settingsTest(2);
@@ -462,11 +427,11 @@ describe("AccuDrawFieldContainer", () => {
       const settingsTest = async (count: number) => {
         const labelElements = wrapper.queryAllByLabelText(labelTest);
         await waitFor(() => {
-          expect(labelElements.length).toEqual(count);
+          expect(labelElements).toHaveLength(count);
         });
 
         const inputElements = wrapper.container.querySelectorAll("input");
-        expect(inputElements.length).toEqual(count);
+        expect(inputElements).toHaveLength(count);
         for (const inputElement of inputElements) {
           expect(inputElement.getAttribute("style")).toEqual(
             "display: inline; background-color: rgb(255, 0, 0); color: rgb(0, 0, 0);"
@@ -474,7 +439,7 @@ describe("AccuDrawFieldContainer", () => {
         }
 
         const iElements = wrapper.container.querySelectorAll(`i.${iconTest}`);
-        expect(iElements.length).toEqual(count);
+        expect(iElements).toHaveLength(count);
       };
 
       IModelApp.accuDraw.setCompassMode(CompassMode.Rectangular);

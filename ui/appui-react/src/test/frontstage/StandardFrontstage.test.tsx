@@ -3,7 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 import type { ContentGroupProps, ContentProps } from "../../appui-react";
 import {
@@ -118,15 +117,8 @@ class TestContentGroupProvider extends ContentGroupProvider {
 }
 
 describe("ContentGroupProvider", () => {
-  beforeEach(async () => {
-    await NoRenderApp.startup();
-    await TestUtils.initializeUiFramework();
+  afterEach(() => {
     UiFramework.frontstages.clearFrontstageProviders();
-  });
-
-  afterEach(async () => {
-    TestUtils.terminateUiFramework();
-    await IModelApp.shutdown();
   });
 
   beforeEach(() => {
@@ -258,11 +250,8 @@ describe("ContentGroupProvider", () => {
     await UiFramework.frontstages.setActiveFrontstage(
       standardFrontstageProvider.id
     );
-    setImmediate(async () => {
-      await TestUtils.flushAsyncOperations();
-      expect(UiFramework.frontstages.activeFrontstageId).toEqual(
-        standardFrontstageProvider.id
-      );
-    });
+    expect(UiFramework.frontstages.activeFrontstageId).toEqual(
+      standardFrontstageProvider.id
+    );
   });
 });

@@ -2,8 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import TestUtils from "../TestUtils";
-import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import type { DefaultNavigationTools } from "../../appui-react";
 import {
   StageUsage,
@@ -58,17 +56,6 @@ const testToolsArray: DefaultNavigationTools[] = [
 ];
 
 describe("StandardNavigationToolsUiItemsProvider", () => {
-  // avoid problems due to no real localization resources by return dummy values for englishKeyin and keyin properties.
-  beforeEach(async () => {
-    await TestUtils.initializeUiFramework();
-    await NoRenderApp.startup();
-  });
-
-  afterEach(async () => {
-    await IModelApp.shutdown();
-    TestUtils.terminateUiFramework();
-  });
-
   it("should register StandardNavigationToolsUiItemsProvider with defaults", () => {
     const provider = new StandardNavigationToolsUiItemsProvider();
     UiItemsManager.register(provider);

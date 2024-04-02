@@ -4,24 +4,12 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { render } from "@testing-library/react";
-import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
-import { TestUtils } from "../TestUtils";
 import {
   BumpToolSetting,
   FocusToolSettings,
 } from "../../appui-react/tools/ToolSettingsTools";
 
 describe("ToolSettingsTools", () => {
-  beforeEach(async () => {
-    await TestUtils.initializeUiFramework();
-    await NoRenderApp.startup();
-  });
-
-  afterEach(async () => {
-    await IModelApp.shutdown();
-    TestUtils.terminateUiFramework();
-  });
-
   describe("FocusToolSettings", () => {
     it("should return false if no ToolSettings div found", async () => {
       render(<div data-testid="div"></div>);

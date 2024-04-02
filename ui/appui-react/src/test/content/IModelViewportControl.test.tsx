@@ -5,7 +5,6 @@
 import * as React from "react";
 import * as moq from "typemoq";
 import { render } from "@testing-library/react";
-import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import type { ScreenViewport, ViewState3d } from "@itwin/core-frontend";
 import {
   ConfigurableUiControlType,
@@ -20,7 +19,7 @@ import type {
   IModelViewportControlOptions,
   SupportsViewSelectorChange,
 } from "../../appui-react";
-import TestUtils, { storageMock } from "../TestUtils";
+import { storageMock } from "../TestUtils";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";
 
@@ -39,17 +38,11 @@ describe("IModelViewportControl", () => {
       get: () => mySessionStorage,
     });
 
-    await TestUtils.initializeUiFramework();
-    await NoRenderApp.startup();
-
     InternalFrontstageManager.isInitialized = false;
     InternalFrontstageManager.initialize();
   });
 
   afterEach(async () => {
-    await IModelApp.shutdown();
-    TestUtils.terminateUiFramework();
-
     // restore the overriden property getter
     Object.defineProperty(
       window,

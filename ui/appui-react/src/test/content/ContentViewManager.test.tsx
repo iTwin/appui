@@ -13,18 +13,9 @@ import type {
   SpatialViewState,
 } from "@itwin/core-frontend";
 import type { ViewportContentControl } from "../../appui-react";
-import TestUtils from "../TestUtils";
 import { InternalContentViewManager } from "../../appui-react/content/InternalContentViewManager";
 
 describe("ContentViewManager", () => {
-  beforeEach(async () => {
-    await TestUtils.initializeUiFramework();
-  });
-
-  afterEach(() => {
-    TestUtils.terminateUiFramework();
-  });
-
   const viewportMock = moq.Mock.ofType<ScreenViewport>();
   const contentControlMock = moq.Mock.ofType<ViewportContentControl>();
   contentControlMock

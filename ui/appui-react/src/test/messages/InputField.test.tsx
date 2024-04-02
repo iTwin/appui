@@ -13,17 +13,12 @@ import {
   MessageManager,
   UiFramework,
 } from "../../appui-react";
-import TestUtils, { childStructure } from "../TestUtils";
+import { childStructure } from "../TestUtils";
 import { render, screen, waitFor } from "@testing-library/react";
 
 describe("InputFieldMessage", () => {
   beforeEach(async () => {
-    await TestUtils.initializeUiFramework();
     UiFramework.keyboardShortcuts.closeMenu();
-  });
-
-  afterEach(() => {
-    TestUtils.terminateUiFramework();
   });
 
   // TODO: These look for the webfont icon classnames. This only tests that an icon is displayed and should be replaced with visual testing

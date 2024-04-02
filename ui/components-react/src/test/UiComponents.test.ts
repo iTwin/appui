@@ -22,7 +22,6 @@ describe("UiComponents", () => {
   it("translate should return the key (in test environment)", async () => {
     await TestUtils.initializeUiComponents();
     expect(UiComponents.translate("test1.test2")).toEqual("test1.test2");
-    TestUtils.terminateUiComponents();
   });
 
   it("translate should return blank and log error if UiComponents not initialized", () => {

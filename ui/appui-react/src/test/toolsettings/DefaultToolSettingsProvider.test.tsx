@@ -144,8 +144,6 @@ describe("DefaultToolUiSettingsProvider", () => {
   };
 
   beforeEach(async () => {
-    await TestUtils.initializeUiFramework();
-
     class Frontstage1 extends FrontstageProvider {
       public static stageId = "ToolUiProvider-TestFrontstage";
       public get id(): string {
@@ -167,10 +165,6 @@ describe("DefaultToolUiSettingsProvider", () => {
     const frontstageProvider = new Frontstage1();
     UiFramework.frontstages.addFrontstageProvider(frontstageProvider);
     UiFramework.toolSettings.useDefaultToolSettingsProvider = false;
-  });
-
-  afterEach(() => {
-    TestUtils.terminateUiFramework();
   });
 
   it("starting a tool with undefined tool settings", async () => {

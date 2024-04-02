@@ -5,7 +5,6 @@
 import * as React from "react";
 import * as moq from "typemoq";
 import type { ScreenViewport, ViewState3d } from "@itwin/core-frontend";
-import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import type {
   ConfigurableCreateInfo,
   FrontstageConfig,
@@ -40,17 +39,11 @@ describe("ViewportContentControl", () => {
       get: () => mySessionStorage,
     });
 
-    await TestUtils.initializeUiFramework();
-    await NoRenderApp.startup();
-
     InternalFrontstageManager.isInitialized = false;
     InternalFrontstageManager.initialize();
   });
 
   afterEach(async () => {
-    await IModelApp.shutdown();
-    TestUtils.terminateUiFramework();
-
     // restore the overriden property getter
     Object.defineProperty(
       window,

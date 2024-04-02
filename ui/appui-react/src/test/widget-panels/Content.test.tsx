@@ -17,17 +17,8 @@ import { createNineZoneState } from "../../appui-react/layout/state/NineZoneStat
 import { addPanelWidget } from "../../appui-react/layout/state/internal/PanelStateHelpers";
 import { addTab } from "../../appui-react/layout/state/internal/TabStateHelpers";
 import { WidgetIdContext } from "../../appui-react/layout/widget/Widget";
-import TestUtils from "../TestUtils";
 
 describe("WidgetContent", () => {
-  beforeEach(async () => {
-    await TestUtils.initializeUiFramework();
-  });
-
-  afterEach(() => {
-    TestUtils.terminateUiFramework();
-  });
-
   it("should render", () => {
     let state = createNineZoneState();
     state = addTab(state, "w1");

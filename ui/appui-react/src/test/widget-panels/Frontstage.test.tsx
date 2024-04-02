@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { Logger } from "@itwin/core-bentley";
-import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
+import { IModelApp } from "@itwin/core-frontend";
 import type { UiStateStorageResult } from "@itwin/core-react";
 import { Size, UiStateStorageStatus } from "@itwin/core-react";
 import { render, screen } from "@testing-library/react";
@@ -227,17 +227,13 @@ describe("Frontstage local storage wrapper", () => {
   )!;
   const localStorageMock = storageMock();
 
-  beforeEach(async () => {
-    await NoRenderApp.startup();
-    await TestUtils.initializeUiFramework();
+  beforeEach(() => {
     Object.defineProperty(window, "localStorage", {
       get: () => localStorageMock,
     });
   });
 
-  afterEach(async () => {
-    TestUtils.terminateUiFramework();
-    await IModelApp.shutdown();
+  afterEach(() => {
     Object.defineProperty(window, "localStorage", localStorageToRestore);
   });
 
@@ -291,14 +287,6 @@ describe("Frontstage local storage wrapper", () => {
   });
 
   describe("ModalFrontstageComposer", () => {
-    beforeEach(async () => {
-      await TestUtils.initializeUiFramework();
-    });
-
-    afterEach(() => {
-      TestUtils.terminateUiFramework();
-    });
-
     it("should render modal stage content when mounted", () => {
       const modalStageInfo = {
         title: "TestModalStage",
@@ -362,14 +350,6 @@ describe("Frontstage local storage wrapper", () => {
     });
 
     describe("ActiveFrontstageDefProvider", () => {
-      beforeEach(async () => {
-        await TestUtils.initializeUiFramework();
-      });
-
-      afterEach(() => {
-        TestUtils.terminateUiFramework();
-      });
-
       beforeEach(() => {
         vi.spyOn(
           InternalFrontstageManager,
@@ -571,14 +551,6 @@ describe("Frontstage local storage wrapper", () => {
     });
 
     describe("useSavedFrontstageState", () => {
-      beforeEach(async () => {
-        await TestUtils.initializeUiFramework();
-      });
-
-      afterEach(() => {
-        TestUtils.terminateUiFramework();
-      });
-
       it("should load saved nineZoneState", async () => {
         const setting = createFrontstageState();
         const uiStateStorage = new UiStateStorageStub();
@@ -1516,18 +1488,12 @@ describe("Frontstage local storage wrapper", () => {
 
     describe("dynamic widgets", () => {
       stubRaf();
-      beforeEach(async () => {
-        await TestUtils.initializeUiFramework();
-        await NoRenderApp.startup();
-      });
 
       afterEach(async () => {
         UiItemsManager.clearAllProviders();
         UiFramework.frontstages.clearFrontstageProviders();
         await UiFramework.frontstages.setActiveFrontstageDef(undefined);
         InternalFrontstageManager.nineZoneSize = undefined;
-        TestUtils.terminateUiFramework();
-        await IModelApp.shutdown();
       });
 
       it("should render pre-loaded provider widgets when state is initialized", async () => {

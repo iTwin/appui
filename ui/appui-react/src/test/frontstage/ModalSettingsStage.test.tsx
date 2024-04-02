@@ -21,7 +21,7 @@ import {
   useSaveBeforeActivatingNewSettingsTab,
   useSaveBeforeClosingSettingsContainer,
 } from "@itwin/core-react";
-import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
+import { IModelApp } from "@itwin/core-frontend";
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
 
 function TestModalSettingsPage({
@@ -64,16 +64,6 @@ function renderModalFrontstage(isOpen: boolean): React.ReactElement<any> {
 }
 
 describe("ModalSettingsStage", () => {
-  beforeEach(async () => {
-    await TestUtils.initializeUiFramework();
-    await NoRenderApp.startup();
-  });
-
-  afterEach(async () => {
-    await IModelApp.shutdown();
-    TestUtils.terminateUiFramework();
-  });
-
   it("will display no settings when none are registered", () => {
     const modalFrontstage = new SettingsModalFrontstage();
     UiFramework.frontstages.openModalFrontstage(modalFrontstage);

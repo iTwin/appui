@@ -9,9 +9,8 @@ import {
   ContentDialogRenderer,
   UiFramework,
 } from "../../appui-react";
-import TestUtils, { userEvent } from "../TestUtils";
+import { userEvent } from "../TestUtils";
 import { render, screen, waitFor } from "@testing-library/react";
-import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { InternalContentDialogManager } from "../../appui-react/dialog/InternalContentDialogManager";
 
 describe("ContentDialogManager", () => {
@@ -25,16 +24,11 @@ describe("ContentDialogManager", () => {
   const spy = vi.fn();
 
   beforeEach(async () => {
-    await TestUtils.initializeUiFramework(true);
-    await NoRenderApp.startup();
-
     UiFramework.content.dialogs.onContentDialogChangedEvent.addListener(spy);
   });
 
-  afterEach(async () => {
+  afterEach(() => {
     UiFramework.content.dialogs.onContentDialogChangedEvent.removeListener(spy);
-    await IModelApp.shutdown();
-    TestUtils.terminateUiFramework(); // clear out the framework key
   });
 
   it("UiFramework.content.dialogs methods", () => {

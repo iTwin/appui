@@ -2,12 +2,10 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { render } from "@testing-library/react";
 import * as React from "react";
 import type { ModalFrontstageInfo } from "../../appui-react";
 import { ModalFrontstage, UiFramework } from "../../appui-react";
-import TestUtils from "../TestUtils";
 
 const navigationBackSpy = vi.fn();
 const closeModalSpy = vi.fn();
@@ -47,16 +45,6 @@ class TestModalFrontstage implements ModalFrontstageInfo {
 }
 
 describe("ModalFrontstage", () => {
-  beforeEach(async () => {
-    await TestUtils.initializeUiFramework();
-    await NoRenderApp.startup();
-  });
-
-  afterEach(async () => {
-    await IModelApp.shutdown();
-    TestUtils.terminateUiFramework();
-  });
-
   it("openModalFrontstage, updateModalFrontstage & closeModalFrontstage", () => {
     const modalFrontstage = new TestModalFrontstage();
 

@@ -5,7 +5,7 @@
 import * as React from "react";
 import { Provider } from "react-redux";
 import { fireEvent, render, screen } from "@testing-library/react";
-import { IModelApp, NoRenderApp, SnapMode } from "@itwin/core-frontend";
+import { SnapMode } from "@itwin/core-frontend";
 import {
   SnapModeField,
   StatusBar,
@@ -18,15 +18,6 @@ describe("SnapModeField", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
   beforeEach(() => {
     theUserTo = userEvent.setup();
-  });
-  beforeEach(async () => {
-    await NoRenderApp.startup();
-    await TestUtils.initializeUiFramework();
-  });
-
-  afterEach(async () => {
-    TestUtils.terminateUiFramework();
-    await IModelApp.shutdown();
   });
 
   it("Status Bar with SnapModes Field should render", () => {

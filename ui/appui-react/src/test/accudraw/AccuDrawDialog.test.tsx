@@ -5,24 +5,16 @@
 import { fireEvent, render } from "@testing-library/react";
 import * as React from "react";
 import { Key } from "ts-key-enum";
-import { CompassMode, IModelApp, NoRenderApp } from "@itwin/core-frontend";
+import { CompassMode, IModelApp } from "@itwin/core-frontend";
 import { Orientation } from "@itwin/core-react";
-import { TestUtils } from "../TestUtils";
 import { FrameworkAccuDraw } from "../../appui-react/accudraw/FrameworkAccuDraw";
 import { AccuDrawDialog } from "../../appui-react/accudraw/AccuDrawDialog";
 import { UiFramework } from "../../appui-react";
 
 describe("AccuDrawDialog", () => {
-  beforeEach(async () => {
-    await NoRenderApp.startup({
-      accuDraw: new FrameworkAccuDraw(),
-    });
-    await TestUtils.initializeUiFramework();
-  });
-
-  afterEach(async () => {
-    await IModelApp.shutdown();
-    TestUtils.terminateUiFramework();
+  beforeEach(() => {
+    const accuDraw = new FrameworkAccuDraw();
+    vi.spyOn(IModelApp, "accuDraw", "get").mockReturnValue(accuDraw);
   });
 
   it("should render Rectangular", () => {

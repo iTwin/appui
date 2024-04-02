@@ -14,17 +14,8 @@ import {
 } from "../../appui-react";
 import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";
 import { createNineZoneState } from "../../appui-react/layout/state/NineZoneState";
-import TestUtils from "../TestUtils";
 
 describe("StagePanelDef", () => {
-  beforeEach(async () => {
-    await TestUtils.initializeUiFramework();
-  });
-
-  afterEach(() => {
-    TestUtils.terminateUiFramework();
-  });
-
   it("Defaults, widgetDefs & widgetCount", () => {
     const w1 = WidgetDef.create({
       id: "w1",

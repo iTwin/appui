@@ -4,7 +4,6 @@
  *--------------------------------------------------------------------------------------------*/
 
 import * as React from "react";
-import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 import type {
   ConfigurableCreateInfo,
@@ -18,7 +17,6 @@ import {
   UiFramework,
   WidgetControl,
 } from "../../appui-react";
-import TestUtils from "../TestUtils";
 import { InternalConfigurableUiManager } from "../../appui-react/configurableui/InternalConfigurableUiManager";
 
 class TableExampleContentControl extends ContentControl {
@@ -30,10 +28,6 @@ class TableExampleContentControl extends ContentControl {
 
 describe("InternalConfigurableUiManager", () => {
   beforeEach(async () => {
-    await TestUtils.initializeUiFramework();
-    await NoRenderApp.startup();
-
-    InternalConfigurableUiManager.initialize();
     InternalConfigurableUiManager.register(
       "TableExampleContent",
       TableExampleContentControl
@@ -42,8 +36,6 @@ describe("InternalConfigurableUiManager", () => {
 
   afterEach(async () => {
     InternalConfigurableUiManager.unregister("TableExampleContent");
-    await IModelApp.shutdown();
-    TestUtils.terminateUiFramework();
   });
 
   it("setActiveFrontstageDef passed no argument", async () => {

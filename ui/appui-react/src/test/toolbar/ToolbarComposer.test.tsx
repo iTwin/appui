@@ -5,7 +5,6 @@
 import * as React from "react";
 import { Provider } from "react-redux";
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
-import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { render } from "@testing-library/react";
 import type {
   FrontstageConfig,
@@ -152,20 +151,11 @@ describe("<ToolbarComposer  />", async () => {
   }
 
   beforeEach(async () => {
-    await NoRenderApp.startup();
-    await TestUtils.initializeUiFramework();
     UiFramework.frontstages.addFrontstageProvider(new Frontstage1());
     const frontstageDef = await UiFramework.frontstages.getFrontstageDef(
       "Test1"
     );
-    expect(frontstageDef).toBeTruthy();
     await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
-    await TestUtils.flushAsyncOperations();
-  });
-
-  afterEach(async () => {
-    await IModelApp.shutdown();
-    TestUtils.terminateUiFramework();
   });
 
   it("should render with specified items", async () => {

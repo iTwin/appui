@@ -40,14 +40,6 @@ describe("UiShowHideManager localStorage Wrapper", () => {
   });
 
   describe("UiShowHideManager", () => {
-    beforeEach(async () => {
-      await TestUtils.initializeUiFramework();
-    });
-
-    afterEach(() => {
-      TestUtils.terminateUiFramework();
-    });
-
     describe("getters and setters", () => {
       it("autoHideUi should return default of true", () => {
         expect(InternalUiShowHideManager.autoHideUi).toEqual(true);
@@ -286,7 +278,6 @@ describe("UiShowHideManager localStorage Wrapper", () => {
         false,
         settingsStorage
       );
-      await TestUtils.initializeUiFramework();
 
       const uiShowHideSettingsProvider = new UiShowHideSettingsProvider();
       await uiShowHideSettingsProvider.loadUserSettings(
@@ -303,8 +294,6 @@ describe("UiShowHideManager localStorage Wrapper", () => {
       expect(InternalUiShowHideManager.autoHideUi).toEqual(true);
       expect(InternalUiShowHideManager.useProximityOpacity).toEqual(true);
       expect(InternalUiShowHideManager.snapWidgetOpacity).toEqual(true);
-
-      TestUtils.terminateUiFramework();
     });
   });
 });

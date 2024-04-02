@@ -4,7 +4,6 @@
  *--------------------------------------------------------------------------------------------*/
 import produce from "immer";
 import * as React from "react";
-import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { BadgeType } from "@itwin/core-react";
 import { SvgList } from "@itwin/itwinui-icons-react";
 import {
@@ -17,23 +16,12 @@ import {
   WidgetDef,
   WidgetState,
 } from "../../appui-react";
-import TestUtils from "../TestUtils";
 import { defaultFrontstageConfig } from "../frontstage/FrontstageDef.test";
 import { createNineZoneState } from "../../appui-react/layout/state/NineZoneState";
 import { addTab } from "../../appui-react/layout/state/internal/TabStateHelpers";
 import { addPanelWidget } from "../../appui-react/layout/state/internal/PanelStateHelpers";
 
 describe("WidgetDef", () => {
-  beforeEach(async () => {
-    await NoRenderApp.startup();
-    await TestUtils.initializeUiFramework();
-  });
-
-  afterEach(async () => {
-    TestUtils.terminateUiFramework();
-    await IModelApp.shutdown();
-  });
-
   it("optional properties", () => {
     const widgetDef = WidgetDef.create({
       id: "w1",

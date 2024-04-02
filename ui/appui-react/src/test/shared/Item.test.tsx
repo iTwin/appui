@@ -2,12 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import {
-  IModelApp,
-  NoRenderApp,
-  SelectionTool,
-  Tool,
-} from "@itwin/core-frontend";
+import { IModelApp, SelectionTool, Tool } from "@itwin/core-frontend";
 import { Orientation, Size } from "@itwin/core-react";
 import type { ItemProps } from "../../appui-react";
 import {
@@ -15,19 +10,8 @@ import {
   CommandItemDef,
   ToolItemDef,
 } from "../../appui-react";
-import TestUtils from "../TestUtils";
 
 describe("Item", () => {
-  beforeEach(async () => {
-    await TestUtils.initializeUiFramework();
-    await NoRenderApp.startup();
-  });
-
-  afterEach(async () => {
-    TestUtils.terminateUiFramework();
-    await IModelApp.shutdown();
-  });
-
   it("CommandItemDef with no commandId should get generated id", () => {
     const commandItem = new CommandItemDef({
       iconSpec: "icon-placeholder",

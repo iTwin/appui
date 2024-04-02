@@ -311,10 +311,8 @@ describe("FrontstageManager", () => {
     it("CoreTools.selectElementCommand", async () => {
       const item = CoreTools.selectElementCommand;
       item.execute();
-      setImmediate(async () => {
-        await TestUtils.flushAsyncOperations();
-        expect(InternalFrontstageManager.activeToolId).toEqual(item.toolId);
-      });
+      await TestUtils.flushAsyncOperations();
+      expect(InternalFrontstageManager.activeToolId).toEqual(item.toolId);
     });
 
     it("trigger tool settings reload", () => {

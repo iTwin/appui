@@ -14,7 +14,6 @@ import {
   FrontstageProvider,
   UiFramework,
 } from "../../appui-react";
-import TestUtils from "../TestUtils";
 
 describe("ContentControl", () => {
   class TestContentControl extends ContentControl {
@@ -25,13 +24,11 @@ describe("ContentControl", () => {
     }
   }
 
-  beforeEach(async () => {
-    await TestUtils.initializeUiFramework();
+  beforeEach(() => {
     UiFramework.controls.register("TestContentControl", TestContentControl);
   });
 
   afterEach(() => {
-    TestUtils.terminateUiFramework();
     UiFramework.controls.unregister("TestContentControl");
   });
 

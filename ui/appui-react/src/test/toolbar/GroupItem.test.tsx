@@ -3,7 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { CommandItemDef, GroupItemDef } from "../../appui-react";
-import TestUtils from "../TestUtils";
 import { BadgeType } from "@itwin/core-react";
 
 const tool1 = new CommandItemDef({
@@ -21,14 +20,6 @@ const tool2 = new CommandItemDef({
 });
 
 describe("GroupItem", () => {
-  beforeEach(async () => {
-    await TestUtils.initializeUiFramework();
-  });
-
-  afterEach(() => {
-    TestUtils.terminateUiFramework();
-  });
-
   describe("GroupItemDef", () => {
     it("setPanelLabel sets panel label correctly", () => {
       const panelLabel = "panel-label";

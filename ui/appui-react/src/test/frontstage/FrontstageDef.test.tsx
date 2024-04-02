@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { act, renderHook } from "@testing-library/react-hooks";
 import type {
   FrontstageConfig,
@@ -84,17 +83,13 @@ describe("FrontstageDef", () => {
   )!;
   const localStorageMock = storageMock();
 
-  beforeEach(async () => {
+  beforeEach(() => {
     Object.defineProperty(window, "localStorage", {
       get: () => localStorageMock,
     });
-    await NoRenderApp.startup();
-    await TestUtils.initializeUiFramework();
   });
 
-  afterEach(async () => {
-    TestUtils.terminateUiFramework();
-    await IModelApp.shutdown();
+  afterEach(() => {
     Object.defineProperty(window, "localStorage", localStorageToRestore);
   });
 
@@ -841,16 +836,6 @@ describe("floatWidget", () => {
 });
 
 describe("useSpecificWidgetDef", () => {
-  beforeEach(async () => {
-    await NoRenderApp.startup();
-    await TestUtils.initializeUiFramework();
-  });
-
-  afterEach(async () => {
-    await IModelApp.shutdown();
-    TestUtils.terminateUiFramework();
-  });
-
   it("should return widgetDef from active frontstage", () => {
     const frontstageDef = new FrontstageDef();
     const widgetDef = new WidgetDef();

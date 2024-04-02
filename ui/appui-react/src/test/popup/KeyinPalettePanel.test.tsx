@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { Key } from "ts-key-enum";
-import { IModelApp, NoRenderApp, Tool } from "@itwin/core-frontend";
+import { IModelApp, Tool } from "@itwin/core-frontend";
 import { fireEvent, render, waitFor } from "@testing-library/react";
 import type { KeyinEntry } from "../../appui-react/keyins/Keyins";
 import {
@@ -29,7 +29,7 @@ const rnaDescriptorToRestore = Object.getOwnPropertyDescriptor(
 function requestNextAnimation() {}
 
 describe("<KeyinPalettePanel>", () => {
-  beforeEach(async () => {
+  beforeEach(() => {
     // Avoid requestAnimationFrame exception during test by temporarily replacing function that calls it. Tried replacing window.requestAnimationFrame first
     // but that did not work.
     Object.defineProperty(IModelApp, "requestNextAnimation", {
@@ -39,15 +39,9 @@ describe("<KeyinPalettePanel>", () => {
     Object.defineProperty(window, "localStorage", {
       get: () => myLocalStorage,
     });
-
-    await TestUtils.initializeUiFramework();
-    // use mock renderer so standards tools are registered.
-    await NoRenderApp.startup();
   });
 
-  afterEach(async () => {
-    await IModelApp.shutdown();
-
+  afterEach(() => {
     // restore the overriden property getter
     Object.defineProperty(window, "localStorage", propertyDescriptorToRestore);
     Object.defineProperty(
@@ -55,8 +49,6 @@ describe("<KeyinPalettePanel>", () => {
       "requestNextAnimation",
       rnaDescriptorToRestore
     );
-
-    TestUtils.terminateUiFramework();
   });
 
   it("test clearKeyinPaletteHistory", async () => {

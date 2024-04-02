@@ -17,8 +17,6 @@ describe("KeyboardShortcutMenu", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
 
   beforeEach(async () => {
-    await TestUtils.initializeUiFramework();
-
     testCommand = new CommandItemDef({
       commandId: "testCommand",
       iconSpec: "icon-placeholder",
@@ -64,10 +62,6 @@ describe("KeyboardShortcutMenu", () => {
         ],
       },
     ];
-  });
-
-  afterEach(() => {
-    TestUtils.terminateUiFramework();
   });
 
   beforeEach(() => {
