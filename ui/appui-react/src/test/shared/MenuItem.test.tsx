@@ -245,7 +245,8 @@ describe("MenuItem", () => {
     await TestUtils.flushAsyncOperations();
     handleSelect.should.have.been.calledOnce;
     handleSelect2.should.have.been.calledOnce;
-    expect(component.container.querySelector(".core-badge")).not.to.be.null;
+    expect(component.container.querySelector(".core-badge-newBadge")).not.to.be
+      .null;
   });
 
   it("createMenuItemNodes should create a valid submenu", () => {

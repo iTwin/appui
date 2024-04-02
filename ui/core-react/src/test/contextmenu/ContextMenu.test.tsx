@@ -600,7 +600,8 @@ describe("ContextMenu", () => {
       const component = render(
         <ContextMenuItem badgeType={BadgeType.New}>Test</ContextMenuItem>
       );
-      expect(component.container.querySelector(".core-badge")).not.to.be.null;
+      expect(component.container.querySelector(".core-badge-newBadge")).not.to
+        .be.null;
     });
 
     it("onClick handled correctly", async () => {
@@ -754,7 +755,9 @@ describe("ContextMenu", () => {
           </ContextSubMenu>
         </ContextMenu>
       );
-      expect(component.container.querySelector(".core-badge")).not.to.be.null;
+      expect(
+        component.container.querySelector(".core-badge-technicalPreviewBadge")
+      ).not.to.be.null;
     });
     it("onHover handled correctly", async () => {
       const handleHover = sinon.fake();

@@ -6,7 +6,7 @@
  * @module Widget
  */
 
-import { BadgeType, BadgeUtilities } from "@itwin/core-react";
+import { Badge, BadgeType } from "@itwin/core-react";
 import * as React from "react";
 import { WidgetTab } from "../layout/widget/Tab";
 import { useWidgetDef } from "./Content";
@@ -17,11 +17,9 @@ export function WidgetPanelsTab() {
   const widgetDef = useWidgetDef();
   const badgeType = widgetDef?.badgeType;
   const badgeClassName = getBadgeClassName(badgeType);
-  const badge = React.useMemo(
-    () => BadgeUtilities.getComponentForBadgeType(badgeType),
-    [badgeType]
+  return (
+    <WidgetTab className={badgeClassName} badge={<Badge type={badgeType} />} />
   );
-  return <WidgetTab className={badgeClassName} badge={badge} />;
 }
 
 /** @internal */

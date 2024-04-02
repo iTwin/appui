@@ -5,9 +5,7 @@
 export * from "./core-react/UiCore";
 
 export * from "./core-react/badge/Badge";
-export * from "./core-react/badge/BadgeUtilities";
-export * from "./core-react/badge/BetaBadge";
-export * from "./core-react/badge/NewBadge";
+export * from "./core-react/badge/BadgeType";
 
 export * from "./core-react/base/Div";
 export * from "./core-react/base/DivWithOutsideClick";
