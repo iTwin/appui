@@ -34,7 +34,7 @@ describe("DateUtils", () => {
       })
     ).toBeTruthy();
   });
-  
+
   it("toTimeString with options", () => {
     expect(
       toTimeString(new Date("June 30, 2016, 00:00:00 GMT -0000"), 0, {
