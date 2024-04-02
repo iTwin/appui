@@ -4,12 +4,11 @@
  *--------------------------------------------------------------------------------------------*/
 import TestUtils from "./TestUtils";
 
-window.HTMLElement.prototype.scrollIntoView =
-  window.HTMLElement.prototype.scrollIntoView ?? (() => {});
-
-vi.stubGlobal("fetch", async () => Promise.resolve(new Response()));
+window.HTMLElement.prototype.scrollIntoView = () => {};
 
 beforeEach(async () => {
+  vi.stubGlobal("fetch", async () => Promise.resolve(new Response()));
+
   await TestUtils.initializeUiComponents();
 });
 

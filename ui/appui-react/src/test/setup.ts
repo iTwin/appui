@@ -5,10 +5,8 @@
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import TestUtils from "./TestUtils";
 
-window.HTMLElement.prototype.scrollIntoView =
-  window.HTMLElement.prototype.scrollIntoView ?? (() => {});
-window.HTMLElement.prototype.scrollTo =
-  window.HTMLElement.prototype.scrollTo ?? (() => {});
+window.HTMLElement.prototype.scrollIntoView = () => {};
+window.HTMLElement.prototype.scrollTo = () => {};
 
 global.DOMMatrix = class DOMMatrix {
   public m41 = 0;
@@ -17,11 +15,11 @@ global.DOMMatrix = class DOMMatrix {
   constructor() {}
 } as unknown as typeof DOMMatrix;
 
-document.elementFromPoint = document.elementFromPoint ?? (() => {});
-
-vi.stubGlobal("fetch", async () => Promise.resolve(new Response()));
+document.elementFromPoint = () => null;
 
 beforeEach(async () => {
+  vi.stubGlobal("fetch", async () => Promise.resolve(new Response()));
+
   await NoRenderApp.startup();
   await TestUtils.initializeUiFramework();
 });
