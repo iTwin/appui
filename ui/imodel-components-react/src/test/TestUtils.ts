@@ -462,7 +462,7 @@ export class TestUtils {
 
 /** @internal */
 export class MineDataController extends DataControllerBase {
-  public async validateValue(
+  public override async validateValue(
     _newValue: PropertyValue,
     _record: PropertyRecord
   ): Promise<AsyncValueProcessingResult> {
