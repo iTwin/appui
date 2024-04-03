@@ -13,7 +13,7 @@ describe("IconHelper", () => {
     expect(iconSpec).toEqual("cat");
 
     const iconNode = IconHelper.getIconReactNode(iconSpec);
-    expect(iconNode).not.to.be.undefined;
+    expect(iconNode).toBeTruthy();
     expect((iconNode as React.ReactElement).props.iconSpec).toEqual("cat");
   });
 
@@ -43,7 +43,7 @@ describe("IconHelper", () => {
     const iconNode = IconHelper.getIconReactNode(
       <i className="icon icon-placeholder" />
     );
-    expect(iconNode).not.to.be.undefined;
+    expect(iconNode).toBeTruthy();
     expect(React.isValidElement(iconNode)).toEqual(true);
   });
 
@@ -54,7 +54,7 @@ describe("IconHelper", () => {
     expect((iconSpec as ConditionalStringValue).value).toEqual("dog");
 
     const iconNode = IconHelper.getIconReactNode(iconSpec);
-    expect(iconNode).not.to.be.undefined;
+    expect(iconNode).toBeTruthy();
     expect((iconNode as React.ReactElement).props.iconSpec).toEqual("dog");
   });
 
@@ -64,7 +64,7 @@ describe("IconHelper", () => {
     expect(iconSpec).toEqual(IconHelper.reactIconKey);
 
     const iconNode = IconHelper.getIconReactNode(iconSpec, internalData);
-    expect(iconNode).not.to.be.undefined;
+    expect(iconNode).toBeTruthy();
     expect(
       (iconNode as React.ReactElement).props.iconSpec.props.children
     ).toEqual("Test");
@@ -81,7 +81,7 @@ describe("IconHelper", () => {
 
     const iconNode = IconHelper.getIconReactNode(iconSpec, internalData);
     expect(iconNode).not.to.be.null;
-    expect(iconNode).not.to.be.undefined;
+    expect(iconNode).toBeTruthy();
     expect(
       (iconNode as React.ReactElement).props.iconSpec.props.children
     ).toEqual("Test");
@@ -92,7 +92,7 @@ describe("IconHelper", () => {
       }, ["dummy"])
     );
     expect(iconNodeDirect).not.to.be.null;
-    expect(iconNodeDirect).not.to.be.undefined;
+    expect(iconNodeDirect).toBeTruthy();
     expect(
       (iconNodeDirect as React.ReactElement).props.iconSpec.props.children
     ).toEqual("Plum");

@@ -23,9 +23,9 @@ describe("SelectionInfoField", () => {
         </StatusBar>
       </Provider>
     );
-    expect(component).not.to.be.undefined;
+    expect(component).toBeTruthy();
     const foundText = component.getAllByText("0");
-    expect(foundText).not.to.be.undefined;
+    expect(foundText).toBeTruthy();
   });
 
   it("SelectionInfoField should render with 1", () => {
@@ -37,9 +37,9 @@ describe("SelectionInfoField", () => {
         </StatusBar>
       </Provider>
     );
-    expect(component).not.to.be.undefined;
+    expect(component).toBeTruthy();
     const foundText = component.getAllByText("1");
-    expect(foundText).not.to.be.undefined;
+    expect(foundText).toBeTruthy();
   });
 
   it("SelectionInfoField should update after Redux action", async () => {
@@ -50,14 +50,14 @@ describe("SelectionInfoField", () => {
         </StatusBar>
       </Provider>
     );
-    expect(component).not.to.be.undefined;
+    expect(component).toBeTruthy();
     UiFramework.dispatchActionToStore(
       SessionStateActionId.SetNumItemsSelected,
       99
     );
     await waitFor(() => {
       const foundText = component.getAllByText("99");
-      expect(foundText).not.to.be.undefined;
+      expect(foundText).toBeTruthy();
     });
   });
 });

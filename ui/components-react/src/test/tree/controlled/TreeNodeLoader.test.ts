@@ -182,8 +182,8 @@ describe("TreeNodeLoader", () => {
         createTestTreeNodeItem({ id: "B" }),
       ]);
 
-      expect(modelSource.getModel().getNode("A")).to.be.undefined;
-      expect(modelSource.getModel().getNode("B")).to.be.undefined;
+      expect(modelSource.getModel().getNode("A")).toEqual(undefined);
+      expect(modelSource.getModel().getNode("B")).toEqual(undefined);
     });
 
     describe("using raw data provider", () => {
@@ -449,8 +449,8 @@ describe("PagedTreeNodeLoader", () => {
         createTestTreeNodeItem({ id: "B" }),
       ]);
 
-      expect(modelSource.getModel().getNode("A")).to.be.undefined;
-      expect(modelSource.getModel().getNode("B")).to.be.undefined;
+      expect(modelSource.getModel().getNode("A")).toEqual(undefined);
+      expect(modelSource.getModel().getNode("B")).toEqual(undefined);
     });
 
     describe("using raw data provider", () => {
@@ -582,7 +582,7 @@ describe("AbstractTreeNodeLoader", () => {
       };
       await nodesPromise.resolve(hierarchy);
 
-      expect(nodeLoader.modelSource.getModel().getNode("A")).to.be.undefined;
+      expect(nodeLoader.modelSource.getModel().getNode("A")).toEqual(undefined);
     });
 
     function createCustomTreeNodeLoader(
@@ -964,7 +964,9 @@ describe("handleLoadedNodeHierarchy", () => {
     };
     handleLoadedNodeHierarchy(modelSource, loadedHierarchy);
 
-    expect(modelSource.getModel().getChildren(parentNode.id)).to.be.undefined;
+    expect(modelSource.getModel().getChildren(parentNode.id)).toEqual(
+      undefined
+    );
   });
 
   it("updates existing expanded nodes in the same position", () => {
@@ -1018,13 +1020,13 @@ describe("handleLoadedNodeHierarchy", () => {
     };
     handleLoadedNodeHierarchy(modelSource, loadedHierarchy);
 
-    expect(modelSource.getModel().getNode(root1.id)).to.be.undefined;
-    expect(modelSource.getModel().getNode(newNode.id)).to.be.not.undefined;
+    expect(modelSource.getModel().getNode(root1.id)).toEqual(undefined);
+    expect(modelSource.getModel().getNode(newNode.id)).toBeTruthy();
     expect(modelSource.getModel().getNode(root2.id)?.label).to.be.deep.equal(
       PropertyRecord.fromString("new-label")
     );
-    expect(modelSource.getModel().getNode(child1.id)).to.be.not.undefined;
+    expect(modelSource.getModel().getNode(child1.id)).toBeTruthy();
     expect(modelSource.getModel().getNode(root3.id)?.description).toEqual("");
-    expect(modelSource.getModel().getNode(child2.id)).to.be.not.undefined;
+    expect(modelSource.getModel().getNode(child2.id)).toBeTruthy();
   });
 });

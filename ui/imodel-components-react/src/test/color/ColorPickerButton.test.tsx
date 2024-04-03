@@ -17,7 +17,7 @@ describe("<ColorPickerButton/>", () => {
     const renderedComponent = render(
       <ColorPickerButton initialColor={colorDef} />
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
     expect(renderedComponent.container.querySelector(".components-caret")).to.be
       .null;
   });
@@ -26,7 +26,7 @@ describe("<ColorPickerButton/>", () => {
     const renderedComponent = render(
       <ColorPickerButton initialColor={colorDef} showCaret />
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
     expect(renderedComponent.container.querySelector(".components-caret")).not
       .to.be.null;
   });
@@ -35,7 +35,7 @@ describe("<ColorPickerButton/>", () => {
     const renderedComponent = render(
       <ColorPickerButton initialColor={colorDef} />
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
     const button = renderedComponent.getByTestId(
       "components-colorpicker-button"
     );
@@ -45,14 +45,14 @@ describe("<ColorPickerButton/>", () => {
     renderedComponent.rerender(
       <ColorPickerButton initialColor={newColorDef} />
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
     expect(button.getAttribute("data-value")).toEqual("rgb(255,0,0)"); // red
 
     const colorDefWithAlpha = ColorDef.create(0x80ff0000);
     renderedComponent.rerender(
       <ColorPickerButton initialColor={colorDefWithAlpha} />
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
     expect(button.getAttribute("data-value")).toEqual("rgba(0,0,255,0.50)"); // blue with alpha
   });
 
@@ -60,7 +60,7 @@ describe("<ColorPickerButton/>", () => {
     const renderedComponent = render(
       <ColorPickerButton initialColor={colorDef} round={true} />
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
   });
 
   it("button press should open popup and allow color selection", async () => {
@@ -90,13 +90,13 @@ describe("<ColorPickerButton/>", () => {
     const popupDiv = renderedComponent.getByTestId(
       "components-colorpicker-popup-colors"
     );
-    expect(popupDiv).not.to.be.undefined;
+    expect(popupDiv).toBeTruthy();
     if (popupDiv) {
       const title = renderedComponent.getByText("test-title");
-      expect(title).not.to.be.undefined;
+      expect(title).toBeTruthy();
 
       const firstColorButton = popupDiv.firstChild as HTMLElement;
-      expect(firstColorButton).not.to.be.undefined;
+      expect(firstColorButton).toBeTruthy();
       fireEvent.click(firstColorButton);
 
       expect(spyOnColorPick).toHaveBeenCalledOnce();
@@ -131,7 +131,7 @@ describe("<ColorPickerButton/>", () => {
     fireEvent.click(pickerButton);
 
     const corePopupDiv = renderedComponent.queryByTestId("core-popup");
-    expect(corePopupDiv).not.to.be.undefined;
+    expect(corePopupDiv).toBeTruthy();
     if (corePopupDiv)
       expect(corePopupDiv.classList.contains("visible")).toEqual(false);
   });

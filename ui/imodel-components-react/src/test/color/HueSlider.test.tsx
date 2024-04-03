@@ -35,7 +35,7 @@ describe("<HueSlider />", () => {
     const renderedComponent = render(
       <HueSlider hsv={hsv} isHorizontal={true} />
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
   });
 
   it("vertical slider should render", () => {
@@ -44,7 +44,7 @@ describe("<HueSlider />", () => {
         <HueSlider hsv={hsv} isHorizontal={false} />
       </div>
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
   });
 
   it("Use keyboard to pick hue", async () => {

@@ -56,8 +56,8 @@ describe("GridCategory", () => {
         expect(factoryStub.createCategorizedProperty).toHaveBeenCalledTimes(0);
         expect(factoryStub.createGridCategory).toHaveBeenCalledTimes(0);
 
-        expect(gridCategory.parentSelectionKey).to.be.undefined;
-        expect(gridCategory.parentCategorySelectionKey).to.be.undefined;
+        expect(gridCategory.parentSelectionKey).toEqual(undefined);
+        expect(gridCategory.parentCategorySelectionKey).toEqual(undefined);
 
         GridUtils.assertCategoryEquals(gridCategory, category);
         expect(gridCategory.depth).toEqual(0);

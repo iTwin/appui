@@ -68,7 +68,7 @@ describe("PropertyCategoryRendererManager", () => {
       manager.addRenderer("test_renderer", () => TestComponent);
       manager.removeRenderer("test_renderer");
 
-      expect(manager.getCategoryComponent(categoryItem)).to.be.undefined;
+      expect(manager.getCategoryComponent(categoryItem)).toEqual(undefined);
     });
   });
 
@@ -80,7 +80,7 @@ describe("PropertyCategoryRendererManager", () => {
 
       manager.addRenderer("test_renderer", () => TestComponent);
 
-      expect(manager.getCategoryComponent(categoryItem)).to.be.undefined;
+      expect(manager.getCategoryComponent(categoryItem)).toEqual(undefined);
     });
 
     it("returns `undefined` when category renderer factory returns `undefined`", () => {
@@ -89,7 +89,7 @@ describe("PropertyCategoryRendererManager", () => {
 
       manager.addRenderer("test_renderer", () => undefined);
 
-      expect(manager.getCategoryComponent(categoryItem)).to.be.undefined;
+      expect(manager.getCategoryComponent(categoryItem)).toEqual(undefined);
     });
 
     it("returns `undefined` when matching category renderer is not found", () => {
@@ -98,7 +98,7 @@ describe("PropertyCategoryRendererManager", () => {
 
       manager.addRenderer("other_test_renderer", () => TestComponent);
 
-      expect(manager.getCategoryComponent(categoryItem)).to.be.undefined;
+      expect(manager.getCategoryComponent(categoryItem)).toEqual(undefined);
     });
 
     it("returns matching category rendering component", () => {

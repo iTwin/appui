@@ -110,7 +110,7 @@ describe("<ToolbarWithOverflow />", () => {
       const renderedComponent = render(
         <ToolbarWithOverflow items={toolbarItems} />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
       expect(renderedComponent.queryByTitle("Entry6")).not.to.be.null;
     });
 
@@ -135,7 +135,7 @@ describe("<ToolbarWithOverflow />", () => {
           overflowExpandsTo={Direction.Top}
         />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
       expect(renderedComponent.queryByTitle("Entry6")).not.to.be.null;
     });
 
@@ -158,7 +158,7 @@ describe("<ToolbarWithOverflow />", () => {
           items={toolbarItems}
         />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
 
       // first 3 on left should be in overflow since panel alignment is set to ToolbarPanelAlignment.End
       expect(renderedComponent.queryByTitle("Entry1")).to.be.null;
@@ -171,7 +171,7 @@ describe("<ToolbarWithOverflow />", () => {
       const overflowButton = renderedComponent.container.querySelector(
         ".components-toolbar-button-item.components-ellipsis-icon"
       );
-      expect(overflowButton).not.to.be.undefined;
+      expect(overflowButton).toBeTruthy();
       fireEvent.click(overflowButton!);
       expect(renderedComponent.queryByTitle("Entry1")).not.to.be.null;
       expect(renderedComponent.queryByTitle("Entry2")).not.to.be.null;
@@ -194,14 +194,14 @@ describe("<ToolbarWithOverflow />", () => {
       const renderedComponent = render(
         <ToolbarWithOverflow items={toolbarItems} />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
       expect(renderedComponent.queryByTitle("Entry3")).not.to.be.null;
       expect(renderedComponent.queryByTitle("Entry4")).to.be.null;
 
       const overflowButton = renderedComponent.container.querySelector(
         ".components-toolbar-button-item.components-ellipsis-icon"
       );
-      expect(overflowButton).not.to.be.undefined;
+      expect(overflowButton).toBeTruthy();
       fireEvent.click(overflowButton!);
       expect(renderedComponent.queryByTitle("Entry4")).not.to.be.null;
       expect(renderedComponent.queryByTitle("Entry5")).not.to.be.null;
@@ -230,12 +230,12 @@ describe("<ToolbarWithOverflow />", () => {
           <ToolbarWithOverflow items={toolbarItems} />
         </ToolbarPopupAutoHideContext.Provider>
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
 
       const overflowButton = renderedComponent.container.querySelector(
         ".components-toolbar-button-item.components-ellipsis-icon"
       );
-      expect(overflowButton).not.to.be.undefined;
+      expect(overflowButton).toBeTruthy();
       fireEvent.click(overflowButton!);
       expect(renderedComponent.queryByTitle("Entry4")).not.to.be.null;
       isHidden = true;
@@ -332,14 +332,14 @@ describe("<ToolbarWithOverflow />", () => {
           toolbarOpacitySetting={ToolbarOpacitySetting.Transparent}
         />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
       expect(renderedComponent.queryByTitle("Entry3")).not.to.be.null;
       expect(renderedComponent.queryByTitle("Entry4")).to.be.null;
 
       const overflowButton = renderedComponent.container.querySelector(
         ".components-toolbar-button-item.components-ellipsis-icon"
       );
-      expect(overflowButton).not.to.be.undefined;
+      expect(overflowButton).toBeTruthy();
       fireEvent.click(overflowButton!);
       expect(renderedComponent.queryByTitle("Entry4")).not.to.be.null;
       expect(renderedComponent.queryByTitle("Entry5")).not.to.be.null;
@@ -413,7 +413,7 @@ describe("<ToolbarWithOverflow />", () => {
           toolbarOpacitySetting={ToolbarOpacitySetting.Defaults}
         />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
       expect(
         renderedComponent.container.querySelectorAll(
           ".components-toolbar-items-container.components-horizontal.components-toolbar-show-decorators"
@@ -482,7 +482,7 @@ describe("<ToolbarWithOverflow />", () => {
           toolbarOpacitySetting={ToolbarOpacitySetting.Transparent}
         />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
       expect(
         renderedComponent.container.querySelectorAll(
           ".components-toolbar-items-container.components-horizontal.components-toolbar-show-decorators"
@@ -551,7 +551,7 @@ describe("<ToolbarWithOverflow />", () => {
           toolbarOpacitySetting={undefined}
         />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
       expect(
         renderedComponent.container.querySelectorAll(
           ".components-toolbar-items-container.components-horizontal.components-toolbar-show-decorators"
@@ -626,7 +626,7 @@ describe("<ToolbarWithOverflow />", () => {
           items={toolbarItems}
         />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
       expect(renderedComponent.queryByTitle("Entry6")).not.to.be.null;
     });
 
@@ -650,7 +650,7 @@ describe("<ToolbarWithOverflow />", () => {
           items={toolbarItems}
         />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
       expect(renderedComponent.queryByTitle("Entry6")).not.to.be.null;
     });
 
@@ -674,7 +674,7 @@ describe("<ToolbarWithOverflow />", () => {
           items={toolbarItems}
         />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
       expect(renderedComponent.queryByTitle("Entry3")).not.to.be.null;
       expect(renderedComponent.queryByTitle("Entry4")).to.be.null;
     });
@@ -708,7 +708,7 @@ describe("<ToolbarWithOverflow />", () => {
       const renderedComponent = render(
         <ToolbarWithOverflow items={toolbarItems} />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
       const button = renderedComponent.queryByTitle("Entry1");
       expect(button).not.to.be.null;
       fireEvent.click(button!);
@@ -746,7 +746,7 @@ describe("<ToolbarWithOverflow />", () => {
       const renderedComponent = render(
         <ToolbarWithOverflow items={toolbarItems} onKeyDown={onKeyDownSpy} />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
       const button = renderedComponent.queryByTitle("PopupEntry");
       expect(button).not.to.be.null;
       expect(renderedComponent.queryByTestId("popup-panel")).to.be.null;
@@ -793,7 +793,7 @@ describe("<ToolbarWithOverflow />", () => {
           <ToolbarWithOverflow items={toolbarItems} />
         </ToolbarPopupAutoHideContext.Provider>
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
       const button = renderedComponent.queryByTitle("PopupEntry");
       expect(button).not.to.be.null;
       expect(renderedComponent.queryByTestId("popup-panel")).to.be.null;
@@ -844,7 +844,7 @@ describe("<ToolbarWithOverflow />", () => {
       const renderedComponent = render(
         <ToolbarWithOverflow items={toolbarItems} onKeyDown={onKeyDownSpy} />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
       // since keepContentsLoaded is true the popup-panel will render and its display will be set to `none`
       const popupDiv = renderedComponent.queryByTestId("core-popup");
       expect(popupDiv!.classList.contains("core-popup-hidden")).toEqual(true);
@@ -906,7 +906,7 @@ describe("<ToolbarWithOverflow />", () => {
       const renderedComponent = render(
         <ToolbarWithOverflow items={toolbarItems} />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
 
       const button = renderedComponent.queryByTitle("Group1");
       expect(button).not.to.be.null;
@@ -1229,7 +1229,7 @@ describe("<ToolbarWithOverflow />", () => {
       const renderedComponent = render(
         <ToolbarWithOverflow items={toolbarItems} />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
 
       const button = renderedComponent.queryByTitle("Group1");
       expect(button).not.to.be.null;
@@ -1523,7 +1523,7 @@ describe("<ToolbarWithOverflow />", () => {
       const renderedComponent = render(
         <ToolbarWithOverflow items={toolbarItems} />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
 
       const button = renderedComponent.queryByTitle("Group1");
       expect(button).not.to.be.null;
@@ -1733,7 +1733,7 @@ describe("<ToolbarWithOverflow />", () => {
       const renderedComponent = render(
         <ToolbarWithOverflow items={toolbarItems} />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
 
       const button = renderedComponent.queryByTitle("Group1");
       expect(button).not.to.be.null;
@@ -1820,7 +1820,7 @@ describe("<ToolbarWithOverflow />", () => {
       const renderedComponent = render(
         <ToolbarWithOverflow items={toolbarItems} />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
 
       const button = renderedComponent.queryByTitle("Group1");
       expect(button).not.to.be.null;
@@ -1980,7 +1980,7 @@ describe("<ToolbarWithOverflow />", () => {
       const renderedComponent = render(
         <ToolbarWithOverflow useDragInteraction={true} items={toolbarItems} />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
 
       // the group button should have the title for the first child
       const button = renderedComponent.queryByTitle("Child1");
@@ -2000,7 +2000,7 @@ describe("<ToolbarWithOverflow />", () => {
       const overflowButton = renderedComponent.container.querySelector(
         ".components-toolbar-button-item.components-ellipsis-icon"
       );
-      expect(overflowButton).not.to.be.undefined;
+      expect(overflowButton).toBeTruthy();
       fireEvent.click(overflowButton!);
       expect(renderedComponent.queryByTitle("Entry4")).not.to.be.null;
       expect(renderedComponent.queryByTitle("Entry5")).not.to.be.null;
@@ -2077,7 +2077,7 @@ describe("<ToolbarWithOverflow />", () => {
       const renderedComponent = render(
         <ToolbarWithOverflow useDragInteraction={true} items={toolbarItems} />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
       // the group button should have its own title since there are no children
       const button = renderedComponent.queryByTitle("Group1");
       expect(button).not.to.be.null;
@@ -2137,7 +2137,7 @@ describe("<ToolbarWithOverflow />", () => {
       const renderedComponent = render(
         <ToolbarWithOverflow useDragInteraction={true} items={toolbarItems} />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
 
       const button = renderedComponent.queryByTitle("Entry3");
       expect(button).not.to.be.null;
@@ -2225,7 +2225,7 @@ describe("<ToolbarWithOverflow />", () => {
       const renderedComponent = render(
         <ToolbarWithOverflow useDragInteraction={true} items={toolbarItems} />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
 
       // group button should be set to active item
       const button = renderedComponent.queryByTitle("EntryN3");
@@ -2310,7 +2310,7 @@ describe("<ToolbarWithOverflow />", () => {
       const renderedComponent = render(
         <ToolbarWithOverflow useDragInteraction={true} items={toolbarItems} />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
 
       // group button should be set to first action item
       const button = renderedComponent.queryByTitle("Entry2");
@@ -2379,7 +2379,7 @@ describe("<ToolbarWithOverflow />", () => {
       const renderedComponent = render(
         <ToolbarWithOverflow useDragInteraction={true} items={toolbarItems} />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
 
       // group button should be set to first action item
       const button = renderedComponent.queryByTitle("EntryN1");
@@ -2438,7 +2438,7 @@ describe("<ToolbarWithOverflow />", () => {
       const renderedComponent = render(
         <ToolbarWithOverflow useDragInteraction={true} items={toolbarItems} />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
 
       // the group button should have the title for the first child
       const button = renderedComponent.queryByTitle("Entry1");
@@ -2522,7 +2522,7 @@ describe("<ToolbarWithOverflow />", () => {
       const renderedComponent = render(
         <ToolbarWithOverflow useDragInteraction={true} items={toolbarItems} />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
 
       // the group button should have the title for the first child
       const button = renderedComponent.queryByTitle("Entry1");
@@ -2603,7 +2603,7 @@ describe("<ToolbarWithOverflow />", () => {
       const renderedComponent = render(
         <ToolbarWithOverflow useDragInteraction={true} items={toolbarItems} />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
 
       // the group button should have the title for the first child
       const button = renderedComponent.queryByTitle("Entry1");
@@ -2693,7 +2693,7 @@ describe("<ToolbarWithOverflow />", () => {
       const renderedComponent = render(
         <ToolbarWithOverflow useDragInteraction={true} items={toolbarItems} />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
 
       // the group button should have the title for the first child
       const button = renderedComponent.queryByTitle("Entry1");
@@ -2852,7 +2852,7 @@ describe("<ToolbarWithOverflow />", () => {
       const renderedComponent = render(
         <ToolbarWithOverflow useDragInteraction={true} items={toolbarItems} />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
 
       // the group button should have the title for the first child
       const button = renderedComponent.queryByTitle("Entry1");

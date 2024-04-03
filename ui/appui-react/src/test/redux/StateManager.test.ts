@@ -151,7 +151,7 @@ describe("StateManager", () => {
   });
 
   it("should return undefined if StateManager has not been created", () => {
-    expect(StateManager.state).to.be.undefined;
+    expect(StateManager.state).toEqual(undefined);
   });
 
   it("should have access to Framework Reducer by default", () => {

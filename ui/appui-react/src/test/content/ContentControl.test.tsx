@@ -83,7 +83,7 @@ describe("ContentControl", () => {
     expect(activatedMethod).toHaveBeenCalledOnce();
 
     expect(contentControl.isViewport).toEqual(false);
-    expect(contentControl.viewport).to.be.undefined;
+    expect(contentControl.viewport).toEqual(undefined);
     expect(contentControl.navigationAidControl.length).toEqual(0);
   });
 

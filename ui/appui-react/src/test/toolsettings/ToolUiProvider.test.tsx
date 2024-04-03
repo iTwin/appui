@@ -163,7 +163,7 @@ describe("ToolUiProvider", () => {
             syncProperties: [syncItem],
           } as SyncToolSettingsPropertiesEventArgs;
           toolUiProvider.syncToolSettingsProperties(syncArgs);
-          //    expect(toolUiProvider.dataProvider).to.be.undefined;
+          //    expect(toolUiProvider.dataProvider).toEqual(undefined);
         }
       }
 

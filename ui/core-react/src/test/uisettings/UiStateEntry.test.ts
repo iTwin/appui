@@ -61,7 +61,7 @@ describe("UiStateEntry", () => {
       expect(result.status).to.equal(UiStateStorageStatus.Success);
       const result2 = await uiSetting.deleteSetting(localUiSettings);
       expect(result2.status).to.equal(UiStateStorageStatus.NotFound);
-      expect(result2.setting).to.be.undefined;
+      expect(result2.setting).toEqual(undefined);
     });
   });
 

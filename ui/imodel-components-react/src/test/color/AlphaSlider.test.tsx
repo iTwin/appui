@@ -25,7 +25,7 @@ describe("<AlphaSlider />", () => {
     const renderedComponent = render(
       <AlphaSlider alpha={alpha} isHorizontal={true} />
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
   });
 
   it("vertical slider should render", () => {
@@ -34,7 +34,7 @@ describe("<AlphaSlider />", () => {
         <AlphaSlider alpha={alpha} isHorizontal={false} />
       </div>
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
   });
 
   it("Use keyboard to pick Transparency - Horizontal", async () => {

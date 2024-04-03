@@ -68,7 +68,7 @@ describe("FrontstageManager", () => {
 
   it("findWidget should return undefined when no active frontstage", async () => {
     await InternalFrontstageManager.setActiveFrontstageDef(undefined);
-    expect(InternalFrontstageManager.findWidget("xyz")).to.be.undefined;
+    expect(InternalFrontstageManager.findWidget("xyz")).toEqual(undefined);
   });
   it("setActiveFrontstage should set active frontstage", async () => {
     const frontstageProvider = new TestFrontstage();
@@ -122,7 +122,7 @@ describe("FrontstageManager", () => {
         handleFrontstageCloseRequested
       );
 
-    expect(InternalFrontstageManager.activeModalFrontstage).to.be.undefined;
+    expect(InternalFrontstageManager.activeModalFrontstage).toEqual(undefined);
     const backstageItem = SettingsModalFrontstage.getBackstageActionItem(
       100,
       10
@@ -132,7 +132,7 @@ describe("FrontstageManager", () => {
     InternalFrontstageManager.closeModalFrontstage();
     await TestUtils.flushAsyncOperations();
 
-    expect(InternalFrontstageManager.activeModalFrontstage).to.be.undefined;
+    expect(InternalFrontstageManager.activeModalFrontstage).toEqual(undefined);
     removeListener();
   });
 
@@ -148,7 +148,7 @@ describe("FrontstageManager", () => {
       frontstageProvider.id
     );
 
-    expect(InternalFrontstageManager.activeModalFrontstage).to.be.undefined;
+    expect(InternalFrontstageManager.activeModalFrontstage).toEqual(undefined);
     expect(frontstageDef).toBeTruthy();
     if (frontstageDef) {
       await InternalFrontstageManager.setActiveFrontstage(frontstageDef.id);
@@ -188,10 +188,10 @@ describe("FrontstageManager", () => {
     expect(frontstageDef).toBeTruthy();
     if (frontstageDef) {
       // make sure zones defined by new names are properly placed into the proper spot in frontstageDef
-      expect(frontstageDef.contentManipulation).not.to.be.undefined;
-      expect(frontstageDef.toolSettings).not.to.be.undefined;
-      expect(frontstageDef.statusBar).not.to.be.undefined;
-      expect(frontstageDef.viewNavigation).to.be.undefined;
+      expect(frontstageDef.contentManipulation).toBeTruthy();
+      expect(frontstageDef.toolSettings).toBeTruthy();
+      expect(frontstageDef.statusBar).toBeTruthy();
+      expect(frontstageDef.viewNavigation).toEqual(undefined);
       await InternalFrontstageManager.setActiveFrontstage(frontstageDef.id);
       expect(InternalFrontstageManager.activeFrontstageId).toEqual(
         frontstageDef.id
@@ -212,7 +212,7 @@ describe("FrontstageManager", () => {
     );
 
     await InternalFrontstageManager.deactivateFrontstageDef();
-    expect(InternalFrontstageManager.activeFrontstageDef).to.be.undefined;
+    expect(InternalFrontstageManager.activeFrontstageDef).toEqual(undefined);
     expect(InternalFrontstageManager.activeFrontstageId).toEqual("");
   });
 
@@ -253,7 +253,7 @@ describe("FrontstageManager", () => {
   });
 
   it("findWidget returns undefined on invalid id", () => {
-    expect(InternalFrontstageManager.findWidget("xyz")).to.be.undefined;
+    expect(InternalFrontstageManager.findWidget("xyz")).toEqual(undefined);
   });
 
   it("findWidget returns the widget from the active frontstage def", async () => {
@@ -414,7 +414,7 @@ describe("FrontstageManager", () => {
       );
 
       await InternalFrontstageManager.deactivateFrontstageDef();
-      expect(InternalFrontstageManager.activeFrontstageDef).to.be.undefined;
+      expect(InternalFrontstageManager.activeFrontstageDef).toEqual(undefined);
       expect(spy).toHaveBeenCalledOnce();
     });
   });

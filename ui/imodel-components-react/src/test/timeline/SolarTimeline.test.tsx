@@ -45,10 +45,10 @@ describe("<SpeedTimeline />", () => {
     const renderedComponent = render(
       <SpeedTimeline speed={3} onChange={onChange} />
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
     expect(valueChanged).toEqual(false);
     const sliderDiv = renderedComponent.getByRole("slider");
-    expect(sliderDiv).not.to.be.undefined;
+    expect(sliderDiv).toBeTruthy();
     const ariaValue = sliderDiv.getAttribute("aria-valuenow");
     expect(ariaValue).toEqual("3");
   });

@@ -71,7 +71,7 @@ describe("NestedFrontstage", async () => {
   });
 
   it("activeNestedFrontstage should return undefined if none active", () => {
-    expect(UiFramework.frontstages.activeNestedFrontstage).to.be.undefined;
+    expect(UiFramework.frontstages.activeNestedFrontstage).toEqual(undefined);
     expect(UiFramework.frontstages.nestedFrontstageCount).toEqual(0);
   });
 

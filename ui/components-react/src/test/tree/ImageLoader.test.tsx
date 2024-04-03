@@ -15,7 +15,7 @@ describe("TreeImageLoader", () => {
         label: PropertyRecord.fromString("label"),
         icon: "test-icon",
       });
-      expect(image).is.not.undefined;
+      expect(image).toBeTruthy();
       expect(image!.sourceType).to.equal("webfont-icon");
       expect(image!.value).to.equal("test-icon");
     });
@@ -25,7 +25,7 @@ describe("TreeImageLoader", () => {
         id: "test",
         label: PropertyRecord.fromString("label"),
       });
-      expect(image).is.undefined;
+      expect(image).toEqual(undefined);
     });
   });
 });

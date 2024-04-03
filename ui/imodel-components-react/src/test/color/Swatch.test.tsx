@@ -16,14 +16,14 @@ describe("<ColorSwatch />", () => {
 
   it("should render", () => {
     const renderedComponent = render(<ColorSwatch colorDef={colorDef} />);
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
   });
 
   it("should render rounded", () => {
     const renderedComponent = render(
       <ColorSwatch colorDef={colorDef} round={true} />
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
   });
 
   it("Fire click event to pick color", async () => {

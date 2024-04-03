@@ -22,7 +22,7 @@ describe("<InlineEdit />", () => {
         onChange={onTotalDurationChange}
       />
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
 
     // trigger call to componentDidUpdate
     renderedComponent.rerender(

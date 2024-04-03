@@ -48,7 +48,9 @@ describe("SparseTree", () => {
 
   describe("getChildOffset", () => {
     it("returns undefined if node is not found", () => {
-      expect(sparseTree.getChildOffset(undefined, "childId")).to.be.undefined;
+      expect(sparseTree.getChildOffset(undefined, "childId")).toEqual(
+        undefined
+      );
     });
 
     it("returns undefined if parent does not have children at all", () => {
@@ -158,7 +160,7 @@ describe("SparseTree", () => {
     it("does nothing when target node does not exist and returns `false`", () => {
       const resultStatus = sparseTree.setNodeId("test", 0, "newId");
       expect(resultStatus).toEqual(false);
-      expect(sparseTree.getNode("newId")).to.be.undefined;
+      expect(sparseTree.getNode("newId")).toEqual(undefined);
     });
 
     it("does nothing when node with the same id already exists and returns `false`", () => {
@@ -188,7 +190,7 @@ describe("SparseTree", () => {
       sparseTree.setChildren(undefined, [{ id: "oldId", data: 1 }], 0);
       const resultStatus = sparseTree.setNodeId(undefined, 0, "newId");
       expect(resultStatus).toEqual(true);
-      expect(sparseTree.getNode("oldId")).to.be.undefined;
+      expect(sparseTree.getNode("oldId")).toEqual(undefined);
       verifyNodes(sparseTree.getChildren(undefined)!, [
         { id: "newId", data: 1 },
       ]);
@@ -202,7 +204,7 @@ describe("SparseTree", () => {
       const resultStatus = sparseTree.setNodeId("root", 0, "newId");
 
       expect(resultStatus).toEqual(true);
-      expect(sparseTree.getChildren("child1")).to.be.undefined;
+      expect(sparseTree.getChildren("child1")).toEqual(undefined);
       verifyNodes(sparseTree.getChildren(undefined)!, [{ id: "root" }]);
       verifyNodes(sparseTree.getChildren("root")!, [{ id: "newId" }]);
       verifyNodes(sparseTree.getChildren("newId")!, [{ id: "grandchild" }]);
@@ -322,7 +324,7 @@ describe("SparseTree", () => {
       sparseTree.setChildren(rootNode.id, childNodes, 0);
       sparseTree.setNumChildren(undefined, 10);
       const children = sparseTree.getChildren(rootNode.id);
-      expect(children).to.be.undefined;
+      expect(children).toEqual(undefined);
     });
   });
 
@@ -359,7 +361,7 @@ describe("SparseTree", () => {
         sparseTree.setChildren(undefined, [rootNode], 0);
         sparseTree.removeChild(rootNode.id, "childId");
         const children = sparseTree.getChildren(rootNode.id);
-        expect(children).to.be.undefined;
+        expect(children).toEqual(undefined);
       });
 
       it("removes child subtree", () => {
@@ -368,7 +370,7 @@ describe("SparseTree", () => {
         sparseTree.setChildren(rootNode.id, childNodes, 0);
         sparseTree.removeChild(undefined, rootNode.id);
         const children = sparseTree.getChildren(rootNode.id);
-        expect(children).to.be.undefined;
+        expect(children).toEqual(undefined);
       });
     });
 
@@ -404,7 +406,7 @@ describe("SparseTree", () => {
         sparseTree.setChildren(undefined, [rootNode], 0);
         sparseTree.removeChild(rootNode.id, 0);
         const children = sparseTree.getChildren(rootNode.id);
-        expect(children).to.be.undefined;
+        expect(children).toEqual(undefined);
       });
 
       it("removes child subtree", () => {
@@ -413,7 +415,7 @@ describe("SparseTree", () => {
         sparseTree.setChildren(rootNode.id, childNodes, 0);
         sparseTree.removeChild(undefined, 0);
         const children = sparseTree.getChildren(rootNode.id);
-        expect(children).to.be.undefined;
+        expect(children).toEqual(undefined);
       });
     });
   });
@@ -435,7 +437,7 @@ describe("SparseTree", () => {
       sparseTree.setChildren(rootNode.id, childNodes, 0);
       sparseTree.deleteSubtree(rootNode.id);
       const children = sparseTree.getChildren(rootNode.id);
-      expect(children).to.be.undefined;
+      expect(children).toEqual(undefined);
     });
 
     it("does not attempt to remove child subtrees if parent subtree is deleted", () => {
@@ -443,7 +445,7 @@ describe("SparseTree", () => {
       const spy = vi.spyOn(sparseTree, "deleteSubtree");
       sparseTree.deleteSubtree(rootNode.id);
       const children = sparseTree.getChildren(rootNode.id);
-      expect(children).to.be.undefined;
+      expect(children).toEqual(undefined);
       expect(spy).toHaveBeenCalledOnce();
     });
 
@@ -451,7 +453,7 @@ describe("SparseTree", () => {
       sparseTree.setNumChildren(rootNode.id, 1);
       expect(sparseTree.getChildren(rootNode.id)!.getLength()).to.be.eq(1);
       sparseTree.deleteSubtree(rootNode.id, false);
-      expect(sparseTree.getChildren(rootNode.id)).to.be.undefined;
+      expect(sparseTree.getChildren(rootNode.id)).toEqual(undefined);
       expect(sparseTree.getNode(rootNode.id)).toBeTruthy();
     });
   });
@@ -500,7 +502,7 @@ describe("SparseArray", () => {
 
   describe("get", () => {
     it("gets undefined if value is not set", () => {
-      expect(sparseArray.get(faker.random.number())).to.be.undefined;
+      expect(sparseArray.get(faker.random.number())).toEqual(undefined);
     });
 
     it("gets values for specific index", () => {
@@ -513,7 +515,7 @@ describe("SparseArray", () => {
 
   describe("getIndex", () => {
     it("gets undefined if value is not found", () => {
-      expect(sparseArray.getIndex(faker.random.number())).to.be.undefined;
+      expect(sparseArray.getIndex(faker.random.number())).toEqual(undefined);
     });
 
     it("gets index of specified value", () => {
@@ -599,7 +601,7 @@ describe("SparseArray", () => {
       sparseArray.remove(0);
       expect(sparseArray.getLength()).to.be.eq(1);
       expect(sparseArray.get(0)).to.be.eq(testItems[1].value);
-      expect(sparseArray.get(1)).to.be.undefined;
+      expect(sparseArray.get(1)).toEqual(undefined);
     });
 
     it("removes last element from array", () => {
@@ -608,7 +610,7 @@ describe("SparseArray", () => {
       sparseArray.remove(1);
       expect(sparseArray.getLength()).to.be.eq(1);
       expect(sparseArray.get(0)).to.be.eq(testItems[0].value);
-      expect(sparseArray.get(1)).to.be.undefined;
+      expect(sparseArray.get(1)).toEqual(undefined);
     });
 
     it("removes middle element from array", () => {
@@ -620,7 +622,7 @@ describe("SparseArray", () => {
       expect(sparseArray.getLength()).to.be.eq(2);
       expect(sparseArray.get(0)).to.be.eq(testItems[0].value);
       expect(sparseArray.get(1)).to.be.eq(testItems[1].value);
-      expect(sparseArray.get(2)).to.be.undefined;
+      expect(sparseArray.get(2)).toEqual(undefined);
     });
 
     it("removes missing value from middle front", () => {
@@ -640,7 +642,7 @@ describe("SparseArray", () => {
       expect(sparseArray.getLength()).to.be.eq(lastItemIndex);
       expect(sparseArray.get(0)).to.be.eq(testItems[0].value);
       expect(sparseArray.get(lastItemIndex - 1)).to.be.eq(testItems[1].value);
-      expect(sparseArray.get(lastItemIndex)).to.be.undefined;
+      expect(sparseArray.get(lastItemIndex)).toEqual(undefined);
     });
 
     it("removes missing value from array end", () => {
@@ -687,7 +689,7 @@ describe("SparseArray", () => {
         if (current === firstItem.index) expect(item).to.be.eq(firstItem.value);
         else if (current === secondItem.index)
           expect(item).to.be.eq(secondItem.value);
-        else expect(item).to.be.undefined;
+        else expect(item).toEqual(undefined);
 
         current++;
       }

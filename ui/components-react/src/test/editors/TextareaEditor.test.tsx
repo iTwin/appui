@@ -190,7 +190,7 @@ describe("<TextareaEditor />", () => {
         onCancel={spyOnCancel}
       />
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
     const popupButton = await waitFor(() =>
       renderedComponent.getByTestId("components-popup-button")
     );

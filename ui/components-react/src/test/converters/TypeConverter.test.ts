@@ -36,7 +36,7 @@ describe("TypeConverter", () => {
   });
 
   it("Base convertFromString returns undefined", async () => {
-    expect(await converter.convertFromString("abc")).to.be.undefined;
+    expect(await converter.convertFromString("abc")).toEqual(undefined);
   });
 
   const createPropertyDescription = (): PropertyDescription => {
@@ -72,7 +72,7 @@ describe("TypeConverter", () => {
           "def",
           TestUtils.createPrimitiveStringProperty("abc", "abc")
         );
-      expect((propertyValue as PrimitiveValue).value).to.be.undefined;
+      expect((propertyValue as PrimitiveValue).value).toEqual(undefined);
     });
 
     it("returns property with correct value when convertFromString also returns a correct value", async () => {

@@ -89,7 +89,7 @@ describe("useElementsScrollStorage", () => {
     expect(getterCalled).toEqual(false);
 
     ref.current!.restore();
-    expect(scrollValue).to.be.undefined;
+    expect(scrollValue).toEqual(undefined);
   });
 
   it("does not restore scroll if element count changes", () => {
@@ -116,6 +116,6 @@ describe("useElementsScrollStorage", () => {
     rerender(<TestComponent ref={ref} renderSecond={true} />);
 
     ref.current!.restore();
-    expect(scrollValue).to.be.undefined;
+    expect(scrollValue).toEqual(undefined);
   });
 });

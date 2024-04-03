@@ -96,7 +96,7 @@ describe("ConnectedContent", () => {
       </Provider>
     );
 
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
 
     // simulate selecting toolId
     const buttonElement = renderedComponent.getByTestId(

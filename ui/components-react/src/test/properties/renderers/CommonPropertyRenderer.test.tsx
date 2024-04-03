@@ -58,7 +58,7 @@ describe("CommonPropertyRenderer", () => {
       );
       const { container } = render(<div>{displayValue}</div>);
       const element = container.querySelector("mark");
-      expect(element?.textContent).to.be.undefined;
+      expect(element?.textContent).toEqual(undefined);
     });
 
     it("should create a value which is not highlighted if highlighProps are not provided", () => {
@@ -72,7 +72,7 @@ describe("CommonPropertyRenderer", () => {
       );
       const { container } = render(<div>{displayValue}</div>);
       const element = container.querySelector("mark");
-      expect(element?.textContent).to.be.undefined;
+      expect(element?.textContent).toEqual(undefined);
     });
 
     it("should create a value which is actively highlighted if highlighProps are provided, highlightedText matches part of propertyRecord and property name matches highlight activeMatch propertyName", () => {
@@ -231,7 +231,7 @@ describe("CommonPropertyRenderer", () => {
       );
       const { container } = render(<div>{displayValue}</div>);
       const element = container.querySelector("mark");
-      expect(element?.textContent).to.be.undefined;
+      expect(element?.textContent).toEqual(undefined);
     });
   });
 

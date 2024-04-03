@@ -11,8 +11,8 @@ describe("ChildWindowManager", () => {
   it("will construct", () => {
     const manager = new InternalChildWindowManager();
 
-    expect(manager.findId(undefined)).to.undefined;
-    expect(manager.find(undefined)).to.undefined;
+    expect(manager.findId(undefined)).toEqual(undefined);
+    expect(manager.find(undefined)).toEqual(undefined);
   });
 
   it("will find id", () => {

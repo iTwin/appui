@@ -292,7 +292,7 @@ describe("WidgetManager", () => {
       StagePanelLocation.Bottom,
       StagePanelSection.Start
     );
-    expect(widgetDefs).to.be.undefined;
+    expect(widgetDefs).toEqual(undefined);
   });
 
   it("removeWidgetDef should remove a WidgetDef", () => {

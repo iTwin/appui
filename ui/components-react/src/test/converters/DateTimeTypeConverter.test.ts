@@ -95,14 +95,14 @@ describe("ShortDateTypeConverter", () => {
 
     it("returns undefined when empty date string is provided", () => {
       const convertedDate = converter.convertFromString("");
-      expect(convertedDate).to.be.undefined;
+      expect(convertedDate).toEqual(undefined);
     });
 
     it("returns undefined when wrong date string is provided", () => {
       const convertedDate = converter.convertFromString(
         "MayFifteenthTwoThousandAndTwo"
       );
-      expect(convertedDate).to.be.undefined;
+      expect(convertedDate).toEqual(undefined);
     });
   });
 
@@ -116,14 +116,14 @@ describe("ShortDateTypeConverter", () => {
 
     it("returns undefined when empty date string is provided", () => {
       const convertedDate = converter.convertFromStringWithOptions("");
-      expect(convertedDate).to.be.undefined;
+      expect(convertedDate).toEqual(undefined);
     });
 
     it("returns undefined when wrong date string is provided", () => {
       const convertedDate = converter.convertFromStringWithOptions(
         "MayFifteenthTwoThousandAndTwo"
       );
-      expect(convertedDate).to.be.undefined;
+      expect(convertedDate).toEqual(undefined);
     });
 
     it("returns date at UTC-0", () => {

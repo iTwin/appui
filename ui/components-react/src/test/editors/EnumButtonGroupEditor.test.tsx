@@ -18,7 +18,7 @@ import { PropertyEditorManager } from "../../components-react/editors/PropertyEd
 describe("<EnumButtonGroupEditor />", () => {
   it("should render", () => {
     const renderedComponent = render(<EnumButtonGroupEditor setFocus={true} />);
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
   });
 
   it("editor with buttons renders correctly", async () => {
@@ -32,7 +32,7 @@ describe("<EnumButtonGroupEditor />", () => {
     renderedComponent.rerender(
       <EnumButtonGroupEditor propertyRecord={record2} />
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
   });
 
   it("button press updates value and display", async () => {
@@ -153,7 +153,7 @@ describe("<EnumButtonGroupEditor />", () => {
         onCancel={() => {}}
       />
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
 
     expect(await waitFor(() => renderedComponent.getByTestId("Green"))).not.to
       .be.null;

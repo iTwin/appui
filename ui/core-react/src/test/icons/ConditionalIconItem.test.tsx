@@ -38,7 +38,7 @@ describe("ConditionalIconItem", () => {
   });
 
   it("test static getValue method", () => {
-    expect(ConditionalIconItem.getValue(undefined)).to.be.undefined;
+    expect(ConditionalIconItem.getValue(undefined)).toEqual(undefined);
     expect(ConditionalIconItem.getValue("icon1.svg")).toEqual("icon1.svg");
     expect(
       ConditionalIconItem.getValue(

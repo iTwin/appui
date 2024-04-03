@@ -22,7 +22,7 @@ import { MineDataController, TestUtils } from "../TestUtils";
 describe("<ColorEditor />", () => {
   it("should render", () => {
     const renderedComponent = render(<ColorEditor setFocus={true} />);
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
   });
 
   it("should trigger componentDidUpdate", async () => {
@@ -62,10 +62,10 @@ describe("<ColorEditor />", () => {
     const popupDiv = renderedComponent.getByTestId(
       "components-colorpicker-popup-colors"
     );
-    expect(popupDiv).not.to.be.undefined;
+    expect(popupDiv).toBeTruthy();
     if (popupDiv) {
       const firstColorButton = popupDiv.firstChild as HTMLElement;
-      expect(firstColorButton).not.to.be.undefined;
+      expect(firstColorButton).toBeTruthy();
       fireEvent.click(firstColorButton);
 
       // wait for async processing done in ColorEditor._onColorPick method

@@ -24,7 +24,7 @@ describe("useAsyncValue", () => {
       (props: { value: Promise<string> }) => useAsyncValue(props.value),
       { initialProps: { value: valuePromise } }
     );
-    expect(result.current).to.be.undefined;
+    expect(result.current).toEqual(undefined);
     await valuePromise;
     await waitFor(() => expect(result.current).to.be.eq(value));
   });
@@ -36,9 +36,9 @@ describe("useAsyncValue", () => {
       (props: { value: PromiseLike<string> }) => useAsyncValue(props.value),
       { initialProps: { value: initialPromise } }
     );
-    expect(result.current).to.be.undefined;
+    expect(result.current).toEqual(undefined);
     rerender({ value: updatePromise });
-    expect(result.current).to.be.undefined;
+    expect(result.current).toEqual(undefined);
     await updatePromise.resolve("updated value");
     await waitFor(() => expect(result.current).to.be.eq("updated value"));
     await initialPromise.resolve("initial value");

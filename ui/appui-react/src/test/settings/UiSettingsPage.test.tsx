@@ -33,14 +33,14 @@ describe("UiSettingsPage", () => {
 
   function getInputBySpanTitle(titleSpan: HTMLElement) {
     const settingsItemDiv = titleSpan.parentElement?.parentElement;
-    expect(settingsItemDiv).not.to.be.undefined;
+    expect(settingsItemDiv).toBeTruthy();
     return settingsItemDiv!.querySelector("input");
   }
 
   it("renders using getUiSettingsManagerEntry", async () => {
     const tabEntry = getUiSettingsManagerEntry(5);
     const wrapper = render(tabEntry.page);
-    expect(wrapper).not.to.be.undefined;
+    expect(wrapper).toBeTruthy();
     expect(wrapper.container.querySelectorAll("span.title").length).toEqual(11);
     wrapper.unmount();
   });
@@ -113,7 +113,7 @@ describe("UiSettingsPage", () => {
 
   it("renders toggle auto-hide", async () => {
     const wrapper = render(<UiSettingsPage />);
-    expect(wrapper).not.to.be.undefined;
+    expect(wrapper).toBeTruthy();
     const autoHideSpan = wrapper.getByText(
       "settings.uiSettingsPage.autoHideTitle"
     );
@@ -132,7 +132,7 @@ describe("UiSettingsPage", () => {
   it("renders toggle drag interaction", async () => {
     await TestUtils.flushAsyncOperations();
     const wrapper = render(<UiSettingsPage />);
-    expect(wrapper).not.to.be.undefined;
+    expect(wrapper).toBeTruthy();
 
     const titleSpan = wrapper.getByText(
       "settings.uiSettingsPage.dragInteractionTitle"
@@ -150,7 +150,7 @@ describe("UiSettingsPage", () => {
   it("renders toggle useProximityOpacity", async () => {
     await TestUtils.flushAsyncOperations();
     const wrapper = render(<UiSettingsPage />);
-    expect(wrapper).not.to.be.undefined;
+    expect(wrapper).toBeTruthy();
 
     const titleSpan = wrapper.getByText(
       "settings.uiSettingsPage.useProximityOpacityTitle"
@@ -168,7 +168,7 @@ describe("UiSettingsPage", () => {
   it("renders toggle snapWidgetOpacity", async () => {
     await TestUtils.flushAsyncOperations();
     const wrapper = render(<UiSettingsPage />);
-    expect(wrapper).not.to.be.undefined;
+    expect(wrapper).toBeTruthy();
 
     const titleSpan = wrapper.getByText(
       "settings.uiSettingsPage.snapWidgetOpacityTitle"
@@ -186,7 +186,7 @@ describe("UiSettingsPage", () => {
   it("renders showWidgetIcon toggle", async () => {
     await TestUtils.flushAsyncOperations();
     const wrapper = render(<UiSettingsPage />);
-    expect(wrapper).not.to.be.undefined;
+    expect(wrapper).toBeTruthy();
 
     const titleSpan = wrapper.getByText(
       "settings.uiSettingsPage.widgetIconTitle"
@@ -204,7 +204,7 @@ describe("UiSettingsPage", () => {
   it("renders animateToolSettings toggle", async () => {
     await TestUtils.flushAsyncOperations();
     const wrapper = render(<UiSettingsPage />);
-    expect(wrapper).not.to.be.undefined;
+    expect(wrapper).toBeTruthy();
 
     const titleSpan = wrapper.getByText(
       "settings.uiSettingsPage.animateToolSettingsTitle"
@@ -222,7 +222,7 @@ describe("UiSettingsPage", () => {
   it("renders useToolAsToolSettingsLabel toggle", async () => {
     await TestUtils.flushAsyncOperations();
     const wrapper = render(<UiSettingsPage />);
-    expect(wrapper).not.to.be.undefined;
+    expect(wrapper).toBeTruthy();
 
     const titleSpan = wrapper.getByText(
       "settings.uiSettingsPage.useToolAsToolSettingsLabelTitle"

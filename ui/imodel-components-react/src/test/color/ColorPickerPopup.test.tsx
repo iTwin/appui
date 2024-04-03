@@ -27,7 +27,7 @@ describe("<ColorPickerPopup/>", () => {
 
   it("should render", () => {
     const component = render(<ColorPickerPopup initialColor={colorDef} />);
-    expect(component).not.to.be.undefined;
+    expect(component).toBeTruthy();
     expect(component.container.querySelector(".components-caret")).to.be.null;
   });
 
@@ -35,7 +35,7 @@ describe("<ColorPickerPopup/>", () => {
     const component = render(
       <ColorPickerPopup initialColor={colorDef} showCaret />
     );
-    expect(component).not.to.be.undefined;
+    expect(component).toBeTruthy();
     expect(component.container.querySelector(".components-caret")).not.to.be
       .null;
   });
@@ -262,7 +262,7 @@ describe("<ColorPickerPopup/>", () => {
     fireEvent.click(pickerButton);
 
     const popupDiv = component.getByTestId("core-popup");
-    expect(popupDiv).not.to.be.undefined;
+    expect(popupDiv).toBeTruthy();
 
     const closeButton = component.getByTestId("core-dialog-close");
     fireEvent.click(closeButton);
@@ -293,7 +293,7 @@ describe("<ColorPickerPopup/>", () => {
     fireEvent.click(pickerButton);
 
     const popupDiv = component.getByTestId("core-popup");
-    expect(popupDiv).not.to.be.undefined;
+    expect(popupDiv).toBeTruthy();
 
     expect(popupDiv.querySelector("button.core-dialog-close")).to.be.null;
   });

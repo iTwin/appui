@@ -268,7 +268,7 @@ describe("updateSavedTabState", () => {
   it("should update existing saved tab state", () => {
     let state = createNineZoneState();
     state = updateSavedTabState(state, "t1", () => {});
-    expect(state.savedTabs.byId.t1?.popoutBounds).undefined;
+    expect(state.savedTabs.byId.t1?.popoutBounds).toEqual(undefined);
 
     state = updateSavedTabState(state, "t1", (draft) => {
       draft.popoutBounds = {

@@ -226,7 +226,7 @@ describe("useFloatingWidgetId", () => {
     const { result } = renderHook(() => useFloatingWidgetId(), {
       wrapper: (props) => <TestNineZoneProvider {...props} />,
     });
-    expect(result.current).to.be.undefined;
+    expect(result.current).toEqual(undefined);
   });
 });
 

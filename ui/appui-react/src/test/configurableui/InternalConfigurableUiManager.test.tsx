@@ -40,7 +40,7 @@ describe("InternalConfigurableUiManager", () => {
 
   it("setActiveFrontstageDef passed no argument", async () => {
     await UiFramework.frontstages.setActiveFrontstageDef(undefined);
-    expect(UiFramework.frontstages.activeFrontstageDef).to.be.undefined;
+    expect(UiFramework.frontstages.activeFrontstageDef).toEqual(undefined);
   });
 
   class TestWidget extends WidgetControl {
@@ -54,13 +54,14 @@ describe("InternalConfigurableUiManager", () => {
   it("getConstructorClassId should return undefined before registration", () => {
     const classId =
       InternalConfigurableUiManager.getConstructorClassId(TestWidget);
-    expect(classId).to.be.undefined;
+    expect(classId).toEqual(undefined);
   });
 
   it("registerControl & createConfigurable using same classId", () => {
     InternalConfigurableUiManager.register("TestWidget", TestWidget);
-    expect(InternalConfigurableUiManager.create("TestWidget", "1")).to.not.be
-      .undefined;
+    expect(
+      InternalConfigurableUiManager.create("TestWidget", "1")
+    ).toBeTruthy();
   });
 
   it("registerControl trying to register a classId already registered", () => {

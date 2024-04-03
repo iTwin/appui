@@ -1034,7 +1034,7 @@ describe("ContextMenu", () => {
   describe("TildeFinder", () => {
     it("should not find character in string when there is no tilde", () => {
       const tildeFindRet = TildeFinder.findAfterTilde("s");
-      expect(tildeFindRet.character).to.be.undefined;
+      expect(tildeFindRet.character).toEqual(undefined);
     });
     it("should find character after tilde in string", () => {
       const tildeFindRet = TildeFinder.findAfterTilde("~s");
@@ -1048,7 +1048,7 @@ describe("ContextMenu", () => {
     });
     it("should not find character after array when there is no tilde", () => {
       const tildeFindRet = TildeFinder.findAfterTilde(["te", "s", "t"]);
-      expect(tildeFindRet.character).to.be.undefined;
+      expect(tildeFindRet.character).toEqual(undefined);
     });
     it("should find character after tilde in array", () => {
       const tildeFindRet = TildeFinder.findAfterTilde(["te", "~s", "t"]);
@@ -1068,7 +1068,7 @@ describe("ContextMenu", () => {
     });
     it("should not find character in node when there is no tilde", () => {
       const tildeFindRet = TildeFinder.findAfterTilde(<span>s</span>);
-      expect(tildeFindRet.character).to.be.undefined;
+      expect(tildeFindRet.character).toEqual(undefined);
     });
     it("should remove tilde and add underline in node", () => {
       const tildeFindRet = TildeFinder.findAfterTilde(<span>~s</span>);

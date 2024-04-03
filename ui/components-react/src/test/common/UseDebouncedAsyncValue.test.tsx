@@ -16,7 +16,7 @@ describe("useDebouncedAsyncValue", () => {
       { initialProps: { value: undefined } }
     );
     expect(result.current.inProgress).toEqual(false);
-    expect(result.current.value).to.be.undefined;
+    expect(result.current.value).toEqual(undefined);
   });
 
   it("returns value when promise resolves", async () => {
@@ -28,7 +28,7 @@ describe("useDebouncedAsyncValue", () => {
       { initialProps: { value: async () => valuePromise } }
     );
     expect(result.current.inProgress).toEqual(true);
-    expect(result.current.value).to.be.undefined;
+    expect(result.current.value).toEqual(undefined);
 
     await valuePromise.resolve(value);
     await waitFor(() => expect(result.current.inProgress).to.be.false);
@@ -43,7 +43,7 @@ describe("useDebouncedAsyncValue", () => {
       { initialProps: { value: async () => initialPromise } }
     );
     expect(result.current.inProgress).toEqual(true);
-    expect(result.current.value).to.be.undefined;
+    expect(result.current.value).toEqual(undefined);
 
     rerender({ value: async () => 1 });
     rerender({ value: async () => 2 });

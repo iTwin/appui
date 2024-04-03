@@ -201,18 +201,18 @@ describe("UiFramework localStorage Wrapper", () => {
       expect(UiFramework.useDragInteraction).to.eql(useDragInteraction);
 
       UiFramework.closeCursorMenu();
-      expect(UiFramework.getCursorMenuData()).to.be.undefined;
+      expect(UiFramework.getCursorMenuData()).toEqual(undefined);
 
       const menuData: CursorMenuPayload = {
         items: [],
         position: { x: 100, y: 100 },
       };
       UiFramework.openCursorMenu(menuData);
-      expect(UiFramework.getCursorMenuData()).not.to.be.undefined;
+      expect(UiFramework.getCursorMenuData()).toBeTruthy();
 
       const viewState = moq.Mock.ofType<ViewState>();
       UiFramework.setDefaultViewState(viewState.object);
-      expect(UiFramework.getDefaultViewState()).not.to.be.undefined;
+      expect(UiFramework.getDefaultViewState()).toBeTruthy();
 
       const displayOverlay = false;
       UiFramework.setViewOverlayDisplay(displayOverlay);

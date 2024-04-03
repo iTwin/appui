@@ -150,7 +150,7 @@ describe("InternalModelessDialogManager", () => {
 
     UiFramework.dialogs.modeless.open(reactNode1, dialogId1);
     expect(UiFramework.dialogs.modeless.count).toEqual(1);
-    expect(UiFramework.dialogs.modeless.getInfo(dialogId1)).not.to.be.undefined;
+    expect(UiFramework.dialogs.modeless.getInfo(dialogId1)).toBeTruthy();
 
     UiFramework.dialogs.modeless.open(reactNode2, dialogId2);
     expect(UiFramework.dialogs.modeless.count).toEqual(2);
@@ -220,7 +220,7 @@ describe("InternalModelessDialogManager", () => {
     expect(UiFramework.dialogs.modeless.active).toBeTruthy();
     InternalModelessDialogManager.closeAll();
     expect(UiFramework.dialogs.modeless.count).toEqual(0);
-    expect(UiFramework.dialogs.modeless.active).to.be.undefined;
+    expect(UiFramework.dialogs.modeless.active).toEqual(undefined);
   });
 
   it("internal: closeAll should clear dialog ids", async () => {

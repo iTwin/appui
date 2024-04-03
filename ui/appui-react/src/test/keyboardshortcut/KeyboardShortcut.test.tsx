@@ -244,14 +244,12 @@ describe("KeyboardShortcut", () => {
         InternalKeyboardShortcutManager.shortcutContainer.getAvailableKeyboardShortcuts()
           .length
       ).toEqual(4);
-      expect(InternalKeyboardShortcutManager.getShortcut("a")).to.not.be
-        .undefined;
-      expect(InternalKeyboardShortcutManager.getShortcut("d")).to.not.be
-        .undefined;
-      expect(InternalKeyboardShortcutManager.getShortcut(Key.F7)).to.not.be
-        .undefined;
-      expect(InternalKeyboardShortcutManager.getShortcut(Key.Home)).to.not.be
-        .undefined;
+      expect(InternalKeyboardShortcutManager.getShortcut("a")).toBeTruthy();
+      expect(InternalKeyboardShortcutManager.getShortcut("d")).toBeTruthy();
+      expect(InternalKeyboardShortcutManager.getShortcut(Key.F7)).toBeTruthy();
+      expect(
+        InternalKeyboardShortcutManager.getShortcut(Key.Home)
+      ).toBeTruthy();
 
       const remove =
         KeyboardShortcutMenu.onKeyboardShortcutMenuEvent.addListener(menuspy);

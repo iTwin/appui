@@ -73,7 +73,7 @@ describe("FormatUnits", () => {
 
     expect(spy).toHaveBeenCalledOnce();
     const format = spy.mock.calls[0][0];
-    expect(format.composite).not.to.be.undefined;
+    expect(format.composite).toBeTruthy();
     expect(format.composite?.units[0].name).toEqual("Units.IN");
   });
 
@@ -112,7 +112,7 @@ describe("FormatUnits", () => {
 
     expect(spy).toHaveBeenCalledOnce();
     const format = spy.mock.calls[0][0];
-    expect(format.composite).not.to.be.undefined;
+    expect(format.composite).toBeTruthy();
     expect(format.composite?.units[0].name).to.eql("Units.FT");
     expect(format.composite?.units.length).to.eql(1);
   });

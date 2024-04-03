@@ -23,7 +23,7 @@ describe(`SelectionScopeField`, () => {
           </StatusBar>
         </Provider>
       );
-      expect(component).not.to.be.undefined;
+      expect(component).toBeTruthy();
       const selectElement = component.getByTestId(
         "components-selectionScope-selector"
       ) as HTMLSelectElement;
@@ -54,7 +54,7 @@ describe(`SelectionScopeField`, () => {
           </StatusBar>
         </Provider>
       );
-      expect(component).not.to.be.undefined;
+      expect(component).toBeTruthy();
       const selectElement = component.getByTestId(
         "components-selectionScope-selector"
       ) as HTMLSelectElement;
@@ -122,7 +122,7 @@ describe(`SelectionScopeField`, () => {
           </StatusBar>
         </Provider>
       );
-      expect(component).not.to.be.undefined;
+      expect(component).toBeTruthy();
       const selectElement = component.getByTestId(
         "components-selectionScope-selector"
       ) as HTMLSelectElement;

@@ -19,11 +19,11 @@ describe("ContentLayoutManager", () => {
   });
 
   it("activeLayout should return undefined if no active frontstage", () => {
-    expect(InternalContentLayoutManager.activeLayout).to.be.undefined;
+    expect(InternalContentLayoutManager.activeLayout).toEqual(undefined);
   });
 
   it("activeContentGroup should return undefined if no active frontstage", () => {
-    expect(InternalContentLayoutManager.activeContentGroup).to.be.undefined;
+    expect(InternalContentLayoutManager.activeContentGroup).toEqual(undefined);
   });
 
   it("refreshActive should do nothing if no active frontstage", () => {

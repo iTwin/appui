@@ -25,7 +25,7 @@ describe("initSizeProps", () => {
     const sut = produce(obj, (draft) => {
       initSizeProps(draft, "x", undefined);
     });
-    expect(sut.x).to.undefined;
+    expect(sut.x).toEqual(undefined);
   });
 });
 
@@ -55,7 +55,7 @@ describe("initRectangleProps", () => {
     const sut = produce(obj, (draft) => {
       initRectangleProps(draft, "x", undefined);
     });
-    expect(sut.x).to.undefined;
+    expect(sut.x).toEqual(undefined);
   });
 
   it("should not update object", () => {

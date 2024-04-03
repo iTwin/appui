@@ -34,7 +34,7 @@ describe("<DatePicker />", () => {
     expect(spanValue!.match(/month.long.july/)).not.to.be.null;
     expect(spanValue!.match(/2018/)).not.to.be.null;
     const month = renderedComponent.getByRole("listbox");
-    expect(month).not.to.be.undefined;
+    expect(month).toBeTruthy();
   });
 
   it("should change to previous month ", () => {

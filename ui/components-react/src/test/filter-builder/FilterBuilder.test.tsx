@@ -142,7 +142,7 @@ describe("PropertyFilterBuilder", () => {
         ...defaultRule,
         property: undefined,
       };
-      expect(buildPropertyFilter(rule)).to.be.undefined;
+      expect(buildPropertyFilter(rule)).toEqual(undefined);
     });
 
     it("returns undefined when rule does not have operator", () => {
@@ -150,7 +150,7 @@ describe("PropertyFilterBuilder", () => {
         ...defaultRule,
         operator: undefined,
       };
-      expect(buildPropertyFilter(rule)).to.be.undefined;
+      expect(buildPropertyFilter(rule)).toEqual(undefined);
     });
 
     it("returns undefined when rule does not have value and operator requires value", () => {
@@ -158,7 +158,7 @@ describe("PropertyFilterBuilder", () => {
         ...defaultRule,
         value: undefined,
       };
-      expect(buildPropertyFilter(rule)).to.be.undefined;
+      expect(buildPropertyFilter(rule)).toEqual(undefined);
     });
 
     it("returns undefined when rule has non primitive value", () => {
@@ -170,7 +170,7 @@ describe("PropertyFilterBuilder", () => {
           itemsTypeName: "arrayType",
         },
       };
-      expect(buildPropertyFilter(rule)).to.be.undefined;
+      expect(buildPropertyFilter(rule)).toEqual(undefined);
     });
 
     it("returns undefined when group has no rules", () => {
@@ -179,7 +179,7 @@ describe("PropertyFilterBuilder", () => {
         operator: "and",
         items: [],
       };
-      expect(buildPropertyFilter(ruleGroup)).to.be.undefined;
+      expect(buildPropertyFilter(ruleGroup)).toEqual(undefined);
     });
 
     it("returns single filter condition when group has one rule", () => {

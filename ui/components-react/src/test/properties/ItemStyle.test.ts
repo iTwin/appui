@@ -44,8 +44,8 @@ describe("ItemStyleProvider", () => {
 
       const createdStyle = ItemStyleProvider.createStyle(style, false);
 
-      expect(createdStyle.color).to.be.undefined;
-      expect(createdStyle.backgroundColor).to.be.undefined;
+      expect(createdStyle.color).toEqual(undefined);
+      expect(createdStyle.backgroundColor).toEqual(undefined);
     });
 
     it("returns style with overriden selection colors when cell is selected", () => {
@@ -67,8 +67,8 @@ describe("ItemStyleProvider", () => {
 
       const createdStyle = ItemStyleProvider.createStyle(style, true);
 
-      expect(createdStyle.backgroundColor).to.be.undefined;
-      expect(createdStyle.color).to.be.undefined;
+      expect(createdStyle.backgroundColor).toEqual(undefined);
+      expect(createdStyle.color).toEqual(undefined);
     });
   });
 });
@@ -90,8 +90,8 @@ describe("TableRowStyleProvider", () => {
     it("returns empty style if color overrides is empty", () => {
       const style = TableRowStyleProvider.createStyle({});
 
-      expect(style.color).to.be.undefined;
-      expect(style.backgroundColor).to.be.undefined;
+      expect(style.color).toEqual(undefined);
+      expect(style.backgroundColor).toEqual(undefined);
     });
   });
 });

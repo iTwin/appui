@@ -746,7 +746,7 @@ describe("Frontstage local storage wrapper", () => {
           InternalFrontstageManager.onFrontstageRestoreLayoutEvent.emit({
             frontstageDef: frontstageDef1,
           });
-          expect(frontstageDef1.nineZoneState).to.be.undefined;
+          expect(frontstageDef1.nineZoneState).toEqual(undefined);
         });
       });
 

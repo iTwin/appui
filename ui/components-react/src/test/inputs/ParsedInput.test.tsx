@@ -52,7 +52,7 @@ describe("ParsedInput", () => {
         parseString={parseStringToCelsius}
       />
     );
-    expect(wrapper).not.to.be.undefined;
+    expect(wrapper).toBeTruthy();
     const input = wrapper.getByTestId(
       "components-parsed-input"
     ) as HTMLInputElement;
@@ -79,7 +79,7 @@ describe("ParsedInput", () => {
         parseString={parseStringToCelsius}
       />
     );
-    expect(wrapper).not.to.be.undefined;
+    expect(wrapper).toBeTruthy();
     const input = wrapper.getByTestId(
       "components-parsed-input"
     ) as HTMLInputElement;
@@ -103,7 +103,7 @@ describe("ParsedInput", () => {
         parseString={parseStringToCelsius}
       />
     );
-    expect(wrapper).not.to.be.undefined;
+    expect(wrapper).toBeTruthy();
     const input = wrapper.getByTestId(
       "components-parsed-input"
     ) as HTMLInputElement;
@@ -127,7 +127,7 @@ describe("ParsedInput", () => {
         parseString={parseStringToCelsius}
       />
     );
-    expect(wrapper).not.to.be.undefined;
+    expect(wrapper).toBeTruthy();
     const input = wrapper.getByTestId(
       "components-parsed-input"
     ) as HTMLInputElement;
@@ -143,7 +143,7 @@ describe("ParsedInput", () => {
         parseString={parseStringToCelsius}
       />
     );
-    expect(wrapper).not.to.be.undefined;
+    expect(wrapper).toBeTruthy();
     const updatedInput = wrapper.getByTestId(
       "components-parsed-input"
     ) as HTMLInputElement;
@@ -162,7 +162,7 @@ describe("ParsedInput", () => {
         parseString={parseStringToCelsius}
       />
     );
-    expect(wrapper).not.to.be.undefined;
+    expect(wrapper).toBeTruthy();
     const input = wrapper.getByTestId(
       "components-parsed-input"
     ) as HTMLInputElement;
@@ -178,7 +178,7 @@ describe("ParsedInput", () => {
         parseString={parseStringToCelsius}
       />
     );
-    expect(wrapper).not.to.be.undefined;
+    expect(wrapper).toBeTruthy();
     const updatedInput = wrapper.getByTestId(
       "components-parsed-input"
     ) as HTMLInputElement;
@@ -197,7 +197,7 @@ describe("ParsedInput", () => {
         parseString={parseStringToCelsius}
       />
     );
-    expect(wrapper).not.to.be.undefined;
+    expect(wrapper).toBeTruthy();
     const input = wrapper.getByTestId(
       "components-parsed-input"
     ) as HTMLInputElement;

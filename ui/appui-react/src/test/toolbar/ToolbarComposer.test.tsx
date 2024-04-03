@@ -174,7 +174,7 @@ describe("<ToolbarComposer  />", async () => {
       </Provider>
     );
 
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
     expect(
       renderedComponent.container.querySelector(
         "div.components-toolbar-overflow-sizer.components-horizontal"
@@ -209,7 +209,7 @@ describe("<ToolbarComposer  />", async () => {
         />
       </Provider>
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
     expect(renderedComponent.queryByTitle("Tool_2")).not.to.be.null;
     expect(renderedComponent.queryByTitle("Tool_Group")).not.to.be.null;
     expect(renderedComponent.queryByTitle("Popup Test")).not.to.be.null;
@@ -262,7 +262,7 @@ describe("<ToolbarComposer  />", async () => {
         />
       </Provider>
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
     expect(renderedComponent.queryByTitle("Tool_2")).not.to.be.null;
     expect(renderedComponent.queryByTitle("Tool_Group")).not.to.be.null;
     expect(renderedComponent.queryByTitle("Popup Test")).not.to.be.null;

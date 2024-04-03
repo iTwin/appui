@@ -298,7 +298,7 @@ describe("TreeModelMutator", () => {
         .verifiable(moq.Times.once());
       modelMutator.activateEditing(node.id, () => {});
       treeModelMock.verifyAll();
-      expect(node.editingInfo).to.be.undefined;
+      expect(node.editingInfo).toEqual(undefined);
     });
 
     it("tries to set editing info even if node was removed", () => {
@@ -322,13 +322,13 @@ describe("TreeModelMutator", () => {
 
       it("closes node editing", () => {
         node.editingInfo!.onCancel();
-        expect(node.editingInfo).to.be.undefined;
+        expect(node.editingInfo).toEqual(undefined);
       });
 
       it("closes editing and calls onNodeUpdated when changes are committed", () => {
         node.editingInfo!.onCommit(node, "newValue");
         expect(onNodeUpdatedSpy).toHaveBeenCalledWith(node, "newValue");
-        expect(node.editingInfo).to.be.undefined;
+        expect(node.editingInfo).toEqual(undefined);
       });
     });
   });

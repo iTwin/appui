@@ -34,7 +34,7 @@ describe("HexadecimalTypeConverter", () => {
     });
 
     it("returns undefined when string is incorrect", () => {
-      expect(converter.convertFromString("GFF")).to.be.undefined;
+      expect(converter.convertFromString("GFF")).toEqual(undefined);
     });
   });
 

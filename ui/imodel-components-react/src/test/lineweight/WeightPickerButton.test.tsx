@@ -21,7 +21,7 @@ describe("<WeightPickerButton/>", () => {
         colorDef={colorDef}
       />
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
   });
 
   it("button press should open popup and allow weight selection", async () => {
@@ -59,10 +59,10 @@ describe("<WeightPickerButton/>", () => {
     );
     if (popupDiv) {
       const title = renderedComponent.getByText("test-title");
-      expect(title).not.to.be.undefined;
+      expect(title).toBeTruthy();
 
       const firstColorButton = popupDiv.firstChild as HTMLElement;
-      expect(firstColorButton).not.to.be.undefined;
+      expect(firstColorButton).toBeTruthy();
       fireEvent.click(firstColorButton);
       expect(spyOnWeightPick).toHaveBeenCalledOnce();
     }
@@ -107,10 +107,10 @@ describe("<WeightPickerButton/>", () => {
     );
     if (popupDiv) {
       const title = renderedComponent.getByText("test-title");
-      expect(title).not.to.be.undefined;
+      expect(title).toBeTruthy();
 
       const firstColorButton = popupDiv.firstChild as HTMLElement;
-      expect(firstColorButton).not.to.be.undefined;
+      expect(firstColorButton).toBeTruthy();
 
       // wait for button to receive focus
       await new Promise((r) => {
@@ -165,10 +165,10 @@ describe("<WeightPickerButton/>", () => {
     );
     if (popupDiv) {
       const title = renderedComponent.getByText("test-title");
-      expect(title).not.to.be.undefined;
+      expect(title).toBeTruthy();
 
       const firstColorButton = popupDiv.firstChild as HTMLElement;
-      expect(firstColorButton).not.to.be.undefined;
+      expect(firstColorButton).toBeTruthy();
 
       // wait for button to receive focus
       await new Promise((r) => {
@@ -218,10 +218,10 @@ describe("<WeightPickerButton/>", () => {
     );
     if (popupDiv) {
       const title = renderedComponent.getByText("test-title");
-      expect(title).not.to.be.undefined;
+      expect(title).toBeTruthy();
 
       const firstColorButton = popupDiv.firstChild as HTMLElement;
-      expect(firstColorButton).not.to.be.undefined;
+      expect(firstColorButton).toBeTruthy();
 
       // wait for button to receive focus
       await new Promise((r) => {

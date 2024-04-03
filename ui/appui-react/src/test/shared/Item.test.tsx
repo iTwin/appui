@@ -81,10 +81,10 @@ describe("Item", () => {
       "icon-override"
     );
     expect(toolItem.iconSpec).to.be.eq("icon-override");
-    expect(toolItem.label).not.to.be.undefined;
-    expect(toolItem.tooltip).not.to.be.undefined;
-    expect(toolItem.execute).not.to.be.undefined;
-    expect(toolItem.description).not.to.be.undefined;
+    expect(toolItem.label).toBeTruthy();
+    expect(toolItem.tooltip).toBeTruthy();
+    expect(toolItem.execute).toBeTruthy();
+    expect(toolItem.description).toBeTruthy();
   });
 
   class TestImmediate extends Tool {

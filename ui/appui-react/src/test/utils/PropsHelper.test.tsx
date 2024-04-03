@@ -34,13 +34,13 @@ describe("PropsHelper", () => {
 
   it("Get Icon JSX", () => {
     const iconTest = PropsHelper.getIcon("placeholder");
-    expect(iconTest).not.to.be.undefined;
+    expect(iconTest).toBeTruthy();
     expect(iconTest!.props.iconSpec).toEqual("placeholder");
   });
 
   it("Get undefined Icon", () => {
     const iconTest = PropsHelper.getIcon(null);
-    expect(iconTest).to.be.undefined;
+    expect(iconTest).toEqual(undefined);
   });
 
   let outString: string | undefined;
@@ -48,16 +48,16 @@ describe("PropsHelper", () => {
 
   it("String spec", () => {
     const defaultStringSpec = PropsHelper.getStringSpec("Hello World!");
-    expect(defaultStringSpec).not.to.be.undefined;
+    expect(defaultStringSpec).toBeTruthy();
     expect(defaultStringSpec).toEqual("Hello World!");
   });
 
   it("StringGetter spec", () => {
     const stringGetterSpec = PropsHelper.getStringSpec(stringGetter);
-    expect(stringGetterSpec).not.to.be.undefined;
+    expect(stringGetterSpec).toBeTruthy();
     outString = undefined;
     outString = PropsHelper.getStringFromSpec(stringGetterSpec);
-    expect(outString).not.to.be.undefined;
+    expect(outString).toBeTruthy();
     expect(outString).toEqual("Got String?");
   });
 
@@ -66,10 +66,10 @@ describe("PropsHelper", () => {
       stringGetter,
       "UiFramework:snapModeField.snapMode"
     );
-    expect(stringAndKeySpec).not.to.be.undefined;
+    expect(stringAndKeySpec).toBeTruthy();
     outString = undefined;
     outString = PropsHelper.getStringFromSpec(stringAndKeySpec);
-    expect(outString).not.to.be.undefined;
+    expect(outString).toBeTruthy();
     expect(outString).toEqual("Got String?");
   });
 
@@ -78,10 +78,10 @@ describe("PropsHelper", () => {
       undefined,
       "UiFramework:snapModeField.snapMode"
     );
-    expect(undefinedStringAndKeySpec).not.to.be.undefined;
+    expect(undefinedStringAndKeySpec).toBeTruthy();
     outString = undefined;
     outString = PropsHelper.getStringFromSpec(undefinedStringAndKeySpec);
-    expect(outString).not.to.be.undefined;
+    expect(outString).toBeTruthy();
     expect(outString).toEqual("snapModeField.snapMode"); // since test are not setting up localization we get string without namespace.
   });
 
@@ -90,10 +90,10 @@ describe("PropsHelper", () => {
       "",
       "UiFramework:snapModeField.snapMode"
     );
-    expect(undefinedStringAndKeySpec).not.to.be.undefined;
+    expect(undefinedStringAndKeySpec).toBeTruthy();
     outString = undefined;
     outString = PropsHelper.getStringFromSpec(undefinedStringAndKeySpec);
-    expect(outString).not.to.be.undefined;
+    expect(outString).toBeTruthy();
     expect(outString).toEqual("snapModeField.snapMode"); // since test are not setting up localization we get string without namespace.
   });
 
@@ -101,10 +101,10 @@ describe("PropsHelper", () => {
     const conditionalStringSpec = PropsHelper.getStringSpec(
       new ConditionalStringValue(() => "HelloWorld", ["dummy"])
     );
-    expect(conditionalStringSpec).not.to.be.undefined;
+    expect(conditionalStringSpec).toBeTruthy();
     outString = undefined;
     outString = PropsHelper.getStringFromSpec(conditionalStringSpec);
-    expect(outString).not.to.be.undefined;
+    expect(outString).toBeTruthy();
     expect(outString).toEqual("HelloWorld");
   });
 
@@ -112,7 +112,7 @@ describe("PropsHelper", () => {
     const iconTest = PropsHelper.getIcon(
       new ConditionalStringValue(() => "conditional-icon", ["dummy"])
     );
-    expect(iconTest).not.to.be.undefined;
+    expect(iconTest).toBeTruthy();
     expect(iconTest!.props.iconSpec).toEqual("conditional-icon");
   });
 

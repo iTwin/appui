@@ -105,7 +105,7 @@ describe("<EnumEditor />", () => {
         onCancel={spyOnCancel}
       />
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
 
     const selectNode = renderedComponent.getByTestId(
       "components-select-editor"

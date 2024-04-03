@@ -81,13 +81,13 @@ describe("<KeyinPalettePanel>", () => {
       { value: "keyin two" },
     ];
     const renderedComponent = render(<KeyinPalettePanel keyins={keyins} />);
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
 
     await TestUtils.flushAsyncOperations();
     const history2 = await waitFor(() =>
       renderedComponent.getByTitle("test b")
     );
-    expect(history2).not.to.be.undefined;
+    expect(history2).toBeTruthy();
     expect(renderedComponent.container.querySelectorAll("li").length).toEqual(
       4
     );
@@ -101,7 +101,7 @@ describe("<KeyinPalettePanel>", () => {
       { value: "keyin two" },
     ];
     const renderedComponent = render(<KeyinPalettePanel keyins={keyins} />);
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
     const selectInput = renderedComponent.getByTestId(
       "command-palette-input"
     ) as HTMLInputElement;
@@ -110,7 +110,7 @@ describe("<KeyinPalettePanel>", () => {
     const history2 = await waitFor(() =>
       renderedComponent.getByTitle("test b")
     );
-    expect(history2).not.to.be.undefined;
+    expect(history2).toBeTruthy();
     expect(renderedComponent.container.querySelectorAll("li").length).toEqual(
       4
     );
@@ -131,7 +131,7 @@ describe("<KeyinPalettePanel>", () => {
       { value: "keyin two" },
     ];
     const renderedComponent = render(<KeyinPalettePanel keyins={keyins} />);
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
     const selectInput = renderedComponent.getByTestId(
       "command-palette-input"
     ) as HTMLInputElement;
@@ -140,7 +140,7 @@ describe("<KeyinPalettePanel>", () => {
     const history2 = await waitFor(() =>
       renderedComponent.getByTitle("test b")
     );
-    expect(history2).not.to.be.undefined;
+    expect(history2).toBeTruthy();
     expect(renderedComponent.container.querySelectorAll("li").length).toEqual(
       4
     );
@@ -163,7 +163,7 @@ describe("<KeyinPalettePanel>", () => {
       { value: "keyin two" },
     ];
     const renderedComponent = render(<KeyinPalettePanel keyins={keyins} />);
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
     const selectInput = renderedComponent.getByTestId(
       "command-palette-input"
     ) as HTMLInputElement;
@@ -182,7 +182,7 @@ describe("<KeyinPalettePanel>", () => {
       { value: "keyin two" },
     ];
     const renderedComponent = render(<KeyinPalettePanel keyins={keyins} />);
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
     const selectInput = renderedComponent.getByTestId(
       "command-palette-input"
     ) as HTMLInputElement;
@@ -204,12 +204,12 @@ describe("<KeyinPalettePanel>", () => {
       { value: "keyin two" },
     ];
     const renderedComponent = render(<KeyinPalettePanel keyins={keyins} />);
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
     await TestUtils.flushAsyncOperations();
     const history2 = await waitFor(() =>
       renderedComponent.getByTitle("test b")
     );
-    expect(history2).not.to.be.undefined;
+    expect(history2).toBeTruthy();
 
     const selectInput = renderedComponent.getByTestId(
       "command-palette-input"
@@ -229,12 +229,12 @@ describe("<KeyinPalettePanel>", () => {
       { value: "keyin two" },
     ];
     const renderedComponent = render(<KeyinPalettePanel keyins={keyins} />);
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
     await TestUtils.flushAsyncOperations();
     const history2 = await waitFor(() =>
       renderedComponent.getByTitle("test b")
     );
-    expect(history2).not.to.be.undefined;
+    expect(history2).toBeTruthy();
 
     const selectInput = renderedComponent.getByTestId(
       "command-palette-input"
@@ -280,13 +280,13 @@ describe("<KeyinPalettePanel>", () => {
         { value: "keyin two" },
       ];
       const renderedComponent = render(<KeyinPalettePanel keyins={keyins} />);
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
 
       await TestUtils.flushAsyncOperations();
       const history2 = await waitFor(() =>
         renderedComponent.getByTitle("history2")
       );
-      expect(history2).not.to.be.undefined;
+      expect(history2).toBeTruthy();
       expect(renderedComponent.container.querySelectorAll("li").length).toEqual(
         4
       );
@@ -306,7 +306,7 @@ describe("<KeyinPalettePanel>", () => {
         { value: "keyin two" },
       ];
       const renderedComponent = render(<KeyinPalettePanel keyins={keyins} />);
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
       const selectInput = renderedComponent.getByTestId(
         "command-palette-input"
       ) as HTMLInputElement;
@@ -315,7 +315,7 @@ describe("<KeyinPalettePanel>", () => {
       const history2 = await waitFor(() =>
         renderedComponent.getByTitle("history2")
       );
-      expect(history2).not.to.be.undefined;
+      expect(history2).toBeTruthy();
       expect(renderedComponent.container.querySelectorAll("li").length).toEqual(
         4
       );
@@ -342,7 +342,7 @@ describe("<KeyinPalettePanel>", () => {
         { value: "keyin two" },
       ];
       const renderedComponent = render(<KeyinPalettePanel keyins={keyins} />);
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
       const selectInput = renderedComponent.getByTestId(
         "command-palette-input"
       ) as HTMLInputElement;
@@ -351,7 +351,7 @@ describe("<KeyinPalettePanel>", () => {
       const history2 = await waitFor(() =>
         renderedComponent.getByTitle("history2")
       );
-      expect(history2).not.to.be.undefined;
+      expect(history2).toBeTruthy();
       expect(renderedComponent.container.querySelectorAll("li").length).toEqual(
         4
       );
@@ -374,7 +374,7 @@ describe("<KeyinPalettePanel>", () => {
         { value: "keyin two" },
       ];
       const renderedComponent = render(<KeyinPalettePanel keyins={keyins} />);
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
       const selectInput = renderedComponent.getByTestId(
         "command-palette-input"
       ) as HTMLInputElement;
@@ -401,12 +401,12 @@ describe("<KeyinPalettePanel>", () => {
         { value: "keyin two" },
       ];
       const renderedComponent = render(<KeyinPalettePanel keyins={keyins} />);
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
       await TestUtils.flushAsyncOperations();
       const history2 = await waitFor(() =>
         renderedComponent.getByTitle("history2")
       );
-      expect(history2).not.to.be.undefined;
+      expect(history2).toBeTruthy();
 
       const selectInput = renderedComponent.getByTestId(
         "command-palette-input"
@@ -432,12 +432,12 @@ describe("<KeyinPalettePanel>", () => {
         { value: "keyin two" },
       ];
       const renderedComponent = render(<KeyinPalettePanel keyins={keyins} />);
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
       await TestUtils.flushAsyncOperations();
       const history2 = await waitFor(() =>
         renderedComponent.getByTitle("history2")
       );
-      expect(history2).not.to.be.undefined;
+      expect(history2).toBeTruthy();
 
       const selectInput = renderedComponent.getByTestId(
         "command-palette-input"

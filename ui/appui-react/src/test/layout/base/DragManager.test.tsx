@@ -252,7 +252,7 @@ describe("useTargeted", () => {
         <DragManagerContext.Provider value={dragManager} {...props} />
       ),
     });
-    expect(result.current).to.be.undefined;
+    expect(result.current).toEqual(undefined);
 
     act(() => {
       dragManager.handleDragStart({

@@ -36,7 +36,7 @@ describe("IntTypeConverter", () => {
     });
 
     it("returns undefined if string is not a number", () => {
-      expect(converter.convertFromString("not a number")).to.be.undefined;
+      expect(converter.convertFromString("not a number")).toEqual(undefined);
     });
   });
 
@@ -119,7 +119,7 @@ describe("FloatTypeConverter", () => {
     });
 
     it("returns undefined if string is not a number", () => {
-      expect(converter.convertFromString("not a number")).to.be.undefined;
+      expect(converter.convertFromString("not a number")).toEqual(undefined);
     });
   });
 

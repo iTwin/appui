@@ -521,7 +521,7 @@ describe("<SliderEditor />", () => {
         onCancel={() => {}}
       />
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
     const popupButton = await waitFor(() =>
       renderedComponent.getByTestId("components-popup-button")
     );
@@ -542,7 +542,7 @@ describe("<SliderEditor />", () => {
     const renderedComponent = render(
       <SliderEditor propertyRecord={propertyRecord} />
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
     const popupButton = await renderedComponent.findByTestId(
       "components-popup-button"
     );

@@ -135,7 +135,7 @@ describe("<TimeField />", () => {
         readOnly={false}
       />
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
     const inputs = renderedComponent.container.querySelectorAll("input");
     expect(inputs.length).toEqual(3);
     const hour = inputs[0];
@@ -188,7 +188,7 @@ describe("<TimeField />", () => {
         readOnly={false}
       />
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
     const inputs = renderedComponent.container.querySelectorAll("input");
     expect(inputs.length).toEqual(3);
     const minute = inputs[1];
@@ -227,7 +227,7 @@ describe("<TimeField />", () => {
         readOnly={false}
       />
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
     const inputs = renderedComponent.container.querySelectorAll("input");
     expect(inputs.length).toEqual(4);
     const seconds = inputs[2];
@@ -268,7 +268,7 @@ describe("<TimeField />", () => {
         readOnly={false}
       />
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
     const inputs = renderedComponent.container.querySelectorAll("input");
     expect(inputs.length).toEqual(4);
     const cycle = inputs[3];
@@ -383,7 +383,7 @@ describe("<TimeField />", () => {
         readOnly={false}
       />
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
     const inputs = renderedComponent.container.querySelectorAll("input");
     expect(inputs.length).toEqual(4);
     const cycle = inputs[3];
@@ -402,7 +402,7 @@ describe("<TimeField />", () => {
         readOnly={false}
       />
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
     const inputs = renderedComponent.container.querySelectorAll("input");
     expect(inputs.length).toEqual(4);
     const cycle = inputs[3];

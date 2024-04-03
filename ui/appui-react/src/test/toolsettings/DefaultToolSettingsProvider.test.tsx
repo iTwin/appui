@@ -189,7 +189,7 @@ describe("DefaultToolUiSettingsProvider", () => {
 
       if (toolInformation) {
         const toolUiProvider = toolInformation.toolUiProvider;
-        expect(toolUiProvider).to.be.undefined;
+        expect(toolUiProvider).toEqual(undefined);
       }
     }
   });
@@ -296,39 +296,39 @@ describe("DefaultToolUiSettingsProvider", () => {
       const renderedComponent = render(
         toolSettingsNode as React.ReactElement<any>
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
 
       expect(renderedComponent.queryByText("TEST-USELENGTH:")).to.be.null;
 
       const toggleEditor = renderedComponent.getByTestId(
         "components-checkbox-editor"
       );
-      expect(toggleEditor).not.to.be.undefined;
+      expect(toggleEditor).toBeTruthy();
 
       const textLabel = renderedComponent.getByText("TEST-LENGTH:");
-      expect(textLabel).not.to.be.undefined;
+      expect(textLabel).toBeTruthy();
 
       const textEditor = renderedComponent.getByTestId(
         "components-text-editor"
       );
-      expect(textEditor).not.to.be.undefined;
+      expect(textEditor).toBeTruthy();
 
       const enumLabel = renderedComponent.getByText("TEST-ENUM-PICKER:");
-      expect(enumLabel).not.to.be.undefined;
+      expect(enumLabel).toBeTruthy();
 
       const enumEditor = renderedComponent.getByTestId(
         "components-select-editor"
       );
-      expect(enumEditor).not.to.be.undefined;
+      expect(enumEditor).toBeTruthy();
 
       const buttonGroupEnumButton = renderedComponent.getByTestId("Pick");
-      expect(buttonGroupEnumButton).not.to.be.undefined;
+      expect(buttonGroupEnumButton).toBeTruthy();
 
       const buttonGroup1EnumButton = renderedComponent.getByTestId("Choice 1");
-      expect(buttonGroup1EnumButton).not.to.be.undefined;
+      expect(buttonGroup1EnumButton).toBeTruthy();
 
       const buttonGroup2EnumButton = renderedComponent.getByTestId("Plus 1");
-      expect(buttonGroup2EnumButton).not.to.be.undefined;
+      expect(buttonGroup2EnumButton).toBeTruthy();
 
       // simulate sync from tool
       const newUseLengthValue: DialogItemValue = { value: false };
@@ -454,22 +454,22 @@ describe("DefaultToolUiSettingsProvider", () => {
       const renderedComponent = render(
         toolSettingsNode as React.ReactElement<any>
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
 
       expect(renderedComponent.queryByText("TEST-USELENGTH:")).to.be.null;
 
       const toggleEditor = renderedComponent.getByTestId(
         "components-checkbox-editor"
       );
-      expect(toggleEditor).not.to.be.undefined;
+      expect(toggleEditor).toBeTruthy();
 
       const textLabel = renderedComponent.getByText("TEST-LENGTH:");
-      expect(textLabel).not.to.be.undefined;
+      expect(textLabel).toBeTruthy();
 
       const textEditor = renderedComponent.getByTestId(
         "components-text-editor"
       );
-      expect(textEditor).not.to.be.undefined;
+      expect(textEditor).toBeTruthy();
 
       // simulate sync from tool
       const newUseLengthValue: DialogItemValue = { value: false };

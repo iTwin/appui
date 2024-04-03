@@ -47,7 +47,7 @@ describe("ItemKeyboardNavigator", () => {
         () => {},
         () => {}
       );
-      expect(nav.crossAxisArrowKeyHandler).to.be.undefined;
+      expect(nav.crossAxisArrowKeyHandler).toEqual(undefined);
       const callback = () => {};
       nav.crossAxisArrowKeyHandler = callback;
       expect(nav.crossAxisArrowKeyHandler).toEqual(callback);

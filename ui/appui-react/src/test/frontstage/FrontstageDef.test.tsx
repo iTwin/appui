@@ -827,12 +827,15 @@ describe("floatWidget", () => {
         () => undefined
       );
       expect(frontstageDef.getFloatingWidgetContainerIds().length).to.eql(0);
-      expect(frontstageDef.getFloatingWidgetContainerIdByWidgetId("t1")).to.be
-        .undefined;
-      expect(frontstageDef.getFloatingWidgetContainerBounds("t1")).to.be
-        .undefined;
-      expect(frontstageDef.getFloatingWidgetContainerBounds(undefined)).to.be
-        .undefined;
+      expect(
+        frontstageDef.getFloatingWidgetContainerIdByWidgetId("t1")
+      ).toEqual(undefined);
+      expect(frontstageDef.getFloatingWidgetContainerBounds("t1")).toEqual(
+        undefined
+      );
+      expect(frontstageDef.getFloatingWidgetContainerBounds(undefined)).toEqual(
+        undefined
+      );
     });
   });
 });
@@ -861,7 +864,7 @@ describe("useSpecificWidgetDef", () => {
     ).mockImplementation(() => undefined);
     const { result } = renderHook(() => useSpecificWidgetDef("t1"));
 
-    expect(result.current).to.be.undefined;
+    expect(result.current).toEqual(undefined);
   });
 
   it("should return re-created dynamic widgetDef", async () => {

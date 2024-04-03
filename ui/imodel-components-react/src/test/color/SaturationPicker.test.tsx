@@ -42,7 +42,7 @@ describe("<SaturationPicker />", () => {
         <SaturationPicker hsv={hsv} />
       </div>
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
   });
 
   it("Use keyboard to change saturation", async () => {

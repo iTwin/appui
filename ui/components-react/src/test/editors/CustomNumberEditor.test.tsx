@@ -53,7 +53,7 @@ describe("<CustomNumberEditor />", () => {
     const renderedComponent = render(
       <CustomNumberEditor propertyRecord={record} />
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
     const inputField = renderedComponent.getByTestId(
       testId
     ) as HTMLInputElement;

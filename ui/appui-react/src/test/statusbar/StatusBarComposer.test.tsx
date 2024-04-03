@@ -619,7 +619,7 @@ describe("StatusBarComposer", () => {
         />
       );
 
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
       expect(
         renderedComponent.container.querySelectorAll(
           ".uifw-statusbar-item-container"
@@ -720,7 +720,7 @@ describe("StatusBarComposer", () => {
           rightClassName="right-test"
         />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
       expect(
         renderedComponent.container.querySelectorAll(
           ".uifw-statusbar-item-container"

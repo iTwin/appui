@@ -32,7 +32,7 @@ describe("PropertyValueRendererManager", () => {
 
   describe("registerRenderer", () => {
     it("adds renderer to the renderer list", () => {
-      expect(manager.getRegisteredRenderer("string")).to.be.undefined;
+      expect(manager.getRegisteredRenderer("string")).toEqual(undefined);
 
       manager.registerRenderer("string", fakeRenderer);
 
@@ -40,7 +40,7 @@ describe("PropertyValueRendererManager", () => {
 
       manager.unregisterRenderer("string");
 
-      expect(manager.getRegisteredRenderer("string")).to.be.undefined;
+      expect(manager.getRegisteredRenderer("string")).toEqual(undefined);
     });
 
     it("throws when trying to add a renderer to a type that already has it", () => {
@@ -51,7 +51,7 @@ describe("PropertyValueRendererManager", () => {
     });
 
     it("overwrites old value when trying to add a renderer to a type that already has it and overwrite is set to true", () => {
-      expect(manager.getRegisteredRenderer("string")).to.be.undefined;
+      expect(manager.getRegisteredRenderer("string")).toEqual(undefined);
 
       manager.registerRenderer("string", fakeRenderer);
 

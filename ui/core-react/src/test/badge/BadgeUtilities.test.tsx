@@ -13,12 +13,12 @@ describe("BadgeUtilities", () => {
   describe("getComponentForBadgeType", () => {
     it("undefined should return undefined", () => {
       const component = BadgeUtilities.getComponentForBadgeType(undefined);
-      expect(component).to.be.undefined;
+      expect(component).toEqual(undefined);
     });
 
     it("BadgeType.None should return undefined", () => {
       const component = BadgeUtilities.getComponentForBadgeType(BadgeType.None);
-      expect(component).to.be.undefined;
+      expect(component).toEqual(undefined);
     });
 
     it("BadgeType.New should return NewBadge", () => {

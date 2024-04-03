@@ -65,7 +65,7 @@ describe("LocalStateStorage", () => {
         "TestData"
       );
       expect(result2.status).to.equal(UiStateStorageStatus.NotFound);
-      expect(result2.setting).to.be.undefined;
+      expect(result2.setting).toEqual(undefined);
     });
     it("Should return error result if setting not found", async () => {
       const result = await localUiSettings.deleteSetting(

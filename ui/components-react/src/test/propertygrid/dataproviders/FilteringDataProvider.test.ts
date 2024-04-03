@@ -891,7 +891,7 @@ describe("FilteringDataProvider", () => {
       if (filteredData.getMatchByIndex)
         activeMatch = filteredData.getMatchByIndex(-1);
 
-      expect(activeMatch).to.be.undefined;
+      expect(activeMatch).toEqual(undefined);
     });
 
     it("Should return the same getData object and filter data only once if no dataChange event was fired", async () => {

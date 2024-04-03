@@ -17,9 +17,9 @@ describe("<LineWeightSwatch />", () => {
     const renderedComponent = render(
       <LineWeightSwatch colorDef={colorDef} weight={activeWeight} />
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
     const label = renderedComponent.getByText("3");
-    expect(label).not.to.be.undefined;
+    expect(label).toBeTruthy();
   });
 
   it("should render with no label", () => {
@@ -30,7 +30,7 @@ describe("<LineWeightSwatch />", () => {
         hideLabel={true}
       />
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
     const label = renderedComponent.queryByText("3");
     expect(label).to.be.null;
   });

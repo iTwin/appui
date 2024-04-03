@@ -161,7 +161,7 @@ describe("<DateTimeEditor />", () => {
     );
     const originalValue = (record.value as PrimitiveValue).value as Date;
     expect(originalValue.getTime()).toEqual(date.getTime());
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
     const popupButton = await renderedComponent.findByTestId(
       "components-popup-button"
     );
@@ -226,7 +226,7 @@ describe("<DateTimeEditor />", () => {
     await waitFor(() => expect(getByText(date.toLocaleDateString())).to.exist);
     const originalValue = (record.value as PrimitiveValue).value as Date;
     expect(originalValue.getTime()).toEqual(date.getTime());
-    // expect(renderedComponent).not.to.be.undefined;
+    // expect(renderedComponent).toBeTruthy();
     const popupButton = await findByTestId("components-popup-button");
     fireEvent.click(popupButton);
     fireEvent.keyDown(popupButton, { key: Key.Enter });
@@ -256,7 +256,7 @@ describe("<DateTimeEditor />", () => {
       const popupButton = renderedComponent.getByTestId(
         "components-popup-button"
       );
-      expect(popupButton).not.to.be.undefined;
+      expect(popupButton).toBeTruthy();
     }
   });
 
@@ -271,7 +271,7 @@ describe("<DateTimeEditor />", () => {
         onCancel={() => {}}
       />
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
     const popupButton = await renderedComponent.findByTestId(
       "components-popup-button"
     );
@@ -313,7 +313,7 @@ describe("<DateTimeEditor />", () => {
       />
     );
 
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
     const popupButton = await renderedComponent.findByTestId(
       "components-popup-button"
     );
@@ -347,7 +347,7 @@ describe("<DateTimeEditor />", () => {
         onCancel={() => {}}
       />
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
     const popupButton = await renderedComponent.findByTestId(
       "components-popup-button"
     );

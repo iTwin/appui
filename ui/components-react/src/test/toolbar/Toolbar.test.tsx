@@ -96,7 +96,7 @@ describe("<Toolbar (No Overflow) />", () => {
 
     it("will render 6 items", () => {
       const renderedComponent = render(<Toolbar items={basicToolbarItems} />);
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
       expect(renderedComponent.queryByTitle("Entry6")).not.to.be.null;
     });
 
@@ -108,7 +108,7 @@ describe("<Toolbar (No Overflow) />", () => {
           items={basicToolbarItems}
         />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
       expect(renderedComponent.queryByTitle("Entry6")).not.to.be.null;
     });
 
@@ -183,7 +183,7 @@ describe("<Toolbar (No Overflow) />", () => {
           toolbarOpacitySetting={ToolbarOpacitySetting.Transparent}
         />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
       expect(renderedComponent.queryByTitle("Entry1")).not.to.be.null;
       expect(renderedComponent.queryByTitle("Entry3")).not.to.be.null;
       expect(renderedComponent.queryByTitle("Group6")).not.to.be.null;
@@ -248,7 +248,7 @@ describe("<Toolbar (No Overflow) />", () => {
           toolbarOpacitySetting={ToolbarOpacitySetting.Defaults}
         />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
 
       expect(
         renderedComponent.container.querySelectorAll(
@@ -315,7 +315,7 @@ describe("<Toolbar (No Overflow) />", () => {
           toolbarOpacitySetting={ToolbarOpacitySetting.Transparent}
         />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
 
       expect(
         renderedComponent.container.querySelectorAll(
@@ -395,7 +395,7 @@ describe("<Toolbar (No Overflow) />", () => {
           toolbarOpacitySetting={ToolbarOpacitySetting.Transparent}
         />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
       expect(renderedComponent.queryByTitle("Entry3")).not.to.be.null;
       expect(renderedComponent.queryByTitle("Group6")).not.to.be.null;
     });
@@ -419,7 +419,7 @@ describe("<Toolbar (No Overflow) />", () => {
       const renderedComponent = render(
         <Toolbar items={toolbarItems} onKeyDown={onKeyDownSpy} />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
       const button = renderedComponent.queryByTitle("PopupEntry");
       expect(button).not.to.be.null;
       expect(renderedComponent.queryByTestId("popup-panel")).to.be.null;
@@ -513,7 +513,7 @@ describe("<Toolbar (No Overflow) />", () => {
           items={toolbarItems}
         />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
       expect(renderedComponent.queryByTitle("Entry1")).not.to.be.null;
       expect(renderedComponent.queryByTitle("Entry6")).not.to.be.null;
     });
@@ -526,7 +526,7 @@ describe("<Toolbar (No Overflow) />", () => {
           items={toolbarItems}
         />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
       expect(renderedComponent.queryByTitle("Entry6")).not.to.be.null;
     });
   });

@@ -18,7 +18,7 @@ import { MineDataController, TestUtils } from "../TestUtils";
 describe("<WeightEditor />", () => {
   it("should render", () => {
     const renderedComponent = render(<WeightEditor setFocus={true} />);
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
   });
 
   it("button press should open popup and allow weight selection", async () => {
@@ -51,17 +51,17 @@ describe("<WeightEditor />", () => {
 
     // ====== Example of how to see contents of portal <Popup> component ==========
     // const portalDiv = await waitForElement(() => renderedComponent.getByTestId("core-popup"));
-    // expect(portalDiv).not.to.be.undefined;
+    // expect(portalDiv).toBeTruthy();
     // console.log(portalDiv.outerHTML);
     // =================================
 
     const popupDiv = await waitFor(() =>
       renderedComponent.getByTestId("components-weightpicker-popup-lines")
     );
-    expect(popupDiv).not.to.be.undefined;
+    expect(popupDiv).toBeTruthy();
     if (popupDiv) {
       const firstWeightButton = popupDiv.firstChild as HTMLElement;
-      expect(firstWeightButton).not.to.be.undefined;
+      expect(firstWeightButton).toBeTruthy();
       fireEvent.click(firstWeightButton);
 
       // wait for async processing done in WeightEditor._onLineWeightPick method
@@ -77,7 +77,7 @@ describe("<WeightEditor />", () => {
     const renderedComponent = render(
       <WeightEditor setFocus={true} propertyRecord={propertyRecord} />
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
     expect(renderedComponent.container.querySelector("[disabled]")).to.not.be
       .null;
   });
@@ -113,7 +113,7 @@ describe("<WeightEditor />", () => {
         onCancel={() => {}}
       />
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
     const button = renderedComponent.getByTestId(
       "components-weightpicker-button"
     );

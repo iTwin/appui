@@ -96,8 +96,8 @@ describe("ModalSettingsStage", () => {
     );
     expect(backstageActionItem.groupPriority).to.be.eql(400);
     expect(backstageActionItem.itemPriority).to.be.eql(40);
-    expect(backstageActionItem.icon).not.to.be.undefined;
-    expect(backstageActionItem.label).not.to.be.undefined;
+    expect(backstageActionItem.icon).toBeTruthy();
+    expect(backstageActionItem.label).toBeTruthy();
     expect(
       ConditionalBooleanValue.getValue(backstageActionItem.isHidden)
     ).toEqual(true);

@@ -65,8 +65,9 @@ describe("HighlightingEngine", () => {
         searchText,
         activeMatch: { nodeId: "a", matchIndex: 1 },
       });
-      expect(he.createRenderProps(simulateNode("b")).activeMatchIndex).to.be
-        .undefined;
+      expect(he.createRenderProps(simulateNode("b")).activeMatchIndex).toEqual(
+        undefined
+      );
     });
 
     it("sets activeResultIndex to correct value when node id matches id in activeMatch", () => {

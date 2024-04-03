@@ -100,7 +100,7 @@ describe("Point2dTypeConverter", () => {
     });
 
     it("returns undefined if string is wrong", () => {
-      expect(converter.convertFromString("50, 100, 150")).to.be.undefined;
+      expect(converter.convertFromString("50, 100, 150")).toEqual(undefined);
     });
   });
 
@@ -219,7 +219,7 @@ describe("Point3dTypeConverter", () => {
     });
 
     it("returns undefined if string is wrong", () => {
-      expect(converter.convertFromString("50, 100")).to.be.undefined;
+      expect(converter.convertFromString("50, 100")).toEqual(undefined);
     });
   });
 

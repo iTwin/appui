@@ -145,7 +145,7 @@ describe("NineZoneStateReducer", () => {
         side: "left",
         size: undefined,
       });
-      expect(newState.panels.left.size).to.undefined;
+      expect(newState.panels.left.size).toEqual(undefined);
     });
   });
 
@@ -1884,7 +1884,7 @@ describe("NineZoneStateReducer", () => {
         id: "t1",
       });
       expect(newState.popoutWidgets.allIds).lengthOf(0);
-      expect(newState.savedTabs.byId.t1).to.undefined;
+      expect(newState.savedTabs.byId.t1).toEqual(undefined);
     });
   });
 

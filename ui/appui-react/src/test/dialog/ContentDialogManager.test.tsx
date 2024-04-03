@@ -159,7 +159,7 @@ describe("ContentDialogManager", () => {
 
     UiFramework.content.dialogs.open(reactNode1, dialogId1);
     expect(UiFramework.content.dialogs.count).toEqual(1);
-    expect(UiFramework.content.dialogs.getInfo(dialogId1)).not.to.be.undefined;
+    expect(UiFramework.content.dialogs.getInfo(dialogId1)).toBeTruthy();
 
     expect(await screen.findByRole("button", { name: "MyTestButton" })).to
       .exist;
@@ -239,7 +239,7 @@ describe("ContentDialogManager", () => {
     expect(UiFramework.content.dialogs.active).toBeTruthy();
     InternalContentDialogManager.closeAll();
     expect(UiFramework.content.dialogs.count).toEqual(0);
-    expect(UiFramework.content.dialogs.active).to.be.undefined;
+    expect(UiFramework.content.dialogs.active).toEqual(undefined);
   });
 
   it("internal: closeAll should clear dialog ids", async () => {

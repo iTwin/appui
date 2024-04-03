@@ -123,8 +123,8 @@ describe("MutableTreeModel", () => {
       const node = treeModel.getRootNode();
       expect(node).toBeTruthy();
       expect(node.depth).to.be.eq(-1);
-      expect(node.numChildren).to.be.undefined;
-      expect(node.id).to.be.undefined;
+      expect(node.numChildren).toEqual(undefined);
+      expect(node.id).toEqual(undefined);
     });
   });
 
@@ -184,7 +184,7 @@ describe("MutableTreeModel", () => {
         .verifiable(moq.Times.once());
       const node = treeModel.getNode(rootNode.id, 0);
       treeMock.verifyAll();
-      expect(node).to.be.undefined;
+      expect(node).toEqual(undefined);
     });
   });
 
@@ -398,7 +398,7 @@ describe("MutableTreeModel", () => {
     it("does nothing when target node does not exist and returns `false`", () => {
       const resultStatus = treeModel.changeNodeId("testId", "newId");
       expect(resultStatus).toEqual(false);
-      expect(treeModel.getNode("newId")).to.be.undefined;
+      expect(treeModel.getNode("newId")).toEqual(undefined);
     });
 
     it("does nothing when node with the same id already exists and returns `false`", () => {
@@ -435,7 +435,7 @@ describe("MutableTreeModel", () => {
       const resultStatus = treeModel.changeNodeId("testId", "newId");
 
       expect(resultStatus).toEqual(true);
-      expect(treeModel.getNode("testId")).to.be.undefined;
+      expect(treeModel.getNode("testId")).toEqual(undefined);
       expect(treeModel.getNode("newId")!.item).to.be.deep.equal(nodeInput.item);
       expect(treeModel.getNode("newId")!.id).toEqual("newId");
     });
@@ -452,7 +452,7 @@ describe("MutableTreeModel", () => {
       const resultStatus = treeModel.changeNodeId("child1", "updated_id");
 
       expect(resultStatus).toEqual(true);
-      expect(treeModel.getChildren("child1")).to.be.undefined;
+      expect(treeModel.getChildren("child1")).toEqual(undefined);
       expect([...treeModel.getChildren(undefined)!]).to.be.deep.equal([
         "root1",
       ]);
@@ -559,7 +559,7 @@ describe("MutableTreeModel", () => {
       expect([...treeModel.getChildren("root1")!]).to.be.deep.equal(["child2"]);
 
       expect(treeModel.getNode("child1")!.depth).toEqual(0);
-      expect(treeModel.getNode("child1")!.parentId).to.be.undefined;
+      expect(treeModel.getNode("child1")!.parentId).toEqual(undefined);
     });
 
     it("moves to non-hierarchy root", () => {
@@ -618,16 +618,16 @@ describe("MutableTreeModel", () => {
 
     it("does nothing if node with given id does not exist", () => {
       treeModel.setNumChildren("notExistingNode", 10);
-      expect(treeModel.getNode("notExistingNode")).to.be.undefined;
-      expect(treeModel.getChildren("notExistingNode")).to.be.undefined;
+      expect(treeModel.getNode("notExistingNode")).toEqual(undefined);
+      expect(treeModel.getChildren("notExistingNode")).toEqual(undefined);
     });
 
     describe("when `numChildren` is a number", () => {
       it("removes all children", () => {
         treeModel.setNumChildren("root1", 10);
         expect(treeModel.getChildren("root1")?.getLength()).toEqual(10);
-        expect(treeModel.getNode("child1")).to.be.undefined;
-        expect(treeModel.getNode("child2")).to.be.undefined;
+        expect(treeModel.getNode("child1")).toEqual(undefined);
+        expect(treeModel.getNode("child2")).toEqual(undefined);
       });
 
       it("changes child count of root node", () => {
@@ -649,17 +649,17 @@ describe("MutableTreeModel", () => {
       it("sets child count and removes all root nodes", () => {
         treeModel.setNumChildren(undefined, undefined);
         expect(treeModel.getChildren(undefined)?.getLength()).toEqual(0);
-        expect(treeModel.getRootNode().numChildren).to.be.undefined;
-        expect(treeModel.getNode("root1")).to.be.undefined;
-        expect(treeModel.getNode("root2")).to.be.undefined;
+        expect(treeModel.getRootNode().numChildren).toEqual(undefined);
+        expect(treeModel.getNode("root1")).toEqual(undefined);
+        expect(treeModel.getNode("root2")).toEqual(undefined);
       });
 
       it("sets child count and removes all child nodes", () => {
         treeModel.setNumChildren("root1", undefined);
         expect(treeModel.getChildren("root1")?.getLength()).toEqual(0);
-        expect(treeModel.getNode("root1")!.numChildren).to.be.undefined;
-        expect(treeModel.getNode("child1")).to.be.undefined;
-        expect(treeModel.getNode("child2")).to.be.undefined;
+        expect(treeModel.getNode("root1")!.numChildren).toEqual(undefined);
+        expect(treeModel.getNode("child1")).toEqual(undefined);
+        expect(treeModel.getNode("child2")).toEqual(undefined);
       });
     });
   });

@@ -381,7 +381,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
       />
     );
 
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
 
     // hit the setting button
     const settingMenuSpan = renderedComponent.getByTestId("timeline-settings");
@@ -431,7 +431,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
       />
     );
 
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
 
     const settingMenuSpan = renderedComponent.getByTestId("timeline-settings");
     fireEvent.click(settingMenuSpan);
@@ -469,7 +469,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
       />
     );
 
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
 
     // trigger call to componentDidUpdate
     renderedComponent.rerender(
@@ -575,7 +575,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
       />
     );
 
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
     expect(dataProvider.getSettings().loop).toEqual(false);
 
     // trigger call to componentDidUpdate
@@ -599,7 +599,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
   it("test repeat button does not loop endlessly with external state variable", () => {
     const renderedComponent = render(<TestRepeatTimelineComponent />);
 
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
 
     const settingMenuSpan = renderedComponent.getByTestId("timeline-settings");
     fireEvent.click(settingMenuSpan);
@@ -626,7 +626,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
       />
     );
 
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
 
     const newDuration = dataProvider.getSettings().duration! * 2;
 
@@ -665,7 +665,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
       />
     );
 
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
     const newStartDate = new Date(2019, 4, 1);
     const newEndDate = new Date(2020, 5, 7);
 
@@ -719,7 +719,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
         />
       </div>
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
 
     const settingMenuSpan = renderedComponent.getByTestId("timeline-settings");
     fireEvent.click(settingMenuSpan);
@@ -755,7 +755,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
         />
       </div>
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
 
     const settingMenuSpan = renderedComponent.getByTestId("timeline-settings");
     fireEvent.click(settingMenuSpan);
@@ -794,7 +794,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
         />
       </div>
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
 
     const settingMenuSpan = renderedComponent.getByTestId("timeline-settings");
     fireEvent.click(settingMenuSpan);
@@ -823,7 +823,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
         />
       </div>
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
 
     const settingMenuSpan = renderedComponent.getByTestId("timeline-settings");
     fireEvent.click(settingMenuSpan);
@@ -865,7 +865,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
         componentId={"sampleApp-timeZoneOffset"}
       />
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
 
     const startDateLabel = renderedComponent.getByTestId("test-start-date");
     expect(startDateLabel).not.to.be.null;
@@ -896,7 +896,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
         markDate={marker}
       />
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
     const dateMarker = renderedComponent.getByTestId("test-date-marker");
     expect(dateMarker).not.to.be.null;
   });
@@ -922,7 +922,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
         markDate={marker}
       />
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
     const dateMarker = renderedComponent.getByTestId("test-custom-date-marker");
     expect(dateMarker).not.to.be.null;
   });

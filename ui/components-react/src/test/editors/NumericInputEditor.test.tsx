@@ -246,7 +246,7 @@ describe("<NumericInputEditor />", () => {
         onCancel={spyOnCancel}
       />
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
 
     const inputNode = renderedComponent.container.querySelector("input");
     expect(inputNode).not.to.be.null;

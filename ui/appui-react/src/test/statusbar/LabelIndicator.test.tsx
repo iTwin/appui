@@ -15,7 +15,7 @@ describe("LabelIndicator", () => {
         labelSide={StatusBarLabelSide.Left}
       />
     );
-    expect(wrapper).not.to.be.undefined;
+    expect(wrapper).toBeTruthy();
     expect(wrapper.container.querySelector(".uifw-reversed")).to.be.null;
     expect(wrapper.container.querySelector(".icon.test-icon")).not.to.be.null;
     expect(wrapper.container.querySelector("span")).not.to.be.null;
@@ -29,7 +29,7 @@ describe("LabelIndicator", () => {
         labelSide={StatusBarLabelSide.Right}
       />
     );
-    expect(wrapper).not.to.be.undefined;
+    expect(wrapper).toBeTruthy();
     expect(wrapper.container.querySelector(".uifw-reversed")).not.to.be.null;
     expect(wrapper.container.querySelector(".icon.test-icon")).not.to.be.null;
     expect(wrapper.container.querySelector("span")).not.to.be.null;
@@ -42,7 +42,7 @@ describe("LabelIndicator", () => {
         labelSide={StatusBarLabelSide.Right}
       />
     );
-    expect(wrapper).not.to.be.undefined;
+    expect(wrapper).toBeTruthy();
     expect(wrapper.container.querySelector(".uifw-reversed")).not.to.be.null;
     expect(wrapper.container.querySelector(".icon.test-icon")).not.to.be.null;
     expect(wrapper.container.querySelector("span")).to.be.null;
