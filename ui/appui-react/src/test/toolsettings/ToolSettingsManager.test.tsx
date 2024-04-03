@@ -109,8 +109,9 @@ describe("InternalToolSettingsManager", () => {
       }
     );
 
-    expect(InternalToolSettingsManager.useDefaultToolSettingsProvider).to.be
-      .true;
+    expect(InternalToolSettingsManager.useDefaultToolSettingsProvider).toEqual(
+      true
+    );
     expect(InternalToolSettingsManager.toolSettingsProperties.length).to.equal(
       toolSettingsProperties.length
     );

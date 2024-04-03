@@ -1815,7 +1815,7 @@ describe("NineZoneStateReducer", () => {
       });
 
       assert(newState.toolSettings?.type === "docked");
-      expect(newState.toolSettings.hidden).to.true;
+      expect(newState.toolSettings.hidden.toEqual(true);
     });
 
     it("should hide widget tool settings tab", () => {
@@ -2003,7 +2003,7 @@ describe("NineZoneStateReducer", () => {
         type: "WIDGET_TAB_CLOSE",
         id: "t1",
       });
-      expect(newState.widgets.w1.minimized).to.true;
+      expect(newState.widgets.w1.minimized.toEqual(true);
     });
   });
 
@@ -2085,7 +2085,7 @@ describe("NineZoneStateReducer", () => {
         id: "t1",
       });
       expect(newState.panels.left.widgets).lengthOf(0);
-      expect(newState.tabs.t1.unloaded).to.true;
+      expect(newState.tabs.t1.unloaded.toEqual(true);
     });
   });
 
@@ -2586,7 +2586,7 @@ describe("NineZoneStateReducer", () => {
       });
       expect(newState.floatingWidgets.allIds).to.eql(["w1"]);
       expect(newState.widgets.w1.tabs).to.eql(["t1"]);
-      expect(newState.floatingWidgets.byId.w1.userSized).to.true;
+      expect(newState.floatingWidgets.byId.w1.userSized.toEqual(true);
     });
   });
 

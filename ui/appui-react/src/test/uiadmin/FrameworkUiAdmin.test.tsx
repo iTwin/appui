@@ -242,8 +242,9 @@ describe("FrameworkUiAdmin", () => {
         wrapper.container
       )
     ).toEqual(true);
-    expect(uiAdmin.showContextMenu(menuItemProps, { x: 150, y: 250 })).to.be
-      .true;
+    expect(uiAdmin.showContextMenu(menuItemProps, { x: 150, y: 250 })).toEqual(
+      true
+    );
   });
 
   it("showToolbar should return true", () => {
@@ -330,8 +331,9 @@ describe("FrameworkUiAdmin", () => {
         wrapper.container
       )
     ).toEqual(true);
-    expect(uiAdmin.showMenuButton("test", menuItemProps, { x: 150, y: 250 })).to
-      .be.true;
+    expect(
+      uiAdmin.showMenuButton("test", menuItemProps, { x: 150, y: 250 })
+    ).toEqual(true);
     expect(uiAdmin.hideMenuButton("test")).toEqual(true);
   });
 
@@ -727,8 +729,9 @@ describe("FrameworkUiAdmin", () => {
     const wrapper = render(<div id="uifw-configurableui-wrapper" />);
     document = wrapper.container.ownerDocument;
     const uiDataProvider = new TestDialogUiDataProvider();
-    expect(uiAdmin.openDialog(uiDataProvider, "title", true, "modal-id")).to.be
-      .true;
+    expect(
+      uiAdmin.openDialog(uiDataProvider, "title", true, "modal-id")
+    ).toEqual(true);
     expect(uiAdmin.closeDialog("modal-id")).toEqual(true);
   });
 
@@ -736,8 +739,9 @@ describe("FrameworkUiAdmin", () => {
     const wrapper = render(<div id="uifw-configurableui-wrapper" />);
     document = wrapper.container.ownerDocument;
     const uiDataProvider = new TestDialogUiDataProvider();
-    expect(uiAdmin.openDialog(uiDataProvider, "title", false, "modeless-id")).to
-      .be.true;
+    expect(
+      uiAdmin.openDialog(uiDataProvider, "title", false, "modeless-id")
+    ).toEqual(true);
     expect(uiAdmin.closeDialog("modeless-id")).toEqual(true);
   });
 });

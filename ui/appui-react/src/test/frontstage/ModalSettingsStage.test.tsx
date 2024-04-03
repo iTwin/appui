@@ -98,8 +98,9 @@ describe("ModalSettingsStage", () => {
     expect(backstageActionItem.itemPriority).to.be.eql(40);
     expect(backstageActionItem.icon).not.to.be.undefined;
     expect(backstageActionItem.label).not.to.be.undefined;
-    expect(ConditionalBooleanValue.getValue(backstageActionItem.isHidden)).to.be
-      .true;
+    expect(
+      ConditionalBooleanValue.getValue(backstageActionItem.isHidden)
+    ).toEqual(true);
   });
 
   class TestSettingsProvider implements SettingsTabsProvider {

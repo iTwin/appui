@@ -73,15 +73,17 @@ describe("FrontstageManager", () => {
   it("setActiveFrontstage should set active frontstage", async () => {
     const frontstageProvider = new TestFrontstage();
     InternalFrontstageManager.addFrontstageProvider(frontstageProvider);
-    expect(InternalFrontstageManager.hasFrontstage(frontstageProvider.id)).to.be
-      .true;
+    expect(
+      InternalFrontstageManager.hasFrontstage(frontstageProvider.id)
+    ).toEqual(true);
     const frontstageDef = await InternalFrontstageManager.getFrontstageDef(
       frontstageProvider.id
     );
 
     expect(frontstageDef).toBeTruthy();
-    expect(InternalFrontstageManager.hasFrontstage(frontstageDef!.id)).to.be
-      .true;
+    expect(InternalFrontstageManager.hasFrontstage(frontstageDef!.id)).toEqual(
+      true
+    );
     await InternalFrontstageManager.setActiveFrontstage(frontstageDef!.id);
     expect(InternalFrontstageManager.activeFrontstageId).toEqual(
       frontstageDef!.id
@@ -240,8 +242,9 @@ describe("FrontstageManager", () => {
     vi.spyOn(UiFramework.frontstages, "findWidget").mockReturnValue(
       stubbedWidget as any
     );
-    expect(InternalFrontstageManager.setWidgetState("xyz", WidgetState.Closed))
-      .to.be.true;
+    expect(
+      InternalFrontstageManager.setWidgetState("xyz", WidgetState.Closed)
+    ).toEqual(true);
     expect(stubbedWidget.setWidgetState).toHaveBeenCalledWith(
       WidgetState.Closed
     );

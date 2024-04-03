@@ -39,18 +39,22 @@ describe("SyncUiEventDispatcher", () => {
         "rabbit",
       ])
     ).toEqual(true);
-    expect(SyncUiEventDispatcher.hasEventOfInterest(eventIds, ["dog", "cat"]))
-      .to.be.true;
-    expect(SyncUiEventDispatcher.hasEventOfInterest(eventIds, ["dog"])).to.be
-      .true;
+    expect(
+      SyncUiEventDispatcher.hasEventOfInterest(eventIds, ["dog", "cat"])
+    ).toEqual(true);
+    expect(SyncUiEventDispatcher.hasEventOfInterest(eventIds, ["dog"])).toEqual(
+      true
+    );
     expect(
       SyncUiEventDispatcher.hasEventOfInterest(eventIds, ["cat", "rabbit"])
     ).toEqual(true);
-    expect(SyncUiEventDispatcher.hasEventOfInterest(eventIds, ["rabbit"])).to.be
-      .true;
+    expect(
+      SyncUiEventDispatcher.hasEventOfInterest(eventIds, ["rabbit"])
+    ).toEqual(true);
     // idsOfInterest are now case insensitive - the set of eventIds held by the dispacther are in lower case.
-    expect(SyncUiEventDispatcher.hasEventOfInterest(eventIds, ["Rabbit"])).to.be
-      .true;
+    expect(
+      SyncUiEventDispatcher.hasEventOfInterest(eventIds, ["Rabbit"])
+    ).toEqual(true);
     expect(
       SyncUiEventDispatcher.hasEventOfInterest(eventIds, [
         "DOG",

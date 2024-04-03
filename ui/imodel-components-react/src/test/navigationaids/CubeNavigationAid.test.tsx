@@ -126,7 +126,9 @@ describe("CubeNavigationAid", () => {
         const pointerButton = component.getByTestId("cube-pointer-button-down");
 
         const mat = cssMatrix3dToBentleyTransform(topFace.style.transform)!;
-        expect(mat.matrix.isAlmostEqual(Matrix3d.createIdentity())).is.true;
+        expect(mat.matrix.isAlmostEqual(Matrix3d.createIdentity())).toEqual(
+          true
+        );
 
         pointerButton.dispatchEvent(
           new MouseEvent("click", {
@@ -142,7 +144,7 @@ describe("CubeNavigationAid", () => {
           : Matrix3d.createRowValues(1, 0, 0, 0, 0, -1, 0, 1, 0);
 
         const mat2 = cssMatrix3dToBentleyTransform(topFace.style.transform)!;
-        expect(mat2.matrix.isAlmostEqual(expectedMatrix)).is.true;
+        expect(mat2.matrix.isAlmostEqual(expectedMatrix)).toEqual(true);
       });
       it(`${shouldStr} change from top to back when arrow clicked`, async () => {
         vi.spyOn(IModelApp, "toolAdmin", "get").mockImplementation(
@@ -162,7 +164,9 @@ describe("CubeNavigationAid", () => {
         const pointerButton = component.getByTestId("cube-pointer-button-up");
 
         const mat = cssMatrix3dToBentleyTransform(topFace.style.transform)!;
-        expect(mat.matrix.isAlmostEqual(Matrix3d.createIdentity())).is.true;
+        expect(mat.matrix.isAlmostEqual(Matrix3d.createIdentity())).toEqual(
+          true
+        );
 
         pointerButton.dispatchEvent(
           new MouseEvent("click", {
@@ -182,7 +186,7 @@ describe("CubeNavigationAid", () => {
           mat2.matrix.coffs[6] === expectedMatrix.coffs[6] &&
             mat2.matrix.coffs[7] === expectedMatrix.coffs[7] &&
             mat2.matrix.coffs[8] === expectedMatrix.coffs[8]
-        ).is.true;
+        ).toEqual(true);
       });
       it(`${shouldStr} change from top to left when arrow clicked`, async () => {
         vi.spyOn(IModelApp, "toolAdmin", "get").mockImplementation(
@@ -203,7 +207,9 @@ describe("CubeNavigationAid", () => {
         const pointerButton = component.getByTestId("cube-pointer-button-left");
 
         const mat = cssMatrix3dToBentleyTransform(topFace.style.transform)!;
-        expect(mat.matrix.isAlmostEqual(Matrix3d.createIdentity())).is.true;
+        expect(mat.matrix.isAlmostEqual(Matrix3d.createIdentity())).toEqual(
+          true
+        );
 
         pointerButton.dispatchEvent(
           new MouseEvent("click", {
@@ -223,7 +229,7 @@ describe("CubeNavigationAid", () => {
           mat2.matrix.coffs[6] === expectedMatrix.coffs[6] &&
             mat2.matrix.coffs[7] === expectedMatrix.coffs[7] &&
             mat2.matrix.coffs[8] === expectedMatrix.coffs[8]
-        ).is.true;
+        ).toEqual(true);
       });
       it(`${shouldStr} change from top to right when arrow clicked`, async () => {
         vi.spyOn(IModelApp, "toolAdmin", "get").mockImplementation(
@@ -246,7 +252,9 @@ describe("CubeNavigationAid", () => {
         );
 
         const mat = cssMatrix3dToBentleyTransform(topFace.style.transform)!;
-        expect(mat.matrix.isAlmostEqual(Matrix3d.createIdentity())).is.true;
+        expect(mat.matrix.isAlmostEqual(Matrix3d.createIdentity())).toEqual(
+          true
+        );
 
         pointerButton.dispatchEvent(
           new MouseEvent("click", {
@@ -266,7 +274,7 @@ describe("CubeNavigationAid", () => {
           mat2.matrix.coffs[6] === expectedMatrix.coffs[6] &&
             mat2.matrix.coffs[7] === expectedMatrix.coffs[7] &&
             mat2.matrix.coffs[8] === expectedMatrix.coffs[8]
-        ).is.true;
+        ).toEqual(true);
       });
       it(`${shouldStr} highlight hovered cell`, async () => {
         vi.spyOn(IModelApp, "toolAdmin", "get").mockImplementation(
@@ -319,7 +327,9 @@ describe("CubeNavigationAid", () => {
         expect(topCenterCell.classList.contains("cube-active")).to.be.false;
 
         const mat = cssMatrix3dToBentleyTransform(topFace.style.transform)!;
-        expect(mat.matrix.isAlmostEqual(Matrix3d.createIdentity())).is.true;
+        expect(mat.matrix.isAlmostEqual(Matrix3d.createIdentity())).toEqual(
+          true
+        );
 
         topCenterCell.dispatchEvent(
           new MouseEvent("mousedown", {
@@ -345,7 +355,7 @@ describe("CubeNavigationAid", () => {
           : Matrix3d.createIdentity();
 
         const mat2 = cssMatrix3dToBentleyTransform(topFace.style.transform)!;
-        expect(mat2.matrix.isAlmostEqual(expectedMatrix)).is.true;
+        expect(mat2.matrix.isAlmostEqual(expectedMatrix)).toEqual(true);
       });
       it(`${shouldStr} click corner cell`, async () => {
         vi.spyOn(IModelApp, "toolAdmin", "get").mockImplementation(
@@ -369,7 +379,9 @@ describe("CubeNavigationAid", () => {
         expect(topCornerCell.classList.contains("cube-active")).to.be.false;
 
         const mat = cssMatrix3dToBentleyTransform(topFace.style.transform)!;
-        expect(mat.matrix.isAlmostEqual(Matrix3d.createIdentity())).is.true;
+        expect(mat.matrix.isAlmostEqual(Matrix3d.createIdentity())).toEqual(
+          true
+        );
         topCornerCell.dispatchEvent(
           new MouseEvent("mousedown", {
             bubbles: true,
@@ -403,7 +415,7 @@ describe("CubeNavigationAid", () => {
             );
         await waitFor(() => {
           const mat2 = cssMatrix3dToBentleyTransform(topFace.style.transform)!;
-          expect(mat2.matrix.isAlmostEqual(expectedMatrix)).is.true;
+          expect(mat2.matrix.isAlmostEqual(expectedMatrix)).toEqual(true);
         });
       });
       it(`${shouldStr} switch from corner to top face`, async () => {
@@ -429,7 +441,9 @@ describe("CubeNavigationAid", () => {
         );
 
         const mat = cssMatrix3dToBentleyTransform(topFace.style.transform)!;
-        expect(mat.matrix.isAlmostEqual(Matrix3d.createIdentity())).is.true;
+        expect(mat.matrix.isAlmostEqual(Matrix3d.createIdentity())).toEqual(
+          true
+        );
         topCornerCell.dispatchEvent(
           new MouseEvent("mousedown", {
             bubbles: true,
@@ -458,7 +472,7 @@ describe("CubeNavigationAid", () => {
               0.5773502691896256
             );
         const mat2 = cssMatrix3dToBentleyTransform(topFace.style.transform)!;
-        expect(mat2.matrix.isAlmostEqual(expectedMatrixTemp)).is.true;
+        expect(mat2.matrix.isAlmostEqual(expectedMatrixTemp)).toEqual(true);
         animationEnd.mockReset();
         topCenterCell.dispatchEvent(
           new MouseEvent("mousedown", {
@@ -487,7 +501,7 @@ describe("CubeNavigationAid", () => {
               1
             );
         const mat3 = cssMatrix3dToBentleyTransform(topFace.style.transform)!;
-        expect(mat3.matrix.isAlmostEqual(expectedMatrix)).is.true;
+        expect(mat3.matrix.isAlmostEqual(expectedMatrix)).toEqual(true);
       });
       it(`${shouldStr} switch from corner to bottom face`, async () => {
         vi.spyOn(IModelApp, "toolAdmin", "get").mockImplementation(
@@ -512,7 +526,9 @@ describe("CubeNavigationAid", () => {
         );
 
         const mat = cssMatrix3dToBentleyTransform(topFace.style.transform)!;
-        expect(mat.matrix.isAlmostEqual(Matrix3d.createIdentity())).is.true;
+        expect(mat.matrix.isAlmostEqual(Matrix3d.createIdentity())).toEqual(
+          true
+        );
         bottomCornerCell.dispatchEvent(
           new MouseEvent("mousedown", {
             bubbles: true,
@@ -541,7 +557,7 @@ describe("CubeNavigationAid", () => {
               -0.5773502691896256
             );
         const mat2 = cssMatrix3dToBentleyTransform(topFace.style.transform)!;
-        expect(mat2.matrix.isAlmostEqual(expectedMatrixTemp)).is.true;
+        expect(mat2.matrix.isAlmostEqual(expectedMatrixTemp)).toEqual(true);
 
         animationEnd.mockReset();
         bottomCornerCenter.dispatchEvent(
@@ -562,7 +578,7 @@ describe("CubeNavigationAid", () => {
           ? mat.matrix
           : Matrix3d.createRowValues(1, 0, 0, 0, -1, 0, 0, 0, -1);
         const mat3 = cssMatrix3dToBentleyTransform(topFace.style.transform)!;
-        expect(mat3.matrix.isAlmostEqual(expectedMatrix)).is.true;
+        expect(mat3.matrix.isAlmostEqual(expectedMatrix)).toEqual(true);
       });
       it(`${shouldStr} drag cube`, async () => {
         vi.spyOn(IModelApp, "toolAdmin", "get").mockImplementation(
@@ -583,7 +599,9 @@ describe("CubeNavigationAid", () => {
         expect(topCenterCell.classList.contains("cube-active")).to.be.false;
 
         const mat = cssMatrix3dToBentleyTransform(topFace.style.transform)!;
-        expect(mat.matrix.isAlmostEqual(Matrix3d.createIdentity())).is.true;
+        expect(mat.matrix.isAlmostEqual(Matrix3d.createIdentity())).toEqual(
+          true
+        );
         await theUserTo.pointer([
           {
             keys: "[MouseLeft>]",
@@ -610,7 +628,7 @@ describe("CubeNavigationAid", () => {
                 1
               );
           const mat2 = cssMatrix3dToBentleyTransform(topFace.style.transform)!;
-          expect(mat2.matrix.isAlmostEqual(expectedMatrix)).is.true;
+          expect(mat2.matrix.isAlmostEqual(expectedMatrix)).toEqual(true);
         });
       });
     });
@@ -628,12 +646,16 @@ describe("CubeNavigationAid", () => {
         );
         const topFace = component.getByTestId("components-cube-face-top");
         const mat = cssMatrix3dToBentleyTransform(topFace.style.transform)!;
-        expect(mat.matrix.isAlmostEqual(Matrix3d.createIdentity())).is.true;
+        expect(mat.matrix.isAlmostEqual(Matrix3d.createIdentity())).toEqual(
+          true
+        );
         ViewportComponentEvents.onViewRotationChangeEvent.emit({
           viewport: vp.object,
         });
         const mat2 = cssMatrix3dToBentleyTransform(topFace.style.transform)!;
-        expect(mat2.matrix.isAlmostEqual(Matrix3d.createIdentity())).is.true;
+        expect(mat2.matrix.isAlmostEqual(Matrix3d.createIdentity())).toEqual(
+          true
+        );
       });
       it("should update onViewRotationChangeEvent with new rotation", async () => {
         const component = render(
@@ -644,7 +666,9 @@ describe("CubeNavigationAid", () => {
         );
         const topFace = component.getByTestId("components-cube-face-top");
         const mat = cssMatrix3dToBentleyTransform(topFace.style.transform)!;
-        expect(mat.matrix.isAlmostEqual(Matrix3d.createIdentity())).is.true;
+        expect(mat.matrix.isAlmostEqual(Matrix3d.createIdentity())).toEqual(
+          true
+        );
         rotation = Matrix3d.create90DegreeRotationAroundAxis(AxisIndex.Z);
         ViewportComponentEvents.onViewRotationChangeEvent.emit({
           viewport: vp.object,
@@ -655,7 +679,7 @@ describe("CubeNavigationAid", () => {
             mat2.matrix.isAlmostEqual(
               Matrix3d.createRowValues(0, 1, 0, -1, 0, 0, 0, 0, 1)
             )
-          ).is.true;
+          ).toEqual(true);
         });
       });
     });

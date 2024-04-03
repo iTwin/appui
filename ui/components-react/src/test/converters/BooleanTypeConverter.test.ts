@@ -62,8 +62,9 @@ describe("BooleanTypeConverter", () => {
         "Components:general.true"
       );
       expect(converter.convertFromString(trueString)).toEqual(true);
-      expect(converter.convertFromString(trueString.toLocaleUpperCase())).to.be
-        .true;
+      expect(
+        converter.convertFromString(trueString.toLocaleUpperCase())
+      ).toEqual(true);
     });
 
     it("returns false if parameter is not localized true value", () => {

@@ -80,8 +80,9 @@ describe("PropertyEditorManager", () => {
       MinePropertyEditor,
       "myEditor"
     );
-    expect(PropertyEditorManager.hasCustomEditor("mine3", "myEditor")).to.be
-      .true;
+    expect(PropertyEditorManager.hasCustomEditor("mine3", "myEditor")).toEqual(
+      true
+    );
     const propertyEditor = PropertyEditorManager.createEditor(
       "mine3",
       "myEditor"

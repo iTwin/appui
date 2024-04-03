@@ -265,8 +265,9 @@ describe("DefaultToolUiSettingsProvider", () => {
         }
       );
 
-      expect(UiFramework.toolSettings.useDefaultToolSettingsProvider).to.be
-        .true;
+      expect(UiFramework.toolSettings.useDefaultToolSettingsProvider).toEqual(
+        true
+      );
       expect(UiFramework.toolSettings.toolSettingsProperties.length).to.equal(
         toolSettingsProperties.length
       );
@@ -403,8 +404,9 @@ describe("DefaultToolUiSettingsProvider", () => {
         }
       );
 
-      expect(UiFramework.toolSettings.useDefaultToolSettingsProvider).to.be
-        .true;
+      expect(UiFramework.toolSettings.useDefaultToolSettingsProvider).toEqual(
+        true
+      );
       expect(UiFramework.toolSettings.toolSettingsProperties.length).to.equal(
         toolSettingsProperties.length
       );

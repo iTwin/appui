@@ -103,8 +103,9 @@ describe("CommonPropertyRenderer", () => {
       const { container } = render(<div>{displayValue}</div>);
       const element = container.querySelector("mark");
       expect(element?.textContent).to.equal("test");
-      expect(element?.classList.contains("components-activehighlight")).to.be
-        .true;
+      expect(element?.classList.contains("components-activehighlight")).toEqual(
+        true
+      );
     });
 
     it("should not create a value which is actively highlighted if highlighProps are provided, highlightedText matches part of propertyRecord but property name does not match highlight activeMatch propertyName", () => {
@@ -201,8 +202,9 @@ describe("CommonPropertyRenderer", () => {
       const { container } = render(<div>{displayValue}</div>);
       const element = container.querySelector("mark");
       expect(element?.textContent).to.equal("test");
-      expect(element?.classList.contains("components-activehighlight")).to.be
-        .true;
+      expect(element?.classList.contains("components-activehighlight")).toEqual(
+        true
+      );
     });
 
     it("should not create a value which is highlighted if applyOnValue is false", () => {

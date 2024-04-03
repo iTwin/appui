@@ -760,7 +760,7 @@ describe("DrawingNavigationAid", () => {
       expect(
         expectedMatrix &&
           drawingWindowMatrix.matrix.isAlmostEqual(expectedMatrix.matrix)
-      ).is.true;
+      ).toEqual(true);
     });
     it("should update pan-move", async () => {
       const closedSize = Vector3d.create(96, 96);

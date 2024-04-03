@@ -76,31 +76,38 @@ describe("StringTypeConverter", () => {
   });
 
   it("contains", () => {
-    expect(converter.contains("The contains Test", "contains", true)).to.be
-      .true;
-    expect(converter.contains("The contains Test", "Contains", false)).to.be
-      .true;
+    expect(converter.contains("The contains Test", "contains", true)).toEqual(
+      true
+    );
+    expect(converter.contains("The contains Test", "Contains", false)).toEqual(
+      true
+    );
     expect(converter.contains("The contains Test", "", false)).to.be.false;
     expect(converter.contains("Test", "The contains Test", false)).to.be.false;
   });
 
   it("doesNotContain", () => {
-    expect(converter.doesNotContain("The contains Test", "Some Text", true)).to
-      .be.true;
-    expect(converter.doesNotContain("The contains Test", "some text", false)).to
-      .be.true;
+    expect(
+      converter.doesNotContain("The contains Test", "Some Text", true)
+    ).toEqual(true);
+    expect(
+      converter.doesNotContain("The contains Test", "some text", false)
+    ).toEqual(true);
   });
 
   it("isContainedIn", () => {
-    expect(converter.isContainedIn("contains", "The contains Test", true)).to.be
-      .true;
-    expect(converter.isContainedIn("Contains", "The contains Test", false)).to
-      .be.true;
+    expect(
+      converter.isContainedIn("contains", "The contains Test", true)
+    ).toEqual(true);
+    expect(
+      converter.isContainedIn("Contains", "The contains Test", false)
+    ).toEqual(true);
   });
 
   it("isNotContainedIn", () => {
-    expect(converter.isNotContainedIn("Contain", "The contains Test", true)).to
-      .be.true;
+    expect(
+      converter.isNotContainedIn("Contain", "The contains Test", true)
+    ).toEqual(true);
     expect(converter.isNotContainedIn("Contain", "The contains Test", false)).to
       .be.false;
   });

@@ -29,7 +29,8 @@ describe("<HighlightedText />", () => {
     );
     const matchedNodes = container.querySelectorAll("mark");
     expect(matchedNodes.length).toEqual(2);
-    expect(matchedNodes[1].classList.contains("components-activehighlight")).to
-      .be.true;
+    expect(
+      matchedNodes[1].classList.contains("components-activehighlight")
+    ).toEqual(true);
   });
 });

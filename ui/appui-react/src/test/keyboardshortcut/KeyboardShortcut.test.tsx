@@ -127,8 +127,9 @@ describe("KeyboardShortcut", () => {
       expect(shortcut).toBeTruthy();
       if (shortcut) {
         expect(shortcut.id).toEqual("d");
-        expect(shortcut.shortcutContainer.areKeyboardShortcutsAvailable()).to.be
-          .true;
+        expect(
+          shortcut.shortcutContainer.areKeyboardShortcutsAvailable()
+        ).toEqual(true);
         expect(shortcut.getShortcut("1")).toBeTruthy();
 
         const menuspy = vi.fn();
@@ -337,12 +338,14 @@ describe("KeyboardShortcut", () => {
       expect(ConditionalBooleanValue.getValue(shortcut!.isDisabled)).toEqual(
         true
       );
-      expect(ConditionalBooleanValue.getValue(childShortcut!.isDisabled)).to.be
-        .true;
+      expect(
+        ConditionalBooleanValue.getValue(childShortcut!.isDisabled)
+      ).toEqual(true);
       expect(ConditionalBooleanValue.getValue(childShortcutZ!.isDisabled)).to.be
         .false;
-      expect(ConditionalBooleanValue.getValue(childShortcutZ!.isHidden)).to.be
-        .true;
+      expect(
+        ConditionalBooleanValue.getValue(childShortcutZ!.isHidden)
+      ).toEqual(true);
     });
 
     it("Should maintain cursor X & Y", () => {

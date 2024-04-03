@@ -165,8 +165,9 @@ describe("QuantityInput", () => {
     fireEvent.change(input, { target: { value: "abc" } });
     input.blur();
     await waitFor(() => {
-      expect(input.classList.contains("components-parsed-input-has-error")).to
-        .be.true;
+      expect(
+        input.classList.contains("components-parsed-input-has-error")
+      ).toEqual(true);
     });
     fireEvent.keyDown(input, { key: Key.Escape });
     expect(spyOnChange).not.toBeCalled(); // value did not change after ESC was pressed

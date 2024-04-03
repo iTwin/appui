@@ -37,7 +37,7 @@ describe("ChildWindowManager", () => {
       "activeFrontstageDef",
       "get"
     ).mockImplementation(() => def);
-    expect(manager.close("child", false)).to.true;
+    expect(manager.close("child", false).toEqual(true);
   });
 
   it("will find id and close", () => {

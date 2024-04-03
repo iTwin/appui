@@ -79,7 +79,7 @@ describe("addFloatingWidget", () => {
     let state = createNineZoneState();
     state = addTab(state, "t1", { isFloatingWidgetResizable: true });
     state = addFloatingWidget(state, "fw1", ["t1"]);
-    expect(state.floatingWidgets.byId.fw1.resizable).to.true;
+    expect(state.floatingWidgets.byId.fw1.resizable.toEqual(true);
   });
 });
 
