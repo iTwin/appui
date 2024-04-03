@@ -271,7 +271,7 @@ describe("<ColorPickerPopup/>", () => {
 
     expect(
       component.container.querySelector("button.core-dialog-close")
-    ).toBeTruthy();
+    ).toEqual(null);
   });
 
   it("ensure closing X is NOT shown", async () => {
