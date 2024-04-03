@@ -12,11 +12,11 @@ import { Key } from "ts-key-enum";
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
 import type { CommonProps } from "../utils/Props";
 import type { ContextMenu } from "./ContextMenu";
-import type { BadgeType } from "../badge/BadgeUtilities";
-import { BadgeUtilities } from "../badge/BadgeUtilities";
+import type { BadgeType } from "../badge/BadgeType";
 import { TildeFinder } from "./TildeFinder";
 import type { IconSpec } from "../icons/IconComponent";
 import { Icon } from "../icons/IconComponent";
+import { Badge } from "../badge/Badge";
 
 /** Properties for the [[ContextMenuItem]] component
  * @public
@@ -93,7 +93,6 @@ export class ContextMenuItem extends React.PureComponent<
       hideIconContainer,
       ...props
     } = this.props;
-    const badge = BadgeUtilities.getComponentForBadgeType(badgeType);
     const isDisabled = ConditionalBooleanValue.getValue(disabled);
     const isHidden = ConditionalBooleanValue.getValue(hidden);
 
@@ -146,7 +145,11 @@ export class ContextMenuItem extends React.PureComponent<
             <Icon iconSpec={iconRight} />
           </div>
         )}
-        {badge && <div className="core-context-menu-badge">{badge}</div>}
+        {badgeType && (
+          <div className="core-context-menu-badge">
+            <Badge type={badgeType} />
+          </div>
+        )}
       </div>
     );
   }

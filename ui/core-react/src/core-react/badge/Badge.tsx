@@ -6,31 +6,23 @@
  * @module Utilities
  */
 
-import "./Badge.scss";
-import classnames from "classnames";
 import * as React from "react";
-import type { CommonProps } from "../utils/Props";
-import { Icon } from "../icons/IconComponent";
+import { BadgeType } from "./BadgeType";
+import { TechnicalPreviewBadge } from "./TechnicalPreviewBadge";
+import { NewBadge } from "./NewBadge";
 
-/** Properties for the [[Badge]] React component
+/** Properties for the [[Badge]] component.
  * @internal
  */
-export interface BadgeProps extends CommonProps {
-  svg: any;
+export interface BadgeProps {
+  type?: BadgeType;
 }
 
-/** Beta Badge React component
+/** Badge component that renders based on a badge type.
  * @internal
  */
-export class Badge extends React.PureComponent<BadgeProps> {
-  public override render(): React.ReactElement {
-    return (
-      <div
-        className={classnames("core-badge", this.props.className)}
-        style={this.props.style}
-      >
-        <Icon iconSpec={this.props.svg} />
-      </div>
-    );
-  }
+export function Badge({ type }: BadgeProps) {
+  if (type === BadgeType.TechnicalPreview) return <TechnicalPreviewBadge />;
+  if (type === BadgeType.New) return <NewBadge />;
+  return null;
 }

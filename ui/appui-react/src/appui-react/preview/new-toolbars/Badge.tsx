@@ -8,11 +8,14 @@
 
 import "./Badge.scss";
 import * as React from "react";
-import { BadgeUtilities } from "@itwin/core-react";
+import { Badge as CoreBadge } from "@itwin/core-react";
 import type { ToolbarItem } from "../../toolbar/ToolbarItem";
 
 /** @internal */
 export function Badge({ badge }: Pick<ToolbarItem, "badge">) {
-  const badgeRenderer = BadgeUtilities.getComponentForBadgeType(badge);
-  return <div className="uifw-toolbar-group-badge">{badgeRenderer}</div>;
+  return (
+    <div className="uifw-toolbar-group-badge">
+      <CoreBadge type={badge} />
+    </div>
+  );
 }
