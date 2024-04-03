@@ -73,8 +73,7 @@ describe("Calculator", () => {
 
   // TODO: vitest
   it.skip("clicking on buttons, operator and equals should give correct result", async () => {
-    const x = render(<Calculator engine={new CalculatorEngine()} />);
-    x.debug();
+    render(<Calculator engine={new CalculatorEngine()} />);
     await theUserTo.click(screen.getByRole("button", { name: "1" }));
     expect(screen.getByRole<HTMLInputElement>("textbox").value).toEqual("1");
 

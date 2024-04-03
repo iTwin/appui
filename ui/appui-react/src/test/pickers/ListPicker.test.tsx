@@ -84,7 +84,7 @@ describe("ListPicker", () => {
     const disableAllFunc = vi.fn();
     const invertFunc = vi.fn();
 
-    const x = render(
+    render(
       <Provider store={TestUtils.store}>
         <ListPicker
           title={title}
@@ -96,7 +96,6 @@ describe("ListPicker", () => {
         />
       </Provider>
     );
-    x.debug();
     await theUserTo.click(screen.getByRole("button"));
 
     await theUserTo.click(screen.getByText("pickerButtons.all"));

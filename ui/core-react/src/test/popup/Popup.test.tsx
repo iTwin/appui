@@ -160,7 +160,6 @@ describe("<Popup />", () => {
         </Popup>
       </div>
     );
-    // component.debug();
     const popup = component.getByTestId("core-popup");
     expect(popup).to.exist;
 
@@ -241,7 +240,6 @@ describe("<Popup />", () => {
         </Popup>
       </div>
     );
-    // component.debug();
     const popup = component.getByTestId("core-popup");
     expect(popup).to.exist;
 
@@ -300,7 +298,6 @@ describe("<Popup />", () => {
         </Popup>
       </div>
     );
-    // component.debug();
     const popup = component.getByTestId("core-popup");
     expect(popup).to.exist;
 
@@ -372,7 +369,6 @@ describe("<Popup />", () => {
     );
     expect(component.getByTestId("core-popup")).to.exist;
 
-    // component.debug();
     // wait for button to receive focus
     await new Promise((r) => {
       setTimeout(r, 80);
@@ -419,7 +415,6 @@ describe("<Popup />", () => {
     const mouseDown = new PointerEvent("pointerdown");
     vi.spyOn(mouseDown, "target", "get").mockImplementation(() => nestedButton);
     window.dispatchEvent(mouseDown);
-    // component.debug();
     nestedButton = component.getByTestId("NestedPopup-Button");
     expect(nestedButton).to.exist;
   });

@@ -119,7 +119,6 @@ describe("<ListBox />", () => {
         </Listbox>
       </div>
     );
-    // listBoxDiv.debug();
     const listBoxElement = listBoxDiv.container.querySelector("ul");
     expect(listBoxElement).not.to.be.null;
     expect(listBoxElement!.id.length).toEqual(36);

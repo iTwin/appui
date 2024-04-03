@@ -58,7 +58,6 @@ describe("<WeightEditor />", () => {
     const popupDiv = await waitFor(() =>
       renderedComponent.getByTestId("components-weightpicker-popup-lines")
     );
-    // renderedComponent.debug();  // show content of portal
     expect(popupDiv).not.to.be.undefined;
     if (popupDiv) {
       const firstWeightButton = popupDiv.firstChild as HTMLElement;
