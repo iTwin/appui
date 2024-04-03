@@ -691,7 +691,7 @@ describe(`ToolAssistanceField`, () => {
       await screen.findByText("toolAssistance.promptAtCursor")
     );
 
-    expect(screen.getByRole<HTMLInputElement>("switch").checked).to.be.false;
+    expect(screen.getByRole<HTMLInputElement>("switch").checked).toEqual(false);
   });
 
   it("cursorPrompt should open when tool assistance set", async () => {

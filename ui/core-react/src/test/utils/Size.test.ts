@@ -32,6 +32,6 @@ describe("Size", () => {
   it("equals should return false", () => {
     const sut1 = Size.create({ width: 19, height: 94 });
     const sut2 = new Size(29, 84);
-    expect(sut1.equals(sut2)).to.be.false;
+    expect(sut1.equals(sut2)).toEqual(false);
   });
 });

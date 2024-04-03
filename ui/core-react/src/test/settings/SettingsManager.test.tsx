@@ -115,7 +115,9 @@ describe("<SettingsManager />", () => {
     expect(settingsManager.removeSettingsProvider(testProvider.id)).toEqual(
       true
     );
-    expect(settingsManager.removeSettingsProvider(testProvider.id)).to.be.false;
+    expect(settingsManager.removeSettingsProvider(testProvider.id)).toEqual(
+      false
+    );
   });
 
   it("should fire close events", async () => {

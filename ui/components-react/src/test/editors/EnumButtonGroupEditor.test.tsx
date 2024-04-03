@@ -57,7 +57,7 @@ describe("<EnumButtonGroupEditor />", () => {
 
     const greenButton = renderedComponent.getByTestId("Green");
     expect(greenButton.tagName).toEqual("BUTTON");
-    expect(greenButton.classList.contains("nz-is-active")).to.be.false;
+    expect(greenButton.classList.contains("nz-is-active")).toEqual(false);
 
     fireEvent.click(greenButton);
     await TestUtils.flushAsyncOperations();
@@ -86,7 +86,7 @@ describe("<EnumButtonGroupEditor />", () => {
       .be.null;
     const greenButton = renderedComponent.getByTestId("Green");
     expect(greenButton.tagName).toEqual("BUTTON");
-    expect(greenButton.classList.contains("nz-is-active")).to.be.false;
+    expect(greenButton.classList.contains("nz-is-active")).toEqual(false);
 
     fireEvent.click(greenButton);
     await TestUtils.flushAsyncOperations();

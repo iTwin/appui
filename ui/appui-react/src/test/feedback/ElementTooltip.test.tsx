@@ -19,7 +19,7 @@ describe("ElementTooltip", () => {
     expect(ElementTooltip.isTooltipVisible).toEqual(true);
 
     ElementTooltip.hideTooltip();
-    expect(ElementTooltip.isTooltipVisible).to.be.false;
+    expect(ElementTooltip.isTooltipVisible).toEqual(false);
   });
 
   it("showTooltip should support HTMLElement", async () => {

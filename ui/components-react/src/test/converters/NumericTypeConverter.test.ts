@@ -52,33 +52,33 @@ describe("IntTypeConverter", () => {
 
   it("isLessThan", () => {
     expect(converter.isLessThan(0, 1)).toEqual(true);
-    expect(converter.isLessThan(1, 0)).to.be.false;
+    expect(converter.isLessThan(1, 0)).toEqual(false);
   });
 
   it("isLessThanOrEqualTo", () => {
     expect(converter.isLessThanOrEqualTo(0, 1)).toEqual(true);
     expect(converter.isLessThanOrEqualTo(0, 0)).toEqual(true);
-    expect(converter.isLessThanOrEqualTo(1, 0)).to.be.false;
+    expect(converter.isLessThanOrEqualTo(1, 0)).toEqual(false);
   });
 
   it("isGreaterThan", () => {
     expect(converter.isGreaterThan(1, 0)).toEqual(true);
-    expect(converter.isGreaterThan(0, 1)).to.be.false;
+    expect(converter.isGreaterThan(0, 1)).toEqual(false);
   });
 
   it("isGreaterThanOrEqualTo", () => {
     expect(converter.isGreaterThanOrEqualTo(1, 0)).toEqual(true);
     expect(converter.isGreaterThanOrEqualTo(1, 1)).toEqual(true);
-    expect(converter.isGreaterThanOrEqualTo(0, 1)).to.be.false;
+    expect(converter.isGreaterThanOrEqualTo(0, 1)).toEqual(false);
   });
 
   it("isEqualTo", () => {
     expect(converter.isEqualTo(0, 0)).toEqual(true);
-    expect(converter.isEqualTo(1, 0)).to.be.false;
+    expect(converter.isEqualTo(1, 0)).toEqual(false);
   });
 
   it("isNotEqualTo", () => {
-    expect(converter.isNotEqualTo(0, 0)).to.be.false;
+    expect(converter.isNotEqualTo(0, 0)).toEqual(false);
     expect(converter.isNotEqualTo(1, 0)).toEqual(true);
   });
 });
@@ -135,23 +135,23 @@ describe("FloatTypeConverter", () => {
 
   it("isLessThan", () => {
     expect(converter.isLessThan(0, 1)).toEqual(true);
-    expect(converter.isLessThan(1, 0)).to.be.false;
+    expect(converter.isLessThan(1, 0)).toEqual(false);
   });
 
   it("isLessThanOrEqualTo", () => {
     expect(converter.isLessThanOrEqualTo(0, 1)).toEqual(true);
     expect(converter.isLessThanOrEqualTo(0, 0)).toEqual(true);
-    expect(converter.isLessThanOrEqualTo(1, 0)).to.be.false;
+    expect(converter.isLessThanOrEqualTo(1, 0)).toEqual(false);
   });
 
   it("isGreaterThan", () => {
     expect(converter.isGreaterThan(1, 0)).toEqual(true);
-    expect(converter.isGreaterThan(0, 1)).to.be.false;
+    expect(converter.isGreaterThan(0, 1)).toEqual(false);
   });
 
   it("isGreaterThanOrEqualTo", () => {
     expect(converter.isGreaterThanOrEqualTo(1, 0)).toEqual(true);
     expect(converter.isGreaterThanOrEqualTo(1, 1)).toEqual(true);
-    expect(converter.isGreaterThanOrEqualTo(0, 1)).to.be.false;
+    expect(converter.isGreaterThanOrEqualTo(0, 1)).toEqual(false);
   });
 });

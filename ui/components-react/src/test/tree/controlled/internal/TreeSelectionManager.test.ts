@@ -562,6 +562,6 @@ describe("isRangeSelection", () => {
 
   it("returns false for IndividualSelection", () => {
     const individualSelection: IndividualSelection = [faker.random.uuid()];
-    expect(isRangeSelection(individualSelection)).to.be.false;
+    expect(isRangeSelection(individualSelection)).toEqual(false);
   });
 });

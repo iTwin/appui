@@ -357,7 +357,7 @@ describe("<ListBox />", () => {
     spyOnKeyboard.mockReset();
 
     // hitting spacebar below should trigger onListboxValueChange
-    expect(onListboxValueChangeCalled).to.be.false;
+    expect(onListboxValueChangeCalled).toEqual(false);
     fireEvent.keyDown(listBoxElement!, { key: " " });
     expect(onListboxValueChangeCalled).toEqual(true);
     expect(spyOnKeyboard).not.toBeCalled();

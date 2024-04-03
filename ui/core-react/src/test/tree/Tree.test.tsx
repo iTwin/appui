@@ -196,7 +196,7 @@ describe("<Tree />", () => {
   describe("setFocusByClassName", () => {
     it("does not set focus when element not found", () => {
       const instance = new Tree({});
-      expect(instance.setFocusByClassName(".test")).to.be.false;
+      expect(instance.setFocusByClassName(".test")).toEqual(false);
     });
 
     it("sets focus by class name", () => {

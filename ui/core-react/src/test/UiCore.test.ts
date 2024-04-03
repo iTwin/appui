@@ -42,7 +42,7 @@ describe("UiCore", () => {
 
   it("calling initialize twice should log", async () => {
     const spyLogger = vi.spyOn(Logger, "logInfo");
-    expect(UiCore.initialized).to.be.false;
+    expect(UiCore.initialized).toEqual(false);
     await UiCore.initialize(TestUtils.i18n);
     expect(UiCore.initialized).toEqual(true);
     await UiCore.initialize(TestUtils.i18n);

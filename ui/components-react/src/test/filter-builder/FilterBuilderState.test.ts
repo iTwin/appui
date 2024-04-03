@@ -932,7 +932,7 @@ describe("usePropertyFilterBuilder", () => {
       const { rootGroup } = result.current;
       expect(rootGroup.items.length).to.be.eq(1);
       const rule = rootGroup.items[0];
-      expect(isPropertyFilterBuilderRuleGroup(rule)).to.be.false;
+      expect(isPropertyFilterBuilderRuleGroup(rule)).toEqual(false);
       expect((rule as PropertyFilterBuilderRule).operator).to.be.eq("between");
     });
 
@@ -971,7 +971,7 @@ describe("usePropertyFilterBuilder", () => {
       const { rootGroup } = result.current;
       expect(rootGroup.items.length).to.be.eq(1);
       const rule = rootGroup.items[0];
-      expect(isPropertyFilterBuilderRuleGroup(rule)).to.be.false;
+      expect(isPropertyFilterBuilderRuleGroup(rule)).toEqual(false);
       expect((rule as PropertyFilterBuilderRule).operator).to.be.eq(
         "not-between"
       );

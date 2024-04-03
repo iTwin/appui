@@ -39,7 +39,7 @@ describe("BackstageManager", () => {
     expect(spy).toHaveBeenCalledWith(
       expect.objectContaining({ isOpen: false })
     );
-    expect(manager.isOpen).to.be.false;
+    expect(manager.isOpen).toEqual(false);
 
     manager.onToggled.removeListener(spy);
   });
@@ -55,7 +55,7 @@ describe("BackstageManager", () => {
     expect(spy).toHaveBeenCalledWith(
       expect.objectContaining({ isOpen: false })
     );
-    expect(manager.isOpen).to.be.false;
+    expect(manager.isOpen).toEqual(false);
 
     spy.mockReset();
     manager.toggle();
@@ -135,7 +135,7 @@ describe("useIsBackstageOpen", () => {
 
     const { result } = renderHook(() => useIsBackstageOpen(manager));
 
-    expect(result.current).to.be.false;
+    expect(result.current).toEqual(false);
   });
 
   it("should update isOpen", async () => {
@@ -148,7 +148,7 @@ describe("useIsBackstageOpen", () => {
     });
     manager.close();
     await waitFor(() => {
-      expect(result.current).to.be.false;
+      expect(result.current).toEqual(false);
     });
   });
 

@@ -46,7 +46,7 @@ describe("<SpeedTimeline />", () => {
       <SpeedTimeline speed={3} onChange={onChange} />
     );
     expect(renderedComponent).not.to.be.undefined;
-    expect(valueChanged).to.be.false;
+    expect(valueChanged).toEqual(false);
     const sliderDiv = renderedComponent.getByRole("slider");
     expect(sliderDiv).not.to.be.undefined;
     const ariaValue = sliderDiv.getAttribute("aria-valuenow");
@@ -150,7 +150,7 @@ describe("<SolarTimeline />", () => {
     const playButton = renderedComponent.getByRole("button", {
       name: "timeline.play",
     });
-    expect(dataProvider.timeChangeCallbackCalled).to.be.false;
+    expect(dataProvider.timeChangeCallbackCalled).toEqual(false);
 
     fireEvent.click(playButton);
 

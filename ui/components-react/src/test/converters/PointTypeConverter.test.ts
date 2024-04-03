@@ -326,7 +326,7 @@ const expectOptionalPromiseLikeEq = async (
   expected: string
 ) => {
   if (mode === "sync") {
-    expect(isPromiseLike(actual)).to.be.false;
+    expect(isPromiseLike(actual)).toEqual(false);
     expect(actual).toEqual(expected);
   } else {
     expect(isPromiseLike(actual)).toEqual(true);

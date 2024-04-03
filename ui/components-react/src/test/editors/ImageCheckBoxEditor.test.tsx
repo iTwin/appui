@@ -21,14 +21,18 @@ describe("<ImageCheckBoxEditor />", () => {
   it("renders with no record", () => {
     render(<ImageCheckBoxEditor />);
 
-    expect(screen.getByRole<HTMLInputElement>("checkbox").checked).to.be.false;
+    expect(screen.getByRole<HTMLInputElement>("checkbox").checked).toEqual(
+      false
+    );
   });
 
   it("value 'false' should have checkbox unchecked", async () => {
     const record = TestUtils.createImageCheckBoxProperty("Test", false);
     render(<ImageCheckBoxEditor propertyRecord={record} />);
 
-    expect(screen.getByRole<HTMLInputElement>("checkbox").checked).to.be.false;
+    expect(screen.getByRole<HTMLInputElement>("checkbox").checked).toEqual(
+      false
+    );
   });
 
   it("value 'false' should have checkbox unchecked", async () => {
@@ -91,7 +95,9 @@ describe("<ImageCheckBoxEditor />", () => {
     const { rerender } = render(
       <ImageCheckBoxEditor propertyRecord={record} />
     );
-    expect(screen.getByRole<HTMLInputElement>("checkbox").checked).to.be.false;
+    expect(screen.getByRole<HTMLInputElement>("checkbox").checked).toEqual(
+      false
+    );
 
     const newRecord = TestUtils.createImageCheckBoxProperty("Test", true);
     rerender(<ImageCheckBoxEditor propertyRecord={newRecord} />);

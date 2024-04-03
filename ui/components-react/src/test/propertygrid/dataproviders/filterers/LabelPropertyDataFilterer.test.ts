@@ -31,7 +31,7 @@ describe("LabelPropertyDataFilterer", () => {
 
     it(`Should return filtering as disabled`, () => {
       const filterer = new LabelPropertyDataFilterer();
-      expect(filterer.isActive).to.be.false;
+      expect(filterer.isActive).toEqual(false);
     });
 
     for (const record of recordsToTest) {

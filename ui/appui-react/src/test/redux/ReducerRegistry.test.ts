@@ -94,7 +94,7 @@ describe("ReducerRegistry", () => {
       }
     );
 
-    expect(reducerRegistryHasEntries).to.be.false;
+    expect(reducerRegistryHasEntries).toEqual(false);
 
     expect(ReducerRegistryInstance.getReducers().extension_state).not.to.exist;
 
@@ -123,7 +123,7 @@ describe("ReducerRegistry", () => {
     expect(outState.selectedItem).toEqual("new-selection");
 
     ReducerRegistryInstance.clearReducers();
-    expect(reducerRegistryHasEntries).to.be.false;
+    expect(reducerRegistryHasEntries).toEqual(false);
   });
 
   it("should not be able to register duplicate reducer name ", () => {

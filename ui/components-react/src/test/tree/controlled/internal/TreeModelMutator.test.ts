@@ -110,7 +110,7 @@ describe("TreeModelMutator", () => {
 
       treeModelMock.verifyAll();
       treeModelSourceMock.verifyAll();
-      expect(node.isExpanded).to.be.false;
+      expect(node.isExpanded).toEqual(false);
     });
 
     it("does nothing if node is not expanded", () => {
@@ -119,7 +119,7 @@ describe("TreeModelMutator", () => {
 
       treeModelMock.verifyAll();
       treeModelSourceMock.verifyAll();
-      expect(node.isExpanded).to.be.false;
+      expect(node.isExpanded).toEqual(false);
     });
 
     it("collapses node and disposes children when disposing is enabled", () => {
@@ -136,7 +136,7 @@ describe("TreeModelMutator", () => {
 
       treeModelMock.verifyAll();
       treeModelSourceMock.verifyAll();
-      expect(node.isExpanded).to.be.false;
+      expect(node.isExpanded).toEqual(false);
     });
   });
 
@@ -165,7 +165,7 @@ describe("TreeModelMutator", () => {
       treeModelSourceMock.verifyAll();
 
       expect(nodeToSelect.isSelected).toEqual(true);
-      expect(nodeToDeselect.isSelected).to.be.false;
+      expect(nodeToDeselect.isSelected).toEqual(false);
     });
 
     it("tries to select and deselect nodes even if they were removed", () => {
@@ -207,7 +207,7 @@ describe("TreeModelMutator", () => {
 
       modelMutator.replaceSelection([nodeToSelect.item]);
       treeModelMock.verifyAll();
-      expect(selectedNode.isSelected).to.be.false;
+      expect(selectedNode.isSelected).toEqual(false);
       expect(nodeToSelect.isSelected).toEqual(true);
     });
 
@@ -239,7 +239,7 @@ describe("TreeModelMutator", () => {
 
       modelMutator.clearNodeSelection();
       treeModelMock.verifyAll();
-      expect(selectedNodes[0].isSelected).to.be.false;
+      expect(selectedNodes[0].isSelected).toEqual(false);
     });
   });
 

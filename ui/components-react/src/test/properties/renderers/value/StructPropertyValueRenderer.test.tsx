@@ -116,8 +116,8 @@ describe("StructPropertyValueRenderer", () => {
         "Test property"
       );
       const arrayProperty = TestUtils.createArrayProperty("LabelArray");
-      expect(renderer.canRender(stringProperty)).to.be.false;
-      expect(renderer.canRender(arrayProperty)).to.be.false;
+      expect(renderer.canRender(stringProperty)).toEqual(false);
+      expect(renderer.canRender(arrayProperty)).toEqual(false);
     });
   });
 });

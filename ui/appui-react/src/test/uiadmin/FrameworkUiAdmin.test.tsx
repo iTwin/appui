@@ -205,7 +205,7 @@ describe("FrameworkUiAdmin", () => {
     buttonElement.focus();
     let activeElement = document.activeElement as HTMLElement;
     expect(activeElement === buttonElement).toEqual(true);
-    expect(uiAdmin.isFocusOnHome).to.be.false;
+    expect(uiAdmin.isFocusOnHome).toEqual(false);
 
     uiAdmin.setFocusToHome();
     activeElement = document.activeElement as HTMLElement;
@@ -339,8 +339,8 @@ describe("FrameworkUiAdmin", () => {
 
   it("showKeyinPalette should return true", () => {
     const wrapper = render(<div id="uifw-configurableui-wrapper" />);
-    expect(uiAdmin.showKeyinPalette(wrapper.container)).to.be.false;
-    expect(uiAdmin.hideKeyinPalette()).to.be.false;
+    expect(uiAdmin.showKeyinPalette(wrapper.container)).toEqual(false);
+    expect(uiAdmin.hideKeyinPalette()).toEqual(false);
     uiAdmin.updateFeatureFlags({ allowKeyinPalette: true });
     expect(uiAdmin.showKeyinPalette(wrapper.container)).toEqual(true);
     expect(uiAdmin.hideKeyinPalette()).toEqual(true);
@@ -580,7 +580,7 @@ describe("FrameworkUiAdmin", () => {
       )
     ).toEqual(true);
     expect(uiAdmin.hideCard()).toEqual(true);
-    expect(uiAdmin.hideCard()).to.be.false;
+    expect(uiAdmin.hideCard()).toEqual(false);
   });
 
   it("showReactCard should return true", () => {
@@ -653,7 +653,7 @@ describe("FrameworkUiAdmin", () => {
       )
     ).toEqual(true);
     expect(uiAdmin.hideCard()).toEqual(true);
-    expect(uiAdmin.hideCard()).to.be.false;
+    expect(uiAdmin.hideCard()).toEqual(false);
   });
 
   it("openToolSettingsPopup should return true", () => {

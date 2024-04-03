@@ -278,7 +278,7 @@ describe("ConfigurableUiReducer", () => {
       initialState,
       ConfigurableUiActions.setViewOverlayDisplay(false)
     );
-    expect(outState.viewOverlayDisplay).to.be.false;
+    expect(outState.viewOverlayDisplay).toEqual(false);
 
     outState = ConfigurableUiReducer(
       initialState,

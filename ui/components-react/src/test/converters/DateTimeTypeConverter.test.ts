@@ -158,8 +158,9 @@ describe("ShortDateTypeConverter", () => {
     expect(
       converter.isLessThan(new Date(2017, 0, 1), new Date(2018, 0, 1))
     ).toEqual(true);
-    expect(converter.isLessThan(new Date(2018, 0, 1), new Date(2017, 0, 1))).to
-      .be.false;
+    expect(
+      converter.isLessThan(new Date(2018, 0, 1), new Date(2017, 0, 1))
+    ).toEqual(false);
   });
 
   it("isLessThanOrEqualTo", () => {
@@ -171,15 +172,16 @@ describe("ShortDateTypeConverter", () => {
     ).toEqual(true);
     expect(
       converter.isLessThanOrEqualTo(new Date(2018, 0, 1), new Date(2017, 0, 1))
-    ).to.be.false;
+    ).toEqual(false);
   });
 
   it("isGreaterThan", () => {
     expect(
       converter.isGreaterThan(new Date(2018, 0, 1), new Date(2017, 0, 1))
     ).toEqual(true);
-    expect(converter.isGreaterThan(new Date(2017, 0, 1), new Date(2018, 0, 1)))
-      .to.be.false;
+    expect(
+      converter.isGreaterThan(new Date(2017, 0, 1), new Date(2018, 0, 1))
+    ).toEqual(false);
   });
 
   it("isGreaterThanOrEqualTo", () => {
@@ -200,12 +202,13 @@ describe("ShortDateTypeConverter", () => {
         new Date(2017, 0, 1),
         new Date(2018, 0, 1)
       )
-    ).to.be.false;
+    ).toEqual(false);
   });
 
   it("isEqualTo", () => {
-    expect(converter.isEqualTo(new Date(2018, 0, 1), new Date(2017, 0, 1))).to
-      .be.false;
+    expect(
+      converter.isEqualTo(new Date(2018, 0, 1), new Date(2017, 0, 1))
+    ).toEqual(false);
     expect(
       converter.isEqualTo(new Date(2018, 0, 1), new Date(2018, 0, 1))
     ).toEqual(true);
@@ -215,8 +218,9 @@ describe("ShortDateTypeConverter", () => {
     expect(
       converter.isNotEqualTo(new Date(2018, 0, 1), new Date(2017, 0, 1))
     ).toEqual(true);
-    expect(converter.isNotEqualTo(new Date(2018, 0, 1), new Date(2018, 0, 1)))
-      .to.be.false;
+    expect(
+      converter.isNotEqualTo(new Date(2018, 0, 1), new Date(2018, 0, 1))
+    ).toEqual(false);
   });
 
   it("isLessGreaterType returns true", () => {

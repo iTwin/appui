@@ -291,7 +291,7 @@ describe("CubeNavigationAid", () => {
           "nav-cube-face-cell-top-0-0-1"
         );
 
-        expect(topCenterCell.classList.contains("cube-hover")).to.be.false;
+        expect(topCenterCell.classList.contains("cube-hover")).toEqual(false);
 
         topCenterCell.dispatchEvent(
           new MouseEvent("mouseover", {
@@ -324,7 +324,7 @@ describe("CubeNavigationAid", () => {
           "nav-cube-face-cell-top-0-0-1"
         );
 
-        expect(topCenterCell.classList.contains("cube-active")).to.be.false;
+        expect(topCenterCell.classList.contains("cube-active")).toEqual(false);
 
         const mat = cssMatrix3dToBentleyTransform(topFace.style.transform)!;
         expect(mat.matrix.isAlmostEqual(Matrix3d.createIdentity())).toEqual(
@@ -376,7 +376,7 @@ describe("CubeNavigationAid", () => {
           "nav-cube-face-cell-top--1-1-1"
         );
 
-        expect(topCornerCell.classList.contains("cube-active")).to.be.false;
+        expect(topCornerCell.classList.contains("cube-active")).toEqual(false);
 
         const mat = cssMatrix3dToBentleyTransform(topFace.style.transform)!;
         expect(mat.matrix.isAlmostEqual(Matrix3d.createIdentity())).toEqual(
@@ -596,7 +596,7 @@ describe("CubeNavigationAid", () => {
           "nav-cube-face-cell-top-0-0-1"
         );
 
-        expect(topCenterCell.classList.contains("cube-active")).to.be.false;
+        expect(topCenterCell.classList.contains("cube-active")).toEqual(false);
 
         const mat = cssMatrix3dToBentleyTransform(topFace.style.transform)!;
         expect(mat.matrix.isAlmostEqual(Matrix3d.createIdentity())).toEqual(

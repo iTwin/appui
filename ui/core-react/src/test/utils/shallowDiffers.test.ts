@@ -7,7 +7,7 @@ import { shallowDiffers } from "../../core-react";
 describe("shallowDiffers", () => {
   it("should return false with the same object", () => {
     const object = { test: 2 };
-    expect(shallowDiffers(object, object)).to.be.false;
+    expect(shallowDiffers(object, object)).toEqual(false);
   });
   it("should return true if either one object is undefined", () => {
     const object = { test: 2 };
@@ -29,7 +29,7 @@ describe("shallowDiffers", () => {
   it("should return false if objects' keys and values match", () => {
     const object1 = { test: 2, test2: 1 };
     const object2 = { test: 2, test2: 1 };
-    expect(shallowDiffers(object1, object2)).to.be.false;
-    expect(shallowDiffers(object2, object1)).to.be.false;
+    expect(shallowDiffers(object1, object2)).toEqual(false);
+    expect(shallowDiffers(object2, object1)).toEqual(false);
   });
 });

@@ -82,7 +82,7 @@ describe("ContentControl", () => {
     UiFramework.content.setActive(contentSet[1]);
     expect(activatedMethod).toHaveBeenCalledOnce();
 
-    expect(contentControl.isViewport).to.be.false;
+    expect(contentControl.isViewport).toEqual(false);
     expect(contentControl.viewport).to.be.undefined;
     expect(contentControl.navigationAidControl.length).toEqual(0);
   });

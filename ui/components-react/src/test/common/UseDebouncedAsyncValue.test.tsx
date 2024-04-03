@@ -15,7 +15,7 @@ describe("useDebouncedAsyncValue", () => {
       (props: { value: undefined }) => useDebouncedAsyncValue(props.value),
       { initialProps: { value: undefined } }
     );
-    expect(result.current.inProgress).to.be.false;
+    expect(result.current.inProgress).toEqual(false);
     expect(result.current.value).to.be.undefined;
   });
 

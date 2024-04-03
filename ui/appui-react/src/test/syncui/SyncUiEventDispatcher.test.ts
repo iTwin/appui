@@ -62,8 +62,9 @@ describe("SyncUiEventDispatcher", () => {
         "Rabbit",
       ])
     ).toEqual(true);
-    expect(SyncUiEventDispatcher.hasEventOfInterest(eventIds, ["horse"])).to.be
-      .false;
+    expect(
+      SyncUiEventDispatcher.hasEventOfInterest(eventIds, ["horse"])
+    ).toEqual(false);
 
     const dummyImodelId = "dummy";
     UiFramework.setActiveIModelId(dummyImodelId);
@@ -99,7 +100,7 @@ describe("SyncUiEventDispatcher", () => {
 
     SyncUiEventDispatcher.onSyncUiEvent.addListener(handleSyncUiEvent1);
     SyncUiEventDispatcher.dispatchSyncUiEvent("Event1");
-    expect(callback1Called).to.be.false;
+    expect(callback1Called).toEqual(false);
 
     vi.advanceTimersByTime(timeToWaitForUiSyncCallback);
 
@@ -122,7 +123,7 @@ describe("SyncUiEventDispatcher", () => {
     SyncUiEventDispatcher.onSyncUiEvent.addListener(handleSyncUiEvent);
 
     SyncUiEventDispatcher.dispatchSyncUiEvents(["Event1", "Event2"]);
-    expect(callbackCalled).to.be.false;
+    expect(callbackCalled).toEqual(false);
 
     vi.advanceTimersByTime(timeToWaitForUiSyncCallback);
 
@@ -147,9 +148,9 @@ describe("SyncUiEventDispatcher", () => {
     SyncUiEventDispatcher.onSyncUiEvent.addListener(handleSyncUiEvent);
 
     SyncUiEventDispatcher.dispatchSyncUiEvents(["Event1", "Event2"]);
-    expect(callbackCalled).to.be.false;
+    expect(callbackCalled).toEqual(false);
     SyncUiEventDispatcher.dispatchSyncUiEvent("Event3");
-    expect(callbackCalled).to.be.false;
+    expect(callbackCalled).toEqual(false);
 
     vi.runAllTimers();
 

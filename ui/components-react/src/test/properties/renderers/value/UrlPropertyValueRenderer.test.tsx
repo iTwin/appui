@@ -207,10 +207,10 @@ describe("UrlPropertyValueRenderer", () => {
         "Category",
         { className: "", id: Id64.fromUint32Pair(1, 0) }
       );
-      expect(renderer.canRender(arrayProperty)).to.be.false;
-      expect(renderer.canRender(structProperty)).to.be.false;
-      expect(renderer.canRender(doubleProperty)).to.be.false;
-      expect(renderer.canRender(navigationProperty)).to.be.false;
+      expect(renderer.canRender(arrayProperty)).toEqual(false);
+      expect(renderer.canRender(structProperty)).toEqual(false);
+      expect(renderer.canRender(doubleProperty)).toEqual(false);
+      expect(renderer.canRender(navigationProperty)).toEqual(false);
     });
   });
 });

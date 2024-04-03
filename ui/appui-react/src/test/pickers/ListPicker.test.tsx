@@ -169,7 +169,7 @@ describe("ListPicker", () => {
           type: ListItemType.Item,
           enabled: true,
         } as ListItem)
-      ).to.be.false;
+      ).toEqual(false);
     });
   });
 

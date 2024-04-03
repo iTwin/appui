@@ -93,7 +93,7 @@ describe("AccuDrawFieldContainer", () => {
     const wrapper = render(
       <AccuDrawFieldContainer orientation={Orientation.Vertical} />
     );
-    expect(IModelApp.accuDraw.hasInputFocus).to.be.false;
+    expect(IModelApp.accuDraw.hasInputFocus).toEqual(false);
 
     IModelApp.accuDraw.setCompassMode(CompassMode.Rectangular);
     await TestUtils.flushAsyncOperations();
@@ -148,7 +148,7 @@ describe("AccuDrawFieldContainer", () => {
         showZOverride={true}
       />
     );
-    expect(IModelApp.accuDraw.hasInputFocus).to.be.false;
+    expect(IModelApp.accuDraw.hasInputFocus).toEqual(false);
 
     IModelApp.accuDraw.setCompassMode(CompassMode.Rectangular);
 
@@ -176,7 +176,7 @@ describe("AccuDrawFieldContainer", () => {
     const wrapper = render(
       <AccuDrawFieldContainer orientation={Orientation.Vertical} />
     );
-    expect(IModelApp.accuDraw.hasInputFocus).to.be.false;
+    expect(IModelApp.accuDraw.hasInputFocus).toEqual(false);
 
     IModelApp.accuDraw.setCompassMode(CompassMode.Rectangular);
     await TestUtils.flushAsyncOperations();
@@ -188,7 +188,7 @@ describe("AccuDrawFieldContainer", () => {
     expect(document.activeElement === input).toEqual(true);
 
     UiFramework.keyboardShortcuts.setFocusToHome();
-    expect(document.activeElement === input).to.be.false;
+    expect(document.activeElement === input).toEqual(false);
 
     const spyGrab = vi.fn();
     const removeGrab =

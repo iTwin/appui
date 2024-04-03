@@ -138,8 +138,8 @@ describe("ArrayPropertyValueRenderer", () => {
         "Test property"
       );
       const structProperty = TestUtils.createStructProperty("NameStruct");
-      expect(renderer.canRender(stringProperty)).to.be.false;
-      expect(renderer.canRender(structProperty)).to.be.false;
+      expect(renderer.canRender(stringProperty)).toEqual(false);
+      expect(renderer.canRender(structProperty)).toEqual(false);
     });
   });
 });

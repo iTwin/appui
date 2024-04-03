@@ -150,6 +150,6 @@ describe("focusIntoContainer", () => {
     );
 
     const div1 = component.getByTestId("div1");
-    expect(focusIntoContainer(div1 as HTMLDivElement)).to.be.false;
+    expect(focusIntoContainer(div1 as HTMLDivElement)).toEqual(false);
   });
 });

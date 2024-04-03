@@ -173,7 +173,7 @@ describe("StandardContentToolsUiItemsProvider", () => {
       ).length
     ).toEqual(3);
     UiItemsManager.unregister(provider.id);
-    expect(UiItemsManager.hasRegisteredProviders).to.be.false;
+    expect(UiItemsManager.hasRegisteredProviders).toEqual(false);
   });
 
   it("should register StandardContentToolsUiItemsProvider with group buttons", () => {
@@ -206,7 +206,7 @@ describe("StandardContentToolsUiItemsProvider", () => {
       ).length
     ).toEqual(3);
     UiItemsManager.unregister(provider.id);
-    expect(UiItemsManager.hasRegisteredProviders).to.be.false;
+    expect(UiItemsManager.hasRegisteredProviders).toEqual(false);
   });
 
   it("should register StandardContentToolsUiItemsProvider with no horizontal buttons", () => {
@@ -233,7 +233,7 @@ describe("StandardContentToolsUiItemsProvider", () => {
       ).length
     ).toEqual(3);
     UiItemsManager.unregister(provider.id);
-    expect(UiItemsManager.hasRegisteredProviders).to.be.false;
+    expect(UiItemsManager.hasRegisteredProviders).toEqual(false);
   });
 
   it("should register StandardContentToolsUiItemsProvider with no vertical buttons", () => {
@@ -268,7 +268,7 @@ describe("StandardContentToolsUiItemsProvider", () => {
     ).toEqual(0);
 
     UiItemsManager.unregister(provider.id);
-    expect(UiItemsManager.hasRegisteredProviders).to.be.false;
+    expect(UiItemsManager.hasRegisteredProviders).toEqual(false);
   });
 
   it("should process app data group options", () => {
@@ -307,7 +307,7 @@ describe("StandardContentToolsUiItemsProvider", () => {
     );
 
     UiItemsManager.unregister(provider.id);
-    expect(UiItemsManager.hasRegisteredProviders).to.be.false;
+    expect(UiItemsManager.hasRegisteredProviders).toEqual(false);
   });
 
   it("should process all combinations of options", () => {
@@ -349,7 +349,7 @@ describe("StandardContentToolsUiItemsProvider", () => {
       );
       UiItemsManager.getStatusBarItems("test", StageUsage.General);
       UiItemsManager.unregister(local_provider.id);
-      expect(UiItemsManager.hasRegisteredProviders).to.be.false;
+      expect(UiItemsManager.hasRegisteredProviders).toEqual(false);
     });
   });
 });

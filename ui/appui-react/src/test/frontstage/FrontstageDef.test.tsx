@@ -148,7 +148,7 @@ describe("FrontstageDef", () => {
     vi.fn();
 
     expect(frontstageDef.isWidgetDisplayed("t1")).toEqual(true);
-    expect(frontstageDef.isWidgetDisplayed("t2")).to.be.false;
+    expect(frontstageDef.isWidgetDisplayed("t2")).toEqual(false);
     expect(frontstageDef.isWidgetDisplayed("t3")).toEqual(true);
   });
 
@@ -464,7 +464,7 @@ describe("FrontstageDef", () => {
       const frontstageDef = await UiFramework.frontstages.getFrontstageDef(
         EmptyFrontstageProvider.stageId
       );
-      expect(!!frontstageDef?.isReady).to.be.false;
+      expect(!!frontstageDef?.isReady).toEqual(false);
       await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
       const sut = UiFramework.frontstages.activeFrontstageDef!;
       expect(
@@ -728,7 +728,7 @@ describe("FrontstageDef", () => {
         side: "left",
         collapsed: false,
       });
-      expect(frontstageDef.nineZoneState?.panels.left.collapsed).to.be.false;
+      expect(frontstageDef.nineZoneState?.panels.left.collapsed).toEqual(false);
       expect(spy).toHaveBeenCalledTimes(2);
       expect(spy.mock.calls[1][0]).toEqual({
         panelDef: frontstageDef.leftPanel!,
@@ -773,7 +773,9 @@ describe("FrontstageDef", () => {
           side: "left",
           collapsed: false,
         });
-        expect(frontstageDef.nineZoneState?.panels.left.collapsed).to.be.false;
+        expect(frontstageDef.nineZoneState?.panels.left.collapsed).toEqual(
+          false
+        );
         expect(spy).not.toBeCalled();
 
         frontstageDef.dispatch({

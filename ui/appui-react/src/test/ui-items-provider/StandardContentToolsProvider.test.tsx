@@ -176,7 +176,7 @@ describe("StandardContentToolsProvider", () => {
       ).length
     ).toEqual(3);
     provider.unregister();
-    expect(UiItemsManager.hasRegisteredProviders).to.be.false;
+    expect(UiItemsManager.hasRegisteredProviders).toEqual(false);
   });
 
   it("should register StandardContentToolsProvider with group buttons", () => {
@@ -213,7 +213,7 @@ describe("StandardContentToolsProvider", () => {
       ).length
     ).toEqual(3);
     provider.unregister();
-    expect(UiItemsManager.hasRegisteredProviders).to.be.false;
+    expect(UiItemsManager.hasRegisteredProviders).toEqual(false);
   });
 
   it("should register StandardContentToolsProvider with no horizontal buttons", () => {
@@ -244,7 +244,7 @@ describe("StandardContentToolsProvider", () => {
       ).length
     ).toEqual(3);
     provider.unregister();
-    expect(UiItemsManager.hasRegisteredProviders).to.be.false;
+    expect(UiItemsManager.hasRegisteredProviders).toEqual(false);
   });
 
   it("should register StandardContentToolsProvider with no vertical buttons", () => {
@@ -283,7 +283,7 @@ describe("StandardContentToolsProvider", () => {
     ).toEqual(0);
 
     provider.unregister();
-    expect(UiItemsManager.hasRegisteredProviders).to.be.false;
+    expect(UiItemsManager.hasRegisteredProviders).toEqual(false);
   });
 
   it("should process app data group options", () => {
@@ -328,7 +328,7 @@ describe("StandardContentToolsProvider", () => {
     );
 
     provider.unregister();
-    expect(UiItemsManager.hasRegisteredProviders).to.be.false;
+    expect(UiItemsManager.hasRegisteredProviders).toEqual(false);
   });
 
   it("should process all combinations of options", () => {
@@ -375,7 +375,7 @@ describe("StandardContentToolsProvider", () => {
       );
       UiItemsManager.getStatusBarItems("test", StageUsage.General);
       local_provider.unregister();
-      expect(UiItemsManager.hasRegisteredProviders).to.be.false;
+      expect(UiItemsManager.hasRegisteredProviders).toEqual(false);
     });
   });
 });

@@ -58,7 +58,7 @@ describe("LocalStateStorage", () => {
       expect(result.status).to.equal(UiStateStorageStatus.Success);
 
       hasSettings = await localUiSettings.hasSetting("Testing", "TestData");
-      expect(hasSettings).to.be.false;
+      expect(hasSettings).toEqual(false);
 
       const result2 = await localUiSettings.deleteSetting(
         "Testing",

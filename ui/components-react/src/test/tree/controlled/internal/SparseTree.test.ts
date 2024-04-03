@@ -157,7 +157,7 @@ describe("SparseTree", () => {
   describe("setNodeId", () => {
     it("does nothing when target node does not exist and returns `false`", () => {
       const resultStatus = sparseTree.setNodeId("test", 0, "newId");
-      expect(resultStatus).to.be.false;
+      expect(resultStatus).toEqual(false);
       expect(sparseTree.getNode("newId")).to.be.undefined;
     });
 
@@ -168,7 +168,7 @@ describe("SparseTree", () => {
         0
       );
       const resultStatus = sparseTree.setNodeId(undefined, 1, "existingId");
-      expect(resultStatus).to.be.false;
+      expect(resultStatus).toEqual(false);
       verifyNodes(sparseTree.getChildren(undefined)!, [
         { id: "existingId", data: 1 },
         { id: "oldId" },

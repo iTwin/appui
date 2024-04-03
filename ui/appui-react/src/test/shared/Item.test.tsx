@@ -122,7 +122,7 @@ describe("Item", () => {
       2
     );
     expect(toolItem.iconSpec).to.be.eq(undefined);
-    expect(TestImmediate.isValid).to.be.false;
+    expect(TestImmediate.isValid).toEqual(false);
 
     toolItem.execute();
 

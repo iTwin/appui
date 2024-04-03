@@ -133,6 +133,6 @@ describe("<ColorPickerButton/>", () => {
     const corePopupDiv = renderedComponent.queryByTestId("core-popup");
     expect(corePopupDiv).not.to.be.undefined;
     if (corePopupDiv)
-      expect(corePopupDiv.classList.contains("visible")).to.be.false;
+      expect(corePopupDiv.classList.contains("visible")).toEqual(false);
   });
 });

@@ -60,8 +60,9 @@ describe("InternalToolSettingsManager", () => {
   };
 
   it("check initial values", () => {
-    expect(InternalToolSettingsManager.useDefaultToolSettingsProvider).to.be
-      .false;
+    expect(InternalToolSettingsManager.useDefaultToolSettingsProvider).toEqual(
+      false
+    );
     expect(InternalToolSettingsManager.toolSettingsProperties).to.be.empty;
   });
 
@@ -128,8 +129,9 @@ describe("InternalToolSettingsManager", () => {
     );
 
     InternalToolSettingsManager.clearToolSettingsData();
-    expect(InternalToolSettingsManager.useDefaultToolSettingsProvider).to.be
-      .false;
+    expect(InternalToolSettingsManager.useDefaultToolSettingsProvider).toEqual(
+      false
+    );
     expect(InternalToolSettingsManager.toolSettingsProperties).to.be.empty;
     expect(InternalToolSettingsManager.activeToolLabel).to.be.empty;
     expect(InternalToolSettingsManager.activeToolDescription).to.be.empty;
@@ -140,7 +142,7 @@ describe("InternalToolSettingsManager", () => {
     const result = InternalToolSettingsManager.initializeToolSettingsData(
       toolSettingsProperties
     );
-    expect(result).to.be.false;
+    expect(result).toEqual(false);
   });
 
   it("should support setting active tool label", () => {
@@ -171,7 +173,7 @@ describe("InternalToolSettingsManager", () => {
     InternalToolSettingsManager.onSyncToolSettingsProperties.addListener(
       handleSyncToolSettingsPropertiesEvent
     );
-    expect(eventCalled).to.be.false;
+    expect(eventCalled).toEqual(false);
     const syncArgs = {
       toolId: testToolId,
       syncProperties: [syncItem],
@@ -183,9 +185,9 @@ describe("InternalToolSettingsManager", () => {
     );
     eventCalled = false;
     InternalToolSettingsManager.onSyncToolSettingsProperties.emit(syncArgs);
-    expect(eventCalled).to.be.false;
+    expect(eventCalled).toEqual(false);
     InternalToolSettingsManager.onReloadToolSettingsProperties.emit();
-    expect(eventCalled).to.be.false;
+    expect(eventCalled).toEqual(false);
   });
 
   it("handleSyncToolSettingsPropertiesEvent", () => {
@@ -198,7 +200,7 @@ describe("InternalToolSettingsManager", () => {
     InternalToolSettingsManager.onReloadToolSettingsProperties.addListener(
       handleReloadToolSettingsPropertiesEvent
     );
-    expect(eventCalled).to.be.false;
+    expect(eventCalled).toEqual(false);
     InternalToolSettingsManager.onReloadToolSettingsProperties.emit();
     expect(eventCalled).toEqual(true);
     InternalToolSettingsManager.onReloadToolSettingsProperties.removeListener(
@@ -206,7 +208,7 @@ describe("InternalToolSettingsManager", () => {
     );
     eventCalled = false;
     InternalToolSettingsManager.onReloadToolSettingsProperties.emit();
-    expect(eventCalled).to.be.false;
+    expect(eventCalled).toEqual(false);
   });
 
   it("handleDispatchSyncUiEvent", () => {
@@ -226,7 +228,9 @@ describe("InternalToolSettingsManager", () => {
   describe("focusIntoToolSettings", () => {
     it("should return false if no ToolSettings div found", async () => {
       render(<div data-testid="div"></div>);
-      expect(InternalToolSettingsManager.focusIntoToolSettings()).to.be.false;
+      expect(InternalToolSettingsManager.focusIntoToolSettings()).toEqual(
+        false
+      );
     });
 
     it("should return true if focusable item in docked ToolSettings", async () => {
@@ -240,7 +244,9 @@ describe("InternalToolSettingsManager", () => {
 
     it("should return false if no focusable item in docked ToolSettings", async () => {
       render(<div className="nz-toolSettings-docked"></div>);
-      expect(InternalToolSettingsManager.focusIntoToolSettings()).to.be.false;
+      expect(InternalToolSettingsManager.focusIntoToolSettings()).toEqual(
+        false
+      );
     });
 
     it("should return true if focusable item in floating ToolSettings", async () => {
@@ -254,7 +260,9 @@ describe("InternalToolSettingsManager", () => {
 
     it("should return false if no focusable item in floating ToolSettings", async () => {
       render(<div className="uifw-tool-settings-grid-container"></div>);
-      expect(InternalToolSettingsManager.focusIntoToolSettings()).to.be.false;
+      expect(InternalToolSettingsManager.focusIntoToolSettings()).toEqual(
+        false
+      );
     });
 
     // NEEDSWORK - need tests with real Tool Settings for V1 & V2

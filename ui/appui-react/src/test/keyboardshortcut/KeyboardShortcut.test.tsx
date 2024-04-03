@@ -62,7 +62,7 @@ describe("KeyboardShortcut", () => {
         item: testCommand,
       });
       expect(keyboardShortcut.isFunctionKey).toEqual(true);
-      expect(keyboardShortcut.isSpecialKey).to.be.false;
+      expect(keyboardShortcut.isSpecialKey).toEqual(false);
     });
 
     it("should support special keys", () => {
@@ -71,7 +71,7 @@ describe("KeyboardShortcut", () => {
         item: testCommand,
       });
       expect(keyboardShortcut.isSpecialKey).toEqual(true);
-      expect(keyboardShortcut.isFunctionKey).to.be.false;
+      expect(keyboardShortcut.isFunctionKey).toEqual(false);
     });
 
     it("Should provide and execute item", async () => {
@@ -276,7 +276,7 @@ describe("KeyboardShortcut", () => {
       expect(testspy).toHaveBeenCalledOnce();
 
       const processedG = InternalKeyboardShortcutManager.processKey("g");
-      expect(processedG).to.be.false;
+      expect(processedG).toEqual(false);
     });
 
     it("processKey should invoke item", async () => {
@@ -320,18 +320,22 @@ describe("KeyboardShortcut", () => {
 
       const shortcut = InternalKeyboardShortcutManager.getShortcut("r");
       expect(shortcut).toBeTruthy();
-      expect(ConditionalBooleanValue.getValue(shortcut!.isDisabled)).to.be
-        .false;
+      expect(ConditionalBooleanValue.getValue(shortcut!.isDisabled)).toEqual(
+        false
+      );
       const childShortcut = shortcut!.getShortcut("t");
       expect(childShortcut).toBeTruthy();
-      expect(ConditionalBooleanValue.getValue(childShortcut!.isDisabled)).to.be
-        .false;
+      expect(
+        ConditionalBooleanValue.getValue(childShortcut!.isDisabled)
+      ).toEqual(false);
       const childShortcutZ = shortcut!.getShortcut("z");
       expect(childShortcutZ).toBeTruthy();
-      expect(ConditionalBooleanValue.getValue(childShortcutZ!.isDisabled)).to.be
-        .false;
-      expect(ConditionalBooleanValue.getValue(childShortcutZ!.isHidden)).to.be
-        .false;
+      expect(
+        ConditionalBooleanValue.getValue(childShortcutZ!.isDisabled)
+      ).toEqual(false);
+      expect(
+        ConditionalBooleanValue.getValue(childShortcutZ!.isHidden)
+      ).toEqual(false);
 
       SyncUiEventDispatcher.dispatchImmediateSyncUiEvent(testEventId);
 
@@ -341,8 +345,9 @@ describe("KeyboardShortcut", () => {
       expect(
         ConditionalBooleanValue.getValue(childShortcut!.isDisabled)
       ).toEqual(true);
-      expect(ConditionalBooleanValue.getValue(childShortcutZ!.isDisabled)).to.be
-        .false;
+      expect(
+        ConditionalBooleanValue.getValue(childShortcutZ!.isDisabled)
+      ).toEqual(false);
       expect(
         ConditionalBooleanValue.getValue(childShortcutZ!.isHidden)
       ).toEqual(true);
@@ -361,7 +366,7 @@ describe("KeyboardShortcut", () => {
       buttonElement.focus();
       let activeElement = document.activeElement as HTMLElement;
       expect(activeElement === buttonElement).toEqual(true);
-      expect(InternalKeyboardShortcutManager.isFocusOnHome).to.be.false;
+      expect(InternalKeyboardShortcutManager.isFocusOnHome).toEqual(false);
 
       InternalKeyboardShortcutManager.setFocusToHome();
       activeElement = document.activeElement as HTMLElement;

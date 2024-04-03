@@ -44,7 +44,7 @@ describe("Timeline", () => {
       const settings = timelineProvider.getSettings();
       expect(settings.duration).toEqual(duration);
       expect(settings.loop).toEqual(loop);
-      expect(timelineProvider.pointerCallbackCalled).to.be.false;
+      expect(timelineProvider.pointerCallbackCalled).toEqual(false);
       timelineProvider.onAnimationFractionChanged(testanimationFraction);
       expect(timelineProvider.pointerCallbackCalled).toEqual(true);
     });

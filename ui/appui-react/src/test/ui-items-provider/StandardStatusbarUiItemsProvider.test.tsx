@@ -61,7 +61,7 @@ describe("StandardStatusbarUiItemsProvider", () => {
       8
     );
     UiItemsManager.unregister(provider.id);
-    expect(UiItemsManager.hasRegisteredProviders).to.be.false;
+    expect(UiItemsManager.hasRegisteredProviders).toEqual(false);
   });
 
   it("should register StandardStatusbarUiItemsProvider with no separators", () => {
@@ -81,7 +81,7 @@ describe("StandardStatusbarUiItemsProvider", () => {
       UiItemsManager.getStatusBarItems("test", StageUsage.General).length
     ).toEqual(7);
     UiItemsManager.unregister(provider.id);
-    expect(UiItemsManager.hasRegisteredProviders).to.be.false;
+    expect(UiItemsManager.hasRegisteredProviders).toEqual(false);
   });
 
   it("should process all combinations of options", () => {
@@ -101,7 +101,7 @@ describe("StandardStatusbarUiItemsProvider", () => {
       expect(UiItemsManager.hasRegisteredProviders).toEqual(true);
       UiItemsManager.getStatusBarItems("test", StageUsage.General);
       UiItemsManager.unregister(local_provider.id);
-      expect(UiItemsManager.hasRegisteredProviders).to.be.false;
+      expect(UiItemsManager.hasRegisteredProviders).toEqual(false);
     });
   });
 });

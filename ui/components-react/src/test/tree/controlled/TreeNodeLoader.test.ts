@@ -937,8 +937,9 @@ describe("handleLoadedNodeHierarchy", () => {
     expect(
       modelSource.getModel().getChildren(parentNode.id)!.getLength()
     ).to.be.eq(1);
-    expect(modelSource.getModel().getNode(parentNode.id)!.isLoading).to.be
-      .false;
+    expect(modelSource.getModel().getNode(parentNode.id)!.isLoading).toEqual(
+      false
+    );
   });
 
   it("does not add children if parent was collapsed and children should be disposed", () => {

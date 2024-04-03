@@ -68,7 +68,7 @@ describe("BooleanTypeConverter", () => {
     });
 
     it("returns false if parameter is not localized true value", () => {
-      expect(converter.convertFromString("test")).to.be.false;
+      expect(converter.convertFromString("test")).toEqual(false);
     });
   });
 

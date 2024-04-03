@@ -40,7 +40,7 @@ describe("useActiveToolIdSynchedItems", () => {
     syncHost.activeToolId = "Btn1";
     syncHost.onToolActivatedEvent.emit({ toolId: "Btn2" });
 
-    expect(result.current[0].isActive).to.be.false;
+    expect(result.current[0].isActive).toEqual(false);
     expect(result.current[1].isActive).toEqual(true);
   });
 
@@ -84,7 +84,7 @@ describe("useActiveToolIdSynchedItems", () => {
     });
 
     syncHost.onToolActivatedEvent.emit({ toolId: "Btn2" });
-    expect(result.current[1].isActive).to.be.false;
+    expect(result.current[1].isActive).toEqual(false);
     expect(result.current[0].items?.[1].items?.[0].isActive).toEqual(true);
   });
 

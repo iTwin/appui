@@ -118,7 +118,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
 
   it("should render without milestones - minimized", async () => {
     const dataProvider = new TestTimelineDataProvider();
-    expect(dataProvider.loop).to.be.false;
+    expect(dataProvider.loop).toEqual(false);
     vi.useFakeTimers();
 
     const renderedComponent = render(
@@ -138,8 +138,8 @@ describe("<TimelineComponent showDuration={true} />", () => {
     const playButton = renderedComponent.getByRole("button", {
       name: "timeline.play",
     });
-    expect(dataProvider.playing).to.be.false;
-    expect(dataProvider.pointerCallbackCalled).to.be.false;
+    expect(dataProvider.playing).toEqual(false);
+    expect(dataProvider.pointerCallbackCalled).toEqual(false);
 
     fireEvent.click(playButton);
     // Wait for animation.
@@ -159,14 +159,14 @@ describe("<TimelineComponent showDuration={true} />", () => {
 
     // kill some time to wait for setState and subsequent call to window.requestAnimationFrame to process
     // await new Promise((r) => { setTimeout(r, 40); });
-    expect(dataProvider.playing).to.be.false;
+    expect(dataProvider.playing).toEqual(false);
     expect(dataProvider.pointerCallbackCalled).toEqual(true);
   });
 
   it("should show tooltip on pointer move", async () => {
     const spyOnChange = vi.fn();
     const dataProvider = new TestTimelineDataProvider();
-    expect(dataProvider.loop).to.be.false;
+    expect(dataProvider.loop).toEqual(false);
     vi.useFakeTimers({ shouldAdvanceTime: true });
 
     const renderedComponent = render(
@@ -224,8 +224,8 @@ describe("<TimelineComponent showDuration={true} />", () => {
     const playButton = renderedComponent.getByRole("button", {
       name: "timeline.play",
     });
-    expect(dataProvider.playing).to.be.false;
-    expect(dataProvider.pointerCallbackCalled).to.be.false;
+    expect(dataProvider.playing).toEqual(false);
+    expect(dataProvider.pointerCallbackCalled).toEqual(false);
 
     fireEvent.click(playButton);
     expect(dataProvider.playing).toEqual(true);
@@ -236,7 +236,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
     vi.advanceTimersByTime(1);
 
     await vi.waitFor(() => {
-      expect(dataProvider.playing).to.be.false;
+      expect(dataProvider.playing).toEqual(false);
     });
   });
 
@@ -264,8 +264,8 @@ describe("<TimelineComponent showDuration={true} />", () => {
     const playButton = renderedComponent.getByRole("button", {
       name: "timeline.play",
     });
-    expect(dataProvider.playing).to.be.false;
-    expect(dataProvider.pointerCallbackCalled).to.be.false;
+    expect(dataProvider.playing).toEqual(false);
+    expect(dataProvider.pointerCallbackCalled).toEqual(false);
 
     fireEvent.click(playButton);
     expect(dataProvider.playing).toEqual(true);
@@ -280,7 +280,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
     expect(dataProvider.playing).toEqual(true);
 
     fireEvent.click(playButton);
-    expect(dataProvider.playing).to.be.false;
+    expect(dataProvider.playing).toEqual(false);
   });
 
   it("timeline with short duration (repeat set and at end of animation loop) - expanded", async () => {
@@ -308,8 +308,8 @@ describe("<TimelineComponent showDuration={true} />", () => {
     const playButton = renderedComponent.getByRole("button", {
       name: "timeline.play",
     });
-    expect(dataProvider.playing).to.be.false;
-    expect(dataProvider.pointerCallbackCalled).to.be.false;
+    expect(dataProvider.playing).toEqual(false);
+    expect(dataProvider.pointerCallbackCalled).toEqual(false);
 
     fireEvent.click(playButton);
     expect(dataProvider.playing).toEqual(true);
@@ -324,7 +324,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
     expect(dataProvider.playing).toEqual(true);
 
     fireEvent.click(playButton);
-    expect(dataProvider.playing).to.be.false;
+    expect(dataProvider.playing).toEqual(false);
   });
 
   it("timeline with no dates (Analysis animation", async () => {
@@ -347,8 +347,8 @@ describe("<TimelineComponent showDuration={true} />", () => {
     const playButton = renderedComponent.getByRole("button", {
       name: "timeline.play",
     });
-    expect(dataProvider.playing).to.be.false;
-    expect(dataProvider.pointerCallbackCalled).to.be.false;
+    expect(dataProvider.playing).toEqual(false);
+    expect(dataProvider.pointerCallbackCalled).toEqual(false);
 
     fireEvent.click(playButton);
     expect(dataProvider.playing).toEqual(true);
@@ -360,7 +360,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
     vi.advanceTimersByTime(1);
 
     await vi.waitFor(() => {
-      expect(dataProvider.playing).to.be.false;
+      expect(dataProvider.playing).toEqual(false);
     });
   });
 
@@ -576,7 +576,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
     );
 
     expect(renderedComponent).not.to.be.undefined;
-    expect(dataProvider.getSettings().loop).to.be.false;
+    expect(dataProvider.getSettings().loop).toEqual(false);
 
     // trigger call to componentDidUpdate
     renderedComponent.rerender(

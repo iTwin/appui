@@ -37,7 +37,7 @@ describe("PropertyCategoryLabelFilterer", () => {
 
     it(`Should return filtering as disabled`, () => {
       const filterer = new PropertyCategoryLabelFilterer();
-      expect(filterer.isActive).to.be.false;
+      expect(filterer.isActive).toEqual(false);
     });
 
     it(`Should always return 'matchesFilter: true' when calling 'recordMatchesFilter'`, async () => {

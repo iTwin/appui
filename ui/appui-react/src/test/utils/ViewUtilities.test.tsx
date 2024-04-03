@@ -24,17 +24,17 @@ describe("ViewUtilities", () => {
   it("should recognize spatial view", () => {
     expect(ViewUtilities.isSpatial("SpatialViewDefinition")).toEqual(true);
     expect(ViewUtilities.isSpatial("OrthographicViewDefinition")).toEqual(true);
-    expect(ViewUtilities.isSpatial("")).to.be.false;
+    expect(ViewUtilities.isSpatial("")).toEqual(false);
   });
 
   it("should recognize drawing view", () => {
     expect(ViewUtilities.isDrawing("DrawingViewDefinition")).toEqual(true);
-    expect(ViewUtilities.isDrawing("")).to.be.false;
+    expect(ViewUtilities.isDrawing("")).toEqual(false);
   });
 
   it("should recognize sheet view", () => {
     expect(ViewUtilities.isSheet("SheetViewDefinition")).toEqual(true);
-    expect(ViewUtilities.isSheet("")).to.be.false;
+    expect(ViewUtilities.isSheet("")).toEqual(false);
   });
 
   const viewportMock = moq.Mock.ofType<ScreenViewport>();
@@ -49,12 +49,16 @@ describe("ViewUtilities", () => {
     viewportMock
       .setup((viewport) => viewport.view)
       .returns(() => sheetViewStateMock.object);
-    expect(ViewUtilities.is3dView(viewportMock.object)).to.be.false;
+    expect(ViewUtilities.is3dView(viewportMock.object)).toEqual(false);
     expect(ViewUtilities.isSheetView(viewportMock.object)).toEqual(true);
-    expect(ViewUtilities.isDrawingView(viewportMock.object)).to.be.false;
-    expect(ViewUtilities.isSpatialView(viewportMock.object)).to.be.false;
-    expect(ViewUtilities.isOrthographicView(viewportMock.object)).to.be.false;
-    expect(ViewUtilities.viewSupportsCamera(viewportMock.object)).to.be.false;
+    expect(ViewUtilities.isDrawingView(viewportMock.object)).toEqual(false);
+    expect(ViewUtilities.isSpatialView(viewportMock.object)).toEqual(false);
+    expect(ViewUtilities.isOrthographicView(viewportMock.object)).toEqual(
+      false
+    );
+    expect(ViewUtilities.viewSupportsCamera(viewportMock.object)).toEqual(
+      false
+    );
   });
 
   it("is2d Drawing View", () => {
@@ -67,12 +71,16 @@ describe("ViewUtilities", () => {
     viewportMock
       .setup((viewport) => viewport.view)
       .returns(() => drawingViewStateMock.object);
-    expect(ViewUtilities.is3dView(viewportMock.object)).to.be.false;
-    expect(ViewUtilities.isSheetView(viewportMock.object)).to.be.false;
+    expect(ViewUtilities.is3dView(viewportMock.object)).toEqual(false);
+    expect(ViewUtilities.isSheetView(viewportMock.object)).toEqual(false);
     expect(ViewUtilities.isDrawingView(viewportMock.object)).toEqual(true);
-    expect(ViewUtilities.isSpatialView(viewportMock.object)).to.be.false;
-    expect(ViewUtilities.isOrthographicView(viewportMock.object)).to.be.false;
-    expect(ViewUtilities.viewSupportsCamera(viewportMock.object)).to.be.false;
+    expect(ViewUtilities.isSpatialView(viewportMock.object)).toEqual(false);
+    expect(ViewUtilities.isOrthographicView(viewportMock.object)).toEqual(
+      false
+    );
+    expect(ViewUtilities.viewSupportsCamera(viewportMock.object)).toEqual(
+      false
+    );
   });
 
   it("is3d Spatial View", () => {
@@ -86,10 +94,12 @@ describe("ViewUtilities", () => {
       .setup((viewport) => viewport.view)
       .returns(() => spatialViewStateMock.object);
     expect(ViewUtilities.is3dView(viewportMock.object)).toEqual(true);
-    expect(ViewUtilities.isSheetView(viewportMock.object)).to.be.false;
-    expect(ViewUtilities.isDrawingView(viewportMock.object)).to.be.false;
+    expect(ViewUtilities.isSheetView(viewportMock.object)).toEqual(false);
+    expect(ViewUtilities.isDrawingView(viewportMock.object)).toEqual(false);
     expect(ViewUtilities.isSpatialView(viewportMock.object)).toEqual(true);
-    expect(ViewUtilities.isOrthographicView(viewportMock.object)).to.be.false;
+    expect(ViewUtilities.isOrthographicView(viewportMock.object)).toEqual(
+      false
+    );
     expect(ViewUtilities.viewSupportsCamera(viewportMock.object)).toEqual(true);
   });
 
@@ -104,10 +114,12 @@ describe("ViewUtilities", () => {
       .setup((viewport) => viewport.view)
       .returns(() => orthographicViewStateMock.object);
     expect(ViewUtilities.is3dView(viewportMock.object)).toEqual(true);
-    expect(ViewUtilities.isSheetView(viewportMock.object)).to.be.false;
-    expect(ViewUtilities.isDrawingView(viewportMock.object)).to.be.false;
+    expect(ViewUtilities.isSheetView(viewportMock.object)).toEqual(false);
+    expect(ViewUtilities.isDrawingView(viewportMock.object)).toEqual(false);
     expect(ViewUtilities.isSpatialView(viewportMock.object)).toEqual(true); // ortho is derived from spatial
     expect(ViewUtilities.isOrthographicView(viewportMock.object)).toEqual(true);
-    expect(ViewUtilities.viewSupportsCamera(viewportMock.object)).to.be.false;
+    expect(ViewUtilities.viewSupportsCamera(viewportMock.object)).toEqual(
+      false
+    );
   });
 });

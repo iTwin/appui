@@ -86,7 +86,7 @@ describe("useElementsScrollStorage", () => {
     );
 
     ref.current!.persist();
-    expect(getterCalled).to.be.false;
+    expect(getterCalled).toEqual(false);
 
     ref.current!.restore();
     expect(scrollValue).to.be.undefined;

@@ -172,8 +172,9 @@ describe("QuantityInput", () => {
     fireEvent.keyDown(input, { key: Key.Escape });
     expect(spyOnChange).not.toBeCalled(); // value did not change after ESC was pressed
     const currentValue = input.value;
-    expect(input.classList.contains("components-parsed-input-has-error")).to.be
-      .false;
+    expect(
+      input.classList.contains("components-parsed-input-has-error")
+    ).toEqual(false);
     expect(initialValue).toEqual(currentValue);
   });
 });

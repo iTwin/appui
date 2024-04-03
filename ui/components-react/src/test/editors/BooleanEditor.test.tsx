@@ -22,7 +22,7 @@ describe("<BooleanEditor />", () => {
   it("value 'false' should have the checkbox unchecked", async () => {
     const record = TestUtils.createBooleanProperty("Test", false);
     render(<BooleanEditor propertyRecord={record} />);
-    expect(screen.getByTestId<HTMLInputElement>(testId).checked).to.be.false;
+    expect(screen.getByTestId<HTMLInputElement>(testId).checked).toEqual(false);
   });
 
   it("value 'true' should have the checkbox checked", async () => {
@@ -55,7 +55,7 @@ describe("<BooleanEditor />", () => {
     spyOnCommit.mockReset();
 
     await theUserTo.click(screen.getByTestId(testId));
-    expect(screen.getByTestId<HTMLInputElement>(testId).checked).to.be.false;
+    expect(screen.getByTestId<HTMLInputElement>(testId).checked).toEqual(false);
     expect(spyOnCommit).toHaveBeenCalledWith(
       expect.objectContaining({
         newValue: expect.objectContaining({ value: false }),
@@ -90,7 +90,7 @@ describe("<BooleanEditor />", () => {
     const record = TestUtils.createBooleanProperty("Test", false);
     const { rerender } = render(<BooleanEditor propertyRecord={record} />);
 
-    expect(screen.getByTestId<HTMLInputElement>(testId).checked).to.be.false;
+    expect(screen.getByTestId<HTMLInputElement>(testId).checked).toEqual(false);
 
     const newRecord = TestUtils.createBooleanProperty("Test", true);
     rerender(<BooleanEditor propertyRecord={newRecord} />);
@@ -125,8 +125,9 @@ describe("<BooleanEditor />", () => {
     const ref = React.createRef<BooleanEditor>();
     render(<BooleanEditor propertyRecord={record} setFocus={true} ref={ref} />);
 
-    expect(((await ref.current?.getPropertyValue()) as PrimitiveValue).value).to
-      .be.false;
+    expect(
+      ((await ref.current?.getPropertyValue()) as PrimitiveValue).value
+    ).toEqual(false);
     expect(ref.current?.hasFocus).toEqual(true);
     expect(ref.current?.htmlElement).to.equal(screen.getByRole("checkbox"));
   });

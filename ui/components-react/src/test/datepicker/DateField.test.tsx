@@ -88,7 +88,7 @@ describe("<DateField />", () => {
     expect(input).not.to.be.null;
     const localValue = input!.value;
     expect(localValue.match(/:/)).not.to.be.null; // should contain hour:minute separator.
-    expect(input!.disabled).to.be.false;
+    expect(input!.disabled).toEqual(false);
     fireEvent.change(input!, { target: { value: localValue } });
     fireEvent.keyDown(input!, { key: Key.Enter });
     input!.focus();

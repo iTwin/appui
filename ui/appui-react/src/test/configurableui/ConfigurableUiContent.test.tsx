@@ -37,9 +37,9 @@ describe("ConfigurableUiContent", () => {
     let keyEvent = new KeyboardEvent("keydown", { key: "a" });
     expect(await toolAdmin.processShortcutKey(keyEvent, true)).toEqual(true);
     keyEvent = new KeyboardEvent("keyup", { key: "a" });
-    expect(await toolAdmin.processShortcutKey(keyEvent, false)).to.be.false;
+    expect(await toolAdmin.processShortcutKey(keyEvent, false)).toEqual(false);
     keyEvent = new KeyboardEvent("keydown", { key: Key.Escape });
-    expect(await toolAdmin.processShortcutKey(keyEvent, true)).to.be.false;
+    expect(await toolAdmin.processShortcutKey(keyEvent, true)).toEqual(false);
   });
 
   it("mouse moves should be handled", async () => {

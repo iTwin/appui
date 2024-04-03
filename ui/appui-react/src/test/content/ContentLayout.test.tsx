@@ -356,7 +356,7 @@ describe("ContentLayout", () => {
     });
     expect(UiFramework.content.isMouseDown).toEqual(true);
     await theUserTo.pointer("[/MouseLeft]");
-    expect(UiFramework.content.isMouseDown).to.be.false;
+    expect(UiFramework.content.isMouseDown).toEqual(false);
   });
 
   it("ContentWrapper mouse down", async () => {

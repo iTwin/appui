@@ -79,7 +79,7 @@ describe("MutableCustomGridCategory", () => {
         undefined,
         1
       );
-      expect(categoryItem.isRootCategory).to.be.false;
+      expect(categoryItem.isRootCategory).toEqual(false);
     });
   });
 

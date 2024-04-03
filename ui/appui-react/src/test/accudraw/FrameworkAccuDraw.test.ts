@@ -40,7 +40,7 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
 
     it("FrameworkAccuDraw.displayNotifications should set & return correctly", () => {
       FrameworkAccuDraw.displayNotifications = false;
-      expect(FrameworkAccuDraw.displayNotifications).to.be.false;
+      expect(FrameworkAccuDraw.displayNotifications).toEqual(false);
       FrameworkAccuDraw.displayNotifications = true;
       expect(FrameworkAccuDraw.displayNotifications).toEqual(true);
     });
@@ -197,7 +197,7 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
     });
 
     it("hasInputFocus should return false", () => {
-      expect(IModelApp.accuDraw.hasInputFocus).to.be.false;
+      expect(IModelApp.accuDraw.hasInputFocus).toEqual(false);
     });
 
     it("should emit onAccuDrawSetFieldValueToUiEvent & onAccuDrawSetFieldFocusEvent", () => {
@@ -237,12 +237,12 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
       expect(FrameworkAccuDraw.displayNotifications).toEqual(true);
       FrameworkAccuDraw.displayNotifications = false;
       await TestUtils.flushAsyncOperations();
-      expect(FrameworkAccuDraw.displayNotifications).to.be.false;
+      expect(FrameworkAccuDraw.displayNotifications).toEqual(false);
 
       const instance = new FrameworkAccuDraw();
       await instance.loadUserSettings(UiFramework.getUiStateStorage());
       await TestUtils.flushAsyncOperations();
-      expect(FrameworkAccuDraw.displayNotifications).to.be.false;
+      expect(FrameworkAccuDraw.displayNotifications).toEqual(false);
     });
   });
 });

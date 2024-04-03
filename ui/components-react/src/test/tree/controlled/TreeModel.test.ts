@@ -397,7 +397,7 @@ describe("MutableTreeModel", () => {
 
     it("does nothing when target node does not exist and returns `false`", () => {
       const resultStatus = treeModel.changeNodeId("testId", "newId");
-      expect(resultStatus).to.be.false;
+      expect(resultStatus).toEqual(false);
       expect(treeModel.getNode("newId")).to.be.undefined;
     });
 
@@ -409,7 +409,7 @@ describe("MutableTreeModel", () => {
 
       const resultStatus = treeModel.changeNodeId("targetNode", "existingNode");
 
-      expect(resultStatus).to.be.false;
+      expect(resultStatus).toEqual(false);
       expect(treeModel.getNode("existingNode")!.item).to.be.deep.equal(
         existingNode.item
       );
@@ -491,7 +491,7 @@ describe("MutableTreeModel", () => {
         "root1",
         1
       );
-      expect(resultStatus).to.be.false;
+      expect(resultStatus).toEqual(false);
       expect([...treeModel.getChildren("root1")!]).to.be.deep.equal([
         "child1",
         "child2",
@@ -504,7 +504,7 @@ describe("MutableTreeModel", () => {
         "not_existing_node_id",
         0
       );
-      expect(resultStatus).to.be.false;
+      expect(resultStatus).toEqual(false);
       expect([...treeModel.getChildren("root1")!]).to.be.deep.equal([
         "child1",
         "child2",
@@ -516,7 +516,7 @@ describe("MutableTreeModel", () => {
 
       const resultStatus = treeModel.moveNode("root1", "root2", 0);
 
-      expect(resultStatus).to.be.false;
+      expect(resultStatus).toEqual(false);
       expect([...treeModel.getChildren(undefined)!]).to.be.deep.equal([
         "root1",
         "root2",
@@ -535,7 +535,7 @@ describe("MutableTreeModel", () => {
 
       const resultStatus = treeModel.moveNode("root1", "grandchild1", 0);
 
-      expect(resultStatus).to.be.false;
+      expect(resultStatus).toEqual(false);
       expect([...treeModel.getChildren(undefined)!]).to.be.deep.equal([
         "root1",
         "root2",
@@ -1010,7 +1010,7 @@ describe("isTreeModelNode", () => {
 
   it("returns false for TreeModelNodePlaceholder", () => {
     const node: TreeModelNodePlaceholder = { depth: 0, childIndex: 0 };
-    expect(isTreeModelNode(node)).to.be.false;
+    expect(isTreeModelNode(node)).toEqual(false);
   });
 
   it("returns false for TreeModelRootNode", () => {
@@ -1019,7 +1019,7 @@ describe("isTreeModelNode", () => {
       id: undefined,
       numChildren: undefined,
     };
-    expect(isTreeModelNode(node)).to.be.false;
+    expect(isTreeModelNode(node)).toEqual(false);
   });
 });
 
@@ -1035,11 +1035,11 @@ describe("isTreeModelRootNode", () => {
 
   it("returns false for TreeModelNode", () => {
     const node: TreeModelNode = createRandomMutableTreeModelNode();
-    expect(isTreeModelRootNode(node)).to.be.false;
+    expect(isTreeModelRootNode(node)).toEqual(false);
   });
 
   it("returns false for TreeModelNodePlaceholder", () => {
     const node: TreeModelNodePlaceholder = { depth: 0, childIndex: 0 };
-    expect(isTreeModelRootNode(node)).to.be.false;
+    expect(isTreeModelRootNode(node)).toEqual(false);
   });
 });

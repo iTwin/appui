@@ -175,12 +175,12 @@ describe("PropertyEditorManager", () => {
         createPropertyValue("newvalue"),
         createPropertyRecord("value")
       );
-      expect(validateResult.encounteredError).to.be.false;
+      expect(validateResult.encounteredError).toEqual(false);
       const commitResult = await propertyEditor.commitValue(
         createPropertyValue("newvalue"),
         createPropertyRecord("value")
       );
-      expect(commitResult.encounteredError).to.be.false;
+      expect(commitResult.encounteredError).toEqual(false);
     }
   });
 
@@ -198,12 +198,12 @@ describe("PropertyEditorManager", () => {
         createPropertyValue("newvalue"),
         createPropertyRecord("value")
       );
-      expect(validateResult.encounteredError).to.be.false;
+      expect(validateResult.encounteredError).toEqual(false);
       const commitResult = await propertyEditor.commitValue(
         createPropertyValue("newvalue"),
         createPropertyRecord("value")
       );
-      expect(commitResult.encounteredError).to.be.false;
+      expect(commitResult.encounteredError).toEqual(false);
     }
   });
 

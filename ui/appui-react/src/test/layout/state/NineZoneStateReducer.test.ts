@@ -241,7 +241,7 @@ describe("NineZoneStateReducer", () => {
         side: "left",
         resizable: false,
       });
-      expect(newState.panels.left.resizable).to.false;
+      expect(newState.panels.left.resizable).toEqual(false);
     });
   });
 
@@ -1950,7 +1950,7 @@ describe("NineZoneStateReducer", () => {
         id: "t1",
       });
       assert(newState.toolSettings?.type === "docked");
-      expect(newState.toolSettings.hidden).to.false;
+      expect(newState.toolSettings.hidden).toEqual(false);
       expect(newState.widgets).to.eql({});
     });
 
@@ -2070,7 +2070,7 @@ describe("NineZoneStateReducer", () => {
         type: "WIDGET_TAB_SHOW",
         id: "t1",
       });
-      expect(newState.panels.left.collapsed).to.false;
+      expect(newState.panels.left.collapsed).toEqual(false);
     });
   });
 

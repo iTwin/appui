@@ -99,19 +99,19 @@ describe("PropertyFilterBuilderRuleRangeValue", () => {
         from: { valueFormat: PropertyValueFormat.Primitive, value: 456 },
         to: { valueFormat: PropertyValueFormat.Primitive, value: 123 },
       })
-    ).to.be.false;
+    ).toEqual(false);
     expect(
       PropertyFilterBuilderRuleRangeValue.isRangeValid({
         from: { valueFormat: PropertyValueFormat.Primitive, value: "invalid" },
         to: { valueFormat: PropertyValueFormat.Primitive, value: 456 },
       })
-    ).to.be.false;
+    ).toEqual(false);
     expect(
       PropertyFilterBuilderRuleRangeValue.isRangeValid({
         from: { valueFormat: PropertyValueFormat.Primitive, value: 123 },
         to: { valueFormat: PropertyValueFormat.Primitive, value: "invalid" },
       })
-    ).to.be.false;
+    ).toEqual(false);
   });
 
   it("`isRangeValid` returns correct result for date object", () => {
@@ -128,19 +128,19 @@ describe("PropertyFilterBuilderRuleRangeValue", () => {
         from: { valueFormat: PropertyValueFormat.Primitive, value: toDate },
         to: { valueFormat: PropertyValueFormat.Primitive, value: fromDate },
       })
-    ).to.be.false;
+    ).toEqual(false);
     expect(
       PropertyFilterBuilderRuleRangeValue.isRangeValid({
         from: { valueFormat: PropertyValueFormat.Primitive, value: "invalid" },
         to: { valueFormat: PropertyValueFormat.Primitive, value: toDate },
       })
-    ).to.be.false;
+    ).toEqual(false);
     expect(
       PropertyFilterBuilderRuleRangeValue.isRangeValid({
         from: { valueFormat: PropertyValueFormat.Primitive, value: fromDate },
         to: { valueFormat: PropertyValueFormat.Primitive, value: "invalid" },
       })
-    ).to.be.false;
+    ).toEqual(false);
   });
 
   it("`isRangeValid` returns correct result for dateTime string", () => {
@@ -157,18 +157,18 @@ describe("PropertyFilterBuilderRuleRangeValue", () => {
         from: { valueFormat: PropertyValueFormat.Primitive, value: toDate },
         to: { valueFormat: PropertyValueFormat.Primitive, value: fromDate },
       })
-    ).to.be.false;
+    ).toEqual(false);
     expect(
       PropertyFilterBuilderRuleRangeValue.isRangeValid({
         from: { valueFormat: PropertyValueFormat.Primitive, value: "invalid" },
         to: { valueFormat: PropertyValueFormat.Primitive, value: toDate },
       })
-    ).to.be.false;
+    ).toEqual(false);
     expect(
       PropertyFilterBuilderRuleRangeValue.isRangeValid({
         from: { valueFormat: PropertyValueFormat.Primitive, value: fromDate },
         to: { valueFormat: PropertyValueFormat.Primitive, value: "invalid" },
       })
-    ).to.be.false;
+    ).toEqual(false);
   });
 });

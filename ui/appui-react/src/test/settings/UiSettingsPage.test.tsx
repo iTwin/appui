@@ -121,7 +121,7 @@ describe("UiSettingsPage", () => {
     expect(checkbox).not.to.be.null;
     fireEvent.click(checkbox!);
     await TestUtils.flushAsyncOperations();
-    expect(checkbox?.checked).to.be.false; // defaults to true so this should make if false
+    expect(checkbox?.checked).toEqual(false); // defaults to true so this should make if false
     fireEvent.click(checkbox!);
     await TestUtils.flushAsyncOperations();
     expect(checkbox?.checked).toEqual(true);
@@ -143,7 +143,7 @@ describe("UiSettingsPage", () => {
     expect(checkbox?.checked).toEqual(true);
     fireEvent.click(checkbox!);
     await TestUtils.flushAsyncOperations();
-    expect(checkbox?.checked).to.be.false;
+    expect(checkbox?.checked).toEqual(false);
     wrapper.unmount();
   });
 
@@ -161,7 +161,7 @@ describe("UiSettingsPage", () => {
     expect(checkbox?.checked).toEqual(true); // latest default value
     fireEvent.click(checkbox!);
     await TestUtils.flushAsyncOperations();
-    expect(checkbox?.checked).to.be.false;
+    expect(checkbox?.checked).toEqual(false);
     wrapper.unmount();
   });
 
@@ -179,7 +179,7 @@ describe("UiSettingsPage", () => {
     expect(checkbox?.checked).toEqual(true);
     fireEvent.click(checkbox!);
     await TestUtils.flushAsyncOperations();
-    expect(checkbox?.checked).to.be.false;
+    expect(checkbox?.checked).toEqual(false);
     wrapper.unmount();
   });
 
@@ -194,7 +194,7 @@ describe("UiSettingsPage", () => {
     const checkbox = getInputBySpanTitle(titleSpan);
     fireEvent.click(checkbox!);
     await TestUtils.flushAsyncOperations();
-    expect(checkbox?.checked).to.be.false;
+    expect(checkbox?.checked).toEqual(false);
     fireEvent.click(checkbox!);
     await TestUtils.flushAsyncOperations();
     expect(checkbox?.checked).toEqual(true);
@@ -215,7 +215,7 @@ describe("UiSettingsPage", () => {
     expect(checkbox?.checked).toEqual(true);
     fireEvent.click(checkbox!);
     await TestUtils.flushAsyncOperations();
-    expect(checkbox?.checked).to.be.false;
+    expect(checkbox?.checked).toEqual(false);
     wrapper.unmount();
   });
 
@@ -233,7 +233,7 @@ describe("UiSettingsPage", () => {
     expect(checkbox?.checked).toEqual(true);
     fireEvent.click(checkbox!);
     await TestUtils.flushAsyncOperations();
-    expect(checkbox?.checked).to.be.false;
+    expect(checkbox?.checked).toEqual(false);
     wrapper.unmount();
   });
 });

@@ -155,14 +155,14 @@ describe("QuantityFormatSettingsPage", () => {
     const checkbox = wrapper.getByTestId("show-unit-label-checkbox");
     fireEvent.click(checkbox);
     await waitFor(() => {
-      expect(setButton.hasAttribute("aria-disabled")).to.be.false;
+      expect(setButton.hasAttribute("aria-disabled")).toEqual(false);
     });
 
     fireEvent.click(setButton);
     await waitFor(() => {
       expect(setButton.hasAttribute("aria-disabled")).toEqual(true);
     });
-    expect(clearButton.hasAttribute("aria-disabled")).to.be.false;
+    expect(clearButton.hasAttribute("aria-disabled")).toEqual(false);
 
     fireEvent.click(clearButton);
     await waitFor(() => {

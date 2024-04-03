@@ -49,11 +49,11 @@ describe("UiShowHideManager localStorage Wrapper", () => {
         InternalUiShowHideManager.autoHideUi = true;
         expect(InternalUiShowHideManager.autoHideUi).toEqual(true);
         InternalUiShowHideManager.autoHideUi = false;
-        expect(InternalUiShowHideManager.autoHideUi).to.be.false;
+        expect(InternalUiShowHideManager.autoHideUi).toEqual(false);
       });
 
       it("showHidePanels should return default of false", () => {
-        expect(InternalUiShowHideManager.showHidePanels).to.be.false;
+        expect(InternalUiShowHideManager.showHidePanels).toEqual(false);
       });
 
       it("showHidePanels should set & return correct value", () => {
@@ -65,14 +65,14 @@ describe("UiShowHideManager localStorage Wrapper", () => {
         expect(spy).toHaveBeenCalledOnce();
 
         InternalUiShowHideManager.showHidePanels = false;
-        expect(InternalUiShowHideManager.showHidePanels).to.be.false;
+        expect(InternalUiShowHideManager.showHidePanels).toEqual(false);
         expect(spy).toHaveBeenCalledTimes(2);
 
         remove();
       });
 
       it("showHideFooter should return default of false", () => {
-        expect(InternalUiShowHideManager.showHideFooter).to.be.false;
+        expect(InternalUiShowHideManager.showHideFooter).toEqual(false);
       });
 
       it("showHideFooter should set & return correct value", () => {
@@ -84,14 +84,14 @@ describe("UiShowHideManager localStorage Wrapper", () => {
         expect(spy).toHaveBeenCalledOnce();
 
         InternalUiShowHideManager.showHideFooter = false;
-        expect(InternalUiShowHideManager.showHideFooter).to.be.false;
+        expect(InternalUiShowHideManager.showHideFooter).toEqual(false);
         expect(spy).toHaveBeenCalledTimes(2);
 
         remove();
       });
 
       it("useProximityOpacity should return default of false", () => {
-        expect(InternalUiShowHideManager.useProximityOpacity).to.be.false;
+        expect(InternalUiShowHideManager.useProximityOpacity).toEqual(false);
       });
 
       it("useProximityOpacity should set & return correct value", () => {
@@ -99,7 +99,7 @@ describe("UiShowHideManager localStorage Wrapper", () => {
         const remove = UiFramework.onUiVisibilityChanged.addListener(spy);
 
         InternalUiShowHideManager.useProximityOpacity = false;
-        expect(InternalUiShowHideManager.useProximityOpacity).to.be.false;
+        expect(InternalUiShowHideManager.useProximityOpacity).toEqual(false);
         expect(spy).toHaveBeenCalledOnce();
 
         InternalUiShowHideManager.useProximityOpacity = true;
@@ -110,7 +110,7 @@ describe("UiShowHideManager localStorage Wrapper", () => {
       });
 
       it("snapWidgetOpacity should return default of false", () => {
-        expect(InternalUiShowHideManager.snapWidgetOpacity).to.be.false;
+        expect(InternalUiShowHideManager.snapWidgetOpacity).toEqual(false);
       });
 
       it("snapWidgetOpacity should set & return correct value", () => {
@@ -122,7 +122,7 @@ describe("UiShowHideManager localStorage Wrapper", () => {
         expect(spy).toHaveBeenCalledOnce();
 
         InternalUiShowHideManager.snapWidgetOpacity = false;
-        expect(InternalUiShowHideManager.snapWidgetOpacity).to.be.false;
+        expect(InternalUiShowHideManager.snapWidgetOpacity).toEqual(false);
         expect(spy).toHaveBeenCalledTimes(2);
 
         remove();

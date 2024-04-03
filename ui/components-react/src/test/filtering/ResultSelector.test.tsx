@@ -148,7 +148,7 @@ describe("ResultSelector", () => {
         resultCount={10}
       />
     );
-    expect(onSelectedTriggered).to.be.false;
+    expect(onSelectedTriggered).toEqual(false);
   });
 
   it("current selection value gets corrected if typed number is bigger than result count or smaller than 1", async () => {

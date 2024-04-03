@@ -27,7 +27,7 @@ describe("StatusBarItemUtilities", () => {
         1,
         <div />
       );
-      expect(ConditionalBooleanValue.getValue(item1.isHidden)).to.be.false;
+      expect(ConditionalBooleanValue.getValue(item1.isHidden)).toEqual(false);
       const item2 = StatusBarItemUtilities.createCustomItem(
         "test1",
         StatusBarSection.Left,

@@ -17,6 +17,6 @@ describe("isPropertyFilterRuleGroup", () => {
         property: { name: "prop", displayLabel: "Prop", typename: "string" },
         operator: "is-null",
       })
-    ).to.be.false;
+    ).toEqual(false);
   });
 });

@@ -37,7 +37,7 @@ describe("DisplayValuePropertyDataFilterer", () => {
 
     it(`Should return filtering as disabled`, () => {
       const filterer = new DisplayValuePropertyDataFilterer();
-      expect(filterer.isActive).to.be.false;
+      expect(filterer.isActive).toEqual(false);
     });
 
     for (const record of recordsToTest) {

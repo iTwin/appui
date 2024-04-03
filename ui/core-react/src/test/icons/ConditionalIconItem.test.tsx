@@ -33,7 +33,7 @@ describe("ConditionalIconItem", () => {
   it("should construct with initial value that matches stringGetter function", () => {
     const sut = new ConditionalIconItem(icon1Getter, syncEventIds, iconSpec1);
     expect(sut.value).toEqual(iconSpec1);
-    expect(sut.refresh()).to.be.false;
+    expect(sut.refresh()).toEqual(false);
     expect(sut.value).toEqual(iconSpec1);
   });
 
@@ -69,8 +69,9 @@ describe("ConditionalIconItem", () => {
       defaultIconSpec
     );
     expect(sut.value).toEqual(defaultIconSpec);
-    expect(ConditionalIconItem.refreshValue(sut, new Set<string>(["cat"]))).to
-      .be.false;
+    expect(
+      ConditionalIconItem.refreshValue(sut, new Set<string>(["cat"]))
+    ).toEqual(false);
     expect(sut.value).toEqual(defaultIconSpec);
     expect(
       ConditionalIconItem.refreshValue(sut, new Set<string>(["sync-id-two"]))
@@ -78,7 +79,7 @@ describe("ConditionalIconItem", () => {
     expect(sut.value).toEqual(iconSpec1);
     expect(
       ConditionalIconItem.refreshValue(undefined, new Set<string>(["cat"]))
-    ).to.be.false;
+    ).toEqual(false);
   });
 
   it("test static refreshValue method with capitalized ids", () => {
@@ -88,8 +89,9 @@ describe("ConditionalIconItem", () => {
       defaultIconSpec
     );
     expect(sut.value).toEqual(defaultIconSpec);
-    expect(ConditionalIconItem.refreshValue(sut, new Set<string>(["cat"]))).to
-      .be.false;
+    expect(
+      ConditionalIconItem.refreshValue(sut, new Set<string>(["cat"]))
+    ).toEqual(false);
     expect(sut.value).toEqual(defaultIconSpec);
     expect(
       ConditionalIconItem.refreshValue(sut, new Set<string>(["sync-id-three"]))
@@ -97,7 +99,7 @@ describe("ConditionalIconItem", () => {
     expect(sut.value).toEqual(iconSpec1);
     expect(
       ConditionalIconItem.refreshValue(undefined, new Set<string>(["cat"]))
-    ).to.be.false;
+    ).toEqual(false);
   });
 
   it("isConditionalIconItem should evaluate to true for instances", () => {
@@ -108,6 +110,8 @@ describe("ConditionalIconItem", () => {
     );
 
     expect(ConditionalIconItem.isConditionalIconItem(sut)).toEqual(true);
-    expect(ConditionalIconItem.isConditionalIconItem("icon.svg")).to.be.false;
+    expect(ConditionalIconItem.isConditionalIconItem("icon.svg")).toEqual(
+      false
+    );
   });
 });

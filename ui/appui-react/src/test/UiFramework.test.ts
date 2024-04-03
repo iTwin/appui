@@ -115,7 +115,7 @@ describe("UiFramework localStorage Wrapper", () => {
     it("calling initialize twice should log", async () => {
       TestUtils.terminateUiFramework();
       const spyLogger = vi.spyOn(Logger, "logInfo");
-      expect(UiFramework.initialized).to.be.false;
+      expect(UiFramework.initialized).toEqual(false);
       await UiFramework.initialize(TestUtils.store);
       expect(UiFramework.initialized).toEqual(true);
       await UiFramework.initialize(TestUtils.store);
@@ -128,7 +128,7 @@ describe("UiFramework localStorage Wrapper", () => {
 
     it("IsUiVisible", async () => {
       UiFramework.setIsUiVisible(false);
-      expect(UiFramework.getIsUiVisible()).to.be.false;
+      expect(UiFramework.getIsUiVisible()).toEqual(false);
     });
 
     it("ColorTheme", async () => {
@@ -183,7 +183,7 @@ describe("UiFramework localStorage Wrapper", () => {
       UiFramework.setDefaultViewId(testViewId);
       expect(UiFramework.getDefaultViewId()).toEqual(testViewId);
 
-      expect(settingsProvider.settingsLoaded).to.be.false;
+      expect(settingsProvider.settingsLoaded).toEqual(false);
 
       const uisettings = new LocalStateStorage();
       await UiFramework.setUiStateStorage(uisettings);
@@ -192,7 +192,7 @@ describe("UiFramework localStorage Wrapper", () => {
       settingsProvider.settingsLoaded = false;
       // if we try to set storage to same object this should be a noop and the settingsLoaded property should remain false;
       await UiFramework.setUiStateStorage(uisettings);
-      expect(settingsProvider.settingsLoaded).to.be.false;
+      expect(settingsProvider.settingsLoaded).toEqual(false);
 
       await UiFramework.initializeStateFromUserSettingsProviders();
 
@@ -258,7 +258,7 @@ describe("UiFramework localStorage Wrapper", () => {
           },
           () => {}
         )
-      ).to.be.false;
+      ).toEqual(false);
 
       const hideStub = vi.spyOn(PopupManager, "hideCard").mockReturnValue(true);
       expect(UiFramework.hideCard()).toEqual(true);
@@ -266,7 +266,7 @@ describe("UiFramework localStorage Wrapper", () => {
       hideStub.mockReset();
 
       vi.spyOn(PopupManager, "hideCard").mockReturnValue(false);
-      expect(UiFramework.hideCard()).to.be.false;
+      expect(UiFramework.hideCard()).toEqual(false);
     });
 
     it("openToolSettingsPopup/closeToolSettingsPopup forwards to PopupManager", () => {
@@ -292,7 +292,7 @@ describe("UiFramework localStorage Wrapper", () => {
           { x: 0, y: 0 },
           () => {}
         )
-      ).to.be.false;
+      ).toEqual(false);
 
       const hideStub = vi
         .spyOn(PopupManager, "closeToolSettings")
@@ -302,7 +302,7 @@ describe("UiFramework localStorage Wrapper", () => {
       hideStub.mockReset();
 
       vi.spyOn(PopupManager, "closeToolSettings").mockReturnValue(false);
-      expect(UiFramework.closeToolSettingsPopup()).to.be.false;
+      expect(UiFramework.closeToolSettingsPopup()).toEqual(false);
     });
 
     it("showToolbar/hideToolbar forwards to PopupManager", () => {
@@ -330,7 +330,7 @@ describe("UiFramework localStorage Wrapper", () => {
       hideStub.mockReset();
 
       vi.spyOn(PopupManager, "hideToolbar").mockReturnValue(false);
-      expect(UiFramework.hideToolbar()).to.be.false;
+      expect(UiFramework.hideToolbar()).toEqual(false);
     });
 
     it("showMenuButton/hideMenuButton forwards to AccuDrawPopupManager", () => {
@@ -343,8 +343,9 @@ describe("UiFramework localStorage Wrapper", () => {
       stub.mockReset();
 
       vi.spyOn(AccuDrawPopupManager, "showMenuButton").mockReturnValue(false);
-      expect(UiFramework.showMenuButton("test", [], { x: 0, y: 0 })).to.be
-        .false;
+      expect(UiFramework.showMenuButton("test", [], { x: 0, y: 0 })).toEqual(
+        false
+      );
 
       const hideStub = vi
         .spyOn(AccuDrawPopupManager, "hideMenuButton")
@@ -354,14 +355,14 @@ describe("UiFramework localStorage Wrapper", () => {
       hideStub.mockReset();
 
       vi.spyOn(AccuDrawPopupManager, "hideMenuButton").mockReturnValue(false);
-      expect(UiFramework.hideMenuButton("test")).to.be.false;
+      expect(UiFramework.hideMenuButton("test")).toEqual(false);
     });
 
     it("hideMenuButton returns false if menu button with id cannot be found", () => {
       const htmlElement = document.createElement<any>("div");
       UiFramework.showMenuButton("test", [], { x: 0, y: 0 }, htmlElement);
 
-      expect(UiFramework.hideMenuButton("test2")).to.be.false;
+      expect(UiFramework.hideMenuButton("test2")).toEqual(false);
       expect(UiFramework.hideMenuButton("test")).toEqual(true);
     });
 
@@ -390,7 +391,7 @@ describe("UiFramework localStorage Wrapper", () => {
           () => {},
           () => {}
         )
-      ).to.be.false;
+      ).toEqual(false);
 
       const hideStub = vi
         .spyOn(AccuDrawPopupManager, "hideCalculator")
@@ -400,7 +401,7 @@ describe("UiFramework localStorage Wrapper", () => {
       hideStub.mockReset();
 
       vi.spyOn(AccuDrawPopupManager, "hideCalculator").mockReturnValue(false);
-      expect(UiFramework.hideCalculator()).to.be.false;
+      expect(UiFramework.hideCalculator()).toEqual(false);
     });
 
     it("showComponent/hideComponent forwards to PopupManager", () => {
@@ -421,7 +422,7 @@ describe("UiFramework localStorage Wrapper", () => {
           createElement("div", { id: "test" }, ["card content"]),
           {}
         )
-      ).to.be.false;
+      ).toEqual(false);
 
       const hideStub = vi
         .spyOn(PopupManager, "hideComponent")
@@ -431,7 +432,7 @@ describe("UiFramework localStorage Wrapper", () => {
       hideStub.mockReset();
 
       vi.spyOn(PopupManager, "hideComponent").mockReturnValue(false);
-      expect(UiFramework.hideComponent()).to.be.false;
+      expect(UiFramework.hideComponent()).toEqual(false);
     });
 
     it("hideComponent returns false if menu button with id cannot be found", () => {
@@ -439,7 +440,7 @@ describe("UiFramework localStorage Wrapper", () => {
         id: "component-1",
       });
 
-      expect(UiFramework.hideComponent("component-1000")).to.be.false;
+      expect(UiFramework.hideComponent("component-1000")).toEqual(false);
       expect(UiFramework.hideComponent("component-1")).toEqual(true);
     });
 
@@ -466,7 +467,7 @@ describe("UiFramework localStorage Wrapper", () => {
           () => {},
           () => {}
         )
-      ).to.be.false;
+      ).toEqual(false);
     });
 
     it("showInputEditor/hideImportEditor forwards to PopupManager", () => {
@@ -492,7 +493,7 @@ describe("UiFramework localStorage Wrapper", () => {
 
       hideStub.mockReset();
       vi.spyOn(PopupManager, "hideInputEditor").mockReturnValue(false);
-      expect(UiFramework.hideInputEditor()).to.be.false;
+      expect(UiFramework.hideInputEditor()).toEqual(false);
     });
 
     it("showDimensionEditor(height) forwards to AccuDrawPopupManager", () => {
@@ -648,7 +649,7 @@ describe("UiFramework localStorage Wrapper", () => {
       const hideStub = vi.spyOn(PopupManager, "hideKeyinPalette");
       expect(UiFramework.hideKeyinPalette()).toEqual(true);
       expect(hideStub).toHaveBeenCalledOnce();
-      expect(UiFramework.hideKeyinPalette()).to.be.false; // cannot hide if not shown
+      expect(UiFramework.hideKeyinPalette()).toEqual(false); // cannot hide if not shown
     });
   });
 

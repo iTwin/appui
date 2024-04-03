@@ -33,15 +33,15 @@ describe("MergedPropertyValueRenderer", () => {
       const structProperty = TestUtils.createStructProperty("NameStruct");
       structProperty.isMerged = true;
 
-      expect(renderer.canRender(arrayProperty)).to.be.false;
-      expect(renderer.canRender(structProperty)).to.be.false;
+      expect(renderer.canRender(arrayProperty)).toEqual(false);
+      expect(renderer.canRender(structProperty)).toEqual(false);
     });
 
     it("returns false for non merged properties", () => {
       const renderer = new MergedPropertyValueRenderer();
       const property = TestUtils.createPrimitiveStringProperty("a", "b");
 
-      expect(renderer.canRender(property)).to.be.false;
+      expect(renderer.canRender(property)).toEqual(false);
     });
   });
 });

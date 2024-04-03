@@ -104,8 +104,9 @@ describe("FrontstageManager", () => {
   });
 
   it("hasFrontstage returns false if the fronstage is not found", () => {
-    expect(InternalFrontstageManager.hasFrontstage(undefined as any)).to.be
-      .false;
+    expect(InternalFrontstageManager.hasFrontstage(undefined as any)).toEqual(
+      false
+    );
   });
 
   it("setActiveModalFrontstage from backstage item", async () => {
@@ -231,8 +232,9 @@ describe("FrontstageManager", () => {
   });
 
   it("setWidgetState returns false on invalid id", () => {
-    expect(InternalFrontstageManager.setWidgetState("xyz", WidgetState.Closed))
-      .to.be.false;
+    expect(
+      InternalFrontstageManager.setWidgetState("xyz", WidgetState.Closed)
+    ).toEqual(false);
   });
 
   it("setWidgetState apply state on widgetDef", () => {

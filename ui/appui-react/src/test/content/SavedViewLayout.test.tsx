@@ -320,7 +320,7 @@ describe("StageContentLayout", () => {
           contentGroup,
           savedViewLayoutProps
         )
-      ).to.be.false;
+      ).toEqual(false);
     }
   });
 

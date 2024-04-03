@@ -135,7 +135,7 @@ describe("<Popup />", () => {
     );
     expect(component).not.to.be.null;
     expect(button).not.to.be.null;
-    expect(isOpen).to.be.false;
+    expect(isOpen).toEqual(false);
     fireEvent.click(button!);
     expect(isOpen).toEqual(true);
     component.rerender(
@@ -209,7 +209,7 @@ describe("<Popup />", () => {
     );
     expect(component).not.to.be.null;
     expect(button).not.to.be.null;
-    expect(isOpen).to.be.false;
+    expect(isOpen).toEqual(false);
     fireEvent.click(button!);
     expect(isOpen).toEqual(true);
     component.rerender(
@@ -278,7 +278,7 @@ describe("<Popup />", () => {
     );
     expect(component).not.to.be.null;
     expect(button).not.to.be.null;
-    expect(isOpen).to.be.false;
+    expect(isOpen).toEqual(false);
     fireEvent.click(button!);
     expect(isOpen).toEqual(true);
     component.rerender(

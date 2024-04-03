@@ -116,7 +116,7 @@ describe("<ColorPickerPopup/>", () => {
     const corePopupDiv = component.queryByTestId("core-popup");
     expect(corePopupDiv).not.to.be.null;
     if (corePopupDiv)
-      expect(corePopupDiv.classList.contains("visible")).to.be.false;
+      expect(corePopupDiv.classList.contains("visible")).toEqual(false);
   });
 
   it("button press should open popup and allow trigger color selection when popup closed", async () => {

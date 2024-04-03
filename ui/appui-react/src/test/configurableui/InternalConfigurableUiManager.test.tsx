@@ -71,8 +71,9 @@ describe("InternalConfigurableUiManager", () => {
 
   it("unregisterControl removes a registered control", () => {
     InternalConfigurableUiManager.unregister("TestWidget");
-    expect(InternalConfigurableUiManager.isRegistered("TestWidget")).to.be
-      .false;
+    expect(InternalConfigurableUiManager.isRegistered("TestWidget")).toEqual(
+      false
+    );
   });
 
   it("createConfigurable trying to create an unregistered control", () => {

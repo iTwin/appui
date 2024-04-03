@@ -57,7 +57,7 @@ describe("StagePanelDef", () => {
       { resizable: false, pinned: false },
       StagePanelLocation.Left
     );
-    expect(panelDef.pinned).to.false;
+    expect(panelDef.pinned).toEqual(false);
   });
 
   it("should emit onPanelSizeChangedEvent", () => {

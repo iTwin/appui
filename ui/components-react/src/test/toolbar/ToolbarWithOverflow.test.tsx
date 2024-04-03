@@ -850,7 +850,7 @@ describe("<ToolbarWithOverflow />", () => {
       expect(popupDiv!.classList.contains("core-popup-hidden")).toEqual(true);
       const button = renderedComponent.queryByTitle("PopupEntry");
       fireEvent.click(button!);
-      expect(popupDiv!.classList.contains("core-popup-hidden")).to.be.false;
+      expect(popupDiv!.classList.contains("core-popup-hidden")).toEqual(false);
     });
 
     it("group button panel should open when clicked", () => {

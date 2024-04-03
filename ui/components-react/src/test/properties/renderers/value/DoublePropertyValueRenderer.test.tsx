@@ -124,9 +124,9 @@ describe("DoublePropertyValueRenderer", () => {
         "Label",
         "Model"
       );
-      expect(renderer.canRender(arrayProperty)).to.be.false;
-      expect(renderer.canRender(structProperty)).to.be.false;
-      expect(renderer.canRender(stringProperty)).to.be.false;
+      expect(renderer.canRender(arrayProperty)).toEqual(false);
+      expect(renderer.canRender(structProperty)).toEqual(false);
+      expect(renderer.canRender(stringProperty)).toEqual(false);
     });
   });
 });

@@ -31,35 +31,35 @@ describe("TreeDataProvider", () => {
   describe("isTreeDataProviderRaw", () => {
     it("returns expected results", () => {
       expect(isTreeDataProviderRaw(emptyRawProvider)).toEqual(true);
-      expect(isTreeDataProviderRaw(emptyPromiseProvider)).to.be.false;
-      expect(isTreeDataProviderRaw(emptyMethodProvider)).to.be.false;
-      expect(isTreeDataProviderRaw(emptyInterfaceProvider)).to.be.false;
+      expect(isTreeDataProviderRaw(emptyPromiseProvider)).toEqual(false);
+      expect(isTreeDataProviderRaw(emptyMethodProvider)).toEqual(false);
+      expect(isTreeDataProviderRaw(emptyInterfaceProvider)).toEqual(false);
     });
   });
 
   describe("isTreeDataProviderPromise", () => {
     it("returns expected results", () => {
-      expect(isTreeDataProviderPromise(emptyRawProvider)).to.be.false;
+      expect(isTreeDataProviderPromise(emptyRawProvider)).toEqual(false);
       expect(isTreeDataProviderPromise(emptyPromiseProvider)).toEqual(true);
-      expect(isTreeDataProviderPromise(emptyMethodProvider)).to.be.false;
-      expect(isTreeDataProviderPromise(emptyInterfaceProvider)).to.be.false;
+      expect(isTreeDataProviderPromise(emptyMethodProvider)).toEqual(false);
+      expect(isTreeDataProviderPromise(emptyInterfaceProvider)).toEqual(false);
     });
   });
 
   describe("isTreeDataProviderMethod", () => {
     it("returns expected results", () => {
-      expect(isTreeDataProviderMethod(emptyRawProvider)).to.be.false;
-      expect(isTreeDataProviderMethod(emptyPromiseProvider)).to.be.false;
+      expect(isTreeDataProviderMethod(emptyRawProvider)).toEqual(false);
+      expect(isTreeDataProviderMethod(emptyPromiseProvider)).toEqual(false);
       expect(isTreeDataProviderMethod(emptyMethodProvider)).toEqual(true);
-      expect(isTreeDataProviderMethod(emptyInterfaceProvider)).to.be.false;
+      expect(isTreeDataProviderMethod(emptyInterfaceProvider)).toEqual(false);
     });
   });
 
   describe("isTreeDataProviderInterface", () => {
     it("returns expected results", () => {
-      expect(isTreeDataProviderInterface(emptyRawProvider)).to.be.false;
-      expect(isTreeDataProviderInterface(emptyPromiseProvider)).to.be.false;
-      expect(isTreeDataProviderInterface(emptyMethodProvider)).to.be.false;
+      expect(isTreeDataProviderInterface(emptyRawProvider)).toEqual(false);
+      expect(isTreeDataProviderInterface(emptyPromiseProvider)).toEqual(false);
+      expect(isTreeDataProviderInterface(emptyMethodProvider)).toEqual(false);
       expect(isTreeDataProviderInterface(emptyInterfaceProvider)).toEqual(true);
     });
   });
@@ -85,7 +85,7 @@ describe("TreeDataProvider", () => {
     };
 
     expect(hasChildren(withChildren)).toEqual(true);
-    expect(hasChildren(noChildren)).to.be.false;
+    expect(hasChildren(noChildren)).toEqual(false);
   });
 
   it("hasChildren handles DelayLoadedTreeNodeItem", () => {
@@ -100,6 +100,6 @@ describe("TreeDataProvider", () => {
       hasChildren: false,
     };
     expect(hasChildren(withChildren)).toEqual(true);
-    expect(hasChildren(noChildren)).to.be.false;
+    expect(hasChildren(noChildren)).toEqual(false);
   });
 });

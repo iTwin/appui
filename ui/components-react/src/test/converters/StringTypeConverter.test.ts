@@ -65,14 +65,14 @@ describe("StringTypeConverter", () => {
   it("startsWith", () => {
     expect(converter.startsWith("The Test", "The", true)).toEqual(true);
     expect(converter.startsWith("The Test", "the", false)).toEqual(true);
-    expect(converter.startsWith("The Test", "", false)).to.be.false;
+    expect(converter.startsWith("The Test", "", false)).toEqual(false);
   });
 
   it("endsWith", () => {
     expect(converter.endsWith("The Test", "Test", true)).toEqual(true);
     expect(converter.endsWith("The Test", "test", false)).toEqual(true);
-    expect(converter.endsWith("The Test", "", false)).to.be.false;
-    expect(converter.endsWith("Test", "The Test", false)).to.be.false;
+    expect(converter.endsWith("The Test", "", false)).toEqual(false);
+    expect(converter.endsWith("Test", "The Test", false)).toEqual(false);
   });
 
   it("contains", () => {
@@ -82,8 +82,10 @@ describe("StringTypeConverter", () => {
     expect(converter.contains("The contains Test", "Contains", false)).toEqual(
       true
     );
-    expect(converter.contains("The contains Test", "", false)).to.be.false;
-    expect(converter.contains("Test", "The contains Test", false)).to.be.false;
+    expect(converter.contains("The contains Test", "", false)).toEqual(false);
+    expect(converter.contains("Test", "The contains Test", false)).toEqual(
+      false
+    );
   });
 
   it("doesNotContain", () => {
@@ -108,8 +110,9 @@ describe("StringTypeConverter", () => {
     expect(
       converter.isNotContainedIn("Contain", "The contains Test", true)
     ).toEqual(true);
-    expect(converter.isNotContainedIn("Contain", "The contains Test", false)).to
-      .be.false;
+    expect(
+      converter.isNotContainedIn("Contain", "The contains Test", false)
+    ).toEqual(false);
   });
 
   it("isEmpty", () => {

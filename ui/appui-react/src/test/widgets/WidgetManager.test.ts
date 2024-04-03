@@ -325,7 +325,7 @@ describe("WidgetManager", () => {
     expect(widgetManager.widgetCount).toEqual(1);
 
     const result = widgetManager.removeWidgetDef("test2");
-    expect(result).to.be.false;
+    expect(result).toEqual(false);
     expect(widgetManager.widgetCount).toEqual(1);
   });
 });

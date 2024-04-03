@@ -257,6 +257,6 @@ describe("useWidgetAllowedToDock", () => {
         </TestNineZoneProvider>
       ),
     });
-    expect(result.current).to.be.false;
+    expect(result.current).toEqual(false);
   });
 });

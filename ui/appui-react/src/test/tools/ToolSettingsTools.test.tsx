@@ -14,7 +14,7 @@ describe("ToolSettingsTools", () => {
     it("should return false if no ToolSettings div found", async () => {
       render(<div data-testid="div"></div>);
       const tool = new FocusToolSettings();
-      expect(await tool.parseAndRun()).to.be.false;
+      expect(await tool.parseAndRun()).toEqual(false);
     });
 
     it("should return true if focusable item in docked ToolSettings", async () => {
@@ -41,7 +41,7 @@ describe("ToolSettingsTools", () => {
 
     it("should return false if invalid arg", async () => {
       const tool = new BumpToolSetting();
-      expect(await tool.parseAndRun("bad")).to.be.false;
+      expect(await tool.parseAndRun("bad")).toEqual(false);
     });
   });
 });

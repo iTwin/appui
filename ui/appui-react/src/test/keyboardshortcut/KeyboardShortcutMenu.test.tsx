@@ -72,7 +72,7 @@ describe("KeyboardShortcutMenu", () => {
 
   it("Should render shortcuts and close on Escape", async () => {
     UiFramework.keyboardShortcuts.loadShortcuts(keyboardShortcutList);
-    expect(UiFramework.isContextMenuOpen).to.be.false;
+    expect(UiFramework.isContextMenuOpen).toEqual(false);
 
     render(<KeyboardShortcutMenu />);
 
@@ -95,7 +95,7 @@ describe("KeyboardShortcutMenu", () => {
       "[Escape]"
     );
     expect(screen.queryAllByRole("menuitem")).to.have.lengthOf(0);
-    expect(UiFramework.isContextMenuOpen).to.be.false;
+    expect(UiFramework.isContextMenuOpen).toEqual(false);
   });
 
   it("Should render shortcuts and execute item on click", async () => {

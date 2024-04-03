@@ -79,7 +79,7 @@ describe("StandardNavigationToolsProvider", () => {
       )
     ).length(3);
     provider.unregister();
-    expect(UiItemsManager.hasRegisteredProviders).to.be.false;
+    expect(UiItemsManager.hasRegisteredProviders).toEqual(false);
   });
 
   it("should register StandardNavigationToolsProvider with no horizontal buttons", () => {
@@ -115,7 +115,7 @@ describe("StandardNavigationToolsProvider", () => {
       ).length
     ).toEqual(3);
     provider.unregister();
-    expect(UiItemsManager.hasRegisteredProviders).to.be.false;
+    expect(UiItemsManager.hasRegisteredProviders).toEqual(false);
   });
 
   it("should register StandardNavigationToolsProvider with no vertical buttons", () => {
@@ -154,7 +154,7 @@ describe("StandardNavigationToolsProvider", () => {
     ).toEqual(0);
 
     provider.unregister();
-    expect(UiItemsManager.hasRegisteredProviders).to.be.false;
+    expect(UiItemsManager.hasRegisteredProviders).toEqual(false);
   });
 
   it("should process all combinations of options", () => {
@@ -200,7 +200,7 @@ describe("StandardNavigationToolsProvider", () => {
         ToolbarOrientation.Vertical
       );
       local_provider.unregister();
-      expect(UiItemsManager.hasRegisteredProviders).to.be.false;
+      expect(UiItemsManager.hasRegisteredProviders).toEqual(false);
     });
   });
 });

@@ -53,7 +53,7 @@ describe("WidgetDef", () => {
 
     widgetDef.iconSpec = "icon-lightbulb";
     expect(widgetDef.iconSpec).toEqual("icon-lightbulb");
-    expect(React.isValidElement(widgetDef.iconSpec)).to.be.false;
+    expect(React.isValidElement(widgetDef.iconSpec)).toEqual(false);
   });
 
   it("should work with react icon", () => {
@@ -84,14 +84,14 @@ describe("WidgetDef", () => {
       },
     });
     expect(widgetDef.iconSpec).toEqual("icon-lightbulb");
-    expect(React.isValidElement(widgetDef.iconSpec)).to.be.false;
+    expect(React.isValidElement(widgetDef.iconSpec)).toEqual(false);
 
     widgetDef.iconSpec = <SvgList />;
     expect(React.isValidElement(widgetDef.iconSpec)).toEqual(true);
 
     widgetDef.iconSpec = "icon-home";
     expect(widgetDef.iconSpec).toEqual("icon-home");
-    expect(React.isValidElement(widgetDef.iconSpec)).to.be.false;
+    expect(React.isValidElement(widgetDef.iconSpec)).toEqual(false);
   });
 
   it("labelKey and tooltipKey should return translated string", () => {
