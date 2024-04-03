@@ -11,7 +11,6 @@ import { Logger } from "@itwin/core-bentley";
 import type { Localization } from "@itwin/core-common";
 import { UiCore } from "@itwin/core-react";
 import { getObjectClassName } from "@itwin/core-react";
-import { UiError } from "@itwin/appui-abstract";
 
 /**
  * Manages the localization service for the components-react package.
@@ -61,19 +60,6 @@ export class UiComponents {
     return UiComponents._initialized;
   }
 
-  /** The internationalization service created by the host application.
-   * @internal
-   */
-  public static get localization(): Localization {
-    if (!UiComponents._localization)
-      // eslint-disable-next-line deprecation/deprecation
-      throw new UiError(
-        UiComponents.loggerCategory(this),
-        "_localization: UiComponents.initialize has not been called. Unable to return Localization object."
-      );
-    return UiComponents._localization;
-  }
-
   /** The internationalization service namespace. */
   public static get localizationNamespace(): string {
     return "UiComponents";
@@ -88,14 +74,14 @@ export class UiComponents {
    * @internal
    */
   public static translate(key: string | string[]): string {
-    if (!UiComponents.initialized) {
+    if (!UiComponents._localization) {
       Logger.logError(
         UiComponents.loggerCategory(this),
         `translate: UiComponents.initialize has not been called. Returning blank string.`
       );
       return "";
     }
-    return UiComponents.localization.getLocalizedString(
+    return UiComponents._localization.getLocalizedString(
       `${UiComponents.localizationNamespace}:${key}`
     );
   }

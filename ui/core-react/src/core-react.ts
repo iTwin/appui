@@ -2,9 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-
-// cSpell:ignore focustrap imagecheckbox iconinput hocs numberinput numericinput
-
 export * from "./core-react/UiCore";
 
 export * from "./core-react/badge/Badge";
@@ -52,6 +49,9 @@ export * from "./core-react/focustrap/FocusTrap";
 export * from "./core-react/hocs/withIsPressed";
 export * from "./core-react/hocs/withOnOutsideClick";
 export * from "./core-react/hocs/withTimeout";
+
+export { LocalizationProvider } from "./core-react/l10n/LocalizationProvider";
+export { usePackageTranslation } from "./core-react/l10n/usePackageTranslation";
 
 export * from "./core-react/icons/ConditionalIconItem";
 export * from "./core-react/icons/IconComponent";
@@ -124,6 +124,7 @@ export * from "./core-react/uistate/UiStateStorage";
 export * from "./core-react/uistate/LocalStateStorage";
 
 export * from "./core-react/utils/IconHelper";
+import { registerIconWebComponent } from "./core-react/utils/IconWebComponent";
 export * from "./core-react/utils/Point";
 export * from "./core-react/utils/Props";
 export * from "./core-react/utils/Rectangle";
@@ -155,6 +156,8 @@ export * from "./core-react/utils/hooks/useTargeted";
 export * from "./core-react/utils/hooks/useWidgetOpacityContext";
 export * from "./core-react/utils/hooks/useInterval";
 export * from "./core-react/utils/hooks/useCrossOriginPopup";
+
+registerIconWebComponent();
 
 /** @docs-package-description
  * The core-react package contains general purpose React components, such as Dialog, MessageBox, SearchBox, RadialMenu and SplitButton.

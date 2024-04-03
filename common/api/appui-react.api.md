@@ -4048,12 +4048,18 @@ export interface StageContentLayoutProps {
 // @public
 export interface StagePanelConfig {
     readonly defaultState?: StagePanelState;
+    // @deprecated
     readonly maxSize?: StagePanelMaxSizeSpec;
+    readonly maxSizeSpec?: StagePanelSizeSpec;
+    // @deprecated
     readonly minSize?: number;
+    readonly minSizeSpec?: StagePanelSizeSpec;
     readonly pinned?: boolean;
     readonly resizable?: boolean;
     readonly sections?: StagePanelSectionsConfig;
+    // @deprecated
     readonly size?: number;
+    readonly sizeSpec?: StagePanelSizeSpec;
 }
 
 // @public
@@ -4065,8 +4071,6 @@ export class StagePanelDef extends WidgetHost {
     get defaultPinned(): boolean;
     // @internal (undocumented)
     get defaultResizable(): boolean;
-    // @internal (undocumented)
-    get defaultSize(): number | undefined;
     // @internal (undocumented)
     get defaultState(): StagePanelState;
     // @internal (undocumented)
@@ -4087,8 +4091,11 @@ export class StagePanelDef extends WidgetHost {
     get pinned(): boolean;
     set pinned(pinned: boolean);
     get resizable(): boolean;
+    // @deprecated
     get size(): number | undefined;
     set size(size: number | undefined);
+    get sizeSpec(): StagePanelSizeSpec | undefined;
+    set sizeSpec(size: StagePanelSizeSpec | undefined);
     // @internal (undocumented)
     updateDynamicWidgetDefs(stageId: string, stageUsage: string, location: StagePanelLocation, _section: StagePanelSection | undefined, allStageWidgetDefs: WidgetDef[]): void;
     get widgetDefs(): ReadonlyArray<WidgetDef>;
@@ -4106,7 +4113,7 @@ export enum StagePanelLocation {
     Top = 101
 }
 
-// @public
+// @public @deprecated
 export type StagePanelMaxSizeSpec = number | {
     percentage: number;
 };
@@ -4133,6 +4140,11 @@ export interface StagePanelSectionsConfig {
     readonly end?: StagePanelSectionConfig;
     readonly start?: StagePanelSectionConfig;
 }
+
+// @public
+export type StagePanelSizeSpec = number | {
+    percentage: number;
+};
 
 // @public
 export enum StagePanelState {

@@ -2,7 +2,8 @@
   "extends": "./node_modules/@itwin/build-tools/tsconfig-base.json",
   "compilerOptions": {
     "jsx": "react",
-    "types": ["sinon-chai", "chai-as-promised", "mocha", "chai-jest-snapshot"]
+    "types": ["sinon-chai", "chai-as-promised", "mocha", "chai-jest-snapshot"],
+    "resolveJsonModule": true
   },
   "include": ["./src/**/*.ts*"]
 }

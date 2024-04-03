@@ -23,6 +23,7 @@ import type {
 } from "./DropTargetState";
 import type { PanelState } from "./PanelState";
 import type { XAndY } from "./internal/NineZoneStateHelpers";
+import type { StagePanelSizeSpec } from "../../stagepanels/StagePanelConfig";
 
 /** @internal */
 export interface ResizeAction {
@@ -54,14 +55,14 @@ export interface PanelSetPinnedAction {
 export interface PanelSetSizeAction {
   readonly type: "PANEL_SET_SIZE";
   readonly side: PanelSide;
-  readonly size: PanelState["size"];
+  readonly size: StagePanelSizeSpec | undefined;
 }
 
 /** @internal */
 export interface PanelSetMinSizeAction {
   readonly type: "PANEL_SET_MIN_SIZE";
   readonly side: PanelSide;
-  readonly minSize: PanelState["minSize"];
+  readonly minSize: StagePanelSizeSpec;
 }
 
 /** @internal */

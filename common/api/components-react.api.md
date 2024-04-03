@@ -3533,8 +3533,6 @@ export interface TypeEditor {
 export class UiComponents {
     static initialize(localization: Localization): Promise<void>;
     static get initialized(): boolean;
-    // @internal
-    static get localization(): Localization;
     static get localizationNamespace(): string;
     // @internal (undocumented)
     static loggerCategory(obj: any): string;
@@ -3642,6 +3640,11 @@ export function useTrackedPropertyGridModelSource(props: {
 }): {
     modelSource: PropertyGridModelSource;
     inProgress: boolean;
+};
+
+// @internal
+export function useTranslation(): {
+    translate: (key: string) => string;
 };
 
 // @public @deprecated

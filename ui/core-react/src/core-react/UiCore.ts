@@ -14,13 +14,9 @@ import "./classes.scss";
 
 import { Logger } from "@itwin/core-bentley";
 import type { Localization } from "@itwin/core-common";
-import { UiError } from "@itwin/appui-abstract";
-import { IconWebComponent } from "./utils/IconWebComponent";
 import { getObjectClassName } from "./utils/getObjectClassName";
-// cSpell:ignore colorthemes colorvariables
 
-/**
- * Manages the Localization service for the core-react package.
+/** Manages the Localization service for the core-react package.
  * @public
  */
 export class UiCore {
@@ -42,8 +38,6 @@ export class UiCore {
 
     UiCore._localization = localization;
     await UiCore._localization.registerNamespace(UiCore.localizationNamespace);
-    if (window.customElements.get("svg-loader") === undefined)
-      window.customElements.define("svg-loader", IconWebComponent);
 
     UiCore._initialized = true;
   }
@@ -62,27 +56,13 @@ export class UiCore {
     return UiCore._initialized;
   }
 
-  /** The internationalization service created by the host application.
-   * @internal
-   */
-  public static get localization(): Localization {
-    // istanbul ignore else
-    if (!UiCore._localization)
-      // eslint-disable-next-line deprecation/deprecation
-      throw new UiError(
-        UiCore.loggerCategory(this),
-        "localization: UiCore.initialize has not been called. Unable to return Localization object."
-      );
-    // istanbul ignore next
-    return UiCore._localization;
-  }
-
   /** The internationalization service namespace. */
   public static get localizationNamespace(): string {
     return "UiCore";
   }
 
   /** Calls localization.getLocalizedString with the "UiCore" namespace. Do NOT include the namespace in the key.
+   * @deprecated in 4.12.x. Do not use this internally, this is replaced by `useTranslation`.
    * @internal
    */
   public static translate(key: string | string[]): string {

@@ -41,7 +41,7 @@ import { UiFramework } from "../../UiFramework";
 import { UnitSystemSelector } from "./UnitSystemSelector";
 import { Button } from "@itwin/itwinui-react";
 import { SvgMeasure } from "@itwin/itwinui-icons-react";
-import { useTranslation } from "../../useTranslation";
+import { useTranslation } from "../../hooks/useTranslation";
 
 function formatAreEqual(obj1: FormatProps, obj2: FormatProps) {
   const compare = new DeepCompare();

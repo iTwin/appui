@@ -6,8 +6,8 @@
   "module": "lib/esm/appui-test-providers.js",
   "typings": "lib/cjs/appui-test-providers",
   "scripts": {
-    "start": "run-p -l copy:locale \"build:** -- -w\" \"copy:** -- -w\"",
-    "build": "run-p -l copy:locale \"build:**\" \"copy:**\"",
+    "start": "run-p -l \"build:** -- -w\" \"copy:** -- -w\"",
+    "build": "run-p -l \"build:**\" \"copy:**\"",
     "copy:cjs": "cpx \"./src/**/*.{*css,json,svg}\" \"./lib/cjs\"",
     "copy:esm": "cpx \"./src/**/*.{*css,json,svg}\" \"./lib/esm\"",
     "copy:locale": "cpx \"./public/**/*\" ./lib/public",
