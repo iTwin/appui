@@ -194,7 +194,7 @@ describe("StatusBarComposer", () => {
 
       rerender(<StatusBarComposer items={items2} />);
 
-      expect(screen.queryByTestId("item1")).to.be.null;
+      expect(screen.queryByTestId("item1")).toEqual(null);
       expect(screen.getByTestId("item2").parentElement).to.satisfy(
         selectorMatches(".uifw-statusbar-center .uifw-statusbar-item-container")
       );
@@ -250,7 +250,7 @@ describe("StatusBarComposer", () => {
 
       render(<StatusBarComposer items={items} />);
 
-      expect(screen.queryByTestId("item1")).to.be.null;
+      expect(screen.queryByTestId("item1")).toEqual(null);
       expect(screen.getByTestId("item2").parentElement).to.satisfy(
         selectorMatches(".uifw-statusbar-left .uifw-statusbar-item-container")
       );
@@ -729,7 +729,7 @@ describe("StatusBarComposer", () => {
       const overflow = renderedComponent.container.querySelector(
         ".uifw-statusbar-overflow"
       ) as HTMLDivElement;
-      expect(overflow).not.to.be.null;
+      expect(overflow).toBeTruthy();
       fireEvent.click(overflow);
       await TestUtils.flushAsyncOperations();
       const containerInPortal = renderedComponent.getByTestId(

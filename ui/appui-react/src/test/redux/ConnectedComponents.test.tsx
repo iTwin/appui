@@ -103,11 +103,11 @@ describe("ConnectedContent", () => {
       "testButton"
     ) as HTMLButtonElement;
     fireEvent.click(buttonElement);
-    expect(numClicks).to.be.eq(1);
+    expect(numClicks).toEqual(1);
     fireEvent.click(buttonElement);
-    expect(numClicks).to.be.eq(2);
+    expect(numClicks).toEqual(2);
     fireEvent.click(buttonElement);
-    expect(numClicks).to.be.eq(3);
+    expect(numClicks).toEqual(3);
 
     const span1 = renderedComponent.getByTestId(
       "numItemsSelected"
@@ -118,8 +118,8 @@ describe("ConnectedContent", () => {
     const span3 = renderedComponent.getByTestId(
       "defaultIModelViewportControlId"
     ) as HTMLSpanElement;
-    expect(span1.innerHTML).to.be.eq(numSelected.toString());
-    expect(span2.innerHTML).to.be.eq(defaultViewId);
-    expect(span3.innerHTML).to.be.eq(viewportControlId);
+    expect(span1.innerHTML).toEqual(numSelected.toString());
+    expect(span2.innerHTML).toEqual(defaultViewId);
+    expect(span3.innerHTML).toEqual(viewportControlId);
   });
 });

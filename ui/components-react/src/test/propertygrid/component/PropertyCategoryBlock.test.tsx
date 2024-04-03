@@ -24,7 +24,7 @@ describe("PropertyCategoryBlock", () => {
       </PropertyCategoryBlock>
     );
 
-    expect(component.queryByText("My Content")).to.be.null;
+    expect(component.queryByText("My Content")).toEqual(null);
   });
 
   it("renders content correctly when expanded", () => {
@@ -48,7 +48,7 @@ describe("PropertyCategoryBlock", () => {
 
     await theUserTo.click(screen.getByText("Group 1"));
 
-    expect(screen.queryByText("My Content")).to.be.null;
+    expect(screen.queryByText("My Content")).toEqual(null);
     // #511: We dont provide the content, but the block is still expanded but empty
     // Probably not what we want.
     // expect(container.firstElementChild)

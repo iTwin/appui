@@ -80,7 +80,7 @@ describe("Item", () => {
       SelectionTool,
       "icon-override"
     );
-    expect(toolItem.iconSpec).to.be.eq("icon-override");
+    expect(toolItem.iconSpec).toEqual("icon-override");
     expect(toolItem.label).toBeTruthy();
     expect(toolItem.tooltip).toBeTruthy();
     expect(toolItem.execute).toBeTruthy();
@@ -121,7 +121,7 @@ describe("Item", () => {
       "test-string",
       2
     );
-    expect(toolItem.iconSpec).to.be.eq(undefined);
+    expect(toolItem.iconSpec).toEqual(undefined);
     expect(TestImmediate.isValid).toEqual(false);
 
     toolItem.execute();

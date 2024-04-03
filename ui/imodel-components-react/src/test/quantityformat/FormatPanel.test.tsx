@@ -239,7 +239,7 @@ describe("FormatSample", () => {
     const renderedComponent = render(
       <FormatSample formatSpec={formatterSpec} hideLabels />
     );
-    expect(renderedComponent.getByTestId("progress-forward")).to.not.be.null;
+    expect(renderedComponent.getByTestId("progress-forward")).toBeTruthy();
   });
 });
 

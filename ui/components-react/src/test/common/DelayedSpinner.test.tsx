@@ -15,7 +15,7 @@ describe("<DelayedSpinner />", () => {
 
   it("renders spinner with delay", async () => {
     const component = render(<DelayedSpinner delay={100} />);
-    expect(component.queryByTestId("components-delayed-spinner")).to.be.null;
+    expect(component.queryByTestId("components-delayed-spinner")).toEqual(null);
 
     await waitFor(() => component.getByTestId("components-delayed-spinner"));
   });

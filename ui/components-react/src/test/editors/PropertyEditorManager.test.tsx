@@ -29,7 +29,7 @@ import { TextEditor } from "../../components-react/editors/TextEditor";
 describe("PropertyEditorManager", () => {
   it("createEditor should create a BasicPropertyEditor for unknown type", () => {
     const propertyEditor = PropertyEditorManager.createEditor("test");
-    expect(propertyEditor).to.not.be.null;
+    expect(propertyEditor).toBeTruthy();
     if (propertyEditor) {
       expect(propertyEditor).to.be.instanceof(BasicPropertyEditor);
       expect(React.isValidElement(propertyEditor.reactNode)).toEqual(true);
@@ -104,7 +104,7 @@ describe("PropertyEditorManager", () => {
       "myEditor",
       "myData"
     );
-    expect(propertyEditor).to.not.be.null;
+    expect(propertyEditor).toBeTruthy();
     if (propertyEditor) {
       expect(propertyEditor).to.be.instanceof(MinePropertyEditor);
       expect(propertyEditor.customDataController).to.be.instanceof(
@@ -126,7 +126,7 @@ describe("PropertyEditorManager", () => {
       "mine5",
       "badeditor"
     );
-    expect(propertyEditor).to.not.be.null;
+    expect(propertyEditor).toBeTruthy();
     if (propertyEditor) {
       expect(propertyEditor).to.be.instanceof(MinePropertyEditor);
     }
@@ -169,7 +169,7 @@ describe("PropertyEditorManager", () => {
   it("calling validateValue & commitResult on PropertyEditor without dataController should encounter no error", async () => {
     PropertyEditorManager.registerEditor("mine7", MinePropertyEditor);
     const propertyEditor = PropertyEditorManager.createEditor("mine7");
-    expect(propertyEditor).to.not.be.null;
+    expect(propertyEditor).toBeTruthy();
     if (propertyEditor) {
       const validateResult = await propertyEditor.validateValue(
         createPropertyValue("newvalue"),
@@ -192,7 +192,7 @@ describe("PropertyEditorManager", () => {
       undefined,
       "myData3"
     );
-    expect(propertyEditor).to.not.be.null;
+    expect(propertyEditor).toBeTruthy();
     if (propertyEditor) {
       const validateResult = await propertyEditor.validateValue(
         createPropertyValue("newvalue"),
@@ -234,7 +234,7 @@ describe("PropertyEditorManager", () => {
       undefined,
       "myData4"
     );
-    expect(propertyEditor).to.not.be.null;
+    expect(propertyEditor).toBeTruthy();
     if (propertyEditor) {
       const validateResult = await propertyEditor.validateValue(
         createPropertyValue("newvalue"),

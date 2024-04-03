@@ -331,8 +331,9 @@ describe("RadialMenu", () => {
 
       await theUserTo.unhover(screen.getByText("Test"));
 
-      expect(container.querySelector(".core-radial-menu-sector.selected")).to.be
-        .null;
+      expect(
+        container.querySelector(".core-radial-menu-sector.selected")
+      ).toEqual(null);
     });
   });
 });

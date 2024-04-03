@@ -172,7 +172,7 @@ describe("<DateTimeEditor />", () => {
     const hrInput = timeDiv.querySelector(
       ".components-time-input"
     ) as HTMLInputElement;
-    expect(hrInput).not.to.be.null;
+    expect(hrInput).toBeTruthy();
     hrInput.focus();
     fireEvent.change(hrInput, { target: { value: "09" } });
     hrInput.blur();
@@ -205,7 +205,7 @@ describe("<DateTimeEditor />", () => {
     const hrInput = timeDiv.querySelector(
       ".components-time-input"
     ) as HTMLInputElement;
-    expect(hrInput).not.to.be.null;
+    expect(hrInput).toBeTruthy();
     hrInput.focus();
     fireEvent.change(hrInput, { target: { value: "09" } });
     hrInput.blur();
@@ -280,7 +280,7 @@ describe("<DateTimeEditor />", () => {
 
     const dataValueSelector = `li[data-value='${jan4Ticks}']`; // Jan 4 2018 (UTC-0)
     const dayEntry = portalDiv.querySelector(dataValueSelector);
-    expect(dayEntry).not.to.be.null;
+    expect(dayEntry).toBeTruthy();
     fireEvent.click(dayEntry!);
 
     const okButton = renderedComponent.getByTestId(
@@ -322,7 +322,7 @@ describe("<DateTimeEditor />", () => {
 
     const dataValueSelector = `li[data-value='${jan4Ticks}']`; // Jan 4 2018 (UTC-0)
     const dayEntry = portalDiv.querySelector(dataValueSelector);
-    expect(dayEntry).not.to.be.null;
+    expect(dayEntry).toBeTruthy();
     fireEvent.click(dayEntry!);
 
     const cancelButton = renderedComponent.getByTestId(
@@ -351,7 +351,7 @@ describe("<DateTimeEditor />", () => {
     const popupButton = await renderedComponent.findByTestId(
       "components-popup-button"
     );
-    expect(popupButton).not.to.be.null;
+    expect(popupButton).toBeTruthy();
 
     fireEvent.keyDown(popupButton, { key: Key.Enter });
     await TestUtils.flushAsyncOperations();
@@ -375,10 +375,10 @@ describe("<DateTimeEditor />", () => {
     const popupButton = await renderedComponent.findByTestId(
       "components-popup-button"
     );
-    expect(popupButton).not.to.be.null;
+    expect(popupButton).toBeTruthy();
     popupButton.focus();
     const editor = findInstance(renderedComponent.container.firstChild);
-    expect(editor).not.to.be.null;
+    expect(editor).toBeTruthy();
     expect(editor.hasFocus).toEqual(true);
   });
 });

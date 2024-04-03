@@ -72,7 +72,7 @@ describe("ColorPickerDialog", () => {
       const cancelButton = wrapper.getByRole("button", {
         name: "dialog.cancel",
       });
-      expect(cancelButton).not.to.be.null;
+      expect(cancelButton).toBeTruthy();
       fireEvent.click(cancelButton);
       expect(spyOnCancel).toHaveBeenCalledOnce();
     });
@@ -97,7 +97,7 @@ describe("ColorPickerDialog", () => {
       const okButton = wrapper.getByRole("button", {
         name: "dialog.ok",
       });
-      expect(okButton).not.to.be.null;
+      expect(okButton).toBeTruthy();
       fireEvent.click(okButton);
       expect(spyOnOK).toHaveBeenCalledOnce();
     });

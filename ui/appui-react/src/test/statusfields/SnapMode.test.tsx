@@ -30,11 +30,11 @@ describe("SnapModeField", () => {
     );
 
     const button = wrapper.container.querySelector(".uifw-statusbar-field");
-    expect(button).not.to.be.null;
+    expect(button).toBeTruthy();
     fireEvent.click(button!);
 
     const iconContainer = wrapper.container.querySelector(".uifw-icon");
-    expect(iconContainer).not.to.be.null;
+    expect(iconContainer).toBeTruthy();
 
     const popup = wrapper.getByTestId("core-popup");
     const snaps = popup.querySelectorAll(".nz-footer-snapMode-snap");
@@ -58,7 +58,7 @@ describe("SnapModeField", () => {
       </Provider>
     );
     const iconContainer = wrapper.container.querySelector(".uifw-icon");
-    expect(iconContainer).not.to.be.null;
+    expect(iconContainer).toBeTruthy();
   });
 
   it("should change snapMode and dispatch SyncEvent on click", async () => {

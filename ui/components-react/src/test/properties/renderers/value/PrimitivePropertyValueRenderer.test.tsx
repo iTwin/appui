@@ -89,7 +89,7 @@ describe("PrimitivePropertyValueRenderer", () => {
         renderedElement.container.getElementsByClassName(
           "core-underlined-button"
         )[0].textContent
-      ).to.be.eq("www.test.com");
+      ).toEqual("www.test.com");
     });
 
     it("renders primitive property applying custom LinkElementsInfo specified in PropertyRecord's LinkElementsInfo", () => {
@@ -110,7 +110,7 @@ describe("PrimitivePropertyValueRenderer", () => {
         renderedElement.container.getElementsByClassName(
           "core-underlined-button"
         )[0].textContent
-      ).to.be.eq("Test");
+      ).toEqual("Test");
     });
 
     it("renders async value with default value in context", async () => {

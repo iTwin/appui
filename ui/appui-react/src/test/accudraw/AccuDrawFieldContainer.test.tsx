@@ -101,19 +101,19 @@ describe("AccuDrawFieldContainer", () => {
     IModelApp.accuDraw.setFocusItem(ItemField.X_Item);
     expect(spy).toHaveBeenCalledOnce();
     let input = wrapper.queryByTestId("uifw-accudraw-x");
-    expect(input).not.to.be.null;
+    expect(input).toBeTruthy();
     expect(document.activeElement === input).toEqual(true);
     spy.mockReset();
 
     IModelApp.accuDraw.setFocusItem(ItemField.Y_Item);
     expect(spy).toHaveBeenCalledOnce();
     input = wrapper.queryByTestId("uifw-accudraw-y");
-    expect(input).not.to.be.null;
+    expect(input).toBeTruthy();
     expect(document.activeElement === input).toEqual(true);
     spy.mockReset();
 
     input = wrapper.queryByTestId("uifw-accudraw-z");
-    expect(input).to.be.null;
+    expect(input).toEqual(null);
 
     IModelApp.accuDraw.setCompassMode(CompassMode.Polar);
     await TestUtils.flushAsyncOperations();
@@ -121,14 +121,14 @@ describe("AccuDrawFieldContainer", () => {
     IModelApp.accuDraw.setFocusItem(ItemField.ANGLE_Item);
     expect(spy).toHaveBeenCalledOnce();
     input = wrapper.queryByTestId("uifw-accudraw-angle");
-    expect(input).not.to.be.null;
+    expect(input).toBeTruthy();
     expect(document.activeElement === input).toEqual(true);
     spy.mockReset();
 
     IModelApp.accuDraw.setFocusItem(ItemField.DIST_Item);
     expect(spy).toHaveBeenCalledOnce();
     input = wrapper.queryByTestId("uifw-accudraw-distance");
-    expect(input).not.to.be.null;
+    expect(input).toBeTruthy();
     expect(document.activeElement === input).toEqual(true);
     spy.mockReset();
 
@@ -184,7 +184,7 @@ describe("AccuDrawFieldContainer", () => {
     IModelApp.accuDraw.setFocusItem(ItemField.X_Item);
     expect(spySet).toHaveBeenCalledOnce();
     const input = wrapper.queryByTestId("uifw-accudraw-x");
-    expect(input).not.to.be.null;
+    expect(input).toBeTruthy();
     expect(document.activeElement === input).toEqual(true);
 
     UiFramework.keyboardShortcuts.setFocusToHome();
@@ -245,7 +245,7 @@ describe("AccuDrawFieldContainer", () => {
     });
     spy.mockReset();
 
-    expect(screen.queryByTestId("uifw-accudraw-z")).to.be.null;
+    expect(screen.queryByTestId("uifw-accudraw-z")).toEqual(null);
 
     IModelApp.accuDraw.setCompassMode(CompassMode.Polar);
 
@@ -310,7 +310,7 @@ describe("AccuDrawFieldContainer", () => {
     IModelApp.accuDraw.setCompassMode(CompassMode.Rectangular);
 
     const input = wrapper.queryByTestId("uifw-accudraw-x");
-    expect(input).not.to.be.null;
+    expect(input).toBeTruthy();
     fireEvent.keyDown(input!, { key: Key.Escape });
     expect(spy).toHaveBeenCalledOnce();
   });
@@ -481,7 +481,7 @@ describe("AccuDrawFieldContainer", () => {
       FrameworkAccuDraw.uiStateStorage = backgroundSettings;
       await TestUtils.flushAsyncOperations();
       let input = wrapper.queryByTestId("uifw-accudraw-x");
-      expect(input).not.to.be.null;
+      expect(input).toBeTruthy();
       expect(input!.getAttribute("style")).toEqual(
         "background-color: rgb(255, 0, 0);"
       );
@@ -489,13 +489,13 @@ describe("AccuDrawFieldContainer", () => {
       FrameworkAccuDraw.uiStateStorage = foregroundSettings;
       await TestUtils.flushAsyncOperations();
       input = wrapper.queryByTestId("uifw-accudraw-x");
-      expect(input).not.to.be.null;
+      expect(input).toBeTruthy();
       expect(input!.getAttribute("style")).toEqual("color: rgb(0, 0, 0);");
 
       FrameworkAccuDraw.uiStateStorage = bgStringSettings;
       await TestUtils.flushAsyncOperations();
       input = wrapper.queryByTestId("uifw-accudraw-x");
-      expect(input).not.to.be.null;
+      expect(input).toBeTruthy();
       expect(input!.getAttribute("style")).toEqual(
         "background-color: rgba(255, 0, 0, 0.5);"
       );
@@ -503,7 +503,7 @@ describe("AccuDrawFieldContainer", () => {
       FrameworkAccuDraw.uiStateStorage = fgStringSettings;
       await TestUtils.flushAsyncOperations();
       input = wrapper.queryByTestId("uifw-accudraw-x");
-      expect(input).not.to.be.null;
+      expect(input).toBeTruthy();
       expect(input!.getAttribute("style")).toEqual(
         "color: rgba(0, 0, 255, 0.5);"
       );

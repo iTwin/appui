@@ -14,7 +14,7 @@ describe("useAsyncValue", () => {
       (props: { value: string }) => useAsyncValue(props.value),
       { initialProps: { value } }
     );
-    expect(result.current).to.be.eq(value);
+    expect(result.current).toEqual(value);
   });
 
   it("returns value when promise resolves", async () => {
@@ -26,7 +26,7 @@ describe("useAsyncValue", () => {
     );
     expect(result.current).toEqual(undefined);
     await valuePromise;
-    await waitFor(() => expect(result.current).to.be.eq(value));
+    await waitFor(() => expect(result.current).toEqual(value));
   });
 
   it("returns correct value from multiple promises", async () => {
@@ -40,8 +40,8 @@ describe("useAsyncValue", () => {
     rerender({ value: updatePromise });
     expect(result.current).toEqual(undefined);
     await updatePromise.resolve("updated value");
-    await waitFor(() => expect(result.current).to.be.eq("updated value"));
+    await waitFor(() => expect(result.current).toEqual("updated value"));
     await initialPromise.resolve("initial value");
-    expect(result.current).to.be.eq("updated value");
+    expect(result.current).toEqual("updated value");
   });
 });

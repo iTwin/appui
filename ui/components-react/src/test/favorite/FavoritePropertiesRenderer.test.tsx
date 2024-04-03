@@ -41,7 +41,7 @@ describe("FavoritePropertiesRenderer", () => {
     it("should render a tooltip for an element", async () => {
       const propertyData = await dataProvider.getData();
       const tooltip = renderer.renderFavorites(propertyData);
-      expect(tooltip).to.not.be.null;
+      expect(tooltip).toBeTruthy();
     });
 
     it("should support `createRoot` parameter", async () => {

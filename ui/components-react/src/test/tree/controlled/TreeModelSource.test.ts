@@ -41,8 +41,8 @@ describe("TreeModelSource", () => {
       });
       expect(spy).toHaveBeenCalled();
       const changes = spy.mock.calls[0][0][1];
-      expect(changes.addedNodeIds.length).to.be.eq(1);
-      expect(changes.addedNodeIds[0]).to.be.eq("root2");
+      expect(changes.addedNodeIds.length).toEqual(1);
+      expect(changes.addedNodeIds[0]).toEqual("root2");
     });
 
     it("emits onModelChanged event with removed node id", () => {
@@ -52,8 +52,8 @@ describe("TreeModelSource", () => {
       });
       expect(spy).toHaveBeenCalled();
       const changes = spy.mock.calls[0][0][1];
-      expect(changes.removedNodeIds.length).to.be.eq(1);
-      expect(changes.removedNodeIds[0]).to.be.eq("root1");
+      expect(changes.removedNodeIds.length).toEqual(1);
+      expect(changes.removedNodeIds[0]).toEqual("root1");
     });
 
     it("emits onModelChanged event with modified node id", () => {
@@ -64,8 +64,8 @@ describe("TreeModelSource", () => {
       });
       expect(spy).toHaveBeenCalled();
       const changes = spy.mock.calls[0][0][1];
-      expect(changes.modifiedNodeIds.length).to.be.eq(1);
-      expect(changes.modifiedNodeIds[0]).to.be.eq("root1");
+      expect(changes.modifiedNodeIds.length).toEqual(1);
+      expect(changes.modifiedNodeIds[0]).toEqual("root1");
     });
 
     it("clears model and adds new nodes", () => {
@@ -247,7 +247,7 @@ describe("TreeModelSource", () => {
     it("returns model", () => {
       (modelSource as any)._model = mutableTreeModelMock.object;
       const model = modelSource.getModel();
-      expect(model).to.be.eq(mutableTreeModelMock.object);
+      expect(model).toEqual(mutableTreeModelMock.object);
     });
   });
 });

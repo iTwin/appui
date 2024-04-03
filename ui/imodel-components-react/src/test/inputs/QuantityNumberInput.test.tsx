@@ -60,7 +60,7 @@ describe("<QuantityNumberInput />", () => {
     const disabled = wrapper.container.querySelector(
       ".component-quantity-number-input-disabled"
     );
-    expect(disabled).not.to.be.null;
+    expect(disabled).toBeTruthy();
   });
 
   it(`should render ft-in as just ft`, () => {
@@ -77,7 +77,7 @@ describe("<QuantityNumberInput />", () => {
       />
     );
     const input = wrapper.container.querySelector("input");
-    expect(input).not.to.be.null;
+    expect(input).toBeTruthy();
     expect((input as HTMLInputElement).value).toEqual("3.2808");
   });
 
@@ -120,11 +120,11 @@ describe("<QuantityNumberInput />", () => {
     const incrementor = wrapper.container.querySelector(
       "div.component-quantity-number-input-button.component-quantity-number-input-button-up"
     );
-    expect(incrementor).not.to.be.null;
+    expect(incrementor).toBeTruthy();
     const decrementor = wrapper.container.querySelector(
       "div.component-quantity-number-input-button.component-quantity-number-input-button-down"
     );
-    expect(decrementor).not.to.be.null;
+    expect(decrementor).toBeTruthy();
 
     fireEvent.click(incrementor!);
     expect(input.value).toEqual(`${incrementedLengthFeet}`);
@@ -152,7 +152,7 @@ describe("<QuantityNumberInput />", () => {
     const incrementor = wrapper.container.querySelector(
       "div.component-quantity-number-input-button.component-quantity-number-input-button-up"
     );
-    expect(incrementor).not.to.be.null;
+    expect(incrementor).toBeTruthy();
     fireEvent.click(incrementor!);
     expect(value).toEqual(1 * metersPerFoot);
   });
@@ -175,7 +175,7 @@ describe("<QuantityNumberInput />", () => {
     const incrementor = wrapper.container.querySelector(
       "div.component-quantity-number-input-button.component-quantity-number-input-button-up"
     );
-    expect(incrementor).not.to.be.null;
+    expect(incrementor).toBeTruthy();
     fireEvent.click(incrementor!);
     expect(spy).toHaveBeenCalledOnce();
     expect(value).toEqual(5 * metersPerFoot);
@@ -199,7 +199,7 @@ describe("<QuantityNumberInput />", () => {
     const incrementor = wrapper.container.querySelector(
       "div.component-quantity-number-input-button.component-quantity-number-input-button-up"
     );
-    expect(incrementor).not.to.be.null;
+    expect(incrementor).toBeTruthy();
     fireEvent.click(incrementor!);
     expect(spy).toHaveBeenCalledOnce();
     expect(value).toEqual(0.25 * metersPerFoot);
@@ -222,7 +222,7 @@ describe("<QuantityNumberInput />", () => {
     const incrementor = wrapper.container.querySelector(
       "div.component-quantity-number-input-button.component-quantity-number-input-button-up"
     );
-    expect(incrementor).not.to.be.null;
+    expect(incrementor).toBeTruthy();
     fireEvent.click(incrementor!); // 1 ft
     fireEvent.click(incrementor!); // 2
     fireEvent.click(incrementor!); // 3
@@ -250,7 +250,7 @@ describe("<QuantityNumberInput />", () => {
     const incrementor = wrapper.container.querySelector(
       "div.component-quantity-number-input-button.component-quantity-number-input-button-up"
     );
-    expect(incrementor).not.to.be.null;
+    expect(incrementor).toBeTruthy();
     fireEvent.click(incrementor!);
     expect(spy).toHaveBeenCalledOnce();
     expect(value).toEqual(Number.MAX_SAFE_INTEGER * metersPerFoot);
@@ -273,7 +273,7 @@ describe("<QuantityNumberInput />", () => {
     const decrementor = wrapper.container.querySelector(
       "div.component-quantity-number-input-button.component-quantity-number-input-button-down"
     );
-    expect(decrementor).not.to.be.null;
+    expect(decrementor).toBeTruthy();
     fireEvent.click(decrementor!); // -1 ft
     fireEvent.click(decrementor!); // -2
     fireEvent.click(decrementor!); // -3
@@ -301,7 +301,7 @@ describe("<QuantityNumberInput />", () => {
     const decrementor = wrapper.container.querySelector(
       "div.component-quantity-number-input-button.component-quantity-number-input-button-down"
     );
-    expect(decrementor).not.to.be.null;
+    expect(decrementor).toBeTruthy();
     fireEvent.click(decrementor!);
     expect(spy).toHaveBeenCalledOnce();
     expect(value).toEqual(Number.MIN_SAFE_INTEGER * metersPerFoot);
@@ -331,7 +331,7 @@ describe("<QuantityNumberInput />", () => {
     const incrementor = wrapper.container.querySelector(
       "div.component-quantity-number-input-button.component-quantity-number-input-button-up"
     );
-    expect(incrementor).not.to.be.null;
+    expect(incrementor).toBeTruthy();
     fireEvent.click(incrementor!);
     expect(spy).toHaveBeenCalledOnce();
     expect(value).toEqual(snapLengthInFeet * metersPerFoot);
@@ -354,13 +354,13 @@ describe("<QuantityNumberInput />", () => {
     const incrementor = wrapper.container.querySelector(
       "div.component-quantity-number-input-button.component-quantity-number-input-button-up"
     );
-    expect(incrementor).not.to.be.null;
+    expect(incrementor).toBeTruthy();
     fireEvent.click(incrementor!);
     expect(value).toEqual(1 * metersPerFoot);
     const decrementor = wrapper.container.querySelector(
       "div.component-quantity-number-input-button.component-quantity-number-input-button-down"
     );
-    expect(decrementor).not.to.be.null;
+    expect(decrementor).toBeTruthy();
     fireEvent.click(decrementor!);
     expect(value).toEqual(0);
   });
@@ -382,13 +382,13 @@ describe("<QuantityNumberInput />", () => {
     const incrementor = wrapper.container.querySelector(
       "div.component-quantity-number-input-button.component-quantity-number-input-button-up"
     );
-    expect(incrementor).not.to.be.null;
+    expect(incrementor).toBeTruthy();
     fireEvent.click(incrementor!);
     expect(value).toEqual(0.5 * metersPerFoot);
     const decrementor = wrapper.container.querySelector(
       "div.component-quantity-number-input-button.component-quantity-number-input-button-down"
     );
-    expect(decrementor).not.to.be.null;
+    expect(decrementor).toBeTruthy();
     fireEvent.click(decrementor!);
     expect(value).toEqual(0.4 * metersPerFoot);
   });
@@ -410,13 +410,13 @@ describe("<QuantityNumberInput />", () => {
     const incrementor = wrapper.container.querySelector(
       "div.component-quantity-number-input-button.component-quantity-number-input-button-up"
     );
-    expect(incrementor).not.to.be.null;
+    expect(incrementor).toBeTruthy();
     fireEvent.click(incrementor!);
     expect(value).toEqual(1 * metersPerFoot);
     const decrementor = wrapper.container.querySelector(
       "div.component-quantity-number-input-button.component-quantity-number-input-button-down"
     );
-    expect(decrementor).not.to.be.null;
+    expect(decrementor).toBeTruthy();
     fireEvent.click(decrementor!);
     expect(value).toEqual(0);
   });
@@ -439,7 +439,7 @@ describe("<QuantityNumberInput />", () => {
       />
     );
     const input = wrapper.container.querySelector("input");
-    expect(input).not.to.be.null;
+    expect(input).toBeTruthy();
     fireEvent.keyDown(input!, { key: Key.ArrowUp });
     expect(spy).toHaveBeenCalledOnce();
     expect(value).toEqual(0.25 * metersPerFoot);
@@ -467,7 +467,7 @@ describe("<QuantityNumberInput />", () => {
       />
     );
     const input = wrapper.container.querySelector("input");
-    expect(input).not.to.be.null;
+    expect(input).toBeTruthy();
     fireEvent.change(input!, { target: { value: "22.3" } });
     fireEvent.keyDown(input!, { key: Key.Enter });
     expect(spy).toHaveBeenCalledOnce();
@@ -490,7 +490,7 @@ describe("<QuantityNumberInput />", () => {
       />
     );
     const input = wrapper.container.querySelector("input");
-    expect(input).not.to.be.null;
+    expect(input).toBeTruthy();
     fireEvent.change(input!, { target: { value: "42in" } });
     fireEvent.keyDown(input!, { key: Key.Enter });
     expect(spy).toHaveBeenCalledOnce();
@@ -515,7 +515,7 @@ describe("<QuantityNumberInput />", () => {
       />
     );
     const input = wrapper.container.querySelector("input");
-    expect(input).not.to.be.null;
+    expect(input).toBeTruthy();
     input?.focus();
     fireEvent.change(input!, { target: { value: "22.3" } });
     input?.blur();
@@ -543,7 +543,7 @@ describe("<QuantityNumberInput />", () => {
       />
     );
     const input = wrapper.container.querySelector("input");
-    expect(input).not.to.be.null;
+    expect(input).toBeTruthy();
     input?.focus();
     const originalValue = (input as HTMLInputElement).value;
     fireEvent.change(input!, { target: { value: "22.3" } });
@@ -582,7 +582,7 @@ describe("<QuantityNumberInput />", () => {
       />
     );
     const input = wrapper.container.querySelector("input");
-    expect(input).not.to.be.null;
+    expect(input).toBeTruthy();
     fireEvent.change(input!, { target: { value: "abc" } });
     expect((input as HTMLInputElement).value).toEqual("abc");
     fireEvent.keyDown(input!, { key: Key.Enter });
@@ -601,11 +601,11 @@ describe("<QuantityNumberInput />", () => {
     const mainContainer = wrapper.container.querySelector(
       "div.component-quantity-number-input-container.component-number-buttons-for-touch"
     );
-    expect(mainContainer).not.to.be.null;
+    expect(mainContainer).toBeTruthy();
     const buttonContainer = wrapper.container.querySelector(
       "div.component-quantity-number-input-buttons-container.component-number-buttons-for-touch"
     );
-    expect(buttonContainer).not.to.be.null;
+    expect(buttonContainer).toBeTruthy();
   });
 
   describe("<QuantityNumberInput with undefined formatter and parser specs/>", () => {
@@ -640,7 +640,7 @@ describe("<QuantityNumberInput />", () => {
         />
       );
       const input = wrapper.container.querySelector("input");
-      expect(input).not.to.be.null;
+      expect(input).toBeTruthy();
       expect((input as HTMLInputElement).value).toEqual("1.00");
 
       fireEvent.change(input!, { target: { value: "2" } });
@@ -704,7 +704,7 @@ describe("<QuantityNumberInput />", () => {
         />
       );
       const input = wrapper.container.querySelector("input");
-      expect(input).not.to.be.null;
+      expect(input).toBeTruthy();
       expect((input as HTMLInputElement).value.slice(0, 2)).toEqual("1.");
 
       fireEvent.change(input!, { target: { value: "2" } });

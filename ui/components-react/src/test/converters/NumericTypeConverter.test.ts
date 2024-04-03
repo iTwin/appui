@@ -22,11 +22,11 @@ describe("IntTypeConverter", () => {
     });
 
     it("returns empty string when value is undefined", () => {
-      expect(converter.convertToString(undefined)).to.be.eq("");
+      expect(converter.convertToString(undefined)).toEqual("");
     });
 
     it("returns default value when value is not a number", () => {
-      expect(converter.convertToString("not a number")).to.be.eq("0");
+      expect(converter.convertToString("not a number")).toEqual("0");
     });
   });
 
@@ -105,11 +105,11 @@ describe("FloatTypeConverter", () => {
     });
 
     it("returns empty string when value is undefined", () => {
-      expect(converter.convertToString(undefined)).to.be.eq("");
+      expect(converter.convertToString(undefined)).toEqual("");
     });
 
     it("returns default value when value is not a number", () => {
-      expect(converter.convertToString("not a number")).to.be.eq("0.0");
+      expect(converter.convertToString("not a number")).toEqual("0.0");
     });
   });
 

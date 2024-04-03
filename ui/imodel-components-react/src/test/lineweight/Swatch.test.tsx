@@ -32,7 +32,7 @@ describe("<LineWeightSwatch />", () => {
     );
     expect(renderedComponent).toBeTruthy();
     const label = renderedComponent.queryByText("3");
-    expect(label).to.be.null;
+    expect(label).toEqual(null);
   });
 
   it("Fire click event to pick weight", async () => {
@@ -42,7 +42,7 @@ describe("<LineWeightSwatch />", () => {
       <LineWeightSwatch weight={activeWeight} onClick={spyOnPick} />
     );
     const weightSwatch = renderedComponent.container.firstChild as HTMLElement;
-    expect(weightSwatch).not.to.be.null;
+    expect(weightSwatch).toBeTruthy();
     expect(weightSwatch.tagName).toEqual("BUTTON");
     fireEvent.click(weightSwatch);
     await TestUtils.flushAsyncOperations();

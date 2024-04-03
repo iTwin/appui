@@ -101,7 +101,7 @@ describe("ControlledTree", () => {
     const message = container.querySelector(
       ".components-controlledTree-loader"
     );
-    expect(message).to.not.be.null;
+    expect(message).toBeTruthy();
   });
 
   it("renders no data message if there are no nodes", () => {
@@ -114,7 +114,7 @@ describe("ControlledTree", () => {
     const message = container.querySelector(
       ".components-controlledTree-errorMessage"
     );
-    expect(message).to.not.be.null;
+    expect(message).toBeTruthy();
   });
 
   it("renders tree with loaded root nodes", () => {
@@ -123,7 +123,7 @@ describe("ControlledTree", () => {
     const { container } = render(<ControlledTree {...defaultProps} />);
 
     const tree = container.querySelector(".components-controlledTree");
-    expect(tree).to.not.be.null;
+    expect(tree).toBeTruthy();
   });
 
   it("renders node with description", () => {
@@ -169,7 +169,7 @@ describe("ControlledTree", () => {
     const tree = container.querySelector(
       `.${HighlightingEngine.ACTIVE_CLASS_NAME}`
     );
-    expect(tree).to.not.be.null;
+    expect(tree).toBeTruthy();
   });
 
   it("uses provided tree renderer", () => {

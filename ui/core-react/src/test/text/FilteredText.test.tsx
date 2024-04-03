@@ -41,7 +41,7 @@ describe("<FilteredText />", () => {
     const foundTis = await wrapper.findAllByText("tis");
     expect(foundTis.length).toEqual(5);
     const foundMatches = foundTis[0].className.match("matching-tis");
-    expect(foundMatches).not.to.be.null;
+    expect(foundMatches).toBeTruthy();
   });
 
   it("should render matches with specified style", async () => {
@@ -57,7 +57,7 @@ describe("<FilteredText />", () => {
     const foundMatches = foundTis[0].className.match(
       "uicore-filtered-text-match"
     );
-    expect(foundMatches).not.to.be.null;
+    expect(foundMatches).toBeTruthy();
     const matchColor = foundTis[0].style.color;
     expect(matchColor).toEqual("orange");
   });

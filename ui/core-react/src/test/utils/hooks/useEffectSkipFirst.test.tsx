@@ -61,18 +61,18 @@ describe("useEffectSkipFirst", () => {
     );
 
     // first render, useEffect is skipped
-    expect(callbackInvokeCount).to.be.eq(0);
+    expect(callbackInvokeCount).toEqual(0);
 
     // second render, different dependencies
     // callback is invoked for first time
     rerender({ callback, deps: [false] });
-    expect(callbackInvokeCount).to.be.eq(1);
+    expect(callbackInvokeCount).toEqual(1);
     expect(cleanupSpy).not.toBeCalled();
 
     // unmounted
     // cleanup after callback invocation
     unmount();
-    expect(callbackInvokeCount).to.be.eq(1);
+    expect(callbackInvokeCount).toEqual(1);
     expect(cleanupSpy).toHaveBeenCalledOnce();
   });
 
@@ -91,26 +91,26 @@ describe("useEffectSkipFirst", () => {
     );
 
     // first render useEffect is skipped
-    expect(callbackInvokeCount).to.be.eq(0);
+    expect(callbackInvokeCount).toEqual(0);
     expect(cleanupSpy).not.toBeCalled();
 
     // second render different dependencies
     // callback is invoked first time
     rerender({ callback, deps: [false] });
-    expect(callbackInvokeCount).to.be.eq(1);
+    expect(callbackInvokeCount).toEqual(1);
     expect(cleanupSpy).not.toBeCalled();
 
     // third render different dependencies
     // cleanup after first callback invocation
     // invoke callback second time
     rerender({ callback, deps: [true] });
-    expect(callbackInvokeCount).to.be.eq(2);
+    expect(callbackInvokeCount).toEqual(2);
     expect(cleanupSpy).toHaveBeenCalledOnce();
 
     // unmount
     // cleanup after second callback invocation
     unmount();
-    expect(callbackInvokeCount).to.be.eq(2);
+    expect(callbackInvokeCount).toEqual(2);
     expect(cleanupSpy).toHaveBeenCalledTimes(2);
   });
 });

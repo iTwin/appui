@@ -37,7 +37,7 @@ describe("ArrayPropertyValueRenderer", () => {
 
       const element = renderer.render(arrayProperty);
 
-      expect(element).to.be.eq("string[]");
+      expect(element).toEqual("string[]");
     });
 
     it("renders default way if empty context is provided", () => {
@@ -46,7 +46,7 @@ describe("ArrayPropertyValueRenderer", () => {
 
       const element = renderer.render(arrayProperty, {});
 
-      expect(element).to.be.eq("string[]");
+      expect(element).toEqual("string[]");
     });
 
     it("renders array with Table renderer if container type is Table", async () => {
@@ -120,7 +120,7 @@ describe("ArrayPropertyValueRenderer", () => {
         containerType: PropertyContainerType.PropertyPane,
       });
 
-      expect(element).to.be.eq("");
+      expect(element).toEqual("");
     });
   });
 

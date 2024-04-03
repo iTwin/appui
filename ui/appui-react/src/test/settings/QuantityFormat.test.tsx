@@ -113,7 +113,7 @@ describe("QuantityFormatSettingsPage", () => {
 
     const dataValueSelector = `li[data-value='QuantityTypeEnumValue-7']`;
     const categoryEntry = wrapper.container.querySelector(dataValueSelector);
-    expect(categoryEntry).not.to.be.null;
+    expect(categoryEntry).toBeTruthy();
     fireEvent.click(categoryEntry!);
     await TestUtils.flushAsyncOperations();
     expect(categoryList!.getAttribute("data-value")).to.eql(
@@ -223,7 +223,7 @@ describe("QuantityFormatSettingsPage", () => {
 
     const dataValueSelector = `li[data-value='QuantityTypeEnumValue-7']`;
     const categoryEntry = wrapper.container.querySelector(dataValueSelector);
-    expect(categoryEntry).not.to.be.null;
+    expect(categoryEntry).toBeTruthy();
     fireEvent.click(categoryEntry!);
     await TestUtils.flushAsyncOperations();
 

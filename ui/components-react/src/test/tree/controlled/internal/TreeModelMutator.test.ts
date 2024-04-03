@@ -256,7 +256,7 @@ describe("TreeModelMutator", () => {
         .verifiable(moq.Times.once());
       modelMutator.setCheckboxStates([checkboxStateChange]);
       treeModelMock.verifyAll();
-      expect(node.checkbox.state).to.be.eq(checkboxStateChange.newState);
+      expect(node.checkbox.state).toEqual(checkboxStateChange.newState);
     });
 
     it("tries to set checkbox state even if node was removed", () => {

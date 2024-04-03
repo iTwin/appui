@@ -97,7 +97,7 @@ describe("TreeRenderer", () => {
 
       const { container } = render(<TreeRenderer {...defaultProps} />);
 
-      expect(container).to.not.be.null;
+      expect(container).toBeTruthy();
       nodeLoaderMock.verify((x) => x.loadNode(treeRoot, 0), moq.Times.once());
     });
 
@@ -123,7 +123,7 @@ describe("TreeRenderer", () => {
 
       const { container } = render(<TreeRenderer {...defaultProps} />);
 
-      expect(container).to.not.be.null;
+      expect(container).toBeTruthy();
       nodeLoaderMock.verify((x) => x.loadNode(parentNode, 0), moq.Times.once());
     });
 
@@ -144,7 +144,7 @@ describe("TreeRenderer", () => {
 
       const { container } = render(<TreeRenderer {...defaultProps} />);
 
-      expect(container).to.not.be.null;
+      expect(container).toBeTruthy();
       nodeLoaderMock.verify(
         (x) => x.loadNode(moq.It.isAny(), moq.It.isAny()),
         moq.Times.never()

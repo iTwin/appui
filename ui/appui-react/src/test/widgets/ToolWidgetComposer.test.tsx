@@ -89,7 +89,7 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
       );
       const button = component.getByTitle("Hello");
       const icon = component.container.querySelector("i.icon.icon-test");
-      expect(icon).not.to.be.null;
+      expect(icon).toBeTruthy();
       fireEvent.click(button);
       expect(spy).toHaveBeenCalled();
     });

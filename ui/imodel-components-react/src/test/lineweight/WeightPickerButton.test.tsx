@@ -47,11 +47,11 @@ describe("<WeightPickerButton/>", () => {
     );
     expect(pickerButton.tagName).toEqual("BUTTON");
     let expandedAttribute = pickerButton.getAttribute("aria-expanded");
-    expect(expandedAttribute).to.be.eq("false");
+    expect(expandedAttribute).toEqual("false");
 
     fireEvent.click(pickerButton);
     expandedAttribute = pickerButton.getAttribute("aria-expanded");
-    expect(expandedAttribute).to.be.eq("true");
+    expect(expandedAttribute).toEqual("true");
 
     // getByTestId will trigger failure if not found so need to add separate 'expect' to test
     const popupDiv = renderedComponent.getByTestId(
@@ -95,11 +95,11 @@ describe("<WeightPickerButton/>", () => {
     );
     expect(pickerButton.tagName).toEqual("BUTTON");
     let expandedAttribute = pickerButton.getAttribute("aria-expanded");
-    expect(expandedAttribute).to.be.eq("false");
+    expect(expandedAttribute).toEqual("false");
 
     fireEvent.click(pickerButton);
     expandedAttribute = pickerButton.getAttribute("aria-expanded");
-    expect(expandedAttribute).to.be.eq("true");
+    expect(expandedAttribute).toEqual("true");
 
     // getByTestId will trigger failure if not found so need to add separate 'expect' to test
     const popupDiv = renderedComponent.getByTestId(
@@ -153,11 +153,11 @@ describe("<WeightPickerButton/>", () => {
     );
     expect(pickerButton.tagName).toEqual("BUTTON");
     let expandedAttribute = pickerButton.getAttribute("aria-expanded");
-    expect(expandedAttribute).to.be.eq("false");
+    expect(expandedAttribute).toEqual("false");
 
     fireEvent.click(pickerButton);
     expandedAttribute = pickerButton.getAttribute("aria-expanded");
-    expect(expandedAttribute).to.be.eq("true");
+    expect(expandedAttribute).toEqual("true");
 
     // getByTestId will trigger failure if not found so need to add separate 'expect' to test
     const popupDiv = renderedComponent.getByTestId(
@@ -206,11 +206,11 @@ describe("<WeightPickerButton/>", () => {
     );
     expect(pickerButton.tagName).toEqual("BUTTON");
     let expandedAttribute = pickerButton.getAttribute("aria-expanded");
-    expect(expandedAttribute).to.be.eq("false");
+    expect(expandedAttribute).toEqual("false");
 
     fireEvent.click(pickerButton);
     expandedAttribute = pickerButton.getAttribute("aria-expanded");
-    expect(expandedAttribute).to.be.eq("true");
+    expect(expandedAttribute).toEqual("true");
 
     // getByTestId will trigger failure if not found so need to add separate 'expect' to test
     const popupDiv = renderedComponent.getByTestId(
@@ -254,6 +254,6 @@ describe("<WeightPickerButton/>", () => {
     fireEvent.click(pickerButton);
     // use queryByTestId to avoid exception if it is not found.
     const corePopupDiv = renderedComponent.queryByTestId("core-popup");
-    expect(corePopupDiv).to.be.null;
+    expect(corePopupDiv).toEqual(null);
   });
 });

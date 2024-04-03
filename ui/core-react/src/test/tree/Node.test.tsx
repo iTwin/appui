@@ -73,7 +73,7 @@ describe("<Node />", () => {
   it("render leaf correctly", () => {
     render(<Node label="a" level={0} isLeaf={true} data-testid={"a"} />);
 
-    expect(screen.queryByRole("button")).to.be.null;
+    expect(screen.queryByRole("button")).toEqual(null);
     expect(screen.getByTestId<HTMLDivElement>("a-contents").style).to.include({
       marginLeft: "24px",
     });
@@ -100,7 +100,7 @@ describe("<Node />", () => {
       />
     );
 
-    expect(screen.queryByRole("button")).to.be.null;
+    expect(screen.queryByRole("button")).toEqual(null);
     expect(screen.getByTestId<HTMLDivElement>("a-contents").style).to.include({
       marginLeft: "24px",
     });

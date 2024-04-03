@@ -118,7 +118,7 @@ describe("UiSettingsPage", () => {
       "settings.uiSettingsPage.autoHideTitle"
     );
     const checkbox = getInputBySpanTitle(autoHideSpan);
-    expect(checkbox).not.to.be.null;
+    expect(checkbox).toBeTruthy();
     fireEvent.click(checkbox!);
     await TestUtils.flushAsyncOperations();
     expect(checkbox?.checked).toEqual(false); // defaults to true so this should make if false

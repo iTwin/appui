@@ -122,7 +122,7 @@ describe("MutableTreeModel", () => {
     it("returns empty root node", () => {
       const node = treeModel.getRootNode();
       expect(node).toBeTruthy();
-      expect(node.depth).to.be.eq(-1);
+      expect(node.depth).toEqual(-1);
       expect(node.numChildren).toEqual(undefined);
       expect(node.id).toEqual(undefined);
     });
@@ -313,7 +313,7 @@ describe("MutableTreeModel", () => {
 
       treeModel.insertChild(undefined, rootNode, 0);
       treeMock.verifyAll();
-      expect(treeModel.getRootNode().numChildren!).to.be.eq(
+      expect(treeModel.getRootNode().numChildren!).toEqual(
         childCountBefore + 1
       );
     });
@@ -342,7 +342,7 @@ describe("MutableTreeModel", () => {
 
       treeModel.insertChild(rootNode.id, childNode, 0);
       treeMock.verifyAll();
-      expect(rootNode.numChildren).to.be.eq(childCountBefore + 1);
+      expect(rootNode.numChildren).toEqual(childCountBefore + 1);
     });
 
     it("inserts children from TreeModelNodeInput", () => {
@@ -680,7 +680,7 @@ describe("MutableTreeModel", () => {
 
       treeModel.removeChild(undefined, rootNode.id);
       treeMock.verifyAll();
-      expect(treeModel.getRootNode().numChildren!).to.be.eq(
+      expect(treeModel.getRootNode().numChildren!).toEqual(
         childCountBefore - 1
       );
     });
@@ -703,7 +703,7 @@ describe("MutableTreeModel", () => {
 
       treeModel.removeChild(rootNode.id, childNode.id);
       treeMock.verifyAll();
-      expect(rootNode.numChildren).to.be.eq(childCountBefore - 1);
+      expect(rootNode.numChildren).toEqual(childCountBefore - 1);
     });
 
     it("removes node by index", () => {
@@ -800,7 +800,7 @@ describe("MutableTreeModel", () => {
       for (const _ of treeModel.iterateTreeModelNodes()) {
         index++;
       }
-      expect(index).to.be.eq(0);
+      expect(index).toEqual(0);
     });
   });
 });
@@ -844,7 +844,7 @@ describe("computeVisibleNodes", () => {
 
     it("getNumNodes", () => {
       const visibleNodes = computeVisibleNodes(treeModelMock.object);
-      expect(visibleNodes.getNumNodes()).to.be.eq(1);
+      expect(visibleNodes.getNumNodes()).toEqual(1);
     });
 
     it("getAtIndex with number index", () => {
@@ -888,10 +888,10 @@ describe("computeVisibleNodes", () => {
     const result = computeVisibleNodes(treeModelMock.object);
     treeModelMock.verifyAll();
 
-    expect(result.getNumNodes()).to.be.eq(1);
+    expect(result.getNumNodes()).toEqual(1);
     const visibleNode = result.getAtIndex(0);
-    expect((visibleNode as TreeModelNode).id).to.be.eq(rootNode.id);
-    expect(result.getModel()).to.be.eq(treeModelMock.object);
+    expect((visibleNode as TreeModelNode).id).toEqual(rootNode.id);
+    expect(result.getModel()).toEqual(treeModelMock.object);
   });
 
   it("returns visible expanded root node without children", () => {
@@ -911,7 +911,7 @@ describe("computeVisibleNodes", () => {
 
     const result = computeVisibleNodes(treeModelMock.object);
     treeModelMock.verifyAll();
-    expect(result.getNumNodes()).to.be.eq(1);
+    expect(result.getNumNodes()).toEqual(1);
   });
 
   it("returns visible expanded root node and child node", () => {
@@ -936,7 +936,7 @@ describe("computeVisibleNodes", () => {
 
     const result = computeVisibleNodes(treeModelMock.object);
     treeModelMock.verifyAll();
-    expect(result.getNumNodes()).to.be.eq(2);
+    expect(result.getNumNodes()).toEqual(2);
   });
 
   it("returns visible expanded root node and placeholder child node if child node was disposed", () => {
@@ -961,7 +961,7 @@ describe("computeVisibleNodes", () => {
 
     const result = computeVisibleNodes(treeModelMock.object);
     treeModelMock.verifyAll();
-    expect(result.getNumNodes()).to.be.eq(2);
+    expect(result.getNumNodes()).toEqual(2);
     expect(isTreeModelNode(result.getAtIndex(0))).toEqual(true);
     expect(isTreeModelNodePlaceholder(result.getAtIndex(1))).toEqual(true);
   });
@@ -976,7 +976,7 @@ describe("computeVisibleNodes", () => {
 
     const result = computeVisibleNodes(treeModelMock.object);
     treeModelMock.verifyAll();
-    expect(result.getNumNodes()).to.be.eq(1);
+    expect(result.getNumNodes()).toEqual(1);
     expect(isTreeModelNodePlaceholder(result.getAtIndex(0))).toEqual(true);
   });
 
@@ -997,7 +997,7 @@ describe("computeVisibleNodes", () => {
 
     const result = computeVisibleNodes(treeModelMock.object);
     treeModelMock.verifyAll();
-    expect(result.getNumNodes()).to.be.eq(1);
+    expect(result.getNumNodes()).toEqual(1);
     expect(result.getAtIndex(0)).to.be.deep.eq(rootNode);
   });
 });

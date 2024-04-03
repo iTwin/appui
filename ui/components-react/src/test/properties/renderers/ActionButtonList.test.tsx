@@ -33,7 +33,7 @@ describe("ActionButtonList", () => {
     const listElement = actionButtonListRenderer.container.querySelector(
       ".custom-action-button"
     )!;
-    expect(listElement.textContent).to.be.eq("Action button content");
+    expect(listElement.textContent).toEqual("Action button content");
   });
 
   it("renders in correct horizontal orientation", () => {

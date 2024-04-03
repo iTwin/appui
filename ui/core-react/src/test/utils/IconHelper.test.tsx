@@ -19,24 +19,24 @@ describe("IconHelper", () => {
 
   it("should get null icon data", () => {
     const iconNode = IconHelper.getIconReactNode("");
-    expect(iconNode).to.be.null;
+    expect(iconNode).toEqual(null);
   });
 
   it("should get null icon data in empty conditional string", () => {
     const iconNode = IconHelper.getIconReactNode(
       new ConditionalStringValue(() => "", ["dummy"])
     );
-    expect(iconNode).to.be.null;
+    expect(iconNode).toEqual(null);
   });
 
   it("should get null icon data if null passed in", () => {
     const iconNode = IconHelper.getIconReactNode(null);
-    expect(iconNode).to.be.null;
+    expect(iconNode).toEqual(null);
   });
 
   it("should get null icon data if internal data not set", () => {
     const iconNode = IconHelper.getIconReactNode(IconHelper.reactIconKey);
-    expect(iconNode).to.be.null;
+    expect(iconNode).toEqual(null);
   });
 
   it("should get react node back", () => {
@@ -80,7 +80,7 @@ describe("IconHelper", () => {
     );
 
     const iconNode = IconHelper.getIconReactNode(iconSpec, internalData);
-    expect(iconNode).not.to.be.null;
+    expect(iconNode).toBeTruthy();
     expect(iconNode).toBeTruthy();
     expect(
       (iconNode as React.ReactElement).props.iconSpec.props.children
@@ -91,7 +91,7 @@ describe("IconHelper", () => {
         return <span>Plum</span>;
       }, ["dummy"])
     );
-    expect(iconNodeDirect).not.to.be.null;
+    expect(iconNodeDirect).toBeTruthy();
     expect(iconNodeDirect).toBeTruthy();
     expect(
       (iconNodeDirect as React.ReactElement).props.iconSpec.props.children

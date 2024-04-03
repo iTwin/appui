@@ -90,7 +90,7 @@ describe("InternalModelessDialogManager", () => {
     UiFramework.dialogs.modeless.close(dialogId);
     expect(UiFramework.dialogs.modeless.count).toEqual(0);
     await waitFor(() => {
-      expect(screen.queryByText("My Title")).to.be.null;
+      expect(screen.queryByText("My Title")).toEqual(null);
     });
   });
 
@@ -122,15 +122,15 @@ describe("InternalModelessDialogManager", () => {
     expect(UiFramework.dialogs.modeless.count).toEqual(1);
     expect(screen.getByText("My Title")).to.exist;
     await waitFor(() => {
-      expect(screen.queryByText("My Title 2")).to.be.null;
+      expect(screen.queryByText("My Title 2")).toEqual(null);
     });
 
     UiFramework.dialogs.modeless.close(dialogId1);
     expect(UiFramework.dialogs.modeless.count).toEqual(0);
     await waitFor(() => {
-      expect(screen.queryByText("My Title")).to.be.null;
+      expect(screen.queryByText("My Title")).toEqual(null);
     });
-    expect(screen.queryByText("My Title 2")).to.be.null;
+    expect(screen.queryByText("My Title 2")).toEqual(null);
   });
 
   it("ModelessDialogRenderer component with two dialogs closed in FIFO order", async () => {
@@ -160,15 +160,15 @@ describe("InternalModelessDialogManager", () => {
     UiFramework.dialogs.modeless.close(dialogId1);
     expect(UiFramework.dialogs.modeless.count).toEqual(1);
     await waitFor(() => {
-      expect(screen.queryByText("My Title")).to.be.null;
+      expect(screen.queryByText("My Title")).toEqual(null);
     });
     expect(screen.getByText("My Title 2")).to.exist;
 
     UiFramework.dialogs.modeless.close(dialogId2);
     expect(UiFramework.dialogs.modeless.count).toEqual(0);
-    expect(screen.queryByText("My Title")).to.be.null;
+    expect(screen.queryByText("My Title")).toEqual(null);
     await waitFor(() => {
-      expect(screen.queryByText("My Title 2")).to.be.null;
+      expect(screen.queryByText("My Title 2")).toEqual(null);
     });
   });
 

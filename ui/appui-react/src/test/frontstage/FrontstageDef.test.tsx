@@ -572,7 +572,7 @@ describe("FrontstageDef", () => {
       const spy = vi.spyOn(window, "open");
       frontstageDef.nineZoneState = state;
 
-      expect(frontstageDef.nineZoneState).to.be.eq(state);
+      expect(frontstageDef.nineZoneState).toEqual(state);
       expect(spy).toHaveBeenCalledTimes(2);
     });
   });
@@ -853,7 +853,7 @@ describe("useSpecificWidgetDef", () => {
 
     const { result } = renderHook(() => useSpecificWidgetDef("t1"));
 
-    expect(result.current).to.be.eq(widgetDef);
+    expect(result.current).toEqual(widgetDef);
   });
 
   it("should handle no active frontstage", () => {

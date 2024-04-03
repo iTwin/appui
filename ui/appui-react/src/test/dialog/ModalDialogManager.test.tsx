@@ -51,7 +51,7 @@ describe("ModalDialogManager", () => {
     UiFramework.dialogs.modal.close();
     expect(UiFramework.dialogs.modal.count).toEqual(0);
     await waitFor(() => {
-      expect(screen.queryByTestId("core-dialog-root")).to.be.null;
+      expect(screen.queryByTestId("core-dialog-root")).toEqual(null);
     });
   });
 

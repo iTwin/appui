@@ -32,7 +32,7 @@ describe(`ViewAttributes`, () => {
 
     await theUserTo.click(screen.getAllByRole("button")[0]);
 
-    expect(screen.queryByText("listTools.viewAttributes")).to.be.null;
+    expect(screen.queryByText("listTools.viewAttributes")).toEqual(null);
   });
 
   it("should process Checkbox clicks", async () => {

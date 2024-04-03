@@ -57,6 +57,8 @@ describe("DateUtils", () => {
           hour12: true,
         },
       }).replace("\u202f", " ")
-    ).to.match(/\d{2}:\d{2}:\d{2} (AM|PM)/).not.to.be.null;
+    )
+      .to.match(/\d{2}:\d{2}:\d{2} (AM|PM)/)
+      .toBeTruthy();
   });
 });

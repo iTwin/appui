@@ -59,7 +59,7 @@ describe("ImageRenderer", () => {
       const imageRender2 = render(<>{image2}</>);
 
       await waitFor(() => {
-        expect(imageRender.container.innerHTML).to.be.eq(
+        expect(imageRender.container.innerHTML).toEqual(
           imageRender2.container.innerHTML
         );
       });
@@ -86,10 +86,12 @@ describe("ImageRenderer", () => {
 
       const imageRender = render(<>{image}</>);
 
-      expect(imageRender.container.querySelector(".bui-webfont-icon")).to.not.be
-        .null;
-      expect(imageRender.container.querySelector(".icon-placeholder")).to.not.be
-        .null;
+      expect(
+        imageRender.container.querySelector(".bui-webfont-icon")
+      ).toBeTruthy();
+      expect(
+        imageRender.container.querySelector(".icon-placeholder")
+      ).toBeTruthy();
     });
 
     const coreIconsInWebfontFormatTestData = [
@@ -116,11 +118,12 @@ describe("ImageRenderer", () => {
 
         const imageRender = render(<>{image}</>);
 
-        expect(imageRender.container.querySelector(".bui-webfont-icon")).to.not
-          .be.null;
+        expect(
+          imageRender.container.querySelector(".bui-webfont-icon")
+        ).toBeTruthy();
         expect(
           imageRender.container.querySelector(iconTest.expectedIconNameSelector)
-        ).to.not.be.null;
+        ).toBeTruthy();
       });
     }
 
@@ -165,10 +168,10 @@ describe("ImageRenderer", () => {
           imageRender.container.querySelector(
             iconTest.expectedIconClassSelector
           )
-        ).to.not.be.null;
+        ).toBeTruthy();
         expect(
           imageRender.container.querySelector(iconTest.expectedIconNameSelector)
-        ).to.not.be.null;
+        ).toBeTruthy();
       });
     }
 
@@ -200,11 +203,12 @@ describe("ImageRenderer", () => {
 
         const imageRender = render(<>{image}</>);
 
-        expect(imageRender.container.querySelector(".bui-webfont-icon")).to.not
-          .be.null;
+        expect(
+          imageRender.container.querySelector(".bui-webfont-icon")
+        ).toBeTruthy();
         expect(
           imageRender.container.querySelector(iconTest.expectedIconNameSelector)
-        ).to.not.be.null;
+        ).toBeTruthy();
       });
     }
 

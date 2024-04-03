@@ -192,7 +192,7 @@ describe("<TextEditor />", () => {
       />
     );
     const inputNode = wrapper.container.querySelector("input");
-    expect(inputNode).not.to.be.null;
+    expect(inputNode).toBeTruthy();
 
     fireEvent.keyDown(inputNode as HTMLElement, { key: Key.Enter });
     await TestUtils.flushAsyncOperations();
@@ -219,7 +219,7 @@ describe("<TextEditor />", () => {
       />
     );
     const inputNode = wrapper.container.querySelector("input");
-    expect(inputNode).not.to.be.null;
+    expect(inputNode).toBeTruthy();
 
     await theUserTo.type(inputNode!, "a");
     expect(spyOnCommit).toHaveBeenCalled();
@@ -249,7 +249,7 @@ describe("<TextEditor />", () => {
         />
       );
       const inputNode = wrapper.container.querySelector("input");
-      expect(inputNode).not.to.be.null;
+      expect(inputNode).toBeTruthy();
 
       fireEvent.keyDown(inputNode as HTMLElement, { key: Key.Enter });
       await TestUtils.flushAsyncOperations();
@@ -296,7 +296,7 @@ describe("<TextEditor />", () => {
         />
       );
       const inputNode = wrapper.container.querySelector("input");
-      expect(inputNode).not.to.be.null;
+      expect(inputNode).toBeTruthy();
 
       fireEvent.keyDown(inputNode as HTMLElement, { key: Key.Enter });
       await TestUtils.flushAsyncOperations();

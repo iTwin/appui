@@ -244,10 +244,10 @@ describe("CommonPropertyRenderer", () => {
         it("returns 0 when indentation is undefined or 0", () => {
           expect(
             CommonPropertyRenderer.getLabelOffset(undefined, orientation)
-          ).to.be.eq(0);
-          expect(
-            CommonPropertyRenderer.getLabelOffset(0, orientation)
-          ).to.be.eq(0);
+          ).toEqual(0);
+          expect(CommonPropertyRenderer.getLabelOffset(0, orientation)).toEqual(
+            0
+          );
         });
 
         it("returns maxIndent when indentation is 1", () => {
@@ -291,10 +291,10 @@ describe("CommonPropertyRenderer", () => {
               0.2,
               20
             )
-          ).to.be.eq(0);
+          ).toEqual(0);
           expect(
             CommonPropertyRenderer.getLabelOffset(0, orientation, 100, 0.1, 20)
-          ).to.be.eq(0);
+          ).toEqual(0);
         });
 
         it("returns maxIndent when indentation is 1 and current label size is bigger than shrink threshold", () => {

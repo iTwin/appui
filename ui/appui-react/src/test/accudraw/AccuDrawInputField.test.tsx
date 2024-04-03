@@ -27,7 +27,7 @@ describe("AccuDrawInputField", () => {
       />
     );
     const icon = wrapper.container.querySelector(".uifw-accudraw-lock");
-    expect(icon).not.to.be.null;
+    expect(icon).toBeTruthy();
   });
 
   it("should call onValueChanged on change", () => {
@@ -41,7 +41,7 @@ describe("AccuDrawInputField", () => {
       />
     );
     const input = wrapper.container.querySelector("input");
-    expect(input).not.to.be.null;
+    expect(input).toBeTruthy();
     fireEvent.change(input!, { target: { value: "22.3" } });
     expect((input as HTMLInputElement).value).toEqual("22.3");
     fireEvent.keyDown(input!, { key: Key.Enter });
@@ -65,7 +65,7 @@ describe("AccuDrawInputField", () => {
       />
     );
     const input = wrapper.container.querySelector("input");
-    expect(input).not.to.be.null;
+    expect(input).toBeTruthy();
     fireEvent.change(input!, { target: { value: "22.3" } });
     expect((input as HTMLInputElement).value).toEqual("22.3");
     fireEvent.keyDown(input!, { key: Key.Enter });
@@ -88,7 +88,7 @@ describe("AccuDrawInputField", () => {
       />
     );
     const input = wrapper.container.querySelector("input");
-    expect(input).not.to.be.null;
+    expect(input).toBeTruthy();
     fireEvent.keyDown(input!, { key: Key.Escape });
     expect(spyEsc).toHaveBeenCalledOnce();
   });
@@ -106,7 +106,7 @@ describe("AccuDrawInputField", () => {
       />
     );
     const input = wrapper.container.querySelector("input");
-    expect(input).not.to.be.null;
+    expect(input).toBeTruthy();
     fireEvent.keyDown(input!, { key: Key.Enter });
     expect(spyEnter).toHaveBeenCalledOnce();
   });
@@ -123,7 +123,7 @@ describe("AccuDrawInputField", () => {
       />
     );
     const input = wrapper.container.querySelector("input");
-    expect(input).not.to.be.null;
+    expect(input).toBeTruthy();
     fireEvent.keyDown(input!, { key: "a" });
     expect(spy).toHaveBeenCalledOnce();
     fireEvent.keyDown(input!, { key: "1" });
@@ -141,7 +141,7 @@ describe("AccuDrawInputField", () => {
       />
     );
     const input = wrapper.container.querySelector("input");
-    expect(input).not.to.be.null;
+    expect(input).toBeTruthy();
 
     act(() => {
       IModelApp.accuDraw.setFocusItem(ItemField.X_Item);

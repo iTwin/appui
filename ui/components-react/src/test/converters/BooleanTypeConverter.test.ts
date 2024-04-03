@@ -80,9 +80,9 @@ describe("BooleanTypeConverter", () => {
 
   describe("sortCompare", () => {
     it("returns 0 when boolean values are equal", () => {
-      expect(converter.sortCompare(1, {})).to.be.eq(0);
-      expect(converter.sortCompare({}, [])).to.be.eq(0);
-      expect(converter.sortCompare([], "a")).to.be.eq(0);
+      expect(converter.sortCompare(1, {})).toEqual(0);
+      expect(converter.sortCompare({}, [])).toEqual(0);
+      expect(converter.sortCompare([], "a")).toEqual(0);
     });
 
     it("returns greater than 0 when first boolean is true and second is false", () => {

@@ -298,7 +298,7 @@ describe("DefaultToolUiSettingsProvider", () => {
       );
       expect(renderedComponent).toBeTruthy();
 
-      expect(renderedComponent.queryByText("TEST-USELENGTH:")).to.be.null;
+      expect(renderedComponent.queryByText("TEST-USELENGTH:")).toEqual(null);
 
       const toggleEditor = renderedComponent.getByTestId(
         "components-checkbox-editor"
@@ -456,7 +456,7 @@ describe("DefaultToolUiSettingsProvider", () => {
       );
       expect(renderedComponent).toBeTruthy();
 
-      expect(renderedComponent.queryByText("TEST-USELENGTH:")).to.be.null;
+      expect(renderedComponent.queryByText("TEST-USELENGTH:")).toEqual(null);
 
       const toggleEditor = renderedComponent.getByTestId(
         "components-checkbox-editor"

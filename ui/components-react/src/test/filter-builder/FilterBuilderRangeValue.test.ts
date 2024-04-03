@@ -22,7 +22,7 @@ describe("PropertyFilterBuilderRuleRangeValue", () => {
       },
     };
     const serialized = PropertyFilterBuilderRuleRangeValue.serialize(value);
-    expect(serialized.value as string).to.be.eq(JSON.stringify(value));
+    expect(serialized.value as string).toEqual(JSON.stringify(value));
   });
 
   describe("parse", () => {

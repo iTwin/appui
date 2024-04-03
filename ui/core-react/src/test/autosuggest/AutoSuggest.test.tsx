@@ -197,7 +197,7 @@ describe("AutoSuggest", () => {
     render(<AutoSuggest onSuggestionSelected={() => {}} />);
 
     await theUserTo.type(screen.getByRole("textbox"), "abc");
-    expect(screen.queryByRole("option")).to.be.null;
+    expect(screen.queryByRole("option")).toEqual(null);
     expect(spyLogger).toHaveBeenCalled();
   });
 

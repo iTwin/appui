@@ -89,7 +89,7 @@ describe(`ToolAssistanceField`, () => {
       screen.getByTitle(/Hello World!.*toolAssistance\.moreInfo/)
     );
 
-    expect(screen.queryByText("toolAssistance.promptAtCursor")).to.be.null;
+    expect(screen.queryByText("toolAssistance.promptAtCursor")).toEqual(null);
   });
 
   it("passing isNew:true should use newDot", async () => {
@@ -632,7 +632,7 @@ describe(`ToolAssistanceField`, () => {
 
     await theUserTo.click(screen.getByTestId("outside"));
 
-    expect(screen.queryByText("toolAssistance.title")).to.be.null;
+    expect(screen.queryByText("toolAssistance.title")).toEqual(null);
   });
 
   it("should not close on outside click if pinned", async () => {
@@ -667,7 +667,7 @@ describe(`ToolAssistanceField`, () => {
     await theUserTo.click(
       screen.getByTitle(/Hello World!.*toolAssistance\.moreInfo/)
     );
-    expect(screen.queryByText("toolAssistance.title")).to.be.null;
+    expect(screen.queryByText("toolAssistance.title")).toEqual(null);
   });
 
   it("should set showPromptAtCursor on toggle click", async () => {
@@ -807,12 +807,12 @@ describe(`ToolAssistanceField`, () => {
 
     screen.getByText("toolAssistance.mouse");
     screen.getByText("mouseClick");
-    expect(screen.queryByText("fingerTouch")).to.be.null;
+    expect(screen.queryByText("fingerTouch")).toEqual(null);
 
     const touchTab = screen.getByText("toolAssistance.touch");
     await theUserTo.click(touchTab);
     screen.getByText("fingerTouch");
-    expect(screen.queryByText("mouseClick")).to.be.null;
+    expect(screen.queryByText("mouseClick")).toEqual(null);
   });
 
   it("touch instructions should show", async () => {
@@ -842,7 +842,7 @@ describe(`ToolAssistanceField`, () => {
 
     await theUserTo.click(screen.getByRole("button"));
 
-    expect(screen.queryByRole("tablist")).to.be.null;
+    expect(screen.queryByRole("tablist")).toEqual(null);
     expect(screen.getByText("xyz")).to.exist;
   });
 
@@ -859,6 +859,6 @@ describe(`ToolAssistanceField`, () => {
     await theUserTo.click(screen.getByRole("button"));
     await theUserTo.click(screen.getByTitle("toolAssistance.pin"));
     await theUserTo.click(screen.getByTitle("dialog.close"));
-    expect(screen.queryByText("toolAssistance.title")).to.be.null;
+    expect(screen.queryByText("toolAssistance.title")).toEqual(null);
   });
 });

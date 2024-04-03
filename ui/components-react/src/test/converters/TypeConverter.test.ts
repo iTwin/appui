@@ -98,7 +98,7 @@ describe("TypeConverter", () => {
           "def",
           propertyRecord
         );
-      expect((propertyValue as PrimitiveValue).value).to.be.eq("def");
+      expect((propertyValue as PrimitiveValue).value).toEqual("def");
     });
   });
 

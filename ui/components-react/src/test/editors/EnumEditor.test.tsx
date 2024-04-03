@@ -72,7 +72,7 @@ describe("<EnumEditor />", () => {
     );
     await TestUtils.flushAsyncOperations();
     const selectNode = wrapper.getByTestId("components-select-editor");
-    expect(selectNode).not.to.be.null;
+    expect(selectNode).toBeTruthy();
 
     fireEvent.keyDown(selectNode, { key: Key.Escape });
     await TestUtils.flushAsyncOperations();
@@ -110,7 +110,7 @@ describe("<EnumEditor />", () => {
     const selectNode = renderedComponent.getByTestId(
       "components-select-editor"
     );
-    expect(selectNode).not.to.be.null;
+    expect(selectNode).toBeTruthy();
 
     fireEvent.blur(selectNode);
     await TestUtils.flushAsyncOperations();
@@ -138,7 +138,7 @@ describe("<EnumEditor />", () => {
     );
     await TestUtils.flushAsyncOperations();
     const selectNode = wrapper.getByTestId("components-select-editor");
-    expect(selectNode).not.to.be.null;
+    expect(selectNode).toBeTruthy();
 
     fireEvent.keyDown(selectNode, { key: Key.PageDown });
     await TestUtils.flushAsyncOperations();

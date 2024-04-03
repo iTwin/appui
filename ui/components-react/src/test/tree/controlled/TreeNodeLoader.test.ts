@@ -248,14 +248,14 @@ describe("PagedTreeNodeLoader", () => {
   describe("[get] pageSize", () => {
     it("returns page size", () => {
       const nodeLoader = setupTreeNodeLoader(() => {}, 2);
-      expect(nodeLoader.pageSize).to.be.eq(2);
+      expect(nodeLoader.pageSize).toEqual(2);
     });
   });
 
   describe("[get] dataProvider", () => {
     it("return data provider", () => {
       const nodeLoader = setupTreeNodeLoader(() => {}, 2);
-      expect(nodeLoader.dataProvider).to.be.eq(dataProviderStub);
+      expect(nodeLoader.dataProvider).toEqual(dataProviderStub);
     });
   });
 
@@ -874,7 +874,7 @@ describe("handleLoadedNodeHierarchy", () => {
 
     handleLoadedNodeHierarchy(modelSource, loadedHierarchy);
 
-    expect(modelSource.getModel().getChildren(undefined)!.getLength()).to.be.eq(
+    expect(modelSource.getModel().getChildren(undefined)!.getLength()).toEqual(
       6
     );
   });
@@ -898,7 +898,7 @@ describe("handleLoadedNodeHierarchy", () => {
     };
     handleLoadedNodeHierarchy(modelSource, loadedHierarchy);
 
-    expect(modelSource.getModel().getChildren(undefined)!.getLength()).to.be.eq(
+    expect(modelSource.getModel().getChildren(undefined)!.getLength()).toEqual(
       1
     );
     expect(
@@ -906,7 +906,7 @@ describe("handleLoadedNodeHierarchy", () => {
         .getModel()
         .getChildren(loadedHierarchy.hierarchyItems[0].item.id)!
         .getLength()
-    ).to.be.eq(1);
+    ).toEqual(1);
   });
 
   it("handles loaded hierarchy with child for existing parent node", () => {
@@ -936,7 +936,7 @@ describe("handleLoadedNodeHierarchy", () => {
 
     expect(
       modelSource.getModel().getChildren(parentNode.id)!.getLength()
-    ).to.be.eq(1);
+    ).toEqual(1);
     expect(modelSource.getModel().getNode(parentNode.id)!.isLoading).toEqual(
       false
     );

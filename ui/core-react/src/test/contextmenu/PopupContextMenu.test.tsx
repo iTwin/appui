@@ -18,52 +18,50 @@ describe("PopupContextMenu", () => {
     it("should render bottom by default", () => {
       const component = render(<PopupContextMenu isOpen={true} />);
       const contextMenu = component.getByTestId("core-context-menu-root");
-      expect(contextMenu.querySelector(".core-context-menu-bottom")).not.to.be
-        .null;
+      expect(
+        contextMenu.querySelector(".core-context-menu-bottom")
+      ).toBeTruthy();
     });
     it("should render top left", () => {
       const component = render(
         <PopupContextMenu isOpen={true} position={RelativePosition.TopLeft} />
       );
       const contextMenu = component.getByTestId("core-context-menu-root");
-      expect(contextMenu.querySelector(".core-context-menu-top")).not.to.be
-        .null;
-      expect(contextMenu.querySelector(".core-context-menu-right")).not.to.be
-        .null;
+      expect(contextMenu.querySelector(".core-context-menu-top")).toBeTruthy();
+      expect(
+        contextMenu.querySelector(".core-context-menu-right")
+      ).toBeTruthy();
     });
     it("should render top", () => {
       const component = render(
         <PopupContextMenu isOpen={true} position={RelativePosition.Top} />
       );
       const contextMenu = component.getByTestId("core-context-menu-root");
-      expect(contextMenu.querySelector(".core-context-menu-top")).not.to.be
-        .null;
+      expect(contextMenu.querySelector(".core-context-menu-top")).toBeTruthy();
     });
     it("should render top right", () => {
       const component = render(
         <PopupContextMenu isOpen={true} position={RelativePosition.TopRight} />
       );
       const contextMenu = component.getByTestId("core-context-menu-root");
-      expect(contextMenu.querySelector(".core-context-menu-top")).not.to.be
-        .null;
-      expect(contextMenu.querySelector(".core-context-menu-left")).not.to.be
-        .null;
+      expect(contextMenu.querySelector(".core-context-menu-top")).toBeTruthy();
+      expect(contextMenu.querySelector(".core-context-menu-left")).toBeTruthy();
     });
     it("should render left", () => {
       const component = render(
         <PopupContextMenu isOpen={true} position={RelativePosition.Left} />
       );
       const contextMenu = component.getByTestId("core-context-menu-root");
-      expect(contextMenu.querySelector(".core-context-menu-left")).not.to.be
-        .null;
+      expect(contextMenu.querySelector(".core-context-menu-left")).toBeTruthy();
     });
     it("should render right", () => {
       const component = render(
         <PopupContextMenu isOpen={true} position={RelativePosition.Right} />
       );
       const contextMenu = component.getByTestId("core-context-menu-root");
-      expect(contextMenu.querySelector(".core-context-menu-right")).not.to.be
-        .null;
+      expect(
+        contextMenu.querySelector(".core-context-menu-right")
+      ).toBeTruthy();
     });
     it("should render bottom left", () => {
       const component = render(
@@ -73,18 +71,21 @@ describe("PopupContextMenu", () => {
         />
       );
       const contextMenu = component.getByTestId("core-context-menu-root");
-      expect(contextMenu.querySelector(".core-context-menu-bottom")).not.to.be
-        .null;
-      expect(contextMenu.querySelector(".core-context-menu-right")).not.to.be
-        .null;
+      expect(
+        contextMenu.querySelector(".core-context-menu-bottom")
+      ).toBeTruthy();
+      expect(
+        contextMenu.querySelector(".core-context-menu-right")
+      ).toBeTruthy();
     });
     it("should render bottom", () => {
       const component = render(
         <PopupContextMenu isOpen={true} position={RelativePosition.Bottom} />
       );
       const contextMenu = component.getByTestId("core-context-menu-root");
-      expect(contextMenu.querySelector(".core-context-menu-bottom")).not.to.be
-        .null;
+      expect(
+        contextMenu.querySelector(".core-context-menu-bottom")
+      ).toBeTruthy();
     });
     it("should render bottom right", () => {
       const component = render(
@@ -94,10 +95,10 @@ describe("PopupContextMenu", () => {
         />
       );
       const contextMenu = component.getByTestId("core-context-menu-root");
-      expect(contextMenu.querySelector(".core-context-menu-bottom")).not.to.be
-        .null;
-      expect(contextMenu.querySelector(".core-context-menu-left")).not.to.be
-        .null;
+      expect(
+        contextMenu.querySelector(".core-context-menu-bottom")
+      ).toBeTruthy();
+      expect(contextMenu.querySelector(".core-context-menu-left")).toBeTruthy();
     });
   });
 });

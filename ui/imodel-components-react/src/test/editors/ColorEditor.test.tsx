@@ -112,7 +112,7 @@ describe("<ColorEditor />", () => {
       />
     );
     const pickerButton = wrapper.getByTestId("components-colorpicker-button");
-    expect(pickerButton).not.to.be.null;
+    expect(pickerButton).toBeTruthy();
 
     fireEvent.keyDown(pickerButton, { key: Key.Enter });
     await TestUtils.flushAsyncOperations();

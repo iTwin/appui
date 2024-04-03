@@ -110,7 +110,7 @@ describe("ChildWindowManager", () => {
     const mainDoc = new DOMParser().parseFromString(mainHtml, "text/html");
     const childDoc = new DOMParser().parseFromString(childHtml, "text/html");
     copyStyles(childDoc, mainDoc);
-    expect(childDoc.getElementById("__SVG_SPRITE_NODE__")).to.not.be.null;
+    expect(childDoc.getElementById("__SVG_SPRITE_NODE__")).toBeTruthy();
   });
 
   it("will close and processWindowClose by default", () => {

@@ -87,7 +87,9 @@ describe("ContentDialogManager", () => {
     expect(UiFramework.content.dialogs.count).toEqual(0);
 
     await waitFor(() => {
-      expect(screen.queryByRole("button", { name: "MyTestButton" })).to.be.null;
+      expect(screen.queryByRole("button", { name: "MyTestButton" })).toEqual(
+        null
+      );
     });
   });
 
@@ -125,17 +127,21 @@ describe("ContentDialogManager", () => {
     expect(UiFramework.content.dialogs.count).toEqual(1);
     expect(screen.getByRole("button", { name: "MyTestButton" })).to.exist;
     await waitFor(() => {
-      expect(screen.queryByRole("button", { name: "MySecondTestButton" })).to.be
-        .null;
+      expect(
+        screen.queryByRole("button", { name: "MySecondTestButton" })
+      ).toEqual(null);
     });
 
     UiFramework.content.dialogs.close(dialogId1);
     expect(UiFramework.content.dialogs.count).toEqual(0);
     await waitFor(() => {
-      expect(screen.queryByRole("button", { name: "MyTestButton" })).to.be.null;
+      expect(screen.queryByRole("button", { name: "MyTestButton" })).toEqual(
+        null
+      );
     });
-    expect(screen.queryByRole("button", { name: "MySecondTestButton" })).to.be
-      .null;
+    expect(
+      screen.queryByRole("button", { name: "MySecondTestButton" })
+    ).toEqual(null);
   });
 
   it("ContentDialogRenderer component with two dialogs closed in FIFO order", async () => {
@@ -173,16 +179,21 @@ describe("ContentDialogManager", () => {
     UiFramework.content.dialogs.close(dialogId1);
     expect(UiFramework.content.dialogs.count).toEqual(1);
     await waitFor(() => {
-      expect(screen.queryByRole("button", { name: "MyTestButton" })).to.be.null;
+      expect(screen.queryByRole("button", { name: "MyTestButton" })).toEqual(
+        null
+      );
     });
     expect(screen.getByRole("button", { name: "MySecondTestButton" })).to.exist;
 
     UiFramework.content.dialogs.close(dialogId2);
     expect(UiFramework.content.dialogs.count).toEqual(0);
-    expect(screen.queryByRole("button", { name: "MyTestButton" })).to.be.null;
+    expect(screen.queryByRole("button", { name: "MyTestButton" })).toEqual(
+      null
+    );
     await waitFor(() => {
-      expect(screen.queryByRole("button", { name: "MySecondTestButton" })).to.be
-        .null;
+      expect(
+        screen.queryByRole("button", { name: "MySecondTestButton" })
+      ).toEqual(null);
     });
   });
 

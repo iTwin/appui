@@ -114,8 +114,9 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
       );
 
       await findByText("Group 1");
-      expect(container.querySelector(".components-property-record--horizontal"))
-        .to.be.not.null;
+      expect(
+        container.querySelector(".components-property-record--horizontal")
+      ).toBeTruthy();
     });
 
     it("renders loader on subsequent selections that take longer to load", async () => {
@@ -214,7 +215,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         const categoryChild = container.querySelector(
           '.virtualized-grid-node span[title="CADID1"]'
         );
-        expect(categoryChild, "Category child is not rendered").to.not.be.null;
+        expect(categoryChild, "Category child is not rendered").toBeTruthy();
       });
 
       const categoryBlocks = Array.from<HTMLElement>(
@@ -229,7 +230,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         const categoryChild = container.querySelector(
           '.virtualized-grid-node span[title="CADID1"]'
         );
-        expect(categoryChild, "Category child rendered").to.be.null;
+        expect(categoryChild, "Category child rendered").toEqual(null);
       });
     });
 
@@ -305,27 +306,27 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
 
       await findByText("Root1");
 
-      expect(getByText("rootCategory1Property")).to.be.not.null;
-      expect(getByText("childCategory1Property")).to.be.not.null;
-      expect(queryByText("rootCategory2Property")).to.be.null;
-      expect(queryByText("childCategory2Property")).to.be.null;
+      expect(getByText("rootCategory1Property")).toBeTruthy();
+      expect(getByText("childCategory1Property")).toBeTruthy();
+      expect(queryByText("rootCategory2Property")).toEqual(null);
+      expect(queryByText("childCategory2Property")).toEqual(null);
 
       fireEvent.click(getByText("Root1"));
       fireEvent.click(getByText("Root2"));
 
-      expect(queryByText("rootCategory1Property")).to.be.null;
-      expect(queryByText("childCategory1Property")).to.be.null;
-      expect(getByText("rootCategory2Property")).to.be.not.null;
-      expect(getByText("childCategory2Property")).to.be.not.null;
+      expect(queryByText("rootCategory1Property")).toEqual(null);
+      expect(queryByText("childCategory1Property")).toEqual(null);
+      expect(getByText("rootCategory2Property")).toBeTruthy();
+      expect(getByText("childCategory2Property")).toBeTruthy();
 
       // Refresh PropertyGrid data.
       act(() => dataProvider.onDataChanged.raiseEvent());
       // await waitFor();
 
-      expect(queryByText("rootCategory1Property")).to.be.null;
-      expect(queryByText("childCategory1Property")).to.be.null;
-      expect(getByText("rootCategory2Property")).to.be.not.null;
-      expect(getByText("childCategory2Property")).to.be.not.null;
+      expect(queryByText("rootCategory1Property")).toEqual(null);
+      expect(queryByText("childCategory1Property")).toEqual(null);
+      expect(getByText("rootCategory2Property")).toBeTruthy();
+      expect(getByText("childCategory2Property")).toBeTruthy();
     });
 
     it("keeps the collapsed state of PropertyCategoryBlock when nested data is refreshed", async () => {
@@ -400,21 +401,21 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
 
       await findByText("Root1");
 
-      expect(queryByText("childCategory1Property")).to.be.null;
-      expect(getByText("childCategory2Property")).to.be.not.null;
+      expect(queryByText("childCategory1Property")).toEqual(null);
+      expect(getByText("childCategory2Property")).toBeTruthy();
 
       fireEvent.click(getByText("Child1"));
       fireEvent.click(getByText("Child2"));
 
-      expect(getByText("childCategory1Property")).to.be.not.null;
-      expect(queryByText("childCategory2Property")).to.be.null;
+      expect(getByText("childCategory1Property")).toBeTruthy();
+      expect(queryByText("childCategory2Property")).toEqual(null);
 
       // Refresh PropertyGrid data.
       act(() => dataProvider.onDataChanged.raiseEvent());
       // await waitFor();
 
-      expect(getByText("childCategory1Property")).to.be.not.null;
-      expect(queryByText("childCategory2Property")).to.be.null;
+      expect(getByText("childCategory1Property")).toBeTruthy();
+      expect(queryByText("childCategory2Property")).toEqual(null);
     });
 
     it("rerenders if data if the provider changes", async () => {
@@ -441,7 +442,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         const categoryBlocks = container.querySelectorAll(
           ".virtualized-grid-node-category"
         );
-        expect(categoryBlocks.length).to.be.eq(3);
+        expect(categoryBlocks.length).toEqual(3);
       });
     });
 
@@ -518,8 +519,9 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         />
       );
 
-      expect(container.querySelector(".components-property-record--vertical"))
-        .to.be.not.null;
+      expect(
+        container.querySelector(".components-property-record--vertical")
+      ).toBeTruthy();
     });
 
     it("changes fixed orientation when `orientation` prop changes", async () => {
@@ -533,8 +535,9 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         />
       );
       await findByText("Group 1");
-      expect(container.querySelector(".components-property-record--horizontal"))
-        .to.be.not.null;
+      expect(
+        container.querySelector(".components-property-record--horizontal")
+      ).toBeTruthy();
 
       rerender(
         <VirtualizedPropertyGridWithDataProvider
@@ -545,8 +548,9 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
           isOrientationFixed={true}
         />
       );
-      expect(container.querySelector(".components-property-record--vertical"))
-        .to.be.not.null;
+      expect(
+        container.querySelector(".components-property-record--vertical")
+      ).toBeTruthy();
     });
 
     it("changes orientation when `width` prop changes", async () => {
@@ -559,8 +563,9 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         />
       );
       await findByText("Group 1");
-      expect(container.querySelector(".components-property-record--horizontal"))
-        .to.be.not.null;
+      expect(
+        container.querySelector(".components-property-record--horizontal")
+      ).toBeTruthy();
 
       rerender(
         <VirtualizedPropertyGridWithDataProvider
@@ -570,8 +575,9 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
           height={1200}
         />
       );
-      expect(container.querySelector(".components-property-record--vertical"))
-        .to.be.not.null;
+      expect(
+        container.querySelector(".components-property-record--vertical")
+      ).toBeTruthy();
     });
 
     it("doesn't change orientation when props change if not necessary", async () => {
@@ -597,8 +603,9 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
           isOrientationFixed={false}
         />
       );
-      expect(container.querySelector(".components-property-record--horizontal"))
-        .to.be.not.null;
+      expect(
+        container.querySelector(".components-property-record--horizontal")
+      ).toBeTruthy();
     });
 
     it("chooses correct orientation on first render if undefined", async () => {
@@ -679,7 +686,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
             dataProvider={dataProvider}
           />
         );
-        expect(await findByText("Custom renderer")).not.to.be.null;
+        expect(await findByText("Custom renderer")).toBeTruthy();
       });
 
       it("uses property category renderer manager from props when available", async () => {
@@ -698,7 +705,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
             propertyCategoryRendererManager={rendererManager}
           />
         );
-        expect(await findByText("Test renderer from props")).not.to.be.null;
+        expect(await findByText("Test renderer from props")).toBeTruthy();
       });
 
       it("updates node height on expansion", async () => {
@@ -718,7 +725,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         );
 
         const category = await component.findByText("test_category");
-        expect(component.queryByText("Custom renderer")).to.be.null;
+        expect(component.queryByText("Custom renderer")).toEqual(null);
 
         const node = component.baseElement.querySelector(
           ".virtualized-grid-node"
@@ -1219,17 +1226,17 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
           clickableComponents[0].querySelector(
             ".virtualized-grid-node-content-wrapper-item > .virtualized-grid-node-content"
           )
-        ).to.be.not.null;
+        ).toBeTruthy();
         expect(
           clickableComponents[1].querySelector(
             ".virtualized-grid-node-content-wrapper-item > .nested-border-middle.nested-border-bottom > .virtualized-grid-node-content"
           )
-        ).to.be.not.null;
+        ).toBeTruthy();
         expect(
           clickableComponents[2].querySelector(
             ".virtualized-grid-node-content-wrapper-item > .virtualized-grid-node-content"
           )
-        ).to.be.not.null;
+        ).toBeTruthy();
       });
     });
 
@@ -1327,64 +1334,64 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
           clickableComponents[0].querySelector(
             ".virtualized-grid-node-content-wrapper-item > .virtualized-grid-node-category"
           )
-        ).to.be.not.null;
+        ).toBeTruthy();
         expect(
           clickableComponents[1].querySelector(
             ".virtualized-grid-node-content-wrapper-item > .nested-border-middle > .virtualized-grid-node-content"
           )
-        ).to.be.not.null;
+        ).toBeTruthy();
         expect(
           clickableComponents[2].querySelector(
             ".virtualized-grid-node-content-wrapper-item > .nested-border-middle > .virtualized-grid-node-content"
           )
-        ).to.be.not.null;
+        ).toBeTruthy();
         expect(
           clickableComponents[3].querySelector(
             ".virtualized-grid-node-content-wrapper-item > .nested-border-middle > .virtualized-grid-node-content"
           )
-        ).to.be.not.null;
+        ).toBeTruthy();
         expect(
           clickableComponents[4].querySelector(
             ".virtualized-grid-node-content-wrapper-item > .nested-border-middle > .virtualized-grid-node-content"
           )
-        ).to.be.not.null;
+        ).toBeTruthy();
 
         expect(
           clickableComponents[5].querySelector(
             ".virtualized-grid-node-content-wrapper-item > .nested-border-middle > .virtualized-grid-node-category"
           )
-        ).to.be.not.null;
+        ).toBeTruthy();
         expect(
           clickableComponents[6].querySelector(
             ".virtualized-grid-node-content-wrapper-item > .nested-border-middle > .nested-border-middle > .virtualized-grid-node-content"
           )
-        ).to.be.not.null;
+        ).toBeTruthy();
         expect(
           clickableComponents[7].querySelector(
             ".virtualized-grid-node-content-wrapper-item > .nested-border-middle > .nested-border-middle > .virtualized-grid-node-content"
           )
-        ).to.be.not.null;
+        ).toBeTruthy();
         expect(
           clickableComponents[8].querySelector(
             ".virtualized-grid-node-content-wrapper-item > .nested-border-middle > .nested-border-middle > .virtualized-grid-node-content"
           )
-        ).to.be.not.null;
+        ).toBeTruthy();
         expect(
           clickableComponents[9].querySelector(
             ".virtualized-grid-node-content-wrapper-item > .nested-border-middle > .nested-border-middle > .virtualized-grid-node-content"
           )
-        ).to.be.not.null;
+        ).toBeTruthy();
         expect(
           clickableComponents[10].querySelector(
             ".virtualized-grid-node-content-wrapper-item > .nested-border-middle > .nested-border-middle.nested-border-bottom > .virtualized-grid-node-content"
           )
-        ).to.be.not.null;
+        ).toBeTruthy();
 
         expect(
           clickableComponents[11].querySelector(
             ".virtualized-grid-node-content-wrapper-item > .nested-border-middle.nested-border-bottom > .virtualized-grid-node-category"
           )
-        ).to.be.not.null;
+        ).toBeTruthy();
       });
     });
   });

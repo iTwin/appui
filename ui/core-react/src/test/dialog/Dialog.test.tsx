@@ -166,64 +166,71 @@ describe("Dialog", () => {
       const component = render(
         <Dialog opened={true} alignment={DialogAlignment.TopLeft} />
       );
-      expect(component.container.querySelector(".core-align-top-left")).not.to
-        .be.null;
+      expect(
+        component.container.querySelector(".core-align-top-left")
+      ).toBeTruthy();
     });
     it("should render top", () => {
       const component = render(
         <Dialog opened={true} alignment={DialogAlignment.Top} />
       );
-      expect(component.container.querySelector(".core-align-top")).not.to.be
-        .null;
+      expect(component.container.querySelector(".core-align-top")).toBeTruthy();
     });
     it("should render top right", () => {
       const component = render(
         <Dialog opened={true} alignment={DialogAlignment.TopRight} />
       );
-      expect(component.container.querySelector(".core-align-top-right")).not.to
-        .be.null;
+      expect(
+        component.container.querySelector(".core-align-top-right")
+      ).toBeTruthy();
     });
     it("should render left", () => {
       const component = render(
         <Dialog opened={true} alignment={DialogAlignment.Left} />
       );
-      expect(component.container.querySelector(".core-align-left")).not.to.be
-        .null;
+      expect(
+        component.container.querySelector(".core-align-left")
+      ).toBeTruthy();
     });
     it("should render center", () => {
       const component = render(
         <Dialog opened={true} alignment={DialogAlignment.Center} />
       );
-      expect(component.container.querySelector(".core-align-center")).not.to.be
-        .null;
+      expect(
+        component.container.querySelector(".core-align-center")
+      ).toBeTruthy();
     });
     it("should render right", () => {
       const component = render(
         <Dialog opened={true} alignment={DialogAlignment.Right} />
       );
-      expect(component.container.querySelector(".core-align-right")).not.to.be
-        .null;
+      expect(
+        component.container.querySelector(".core-align-right")
+      ).toBeTruthy();
     });
     it("should render bottom left", () => {
       const component = render(
         <Dialog opened={true} alignment={DialogAlignment.BottomLeft} />
       );
-      expect(component.container.querySelector(".core-align-bottom-left")).not
-        .to.be.null;
+      expect(
+        component.container.querySelector(".core-align-bottom-left")
+      ).toBeTruthy();
     });
     it("should render bottom", () => {
       const component = render(
         <Dialog opened={true} alignment={DialogAlignment.Bottom} />
       );
-      expect(component.container.querySelector(".core-align-bottom")).not.to.be
-        .null;
+      expect(
+        component.container.querySelector(".core-align-bottom")
+      ).toBeTruthy();
     });
     it("should render bottom right", () => {
       const component = render(
         <Dialog opened={true} alignment={DialogAlignment.BottomRight} />
       );
-      expect(component.container.querySelector(".core-align-bottom-right")).not
-        .to.be.null;
+      expect(
+        component.container.querySelector(".core-align-bottom-right")
+      ).toBeTruthy();
     });
     it("should render with 50px offset from left corner", () => {
       const component = render(<Dialog opened={true} x={50} />);
@@ -246,7 +253,7 @@ describe("Dialog", () => {
   describe("header", () => {
     it("should render without header", () => {
       const component = render(<Dialog opened={true} hideHeader={true} />);
-      expect(component.queryByTestId("core-dialog-head")).to.be.null;
+      expect(component.queryByTestId("core-dialog-head")).toEqual(null);
     });
 
     it("should render with header", () => {

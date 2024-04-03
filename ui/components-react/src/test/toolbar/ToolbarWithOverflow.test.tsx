@@ -111,7 +111,7 @@ describe("<ToolbarWithOverflow />", () => {
         <ToolbarWithOverflow items={toolbarItems} />
       );
       expect(renderedComponent).toBeTruthy();
-      expect(renderedComponent.queryByTitle("Entry6")).not.to.be.null;
+      expect(renderedComponent.queryByTitle("Entry6")).toBeTruthy();
     });
 
     it("will render 6 items without overflow - simulate horizontal toolbar at bottom right of window.", () => {
@@ -136,7 +136,7 @@ describe("<ToolbarWithOverflow />", () => {
         />
       );
       expect(renderedComponent).toBeTruthy();
-      expect(renderedComponent.queryByTitle("Entry6")).not.to.be.null;
+      expect(renderedComponent.queryByTitle("Entry6")).toBeTruthy();
     });
 
     it("will render 3 items with overflow - simulate horizontal toolbar right of window.", () => {
@@ -161,21 +161,21 @@ describe("<ToolbarWithOverflow />", () => {
       expect(renderedComponent).toBeTruthy();
 
       // first 3 on left should be in overflow since panel alignment is set to ToolbarPanelAlignment.End
-      expect(renderedComponent.queryByTitle("Entry1")).to.be.null;
-      expect(renderedComponent.queryByTitle("Entry2")).to.be.null;
-      expect(renderedComponent.queryByTitle("Entry3")).to.be.null;
-      expect(renderedComponent.queryByTitle("Entry4")).not.to.be.null;
-      expect(renderedComponent.queryByTitle("Entry5")).not.to.be.null;
-      expect(renderedComponent.queryByTitle("Entry6")).not.to.be.null;
+      expect(renderedComponent.queryByTitle("Entry1")).toEqual(null);
+      expect(renderedComponent.queryByTitle("Entry2")).toEqual(null);
+      expect(renderedComponent.queryByTitle("Entry3")).toEqual(null);
+      expect(renderedComponent.queryByTitle("Entry4")).toBeTruthy();
+      expect(renderedComponent.queryByTitle("Entry5")).toBeTruthy();
+      expect(renderedComponent.queryByTitle("Entry6")).toBeTruthy();
 
       const overflowButton = renderedComponent.container.querySelector(
         ".components-toolbar-button-item.components-ellipsis-icon"
       );
       expect(overflowButton).toBeTruthy();
       fireEvent.click(overflowButton!);
-      expect(renderedComponent.queryByTitle("Entry1")).not.to.be.null;
-      expect(renderedComponent.queryByTitle("Entry2")).not.to.be.null;
-      expect(renderedComponent.queryByTitle("Entry2")).not.to.be.null;
+      expect(renderedComponent.queryByTitle("Entry1")).toBeTruthy();
+      expect(renderedComponent.queryByTitle("Entry2")).toBeTruthy();
+      expect(renderedComponent.queryByTitle("Entry2")).toBeTruthy();
     });
 
     it("will render with 3 items + overflow", () => {
@@ -195,18 +195,18 @@ describe("<ToolbarWithOverflow />", () => {
         <ToolbarWithOverflow items={toolbarItems} />
       );
       expect(renderedComponent).toBeTruthy();
-      expect(renderedComponent.queryByTitle("Entry3")).not.to.be.null;
-      expect(renderedComponent.queryByTitle("Entry4")).to.be.null;
+      expect(renderedComponent.queryByTitle("Entry3")).toBeTruthy();
+      expect(renderedComponent.queryByTitle("Entry4")).toEqual(null);
 
       const overflowButton = renderedComponent.container.querySelector(
         ".components-toolbar-button-item.components-ellipsis-icon"
       );
       expect(overflowButton).toBeTruthy();
       fireEvent.click(overflowButton!);
-      expect(renderedComponent.queryByTitle("Entry4")).not.to.be.null;
-      expect(renderedComponent.queryByTitle("Entry5")).not.to.be.null;
+      expect(renderedComponent.queryByTitle("Entry4")).toBeTruthy();
+      expect(renderedComponent.queryByTitle("Entry5")).toBeTruthy();
       const entryButton = renderedComponent.queryByTitle("Entry6");
-      expect(entryButton).not.to.be.null;
+      expect(entryButton).toBeTruthy();
       fireEvent.click(entryButton!);
       expect(spy).toHaveBeenCalledOnce();
     });
@@ -237,7 +237,7 @@ describe("<ToolbarWithOverflow />", () => {
       );
       expect(overflowButton).toBeTruthy();
       fireEvent.click(overflowButton!);
-      expect(renderedComponent.queryByTitle("Entry4")).not.to.be.null;
+      expect(renderedComponent.queryByTitle("Entry4")).toBeTruthy();
       isHidden = true;
       renderedComponent.rerender(
         <ToolbarPopupAutoHideContext.Provider value={isHidden}>
@@ -245,7 +245,7 @@ describe("<ToolbarWithOverflow />", () => {
         </ToolbarPopupAutoHideContext.Provider>
       );
       const overflowPopup = renderedComponent.getByTestId("core-popup");
-      expect(overflowPopup).not.to.be.null;
+      expect(overflowPopup).toBeTruthy();
       expect(overflowPopup.className).to.contain("nz-hidden");
     });
 
@@ -333,23 +333,23 @@ describe("<ToolbarWithOverflow />", () => {
         />
       );
       expect(renderedComponent).toBeTruthy();
-      expect(renderedComponent.queryByTitle("Entry3")).not.to.be.null;
-      expect(renderedComponent.queryByTitle("Entry4")).to.be.null;
+      expect(renderedComponent.queryByTitle("Entry3")).toBeTruthy();
+      expect(renderedComponent.queryByTitle("Entry4")).toEqual(null);
 
       const overflowButton = renderedComponent.container.querySelector(
         ".components-toolbar-button-item.components-ellipsis-icon"
       );
       expect(overflowButton).toBeTruthy();
       fireEvent.click(overflowButton!);
-      expect(renderedComponent.queryByTitle("Entry4")).not.to.be.null;
-      expect(renderedComponent.queryByTitle("Entry5")).not.to.be.null;
-      expect(renderedComponent.queryByTitle("Group6")).not.to.be.null;
+      expect(renderedComponent.queryByTitle("Entry4")).toBeTruthy();
+      expect(renderedComponent.queryByTitle("Entry5")).toBeTruthy();
+      expect(renderedComponent.queryByTitle("Group6")).toBeTruthy();
       // since group priorities are not defined no separator class should be found.
       expect(
         renderedComponent.container.querySelectorAll(
           ".components-toolbar-button-add-gap-before"
         ).length
-      ).to.be.eq(0);
+      ).toEqual(0);
     });
 
     it("will render with separator when group priority changes and not transparent ", () => {
@@ -418,7 +418,7 @@ describe("<ToolbarWithOverflow />", () => {
         renderedComponent.container.querySelectorAll(
           ".components-toolbar-items-container.components-horizontal.components-toolbar-show-decorators"
         ).length
-      ).to.be.eq(1);
+      ).toEqual(1);
     });
 
     it("will not render separators if transparent ", () => {
@@ -487,7 +487,7 @@ describe("<ToolbarWithOverflow />", () => {
         renderedComponent.container.querySelectorAll(
           ".components-toolbar-items-container.components-horizontal.components-toolbar-show-decorators"
         ).length
-      ).to.be.eq(0);
+      ).toEqual(0);
     });
 
     it("will render separators if toolbarOpacitySetting is undefined ", () => {
@@ -556,7 +556,7 @@ describe("<ToolbarWithOverflow />", () => {
         renderedComponent.container.querySelectorAll(
           ".components-toolbar-items-container.components-horizontal.components-toolbar-show-decorators"
         ).length
-      ).to.be.eq(1);
+      ).toEqual(1);
     });
   });
 
@@ -627,7 +627,7 @@ describe("<ToolbarWithOverflow />", () => {
         />
       );
       expect(renderedComponent).toBeTruthy();
-      expect(renderedComponent.queryByTitle("Entry6")).not.to.be.null;
+      expect(renderedComponent.queryByTitle("Entry6")).toBeTruthy();
     });
 
     it("will render 6 items without overflow - simulate vertical bar in Navigation Area", () => {
@@ -651,7 +651,7 @@ describe("<ToolbarWithOverflow />", () => {
         />
       );
       expect(renderedComponent).toBeTruthy();
-      expect(renderedComponent.queryByTitle("Entry6")).not.to.be.null;
+      expect(renderedComponent.queryByTitle("Entry6")).toBeTruthy();
     });
 
     it("will render with 3 items + overflow", () => {
@@ -675,8 +675,8 @@ describe("<ToolbarWithOverflow />", () => {
         />
       );
       expect(renderedComponent).toBeTruthy();
-      expect(renderedComponent.queryByTitle("Entry3")).not.to.be.null;
-      expect(renderedComponent.queryByTitle("Entry4")).to.be.null;
+      expect(renderedComponent.queryByTitle("Entry3")).toBeTruthy();
+      expect(renderedComponent.queryByTitle("Entry4")).toEqual(null);
     });
   });
 
@@ -710,7 +710,7 @@ describe("<ToolbarWithOverflow />", () => {
       );
       expect(renderedComponent).toBeTruthy();
       const button = renderedComponent.queryByTitle("Entry1");
-      expect(button).not.to.be.null;
+      expect(button).toBeTruthy();
       fireEvent.click(button!);
       expect(spy).toHaveBeenCalledOnce();
     });
@@ -748,13 +748,13 @@ describe("<ToolbarWithOverflow />", () => {
       );
       expect(renderedComponent).toBeTruthy();
       const button = renderedComponent.queryByTitle("PopupEntry");
-      expect(button).not.to.be.null;
-      expect(renderedComponent.queryByTestId("popup-panel")).to.be.null;
+      expect(button).toBeTruthy();
+      expect(renderedComponent.queryByTestId("popup-panel")).toEqual(null);
       fireEvent.click(button!);
 
       // Also make sure the popup panel can inform user when key down is pressed
       const popupPanel = renderedComponent.queryByTestId("popup-panel");
-      expect(popupPanel).not.to.be.null;
+      expect(popupPanel).toBeTruthy();
       popupPanel!.dispatchEvent(
         createBubbledEvent("keydown", { key: Key.Escape /* <Esc> */ })
       );
@@ -795,13 +795,13 @@ describe("<ToolbarWithOverflow />", () => {
       );
       expect(renderedComponent).toBeTruthy();
       const button = renderedComponent.queryByTitle("PopupEntry");
-      expect(button).not.to.be.null;
-      expect(renderedComponent.queryByTestId("popup-panel")).to.be.null;
+      expect(button).toBeTruthy();
+      expect(renderedComponent.queryByTestId("popup-panel")).toEqual(null);
       fireEvent.click(button!);
 
       // Also make sure the popup panel can inform user when key down is pressed
       const popupPanel = renderedComponent.queryByTestId("popup-panel");
-      expect(popupPanel).not.to.be.null;
+      expect(popupPanel).toBeTruthy();
       isHidden = true;
       renderedComponent.rerender(
         <ToolbarPopupAutoHideContext.Provider value={isHidden}>
@@ -809,7 +809,7 @@ describe("<ToolbarWithOverflow />", () => {
         </ToolbarPopupAutoHideContext.Provider>
       );
       const corePopup = renderedComponent.getByTestId("core-popup");
-      expect(corePopup).not.to.be.null;
+      expect(corePopup).toBeTruthy();
       expect(corePopup.className).to.contain("nz-hidden");
     });
 
@@ -909,18 +909,18 @@ describe("<ToolbarWithOverflow />", () => {
       expect(renderedComponent).toBeTruthy();
 
       const button = renderedComponent.queryByTitle("Group1");
-      expect(button).not.to.be.null;
+      expect(button).toBeTruthy();
       fireEvent.click(button!);
-      expect(renderedComponent.queryByText("Group1-Tools")).not.to.be.null;
-      expect(renderedComponent.queryByText("Entry1")).not.to.be.null;
-      expect(renderedComponent.queryByText("Entry2")).not.to.be.null;
-      expect(renderedComponent.queryByText("Entry3")).not.to.be.null;
+      expect(renderedComponent.queryByText("Group1-Tools")).toBeTruthy();
+      expect(renderedComponent.queryByText("Entry1")).toBeTruthy();
+      expect(renderedComponent.queryByText("Entry2")).toBeTruthy();
+      expect(renderedComponent.queryByText("Entry3")).toBeTruthy();
 
       // find first item and click it.
       const firstAction = document.querySelector(
         ".components-toolbar-item-expandable-group-tool-item"
       );
-      expect(firstAction).not.to.be.null;
+      expect(firstAction).toBeTruthy();
 
       fireEvent.click(firstAction!);
       expect(spy).toHaveBeenCalledOnce();
@@ -1232,7 +1232,7 @@ describe("<ToolbarWithOverflow />", () => {
       expect(renderedComponent).toBeTruthy();
 
       const button = renderedComponent.queryByTitle("Group1");
-      expect(button).not.to.be.null;
+      expect(button).toBeTruthy();
       fireEvent.click(button!);
       expect(
         document.querySelectorAll(
@@ -1526,7 +1526,7 @@ describe("<ToolbarWithOverflow />", () => {
       expect(renderedComponent).toBeTruthy();
 
       const button = renderedComponent.queryByTitle("Group1");
-      expect(button).not.to.be.null;
+      expect(button).toBeTruthy();
       fireEvent.click(button!);
       expect(
         document.querySelectorAll(
@@ -1736,7 +1736,7 @@ describe("<ToolbarWithOverflow />", () => {
       expect(renderedComponent).toBeTruthy();
 
       const button = renderedComponent.queryByTitle("Group1");
-      expect(button).not.to.be.null;
+      expect(button).toBeTruthy();
       fireEvent.click(button!);
       expect(
         document.querySelectorAll(
@@ -1823,30 +1823,30 @@ describe("<ToolbarWithOverflow />", () => {
       expect(renderedComponent).toBeTruthy();
 
       const button = renderedComponent.queryByTitle("Group1");
-      expect(button).not.to.be.null;
+      expect(button).toBeTruthy();
       fireEvent.click(button!);
 
       // find first item (GroupN1) and click it.
       const nestedGroup = document.querySelector(
         ".components-toolbar-item-expandable-group-tool-item"
       );
-      expect(nestedGroup).not.to.be.null;
+      expect(nestedGroup).toBeTruthy();
 
       fireEvent.click(nestedGroup!);
 
-      expect(renderedComponent.queryByText("Nested-Tools")).not.to.be.null;
-      expect(renderedComponent.queryByText("EntryN1")).not.to.be.null;
-      expect(renderedComponent.queryByText("EntryN2")).not.to.be.null;
-      expect(renderedComponent.queryByText("EntryN3")).not.to.be.null;
+      expect(renderedComponent.queryByText("Nested-Tools")).toBeTruthy();
+      expect(renderedComponent.queryByText("EntryN1")).toBeTruthy();
+      expect(renderedComponent.queryByText("EntryN2")).toBeTruthy();
+      expect(renderedComponent.queryByText("EntryN3")).toBeTruthy();
 
       const backArrow = document.querySelector(
         ".components-toolbar-item-expandable-group-backArrow"
       );
       fireEvent.click(backArrow!);
 
-      expect(renderedComponent.queryByText("GroupN1")).not.to.be.null;
-      expect(renderedComponent.queryByText("Entry2")).not.to.be.null;
-      expect(renderedComponent.queryByText("Entry3")).not.to.be.null;
+      expect(renderedComponent.queryByText("GroupN1")).toBeTruthy();
+      expect(renderedComponent.queryByText("Entry2")).toBeTruthy();
+      expect(renderedComponent.queryByText("Entry3")).toBeTruthy();
     });
   });
 
@@ -1984,14 +1984,14 @@ describe("<ToolbarWithOverflow />", () => {
 
       // the group button should have the title for the first child
       const button = renderedComponent.queryByTitle("Child1");
-      expect(button).not.to.be.null;
+      expect(button).toBeTruthy();
 
       fireEvent.click(button!);
       expect(spy).not.toBeCalled(); // because Child1 is disabled
 
       // Group2 button should have the title for the first child
       const button2 = renderedComponent.queryByTitle("EnabledChild1");
-      expect(button2).not.to.be.null;
+      expect(button2).toBeTruthy();
 
       fireEvent.click(button2!);
       expect(spy).toHaveBeenCalledOnce(); // because EnabledChild1 is enabled
@@ -2002,8 +2002,8 @@ describe("<ToolbarWithOverflow />", () => {
       );
       expect(overflowButton).toBeTruthy();
       fireEvent.click(overflowButton!);
-      expect(renderedComponent.queryByTitle("Entry4")).not.to.be.null;
-      expect(renderedComponent.queryByTitle("Entry5")).not.to.be.null;
+      expect(renderedComponent.queryByTitle("Entry4")).toBeTruthy();
+      expect(renderedComponent.queryByTitle("Entry5")).toBeTruthy();
     });
 
     it("group with no children should render correctly", () => {
@@ -2080,7 +2080,7 @@ describe("<ToolbarWithOverflow />", () => {
       expect(renderedComponent).toBeTruthy();
       // the group button should have its own title since there are no children
       const button = renderedComponent.queryByTitle("Group1");
-      expect(button).not.to.be.null;
+      expect(button).toBeTruthy();
     });
 
     it("group button panel should activate 'active entry' when clicked", () => {
@@ -2140,7 +2140,7 @@ describe("<ToolbarWithOverflow />", () => {
       expect(renderedComponent).toBeTruthy();
 
       const button = renderedComponent.queryByTitle("Entry3");
-      expect(button).not.to.be.null;
+      expect(button).toBeTruthy();
       fireEvent.click(button!);
 
       expect(spy).toHaveBeenCalledOnce();
@@ -2229,7 +2229,7 @@ describe("<ToolbarWithOverflow />", () => {
 
       // group button should be set to active item
       const button = renderedComponent.queryByTitle("EntryN3");
-      expect(button).not.to.be.null;
+      expect(button).toBeTruthy();
       fireEvent.click(button!);
       expect(spy).toHaveBeenCalledOnce();
     });
@@ -2314,7 +2314,7 @@ describe("<ToolbarWithOverflow />", () => {
 
       // group button should be set to first action item
       const button = renderedComponent.queryByTitle("Entry2");
-      expect(button).not.to.be.null;
+      expect(button).toBeTruthy();
     });
 
     it("group item should be set to first nested action item available", () => {
@@ -2383,7 +2383,7 @@ describe("<ToolbarWithOverflow />", () => {
 
       // group button should be set to first action item
       const button = renderedComponent.queryByTitle("EntryN1");
-      expect(button).not.to.be.null;
+      expect(button).toBeTruthy();
     });
 
     it("should open on drag", async () => {
@@ -2442,12 +2442,12 @@ describe("<ToolbarWithOverflow />", () => {
 
       // the group button should have the title for the first child
       const button = renderedComponent.queryByTitle("Entry1");
-      expect(button).not.to.be.null;
+      expect(button).toBeTruthy();
 
-      expect(renderedComponent.queryByText("Group1-Tools")).to.be.null;
-      expect(renderedComponent.queryByText("Entry1")).to.be.null;
-      expect(renderedComponent.queryByText("Entry2")).to.be.null;
-      expect(renderedComponent.queryByText("Entry3")).to.be.null;
+      expect(renderedComponent.queryByText("Group1-Tools")).toEqual(null);
+      expect(renderedComponent.queryByText("Entry1")).toEqual(null);
+      expect(renderedComponent.queryByText("Entry2")).toEqual(null);
+      expect(renderedComponent.queryByText("Entry3")).toEqual(null);
 
       // dragging more than 20 px should open
       button!.releasePointerCapture = () => {};
@@ -2462,9 +2462,9 @@ describe("<ToolbarWithOverflow />", () => {
         () =>
           expect(renderedComponent.queryByText("Group1-Tools")).not.to.be.null
       );
-      expect(renderedComponent.queryByText("Entry1")).not.to.be.null;
-      expect(renderedComponent.queryByText("Entry2")).not.to.be.null;
-      expect(renderedComponent.queryByText("Entry3")).not.to.be.null;
+      expect(renderedComponent.queryByText("Entry1")).toBeTruthy();
+      expect(renderedComponent.queryByText("Entry2")).toBeTruthy();
+      expect(renderedComponent.queryByText("Entry3")).toBeTruthy();
 
       // try to simulate clicking outside of toolbar which should close - but that is not current working in test
       // window.dispatchEvent(createBubbledEvent("pointerdown", { clientX: 300, clientY: 300 }));
@@ -2526,12 +2526,12 @@ describe("<ToolbarWithOverflow />", () => {
 
       // the group button should have the title for the first child
       const button = renderedComponent.queryByTitle("Entry1");
-      expect(button).not.to.be.null;
+      expect(button).toBeTruthy();
 
-      expect(renderedComponent.queryByText("Group1-Tools")).to.be.null;
-      expect(renderedComponent.queryByText("Entry1")).to.be.null;
-      expect(renderedComponent.queryByText("Entry2")).to.be.null;
-      expect(renderedComponent.queryByText("Entry3")).to.be.null;
+      expect(renderedComponent.queryByText("Group1-Tools")).toEqual(null);
+      expect(renderedComponent.queryByText("Entry1")).toEqual(null);
+      expect(renderedComponent.queryByText("Entry2")).toEqual(null);
+      expect(renderedComponent.queryByText("Entry3")).toEqual(null);
 
       // dragging less than 20 px should NOT open
       button!.releasePointerCapture = () => {};
@@ -2542,10 +2542,10 @@ describe("<ToolbarWithOverflow />", () => {
         createBubbledEvent("pointermove", { clientX: 30, clientY: 34 })
       );
 
-      expect(renderedComponent.queryByText("Group1-Tools")).to.be.null;
-      expect(renderedComponent.queryByText("Entry1")).to.be.null;
-      expect(renderedComponent.queryByText("Entry2")).to.be.null;
-      expect(renderedComponent.queryByText("Entry3")).to.be.null;
+      expect(renderedComponent.queryByText("Group1-Tools")).toEqual(null);
+      expect(renderedComponent.queryByText("Entry1")).toEqual(null);
+      expect(renderedComponent.queryByText("Entry2")).toEqual(null);
+      expect(renderedComponent.queryByText("Entry3")).toEqual(null);
     });
 
     it("should open on long press", async () => {
@@ -2607,12 +2607,12 @@ describe("<ToolbarWithOverflow />", () => {
 
       // the group button should have the title for the first child
       const button = renderedComponent.queryByTitle("Entry1");
-      expect(button).not.to.be.null;
+      expect(button).toBeTruthy();
 
-      expect(renderedComponent.queryByText("Group1-Tools")).to.be.null;
-      expect(renderedComponent.queryByText("Entry1")).to.be.null;
-      expect(renderedComponent.queryByText("Entry2")).to.be.null;
-      expect(renderedComponent.queryByText("Entry3")).to.be.null;
+      expect(renderedComponent.queryByText("Group1-Tools")).toEqual(null);
+      expect(renderedComponent.queryByText("Entry1")).toEqual(null);
+      expect(renderedComponent.queryByText("Entry2")).toEqual(null);
+      expect(renderedComponent.queryByText("Entry3")).toEqual(null);
 
       // long press should open group after 500 ms
       button!.releasePointerCapture = () => {};
@@ -2625,17 +2625,17 @@ describe("<ToolbarWithOverflow />", () => {
         () =>
           expect(renderedComponent.queryByText("Group1-Tools")).not.to.be.null
       );
-      expect(renderedComponent.queryByText("Entry1")).not.to.be.null;
+      expect(renderedComponent.queryByText("Entry1")).toBeTruthy();
       const groupEntry2 = renderedComponent.queryByText("Entry2");
-      expect(groupEntry2).not.to.be.null;
-      expect(renderedComponent.queryByText("Entry3")).not.to.be.null;
+      expect(groupEntry2).toBeTruthy();
+      expect(renderedComponent.queryByText("Entry3")).toBeTruthy();
 
       fireEvent.click(groupEntry2!);
       expect(spy).toHaveBeenCalledOnce();
 
       // GroupButton should now have the title for the selected child
       const groupButton = renderedComponent.queryByTitle("Entry2");
-      expect(groupButton).not.to.be.null;
+      expect(groupButton).toBeTruthy();
     });
 
     it("should not open on long press if we move pointer more than 10 px", () => {
@@ -2697,12 +2697,12 @@ describe("<ToolbarWithOverflow />", () => {
 
       // the group button should have the title for the first child
       const button = renderedComponent.queryByTitle("Entry1");
-      expect(button).not.to.be.null;
+      expect(button).toBeTruthy();
 
-      expect(renderedComponent.queryByText("Group1-Tools")).to.be.null;
-      expect(renderedComponent.queryByText("Entry1")).to.be.null;
-      expect(renderedComponent.queryByText("Entry2")).to.be.null;
-      expect(renderedComponent.queryByText("Entry3")).to.be.null;
+      expect(renderedComponent.queryByText("Group1-Tools")).toEqual(null);
+      expect(renderedComponent.queryByText("Entry1")).toEqual(null);
+      expect(renderedComponent.queryByText("Entry2")).toEqual(null);
+      expect(renderedComponent.queryByText("Entry3")).toEqual(null);
 
       // long press should open group after 500 ms
       button!.releasePointerCapture = () => {};
@@ -2714,10 +2714,10 @@ describe("<ToolbarWithOverflow />", () => {
       );
       vi.advanceTimersByTime(500);
 
-      expect(renderedComponent.queryByText("Group1-Tools")).to.be.null;
-      expect(renderedComponent.queryByText("Entry1")).to.be.null;
-      expect(renderedComponent.queryByText("Entry2")).to.be.null;
-      expect(renderedComponent.queryByText("Entry3")).to.be.null;
+      expect(renderedComponent.queryByText("Group1-Tools")).toEqual(null);
+      expect(renderedComponent.queryByText("Entry1")).toEqual(null);
+      expect(renderedComponent.queryByText("Entry2")).toEqual(null);
+      expect(renderedComponent.queryByText("Entry3")).toEqual(null);
     });
 
     it("should call onItemExecuted", async () => {
@@ -2753,7 +2753,7 @@ describe("<ToolbarWithOverflow />", () => {
       );
 
       const actionButton = renderedComponent.queryByTitle("Entry1");
-      expect(actionButton).not.to.be.null;
+      expect(actionButton).toBeTruthy();
       fireEvent.click(actionButton!);
       expect(toolSpy).toHaveBeenCalledOnce();
       expect(onItemExecuteSpy).toHaveBeenCalledOnce();
@@ -2789,7 +2789,7 @@ describe("<ToolbarWithOverflow />", () => {
       );
 
       const actionButton = renderedComponent.queryByTitle("Entry1");
-      expect(actionButton).not.to.be.null;
+      expect(actionButton).toBeTruthy();
       fireEvent.click(actionButton!);
       actionButton!.dispatchEvent(
         createBubbledEvent("keydown", { key: Key.Escape /* <Esc> */ })
@@ -2856,12 +2856,12 @@ describe("<ToolbarWithOverflow />", () => {
 
       // the group button should have the title for the first child
       const button = renderedComponent.queryByTitle("Entry1");
-      expect(button).not.to.be.null;
+      expect(button).toBeTruthy();
 
-      expect(renderedComponent.queryByText("Group1-Tools")).to.be.null;
-      expect(renderedComponent.queryByText("Entry1")).to.be.null;
-      expect(renderedComponent.queryByText("Entry2")).to.be.null;
-      expect(renderedComponent.queryByText("Entry3")).to.be.null;
+      expect(renderedComponent.queryByText("Group1-Tools")).toEqual(null);
+      expect(renderedComponent.queryByText("Entry1")).toEqual(null);
+      expect(renderedComponent.queryByText("Entry2")).toEqual(null);
+      expect(renderedComponent.queryByText("Entry3")).toEqual(null);
 
       // long press should open group after 500 ms if we have not moved pointer more than 10px and still have pointer down
       button!.releasePointerCapture = () => {};
@@ -2876,10 +2876,10 @@ describe("<ToolbarWithOverflow />", () => {
       );
       vi.advanceTimersByTime(500);
 
-      expect(renderedComponent.queryByText("Group1-Tools")).to.be.null;
-      expect(renderedComponent.queryByText("Entry1")).to.be.null;
-      expect(renderedComponent.queryByText("Entry2")).to.be.null;
-      expect(renderedComponent.queryByText("Entry3")).to.be.null;
+      expect(renderedComponent.queryByText("Group1-Tools")).toEqual(null);
+      expect(renderedComponent.queryByText("Entry1")).toEqual(null);
+      expect(renderedComponent.queryByText("Entry2")).toEqual(null);
+      expect(renderedComponent.queryByText("Entry3")).toEqual(null);
     });
   });
 });

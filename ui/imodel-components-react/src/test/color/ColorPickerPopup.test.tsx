@@ -28,7 +28,9 @@ describe("<ColorPickerPopup/>", () => {
   it("should render", () => {
     const component = render(<ColorPickerPopup initialColor={colorDef} />);
     expect(component).toBeTruthy();
-    expect(component.container.querySelector(".components-caret")).to.be.null;
+    expect(component.container.querySelector(".components-caret")).toEqual(
+      null
+    );
   });
 
   it("should render with caret", () => {
@@ -36,8 +38,7 @@ describe("<ColorPickerPopup/>", () => {
       <ColorPickerPopup initialColor={colorDef} showCaret />
     );
     expect(component).toBeTruthy();
-    expect(component.container.querySelector(".components-caret")).not.to.be
-      .null;
+    expect(component.container.querySelector(".components-caret")).toBeTruthy();
   });
 
   it("button press should open popup and allow color selection", async () => {
@@ -114,7 +115,7 @@ describe("<ColorPickerPopup/>", () => {
     fireEvent.click(pickerButton);
 
     const corePopupDiv = component.queryByTestId("core-popup");
-    expect(corePopupDiv).not.to.be.null;
+    expect(corePopupDiv).toBeTruthy();
     if (corePopupDiv)
       expect(corePopupDiv.classList.contains("visible")).toEqual(false);
   });
@@ -268,8 +269,9 @@ describe("<ColorPickerPopup/>", () => {
     fireEvent.click(closeButton);
     await TestUtils.flushAsyncOperations();
 
-    expect(component.container.querySelector("button.core-dialog-close")).to.be
-      .null;
+    expect(
+      component.container.querySelector("button.core-dialog-close")
+    ).toBeTruthy();
   });
 
   it("ensure closing X is NOT shown", async () => {
@@ -295,7 +297,7 @@ describe("<ColorPickerPopup/>", () => {
     const popupDiv = component.getByTestId("core-popup");
     expect(popupDiv).toBeTruthy();
 
-    expect(popupDiv.querySelector("button.core-dialog-close")).to.be.null;
+    expect(popupDiv.querySelector("button.core-dialog-close")).toEqual(null);
   });
 
   it("ensure rgb values are shown", async () => {

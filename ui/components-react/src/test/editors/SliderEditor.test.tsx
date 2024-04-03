@@ -525,7 +525,7 @@ describe("<SliderEditor />", () => {
     const popupButton = await waitFor(() =>
       renderedComponent.getByTestId("components-popup-button")
     );
-    expect(popupButton).not.to.be.null;
+    expect(popupButton).toBeTruthy();
 
     fireEvent.keyDown(popupButton, { key: Key.Enter });
     await TestUtils.flushAsyncOperations();
@@ -546,10 +546,10 @@ describe("<SliderEditor />", () => {
     const popupButton = await renderedComponent.findByTestId(
       "components-popup-button"
     );
-    expect(popupButton).not.to.be.null;
+    expect(popupButton).toBeTruthy();
     popupButton.focus();
     const editor = findInstance(renderedComponent.container.firstChild);
-    expect(editor).not.to.be.null;
+    expect(editor).toBeTruthy();
     expect(editor.hasFocus).toEqual(true);
   });
 });

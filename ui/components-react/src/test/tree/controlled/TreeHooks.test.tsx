@@ -167,7 +167,7 @@ describe("useTreeNodeLoader", () => {
       modelSource: modelSourceMock.object,
     });
 
-    expect(result.current).to.be.eq(nodeLoader);
+    expect(result.current).toEqual(nodeLoader);
   });
 
   it("creates new NodeLoader when data provider changes", () => {
@@ -250,7 +250,7 @@ describe("usePagedTreeNodeLoader", () => {
       modelSource: modelSourceMock.object,
     });
 
-    expect(result.current).to.be.eq(nodeLoader);
+    expect(result.current).toEqual(nodeLoader);
   });
 
   it("creates new PagedNodeLoader when data provider changes", () => {

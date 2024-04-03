@@ -18,8 +18,9 @@ describe("<ColorPickerButton/>", () => {
       <ColorPickerButton initialColor={colorDef} />
     );
     expect(renderedComponent).toBeTruthy();
-    expect(renderedComponent.container.querySelector(".components-caret")).to.be
-      .null;
+    expect(
+      renderedComponent.container.querySelector(".components-caret")
+    ).toEqual(null);
   });
 
   it("should render with caret", () => {
@@ -27,8 +28,9 @@ describe("<ColorPickerButton/>", () => {
       <ColorPickerButton initialColor={colorDef} showCaret />
     );
     expect(renderedComponent).toBeTruthy();
-    expect(renderedComponent.container.querySelector(".components-caret")).not
-      .to.be.null;
+    expect(
+      renderedComponent.container.querySelector(".components-caret")
+    ).toBeTruthy();
   });
 
   it("should re-render properly when initial color prop changes", () => {
@@ -83,9 +85,9 @@ describe("<ColorPickerButton/>", () => {
       "components-colorpicker-button"
     );
     expect(button.getAttribute("data-value")).toEqual("rgb(0,0,255)"); // blue
-    expect(renderedComponent.getByTestId("caret-down")).not.to.be.null;
+    expect(renderedComponent.getByTestId("caret-down")).toBeTruthy();
     fireEvent.click(button);
-    expect(renderedComponent.getByTestId("caret-up")).not.to.be.null;
+    expect(renderedComponent.getByTestId("caret-up")).toBeTruthy();
 
     const popupDiv = renderedComponent.getByTestId(
       "components-colorpicker-popup-colors"

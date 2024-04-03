@@ -237,7 +237,7 @@ describe("MessageManager", () => {
     act(() => {
       MessageManager.closeAllMessages();
     });
-    expect(component.queryByText("A brief message.")).to.be.null;
+    expect(component.queryByText("A brief message.")).toEqual(null);
   });
 
   it("should render a sticky message", async () => {
@@ -257,7 +257,7 @@ describe("MessageManager", () => {
     act(() => {
       MessageManager.closeAllMessages();
     });
-    expect(component.queryByText("A brief message.")).to.be.null;
+    expect(component.queryByText("A brief message.")).toEqual(null);
   });
 
   it("should close sticky message on click", async () => {
@@ -340,7 +340,7 @@ describe("MessageManager", () => {
         )
       );
     });
-    expect(component.queryByText("A brief message 1.")).to.be.null;
+    expect(component.queryByText("A brief message 1.")).toEqual(null);
     component.getByText("A brief message 2.");
     component.getByText("A brief message 3.");
     component.getByText("A brief message 4.");
@@ -348,9 +348,9 @@ describe("MessageManager", () => {
     act(() => {
       MessageManager.closeAllMessages();
     });
-    expect(component.queryByText("A brief message 1.")).to.be.null;
-    expect(component.queryByText("A brief message 2.")).to.be.null;
-    expect(component.queryByText("A brief message 3.")).to.be.null;
-    expect(component.queryByText("A brief message 4.")).to.be.null;
+    expect(component.queryByText("A brief message 1.")).toEqual(null);
+    expect(component.queryByText("A brief message 2.")).toEqual(null);
+    expect(component.queryByText("A brief message 3.")).toEqual(null);
+    expect(component.queryByText("A brief message 4.")).toEqual(null);
   });
 });

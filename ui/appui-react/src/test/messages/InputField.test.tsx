@@ -48,7 +48,7 @@ describe("InputFieldMessage", () => {
     MessageManager.hideInputFieldMessage();
 
     await waitFor(() => {
-      expect(screen.queryByText("Input field message.")).to.be.null;
+      expect(screen.queryByText("Input field message.")).toEqual(null);
     });
 
     // Warning icon
@@ -110,7 +110,7 @@ describe("InputFieldMessage", () => {
     );
 
     await waitFor(() => {
-      expect(screen.queryByText("Input field message.")).to.be.null;
+      expect(screen.queryByText("Input field message.")).toEqual(null);
     });
   });
 });

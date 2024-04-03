@@ -171,7 +171,7 @@ describe("<KeyinPalettePanel>", () => {
 
     await TestUtils.flushAsyncOperations();
     const listComponent = renderedComponent.container.querySelector("ul");
-    expect(listComponent).not.to.be.null;
+    expect(listComponent).toBeTruthy();
     fireEvent.keyDown(listComponent!, { key: Key.ArrowDown });
     fireEvent.keyDown(listComponent!, { key: Key.Enter });
   });
@@ -190,7 +190,7 @@ describe("<KeyinPalettePanel>", () => {
     await TestUtils.flushAsyncOperations();
     fireEvent.keyDown(selectInput, { key: Key.ArrowDown });
     const listComponent = renderedComponent.container.querySelector("ul");
-    expect(listComponent).not.to.be.null;
+    expect(listComponent).toBeTruthy();
     fireEvent.keyDown(listComponent!, { key: Key.ArrowDown });
     fireEvent.keyDown(listComponent!, { key: Key.Enter, ctrlKey: true });
     expect(selectInput.value.length > 0);
@@ -382,7 +382,7 @@ describe("<KeyinPalettePanel>", () => {
 
       await TestUtils.flushAsyncOperations();
       const listComponent = renderedComponent.container.querySelector("ul");
-      expect(listComponent).not.to.be.null;
+      expect(listComponent).toBeTruthy();
       fireEvent.keyDown(listComponent!, { key: Key.ArrowDown });
       fireEvent.keyDown(listComponent!, { key: Key.Enter });
     });

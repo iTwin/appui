@@ -27,7 +27,7 @@ describe(`SelectionScopeField`, () => {
       const selectElement = component.getByTestId(
         "components-selectionScope-selector"
       ) as HTMLSelectElement;
-      expect(selectElement).not.to.be.null;
+      expect(selectElement).toBeTruthy();
       expect(UiFramework.getActiveSelectionScope()).toEqual("element");
     });
 
@@ -58,7 +58,7 @@ describe(`SelectionScopeField`, () => {
       const selectElement = component.getByTestId(
         "components-selectionScope-selector"
       ) as HTMLSelectElement;
-      expect(selectElement).not.to.be.null;
+      expect(selectElement).toBeTruthy();
       expect(UiFramework.getActiveSelectionScope()).toEqual("top-assembly");
       // expect(selectElement.selectedIndex).toEqual(2);
     });
@@ -126,7 +126,7 @@ describe(`SelectionScopeField`, () => {
       const selectElement = component.getByTestId(
         "components-selectionScope-selector"
       ) as HTMLSelectElement;
-      expect(selectElement).not.to.be.null;
+      expect(selectElement).toBeTruthy();
       expect(UiFramework.getActiveSelectionScope()).toEqual("top-assembly");
       component.getByText("Functional TopAssembly");
       UiFramework.dispatchActionToStore(

@@ -317,7 +317,7 @@ describe("PropertyView", () => {
       />
     );
 
-    expect(screen.queryByRole("button")).to.be.null;
+    expect(screen.queryByRole("button")).toEqual(null);
   });
 
   it("does not render ElementSeparator when orientation is vertical", () => {
@@ -329,7 +329,7 @@ describe("PropertyView", () => {
       />
     );
 
-    expect(screen.queryByRole("button")).to.be.null;
+    expect(screen.queryByRole("button")).toEqual(null);
   });
 
   it("triggers selection if property gets clicked once", async () => {

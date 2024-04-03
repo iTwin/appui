@@ -37,7 +37,7 @@ describe("<ColorSwatch />", () => {
       <ColorSwatch colorDef={colorDef} onColorPick={handleColorPick} />
     );
     const colorSwatch = renderedComponent.container.firstChild as HTMLElement;
-    expect(colorSwatch).not.to.be.null;
+    expect(colorSwatch).toBeTruthy();
     expect(colorSwatch.tagName).toEqual("BUTTON");
     fireEvent.click(colorSwatch);
     await TestUtils.flushAsyncOperations();

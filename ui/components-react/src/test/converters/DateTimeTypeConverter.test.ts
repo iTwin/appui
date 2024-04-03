@@ -20,21 +20,19 @@ describe("ShortDateTypeConverter", () => {
   describe("convertToString", () => {
     it("returns correct string", () => {
       const date = new Date(2018, 0, 1);
-      expect(converter.convertToString(date)).to.be.eq(
+      expect(converter.convertToString(date)).toEqual(
         date.toLocaleDateString()
       );
     });
 
     it("returns empty string if date is undefined", () => {
-      expect(converter.convertToString(undefined)).to.be.eq("");
+      expect(converter.convertToString(undefined)).toEqual("");
     });
 
     it("returns formatted date if date is a string", () => {
       const str = "2015 - 06 - 11";
       const date = new Date(str);
-      expect(converter.convertToString(str)).to.be.eq(
-        date.toLocaleDateString()
-      );
+      expect(converter.convertToString(str)).toEqual(date.toLocaleDateString());
     });
   });
 
@@ -42,35 +40,35 @@ describe("ShortDateTypeConverter", () => {
     it("returns correct string", () => {
       const date = new Date(Date.UTC(2018, 0, 1));
       let options = { alternateDateFormat: AlternateDateFormats.IsoDateTime };
-      expect(converter.convertToStringWithOptions(date, options)).to.be.eq(
+      expect(converter.convertToStringWithOptions(date, options)).toEqual(
         "2018-01-01"
       );
       options = { alternateDateFormat: AlternateDateFormats.IsoShort };
-      expect(converter.convertToStringWithOptions(date, options)).to.be.eq(
+      expect(converter.convertToStringWithOptions(date, options)).toEqual(
         "2018-01-01"
       );
       options = { alternateDateFormat: AlternateDateFormats.UtcShort };
-      expect(converter.convertToStringWithOptions(date, options)).to.be.eq(
+      expect(converter.convertToStringWithOptions(date, options)).toEqual(
         "01 Jan 2018"
       );
       options = { alternateDateFormat: AlternateDateFormats.UtcShortWithDay };
-      expect(converter.convertToStringWithOptions(date, options)).to.be.eq(
+      expect(converter.convertToStringWithOptions(date, options)).toEqual(
         "Mon, 01 Jan 2018"
       );
       options = { alternateDateFormat: AlternateDateFormats.UtcDateTime };
-      expect(converter.convertToStringWithOptions(date, options)).to.be.eq(
+      expect(converter.convertToStringWithOptions(date, options)).toEqual(
         "01 Jan 2018"
       );
       options = {
         alternateDateFormat: AlternateDateFormats.UtcDateTimeWithDay,
       };
-      expect(converter.convertToStringWithOptions(date, options)).to.be.eq(
+      expect(converter.convertToStringWithOptions(date, options)).toEqual(
         "Mon, 01 Jan 2018"
       );
-      expect(converter.convertToStringWithOptions(undefined, options)).to.be.eq(
+      expect(converter.convertToStringWithOptions(undefined, options)).toEqual(
         ""
       );
-      expect(converter.convertToStringWithOptions(date, undefined)).to.be.eq(
+      expect(converter.convertToStringWithOptions(date, undefined)).toEqual(
         converter.convertToString(date)
       );
     });
@@ -79,7 +77,7 @@ describe("ShortDateTypeConverter", () => {
       const date = new Date(Date.UTC(2018, 0, 1));
       const str = "2018-01-01";
       const options = { alternateDateFormat: AlternateDateFormats.IsoDateTime };
-      expect(converter.convertToStringWithOptions(str, options)).to.be.eq(
+      expect(converter.convertToStringWithOptions(str, options)).toEqual(
         converter.convertToStringWithOptions(date, options)
       );
     });
@@ -134,7 +132,7 @@ describe("ShortDateTypeConverter", () => {
         str,
         options
       ) as Date;
-      expect(date.getDate()).to.be.eq(convertedDate.getDate());
+      expect(date.getDate()).toEqual(convertedDate.getDate());
     });
   });
 
@@ -252,35 +250,35 @@ describe("DateTimeTypeConverter", () => {
     it("returns correct string", () => {
       const date = new Date(Date.UTC(2018, 0, 1));
       let options = { alternateDateFormat: AlternateDateFormats.IsoDateTime };
-      expect(converter.convertToStringWithOptions(date, options)).to.be.eq(
+      expect(converter.convertToStringWithOptions(date, options)).toEqual(
         "2018-01-01T00:00:00.000Z"
       );
       options = { alternateDateFormat: AlternateDateFormats.IsoShort };
-      expect(converter.convertToStringWithOptions(date, options)).to.be.eq(
+      expect(converter.convertToStringWithOptions(date, options)).toEqual(
         "2018-01-01T00:00:00.000Z"
       );
       options = { alternateDateFormat: AlternateDateFormats.UtcShort };
-      expect(converter.convertToStringWithOptions(date, options)).to.be.eq(
+      expect(converter.convertToStringWithOptions(date, options)).toEqual(
         "01 Jan 2018 00:00:00 GMT"
       );
       options = { alternateDateFormat: AlternateDateFormats.UtcShortWithDay };
-      expect(converter.convertToStringWithOptions(date, options)).to.be.eq(
+      expect(converter.convertToStringWithOptions(date, options)).toEqual(
         "Mon, 01 Jan 2018 00:00:00 GMT"
       );
       options = { alternateDateFormat: AlternateDateFormats.UtcDateTime };
-      expect(converter.convertToStringWithOptions(date, options)).to.be.eq(
+      expect(converter.convertToStringWithOptions(date, options)).toEqual(
         "01 Jan 2018 00:00:00 GMT"
       );
       options = {
         alternateDateFormat: AlternateDateFormats.UtcDateTimeWithDay,
       };
-      expect(converter.convertToStringWithOptions(date, options)).to.be.eq(
+      expect(converter.convertToStringWithOptions(date, options)).toEqual(
         "Mon, 01 Jan 2018 00:00:00 GMT"
       );
-      expect(converter.convertToStringWithOptions(undefined, options)).to.be.eq(
+      expect(converter.convertToStringWithOptions(undefined, options)).toEqual(
         ""
       );
-      expect(converter.convertToStringWithOptions(date, undefined)).to.be.eq(
+      expect(converter.convertToStringWithOptions(date, undefined)).toEqual(
         converter.convertToString(date)
       );
     });
@@ -298,7 +296,7 @@ describe("DateTimeTypeConverter", () => {
       const date = new Date(Date.UTC(2018, 0, 1));
       const str = "2018-01-01";
       const options = { alternateDateFormat: AlternateDateFormats.IsoDateTime };
-      expect(converter.convertToStringWithOptions(str, options)).to.be.eq(
+      expect(converter.convertToStringWithOptions(str, options)).toEqual(
         converter.convertToStringWithOptions(date, options)
       );
     });

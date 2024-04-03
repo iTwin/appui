@@ -60,7 +60,7 @@ describe("useElementsScrollStorage", () => {
     expect(getterCalled).toEqual(true);
 
     ref.current!.restore();
-    expect(setScroll).to.be.eq(10);
+    expect(setScroll).toEqual(10);
   });
 
   it("does nothing if element is not found", () => {
@@ -69,7 +69,7 @@ describe("useElementsScrollStorage", () => {
       <TestComponent ref={ref} lookupClassName="invalid-class" />
     );
 
-    expect(queryByText("Test Element")).to.not.be.null;
+    expect(queryByText("Test Element")).toBeTruthy();
 
     let getterCalled = false;
     let scrollValue: number | undefined;

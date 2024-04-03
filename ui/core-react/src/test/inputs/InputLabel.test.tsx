@@ -15,7 +15,7 @@ describe("<InputLabel />", () => {
       </InputLabel>
     );
 
-    expect(screen.getByLabelText("input test")).to.be.eq(
+    expect(screen.getByLabelText("input test")).toEqual(
       screen.getByRole("textbox")
     );
   });

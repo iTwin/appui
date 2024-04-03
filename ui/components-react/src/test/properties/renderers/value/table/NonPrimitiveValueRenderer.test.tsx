@@ -44,8 +44,8 @@ describe("TableNonPrimitiveValueRenderer", () => {
     fireEvent.click(button);
 
     expect(onDialogOpen).toHaveBeenCalledOnce();
-    expect(onDialogOpen.mock.calls[0][0].content).to.be.eq(dialogContents);
-    expect(onDialogOpen.mock.calls[0][0].title).to.be.eq("Greeting");
+    expect(onDialogOpen.mock.calls[0][0].content).toEqual(dialogContents);
+    expect(onDialogOpen.mock.calls[0][0].title).toEqual("Greeting");
   });
 
   it("renders DOM exactly the same when hovered on without appropriate callbacks set", () => {
@@ -64,10 +64,10 @@ describe("TableNonPrimitiveValueRenderer", () => {
     )[0];
 
     fireEvent.mouseEnter(button);
-    expect(renderer.container.innerHTML).to.be.eq(renderedDom);
+    expect(renderer.container.innerHTML).toEqual(renderedDom);
 
     fireEvent.mouseLeave(button);
-    expect(renderer.container.innerHTML).to.be.eq(renderedDom);
+    expect(renderer.container.innerHTML).toEqual(renderedDom);
   });
 
   it("renders DOM exactly the same when clicked on without appropriate callbacks set", () => {
@@ -87,6 +87,6 @@ describe("TableNonPrimitiveValueRenderer", () => {
 
     fireEvent.click(button);
 
-    expect(renderer.container.innerHTML).to.be.eq(renderedDom);
+    expect(renderer.container.innerHTML).toEqual(renderedDom);
   });
 });

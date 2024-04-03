@@ -371,35 +371,42 @@ describe("ContextMenu", () => {
     describe("direction", () => {
       it("should render bottom right by default", () => {
         const component = render(<ContextMenu opened={true} />);
-        expect(component.container.querySelector(".core-context-menu-bottom"))
-          .not.to.be.null;
-        expect(component.container.querySelector(".core-context-menu-right"))
-          .not.to.be.null;
+        expect(
+          component.container.querySelector(".core-context-menu-bottom")
+        ).toBeTruthy();
+        expect(
+          component.container.querySelector(".core-context-menu-right")
+        ).toBeTruthy();
       });
       it("should render no direction for None", () => {
         const component = render(
           <ContextMenu opened={true} direction={ContextMenuDirection.None} />
         );
-        expect(component.container.querySelector(".core-context-menu-bottom"))
-          .to.be.null;
-        expect(component.container.querySelector(".core-context-menu-right")).to
-          .be.null;
+        expect(
+          component.container.querySelector(".core-context-menu-bottom")
+        ).toEqual(null);
+        expect(
+          component.container.querySelector(".core-context-menu-right")
+        ).toEqual(null);
       });
       it("should render top left", () => {
         const component = render(
           <ContextMenu opened={true} direction={ContextMenuDirection.TopLeft} />
         );
-        expect(component.container.querySelector(".core-context-menu-top")).not
-          .to.be.null;
-        expect(component.container.querySelector(".core-context-menu-left")).not
-          .to.be.null;
+        expect(
+          component.container.querySelector(".core-context-menu-top")
+        ).toBeTruthy();
+        expect(
+          component.container.querySelector(".core-context-menu-left")
+        ).toBeTruthy();
       });
       it("should render top", () => {
         const component = render(
           <ContextMenu opened={true} direction={ContextMenuDirection.Top} />
         );
-        expect(component.container.querySelector(".core-context-menu-top")).not
-          .to.be.null;
+        expect(
+          component.container.querySelector(".core-context-menu-top")
+        ).toBeTruthy();
       });
       it("should render top right", () => {
         const component = render(
@@ -408,31 +415,36 @@ describe("ContextMenu", () => {
             direction={ContextMenuDirection.TopRight}
           />
         );
-        expect(component.container.querySelector(".core-context-menu-top")).not
-          .to.be.null;
-        expect(component.container.querySelector(".core-context-menu-right"))
-          .not.to.be.null;
+        expect(
+          component.container.querySelector(".core-context-menu-top")
+        ).toBeTruthy();
+        expect(
+          component.container.querySelector(".core-context-menu-right")
+        ).toBeTruthy();
       });
       it("should render left", () => {
         const component = render(
           <ContextMenu opened={true} direction={ContextMenuDirection.Left} />
         );
-        expect(component.container.querySelector(".core-context-menu-left")).not
-          .to.be.null;
+        expect(
+          component.container.querySelector(".core-context-menu-left")
+        ).toBeTruthy();
       });
       it("should render center", () => {
         const component = render(
           <ContextMenu opened={true} direction={ContextMenuDirection.Center} />
         );
-        expect(component.container.querySelector(".core-context-menu-center"))
-          .not.to.be.null;
+        expect(
+          component.container.querySelector(".core-context-menu-center")
+        ).toBeTruthy();
       });
       it("should render right", () => {
         const component = render(
           <ContextMenu opened={true} direction={ContextMenuDirection.Right} />
         );
-        expect(component.container.querySelector(".core-context-menu-right"))
-          .not.to.be.null;
+        expect(
+          component.container.querySelector(".core-context-menu-right")
+        ).toBeTruthy();
       });
       it("should render bottom left", () => {
         const component = render(
@@ -441,17 +453,20 @@ describe("ContextMenu", () => {
             direction={ContextMenuDirection.BottomLeft}
           />
         );
-        expect(component.container.querySelector(".core-context-menu-bottom"))
-          .not.to.be.null;
-        expect(component.container.querySelector(".core-context-menu-left")).not
-          .to.be.null;
+        expect(
+          component.container.querySelector(".core-context-menu-bottom")
+        ).toBeTruthy();
+        expect(
+          component.container.querySelector(".core-context-menu-left")
+        ).toBeTruthy();
       });
       it("should render bottom", () => {
         const component = render(
           <ContextMenu opened={true} direction={ContextMenuDirection.Bottom} />
         );
-        expect(component.container.querySelector(".core-context-menu-bottom"))
-          .not.to.be.null;
+        expect(
+          component.container.querySelector(".core-context-menu-bottom")
+        ).toBeTruthy();
       });
       it("should render bottom right", () => {
         const component = render(
@@ -460,10 +475,12 @@ describe("ContextMenu", () => {
             direction={ContextMenuDirection.BottomRight}
           />
         );
-        expect(component.container.querySelector(".core-context-menu-bottom"))
-          .not.to.be.null;
-        expect(component.container.querySelector(".core-context-menu-right"))
-          .not.to.be.null;
+        expect(
+          component.container.querySelector(".core-context-menu-bottom")
+        ).toBeTruthy();
+        expect(
+          component.container.querySelector(".core-context-menu-right")
+        ).toBeTruthy();
       });
     });
   });
@@ -504,22 +521,25 @@ describe("ContextMenu", () => {
       const component = render(
         <ContextMenuItem icon="icon-placeholder">Test</ContextMenuItem>
       );
-      expect(component.container.querySelector(".icon-placeholder")).not.to.be
-        .null;
-      expect(component.container.querySelector(".core-context-menu-icon")).not
-        .to.be.null;
+      expect(
+        component.container.querySelector(".icon-placeholder")
+      ).toBeTruthy();
+      expect(
+        component.container.querySelector(".core-context-menu-icon")
+      ).toBeTruthy();
     });
 
     it("renders with iconRight correctly", () => {
       const component = render(
         <ContextMenuItem iconRight="icon-checkmark">Test</ContextMenuItem>
       );
-      expect(component.container.querySelector(".icon-checkmark")).not.to.be
-        .null;
-      expect(component.container.querySelector(".core-context-menu-icon")).not
-        .to.be.null;
-      expect(component.container.querySelector(".core-context-menu-icon-right"))
-        .not.to.be.null;
+      expect(component.container.querySelector(".icon-checkmark")).toBeTruthy();
+      expect(
+        component.container.querySelector(".core-context-menu-icon")
+      ).toBeTruthy();
+      expect(
+        component.container.querySelector(".core-context-menu-icon-right")
+      ).toBeTruthy();
     });
 
     it("handles props changes correctly", () => {
@@ -542,13 +562,14 @@ describe("ContextMenu", () => {
       const component = render(
         <ContextMenuItem disabled={true}>Test</ContextMenuItem>
       );
-      expect(component.container.querySelector(".core-context-menu-disabled"))
-        .not.to.be.null;
+      expect(
+        component.container.querySelector(".core-context-menu-disabled")
+      ).toBeTruthy();
       expect(
         component.container.querySelector(
           ".core-context-menu-item[aria-disabled]"
         )
-      ).not.to.be.null;
+      ).toBeTruthy();
     });
 
     it("renders disabled by condition correctly", () => {
@@ -559,26 +580,28 @@ describe("ContextMenu", () => {
       const component = render(
         <ContextMenuItem disabled={isDisabled}>Test</ContextMenuItem>
       );
-      expect(component.container.querySelector(".core-context-menu-disabled"))
-        .not.to.be.null;
+      expect(
+        component.container.querySelector(".core-context-menu-disabled")
+      ).toBeTruthy();
       expect(
         component.container.querySelector(
           ".core-context-menu-item[aria-disabled]"
         )
-      ).not.to.be.null;
+      ).toBeTruthy();
     });
 
     it("renders hidden correctly", () => {
       const component = render(
         <ContextMenuItem hidden={true}>Test</ContextMenuItem>
       );
-      expect(component.container.querySelector(".core-context-menu-hidden")).not
-        .to.be.null;
+      expect(
+        component.container.querySelector(".core-context-menu-hidden")
+      ).toBeTruthy();
       expect(
         component.container.querySelector(
           ".core-context-menu-item[aria-hidden]"
         )
-      ).not.to.be.null;
+      ).toBeTruthy();
     });
 
     it("renders hidden by condition correctly", () => {
@@ -589,20 +612,21 @@ describe("ContextMenu", () => {
       const component = render(
         <ContextMenuItem hidden={isHidden}>Test</ContextMenuItem>
       );
-      expect(component.container.querySelector(".core-context-menu-hidden")).not
-        .to.be.null;
+      expect(
+        component.container.querySelector(".core-context-menu-hidden")
+      ).toBeTruthy();
       expect(
         component.container.querySelector(
           ".core-context-menu-item[aria-hidden]"
         )
-      ).not.to.be.null;
+      ).toBeTruthy();
     });
 
     it("renders badge correctly", () => {
       const component = render(
         <ContextMenuItem badgeType={BadgeType.New}>Test</ContextMenuItem>
       );
-      expect(component.container.querySelector(".core-badge")).not.to.be.null;
+      expect(component.container.querySelector(".core-badge")).toBeTruthy();
     });
 
     it("onClick handled correctly", async () => {
@@ -684,13 +708,14 @@ describe("ContextMenu", () => {
           </ContextSubMenu>
         </ContextMenu>
       );
-      expect(component.container.querySelector(".core-context-menu-disabled"))
-        .not.to.be.null;
+      expect(
+        component.container.querySelector(".core-context-menu-disabled")
+      ).toBeTruthy();
       expect(
         component.container.querySelector(
           ".core-context-menu-item[aria-disabled]"
         )
-      ).not.to.be.null;
+      ).toBeTruthy();
     });
     it("renders disabled by condition correctly", () => {
       const isDisabled = new ConditionalBooleanValue(
@@ -704,13 +729,14 @@ describe("ContextMenu", () => {
           </ContextSubMenu>
         </ContextMenu>
       );
-      expect(component.container.querySelector(".core-context-menu-disabled"))
-        .not.to.be.null;
+      expect(
+        component.container.querySelector(".core-context-menu-disabled")
+      ).toBeTruthy();
       expect(
         component.container.querySelector(
           ".core-context-menu-item[aria-disabled]"
         )
-      ).not.to.be.null;
+      ).toBeTruthy();
     });
     it("renders hidden correctly", () => {
       const component = render(
@@ -720,13 +746,14 @@ describe("ContextMenu", () => {
           </ContextSubMenu>
         </ContextMenu>
       );
-      expect(component.container.querySelector(".core-context-menu-hidden")).not
-        .to.be.null;
+      expect(
+        component.container.querySelector(".core-context-menu-hidden")
+      ).toBeTruthy();
       expect(
         component.container.querySelector(
           ".core-context-menu-item[aria-hidden]"
         )
-      ).not.to.be.null;
+      ).toBeTruthy();
     });
     it("renders hidden by condition correctly", () => {
       const isHidden = new ConditionalBooleanValue(
@@ -740,13 +767,14 @@ describe("ContextMenu", () => {
           </ContextSubMenu>
         </ContextMenu>
       );
-      expect(component.container.querySelector(".core-context-menu-hidden")).not
-        .to.be.null;
+      expect(
+        component.container.querySelector(".core-context-menu-hidden")
+      ).toBeTruthy();
       expect(
         component.container.querySelector(
           ".core-context-menu-item[aria-hidden]"
         )
-      ).not.to.be.null;
+      ).toBeTruthy();
     });
     it("renders badge correctly", () => {
       const component = render(
@@ -756,7 +784,7 @@ describe("ContextMenu", () => {
           </ContextSubMenu>
         </ContextMenu>
       );
-      expect(component.container.querySelector(".core-badge")).not.to.be.null;
+      expect(component.container.querySelector(".core-badge")).toBeTruthy();
     });
     it("onHover handled correctly", async () => {
       const handleHover = vi.fn();

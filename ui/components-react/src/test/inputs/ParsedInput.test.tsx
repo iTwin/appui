@@ -209,6 +209,6 @@ describe("ParsedInput", () => {
     expect(spyOnChange).not.toBeCalled();
     expect(
       wrapper.container.querySelector(".components-parsed-input-has-error")
-    ).to.not.be.null;
+    ).toBeTruthy();
   });
 });

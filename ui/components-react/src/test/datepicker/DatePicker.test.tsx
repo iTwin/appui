@@ -25,14 +25,14 @@ describe("<DatePicker />", () => {
 
   it("should render ", () => {
     const renderedComponent = render(<DatePicker selected={testDate} />);
-    expect(renderedComponent).not.to.be.null;
+    expect(renderedComponent).toBeTruthy();
     const span = renderedComponent.container.querySelector(
       "span.components-month-year"
     );
-    expect(span).not.to.be.null;
+    expect(span).toBeTruthy();
     const spanValue = span!.textContent;
-    expect(spanValue!.match(/month.long.july/)).not.to.be.null;
-    expect(spanValue!.match(/2018/)).not.to.be.null;
+    expect(spanValue!.match(/month.long.july/)).toBeTruthy();
+    expect(spanValue!.match(/2018/)).toBeTruthy();
     const month = renderedComponent.getByRole("listbox");
     expect(month).toBeTruthy();
   });
@@ -42,16 +42,16 @@ describe("<DatePicker />", () => {
     const span = renderedComponent.container.querySelector(
       "span.components-month-year"
     );
-    expect(span).not.to.be.null;
-    expect(span!.textContent!.match(/month.long.july/)).not.to.be.null;
+    expect(span).toBeTruthy();
+    expect(span!.textContent!.match(/month.long.july/)).toBeTruthy();
 
-    expect(renderedComponent).not.to.be.null;
+    expect(renderedComponent).toBeTruthy();
     const button = renderedComponent.container.querySelector(
       ".components-previous-month"
     );
-    expect(button).not.to.be.null;
+    expect(button).toBeTruthy();
     fireEvent.click(button!);
-    expect(span!.textContent!.match(/month.long.june/)).not.to.be.null;
+    expect(span!.textContent!.match(/month.long.june/)).toBeTruthy();
   });
 
   it("should change to previous month ", () => {
@@ -59,14 +59,14 @@ describe("<DatePicker />", () => {
     const span = renderedComponent.container.querySelector(
       "span.components-month-year"
     );
-    expect(span).not.to.be.null;
-    expect(span!.textContent!.match(/month.long.july/)).not.to.be.null;
+    expect(span).toBeTruthy();
+    expect(span!.textContent!.match(/month.long.july/)).toBeTruthy();
 
-    expect(renderedComponent).not.to.be.null;
+    expect(renderedComponent).toBeTruthy();
     const button = renderedComponent.container.querySelector(
       ".components-previous-month"
     );
-    expect(button).not.to.be.null;
+    expect(button).toBeTruthy();
     fireEvent.click(button!); // jun
     fireEvent.click(button!); // may
     fireEvent.click(button!); // apr
@@ -74,7 +74,7 @@ describe("<DatePicker />", () => {
     fireEvent.click(button!); // feb
     fireEvent.click(button!); // jan
     fireEvent.click(button!); // dec
-    expect(span!.textContent!.match(/month.long.december/)).not.to.be.null;
+    expect(span!.textContent!.match(/month.long.december/)).toBeTruthy();
   });
 
   it("should change to next month ", () => {
@@ -82,22 +82,22 @@ describe("<DatePicker />", () => {
     const span = renderedComponent.container.querySelector(
       "span.components-month-year"
     );
-    expect(span).not.to.be.null;
-    expect(span!.textContent!.match(/month.long.july/)).not.to.be.null;
+    expect(span).toBeTruthy();
+    expect(span!.textContent!.match(/month.long.july/)).toBeTruthy();
 
-    expect(renderedComponent).not.to.be.null;
+    expect(renderedComponent).toBeTruthy();
     const button = renderedComponent.container.querySelector(
       ".components-next-month"
     );
-    expect(button).not.to.be.null;
+    expect(button).toBeTruthy();
     fireEvent.click(button!);
-    expect(span!.textContent!.match(/month.long.august/)).not.to.be.null;
+    expect(span!.textContent!.match(/month.long.august/)).toBeTruthy();
 
     const previousButton = renderedComponent.container.querySelector(
       ".components-previous-month"
     );
     fireEvent.click(previousButton!);
-    expect(span!.textContent!.match(/month.long.july/)).not.to.be.null;
+    expect(span!.textContent!.match(/month.long.july/)).toBeTruthy();
 
     fireEvent.click(button!); // aug
     fireEvent.click(button!); // sept
@@ -105,7 +105,7 @@ describe("<DatePicker />", () => {
     fireEvent.click(button!); // nov
     fireEvent.click(button!); // dec
     fireEvent.click(button!); // jan
-    expect(span!.textContent!.match(/month.long.january/)).not.to.be.null;
+    expect(span!.textContent!.match(/month.long.january/)).toBeTruthy();
   });
 
   it("should trigger onDateChange", () => {
@@ -117,7 +117,7 @@ describe("<DatePicker />", () => {
     const dataValueSelector = `li[data-value='${testDayTicks}']`; // li[data-value='1531972800000']
     const dayEntry =
       renderedComponent.container.querySelector(dataValueSelector);
-    expect(dayEntry).not.to.be.null;
+    expect(dayEntry).toBeTruthy();
     fireEvent.click(dayEntry!);
     expect(spy).toHaveBeenCalled();
   });

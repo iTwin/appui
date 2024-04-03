@@ -118,8 +118,8 @@ describe("Point2dTypeConverter", () => {
     });
 
     it("returns 0 if points are mirrored", () => {
-      expect(converter.sortCompare(["1", "1"], ["-1", "-1"])).to.be.eq(0);
-      expect(converter.sortCompare({ x: 1, y: 1 }, { x: -1, y: -1 })).to.be.eq(
+      expect(converter.sortCompare(["1", "1"], ["-1", "-1"])).toEqual(0);
+      expect(converter.sortCompare({ x: 1, y: 1 }, { x: -1, y: -1 })).toEqual(
         0
       );
     });
@@ -233,10 +233,10 @@ describe("Point3dTypeConverter", () => {
     it("returns 0 if points are mirrored", () => {
       expect(
         converter.sortCompare(["1", "1", "-2"], ["-1", "-1", "2"])
-      ).to.be.eq(0);
+      ).toEqual(0);
       expect(
         converter.sortCompare({ x: 1, y: 1, z: -2 }, { x: -1, y: -1, z: 2 })
-      ).to.be.eq(0);
+      ).toEqual(0);
     });
 
     it("returns less than 0 if second point is further from [0,0,0]", () => {
@@ -252,8 +252,8 @@ describe("Point3dTypeConverter", () => {
     });
 
     it("returns 0 if 2d points are mirrored", () => {
-      expect(converter.sortCompare(["1", "1"], ["-1", "-1"])).to.be.eq(0);
-      expect(converter.sortCompare({ x: 1, y: 1 }, { x: -1, y: -1 })).to.be.eq(
+      expect(converter.sortCompare(["1", "1"], ["-1", "-1"])).toEqual(0);
+      expect(converter.sortCompare({ x: 1, y: 1 }, { x: -1, y: -1 })).toEqual(
         0
       );
     });

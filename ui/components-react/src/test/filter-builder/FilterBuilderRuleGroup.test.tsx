@@ -40,7 +40,7 @@ describe("PropertyFilterBuilderRuleGroupRenderer", () => {
       <PropertyFilterBuilderRuleGroupRenderer {...defaultProps} />
     );
 
-    expect(queryByTestId("rule-group-remove")).to.be.null;
+    expect(queryByTestId("rule-group-remove")).toEqual(null);
   });
 
   it("does not render operator selector if only one rule is in group", () => {
@@ -60,7 +60,7 @@ describe("PropertyFilterBuilderRuleGroupRenderer", () => {
           "Components:filterBuilder.operators.and"
         )
       )
-    ).to.be.null;
+    ).toEqual(null);
   });
 
   it("renders child rule", () => {
@@ -101,7 +101,7 @@ describe("PropertyFilterBuilderRuleGroupRenderer", () => {
     const selector = container.querySelector<HTMLAnchorElement>(
       ".fb-group-operator .fb-logical-operator-toggle"
     );
-    expect(selector).to.not.be.null;
+    expect(selector).toBeTruthy();
 
     selector?.click();
 
@@ -111,7 +111,7 @@ describe("PropertyFilterBuilderRuleGroupRenderer", () => {
           "Components:filterBuilder.operators.and"
         )
       )
-    ).to.not.be.null;
+    ).toBeTruthy();
 
     expect(setRuleGroupOperatorSpy).toHaveBeenCalledWith(
       defaultProps.path,
@@ -135,7 +135,7 @@ describe("PropertyFilterBuilderRuleGroupRenderer", () => {
     const selector = container.querySelector<HTMLAnchorElement>(
       ".fb-group-operator .fb-logical-operator-toggle"
     );
-    expect(selector).to.not.be.null;
+    expect(selector).toBeTruthy();
 
     selector?.click();
 
@@ -145,7 +145,7 @@ describe("PropertyFilterBuilderRuleGroupRenderer", () => {
           "Components:filterBuilder.operators.or"
         )
       )
-    ).to.not.be.null;
+    ).toBeTruthy();
 
     expect(setRuleGroupOperatorSpy).toHaveBeenCalledWith(
       defaultProps.path,
@@ -171,12 +171,12 @@ describe("PropertyFilterBuilderRuleGroupRenderer", () => {
           "Components:filterBuilder.operators.or"
         )
       )
-    ).to.not.be.null;
+    ).toBeTruthy();
 
     const selector = container.querySelector<HTMLAnchorElement>(
       ".fb-group-operator .fb-logical-operator-toggle"
     );
-    expect(selector).to.be.null;
+    expect(selector).toEqual(null);
   });
 
   it("'And' Operator should not be clickable if toggled disabled", async () => {
@@ -197,11 +197,11 @@ describe("PropertyFilterBuilderRuleGroupRenderer", () => {
           "Components:filterBuilder.operators.and"
         )
       )
-    ).to.not.be.null;
+    ).toBeTruthy();
 
     const selector = container.querySelector<HTMLAnchorElement>(
       ".fb-group-operator .fb-logical-operator-toggle"
     );
-    expect(selector).to.be.null;
+    expect(selector).toEqual(null);
   });
 });

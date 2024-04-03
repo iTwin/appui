@@ -59,16 +59,17 @@ describe("<DateField />", () => {
 
   it("should render ", () => {
     const renderedComponent = render(<DateField initialDate={testDate} />);
-    expect(renderedComponent).not.to.be.null;
+    expect(renderedComponent).toBeTruthy();
   });
 
   it("should render with custom class ", () => {
     const renderedComponent = render(
       <DateField className="TEST_CLASS_NAME" initialDate={testDate} />
     );
-    expect(renderedComponent).not.to.be.null;
-    expect(renderedComponent.container.querySelector(".TEST_CLASS_NAME")).not.to
-      .be.null;
+    expect(renderedComponent).toBeTruthy();
+    expect(
+      renderedComponent.container.querySelector(".TEST_CLASS_NAME")
+    ).toBeTruthy();
   });
 
   it("should render read only", () => {
@@ -76,7 +77,7 @@ describe("<DateField />", () => {
       <DateField initialDate={testDate} readOnly={true} />
     );
     const input = renderedComponent.container.querySelector("input");
-    expect(input).not.to.be.null;
+    expect(input).toBeTruthy();
     expect(input!.disabled).toEqual(true);
   });
 
@@ -85,9 +86,9 @@ describe("<DateField />", () => {
       <DateField initialDate={testDate} timeDisplay={TimeDisplay.H24M} />
     );
     const input = renderedComponent.container.querySelector("input");
-    expect(input).not.to.be.null;
+    expect(input).toBeTruthy();
     const localValue = input!.value;
-    expect(localValue.match(/:/)).not.to.be.null; // should contain hour:minute separator.
+    expect(localValue.match(/:/)).toBeTruthy(); // should contain hour:minute separator.
     expect(input!.disabled).toEqual(false);
     fireEvent.change(input!, { target: { value: localValue } });
     fireEvent.keyDown(input!, { key: Key.Enter });
@@ -112,7 +113,7 @@ describe("<DateField />", () => {
       <DateField initialDate={testDate} dateFormatter={new IntlFormatter()} />
     );
     const input = renderedComponent.container.querySelector("input");
-    expect(input).not.to.be.null;
+    expect(input).toBeTruthy();
     expect(input!.disabled);
   });
 
@@ -124,8 +125,8 @@ describe("<DateField />", () => {
       />
     );
     const input = renderedComponent.container.querySelector("input");
-    expect(input).not.to.be.null;
-    expect(input!.value.match(/Sunday/)).not.to.be.null;
+    expect(input).toBeTruthy();
+    expect(input!.value.match(/Sunday/)).toBeTruthy();
     expect(input!.disabled);
   });
 
@@ -134,7 +135,7 @@ describe("<DateField />", () => {
       <DateField initialDate={testDate} dateFormatter={new MdyFormatter()} />
     );
     const input = renderedComponent.container.querySelector("input");
-    expect(input).not.to.be.null;
+    expect(input).toBeTruthy();
     expect(input!.value).toEqual("07-22-2018");
   });
 
@@ -148,7 +149,7 @@ describe("<DateField />", () => {
       />
     );
     const input = renderedComponent.container.querySelector("input");
-    expect(input).not.to.be.null;
+    expect(input).toBeTruthy();
     expect(input!.value).toEqual("07-22-2018");
     fireEvent.change(input!, { target: { value: "07-04-2004" } });
     fireEvent.keyDown(input!, { key: Key.Enter });
@@ -159,7 +160,7 @@ describe("<DateField />", () => {
       renderedComponent.container.querySelector(
         "input.components-date-has-error"
       )
-    ).to.be.null;
+    ).toEqual(null);
     fireEvent.change(input!, { target: { value: "07-04-zzzz" } });
     fireEvent.keyDown(input!, { key: Key.Enter });
     expect(spy).not.toBeCalled();
@@ -167,14 +168,14 @@ describe("<DateField />", () => {
       renderedComponent.container.querySelector(
         "input.components-date-has-error"
       )
-    ).not.to.be.null;
+    ).toBeTruthy();
     fireEvent.change(input!, { target: { value: "07-04-2004" } });
     fireEvent.keyDown(input!, { key: Key.Enter });
     expect(
       renderedComponent.container.querySelector(
         "input.components-date-has-error"
       )
-    ).to.be.null;
+    ).toEqual(null);
     expect(spy).toHaveBeenCalled();
   });
 });

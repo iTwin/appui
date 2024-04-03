@@ -80,7 +80,7 @@ describe("<SelectableContent />", () => {
 
     fireEvent.click(getByText("B"));
 
-    expect(queryByText("A")).to.be.null;
+    expect(queryByText("A")).toEqual(null);
     getByText("B");
   });
 });

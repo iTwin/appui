@@ -22,7 +22,7 @@ describe("<DatePickerPopupButton />", () => {
         buttonToolTip={"TEST_TOOLTIP"}
       />
     );
-    expect(renderedComponent).not.to.be.null;
+    expect(renderedComponent).toBeTruthy();
     renderedComponent.getByTitle("TEST_TOOLTIP");
   });
 
@@ -30,7 +30,7 @@ describe("<DatePickerPopupButton />", () => {
     const renderedComponent = render(
       <DatePickerPopupButton selected={testDate} />
     );
-    expect(renderedComponent).not.to.be.null;
+    expect(renderedComponent).toBeTruthy();
     renderedComponent.rerender(<DatePickerPopupButton selected={testDate2} />);
   });
 
@@ -38,7 +38,7 @@ describe("<DatePickerPopupButton />", () => {
     const renderedComponent = render(
       <DatePickerPopupButton selected={testDate} displayEditField={true} />
     );
-    expect(renderedComponent).not.to.be.null;
+    expect(renderedComponent).toBeTruthy();
     renderedComponent.getByTestId("components-date-input");
   });
 
@@ -47,7 +47,7 @@ describe("<DatePickerPopupButton />", () => {
     const renderedComponent = render(
       <DatePickerPopupButton selected={testDate} onDateChange={renderSpy} />
     );
-    expect(renderedComponent).not.to.be.null;
+    expect(renderedComponent).toBeTruthy();
     const pickerButton = renderedComponent.getByTestId(
       "components-date-picker-calendar-popup-button"
     );
@@ -61,14 +61,14 @@ describe("<DatePickerPopupButton />", () => {
     const testDayTicks = new Date(2018, 6, 19).getTime();
     const dataValueSelector = `li[data-value='${testDayTicks}']`; // li[data-value='1531972800000']
     const dayEntry = popupPanelDiv.querySelector(dataValueSelector);
-    expect(dayEntry).not.to.be.null;
+    expect(dayEntry).toBeTruthy();
     fireEvent.click(dayEntry!);
     expect(renderSpy).toHaveBeenCalled();
     expect(
       renderedComponent.queryByTestId(
         "components-date-picker-calendar-popup-panel"
       )
-    ).to.be.null;
+    ).toEqual(null);
   });
 
   it("should render popup using keyboard ", async () => {
@@ -76,7 +76,7 @@ describe("<DatePickerPopupButton />", () => {
     const renderedComponent = render(
       <DatePickerPopupButton selected={testDate} onDateChange={renderSpy} />
     );
-    expect(renderedComponent).not.to.be.null;
+    expect(renderedComponent).toBeTruthy();
     const pickerButton = renderedComponent.getByTestId(
       "components-date-picker-calendar-popup-button"
     );
@@ -91,14 +91,14 @@ describe("<DatePickerPopupButton />", () => {
     const testDayTicks = new Date(2018, 6, 19).getTime();
     const dataValueSelector = `li[data-value='${testDayTicks}']`; // li[data-value='1531972800000']
     const dayEntry = popupPanelDiv.querySelector(dataValueSelector);
-    expect(dayEntry).not.to.be.null;
+    expect(dayEntry).toBeTruthy();
     fireEvent.click(dayEntry!);
     expect(renderSpy).toHaveBeenCalled();
     expect(
       renderedComponent.queryByTestId(
         "components-date-picker-calendar-popup-panel"
       )
-    ).to.be.null;
+    ).toEqual(null);
   });
 
   it("should render popup with time input ", async () => {
@@ -110,7 +110,7 @@ describe("<DatePickerPopupButton />", () => {
         onDateChange={renderSpy}
       />
     );
-    expect(renderedComponent).not.to.be.null;
+    expect(renderedComponent).toBeTruthy();
     const pickerButton = renderedComponent.getByTestId(
       "components-date-picker-calendar-popup-button"
     );

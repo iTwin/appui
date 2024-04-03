@@ -47,7 +47,7 @@ describe("SolarTimelineDataProvider", () => {
     const viewport = viewportMock.object;
 
     const provider = new SolarTimelineDataProvider(viewState, viewport);
-    expect(provider).not.to.be.null;
+    expect(provider).toBeTruthy();
     expect(provider.supportsTimelineAnimation).toEqual(true);
   });
 });

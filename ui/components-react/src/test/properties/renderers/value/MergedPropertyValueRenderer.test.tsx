@@ -13,7 +13,7 @@ describe("MergedPropertyValueRenderer", () => {
       const property = TestUtils.createPrimitiveStringProperty("a", "b");
       property.isMerged = true;
       const element = renderer.render(property);
-      expect(element).to.be.eq(UiComponents.translate("property.varies"));
+      expect(element).toEqual(UiComponents.translate("property.varies"));
     });
   });
 

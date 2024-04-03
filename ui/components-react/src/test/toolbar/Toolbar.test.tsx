@@ -97,7 +97,7 @@ describe("<Toolbar (No Overflow) />", () => {
     it("will render 6 items", () => {
       const renderedComponent = render(<Toolbar items={basicToolbarItems} />);
       expect(renderedComponent).toBeTruthy();
-      expect(renderedComponent.queryByTitle("Entry6")).not.to.be.null;
+      expect(renderedComponent.queryByTitle("Entry6")).toBeTruthy();
     });
 
     it("will render 6 items - simulate horizontal toolbar at bottom right of window.", () => {
@@ -109,7 +109,7 @@ describe("<Toolbar (No Overflow) />", () => {
         />
       );
       expect(renderedComponent).toBeTruthy();
-      expect(renderedComponent.queryByTitle("Entry6")).not.to.be.null;
+      expect(renderedComponent.queryByTitle("Entry6")).toBeTruthy();
     });
 
     it("will render tool group", () => {
@@ -184,19 +184,19 @@ describe("<Toolbar (No Overflow) />", () => {
         />
       );
       expect(renderedComponent).toBeTruthy();
-      expect(renderedComponent.queryByTitle("Entry1")).not.to.be.null;
-      expect(renderedComponent.queryByTitle("Entry3")).not.to.be.null;
-      expect(renderedComponent.queryByTitle("Group6")).not.to.be.null;
+      expect(renderedComponent.queryByTitle("Entry1")).toBeTruthy();
+      expect(renderedComponent.queryByTitle("Entry3")).toBeTruthy();
+      expect(renderedComponent.queryByTitle("Group6")).toBeTruthy();
       // since group priorities are not defined no separator class should be found.
       expect(
         renderedComponent.container.querySelectorAll(
           ".components-toolbar-button-add-gap-before"
         ).length
-      ).to.be.eq(0);
+      ).toEqual(0);
       // badges should not be displayed when toolbar is transparent
       expect(
         renderedComponent.container.querySelectorAll(".components-badge").length
-      ).to.be.eq(0);
+      ).toEqual(0);
     });
 
     it("will render with separators when group priority changes ", () => {
@@ -254,16 +254,16 @@ describe("<Toolbar (No Overflow) />", () => {
         renderedComponent.container.querySelectorAll(
           ".components-toolbar-show-decorators"
         ).length
-      ).to.be.eq(1);
+      ).toEqual(1);
       // badges should be displayed when toolbar is NOT transparent
       expect(
         renderedComponent.container.querySelectorAll(".components-badge").length
-      ).to.be.eq(1);
+      ).toEqual(1);
       expect(
         renderedComponent.container.querySelectorAll(
           ".components-toolbar-item-container.components-horizontal.components-toolbar-button-add-gap-before"
         ).length
-      ).to.be.eq(2);
+      ).toEqual(2);
     });
 
     it("will render without separators when group priority changes but in transparent mode", () => {
@@ -321,7 +321,7 @@ describe("<Toolbar (No Overflow) />", () => {
         renderedComponent.container.querySelectorAll(
           ".components-toolbar-show-decorators"
         ).length
-      ).to.be.eq(0);
+      ).toEqual(0);
     });
 
     it("will render transparent background", () => {
@@ -396,8 +396,8 @@ describe("<Toolbar (No Overflow) />", () => {
         />
       );
       expect(renderedComponent).toBeTruthy();
-      expect(renderedComponent.queryByTitle("Entry3")).not.to.be.null;
-      expect(renderedComponent.queryByTitle("Group6")).not.to.be.null;
+      expect(renderedComponent.queryByTitle("Entry3")).toBeTruthy();
+      expect(renderedComponent.queryByTitle("Group6")).toBeTruthy();
     });
 
     it("should open panel when popup item clicked", () => {
@@ -421,13 +421,13 @@ describe("<Toolbar (No Overflow) />", () => {
       );
       expect(renderedComponent).toBeTruthy();
       const button = renderedComponent.queryByTitle("PopupEntry");
-      expect(button).not.to.be.null;
-      expect(renderedComponent.queryByTestId("popup-panel")).to.be.null;
+      expect(button).toBeTruthy();
+      expect(renderedComponent.queryByTestId("popup-panel")).toEqual(null);
       fireEvent.click(button!);
 
       // Also make sure the popup panel can inform user when key down is pressed
       const popupPanel = renderedComponent.queryByTestId("popup-panel");
-      expect(popupPanel).not.to.be.null;
+      expect(popupPanel).toBeTruthy();
       popupPanel!.dispatchEvent(
         createBubbledEvent("keydown", { key: Key.Escape /* <Esc> */ })
       );
@@ -452,7 +452,7 @@ describe("<Toolbar (No Overflow) />", () => {
       );
 
       const actionButton = renderedComponent.queryByTitle("Entry1");
-      expect(actionButton).not.to.be.null;
+      expect(actionButton).toBeTruthy();
       fireEvent.click(actionButton!);
       expect(toolSpy).toHaveBeenCalledOnce();
       expect(onItemExecuteSpy).toHaveBeenCalledOnce();
@@ -514,8 +514,8 @@ describe("<Toolbar (No Overflow) />", () => {
         />
       );
       expect(renderedComponent).toBeTruthy();
-      expect(renderedComponent.queryByTitle("Entry1")).not.to.be.null;
-      expect(renderedComponent.queryByTitle("Entry6")).not.to.be.null;
+      expect(renderedComponent.queryByTitle("Entry1")).toBeTruthy();
+      expect(renderedComponent.queryByTitle("Entry6")).toBeTruthy();
     });
 
     it("will render 6 items - simulate vertical bar in Navigation Area", () => {
@@ -527,7 +527,7 @@ describe("<Toolbar (No Overflow) />", () => {
         />
       );
       expect(renderedComponent).toBeTruthy();
-      expect(renderedComponent.queryByTitle("Entry6")).not.to.be.null;
+      expect(renderedComponent.queryByTitle("Entry6")).toBeTruthy();
     });
   });
 
@@ -539,8 +539,9 @@ describe("<Toolbar (No Overflow) />", () => {
         () => renderedComponent.container.children[0]
       );
       document.dispatchEvent(pointerMove);
-      expect(renderedComponent.container.querySelector(".components-targeted"))
-        .to.not.be.null;
+      expect(
+        renderedComponent.container.querySelector(".components-targeted")
+      ).toBeTruthy();
     });
   });
 
@@ -555,8 +556,9 @@ describe("<Toolbar (No Overflow) />", () => {
 
     it("renders badge correctly", () => {
       const renderedComponent = render(<GroupTool item={item} badge />);
-      expect(renderedComponent.container.querySelector(".components-badge")).to
-        .not.be.null;
+      expect(
+        renderedComponent.container.querySelector(".components-badge")
+      ).toBeTruthy();
     });
 
     it("renders targeted correctly", () => {
@@ -575,12 +577,15 @@ describe("<Toolbar (No Overflow) />", () => {
       const renderedComponent = render(
         <GroupTool item={item} isActive isDisabled isFocused />
       );
-      expect(renderedComponent.container.querySelector(".components-active")).to
-        .not.be.null;
-      expect(renderedComponent.container.querySelector(".components-disabled"))
-        .to.not.be.null;
-      expect(renderedComponent.container.querySelector(".components-focused"))
-        .to.not.be.null;
+      expect(
+        renderedComponent.container.querySelector(".components-active")
+      ).toBeTruthy();
+      expect(
+        renderedComponent.container.querySelector(".components-disabled")
+      ).toBeTruthy();
+      expect(
+        renderedComponent.container.querySelector(".components-focused")
+      ).toBeTruthy();
     });
 
     it("should invoke onPointerUp handler", () => {
@@ -591,7 +596,7 @@ describe("<Toolbar (No Overflow) />", () => {
       const div = renderedComponent.container.querySelector(
         ".components-toolbar-item-expandable-group-tool-item"
       );
-      expect(div).not.to.be.null;
+      expect(div).toBeTruthy();
       fireEvent.pointerUp(div!);
       expect(spy).toHaveBeenCalledOnce();
     });

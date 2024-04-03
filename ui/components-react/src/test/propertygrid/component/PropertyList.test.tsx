@@ -131,7 +131,7 @@ describe("PropertyList", () => {
     );
 
     const inputNode = propertyList.container.querySelector("input");
-    expect(inputNode).not.to.be.null;
+    expect(inputNode).toBeTruthy();
 
     fireEvent.keyDown(inputNode as HTMLElement, { key: "A" });
     fireEvent.keyDown(inputNode as HTMLElement, { key: "Enter" });

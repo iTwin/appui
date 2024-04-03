@@ -29,8 +29,8 @@ describe("PropertyRenderer", () => {
         it("returns 0 when indentation is undefined or 0", () => {
           expect(
             PropertyRenderer.getLabelOffset(undefined, orientation)
-          ).to.be.eq(0);
-          expect(PropertyRenderer.getLabelOffset(0, orientation)).to.be.eq(0);
+          ).toEqual(0);
+          expect(PropertyRenderer.getLabelOffset(0, orientation)).toEqual(0);
         });
 
         it("returns maxIndent when indentation is 1", () => {
@@ -74,10 +74,10 @@ describe("PropertyRenderer", () => {
               0.2,
               20
             )
-          ).to.be.eq(0);
+          ).toEqual(0);
           expect(
             PropertyRenderer.getLabelOffset(0, orientation, 100, 0.1, 20)
-          ).to.be.eq(0);
+          ).toEqual(0);
         });
 
         it("returns maxIndent when indentation is 1 and current label size is bigger than shrink threshold", () => {
@@ -183,7 +183,7 @@ describe("PropertyRenderer", () => {
       />
     );
 
-    expect(screen.queryByTitle(originalValue)).to.be.null;
+    expect(screen.queryByTitle(originalValue)).toEqual(null);
     expect(screen.getByTitle(recordValue)).to.exist;
   });
 
@@ -204,7 +204,7 @@ describe("PropertyRenderer", () => {
 
     expect(screen.getByText("Test")).satisfy(styleMatch({ color: "blue" }));
     // Should not display the default rendering.
-    expect(screen.queryByTitle("Model")).to.be.null;
+    expect(screen.queryByTitle("Model")).toEqual(null);
   });
 
   it("renders as primitive value if property is an empty array", () => {
@@ -294,7 +294,7 @@ describe("PropertyRenderer", () => {
     );
 
     const inputNode = propertyRenderer.container.querySelector("input");
-    expect(inputNode).not.to.be.null;
+    expect(inputNode).toBeTruthy();
 
     fireEvent.keyDown(inputNode as HTMLElement, { key: "Enter" });
     await TestUtils.flushAsyncOperations();
@@ -313,7 +313,7 @@ describe("PropertyRenderer", () => {
     );
 
     const inputNode = propertyRenderer.container.querySelector("input");
-    expect(inputNode).not.to.be.null;
+    expect(inputNode).toBeTruthy();
 
     fireEvent.keyDown(inputNode as HTMLElement, { key: "Escape" });
     expect(spy).toHaveBeenCalledOnce();

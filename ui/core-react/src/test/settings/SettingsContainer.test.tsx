@@ -95,7 +95,7 @@ describe("<SettingsContainer />", () => {
     const headerDiv = wrapper.container.querySelector(
       `div.core-settings-container-right-header`
     );
-    expect(headerDiv).to.not.be.null;
+    expect(headerDiv).toBeTruthy();
   });
 
   it("should render", async () => {
@@ -115,7 +115,7 @@ describe("<SettingsContainer />", () => {
     const headerDiv = wrapper.container.querySelector(
       `div.core-settings-container-right-header`
     );
-    expect(headerDiv).to.be.null;
+    expect(headerDiv).toEqual(null);
 
     let activePageSelector = `li[data-for='page2']`;
     const liPage2 = wrapper.container.querySelector(

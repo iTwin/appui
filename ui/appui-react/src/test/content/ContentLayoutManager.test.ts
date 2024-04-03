@@ -49,7 +49,7 @@ describe("ContentLayoutManager", () => {
 
     const layoutDef = InternalContentLayoutManager.getForGroup(groupProps);
     const foundLayoutDef = InternalContentLayoutManager.find(key);
-    expect(foundLayoutDef?.id).to.be.eq(layoutDef.id);
+    expect(foundLayoutDef?.id).toEqual(layoutDef.id);
   });
 
   it("should getForGroup with overridden layout", () => {
@@ -74,7 +74,7 @@ describe("ContentLayoutManager", () => {
       StandardContentLayouts.twoVerticalSplit
     );
     const foundLayoutDef = InternalContentLayoutManager.find(overrideKey);
-    expect(foundLayoutDef?.id).to.be.eq(layoutDef.id);
+    expect(foundLayoutDef?.id).toEqual(layoutDef.id);
   });
 
   it("should call  InternalFrontstageManager.setActiveContentGroup", async () => {

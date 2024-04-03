@@ -62,7 +62,7 @@ describe("SparseTree", () => {
       const node = createRandomMutableTreeModelNode();
       const offset = faker.random.number(5);
       sparseTree.setChildren(undefined, [node], offset);
-      expect(sparseTree.getChildOffset(undefined, node.id)).to.be.eq(offset);
+      expect(sparseTree.getChildOffset(undefined, node.id)).toEqual(offset);
     });
   });
 
@@ -73,7 +73,7 @@ describe("SparseTree", () => {
       it("sets root nodes", () => {
         sparseTree.setChildren(undefined, rootNodes, 0);
         const result = sparseTree.getChildren(undefined)!;
-        expect(result.getLength()).to.be.eq(rootNodes.length);
+        expect(result.getLength()).toEqual(rootNodes.length);
         verifyNodes(result, rootNodes);
       });
     });
@@ -93,7 +93,7 @@ describe("SparseTree", () => {
         sparseTree.setNumChildren(rootNode.id, firstChildrenPage.length);
         sparseTree.setChildren(rootNode.id, firstChildrenPage, 0);
         const result = sparseTree.getChildren(rootNode.id)!;
-        expect(result.getLength()).to.be.eq(firstChildrenPage.length);
+        expect(result.getLength()).toEqual(firstChildrenPage.length);
         verifyNodes(result, firstChildrenPage);
       });
 
@@ -106,7 +106,7 @@ describe("SparseTree", () => {
           firstChildrenPage.length
         );
         const result = sparseTree.getChildren(rootNode.id)!;
-        expect(result.getLength()).to.be.eq(
+        expect(result.getLength()).toEqual(
           firstChildrenPage.length + secondChildrenPage.length
         );
         verifyNodes(result, [...firstChildrenPage, ...secondChildrenPage]);
@@ -119,7 +119,7 @@ describe("SparseTree", () => {
         sparseTree.setChildren(rootNode.id, secondChildrenPage, 1);
         const result = sparseTree.getChildren(rootNode.id)!;
         const expectedChildren = [firstChildrenPage[0], ...secondChildrenPage];
-        expect(result.getLength()).to.be.eq(expectedChildren.length);
+        expect(result.getLength()).toEqual(expectedChildren.length);
         verifyNodes(result, expectedChildren);
       });
     });
@@ -129,7 +129,7 @@ describe("SparseTree", () => {
     it("inserts root node", () => {
       sparseTree.insertChild(undefined, rootNode, 0);
       const result = sparseTree.getChildren(undefined)!;
-      expect(result.getLength()).to.be.eq(1);
+      expect(result.getLength()).toEqual(1);
       verifyNodes(result, [rootNode]);
     });
 
@@ -138,7 +138,7 @@ describe("SparseTree", () => {
       sparseTree.setChildren(undefined, [rootNode], 0);
       sparseTree.insertChild(rootNode.id, childNode, 0);
       const result = sparseTree.getChildren(rootNode.id)!;
-      expect(result.getLength()).to.be.eq(1);
+      expect(result.getLength()).toEqual(1);
       verifyNodes(result, [childNode]);
     });
 
@@ -151,7 +151,7 @@ describe("SparseTree", () => {
       sparseTree.insertChild(rootNode.id, newNode, 1);
 
       const result = sparseTree.getChildren(rootNode.id)!;
-      expect(result.getLength()).to.be.eq(3);
+      expect(result.getLength()).toEqual(3);
       verifyNodes(result, [childNodes[0], newNode, childNodes[1]]);
     });
   });
@@ -308,14 +308,14 @@ describe("SparseTree", () => {
     it("sets count for root nodes", () => {
       sparseTree.setNumChildren(undefined, 10);
       const rootNodes = sparseTree.getChildren(undefined)!;
-      expect(rootNodes.getLength()).to.be.eq(10);
+      expect(rootNodes.getLength()).toEqual(10);
     });
 
     it("sets count for non-root nodes", () => {
       sparseTree.setChildren(undefined, [rootNode], 0);
       sparseTree.setNumChildren(rootNode.id, 10);
       const childNodes = sparseTree.getChildren(rootNode.id)!;
-      expect(childNodes.getLength()).to.be.eq(10);
+      expect(childNodes.getLength()).toEqual(10);
     });
 
     it("clears subtree when setting root node children count", () => {
@@ -335,7 +335,7 @@ describe("SparseTree", () => {
         sparseTree.setChildren(undefined, rootNodes, 0);
         sparseTree.removeChild(undefined, rootNodes[1].id);
         const children = sparseTree.getChildren(undefined)!;
-        expect(children.getLength()).to.be.eq(2);
+        expect(children.getLength()).toEqual(2);
         verifyNodes(children, [rootNodes[0], rootNodes[2]]);
       });
 
@@ -345,7 +345,7 @@ describe("SparseTree", () => {
         sparseTree.setChildren(rootNode.id, childNodes, 0);
         sparseTree.removeChild(rootNode.id, childNodes[1].id);
         const children = sparseTree.getChildren(rootNode.id)!;
-        expect(children.getLength()).to.be.eq(2);
+        expect(children.getLength()).toEqual(2);
         verifyNodes(children, [childNodes[0], childNodes[2]]);
       });
 
@@ -353,7 +353,7 @@ describe("SparseTree", () => {
         sparseTree.setChildren(undefined, [rootNode], 0);
         sparseTree.removeChild(undefined, "nonExisting");
         const children = sparseTree.getChildren(undefined)!;
-        expect(children.getLength()).to.be.eq(1);
+        expect(children.getLength()).toEqual(1);
         verifyNodes(children, [rootNode]);
       });
 
@@ -380,7 +380,7 @@ describe("SparseTree", () => {
         sparseTree.setChildren(undefined, rootNodes, 0);
         sparseTree.removeChild(undefined, 1);
         const children = sparseTree.getChildren(undefined)!;
-        expect(children.getLength()).to.be.eq(2);
+        expect(children.getLength()).toEqual(2);
         verifyNodes(children, [rootNodes[0], rootNodes[2]]);
       });
 
@@ -390,7 +390,7 @@ describe("SparseTree", () => {
         sparseTree.setChildren(rootNode.id, childNodes, 0);
         sparseTree.removeChild(rootNode.id, 1);
         const children = sparseTree.getChildren(rootNode.id)!;
-        expect(children.getLength()).to.be.eq(2);
+        expect(children.getLength()).toEqual(2);
         verifyNodes(children, [childNodes[0], childNodes[2]]);
       });
 
@@ -398,7 +398,7 @@ describe("SparseTree", () => {
         sparseTree.setChildren(undefined, [rootNode], 0);
         sparseTree.removeChild(undefined, 123);
         const children = sparseTree.getChildren(undefined)!;
-        expect(children.getLength()).to.be.eq(1);
+        expect(children.getLength()).toEqual(1);
         verifyNodes(children, [rootNode]);
       });
 
@@ -428,7 +428,7 @@ describe("SparseTree", () => {
     it("deletes root nodes", () => {
       sparseTree.deleteSubtree(undefined);
       const rootNodes = sparseTree.getChildren(undefined)!;
-      expect(rootNodes.getLength()).to.be.eq(0);
+      expect(rootNodes.getLength()).toEqual(0);
       verifyNodes(rootNodes, []);
     });
 
@@ -451,7 +451,7 @@ describe("SparseTree", () => {
 
     it("does not remove parent node of subtree", () => {
       sparseTree.setNumChildren(rootNode.id, 1);
-      expect(sparseTree.getChildren(rootNode.id)!.getLength()).to.be.eq(1);
+      expect(sparseTree.getChildren(rootNode.id)!.getLength()).toEqual(1);
       sparseTree.deleteSubtree(rootNode.id, false);
       expect(sparseTree.getChildren(rootNode.id)).toEqual(undefined);
       expect(sparseTree.getNode(rootNode.id)).toBeTruthy();
@@ -482,13 +482,13 @@ describe("SparseArray", () => {
 
   describe("getLength", () => {
     it("gets length of empty array", () => {
-      expect(sparseArray.getLength()).to.be.eq(0);
+      expect(sparseArray.getLength()).toEqual(0);
     });
 
     it("gets length of array with items", () => {
       sparseArray.set(0, 1);
       sparseArray.set(1, 2);
-      expect(sparseArray.getLength()).to.be.eq(2);
+      expect(sparseArray.getLength()).toEqual(2);
     });
   });
 
@@ -496,7 +496,7 @@ describe("SparseArray", () => {
     it("sets length", () => {
       const length = faker.random.number({ min: 1, max: 5 });
       sparseArray.setLength(length);
-      expect(sparseArray.getLength()).to.be.eq(length);
+      expect(sparseArray.getLength()).toEqual(length);
     });
   });
 
@@ -522,7 +522,7 @@ describe("SparseArray", () => {
       sparseArray.set(testItems[0].index, testItems[0].value);
 
       const index = sparseArray.getIndex(testItems[0].value);
-      expect(index).to.be.eq(testItems[0].index);
+      expect(index).toEqual(testItems[0].index);
     });
   });
 
@@ -530,7 +530,7 @@ describe("SparseArray", () => {
     it("sets value at specific index", () => {
       sparseArray.set(testItems[0].index, testItems[0].value);
       const item = sparseArray.get(testItems[0].index);
-      expect(item).to.be.eq(testItems[0].value);
+      expect(item).toEqual(testItems[0].value);
     });
 
     it("sets new value for same index", () => {
@@ -538,33 +538,33 @@ describe("SparseArray", () => {
       const newValue = faker.random.number();
       sparseArray.set(testItems[0].index, newValue);
       const item = sparseArray.get(testItems[0].index);
-      expect(item).to.be.eq(newValue);
+      expect(item).toEqual(newValue);
     });
   });
 
   describe("insert", () => {
     it("inserts into empty array at first position", () => {
       sparseArray.insert(0, testItems[0].value);
-      expect(sparseArray.getLength()).to.be.eq(1);
+      expect(sparseArray.getLength()).toEqual(1);
       const item = sparseArray.get(0);
-      expect(item).to.be.eq(testItems[0].value);
+      expect(item).toEqual(testItems[0].value);
     });
 
     it("inserts into empty array at random position", () => {
       const position = faker.random.number({ min: 5, max: 10 });
       sparseArray.insert(position, testItems[0].value);
-      expect(sparseArray.getLength()).to.be.eq(position + 1);
+      expect(sparseArray.getLength()).toEqual(position + 1);
       const item = sparseArray.get(position);
-      expect(item).to.be.eq(testItems[0].value);
+      expect(item).toEqual(testItems[0].value);
     });
 
     it("inserts into not empty array at first position", () => {
       sparseArray.set(0, testItems[0].value);
       const insertValue = faker.random.number();
       sparseArray.insert(0, insertValue);
-      expect(sparseArray.getLength()).to.be.eq(2);
-      expect(sparseArray.get(0)).to.be.eq(insertValue);
-      expect(sparseArray.get(1)).to.be.eq(testItems[0].value);
+      expect(sparseArray.getLength()).toEqual(2);
+      expect(sparseArray.get(0)).toEqual(insertValue);
+      expect(sparseArray.get(1)).toEqual(testItems[0].value);
     });
 
     it("inserts into not empty array at random position", () => {
@@ -572,9 +572,9 @@ describe("SparseArray", () => {
       const position = faker.random.number({ min: 5, max: 10 });
       const insertValue = faker.random.number();
       sparseArray.insert(position, insertValue);
-      expect(sparseArray.getLength()).to.be.eq(position + 1);
-      expect(sparseArray.get(0)).to.be.eq(testItems[0].value);
-      expect(sparseArray.get(position)).to.be.eq(insertValue);
+      expect(sparseArray.getLength()).toEqual(position + 1);
+      expect(sparseArray.get(0)).toEqual(testItems[0].value);
+      expect(sparseArray.get(position)).toEqual(insertValue);
     });
 
     it("inserts into array between items", () => {
@@ -582,25 +582,25 @@ describe("SparseArray", () => {
       sparseArray.set(1, testItems[1].value);
       const insertValue = faker.random.number();
       sparseArray.insert(1, insertValue);
-      expect(sparseArray.getLength()).to.be.eq(3);
-      expect(sparseArray.get(0)).to.be.eq(testItems[0].value);
-      expect(sparseArray.get(1)).to.be.eq(insertValue);
-      expect(sparseArray.get(2)).to.be.eq(testItems[1].value);
+      expect(sparseArray.getLength()).toEqual(3);
+      expect(sparseArray.get(0)).toEqual(testItems[0].value);
+      expect(sparseArray.get(1)).toEqual(insertValue);
+      expect(sparseArray.get(2)).toEqual(testItems[1].value);
     });
   });
 
   describe("remove", () => {
     it("tries to remove from empty array", () => {
       sparseArray.remove(0);
-      expect(sparseArray.getLength()).to.be.eq(0);
+      expect(sparseArray.getLength()).toEqual(0);
     });
 
     it("removes first element from array", () => {
       sparseArray.set(0, testItems[0].value);
       sparseArray.set(1, testItems[1].value);
       sparseArray.remove(0);
-      expect(sparseArray.getLength()).to.be.eq(1);
-      expect(sparseArray.get(0)).to.be.eq(testItems[1].value);
+      expect(sparseArray.getLength()).toEqual(1);
+      expect(sparseArray.get(0)).toEqual(testItems[1].value);
       expect(sparseArray.get(1)).toEqual(undefined);
     });
 
@@ -608,8 +608,8 @@ describe("SparseArray", () => {
       sparseArray.set(0, testItems[0].value);
       sparseArray.set(1, testItems[1].value);
       sparseArray.remove(1);
-      expect(sparseArray.getLength()).to.be.eq(1);
-      expect(sparseArray.get(0)).to.be.eq(testItems[0].value);
+      expect(sparseArray.getLength()).toEqual(1);
+      expect(sparseArray.get(0)).toEqual(testItems[0].value);
       expect(sparseArray.get(1)).toEqual(undefined);
     });
 
@@ -619,29 +619,29 @@ describe("SparseArray", () => {
       sparseArray.set(1, middleValue);
       sparseArray.set(2, testItems[1].value);
       sparseArray.remove(1);
-      expect(sparseArray.getLength()).to.be.eq(2);
-      expect(sparseArray.get(0)).to.be.eq(testItems[0].value);
-      expect(sparseArray.get(1)).to.be.eq(testItems[1].value);
+      expect(sparseArray.getLength()).toEqual(2);
+      expect(sparseArray.get(0)).toEqual(testItems[0].value);
+      expect(sparseArray.get(1)).toEqual(testItems[1].value);
       expect(sparseArray.get(2)).toEqual(undefined);
     });
 
     it("removes missing value from middle front", () => {
       sparseArray.set(1, testItems[0].value);
-      expect(sparseArray.getLength()).to.be.eq(2);
+      expect(sparseArray.getLength()).toEqual(2);
       sparseArray.remove(0);
-      expect(sparseArray.getLength()).to.be.eq(1);
-      expect(sparseArray.get(0)).to.be.eq(testItems[0].value);
+      expect(sparseArray.getLength()).toEqual(1);
+      expect(sparseArray.get(0)).toEqual(testItems[0].value);
     });
 
     it("removes missing value from array middle", () => {
       const lastItemIndex = 5;
       sparseArray.set(0, testItems[0].value);
       sparseArray.set(lastItemIndex, testItems[1].value);
-      expect(sparseArray.getLength()).to.be.eq(lastItemIndex + 1);
+      expect(sparseArray.getLength()).toEqual(lastItemIndex + 1);
       sparseArray.remove(2);
-      expect(sparseArray.getLength()).to.be.eq(lastItemIndex);
-      expect(sparseArray.get(0)).to.be.eq(testItems[0].value);
-      expect(sparseArray.get(lastItemIndex - 1)).to.be.eq(testItems[1].value);
+      expect(sparseArray.getLength()).toEqual(lastItemIndex);
+      expect(sparseArray.get(0)).toEqual(testItems[0].value);
+      expect(sparseArray.get(lastItemIndex - 1)).toEqual(testItems[1].value);
       expect(sparseArray.get(lastItemIndex)).toEqual(undefined);
     });
 
@@ -649,17 +649,17 @@ describe("SparseArray", () => {
       sparseArray.setLength(8);
       sparseArray.set(0, testItems[0].value);
       sparseArray.remove(7);
-      expect(sparseArray.getLength()).to.be.eq(7);
-      expect(sparseArray.get(0)).to.be.eq(testItems[0].value);
+      expect(sparseArray.getLength()).toEqual(7);
+      expect(sparseArray.get(0)).toEqual(testItems[0].value);
     });
 
     it("does nothing when attempting to remove at position past the end", () => {
       sparseArray.insert(0, 0);
       sparseArray.insert(1, 1);
       sparseArray.remove(2);
-      expect(sparseArray.getLength()).to.be.eq(2);
-      expect(sparseArray.get(0)).to.be.eq(0);
-      expect(sparseArray.get(1)).to.be.eq(1);
+      expect(sparseArray.getLength()).toEqual(2);
+      expect(sparseArray.get(0)).toEqual(0);
+      expect(sparseArray.get(1)).toEqual(1);
     });
   });
 
@@ -669,7 +669,7 @@ describe("SparseArray", () => {
       for (const [value, index] of sparseArray.iterateValues()) {
         const expectedItem = testItems.find((item) => item.index === index);
         expect(expectedItem).toBeTruthy();
-        expect(value).to.be.eq(expectedItem!.value);
+        expect(value).toEqual(expectedItem!.value);
       }
     });
   });
@@ -686,9 +686,9 @@ describe("SparseArray", () => {
 
       let current = 0;
       for (const item of sparseArray) {
-        if (current === firstItem.index) expect(item).to.be.eq(firstItem.value);
+        if (current === firstItem.index) expect(item).toEqual(firstItem.value);
         else if (current === secondItem.index)
-          expect(item).to.be.eq(secondItem.value);
+          expect(item).toEqual(secondItem.value);
         else expect(item).toEqual(undefined);
 
         current++;

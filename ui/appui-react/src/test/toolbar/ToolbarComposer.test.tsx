@@ -179,7 +179,7 @@ describe("<ToolbarComposer  />", async () => {
       renderedComponent.container.querySelector(
         "div.components-toolbar-overflow-sizer.components-horizontal"
       )
-    ).to.not.be.null;
+    ).toBeTruthy();
   });
 
   it("should render with updated items", async () => {
@@ -210,9 +210,9 @@ describe("<ToolbarComposer  />", async () => {
       </Provider>
     );
     expect(renderedComponent).toBeTruthy();
-    expect(renderedComponent.queryByTitle("Tool_2")).not.to.be.null;
-    expect(renderedComponent.queryByTitle("Tool_Group")).not.to.be.null;
-    expect(renderedComponent.queryByTitle("Popup Test")).not.to.be.null;
+    expect(renderedComponent.queryByTitle("Tool_2")).toBeTruthy();
+    expect(renderedComponent.queryByTitle("Tool_Group")).toBeTruthy();
+    expect(renderedComponent.queryByTitle("Popup Test")).toBeTruthy();
 
     renderedComponent.rerender(
       <Provider store={TestUtils.store}>
@@ -223,9 +223,9 @@ describe("<ToolbarComposer  />", async () => {
         />
       </Provider>
     );
-    expect(renderedComponent.queryByTitle("Tool_2")).to.be.null;
-    expect(renderedComponent.queryByTitle("Tool_2A")).not.to.be.null;
-    expect(renderedComponent.queryByTitle("Tool_2B")).not.to.be.null;
+    expect(renderedComponent.queryByTitle("Tool_2")).toEqual(null);
+    expect(renderedComponent.queryByTitle("Tool_2A")).toBeTruthy();
+    expect(renderedComponent.queryByTitle("Tool_2B")).toBeTruthy();
   });
 
   it("should not try to render duplicate items", async () => {
@@ -263,10 +263,10 @@ describe("<ToolbarComposer  />", async () => {
       </Provider>
     );
     expect(renderedComponent).toBeTruthy();
-    expect(renderedComponent.queryByTitle("Tool_2")).not.to.be.null;
-    expect(renderedComponent.queryByTitle("Tool_Group")).not.to.be.null;
-    expect(renderedComponent.queryByTitle("Popup Test")).not.to.be.null;
-    expect(renderedComponent.queryByTitle("Tool_1E")).not.to.be.null;
+    expect(renderedComponent.queryByTitle("Tool_2")).toBeTruthy();
+    expect(renderedComponent.queryByTitle("Tool_Group")).toBeTruthy();
+    expect(renderedComponent.queryByTitle("Popup Test")).toBeTruthy();
+    expect(renderedComponent.queryByTitle("Tool_1E")).toBeTruthy();
 
     UiItemsManager.unregister(duplicateToolsUiProvider.id);
     await TestUtils.flushAsyncOperations();

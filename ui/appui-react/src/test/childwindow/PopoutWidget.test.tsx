@@ -20,7 +20,7 @@ describe("PopoutWidget", () => {
     const renderedComponent = render(
       <PopoutWidget widgetContainerId="testContainer" widgetDef={widgetDef} />
     );
-    expect(renderedComponent.queryByText("Hello")).not.to.be.null;
+    expect(renderedComponent.queryByText("Hello")).toBeTruthy();
     renderedComponent.unmount();
   });
 });

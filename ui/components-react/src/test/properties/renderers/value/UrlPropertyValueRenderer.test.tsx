@@ -27,7 +27,7 @@ describe("UrlPropertyValueRenderer", () => {
         elementRender.container.getElementsByClassName(
           "core-underlined-button"
         )[0].textContent
-      ).to.be.eq(
+      ).toEqual(
         "Test Uri Value: pw:\\wsp-aus-pw.bentley.com:wsp-aus-pw-10DocumentsSouthern Program Alliance"
       );
     });
@@ -51,7 +51,7 @@ describe("UrlPropertyValueRenderer", () => {
         elementRender.container.getElementsByClassName(
           "core-underlined-button"
         )[0].textContent
-      ).to.be.eq("Test");
+      ).toEqual("Test");
     });
 
     it("renders URI property with highlighting and in anchored tag", () => {
@@ -115,7 +115,7 @@ describe("UrlPropertyValueRenderer", () => {
           "core-underlined-button"
         )[0];
 
-        expect(linkElement.textContent).to.be.eq("Random Test property");
+        expect(linkElement.textContent).toEqual("Random Test property");
 
         fireEvent.click(linkElement);
         expect(spy).toHaveBeenCalledWith("Random Test property", "_blank");
@@ -134,7 +134,7 @@ describe("UrlPropertyValueRenderer", () => {
         const linkElement = renderedElement.container.getElementsByClassName(
           "core-underlined-button"
         )[0];
-        expect(linkElement.textContent).to.be.eq("pw:Test property");
+        expect(linkElement.textContent).toEqual("pw:Test property");
 
         fireEvent.click(linkElement);
         expect(locationMockRef.object.href).toEqual("pw:Test property");
@@ -154,7 +154,7 @@ describe("UrlPropertyValueRenderer", () => {
           "core-underlined-button"
         )[0];
 
-        expect(linkElement.textContent).to.be.eq("mailto:Test property");
+        expect(linkElement.textContent).toEqual("mailto:Test property");
 
         fireEvent.click(linkElement);
         expect(locationMockRef.object.href).toEqual("mailto:Test property");
@@ -179,7 +179,7 @@ describe("UrlPropertyValueRenderer", () => {
           "core-underlined-button"
         )[0];
 
-        expect(linkElement.textContent).to.be.eq("Random Test property");
+        expect(linkElement.textContent).toEqual("Random Test property");
 
         fireEvent.click(linkElement);
         expect(spy).toHaveBeenCalledWith("Random Test property", "_blank");

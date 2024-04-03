@@ -102,7 +102,7 @@ describe("<ToggleEditor />", () => {
       />
     );
     const inputNode = wrapper.container.querySelector("input");
-    expect(inputNode).not.to.be.null;
+    expect(inputNode).toBeTruthy();
 
     fireEvent.keyDown(inputNode as HTMLElement, { key: Key.Enter });
     await TestUtils.flushAsyncOperations();

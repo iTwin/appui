@@ -10,14 +10,13 @@ describe("<Input />", () => {
   it("renders", () => {
     const input = render(<Input />);
 
-    expect(input.container.querySelector("input[type='text']")).not.to.be.null;
+    expect(input.container.querySelector("input[type='text']")).toBeTruthy();
   });
 
   it("renders with 'numeric' type", () => {
     const input = render(<Input type="numeric" />);
 
-    expect(input.container.querySelector("input[type='numeric']")).not.to.be
-      .null;
+    expect(input.container.querySelector("input[type='numeric']")).toBeTruthy();
   });
 
   it("focus into input with setFocus prop", () => {
@@ -36,7 +35,7 @@ describe("<Input />", () => {
       <Input setFocus={true} nativeKeyHandler={spyOnKeyboardEvent} />
     );
     const inputNode = component.container.querySelector("input") as HTMLElement;
-    expect(inputNode).not.to.be.null;
+    expect(inputNode).toBeTruthy();
     fireEvent.keyDown(inputNode, { key: "Enter" });
     component.rerender(
       <Input setFocus={true} nativeKeyHandler={spyOnSecondKeyboardEvent} />
@@ -52,9 +51,9 @@ describe("<Input />", () => {
     const inputNode = component.container.querySelector(
       "input"
     ) as HTMLInputElement;
-    expect(inputNode).not.to.be.null;
+    expect(inputNode).toBeTruthy();
     fireEvent.keyDown(inputNode, { key: "Enter" });
-    expect(inputElementRef.current).not.to.be.null;
-    expect(inputNode).to.be.eq(inputElementRef.current);
+    expect(inputElementRef.current).toBeTruthy();
+    expect(inputNode).toEqual(inputElementRef.current);
   });
 });

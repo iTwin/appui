@@ -23,7 +23,7 @@ describe("StatusBar", () => {
   it("StatusBar should render children correctly", () => {
     render(<StatusBar>Hello</StatusBar>);
 
-    expect(screen.getByText("Hello")).to.be.not.null;
+    expect(screen.getByText("Hello")).toBeTruthy();
   });
 
   it("StatusBar should render widgetControl correctly", () => {
@@ -39,7 +39,7 @@ describe("StatusBar", () => {
       />
     );
 
-    expect(screen.getByText("ReactNodeContent")).to.be.not.null;
+    expect(screen.getByText("ReactNodeContent")).toBeTruthy();
   });
 
   it("StatusBarSpaceBetween should render correctly", () => {

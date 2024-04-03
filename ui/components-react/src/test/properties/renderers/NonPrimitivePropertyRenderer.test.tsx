@@ -92,8 +92,8 @@ describe("NonPrimitivePropertyRenderer", () => {
       />
     );
 
-    expect(screen.queryByTitle("Building")).to.be.null;
-    expect(screen.queryByTitle("Street")).to.be.null;
+    expect(screen.queryByTitle("Building")).toEqual(null);
+    expect(screen.queryByTitle("Street")).toEqual(null);
 
     await theUserTo.click(screen.getByTitle("House"));
 
@@ -102,8 +102,8 @@ describe("NonPrimitivePropertyRenderer", () => {
 
     await theUserTo.click(screen.getByTitle("House"));
 
-    expect(screen.queryByTitle("Building")).to.be.null;
-    expect(screen.queryByTitle("Street")).to.be.null;
+    expect(screen.queryByTitle("Building")).toEqual(null);
+    expect(screen.queryByTitle("Street")).toEqual(null);
   });
 
   it("does not render base struct properties", async () => {
@@ -124,8 +124,8 @@ describe("NonPrimitivePropertyRenderer", () => {
 
     expect(screen.getByTitle("Title")).to.exist;
     expect(screen.getByTitle("Model")).to.exist;
-    expect(screen.queryByTitle("Size")).to.be.null;
-    expect(screen.queryByTitle("Huge")).to.be.null;
+    expect(screen.queryByTitle("Size")).toEqual(null);
+    expect(screen.queryByTitle("Huge")).toEqual(null);
   });
 
   it("renders property with an offset when indentation is more than 0", () => {

@@ -75,10 +75,10 @@ describe("ViewSelector", () => {
     await waitFor(async () => theUserTo.click(screen.getByRole("button")));
 
     expect(screen.getByText("viewTypes.views")).to.exist;
-    expect(screen.queryByText("viewTypes.spatialViews")).to.be.null;
-    expect(screen.queryByText("viewTypes.drawings")).to.be.null;
-    expect(screen.queryByText("viewTypes.sheets")).to.be.null;
-    expect(screen.queryByText("viewTypes.others")).to.be.null;
+    expect(screen.queryByText("viewTypes.spatialViews")).toEqual(null);
+    expect(screen.queryByText("viewTypes.drawings")).toEqual(null);
+    expect(screen.queryByText("viewTypes.sheets")).toEqual(null);
+    expect(screen.queryByText("viewTypes.others")).toEqual(null);
   });
 
   it("should set Show settings by ViewSelector.updateShowSettings", async () => {
@@ -103,9 +103,9 @@ describe("ViewSelector", () => {
     await waitFor(
       () => expect(screen.queryByText("viewTypes.spatialViews")).to.be.null
     );
-    expect(screen.queryByText("viewTypes.drawings")).to.be.null;
-    expect(screen.queryByText("viewTypes.sheets")).to.be.null;
-    expect(screen.queryByText("viewTypes.others")).to.be.null;
+    expect(screen.queryByText("viewTypes.drawings")).toEqual(null);
+    expect(screen.queryByText("viewTypes.sheets")).toEqual(null);
+    expect(screen.queryByText("viewTypes.others")).toEqual(null);
   });
 
   it("should trigger componentDidUpdate processing", async () => {

@@ -37,7 +37,7 @@ describe("AnalysisAnimationTimelineDataProvider", () => {
       viewState,
       viewport
     );
-    expect(provider).not.to.be.null;
+    expect(provider).toBeTruthy();
     expect(provider.supportsTimelineAnimation).toEqual(true);
 
     const dataLoaded = await provider.loadTimelineData();

@@ -69,7 +69,7 @@ describe("<AlphaSlider />", () => {
       />
     );
     const sliderDiv = renderedComponent.getByTestId("alpha-slider");
-    expect(sliderDiv).not.to.be.null;
+    expect(sliderDiv).toBeTruthy();
     expect(sliderDiv.tagName).toEqual("DIV");
 
     keys.forEach((keyName) => {
@@ -119,7 +119,7 @@ describe("<AlphaSlider />", () => {
       </div>
     );
     const sliderDiv = renderedComponent.getByTestId("alpha-slider");
-    expect(sliderDiv).not.to.be.null;
+    expect(sliderDiv).toBeTruthy();
     expect(sliderDiv.tagName).toEqual("DIV");
 
     keys.forEach((keyName) => {

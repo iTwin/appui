@@ -75,7 +75,7 @@ describe("<HueSlider />", () => {
       <HueSlider hsv={hsv} onHueChange={handleHueChange} isHorizontal={true} />
     );
     const sliderDiv = renderedComponent.getByTestId("hue-slider");
-    expect(sliderDiv).not.to.be.null;
+    expect(sliderDiv).toBeTruthy();
     expect(sliderDiv.tagName).toEqual("DIV");
 
     keys.forEach((keyName) => {

@@ -282,7 +282,7 @@ describe("useLayoutResizeObserver", () => {
     const container = wrapper.container.querySelector(
       "div.uicore-resizable-container"
     );
-    expect(container).to.not.be.null;
+    expect(container).toBeTruthy();
     await TestUtils.flushAsyncOperations();
 
     boundingClientRect = size_300_100;

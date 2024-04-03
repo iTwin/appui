@@ -55,7 +55,7 @@ describe("MultilineTextPropertyValueRenderer", () => {
 
       it(`renders ${propertyRecord.property.typename} property record`, () => {
         const { getByText } = render(<>{renderer.render(record)}</>);
-        expect(getByText(expectedValue)).to.be.not.null;
+        expect(getByText(expectedValue)).toBeTruthy();
       });
     });
 
@@ -76,7 +76,7 @@ describe("MultilineTextRenderer", () => {
     const { getByText } = render(
       <MultilineTextRenderer>Test</MultilineTextRenderer>
     );
-    expect(getByText("Test")).to.be.not.null;
+    expect(getByText("Test")).toBeTruthy();
   });
 
   it("does not attempt to call `onExpansionToggled` callback that is not present and throw", () => {
@@ -99,7 +99,7 @@ describe("MultilineTextRenderer", () => {
         () => 50
       );
       const { queryByText } = render(<MultilineTextRenderer />);
-      expect(queryByText("property.expand")).to.be.null;
+      expect(queryByText("property.expand")).toEqual(null);
     });
 
     it('shows "See more" button when text overflows', () => {
@@ -110,7 +110,7 @@ describe("MultilineTextRenderer", () => {
         () => 100
       );
       const { getByText } = render(<MultilineTextRenderer />);
-      expect(getByText("property.expand")).to.be.not.null;
+      expect(getByText("property.expand")).toBeTruthy();
     });
 
     it('reports expansion toggle when "See more" button is pressed', () => {
@@ -132,7 +132,7 @@ describe("MultilineTextRenderer", () => {
   describe("expanded", () => {
     it('shows "See less" button when text component is expanded', () => {
       const { getByText } = render(<MultilineTextRenderer isExpanded={true} />);
-      expect(getByText("property.collapse")).to.be.not.null;
+      expect(getByText("property.collapse")).toBeTruthy();
     });
 
     it('reports expansion toggle when "See less" button is pressed', () => {

@@ -16,9 +16,9 @@ describe("LabelIndicator", () => {
       />
     );
     expect(wrapper).toBeTruthy();
-    expect(wrapper.container.querySelector(".uifw-reversed")).to.be.null;
-    expect(wrapper.container.querySelector(".icon.test-icon")).not.to.be.null;
-    expect(wrapper.container.querySelector("span")).not.to.be.null;
+    expect(wrapper.container.querySelector(".uifw-reversed")).toEqual(null);
+    expect(wrapper.container.querySelector(".icon.test-icon")).toBeTruthy();
+    expect(wrapper.container.querySelector("span")).toBeTruthy();
   });
 
   it("Should render label on right", () => {
@@ -30,9 +30,9 @@ describe("LabelIndicator", () => {
       />
     );
     expect(wrapper).toBeTruthy();
-    expect(wrapper.container.querySelector(".uifw-reversed")).not.to.be.null;
-    expect(wrapper.container.querySelector(".icon.test-icon")).not.to.be.null;
-    expect(wrapper.container.querySelector("span")).not.to.be.null;
+    expect(wrapper.container.querySelector(".uifw-reversed")).toBeTruthy();
+    expect(wrapper.container.querySelector(".icon.test-icon")).toBeTruthy();
+    expect(wrapper.container.querySelector("span")).toBeTruthy();
   });
 
   it("Should not render label", () => {
@@ -43,8 +43,8 @@ describe("LabelIndicator", () => {
       />
     );
     expect(wrapper).toBeTruthy();
-    expect(wrapper.container.querySelector(".uifw-reversed")).not.to.be.null;
-    expect(wrapper.container.querySelector(".icon.test-icon")).not.to.be.null;
-    expect(wrapper.container.querySelector("span")).to.be.null;
+    expect(wrapper.container.querySelector(".uifw-reversed")).toBeTruthy();
+    expect(wrapper.container.querySelector(".icon.test-icon")).toBeTruthy();
+    expect(wrapper.container.querySelector("span")).toEqual(null);
   });
 });

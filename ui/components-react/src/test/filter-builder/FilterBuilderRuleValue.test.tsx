@@ -50,7 +50,7 @@ describe("PropertyFilterBuilderRuleValue", () => {
     const input = container.querySelector<HTMLInputElement>(
       ".components-editor-container input"
     );
-    expect(input).to.not.be.null;
+    expect(input).toBeTruthy();
 
     expect(input?.value).to.be.empty;
   });
@@ -103,8 +103,8 @@ describe("PropertyFilterBuilderRuleValue", () => {
       );
 
       await waitFor(() => {
-        expect(queryByDisplayValue("123")).to.not.be.null;
-        expect(queryByDisplayValue("456")).to.not.be.null;
+        expect(queryByDisplayValue("123")).toBeTruthy();
+        expect(queryByDisplayValue("456")).toBeTruthy();
       });
     });
 

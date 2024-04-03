@@ -22,7 +22,7 @@ describe("StructPropertyValueRenderer", () => {
 
       const element = renderer.render(structProperty);
 
-      expect(element).to.be.eq("{struct}");
+      expect(element).toEqual("{struct}");
     });
 
     it("renders default way when provided with empty context", () => {
@@ -31,7 +31,7 @@ describe("StructPropertyValueRenderer", () => {
 
       const element = renderer.render(structProperty, {});
 
-      expect(element).to.be.eq("{struct}");
+      expect(element).toEqual("{struct}");
     });
 
     it("renders struct with Table renderer if container type is Table", async () => {
@@ -98,7 +98,7 @@ describe("StructPropertyValueRenderer", () => {
         containerType: PropertyContainerType.PropertyPane,
       });
 
-      expect(element).to.be.eq("");
+      expect(element).toEqual("");
     });
   });
 

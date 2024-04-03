@@ -64,9 +64,9 @@ describe("PropertyFilterBuilder", () => {
     );
 
     const rules = container.querySelectorAll(".fb-property-name");
-    expect(rules.length).to.be.eq(1);
+    expect(rules.length).toEqual(1);
     const rule1 = queryByDisplayValue(property1.displayLabel);
-    expect(rule1).to.not.be.null;
+    expect(rule1).toBeTruthy();
   });
 
   it("renders propertyFilterBuilder with multiple rules correctly", async () => {
@@ -99,11 +99,11 @@ describe("PropertyFilterBuilder", () => {
     );
 
     const rules = container.querySelectorAll(".fb-property-name");
-    expect(rules.length).to.be.eq(2);
+    expect(rules.length).toEqual(2);
     const rule1 = queryByDisplayValue(property1.displayLabel);
-    expect(rule1).to.not.be.null;
+    expect(rule1).toBeTruthy();
     const rule2 = queryByDisplayValue(property2.displayLabel);
-    expect(rule2).to.not.be.null;
+    expect(rule2).toBeTruthy();
   });
 
   it("focus new rule property after adding new rule", async () => {

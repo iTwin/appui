@@ -263,7 +263,7 @@ describe("<CustomNumberEditor />", () => {
     const inputField = renderedComponent.queryByTestId(
       testId
     ) as HTMLInputElement;
-    expect(inputField).to.be.null;
+    expect(inputField).toEqual(null);
   });
 
   it("should support IconEditor params", async () => {
@@ -312,7 +312,7 @@ describe("<CustomNumberEditor />", () => {
       />
     );
     const inputNode = wrapper.queryByTestId(testId) as HTMLInputElement;
-    expect(inputNode).not.to.be.null;
+    expect(inputNode).toBeTruthy();
 
     fireEvent.keyDown(inputNode as HTMLElement, { key: Key.Enter });
     await TestUtils.flushAsyncOperations();

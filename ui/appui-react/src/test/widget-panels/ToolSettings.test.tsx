@@ -154,7 +154,7 @@ describe("ToolSettingsContent", () => {
         <ToolSettingsContent />
       </NineZoneProvider>
     );
-    expect(container.firstChild).to.be.null;
+    expect(container.firstChild).toEqual(null);
   });
 
   it("should render (Floating Widget mode)", () => {

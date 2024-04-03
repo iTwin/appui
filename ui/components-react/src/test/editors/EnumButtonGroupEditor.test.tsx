@@ -52,8 +52,9 @@ describe("<EnumButtonGroupEditor />", () => {
     const renderedComponent = render(
       <EnumButtonGroupEditor propertyRecord={record} onCommit={handleCommit} />
     );
-    expect(await waitFor(() => renderedComponent.getByTestId("Green"))).not.to
-      .be.null;
+    expect(
+      await waitFor(() => renderedComponent.getByTestId("Green"))
+    ).toBeTruthy();
 
     const greenButton = renderedComponent.getByTestId("Green");
     expect(greenButton.tagName).toEqual("BUTTON");
@@ -82,8 +83,9 @@ describe("<EnumButtonGroupEditor />", () => {
     const renderedComponent = render(
       <EnumButtonGroupEditor propertyRecord={record} onCommit={handleCommit} />
     );
-    expect(await waitFor(() => renderedComponent.getByTestId("Green"))).not.to
-      .be.null;
+    expect(
+      await waitFor(() => renderedComponent.getByTestId("Green"))
+    ).toBeTruthy();
     const greenButton = renderedComponent.getByTestId("Green");
     expect(greenButton.tagName).toEqual("BUTTON");
     expect(greenButton.classList.contains("nz-is-active")).toEqual(false);
@@ -101,8 +103,9 @@ describe("<EnumButtonGroupEditor />", () => {
     const renderedComponent = render(
       <EnumButtonGroupEditor propertyRecord={record} />
     );
-    expect(await waitFor(() => renderedComponent.getByTestId("Blue"))).not.to.be
-      .null;
+    expect(
+      await waitFor(() => renderedComponent.getByTestId("Blue"))
+    ).toBeTruthy();
     const blueButton = renderedComponent.getByTestId("Blue");
     expect(blueButton.tagName).toEqual("BUTTON");
     expect(blueButton.classList.contains("nz-is-disabled")).toEqual(
@@ -129,13 +132,14 @@ describe("<EnumButtonGroupEditor />", () => {
         onCancel={() => {}}
       />
     );
-    expect(await waitFor(() => renderedComponent.getByTestId("Blue"))).not.to.be
-      .null;
+    expect(
+      await waitFor(() => renderedComponent.getByTestId("Blue"))
+    ).toBeTruthy();
     expect(
       renderedComponent.container.querySelector(
         ".components-enumbuttongroup-editor"
       )
-    ).to.not.be.null;
+    ).toBeTruthy();
   });
 
   it("should not commit if DataController fails to validate", async () => {
@@ -155,8 +159,9 @@ describe("<EnumButtonGroupEditor />", () => {
     );
     expect(renderedComponent).toBeTruthy();
 
-    expect(await waitFor(() => renderedComponent.getByTestId("Green"))).not.to
-      .be.null;
+    expect(
+      await waitFor(() => renderedComponent.getByTestId("Green"))
+    ).toBeTruthy();
     const greenButton = renderedComponent.getByTestId("Green");
 
     fireEvent.keyDown(greenButton, { key: Key.Enter });

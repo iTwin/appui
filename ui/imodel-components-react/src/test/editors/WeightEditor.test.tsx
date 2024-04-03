@@ -78,8 +78,9 @@ describe("<WeightEditor />", () => {
       <WeightEditor setFocus={true} propertyRecord={propertyRecord} />
     );
     expect(renderedComponent).toBeTruthy();
-    expect(renderedComponent.container.querySelector("[disabled]")).to.not.be
-      .null;
+    expect(
+      renderedComponent.container.querySelector("[disabled]")
+    ).toBeTruthy();
   });
 
   it("renders editor for 'number' type and 'weight-picker' editor using WeightEditor", () => {

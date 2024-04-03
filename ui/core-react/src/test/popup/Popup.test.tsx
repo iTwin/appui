@@ -133,8 +133,8 @@ describe("<Popup />", () => {
         </Popup>
       </div>
     );
-    expect(component).not.to.be.null;
-    expect(button).not.to.be.null;
+    expect(component).toBeTruthy();
+    expect(button).toBeTruthy();
     expect(isOpen).toEqual(false);
     fireEvent.click(button!);
     expect(isOpen).toEqual(true);
@@ -207,8 +207,8 @@ describe("<Popup />", () => {
         </Popup>
       </div>
     );
-    expect(component).not.to.be.null;
-    expect(button).not.to.be.null;
+    expect(component).toBeTruthy();
+    expect(button).toBeTruthy();
     expect(isOpen).toEqual(false);
     fireEvent.click(button!);
     expect(isOpen).toEqual(true);
@@ -276,8 +276,8 @@ describe("<Popup />", () => {
         </Popup>
       </div>
     );
-    expect(component).not.to.be.null;
-    expect(button).not.to.be.null;
+    expect(component).toBeTruthy();
+    expect(button).toBeTruthy();
     expect(isOpen).toEqual(false);
     fireEvent.click(button!);
     expect(isOpen).toEqual(true);
@@ -433,7 +433,7 @@ describe("<Popup />", () => {
     expect(nestedButton).to.exist;
     await theUserTo.click(nestedButton);
 
-    expect(component.queryByTestId("NestedPopup-Button")).to.be.null;
+    expect(component.queryByTestId("NestedPopup-Button")).toEqual(null);
   });
 
   it("should remove animation", async () => {

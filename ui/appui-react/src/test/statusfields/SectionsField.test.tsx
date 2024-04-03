@@ -32,6 +32,6 @@ describe(`SectionsField`, () => {
       screen.getByTitle("tools.sectionTools").firstElementChild!
     );
 
-    expect(screen.queryByText("tools.sectionTools")).to.be.null;
+    expect(screen.queryByText("tools.sectionTools")).toEqual(null);
   });
 });

@@ -387,7 +387,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
     const settingMenuSpan = renderedComponent.getByTestId("timeline-settings");
     fireEvent.click(settingMenuSpan);
     const repeatItem = renderedComponent.getByText("timeline.repeat");
-    expect(repeatItem).not.to.be.null;
+    expect(repeatItem).toBeTruthy();
     fireEvent.click(repeatItem);
 
     expect(dataProvider.settingsCallbackCalled).toEqual(true);
@@ -395,7 +395,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
     const durationInputField = renderedComponent.queryByTestId(
       "timeline-duration-edit-input"
     );
-    expect(durationInputField).not.to.be.null;
+    expect(durationInputField).toBeTruthy();
     fireEvent.change(durationInputField!, { target: { value: "00:44" } });
     // callback is not triggered until Enter key is pressed.
     fireEvent.keyDown(durationInputField!, { key: "Enter" });
@@ -605,7 +605,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
     fireEvent.click(settingMenuSpan);
 
     const repeatItem = renderedComponent.getByText("timeline.repeat");
-    expect(repeatItem).not.to.be.null;
+    expect(repeatItem).toBeTruthy();
     fireEvent.click(repeatItem);
   });
   it("re-render on totalDuration change", () => {
@@ -646,7 +646,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
         alwaysMinimized={false}
       />
     );
-    expect(dataProvider.getSettings().duration).to.be.eq(newDuration);
+    expect(dataProvider.getSettings().duration).toEqual(newDuration);
   });
   it("re-render on new start and end date", () => {
     const dataProvider = new TestTimelineDataProvider();
@@ -685,14 +685,12 @@ describe("<TimelineComponent showDuration={true} />", () => {
       />
     );
     const startDateItem = renderedComponent.getByTestId("test-start-date");
-    expect(startDateItem).not.to.be.null;
-    expect(startDateItem?.innerHTML).to.be.eq(
-      newStartDate.toLocaleDateString()
-    );
+    expect(startDateItem).toBeTruthy();
+    expect(startDateItem?.innerHTML).toEqual(newStartDate.toLocaleDateString());
 
     const endDateItem = renderedComponent.getByTestId("test-end-date");
-    expect(endDateItem).not.to.be.null;
-    expect(endDateItem?.innerHTML).to.be.eq(newEndDate.toLocaleDateString());
+    expect(endDateItem).toBeTruthy();
+    expect(endDateItem?.innerHTML).toEqual(newEndDate.toLocaleDateString());
   });
   it("should append items", () => {
     const duration = 8 * 1000;
@@ -725,10 +723,10 @@ describe("<TimelineComponent showDuration={true} />", () => {
     fireEvent.click(settingMenuSpan);
 
     const addedItem = renderedComponent.getByText("8 seconds");
-    expect(addedItem).not.to.be.null;
+    expect(addedItem).toBeTruthy();
 
     const standardItem = renderedComponent.getByText("timeline.slow");
-    expect(standardItem).not.to.be.null;
+    expect(standardItem).toBeTruthy();
   });
   it("should prefix items", () => {
     const duration = 500;
@@ -761,13 +759,13 @@ describe("<TimelineComponent showDuration={true} />", () => {
     fireEvent.click(settingMenuSpan);
 
     const addedItem = renderedComponent.getByText("2 Seconds");
-    expect(addedItem).not.to.be.null;
+    expect(addedItem).toBeTruthy();
     fireEvent.click(addedItem);
 
     // open menu again
     fireEvent.click(settingMenuSpan);
     const standardItem = renderedComponent.getByText("timeline.slow");
-    expect(standardItem).not.to.be.null;
+    expect(standardItem).toBeTruthy();
   });
   it("should replace items", () => {
     const duration = 40 * 1000;
@@ -800,9 +798,9 @@ describe("<TimelineComponent showDuration={true} />", () => {
     fireEvent.click(settingMenuSpan);
 
     const addedItem = renderedComponent.queryByText("40 Seconds");
-    expect(addedItem).not.to.be.null;
+    expect(addedItem).toBeTruthy();
 
-    expect(renderedComponent.queryByText("timeline.slow")).to.be.null;
+    expect(renderedComponent.queryByText("timeline.slow")).toEqual(null);
   });
   it("should remove repeat option", () => {
     const duration = 40 * 1000;
@@ -828,7 +826,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
     const settingMenuSpan = renderedComponent.getByTestId("timeline-settings");
     fireEvent.click(settingMenuSpan);
 
-    expect(renderedComponent.queryByText("timeline.repeat")).to.be.null;
+    expect(renderedComponent.queryByText("timeline.repeat")).toEqual(null);
 
     const mouseUp = new MouseEvent("mouseup");
     vi.spyOn(mouseUp, "target", "get").mockImplementation(() =>
@@ -868,11 +866,11 @@ describe("<TimelineComponent showDuration={true} />", () => {
     expect(renderedComponent).toBeTruthy();
 
     const startDateLabel = renderedComponent.getByTestId("test-start-date");
-    expect(startDateLabel).not.to.be.null;
+    expect(startDateLabel).toBeTruthy();
     expect(startDateLabel.innerHTML).to.equal("Jun 30, 2016");
 
     const startTimeLabel = renderedComponent.getByTestId("test-start-time");
-    expect(startTimeLabel).not.to.be.null;
+    expect(startTimeLabel).toBeTruthy();
     expect(startTimeLabel.innerHTML.replace("\u202f", " ")).to.equal(
       "07:00:00 PM"
     );
@@ -898,7 +896,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
     );
     expect(renderedComponent).toBeTruthy();
     const dateMarker = renderedComponent.getByTestId("test-date-marker");
-    expect(dateMarker).not.to.be.null;
+    expect(dateMarker).toBeTruthy();
   });
   it("should mark a date on the timeline with a custom symbol", () => {
     const duration = 10 * 1000;
@@ -924,6 +922,6 @@ describe("<TimelineComponent showDuration={true} />", () => {
     );
     expect(renderedComponent).toBeTruthy();
     const dateMarker = renderedComponent.getByTestId("test-custom-date-marker");
-    expect(dateMarker).not.to.be.null;
+    expect(dateMarker).toBeTruthy();
   });
 });

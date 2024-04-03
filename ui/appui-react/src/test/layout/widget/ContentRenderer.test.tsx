@@ -76,6 +76,6 @@ describe("WidgetContentRenderer", () => {
       })
     );
     const content = queryByText("Widget content");
-    expect(content).to.null;
+    expect(content).toEqual(null);
   });
 });

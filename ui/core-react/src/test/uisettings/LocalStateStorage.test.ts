@@ -33,7 +33,7 @@ describe("LocalStateStorage", () => {
     it("Should load setting correctly", async () => {
       const result = await localUiSettings.getSetting("Testing", "TestData");
       expect(result.status).to.equal(UiStateStorageStatus.Success);
-      expect(result.setting).to.not.be.null;
+      expect(result.setting).toBeTruthy();
       expect(result.setting.test123).to.equal("4567");
     });
     it("Should return error result if setting not found", async () => {

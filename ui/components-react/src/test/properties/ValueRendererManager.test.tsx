@@ -36,7 +36,7 @@ describe("PropertyValueRendererManager", () => {
 
       manager.registerRenderer("string", fakeRenderer);
 
-      expect(manager.getRegisteredRenderer("string")).to.be.eq(fakeRenderer);
+      expect(manager.getRegisteredRenderer("string")).toEqual(fakeRenderer);
 
       manager.unregisterRenderer("string");
 
@@ -46,7 +46,7 @@ describe("PropertyValueRendererManager", () => {
     it("throws when trying to add a renderer to a type that already has it", () => {
       manager.registerRenderer("string", fakeRenderer);
 
-      expect(manager.getRegisteredRenderer("string")).to.be.eq(fakeRenderer);
+      expect(manager.getRegisteredRenderer("string")).toEqual(fakeRenderer);
       expect(() => manager.registerRenderer("string", fakeRenderer)).to.throw();
     });
 
@@ -55,11 +55,11 @@ describe("PropertyValueRendererManager", () => {
 
       manager.registerRenderer("string", fakeRenderer);
 
-      expect(manager.getRegisteredRenderer("string")).to.be.eq(fakeRenderer);
+      expect(manager.getRegisteredRenderer("string")).toEqual(fakeRenderer);
 
       manager.registerRenderer("string", fakeRenderer2, true);
 
-      expect(manager.getRegisteredRenderer("string")).to.be.eq(fakeRenderer2);
+      expect(manager.getRegisteredRenderer("string")).toEqual(fakeRenderer2);
     });
   });
 

@@ -35,7 +35,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
 
       const operatorContainer =
         container.querySelector<HTMLDivElement>(".fb-row-condition");
-      expect(operatorContainer).to.be.null;
+      expect(operatorContainer).toEqual(null);
     });
 
     it("renders operator if rule property is defined", () => {
@@ -48,7 +48,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
 
       const operatorContainer =
         container.querySelector<HTMLDivElement>(".fb-row-condition");
-      expect(operatorContainer).to.not.be.null;
+      expect(operatorContainer).toBeTruthy();
     });
 
     it("operator defaults to `contains` if rule property is string", () => {
@@ -68,7 +68,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
       const operatorSpan = container.querySelector<HTMLSpanElement>(
         ".fb-row-condition span"
       );
-      expect(operatorSpan?.innerHTML).to.be.eq(
+      expect(operatorSpan?.innerHTML).toEqual(
         UiComponents.translate("filterBuilder.operators.contains")
       );
     });
@@ -87,7 +87,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
       const operatorSpan = container.querySelector<HTMLSpanElement>(
         ".fb-row-condition span"
       );
-      expect(operatorSpan?.innerHTML).to.be.eq(
+      expect(operatorSpan?.innerHTML).toEqual(
         UiComponents.translate("filterBuilder.operators.contains")
       );
     });
@@ -115,7 +115,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
 
       const valueContainer =
         container.querySelector<HTMLDivElement>(".fb-property-value");
-      expect(valueContainer).to.be.null;
+      expect(valueContainer).toEqual(null);
     });
 
     it("does not render value if rule operator is undefined", () => {
@@ -128,7 +128,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
 
       const valueContainer =
         container.querySelector<HTMLDivElement>(".fb-property-value");
-      expect(valueContainer).to.be.null;
+      expect(valueContainer).toEqual(null);
     });
 
     it("renders value when value and operator defined", () => {
@@ -145,7 +145,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
 
       const valueContainer =
         container.querySelector<HTMLDivElement>(".fb-property-value");
-      expect(valueContainer).to.not.be.null;
+      expect(valueContainer).toBeTruthy();
       expect(valueContainer!.hasChildNodes()).toEqual(true);
     });
 
@@ -181,7 +181,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
         />
       );
 
-      expect(queryByText(errorMessage)).to.not.be.null;
+      expect(queryByText(errorMessage)).toBeTruthy();
     });
   });
 
@@ -199,7 +199,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
       const selector = container.querySelector<HTMLInputElement>(
         ".fb-property-name input"
       );
-      expect(selector).to.not.be.null;
+      expect(selector).toBeTruthy();
       fireEvent.click(selector!);
 
       expect(propertyRendererSpy).toHaveBeenCalledWith(defaultProperty.name);
@@ -216,10 +216,10 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
       const selector = container.querySelector<HTMLInputElement>(
         ".fb-property-name input"
       );
-      expect(selector).to.not.be.null;
+      expect(selector).toBeTruthy();
       fireEvent.click(selector!);
 
-      expect(queryByText(defaultProperty.displayLabel)).to.not.be.null;
+      expect(queryByText(defaultProperty.displayLabel)).toBeTruthy();
     });
 
     it("does not open property selector menu when property selection is disabled", () => {
@@ -234,10 +234,10 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
       const selector = container.querySelector<HTMLInputElement>(
         ".fb-property-name input"
       );
-      expect(selector).to.not.be.null;
+      expect(selector).toBeTruthy();
       fireEvent.click(selector!);
 
-      expect(queryByText(defaultProperty.displayLabel)).to.be.null;
+      expect(queryByText(defaultProperty.displayLabel)).toEqual(null);
     });
   });
 
@@ -252,7 +252,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
     const selector = container.querySelector<HTMLInputElement>(
       ".fb-property-name input"
     );
-    expect(selector).to.not.be.null;
+    expect(selector).toBeTruthy();
     fireEvent.click(selector!);
 
     fireEvent.click(getByText(defaultProperty.displayLabel));
@@ -293,7 +293,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
     const selector = container.querySelector<HTMLInputElement>(
       ".fb-property-name input"
     );
-    expect(selector).to.not.be.null;
+    expect(selector).toBeTruthy();
     fireEvent.click(selector!);
 
     fireEvent.click(getByText(defaultProperty.displayLabel));
@@ -309,7 +309,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
     const removeItemSpy = vi.spyOn(actions, "removeItem");
 
     const button = container.querySelector(".fb-toolbar")?.childNodes[1];
-    expect(button).to.not.be.null;
+    expect(button).toBeTruthy();
     fireEvent.click(button!);
     expect(removeItemSpy).toHaveBeenCalledWith(defaultProps.path);
   });

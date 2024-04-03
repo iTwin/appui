@@ -180,7 +180,7 @@ describe("UiDataProvidedDialog", () => {
       );
 
       const inputs = component.container.querySelectorAll("input");
-      expect(inputs.length).to.be.eq(2);
+      expect(inputs.length).toEqual(2);
       inputs[0].focus();
       fireEvent.change(inputs[0], { target: { value: "test-user" } });
       inputs[0].blur();
@@ -190,8 +190,9 @@ describe("UiDataProvidedDialog", () => {
       inputs[1].blur();
 
       await waitFor(() => {
-        expect(okButton.parentElement?.getAttribute("aria-disabled")).to.be
-          .null;
+        expect(okButton.parentElement?.getAttribute("aria-disabled")).toEqual(
+          null
+        );
       });
       fireEvent.click(okButton);
       expect(spyOK).toHaveBeenCalledOnce();
@@ -233,7 +234,7 @@ describe("UiDataProvidedDialog", () => {
       );
 
       const inputs = component.container.querySelectorAll("input");
-      expect(inputs.length).to.be.eq(2);
+      expect(inputs.length).toEqual(2);
       inputs[0].focus();
       fireEvent.change(inputs[0], { target: { value: "test-user" } });
       inputs[0].blur();
@@ -243,8 +244,9 @@ describe("UiDataProvidedDialog", () => {
       inputs[1].blur();
 
       await waitFor(() => {
-        expect(okButton.parentElement?.getAttribute("aria-disabled")).to.be
-          .null;
+        expect(okButton.parentElement?.getAttribute("aria-disabled")).toEqual(
+          null
+        );
       });
       fireEvent.click(okButton);
       expect(spyOK).toHaveBeenCalledOnce();

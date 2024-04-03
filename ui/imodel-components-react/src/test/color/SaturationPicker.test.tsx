@@ -83,7 +83,7 @@ describe("<SaturationPicker />", () => {
       </div>
     );
     const sliderDiv = renderedComponent.getByTestId("saturation-region");
-    expect(sliderDiv).not.to.be.null;
+    expect(sliderDiv).toBeTruthy();
     expect(sliderDiv.tagName).toEqual("DIV");
 
     keys.forEach((keyName) => {

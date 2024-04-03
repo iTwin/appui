@@ -343,7 +343,7 @@ describe("PopupManager", () => {
       );
       await waitFor(() => {
         const menuButtonNode = wrapper.container.querySelector("button");
-        expect(menuButtonNode).to.not.be.null;
+        expect(menuButtonNode).toBeTruthy();
       });
     });
 
@@ -365,7 +365,7 @@ describe("PopupManager", () => {
         const calculatorDiv = wrapper.container.querySelector(
           "div.uifw-calculator"
         );
-        expect(calculatorDiv).to.not.be.null;
+        expect(calculatorDiv).toBeTruthy();
       });
     });
 
@@ -391,7 +391,7 @@ describe("PopupManager", () => {
 
       await waitFor(() => {
         const firstInput = wrapper.container.querySelector("input");
-        expect(firstInput).not.to.be.null;
+        expect(firstInput).toBeTruthy();
 
         fireEvent.keyDown(firstInput as HTMLElement, { key: "Enter" });
       });
@@ -408,7 +408,7 @@ describe("PopupManager", () => {
       );
       await waitFor(() => {
         const inputNode = wrapper.container.querySelector("input");
-        expect(inputNode).not.to.be.null;
+        expect(inputNode).toBeTruthy();
 
         fireEvent.keyDown(inputNode as HTMLElement, { key: "Escape" });
       });
@@ -531,7 +531,7 @@ describe("PopupManager", () => {
       ).toEqual(1);
 
       const buttonNodes = wrapper.container.querySelectorAll("button");
-      expect(buttonNodes).not.to.be.null;
+      expect(buttonNodes).toBeTruthy();
 
       fireEvent.keyDown(buttonNodes[0] as HTMLElement, { key: "Escape" });
       await TestUtils.flushAsyncOperations();
@@ -673,7 +673,7 @@ describe("PopupManager", () => {
       });
 
       let inputNode = wrapper.container.querySelector("input");
-      expect(inputNode).not.to.be.null;
+      expect(inputNode).toBeTruthy();
 
       fireEvent.keyDown(inputNode as HTMLElement, { key: "Enter" });
       await TestUtils.flushAsyncOperations();
@@ -692,7 +692,7 @@ describe("PopupManager", () => {
       ).toEqual(1);
 
       inputNode = wrapper.container.querySelector("input");
-      expect(inputNode).not.to.be.null;
+      expect(inputNode).toBeTruthy();
       fireEvent.click(inputNode as HTMLElement);
       fireEvent.keyDown(inputNode as HTMLElement, { key: "Escape" });
       await TestUtils.flushAsyncOperations();
@@ -722,7 +722,7 @@ describe("PopupManager", () => {
         ).toEqual(1);
       });
       const inputNode = wrapper.container.querySelector("input");
-      expect(inputNode).not.to.be.null;
+      expect(inputNode).toBeTruthy();
       fireEvent.keyDown(inputNode as HTMLElement, { key: "Escape" });
       await TestUtils.flushAsyncOperations();
       expect(spyCancel).toHaveBeenCalledOnce();
@@ -734,7 +734,7 @@ describe("PopupManager", () => {
     const component = <div>Test Component xyz1</div>;
     const spyCancel = vi.fn();
 
-    expect(queryByText("Test Component xyz1")).to.be.null;
+    expect(queryByText("Test Component xyz1")).toEqual(null);
 
     PopupManager.showComponent(component, {
       location: new Point(150, 250),

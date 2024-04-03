@@ -41,7 +41,7 @@ describe("QuantityInput", () => {
     const component = render(
       <QuantityFormatPanel quantityType={QuantityType.Length} />
     );
-    expect(component).not.to.be.null;
+    expect(component).toBeTruthy();
   });
 
   it("should render basic panel with sample", () => {
@@ -52,7 +52,7 @@ describe("QuantityInput", () => {
         initialMagnitude={123.45}
       />
     );
-    expect(component).not.to.be.null;
+    expect(component).toBeTruthy();
   });
 
   it("should render basic panel with more/less option", () => {
@@ -64,7 +64,7 @@ describe("QuantityInput", () => {
         enableMinimumProperties
       />
     );
-    expect(component).not.to.be.null;
+    expect(component).toBeTruthy();
   });
 
   it("should render new sample when format is changed", async () => {
@@ -127,7 +127,7 @@ describe("QuantityInput", () => {
         onFormatChange={spy}
       />
     );
-    expect(component).not.to.be.null;
+    expect(component).toBeTruthy();
     expect(spy).not.toBeCalled();
     const spanElement = component.getByTestId("format-sample-formatted");
 

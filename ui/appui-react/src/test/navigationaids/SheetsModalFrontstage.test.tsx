@@ -38,12 +38,12 @@ describe("SheetsModalFrontstage", () => {
 
     it("contains readable content", () => {
       const content = modal.content;
-      expect(content).to.not.be.null;
+      expect(content).toBeTruthy();
     });
 
     it("contains app bar content", () => {
       const content = modal.appBarRight;
-      expect(content).to.not.be.null;
+      expect(content).toBeTruthy();
     });
 
     it("SheetCard onClick selects the card", async () => {
@@ -88,7 +88,7 @@ describe("SheetsModalFrontstage", () => {
           onChange
         );
       const input = wrapper.container.querySelector("input");
-      expect(input).not.to.be.null;
+      expect(input).toBeTruthy();
       fireEvent.change(input!, { target: { value: "search value" } });
       await vi.advanceTimersByTimeAsync(500);
       expect(onChange).toHaveBeenCalled();
@@ -114,7 +114,7 @@ describe("SheetsModalFrontstage", () => {
         />
       );
 
-      expect(screen.queryByText("Test")).to.be.null;
+      expect(screen.queryByText("Test")).toEqual(null);
 
       rerender(
         <CardContainer
@@ -150,7 +150,7 @@ describe("SheetsModalFrontstage", () => {
         />
       );
 
-      expect(screen.queryByText("Test")).to.be.null;
+      expect(screen.queryByText("Test")).toEqual(null);
 
       rerender(
         <CardContainer

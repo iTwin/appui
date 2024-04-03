@@ -16,41 +16,41 @@ describe("IconComponent", () => {
 
   it("Should return null from undefined iconSpec", () => {
     const { container } = render(<Icon />);
-    expect(container.firstChild).to.be.null;
+    expect(container.firstChild).toEqual(null);
   });
 
   it("should render with ReactNode", () => {
     const { container } = render(<Icon iconSpec={<span>Test</span>} />);
     const span = container.querySelector("span");
-    expect(span).not.to.be.null;
+    expect(span).toBeTruthy();
   });
 
   it("should handle correctly with icon conditional value empty string", () => {
     const spec = new ConditionalStringValue(() => "", []);
     const { container } = render(<Icon iconSpec={spec} />);
     const iconContainer = container.querySelector(".core-svg-icon");
-    expect(iconContainer).not.to.be.null;
+    expect(iconContainer).toBeTruthy();
     expect(iconContainer?.childElementCount).toEqual(0);
   });
 
   it("should render correctly with icon class string", () => {
     const { container } = render(<Icon iconSpec="icon-developer" />);
     const iconClassName = container.querySelector(".icon-developer");
-    expect(iconClassName).not.to.be.null;
+    expect(iconClassName).toBeTruthy();
   });
 
   it("should render correctly with no web svg iconSpec - legacy", () => {
     const { container } = render(<Icon iconSpec="webSvg:test.svg" />);
     const webComponent = container.querySelector("svg-loader");
-    expect(webComponent).not.to.be.null;
-    expect(webComponent!.getAttribute("src")).to.be.eq("test.svg");
+    expect(webComponent).toBeTruthy();
+    expect(webComponent!.getAttribute("src")).toEqual("test.svg");
   });
 
   it("should render correctly with no web svg iconSpec", () => {
     const { container } = render(<Icon iconSpec="test.svg" />);
     const webComponent = container.querySelector("svg-loader");
-    expect(webComponent).not.to.be.null;
-    expect(webComponent!.getAttribute("src")).to.be.eq("test.svg");
+    expect(webComponent).toBeTruthy();
+    expect(webComponent!.getAttribute("src")).toEqual("test.svg");
   });
 
   it("should render base64 data uri web svg iconSpec", async () => {
@@ -136,7 +136,7 @@ describe("IconComponent", () => {
     const { container } = render(<Icon iconSpec={sut} />);
     const iconItem = container.firstElementChild;
     const iconName = iconItem?.firstChild?.nodeValue;
-    expect(iconName).to.not.be.null;
+    expect(iconName).toBeTruthy();
     expect(iconName).to.contain("icon1.svg");
   });
 });

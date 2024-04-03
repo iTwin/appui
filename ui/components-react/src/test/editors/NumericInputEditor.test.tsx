@@ -186,7 +186,7 @@ describe("<NumericInputEditor />", () => {
       />
     );
     const inputNode = wrapper.container.querySelector("input");
-    expect(inputNode).not.to.be.null;
+    expect(inputNode).toBeTruthy();
 
     fireEvent.keyDown(inputNode as HTMLElement, { key: Key.Enter });
     await TestUtils.flushAsyncOperations();
@@ -212,7 +212,7 @@ describe("<NumericInputEditor />", () => {
       />
     );
     const inputNode = wrapper.container.querySelector("input");
-    expect(inputNode).not.to.be.null;
+    expect(inputNode).toBeTruthy();
 
     const input = wrapper.container.querySelector("input") as HTMLInputElement;
     const incrementor = wrapper.container.querySelectorAll(
@@ -249,7 +249,7 @@ describe("<NumericInputEditor />", () => {
     expect(renderedComponent).toBeTruthy();
 
     const inputNode = renderedComponent.container.querySelector("input");
-    expect(inputNode).not.to.be.null;
+    expect(inputNode).toBeTruthy();
 
     fireEvent.keyDown(inputNode as HTMLElement, { key: Key.Enter });
     await TestUtils.flushAsyncOperations();

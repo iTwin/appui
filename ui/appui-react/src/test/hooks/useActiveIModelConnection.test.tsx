@@ -54,7 +54,7 @@ describe("useActiveIModelConnection", () => {
       );
 
       const initialLabel = result.getByTestId("mylabel");
-      expect(initialLabel.innerHTML).to.be.eq("NoConnection");
+      expect(initialLabel.innerHTML).toEqual("NoConnection");
 
       const initEventStub = vi.spyOn(
         SyncUiEventDispatcher,
@@ -83,7 +83,7 @@ describe("useActiveIModelConnection", () => {
 
       // --- the following does not work yet
       // const updatedLabel = result.getByTestId("mylabel");
-      // expect(updatedLabel.innerHTML).to.be.eq("Fake");
+      // expect(updatedLabel.innerHTML).toEqual("Fake");
     });
   });
 });

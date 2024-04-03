@@ -194,7 +194,7 @@ describe("<TextareaEditor />", () => {
     const popupButton = await waitFor(() =>
       renderedComponent.getByTestId("components-popup-button")
     );
-    expect(popupButton).not.to.be.null;
+    expect(popupButton).toBeTruthy();
 
     fireEvent.keyDown(popupButton, { key: Key.Escape });
     await TestUtils.flushAsyncOperations();

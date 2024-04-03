@@ -51,11 +51,11 @@ describe("<NumberInput - React Testing Library />", () => {
     const disabledWrapper = wrapper.container.querySelector(
       "div.core-number-input-container.core-number-input-disabled"
     );
-    expect(disabledWrapper).not.to.be.null;
+    expect(disabledWrapper).toBeTruthy();
     const incrementor = wrapper.container.querySelector(
       "div.core-number-input-button.core-number-input-button-up"
     );
-    expect(incrementor).not.to.be.null;
+    expect(incrementor).toBeTruthy();
     fireEvent.click(incrementor!);
     expect(value).toEqual(value);
   });
@@ -85,11 +85,11 @@ describe("<NumberInput - React Testing Library />", () => {
     const incrementor = wrapper.container.querySelector(
       "div.core-number-input-button.core-number-input-button-up"
     );
-    expect(incrementor).not.to.be.null;
+    expect(incrementor).toBeTruthy();
     const decrementor = wrapper.container.querySelector(
       "div.core-number-input-button.core-number-input-button-down"
     );
-    expect(decrementor).not.to.be.null;
+    expect(decrementor).toBeTruthy();
 
     fireEvent.click(incrementor!);
     expect(input.value).toEqual("6");
@@ -114,7 +114,7 @@ describe("<NumberInput - React Testing Library />", () => {
     const incrementor = wrapper.container.querySelector(
       "div.core-number-input-button.core-number-input-button-up"
     );
-    expect(incrementor).not.to.be.null;
+    expect(incrementor).toBeTruthy();
     fireEvent.click(incrementor!);
     expect(value).toEqual(1);
   });
@@ -135,7 +135,7 @@ describe("<NumberInput - React Testing Library />", () => {
     const incrementor = wrapper.container.querySelector(
       "div.core-number-input-button.core-number-input-button-up"
     );
-    expect(incrementor).not.to.be.null;
+    expect(incrementor).toBeTruthy();
     fireEvent.click(incrementor!);
     expect(spy).toHaveBeenCalledOnce();
     expect(value).toEqual(5);
@@ -162,7 +162,7 @@ describe("<NumberInput - React Testing Library />", () => {
     const incrementor = wrapper.container.querySelector(
       "div.core-number-input-button.core-number-input-button-up"
     );
-    expect(incrementor).not.to.be.null;
+    expect(incrementor).toBeTruthy();
     fireEvent.click(incrementor!);
     expect(spy).toHaveBeenCalledOnce();
     expect(value).toEqual(1.48);
@@ -182,7 +182,7 @@ describe("<NumberInput - React Testing Library />", () => {
     const incrementor = wrapper.container.querySelector(
       "div.core-number-input-button.core-number-input-button-up"
     );
-    expect(incrementor).not.to.be.null;
+    expect(incrementor).toBeTruthy();
     fireEvent.click(incrementor!); // 1
     fireEvent.click(incrementor!); // 2
     fireEvent.click(incrementor!); // 3
@@ -208,7 +208,7 @@ describe("<NumberInput - React Testing Library />", () => {
     const incrementor = wrapper.container.querySelector(
       "div.core-number-input-button.core-number-input-button-up"
     );
-    expect(incrementor).not.to.be.null;
+    expect(incrementor).toBeTruthy();
     fireEvent.click(incrementor!);
     expect(spy).toHaveBeenCalledOnce();
     expect(value).toEqual(Number.MAX_SAFE_INTEGER);
@@ -228,7 +228,7 @@ describe("<NumberInput - React Testing Library />", () => {
     const decrementor = wrapper.container.querySelector(
       "div.core-number-input-button.core-number-input-button-down"
     );
-    expect(decrementor).not.to.be.null;
+    expect(decrementor).toBeTruthy();
     fireEvent.click(decrementor!); // -1
     fireEvent.click(decrementor!); // -2
     fireEvent.click(decrementor!); // -3
@@ -254,7 +254,7 @@ describe("<NumberInput - React Testing Library />", () => {
     const decrementor = wrapper.container.querySelector(
       "div.core-number-input-button.core-number-input-button-down"
     );
-    expect(decrementor).not.to.be.null;
+    expect(decrementor).toBeTruthy();
     fireEvent.click(decrementor!);
     expect(spy).toHaveBeenCalledOnce();
     expect(value).toEqual(Number.MIN_SAFE_INTEGER);
@@ -282,7 +282,7 @@ describe("<NumberInput - React Testing Library />", () => {
     const incrementor = wrapper.container.querySelector(
       "div.core-number-input-button.core-number-input-button-up"
     );
-    expect(incrementor).not.to.be.null;
+    expect(incrementor).toBeTruthy();
     fireEvent.click(incrementor!);
     expect(spy).toHaveBeenCalledOnce();
     expect(value).toEqual(1.5);
@@ -303,13 +303,13 @@ describe("<NumberInput - React Testing Library />", () => {
     const incrementor = wrapper.container.querySelector(
       "div.core-number-input-button.core-number-input-button-up"
     );
-    expect(incrementor).not.to.be.null;
+    expect(incrementor).toBeTruthy();
     fireEvent.click(incrementor!);
     expect(value).toEqual(1);
     const decrementor = wrapper.container.querySelector(
       "div.core-number-input-button.core-number-input-button-down"
     );
-    expect(decrementor).not.to.be.null;
+    expect(decrementor).toBeTruthy();
     fireEvent.click(decrementor!);
     expect(value).toEqual(0);
   });
@@ -334,13 +334,13 @@ describe("<NumberInput - React Testing Library />", () => {
     const incrementor = wrapper.container.querySelector(
       "div.core-number-input-button.core-number-input-button-up"
     );
-    expect(incrementor).not.to.be.null;
+    expect(incrementor).toBeTruthy();
     fireEvent.click(incrementor!);
     expect(value).toEqual(0.5);
     const decrementor = wrapper.container.querySelector(
       "div.core-number-input-button.core-number-input-button-down"
     );
-    expect(decrementor).not.to.be.null;
+    expect(decrementor).toBeTruthy();
     fireEvent.click(decrementor!);
     expect(value).toEqual(0.4);
   });
@@ -365,13 +365,13 @@ describe("<NumberInput - React Testing Library />", () => {
     const incrementor = wrapper.container.querySelector(
       "div.core-number-input-button.core-number-input-button-up"
     );
-    expect(incrementor).not.to.be.null;
+    expect(incrementor).toBeTruthy();
     fireEvent.click(incrementor!);
     expect(value).toEqual(1);
     const decrementor = wrapper.container.querySelector(
       "div.core-number-input-button.core-number-input-button-down"
     );
-    expect(decrementor).not.to.be.null;
+    expect(decrementor).toBeTruthy();
     fireEvent.click(decrementor!);
     expect(value).toEqual(0);
   });
@@ -397,7 +397,7 @@ describe("<NumberInput - React Testing Library />", () => {
       />
     );
     const input = wrapper.container.querySelector("input");
-    expect(input).not.to.be.null;
+    expect(input).toBeTruthy();
     fireEvent.keyDown(input!, { key: Key.ArrowUp });
     expect(spy).toHaveBeenCalledOnce();
     expect(value).toEqual(1.48);
@@ -428,7 +428,7 @@ describe("<NumberInput - React Testing Library />", () => {
       />
     );
     const input = wrapper.container.querySelector("input");
-    expect(input).not.to.be.null;
+    expect(input).toBeTruthy();
     fireEvent.change(input!, { target: { value: "22.3" } });
     fireEvent.keyDown(input!, { key: Key.Enter });
     expect(spy).toHaveBeenCalledOnce();
@@ -456,7 +456,7 @@ describe("<NumberInput - React Testing Library />", () => {
       />
     );
     const input = wrapper.container.querySelector("input");
-    expect(input).not.to.be.null;
+    expect(input).toBeTruthy();
     fireEvent.focusIn(input!);
     fireEvent.change(input!, { target: { value: "22.3" } });
     fireEvent.blur(input!);
@@ -478,7 +478,7 @@ describe("<NumberInput - React Testing Library />", () => {
       />
     );
     const input = wrapper.container.querySelector("input");
-    expect(input).not.to.be.null;
+    expect(input).toBeTruthy();
     fireEvent.focusIn(input!);
     fireEvent.change(input!, { target: { value: "22.3" } });
     expect(spy).toBeCalledWith(22.3, "22.3");
@@ -503,7 +503,7 @@ describe("<NumberInput - React Testing Library />", () => {
       />
     );
     const input = wrapper.container.querySelector("input");
-    expect(input).not.to.be.null;
+    expect(input).toBeTruthy();
     const originalValue = (input as HTMLInputElement).value;
     fireEvent.change(input!, { target: { value: "22.3" } });
     expect((input as HTMLInputElement).value).toEqual("22.3");
@@ -531,7 +531,7 @@ describe("<NumberInput - React Testing Library />", () => {
       />
     );
     const input = wrapper.container.querySelector("input");
-    expect(input).not.to.be.null;
+    expect(input).toBeTruthy();
     fireEvent.change(input!, { target: { value: "abc" } });
     expect((input as HTMLInputElement).value).toEqual("abc");
     fireEvent.keyDown(input!, { key: Key.Enter });
@@ -544,11 +544,11 @@ describe("<NumberInput - React Testing Library />", () => {
     const mainContainer = wrapper.container.querySelector(
       "div.core-number-input-container.core-number-buttons-for-touch"
     );
-    expect(mainContainer).not.to.be.null;
+    expect(mainContainer).toBeTruthy();
     const buttonContainer = wrapper.container.querySelector(
       "div.core-number-input-buttons-container.core-number-buttons-for-touch"
     );
-    expect(buttonContainer).not.to.be.null;
+    expect(buttonContainer).toBeTruthy();
   });
 
   it("processes parse and format functions correctly", () => {
@@ -575,14 +575,14 @@ describe("<NumberInput - React Testing Library />", () => {
     const incrementor = wrapper.container.querySelector(
       "div.core-number-input-button.core-number-input-button-up"
     );
-    expect(incrementor).not.to.be.null;
+    expect(incrementor).toBeTruthy();
     fireEvent.click(incrementor!);
     expect(spy).toHaveBeenCalledOnce();
     expect(value).toEqual(1.5);
     expect(formattedValue).toEqual("$1.50");
 
     const input = wrapper.container.querySelector("input");
-    expect(input).not.to.be.null;
+    expect(input).toBeTruthy();
     fireEvent.change(input!, { target: { value: "15.3" } });
     expect((input as HTMLInputElement).value).toEqual("15.3");
     fireEvent.keyDown(input!, { key: Key.Enter });

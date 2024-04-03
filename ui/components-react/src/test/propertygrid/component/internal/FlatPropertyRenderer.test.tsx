@@ -52,7 +52,7 @@ describe("FlatPropertyRenderer", () => {
     );
 
     expect(screen.getByTitle(recordValue)).to.exist;
-    expect(screen.queryByTitle(originalValue)).to.be.null;
+    expect(screen.queryByTitle(originalValue)).toEqual(null);
   });
 
   it("uses provided propertyValueRendererManager", async () => {
@@ -72,7 +72,7 @@ describe("FlatPropertyRenderer", () => {
       />
     );
 
-    expect(getByText("Test")).to.be.not.null;
+    expect(getByText("Test")).toBeTruthy();
   });
 
   it("highlights matches in primitive values", async () => {
@@ -130,7 +130,7 @@ describe("FlatPropertyRenderer", () => {
       />
     );
     const highlightedNode = container.querySelector("mark");
-    expect(highlightedNode).to.be.not.null;
+    expect(highlightedNode).toBeTruthy();
     expect(highlightedNode!.textContent).toEqual("rr");
   });
 
@@ -208,7 +208,7 @@ describe("FlatPropertyRenderer", () => {
       />
     );
 
-    expect(screen.getByText("Custom array renderer")).to.not.be.null;
+    expect(screen.getByText("Custom array renderer")).toBeTruthy();
   });
 
   it("renders array using custom typename renderer", () => {
@@ -241,7 +241,7 @@ describe("FlatPropertyRenderer", () => {
       />
     );
 
-    expect(screen.getByText("Custom array typename renderer")).to.not.be.null;
+    expect(screen.getByText("Custom array typename renderer")).toBeTruthy();
   });
 
   it("renders struct as a non primitive value", () => {
@@ -312,7 +312,7 @@ describe("FlatPropertyRenderer", () => {
       />
     );
 
-    expect(screen.getByText("Custom struct renderer")).to.not.be.null;
+    expect(screen.getByText("Custom struct renderer")).toBeTruthy();
   });
 
   it("renders struct using custom typename renderer", () => {
@@ -343,7 +343,7 @@ describe("FlatPropertyRenderer", () => {
       />
     );
 
-    expect(screen.getByText("Custom struct typename renderer")).to.not.be.null;
+    expect(screen.getByText("Custom struct typename renderer")).toBeTruthy();
   });
 
   it("renders an editor correctly", () => {
@@ -377,7 +377,7 @@ describe("FlatPropertyRenderer", () => {
     );
 
     const inputNode = propertyRenderer.container.querySelector("input");
-    expect(inputNode).not.to.be.null;
+    expect(inputNode).toBeTruthy();
 
     fireEvent.keyDown(inputNode as HTMLElement, { key: "Enter" });
     await TestUtils.flushAsyncOperations();
@@ -397,7 +397,7 @@ describe("FlatPropertyRenderer", () => {
     );
 
     const inputNode = propertyRenderer.container.querySelector("input");
-    expect(inputNode).not.to.be.null;
+    expect(inputNode).toBeTruthy();
 
     fireEvent.keyDown(inputNode as HTMLElement, { key: "Enter" });
     await TestUtils.flushAsyncOperations();
@@ -417,7 +417,7 @@ describe("FlatPropertyRenderer", () => {
     );
 
     const inputNode = propertyRenderer.container.querySelector("input");
-    expect(inputNode).not.to.be.null;
+    expect(inputNode).toBeTruthy();
 
     fireEvent.keyDown(inputNode as HTMLElement, { key: "Escape" });
     expect(spy).toHaveBeenCalledOnce();
