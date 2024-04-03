@@ -180,7 +180,7 @@ describe("MenuItem", () => {
         childStructure([
           ".core-context-menu-icon-right > .icon.icon-checkmark",
           ".core-context-menu-item > .core-context-menu-icon > .icon.icon-placeholder",
-          ".core-context-menu-badge .core-new-badge",
+          ".core-context-menu-badge .core-badge-newBadge",
         ])
       );
   });
