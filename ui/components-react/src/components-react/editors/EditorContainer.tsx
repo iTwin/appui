@@ -95,13 +95,12 @@ export function EditorContainer(props: EditorContainerProps) {
   const {
     ignoreEditorBlur,
     title,
-    className,
-    style,
     shouldCommitOnChange,
     propertyRecord,
     setFocus,
     onCommit,
     onCancel,
+    ...rest
   } = props;
 
   let propertyEditor: PropertyEditorBase;
@@ -114,13 +113,12 @@ export function EditorContainer(props: EditorContainerProps) {
     const editorProps: CloneProps = {
       ref: setEditorRef,
       onCommit: handleEditorCommit,
-      onCancel: handleCancel,
+      onCancel,
       onBlur: handleEditorBlur,
       setFocus: setFocus !== undefined ? setFocus : true,
-      className,
       propertyRecord,
-      style,
       shouldCommitOnChange,
+      ...rest,
     };
 
     const propDescription = propertyRecord.property;
@@ -150,7 +148,6 @@ export function EditorContainer(props: EditorContainerProps) {
   /** Event Handlers
    * @internal
    */
-  const handleCancel = () => onCancel();
   const handleClick = (e: React.MouseEvent) => e.stopPropagation();
   const handleContainerBlur = (e: React.FocusEvent) => e.stopPropagation();
   const handleEditorCommit = (args: PropertyUpdatedArgs): void =>
@@ -169,21 +166,21 @@ export function EditorContainer(props: EditorContainerProps) {
 
   const onPressEscape = (): void => {
     // istanbul ignore else
-    if (propertyEditor && propertyEditor.containerHandlesEscape) handleCancel();
+    if (propertyEditor?.containerHandlesEscape) onCancel();
   };
 
   const onPressEnter = (e: React.KeyboardEvent): void => {
     // istanbul ignore else
     if (propertyEditor && propertyEditor.containerHandlesEnter) {
       // istanbul ignore else
-      if (editorRef && editorRef.current?.hasFocus) e.stopPropagation();
+      if (editorRef?.current?.hasFocus) e.stopPropagation();
       void handleContainerCommit();
     }
   };
 
   const onPressTab = (e: React.KeyboardEvent): void => {
     // istanbul ignore else
-    if (propertyEditor && propertyEditor.containerHandlesTab) {
+    if (propertyEditor?.containerHandlesTab) {
       e.stopPropagation();
       void handleContainerCommit();
     }
@@ -201,18 +198,14 @@ export function EditorContainer(props: EditorContainerProps) {
         onPressTab(e);
         break;
       default:
-        if (propertyEditor && propertyEditor.containerStopsKeydownPropagation)
+        if (propertyEditor?.containerStopsKeydownPropagation)
           e.stopPropagation();
     }
   };
 
   const handleEditorBlur = () => {
     // istanbul ignore else
-    if (
-      ignoreEditorBlur &&
-      propertyEditor &&
-      propertyEditor.containerHandlesBlur
-    )
+    if (ignoreEditorBlur && propertyEditor?.containerHandlesBlur)
       void onPressEscape();
   };
 
@@ -242,7 +235,7 @@ export function EditorContainer(props: EditorContainerProps) {
   ) => {
     // istanbul ignore else
     if (errorMessage && editorRef) {
-      const htmlElement = editorRef && editorRef.current?.htmlElement;
+      const htmlElement = editorRef.current?.htmlElement;
       // istanbul ignore else
       if (htmlElement)
         UiAdmin.messagePresenter.displayInputFieldMessage(
