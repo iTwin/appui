@@ -144,7 +144,7 @@ describe("BackstageComposerItem", () => {
       );
 
       expect(screen.getByRole("menuitem")).to.satisfy(
-        childStructure(".nz-badge .core-badge-betaBadge")
+        childStructure(".nz-badge .core-badge-technicalPreviewBadge")
       );
     });
 
@@ -156,7 +156,7 @@ describe("BackstageComposerItem", () => {
       );
 
       expect(screen.getByRole("menuitem")).to.satisfy(
-        childStructure(".nz-badge .core-new-badge")
+        childStructure(".nz-badge .core-badge-newBadge")
       );
     });
   });

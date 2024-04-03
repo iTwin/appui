@@ -111,15 +111,12 @@ export interface AutoSuggestProps extends React_2.InputHTMLAttributes<HTMLInputE
 }
 
 // @internal
-export class Badge extends React_2.PureComponent<BadgeProps> {
-    // (undocumented)
-    render(): React_2.ReactElement;
-}
+export function Badge({ type }: BadgeProps): React_2.JSX.Element | null;
 
 // @internal
-export interface BadgeProps extends CommonProps {
+export interface BadgeProps {
     // (undocumented)
-    svg: any;
+    type?: BadgeType;
 }
 
 // @public
@@ -127,14 +124,6 @@ export type BadgeType = BadgeType_2;
 
 // @public
 export const BadgeType: typeof BadgeType_2;
-
-// @internal
-export class BadgeUtilities {
-    static getComponentForBadgeType(badgeType?: BadgeType): React_2.ReactNode;
-}
-
-// @internal
-export function BetaBadge(props: CommonProps): React_2.JSX.Element;
 
 // @public
 export function BlockText(props: TextProps): React_2.JSX.Element;
@@ -1087,9 +1076,6 @@ export type MessageType = string | HTMLElement | ReactMessage;
 
 // @public @deprecated
 export function MutedText(props: TextProps): React_2.JSX.Element;
-
-// @internal
-export function NewBadge(props: CommonProps): React_2.JSX.Element;
 
 // @public
 export interface NoChildrenProps {

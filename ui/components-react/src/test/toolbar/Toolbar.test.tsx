@@ -191,12 +191,17 @@ describe("<Toolbar (No Overflow) />", () => {
       expect(
         renderedComponent.container.querySelectorAll(
           ".components-toolbar-button-add-gap-before"
-        ).length
-      ).toEqual(0);
+        )
+      ).toHaveLength(0);
       // badges should not be displayed when toolbar is transparent
       expect(
-        renderedComponent.container.querySelectorAll(".components-badge").length
-      ).toEqual(0);
+        renderedComponent.container.querySelectorAll(
+          ".core-badge-technicalPreviewBadge"
+        )
+      ).toHaveLength(0);
+      expect(
+        renderedComponent.container.querySelectorAll(".core-badge-newBadge")
+      ).toHaveLength(0);
     });
 
     it("will render with separators when group priority changes ", () => {
@@ -249,21 +254,20 @@ describe("<Toolbar (No Overflow) />", () => {
         />
       );
       expect(renderedComponent).toBeTruthy();
-
       expect(
         renderedComponent.container.querySelectorAll(
           ".components-toolbar-show-decorators"
-        ).length
-      ).toEqual(1);
+        )
+      ).toHaveLength(1);
       // badges should be displayed when toolbar is NOT transparent
       expect(
-        renderedComponent.container.querySelectorAll(".components-badge").length
-      ).toEqual(1);
+        renderedComponent.container.querySelectorAll(".core-badge-newBadge")
+      ).toHaveLength(1);
       expect(
         renderedComponent.container.querySelectorAll(
           ".components-toolbar-item-container.components-horizontal.components-toolbar-button-add-gap-before"
-        ).length
-      ).toEqual(2);
+        )
+      ).toHaveLength(2);
     });
 
     it("will render without separators when group priority changes but in transparent mode", () => {
@@ -320,8 +324,8 @@ describe("<Toolbar (No Overflow) />", () => {
       expect(
         renderedComponent.container.querySelectorAll(
           ".components-toolbar-show-decorators"
-        ).length
-      ).toEqual(0);
+        )
+      ).toHaveLength(0);
     });
 
     it("will render transparent background", () => {

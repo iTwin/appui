@@ -178,7 +178,7 @@ describe("MenuItem", () => {
         childStructure([
           ".core-context-menu-icon-right > .icon.icon-checkmark",
           ".core-context-menu-item > .core-context-menu-icon > .icon.icon-placeholder",
-          ".core-context-menu-badge .core-new-badge",
+          ".core-context-menu-badge .core-badge-newBadge",
         ])
       );
   });
@@ -243,7 +243,9 @@ describe("MenuItem", () => {
     await TestUtils.flushAsyncOperations();
     expect(handleSelect).toHaveBeenCalledOnce();
     expect(handleSelect2).toHaveBeenCalledOnce();
-    expect(component.container.querySelector(".core-badge")).toBeTruthy();
+    expect(
+      component.container.querySelector(".core-badge-newBadge")
+    ).toBeTruthy();
   });
 
   it("createMenuItemNodes should create a valid submenu", () => {

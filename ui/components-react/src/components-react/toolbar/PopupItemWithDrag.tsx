@@ -16,7 +16,7 @@ import {
   RelativePosition,
   ToolbarItemUtilities,
 } from "@itwin/appui-abstract";
-import { BadgeUtilities, IconHelper, useRefState } from "@itwin/core-react";
+import { Badge, IconHelper, useRefState } from "@itwin/core-react";
 import type { ToolbarButtonItemProps } from "./Item";
 import { PopupItemPopup, ToolbarPopupContext } from "./PopupItem";
 import { PopupItemsPanel } from "./PopupItemsPanel";
@@ -137,9 +137,6 @@ export function PopupItemWithDrag(props: PopupItemWithDragProps) {
       activeAction.execute();
   }, [activeAction]);
 
-  const badge = activeAction
-    ? BadgeUtilities.getComponentForBadgeType(activeAction.badgeType)
-    : props.badge;
   const icon = activeAction
     ? IconHelper.getIconReactNode(activeAction.icon, activeAction.internalData)
     : props.icon;
@@ -198,7 +195,15 @@ export function PopupItemWithDrag(props: PopupItemWithDragProps) {
         title={title}
       >
         <div className="components-icon">{icon}</div>
-        {props.badge && <div className="components-badge">{badge}</div>}
+        {props.badge && (
+          <div className="components-badge">
+            {activeAction ? (
+              <Badge type={activeAction.badgeType} />
+            ) : (
+              props.badge
+            )}
+          </div>
+        )}
         <div className="components-triangle" />
       </button>
       <PopupItemPopup

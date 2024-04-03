@@ -8,12 +8,10 @@ public;AsyncGetAutoSuggestDataFunc = (value: string) => Promise
 public;AutoSuggest 
 public;AutoSuggestData
 public;AutoSuggestProps 
-internal;Badge 
-internal;BadgeProps 
+internal;Badge({ type }: BadgeProps): React_2.JSX.Element | null
+internal;BadgeProps
 public;BadgeType = BadgeType_2
 public;BadgeType: typeof BadgeType_2
-internal;BadgeUtilities
-internal;BetaBadge(props: CommonProps): React_2.JSX.Element
 public;BlockText(props: TextProps): React_2.JSX.Element
 public;BodyText(props: TextProps): React_2.JSX.Element
 deprecated;BodyText(props: TextProps): React_2.JSX.Element
@@ -134,7 +132,6 @@ public;MessageRendererProps
 public;MessageType = string | HTMLElement | ReactMessage
 public;MutedText(props: TextProps): React_2.JSX.Element
 deprecated;MutedText(props: TextProps): React_2.JSX.Element
-internal;NewBadge(props: CommonProps): React_2.JSX.Element
 public;NoChildrenProps
 public;NodeCheckboxProps
 public;NodeCheckboxRenderer = (props: NodeCheckboxRenderProps) => React_2.ReactNode
