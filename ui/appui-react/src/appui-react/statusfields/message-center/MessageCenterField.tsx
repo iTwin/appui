@@ -114,7 +114,7 @@ export function MessageCenterField() {
 
   return (
     <Popover
-      style={{ width: "305px" }}
+      style={{ width: "305px", minHeight: "600px" }}
       content={
         <>
           <TitleBar title={title}></TitleBar>
