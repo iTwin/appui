@@ -171,7 +171,7 @@ export function EditorContainer(props: EditorContainerProps) {
 
   const onPressEnter = (e: React.KeyboardEvent): void => {
     // istanbul ignore else
-    if (propertyEditor && propertyEditor.containerHandlesEnter) {
+    if (propertyEditor?.containerHandlesEnter) {
       // istanbul ignore else
       if (editorRef?.current?.hasFocus) e.stopPropagation();
       void handleContainerCommit();
