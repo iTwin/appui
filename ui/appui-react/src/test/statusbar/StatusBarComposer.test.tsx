@@ -466,16 +466,14 @@ describe("StatusBarComposer", () => {
       const wrapper = render(<StatusBarComposer items={items} />);
       expect(
         wrapper.container.querySelectorAll(".uifw-statusbar-item-container")
-          .length
-      ).to.be.eql(1);
+      ).toHaveLength(1);
 
       const uiProvider = new TestUiProvider();
       UiItemsManager.register(uiProvider);
       await TestUtils.flushAsyncOperations();
       expect(
         wrapper.container.querySelectorAll(".uifw-statusbar-item-container")
-          .length
-      ).to.be.eql(5);
+      ).toHaveLength(5);
       await wrapper.findByText("visible");
 
       // Ensure the ConditionalStringValue for label has been evaluated
@@ -487,8 +485,7 @@ describe("StatusBarComposer", () => {
       await TestUtils.flushAsyncOperations();
       expect(
         wrapper.container.querySelectorAll(".uifw-statusbar-item-container")
-          .length
-      ).to.be.eql(1);
+      ).toHaveLength(1);
       wrapper.unmount();
     });
 
@@ -547,23 +544,20 @@ describe("StatusBarComposer", () => {
       const wrapper = render(<StatusBarComposer items={items} />);
       expect(
         wrapper.container.querySelectorAll(".uifw-statusbar-item-container")
-          .length
-      ).to.be.eql(1);
+      ).toHaveLength(1);
 
       const uiProvider = new TestUiProvider(true);
       UiItemsManager.register(uiProvider);
       await TestUtils.flushAsyncOperations();
       expect(
         wrapper.container.querySelectorAll(".uifw-statusbar-item-container")
-          .length
-      ).to.be.eql(5);
+      ).toHaveLength(5);
 
       UiItemsManager.unregister(uiProvider.id);
       await TestUtils.flushAsyncOperations();
       expect(
         wrapper.container.querySelectorAll(".uifw-statusbar-item-container")
-          .length
-      ).to.be.eql(1);
+      ).toHaveLength(1);
       wrapper.unmount();
     });
 
