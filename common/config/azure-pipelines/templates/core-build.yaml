@@ -54,25 +54,26 @@ steps:
     displayName: rush prettier
     workingDirectory: ${{ parameters.workingDir }}
 
-  # By default linux agents do not have a real display so use the virtual framebuffer
-  - script: xvfb-run --auto-servernum --server-args='-screen 0, 1600x900x24' node common/scripts/install-run-rush.js cover --verbose
-    displayName: rush cover
-    workingDirectory: ${{ parameters.workingDir }}
-    condition: and(succeeded(), eq(variables['Agent.OS'], 'Linux'))
-    env:
-      CI: true
-      BUILD_SOURCES_DIRECTORY: $(Build.SourcesDirectory)
+  - script: npm run cover
+    displayName: run appui-react tests
+    workingDirectory: "ui/appui-react"
+    condition: succeededOrFailed()
 
-  # MacOS and Windows agents work without any virtual display
-  - script: node common/scripts/install-run-rush.js cover --verbose
-    displayName: rush cover
-    workingDirectory: ${{ parameters.workingDir }}
-    condition: and(succeeded(), ne(variables['Agent.OS'], 'Linux'))
-    env:
-      CI: true
-      BUILD_SOURCES_DIRECTORY: $(Build.SourcesDirectory)
+  - script: npm run cover
+    displayName: run components-react tests
+    workingDirectory: "ui/components-react"
+    condition: succeededOrFailed()
 
-  # Run codemod tests
+  - script: npm run cover
+    displayName: run core-react tests
+    workingDirectory: "ui/core-react"
+    condition: succeededOrFailed()
+
+  - script: npm run cover
+    displayName: run imodel-components-react tests
+    workingDirectory: "ui/imodel-components-react"
+    condition: succeededOrFailed()
+
   - script: npm run test
     displayName: run Codemod Tests
     workingDirectory: "tools/codemod"
