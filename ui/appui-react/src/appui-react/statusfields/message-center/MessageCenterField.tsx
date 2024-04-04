@@ -55,16 +55,19 @@ export function MessageCenterField() {
     );
   };
 
-  const determineStatus = (message: NotifyMessageDetailsType) => {
-    console.log(MessageManager.messages);
+  const determineStatus = () => {
+    const message = [...MessageManager.messages].pop();
+    console.log(message, "this is the last message");
+    console.log(MessageManager.messages, "there are all the messages");
+
     /* eslint-disable */
     if (message) {
       if (isProblemStatus(message)) {
-        setStatus("negative");
+        return setStatus("negative");
       } else if (message.priority === 1) {
-        setStatus("positive");
+        return setStatus("positive");
       } else {
-        return "primary";
+        return setStatus("primary");
       }
     }
     /* eslint-enable */
@@ -77,7 +80,7 @@ export function MessageCenterField() {
     return MessageManager.onMessagesUpdatedEvent.addListener(() => {
       messages.length > 0 ? setNotify(true) : setNotify(false);
       setMessages(MessageManager.messages);
-      determineStatus(MessageManager.messages[0]);
+      determineStatus();
     });
   });
 
@@ -97,8 +100,7 @@ export function MessageCenterField() {
             />
           );
         }
-        // these returns are a work around to avoid 'Not all paths return a value error"
-        return <></>;
+        return;
       } else {
         return (
           <span className="uifw-message-prompt" key={`${index.toString()}`}>
