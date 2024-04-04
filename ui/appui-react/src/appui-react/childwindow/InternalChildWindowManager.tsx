@@ -326,28 +326,19 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
     childWindow.shouldUseOuterSized =
       navigator.userAgent.toLowerCase().indexOf("edg/") > -1;
 
-    if (0 === url.length) {
-      childWindow.document.write(childHtml);
-      this.renderChildWindowContents(
-        childWindow,
-        childWindowId,
-        content,
-        title
-      );
-    } else {
-      childWindow.addEventListener(
-        "load",
-        () => {
-          this.renderChildWindowContents(
-            childWindow,
-            childWindowId,
-            content,
-            title
-          );
-        },
-        false
-      );
-    }
+    childWindow.addEventListener(
+      "DOMContentLoaded",
+      () => {
+        childWindow.document.write(childHtml);
+        this.renderChildWindowContents(
+          childWindow,
+          childWindowId,
+          content,
+          title
+        );
+      },
+      false
+    );
 
     window.addEventListener(
       "unload",
