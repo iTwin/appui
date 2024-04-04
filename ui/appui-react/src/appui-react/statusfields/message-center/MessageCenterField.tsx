@@ -72,6 +72,7 @@ export function MessageCenterField() {
     }
     /* eslint-enable */
     return;
+    s;
   };
 
   React.useEffect(() => {
