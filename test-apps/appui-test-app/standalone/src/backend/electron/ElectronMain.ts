@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-
 import { join } from "path";
 import { assert } from "@itwin/core-bentley";
 import { ElectronHost } from "@itwin/core-electron/lib/cjs/ElectronBackend";
@@ -27,21 +26,7 @@ export async function initializeElectron(opts?: IModelHostOptions) {
     iModelHost: opts,
   };
 
-  // let authClient;
-  // if (process.env.IMJS_OIDC_ELECTRON_TEST_CLIENT_ID && process.env.IMJS_OIDC_ELECTRON_TEST_REDIRECT_URI && process.env.IMJS_OIDC_ELECTRON_TEST_SCOPES) {
-  //   authClient = new ElectronMainAuthorization({
-  //     clientId: process.env.IMJS_OIDC_ELECTRON_TEST_CLIENT_ID,
-  //     redirectUri: process.env.IMJS_OIDC_ELECTRON_TEST_REDIRECT_URI,
-  //     scope: process.env.IMJS_OIDC_ELECTRON_TEST_SCOPES,
-  //   });
-  //   await authClient.signInSilent();
-  //   if (opt.iModelHost?.authorizationClient)
-  //     opt.iModelHost.authorizationClient = authClient;
-  // }
-
   await ElectronHost.startup(opt);
-  // if (authClient)
-  //  await authClient.signInSilent();
   EditCommandAdmin.registerModule(editorBuiltInCommands);
 
   // Handle custom keyboard shortcuts

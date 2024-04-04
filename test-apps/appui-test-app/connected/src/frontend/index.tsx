@@ -2,13 +2,13 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+import "../../lib/webfont/bentley-icons-generic-webfont.css";
 import "@itwin/itwinui-react/styles.css";
 import "./index.scss";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { connect, Provider } from "react-redux";
 import { Store } from "redux"; // createStore,
-import reactAxe from "@axe-core/react";
 import { Key } from "ts-key-enum";
 import { BrowserAuthorizationClient } from "@itwin/browser-authorization";
 import {
@@ -229,10 +229,7 @@ export class SampleAppIModelApp {
     return StateManager.store as Store<RootState>;
   }
 
-  public static async startup(
-    opts: NativeAppOpts,
-    hubClient?: IModelsClient
-  ): Promise<void> {
+  public static async startup(opts: NativeAppOpts, hubClient?: IModelsClient) {
     this.hubClient = hubClient;
 
     const iModelAppOpts = {
@@ -248,17 +245,9 @@ export class SampleAppIModelApp {
     } else if (ProcessDetector.isMobileAppFrontend) {
       await MobileApp.startup(opts as MobileAppOpts);
     } else {
-      // if an auth client has not already been configured, use a default Browser client
-      const redirectUri = process.env.IMJS_OIDC_BROWSER_TEST_REDIRECT_URI ?? "";
-      const urlObj = new URL(redirectUri);
-      if (urlObj.pathname === window.location.pathname) {
-        await BrowserAuthorizationClient.handleSignInCallback();
-        return;
-      }
-
       if (
-        undefined === process.env.IMJS_OIDC_BROWSER_TEST_CLIENT_ID &&
-        undefined === process.env.IMJS_OIDC_BROWSER_TEST_SCOPES
+        undefined === import.meta.env.IMJS_OIDC_BROWSER_TEST_CLIENT_ID &&
+        undefined === import.meta.env.IMJS_OIDC_BROWSER_TEST_SCOPES
       ) {
         Logger.logWarning(
           loggerCategory,
@@ -268,22 +257,31 @@ export class SampleAppIModelApp {
         return;
       }
 
+      const redirectUri =
+        import.meta.env.IMJS_OIDC_BROWSER_TEST_REDIRECT_URI ?? "";
       const auth = new BrowserAuthorizationClient({
-        clientId: process.env.IMJS_OIDC_BROWSER_TEST_CLIENT_ID ?? "",
+        clientId: import.meta.env.IMJS_OIDC_BROWSER_TEST_CLIENT_ID ?? "",
         redirectUri,
-        scope: process.env.IMJS_OIDC_BROWSER_TEST_SCOPES ?? "",
+        scope: import.meta.env.IMJS_OIDC_BROWSER_TEST_SCOPES ?? "",
         responseType: "code",
       });
+
+      // if an auth client has not already been configured, use a default Browser client
+      const urlObj = new URL(redirectUri);
+      if (urlObj.pathname === window.location.pathname) {
+        await auth.handleSigninCallback();
+        return;
+      }
       try {
         await auth.signInSilent();
       } catch (err) {}
 
       const rpcParams: BentleyCloudRpcParams =
-        undefined !== process.env.IMJS_UITESTAPP_GP_BACKEND
+        undefined !== import.meta.env.IMJS_UITESTAPP_GP_BACKEND
           ? {
               info: { title: "imodel/rpc", version: "" },
               uriPrefix: `https://${
-                process.env.IMJS_URL_PREFIX ?? ""
+                import.meta.env.IMJS_URL_PREFIX ?? ""
               }api.bentley.com`,
             }
           : {
@@ -320,12 +318,6 @@ export class SampleAppIModelApp {
     // register local commands.
     // register core commands not automatically registered
     ViewClipByPlaneTool.register();
-
-    if (SampleAppIModelApp.testAppConfiguration?.reactAxeConsole) {
-      if (process.env.NODE_ENV !== "production") {
-        await reactAxe(React, ReactDOM, 1000);
-      }
-    }
   }
 
   public static async initialize() {
@@ -569,13 +561,13 @@ export class SampleAppIModelApp {
 
     if (
       undefined === SampleAppIModelApp.iModelParams &&
-      process.env.IMJS_UITESTAPP_IMODEL_NAME &&
-      process.env.IMJS_UITESTAPP_ITWIN_NAME
+      import.meta.env.IMJS_UITESTAPP_IMODEL_NAME &&
+      import.meta.env.IMJS_UITESTAPP_ITWIN_NAME
     ) {
-      const viewId: string | undefined =
-        process.env.IMJS_UITESTAPP_IMODEL_VIEWID;
-      const iTwinName = process.env.IMJS_UITESTAPP_ITWIN_NAME ?? "";
-      const iModelName = process.env.IMJS_UITESTAPP_IMODEL_NAME ?? "";
+      const viewId: string | undefined = import.meta.env
+        .IMJS_UITESTAPP_IMODEL_VIEWID;
+      const iTwinName = import.meta.env.IMJS_UITESTAPP_ITWIN_NAME ?? "";
+      const iModelName = import.meta.env.IMJS_UITESTAPP_IMODEL_NAME ?? "";
 
       const accessToken = await IModelApp.getAccessToken();
       const iTwinsResponse: ITwinsAPIResponse<ITwin[]> =
@@ -649,21 +641,21 @@ export class SampleAppIModelApp {
       return { iTwinId, iModelId, viewIds, stageId };
     }
 
-    if (process.env.IMJS_IMODEL_ID && process.env.IMJS_ITWIN_ID) {
-      const envITwinId = process.env.IMJS_ITWIN_ID;
-      const envIModelId = process.env.IMJS_IMODEL_ID;
-      const viewIds = process.env.IMJS_UITESTAPP_IMODEL_VIEWID
-        ? [process.env.IMJS_UITESTAPP_IMODEL_VIEWID]
+    if (import.meta.env.IMJS_IMODEL_ID && import.meta.env.IMJS_ITWIN_ID) {
+      const envITwinId = import.meta.env.IMJS_ITWIN_ID;
+      const envIModelId = import.meta.env.IMJS_IMODEL_ID;
+      const viewIds = import.meta.env.IMJS_UITESTAPP_IMODEL_VIEWID
+        ? [import.meta.env.IMJS_UITESTAPP_IMODEL_VIEWID]
         : undefined;
       return { iTwinId: envITwinId, iModelId: envIModelId, viewIds };
     } else if (
-      process.env.IMJS_UITESTAPP_IMODEL_ID &&
-      process.env.IMJS_UITESTAPP_ITWIN_ID
+      import.meta.env.IMJS_UITESTAPP_IMODEL_ID &&
+      import.meta.env.IMJS_UITESTAPP_ITWIN_ID
     ) {
-      const envITwinId = process.env.IMJS_UITESTAPP_ITWIN_ID;
-      const envIModelId = process.env.IMJS_UITESTAPP_IMODEL_ID;
-      const viewIds = process.env.IMJS_UITESTAPP_IMODEL_VIEWID
-        ? [process.env.IMJS_UITESTAPP_IMODEL_VIEWID]
+      const envITwinId = import.meta.env.IMJS_UITESTAPP_ITWIN_ID;
+      const envIModelId = import.meta.env.IMJS_UITESTAPP_IMODEL_ID;
+      const viewIds = import.meta.env.IMJS_UITESTAPP_IMODEL_VIEWID
+        ? [import.meta.env.IMJS_UITESTAPP_IMODEL_VIEWID]
         : undefined;
       return { iTwinId: envITwinId, iModelId: envIModelId, viewIds };
     }
@@ -672,7 +664,9 @@ export class SampleAppIModelApp {
   }
 
   public static isEnvVarOn(envVar: string): boolean {
-    return process.env[envVar] === "1" || process.env[envVar] === "true";
+    return (
+      import.meta.env[envVar] === "1" || import.meta.env[envVar] === "true"
+    );
   }
 
   public static setTestProperty(value: string, immediateSync = false) {
@@ -866,17 +860,21 @@ async function main() {
   // retrieve, set, and output the global configuration variable
   SampleAppIModelApp.testAppConfiguration = {};
   SampleAppIModelApp.testAppConfiguration.snapshotPath =
-    process.env.IMJS_UITESTAPP_SNAPSHOT_FILEPATH;
+    import.meta.env.IMJS_UITESTAPP_SNAPSHOT_FILEPATH;
   SampleAppIModelApp.testAppConfiguration.bingMapsKey =
-    process.env.IMJS_BING_MAPS_KEY;
+    import.meta.env.IMJS_BING_MAPS_KEY;
   SampleAppIModelApp.testAppConfiguration.mapBoxKey =
-    process.env.IMJS_MAPBOX_KEY;
+    import.meta.env.IMJS_MAPBOX_KEY;
   SampleAppIModelApp.testAppConfiguration.cesiumIonKey =
-    process.env.IMJS_CESIUM_ION_KEY;
-  SampleAppIModelApp.testAppConfiguration.reactAxeConsole =
-    SampleAppIModelApp.isEnvVarOn("IMJS_TESTAPP_REACT_AXE_CONSOLE");
+    import.meta.env.IMJS_CESIUM_ION_KEY;
   SampleAppIModelApp.testAppConfiguration.useLocalSettings =
     SampleAppIModelApp.isEnvVarOn("IMJS_UITESTAPP_USE_LOCAL_SETTINGS");
+
+  // Workaround to some iTwin.js APIs using `process.env`.
+  window.process = window.process ?? {};
+  window.process.env = window.process.env ?? {};
+  window.process.env.IMJS_URL_PREFIX = import.meta.env.IMJS_URL_PREFIX;
+
   Logger.logInfo(
     "Configuration",
     JSON.stringify(SampleAppIModelApp.testAppConfiguration)
@@ -900,7 +898,7 @@ async function main() {
   const iModelClient = new IModelsClient({
     api: {
       baseUrl: `https://${
-        process.env.IMJS_URL_PREFIX ?? ""
+        import.meta.env.IMJS_URL_PREFIX ?? ""
       }api.bentley.com/imodels`,
     },
   });
@@ -909,7 +907,9 @@ async function main() {
     /** API Version. v1 by default */
     // version?: ApiVersion;
     /** API Url. Used to select environment. Defaults to "https://api.bentley.com/realitydata" */
-    baseUrl: `https://${process.env.IMJS_URL_PREFIX}api.bentley.com/realitydata`,
+    baseUrl: `https://${
+      import.meta.env.IMJS_URL_PREFIX
+    }api.bentley.com/realitydata`,
   };
   const opts: NativeAppOpts = {
     iModelApp: {
@@ -933,6 +933,7 @@ async function main() {
   // Start the app.
   await SampleAppIModelApp.startup(opts, iModelClient);
 
+  if (!IModelApp.initialized) return;
   await SampleAppIModelApp.initialize();
 
   ReactDOM.render(

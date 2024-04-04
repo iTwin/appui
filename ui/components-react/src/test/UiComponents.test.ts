@@ -13,10 +13,6 @@ describe("UiComponents", () => {
     TestUtils.terminateUiComponents();
   });
 
-  it("i18n should throw Error without initialize", () => {
-    expect(() => UiComponents.localization).to.throw(Error);
-  });
-
   it("i18nNamespace should return UiComponents", () => {
     expect(UiComponents.localizationNamespace).to.eq("UiComponents");
   });

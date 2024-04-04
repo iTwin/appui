@@ -1,6 +1,17 @@
 # Change Log - @itwin/imodel-components-react
 
-This log was last generated on Mon, 26 Feb 2024 15:50:45 GMT and should not be manually modified.
+This log was last generated on Thu, 21 Mar 2024 16:38:04 GMT and should not be manually modified.
+
+## 4.11.0
+Thu, 21 Mar 2024 16:38:04 GMT
+
+### Updates
+
+- TimelinePausePlayArgs no longer extends GenericUiEventArgs
+- Deprecate color picker components.
+- Update styling of SolarTimeline component.
+- Fix disposal of `unload` event listener in `ViewportComponent` to address a memory leak.
+- Removed memoization for translated strings in components.
 
 ## 4.10.0
 Mon, 26 Feb 2024 15:50:45 GMT

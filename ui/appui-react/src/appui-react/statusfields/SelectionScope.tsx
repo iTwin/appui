@@ -16,7 +16,7 @@ import { UiFramework } from "../UiFramework";
 import { FooterIndicator } from "../layout/footer/Indicator";
 import type { PresentationSelectionScope } from "../redux/SessionState";
 import "./SelectionScope.scss";
-import { useTranslation } from "../useTranslation";
+import { useTranslation } from "../hooks/useTranslation";
 
 /** Defines properties supported by the SelectionScopeField Component.
  * @public

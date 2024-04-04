@@ -64,7 +64,7 @@ import { WidgetPanelProvider } from "../layout/widget-panels/Panel";
 import { WidgetContentRenderers } from "../layout/widget/ContentRenderer";
 import { useCursor } from "../layout/widget-panels/CursorOverlay";
 import { WidgetPanelExpanders } from "../layout/widget-panels/Expander";
-import { useTranslation } from "../useTranslation";
+import { useTranslation } from "../hooks/useTranslation";
 
 function WidgetPanelsFrontstageComponent() {
   const activeModalFrontstageInfo = useActiveModalFrontstageInfo();
@@ -509,7 +509,8 @@ export function initializePanel(
   const panelDef = frontstageDef.getStagePanelDef(location);
   if (!panelDef) return;
 
-  const size = panelDef.defaultSize;
+  // eslint-disable-next-line deprecation/deprecation
+  const size = panelDef.initialConfig?.sizeSpec ?? panelDef.initialConfig?.size;
   size !== undefined &&
     frontstageDef.dispatch({
       type: "PANEL_SET_SIZE",
@@ -529,7 +530,8 @@ export function initializePanel(
     resizable: panelDef.defaultResizable,
   });
 
-  const minSize = panelDef.initialConfig?.minSize;
+  const minSize =
+    panelDef.initialConfig?.minSizeSpec ?? panelDef.initialConfig?.minSize; // eslint-disable-line deprecation/deprecation
   minSize !== undefined &&
     frontstageDef.dispatch({
       type: "PANEL_SET_MIN_SIZE",
@@ -537,7 +539,8 @@ export function initializePanel(
       minSize,
     });
 
-  const maxSize = panelDef.initialConfig?.maxSize;
+  const maxSize =
+    panelDef.initialConfig?.maxSizeSpec ?? panelDef.initialConfig?.maxSize; // eslint-disable-line deprecation/deprecation
   maxSize !== undefined &&
     frontstageDef.dispatch({
       type: "PANEL_SET_MAX_SIZE",

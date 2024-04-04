@@ -4,12 +4,18 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { Select } from "@itwin/itwinui-react";
-import { IModelApp } from "@itwin/core-frontend";
 
-export function LanguageSelect() {
-  const [language, setLanguage] = React.useState("en-US");
+export type Language = "en-US" | "en-PSEUDO";
+
+export function LanguageSelect({
+  language,
+  onChange,
+}: {
+  language: Language;
+  onChange?: (newLanguage: Language) => void;
+}) {
   return (
-    <Select
+    <Select<Language>
       options={[
         {
           label: "US",
@@ -22,10 +28,7 @@ export function LanguageSelect() {
       ]}
       value={language}
       size="small"
-      onChange={async (newLanguage) => {
-        await IModelApp.localization.changeLanguage(newLanguage);
-        setLanguage(newLanguage);
-      }}
+      onChange={onChange}
     />
   );
 }

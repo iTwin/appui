@@ -12,7 +12,7 @@ import classnames from "classnames";
 import * as React from "react";
 import { Ellipsis } from "../layout/base/Ellipsis";
 import "./Overflow.scss";
-import { useTranslation } from "../useTranslation";
+import { useTranslation } from "../hooks/useTranslation";
 
 /** Properties of [[StatusBarOverflow]] component.
  * @internal

@@ -29,9 +29,9 @@ function usePanelDef(location: StagePanelLocation) {
 
 function usePanelSize(location: StagePanelLocation) {
   const panelDef = usePanelDef(location);
-  const [size, setSize] = React.useState(panelDef?.size);
+  const [size, setSize] = React.useState(panelDef?.sizeSpec);
   React.useEffect(() => {
-    setSize(panelDef?.size);
+    setSize(panelDef?.sizeSpec);
   }, [panelDef]);
   React.useEffect(() => {
     const remove =
@@ -425,7 +425,7 @@ function PanelControls({ location }: { location: StagePanelLocation }) {
     const panelDef = frontstageDef?.getStagePanelDef(location);
     if (!panelDef) return;
     if (sizeValue === "") return;
-    panelDef.size = Number(sizeValue);
+    panelDef.sizeSpec = Number(sizeValue);
   };
   return (
     <>
@@ -462,7 +462,7 @@ function PanelControls({ location }: { location: StagePanelLocation }) {
           const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
           const panelDef = frontstageDef?.getStagePanelDef(location);
           if (!panelDef) return;
-          panelDef.size = undefined;
+          panelDef.sizeSpec = undefined;
         }}
       >
         setSize(undefined)

@@ -22,7 +22,7 @@ import {
   ToolbarItemUtilities,
 } from "@itwin/appui-abstract";
 import type { CommonProps, NoChildrenProps } from "@itwin/core-react";
-import { BadgeUtilities, Icon, IconHelper } from "@itwin/core-react";
+import { Badge, Icon, IconHelper } from "@itwin/core-react";
 import { ToolbarButtonItem } from "./Item";
 import { ToolbarItems } from "./Items";
 import { ItemWrapper, useResizeObserverSingleDimension } from "./ItemWrapper";
@@ -201,10 +201,6 @@ function CustomItem({
       item.id,
     [item.id, item.label]
   );
-  const badge = React.useMemo(
-    () => BadgeUtilities.getComponentForBadgeType(item.badgeType),
-    [item.badgeType]
-  );
 
   return (
     <PopupItem
@@ -215,7 +211,7 @@ function CustomItem({
       title={title}
       panel={item.panelContentNode}
       hideIndicator={useDragInteraction}
-      badge={badge}
+      badge={<Badge type={item.badgeType} />}
       addGroupSeparator={addGroupSeparator}
       keepContentsMounted={item.keepContentsLoaded}
     />
@@ -232,7 +228,6 @@ function GroupPopupItem({
 }) {
   const { useDragInteraction } = useToolbarWithOverflowDirectionContext();
   const title = ConditionalStringValue.getValue(item.label)!;
-  const badge = BadgeUtilities.getComponentForBadgeType(item.badgeType);
   const panel = React.useMemo(
     () => <PopupItemsPanel groupItem={item} activateOnPointerUp={false} />,
     [item]
@@ -252,7 +247,7 @@ function GroupPopupItem({
         isDisabled={ConditionalBooleanValue.getValue(item.isDisabled)}
         title={title}
         groupItem={item}
-        badge={badge}
+        badge={<Badge type={item.badgeType} />}
         addGroupSeparator={addGroupSeparator}
       />
     );
@@ -268,7 +263,7 @@ function GroupPopupItem({
       isDisabled={ConditionalBooleanValue.getValue(item.isDisabled)}
       title={title}
       panel={panel}
-      badge={badge}
+      badge={<Badge type={item.badgeType} />}
       hideIndicator={useDragInteraction}
       addGroupSeparator={addGroupSeparator}
     />
@@ -284,7 +279,6 @@ function ActionItem({
   addGroupSeparator: boolean;
 }) {
   const title = ConditionalStringValue.getValue(item.label)!;
-  const badge = BadgeUtilities.getComponentForBadgeType(item.badgeType);
   const { onItemExecuted } = useToolbarWithOverflowDirectionContext();
   const onExecute = React.useCallback(() => {
     item.execute();
@@ -306,7 +300,7 @@ function ActionItem({
       icon={IconHelper.getIconReactNode(item.icon, item.internalData)}
       isActive={item.isActive}
       onClick={onExecute}
-      badge={badge}
+      badge={<Badge type={item.badgeType} />}
       addGroupSeparator={addGroupSeparator}
     />
   );

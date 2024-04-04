@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Added ability to set stage panel size as percentage value.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
