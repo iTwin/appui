@@ -46,7 +46,6 @@ export const Empty: Story = {};
 //Info UseCase
 const NotificationDecorator: Decorator = (Story) => {
   React.useEffect(() => {
-    MessageManager.clearMessages();
     ["1", "2", "3", "4"].forEach((num) => {
       MessageManager.addToMessageCenter(
         new NotifyMessageDetails(OutputMessagePriority.Info, `Message ${num}`)
@@ -107,21 +106,6 @@ const DetailedDecorator: Decorator = (Story) => {
   return (
     <div>
       <Story />
-      <Button
-        styleType="cta"
-        onClick={() => {
-          MessageManager.clearMessages();
-          MessageManager.addToMessageCenter(
-            new NotifyMessageDetails(
-              1,
-              "This is the brief message",
-              "This is the detailed message"
-            )
-          );
-        }}
-      >
-        Detailed Message
-      </Button>
     </div>
   );
 };
