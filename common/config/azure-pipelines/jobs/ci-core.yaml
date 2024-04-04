@@ -29,7 +29,7 @@ jobs:
           platform: Darwin
           variant: core-3x
 
-    timeoutInMinutes: 45
+    timeoutInMinutes: 60
 
     pool: ${{ parameters.pool }}
 
