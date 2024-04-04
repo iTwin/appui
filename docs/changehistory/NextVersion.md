@@ -27,7 +27,7 @@ Table of contents:
 ### Fixes
 
 - Replace `process.env.NODE_ENV === "development"` check used in combination with `console.warn` by preview features with `Logger.logWarning()`. Logger APIs can be used instead to disable/enable this warning message. [#783](https://github.com/iTwin/appui/pull/783)
-- Fix the standard layout to prevent tool settings and status bar from overlaying the content area. Applications can still use `contentAlwaysMaxSize` preview feature to avoid resizing the content when i.e. tool settings is un-docked.
+- Fix the standard layout to prevent tool settings and status bar from overlaying the content area. Applications can still use `contentAlwaysMaxSize` preview feature to avoid resizing the content when i.e. tool settings is un-docked. [#793](https://github.com/iTwin/appui/pull/793)
 
 ## @itwin/core-react
 
