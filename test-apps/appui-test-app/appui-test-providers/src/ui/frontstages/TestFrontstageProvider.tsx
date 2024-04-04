@@ -56,7 +56,7 @@ export class TestFrontstageProvider extends FrontstageProvider {
       version: Math.random(),
       contentGroup,
       leftPanel: {
-        size: size ? Number(size) : undefined,
+        sizeSpec: size ? Number(size) : undefined,
         defaultState: defaultState ? Number(defaultState) : undefined,
         resizable: resizable ? Boolean(Number(resizable)) : undefined,
         sections: {

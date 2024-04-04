@@ -21,7 +21,6 @@ COPY test-apps/appui-test-app/appui-test-providers/package.json test-apps/appui-
 COPY test-apps/appui-test-app/connected/package.json test-apps/appui-test-app/connected/
 COPY test-apps/appui-test-app/standalone/package.json test-apps/appui-test-app/standalone/
 COPY tools/codemod/package.json tools/codemod/
-COPY tools/internal/package.json tools/internal/
 COPY ui/appui-react/package.json ui/appui-react/
 COPY ui/components-react/package.json ui/components-react/
 COPY ui/core-react/package.json ui/core-react/

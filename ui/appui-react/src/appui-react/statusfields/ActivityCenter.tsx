@@ -13,7 +13,7 @@ import { Centered } from "@itwin/core-react";
 import { MessageManager } from "../messages/MessageManager";
 import type { NotifyMessageType } from "../messages/ReactNotifyMessageDetails";
 import { ProgressLinear, Text } from "@itwin/itwinui-react";
-import { useTranslation } from "../useTranslation";
+import { useTranslation } from "../hooks/useTranslation";
 
 /** Activity Center Field React component.
  * @public

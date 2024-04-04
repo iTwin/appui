@@ -13,15 +13,13 @@ import type {
 } from "../widget-panels/PanelTypes";
 import { isHorizontalPanelSide } from "../widget-panels/Panel";
 import type { WidgetState } from "./WidgetState";
-
-/** @internal */
-export type PanelMaxSizeState = number | { readonly percentage: number };
+import type { StagePanelSizeSpec } from "../../stagepanels/StagePanelConfig";
 
 /** @internal */
 export interface PanelState {
   readonly collapseOffset: number;
   readonly collapsed: boolean;
-  readonly maxSize: PanelMaxSizeState;
+  readonly maxSize: StagePanelSizeSpec;
   readonly minSize: number;
   readonly pinned: boolean;
   readonly resizable: boolean;

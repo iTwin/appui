@@ -19,14 +19,13 @@ import type {
 import type { NineZoneState } from "../NineZoneState";
 import type {
   HorizontalPanelState,
-  PanelMaxSizeState,
   PanelsState,
-  PanelState,
   VerticalPanelState,
 } from "../PanelState";
 import type { WidgetState } from "../WidgetState";
 import { category } from "./NineZoneStateHelpers";
 import { addWidgetState } from "./WidgetStateHelpers";
+import type { StagePanelSizeSpec } from "../../../stagepanels/StagePanelConfig";
 
 function createPanelState(side: PanelSide) {
   return {
@@ -94,29 +93,37 @@ export function updatePanelState<K extends keyof PanelsState>(
 }
 
 /** @internal */
-export function getPanelMaxSize(
+export function getPanelPixelSizeFromSpec(
   side: PanelSide,
   appSize: SizeProps,
-  maxSize: PanelMaxSizeState
+  panelSize: StagePanelSizeSpec
 ) {
-  if (typeof maxSize === "number") {
-    return maxSize;
+  if (typeof panelSize === "number") {
+    return panelSize;
   }
-  const size = isHorizontalPanelSide(side) ? appSize.height : appSize.width;
-  return (maxSize.percentage / 100) * size;
+
+  const fullSize = isHorizontalPanelSide(side) ? appSize.height : appSize.width;
+  return (panelSize.percentage / 100) * fullSize;
 }
 
 /** @internal */
 export function getPanelSize(
-  preferredSize: number | undefined,
+  preferredSizeSpec: StagePanelSizeSpec | undefined,
   side: PanelSide,
-  minSize: PanelState["minSize"],
-  maxSizeSpec: PanelState["maxSize"],
+  minSizeSpec: StagePanelSizeSpec,
+  maxSizeSpec: StagePanelSizeSpec,
   appSize: SizeProps
 ) {
-  if (preferredSize === undefined) return undefined;
+  if (preferredSizeSpec === undefined) return undefined;
 
-  const maxSize = getPanelMaxSize(side, appSize, maxSizeSpec);
+  const maxSize = getPanelPixelSizeFromSpec(side, appSize, maxSizeSpec);
+  const minSize = getPanelPixelSizeFromSpec(side, appSize, minSizeSpec);
+  const preferredSize = getPanelPixelSizeFromSpec(
+    side,
+    appSize,
+    preferredSizeSpec
+  );
+
   return Math.min(Math.max(preferredSize, minSize), maxSize);
 }
 

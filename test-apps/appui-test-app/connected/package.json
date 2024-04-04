@@ -8,25 +8,22 @@
   "scripts": {
     "build": "npm run -s build:backend && npm run -s frontend:tsc",
     "build:backend": "tsc -p tsconfig.backend.json",
-    "build:frontend": "cross-env DISABLE_NEW_JSX_TRANSFORM=true SKIP_PREFLIGHT_CHECK=true DISABLE_ESLINT_PLUGIN=true TRANSPILE_DEPS=false USE_FAST_SASS=true react-scripts --max_old_space_size=8192 build",
+    "build:frontend": "npm run copy:webfont && npm run pseudolocalize && vite build",
     "frontend:tsc": "tsc",
     "clean": "rimraf lib build .rush/temp/package-deps*.json",
     "lint": "eslint -f visualstudio \"./src/**/*.{ts,tsx}\" 1>&2",
     "start": "run-p start:webserver start:electron",
     "start:electron": "cross-env NODE_ENV=development electron ./lib/backend/main.js",
     "start:electron:prod": "electron ./lib/backend/main.js",
-    "start:webserver": "npm run -s pseudolocalize && cross-env DISABLE_NEW_JSX_TRANSFORM=true SKIP_PREFLIGHT_CHECK=true BROWSER=none DISABLE_ESLINT_PLUGIN=true TRANSPILE_DEPS=false USE_FAST_SASS=true react-scripts start",
+    "start:webserver": "npm run copy:webfont && npm run pseudolocalize && vite",
     "start:backend": "node --max-http-header-size=16000 lib/backend/main.js",
     "start:servers": "run-p \"start:webserver\" \"start:backend\"",
-    "pseudolocalize": "betools pseudolocalize --englishDir ./public/locales/en --out ./build/public/locales/en-PSEUDO",
+    "pseudolocalize": "npm run copy:locales && betools pseudolocalize --englishDir ./lib/locales/en --out ./lib/locales/en-PSEUDO",
     "test": "",
     "cover": "",
     "docs": "",
-    "copy:config": "internal-tools copy-config",
-    "build:ios-backend": "npm run -s build:backend && webpack --config ./ios/backend.config --env.outdir=./lib/ios --env.entry=./lib/backend/main.js --env.bundlename=main",
-    "install-ios-lib": "node ./ios/scripts/installIosNativeLib.js",
-    "copy:ios-frontend": "mkdir -p ./lib/ios && rm -rf ./lib/ios/www && cp -R ./build ./lib/ios/www",
-    "build:ios": "npm run -s install-ios-lib && npm run -s build:frontend && npm run -s build:ios-backend && npm run -s copy:ios-frontend"
+    "copy:locales": "copyfiles -f ./node_modules/@itwin/*/lib/public/locales/en/*.json ./public/locales/en/*.json ./lib/locales/en",
+    "copy:webfont": "copyfiles -f ./node_modules/@bentley/icons-generic-webfont/dist/**/* ./lib/webfont"
   },
   "keywords": [
     "Bentley",
@@ -41,8 +38,6 @@
     "NOTE: All tools used by scripts in this package must be listed as devDependencies"
   ],
   "devDependencies": {
-    "@axe-core/react": "4.3.1",
-    "@bentley/react-scripts": "^5.0.3",
     "@itwin/build-tools": "^3.7.0 || ^4.0.0",
     "@itwin/eslint-plugin": "^4.0.0-dev.52",
     "@itwin/itwins-client": "^1.2.0",
@@ -51,18 +46,21 @@
     "@types/react-dom": "^17.0.0",
     "@types/react-redux": "^7.1.18",
     "@typescript-eslint/parser": "^6.1.0",
+    "@vitejs/plugin-react-swc": "^3.5.0",
     "cross-env": "^5.1.4",
+    "copyfiles": "^2.4.1",
     "dotenv": "^10.0.0",
     "dotenv-expand": "^5.1.0",
     "electron": "^22.0.0",
     "eslint": "^8.44.0",
     "eslint-config-prettier": "~8.8.0",
-    "internal-tools": "workspace:*",
     "npm-run-all": "^4.1.5",
     "null-loader": "^4.0.1",
     "rimraf": "^3.0.2",
+    "sass": "^1.72.0",
     "typescript": "~5.0.2",
-    "webpack": "^5.76.0"
+    "vite": "^5.2.0",
+    "vite-plugin-static-copy": "^1.0.1"
   },
   "dependencies": {
     "@bentley/icons-generic": "^1.0.34",

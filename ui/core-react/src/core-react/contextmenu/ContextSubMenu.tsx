@@ -15,9 +15,9 @@ import { ContextMenu } from "./ContextMenu";
 import type { CommonProps } from "../utils/Props";
 import { ContextMenuDirection } from "./ContextMenuDirection";
 import { TildeFinder } from "./TildeFinder";
-import { BadgeUtilities } from "../badge/BadgeUtilities";
 import { Icon } from "../icons/IconComponent";
 import { SvgCaretRightSmall } from "@itwin/itwinui-icons-react";
+import { Badge } from "../badge/Badge";
 
 /** Properties for the [[ContextSubMenu]] component
  * @public
@@ -114,7 +114,6 @@ export class ContextSubMenu extends React.Component<
       floating,
       parentMenu,
     };
-    const badge = BadgeUtilities.getComponentForBadgeType(badgeType);
     const renderDirection = this.state.direction;
     const isDisabled = ConditionalBooleanValue.getValue(disabled);
     const isHidden = ConditionalBooleanValue.getValue(hidden);
@@ -163,7 +162,11 @@ export class ContextSubMenu extends React.Component<
           <div className={classnames("core-context-submenu-arrow", "icon")}>
             <Icon iconSpec={<SvgCaretRightSmall />} />
           </div>
-          {badge && <div className="core-context-menu-badge">{badge}</div>}
+          {badgeType && (
+            <div className="core-context-menu-badge">
+              <Badge type={badgeType} />
+            </div>
+          )}
         </div>
         <ContextMenu
           ref={(el) => {

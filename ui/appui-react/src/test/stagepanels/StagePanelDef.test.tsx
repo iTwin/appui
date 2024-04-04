@@ -84,8 +84,8 @@ describe("StagePanelDef", () => {
       .stub(UiFramework.frontstages, "activeFrontstageDef")
       .get(() => frontstageDef);
     const panelDef = new StagePanelDef();
-    panelDef.size = 150;
-    panelDef.size.should.eq(200);
+    panelDef.sizeSpec = 150;
+    panelDef.sizeSpec.should.eq(200);
   });
 
   it("should not invoke onPanelSizeChangedEvent", () => {
@@ -96,15 +96,15 @@ describe("StagePanelDef", () => {
       .stub(UiFramework.frontstages, "activeFrontstageDef")
       .get(() => frontstageDef);
     const panelDef = new StagePanelDef();
-    panelDef.size = 200;
-    panelDef.size.should.eq(200);
+    panelDef.sizeSpec = 200;
+    panelDef.sizeSpec.should.eq(200);
 
     const spy = sinon.spy(
       InternalFrontstageManager.onPanelSizeChangedEvent,
       "emit"
     );
-    panelDef.size = 150;
-    panelDef.size.should.eq(200);
+    panelDef.sizeSpec = 150;
+    panelDef.sizeSpec.should.eq(200);
     sinon.assert.notCalled(spy);
   });
 

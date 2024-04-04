@@ -6,6 +6,7 @@ package-lock.json
 .nyc_output
 lib
 build
+dist
 /**/test/output
 /generated-docs
 /out
@@ -57,6 +58,3 @@ common/api/summary/summary.exports.csv
 
 # Codemod specific
 junit.xml
-
-# test-app specific
-test-apps/**/public/locales/en-PSEUDO

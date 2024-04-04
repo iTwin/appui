@@ -31,7 +31,7 @@ import { useUiStateStorageHandler } from "../uistate/useUiStateStorage";
 import type { KeyinEntry } from "../keyins/Keyins";
 import { Input } from "@itwin/itwinui-react";
 import { matchesWords } from "../utils/matchesWords";
-import { useTranslation } from "../useTranslation";
+import { useTranslation } from "../hooks/useTranslation";
 
 const KEYIN_PALETTE_NAMESPACE = "KeyinPalettePanel";
 const KEYIN_HISTORY_KEY = "historyArray";

@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/core-react",
+      "comment": "Inline svg of badge components instead of using the `svg-loader`.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/core-react"
+}

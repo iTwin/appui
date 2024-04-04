@@ -2,8 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-// istanbul ignore file
-// IconWebComponent requires in-browser testing
 /** @packageDocumentation
  * @module Utilities
  */
@@ -103,8 +101,8 @@ async function getSvg(src: string, element: any) {
   return fetchSvg(src, element);
 }
 
-/**
- * IconWebComponent loads icon from an svg path
+/** IconWebComponent loads icon from an svg path
+ * @internal
  */
 export class IconWebComponent extends HTMLElement {
   private async connectedCallback() {
@@ -127,4 +125,10 @@ export class IconWebComponent extends HTMLElement {
       this.append(svg.cloneNode(true));
     }
   }
+}
+
+/** @internal */
+export function registerIconWebComponent() {
+  if (window.customElements.get("svg-loader") === undefined)
+    window.customElements.define("svg-loader", IconWebComponent);
 }

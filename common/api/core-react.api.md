@@ -14,7 +14,7 @@ import { default as default_2 } from 'resize-observer-polyfill';
 import type { DialogButtonDef } from '@itwin/appui-abstract';
 import type { IDisposable } from '@itwin/core-bentley';
 import { Input } from '@itwin/itwinui-react';
-import type { Localization } from '@itwin/core-common';
+import type { Localization as Localization_2 } from '@itwin/core-common';
 import { MessageSeverity } from '@itwin/appui-abstract';
 import { ProgressRadial } from '@itwin/itwinui-react';
 import * as React_2 from 'react';
@@ -111,15 +111,12 @@ export interface AutoSuggestProps extends React_2.InputHTMLAttributes<HTMLInputE
 }
 
 // @internal
-export class Badge extends React_2.PureComponent<BadgeProps> {
-    // (undocumented)
-    render(): React_2.ReactElement;
-}
+export function Badge({ type }: BadgeProps): React_2.JSX.Element | null;
 
 // @internal
-export interface BadgeProps extends CommonProps {
+export interface BadgeProps {
     // (undocumented)
-    svg: any;
+    type?: BadgeType;
 }
 
 // @public
@@ -127,14 +124,6 @@ export type BadgeType = BadgeType_2;
 
 // @public
 export const BadgeType: typeof BadgeType_2;
-
-// @internal
-export class BadgeUtilities {
-    static getComponentForBadgeType(badgeType?: BadgeType): React_2.ReactNode;
-}
-
-// @internal
-export function BetaBadge(props: CommonProps): React_2.JSX.Element;
 
 // @public
 export function BlockText(props: TextProps): React_2.JSX.Element;
@@ -415,7 +404,7 @@ export class Dialog extends React_2.Component<DialogProps> {
     componentWillUnmount(): void;
     // (undocumented)
     static defaultProps: Partial<DialogProps>;
-    // (undocumented)
+    // @deprecated (undocumented)
     protected getFooterButtons(buttonCluster: DialogButtonDef[] | undefined, primaryStyleType?: ButtonProps["styleType"], noCoreButtonClasses?: boolean): React_2.ReactNode[] | undefined;
     // (undocumented)
     protected _handleContainerPointerDown: (event: React_2.PointerEvent) => void;
@@ -610,10 +599,7 @@ export interface ExpandableListProps extends CommonProps {
 }
 
 // @public
-export class ExpansionToggle extends React_2.PureComponent<ExpansionToggleProps> {
-    // (undocumented)
-    render(): React_2.JSX.Element;
-}
+export function ExpansionToggle(props: ExpansionToggleProps): React_2.JSX.Element;
 
 // @public
 export interface ExpansionToggleProps extends CommonProps {
@@ -993,6 +979,9 @@ export interface LoadingStatusProps extends CommonProps {
     percent: number;
 }
 
+// @alpha
+export function LocalizationProvider(props: LocalizationProviderProps): React_2.JSX.Element;
+
 // @public
 export class LocalStateStorage implements UiStateStorage {
     constructor(w?: Window);
@@ -1081,9 +1070,6 @@ export type MessageType = string | HTMLElement | ReactMessage;
 
 // @public @deprecated
 export function MutedText(props: TextProps): React_2.JSX.Element;
-
-// @internal
-export function NewBadge(props: CommonProps): React_2.JSX.Element;
 
 // @public
 export interface NoChildrenProps {
@@ -1773,17 +1759,15 @@ export interface TreeProps extends CommonProps {
 
 // @public
 export class UiCore {
-    static initialize(localization: Localization): Promise<void>;
+    static initialize(localization: Localization_2): Promise<void>;
     static get initialized(): boolean;
-    // @internal
-    static get localization(): Localization;
     static get localizationNamespace(): string;
     // @internal (undocumented)
     static loggerCategory(obj: any): string;
     // @internal (undocumented)
     static get packageName(): string;
     static terminate(): void;
-    // @internal
+    // @internal @deprecated
     static translate(key: string | string[]): string;
 }
 
@@ -1880,6 +1864,15 @@ outsideEventPredicate?: (e: OutsideClickEvent) => boolean): React_2.RefObject<T>
 
 // @public
 export function useOptionalDisposable<TDisposable extends IDisposable>(createDisposable: () => TDisposable | undefined): TDisposable | undefined;
+
+// @internal
+export function usePackageTranslation({ namespace, fallback, defaults, }: {
+    namespace: string;
+    fallback: (key: string) => string | undefined;
+    defaults: object;
+}): {
+    translate: (key: string) => string;
+};
 
 // @internal
 export const useProximityToMouse: (elementSet: WidgetElementSet, snap?: boolean, threshold?: number) => number;

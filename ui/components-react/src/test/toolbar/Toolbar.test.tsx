@@ -207,7 +207,13 @@ describe("<Toolbar (No Overflow) />", () => {
       ).to.be.eq(0);
       // badges should not be displayed when toolbar is transparent
       expect(
-        renderedComponent.container.querySelectorAll(".components-badge").length
+        renderedComponent.container.querySelectorAll(
+          ".core-badge-technicalPreviewBadge"
+        ).length
+      ).to.be.eq(0);
+      expect(
+        renderedComponent.container.querySelectorAll(".core-badge-newBadge")
+          .length
       ).to.be.eq(0);
     });
 
@@ -261,7 +267,6 @@ describe("<Toolbar (No Overflow) />", () => {
         />
       );
       expect(renderedComponent).not.to.be.undefined;
-      // renderedComponent.debug();
 
       expect(
         renderedComponent.container.querySelectorAll(
@@ -270,7 +275,8 @@ describe("<Toolbar (No Overflow) />", () => {
       ).to.be.eq(1);
       // badges should be displayed when toolbar is NOT transparent
       expect(
-        renderedComponent.container.querySelectorAll(".components-badge").length
+        renderedComponent.container.querySelectorAll(".core-badge-newBadge")
+          .length
       ).to.be.eq(1);
       expect(
         renderedComponent.container.querySelectorAll(

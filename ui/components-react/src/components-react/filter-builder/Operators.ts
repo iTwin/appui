@@ -20,6 +20,7 @@ export enum PropertyFilterRuleGroupOperator {
 
 /**
  * Operators for comparing property value in [[PropertyFilterRule]].
+ * @note `Like` operator should be handled as a contains operator - it matches all strings that contain a given string.
  * @beta
  */
 export enum PropertyFilterRuleOperator {
