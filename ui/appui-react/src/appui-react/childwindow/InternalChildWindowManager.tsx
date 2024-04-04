@@ -312,7 +312,8 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
     }
 
     location = this.adjustWidowLocation(location);
-    const url = useDefaultPopoutUrl ? "/iTwinPopup.html" : "";
+    // Cannot use empty url because it will not emit events
+    const url = useDefaultPopoutUrl ? "/iTwinPopup.html" : "popout";
     const childWindow: ChildWindow | null = window.open(
       url,
       "",
@@ -329,7 +330,7 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
     childWindow.addEventListener(
       "DOMContentLoaded",
       () => {
-        childWindow.document.write(childHtml);
+        if (!useDefaultPopoutUrl) childWindow.document.write(childHtml);
         this.renderChildWindowContents(
           childWindow,
           childWindowId,
