@@ -7,7 +7,13 @@ import {
   ConditionalBooleanValue,
   ConditionalStringValue,
 } from "@itwin/appui-abstract";
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import {
+  act,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from "@testing-library/react";
 import type { StatusBarItem, UiItemsProvider } from "../../appui-react";
 import {
   FrontstageDef,
@@ -469,8 +475,9 @@ describe("StatusBarComposer", () => {
       ).toHaveLength(1);
 
       const uiProvider = new TestUiProvider();
-      UiItemsManager.register(uiProvider);
-      await TestUtils.flushAsyncOperations();
+      act(() => {
+        UiItemsManager.register(uiProvider);
+      });
       expect(
         wrapper.container.querySelectorAll(".uifw-statusbar-item-container")
       ).toHaveLength(5);
@@ -478,11 +485,11 @@ describe("StatusBarComposer", () => {
 
       // Ensure the ConditionalStringValue for label has been evaluated
       TestUiProvider.triggerSyncRefresh();
-      await TestUtils.flushAsyncOperations();
       await wrapper.findByText("hidden");
 
-      UiItemsManager.unregister(uiProvider.id);
-      await TestUtils.flushAsyncOperations();
+      act(() => {
+        UiItemsManager.unregister(uiProvider.id);
+      });
       expect(
         wrapper.container.querySelectorAll(".uifw-statusbar-item-container")
       ).toHaveLength(1);
@@ -547,14 +554,16 @@ describe("StatusBarComposer", () => {
       ).toHaveLength(1);
 
       const uiProvider = new TestUiProvider(true);
-      UiItemsManager.register(uiProvider);
-      await TestUtils.flushAsyncOperations();
+      act(() => {
+        UiItemsManager.register(uiProvider);
+      });
       expect(
         wrapper.container.querySelectorAll(".uifw-statusbar-item-container")
       ).toHaveLength(5);
 
-      UiItemsManager.unregister(uiProvider.id);
-      await TestUtils.flushAsyncOperations();
+      act(() => {
+        UiItemsManager.unregister(uiProvider.id);
+      });
       expect(
         wrapper.container.querySelectorAll(".uifw-statusbar-item-container")
       ).toHaveLength(1);
@@ -725,7 +734,6 @@ describe("StatusBarComposer", () => {
       ) as HTMLDivElement;
       expect(overflow).toBeTruthy();
       fireEvent.click(overflow);
-      await TestUtils.flushAsyncOperations();
       const containerInPortal = renderedComponent.getByTestId(
         "uifw-statusbar-overflow-items-container"
       );
@@ -733,7 +741,6 @@ describe("StatusBarComposer", () => {
         containerInPortal.querySelectorAll(".uifw-statusbar-item-container")
       ).lengthOf(4);
       fireEvent.click(overflow);
-      await TestUtils.flushAsyncOperations();
       expect(
         renderedComponent.container.querySelectorAll(
           ".uifw-statusbar-item-container"
