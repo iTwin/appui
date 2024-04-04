@@ -55,10 +55,23 @@ export function MessageCenterField() {
     );
   };
 
-  const determineStatus = () =>
-    messages.some((message) => isProblemStatus(message))
-      ? setStatus("negative")
-      : setStatus("positive");
+  const determineStatus = () => {
+    /* eslint-disable */
+    const message = MessageManager.messages[0];
+
+    if (message) {
+      if (isProblemStatus(message)) {
+        setStatus("negative");
+      } else if (message.priority === 1) {
+        setStatus("positive");
+      } else {
+        return "primary";
+      }
+    }
+
+    /* eslint-enable */
+    return;
+  };
 
   React.useEffect(() => {
     MessageManager.registerAnimateOutToElement(indicatorRef.current);

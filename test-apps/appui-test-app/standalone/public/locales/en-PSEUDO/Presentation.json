@@ -1,0 +1,19 @@
+{
+  "label": {
+    "notSpecified": "Ñót spêçìfíêd",
+    "other": "Òthér",
+    "varies": "Vàríês",
+    "multipleInstances": "Mµltíplê ïtèms"
+  },
+  "field": {
+    "label": "£ábêl"
+  },
+  "selectedItems": {
+    "categoryLabel": "$élêçtèd Ítêm(s)",
+    "categoryDescription": "Çóñtãìñs pròpërtìés öf sëlèçtêd ïtèm(s)"
+  },
+  "value": {
+    "true": "Trµé",
+    "false": "Fàlsé"
+  }
+}

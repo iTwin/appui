@@ -1,0 +1,31 @@
+{
+  "form": {
+    "submitButtonLabel": "$ùbmît",
+    "errorPrefix": "Èrrór:",
+    "errorSuffix": "Plèásê rëvìéw îñpût ãñd trÿ àgáîñ."
+  },
+  "general": {
+    "search": "$éârçh",
+    "clear": "Çléâr"
+  },
+  "dialog": {
+    "ok": "ÒK",
+    "retry": "Rètrÿ",
+    "yes": "Ýés",
+    "no": "Ñó",
+    "cancel": "Çáñçèl",
+    "close": "Çlósê",
+    "next": "Ñé×t",
+    "previous": "Prèvíôûs"
+  },
+  "reactselect": {
+    "noSelectOption": "Òptíôñ ñøt fòúñd"
+  },
+  "tree": {
+    "expand": "È×pâñd",
+    "collapse": "Çóllâpsë"
+  },
+  "elementSeparator": {
+    "label": "Rèsízêr"
+  }
+}

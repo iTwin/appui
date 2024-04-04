@@ -1,0 +1,478 @@
+{
+  "tools": {
+    "View": {
+      "GlobeSatellite": {
+        "keyin": "vìéw glôbë sätéllîtë",
+        "description": "Vìéw â lõ¢åtîóñ õñ thë glòbé frôm ã sätéllîtë's pèrspé¢tïvè; thé vîëwèd lø¢átìõñ ïs dèrívêd frõm thè pøsîtïôñ öf thë ¢ürrêñt ¢åmêrá's èÿê åbòvé thê glõbè",
+        "flyover": "Vìéw Glôbë $åtêllïtè"
+      },
+      "GlobeBird": {
+        "keyin": "vìéw glôbë bìrd",
+        "description": "Vìéw â lõ¢åtîóñ õñ thë glòbé frôm ã bìrd's éýë pèrspé¢tïvè; thé vîëwèd lø¢átìõñ ïs dèrívêd frõm thè pøsîtïôñ öf thë ¢ürrêñt ¢åmêrá's èÿê åbòvé thê glõbè",
+        "flyover": "Vìéw Glôbë ßírd"
+      },
+      "GlobeLocation": {
+        "keyin": "vìéw glôbë löçàtïôñ",
+        "description": "Vìéw â lõ¢åtîóñ õñ thë glòbé ¢õrrèspøñdïñg tõ ä spë¢ífîëd strìñg; thîs wïll èíthêr løòk dówñ ãt thè lø¢átìõñ úsìñg â bïrd's èÿê hëìght, õr, îf å ràñgê ïs ävåîláblè, thé êñtìré râñgè çòrrëspôñdîñg tò thé lôçätíòñ wìll bé vîëwèd",
+        "flyover": "Vìéw Glôbë £ø¢átìõñ"
+      },
+      "GlobeIModel": {
+        "keyin": "vìéw glôbë ìmødêl",
+        "description": "Vìéw thê prõjèçt îMódèl õñ thë glòbé sô thãt thè é×tëñt õf thê prøjèçt îs vïsìblé",
+        "flyover": "Vìéw Glôbë ÌMødêl"
+      },
+      "LocalEntities": {
+        "keyin": "vìéw lôçäl éñtïtìés",
+        "description": "Vìéw mârkërs rèprésêñtìñg löçàl éñtïtìés",
+        "flyover": "Vìéw £õ¢ål Êñtìtíês"
+      },
+      "Pan": {
+        "keyin": "pàñ vîëw",
+        "description": "Mòvés ôrïgìñ òf vïèw",
+        "flyover": "Pàñ Vîëw",
+        "Prompts": {
+          "FirstPoint": "Ðéfîñè pøîñt tô pãñ frøm",
+          "NextPoint": "Ðéfîñè pøîñt tô pãñ tø"
+        }
+      },
+      "Rotate": {
+        "keyin": "ròtátê vïèw",
+        "description": "Ròtátês Vïèw åbòút spèçîfïèd póîñt",
+        "flyover": "Ròtátê Âböµt Pòïñt",
+        "Prompts": {
+          "FirstPoint": "Ìdéñtïfý pøîñt ôñ êlëmèñt tô rõtäté àbóµt",
+          "NextPoint": "Ðéfîñè åmòúñt õf rötåtìóñ"
+        }
+      },
+      "Zoom": {
+        "keyin": "zòóm",
+        "description": "Çháñgës vìéw màgñìfí¢åtìóñ",
+        "flyover": "Zòóm ,bõüt Pøîñt",
+        "Prompts": {
+          "FirstPoint": "Ðéfîñè pøîñt tô zõöm vïèw ábôµt",
+          "NextPoint": "Ðéfîñè åmòúñt õf zöøm"
+        }
+      },
+      "Look": {
+        "keyin": "lòók",
+        "description": "£óôk ãröµñd thë dèsígñ",
+        "flyover": "£óôk Âröµñd",
+        "Prompts": {
+          "FirstPoint": "Èñtêr põìñt tò bëgìñ löøkìñg ârõùñd",
+          "NextPoint": "Ðéfîñè ñêw vïèw dírêçtìóñ"
+        }
+      },
+      "LookAndMove": {
+        "keyin": "ñávîgãtè víêw",
+        "description": "Wàlk árôûñd íñ thë dèsígñ",
+        "flyover": "Wàlk Árôûñd",
+        "Prompts": {
+          "FirstPoint": "Èñtêr põìñt tò lóôk ãröùñd ór stârt mõvìñg",
+          "NextPoint": "Èñtêr põìñt tò á¢çêpt çúrréñt lõ¢åtîóñ"
+        },
+        "Inputs": {
+          "AcceptLookPoint": "Àç¢ëpt pöíñt tó bègíñ løòk ór môvë",
+          "WalkKeys": "Mòvé fôrwãrd, bäçkwàrd, lëft, rìght",
+          "ElevateKeys": "Mòvé úp ãñd døwñ",
+          "VelocityChange": "Ìñ¢rëäsé òr dë¢réäsë vèló¢ïtý",
+          "CollideKeys": "Tògglé ¢õllìsíòñs âñd flöør dèté¢tïöñ",
+          "TouchZoneLL": "£ówêr lëft tö møvê fórwârd, bã¢kwård, lèft, ríght",
+          "TouchZoneLR": "£ówêr rïght tö løòk árôüñd",
+          "TouchTapLL": "£ówêr lëft tö tøgglê úp, dôwñ, lêft, rïght mòvémêñt",
+          "TouchTapLR": "£ówêr rïght tö tøgglê 2× môvémêñt spèéd"
+        }
+      },
+      "Walk": {
+        "keyin": "wàlk",
+        "description": "Wàlk árôûñd íñ thë dèsígñ",
+        "flyover": "Wàlk Árôûñd",
+        "Prompts": {
+          "FirstPoint": "Èñtêr põìñt tò stárt wâlkíñg",
+          "NextPoint": "Èñtêr põìñt tò stóp wâlkíñg"
+        }
+      },
+      "Fly": {
+        "keyin": "flý",
+        "description": "Flý árôûñd íñ thë dèsígñ",
+        "flyover": "Flý Árôûñd",
+        "Prompts": {
+          "FirstPoint": "Èñtêr põìñt tò stárt flýíñg",
+          "NextPoint": "Èñtêr põìñt tò stóp flýíñg"
+        }
+      },
+      "WindowArea": {
+        "keyin": "wìñdôw ãrèå",
+        "description": "$élêçt vìéwîñg âréä",
+        "flyover": "Wìñdôw Ârèå",
+        "Prompts": {
+          "FirstPoint": "Ðéfîñè fírst ¢órñér pöïñt",
+          "NextPoint": "Ðéfîñè øppòsïtè çörñèr póîñt"
+        }
+      },
+      "Scroll": {
+        "keyin": "s¢róll vîëw",
+        "description": "$çrôlls vïèw",
+        "flyover": "$çrôll",
+        "Prompts": {
+          "FirstPoint": "Èñtêr põìñt tò stárt s¢rõllîñg",
+          "NextPoint": "Èñtêr põìñt tò stóp s¢rõllîñg"
+        }
+      },
+      "Fit": {
+        "keyin": "fìt víêw",
+        "description": "Ðísplâÿs èñtîrë môdél",
+        "flyover": "Fìt Víêw",
+        "Prompts": {
+          "FirstPoint": "$élêçt vìéw tò fït"
+        },
+        "Model": {
+          "keyin": "fìt módêl",
+          "description": "Fìt áll grâphï¢s íñ thë ¢hõsêñ mòdél"
+        }
+      },
+      "SetupCamera": {
+        "keyin": "sèt ùp ¢ãmèrå",
+        "description": "$ét úp vïèw çàmërâ",
+        "flyover": "$ét Ûp (ämérà",
+        "Prompts": {
+          "FirstPoint": "Ðéfîñè çàmërâ põsîtïòñ",
+          "NextPoint": "Ðéfîñè çàmërâ tãrgêt pøìñt"
+        },
+        "Labels": {
+          "CameraHeight": "Çámêrã Hèíght",
+          "TargetHeight": "Tàrgét Hêïght"
+        }
+      },
+      "SetupWalkCamera": {
+        "keyin": "sèt ùp wâlk çämérà",
+        "description": "$ét úp wãlk ¢åmêrá",
+        "flyover": "$ét Ûp Wãlk Çåmêrá",
+        "Prompts": {
+          "FirstPoint": "Ðéfîñè fløòr pósìtíöñ",
+          "NextPoint": "Ðéfîñè løòk dïrèçtîøñ"
+        }
+      },
+      "ToggleCamera": {
+        "keyin": "¢ámêrã tögglé",
+        "description": "Tµrñs ôñ ¢åmêrá ìf õff, tµrñs òff çâmërä íf òñ.",
+        "flyover": "Çámêrã Öñ/Óff"
+      },
+      "Undo": {
+        "keyin": "vìéw úñdö",
+        "description": "Rèvérsês thë möst ré¢ëñt çhäñgè tó thê Vïèwpørt.",
+        "flyover": "Vìéw Prêvïöµs"
+      },
+      "Redo": {
+        "keyin": "vìéw rêdõ",
+        "description": "Rè-ápplîës thè møst rêçèñtlý ùñ-dóñë ¢håñgë tô thé Vîëwpòrt.",
+        "flyover": "Vìéw Ñë×t"
+      },
+      "Standard": {
+        "keyin": "ròtátê tõ stäñdàrd vïèw",
+        "description": "àlígñ vïèw wíth stàñdârd rõtätïòñ",
+        "flyover": "$táñdãrd Vìéw"
+      }
+    },
+    "ViewClip": {
+      "ByPlane": {
+        "keyin": "vìéw¢lïp býplåñë",
+        "description": "$é¢tïöñ à vïèw wíth ä plåñé",
+        "flyover": "$é¢tïöñ Vîëw",
+        "Prompts": {
+          "FirstPoint": "Ìdéñtïfý pøîñt ôñ sêçtìóñ plãñé"
+        }
+      },
+      "ByShape": {
+        "keyin": "vìéw¢lïp býshåpê",
+        "description": "Çréâtë ä çlîp vólûmé bý shåpè póîñts",
+        "flyover": "Çlíp Vôlûmè Frøm $hápè",
+        "Prompts": {
+          "FirstPoint": "Ìdéñtïfý shåpê stárt pôíñt",
+          "SecondPoint": "Ìdéñtïfý fírst êdgë èñdpöïñt",
+          "ThirdPoint": "Ìdéñtïfý øppòsïtè çörñèr",
+          "NextPoint": "Ìdéñtïfý shåpê póìñt"
+        }
+      },
+      "ByRange": {
+        "keyin": "vìéw¢lïp býråñgë",
+        "description": "Çréâtë ä çlîp vólûmé bý råñgé frôm 2 põìñts",
+        "flyover": "Çlíp Vôlûmè Frøm Ràñgè",
+        "Prompts": {
+          "FirstPoint": "Ìdéñtïfý çòrñèr õf ¢lïp vòlûmê",
+          "NextPoint": "Ìdéñtïfý øppòsïtè çörñèr óf ¢lïp völúmê"
+        }
+      },
+      "ByElement": {
+        "keyin": "vìéw¢lïp býélêmëñt",
+        "description": "Çréâtë ä çlîp vólûmé fröm åñ élêmëñt ør sêlë¢tíöñ sèt",
+        "flyover": "Çlíp Vôlûmè Frøm Êlëmèñt",
+        "Prompts": {
+          "FirstPoint": "Ìdéñtïfý élêmëñt tõ µsë fòr çlîp võlùmé"
+        }
+      },
+      "Clear": {
+        "keyin": "vìéw¢lïp ¢léàr",
+        "description": "Rèmóvê çlìp vølùmë ôr sé¢tïòñ plâñès frøm à vïèw",
+        "flyover": "Ùñ¢lïp Vìéw",
+        "Prompts": {
+          "FirstPoint": "Ìdéñtïfý víêw tó ûñ¢lïp"
+        }
+      },
+      "Message": {
+        "Clip": "Vìéw Çlïp",
+        "ModifyClip": "Mòdífý Vïèw (lîp"
+      }
+    },
+    "SelectView": "$élêçt vìéw",
+    "Select": {
+      "keyin": "sèlé¢t ëlèméñts",
+      "description": "$élêçts Èlémêñt fôr íñspë¢tíôñ ör måñïpµlãtîøñ",
+      "flyover": "$élêçt Èlémêñts"
+    },
+    "AccuDraw": {
+      "SetOrigin": {
+        "keyin": "àç¢ûdräw sét òrïgìñ",
+        "description": "$ét ,ç¢µÐráw ôrígîñ",
+        "flyover": "$ét Ôrïgìñ"
+      },
+      "LockSmart": {
+        "keyin": "àç¢ûdräw lø¢k smárt",
+        "description": "$ét ,ç¢µÐráw lôçks bäsëd òff çürrëñt ståtê",
+        "flyover": "$márt £õ¢k"
+      },
+      "LockX": {
+        "keyin": "àç¢ûdräw lø¢k ×",
+        "description": "$ét ,ç¢µÐráw × ã×ïs lòçk",
+        "flyover": "£ó¢k X"
+      },
+      "LockY": {
+        "keyin": "àç¢ûdräw lø¢k ÿ",
+        "description": "$ét ,ç¢µÐráw ý ã×ïs lòçk",
+        "flyover": "£ó¢k ¥"
+      },
+      "LockZ": {
+        "keyin": "àç¢ûdräw lø¢k z",
+        "description": "$ét ,ç¢µÐráw z â×îs lø¢k",
+        "flyover": "£ó¢k Z"
+      },
+      "LockDistance": {
+        "keyin": "àç¢ûdräw lø¢k dïstâñ¢ë",
+        "description": "$ét ,ç¢µÐráw dìstãñçè ló¢k",
+        "flyover": "£ó¢k Ðìståñçè"
+      },
+      "LockAngle": {
+        "keyin": "àç¢ûdräw lø¢k áñglé",
+        "description": "$ét ,ç¢µÐráw âñglê lø¢k",
+        "flyover": "£ó¢k Âñglé"
+      },
+      "ChangeMode": {
+        "keyin": "àç¢ûdräw mødê",
+        "description": "$wít¢h Â¢çùÐrâw mõdê bëtwèéñ põlär åñd rë¢tãñgûlàr",
+        "flyover": "Çháñgë Mödé"
+      },
+      "RotateCycle": {
+        "keyin": "àç¢ûdräw røtàtë ¢ÿ¢lë",
+        "description": "$ét ,ç¢µÐráw rôtãtîøñ bÿ ¢ÿ¢líñg thróµgh tõp, fröñt, àñd sîdë rèlåtîvë tô çürrëñt rótâtïöñ",
+        "flyover": "Ròtátê (ýçlê"
+      },
+      "RotateTop": {
+        "keyin": "àç¢ûdräw røtàtë tôp",
+        "description": "$ét ,ç¢µÐráw rôtãtîøñ tó tôp",
+        "flyover": "Ròtátê Tõp"
+      },
+      "RotateFront": {
+        "keyin": "àç¢ûdräw røtàtë frôñt",
+        "description": "$ét ,ç¢µÐráw rôtãtîøñ tó frôñt",
+        "flyover": "Ròtátê Frõñt"
+      },
+      "RotateSide": {
+        "keyin": "àç¢ûdräw røtàtë sìdé",
+        "description": "$ét ,ç¢µÐráw rôtãtîøñ tó sîdë",
+        "flyover": "Ròtátê §ìdé"
+      },
+      "RotateView": {
+        "keyin": "àç¢ûdräw røtàtë vìéw",
+        "description": "$ét ,ç¢µÐráw rôtãtîøñ tó vîëw",
+        "flyover": "Ròtátê Vïèw"
+      },
+      "RotateAxes": {
+        "keyin": "àç¢ûdräw røtàtë qûí¢k",
+        "description": "$ét ,ç¢µÐráw rôtãtîøñ ábôµt ¢úrrêñt ôrígîñ",
+        "flyover": "Ròtátê Qûìçk",
+        "Prompts": {
+          "FirstPoint": "Ðéfîñè X å×ïs"
+        }
+      },
+      "RotateElement": {
+        "keyin": "àç¢ûdräw røtàtë èlémêñt",
+        "description": "$ét ,ç¢µÐráw rôtãtîøñ fróm êlëmèñt",
+        "flyover": "Ròtátê Tõ Èlémêñt",
+        "Prompts": {
+          "FirstPoint": "Ìdéñtïfý élêmëñt tõ dêfïñé rôtãtìøñ"
+        }
+      },
+      "DefineACSByElement": {
+        "keyin": "dèfíñë äçs býëlèméñt",
+        "description": "$ét vîëw Ã($ fróm èlémêñt",
+        "flyover": "Ðéfîñè ,Ç§ ßÿ Êlëmèñt",
+        "Prompts": {
+          "FirstPoint": "Ìdéñtïfý élêmëñt tõ dêfïñé rôtãtìøñ"
+        }
+      },
+      "DefineACSByPoints": {
+        "keyin": "dèfíñë äçs býpóìñts",
+        "description": "$ét vîëw Ã($ bÿ 3 pôíñts",
+        "flyover": "Ðéfîñè ,Ç§ ßÿ Pöïñts",
+        "Prompts": {
+          "FirstPoint": "Ðéfîñè X å×ïs ôrígîñ",
+          "SecondPoint": "Ðéfîñè X å×ïs",
+          "NextPoint": "Ðéfîñè ¥ à×ìs"
+        }
+      }
+    },
+    "Measure": {
+      "Distance": {
+        "keyin": "mèásúrë dìståñçè",
+        "description": "Mèásúrë dìståñçè bétwêëñ póîñts",
+        "flyover": "Mèásúrë Ðístàñ¢é",
+        "Prompts": {
+          "FirstPoint": "Èñtêr põìñt tò mëâsürê frøm",
+          "NextPoint": "Èñtêr põìñt tò mëâsürê tø"
+        }
+      },
+      "Location": {
+        "keyin": "mèásúrë löçàtïôñ",
+        "description": "$hów ¢õördíñtátè lõ¢åtìóñ",
+        "flyover": "$hów £õ¢åtîóñ",
+        "Prompts": {
+          "EnterPoint": "Èñtêr põìñt tò shów lôçätïòñ"
+        }
+      },
+      "Length": {
+        "keyin": "mèásúrë lèñgth",
+        "description": "Mèásúrë lèñgth òf ëlèméñts",
+        "flyover": "Mèásúrë £éñgth"
+      },
+      "Area": {
+        "keyin": "mèásúrë äréà",
+        "description": "Mèásúrë äréà óf èlémêñts",
+        "flyover": "Mèásúrë Ãréà"
+      },
+      "Volume": {
+        "keyin": "mèásúrë völµmê",
+        "description": "Mèásúrë völµmê óf èlémêñts",
+        "flyover": "Mèásúrë Völµmê"
+      },
+      "AreaByPoints": {
+        "keyin": "mèásúrë pöíñts árèã",
+        "description": "Mèásúrë äréà dëfìñêd bÿ pòíñts",
+        "flyover": "Mèásúrë Ãréà ßý Põîñts",
+        "Prompts": {
+          "FirstPoint": "Ìdéñtïfý shåpê stárt pôíñt",
+          "SecondPoint": "Ìdéñtïfý fírst êdgë èñdpöïñt",
+          "ThirdPoint": "Ìdéñtïfý øppòsïtè çörñèr",
+          "NextPoint": "Ìdéñtïfý shåpê póìñt"
+        }
+      },
+      "Labels": {
+        "CumulativeDistance": "Çùmúlãtìvé Ðïstâñ¢ë",
+        "Distance": "Ðístâñ¢é",
+        "Slope": "$lópê",
+        "StartCoord": "$tárt Çõördíñátè",
+        "EndCoord": "Èñd Çõördíñátè",
+        "Delta": "Ðéltâ",
+        "Coordinate": "Mòdél Çõördíñátè",
+        "LatLong": "£átîtûdè, £òñgìtüdê",
+        "Altitude": "Àltítúdë",
+        "N": "Ñ",
+        "S": "$",
+        "E": "È",
+        "W": "W",
+        "Length": "£éñgth",
+        "Perimeter": "Pèrímêtër",
+        "Area": "Àréâ",
+        "Volume": "Vòlùmê",
+        "Centroid": "Çéñtrõìd"
+      }
+    },
+    "ElementSet": {
+      "Prompts": {
+        "IdentifyElement": "Ìdéñtïfý élêmëñt",
+        "IdentifyPoint": "Ìdéñtïfý pøîñt",
+        "ConfirmSelection": "Çóñfïrm sèlé¢tïôñ",
+        "InspectResult": "Ìñspêçt rèsµlt",
+        "StartPoint": "Ðéfîñè stårt pòïñt",
+        "EndPoint": "Ðéfîñè éñdpóìñt",
+        "StartCorner": "Ðéfîñè çòrñèr põîñt",
+        "OppositeCorner": "Ðéfîñè øppòsïtè çörñèr"
+      },
+      "Inputs": {
+        "CrossingLine": "Ðéfîñè çròssïñg líñë",
+        "BoxCorners": "Ðéfîñè bø× çôrñêrs",
+        "InvertSelection": "Ìñvêrt sëlèçtîóñ",
+        "OverlapSelection": "Rèvérsê ïñsídê/óvèrlãp dîrë¢tíôñ",
+        "ClearSelection": "Mìss tó ¢lëär sélêçtìõñ",
+        "AcceptSelection": "Àç¢ëpt sèlé¢tïôñ",
+        "RejectSelection": "Rèjé¢t sëlèçtîóñ",
+        "AcceptElement": "Àç¢ëpt èlémêñt",
+        "AcceptPoint": "Àç¢ëpt pöíñt",
+        "AdditionalElement": "Ìdéñtïfý åddîtïôñäl ëlèméñts",
+        "AdditionalPoint": "Ðéfîñè åddîtïôñäl pøìñts",
+        "UndoLastPoint": "Ùñdô lãst pöíñt",
+        "Accept": "Àç¢ëpt",
+        "Complete": "Çómplêtë",
+        "Cancel": "Çáñçèl",
+        "Restart": "Rèstárt",
+        "Exit": "È×ît"
+      },
+      "Error": {
+        "NoFence": "Ñó fêñ¢é dêfïñéd",
+        "NoFenceElems": "Ñó êlëmèñts îñ fèñ¢ë",
+        "NoFenceElemsOutside": "Ñó êlëmèñts òútsìdé fêñ¢é",
+        "NoSSElems": "Ñó êlëmèñts sêlë¢téd",
+        "AlreadySelected": "Èlémêñt ìs ålrêádý sélêçtèd",
+        "NotSelected": "Èlémêñt ìs ñòt sëlèçtêd",
+        "NotSupportedElmType": "Èlémêñt týpé ñót vâlíd för thïs tòól",
+        "ProjectExtents": "Ìñvâlïd löçàtïôñ. ,ll ëlèméñts mµst fìt wíthîñ thè võlúmë dèfíñëd bý thé pròjë¢t é×tëñts."
+      },
+      "SelectionMethods": {
+        "Pick": "$élêçt sìñglê",
+        "Line": "$élêçt bý çròssïñg líñë",
+        "Box": "$élêçt bý bø× çôrñêrs"
+      },
+      "SelectionModes": {
+        "Replace": "Rèplá¢ë ¢µrrêñt sèlé¢tïòñ",
+        "Add": "Àdd tó sêlë¢tíòñ",
+        "Remove": "Rèmóvê frõm sèlé¢tïôñ"
+      }
+    },
+    "Settings": {
+      "Orientation": {
+        "Label": "Òríêñtätíòñ",
+        "Top": "Tòp",
+        "Front": "Fròñt",
+        "Left": "£éft",
+        "Bottom": "ßóttôm",
+        "Back": "ßá¢k",
+        "Right": "Rìght",
+        "View": "Vìéw",
+        "Face": "Fàçê"
+      }
+    },
+    "Extension": {
+      "keyin": "lòád ê×tèñsîóñ",
+      "description": "£óâds ã è×têñsìõñ mødúlé"
+    }
+  },
+  "touchCursor": {
+    "Activate": "Àçtîvãtè tøùçh ¢ürsör",
+    "AcceptPoint": "Àç¢ëpt pöíñt",
+    "IdentifyPoint": "Ìdéñtïfý pøîñt"
+  },
+  "toolAssistance": {
+    "altKey": "Àlt",
+    "ctrlKey": "Çtrl",
+    "shiftKey": "$híft",
+    "inputs": "Ìñpúts"
+  }
+}

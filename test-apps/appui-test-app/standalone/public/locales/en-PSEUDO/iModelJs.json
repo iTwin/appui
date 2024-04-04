@@ -1,0 +1,171 @@
+{
+  "ViewUndo": {
+    "NoPreviousViewOps": "Ñó prêvïöµs vîëwìñg öpëràtíôñs",
+    "NoPreviousUndos": "Òñlý vãlìd åftêr 'Vïèw Prévîøús'"
+  },
+  "Viewing": {
+    "InvalidWindow": "Ìñvâlïd wìñdòw",
+    "MinWindow": "Mìñîmûm wìñdòw",
+    "MaxWindow": "Mà×îmûm wìñdòw",
+    "MaxZoom": "Mà×îmûm Zöøm",
+    "InvalidTargetPoint": "Tòó ¢lõsè tø tàrgët",
+    "NotDuringMarkup": "Çáññöt çhàñgè víêw dùrìñg mârkµp"
+  },
+  "ElementUndo": {
+    "NothingToUndo": "Ñó âçtìøñs tó ûñdö",
+    "NothingToRedo": "Ñóthîñg häs béêñ ûñdöñè",
+    "UndoAll": "Ðó ýõü réàllÿ wâñt tö ùñdó âll çhäñgês?"
+  },
+  "LocateFailure": {
+    "NoElements": "Ñó Êlëmèñts Fòúñd",
+    "ByApp": "Èlémêñt ñøt vàlïd fôr tõöl",
+    "Transient": "Ðé¢õrätíòñ ìs ñöt vålìd fór thîs tõöl",
+    "RealityModel": "Rèálîtÿ mödél îs ñôt vãlîd før thìs tóôl",
+    "Map": "Màp ís ñõt välíd fòr thïs tôõl",
+    "NotSnappable": "Ñót sñãppäblé wîth çûrréñt sñàp módê(s)",
+    "NotLocatable": "Èlémêñt ìs ñòt ló¢ãtäblë",
+    "ExternalIModel": "ìMódêl ïs ñøt lòçâtãblê",
+    "RealityModelSnapMode": "Rèálîtÿ mödéls rêstrï¢téd tö ñèárêst sñäp",
+    "NotSnappableSubCategory": "$ùbÇãtègørý hás sñãppîñg túrñêd õff",
+    "NotLocatableSubCategory": "$ùbÇãtègørý hás lôçätë túrñêd õff"
+  },
+  "Element": {
+    "Id": "Ìd",
+    "Model": "Mòdél",
+    "Category": "Çátêgõrý",
+    "Type": "Çláss"
+  },
+  "BackgroundMap": {
+    "MapBoxCopyright": "© Màpbó×, © Õpèñ$trëètMãp ¢øñtríbütõrs",
+    "CesiumWorldTerrainAttribution": "Çésîûm Wörld Térràïñ: Ðätå àváîlãblè frøm thê Ü.$. Géöløgìçâl §ûrvéý, © (GÌÁR-Ç§Ì, Pródûçèd ùsîñg Çõpêrñìçµs dãtä åñd ïñfõrmätïòñ fúñdèd bÿ thê Ëûrõpêåñ Úñïöñ - ÊÜ-ÐÉM läÿèrs, Ðâtã ävåîláblè frõm £åñd Íñfõrmätíòñ Ñéw Zêålàñd, Ðãtä åvàïlâblé fröm dåtà.góv.úk, Ðätå ¢óûrtésý Gëòsçîëñçê Âµstrãlîå",
+    "OpenStreetMapContributors": "¢óñtrïbütørs",
+    "CannotObtainTerrain": "Tèrráîñ ìs µñávâíläblë",
+    "MissingCesiumToken": "Thè ápplîçätíòñ mûst bé ¢øñfígürëd wìth å vàlïd Çésîûm ÌÒÑ ã¢çêss këý tõ öbtåìñ 3d têrrãìñ dàtá."
+  },
+  "ExtensionErrors": {
+    "Success": "È×têñsìøñ '{{extensionName}}' lóâdéd",
+    "CantFind": "Çáññöt fíñd Ë×téñsïòñ '{{extensionName}}'",
+    "UnableToLoad": "Ùñâblë tö løàd Ë×téñsïòñ '{{extensionName}}'"
+  },
+  "DbResult": {
+    "BE_SQLITE_ERROR_AlreadyOpen": "Ðátâbãsè ålrêádý õpêñ",
+    "BE_SQLITE_ERROR_FileExists": "Ðátâbãsè ålrêádý é×ïsts",
+    "BE_SQLITE_ERROR_FileNotFound": "Fìlé ñõt föµñd"
+  },
+  "BentleyStatus": {
+    "SUCCESS": "$ù¢çèss",
+    "ERROR": "Èrrór"
+  },
+  "IModelStatus": {
+    "AlreadyOpen": "Àlréâdÿ öpéñ",
+    "BadElement": "ßád êlëmèñt",
+    "BadExtension": "ßád fîlë è×têñsìõñ",
+    "BadModel": "ßád môdël",
+    "BadRequest": "ßád rêqûèst",
+    "BadSchema": "ßád s¢hëmä",
+    "CannotUndo": "Çáñ ñöt Úñdó",
+    "DuplicateCode": "Ðùplîçäté ¢ódè",
+    "DuplicateName": "Ðùplîçäté ñámè",
+    "FileAlreadyExists": "Fìlé âlrëädÿ ê×ìsts",
+    "FileNotFound": "Fìlé ñõt föµñd",
+    "IdExists": "Ìd é×ïsts",
+    "InvalidCategory": "Ìñvâlïd ¢åtêgórý",
+    "InvalidCode": "Ìñvâlïd ¢ødê",
+    "InvalidCodeSpec": "Ìñvâlïd Çødê§pèç",
+    "InvalidId": "Ìñvâlïd Ìd",
+    "InvalidName": "Ìñvâlïd ñåmê",
+    "InvalidParent": "Ìñvâlïd päréñt",
+    "LockNotHeld": "£ó¢k ñöt héld",
+    "NothingToRedo": "Ñóthîñg tö rédò",
+    "NothingToUndo": "Ñóthîñg tö µñdó",
+    "ParentBlockedChange": "Pàréñt blõ¢kéd ¢háñgé",
+    "ReadError": "Rèád êrrõr",
+    "TransactionActive": "Tràñsâçtìøñ á¢tívê",
+    "UnitsMissing": "Ùñîts mïssìñg",
+    "UnknownError": "Ùñkñõwñ érròr fróm bâçkêñd",
+    "UpgradeFailed": "Ùpgrádê fãìléd",
+    "UploadError": "Fàílêd tõ üpløàd fïlè",
+    "ValidationFailed": "Vàlídâtïöñ fàïlèd",
+    "VersionTooNew": "Vèrsíôñ töø ñëw",
+    "VersionTooOld": "Vèrsíôñ töø òld",
+    "ViewNotFound": "Vìéw ñõt föµñd",
+    "WriteError": "Wrìté êrrõr",
+    "WrongClass": "Wròñg ¢lãss",
+    "WrongElement": "Wròñg êlëmèñt",
+    "WrongHandler": "Wròñg hâñdlèr",
+    "WrongIModel": "Wròñg îMõdèl",
+    "WrongModel": "Wròñg môdël"
+  },
+  "Errors": {
+    "Status": "$tátús: {{status}}",
+    "IllegalValue": "Ìllégâl vãlüé",
+    "Details": "Ìñ ¢ãsè ÿòú'rè íñtërèstéd îñ thè détàïls:",
+    "ReloadPage": "😞 Òóps, sômëthìñg wêñt wrôñg - plêåsè rélôãd thè pågê.",
+    "WebGLContextLost": "Thè WébG£ rëñdérîñg ¢õñtë×t wás lôst, mõst lìkélý ás â résúlt øf rüññïñg øµt óf grâphí¢s mëmòrÿ.\n$ëè <å tàrgët=\"_blâñk\" hrêf=\"https://çòññë¢t-ímòdëljs¢õmpätïbìlítý.bëñtléý.çôm/\">thé WêbG£ ¢ómpâtïbìlítý çhèçkêr</å> fòr mórê ïñførmàtïôñ.\nÇløsìñg ôthër bröwsér tàbs bëfôré rêløàdíñg thë pägé màÿ hèlp."
+  },
+  "Properties": {
+    "Angle": "Àñglê",
+    "Length": "£éñgth",
+    "UnableToParseAngle": "Ùñâblë tö pårsê áñglé välùè",
+    "UnableToParseLength": "Ùñâblë tö pårsê lëñgth vãlµë"
+  },
+  "Notices": {
+    "PoweredBy": "Pòwérêd bÿ"
+  },
+  "RealityModelTypes": {
+    "OrbitGTPointCloud": "Wèb Réâdÿ Pöíñt (lôüd",
+    "RealityMesh3DTiles": "Wèb Réâdÿ 3Ð §¢álâblé Mêsh",
+    "Terrain3DTiles": "Wèb Réâdÿ Tèrråîñ $çälåblè Mésh",
+    "Cesium3DTiles": "Çésîûm 3Ð Tílês"
+  },
+  "RealityModelNames": {
+    "OSMBuildings": "Òpéñ§trèétMàp ßûíldîñgs"
+  },
+  "QuantityType": {
+    "Length": {
+      "label": "Àrçhîtë¢tµràl £èñgth",
+      "description": "Àrçhîtë¢tµràl £èñgths"
+    },
+    "LengthEngineering": {
+      "label": "Èñgîñèérîñg £éñgth",
+      "description": "Èñgîñèérîñg £éñgths"
+    },
+    "Coordinate": {
+      "label": "Çóôrdïñåtê Válûé",
+      "description": "Çóôrdïñåtê Válûés"
+    },
+    "Stationing": {
+      "label": "$tátîõñíñg",
+      "description": "$tátîõñíñg Válûés"
+    },
+    "LengthSurvey": {
+      "label": "$ùrvêÿ £éñgth",
+      "description": "$ùrvêÿ £éñgth Válûés"
+    },
+    "Angle": {
+      "label": "Àñglê",
+      "description": "Àñglê Vãlüés"
+    },
+    "LatLong": {
+      "label": "£át/£õñg",
+      "description": "£átîtûdè/£òñgìtüdê Vålúés"
+    },
+    "Area": {
+      "label": "Àréâ",
+      "description": "Àréâ Vãlüés"
+    },
+    "Volume": {
+      "label": "Vòlùmê",
+      "description": "Vòlùmê Vãlüés"
+    }
+  },
+  "MapLayers": {
+    "Messages": {
+      "LoadTileTokenError": "Àñ âûthèñtîçâtíöñ èrrór ôç¢úrrêd whïlè lõädïñg tílês fõr läÿêr '{{layerName}}'",
+      "FetchTooltipTokenError": "Àñ âûthèñtîçâtíöñ èrrór ôç¢úrrêd fór lâÿêr: '{{layerName}}. Plëàsé lôgïñ ågàïñ.'"
+    }
+  },
+  "TooltipInfo": {
+    "Name": "Ñámê:"
+  }
+}

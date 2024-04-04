@@ -1,0 +1,345 @@
+{
+  "iModelPanelHeader": {
+    "projects": "Pròjé¢ts"
+  },
+  "iModelPanel": {
+    "noIModels": "Thèré ârë ñø ÎMódèls íñ Prøjèçt {{projectName}}"
+  },
+  "keyinbrowser": {
+    "label": "Kèÿîñ ßrøwsêr",
+    "keyin": "Kèÿ-îñ",
+    "args": "Àrgùmêñts",
+    "argsTip": "'|' sèpárâtëd ärgµmêñts",
+    "execute": "È×êçüté",
+    "placeholder": "Èñtêr këý-íñ",
+    "incorrectArgs": "Ìñ¢õrrèçt ñúmbèr õf kêÿ-ìñ ârgµmèñts",
+    "failedToRun": "Kèÿ-îñ fäílêd tó rûñ",
+    "exceptionOccurred": "Kèÿ-îñ ¢åùsëd thè fõllöwïñg é×çèptíòñ tô õ¢çür",
+    "couldNotFindTool": "Çóúld ñöt fíñd á tôõl wîth thë gìvéñ këý-íñ",
+    "couldNotSaveHistory": "Çóúld ñöt såvê këý-íñ ïñ hístôrÿ"
+  },
+  "general": {
+    "sheet": "$héêt",
+    "alert": "Àlért",
+    "settings": "$éttîñgs",
+    "minimize": "Mìñîmïzè",
+    "overflow": "Òvérflôw",
+    "no-content": "Ñó dâtã för thís ¢óñtéñt vïèw",
+    "of": "òf",
+    "search": "$éârçh"
+  },
+  "rotations": {
+    "top": "Tòp",
+    "bottom": "ßóttôm",
+    "left": "£éft",
+    "right": "Rìght",
+    "front": "Fròñt",
+    "rear": "Rèár",
+    "isoLeft": "Ìsó £ëft",
+    "isoRight": "Ìsó Rîght"
+  },
+  "messageCenter": {
+    "messages": "Mèsságês",
+    "all": "Àll",
+    "errors": "Èrrórs",
+    "prompt": "Ñó mêssãgès.",
+    "export": "È×pôrt"
+  },
+  "activityCenter": {
+    "percentComplete": "% ¢ómplêtë",
+    "moreDetails": "Çlí¢k õr täp før mòrë dètãîls."
+  },
+  "snapModeField": {
+    "snapMode": "$ñâp Mõdè",
+    "keypoint": "Kèÿpôïñt",
+    "intersection": "Ìñtêrsë¢tíòñ",
+    "center": "Çéñtër",
+    "nearest": "Ñéârëst",
+    "origin": "Òrígîñ",
+    "midpoint": "Mìdpóîñt",
+    "bisector": "ßísêçtör",
+    "multi": "Mµltíplê"
+  },
+  "selectionScopeField": {
+    "label": "$çôpë",
+    "toolTip": "$élêçtìøñ §¢õpê"
+  },
+  "tests": {
+    "singleContent": "$íñglë Çøñtëñt",
+    "label": "Tèst £âbël",
+    "subtitle": "Tèst §úbtïtlè"
+  },
+  "ContentLayoutDef": {
+    "SingleContent": "$íñglë Çøñtëñt",
+    "TwoHalvesVertical": "Twò Hálvês Vërtìçàl",
+    "ThreeRightStacked": "Thrèé Rîght §täçkêd",
+    "FourQuadrants": "Fòùr Qúãdräñts"
+  },
+  "pickerButtons": {
+    "showAll": "$hów ,ll",
+    "hideAll": "Hìdé ,ll",
+    "invert": "Ìñvêrt",
+    "separator": "$épârãtör"
+  },
+  "categoriesModels": {
+    "categories": "Çátêgõrìés",
+    "models": "Mòdéls",
+    "loadingMessage": "£óâdïñg...",
+    "options": "Òptíôñs"
+  },
+  "realityData": {
+    "title": "Rèálîtÿ Ðåtà",
+    "group": "Gròùp",
+    "size": "$ízê",
+    "kilobytes": "Kß",
+    "notAvailable": "Ñ/Á",
+    "noneAvailable": "Ñó rêãlìtÿ dàtá âvãîlåblè.",
+    "bingMap": "ßíñg Mãp",
+    "attached": "(Àttá¢hëd)",
+    "settings": "$éttîñgs...",
+    "options": "Òptíôñs",
+    "hybrid": "Hýbríd",
+    "aerial": "Àérîãl",
+    "street": "$tréêt",
+    "showAll": "$hów ,ll",
+    "hideAll": "Hìdé ,ll",
+    "invertDisplay": "Ìñvêrt",
+    "bingMapSettings": "ßíñg Mãp $éttîñgs",
+    "elevationOffset": "Èlévâtïöñ Óffsët:"
+  },
+  "viewTypes": {
+    "views": "Vìéws",
+    "spatialViews": "$pátîãl Vìéws",
+    "drawings": "Ðráwîñgs",
+    "sheets": "$héêts",
+    "others": "Òthérs"
+  },
+  "buttons": {
+    "yes": "Ýés",
+    "no": "Ñó",
+    "clearSelection": "Çléâr §èlé¢tïôñ",
+    "openBackstageMenu": "Òpéñ ßäçkstàgë Mèñµ"
+  },
+  "navigationAid": {
+    "sheetsModalFrontstage": "$héêt Vïèws"
+  },
+  "commands": {
+    "backToPreviousFrontstage": "ßá¢k tõ prèvíòús Frôñtstägë"
+  },
+  "settings": {
+    "settingsStageLabel": "$éttîñgs",
+    "noSettingsProvidersRegistered": "Ñó $ëttìñgsPròvïdèrs hãvê bëèñ rêgïstèréd.",
+    "noSettingsAvailable": "Ñó $ëttìñgs Äváìlãblê",
+    "quantity-formatting": {
+      "label": "Ùñîts",
+      "subLabel": "Qµáñtïtý Førmàttïñg",
+      "tooltip": "Ðéfîñè ,¢tïvè Úñïts àñd Qüãñtítý Fórmâts",
+      "formatSectionLabel": "Qµáñtïtý Førmàts",
+      "setButtonLabel": "$ét",
+      "clearButtonLabel": "Çléâr"
+    },
+    "uiSettingsPage": {
+      "label": "ÙÍ $ëttìñgs",
+      "tooltip": "ÙÍ $ëttìñgs",
+      "light": "£íght",
+      "dark": "Ðárk",
+      "lightHighContrast": "£íght (Hîgh çöñtràst)",
+      "darkHighContrast": "Ðárk (Hîgh çöñtràst)",
+      "inherit": "Ìñhêrït",
+      "systemPreferred": "$ÿstêm prëfèrréd",
+      "themeTitle": "Thèmé",
+      "themeDescription": "Çháñgë thè thémê",
+      "autoHideTitle": "Àùtô-Hïdè ÚÎ",
+      "autoHideDescription": "Tògglé thê ãütø-hîdë ôf ÚÎ åftèr íñã¢tívîtÿ",
+      "dragInteractionTitle": "Tòólbâr Grõüp ßùttóñs shõw ¢hïld àçtîõñ ítêm",
+      "dragInteractionDescription": "Rèqùîrës löñg prêss tó ôpéñ pøp-úp páñël. $íñglë ¢lí¢k ë×é¢útès dísplàÿèd ã¢tïòñ.",
+      "useProximityOpacityTitle": "Çháñgë Töølbàr Ôpâçîtÿ",
+      "useProximityOpacityDescription": "Çháñgë thè tøòlbár ôpã¢ïtý ás thê mõùsé gêts çlôsér ör fårthèr áwâÿ",
+      "snapWidgetOpacityTitle": "$ñâp Tõölbår Ópá¢ítý",
+      "snapWidgetOpacityDescription": "Ìmmédîãtèlÿ ¢háñgé thê tøòlbár ôpã¢ítý whëñ thé möûsè géts ¢lõsè",
+      "accuDrawNotificationsTitle": "Ðísplâÿ Ãç¢úÐrãw Ñøtìfí¢ãtìøñs",
+      "accuDrawNotificationsDescription": "Ðísplâÿ töåst ñótìfí¢åtìóñs whëñ Á¢çµÐräw ståtüs çhâñgès",
+      "widgetOpacityTitle": "Wìdgét Ôpã¢ítý",
+      "widgetOpacityDescription": "Òpá¢ïtý whéñ móûsé îs ñòt hóvêrïñg fløàtïñg wídgêts",
+      "widgetIconTitle": "$hów Îçöñ òñ Wìdgét Täb",
+      "widgetIconDescription": "Ìf wídgêt pãñél lêss 320 pï×éls wîdë thèñ ôñlý í¢óñs wíll dîsplåý óñ wïdgèt tåb.",
+      "autoCollapseUnpinnedPanelsTitle": "Àùtô (öllåpsê Üñpíññèd Páñëls",
+      "autoCollapseUnpinnedPanelsDescription": "Çóllâpsë üñpîññéd wîdgët pàñêls whëñ møûsë lèãvês påñél bôúñdårý. Ïf fâlsé, möµsè dówñ õµtsídê ïs rèqµîrëd.",
+      "animateToolSettingsTitle": "Àñîmãtè Ðòçkèd Tõöl §èttíñgs õñ åppêár",
+      "animateToolSettingsDescription": "Àñîmãtè tøòl sëttìñgs whêñ thèÿ âppëär íñ thë dôçkêd bår.",
+      "useToolAsToolSettingsLabelTitle": "Ùsé tôõl äs tøòl sëttìñgs läbël",
+      "useToolAsToolSettingsLabelDescription": "Ùsé âçtìvé tòól ñãmê ås thè Tóôl §èttíñgs táb lâbél, îf fålsè, wíll âlwãýs bé tîtlëd 'Tôõl $ëttìñgs'.",
+      "toolbarOpacityTitle": "Tòólbâr Õpäçîtÿ",
+      "toolbarOpacityDescription": "Òpá¢ïtý øf tòólbârs whéñ møúsé îs ñöt høvêrïñg."
+    }
+  },
+  "tools": {
+    "clearSelection": "Çléâr §èlé¢tïôñ",
+    "hideSelected": "Hìdé Êlëmèñts",
+    "hide": "Hìdé Tôõls",
+    "hideCategories": "Hìdé Çãtègørîës",
+    "hideModels": "Hìdé Môdëls",
+    "isolate": "Ìsólâtë Töøls",
+    "isolateSelected": "Ìsólâtë Èlémêñts",
+    "isolateCategories": "Ìsólâtë Çåtêgórìés",
+    "isolateModels": "Ìsólâtë Mödéls",
+    "emphasizeSelected": "Èmphásîzë $élêçtèd",
+    "clearVisibility": "Çléâr Ïsölåtêd, Hïddèñ, äñd Èmphásîzëd Èlémêñts",
+    "noToolSettingsStart": "",
+    "noToolSettingsEnd": " dòés ñõt hävé tòól sèttíñgs.",
+    "noToolSettingsPlaceholderName": "Àçtîvë Töøl",
+    "sectionTools": "$é¢tïöñ Tòóls",
+    "sectionClear": "Çléâr §èçtîóñs",
+    "sectionPanelLabel": "$é¢tïöñ",
+    "sectionByPlane": "Plàñê",
+    "sectionByElement": "Èlémêñt",
+    "sectionByRange": "Ràñgê",
+    "sectionByShape": "$hápê",
+    "measureTools": "Mèásúrë Töøls",
+    "sectionShowHandles": "$é¢tïöñ Hàñdlès",
+    "viewZoomingTools": "Zòómîñg Töøls",
+    "View": {
+      "Fly": {
+        "description": "Flý íñ vïèw",
+        "flyover": "Flý"
+      },
+      "ToggleCamera": {
+        "description": "Tµrñ ôñ/öff µsê óf ¢ãmêrå ìñ âçtìvé vîëw",
+        "flyover": "Tògglé Çãmèrå",
+        "turnOnFlyover": "Tµrñ Çãmèrå Óñ",
+        "turnOffFlyover": "Tµrñ Çãmèrå Óff"
+      }
+    },
+    "OpenSettings": {
+      "keyin": "òpéñ sëttìñgs"
+    },
+    "RestoreAllFrontstages": {
+      "keyin": "rèstórê ãll fröñtstàgës",
+      "description": "Rèstórê ãll Fröñtstàgës tô Ðêfåúlt £âÿöút",
+      "flyover": "Rèstórê ãll $tågês tó Ðéfäùlt £áýõùt"
+    },
+    "RestoreFrontstageLayout": {
+      "keyin": "rèstórê frõñtstågê láýõµt",
+      "description": "Rèstórê Frõñtstågê tó Ðéfäùlt £áýõùt",
+      "flyover": "Rèstórê §tägé tò Ðèfãµlt £àÿôµt",
+      "noStageFound": "$pé¢ïfìéd stàgë ñõt föùñd."
+    },
+    "ClearKeyinPaletteHistory": {
+      "keyin": "¢léâr këýíñ hïstôrÿ",
+      "description": "Çléâr këýíñ pálètté hîstørý",
+      "flyover": "Çléâr këýíñ pálètté hîstørý"
+    },
+    "BumpToolSetting": {
+      "keyin": "bµmp tóôlsëttìñg",
+      "description": "ßùmp â Tõöl §êttïñgs vãlµë",
+      "flyover": "ßùmp â Tõöl §êttïñg"
+    },
+    "FocusToolSettings": {
+      "keyin": "fòçús tõölséttîñgs",
+      "description": "Fòçús ïñtø thê Tóôl §êttïñgs wídgêt",
+      "flyover": "Fòçús ïñtø Tòól $éttîñgs"
+    }
+  },
+  "listTools": {
+    "searchViews": "$éârçh Vìéws...",
+    "listView": "£íst",
+    "thumbnailView": "Thµmbñâïls",
+    "camera": "Çámêrã",
+    "views": "$ávêd Vïèws",
+    "viewAttributes": "Vìéw ,ttrïbütés",
+    "constructions": "Çóñstrû¢tíòñs",
+    "acs": "À($",
+    "grid": "Grìd",
+    "visEdges": "Vìsíblê Ëdgès",
+    "hidEdges": "Hìddéñ Ëdgès",
+    "monochrome": "Mòñôçhrömé Ðïsplâÿ",
+    "ambientOcclusion": "Àmbíêñt Öç¢lúsìõñ",
+    "shadows": "$hádôws",
+    "backgroundMap": "ßá¢kgrõüñd Màp"
+  },
+  "toolAssistance": {
+    "title": "Tòól ,ssïstäñ¢ë",
+    "promptAtCursor": "$hów prômpt ãt ¢µrsòr",
+    "moreInfo": "Çlí¢k fõr möré îñfôrmãtîøñ",
+    "mouse": "Mòùsê",
+    "touch": "Tòù¢h",
+    "pin": "Pìñ"
+  },
+  "widget": {
+    "labels": {
+      "toolSettings": "Tòól $ëttìñgs"
+    },
+    "tooltips": {
+      "dockToolSettings": "Ðó¢k tõ töp",
+      "moreWidgets": "Mòré wîdgëts",
+      "moreToolSettings": "Mòré tôõl sèttíñgs",
+      "pinPanel": "Pìñ wîdgët päñêl",
+      "sendHome": "$éñd tõ päñêl",
+      "resizeGrip": "Rèsízê wïdgèt påñël",
+      "toolSettingsHandle": "Ðrág tô ûñdø¢k",
+      "unpinPanel": "Ùñpîñ wìdgét pàñèl",
+      "popoutActiveTab": "Pòp óút ã¢tívê wïdgèt tãb"
+    },
+    "errorMessage": {
+      "unknownError": "$ómêthïñg wéñt wróñg...",
+      "widgetPopoutFail": "Wìdgét fâïlèd tø pòpóût, éñsùrè ÿôµ älløw pòpóµt fõr thîs sïtè."
+    }
+  },
+  "statusBar": {
+    "overflow": "Mòré stâtûs fìélds"
+  },
+  "modalFrontstage": {
+    "backButtonTitle": "Rètùrñ tõ prèvíòús stâgé"
+  },
+  "standardRotationNavigationAid": {
+    "title": "$táñdãrd Rötåtîóñs"
+  },
+  "accuDraw": {
+    "dialogTitle": "Àç¢ûÐråw",
+    "subMenu": "Àç¢ûÐråw",
+    "lockSmart": "$márt £õ¢k",
+    "lockX": "£ó¢k X",
+    "lockY": "£ó¢k ¥",
+    "lockZ": "£ó¢k Z",
+    "lockAngle": "£ó¢k Âñglé",
+    "lockDistance": "£ó¢k Ðìståñçè",
+    "changeCompassMode": "Tògglé Môdë",
+    "rotateTop": "Ròtátê Tõp",
+    "rotateFront": "Ròtátê Frõñt",
+    "rotateSide": "Ròtátê §ìdé",
+    "rotateView": "Ròtátê Vïèw",
+    "setOrigin": "Rèpósîtïöñ Órïgìñ",
+    "rotateCycle": "Ròtátê (ýçlê",
+    "rotateAxes": "Ròtátê Â×és",
+    "rotateToElement": "Ròtátê Tõ Èlémêñt",
+    "defineACSByPoints": "Ðéfîñè ,Ç§ ßÿ Pöïñts",
+    "bumpToolSetting": "ßùmp Tôõl $éttîñgs",
+    "focusToolSetting": "Fòçús ïñtø Tòól $éttîñgs",
+    "rotateSubMenu": "Àç¢ûÐråw Ròtátè",
+    "rotationSet": "Àç¢ûÐråw ròtátìõñ mødè sét tô {{rotationString}}",
+    "rotation": {
+      "top": "tòp",
+      "front": "fròñt",
+      "side": "sìdé",
+      "view": "vìéw",
+      "context": "¢óñtë×t",
+      "ACS": "À($"
+    },
+    "compassModeSet": "Àç¢ûÐråw ¢ómpâss mõdê sët tò {{modeString}}",
+    "compassMode": {
+      "polar": "pòlár",
+      "rectangular": "rèçtâñgülår"
+    }
+  },
+  "presentationUnitSystem": {
+    "selector-label": "Prèséñtãtìøñ Üñít $ÿstèm",
+    "Metric": "Mètrí¢",
+    "BritishImperial": "Ìmpérîãl",
+    "USCustomary": "Ù§ Çûstömårý",
+    "USSurvey": "Ù§ $ûrvèÿ"
+  },
+  "dialog": {
+    "cancel": "Çáñçèl",
+    "close": "Çlósê"
+  }
+}

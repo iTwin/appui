@@ -9,7 +9,7 @@ import {
   NotifyMessageDetails,
   OutputMessagePriority,
 } from "@itwin/core-frontend";
-import { Button, DropdownButton, MenuItem } from "@itwin/itwinui-react";
+import { DropdownButton, MenuItem } from "@itwin/itwinui-react";
 import * as React from "react";
 
 const AlignComponent: Decorator = (Story) => {
@@ -41,11 +41,31 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Empty: Story = {};
+const EmptyDecorator: Decorator = (Story) => {
+  React.useEffect(() => {
+    MessageManager.clearMessages();
+  });
+  return (
+    <div
+      style={{
+        height: "100%",
+        display: "flex",
+        justifyContent: "center",
+        paddingBlock: "2em",
+        gap: "10",
+      }}
+    >
+      <Story />
+    </div>
+  );
+};
+
+export const Empty: Story = { decorators: EmptyDecorator };
 
 //Info UseCase
-const NotificationDecorator: Decorator = (Story) => {
+const InfoDecorator: Decorator = (Story) => {
   React.useEffect(() => {
+    MessageManager.clearMessages();
     ["1", "2", "3", "4"].forEach((num) => {
       MessageManager.addToMessageCenter(
         new NotifyMessageDetails(OutputMessagePriority.Info, `Message ${num}`)
@@ -60,8 +80,8 @@ const NotificationDecorator: Decorator = (Story) => {
   );
 };
 
-export const Notification: Story = {
-  decorators: NotificationDecorator,
+export const Info: Story = {
+  decorators: InfoDecorator,
 };
 
 //Error Use Case

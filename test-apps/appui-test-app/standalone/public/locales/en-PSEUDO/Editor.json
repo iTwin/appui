@@ -1,0 +1,491 @@
+{
+  "tools": {
+    "DeleteElements": {
+      "keyin": "èdítôr dëlèté êlëmèñts",
+      "flyover": "Ðélêtë Èlémêñts"
+    },
+    "MoveElements": {
+      "keyin": "èdítôr mõvè élêmëñts",
+      "flyover": "Mòvé Êlëmèñts"
+    },
+    "CopyElements": {
+      "keyin": "èdítôr çöpÿ êlëmèñts",
+      "flyover": "Çópý Ëlèméñts",
+      "Label": {
+        "NumCopies": "Çópîës"
+      }
+    },
+    "RotateElements": {
+      "keyin": "èdítôr rõtäté êlëmèñts",
+      "flyover": "Ròtátê Ëlèméñts",
+      "Prompts": {
+        "IdentifyPoint": "Ìdéñtïfý pøîñt tô rõtätë àbóüt",
+        "DefineStart": "Ðéfîñè stårt òf rótâtíöñ",
+        "DefineAmount": "Ðéfîñè åmòúñt õf rötåtìóñ"
+      },
+      "Label": {
+        "Method": "Mèthód",
+        "About": "Àbóút",
+        "Angle": "Àñglê"
+      },
+      "Method": {
+        "3Points": "3 Pòíñts",
+        "Angle": "Àñglê"
+      },
+      "About": {
+        "Point": "Pòíñt",
+        "Origin": "Òrígîñ",
+        "Center": "Çéñtër"
+      }
+    },
+    "CreateArc": {
+      "keyin": "èdítôr çrèåtê ár¢",
+      "flyover": "Çréâtë Ãrç",
+      "Label": {
+        "Method": "Mèthód",
+        "Radius": "Ràdíús",
+        "Sweep": "$wéêp"
+      },
+      "Method": {
+        "CenterStart": "Çéñtër, $tårt",
+        "StartCenter": "$tárt, Çëñtér",
+        "StartMidEnd": "$tárt, Mîd, Ëñd",
+        "StartEndMid": "$tárt, Êñd, Mìd"
+      },
+      "Prompts": {
+        "CenterPoint": "Ðéfîñè år¢ çèñtêr",
+        "MidPoint": "Ðéfîñè år¢ mïdpôíñt"
+      }
+    },
+    "CreateBCurve": {
+      "keyin": "èdítôr çrèåtê bçûrvé",
+      "flyover": "Çréâtë ß-splíñë Çürvê",
+      "Label": {
+        "Method": "Mèthód",
+        "Order": "Òrdér",
+        "Tangents": "Ðéfîñè Tåñgëñts"
+      },
+      "Method": {
+        "ControlPoints": "Çóñtrõl Pöíñts",
+        "ThroughPoints": "Thròùgh Pôïñts"
+      },
+      "Prompts": {
+        "StartTangent": "Ðéfîñè stårt tàñgèñt",
+        "EndTangent": "Ðéfîñè éñd táñgéñt"
+      }
+    },
+    "CreateCircle": {
+      "keyin": "èdítôr çrèåtê çìrçlê",
+      "flyover": "Çréâtë Çír¢lë",
+      "Label": {
+        "Method": "Mèthód",
+        "Radius": "Ràdíús"
+      },
+      "Method": {
+        "Center": "Çéñtër",
+        "Edge": "Èdgé"
+      },
+      "Prompts": {
+        "CenterPoint": "Ðéfîñè çîrçlè çêñtèr",
+        "EdgePoint": "Ðéfîñè pøîñt ôñ êdgë"
+      }
+    },
+    "CreateEllipse": {
+      "keyin": "èdítôr çrèåtê ëllìpsé",
+      "flyover": "Çréâtë Èllípsê",
+      "Prompts": {
+        "CenterPoint": "Ðéfîñè éllîpsë ¢éñtër",
+        "MajorAxis": "Ðéfîñè måjòr á×ís",
+        "MinorAxis": "Ðéfîñè míñór â×îs"
+      }
+    },
+    "CreateLineString": {
+      "keyin": "èdítôr çrèåtê lïñéstrîñg",
+      "flyover": "Çréâtë £íñëstrìñg"
+    },
+    "CreateRectangle": {
+      "keyin": "èdítôr çrèåtê rë¢tãñglë",
+      "flyover": "Çréâtë Rèçtàñglè",
+      "Label": {
+        "CornerRadius": "Çórñër Rädíùs"
+      }
+    },
+    "CreateSphere": {
+      "keyin": "èdítôr çrèåtê sphërè",
+      "flyover": "Çréâtë $phérê",
+      "Label": {
+        "Radius": "Ràdíús",
+        "Capped": "$ólîd"
+      },
+      "Prompts": {
+        "CenterPoint": "Ðéfîñè çêñtèr",
+        "RadiusPoint": "Ðéfîñè rådîús"
+      }
+    },
+    "CreateCylinder": {
+      "keyin": "èdítôr çrèåtê çýlíñdër",
+      "flyover": "Çréâtë Çÿlîñdèr",
+      "Label": {
+        "Radius": "Ràdíús",
+        "Length": "£éñgth",
+        "Orthogonal": "Òrthógôñäl",
+        "Capped": "$ólîd"
+      },
+      "Prompts": {
+        "BasePoint": "Ðéfîñè çêñtèr õf bäsë",
+        "RadiusPoint": "Ðéfîñè rådîús",
+        "LengthPoint": "Ðéfîñè léñgth"
+      }
+    },
+    "CreateCone": {
+      "keyin": "èdítôr çrèåtê çôñê",
+      "flyover": "Çréâtë Çøñë",
+      "Label": {
+        "BaseRadius": "ßásê Rãdìµs",
+        "TopRadius": "Tòp Rádîûs",
+        "Length": "£éñgth",
+        "Orthogonal": "Òrthógôñäl",
+        "Capped": "$ólîd"
+      },
+      "Prompts": {
+        "BasePoint": "Ðéfîñè çêñtèr õf bäsë",
+        "BaseRadiusPoint": "Ðéfîñè båsê rádìüs",
+        "TopRadiusPoint": "Ðéfîñè tøp ràdïûs",
+        "LengthPoint": "Ðéfîñè léñgth"
+      }
+    },
+    "CreateBox": {
+      "keyin": "èdítôr çrèåtê bó×",
+      "flyover": "Çréâtë ßø×",
+      "Label": {
+        "Length": "£éñgth",
+        "Width": "Wìdth",
+        "Height": "Hèíght",
+        "Orthogonal": "Òrthógôñäl",
+        "Capped": "$ólîd"
+      },
+      "Prompts": {
+        "BasePoint": "Ðéfîñè çòrñèr õf bäsë",
+        "LengthPoint": "Ðéfîñè léñgth",
+        "WidthPoint": "Ðéfîñè wídth",
+        "HeightPoint": "Ðéfîñè héîght"
+      }
+    },
+    "CreateTorus": {
+      "keyin": "èdítôr çrèåtê tórûs",
+      "flyover": "Çréâtë Törµs",
+      "Label": {
+        "PrimaryRadius": "Prìmárý Rãdìµs",
+        "SecondaryRadius": "$é¢õñdårý Rádìüs",
+        "Angle": "Àñglê",
+        "Capped": "$ólîd"
+      },
+      "Prompts": {
+        "StartPoint": "Ðéfîñè stårt",
+        "CenterPoint": "Ðéfîñè çêñtèr",
+        "SecondaryRadiusPoint": "Ðéfîñè sé¢óñdãrý rådìûs",
+        "AnglePoint": "Ðéfîñè åñglë"
+      }
+    },
+    "OffsetCurve": {
+      "keyin": "èdítôr õffsèt çùrvë",
+      "flyover": "Òffsét plâñär påths àñd règíöñs",
+      "Label": {
+        "Distance": "Ðístâñ¢é",
+        "MakeCopy": "Màké Çõpý"
+      },
+      "Prompts": {
+        "DefineOffset": "Ðéfîñè øffsêt dïstâñ¢ë"
+      }
+    },
+    "BreakCurve": {
+      "keyin": "èdítôr brëäk çùrvë",
+      "flyover": "$plít âñ öpéñ páth ôr õpêñ à çlôsëd löøp",
+      "Prompts": {
+        "IdentifyBreak": "Ìdéñtïfý bréàk ló¢ãtîøñ"
+      }
+    },
+    "ExtendCurve": {
+      "keyin": "èdítôr ë×téñd çûrvé",
+      "flyover": "È×têñd ör shørtêñ â çµrvë",
+      "Prompts": {
+        "IdentifyEnd": "Ìdéñtïfý éñd tó môdífý"
+      }
+    },
+    "ExtrudeCurve": {
+      "keyin": "èdítôr ë×trµdê çûrvé",
+      "flyover": "È×trúdë Çµrvê",
+      "Label": {
+        "Length": "£éñgth",
+        "Orthogonal": "Òrthógôñäl",
+        "Capped": "$ólîd",
+        "KeepProfile": "Kèép Prôfïlè"
+      },
+      "Prompts": {
+        "LengthPoint": "Ðéfîñè léñgth"
+      }
+    },
+    "RevolveCurve": {
+      "keyin": "èdítôr rëvölvé ¢úrvè",
+      "flyover": "Rèvólvê (ürvé",
+      "Label": {
+        "Angle": "$wéêp Âñglé",
+        "Capped": "$ólîd",
+        "KeepProfile": "Kèép Prôfïlè"
+      },
+      "Prompts": {
+        "AxisPoint": "Ðéfîñè pøîñt ôñ ä×ìs",
+        "AxisDirection": "Ðéfîñè å×ïs dìré¢tïòñ"
+      }
+    },
+    "RegionBoolean": {
+      "keyin": "èdítôr rëgìøñ bóôléäñ",
+      "flyover": "Pèrfórm bôõlèåñ óñ sélêçtèd régîõñs",
+      "Label": {
+        "Mode": "Mòdé",
+        "KeepOriginal": "Kèép Ôrïgìñàl"
+      },
+      "Mode": {
+        "Unite": "Ùñîtë",
+        "Subtract": "$ùbtrâçt",
+        "Intersect": "Ìñtêrsë¢t"
+      },
+      "Error": {
+        "NonCoplanar": "Règíôñs äré ñóñ çöplåñár"
+      }
+    },
+    "UniteSolids": {
+      "keyin": "èdítôr ûñítê sólìds",
+      "flyover": "Ùñîtë sèlé¢tëd sôlíds"
+    },
+    "SubtractSolids": {
+      "keyin": "èdítôr sûbträçt sòlïds",
+      "flyover": "$ùbtrâçt sèlé¢tëd sôlíds"
+    },
+    "IntersectSolids": {
+      "keyin": "èdítôr ïñtérsêçt sôlíds",
+      "flyover": "Ìñtêrsë¢t sélêçtèd sõlîds"
+    },
+    "SewSheets": {
+      "keyin": "èdítôr sëw shèéts",
+      "flyover": "$éw sêlë¢téd shêëts"
+    },
+    "ThickenSheets": {
+      "keyin": "èdítôr thï¢kéñ shëèts",
+      "flyover": "Thìçkêñ sèlé¢tëd shèéts îñtò sólîds",
+      "Label": {
+        "FrontDistance": "Fròñt Ðïstäñ¢ë",
+        "BackDistance": "ßá¢k Ðìståñçè"
+      }
+    },
+    "CutSolids": {
+      "keyin": "èdítôr çüt sølîds",
+      "flyover": "Çùt sôlïds bý øpêñ pâth õr pläñàr régîõñ",
+      "Label": {
+        "Depth": "Ðépth",
+        "BothDirections": "ßóth Ðïrèçtîóñs",
+        "Outside": "Òùtsîdë"
+      }
+    },
+    "EmbossSolids": {
+      "keyin": "èdítôr ëmböss sølîds",
+      "flyover": "Èmbóss tô çrèåtê pád ôr põ¢kët òñ sôlïd ör shéêt"
+    },
+    "ImprintSolids": {
+      "keyin": "èdítôr ïmprìñt sòlïds",
+      "flyover": "Ìmpríñt õffsèt édgês ór âñöthër èlémêñt öñ à sólìd",
+      "Label": {
+        "Method": "Mèthód",
+        "Distance": "Ðístâñ¢é",
+        "Extend": "È×têñd"
+      },
+      "Method": {
+        "Element": "Èlémêñt",
+        "Edges": "Èdgés",
+        "Points": "Pòíñts"
+      }
+    },
+    "SweepAlongPath": {
+      "keyin": "èdítôr swëèp påth",
+      "flyover": "Çréâtë sölíd òr shëèt bÿ swêëpìñg â prõfìlé àlóñg ã päth"
+    },
+    "LoftProfiles": {
+      "keyin": "èdítôr lõft pröfílês",
+      "flyover": "Çréâtë sölíd òr shëèt bÿ löftïñg thróügh ã sèt øf pròfïlès"
+    },
+    "OffsetFaces": {
+      "keyin": "èdítôr õffsèt få¢ës",
+      "flyover": "Òffsét fâçès øf sùrfá¢és äñd sòlíds",
+      "Label": {
+        "AddSmooth": "Àdd §môõth Fäçês",
+        "Distance": "Ðístâñ¢é"
+      }
+    },
+    "HollowFaces": {
+      "keyin": "èdítôr hõllöw få¢ës",
+      "flyover": "Hòllów sôlïds bý øffsêttïñg fã¢ës",
+      "Label": {
+        "ShellThickness": "$héll Thîçkñéss",
+        "FaceThickness": "Fàçê Thï¢kñêss"
+      }
+    },
+    "SweepFaces": {
+      "keyin": "èdítôr swëèp få¢ës",
+      "flyover": "$wéêp plãñår ¢úrvès, sürfäçès, ór fâçès øf sòlïds",
+      "Label": {
+        "AddSmooth": "Àdd §môõth Fäçês",
+        "Distance": "Ðístâñ¢é"
+      }
+    },
+    "SpinFaces": {
+      "keyin": "èdítôr spïñ få¢ës",
+      "flyover": "$píñ plãñår ¢úrvès, sürfäçès, ór fâçès øf sòlïds",
+      "Label": {
+        "Angle": "$wéêp Âñglé"
+      }
+    },
+    "RoundEdges": {
+      "keyin": "èdítôr rõüñd êdgës",
+      "flyover": "Ròùñd ëdgès øf sòlïds âñd sµrfå¢és",
+      "Label": {
+        "Radius": "Ràdíús",
+        "AddSmooth": "Àdd §môõth Èdgés"
+      }
+    },
+    "ChamferEdges": {
+      "keyin": "èdítôr çhämfér êdgës",
+      "flyover": "Çhámfêr ëdgès øf sòlïds âñd sµrfå¢és",
+      "Label": {
+        "Method": "Mèthód",
+        "Length": "£éñgth",
+        "LeftDistance": "£éft Ðïstäñ¢ë",
+        "RightDistance": "Rìght Ðîstãñçê",
+        "Angle": "Àñglê"
+      },
+      "Method": {
+        "Length": "£éñgth",
+        "Distances": "Ðístâñ¢és",
+        "DistanceAngle": "Ðístâñ¢é/Äñglè",
+        "AngleDistance": "Àñglê/Ðìståñçè"
+      }
+    },
+    "DeleteSubEntities": {
+      "keyin": "èdítôr dëlèté sùbëñtítîës",
+      "flyover": "Ðélêtë fäçês áñd édgês øf sòlíds âñd sùrfå¢ës"
+    },
+    "LocateSubEntities": {
+      "Identify": {
+        "Face": "Ìdéñtïfý få¢ë",
+        "Edge": "Ìdéñtïfý édgê",
+        "Vertex": "Ìdéñtïtý vértê×",
+        "FaceEdge": "Ìdéñtïfý få¢ë ôr édgê",
+        "FaceVertex": "Ìdéñtïfý få¢ë ôr vértê×",
+        "EdgeVertex": "Ìdéñtïfý édgê ór vèrté×",
+        "FaceEdgeVertex": "Ìdéñtïtý få¢ë, èdgé, ör vërtè×"
+      },
+      "IdentifyAdditional": {
+        "Face": "Ìdéñtïfý åddîtïôñäl få¢és",
+        "Edge": "Ìdéñtïfý åddîtïôñäl ëdgès",
+        "Vertex": "Ìdéñtïtý åddîtïôñäl vërtìçês",
+        "FaceEdge": "Ìdéñtïfý åddîtïôñäl få¢és ôr ëdgès",
+        "FaceVertex": "Ìdéñtïfý åddîtïôñäl få¢és ôr vërtìçês",
+        "EdgeVertex": "Ìdéñtïfý åddîtïôñäl ëdgès ór vêrtï¢és",
+        "FaceEdgeVertex": "Ìdéñtïtý åddîtïôñäl få¢és, êdgës, ör vértîçès"
+      },
+      "Accept": {
+        "Face": "Àç¢ëpt fäçê",
+        "Edge": "Àç¢ëpt èdgé",
+        "Vertex": "Àç¢ëpt vèrté×",
+        "FaceEdge": "Àç¢ëpt fäçê ór èdgé",
+        "FaceVertex": "Àç¢ëpt fäçê ór vèrté×",
+        "EdgeVertex": "Àç¢ëpt èdgé òr vërtè×",
+        "FaceEdgeVertex": "Àç¢ëpt fäçê, ëdgè, õr vêrtë×"
+      },
+      "AcceptNext": {
+        "Face": "Àç¢ëpt ñé×t fá¢é",
+        "Edge": "Àç¢ëpt ñé×t ëdgè",
+        "Vertex": "Àç¢ëpt ñé×t vërtè×",
+        "FaceEdge": "Àç¢ëpt ñé×t fá¢é ör ëdgè",
+        "FaceVertex": "Àç¢ëpt ñé×t fá¢é ör vërtè×",
+        "EdgeVertex": "Àç¢ëpt ñé×t ëdgè õr vêrtë×",
+        "FaceEdgeVertex": "Àç¢ëpt ñé×t fá¢é, êdgë, òr vértê×"
+      }
+    },
+    "UndoAll": {
+      "keyin": "èdítôr ûñdø àll",
+      "flyover": "Ùñdô Âll"
+    },
+    "Undo": {
+      "keyin": "èdítôr ûñdø sîñglè",
+      "flyover": "Ùñdô Ëlèméñts"
+    },
+    "Redo": {
+      "keyin": "èdítôr rëdö",
+      "flyover": "Rèdó Êlëmèñts"
+    },
+    "ProjectLocation": {
+      "Show": {
+        "keyin": "èdítôr prõjèçt lòçâtíöñ shòw",
+        "flyover": "$hów Prôjë¢t £òçâtíöñ"
+      },
+      "Hide": {
+        "keyin": "èdítôr prõjèçt lòçâtíöñ hìdé",
+        "flyover": "Hìdé Prôjë¢t £òçâtíöñ"
+      },
+      "Cancel": {
+        "keyin": "èdítôr prõjèçt lòçâtíöñ ¢áñçèl",
+        "flyover": "Àbáñdõñ Prøjêçt £õ¢åtìóñ (häñgês"
+      },
+      "Save": {
+        "keyin": "èdítôr prõjèçt lòçâtíöñ sàvé",
+        "flyover": "$ávê Prõjèçt £ó¢ãtîøñ (hâñgès"
+      },
+      "Geolocation": {
+        "Move": {
+          "keyin": "èdítôr prõjèçt gêólôçätïòñ môvë",
+          "flyover": "Mòvé Prôjë¢t Géòló¢ãtîøñ"
+        },
+        "Point": {
+          "keyin": "èdítôr prõjèçt gêólôçätïòñ pôïñt",
+          "flyover": "Ðéfîñè Prøjêçt Gèõlöçàtíôñ"
+        },
+        "North": {
+          "keyin": "èdítôr prõjèçt gêólôçätïòñ ñõrth",
+          "flyover": "Ðéfîñè Prøjêçt Ñõrth"
+        }
+      },
+      "Prompts": {
+        "IdentifyRefPoint": "Ìdéñtïfý réfêrëñçê pøìñt",
+        "DefineAngle": "Èñtêr põìñt tò dëfìñê åñglé",
+        "DefineOffset": "Èñtêr põìñt tò dëfìñê øffsèt",
+        "IdentifyKnownLocation": "Ìdéñtïfý lø¢átìõñ øf kñówñ lãtìtúdê áñd lõñgïtüdé",
+        "ConfirmCoordinates": "Çóñfïrm lätítùdë âñd löñgìtûdê",
+        "SpecifyCoordinates": "$pé¢ïfý låtîtúdè ãñd løñgítüdë thèñ àç¢épt"
+      },
+      "Inputs": {
+        "AcceptHandle": "Àç¢ëpt pröjé¢t ë×téñts ør hàñdlê"
+      },
+      "Message": {
+        "RestartTxn": "Ùñdô õf prìør ¢háñgés wîll ñò lóñgër bè pøssîblë, ¢õñtïñµê?",
+        "NotActive": "Èñâblë gèølòçâtíöñ tòóls wîth 'ëdìtør pròjë¢t lõ¢åtìóñ shõw' fìrst",
+        "NotAllowed": "À válîd gëögråphîç ¢õördïñátê rëfèréñçè sÿstêm ålrèádý ë×ísts",
+        "NotGeolocated": "Ñót gêõlöçàtëd",
+        "NoChanges": "Ñó ¢hãñgés tò prójèçt ê×tèñts ôr gëölø¢átìõñ tø sàvé",
+        "Readonly": "ìMódêl ïs rèåd-òñlý",
+        "ProjectExtents": "Pròjé¢t Ë×téñts",
+        "LargeProjectExtents": "Pròjé¢t Ë×téñts Tóô £ärgë",
+        "ModifyProjectExtents": "Mòdífý Prõjèçt Ê×tèñts",
+        "ModifyGeolocation": "Mòdífý/Âdd Gèølòçâtíöñ",
+        "ModifyNorthDirection": "Mòdífý Ñörth Ðîrë¢tíöñ",
+        "MaxExtent": "Rèçômmëñdéd Mà×ìmüm",
+        "Length": "£éñgth",
+        "Width": "Wìdth",
+        "Height": "Hèíght",
+        "Latitude": "£átîtûdè",
+        "Longitude": "£óñgïtüdé",
+        "Angle": "Àñglê",
+        "North": "Ñórth ,ñglè"
+      }
+    }
+  }
+}
