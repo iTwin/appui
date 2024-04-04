@@ -55,10 +55,9 @@ export function MessageCenterField() {
     );
   };
 
-  const determineStatus = () => {
+  const determineStatus = (message: NotifyMessageDetailsType) => {
+    console.log(MessageManager.messages);
     /* eslint-disable */
-    const message = MessageManager.messages[0];
-
     if (message) {
       if (isProblemStatus(message)) {
         setStatus("negative");
@@ -68,7 +67,6 @@ export function MessageCenterField() {
         return "primary";
       }
     }
-
     /* eslint-enable */
     return;
   };
@@ -79,7 +77,7 @@ export function MessageCenterField() {
     return MessageManager.onMessagesUpdatedEvent.addListener(() => {
       messages.length > 0 ? setNotify(true) : setNotify(false);
       setMessages(MessageManager.messages);
-      determineStatus();
+      determineStatus(MessageManager.messages[0]);
     });
   });
 

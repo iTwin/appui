@@ -115,7 +115,7 @@ const DetailedDecorator: Decorator = (Story) => {
     [1, 2, 3, 4].forEach((num) => {
       MessageManager.addToMessageCenter(
         new NotifyMessageDetails(
-          num,
+          1,
           "This is the brief message",
           "This is the detailed message"
         )
