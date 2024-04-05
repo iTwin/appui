@@ -409,7 +409,7 @@ export class InternalFrontstageManager {
 
   /** Sets the active FrontstageDef give the stageId.
    * @param  frontstageId  Id of the Frontstage to set active.
-   * @returns A Promise that is fulfilled when the [[Frontstage]] is ready.
+   * @returns A Promise that is fulfilled when the Frontstage is ready.
    */
   public static async setActiveFrontstage(frontstageId: string): Promise<void> {
     const frontstageDef = await InternalFrontstageManager.getFrontstageDef(
@@ -595,7 +595,7 @@ export class InternalFrontstageManager {
     if (InternalFrontstageManager._modalFrontstages.length > 0) {
       const topMostStageItem =
         InternalFrontstageManager._modalFrontstages[
-          InternalFrontstageManager._modalFrontstages.length - 1
+        InternalFrontstageManager._modalFrontstages.length - 1
         ];
       if (topMostStageItem.modalFrontstage.notifyCloseRequest)
         InternalFrontstageManager.onCloseModalFrontstageRequestedEvent.emit({
@@ -645,7 +645,7 @@ export class InternalFrontstageManager {
     if (InternalFrontstageManager._modalFrontstages.length > 0) {
       const frontstageItem =
         InternalFrontstageManager._modalFrontstages[
-          InternalFrontstageManager._modalFrontstages.length - 1
+        InternalFrontstageManager._modalFrontstages.length - 1
         ];
       const modalFrontstage = frontstageItem.modalFrontstage;
       return modalFrontstage;

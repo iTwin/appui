@@ -33,7 +33,7 @@ export interface FrontstageActivatedEventArgs {
  * @public
  */
 // eslint-disable-next-line deprecation/deprecation
-export class FrontstageActivatedEvent extends UiEvent<FrontstageActivatedEventArgs> {}
+export class FrontstageActivatedEvent extends UiEvent<FrontstageActivatedEventArgs> { }
 
 /** Frontstage Deactivated Event Args interface.
  * @public
@@ -56,7 +56,7 @@ export interface FrontstageDeactivatedEventArgs {
  * @public
  */
 // eslint-disable-next-line deprecation/deprecation
-export class FrontstageDeactivatedEvent extends UiEvent<FrontstageDeactivatedEventArgs> {}
+export class FrontstageDeactivatedEvent extends UiEvent<FrontstageDeactivatedEventArgs> { }
 
 /** Frontstage Ready Event Args interface.
  * @public
@@ -69,7 +69,7 @@ export interface FrontstageReadyEventArgs {
  * @public
  */
 // eslint-disable-next-line deprecation/deprecation
-export class FrontstageReadyEvent extends UiEvent<FrontstageReadyEventArgs> {}
+export class FrontstageReadyEvent extends UiEvent<FrontstageReadyEventArgs> { }
 
 /** Modal Frontstage Changed Event Args interface.
  * @public
@@ -82,7 +82,7 @@ export interface ModalFrontstageChangedEventArgs {
  * @public
  */
 // eslint-disable-next-line deprecation/deprecation
-export class ModalFrontstageChangedEvent extends UiEvent<ModalFrontstageChangedEventArgs> {}
+export class ModalFrontstageChangedEvent extends UiEvent<ModalFrontstageChangedEventArgs> { }
 
 /** Modal Frontstage Closed Event Args interface.
  * @public
@@ -107,7 +107,7 @@ export interface ModalFrontstageClosedEventArgs {
  * @alpha
  */
 // eslint-disable-next-line deprecation/deprecation
-export class ModalFrontstageRequestedCloseEvent extends UiEvent<ModalFrontstageRequestedCloseEventArgs> {}
+export class ModalFrontstageRequestedCloseEvent extends UiEvent<ModalFrontstageRequestedCloseEventArgs> { }
 
 /** Modal Frontstage RequestedClose Event Args interface.
  * @alpha
@@ -123,7 +123,7 @@ export interface ModalFrontstageRequestedCloseEventArgs {
  * @public
  */
 // eslint-disable-next-line deprecation/deprecation
-export class ModalFrontstageClosedEvent extends UiEvent<ModalFrontstageClosedEventArgs> {}
+export class ModalFrontstageClosedEvent extends UiEvent<ModalFrontstageClosedEventArgs> { }
 
 /** Tool Activated Event Args interface.
  * @public
@@ -136,7 +136,7 @@ export interface ToolActivatedEventArgs {
  * @public
  */
 // eslint-disable-next-line deprecation/deprecation
-export class ToolActivatedEvent extends UiEvent<ToolActivatedEventArgs> {}
+export class ToolActivatedEvent extends UiEvent<ToolActivatedEventArgs> { }
 
 /** Tool Icon Changed Event Args interface.
  * @public
@@ -149,7 +149,7 @@ export interface ToolIconChangedEventArgs {
  * @public
  */
 // eslint-disable-next-line deprecation/deprecation
-export class ToolIconChangedEvent extends UiEvent<ToolIconChangedEventArgs> {}
+export class ToolIconChangedEvent extends UiEvent<ToolIconChangedEventArgs> { }
 
 /** Modal Frontstage information interface.
  * @public
@@ -268,7 +268,7 @@ export interface FrameworkFrontstages {
 
   /** Sets the active FrontstageDef give the stageId.
    * @param  frontstageId  Id of the Frontstage to set active.
-   * @returns A Promise that is fulfilled when the [[Frontstage]] is ready.
+   * @returns A Promise that is fulfilled when the Frontstage is ready.
    */
   setActiveFrontstage(frontstageId: string): Promise<void>;
 
