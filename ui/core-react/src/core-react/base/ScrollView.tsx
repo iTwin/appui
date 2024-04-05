@@ -14,6 +14,7 @@ import { Div } from "./Div";
  * Scrolls content vertically and
  * has the 'overflow-y: auto' CSS property and has a height and width of 100%.
  * @public
+ * @deprecated in 4.12.x. Use {@link https://developer.mozilla.org/en-US/docs/Web/CSS/overflow overflow property} instead.
  */
 export function ScrollView(props: CommonDivProps) {
   return <Div {...props} mainClassName="uicore-scrollview" />;
