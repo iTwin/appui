@@ -187,6 +187,7 @@ function Loader(props: LoaderProps) {
     return props.noDataRenderer ? (
       props.noDataRenderer()
     ) : (
+      // eslint-disable-next-line deprecation/deprecation
       <FillCentered>
         <p className="components-controlledTree-errorMessage">
           {translate("general.noData")}
