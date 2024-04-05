@@ -38,14 +38,14 @@ export function MessageCenterMessage(props: MessageCenterMessageProps) {
     <div className={"uifw-footer-messageCenter-message"} style={style}>
       {icon && <Icon size="small">{icon}</Icon>}
       {message && (
-        <>
+        <span>
           <MessageRenderer message={message} className={className} useSpan />
           {details && (
             <Text variant="small" className="uifw-content">
               <MessageRenderer message={details} />
             </Text>
           )}
-        </>
+        </span>
       )}
     </div>
   );

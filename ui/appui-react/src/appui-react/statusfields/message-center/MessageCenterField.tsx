@@ -58,17 +58,15 @@ export function MessageCenterField() {
   const determineStatus = () => {
     const message = [...MessageManager.messages].pop();
 
-    /* eslint-disable */
     if (message) {
       if (isProblemStatus(message)) {
         return setStatus("negative");
-      } else if (message.priority === 1) {
+      } else if (message.priority === OutputMessagePriority.Success) {
         return setStatus("positive");
       } else {
         return setStatus("primary");
       }
     }
-    /* eslint-enable */
     return;
   };
 
@@ -125,6 +123,7 @@ export function MessageCenterField() {
 
   return (
     <Popover
+      placement="top"
       className="uifw-statusFields-messageCenter-popover"
       content={
         <>
