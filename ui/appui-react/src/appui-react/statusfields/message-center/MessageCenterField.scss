@@ -5,8 +5,14 @@
 @import "~@itwin/core-react/lib/cjs/core-react/z-index";
 @import "../../layout/footer/variables.scss";
 
+.uifw-statusFields-messageCenter-popover {
+  width: 305px;
+  min-height: 200px;
+}
+
 .uifw-statusFields-messageCenter-messageCenterField {
   width: 305px;
+  max-height: 200px;
   overflow-y: scroll;
   min-width: $nz-footer-popup-min-width;
   max-width: $nz-footer-popup-max-width;

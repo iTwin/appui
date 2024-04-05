@@ -57,8 +57,6 @@ export function MessageCenterField() {
 
   const determineStatus = () => {
     const message = [...MessageManager.messages].pop();
-    console.log(message, "this is the last message");
-    console.log(MessageManager.messages, "there are all the messages");
 
     /* eslint-disable */
     if (message) {
@@ -72,7 +70,6 @@ export function MessageCenterField() {
     }
     /* eslint-enable */
     return;
-    s;
   };
 
   React.useEffect(() => {
@@ -128,7 +125,7 @@ export function MessageCenterField() {
 
   return (
     <Popover
-      style={{ width: "305px", minHeight: "200px" }}
+      className="uifw-statusFields-messageCenter-popover"
       content={
         <>
           <TitleBar title={title}></TitleBar>

@@ -112,7 +112,7 @@ export const Error: Story = {
 const DetailedDecorator: Decorator = (Story) => {
   React.useEffect(() => {
     MessageManager.clearMessages();
-    [1, 2, 3, 4].forEach((num) => {
+    [1, 2, 3, 4].forEach(() => {
       MessageManager.addToMessageCenter(
         new NotifyMessageDetails(
           1,
