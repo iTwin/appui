@@ -14,6 +14,7 @@ import { Div } from "./Div";
  * Wraps content onto multiple lines and
  * has the 'display: flex' and 'flex-wrap: wrap' CSS properties.
  * @public
+ * @deprecated in 4.12.x. Use {@link https://itwinui.bentley.com/docs/flex iTwinUI Flex} instead.
  */
 export function FlexWrapContainer(props: CommonDivProps) {
   return <Div {...props} mainClassName="uicore-flex-wrap-container" />;
