@@ -13,7 +13,7 @@ import type { useOnOutsideClick } from "../utils/hooks/useOnOutsideClick";
 
 /** Div element with Outside Click behavior
  * @public
- * @deprecated in 4.12.x. Use props of a basic component, like {@link https://itwinui.bentley.com/docs/flex iTwinUI popover `closeOnOutsideClick`} or {@link useOnOutsideClick} hook.
+ * @deprecated in 4.12.x. Use props of a basic component, like {@link https://itwinui.bentley.com/docs/popover iTwinUI popover `closeOnOutsideClick`} or {@link useOnOutsideClick} hook.
  */
 export const DivWithOutsideClick = withOnOutsideClick(
   (props: CommonDivProps) => <div {...props} />
