@@ -54,25 +54,26 @@ steps:
     displayName: rush prettier
     workingDirectory: ${{ parameters.workingDir }}
 
+  # Run unit tests only if version bump. GH actions will run the tests on PRs.
   - script: npm run cover
-    displayName: run appui-react tests
+    displayName: appui-react tests
     workingDirectory: "ui/appui-react"
-    condition: succeededOrFailed()
+    condition: and(succeededOrFailed(), eq(variables['VersionBump'], 'True'))
 
   - script: npm run cover
-    displayName: run components-react tests
+    displayName: components-react tests
     workingDirectory: "ui/components-react"
-    condition: succeededOrFailed()
+    condition: and(succeededOrFailed(), eq(variables['VersionBump'], 'True'))
 
   - script: npm run cover
-    displayName: run core-react tests
+    displayName: core-react tests
     workingDirectory: "ui/core-react"
-    condition: succeededOrFailed()
+    condition: and(succeededOrFailed(), eq(variables['VersionBump'], 'True'))
 
   - script: npm run cover
-    displayName: run imodel-components-react tests
+    displayName: imodel-components-react tests
     workingDirectory: "ui/imodel-components-react"
-    condition: succeededOrFailed()
+    condition: and(succeededOrFailed(), eq(variables['VersionBump'], 'True'))
 
   - script: npm run test
     displayName: run Codemod Tests

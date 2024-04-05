@@ -62,6 +62,20 @@ jobs:
         displayName: Set build number
         condition: and(succeeded(), eq(variables['Agent.OS'], 'Windows_NT'))
 
+      - powershell: |
+          $commitMsg = @"
+          $(Build.SourceVersionMessage)
+          "@
+          if (($commitMsg -match '^(\d+.\d+.\d+)(-dev.\d+)?$') -or ($commitMsg -eq "Bump 'monorepo-individual'")) {
+            Write-Host `'$commitMsg`'` is a version bump
+            Write-Host '##vso[task.setvariable variable=VersionBump;]True'
+          } else {
+            Write-Host `'$commitMsg`'` is not a version bump
+            Write-Host '##vso[task.setvariable variable=VersionBump;]False'
+          }
+        displayName: Determine if version bump
+        condition: succeededOrFailed()
+
       - template: ../templates/core-build.yaml
 
       # Will run if even there is a failure somewhere else in the pipeline.

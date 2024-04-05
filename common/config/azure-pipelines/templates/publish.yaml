@@ -4,19 +4,9 @@ parameters:
     default: $(System.DefaultWorkingDirectory)
 
 steps:
-  - powershell: |
-      $commitMsg = @"
-      $(Build.SourceVersionMessage)
-      "@
-      if (($commitMsg -match '^(\d+.\d+.\d+)(-dev.\d+)?$') -or ($commitMsg -eq "Bump 'monorepo-individual'")) {
-        Write-Host `'$commitMsg`'` is a version bump
-        Write-Host '##vso[task.setvariable variable=ShouldPublish;]True'
-      } else {
-        Write-Host `'$commitMsg`'` is not a version bump
-        Write-Host '##vso[task.setvariable variable=ShouldPublish;]False'
-      }
-    displayName: Publish if version bump
-    condition: and(succeeded(), in(variables['Build.Reason'], 'IndividualCI', 'Schedule', 'Manual'), eq(variables['Agent.OS'], 'Windows_NT'))
+  - powershell: Write-Host '##vso[task.setvariable variable=ShouldPublish;]True'
+    displayName: Set should publish
+    condition: and(succeeded(), in(variables['Build.Reason'], 'IndividualCI', 'Schedule', 'Manual'), eq(variables['Agent.OS'], 'Windows_NT'), eq(variables['VersionBump'], 'True'))
 
   - script: node common/scripts/install-run-rush.js publish --publish --pack --include-all
     displayName: rush publish pack
