@@ -12,6 +12,7 @@ import type { CommonDivProps } from "../utils/Props";
 
 /** Properties for the [[Div]] component
  * @public
+ * @deprecated in 4.12.x. Props of deprecated component {@link Div}.
  */
 export interface DivProps extends CommonDivProps {
   /** Main CSS class name */
@@ -20,6 +21,7 @@ export interface DivProps extends CommonDivProps {
 
 /** Base div element React component
  * @public
+ * @deprecated in 4.12.x. Use `<div />` instead.
  */
 export function Div(props: DivProps) {
   const { mainClassName, className, style, children, ...divProps } = props;
