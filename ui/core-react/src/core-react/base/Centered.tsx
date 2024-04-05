@@ -16,5 +16,6 @@ import { Div } from "./Div";
  * @deprecated in 4.12.x. Use CSS to style an element or {@link https://itwinui.bentley.com/docs/flex iTwinUI Flex} instead.
  */
 export function Centered(props: CommonDivProps) {
+  // eslint-disable-next-line deprecation/deprecation
   return <Div {...props} mainClassName="uicore-centered" />;
 }

@@ -21,6 +21,7 @@ export interface GapProps extends CommonProps {
  * @public
  * @deprecated in 4.12.x. Use {@link https://itwinui.bentley.com/docs/flex iTwinUI Flex `gap`} or {@link https://itwinui.bentley.com/docs/variables#size iTwinUI size variables} instead.
  */
+// eslint-disable-next-line deprecation/deprecation
 export function Gap(props: GapProps) {
   const { size, style, ...rest } = props;
   const paddingLeft = size ?? "10px";

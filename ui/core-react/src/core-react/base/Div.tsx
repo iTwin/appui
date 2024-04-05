@@ -21,8 +21,9 @@ export interface DivProps extends CommonDivProps {
 
 /** Base div element React component
  * @public
- * @deprecated in 4.12.x. Use `<div />` instead.
+ * @deprecated in 4.12.x. Use HTMLDivElement instead i.e. `<div />`.
  */
+// eslint-disable-next-line deprecation/deprecation
 export function Div(props: DivProps) {
   const { mainClassName, className, style, children, ...divProps } = props;
 
