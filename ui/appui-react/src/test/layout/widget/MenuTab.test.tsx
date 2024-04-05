@@ -5,7 +5,6 @@
 import { Rectangle } from "@itwin/core-react";
 import { act, fireEvent, render, waitFor } from "@testing-library/react";
 import * as React from "react";
-import * as sinon from "sinon";
 import { ShowWidgetIconContext } from "../../../appui-react/layout/base/NineZone";
 import type { NineZoneState } from "../../../appui-react/layout/state/NineZoneState";
 import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState";
@@ -55,7 +54,9 @@ describe("MenuTab", () => {
         <Wrapper defaultState={state} widgetId="w1" tabId="t1" {...props} />
       ),
     });
-    container.getElementsByClassName("nz-widget-menuTab").length.should.eq(1);
+    expect(container.getElementsByClassName("nz-widget-menuTab")).toHaveLength(
+      1
+    );
   });
 
   it("should render with badge and icon", async () => {
@@ -80,7 +81,7 @@ describe("MenuTab", () => {
     let state = createNineZoneState();
     state = addTab(state, "t1");
     state = addPanelWidget(state, "top", "w1", ["t1"]);
-    const close = sinon.spy();
+    const close = vi.fn();
     render(
       <WidgetOverflowContext.Provider value={{ close }}>
         <WidgetContext.Provider value={{ measure: () => new Rectangle() }}>
@@ -100,16 +101,16 @@ describe("MenuTab", () => {
       fireEvent.mouseDown(tab);
       fireEvent.mouseMove(document, { clientX: 10, clientY: 10 });
     });
-    await waitFor(() => sinon.assert.calledOnce(close));
-    close.resetHistory();
+    await waitFor(() => expect(close).toHaveBeenCalledOnce());
+    close.mockReset();
 
     // On click
     act(() => {
       fireEvent.mouseDown(tab);
       fireEvent.mouseUp(document);
     });
-    await waitFor(() => sinon.assert.calledOnce(close));
-    close.resetHistory();
+    await waitFor(() => expect(close).toHaveBeenCalledOnce());
+    close.mockReset();
 
     // On double click
     act(() => {
@@ -118,6 +119,6 @@ describe("MenuTab", () => {
       fireEvent.mouseDown(tab);
       fireEvent.mouseUp(document);
     });
-    await waitFor(() => sinon.assert.calledOnce(close));
+    await waitFor(() => expect(close).toHaveBeenCalledOnce());
   });
 });

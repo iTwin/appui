@@ -4,7 +4,6 @@
  *--------------------------------------------------------------------------------------------*/
 // cSpell:ignore typemoq
 
-import { expect } from "chai";
 import * as moq from "typemoq";
 import type {
   DrawingViewState,
@@ -14,18 +13,9 @@ import type {
   SpatialViewState,
 } from "@itwin/core-frontend";
 import type { ViewportContentControl } from "../../appui-react";
-import TestUtils from "../TestUtils";
 import { InternalContentViewManager } from "../../appui-react/content/InternalContentViewManager";
 
 describe("ContentViewManager", () => {
-  before(async () => {
-    await TestUtils.initializeUiFramework();
-  });
-
-  after(() => {
-    TestUtils.terminateUiFramework();
-  });
-
   const viewportMock = moq.Mock.ofType<ScreenViewport>();
   const contentControlMock = moq.Mock.ofType<ViewportContentControl>();
   contentControlMock
@@ -45,26 +35,26 @@ describe("ContentViewManager", () => {
 
     expect(
       InternalContentViewManager.isContentSheetView(contentControlMock.object)
-    ).to.be.true;
+    ).toEqual(true);
     expect(
       InternalContentViewManager.isContentDrawingView(contentControlMock.object)
-    ).to.be.false;
+    ).toEqual(false);
     expect(
       InternalContentViewManager.isContentSpatialView(contentControlMock.object)
-    ).to.be.false;
+    ).toEqual(false);
     expect(
       InternalContentViewManager.isContentOrthographicView(
         contentControlMock.object
       )
-    ).to.be.false;
+    ).toEqual(false);
     expect(
       InternalContentViewManager.isContent3dView(contentControlMock.object)
-    ).to.be.false;
+    ).toEqual(false);
     expect(
       InternalContentViewManager.contentSupportsCamera(
         contentControlMock.object
       )
-    ).to.be.false;
+    ).toEqual(false);
   });
 
   it("Content is 2d Drawing View", () => {
@@ -80,26 +70,26 @@ describe("ContentViewManager", () => {
 
     expect(
       InternalContentViewManager.isContentSheetView(contentControlMock.object)
-    ).to.be.false;
+    ).toEqual(false);
     expect(
       InternalContentViewManager.isContentDrawingView(contentControlMock.object)
-    ).to.be.true;
+    ).toEqual(true);
     expect(
       InternalContentViewManager.isContentSpatialView(contentControlMock.object)
-    ).to.be.false;
+    ).toEqual(false);
     expect(
       InternalContentViewManager.isContentOrthographicView(
         contentControlMock.object
       )
-    ).to.be.false;
+    ).toEqual(false);
     expect(
       InternalContentViewManager.isContent3dView(contentControlMock.object)
-    ).to.be.false;
+    ).toEqual(false);
     expect(
       InternalContentViewManager.contentSupportsCamera(
         contentControlMock.object
       )
-    ).to.be.false;
+    ).toEqual(false);
   });
 
   it("Content is 3d Spatial View", () => {
@@ -115,26 +105,26 @@ describe("ContentViewManager", () => {
 
     expect(
       InternalContentViewManager.isContentSheetView(contentControlMock.object)
-    ).to.be.false;
+    ).toEqual(false);
     expect(
       InternalContentViewManager.isContentDrawingView(contentControlMock.object)
-    ).to.be.false;
+    ).toEqual(false);
     expect(
       InternalContentViewManager.isContentSpatialView(contentControlMock.object)
-    ).to.be.true;
+    ).toEqual(true);
     expect(
       InternalContentViewManager.isContentOrthographicView(
         contentControlMock.object
       )
-    ).to.be.false;
+    ).toEqual(false);
     expect(
       InternalContentViewManager.isContent3dView(contentControlMock.object)
-    ).to.be.true;
+    ).toEqual(true);
     expect(
       InternalContentViewManager.contentSupportsCamera(
         contentControlMock.object
       )
-    ).to.be.true;
+    ).toEqual(true);
   });
 
   it("Content is 3d Ortho View View", () => {
@@ -150,26 +140,26 @@ describe("ContentViewManager", () => {
 
     expect(
       InternalContentViewManager.isContentSheetView(contentControlMock.object)
-    ).to.be.false;
+    ).toEqual(false);
     expect(
       InternalContentViewManager.isContentDrawingView(contentControlMock.object)
-    ).to.be.false;
+    ).toEqual(false);
     expect(
       InternalContentViewManager.isContentSpatialView(contentControlMock.object)
-    ).to.be.true;
+    ).toEqual(true);
     expect(
       InternalContentViewManager.isContentOrthographicView(
         contentControlMock.object
       )
-    ).to.be.true;
+    ).toEqual(true);
     expect(
       InternalContentViewManager.isContent3dView(contentControlMock.object)
-    ).to.be.true;
+    ).toEqual(true);
     expect(
       InternalContentViewManager.contentSupportsCamera(
         contentControlMock.object
       )
-    ).to.be.false;
+    ).toEqual(false);
   });
 
   it("Viewport is not set in Content", () => {
@@ -180,22 +170,23 @@ describe("ContentViewManager", () => {
 
     expect(
       InternalContentViewManager.isContentSheetView(localContentMock.object)
-    ).to.be.false;
+    ).toEqual(false);
     expect(
       InternalContentViewManager.isContentDrawingView(localContentMock.object)
-    ).to.be.false;
+    ).toEqual(false);
     expect(
       InternalContentViewManager.isContentSpatialView(localContentMock.object)
-    ).to.be.false;
+    ).toEqual(false);
     expect(
       InternalContentViewManager.isContentOrthographicView(
         localContentMock.object
       )
-    ).to.be.false;
-    expect(InternalContentViewManager.isContent3dView(localContentMock.object))
-      .to.be.false;
+    ).toEqual(false);
+    expect(
+      InternalContentViewManager.isContent3dView(localContentMock.object)
+    ).toEqual(false);
     expect(
       InternalContentViewManager.contentSupportsCamera(localContentMock.object)
-    ).to.be.false;
+    ).toEqual(false);
   });
 });

@@ -2,13 +2,10 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import * as moq from "typemoq";
 import { fireEvent, render, screen } from "@testing-library/react";
 import type { IModelConnection } from "@itwin/core-frontend";
-import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import type { CardInfo, SheetData } from "../../appui-react";
 import {
   CardContainer,
@@ -16,23 +13,13 @@ import {
   SheetsModalFrontstage,
   UiFramework,
 } from "../../appui-react";
-import TestUtils, { selectorMatches, userEvent } from "../TestUtils";
+import { selectorMatches, userEvent } from "../TestUtils";
 
 describe("SheetsModalFrontstage", () => {
   let modal: SheetsModalFrontstage;
   let theUserTo: ReturnType<typeof userEvent.setup>;
   beforeEach(() => {
     theUserTo = userEvent.setup();
-  });
-
-  before(async () => {
-    await TestUtils.initializeUiFramework();
-    await NoRenderApp.startup();
-  });
-
-  after(async () => {
-    await IModelApp.shutdown();
-    TestUtils.terminateUiFramework();
   });
 
   const connection = moq.Mock.ofType<IModelConnection>();
@@ -51,12 +38,12 @@ describe("SheetsModalFrontstage", () => {
 
     it("contains readable content", () => {
       const content = modal.content;
-      expect(content).to.not.be.null;
+      expect(content).toBeTruthy();
     });
 
     it("contains app bar content", () => {
       const content = modal.appBarRight;
-      expect(content).to.not.be.null;
+      expect(content).toBeTruthy();
     });
 
     it("SheetCard onClick selects the card", async () => {
@@ -71,19 +58,19 @@ describe("SheetsModalFrontstage", () => {
 
       const content = modal.content;
       render(content as React.ReactElement<any>);
-      const onCardSelected = sinon.spy();
+      const onCardSelected = vi.fn();
       const removeListener =
         CardContainer.onCardSelectedEvent.addListener(onCardSelected);
 
       await theUserTo.click(screen.getByText("Name"));
-      expect(onCardSelected.called).to.be.true;
+      expect(onCardSelected).toHaveBeenCalled();
       removeListener();
     });
   });
 
   describe("CardContainer React Testing", () => {
     it("search box calls onValueChanged after 250ms delay", async () => {
-      const fakeTimers = sinon.useFakeTimers();
+      vi.useFakeTimers();
       modal = new SheetsModalFrontstage(
         new Array<SheetData>({
           name: "Name",
@@ -95,19 +82,17 @@ describe("SheetsModalFrontstage", () => {
 
       const content = modal.appBarRight;
       const wrapper = render(content as React.ReactElement<any>);
-      const onChange = sinon.spy();
+      const onChange = vi.fn();
       const removeListener =
         UiFramework.frontstages.onModalFrontstageChangedEvent.addListener(
           onChange
         );
       const input = wrapper.container.querySelector("input");
-      expect(input).not.to.be.null;
+      expect(input).toBeTruthy();
       fireEvent.change(input!, { target: { value: "search value" } });
-      await fakeTimers.tickAsync(500);
-      expect(onChange.called).to.be.true;
+      await vi.advanceTimersByTimeAsync(500);
+      expect(onChange).toHaveBeenCalled();
       removeListener();
-      fakeTimers.restore();
-      wrapper.unmount();
     });
   });
 
@@ -129,7 +114,7 @@ describe("SheetsModalFrontstage", () => {
         />
       );
 
-      expect(screen.queryByText("Test")).to.be.null;
+      expect(screen.queryByText("Test")).toEqual(null);
 
       rerender(
         <CardContainer
@@ -165,7 +150,7 @@ describe("SheetsModalFrontstage", () => {
         />
       );
 
-      expect(screen.queryByText("Test")).to.be.null;
+      expect(screen.queryByText("Test")).toEqual(null);
 
       rerender(
         <CardContainer
@@ -189,7 +174,7 @@ describe("SheetsModalFrontstage", () => {
 
   describe("SheetCard", () => {
     it("handles card selection", async () => {
-      const onClick = sinon.spy();
+      const onClick = vi.fn();
       render(
         <SheetCard
           label="Findable Label"
@@ -202,7 +187,7 @@ describe("SheetsModalFrontstage", () => {
 
       await theUserTo.click(screen.getByText("Findable Label"));
 
-      expect(onClick.called).to.be.true;
+      expect(onClick).toHaveBeenCalled();
     });
 
     it("handles mouse down and leave", async () => {

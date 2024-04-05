@@ -7,11 +7,11 @@ import { UiGeometry } from "../../core-react";
 describe("UiGeometry", () => {
   it("clamp should clamp value outside (min,max) to within (min,max)", () => {
     const sut = UiGeometry.clamp(100, 0, 10);
-    sut.should.eq(10);
+    expect(sut).toEqual(10);
   });
 
   it("clamp should not alter value within (min,max)", () => {
     const sut = UiGeometry.clamp(5, 0, 10);
-    sut.should.eq(5);
+    expect(sut).toEqual(5);
   });
 });

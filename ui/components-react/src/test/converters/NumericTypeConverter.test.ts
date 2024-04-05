@@ -2,15 +2,9 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import { FloatTypeConverter, IntTypeConverter } from "../../components-react";
-import TestUtils from "../TestUtils";
 
 describe("IntTypeConverter", () => {
-  before(async () => {
-    await TestUtils.initializeUiComponents();
-  });
-
   let converter: IntTypeConverter;
 
   beforeEach(() => {
@@ -28,11 +22,11 @@ describe("IntTypeConverter", () => {
     });
 
     it("returns empty string when value is undefined", () => {
-      expect(converter.convertToString(undefined)).to.be.eq("");
+      expect(converter.convertToString(undefined)).toEqual("");
     });
 
     it("returns default value when value is not a number", () => {
-      expect(converter.convertToString("not a number")).to.be.eq("0");
+      expect(converter.convertToString("not a number")).toEqual("0");
     });
   });
 
@@ -42,7 +36,7 @@ describe("IntTypeConverter", () => {
     });
 
     it("returns undefined if string is not a number", () => {
-      expect(converter.convertFromString("not a number")).to.be.undefined;
+      expect(converter.convertFromString("not a number")).toEqual(undefined);
     });
   });
 
@@ -53,39 +47,39 @@ describe("IntTypeConverter", () => {
   });
 
   it("isLessGreaterType", () => {
-    expect(converter.isLessGreaterType).to.be.true;
+    expect(converter.isLessGreaterType).toEqual(true);
   });
 
   it("isLessThan", () => {
-    expect(converter.isLessThan(0, 1)).to.be.true;
-    expect(converter.isLessThan(1, 0)).to.be.false;
+    expect(converter.isLessThan(0, 1)).toEqual(true);
+    expect(converter.isLessThan(1, 0)).toEqual(false);
   });
 
   it("isLessThanOrEqualTo", () => {
-    expect(converter.isLessThanOrEqualTo(0, 1)).to.be.true;
-    expect(converter.isLessThanOrEqualTo(0, 0)).to.be.true;
-    expect(converter.isLessThanOrEqualTo(1, 0)).to.be.false;
+    expect(converter.isLessThanOrEqualTo(0, 1)).toEqual(true);
+    expect(converter.isLessThanOrEqualTo(0, 0)).toEqual(true);
+    expect(converter.isLessThanOrEqualTo(1, 0)).toEqual(false);
   });
 
   it("isGreaterThan", () => {
-    expect(converter.isGreaterThan(1, 0)).to.be.true;
-    expect(converter.isGreaterThan(0, 1)).to.be.false;
+    expect(converter.isGreaterThan(1, 0)).toEqual(true);
+    expect(converter.isGreaterThan(0, 1)).toEqual(false);
   });
 
   it("isGreaterThanOrEqualTo", () => {
-    expect(converter.isGreaterThanOrEqualTo(1, 0)).to.be.true;
-    expect(converter.isGreaterThanOrEqualTo(1, 1)).to.be.true;
-    expect(converter.isGreaterThanOrEqualTo(0, 1)).to.be.false;
+    expect(converter.isGreaterThanOrEqualTo(1, 0)).toEqual(true);
+    expect(converter.isGreaterThanOrEqualTo(1, 1)).toEqual(true);
+    expect(converter.isGreaterThanOrEqualTo(0, 1)).toEqual(false);
   });
 
   it("isEqualTo", () => {
-    expect(converter.isEqualTo(0, 0)).to.be.true;
-    expect(converter.isEqualTo(1, 0)).to.be.false;
+    expect(converter.isEqualTo(0, 0)).toEqual(true);
+    expect(converter.isEqualTo(1, 0)).toEqual(false);
   });
 
   it("isNotEqualTo", () => {
-    expect(converter.isNotEqualTo(0, 0)).to.be.false;
-    expect(converter.isNotEqualTo(1, 0)).to.be.true;
+    expect(converter.isNotEqualTo(0, 0)).toEqual(false);
+    expect(converter.isNotEqualTo(1, 0)).toEqual(true);
   });
 });
 
@@ -111,11 +105,11 @@ describe("FloatTypeConverter", () => {
     });
 
     it("returns empty string when value is undefined", () => {
-      expect(converter.convertToString(undefined)).to.be.eq("");
+      expect(converter.convertToString(undefined)).toEqual("");
     });
 
     it("returns default value when value is not a number", () => {
-      expect(converter.convertToString("not a number")).to.be.eq("0.0");
+      expect(converter.convertToString("not a number")).toEqual("0.0");
     });
   });
 
@@ -125,7 +119,7 @@ describe("FloatTypeConverter", () => {
     });
 
     it("returns undefined if string is not a number", () => {
-      expect(converter.convertFromString("not a number")).to.be.undefined;
+      expect(converter.convertFromString("not a number")).toEqual(undefined);
     });
   });
 
@@ -136,28 +130,28 @@ describe("FloatTypeConverter", () => {
   });
 
   it("isLessGreaterType", () => {
-    expect(converter.isLessGreaterType).to.be.true;
+    expect(converter.isLessGreaterType).toEqual(true);
   });
 
   it("isLessThan", () => {
-    expect(converter.isLessThan(0, 1)).to.be.true;
-    expect(converter.isLessThan(1, 0)).to.be.false;
+    expect(converter.isLessThan(0, 1)).toEqual(true);
+    expect(converter.isLessThan(1, 0)).toEqual(false);
   });
 
   it("isLessThanOrEqualTo", () => {
-    expect(converter.isLessThanOrEqualTo(0, 1)).to.be.true;
-    expect(converter.isLessThanOrEqualTo(0, 0)).to.be.true;
-    expect(converter.isLessThanOrEqualTo(1, 0)).to.be.false;
+    expect(converter.isLessThanOrEqualTo(0, 1)).toEqual(true);
+    expect(converter.isLessThanOrEqualTo(0, 0)).toEqual(true);
+    expect(converter.isLessThanOrEqualTo(1, 0)).toEqual(false);
   });
 
   it("isGreaterThan", () => {
-    expect(converter.isGreaterThan(1, 0)).to.be.true;
-    expect(converter.isGreaterThan(0, 1)).to.be.false;
+    expect(converter.isGreaterThan(1, 0)).toEqual(true);
+    expect(converter.isGreaterThan(0, 1)).toEqual(false);
   });
 
   it("isGreaterThanOrEqualTo", () => {
-    expect(converter.isGreaterThanOrEqualTo(1, 0)).to.be.true;
-    expect(converter.isGreaterThanOrEqualTo(1, 1)).to.be.true;
-    expect(converter.isGreaterThanOrEqualTo(0, 1)).to.be.false;
+    expect(converter.isGreaterThanOrEqualTo(1, 0)).toEqual(true);
+    expect(converter.isGreaterThanOrEqualTo(1, 1)).toEqual(true);
+    expect(converter.isGreaterThanOrEqualTo(0, 1)).toEqual(false);
   });
 });

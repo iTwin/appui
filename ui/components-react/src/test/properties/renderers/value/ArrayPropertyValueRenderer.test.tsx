@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { Orientation } from "@itwin/core-react";
 import { ArrayPropertyValueRenderer } from "../../../../components-react/properties/renderers/value/ArrayPropertyValueRenderer";
 import { PropertyContainerType } from "../../../../components-react/properties/ValueRendererManager";
@@ -15,9 +13,6 @@ describe("ArrayPropertyValueRenderer", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
   beforeEach(() => {
     theUserTo = userEvent.setup();
-  });
-  before(async () => {
-    await TestUtils.initializeUiComponents();
   });
 
   describe("render", () => {
@@ -33,7 +28,7 @@ describe("ArrayPropertyValueRenderer", () => {
 
       const element = renderer.render(arrayProperty);
 
-      expect(element).to.eq("string[1]");
+      expect(element).toEqual("string[1]");
     });
 
     it("renders empty array property", () => {
@@ -42,7 +37,7 @@ describe("ArrayPropertyValueRenderer", () => {
 
       const element = renderer.render(arrayProperty);
 
-      expect(element).to.be.eq("string[]");
+      expect(element).toEqual("string[]");
     });
 
     it("renders default way if empty context is provided", () => {
@@ -51,11 +46,11 @@ describe("ArrayPropertyValueRenderer", () => {
 
       const element = renderer.render(arrayProperty, {});
 
-      expect(element).to.be.eq("string[]");
+      expect(element).toEqual("string[]");
     });
 
     it("renders array with Table renderer if container type is Table", async () => {
-      const dialogSpy = sinon.spy();
+      const dialogSpy = vi.fn();
       const renderer = new ArrayPropertyValueRenderer();
       const arrayProperty = TestUtils.createArrayProperty("LabelArray");
 
@@ -67,13 +62,19 @@ describe("ArrayPropertyValueRenderer", () => {
       render(<div>{element}</div>);
 
       await theUserTo.click(screen.getByTitle("View [] in more detail."));
-      expect(dialogSpy).to.have.been.calledWithMatch(
-        (arg: any) => arg?.content?.props?.orientation === Orientation.Vertical
+      expect(dialogSpy).toHaveBeenCalledWith(
+        expect.objectContaining({
+          content: expect.objectContaining({
+            props: expect.objectContaining({
+              orientation: Orientation.Vertical,
+            }),
+          }),
+        })
       );
     });
 
     it("defaults to horizontal orientation when rendering for a table without specified orientation", async () => {
-      const dialogSpy = sinon.spy();
+      const dialogSpy = vi.fn();
       const renderer = new ArrayPropertyValueRenderer();
       const arrayProperty = TestUtils.createArrayProperty("LabelArray");
 
@@ -85,9 +86,14 @@ describe("ArrayPropertyValueRenderer", () => {
 
       await theUserTo.click(screen.getByRole("link"));
 
-      expect(dialogSpy).to.have.been.calledWithMatch(
-        (arg: any) =>
-          arg?.content?.props?.orientation === Orientation.Horizontal
+      expect(dialogSpy).toHaveBeenCalledWith(
+        expect.objectContaining({
+          content: expect.objectContaining({
+            props: expect.objectContaining({
+              orientation: Orientation.Horizontal,
+            }),
+          }),
+        })
       );
     });
 
@@ -114,7 +120,7 @@ describe("ArrayPropertyValueRenderer", () => {
         containerType: PropertyContainerType.PropertyPane,
       });
 
-      expect(element).to.be.eq("");
+      expect(element).toEqual("");
     });
   });
 
@@ -122,7 +128,7 @@ describe("ArrayPropertyValueRenderer", () => {
     it("returns true for an array property", () => {
       const renderer = new ArrayPropertyValueRenderer();
       const arrayProperty = TestUtils.createArrayProperty("LabelArray");
-      expect(renderer.canRender(arrayProperty)).to.be.true;
+      expect(renderer.canRender(arrayProperty)).toEqual(true);
     });
 
     it("returns false for primitive and struct property", () => {
@@ -132,8 +138,8 @@ describe("ArrayPropertyValueRenderer", () => {
         "Test property"
       );
       const structProperty = TestUtils.createStructProperty("NameStruct");
-      expect(renderer.canRender(stringProperty)).to.be.false;
-      expect(renderer.canRender(structProperty)).to.be.false;
+      expect(renderer.canRender(stringProperty)).toEqual(false);
+      expect(renderer.canRender(structProperty)).toEqual(false);
     });
   });
 });

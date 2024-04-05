@@ -2,22 +2,21 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
-import sinon from "sinon";
 import type { PropertyRecord } from "@itwin/appui-abstract";
 import { MutableCategorizedArrayProperty } from "../../../../../components-react/propertygrid/internal/flat-items/MutableCategorizedArrayProperty";
 import { FlatGridItemType } from "../../../../../components-react/propertygrid/internal/flat-items/MutableFlatGridItem";
-import { MutableGridItemFactory } from "../../../../../components-react/propertygrid/internal/flat-items/MutableGridItemFactory";
+import type { MutableGridItemFactory } from "../../../../../components-react/propertygrid/internal/flat-items/MutableGridItemFactory";
 import TestUtils from "../../../../TestUtils";
 import { FlatGridTestUtils as GridUtils } from "./FlatGridTestUtils";
+import type { Mock } from "vitest";
 
 describe("CategorizedArrayProperty", () => {
-  let factoryStub: sinon.SinonStubbedInstance<MutableGridItemFactory>;
+  let factoryStub: MutableGridItemFactory;
   beforeEach(() => {
-    factoryStub = sinon.createStubInstance(MutableGridItemFactory, {
-      createCategorizedProperty: sinon.stub(),
-      createGridCategory: sinon.stub(),
-    });
+    factoryStub = {
+      createCategorizedProperty: vi.fn(),
+      createGridCategory: vi.fn(),
+    } as unknown as MutableGridItemFactory;
   });
 
   describe("Should correctly initialize categorized array property", () => {
@@ -47,13 +46,13 @@ describe("CategorizedArrayProperty", () => {
         factoryStub
       );
 
-      expect(factoryStub.createCategorizedProperty.callCount).to.be.equal(0);
+      expect(factoryStub.createCategorizedProperty).toHaveBeenCalledTimes(0);
       GridUtils.assertPropertyEquals(property, propertyRecord);
 
-      expect(property.parentSelectionKey).to.be.equal("Cat1");
-      expect(property.parentCategorySelectionKey).to.be.equal("Cat1");
+      expect(property.parentSelectionKey).toEqual("Cat1");
+      expect(property.parentCategorySelectionKey).toEqual("Cat1");
 
-      expect(property.depth).to.be.equal(0);
+      expect(property.depth).toEqual(0);
     });
 
     it("Should correctly initialize categorized array property with overrides", () => {
@@ -69,7 +68,7 @@ describe("CategorizedArrayProperty", () => {
         "[3]"
       );
 
-      expect(factoryStub.createCategorizedProperty.callCount).to.be.equal(0);
+      expect(factoryStub.createCategorizedProperty).toHaveBeenCalledTimes(0);
       GridUtils.assertPropertyEquals(
         property,
         propertyRecord,
@@ -77,10 +76,10 @@ describe("CategorizedArrayProperty", () => {
         "[3]"
       );
 
-      expect(property.parentSelectionKey).to.be.equal("Cat1_Array");
-      expect(property.parentCategorySelectionKey).to.be.equal("Cat1");
+      expect(property.parentSelectionKey).toEqual("Cat1_Array");
+      expect(property.parentCategorySelectionKey).toEqual("Cat1");
 
-      expect(property.depth).to.be.equal(1);
+      expect(property.depth).toEqual(1);
     });
 
     it("Should throw when initializing categorized array property with primitive record", () => {
@@ -145,11 +144,13 @@ describe("CategorizedArrayProperty", () => {
       );
 
       const arrayChildren = propertyRecord.getChildrenRecords();
-      expect(factoryStub.createCategorizedProperty.callCount).to.be.equal(
+      expect(factoryStub.createCategorizedProperty).toHaveBeenCalledTimes(
         arrayChildren.length
       );
 
-      factoryStub.createCategorizedProperty.args.forEach((args, index) => {
+      const createCategorizedProperty = factoryStub.createCategorizedProperty;
+      assert(vi.isMockFunction(createCategorizedProperty));
+      createCategorizedProperty.mock.calls.forEach((args, index) => {
         const [
           record,
           parentSelectionKey,
@@ -163,16 +164,16 @@ describe("CategorizedArrayProperty", () => {
         const expectedOverrideName = `${expectedRecord.property.name}_${index}`;
         const expectedOverrideDisplayLabel = `[${index + 1}]`;
 
-        expect(parentSelectionKey).to.be.equal(
+        expect(parentSelectionKey).toEqual(
           GridUtils.getSelectionKey(propertyRecord, expectedParentSelectionKey)
         );
-        expect(parentCategorySelectionKey).to.be.equal(
+        expect(parentCategorySelectionKey).toEqual(
           expectedParentCategorySelectionKey
         );
-        expect(depth).to.be.equal(2);
-        expect(record).to.be.equal(expectedRecord);
-        expect(overrideName).to.be.equal(expectedOverrideName);
-        expect(overrideDisplayLabel).to.be.equal(expectedOverrideDisplayLabel);
+        expect(depth).toEqual(2);
+        expect(record).toEqual(expectedRecord);
+        expect(overrideName).toEqual(expectedOverrideName);
+        expect(overrideDisplayLabel).toEqual(expectedOverrideDisplayLabel);
       });
     });
   });
@@ -195,7 +196,7 @@ describe("CategorizedArrayProperty", () => {
         );
 
         const isExpanded = property.isExpanded;
-        expect(isExpanded).to.be.equal(propertyRecord.autoExpand);
+        expect(isExpanded).toEqual(propertyRecord.autoExpand);
       });
 
       it(`isExpanded should return ${expectedIsExpanded} when isExpanded set to: ${expectedIsExpanded}`, () => {
@@ -210,7 +211,7 @@ describe("CategorizedArrayProperty", () => {
         );
 
         property.isExpanded = expectedIsExpanded;
-        expect(property.isExpanded).to.be.equal(expectedIsExpanded);
+        expect(property.isExpanded).toEqual(expectedIsExpanded);
       });
     }
 
@@ -232,7 +233,7 @@ describe("CategorizedArrayProperty", () => {
 
       const self = property.getSelf();
 
-      expect(self).to.be.equal(property);
+      expect(self).toEqual(property);
     });
   });
 
@@ -741,12 +742,17 @@ describe("CategorizedArrayProperty", () => {
         );
 
         const children = property.getChildren();
-        const childrenSpies: sinon.SinonSpy[] = [];
+        const childrenSpies: Mock[] = [];
         children.forEach((child) => {
-          const spy = sinon.spy();
+          const spy = vi.fn();
           childrenSpies.push(spy);
 
-          sinon.replaceSetter(child, "lastInNumberOfCategories", spy);
+          Object.assign(child, {
+            lastInNumberOfCategories: child.lastInNumberOfCategories ?? 0,
+          });
+          vi.spyOn(child, "lastInNumberOfCategories", "set").mockImplementation(
+            spy
+          );
         });
 
         property.lastInNumberOfCategories = 3;
@@ -755,10 +761,11 @@ describe("CategorizedArrayProperty", () => {
         const lastSpy = GridUtils.getLast(childrenSpies)!;
 
         childrenSpies.forEach((spy) => {
-          if (spy !== lastSpy) expect(spy.notCalled).to.be.true;
+          if (spy !== lastSpy) expect(spy).not.toBeCalled();
         });
 
-        expect(lastSpy.calledOnceWith(3)).to.be.true;
+        expect(lastSpy).toHaveBeenCalledOnce();
+        expect(lastSpy).toHaveBeenCalledWith(3);
       });
     });
 
@@ -794,12 +801,17 @@ describe("CategorizedArrayProperty", () => {
         );
 
         const children = property.getChildren();
-        const childrenSpies: sinon.SinonSpy[] = [];
+        const childrenSpies: Mock[] = [];
         children.forEach((child) => {
-          const spy = sinon.spy();
+          const spy = vi.fn();
           childrenSpies.push(spy);
 
-          sinon.replaceSetter(child, "isLastInRootCategory", spy);
+          Object.assign(child, {
+            isLastInRootCategory: child.isLastInRootCategory ?? true,
+          });
+          vi.spyOn(child, "isLastInRootCategory", "set").mockImplementation(
+            spy
+          );
         });
 
         property.isLastInRootCategory = true;
@@ -808,10 +820,11 @@ describe("CategorizedArrayProperty", () => {
 
         const lastSpy = GridUtils.getLast(childrenSpies)!;
         childrenSpies.forEach((spy) => {
-          if (spy !== lastSpy) expect(spy.notCalled).to.be.true;
+          if (spy !== lastSpy) expect(spy).not.toBeCalled();
         });
 
-        expect(lastSpy.calledOnceWith(true)).to.be.true;
+        expect(lastSpy).toHaveBeenCalledOnce();
+        expect(lastSpy).toHaveBeenCalledWith(true);
       });
     });
   });

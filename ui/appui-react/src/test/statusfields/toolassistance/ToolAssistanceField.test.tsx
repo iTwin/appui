@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { Logger } from "@itwin/core-bentley";
 import {
   ToolAssistance,
@@ -91,7 +89,7 @@ describe(`ToolAssistanceField`, () => {
       screen.getByTitle(/Hello World!.*toolAssistance\.moreInfo/)
     );
 
-    expect(screen.queryByText("toolAssistance.promptAtCursor")).to.be.null;
+    expect(screen.queryByText("toolAssistance.promptAtCursor")).toEqual(null);
   });
 
   it("passing isNew:true should use newDot", async () => {
@@ -425,7 +423,7 @@ describe(`ToolAssistanceField`, () => {
   });
 
   it("ToolAssistanceImage.Keyboard but keyboardInfo should log error", async () => {
-    const spyMethod = sinon.spy(Logger, "logError");
+    const spy = vi.spyOn(Logger, "logError");
     render(
       <StatusBar>
         <ToolAssistanceField uiStateStorage={uiSettingsStorage} />
@@ -442,12 +440,12 @@ describe(`ToolAssistanceField`, () => {
     notifications.setToolAssistance(instructions);
 
     await waitFor(() => {
-      spyMethod.called.should.true;
+      expect(spy).toHaveBeenCalled();
     });
   });
 
   it("ToolAssistanceImage.Keyboard with invalid keyboardInfo should log error", async () => {
-    const spyMethod = sinon.spy(Logger, "logError");
+    const spy = vi.spyOn(Logger, "logError");
     render(
       <StatusBar>
         <ToolAssistanceField uiStateStorage={uiSettingsStorage} />
@@ -464,7 +462,7 @@ describe(`ToolAssistanceField`, () => {
     notifications.setToolAssistance(instructions);
 
     await waitFor(() => {
-      spyMethod.called.should.true;
+      expect(spy).toHaveBeenCalled();
     });
   });
 
@@ -595,7 +593,7 @@ describe(`ToolAssistanceField`, () => {
   });
 
   it("invalid modifier key info along with image should log error", async () => {
-    const spyMethod = sinon.spy(Logger, "logError");
+    const spy = vi.spyOn(Logger, "logError");
     render(
       <StatusBar>
         <ToolAssistanceField uiStateStorage={uiSettingsStorage} />
@@ -614,7 +612,7 @@ describe(`ToolAssistanceField`, () => {
     notifications.setToolAssistance(instructions);
 
     await waitFor(() => {
-      spyMethod.called.should.true;
+      expect(spy).toHaveBeenCalled();
     });
   });
 
@@ -634,7 +632,7 @@ describe(`ToolAssistanceField`, () => {
 
     await theUserTo.click(screen.getByTestId("outside"));
 
-    expect(screen.queryByText("toolAssistance.title")).to.be.null;
+    expect(screen.queryByText("toolAssistance.title")).toEqual(null);
   });
 
   it("should not close on outside click if pinned", async () => {
@@ -669,7 +667,7 @@ describe(`ToolAssistanceField`, () => {
     await theUserTo.click(
       screen.getByTitle(/Hello World!.*toolAssistance\.moreInfo/)
     );
-    expect(screen.queryByText("toolAssistance.title")).to.be.null;
+    expect(screen.queryByText("toolAssistance.title")).toEqual(null);
   });
 
   it("should set showPromptAtCursor on toggle click", async () => {
@@ -693,7 +691,7 @@ describe(`ToolAssistanceField`, () => {
       await screen.findByText("toolAssistance.promptAtCursor")
     );
 
-    expect(screen.getByRole<HTMLInputElement>("switch").checked).to.be.false;
+    expect(screen.getByRole<HTMLInputElement>("switch").checked).toEqual(false);
   });
 
   it("cursorPrompt should open when tool assistance set", async () => {
@@ -706,8 +704,8 @@ describe(`ToolAssistanceField`, () => {
       </StatusBar>
     );
 
-    const spyMethod = sinon.spy();
-    CursorPopupManager.onCursorPopupUpdatePositionEvent.addListener(spyMethod);
+    const spy = vi.fn();
+    CursorPopupManager.onCursorPopupUpdatePositionEvent.addListener(spy);
 
     const notifications = new AppNotificationManager();
     const mainInstruction = ToolAssistance.createInstruction(
@@ -719,12 +717,10 @@ describe(`ToolAssistanceField`, () => {
     notifications.setToolAssistance(instructions);
 
     await waitFor(() => {
-      spyMethod.called.should.true;
+      expect(spy).toHaveBeenCalled();
     });
 
-    CursorPopupManager.onCursorPopupUpdatePositionEvent.removeListener(
-      spyMethod
-    );
+    CursorPopupManager.onCursorPopupUpdatePositionEvent.removeListener(spy);
   });
 
   it("cursorPrompt should open when tool icon changes", async () => {
@@ -737,15 +733,15 @@ describe(`ToolAssistanceField`, () => {
       </StatusBar>
     );
 
-    const spyMethod = sinon.spy();
-    CursorPopupManager.onCursorPopupUpdatePositionEvent.addListener(spyMethod);
+    const spy = vi.fn();
+    CursorPopupManager.onCursorPopupUpdatePositionEvent.addListener(spy);
 
     // emit before instructions set
     UiFramework.frontstages.onToolIconChangedEvent.emit({
       iconSpec: "icon-placeholder",
     });
 
-    spyMethod.called.should.false;
+    expect(spy).not.toBeCalled();
 
     const notifications = new AppNotificationManager();
     const mainInstruction = ToolAssistance.createInstruction(
@@ -756,7 +752,7 @@ describe(`ToolAssistanceField`, () => {
     const instructions = ToolAssistance.createInstructions(mainInstruction);
     notifications.setToolAssistance(instructions);
 
-    spyMethod.resetHistory();
+    spy.mockReset();
 
     // emit after instructions set
     UiFramework.frontstages.onToolIconChangedEvent.emit({
@@ -764,12 +760,10 @@ describe(`ToolAssistanceField`, () => {
     });
 
     await waitFor(() => {
-      spyMethod.called.should.true;
+      expect(spy).toHaveBeenCalled();
     });
 
-    CursorPopupManager.onCursorPopupUpdatePositionEvent.removeListener(
-      spyMethod
-    );
+    CursorPopupManager.onCursorPopupUpdatePositionEvent.removeListener(spy);
   });
 
   it("mouse & touch instructions should generate tabs", async () => {
@@ -813,12 +807,12 @@ describe(`ToolAssistanceField`, () => {
 
     screen.getByText("toolAssistance.mouse");
     screen.getByText("mouseClick");
-    expect(screen.queryByText("fingerTouch")).to.be.null;
+    expect(screen.queryByText("fingerTouch")).toEqual(null);
 
     const touchTab = screen.getByText("toolAssistance.touch");
     await theUserTo.click(touchTab);
     screen.getByText("fingerTouch");
-    expect(screen.queryByText("mouseClick")).to.be.null;
+    expect(screen.queryByText("mouseClick")).toEqual(null);
   });
 
   it("touch instructions should show", async () => {
@@ -848,7 +842,7 @@ describe(`ToolAssistanceField`, () => {
 
     await theUserTo.click(screen.getByRole("button"));
 
-    expect(screen.queryByRole("tablist")).to.be.null;
+    expect(screen.queryByRole("tablist")).toEqual(null);
     expect(screen.getByText("xyz")).to.exist;
   });
 
@@ -865,6 +859,6 @@ describe(`ToolAssistanceField`, () => {
     await theUserTo.click(screen.getByRole("button"));
     await theUserTo.click(screen.getByTitle("toolAssistance.pin"));
     await theUserTo.click(screen.getByTitle("dialog.close"));
-    expect(screen.queryByText("toolAssistance.title")).to.be.null;
+    expect(screen.queryByText("toolAssistance.title")).toEqual(null);
   });
 });

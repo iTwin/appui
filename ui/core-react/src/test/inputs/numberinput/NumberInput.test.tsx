@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { fireEvent, render } from "@testing-library/react";
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { Key } from "ts-key-enum";
 import { NumberInput } from "../../../core-react/inputs/numberinput/NumberInput";
 
@@ -53,53 +51,53 @@ describe("<NumberInput - React Testing Library />", () => {
     const disabledWrapper = wrapper.container.querySelector(
       "div.core-number-input-container.core-number-input-disabled"
     );
-    expect(disabledWrapper).not.to.be.null;
+    expect(disabledWrapper).toBeTruthy();
     const incrementor = wrapper.container.querySelector(
       "div.core-number-input-button.core-number-input-button-up"
     );
-    expect(incrementor).not.to.be.null;
+    expect(incrementor).toBeTruthy();
     fireEvent.click(incrementor!);
-    expect(value).to.eq(value);
+    expect(value).toEqual(value);
   });
 
   it("value should update with up/down buttons", () => {
-    const spyMethod = sinon.spy();
+    const spy = vi.fn();
     let updatedValue: number | undefined = 5;
     const handleChange = (
       v: number | undefined,
       _stringValue: string
     ): void => {
       updatedValue = v;
-      spyMethod();
+      spy();
     };
 
     const wrapper = render(
       <NumberInput value={1} step={undefined} onChange={handleChange} />
     );
     const input = wrapper.container.querySelector("input") as HTMLInputElement;
-    expect(input.value).to.eq("1");
+    expect(input.value).toEqual("1");
 
     wrapper.rerender(
       <NumberInput value={5} step={undefined} onChange={handleChange} />
     );
-    expect(input.value).to.eq("5");
+    expect(input.value).toEqual("5");
 
     const incrementor = wrapper.container.querySelector(
       "div.core-number-input-button.core-number-input-button-up"
     );
-    expect(incrementor).not.to.be.null;
+    expect(incrementor).toBeTruthy();
     const decrementor = wrapper.container.querySelector(
       "div.core-number-input-button.core-number-input-button-down"
     );
-    expect(decrementor).not.to.be.null;
+    expect(decrementor).toBeTruthy();
 
     fireEvent.click(incrementor!);
-    expect(input.value).to.eq("6");
-    spyMethod.calledOnce.should.true;
-    expect(updatedValue).to.eq(6);
+    expect(input.value).toEqual("6");
+    expect(spy).toHaveBeenCalledOnce();
+    expect(updatedValue).toEqual(6);
 
     fireEvent.click(decrementor!);
-    expect(updatedValue).to.eq(5);
+    expect(updatedValue).toEqual(5);
   });
 
   it("steps correctly with undefined step", () => {
@@ -116,19 +114,19 @@ describe("<NumberInput - React Testing Library />", () => {
     const incrementor = wrapper.container.querySelector(
       "div.core-number-input-button.core-number-input-button-up"
     );
-    expect(incrementor).not.to.be.null;
+    expect(incrementor).toBeTruthy();
     fireEvent.click(incrementor!);
-    expect(value).to.eq(1);
+    expect(value).toEqual(1);
   });
 
   it("steps correctly with number step", () => {
     let value: number | undefined = 0;
-    const spyMethod = sinon.spy();
+    const spy = vi.fn();
     const handleChange = (
       v: number | undefined,
       _stringValue: string
     ): void => {
-      spyMethod();
+      spy();
       value = v;
     };
     const wrapper = render(
@@ -137,20 +135,20 @@ describe("<NumberInput - React Testing Library />", () => {
     const incrementor = wrapper.container.querySelector(
       "div.core-number-input-button.core-number-input-button-up"
     );
-    expect(incrementor).not.to.be.null;
+    expect(incrementor).toBeTruthy();
     fireEvent.click(incrementor!);
-    spyMethod.calledOnce.should.true;
-    expect(value).to.eq(5);
+    expect(spy).toHaveBeenCalledOnce();
+    expect(value).toEqual(5);
   });
 
   it("steps correctly with decimal step", () => {
     let value: number | undefined = 1.23;
-    const spyMethod = sinon.spy();
+    const spy = vi.fn();
     const handleChange = (
       v: number | undefined,
       _stringValue: string
     ): void => {
-      spyMethod();
+      spy();
       value = v;
     };
     const wrapper = render(
@@ -164,10 +162,10 @@ describe("<NumberInput - React Testing Library />", () => {
     const incrementor = wrapper.container.querySelector(
       "div.core-number-input-button.core-number-input-button-up"
     );
-    expect(incrementor).not.to.be.null;
+    expect(incrementor).toBeTruthy();
     fireEvent.click(incrementor!);
-    spyMethod.calledOnce.should.true;
-    expect(value).to.eq(1.48);
+    expect(spy).toHaveBeenCalledOnce();
+    expect(value).toEqual(1.48);
   });
 
   it("properly handle max", () => {
@@ -184,24 +182,24 @@ describe("<NumberInput - React Testing Library />", () => {
     const incrementor = wrapper.container.querySelector(
       "div.core-number-input-button.core-number-input-button-up"
     );
-    expect(incrementor).not.to.be.null;
+    expect(incrementor).toBeTruthy();
     fireEvent.click(incrementor!); // 1
     fireEvent.click(incrementor!); // 2
     fireEvent.click(incrementor!); // 3
     fireEvent.click(incrementor!); // 4
     fireEvent.click(incrementor!); // 5
     fireEvent.click(incrementor!); // 6 => 5
-    expect(value).to.eq(5);
+    expect(value).toEqual(5);
   });
 
   it("properly handle MAX_SAFE_INTEGER value", () => {
     let value: number | undefined = Number.MAX_SAFE_INTEGER;
-    const spyMethod = sinon.spy();
+    const spy = vi.fn();
     const handleChange = (
       v: number | undefined,
       _stringValue: string
     ): void => {
-      spyMethod();
+      spy();
       value = v;
     };
     const wrapper = render(
@@ -210,10 +208,10 @@ describe("<NumberInput - React Testing Library />", () => {
     const incrementor = wrapper.container.querySelector(
       "div.core-number-input-button.core-number-input-button-up"
     );
-    expect(incrementor).not.to.be.null;
+    expect(incrementor).toBeTruthy();
     fireEvent.click(incrementor!);
-    spyMethod.calledOnce.should.true;
-    expect(value).to.eq(Number.MAX_SAFE_INTEGER);
+    expect(spy).toHaveBeenCalledOnce();
+    expect(value).toEqual(Number.MAX_SAFE_INTEGER);
   });
 
   it("properly handle min", () => {
@@ -230,24 +228,24 @@ describe("<NumberInput - React Testing Library />", () => {
     const decrementor = wrapper.container.querySelector(
       "div.core-number-input-button.core-number-input-button-down"
     );
-    expect(decrementor).not.to.be.null;
+    expect(decrementor).toBeTruthy();
     fireEvent.click(decrementor!); // -1
     fireEvent.click(decrementor!); // -2
     fireEvent.click(decrementor!); // -3
     fireEvent.click(decrementor!); // -4
     fireEvent.click(decrementor!); // -5
     fireEvent.click(decrementor!); // -6 => -5
-    expect(value).to.eq(-5);
+    expect(value).toEqual(-5);
   });
 
   it("properly handle MIN_SAFE_INTEGER value", () => {
     let value: number | undefined = Number.MIN_SAFE_INTEGER;
-    const spyMethod = sinon.spy();
+    const spy = vi.fn();
     const handleChange = (
       v: number | undefined,
       _stringValue: string
     ): void => {
-      spyMethod();
+      spy();
       value = v;
     };
     const wrapper = render(
@@ -256,18 +254,18 @@ describe("<NumberInput - React Testing Library />", () => {
     const decrementor = wrapper.container.querySelector(
       "div.core-number-input-button.core-number-input-button-down"
     );
-    expect(decrementor).not.to.be.null;
+    expect(decrementor).toBeTruthy();
     fireEvent.click(decrementor!);
-    spyMethod.calledOnce.should.true;
-    expect(value).to.eq(Number.MIN_SAFE_INTEGER);
+    expect(spy).toHaveBeenCalledOnce();
+    expect(value).toEqual(Number.MIN_SAFE_INTEGER);
   });
 
   it("steps correctly with decimal step and snap", () => {
     let value: number | undefined = 1.23;
     let formattedValue: string = "";
-    const spyMethod = sinon.spy();
+    const spy = vi.fn();
     const handleChange = (v: number | undefined, stringValue: string): void => {
-      spyMethod();
+      spy();
       value = v;
       formattedValue = stringValue;
     };
@@ -284,11 +282,11 @@ describe("<NumberInput - React Testing Library />", () => {
     const incrementor = wrapper.container.querySelector(
       "div.core-number-input-button.core-number-input-button-up"
     );
-    expect(incrementor).not.to.be.null;
+    expect(incrementor).toBeTruthy();
     fireEvent.click(incrementor!);
-    spyMethod.calledOnce.should.true;
-    expect(value).to.eq(1.5);
-    expect(formattedValue).to.eq("1.50");
+    expect(spy).toHaveBeenCalledOnce();
+    expect(value).toEqual(1.5);
+    expect(formattedValue).toEqual("1.50");
   });
 
   it("steps correctly when placeholder is used", () => {
@@ -305,15 +303,15 @@ describe("<NumberInput - React Testing Library />", () => {
     const incrementor = wrapper.container.querySelector(
       "div.core-number-input-button.core-number-input-button-up"
     );
-    expect(incrementor).not.to.be.null;
+    expect(incrementor).toBeTruthy();
     fireEvent.click(incrementor!);
-    expect(value).to.eq(1);
+    expect(value).toEqual(1);
     const decrementor = wrapper.container.querySelector(
       "div.core-number-input-button.core-number-input-button-down"
     );
-    expect(decrementor).not.to.be.null;
+    expect(decrementor).toBeTruthy();
     fireEvent.click(decrementor!);
-    expect(value).to.eq(0);
+    expect(value).toEqual(0);
   });
 
   it("steps correctly with function step +.5/-.1", () => {
@@ -336,15 +334,15 @@ describe("<NumberInput - React Testing Library />", () => {
     const incrementor = wrapper.container.querySelector(
       "div.core-number-input-button.core-number-input-button-up"
     );
-    expect(incrementor).not.to.be.null;
+    expect(incrementor).toBeTruthy();
     fireEvent.click(incrementor!);
-    expect(value).to.eq(0.5);
+    expect(value).toEqual(0.5);
     const decrementor = wrapper.container.querySelector(
       "div.core-number-input-button.core-number-input-button-down"
     );
-    expect(decrementor).not.to.be.null;
+    expect(decrementor).toBeTruthy();
     fireEvent.click(decrementor!);
-    expect(value).to.eq(0.4);
+    expect(value).toEqual(0.4);
   });
 
   it("steps correctly when step function return undefined", () => {
@@ -367,28 +365,28 @@ describe("<NumberInput - React Testing Library />", () => {
     const incrementor = wrapper.container.querySelector(
       "div.core-number-input-button.core-number-input-button-up"
     );
-    expect(incrementor).not.to.be.null;
+    expect(incrementor).toBeTruthy();
     fireEvent.click(incrementor!);
-    expect(value).to.eq(1);
+    expect(value).toEqual(1);
     const decrementor = wrapper.container.querySelector(
       "div.core-number-input-button.core-number-input-button-down"
     );
-    expect(decrementor).not.to.be.null;
+    expect(decrementor).toBeTruthy();
     fireEvent.click(decrementor!);
-    expect(value).to.eq(0);
+    expect(value).toEqual(0);
   });
 
   it("should increment/decrement value on Up/Down Arrow", () => {
     let value: number | undefined = 1.23;
-    const spyMethod = sinon.spy();
+    const spy = vi.fn();
     const handleChange = (
       v: number | undefined,
       _stringValue: string
     ): void => {
-      spyMethod();
+      spy();
       value = v;
     };
-    const spyKeyDown = sinon.spy();
+    const spyKeyDown = vi.fn();
     const wrapper = render(
       <NumberInput
         precision={2}
@@ -399,26 +397,26 @@ describe("<NumberInput - React Testing Library />", () => {
       />
     );
     const input = wrapper.container.querySelector("input");
-    expect(input).not.to.be.null;
+    expect(input).toBeTruthy();
     fireEvent.keyDown(input!, { key: Key.ArrowUp });
-    spyMethod.calledOnce.should.true;
-    expect(value).to.eq(1.48);
+    expect(spy).toHaveBeenCalledOnce();
+    expect(value).toEqual(1.48);
 
-    spyMethod.resetHistory();
+    spy.mockRestore();
     fireEvent.keyDown(input!, { key: Key.ArrowDown });
-    spyMethod.calledOnce.should.true;
-    expect(value).to.eq(1.23);
-    spyKeyDown.calledTwice.should.true;
+    expect(spy).toHaveBeenCalledOnce();
+    expect(value).toEqual(1.23);
+    expect(spyKeyDown).toHaveBeenCalledTimes(2);
   });
 
   it("should update value on enter", () => {
     let value: number | undefined = 1.23;
-    const spyMethod = sinon.spy();
+    const spy = vi.fn();
     const handleChange = (
       v: number | undefined,
       _stringValue: string
     ): void => {
-      spyMethod();
+      spy();
       value = v;
     };
     const wrapper = render(
@@ -430,24 +428,24 @@ describe("<NumberInput - React Testing Library />", () => {
       />
     );
     const input = wrapper.container.querySelector("input");
-    expect(input).not.to.be.null;
+    expect(input).toBeTruthy();
     fireEvent.change(input!, { target: { value: "22.3" } });
     fireEvent.keyDown(input!, { key: Key.Enter });
-    spyMethod.calledOnce.should.true;
-    expect(value).to.eq(22.3);
+    expect(spy).toHaveBeenCalledOnce();
+    expect(value).toEqual(22.3);
   });
 
   it("should update value on blur", () => {
     let value: number | undefined = 1.23;
-    const spyMethod = sinon.spy();
+    const spy = vi.fn();
     const handleChange = (
       v: number | undefined,
       _stringValue: string
     ): void => {
-      spyMethod();
+      spy();
       value = v;
     };
-    const spyBlur = sinon.spy();
+    const spyBlur = vi.fn();
     const wrapper = render(
       <NumberInput
         precision={2}
@@ -458,42 +456,42 @@ describe("<NumberInput - React Testing Library />", () => {
       />
     );
     const input = wrapper.container.querySelector("input");
-    expect(input).not.to.be.null;
+    expect(input).toBeTruthy();
     fireEvent.focusIn(input!);
     fireEvent.change(input!, { target: { value: "22.3" } });
     fireEvent.blur(input!);
-    spyMethod.calledOnce.should.true;
-    spyBlur.calledOnce.should.true;
-    expect(value).to.eq(22.3);
+    expect(spy).toHaveBeenCalledOnce();
+    expect(spyBlur).toHaveBeenCalledOnce();
+    expect(value).toEqual(22.3);
   });
 
   it("should update value when component is controlled", () => {
-    const spyMethod = sinon.spy();
+    const spy = vi.fn();
 
     const wrapper = render(
       <NumberInput
         precision={2}
         value={1.23}
         step={0.25}
-        onChange={spyMethod}
+        onChange={spy}
         isControlled={true}
       />
     );
     const input = wrapper.container.querySelector("input");
-    expect(input).not.to.be.null;
+    expect(input).toBeTruthy();
     fireEvent.focusIn(input!);
     fireEvent.change(input!, { target: { value: "22.3" } });
-    expect(spyMethod).calledOnceWith(22.3, "22.3");
+    expect(spy).toBeCalledWith(22.3, "22.3");
   });
 
   it("should reset value on ESC", () => {
     let value: number | undefined = 1.23;
-    const spyMethod = sinon.spy();
+    const spy = vi.fn();
     const handleChange = (
       v: number | undefined,
       _stringValue: string
     ): void => {
-      spyMethod();
+      spy();
       value = v;
     };
     const wrapper = render(
@@ -505,23 +503,23 @@ describe("<NumberInput - React Testing Library />", () => {
       />
     );
     const input = wrapper.container.querySelector("input");
-    expect(input).not.to.be.null;
+    expect(input).toBeTruthy();
     const originalValue = (input as HTMLInputElement).value;
     fireEvent.change(input!, { target: { value: "22.3" } });
-    expect((input as HTMLInputElement).value).to.eq("22.3");
+    expect((input as HTMLInputElement).value).toEqual("22.3");
     fireEvent.keyDown(input!, { key: Key.Escape });
-    spyMethod.notCalled.should.be.true;
-    expect((input as HTMLInputElement).value).to.eq(originalValue);
+    expect(spy).not.toBeCalled();
+    expect((input as HTMLInputElement).value).toEqual(originalValue);
   });
 
   it("should reset value to 0 when invalid text is entered", () => {
     let value: number | undefined = 1.23;
-    const spyMethod = sinon.spy();
+    const spy = vi.fn();
     const handleChange = (
       v: number | undefined,
       _stringValue: string
     ): void => {
-      spyMethod();
+      spy();
       value = v;
     };
     const wrapper = render(
@@ -533,12 +531,12 @@ describe("<NumberInput - React Testing Library />", () => {
       />
     );
     const input = wrapper.container.querySelector("input");
-    expect(input).not.to.be.null;
+    expect(input).toBeTruthy();
     fireEvent.change(input!, { target: { value: "abc" } });
-    expect((input as HTMLInputElement).value).to.eq("abc");
+    expect((input as HTMLInputElement).value).toEqual("abc");
     fireEvent.keyDown(input!, { key: Key.Enter });
-    spyMethod.calledOnce.should.be.true;
-    expect(value).to.eq(0);
+    expect(spy).toHaveBeenCalledOnce();
+    expect(value).toEqual(0);
   });
 
   it("renders for touch correctly", () => {
@@ -546,19 +544,19 @@ describe("<NumberInput - React Testing Library />", () => {
     const mainContainer = wrapper.container.querySelector(
       "div.core-number-input-container.core-number-buttons-for-touch"
     );
-    expect(mainContainer).not.to.be.null;
+    expect(mainContainer).toBeTruthy();
     const buttonContainer = wrapper.container.querySelector(
       "div.core-number-input-buttons-container.core-number-buttons-for-touch"
     );
-    expect(buttonContainer).not.to.be.null;
+    expect(buttonContainer).toBeTruthy();
   });
 
   it("processes parse and format functions correctly", () => {
     let value: number | undefined = 1.23;
     let formattedValue: string = "";
-    const spyMethod = sinon.spy();
+    const spy = vi.fn();
     const handleChange = (v: number | undefined, stringValue: string): void => {
-      spyMethod();
+      spy();
       value = v;
       formattedValue = stringValue;
     };
@@ -577,22 +575,22 @@ describe("<NumberInput - React Testing Library />", () => {
     const incrementor = wrapper.container.querySelector(
       "div.core-number-input-button.core-number-input-button-up"
     );
-    expect(incrementor).not.to.be.null;
+    expect(incrementor).toBeTruthy();
     fireEvent.click(incrementor!);
-    spyMethod.calledOnce.should.true;
-    expect(value).to.eq(1.5);
-    expect(formattedValue).to.eq("$1.50");
+    expect(spy).toHaveBeenCalledOnce();
+    expect(value).toEqual(1.5);
+    expect(formattedValue).toEqual("$1.50");
 
     const input = wrapper.container.querySelector("input");
-    expect(input).not.to.be.null;
+    expect(input).toBeTruthy();
     fireEvent.change(input!, { target: { value: "15.3" } });
-    expect((input as HTMLInputElement).value).to.eq("15.3");
+    expect((input as HTMLInputElement).value).toEqual("15.3");
     fireEvent.keyDown(input!, { key: Key.Enter });
-    expect(formattedValue).to.eq("$15.30");
+    expect(formattedValue).toEqual("$15.30");
 
     fireEvent.change(input!, { target: { value: "$2.25" } });
-    expect((input as HTMLInputElement).value).to.eq("$2.25");
+    expect((input as HTMLInputElement).value).toEqual("$2.25");
     fireEvent.keyDown(input!, { key: Key.Enter });
-    expect(formattedValue).to.eq("$2.25");
+    expect(formattedValue).toEqual("$2.25");
   });
 });

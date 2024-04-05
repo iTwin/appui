@@ -3,7 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import * as React from "react";
 import type {
   IconEditorParams,
@@ -30,10 +29,10 @@ import { TextEditor } from "../../components-react/editors/TextEditor";
 describe("PropertyEditorManager", () => {
   it("createEditor should create a BasicPropertyEditor for unknown type", () => {
     const propertyEditor = PropertyEditorManager.createEditor("test");
-    expect(propertyEditor).to.not.be.null;
+    expect(propertyEditor).toBeTruthy();
     if (propertyEditor) {
       expect(propertyEditor).to.be.instanceof(BasicPropertyEditor);
-      expect(React.isValidElement(propertyEditor.reactNode)).to.be.true;
+      expect(React.isValidElement(propertyEditor.reactNode)).toEqual(true);
     }
   });
 
@@ -81,8 +80,9 @@ describe("PropertyEditorManager", () => {
       MinePropertyEditor,
       "myEditor"
     );
-    expect(PropertyEditorManager.hasCustomEditor("mine3", "myEditor")).to.be
-      .true;
+    expect(PropertyEditorManager.hasCustomEditor("mine3", "myEditor")).toEqual(
+      true
+    );
     const propertyEditor = PropertyEditorManager.createEditor(
       "mine3",
       "myEditor"
@@ -104,7 +104,7 @@ describe("PropertyEditorManager", () => {
       "myEditor",
       "myData"
     );
-    expect(propertyEditor).to.not.be.null;
+    expect(propertyEditor).toBeTruthy();
     if (propertyEditor) {
       expect(propertyEditor).to.be.instanceof(MinePropertyEditor);
       expect(propertyEditor.customDataController).to.be.instanceof(
@@ -126,7 +126,7 @@ describe("PropertyEditorManager", () => {
       "mine5",
       "badeditor"
     );
-    expect(propertyEditor).to.not.be.null;
+    expect(propertyEditor).toBeTruthy();
     if (propertyEditor) {
       expect(propertyEditor).to.be.instanceof(MinePropertyEditor);
     }
@@ -169,18 +169,18 @@ describe("PropertyEditorManager", () => {
   it("calling validateValue & commitResult on PropertyEditor without dataController should encounter no error", async () => {
     PropertyEditorManager.registerEditor("mine7", MinePropertyEditor);
     const propertyEditor = PropertyEditorManager.createEditor("mine7");
-    expect(propertyEditor).to.not.be.null;
+    expect(propertyEditor).toBeTruthy();
     if (propertyEditor) {
       const validateResult = await propertyEditor.validateValue(
         createPropertyValue("newvalue"),
         createPropertyRecord("value")
       );
-      expect(validateResult.encounteredError).to.be.false;
+      expect(validateResult.encounteredError).toEqual(false);
       const commitResult = await propertyEditor.commitValue(
         createPropertyValue("newvalue"),
         createPropertyRecord("value")
       );
-      expect(commitResult.encounteredError).to.be.false;
+      expect(commitResult.encounteredError).toEqual(false);
     }
   });
 
@@ -192,18 +192,18 @@ describe("PropertyEditorManager", () => {
       undefined,
       "myData3"
     );
-    expect(propertyEditor).to.not.be.null;
+    expect(propertyEditor).toBeTruthy();
     if (propertyEditor) {
       const validateResult = await propertyEditor.validateValue(
         createPropertyValue("newvalue"),
         createPropertyRecord("value")
       );
-      expect(validateResult.encounteredError).to.be.false;
+      expect(validateResult.encounteredError).toEqual(false);
       const commitResult = await propertyEditor.commitValue(
         createPropertyValue("newvalue"),
         createPropertyRecord("value")
       );
-      expect(commitResult.encounteredError).to.be.false;
+      expect(commitResult.encounteredError).toEqual(false);
     }
   });
 
@@ -234,18 +234,18 @@ describe("PropertyEditorManager", () => {
       undefined,
       "myData4"
     );
-    expect(propertyEditor).to.not.be.null;
+    expect(propertyEditor).toBeTruthy();
     if (propertyEditor) {
       const validateResult = await propertyEditor.validateValue(
         createPropertyValue("newvalue"),
         createPropertyRecord("value")
       );
-      expect(validateResult.encounteredError).to.be.true;
+      expect(validateResult.encounteredError).toEqual(true);
       const commitResult = await propertyEditor.commitValue(
         createPropertyValue("newvalue"),
         createPropertyRecord("value")
       );
-      expect(commitResult.encounteredError).to.be.true;
+      expect(commitResult.encounteredError).toEqual(true);
     }
   });
 
@@ -302,7 +302,7 @@ describe("PropertyEditorManager", () => {
       propertyEditor.applyEditorParams(propertyDescription, propertyRecord);
       const iconParamsWorked = (propertyRecord as any)
         .iconParamsWorked as boolean;
-      expect(iconParamsWorked).to.be.true;
+      expect(iconParamsWorked).toEqual(true);
     }
   });
 });

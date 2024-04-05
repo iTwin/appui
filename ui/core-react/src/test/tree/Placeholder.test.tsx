@@ -6,7 +6,6 @@ import * as React from "react";
 import { LEVEL_OFFSET } from "../../core-react/tree/Node";
 import { TreeNodePlaceholder } from "../../core-react";
 import { render, screen } from "@testing-library/react";
-import { expect } from "chai";
 
 describe("<Placeholder />", () => {
   it("should set left padding based on level", () => {

@@ -30,7 +30,7 @@
       "sb sb sb";
 
     > .nz-appContent {
-      grid-row: 1 / -1;
+      grid-row: ts-end / bp-end;
       grid-column: 1 / -1;
 
       // TODO: clean-up #uifw-contentlayout-div

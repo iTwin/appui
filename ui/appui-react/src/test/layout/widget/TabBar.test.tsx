@@ -5,7 +5,6 @@
 import { act, fireEvent, render, waitFor } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
 import * as React from "react";
-import * as sinon from "sinon";
 import type { NineZoneDispatch } from "../../../appui-react/layout/base/NineZone";
 import * as NineZoneModule from "../../../appui-react/layout/base/NineZone";
 import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState";
@@ -23,7 +22,7 @@ import { addTabs } from "../Utils";
 
 describe("WidgetTitleBar", () => {
   it("should dispatch WIDGET_DRAG_END", () => {
-    const dispatch = sinon.stub<NineZoneDispatch>();
+    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
     let state = createNineZoneState();
     state = addTab(state, "t1");
     state = addFloatingWidget(state, "w1", ["t1"]);
@@ -37,12 +36,11 @@ describe("WidgetTitleBar", () => {
     act(() => {
       fireEvent.mouseDown(handle);
       fireEvent.mouseMove(document);
-      dispatch.reset();
+      dispatch.mockReset();
       fireEvent.mouseUp(document);
     });
-    sinon.assert.calledOnceWithExactly(
-      dispatch,
-      sinon.match({
+    expect(dispatch).toHaveBeenCalledWith(
+      expect.objectContaining({
         type: "WIDGET_DRAG_END",
         floatingWidgetId: "w1",
         target: {
@@ -53,7 +51,7 @@ describe("WidgetTitleBar", () => {
   });
 
   it("should dispatch FLOATING_WIDGET_CLEAR_USER_SIZED", async () => {
-    const dispatch = sinon.stub<NineZoneDispatch>();
+    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
     let state = createNineZoneState();
     state = addTab(state, "t1");
     state = addFloatingWidget(state, "w1", ["t1"]);
@@ -69,12 +67,12 @@ describe("WidgetTitleBar", () => {
       fireEvent.mouseDown(handle);
       fireEvent.mouseUp(handle);
       fireEvent.mouseDown(handle);
-      dispatch.reset();
+      dispatch.mockReset();
       fireEvent.mouseUp(handle);
     });
 
     await waitFor(() => {
-      sinon.assert.calledOnceWithExactly(dispatch, {
+      expect(dispatch).toHaveBeenCalledWith({
         type: "FLOATING_WIDGET_CLEAR_USER_SIZED",
         id: "w1",
       });
@@ -82,7 +80,7 @@ describe("WidgetTitleBar", () => {
   });
 
   it("should dispatch WIDGET_DRAG_END with tab target", () => {
-    const dispatch = sinon.stub<NineZoneDispatch>();
+    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
     let state = createNineZoneState();
     state = addTabs(state, ["t1", "t2"]);
     state = addFloatingWidget(state, "w1", ["t1"]);
@@ -102,20 +100,19 @@ describe("WidgetTitleBar", () => {
     const targets = container.getElementsByClassName("nz-target-tabTarget");
     const target = targets[targets.length - 1];
 
-    sinon.stub(document, "elementFromPoint").returns(target);
+    vi.spyOn(document, "elementFromPoint").mockReturnValue(target);
 
     act(() => {
       fireEvent.mouseDown(handle);
       fireEvent.mouseMove(target);
-      dispatch.reset();
+      dispatch.mockReset();
       fireEvent.mouseUp(document);
     });
-    sinon.assert.calledOnceWithExactly(
-      dispatch,
-      sinon.match({
+    expect(dispatch).toHaveBeenCalledWith(
+      expect.objectContaining({
         type: "WIDGET_DRAG_END",
         floatingWidgetId: "w1",
-        target: sinon.match({
+        target: expect.objectContaining({
           tabIndex: 0,
           type: "tab",
           widgetId: "w2",
@@ -125,8 +122,8 @@ describe("WidgetTitleBar", () => {
   });
 
   it("should dispatch WIDGET_DRAG_END with panel target", () => {
-    sinon.stub(NineZoneModule, "getUniqueId").returns("newId");
-    const dispatch = sinon.stub<NineZoneDispatch>();
+    vi.spyOn(NineZoneModule, "getUniqueId").mockReturnValue("newId");
+    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
     let state = createNineZoneState();
     state = addTab(state, "t1");
     state = addFloatingWidget(state, "w1", ["t1"]);
@@ -139,15 +136,15 @@ describe("WidgetTitleBar", () => {
     const titleBar = container.getElementsByClassName("nz-widget-tabBar")[0];
     const handle = titleBar.getElementsByClassName("nz-handle")[0];
     const target = container.getElementsByClassName("nz-target-panelTarget")[0];
-    sinon.stub(document, "elementFromPoint").returns(target);
+    vi.spyOn(document, "elementFromPoint").mockReturnValue(target);
     act(() => {
       fireEvent.mouseDown(handle);
       fireEvent.mouseMove(target);
-      dispatch.reset();
+      dispatch.mockReset();
       fireEvent.mouseUp(document);
     });
 
-    sinon.assert.calledOnceWithExactly(dispatch, {
+    expect(dispatch).toHaveBeenCalledWith({
       type: "WIDGET_DRAG_END",
       floatingWidgetId: "w1",
       target: {
@@ -159,7 +156,7 @@ describe("WidgetTitleBar", () => {
   });
 
   it("should dispatch FLOATING_WIDGET_BRING_TO_FRONT", () => {
-    const dispatch = sinon.stub<NineZoneDispatch>();
+    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
     let state = createNineZoneState();
     state = addTab(state, "t1");
     state = addFloatingWidget(state, "w1", ["t1"]);
@@ -171,14 +168,13 @@ describe("WidgetTitleBar", () => {
     const titleBar = container.getElementsByClassName("nz-widget-tabBar")[0];
     const handle = titleBar.getElementsByClassName("nz-handle")[0];
     act(() => {
-      dispatch.reset();
+      dispatch.mockReset();
       fireEvent.touchStart(handle, {
         touches: [{}],
       });
     });
-    sinon.assert.calledOnceWithExactly(
-      dispatch,
-      sinon.match({
+    expect(dispatch).toHaveBeenCalledWith(
+      expect.objectContaining({
         type: "FLOATING_WIDGET_BRING_TO_FRONT",
         id: "w1",
       })
@@ -188,7 +184,7 @@ describe("WidgetTitleBar", () => {
 
 describe("useDrag", () => {
   it("should start drag on pointer move", () => {
-    const spy = sinon.stub<Required<Parameters<typeof useDrag>>[0]>();
+    const spy = vi.fn<Parameters<Required<Parameters<typeof useDrag>>[0]>>();
     const { result } = renderHook(() => useDrag(spy));
     act(() => {
       const instance = document.createElement("div");
@@ -196,25 +192,25 @@ describe("useDrag", () => {
       fireEvent.mouseDown(instance);
       fireEvent.mouseMove(document);
     });
-    sinon.assert.calledOnce(spy);
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should not start drag on subsequent pointer move", () => {
-    const spy = sinon.stub<Required<Parameters<typeof useDrag>>[0]>();
+    const spy = vi.fn<Parameters<Required<Parameters<typeof useDrag>>[0]>>();
     const { result } = renderHook(() => useDrag(spy));
     act(() => {
       const instance = document.createElement("div");
       result.current(instance);
       fireEvent.mouseDown(instance);
       fireEvent.mouseMove(document);
-      spy.resetHistory();
+      spy.mockReset();
       fireEvent.mouseMove(document);
     });
-    sinon.assert.notCalled(spy);
+    expect(spy).not.toBeCalled();
   });
 
   it("should report drag action", () => {
-    const spy = sinon.stub<Required<Parameters<typeof useDrag>>[1]>();
+    const spy = vi.fn<Parameters<Required<Parameters<typeof useDrag>>[1]>>();
     const { result } = renderHook(() => useDrag(undefined, spy));
     act(() => {
       const instance = document.createElement("div");
@@ -223,11 +219,11 @@ describe("useDrag", () => {
       fireEvent.mouseMove(document);
       fireEvent.mouseMove(document);
     });
-    sinon.assert.calledOnce(spy);
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should report drag end action", () => {
-    const spy = sinon.stub<Required<Parameters<typeof useDrag>>[2]>();
+    const spy = vi.fn<Parameters<Required<Parameters<typeof useDrag>>[2]>>();
     const { result } = renderHook(() => useDrag(undefined, undefined, spy));
     act(() => {
       const instance = document.createElement("div");
@@ -235,6 +231,6 @@ describe("useDrag", () => {
       fireEvent.mouseDown(instance);
       fireEvent.mouseUp(document);
     });
-    sinon.assert.calledOnce(spy);
+    expect(spy).toHaveBeenCalledOnce();
   });
 });

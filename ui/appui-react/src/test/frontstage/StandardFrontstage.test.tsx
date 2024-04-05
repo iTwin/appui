@@ -2,10 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
-import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 import type { ContentGroupProps, ContentProps } from "../../appui-react";
 import {
@@ -120,21 +117,16 @@ class TestContentGroupProvider extends ContentGroupProvider {
 }
 
 describe("ContentGroupProvider", () => {
-  before(async () => {
-    await NoRenderApp.startup();
-    await TestUtils.initializeUiFramework();
+  afterEach(() => {
     UiFramework.frontstages.clearFrontstageProviders();
   });
 
-  after(async () => {
-    TestUtils.terminateUiFramework();
-    await IModelApp.shutdown();
-  });
-
   beforeEach(() => {
-    sinon
-      .stub(InternalFrontstageManager, "activeToolSettingsProvider")
-      .get(() => undefined);
+    vi.spyOn(
+      InternalFrontstageManager,
+      "activeToolSettingsProvider",
+      "get"
+    ).mockImplementation(() => undefined);
     UiFramework.frontstages.clearFrontstageProviders();
   });
 
@@ -163,7 +155,7 @@ describe("ContentGroupProvider", () => {
     expect(contentGroup.contentPropsList.length).to.eql(1);
     expect(
       contentGroup.contentPropsList[0].applicationData?.isInitialContentTestData
-    ).to.be.true;
+    ).toEqual(true);
 
     const savedContentGroupProps = provider.prepareToSaveProps(
       contentGroup.toJSON()
@@ -194,13 +186,11 @@ describe("ContentGroupProvider", () => {
     await UiFramework.frontstages.setActiveFrontstage(
       standardFrontstageProvider.id
     );
-    setImmediate(async () => {
-      await TestUtils.flushAsyncOperations();
+    await TestUtils.flushAsyncOperations();
 
-      expect(UiFramework.frontstages.activeFrontstageId).to.eq(
-        standardFrontstageProvider.id
-      );
-    });
+    expect(UiFramework.frontstages.activeFrontstageId).toEqual(
+      standardFrontstageProvider.id
+    );
   });
 
   it("openStandardFrontstage with corner items", async () => {
@@ -224,13 +214,11 @@ describe("ContentGroupProvider", () => {
     await UiFramework.frontstages.setActiveFrontstage(
       standardFrontstageProvider.id
     );
-    setImmediate(async () => {
-      await TestUtils.flushAsyncOperations();
+    await TestUtils.flushAsyncOperations();
 
-      expect(UiFramework.frontstages.activeFrontstageId).to.eq(
-        standardFrontstageProvider.id
-      );
-    });
+    expect(UiFramework.frontstages.activeFrontstageId).toEqual(
+      standardFrontstageProvider.id
+    );
   });
 
   it("openStandardFrontstage with corner items", async () => {
@@ -262,11 +250,8 @@ describe("ContentGroupProvider", () => {
     await UiFramework.frontstages.setActiveFrontstage(
       standardFrontstageProvider.id
     );
-    setImmediate(async () => {
-      await TestUtils.flushAsyncOperations();
-      expect(UiFramework.frontstages.activeFrontstageId).to.eq(
-        standardFrontstageProvider.id
-      );
-    });
+    expect(UiFramework.frontstages.activeFrontstageId).toEqual(
+      standardFrontstageProvider.id
+    );
   });
 });

@@ -2,8 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
-import * as sinon from "sinon";
 import * as React from "react";
 import { act } from "react-dom/test-utils";
 import {
@@ -23,40 +21,27 @@ import { QuantityFormatPanel } from "../../imodel-components-react/quantityforma
 
 describe("QuantityInput", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
+
   beforeEach(async () => {
     theUserTo = userEvent.setup();
-    await IModelApp.quantityFormatter.clearAllOverrideFormats();
-  });
-  const rnaDescriptorToRestore = Object.getOwnPropertyDescriptor(
-    IModelApp,
-    "requestNextAnimation"
-  )!;
-  function requestNextAnimation() {}
 
-  before(async () => {
     // Avoid requestAnimationFrame exception during test by temporarily replacing function that calls it.
-    Object.defineProperty(IModelApp, "requestNextAnimation", {
-      get: () => requestNextAnimation,
-    });
+    vi.spyOn(IModelApp, "requestNextAnimation").mockImplementation(() => {});
     await TestUtils.initializeUiIModelComponents();
     await NoRenderApp.startup();
+    await IModelApp.quantityFormatter.clearAllOverrideFormats();
   });
 
-  after(async () => {
+  afterEach(async () => {
     await IModelApp.shutdown();
     TestUtils.terminateUiIModelComponents();
-    Object.defineProperty(
-      IModelApp,
-      "requestNextAnimation",
-      rnaDescriptorToRestore
-    );
   });
 
   it("should render basic panel", () => {
     const component = render(
       <QuantityFormatPanel quantityType={QuantityType.Length} />
     );
-    expect(component).not.to.be.null;
+    expect(component).toBeTruthy();
   });
 
   it("should render basic panel with sample", () => {
@@ -67,7 +52,7 @@ describe("QuantityInput", () => {
         initialMagnitude={123.45}
       />
     );
-    expect(component).not.to.be.null;
+    expect(component).toBeTruthy();
   });
 
   it("should render basic panel with more/less option", () => {
@@ -79,7 +64,7 @@ describe("QuantityInput", () => {
         enableMinimumProperties
       />
     );
-    expect(component).not.to.be.null;
+    expect(component).toBeTruthy();
   });
 
   it("should render new sample when format is changed", async () => {
@@ -133,7 +118,7 @@ describe("QuantityInput", () => {
   });
 
   it("should handle onFormatChange UOM separator", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const component = render(
       <QuantityFormatPanel
         quantityType={QuantityType.Length}
@@ -142,8 +127,8 @@ describe("QuantityInput", () => {
         onFormatChange={spy}
       />
     );
-    expect(component).not.to.be.null;
-    expect(spy).to.not.be.calledOnce;
+    expect(component).toBeTruthy();
+    expect(spy).not.toBeCalled();
     const spanElement = component.getByTestId("format-sample-formatted");
 
     const comboBox = within(
@@ -156,8 +141,8 @@ describe("QuantityInput", () => {
       })
     );
 
-    expect(spy).to.be.calledOnce;
-    spy.resetHistory();
+    expect(spy).toHaveBeenCalledOnce();
+    spy.mockReset();
     expect(spanElement.textContent).to.be.eql(`405 '-0 1/4 "`);
 
     // change back from space to none;
@@ -167,24 +152,24 @@ describe("QuantityInput", () => {
         name: "QuantityFormat.none",
       })
     );
-    expect(spy).to.be.calledOnce;
-    spy.resetHistory();
+    expect(spy).toHaveBeenCalledOnce();
+    spy.mockReset();
     expect(spanElement.textContent).to.be.eql(`405'-0 1/4"`);
 
     await theUserTo.click(screen.getByTestId("show-unit-label-checkbox"));
-    expect(spy).to.be.calledOnce;
-    spy.resetHistory();
+    expect(spy).toHaveBeenCalledOnce();
+    spy.mockReset();
     expect(spanElement.textContent).to.be.eql(`405:-0 1/4`); // TODO: does this match Native formatter?
 
     await theUserTo.click(screen.getByTestId("show-unit-label-checkbox"));
-    expect(spy).to.be.calledOnce;
-    spy.resetHistory();
+    expect(spy).toHaveBeenCalledOnce();
+    spy.mockReset();
     expect(spanElement.textContent).to.be.eql(`405'-0 1/4"`);
   });
 
   it("should handle onFormatChange Composite separator", async () => {
     // default QuantityType.Length should show ft-in (ie composite)
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const component = render(
       <QuantityFormatPanel
         quantityType={QuantityType.Length}
@@ -193,7 +178,7 @@ describe("QuantityInput", () => {
         onFormatChange={spy}
       />
     );
-    expect(spy).to.not.be.calledOnce;
+    expect(spy).not.toBeCalled();
 
     const spanElement = component.getByTestId("format-sample-formatted");
     await waitFor(() => {
@@ -205,19 +190,19 @@ describe("QuantityInput", () => {
       initialSelectionEnd: Infinity,
     });
     expect(spanElement.textContent).to.be.eql(`405'x0 1/4"`);
-    expect(spy).to.be.called;
-    spy.resetHistory();
+    expect(spy).toHaveBeenCalled();
+    spy.mockReset();
 
     await theUserTo.type(component.getByTestId("composite-spacer"), "xxx", {
       initialSelectionStart: 0,
       initialSelectionEnd: Infinity,
     });
     expect(spanElement.textContent).to.be.eql(`405'x0 1/4"`);
-    expect(spy).to.be.called;
+    expect(spy).toHaveBeenCalled();
   });
 
   it("should handle onFormatChange Type selection", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const component = render(
       <QuantityFormatPanel
         quantityType={QuantityType.Length}
@@ -237,12 +222,12 @@ describe("QuantityInput", () => {
       })
     );
     await waitForPosition();
-    expect(spy).to.be.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should handle onFormatChange Fraction precision selection", async () => {
     // QuantityType.Length by default is set to Type=Fraction
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const component = render(
       <QuantityFormatPanel
         quantityType={QuantityType.Length}
@@ -262,11 +247,11 @@ describe("QuantityInput", () => {
       })
     );
     await waitForPosition();
-    expect(spy).to.be.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should handle onFormatChange Decimal precision selection", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const component = render(
       <QuantityFormatPanel
         quantityType={QuantityType.Length}
@@ -287,8 +272,8 @@ describe("QuantityInput", () => {
       })
     );
 
-    expect(spy).to.be.calledOnce;
-    spy.resetHistory();
+    expect(spy).toHaveBeenCalledOnce();
+    spy.mockReset();
 
     const precisionSelector = within(
       component.getByTestId("decimal-precision-selector")
@@ -301,7 +286,7 @@ describe("QuantityInput", () => {
       })
     );
     await waitForPosition();
-    expect(spy).to.be.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should handle processing more/less", async () => {
@@ -325,7 +310,7 @@ describe("QuantityInput", () => {
   });
 
   it("should handle onFormatChange when changing sign option", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const component = render(
       <QuantityFormatPanel
         quantityType={QuantityType.Length}
@@ -345,11 +330,11 @@ describe("QuantityInput", () => {
       })
     );
     await waitForPosition();
-    expect(spy).to.be.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should handle onFormatChange when changing station size option", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const component = render(
       <QuantityFormatPanel
         quantityType={QuantityType.Length}
@@ -369,8 +354,8 @@ describe("QuantityInput", () => {
         name: "QuantityFormat.station",
       })
     );
-    expect(spy).to.be.calledOnce;
-    spy.resetHistory();
+    expect(spy).toHaveBeenCalledOnce();
+    spy.mockReset();
 
     fireEvent.click(
       within(component.getByTestId("station-size-selector")).getByRole(
@@ -382,8 +367,8 @@ describe("QuantityInput", () => {
         name: "QuantityFormat.station_size.three",
       })
     );
-    expect(spy).to.be.calledOnce;
-    spy.resetHistory();
+    expect(spy).toHaveBeenCalledOnce();
+    spy.mockReset();
 
     fireEvent.click(
       within(component.getByTestId("station-separator-selector")).getByRole(
@@ -396,11 +381,11 @@ describe("QuantityInput", () => {
       })
     );
     await waitForPosition();
-    expect(spy).to.be.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should handle onFormatChange when changing thousands separator", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const component = render(
       <QuantityFormatPanel
         quantityType={QuantityType.Length}
@@ -412,8 +397,8 @@ describe("QuantityInput", () => {
 
     /* turn on */
     fireEvent.click(component.getByTestId("use-thousands-separator"));
-    expect(spy).to.be.calledOnce;
-    spy.resetHistory();
+    expect(spy).toHaveBeenCalledOnce();
+    spy.mockReset();
 
     fireEvent.click(
       within(component.getByTestId("thousands-separator-selector")).getByRole(
@@ -425,19 +410,19 @@ describe("QuantityInput", () => {
         name: "QuantityFormat.thousand_separator.point",
       })
     );
-    expect(spy).to.be.calledOnce;
-    spy.resetHistory();
+    expect(spy).toHaveBeenCalledOnce();
+    spy.mockReset();
 
     /* turn off */
     fireEvent.click(component.getByTestId("use-thousands-separator"));
-    expect(spy).to.be.calledOnce;
-    spy.resetHistory();
+    expect(spy).toHaveBeenCalledOnce();
+    spy.mockReset();
 
     /* turn on */
     fireEvent.click(component.getByTestId("use-thousands-separator"));
     await waitForPosition();
-    expect(spy).to.be.calledOnce;
-    spy.resetHistory();
+    expect(spy).toHaveBeenCalledOnce();
+    spy.mockReset();
     component.getByText(`40.504'-2"`);
 
     fireEvent.click(
@@ -451,12 +436,12 @@ describe("QuantityInput", () => {
       })
     );
     await waitForPosition();
-    expect(spy).to.be.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
     component.getByText(`40,504'-2"`);
   });
 
   it("should handle onFormatChange when changing decimal separator", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const component = render(
       <QuantityFormatPanel
         quantityType={QuantityType.Length}
@@ -476,13 +461,13 @@ describe("QuantityInput", () => {
         name: "QuantityFormat.decimal",
       })
     );
-    expect(spy).to.be.calledOnce;
-    spy.resetHistory();
+    expect(spy).toHaveBeenCalledOnce();
+    spy.mockReset();
 
     /* turn on 1000 separator */
     fireEvent.click(component.getByTestId("use-thousands-separator"));
-    expect(spy).to.be.calledOnce;
-    spy.resetHistory();
+    expect(spy).toHaveBeenCalledOnce();
+    spy.mockReset();
 
     const separatorSelector = within(
       component.getByTestId("decimal-separator-selector")
@@ -493,8 +478,8 @@ describe("QuantityInput", () => {
         name: "QuantityFormat.decimal_separator.comma",
       })
     );
-    expect(spy).to.be.calledOnce;
-    spy.resetHistory();
+    expect(spy).toHaveBeenCalledOnce();
+    spy.mockReset();
 
     fireEvent.click(separatorSelector);
     fireEvent.click(
@@ -503,11 +488,11 @@ describe("QuantityInput", () => {
       })
     );
     await waitForPosition();
-    expect(spy).to.be.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should handle onFormatChange when changing traits", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const component = render(
       <QuantityFormatPanel
         quantityType={QuantityType.Length}
@@ -519,8 +504,8 @@ describe("QuantityInput", () => {
 
     // test fraction specific trait before changing type
     fireEvent.click(component.getByTestId("fraction-dash"));
-    expect(spy).to.be.calledOnce;
-    spy.resetHistory();
+    expect(spy).toHaveBeenCalledOnce();
+    spy.mockReset();
 
     const typeSelector = within(
       component.getByTestId("format-type-selector")
@@ -531,24 +516,24 @@ describe("QuantityInput", () => {
         name: "QuantityFormat.decimal",
       })
     );
-    expect(spy).to.be.calledOnce;
-    spy.resetHistory();
+    expect(spy).toHaveBeenCalledOnce();
+    spy.mockReset();
 
     fireEvent.click(component.getByTestId("show-trail-zeros"));
-    expect(spy).to.be.calledOnce;
-    spy.resetHistory();
+    expect(spy).toHaveBeenCalledOnce();
+    spy.mockReset();
 
     fireEvent.click(component.getByTestId("keep-decimal-point"));
-    expect(spy).to.be.calledOnce;
-    spy.resetHistory();
+    expect(spy).toHaveBeenCalledOnce();
+    spy.mockReset();
 
     fireEvent.click(component.getByTestId("keep-single-zero"));
-    expect(spy).to.be.calledOnce;
-    spy.resetHistory();
+    expect(spy).toHaveBeenCalledOnce();
+    spy.mockReset();
 
     fireEvent.click(component.getByTestId("zero-empty"));
-    expect(spy).to.be.calledOnce;
-    spy.resetHistory();
+    expect(spy).toHaveBeenCalledOnce();
+    spy.mockReset();
 
     fireEvent.click(typeSelector);
     fireEvent.click(
@@ -556,8 +541,8 @@ describe("QuantityInput", () => {
         name: "QuantityFormat.scientific",
       })
     );
-    expect(spy).to.be.calledOnce;
-    spy.resetHistory();
+    expect(spy).toHaveBeenCalledOnce();
+    spy.mockReset();
 
     fireEvent.click(
       within(component.getByTestId("scientific-type-selector")).getByRole(
@@ -570,11 +555,11 @@ describe("QuantityInput", () => {
       })
     );
     await waitForPosition();
-    expect(spy).to.be.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should handle onFormatChange when changing composite units", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const component = render(
       <QuantityFormatPanel
         quantityType={QuantityType.Length}
@@ -595,11 +580,11 @@ describe("QuantityInput", () => {
       })
     );
     await waitForPosition();
-    expect(spy).to.be.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should handle onFormatChange when changing adding composite unit", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const component = render(
       <QuantityFormatPanel
         quantityType={QuantityType.LengthEngineering}
@@ -619,11 +604,11 @@ describe("QuantityInput", () => {
       })
     );
     await waitForPosition();
-    expect(spy).to.be.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should handle onFormatChange when changing primary unit", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const component = render(
       <QuantityFormatPanel
         quantityType={QuantityType.LengthEngineering}
@@ -643,7 +628,7 @@ describe("QuantityInput", () => {
       })
     );
     await waitForPosition();
-    expect(spy).to.be.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should handle sample value change", async () => {
@@ -717,7 +702,7 @@ describe("QuantityInput", () => {
   });
 
   it("should handle onFormatChange when changing primary unit", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const component = render(
       <QuantityFormatPanel
         quantityType={QuantityType.LengthEngineering}
@@ -730,25 +715,25 @@ describe("QuantityInput", () => {
     await theUserTo.type(primaryUnitLabel, "testfeet");
     const itemLabel = await component.findByText(/testfeet/);
     expect(itemLabel).to.exist;
-    expect(spy).to.be.called;
+    expect(spy).toHaveBeenCalled();
 
     // NEEDSWORK - Can't get the selectChangeValueByText below to work
     // const primaryUnitSelector = component.getByTestId("unit-Units.FT");
     // fireEvent.change(primaryUnitSelector, { target: {value:"Units.YRD:yd"}});
     // const unitLabel = await component.findByTestId("unit-label-Units.YRD");
     // expect(unitLabel).to.exist;
-    // expect(spy).to.be.calledOnce;
-    // spy.resetHistory();
+    // expect(spy).toHaveBeenCalledOnce();
+    // spy.mockReset();
   });
 
   describe("Properties from Custom Quantity Type are Rendered", () => {
-    before(async () => {
+    beforeEach(async () => {
       // register new QuantityType
       await BearingQuantityType.registerQuantityType();
     });
 
     it("should handle onFormatChange when changing changing primary unit", async () => {
-      const spy = sinon.spy();
+      const spy = vi.fn();
       const component = render(
         <QuantityFormatPanel
           quantityType={"Bearing"}
@@ -763,13 +748,13 @@ describe("QuantityInput", () => {
         initialSelectionStart: 0,
         initialSelectionEnd: Infinity,
       });
-      expect(spy).to.be.called;
-      spy.resetHistory();
+      expect(spy).toHaveBeenCalled();
+      spy.mockReset();
 
       const checkboxField = component.getByTestId("checkbox-0-editor");
       await theUserTo.click(checkboxField);
-      expect(spy).to.be.calledOnce;
-      spy.resetHistory();
+      expect(spy).toHaveBeenCalledOnce();
+      spy.mockReset();
 
       const selectField = component.getByTestId("select-0-editor");
       await theUserTo.click(
@@ -778,7 +763,7 @@ describe("QuantityInput", () => {
         )
       );
       await theUserTo.click(screen.getByText(/counter-clockwise/));
-      expect(spy).to.be.calledOnce;
+      expect(spy).toHaveBeenCalledOnce();
     });
   });
 });

@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import {
   NotifyMessageDetails,
   OutputMessagePriority,
@@ -12,18 +10,10 @@ import {
 } from "@itwin/core-frontend";
 import { RelativePosition } from "@itwin/appui-abstract";
 import { AppNotificationManager, PointerMessage } from "../../appui-react";
-import TestUtils, { selectorMatches } from "../TestUtils";
+import { selectorMatches } from "../TestUtils";
 import { render, screen } from "@testing-library/react";
 
 describe("PointerMessage", () => {
-  before(async () => {
-    await TestUtils.initializeUiFramework();
-  });
-
-  after(() => {
-    TestUtils.terminateUiFramework();
-  });
-
   let notifications: AppNotificationManager;
   let details: NotifyMessageDetails;
   const viewport = document.activeElement as HTMLElement;
@@ -52,13 +42,13 @@ describe("PointerMessage", () => {
   });
 
   it("should hide the message", () => {
-    const hideMessage = sinon.spy(PointerMessage, "hideMessage");
+    const hideMessage = vi.spyOn(PointerMessage, "hideMessage");
     notifications.closePointerMessage();
-    expect(hideMessage.called).to.be.true;
+    expect(hideMessage).toHaveBeenCalled();
   });
 
   it("should display a warning message", () => {
-    const showMessage = sinon.spy(PointerMessage, "showMessage");
+    const showMessage = vi.spyOn(PointerMessage, "showMessage");
     const localDetails = new NotifyMessageDetails(
       OutputMessagePriority.Warning,
       "Brief",
@@ -66,11 +56,11 @@ describe("PointerMessage", () => {
       OutputMessageType.Pointer
     );
     notifications.outputMessage(localDetails);
-    expect(showMessage.called).to.be.true;
+    expect(showMessage).toHaveBeenCalled();
   });
 
   it("should display an error message", () => {
-    const showMessage = sinon.spy(PointerMessage, "showMessage");
+    const showMessage = vi.spyOn(PointerMessage, "showMessage");
     const localDetails = new NotifyMessageDetails(
       OutputMessagePriority.Error,
       "Brief",
@@ -78,7 +68,7 @@ describe("PointerMessage", () => {
       OutputMessageType.Pointer
     );
     notifications.outputMessage(localDetails);
-    expect(showMessage.called).to.be.true;
+    expect(showMessage).toHaveBeenCalled();
   });
 
   it("should offset the message", () => {
@@ -113,12 +103,12 @@ describe("PointerMessage", () => {
   });
 
   it("should update the message", () => {
-    const updateMessage = sinon.spy(PointerMessage, "updateMessage");
+    const updateMessage = vi.spyOn(PointerMessage, "updateMessage");
     render(<PointerMessage />);
     notifications.updatePointerMessage(
       { x: 1, y: 1 },
       RelativePosition.BottomRight
     );
-    expect(updateMessage.called).to.be.true;
+    expect(updateMessage).toHaveBeenCalled();
   });
 });

@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
 import { render, screen } from "@testing-library/react";
 import {
@@ -62,32 +60,36 @@ describe("ContextMenu", () => {
       expect(component.getByTestId("core-context-menu-test-div")).to.exist;
     });
     it("should call onOutsideClick on window mouseup", () => {
-      const spyMethod = sinon.fake();
+      const spy = vi.fn();
       render(
-        <ContextMenu opened={true} onOutsideClick={spyMethod}>
+        <ContextMenu opened={true} onOutsideClick={spy}>
           <ContextMenuItem> Test </ContextMenuItem>
         </ContextMenu>
       );
 
       const mouseUp = new MouseEvent("mouseup");
-      sinon.stub(mouseUp, "target").get(() => document.createElement("div"));
+      vi.spyOn(mouseUp, "target", "get").mockReturnValue(
+        document.createElement("div")
+      );
       window.dispatchEvent(mouseUp);
 
-      spyMethod.should.have.been.called;
+      expect(spy).toHaveBeenCalled();
     });
     it("should not call onOutsideClick on window mouseup if closed", () => {
-      const spyMethod = sinon.fake();
+      const spy = vi.fn();
       render(
-        <ContextMenu onOutsideClick={spyMethod}>
+        <ContextMenu onOutsideClick={spy}>
           <ContextMenuItem> Test </ContextMenuItem>
         </ContextMenu>
       );
 
       const mouseUp = new MouseEvent("mouseup");
-      sinon.stub(mouseUp, "target").get(() => document.createElement("div"));
+      vi.spyOn(mouseUp, "target", "get").mockReturnValue(
+        document.createElement("div")
+      );
       window.dispatchEvent(mouseUp);
 
-      spyMethod.should.not.have.been.called;
+      expect(spy).not.toBeCalled();
     });
     it("should support selectedIndex", () => {
       const component = render(
@@ -119,32 +121,32 @@ describe("ContextMenu", () => {
 
     describe("Keyboard navigation", () => {
       it("should handle Escape press", async () => {
-        const handleEsc = sinon.fake();
+        const handleEsc = vi.fn();
         render(<ContextMenu opened={true} onEsc={handleEsc} />);
         await theUserTo.keyboard("{Escape}");
-        expect(handleEsc).to.be.calledOnce;
+        expect(handleEsc).toHaveBeenCalledOnce();
       });
       it("should handle one-level Left press", async () => {
-        const handleEsc = sinon.fake();
+        const handleEsc = vi.fn();
         render(<ContextMenu opened={true} onEsc={handleEsc} />);
         await theUserTo.keyboard("{ArrowLeft}");
-        expect(handleEsc).to.be.calledOnce;
+        expect(handleEsc).toHaveBeenCalledOnce();
       });
       it("should handle one-level select", async () => {
-        const handleSelect = sinon.fake();
-        const targetSelect = sinon.fake();
+        const handleSelect = vi.fn();
+        const targetSelect = vi.fn();
         render(
           <ContextMenu opened={true} onSelect={handleSelect}>
             <ContextMenuItem onSelect={targetSelect}>Item 1</ContextMenuItem>
           </ContextMenu>
         );
         await theUserTo.keyboard("{ArrowDown}{Enter}");
-        expect(handleSelect).to.be.calledOnce;
-        expect(targetSelect).to.be.calledOnce;
+        expect(handleSelect).toHaveBeenCalledOnce();
+        expect(targetSelect).toHaveBeenCalledOnce();
       });
       it("should handle one-level down arrow select", async () => {
-        const handleSelect = sinon.fake();
-        const targetSelect = sinon.fake();
+        const handleSelect = vi.fn();
+        const targetSelect = vi.fn();
         render(
           <ContextMenu opened={true} onSelect={handleSelect}>
             <ContextMenuItem onSelect={targetSelect}>Item 1</ContextMenuItem>
@@ -152,12 +154,12 @@ describe("ContextMenu", () => {
           </ContextMenu>
         );
         await theUserTo.keyboard("{ArrowDown}{ArrowDown}{ArrowDown}{Enter}");
-        expect(handleSelect).to.be.calledOnce;
-        expect(targetSelect).to.be.calledOnce;
+        expect(handleSelect).toHaveBeenCalledOnce();
+        expect(targetSelect).toHaveBeenCalledOnce();
       });
       it("should handle one-level up arrow select", async () => {
-        const handleSelect = sinon.fake();
-        const targetSelect = sinon.fake();
+        const handleSelect = vi.fn();
+        const targetSelect = vi.fn();
         render(
           <ContextMenu opened={true} onSelect={handleSelect}>
             <ContextMenuItem onSelect={targetSelect}>Item 1</ContextMenuItem>
@@ -165,12 +167,12 @@ describe("ContextMenu", () => {
           </ContextMenu>
         );
         await theUserTo.keyboard("{ArrowUp}{ArrowUp}{ArrowUp}{Enter}");
-        expect(handleSelect).to.be.calledOnce;
-        expect(targetSelect).to.be.calledOnce;
+        expect(handleSelect).toHaveBeenCalledOnce();
+        expect(targetSelect).toHaveBeenCalledOnce();
       });
       it("should handle multi-level right arrow then enter select", async () => {
-        const handleSelect = sinon.fake();
-        const targetSelect = sinon.fake();
+        const handleSelect = vi.fn();
+        const targetSelect = vi.fn();
         render(
           <ContextMenu opened={true} onSelect={handleSelect}>
             <ContextSubMenu label="Item 1">
@@ -182,12 +184,12 @@ describe("ContextMenu", () => {
           </ContextMenu>
         );
         await theUserTo.keyboard("{ArrowDown}{ArrowRight}{ArrowDown}{Enter}");
-        expect(handleSelect).to.be.calledOnce;
-        expect(targetSelect).to.be.calledOnce;
+        expect(handleSelect).toHaveBeenCalledOnce();
+        expect(targetSelect).toHaveBeenCalledOnce();
       });
       it("should handle multi-level left arrow select", async () => {
-        const handleSelect = sinon.fake();
-        const targetSelect = sinon.fake();
+        const handleSelect = vi.fn();
+        const targetSelect = vi.fn();
         render(
           <ContextMenu opened={true} onSelect={handleSelect}>
             <ContextSubMenu label="Item 1">
@@ -200,11 +202,11 @@ describe("ContextMenu", () => {
         await theUserTo.keyboard(
           "{ArrowDown}{ArrowRight}{ArrowLeft}{ArrowDown}{Enter}"
         );
-        expect(handleSelect).to.be.calledOnce;
-        expect(targetSelect).to.be.calledOnce;
+        expect(handleSelect).toHaveBeenCalledOnce();
+        expect(targetSelect).toHaveBeenCalledOnce();
       });
       it("should select list item of hotkey", async () => {
-        const onSelectFake = sinon.fake();
+        const onSelectFake = vi.fn();
         render(
           <ContextMenu opened={true}>
             <ContextMenuItem onSelect={onSelectFake}>
@@ -214,10 +216,10 @@ describe("ContextMenu", () => {
           </ContextMenu>
         );
         await theUserTo.keyboard("f");
-        expect(onSelectFake).to.have.been.calledOnce;
+        expect(onSelectFake).toHaveBeenCalledOnce();
       });
       it("should not select list item of hotkey if disabled", async () => {
-        const onSelectFake = sinon.fake();
+        const onSelectFake = vi.fn();
         render(
           <ContextMenu opened={true}>
             <ContextMenuItem onSelect={onSelectFake} disabled={true}>
@@ -227,10 +229,10 @@ describe("ContextMenu", () => {
           </ContextMenu>
         );
         await theUserTo.keyboard("f");
-        expect(onSelectFake).to.not.have.been.called;
+        expect(onSelectFake).not.toBeCalled();
       });
       it("should not select list item of hotkey if hidden", async () => {
-        const onSelectFake = sinon.fake();
+        const onSelectFake = vi.fn();
         render(
           <ContextMenu opened={true}>
             <ContextMenuItem onSelect={onSelectFake} hidden={true}>
@@ -240,10 +242,10 @@ describe("ContextMenu", () => {
           </ContextMenu>
         );
         await theUserTo.keyboard("f");
-        expect(onSelectFake).to.not.have.been.called;
+        expect(onSelectFake).not.toBeCalled();
       });
       it("should ignore next keyup when ignoreNextKeyUp=true", async () => {
-        const onSelectFake = sinon.fake();
+        const onSelectFake = vi.fn();
         render(
           <ContextMenu opened={true} ignoreNextKeyUp={true}>
             <ContextMenuItem onSelect={onSelectFake}>
@@ -253,12 +255,12 @@ describe("ContextMenu", () => {
           </ContextMenu>
         );
         await theUserTo.keyboard("f");
-        expect(onSelectFake).to.not.have.been.called;
+        expect(onSelectFake).not.toBeCalled();
         await theUserTo.keyboard("f");
-        expect(onSelectFake).to.have.been.calledOnce;
+        expect(onSelectFake).toHaveBeenCalledOnce();
       });
       it("should select sub menu list item of hotkey", async () => {
-        const onSelectFake = sinon.fake();
+        const onSelectFake = vi.fn();
         render(
           <ContextMenu opened={true}>
             <ContextSubMenu label="~First item" onSelect={onSelectFake}>
@@ -269,10 +271,10 @@ describe("ContextMenu", () => {
           </ContextMenu>
         );
         await theUserTo.keyboard("f");
-        expect(onSelectFake).to.have.been.calledOnce;
+        expect(onSelectFake).toHaveBeenCalledOnce();
       });
       it("should not select sub menu list item of hotkey if disabled", async () => {
-        const onSelectFake = sinon.fake();
+        const onSelectFake = vi.fn();
         render(
           <ContextMenu opened={true}>
             <ContextSubMenu
@@ -287,10 +289,10 @@ describe("ContextMenu", () => {
           </ContextMenu>
         );
         await theUserTo.keyboard("f");
-        expect(onSelectFake).to.not.have.been.called;
+        expect(onSelectFake).not.toBeCalled();
       });
       it("should not select sub menu list item of hotkey if hidden", async () => {
-        const onSelectFake = sinon.fake();
+        const onSelectFake = vi.fn();
         render(
           <ContextMenu opened={true}>
             <ContextSubMenu
@@ -305,10 +307,10 @@ describe("ContextMenu", () => {
           </ContextMenu>
         );
         await theUserTo.keyboard("f");
-        expect(onSelectFake).to.not.have.been.called;
+        expect(onSelectFake).not.toBeCalled();
       });
       it("should find list item of hotkey", async () => {
-        const onSelectFake = sinon.fake();
+        const onSelectFake = vi.fn();
         render(
           <ContextMenu opened={true} hotkeySelect={false}>
             <ContextMenuItem>~First item</ContextMenuItem>
@@ -318,10 +320,10 @@ describe("ContextMenu", () => {
           </ContextMenu>
         );
         await theUserTo.keyboard("s{Enter}");
-        expect(onSelectFake).to.have.been.calledOnce;
+        expect(onSelectFake).toHaveBeenCalledOnce();
       });
       it("should find sub menu list item of hotkey", async () => {
-        const onSelectFake = sinon.fake();
+        const onSelectFake = vi.fn();
         render(
           <ContextMenu opened={true} hotkeySelect={false}>
             <ContextSubMenu label="~First item" onSelect={onSelectFake}>
@@ -332,10 +334,10 @@ describe("ContextMenu", () => {
           </ContextMenu>
         );
         await theUserTo.keyboard("f{enter}");
-        expect(onSelectFake).to.have.been.calledOnce;
+        expect(onSelectFake).toHaveBeenCalledOnce();
       });
       it("should find next list item of hotkey", async () => {
-        const onSelectFake = sinon.fake();
+        const onSelectFake = vi.fn();
         render(
           <ContextMenu opened={true} hotkeySelect={false}>
             <ContextMenuItem>~First item</ContextMenuItem>
@@ -347,10 +349,10 @@ describe("ContextMenu", () => {
           </ContextMenu>
         );
         await theUserTo.keyboard("ff{enter}");
-        expect(onSelectFake).to.have.been.calledOnce;
+        expect(onSelectFake).toHaveBeenCalledOnce();
       });
       it("should wrap back to beginning to find next list item of hotkey", async () => {
-        const onSelectFake = sinon.fake();
+        const onSelectFake = vi.fn();
         render(
           <ContextMenu opened={true} hotkeySelect={false}>
             <ContextMenuItem>~First item</ContextMenuItem>
@@ -362,42 +364,49 @@ describe("ContextMenu", () => {
           </ContextMenu>
         );
         await theUserTo.keyboard("ffs{enter}");
-        expect(onSelectFake).to.have.been.calledOnce;
+        expect(onSelectFake).toHaveBeenCalledOnce();
       });
     });
 
     describe("direction", () => {
       it("should render bottom right by default", () => {
         const component = render(<ContextMenu opened={true} />);
-        expect(component.container.querySelector(".core-context-menu-bottom"))
-          .not.to.be.null;
-        expect(component.container.querySelector(".core-context-menu-right"))
-          .not.to.be.null;
+        expect(
+          component.container.querySelector(".core-context-menu-bottom")
+        ).toBeTruthy();
+        expect(
+          component.container.querySelector(".core-context-menu-right")
+        ).toBeTruthy();
       });
       it("should render no direction for None", () => {
         const component = render(
           <ContextMenu opened={true} direction={ContextMenuDirection.None} />
         );
-        expect(component.container.querySelector(".core-context-menu-bottom"))
-          .to.be.null;
-        expect(component.container.querySelector(".core-context-menu-right")).to
-          .be.null;
+        expect(
+          component.container.querySelector(".core-context-menu-bottom")
+        ).toEqual(null);
+        expect(
+          component.container.querySelector(".core-context-menu-right")
+        ).toEqual(null);
       });
       it("should render top left", () => {
         const component = render(
           <ContextMenu opened={true} direction={ContextMenuDirection.TopLeft} />
         );
-        expect(component.container.querySelector(".core-context-menu-top")).not
-          .to.be.null;
-        expect(component.container.querySelector(".core-context-menu-left")).not
-          .to.be.null;
+        expect(
+          component.container.querySelector(".core-context-menu-top")
+        ).toBeTruthy();
+        expect(
+          component.container.querySelector(".core-context-menu-left")
+        ).toBeTruthy();
       });
       it("should render top", () => {
         const component = render(
           <ContextMenu opened={true} direction={ContextMenuDirection.Top} />
         );
-        expect(component.container.querySelector(".core-context-menu-top")).not
-          .to.be.null;
+        expect(
+          component.container.querySelector(".core-context-menu-top")
+        ).toBeTruthy();
       });
       it("should render top right", () => {
         const component = render(
@@ -406,31 +415,36 @@ describe("ContextMenu", () => {
             direction={ContextMenuDirection.TopRight}
           />
         );
-        expect(component.container.querySelector(".core-context-menu-top")).not
-          .to.be.null;
-        expect(component.container.querySelector(".core-context-menu-right"))
-          .not.to.be.null;
+        expect(
+          component.container.querySelector(".core-context-menu-top")
+        ).toBeTruthy();
+        expect(
+          component.container.querySelector(".core-context-menu-right")
+        ).toBeTruthy();
       });
       it("should render left", () => {
         const component = render(
           <ContextMenu opened={true} direction={ContextMenuDirection.Left} />
         );
-        expect(component.container.querySelector(".core-context-menu-left")).not
-          .to.be.null;
+        expect(
+          component.container.querySelector(".core-context-menu-left")
+        ).toBeTruthy();
       });
       it("should render center", () => {
         const component = render(
           <ContextMenu opened={true} direction={ContextMenuDirection.Center} />
         );
-        expect(component.container.querySelector(".core-context-menu-center"))
-          .not.to.be.null;
+        expect(
+          component.container.querySelector(".core-context-menu-center")
+        ).toBeTruthy();
       });
       it("should render right", () => {
         const component = render(
           <ContextMenu opened={true} direction={ContextMenuDirection.Right} />
         );
-        expect(component.container.querySelector(".core-context-menu-right"))
-          .not.to.be.null;
+        expect(
+          component.container.querySelector(".core-context-menu-right")
+        ).toBeTruthy();
       });
       it("should render bottom left", () => {
         const component = render(
@@ -439,17 +453,20 @@ describe("ContextMenu", () => {
             direction={ContextMenuDirection.BottomLeft}
           />
         );
-        expect(component.container.querySelector(".core-context-menu-bottom"))
-          .not.to.be.null;
-        expect(component.container.querySelector(".core-context-menu-left")).not
-          .to.be.null;
+        expect(
+          component.container.querySelector(".core-context-menu-bottom")
+        ).toBeTruthy();
+        expect(
+          component.container.querySelector(".core-context-menu-left")
+        ).toBeTruthy();
       });
       it("should render bottom", () => {
         const component = render(
           <ContextMenu opened={true} direction={ContextMenuDirection.Bottom} />
         );
-        expect(component.container.querySelector(".core-context-menu-bottom"))
-          .not.to.be.null;
+        expect(
+          component.container.querySelector(".core-context-menu-bottom")
+        ).toBeTruthy();
       });
       it("should render bottom right", () => {
         const component = render(
@@ -458,10 +475,12 @@ describe("ContextMenu", () => {
             direction={ContextMenuDirection.BottomRight}
           />
         );
-        expect(component.container.querySelector(".core-context-menu-bottom"))
-          .not.to.be.null;
-        expect(component.container.querySelector(".core-context-menu-right"))
-          .not.to.be.null;
+        expect(
+          component.container.querySelector(".core-context-menu-bottom")
+        ).toBeTruthy();
+        expect(
+          component.container.querySelector(".core-context-menu-right")
+        ).toBeTruthy();
       });
     });
   });
@@ -502,22 +521,25 @@ describe("ContextMenu", () => {
       const component = render(
         <ContextMenuItem icon="icon-placeholder">Test</ContextMenuItem>
       );
-      expect(component.container.querySelector(".icon-placeholder")).not.to.be
-        .null;
-      expect(component.container.querySelector(".core-context-menu-icon")).not
-        .to.be.null;
+      expect(
+        component.container.querySelector(".icon-placeholder")
+      ).toBeTruthy();
+      expect(
+        component.container.querySelector(".core-context-menu-icon")
+      ).toBeTruthy();
     });
 
     it("renders with iconRight correctly", () => {
       const component = render(
         <ContextMenuItem iconRight="icon-checkmark">Test</ContextMenuItem>
       );
-      expect(component.container.querySelector(".icon-checkmark")).not.to.be
-        .null;
-      expect(component.container.querySelector(".core-context-menu-icon")).not
-        .to.be.null;
-      expect(component.container.querySelector(".core-context-menu-icon-right"))
-        .not.to.be.null;
+      expect(component.container.querySelector(".icon-checkmark")).toBeTruthy();
+      expect(
+        component.container.querySelector(".core-context-menu-icon")
+      ).toBeTruthy();
+      expect(
+        component.container.querySelector(".core-context-menu-icon-right")
+      ).toBeTruthy();
     });
 
     it("handles props changes correctly", () => {
@@ -540,13 +562,14 @@ describe("ContextMenu", () => {
       const component = render(
         <ContextMenuItem disabled={true}>Test</ContextMenuItem>
       );
-      expect(component.container.querySelector(".core-context-menu-disabled"))
-        .not.to.be.null;
+      expect(
+        component.container.querySelector(".core-context-menu-disabled")
+      ).toBeTruthy();
       expect(
         component.container.querySelector(
           ".core-context-menu-item[aria-disabled]"
         )
-      ).not.to.be.null;
+      ).toBeTruthy();
     });
 
     it("renders disabled by condition correctly", () => {
@@ -557,26 +580,28 @@ describe("ContextMenu", () => {
       const component = render(
         <ContextMenuItem disabled={isDisabled}>Test</ContextMenuItem>
       );
-      expect(component.container.querySelector(".core-context-menu-disabled"))
-        .not.to.be.null;
+      expect(
+        component.container.querySelector(".core-context-menu-disabled")
+      ).toBeTruthy();
       expect(
         component.container.querySelector(
           ".core-context-menu-item[aria-disabled]"
         )
-      ).not.to.be.null;
+      ).toBeTruthy();
     });
 
     it("renders hidden correctly", () => {
       const component = render(
         <ContextMenuItem hidden={true}>Test</ContextMenuItem>
       );
-      expect(component.container.querySelector(".core-context-menu-hidden")).not
-        .to.be.null;
+      expect(
+        component.container.querySelector(".core-context-menu-hidden")
+      ).toBeTruthy();
       expect(
         component.container.querySelector(
           ".core-context-menu-item[aria-hidden]"
         )
-      ).not.to.be.null;
+      ).toBeTruthy();
     });
 
     it("renders hidden by condition correctly", () => {
@@ -587,71 +612,74 @@ describe("ContextMenu", () => {
       const component = render(
         <ContextMenuItem hidden={isHidden}>Test</ContextMenuItem>
       );
-      expect(component.container.querySelector(".core-context-menu-hidden")).not
-        .to.be.null;
+      expect(
+        component.container.querySelector(".core-context-menu-hidden")
+      ).toBeTruthy();
       expect(
         component.container.querySelector(
           ".core-context-menu-item[aria-hidden]"
         )
-      ).not.to.be.null;
+      ).toBeTruthy();
     });
 
     it("renders badge correctly", () => {
       const component = render(
         <ContextMenuItem badgeType={BadgeType.New}>Test</ContextMenuItem>
       );
-      expect(component.container.querySelector(".core-badge")).not.to.be.null;
+      expect(
+        component.container.querySelector(".core-badge-newBadge")
+      ).toBeTruthy();
     });
 
     it("onClick handled correctly", async () => {
-      const handleClick = sinon.fake();
+      const handleClick = vi.fn();
       const component = render(
         <ContextMenuItem onClick={handleClick}>Test</ContextMenuItem>
       );
       const item = component.getByTestId("core-context-menu-item");
       await theUserTo.click(item);
-      handleClick.should.have.been.calledOnce;
+      expect(handleClick).toHaveBeenCalledOnce();
     });
     it("onSelect handled correctly on click", async () => {
-      const handleSelect = sinon.fake();
+      const handleSelect = vi.fn();
       const component = render(
         <ContextMenuItem onSelect={handleSelect}>Test</ContextMenuItem>
       );
       const item = component.getByTestId("core-context-menu-item");
       await theUserTo.click(item);
-      handleSelect.should.have.been.calledOnce;
+      expect(handleSelect).toHaveBeenCalledOnce();
     });
     it("onHover handled correctly", async () => {
-      const handleHover = sinon.fake();
+      const handleHover = vi.fn();
       const component = render(
         <ContextMenuItem onHover={handleHover}>Test</ContextMenuItem>
       );
       const item = component.getByTestId("core-context-menu-item");
       await theUserTo.hover(item);
-      handleHover.should.have.been.calledOnce;
+      expect(handleHover).toHaveBeenCalledOnce();
     });
     it("onSelect handled correctly on Enter", async () => {
-      const handleSelect = sinon.fake();
+      const handleSelect = vi.fn();
       const component = render(
         <ContextMenuItem onSelect={handleSelect}>Test</ContextMenuItem>
       );
       const item = component.getByTestId("core-context-menu-item");
       item.focus();
       await theUserTo.keyboard("{Enter}");
-      handleSelect.should.have.been.calledOnce;
+      expect(handleSelect).toHaveBeenCalledOnce();
     });
     it("onSelect not called on Escape", async () => {
-      const handleSelect = sinon.fake();
+      const handleSelect = vi.fn();
       const component = render(
         <ContextMenuItem onSelect={handleSelect}>Test</ContextMenuItem>
       );
       const item = component.getByTestId("core-context-menu-item");
       item.focus();
       await theUserTo.keyboard("{Escape}");
-      handleSelect.should.not.have.been.called;
+      expect(handleSelect).not.toBeCalled();
     });
     it("onSelect not called when disabled", async () => {
-      const handleSelect = sinon.fake();
+      const handleSelect = vi.fn();
       const component = render(
         <ContextMenuItem onSelect={handleSelect} disabled={true}>
           Test
@@ -659,7 +687,7 @@ describe("ContextMenu", () => {
       );
       const item = component.getByTestId("core-context-menu-item");
       await theUserTo.type(item, "{Enter}");
-      handleSelect.should.not.have.been.called;
+      expect(handleSelect).not.toBeCalled();
     });
   });
 
@@ -682,13 +710,14 @@ describe("ContextMenu", () => {
           </ContextSubMenu>
         </ContextMenu>
       );
-      expect(component.container.querySelector(".core-context-menu-disabled"))
-        .not.to.be.null;
+      expect(
+        component.container.querySelector(".core-context-menu-disabled")
+      ).toBeTruthy();
       expect(
         component.container.querySelector(
           ".core-context-menu-item[aria-disabled]"
         )
-      ).not.to.be.null;
+      ).toBeTruthy();
     });
     it("renders disabled by condition correctly", () => {
       const isDisabled = new ConditionalBooleanValue(
@@ -702,13 +731,14 @@ describe("ContextMenu", () => {
           </ContextSubMenu>
         </ContextMenu>
       );
-      expect(component.container.querySelector(".core-context-menu-disabled"))
-        .not.to.be.null;
+      expect(
+        component.container.querySelector(".core-context-menu-disabled")
+      ).toBeTruthy();
       expect(
         component.container.querySelector(
           ".core-context-menu-item[aria-disabled]"
         )
-      ).not.to.be.null;
+      ).toBeTruthy();
     });
     it("renders hidden correctly", () => {
       const component = render(
@@ -718,13 +748,14 @@ describe("ContextMenu", () => {
           </ContextSubMenu>
         </ContextMenu>
       );
-      expect(component.container.querySelector(".core-context-menu-hidden")).not
-        .to.be.null;
+      expect(
+        component.container.querySelector(".core-context-menu-hidden")
+      ).toBeTruthy();
       expect(
         component.container.querySelector(
           ".core-context-menu-item[aria-hidden]"
         )
-      ).not.to.be.null;
+      ).toBeTruthy();
     });
     it("renders hidden by condition correctly", () => {
       const isHidden = new ConditionalBooleanValue(
@@ -738,13 +769,14 @@ describe("ContextMenu", () => {
           </ContextSubMenu>
         </ContextMenu>
       );
-      expect(component.container.querySelector(".core-context-menu-hidden")).not
-        .to.be.null;
+      expect(
+        component.container.querySelector(".core-context-menu-hidden")
+      ).toBeTruthy();
       expect(
         component.container.querySelector(
           ".core-context-menu-item[aria-hidden]"
         )
-      ).not.to.be.null;
+      ).toBeTruthy();
     });
     it("renders badge correctly", () => {
       const component = render(
@@ -754,10 +786,12 @@ describe("ContextMenu", () => {
           </ContextSubMenu>
         </ContextMenu>
       );
-      expect(component.container.querySelector(".core-badge")).not.to.be.null;
+      expect(
+        component.container.querySelector(".core-badge-technicalPreviewBadge")
+      ).toBeTruthy();
     });
     it("onHover handled correctly", async () => {
-      const handleHover = sinon.fake();
+      const handleHover = vi.fn();
       const component = render(
         <ContextSubMenu label="test" onHover={handleHover}>
           <ContextMenuItem> Test </ContextMenuItem>
@@ -765,10 +799,10 @@ describe("ContextMenu", () => {
       );
       const item = component.getByTestId("core-context-submenu");
       await theUserTo.hover(item);
-      handleHover.should.have.been.calledOnce;
+      expect(handleHover).toHaveBeenCalledOnce();
     });
     it("onHover handled internally when in ContextMenu", async () => {
-      const handleHover = sinon.fake();
+      const handleHover = vi.fn();
       const component = render(
         <ContextMenu opened={true}>
           <ContextSubMenu label="test" onHover={handleHover}>
@@ -778,10 +812,10 @@ describe("ContextMenu", () => {
       );
       const item = component.getByTestId("core-context-submenu");
       await theUserTo.hover(item);
-      handleHover.should.not.have.been.calledOnce;
+      expect(handleHover).not.toBeCalled();
     });
     it("onClick handled correctly", async () => {
-      const handleClick = sinon.fake();
+      const handleClick = vi.fn();
       const component = render(
         <ContextMenu opened={true}>
           <ContextSubMenu label="test" onClick={handleClick}>
@@ -791,7 +825,7 @@ describe("ContextMenu", () => {
       );
       const item = component.getByTestId("core-context-submenu-container");
       await theUserTo.click(item);
-      handleClick.should.have.been.calledOnce;
+      expect(handleClick).toHaveBeenCalledOnce();
     });
     it("onFocus handled correctly", () => {
       const component = render(
@@ -803,7 +837,7 @@ describe("ContextMenu", () => {
       );
       const item = component.getByTestId("core-context-menu-item");
       item.focus();
-      expect(document.activeElement).to.eq(item);
+      expect(document.activeElement).toEqual(item);
     });
     it("should support changing direction (COVERAGE ONLY)", () => {
       // THIS TEST IS ONLY ADDING COVERAGE, AS STATED ABOVE, THE DIRECTION DO NOT CHANGE HERE!
@@ -847,9 +881,9 @@ describe("ContextMenu", () => {
     });
 
     it("should close sub-menu on opening another sub-menu", async () => {
-      const fakeClick1 = sinon.fake();
-      const fakeClick2 = sinon.fake();
-      const fakeOutsideClick = sinon.fake();
+      const fakeClick1 = vi.fn();
+      const fakeClick2 = vi.fn();
+      const fakeOutsideClick = vi.fn();
 
       const component = render(
         <ContextMenu opened={true}>
@@ -870,11 +904,11 @@ describe("ContextMenu", () => {
       const items = component.getAllByTestId("core-context-submenu-container");
 
       await theUserTo.click(items[0]);
-      fakeClick1.should.have.been.calledOnce;
+      expect(fakeClick1).toHaveBeenCalledOnce();
 
       await theUserTo.click(items[1]);
-      fakeClick2.should.have.been.calledOnce;
-      fakeOutsideClick.should.have.been.calledOnce;
+      expect(fakeClick2).toHaveBeenCalledOnce();
+      expect(fakeOutsideClick).toHaveBeenCalledOnce();
 
       const subMenus = component.getAllByTestId("core-context-menu-container");
       expect(subMenus[1].className).not.to.contain("opened");
@@ -1032,7 +1066,7 @@ describe("ContextMenu", () => {
   describe("TildeFinder", () => {
     it("should not find character in string when there is no tilde", () => {
       const tildeFindRet = TildeFinder.findAfterTilde("s");
-      expect(tildeFindRet.character).to.be.undefined;
+      expect(tildeFindRet.character).toEqual(undefined);
     });
     it("should find character after tilde in string", () => {
       const tildeFindRet = TildeFinder.findAfterTilde("~s");
@@ -1046,7 +1080,7 @@ describe("ContextMenu", () => {
     });
     it("should not find character after array when there is no tilde", () => {
       const tildeFindRet = TildeFinder.findAfterTilde(["te", "s", "t"]);
-      expect(tildeFindRet.character).to.be.undefined;
+      expect(tildeFindRet.character).toEqual(undefined);
     });
     it("should find character after tilde in array", () => {
       const tildeFindRet = TildeFinder.findAfterTilde(["te", "~s", "t"]);
@@ -1066,7 +1100,7 @@ describe("ContextMenu", () => {
     });
     it("should not find character in node when there is no tilde", () => {
       const tildeFindRet = TildeFinder.findAfterTilde(<span>s</span>);
-      expect(tildeFindRet.character).to.be.undefined;
+      expect(tildeFindRet.character).toEqual(undefined);
     });
     it("should remove tilde and add underline in node", () => {
       const tildeFindRet = TildeFinder.findAfterTilde(<span>~s</span>);

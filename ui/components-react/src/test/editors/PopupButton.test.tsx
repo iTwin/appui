@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import sinon from "sinon";
 import * as React from "react";
 import { Key } from "ts-key-enum";
 import { PopupButton } from "../../components-react/editors/PopupButton";
@@ -56,7 +54,7 @@ describe("<PopupButton />", () => {
   });
 
   it("calls onClick", async () => {
-    const spyOnClick = sinon.spy();
+    const spyOnClick = vi.fn();
     const component = render(
       <PopupButton label="Hello" onClick={spyOnClick}>
         <div data-testid="popup-test-div">Hello World</div>
@@ -68,7 +66,7 @@ describe("<PopupButton />", () => {
     fireEvent.click(button);
     await TestUtils.flushAsyncOperations();
 
-    expect(spyOnClick.calledOnce).to.be.true;
+    expect(spyOnClick).toHaveBeenCalledOnce();
 
     const popupDiv = component.getByTestId("popup-test-div");
     expect(popupDiv).to.exist;
@@ -88,7 +86,6 @@ describe("<PopupButton />", () => {
       new KeyboardEvent("keydown", {
         bubbles: true,
         cancelable: true,
-        view: window,
         key: Key.ArrowDown,
       })
     );
@@ -112,7 +109,6 @@ describe("<PopupButton />", () => {
       new KeyboardEvent("keydown", {
         bubbles: true,
         cancelable: true,
-        view: window,
         key: " ",
       })
     );
@@ -136,7 +132,6 @@ describe("<PopupButton />", () => {
       new KeyboardEvent("keydown", {
         bubbles: true,
         cancelable: true,
-        view: window,
         key: Key.Enter,
       })
     );
@@ -147,7 +142,7 @@ describe("<PopupButton />", () => {
   });
 
   it("calls onClose", async () => {
-    const spyOnClose = sinon.spy();
+    const spyOnClose = vi.fn();
 
     render(
       <PopupButton label="Hello" onClose={spyOnClose}>
@@ -159,11 +154,11 @@ describe("<PopupButton />", () => {
 
     await theUserTo.keyboard("{Escape}");
 
-    spyOnClose.calledOnce.should.true;
+    expect(spyOnClose).toHaveBeenCalledOnce();
   });
 
   it("closePopup() closes popup", async () => {
-    const spyOnClose = sinon.spy();
+    const spyOnClose = vi.fn();
     const popupButtonRef = React.createRef<PopupButton>();
 
     render(
@@ -174,6 +169,6 @@ describe("<PopupButton />", () => {
 
     popupButtonRef.current?.closePopup();
 
-    await waitFor(() => spyOnClose.calledOnce.should.true);
+    await waitFor(() => expect(spyOnClose).toHaveBeenCalledOnce());
   });
 });

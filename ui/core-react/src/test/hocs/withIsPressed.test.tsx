@@ -4,9 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { withIsPressed } from "../../core-react";
 
 describe("withIsPressed", () => {
@@ -19,11 +17,11 @@ describe("withIsPressed", () => {
 
   it("mousedown event", async () => {
     let iAmPressed = false;
-    const spyMethod = sinon.spy();
+    const spy = vi.fn();
 
     function handlePressedChange(isPressed: boolean) {
       iAmPressed = isPressed;
-      spyMethod();
+      spy();
     }
 
     render(
@@ -38,17 +36,17 @@ describe("withIsPressed", () => {
       target: screen.getByTestId("tested"),
     });
 
-    expect(spyMethod.calledOnce).to.be.true;
-    expect(iAmPressed).to.eq(true);
+    expect(spy).toHaveBeenCalledOnce();
+    expect(iAmPressed).toEqual(true);
   });
 
   it("mouseup event", async () => {
     let iAmPressed = true;
-    const spyMethod = sinon.spy();
+    const spy = vi.fn();
 
     function handlePressedChange(isPressed: boolean) {
       iAmPressed = isPressed;
-      spyMethod();
+      spy();
     }
 
     render(
@@ -63,21 +61,21 @@ describe("withIsPressed", () => {
       target: screen.getByTestId("tested"),
     });
 
-    spyMethod.resetHistory();
+    spy.mockReset();
 
     await theUserTo.pointer("[/MouseLeft]");
 
-    expect(spyMethod.calledOnce).to.be.true;
-    expect(iAmPressed).to.eq(false);
+    expect(spy).toHaveBeenCalledOnce();
+    expect(iAmPressed).toEqual(false);
   });
 
   it("mouseup event when not pressed", async () => {
     let iAmPressed = false;
-    const spyMethod = sinon.spy();
+    const spy = vi.fn();
 
     function handlePressedChange(isPressed: boolean) {
       iAmPressed = isPressed;
-      spyMethod();
+      spy();
     }
 
     render(
@@ -93,17 +91,17 @@ describe("withIsPressed", () => {
       "[/MouseLeft]",
     ]);
 
-    expect(spyMethod.calledOnce).to.be.false;
-    expect(iAmPressed).to.eq(false);
+    expect(spy).not.toBeCalled();
+    expect(iAmPressed).toEqual(false);
   });
 
   it("mouseleave event", async () => {
     let iAmPressed = true;
-    const spyMethod = sinon.spy();
+    const spy = vi.fn();
 
     function handlePressedChange(isPressed: boolean) {
       iAmPressed = isPressed;
-      spyMethod();
+      spy();
     }
 
     render(
@@ -116,7 +114,7 @@ describe("withIsPressed", () => {
     await theUserTo.hover(screen.getByTestId("tested"));
     await theUserTo.unhover(screen.getByTestId("tested"));
 
-    expect(spyMethod.calledOnce).to.be.true;
-    expect(iAmPressed).to.eq(false);
+    expect(spy).toHaveBeenCalledOnce();
+    expect(iAmPressed).toEqual(false);
   });
 });

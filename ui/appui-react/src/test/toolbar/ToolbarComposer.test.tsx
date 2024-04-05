@@ -2,12 +2,9 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
 import { Provider } from "react-redux";
-import * as sinon from "sinon";
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
-import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { render } from "@testing-library/react";
 import type {
   FrontstageConfig,
@@ -153,27 +150,12 @@ describe("<ToolbarComposer  />", async () => {
     }
   }
 
-  before(async () => {
-    await NoRenderApp.startup();
-    await TestUtils.initializeUiFramework();
+  beforeEach(async () => {
     UiFramework.frontstages.addFrontstageProvider(new Frontstage1());
     const frontstageDef = await UiFramework.frontstages.getFrontstageDef(
       "Test1"
     );
-    expect(frontstageDef).to.not.be.undefined;
     await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
-    await TestUtils.flushAsyncOperations();
-  });
-
-  after(async () => {
-    await IModelApp.shutdown();
-    TestUtils.terminateUiFramework();
-  });
-
-  const sandbox = sinon.createSandbox();
-
-  afterEach(() => {
-    sandbox.restore();
   });
 
   it("should render with specified items", async () => {
@@ -192,18 +174,17 @@ describe("<ToolbarComposer  />", async () => {
       </Provider>
     );
 
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
     expect(
       renderedComponent.container.querySelector(
         "div.components-toolbar-overflow-sizer.components-horizontal"
       )
-    ).to.not.be.null;
+    ).toBeTruthy();
   });
 
   it("should render with updated items", async () => {
-    sandbox
-      .stub(Element.prototype, "getBoundingClientRect")
-      .callsFake(function (this: HTMLElement) {
+    vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+      function (this: HTMLElement) {
         if (this.classList.contains("components-toolbar-overflow-sizer")) {
           return DOMRect.fromRect({ width: 1000 });
         } else if (
@@ -212,7 +193,8 @@ describe("<ToolbarComposer  />", async () => {
           return DOMRect.fromRect({ width: 40 });
         }
         return new DOMRect();
-      });
+      }
+    );
 
     const renderedComponent = render(
       <Provider store={TestUtils.store}>
@@ -227,10 +209,10 @@ describe("<ToolbarComposer  />", async () => {
         />
       </Provider>
     );
-    expect(renderedComponent).not.to.be.undefined;
-    expect(renderedComponent.queryByTitle("Tool_2")).not.to.be.null;
-    expect(renderedComponent.queryByTitle("Tool_Group")).not.to.be.null;
-    expect(renderedComponent.queryByTitle("Popup Test")).not.to.be.null;
+    expect(renderedComponent).toBeTruthy();
+    expect(renderedComponent.queryByTitle("Tool_2")).toBeTruthy();
+    expect(renderedComponent.queryByTitle("Tool_Group")).toBeTruthy();
+    expect(renderedComponent.queryByTitle("Popup Test")).toBeTruthy();
 
     renderedComponent.rerender(
       <Provider store={TestUtils.store}>
@@ -241,15 +223,14 @@ describe("<ToolbarComposer  />", async () => {
         />
       </Provider>
     );
-    expect(renderedComponent.queryByTitle("Tool_2")).to.be.null;
-    expect(renderedComponent.queryByTitle("Tool_2A")).not.to.be.null;
-    expect(renderedComponent.queryByTitle("Tool_2B")).not.to.be.null;
+    expect(renderedComponent.queryByTitle("Tool_2")).toEqual(null);
+    expect(renderedComponent.queryByTitle("Tool_2A")).toBeTruthy();
+    expect(renderedComponent.queryByTitle("Tool_2B")).toBeTruthy();
   });
 
   it("should not try to render duplicate items", async () => {
-    sandbox
-      .stub(Element.prototype, "getBoundingClientRect")
-      .callsFake(function (this: HTMLElement) {
+    vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+      function (this: HTMLElement) {
         if (this.classList.contains("components-toolbar-overflow-sizer")) {
           return DOMRect.fromRect({ width: 1600 });
         } else if (
@@ -258,7 +239,8 @@ describe("<ToolbarComposer  />", async () => {
           return DOMRect.fromRect({ width: 40 });
         }
         return new DOMRect();
-      });
+      }
+    );
 
     const duplicateToolsUiProvider = new DuplicatesUiProvider();
     UiItemsManager.register(duplicateToolsUiProvider);
@@ -280,11 +262,11 @@ describe("<ToolbarComposer  />", async () => {
         />
       </Provider>
     );
-    expect(renderedComponent).not.to.be.undefined;
-    expect(renderedComponent.queryByTitle("Tool_2")).not.to.be.null;
-    expect(renderedComponent.queryByTitle("Tool_Group")).not.to.be.null;
-    expect(renderedComponent.queryByTitle("Popup Test")).not.to.be.null;
-    expect(renderedComponent.queryByTitle("Tool_1E")).not.to.be.null;
+    expect(renderedComponent).toBeTruthy();
+    expect(renderedComponent.queryByTitle("Tool_2")).toBeTruthy();
+    expect(renderedComponent.queryByTitle("Tool_Group")).toBeTruthy();
+    expect(renderedComponent.queryByTitle("Popup Test")).toBeTruthy();
+    expect(renderedComponent.queryByTitle("Tool_1E")).toBeTruthy();
 
     UiItemsManager.unregister(duplicateToolsUiProvider.id);
     await TestUtils.flushAsyncOperations();

@@ -2,8 +2,8 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import type * as sinon from "sinon";
 import { waitFor } from "@testing-library/react";
+import type { Mock } from "vitest";
 
 /** Options for waitForSpy test helper function */
 export interface WaitForSpyOptions {
@@ -12,10 +12,7 @@ export interface WaitForSpyOptions {
 }
 
 /** Wait for spy to be called. Throws on timeout (250 by default) */
-export const waitForSpy = async (
-  spy: sinon.SinonSpy,
-  options?: WaitForSpyOptions
-) => {
+export const waitForSpy = async (spy: Mock, options?: WaitForSpyOptions) => {
   const defaultValues: WaitForSpyOptions = {
     timeout: 250,
     error: "Waiting for spy timed out!",
@@ -26,7 +23,7 @@ export const waitForSpy = async (
 
   return waitFor(
     () => {
-      if (!spy.called) throw new Error(error);
+      if (spy.mock.calls.length === 0) throw new Error(error);
     },
     { timeout, interval: 10 }
   );

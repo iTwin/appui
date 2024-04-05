@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as faker from "faker";
-import * as sinon from "sinon";
 import type { PropertyRecord } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
 import { LabelPropertyDataFilterer } from "../../../../components-react/propertygrid/dataproviders/filterers/LabelPropertyDataFilterer";
@@ -22,18 +20,18 @@ describe("LabelPropertyDataFilterer", () => {
     describe("[get] filterText", () => {
       it(`Should return empty string`, () => {
         const filterer = new LabelPropertyDataFilterer();
-        expect(filterer.filterText).to.be.equal("");
+        expect(filterer.filterText).toEqual("");
       });
 
       it(`Should return string which was set in the constructor`, () => {
         const filterer = new LabelPropertyDataFilterer("test");
-        expect(filterer.filterText).to.be.equal("test");
+        expect(filterer.filterText).toEqual("test");
       });
     });
 
     it(`Should return filtering as disabled`, () => {
       const filterer = new LabelPropertyDataFilterer();
-      expect(filterer.isActive).to.be.false;
+      expect(filterer.isActive).toEqual(false);
     });
 
     for (const record of recordsToTest) {
@@ -63,7 +61,7 @@ describe("LabelPropertyDataFilterer", () => {
       const expectedText = faker.random.word();
       filterer.filterText = expectedText;
 
-      expect(filterer.filterText).to.be.equal(expectedText.toLowerCase());
+      expect(filterer.filterText).toEqual(expectedText.toLowerCase());
     });
 
     it("Should return filtering as enabled", () => {
@@ -71,7 +69,7 @@ describe("LabelPropertyDataFilterer", () => {
 
       filterer.filterText = faker.random.word();
 
-      expect(filterer.isActive).to.be.true;
+      expect(filterer.isActive).toEqual(true);
     });
 
     it("Should not match when calling `categoryMatchesFilter`", async () => {
@@ -233,7 +231,7 @@ describe("LabelPropertyDataFilterer", () => {
   });
 
   describe("raising `onFilterChanged` event", () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     let filterer: LabelPropertyDataFilterer;
 
     beforeEach(() => {
@@ -243,27 +241,27 @@ describe("LabelPropertyDataFilterer", () => {
 
     it("doesn't raise event when filter doesn't change", () => {
       filterer.filterText = "";
-      expect(spy).to.not.be.called;
+      expect(spy).not.toBeCalled();
 
       filterer.filterText = "    ";
-      expect(spy).to.not.be.called;
+      expect(spy).not.toBeCalled();
 
       filterer.filterText = "AAA";
-      spy.resetHistory();
+      spy.mockReset();
 
       filterer.filterText = "AAA";
-      expect(spy).to.not.be.called;
+      expect(spy).not.toBeCalled();
 
       filterer.filterText = "aaa";
-      expect(spy).to.not.be.called;
+      expect(spy).not.toBeCalled();
     });
 
     it("raises event when filter changes", () => {
       filterer.filterText = "a";
-      expect(spy).to.be.calledOnce;
+      expect(spy).toHaveBeenCalledOnce();
 
       filterer.filterText = "b";
-      expect(spy).to.be.calledTwice;
+      expect(spy).toHaveBeenCalledTimes(2);
     });
   });
 });

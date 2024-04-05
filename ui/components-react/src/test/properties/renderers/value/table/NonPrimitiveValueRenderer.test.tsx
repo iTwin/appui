@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import sinon from "sinon";
 import { fireEvent, render } from "@testing-library/react";
 import { TableNonPrimitiveValueRenderer } from "../../../../../components-react/properties/renderers/value/table/NonPrimitiveValueRenderer";
 
@@ -29,7 +27,7 @@ describe("TableNonPrimitiveValueRenderer", () => {
   });
 
   it("calls onDialogOpen when button gets clicked", () => {
-    const onDialogOpen = sinon.spy();
+    const onDialogOpen = vi.fn();
 
     const renderer = render(
       <TableNonPrimitiveValueRenderer
@@ -45,9 +43,9 @@ describe("TableNonPrimitiveValueRenderer", () => {
     )[0];
     fireEvent.click(button);
 
-    expect(onDialogOpen.calledOnce).to.be.true;
-    expect(onDialogOpen.args[0][0].content).to.be.eq(dialogContents);
-    expect(onDialogOpen.args[0][0].title).to.be.eq("Greeting");
+    expect(onDialogOpen).toHaveBeenCalledOnce();
+    expect(onDialogOpen.mock.calls[0][0].content).toEqual(dialogContents);
+    expect(onDialogOpen.mock.calls[0][0].title).toEqual("Greeting");
   });
 
   it("renders DOM exactly the same when hovered on without appropriate callbacks set", () => {
@@ -66,10 +64,10 @@ describe("TableNonPrimitiveValueRenderer", () => {
     )[0];
 
     fireEvent.mouseEnter(button);
-    expect(renderer.container.innerHTML).to.be.eq(renderedDom);
+    expect(renderer.container.innerHTML).toEqual(renderedDom);
 
     fireEvent.mouseLeave(button);
-    expect(renderer.container.innerHTML).to.be.eq(renderedDom);
+    expect(renderer.container.innerHTML).toEqual(renderedDom);
   });
 
   it("renders DOM exactly the same when clicked on without appropriate callbacks set", () => {
@@ -89,6 +87,6 @@ describe("TableNonPrimitiveValueRenderer", () => {
 
     fireEvent.click(button);
 
-    expect(renderer.container.innerHTML).to.be.eq(renderedDom);
+    expect(renderer.container.innerHTML).toEqual(renderedDom);
   });
 });

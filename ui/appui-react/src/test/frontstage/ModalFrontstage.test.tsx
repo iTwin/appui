@@ -2,17 +2,13 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { render } from "@testing-library/react";
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import type { ModalFrontstageInfo } from "../../appui-react";
 import { ModalFrontstage, UiFramework } from "../../appui-react";
-import TestUtils from "../TestUtils";
 
-const navigationBackSpy = sinon.spy();
-const closeModalSpy = sinon.spy();
+const navigationBackSpy = vi.fn();
+const closeModalSpy = vi.fn();
 
 function renderModalFrontstage(isOpen: boolean): React.ReactElement<any> {
   const activeModalFrontstage: ModalFrontstageInfo | undefined =
@@ -49,21 +45,11 @@ class TestModalFrontstage implements ModalFrontstageInfo {
 }
 
 describe("ModalFrontstage", () => {
-  before(async () => {
-    await TestUtils.initializeUiFramework();
-    await NoRenderApp.startup();
-  });
-
-  after(async () => {
-    await IModelApp.shutdown();
-    TestUtils.terminateUiFramework();
-  });
-
   it("openModalFrontstage, updateModalFrontstage & closeModalFrontstage", () => {
     const modalFrontstage = new TestModalFrontstage();
 
-    const changedEventSpy = sinon.spy();
-    const closedEventSpy = sinon.spy();
+    const changedEventSpy = vi.fn();
+    const closedEventSpy = vi.fn();
     const removeListener =
       UiFramework.frontstages.onModalFrontstageChangedEvent.addListener(
         changedEventSpy
@@ -74,30 +60,30 @@ describe("ModalFrontstage", () => {
       );
 
     UiFramework.frontstages.openModalFrontstage(modalFrontstage);
-    expect(changedEventSpy.calledOnce).to.be.true;
+    expect(changedEventSpy).toHaveBeenCalledOnce();
 
     const { baseElement, rerender } = render(renderModalFrontstage(false));
 
     rerender(renderModalFrontstage(true));
     expect(
       baseElement.querySelectorAll("div.uifw-modal-frontstage").length
-    ).to.eq(1);
+    ).toEqual(1);
 
     const backButton = baseElement.querySelectorAll<HTMLButtonElement>(
       "button.nz-toolbar-button-back"
     );
-    expect(backButton.length).to.eq(1);
+    expect(backButton.length).toEqual(1);
 
     UiFramework.frontstages.updateModalFrontstage();
-    expect(changedEventSpy.calledTwice).to.be.true;
+    expect(changedEventSpy).toHaveBeenCalledTimes(2);
 
     backButton[0].click();
-    expect(navigationBackSpy.calledOnce).to.be.true;
-    expect(closeModalSpy.calledOnce).to.be.true;
+    expect(navigationBackSpy).toHaveBeenCalledOnce();
+    expect(closeModalSpy).toHaveBeenCalledOnce();
 
     UiFramework.frontstages.closeModalFrontstage();
-    expect(changedEventSpy.calledThrice).to.be.true;
-    expect(closedEventSpy.calledOnce).to.be.true;
+    expect(changedEventSpy).toHaveBeenCalledTimes(3);
+    expect(closedEventSpy).toHaveBeenCalledOnce();
 
     removeListener();
     removeListener2();

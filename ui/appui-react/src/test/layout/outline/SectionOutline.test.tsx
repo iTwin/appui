@@ -3,7 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { act, render } from "@testing-library/react";
-import { expect } from "chai";
 import * as React from "react";
 import type { DragManager } from "../../../appui-react/layout/base/DragManager";
 import { SectionOutline } from "../../../appui-react/layout/outline/SectionOutline";
@@ -34,9 +33,9 @@ describe("SectionOutline", () => {
     const { container } = render(<SectionOutline sectionIndex={0} />, {
       wrapper,
     });
-    container
-      .getElementsByClassName("nz-outline-sectionOutline")
-      .length.should.eq(1);
+    expect(
+      container.getElementsByClassName("nz-outline-sectionOutline")
+    ).toHaveLength(1);
   });
 
   it("should render visible", () => {
@@ -72,8 +71,8 @@ describe("SectionOutline", () => {
     const element = container.getElementsByClassName(
       "nz-outline-sectionOutline"
     )[0];
-    expect(element).to.not.be.undefined;
+    expect(element).toBeTruthy();
 
-    (element as HTMLElement).style.height.should.eq("40%");
+    expect((element as HTMLElement).style.height).toEqual("40%");
   });
 });

@@ -10,7 +10,6 @@ import {
   Face,
 } from "../../imodel-components-react/navigationaids/Cube";
 import { render, screen } from "@testing-library/react";
-import { expect } from "chai";
 import { selectorMatches, styleMatch } from "../TestUtils";
 
 describe("Cube", () => {

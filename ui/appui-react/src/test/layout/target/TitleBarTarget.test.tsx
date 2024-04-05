@@ -41,8 +41,8 @@ describe("TitleBarTarget", () => {
         <TitleBarTarget />
       </Wrapper>
     );
-    container
-      .getElementsByClassName("nz-target-titleBarTarget")
-      .length.should.eq(1);
+    expect(
+      container.getElementsByClassName("nz-target-titleBarTarget")
+    ).toHaveLength(1);
   });
 });

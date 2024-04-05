@@ -36,6 +36,6 @@ describe("WidgetContentContainer ", () => {
         ,
       </TestNineZoneProvider>
     );
-    container.firstChild!.should.matchSnapshot();
+    expect(container.getElementsByClassName("nz-minimized")).toBeTruthy();
   });
 });

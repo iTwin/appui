@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import type { Primitives, PropertyConverterInfo } from "@itwin/appui-abstract";
 import { render, waitFor } from "@testing-library/react";
 import { PrimitivePropertyValueRenderer } from "../../../../components-react";
@@ -62,7 +60,7 @@ describe("PrimitivePropertyValueRenderer", () => {
         "Test property"
       );
       stringProperty.links = {
-        onClick: sinon.spy(),
+        onClick: vi.fn(),
       };
 
       const element = renderer.render(stringProperty);
@@ -91,7 +89,7 @@ describe("PrimitivePropertyValueRenderer", () => {
         renderedElement.container.getElementsByClassName(
           "core-underlined-button"
         )[0].textContent
-      ).to.be.eq("www.test.com");
+      ).toEqual("www.test.com");
     });
 
     it("renders primitive property applying custom LinkElementsInfo specified in PropertyRecord's LinkElementsInfo", () => {
@@ -101,7 +99,7 @@ describe("PrimitivePropertyValueRenderer", () => {
         "Test property"
       );
       stringProperty.links = {
-        onClick: sinon.spy(),
+        onClick: vi.fn(),
         matcher: () => [{ start: 0, end: 4 }],
       };
 
@@ -112,13 +110,11 @@ describe("PrimitivePropertyValueRenderer", () => {
         renderedElement.container.getElementsByClassName(
           "core-underlined-button"
         )[0].textContent
-      ).to.be.eq("Test");
+      ).toEqual("Test");
     });
 
     it("renders async value with default value in context", async () => {
-      sinon.replace(
-        TypeConverterManager,
-        "getConverter",
+      vi.spyOn(TypeConverterManager, "getConverter").mockImplementation(
         () => new AsyncValuesTypeConverter()
       );
       const renderer = new PrimitivePropertyValueRenderer();
@@ -142,9 +138,7 @@ describe("PrimitivePropertyValueRenderer", () => {
     });
 
     it("renders async value without default value in context", async () => {
-      sinon.replace(
-        TypeConverterManager,
-        "getConverter",
+      vi.spyOn(TypeConverterManager, "getConverter").mockImplementation(
         () => new AsyncValuesTypeConverter()
       );
       const renderer = new PrimitivePropertyValueRenderer();
@@ -174,15 +168,15 @@ describe("PrimitivePropertyValueRenderer", () => {
         "Label",
         "Test property"
       );
-      expect(renderer.canRender(stringProperty)).to.be.true;
+      expect(renderer.canRender(stringProperty)).toEqual(true);
     });
 
     it("returns false for array and struct property", () => {
       const renderer = new PrimitivePropertyValueRenderer();
       const arrayProperty = TestUtils.createArrayProperty("LabelArray");
       const structProperty = TestUtils.createStructProperty("NameStruct");
-      expect(renderer.canRender(arrayProperty)).to.be.false;
-      expect(renderer.canRender(structProperty)).to.be.false;
+      expect(renderer.canRender(arrayProperty)).toEqual(false);
+      expect(renderer.canRender(structProperty)).toEqual(false);
     });
   });
 });

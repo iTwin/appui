@@ -6,7 +6,6 @@ import { Point } from "@itwin/core-react";
 import { act, fireEvent, render } from "@testing-library/react";
 import produce from "immer";
 import * as React from "react";
-import * as sinon from "sinon";
 import type { DragManager } from "../../../appui-react/layout/base/DragManager";
 import type { NineZoneDispatch } from "../../../appui-react/layout/base/NineZone";
 import { ShowWidgetIconContext } from "../../../appui-react/layout/base/NineZone";
@@ -58,7 +57,7 @@ describe("FloatingTab", () => {
 
   it("should dispatch WIDGET_TAB_DRAG", () => {
     const dragManager = React.createRef<DragManager>();
-    const dispatch = sinon.stub<NineZoneDispatch>();
+    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
     let state = createNineZoneState();
     state = addTab(state, "t1", { label: "tab 1" });
     state = addPanelWidget(state, "left", "w1", ["t1"]);
@@ -86,16 +85,17 @@ describe("FloatingTab", () => {
       });
       fireEvent.mouseMove(document);
     });
-    dispatch.calledOnceWithExactly(
-      sinon.match({
+    expect(dispatch).toHaveBeenCalledOnce();
+    expect(dispatch).toHaveBeenCalledWith(
+      expect.objectContaining({
         type: "WIDGET_TAB_DRAG",
       })
-    ).should.true;
+    );
   });
 
   it("should dispatch WIDGET_TAB_DRAG_END with tab start target", () => {
     const dragManager = React.createRef<DragManager>();
-    const dispatch = sinon.stub<NineZoneDispatch>();
+    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
     let state = createNineZoneState();
     state = addTab(state, "t1", {
       label: "tab 1",
@@ -126,20 +126,21 @@ describe("FloatingTab", () => {
       });
       fireEvent.mouseUp(document);
     });
-    dispatch.calledOnceWithExactly(
-      sinon.match({
+    expect(dispatch).toHaveBeenCalledOnce();
+    expect(dispatch).toHaveBeenCalledWith(
+      expect.objectContaining({
         type: "WIDGET_TAB_DRAG_END",
         id: "t1",
-        target: {
+        target: expect.objectContaining({
           type: "floatingWidget",
-        },
+        }),
       })
-    ).should.true;
+    );
   });
 
   it("should dispatch WIDGET_TAB_DRAG_END with tab end target", () => {
     const dragManager = React.createRef<DragManager>();
-    const dispatch = sinon.stub<NineZoneDispatch>();
+    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
     let state = createNineZoneState();
     state = addTab(state, "t1", {
       label: "tab 1",
@@ -170,20 +171,21 @@ describe("FloatingTab", () => {
       });
       fireEvent.mouseUp(document);
     });
-    dispatch.calledOnceWithExactly(
-      sinon.match({
+    expect(dispatch).toHaveBeenCalledOnce();
+    expect(dispatch).toHaveBeenCalledWith(
+      expect.objectContaining({
         type: "WIDGET_TAB_DRAG_END",
         id: "t1",
-        target: {
+        target: expect.objectContaining({
           type: "floatingWidget",
-        },
+        }),
       })
-    ).should.true;
+    );
   });
 
   it("should dispatch WIDGET_TAB_DRAG_END with floatingWidget target", () => {
     const dragManager = React.createRef<DragManager>();
-    const dispatch = sinon.stub<NineZoneDispatch>();
+    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
     let state = createNineZoneState();
     state = addTab(state, "t1", {
       label: "tab 1",
@@ -220,20 +222,21 @@ describe("FloatingTab", () => {
       });
       fireEvent.mouseUp(document);
     });
-    dispatch.calledOnceWithExactly(
-      sinon.match({
+    expect(dispatch).toHaveBeenCalledOnce();
+    expect(dispatch).toHaveBeenCalledWith(
+      expect.objectContaining({
         type: "WIDGET_TAB_DRAG_END",
         id: "t1",
-        target: {
+        target: expect.objectContaining({
           type: "tab",
-        },
+        }),
       })
-    ).should.true;
+    );
   });
 
   it("should dispatch WIDGET_TAB_DRAG_END with panel target", () => {
     const dragManager = React.createRef<DragManager>();
-    const dispatch = sinon.stub<NineZoneDispatch>();
+    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
     let state = createNineZoneState();
     state = addTab(state, "t1", { label: "tab 1" });
     state = addPanelWidget(state, "left", "w1", ["t1"]);
@@ -266,20 +269,21 @@ describe("FloatingTab", () => {
       });
       fireEvent.mouseUp(document);
     });
-    dispatch.calledOnceWithExactly(
-      sinon.match({
+    expect(dispatch).toHaveBeenCalledOnce();
+    expect(dispatch).toHaveBeenCalledWith(
+      expect.objectContaining({
         type: "WIDGET_TAB_DRAG_END",
         id: "t1",
-        target: {
+        target: expect.objectContaining({
           type: "panel",
-        },
+        }),
       })
-    ).should.true;
+    );
   });
 
   it("should dispatch WIDGET_TAB_DRAG_END with widget target", () => {
     const dragManager = React.createRef<DragManager>();
-    const dispatch = sinon.stub<NineZoneDispatch>();
+    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
     let state = createNineZoneState();
     state = addTab(state, "t1", { label: "tab 1" });
     state = addPanelWidget(state, "left", "w1", ["t1"]);
@@ -313,16 +317,16 @@ describe("FloatingTab", () => {
       });
       fireEvent.mouseUp(document);
     });
-    sinon.assert.calledOnceWithExactly(
-      dispatch,
-      sinon.match({
+    expect(dispatch).toHaveBeenCalledOnce();
+    expect(dispatch).toHaveBeenCalledWith(
+      expect.objectContaining({
         type: "WIDGET_TAB_DRAG_END",
         id: "t1",
-        target: {
+        target: expect.objectContaining({
           type: "section",
           side: "right",
           sectionIndex: 0,
-        },
+        }),
       })
     );
   });

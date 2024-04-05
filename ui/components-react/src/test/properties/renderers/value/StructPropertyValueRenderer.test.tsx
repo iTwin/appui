@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { Orientation } from "@itwin/core-react";
 import { StructPropertyValueRenderer } from "../../../../components-react/properties/renderers/value/StructPropertyValueRenderer";
 import { PropertyContainerType } from "../../../../components-react/properties/ValueRendererManager";
@@ -16,9 +14,6 @@ describe("StructPropertyValueRenderer", () => {
   beforeEach(() => {
     theUserTo = userEvent.setup();
   });
-  before(async () => {
-    await TestUtils.initializeUiComponents();
-  });
 
   describe("render", () => {
     it("renders struct property", () => {
@@ -27,7 +22,7 @@ describe("StructPropertyValueRenderer", () => {
 
       const element = renderer.render(structProperty);
 
-      expect(element).to.be.eq("{struct}");
+      expect(element).toEqual("{struct}");
     });
 
     it("renders default way when provided with empty context", () => {
@@ -36,11 +31,11 @@ describe("StructPropertyValueRenderer", () => {
 
       const element = renderer.render(structProperty, {});
 
-      expect(element).to.be.eq("{struct}");
+      expect(element).toEqual("{struct}");
     });
 
     it("renders struct with Table renderer if container type is Table", async () => {
-      const dialogSpy = sinon.spy();
+      const dialogSpy = vi.fn();
       const renderer = new StructPropertyValueRenderer();
       const structProperty = TestUtils.createStructProperty("NameStruct");
 
@@ -51,13 +46,19 @@ describe("StructPropertyValueRenderer", () => {
       });
       render(<>{element}</>);
       await theUserTo.click(screen.getByTitle("View {struct} in more detail."));
-      expect(dialogSpy).to.have.been.calledWithMatch(
-        (arg: any) => arg?.content?.props?.orientation === Orientation.Vertical
+      expect(dialogSpy).toHaveBeenCalledWith(
+        expect.objectContaining({
+          content: expect.objectContaining({
+            props: expect.objectContaining({
+              orientation: Orientation.Vertical,
+            }),
+          }),
+        })
       );
     });
 
     it("defaults to horizontal orientation when rendering for a table without specified orientation", async () => {
-      const dialogSpy = sinon.spy();
+      const dialogSpy = vi.fn();
       const renderer = new StructPropertyValueRenderer();
       const structProperty = TestUtils.createStructProperty("NameStruct");
 
@@ -69,9 +70,14 @@ describe("StructPropertyValueRenderer", () => {
 
       await theUserTo.click(screen.getByRole("link"));
 
-      expect(dialogSpy).to.have.been.calledWithMatch(
-        (arg: any) =>
-          arg?.content?.props?.orientation === Orientation.Horizontal
+      expect(dialogSpy).toHaveBeenCalledWith(
+        expect.objectContaining({
+          content: expect.objectContaining({
+            props: expect.objectContaining({
+              orientation: Orientation.Horizontal,
+            }),
+          }),
+        })
       );
     });
 
@@ -92,7 +98,7 @@ describe("StructPropertyValueRenderer", () => {
         containerType: PropertyContainerType.PropertyPane,
       });
 
-      expect(element).to.be.eq("");
+      expect(element).toEqual("");
     });
   });
 
@@ -100,7 +106,7 @@ describe("StructPropertyValueRenderer", () => {
     it("returns true for an struct property", () => {
       const renderer = new StructPropertyValueRenderer();
       const structProperty = TestUtils.createStructProperty("NameStruct");
-      expect(renderer.canRender(structProperty)).to.be.true;
+      expect(renderer.canRender(structProperty)).toEqual(true);
     });
 
     it("returns false for array and struct property", () => {
@@ -110,8 +116,8 @@ describe("StructPropertyValueRenderer", () => {
         "Test property"
       );
       const arrayProperty = TestUtils.createArrayProperty("LabelArray");
-      expect(renderer.canRender(stringProperty)).to.be.false;
-      expect(renderer.canRender(arrayProperty)).to.be.false;
+      expect(renderer.canRender(stringProperty)).toEqual(false);
+      expect(renderer.canRender(arrayProperty)).toEqual(false);
     });
   });
 });

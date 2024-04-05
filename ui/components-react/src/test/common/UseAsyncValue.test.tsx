@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import { waitFor } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
 import { useAsyncValue } from "../../components-react/common/UseAsyncValue";
@@ -15,7 +14,7 @@ describe("useAsyncValue", () => {
       (props: { value: string }) => useAsyncValue(props.value),
       { initialProps: { value } }
     );
-    expect(result.current).to.be.eq(value);
+    expect(result.current).toEqual(value);
   });
 
   it("returns value when promise resolves", async () => {
@@ -25,9 +24,9 @@ describe("useAsyncValue", () => {
       (props: { value: Promise<string> }) => useAsyncValue(props.value),
       { initialProps: { value: valuePromise } }
     );
-    expect(result.current).to.be.undefined;
+    expect(result.current).toEqual(undefined);
     await valuePromise;
-    await waitFor(() => expect(result.current).to.be.eq(value));
+    await waitFor(() => expect(result.current).toEqual(value));
   });
 
   it("returns correct value from multiple promises", async () => {
@@ -37,12 +36,12 @@ describe("useAsyncValue", () => {
       (props: { value: PromiseLike<string> }) => useAsyncValue(props.value),
       { initialProps: { value: initialPromise } }
     );
-    expect(result.current).to.be.undefined;
+    expect(result.current).toEqual(undefined);
     rerender({ value: updatePromise });
-    expect(result.current).to.be.undefined;
+    expect(result.current).toEqual(undefined);
     await updatePromise.resolve("updated value");
-    await waitFor(() => expect(result.current).to.be.eq("updated value"));
+    await waitFor(() => expect(result.current).toEqual("updated value"));
     await initialPromise.resolve("initial value");
-    expect(result.current).to.be.eq("updated value");
+    expect(result.current).toEqual("updated value");
   });
 });

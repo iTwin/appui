@@ -3,7 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { render } from "@testing-library/react";
-import { expect } from "chai";
 import * as React from "react";
 import {
   useProximityToMouse,
@@ -59,6 +58,6 @@ describe("useWidgetOpacityContext", () => {
 
     render(<WidgetOpacityParent elementSet={elementSet} />);
 
-    expect(elementSet.size).to.eq(1);
+    expect(elementSet.size).toEqual(1);
   });
 });

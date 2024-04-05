@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import React from "react";
 import { PropertyRecord } from "@itwin/appui-abstract";
 import { Orientation } from "@itwin/core-react";
@@ -59,7 +58,7 @@ describe("CommonPropertyRenderer", () => {
       );
       const { container } = render(<div>{displayValue}</div>);
       const element = container.querySelector("mark");
-      expect(element?.textContent).to.be.undefined;
+      expect(element?.textContent).toEqual(undefined);
     });
 
     it("should create a value which is not highlighted if highlighProps are not provided", () => {
@@ -73,7 +72,7 @@ describe("CommonPropertyRenderer", () => {
       );
       const { container } = render(<div>{displayValue}</div>);
       const element = container.querySelector("mark");
-      expect(element?.textContent).to.be.undefined;
+      expect(element?.textContent).toEqual(undefined);
     });
 
     it("should create a value which is actively highlighted if highlighProps are provided, highlightedText matches part of propertyRecord and property name matches highlight activeMatch propertyName", () => {
@@ -104,8 +103,9 @@ describe("CommonPropertyRenderer", () => {
       const { container } = render(<div>{displayValue}</div>);
       const element = container.querySelector("mark");
       expect(element?.textContent).to.equal("test");
-      expect(element?.classList.contains("components-activehighlight")).to.be
-        .true;
+      expect(element?.classList.contains("components-activehighlight")).toEqual(
+        true
+      );
     });
 
     it("should not create a value which is actively highlighted if highlighProps are provided, highlightedText matches part of propertyRecord but property name does not match highlight activeMatch propertyName", () => {
@@ -136,8 +136,9 @@ describe("CommonPropertyRenderer", () => {
       const { container } = render(<div>{displayValue}</div>);
       const element = container.querySelector("mark");
       expect(element?.textContent).to.equal("test");
-      expect(element?.classList.contains("components-activehighlight")).to.be
-        .false;
+      expect(element?.classList.contains("components-activehighlight")).toEqual(
+        false
+      );
     });
 
     it("should not create a value which is actively highlighted if highlighProps are provided, highlightedText matches part of propertyRecord, property name matches highlight activeMatch propertyName but applyOnLabel is true and matchIndex is in the label scope", () => {
@@ -169,8 +170,9 @@ describe("CommonPropertyRenderer", () => {
       const { container } = render(<div>{displayValue}</div>);
       const element = container.querySelector("mark");
       expect(element?.textContent).to.equal("test");
-      expect(element?.classList.contains("components-activehighlight")).to.be
-        .false;
+      expect(element?.classList.contains("components-activehighlight")).toEqual(
+        false
+      );
     });
 
     it("should create a value which is actively highlighted if highlighProps are provided, highlightedText matches part of propertyRecord, property name matches highlight activeMatch propertyName, applyOnLabel is true and matchIndex is bigger than label matchCount and is in the value scope", () => {
@@ -202,8 +204,9 @@ describe("CommonPropertyRenderer", () => {
       const { container } = render(<div>{displayValue}</div>);
       const element = container.querySelector("mark");
       expect(element?.textContent).to.equal("test");
-      expect(element?.classList.contains("components-activehighlight")).to.be
-        .true;
+      expect(element?.classList.contains("components-activehighlight")).toEqual(
+        true
+      );
     });
 
     it("should not create a value which is highlighted if applyOnValue is false", () => {
@@ -228,7 +231,7 @@ describe("CommonPropertyRenderer", () => {
       );
       const { container } = render(<div>{displayValue}</div>);
       const element = container.querySelector("mark");
-      expect(element?.textContent).to.be.undefined;
+      expect(element?.textContent).toEqual(undefined);
     });
   });
 
@@ -241,22 +244,22 @@ describe("CommonPropertyRenderer", () => {
         it("returns 0 when indentation is undefined or 0", () => {
           expect(
             CommonPropertyRenderer.getLabelOffset(undefined, orientation)
-          ).to.be.eq(0);
-          expect(
-            CommonPropertyRenderer.getLabelOffset(0, orientation)
-          ).to.be.eq(0);
+          ).toEqual(0);
+          expect(CommonPropertyRenderer.getLabelOffset(0, orientation)).toEqual(
+            0
+          );
         });
 
         it("returns maxIndent when indentation is 1", () => {
-          expect(
-            CommonPropertyRenderer.getLabelOffset(1, orientation)
-          ).to.be.equal(maxIndent);
+          expect(CommonPropertyRenderer.getLabelOffset(1, orientation)).toEqual(
+            maxIndent
+          );
         });
 
         it("returns maxIndent * 2 when indentation is 2", () => {
-          expect(
-            CommonPropertyRenderer.getLabelOffset(2, orientation)
-          ).to.be.equal(maxIndent * 2);
+          expect(CommonPropertyRenderer.getLabelOffset(2, orientation)).toEqual(
+            maxIndent * 2
+          );
         });
       });
     }
@@ -269,7 +272,7 @@ describe("CommonPropertyRenderer", () => {
       it("should not shrink indentation in Vertical mode", () => {
         expect(
           CommonPropertyRenderer.getLabelOffset(1, orientation, 100, 0.2, 20)
-        ).to.be.equal(maxIndent);
+        ).toEqual(maxIndent);
       });
     });
 
@@ -288,40 +291,40 @@ describe("CommonPropertyRenderer", () => {
               0.2,
               20
             )
-          ).to.be.eq(0);
+          ).toEqual(0);
           expect(
             CommonPropertyRenderer.getLabelOffset(0, orientation, 100, 0.1, 20)
-          ).to.be.eq(0);
+          ).toEqual(0);
         });
 
         it("returns maxIndent when indentation is 1 and current label size is bigger than shrink threshold", () => {
           expect(
             CommonPropertyRenderer.getLabelOffset(1, orientation, 100, 0.4, 20)
-          ).to.be.equal(maxIndent);
+          ).toEqual(maxIndent);
         });
 
         it("returns minIndent when indentation is 1 and current label size is same as minimum label size", () => {
           expect(
             CommonPropertyRenderer.getLabelOffset(1, orientation, 100, 0.2, 20)
-          ).to.be.equal(minIndent);
+          ).toEqual(minIndent);
         });
 
         it("returns intermediate value between min and max when indentation is 1 and current label size is between threshold and minimum shrink", () => {
           expect(
             CommonPropertyRenderer.getLabelOffset(1, orientation, 100, 0.3, 20)
-          ).to.be.equal(10);
+          ).toEqual(10);
         });
 
         it("returns maxIndent * 4 when indentation is 4 and current label size is larger than shrink threshold", () => {
           expect(
             CommonPropertyRenderer.getLabelOffset(4, orientation, 100, 0.9, 20)
-          ).to.be.equal(maxIndent * 4);
+          ).toEqual(maxIndent * 4);
         });
 
         it("returns minIndent * 4 when indentation is 4 and current label size is same as minimum label size", () => {
           expect(
             CommonPropertyRenderer.getLabelOffset(4, orientation, 100, 0.2, 20)
-          ).to.be.equal(minIndent * 4);
+          ).toEqual(minIndent * 4);
         });
 
         it("returns (maxIndent * 3) + intermediate when indentation is 4 and current label size is between indentation 4 min shrink and threshold", () => {
@@ -339,7 +342,7 @@ describe("CommonPropertyRenderer", () => {
               currentLabelSizeRatio,
               minimumLabelSize
             )
-          ).to.be.equal(maxIndent * 3 + intermediateSize);
+          ).toEqual(maxIndent * 3 + intermediateSize);
         });
 
         it("returns (maxIndent) + intermediate + (minIndent * 2) when when indentation is 4 and current label size is between indentation 2 threshold and minimum shrink", () => {
@@ -357,7 +360,7 @@ describe("CommonPropertyRenderer", () => {
               currentLabelSizeRatio,
               minimumLabelSize
             )
-          ).to.be.equal(maxIndent + intermediateSize + minIndent * 2);
+          ).toEqual(maxIndent + intermediateSize + minIndent * 2);
         });
       });
     });

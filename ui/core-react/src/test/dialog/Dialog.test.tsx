@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { render } from "@testing-library/react";
 import { Dialog } from "../../core-react";
 import { DialogAlignment } from "../../core-react/dialog/Dialog";
@@ -14,7 +12,7 @@ import userEvent from "@testing-library/user-event";
 
 describe("Dialog", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
-  beforeEach(() => {
+  beforeEach(async () => {
     theUserTo = userEvent.setup();
   });
 
@@ -116,26 +114,26 @@ describe("Dialog", () => {
 
   describe("keyboard support", () => {
     it("should close on Esc key", () => {
-      const spyOnEscape = sinon.spy();
+      const spyOnEscape = vi.fn();
       const component = render(<Dialog opened={true} onEscape={spyOnEscape} />);
 
       component.baseElement.dispatchEvent(
         new KeyboardEvent("keyup", { key: "Escape" })
       );
-      expect(spyOnEscape).to.be.calledOnce;
+      expect(spyOnEscape).toHaveBeenCalledOnce();
     });
     it("should not respond to other keyboard input", () => {
-      const spyOnEscape = sinon.spy();
+      const spyOnEscape = vi.fn();
       const component = render(<Dialog opened={true} onEscape={spyOnEscape} />);
 
       component.baseElement.dispatchEvent(new KeyboardEvent("keyup"));
-      expect(spyOnEscape).to.not.be.called;
+      expect(spyOnEscape).not.toBeCalled();
     });
   });
 
   describe("modeless support", () => {
     it("should call handler for pointerDown", async () => {
-      const spyOnPointerDown = sinon.spy();
+      const spyOnPointerDown = vi.fn();
       const component = render(
         <Dialog
           opened={true}
@@ -146,10 +144,10 @@ describe("Dialog", () => {
       );
       const head = component.getByTestId("core-dialog-head");
       await theUserTo.click(head);
-      expect(spyOnPointerDown).to.be.calledOnce;
+      expect(spyOnPointerDown).toHaveBeenCalledOnce();
     });
     it("should not call handler for pointerDown if no modelessId", async () => {
-      const spyOnPointerDown = sinon.spy();
+      const spyOnPointerDown = vi.fn();
       const component = render(
         <Dialog
           opened={true}
@@ -159,7 +157,7 @@ describe("Dialog", () => {
       );
       const head = component.getByTestId("core-dialog-head");
       await theUserTo.click(head);
-      expect(spyOnPointerDown).to.not.be.called;
+      expect(spyOnPointerDown).not.toBeCalled();
     });
   });
 
@@ -168,64 +166,71 @@ describe("Dialog", () => {
       const component = render(
         <Dialog opened={true} alignment={DialogAlignment.TopLeft} />
       );
-      expect(component.container.querySelector(".core-align-top-left")).not.to
-        .be.null;
+      expect(
+        component.container.querySelector(".core-align-top-left")
+      ).toBeTruthy();
     });
     it("should render top", () => {
       const component = render(
         <Dialog opened={true} alignment={DialogAlignment.Top} />
       );
-      expect(component.container.querySelector(".core-align-top")).not.to.be
-        .null;
+      expect(component.container.querySelector(".core-align-top")).toBeTruthy();
     });
     it("should render top right", () => {
       const component = render(
         <Dialog opened={true} alignment={DialogAlignment.TopRight} />
       );
-      expect(component.container.querySelector(".core-align-top-right")).not.to
-        .be.null;
+      expect(
+        component.container.querySelector(".core-align-top-right")
+      ).toBeTruthy();
     });
     it("should render left", () => {
       const component = render(
         <Dialog opened={true} alignment={DialogAlignment.Left} />
       );
-      expect(component.container.querySelector(".core-align-left")).not.to.be
-        .null;
+      expect(
+        component.container.querySelector(".core-align-left")
+      ).toBeTruthy();
     });
     it("should render center", () => {
       const component = render(
         <Dialog opened={true} alignment={DialogAlignment.Center} />
       );
-      expect(component.container.querySelector(".core-align-center")).not.to.be
-        .null;
+      expect(
+        component.container.querySelector(".core-align-center")
+      ).toBeTruthy();
     });
     it("should render right", () => {
       const component = render(
         <Dialog opened={true} alignment={DialogAlignment.Right} />
       );
-      expect(component.container.querySelector(".core-align-right")).not.to.be
-        .null;
+      expect(
+        component.container.querySelector(".core-align-right")
+      ).toBeTruthy();
     });
     it("should render bottom left", () => {
       const component = render(
         <Dialog opened={true} alignment={DialogAlignment.BottomLeft} />
       );
-      expect(component.container.querySelector(".core-align-bottom-left")).not
-        .to.be.null;
+      expect(
+        component.container.querySelector(".core-align-bottom-left")
+      ).toBeTruthy();
     });
     it("should render bottom", () => {
       const component = render(
         <Dialog opened={true} alignment={DialogAlignment.Bottom} />
       );
-      expect(component.container.querySelector(".core-align-bottom")).not.to.be
-        .null;
+      expect(
+        component.container.querySelector(".core-align-bottom")
+      ).toBeTruthy();
     });
     it("should render bottom right", () => {
       const component = render(
         <Dialog opened={true} alignment={DialogAlignment.BottomRight} />
       );
-      expect(component.container.querySelector(".core-align-bottom-right")).not
-        .to.be.null;
+      expect(
+        component.container.querySelector(".core-align-bottom-right")
+      ).toBeTruthy();
     });
     it("should render with 50px offset from left corner", () => {
       const component = render(<Dialog opened={true} x={50} />);
@@ -248,7 +253,7 @@ describe("Dialog", () => {
   describe("header", () => {
     it("should render without header", () => {
       const component = render(<Dialog opened={true} hideHeader={true} />);
-      expect(component.queryByTestId("core-dialog-head")).to.be.null;
+      expect(component.queryByTestId("core-dialog-head")).toEqual(null);
     });
 
     it("should render with header", () => {

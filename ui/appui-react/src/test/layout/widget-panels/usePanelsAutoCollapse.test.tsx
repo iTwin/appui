@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import * as sinon from "sinon";
 import { fireEvent } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
 import type { NineZoneDispatch } from "../../../appui-react/layout/base/NineZone";
@@ -14,7 +13,7 @@ import { usePanelsAutoCollapse } from "../../../appui-react/layout/widget-panels
 
 describe("usePanelsAutoCollapse", () => {
   it("should collapse unpinned panels", () => {
-    const dispatch = sinon.stub<NineZoneDispatch>();
+    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
     let state = createNineZoneState();
     state = updatePanelState(state, "right", (draft) => {
       draft.pinned = false;
@@ -31,7 +30,7 @@ describe("usePanelsAutoCollapse", () => {
 
     fireEvent.mouseDown(element);
 
-    sinon.assert.calledOnceWithExactly(dispatch, {
+    expect(dispatch).toHaveBeenCalledWith({
       type: "PANEL_SET_COLLAPSED",
       side: "right",
       collapsed: true,
@@ -39,7 +38,7 @@ describe("usePanelsAutoCollapse", () => {
   });
 
   it("should auto collapse unpinned panels", () => {
-    const dispatch = sinon.stub<NineZoneDispatch>();
+    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
     let state = createNineZoneState();
     state = updatePanelState(state, "left", (draft) => {
       draft.pinned = false;
@@ -57,7 +56,7 @@ describe("usePanelsAutoCollapse", () => {
 
     fireEvent.mouseEnter(element);
 
-    sinon.assert.calledOnceWithExactly(dispatch, {
+    expect(dispatch).toHaveBeenCalledWith({
       type: "PANEL_SET_COLLAPSED",
       side: "left",
       collapsed: true,
@@ -74,23 +73,21 @@ describe("usePanelsAutoCollapse", () => {
       })
     );
     const element = document.createElement("div");
-    const spy = sinon.spy(element, "removeEventListener");
+    const spy = vi.spyOn(element, "removeEventListener");
     setRefValue(result.current, element);
-    sinon.assert.notCalled(spy);
+    expect(spy).not.toBeCalled();
 
     setRefValue(result.current, null);
-    sinon.assert.calledTwice(spy);
-    sinon.assert.calledWithExactly(
-      spy,
+    expect(spy).toHaveBeenCalledTimes(2);
+    expect(spy).toHaveBeenCalledWith(
       "mousedown",
-      sinon.match.any,
-      sinon.match.any
+      expect.anything(),
+      expect.anything()
     );
-    sinon.assert.calledWithExactly(
-      spy,
+    expect(spy).toHaveBeenCalledWith(
       "mouseenter",
-      sinon.match.any,
-      sinon.match.any
+      expect.anything(),
+      expect.anything()
     );
   });
 });

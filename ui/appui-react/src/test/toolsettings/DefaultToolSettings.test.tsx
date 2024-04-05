@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import type {
   ButtonGroupEditorParams,
   DialogItem,
@@ -258,13 +257,11 @@ class MockPlaceLineTool {
 describe("Default ToolSettings", () => {
   it("mock SelectTool", () => {
     const mockSelectTool = new MockSelectTool();
-    expect(mockSelectTool.selectionOption).to.be.equal(
-      SelectOptions.Method_Pick
-    );
+    expect(mockSelectTool.selectionOption).toEqual(SelectOptions.Method_Pick);
     const selectToolSettings = mockSelectTool.supplyToolSettingsProperties();
-    expect(selectToolSettings).to.not.be.undefined;
+    expect(selectToolSettings).toBeTruthy();
     if (selectToolSettings) {
-      expect(selectToolSettings.length).to.be.equal(1);
+      expect(selectToolSettings.length).toEqual(1);
 
       // update local value with tools latest value
       const changeHandler = (syncItems: DialogPropertySyncItem[]): void => {
@@ -290,17 +287,13 @@ describe("Default ToolSettings", () => {
       };
       mockSelectTool.applyToolSettingPropertyChange(syncItem);
 
-      expect(mockSelectTool.selectionOption).to.be.equal(
-        SelectOptions.Method_Box
-      );
+      expect(mockSelectTool.selectionOption).toEqual(SelectOptions.Method_Box);
 
       // simulate tool changing property value which should trigger change handler
       mockSelectTool.selectionOption = SelectOptions.Mode_Remove;
 
-      expect(mockSelectTool.selectionOption).to.be.equal(
-        SelectOptions.Mode_Remove
-      );
-      expect(selectToolSettings[0].value.value).to.be.equal(
+      expect(mockSelectTool.selectionOption).toEqual(SelectOptions.Mode_Remove);
+      expect(selectToolSettings[0].value.value).toEqual(
         SelectOptions.Mode_Remove
       );
     }
@@ -308,14 +301,14 @@ describe("Default ToolSettings", () => {
 
   it("mock PlaceLineTool", () => {
     const mockPlaceLineTool = new MockPlaceLineTool();
-    expect(mockPlaceLineTool.angle).to.be.equal(0.0);
-    expect(mockPlaceLineTool.useAngle).to.be.equal(false);
-    expect(mockPlaceLineTool.length).to.be.equal(1.0);
-    expect(mockPlaceLineTool.useLength).to.be.equal(false);
+    expect(mockPlaceLineTool.angle).toEqual(0.0);
+    expect(mockPlaceLineTool.useAngle).toEqual(false);
+    expect(mockPlaceLineTool.length).toEqual(1.0);
+    expect(mockPlaceLineTool.useLength).toEqual(false);
     const lineToolSettings = mockPlaceLineTool.supplyToolSettingsProperties();
-    expect(lineToolSettings).to.not.be.undefined;
+    expect(lineToolSettings).toBeTruthy();
     if (lineToolSettings) {
-      expect(lineToolSettings.length).to.be.equal(4);
+      expect(lineToolSettings.length).toEqual(4);
 
       // update local value with tools latest value
       const changeHandler = (syncItems: DialogPropertySyncItem[]): void => {
@@ -369,7 +362,7 @@ describe("Default ToolSettings", () => {
         value: updatedUseLengthValue,
         propertyName: lineToolSettings[0].property.name,
       });
-      expect(mockPlaceLineTool.useLength).to.be.equal(true);
+      expect(mockPlaceLineTool.useLength).toEqual(true);
 
       // simulate changing lengthValue value in UI
       const updatedLengthValue = { value: 22.22 };
@@ -377,7 +370,7 @@ describe("Default ToolSettings", () => {
         value: updatedLengthValue,
         propertyName: lineToolSettings[1].property.name,
       });
-      expect(mockPlaceLineTool.length).to.be.equal(22.22);
+      expect(mockPlaceLineTool.length).toEqual(22.22);
 
       // simulate changing useAngleValue value in UI
       const updatedUseAngleValue = { value: true };
@@ -385,7 +378,7 @@ describe("Default ToolSettings", () => {
         value: updatedUseAngleValue,
         propertyName: lineToolSettings[2].property.name,
       });
-      expect(mockPlaceLineTool.useAngle).to.be.equal(true);
+      expect(mockPlaceLineTool.useAngle).toEqual(true);
 
       // simulate changing angleValue value in UI
       const updatedAngleValue = { value: 3.14 };
@@ -393,16 +386,16 @@ describe("Default ToolSettings", () => {
         value: updatedAngleValue,
         propertyName: lineToolSettings[3].property.name,
       });
-      expect(mockPlaceLineTool.angle).to.be.equal(3.14);
+      expect(mockPlaceLineTool.angle).toEqual(3.14);
 
       // simulate tool changing property value which should trigger change handler
       mockPlaceLineTool.length = 16.67;
-      expect(mockPlaceLineTool.length).to.be.equal(16.67);
-      expect(lineToolSettings[1].value.value).to.be.equal(16.67);
+      expect(mockPlaceLineTool.length).toEqual(16.67);
+      expect(lineToolSettings[1].value.value).toEqual(16.67);
 
       mockPlaceLineTool.angle = 1.57;
-      expect(mockPlaceLineTool.angle).to.be.equal(1.57);
-      expect(lineToolSettings[3].value.value).to.be.equal(1.57);
+      expect(mockPlaceLineTool.angle).toEqual(1.57);
+      expect(lineToolSettings[3].value.value).toEqual(1.57);
     }
   });
 });

@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import React from "react";
-import sinon from "sinon";
 import { ColorDef } from "@itwin/core-common";
 import { fireEvent, render } from "@testing-library/react"; // , waitForElement
 import { LineWeightSwatch } from "../../imodel-components-react/lineweight/Swatch";
@@ -19,9 +17,9 @@ describe("<LineWeightSwatch />", () => {
     const renderedComponent = render(
       <LineWeightSwatch colorDef={colorDef} weight={activeWeight} />
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
     const label = renderedComponent.getByText("3");
-    expect(label).not.to.be.undefined;
+    expect(label).toBeTruthy();
   });
 
   it("should render with no label", () => {
@@ -32,22 +30,22 @@ describe("<LineWeightSwatch />", () => {
         hideLabel={true}
       />
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
     const label = renderedComponent.queryByText("3");
-    expect(label).to.be.null;
+    expect(label).toEqual(null);
   });
 
   it("Fire click event to pick weight", async () => {
-    const spyOnPick = sinon.spy();
+    const spyOnPick = vi.fn();
 
     const renderedComponent = render(
       <LineWeightSwatch weight={activeWeight} onClick={spyOnPick} />
     );
     const weightSwatch = renderedComponent.container.firstChild as HTMLElement;
-    expect(weightSwatch).not.to.be.null;
-    expect(weightSwatch.tagName).to.be.equal("BUTTON");
+    expect(weightSwatch).toBeTruthy();
+    expect(weightSwatch.tagName).toEqual("BUTTON");
     fireEvent.click(weightSwatch);
     await TestUtils.flushAsyncOperations();
-    expect(spyOnPick.calledOnce).to.be.true;
+    expect(spyOnPick).toHaveBeenCalledOnce();
   });
 });

@@ -2,8 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
-import * as sinon from "sinon";
 import { renderHook } from "@testing-library/react-hooks";
 import { useThrottledFn } from "../../../core-react/utils/hooks/useThrottledFn";
 
@@ -13,13 +11,8 @@ interface CallInfo {
 }
 
 describe("useThrottledFn", () => {
-  let clock: sinon.SinonFakeTimers;
   beforeEach(() => {
-    clock = sinon.useFakeTimers({ now: Date.now() });
-  });
-
-  afterEach(() => {
-    clock.restore();
+    vi.useFakeTimers();
   });
 
   function callThrottledFn(
@@ -29,10 +22,10 @@ describe("useThrottledFn", () => {
   ) {
     for (let times = 0; times < callInfo.calls; times++) {
       throttledFn();
-      clock.tick(callInfo.timeBetweenCallsMs);
+      vi.advanceTimersByTime(callInfo.timeBetweenCallsMs);
     }
 
-    if (runAll) clock.runAll();
+    if (runAll) vi.runAllTimers();
   }
 
   const testData = [
@@ -60,39 +53,39 @@ describe("useThrottledFn", () => {
     };
 
     it(`should call throttled (${throttleTime}ms) function ${resultCalls} times when called ${calls} times with delay of ${timeBetweenCallsMs}ms`, () => {
-      const spy = sinon.spy();
+      const spy = vi.fn();
 
       const { result } = renderHook(() =>
         useThrottledFn(spy, throttleTime, [])
       );
       callThrottledFn(result.current, test.callInfo);
 
-      expect(spy.callCount).to.be.equal(resultCalls);
+      expect(spy).toBeCalledTimes(resultCalls);
     });
   }
 
   it(`should not call throttled (7ms) function when called 5 times with delay of 1ms, clock did not run all and leading is false`, () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
 
     const { result } = renderHook(() => useThrottledFn(spy, 7, []));
     callThrottledFn(result.current, { calls: 5, timeBetweenCallsMs: 1 }, false);
 
-    expect(spy.callCount).to.be.equal(0);
+    expect(spy).not.toHaveBeenCalled();
   });
 
   it(`should call throttled (7ms) function when called 5 times with delay of 1ms, clock did not run all and leading is true`, () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
 
     const { result } = renderHook(() =>
       useThrottledFn(spy, 7, [], { leading: true, trailing: false })
     );
     callThrottledFn(result.current, { calls: 5, timeBetweenCallsMs: 1 }, false);
 
-    expect(spy.callCount).to.be.equal(1);
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should return new callback when dependencies change", () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
 
     const { result, rerender } = renderHook(
       (props: { deps: boolean[] }) => useThrottledFn(spy, 20, props.deps),

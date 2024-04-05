@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import * as React from "react";
-import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 import type {
   ConfigurableCreateInfo,
@@ -19,7 +17,6 @@ import {
   UiFramework,
   WidgetControl,
 } from "../../appui-react";
-import TestUtils from "../TestUtils";
 import { InternalConfigurableUiManager } from "../../appui-react/configurableui/InternalConfigurableUiManager";
 
 class TableExampleContentControl extends ContentControl {
@@ -30,26 +27,20 @@ class TableExampleContentControl extends ContentControl {
 }
 
 describe("InternalConfigurableUiManager", () => {
-  before(async () => {
-    await TestUtils.initializeUiFramework();
-    await NoRenderApp.startup();
-
-    InternalConfigurableUiManager.initialize();
+  beforeEach(async () => {
     InternalConfigurableUiManager.register(
       "TableExampleContent",
       TableExampleContentControl
     );
   });
 
-  after(async () => {
+  afterEach(async () => {
     InternalConfigurableUiManager.unregister("TableExampleContent");
-    await IModelApp.shutdown();
-    TestUtils.terminateUiFramework();
   });
 
   it("setActiveFrontstageDef passed no argument", async () => {
     await UiFramework.frontstages.setActiveFrontstageDef(undefined);
-    expect(UiFramework.frontstages.activeFrontstageDef).to.be.undefined;
+    expect(UiFramework.frontstages.activeFrontstageDef).toEqual(undefined);
   });
 
   class TestWidget extends WidgetControl {
@@ -63,13 +54,14 @@ describe("InternalConfigurableUiManager", () => {
   it("getConstructorClassId should return undefined before registration", () => {
     const classId =
       InternalConfigurableUiManager.getConstructorClassId(TestWidget);
-    expect(classId).to.be.undefined;
+    expect(classId).toEqual(undefined);
   });
 
   it("registerControl & createConfigurable using same classId", () => {
     InternalConfigurableUiManager.register("TestWidget", TestWidget);
-    expect(InternalConfigurableUiManager.create("TestWidget", "1")).to.not.be
-      .undefined;
+    expect(
+      InternalConfigurableUiManager.create("TestWidget", "1")
+    ).toBeTruthy();
   });
 
   it("registerControl trying to register a classId already registered", () => {
@@ -80,8 +72,9 @@ describe("InternalConfigurableUiManager", () => {
 
   it("unregisterControl removes a registered control", () => {
     InternalConfigurableUiManager.unregister("TestWidget");
-    expect(InternalConfigurableUiManager.isRegistered("TestWidget")).to.be
-      .false;
+    expect(InternalConfigurableUiManager.isRegistered("TestWidget")).toEqual(
+      false
+    );
   });
 
   it("createConfigurable trying to create an unregistered control", () => {
@@ -103,21 +96,21 @@ describe("InternalConfigurableUiManager", () => {
       ],
     };
     const contentGroup = new ContentGroup(contentGroupProps);
-    expect(contentGroup).to.not.be.undefined;
+    expect(contentGroup).toBeTruthy();
     // force controls to be creates
     const controls = contentGroup?.getContentControls();
-    expect(controls).to.not.be.undefined;
+    expect(controls).toBeTruthy();
     const control = contentGroup?.getContentControlById("test-content-control");
-    expect(control).to.not.be.undefined;
+    expect(control).toBeTruthy();
     expect(control?.applicationData.label).eql("Content 1a");
   });
 
   it("closeUi", () => {
     InternalConfigurableUiManager.closeUi();
 
-    expect(MessageManager.messages.length).to.eq(0);
-    expect(UiFramework.dialogs.modeless.count).to.eq(0);
-    expect(UiFramework.dialogs.modal.count).to.eq(0);
-    expect(PopupManager.popupCount).to.eq(0);
+    expect(MessageManager.messages.length).toEqual(0);
+    expect(UiFramework.dialogs.modeless.count).toEqual(0);
+    expect(UiFramework.dialogs.modal.count).toEqual(0);
+    expect(PopupManager.popupCount).toEqual(0);
   });
 });

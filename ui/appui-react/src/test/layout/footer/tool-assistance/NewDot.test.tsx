@@ -3,7 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { render } from "@testing-library/react";
-import { expect } from "chai";
 import * as React from "react";
 import { NewDot } from "../../../../appui-react/layout/footer/tool-assistance/NewDot";
 import { selectorMatches } from "../../Utils";

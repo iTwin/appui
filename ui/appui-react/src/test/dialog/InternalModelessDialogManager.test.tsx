@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { Logger } from "@itwin/core-bentley";
 import type { DialogChangedEventArgs } from "../../appui-react";
 import {
@@ -12,39 +10,33 @@ import {
   ModelessDialogRenderer,
   UiFramework,
 } from "../../appui-react";
-import TestUtils, { userEvent } from "../TestUtils";
+import { userEvent } from "../TestUtils";
 import { render, screen, waitFor } from "@testing-library/react";
-import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { InternalModelessDialogManager } from "../../appui-react/dialog/InternalModelessDialogManager";
 
 describe("InternalModelessDialogManager", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
-  const spyMethod = sinon.spy();
+  const spy = vi.fn();
   beforeEach(() => {
     theUserTo = userEvent.setup();
     InternalModelessDialogManager.closeAll();
-    spyMethod.resetHistory();
+    spy.mockReset();
   });
 
   function handleModelessDialogChanged(_args: DialogChangedEventArgs) {
-    spyMethod();
+    spy();
   }
 
-  before(async () => {
-    await TestUtils.initializeUiFramework(true);
-    await NoRenderApp.startup();
-
+  beforeEach(() => {
     UiFramework.dialogs.modeless.onModelessDialogChangedEvent.addListener(
       handleModelessDialogChanged
     );
   });
 
-  after(async () => {
+  afterEach(() => {
     InternalModelessDialogManager.onModelessDialogChangedEvent.removeListener(
       handleModelessDialogChanged
     );
-    await IModelApp.shutdown();
-    TestUtils.terminateUiFramework(); // clear out the framework key
   });
 
   it("ModelessDialogManager methods", () => {
@@ -53,31 +45,33 @@ describe("InternalModelessDialogManager", () => {
       <ModelessDialog opened={true} title="My Title" dialogId={dialogId} />
     );
 
-    expect(UiFramework.dialogs.modeless.count).to.eq(0);
+    expect(UiFramework.dialogs.modeless.count).toEqual(0);
     UiFramework.dialogs.modeless.open(reactNode, dialogId);
-    expect(spyMethod.calledOnce).to.be.true;
+    expect(spy).toHaveBeenCalledOnce();
 
-    expect(UiFramework.dialogs.modeless.active).to.eq(reactNode);
+    expect(UiFramework.dialogs.modeless.active).toEqual(reactNode);
 
-    expect(UiFramework.dialogs.modeless.count).to.eq(1);
+    expect(UiFramework.dialogs.modeless.count).toEqual(1);
     UiFramework.dialogs.modeless.open(reactNode, dialogId);
-    expect(UiFramework.dialogs.modeless.count).to.eq(1);
+    expect(UiFramework.dialogs.modeless.count).toEqual(1);
 
-    expect(UiFramework.dialogs.modeless.dialogs.length).to.eq(1);
-    expect(UiFramework.dialogs.modeless.dialogs[0].reactNode).to.eq(reactNode);
+    expect(UiFramework.dialogs.modeless.dialogs.length).toEqual(1);
+    expect(UiFramework.dialogs.modeless.dialogs[0].reactNode).toEqual(
+      reactNode
+    );
 
     UiFramework.dialogs.modeless.update();
-    expect(spyMethod.calledTwice).to.be.true;
+    expect(spy).toHaveBeenCalledTimes(2);
 
     UiFramework.dialogs.modeless.close(dialogId);
-    expect(spyMethod.calledThrice).to.be.true;
-    expect(UiFramework.dialogs.modeless.count).to.eq(0);
+    expect(spy).toHaveBeenCalledTimes(3);
+    expect(UiFramework.dialogs.modeless.count).toEqual(0);
   });
 
   it("close should log error if passed a bad id", () => {
-    const logSpyMethod = sinon.spy(Logger, "logError");
+    const logErrorSpy = vi.spyOn(Logger, "logError");
     UiFramework.dialogs.modeless.close("bad");
-    logSpyMethod.calledOnce.should.true;
+    expect(logErrorSpy).toHaveBeenCalledOnce();
   });
 
   it("ModelessDialogRenderer component", async () => {
@@ -88,15 +82,15 @@ describe("InternalModelessDialogManager", () => {
 
     render(<ModelessDialogRenderer />);
 
-    expect(UiFramework.dialogs.modeless.count).to.eq(0);
+    expect(UiFramework.dialogs.modeless.count).toEqual(0);
     UiFramework.dialogs.modeless.open(reactNode, dialogId);
-    expect(UiFramework.dialogs.modeless.count).to.eq(1);
+    expect(UiFramework.dialogs.modeless.count).toEqual(1);
     expect(await screen.findByText("My Title")).to.exist;
 
     UiFramework.dialogs.modeless.close(dialogId);
-    expect(UiFramework.dialogs.modeless.count).to.eq(0);
+    expect(UiFramework.dialogs.modeless.count).toEqual(0);
     await waitFor(() => {
-      expect(screen.queryByText("My Title")).to.be.null;
+      expect(screen.queryByText("My Title")).toEqual(null);
     });
   });
 
@@ -113,30 +107,30 @@ describe("InternalModelessDialogManager", () => {
 
     render(<ModelessDialogRenderer />);
 
-    expect(UiFramework.dialogs.modeless.count).to.eq(0);
+    expect(UiFramework.dialogs.modeless.count).toEqual(0);
 
     UiFramework.dialogs.modeless.open(reactNode1, dialogId1);
-    expect(UiFramework.dialogs.modeless.count).to.eq(1);
+    expect(UiFramework.dialogs.modeless.count).toEqual(1);
     expect(await screen.findByText("My Title")).to.exist;
 
     UiFramework.dialogs.modeless.open(reactNode2, dialogId2);
-    expect(UiFramework.dialogs.modeless.count).to.eq(2);
+    expect(UiFramework.dialogs.modeless.count).toEqual(2);
     expect(screen.getByText("My Title")).to.exist;
     expect(await screen.findByText("My Title 2")).to.exist;
 
     UiFramework.dialogs.modeless.close(dialogId2);
-    expect(UiFramework.dialogs.modeless.count).to.eq(1);
+    expect(UiFramework.dialogs.modeless.count).toEqual(1);
     expect(screen.getByText("My Title")).to.exist;
     await waitFor(() => {
-      expect(screen.queryByText("My Title 2")).to.be.null;
+      expect(screen.queryByText("My Title 2")).toEqual(null);
     });
 
     UiFramework.dialogs.modeless.close(dialogId1);
-    expect(UiFramework.dialogs.modeless.count).to.eq(0);
+    expect(UiFramework.dialogs.modeless.count).toEqual(0);
     await waitFor(() => {
-      expect(screen.queryByText("My Title")).to.be.null;
+      expect(screen.queryByText("My Title")).toEqual(null);
     });
-    expect(screen.queryByText("My Title 2")).to.be.null;
+    expect(screen.queryByText("My Title 2")).toEqual(null);
   });
 
   it("ModelessDialogRenderer component with two dialogs closed in FIFO order", async () => {
@@ -152,29 +146,29 @@ describe("InternalModelessDialogManager", () => {
 
     render(<ModelessDialogRenderer />);
 
-    expect(UiFramework.dialogs.modeless.count).to.eq(0);
+    expect(UiFramework.dialogs.modeless.count).toEqual(0);
 
     UiFramework.dialogs.modeless.open(reactNode1, dialogId1);
-    expect(UiFramework.dialogs.modeless.count).to.eq(1);
-    expect(UiFramework.dialogs.modeless.getInfo(dialogId1)).not.to.be.undefined;
+    expect(UiFramework.dialogs.modeless.count).toEqual(1);
+    expect(UiFramework.dialogs.modeless.getInfo(dialogId1)).toBeTruthy();
 
     UiFramework.dialogs.modeless.open(reactNode2, dialogId2);
-    expect(UiFramework.dialogs.modeless.count).to.eq(2);
+    expect(UiFramework.dialogs.modeless.count).toEqual(2);
     expect(await screen.findByText("My Title")).to.exist;
     expect(screen.getByText("My Title 2")).to.exist;
 
     UiFramework.dialogs.modeless.close(dialogId1);
-    expect(UiFramework.dialogs.modeless.count).to.eq(1);
+    expect(UiFramework.dialogs.modeless.count).toEqual(1);
     await waitFor(() => {
-      expect(screen.queryByText("My Title")).to.be.null;
+      expect(screen.queryByText("My Title")).toEqual(null);
     });
     expect(screen.getByText("My Title 2")).to.exist;
 
     UiFramework.dialogs.modeless.close(dialogId2);
-    expect(UiFramework.dialogs.modeless.count).to.eq(0);
-    expect(screen.queryByText("My Title")).to.be.null;
+    expect(UiFramework.dialogs.modeless.count).toEqual(0);
+    expect(screen.queryByText("My Title")).toEqual(null);
     await waitFor(() => {
-      expect(screen.queryByText("My Title 2")).to.be.null;
+      expect(screen.queryByText("My Title 2")).toEqual(null);
     });
   });
 
@@ -191,58 +185,58 @@ describe("InternalModelessDialogManager", () => {
 
     render(<ModelessDialogRenderer />);
 
-    expect(UiFramework.dialogs.modeless.count).to.eq(0);
+    expect(UiFramework.dialogs.modeless.count).toEqual(0);
 
     UiFramework.dialogs.modeless.open(reactNode1, dialogId1);
-    expect(UiFramework.dialogs.modeless.count).to.eq(1);
+    expect(UiFramework.dialogs.modeless.count).toEqual(1);
 
     UiFramework.dialogs.modeless.open(reactNode2, dialogId2);
-    expect(UiFramework.dialogs.modeless.count).to.eq(2);
+    expect(UiFramework.dialogs.modeless.count).toEqual(2);
 
-    expect(UiFramework.dialogs.modeless.active).to.eq(reactNode2);
+    expect(UiFramework.dialogs.modeless.active).toEqual(reactNode2);
 
     // Click the 2nd dialog - should stay forward
     await theUserTo.click(await screen.findByText("My Title 2"));
-    expect(UiFramework.dialogs.modeless.active).to.eq(reactNode2);
+    expect(UiFramework.dialogs.modeless.active).toEqual(reactNode2);
 
     // Click the 1st dialog to bring it forward
     await theUserTo.click(screen.getByText("My Title"));
-    expect(UiFramework.dialogs.modeless.active).to.eq(reactNode1);
+    expect(UiFramework.dialogs.modeless.active).toEqual(reactNode1);
 
     UiFramework.dialogs.modeless.close(dialogId1);
-    expect(UiFramework.dialogs.modeless.count).to.eq(1);
+    expect(UiFramework.dialogs.modeless.count).toEqual(1);
 
-    expect(UiFramework.dialogs.modeless.active).to.eq(reactNode2);
+    expect(UiFramework.dialogs.modeless.active).toEqual(reactNode2);
 
     UiFramework.dialogs.modeless.close(dialogId2);
-    expect(UiFramework.dialogs.modeless.count).to.eq(0);
+    expect(UiFramework.dialogs.modeless.count).toEqual(0);
   });
 
   it("internal: closeAll should not leave active dialogs", () => {
-    expect(UiFramework.dialogs.modeless.count).to.eq(0);
+    expect(UiFramework.dialogs.modeless.count).toEqual(0);
     const dialogId = "closeAll1";
     UiFramework.dialogs.modeless.open(<div />, dialogId);
-    expect(UiFramework.dialogs.modeless.count).to.eq(1);
-    expect(UiFramework.dialogs.modeless.active).to.not.be.undefined;
+    expect(UiFramework.dialogs.modeless.count).toEqual(1);
+    expect(UiFramework.dialogs.modeless.active).toBeTruthy();
     InternalModelessDialogManager.closeAll();
-    expect(UiFramework.dialogs.modeless.count).to.eq(0);
-    expect(UiFramework.dialogs.modeless.active).to.be.undefined;
+    expect(UiFramework.dialogs.modeless.count).toEqual(0);
+    expect(UiFramework.dialogs.modeless.active).toEqual(undefined);
   });
 
   it("internal: closeAll should clear dialog ids", async () => {
-    expect(UiFramework.dialogs.modeless.count).to.eq(0);
+    expect(UiFramework.dialogs.modeless.count).toEqual(0);
     const dialogId = "closeAll2";
     UiFramework.dialogs.modeless.open(<div />, dialogId);
     await waitFor(() => {
-      expect(UiFramework.dialogs.modeless.count).to.eq(1);
+      expect(UiFramework.dialogs.modeless.count).toEqual(1);
     });
     InternalModelessDialogManager.closeAll();
     await waitFor(() => {
-      expect(UiFramework.dialogs.modeless.count).to.eq(0);
+      expect(UiFramework.dialogs.modeless.count).toEqual(0);
     });
     UiFramework.dialogs.modeless.open(<div />, dialogId);
     await waitFor(() => {
-      expect(UiFramework.dialogs.modeless.count).to.eq(1);
+      expect(UiFramework.dialogs.modeless.count).toEqual(1);
     });
   });
 });

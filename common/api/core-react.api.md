@@ -18,7 +18,7 @@ import type { Localization as Localization_2 } from '@itwin/core-common';
 import { MessageSeverity } from '@itwin/appui-abstract';
 import { ProgressRadial } from '@itwin/itwinui-react';
 import * as React_2 from 'react';
-import * as ReactAutosuggest from 'react-autosuggest';
+import ReactAutosuggest from 'react-autosuggest';
 import { RelativePosition } from '@itwin/appui-abstract';
 
 // @public
@@ -111,15 +111,12 @@ export interface AutoSuggestProps extends React_2.InputHTMLAttributes<HTMLInputE
 }
 
 // @internal
-export class Badge extends React_2.PureComponent<BadgeProps> {
-    // (undocumented)
-    render(): React_2.ReactElement;
-}
+export function Badge({ type }: BadgeProps): React_2.JSX.Element | null;
 
 // @internal
-export interface BadgeProps extends CommonProps {
+export interface BadgeProps {
     // (undocumented)
-    svg: any;
+    type?: BadgeType;
 }
 
 // @public
@@ -127,14 +124,6 @@ export type BadgeType = BadgeType_2;
 
 // @public
 export const BadgeType: typeof BadgeType_2;
-
-// @internal
-export class BadgeUtilities {
-    static getComponentForBadgeType(badgeType?: BadgeType): React_2.ReactNode;
-}
-
-// @internal
-export function BetaBadge(props: CommonProps): React_2.JSX.Element;
 
 // @public
 export function BlockText(props: TextProps): React_2.JSX.Element;
@@ -683,6 +672,12 @@ export const getDisplayName: (component: React_2.ComponentType<any>) => string;
 // @internal
 export const getObjectClassName: (obj: any) => string;
 
+// @internal (undocumented)
+export function getResizeObserver(): {
+    new (callback: ResizeObserverCallback): ResizeObserver;
+    prototype: ResizeObserver;
+};
+
 // @internal
 export const getToolbarBackdropFilter: (filterBlur: number) => string;
 
@@ -1082,9 +1077,6 @@ export type MessageType = string | HTMLElement | ReactMessage;
 // @public @deprecated
 export function MutedText(props: TextProps): React_2.JSX.Element;
 
-// @internal
-export function NewBadge(props: CommonProps): React_2.JSX.Element;
-
 // @public
 export interface NoChildrenProps {
     // (undocumented)
@@ -1430,10 +1422,6 @@ export function ResizableContainerObserver({ onResize, children, }: {
     onResize: (width: number, height: number) => void;
     children?: React_2.ReactNode;
 }): React_2.JSX.Element;
-
-// @internal (undocumented)
-const ResizeObserver_2: ResizeObserverType;
-export { ResizeObserver_2 as ResizeObserver }
 
 // @internal (undocumented)
 export type ResizeObserverType = default_2;

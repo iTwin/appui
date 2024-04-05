@@ -3,8 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { Orientation } from "@itwin/core-react";
-import { expect } from "chai";
-import sinon from "sinon";
 import * as moq from "typemoq";
 import { PropertyGridCommons } from "../../../../components-react/propertygrid/component/PropertyGridCommons";
 
@@ -16,75 +14,61 @@ describe("PropertyGrid Commons", () => {
         linkIndexes: { start: 6, end: 30 },
       };
       const linkResult = PropertyGridCommons.getLinks(testLinkWithIndexes.link);
-      expect(linkResult.length).to.be.equal(1);
-      expect(linkResult[0].start).to.be.equal(
+      expect(linkResult.length).toEqual(1);
+      expect(linkResult[0].start).toEqual(
         testLinkWithIndexes.linkIndexes.start
       );
-      expect(linkResult[0].end).to.be.equal(
-        testLinkWithIndexes.linkIndexes.end
-      );
+      expect(linkResult[0].end).toEqual(testLinkWithIndexes.linkIndexes.end);
     });
   });
 
   describe("getCurrentOrientation", () => {
     it("defaults to Orientation.Horizontal", () => {
       const currentOrientation = PropertyGridCommons.getCurrentOrientation(500);
-      expect(currentOrientation).to.be.equal(Orientation.Horizontal);
+      expect(currentOrientation).toEqual(Orientation.Horizontal);
     });
   });
 
   describe("handleLinkClick", () => {
+    const originalLocation = location;
     const locationMockRef: moq.IMock<Location> = moq.Mock.ofInstance(location);
-    let spy: sinon.SinonStub<
-      [
-        (string | URL | undefined)?,
-        (string | undefined)?,
-        (string | undefined)?,
-        (boolean | undefined)?
-      ],
-      Window | null
-    >;
-
-    before(() => {
+    beforeEach(() => {
       location = locationMockRef.object;
     });
 
-    after(() => {
+    afterEach(() => {
+      location = originalLocation;
       locationMockRef.reset();
     });
 
-    afterEach(() => {
-      spy.restore();
-    });
-
     it("opens new window if the link text was found without http schema", async () => {
-      spy = sinon.stub(window, "open");
-      spy.returns(null);
+      const spy = vi.spyOn(window, "open");
+      spy.mockReturnValue(null);
 
       PropertyGridCommons.handleLinkClick("www.testLink.com");
-      expect(spy).to.be.calledOnceWith("http://www.testLink.com", "_blank");
+      expect(spy).toHaveBeenCalledWith("http://www.testLink.com", "_blank");
     });
 
     it("opens new window if the link text was found in record with http schema", async () => {
-      spy = sinon.stub(window, "open");
-      spy.returns(null);
+      const spy = vi.spyOn(window, "open");
+      spy.mockReturnValue(null);
 
       PropertyGridCommons.handleLinkClick("http://www.testLink.com");
-      expect(spy).to.be.calledOnceWith("http://www.testLink.com", "_blank");
+      expect(spy).toHaveBeenCalledWith("http://www.testLink.com", "_blank");
     });
 
     it("does not open new window if there were no url links", async () => {
-      spy = sinon.stub(window, "open");
-      spy.returns(null);
+      const spy = vi.spyOn(window, "open");
+      spy.mockReturnValue(null);
 
       PropertyGridCommons.handleLinkClick("not an url link");
       PropertyGridCommons.handleLinkClick("testEmail@mail.com");
-      sinon.assert.notCalled(spy);
+      expect(spy).not.toBeCalled();
     });
 
     it("sets location href value to value got in the text if it is an email link", async () => {
       PropertyGridCommons.handleLinkClick("someOtherLink@mail.com");
-      expect(locationMockRef.object.href).to.be.equal(
+      expect(locationMockRef.object.href).toEqual(
         "mailto:someOtherLink@mail.com"
       );
     });
@@ -93,7 +77,7 @@ describe("PropertyGrid Commons", () => {
       PropertyGridCommons.handleLinkClick(
         "pw://server.bentley.com:datasource-01/Documents/ProjectName"
       );
-      expect(locationMockRef.object.href).to.be.equal(
+      expect(locationMockRef.object.href).toEqual(
         "pw://server.bentley.com:datasource-01/Documents/ProjectName"
       );
     });
@@ -102,12 +86,12 @@ describe("PropertyGrid Commons", () => {
       const windowMock = moq.Mock.ofType<Window>();
       windowMock.setup((x) => x.focus());
 
-      spy = sinon.stub(window, "open");
-      spy.returns(windowMock.object);
+      const spy = vi.spyOn(window, "open");
+      spy.mockReturnValue(windowMock.object);
 
       PropertyGridCommons.handleLinkClick("www.testLink.com");
 
-      expect(spy).to.be.calledOnceWith("http://www.testLink.com", "_blank");
+      expect(spy).toHaveBeenCalledWith("http://www.testLink.com", "_blank");
       windowMock.verify((x) => x.focus(), moq.Times.once());
     });
   });

@@ -9,7 +9,7 @@ import {
   StatusBarSection,
   UiItemsProvider,
 } from "@itwin/appui-react";
-import { BetaBadge } from "@itwin/core-react";
+import { Badge, BadgeType } from "@itwin/core-react";
 import { Checkbox, DropdownButton, MenuItem } from "@itwin/itwinui-react";
 
 const PreviewFeaturesContext = React.createContext<
@@ -84,13 +84,15 @@ function PreviewFeatureList() {
       }
     >
       Preview features
-      <BetaBadge
+      <div
         style={{
           position: "absolute",
           top: 0,
           left: 0,
         }}
-      />
+      >
+        <Badge type={BadgeType.TechnicalPreview} />
+      </div>
     </DropdownButton>
   );
 }

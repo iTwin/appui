@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/core-react",
-      "comment": "Add `LocalizationProvider` as an alternative to static package initializer.",
+      "comment": "",
       "type": "none"
     }
   ],

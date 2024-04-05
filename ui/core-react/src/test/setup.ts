@@ -2,13 +2,10 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import * as React from "react";
-import { render } from "@testing-library/react";
-import { Ellipsis } from "../../../appui-react/layout/base/Ellipsis";
+beforeEach(() => {
+  vi.stubGlobal("fetch", async () => Promise.resolve(new Response()));
+});
 
-describe("<Ellipsis />", () => {
-  it("renders correctly", () => {
-    const { container } = render(<Ellipsis />);
-    container.firstChild!.should.matchSnapshot();
-  });
+afterEach(() => {
+  vi.useRealTimers();
 });

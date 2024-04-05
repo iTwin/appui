@@ -2,8 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
-import * as sinon from "sinon";
 import type { ScreenViewport } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
 import type { ActiveContentChangedEventArgs } from "../../appui-react";
@@ -14,15 +12,19 @@ describe("useActiveViewport", () => {
   const selectedView = {} as ScreenViewport;
 
   beforeEach(() => {
-    sinon.stub(IModelApp.viewManager, "selectedView").get(() => selectedView);
+    vi.spyOn(IModelApp.viewManager, "selectedView", "get").mockImplementation(
+      () => selectedView
+    );
   });
 
   it("should update active viewport", async () => {
     const { result, waitFor } = renderHook(() => useActiveViewport());
-    expect(result.current).to.eq(selectedView);
+    expect(result.current).toEqual(selectedView);
 
     const updatedView = {} as ScreenViewport;
-    sinon.stub(IModelApp.viewManager, "selectedView").get(() => updatedView);
+    vi.spyOn(IModelApp.viewManager, "selectedView", "get").mockImplementation(
+      () => updatedView
+    );
     act(() => {
       UiFramework.content.onActiveContentChangedEvent.emit(
         {} as ActiveContentChangedEventArgs
@@ -30,7 +32,7 @@ describe("useActiveViewport", () => {
     });
 
     await waitFor(() => {
-      expect(result.current).to.eq(updatedView);
+      expect(result.current).toEqual(updatedView);
     });
   });
 });

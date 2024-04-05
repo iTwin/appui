@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
 import { BeDuration } from "@itwin/core-bentley";
 import { OutputMessagePriority } from "@itwin/core-frontend";
@@ -21,9 +20,9 @@ describe("ReactNotifyMessageDetails", () => {
       OutputMessagePriority.Debug,
       reactMessage
     );
-    expect(details.messageDetails).to.not.be.undefined;
-    expect(isReactMessage(details.briefMessage)).to.be.true;
-    expect(isReactNotifyMessageDetails(details)).to.be.true;
+    expect(details.messageDetails).toBeTruthy();
+    expect(isReactMessage(details.briefMessage)).toEqual(true);
+    expect(isReactNotifyMessageDetails(details)).toEqual(true);
   });
 
   it("should support setPointerTypeDetails", () => {
@@ -37,12 +36,12 @@ describe("ReactNotifyMessageDetails", () => {
     const newSpan = document.createElement("span");
     const point = { x: 10, y: 10 };
     details.setPointerTypeDetails(newSpan, point);
-    expect(details.viewport).to.eq(newSpan);
+    expect(details.viewport).toEqual(newSpan);
     expect(
       details.displayPoint !== undefined &&
         details.displayPoint.isExactEqual(point)
-    ).to.be.true;
-    expect(details.relativePosition).to.eq(RelativePosition.TopRight);
+    ).toEqual(true);
+    expect(details.relativePosition).toEqual(RelativePosition.TopRight);
   });
 
   it("should support setPointerTypeDetails", () => {
@@ -55,7 +54,7 @@ describe("ReactNotifyMessageDetails", () => {
 
     const newSpan = document.createElement("span");
     details.setInputFieldTypeDetails(newSpan);
-    expect(details.inputField).to.eq(newSpan);
+    expect(details.inputField).toEqual(newSpan);
   });
 
   it("should support displayTime", () => {
@@ -67,6 +66,6 @@ describe("ReactNotifyMessageDetails", () => {
     );
 
     details.displayTime = BeDuration.fromSeconds(5);
-    expect(details.displayTime.milliseconds).to.eq(5000);
+    expect(details.displayTime.milliseconds).toEqual(5000);
   });
 });

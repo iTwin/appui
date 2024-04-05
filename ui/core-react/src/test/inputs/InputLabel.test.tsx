@@ -3,7 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
-import { expect } from "chai";
 import * as React from "react";
 import { InputLabel, InputStatus } from "../../core-react";
 import { classesFromElement } from "../TestUtils";
@@ -16,7 +15,7 @@ describe("<InputLabel />", () => {
       </InputLabel>
     );
 
-    expect(screen.getByLabelText("input test")).to.be.eq(
+    expect(screen.getByLabelText("input test")).toEqual(
       screen.getByRole("textbox")
     );
   });

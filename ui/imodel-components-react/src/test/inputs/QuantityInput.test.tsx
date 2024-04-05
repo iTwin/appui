@@ -2,8 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
-import * as sinon from "sinon";
 import * as React from "react";
 import { Key } from "ts-key-enum";
 import { act, fireEvent, render, waitFor } from "@testing-library/react";
@@ -18,7 +16,7 @@ describe("QuantityInput", () => {
   )!;
   function requestNextAnimation() {}
 
-  before(async () => {
+  beforeEach(async () => {
     // Avoid requestAnimationFrame exception during test by temporarily replacing function that calls it.
     Object.defineProperty(IModelApp, "requestNextAnimation", {
       get: () => requestNextAnimation,
@@ -27,7 +25,7 @@ describe("QuantityInput", () => {
     await NoRenderApp.startup();
   });
 
-  after(async () => {
+  afterEach(async () => {
     await IModelApp.shutdown();
     TestUtils.terminateUiIModelComponents();
     Object.defineProperty(
@@ -39,7 +37,7 @@ describe("QuantityInput", () => {
 
   it("should render input for Length", () => {
     const initialLength = 1; // 1 meter
-    const spyOnChange = sinon.spy();
+    const spyOnChange = vi.fn();
     const component = render(
       <QuantityInput
         initialValue={initialLength}
@@ -49,9 +47,9 @@ describe("QuantityInput", () => {
     );
     const input = component.getByTestId("components-parsed-input");
     fireEvent.change(input, { target: { value: "2.5" } });
-    expect(spyOnChange).not.to.have.been.called;
+    expect(spyOnChange).not.toBeCalled();
     fireEvent.keyDown(input, { key: Key.Enter });
-    expect(spyOnChange).to.have.been.calledOnce;
+    expect(spyOnChange).toHaveBeenCalledOnce();
   });
 
   const overrideLengthFormats = {
@@ -99,7 +97,7 @@ describe("QuantityInput", () => {
 
   it("should process ESC key", async () => {
     const initialLength = 1; // 1 meter
-    const spyOnChange = sinon.spy();
+    const spyOnChange = vi.fn();
 
     // set active unit system to be metric and wait to make sure quantity format cache is set
     await IModelApp.quantityFormatter.setActiveUnitSystem("metric");
@@ -118,18 +116,18 @@ describe("QuantityInput", () => {
     const initialValue = input.value;
     fireEvent.change(input, { target: { value: "2.5" } });
     fireEvent.keyDown(input, { key: Key.Escape });
-    expect(spyOnChange).not.to.have.been.called; // value did not change after ESC was pressed
-    expect(initialValue).to.eq(input.value);
+    expect(spyOnChange).not.toBeCalled(); // value did not change after ESC was pressed
+    expect(initialValue).toEqual(input.value);
     fireEvent.change(input, { target: { value: "3.5" } });
     fireEvent.keyDown(input, { key: Key.Enter });
-    expect(spyOnChange).to.have.been.called;
-    expect(input.value).to.eq("3.5 m");
+    expect(spyOnChange).toHaveBeenCalled();
+    expect(input.value).toEqual("3.5 m");
 
     // set active unit system to be imperial and wait to make sure quantity format cache is set
     await act(async () => {
       await IModelApp.quantityFormatter.setActiveUnitSystem("imperial");
     });
-    expect(input.value).to.eq("3'-3 3/8\"");
+    expect(input.value).toEqual("3'-3 3/8\"");
 
     // set override for length to inches and insure proper format is returned
     await act(async () => {
@@ -138,19 +136,19 @@ describe("QuantityInput", () => {
         overrideLengthFormats
       );
     });
-    expect(input.value).to.eq("39.3701 in");
+    expect(input.value).toEqual("39.3701 in");
 
     await act(async () => {
       await IModelApp.quantityFormatter.clearOverrideFormats(
         QuantityType.Length
       );
     });
-    expect(input.value).to.eq("3'-3 3/8\"");
+    expect(input.value).toEqual("3'-3 3/8\"");
   });
 
   it("should attach 'components-parsed-input-has-error' when bad input", async () => {
     const initialLength = 1; // 1 meter
-    const spyOnChange = sinon.spy();
+    const spyOnChange = vi.fn();
 
     const component = render(
       <QuantityInput
@@ -167,14 +165,16 @@ describe("QuantityInput", () => {
     fireEvent.change(input, { target: { value: "abc" } });
     input.blur();
     await waitFor(() => {
-      expect(input.classList.contains("components-parsed-input-has-error")).to
-        .be.true;
+      expect(
+        input.classList.contains("components-parsed-input-has-error")
+      ).toEqual(true);
     });
     fireEvent.keyDown(input, { key: Key.Escape });
-    expect(spyOnChange).not.to.have.been.called; // value did not change after ESC was pressed
+    expect(spyOnChange).not.toBeCalled(); // value did not change after ESC was pressed
     const currentValue = input.value;
-    expect(input.classList.contains("components-parsed-input-has-error")).to.be
-      .false;
-    expect(initialValue).to.eq(currentValue);
+    expect(
+      input.classList.contains("components-parsed-input-has-error")
+    ).toEqual(false);
+    expect(initialValue).toEqual(currentValue);
   });
 });

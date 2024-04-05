@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
 import { Orientation } from "@itwin/core-react";
 import { FlatNonPrimitivePropertyRenderer } from "../../../../components-react/propertygrid/internal/flat-properties/FlatNonPrimitivePropertyRenderer";
@@ -12,16 +11,12 @@ import {
   TestUtils,
   userEvent,
 } from "../../../TestUtils";
-import sinon from "sinon";
 import { render, screen } from "@testing-library/react";
 
 describe("FlatNonPrimitivePropertyRenderer", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
   beforeEach(() => {
     theUserTo = userEvent.setup();
-  });
-  before(async () => {
-    await TestUtils.initializeUiComponents();
   });
 
   it("renders correctly", async () => {
@@ -71,7 +66,7 @@ describe("FlatNonPrimitivePropertyRenderer", () => {
   });
 
   it("Should call onExpandToggled when label is clicked and item is not expanded", async () => {
-    const expandSpy = sinon.spy();
+    const expandSpy = vi.fn();
     render(
       <FlatNonPrimitivePropertyRenderer
         orientation={Orientation.Horizontal}
@@ -90,17 +85,17 @@ describe("FlatNonPrimitivePropertyRenderer", () => {
       />
     );
 
-    expect(expandSpy.callCount).to.be.equal(0);
+    expect(expandSpy).toHaveBeenCalledTimes(0);
 
     await theUserTo.click(screen.getByTitle("House"));
-    expect(expandSpy.callCount).to.be.equal(1);
+    expect(expandSpy).toHaveBeenCalledTimes(1);
 
     await theUserTo.click(screen.getByTitle("House"));
-    expect(expandSpy.callCount).to.be.equal(2);
+    expect(expandSpy).toHaveBeenCalledTimes(2);
   });
 
   it("Should call onExpandToggled when label is clicked and item is expanded", async () => {
-    const expandSpy = sinon.spy();
+    const expandSpy = vi.fn();
     render(
       <FlatNonPrimitivePropertyRenderer
         orientation={Orientation.Horizontal}
@@ -119,12 +114,12 @@ describe("FlatNonPrimitivePropertyRenderer", () => {
       />
     );
 
-    expect(expandSpy.callCount).to.be.equal(0);
+    expect(expandSpy).toHaveBeenCalledTimes(0);
 
     await theUserTo.click(screen.getByTitle("House"));
-    expect(expandSpy.callCount).to.be.equal(1);
+    expect(expandSpy).toHaveBeenCalledTimes(1);
 
     await theUserTo.click(screen.getByTitle("House"));
-    expect(expandSpy.callCount).to.be.equal(2);
+    expect(expandSpy).toHaveBeenCalledTimes(2);
   });
 });

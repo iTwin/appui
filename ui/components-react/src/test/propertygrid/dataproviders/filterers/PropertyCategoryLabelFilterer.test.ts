@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as faker from "faker";
-import sinon from "sinon";
 import { PropertyCategoryLabelFilterer } from "../../../../components-react/propertygrid/dataproviders/filterers/PropertyCategoryLabelFilterer";
 import { FilteredType } from "../../../../components-react/propertygrid/dataproviders/filterers/PropertyDataFiltererBase";
 import type { PropertyCategory } from "../../../../components-react/propertygrid/PropertyDataProvider";
@@ -28,18 +26,18 @@ describe("PropertyCategoryLabelFilterer", () => {
     describe("[get] filterText", () => {
       it(`Should return empty string`, () => {
         const filterer = new PropertyCategoryLabelFilterer();
-        expect(filterer.filterText).to.be.equal("");
+        expect(filterer.filterText).toEqual("");
       });
 
       it(`Should return string which was set in the constructor`, () => {
         const filterer = new PropertyCategoryLabelFilterer("test");
-        expect(filterer.filterText).to.be.equal("test");
+        expect(filterer.filterText).toEqual("test");
       });
     });
 
     it(`Should return filtering as disabled`, () => {
       const filterer = new PropertyCategoryLabelFilterer();
-      expect(filterer.isActive).to.be.false;
+      expect(filterer.isActive).toEqual(false);
     });
 
     it(`Should always return 'matchesFilter: true' when calling 'recordMatchesFilter'`, async () => {
@@ -68,7 +66,7 @@ describe("PropertyCategoryLabelFilterer", () => {
       const expectedText = faker.random.word();
       filterer.filterText = expectedText;
 
-      expect(filterer.filterText).to.be.equal(expectedText.toLowerCase());
+      expect(filterer.filterText).toEqual(expectedText.toLowerCase());
     });
 
     it("Should return filtering as enabled", () => {
@@ -76,7 +74,7 @@ describe("PropertyCategoryLabelFilterer", () => {
 
       filterer.filterText = faker.random.word();
 
-      expect(filterer.isActive).to.be.true;
+      expect(filterer.isActive).toEqual(true);
     });
 
     it("Should not match when given empty label property category", async () => {
@@ -196,7 +194,7 @@ describe("PropertyCategoryLabelFilterer", () => {
   });
 
   describe("raising `onFilterChanged` event", () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     let filterer: PropertyCategoryLabelFilterer;
 
     beforeEach(() => {
@@ -206,27 +204,27 @@ describe("PropertyCategoryLabelFilterer", () => {
 
     it("doesn't raise event when filter doesn't change", () => {
       filterer.filterText = "";
-      expect(spy).to.not.be.called;
+      expect(spy).not.toBeCalled();
 
       filterer.filterText = "    ";
-      expect(spy).to.not.be.called;
+      expect(spy).not.toBeCalled();
 
       filterer.filterText = "AAA";
-      spy.resetHistory();
+      spy.mockReset();
 
       filterer.filterText = "AAA";
-      expect(spy).to.not.be.called;
+      expect(spy).not.toBeCalled();
 
       filterer.filterText = "aaa";
-      expect(spy).to.not.be.called;
+      expect(spy).not.toBeCalled();
     });
 
     it("raises event when filter changes", () => {
       filterer.filterText = "a";
-      expect(spy).to.be.calledOnce;
+      expect(spy).toHaveBeenCalledOnce();
 
       filterer.filterText = "b";
-      expect(spy).to.be.calledTwice;
+      expect(spy).toHaveBeenCalledTimes(2);
     });
   });
 });

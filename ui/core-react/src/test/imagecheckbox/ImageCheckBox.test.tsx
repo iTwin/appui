@@ -3,11 +3,9 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import * as sinon from "sinon";
 import { ImageCheckBox } from "../../core-react";
 import userEvent from "@testing-library/user-event";
 import { render, screen } from "@testing-library/react";
-import { expect } from "chai";
 
 describe("<ImageCheckBox />", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
@@ -15,7 +13,7 @@ describe("<ImageCheckBox />", () => {
     theUserTo = userEvent.setup();
   });
   it("toggles correctly", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     render(
       <ImageCheckBox
         imageOn="icon-visibility"
@@ -24,14 +22,16 @@ describe("<ImageCheckBox />", () => {
       />
     );
     await theUserTo.click(screen.getByRole("checkbox"));
-    expect(spy).to.have.been.calledOnceWith(true);
-    spy.resetHistory();
+    expect(spy).toHaveBeenCalledOnce();
+    expect(spy).toHaveBeenCalledWith(true);
+    spy.mockReset();
     await theUserTo.click(screen.getByRole("checkbox"));
-    expect(spy).to.have.been.calledOnceWith(false);
+    expect(spy).toHaveBeenCalledOnce();
+    expect(spy).toHaveBeenCalledWith(false);
   });
 
   it("disabled do not react on click", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     render(
       <ImageCheckBox
         imageOn="icon-visibility"
@@ -41,11 +41,11 @@ describe("<ImageCheckBox />", () => {
       />
     );
     await theUserTo.click(screen.getByRole("checkbox"));
-    expect(spy).not.to.have.been.called;
+    expect(spy).not.toBeCalled();
   });
 
   it("onClick should be called on label click", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     render(
       <ImageCheckBox
         imageOn="icon-visibility"
@@ -55,7 +55,7 @@ describe("<ImageCheckBox />", () => {
       />
     );
     await theUserTo.click(screen.getByTitle("test"));
-    expect(spy).to.have.been.called;
+    expect(spy).toHaveBeenCalled();
   });
 
   it("border renders correctly", () => {
@@ -92,7 +92,7 @@ describe("<ImageCheckBox />", () => {
   });
 
   it("onClick should be called on change", async () => {
-    const handler = sinon.spy();
+    const handler = vi.fn();
     render(
       <ImageCheckBox
         imageOn="icon-visibility"
@@ -102,7 +102,7 @@ describe("<ImageCheckBox />", () => {
       />
     );
     await theUserTo.click(screen.getByRole("checkbox"));
-    handler.should.have.been.calledOnce;
-    handler.should.have.been.calledWithExactly(true);
+    expect(handler).toHaveBeenCalledOnce();
+    expect(handler).toHaveBeenCalledWith(true);
   });
 });

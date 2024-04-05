@@ -6,7 +6,6 @@ import { fireEvent, render, waitFor } from "@testing-library/react";
 import { act } from "@testing-library/react-hooks";
 import produce from "immer";
 import * as React from "react";
-import * as sinon from "sinon";
 import type { DragManager } from "../../../appui-react/layout/base/DragManager";
 import { DraggedPanelSideContext } from "../../../appui-react/layout/base/DragManager";
 import { createLayoutStore } from "../../../appui-react/layout/base/LayoutStore";
@@ -17,7 +16,6 @@ import { addTab } from "../../../appui-react/layout/state/internal/TabStateHelpe
 import { WidgetPanelProvider } from "../../../appui-react/layout/widget-panels/Panel";
 import { createDragInfo, TestNineZoneProvider } from "../Providers";
 import { addTabs } from "../Utils";
-import { expect } from "chai";
 
 describe("WidgetPanelProvider", () => {
   it("should render vertical", () => {
@@ -35,7 +33,7 @@ describe("WidgetPanelProvider", () => {
     const panel = component.container.getElementsByClassName(
       "nz-widgetPanels-panel"
     )[0] as HTMLElement;
-    expect(panel.style.width).to.eq("200px");
+    expect(panel.style.width).toEqual("200px");
   });
 
   it("should render horizontal", () => {
@@ -53,7 +51,7 @@ describe("WidgetPanelProvider", () => {
     const panel = component.container.getElementsByClassName(
       "nz-widgetPanels-panel"
     )[0] as HTMLElement;
-    expect(panel.style.height).to.eq("200px");
+    expect(panel.style.height).toEqual("200px");
   });
 
   it("should render collapsed", () => {
@@ -89,25 +87,25 @@ describe("WidgetPanelProvider", () => {
   });
 
   it("should dispatch PANEL_INITIALIZE", () => {
-    const dispatch = sinon.stub<NineZoneDispatch>();
+    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
     let state = createNineZoneState();
     state = addTab(state, "t1");
     state = addPanelWidget(state, "left", "w1", ["t1"]);
-    sinon
-      .stub(Element.prototype, "getBoundingClientRect")
-      .returns(DOMRect.fromRect({ width: 300 }));
+    vi.spyOn(Element.prototype, "getBoundingClientRect").mockReturnValue(
+      DOMRect.fromRect({ width: 300 })
+    );
     render(
       <TestNineZoneProvider defaultState={state} dispatch={dispatch}>
         <WidgetPanelProvider side="left" />
       </TestNineZoneProvider>
     );
-    dispatch.calledOnceWithExactly(
-      sinon.match({
+    expect(dispatch).toHaveBeenCalledWith(
+      expect.objectContaining({
         type: "PANEL_INITIALIZE",
         side: "left",
         size: 300,
       })
-    ).should.true;
+    );
   });
 
   it("should render multiple widgets", () => {
@@ -136,14 +134,14 @@ describe("WidgetPanelProvider", () => {
     const panel = container.getElementsByClassName(
       "nz-widgetPanels-panel"
     )[0] as HTMLElement;
-    Array.from(panel.classList.values()).should.not.contain("nz-transition");
+    expect(Array.from(panel.classList.values())).not.toContain("nz-transition");
 
-    sinon
-      .stub(panel, "getBoundingClientRect")
-      .onFirstCall()
-      .returns(DOMRect.fromRect({ width: 200 }))
-      .onSecondCall()
-      .returns(DOMRect.fromRect({ width: 300 }));
+    let callCount = 0;
+    vi.spyOn(panel, "getBoundingClientRect").mockImplementation(() => {
+      callCount++;
+      if (callCount === 1) return DOMRect.fromRect({ width: 200 });
+      return DOMRect.fromRect({ width: 300 });
+    });
 
     state = produce(state, (draft) => {
       draft.panels.left.collapsed = true;
@@ -153,12 +151,12 @@ describe("WidgetPanelProvider", () => {
     });
 
     await waitFor(() => {
-      Array.from(panel.classList.values()).should.contain("nz-transition");
+      expect(Array.from(panel.classList.values())).toContain("nz-transition");
     });
-    panel.style.width.should.eq("300px");
+    expect(panel.style.width).toEqual("300px");
 
     fireEvent.transitionEnd(panel);
-    Array.from(panel.classList.values()).should.not.contain("nz-transition");
+    expect(Array.from(panel.classList.values())).not.toContain("nz-transition");
   });
 
   it("should transition to panel size when opened", async () => {
@@ -177,12 +175,13 @@ describe("WidgetPanelProvider", () => {
     const panel = container.getElementsByClassName(
       "nz-widgetPanels-panel"
     )[0] as HTMLElement;
-    sinon
-      .stub(panel, "getBoundingClientRect")
-      .onFirstCall()
-      .returns(DOMRect.fromRect({ width: 200 }))
-      .onSecondCall()
-      .returns(DOMRect.fromRect({ width: 300 }));
+
+    let callCount = 0;
+    vi.spyOn(panel, "getBoundingClientRect").mockImplementation(() => {
+      callCount++;
+      if (callCount === 1) return DOMRect.fromRect({ width: 200 });
+      return DOMRect.fromRect({ width: 300 });
+    });
 
     state = produce(state, (draft) => {
       draft.panels.left.collapsed = false;
@@ -192,9 +191,9 @@ describe("WidgetPanelProvider", () => {
     });
 
     await waitFor(() => {
-      Array.from(panel.classList.values()).should.contain("nz-transition");
+      expect(Array.from(panel.classList.values())).toContain("nz-transition");
     });
-    panel.style.width.should.eq("300px");
+    expect(panel.style.width).toEqual("300px");
   });
 
   it("should transition when size changes", async () => {
@@ -212,12 +211,12 @@ describe("WidgetPanelProvider", () => {
     const panel = container.getElementsByClassName(
       "nz-widgetPanels-panel"
     )[0] as HTMLElement;
-    sinon
-      .stub(panel, "getBoundingClientRect")
-      .onFirstCall()
-      .returns(DOMRect.fromRect({ width: 200 }))
-      .onSecondCall()
-      .returns(DOMRect.fromRect({ width: 300 }));
+    let callCount = 0;
+    vi.spyOn(panel, "getBoundingClientRect").mockImplementation(() => {
+      callCount++;
+      if (callCount === 1) return DOMRect.fromRect({ width: 200 });
+      return DOMRect.fromRect({ width: 300 });
+    });
 
     state = produce(state, (draft) => {
       draft.panels.left.size = 300;
@@ -227,9 +226,9 @@ describe("WidgetPanelProvider", () => {
     });
 
     await waitFor(() => {
-      Array.from(panel.classList.values()).should.contain("nz-transition");
+      expect(Array.from(panel.classList.values())).toContain("nz-transition");
     });
-    panel.style.width.should.eq("300px");
+    expect(panel.style.width).toEqual("300px");
   });
 
   it("should restart transition when initializing", async () => {
@@ -240,16 +239,17 @@ describe("WidgetPanelProvider", () => {
       draft.panels.left.size = 200;
     });
     const layout = createLayoutStore(state);
-    const stub = sinon
-      .stub(HTMLElement.prototype, "getBoundingClientRect")
-      .returns(DOMRect.fromRect({ width: 100 }));
+    vi.spyOn(HTMLElement.prototype, "getBoundingClientRect").mockReturnValue(
+      DOMRect.fromRect({ width: 100 })
+    );
     const dispatch: NineZoneDispatch = (action) => {
       if (action.type === "PANEL_INITIALIZE") {
-        stub.reset();
-        stub
-          .onFirstCall()
-          .returns(DOMRect.fromRect({ width: 200 }))
-          .returns(DOMRect.fromRect({ width: 400 }));
+        let callCount = 0;
+        vi.spyOn(panel, "getBoundingClientRect").mockImplementation(() => {
+          callCount++;
+          if (callCount === 1) return DOMRect.fromRect({ width: 200 });
+          return DOMRect.fromRect({ width: 400 });
+        });
 
         state = produce(state, (draft) => {
           draft.panels.left.size = 150;
@@ -273,12 +273,12 @@ describe("WidgetPanelProvider", () => {
       layout.setState(state);
     });
 
-    panel.style.width.should.eq("100px");
+    expect(panel.style.width).toEqual("100px");
 
     await waitFor(() => {
-      Array.from(panel.classList.values()).should.contain("nz-transition");
+      expect(Array.from(panel.classList.values())).toContain("nz-transition");
     });
-    panel.style.width.should.eq("400px");
+    expect(panel.style.width).toEqual("400px");
   });
 
   it("should not transition when resizing", () => {
@@ -318,8 +318,8 @@ describe("WidgetPanelProvider", () => {
       layout.setState(state);
     });
 
-    Array.from(panel.classList.values()).should.not.contain("nz-transition");
-    panel.style.width.should.eq("300px");
+    expect(Array.from(panel.classList.values())).not.toContain("nz-transition");
+    expect(panel.style.width).toEqual("300px");
   });
 
   it("should not resize when collapsing", async () => {
@@ -337,12 +337,14 @@ describe("WidgetPanelProvider", () => {
       "nz-widgetPanels-panel"
     )[0] as HTMLElement;
 
-    const stub = sinon.stub(panel, "getBoundingClientRect");
-    stub
-      .onFirstCall()
-      .returns(DOMRect.fromRect({ width: 200 }))
-      .onSecondCall()
-      .returns(DOMRect.fromRect({ width: 0 }));
+    let callCount = 0;
+    const spy = vi
+      .spyOn(panel, "getBoundingClientRect")
+      .mockImplementation(() => {
+        callCount++;
+        if (callCount === 1) return DOMRect.fromRect({ width: 200 });
+        return DOMRect.fromRect({ width: 0 });
+      });
 
     state = produce(state, (draft) => {
       draft.panels.left.collapsed = true;
@@ -352,12 +354,12 @@ describe("WidgetPanelProvider", () => {
     });
 
     await waitFor(() => {
-      Array.from(panel.classList.values()).should.contain("nz-transition");
+      expect(Array.from(panel.classList.values())).toContain("nz-transition");
     });
-    panel.style.width.should.eq("0px");
+    expect(panel.style.width).toEqual("0px");
 
-    stub.reset();
-    stub.returns(DOMRect.fromRect({ width: 400 }));
+    spy.mockReset();
+    spy.mockReturnValue(DOMRect.fromRect({ width: 400 }));
     state = produce(state, (draft) => {
       draft.panels.left.size = 400;
     });
@@ -365,8 +367,8 @@ describe("WidgetPanelProvider", () => {
       layout.setState(state);
     });
 
-    Array.from(panel.classList.values()).should.contain("nz-transition");
-    panel.style.width.should.eq("0px");
+    expect(Array.from(panel.classList.values())).toContain("nz-transition");
+    expect(panel.style.width).toEqual("0px");
   });
 
   it("should not transition when from === to", () => {
@@ -384,9 +386,9 @@ describe("WidgetPanelProvider", () => {
     const panel = container.getElementsByClassName(
       "nz-widgetPanels-panel"
     )[0] as HTMLElement;
-    sinon
-      .stub(panel, "getBoundingClientRect")
-      .returns(DOMRect.fromRect({ width: 200 }));
+    vi.spyOn(panel, "getBoundingClientRect").mockReturnValue(
+      DOMRect.fromRect({ width: 200 })
+    );
 
     state = produce(state, (draft) => {
       draft.panels.left.size = 300;
@@ -395,8 +397,8 @@ describe("WidgetPanelProvider", () => {
       layout.setState(state);
     });
 
-    Array.from(panel.classList.values()).should.not.contain("nz-transition");
-    panel.style.width.should.eq("300px");
+    expect(Array.from(panel.classList.values())).not.toContain("nz-transition");
+    expect(panel.style.width).toEqual("300px");
   });
 
   it("should persist content size when collapsing", async () => {
@@ -418,22 +420,22 @@ describe("WidgetPanelProvider", () => {
     state = produce(state, (draft) => {
       draft.panels.top.collapsed = true;
     });
-    sinon
-      .stub(panel, "getBoundingClientRect")
-      .onFirstCall()
-      .returns(DOMRect.fromRect({ height: 200 }))
-      .onSecondCall()
-      .returns(DOMRect.fromRect({ height: 0 }));
+    let callCount = 0;
+    vi.spyOn(panel, "getBoundingClientRect").mockImplementation(() => {
+      callCount++;
+      if (callCount === 1) return DOMRect.fromRect({ height: 200 });
+      return DOMRect.fromRect({ height: 0 });
+    });
 
     act(() => {
       layout.setState(state);
     });
 
     await waitFor(() => {
-      Array.from(panel.classList.values()).should.contain("nz-transition");
+      expect(Array.from(panel.classList.values())).toContain("nz-transition");
     });
-    panel.style.height.should.eq("0px");
-    content.style.minHeight.should.eq("200px");
+    expect(panel.style.height).toEqual("0px");
+    expect(content.style.minHeight).toEqual("200px");
   });
 
   it("should measure panel bounds when resizing", () => {
@@ -451,13 +453,13 @@ describe("WidgetPanelProvider", () => {
     });
 
     const panel = container.getElementsByClassName("nz-widgetPanels-panel")[0];
-    const spy = sinon.spy(panel, "getBoundingClientRect");
+    const spy = vi.spyOn(panel, "getBoundingClientRect");
 
     const grip = container.getElementsByClassName("nz-widgetPanels-grip")[0];
     const handle = grip.getElementsByClassName("nz-handle")[0];
     fireEvent.mouseDown(handle);
     fireEvent.mouseMove(handle);
 
-    sinon.assert.called(spy);
+    expect(spy).toHaveBeenCalled();
   });
 });

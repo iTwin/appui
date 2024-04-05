@@ -2,16 +2,10 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import type { Primitives } from "@itwin/appui-abstract";
 import { CompositeTypeConverter } from "../../components-react/converters/CompositeTypeConverter";
-import TestUtils from "../TestUtils";
 
 describe("CompositeTypeConverter", () => {
-  before(async () => {
-    await TestUtils.initializeUiComponents();
-  });
-
   let converter: CompositeTypeConverter;
 
   beforeEach(() => {

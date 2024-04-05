@@ -5,9 +5,7 @@
 import { BentleyError } from "@itwin/core-bentley";
 import { prettyDOM } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { expect } from "chai";
 import * as React from "react";
-import type * as sinon from "sinon";
 import type { NineZoneState } from "../../appui-react/layout/state/NineZoneState";
 import type { TabState } from "../../appui-react/layout/state/TabState";
 import { addTab } from "../../appui-react/layout/state/internal/TabStateHelpers";
@@ -15,15 +13,6 @@ import { useContainersStore } from "../../appui-react/layout/widget/ContentManag
 import { useActiveSendBackWidgetIdStore } from "../../appui-react/layout/widget/SendBack";
 
 export { userEvent };
-
-before(() => {
-  window.requestAnimationFrame = (cb: FrameRequestCallback) => {
-    return window.setTimeout(cb, 1);
-  };
-  window.cancelAnimationFrame = (handle: number) => {
-    window.clearTimeout(handle);
-  };
-});
 
 const initialSendBackState = useActiveSendBackWidgetIdStore.getState();
 const initialContainersState = useContainersStore.getState();
@@ -47,36 +36,20 @@ export const createRect = (
   });
 
 /** @internal */
-export class ResizeObserverMock implements ResizeObserver {
-  public constructor(public readonly callback: ResizeObserverCallback) {}
+export function createResizeObserverMock() {
+  const callbacks: ResizeObserverCallback[] = [];
+  return class ResizeObserverMock implements ResizeObserver {
+    public constructor(public readonly callback: ResizeObserverCallback) {
+      callbacks.push(callback);
+    }
 
-  public observe(_: Element): void {}
+    public observe(_: Element): void {}
 
-  public unobserve(_: Element): void {}
+    public unobserve(_: Element): void {}
 
-  public disconnect(): void {}
+    public disconnect(): void {}
+  };
 }
-
-declare module "sinon" {
-  interface SinonStubStatic {
-    // eslint-disable-next-line @typescript-eslint/prefer-function-type
-    <T extends (...args: any) => any>(): sinon.SinonStub<
-      Parameters<T>,
-      ReturnType<T>
-    >;
-  }
-}
-
-/** @internal */
-export type SinonSpy<T extends (...args: any) => any> = sinon.SinonSpy<
-  Parameters<T>,
-  ReturnType<T>
->;
-/** @internal */
-export type SinonStub<T extends (...args: any) => any> = sinon.SinonStub<
-  Parameters<T>,
-  ReturnType<T>
->;
 
 /** Waits until all async operations finish */
 export async function flushAsyncOperations() {

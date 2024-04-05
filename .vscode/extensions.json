@@ -7,6 +7,7 @@
     "Orta.vscode-jest",
     "streetsidesoftware.code-spell-checker",
     "unifiedjs.vscode-mdx",
+    "vitest.explorer",
     "yzhang.markdown-all-in-one"
   ]
 }

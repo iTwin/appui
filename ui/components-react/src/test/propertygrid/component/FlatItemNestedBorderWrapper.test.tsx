@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
 import { render } from "@testing-library/react";
 import { FlatItemNestedBorderWrapper } from "../../../components-react/propertygrid/component/FlatItemNestedBorderWrapper";
@@ -56,7 +55,7 @@ describe("FlatItemNestedBorderWrapper", () => {
     const insideContent = container.querySelector(
       expectedSelector(".outerClass", 0, 0, ".content")
     );
-    expect(insideContent).to.not.be.null;
+    expect(insideContent).toBeTruthy();
   });
 
   it("renders inner content within class when item class set and border count 0", () => {
@@ -75,7 +74,7 @@ describe("FlatItemNestedBorderWrapper", () => {
     const insideContent = container.querySelector(
       expectedSelector(".outerClass", 0, 0, ".content", ".wrapper")
     );
-    expect(insideContent).to.not.be.null;
+    expect(insideContent).toBeTruthy();
   });
 
   it("renders correct amount of borders when item class set and border count 1", () => {
@@ -94,7 +93,7 @@ describe("FlatItemNestedBorderWrapper", () => {
     const insideContent = container.querySelector(
       expectedSelector(".outerClass", 1, 0, ".content", ".wrapper")
     );
-    expect(insideContent).to.not.be.null;
+    expect(insideContent).toBeTruthy();
   });
 
   it("renders correct amount of borders when item class set and border count 1 and bottom border count 1", () => {
@@ -114,7 +113,7 @@ describe("FlatItemNestedBorderWrapper", () => {
     const insideContent = container.querySelector(
       expectedSelector(".outerClass", 1, 1, ".content", ".wrapper")
     );
-    expect(insideContent).to.not.be.null;
+    expect(insideContent).toBeTruthy();
   });
 
   it("renders correct amount of borders when item class set and border count 1 and bottom border count 2", () => {
@@ -134,7 +133,7 @@ describe("FlatItemNestedBorderWrapper", () => {
     const insideContent = container.querySelector(
       expectedSelector(".outerClass", 1, 2, ".inner", ".inner_wrapper")
     );
-    expect(insideContent).to.not.be.null;
+    expect(insideContent).toBeTruthy();
   });
 
   it("renders correct amount of borders when item class set and border count 5 and bottom border count 2", () => {
@@ -154,7 +153,7 @@ describe("FlatItemNestedBorderWrapper", () => {
     const insideContent = container.querySelector(
       expectedSelector(".outerClass", 5, 2, ".inner", ".inner_wrapper")
     );
-    expect(insideContent).to.not.be.null;
+    expect(insideContent).toBeTruthy();
   });
 
   it("renders correct amount of borders when item class set and border count 10 and bottom border count 10", () => {
@@ -174,6 +173,6 @@ describe("FlatItemNestedBorderWrapper", () => {
     const insideContent = container.querySelector(
       expectedSelector(".outerClass", 10, 10, ".inner", ".inner_wrapper")
     );
-    expect(insideContent).to.not.be.null;
+    expect(insideContent).toBeTruthy();
   });
 });

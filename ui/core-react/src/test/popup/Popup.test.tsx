@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { RelativePosition } from "@itwin/appui-abstract";
 import type { RenderResult } from "@testing-library/react";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
@@ -86,12 +84,6 @@ describe("<Popup />", () => {
     theUserTo = userEvent.setup();
   });
 
-  const sandbox = sinon.createSandbox();
-
-  afterEach(() => {
-    sandbox.restore();
-  });
-
   it("should render popup if closed and keepContentsMounted", () => {
     const component = render(<Popup keepContentsMounted top={30} left={70} />);
     expect(component.getByTestId("core-popup")).to.exist;
@@ -141,11 +133,11 @@ describe("<Popup />", () => {
         </Popup>
       </div>
     );
-    expect(component).not.to.be.null;
-    expect(button).not.to.be.null;
-    expect(isOpen).to.be.false;
+    expect(component).toBeTruthy();
+    expect(button).toBeTruthy();
+    expect(isOpen).toEqual(false);
     fireEvent.click(button!);
-    expect(isOpen).to.be.true;
+    expect(isOpen).toEqual(true);
     component.rerender(
       <div>
         <button
@@ -168,7 +160,6 @@ describe("<Popup />", () => {
         </Popup>
       </div>
     );
-    // component.debug();
     const popup = component.getByTestId("core-popup");
     expect(popup).to.exist;
 
@@ -181,7 +172,7 @@ describe("<Popup />", () => {
       "button-to-have-focus"
     ) as HTMLButtonElement;
     const focusedElement = document.activeElement;
-    expect(focusedElement).to.eq(buttonWithFocus);
+    expect(focusedElement).toEqual(buttonWithFocus);
   });
 
   it("button opens popup and moves focus correctly (CSS Selector)", async () => {
@@ -216,11 +207,11 @@ describe("<Popup />", () => {
         </Popup>
       </div>
     );
-    expect(component).not.to.be.null;
-    expect(button).not.to.be.null;
-    expect(isOpen).to.be.false;
+    expect(component).toBeTruthy();
+    expect(button).toBeTruthy();
+    expect(isOpen).toEqual(false);
     fireEvent.click(button!);
-    expect(isOpen).to.be.true;
+    expect(isOpen).toEqual(true);
     component.rerender(
       <div>
         <button
@@ -249,7 +240,6 @@ describe("<Popup />", () => {
         </Popup>
       </div>
     );
-    // component.debug();
     const popup = component.getByTestId("core-popup");
     expect(popup).to.exist;
 
@@ -262,7 +252,7 @@ describe("<Popup />", () => {
       "button-to-have-focus"
     ) as HTMLButtonElement;
     const focusedElement = document.activeElement;
-    expect(focusedElement).to.eq(buttonWithFocus);
+    expect(focusedElement).toEqual(buttonWithFocus);
   });
 
   it("button opens popup and moves focus to first available", async () => {
@@ -286,11 +276,11 @@ describe("<Popup />", () => {
         </Popup>
       </div>
     );
-    expect(component).not.to.be.null;
-    expect(button).not.to.be.null;
-    expect(isOpen).to.be.false;
+    expect(component).toBeTruthy();
+    expect(button).toBeTruthy();
+    expect(isOpen).toEqual(false);
     fireEvent.click(button!);
-    expect(isOpen).to.be.true;
+    expect(isOpen).toEqual(true);
     component.rerender(
       <div>
         <button
@@ -308,7 +298,6 @@ describe("<Popup />", () => {
         </Popup>
       </div>
     );
-    // component.debug();
     const popup = component.getByTestId("core-popup");
     expect(popup).to.exist;
 
@@ -322,18 +311,18 @@ describe("<Popup />", () => {
       "focus-trap-limit-div"
     ) as HTMLDivElement;
     const inputOne = component.getByTestId("input-one") as HTMLInputElement;
-    expect(document.activeElement).to.eq(inputOne);
+    expect(document.activeElement).toEqual(inputOne);
     const inputTwo = component.getByTestId("input-two") as HTMLInputElement;
     inputTwo.focus();
-    expect(document.activeElement).to.eq(inputTwo as HTMLElement);
+    expect(document.activeElement).toEqual(inputTwo as HTMLElement);
 
     // if we hit top - reset focus to bottom
     topDiv.focus();
-    expect(document.activeElement).to.eq(inputTwo as HTMLElement);
+    expect(document.activeElement).toEqual(inputTwo as HTMLElement);
 
     // if we hit bottom - reset focus to top
     bottomDiv.focus();
-    expect(document.activeElement).to.eq(inputOne as HTMLElement);
+    expect(document.activeElement).toEqual(inputOne as HTMLElement);
   });
 
   it("popup and moves focus to first available (button)", async () => {
@@ -355,7 +344,7 @@ describe("<Popup />", () => {
       setTimeout(r, 80);
     });
     const activeFocusElement = document.activeElement;
-    expect(activeFocusElement).to.eq(component.getByTestId("item-one"));
+    expect(activeFocusElement).toEqual(component.getByTestId("item-one"));
   });
 
   it("popup and moves focus to first available (a)", async () => {
@@ -380,13 +369,12 @@ describe("<Popup />", () => {
     );
     expect(component.getByTestId("core-popup")).to.exist;
 
-    // component.debug();
     // wait for button to receive focus
     await new Promise((r) => {
       setTimeout(r, 80);
     });
     const activeFocusElement = document.activeElement;
-    expect(activeFocusElement).to.eq(component.getByTestId("item-one"));
+    expect(activeFocusElement).toEqual(component.getByTestId("item-one"));
   });
 
   it("popup and moves focus to first available (textarea)", async () => {
@@ -408,7 +396,7 @@ describe("<Popup />", () => {
       setTimeout(r, 80);
     });
     const activeFocusElement = document.activeElement;
-    expect(activeFocusElement).to.eq(component.getByTestId("item-one"));
+    expect(activeFocusElement).toEqual(component.getByTestId("item-one"));
   });
 
   it("popup should NOT close when click in nested popup", async () => {
@@ -423,10 +411,10 @@ describe("<Popup />", () => {
     expect(nestedButton).to.exist;
     fireEvent.click(nestedButton);
 
+    vi.stubGlobal("PointerEvent", MouseEvent);
     const mouseDown = new PointerEvent("pointerdown");
-    sinon.stub(mouseDown, "target").get(() => nestedButton);
+    vi.spyOn(mouseDown, "target", "get").mockImplementation(() => nestedButton);
     window.dispatchEvent(mouseDown);
-    // component.debug();
     nestedButton = component.getByTestId("NestedPopup-Button");
     expect(nestedButton).to.exist;
   });
@@ -445,7 +433,7 @@ describe("<Popup />", () => {
     expect(nestedButton).to.exist;
     await theUserTo.click(nestedButton);
 
-    expect(component.queryByTestId("NestedPopup-Button")).to.be.null;
+    expect(component.queryByTestId("NestedPopup-Button")).toEqual(null);
   });
 
   it("should remove animation", async () => {
@@ -482,17 +470,17 @@ describe("<Popup />", () => {
 
   describe("componentDidUpdate", () => {
     it("should call onOpen", () => {
-      const spyOnOpen = sinon.spy();
+      const spyOnOpen = vi.fn();
       const { rerender } = render(<Popup onOpen={spyOnOpen} />);
       rerender(<Popup onOpen={spyOnOpen} isOpen={true} />);
-      expect(spyOnOpen.calledOnce).to.be.true;
+      expect(spyOnOpen).toHaveBeenCalledOnce();
     });
 
     it("should call onClose", () => {
-      const spyOnClose = sinon.spy();
+      const spyOnClose = vi.fn();
       const { rerender } = render(<Popup isOpen onClose={spyOnClose} />);
       rerender(<Popup isOpen={false} onClose={spyOnClose} />);
-      expect(spyOnClose.calledOnce).to.be.true;
+      expect(spyOnClose).toHaveBeenCalledOnce();
     });
   });
 
@@ -503,9 +491,9 @@ describe("<Popup />", () => {
     beforeEach(() => {
       divWrapper = render(<div data-testid="test-target" />);
       targetElement = divWrapper.getByTestId("test-target");
-      sinon
-        .stub(targetElement, "getBoundingClientRect")
-        .returns(DOMRect.fromRect({ x: 100, y: 100, height: 50, width: 50 }));
+      vi.spyOn(targetElement, "getBoundingClientRect").mockReturnValue(
+        DOMRect.fromRect({ x: 100, y: 100, height: 50, width: 50 })
+      );
     });
 
     afterEach(() => {
@@ -612,11 +600,13 @@ describe("<Popup />", () => {
         expectedClass,
       ]) => {
         it(`should reposition ${testedPosition} to ${expectedClass}`, () => {
-          sandbox.stub(window, windowMethod).get(() => windowMethodReturn);
+          vi.spyOn(window, windowMethod as any, "get").mockImplementation(
+            () => windowMethodReturn as any
+          );
           const target = document.createElement("div");
-          sinon
-            .stub(target, "getBoundingClientRect")
-            .returns(DOMRect.fromRect(rect));
+          vi.spyOn(target, "getBoundingClientRect").mockReturnValue(
+            DOMRect.fromRect(rect)
+          );
 
           const { rerender } = render(
             <Popup
@@ -639,11 +629,11 @@ describe("<Popup />", () => {
     );
 
     it("should not reposition on bottom overflow", () => {
-      sandbox.stub(window, "innerHeight").get(() => 900);
+      vi.spyOn(window, "innerHeight", "get").mockImplementation(() => 900);
       const target = document.createElement("div");
-      sinon
-        .stub(target, "getBoundingClientRect")
-        .returns(DOMRect.fromRect({ y: 100, height: 900 }));
+      vi.spyOn(target, "getBoundingClientRect").mockReturnValue(
+        DOMRect.fromRect({ y: 100, height: 900 })
+      );
 
       const { rerender } = render(
         <Popup position={RelativePosition.Top} target={target} />
@@ -657,11 +647,11 @@ describe("<Popup />", () => {
     });
 
     it("should not reposition on right overflow", () => {
-      sandbox.stub(window, "innerWidth").get(() => 1000);
+      vi.spyOn(window, "innerWidth", "get").mockImplementation(() => 1000);
       const target = document.createElement("div");
-      sinon
-        .stub(target, "getBoundingClientRect")
-        .returns(DOMRect.fromRect({ x: 100, width: 1000 }));
+      vi.spyOn(target, "getBoundingClientRect").mockReturnValue(
+        DOMRect.fromRect({ x: 100, width: 1000 })
+      );
 
       const { rerender } = render(
         <Popup position={RelativePosition.Left} target={target} />
@@ -677,7 +667,7 @@ describe("<Popup />", () => {
 
   describe("outside click", () => {
     it("should call onOutsideClick", async () => {
-      const spy = sinon.spy();
+      const spy = vi.fn();
       render(
         <>
           <button />
@@ -687,11 +677,11 @@ describe("<Popup />", () => {
 
       await theUserTo.click(screen.getByRole("button"));
 
-      expect(spy).to.be.calledOnce;
+      expect(spy).toHaveBeenCalledOnce();
     });
 
     it("should close on click outside without onOutsideClick", async () => {
-      const spyOnClose = sinon.spy();
+      const spyOnClose = vi.fn();
       render(
         <>
           <button />
@@ -701,11 +691,11 @@ describe("<Popup />", () => {
 
       await theUserTo.click(screen.getByRole("button"));
 
-      spyOnClose.calledOnce.should.true;
+      expect(spyOnClose).toHaveBeenCalledOnce();
     });
 
     it("should not close on click outside if pinned", async () => {
-      const spyOnClose = sinon.spy();
+      const spyOnClose = vi.fn();
       render(
         <>
           <button />
@@ -715,14 +705,14 @@ describe("<Popup />", () => {
 
       await theUserTo.click(screen.getByRole("button"));
 
-      spyOnClose.calledOnce.should.false;
+      expect(spyOnClose).not.toBeCalled();
       expect(classesFromElement(screen.getByRole("dialog"))).to.not.include(
         "core-popup-hidden"
       );
     });
 
     it("should not close on popup content click", async () => {
-      const spyOnClose = sinon.spy();
+      const spyOnClose = vi.fn();
       render(
         <Popup isOpen onClose={spyOnClose}>
           <button />
@@ -731,7 +721,7 @@ describe("<Popup />", () => {
 
       await theUserTo.click(screen.getByRole("button"));
 
-      spyOnClose.calledOnce.should.false;
+      expect(spyOnClose).not.toBeCalled();
       expect(classesFromElement(screen.getByRole("dialog"))).to.not.include(
         "core-popup-hidden"
       );
@@ -741,7 +731,7 @@ describe("<Popup />", () => {
       render(<button />);
       const target = screen.getByRole("button");
 
-      const spyOnClose = sinon.spy();
+      const spyOnClose = vi.fn();
       render(
         <>
           <input />
@@ -751,92 +741,102 @@ describe("<Popup />", () => {
 
       await theUserTo.click(target);
 
-      spyOnClose.calledOnce.should.false;
+      expect(spyOnClose).not.toBeCalled();
       expect(classesFromElement(screen.getByRole("dialog"))).to.not.include(
         "core-popup-hidden"
       );
 
       // Sanity check that it would indeed close...
       await theUserTo.click(screen.getByRole("textbox"));
-      spyOnClose.calledOnce.should.true;
+      expect(spyOnClose).toHaveBeenCalledOnce();
     });
   });
 
   describe("scrolling", () => {
     it("should hide when scrolling", async () => {
-      const spyOnClose = sinon.spy();
+      const spyOnClose = vi.fn();
       render(<Popup isOpen onClose={spyOnClose} />);
 
       // Using this as user-event do not support scrolling: https://github.com/testing-library/user-event/issues/475
       const scroll = new WheelEvent("wheel");
-      sinon.stub(scroll, "target").get(() => document.createElement("div"));
+      vi.spyOn(scroll, "target", "get").mockImplementation(() =>
+        document.createElement("div")
+      );
       window.dispatchEvent(scroll);
 
-      await waitFor(() => expect(spyOnClose).to.be.calledOnce);
+      await waitFor(() => expect(spyOnClose).toHaveBeenCalledOnce());
     });
 
     it("should not hide when scrolling popup content", () => {
-      const spyOnClose = sinon.spy();
+      const spyOnClose = vi.fn();
       render(<Popup isOpen onClose={spyOnClose} />);
 
       const scroll = new WheelEvent("wheel");
-      sinon.stub(scroll, "target").get(() => screen.getByRole("dialog"));
+      vi.spyOn(scroll, "target", "get").mockImplementation(() =>
+        screen.getByRole("dialog")
+      );
       window.dispatchEvent(scroll);
 
-      expect(spyOnClose).to.not.be.called;
+      expect(spyOnClose).not.toBeCalled();
       expect(classesFromElement(screen.getByRole("dialog"))).to.not.include(
         "core-popup-hidden"
       );
     });
 
     it("should not hide when scrolling if pinned", () => {
-      const spyOnClose = sinon.spy();
+      const spyOnClose = vi.fn();
       render(<Popup isOpen isPinned onClose={spyOnClose} />);
 
       const scroll = new WheelEvent("wheel");
-      sinon.stub(scroll, "target").get(() => document.createElement("div"));
+      vi.spyOn(scroll, "target", "get").mockImplementation(() =>
+        document.createElement("div")
+      );
       window.dispatchEvent(scroll);
 
-      expect(spyOnClose).to.not.be.called;
+      expect(spyOnClose).not.toBeCalled();
       expect(classesFromElement(screen.getByRole("dialog"))).to.not.include(
         "core-popup-hidden"
       );
     });
 
     it("should not hide when scrolling if closeOnWheel=false", () => {
-      const spyOnClose = sinon.spy();
+      const spyOnClose = vi.fn();
       render(<Popup isOpen closeOnWheel={false} onClose={spyOnClose} />);
 
       const scroll = new WheelEvent("wheel");
-      sinon.stub(scroll, "target").get(() => document.createElement("div"));
+      vi.spyOn(scroll, "target", "get").mockImplementation(() =>
+        document.createElement("div")
+      );
       window.dispatchEvent(scroll);
 
-      expect(spyOnClose).to.not.be.called;
+      expect(spyOnClose).not.toBeCalled();
       expect(classesFromElement(screen.getByRole("dialog"))).to.not.include(
         "core-popup-hidden"
       );
     });
 
     it("should not hide when scrolling if onWheel prop is passed", () => {
-      const spyWheel = sinon.spy();
-      const spyOnClose = sinon.spy();
+      const spyWheel = vi.fn();
+      const spyOnClose = vi.fn();
       render(<Popup isOpen onWheel={spyWheel} onClose={spyOnClose} />);
 
       const scroll = new WheelEvent("wheel");
-      sinon.stub(scroll, "target").get(() => document.createElement("div"));
+      vi.spyOn(scroll, "target", "get").mockImplementation(() =>
+        document.createElement("div")
+      );
       window.dispatchEvent(scroll);
 
-      expect(spyOnClose).to.not.be.called;
+      expect(spyOnClose).not.toBeCalled();
       expect(classesFromElement(screen.getByRole("dialog"))).to.not.include(
         "core-popup-hidden"
       );
-      expect(spyWheel).to.be.called;
+      expect(spyWheel).toHaveBeenCalled();
     });
   });
 
   describe("context menu", () => {
     it("should hide when context menu used", async () => {
-      const spyOnClose = sinon.spy();
+      const spyOnClose = vi.fn();
       render(
         <>
           <div data-testid={"outside"} />
@@ -845,115 +845,115 @@ describe("<Popup />", () => {
       );
 
       const contextMenu = new MouseEvent("contextmenu");
-      sinon
-        .stub(contextMenu, "target")
-        .get(() => document.createElement("div"));
+      vi.spyOn(contextMenu, "target", "get").mockImplementation(() =>
+        document.createElement("div")
+      );
       window.dispatchEvent(contextMenu);
 
-      await waitFor(() => expect(spyOnClose).to.be.calledOnce);
+      await waitFor(() => expect(spyOnClose).toHaveBeenCalledOnce());
     });
 
     it("should not hide when context menu used popup content", () => {
-      const spyOnClose = sinon.spy();
+      const spyOnClose = vi.fn();
       render(<Popup isOpen onClose={spyOnClose} />);
       const popup = screen.getByRole("dialog");
 
       const contextMenu = new MouseEvent("contextmenu");
-      sinon.stub(contextMenu, "target").get(() => popup);
+      vi.spyOn(contextMenu, "target", "get").mockImplementation(() => popup);
       window.dispatchEvent(contextMenu);
 
-      expect(spyOnClose).to.not.be.called;
+      expect(spyOnClose).not.toBeCalled();
       expect(classesFromElement(screen.getByRole("dialog"))).to.not.include(
         "core-popup-hidden"
       );
     });
 
     it("should not hide when context menu used if pinned", () => {
-      const spyOnClose = sinon.spy();
+      const spyOnClose = vi.fn();
       render(<Popup isOpen isPinned onClose={spyOnClose} />);
 
       const contextMenu = new MouseEvent("contextmenu");
-      sinon
-        .stub(contextMenu, "target")
-        .get(() => document.createElement("div"));
+      vi.spyOn(contextMenu, "target", "get").mockImplementation(() =>
+        document.createElement("div")
+      );
       window.dispatchEvent(contextMenu);
 
-      expect(spyOnClose).to.not.be.called;
+      expect(spyOnClose).not.toBeCalled();
       expect(classesFromElement(screen.getByRole("dialog"))).to.not.include(
         "core-popup-hidden"
       );
     });
 
     it("should not hide when context menu used if closeOnContextMenu=false", () => {
-      const spyOnClose = sinon.spy();
+      const spyOnClose = vi.fn();
       render(<Popup isOpen closeOnContextMenu={false} onClose={spyOnClose} />);
 
       const contextMenu = new MouseEvent("contextmenu");
-      sinon
-        .stub(contextMenu, "target")
-        .get(() => document.createElement("div"));
+      vi.spyOn(contextMenu, "target", "get").mockImplementation(() =>
+        document.createElement("div")
+      );
       window.dispatchEvent(contextMenu);
 
-      expect(spyOnClose).to.not.be.called;
+      expect(spyOnClose).not.toBeCalled();
       expect(classesFromElement(screen.getByRole("dialog"))).to.not.include(
         "core-popup-hidden"
       );
     });
 
     it("should not hide when context menu used if onContextMenu prop is passed", () => {
-      const spyOnClose = sinon.spy();
-      const spyContextMenu = sinon.spy();
+      const spyOnClose = vi.fn();
+      const spyContextMenu = vi.fn();
       render(
         <Popup isOpen onContextMenu={spyContextMenu} onClose={spyOnClose} />
       );
 
       const contextMenu = new MouseEvent("contextmenu");
-      sinon
-        .stub(contextMenu, "target")
-        .get(() => document.createElement("div"));
+      vi.spyOn(contextMenu, "target", "get").mockImplementation(() =>
+        document.createElement("div")
+      );
       window.dispatchEvent(contextMenu);
 
-      expect(spyOnClose).to.not.be.called;
+      expect(spyOnClose).not.toBeCalled();
       expect(classesFromElement(screen.getByRole("dialog"))).to.not.include(
         "core-popup-hidden"
       );
-      expect(spyContextMenu).to.be.called;
+      expect(spyContextMenu).toHaveBeenCalled();
     });
   });
 
   describe("keyboard handling", () => {
     it("should call onClose on Escape", async () => {
-      const spyOnClose = sinon.spy();
+      const spyOnClose = vi.fn();
       render(<Popup isOpen onClose={spyOnClose} />);
 
       await theUserTo.keyboard("[Escape]");
 
-      spyOnClose.calledOnce.should.true;
+      expect(spyOnClose).toHaveBeenCalledOnce();
     });
 
     it("should call onClose on Enter", async () => {
-      const spyOnClose = sinon.spy();
-      const spyOnEnter = sinon.spy();
+      const spyOnClose = vi.fn();
+      const spyOnEnter = vi.fn();
       render(<Popup isOpen onClose={spyOnClose} onEnter={spyOnEnter} />);
 
       await theUserTo.keyboard("[Enter]");
 
-      spyOnClose.calledOnce.should.true;
-      spyOnEnter.calledOnce.should.true;
+      expect(spyOnClose).toHaveBeenCalledOnce();
+      expect(spyOnEnter).toHaveBeenCalledOnce();
     });
 
     it("should call onEnter on Enter", async () => {
-      const spyOnEnter = sinon.spy();
+      const spyOnEnter = vi.fn();
       render(<Popup isOpen onEnter={spyOnEnter} />);
 
       await theUserTo.keyboard("[Enter]");
 
-      spyOnEnter.calledOnce.should.true;
+      expect(spyOnEnter).toHaveBeenCalledOnce();
     });
 
     it("should not call onClose on Enter if closeOnEnter=false", async () => {
-      const spyOnClose = sinon.spy();
-      const spyOnEnter = sinon.spy();
+      const spyOnClose = vi.fn();
+      const spyOnEnter = vi.fn();
       render(
         <Popup
           isOpen
@@ -965,12 +965,12 @@ describe("<Popup />", () => {
 
       await theUserTo.keyboard("[Enter]");
 
-      spyOnClose.calledOnce.should.false;
-      spyOnEnter.calledOnce.should.true;
+      expect(spyOnClose).not.toBeCalled();
+      expect(spyOnEnter).toHaveBeenCalledOnce();
     });
 
     it("should not call onClose on 'a'", async () => {
-      const spyOnClose = sinon.spy();
+      const spyOnClose = vi.fn();
       render(
         <Popup isOpen onClose={spyOnClose}>
           <div>fake content</div>
@@ -979,45 +979,45 @@ describe("<Popup />", () => {
 
       await theUserTo.keyboard("a");
 
-      spyOnClose.calledOnce.should.false;
+      expect(spyOnClose).not.toBeCalled();
     });
 
     it("should not call onClose if Pinned", async () => {
-      const spyOnClose = sinon.spy();
+      const spyOnClose = vi.fn();
       render(<Popup isOpen onClose={spyOnClose} isPinned />);
 
       await theUserTo.keyboard("[Escape]");
 
-      spyOnClose.calledOnce.should.false;
+      expect(spyOnClose).not.toBeCalled();
     });
 
     it("should not call onClose if not open", async () => {
-      const spyOnClose = sinon.spy();
+      const spyOnClose = vi.fn();
       const { rerender } = render(<Popup isOpen onClose={spyOnClose} />);
       rerender(<Popup isOpen={false} onClose={spyOnClose} />);
-      spyOnClose.resetHistory();
+      spyOnClose.mockReset();
 
       await theUserTo.keyboard("[Escape]");
 
-      spyOnClose.notCalled.should.true;
+      expect(spyOnClose).not.toBeCalled();
     });
 
     it("should call onClose on resize event (default behavior)", async () => {
-      const spyOnClose = sinon.spy();
+      const spyOnClose = vi.fn();
       render(<Popup isOpen onClose={spyOnClose} />);
 
       window.dispatchEvent(new UIEvent("resize"));
 
-      await waitFor(() => expect(spyOnClose.callCount).to.equal(1));
+      await waitFor(() => expect(spyOnClose).toHaveBeenCalledOnce());
     });
 
     it("should not call onClose on resize event (reposition switch)", () => {
-      const spyOnClose = sinon.spy();
+      const spyOnClose = vi.fn();
       render(<Popup isOpen repositionOnResize={true} onClose={spyOnClose} />);
 
       window.dispatchEvent(new UIEvent("resize"));
 
-      spyOnClose.calledOnce.should.false;
+      expect(spyOnClose).not.toBeCalled();
     });
   });
 });

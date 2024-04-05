@@ -14,7 +14,7 @@ import {
   ConditionalStringValue,
   ToolbarItemUtilities,
 } from "@itwin/appui-abstract";
-import { BadgeUtilities, IconHelper } from "@itwin/core-react";
+import { Badge, IconHelper } from "@itwin/core-react";
 import { BackArrow } from "./groupPanel/BackArrow";
 import { GroupColumn } from "./groupPanel/Column";
 import { Columns } from "./groupPanel/Columns";
@@ -134,9 +134,6 @@ export function PopupItemsPanel(props: PopupItemsPanelProps) {
       columnToItems.map((columnItems, columnIndex) => (
         <GroupColumn key={columnIndex}>
           {columnItems.map((panelItem) => {
-            const badge = BadgeUtilities.getComponentForBadgeType(
-              panelItem.badgeType
-            );
             const icon = IconHelper.getIconReactNode(
               panelItem.icon,
               panelItem.internalData
@@ -151,7 +148,7 @@ export function PopupItemsPanel(props: PopupItemsPanelProps) {
                   key={panelItem.id}
                   label={label}
                   icon={icon}
-                  badge={badge}
+                  badge={<Badge type={panelItem.badgeType} />}
                   item={panelItem}
                   onClick={handleGroupItemClick}
                 />
@@ -170,7 +167,7 @@ export function PopupItemsPanel(props: PopupItemsPanelProps) {
                 item={panelItem}
                 onClick={handleActionItemClick}
                 onPointerUp={handleOnPointerUp}
-                badge={badge}
+                badge={<Badge type={panelItem.badgeType} />}
               />
             );
           })}

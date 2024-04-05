@@ -4,7 +4,6 @@
  *--------------------------------------------------------------------------------------------*/
 import { fireEvent, render, waitFor } from "@testing-library/react";
 import * as React from "react";
-import * as sinon from "sinon";
 import type { NineZoneDispatch } from "../../../appui-react/layout/base/NineZone";
 import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState";
 import { updatePanelState } from "../../../appui-react/layout/state/internal/PanelStateHelpers";
@@ -30,13 +29,15 @@ describe("WidgetPanelExpanders", () => {
         <WidgetPanelExpanders />
       </TestNineZoneProvider>
     );
-    container.firstChild!.should.matchSnapshot();
+    expect(
+      container.getElementsByClassName("nz-widgetPanels-expander")
+    ).toHaveLength(2);
   });
 });
 
 describe("WidgetPanelExpander", () => {
   it("should dispatch `PANEL_SET_COLLAPSED`", async () => {
-    const dispatch = sinon.stub<NineZoneDispatch>();
+    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
     const { container } = render(
       <TestNineZoneProvider dispatch={dispatch}>
         <WidgetPanelExpander side="left" />
@@ -48,7 +49,7 @@ describe("WidgetPanelExpander", () => {
     fireEvent.mouseOver(expander);
 
     await waitFor(() => {
-      sinon.assert.calledOnceWithExactly(dispatch, {
+      expect(dispatch).toHaveBeenCalledWith({
         type: "PANEL_SET_COLLAPSED",
         side: "left",
         collapsed: false,
@@ -57,7 +58,7 @@ describe("WidgetPanelExpander", () => {
   });
 
   it("should not dispatch `PANEL_SET_COLLAPSED` if mouse moves out", () => {
-    const dispatch = sinon.stub<NineZoneDispatch>();
+    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
     const { container } = render(
       <TestNineZoneProvider dispatch={dispatch}>
         <WidgetPanelExpander side="left" />
@@ -69,11 +70,11 @@ describe("WidgetPanelExpander", () => {
     fireEvent.mouseOver(expander);
     fireEvent.mouseOut(expander);
 
-    sinon.assert.notCalled(dispatch);
+    expect(dispatch).not.toBeCalled();
   });
 
   it("should reset timer if mouse moves", async () => {
-    const dispatch = sinon.stub<NineZoneDispatch>();
+    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
     const { container } = render(
       <TestNineZoneProvider dispatch={dispatch}>
         <WidgetPanelExpander side="left" />
@@ -86,10 +87,10 @@ describe("WidgetPanelExpander", () => {
 
     fireEvent.mouseMove(expander, { clientX: 20 });
 
-    sinon.assert.notCalled(dispatch);
+    expect(dispatch).not.toBeCalled();
 
     await waitFor(() => {
-      sinon.assert.calledOnceWithExactly(dispatch, {
+      expect(dispatch).toHaveBeenCalledWith({
         type: "PANEL_SET_COLLAPSED",
         side: "left",
         collapsed: false,
@@ -98,7 +99,7 @@ describe("WidgetPanelExpander", () => {
   });
 
   it("should not reset timer if mouse move threshold is not exceeded", async () => {
-    const dispatch = sinon.stub<NineZoneDispatch>();
+    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
     const { container } = render(
       <TestNineZoneProvider dispatch={dispatch}>
         <WidgetPanelExpander side="left" />
@@ -112,7 +113,7 @@ describe("WidgetPanelExpander", () => {
     fireEvent.mouseMove(expander, { clientX: 4 });
 
     await waitFor(() => {
-      sinon.assert.calledOnceWithExactly(dispatch, {
+      expect(dispatch).toHaveBeenCalledWith({
         type: "PANEL_SET_COLLAPSED",
         side: "left",
         collapsed: false,

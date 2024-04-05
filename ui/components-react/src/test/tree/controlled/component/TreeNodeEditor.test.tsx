@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import sinon from "sinon";
 import { act, fireEvent, render, waitFor } from "@testing-library/react";
 import { TreeNodeEditor } from "../../../../components-react/tree/controlled/component/TreeNodeEditor";
 import type { MutableTreeModelNode } from "../../../../components-react/tree/controlled/TreeModel";
@@ -26,7 +24,7 @@ describe("TreeNodeEditor", () => {
   });
 
   it("calls onCommit callback when change is committed", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const { getByTestId } = render(
       <TreeNodeEditor node={testNode} onCommit={spy} onCancel={() => {}} />
     );
@@ -36,12 +34,12 @@ describe("TreeNodeEditor", () => {
       fireEvent.keyDown(editorContainer, { key: "Enter", code: 13 });
     });
     await waitFor(() => {
-      expect(spy).to.be.calledOnce;
+      expect(spy).toHaveBeenCalledOnce();
     });
   });
 
   it("calls onCancel callback when editing is canceled", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const { getByTestId } = render(
       <TreeNodeEditor node={testNode} onCommit={() => {}} onCancel={spy} />
     );
@@ -51,7 +49,7 @@ describe("TreeNodeEditor", () => {
       fireEvent.keyDown(editorContainer, { key: "Escape", code: 27 });
     });
     await waitFor(() => {
-      expect(spy).to.be.calledOnce;
+      expect(spy).toHaveBeenCalledOnce();
     });
   });
 

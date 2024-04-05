@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import { reuseOrCreatePromise } from "../../core-react/utils/reuseOrCreatePromise";
-import * as sinon from "sinon";
 
 async function getString(str: string) {
   return str;
@@ -20,13 +18,13 @@ describe("reuseOrCreatePromise", () => {
       cache
     );
 
-    expect(result).to.eq("firstResult");
+    expect(result).toEqual("firstResult");
   });
 
   it("should not create but return existing on subsequent call", async () => {
     const cache = new Map<string, Promise<string>>();
-    const spy1 = sinon.spy();
-    const spy2 = sinon.spy();
+    const spy1 = vi.fn();
+    const spy2 = vi.fn();
 
     const first = await reuseOrCreatePromise(
       "second",
@@ -46,16 +44,16 @@ describe("reuseOrCreatePromise", () => {
       cache
     );
 
-    expect(first).to.eq("secondResult");
-    expect(second).to.eq("secondResult");
-    expect(spy1).has.been.calledOnce;
-    expect(spy2).has.not.been.called;
+    expect(first).toEqual("secondResult");
+    expect(second).toEqual("secondResult");
+    expect(spy1).toHaveBeenCalledOnce();
+    expect(spy2).not.toBeCalled();
   });
 
   it("should create new on failure", async () => {
     const cache = new Map<string, Promise<string>>();
-    const spy1 = sinon.spy();
-    const spy2 = sinon.spy();
+    const spy1 = vi.fn();
+    const spy2 = vi.fn();
 
     const first = await reuseOrCreatePromise(
       "second",
@@ -75,9 +73,9 @@ describe("reuseOrCreatePromise", () => {
       cache
     );
 
-    expect(first).to.eq("Error: Failure");
-    expect(second).to.eq("secondResult");
-    expect(spy1).has.been.calledOnce;
-    expect(spy2).has.been.calledOnce;
+    expect(first).toEqual("Error: Failure");
+    expect(second).toEqual("secondResult");
+    expect(spy1).toHaveBeenCalledOnce();
+    expect(spy2).toHaveBeenCalledOnce();
   });
 });

@@ -3,8 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
-import * as sinon from "sinon";
 import { renderHook } from "@testing-library/react-hooks";
 import { ToolActivatedEvent } from "../../appui-react";
 import { useActiveToolIdSynchedItems } from "../../appui-react/toolbar/useActiveToolIdSynchedItems";
@@ -22,7 +20,7 @@ describe("useActiveToolIdSynchedItems", () => {
     });
 
     expect(result.current).to.not.eq(items);
-    expect(result.current[0].isActive).to.be.true;
+    expect(result.current[0].isActive).toEqual(true);
   });
 
   it("Should update items on event", () => {
@@ -42,8 +40,8 @@ describe("useActiveToolIdSynchedItems", () => {
     syncHost.activeToolId = "Btn1";
     syncHost.onToolActivatedEvent.emit({ toolId: "Btn2" });
 
-    expect(result.current[0].isActive).to.be.false;
-    expect(result.current[1].isActive).to.be.true;
+    expect(result.current[0].isActive).toEqual(false);
+    expect(result.current[1].isActive).toEqual(true);
   });
 
   it("Should return same items if change do not cause refresh", () => {
@@ -61,7 +59,7 @@ describe("useActiveToolIdSynchedItems", () => {
 
     syncHost.onToolActivatedEvent.emit({ toolId: "Btn1" });
 
-    expect(result.current).to.eq(first);
+    expect(result.current).toEqual(first);
   });
   it("Should support nested items", () => {
     const items = [
@@ -86,8 +84,8 @@ describe("useActiveToolIdSynchedItems", () => {
     });
 
     syncHost.onToolActivatedEvent.emit({ toolId: "Btn2" });
-    expect(result.current[1].isActive).to.be.false;
-    expect(result.current[0].items?.[1].items?.[0].isActive).to.be.true;
+    expect(result.current[1].isActive).toEqual(false);
+    expect(result.current[0].items?.[1].items?.[0].isActive).toEqual(true);
   });
 
   it("Should properly unregister from onToolActivatedEvent", () => {
@@ -96,13 +94,13 @@ describe("useActiveToolIdSynchedItems", () => {
       activeToolId: "Btn1",
       onToolActivatedEvent: new ToolActivatedEvent(),
     };
-    const spy = sinon.spy(syncHost.onToolActivatedEvent, "removeListener");
+    const spy = vi.spyOn(syncHost.onToolActivatedEvent, "removeListener");
     const { unmount } = renderHook(() => {
       return useActiveToolIdSynchedItems(items, syncHost);
     });
 
-    expect(spy.called).to.be.false;
+    expect(spy).not.toBeCalled();
     unmount();
-    expect(spy.called).to.be.true;
+    expect(spy).toHaveBeenCalled();
   });
 });

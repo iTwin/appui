@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
 import { act, fireEvent, render, within } from "@testing-library/react";
 import {
@@ -34,15 +33,15 @@ describe("UiSettingsPage", () => {
 
   function getInputBySpanTitle(titleSpan: HTMLElement) {
     const settingsItemDiv = titleSpan.parentElement?.parentElement;
-    expect(settingsItemDiv).not.to.be.undefined;
+    expect(settingsItemDiv).toBeTruthy();
     return settingsItemDiv!.querySelector("input");
   }
 
   it("renders using getUiSettingsManagerEntry", async () => {
     const tabEntry = getUiSettingsManagerEntry(5);
     const wrapper = render(tabEntry.page);
-    expect(wrapper).not.to.be.undefined;
-    expect(wrapper.container.querySelectorAll("span.title").length).to.eq(11);
+    expect(wrapper).toBeTruthy();
+    expect(wrapper.container.querySelectorAll("span.title").length).toEqual(11);
     wrapper.unmount();
   });
 
@@ -64,37 +63,37 @@ describe("UiSettingsPage", () => {
 
     await openMenu();
     fireEvent.click(menu().getByText("settings.uiSettingsPage.dark"));
-    expect(UiFramework.getColorTheme()).to.eq(ColorTheme.Dark);
+    expect(UiFramework.getColorTheme()).toEqual(ColorTheme.Dark);
 
     await openMenu();
     fireEvent.click(menu().getByText("settings.uiSettingsPage.light"));
-    expect(UiFramework.getColorTheme()).to.eq(ColorTheme.Light);
+    expect(UiFramework.getColorTheme()).toEqual(ColorTheme.Light);
 
     await openMenu();
     fireEvent.click(
       menu().getByText("settings.uiSettingsPage.lightHighContrast")
     );
-    expect(UiFramework.getColorTheme()).to.eq(ColorTheme.HighContrastLight);
+    expect(UiFramework.getColorTheme()).toEqual(ColorTheme.HighContrastLight);
 
     await openMenu();
     fireEvent.click(
       menu().getByText("settings.uiSettingsPage.darkHighContrast")
     );
-    expect(UiFramework.getColorTheme()).to.eq(ColorTheme.HighContrastDark);
+    expect(UiFramework.getColorTheme()).toEqual(ColorTheme.HighContrastDark);
   });
 
   it("renders set widget opacity", async () => {
     const wrapper = render(<UiSettingsPage />);
     const thumb = wrapper.getAllByRole("slider")[1];
 
-    expect(UiFramework.getWidgetOpacity()).to.eq(0.9);
-    expect(thumb.getAttribute("aria-valuenow")).to.eq("0.9");
+    expect(UiFramework.getWidgetOpacity()).toEqual(0.9);
+    expect(thumb.getAttribute("aria-valuenow")).toEqual("0.9");
 
     act(() => {
       UiFramework.setWidgetOpacity(0.5);
     });
     expect(UiFramework.getWidgetOpacity()).equals(0.5);
-    expect(thumb.getAttribute("aria-valuenow")).to.eq("0.5");
+    expect(thumb.getAttribute("aria-valuenow")).toEqual("0.5");
   });
 
   it("renders  set toolbar opacity", async () => {
@@ -102,38 +101,38 @@ describe("UiSettingsPage", () => {
     const thumb = wrapper.getAllByRole("slider")[0];
 
     // Default
-    expect(UiFramework.getToolbarOpacity()).to.eq(0.5);
-    expect(thumb.getAttribute("aria-valuenow")).to.eq("0.5");
+    expect(UiFramework.getToolbarOpacity()).toEqual(0.5);
+    expect(thumb.getAttribute("aria-valuenow")).toEqual("0.5");
 
     act(() => {
       UiFramework.setToolbarOpacity(0.9);
     });
-    expect(UiFramework.getToolbarOpacity()).to.eq(0.9);
-    expect(thumb.getAttribute("aria-valuenow")).to.eq("0.9");
+    expect(UiFramework.getToolbarOpacity()).toEqual(0.9);
+    expect(thumb.getAttribute("aria-valuenow")).toEqual("0.9");
   });
 
   it("renders toggle auto-hide", async () => {
     const wrapper = render(<UiSettingsPage />);
-    expect(wrapper).not.to.be.undefined;
+    expect(wrapper).toBeTruthy();
     const autoHideSpan = wrapper.getByText(
       "settings.uiSettingsPage.autoHideTitle"
     );
     const checkbox = getInputBySpanTitle(autoHideSpan);
-    expect(checkbox).not.to.be.null;
+    expect(checkbox).toBeTruthy();
     fireEvent.click(checkbox!);
     await TestUtils.flushAsyncOperations();
-    expect(checkbox?.checked).to.be.false; // defaults to true so this should make if false
+    expect(checkbox?.checked).toEqual(false); // defaults to true so this should make if false
     fireEvent.click(checkbox!);
     await TestUtils.flushAsyncOperations();
-    expect(checkbox?.checked).to.be.true;
-    expect(wrapper.container.querySelectorAll("span.title").length).to.eq(11);
+    expect(checkbox?.checked).toEqual(true);
+    expect(wrapper.container.querySelectorAll("span.title").length).toEqual(11);
     wrapper.unmount();
   });
 
   it("renders toggle drag interaction", async () => {
     await TestUtils.flushAsyncOperations();
     const wrapper = render(<UiSettingsPage />);
-    expect(wrapper).not.to.be.undefined;
+    expect(wrapper).toBeTruthy();
 
     const titleSpan = wrapper.getByText(
       "settings.uiSettingsPage.dragInteractionTitle"
@@ -141,17 +140,17 @@ describe("UiSettingsPage", () => {
     const checkbox = getInputBySpanTitle(titleSpan);
     fireEvent.click(checkbox!);
     await TestUtils.flushAsyncOperations();
-    expect(checkbox?.checked).to.be.true;
+    expect(checkbox?.checked).toEqual(true);
     fireEvent.click(checkbox!);
     await TestUtils.flushAsyncOperations();
-    expect(checkbox?.checked).to.be.false;
+    expect(checkbox?.checked).toEqual(false);
     wrapper.unmount();
   });
 
   it("renders toggle useProximityOpacity", async () => {
     await TestUtils.flushAsyncOperations();
     const wrapper = render(<UiSettingsPage />);
-    expect(wrapper).not.to.be.undefined;
+    expect(wrapper).toBeTruthy();
 
     const titleSpan = wrapper.getByText(
       "settings.uiSettingsPage.useProximityOpacityTitle"
@@ -159,17 +158,17 @@ describe("UiSettingsPage", () => {
     const checkbox = getInputBySpanTitle(titleSpan);
     fireEvent.click(checkbox!);
     await TestUtils.flushAsyncOperations();
-    expect(checkbox?.checked).to.be.true; // latest default value
+    expect(checkbox?.checked).toEqual(true); // latest default value
     fireEvent.click(checkbox!);
     await TestUtils.flushAsyncOperations();
-    expect(checkbox?.checked).to.be.false;
+    expect(checkbox?.checked).toEqual(false);
     wrapper.unmount();
   });
 
   it("renders toggle snapWidgetOpacity", async () => {
     await TestUtils.flushAsyncOperations();
     const wrapper = render(<UiSettingsPage />);
-    expect(wrapper).not.to.be.undefined;
+    expect(wrapper).toBeTruthy();
 
     const titleSpan = wrapper.getByText(
       "settings.uiSettingsPage.snapWidgetOpacityTitle"
@@ -177,17 +176,17 @@ describe("UiSettingsPage", () => {
     const checkbox = getInputBySpanTitle(titleSpan);
     fireEvent.click(checkbox!);
     await TestUtils.flushAsyncOperations();
-    expect(checkbox?.checked).to.be.true;
+    expect(checkbox?.checked).toEqual(true);
     fireEvent.click(checkbox!);
     await TestUtils.flushAsyncOperations();
-    expect(checkbox?.checked).to.be.false;
+    expect(checkbox?.checked).toEqual(false);
     wrapper.unmount();
   });
 
   it("renders showWidgetIcon toggle", async () => {
     await TestUtils.flushAsyncOperations();
     const wrapper = render(<UiSettingsPage />);
-    expect(wrapper).not.to.be.undefined;
+    expect(wrapper).toBeTruthy();
 
     const titleSpan = wrapper.getByText(
       "settings.uiSettingsPage.widgetIconTitle"
@@ -195,17 +194,17 @@ describe("UiSettingsPage", () => {
     const checkbox = getInputBySpanTitle(titleSpan);
     fireEvent.click(checkbox!);
     await TestUtils.flushAsyncOperations();
-    expect(checkbox?.checked).to.be.false;
+    expect(checkbox?.checked).toEqual(false);
     fireEvent.click(checkbox!);
     await TestUtils.flushAsyncOperations();
-    expect(checkbox?.checked).to.be.true;
+    expect(checkbox?.checked).toEqual(true);
     wrapper.unmount();
   });
 
   it("renders animateToolSettings toggle", async () => {
     await TestUtils.flushAsyncOperations();
     const wrapper = render(<UiSettingsPage />);
-    expect(wrapper).not.to.be.undefined;
+    expect(wrapper).toBeTruthy();
 
     const titleSpan = wrapper.getByText(
       "settings.uiSettingsPage.animateToolSettingsTitle"
@@ -213,17 +212,17 @@ describe("UiSettingsPage", () => {
     const checkbox = getInputBySpanTitle(titleSpan);
     fireEvent.click(checkbox!);
     await TestUtils.flushAsyncOperations();
-    expect(checkbox?.checked).to.be.true;
+    expect(checkbox?.checked).toEqual(true);
     fireEvent.click(checkbox!);
     await TestUtils.flushAsyncOperations();
-    expect(checkbox?.checked).to.be.false;
+    expect(checkbox?.checked).toEqual(false);
     wrapper.unmount();
   });
 
   it("renders useToolAsToolSettingsLabel toggle", async () => {
     await TestUtils.flushAsyncOperations();
     const wrapper = render(<UiSettingsPage />);
-    expect(wrapper).not.to.be.undefined;
+    expect(wrapper).toBeTruthy();
 
     const titleSpan = wrapper.getByText(
       "settings.uiSettingsPage.useToolAsToolSettingsLabelTitle"
@@ -231,10 +230,10 @@ describe("UiSettingsPage", () => {
     const checkbox = getInputBySpanTitle(titleSpan);
     fireEvent.click(checkbox!);
     await TestUtils.flushAsyncOperations();
-    expect(checkbox?.checked).to.be.true;
+    expect(checkbox?.checked).toEqual(true);
     fireEvent.click(checkbox!);
     await TestUtils.flushAsyncOperations();
-    expect(checkbox?.checked).to.be.false;
+    expect(checkbox?.checked).toEqual(false);
     wrapper.unmount();
   });
 });

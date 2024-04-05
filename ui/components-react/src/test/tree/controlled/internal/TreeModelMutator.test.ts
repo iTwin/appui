@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import { EMPTY } from "rxjs";
-import sinon from "sinon";
 import * as moq from "typemoq";
 import { CheckBoxState } from "@itwin/core-react";
 import { TreeModelMutator } from "../../../../components-react/tree/controlled/internal/TreeModelMutator";
@@ -16,6 +14,7 @@ import type {
 import type { TreeModelSource } from "../../../../components-react/tree/controlled/TreeModelSource";
 import type { ITreeNodeLoader } from "../../../../components-react/tree/controlled/TreeNodeLoader";
 import { createRandomMutableTreeModelNode } from "../TreeHelpers";
+import type { Mock } from "vitest";
 
 describe("TreeModelMutator", () => {
   let modelMutator: TreeModelMutator;
@@ -68,7 +67,7 @@ describe("TreeModelMutator", () => {
 
       treeModelMock.verifyAll();
       treeModelSourceMock.verifyAll();
-      expect(node.isExpanded).to.be.true;
+      expect(node.isExpanded).toEqual(true);
     });
 
     it("expands node and loads children", () => {
@@ -86,14 +85,14 @@ describe("TreeModelMutator", () => {
 
       treeModelMock.verifyAll();
       treeNodeLoaderMock.verifyAll();
-      expect(node.isExpanded).to.be.true;
+      expect(node.isExpanded).toEqual(true);
     });
 
     it("does nothing if node is expanded", () => {
       node = { ...node, isExpanded: true, numChildren: 0 };
       modelMutator.expandNode(node.id);
 
-      expect(node.isExpanded).to.be.true;
+      expect(node.isExpanded).toEqual(true);
     });
   });
 
@@ -111,7 +110,7 @@ describe("TreeModelMutator", () => {
 
       treeModelMock.verifyAll();
       treeModelSourceMock.verifyAll();
-      expect(node.isExpanded).to.be.false;
+      expect(node.isExpanded).toEqual(false);
     });
 
     it("does nothing if node is not expanded", () => {
@@ -120,7 +119,7 @@ describe("TreeModelMutator", () => {
 
       treeModelMock.verifyAll();
       treeModelSourceMock.verifyAll();
-      expect(node.isExpanded).to.be.false;
+      expect(node.isExpanded).toEqual(false);
     });
 
     it("collapses node and disposes children when disposing is enabled", () => {
@@ -137,7 +136,7 @@ describe("TreeModelMutator", () => {
 
       treeModelMock.verifyAll();
       treeModelSourceMock.verifyAll();
-      expect(node.isExpanded).to.be.false;
+      expect(node.isExpanded).toEqual(false);
     });
   });
 
@@ -165,8 +164,8 @@ describe("TreeModelMutator", () => {
       treeModelMock.verifyAll();
       treeModelSourceMock.verifyAll();
 
-      expect(nodeToSelect.isSelected).to.be.true;
-      expect(nodeToDeselect.isSelected).to.be.false;
+      expect(nodeToSelect.isSelected).toEqual(true);
+      expect(nodeToDeselect.isSelected).toEqual(false);
     });
 
     it("tries to select and deselect nodes even if they were removed", () => {
@@ -208,8 +207,8 @@ describe("TreeModelMutator", () => {
 
       modelMutator.replaceSelection([nodeToSelect.item]);
       treeModelMock.verifyAll();
-      expect(selectedNode.isSelected).to.be.false;
-      expect(nodeToSelect.isSelected).to.be.true;
+      expect(selectedNode.isSelected).toEqual(false);
+      expect(nodeToSelect.isSelected).toEqual(true);
     });
 
     it("tries to replace selection even if nodes were removed", () => {
@@ -240,7 +239,7 @@ describe("TreeModelMutator", () => {
 
       modelMutator.clearNodeSelection();
       treeModelMock.verifyAll();
-      expect(selectedNodes[0].isSelected).to.be.false;
+      expect(selectedNodes[0].isSelected).toEqual(false);
     });
   });
 
@@ -257,7 +256,7 @@ describe("TreeModelMutator", () => {
         .verifiable(moq.Times.once());
       modelMutator.setCheckboxStates([checkboxStateChange]);
       treeModelMock.verifyAll();
-      expect(node.checkbox.state).to.be.eq(checkboxStateChange.newState);
+      expect(node.checkbox.state).toEqual(checkboxStateChange.newState);
     });
 
     it("tries to set checkbox state even if node was removed", () => {
@@ -288,7 +287,7 @@ describe("TreeModelMutator", () => {
         .verifiable(moq.Times.once());
       modelMutator.activateEditing(node.id, () => {});
       treeModelMock.verifyAll();
-      expect(node.editingInfo).to.not.be.undefined;
+      expect(node.editingInfo).toBeTruthy();
     });
 
     it("does not set editing info if node is not editable", () => {
@@ -299,7 +298,7 @@ describe("TreeModelMutator", () => {
         .verifiable(moq.Times.once());
       modelMutator.activateEditing(node.id, () => {});
       treeModelMock.verifyAll();
-      expect(node.editingInfo).to.be.undefined;
+      expect(node.editingInfo).toEqual(undefined);
     });
 
     it("tries to set editing info even if node was removed", () => {
@@ -314,23 +313,22 @@ describe("TreeModelMutator", () => {
     });
 
     describe("nodeEditingInfo callbacks", () => {
-      let onNodeUpdatedSpy: sinon.SinonSpy;
-
+      let onNodeUpdatedSpy: Mock<any, any>;
       beforeEach(() => {
-        onNodeUpdatedSpy = sinon.spy();
+        onNodeUpdatedSpy = vi.fn();
         treeModelMock.setup((x) => x.getNode(node.id)).returns(() => node);
         modelMutator.activateEditing(node.id, onNodeUpdatedSpy);
       });
 
       it("closes node editing", () => {
         node.editingInfo!.onCancel();
-        expect(node.editingInfo).to.be.undefined;
+        expect(node.editingInfo).toEqual(undefined);
       });
 
       it("closes editing and calls onNodeUpdated when changes are committed", () => {
         node.editingInfo!.onCommit(node, "newValue");
-        expect(onNodeUpdatedSpy).to.be.calledOnceWith(node, "newValue");
-        expect(node.editingInfo).to.be.undefined;
+        expect(onNodeUpdatedSpy).toHaveBeenCalledWith(node, "newValue");
+        expect(node.editingInfo).toEqual(undefined);
       });
     });
   });

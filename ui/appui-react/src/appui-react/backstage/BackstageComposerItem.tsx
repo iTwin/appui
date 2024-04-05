@@ -11,7 +11,7 @@ import {
   ConditionalStringValue,
 } from "@itwin/appui-abstract";
 import { Logger } from "@itwin/core-bentley";
-import { BadgeUtilities, Icon } from "@itwin/core-react";
+import { Badge, Icon } from "@itwin/core-react";
 import * as React from "react";
 import { UiFramework } from "../UiFramework";
 import { useActiveFrontstageId } from "../frontstage/FrontstageDef";
@@ -50,7 +50,7 @@ export function BackstageComposerActionItem({
       isDisabled={ConditionalBooleanValue.getValue(item.isDisabled)}
       onClick={handleClick}
       subtitle={ConditionalStringValue.getValue(item.subtitle)}
-      badge={BadgeUtilities.getComponentForBadgeType(item.badge)}
+      badge={<Badge type={item.badge} />}
     >
       {ConditionalStringValue.getValue(item.label)}
     </NZ_BackstageItem>
@@ -91,7 +91,7 @@ export function BackstageComposerStageLauncher({
       isDisabled={ConditionalBooleanValue.getValue(item.isDisabled)}
       onClick={handleClick}
       subtitle={ConditionalStringValue.getValue(item.subtitle)}
-      badge={BadgeUtilities.getComponentForBadgeType(item.badge)}
+      badge={<Badge type={item.badge} />}
     >
       {ConditionalStringValue.getValue(item.label)}
     </NZ_BackstageItem>

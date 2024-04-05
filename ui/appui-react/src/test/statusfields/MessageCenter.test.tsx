@@ -2,31 +2,19 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { render, screen } from "@testing-library/react";
 import {
   MessageCenterField,
   MessageManager,
   StatusBar,
 } from "../../appui-react";
-import TestUtils, { userEvent } from "../TestUtils";
+import { userEvent } from "../TestUtils";
 
 describe(`MessageCenter`, () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
   beforeEach(() => {
     theUserTo = userEvent.setup();
-  });
-
-  before(async () => {
-    await TestUtils.initializeUiFramework();
-    await NoRenderApp.startup();
-  });
-
-  after(async () => {
-    await IModelApp.shutdown();
-    TestUtils.terminateUiFramework();
   });
 
   it("Message Center should close on outside click", async () => {
@@ -43,7 +31,7 @@ describe(`MessageCenter`, () => {
 
     await theUserTo.click(screen.getByTitle("outside"));
 
-    expect(screen.queryByRole("tablist")).to.be.null;
+    expect(screen.queryByRole("tablist")).toEqual(null);
   });
 
   it("Message Center should open on OpenMessageCenterEvent", async () => {
@@ -52,7 +40,7 @@ describe(`MessageCenter`, () => {
         <MessageCenterField />
       </StatusBar>
     );
-    expect(screen.queryByRole("tablist")).to.be.null;
+    expect(screen.queryByRole("tablist")).toEqual(null);
     MessageManager.onOpenMessageCenterEvent.emit({});
     expect(await screen.findByRole("tablist")).to.exist;
   });

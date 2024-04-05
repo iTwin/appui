@@ -7,22 +7,22 @@
  */
 
 import "./NewBadge.scss";
-import classnames from "classnames";
 import * as React from "react";
-import type { CommonProps } from "../utils/Props";
-import { Badge } from "./Badge";
-import newBadgeIcon from "./new-feature-badge.svg";
+import { Icon } from "@itwin/itwinui-react";
 
-/** New Badge React component
+/** New badge component.
  * @internal
  */
-export function NewBadge(props: CommonProps) {
-  const { className, ...badgeProps } = props;
+export function NewBadge() {
   return (
-    <Badge
-      {...badgeProps}
-      className={classnames("core-new-badge", className)}
-      svg={newBadgeIcon}
-    />
+    <Icon className="core-badge-newBadge">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 16 16"
+        enableBackground="new 0 0 16 16"
+      >
+        <path d="m15 0h-14c-.4 0-.8.2-.9.6s-.1.8.2 1.1l14 14c.2.2.4.3.7.3.1 0 .3 0 .4-.1.4-.2.6-.5.6-.9v-14c0-.6-.4-1-1-1m-4 7c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2" />
+      </svg>
+    </Icon>
   );
 }

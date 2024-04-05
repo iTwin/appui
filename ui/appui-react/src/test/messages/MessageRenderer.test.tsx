@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
 import {
   act,
@@ -48,7 +47,7 @@ describe("MessageRenderer", () => {
     act(() => {
       notifications.endActivityMessage(ActivityMessageEndReason.Completed);
     });
-    expect(screen.queryByText("Message text")).to.be.null;
+    expect(screen.queryByText("Message text")).toEqual(null);
   });
 
   it("should cancel an activity message", async () => {
@@ -64,7 +63,7 @@ describe("MessageRenderer", () => {
 
     const cancelLink = await screen.findByText("dialog.cancel");
     fireEvent.click(cancelLink);
-    expect(screen.queryByText("Message text")).to.be.null;
+    expect(screen.queryByText("Message text")).toEqual(null);
   });
 
   it("should dismiss an activity message", async () => {
@@ -115,6 +114,6 @@ describe("MessageRenderer", () => {
       notifications.endActivityMessage(ActivityMessageEndReason.Completed);
       MessageManager.closeAllMessages();
     });
-    expect(screen.queryByText("A brief sticky message.")).to.be.null;
+    expect(screen.queryByText("A brief sticky message.")).toEqual(null);
   });
 });

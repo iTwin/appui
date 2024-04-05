@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import React from "react";
-import * as sinon from "sinon";
 import { act, fireEvent, render } from "@testing-library/react";
 import { UiAdmin } from "@itwin/appui-abstract";
 import { BaseTimelineDataProvider } from "../../imodel-components-react/timeline/BaseTimelineDataProvider";
@@ -97,55 +95,31 @@ function TestRepeatTimelineComponent() {
 
 describe("<TimelineComponent showDuration={true} />", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
-  beforeEach(() => {
-    theUserTo = userEvent.setup();
-  });
-  let fakeTimers: sinon.SinonFakeTimers | undefined;
-  const rafSpy = sinon.spy((cb: FrameRequestCallback) => {
-    return window.setTimeout(() => {
-      cb(Date.now());
-    }, 0);
-  });
-
-  const getBoundingClientRect = Element.prototype.getBoundingClientRect;
   const sliderContainerSize = DOMRect.fromRect({
     x: 10,
     width: 1000,
     height: 60,
   });
 
-  before(async () => {
-    Element.prototype.getBoundingClientRect = () => sliderContainerSize;
+  beforeEach(async () => {
+    theUserTo = userEvent.setup();
+    vi.spyOn(Element.prototype, "getBoundingClientRect").mockReturnValue(
+      sliderContainerSize
+    );
 
-    if (!window.PointerEvent) window.PointerEvent = window.MouseEvent as any;
-    sinon.restore();
-    // need to initialize to get localized strings
     await TestUtils.initializeUiIModelComponents();
     await NoRenderApp.startup();
-
-    // JSDom used in testing does not provide implementations for requestAnimationFrame/cancelAnimationFrame so add dummy ones here.
-    window.requestAnimationFrame = rafSpy;
-    window.cancelAnimationFrame = () => {};
   });
 
-  afterEach(() => {
-    fakeTimers && fakeTimers.restore();
-
-    rafSpy.resetHistory();
-  });
-
-  after(async () => {
-    sinon.restore();
-    Element.prototype.getBoundingClientRect = getBoundingClientRect;
+  afterEach(async () => {
     await IModelApp.shutdown();
-
     TestUtils.terminateUiIModelComponents();
   });
 
   it("should render without milestones - minimized", async () => {
     const dataProvider = new TestTimelineDataProvider();
-    expect(dataProvider.loop).to.be.false;
-    fakeTimers = sinon.useFakeTimers();
+    expect(dataProvider.loop).toEqual(false);
+    vi.useFakeTimers();
 
     const renderedComponent = render(
       <TimelineComponent
@@ -164,36 +138,36 @@ describe("<TimelineComponent showDuration={true} />", () => {
     const playButton = renderedComponent.getByRole("button", {
       name: "timeline.play",
     });
-    expect(dataProvider.playing).to.be.false;
-    expect(dataProvider.pointerCallbackCalled).to.be.false;
+    expect(dataProvider.playing).toEqual(false);
+    expect(dataProvider.pointerCallbackCalled).toEqual(false);
 
     fireEvent.click(playButton);
     // Wait for animation.
-    fakeTimers.tick(600);
+    vi.advanceTimersByTime(600);
     // Wait for 1st raf cb.
-    fakeTimers.tick(1);
+    vi.advanceTimersByTime(1);
 
     // kill some time to wait for setState and subsequent call to window.requestAnimationFrame to process
     // await new Promise((r) => { setTimeout(r, 40); });
-    expect(dataProvider.playing).to.be.true;
+    expect(dataProvider.playing).toEqual(true);
 
     fireEvent.click(playButton);
     // Wait for animation.
-    fakeTimers.tick(600);
+    vi.advanceTimersByTime(600);
     // Wait for 1st raf cb.
-    fakeTimers.tick(1);
+    vi.advanceTimersByTime(1);
 
     // kill some time to wait for setState and subsequent call to window.requestAnimationFrame to process
     // await new Promise((r) => { setTimeout(r, 40); });
-    expect(dataProvider.playing).to.be.false;
-    expect(dataProvider.pointerCallbackCalled).to.be.true;
+    expect(dataProvider.playing).toEqual(false);
+    expect(dataProvider.pointerCallbackCalled).toEqual(true);
   });
 
   it("should show tooltip on pointer move", async () => {
-    const spyOnChange = sinon.spy();
+    const spyOnChange = vi.fn();
     const dataProvider = new TestTimelineDataProvider();
-    expect(dataProvider.loop).to.be.false;
-    fakeTimers = sinon.useFakeTimers({ shouldAdvanceTime: true });
+    expect(dataProvider.loop).toEqual(false);
+    vi.useFakeTimers({ shouldAdvanceTime: true });
 
     const renderedComponent = render(
       <TimelineComponent
@@ -231,7 +205,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
     const dataProvider = new TestTimelineDataProvider();
     dataProvider.getSettings().duration = 2; // make sure this is shorter than 40 so we get to end of animation
 
-    fakeTimers = sinon.useFakeTimers();
+    vi.useFakeTimers();
 
     const renderedComponent = render(
       <TimelineComponent
@@ -250,27 +224,27 @@ describe("<TimelineComponent showDuration={true} />", () => {
     const playButton = renderedComponent.getByRole("button", {
       name: "timeline.play",
     });
-    expect(dataProvider.playing).to.be.false;
-    expect(dataProvider.pointerCallbackCalled).to.be.false;
+    expect(dataProvider.playing).toEqual(false);
+    expect(dataProvider.pointerCallbackCalled).toEqual(false);
 
     fireEvent.click(playButton);
-    expect(dataProvider.playing).to.be.true;
+    expect(dataProvider.playing).toEqual(true);
 
     // Wait for animation.
-    fakeTimers.tick(1);
-    fakeTimers.setSystemTime(600);
-    fakeTimers.tick(1);
+    vi.advanceTimersByTime(1);
+    vi.setSystemTime(600);
+    vi.advanceTimersByTime(1);
 
-    // kill some time to wait for setState and subsequent call to window.requestAnimationFrame to process
-    // await new Promise((r) => { setTimeout(r, 40); });
-    expect(dataProvider.playing).to.be.false;
+    await vi.waitFor(() => {
+      expect(dataProvider.playing).toEqual(false);
+    });
   });
 
   it("timeline with short duration (repeat animation loop) - expanded", async () => {
     const dataProvider = new TestTimelineDataProvider();
     dataProvider.getSettings().duration = 30; // make sure this is shorter than 40 so we get to end of animation
     dataProvider.getSettings().loop = true;
-    fakeTimers = sinon.useFakeTimers();
+    vi.useFakeTimers();
 
     const renderedComponent = render(
       <TimelineComponent
@@ -290,23 +264,23 @@ describe("<TimelineComponent showDuration={true} />", () => {
     const playButton = renderedComponent.getByRole("button", {
       name: "timeline.play",
     });
-    expect(dataProvider.playing).to.be.false;
-    expect(dataProvider.pointerCallbackCalled).to.be.false;
+    expect(dataProvider.playing).toEqual(false);
+    expect(dataProvider.pointerCallbackCalled).toEqual(false);
 
     fireEvent.click(playButton);
-    expect(dataProvider.playing).to.be.true;
+    expect(dataProvider.playing).toEqual(true);
 
     // Wait for animation.
-    fakeTimers.tick(600);
+    vi.advanceTimersByTime(600);
     // Wait for 1st raf cb.
-    fakeTimers.tick(1);
+    vi.advanceTimersByTime(1);
 
     // kill some time to wait for setState and subsequent call to window.requestAnimationFrame to process
     // await new Promise((r) => { setTimeout(r, 40); });
-    expect(dataProvider.playing).to.be.true;
+    expect(dataProvider.playing).toEqual(true);
 
     fireEvent.click(playButton);
-    expect(dataProvider.playing).to.be.false;
+    expect(dataProvider.playing).toEqual(false);
   });
 
   it("timeline with short duration (repeat set and at end of animation loop) - expanded", async () => {
@@ -314,7 +288,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
     dataProvider.getSettings().duration = 30; // make sure this is shorter than 40 so we get to end of animation
     dataProvider.getSettings().loop = true;
     dataProvider.animationFraction = 1.0;
-    fakeTimers = sinon.useFakeTimers();
+    vi.useFakeTimers();
 
     const renderedComponent = render(
       <TimelineComponent
@@ -334,29 +308,29 @@ describe("<TimelineComponent showDuration={true} />", () => {
     const playButton = renderedComponent.getByRole("button", {
       name: "timeline.play",
     });
-    expect(dataProvider.playing).to.be.false;
-    expect(dataProvider.pointerCallbackCalled).to.be.false;
+    expect(dataProvider.playing).toEqual(false);
+    expect(dataProvider.pointerCallbackCalled).toEqual(false);
 
     fireEvent.click(playButton);
-    expect(dataProvider.playing).to.be.true;
+    expect(dataProvider.playing).toEqual(true);
 
     // Wait for animation.
-    fakeTimers.tick(600);
+    vi.advanceTimersByTime(600);
     // Wait for 1st raf cb.
-    fakeTimers.tick(1);
+    vi.advanceTimersByTime(1);
 
     // kill some time to wait for setState and subsequent call to window.requestAnimationFrame to process
     // await new Promise((r) => { setTimeout(r, 40); });
-    expect(dataProvider.playing).to.be.true;
+    expect(dataProvider.playing).toEqual(true);
 
     fireEvent.click(playButton);
-    expect(dataProvider.playing).to.be.false;
+    expect(dataProvider.playing).toEqual(false);
   });
 
   it("timeline with no dates (Analysis animation", async () => {
     const dataProvider = new TestTimelineDataProvider();
     dataProvider.getSettings().duration = 30; // make sure this is shorter than the timeout of 40 so we get to end of animation
-    fakeTimers = sinon.useFakeTimers();
+    vi.useFakeTimers();
 
     const renderedComponent = render(
       <TimelineComponent
@@ -373,21 +347,21 @@ describe("<TimelineComponent showDuration={true} />", () => {
     const playButton = renderedComponent.getByRole("button", {
       name: "timeline.play",
     });
-    expect(dataProvider.playing).to.be.false;
-    expect(dataProvider.pointerCallbackCalled).to.be.false;
+    expect(dataProvider.playing).toEqual(false);
+    expect(dataProvider.pointerCallbackCalled).toEqual(false);
 
     fireEvent.click(playButton);
-    expect(dataProvider.playing).to.be.true;
+    expect(dataProvider.playing).toEqual(true);
 
-    fakeTimers.tick(1);
+    vi.advanceTimersByTime(1);
     // Wait for animation.
-    fakeTimers.setSystemTime(600);
+    vi.setSystemTime(600);
     // Wait for 1st raf cb.
-    fakeTimers.tick(1);
+    vi.advanceTimersByTime(1);
 
-    // kill some time to wait for setState and subsequent call to window.requestAnimationFrame to process
-    // await new Promise((r) => { setTimeout(r, 40); });
-    expect(dataProvider.playing).to.be.false;
+    await vi.waitFor(() => {
+      expect(dataProvider.playing).toEqual(false);
+    });
   });
 
   it("open/close timeline settings - minimized", async () => {
@@ -407,37 +381,37 @@ describe("<TimelineComponent showDuration={true} />", () => {
       />
     );
 
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
 
     // hit the setting button
     const settingMenuSpan = renderedComponent.getByTestId("timeline-settings");
     fireEvent.click(settingMenuSpan);
     const repeatItem = renderedComponent.getByText("timeline.repeat");
-    expect(repeatItem).not.to.be.null;
+    expect(repeatItem).toBeTruthy();
     fireEvent.click(repeatItem);
 
-    expect(dataProvider.settingsCallbackCalled).to.be.true;
+    expect(dataProvider.settingsCallbackCalled).toEqual(true);
 
     const durationInputField = renderedComponent.queryByTestId(
       "timeline-duration-edit-input"
     );
-    expect(durationInputField).not.to.be.null;
+    expect(durationInputField).toBeTruthy();
     fireEvent.change(durationInputField!, { target: { value: "00:44" } });
     // callback is not triggered until Enter key is pressed.
     fireEvent.keyDown(durationInputField!, { key: "Enter" });
 
-    expect(dataProvider.duration).to.be.equal(44000);
+    expect(dataProvider.duration).toEqual(44000);
 
     fireEvent.change(durationInputField!, { target: { value: "00:66" } });
     // callback is not triggered until Enter key is pressed.
     fireEvent.keyDown(durationInputField!, { key: "Escape" });
 
-    expect(dataProvider.duration).to.be.equal(44000);
+    expect(dataProvider.duration).toEqual(44000);
 
     act(() => durationInputField!.focus());
     fireEvent.change(durationInputField!, { target: { value: "00:66" } });
     act(() => settingMenuSpan.focus());
-    // expect(dataProvider.duration).to.be.equal(66000);
+    // expect(dataProvider.duration).toEqual(66000);
   });
   it("open/close timeline settings - always minimized", async () => {
     const dataProvider = new TestTimelineDataProvider();
@@ -457,7 +431,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
       />
     );
 
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
 
     const settingMenuSpan = renderedComponent.getByTestId("timeline-settings");
     fireEvent.click(settingMenuSpan);
@@ -495,7 +469,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
       />
     );
 
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
 
     // trigger call to componentDidUpdate
     renderedComponent.rerender(
@@ -515,7 +489,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
   });
   it("Timeline can be controlled through play/pause props", async () => {
     const dataProvider = new TestTimelineDataProvider();
-    const spyOnPlayPause = sinon.spy();
+    const spyOnPlayPause = vi.fn();
     const initialProps = {
       initialDuration: dataProvider.initialDuration,
       totalDuration: dataProvider.duration,
@@ -532,26 +506,26 @@ describe("<TimelineComponent showDuration={true} />", () => {
       <TimelineComponent {...initialProps} />
     );
     rerender(<TimelineComponent {...initialProps} isPlaying={true} />);
-    expect(spyOnPlayPause.calledOnce).to.be.true;
+    expect(spyOnPlayPause).toHaveBeenCalledOnce();
     getByRole("button", { name: "timeline.pause" });
 
     rerender(<TimelineComponent {...initialProps} isPlaying={false} />);
-    expect(spyOnPlayPause.calledTwice).to.be.true;
+    expect(spyOnPlayPause).toHaveBeenCalledTimes(2);
     getByRole("button", { name: "timeline.play" });
 
     rerender(<TimelineComponent {...initialProps} isPlaying={true} />);
-    expect(spyOnPlayPause.calledThrice).to.be.true;
+    expect(spyOnPlayPause).toHaveBeenCalledTimes(3);
     getByRole("button", { name: "timeline.pause" });
 
     // do nothing (already playing)
     rerender(<TimelineComponent {...initialProps} isPlaying={true} />);
-    expect(spyOnPlayPause.calledThrice).to.be.true;
+    expect(spyOnPlayPause).toHaveBeenCalledTimes(3);
     getByRole("button", { name: "timeline.pause" });
   });
 
   it("deprecated UiAdmin.sendUiEvent ", async () => {
     const dataProvider = new TestTimelineDataProvider();
-    const spyOnPlayPause = sinon.spy();
+    const spyOnPlayPause = vi.fn();
     const { getByRole } = render(
       <TimelineComponent
         initialDuration={dataProvider.initialDuration}
@@ -577,10 +551,10 @@ describe("<TimelineComponent showDuration={true} />", () => {
     UiAdmin.sendUiEvent(args);
     args.timelineAction = TimelinePausePlayAction.Toggle;
     UiAdmin.sendUiEvent(args);
-    expect(spyOnPlayPause.calledThrice).to.be.true;
+    expect(spyOnPlayPause).toHaveBeenCalledTimes(3);
     UiAdmin.sendUiEvent({ uiComponentId: "TestTimeline" });
     // onPlayPause should not be called again, since the args don't include an action
-    expect(spyOnPlayPause.calledThrice).to.be.true;
+    expect(spyOnPlayPause).toHaveBeenCalledTimes(3);
   });
 
   it("re-render on repeat change", () => {
@@ -601,8 +575,8 @@ describe("<TimelineComponent showDuration={true} />", () => {
       />
     );
 
-    expect(renderedComponent).not.to.be.undefined;
-    expect(dataProvider.getSettings().loop).to.be.false;
+    expect(renderedComponent).toBeTruthy();
+    expect(dataProvider.getSettings().loop).toEqual(false);
 
     // trigger call to componentDidUpdate
     renderedComponent.rerender(
@@ -620,18 +594,18 @@ describe("<TimelineComponent showDuration={true} />", () => {
         alwaysMinimized={false}
       />
     );
-    expect(dataProvider.getSettings().loop).to.be.true;
+    expect(dataProvider.getSettings().loop).toEqual(true);
   });
   it("test repeat button does not loop endlessly with external state variable", () => {
     const renderedComponent = render(<TestRepeatTimelineComponent />);
 
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
 
     const settingMenuSpan = renderedComponent.getByTestId("timeline-settings");
     fireEvent.click(settingMenuSpan);
 
     const repeatItem = renderedComponent.getByText("timeline.repeat");
-    expect(repeatItem).not.to.be.null;
+    expect(repeatItem).toBeTruthy();
     fireEvent.click(repeatItem);
   });
   it("re-render on totalDuration change", () => {
@@ -652,7 +626,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
       />
     );
 
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
 
     const newDuration = dataProvider.getSettings().duration! * 2;
 
@@ -672,7 +646,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
         alwaysMinimized={false}
       />
     );
-    expect(dataProvider.getSettings().duration).to.be.eq(newDuration);
+    expect(dataProvider.getSettings().duration).toEqual(newDuration);
   });
   it("re-render on new start and end date", () => {
     const dataProvider = new TestTimelineDataProvider();
@@ -691,7 +665,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
       />
     );
 
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
     const newStartDate = new Date(2019, 4, 1);
     const newEndDate = new Date(2020, 5, 7);
 
@@ -711,14 +685,12 @@ describe("<TimelineComponent showDuration={true} />", () => {
       />
     );
     const startDateItem = renderedComponent.getByTestId("test-start-date");
-    expect(startDateItem).not.to.be.null;
-    expect(startDateItem?.innerHTML).to.be.eq(
-      newStartDate.toLocaleDateString()
-    );
+    expect(startDateItem).toBeTruthy();
+    expect(startDateItem?.innerHTML).toEqual(newStartDate.toLocaleDateString());
 
     const endDateItem = renderedComponent.getByTestId("test-end-date");
-    expect(endDateItem).not.to.be.null;
-    expect(endDateItem?.innerHTML).to.be.eq(newEndDate.toLocaleDateString());
+    expect(endDateItem).toBeTruthy();
+    expect(endDateItem?.innerHTML).toEqual(newEndDate.toLocaleDateString());
   });
   it("should append items", () => {
     const duration = 8 * 1000;
@@ -745,16 +717,16 @@ describe("<TimelineComponent showDuration={true} />", () => {
         />
       </div>
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
 
     const settingMenuSpan = renderedComponent.getByTestId("timeline-settings");
     fireEvent.click(settingMenuSpan);
 
     const addedItem = renderedComponent.getByText("8 seconds");
-    expect(addedItem).not.to.be.null;
+    expect(addedItem).toBeTruthy();
 
     const standardItem = renderedComponent.getByText("timeline.slow");
-    expect(standardItem).not.to.be.null;
+    expect(standardItem).toBeTruthy();
   });
   it("should prefix items", () => {
     const duration = 500;
@@ -781,19 +753,19 @@ describe("<TimelineComponent showDuration={true} />", () => {
         />
       </div>
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
 
     const settingMenuSpan = renderedComponent.getByTestId("timeline-settings");
     fireEvent.click(settingMenuSpan);
 
     const addedItem = renderedComponent.getByText("2 Seconds");
-    expect(addedItem).not.to.be.null;
+    expect(addedItem).toBeTruthy();
     fireEvent.click(addedItem);
 
     // open menu again
     fireEvent.click(settingMenuSpan);
     const standardItem = renderedComponent.getByText("timeline.slow");
-    expect(standardItem).not.to.be.null;
+    expect(standardItem).toBeTruthy();
   });
   it("should replace items", () => {
     const duration = 40 * 1000;
@@ -820,15 +792,15 @@ describe("<TimelineComponent showDuration={true} />", () => {
         />
       </div>
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
 
     const settingMenuSpan = renderedComponent.getByTestId("timeline-settings");
     fireEvent.click(settingMenuSpan);
 
     const addedItem = renderedComponent.queryByText("40 Seconds");
-    expect(addedItem).not.to.be.null;
+    expect(addedItem).toBeTruthy();
 
-    expect(renderedComponent.queryByText("timeline.slow")).to.be.null;
+    expect(renderedComponent.queryByText("timeline.slow")).toEqual(null);
   });
   it("should remove repeat option", () => {
     const duration = 40 * 1000;
@@ -849,15 +821,17 @@ describe("<TimelineComponent showDuration={true} />", () => {
         />
       </div>
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
 
     const settingMenuSpan = renderedComponent.getByTestId("timeline-settings");
     fireEvent.click(settingMenuSpan);
 
-    expect(renderedComponent.queryByText("timeline.repeat")).to.be.null;
+    expect(renderedComponent.queryByText("timeline.repeat")).toEqual(null);
 
     const mouseUp = new MouseEvent("mouseup");
-    sinon.stub(mouseUp, "target").get(() => document.createElement("div"));
+    vi.spyOn(mouseUp, "target", "get").mockImplementation(() =>
+      document.createElement("div")
+    );
     window.dispatchEvent(mouseUp);
   });
   it("should respect time zone offset", () => {
@@ -889,14 +863,14 @@ describe("<TimelineComponent showDuration={true} />", () => {
         componentId={"sampleApp-timeZoneOffset"}
       />
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
 
     const startDateLabel = renderedComponent.getByTestId("test-start-date");
-    expect(startDateLabel).not.to.be.null;
+    expect(startDateLabel).toBeTruthy();
     expect(startDateLabel.innerHTML).to.equal("Jun 30, 2016");
 
     const startTimeLabel = renderedComponent.getByTestId("test-start-time");
-    expect(startTimeLabel).not.to.be.null;
+    expect(startTimeLabel).toBeTruthy();
     expect(startTimeLabel.innerHTML.replace("\u202f", " ")).to.equal(
       "07:00:00 PM"
     );
@@ -920,9 +894,9 @@ describe("<TimelineComponent showDuration={true} />", () => {
         markDate={marker}
       />
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
     const dateMarker = renderedComponent.getByTestId("test-date-marker");
-    expect(dateMarker).not.to.be.null;
+    expect(dateMarker).toBeTruthy();
   });
   it("should mark a date on the timeline with a custom symbol", () => {
     const duration = 10 * 1000;
@@ -946,8 +920,8 @@ describe("<TimelineComponent showDuration={true} />", () => {
         markDate={marker}
       />
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
     const dateMarker = renderedComponent.getByTestId("test-custom-date-marker");
-    expect(dateMarker).not.to.be.null;
+    expect(dateMarker).toBeTruthy();
   });
 });

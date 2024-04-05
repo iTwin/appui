@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import type { Primitives } from "@itwin/appui-abstract";
 import { isPromiseLike } from "@itwin/core-react";
 import type { ConvertedPrimitives } from "../../components-react";
@@ -12,13 +11,8 @@ import {
 } from "../../components-react";
 import { TypeConverter } from "../../components-react/converters/TypeConverter";
 import { TypeConverterManager } from "../../components-react/converters/TypeConverterManager";
-import TestUtils from "../TestUtils";
 
 describe("Point2dTypeConverter", () => {
-  before(async () => {
-    await TestUtils.initializeUiComponents();
-  });
-
   let converter: Point2dTypeConverter;
 
   beforeEach(() => {
@@ -100,13 +94,13 @@ describe("Point2dTypeConverter", () => {
   describe("convertFromString", () => {
     it("returns correct object", () => {
       const point2d = converter.convertFromString("50, 100");
-      expect(point2d).to.not.be.undefined;
+      expect(point2d).toBeTruthy();
       expect(point2d!.x).to.equal(50);
       expect(point2d!.y).to.equal(100);
     });
 
     it("returns undefined if string is wrong", () => {
-      expect(converter.convertFromString("50, 100, 150")).to.be.undefined;
+      expect(converter.convertFromString("50, 100, 150")).toEqual(undefined);
     });
   });
 
@@ -124,8 +118,8 @@ describe("Point2dTypeConverter", () => {
     });
 
     it("returns 0 if points are mirrored", () => {
-      expect(converter.sortCompare(["1", "1"], ["-1", "-1"])).to.be.eq(0);
-      expect(converter.sortCompare({ x: 1, y: 1 }, { x: -1, y: -1 })).to.be.eq(
+      expect(converter.sortCompare(["1", "1"], ["-1", "-1"])).toEqual(0);
+      expect(converter.sortCompare({ x: 1, y: 1 }, { x: -1, y: -1 })).toEqual(
         0
       );
     });
@@ -143,10 +137,6 @@ describe("Point2dTypeConverter", () => {
 });
 
 describe("Point3dTypeConverter", () => {
-  before(async () => {
-    await TestUtils.initializeUiComponents();
-  });
-
   let converter: Point3dTypeConverter;
 
   beforeEach(() => {
@@ -222,14 +212,14 @@ describe("Point3dTypeConverter", () => {
       const point3d = converter.convertFromString(
         "50, 100, 150"
       ) as ConvertedPrimitives.Point3d;
-      expect(point3d).to.not.be.undefined;
+      expect(point3d).toBeTruthy();
       expect(point3d.x).to.equal(50);
       expect(point3d.y).to.equal(100);
       expect(point3d.z).to.equal(150);
     });
 
     it("returns undefined if string is wrong", () => {
-      expect(converter.convertFromString("50, 100")).to.be.undefined;
+      expect(converter.convertFromString("50, 100")).toEqual(undefined);
     });
   });
 
@@ -243,10 +233,10 @@ describe("Point3dTypeConverter", () => {
     it("returns 0 if points are mirrored", () => {
       expect(
         converter.sortCompare(["1", "1", "-2"], ["-1", "-1", "2"])
-      ).to.be.eq(0);
+      ).toEqual(0);
       expect(
         converter.sortCompare({ x: 1, y: 1, z: -2 }, { x: -1, y: -1, z: 2 })
-      ).to.be.eq(0);
+      ).toEqual(0);
     });
 
     it("returns less than 0 if second point is further from [0,0,0]", () => {
@@ -262,8 +252,8 @@ describe("Point3dTypeConverter", () => {
     });
 
     it("returns 0 if 2d points are mirrored", () => {
-      expect(converter.sortCompare(["1", "1"], ["-1", "-1"])).to.be.eq(0);
-      expect(converter.sortCompare({ x: 1, y: 1 }, { x: -1, y: -1 })).to.be.eq(
+      expect(converter.sortCompare(["1", "1"], ["-1", "-1"])).toEqual(0);
+      expect(converter.sortCompare({ x: 1, y: 1 }, { x: -1, y: -1 })).toEqual(
         0
       );
     });
@@ -336,10 +326,10 @@ const expectOptionalPromiseLikeEq = async (
   expected: string
 ) => {
   if (mode === "sync") {
-    expect(isPromiseLike(actual)).to.be.false;
-    expect(actual).to.eq(expected);
+    expect(isPromiseLike(actual)).toEqual(false);
+    expect(actual).toEqual(expected);
   } else {
-    expect(isPromiseLike(actual)).to.be.true;
-    await expect(actual).to.eventually.eq(expected);
+    expect(isPromiseLike(actual)).toEqual(true);
+    await expect(actual).resolves.toEqual(expected);
   }
 };
