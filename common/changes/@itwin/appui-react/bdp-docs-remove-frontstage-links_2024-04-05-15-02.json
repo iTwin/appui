@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "docs: remove incorrect frontstage links",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
