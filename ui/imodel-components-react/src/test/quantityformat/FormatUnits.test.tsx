@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import sinon from "sinon";
 import { fireEvent, render, within } from "@testing-library/react";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import type { FormatProps } from "@itwin/core-quantity";
@@ -20,7 +18,7 @@ describe("FormatUnits", () => {
   )!;
   function requestNextAnimation() {}
 
-  before(async () => {
+  beforeEach(async () => {
     // Avoid requestAnimationFrame exception during test by temporarily replacing function that calls it.
     Object.defineProperty(IModelApp, "requestNextAnimation", {
       get: () => requestNextAnimation,
@@ -29,7 +27,7 @@ describe("FormatUnits", () => {
     await NoRenderApp.startup();
   });
 
-  after(async () => {
+  afterEach(async () => {
     await IModelApp.shutdown();
     TestUtils.terminateUiIModelComponents();
     Object.defineProperty(
@@ -53,7 +51,7 @@ describe("FormatUnits", () => {
     const unitsProvider = IModelApp.quantityFormatter.unitsProvider;
     const pu = await unitsProvider.findUnitByName("Units.M");
 
-    const spy: ComponentSpy<typeof FormatUnits, "onUnitsChange"> = sinon.stub();
+    const spy: ComponentSpy<typeof FormatUnits, "onUnitsChange"> = vi.fn();
     const component = render(
       <FormatUnits
         initialFormat={numericFormatProps}
@@ -73,10 +71,10 @@ describe("FormatUnits", () => {
     fireEvent.click(within(menu).getByRole("option", { name: "IN" }));
     await waitForPosition();
 
-    expect(spy).to.be.calledOnce;
-    const format = spy.firstCall.args[0];
-    expect(format.composite).not.to.be.undefined;
-    expect(format.composite?.units[0].name).to.eq("Units.IN");
+    expect(spy).toHaveBeenCalledOnce();
+    const format = spy.mock.calls[0][0];
+    expect(format.composite).toBeTruthy();
+    expect(format.composite?.units[0].name).toEqual("Units.IN");
   });
 
   it("should render (composite format without label or composite spacer)", async () => {
@@ -93,7 +91,7 @@ describe("FormatUnits", () => {
     const unitsProvider = IModelApp.quantityFormatter.unitsProvider;
     const pu = await unitsProvider.findUnitByName("Units.M");
 
-    const spy: ComponentSpy<typeof FormatUnits, "onUnitsChange"> = sinon.stub();
+    const spy: ComponentSpy<typeof FormatUnits, "onUnitsChange"> = vi.fn();
     const component = render(
       <FormatUnits
         initialFormat={compositeFormatProps}
@@ -112,9 +110,9 @@ describe("FormatUnits", () => {
     const menu = component.getByRole("listbox");
     fireEvent.click(within(menu).getByRole("option", { name: "Remove" }));
 
-    expect(spy).to.be.calledOnce;
-    const format = spy.firstCall.args[0];
-    expect(format.composite).not.to.be.undefined;
+    expect(spy).toHaveBeenCalledOnce();
+    const format = spy.mock.calls[0][0];
+    expect(format.composite).toBeTruthy();
     expect(format.composite?.units[0].name).to.eql("Units.FT");
     expect(format.composite?.units.length).to.eql(1);
   });

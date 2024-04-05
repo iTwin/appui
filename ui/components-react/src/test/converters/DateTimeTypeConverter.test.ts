@@ -2,21 +2,15 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import {
   DateTimeTypeConverter,
   DateTimeTypeConverterBase,
   ShortDateTypeConverter,
 } from "../../components-react";
-import TestUtils from "../TestUtils";
 import { TimeFormat } from "@itwin/core-react";
 import { AlternateDateFormats, TimeDisplay } from "@itwin/appui-abstract";
 
 describe("ShortDateTypeConverter", () => {
-  before(async () => {
-    await TestUtils.initializeUiComponents();
-  });
-
   let converter: ShortDateTypeConverter;
 
   beforeEach(() => {
@@ -26,21 +20,19 @@ describe("ShortDateTypeConverter", () => {
   describe("convertToString", () => {
     it("returns correct string", () => {
       const date = new Date(2018, 0, 1);
-      expect(converter.convertToString(date)).to.be.eq(
+      expect(converter.convertToString(date)).toEqual(
         date.toLocaleDateString()
       );
     });
 
     it("returns empty string if date is undefined", () => {
-      expect(converter.convertToString(undefined)).to.be.eq("");
+      expect(converter.convertToString(undefined)).toEqual("");
     });
 
     it("returns formatted date if date is a string", () => {
       const str = "2015 - 06 - 11";
       const date = new Date(str);
-      expect(converter.convertToString(str)).to.be.eq(
-        date.toLocaleDateString()
-      );
+      expect(converter.convertToString(str)).toEqual(date.toLocaleDateString());
     });
   });
 
@@ -48,35 +40,35 @@ describe("ShortDateTypeConverter", () => {
     it("returns correct string", () => {
       const date = new Date(Date.UTC(2018, 0, 1));
       let options = { alternateDateFormat: AlternateDateFormats.IsoDateTime };
-      expect(converter.convertToStringWithOptions(date, options)).to.be.eq(
+      expect(converter.convertToStringWithOptions(date, options)).toEqual(
         "2018-01-01"
       );
       options = { alternateDateFormat: AlternateDateFormats.IsoShort };
-      expect(converter.convertToStringWithOptions(date, options)).to.be.eq(
+      expect(converter.convertToStringWithOptions(date, options)).toEqual(
         "2018-01-01"
       );
       options = { alternateDateFormat: AlternateDateFormats.UtcShort };
-      expect(converter.convertToStringWithOptions(date, options)).to.be.eq(
+      expect(converter.convertToStringWithOptions(date, options)).toEqual(
         "01 Jan 2018"
       );
       options = { alternateDateFormat: AlternateDateFormats.UtcShortWithDay };
-      expect(converter.convertToStringWithOptions(date, options)).to.be.eq(
+      expect(converter.convertToStringWithOptions(date, options)).toEqual(
         "Mon, 01 Jan 2018"
       );
       options = { alternateDateFormat: AlternateDateFormats.UtcDateTime };
-      expect(converter.convertToStringWithOptions(date, options)).to.be.eq(
+      expect(converter.convertToStringWithOptions(date, options)).toEqual(
         "01 Jan 2018"
       );
       options = {
         alternateDateFormat: AlternateDateFormats.UtcDateTimeWithDay,
       };
-      expect(converter.convertToStringWithOptions(date, options)).to.be.eq(
+      expect(converter.convertToStringWithOptions(date, options)).toEqual(
         "Mon, 01 Jan 2018"
       );
-      expect(converter.convertToStringWithOptions(undefined, options)).to.be.eq(
+      expect(converter.convertToStringWithOptions(undefined, options)).toEqual(
         ""
       );
-      expect(converter.convertToStringWithOptions(date, undefined)).to.be.eq(
+      expect(converter.convertToStringWithOptions(date, undefined)).toEqual(
         converter.convertToString(date)
       );
     });
@@ -85,7 +77,7 @@ describe("ShortDateTypeConverter", () => {
       const date = new Date(Date.UTC(2018, 0, 1));
       const str = "2018-01-01";
       const options = { alternateDateFormat: AlternateDateFormats.IsoDateTime };
-      expect(converter.convertToStringWithOptions(str, options)).to.be.eq(
+      expect(converter.convertToStringWithOptions(str, options)).toEqual(
         converter.convertToStringWithOptions(date, options)
       );
     });
@@ -95,20 +87,20 @@ describe("ShortDateTypeConverter", () => {
     it("returns correct string when proper date string is provided", () => {
       const testDate = new Date(2018, 0, 1);
       const convertedDate = converter.convertFromString("1/1/2018");
-      expect(convertedDate).to.not.be.undefined;
-      expect(convertedDate!.valueOf()).to.eq(testDate.valueOf());
+      expect(convertedDate).toBeTruthy();
+      expect(convertedDate!.valueOf()).toEqual(testDate.valueOf());
     });
 
     it("returns undefined when empty date string is provided", () => {
       const convertedDate = converter.convertFromString("");
-      expect(convertedDate).to.be.undefined;
+      expect(convertedDate).toEqual(undefined);
     });
 
     it("returns undefined when wrong date string is provided", () => {
       const convertedDate = converter.convertFromString(
         "MayFifteenthTwoThousandAndTwo"
       );
-      expect(convertedDate).to.be.undefined;
+      expect(convertedDate).toEqual(undefined);
     });
   });
 
@@ -116,20 +108,20 @@ describe("ShortDateTypeConverter", () => {
     it("returns correct string when proper date string is provided", () => {
       const testDate = new Date(2018, 0, 1);
       const convertedDate = converter.convertFromStringWithOptions("1/1/2018");
-      expect(convertedDate).to.not.be.undefined;
-      expect(convertedDate!.valueOf()).to.eq(testDate.valueOf());
+      expect(convertedDate).toBeTruthy();
+      expect(convertedDate!.valueOf()).toEqual(testDate.valueOf());
     });
 
     it("returns undefined when empty date string is provided", () => {
       const convertedDate = converter.convertFromStringWithOptions("");
-      expect(convertedDate).to.be.undefined;
+      expect(convertedDate).toEqual(undefined);
     });
 
     it("returns undefined when wrong date string is provided", () => {
       const convertedDate = converter.convertFromStringWithOptions(
         "MayFifteenthTwoThousandAndTwo"
       );
-      expect(convertedDate).to.be.undefined;
+      expect(convertedDate).toEqual(undefined);
     });
 
     it("returns date at UTC-0", () => {
@@ -140,7 +132,7 @@ describe("ShortDateTypeConverter", () => {
         str,
         options
       ) as Date;
-      expect(date.getDate()).to.be.eq(convertedDate.getDate());
+      expect(date.getDate()).toEqual(convertedDate.getDate());
     });
   });
 
@@ -153,37 +145,41 @@ describe("ShortDateTypeConverter", () => {
     ).to.be.lessThan(0);
     expect(
       converter.sortCompare(new Date(2018, 0, 1), new Date(2018, 0, 1))
-    ).to.be.equal(0);
+    ).toEqual(0);
   });
 
   it("isLessGreaterType", () => {
-    expect(converter.isLessGreaterType).to.be.true;
+    expect(converter.isLessGreaterType).toEqual(true);
   });
 
   it("isLessThan", () => {
-    expect(converter.isLessThan(new Date(2017, 0, 1), new Date(2018, 0, 1))).to
-      .be.true;
-    expect(converter.isLessThan(new Date(2018, 0, 1), new Date(2017, 0, 1))).to
-      .be.false;
+    expect(
+      converter.isLessThan(new Date(2017, 0, 1), new Date(2018, 0, 1))
+    ).toEqual(true);
+    expect(
+      converter.isLessThan(new Date(2018, 0, 1), new Date(2017, 0, 1))
+    ).toEqual(false);
   });
 
   it("isLessThanOrEqualTo", () => {
     expect(
       converter.isLessThanOrEqualTo(new Date(2017, 0, 1), new Date(2018, 0, 1))
-    ).to.be.true;
+    ).toEqual(true);
     expect(
       converter.isLessThanOrEqualTo(new Date(2018, 0, 1), new Date(2018, 0, 1))
-    ).to.be.true;
+    ).toEqual(true);
     expect(
       converter.isLessThanOrEqualTo(new Date(2018, 0, 1), new Date(2017, 0, 1))
-    ).to.be.false;
+    ).toEqual(false);
   });
 
   it("isGreaterThan", () => {
-    expect(converter.isGreaterThan(new Date(2018, 0, 1), new Date(2017, 0, 1)))
-      .to.be.true;
-    expect(converter.isGreaterThan(new Date(2017, 0, 1), new Date(2018, 0, 1)))
-      .to.be.false;
+    expect(
+      converter.isGreaterThan(new Date(2018, 0, 1), new Date(2017, 0, 1))
+    ).toEqual(true);
+    expect(
+      converter.isGreaterThan(new Date(2017, 0, 1), new Date(2018, 0, 1))
+    ).toEqual(false);
   });
 
   it("isGreaterThanOrEqualTo", () => {
@@ -192,37 +188,41 @@ describe("ShortDateTypeConverter", () => {
         new Date(2018, 0, 1),
         new Date(2017, 0, 1)
       )
-    ).to.be.true;
+    ).toEqual(true);
     expect(
       converter.isGreaterThanOrEqualTo(
         new Date(2018, 0, 1),
         new Date(2018, 0, 1)
       )
-    ).to.be.true;
+    ).toEqual(true);
     expect(
       converter.isGreaterThanOrEqualTo(
         new Date(2017, 0, 1),
         new Date(2018, 0, 1)
       )
-    ).to.be.false;
+    ).toEqual(false);
   });
 
   it("isEqualTo", () => {
-    expect(converter.isEqualTo(new Date(2018, 0, 1), new Date(2017, 0, 1))).to
-      .be.false;
-    expect(converter.isEqualTo(new Date(2018, 0, 1), new Date(2018, 0, 1))).to
-      .be.true;
+    expect(
+      converter.isEqualTo(new Date(2018, 0, 1), new Date(2017, 0, 1))
+    ).toEqual(false);
+    expect(
+      converter.isEqualTo(new Date(2018, 0, 1), new Date(2018, 0, 1))
+    ).toEqual(true);
   });
 
   it("isNotEqualTo", () => {
-    expect(converter.isNotEqualTo(new Date(2018, 0, 1), new Date(2017, 0, 1)))
-      .to.be.true;
-    expect(converter.isNotEqualTo(new Date(2018, 0, 1), new Date(2018, 0, 1)))
-      .to.be.false;
+    expect(
+      converter.isNotEqualTo(new Date(2018, 0, 1), new Date(2017, 0, 1))
+    ).toEqual(true);
+    expect(
+      converter.isNotEqualTo(new Date(2018, 0, 1), new Date(2018, 0, 1))
+    ).toEqual(false);
   });
 
   it("isLessGreaterType returns true", () => {
-    expect(converter.isLessGreaterType).to.be.true;
+    expect(converter.isLessGreaterType).toEqual(true);
   });
 });
 
@@ -235,7 +235,7 @@ describe("DateTimeTypeConverter", () => {
 
   it("convertToString", () => {
     const testDate = new Date(2018, 0, 1, 1, 15, 30);
-    expect(converter.convertToString(testDate)).to.eq(
+    expect(converter.convertToString(testDate)).toEqual(
       testDate.toLocaleString()
     );
   });
@@ -243,42 +243,42 @@ describe("DateTimeTypeConverter", () => {
   it("convertFromString", () => {
     const str = "2018-01-01 01:15:30";
     const date = new Date(2018, 0, 1, 1, 15, 30);
-    expect(converter.convertFromString(str)!.valueOf()).to.eq(date.valueOf());
+    expect(converter.convertFromString(str)!.valueOf()).toEqual(date.valueOf());
   });
 
   describe("convertToStringWithOptions", () => {
     it("returns correct string", () => {
       const date = new Date(Date.UTC(2018, 0, 1));
       let options = { alternateDateFormat: AlternateDateFormats.IsoDateTime };
-      expect(converter.convertToStringWithOptions(date, options)).to.be.eq(
+      expect(converter.convertToStringWithOptions(date, options)).toEqual(
         "2018-01-01T00:00:00.000Z"
       );
       options = { alternateDateFormat: AlternateDateFormats.IsoShort };
-      expect(converter.convertToStringWithOptions(date, options)).to.be.eq(
+      expect(converter.convertToStringWithOptions(date, options)).toEqual(
         "2018-01-01T00:00:00.000Z"
       );
       options = { alternateDateFormat: AlternateDateFormats.UtcShort };
-      expect(converter.convertToStringWithOptions(date, options)).to.be.eq(
+      expect(converter.convertToStringWithOptions(date, options)).toEqual(
         "01 Jan 2018 00:00:00 GMT"
       );
       options = { alternateDateFormat: AlternateDateFormats.UtcShortWithDay };
-      expect(converter.convertToStringWithOptions(date, options)).to.be.eq(
+      expect(converter.convertToStringWithOptions(date, options)).toEqual(
         "Mon, 01 Jan 2018 00:00:00 GMT"
       );
       options = { alternateDateFormat: AlternateDateFormats.UtcDateTime };
-      expect(converter.convertToStringWithOptions(date, options)).to.be.eq(
+      expect(converter.convertToStringWithOptions(date, options)).toEqual(
         "01 Jan 2018 00:00:00 GMT"
       );
       options = {
         alternateDateFormat: AlternateDateFormats.UtcDateTimeWithDay,
       };
-      expect(converter.convertToStringWithOptions(date, options)).to.be.eq(
+      expect(converter.convertToStringWithOptions(date, options)).toEqual(
         "Mon, 01 Jan 2018 00:00:00 GMT"
       );
-      expect(converter.convertToStringWithOptions(undefined, options)).to.be.eq(
+      expect(converter.convertToStringWithOptions(undefined, options)).toEqual(
         ""
       );
-      expect(converter.convertToStringWithOptions(date, undefined)).to.be.eq(
+      expect(converter.convertToStringWithOptions(date, undefined)).toEqual(
         converter.convertToString(date)
       );
     });
@@ -296,7 +296,7 @@ describe("DateTimeTypeConverter", () => {
       const date = new Date(Date.UTC(2018, 0, 1));
       const str = "2018-01-01";
       const options = { alternateDateFormat: AlternateDateFormats.IsoDateTime };
-      expect(converter.convertToStringWithOptions(str, options)).to.be.eq(
+      expect(converter.convertToStringWithOptions(str, options)).toEqual(
         converter.convertToStringWithOptions(date, options)
       );
     });
@@ -318,6 +318,6 @@ describe("NoneDateTypeConverter", () => {
 
   it("convertToString", () => {
     const testDate = new Date(2018, 0, 1, 1, 15, 30);
-    expect(converter.convertToString(testDate)).to.eq(testDate.toISOString());
+    expect(converter.convertToString(testDate)).toEqual(testDate.toISOString());
   });
 });

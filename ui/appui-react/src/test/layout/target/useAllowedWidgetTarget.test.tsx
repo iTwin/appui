@@ -12,6 +12,6 @@ describe("useAllowedWidgetTarget", () => {
     const { result } = renderHook(() => useAllowedWidgetTarget("w1"), {
       wrapper: (props) => <TestNineZoneProvider {...props} />,
     });
-    result.current.should.eq(false);
+    expect(result.current).toEqual(false);
   });
 });

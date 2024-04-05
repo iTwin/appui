@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { Provider } from "react-redux";
 import { render, screen } from "@testing-library/react";
 import { Key } from "ts-key-enum";
@@ -33,19 +31,19 @@ describe("ConfigurableUiContent", () => {
         </ThemeManager>
       </Provider>
     );
-    expect(UiFramework.keyboardShortcuts.isFocusOnHome).to.be.true;
+    expect(UiFramework.keyboardShortcuts.isFocusOnHome).toEqual(true);
 
     const toolAdmin = new FrameworkToolAdmin();
     let keyEvent = new KeyboardEvent("keydown", { key: "a" });
-    expect(await toolAdmin.processShortcutKey(keyEvent, true)).to.be.true;
+    expect(await toolAdmin.processShortcutKey(keyEvent, true)).toEqual(true);
     keyEvent = new KeyboardEvent("keyup", { key: "a" });
-    expect(await toolAdmin.processShortcutKey(keyEvent, false)).to.be.false;
+    expect(await toolAdmin.processShortcutKey(keyEvent, false)).toEqual(false);
     keyEvent = new KeyboardEvent("keydown", { key: Key.Escape });
-    expect(await toolAdmin.processShortcutKey(keyEvent, true)).to.be.false;
+    expect(await toolAdmin.processShortcutKey(keyEvent, true)).toEqual(false);
   });
 
   it("mouse moves should be handled", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const removeListener =
       CursorInformation.onCursorUpdatedEvent.addListener(spy);
     render(
@@ -61,11 +59,11 @@ describe("ConfigurableUiContent", () => {
       coords: { x: 10, y: 10 },
     });
 
-    expect(spy).to.have.been.calledWith(
-      sinon.match({
-        oldPt: sinon.match.any,
-        newPt: sinon.match.any,
-        direction: sinon.match.any,
+    expect(spy).toHaveBeenCalledWith(
+      expect.objectContaining({
+        oldPt: expect.anything(),
+        newPt: expect.anything(),
+        direction: expect.anything(),
       })
     );
 

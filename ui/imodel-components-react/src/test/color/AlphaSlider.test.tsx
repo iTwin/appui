@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import React from "react";
-import sinon from "sinon";
 import { fireEvent, render } from "@testing-library/react";
 import { AlphaSlider } from "../../imodel-components-react/color/AlphaSlider";
 
@@ -27,7 +25,7 @@ describe("<AlphaSlider />", () => {
     const renderedComponent = render(
       <AlphaSlider alpha={alpha} isHorizontal={true} />
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
   });
 
   it("vertical slider should render", () => {
@@ -36,7 +34,7 @@ describe("<AlphaSlider />", () => {
         <AlphaSlider alpha={alpha} isHorizontal={false} />
       </div>
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
   });
 
   it("Use keyboard to pick Transparency - Horizontal", async () => {
@@ -57,9 +55,9 @@ describe("<AlphaSlider />", () => {
       0.45, 0.45, 0.55, 0.55, 0, 1, 0.25, 0.75, 0.4, 0.4, 0.6, 0.6, 0, 1, 0, 1,
     ];
 
-    const spyOnPick = sinon.spy();
+    const spyOnPick = vi.fn();
     function handleAlphaChange(_transparency: number): void {
-      expect(_transparency).to.be.equal(values[index]);
+      expect(_transparency).toEqual(values[index]);
       spyOnPick();
     }
 
@@ -71,20 +69,20 @@ describe("<AlphaSlider />", () => {
       />
     );
     const sliderDiv = renderedComponent.getByTestId("alpha-slider");
-    expect(sliderDiv).not.to.be.null;
-    expect(sliderDiv.tagName).to.be.equal("DIV");
+    expect(sliderDiv).toBeTruthy();
+    expect(sliderDiv.tagName).toEqual("DIV");
 
     keys.forEach((keyName) => {
       fireEvent.keyDown(sliderDiv, { key: keyName });
-      expect(spyOnPick.calledOnce).to.be.true;
-      spyOnPick.resetHistory();
+      expect(spyOnPick).toHaveBeenCalledOnce();
+      spyOnPick.mockReset();
       index = index + 1;
     });
 
     keys.forEach((keyName) => {
       fireEvent.keyDown(sliderDiv, { key: keyName, ctrlKey: true });
-      expect(spyOnPick.calledOnce).to.be.true;
-      spyOnPick.resetHistory();
+      expect(spyOnPick).toHaveBeenCalledOnce();
+      spyOnPick.mockReset();
       index = index + 1;
     });
   });
@@ -105,9 +103,9 @@ describe("<AlphaSlider />", () => {
     ];
     const values = [0.45, 0.45, 0.55, 0.55, 0, 1, 0.25, 0.75];
 
-    const spyOnPick = sinon.spy();
+    const spyOnPick = vi.fn();
     function handleAlphaChange(_transparency: number): void {
-      expect(_transparency).to.be.equal(values[index]);
+      expect(_transparency).toEqual(values[index]);
       spyOnPick();
     }
 
@@ -121,13 +119,13 @@ describe("<AlphaSlider />", () => {
       </div>
     );
     const sliderDiv = renderedComponent.getByTestId("alpha-slider");
-    expect(sliderDiv).not.to.be.null;
-    expect(sliderDiv.tagName).to.be.equal("DIV");
+    expect(sliderDiv).toBeTruthy();
+    expect(sliderDiv.tagName).toEqual("DIV");
 
     keys.forEach((keyName) => {
       fireEvent.keyDown(sliderDiv, { key: keyName });
-      expect(spyOnPick.calledOnce).to.be.true;
-      spyOnPick.resetHistory();
+      expect(spyOnPick).toHaveBeenCalledOnce();
+      spyOnPick.mockReset();
       index = index + 1;
     });
   });
@@ -136,7 +134,7 @@ describe("<AlphaSlider />", () => {
     const getBoundingClientRect = Element.prototype.getBoundingClientRect;
 
     // force getBoundingClientRect to return info we need during testing
-    before(() => {
+    beforeEach(() => {
       Element.prototype.getBoundingClientRect = () => ({
         bottom: 0,
         height: 30,
@@ -150,13 +148,13 @@ describe("<AlphaSlider />", () => {
       });
     });
 
-    after(() => {
+    afterEach(() => {
       Element.prototype.getBoundingClientRect = getBoundingClientRect;
     });
 
     it("point @0,0", () => {
       function handleAlphaChange(_transparency: number): void {
-        expect(_transparency).to.be.equal(0);
+        expect(_transparency).toEqual(0);
       }
 
       const renderedComponent = render(
@@ -177,7 +175,7 @@ describe("<AlphaSlider />", () => {
 
     it("point @200,0", () => {
       function handleAlphaChange(_transparency: number): void {
-        expect(_transparency).to.be.equal(1);
+        expect(_transparency).toEqual(1);
       }
 
       const renderedComponent = render(
@@ -201,7 +199,7 @@ describe("<AlphaSlider />", () => {
     const getBoundingClientRect = Element.prototype.getBoundingClientRect;
 
     // force getBoundingClientRect to return info we need during testing
-    before(() => {
+    beforeEach(() => {
       Element.prototype.getBoundingClientRect = () => ({
         bottom: 0,
         height: 30,
@@ -215,13 +213,13 @@ describe("<AlphaSlider />", () => {
       });
     });
 
-    after(() => {
+    afterEach(() => {
       Element.prototype.getBoundingClientRect = getBoundingClientRect;
     });
 
     it("point @0,0", () => {
       function handleAlphaChange(_transparency: number): void {
-        expect(_transparency).to.be.equal(0);
+        expect(_transparency).toEqual(0);
       }
 
       const renderedComponent = render(
@@ -242,7 +240,7 @@ describe("<AlphaSlider />", () => {
 
     it("point @200,0", () => {
       function handleAlphaChange(_transparency: number): void {
-        expect(_transparency).to.be.equal(1);
+        expect(_transparency).toEqual(1);
       }
 
       const renderedComponent = render(
@@ -268,7 +266,7 @@ describe("<AlphaSlider />", () => {
     const getBoundingClientRect = Element.prototype.getBoundingClientRect;
 
     // force getBoundingClientRect to return info we need during testing
-    before(() => {
+    beforeEach(() => {
       Element.prototype.getBoundingClientRect = () => ({
         bottom: 0,
         height: 200,
@@ -282,13 +280,13 @@ describe("<AlphaSlider />", () => {
       });
     });
 
-    after(() => {
+    afterEach(() => {
       Element.prototype.getBoundingClientRect = getBoundingClientRect;
     });
 
     it("point @0,0", () => {
       function handleAlphaChange(_transparency: number): void {
-        expect(_transparency).to.be.equal(1);
+        expect(_transparency).toEqual(1);
       }
 
       const renderedComponent = render(
@@ -311,7 +309,7 @@ describe("<AlphaSlider />", () => {
 
     it("point @0,200", () => {
       function handleAlphaChange(_transparency: number): void {
-        expect(_transparency).to.be.equal(0);
+        expect(_transparency).toEqual(0);
       }
 
       const renderedComponent = render(
@@ -337,7 +335,7 @@ describe("<AlphaSlider />", () => {
     const getBoundingClientRect = Element.prototype.getBoundingClientRect;
 
     // force getBoundingClientRect to return info we need during testing
-    before(() => {
+    beforeEach(() => {
       Element.prototype.getBoundingClientRect = () => ({
         bottom: 0,
         height: 200,
@@ -351,13 +349,13 @@ describe("<AlphaSlider />", () => {
       });
     });
 
-    after(() => {
+    afterEach(() => {
       Element.prototype.getBoundingClientRect = getBoundingClientRect;
     });
 
     it("point @0,0", () => {
       function handleAlphaChange(_transparency: number): void {
-        expect(_transparency).to.be.equal(1);
+        expect(_transparency).toEqual(1);
       }
 
       const renderedComponent = render(
@@ -380,7 +378,7 @@ describe("<AlphaSlider />", () => {
 
     it("point @200,0", () => {
       function handleAlphaChange(_transparency: number): void {
-        expect(_transparency).to.be.equal(0);
+        expect(_transparency).toEqual(0);
       }
 
       const renderedComponent = render(

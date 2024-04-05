@@ -3,22 +3,17 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { fireEvent, render, screen } from "@testing-library/react";
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import {
   FilteringInput,
   FilteringInputStatus,
 } from "../../components-react/filtering/FilteringInput";
-import TestUtils, { selectorMatches, userEvent } from "../TestUtils";
+import { selectorMatches, userEvent } from "../TestUtils";
 
 describe("FilteringInput", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
   beforeEach(() => {
     theUserTo = userEvent.setup();
-  });
-  before(async () => {
-    await TestUtils.initializeUiComponents();
   });
 
   it("renders correctly", () => {
@@ -81,7 +76,7 @@ describe("FilteringInput", () => {
   });
 
   it("starts search when input is edited and 'Enter' key is pressed", async () => {
-    const startCallback = sinon.spy();
+    const startCallback = vi.fn();
     render(
       <FilteringInput
         status={FilteringInputStatus.ReadyToFilter}
@@ -95,14 +90,14 @@ describe("FilteringInput", () => {
     await theUserTo.type(screen.getByRole("textbox"), "test{Backspace}", {
       skipAutoClose: true,
     });
-    expect(startCallback).to.not.be.called;
+    expect(startCallback).not.toBeCalled();
 
     await theUserTo.keyboard("[Enter]");
-    expect(startCallback).to.be.calledOnce;
+    expect(startCallback).toHaveBeenCalledOnce();
   });
 
   it("doesn't start search when input is empty", async () => {
-    const startCallback = sinon.spy();
+    const startCallback = vi.fn();
     render(
       <FilteringInput
         status={FilteringInputStatus.ReadyToFilter}
@@ -115,16 +110,16 @@ describe("FilteringInput", () => {
     await theUserTo.type(screen.getByRole("textbox"), "{Enter}", {
       skipAutoClose: true,
     });
-    expect(startCallback).to.not.be.called;
+    expect(startCallback).not.toBeCalled();
 
     await theUserTo.click(screen.getByTitle("general.search"));
-    expect(startCallback).to.not.be.called;
+    expect(startCallback).not.toBeCalled();
   });
 
   it("calls appropriate callbacks to different button clicks", async () => {
-    const cancelCallback = sinon.spy();
-    const clearCallback = sinon.spy();
-    const startCallback = sinon.spy();
+    const cancelCallback = vi.fn();
+    const clearCallback = vi.fn();
+    const startCallback = vi.fn();
 
     const { rerender } = render(
       <FilteringInput
@@ -139,7 +134,7 @@ describe("FilteringInput", () => {
       skipAutoClose: true,
     });
     await theUserTo.click(screen.getByTitle("general.search"));
-    expect(startCallback).to.be.calledOnce;
+    expect(startCallback).toHaveBeenCalledOnce();
 
     rerender(
       <FilteringInput
@@ -151,7 +146,7 @@ describe("FilteringInput", () => {
     );
 
     await theUserTo.click(screen.getByTitle("dialog.cancel"));
-    expect(cancelCallback).to.be.calledOnce;
+    expect(cancelCallback).toHaveBeenCalledOnce();
 
     rerender(
       <FilteringInput
@@ -165,11 +160,11 @@ describe("FilteringInput", () => {
 
     await theUserTo.click(screen.getByTitle("general.clear"));
 
-    expect(clearCallback).to.be.calledOnce;
+    expect(clearCallback).toHaveBeenCalledOnce();
   });
 
   it("calls onFilterCancel when input text is changed after starting the search", () => {
-    const cancelCallback = sinon.spy();
+    const cancelCallback = vi.fn();
 
     const filteringInput = render(
       <FilteringInput
@@ -191,7 +186,7 @@ describe("FilteringInput", () => {
     fireEvent.click(searchIcon as Element);
     fireEvent.change(searchBar as Element, { target: { value: "testing" } });
 
-    expect(cancelCallback).to.be.calledOnce;
+    expect(cancelCallback).toHaveBeenCalledOnce();
   });
 
   it("does not render `ResultSelector` but renders `search` button when status is set to `ReadyToFilter`", () => {

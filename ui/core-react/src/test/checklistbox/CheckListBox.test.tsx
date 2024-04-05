@@ -4,14 +4,12 @@
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
 import * as React from "react";
-import * as sinon from "sinon";
 import userEvent from "@testing-library/user-event";
 import {
   CheckListBox,
   CheckListBoxItem,
   CheckListBoxSeparator,
 } from "../../core-react";
-import { expect } from "chai";
 import { classesFromElement } from "../TestUtils";
 
 describe("<CheckListBox />", () => {
@@ -41,22 +39,20 @@ describe("<CheckListBox />", () => {
   });
 
   it("CheckListBoxItem should call onClick method", async () => {
-    const spyMethod = sinon.spy();
+    const spy = vi.fn();
 
-    render(<CheckListBoxItem label="label" onClick={spyMethod} />);
+    render(<CheckListBoxItem label="label" onClick={spy} />);
 
     await theUserTo.click(screen.getByRole("checkbox"));
-    spyMethod.calledOnce.should.true;
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("CheckListBoxItem should call onChange method", async () => {
-    const spyMethod = sinon.spy();
+    const spy = vi.fn();
 
-    render(
-      <CheckListBoxItem label="label" checked={false} onChange={spyMethod} />
-    );
+    render(<CheckListBoxItem label="label" checked={false} onChange={spy} />);
 
     await theUserTo.click(screen.getByRole("checkbox"));
-    spyMethod.calledOnce.should.true;
+    expect(spy).toHaveBeenCalledOnce();
   });
 });

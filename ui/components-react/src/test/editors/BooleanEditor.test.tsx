@@ -3,10 +3,8 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import { render, screen } from "@testing-library/react";
 import * as React from "react";
-import sinon from "sinon";
 import { BooleanEditor } from "../../components-react/editors/BooleanEditor";
 import { EditorContainer } from "../../components-react/editors/EditorContainer";
 import TestUtils, { MineDataController, userEvent } from "../TestUtils";
@@ -24,14 +22,14 @@ describe("<BooleanEditor />", () => {
   it("value 'false' should have the checkbox unchecked", async () => {
     const record = TestUtils.createBooleanProperty("Test", false);
     render(<BooleanEditor propertyRecord={record} />);
-    expect(screen.getByTestId<HTMLInputElement>(testId).checked).to.be.false;
+    expect(screen.getByTestId<HTMLInputElement>(testId).checked).toEqual(false);
   });
 
   it("value 'true' should have the checkbox checked", async () => {
     const record = TestUtils.createBooleanProperty("Test", true);
     render(<BooleanEditor propertyRecord={record} />);
 
-    expect(screen.getByTestId<HTMLInputElement>(testId).checked).to.be.true;
+    expect(screen.getByTestId<HTMLInputElement>(testId).checked).toEqual(true);
   });
 
   it("isDisabled should have the checkbox disabled", async () => {
@@ -39,31 +37,35 @@ describe("<BooleanEditor />", () => {
     record.isDisabled = true;
     render(<BooleanEditor propertyRecord={record} />);
 
-    expect(screen.getByTestId<HTMLInputElement>(testId).disabled).to.be.true;
+    expect(screen.getByTestId<HTMLInputElement>(testId).disabled).toEqual(true);
   });
 
   it("toggling the checkbox should updates boolean value", async () => {
     const record = TestUtils.createBooleanProperty("Test1", false);
-    const spyOnCommit = sinon.spy();
+    const spyOnCommit = vi.fn();
     render(<BooleanEditor propertyRecord={record} onCommit={spyOnCommit} />);
 
     await theUserTo.click(screen.getByTestId(testId));
-    expect(screen.getByTestId<HTMLInputElement>(testId).checked).to.be.true;
-    expect(spyOnCommit).to.have.been.calledWith(
-      sinon.match({ newValue: sinon.match({ value: true }) })
+    expect(screen.getByTestId<HTMLInputElement>(testId).checked).toEqual(true);
+    expect(spyOnCommit).toHaveBeenCalledWith(
+      expect.objectContaining({
+        newValue: expect.objectContaining({ value: true }),
+      })
     );
-    spyOnCommit.resetHistory();
+    spyOnCommit.mockReset();
 
     await theUserTo.click(screen.getByTestId(testId));
-    expect(screen.getByTestId<HTMLInputElement>(testId).checked).to.be.false;
-    expect(spyOnCommit).to.have.been.calledWith(
-      sinon.match({ newValue: sinon.match({ value: false }) })
+    expect(screen.getByTestId<HTMLInputElement>(testId).checked).toEqual(false);
+    expect(spyOnCommit).toHaveBeenCalledWith(
+      expect.objectContaining({
+        newValue: expect.objectContaining({ value: false }),
+      })
     );
   });
 
   it("onCommit should be called for Space", async () => {
     const propertyRecord = TestUtils.createBooleanProperty("Test2", false);
-    const spyOnCommit = sinon.spy();
+    const spyOnCommit = vi.fn();
     render(
       <EditorContainer
         propertyRecord={propertyRecord}
@@ -76,8 +78,11 @@ describe("<BooleanEditor />", () => {
     screen.getByTestId(testId).focus();
     await theUserTo.keyboard(" ");
 
-    expect(spyOnCommit).to.have.been.calledOnceWith(
-      sinon.match({ newValue: sinon.match({ value: true }) })
+    expect(spyOnCommit).toHaveBeenCalledOnce();
+    expect(spyOnCommit).toHaveBeenCalledWith(
+      expect.objectContaining({
+        newValue: expect.objectContaining({ value: true }),
+      })
     );
   });
 
@@ -85,12 +90,12 @@ describe("<BooleanEditor />", () => {
     const record = TestUtils.createBooleanProperty("Test", false);
     const { rerender } = render(<BooleanEditor propertyRecord={record} />);
 
-    expect(screen.getByTestId<HTMLInputElement>(testId).checked).to.be.false;
+    expect(screen.getByTestId<HTMLInputElement>(testId).checked).toEqual(false);
 
     const newRecord = TestUtils.createBooleanProperty("Test", true);
     rerender(<BooleanEditor propertyRecord={newRecord} />);
 
-    expect(screen.getByTestId<HTMLInputElement>(testId).checked).to.be.true;
+    expect(screen.getByTestId<HTMLInputElement>(testId).checked).toEqual(true);
   });
 
   it("should not commit if DataController fails to validate", async () => {
@@ -98,7 +103,7 @@ describe("<BooleanEditor />", () => {
     const propertyRecord = TestUtils.createBooleanProperty("Test2", false);
     propertyRecord.property.dataController = "myData";
 
-    const spyOnCommit = sinon.spy();
+    const spyOnCommit = vi.fn();
     render(
       <EditorContainer
         propertyRecord={propertyRecord}
@@ -110,7 +115,7 @@ describe("<BooleanEditor />", () => {
 
     await theUserTo.click(screen.getByTestId(testId));
 
-    expect(spyOnCommit.calledOnce).to.be.false;
+    expect(spyOnCommit).not.toBeCalled();
 
     PropertyEditorManager.deregisterDataController("myData");
   });
@@ -120,9 +125,10 @@ describe("<BooleanEditor />", () => {
     const ref = React.createRef<BooleanEditor>();
     render(<BooleanEditor propertyRecord={record} setFocus={true} ref={ref} />);
 
-    expect(((await ref.current?.getPropertyValue()) as PrimitiveValue).value).to
-      .be.false;
-    expect(ref.current?.hasFocus).to.be.true;
+    expect(
+      ((await ref.current?.getPropertyValue()) as PrimitiveValue).value
+    ).toEqual(false);
+    expect(ref.current?.hasFocus).toEqual(true);
     expect(ref.current?.htmlElement).to.equal(screen.getByRole("checkbox"));
   });
 });

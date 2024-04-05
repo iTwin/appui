@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import React from "react";
-import sinon from "sinon";
 import { ColorByName, ColorDef } from "@itwin/core-common";
 import { fireEvent, render } from "@testing-library/react";
 import { WeightPickerButton } from "../../imodel-components-react/lineweight/WeightPickerButton";
@@ -23,14 +21,14 @@ describe("<WeightPickerButton/>", () => {
         colorDef={colorDef}
       />
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
   });
 
   it("button press should open popup and allow weight selection", async () => {
-    const spyOnWeightPick = sinon.spy();
+    const spyOnWeightPick = vi.fn();
 
     function handleWeightPick(weight: number): void {
-      expect(weight).to.be.equal(1);
+      expect(weight).toEqual(1);
       spyOnWeightPick();
     }
 
@@ -47,13 +45,13 @@ describe("<WeightPickerButton/>", () => {
     const pickerButton = renderedComponent.getByTestId(
       "components-weightpicker-button"
     );
-    expect(pickerButton.tagName).to.be.equal("BUTTON");
+    expect(pickerButton.tagName).toEqual("BUTTON");
     let expandedAttribute = pickerButton.getAttribute("aria-expanded");
-    expect(expandedAttribute).to.be.eq("false");
+    expect(expandedAttribute).toEqual("false");
 
     fireEvent.click(pickerButton);
     expandedAttribute = pickerButton.getAttribute("aria-expanded");
-    expect(expandedAttribute).to.be.eq("true");
+    expect(expandedAttribute).toEqual("true");
 
     // getByTestId will trigger failure if not found so need to add separate 'expect' to test
     const popupDiv = renderedComponent.getByTestId(
@@ -61,25 +59,24 @@ describe("<WeightPickerButton/>", () => {
     );
     if (popupDiv) {
       const title = renderedComponent.getByText("test-title");
-      expect(title).not.to.be.undefined;
+      expect(title).toBeTruthy();
 
       const firstColorButton = popupDiv.firstChild as HTMLElement;
-      expect(firstColorButton).not.to.be.undefined;
+      expect(firstColorButton).toBeTruthy();
       fireEvent.click(firstColorButton);
-      // renderedComponent.debug();
-      expect(spyOnWeightPick).to.be.calledOnce;
+      expect(spyOnWeightPick).toHaveBeenCalledOnce();
     }
   });
 
   it("button press should open popup and allow weight selection (Enter to close)", async () => {
-    const spyOnWeightPick = sinon.spy();
+    const spyOnWeightPick = vi.fn();
 
     function buildIdForWeight(weight: number): string {
       return `ui-core-lineweight-${weight}`;
     }
 
     function handleWeightPick(weight: number): void {
-      expect(weight).to.be.equal(2);
+      expect(weight).toEqual(2);
       spyOnWeightPick();
     }
 
@@ -96,13 +93,13 @@ describe("<WeightPickerButton/>", () => {
     const pickerButton = renderedComponent.getByTestId(
       "components-weightpicker-button"
     );
-    expect(pickerButton.tagName).to.be.equal("BUTTON");
+    expect(pickerButton.tagName).toEqual("BUTTON");
     let expandedAttribute = pickerButton.getAttribute("aria-expanded");
-    expect(expandedAttribute).to.be.eq("false");
+    expect(expandedAttribute).toEqual("false");
 
     fireEvent.click(pickerButton);
     expandedAttribute = pickerButton.getAttribute("aria-expanded");
-    expect(expandedAttribute).to.be.eq("true");
+    expect(expandedAttribute).toEqual("true");
 
     // getByTestId will trigger failure if not found so need to add separate 'expect' to test
     const popupDiv = renderedComponent.getByTestId(
@@ -110,17 +107,16 @@ describe("<WeightPickerButton/>", () => {
     );
     if (popupDiv) {
       const title = renderedComponent.getByText("test-title");
-      expect(title).not.to.be.undefined;
+      expect(title).toBeTruthy();
 
       const firstColorButton = popupDiv.firstChild as HTMLElement;
-      expect(firstColorButton).not.to.be.undefined;
+      expect(firstColorButton).toBeTruthy();
 
       // wait for button to receive focus
       await new Promise((r) => {
         setTimeout(r, 80);
       });
 
-      // renderedComponent.debug();
       // focus on weight 2 and press enter key which should close popup
       const node = popupDiv.querySelector(
         `#${buildIdForWeight(2)}`
@@ -129,17 +125,16 @@ describe("<WeightPickerButton/>", () => {
         node.focus();
         fireEvent.keyDown(popupDiv, { key: "Enter" });
 
-        // renderedComponent.debug();
-        expect(spyOnWeightPick).to.be.calledOnce;
+        expect(spyOnWeightPick).toHaveBeenCalledOnce();
       }
     }
   });
 
   it("button press should open popup and move selection via arrow (Enter to close)", async () => {
-    const spyOnWeightPick = sinon.spy();
+    const spyOnWeightPick = vi.fn();
 
     function handleWeightPick(weight: number): void {
-      expect(weight).to.be.equal(2);
+      expect(weight).toEqual(2);
       spyOnWeightPick();
     }
 
@@ -156,13 +151,13 @@ describe("<WeightPickerButton/>", () => {
     const pickerButton = renderedComponent.getByTestId(
       "components-weightpicker-button"
     );
-    expect(pickerButton.tagName).to.be.equal("BUTTON");
+    expect(pickerButton.tagName).toEqual("BUTTON");
     let expandedAttribute = pickerButton.getAttribute("aria-expanded");
-    expect(expandedAttribute).to.be.eq("false");
+    expect(expandedAttribute).toEqual("false");
 
     fireEvent.click(pickerButton);
     expandedAttribute = pickerButton.getAttribute("aria-expanded");
-    expect(expandedAttribute).to.be.eq("true");
+    expect(expandedAttribute).toEqual("true");
 
     // getByTestId will trigger failure if not found so need to add separate 'expect' to test
     const popupDiv = renderedComponent.getByTestId(
@@ -170,30 +165,29 @@ describe("<WeightPickerButton/>", () => {
     );
     if (popupDiv) {
       const title = renderedComponent.getByText("test-title");
-      expect(title).not.to.be.undefined;
+      expect(title).toBeTruthy();
 
       const firstColorButton = popupDiv.firstChild as HTMLElement;
-      expect(firstColorButton).not.to.be.undefined;
+      expect(firstColorButton).toBeTruthy();
 
       // wait for button to receive focus
       await new Promise((r) => {
         setTimeout(r, 80);
       });
 
-      // renderedComponent.debug();
       fireEvent.keyDown(popupDiv, { key: "ArrowDown" }); // down to 4
       fireEvent.keyDown(popupDiv, { key: "ArrowUp" }); // back up to 3
       fireEvent.keyDown(popupDiv, { key: "ArrowUp" }); // up to 2
       fireEvent.keyDown(popupDiv, { key: "Enter" });
-      expect(spyOnWeightPick).to.be.calledOnce;
+      expect(spyOnWeightPick).toHaveBeenCalledOnce();
     }
   });
 
   it("button press should open popup, move selection via arrow & wraparound as needed", async () => {
-    const spyOnWeightPick = sinon.spy();
+    const spyOnWeightPick = vi.fn();
 
     function handleWeightPick(weight: number): void {
-      expect(weight).to.be.equal(5);
+      expect(weight).toEqual(5);
       spyOnWeightPick();
     }
 
@@ -210,13 +204,13 @@ describe("<WeightPickerButton/>", () => {
     const pickerButton = renderedComponent.getByTestId(
       "components-weightpicker-button"
     );
-    expect(pickerButton.tagName).to.be.equal("BUTTON");
+    expect(pickerButton.tagName).toEqual("BUTTON");
     let expandedAttribute = pickerButton.getAttribute("aria-expanded");
-    expect(expandedAttribute).to.be.eq("false");
+    expect(expandedAttribute).toEqual("false");
 
     fireEvent.click(pickerButton);
     expandedAttribute = pickerButton.getAttribute("aria-expanded");
-    expect(expandedAttribute).to.be.eq("true");
+    expect(expandedAttribute).toEqual("true");
 
     // getByTestId will trigger failure if not found so need to add separate 'expect' to test
     const popupDiv = renderedComponent.getByTestId(
@@ -224,17 +218,16 @@ describe("<WeightPickerButton/>", () => {
     );
     if (popupDiv) {
       const title = renderedComponent.getByText("test-title");
-      expect(title).not.to.be.undefined;
+      expect(title).toBeTruthy();
 
       const firstColorButton = popupDiv.firstChild as HTMLElement;
-      expect(firstColorButton).not.to.be.undefined;
+      expect(firstColorButton).toBeTruthy();
 
       // wait for button to receive focus
       await new Promise((r) => {
         setTimeout(r, 80);
       });
 
-      // renderedComponent.debug();
       fireEvent.keyDown(popupDiv, { key: "ArrowDown" }); // down to 4
       fireEvent.keyDown(popupDiv, { key: "ArrowDown" }); // down to 5
       fireEvent.keyDown(popupDiv, { key: "ArrowDown" }); // down to 6
@@ -242,7 +235,7 @@ describe("<WeightPickerButton/>", () => {
       fireEvent.keyDown(popupDiv, { key: "ArrowUp" }); // back down to 6
       fireEvent.keyDown(popupDiv, { key: "ArrowUp" }); // up to 5
       fireEvent.keyDown(popupDiv, { key: "Enter" });
-      expect(spyOnWeightPick).to.be.calledOnce;
+      expect(spyOnWeightPick).toHaveBeenCalledOnce();
     }
   });
 
@@ -257,10 +250,10 @@ describe("<WeightPickerButton/>", () => {
     const pickerButton = renderedComponent.getByTestId(
       "components-weightpicker-button"
     );
-    expect(pickerButton.tagName).to.be.equal("BUTTON");
+    expect(pickerButton.tagName).toEqual("BUTTON");
     fireEvent.click(pickerButton);
     // use queryByTestId to avoid exception if it is not found.
     const corePopupDiv = renderedComponent.queryByTestId("core-popup");
-    expect(corePopupDiv).to.be.null;
+    expect(corePopupDiv).toEqual(null);
   });
 });

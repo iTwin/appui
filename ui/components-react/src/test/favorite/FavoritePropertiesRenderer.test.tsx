@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import * as faker from "faker";
-import * as sinon from "sinon";
 import { PropertyRecord } from "@itwin/appui-abstract";
 import type { PropertyCategory, PropertyData } from "../../components-react";
 import { FavoritePropertiesRenderer } from "../../components-react/favorite/FavoritePropertiesRenderer";
@@ -14,10 +12,6 @@ import TestUtils from "../TestUtils";
 describe("FavoritePropertiesRenderer", () => {
   let dataProvider: FavoritePropertiesDataProvider;
   let renderer: FavoritePropertiesRenderer;
-
-  before(async () => {
-    await TestUtils.initializeUiComponents();
-  });
 
   class FavoritePropertiesDataProvider {
     private _categories: PropertyCategory[] = [
@@ -47,16 +41,16 @@ describe("FavoritePropertiesRenderer", () => {
     it("should render a tooltip for an element", async () => {
       const propertyData = await dataProvider.getData();
       const tooltip = renderer.renderFavorites(propertyData);
-      expect(tooltip).to.not.be.null;
+      expect(tooltip).toBeTruthy();
     });
 
     it("should support `createRoot` parameter", async () => {
-      const fakeRender = sinon.spy();
-      const fakeRoot = sinon.stub().returns({ render: fakeRender });
+      const fakeRender = vi.fn();
+      const fakeRoot = vi.fn().mockReturnValue({ render: fakeRender });
       const propertyData = await dataProvider.getData();
       const div = renderer.renderFavorites(propertyData, undefined, fakeRoot);
-      expect(fakeRoot).to.have.been.calledWithExactly(div);
-      expect(fakeRender).to.have.been.calledOnce;
+      expect(fakeRoot).toHaveBeenCalledWith(div);
+      expect(fakeRender).toHaveBeenCalledOnce();
     });
   });
 
@@ -64,7 +58,7 @@ describe("FavoritePropertiesRenderer", () => {
     it("should correctly determine if has favorites", async () => {
       const propertyData = await dataProvider.getData();
       const hasFavorites = renderer.hasFavorites(propertyData);
-      expect(hasFavorites).to.be.true;
+      expect(hasFavorites).toEqual(true);
     });
   });
 });

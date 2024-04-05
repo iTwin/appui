@@ -3,14 +3,12 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import React from "react";
-import * as sinon from "sinon";
 import type { ActionButton, CommonToolbarItem } from "@itwin/appui-abstract";
 import { ToolbarItemUtilities } from "@itwin/appui-abstract";
 import { fireEvent, render } from "@testing-library/react";
 import { Key } from "ts-key-enum";
-import * as useTargetedModule from "@itwin/core-react/lib/cjs/core-react/utils/hooks/useTargeted";
+import { renderHook } from "@testing-library/react-hooks";
 import type { CustomToolbarItem } from "../../components-react/toolbar/InternalToolbarComponent";
 import {
   ToolbarOpacitySetting,
@@ -22,8 +20,7 @@ import { Toolbar } from "../../components-react/toolbar/Toolbar";
 import { Direction } from "../../components-react/toolbar/utilities/Direction";
 import { BackArrow } from "../../components-react/toolbar/groupPanel/BackArrow";
 import { GroupTool } from "../../components-react/toolbar/groupPanel/tool/Tool";
-import { renderHook } from "@testing-library/react-hooks";
-import { BadgeType } from "../TestUtils";
+import { BadgeType } from "@itwin/core-react";
 
 /* eslint-disable deprecation/deprecation */
 // cSpell:ignore testid
@@ -35,14 +32,8 @@ function createBubbledEvent(type: string, props = {}) {
 }
 
 describe("<Toolbar (No Overflow) />", () => {
-  const sandbox = sinon.createSandbox();
-
-  afterEach(() => {
-    sandbox.restore();
-  });
-
   describe("<Horizontal Toolbar />", () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
 
     const basicToolbarItems: CommonToolbarItem[] = [
       ToolbarItemUtilities.createActionButton(
@@ -97,17 +88,16 @@ describe("<Toolbar (No Overflow) />", () => {
         ToolbarPanelAlignmentHelpers.getCssClassName(
           ToolbarPanelAlignment.Start
         )
-      ).to.eq(ToolbarPanelAlignmentHelpers.START_CLASS_NAME);
+      ).toEqual(ToolbarPanelAlignmentHelpers.START_CLASS_NAME);
       expect(
         ToolbarPanelAlignmentHelpers.getCssClassName(ToolbarPanelAlignment.End)
-      ).to.eq(ToolbarPanelAlignmentHelpers.END_CLASS_NAME);
+      ).toEqual(ToolbarPanelAlignmentHelpers.END_CLASS_NAME);
     });
 
     it("will render 6 items", () => {
       const renderedComponent = render(<Toolbar items={basicToolbarItems} />);
-      expect(renderedComponent).not.to.be.undefined;
-      // renderedComponent.debug();
-      expect(renderedComponent.queryByTitle("Entry6")).not.to.be.null;
+      expect(renderedComponent).toBeTruthy();
+      expect(renderedComponent.queryByTitle("Entry6")).toBeTruthy();
     });
 
     it("will render 6 items - simulate horizontal toolbar at bottom right of window.", () => {
@@ -118,9 +108,8 @@ describe("<Toolbar (No Overflow) />", () => {
           items={basicToolbarItems}
         />
       );
-      expect(renderedComponent).not.to.be.undefined;
-      // renderedComponent.debug();
-      expect(renderedComponent.queryByTitle("Entry6")).not.to.be.null;
+      expect(renderedComponent).toBeTruthy();
+      expect(renderedComponent.queryByTitle("Entry6")).toBeTruthy();
     });
 
     it("will render tool group", () => {
@@ -194,27 +183,25 @@ describe("<Toolbar (No Overflow) />", () => {
           toolbarOpacitySetting={ToolbarOpacitySetting.Transparent}
         />
       );
-      expect(renderedComponent).not.to.be.undefined;
-      expect(renderedComponent.queryByTitle("Entry1")).not.to.be.null;
-      expect(renderedComponent.queryByTitle("Entry3")).not.to.be.null;
-      expect(renderedComponent.queryByTitle("Group6")).not.to.be.null;
-      // renderedComponent.debug();
+      expect(renderedComponent).toBeTruthy();
+      expect(renderedComponent.queryByTitle("Entry1")).toBeTruthy();
+      expect(renderedComponent.queryByTitle("Entry3")).toBeTruthy();
+      expect(renderedComponent.queryByTitle("Group6")).toBeTruthy();
       // since group priorities are not defined no separator class should be found.
       expect(
         renderedComponent.container.querySelectorAll(
           ".components-toolbar-button-add-gap-before"
-        ).length
-      ).to.be.eq(0);
+        )
+      ).toHaveLength(0);
       // badges should not be displayed when toolbar is transparent
       expect(
         renderedComponent.container.querySelectorAll(
           ".core-badge-technicalPreviewBadge"
-        ).length
-      ).to.be.eq(0);
+        )
+      ).toHaveLength(0);
       expect(
         renderedComponent.container.querySelectorAll(".core-badge-newBadge")
-          .length
-      ).to.be.eq(0);
+      ).toHaveLength(0);
     });
 
     it("will render with separators when group priority changes ", () => {
@@ -266,23 +253,21 @@ describe("<Toolbar (No Overflow) />", () => {
           toolbarOpacitySetting={ToolbarOpacitySetting.Defaults}
         />
       );
-      expect(renderedComponent).not.to.be.undefined;
-
+      expect(renderedComponent).toBeTruthy();
       expect(
         renderedComponent.container.querySelectorAll(
           ".components-toolbar-show-decorators"
-        ).length
-      ).to.be.eq(1);
+        )
+      ).toHaveLength(1);
       // badges should be displayed when toolbar is NOT transparent
       expect(
         renderedComponent.container.querySelectorAll(".core-badge-newBadge")
-          .length
-      ).to.be.eq(1);
+      ).toHaveLength(1);
       expect(
         renderedComponent.container.querySelectorAll(
           ".components-toolbar-item-container.components-horizontal.components-toolbar-button-add-gap-before"
-        ).length
-      ).to.be.eq(2);
+        )
+      ).toHaveLength(2);
     });
 
     it("will render without separators when group priority changes but in transparent mode", () => {
@@ -334,14 +319,13 @@ describe("<Toolbar (No Overflow) />", () => {
           toolbarOpacitySetting={ToolbarOpacitySetting.Transparent}
         />
       );
-      expect(renderedComponent).not.to.be.undefined;
-      // renderedComponent.debug();
+      expect(renderedComponent).toBeTruthy();
 
       expect(
         renderedComponent.container.querySelectorAll(
           ".components-toolbar-show-decorators"
-        ).length
-      ).to.be.eq(0);
+        )
+      ).toHaveLength(0);
     });
 
     it("will render transparent background", () => {
@@ -415,9 +399,9 @@ describe("<Toolbar (No Overflow) />", () => {
           toolbarOpacitySetting={ToolbarOpacitySetting.Transparent}
         />
       );
-      expect(renderedComponent).not.to.be.undefined;
-      expect(renderedComponent.queryByTitle("Entry3")).not.to.be.null;
-      expect(renderedComponent.queryByTitle("Group6")).not.to.be.null;
+      expect(renderedComponent).toBeTruthy();
+      expect(renderedComponent.queryByTitle("Entry3")).toBeTruthy();
+      expect(renderedComponent.queryByTitle("Group6")).toBeTruthy();
     });
 
     it("should open panel when popup item clicked", () => {
@@ -434,30 +418,29 @@ describe("<Toolbar (No Overflow) />", () => {
 
       const toolbarItems: CommonToolbarItem[] = [getCustomDefWithPopupPanel()];
 
-      const onKeyDownSpy = sinon.spy();
+      const onKeyDownSpy = vi.fn();
 
       const renderedComponent = render(
         <Toolbar items={toolbarItems} onKeyDown={onKeyDownSpy} />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
       const button = renderedComponent.queryByTitle("PopupEntry");
-      expect(button).not.to.be.null;
-      expect(renderedComponent.queryByTestId("popup-panel")).to.be.null;
+      expect(button).toBeTruthy();
+      expect(renderedComponent.queryByTestId("popup-panel")).toEqual(null);
       fireEvent.click(button!);
-      // renderedComponent.debug();
 
       // Also make sure the popup panel can inform user when key down is pressed
       const popupPanel = renderedComponent.queryByTestId("popup-panel");
-      expect(popupPanel).not.to.be.null;
+      expect(popupPanel).toBeTruthy();
       popupPanel!.dispatchEvent(
         createBubbledEvent("keydown", { key: Key.Escape /* <Esc> */ })
       );
-      onKeyDownSpy.calledOnce.should.true;
+      expect(onKeyDownSpy).toHaveBeenCalledOnce();
     });
 
     it("should call onItemExecuted", async () => {
-      const toolSpy = sinon.spy();
-      const onItemExecuteSpy = sinon.spy();
+      const toolSpy = vi.fn();
+      const onItemExecuteSpy = vi.fn();
       const testToolbarItems: CommonToolbarItem[] = [
         ToolbarItemUtilities.createActionButton(
           "Entry1",
@@ -473,11 +456,10 @@ describe("<Toolbar (No Overflow) />", () => {
       );
 
       const actionButton = renderedComponent.queryByTitle("Entry1");
-      expect(actionButton).not.to.be.null;
+      expect(actionButton).toBeTruthy();
       fireEvent.click(actionButton!);
-      // renderedComponent.debug();
-      toolSpy.calledOnce.should.true;
-      onItemExecuteSpy.calledOnce.should.true;
+      expect(toolSpy).toHaveBeenCalledOnce();
+      expect(onItemExecuteSpy).toHaveBeenCalledOnce();
     });
   });
 
@@ -535,9 +517,9 @@ describe("<Toolbar (No Overflow) />", () => {
           items={toolbarItems}
         />
       );
-      expect(renderedComponent).not.to.be.undefined;
-      expect(renderedComponent.queryByTitle("Entry1")).not.to.be.null;
-      expect(renderedComponent.queryByTitle("Entry6")).not.to.be.null;
+      expect(renderedComponent).toBeTruthy();
+      expect(renderedComponent.queryByTitle("Entry1")).toBeTruthy();
+      expect(renderedComponent.queryByTitle("Entry6")).toBeTruthy();
     });
 
     it("will render 6 items - simulate vertical bar in Navigation Area", () => {
@@ -548,17 +530,22 @@ describe("<Toolbar (No Overflow) />", () => {
           items={toolbarItems}
         />
       );
-      expect(renderedComponent).not.to.be.undefined;
-      expect(renderedComponent.queryByTitle("Entry6")).not.to.be.null;
+      expect(renderedComponent).toBeTruthy();
+      expect(renderedComponent.queryByTitle("Entry6")).toBeTruthy();
     });
   });
 
   describe("<BackArrow />", () => {
-    it("renders targeted correctly", () => {
-      sinon.stub(useTargetedModule, "useTargeted").returns(true);
+    it("renders targeted correctly", async () => {
       const renderedComponent = render(<BackArrow />);
-      expect(renderedComponent.container.querySelector(".components-targeted"))
-        .to.not.be.null;
+      const pointerMove = new MouseEvent("pointermove");
+      vi.spyOn(pointerMove, "target", "get").mockImplementation(
+        () => renderedComponent.container.children[0]
+      );
+      document.dispatchEvent(pointerMove);
+      expect(
+        renderedComponent.container.querySelector(".components-targeted")
+      ).toBeTruthy();
     });
   });
 
@@ -573,40 +560,49 @@ describe("<Toolbar (No Overflow) />", () => {
 
     it("renders badge correctly", () => {
       const renderedComponent = render(<GroupTool item={item} badge />);
-      expect(renderedComponent.container.querySelector(".components-badge")).to
-        .not.be.null;
+      expect(
+        renderedComponent.container.querySelector(".components-badge")
+      ).toBeTruthy();
     });
 
     it("renders targeted correctly", () => {
-      sinon.stub(useTargetedModule, "useTargeted").returns(true);
       const renderedComponent = render(<GroupTool item={item} />);
-      expect(renderedComponent.container.querySelector(".components-targeted"))
-        .to.not.be.null;
+      const pointerMove = new MouseEvent("pointermove");
+      vi.spyOn(pointerMove, "target", "get").mockImplementation(
+        () => renderedComponent.container.children[0]
+      );
+      document.dispatchEvent(pointerMove);
+      expect(
+        renderedComponent.container.querySelector(".components-targeted")
+      ).toBeTruthy();
     });
 
     it("renders various props correctly", () => {
       const renderedComponent = render(
         <GroupTool item={item} isActive isDisabled isFocused />
       );
-      expect(renderedComponent.container.querySelector(".components-active")).to
-        .not.be.null;
-      expect(renderedComponent.container.querySelector(".components-disabled"))
-        .to.not.be.null;
-      expect(renderedComponent.container.querySelector(".components-focused"))
-        .to.not.be.null;
+      expect(
+        renderedComponent.container.querySelector(".components-active")
+      ).toBeTruthy();
+      expect(
+        renderedComponent.container.querySelector(".components-disabled")
+      ).toBeTruthy();
+      expect(
+        renderedComponent.container.querySelector(".components-focused")
+      ).toBeTruthy();
     });
 
     it("should invoke onPointerUp handler", () => {
-      const spy = sinon.spy();
+      const spy = vi.fn();
       const renderedComponent = render(
         <GroupTool item={item} onPointerUp={spy} />
       );
       const div = renderedComponent.container.querySelector(
         ".components-toolbar-item-expandable-group-tool-item"
       );
-      expect(div).not.to.be.null;
+      expect(div).toBeTruthy();
       fireEvent.pointerUp(div!);
-      spy.calledOnce.should.true;
+      expect(spy).toHaveBeenCalledOnce();
     });
   });
 

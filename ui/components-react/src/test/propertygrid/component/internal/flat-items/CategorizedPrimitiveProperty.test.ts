@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import { MutableCategorizedPrimitiveProperty } from "../../../../../components-react/propertygrid/internal/flat-items/MutableCategorizedPrimitiveProperty";
 import TestUtils from "../../../../TestUtils";
 import { FlatGridTestUtils as GridUtils } from "./FlatGridTestUtils";
@@ -40,9 +39,9 @@ describe("CategorizedPrimitiveProperty", () => {
       );
 
       GridUtils.assertPropertyEquals(property, propertyRecord);
-      expect(property.depth).to.be.equal(0);
-      expect(property.parentSelectionKey).to.be.equal("Cat1");
-      expect(property.parentCategorySelectionKey).to.be.equal("Cat1");
+      expect(property.depth).toEqual(0);
+      expect(property.parentSelectionKey).toEqual("Cat1");
+      expect(property.parentCategorySelectionKey).toEqual("Cat1");
     });
 
     it("Should correctly initialize categorized primitive property with overrides", () => {
@@ -61,9 +60,9 @@ describe("CategorizedPrimitiveProperty", () => {
       );
 
       GridUtils.assertPropertyEquals(property, propertyRecord, "Prop_4", "[5]");
-      expect(property.depth).to.be.equal(1);
-      expect(property.parentSelectionKey).to.be.equal("Cat1_Array");
-      expect(property.parentCategorySelectionKey).to.be.equal("Cat1");
+      expect(property.depth).toEqual(1);
+      expect(property.parentSelectionKey).toEqual("Cat1_Array");
+      expect(property.parentCategorySelectionKey).toEqual("Cat1");
     });
 
     it("Should throw when initializing categorized primitive property with struct record", () => {
@@ -132,7 +131,7 @@ describe("CategorizedPrimitiveProperty", () => {
 
         const isExpanded = property.isExpanded;
 
-        expect(isExpanded).to.be.equal(!!propertyRecord.autoExpand);
+        expect(isExpanded).toEqual(!!propertyRecord.autoExpand);
       });
     }
   });
@@ -152,7 +151,7 @@ describe("CategorizedPrimitiveProperty", () => {
 
       const children = property.getSelf();
 
-      expect(children).to.be.equal(property);
+      expect(children).toEqual(property);
     });
   });
 

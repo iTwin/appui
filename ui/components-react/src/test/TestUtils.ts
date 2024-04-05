@@ -1,17 +1,14 @@
-import { expect } from "chai";
-import React from "react";
 /*---------------------------------------------------------------------------------------------
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+import React from "react";
 import type {
   ArrayValue,
   BasePropertyEditorParams,
   ButtonGroupEditorParams,
   CustomFormattedNumberParams,
-  DisplayMessageType,
   ImageCheckBoxParams,
-  MessagePresenter,
   ParseResults,
   Primitives,
   PrimitiveValue,
@@ -37,8 +34,6 @@ import { DataControllerBase, UiComponents } from "../components-react";
 
 export { userEvent };
 
-// cSpell:ignore buttongroup
-
 /** @internal */
 export class TestUtils {
   private static _i18n?: ITwinLocalization;
@@ -56,22 +51,11 @@ export class TestUtils {
       await UiComponents.initialize(TestUtils.i18n);
       TestUtils._uiComponentsInitialized = true;
 
-      const mp: MessagePresenter = {
-        displayMessage: (
-          _severity: MessageSeverity,
-          _briefMessage: HTMLElement | string,
-          _detailedMessage?: HTMLElement | string,
-          _messageType?: DisplayMessageType.Toast
-        ): void => {},
-        displayInputFieldMessage: (
-          _inputField: HTMLElement,
-          _severity: MessageSeverity,
-          _briefMessage: HTMLElement | string,
-          _detailedMessage?: HTMLElement | string
-        ): void => {},
-        closeInputFieldMessage: (): void => {},
+      UiAdmin.messagePresenter = {
+        displayMessage: () => {},
+        displayInputFieldMessage: () => {},
+        closeInputFieldMessage: () => {},
       };
-      UiAdmin.messagePresenter = mp;
     }
   }
 
@@ -568,14 +552,15 @@ export interface TestErrorBoundaryState {
  *
  * Example usage:
  * ```tsx
- * const errorSpy = sinon.spy();
+ * const errorSpy = vi.fn();
  * render(
  *   <TestErrorBoundary onError={errorSpy}>
  *     <TestComponent />
  *   </TestErrorBoundary>
  * );
  * await waitFor(() => {
- *   expect(errorSpy).to.be.calledOnce.and.calledWith(sinon.match((error: Error) => error.message === "test error"));
+ *   expect(errorSpy).toHaveBeenCalledOnce();
+ *   expect(errorSpy.mock.calls[0][0].message).toEqual("test error");
  * });
  * ```
  */
@@ -600,23 +585,4 @@ export class TestErrorBoundary extends React.Component<
   }
 }
 
-/**
- * Simplified type for `sinon.SinonSpy`.
- * @internal
- */
-export type SinonSpy<T extends (...args: any) => any> = sinon.SinonSpy<
-  Parameters<T>,
-  ReturnType<T>
->;
-
 export default TestUtils;
-
-/** @internal */
-export enum BadgeType {
-  /** No badge. */
-  None = 0,
-  /** Standard Technical Preview badge. */
-  TechnicalPreview = 1,
-  /** Standard New Feature badge. */
-  New = 2,
-}

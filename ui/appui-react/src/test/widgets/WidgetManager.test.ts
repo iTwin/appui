@@ -2,8 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
-import * as sinon from "sinon";
 import { Logger } from "@itwin/core-bentley";
 import type { UiItemsProvider, Widget } from "../../appui-react";
 import {
@@ -73,7 +71,7 @@ describe("WidgetManager", () => {
   });
 
   it("addWidgetDef should log error when no stageId or stageUsage is provided", () => {
-    const spyMethod = sinon.spy(Logger, "logError");
+    const spy = vi.spyOn(Logger, "logError");
     const widgetDef = WidgetDef.create({
       id: "test",
     });
@@ -83,7 +81,7 @@ describe("WidgetManager", () => {
       undefined,
       StagePanelLocation.Bottom
     );
-    spyMethod.calledOnce.should.true;
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("addWidgetDef should add a WidgetDef targeting a stageId", () => {
@@ -96,7 +94,7 @@ describe("WidgetManager", () => {
       undefined,
       StagePanelLocation.Bottom
     );
-    expect(widgetManager.widgets.length).to.eq(1);
+    expect(widgetManager.widgets.length).toEqual(1);
   });
 
   it("addWidgetDef should add a WidgetDef targeting a stageUsage", () => {
@@ -109,7 +107,7 @@ describe("WidgetManager", () => {
       "TestUsage",
       StagePanelLocation.Bottom
     );
-    expect(widgetManager.widgetCount).to.eq(1);
+    expect(widgetManager.widgetCount).toEqual(1);
   });
 
   it("addWidgetDef should add another WidgetDef", () => {
@@ -123,7 +121,7 @@ describe("WidgetManager", () => {
       "TestUsage",
       StagePanelLocation.Bottom
     );
-    expect(widgetManager.widgetCount).to.eq(1);
+    expect(widgetManager.widgetCount).toEqual(1);
 
     const widgetDef2 = WidgetDef.create({
       id: "test2",
@@ -134,7 +132,7 @@ describe("WidgetManager", () => {
       undefined,
       StagePanelLocation.Bottom
     );
-    expect(widgetManager.widgetCount).to.eq(2);
+    expect(widgetManager.widgetCount).toEqual(2);
   });
 
   it("addWidgetDef should not add a duplicate WidgetDef", () => {
@@ -147,14 +145,14 @@ describe("WidgetManager", () => {
       "TestUsage",
       StagePanelLocation.Bottom
     );
-    expect(widgetManager.widgetCount).to.eq(1);
+    expect(widgetManager.widgetCount).toEqual(1);
     widgetManager.addWidgetDef(
       widgetDef,
       undefined,
       "TestUsage",
       StagePanelLocation.Bottom
     );
-    expect(widgetManager.widgetCount).to.eq(1);
+    expect(widgetManager.widgetCount).toEqual(1);
   });
 
   it("getWidgetDefs should find a WidgetDef targeting a stageId", () => {
@@ -167,15 +165,15 @@ describe("WidgetManager", () => {
       undefined,
       StagePanelLocation.Bottom
     );
-    expect(widgetManager.widgetCount).to.eq(1);
+    expect(widgetManager.widgetCount).toEqual(1);
 
     const widgetDefs = widgetManager.getWidgetDefs(
       "TestStage",
       StageUsage.General,
       StagePanelLocation.Bottom
     );
-    expect(widgetDefs).to.not.be.undefined;
-    if (widgetDefs) expect(widgetDefs.length).to.eq(1);
+    expect(widgetDefs).toBeTruthy();
+    if (widgetDefs) expect(widgetDefs.length).toEqual(1);
   });
 
   it("getWidgetDefs should find a WidgetDef targeting a stageUsage", () => {
@@ -188,15 +186,15 @@ describe("WidgetManager", () => {
       "TestUsage",
       StagePanelLocation.Bottom
     );
-    expect(widgetManager.widgetCount).to.eq(1);
+    expect(widgetManager.widgetCount).toEqual(1);
 
     const widgetDefs = widgetManager.getWidgetDefs(
       "TestStage",
       "TestUsage",
       StagePanelLocation.Bottom
     );
-    expect(widgetDefs).to.not.be.undefined;
-    if (widgetDefs) expect(widgetDefs.length).to.eq(1);
+    expect(widgetDefs).toBeTruthy();
+    if (widgetDefs) expect(widgetDefs.length).toEqual(1);
   });
 
   it("getWidgetDefs should find a WidgetDef with location & section", () => {
@@ -210,7 +208,7 @@ describe("WidgetManager", () => {
       StagePanelLocation.Bottom,
       StagePanelSection.Start
     );
-    expect(widgetManager.widgetCount).to.eq(1);
+    expect(widgetManager.widgetCount).toEqual(1);
 
     const widgetDefs = widgetManager.getWidgetDefs(
       "TestStage",
@@ -218,8 +216,8 @@ describe("WidgetManager", () => {
       StagePanelLocation.Bottom,
       StagePanelSection.Start
     );
-    expect(widgetDefs).to.not.be.undefined;
-    if (widgetDefs) expect(widgetDefs.length).to.eq(1);
+    expect(widgetDefs).toBeTruthy();
+    if (widgetDefs) expect(widgetDefs.length).toEqual(1);
   });
 
   it("getWidgetDefs should get a WidgetDef from an 'addon' UiItemsProvider", async () => {
@@ -232,7 +230,7 @@ describe("WidgetManager", () => {
       undefined,
       StagePanelLocation.Right
     );
-    expect(widgetManager.widgetCount).to.eq(1);
+    expect(widgetManager.widgetCount).toEqual(1);
 
     const testUiProvider = new TestUiProvider();
     UiItemsManager.register(testUiProvider);
@@ -243,16 +241,16 @@ describe("WidgetManager", () => {
       StageUsage.General,
       StagePanelLocation.Right
     );
-    expect(widgetDefs).to.not.be.undefined;
-    if (widgetDefs) expect(widgetDefs.length).to.eq(2);
+    expect(widgetDefs).toBeTruthy();
+    if (widgetDefs) expect(widgetDefs.length).toEqual(2);
 
     const zoneWidgetDefs = widgetManager.getWidgetDefs(
       "TestStage",
       StageUsage.General,
       StagePanelLocation.Bottom
     );
-    expect(zoneWidgetDefs).to.not.be.undefined;
-    if (zoneWidgetDefs) expect(zoneWidgetDefs.length).to.eq(1);
+    expect(zoneWidgetDefs).toBeTruthy();
+    if (zoneWidgetDefs) expect(zoneWidgetDefs.length).toEqual(1);
 
     UiItemsManager.unregister(testUiProvider.id);
   });
@@ -267,9 +265,11 @@ describe("WidgetManager", () => {
       StageUsage.General,
       StagePanelLocation.Right
     );
-    expect(widgetDefs).to.not.be.undefined;
-    expect(widgetDefs?.length).to.eq(2);
-    expect(widgetDefs?.[0].floatingContainerId).to.eq("my-floating-container");
+    expect(widgetDefs).toBeTruthy();
+    expect(widgetDefs?.length).toEqual(2);
+    expect(widgetDefs?.[0].floatingContainerId).toEqual(
+      "my-floating-container"
+    );
     expect(widgetDefs?.[0].defaultFloatingPosition).to.eql({ x: 100, y: 200 });
     UiItemsManager.unregister(testUiProvider.id);
   });
@@ -284,7 +284,7 @@ describe("WidgetManager", () => {
       "TestUsage",
       StagePanelLocation.Bottom
     );
-    expect(widgetManager.widgetCount).to.eq(1);
+    expect(widgetManager.widgetCount).toEqual(1);
 
     const widgetDefs = widgetManager.getWidgetDefs(
       "NotUsage",
@@ -292,7 +292,7 @@ describe("WidgetManager", () => {
       StagePanelLocation.Bottom,
       StagePanelSection.Start
     );
-    expect(widgetDefs).to.be.undefined;
+    expect(widgetDefs).toEqual(undefined);
   });
 
   it("removeWidgetDef should remove a WidgetDef", () => {
@@ -305,11 +305,11 @@ describe("WidgetManager", () => {
       "TestUsage",
       StagePanelLocation.Bottom
     );
-    expect(widgetManager.widgetCount).to.eq(1);
+    expect(widgetManager.widgetCount).toEqual(1);
 
     const result = widgetManager.removeWidgetDef("test");
-    expect(result).to.be.true;
-    expect(widgetManager.widgetCount).to.eq(0);
+    expect(result).toEqual(true);
+    expect(widgetManager.widgetCount).toEqual(0);
   });
 
   it("removeWidgetDef should not remove a WidgetDef if not found", () => {
@@ -322,10 +322,10 @@ describe("WidgetManager", () => {
       "TestUsage",
       StagePanelLocation.Bottom
     );
-    expect(widgetManager.widgetCount).to.eq(1);
+    expect(widgetManager.widgetCount).toEqual(1);
 
     const result = widgetManager.removeWidgetDef("test2");
-    expect(result).to.be.false;
-    expect(widgetManager.widgetCount).to.eq(1);
+    expect(result).toEqual(false);
+    expect(widgetManager.widgetCount).toEqual(1);
   });
 });

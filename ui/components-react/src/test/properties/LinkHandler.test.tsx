@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import type { LinkElementsInfo } from "@itwin/appui-abstract";
 import { fireEvent, render } from "@testing-library/react";
 import {
@@ -12,15 +10,10 @@ import {
   renderLinks,
   withLinks,
 } from "../../components-react/properties/LinkHandler";
-import TestUtils from "../TestUtils";
 
 describe("LinkHandler", () => {
-  const onClickSpy = sinon.spy();
+  const onClickSpy = vi.fn();
   let links: LinkElementsInfo;
-
-  before(async () => {
-    await TestUtils.initializeUiComponents();
-  });
 
   beforeEach(() => {
     links = {
@@ -31,10 +24,10 @@ describe("LinkHandler", () => {
   describe("renderLinks", () => {
     it("calls highlight callback if provided", () => {
       const testString = "Example text";
-      const highlightSpy = sinon.spy();
+      const highlightSpy = vi.fn();
 
       renderLinks(testString, links, highlightSpy);
-      expect(highlightSpy).to.be.calledOnce;
+      expect(highlightSpy).toHaveBeenCalledOnce();
     });
 
     it("calls highlight callback for matching part", () => {
@@ -48,23 +41,21 @@ describe("LinkHandler", () => {
 
       renderLinks(testString, links, highlighter);
 
-      expect(matchedPartHighlighted).to.be.true;
+      expect(matchedPartHighlighted).toEqual(true);
     });
 
     it("rendered anchor tag calls appropriate callback on click", () => {
-      onClickSpy.resetHistory();
-
       const anchor = render(<>{renderLinks("Example text", links)}</>);
 
-      expect(onClickSpy).to.have.not.been.called;
+      expect(onClickSpy).not.toBeCalled();
       fireEvent.click(
         anchor.container.getElementsByClassName("core-underlined-button")[0]
       );
-      expect(onClickSpy).to.have.been.calledOnce;
+      expect(onClickSpy).toHaveBeenCalledOnce();
     });
 
     it("rendered anchor tag container's onClick event will not trigger on anchor click", () => {
-      const parentOnClickSpy = sinon.spy();
+      const parentOnClickSpy = vi.fn();
 
       const anchor = render(
         <div onClick={parentOnClickSpy} role="presentation">
@@ -72,11 +63,11 @@ describe("LinkHandler", () => {
         </div>
       );
 
-      expect(parentOnClickSpy).to.have.not.been.called;
+      expect(parentOnClickSpy).not.toBeCalled();
       fireEvent.click(
         anchor.container.getElementsByClassName("core-underlined-button")[0]
       );
-      expect(parentOnClickSpy).to.have.not.been.called;
+      expect(parentOnClickSpy).not.toBeCalled();
     });
 
     it("returns text split up into anchor tags when text matcher is provided", () => {
@@ -138,10 +129,10 @@ describe("LinkHandler", () => {
 
     it("calls highlight callback if provided with no links", () => {
       const testString = "Example text";
-      const highlightSpy = sinon.spy();
+      const highlightSpy = vi.fn();
 
       withLinks(testString, undefined, highlightSpy);
-      expect(highlightSpy).to.be.calledOnce;
+      expect(highlightSpy).toHaveBeenCalledOnce();
     });
   });
 

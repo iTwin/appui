@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import React from "react";
-import sinon from "sinon";
 import { Key } from "ts-key-enum";
 import { fireEvent, render } from "@testing-library/react";
 import { RelativePosition } from "@itwin/appui-abstract";
@@ -19,31 +17,32 @@ import { ColorPickerPopup } from "../../imodel-components-react/color/ColorPicke
 describe("<ColorPickerPopup/>", () => {
   const colorDef = ColorDef.create(ColorByName.blue);
 
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiIModelComponents();
   });
 
-  after(() => {
+  afterEach(() => {
     TestUtils.terminateUiIModelComponents();
   });
 
   it("should render", () => {
     const component = render(<ColorPickerPopup initialColor={colorDef} />);
-    expect(component).not.to.be.undefined;
-    expect(component.container.querySelector(".components-caret")).to.be.null;
+    expect(component).toBeTruthy();
+    expect(component.container.querySelector(".components-caret")).toEqual(
+      null
+    );
   });
 
   it("should render with caret", () => {
     const component = render(
       <ColorPickerPopup initialColor={colorDef} showCaret />
     );
-    expect(component).not.to.be.undefined;
-    expect(component.container.querySelector(".components-caret")).not.to.be
-      .null;
+    expect(component).toBeTruthy();
+    expect(component.container.querySelector(".components-caret")).toBeTruthy();
   });
 
   it("button press should open popup and allow color selection", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const component = render(
       <ColorPickerPopup initialColor={colorDef} onColorChange={spy} showCaret />
     );
@@ -51,7 +50,7 @@ describe("<ColorPickerPopup/>", () => {
     const pickerButton = component.getByTestId(
       "components-colorpicker-popup-button"
     );
-    expect(pickerButton.tagName).to.be.equal("BUTTON");
+    expect(pickerButton.tagName).toEqual("BUTTON");
     component.getByTestId("caret-down");
     fireEvent.click(pickerButton);
     component.getByTestId("caret-up");
@@ -63,14 +62,14 @@ describe("<ColorPickerPopup/>", () => {
     });
     fireEvent.click(colorSwatch);
 
-    sinon.assert.calledOnceWithExactly(
-      spy,
-      sinon.match({ tbgr: ColorByName.red })
+    expect(spy).toHaveBeenCalledOnce();
+    expect(spy).toHaveBeenCalledWith(
+      expect.objectContaining({ tbgr: ColorByName.red })
     );
   });
 
   it("button press should open popup and allow color selection of specified preset", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
 
     const component = render(
       <ColorPickerPopup
@@ -85,7 +84,7 @@ describe("<ColorPickerPopup/>", () => {
     const pickerButton = component.getByTestId(
       "components-colorpicker-popup-button"
     );
-    expect(pickerButton.tagName).to.be.equal("BUTTON");
+    expect(pickerButton.tagName).toEqual("BUTTON");
     fireEvent.click(pickerButton);
 
     const colorSwatch = component.getByRole("button", {
@@ -95,9 +94,9 @@ describe("<ColorPickerPopup/>", () => {
     });
     fireEvent.click(colorSwatch);
 
-    sinon.assert.calledOnceWithExactly(
-      spy,
-      sinon.match({ tbgr: ColorByName.green })
+    expect(spy).toHaveBeenCalledOnce();
+    expect(spy).toHaveBeenCalledWith(
+      expect.objectContaining({ tbgr: ColorByName.green })
     );
   });
 
@@ -112,17 +111,17 @@ describe("<ColorPickerPopup/>", () => {
     const pickerButton = component.getByTestId(
       "components-colorpicker-popup-button"
     );
-    expect(pickerButton.tagName).to.be.equal("BUTTON");
+    expect(pickerButton.tagName).toEqual("BUTTON");
     fireEvent.click(pickerButton);
 
     const corePopupDiv = component.queryByTestId("core-popup");
-    expect(corePopupDiv).not.to.be.null;
+    expect(corePopupDiv).toBeTruthy();
     if (corePopupDiv)
-      expect(corePopupDiv.classList.contains("visible")).to.be.false;
+      expect(corePopupDiv.classList.contains("visible")).toEqual(false);
   });
 
   it("button press should open popup and allow trigger color selection when popup closed", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
 
     const component = render(
       <ColorPickerPopup
@@ -137,7 +136,7 @@ describe("<ColorPickerPopup/>", () => {
     const pickerButton = component.getByTestId(
       "components-colorpicker-popup-button"
     );
-    expect(pickerButton.tagName).to.be.equal("BUTTON");
+    expect(pickerButton.tagName).toEqual("BUTTON");
     fireEvent.click(pickerButton);
 
     const colorSwatch = component.getByRole("button", {
@@ -148,14 +147,15 @@ describe("<ColorPickerPopup/>", () => {
     fireEvent.click(colorSwatch);
 
     fireEvent.click(pickerButton); /* close popup */
-    sinon.assert.calledOnceWithExactly(
-      spy,
-      sinon.match({ tbgr: ColorDef.green.tbgr })
+
+    expect(spy).toHaveBeenCalledOnce();
+    expect(spy).toHaveBeenCalledWith(
+      expect.objectContaining({ tbgr: ColorDef.green.tbgr })
     );
   });
 
   it("captureClicks property should stop mouse click propagation", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
 
     const component = render(
       /* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */
@@ -172,7 +172,7 @@ describe("<ColorPickerPopup/>", () => {
       "components-colorpicker-popup-button"
     );
     fireEvent.click(pickerButton);
-    expect(spy).not.to.be.called;
+    expect(spy).not.toBeCalled();
 
     const colorSwatch = component.getByRole("button", {
       name: ColorValue.fromTbgr(ColorDef.green.tbgr)
@@ -180,11 +180,11 @@ describe("<ColorPickerPopup/>", () => {
         .toUpperCase(),
     });
     fireEvent.click(colorSwatch);
-    expect(spy).not.to.be.called;
+    expect(spy).not.toBeCalled();
   });
 
   it("mouse click should propagate if captureClicks not set to true", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
 
     const component = render(
       /* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */
@@ -200,7 +200,7 @@ describe("<ColorPickerPopup/>", () => {
       "components-colorpicker-popup-button"
     );
     fireEvent.click(pickerButton);
-    expect(spy).to.be.called;
+    expect(spy).toHaveBeenCalled();
 
     const colorSwatch = component.getByRole("button", {
       name: ColorValue.fromTbgr(ColorDef.green.tbgr)
@@ -208,7 +208,7 @@ describe("<ColorPickerPopup/>", () => {
         .toUpperCase(),
     });
     fireEvent.click(colorSwatch);
-    expect(spy).to.be.calledTwice;
+    expect(spy).toHaveBeenCalledTimes(2);
   });
 
   it("ensure update prop is handled", async () => {
@@ -244,7 +244,7 @@ describe("<ColorPickerPopup/>", () => {
   });
 
   it("ensure closing X is shown", async () => {
-    const spyOnClick = sinon.spy();
+    const spyOnClick = vi.fn();
 
     const component = render(
       <div>
@@ -263,18 +263,19 @@ describe("<ColorPickerPopup/>", () => {
     fireEvent.click(pickerButton);
 
     const popupDiv = component.getByTestId("core-popup");
-    expect(popupDiv).not.to.be.undefined;
+    expect(popupDiv).toBeTruthy();
 
     const closeButton = component.getByTestId("core-dialog-close");
     fireEvent.click(closeButton);
     await TestUtils.flushAsyncOperations();
 
-    expect(component.container.querySelector("button.core-dialog-close")).to.be
-      .null;
+    expect(
+      component.container.querySelector("button.core-dialog-close")
+    ).toEqual(null);
   });
 
   it("ensure closing X is NOT shown", async () => {
-    const spyOnClick = sinon.spy();
+    const spyOnClick = vi.fn();
 
     const component = render(
       <div>
@@ -294,13 +295,13 @@ describe("<ColorPickerPopup/>", () => {
     fireEvent.click(pickerButton);
 
     const popupDiv = component.getByTestId("core-popup");
-    expect(popupDiv).not.to.be.undefined;
+    expect(popupDiv).toBeTruthy();
 
-    expect(popupDiv.querySelector("button.core-dialog-close")).to.be.null;
+    expect(popupDiv.querySelector("button.core-dialog-close")).toEqual(null);
   });
 
   it("ensure rgb values are shown", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const component = render(
       <div>
         <ColorPickerPopup
@@ -322,13 +323,13 @@ describe("<ColorPickerPopup/>", () => {
       name: "Red",
     }) as HTMLInputElement;
     fireEvent.change(redInput, { target: { value: "100" } });
-    expect(redInput.value).to.eq("100");
+    expect(redInput.value).toEqual("100");
     fireEvent.keyDown(redInput, { key: Key.Enter });
-    sinon.assert.calledOnce(spy);
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("ensure hsl values are shown", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const component = render(
       <div>
         <ColorPickerPopup
@@ -350,9 +351,9 @@ describe("<ColorPickerPopup/>", () => {
       name: "Hue",
     }) as HTMLInputElement;
     fireEvent.change(hueInput, { target: { value: "100" } });
-    expect(hueInput.value).to.eq("100");
+    expect(hueInput.value).toEqual("100");
     fireEvent.keyDown(hueInput, { key: Key.Enter });
-    sinon.assert.calledOnce(spy);
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should not show swatches", async () => {

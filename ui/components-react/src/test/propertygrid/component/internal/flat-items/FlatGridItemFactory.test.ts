@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import { MutableCustomGridCategory } from "../../../../../components-react/propertygrid/internal/flat-items/MutableCustomGridCategory";
 import { FlatGridItemType } from "../../../../../components-react/propertygrid/internal/flat-items/MutableFlatGridItem";
 import { MutableGridItemFactory } from "../../../../../components-react/propertygrid/internal/flat-items/MutableGridItemFactory";
@@ -28,7 +27,7 @@ describe("FlatGridItemFactory", () => {
 
         FlatGridTestUtils.assertCategoryEquals(gridCategory, category);
 
-        expect(gridCategory.depth).to.be.equal(0);
+        expect(gridCategory.depth).toEqual(0);
       });
 
       it("creates category with parent correctly", () => {
@@ -50,7 +49,7 @@ describe("FlatGridItemFactory", () => {
 
         FlatGridTestUtils.assertCategoryEquals(gridCategory, category);
 
-        expect(gridCategory.depth).to.be.equal(2);
+        expect(gridCategory.depth).toEqual(2);
       });
 
       it("creates mutable custom category renderer", () => {
@@ -71,7 +70,7 @@ describe("FlatGridItemFactory", () => {
           0
         );
 
-        expect(gridCategory instanceof MutableCustomGridCategory).to.be.true;
+        expect(gridCategory instanceof MutableCustomGridCategory).toEqual(true);
       });
     });
 

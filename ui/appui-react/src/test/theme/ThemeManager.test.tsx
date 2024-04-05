@@ -3,7 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { render, waitFor } from "@testing-library/react";
-import { expect } from "chai";
 import * as React from "react";
 import { Provider } from "react-redux";
 import { UiFramework } from "../../appui-react";
@@ -20,14 +19,14 @@ describe("ThemeManager", () => {
       </Provider>
     );
     UiFramework.setColorTheme(ColorTheme.Dark);
-    expect(UiFramework.getColorTheme()).to.eq(ColorTheme.Dark);
+    expect(UiFramework.getColorTheme()).toEqual(ColorTheme.Dark);
     expect(
       container.ownerDocument.documentElement.getAttribute("data-theme")
-    ).to.eq("dark");
+    ).toEqual("dark");
     const providerDiv = container.querySelector(
       `[data-root-container="appui-root-id"]`
     )!;
-    expect(providerDiv.getAttribute("data-iui-theme")).to.eq("dark");
+    expect(providerDiv.getAttribute("data-iui-theme")).toEqual("dark");
   });
 
   it("should change the widget opacity", async () => {
@@ -40,13 +39,13 @@ describe("ThemeManager", () => {
     );
     const testValue = 0.699;
     UiFramework.setWidgetOpacity(testValue);
-    expect(UiFramework.getWidgetOpacity()).to.eq(testValue);
+    expect(UiFramework.getWidgetOpacity()).toEqual(testValue);
     await waitFor(() => {
       expect(
         container.ownerDocument.documentElement.style.getPropertyValue(
           "--buic-widget-opacity"
         )
-      ).to.eq("0.699");
+      ).toEqual("0.699");
     });
   });
 
@@ -60,13 +59,13 @@ describe("ThemeManager", () => {
     );
     const testValue = 0.822;
     UiFramework.setToolbarOpacity(testValue);
-    expect(UiFramework.getToolbarOpacity()).to.eq(testValue);
+    expect(UiFramework.getToolbarOpacity()).toEqual(testValue);
     await waitFor(() => {
       expect(
         container.ownerDocument.documentElement.style.getPropertyValue(
           "--buic-toolbar-opacity"
         )
-      ).to.eq("0.822");
+      ).toEqual("0.822");
     });
   });
 });

@@ -3,10 +3,8 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import { fireEvent, render, screen } from "@testing-library/react";
 import * as React from "react";
-import sinon from "sinon";
 import { Key } from "ts-key-enum";
 import { EditorContainer } from "../../components-react/editors/EditorContainer";
 import { ToggleEditor } from "../../components-react/editors/ToggleEditor";
@@ -15,9 +13,10 @@ import { PropertyEditorManager } from "../../components-react/editors/PropertyEd
 
 describe("<ToggleEditor />", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
-  beforeEach(() => {
+  beforeEach(async () => {
     theUserTo = userEvent.setup();
   });
+
   it("renders correctly it no record", () => {
     render(<ToggleEditor />);
 
@@ -41,12 +40,12 @@ describe("<ToggleEditor />", () => {
 
   it("HTML input onChange updates boolean value", async () => {
     const record = TestUtils.createBooleanProperty("Test1", false, "toggle");
-    const spyOnCommit = sinon.spy();
+    const spyOnCommit = vi.fn();
     render(<ToggleEditor propertyRecord={record} onCommit={spyOnCommit} />);
 
     await theUserTo.click(screen.getByRole("switch"));
 
-    expect(spyOnCommit.calledOnce).to.be.true;
+    expect(spyOnCommit).toHaveBeenCalledOnce();
   });
 
   it("onCommit should be called for Space", async () => {
@@ -55,7 +54,7 @@ describe("<ToggleEditor />", () => {
       false,
       "toggle"
     );
-    const spyOnCommit = sinon.spy();
+    const spyOnCommit = vi.fn();
     render(
       <EditorContainer
         propertyRecord={propertyRecord}
@@ -68,8 +67,10 @@ describe("<ToggleEditor />", () => {
 
     await theUserTo.keyboard(" ");
 
-    expect(spyOnCommit).to.be.calledWith(
-      sinon.match({ newValue: sinon.match({ value: true }) })
+    expect(spyOnCommit).toHaveBeenCalledWith(
+      expect.objectContaining({
+        newValue: expect.objectContaining({ value: true }),
+      })
     );
   });
 
@@ -91,7 +92,7 @@ describe("<ToggleEditor />", () => {
     );
     propertyRecord.property.dataController = "myData";
 
-    const spyOnCommit = sinon.spy();
+    const spyOnCommit = vi.fn();
     const wrapper = render(
       <EditorContainer
         propertyRecord={propertyRecord}
@@ -101,11 +102,11 @@ describe("<ToggleEditor />", () => {
       />
     );
     const inputNode = wrapper.container.querySelector("input");
-    expect(inputNode).not.to.be.null;
+    expect(inputNode).toBeTruthy();
 
     fireEvent.keyDown(inputNode as HTMLElement, { key: Key.Enter });
     await TestUtils.flushAsyncOperations();
-    expect(spyOnCommit.calledOnce).to.be.false;
+    expect(spyOnCommit).not.toBeCalled();
 
     PropertyEditorManager.deregisterDataController("myData");
   });

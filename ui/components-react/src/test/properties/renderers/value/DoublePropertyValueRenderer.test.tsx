@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import type {
   PrimitiveValue,
   PropertyConverterInfo,
@@ -69,7 +67,7 @@ describe("DoublePropertyValueRenderer", () => {
         "zero point forty five meters"
       );
       property.links = {
-        onClick: sinon.spy(),
+        onClick: vi.fn(),
       };
 
       const element = renderer.render(property);
@@ -115,7 +113,7 @@ describe("DoublePropertyValueRenderer", () => {
     it("returns true for a double property", () => {
       const renderer = new DoublePropertyValueRenderer();
       const property = createDoubleProperty(0.45);
-      expect(renderer.canRender(property)).to.be.true;
+      expect(renderer.canRender(property)).toEqual(true);
     });
 
     it("returns false for properties that are not double", () => {
@@ -126,9 +124,9 @@ describe("DoublePropertyValueRenderer", () => {
         "Label",
         "Model"
       );
-      expect(renderer.canRender(arrayProperty)).to.be.false;
-      expect(renderer.canRender(structProperty)).to.be.false;
-      expect(renderer.canRender(stringProperty)).to.be.false;
+      expect(renderer.canRender(arrayProperty)).toEqual(false);
+      expect(renderer.canRender(structProperty)).toEqual(false);
+      expect(renderer.canRender(stringProperty)).toEqual(false);
     });
   });
 });

@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as moq from "typemoq";
 import type {
   PrimitiveValue,
@@ -18,10 +17,6 @@ describe("TypeConverter", () => {
       throw new Error("Method not implemented.");
     }
   }
-
-  before(async () => {
-    await TestUtils.initializeUiComponents();
-  });
 
   let converter: TypeConverter;
 
@@ -41,7 +36,7 @@ describe("TypeConverter", () => {
   });
 
   it("Base convertFromString returns undefined", async () => {
-    expect(await converter.convertFromString("abc")).to.be.undefined;
+    expect(await converter.convertFromString("abc")).toEqual(undefined);
   });
 
   const createPropertyDescription = (): PropertyDescription => {
@@ -77,7 +72,7 @@ describe("TypeConverter", () => {
           "def",
           TestUtils.createPrimitiveStringProperty("abc", "abc")
         );
-      expect((propertyValue as PrimitiveValue).value).to.be.undefined;
+      expect((propertyValue as PrimitiveValue).value).toEqual(undefined);
     });
 
     it("returns property with correct value when convertFromString also returns a correct value", async () => {
@@ -103,36 +98,36 @@ describe("TypeConverter", () => {
           "def",
           propertyRecord
         );
-      expect((propertyValue as PrimitiveValue).value).to.be.eq("def");
+      expect((propertyValue as PrimitiveValue).value).toEqual("def");
     });
   });
 
   it("isEqualTo", () => {
-    expect(converter.isEqualTo(0, 0)).to.be.true;
-    expect(converter.isEqualTo(1, 0)).to.be.false;
+    expect(converter.isEqualTo(0, 0)).toEqual(true);
+    expect(converter.isEqualTo(1, 0)).toEqual(false);
   });
 
   it("isNotEqualTo", () => {
-    expect(converter.isNotEqualTo(0, 0)).to.be.false;
-    expect(converter.isNotEqualTo(1, 0)).to.be.true;
+    expect(converter.isNotEqualTo(0, 0)).toEqual(false);
+    expect(converter.isNotEqualTo(1, 0)).toEqual(true);
   });
 
   it("Type methods", () => {
-    expect(converter.isStringType).to.be.false;
-    expect(converter.isLessGreaterType).to.be.false;
-    expect(converter.isBooleanType).to.be.false;
-    expect(converter.isNullableType).to.be.true;
+    expect(converter.isStringType).toEqual(false);
+    expect(converter.isLessGreaterType).toEqual(false);
+    expect(converter.isBooleanType).toEqual(false);
+    expect(converter.isNullableType).toEqual(true);
   });
 
   it("isNull", () => {
-    expect(converter.isNull(null as any)).to.be.true;
-    expect(converter.isNull(undefined as any)).to.be.true;
-    expect(converter.isNull("")).to.be.false;
+    expect(converter.isNull(null as any)).toEqual(true);
+    expect(converter.isNull(undefined as any)).toEqual(true);
+    expect(converter.isNull("")).toEqual(false);
   });
 
   it("isNotNull", () => {
-    expect(converter.isNotNull(null as any)).to.be.false;
-    expect(converter.isNotNull(undefined as any)).to.be.false;
-    expect(converter.isNotNull(0)).to.be.true;
+    expect(converter.isNotNull(null as any)).toEqual(false);
+    expect(converter.isNotNull(undefined as any)).toEqual(false);
+    expect(converter.isNotNull(0)).toEqual(true);
   });
 });

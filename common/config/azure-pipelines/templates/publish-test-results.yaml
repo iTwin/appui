@@ -12,89 +12,31 @@ steps:
   - task: PublishTestResults@2
     displayName: "Publish AppUI-React Test Results"
     inputs:
-      testResultsFiles: "ui/appui-react/lib/test/junit_results.xml"
+      testResultsFiles: "ui/appui-react/coverage/junit.xml"
       testRunTitle: "AppUI-React Tests - $(Agent.OS) - ${{ parameters.NodeVersion }}"
       searchFolder: ${{ parameters.workingDir }}
     condition: succeededOrFailed()
   - task: PublishTestResults@2
     displayName: "Publish Components-React Test Results"
     inputs:
-      testResultsFiles: "ui/components-react/lib/test/junit_results.xml"
+      testResultsFiles: "ui/components-react/coverage/junit.xml"
       testRunTitle: "Components-React Tests - $(Agent.OS) - ${{ parameters.NodeVersion }}"
       searchFolder: ${{ parameters.workingDir }}
     condition: succeededOrFailed()
   - task: PublishTestResults@2
     displayName: "Publish Core-React Test Results"
     inputs:
-      testResultsFiles: "ui/core-react/lib/test/junit_results.xml"
+      testResultsFiles: "ui/core-react/coverage/junit.xml"
       testRunTitle: "Core-React Tests - $(Agent.OS) - ${{ parameters.NodeVersion }}"
       searchFolder: ${{ parameters.workingDir }}
     condition: succeededOrFailed()
   - task: PublishTestResults@2
     displayName: "Publish IModel-Components-React Test Results"
     inputs:
-      testResultsFiles: "ui/imodel-components-react/lib/test/junit_results.xml"
+      testResultsFiles: "ui/imodel-components-react/coverage/junit.xml"
       testRunTitle: "IModel-Components-React Tests - $(Agent.OS) - ${{ parameters.NodeVersion }}"
       searchFolder: ${{ parameters.workingDir }}
     condition: succeededOrFailed()
-
-  #-------
-  # Code Coverage Tests
-  #-------
-  ## TODO: Fix combining code coverage into a single xml file to publish
-  - task: PythonScript@0
-    displayName: "Combine code coverage"
-    inputs:
-      workingDirectory: ${{ parameters.workingDir }}
-      pythonInterpreter: python3
-      scriptSource: inline
-      script: |
-        import os, argparse, shutil, glob
-
-        parser = argparse.ArgumentParser()
-        parser.add_argument(
-          "--output", help="Output path where xml reports will be copied")
-        args = parser.parse_args()
-        workDir = os.getcwd()
-
-        listOfPaths = []
-
-        for path in glob.iglob((workDir + "/*/*/.nyc_output"), recursive=True):
-          listOfPaths.append(path)
-
-        for path in glob.iglob((workDir + "/*/*/lib/**/.nyc_output"), recursive=True):
-          listOfPaths.append(path)
-
-        for path in glob.iglob((workDir + "/*/*/*/lib/**/.nyc_output"), recursive=True):
-          listOfPaths.append(path)
-
-        outputDir = os.path.join(args.output, "coverageXMLs")
-        processInfoDir = os.path.join(args.output, "coverageXMLs/processinfo")
-        if not os.path.exists(processInfoDir):
-          os.makedirs(processInfoDir)
-
-        for path in listOfPaths:
-          for file in glob.iglob((path + "/**"), recursive=True):
-            if os.path.isfile(file):
-              if "processinfo" in file:
-                shutil.copy(file, processInfoDir)
-              else:
-                shutil.copy(file, outputDir)
-
-      arguments: --output $(Build.ArtifactStagingDirectory)
-    condition: and(succeededOrFailed(), eq(variables['Agent.OS'], 'Darwin'))
-  - task: Cmdline@2
-    displayName: "Generate combined coverage report"
-    inputs:
-      script: npx nyc report --temp-dir="$(Build.ArtifactStagingDirectory)/coverageXMLs/" --report-dir="$(Build.ArtifactStagingDirectory)/coverageResults" --all --reporter=lcov --reporter=cobertura
-    condition: and(succeededOrFailed(), eq(variables['Agent.OS'], 'Darwin'))
-  - task: PublishCodeCoverageResults@1
-    displayName: "Publish code coverage"
-    inputs:
-      codeCoverageTool: Cobertura
-      summaryFileLocation: "$(Build.ArtifactStagingDirectory)/coverageResults/cobertura-coverage.xml"
-      reportDirectory: "$(Build.ArtifactStagingDirectory)/coverageResults/lcov-report"
-    condition: and(succeededOrFailed(), eq(variables['Agent.OS'], 'Darwin'))
 
   #-------
   # Codemod Tests

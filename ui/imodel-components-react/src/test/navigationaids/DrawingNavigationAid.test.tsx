@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import * as moq from "typemoq";
 import {
   AxisIndex,
@@ -31,6 +29,7 @@ import {
 } from "../../imodel-components-react/navigationaids/DrawingNavigationAid";
 import { ViewportComponentEvents } from "../../imodel-components-react/viewport/ViewportComponentEvents";
 import userEvent from "@testing-library/user-event";
+import type { Mock } from "vitest";
 
 // cspell:ignore unrotate
 
@@ -92,18 +91,13 @@ const cssMatrix3dToBentleyTransform = (mStr: string) => {
 
 describe("DrawingNavigationAid", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
-  beforeEach(() => {
+  beforeEach(async () => {
     theUserTo = userEvent.setup();
-  });
-
-  before(async () => {
-    sinon.restore();
     await TestUtils.initializeUiIModelComponents();
   });
 
-  after(() => {
+  afterEach(() => {
     TestUtils.terminateUiIModelComponents();
-    sinon.restore();
   });
 
   let extents = Vector3d.create(400, 400);
@@ -145,12 +139,13 @@ describe("DrawingNavigationAid", () => {
   }
 
   const waitForSpy = async (
-    spy: sinon.SinonSpy,
+    spy: Mock,
     options: { timeout: number } = { timeout: 250 }
   ) => {
     return waitFor(
       () => {
-        if (!spy.called) throw new Error("Waiting for spy timed out!");
+        if (spy.mock.calls.length === 0)
+          throw new Error("Waiting for spy timed out!");
       },
       { timeout: options.timeout, interval: 10 }
     );
@@ -161,7 +156,7 @@ describe("DrawingNavigationAid", () => {
       render(<DrawingNavigationAid iModelConnection={connection.object} />);
     });
     it("should exist", async () => {
-      const animationEnd = sinon.spy();
+      const animationEnd = vi.fn();
       const component = render(
         <DrawingNavigationAid
           iModelConnection={connection.object}
@@ -230,7 +225,7 @@ describe("DrawingNavigationAid", () => {
       expect(navAid.style.height).to.equal(`${size.y}px`);
     });
     it("should change from closed to opened when clicked", async () => {
-      const animationEnd = sinon.fake();
+      const animationEnd = vi.fn();
       const closedSize = Vector3d.create(96, 96);
       const openedSize = Vector3d.create(350, 300);
       const component = render(
@@ -260,7 +255,7 @@ describe("DrawingNavigationAid", () => {
       expect(navAid2!.style.height).to.equal("300px");
     });
     it("should change from closed to opened when view-window clicked", async () => {
-      const animationEnd = sinon.fake();
+      const animationEnd = vi.fn();
       const closedSize = Vector3d.create(96, 96);
       const openedSize = Vector3d.create(350, 300);
       const component = render(
@@ -290,7 +285,7 @@ describe("DrawingNavigationAid", () => {
       expect(navAid2!.style.height).to.equal("300px");
     });
     it("should change from closed to opened when clicked with rotateMinimapWithView", async () => {
-      const animationEnd = sinon.fake();
+      const animationEnd = vi.fn();
       const closedSize = Vector3d.create(96, 96);
       const openedSize = Vector3d.create(350, 300);
       const component = render(
@@ -321,7 +316,7 @@ describe("DrawingNavigationAid", () => {
       expect(navAid2!.style.height).to.equal("300px");
     });
     it("should change from opened to closed on Escape keypress", async () => {
-      const animationEnd = sinon.fake();
+      const animationEnd = vi.fn();
       const closedSize = Vector3d.create(96, 96);
       const openedSize = Vector3d.create(350, 300);
       const component = render(
@@ -344,7 +339,6 @@ describe("DrawingNavigationAid", () => {
         new KeyboardEvent("keyup", {
           bubbles: true,
           cancelable: true,
-          view: window,
           key: "Escape",
         })
       );
@@ -359,7 +353,7 @@ describe("DrawingNavigationAid", () => {
       expect(navAid2!.style.height).to.equal("96px");
     });
     it("should change from opened to closed on Escape keypress with rotateMinimapWithView", async () => {
-      const animationEnd = sinon.fake();
+      const animationEnd = vi.fn();
       const closedSize = Vector3d.create(96, 96);
       const openedSize = Vector3d.create(350, 300);
       const component = render(
@@ -383,7 +377,6 @@ describe("DrawingNavigationAid", () => {
         new KeyboardEvent("keyup", {
           bubbles: true,
           cancelable: true,
-          view: window,
           key: "Escape",
         })
       );
@@ -398,7 +391,7 @@ describe("DrawingNavigationAid", () => {
       expect(navAid2!.style.height).to.equal("96px");
     });
     it("should change from opened to closed on Esc keypress(Edge)", async () => {
-      const animationEnd = sinon.fake();
+      const animationEnd = vi.fn();
       const closedSize = Vector3d.create(96, 96);
       const openedSize = Vector3d.create(350, 300);
       const component = render(
@@ -421,7 +414,6 @@ describe("DrawingNavigationAid", () => {
         new KeyboardEvent("keyup", {
           bubbles: true,
           cancelable: true,
-          view: window,
           key: "Escape",
         })
       );
@@ -436,7 +428,7 @@ describe("DrawingNavigationAid", () => {
       expect(navAid2!.style.height).to.equal("96px");
     });
     it("should change from opened to closed onOutsideClick", async () => {
-      const animationEnd = sinon.fake();
+      const animationEnd = vi.fn();
       const closedSize = Vector3d.create(96, 96);
       const openedSize = Vector3d.create(350, 300);
       const component = render(
@@ -565,7 +557,7 @@ describe("DrawingNavigationAid", () => {
         expect(navAid.style.height).to.equal("240px");
       });
       it("should update rotation and reset on un-rotate", async () => {
-        const animationEnd = sinon.fake();
+        const animationEnd = vi.fn();
         const component = render(
           <DrawingNavigationAid
             iModelConnection={connection.object}
@@ -593,7 +585,6 @@ describe("DrawingNavigationAid", () => {
           new MouseEvent("click", {
             bubbles: true,
             cancelable: true,
-            view: window,
           })
         );
         await waitForSpy(animationEnd, { timeout: 1000 });
@@ -602,7 +593,7 @@ describe("DrawingNavigationAid", () => {
         );
       });
       it("should update rotation and reset on un-rotate with rotateMinimapWithView", async () => {
-        const animationEnd = sinon.fake();
+        const animationEnd = vi.fn();
         const component = render(
           <DrawingNavigationAid
             iModelConnection={connection.object}
@@ -628,7 +619,6 @@ describe("DrawingNavigationAid", () => {
           new MouseEvent("click", {
             bubbles: true,
             cancelable: true,
-            view: window,
           })
         );
         await waitForSpy(animationEnd, { timeout: 1000 });
@@ -770,7 +760,7 @@ describe("DrawingNavigationAid", () => {
       expect(
         expectedMatrix &&
           drawingWindowMatrix.matrix.isAlmostEqual(expectedMatrix.matrix)
-      ).is.true;
+      ).toEqual(true);
     });
     it("should update pan-move", async () => {
       const closedSize = Vector3d.create(96, 96);
@@ -1030,7 +1020,7 @@ describe("DrawingNavigationAid", () => {
       const toggleButton = component.getByTestId("toggle-rotate-style");
 
       fireEvent.click(toggleButton);
-      expect(toggleButton.classList.contains("checked")).to.be.true;
+      expect(toggleButton.classList.contains("checked")).toEqual(true);
     });
     it("should toggle rotation mode with button with viewport", async () => {
       const closedSize = Vector3d.create(96, 96);
@@ -1048,7 +1038,7 @@ describe("DrawingNavigationAid", () => {
         viewport: vp.object,
       });
       fireEvent.click(toggleButton);
-      expect(toggleButton.classList.contains("checked")).to.be.true;
+      expect(toggleButton.classList.contains("checked")).toEqual(true);
     });
   });
   describe("<DrawingNavigationCanvas />", () => {

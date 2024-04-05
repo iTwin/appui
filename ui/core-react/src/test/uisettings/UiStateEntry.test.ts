@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import {
   LocalStateStorage,
   UiStateEntry,
@@ -24,10 +23,10 @@ describe("UiStateEntry", () => {
       "Setting",
       getBoolean
     );
-    expect(uiSetting).to.not.be.undefined;
-    expect(uiSetting.settingNamespace).to.eq("Namespace");
-    expect(uiSetting.settingName).to.eq("Setting");
-    expect(uiSetting.getValue).to.eq(getBoolean);
+    expect(uiSetting).toBeTruthy();
+    expect(uiSetting.settingNamespace).toEqual("Namespace");
+    expect(uiSetting.settingName).toEqual("Setting");
+    expect(uiSetting.getValue).toEqual(getBoolean);
   });
 
   describe("saveSetting", () => {
@@ -62,7 +61,7 @@ describe("UiStateEntry", () => {
       expect(result.status).to.equal(UiStateStorageStatus.Success);
       const result2 = await uiSetting.deleteSetting(localUiSettings);
       expect(result2.status).to.equal(UiStateStorageStatus.NotFound);
-      expect(result2.setting).to.be.undefined;
+      expect(result2.setting).toEqual(undefined);
     });
   });
 
@@ -90,8 +89,8 @@ describe("UiStateEntry", () => {
     it("Should load setting correctly", async () => {
       const result = await uiSetting.getSettingAndApplyValue(localUiSettings);
       expect(result.status).to.equal(UiStateStorageStatus.Success);
-      expect(result.setting).to.eq(200);
-      expect(value).to.eq(200);
+      expect(result.setting).toEqual(200);
+      expect(value).toEqual(200);
     });
 
     it("Should return Uninitialized if no applyValue", async () => {
@@ -101,7 +100,7 @@ describe("UiStateEntry", () => {
         getNumber
       );
       const result = await uiSetting2.getSettingAndApplyValue(localUiSettings);
-      expect(result.status).to.eq(UiStateStorageStatus.Uninitialized);
+      expect(result.status).toEqual(UiStateStorageStatus.Uninitialized);
     });
 
     it("Should use default value if no applyValue", async () => {
@@ -115,9 +114,9 @@ describe("UiStateEntry", () => {
         defaultValue
       );
       const result = await uiSetting2.getSettingAndApplyValue(localUiSettings);
-      expect(result.status).to.eq(UiStateStorageStatus.Success);
-      expect(result.setting).to.eq(defaultValue);
-      expect(value).to.eq(defaultValue);
+      expect(result.status).toEqual(UiStateStorageStatus.Success);
+      expect(result.setting).toEqual(defaultValue);
+      expect(value).toEqual(defaultValue);
     });
 
     it("Should return NotFound if not saved", async () => {
@@ -128,7 +127,7 @@ describe("UiStateEntry", () => {
         applyNumber
       );
       const result = await uiSetting3.getSettingAndApplyValue(localUiSettings);
-      expect(result.status).to.eq(UiStateStorageStatus.NotFound);
+      expect(result.status).toEqual(UiStateStorageStatus.NotFound);
     });
   });
 });

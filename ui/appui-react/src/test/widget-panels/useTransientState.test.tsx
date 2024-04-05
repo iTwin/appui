@@ -5,7 +5,6 @@
 import { BeEvent } from "@itwin/core-bentley";
 import { act, renderHook } from "@testing-library/react-hooks";
 import * as React from "react";
-import * as sinon from "sinon";
 import { useTransientState } from "../../appui-react";
 import type { TabState } from "../../appui-react/layout/state/TabState";
 import type { WidgetContentManagerContextArgs } from "../../appui-react/layout/widget/ContentManager";
@@ -20,8 +19,7 @@ describe("useTransientState", () => {
       onRestoreTransientState: new BeEvent<(tabId: TabState["id"]) => void>(),
       onSaveTransientState,
     };
-    const onSave =
-      sinon.stub<NonNullable<Parameters<typeof useTransientState>[0]>>();
+    const onSave = vi.fn();
     renderHook(() => useTransientState(onSave), {
       wrapper: (props: { children?: React.ReactNode }) => (
         <WidgetContentManagerContext.Provider value={widgetContentManager}>
@@ -34,7 +32,7 @@ describe("useTransientState", () => {
     act(() => {
       onSaveTransientState.raiseEvent("t1");
     });
-    sinon.assert.calledOnceWithExactly(onSave);
+    expect(onSave).toHaveBeenCalledOnce();
   });
 
   it("should invoke onRestore", () => {
@@ -46,8 +44,7 @@ describe("useTransientState", () => {
       onRestoreTransientState,
       onSaveTransientState: new BeEvent<(tabId: TabState["id"]) => void>(),
     };
-    const onRestore =
-      sinon.stub<NonNullable<Parameters<typeof useTransientState>[1]>>();
+    const onRestore = vi.fn();
     renderHook(() => useTransientState(undefined, onRestore), {
       wrapper: (props: { children?: React.ReactNode }) => (
         <WidgetContentManagerContext.Provider value={widgetContentManager}>
@@ -60,6 +57,6 @@ describe("useTransientState", () => {
     act(() => {
       onRestoreTransientState.raiseEvent("t1");
     });
-    sinon.assert.calledOnceWithExactly(onRestore);
+    expect(onRestore).toHaveBeenCalledOnce();
   });
 });

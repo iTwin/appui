@@ -2,8 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
-import * as sinon from "sinon";
 import * as React from "react";
 import { render, waitFor } from "@testing-library/react";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
@@ -151,7 +149,7 @@ describe("FormatPanel", () => {
   )!;
   function requestNextAnimation() {}
 
-  before(async () => {
+  beforeEach(async () => {
     // Avoid requestAnimationFrame exception during test by temporarily replacing function that calls it.
     Object.defineProperty(IModelApp, "requestNextAnimation", {
       get: () => requestNextAnimation,
@@ -160,7 +158,7 @@ describe("FormatPanel", () => {
     await NoRenderApp.startup();
   });
 
-  after(async () => {
+  afterEach(async () => {
     await IModelApp.shutdown();
     TestUtils.terminateUiIModelComponents();
     Object.defineProperty(
@@ -179,7 +177,7 @@ describe("FormatPanel", () => {
       unitsProvider,
       "numeric"
     );
-    const spy = sinon.spy();
+    const spy = vi.fn();
 
     const renderedComponent = render(
       <FormatPanel
@@ -241,7 +239,7 @@ describe("FormatSample", () => {
     const renderedComponent = render(
       <FormatSample formatSpec={formatterSpec} hideLabels />
     );
-    expect(renderedComponent.getByTestId("progress-forward")).to.not.be.null;
+    expect(renderedComponent.getByTestId("progress-forward")).toBeTruthy();
   });
 });
 

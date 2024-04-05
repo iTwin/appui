@@ -14,12 +14,12 @@ describe("useCursor", () => {
 
   it("should add class name to body", () => {
     renderHook(() => useCursor(), { wrapper });
-    document.body.classList.contains("nz-grabbing").should.true;
+    expect(document.body.classList.contains("nz-grabbing")).toEqual(true);
   });
 
   it("should remove class name to body", () => {
     const { unmount } = renderHook(() => useCursor(), { wrapper });
     unmount();
-    document.body.classList.contains("nz-grabbing").should.false;
+    expect(document.body.classList.contains("nz-grabbing")).toEqual(false);
   });
 });

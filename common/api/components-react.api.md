@@ -4,8 +4,6 @@
 
 ```ts
 
-/// <reference types="react" />
-
 import type { ActionButton } from '@itwin/appui-abstract';
 import { AlternateDateFormats } from '@itwin/appui-abstract';
 import { BeEvent } from '@itwin/core-bentley';

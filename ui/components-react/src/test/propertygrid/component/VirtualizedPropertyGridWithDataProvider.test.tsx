@@ -2,11 +2,9 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as faker from "faker";
 import * as React from "react";
 import { VariableSizeList } from "react-window";
-import sinon from "sinon";
 import * as moq from "typemoq";
 import { PropertyRecord, PropertyValueFormat } from "@itwin/appui-abstract";
 import { Orientation } from "@itwin/core-react";
@@ -48,14 +46,6 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
   ];
   let dataProvider: IPropertyDataProvider;
   let defaultProps: VirtualizedPropertyGridWithDataProviderProps;
-
-  before(async () => {
-    await TestUtils.initializeUiComponents();
-  });
-
-  after(() => {
-    TestUtils.terminateUiComponents();
-  });
 
   beforeEach(() => {
     const evt = new PropertyDataChangeEvent();
@@ -124,8 +114,9 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
       );
 
       await findByText("Group 1");
-      expect(container.querySelector(".components-property-record--horizontal"))
-        .to.be.not.null;
+      expect(
+        container.querySelector(".components-property-record--horizontal")
+      ).toBeTruthy();
     });
 
     it("renders loader on subsequent selections that take longer to load", async () => {
@@ -167,12 +158,10 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         const categoryBlocks = container.querySelectorAll(
           ".virtualized-grid-node-category"
         );
-        expect(categoryBlocks.length, "Wrong amount of categories").to.be.equal(
-          2
-        );
+        expect(categoryBlocks.length, "Wrong amount of categories").toEqual(2);
 
-        expect(categoryBlocks[0].textContent).to.be.equal("Group 1");
-        expect(categoryBlocks[1].textContent).to.be.equal("Group 2");
+        expect(categoryBlocks[0].textContent).toEqual("Group 1");
+        expect(categoryBlocks[1].textContent).toEqual("Group 2");
       });
     });
 
@@ -212,9 +201,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         const categoryBlocks = container.querySelectorAll(
           ".virtualized-grid-node-category"
         );
-        expect(categoryBlocks.length, "Wrong amount of categories").to.be.equal(
-          2
-        );
+        expect(categoryBlocks.length, "Wrong amount of categories").toEqual(2);
       });
     });
 
@@ -228,15 +215,13 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         const categoryChild = container.querySelector(
           '.virtualized-grid-node span[title="CADID1"]'
         );
-        expect(categoryChild, "Category child is not rendered").to.not.be.null;
+        expect(categoryChild, "Category child is not rendered").toBeTruthy();
       });
 
       const categoryBlocks = Array.from<HTMLElement>(
         container.querySelectorAll(".virtualized-grid-node-category")
       ).map((el) => within(el).getByRole("button"));
-      expect(categoryBlocks.length, "Wrong amount of categories").to.be.equal(
-        2
-      );
+      expect(categoryBlocks.length, "Wrong amount of categories").toEqual(2);
       const categoryBlock = categoryBlocks[0];
 
       fireEvent.click(categoryBlock);
@@ -245,7 +230,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         const categoryChild = container.querySelector(
           '.virtualized-grid-node span[title="CADID1"]'
         );
-        expect(categoryChild, "Category child rendered").to.be.null;
+        expect(categoryChild, "Category child rendered").toEqual(null);
       });
     });
 
@@ -321,27 +306,27 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
 
       await findByText("Root1");
 
-      expect(getByText("rootCategory1Property")).to.be.not.null;
-      expect(getByText("childCategory1Property")).to.be.not.null;
-      expect(queryByText("rootCategory2Property")).to.be.null;
-      expect(queryByText("childCategory2Property")).to.be.null;
+      expect(getByText("rootCategory1Property")).toBeTruthy();
+      expect(getByText("childCategory1Property")).toBeTruthy();
+      expect(queryByText("rootCategory2Property")).toEqual(null);
+      expect(queryByText("childCategory2Property")).toEqual(null);
 
       fireEvent.click(getByText("Root1"));
       fireEvent.click(getByText("Root2"));
 
-      expect(queryByText("rootCategory1Property")).to.be.null;
-      expect(queryByText("childCategory1Property")).to.be.null;
-      expect(getByText("rootCategory2Property")).to.be.not.null;
-      expect(getByText("childCategory2Property")).to.be.not.null;
+      expect(queryByText("rootCategory1Property")).toEqual(null);
+      expect(queryByText("childCategory1Property")).toEqual(null);
+      expect(getByText("rootCategory2Property")).toBeTruthy();
+      expect(getByText("childCategory2Property")).toBeTruthy();
 
       // Refresh PropertyGrid data.
       act(() => dataProvider.onDataChanged.raiseEvent());
       // await waitFor();
 
-      expect(queryByText("rootCategory1Property")).to.be.null;
-      expect(queryByText("childCategory1Property")).to.be.null;
-      expect(getByText("rootCategory2Property")).to.be.not.null;
-      expect(getByText("childCategory2Property")).to.be.not.null;
+      expect(queryByText("rootCategory1Property")).toEqual(null);
+      expect(queryByText("childCategory1Property")).toEqual(null);
+      expect(getByText("rootCategory2Property")).toBeTruthy();
+      expect(getByText("childCategory2Property")).toBeTruthy();
     });
 
     it("keeps the collapsed state of PropertyCategoryBlock when nested data is refreshed", async () => {
@@ -416,21 +401,21 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
 
       await findByText("Root1");
 
-      expect(queryByText("childCategory1Property")).to.be.null;
-      expect(getByText("childCategory2Property")).to.be.not.null;
+      expect(queryByText("childCategory1Property")).toEqual(null);
+      expect(getByText("childCategory2Property")).toBeTruthy();
 
       fireEvent.click(getByText("Child1"));
       fireEvent.click(getByText("Child2"));
 
-      expect(getByText("childCategory1Property")).to.be.not.null;
-      expect(queryByText("childCategory2Property")).to.be.null;
+      expect(getByText("childCategory1Property")).toBeTruthy();
+      expect(queryByText("childCategory2Property")).toEqual(null);
 
       // Refresh PropertyGrid data.
       act(() => dataProvider.onDataChanged.raiseEvent());
       // await waitFor();
 
-      expect(getByText("childCategory1Property")).to.be.not.null;
-      expect(queryByText("childCategory2Property")).to.be.null;
+      expect(getByText("childCategory1Property")).toBeTruthy();
+      expect(queryByText("childCategory2Property")).toEqual(null);
     });
 
     it("rerenders if data if the provider changes", async () => {
@@ -457,7 +442,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         const categoryBlocks = container.querySelectorAll(
           ".virtualized-grid-node-category"
         );
-        expect(categoryBlocks.length).to.be.eq(3);
+        expect(categoryBlocks.length).toEqual(3);
       });
     });
 
@@ -484,7 +469,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         },
       };
       const dataPromise = new ResolvablePromise<PropertyData>();
-      const dataFake = sinon.fake.returns(dataPromise);
+      const dataFake = vi.fn(() => dataPromise);
       dataProvider.getData = dataFake;
 
       // first render
@@ -493,7 +478,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
       );
       await waitForPropertyGridLoad(container);
 
-      expect(dataFake).to.be.calledOnce;
+      expect(dataFake).toHaveBeenCalledOnce();
 
       // simulate multiple onDataChanged calls
       for (let i = 1; i <= 10; ++i) {
@@ -507,7 +492,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
       // expect data to be requested two more times.
       // Since the first request is already resolved, it should call once for initial change and once for the last change,
       // but not for intermediate ones
-      expect(dataFake).to.be.calledThrice;
+      expect(dataFake).toHaveBeenCalledTimes(3);
     });
 
     it("changes orientation when props change", async () => {
@@ -534,8 +519,9 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         />
       );
 
-      expect(container.querySelector(".components-property-record--vertical"))
-        .to.be.not.null;
+      expect(
+        container.querySelector(".components-property-record--vertical")
+      ).toBeTruthy();
     });
 
     it("changes fixed orientation when `orientation` prop changes", async () => {
@@ -549,8 +535,9 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         />
       );
       await findByText("Group 1");
-      expect(container.querySelector(".components-property-record--horizontal"))
-        .to.be.not.null;
+      expect(
+        container.querySelector(".components-property-record--horizontal")
+      ).toBeTruthy();
 
       rerender(
         <VirtualizedPropertyGridWithDataProvider
@@ -561,8 +548,9 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
           isOrientationFixed={true}
         />
       );
-      expect(container.querySelector(".components-property-record--vertical"))
-        .to.be.not.null;
+      expect(
+        container.querySelector(".components-property-record--vertical")
+      ).toBeTruthy();
     });
 
     it("changes orientation when `width` prop changes", async () => {
@@ -575,8 +563,9 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         />
       );
       await findByText("Group 1");
-      expect(container.querySelector(".components-property-record--horizontal"))
-        .to.be.not.null;
+      expect(
+        container.querySelector(".components-property-record--horizontal")
+      ).toBeTruthy();
 
       rerender(
         <VirtualizedPropertyGridWithDataProvider
@@ -586,8 +575,9 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
           height={1200}
         />
       );
-      expect(container.querySelector(".components-property-record--vertical"))
-        .to.be.not.null;
+      expect(
+        container.querySelector(".components-property-record--vertical")
+      ).toBeTruthy();
     });
 
     it("doesn't change orientation when props change if not necessary", async () => {
@@ -613,8 +603,9 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
           isOrientationFixed={false}
         />
       );
-      expect(container.querySelector(".components-property-record--horizontal"))
-        .to.be.not.null;
+      expect(
+        container.querySelector(".components-property-record--horizontal")
+      ).toBeTruthy();
     });
 
     it("chooses correct orientation on first render if undefined", async () => {
@@ -671,7 +662,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         };
       }
 
-      before(() => {
+      beforeEach(() => {
         PropertyCategoryRendererManager.defaultManager.addRenderer(
           "test_renderer",
           // eslint-disable-next-line react/display-name
@@ -679,7 +670,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         );
       });
 
-      after(() => {
+      afterEach(() => {
         PropertyCategoryRendererManager.defaultManager.removeRenderer(
           "test_renderer"
         );
@@ -695,7 +686,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
             dataProvider={dataProvider}
           />
         );
-        expect(await findByText("Custom renderer")).not.to.be.null;
+        expect(await findByText("Custom renderer")).toBeTruthy();
       });
 
       it("uses property category renderer manager from props when available", async () => {
@@ -714,13 +705,14 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
             propertyCategoryRendererManager={rendererManager}
           />
         );
-        expect(await findByText("Test renderer from props")).not.to.be.null;
+        expect(await findByText("Test renderer from props")).toBeTruthy();
       });
 
       it("updates node height on expansion", async () => {
-        sinon
-          .stub(HTMLElement.prototype, "getBoundingClientRect")
-          .get(() => () => ({ height: 500 }));
+        vi.spyOn(
+          HTMLElement.prototype,
+          "getBoundingClientRect"
+        ).mockImplementation(() => ({ height: 500 } as DOMRect));
         dataProvider = setupDataProvider("test_category", {
           expandCustomCategory: false,
         });
@@ -733,23 +725,24 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         );
 
         const category = await component.findByText("test_category");
-        expect(component.queryByText("Custom renderer")).to.be.null;
+        expect(component.queryByText("Custom renderer")).toEqual(null);
 
         const node = component.baseElement.querySelector(
           ".virtualized-grid-node"
         ) as HTMLElement;
-        expect(node.style.height).to.be.equal("42px");
+        expect(node.style.height).toEqual("42px");
 
         fireEvent.click(category);
 
         component.getByText("Custom renderer");
-        expect(node.style.height).to.be.equal("547px");
+        expect(node.style.height).toEqual("547px");
       });
 
       it("updates node height on collapse", async () => {
-        sinon
-          .stub(HTMLElement.prototype, "getBoundingClientRect")
-          .get(() => () => ({ height: 500 }));
+        vi.spyOn(
+          HTMLElement.prototype,
+          "getBoundingClientRect"
+        ).mockImplementation(() => ({ height: 500 } as DOMRect));
         dataProvider = setupDataProvider("test_category", {
           expandCustomCategory: true,
         });
@@ -765,10 +758,10 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         const node = baseElement.querySelector(
           ".virtualized-grid-node"
         ) as HTMLElement;
-        expect(node.style.height).to.be.equal("547px");
+        expect(node.style.height).toEqual("547px");
 
         fireEvent.click(category);
-        expect(node.style.height).to.be.equal("42px");
+        expect(node.style.height).toEqual("42px");
       });
     });
   });
@@ -804,9 +797,10 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         }),
       };
 
-      sinon
-        .stub(FlatPropertyRendererExports, "FlatPropertyRenderer")
-        .callsFake(StubComponent);
+      vi.spyOn(
+        FlatPropertyRendererExports,
+        "FlatPropertyRenderer"
+      ).mockImplementation(StubComponent);
     });
 
     it("reacts to node height change", async () => {
@@ -818,13 +812,13 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
       const node = baseElement.querySelectorAll(
         ".virtualized-grid-node"
       )[1] as HTMLElement;
-      expect(node.style.height).to.be.equal("20px");
+      expect(node.style.height).toEqual("20px");
     });
   });
 
   describe("property selection", () => {
     it("calls onPropertySelectionChanged when property gets clicked and selection is enabled", async () => {
-      const onPropertySelectionChanged = sinon.spy();
+      const onPropertySelectionChanged = vi.fn();
       const { container } = render(
         <VirtualizedPropertyGridWithDataProvider
           {...defaultProps}
@@ -839,7 +833,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         ).to.be.greaterThan(0)
       );
 
-      expect(onPropertySelectionChanged.called).to.be.false;
+      expect(onPropertySelectionChanged).not.toBeCalled();
 
       const clickableComponents = container.querySelectorAll(
         ".components--clickable"
@@ -849,7 +843,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
       const clickableComponent = clickableComponents[0];
       fireEvent.click(clickableComponent);
 
-      expect(onPropertySelectionChanged.called).to.be.true;
+      expect(onPropertySelectionChanged).toHaveBeenCalled();
     });
 
     it("deselects if clicked a 2nd time", async () => {
@@ -868,7 +862,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
 
       expect(
         container.querySelectorAll(".components--selected").length
-      ).to.be.equal(0);
+      ).toEqual(0);
 
       const clickableComponents = container.querySelectorAll(
         ".components--clickable"
@@ -879,17 +873,17 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
 
       expect(
         container.querySelectorAll(".components--selected").length
-      ).to.be.equal(1);
+      ).toEqual(1);
 
       fireEvent.click(clickableComponent);
 
       expect(
         container.querySelectorAll(".components--selected").length
-      ).to.be.equal(0);
+      ).toEqual(0);
     });
 
     it("does not call onPropertySelectionChanged when property gets clicked and selection is disabled", async () => {
-      const onPropertySelectionChanged = sinon.spy();
+      const onPropertySelectionChanged = vi.fn();
       const { container } = render(
         <VirtualizedPropertyGridWithDataProvider
           {...defaultProps}
@@ -913,11 +907,11 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
 
       fireEvent.click(renderedRecords[0]);
 
-      expect(onPropertySelectionChanged.called).to.be.false;
+      expect(onPropertySelectionChanged).not.toBeCalled();
     });
 
     it("calls onPropertySelectionChanged when property gets right clicked and right click selection is enabled", async () => {
-      const onPropertySelectionChanged = sinon.spy();
+      const onPropertySelectionChanged = vi.fn();
       const { container } = render(
         <VirtualizedPropertyGridWithDataProvider
           {...defaultProps}
@@ -940,11 +934,11 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
 
       fireEvent.contextMenu(clickableComponents[0]);
 
-      expect(onPropertySelectionChanged.called).to.be.true;
+      expect(onPropertySelectionChanged).toHaveBeenCalled();
     });
 
     it("calls onPropertySelectionChanged once when property gets right clicked after left clicked and both left and right click selections are enabled", async () => {
-      const onPropertySelectionChanged = sinon.spy();
+      const onPropertySelectionChanged = vi.fn();
       const { container } = render(
         <VirtualizedPropertyGridWithDataProvider
           {...defaultProps}
@@ -970,7 +964,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
       fireEvent.click(clickableComponent);
       fireEvent.contextMenu(clickableComponent);
 
-      expect(onPropertySelectionChanged.callCount).to.be.equal(2);
+      expect(onPropertySelectionChanged).toHaveBeenCalledTimes(2);
     });
 
     it("does not deselect if right clicked a 2nd time", async () => {
@@ -995,14 +989,14 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
       const clickableComponent = clickableComponents[0];
 
       fireEvent.contextMenu(clickableComponent);
-      expect(container.querySelectorAll(".components--selected").length).to.eq(
-        1
-      );
+      expect(
+        container.querySelectorAll(".components--selected").length
+      ).toEqual(1);
 
       fireEvent.contextMenu(clickableComponent);
-      expect(container.querySelectorAll(".components--selected").length).to.eq(
-        1
-      );
+      expect(
+        container.querySelectorAll(".components--selected").length
+      ).toEqual(1);
     });
 
     it("deselects if left clicked after right clicked", async () => {
@@ -1027,18 +1021,18 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
       const clickableComponent = clickableComponents[0];
 
       fireEvent.contextMenu(clickableComponent);
-      expect(container.querySelectorAll(".components--selected").length).to.eq(
-        1
-      );
+      expect(
+        container.querySelectorAll(".components--selected").length
+      ).toEqual(1);
 
       fireEvent.click(clickableComponent);
-      expect(container.querySelectorAll(".components--selected").length).to.eq(
-        0
-      );
+      expect(
+        container.querySelectorAll(".components--selected").length
+      ).toEqual(0);
     });
 
     it("does not call onPropertySelectionChanged when property gets right clicked and selection is disabled", async () => {
-      const onPropertySelectionChanged = sinon.spy();
+      const onPropertySelectionChanged = vi.fn();
       const { container } = render(
         <VirtualizedPropertyGridWithDataProvider
           {...defaultProps}
@@ -1062,7 +1056,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
 
       fireEvent.contextMenu(clickableComponents[0]);
 
-      expect(onPropertySelectionChanged.called).to.be.false;
+      expect(onPropertySelectionChanged).not.toBeCalled();
     });
   });
 
@@ -1084,12 +1078,12 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
 
   describe("property editing", () => {
     it("starts editor on click & commits on Enter", async () => {
-      const spyMethod = sinon.spy();
+      const spy = vi.fn();
       const { container } = render(
         <VirtualizedPropertyGridWithDataProvider
           {...defaultProps}
           isPropertyEditingEnabled={true}
-          onPropertyUpdated={spyMethod}
+          onPropertyUpdated={spy}
         />
       );
 
@@ -1109,13 +1103,13 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
       const cellEditors = container.querySelectorAll(
         "input.components-cell-editor"
       );
-      expect(cellEditors.length).to.be.equal(1);
+      expect(cellEditors.length).toEqual(1);
 
       fireEvent.keyDown(cellEditors[0], { key: "Enter" });
 
       await waitForPropertyGridLoad(container);
 
-      await waitFor(() => expect(spyMethod).to.be.calledOnce);
+      await waitFor(() => expect(spy).toHaveBeenCalledOnce());
     });
 
     it("does not start editor on click if not selected yet", async () => {
@@ -1142,7 +1136,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
 
       expect(
         container.querySelectorAll(".components-cell-editor").length
-      ).to.be.equal(0);
+      ).toEqual(0);
     });
 
     it("starts editor on click if clicked before to select", async () => {
@@ -1168,14 +1162,14 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
 
       expect(
         container.querySelectorAll(".components--selected").length
-      ).to.be.equal(1);
+      ).toEqual(1);
 
       fireEvent.click(clickableComponents[0]);
 
       const cellEditors = container.querySelectorAll(
         "input.components-cell-editor"
       );
-      expect(cellEditors.length).to.be.equal(1);
+      expect(cellEditors.length).toEqual(1);
 
       const inputNode = cellEditors[0];
       fireEvent.keyDown(inputNode, { key: "Escape" });
@@ -1185,13 +1179,13 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
       expect(
         container.querySelectorAll(".components-cell-editor").length,
         "Cell editor did not disappear after pressing Escape"
-      ).to.eq(0);
+      ).toEqual(0);
     });
   });
 
   describe("context menu", () => {
     it("calls onPropertyContextMenu callback when right clicked on a property", async () => {
-      const callback = sinon.spy();
+      const callback = vi.fn();
       const { container } = render(
         <VirtualizedPropertyGridWithDataProvider
           {...defaultProps}
@@ -1208,8 +1202,8 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         fireEvent.contextMenu(clickableComponents[0]);
       });
 
-      expect(callback).to.be.calledOnce;
-      expect(callback.firstCall.args[0].propertyRecord).to.deep.eq(records[0]);
+      expect(callback).toHaveBeenCalledOnce();
+      expect(callback.mock.calls[0][0].propertyRecord).to.deep.eq(records[0]);
     });
   });
 
@@ -1226,23 +1220,23 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         const clickableComponents = container.querySelectorAll(
           ".virtualized-grid-node-content-wrapper-item"
         );
-        expect(clickableComponents.length).to.be.equal(3);
+        expect(clickableComponents.length).toEqual(3);
 
         expect(
           clickableComponents[0].querySelector(
             ".virtualized-grid-node-content-wrapper-item > .virtualized-grid-node-content"
           )
-        ).to.be.not.null;
+        ).toBeTruthy();
         expect(
           clickableComponents[1].querySelector(
             ".virtualized-grid-node-content-wrapper-item > .nested-border-middle.nested-border-bottom > .virtualized-grid-node-content"
           )
-        ).to.be.not.null;
+        ).toBeTruthy();
         expect(
           clickableComponents[2].querySelector(
             ".virtualized-grid-node-content-wrapper-item > .virtualized-grid-node-content"
           )
-        ).to.be.not.null;
+        ).toBeTruthy();
       });
     });
 
@@ -1334,70 +1328,70 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         const clickableComponents = container.querySelectorAll(
           ".virtualized-grid-node"
         );
-        expect(clickableComponents.length).to.be.equal(12);
+        expect(clickableComponents.length).toEqual(12);
 
         expect(
           clickableComponents[0].querySelector(
             ".virtualized-grid-node-content-wrapper-item > .virtualized-grid-node-category"
           )
-        ).to.be.not.null;
+        ).toBeTruthy();
         expect(
           clickableComponents[1].querySelector(
             ".virtualized-grid-node-content-wrapper-item > .nested-border-middle > .virtualized-grid-node-content"
           )
-        ).to.be.not.null;
+        ).toBeTruthy();
         expect(
           clickableComponents[2].querySelector(
             ".virtualized-grid-node-content-wrapper-item > .nested-border-middle > .virtualized-grid-node-content"
           )
-        ).to.be.not.null;
+        ).toBeTruthy();
         expect(
           clickableComponents[3].querySelector(
             ".virtualized-grid-node-content-wrapper-item > .nested-border-middle > .virtualized-grid-node-content"
           )
-        ).to.be.not.null;
+        ).toBeTruthy();
         expect(
           clickableComponents[4].querySelector(
             ".virtualized-grid-node-content-wrapper-item > .nested-border-middle > .virtualized-grid-node-content"
           )
-        ).to.be.not.null;
+        ).toBeTruthy();
 
         expect(
           clickableComponents[5].querySelector(
             ".virtualized-grid-node-content-wrapper-item > .nested-border-middle > .virtualized-grid-node-category"
           )
-        ).to.be.not.null;
+        ).toBeTruthy();
         expect(
           clickableComponents[6].querySelector(
             ".virtualized-grid-node-content-wrapper-item > .nested-border-middle > .nested-border-middle > .virtualized-grid-node-content"
           )
-        ).to.be.not.null;
+        ).toBeTruthy();
         expect(
           clickableComponents[7].querySelector(
             ".virtualized-grid-node-content-wrapper-item > .nested-border-middle > .nested-border-middle > .virtualized-grid-node-content"
           )
-        ).to.be.not.null;
+        ).toBeTruthy();
         expect(
           clickableComponents[8].querySelector(
             ".virtualized-grid-node-content-wrapper-item > .nested-border-middle > .nested-border-middle > .virtualized-grid-node-content"
           )
-        ).to.be.not.null;
+        ).toBeTruthy();
         expect(
           clickableComponents[9].querySelector(
             ".virtualized-grid-node-content-wrapper-item > .nested-border-middle > .nested-border-middle > .virtualized-grid-node-content"
           )
-        ).to.be.not.null;
+        ).toBeTruthy();
         expect(
           clickableComponents[10].querySelector(
             ".virtualized-grid-node-content-wrapper-item > .nested-border-middle > .nested-border-middle.nested-border-bottom > .virtualized-grid-node-content"
           )
-        ).to.be.not.null;
+        ).toBeTruthy();
 
         expect(
           clickableComponents[11].querySelector(
             ".virtualized-grid-node-content-wrapper-item > .nested-border-middle.nested-border-bottom > .virtualized-grid-node-category"
           )
-        ).to.be.not.null;
+        ).toBeTruthy();
       });
     });
   });
@@ -1473,10 +1467,10 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         dataProvider={providerMock1.object}
       />
     );
-    expect(evt1.numberOfListeners).to.eq(
-      1,
+    expect(
+      evt1.numberOfListeners,
       "listener should be added when component is mounted"
-    );
+    ).toEqual(1);
 
     rerender(
       <VirtualizedPropertyGridWithDataProvider
@@ -1484,10 +1478,10 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         dataProvider={providerMock1.object}
       />
     );
-    expect(evt1.numberOfListeners).to.eq(
-      1,
+    expect(
+      evt1.numberOfListeners,
       "additional listener should not be added when data provider doesn't change"
-    );
+    ).toEqual(1);
 
     rerender(
       <VirtualizedPropertyGridWithDataProvider
@@ -1495,20 +1489,20 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         dataProvider={providerMock2.object}
       />
     );
-    expect(evt1.numberOfListeners).to.eq(
-      0,
+    expect(
+      evt1.numberOfListeners,
       "listener should be removed when data provider is not used anymore"
-    );
-    expect(evt2.numberOfListeners).to.eq(
-      1,
+    ).toEqual(0);
+    expect(
+      evt2.numberOfListeners,
       "listener should be added when data provider changes"
-    );
+    ).toEqual(1);
 
     unmount();
-    expect(evt2.numberOfListeners).to.eq(
-      0,
+    expect(
+      evt2.numberOfListeners,
       "listener should be removed when component is unmounted"
-    );
+    ).toEqual(0);
   });
 
   describe("Should handle scrolling to item", () => {
@@ -1577,10 +1571,8 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
       const evt = new PropertyDataChangeEvent();
       providerMock.setup((x) => x.onDataChanged).returns(() => evt);
 
-      const scrollToItemFake = sinon.fake();
-      sinon.replace(
-        VariableSizeList.prototype,
-        "scrollToItem",
+      const scrollToItemFake = vi.fn();
+      vi.spyOn(VariableSizeList.prototype, "scrollToItem").mockImplementation(
         scrollToItemFake
       );
 
@@ -1602,7 +1594,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
       );
       await waitFor(() => getByTitle(container, "test9"), { container });
 
-      expect(scrollToItemFake).to.have.been.calledOnceWithExactly(3);
+      expect(scrollToItemFake).toHaveBeenCalledWith(3);
     });
 
     it("scrolls to highlighted category when highlight is updated", async () => {
@@ -1625,10 +1617,8 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
       const evt = new PropertyDataChangeEvent();
       providerMock.setup((x) => x.onDataChanged).returns(() => evt);
 
-      const scrollToItemFake = sinon.fake();
-      sinon.replace(
-        VariableSizeList.prototype,
-        "scrollToItem",
+      const scrollToItemFake = vi.fn();
+      vi.spyOn(VariableSizeList.prototype, "scrollToItem").mockImplementation(
         scrollToItemFake
       );
 
@@ -1650,7 +1640,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
       );
       await waitFor(() => getByTitle(container, "test9"), { container });
 
-      expect(scrollToItemFake).to.have.been.calledOnceWithExactly(0);
+      expect(scrollToItemFake).toHaveBeenCalledWith(0);
     });
 
     it("scrolls to highlighted label when highlight is updated", async () => {
@@ -1673,10 +1663,8 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
       const evt = new PropertyDataChangeEvent();
       providerMock.setup((x) => x.onDataChanged).returns(() => evt);
 
-      const scrollToItemFake = sinon.fake();
-      sinon.replace(
-        VariableSizeList.prototype,
-        "scrollToItem",
+      const scrollToItemFake = vi.fn();
+      vi.spyOn(VariableSizeList.prototype, "scrollToItem").mockImplementation(
         scrollToItemFake
       );
 
@@ -1698,7 +1686,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
       );
       await waitFor(() => getByTitle(container, "test9"), { container });
 
-      expect(scrollToItemFake).to.have.been.calledOnceWithExactly(3);
+      expect(scrollToItemFake).toHaveBeenCalledWith(3);
     });
 
     it("doesn't scroll to item when activeMatch is not provided", async () => {
@@ -1721,10 +1709,8 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
       const evt = new PropertyDataChangeEvent();
       providerMock.setup((x) => x.onDataChanged).returns(() => evt);
 
-      const scrollToItemFake = sinon.fake();
-      sinon.replace(
-        VariableSizeList.prototype,
-        "scrollToItem",
+      const scrollToItemFake = vi.fn();
+      vi.spyOn(VariableSizeList.prototype, "scrollToItem").mockImplementation(
         scrollToItemFake
       );
 
@@ -1745,7 +1731,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         />
       );
       await waitFor(() => getByTitle(container, "test9"), { container });
-      expect(scrollToItemFake).to.not.have.been.called;
+      expect(scrollToItemFake).not.toBeCalled();
 
       rerender(
         <VirtualizedPropertyGridWithDataProvider
@@ -1754,7 +1740,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         />
       );
       await waitFor(() => getByTitle(container, "test9"), { container });
-      expect(scrollToItemFake).to.not.have.been.called;
+      expect(scrollToItemFake).not.toBeCalled();
     });
 
     it("doesn't scroll to item when there are no items in the grid", async () => {
@@ -1769,10 +1755,8 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
       const evt = new PropertyDataChangeEvent();
       providerMock.setup((x) => x.onDataChanged).returns(() => evt);
 
-      const scrollToItemFake = sinon.fake();
-      sinon.replace(
-        VariableSizeList.prototype,
-        "scrollToItem",
+      const scrollToItemFake = vi.fn();
+      vi.spyOn(VariableSizeList.prototype, "scrollToItem").mockImplementation(
         scrollToItemFake
       );
 
@@ -1797,7 +1781,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         container.querySelector(".components-virtualized-property-grid")
       );
 
-      expect(scrollToItemFake).to.not.have.been.called;
+      expect(scrollToItemFake).not.toBeCalled();
     });
 
     it("doesn't scroll to item if there is no matching item in the grid", async () => {
@@ -1829,10 +1813,8 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
       const evt = new PropertyDataChangeEvent();
       providerMock.setup((x) => x.onDataChanged).returns(() => evt);
 
-      const scrollToItemFake = sinon.fake();
-      sinon.replace(
-        VariableSizeList.prototype,
-        "scrollToItem",
+      const scrollToItemFake = vi.fn();
+      vi.spyOn(VariableSizeList.prototype, "scrollToItem").mockImplementation(
         scrollToItemFake
       );
 
@@ -1853,7 +1835,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         />
       );
       await waitFor(() => getByTitle(container, "test9"), { container });
-      expect(scrollToItemFake).to.not.have.been.called;
+      expect(scrollToItemFake).not.toBeCalled();
     });
   });
 
@@ -1912,13 +1894,13 @@ describe("Learning Snippets", () => {
 
 describe("useVirtualizedPropertyGridLayoutStorage", () => {
   it("invokes `useElementsScrollStorage`", () => {
-    const stub = sinon.stub(
+    const stub = vi.spyOn(
       useElementsScrollStorageModule,
       "useElementsScrollStorage"
     );
     renderHook(() => useVirtualizedPropertyGridLayoutStorage());
 
-    expect(stub).to.be.calledWith("ReactWindow__VariableSizeList");
+    expect(stub).toHaveBeenCalledWith("ReactWindow__VariableSizeList");
   });
 });
 

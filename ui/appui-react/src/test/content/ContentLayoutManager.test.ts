@@ -3,8 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { StandardContentLayouts } from "@itwin/appui-abstract";
-import { expect } from "chai";
-import * as sinon from "sinon";
 import { UiFramework } from "../../appui-react";
 import type {
   ContentGroupProps,
@@ -16,16 +14,16 @@ import { InternalFrontstageManager } from "../../appui-react/frontstage/Internal
 import { getUniqueId } from "../../appui-react/layout/base/NineZone";
 
 describe("ContentLayoutManager", () => {
-  before(async () => {
+  beforeEach(async () => {
     await UiFramework.frontstages.setActiveFrontstageDef(undefined);
   });
 
   it("activeLayout should return undefined if no active frontstage", () => {
-    expect(InternalContentLayoutManager.activeLayout).to.be.undefined;
+    expect(InternalContentLayoutManager.activeLayout).toEqual(undefined);
   });
 
   it("activeContentGroup should return undefined if no active frontstage", () => {
-    expect(InternalContentLayoutManager.activeContentGroup).to.be.undefined;
+    expect(InternalContentLayoutManager.activeContentGroup).toEqual(undefined);
   });
 
   it("refreshActive should do nothing if no active frontstage", () => {
@@ -51,7 +49,7 @@ describe("ContentLayoutManager", () => {
 
     const layoutDef = InternalContentLayoutManager.getForGroup(groupProps);
     const foundLayoutDef = InternalContentLayoutManager.find(key);
-    expect(foundLayoutDef?.id).to.be.eq(layoutDef.id);
+    expect(foundLayoutDef?.id).toEqual(layoutDef.id);
   });
 
   it("should getForGroup with overridden layout", () => {
@@ -76,7 +74,7 @@ describe("ContentLayoutManager", () => {
       StandardContentLayouts.twoVerticalSplit
     );
     const foundLayoutDef = InternalContentLayoutManager.find(overrideKey);
-    expect(foundLayoutDef?.id).to.be.eq(layoutDef.id);
+    expect(foundLayoutDef?.id).toEqual(layoutDef.id);
   });
 
   it("should call  InternalFrontstageManager.setActiveContentGroup", async () => {
@@ -92,10 +90,10 @@ describe("ContentLayoutManager", () => {
     };
 
     const contentGroup = new ContentGroup(groupProps);
-    const spy = sinon
-      .stub(InternalFrontstageManager, "setActiveContentGroup")
-      .returns(Promise.resolve());
+    const spy = vi
+      .spyOn(InternalFrontstageManager, "setActiveContentGroup")
+      .mockResolvedValue(undefined);
     await InternalContentLayoutManager.setActiveContentGroup(contentGroup);
-    expect(spy).to.have.been.called;
+    expect(spy).toHaveBeenCalled();
   });
 });

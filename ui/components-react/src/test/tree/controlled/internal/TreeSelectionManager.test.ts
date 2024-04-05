@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as faker from "faker";
-import * as sinon from "sinon";
 import * as moq from "typemoq";
 import { Key } from "ts-key-enum";
 import type { SelectionHandler } from "../../../../components-react/common/selection/SelectionHandler";
@@ -93,7 +91,7 @@ describe("TreeSelectionManager", () => {
     it("selects node", () => {
       const node = createTreeModelNode();
       setupModelWithNodes([node]);
-      const spy = sinon.spy(
+      const spy = vi.spyOn(
         extendedSelectionManager.onSelectionReplaced,
         "emit"
       );
@@ -101,8 +99,8 @@ describe("TreeSelectionManager", () => {
       eventMock.setup((x) => x.ctrlKey).returns(() => false);
       eventMock.setup((x) => x.metaKey).returns(() => false);
       extendedSelectionManager.onNodeClicked(node.id, eventMock.object);
-      expect(spy).to.be.calledOnce;
-      expect(spy).to.be.calledWithExactly({
+      expect(spy).toHaveBeenCalledOnce();
+      expect(spy).toHaveBeenCalledWith({
         selectedNodeIds: [node.id],
       });
     });
@@ -110,16 +108,13 @@ describe("TreeSelectionManager", () => {
     it("ctrl deselects node", () => {
       const node = createTreeModelNode({ isSelected: true });
       setupModelWithNodes([node]);
-      const spy = sinon.spy(
-        extendedSelectionManager.onSelectionChanged,
-        "emit"
-      );
+      const spy = vi.spyOn(extendedSelectionManager.onSelectionChanged, "emit");
       eventMock.setup((x) => x.shiftKey).returns(() => false);
       eventMock.setup((x) => x.ctrlKey).returns(() => true);
       eventMock.setup((x) => x.metaKey).returns(() => false);
       extendedSelectionManager.onNodeClicked(node.id, eventMock.object);
-      expect(spy).to.be.calledOnce;
-      expect(spy).to.be.calledWithExactly({
+      expect(spy).toHaveBeenCalledOnce();
+      expect(spy).toHaveBeenCalledWith({
         selectedNodes: [],
         deselectedNodes: [node.id],
       });
@@ -128,21 +123,18 @@ describe("TreeSelectionManager", () => {
     it("ctrl selects nodes", () => {
       const nodes = [createTreeModelNode(), createTreeModelNode()];
       setupModelWithNodes(nodes);
-      const spy = sinon.spy(
-        extendedSelectionManager.onSelectionChanged,
-        "emit"
-      );
+      const spy = vi.spyOn(extendedSelectionManager.onSelectionChanged, "emit");
       eventMock.setup((x) => x.shiftKey).returns(() => false);
       eventMock.setup((x) => x.ctrlKey).returns(() => true);
       eventMock.setup((x) => x.metaKey).returns(() => false);
       extendedSelectionManager.onNodeClicked(nodes[0].id, eventMock.object);
       extendedSelectionManager.onNodeClicked(nodes[1].id, eventMock.object);
-      expect(spy).to.be.calledTwice;
-      expect(spy.firstCall).to.be.calledWithExactly({
+      expect(spy).toHaveBeenCalledTimes(2);
+      expect(spy).toHaveBeenCalledWith({
         selectedNodes: [nodes[0].id],
         deselectedNodes: [],
       });
-      expect(spy.secondCall).to.be.calledWithExactly({
+      expect(spy).toHaveBeenCalledWith({
         selectedNodes: [nodes[1].id],
         deselectedNodes: [],
       });
@@ -151,7 +143,7 @@ describe("TreeSelectionManager", () => {
     it("shift selects nodes", () => {
       const nodes = [createTreeModelNode(), createTreeModelNode()];
       setupModelWithNodes(nodes);
-      const spy = sinon.spy(
+      const spy = vi.spyOn(
         extendedSelectionManager.onSelectionReplaced,
         "emit"
       );
@@ -160,11 +152,11 @@ describe("TreeSelectionManager", () => {
       eventMock.setup((x) => x.metaKey).returns(() => false);
       extendedSelectionManager.onNodeClicked(nodes[0].id, eventMock.object);
       extendedSelectionManager.onNodeClicked(nodes[1].id, eventMock.object);
-      expect(spy).to.be.calledTwice;
-      expect(spy.firstCall).to.be.calledWithExactly({
+      expect(spy).toHaveBeenCalledTimes(2);
+      expect(spy).toHaveBeenCalledWith({
         selectedNodeIds: [nodes[0].id],
       });
-      expect(spy.secondCall).to.be.calledWithExactly({
+      expect(spy).toHaveBeenCalledWith({
         selectedNodeIds: { from: nodes[0].id, to: nodes[1].id },
       });
     });
@@ -172,21 +164,18 @@ describe("TreeSelectionManager", () => {
     it("shift + ctrl selects nodes", () => {
       const nodes = [createTreeModelNode(), createTreeModelNode()];
       setupModelWithNodes(nodes);
-      const spy = sinon.spy(
-        extendedSelectionManager.onSelectionChanged,
-        "emit"
-      );
+      const spy = vi.spyOn(extendedSelectionManager.onSelectionChanged, "emit");
       eventMock.setup((x) => x.shiftKey).returns(() => true);
       eventMock.setup((x) => x.ctrlKey).returns(() => true);
       eventMock.setup((x) => x.metaKey).returns(() => false);
       extendedSelectionManager.onNodeClicked(nodes[0].id, eventMock.object);
       extendedSelectionManager.onNodeClicked(nodes[1].id, eventMock.object);
-      expect(spy).to.be.calledTwice;
-      expect(spy.firstCall).to.be.calledWithExactly({
+      expect(spy).toHaveBeenCalledTimes(2);
+      expect(spy).toHaveBeenCalledWith({
         selectedNodes: [nodes[0].id],
         deselectedNodes: [],
       });
-      expect(spy.secondCall).to.be.calledWithExactly({
+      expect(spy).toHaveBeenCalledWith({
         selectedNodes: { from: nodes[0].id, to: nodes[1].id },
         deselectedNodes: [],
       });
@@ -195,21 +184,18 @@ describe("TreeSelectionManager", () => {
     it("cmd selects nodes", () => {
       const nodes = [createTreeModelNode(), createTreeModelNode()];
       setupModelWithNodes(nodes);
-      const spy = sinon.spy(
-        extendedSelectionManager.onSelectionChanged,
-        "emit"
-      );
+      const spy = vi.spyOn(extendedSelectionManager.onSelectionChanged, "emit");
       eventMock.setup((x) => x.shiftKey).returns(() => false);
       eventMock.setup((x) => x.ctrlKey).returns(() => false);
       eventMock.setup((x) => x.metaKey).returns(() => true);
       extendedSelectionManager.onNodeClicked(nodes[0].id, eventMock.object);
       extendedSelectionManager.onNodeClicked(nodes[1].id, eventMock.object);
-      expect(spy).to.be.calledTwice;
-      expect(spy.firstCall).to.be.calledWithExactly({
+      expect(spy).toHaveBeenCalledTimes(2);
+      expect(spy).toHaveBeenCalledWith({
         selectedNodes: [nodes[0].id],
         deselectedNodes: [],
       });
-      expect(spy.secondCall).to.be.calledWithExactly({
+      expect(spy).toHaveBeenCalledWith({
         selectedNodes: [nodes[1].id],
         deselectedNodes: [],
       });
@@ -220,16 +206,16 @@ describe("TreeSelectionManager", () => {
     it("selects nodes by dragging", () => {
       const nodes = [createTreeModelNode(), createTreeModelNode()];
       setupModelWithNodes(nodes);
-      const spy = sinon.spy(selectionHandler, "completeDragAction");
-      const changeSpy = sinon.spy(
+      const spy = vi.spyOn(selectionHandler, "completeDragAction");
+      const changeSpy = vi.spyOn(
         multipleSelectionManager.onSelectionChanged,
         "emit"
       );
       multipleSelectionManager.onNodeMouseDown(nodes[0].id);
       multipleSelectionManager.onNodeMouseMove(nodes[1].id);
       window.dispatchEvent(new Event("mouseup"));
-      expect(spy).to.be.called;
-      expect(changeSpy).to.be.calledWithExactly({
+      expect(spy).toHaveBeenCalled();
+      expect(changeSpy).toHaveBeenCalledWith({
         selectedNodes: [nodes[0].id, nodes[1].id],
         deselectedNodes: [],
       });
@@ -239,16 +225,16 @@ describe("TreeSelectionManager", () => {
       const placeholder = { childIndex: 0, depth: 0 };
       const node = createTreeModelNode();
       setupModelWithNodes([placeholder, node]);
-      const spy = sinon.spy(selectionHandler, "completeDragAction");
-      const changeSpy = sinon.spy(
+      const spy = vi.spyOn(selectionHandler, "completeDragAction");
+      const changeSpy = vi.spyOn(
         multipleSelectionManager.onSelectionChanged,
         "emit"
       );
       multipleSelectionManager.onNodeMouseDown(node.id);
       window.dispatchEvent(new Event("mouseup"));
       multipleSelectionManager.onNodeClicked(node.id, eventMock.object);
-      expect(spy).to.be.called;
-      expect(changeSpy).to.be.calledWithExactly({
+      expect(spy).toHaveBeenCalled();
+      expect(changeSpy).toHaveBeenCalledWith({
         selectedNodes: [node.id],
         deselectedNodes: [],
       });
@@ -259,9 +245,9 @@ describe("TreeSelectionManager", () => {
     it("updates drag action", () => {
       const node = createTreeModelNode();
       setupModelWithNodes([node]);
-      const spy = sinon.spy(selectionHandler, "updateDragAction");
+      const spy = vi.spyOn(selectionHandler, "updateDragAction");
       multipleSelectionManager.onNodeMouseMove(node.id);
-      expect(spy).to.be.called;
+      expect(spy).toHaveBeenCalled();
     });
   });
 
@@ -282,7 +268,7 @@ describe("TreeSelectionManager", () => {
       const node = createTreeModelNode();
       setupModelWithNodes([node]);
       extendedSelectionManager.onNodeClicked(node.id, eventMock.object);
-      const spy = sinon.spy(
+      const spy = vi.spyOn(
         extendedSelectionManager.onSelectionReplaced,
         "emit"
       );
@@ -297,7 +283,7 @@ describe("TreeSelectionManager", () => {
         keyEventMock.object,
         treeActionsMock.object
       );
-      expect(spy).to.not.be.called;
+      expect(spy).not.toBeCalled();
     });
 
     it("selects node", () => {
@@ -307,7 +293,7 @@ describe("TreeSelectionManager", () => {
       ];
       setupModelWithNodes(nodes);
       extendedSelectionManager.onNodeClicked(nodes[0].id, eventMock.object);
-      const spy = sinon.spy(
+      const spy = vi.spyOn(
         extendedSelectionManager.onSelectionReplaced,
         "emit"
       );
@@ -322,7 +308,7 @@ describe("TreeSelectionManager", () => {
         keyEventMock.object,
         treeActionsMock.object
       );
-      expect(spy).to.be.calledWithExactly({ selectedNodeIds: [nodes[1].id] });
+      expect(spy).toHaveBeenCalledWith({ selectedNodeIds: [nodes[1].id] });
     });
 
     it("shift selects nodes", () => {
@@ -332,7 +318,7 @@ describe("TreeSelectionManager", () => {
       ];
       setupModelWithNodes(nodes);
       extendedSelectionManager.onNodeClicked(nodes[0].id, eventMock.object);
-      const spy = sinon.spy(
+      const spy = vi.spyOn(
         extendedSelectionManager.onSelectionReplaced,
         "emit"
       );
@@ -347,7 +333,7 @@ describe("TreeSelectionManager", () => {
         keyEventMock.object,
         treeActionsMock.object
       );
-      expect(spy).to.be.calledWithExactly({
+      expect(spy).toHaveBeenCalledWith({
         selectedNodeIds: { from: nodes[0].id, to: nodes[1].id },
       });
     });
@@ -356,7 +342,7 @@ describe("TreeSelectionManager", () => {
       const nodes = [createTreeModelNode(), createTreeModelNode()];
       setupModelWithNodes(nodes);
       extendedSelectionManager.onNodeClicked(nodes[1].id, eventMock.object);
-      const spy = sinon.spy(
+      const spy = vi.spyOn(
         extendedSelectionManager.onSelectionReplaced,
         "emit"
       );
@@ -371,14 +357,14 @@ describe("TreeSelectionManager", () => {
         keyEventMock.object,
         treeActionsMock.object
       );
-      expect(spy).to.be.calledWithExactly({ selectedNodeIds: [nodes[0].id] });
+      expect(spy).toHaveBeenCalledWith({ selectedNodeIds: [nodes[0].id] });
     });
 
     it("End should select bottom node", () => {
       const nodes = [createTreeModelNode(), createTreeModelNode()];
       setupModelWithNodes(nodes);
       extendedSelectionManager.onNodeClicked(nodes[0].id, eventMock.object);
-      const spy = sinon.spy(
+      const spy = vi.spyOn(
         extendedSelectionManager.onSelectionReplaced,
         "emit"
       );
@@ -393,7 +379,7 @@ describe("TreeSelectionManager", () => {
         keyEventMock.object,
         treeActionsMock.object
       );
-      expect(spy).to.be.calledWithExactly({ selectedNodeIds: [nodes[1].id] });
+      expect(spy).toHaveBeenCalledWith({ selectedNodeIds: [nodes[1].id] });
     });
 
     it("Right should expand node", () => {
@@ -403,7 +389,7 @@ describe("TreeSelectionManager", () => {
       keyEventMock.setup((x) => x.key).returns(() => Key.ArrowRight);
       keyEventMock.setup((x) => x.shiftKey).returns(() => false);
       keyEventMock.setup((x) => x.ctrlKey).returns(() => false);
-      const spy = sinon.spy();
+      const spy = vi.fn();
       treeActionsMock.setup((x) => x.onNodeExpanded).returns(() => spy);
       extendedSelectionManager.onTreeKeyDown(
         keyEventMock.object,
@@ -413,7 +399,7 @@ describe("TreeSelectionManager", () => {
         keyEventMock.object,
         treeActionsMock.object
       );
-      expect(spy).to.be.calledWithExactly(node.id);
+      expect(spy).toHaveBeenCalledWith(node.id);
     });
 
     it("Right should not expand node if already expanded", () => {
@@ -423,7 +409,7 @@ describe("TreeSelectionManager", () => {
       keyEventMock.setup((x) => x.key).returns(() => Key.ArrowRight);
       keyEventMock.setup((x) => x.shiftKey).returns(() => false);
       keyEventMock.setup((x) => x.ctrlKey).returns(() => false);
-      const spy = sinon.spy();
+      const spy = vi.fn();
       treeActionsMock.setup((x) => x.onNodeExpanded).returns(() => spy);
       extendedSelectionManager.onTreeKeyDown(
         keyEventMock.object,
@@ -433,7 +419,7 @@ describe("TreeSelectionManager", () => {
         keyEventMock.object,
         treeActionsMock.object
       );
-      expect(spy).to.not.be.called;
+      expect(spy).not.toBeCalled();
     });
 
     it("Left should collapse node", () => {
@@ -443,7 +429,7 @@ describe("TreeSelectionManager", () => {
       keyEventMock.setup((x) => x.key).returns(() => Key.ArrowLeft);
       keyEventMock.setup((x) => x.shiftKey).returns(() => false);
       keyEventMock.setup((x) => x.ctrlKey).returns(() => false);
-      const spy = sinon.spy();
+      const spy = vi.fn();
       treeActionsMock.setup((x) => x.onNodeCollapsed).returns(() => spy);
       extendedSelectionManager.onTreeKeyDown(
         keyEventMock.object,
@@ -453,7 +439,7 @@ describe("TreeSelectionManager", () => {
         keyEventMock.object,
         treeActionsMock.object
       );
-      expect(spy).to.be.calledWithExactly(node.id);
+      expect(spy).toHaveBeenCalledWith(node.id);
     });
 
     it("Left should not collapse node if already collapsed", () => {
@@ -463,7 +449,7 @@ describe("TreeSelectionManager", () => {
       keyEventMock.setup((x) => x.key).returns(() => Key.ArrowLeft);
       keyEventMock.setup((x) => x.shiftKey).returns(() => false);
       keyEventMock.setup((x) => x.ctrlKey).returns(() => false);
-      const spy = sinon.spy();
+      const spy = vi.fn();
       treeActionsMock.setup((x) => x.onNodeCollapsed).returns(() => spy);
       extendedSelectionManager.onTreeKeyDown(
         keyEventMock.object,
@@ -473,7 +459,7 @@ describe("TreeSelectionManager", () => {
         keyEventMock.object,
         treeActionsMock.object
       );
-      expect(spy).to.not.be.called;
+      expect(spy).not.toBeCalled();
     });
 
     it("Space should expand node if collapsed", () => {
@@ -483,7 +469,7 @@ describe("TreeSelectionManager", () => {
       keyEventMock.setup((x) => x.key).returns(() => " ");
       keyEventMock.setup((x) => x.shiftKey).returns(() => false);
       keyEventMock.setup((x) => x.ctrlKey).returns(() => false);
-      const spy = sinon.spy();
+      const spy = vi.fn();
       treeActionsMock.setup((x) => x.onNodeExpanded).returns(() => spy);
       extendedSelectionManager.onTreeKeyDown(
         keyEventMock.object,
@@ -493,7 +479,7 @@ describe("TreeSelectionManager", () => {
         keyEventMock.object,
         treeActionsMock.object
       );
-      expect(spy).to.be.calledWithExactly(node.id);
+      expect(spy).toHaveBeenCalledWith(node.id);
     });
 
     it("Space should collapse node if expanded", () => {
@@ -503,7 +489,7 @@ describe("TreeSelectionManager", () => {
       keyEventMock.setup((x) => x.key).returns(() => " ");
       keyEventMock.setup((x) => x.shiftKey).returns(() => false);
       keyEventMock.setup((x) => x.ctrlKey).returns(() => false);
-      const spy = sinon.spy();
+      const spy = vi.fn();
       treeActionsMock.setup((x) => x.onNodeCollapsed).returns(() => spy);
       extendedSelectionManager.onTreeKeyDown(
         keyEventMock.object,
@@ -513,7 +499,7 @@ describe("TreeSelectionManager", () => {
         keyEventMock.object,
         treeActionsMock.object
       );
-      expect(spy).to.be.calledWithExactly(node.id);
+      expect(spy).toHaveBeenCalledWith(node.id);
     });
 
     it("Right should not do anything on a leaf node", () => {
@@ -523,8 +509,8 @@ describe("TreeSelectionManager", () => {
       keyEventMock.setup((x) => x.key).returns(() => Key.ArrowRight);
       keyEventMock.setup((x) => x.shiftKey).returns(() => false);
       keyEventMock.setup((x) => x.ctrlKey).returns(() => false);
-      const spyExpanded = sinon.spy();
-      const spyCollapsed = sinon.spy();
+      const spyExpanded = vi.fn();
+      const spyCollapsed = vi.fn();
       treeActionsMock.setup((x) => x.onNodeExpanded).returns(() => spyExpanded);
       treeActionsMock
         .setup((x) => x.onNodeCollapsed)
@@ -537,8 +523,8 @@ describe("TreeSelectionManager", () => {
         keyEventMock.object,
         treeActionsMock.object
       );
-      expect(spyExpanded).to.not.be.called;
-      expect(spyCollapsed).to.not.be.called;
+      expect(spyExpanded).not.toBeCalled();
+      expect(spyCollapsed).not.toBeCalled();
     });
 
     it("Space should start editing on a leaf node", () => {
@@ -548,7 +534,7 @@ describe("TreeSelectionManager", () => {
       keyEventMock.setup((x) => x.key).returns(() => " ");
       keyEventMock.setup((x) => x.shiftKey).returns(() => false);
       keyEventMock.setup((x) => x.ctrlKey).returns(() => false);
-      const spyEditorActivated = sinon.spy();
+      const spyEditorActivated = vi.fn();
       treeActionsMock
         .setup((x) => x.onNodeEditorActivated)
         .returns(() => spyEditorActivated);
@@ -560,7 +546,7 @@ describe("TreeSelectionManager", () => {
         keyEventMock.object,
         treeActionsMock.object
       );
-      expect(spyEditorActivated).to.be.calledWithExactly(node.id);
+      expect(spyEditorActivated).toHaveBeenCalledWith(node.id);
     });
   });
 });
@@ -571,11 +557,11 @@ describe("isRangeSelection", () => {
       from: faker.random.uuid(),
       to: faker.random.uuid(),
     };
-    expect(isRangeSelection(rangeSelection)).to.be.true;
+    expect(isRangeSelection(rangeSelection)).toEqual(true);
   });
 
   it("returns false for IndividualSelection", () => {
     const individualSelection: IndividualSelection = [faker.random.uuid()];
-    expect(isRangeSelection(individualSelection)).to.be.false;
+    expect(isRangeSelection(individualSelection)).toEqual(false);
   });
 });

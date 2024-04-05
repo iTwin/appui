@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import React from "react";
 import { fireEvent, render } from "@testing-library/react";
 import { SelectableContent } from "../../components-react/selectable-content/SelectableContent";
@@ -81,7 +80,7 @@ describe("<SelectableContent />", () => {
 
     fireEvent.click(getByText("B"));
 
-    expect(queryByText("A")).to.be.null;
+    expect(queryByText("A")).toEqual(null);
     getByText("B");
   });
 });

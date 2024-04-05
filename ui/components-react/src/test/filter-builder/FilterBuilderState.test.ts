@@ -2,9 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-
-import chai, { expect } from "chai";
-import chaiSubset from "chai-subset";
 import type { PropertyDescription, PropertyValue } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
 import { waitFor } from "@testing-library/react";
@@ -19,22 +16,11 @@ import {
   isPropertyFilterBuilderRuleGroup,
   usePropertyFilterBuilder,
 } from "../../components-react/filter-builder/FilterBuilderState";
-import TestUtils from "../TestUtils";
 import { UiComponents } from "../../components-react/UiComponents";
 import type { PropertyFilter } from "../../components-react/filter-builder/Types";
 import { PropertyFilterBuilderRuleRangeValue } from "../../components-react";
 
-chai.use(chaiSubset);
-
 describe("usePropertyFilterBuilder", () => {
-  before(async () => {
-    await TestUtils.initializeUiComponents();
-  });
-
-  after(() => {
-    TestUtils.terminateUiComponents();
-  });
-
   const property = {
     name: "testName",
     displayLabel: "testLabel",
@@ -70,7 +56,7 @@ describe("usePropertyFilterBuilder", () => {
     expect(
       rootGroup.items[0].groupId === rootGroup.items[1].groupId &&
         rootGroup.items[0].groupId === rootGroup.id
-    ).to.be.true;
+    ).toEqual(true);
   });
 
   it("adds rule to nested group", async () => {
@@ -82,7 +68,7 @@ describe("usePropertyFilterBuilder", () => {
 
     await waitFor(() => {
       nestedGroup = result.current.rootGroup.items[1];
-      expect(nestedGroup).to.not.be.undefined;
+      expect(nestedGroup).toBeTruthy();
     });
 
     actions.addItem([], "RULE");
@@ -136,7 +122,7 @@ describe("usePropertyFilterBuilder", () => {
     actions.addItem(["invalidParent"], "RULE_GROUP");
 
     const { rootGroup: newRootGroup } = result.current;
-    expect(rootGroup).to.be.eq(newRootGroup);
+    expect(rootGroup).toEqual(newRootGroup);
   });
 
   it("removes rule from root group", () => {
@@ -189,7 +175,7 @@ describe("usePropertyFilterBuilder", () => {
     actions.setRuleProperty([rootGroup.items[0].id], property);
 
     rootGroup = result.current.rootGroup;
-    expect((rootGroup.items[0] as PropertyFilterBuilderRule).property).to.be.eq(
+    expect((rootGroup.items[0] as PropertyFilterBuilderRule).property).toEqual(
       property
     );
     actions.removeItem([rootGroup.items[0].id]);
@@ -207,7 +193,7 @@ describe("usePropertyFilterBuilder", () => {
     actions.removeItem(["invalidParent", rootGroup.items[0].id]);
 
     const { rootGroup: newRootGroup } = result.current;
-    expect(rootGroup).to.be.eq(newRootGroup);
+    expect(rootGroup).toEqual(newRootGroup);
   });
 
   it("does not change state when removing non existing item", () => {
@@ -216,7 +202,7 @@ describe("usePropertyFilterBuilder", () => {
     actions.removeItem(["invalidItem"]);
 
     const { rootGroup: newRootGroup } = result.current;
-    expect(rootGroup).to.be.eq(newRootGroup);
+    expect(rootGroup).toEqual(newRootGroup);
   });
 
   it("sets root group operator", async () => {
@@ -224,7 +210,7 @@ describe("usePropertyFilterBuilder", () => {
     const { actions } = result.current;
     let { rootGroup } = result.current;
 
-    expect(rootGroup.operator).to.be.eq("and");
+    expect(rootGroup.operator).toEqual("and");
     actions.setRuleGroupOperator([], "or");
 
     await waitFor(() => {
@@ -246,7 +232,7 @@ describe("usePropertyFilterBuilder", () => {
     actions.setRuleGroupOperator(["invalidGroup"], "or");
 
     const { rootGroup: newRootGroup } = result.current;
-    expect(rootGroup).to.be.eq(newRootGroup);
+    expect(rootGroup).toEqual(newRootGroup);
   });
 
   it("sets rule property", async () => {
@@ -302,7 +288,7 @@ describe("usePropertyFilterBuilder", () => {
     actions.setRuleProperty(["invalidRule"], property);
 
     const { rootGroup: newRootGroup } = result.current;
-    expect(rootGroup).to.be.eq(newRootGroup);
+    expect(rootGroup).toEqual(newRootGroup);
   });
 
   it("sets rule operator", async () => {
@@ -374,8 +360,9 @@ describe("usePropertyFilterBuilder", () => {
 
     rootGroup = result.current.rootGroup;
 
-    expect((rootGroup.items[0] as PropertyFilterBuilderRule).value).to.be
-      .undefined;
+    expect((rootGroup.items[0] as PropertyFilterBuilderRule).value).toEqual(
+      undefined
+    );
   });
 
   it("resets rule value if new operator is `Less` and previous operator was `IsNotEqual``", () => {
@@ -400,8 +387,9 @@ describe("usePropertyFilterBuilder", () => {
 
     rootGroup = result.current.rootGroup;
 
-    expect((rootGroup.items[0] as PropertyFilterBuilderRule).value).to.be
-      .undefined;
+    expect((rootGroup.items[0] as PropertyFilterBuilderRule).value).toEqual(
+      undefined
+    );
   });
 
   it("does not reset rule value when new operator is the same as the previous", () => {
@@ -508,10 +496,10 @@ describe("usePropertyFilterBuilder", () => {
 
     const initialValue = (rootGroup.items[0] as PropertyFilterBuilderRule)
       .value;
-    expect((rootGroup.items[0] as PropertyFilterBuilderRule).operator).to.be.eq(
+    expect((rootGroup.items[0] as PropertyFilterBuilderRule).operator).toEqual(
       "between"
     );
-    expect(initialValue).to.not.be.undefined;
+    expect(initialValue).toBeTruthy();
     actions.setRuleOperator([rootGroup.items[0].id], "not-between");
 
     rootGroup = result.current.rootGroup;
@@ -527,7 +515,7 @@ describe("usePropertyFilterBuilder", () => {
     actions.setRuleOperator(["invalidRule"], "is-equal");
 
     const { rootGroup: newRootGroup } = result.current;
-    expect(rootGroup).to.be.eq(newRootGroup);
+    expect(rootGroup).toEqual(newRootGroup);
   });
 
   it("sets rule value", async () => {
@@ -557,7 +545,7 @@ describe("usePropertyFilterBuilder", () => {
     actions.setRuleValue(["invalidRule"], value);
 
     const { rootGroup: newRootGroup } = result.current;
-    expect(rootGroup).to.be.eq(newRootGroup);
+    expect(rootGroup).toEqual(newRootGroup);
   });
 
   it("does not change state when trying to set property on rule group", () => {
@@ -567,7 +555,7 @@ describe("usePropertyFilterBuilder", () => {
     actions.setRuleProperty([], property);
 
     const { rootGroup: newRootGroup } = result.current;
-    expect(rootGroup).to.be.eq(newRootGroup);
+    expect(rootGroup).toEqual(newRootGroup);
   });
 
   it("sets rule error message", () => {
@@ -585,10 +573,11 @@ describe("usePropertyFilterBuilder", () => {
 
     expect(
       (rootGroup.items[0] as PropertyFilterBuilderRule).errorMessage
-    ).to.be.eq("error message");
+    ).toEqual("error message");
 
-    expect((rootGroup.items[1] as PropertyFilterBuilderRule).errorMessage).to.be
-      .undefined;
+    expect(
+      (rootGroup.items[1] as PropertyFilterBuilderRule).errorMessage
+    ).toEqual(undefined);
   });
 
   describe("buildFilter", () => {
@@ -609,11 +598,11 @@ describe("usePropertyFilterBuilder", () => {
         const { rootGroup } = result.current;
         expect(
           (rootGroup.items[0] as PropertyFilterBuilderRule).errorMessage
-        ).to.be.eq(
+        ).toEqual(
           UiComponents.translate("filterBuilder.errorMessages.emptyValue")
         );
 
-        expect(buildFilterResult).to.be.undefined;
+        expect(buildFilterResult).toEqual(undefined);
       });
 
       it("returns undefined and sets rule error message to `Value is empty` if item`s value is empty string", () => {
@@ -633,11 +622,11 @@ describe("usePropertyFilterBuilder", () => {
         const { rootGroup } = result.current;
         expect(
           (rootGroup.items[0] as PropertyFilterBuilderRule).errorMessage
-        ).to.be.eq(
+        ).toEqual(
           UiComponents.translate("filterBuilder.errorMessages.emptyValue")
         );
 
-        expect(buildFilterResult).to.be.undefined;
+        expect(buildFilterResult).toEqual(undefined);
       });
 
       it("returns property filter and doesn't set error message if operator is unary.", () => {
@@ -654,8 +643,9 @@ describe("usePropertyFilterBuilder", () => {
         const buildFilterResult = buildFilter();
 
         const { rootGroup } = result.current;
-        expect((rootGroup.items[0] as PropertyFilterBuilderRule).errorMessage)
-          .to.be.undefined;
+        expect(
+          (rootGroup.items[0] as PropertyFilterBuilderRule).errorMessage
+        ).toEqual(undefined);
 
         expect(buildFilterResult).to.deep.equal({
           property,
@@ -683,8 +673,9 @@ describe("usePropertyFilterBuilder", () => {
         const buildFilterResult = buildFilter();
 
         const { rootGroup } = result.current;
-        expect((rootGroup.items[0] as PropertyFilterBuilderRule).errorMessage)
-          .to.be.undefined;
+        expect(
+          (rootGroup.items[0] as PropertyFilterBuilderRule).errorMessage
+        ).toEqual(undefined);
 
         expect(buildFilterResult).to.deep.equal({
           property,
@@ -717,12 +708,12 @@ describe("usePropertyFilterBuilder", () => {
           const { buildFilter } = result.current;
 
           const buildFilterResult = buildFilter();
-          expect(buildFilterResult).to.be.undefined;
+          expect(buildFilterResult).toEqual(undefined);
 
           const { rootGroup } = result.current;
           expect(
             (rootGroup.items[0] as PropertyFilterBuilderRule).errorMessage
-          ).to.be.eq(
+          ).toEqual(
             UiComponents.translate("filterBuilder.errorMessages.emptyValue")
           );
         });
@@ -746,12 +737,12 @@ describe("usePropertyFilterBuilder", () => {
           const { buildFilter } = result.current;
 
           const buildFilterResult = buildFilter();
-          expect(buildFilterResult).to.be.undefined;
+          expect(buildFilterResult).toEqual(undefined);
 
           const { rootGroup } = result.current;
           expect(
             (rootGroup.items[0] as PropertyFilterBuilderRule).errorMessage
-          ).to.be.eq(
+          ).toEqual(
             UiComponents.translate("filterBuilder.errorMessages.emptyValue")
           );
         });
@@ -776,12 +767,12 @@ describe("usePropertyFilterBuilder", () => {
           const { buildFilter } = result.current;
 
           const buildFilterResult = buildFilter();
-          expect(buildFilterResult).to.be.undefined;
+          expect(buildFilterResult).toEqual(undefined);
 
           const { rootGroup } = result.current;
           expect(
             (rootGroup.items[0] as PropertyFilterBuilderRule).errorMessage
-          ).to.be.eq(
+          ).toEqual(
             UiComponents.translate("filterBuilder.errorMessages.invalidRange")
           );
         });
@@ -827,8 +818,9 @@ describe("usePropertyFilterBuilder", () => {
           });
 
           const { rootGroup } = result.current;
-          expect((rootGroup.items[0] as PropertyFilterBuilderRule).errorMessage)
-            .to.be.undefined;
+          expect(
+            (rootGroup.items[0] as PropertyFilterBuilderRule).errorMessage
+          ).toEqual(undefined);
         });
 
         it("returns property filter with `Not Between` rule when value is valid", () => {
@@ -872,8 +864,9 @@ describe("usePropertyFilterBuilder", () => {
           });
 
           const { rootGroup } = result.current;
-          expect((rootGroup.items[0] as PropertyFilterBuilderRule).errorMessage)
-            .to.be.undefined;
+          expect(
+            (rootGroup.items[0] as PropertyFilterBuilderRule).errorMessage
+          ).toEqual(undefined);
         });
       });
     });
@@ -891,7 +884,7 @@ describe("usePropertyFilterBuilder", () => {
 
       expect(
         (rootGroup.items[0] as PropertyFilterBuilderRule).errorMessage
-      ).to.be.eq(customErrorMessage);
+      ).toEqual(customErrorMessage);
     });
 
     it("does not save errors if options specify to ignore them", () => {
@@ -905,8 +898,9 @@ describe("usePropertyFilterBuilder", () => {
 
       const { rootGroup } = result.current;
 
-      expect((rootGroup.items[0] as PropertyFilterBuilderRule).errorMessage).to
-        .be.undefined;
+      expect(
+        (rootGroup.items[0] as PropertyFilterBuilderRule).errorMessage
+      ).toEqual(undefined);
     });
   });
 
@@ -944,10 +938,10 @@ describe("usePropertyFilterBuilder", () => {
       );
 
       const { rootGroup } = result.current;
-      expect(rootGroup.items.length).to.be.eq(1);
+      expect(rootGroup.items.length).toEqual(1);
       const rule = rootGroup.items[0];
-      expect(isPropertyFilterBuilderRuleGroup(rule)).to.be.false;
-      expect((rule as PropertyFilterBuilderRule).operator).to.be.eq("between");
+      expect(isPropertyFilterBuilderRuleGroup(rule)).toEqual(false);
+      expect((rule as PropertyFilterBuilderRule).operator).toEqual("between");
     });
 
     it("converts `<` and `>` rules into `Not Between` rule", () => {
@@ -983,10 +977,10 @@ describe("usePropertyFilterBuilder", () => {
       );
 
       const { rootGroup } = result.current;
-      expect(rootGroup.items.length).to.be.eq(1);
+      expect(rootGroup.items.length).toEqual(1);
       const rule = rootGroup.items[0];
-      expect(isPropertyFilterBuilderRuleGroup(rule)).to.be.false;
-      expect((rule as PropertyFilterBuilderRule).operator).to.be.eq(
+      expect(isPropertyFilterBuilderRuleGroup(rule)).toEqual(false);
+      expect((rule as PropertyFilterBuilderRule).operator).toEqual(
         "not-between"
       );
     });
@@ -1025,10 +1019,8 @@ describe("usePropertyFilterBuilder", () => {
 
       const { rootGroup } = result.current;
       const group = rootGroup.items[0];
-      expect(isPropertyFilterBuilderRuleGroup(group)).to.be.true;
-      expect((group as PropertyFilterBuilderRuleGroup).items.length).to.be.eq(
-        2
-      );
+      expect(isPropertyFilterBuilderRuleGroup(group)).toEqual(true);
+      expect((group as PropertyFilterBuilderRuleGroup).items.length).toEqual(2);
     });
 
     it("does not convert `<=` and `>=` rules into `Not Between` rule", () => {
@@ -1065,10 +1057,8 @@ describe("usePropertyFilterBuilder", () => {
 
       const { rootGroup } = result.current;
       const group = rootGroup.items[0];
-      expect(isPropertyFilterBuilderRuleGroup(group)).to.be.true;
-      expect((group as PropertyFilterBuilderRuleGroup).items.length).to.be.eq(
-        2
-      );
+      expect(isPropertyFilterBuilderRuleGroup(group)).toEqual(true);
+      expect((group as PropertyFilterBuilderRuleGroup).items.length).toEqual(2);
     });
 
     it("does not convert `>=` and `<=` rules into `Between` rule if there is more rules", () => {
@@ -1109,10 +1099,8 @@ describe("usePropertyFilterBuilder", () => {
 
       const { rootGroup } = result.current;
       const group = rootGroup.items[0];
-      expect(isPropertyFilterBuilderRuleGroup(group)).to.be.true;
-      expect((group as PropertyFilterBuilderRuleGroup).items.length).to.be.eq(
-        3
-      );
+      expect(isPropertyFilterBuilderRuleGroup(group)).toEqual(true);
+      expect((group as PropertyFilterBuilderRuleGroup).items.length).toEqual(3);
     });
   });
 
@@ -1129,8 +1117,8 @@ describe("usePropertyFilterBuilder", () => {
 
       actions.addItem([], "RULE_GROUP");
       await waitFor(() => {
-        expect(getNestingRule()).to.not.be.undefined;
-        expect(getNestedRule()).to.not.be.undefined;
+        expect(getNestingRule()).toBeTruthy();
+        expect(getNestedRule()).toBeTruthy();
       });
 
       return { result, getNestingRule, getNestedRule, getNestedRulePath };
@@ -1229,7 +1217,7 @@ describe("buildFilter", () => {
     };
 
     const buildFilterResult = buildPropertyFilter(filter);
-    expect(buildFilterResult).to.be.undefined;
+    expect(buildFilterResult).toEqual(undefined);
   });
 
   it("returns undefined if `Between` rule value has empty range end", () => {
@@ -1251,7 +1239,7 @@ describe("buildFilter", () => {
     };
 
     const buildFilterResult = buildPropertyFilter(filter);
-    expect(buildFilterResult).to.be.undefined;
+    expect(buildFilterResult).toEqual(undefined);
   });
 });
 

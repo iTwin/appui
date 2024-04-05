@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import sinon from "sinon";
 import type { PropertyRecord } from "@itwin/appui-abstract";
 import { Orientation } from "@itwin/core-react";
 import { fireEvent, render, screen } from "@testing-library/react";
@@ -15,14 +13,6 @@ import TestUtils, { selectorMatches, userEvent } from "../../../TestUtils";
 describe("FlatPropertyRenderer", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
   let propertyRecord: PropertyRecord;
-
-  before(async () => {
-    await TestUtils.initializeUiComponents();
-  });
-
-  after(() => {
-    TestUtils.terminateUiComponents();
-  });
 
   beforeEach(() => {
     theUserTo = userEvent.setup();
@@ -62,7 +52,7 @@ describe("FlatPropertyRenderer", () => {
     );
 
     expect(screen.getByTitle(recordValue)).to.exist;
-    expect(screen.queryByTitle(originalValue)).to.be.null;
+    expect(screen.queryByTitle(originalValue)).toEqual(null);
   });
 
   it("uses provided propertyValueRendererManager", async () => {
@@ -82,7 +72,7 @@ describe("FlatPropertyRenderer", () => {
       />
     );
 
-    expect(getByText("Test")).to.be.not.null;
+    expect(getByText("Test")).toBeTruthy();
   });
 
   it("highlights matches in primitive values", async () => {
@@ -100,7 +90,7 @@ describe("FlatPropertyRenderer", () => {
       />
     );
     const highlightedNodes = container.querySelectorAll("mark");
-    expect(highlightedNodes.length).to.eq(2);
+    expect(highlightedNodes.length).toEqual(2);
   });
 
   it("renders as primitive value if property is an empty array", () => {
@@ -140,8 +130,8 @@ describe("FlatPropertyRenderer", () => {
       />
     );
     const highlightedNode = container.querySelector("mark");
-    expect(highlightedNode).to.be.not.null;
-    expect(highlightedNode!.textContent).to.eq("rr");
+    expect(highlightedNode).toBeTruthy();
+    expect(highlightedNode!.textContent).toEqual("rr");
   });
 
   it("renders array as a non primitive value", () => {
@@ -218,7 +208,7 @@ describe("FlatPropertyRenderer", () => {
       />
     );
 
-    expect(screen.getByText("Custom array renderer")).to.not.be.null;
+    expect(screen.getByText("Custom array renderer")).toBeTruthy();
   });
 
   it("renders array using custom typename renderer", () => {
@@ -251,7 +241,7 @@ describe("FlatPropertyRenderer", () => {
       />
     );
 
-    expect(screen.getByText("Custom array typename renderer")).to.not.be.null;
+    expect(screen.getByText("Custom array typename renderer")).toBeTruthy();
   });
 
   it("renders struct as a non primitive value", () => {
@@ -322,7 +312,7 @@ describe("FlatPropertyRenderer", () => {
       />
     );
 
-    expect(screen.getByText("Custom struct renderer")).to.not.be.null;
+    expect(screen.getByText("Custom struct renderer")).toBeTruthy();
   });
 
   it("renders struct using custom typename renderer", () => {
@@ -353,7 +343,7 @@ describe("FlatPropertyRenderer", () => {
       />
     );
 
-    expect(screen.getByText("Custom struct typename renderer")).to.not.be.null;
+    expect(screen.getByText("Custom struct typename renderer")).toBeTruthy();
   });
 
   it("renders an editor correctly", () => {
@@ -373,25 +363,25 @@ describe("FlatPropertyRenderer", () => {
   });
 
   it("calls onEditCommit on Enter key when editing", async () => {
-    const spyMethod = sinon.spy();
+    const spy = vi.fn();
     const propertyRenderer = render(
       <FlatPropertyRenderer
         category={{ name: "Cat1", label: "Category 1", expand: true }}
         orientation={Orientation.Horizontal}
         propertyRecord={propertyRecord}
         isEditing={true}
-        onEditCommit={spyMethod}
+        onEditCommit={spy}
         isExpanded={false}
         onExpansionToggled={() => {}}
       />
     );
 
     const inputNode = propertyRenderer.container.querySelector("input");
-    expect(inputNode).not.to.be.null;
+    expect(inputNode).toBeTruthy();
 
     fireEvent.keyDown(inputNode as HTMLElement, { key: "Enter" });
     await TestUtils.flushAsyncOperations();
-    expect(spyMethod.calledOnce).to.be.true;
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("does not attempt to call onEditCommit callback when it is not present and throw", async () => {
@@ -407,30 +397,30 @@ describe("FlatPropertyRenderer", () => {
     );
 
     const inputNode = propertyRenderer.container.querySelector("input");
-    expect(inputNode).not.to.be.null;
+    expect(inputNode).toBeTruthy();
 
     fireEvent.keyDown(inputNode as HTMLElement, { key: "Enter" });
     await TestUtils.flushAsyncOperations();
   });
 
   it("calls onEditCancel on Escape key when editing", () => {
-    const spyMethod = sinon.spy();
+    const spy = vi.fn();
     const propertyRenderer = render(
       <FlatPropertyRenderer
         orientation={Orientation.Horizontal}
         propertyRecord={propertyRecord}
         isEditing={true}
-        onEditCancel={spyMethod}
+        onEditCancel={spy}
         isExpanded={false}
         onExpansionToggled={() => {}}
       />
     );
 
     const inputNode = propertyRenderer.container.querySelector("input");
-    expect(inputNode).not.to.be.null;
+    expect(inputNode).toBeTruthy();
 
     fireEvent.keyDown(inputNode as HTMLElement, { key: "Escape" });
-    expect(spyMethod.calledOnce).to.be.true;
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("does not remove Editor on Enter if callback is not provided", async () => {
@@ -533,31 +523,33 @@ describe("FlatPropertyRenderer", () => {
     }
 
     it("gets called when entering editing state", () => {
-      const onHeightChanged = sinon.fake();
+      const onHeightChanged = vi.fn();
       const { rerender } = render(
         renderFlatPropertyRenderer(false, onHeightChanged)
       );
-      expect(onHeightChanged).to.have.not.been.called;
+      expect(onHeightChanged).not.toBeCalled();
       rerender(renderFlatPropertyRenderer(true, onHeightChanged));
-      expect(onHeightChanged).to.have.been.calledOnceWith(28);
+      expect(onHeightChanged).toHaveBeenCalledOnce();
+      expect(onHeightChanged).toHaveBeenCalledWith(28);
     });
 
     it("gets called when entering editing state in vertical orientation", () => {
-      const onHeightChanged = sinon.fake();
+      const onHeightChanged = vi.fn();
       const { rerender } = render(
         renderFlatPropertyRenderer(false, onHeightChanged, Orientation.Vertical)
       );
-      expect(onHeightChanged).to.have.not.been.called;
+      expect(onHeightChanged).not.toBeCalled();
       rerender(
         renderFlatPropertyRenderer(true, onHeightChanged, Orientation.Vertical)
       );
-      expect(onHeightChanged).to.have.been.calledOnceWith(48);
+      expect(onHeightChanged).toHaveBeenCalledOnce();
+      expect(onHeightChanged).toHaveBeenCalledWith(48);
     });
 
     it("does not get called when component is mounted in editing state", () => {
-      const onHeightChanged = sinon.fake();
+      const onHeightChanged = vi.fn();
       render(renderFlatPropertyRenderer(true, onHeightChanged));
-      expect(onHeightChanged).to.have.not.been.called;
+      expect(onHeightChanged).not.toBeCalled();
     });
 
     it("does not attempt to call when it is not present and throw", () => {

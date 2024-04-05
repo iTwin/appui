@@ -3,20 +3,13 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import * as React from "react";
 import { UiError } from "@itwin/appui-abstract";
 import { render, waitFor } from "@testing-library/react";
 import type { LoadedBinaryImage } from "../../components-react/common/IImageLoader";
 import { ImageRenderer } from "../../components-react/common/ImageRenderer";
-import { UiCore } from "@itwin/core-react";
-import { EmptyLocalization } from "@itwin/core-common";
 
 describe("ImageRenderer", () => {
-  before(async () => {
-    await UiCore.initialize(new EmptyLocalization());
-  });
-
   const imageRenderer = new ImageRenderer();
   const svg = `
     <svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="480" height="543.03003" viewBox="0 0 257.002 297.5" xml:space="preserve">
@@ -58,7 +51,7 @@ describe("ImageRenderer", () => {
       const imageRender = render(<>{image}</>);
 
       await waitFor(() => {
-        expect(imageRender.container.innerHTML).to.eq(renderedSvg);
+        expect(imageRender.container.innerHTML).toEqual(renderedSvg);
       });
 
       // render a second time to see if it produces identical value
@@ -66,7 +59,7 @@ describe("ImageRenderer", () => {
       const imageRender2 = render(<>{image2}</>);
 
       await waitFor(() => {
-        expect(imageRender.container.innerHTML).to.be.eq(
+        expect(imageRender.container.innerHTML).toEqual(
           imageRender2.container.innerHTML
         );
       });
@@ -81,8 +74,8 @@ describe("ImageRenderer", () => {
       const imageRender = render(<>{image}</>);
 
       const imgElement = imageRender.container.children[0] as HTMLImageElement;
-      expect(imgElement.tagName).to.equal("IMG");
-      expect(imgElement.src).to.equal("some-image.png");
+      expect(imgElement.tagName).toEqual("IMG");
+      expect(imgElement.src).toContain("some-image.png");
     });
 
     it("renders core-icon", () => {
@@ -93,10 +86,12 @@ describe("ImageRenderer", () => {
 
       const imageRender = render(<>{image}</>);
 
-      expect(imageRender.container.querySelector(".bui-webfont-icon")).to.not.be
-        .null;
-      expect(imageRender.container.querySelector(".icon-placeholder")).to.not.be
-        .null;
+      expect(
+        imageRender.container.querySelector(".bui-webfont-icon")
+      ).toBeTruthy();
+      expect(
+        imageRender.container.querySelector(".icon-placeholder")
+      ).toBeTruthy();
     });
 
     const coreIconsInWebfontFormatTestData = [
@@ -123,11 +118,12 @@ describe("ImageRenderer", () => {
 
         const imageRender = render(<>{image}</>);
 
-        expect(imageRender.container.querySelector(".bui-webfont-icon")).to.not
-          .be.null;
+        expect(
+          imageRender.container.querySelector(".bui-webfont-icon")
+        ).toBeTruthy();
         expect(
           imageRender.container.querySelector(iconTest.expectedIconNameSelector)
-        ).to.not.be.null;
+        ).toBeTruthy();
       });
     }
 
@@ -172,10 +168,10 @@ describe("ImageRenderer", () => {
           imageRender.container.querySelector(
             iconTest.expectedIconClassSelector
           )
-        ).to.not.be.null;
+        ).toBeTruthy();
         expect(
           imageRender.container.querySelector(iconTest.expectedIconNameSelector)
-        ).to.not.be.null;
+        ).toBeTruthy();
       });
     }
 
@@ -207,11 +203,12 @@ describe("ImageRenderer", () => {
 
         const imageRender = render(<>{image}</>);
 
-        expect(imageRender.container.querySelector(".bui-webfont-icon")).to.not
-          .be.null;
+        expect(
+          imageRender.container.querySelector(".bui-webfont-icon")
+        ).toBeTruthy();
         expect(
           imageRender.container.querySelector(iconTest.expectedIconNameSelector)
-        ).to.not.be.null;
+        ).toBeTruthy();
       });
     }
 

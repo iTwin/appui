@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { FooterIndicator } from "../../../appui-react/layout/footer/Indicator";
 import { selectorMatches, userEvent } from "../Utils";
 
@@ -40,11 +38,11 @@ describe("<FooterIndicator />", () => {
   });
 
   it("renders correctly with onClick function", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     render(<FooterIndicator onClick={spy}>Indicator</FooterIndicator>);
 
     await theUserTo.click(screen.getByText("Indicator"));
 
-    expect(spy.calledOnce).to.be.true;
+    expect(spy).toHaveBeenCalledOnce();
   });
 });

@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { should } from "chai";
 import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState";
 import { getTabLocation } from "../../../appui-react/layout/state/TabLocation";
 import { addPanelWidget } from "../../../appui-react/layout/state/internal/PanelStateHelpers";
@@ -20,7 +19,7 @@ describe("getTabLocation", () => {
     state = addTabs(state, ["t1"]);
     state = addFloatingWidget(state, "w1", ["t1"]);
     const location = getTabLocation(state, "t1");
-    location!.should.eql({
+    expect(location).toEqual({
       widgetId: "w1",
       floatingWidgetId: "w1",
     });
@@ -31,7 +30,7 @@ describe("getTabLocation", () => {
     state = addTabs(state, ["t1"]);
     state = addPanelWidget(state, "right", "w1", ["t1"]);
     const location = getTabLocation(state, "t1");
-    location!.should.eql({
+    expect(location).toEqual({
       widgetId: "w1",
       side: "right",
     });
@@ -42,7 +41,7 @@ describe("getTabLocation", () => {
     state = addTabs(state, ["t1"]);
     state = addPopoutWidget(state, "w1", ["t1"]);
     const location = getTabLocation(state, "t1");
-    location!.should.eql({
+    expect(location).toEqual({
       widgetId: "w1",
       popoutWidgetId: "w1",
     });
@@ -53,7 +52,7 @@ describe("getTabLocation", () => {
     state = addTabs(state, ["t1"]);
     state = addFloatingWidget(state, "w1", ["t1"]);
     const location = getTabLocation(state, "t1");
-    location!.should.eql({
+    expect(location).toEqual({
       widgetId: "w1",
       floatingWidgetId: "w1",
     });
@@ -65,7 +64,7 @@ describe("getTabLocation", () => {
     state = addFloatingWidget(state, "w1", ["t1"]);
     state = removeTabFromWidget(state, "t1");
     const location = getTabLocation(state, "t1");
-    should().equal(location, undefined);
+    expect(location).not.to.exist;
   });
 
   it("should return 'undefined' if tab does not exist", () => {
@@ -73,7 +72,7 @@ describe("getTabLocation", () => {
     state = addTabs(state, ["t1"]);
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     const location = getTabLocation(state, "t2");
-    should().equal(location, undefined);
+    expect(location).not.to.exist;
   });
 
   it("should return 'undefined' if widget is not displayed (not in a panel/popout or floating)", () => {
@@ -81,6 +80,6 @@ describe("getTabLocation", () => {
     state = addTabs(state, ["t1", "t2"]);
     state = addWidgetState(state, "w1", ["t1"]);
     const location = getTabLocation(state, "t1");
-    should().equal(location, undefined);
+    expect(location).not.to.exist;
   });
 });

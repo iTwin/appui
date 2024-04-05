@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { render } from "@testing-library/react";
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import {
   FrontstageDef,
   UiFramework,
@@ -21,10 +19,14 @@ describe("WidgetPanelsStatusBar", () => {
       id: "w1",
       content: <div title="my-control"></div>,
     });
-    sinon.stub(frontstageDef, "statusBar").get(() => widget);
-    sinon
-      .stub(UiFramework.frontstages, "activeFrontstageDef")
-      .get(() => frontstageDef);
+    vi.spyOn(frontstageDef, "statusBar", "get").mockImplementation(
+      () => widget
+    );
+    vi.spyOn(
+      UiFramework.frontstages,
+      "activeFrontstageDef",
+      "get"
+    ).mockImplementation(() => frontstageDef);
     const { container } = render(<WidgetPanelsStatusBar />);
     expect(container).to.satisfy(
       childStructure([
@@ -34,9 +36,11 @@ describe("WidgetPanelsStatusBar", () => {
   });
 
   it("should not render", () => {
-    sinon
-      .stub(UiFramework.frontstages, "activeFrontstageDef")
-      .get(() => undefined);
+    vi.spyOn(
+      UiFramework.frontstages,
+      "activeFrontstageDef",
+      "get"
+    ).mockImplementation(() => undefined);
     const { container } = render(<WidgetPanelsStatusBar />);
     expect(container.childNodes).lengthOf(0);
   });

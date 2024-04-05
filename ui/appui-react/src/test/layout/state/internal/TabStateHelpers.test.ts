@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect, should } from "chai";
 import { createNineZoneState } from "../../../../appui-react/layout/state/NineZoneState";
 import { addPanelWidget } from "../../../../appui-react/layout/state/internal/PanelStateHelpers";
 import {
@@ -30,13 +29,13 @@ describe("addTab", () => {
   it("should add a tab", () => {
     let state = createNineZoneState();
     state = addTab(state, "t1");
-    state.tabs.t1.should.exist;
+    expect(state.tabs.t1).toBeTruthy();
   });
 
   it("should throw if tab is already added", () => {
     let state = createNineZoneState();
     state = addTab(state, "t1");
-    (() => addTab(state, "t1")).should.throw();
+    expect(() => addTab(state, "t1")).toThrow();
   });
 });
 
@@ -46,7 +45,7 @@ describe("addTabToWidget", () => {
     state = addTabs(state, ["t1", "t2"]);
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     state = addTabToWidget(state, "t2", "w1");
-    state.widgets.w1.tabs.should.eql(["t1", "t2"]);
+    expect(state.widgets.w1.tabs).toEqual(["t1", "t2"]);
   });
 });
 
@@ -55,17 +54,19 @@ describe("insertTabToWidget", () => {
     let state = createNineZoneState();
     state = addTabs(state, ["t1"]);
     state = addPanelWidget(state, "left", "w1", ["t1"]);
-    handleMetaData(() => insertTabToWidget(state, "t2", "w1", 1)).should.throw(
+    expect(
+      handleMetaData(() => insertTabToWidget(state, "t2", "w1", 1)),
       "Tab does not exist"
-    );
+    ).toThrow();
   });
 
   it("should throw if widget does not exist", () => {
     let state = createNineZoneState();
     state = addTabs(state, ["t1"]);
-    handleMetaData(() => insertTabToWidget(state, "t1", "w1", 1)).should.throw(
+    expect(
+      handleMetaData(() => insertTabToWidget(state, "t1", "w1", 1)),
       "Widget does not exist"
-    );
+    ).toThrow();
   });
 
   it("should throw if tab is already in one of the widgets", () => {
@@ -73,16 +74,17 @@ describe("insertTabToWidget", () => {
     state = addTabs(state, ["t1", "t2"]);
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     state = addPanelWidget(state, "left", "w2", ["t2"]);
-    handleMetaData(() => insertTabToWidget(state, "t1", "w2", 1)).should.throw(
+    expect(
+      handleMetaData(() => insertTabToWidget(state, "t1", "w2", 1)),
       "Tab is already in a widget"
-    );
+    ).toThrow();
   });
 });
 
 describe("removeTab", () => {
   it("should throw if tab does not exist", () => {
     const state = createNineZoneState();
-    (() => removeTab(state, "t1")).should.throw("Tab does not exist");
+    expect(() => removeTab(state, "t1"), "Tab does not exist").toThrow();
   });
 
   it("should update widget activeTabId", () => {
@@ -90,7 +92,7 @@ describe("removeTab", () => {
     state = addTabs(state, ["t1", "t2"]);
     state = addPanelWidget(state, "left", "w1", ["t1", "t2"]);
     const newState = removeTab(state, "t1");
-    newState.widgets.w1.activeTabId.should.eq("t2");
+    expect(newState.widgets.w1.activeTabId).toEqual("t2");
   });
 
   it("should not update widget activeTabId", () => {
@@ -98,8 +100,8 @@ describe("removeTab", () => {
     state = addTabs(state, ["t1", "t2"]);
     state = addPanelWidget(state, "left", "w1", ["t1", "t2"]);
     const newState = removeTab(state, "t2");
-    newState.widgets.w1.activeTabId.should.eq("t1");
-    newState.widgets.w1.tabs.should.eql(["t1"]);
+    expect(newState.widgets.w1.activeTabId).toEqual("t1");
+    expect(newState.widgets.w1.tabs).toEqual(["t1"]);
   });
 
   it("should remove popout widget", () => {
@@ -108,8 +110,8 @@ describe("removeTab", () => {
     state = addPopoutWidget(state, "pow1", ["t1"]);
     const newState = removeTab(state, "t1");
 
-    should().not.exist(newState.popoutWidgets.byId.pow1);
-    should().not.exist(newState.tabs.t1);
+    expect(newState.popoutWidgets.byId.pow1).not.to.exist;
+    expect(newState.tabs.t1).not.to.exist;
   });
 
   it("should remove docked tool settings tab", () => {
@@ -153,17 +155,18 @@ describe("removeTabFromWidget", () => {
     let state = createNineZoneState();
     state = addTabs(state, ["t1"]);
     const newState = removeTabFromWidget(state, "t1");
-    should().exist(newState.tabs.t1);
-    newState.should.eq(state);
+    expect(newState.tabs.t1).toBeTruthy();
+    expect(newState).toEqual(state);
   });
 });
 
 describe("addRemovedTab", () => {
   it("should throw if tab does not exist", () => {
     const state = createNineZoneState();
-    handleMetaData(() => addRemovedTab(state, "t1")).should.throw(
+    expect(
+      handleMetaData(() => addRemovedTab(state, "t1")),
       "Tab does not exist"
-    );
+    ).toThrow();
   });
 
   it("should add tab to an existing widget", () => {
@@ -215,10 +218,13 @@ describe("addRemovedTab", () => {
 describe("updateTabState", () => {
   it("should throw if tab does not exist", () => {
     const state = createNineZoneState();
-    (() =>
-      updateTabState(state, "t1", (draft) => {
-        draft.iconSpec = "test";
-      })).should.throw("Tab does not exist");
+    expect(
+      () =>
+        updateTabState(state, "t1", (draft) => {
+          draft.iconSpec = "test";
+        }),
+      "Tab does not exist"
+    ).toThrow();
   });
 
   it("should update `preferredFloatingWidgetSize`", () => {
@@ -262,7 +268,7 @@ describe("updateSavedTabState", () => {
   it("should update existing saved tab state", () => {
     let state = createNineZoneState();
     state = updateSavedTabState(state, "t1", () => {});
-    expect(state.savedTabs.byId.t1?.popoutBounds).undefined;
+    expect(state.savedTabs.byId.t1?.popoutBounds).toEqual(undefined);
 
     state = updateSavedTabState(state, "t1", (draft) => {
       draft.popoutBounds = {

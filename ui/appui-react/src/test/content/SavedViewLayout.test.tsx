@@ -22,18 +22,14 @@ import type { ScreenViewport, ViewState } from "@itwin/core-frontend";
 import {
   DrawingViewState,
   EmphasizeElements,
-  IModelApp,
   IModelConnection,
-  NoRenderApp,
   SheetViewState,
   SpatialViewState,
   SubCategoriesCache,
 } from "@itwin/core-frontend";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
-import { expect } from "chai";
 import * as React from "react";
 import * as moq from "typemoq";
-import * as sinon from "sinon";
 import type {
   ConfigurableCreateInfo,
   ContentProps,
@@ -49,7 +45,6 @@ import {
   ViewportContentControl,
 } from "../../appui-react";
 import { ViewUtilities } from "../../appui-react/utils/ViewUtilities";
-import TestUtils from "../TestUtils";
 
 describe("StageContentLayout", () => {
   const extents = Vector3d.create(400, 400);
@@ -189,24 +184,22 @@ describe("StageContentLayout", () => {
 
   const viewportMock = moq.Mock.ofType<ScreenViewport>();
 
-  before(async () => {
-    await TestUtils.initializeUiFramework();
-    await NoRenderApp.startup();
-
+  beforeEach(async () => {
     // Required for StageContentLayout
     UiFramework.controls.register("TestViewport", TestViewportContentControl);
+
+    vi.spyOn(IModelReadRpcInterface, "getClientForRouting").mockReturnValue(
+      rpcMock.object
+    );
+
+    UiFramework.frontstages.clearFrontstageProviders();
+
+    viewportMock.reset();
+    viewportMock.setup((x) => x.view).returns(() => viewState);
   });
 
-  beforeEach(async () => {
-    sinon
-      .stub(IModelReadRpcInterface, "getClientForRouting")
-      .returns(rpcMock.object);
-  });
-
-  after(async () => {
-    await IModelApp.shutdown();
-    sinon.restore();
-    TestUtils.terminateUiFramework();
+  afterEach(() => {
+    UiFramework.controls.unregister("TestViewport");
   });
 
   class TestViewportContentControl extends ViewportContentControl {
@@ -253,13 +246,6 @@ describe("StageContentLayout", () => {
       };
     }
   }
-
-  beforeEach(async () => {
-    UiFramework.frontstages.clearFrontstageProviders();
-
-    viewportMock.reset();
-    viewportMock.setup((x) => x.view).returns(() => viewState);
-  });
 
   it("should create and parse Spatial saved view layout", async () => {
     const vs = SpatialViewState.createFromProps(
@@ -314,15 +300,15 @@ describe("StageContentLayout", () => {
         savedViewLayoutProps
       );
 
-      expect(contentLayoutDef.description).to.eq("Single Content View");
-      expect(viewStates.length).to.eq(1);
+      expect(contentLayoutDef.description).toEqual("Single Content View");
+      expect(viewStates.length).toEqual(1);
 
       const viewState0 = viewStates[0];
       if (viewState0) {
         const bisBaseName = ViewUtilities.getBisBaseClass(
           viewState0.classFullName
         );
-        expect(ViewUtilities.isSpatial(bisBaseName)).to.be.true;
+        expect(ViewUtilities.isSpatial(bisBaseName)).toEqual(true);
       }
 
       // attempting to emphasize the elements should return false because it wasn't saved
@@ -334,7 +320,7 @@ describe("StageContentLayout", () => {
           contentGroup,
           savedViewLayoutProps
         )
-      ).to.be.false;
+      ).toEqual(false);
     }
   });
 
@@ -405,21 +391,21 @@ describe("StageContentLayout", () => {
         savedViewLayoutProps
       );
 
-      expect(contentLayoutDef.description).to.eq("Single Content View");
-      expect(viewStates.length).to.eq(1);
+      expect(contentLayoutDef.description).toEqual("Single Content View");
+      expect(viewStates.length).toEqual(1);
 
       const viewState0 = viewStates[0];
       if (viewState0) {
         const bisBaseName = ViewUtilities.getBisBaseClass(
           viewState0.classFullName
         );
-        expect(ViewUtilities.isDrawing(bisBaseName)).to.be.true;
+        expect(ViewUtilities.isDrawing(bisBaseName)).toEqual(true);
       }
 
       const contentGroup = new ContentGroup(
         savedViewLayoutProps.contentGroupProps
       );
-      expect(contentGroup.propsId).to.eq("MyContentGroup");
+      expect(contentGroup.propsId).toEqual("MyContentGroup");
 
       // activate the layout
       await UiFramework.content.layouts.setActive(
@@ -433,7 +419,7 @@ describe("StageContentLayout", () => {
           contentGroup,
           savedViewLayoutProps
         )
-      ).to.be.true;
+      ).toEqual(true);
     }
   });
 
@@ -495,15 +481,15 @@ describe("StageContentLayout", () => {
         savedViewLayoutProps
       );
 
-      expect(contentLayoutDef.description).to.eq("Single Content View");
-      expect(viewStates.length).to.eq(1);
+      expect(contentLayoutDef.description).toEqual("Single Content View");
+      expect(viewStates.length).toEqual(1);
 
       const viewState0 = viewStates[0];
       if (viewState0) {
         const bisBaseName = ViewUtilities.getBisBaseClass(
           viewState0.classFullName
         );
-        expect(ViewUtilities.isSheet(bisBaseName)).to.be.true;
+        expect(ViewUtilities.isSheet(bisBaseName)).toEqual(true);
       }
     }
   });

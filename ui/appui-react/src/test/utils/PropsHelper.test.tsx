@@ -2,22 +2,12 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
 import { ConditionalStringValue } from "@itwin/appui-abstract";
 import { PropsHelper } from "../../appui-react";
-import TestUtils from "../TestUtils";
 import { SvgCut } from "@itwin/itwinui-icons-react";
 
 describe("PropsHelper", () => {
-  before(async () => {
-    await TestUtils.initializeUiFramework();
-  });
-
-  after(() => {
-    TestUtils.terminateUiFramework();
-  });
-
   it("Shallow Equals", () => {
     const obj1 = {
       firstName: "John",
@@ -31,7 +21,7 @@ describe("PropsHelper", () => {
       address: "101 Main Street",
       zip: 10101,
     };
-    expect(PropsHelper.isShallowEqual(obj1, obj2)).to.eq(true);
+    expect(PropsHelper.isShallowEqual(obj1, obj2)).toEqual(true);
 
     const obj3 = {
       firstName: "John",
@@ -39,18 +29,18 @@ describe("PropsHelper", () => {
       address: "102 Main Street",
       zip: 10101,
     };
-    expect(PropsHelper.isShallowEqual(obj1, obj3)).to.eq(false);
+    expect(PropsHelper.isShallowEqual(obj1, obj3)).toEqual(false);
   });
 
   it("Get Icon JSX", () => {
     const iconTest = PropsHelper.getIcon("placeholder");
-    expect(iconTest).not.to.be.undefined;
-    expect(iconTest!.props.iconSpec).to.eq("placeholder");
+    expect(iconTest).toBeTruthy();
+    expect(iconTest!.props.iconSpec).toEqual("placeholder");
   });
 
   it("Get undefined Icon", () => {
     const iconTest = PropsHelper.getIcon(null);
-    expect(iconTest).to.be.undefined;
+    expect(iconTest).toEqual(undefined);
   });
 
   let outString: string | undefined;
@@ -58,17 +48,17 @@ describe("PropsHelper", () => {
 
   it("String spec", () => {
     const defaultStringSpec = PropsHelper.getStringSpec("Hello World!");
-    expect(defaultStringSpec).not.to.be.undefined;
-    expect(defaultStringSpec).to.eq("Hello World!");
+    expect(defaultStringSpec).toBeTruthy();
+    expect(defaultStringSpec).toEqual("Hello World!");
   });
 
   it("StringGetter spec", () => {
     const stringGetterSpec = PropsHelper.getStringSpec(stringGetter);
-    expect(stringGetterSpec).not.to.be.undefined;
+    expect(stringGetterSpec).toBeTruthy();
     outString = undefined;
     outString = PropsHelper.getStringFromSpec(stringGetterSpec);
-    expect(outString).not.to.be.undefined;
-    expect(outString).to.eq("Got String?");
+    expect(outString).toBeTruthy();
+    expect(outString).toEqual("Got String?");
   });
 
   it("Explicit String spec - key ignored since explicit string specified", () => {
@@ -76,11 +66,11 @@ describe("PropsHelper", () => {
       stringGetter,
       "UiFramework:snapModeField.snapMode"
     );
-    expect(stringAndKeySpec).not.to.be.undefined;
+    expect(stringAndKeySpec).toBeTruthy();
     outString = undefined;
     outString = PropsHelper.getStringFromSpec(stringAndKeySpec);
-    expect(outString).not.to.be.undefined;
-    expect(outString).to.eq("Got String?");
+    expect(outString).toBeTruthy();
+    expect(outString).toEqual("Got String?");
   });
 
   it("Use stringKey for undefined explicitValue", () => {
@@ -88,11 +78,11 @@ describe("PropsHelper", () => {
       undefined,
       "UiFramework:snapModeField.snapMode"
     );
-    expect(undefinedStringAndKeySpec).not.to.be.undefined;
+    expect(undefinedStringAndKeySpec).toBeTruthy();
     outString = undefined;
     outString = PropsHelper.getStringFromSpec(undefinedStringAndKeySpec);
-    expect(outString).not.to.be.undefined;
-    expect(outString).to.eq("snapModeField.snapMode"); // since test are not setting up localization we get string without namespace.
+    expect(outString).toBeTruthy();
+    expect(outString).toEqual("snapModeField.snapMode"); // since test are not setting up localization we get string without namespace.
   });
 
   it("Use stringKey for blank explicitValue", () => {
@@ -100,34 +90,34 @@ describe("PropsHelper", () => {
       "",
       "UiFramework:snapModeField.snapMode"
     );
-    expect(undefinedStringAndKeySpec).not.to.be.undefined;
+    expect(undefinedStringAndKeySpec).toBeTruthy();
     outString = undefined;
     outString = PropsHelper.getStringFromSpec(undefinedStringAndKeySpec);
-    expect(outString).not.to.be.undefined;
-    expect(outString).to.eq("snapModeField.snapMode"); // since test are not setting up localization we get string without namespace.
+    expect(outString).toBeTruthy();
+    expect(outString).toEqual("snapModeField.snapMode"); // since test are not setting up localization we get string without namespace.
   });
 
   it("Use ConditionalStringValue for label", () => {
     const conditionalStringSpec = PropsHelper.getStringSpec(
       new ConditionalStringValue(() => "HelloWorld", ["dummy"])
     );
-    expect(conditionalStringSpec).not.to.be.undefined;
+    expect(conditionalStringSpec).toBeTruthy();
     outString = undefined;
     outString = PropsHelper.getStringFromSpec(conditionalStringSpec);
-    expect(outString).not.to.be.undefined;
-    expect(outString).to.eq("HelloWorld");
+    expect(outString).toBeTruthy();
+    expect(outString).toEqual("HelloWorld");
   });
 
   it("Get Icon from ConditionalStringValue", () => {
     const iconTest = PropsHelper.getIcon(
       new ConditionalStringValue(() => "conditional-icon", ["dummy"])
     );
-    expect(iconTest).not.to.be.undefined;
-    expect(iconTest!.props.iconSpec).to.eq("conditional-icon");
+    expect(iconTest).toBeTruthy();
+    expect(iconTest!.props.iconSpec).toEqual("conditional-icon");
   });
 
   it("get abstract props for react icon", () => {
     const props = PropsHelper.getAbstractPropsForReactIcon(<SvgCut />); // eslint-disable-line deprecation/deprecation
-    expect(props.icon).to.eq("#-react-iconspec-node-#");
+    expect(props.icon).toEqual("#-react-iconspec-node-#");
   });
 });

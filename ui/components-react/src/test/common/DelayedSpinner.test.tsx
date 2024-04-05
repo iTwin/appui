@@ -4,7 +4,6 @@
  *--------------------------------------------------------------------------------------------*/
 
 import * as React from "react";
-import { expect } from "chai";
 import { render, waitFor } from "@testing-library/react";
 import { DelayedSpinner } from "../../components-react/common/DelayedSpinner";
 
@@ -16,7 +15,7 @@ describe("<DelayedSpinner />", () => {
 
   it("renders spinner with delay", async () => {
     const component = render(<DelayedSpinner delay={100} />);
-    expect(component.queryByTestId("components-delayed-spinner")).to.be.null;
+    expect(component.queryByTestId("components-delayed-spinner")).toEqual(null);
 
     await waitFor(() => component.getByTestId("components-delayed-spinner"));
   });
@@ -24,6 +23,6 @@ describe("<DelayedSpinner />", () => {
   it("renders spinner with specified size", () => {
     const component = render(<DelayedSpinner delay={0} size="small" />);
     const spinner = component.getByTestId("components-delayed-spinner");
-    expect(spinner.getAttribute("data-iui-size")).to.eq("small");
+    expect(spinner.getAttribute("data-iui-size")).toEqual("small");
   });
 });

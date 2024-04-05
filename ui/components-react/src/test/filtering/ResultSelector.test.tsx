@@ -2,19 +2,15 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
 import { ResultSelector } from "../../components-react/filtering/ResultSelector";
 import { render, screen } from "@testing-library/react";
-import TestUtils, { userEvent } from "../TestUtils";
+import { userEvent } from "../TestUtils";
 
 describe("ResultSelector", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
   beforeEach(() => {
     theUserTo = userEvent.setup();
-  });
-  before(async () => {
-    await TestUtils.initializeUiComponents();
   });
 
   it("content is '0 of 0' and buttons are disabled when result count is 0", () => {
@@ -57,7 +53,7 @@ describe("ResultSelector", () => {
     await theUserTo.click(next);
     await theUserTo.click(prev);
 
-    expect(callCount).to.be.eq(3); // 2 clicks and on in the start
+    expect(callCount).toEqual(3); // 2 clicks and on in the start
   });
 
   it("nothing happens when trying to increase current selection to more than result count or less than 1", async () => {
@@ -72,7 +68,7 @@ describe("ResultSelector", () => {
     await theUserTo.click(prev);
     await theUserTo.click(next);
 
-    expect(callCount).to.be.eq(1); // 1 in the start, not from clicking
+    expect(callCount).toEqual(1); // 1 in the start, not from clicking
   });
 
   it("current selection gets submitted after pressing 'Enter' key while in edit mode", async () => {
@@ -86,7 +82,7 @@ describe("ResultSelector", () => {
     expect(screen.getByRole("spinbutton")).to.have.property("value", "2");
 
     await theUserTo.type(screen.getByRole("spinbutton"), "[Enter]");
-    expect(screen.queryByRole("spinbutton")).to.be.null;
+    expect(screen.queryByRole("spinbutton")).toEqual(null);
   });
 
   it("current selection gets submitted after clicking '<' or '>' button while in edit mode", async () => {
@@ -97,12 +93,12 @@ describe("ResultSelector", () => {
     const [prev, next] = screen.getAllByRole("button");
 
     await theUserTo.click(prev);
-    expect(screen.queryByRole("spinbutton")).to.be.null;
+    expect(screen.queryByRole("spinbutton")).toEqual(null);
 
     await theUserTo.click(screen.getByRole("presentation"));
     await theUserTo.click(next);
 
-    expect(screen.queryByRole("spinbutton")).to.be.null;
+    expect(screen.queryByRole("spinbutton")).toEqual(null);
   });
 
   it("current selection becomes 0 after changing result count from n to 0", () => {
@@ -115,7 +111,7 @@ describe("ResultSelector", () => {
       />
     );
 
-    expect(currentSelection).to.be.eq(1);
+    expect(currentSelection).toEqual(1);
 
     rerender(
       <ResultSelector
@@ -123,7 +119,7 @@ describe("ResultSelector", () => {
         resultCount={0}
       />
     );
-    expect(currentSelection).to.be.eq(0);
+    expect(currentSelection).toEqual(0);
 
     rerender(
       <ResultSelector
@@ -131,7 +127,7 @@ describe("ResultSelector", () => {
         resultCount={3}
       />
     );
-    expect(currentSelection).to.be.eq(1);
+    expect(currentSelection).toEqual(1);
   });
 
   it("onSelectedChanged does not get called after changing result count to same value", () => {
@@ -152,7 +148,7 @@ describe("ResultSelector", () => {
         resultCount={10}
       />
     );
-    expect(onSelectedTriggered).to.be.false;
+    expect(onSelectedTriggered).toEqual(false);
   });
 
   it("current selection value gets corrected if typed number is bigger than result count or smaller than 1", async () => {

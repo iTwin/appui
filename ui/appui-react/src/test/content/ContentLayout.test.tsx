@@ -2,10 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
-import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import type { ContentLayoutProps } from "@itwin/appui-abstract";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 import type {
@@ -21,11 +18,7 @@ import {
   FrontstageProvider,
   UiFramework,
 } from "../../appui-react";
-import TestUtils, {
-  childStructure,
-  selectorMatches,
-  userEvent,
-} from "../TestUtils";
+import { childStructure, selectorMatches, userEvent } from "../TestUtils";
 import { render, screen, waitFor } from "@testing-library/react";
 
 describe("ContentLayout", () => {
@@ -100,22 +93,17 @@ describe("ContentLayout", () => {
     theUserTo = userEvent.setup();
   });
 
-  before(async () => {
-    await TestUtils.initializeUiFramework();
-    await NoRenderApp.startup();
-    UiFramework.frontstages.clearFrontstageProviders();
-
+  beforeEach(async () => {
     const frontstageProvider = new TestFrontstage2();
     UiFramework.frontstages.addFrontstageProvider(frontstageProvider);
     const frontstageDef = await UiFramework.frontstages.getFrontstageDef(
-      TestFrontstage2.stageId
+      frontstageProvider.id
     );
     await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
   });
 
-  after(async () => {
-    await IModelApp.shutdown();
-    TestUtils.terminateUiFramework();
+  afterEach(async () => {
+    UiFramework.frontstages.clearFrontstageProviders();
   });
 
   it("SingleContent renders correctly", () => {
@@ -366,9 +354,9 @@ describe("ContentLayout", () => {
       target: screen.getByText("Test"),
       keys: "[MouseLeft>]",
     });
-    expect(UiFramework.content.isMouseDown).to.be.true;
+    expect(UiFramework.content.isMouseDown).toEqual(true);
     await theUserTo.pointer("[/MouseLeft]");
-    expect(UiFramework.content.isMouseDown).to.be.false;
+    expect(UiFramework.content.isMouseDown).toEqual(false);
   });
 
   it("ContentWrapper mouse down", async () => {
@@ -378,30 +366,33 @@ describe("ContentLayout", () => {
         contentLayout={verticalSplitLayout}
       />
     );
-    const allTests = screen.getAllByText("Test");
-    expect(allTests)
-      .to.have.lengthOf(2)
-      .and.to.satisfy((elements: HTMLElement[]) => [
-        expect(elements[0].parentElement).to.satisfy(
-          childStructure("div+.uifw-contentlayout-overlay-inactive")
-        ),
-        expect(elements[1].parentElement).to.satisfy(
-          childStructure("div+.uifw-contentlayout-overlay-inactive")
-        ),
-      ]);
+    let allTests = screen.getAllByText("Test");
+    expect(allTests).toHaveLength(2);
+    expect(
+      allTests[0].parentElement!.getElementsByClassName(
+        "uifw-contentlayout-overlay-active"
+      )
+    ).toHaveLength(1);
+    expect(
+      allTests[1].parentElement!.getElementsByClassName(
+        "uifw-contentlayout-overlay-inactive"
+      )
+    ).toHaveLength(1);
 
     await theUserTo.click(allTests[1]);
 
-    expect(screen.getAllByText("Test"))
-      .to.have.lengthOf(2)
-      .and.to.satisfy((elements: HTMLElement[]) => [
-        expect(elements[0].parentElement).to.satisfy(
-          childStructure("div+.uifw-contentlayout-overlay-inactive")
-        ),
-        expect(elements[1].parentElement).to.satisfy(
-          childStructure("div+.uifw-contentlayout-overlay-active")
-        ),
-      ]);
+    allTests = screen.getAllByText("Test");
+    expect(allTests).toHaveLength(2);
+    expect(
+      allTests[0].parentElement!.getElementsByClassName(
+        "uifw-contentlayout-overlay-inactive"
+      )
+    ).toHaveLength(1);
+    expect(
+      allTests[1].parentElement!.getElementsByClassName(
+        "uifw-contentlayout-overlay-active"
+      )
+    ).toHaveLength(1);
   });
 
   it("Vertical SplitPane onChanged", async () => {
@@ -414,17 +405,19 @@ describe("ContentLayout", () => {
       </div>
     );
 
-    const rect = sinon.stub(Element.prototype, "getBoundingClientRect");
-    rect
-      .onFirstCall()
-      .returns(DOMRect.fromRect({ height: 100, width: 100, x: 0, y: 0 }));
-    rect
-      .onSecondCall()
-      .returns(DOMRect.fromRect({ height: 100, width: 100, x: 0, y: 0 }));
-    rect
-      .onThirdCall()
-      .returns(DOMRect.fromRect({ height: 100, width: 100, x: 0, y: 0 }));
-    rect.returns(DOMRect.fromRect({ height: 0, width: 0, x: 0, y: 0 }));
+    let callCount = 0;
+    vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+      () => {
+        callCount++;
+        switch (callCount) {
+          case 1:
+          case 2:
+          case 3:
+            return DOMRect.fromRect({ height: 100, width: 100, x: 0, y: 0 });
+        }
+        return DOMRect.fromRect({ height: 0, width: 0, x: 0, y: 0 });
+      }
+    );
 
     await theUserTo.pointer([
       {
@@ -459,17 +452,19 @@ describe("ContentLayout", () => {
       </div>
     );
 
-    const rect = sinon.stub(Element.prototype, "getBoundingClientRect");
-    rect
-      .onFirstCall()
-      .returns(DOMRect.fromRect({ height: 100, width: 100, x: 0, y: 0 }));
-    rect
-      .onSecondCall()
-      .returns(DOMRect.fromRect({ height: 100, width: 100, x: 0, y: 0 }));
-    rect
-      .onThirdCall()
-      .returns(DOMRect.fromRect({ height: 100, width: 100, x: 0, y: 0 }));
-    rect.returns(DOMRect.fromRect({ height: 0, width: 0, x: 0, y: 0 }));
+    let callCount = 0;
+    vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+      () => {
+        callCount++;
+        switch (callCount) {
+          case 1:
+          case 2:
+          case 3:
+            return DOMRect.fromRect({ height: 100, width: 100, x: 0, y: 0 });
+        }
+        return DOMRect.fromRect({ height: 0, width: 0, x: 0, y: 0 });
+      }
+    );
 
     await theUserTo.pointer([
       {
@@ -495,16 +490,14 @@ describe("ContentLayout", () => {
   });
 
   it("UiFramework.content.layouts.setActiveLayout & refreshActiveLayout should emit onContentLayoutActivatedEvent", async () => {
-    const spyMethod = sinon.spy();
+    const spy = vi.fn();
     const layoutProps: ContentLayoutProps = {
       id: "UiFramework:tests.singleContent",
       description: "UiFramework:tests.singleContent",
     };
     const contentLayout = new ContentLayoutDef(layoutProps);
     const remove =
-      UiFramework.frontstages.onContentLayoutActivatedEvent.addListener(
-        spyMethod
-      );
+      UiFramework.frontstages.onContentLayoutActivatedEvent.addListener(spy);
     render(
       <ContentLayout
         contentGroup={fourContentGroup}
@@ -522,10 +515,10 @@ describe("ContentLayout", () => {
       contentLayout,
       emptyContentGroup
     );
-    spyMethod.calledOnce.should.true;
+    expect(spy).toHaveBeenCalledOnce();
 
     UiFramework.content.layouts.refreshActive();
-    spyMethod.calledTwice.should.true;
+    expect(spy).toHaveBeenCalledTimes(2);
 
     remove();
   });
@@ -611,9 +604,7 @@ describe("SingleContentLayout", () => {
     }
   }
 
-  before(async () => {
-    await TestUtils.initializeUiFramework();
-    await NoRenderApp.startup();
+  beforeEach(async () => {
     UiFramework.frontstages.clearFrontstageProviders();
 
     const frontstageProvider = new TestFrontstage1();
@@ -622,11 +613,6 @@ describe("SingleContentLayout", () => {
       TestFrontstage1.stageId
     );
     await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
-  });
-
-  after(async () => {
-    await IModelApp.shutdown();
-    TestUtils.terminateUiFramework();
   });
 
   it("Should set active if floating content exists", async () => {

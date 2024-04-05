@@ -44,9 +44,9 @@ describe("PanelOutline", () => {
     const { container } = render(<PanelOutline />, {
       wrapper: Wrapper,
     });
-    container
-      .getElementsByClassName("nz-outline-panelOutline")
-      .length.should.eq(1);
+    expect(
+      container.getElementsByClassName("nz-outline-panelOutline")
+    ).toHaveLength(1);
   });
 });
 
@@ -83,7 +83,7 @@ describe("useHidden", () => {
         type: "window",
       });
     });
-    result.current.should.true;
+    expect(result.current).toEqual(true);
   });
 
   it("should return `true` if target is not a current panel", () => {
@@ -101,7 +101,7 @@ describe("useHidden", () => {
         newWidgetId: "",
       });
     });
-    result.current.should.true;
+    expect(result.current).toEqual(true);
   });
 
   it("should return `false` if target is a current panel", () => {
@@ -119,7 +119,7 @@ describe("useHidden", () => {
         newWidgetId: "",
       });
     });
-    result.current.should.false;
+    expect(result.current).toEqual(false);
   });
 
   it("should return `false` if sendBackHome state points to a current panel", () => {
@@ -138,7 +138,7 @@ describe("useHidden", () => {
       wrapper: (props) => <Wrapper defaultState={state} {...props} />,
     });
 
-    result.current.should.false;
+    expect(result.current).toEqual(false);
   });
 
   it("should return `true` if sendBackHome state points to a different panel", () => {
@@ -157,6 +157,6 @@ describe("useHidden", () => {
       wrapper: (props) => <Wrapper defaultState={state} {...props} />,
     });
 
-    result.current.should.true;
+    expect(result.current).toEqual(true);
   });
 });

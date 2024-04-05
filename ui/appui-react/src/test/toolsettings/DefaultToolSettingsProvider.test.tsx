@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import type * as React from "react";
 import type {
   ButtonGroupEditorParams,
@@ -144,9 +143,7 @@ describe("DefaultToolUiSettingsProvider", () => {
     },
   };
 
-  before(async () => {
-    await TestUtils.initializeUiFramework();
-
+  beforeEach(async () => {
     class Frontstage1 extends FrontstageProvider {
       public static stageId = "ToolUiProvider-TestFrontstage";
       public get id(): string {
@@ -170,15 +167,11 @@ describe("DefaultToolUiSettingsProvider", () => {
     UiFramework.toolSettings.useDefaultToolSettingsProvider = false;
   });
 
-  after(() => {
-    TestUtils.terminateUiFramework();
-  });
-
   it("starting a tool with undefined tool settings", async () => {
     const frontstageDef = await UiFramework.frontstages.getFrontstageDef(
       "ToolUiProvider-TestFrontstage"
     );
-    expect(frontstageDef).to.not.be.undefined;
+    expect(frontstageDef).toBeTruthy();
     if (frontstageDef) {
       await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
 
@@ -189,14 +182,14 @@ describe("DefaultToolUiSettingsProvider", () => {
       UiFramework.toolSettings.useDefaultToolSettingsProvider = true;
 
       UiFramework.frontstages.setActiveToolId(firstToolId);
-      expect(UiFramework.frontstages.activeToolId).to.eq(firstToolId);
+      expect(UiFramework.frontstages.activeToolId).toEqual(firstToolId);
 
       const toolInformation = UiFramework.frontstages.activeToolInformation;
-      expect(toolInformation).to.not.be.undefined;
+      expect(toolInformation).toBeTruthy();
 
       if (toolInformation) {
         const toolUiProvider = toolInformation.toolUiProvider;
-        expect(toolUiProvider).to.be.undefined;
+        expect(toolUiProvider).toEqual(undefined);
       }
     }
   });
@@ -205,7 +198,7 @@ describe("DefaultToolUiSettingsProvider", () => {
     const frontstageDef = await UiFramework.frontstages.getFrontstageDef(
       "ToolUiProvider-TestFrontstage"
     );
-    expect(frontstageDef).to.not.be.undefined;
+    expect(frontstageDef).toBeTruthy();
 
     if (frontstageDef) {
       await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
@@ -272,69 +265,70 @@ describe("DefaultToolUiSettingsProvider", () => {
         }
       );
 
-      expect(UiFramework.toolSettings.useDefaultToolSettingsProvider).to.be
-        .true;
+      expect(UiFramework.toolSettings.useDefaultToolSettingsProvider).toEqual(
+        true
+      );
       expect(UiFramework.toolSettings.toolSettingsProperties.length).to.equal(
         toolSettingsProperties.length
       );
       InternalFrontstageManager.ensureToolInformationIsSet(testToolId);
       UiFramework.frontstages.setActiveToolId(testToolId);
-      expect(UiFramework.frontstages.activeToolId).to.eq(testToolId);
+      expect(UiFramework.frontstages.activeToolId).toEqual(testToolId);
 
       const toolInformation = UiFramework.frontstages.activeToolInformation;
-      expect(toolInformation).to.not.be.undefined;
+      expect(toolInformation).toBeTruthy();
 
       if (toolInformation) {
         const toolSettingsProvider =
           toolInformation.toolUiProvider as DefaultToolSettingsProvider;
-        expect(toolSettingsProvider).to.not.be.undefined;
+        expect(toolSettingsProvider).toBeTruthy();
 
         if (toolSettingsProvider) {
           const tsNode = toolSettingsProvider.toolSettingsNode;
-          expect(tsNode).to.not.be.undefined;
+          expect(tsNode).toBeTruthy();
         }
       }
 
       const toolSettingsNode =
         InternalFrontstageManager.activeToolSettingsProvider?.toolSettingsNode;
-      expect(toolSettingsNode).to.not.be.undefined;
+      expect(toolSettingsNode).toBeTruthy();
 
       const renderedComponent = render(
         toolSettingsNode as React.ReactElement<any>
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
 
-      expect(renderedComponent.queryByText("TEST-USELENGTH:")).to.be.null;
+      expect(renderedComponent.queryByText("TEST-USELENGTH:")).toEqual(null);
 
       const toggleEditor = renderedComponent.getByTestId(
         "components-checkbox-editor"
       );
-      expect(toggleEditor).not.to.be.undefined;
+      expect(toggleEditor).toBeTruthy();
 
       const textLabel = renderedComponent.getByText("TEST-LENGTH:");
-      expect(textLabel).not.to.be.undefined;
+      expect(textLabel).toBeTruthy();
 
       const textEditor = renderedComponent.getByTestId(
         "components-text-editor"
       );
-      expect(textEditor).not.to.be.undefined;
+      expect(textEditor).toBeTruthy();
 
       const enumLabel = renderedComponent.getByText("TEST-ENUM-PICKER:");
-      expect(enumLabel).not.to.be.undefined;
+      expect(enumLabel).toBeTruthy();
 
       const enumEditor = renderedComponent.getByTestId(
         "components-select-editor"
       );
-      expect(enumEditor).not.to.be.undefined;
+      expect(enumEditor).toBeTruthy();
 
       const buttonGroupEnumButton = renderedComponent.getByTestId("Pick");
-      expect(buttonGroupEnumButton).not.to.be.undefined;
+      expect(buttonGroupEnumButton).toBeTruthy();
 
       const buttonGroup1EnumButton = renderedComponent.getByTestId("Choice 1");
-      expect(buttonGroup1EnumButton).not.to.be.undefined;
+      expect(buttonGroup1EnumButton).toBeTruthy();
 
       const buttonGroup2EnumButton = renderedComponent.getByTestId("Plus 1");
-      expect(buttonGroup2EnumButton).not.to.be.undefined;
+      expect(buttonGroup2EnumButton).toBeTruthy();
 
       // simulate sync from tool
       const newUseLengthValue: DialogItemValue = { value: false };
@@ -366,7 +360,7 @@ describe("DefaultToolUiSettingsProvider", () => {
     const frontstageDef = await UiFramework.frontstages.getFrontstageDef(
       "ToolUiProvider-TestFrontstage"
     );
-    expect(frontstageDef).to.not.be.undefined;
+    expect(frontstageDef).toBeTruthy();
 
     if (frontstageDef) {
       await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
@@ -410,24 +404,25 @@ describe("DefaultToolUiSettingsProvider", () => {
         }
       );
 
-      expect(UiFramework.toolSettings.useDefaultToolSettingsProvider).to.be
-        .true;
+      expect(UiFramework.toolSettings.useDefaultToolSettingsProvider).toEqual(
+        true
+      );
       expect(UiFramework.toolSettings.toolSettingsProperties.length).to.equal(
         toolSettingsProperties.length
       );
       InternalFrontstageManager.ensureToolInformationIsSet(testToolId);
       UiFramework.frontstages.setActiveToolId(testToolId);
-      expect(UiFramework.frontstages.activeToolId).to.eq(testToolId);
+      expect(UiFramework.frontstages.activeToolId).toEqual(testToolId);
 
       const toolInformation = UiFramework.frontstages.activeToolInformation;
-      expect(toolInformation).to.not.be.undefined;
+      expect(toolInformation).toBeTruthy();
 
       if (toolInformation) {
         const toolUiProvider = toolInformation.toolUiProvider;
-        expect(toolUiProvider).to.not.be.undefined;
+        expect(toolUiProvider).toBeTruthy();
 
         if (toolUiProvider) {
-          expect(toolUiProvider.toolSettingsNode).to.not.be.undefined;
+          expect(toolUiProvider.toolSettingsNode).toBeTruthy();
           // simulate property update
 
           const newlengthValue: DialogItemValue = { value: 7.5 };
@@ -454,27 +449,27 @@ describe("DefaultToolUiSettingsProvider", () => {
 
       const toolSettingsNode =
         InternalFrontstageManager.activeToolSettingsProvider?.toolSettingsNode;
-      expect(toolSettingsNode).to.not.be.undefined;
+      expect(toolSettingsNode).toBeTruthy();
 
       const renderedComponent = render(
         toolSettingsNode as React.ReactElement<any>
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
 
-      expect(renderedComponent.queryByText("TEST-USELENGTH:")).to.be.null;
+      expect(renderedComponent.queryByText("TEST-USELENGTH:")).toEqual(null);
 
       const toggleEditor = renderedComponent.getByTestId(
         "components-checkbox-editor"
       );
-      expect(toggleEditor).not.to.be.undefined;
+      expect(toggleEditor).toBeTruthy();
 
       const textLabel = renderedComponent.getByText("TEST-LENGTH:");
-      expect(textLabel).not.to.be.undefined;
+      expect(textLabel).toBeTruthy();
 
       const textEditor = renderedComponent.getByTestId(
         "components-text-editor"
       );
-      expect(textEditor).not.to.be.undefined;
+      expect(textEditor).toBeTruthy();
 
       // simulate sync from tool
       const newUseLengthValue: DialogItemValue = { value: false };

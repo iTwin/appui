@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { renderHook } from "@testing-library/react-hooks";
 import { LocalizationProvider } from "../../core-react";
 import { usePackageTranslation } from "../../core-react";
@@ -22,7 +20,7 @@ const localization: Localization = {
 
 describe("usePackageTranslation", () => {
   it("should use a localization context", async () => {
-    const spy = sinon.spy(localization, "getLocalizedString");
+    const spy = vi.spyOn(localization, "getLocalizedString");
     const { result, waitFor } = renderHook(
       () =>
         usePackageTranslation({
@@ -39,12 +37,12 @@ describe("usePackageTranslation", () => {
 
     await waitFor(() => {
       expect(result.current.translate("prop.val")).to.eq("localized-string");
-      sinon.assert.calledOnceWithExactly(spy, "test-namespace:prop.val");
+      expect(spy).toHaveBeenCalledWith("test-namespace:prop.val");
     });
   });
 
   it("should use a fallback function", () => {
-    const fallback = sinon.spy((_key: string) => {
+    const fallback = vi.fn((_key: string) => {
       return "fallback-value";
     });
 
@@ -57,7 +55,7 @@ describe("usePackageTranslation", () => {
     );
 
     expect(result.current.translate("prop.val")).to.eq("fallback-value");
-    sinon.assert.calledOnceWithExactly(fallback, "prop.val");
+    expect(fallback).toHaveBeenCalledWith("prop.val");
   });
 
   it("should use default value", () => {
@@ -112,7 +110,7 @@ describe("usePackageTranslation", () => {
       ...localization,
       getLocalizedString: (_key: string) => "updated-localized-string",
     };
-    const spy = sinon.spy(newLocalization, "getLocalizedString");
+    const spy = vi.spyOn(newLocalization, "getLocalizedString");
     rerender({
       localization: newLocalization,
     });
@@ -121,12 +119,12 @@ describe("usePackageTranslation", () => {
       expect(result.current.translate("prop.val")).to.eq(
         "updated-localized-string"
       );
-      sinon.assert.calledOnceWithExactly(spy, "test-namespace:prop.val");
+      expect(spy).toHaveBeenCalledWith("test-namespace:prop.val");
     });
   });
 
   it("should register a namespace", async () => {
-    const spy = sinon.spy(localization, "registerNamespace");
+    const spy = vi.spyOn(localization, "registerNamespace");
 
     renderHook(
       () =>
@@ -142,12 +140,15 @@ describe("usePackageTranslation", () => {
       }
     );
 
-    sinon.assert.calledOnceWithExactly(spy, "test-namespace");
+    expect(spy).toHaveBeenCalledWith("test-namespace");
   });
 
   it("should update translation when namespace is registered", async () => {
-    const promise = sinon.promise<void>();
-    sinon.stub(localization, "registerNamespace").returns(promise);
+    let resolvePromise: (() => void) | undefined;
+    const promise = new Promise<void>((resolve) => {
+      resolvePromise = resolve;
+    });
+    vi.spyOn(localization, "registerNamespace").mockReturnValue(promise);
 
     const { result, waitFor } = renderHook(
       () =>
@@ -169,10 +170,13 @@ describe("usePackageTranslation", () => {
       waitFor(() => {
         expect(result.current.translate("val")).to.eq("localized-string");
       })
-    ).to.be.rejected;
+    ).rejects.toThrow();
     expect(result.current.translate("val")).to.eq("default-value");
 
-    await promise.resolve(undefined);
-    expect(result.current.translate("val")).to.eq("localized-string");
+    resolvePromise?.();
+
+    await waitFor(() => {
+      expect(result.current.translate("val")).to.eq("localized-string");
+    });
   });
 });
