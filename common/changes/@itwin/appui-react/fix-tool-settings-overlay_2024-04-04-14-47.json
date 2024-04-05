@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Fix the standard layout to prevent tool settings and status bar from overlaying the content area.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
