@@ -2,8 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
-import sinon from "sinon";
 import * as moq from "typemoq";
 import type { PropertyRecord } from "@itwin/appui-abstract";
 import {
@@ -60,17 +58,17 @@ describe("CompositePropertyDataFilterer", () => {
         CompositeFilterType.And,
         rightFilterMock.object
       );
-      const changeSpy = sinon.spy();
+      const changeSpy = vi.fn();
 
       compositeFilter.onFilterChanged.addListener(changeSpy);
 
-      expect(changeSpy.callCount).to.be.equal(0);
+      expect(changeSpy).toHaveBeenCalledTimes(0);
 
       leftOnFilterChanged.raiseEvent();
-      expect(changeSpy.callCount).to.be.equal(1);
+      expect(changeSpy).toHaveBeenCalledTimes(1);
 
       rightOnFilterChanged.raiseEvent();
-      expect(changeSpy.callCount).to.be.equal(2);
+      expect(changeSpy).toHaveBeenCalledTimes(2);
     });
 
     describe("isActive", () => {
@@ -84,7 +82,7 @@ describe("CompositePropertyDataFilterer", () => {
           rightFilterMock.object
         );
 
-        expect(compositeFilter.isActive).to.be.equal(false);
+        expect(compositeFilter.isActive).toEqual(false);
       });
 
       it("Should return filtering enabled if left filter enabled", () => {
@@ -97,7 +95,7 @@ describe("CompositePropertyDataFilterer", () => {
           rightFilterMock.object
         );
 
-        expect(compositeFilter.isActive).to.be.equal(true);
+        expect(compositeFilter.isActive).toEqual(true);
       });
 
       it("Should return filtering enabled if right filter enabled", () => {
@@ -110,7 +108,7 @@ describe("CompositePropertyDataFilterer", () => {
           rightFilterMock.object
         );
 
-        expect(compositeFilter.isActive).to.be.equal(true);
+        expect(compositeFilter.isActive).toEqual(true);
       });
 
       it("Should return filtering enabled if both filters enabled", () => {
@@ -123,7 +121,7 @@ describe("CompositePropertyDataFilterer", () => {
           rightFilterMock.object
         );
 
-        expect(compositeFilter.isActive).to.be.equal(true);
+        expect(compositeFilter.isActive).toEqual(true);
       });
     });
 
@@ -625,17 +623,17 @@ describe("CompositePropertyDataFilterer", () => {
         CompositeFilterType.Or,
         rightFilterMock.object
       );
-      const changeSpy = sinon.spy();
+      const changeSpy = vi.fn();
 
       compositeFilter.onFilterChanged.addListener(changeSpy);
 
-      expect(changeSpy.callCount).to.be.equal(0);
+      expect(changeSpy).toHaveBeenCalledTimes(0);
 
       leftOnFilterChanged.raiseEvent();
-      expect(changeSpy.callCount).to.be.equal(1);
+      expect(changeSpy).toHaveBeenCalledTimes(1);
 
       rightOnFilterChanged.raiseEvent();
-      expect(changeSpy.callCount).to.be.equal(2);
+      expect(changeSpy).toHaveBeenCalledTimes(2);
     });
 
     describe("isActive", () => {
@@ -649,7 +647,7 @@ describe("CompositePropertyDataFilterer", () => {
           rightFilterMock.object
         );
 
-        expect(compositeFilter.isActive).to.be.equal(false);
+        expect(compositeFilter.isActive).toEqual(false);
       });
 
       it("Should return filtering enabled if left filter enabled", () => {
@@ -662,7 +660,7 @@ describe("CompositePropertyDataFilterer", () => {
           rightFilterMock.object
         );
 
-        expect(compositeFilter.isActive).to.be.equal(true);
+        expect(compositeFilter.isActive).toEqual(true);
       });
 
       it("Should return filtering enabled if right filter enabled", () => {
@@ -675,7 +673,7 @@ describe("CompositePropertyDataFilterer", () => {
           rightFilterMock.object
         );
 
-        expect(compositeFilter.isActive).to.be.equal(true);
+        expect(compositeFilter.isActive).toEqual(true);
       });
 
       it("Should return filtering enabled if both filters enabled", () => {
@@ -688,7 +686,7 @@ describe("CompositePropertyDataFilterer", () => {
           rightFilterMock.object
         );
 
-        expect(compositeFilter.isActive).to.be.equal(true);
+        expect(compositeFilter.isActive).toEqual(true);
       });
     });
 

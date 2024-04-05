@@ -2,19 +2,17 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import TestUtils from "./TestUtils";
 
+window.HTMLElement.prototype.scrollIntoView = () => {};
+
 beforeEach(async () => {
-  await NoRenderApp.startup();
-  await TestUtils.initializeUiFramework();
+  vi.stubGlobal("fetch", async () => Promise.resolve(new Response()));
+
+  await TestUtils.initializeUiComponents();
 });
 
-afterEach(async () => {
-  TestUtils.terminateUiFramework();
-  await IModelApp.shutdown();
-
-  // Undo DOM manipulations made by iTwinUI-React components
-  document.body.innerHTML = "";
-  document.body.removeAttribute("class");
+afterEach(() => {
+  TestUtils.terminateUiComponents();
+  vi.useRealTimers();
 });

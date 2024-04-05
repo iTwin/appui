@@ -2,15 +2,10 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-
-import chai, { expect } from "chai";
-import chaiSubset from "chai-subset";
 import {
   getPropertyFilterBuilderOperators,
   isUnaryPropertyFilterOperator,
 } from "../../components-react/filter-builder/Operators";
-
-chai.use(chaiSubset);
 
 describe("getPropertyFilterBuilderOperators", () => {
   it("returns operators by type", () => {
@@ -100,16 +95,16 @@ describe("getPropertyFilterBuilderOperators", () => {
 
 describe("isUnaryPropertyFilterOperator", () => {
   it("returns correct values", () => {
-    expect(isUnaryPropertyFilterOperator("is-true")).to.be.true;
-    expect(isUnaryPropertyFilterOperator("is-false")).to.be.true;
-    expect(isUnaryPropertyFilterOperator("is-null")).to.be.true;
-    expect(isUnaryPropertyFilterOperator("is-not-null")).to.be.true;
-    expect(isUnaryPropertyFilterOperator("is-equal")).to.be.false;
-    expect(isUnaryPropertyFilterOperator("is-not-equal")).to.be.false;
-    expect(isUnaryPropertyFilterOperator("greater")).to.be.false;
-    expect(isUnaryPropertyFilterOperator("greater-or-equal")).to.be.false;
-    expect(isUnaryPropertyFilterOperator("less")).to.be.false;
-    expect(isUnaryPropertyFilterOperator("less-or-equal")).to.be.false;
-    expect(isUnaryPropertyFilterOperator("like")).to.be.false;
+    expect(isUnaryPropertyFilterOperator("is-true")).toEqual(true);
+    expect(isUnaryPropertyFilterOperator("is-false")).toEqual(true);
+    expect(isUnaryPropertyFilterOperator("is-null")).toEqual(true);
+    expect(isUnaryPropertyFilterOperator("is-not-null")).toEqual(true);
+    expect(isUnaryPropertyFilterOperator("is-equal")).toEqual(false);
+    expect(isUnaryPropertyFilterOperator("is-not-equal")).toEqual(false);
+    expect(isUnaryPropertyFilterOperator("greater")).toEqual(false);
+    expect(isUnaryPropertyFilterOperator("greater-or-equal")).toEqual(false);
+    expect(isUnaryPropertyFilterOperator("less")).toEqual(false);
+    expect(isUnaryPropertyFilterOperator("less-or-equal")).toEqual(false);
+    expect(isUnaryPropertyFilterOperator("like")).toEqual(false);
   });
 });

@@ -2,11 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-
-import chai, { expect } from "chai";
-import chaiSubset from "chai-subset";
 import * as React from "react";
-import sinon from "sinon";
 import type { PropertyDescription } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
 import { render, waitFor } from "@testing-library/react";
@@ -18,8 +14,6 @@ import type {
 import { buildPropertyFilter } from "../../components-react/filter-builder/FilterBuilderState";
 import TestUtils, { userEvent } from "../TestUtils";
 import type { PropertyFilter } from "../../components-react/filter-builder/Types";
-
-chai.use(chaiSubset);
 
 describe("PropertyFilterBuilder", () => {
   const property1: PropertyDescription = {
@@ -33,17 +27,9 @@ describe("PropertyFilterBuilder", () => {
     typename: "string",
   };
 
-  before(async () => {
-    await TestUtils.initializeUiComponents();
-  });
-
-  after(() => {
-    TestUtils.terminateUiComponents();
-  });
-
   it("call onFilterChanged with filter after new rule is setup", async () => {
     const user = userEvent.setup();
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const { getByText, getByPlaceholderText } = render(
       <PropertyFilterBuilder properties={[property1]} onFilterChanged={spy} />
     );
@@ -55,7 +41,7 @@ describe("PropertyFilterBuilder", () => {
     await user.click(propSelector);
     await user.click(getByText("Prop1"));
 
-    expect(spy).to.be.calledOnceWith({
+    expect(spy).toHaveBeenCalledWith({
       property: property1,
       operator: "is-true",
       value: undefined,
@@ -78,9 +64,9 @@ describe("PropertyFilterBuilder", () => {
     );
 
     const rules = container.querySelectorAll(".fb-property-name");
-    expect(rules.length).to.be.eq(1);
+    expect(rules.length).toEqual(1);
     const rule1 = queryByDisplayValue(property1.displayLabel);
-    expect(rule1).to.not.be.null;
+    expect(rule1).toBeTruthy();
   });
 
   it("renders propertyFilterBuilder with multiple rules correctly", async () => {
@@ -113,11 +99,11 @@ describe("PropertyFilterBuilder", () => {
     );
 
     const rules = container.querySelectorAll(".fb-property-name");
-    expect(rules.length).to.be.eq(2);
+    expect(rules.length).toEqual(2);
     const rule1 = queryByDisplayValue(property1.displayLabel);
-    expect(rule1).to.not.be.null;
+    expect(rule1).toBeTruthy();
     const rule2 = queryByDisplayValue(property2.displayLabel);
-    expect(rule2).to.not.be.null;
+    expect(rule2).toBeTruthy();
   });
 
   it("focus new rule property after adding new rule", async () => {
@@ -156,7 +142,7 @@ describe("PropertyFilterBuilder", () => {
         ...defaultRule,
         property: undefined,
       };
-      expect(buildPropertyFilter(rule)).to.be.undefined;
+      expect(buildPropertyFilter(rule)).toEqual(undefined);
     });
 
     it("returns undefined when rule does not have operator", () => {
@@ -164,7 +150,7 @@ describe("PropertyFilterBuilder", () => {
         ...defaultRule,
         operator: undefined,
       };
-      expect(buildPropertyFilter(rule)).to.be.undefined;
+      expect(buildPropertyFilter(rule)).toEqual(undefined);
     });
 
     it("returns undefined when rule does not have value and operator requires value", () => {
@@ -172,7 +158,7 @@ describe("PropertyFilterBuilder", () => {
         ...defaultRule,
         value: undefined,
       };
-      expect(buildPropertyFilter(rule)).to.be.undefined;
+      expect(buildPropertyFilter(rule)).toEqual(undefined);
     });
 
     it("returns undefined when rule has non primitive value", () => {
@@ -184,7 +170,7 @@ describe("PropertyFilterBuilder", () => {
           itemsTypeName: "arrayType",
         },
       };
-      expect(buildPropertyFilter(rule)).to.be.undefined;
+      expect(buildPropertyFilter(rule)).toEqual(undefined);
     });
 
     it("returns undefined when group has no rules", () => {
@@ -193,7 +179,7 @@ describe("PropertyFilterBuilder", () => {
         operator: "and",
         items: [],
       };
-      expect(buildPropertyFilter(ruleGroup)).to.be.undefined;
+      expect(buildPropertyFilter(ruleGroup)).toEqual(undefined);
     });
 
     it("returns single filter condition when group has one rule", () => {

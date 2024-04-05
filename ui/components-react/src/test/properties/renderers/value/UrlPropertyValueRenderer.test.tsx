@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
 import { Id64 } from "@itwin/core-bentley";
 import { fireEvent, render } from "@testing-library/react";
@@ -10,7 +9,6 @@ import type { PropertyValueRendererContext } from "../../../../components-react/
 import TestUtils from "../../../TestUtils";
 import { UrlPropertyValueRenderer } from "../../../../components-react/properties/renderers/value/UrlPropertyValueRenderer";
 import type { PropertyRecord } from "@itwin/appui-abstract";
-import sinon from "sinon";
 import * as moq from "typemoq";
 
 describe("UrlPropertyValueRenderer", () => {
@@ -29,7 +27,7 @@ describe("UrlPropertyValueRenderer", () => {
         elementRender.container.getElementsByClassName(
           "core-underlined-button"
         )[0].textContent
-      ).to.be.eq(
+      ).toEqual(
         "Test Uri Value: pw:\\wsp-aus-pw.bentley.com:wsp-aus-pw-10DocumentsSouthern Program Alliance"
       );
     });
@@ -42,7 +40,7 @@ describe("UrlPropertyValueRenderer", () => {
       );
 
       property.links = {
-        onClick: sinon.spy(),
+        onClick: vi.fn(),
         matcher: () => [{ start: 0, end: 4 }],
       };
 
@@ -53,7 +51,7 @@ describe("UrlPropertyValueRenderer", () => {
         elementRender.container.getElementsByClassName(
           "core-underlined-button"
         )[0].textContent
-      ).to.be.eq("Test");
+      ).toEqual("Test");
     });
 
     it("renders URI property with highlighting and in anchored tag", () => {
@@ -88,28 +86,17 @@ describe("UrlPropertyValueRenderer", () => {
     });
 
     describe("onClick", () => {
+      const originalLocation = location;
       const locationMockRef: moq.IMock<Location> =
         moq.Mock.ofInstance(location);
-      let spy: sinon.SinonStub<
-        [
-          (string | URL | undefined)?,
-          (string | undefined)?,
-          (string | undefined)?,
-          (boolean | undefined)?
-        ],
-        Window | null
-      >;
 
-      before(() => {
+      beforeEach(() => {
         location = locationMockRef.object;
       });
 
-      after(() => {
-        locationMockRef.reset();
-      });
-
       afterEach(() => {
-        spy.restore();
+        location = originalLocation;
+        locationMockRef.reset();
       });
 
       it("opens window using the whole URI value, when link which doesn't start with pw: or mailto: is clicked", () => {
@@ -118,8 +105,8 @@ describe("UrlPropertyValueRenderer", () => {
           "Label",
           "Random Test property"
         );
-        spy = sinon.stub(window, "open");
-        spy.returns(null);
+        const spy = vi.spyOn(window, "open");
+        spy.mockReturnValue(null);
 
         const element = renderer.render(stringProperty);
         const renderedElement = render(<>{element}</>);
@@ -128,10 +115,10 @@ describe("UrlPropertyValueRenderer", () => {
           "core-underlined-button"
         )[0];
 
-        expect(linkElement.textContent).to.be.eq("Random Test property");
+        expect(linkElement.textContent).toEqual("Random Test property");
 
         fireEvent.click(linkElement);
-        expect(spy).to.be.calledOnceWith("Random Test property", "_blank");
+        expect(spy).toHaveBeenCalledWith("Random Test property", "_blank");
       });
 
       it("sets location.href to the whole URI value, when link starting with pw: is clicked", () => {
@@ -147,10 +134,10 @@ describe("UrlPropertyValueRenderer", () => {
         const linkElement = renderedElement.container.getElementsByClassName(
           "core-underlined-button"
         )[0];
-        expect(linkElement.textContent).to.be.eq("pw:Test property");
+        expect(linkElement.textContent).toEqual("pw:Test property");
 
         fireEvent.click(linkElement);
-        expect(locationMockRef.object.href).to.be.equal("pw:Test property");
+        expect(locationMockRef.object.href).toEqual("pw:Test property");
       });
 
       it("sets location.href to the whole URI value, when link starting with mailto: is clicked", () => {
@@ -167,10 +154,10 @@ describe("UrlPropertyValueRenderer", () => {
           "core-underlined-button"
         )[0];
 
-        expect(linkElement.textContent).to.be.eq("mailto:Test property");
+        expect(linkElement.textContent).toEqual("mailto:Test property");
 
         fireEvent.click(linkElement);
-        expect(locationMockRef.object.href).to.be.equal("mailto:Test property");
+        expect(locationMockRef.object.href).toEqual("mailto:Test property");
       });
 
       it("calls window.open.focus if window.open returns not null", () => {
@@ -182,8 +169,8 @@ describe("UrlPropertyValueRenderer", () => {
         const windowMock = moq.Mock.ofType<Window>();
         windowMock.setup((x) => x.focus());
 
-        spy = sinon.stub(window, "open");
-        spy.returns(windowMock.object);
+        const spy = vi.spyOn(window, "open");
+        spy.mockReturnValue(windowMock.object);
 
         const element = renderer.render(stringProperty);
         const renderedElement = render(<>{element}</>);
@@ -192,10 +179,10 @@ describe("UrlPropertyValueRenderer", () => {
           "core-underlined-button"
         )[0];
 
-        expect(linkElement.textContent).to.be.eq("Random Test property");
+        expect(linkElement.textContent).toEqual("Random Test property");
 
         fireEvent.click(linkElement);
-        expect(spy).to.be.calledOnceWith("Random Test property", "_blank");
+        expect(spy).toHaveBeenCalledWith("Random Test property", "_blank");
         windowMock.verify((x) => x.focus(), moq.Times.once());
       });
     });
@@ -205,7 +192,7 @@ describe("UrlPropertyValueRenderer", () => {
     it("returns true for a URI property", () => {
       const renderer = new UrlPropertyValueRenderer();
       const property = TestUtils.createURIProperty("Category", "Value");
-      expect(renderer.canRender(property)).to.be.true;
+      expect(renderer.canRender(property)).toEqual(true);
     });
 
     it("returns false for properties that are not URI or string", () => {
@@ -220,10 +207,10 @@ describe("UrlPropertyValueRenderer", () => {
         "Category",
         { className: "", id: Id64.fromUint32Pair(1, 0) }
       );
-      expect(renderer.canRender(arrayProperty)).to.be.false;
-      expect(renderer.canRender(structProperty)).to.be.false;
-      expect(renderer.canRender(doubleProperty)).to.be.false;
-      expect(renderer.canRender(navigationProperty)).to.be.false;
+      expect(renderer.canRender(arrayProperty)).toEqual(false);
+      expect(renderer.canRender(structProperty)).toEqual(false);
+      expect(renderer.canRender(doubleProperty)).toEqual(false);
+      expect(renderer.canRender(navigationProperty)).toEqual(false);
     });
   });
 });

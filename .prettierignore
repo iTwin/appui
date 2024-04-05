@@ -1,6 +1,7 @@
 # build output
 lib
 build
+coverage
 
 # rush specific
 .rush

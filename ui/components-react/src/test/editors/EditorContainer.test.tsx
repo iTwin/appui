@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import * as React from "react";
-import sinon from "sinon";
 import { Key } from "ts-key-enum";
 import { EditorContainer } from "../../components-react/editors/EditorContainer";
 import TestUtils, { childStructure, userEvent } from "../TestUtils";
@@ -13,17 +11,9 @@ import { StandardEditorNames } from "@itwin/appui-abstract";
 import { fireEvent, render, screen } from "@testing-library/react";
 
 describe("<EditorContainer />", () => {
-  before(async () => {
-    await TestUtils.initializeUiComponents();
-  });
-
   let theUserTo: ReturnType<typeof userEvent.setup>;
   beforeEach(() => {
     theUserTo = userEvent.setup();
-  });
-
-  after(() => {
-    TestUtils.terminateUiComponents();
   });
 
   it("renders editor for 'text' type using TextEditor", () => {
@@ -50,7 +40,7 @@ describe("<EditorContainer />", () => {
       "Test1",
       "my value"
     );
-    const spyOnCommit = sinon.spy();
+    const spyOnCommit = vi.fn();
     render(
       <EditorContainer
         propertyRecord={propertyRecord}
@@ -65,7 +55,7 @@ describe("<EditorContainer />", () => {
       "{Enter}"
     );
 
-    sinon.assert.calledOnce(spyOnCommit);
+    expect(spyOnCommit).toHaveBeenCalledOnce();
   });
 
   it("calls onCancel for Escape", async () => {
@@ -73,7 +63,7 @@ describe("<EditorContainer />", () => {
       "Test1",
       "my value"
     );
-    const spyOnCancel = sinon.spy();
+    const spyOnCancel = vi.fn();
     render(
       <EditorContainer
         propertyRecord={propertyRecord}
@@ -88,7 +78,7 @@ describe("<EditorContainer />", () => {
       "{Escape}"
     );
 
-    sinon.assert.calledOnce(spyOnCancel);
+    expect(spyOnCancel).toHaveBeenCalledOnce();
   });
 
   it("calls onCancel for Cancel button in popup", async () => {
@@ -98,7 +88,7 @@ describe("<EditorContainer />", () => {
       undefined,
       { name: StandardEditorNames.MultiLine }
     );
-    const spyOnCancel = sinon.spy();
+    const spyOnCancel = vi.fn();
     render(
       <EditorContainer
         propertyRecord={propertyRecord}
@@ -111,7 +101,7 @@ describe("<EditorContainer />", () => {
     await theUserTo.click(screen.getByRole("button"));
     await theUserTo.click(screen.getByTestId("components-popup-cancel-button"));
 
-    sinon.assert.calledOnce(spyOnCancel);
+    expect(spyOnCancel).toHaveBeenCalledOnce();
   });
 
   it("calls onCommit for Tab", async () => {
@@ -119,7 +109,7 @@ describe("<EditorContainer />", () => {
       "Test1",
       "my value"
     );
-    const spyOnCommit = sinon.spy();
+    const spyOnCommit = vi.fn();
     render(
       <EditorContainer
         propertyRecord={propertyRecord}
@@ -136,7 +126,7 @@ describe("<EditorContainer />", () => {
       { skipAutoClose: true }
     );
 
-    sinon.assert.calledOnce(spyOnCommit);
+    expect(spyOnCommit).toHaveBeenCalledOnce();
   });
 
   it("stopPropagation of other input node events", () => {
@@ -144,9 +134,9 @@ describe("<EditorContainer />", () => {
       "Test1",
       "my value"
     );
-    const blurSpy = sinon.spy();
-    const contextSpy = sinon.spy();
-    const keySpy = sinon.spy();
+    const blurSpy = vi.fn();
+    const contextSpy = vi.fn();
+    const keySpy = vi.fn();
     render(
       <div
         onBlur={blurSpy}
@@ -168,19 +158,19 @@ describe("<EditorContainer />", () => {
     const testInput = screen.getByTestId("components-text-editor");
 
     fireEvent.blur(testInput);
-    expect(blurSpy).to.not.been.called;
+    expect(blurSpy).not.toBeCalled();
     fireEvent.contextMenu(testInput);
-    expect(contextSpy).to.not.been.called;
+    expect(contextSpy).not.toBeCalled();
     fireEvent.keyDown(testInput, { key: Key.ArrowLeft });
-    expect(keySpy).to.not.been.called;
+    expect(keySpy).not.toBeCalled();
 
     // Sanity: Validating that a similar control would indeed cause these to be triggered.
     const controlInput = screen.getByTestId("test-control-input");
     fireEvent.blur(controlInput);
-    expect(blurSpy).to.have.been.called;
+    expect(blurSpy).toHaveBeenCalled();
     fireEvent.contextMenu(controlInput);
-    expect(contextSpy).to.have.been.called;
+    expect(contextSpy).toHaveBeenCalled();
     fireEvent.keyDown(controlInput, { key: Key.ArrowLeft });
-    expect(keySpy).to.have.been.called;
+    expect(keySpy).toHaveBeenCalled();
   });
 });

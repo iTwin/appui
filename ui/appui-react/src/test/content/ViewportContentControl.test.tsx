@@ -2,12 +2,9 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import * as moq from "typemoq";
 import type { ScreenViewport, ViewState3d } from "@itwin/core-frontend";
-import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import type {
   ConfigurableCreateInfo,
   FrontstageConfig,
@@ -37,22 +34,16 @@ describe("ViewportContentControl", () => {
   const viewportMock = moq.Mock.ofType<ScreenViewport>();
   const viewMock = moq.Mock.ofType<ViewState3d>();
 
-  before(async () => {
+  beforeEach(async () => {
     Object.defineProperty(window, "sessionStorage", {
       get: () => mySessionStorage,
     });
-
-    await TestUtils.initializeUiFramework();
-    await NoRenderApp.startup();
 
     InternalFrontstageManager.isInitialized = false;
     InternalFrontstageManager.initialize();
   });
 
-  after(async () => {
-    await IModelApp.shutdown();
-    TestUtils.terminateUiFramework();
-
+  afterEach(async () => {
     // restore the overriden property getter
     Object.defineProperty(
       window,
@@ -128,23 +119,23 @@ describe("ViewportContentControl", () => {
     await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
 
     if (frontstageDef) {
-      expect(UiFramework.content.layouts.activeLayout?.id).to.eq(
+      expect(UiFramework.content.layouts.activeLayout?.id).toEqual(
         "uia:singleView"
       );
 
       const contentControl = UiFramework.content.getActiveContentControl();
-      expect(contentControl).to.not.be.undefined;
+      expect(contentControl).toBeTruthy();
 
       if (contentControl) {
-        expect(contentControl.isViewport).to.be.true;
-        expect(contentControl.viewport).to.not.be.undefined;
-        expect(contentControl.getType()).to.eq(
+        expect(contentControl.isViewport).toEqual(true);
+        expect(contentControl.viewport).toBeTruthy();
+        expect(contentControl.getType()).toEqual(
           ConfigurableUiControlType.Viewport
         );
 
         const supportsContentControl =
           contentControl as unknown as SupportsViewSelectorChange;
-        expect(supportsContentControl.supportsViewSelectorChange).to.be.true;
+        expect(supportsContentControl.supportsViewSelectorChange).toEqual(true);
       }
     }
   });
@@ -158,21 +149,23 @@ describe("ViewportContentControl", () => {
     await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
 
     if (frontstageDef) {
-      expect(UiFramework.content.layouts.activeLayout?.id).to.eq(
+      expect(UiFramework.content.layouts.activeLayout?.id).toEqual(
         "uia:singleView"
       );
 
       const contentControl = UiFramework.content.getActiveContentControl();
-      expect(contentControl).to.not.be.undefined;
+      expect(contentControl).toBeTruthy();
 
       if (contentControl) {
-        expect(contentControl.navigationAidControl).to.eq("SheetNavigationAid");
+        expect(contentControl.navigationAidControl).toEqual(
+          "SheetNavigationAid"
+        );
 
         viewMock.reset();
         viewMock
           .setup((view) => view.classFullName)
           .returns(() => "DrawingViewDefinition");
-        expect(contentControl.navigationAidControl).to.eq(
+        expect(contentControl.navigationAidControl).toEqual(
           "DrawingNavigationAid"
         );
 
@@ -180,21 +173,25 @@ describe("ViewportContentControl", () => {
         viewMock
           .setup((view) => view.classFullName)
           .returns(() => "SpatialViewDefinition");
-        expect(contentControl.navigationAidControl).to.eq("CubeNavigationAid");
+        expect(contentControl.navigationAidControl).toEqual(
+          "CubeNavigationAid"
+        );
 
         viewMock.reset();
         viewMock
           .setup((view) => view.classFullName)
           .returns(() => "OrthographicViewDefinition");
-        expect(contentControl.navigationAidControl).to.eq("CubeNavigationAid");
+        expect(contentControl.navigationAidControl).toEqual(
+          "CubeNavigationAid"
+        );
       }
     }
   });
 
   it("UiFramework.frontstages.setActiveFrontstageDef should cause onActiveContentChangedEvent", async () => {
-    const spyMethod = sinon.spy();
+    const spy = vi.fn();
     const remove =
-      UiFramework.content.onActiveContentChangedEvent.addListener(spyMethod);
+      UiFramework.content.onActiveContentChangedEvent.addListener(spy);
 
     const frontstageProvider = new Frontstage1();
     UiFramework.frontstages.addFrontstageProvider(frontstageProvider);
@@ -204,7 +201,7 @@ describe("ViewportContentControl", () => {
     await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
 
     await TestUtils.flushAsyncOperations();
-    expect(spyMethod.called).to.be.true;
+    expect(spy).toHaveBeenCalled();
 
     remove();
   });
@@ -244,11 +241,11 @@ describe("ViewportContentControl", () => {
     await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
 
     if (frontstageDef) {
-      expect(UiFramework.content.layouts.activeLayout?.id).to.eq(
+      expect(UiFramework.content.layouts.activeLayout?.id).toEqual(
         "uia:singleView"
       );
       const contentControl = UiFramework.content.getActiveContentControl();
-      expect(contentControl).to.not.be.undefined;
+      expect(contentControl).toBeTruthy();
 
       const floatingControl = new TestFloatingContentControl();
 

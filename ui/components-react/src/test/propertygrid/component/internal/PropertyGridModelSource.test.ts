@@ -2,8 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
-import sinon from "sinon";
 import type { IMutableGridItemFactory } from "../../../../components-react/propertygrid/internal/flat-items/MutableGridItemFactory";
 import { MutableGridItemFactory } from "../../../../components-react/propertygrid/internal/flat-items/MutableGridItemFactory";
 import type { IPropertyGridModel } from "../../../../components-react/propertygrid/internal/PropertyGridModel";
@@ -255,18 +253,18 @@ describe("PropertyGridModelSource", () => {
 
     it(`Should correctly raise event when model set or modified: ${testData.before.testName}`, () => {
       const gridModelSource = new PropertyGridModelSource(factory);
-      const eventSpy = sinon.spy();
+      const eventSpy = vi.fn();
 
       gridModelSource.onModelChanged.addListener(eventSpy);
       gridModelSource.setPropertyData(testData.before.propertyData);
-      expect(eventSpy.callCount).to.be.equal(1);
+      expect(eventSpy).toHaveBeenCalledTimes(1);
 
       gridModelSource.modifyModel((model) => {
         const itemToChange = model.getItem(testData.changedPropertyKey);
         itemToChange.isExpanded = !itemToChange.isExpanded;
       });
 
-      expect(eventSpy.callCount).to.be.equal(2);
+      expect(eventSpy).toHaveBeenCalledTimes(2);
     });
 
     it(`Should correctly map old state to new state: ${testData.before.testName}`, () => {
@@ -385,16 +383,16 @@ describe("PropertyGridModelSource", () => {
         model: IPropertyGridModel,
         expectedExpand: boolean
       ) => {
-        expect(model.getFlatGrid()[5].isExpanded).to.be.equal(expectedExpand);
-        expect(model.getVisibleFlatGrid()[5].isExpanded).to.be.equal(
+        expect(model.getFlatGrid()[5].isExpanded).toEqual(expectedExpand);
+        expect(model.getVisibleFlatGrid()[5].isExpanded).toEqual(
           expectedExpand
         );
-        expect(model.getItem(itemToSelectKey).isExpanded).to.be.equal(
+        expect(model.getItem(itemToSelectKey).isExpanded).toEqual(
           expectedExpand
         );
         expect(
           model.getItem("Cat1").getDescendantsAndSelf()[5].isExpanded
-        ).to.be.equal(expectedExpand);
+        ).toEqual(expectedExpand);
       };
 
       const oldModel = gridModelSource.getModel()!;

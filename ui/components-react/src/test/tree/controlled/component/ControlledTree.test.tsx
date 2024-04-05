@@ -2,10 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import { VariableSizeList } from "react-window";
-import sinon from "sinon";
 import * as moq from "typemoq";
 import { PropertyRecord } from "@itwin/appui-abstract";
 import { CheckBoxState } from "@itwin/core-react";
@@ -27,7 +24,6 @@ import type {
 import type { ITreeNodeLoader } from "../../../../components-react/tree/controlled/TreeNodeLoader";
 import type { HighlightableTreeProps } from "../../../../components-react/tree/HighlightingEngine";
 import { HighlightingEngine } from "../../../../components-react/tree/HighlightingEngine";
-import TestUtils from "../../../TestUtils";
 import { SparseArray } from "../../../../components-react/tree/controlled/internal/SparseTree";
 import * as useElementsScrollStorageModule from "../../../../components-react/common/UseElementsScrollStorage";
 
@@ -43,14 +39,6 @@ describe("ControlledTree", () => {
     height: 200,
   };
   let node: MutableTreeModelNode;
-
-  before(async () => {
-    await TestUtils.initializeUiComponents();
-  });
-
-  after(() => {
-    TestUtils.terminateUiComponents();
-  });
 
   beforeEach(() => {
     treeModelMock.reset();
@@ -113,7 +101,7 @@ describe("ControlledTree", () => {
     const message = container.querySelector(
       ".components-controlledTree-loader"
     );
-    expect(message).to.not.be.null;
+    expect(message).toBeTruthy();
   });
 
   it("renders no data message if there are no nodes", () => {
@@ -126,7 +114,7 @@ describe("ControlledTree", () => {
     const message = container.querySelector(
       ".components-controlledTree-errorMessage"
     );
-    expect(message).to.not.be.null;
+    expect(message).toBeTruthy();
   });
 
   it("renders tree with loaded root nodes", () => {
@@ -135,7 +123,7 @@ describe("ControlledTree", () => {
     const { container } = render(<ControlledTree {...defaultProps} />);
 
     const tree = container.querySelector(".components-controlledTree");
-    expect(tree).to.not.be.null;
+    expect(tree).toBeTruthy();
   });
 
   it("renders node with description", () => {
@@ -157,7 +145,7 @@ describe("ControlledTree", () => {
     );
 
     const iconNode = container.querySelector(".test-icon");
-    expect(iconNode).to.not.be.undefined;
+    expect(iconNode).toBeTruthy();
   });
 
   it("renders highlighted node", () => {
@@ -170,13 +158,6 @@ describe("ControlledTree", () => {
       },
     };
 
-    const verticalScrollSpy = sinon.spy();
-    sinon.replace(
-      VariableSizeList.prototype,
-      "scrollToItem",
-      verticalScrollSpy
-    );
-
     const { container } = render(
       <ControlledTree
         {...defaultProps}
@@ -188,18 +169,16 @@ describe("ControlledTree", () => {
     const tree = container.querySelector(
       `.${HighlightingEngine.ACTIVE_CLASS_NAME}`
     );
-    expect(tree).to.not.be.null;
+    expect(tree).toBeTruthy();
   });
 
   it("uses provided tree renderer", () => {
     mockVisibleNode();
 
-    const treeRenderer = () => <div />;
-    const spy = sinon.spy(treeRenderer);
-
+    const spy = vi.fn(() => <div />);
     render(<ControlledTree {...defaultProps} treeRenderer={spy} />);
 
-    expect(spy).to.be.called;
+    expect(spy).toHaveBeenCalled();
   });
 
   it("uses provided spinner renderer", () => {
@@ -207,12 +186,10 @@ describe("ControlledTree", () => {
       .setup((x) => x.getRootNode())
       .returns(() => ({ id: undefined, depth: -1, numChildren: undefined }));
 
-    const spinnerRenderer = () => <div />;
-    const spy = sinon.spy(spinnerRenderer);
-
+    const spy = vi.fn(() => <div />);
     render(<ControlledTree {...defaultProps} spinnerRenderer={spy} />);
 
-    expect(spy).to.be.called;
+    expect(spy).toHaveBeenCalled();
   });
 
   it("uses provided no data renderer", () => {
@@ -220,22 +197,17 @@ describe("ControlledTree", () => {
       .setup((x) => x.getRootNode())
       .returns(() => ({ id: undefined, depth: -1, numChildren: 0 }));
 
-    const noDataRenderer = () => <div />;
-    const spy = sinon.spy(noDataRenderer);
-
+    const spy = vi.fn(() => <div />);
     render(<ControlledTree {...defaultProps} noDataRenderer={spy} />);
 
-    expect(spy).to.be.called;
+    expect(spy).toHaveBeenCalled();
   });
 
   it("selects node", async () => {
     const user = userEvent.setup();
     mockVisibleNode();
     const treeEvents = {
-      onSelectionReplaced: sinon.fake<
-        Parameters<Required<TreeEvents>["onSelectionReplaced"]>,
-        ReturnType<Required<TreeEvents>["onSelectionReplaced"]>
-      >(),
+      onSelectionReplaced: vi.fn(),
     };
     const { getByRole } = render(
       <ControlledTree {...defaultProps} eventsHandler={treeEvents} />
@@ -244,18 +216,18 @@ describe("ControlledTree", () => {
     const treeNode = getByRole("treeitem");
     await user.click(treeNode);
 
-    expect(treeEvents.onSelectionReplaced).to.be.called;
+    expect(treeEvents.onSelectionReplaced).toHaveBeenCalled();
   });
 });
 
 describe("useControlledTreeTransientState", () => {
   it("invokes `useElementScrollStorage`", () => {
-    const stub = sinon.stub(
+    const stub = vi.spyOn(
       useElementsScrollStorageModule,
       "useElementsScrollStorage"
     );
     renderHook(() => useControlledTreeLayoutStorage());
 
-    expect(stub).to.be.calledWith("ReactWindow__VariableSizeList");
+    expect(stub).toHaveBeenCalledWith("ReactWindow__VariableSizeList");
   });
 });

@@ -2,11 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
-import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
-
 import type { ListItem } from "../../appui-react";
 import {
   ExpandableSection,
@@ -21,19 +17,18 @@ import TestUtils, {
 } from "../TestUtils";
 import { Provider } from "react-redux";
 import { render, screen } from "@testing-library/react";
+
 const title = "Test";
-const listItems = new Array<ListItem>();
-const setEnabled = sinon.spy();
+let listItems = new Array<ListItem>();
+const setEnabled = vi.fn();
 
 describe("ListPicker", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
+
   beforeEach(() => {
     theUserTo = userEvent.setup();
-  });
-  before(async () => {
-    await TestUtils.initializeUiFramework();
-    await NoRenderApp.startup();
 
+    listItems = [];
     const listItem: ListItem = {
       enabled: true,
       type: ListItemType.Item,
@@ -68,15 +63,6 @@ describe("ListPicker", () => {
     listItems.push(emptyContainerItem);
   });
 
-  after(async () => {
-    TestUtils.terminateUiFramework();
-    await IModelApp.shutdown();
-  });
-
-  before(async () => {
-    await TestUtils.flushAsyncOperations();
-  });
-
   it("should render correctly", () => {
     render(
       <Provider store={TestUtils.store}>
@@ -94,9 +80,9 @@ describe("ListPicker", () => {
   });
 
   it("should support items and functions", async () => {
-    const enableAllFunc = sinon.spy();
-    const disableAllFunc = sinon.spy();
-    const invertFunc = sinon.spy();
+    const enableAllFunc = vi.fn();
+    const disableAllFunc = vi.fn();
+    const invertFunc = vi.fn();
 
     render(
       <Provider store={TestUtils.store}>
@@ -113,16 +99,16 @@ describe("ListPicker", () => {
     await theUserTo.click(screen.getByRole("button"));
 
     await theUserTo.click(screen.getByText("pickerButtons.all"));
-    expect(enableAllFunc).to.be.called;
+    expect(enableAllFunc).toHaveBeenCalled();
 
     await theUserTo.click(screen.getByText("pickerButtons.none"));
-    expect(disableAllFunc).to.be.called;
+    expect(disableAllFunc).toHaveBeenCalled();
 
     await theUserTo.click(screen.getByText("pickerButtons.invert"));
-    expect(invertFunc).to.be.called;
+    expect(invertFunc).toHaveBeenCalled();
 
     await theUserTo.click(screen.getByText("123456789012345678901234567890"));
-    expect(setEnabled).to.be.called;
+    expect(setEnabled).toHaveBeenCalled();
   });
 
   describe("isSpecialItem", () => {
@@ -142,28 +128,28 @@ describe("ListPicker", () => {
           key: ListPicker.Key_All,
           enabled: true,
         } as ListItem)
-      ).to.be.true;
+      ).toEqual(true);
 
       expect(
         listPickerInstance.isSpecialItem({
           key: ListPicker.Key_Invert,
           enabled: true,
         } as ListItem)
-      ).to.be.true;
+      ).toEqual(true);
 
       expect(
         listPickerInstance.isSpecialItem({
           key: ListPicker.Key_None,
           enabled: true,
         } as ListItem)
-      ).to.be.true;
+      ).toEqual(true);
 
       expect(
         listPickerInstance.isSpecialItem({
           key: ListPicker.Key_Separator,
           enabled: true,
         } as ListItem)
-      ).to.be.true;
+      ).toEqual(true);
     });
 
     it("should return true if item type is special", () => {
@@ -173,7 +159,7 @@ describe("ListPicker", () => {
           type: ListItemType.Container,
           enabled: true,
         } as ListItem)
-      ).to.be.true;
+      ).toEqual(true);
     });
 
     it("should return false if item type is not special", () => {
@@ -183,7 +169,7 @@ describe("ListPicker", () => {
           type: ListItemType.Item,
           enabled: true,
         } as ListItem)
-      ).to.be.false;
+      ).toEqual(false);
     });
   });
 

@@ -2,108 +2,99 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import * as sinon from "sinon";
 import { Timer } from "../../core-react/utils/Timer";
 
 describe("Timer", () => {
   it("should create timer with specified delay", () => {
     const sut = new Timer(100);
-    sut.delay.should.eq(100);
+    expect(sut.delay).toEqual(100);
   });
 
   it("should not be running when created", () => {
     const sut = new Timer(100);
-    sut.isRunning.should.be.false;
+    expect(sut.isRunning).toEqual(false);
   });
 
   it("should set delay", () => {
     const sut = new Timer(100);
     sut.delay = 200;
-    sut.delay.should.eq(200);
+    expect(sut.delay).toEqual(200);
   });
 
   it("should be running when started", () => {
     const sut = new Timer(100);
     sut.start();
 
-    sut.isRunning.should.be.true;
+    expect(sut.isRunning).toEqual(true);
     sut.stop();
   });
 
   it("stopping the timer that is not running should have no effect", () => {
     const sut = new Timer(100);
-    sut.isRunning.should.be.false;
+    expect(sut.isRunning).toEqual(false);
     sut.stop();
-    sut.isRunning.should.be.false;
+    expect(sut.isRunning).toEqual(false);
   });
 
   it("start timer should set the timeout", () => {
-    const clock = sinon.useFakeTimers();
-    const spy = sinon.spy();
-    clock.setTimeout = spy;
+    vi.useFakeTimers();
+    const spy = vi.spyOn(window, "setTimeout");
 
     const sut = new Timer(100);
     sut.start();
 
-    clock.tick(50);
-    clock.restore();
+    vi.advanceTimersByTime(50);
 
-    spy.calledOnce.should.true;
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should have no effect if no handler is set", () => {
-    const clock = sinon.useFakeTimers();
+    vi.useFakeTimers();
 
     const sut = new Timer(100);
     sut.start();
 
-    clock.tick(100);
-    clock.restore();
-
-    sut.isRunning.should.be.false;
+    vi.advanceTimersByTime(100);
+    expect(sut.isRunning).toEqual(false);
   });
 
   it("should call handler after clock ticks the delay", () => {
-    const clock = sinon.useFakeTimers();
-    const spy = sinon.spy();
+    vi.useFakeTimers();
+    const spy = vi.fn();
 
     const sut = new Timer(100);
     sut.setOnExecute(spy);
     sut.start();
 
-    clock.tick(100);
-    clock.restore();
+    vi.advanceTimersByTime(100);
 
-    spy.calledOnce.should.true;
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should stop the started timer", () => {
-    const clock = sinon.useFakeTimers();
-    const spy = sinon.spy();
+    vi.useFakeTimers();
+    const spy = vi.fn();
 
     const sut = new Timer(100);
     sut.setOnExecute(spy);
     sut.start();
     sut.stop();
 
-    clock.tick(100);
-    clock.restore();
+    vi.advanceTimersByTime(100);
 
-    spy.should.not.have.been.called;
+    expect(spy).not.toBeCalled();
   });
 
   it("should restart the started timer", () => {
-    const clock = sinon.useFakeTimers();
-    const clearTimeoutSpy = sinon.spy(clock, "clearTimeout");
-    const setTimeoutSpy = sinon.spy(clock, "setTimeout");
+    vi.useFakeTimers();
+    const clearTimeoutSpy = vi.spyOn(window, "clearTimeout");
+    const setTimeoutSpy = vi.spyOn(window, "setTimeout");
 
     const sut = new Timer(100);
     sut.start();
     sut.start();
 
-    clock.restore();
-
-    setTimeoutSpy.calledTwice.should.true;
-    clearTimeoutSpy.calledOnce.should.true;
+    expect(setTimeoutSpy).toHaveBeenCalledTimes(2);
+    expect(clearTimeoutSpy).toHaveBeenCalledOnce();
   });
 });

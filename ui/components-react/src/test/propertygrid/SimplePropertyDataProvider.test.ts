@@ -3,10 +3,9 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import type { PrimitiveValue, PropertyRecord } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
-import type { PropertyCategory, PropertyData } from "../../components-react";
+import type { PropertyCategory } from "../../components-react";
 import { SimplePropertyDataProvider } from "../../components-react";
 import TestUtils from "../TestUtils";
 
@@ -68,7 +67,7 @@ describe("SimplePropertyDataProvider", () => {
     const propertyCategory = propertyData.categories[0];
     expect(propertyCategory.name).to.equal("Group_1");
     expect(propertyCategory.label).to.equal("Group 1");
-    expect(propertyCategory.expand).to.be.true;
+    expect(propertyCategory.expand).toEqual(true);
 
     const records = propertyData.records[propertyCategory.name];
     expect(records).to.have.length(2);
@@ -84,7 +83,7 @@ describe("SimplePropertyDataProvider", () => {
 
   it("findCategoryIndex should return the proper index", () => {
     const index = dataProvider.findCategoryIndex(dataProvider.category2);
-    expect(index).to.eq(1);
+    expect(index).toEqual(1);
   });
 
   it("removeProperty should remove the correct property", async () => {
@@ -92,7 +91,7 @@ describe("SimplePropertyDataProvider", () => {
     const records = propertyData.records[dataProvider.category2.name];
     expect(records).to.have.length(2);
     const removed = dataProvider.removeProperty(dataProvider.pr22, 1);
-    expect(removed).to.be.true;
+    expect(removed).toEqual(true);
     const records2 = propertyData.records[dataProvider.category2.name];
     expect(records2).to.have.length(1);
   });
@@ -107,7 +106,7 @@ describe("SimplePropertyDataProvider", () => {
       "Test New Value"
     );
     const replaced = dataProvider.replaceProperty(record, 1, newRecord);
-    expect(replaced).to.be.true;
+    expect(replaced).toEqual(true);
     const records2 = propertyData.records[dataProvider.category2.name];
     expect(records2).to.have.length(2);
     const record2 = records[1];
@@ -142,28 +141,17 @@ describe("SimplePropertyDataProvider", () => {
     expect(propertyAdded).to.not.equal(propertyRemoved);
   });
 
-  it("getData should return different object when onDataChanged is called", (done) => {
+  it("getData should return different object when onDataChanged is called", async () => {
     const tested = new SimplePropertyDataProvider();
-    let initial: PropertyData | undefined;
-    tested
-      .getData()
-      .then((data) => {
-        initial = data;
-      })
-      .catch(() => expect.fail("getData threw"));
+    const initial = await tested.getData();
 
-    tested.onDataChanged.addListener(() => {
-      tested
-        .getData()
-        .then((data) => {
-          expect(initial).to.not.equal(data);
-          done();
-        })
-        .catch(() => {
-          expect.fail("onDataChanged getData threw");
-        });
-    });
+    const spy = vi.fn();
+    tested.onDataChanged.addListener(spy);
 
     tested.addCategory({ name: "Name1", label: "Label1", expand: false });
+
+    expect(spy).toHaveBeenCalledOnce();
+    const newData = await tested.getData();
+    expect(newData).not.toBe(initial);
   });
 });

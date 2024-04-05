@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { fireEvent, render, waitFor } from "@testing-library/react";
 import type {
   DialogButtonDef,
@@ -23,8 +21,8 @@ import {
 } from "@itwin/appui-abstract";
 import { UiDataProvidedDialog } from "../../appui-react";
 
-const spyCancel = sinon.spy();
-const spyOK = sinon.spy();
+const spyCancel = vi.fn();
+const spyOK = vi.fn();
 
 class TestUiDataProvider extends DialogLayoutDataProvider {
   public currentPageIndex = 0;
@@ -150,8 +148,8 @@ class TestUiDataProvider extends DialogLayoutDataProvider {
 
 describe("UiDataProvidedDialog", () => {
   afterEach(() => {
-    spyCancel.resetHistory();
-    spyOK.resetHistory();
+    spyCancel.mockReset();
+    spyOK.mockReset();
   });
 
   describe("Modal Dialog", () => {
@@ -177,12 +175,12 @@ describe("UiDataProvidedDialog", () => {
 
       const okButton = component.getByText("dialog.ok");
       fireEvent.click(okButton);
-      expect(okButton.parentElement?.getAttribute("aria-disabled")).to.eq(
+      expect(okButton.parentElement?.getAttribute("aria-disabled")).toEqual(
         "true"
       );
 
       const inputs = component.container.querySelectorAll("input");
-      expect(inputs.length).to.be.eq(2);
+      expect(inputs.length).toEqual(2);
       inputs[0].focus();
       fireEvent.change(inputs[0], { target: { value: "test-user" } });
       inputs[0].blur();
@@ -192,16 +190,17 @@ describe("UiDataProvidedDialog", () => {
       inputs[1].blur();
 
       await waitFor(() => {
-        expect(okButton.parentElement?.getAttribute("aria-disabled")).to.be
-          .null;
+        expect(okButton.parentElement?.getAttribute("aria-disabled")).toEqual(
+          null
+        );
       });
       fireEvent.click(okButton);
-      sinon.assert.calledOnce(spyOK);
+      expect(spyOK).toHaveBeenCalledOnce();
 
       component.baseElement.dispatchEvent(
         new KeyboardEvent("keyup", { key: "Escape" })
       );
-      sinon.assert.calledOnce(spyCancel);
+      expect(spyCancel).toHaveBeenCalledOnce();
     });
   });
 
@@ -230,12 +229,12 @@ describe("UiDataProvidedDialog", () => {
 
       const okButton = component.getByText("dialog.ok");
       fireEvent.click(okButton);
-      expect(okButton.parentElement?.getAttribute("aria-disabled")).to.eq(
+      expect(okButton.parentElement?.getAttribute("aria-disabled")).toEqual(
         "true"
       );
 
       const inputs = component.container.querySelectorAll("input");
-      expect(inputs.length).to.be.eq(2);
+      expect(inputs.length).toEqual(2);
       inputs[0].focus();
       fireEvent.change(inputs[0], { target: { value: "test-user" } });
       inputs[0].blur();
@@ -245,16 +244,17 @@ describe("UiDataProvidedDialog", () => {
       inputs[1].blur();
 
       await waitFor(() => {
-        expect(okButton.parentElement?.getAttribute("aria-disabled")).to.be
-          .null;
+        expect(okButton.parentElement?.getAttribute("aria-disabled")).toEqual(
+          null
+        );
       });
       fireEvent.click(okButton);
-      sinon.assert.calledOnce(spyOK);
+      expect(spyOK).toHaveBeenCalledOnce();
 
       component.baseElement.dispatchEvent(
         new KeyboardEvent("keyup", { key: "Escape" })
       );
-      sinon.assert.calledOnce(spyCancel);
+      expect(spyCancel).toHaveBeenCalledOnce();
     });
   });
 });

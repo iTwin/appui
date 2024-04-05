@@ -3,20 +3,10 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
-import { expect } from "chai";
 import * as React from "react";
 import { ElementTooltip } from "../../appui-react";
-import TestUtils from "../TestUtils";
 
 describe("ElementTooltip", () => {
-  before(async () => {
-    await TestUtils.initializeUiFramework();
-  });
-
-  after(() => {
-    TestUtils.terminateUiFramework();
-  });
-
   it("showTooltip & hideTooltip set isTooltipVisible appropriately", () => {
     const divElement = document.createElement("div");
     render(<ElementTooltip />);
@@ -26,10 +16,10 @@ describe("ElementTooltip", () => {
       x: 20,
       y: 20,
     });
-    expect(ElementTooltip.isTooltipVisible).to.be.true;
+    expect(ElementTooltip.isTooltipVisible).toEqual(true);
 
     ElementTooltip.hideTooltip();
-    expect(ElementTooltip.isTooltipVisible).to.be.false;
+    expect(ElementTooltip.isTooltipVisible).toEqual(false);
   });
 
   it("showTooltip should support HTMLElement", async () => {
@@ -41,7 +31,7 @@ describe("ElementTooltip", () => {
     para.appendChild(t); // Append the text to <p>
 
     ElementTooltip.showTooltip(divElement, para, { x: 10, y: 10 });
-    expect(ElementTooltip.isTooltipVisible).to.be.true;
+    expect(ElementTooltip.isTooltipVisible).toEqual(true);
 
     expect(await screen.findByText(`HTMLElement message`)).to.exist;
   });

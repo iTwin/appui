@@ -32,12 +32,12 @@ describe("PanelTargets", () => {
     const { container } = render(<PanelTargets />, {
       wrapper: Wrapper,
     });
-    container
-      .getElementsByClassName("nz-target-panelTarget")
-      .length.should.eq(1);
-    container
-      .getElementsByClassName("nz-target-sectionTarget")
-      .length.should.eq(0);
+    expect(
+      container.getElementsByClassName("nz-target-panelTarget")
+    ).toHaveLength(1);
+    expect(
+      container.getElementsByClassName("nz-target-sectionTarget")
+    ).toHaveLength(0);
   });
 
   it("should render 3 targets in a single section", () => {
@@ -52,12 +52,12 @@ describe("PanelTargets", () => {
         <PanelTargets />
       </Wrapper>
     );
-    container
-      .getElementsByClassName("nz-target-mergeTarget")
-      .length.should.eq(1);
-    container
-      .getElementsByClassName("nz-target-sectionTarget")
-      .length.should.eq(2);
+    expect(
+      container.getElementsByClassName("nz-target-mergeTarget")
+    ).toHaveLength(1);
+    expect(
+      container.getElementsByClassName("nz-target-sectionTarget")
+    ).toHaveLength(2);
   });
 
   it("should render one target in each section (2 sections)", () => {
@@ -73,12 +73,12 @@ describe("PanelTargets", () => {
         <PanelTargets />
       </Wrapper>
     );
-    container
-      .getElementsByClassName("nz-target-mergeTarget")
-      .length.should.eq(2);
-    container
-      .getElementsByClassName("nz-target-sectionTarget")
-      .length.should.eq(0);
+    expect(
+      container.getElementsByClassName("nz-target-mergeTarget")
+    ).toHaveLength(2);
+    expect(
+      container.getElementsByClassName("nz-target-sectionTarget")
+    ).toHaveLength(0);
   });
 
   it("should render no targets if panel is expanded", () => {
@@ -90,11 +90,11 @@ describe("PanelTargets", () => {
         <PanelTargets />
       </Wrapper>
     );
-    container
-      .getElementsByClassName("nz-target-panelTarget")
-      .length.should.eq(0);
-    container
-      .getElementsByClassName("nz-target-sectionTarget")
-      .length.should.eq(0);
+    expect(
+      container.getElementsByClassName("nz-target-panelTarget")
+    ).toHaveLength(0);
+    expect(
+      container.getElementsByClassName("nz-target-sectionTarget")
+    ).toHaveLength(0);
   });
 });

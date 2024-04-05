@@ -18,6 +18,6 @@ function getModule(mod: any) {
 }
 
 /** @internal */
-export const ResizeObserver: ResizeObserverType = getModule(
-  ResizeObserverPolyfill
-);
+export function getResizeObserver() {
+  return window.ResizeObserver ?? getModule(ResizeObserverPolyfill);
+}

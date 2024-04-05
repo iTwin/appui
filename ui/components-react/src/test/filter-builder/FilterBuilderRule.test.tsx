@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import * as React from "react";
-import sinon from "sinon";
 import type { PropertyDescription, PropertyValue } from "@itwin/appui-abstract";
 import { PropertyValueFormat, StandardTypeNames } from "@itwin/appui-abstract";
 import { fireEvent } from "@testing-library/react";
@@ -14,7 +12,6 @@ import { PropertyFilterBuilderRuleRenderer } from "../../components-react/filter
 import type { PropertyFilterBuilderRuleOperatorProps } from "../../components-react/filter-builder/FilterBuilderRuleOperator";
 import type { PropertyFilterBuilderRuleValueProps } from "../../components-react/filter-builder/FilterBuilderRuleValue";
 import { PropertyFilterBuilderActions } from "../../components-react/filter-builder/FilterBuilderState";
-import TestUtils from "../TestUtils";
 import { renderWithContext } from "./Common";
 import { UiComponents } from "../../components-react";
 
@@ -30,14 +27,6 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
     typename: "int",
   };
 
-  before(async () => {
-    await TestUtils.initializeUiComponents();
-  });
-
-  after(() => {
-    TestUtils.terminateUiComponents();
-  });
-
   describe("rule operator", () => {
     it("does not render operator if rule property is undefined", () => {
       const { container } = renderWithContext(
@@ -46,7 +35,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
 
       const operatorContainer =
         container.querySelector<HTMLDivElement>(".fb-row-condition");
-      expect(operatorContainer).to.be.null;
+      expect(operatorContainer).toEqual(null);
     });
 
     it("renders operator if rule property is defined", () => {
@@ -59,7 +48,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
 
       const operatorContainer =
         container.querySelector<HTMLDivElement>(".fb-row-condition");
-      expect(operatorContainer).to.not.be.null;
+      expect(operatorContainer).toBeTruthy();
     });
 
     it("operator defaults to `contains` if rule property is string", () => {
@@ -79,7 +68,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
       const operatorSpan = container.querySelector<HTMLSpanElement>(
         ".fb-row-condition span"
       );
-      expect(operatorSpan?.innerHTML).to.be.eq(
+      expect(operatorSpan?.innerHTML).toEqual(
         UiComponents.translate("filterBuilder.operators.contains")
       );
     });
@@ -98,13 +87,13 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
       const operatorSpan = container.querySelector<HTMLSpanElement>(
         ".fb-row-condition span"
       );
-      expect(operatorSpan?.innerHTML).to.be.eq(
+      expect(operatorSpan?.innerHTML).toEqual(
         UiComponents.translate("filterBuilder.operators.contains")
       );
     });
 
     it("renders operator using provided renderer", () => {
-      const spy = sinon.spy();
+      const spy = vi.fn();
       renderWithContext(
         <PropertyFilterBuilderRuleRenderer
           {...defaultProps}
@@ -114,7 +103,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
         { ruleOperatorRenderer: spy }
       );
 
-      expect(spy).to.be.calledOnce;
+      expect(spy).toHaveBeenCalledOnce();
     });
   });
 
@@ -126,7 +115,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
 
       const valueContainer =
         container.querySelector<HTMLDivElement>(".fb-property-value");
-      expect(valueContainer).to.be.null;
+      expect(valueContainer).toEqual(null);
     });
 
     it("does not render value if rule operator is undefined", () => {
@@ -139,7 +128,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
 
       const valueContainer =
         container.querySelector<HTMLDivElement>(".fb-property-value");
-      expect(valueContainer).to.be.null;
+      expect(valueContainer).toEqual(null);
     });
 
     it("renders value when value and operator defined", () => {
@@ -156,12 +145,12 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
 
       const valueContainer =
         container.querySelector<HTMLDivElement>(".fb-property-value");
-      expect(valueContainer).to.not.be.null;
-      expect(valueContainer!.hasChildNodes()).to.be.true;
+      expect(valueContainer).toBeTruthy();
+      expect(valueContainer!.hasChildNodes()).toEqual(true);
     });
 
     it("renders operator using provided renderer", () => {
-      const spy = sinon.spy();
+      const spy = vi.fn();
       renderWithContext(
         <PropertyFilterBuilderRuleRenderer
           {...defaultProps}
@@ -175,7 +164,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
         { ruleValueRenderer: spy }
       );
 
-      expect(spy).to.be.calledOnce;
+      expect(spy).toHaveBeenCalledOnce();
     });
 
     it("renders error message", () => {
@@ -192,14 +181,14 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
         />
       );
 
-      expect(queryByText(errorMessage)).to.not.be.null;
+      expect(queryByText(errorMessage)).toBeTruthy();
     });
   });
 
   describe("rule property", () => {
     it("renders with property renderer", () => {
-      const actions = new PropertyFilterBuilderActions(sinon.spy());
-      const propertyRendererSpy = sinon.spy();
+      const actions = new PropertyFilterBuilderActions(vi.fn());
+      const propertyRendererSpy = vi.fn();
       const { container } = renderWithContext(
         <PropertyFilterBuilderRuleRenderer {...defaultProps} />,
         { actions, properties: [defaultProperty] },
@@ -210,14 +199,14 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
       const selector = container.querySelector<HTMLInputElement>(
         ".fb-property-name input"
       );
-      expect(selector).to.not.be.null;
+      expect(selector).toBeTruthy();
       fireEvent.click(selector!);
 
-      expect(propertyRendererSpy).to.be.calledWith(defaultProperty.name);
+      expect(propertyRendererSpy).toHaveBeenCalledWith(defaultProperty.name);
     });
 
     it("opens property selector menu", () => {
-      const actions = new PropertyFilterBuilderActions(sinon.spy());
+      const actions = new PropertyFilterBuilderActions(vi.fn());
       const { container, queryByText } = renderWithContext(
         <PropertyFilterBuilderRuleRenderer {...defaultProps} />,
         { actions, properties: [defaultProperty] }
@@ -227,14 +216,14 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
       const selector = container.querySelector<HTMLInputElement>(
         ".fb-property-name input"
       );
-      expect(selector).to.not.be.null;
+      expect(selector).toBeTruthy();
       fireEvent.click(selector!);
 
-      expect(queryByText(defaultProperty.displayLabel)).to.not.be.null;
+      expect(queryByText(defaultProperty.displayLabel)).toBeTruthy();
     });
 
     it("does not open property selector menu when property selection is disabled", () => {
-      const actions = new PropertyFilterBuilderActions(sinon.spy());
+      const actions = new PropertyFilterBuilderActions(vi.fn());
       const { container, queryByText } = renderWithContext(
         <PropertyFilterBuilderRuleRenderer {...defaultProps} />,
         { actions, properties: [defaultProperty] },
@@ -245,37 +234,37 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
       const selector = container.querySelector<HTMLInputElement>(
         ".fb-property-name input"
       );
-      expect(selector).to.not.be.null;
+      expect(selector).toBeTruthy();
       fireEvent.click(selector!);
 
-      expect(queryByText(defaultProperty.displayLabel)).to.be.null;
+      expect(queryByText(defaultProperty.displayLabel)).toEqual(null);
     });
   });
 
   it("dispatches property change when property is selected", () => {
-    const actions = new PropertyFilterBuilderActions(sinon.spy());
+    const actions = new PropertyFilterBuilderActions(vi.fn());
     const { container, getByText } = renderWithContext(
       <PropertyFilterBuilderRuleRenderer {...defaultProps} />,
       { actions, properties: [defaultProperty] }
     );
-    const setRulePropertySpy = sinon.stub(actions, "setRuleProperty");
+    const setRulePropertySpy = vi.spyOn(actions, "setRuleProperty");
 
     const selector = container.querySelector<HTMLInputElement>(
       ".fb-property-name input"
     );
-    expect(selector).to.not.be.null;
+    expect(selector).toBeTruthy();
     fireEvent.click(selector!);
 
     fireEvent.click(getByText(defaultProperty.displayLabel));
-    expect(setRulePropertySpy).to.be.calledOnceWith(
+    expect(setRulePropertySpy).toHaveBeenCalledWith(
       defaultProps.path,
       defaultProperty
     );
   });
 
   it("dispatches property change with undefined property when selected property is not in properties list", () => {
-    const actions = new PropertyFilterBuilderActions(sinon.spy());
-    const setRulePropertySpy = sinon.stub(actions, "setRuleProperty");
+    const actions = new PropertyFilterBuilderActions(vi.fn());
+    const setRulePropertySpy = vi.spyOn(actions, "setRuleProperty");
     renderWithContext(
       <PropertyFilterBuilderRuleRenderer
         {...defaultProps}
@@ -288,14 +277,14 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
       { actions, properties: [] }
     );
 
-    expect(setRulePropertySpy).to.be.calledOnceWith(
+    expect(setRulePropertySpy).toHaveBeenCalledWith(
       defaultProps.path,
       undefined
     );
   });
 
   it("invokes onRulePropertySelected callback when property is selected", () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const { container, getByText } = renderWithContext(
       <PropertyFilterBuilderRuleRenderer {...defaultProps} />,
       { properties: [defaultProperty], onRulePropertySelected: spy }
@@ -304,30 +293,30 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
     const selector = container.querySelector<HTMLInputElement>(
       ".fb-property-name input"
     );
-    expect(selector).to.not.be.null;
+    expect(selector).toBeTruthy();
     fireEvent.click(selector!);
 
     fireEvent.click(getByText(defaultProperty.displayLabel));
-    expect(spy).to.be.calledOnceWith(defaultProperty);
+    expect(spy).toHaveBeenCalledWith(defaultProperty);
   });
 
   it("dispatches remove rule action", () => {
-    const actions = new PropertyFilterBuilderActions(sinon.spy());
+    const actions = new PropertyFilterBuilderActions(vi.fn());
     const { container } = renderWithContext(
       <PropertyFilterBuilderRuleRenderer {...defaultProps} />,
       { actions }
     );
-    const removeItemSpy = sinon.stub(actions, "removeItem");
+    const removeItemSpy = vi.spyOn(actions, "removeItem");
 
     const button = container.querySelector(".fb-toolbar")?.childNodes[1];
-    expect(button).to.not.be.null;
+    expect(button).toBeTruthy();
     fireEvent.click(button!);
-    expect(removeItemSpy).to.be.calledOnceWith(defaultProps.path);
+    expect(removeItemSpy).toHaveBeenCalledWith(defaultProps.path);
   });
 
   it("dispatches operator change when operator is changed", () => {
-    const actions = new PropertyFilterBuilderActions(sinon.spy());
-    const operatorRendererSpy = sinon.spy();
+    const actions = new PropertyFilterBuilderActions(vi.fn());
+    const operatorRendererSpy = vi.fn();
     renderWithContext(
       <PropertyFilterBuilderRuleRenderer
         {...defaultProps}
@@ -340,23 +329,23 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
       { actions },
       { ruleOperatorRenderer: operatorRendererSpy }
     );
-    const setRuleOperatorSpy = sinon.stub(actions, "setRuleOperator");
+    const setRuleOperatorSpy = vi.spyOn(actions, "setRuleOperator");
 
-    expect(operatorRendererSpy).to.be.calledOnce;
-    const operatorRendererProps = operatorRendererSpy.firstCall
-      .args[0] as PropertyFilterBuilderRuleOperatorProps;
+    expect(operatorRendererSpy).toHaveBeenCalledOnce();
+    const operatorRendererProps = operatorRendererSpy.mock
+      .calls[0][0] as PropertyFilterBuilderRuleOperatorProps;
     const newOperator = "is-not-null";
     operatorRendererProps.onChange(newOperator);
 
-    expect(setRuleOperatorSpy).to.be.calledOnceWith(
+    expect(setRuleOperatorSpy).toHaveBeenCalledWith(
       defaultProps.path,
       newOperator
     );
   });
 
   it("dispatches value change when value is changed", () => {
-    const actions = new PropertyFilterBuilderActions(sinon.spy());
-    const valueRendererSpy = sinon.spy();
+    const actions = new PropertyFilterBuilderActions(vi.fn());
+    const valueRendererSpy = vi.fn();
     renderWithContext(
       <PropertyFilterBuilderRuleRenderer
         {...defaultProps}
@@ -369,16 +358,16 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
       { actions },
       { ruleValueRenderer: valueRendererSpy }
     );
-    const setRuleValueSpy = sinon.stub(actions, "setRuleValue");
+    const setRuleValueSpy = vi.spyOn(actions, "setRuleValue");
 
-    expect(valueRendererSpy).to.be.calledOnce;
-    const valueRendererProps = valueRendererSpy.firstCall
-      .args[0] as PropertyFilterBuilderRuleValueProps;
+    expect(valueRendererSpy).toHaveBeenCalledOnce();
+    const valueRendererProps = valueRendererSpy.mock
+      .calls[0][0] as PropertyFilterBuilderRuleValueProps;
     const newValue: PropertyValue = {
       valueFormat: PropertyValueFormat.Primitive,
     };
     valueRendererProps.onChange(newValue);
 
-    expect(setRuleValueSpy).to.be.calledOnceWith(defaultProps.path, newValue);
+    expect(setRuleValueSpy).toHaveBeenCalledWith(defaultProps.path, newValue);
   });
 });

@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import React from "react";
-import sinon from "sinon";
 import { HSVColor } from "@itwin/core-common";
 import { fireEvent, render } from "@testing-library/react";
 import { TestUtils } from "../TestUtils";
@@ -16,11 +14,11 @@ import { SaturationPicker } from "../../imodel-components-react/color/Saturation
 describe("<SaturationPicker />", () => {
   const hsv = new HSVColor(30, 30, 30);
 
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiIModelComponents();
   });
 
-  after(() => {
+  afterEach(() => {
     TestUtils.terminateUiIModelComponents();
   });
 
@@ -44,7 +42,7 @@ describe("<SaturationPicker />", () => {
         <SaturationPicker hsv={hsv} />
       </div>
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
   });
 
   it("Use keyboard to change saturation", async () => {
@@ -68,11 +66,11 @@ describe("<SaturationPicker />", () => {
       30, 29, 30, 31, 30, 30, 0, 100, 30, 20, 30, 40, 30, 30, 0, 100,
     ];
 
-    const spyOnPick = sinon.spy();
+    const spyOnPick = vi.fn();
 
     function handleSaturationChange(newHsv: HSVColor): void {
-      expect(newHsv.s).to.be.equal(satValues[index]);
-      expect(newHsv.v).to.be.equal(vValues[index]);
+      expect(newHsv.s).toEqual(satValues[index]);
+      expect(newHsv.v).toEqual(vValues[index]);
       spyOnPick();
     }
 
@@ -85,20 +83,20 @@ describe("<SaturationPicker />", () => {
       </div>
     );
     const sliderDiv = renderedComponent.getByTestId("saturation-region");
-    expect(sliderDiv).not.to.be.null;
-    expect(sliderDiv.tagName).to.be.equal("DIV");
+    expect(sliderDiv).toBeTruthy();
+    expect(sliderDiv.tagName).toEqual("DIV");
 
     keys.forEach((keyName) => {
       fireEvent.keyDown(sliderDiv, { key: keyName });
-      expect(spyOnPick.calledOnce).to.be.true;
-      spyOnPick.resetHistory();
+      expect(spyOnPick).toHaveBeenCalledOnce();
+      spyOnPick.mockReset();
       index = index + 1;
     });
 
     keys.forEach((keyName) => {
       fireEvent.keyDown(sliderDiv, { key: keyName, ctrlKey: true });
-      expect(spyOnPick.calledOnce).to.be.true;
-      spyOnPick.resetHistory();
+      expect(spyOnPick).toHaveBeenCalledOnce();
+      spyOnPick.mockReset();
       index = index + 1;
     });
   });
@@ -107,7 +105,7 @@ describe("<SaturationPicker />", () => {
     const getBoundingClientRect = Element.prototype.getBoundingClientRect;
 
     // force getBoundingClientRect to return info we need during testing
-    before(() => {
+    beforeEach(() => {
       Element.prototype.getBoundingClientRect = () => ({
         bottom: 0,
         height: 200,
@@ -121,14 +119,14 @@ describe("<SaturationPicker />", () => {
       });
     });
 
-    after(() => {
+    afterEach(() => {
       Element.prototype.getBoundingClientRect = getBoundingClientRect;
     });
 
     it("point @0,0", () => {
       function handleSaturationChange(newHsv: HSVColor): void {
-        expect(newHsv.s).to.be.equal(0);
-        expect(newHsv.v).to.be.equal(100);
+        expect(newHsv.s).toEqual(0);
+        expect(newHsv.v).toEqual(100);
       }
 
       const renderedComponent = render(
@@ -186,8 +184,8 @@ describe("<SaturationPicker />", () => {
 
     it("point @200,200", () => {
       function handleSaturationChange(newHsv: HSVColor): void {
-        expect(newHsv.s).to.be.equal(100);
-        expect(newHsv.v).to.be.equal(0);
+        expect(newHsv.s).toEqual(100);
+        expect(newHsv.v).toEqual(0);
       }
 
       const renderedComponent = render(
@@ -212,7 +210,7 @@ describe("<SaturationPicker />", () => {
     const getBoundingClientRect = Element.prototype.getBoundingClientRect;
 
     // force getBoundingClientRect to return info we need during testing
-    before(() => {
+    beforeEach(() => {
       Element.prototype.getBoundingClientRect = () => ({
         bottom: 0,
         height: 200,
@@ -226,14 +224,14 @@ describe("<SaturationPicker />", () => {
       });
     });
 
-    after(() => {
+    afterEach(() => {
       Element.prototype.getBoundingClientRect = getBoundingClientRect;
     });
 
     it("point @0,0", () => {
       function handleSaturationChange(newHsv: HSVColor): void {
-        expect(newHsv.s).to.be.equal(0);
-        expect(newHsv.v).to.be.equal(100);
+        expect(newHsv.s).toEqual(0);
+        expect(newHsv.v).toEqual(100);
       }
 
       const renderedComponent = render(
@@ -295,8 +293,8 @@ describe("<SaturationPicker />", () => {
 
     it("point @200,200", () => {
       function handleSaturationChange(newHsv: HSVColor): void {
-        expect(newHsv.s).to.be.equal(100);
-        expect(newHsv.v).to.be.equal(0);
+        expect(newHsv.s).toEqual(100);
+        expect(newHsv.v).toEqual(0);
       }
 
       const renderedComponent = render(

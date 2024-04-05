@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import type { DefaultStatusbarItems } from "../../appui-react";
 import {
   StageUsage,
@@ -56,13 +55,13 @@ describe("StandardStatusbarUiItemsProvider", () => {
     const provider = new StandardStatusbarUiItemsProvider();
     UiItemsManager.register(provider);
 
-    expect(UiItemsManager.hasRegisteredProviders).to.be.true;
+    expect(UiItemsManager.hasRegisteredProviders).toEqual(true);
     // Activity Item is not included by default
     expect(UiItemsManager.getStatusBarItems("test", StageUsage.General)).length(
       8
     );
     UiItemsManager.unregister(provider.id);
-    expect(UiItemsManager.hasRegisteredProviders).to.be.false;
+    expect(UiItemsManager.hasRegisteredProviders).toEqual(false);
   });
 
   it("should register StandardStatusbarUiItemsProvider with no separators", () => {
@@ -77,32 +76,32 @@ describe("StandardStatusbarUiItemsProvider", () => {
     });
     UiItemsManager.register(provider);
 
-    expect(UiItemsManager.hasRegisteredProviders).to.be.true;
+    expect(UiItemsManager.hasRegisteredProviders).toEqual(true);
     expect(
       UiItemsManager.getStatusBarItems("test", StageUsage.General).length
-    ).to.eq(7);
+    ).toEqual(7);
     UiItemsManager.unregister(provider.id);
-    expect(UiItemsManager.hasRegisteredProviders).to.be.false;
+    expect(UiItemsManager.hasRegisteredProviders).toEqual(false);
   });
 
   it("should process all combinations of options", () => {
     const provider = new StandardStatusbarUiItemsProvider();
     UiItemsManager.register(provider);
 
-    expect(UiItemsManager.hasRegisteredProviders).to.be.true;
+    expect(UiItemsManager.hasRegisteredProviders).toEqual(true);
     // Activity Item is not included by default
     expect(
       UiItemsManager.getStatusBarItems("test", StageUsage.General).length
-    ).to.eq(8);
+    ).toEqual(8);
     UiItemsManager.unregister(provider.id);
 
     testArray.forEach((itemList: DefaultStatusbarItems) => {
       const local_provider = new StandardStatusbarUiItemsProvider(itemList);
       UiItemsManager.register(provider);
-      expect(UiItemsManager.hasRegisteredProviders).to.be.true;
+      expect(UiItemsManager.hasRegisteredProviders).toEqual(true);
       UiItemsManager.getStatusBarItems("test", StageUsage.General);
       UiItemsManager.unregister(local_provider.id);
-      expect(UiItemsManager.hasRegisteredProviders).to.be.false;
+      expect(UiItemsManager.hasRegisteredProviders).toEqual(false);
     });
   });
 });

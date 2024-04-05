@@ -26,7 +26,7 @@ describe("useAllowedPanelTarget", () => {
         </TestNineZoneProvider>
       ),
     });
-    result.current.should.true;
+    expect(result.current).toEqual(true);
   });
 
   it("should return `false` if dragged tab doesn't allow a panel target", () => {
@@ -43,7 +43,7 @@ describe("useAllowedPanelTarget", () => {
         </TestNineZoneProvider>
       ),
     });
-    result.current.should.false;
+    expect(result.current).toEqual(false);
   });
 
   it("should return `false` if active tab of a dragged widget doesn't allow a panel target", () => {
@@ -61,7 +61,7 @@ describe("useAllowedPanelTarget", () => {
         </TestNineZoneProvider>
       ),
     });
-    result.current.should.false;
+    expect(result.current).toEqual(false);
   });
 
   it("should return `false` if any tab of a dragged widget doesn't allow a panel target", () => {
@@ -80,6 +80,6 @@ describe("useAllowedPanelTarget", () => {
         </TestNineZoneProvider>
       ),
     });
-    result.current.should.false;
+    expect(result.current).toEqual(false);
   });
 });

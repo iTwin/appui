@@ -3,7 +3,8 @@
   "compilerOptions": {
     "esModuleInterop": true,
     "jsx": "react",
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "types": ["vitest/globals"]
   },
   "include": ["./src/**/*.ts*"]
 }

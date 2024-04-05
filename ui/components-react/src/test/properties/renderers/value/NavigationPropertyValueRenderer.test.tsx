@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { Id64 } from "@itwin/core-bentley";
 import { render } from "@testing-library/react";
 import { NavigationPropertyValueRenderer } from "../../../../components-react/properties/renderers/value/NavigationPropertyValueRenderer";
@@ -66,7 +64,7 @@ describe("NavigationPropertyValueRenderer", () => {
         "Test property"
       );
       stringProperty.links = {
-        onClick: sinon.spy(),
+        onClick: vi.fn(),
       };
 
       const element = renderer.render(stringProperty);
@@ -115,7 +113,7 @@ describe("NavigationPropertyValueRenderer", () => {
         "Category",
         instanceKey
       );
-      expect(renderer.canRender(property)).to.be.true;
+      expect(renderer.canRender(property)).toEqual(true);
     });
 
     it("returns false for properties that are not navigation", () => {
@@ -126,9 +124,9 @@ describe("NavigationPropertyValueRenderer", () => {
         "Label",
         "Model"
       );
-      expect(renderer.canRender(arrayProperty)).to.be.false;
-      expect(renderer.canRender(structProperty)).to.be.false;
-      expect(renderer.canRender(stringProperty)).to.be.false;
+      expect(renderer.canRender(arrayProperty)).toEqual(false);
+      expect(renderer.canRender(structProperty)).toEqual(false);
+      expect(renderer.canRender(stringProperty)).toEqual(false);
     });
   });
 });

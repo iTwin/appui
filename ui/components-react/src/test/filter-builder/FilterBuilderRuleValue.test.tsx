@@ -3,14 +3,12 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import * as React from "react";
-import sinon from "sinon";
 import type { PropertyDescription } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
 import { render, screen, waitFor } from "@testing-library/react";
 import { PropertyFilterBuilderRuleValue } from "../../components-react/filter-builder/FilterBuilderRuleValue";
-import TestUtils, { userEvent } from "../TestUtils";
+import { userEvent } from "../TestUtils";
 import { PropertyFilterBuilderRuleRangeValue } from "../../components-react";
 
 describe("PropertyFilterBuilderRuleValue", () => {
@@ -24,14 +22,6 @@ describe("PropertyFilterBuilderRuleValue", () => {
     displayLabel: "Prop",
     typename: "string",
   };
-
-  before(async () => {
-    await TestUtils.initializeUiComponents();
-  });
-
-  after(() => {
-    TestUtils.terminateUiComponents();
-  });
 
   it("renders string value", async () => {
     const { getByDisplayValue } = render(
@@ -60,13 +50,13 @@ describe("PropertyFilterBuilderRuleValue", () => {
     const input = container.querySelector<HTMLInputElement>(
       ".components-editor-container input"
     );
-    expect(input).to.not.be.null;
+    expect(input).toBeTruthy();
 
     expect(input?.value).to.be.empty;
   });
 
   it("calls onChange when value is changed", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     render(
       <PropertyFilterBuilderRuleValue
         property={defaultProperty}
@@ -79,7 +69,7 @@ describe("PropertyFilterBuilderRuleValue", () => {
     screen.getByRole("textbox").blur();
 
     await waitFor(() =>
-      expect(spy).to.be.calledWith({
+      expect(spy).toHaveBeenCalledWith({
         valueFormat: PropertyValueFormat.Primitive,
         value: "test text",
         displayValue: "test text",
@@ -113,8 +103,8 @@ describe("PropertyFilterBuilderRuleValue", () => {
       );
 
       await waitFor(() => {
-        expect(queryByDisplayValue("123")).to.not.be.null;
-        expect(queryByDisplayValue("456")).to.not.be.null;
+        expect(queryByDisplayValue("123")).toBeTruthy();
+        expect(queryByDisplayValue("456")).toBeTruthy();
       });
     });
 
@@ -122,7 +112,7 @@ describe("PropertyFilterBuilderRuleValue", () => {
       const serializedValue =
         PropertyFilterBuilderRuleRangeValue.serialize(value);
       const user = userEvent.setup();
-      const spy = sinon.spy();
+      const spy = vi.fn();
       const { getByDisplayValue } = render(
         <PropertyFilterBuilderRuleValue
           property={prop}
@@ -142,7 +132,7 @@ describe("PropertyFilterBuilderRuleValue", () => {
       } as PropertyFilterBuilderRuleRangeValue);
 
       await waitFor(() => {
-        expect(spy).to.be.calledWithExactly(expected);
+        expect(spy).toHaveBeenCalledWith(expected);
       });
     });
 
@@ -150,7 +140,7 @@ describe("PropertyFilterBuilderRuleValue", () => {
       const serializedValue =
         PropertyFilterBuilderRuleRangeValue.serialize(value);
       const user = userEvent.setup();
-      const spy = sinon.spy();
+      const spy = vi.fn();
       const { getByDisplayValue } = render(
         <PropertyFilterBuilderRuleValue
           property={prop}
@@ -170,7 +160,7 @@ describe("PropertyFilterBuilderRuleValue", () => {
       } as PropertyFilterBuilderRuleRangeValue);
 
       await waitFor(() => {
-        expect(spy).to.be.calledWithExactly(expected);
+        expect(spy).toHaveBeenCalledWith(expected);
       });
     });
   });

@@ -4,19 +4,13 @@
  *--------------------------------------------------------------------------------------------*/
 import type { PropertyValueFormat } from "@itwin/appui-abstract";
 import { render, screen } from "@testing-library/react";
-import { expect } from "chai";
 import * as React from "react";
-import sinon from "sinon";
 import type { IPropertyValueRenderer } from "../../components-react/properties/ValueRendererManager";
 import { PropertyValueRendererManager } from "../../components-react/properties/ValueRendererManager";
 import { UiComponents } from "../../components-react/UiComponents";
 import TestUtils from "../TestUtils";
 
 describe("PropertyValueRendererManager", () => {
-  before(async () => {
-    await TestUtils.initializeUiComponents();
-  });
-
   let fakeRenderer: IPropertyValueRenderer;
   let fakeRenderer2: IPropertyValueRenderer;
 
@@ -25,12 +19,12 @@ describe("PropertyValueRendererManager", () => {
   beforeEach(() => {
     fakeRenderer = {
       canRender: () => true,
-      render: sinon.fake(),
+      render: vi.fn(),
     };
 
     fakeRenderer2 = {
       canRender: () => true,
-      render: sinon.fake(),
+      render: vi.fn(),
     };
 
     manager = new PropertyValueRendererManager();
@@ -38,34 +32,34 @@ describe("PropertyValueRendererManager", () => {
 
   describe("registerRenderer", () => {
     it("adds renderer to the renderer list", () => {
-      expect(manager.getRegisteredRenderer("string")).to.be.undefined;
+      expect(manager.getRegisteredRenderer("string")).toEqual(undefined);
 
       manager.registerRenderer("string", fakeRenderer);
 
-      expect(manager.getRegisteredRenderer("string")).to.be.eq(fakeRenderer);
+      expect(manager.getRegisteredRenderer("string")).toEqual(fakeRenderer);
 
       manager.unregisterRenderer("string");
 
-      expect(manager.getRegisteredRenderer("string")).to.be.undefined;
+      expect(manager.getRegisteredRenderer("string")).toEqual(undefined);
     });
 
     it("throws when trying to add a renderer to a type that already has it", () => {
       manager.registerRenderer("string", fakeRenderer);
 
-      expect(manager.getRegisteredRenderer("string")).to.be.eq(fakeRenderer);
+      expect(manager.getRegisteredRenderer("string")).toEqual(fakeRenderer);
       expect(() => manager.registerRenderer("string", fakeRenderer)).to.throw();
     });
 
     it("overwrites old value when trying to add a renderer to a type that already has it and overwrite is set to true", () => {
-      expect(manager.getRegisteredRenderer("string")).to.be.undefined;
+      expect(manager.getRegisteredRenderer("string")).toEqual(undefined);
 
       manager.registerRenderer("string", fakeRenderer);
 
-      expect(manager.getRegisteredRenderer("string")).to.be.eq(fakeRenderer);
+      expect(manager.getRegisteredRenderer("string")).toEqual(fakeRenderer);
 
       manager.registerRenderer("string", fakeRenderer2, true);
 
-      expect(manager.getRegisteredRenderer("string")).to.be.eq(fakeRenderer2);
+      expect(manager.getRegisteredRenderer("string")).toEqual(fakeRenderer2);
     });
   });
 
@@ -84,8 +78,9 @@ describe("PropertyValueRendererManager", () => {
 
       rendererManager.render(record);
 
-      expect(fakeRenderer.render).to.have.been.calledOnceWith(record);
-      expect(fakeRenderer2.render).to.have.not.been.called;
+      expect(fakeRenderer.render).toHaveBeenCalledOnce();
+      expect(fakeRenderer.render).toHaveBeenCalledWith(record, undefined);
+      expect(fakeRenderer2.render).not.toBeCalled();
     });
 
     it("looks for custom renderer in property typename", () => {
@@ -100,7 +95,8 @@ describe("PropertyValueRendererManager", () => {
 
       rendererManager.render(record);
 
-      expect(fakeRenderer.render).to.have.been.calledOnceWith(record);
+      expect(fakeRenderer.render).toHaveBeenCalledOnce();
+      expect(fakeRenderer.render).toHaveBeenCalledWith(record, undefined);
     });
 
     it("renders a primitive type", () => {
@@ -171,7 +167,7 @@ describe("PropertyValueRendererManager", () => {
       render(<>{value}</>);
       expect(screen.getByText(UiComponents.translate("property.varies"))).to
         .exist;
-      expect(fakeRenderer.render).to.not.be.called;
+      expect(fakeRenderer.render).not.toBeCalled();
     });
   });
 });

@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { PropertyRecord } from "@itwin/appui-abstract";
 import { CheckBoxState } from "@itwin/core-react";
 import { render } from "@testing-library/react";
@@ -12,15 +10,11 @@ import { TreeNodeContent } from "../../../../components-react/tree/controlled/co
 import type { MutableTreeModelNode } from "../../../../components-react/tree/controlled/TreeModel";
 import type { HighlightableTreeNodeProps } from "../../../../components-react/tree/HighlightingEngine";
 import { HighlightingEngine } from "../../../../components-react/tree/HighlightingEngine";
-import { styleMatch, TestUtils } from "../../../TestUtils";
+import { styleMatch } from "../../../TestUtils";
 
 describe("NodeContent", () => {
   let node: MutableTreeModelNode;
   let nodeLabelRecord: PropertyRecord;
-
-  before(async () => {
-    await TestUtils.initializeUiComponents();
-  });
 
   beforeEach(async () => {
     nodeLabelRecord = PropertyRecord.fromString("Test label");
@@ -56,12 +50,11 @@ describe("NodeContent", () => {
     const highlightingProps: HighlightableTreeNodeProps = {
       searchText: "label",
     };
-    const spy = sinon.stub(HighlightingEngine, "renderNodeLabel");
+    const spy = vi.spyOn(HighlightingEngine, "renderNodeLabel");
 
     render(<TreeNodeContent node={node} highlightProps={highlightingProps} />);
 
-    expect(spy).to.be.called;
-    spy.restore();
+    expect(spy).toHaveBeenCalled();
   });
 
   it("updates label", () => {
@@ -100,10 +93,10 @@ describe("NodeContent", () => {
   });
 
   it("call onLabelRendered when label is rendered", () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     render(<TreeNodeContent node={node} onLabelRendered={spy} />);
 
-    expect(spy).to.be.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("renders node editor if node editing is active", () => {
@@ -122,12 +115,12 @@ describe("NodeContent", () => {
       onCancel: () => {},
       onCommit: () => {},
     };
-    const editorRendererSpy = sinon.spy();
+    const editorRendererSpy = vi.fn();
 
     render(
       <TreeNodeContent node={node} nodeEditorRenderer={editorRendererSpy} />
     );
 
-    expect(editorRendererSpy).to.be.calledOnce;
+    expect(editorRendererSpy).toHaveBeenCalledOnce();
   });
 });

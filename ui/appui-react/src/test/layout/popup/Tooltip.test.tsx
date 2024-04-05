@@ -4,9 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import type { SizeProps } from "@itwin/core-react";
 import { render, screen } from "@testing-library/react";
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import {
   offsetAndContainInContainer,
   Tooltip,
@@ -29,12 +27,12 @@ describe("<Tooltip />", () => {
   });
 
   it("should notify about size change", () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const { rerender } = render(<Tooltip onSizeChanged={spy} />);
 
-    sinon
-      .stub(Element.prototype, "getBoundingClientRect")
-      .returns(createRect(10, 1, 50, 22));
+    vi.spyOn(Element.prototype, "getBoundingClientRect").mockReturnValue(
+      createRect(10, 1, 50, 22)
+    );
 
     rerender(<Tooltip onSizeChanged={spy} position={{ x: 0, y: 0 }} />);
 
@@ -42,7 +40,8 @@ describe("<Tooltip />", () => {
       height: 21,
       width: 40,
     };
-    spy.calledOnceWithExactly(sinon.match(size)).should.true;
+    expect(spy).toHaveBeenCalledOnce();
+    expect(spy).toBeCalledWith(expect.objectContaining(size));
   });
 
   it("should offset", () => {
@@ -58,8 +57,8 @@ describe("<Tooltip />", () => {
         width: 100,
       }
     );
-    sut.x.should.eq(20);
-    sut.y.should.eq(31);
+    expect(sut.x).toEqual(20);
+    expect(sut.y).toEqual(31);
   });
 
   it("should offset and contain in container", () => {
@@ -79,7 +78,7 @@ describe("<Tooltip />", () => {
         y: 0,
       }
     );
-    sut.x.should.eq(80);
-    sut.y.should.eq(12);
+    expect(sut.x).toEqual(80);
+    expect(sut.y).toEqual(12);
   });
 });

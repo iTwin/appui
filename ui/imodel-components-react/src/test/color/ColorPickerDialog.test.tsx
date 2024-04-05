@@ -3,8 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import sinon from "sinon";
-import { expect } from "chai";
 import { fireEvent, render } from "@testing-library/react";
 import { ColorByName, ColorDef } from "@itwin/core-common";
 import { TestUtils } from "../TestUtils";
@@ -14,11 +12,11 @@ import { ColorValue } from "@itwin/itwinui-react";
 /* eslint-disable deprecation/deprecation */
 
 describe("ColorPickerDialog", () => {
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiIModelComponents();
   });
 
-  after(() => {
+  afterEach(() => {
     TestUtils.terminateUiIModelComponents();
   });
 
@@ -32,7 +30,7 @@ describe("ColorPickerDialog", () => {
           onCancelResult={() => {}}
         />
       );
-      expect(wrapper.findByText("-testing-title-")).not.to.be.null;
+      wrapper.getByText("-testing-title-");
     });
 
     it("should render with presets", () => {
@@ -53,7 +51,6 @@ describe("ColorPickerDialog", () => {
           onCancelResult={() => {}}
         />
       );
-
       defaultColors.forEach((def) => {
         wrapper.getByText(
           ColorValue.fromTbgr(def.tbgr).toHslString(true).toUpperCase()
@@ -62,7 +59,7 @@ describe("ColorPickerDialog", () => {
     });
 
     it("should trigger onCancelResult", () => {
-      const spyOnCancel = sinon.spy();
+      const spyOnCancel = vi.fn();
 
       const wrapper = render(
         <ColorPickerDialog
@@ -75,16 +72,16 @@ describe("ColorPickerDialog", () => {
       const cancelButton = wrapper.getByRole("button", {
         name: "dialog.cancel",
       });
-      expect(cancelButton).not.to.be.null;
+      expect(cancelButton).toBeTruthy();
       fireEvent.click(cancelButton);
-      expect(spyOnCancel).to.be.calledOnce;
+      expect(spyOnCancel).toHaveBeenCalledOnce();
     });
 
     it("should trigger onOkResult with initial color", () => {
-      const spyOnOK = sinon.spy();
+      const spyOnOK = vi.fn();
 
       function handleOK(color: ColorDef): void {
-        expect(color.tbgr).to.be.equal(ColorByName.blue);
+        expect(color.tbgr).toEqual(ColorByName.blue);
         spyOnOK();
       }
 
@@ -100,13 +97,13 @@ describe("ColorPickerDialog", () => {
       const okButton = wrapper.getByRole("button", {
         name: "dialog.ok",
       });
-      expect(okButton).not.to.be.null;
+      expect(okButton).toBeTruthy();
       fireEvent.click(okButton);
-      expect(spyOnOK).to.be.calledOnce;
+      expect(spyOnOK).toHaveBeenCalledOnce();
     });
 
     it("should trigger onOkResult with preset color (black)", () => {
-      const spyOnOK = sinon.spy();
+      const spyOnOK = vi.fn();
 
       const defaultColors = [
         ColorDef.create(ColorByName.black),
@@ -119,7 +116,7 @@ describe("ColorPickerDialog", () => {
       ];
 
       function handleOK(color: ColorDef): void {
-        expect(color.tbgr).to.be.equal(ColorByName.black);
+        expect(color.tbgr).toEqual(ColorByName.black);
         spyOnOK();
       }
 
@@ -144,7 +141,7 @@ describe("ColorPickerDialog", () => {
         name: "dialog.ok",
       });
       fireEvent.click(okButton);
-      expect(spyOnOK).to.be.calledOnce;
+      expect(spyOnOK).toHaveBeenCalledOnce();
     });
   });
 });

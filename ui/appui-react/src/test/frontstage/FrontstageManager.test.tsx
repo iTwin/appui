@@ -3,8 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { expect } from "chai";
-import * as sinon from "sinon";
 import * as moq from "typemoq";
 import { Provider } from "react-redux";
 import { render } from "@testing-library/react";
@@ -47,8 +45,6 @@ const propertyDescriptorToRestore = Object.getOwnPropertyDescriptor(
 )!;
 
 describe("FrontstageManager", () => {
-  const sandbox = sinon.createSandbox();
-
   beforeEach(async () => {
     Object.defineProperty(window, "sessionStorage", {
       get: () => mySessionStorage,
@@ -64,49 +60,53 @@ describe("FrontstageManager", () => {
       "sessionStorage",
       propertyDescriptorToRestore
     );
-    sandbox.restore();
   });
 
   it("initialized should return true", () => {
-    expect(InternalFrontstageManager.isInitialized).to.be.true;
+    expect(InternalFrontstageManager.isInitialized).toEqual(true);
   });
 
   it("findWidget should return undefined when no active frontstage", async () => {
     await InternalFrontstageManager.setActiveFrontstageDef(undefined);
-    expect(InternalFrontstageManager.findWidget("xyz")).to.be.undefined;
+    expect(InternalFrontstageManager.findWidget("xyz")).toEqual(undefined);
   });
   it("setActiveFrontstage should set active frontstage", async () => {
     const frontstageProvider = new TestFrontstage();
     InternalFrontstageManager.addFrontstageProvider(frontstageProvider);
-    expect(InternalFrontstageManager.hasFrontstage(frontstageProvider.id)).to.be
-      .true;
+    expect(
+      InternalFrontstageManager.hasFrontstage(frontstageProvider.id)
+    ).toEqual(true);
     const frontstageDef = await InternalFrontstageManager.getFrontstageDef(
       frontstageProvider.id
     );
 
-    expect(frontstageDef).to.not.be.undefined;
-    expect(InternalFrontstageManager.hasFrontstage(frontstageDef!.id)).to.be
-      .true;
+    expect(frontstageDef).toBeTruthy();
+    expect(InternalFrontstageManager.hasFrontstage(frontstageDef!.id)).toEqual(
+      true
+    );
     await InternalFrontstageManager.setActiveFrontstage(frontstageDef!.id);
-    expect(InternalFrontstageManager.activeFrontstageId).to.eq(
+    expect(InternalFrontstageManager.activeFrontstageId).toEqual(
       frontstageDef!.id
     );
   });
 
   it("getFronstageDef should return active frontstage when no id provided", async () => {
     const activeFrontstageDef = new FrontstageDef();
-    sinon
-      .stub(UiFramework.frontstages, "activeFrontstageDef")
-      .get(() => activeFrontstageDef);
+    vi.spyOn(
+      UiFramework.frontstages,
+      "activeFrontstageDef",
+      "get"
+    ).mockImplementation(() => activeFrontstageDef);
 
     const frontstageDef = await InternalFrontstageManager.getFrontstageDef();
 
-    expect(frontstageDef).to.eq(activeFrontstageDef);
+    expect(frontstageDef).toEqual(activeFrontstageDef);
   });
 
   it("hasFrontstage returns false if the fronstage is not found", () => {
-    expect(InternalFrontstageManager.hasFrontstage(undefined as any)).to.be
-      .false;
+    expect(InternalFrontstageManager.hasFrontstage(undefined as any)).toEqual(
+      false
+    );
   });
 
   it("setActiveModalFrontstage from backstage item", async () => {
@@ -122,22 +122,22 @@ describe("FrontstageManager", () => {
         handleFrontstageCloseRequested
       );
 
-    expect(InternalFrontstageManager.activeModalFrontstage).to.be.undefined;
+    expect(InternalFrontstageManager.activeModalFrontstage).toEqual(undefined);
     const backstageItem = SettingsModalFrontstage.getBackstageActionItem(
       100,
       10
     );
     backstageItem.execute();
-    expect(InternalFrontstageManager.activeModalFrontstage).to.not.be.undefined;
+    expect(InternalFrontstageManager.activeModalFrontstage).toBeTruthy();
     InternalFrontstageManager.closeModalFrontstage();
     await TestUtils.flushAsyncOperations();
 
-    expect(InternalFrontstageManager.activeModalFrontstage).to.be.undefined;
+    expect(InternalFrontstageManager.activeModalFrontstage).toEqual(undefined);
     removeListener();
   });
 
   it("should emit onFrontstageRestoreLayoutEvent", async () => {
-    const spy = sinon.spy(
+    const spy = vi.spyOn(
       InternalFrontstageManager.onFrontstageRestoreLayoutEvent,
       "emit"
     );
@@ -148,34 +148,34 @@ describe("FrontstageManager", () => {
       frontstageProvider.id
     );
 
-    expect(InternalFrontstageManager.activeModalFrontstage).to.be.undefined;
-    expect(frontstageDef).to.not.be.undefined;
+    expect(InternalFrontstageManager.activeModalFrontstage).toEqual(undefined);
+    expect(frontstageDef).toBeTruthy();
     if (frontstageDef) {
       await InternalFrontstageManager.setActiveFrontstage(frontstageDef.id);
-      expect(InternalFrontstageManager.activeFrontstageId).to.eq(
+      expect(InternalFrontstageManager.activeFrontstageId).toEqual(
         frontstageDef.id
       );
 
       const tool = new RestoreFrontstageLayoutTool();
       await tool.parseAndRun(frontstageDef.id);
-      spy.calledOnce.should.true;
-      spy.resetHistory();
+      expect(spy).toHaveBeenCalledOnce();
+      spy.mockReset();
 
       // call without id to use active stage
       await tool.parseAndRun();
-      spy.calledOnce.should.true;
-      spy.resetHistory();
+      expect(spy).toHaveBeenCalledOnce();
+      spy.mockReset();
 
       // call without invalid id
       await tool.parseAndRun("bad-id");
-      spy.calledOnce.should.false;
+      expect(spy).not.toBeCalled();
     }
   });
 
   it("setActiveFrontstage should log Error on invalid id", async () => {
-    const spyMethod = sinon.spy(Logger, "logError");
+    const spy = vi.spyOn(Logger, "logError");
     await InternalFrontstageManager.setActiveFrontstage("xyz");
-    spyMethod.calledOnce.should.true;
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("setActiveFrontstage should set active frontstage", async () => {
@@ -185,15 +185,15 @@ describe("FrontstageManager", () => {
       frontstageProvider.id
     );
 
-    expect(frontstageDef).to.not.be.undefined;
+    expect(frontstageDef).toBeTruthy();
     if (frontstageDef) {
       // make sure zones defined by new names are properly placed into the proper spot in frontstageDef
-      expect(frontstageDef.contentManipulation).not.to.be.undefined;
-      expect(frontstageDef.toolSettings).not.to.be.undefined;
-      expect(frontstageDef.statusBar).not.to.be.undefined;
-      expect(frontstageDef.viewNavigation).to.be.undefined;
+      expect(frontstageDef.contentManipulation).toBeTruthy();
+      expect(frontstageDef.toolSettings).toBeTruthy();
+      expect(frontstageDef.statusBar).toBeTruthy();
+      expect(frontstageDef.viewNavigation).toEqual(undefined);
       await InternalFrontstageManager.setActiveFrontstage(frontstageDef.id);
-      expect(InternalFrontstageManager.activeFrontstageId).to.eq(
+      expect(InternalFrontstageManager.activeFrontstageId).toEqual(
         frontstageDef.id
       );
     }
@@ -207,11 +207,13 @@ describe("FrontstageManager", () => {
     );
 
     await InternalFrontstageManager.setActiveFrontstageDef(frontstageDef);
-    expect(InternalFrontstageManager.activeFrontstageDef).to.eq(frontstageDef);
+    expect(InternalFrontstageManager.activeFrontstageDef).toEqual(
+      frontstageDef
+    );
 
     await InternalFrontstageManager.deactivateFrontstageDef();
-    expect(InternalFrontstageManager.activeFrontstageDef).to.be.undefined;
-    expect(InternalFrontstageManager.activeFrontstageId).to.eq("");
+    expect(InternalFrontstageManager.activeFrontstageDef).toEqual(undefined);
+    expect(InternalFrontstageManager.activeFrontstageId).toEqual("");
   });
 
   it("setActiveContentGroup should setActiveLayout if layout found", async () => {
@@ -221,34 +223,37 @@ describe("FrontstageManager", () => {
       layout: { id: "1" },
     });
     const layoutDef = new ContentLayoutDef({ id: "1" });
-    sinon.stub(UiFramework.content.layouts, "getForGroup").returns(layoutDef);
-    const spy = sinon.stub(InternalFrontstageManager, "setActiveLayout");
+    vi.spyOn(UiFramework.content.layouts, "getForGroup").mockReturnValue(
+      layoutDef
+    );
+    const spy = vi.spyOn(InternalFrontstageManager, "setActiveLayout");
     await InternalFrontstageManager.setActiveContentGroup(contentGroup);
-    expect(spy).to.have.been.calledWithExactly(layoutDef, contentGroup);
+    expect(spy).toHaveBeenCalledWith(layoutDef, contentGroup);
   });
 
   it("setWidgetState returns false on invalid id", () => {
-    expect(InternalFrontstageManager.setWidgetState("xyz", WidgetState.Closed))
-      .to.be.false;
+    expect(
+      InternalFrontstageManager.setWidgetState("xyz", WidgetState.Closed)
+    ).toEqual(false);
   });
 
   it("setWidgetState apply state on widgetDef", () => {
     const stubbedWidget = {
-      setWidgetState: sinon.spy(),
+      setWidgetState: vi.fn(),
     };
-    sinon
-      .stub(UiFramework.frontstages, "findWidget")
-      .withArgs("xyz")
-      .returns(stubbedWidget as any);
-    expect(InternalFrontstageManager.setWidgetState("xyz", WidgetState.Closed))
-      .to.be.true;
-    expect(stubbedWidget.setWidgetState).to.calledWithExactly(
+    vi.spyOn(UiFramework.frontstages, "findWidget").mockReturnValue(
+      stubbedWidget as any
+    );
+    expect(
+      InternalFrontstageManager.setWidgetState("xyz", WidgetState.Closed)
+    ).toEqual(true);
+    expect(stubbedWidget.setWidgetState).toHaveBeenCalledWith(
       WidgetState.Closed
     );
   });
 
   it("findWidget returns undefined on invalid id", () => {
-    expect(InternalFrontstageManager.findWidget("xyz")).to.be.undefined;
+    expect(InternalFrontstageManager.findWidget("xyz")).toEqual(undefined);
   });
 
   it("findWidget returns the widget from the active frontstage def", async () => {
@@ -260,7 +265,7 @@ describe("FrontstageManager", () => {
 
     await InternalFrontstageManager.setActiveFrontstageDef(frontstageDef);
 
-    expect(InternalFrontstageManager.findWidget("widget3")).to.not.be.undefined;
+    expect(InternalFrontstageManager.findWidget("widget3")).toBeTruthy();
     await InternalFrontstageManager.deactivateFrontstageDef();
   });
 
@@ -271,7 +276,7 @@ describe("FrontstageManager", () => {
     const frontstageDef = await InternalFrontstageManager.getFrontstageDef(
       frontstageProvider.id
     );
-    expect(frontstageDef).to.not.be.undefined;
+    expect(frontstageDef).toBeTruthy();
     expect(InternalFrontstageManager.frontstageDefs.has(frontstageProvider.id));
   });
 
@@ -311,10 +316,8 @@ describe("FrontstageManager", () => {
     it("CoreTools.selectElementCommand", async () => {
       const item = CoreTools.selectElementCommand;
       item.execute();
-      setImmediate(async () => {
-        await TestUtils.flushAsyncOperations();
-        expect(InternalFrontstageManager.activeToolId).to.eq(item.toolId);
-      });
+      await TestUtils.flushAsyncOperations();
+      expect(InternalFrontstageManager.activeToolId).toEqual(item.toolId);
     });
 
     it("trigger tool settings reload", () => {
@@ -328,9 +331,11 @@ describe("FrontstageManager", () => {
         new ConfigurableCreateInfo("test", "test", "test"),
         undefined
       );
-      sinon
-        .stub(InternalFrontstageManager, "activeToolSettingsProvider")
-        .get(() => activeToolSettingsProvider);
+      vi.spyOn(
+        InternalFrontstageManager,
+        "activeToolSettingsProvider",
+        "get"
+      ).mockImplementation(() => activeToolSettingsProvider);
 
       UiFramework.toolSettings.onReloadToolSettingsProperties.emit();
     });
@@ -342,13 +347,13 @@ describe("FrontstageManager", () => {
       imodelConnectionMock
         .setup((x) => x.iModelId)
         .returns(() => "dummyImodelId");
-      sinon
-        .stub(UiFramework, "getIModelConnection")
-        .get(() => imodelConnectionMock.object);
+      vi.spyOn(UiFramework, "getIModelConnection").mockImplementation(
+        () => imodelConnectionMock.object
+      );
     });
 
     it("mouse moves should be handled for frontstage tracking", async () => {
-      const fakeTimers = sandbox.useFakeTimers();
+      vi.useFakeTimers();
       render(
         <Provider store={TestUtils.store}>
           <ThemeManager>
@@ -361,7 +366,7 @@ describe("FrontstageManager", () => {
         "uifw-configurableui-wrapper"
       )!;
 
-      const spy = sinon.spy();
+      const spy = vi.fn();
       InternalFrontstageManager.onFrontstageDeactivatedEvent.addListener(spy);
 
       const frontstageProvider = new TestFrontstage3();
@@ -370,17 +375,16 @@ describe("FrontstageManager", () => {
         frontstageProvider.id
       );
       await InternalFrontstageManager.setActiveFrontstageDef(frontstageDef);
-      expect(InternalFrontstageManager.activeFrontstageDef).to.eq(
+      expect(InternalFrontstageManager.activeFrontstageDef).toEqual(
         frontstageDef
       );
 
-      fakeTimers.tick(200);
+      vi.advanceTimersByTime(200);
 
       divContainer.dispatchEvent(
         new MouseEvent("mousemove", {
           bubbles: true,
           cancelable: true,
-          view: window,
           buttons: 1,
         })
       );
@@ -388,18 +392,16 @@ describe("FrontstageManager", () => {
         new MouseEvent("mousemove", {
           bubbles: true,
           cancelable: true,
-          view: window,
           buttons: 1,
         })
       );
 
-      fakeTimers.tick(200);
+      vi.advanceTimersByTime(200);
 
       divContainer.dispatchEvent(
         new MouseEvent("mousemove", {
           bubbles: true,
           cancelable: true,
-          view: window,
           buttons: 1,
         })
       );
@@ -407,14 +409,13 @@ describe("FrontstageManager", () => {
         new MouseEvent("mousemove", {
           bubbles: true,
           cancelable: true,
-          view: window,
           buttons: 1,
         })
       );
 
       await InternalFrontstageManager.deactivateFrontstageDef();
-      expect(InternalFrontstageManager.activeFrontstageDef).to.be.undefined;
-      sinon.assert.calledOnce(spy);
+      expect(InternalFrontstageManager.activeFrontstageDef).toEqual(undefined);
+      expect(spy).toHaveBeenCalledOnce();
     });
   });
 
@@ -427,8 +428,8 @@ describe("FrontstageManager", () => {
 
     it("should set nineZoneSize", () => {
       InternalFrontstageManager.nineZoneSize = new Size(10, 20);
-      InternalFrontstageManager.nineZoneSize.width.should.eq(10);
-      InternalFrontstageManager.nineZoneSize.height.should.eq(20);
+      expect(InternalFrontstageManager.nineZoneSize.width).toEqual(10);
+      expect(InternalFrontstageManager.nineZoneSize.height).toEqual(20);
     });
   });
 });

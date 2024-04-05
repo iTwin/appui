@@ -4,7 +4,6 @@
  *--------------------------------------------------------------------------------------------*/
 import { Point, Rectangle, Size } from "@itwin/core-react";
 import * as React from "react";
-import * as sinon from "sinon";
 import {
   DragManager,
   DragManagerContext,
@@ -27,7 +26,7 @@ export interface TestNineZoneProviderProps
 export function TestNineZoneProvider(props: TestNineZoneProviderProps) {
   const { children, dragManagerRef, ...otherProps } = props;
   const [layout] = React.useState(() => createLayoutStore(props.defaultState));
-  const [dispatch] = React.useState(() => sinon.stub());
+  const [dispatch] = React.useState(() => vi.fn());
   const [measure] = React.useState(() => () => new Rectangle());
   return (
     <NineZoneProvider

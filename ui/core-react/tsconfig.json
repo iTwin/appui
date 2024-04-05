@@ -3,8 +3,8 @@
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "jsx": "react",
-    "types": ["sinon-chai", "chai-as-promised", "mocha"],
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "types": ["vitest/globals"]
   },
   "include": ["./src/**/*.ts*"]
 }

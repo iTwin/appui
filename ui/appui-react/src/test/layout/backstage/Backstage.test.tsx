@@ -3,10 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
-import type { BackstageProps } from "../../../appui-react/layout/backstage/Backstage";
 import { Backstage } from "../../../appui-react/layout/backstage/Backstage";
 import { selectorMatches, userEvent } from "../Utils";
 import { SafeAreaInsets } from "../../../appui-react";
@@ -64,41 +61,41 @@ describe("<Backstage />", () => {
   });
 
   it("should add event listener", () => {
-    const addEventListenerSpy = sinon.spy(document, "addEventListener");
+    const spy = vi.spyOn(document, "addEventListener");
 
     render(<Backstage />);
-    addEventListenerSpy.calledOnce.should.true;
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should remove event listener", () => {
-    const removeEventListenerSpy = sinon.spy(document, "removeEventListener");
+    const spy = vi.spyOn(document, "removeEventListener");
     const { unmount } = render(<Backstage />);
     unmount();
 
-    removeEventListenerSpy.calledOnce.should.true;
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should handle overlay click events", async () => {
-    const spy = sinon.stub<Required<BackstageProps>["onClose"]>();
+    const spy = vi.fn();
     render(<Backstage onClose={spy} />);
 
     await theUserTo.click(screen.getByRole("presentation"));
-    spy.calledOnce.should.true;
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should handle escape key down close event", async () => {
-    const spy = sinon.stub<Required<BackstageProps>["onClose"]>();
+    const spy = vi.fn();
     render(<Backstage isOpen onClose={spy} />);
 
     await theUserTo.keyboard("[Escape]");
-    spy.calledOnce.should.true;
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should handle other key down close event", async () => {
-    const spy = sinon.stub<Required<BackstageProps>["onClose"]>();
+    const spy = vi.fn();
     render(<Backstage isOpen onClose={spy} />);
 
     await theUserTo.keyboard("[Enter]abcd");
-    spy.calledOnce.should.false;
+    expect(spy).not.toBeCalled();
   });
 });

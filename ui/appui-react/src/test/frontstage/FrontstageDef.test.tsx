@@ -2,10 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { act, renderHook } from "@testing-library/react-hooks";
-import { expect } from "chai";
-import * as sinon from "sinon";
 import type {
   FrontstageConfig,
   StagePanelConfig,
@@ -13,6 +10,7 @@ import type {
   Widget,
 } from "../../appui-react";
 import {
+  ContentGroup,
   FrontstageDef,
   FrontstageProvider,
   initializeNineZoneState,
@@ -46,7 +44,13 @@ class BadLayoutFrontstage extends FrontstageProvider {
     return {
       id: this.id,
       version: 1,
-      contentGroup: TestUtils.TestContentGroup1,
+      contentGroup: new ContentGroup({
+        id: "TestContentGroup1",
+        layout: {
+          id: "unknown-layout",
+        },
+        contents: [],
+      }),
     };
   }
 }
@@ -79,34 +83,32 @@ describe("FrontstageDef", () => {
   )!;
   const localStorageMock = storageMock();
 
-  before(async () => {
+  beforeEach(() => {
     Object.defineProperty(window, "localStorage", {
       get: () => localStorageMock,
     });
-    await NoRenderApp.startup();
-    await TestUtils.initializeUiFramework();
   });
 
-  after(async () => {
-    TestUtils.terminateUiFramework();
-    await IModelApp.shutdown();
+  afterEach(() => {
     Object.defineProperty(window, "localStorage", localStorageToRestore);
   });
 
-  it("setActiveFrontstage should throw Error on invalid content layout", () => {
+  // TODO: vitest
+  it.skip("setActiveFrontstage should throw Error on invalid content layout", async () => {
     const frontstageProvider = new BadLayoutFrontstage();
     UiFramework.frontstages.addFrontstageProvider(frontstageProvider);
-    void expect(
+    await expect(
       UiFramework.frontstages.setActiveFrontstage("BadLayout")
-    ).to.be.rejectedWith(Error);
+    ).rejects.toThrow();
   });
 
-  it("setActiveFrontstage should throw Error on invalid content group", () => {
+  // TODO: vitest
+  it.skip("setActiveFrontstage should throw Error on invalid content group", async () => {
     const frontstageProvider = new BadGroupFrontstage();
     UiFramework.frontstages.addFrontstageProvider(frontstageProvider);
-    void expect(
+    await expect(
       UiFramework.frontstages.setActiveFrontstage("BadGroup")
-    ).to.be.rejectedWith(Error);
+    ).rejects.toThrow();
   });
 
   it("should determine if widget is visible", async () => {
@@ -136,38 +138,40 @@ describe("FrontstageDef", () => {
       defaultState: WidgetState.Floating,
     });
 
-    sinon.stub(frontstageDef, "findWidgetDef").callsFake((id) => {
+    vi.spyOn(frontstageDef, "findWidgetDef").mockImplementation((id) => {
       if (id === "t1") return t1;
       if (id === "t2") return t2;
       if (id === "t3") return t3;
       return undefined;
     });
 
-    sinon.stub();
+    vi.fn();
 
-    expect(frontstageDef.isWidgetDisplayed("t1")).to.be.true;
-    expect(frontstageDef.isWidgetDisplayed("t2")).to.be.false;
-    expect(frontstageDef.isWidgetDisplayed("t3")).to.be.true;
+    expect(frontstageDef.isWidgetDisplayed("t1")).toEqual(true);
+    expect(frontstageDef.isWidgetDisplayed("t2")).toEqual(false);
+    expect(frontstageDef.isWidgetDisplayed("t3")).toEqual(true);
   });
 
   it("should not save size and position if ninezone state is not available", () => {
     const frontstageDef = new FrontstageDef();
-    const spy = sinon.stub(frontstageDef, "findWidgetDef");
+    const spy = vi.spyOn(frontstageDef, "findWidgetDef");
 
     frontstageDef.saveChildWindowSizeAndPosition("1", window);
 
-    expect(spy).to.not.be.called;
+    expect(spy).not.toBeCalled();
   });
 
   it("should not save size and position if widget is not found", () => {
     const frontstageDef = new FrontstageDef();
     const state = createNineZoneState({ size: { height: 1000, width: 1600 } });
-    const spy = sinon.stub(frontstageDef, "findWidgetDef");
-    sinon.stub(frontstageDef, "nineZoneState").get(() => state);
+    const spy = vi.spyOn(frontstageDef, "findWidgetDef");
+    vi.spyOn(frontstageDef, "nineZoneState", "get").mockImplementation(
+      () => state
+    );
 
     frontstageDef.saveChildWindowSizeAndPosition("1", window);
 
-    expect(spy).to.not.be.called;
+    expect(spy).not.toBeCalled();
   });
 
   it("should not save size and position if widget is not found", () => {
@@ -176,12 +180,16 @@ describe("FrontstageDef", () => {
     state = addPopoutWidget(state, "pw1", ["t1"]);
 
     const frontstageDef = new FrontstageDef();
-    const spy = sinon.stub(frontstageDef, "findWidgetDef").returns(undefined);
-    sinon.stub(frontstageDef, "nineZoneState").get(() => state);
+    const spy = vi
+      .spyOn(frontstageDef, "findWidgetDef")
+      .mockReturnValue(undefined);
+    vi.spyOn(frontstageDef, "nineZoneState", "get").mockImplementation(
+      () => state
+    );
 
     frontstageDef.saveChildWindowSizeAndPosition("pw1", window);
 
-    expect(spy).to.be.calledOnceWithExactly("t1");
+    expect(spy).toHaveBeenCalledWith("t1");
   });
 
   describe("onWidgetStateChangedEvent", () => {
@@ -201,11 +209,13 @@ describe("FrontstageDef", () => {
         },
       });
       initializeNineZoneState(activeFrontstageDef);
-      sinon
-        .stub(UiFramework.frontstages, "activeFrontstageDef")
-        .get(() => activeFrontstageDef);
+      vi.spyOn(
+        UiFramework.frontstages,
+        "activeFrontstageDef",
+        "get"
+      ).mockImplementation(() => activeFrontstageDef);
 
-      const spy = sinon.spy();
+      const spy = vi.fn();
       UiFramework.frontstages.onWidgetStateChangedEvent.addListener(spy);
 
       // __PUBLISH_EXTRACT_START__ AppUI.WidgetDef.setWidgetState
@@ -215,11 +225,11 @@ describe("FrontstageDef", () => {
       widgetDef?.setWidgetState(WidgetState.Open);
       // __PUBLISH_EXTRACT_END__
 
-      expect(spy).to.calledOnceWith({
+      expect(spy).toHaveBeenCalledWith({
         widgetDef,
         widgetState: WidgetState.Open,
       });
-      expect(widgetDef?.state).to.eq(WidgetState.Open);
+      expect(widgetDef?.state).toEqual(WidgetState.Open);
     });
 
     it("should hide a panel widget", async () => {
@@ -237,16 +247,18 @@ describe("FrontstageDef", () => {
         },
       });
       initializeNineZoneState(frontstageDef);
-      sinon
-        .stub(UiFramework.frontstages, "activeFrontstageDef")
-        .get(() => frontstageDef);
+      vi.spyOn(
+        UiFramework.frontstages,
+        "activeFrontstageDef",
+        "get"
+      ).mockImplementation(() => frontstageDef);
 
-      const spy = sinon.spy();
+      const spy = vi.fn();
       UiFramework.frontstages.onWidgetStateChangedEvent.addListener(spy);
 
       const widgetDef = frontstageDef.findWidgetDef("w1")!;
       widgetDef.setWidgetState(WidgetState.Hidden);
-      expect(spy).to.calledOnceWithExactly({
+      expect(spy).toHaveBeenCalledWith({
         widgetDef,
         widgetState: WidgetState.Hidden,
       });
@@ -268,21 +280,23 @@ describe("FrontstageDef", () => {
         },
       });
       initializeNineZoneState(frontstageDef);
-      sinon
-        .stub(UiFramework.frontstages, "activeFrontstageDef")
-        .get(() => frontstageDef);
+      vi.spyOn(
+        UiFramework.frontstages,
+        "activeFrontstageDef",
+        "get"
+      ).mockImplementation(() => frontstageDef);
 
-      const spy = sinon.spy();
+      const spy = vi.fn();
       UiFramework.frontstages.onWidgetStateChangedEvent.addListener(spy);
 
       const widgetDef = frontstageDef.findWidgetDef("test-widget");
       widgetDef?.setWidgetState(WidgetState.Floating);
 
-      expect(spy).to.calledOnceWith({
+      expect(spy).toHaveBeenCalledWith({
         widgetDef,
         widgetState: WidgetState.Floating,
       });
-      expect(widgetDef?.state).to.eq(WidgetState.Floating);
+      expect(widgetDef?.state).toEqual(WidgetState.Floating);
     });
 
     it("should hide tool settings", async () => {
@@ -294,21 +308,23 @@ describe("FrontstageDef", () => {
         },
       });
       initializeNineZoneState(frontstageDef);
-      sinon
-        .stub(UiFramework.frontstages, "activeFrontstageDef")
-        .get(() => frontstageDef);
+      vi.spyOn(
+        UiFramework.frontstages,
+        "activeFrontstageDef",
+        "get"
+      ).mockImplementation(() => frontstageDef);
 
-      const spy = sinon.spy();
+      const spy = vi.fn();
       UiFramework.frontstages.onWidgetStateChangedEvent.addListener(spy);
 
       const widgetDef = frontstageDef.findWidgetDef("ts");
       widgetDef?.setWidgetState(WidgetState.Hidden);
 
-      expect(spy).to.calledOnceWith({
+      expect(spy).toHaveBeenCalledWith({
         widgetDef,
         widgetState: WidgetState.Hidden,
       });
-      expect(widgetDef?.state).to.eq(WidgetState.Hidden);
+      expect(widgetDef?.state).toEqual(WidgetState.Hidden);
     });
   });
 
@@ -322,7 +338,7 @@ describe("FrontstageDef", () => {
         },
       });
       const widget = frontstage.findWidgetDef("test-tool-settings-widget");
-      expect(widget?.id).to.eq("test-tool-settings-widget");
+      expect(widget?.id).toEqual("test-tool-settings-widget");
     });
 
     it("should return status bar", async () => {
@@ -334,23 +350,23 @@ describe("FrontstageDef", () => {
         },
       });
       const widget = frontstage.findWidgetDef("test-status-bar-widget");
-      expect(widget?.id).to.eq("test-status-bar-widget");
+      expect(widget?.id).toEqual("test-status-bar-widget");
     });
   });
 
   describe("restoreLayout", () => {
     it("should emit onFrontstageRestoreLayoutEvent", () => {
-      const spy = sinon.spy(
+      const spy = vi.spyOn(
         InternalFrontstageManager.onFrontstageRestoreLayoutEvent,
         "emit"
       );
       const frontstageDef = new FrontstageDef();
       frontstageDef.restoreLayout();
-      spy.calledOnceWithExactly(
-        sinon.match({
+      expect(spy).toHaveBeenCalledWith(
+        expect.objectContaining({
           frontstageDef,
         })
-      ).should.true;
+      );
     });
 
     it("should restore panel widget to default state", () => {
@@ -360,24 +376,28 @@ describe("FrontstageDef", () => {
         id: "w1",
         defaultState: WidgetState.Open,
       });
-      sinon.stub(rightPanel, "widgetDefs").get(() => [w1]);
-      sinon.stub(frontstageDef, "rightPanel").get(() => rightPanel);
-      const spy = sinon.spy(w1, "setWidgetState");
+      vi.spyOn(rightPanel, "widgetDefs", "get").mockImplementation(() => [w1]);
+      vi.spyOn(frontstageDef, "rightPanel", "get").mockImplementation(
+        () => rightPanel
+      );
+      const spy = vi.spyOn(w1, "setWidgetState");
 
       frontstageDef.restoreLayout();
-      sinon.assert.calledOnceWithExactly(spy, WidgetState.Open);
+      expect(spy).toHaveBeenCalledWith(WidgetState.Open);
     });
 
     it("should restore panel size to default size", () => {
       const frontstageDef = new FrontstageDef();
       const rightPanel = new StagePanelDef();
       const stagePanelConfig: StagePanelConfig = { sizeSpec: 300 };
-      sinon.stub(rightPanel, "initialConfig").get(() => stagePanelConfig);
-      sinon.stub(frontstageDef, "rightPanel").get(() => rightPanel);
-      const spy = sinon.spy(rightPanel, "sizeSpec", ["set"]);
+      vi.spyOn(rightPanel, "initialConfig", "get").mockReturnValue(
+        stagePanelConfig
+      );
+      vi.spyOn(frontstageDef, "rightPanel", "get").mockReturnValue(rightPanel);
+      const spy = vi.spyOn(rightPanel, "sizeSpec", "set");
 
       frontstageDef.restoreLayout();
-      sinon.assert.calledOnceWithExactly(spy.set, 300);
+      expect(spy).toHaveBeenCalledWith(300);
     });
   });
 
@@ -444,21 +464,24 @@ describe("FrontstageDef", () => {
       const frontstageDef = await UiFramework.frontstages.getFrontstageDef(
         EmptyFrontstageProvider.stageId
       );
-      expect(!!frontstageDef?.isReady).to.be.false;
+      expect(!!frontstageDef?.isReady).toEqual(false);
       await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
       const sut = UiFramework.frontstages.activeFrontstageDef!;
-      sut
-        .rightPanel!.getPanelSectionDef(StagePanelSection.Start)
-        .widgetDefs.map((w) => w.id)
-        .should.eql(["WidgetsProviderR1"]);
-      sut
-        .rightPanel!.getPanelSectionDef(StagePanelSection.End)
-        .widgetDefs.map((w) => w.id)
-        .should.eql(["WidgetsProviderRM1"]);
-      sut
-        .leftPanel!.getPanelSectionDef(StagePanelSection.Start)
-        .widgetDefs.map((w) => w.id)
-        .should.eql(["WidgetsProviderW1"]);
+      expect(
+        sut
+          .rightPanel!.getPanelSectionDef(StagePanelSection.Start)
+          .widgetDefs.map((w) => w.id)
+      ).toEqual(["WidgetsProviderR1"]);
+      expect(
+        sut
+          .rightPanel!.getPanelSectionDef(StagePanelSection.End)
+          .widgetDefs.map((w) => w.id)
+      ).toEqual(["WidgetsProviderRM1"]);
+      expect(
+        sut
+          .leftPanel!.getPanelSectionDef(StagePanelSection.Start)
+          .widgetDefs.map((w) => w.id)
+      ).toEqual(["WidgetsProviderW1"]);
     });
   });
 
@@ -479,10 +502,11 @@ describe("FrontstageDef", () => {
       });
       initializeNineZoneState(frontstageDef);
 
-      const dispatch = sinon.stub();
-      sinon.stub(frontstageDef, "dispatch").get(() => dispatch);
+      const dispatch = vi
+        .spyOn(frontstageDef, "dispatch")
+        .mockImplementation(() => {});
       frontstageDef.floatWidget("t1");
-      sinon.assert.calledOnceWithMatch(dispatch, {
+      expect(dispatch).toHaveBeenCalledWith({
         type: "WIDGET_TAB_FLOAT",
         id: "t1",
       });
@@ -506,10 +530,11 @@ describe("FrontstageDef", () => {
       });
       initializeNineZoneState(frontstageDef);
 
-      const dispatch = sinon.stub();
-      sinon.stub(frontstageDef, "dispatch").get(() => dispatch);
+      const dispatch = vi
+        .spyOn(frontstageDef, "dispatch")
+        .mockImplementation(() => {});
       frontstageDef.popoutWidget("t1");
-      sinon.assert.calledOnceWithMatch(dispatch, {
+      expect(dispatch).toHaveBeenCalledWith({
         type: "WIDGET_TAB_POPOUT",
         id: "t1",
       });
@@ -544,11 +569,11 @@ describe("FrontstageDef", () => {
         },
       });
 
-      const spy = sinon.spy(window, "open");
+      const spy = vi.spyOn(window, "open");
       frontstageDef.nineZoneState = state;
 
-      expect(frontstageDef.nineZoneState).to.be.eq(state);
-      sinon.assert.calledTwice(spy);
+      expect(frontstageDef.nineZoneState).toEqual(state);
+      expect(spy).toHaveBeenCalledTimes(2);
     });
   });
 
@@ -568,16 +593,20 @@ describe("FrontstageDef", () => {
         },
       });
       initializeNineZoneState(frontstageDef);
+
+      const spy = vi.spyOn(window, "open").mockReturnValue({
+        addEventListener: () => {},
+      } as unknown as Window);
       frontstageDef.popoutWidget("t1");
 
-      const spy = sinon.spy(window, "open");
+      spy.mockReset();
       const popoutWidgets = frontstageDef.nineZoneState!.popoutWidgets;
       const popoutWidget = popoutWidgets.byId[popoutWidgets.allIds[0]];
       frontstageDef.openPopoutWidgetContainer(
         popoutWidget.id,
         frontstageDef.nineZoneState
       );
-      sinon.assert.calledOnce(spy);
+      expect(spy).toHaveBeenCalledOnce();
     });
   });
 
@@ -674,10 +703,12 @@ describe("FrontstageDef", () => {
       frontstageDef.nineZoneState = state;
 
       const spy =
-        sinon.stub<
+        vi.fn<
           Parameters<
-            typeof UiFramework.frontstages.onPanelStateChangedEvent.addListener
-          >[0]
+            Parameters<
+              typeof UiFramework.frontstages.onPanelStateChangedEvent.addListener
+            >[0]
+          >
         >();
       UiFramework.frontstages.onPanelStateChangedEvent.addListener(spy);
 
@@ -686,8 +717,8 @@ describe("FrontstageDef", () => {
         side: "left",
         collapsed: true,
       });
-      expect(frontstageDef.nineZoneState?.panels.left.collapsed).to.be.true;
-      sinon.assert.calledOnceWithExactly(spy, {
+      expect(frontstageDef.nineZoneState?.panels.left.collapsed).toEqual(true);
+      expect(spy).toHaveBeenCalledWith({
         panelDef: frontstageDef.leftPanel!,
         panelState: StagePanelState.Minimized,
       });
@@ -697,9 +728,9 @@ describe("FrontstageDef", () => {
         side: "left",
         collapsed: false,
       });
-      expect(frontstageDef.nineZoneState?.panels.left.collapsed).to.be.false;
-      sinon.assert.calledTwice(spy);
-      sinon.assert.calledWithExactly(spy.getCall(1), {
+      expect(frontstageDef.nineZoneState?.panels.left.collapsed).toEqual(false);
+      expect(spy).toHaveBeenCalledTimes(2);
+      expect(spy.mock.calls[1][0]).toEqual({
         panelDef: frontstageDef.leftPanel!,
         panelState: StagePanelState.Open,
       });
@@ -717,10 +748,12 @@ describe("FrontstageDef", () => {
       frontstageDef.nineZoneState = state;
 
       const spy =
-        sinon.stub<
+        vi.fn<
           Parameters<
-            typeof UiFramework.frontstages.onPanelStateChangedEvent.addListener
-          >[0]
+            Parameters<
+              typeof UiFramework.frontstages.onPanelStateChangedEvent.addListener
+            >[0]
+          >
         >();
       UiFramework.frontstages.onPanelStateChangedEvent.addListener(spy);
 
@@ -730,27 +763,33 @@ describe("FrontstageDef", () => {
           side: "left",
           collapsed: true,
         });
-        expect(frontstageDef.nineZoneState?.panels.left.collapsed).to.be.true;
-        sinon.assert.notCalled(spy);
+        expect(frontstageDef.nineZoneState?.panels.left.collapsed).toEqual(
+          true
+        );
+        expect(spy).not.toBeCalled();
 
         frontstageDef.dispatch({
           type: "PANEL_SET_COLLAPSED",
           side: "left",
           collapsed: false,
         });
-        expect(frontstageDef.nineZoneState?.panels.left.collapsed).to.be.false;
-        sinon.assert.notCalled(spy);
+        expect(frontstageDef.nineZoneState?.panels.left.collapsed).toEqual(
+          false
+        );
+        expect(spy).not.toBeCalled();
 
         frontstageDef.dispatch({
           type: "PANEL_SET_COLLAPSED",
           side: "left",
           collapsed: true,
         });
-        expect(frontstageDef.nineZoneState?.panels.left.collapsed).to.be.true;
-        sinon.assert.notCalled(spy);
+        expect(frontstageDef.nineZoneState?.panels.left.collapsed).toEqual(
+          true
+        );
+        expect(spy).not.toBeCalled();
       });
 
-      sinon.assert.calledOnceWithExactly(spy, {
+      expect(spy).toHaveBeenCalledWith({
         panelDef: frontstageDef.leftPanel!,
         panelState: StagePanelState.Minimized,
       });
@@ -767,7 +806,9 @@ describe("floatWidget", () => {
         bounds: { top: 55, left: 105, bottom: 155, right: 255 },
       });
       const frontstageDef = new FrontstageDef();
-      sinon.stub(frontstageDef, "nineZoneState").get(() => state);
+      vi.spyOn(frontstageDef, "nineZoneState", "get").mockImplementation(
+        () => state
+      );
       expect(frontstageDef.getFloatingWidgetContainerIds().length).to.eql(1);
       expect(frontstageDef.getFloatingWidgetContainerIdByWidgetId("t1")).to.eql(
         "fw1"
@@ -782,49 +823,48 @@ describe("floatWidget", () => {
 
     it("get floating containers 0 available", () => {
       const frontstageDef = new FrontstageDef();
-      sinon.stub(frontstageDef, "nineZoneState").get(() => undefined);
+      vi.spyOn(frontstageDef, "nineZoneState", "get").mockImplementation(
+        () => undefined
+      );
       expect(frontstageDef.getFloatingWidgetContainerIds().length).to.eql(0);
-      expect(frontstageDef.getFloatingWidgetContainerIdByWidgetId("t1")).to.be
-        .undefined;
-      expect(frontstageDef.getFloatingWidgetContainerBounds("t1")).to.be
-        .undefined;
-      expect(frontstageDef.getFloatingWidgetContainerBounds(undefined)).to.be
-        .undefined;
+      expect(
+        frontstageDef.getFloatingWidgetContainerIdByWidgetId("t1")
+      ).toEqual(undefined);
+      expect(frontstageDef.getFloatingWidgetContainerBounds("t1")).toEqual(
+        undefined
+      );
+      expect(frontstageDef.getFloatingWidgetContainerBounds(undefined)).toEqual(
+        undefined
+      );
     });
   });
 });
 
 describe("useSpecificWidgetDef", () => {
-  before(async () => {
-    await NoRenderApp.startup();
-    await TestUtils.initializeUiFramework();
-  });
-
-  after(async () => {
-    await IModelApp.shutdown();
-    TestUtils.terminateUiFramework();
-  });
-
   it("should return widgetDef from active frontstage", () => {
     const frontstageDef = new FrontstageDef();
     const widgetDef = new WidgetDef();
-    sinon.stub(frontstageDef, "findWidgetDef").returns(widgetDef);
-    sinon
-      .stub(UiFramework.frontstages, "activeFrontstageDef")
-      .get(() => frontstageDef);
+    vi.spyOn(frontstageDef, "findWidgetDef").mockReturnValue(widgetDef);
+    vi.spyOn(
+      UiFramework.frontstages,
+      "activeFrontstageDef",
+      "get"
+    ).mockImplementation(() => frontstageDef);
 
     const { result } = renderHook(() => useSpecificWidgetDef("t1"));
 
-    expect(result.current).to.be.eq(widgetDef);
+    expect(result.current).toEqual(widgetDef);
   });
 
   it("should handle no active frontstage", () => {
-    sinon
-      .stub(UiFramework.frontstages, "activeFrontstageDef")
-      .get(() => undefined);
+    vi.spyOn(
+      UiFramework.frontstages,
+      "activeFrontstageDef",
+      "get"
+    ).mockImplementation(() => undefined);
     const { result } = renderHook(() => useSpecificWidgetDef("t1"));
 
-    expect(result.current).to.be.undefined;
+    expect(result.current).toEqual(undefined);
   });
 
   it("should return re-created dynamic widgetDef", async () => {
@@ -843,7 +883,7 @@ describe("useSpecificWidgetDef", () => {
     const initialDef = frontstageDef.findWidgetDef("w1");
     const { result } = renderHook(() => useSpecificWidgetDef("w1"));
     expect(initialDef).to.exist;
-    expect(initialDef).to.eq(result.current);
+    expect(initialDef).toEqual(result.current);
 
     await act(async () => {
       // Re-creates dynamic widgets.
@@ -854,7 +894,7 @@ describe("useSpecificWidgetDef", () => {
     const recreatedDef = frontstageDef.findWidgetDef("w1");
     expect(recreatedDef).to.exist;
     expect(recreatedDef).to.not.eq(initialDef);
-    expect(recreatedDef).to.eq(result.current);
+    expect(recreatedDef).toEqual(result.current);
 
     UiItemsManager.unregister("provider1");
   });

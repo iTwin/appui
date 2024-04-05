@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
-import { expect } from "chai";
 import * as React from "react";
-import sinon from "sinon";
 import {
   NonPrimitivePropertyLabelRenderer,
   PrimitivePropertyLabelRenderer,
@@ -83,7 +81,7 @@ describe("NonPrimitivePropertyLabelRenderer  ", () => {
   });
 
   it("calls onExpand when label gets clicked while collapsed", async () => {
-    const onExpand = sinon.spy();
+    const onExpand = vi.fn();
 
     render(
       <NonPrimitivePropertyLabelRenderer
@@ -97,11 +95,11 @@ describe("NonPrimitivePropertyLabelRenderer  ", () => {
 
     await theUserTo.click(screen.getByRole("presentation"));
 
-    expect(onExpand.calledOnce).to.be.true;
+    expect(onExpand).toHaveBeenCalledOnce();
   });
 
   it("calls onCollapse when label gets clicked while expanded", async () => {
-    const onCollapse = sinon.spy();
+    const onCollapse = vi.fn();
 
     render(
       <NonPrimitivePropertyLabelRenderer
@@ -115,6 +113,6 @@ describe("NonPrimitivePropertyLabelRenderer  ", () => {
 
     await theUserTo.click(screen.getByRole("presentation"));
 
-    expect(onCollapse.calledOnce).to.be.true;
+    expect(onCollapse).toHaveBeenCalledOnce();
   });
 });

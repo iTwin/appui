@@ -47,7 +47,9 @@ describe("TabTarget", () => {
         <Wrapper defaultState={state} widgetId="w1" {...props} />
       ),
     });
-    container.getElementsByClassName("nz-target-tabTarget").length.should.eq(1);
+    expect(
+      container.getElementsByClassName("nz-target-tabTarget")
+    ).toHaveLength(1);
   });
 
   it("should return `false` if any tab of a dragged widget doesn't allow the panel that houses the tab", () => {
@@ -66,7 +68,7 @@ describe("TabTarget", () => {
         </TestNineZoneProvider>
       ),
     });
-    result.current.should.false;
+    expect(result.current).toEqual(false);
   });
 
   it("should return `false` if dragged tab doesn't allow the tab's panel target", () => {
@@ -83,7 +85,7 @@ describe("TabTarget", () => {
         </TestNineZoneProvider>
       ),
     });
-    result.current.should.false;
+    expect(result.current).toEqual(false);
   });
   it("should return `false` if any tab of a dragged widget doesn't allow the tab's panel target", () => {
     let state = createNineZoneState();
@@ -102,6 +104,6 @@ describe("TabTarget", () => {
         </TestNineZoneProvider>
       ),
     });
-    result.current.should.false;
+    expect(result.current).toEqual(false);
   });
 });

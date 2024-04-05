@@ -14,8 +14,8 @@ describe("WidgetOutline", () => {
     const { container } = render(<WidgetOutline />, {
       wrapper,
     });
-    container
-      .getElementsByClassName("nz-outline-widgetOutline")
-      .length.should.eq(1);
+    expect(
+      container.getElementsByClassName("nz-outline-widgetOutline")
+    ).toHaveLength(1);
   });
 });

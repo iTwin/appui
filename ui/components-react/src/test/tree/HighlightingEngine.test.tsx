@@ -3,7 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { render } from "@testing-library/react";
-import { expect } from "chai";
 import * as React from "react";
 import { HighlightingEngine } from "../../components-react/tree/HighlightingEngine";
 import { selectorMatches } from "../TestUtils";
@@ -17,7 +16,7 @@ describe("HighlightingEngine", () => {
     it("just returns text if searchText is empty", () => {
       const text = "This is a test";
       const searchText = "";
-      expect(HighlightingEngine.renderNodeLabel(text, { searchText })).to.eq(
+      expect(HighlightingEngine.renderNodeLabel(text, { searchText })).toEqual(
         text
       );
     });
@@ -55,7 +54,7 @@ describe("HighlightingEngine", () => {
     it("sets correct searchText", () => {
       const searchText = "test";
       const he = new HighlightingEngine({ searchText });
-      expect(he.createRenderProps(simulateNode("id")).searchText).to.eq(
+      expect(he.createRenderProps(simulateNode("id")).searchText).toEqual(
         searchText
       );
     });
@@ -66,8 +65,9 @@ describe("HighlightingEngine", () => {
         searchText,
         activeMatch: { nodeId: "a", matchIndex: 1 },
       });
-      expect(he.createRenderProps(simulateNode("b")).activeMatchIndex).to.be
-        .undefined;
+      expect(he.createRenderProps(simulateNode("b")).activeMatchIndex).toEqual(
+        undefined
+      );
     });
 
     it("sets activeResultIndex to correct value when node id matches id in activeMatch", () => {
@@ -76,7 +76,9 @@ describe("HighlightingEngine", () => {
         searchText,
         activeMatch: { nodeId: "a", matchIndex: 1 },
       });
-      expect(he.createRenderProps(simulateNode("a")).activeMatchIndex).to.eq(1);
+      expect(he.createRenderProps(simulateNode("a")).activeMatchIndex).toEqual(
+        1
+      );
     });
   });
 });

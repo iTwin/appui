@@ -2,9 +2,15 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-const fs = require("fs");
-const path = require("path");
-fs.copyFileSync(
-  path.join(__dirname, "setup-tests.js"),
-  path.join(process.cwd(), "lib", "cjs", "test", "setup.js")
-);
+window.HTMLElement.prototype.scrollIntoView = () => {};
+
+global.DOMMatrix = class DOMMatrix {
+  public m41 = 0;
+  public m42 = 0;
+
+  constructor() {}
+} as unknown as typeof DOMMatrix;
+
+afterEach(() => {
+  vi.useRealTimers();
+});

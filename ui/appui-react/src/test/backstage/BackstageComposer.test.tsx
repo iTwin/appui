@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import type { BackstageItem, UiItemsProvider } from "../../appui-react";
 import {
   BackstageComposer,
@@ -14,7 +12,7 @@ import {
   UiItemsManager,
   useGroupedItems,
 } from "../../appui-react";
-import TestUtils, { selectorMatches, userEvent } from "../TestUtils";
+import { selectorMatches, userEvent } from "../TestUtils";
 import {
   getActionItem,
   getStageLauncherItem,
@@ -93,16 +91,8 @@ class TestUiItemsProvider implements UiItemsProvider {
 }
 
 describe("BackstageComposer", () => {
-  before(async () => {
-    await TestUtils.initializeUiFramework();
-  });
-
   beforeEach(() => {
     TestUiItemsProvider.sampleStatusVisible = true;
-  });
-
-  after(() => {
-    TestUtils.terminateUiFramework();
   });
 
   it("should render", async () => {
@@ -118,13 +108,13 @@ describe("BackstageComposer", () => {
 
   it("should close the backstage", async () => {
     const theUserTo = userEvent.setup();
-    const spy = sinon.spy(UiFramework.backstage, "close");
+    const spy = vi.spyOn(UiFramework.backstage, "close");
     render(<BackstageComposer items={[]} />);
     UiFramework.backstage.open();
 
     await theUserTo.click(screen.getByRole("presentation"));
 
-    expect(spy).to.have.been.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should render backstage separators", async () => {
@@ -151,7 +141,9 @@ describe("BackstageComposer", () => {
     expect(screen.getByRole("menuitem", { name: "Custom Label" })).to.satisfy(
       selectorMatches(":only-child")
     );
-    expect(screen.queryByRole("menuitem", { name: "Stage Label" })).to.be.null;
+    expect(screen.queryByRole("menuitem", { name: "Stage Label" })).toEqual(
+      null
+    );
     rerender(<BackstageComposer items={items} />);
     expect(screen.getByRole("menuitem", { name: "Custom Label" })).to.exist;
     expect(screen.getByRole("menuitem", { name: "Stage Label" })).to.exist;
@@ -186,8 +178,12 @@ describe("BackstageComposer", () => {
     expect(screen.getByRole("menuitem", { name: "Updated Label" })).to.satisfy(
       selectorMatches(":only-child")
     );
-    expect(screen.queryByRole("menuitem", { name: "Custom Label" })).to.be.null;
-    expect(screen.queryByRole("menuitem", { name: "Stage Label" })).to.be.null;
+    expect(screen.queryByRole("menuitem", { name: "Custom Label" })).toEqual(
+      null
+    );
+    expect(screen.queryByRole("menuitem", { name: "Stage Label" })).toEqual(
+      null
+    );
   });
 
   it("should honor addon items", async () => {
@@ -212,20 +208,24 @@ describe("BackstageComposer", () => {
     expect(screen.getByRole("menuitem", { name: "Action" })).to.exist;
     expect(screen.getByRole("menuitem", { name: "Stage" })).to.exist;
     expect(screen.getByRole("menuitem", { name: "Dynamic Action 1" })).to.exist;
-    expect(screen.queryByRole("menuitem", { name: "Dynamic Action 2" })).to.be
-      .null;
+    expect(
+      screen.queryByRole("menuitem", { name: "Dynamic Action 2" })
+    ).toEqual(null);
     expect(screen.getByRole("menuitem", { name: "Dynamic Action 3" })).to.exist;
 
     act(() => UiItemsManager.unregister(uiProvider.id));
     // await TestUtils.flushAsyncOperations();
     expect(screen.getByRole("menuitem", { name: "Action" })).to.exist;
     expect(screen.getByRole("menuitem", { name: "Stage" })).to.exist;
-    expect(screen.queryByRole("menuitem", { name: "Dynamic Action 1" })).to.be
-      .null;
-    expect(screen.queryByRole("menuitem", { name: "Dynamic Action 2" })).to.be
-      .null;
-    expect(screen.queryByRole("menuitem", { name: "Dynamic Action 3" })).to.be
-      .null;
+    expect(
+      screen.queryByRole("menuitem", { name: "Dynamic Action 1" })
+    ).toEqual(null);
+    expect(
+      screen.queryByRole("menuitem", { name: "Dynamic Action 2" })
+    ).toEqual(null);
+    expect(
+      screen.queryByRole("menuitem", { name: "Dynamic Action 3" })
+    ).toEqual(null);
   });
 
   it("should filter out duplicate items", async () => {

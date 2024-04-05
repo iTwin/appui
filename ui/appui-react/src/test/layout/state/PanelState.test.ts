@@ -11,10 +11,14 @@ import {
 
 describe("isHorizontalPanelState", () => {
   it("returns true based on side property", () => {
-    isHorizontalPanelState(createHorizontalPanelState("top")).should.true;
+    expect(isHorizontalPanelState(createHorizontalPanelState("top"))).toEqual(
+      true
+    );
   });
 
   it("returns false based on side property", () => {
-    isHorizontalPanelState(createVerticalPanelState("left")).should.false;
+    expect(isHorizontalPanelState(createVerticalPanelState("left"))).toEqual(
+      false
+    );
   });
 });

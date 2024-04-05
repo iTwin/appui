@@ -3,31 +3,25 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { fireEvent, render, screen } from "@testing-library/react";
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import userEvent from "@testing-library/user-event";
 import type { RatioChangeResult } from "../../core-react/elementseparator/ElementSeparator";
 import { ElementSeparator } from "../../core-react/elementseparator/ElementSeparator";
 import { Orientation } from "../../core-react/enums/Orientation";
 import { classesFromElement } from "../TestUtils";
+import type { Mock } from "vitest";
 
 describe("ElementSeparator", () => {
-  let clock: sinon.SinonFakeTimers;
   let theUserTo: ReturnType<typeof userEvent.setup>;
   const throttleMs = 16;
   beforeEach(() => {
-    clock = sinon.useFakeTimers({ now: Date.now() });
+    vi.useFakeTimers();
     theUserTo = userEvent.setup({
       advanceTimers: (delay) => {
-        clock.tick(delay);
+        vi.advanceTimersByTime(delay);
       },
       delay: throttleMs,
     });
-  });
-
-  afterEach(() => {
-    clock.restore();
   });
 
   enum TestCallbackType {
@@ -81,18 +75,18 @@ describe("ElementSeparator", () => {
     const testCaseName = TestCallbackType[callbackType];
     describe(`Callback indifferent tests: ${testCaseName}`, () => {
       let onRatioChanged:
-        | sinon.SinonSpy<[number], void>
-        | sinon.SinonSpy<[number], RatioChangeResult>;
+        | Mock<[number], void>
+        | Mock<[number], RatioChangeResult>;
 
       beforeEach(() => {
         switch (callbackType) {
           case TestCallbackType.Uncontrolled:
-            onRatioChanged = sinon.spy((_: number) => {
+            onRatioChanged = vi.fn((_: number) => {
               return;
             });
             return;
           case TestCallbackType.Controlled:
-            onRatioChanged = sinon.spy((ratio: number) => ({ ratio }));
+            onRatioChanged = vi.fn((ratio: number) => ({ ratio }));
             return;
           default:
             const unhandledType: never = callbackType;
@@ -115,9 +109,8 @@ describe("ElementSeparator", () => {
           { coords: { x: 70 } },
         ]);
 
-        expect(onRatioChanged.callCount).to.be.equal(1);
-        expect(onRatioChanged.calledWith(0.7), "Called with wrong argument").to
-          .be.true;
+        expect(onRatioChanged).toHaveBeenCalledTimes(1);
+        expect(onRatioChanged).toHaveBeenCalledWith(0.7);
       });
 
       it("calls onRatioChanged when it gets dragged vertically", async () => {
@@ -135,9 +128,8 @@ describe("ElementSeparator", () => {
           { coords: { y: 70 } },
         ]);
 
-        expect(onRatioChanged.callCount).to.be.equal(1);
-        expect(onRatioChanged.calledWith(0.7), "Called with wrong argument").to
-          .be.true;
+        expect(onRatioChanged).toHaveBeenCalledTimes(1);
+        expect(onRatioChanged).toHaveBeenCalledWith(0.7);
       });
 
       it("calls onRatioChanged when it gets dragged 1px", async () => {
@@ -155,13 +147,13 @@ describe("ElementSeparator", () => {
           { coords: { x: 51 } },
         ]);
 
-        expect(onRatioChanged.callCount).to.be.equal(1);
+        expect(onRatioChanged).toHaveBeenCalledTimes(1);
       });
 
       it("calls onRatioChanged only once when moved multiple times in the same throttle frame", async () => {
         theUserTo = userEvent.setup({
           advanceTimers: (delay) => {
-            clock.tick(delay);
+            vi.advanceTimersByTime(delay);
           },
           delay: 1,
         });
@@ -180,10 +172,10 @@ describe("ElementSeparator", () => {
           { coords: { x: 80 } },
         ]);
 
-        clock.tick(throttleMs);
+        vi.advanceTimersByTime(throttleMs);
 
-        expect(onRatioChanged.callCount).to.be.equal(1);
-        expect(onRatioChanged.calledWith(0.8)).to.be.true;
+        expect(onRatioChanged).toHaveBeenCalledTimes(1);
+        expect(onRatioChanged).toHaveBeenCalledWith(0.8);
       });
 
       it("stops calling onRatioChanged when dragging stops", async () => {
@@ -201,7 +193,7 @@ describe("ElementSeparator", () => {
           { coords: { x: 70 } },
         ]);
 
-        expect(onRatioChanged.callCount).to.be.equal(1);
+        expect(onRatioChanged).toHaveBeenCalledTimes(1);
 
         await theUserTo.pointer([
           { keys: "[/MouseLeft]" },
@@ -209,9 +201,9 @@ describe("ElementSeparator", () => {
         ]);
 
         expect(
-          onRatioChanged.callCount,
+          onRatioChanged,
           "Called when dragging stopped"
-        ).to.be.equal(1);
+        ).toHaveBeenCalledOnce();
       });
 
       it("does not call onRatioChanged when dragging without movableArea set", async () => {
@@ -228,7 +220,7 @@ describe("ElementSeparator", () => {
           { coords: { x: 70 } },
         ]);
 
-        expect(onRatioChanged.callCount).to.be.equal(0);
+        expect(onRatioChanged).toHaveBeenCalledTimes(0);
       });
 
       it("stops calling onRatioChanged when pointerdown event happens while still dragging", async () => {
@@ -246,7 +238,7 @@ describe("ElementSeparator", () => {
           { coords: { x: 70 } },
         ]);
 
-        expect(onRatioChanged.callCount).to.be.equal(1);
+        expect(onRatioChanged).toHaveBeenCalledTimes(1);
 
         // This is not an interaction that user-events allow or physically make any sense,
         // you cant press your mouse button while it's pressed, but the code have a case for it.
@@ -259,9 +251,9 @@ describe("ElementSeparator", () => {
         ]);
 
         expect(
-          onRatioChanged.callCount,
+          onRatioChanged,
           "Called when dragging stopped"
-        ).to.be.equal(1);
+        ).toHaveBeenCalledOnce();
       });
 
       it("should not have hover classes when element created", () => {
@@ -309,7 +301,7 @@ describe("ElementSeparator", () => {
       });
 
       it("should call onResizeHandleHoverChanged when pointer enters or leaves", async () => {
-        const onHoverChanged = sinon.spy();
+        const onHoverChanged = vi.fn();
 
         render(
           <ElementSeparator
@@ -322,16 +314,20 @@ describe("ElementSeparator", () => {
         );
 
         await theUserTo.hover(getButton());
-        expect(onHoverChanged.calledOnce, "Was not called on pointer enter").to
-          .be.true;
+        expect(
+          onHoverChanged,
+          "Was not called on pointer enter"
+        ).toHaveBeenCalledOnce();
 
         await theUserTo.unhover(getButton());
-        expect(onHoverChanged.calledTwice, "Was not called on pointer leave").to
-          .be.true;
+        expect(
+          onHoverChanged,
+          "Was not called on pointer leave"
+        ).toHaveBeenCalledTimes(2);
       });
 
       it("should call isResizeHandleBeingDragged when pointer down or up", async () => {
-        const onDragChanged = sinon.spy();
+        const onDragChanged = vi.fn();
 
         render(
           <ElementSeparator
@@ -345,15 +341,15 @@ describe("ElementSeparator", () => {
 
         await theUserTo.pointer({ keys: "[MouseLeft>]", target: getButton() });
         expect(
-          onDragChanged.callCount,
+          onDragChanged,
           "Was not called on pointer down"
-        ).to.be.equal(1);
+        ).toHaveBeenCalledOnce();
 
         await theUserTo.pointer({ keys: "[/MouseLeft]" });
         expect(
-          onDragChanged.callCount,
+          onDragChanged,
           "Was not called on pointer up"
-        ).to.be.equal(2);
+        ).toHaveBeenCalledTimes(2);
       });
 
       it("should have hover class when group is hovered", () => {
@@ -492,9 +488,9 @@ describe("ElementSeparator", () => {
         ]);
 
         expect(
-          onRatioChanged.callCount,
+          onRatioChanged,
           "Called when position did not change on x axis"
-        ).to.be.equal(0);
+        ).not.toBeCalled();
       });
 
       it("should not call callback if orientation vertical and position on y axis does not change", async () => {
@@ -512,9 +508,9 @@ describe("ElementSeparator", () => {
           { coords: { y: 50, x: 70 } },
         ]);
         expect(
-          onRatioChanged.callCount,
+          onRatioChanged,
           "Called when position did not change on y axis"
-        ).to.be.equal(0);
+        ).not.toBeCalled();
       });
     });
   }
@@ -523,7 +519,7 @@ describe("ElementSeparator", () => {
   setupElementSeparatorCallbackIndifferentTests(TestCallbackType.Uncontrolled);
 
   it("should update ratio if ratio not changed but element hovered", async () => {
-    const onRatioChanged = sinon.spy(() => ({ ratio: 0.5 }));
+    const onRatioChanged = vi.fn(() => ({ ratio: 0.5 }));
 
     render(
       <ElementSeparator
@@ -538,16 +534,16 @@ describe("ElementSeparator", () => {
       { keys: "[MouseLeft>]", target: getButton(), coords: { x: 50 } },
       { coords: { x: 70 } },
     ]);
-    expect(onRatioChanged.callCount).to.be.equal(1);
+    expect(onRatioChanged).toHaveBeenCalledTimes(1);
 
     await theUserTo.unhover(getButton());
     await theUserTo.pointer({ target: getButton(), coords: { x: 90 } });
-    expect(onRatioChanged.callCount).to.be.equal(2);
+    expect(onRatioChanged).toHaveBeenCalledTimes(2);
   });
 
   it("should call drag stop callback when unmounted while being dragged", async () => {
-    const onRatioChanged = sinon.spy(() => ({ ratio: 0.5 }));
-    const onResizeHandleDragChangedSpy = sinon.spy();
+    const onRatioChanged = vi.fn(() => ({ ratio: 0.5 }));
+    const onResizeHandleDragChangedSpy = vi.fn();
 
     const { unmount } = render(
       <ElementSeparator
@@ -566,30 +562,30 @@ describe("ElementSeparator", () => {
       target: getButton(),
       coords: { x: 50 },
     });
-    expect(onResizeHandleDragChangedSpy.callCount).to.be.equal(1);
+    expect(onResizeHandleDragChangedSpy).toHaveBeenCalledTimes(1);
 
     await theUserTo.pointer({ coords: { x: 70 } });
     expect(
-      onRatioChanged.callCount,
+      onRatioChanged,
       "First ratio change should always be called"
-    ).to.be.equal(1);
+    ).toHaveBeenCalledOnce();
 
     await theUserTo.pointer({ coords: { x: 90 } });
     expect(
-      onRatioChanged.callCount,
+      onRatioChanged,
       "Called ratio change when it was not hovered and update was not needed"
-    ).to.be.equal(1);
+    ).toHaveBeenCalledOnce();
 
-    expect(onResizeHandleDragChangedSpy.callCount).to.be.equal(1);
+    expect(onResizeHandleDragChangedSpy).toHaveBeenCalledTimes(1);
 
     unmount();
 
-    expect(onResizeHandleDragChangedSpy.callCount).to.be.equal(2);
+    expect(onResizeHandleDragChangedSpy).toHaveBeenCalledTimes(2);
   });
 
   it("should call hover stop callback when unmounted while being hovered", async () => {
-    const onRatioChanged = sinon.spy(() => ({ ratio: 0.5 }));
-    const onResizeHandleHoverChanged = sinon.spy();
+    const onRatioChanged = vi.fn(() => ({ ratio: 0.5 }));
+    const onResizeHandleHoverChanged = vi.fn();
 
     const { unmount } = render(
       <ElementSeparator
@@ -605,10 +601,10 @@ describe("ElementSeparator", () => {
 
     await theUserTo.hover(getButton());
 
-    expect(onResizeHandleHoverChanged.callCount).to.be.equal(1);
+    expect(onResizeHandleHoverChanged).toHaveBeenCalledTimes(1);
 
     unmount();
 
-    expect(onResizeHandleHoverChanged.callCount).to.be.equal(2);
+    expect(onResizeHandleHoverChanged).toHaveBeenCalledTimes(2);
   });
 });

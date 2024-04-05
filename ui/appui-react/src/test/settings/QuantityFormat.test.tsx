@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import {
   act,
   fireEvent,
@@ -21,17 +19,11 @@ import { ModalDialogRenderer } from "../../appui-react/dialog/ModalDialogManager
 import { UiFramework } from "../../appui-react/UiFramework";
 
 describe("QuantityFormatSettingsPage", () => {
-  const sandbox = sinon.createSandbox();
-
   beforeEach(async () => {
     await IModelApp.quantityFormatter.reinitializeFormatAndParsingsMaps(
       new Map<UnitSystemKey, Map<QuantityTypeKey, FormatProps>>(),
       "imperial"
     );
-  });
-
-  afterEach(() => {
-    sandbox.restore();
   });
 
   stubScrollIntoView();
@@ -40,7 +32,7 @@ describe("QuantityFormatSettingsPage", () => {
     const settingsEntry = getQuantityFormatsSettingsManagerEntry(10);
     expect(settingsEntry.itemPriority).to.eql(10);
 
-    const spy = sandbox.spy(IModelApp.quantityFormatter, "setActiveUnitSystem");
+    const spy = vi.spyOn(IModelApp.quantityFormatter, "setActiveUnitSystem");
 
     const wrapper = render(settingsEntry.page);
 
@@ -60,23 +52,23 @@ describe("QuantityFormatSettingsPage", () => {
     fireEvent.click(
       within(menu()).getByText("presentationUnitSystem.BritishImperial")
     );
-    sinon.assert.callCount(spy, 0);
+    expect(spy).not.toBeCalled();
 
     fireEvent.click(comboBox);
     fireEvent.click(within(menu()).getByText("presentationUnitSystem.Metric"));
-    sinon.assert.callCount(spy, 1);
+    expect(spy).toHaveBeenCalledOnce();
 
     fireEvent.click(comboBox);
     fireEvent.click(
       within(menu()).getByText("presentationUnitSystem.USCustomary")
     );
-    sinon.assert.callCount(spy, 2);
+    expect(spy).toHaveBeenCalledTimes(2);
 
     fireEvent.click(comboBox);
     fireEvent.click(
       within(menu()).getByText("presentationUnitSystem.USSurvey")
     );
-    sinon.assert.callCount(spy, 3);
+    expect(spy).toHaveBeenCalledTimes(3);
   });
 
   it("will listen for external unit system changes", async () => {
@@ -121,7 +113,7 @@ describe("QuantityFormatSettingsPage", () => {
 
     const dataValueSelector = `li[data-value='QuantityTypeEnumValue-7']`;
     const categoryEntry = wrapper.container.querySelector(dataValueSelector);
-    expect(categoryEntry).not.to.be.null;
+    expect(categoryEntry).toBeTruthy();
     fireEvent.click(categoryEntry!);
     await TestUtils.flushAsyncOperations();
     expect(categoryList!.getAttribute("data-value")).to.eql(
@@ -153,28 +145,28 @@ describe("QuantityFormatSettingsPage", () => {
     const setButton = wrapper.getByRole("button", {
       name: "settings.quantity-formatting.setButtonLabel",
     });
-    expect(setButton.hasAttribute("aria-disabled")).to.be.true;
+    expect(setButton.hasAttribute("aria-disabled")).toEqual(true);
 
     const clearButton = wrapper.getByRole("button", {
       name: "settings.quantity-formatting.clearButtonLabel",
     });
-    expect(clearButton.hasAttribute("aria-disabled")).to.be.true;
+    expect(clearButton.hasAttribute("aria-disabled")).toEqual(true);
 
     const checkbox = wrapper.getByTestId("show-unit-label-checkbox");
     fireEvent.click(checkbox);
     await waitFor(() => {
-      expect(setButton.hasAttribute("aria-disabled")).to.be.false;
+      expect(setButton.hasAttribute("aria-disabled")).toEqual(false);
     });
 
     fireEvent.click(setButton);
     await waitFor(() => {
-      expect(setButton.hasAttribute("aria-disabled")).to.be.true;
+      expect(setButton.hasAttribute("aria-disabled")).toEqual(true);
     });
-    expect(clearButton.hasAttribute("aria-disabled")).to.be.false;
+    expect(clearButton.hasAttribute("aria-disabled")).toEqual(false);
 
     fireEvent.click(clearButton);
     await waitFor(() => {
-      expect(clearButton.hasAttribute("aria-disabled")).to.be.true;
+      expect(clearButton.hasAttribute("aria-disabled")).toEqual(true);
     });
   });
 
@@ -231,7 +223,7 @@ describe("QuantityFormatSettingsPage", () => {
 
     const dataValueSelector = `li[data-value='QuantityTypeEnumValue-7']`;
     const categoryEntry = wrapper.container.querySelector(dataValueSelector);
-    expect(categoryEntry).not.to.be.null;
+    expect(categoryEntry).toBeTruthy();
     fireEvent.click(categoryEntry!);
     await TestUtils.flushAsyncOperations();
 
@@ -262,7 +254,7 @@ describe("QuantityFormatSettingsPage", () => {
     );
 
     const checkbox = wrapper.getByTestId("show-unit-label-checkbox");
-    const addListenerSpy = sinon.spy(
+    const addListenerSpy = vi.spyOn(
       UiFramework.settingsManager.onProcessSettingsTabActivation,
       "addListener"
     );
@@ -271,7 +263,7 @@ describe("QuantityFormatSettingsPage", () => {
     // Wait that the handler have been updated, otherwise it compares with the previous version...
     // Visual change already have been processed but scope didnt upddate.
     await waitFor(() => {
-      expect(addListenerSpy).to.have.been.called;
+      expect(addListenerSpy).toHaveBeenCalled();
     });
 
     act(() => {

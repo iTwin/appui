@@ -2,24 +2,17 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
-import sinon from "sinon";
 import * as moq from "typemoq";
 import type { MutableTreeModel } from "../../../components-react/tree/controlled/TreeModel";
 import type { TreeModelChanges } from "../../../components-react/tree/controlled/TreeModelSource";
 import { TreeModelSource } from "../../../components-react/tree/controlled/TreeModelSource";
 import type { ITreeDataProvider } from "../../../components-react/tree/TreeDataProvider";
-import TestUtils from "../../TestUtils";
 import { createTreeNodeInput } from "./TreeHelpers";
 
 describe("TreeModelSource", () => {
   let modelSource: TreeModelSource;
   const dataProviderMock = moq.Mock.ofType<ITreeDataProvider>();
   const mutableTreeModelMock = moq.Mock.ofType<MutableTreeModel>();
-
-  before(async () => {
-    await TestUtils.initializeUiComponents();
-  });
 
   beforeEach(() => {
     dataProviderMock.reset();
@@ -36,58 +29,58 @@ describe("TreeModelSource", () => {
     });
 
     it("does not emit onModelChanged event if model did not change", () => {
-      const spy = sinon.spy(modelSource.onModelChanged, "emit");
+      const spy = vi.spyOn(modelSource.onModelChanged, "emit");
       modelSource.modifyModel(() => {});
-      expect(spy).to.not.be.called;
+      expect(spy).not.toBeCalled();
     });
 
     it("emits onModelChanged event with added node id", () => {
-      const spy = sinon.spy(modelSource.onModelChanged, "emit");
+      const spy = vi.spyOn(modelSource.onModelChanged, "emit");
       modelSource.modifyModel((model) => {
         model.setChildren(undefined, [createTreeNodeInput("root2")], 1);
       });
-      expect(spy).to.be.called;
-      const changes = spy.args[0][0][1];
-      expect(changes.addedNodeIds.length).to.be.eq(1);
-      expect(changes.addedNodeIds[0]).to.be.eq("root2");
+      expect(spy).toHaveBeenCalled();
+      const changes = spy.mock.calls[0][0][1];
+      expect(changes.addedNodeIds.length).toEqual(1);
+      expect(changes.addedNodeIds[0]).toEqual("root2");
     });
 
     it("emits onModelChanged event with removed node id", () => {
-      const spy = sinon.spy(modelSource.onModelChanged, "emit");
+      const spy = vi.spyOn(modelSource.onModelChanged, "emit");
       modelSource.modifyModel((model) => {
         model.clearChildren(undefined);
       });
-      expect(spy).to.be.called;
-      const changes = spy.args[0][0][1];
-      expect(changes.removedNodeIds.length).to.be.eq(1);
-      expect(changes.removedNodeIds[0]).to.be.eq("root1");
+      expect(spy).toHaveBeenCalled();
+      const changes = spy.mock.calls[0][0][1];
+      expect(changes.removedNodeIds.length).toEqual(1);
+      expect(changes.removedNodeIds[0]).toEqual("root1");
     });
 
     it("emits onModelChanged event with modified node id", () => {
-      const spy = sinon.spy(modelSource.onModelChanged, "emit");
+      const spy = vi.spyOn(modelSource.onModelChanged, "emit");
       modelSource.modifyModel((model) => {
         const node = model.getNode("root1");
         node!.isSelected = !node!.isSelected;
       });
-      expect(spy).to.be.called;
-      const changes = spy.args[0][0][1];
-      expect(changes.modifiedNodeIds.length).to.be.eq(1);
-      expect(changes.modifiedNodeIds[0]).to.be.eq("root1");
+      expect(spy).toHaveBeenCalled();
+      const changes = spy.mock.calls[0][0][1];
+      expect(changes.modifiedNodeIds.length).toEqual(1);
+      expect(changes.modifiedNodeIds[0]).toEqual("root1");
     });
 
     it("clears model and adds new nodes", () => {
       modelSource.modifyModel((model) => {
         model.clearChildren(undefined);
       });
-      expect(modelSource.getModel().getChildren(undefined)!.getLength()).to.eq(
-        0
-      );
+      expect(
+        modelSource.getModel().getChildren(undefined)!.getLength()
+      ).toEqual(0);
       modelSource.modifyModel((model) => {
         model.setChildren(undefined, [createTreeNodeInput("new_root1")], 0);
       });
-      expect(modelSource.getModel().getChildren(undefined)!.getLength()).to.eq(
-        1
-      );
+      expect(
+        modelSource.getModel().getChildren(undefined)!.getLength()
+      ).toEqual(1);
     });
 
     it("overrides existing children multiple times", () => {
@@ -104,12 +97,12 @@ describe("TreeModelSource", () => {
     describe("node change detection", () => {
       describe("node addition", () => {
         it("does not duplicate added nodes", () => {
-          const spy = sinon.spy(modelSource.onModelChanged, "emit");
+          const spy = vi.spyOn(modelSource.onModelChanged, "emit");
           modelSource.modifyModel((model) => {
             // Add added_node twice
-            expect(model.changeNodeId("root1", "added_node")).to.be.true;
-            expect(model.changeNodeId("added_node", "temp")).to.be.true;
-            expect(model.changeNodeId("temp", "added_node")).to.be.true;
+            expect(model.changeNodeId("root1", "added_node")).toEqual(true);
+            expect(model.changeNodeId("added_node", "temp")).toEqual(true);
+            expect(model.changeNodeId("temp", "added_node")).toEqual(true);
           });
 
           const expectedChanges: TreeModelChanges = {
@@ -117,14 +110,14 @@ describe("TreeModelSource", () => {
             modifiedNodeIds: [],
             removedNodeIds: ["root1"],
           };
-          expect(spy).to.have.been.calledOnceWithExactly([
+          expect(spy).toHaveBeenCalledWith([
             modelSource.getModel(),
             expectedChanges,
           ]);
         });
 
         it("does not mistake attribute addition as node addtion", () => {
-          const spy = sinon.spy(modelSource.onModelChanged, "emit");
+          const spy = vi.spyOn(modelSource.onModelChanged, "emit");
           modelSource.modifyModel((model) => {
             const node = model.getNode("root1")!;
             node.checkbox.tooltip = "test tooltip";
@@ -135,14 +128,14 @@ describe("TreeModelSource", () => {
             modifiedNodeIds: ["root1"],
             removedNodeIds: [],
           };
-          expect(spy).to.have.been.calledOnceWithExactly([
+          expect(spy).toHaveBeenCalledWith([
             modelSource.getModel(),
             expectedChanges,
           ]);
         });
 
         it("only notifies of node addition even when the added node is also modified", () => {
-          const spy = sinon.spy(modelSource.onModelChanged, "emit");
+          const spy = vi.spyOn(modelSource.onModelChanged, "emit");
           modelSource.modifyModel((model) => {
             model.insertChild(undefined, createTreeNodeInput("root2"), 1);
             const node = model.getNode("root2")!;
@@ -154,7 +147,7 @@ describe("TreeModelSource", () => {
             modifiedNodeIds: [],
             removedNodeIds: [],
           };
-          expect(spy).to.have.been.calledOnceWithExactly([
+          expect(spy).toHaveBeenCalledWith([
             modelSource.getModel(),
             expectedChanges,
           ]);
@@ -163,12 +156,12 @@ describe("TreeModelSource", () => {
 
       describe("node removal", () => {
         it("does not duplicate removed nodes", () => {
-          const spy = sinon.spy(modelSource.onModelChanged, "emit");
+          const spy = vi.spyOn(modelSource.onModelChanged, "emit");
           modelSource.modifyModel((model) => {
             // Remove root1 node twice
-            expect(model.changeNodeId("root1", "another_id")).to.be.true;
-            expect(model.changeNodeId("another_id", "root1")).to.be.true;
-            expect(model.changeNodeId("root1", "another_id")).to.be.true;
+            expect(model.changeNodeId("root1", "another_id")).toEqual(true);
+            expect(model.changeNodeId("another_id", "root1")).toEqual(true);
+            expect(model.changeNodeId("root1", "another_id")).toEqual(true);
           });
 
           const expectedChanges: TreeModelChanges = {
@@ -176,7 +169,7 @@ describe("TreeModelSource", () => {
             modifiedNodeIds: [],
             removedNodeIds: ["root1"],
           };
-          expect(spy).to.have.been.calledOnceWithExactly([
+          expect(spy).toHaveBeenCalledWith([
             modelSource.getModel(),
             expectedChanges,
           ]);
@@ -189,7 +182,7 @@ describe("TreeModelSource", () => {
             node.editingInfo = { onCommit: () => {}, onCancel: () => {} };
           });
 
-          const spy = sinon.spy(modelSource.onModelChanged, "emit");
+          const spy = vi.spyOn(modelSource.onModelChanged, "emit");
           modelSource.modifyModel((model) => {
             const node = model.getNode("root1")!;
             delete node.checkbox.tooltip;
@@ -201,7 +194,7 @@ describe("TreeModelSource", () => {
             modifiedNodeIds: ["root1"],
             removedNodeIds: [],
           };
-          expect(spy).to.have.been.calledOnceWithExactly([
+          expect(spy).toHaveBeenCalledWith([
             modelSource.getModel(),
             expectedChanges,
           ]);
@@ -210,7 +203,7 @@ describe("TreeModelSource", () => {
 
       describe("node modification", () => {
         it("does not duplicate modified nodes when overwriting nodes", () => {
-          const spy = sinon.spy(modelSource.onModelChanged, "emit");
+          const spy = vi.spyOn(modelSource.onModelChanged, "emit");
           modelSource.modifyModel((model) => {
             // Reassign root1 node twice
             model.insertChild(undefined, createTreeNodeInput("root1"), 0);
@@ -222,14 +215,14 @@ describe("TreeModelSource", () => {
             modifiedNodeIds: ["root1"],
             removedNodeIds: [],
           };
-          expect(spy).to.have.been.calledOnceWithExactly([
+          expect(spy).toHaveBeenCalledWith([
             modelSource.getModel(),
             expectedChanges,
           ]);
         });
 
         it("does not duplicate modified nodes when adding new properties", () => {
-          const spy = sinon.spy(modelSource.onModelChanged, "emit");
+          const spy = vi.spyOn(modelSource.onModelChanged, "emit");
           modelSource.modifyModel((model) => {
             const node = model.getNode("root1")!;
             node.checkbox.tooltip = "test";
@@ -241,7 +234,7 @@ describe("TreeModelSource", () => {
             modifiedNodeIds: ["root1"],
             removedNodeIds: [],
           };
-          expect(spy).to.have.been.calledOnceWithExactly([
+          expect(spy).toHaveBeenCalledWith([
             modelSource.getModel(),
             expectedChanges,
           ]);
@@ -254,7 +247,7 @@ describe("TreeModelSource", () => {
     it("returns model", () => {
       (modelSource as any)._model = mutableTreeModelMock.object;
       const model = modelSource.getModel();
-      expect(model).to.be.eq(mutableTreeModelMock.object);
+      expect(model).toEqual(mutableTreeModelMock.object);
     });
   });
 });

@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import { CommandItemDef, GroupItemDef } from "../../appui-react";
-import TestUtils from "../TestUtils";
 import { BadgeType } from "@itwin/core-react";
 
 const tool1 = new CommandItemDef({
@@ -22,14 +20,6 @@ const tool2 = new CommandItemDef({
 });
 
 describe("GroupItem", () => {
-  before(async () => {
-    await TestUtils.initializeUiFramework();
-  });
-
-  after(() => {
-    TestUtils.terminateUiFramework();
-  });
-
   describe("GroupItemDef", () => {
     it("setPanelLabel sets panel label correctly", () => {
       const panelLabel = "panel-label";
@@ -40,11 +30,11 @@ describe("GroupItem", () => {
         items: [tool1, tool2],
       });
 
-      expect(groupItemDef.panelLabel).to.eq(panelLabel);
+      expect(groupItemDef.panelLabel).toEqual(panelLabel);
 
       const newPanelLabel = "New Panel Label";
       groupItemDef.setPanelLabel(newPanelLabel);
-      expect(groupItemDef.panelLabel).to.eq(newPanelLabel);
+      expect(groupItemDef.panelLabel).toEqual(newPanelLabel);
     });
 
     it("should generate id correctly", () => {
@@ -55,7 +45,7 @@ describe("GroupItem", () => {
 
       expect(
         groupItemDef.id.substring(0, GroupItemDef.groupIdPrefix.length)
-      ).to.eq(GroupItemDef.groupIdPrefix);
+      ).toEqual(GroupItemDef.groupIdPrefix);
     });
   });
 });

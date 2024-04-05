@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as moq from "typemoq";
 import type { AnalysisStyle } from "@itwin/core-common";
 import type { ScreenViewport, ViewState3d } from "@itwin/core-frontend";
@@ -38,18 +37,18 @@ describe("AnalysisAnimationTimelineDataProvider", () => {
       viewState,
       viewport
     );
-    expect(provider).not.to.be.null;
-    expect(provider.supportsTimelineAnimation).to.be.true;
+    expect(provider).toBeTruthy();
+    expect(provider.supportsTimelineAnimation).toEqual(true);
 
     const dataLoaded = await provider.loadTimelineData();
-    expect(dataLoaded).to.be.true;
+    expect(dataLoaded).toEqual(true);
 
-    expect(dataLoaded).to.be.true;
-    expect(provider.animationFraction).to.be.equal(0.3);
+    expect(dataLoaded).toEqual(true);
+    expect(provider.animationFraction).toEqual(0.3);
 
     // clear out viewport since next call will try to write to viewport.animationFraction and I can't see a way to moq the writing of a property
     provider.viewport = undefined;
     provider.onAnimationFractionChanged(0.5);
-    expect(provider.animationFraction).to.be.equal(0.5);
+    expect(provider.animationFraction).toEqual(0.5);
   });
 });

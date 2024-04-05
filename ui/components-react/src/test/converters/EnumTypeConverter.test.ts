@@ -2,16 +2,10 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import type { PropertyDescription } from "@itwin/appui-abstract";
 import { EnumTypeConverter } from "../../components-react";
-import TestUtils from "../TestUtils";
 
 describe("EnumTypeConverter", () => {
-  before(async () => {
-    await TestUtils.initializeUiComponents();
-  });
-
   let converter: EnumTypeConverter;
   const colorNames = ["Yellow", "Red", "Green", "Blue", "Violet", "Cyan"];
   const propertyDescription: PropertyDescription = {
