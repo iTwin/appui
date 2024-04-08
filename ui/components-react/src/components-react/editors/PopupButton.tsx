@@ -183,6 +183,7 @@ export class PopupButton extends React.PureComponent<
  * @alpha
  */
 export function PopupContent(props: CommonDivProps) {
+  // eslint-disable-next-line deprecation/deprecation
   return <Div {...props} mainClassName="components-editor-popup-content" />;
 }
 

@@ -49,6 +49,7 @@ export function ActivityCenterField(props: CommonProps) {
   const tooltip = `${message}-${moreDetails}`;
 
   return (
+    // eslint-disable-next-line deprecation/deprecation
     <Centered
       className={classnames("open-activity-message", props.className)}
       style={{

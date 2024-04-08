@@ -77,6 +77,7 @@ export class HTMLElementPopup extends React.PureComponent<
         point={point}
         onSizeKnown={this._onSizeKnown}
       >
+        {/* eslint-disable-next-line deprecation/deprecation */}
         <DivWithOutsideClick onOutsideClick={this.props.onCancel}>
           <MessageRenderer message={this.props.element} />
         </DivWithOutsideClick>

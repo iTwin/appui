@@ -223,6 +223,7 @@ export class IModelViewportControl extends ViewportContentControl {
     _options: IModelViewportControlOptions
   ): React.ReactNode {
     return (
+      // eslint-disable-next-line deprecation/deprecation
       <FillCentered>{UiFramework.translate("general.no-content")}</FillCentered>
     );
   }

@@ -84,6 +84,7 @@ function ModalSettingsStage({
           settingsManager={UiFramework.settingsManager}
         />
       ) : (
+        // eslint-disable-next-line deprecation/deprecation
         <Centered>{translate("settings.noSettingsAvailable")}</Centered>
       )}
     </div>
