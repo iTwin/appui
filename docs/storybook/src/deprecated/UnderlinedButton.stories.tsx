@@ -4,26 +4,19 @@
  *--------------------------------------------------------------------------------------------*/
 import type { Meta, StoryObj } from "@storybook/react";
 import { AppUiDecorator } from "../Decorators";
-import { Page } from "../AppUiStory";
-import { PreviewStory } from "./EnableMaximizedWidget";
+import { UnderlinedButton } from "@itwin/core-react/src/core-react/button/UnderlinedButton";
 
 const meta = {
-  title: "PreviewFeatures/EnableMaximizedWidget",
-  component: PreviewStory,
+  title: "Deprecated/UnderlinedButton",
+  component: UnderlinedButton,
   tags: ["autodocs"],
   decorators: [AppUiDecorator],
-  parameters: {
-    docs: {
-      page: () => <Page />,
-    },
-  },
   args: {
-    enableMaximizedFloatingWidget: true,
-    enableMaximizedPanelWidget: true,
+    children: "Underlined Button",
   },
-} satisfies Meta<typeof PreviewStory>;
+} satisfies Meta<typeof UnderlinedButton>;
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof UnderlinedButton>;
 
-export const Default: Story = {};
+export const Basic: Story = {};
