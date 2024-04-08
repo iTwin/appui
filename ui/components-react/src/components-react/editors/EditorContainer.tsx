@@ -109,42 +109,6 @@ export function EditorContainer(props: EditorContainerProps) {
 
   const setEditorRef = (ref: TypeEditor | null) => (editorRef.current = ref);
 
-  const createEditor = (): React.ReactNode => {
-    const editorProps: CloneProps = {
-      ref: setEditorRef,
-      onCommit: handleEditorCommit,
-      onCancel,
-      onBlur: handleEditorBlur,
-      setFocus: setFocus !== undefined ? setFocus : true,
-      propertyRecord,
-      shouldCommitOnChange,
-      ...rest,
-    };
-
-    const propDescription = propertyRecord.property;
-
-    const editorName =
-      propDescription.editor !== undefined
-        ? propDescription.editor.name
-        : undefined;
-
-    propertyEditor = PropertyEditorManager.createEditor(
-      propDescription.typename,
-      editorName,
-      propDescription.dataController
-    );
-
-    const editorNode: React.ReactNode = propertyEditor.reactNode;
-
-    let clonedNode: React.ReactNode = null;
-    // istanbul ignore else
-    if (React.isValidElement(editorNode)) {
-      clonedNode = React.cloneElement(editorNode, editorProps);
-    }
-
-    return clonedNode;
-  };
-
   /** Event Handlers
    * @internal
    */
@@ -288,7 +252,41 @@ export function EditorContainer(props: EditorContainerProps) {
       data-testid="editor-container"
       role="presentation"
     >
-      {createEditor()}
+      {() => {
+        const editorProps: CloneProps = {
+          ref: setEditorRef,
+          onCommit: handleEditorCommit,
+          onCancel,
+          onBlur: handleEditorBlur,
+          setFocus: setFocus !== undefined ? setFocus : true,
+          propertyRecord,
+          shouldCommitOnChange,
+          ...rest,
+        };
+
+        const propDescription = propertyRecord.property;
+
+        const editorName =
+          propDescription.editor !== undefined
+            ? propDescription.editor.name
+            : undefined;
+
+        propertyEditor = PropertyEditorManager.createEditor(
+          propDescription.typename,
+          editorName,
+          propDescription.dataController
+        );
+
+        const editorNode: React.ReactNode = propertyEditor.reactNode;
+
+        let clonedNode: React.ReactNode = null;
+        // istanbul ignore else
+        if (React.isValidElement(editorNode)) {
+          clonedNode = React.cloneElement(editorNode, editorProps);
+        }
+
+        return clonedNode;
+      }}
     </span>
   );
 }
