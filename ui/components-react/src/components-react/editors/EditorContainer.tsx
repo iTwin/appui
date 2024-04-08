@@ -241,6 +241,34 @@ export function EditorContainer(props: EditorContainerProps) {
     }
   };
 
+  const editorProps: CloneProps = {
+    ref: setEditorRef,
+    onCommit: handleEditorCommit,
+    onCancel,
+    onBlur: handleEditorBlur,
+    setFocus: setFocus !== undefined ? setFocus : true,
+    propertyRecord,
+    shouldCommitOnChange,
+    ...rest,
+  };
+
+  const propDescription = propertyRecord.property;
+
+  const editorName =
+    propDescription.editor !== undefined
+      ? propDescription.editor.name
+      : undefined;
+
+  propertyEditor = PropertyEditorManager.createEditor(
+    propDescription.typename,
+    editorName,
+    propDescription.dataController
+  );
+
+  const clonedNode = React.isValidElement(propertyEditor.reactNode)
+    ? React.cloneElement(propertyEditor.reactNode, editorProps)
+    : undefined;
+
   return (
     <span
       className="components-editor-container"
@@ -252,41 +280,7 @@ export function EditorContainer(props: EditorContainerProps) {
       data-testid="editor-container"
       role="presentation"
     >
-      {() => {
-        const editorProps: CloneProps = {
-          ref: setEditorRef,
-          onCommit: handleEditorCommit,
-          onCancel,
-          onBlur: handleEditorBlur,
-          setFocus: setFocus !== undefined ? setFocus : true,
-          propertyRecord,
-          shouldCommitOnChange,
-          ...rest,
-        };
-
-        const propDescription = propertyRecord.property;
-
-        const editorName =
-          propDescription.editor !== undefined
-            ? propDescription.editor.name
-            : undefined;
-
-        propertyEditor = PropertyEditorManager.createEditor(
-          propDescription.typename,
-          editorName,
-          propDescription.dataController
-        );
-
-        const editorNode: React.ReactNode = propertyEditor.reactNode;
-
-        let clonedNode: React.ReactNode = null;
-        // istanbul ignore else
-        if (React.isValidElement(editorNode)) {
-          clonedNode = React.cloneElement(editorNode, editorProps);
-        }
-
-        return clonedNode;
-      }}
+      {clonedNode}
     </span>
   );
 }
