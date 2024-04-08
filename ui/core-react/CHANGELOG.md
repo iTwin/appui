@@ -1,6 +1,14 @@
 # Change Log - @itwin/core-react
 
-This log was last generated on Thu, 21 Mar 2024 16:38:04 GMT and should not be manually modified.
+This log was last generated on Fri, 05 Apr 2024 09:55:35 GMT and should not be manually modified.
+
+## 4.12.0
+Fri, 05 Apr 2024 09:55:35 GMT
+
+### Updates
+
+- Inline svg of badge components instead of using the `svg-loader`.
+- Add `LocalizationProvider` as an alternative to static package initializer.
 
 ## 4.11.0
 Thu, 21 Mar 2024 16:38:04 GMT

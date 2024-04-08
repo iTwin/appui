@@ -144,7 +144,9 @@ export class CardContainer extends React.Component<CardContainerProps> {
   /** @internal */
   public override render() {
     return (
+      // eslint-disable-next-line deprecation/deprecation
       <ScrollView className={this.props.className} style={this.props.style}>
+        {/* eslint-disable-next-line deprecation/deprecation */}
         <FlexWrapContainer>
           {this.props.cards.map((card: CardInfo, _index: number) => {
             let includeCard = true;

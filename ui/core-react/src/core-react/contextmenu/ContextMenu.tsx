@@ -224,6 +224,7 @@ export class ContextMenu extends React.PureComponent<
         {...props}
         ref={this._rootRef}
       >
+        {/* eslint-disable-next-line deprecation/deprecation */}
         <DivWithOutsideClick onOutsideClick={this._handleOnOutsideClick}>
           <div
             ref={this._menuRef}

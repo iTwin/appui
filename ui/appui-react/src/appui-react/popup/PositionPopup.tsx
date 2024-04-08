@@ -68,5 +68,6 @@ export class PositionPopup extends React.PureComponent<PositionPopupProps> {
  * @beta
  */
 export function PositionPopupContent(props: CommonDivProps) {
+  // eslint-disable-next-line deprecation/deprecation
   return <Div {...props} mainClassName="uifw-position-popup-content" />;
 }
