@@ -7,7 +7,7 @@ import { NumberInput } from "@itwin/core-react/src/core-react/inputs/numberinput
 import { AppUiDecorator } from "../Decorators";
 
 const meta = {
-  title: "Components/Inputs/NumberInput",
+  title: "Deprecated/NumberInput",
   component: NumberInput,
   tags: ["autodocs"],
   decorators: [AppUiDecorator],
