@@ -1,6 +1,15 @@
 # Change Log - @itwin/appui-react
 
-This log was last generated on Thu, 21 Mar 2024 16:38:04 GMT and should not be manually modified.
+This log was last generated on Fri, 05 Apr 2024 09:55:35 GMT and should not be manually modified.
+
+## 4.12.0
+Fri, 05 Apr 2024 09:55:35 GMT
+
+### Updates
+
+- Fix the standard layout to prevent tool settings and status bar from overlaying the content area.
+- Added ability to set stage panel size as percentage value.
+- Replace `process.env.NODE_ENV === "development"` check in preview features with `Logger.logWarning()`.
 
 ## 4.11.0
 Thu, 21 Mar 2024 16:38:04 GMT
