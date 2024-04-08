@@ -20,10 +20,9 @@ import { useTranslation } from "../l10n/useTranslation";
 
 type ButtonProps = React.ComponentPropsWithoutRef<typeof Button>;
 
-// cspell:ignore focustrap
-
 /** Enum for dialog alignment
  * @public
+ * @deprecated in 4.12.x. Enum used in a deprecated component {@link Dialog}.
  */
 export enum DialogAlignment {
   TopLeft = "top-left",
@@ -39,6 +38,7 @@ export enum DialogAlignment {
 
 /** Properties for the [[Dialog]] component
  * @public
+ * @deprecated in 4.12.x. Props of deprecated component {@link Dialog}.
  */
 export interface DialogProps
   extends Omit<React.AllHTMLAttributes<HTMLDivElement>, "title">,
@@ -67,6 +67,7 @@ export interface DialogProps
   buttonCluster?: DialogButtonDef[];
 
   /** Default alignment of dialog. */
+  // eslint-disable-next-line deprecation/deprecation
   alignment?: DialogAlignment;
   /** Initial x/left position of dialog in px. */
   x?: number;
@@ -116,9 +117,12 @@ export interface DialogProps
 
 /** Dialog React component with optional resizing and dragging functionality
  * @public
+ * @deprecated in 4.12.x. Use {@link https://itwinui.bentley.com/docs/dialog iTwinUI dialog} instead.
  */
+// eslint-disable-next-line deprecation/deprecation
 export class Dialog extends React.Component<DialogProps> {
   private _parentDocument = document;
+  // eslint-disable-next-line deprecation/deprecation
   public static defaultProps: Partial<DialogProps> = {
     maxWidth: "100%",
     width: "50%",
@@ -130,6 +134,7 @@ export class Dialog extends React.Component<DialogProps> {
     trapFocus: false,
   };
 
+  // eslint-disable-next-line deprecation/deprecation
   constructor(props: DialogProps) {
     super(props);
   }
@@ -272,24 +277,34 @@ export class Dialog extends React.Component<DialogProps> {
     );
   }
 
+  // eslint-disable-next-line deprecation/deprecation
   private getCSSClassNameFromAlignment(alignment: DialogAlignment): string {
     switch (alignment) {
+      // eslint-disable-next-line deprecation/deprecation
       case DialogAlignment.TopLeft:
         return "core-align-top-left";
+      // eslint-disable-next-line deprecation/deprecation
       case DialogAlignment.Top:
         return "core-align-top";
+      // eslint-disable-next-line deprecation/deprecation
       case DialogAlignment.TopRight:
         return "core-align-top-right";
+      // eslint-disable-next-line deprecation/deprecation
       case DialogAlignment.Left:
         return "core-align-left";
+      // eslint-disable-next-line deprecation/deprecation
       case DialogAlignment.Center:
         return "core-align-center";
+      // eslint-disable-next-line deprecation/deprecation
       case DialogAlignment.Right:
         return "core-align-right";
+      // eslint-disable-next-line deprecation/deprecation
       case DialogAlignment.BottomLeft:
         return "core-align-bottom-left";
+      // eslint-disable-next-line deprecation/deprecation
       case DialogAlignment.Bottom:
         return "core-align-bottom";
+      // eslint-disable-next-line deprecation/deprecation
       case DialogAlignment.BottomRight:
         return "core-align-bottom-right";
     }
