@@ -62,6 +62,7 @@ export class CalculatorPopup extends React.PureComponent<
         className="uifw-calculator-host"
         onSizeKnown={this._onSizeKnown}
       >
+        {/* eslint-disable-next-line deprecation/deprecation */}
         <DivWithOutsideClick onOutsideClick={this.props.onCancel}>
           <PositionPopupContent>
             <Calculator

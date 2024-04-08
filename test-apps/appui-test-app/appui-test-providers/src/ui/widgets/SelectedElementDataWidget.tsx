@@ -8,7 +8,7 @@ import {
   useSpecificWidgetDef,
   WidgetState,
 } from "@itwin/appui-react";
-import { Centered } from "@itwin/core-react";
+import { Flex } from "@itwin/itwinui-react";
 import * as React from "react";
 
 /** Hook used to return ids from selected element */
@@ -46,14 +46,14 @@ export function SelectedElementDataWidgetComponent() {
 
   if (0 === idList.length) {
     return (
-      <Centered>
+      <Flex justifyContent="center">
         <p className="center-text">Select element/elements</p>
-      </Centered>
+      </Flex>
     );
   }
   return (
-    <Centered>
+    <Flex justifyContent="center">
       <p className="center-text">{idList.length} element(s) selected</p>
-    </Centered>
+    </Flex>
   );
 }

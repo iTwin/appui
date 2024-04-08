@@ -15,8 +15,8 @@ import {
 } from "@itwin/appui-react";
 import { IModelApp } from "@itwin/core-frontend";
 import { ElectronRendererAuthorization } from "@itwin/electron-authorization/lib/cjs/ElectronRenderer";
-import { Centered } from "@itwin/core-react";
 import { SignIn } from "../oidc/SignIn";
+import { Flex } from "@itwin/itwinui-react";
 
 class SignInControl extends ContentControl {
   constructor(info: ConfigurableCreateInfo, options: any) {
@@ -29,7 +29,9 @@ class SignInControl extends ContentControl {
       );
     } else {
       this.reactNode = (
-        <Centered>{"No authorization client available"}</Centered>
+        <Flex justifyContent="center">
+          {"No authorization client available"}
+        </Flex>
       );
     }
   }

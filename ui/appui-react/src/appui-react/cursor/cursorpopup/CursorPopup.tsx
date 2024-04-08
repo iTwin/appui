@@ -281,5 +281,6 @@ export class CursorPopup extends React.Component<
  * @public
  */
 export function CursorPopupContent(props: CommonDivProps) {
+  // eslint-disable-next-line deprecation/deprecation
   return <Div {...props} mainClassName="uifw-cursorpopup-content" />;
 }

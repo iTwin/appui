@@ -84,6 +84,7 @@ export function KeyinPalettePopup({
       point={point}
       onSizeKnown={onSizeKnown}
     >
+      {/* eslint-disable-next-line deprecation/deprecation */}
       <DivWithOutsideClick onOutsideClick={onCancel} onKeyDown={handleKeyDown}>
         <FocusTrap active={true} returnFocusOnDeactivate={true}>
           <KeyinPalettePanel keyins={keyins} onKeyinExecuted={onItemExecuted} />

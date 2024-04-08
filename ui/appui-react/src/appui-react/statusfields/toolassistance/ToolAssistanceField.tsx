@@ -632,6 +632,7 @@ export class ToolAssistanceField extends React.Component<
           );
 
         image = (
+          // eslint-disable-next-line deprecation/deprecation
           <FillCentered>
             {ToolAssistanceField.getKeyNode(
               key,
@@ -802,6 +803,7 @@ export class ToolAssistanceField extends React.Component<
       );
     } else if (keyboardInfo.keys.length === 2) {
       image = (
+        // eslint-disable-next-line deprecation/deprecation
         <FillCentered>
           {keyboardInfo.keys.map((key: string, index3: number) => {
             let className = "uifw-toolassistance-key-medium";
@@ -838,6 +840,7 @@ export class ToolAssistanceField extends React.Component<
         key={index.toString()}
         className={classnames("uifw-toolassistance-key", className)}
       >
+        {/* eslint-disable-next-line deprecation/deprecation */}
         <FillCentered>{key}</FillCentered>
       </div>
     );

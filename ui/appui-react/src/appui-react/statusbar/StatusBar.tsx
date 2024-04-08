@@ -56,6 +56,7 @@ export class StatusBar extends React.Component<StatusBarProps> {
 export function StatusBarSpaceBetween(props: CommonDivProps) {
   const { className, ...divProps } = props;
   return (
+    // eslint-disable-next-line deprecation/deprecation
     <Div
       {...divProps}
       mainClassName={className ? className : "uifw-statusbar-space-between"}
@@ -69,6 +70,7 @@ export function StatusBarSpaceBetween(props: CommonDivProps) {
 export function StatusBarLeftSection(props: CommonDivProps) {
   const { className, ...divProps } = props;
   return (
+    // eslint-disable-next-line deprecation/deprecation
     <Div
       {...divProps}
       mainClassName={className ? className : "uifw-statusbar-left"}
@@ -82,6 +84,7 @@ export function StatusBarLeftSection(props: CommonDivProps) {
 export function StatusBarCenterSection(props: CommonDivProps) {
   const { className, ...divProps } = props;
   return (
+    // eslint-disable-next-line deprecation/deprecation
     <Div
       {...divProps}
       mainClassName={className ? className : "uifw-statusbar-center"}
@@ -95,6 +98,7 @@ export function StatusBarCenterSection(props: CommonDivProps) {
 export function StatusBarRightSection(props: CommonDivProps) {
   const { className, ...divProps } = props;
   return (
+    // eslint-disable-next-line deprecation/deprecation
     <Div
       {...divProps}
       mainClassName={className ? className : "uifw-statusbar-right"}
