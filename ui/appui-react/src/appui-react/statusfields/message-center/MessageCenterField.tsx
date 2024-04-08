@@ -74,7 +74,7 @@ export function MessageCenterField() {
     MessageManager.registerAnimateOutToElement(indicatorRef.current);
 
     return MessageManager.onMessagesUpdatedEvent.addListener(() => {
-      messages.length > 0 ? setNotify(true) : setNotify(false);
+      MessageManager.messages.length > 0 ? setNotify(true) : setNotify(false);
       setMessages(MessageManager.messages);
       determineStatus();
     });
