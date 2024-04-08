@@ -9,7 +9,7 @@ import { AppUiDecorator } from "../Decorators";
 import { InputStatus } from "@itwin/core-react";
 
 const meta = {
-  title: "Components/Inputs/InputLabel",
+  title: "Deprecated/InputLabel",
   component: InputLabel,
   tags: ["autodocs"],
   decorators: [AppUiDecorator],
