@@ -235,6 +235,7 @@ export class Dialog extends React.Component<DialogProps> {
         {...props}
       >
         {modal && <BaseDialog.Backdrop style={backgroundStyle} />}
+        {/* eslint-disable-next-line deprecation/deprecation */}
         <DivWithOutsideClick onOutsideClick={onOutsideClick}>
           <BaseDialog.Main
             className={classnames(
