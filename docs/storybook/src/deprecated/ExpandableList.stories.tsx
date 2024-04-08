@@ -8,7 +8,7 @@ import { ExpandableBlock } from "@itwin/itwinui-react";
 import { AppUiDecorator } from "../Decorators";
 
 const meta = {
-  title: "Components/ExpandableList",
+  title: "Deprecated/ExpandableList",
   component: ExpandableList,
   tags: ["autodocs"],
   decorators: [AppUiDecorator],

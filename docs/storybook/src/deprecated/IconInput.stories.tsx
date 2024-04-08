@@ -8,7 +8,7 @@ import { Svg2D } from "@itwin/itwinui-icons-react";
 import { AppUiDecorator } from "../Decorators";
 
 const meta = {
-  title: "Components/Inputs/IconInput",
+  title: "Deprecated/IconInput",
   component: IconInput,
   tags: ["autodocs"],
   decorators: [AppUiDecorator],
