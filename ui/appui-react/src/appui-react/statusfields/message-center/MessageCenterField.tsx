@@ -85,12 +85,12 @@ export function MessageCenterField() {
       if (messages.length > 0) {
         const iconClassName = MessageManager.getIconClassName(message);
         const iconSpec = MessageManager.getIconSpecFromDetails(message);
-        const text: MessageType = message.briefMessage;
+
         if ((tab === "error" && isProblemStatus(message)) || tab === "all") {
           return (
             <MessageCenterMessage
               key={index.toString()}
-              message={text}
+              message={message.briefMessage}
               details={message.detailedMessage}
               icon={<Icon iconSpec={iconSpec} className={iconClassName} />}
             />
