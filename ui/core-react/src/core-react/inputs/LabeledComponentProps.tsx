@@ -30,6 +30,7 @@ export interface LabeledComponentProps {
 
 /** Properties for components with messages
  * @public
+ * @deprecated in 4.12.x. Props of deprecated component {@link InputLabel}.
  */
 export interface MessagedComponentProps {
   /** Optional text shown below the input. */
