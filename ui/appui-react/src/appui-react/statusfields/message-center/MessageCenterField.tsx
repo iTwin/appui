@@ -39,7 +39,7 @@ export function MessageCenterField() {
   const [status, setStatus] =
     React.useState<NotificationMarkerStatus>("primary");
 
-  const indicatorRef = React.useRef<React.RefObject>({ current: null });
+  const indicatorRef = React.useRef<HTMLButtonElement>(null);
   const title = UiFramework.translate("messageCenter.messages");
 
   const handleOpenChange = (isOpenState: boolean) => {
@@ -55,28 +55,28 @@ export function MessageCenterField() {
     );
   };
 
-  const determineStatus = () => {
-    const message = [...MessageManager.messages].pop();
-
-    if (message) {
-      if (isProblemStatus(message)) {
-        return setStatus("negative");
-      } else if (message.priority === OutputMessagePriority.Success) {
-        return setStatus("positive");
-      } else {
-        return setStatus("primary");
-      }
-    }
-    return;
-  };
-
   React.useEffect(() => {
     return MessageManager.onOpenMessageCenterEvent.addListener(() => {
       handleOpenChange(true);
     });
-  });
+  }, []);
 
   React.useEffect(() => {
+    const determineStatus = () => {
+      const message = [...MessageManager.messages].pop();
+
+      if (message) {
+        if (isProblemStatus(message)) {
+          return setStatus("negative");
+        } else if (message.priority === OutputMessagePriority.Success) {
+          return setStatus("positive");
+        } else {
+          return setStatus("primary");
+        }
+      }
+      return;
+    };
+
     MessageManager.registerAnimateOutToElement(indicatorRef.current);
 
     return MessageManager.onMessagesUpdatedEvent.addListener(() => {
@@ -84,7 +84,7 @@ export function MessageCenterField() {
       setMessages(MessageManager.messages);
       determineStatus();
     });
-  });
+  }, []);
 
   const getMessages = (tab: string) => {
     return [...messages].reverse().map((message, index) => {
@@ -149,14 +149,8 @@ export function MessageCenterField() {
       applyBackground
     >
       <Button
-        onClick={() => setIsOpen(!isOpen)}
         ref={indicatorRef}
         styleType="borderless"
-        labelProps={
-          <span>
-            `${messages.length} ${title}`
-          </span>
-        }
         startIcon={
           <NotificationMarker status={status} enabled={notify}>
             <SvgChat />
