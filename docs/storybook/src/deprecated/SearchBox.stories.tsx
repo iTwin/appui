@@ -8,7 +8,7 @@ import { SearchBox } from "@itwin/core-react/src/core-react/searchbox/SearchBox"
 import { action } from "@storybook/addon-actions";
 
 const meta = {
-  title: "Components/SearchBox",
+  title: "Deprecated/SearchBox",
   component: SearchBox,
   tags: ["autodocs"],
   decorators: [AppUiDecorator],
