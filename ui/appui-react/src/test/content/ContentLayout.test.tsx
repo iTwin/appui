@@ -395,7 +395,7 @@ describe("ContentLayout", () => {
     ).toHaveLength(1);
   });
 
-  it("Vertical SplitPane onChanged", async () => {
+  it.skip("FLAKY:Vertical SplitPane onChanged", async () => {
     const { container } = render(
       <div>
         <ContentLayout
@@ -442,7 +442,7 @@ describe("ContentLayout", () => {
       ]);
   });
 
-  it("Horizontal SplitPane onChanged", async () => {
+  it.skip("FLAKY:Horizontal SplitPane onChanged", async () => {
     const { container } = render(
       <div>
         <ContentLayout

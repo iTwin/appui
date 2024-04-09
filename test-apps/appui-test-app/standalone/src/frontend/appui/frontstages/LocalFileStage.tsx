@@ -10,7 +10,6 @@ import { IModelConnection, SpatialViewState } from "@itwin/core-frontend";
 import { ElectronApp } from "@itwin/core-electron/lib/cjs/ElectronFrontend";
 import { OpenDialogOptions } from "electron";
 
-import { FillCentered } from "@itwin/core-react";
 import {
   BackstageAppButton,
   BackstageItem,
@@ -27,7 +26,7 @@ import {
 } from "@itwin/appui-react";
 import { SampleAppIModelApp, SampleAppUiActionId } from "../..";
 import { LocalFileSupport } from "../LocalFileSupport";
-import { Button, Text } from "@itwin/itwinui-react";
+import { Button, Flex, Text } from "@itwin/itwinui-react";
 import {
   ConditionalBooleanValue,
   StandardContentLayouts,
@@ -273,7 +272,12 @@ function LocalFilePage(props: LocalFilePageProps) {
       <div style={{ position: "absolute", top: "16px", left: "100px" }}>
         <Text variant="headline">{translate("localFileStage.localFile")}</Text>
       </div>
-      <FillCentered>
+      <Flex
+        style={{
+          height: "100%",
+        }}
+        justifyContent="center"
+      >
         {!isElectronApp.current && (
           <input
             id="file-input"
@@ -287,7 +291,7 @@ function LocalFilePage(props: LocalFilePageProps) {
         <Button size="large" styleType="cta" onClick={handleButtonClick}>
           {translate("localFileStage.selectFile")}
         </Button>
-      </FillCentered>
+      </Flex>
     </>
   );
 }

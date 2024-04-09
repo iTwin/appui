@@ -143,7 +143,7 @@ export const calculateProximityScale: (proximity: number, snap?: boolean, thresh
 // @internal
 export const calculateToolbarOpacity: (proximityScale: number) => number;
 
-// @public
+// @public @deprecated
 export function Centered(props: CommonDivProps): React_2.JSX.Element;
 
 // @public
@@ -473,15 +473,15 @@ export interface DialogProps extends Omit_2<React_2.AllHTMLAttributes<HTMLDivEle
 // @public
 export function DisabledText(props: TextProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export function Div(props: DivProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface DivProps extends CommonDivProps {
     mainClassName: string;
 }
 
-// @public
+// @public @deprecated
 export const DivWithOutsideClick: {
     new (props: (CommonDivProps & WithOnOutsideClickProps) | Readonly<CommonDivProps & WithOnOutsideClickProps>): {
         outsideClickContainerDiv?: HTMLDivElement | null | undefined;
@@ -611,7 +611,7 @@ export interface ExpansionToggleProps extends CommonProps {
     onClick?: (e: React_2.MouseEvent<HTMLDivElement>) => void;
 }
 
-// @public
+// @public @deprecated
 export function FillCentered(props: CommonDivProps): React_2.JSX.Element;
 
 // @alpha
@@ -628,7 +628,7 @@ export interface FilteredTextProps extends CommonProps {
 // @internal
 export const flattenChildren: (children: React_2.ReactNode) => React_2.ReactNode;
 
-// @public
+// @public @deprecated
 export function FlexWrapContainer(props: CommonDivProps): React_2.JSX.Element;
 
 // @internal
@@ -645,10 +645,10 @@ export interface FocusTrapProps extends React_2.AllHTMLAttributes<any> {
     returnFocusOnDeactivate: boolean;
 }
 
-// @public
+// @public @deprecated
 export function Gap(props: GapProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface GapProps extends CommonProps {
     // (undocumented)
     size?: string;
@@ -1433,7 +1433,7 @@ export class ScrollPositionMaintainer implements IDisposable {
     dispose(): void;
 }
 
-// @public
+// @public @deprecated
 export function ScrollView(props: CommonDivProps): React_2.JSX.Element;
 
 // @public

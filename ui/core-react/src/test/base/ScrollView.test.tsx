@@ -7,6 +7,8 @@ import * as React from "react";
 import { ScrollView } from "../../core-react";
 import { classesFromElement } from "../TestUtils";
 
+/* eslint-disable deprecation/deprecation */
+
 describe("<ScrollView />", () => {
   it("content renders correctly", () => {
     render(<ScrollView>Test content</ScrollView>);

@@ -116,6 +116,7 @@ export class CardPopup extends React.PureComponent<
         point={point}
         onSizeKnown={this._onSizeKnown}
       >
+        {/* eslint-disable-next-line deprecation/deprecation */}
         <DivWithOutsideClick
           onOutsideClick={this.props.onCancel}
           onKeyDown={this._handleKeyDown}
