@@ -39,7 +39,7 @@ export function MessageCenterField() {
   const [status, setStatus] =
     React.useState<NotificationMarkerStatus>("primary");
 
-  const indicatorRef = React.useRef<React.RefObject>();
+  const indicatorRef = React.useRef<React.RefObject>({ current: null });
   const title = UiFramework.translate("messageCenter.messages");
 
   const handleOpenChange = (isOpenState: boolean) => {
@@ -130,6 +130,7 @@ export function MessageCenterField() {
   return (
     <Popover
       visible={isOpen}
+      onVisibleChange={(visible) => handleOpenChange(visible)}
       placement="top"
       className="uifw-statusFields-messageCenter-popover"
       content={

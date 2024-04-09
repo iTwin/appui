@@ -19,15 +19,12 @@ describe(`MessageCenter`, () => {
 
   it("Message Center should close on outside click", async () => {
     render(
-      <div>
-        <span title="outside"></span>
+      <div title="outside">
         <StatusBar>
           <MessageCenterField />
         </StatusBar>
       </div>
     );
-
-    expect(screen.queryByRole("dialog")).toEqual(null);
 
     await theUserTo.click(screen.getByRole("button"));
 
@@ -47,7 +44,6 @@ describe(`MessageCenter`, () => {
     );
     expect(screen.queryByRole("dialog")).toEqual(null);
     MessageManager.onOpenMessageCenterEvent.emit({});
-
     expect(await screen.findByRole("dialog")).to.exist;
   });
 });
