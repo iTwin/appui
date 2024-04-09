@@ -959,7 +959,7 @@ export class UiFramework {
     const anchor = this.resolveHtmlElement(anchorElement);
 
     return PopupManager.displayCard(
-      { reactNode: content },
+      content,
       {
         title,
         toolbarProps,
