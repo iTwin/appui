@@ -110,7 +110,8 @@ export function Icon(props: IconProps) {
         className={classnames("icon", "core-svg-icon", props.className)}
         style={props.style}
       >
-        {ConditionalIconItem.getValue(props.iconSpec)}
+        {/* FIXME: how can react render this? was this a bug in the types */}
+        {ConditionalIconItem.getValue(props.iconSpec) as React.ReactNode}
       </i>
     );
   }
