@@ -11,7 +11,7 @@ describe("<MessageCenterMessage />", () => {
   it("renders correctly", () => {
     const { container } = render(<MessageCenterMessage />);
     expect(container.firstElementChild).to.satisfy(
-      selectorMatches(".nz-footer-messageCenter-message")
+      selectorMatches(".uifw-footer-messageCenter-message")
     );
   });
 

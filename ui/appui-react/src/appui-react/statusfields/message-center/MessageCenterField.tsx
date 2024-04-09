@@ -20,7 +20,7 @@ import { OutputMessagePriority } from "@itwin/core-frontend";
 import { MessageCenterMessage } from "./MessageCenterMessage";
 import { MessageManager } from "../../messages/MessageManager";
 import { TitleBar } from "../../layout/footer/dialog/TitleBar";
-import type { MessageType } from "@itwin/core-react";
+
 import type { NotifyMessageDetailsType } from "../../messages/ReactNotifyMessageDetails";
 import "./MessageCenterField.scss";
 
@@ -39,7 +39,7 @@ export function MessageCenterField() {
   const [status, setStatus] =
     React.useState<NotificationMarkerStatus>("primary");
 
-  const indicatorRef = React.createRef<HTMLButtonElement>();
+  const indicatorRef = React.useRef<React.RefObject>();
   const title = UiFramework.translate("messageCenter.messages");
 
   const handleOpenChange = (isOpenState: boolean) => {
@@ -69,6 +69,12 @@ export function MessageCenterField() {
     }
     return;
   };
+
+  React.useEffect(() => {
+    return MessageManager.onOpenMessageCenterEvent.addListener(() =>
+      handleOpenChange(true)
+    );
+  });
 
   React.useEffect(() => {
     MessageManager.registerAnimateOutToElement(indicatorRef.current);
