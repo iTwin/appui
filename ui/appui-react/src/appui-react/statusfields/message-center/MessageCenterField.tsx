@@ -71,9 +71,9 @@ export function MessageCenterField() {
   };
 
   React.useEffect(() => {
-    return MessageManager.onOpenMessageCenterEvent.addListener(() =>
-      handleOpenChange(true)
-    );
+    return MessageManager.onOpenMessageCenterEvent.addListener(() => {
+      handleOpenChange(true);
+    });
   });
 
   React.useEffect(() => {
@@ -129,6 +129,7 @@ export function MessageCenterField() {
 
   return (
     <Popover
+      visible={isOpen}
       placement="top"
       className="uifw-statusFields-messageCenter-popover"
       content={
@@ -147,7 +148,7 @@ export function MessageCenterField() {
       applyBackground
     >
       <Button
-        onClick={() => handleOpenChange(!isOpen)}
+        onClick={() => setIsOpen(!isOpen)}
         ref={indicatorRef}
         styleType="borderless"
         labelProps={
