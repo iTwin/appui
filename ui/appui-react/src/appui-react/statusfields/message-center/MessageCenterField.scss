@@ -13,7 +13,8 @@
 .uifw-statusFields-messageCenter-messageCenterField {
   width: 305px;
   max-height: 200px;
-  overflow-y: scroll;
+  overflow: auto;
+  scrollbar-gutter: stable;
   min-width: $nz-footer-popup-min-width;
   max-width: $nz-footer-popup-max-width;
   padding-left: 10px;
