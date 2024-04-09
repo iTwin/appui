@@ -946,7 +946,7 @@ export class UiFramework {
    * @internal
    */
   public static showCard(
-    content: React.ReactNode,
+    content: React.ReactNode | HTMLElement,
     title: string | PropertyRecord | undefined,
     toolbarProps: ToolbarProps,
     location: XAndY,
