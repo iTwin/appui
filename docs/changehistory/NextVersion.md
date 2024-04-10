@@ -16,3 +16,8 @@ Table of contents:
 - `FlexWrapContainer` component in favor of [iTwinUI Flex](https://itwinui.bentley.com/docs/flex). [#795](https://github.com/iTwin/appui/pull/795)
 - `Gap` component in favor of [iTwinUI size variables](https://itwinui.bentley.com/docs/variables#size). [#795](https://github.com/iTwin/appui/pull/795)
 - `ScrollView` component in favor of [overflow property](https://developer.mozilla.org/en-US/docs/Web/CSS/overflow). [#795](https://github.com/iTwin/appui/pull/795)
+- `Tab` component in favor of [iTwinUI Tabs](https://itwinui.bentley.com/docs/tabs). [#746](https://github.com/iTwin/appui/pull/746)
+
+### Changes
+
+- `MessageCenter` has been renamed `MessageCenterField`. It now primarily uses iTwinUI components. There are a number of visual changes. [#746](https://github.com/iTwin/appui/pull/746)
