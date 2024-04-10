@@ -7,6 +7,7 @@
  */
 
 import type * as React from "react";
+import type { InputLabel } from "./InputLabel";
 import type { InputStatus } from "./InputStatus";
 
 /** Properties for labeled components
@@ -17,6 +18,7 @@ export interface LabeledComponentProps {
   /** Text that will be shown next to or above the input. */
   label?: string;
   /** Input status like: "Success", "Warning" or "Error" */
+  // eslint-disable-next-line deprecation/deprecation
   status?: InputStatus;
   /** Custom CSS class name for the checkbox input element */
   inputClassName?: string;

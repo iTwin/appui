@@ -80,6 +80,7 @@ ColorPickerDialogProps) {
 
   return (
     <div ref={dialogContainer}>
+      {/* eslint-disable-next-line deprecation/deprecation */}
       <Dialog
         title={dialogTitle}
         opened={true}

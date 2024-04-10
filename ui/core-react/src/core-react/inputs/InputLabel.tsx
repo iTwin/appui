@@ -27,7 +27,9 @@ import type {
  * @deprecated in 4.12.x. Props of deprecated component {@link InputLabel}.
  */
 export interface InputLabelProps
+  // eslint-disable-next-line deprecation/deprecation
   extends LabeledComponentProps,
+    // eslint-disable-next-line deprecation/deprecation
     MessagedComponentProps,
     CommonProps {
   disabled?: boolean;
@@ -36,8 +38,11 @@ export interface InputLabelProps
 }
 
 const inputLabelIconSpec: { [key: string]: IconSpec } = {
+  // eslint-disable-next-line deprecation/deprecation
   [InputStatus.Error]: <SvgStatusError />,
+  // eslint-disable-next-line deprecation/deprecation
   [InputStatus.Success]: <SvgStatusSuccess />,
+  // eslint-disable-next-line deprecation/deprecation
   [InputStatus.Warning]: <SvgStatusWarning />,
 };
 

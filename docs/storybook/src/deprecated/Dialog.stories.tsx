@@ -23,8 +23,12 @@ export const Basic: Story = {
     title: "Title",
     children: "Content",
     buttonCluster: [
-      { type: DialogButtonType.Cancel, onClick: () => {}, label: "Cancel" },
-      { type: DialogButtonType.OK, onClick: () => {}, label: "OK" },
+      {
+        type: DialogButtonType.Cancel,
+        onClick: () => undefined,
+        label: "Cancel",
+      },
+      { type: DialogButtonType.OK, onClick: () => undefined, label: "OK" },
     ],
   },
 };

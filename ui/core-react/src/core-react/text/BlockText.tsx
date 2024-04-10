@@ -14,6 +14,7 @@ import type { TextProps } from "./TextProps";
  * @public
  * @deprecated in 4.12.x. Use {@link https://itwinui.bentley.com/docs/typography#text iTwinUI Text} instead.
  */
+// eslint-disable-next-line deprecation/deprecation
 export function BlockText(props: TextProps) {
   // eslint-disable-next-line deprecation/deprecation
   return <StyledText {...props} mainClassName="uicore-text-block" />;
