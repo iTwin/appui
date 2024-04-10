@@ -40,12 +40,12 @@ export function FloatingViewportContent(props: FloatingViewportContentProps) {
   );
 }
 
-/** @alpha */
+/** @public */
 export interface FloatingViewportContentWrapperProps {
   readonly children?: React.ReactNode;
 }
 
-/** @alpha */
+/** @public */
 export function FloatingViewportContentWrapper({
   children,
 }: FloatingViewportContentWrapperProps) {
