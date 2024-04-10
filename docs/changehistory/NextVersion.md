@@ -20,4 +20,4 @@ Table of contents:
 
 ### Changes
 
-- Bump `useCrossOriginPopup` to `@public`.
+- Bump `useCrossOriginPopup` to `@public`. [#802](https://github.com/iTwin/appui/pull/802)
