@@ -136,7 +136,7 @@ export const Detailed: Story = {
 
 //Dynamic Use Case
 
-const menuItems = () => [
+const menuItems = (close) => [
   <MenuItem
     onClick={() => {
       MessageManager.addToMessageCenter(
