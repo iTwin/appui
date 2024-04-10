@@ -4,6 +4,7 @@ Table of contents:
 
 - [@itwin/core-react](#itwincore-react)
   - [Deprecations](#deprecations)
+  - [Changes](#changes)
 
 ## @itwin/core-react
 
@@ -16,3 +17,7 @@ Table of contents:
 - `FlexWrapContainer` component in favor of [iTwinUI Flex](https://itwinui.bentley.com/docs/flex). [#795](https://github.com/iTwin/appui/pull/795)
 - `Gap` component in favor of [iTwinUI size variables](https://itwinui.bentley.com/docs/variables#size). [#795](https://github.com/iTwin/appui/pull/795)
 - `ScrollView` component in favor of [overflow property](https://developer.mozilla.org/en-US/docs/Web/CSS/overflow). [#795](https://github.com/iTwin/appui/pull/795)
+
+### Changes
+
+- Bump `useCrossOriginPopup` to `@public`.
