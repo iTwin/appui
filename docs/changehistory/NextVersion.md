@@ -2,8 +2,16 @@
 
 Table of contents:
 
+- [@itwin/appui-react](#itwinappui-react)
+  - [Changes](#changes)
 - [@itwin/core-react](#itwincore-react)
   - [Deprecations](#deprecations)
+
+## @itwin/appui-react
+
+### Changes
+
+- Bump `FloatingViewportContentWrapper` to `@public`.
 
 ## @itwin/core-react
 
