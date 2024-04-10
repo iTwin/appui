@@ -474,7 +474,7 @@ export class PopupManager {
   }
 
   public static displayCard(
-    content: React.ReactNode | HTMLElement,
+    content: React.ReactNode,
     options: DisplayCardPopupOptions
   ): boolean {
     const id = options.id ?? PopupManager._cardId;
@@ -494,7 +494,7 @@ export class PopupManager {
         el={anchor}
         pt={location}
         offset={offset}
-        content={content instanceof HTMLElement ? content : { reactNode: content }}
+        content={{ reactNode: content }}
         title={title}
         items={toolbarProps?.items}
         placement={placement}

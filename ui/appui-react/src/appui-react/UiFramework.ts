@@ -933,7 +933,7 @@ export class UiFramework {
   }
 
   /** Show a Card containing content, a title and a toolbar at a particular location.
-   * @param content The React component or HTMLElement of the content to display
+   * @param content The React component of the content to display
    * @param title Title to display at the top of the card.
    * @param toolbarProps Properties of the Toolbar to display.
    * @param location Location of the Card, relative to the origin of anchorElement or the window.
@@ -946,7 +946,7 @@ export class UiFramework {
    * @internal
    */
   public static showCard(
-    content: React.ReactNode | HTMLElement,
+    content: React.ReactNode,
     title: string | PropertyRecord | undefined,
     toolbarProps: ToolbarProps,
     location: XAndY,
@@ -959,7 +959,8 @@ export class UiFramework {
     const anchor = this.resolveHtmlElement(anchorElement);
 
     return PopupManager.displayCard(
-      content,
+      // FIXME: displayCard should take a wrapped { reactNode } type
+      { reactNode: content } as any as React.ReactNode,
       {
         title,
         toolbarProps,
