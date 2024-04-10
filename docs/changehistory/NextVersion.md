@@ -11,7 +11,7 @@ Table of contents:
 
 ### Changes
 
-- Bump `FloatingViewportContentWrapper` to `@public`.
+- Bump `FloatingViewportContentWrapper` to `@public`. [#801](https://github.com/iTwin/appui/pull/801)
 
 ## @itwin/core-react
 
