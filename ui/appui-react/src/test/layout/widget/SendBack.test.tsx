@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { fireEvent, render } from "@testing-library/react";
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import type { NineZoneDispatch } from "../../../appui-react/layout/base/NineZone";
 import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState";
 import { addTab } from "../../../appui-react/layout/state/internal/TabStateHelpers";
@@ -36,7 +34,7 @@ describe("SendBack", () => {
   });
 
   it("should dispatch TOOL_SETTINGS_DOCK", () => {
-    const dispatch = sinon.stub<NineZoneDispatch>();
+    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
     let state = createNineZoneState();
     state = addTab(state, "t1");
     state = addFloatingWidget(state, "w1", ["t1"]);
@@ -54,7 +52,7 @@ describe("SendBack", () => {
     const button = component.getByTitle("Send back");
     fireEvent.click(button);
 
-    sinon.assert.calledOnceWithExactly(dispatch, {
+    expect(dispatch).toHaveBeenCalledWith({
       type: "FLOATING_WIDGET_SEND_BACK",
       id: "w1",
     });

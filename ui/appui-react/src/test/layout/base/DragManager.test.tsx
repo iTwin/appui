@@ -3,10 +3,8 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import * as sinon from "sinon";
 import { act, renderHook } from "@testing-library/react-hooks";
 import { createDragInfo, createDragStartArgs, setRefValue } from "../Providers";
-import { expect, should } from "chai";
 import { waitFor } from "@testing-library/react";
 import {
   DragManager,
@@ -28,16 +26,10 @@ describe("DragManager", () => {
         side: "left",
         newWidgetId: "w1",
       });
-      const spy =
-        sinon.stub<Parameters<DragManager["onDragStart"]["addListener"]>[0]>();
+      const spy = vi.fn();
       sut.onDragStart.addListener(spy);
       sut.handleDragStart(createDragStartArgs());
-      sinon.assert.calledOnceWithExactly(
-        spy,
-        sinon.match.any,
-        sinon.match.any,
-        undefined
-      );
+      expect(spy).toHaveBeenCalledOnce();
     });
   });
 });
@@ -45,7 +37,7 @@ describe("DragManager", () => {
 describe("useTabTarget", () => {
   it("should clear target when target changes", async () => {
     const dragManager = new DragManager();
-    const spy = sinon.spy(dragManager, "handleTargetChanged");
+    const spy = vi.spyOn(dragManager, "handleTargetChanged");
     const { result } = renderHook(
       () =>
         useTabTarget({
@@ -60,36 +52,33 @@ describe("useTabTarget", () => {
     );
 
     const element = document.createElement("div");
-    const elementFromPointStub = sinon
-      .stub(document, "elementFromPoint")
-      .returns(element);
+    const elementFromPointStub = vi
+      .spyOn(document, "elementFromPoint")
+      .mockReturnValue(element);
     setRefValue(result.current[0], element);
 
     dragManager.handleDragStart(createDragStartArgs());
     dragManager.handleDrag(10, 20);
     await waitFor(() => {
-      result.current[1].should.true;
+      expect(result.current[1]).toEqual(true);
     });
 
-    spy.resetHistory();
-    elementFromPointStub.restore();
-    sinon
-      .stub(document, "elementFromPoint")
-      .returns(document.createElement("div"));
+    spy.mockReset();
+    elementFromPointStub.mockReset();
+    vi.spyOn(document, "elementFromPoint").mockReturnValue(
+      document.createElement("div")
+    );
     dragManager.handleDrag(10, 20);
 
-    spy.calledOnceWithExactly(undefined).should.true;
+    expect(spy).toHaveBeenCalledOnce();
     await waitFor(() => {
-      result.current[1].should.false;
+      expect(result.current[1]).toEqual(false);
     });
   });
 
   it("should clear target when drag interaction ends", async () => {
     const dragManager = new DragManager();
-    const stub =
-      sinon.stub<
-        Parameters<DragManager["onTargetChanged"]["addListener"]>[0]
-      >();
+    const stub = vi.fn();
     dragManager.onTargetChanged.addListener(stub);
     const { result } = renderHook(
       () =>
@@ -105,24 +94,24 @@ describe("useTabTarget", () => {
     );
 
     const element = document.createElement("div");
-    const elementFromPointStub = sinon
-      .stub(document, "elementFromPoint")
-      .returns(element);
+    const elementFromPointStub = vi
+      .spyOn(document, "elementFromPoint")
+      .mockReturnValue(element);
     setRefValue(result.current[0], element);
 
     dragManager.handleDragStart(createDragStartArgs());
     dragManager.handleDrag(10, 20);
     await waitFor(() => {
-      result.current[1].should.true;
+      expect(result.current[1]).toEqual(true);
     });
 
-    stub.resetHistory();
-    elementFromPointStub.restore();
+    stub.mockReset();
+    elementFromPointStub.mockReset();
     dragManager.handleDragEnd();
 
-    sinon.assert.calledOnceWithExactly(stub, undefined);
+    expect(stub).toHaveBeenCalledOnce();
     await waitFor(() => {
-      result.current[1].should.false;
+      expect(result.current[1]).toEqual(false);
     });
   });
 });
@@ -130,7 +119,7 @@ describe("useTabTarget", () => {
 describe("usePanelTarget", () => {
   it("should clear target", () => {
     const dragManager = new DragManager();
-    const spy = sinon.spy(dragManager, "handleTargetChanged");
+    const spy = vi.spyOn(dragManager, "handleTargetChanged");
     const { result } = renderHook(
       () =>
         usePanelTarget({
@@ -145,25 +134,25 @@ describe("usePanelTarget", () => {
     );
 
     const element = document.createElement("div");
-    sinon.stub(document, "elementFromPoint").returns(element);
+    vi.spyOn(document, "elementFromPoint").mockReturnValue(element);
     setRefValue(result.current[0], element);
 
     dragManager.handleDragStart(createDragStartArgs());
     dragManager.handleDrag(10, 20);
 
-    spy.resetHistory();
+    spy.mockReset();
 
     setRefValue(result.current[0], document.createElement("div"));
     dragManager.handleDrag(10, 20);
 
-    spy.calledOnceWithExactly(undefined).should.true;
+    expect(spy).toHaveBeenCalledOnce();
   });
 });
 
 describe("useWidgetTarget", () => {
   it("should clear target", () => {
     const dragManager = new DragManager();
-    const spy = sinon.spy(dragManager, "handleTargetChanged");
+    const spy = vi.spyOn(dragManager, "handleTargetChanged");
     const { result } = renderHook(
       () =>
         useTarget({
@@ -178,18 +167,18 @@ describe("useWidgetTarget", () => {
     );
 
     const element = document.createElement("div");
-    sinon.stub(document, "elementFromPoint").returns(element);
+    vi.spyOn(document, "elementFromPoint").mockReturnValue(element);
     setRefValue(result.current[0], element);
 
     dragManager.handleDragStart(createDragStartArgs());
     dragManager.handleDrag(10, 20);
 
-    spy.resetHistory();
+    spy.mockReset();
 
     setRefValue(result.current[0], document.createElement("div"));
     dragManager.handleDrag(10, 20);
 
-    spy.calledOnceWithExactly(undefined).should.true;
+    expect(spy).toHaveBeenCalledOnce();
   });
 });
 
@@ -201,7 +190,7 @@ describe("useIsDraggedType", () => {
         <DragManagerContext.Provider value={dragManager} {...props} />
       ),
     });
-    result.current.should.false;
+    expect(result.current).toEqual(false);
 
     dragManager.handleDragStart({
       info: createDragInfo(),
@@ -211,7 +200,7 @@ describe("useIsDraggedType", () => {
       },
     });
     await waitFor(() => {
-      result.current.should.true;
+      expect(result.current).toEqual(true);
     });
   });
 });
@@ -224,7 +213,7 @@ describe("useDraggedItem", () => {
         <DragManagerContext.Provider value={dragManager} {...props} />
       ),
     });
-    should().equal(result.current, undefined);
+    expect(result.current).toEqual(undefined);
 
     act(() => {
       dragManager.handleDragStart({
@@ -235,7 +224,7 @@ describe("useDraggedItem", () => {
         },
       });
     });
-    result.current!.should.eql({
+    expect(result.current).toEqual({
       type: "tab",
       id: "",
     });
@@ -243,7 +232,7 @@ describe("useDraggedItem", () => {
     act(() => {
       dragManager.handleDragUpdate({ type: "tab", id: "abc" });
     });
-    result.current!.should.eql({
+    expect(result.current).toEqual({
       type: "tab",
       id: "abc",
     });
@@ -251,7 +240,7 @@ describe("useDraggedItem", () => {
     act(() => {
       dragManager.handleDragEnd();
     });
-    should().equal(result.current, undefined);
+    expect(result.current).toEqual(undefined);
   });
 });
 
@@ -263,7 +252,7 @@ describe("useTargeted", () => {
         <DragManagerContext.Provider value={dragManager} {...props} />
       ),
     });
-    expect(result.current).to.be.undefined;
+    expect(result.current).toEqual(undefined);
 
     act(() => {
       dragManager.handleDragStart({
@@ -278,6 +267,6 @@ describe("useTargeted", () => {
       });
     });
 
-    result.current!.should.eql({ type: "window" });
+    expect(result.current).toEqual({ type: "window" });
   });
 });

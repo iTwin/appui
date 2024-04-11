@@ -9,8 +9,8 @@ import { WidgetTabsEntryContext } from "../../../appui-react/layout/widget/Tabs"
 import { TestNineZoneProvider } from "../Providers";
 
 describe("WidgetOverflow", () => {
-  it("should render", () => {
-    const { container } = render(
+  it("should render", async () => {
+    const component = render(
       <TestNineZoneProvider>
         <WidgetTabsEntryContext.Provider
           value={{
@@ -25,11 +25,12 @@ describe("WidgetOverflow", () => {
         </WidgetTabsEntryContext.Provider>
       </TestNineZoneProvider>
     );
-    container.firstChild!.should.matchSnapshot();
+    expect(component.queryAllByText("A")).toHaveLength(0);
+    expect(component.queryAllByText("B")).toHaveLength(0);
   });
 
   it("should open panel", () => {
-    const { container } = render(
+    const component = render(
       <TestNineZoneProvider>
         <WidgetTabsEntryContext.Provider
           value={{
@@ -44,12 +45,12 @@ describe("WidgetOverflow", () => {
         </WidgetTabsEntryContext.Provider>
       </TestNineZoneProvider>
     );
-    const button = container.getElementsByClassName("nz-button")[0];
+    const button = component.container.getElementsByClassName("nz-button")[0];
     act(() => {
       fireEvent.click(button);
     });
-    const menu = document.getElementsByClassName("nz-widget-menu")[0];
-    menu.should.matchSnapshot();
+    component.getByText("A");
+    component.getByText("B");
   });
 
   it("should close panel on outside click", () => {
@@ -72,13 +73,13 @@ describe("WidgetOverflow", () => {
     act(() => {
       fireEvent.click(button);
     });
-    document.getElementsByClassName("nz-widget-menu").length.should.eq(1);
+    expect(document.getElementsByClassName("nz-widget-menu")).toHaveLength(1);
 
     act(() => {
       fireEvent.pointerDown(document);
       fireEvent.pointerUp(document);
     });
 
-    document.getElementsByClassName("nz-widget-menu").length.should.eq(0);
+    expect(document.getElementsByClassName("nz-widget-menu")).toHaveLength(0);
   });
 });

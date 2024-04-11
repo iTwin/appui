@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import type * as ReactAutosuggest from "react-autosuggest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -36,14 +34,18 @@ describe("AutoSuggest", () => {
         value={"abc"}
       />
     );
-    expect(screen.getByRole<HTMLInputElement>("textbox").value).to.eq("label");
+    expect(screen.getByRole<HTMLInputElement>("textbox").value).toEqual(
+      "label"
+    );
   });
 
   it("should update the input value when input changes", async () => {
     render(<AutoSuggest options={options} onSuggestionSelected={() => {}} />);
 
     await theUserTo.type(screen.getByRole("textbox"), "label");
-    expect(screen.getByRole<HTMLInputElement>("textbox").value).to.eq("label");
+    expect(screen.getByRole<HTMLInputElement>("textbox").value).toEqual(
+      "label"
+    );
   });
 
   it("should open suggestions when typing", async () => {
@@ -66,12 +68,12 @@ describe("AutoSuggest", () => {
   });
 
   it("should call onSuggestionSelected with clicked suggestion", async () => {
-    const spyMethod = sinon.spy();
-    render(<AutoSuggest options={options} onSuggestionSelected={spyMethod} />);
+    const spy = vi.fn();
+    render(<AutoSuggest options={options} onSuggestionSelected={spy} />);
 
     await theUserTo.type(screen.getByRole("textbox"), "abc");
     await theUserTo.click(screen.getByRole("option", { name: "label" }));
-    spyMethod.calledOnce.should.true;
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   const getSuggestions = (input: string): AutoSuggestData[] => {
@@ -134,7 +136,7 @@ describe("AutoSuggest", () => {
   });
 
   it("should support renderInputComponent prop", async () => {
-    const spyInput = sinon.spy();
+    const spyInput = vi.fn();
     const renderInput = (
       inputProps: ReactAutosuggest.InputProps<AutoSuggestData>
     ): React.ReactNode => {
@@ -161,11 +163,11 @@ describe("AutoSuggest", () => {
     );
 
     await theUserTo.type(screen.getByRole("searchbox"), "cba");
-    expect(spyInput.called).to.be.true;
+    expect(spyInput).toHaveBeenCalled();
   });
 
   it("should support onSuggestionsClearRequested prop", async () => {
-    const spyClear = sinon.spy();
+    const spyClear = vi.fn();
     render(
       <AutoSuggest
         getSuggestions={getSuggestionsAsync}
@@ -176,34 +178,31 @@ describe("AutoSuggest", () => {
 
     await theUserTo.type(screen.getByRole("textbox"), "cba");
     await theUserTo.type(screen.getByRole("textbox"), "[Backspace>3/]");
-    expect(spyClear.called).to.be.true;
+    expect(spyClear).toHaveBeenCalled();
   });
 
   it("should log Error when options function provided but not getLabel", async () => {
-    const spyLogger = sinon.spy(Logger, "logError");
+    const spyLogger = vi.spyOn(Logger, "logError");
     render(
       <AutoSuggest options={getSuggestions} onSuggestionSelected={() => {}} />
     );
 
     await theUserTo.type(screen.getByRole("textbox"), "cba");
     expect(screen.getByRole("option", { name: "LABEL" }));
-    spyLogger.called.should.true;
-
-    (Logger.logError as any).restore();
+    expect(spyLogger).toHaveBeenCalled();
   });
 
   it("should log Error when no options or getSuggestions provided", async () => {
-    const spyLogger = sinon.spy(Logger, "logError");
+    const spyLogger = vi.spyOn(Logger, "logError");
     render(<AutoSuggest onSuggestionSelected={() => {}} />);
 
     await theUserTo.type(screen.getByRole("textbox"), "abc");
-    expect(screen.queryByRole("option")).to.be.null;
-    spyLogger.called.should.true;
-    (Logger.logError as any).restore();
+    expect(screen.queryByRole("option")).toEqual(null);
+    expect(spyLogger).toHaveBeenCalled();
   });
 
   it("should invoke onPressEnter", async () => {
-    const spyEnter = sinon.spy();
+    const spyEnter = vi.fn();
     render(
       <AutoSuggest
         options={options}
@@ -213,11 +212,11 @@ describe("AutoSuggest", () => {
     );
 
     await theUserTo.type(screen.getByRole("textbox"), "[Enter]");
-    expect(spyEnter.called).to.be.true;
+    expect(spyEnter).toHaveBeenCalled();
   });
 
   it("should invoke onPressEscape", async () => {
-    const spyEscape = sinon.spy();
+    const spyEscape = vi.fn();
     render(
       <AutoSuggest
         options={options}
@@ -227,11 +226,11 @@ describe("AutoSuggest", () => {
     );
 
     await theUserTo.type(screen.getByRole("textbox"), "[Escape]");
-    expect(spyEscape.called).to.be.true;
+    expect(spyEscape).toHaveBeenCalled();
   });
 
   it("should invoke onPressTab", async () => {
-    const spyTab = sinon.spy();
+    const spyTab = vi.fn();
     render(
       <AutoSuggest
         options={options}
@@ -241,11 +240,11 @@ describe("AutoSuggest", () => {
     );
 
     await theUserTo.type(screen.getByRole("textbox"), "[Tab]");
-    expect(spyTab.called).to.be.true;
+    expect(spyTab).toHaveBeenCalled();
   });
 
   it("should invoke onInputFocus", async () => {
-    const spyFocus = sinon.spy();
+    const spyFocus = vi.fn();
     render(
       <AutoSuggest
         options={options}
@@ -255,23 +254,23 @@ describe("AutoSuggest", () => {
     );
 
     await theUserTo.click(screen.getByRole("textbox"));
-    expect(spyFocus.called).to.be.true;
+    expect(spyFocus).toHaveBeenCalled();
   });
 
   it("should handle unmounting before end of request", async () => {
-    const spyMethod = sinon.spy();
+    const spy = vi.fn();
     let resolver = (
       _: AutoSuggestData[] | PromiseLike<AutoSuggestData[]>
     ) => {};
     const suggestion = new Promise<AutoSuggestData[]>((resolve) => {
       resolver = resolve;
     });
-    const spySuggester = sinon.fake(async () => suggestion);
+    const getSuggestionsSpy = vi.fn(async () => suggestion);
 
     const { unmount } = render(
       <AutoSuggest
-        getSuggestions={spySuggester}
-        onSuggestionSelected={spyMethod}
+        getSuggestions={getSuggestionsSpy}
+        onSuggestionSelected={spy}
       />
     );
 
@@ -279,7 +278,7 @@ describe("AutoSuggest", () => {
 
     unmount();
     resolver([]);
-    expect(spySuggester).to.have.been.called;
-    expect(spyMethod).not.to.have.been.called;
+    expect(getSuggestionsSpy).toHaveBeenCalled();
+    expect(spy).not.toBeCalled();
   });
 });

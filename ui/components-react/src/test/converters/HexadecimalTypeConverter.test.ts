@@ -2,15 +2,9 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import { HexadecimalTypeConverter } from "../../components-react";
-import TestUtils from "../TestUtils";
 
 describe("HexadecimalTypeConverter", () => {
-  before(async () => {
-    await TestUtils.initializeUiComponents();
-  });
-
   let converter: HexadecimalTypeConverter;
 
   beforeEach(() => {
@@ -31,16 +25,16 @@ describe("HexadecimalTypeConverter", () => {
 
   describe("convertFromString", () => {
     it("returns correct values", () => {
-      expect(converter.convertFromString("FF")).to.be.eq("0xff");
-      expect(converter.convertFromString("0xFF")).to.be.eq("0xff");
-      expect(converter.convertFromString("0x000000FF")).to.be.eq("0xff");
-      expect(converter.convertFromString("AABBCC")).to.be.eq("0xaabbcc");
-      expect(converter.convertFromString("AABBCCFF")).to.be.eq("0xaabbccff");
-      expect(converter.convertFromString("0xAABBCCFF")).to.be.eq("0xaabbccff");
+      expect(converter.convertFromString("FF")).toEqual("0xff");
+      expect(converter.convertFromString("0xFF")).toEqual("0xff");
+      expect(converter.convertFromString("0x000000FF")).toEqual("0xff");
+      expect(converter.convertFromString("AABBCC")).toEqual("0xaabbcc");
+      expect(converter.convertFromString("AABBCCFF")).toEqual("0xaabbccff");
+      expect(converter.convertFromString("0xAABBCCFF")).toEqual("0xaabbccff");
     });
 
     it("returns undefined when string is incorrect", () => {
-      expect(converter.convertFromString("GFF")).to.be.undefined;
+      expect(converter.convertFromString("GFF")).toEqual(undefined);
     });
   });
 

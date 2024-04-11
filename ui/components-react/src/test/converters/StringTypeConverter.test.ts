@@ -2,15 +2,9 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import { StringTypeConverter } from "../../components-react";
-import TestUtils from "../TestUtils";
 
 describe("StringTypeConverter", () => {
-  before(async () => {
-    await TestUtils.initializeUiComponents();
-  });
-
   let converter: StringTypeConverter;
 
   beforeEach(() => {
@@ -65,62 +59,72 @@ describe("StringTypeConverter", () => {
   });
 
   it("isStringType", () => {
-    expect(converter.isStringType).to.be.true;
+    expect(converter.isStringType).toEqual(true);
   });
 
   it("startsWith", () => {
-    expect(converter.startsWith("The Test", "The", true)).to.be.true;
-    expect(converter.startsWith("The Test", "the", false)).to.be.true;
-    expect(converter.startsWith("The Test", "", false)).to.be.false;
+    expect(converter.startsWith("The Test", "The", true)).toEqual(true);
+    expect(converter.startsWith("The Test", "the", false)).toEqual(true);
+    expect(converter.startsWith("The Test", "", false)).toEqual(false);
   });
 
   it("endsWith", () => {
-    expect(converter.endsWith("The Test", "Test", true)).to.be.true;
-    expect(converter.endsWith("The Test", "test", false)).to.be.true;
-    expect(converter.endsWith("The Test", "", false)).to.be.false;
-    expect(converter.endsWith("Test", "The Test", false)).to.be.false;
+    expect(converter.endsWith("The Test", "Test", true)).toEqual(true);
+    expect(converter.endsWith("The Test", "test", false)).toEqual(true);
+    expect(converter.endsWith("The Test", "", false)).toEqual(false);
+    expect(converter.endsWith("Test", "The Test", false)).toEqual(false);
   });
 
   it("contains", () => {
-    expect(converter.contains("The contains Test", "contains", true)).to.be
-      .true;
-    expect(converter.contains("The contains Test", "Contains", false)).to.be
-      .true;
-    expect(converter.contains("The contains Test", "", false)).to.be.false;
-    expect(converter.contains("Test", "The contains Test", false)).to.be.false;
+    expect(converter.contains("The contains Test", "contains", true)).toEqual(
+      true
+    );
+    expect(converter.contains("The contains Test", "Contains", false)).toEqual(
+      true
+    );
+    expect(converter.contains("The contains Test", "", false)).toEqual(false);
+    expect(converter.contains("Test", "The contains Test", false)).toEqual(
+      false
+    );
   });
 
   it("doesNotContain", () => {
-    expect(converter.doesNotContain("The contains Test", "Some Text", true)).to
-      .be.true;
-    expect(converter.doesNotContain("The contains Test", "some text", false)).to
-      .be.true;
+    expect(
+      converter.doesNotContain("The contains Test", "Some Text", true)
+    ).toEqual(true);
+    expect(
+      converter.doesNotContain("The contains Test", "some text", false)
+    ).toEqual(true);
   });
 
   it("isContainedIn", () => {
-    expect(converter.isContainedIn("contains", "The contains Test", true)).to.be
-      .true;
-    expect(converter.isContainedIn("Contains", "The contains Test", false)).to
-      .be.true;
+    expect(
+      converter.isContainedIn("contains", "The contains Test", true)
+    ).toEqual(true);
+    expect(
+      converter.isContainedIn("Contains", "The contains Test", false)
+    ).toEqual(true);
   });
 
   it("isNotContainedIn", () => {
-    expect(converter.isNotContainedIn("Contain", "The contains Test", true)).to
-      .be.true;
-    expect(converter.isNotContainedIn("Contain", "The contains Test", false)).to
-      .be.false;
+    expect(
+      converter.isNotContainedIn("Contain", "The contains Test", true)
+    ).toEqual(true);
+    expect(
+      converter.isNotContainedIn("Contain", "The contains Test", false)
+    ).toEqual(false);
   });
 
   it("isEmpty", () => {
-    expect(converter.isEmpty("")).to.be.true;
-    expect(converter.isEmpty(1 as unknown as string)).to.be.true;
+    expect(converter.isEmpty("")).toEqual(true);
+    expect(converter.isEmpty(1 as unknown as string)).toEqual(true);
   });
 
   it("isNotEmpty", () => {
-    expect(converter.isNotEmpty("not empty")).to.be.true;
+    expect(converter.isNotEmpty("not empty")).toEqual(true);
   });
 
   it("isStringType", () => {
-    expect(converter.isStringType).to.be.true;
+    expect(converter.isStringType).toEqual(true);
   });
 });

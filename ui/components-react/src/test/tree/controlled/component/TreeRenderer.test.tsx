@@ -2,11 +2,9 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
 import { VariableSizeList } from "react-window";
 import { Observable } from "rxjs";
-import sinon from "sinon";
 import * as moq from "typemoq";
 import type { PrimitiveValue } from "@itwin/appui-abstract";
 import { fireEvent, render } from "@testing-library/react";
@@ -29,7 +27,6 @@ import {
 import type { ITreeNodeLoader } from "../../../../components-react/tree/controlled/TreeNodeLoader";
 import type { HighlightableTreeProps } from "../../../../components-react/tree/HighlightingEngine";
 import { HighlightingEngine } from "../../../../components-react/tree/HighlightingEngine";
-import TestUtils from "../../../TestUtils";
 import { createRandomMutableTreeModelNode } from "../TreeHelpers";
 
 describe("TreeRenderer", () => {
@@ -45,13 +42,11 @@ describe("TreeRenderer", () => {
     height: 200,
   };
 
-  before(async () => {
-    await TestUtils.initializeUiComponents();
+  beforeEach(async () => {
     HTMLElement.prototype.scrollIntoView = () => {};
   });
 
-  after(() => {
-    TestUtils.terminateUiComponents();
+  afterEach(() => {
     delete (HTMLElement.prototype as any).scrollIntoView;
   });
 
@@ -64,7 +59,7 @@ describe("TreeRenderer", () => {
   it("renders without nodes", () => {
     visibleNodesMock.setup((x) => x.getNumNodes()).returns(() => 0);
     const renderNode = render(<TreeRenderer {...defaultProps} />);
-    expect(renderNode).to.not.be.undefined;
+    expect(renderNode).toBeTruthy();
   });
 
   it("renders with loaded node", () => {
@@ -102,7 +97,7 @@ describe("TreeRenderer", () => {
 
       const { container } = render(<TreeRenderer {...defaultProps} />);
 
-      expect(container).to.not.be.null;
+      expect(container).toBeTruthy();
       nodeLoaderMock.verify((x) => x.loadNode(treeRoot, 0), moq.Times.once());
     });
 
@@ -128,7 +123,7 @@ describe("TreeRenderer", () => {
 
       const { container } = render(<TreeRenderer {...defaultProps} />);
 
-      expect(container).to.not.be.null;
+      expect(container).toBeTruthy();
       nodeLoaderMock.verify((x) => x.loadNode(parentNode, 0), moq.Times.once());
     });
 
@@ -149,7 +144,7 @@ describe("TreeRenderer", () => {
 
       const { container } = render(<TreeRenderer {...defaultProps} />);
 
-      expect(container).to.not.be.null;
+      expect(container).toBeTruthy();
       nodeLoaderMock.verify(
         (x) => x.loadNode(moq.It.isAny(), moq.It.isAny()),
         moq.Times.never()
@@ -237,8 +232,8 @@ describe("TreeRenderer", () => {
     );
 
     const nodeBefore = getByText("test_node_2");
-    expect(nodeBefore.style.height).to.be.equal("50px");
-    expect(nodeBefore.style.top).to.be.equal("50px");
+    expect(nodeBefore.style.height).toEqual("50px");
+    expect(nodeBefore.style.top).toEqual("50px");
 
     rerender(
       <TreeRenderer
@@ -249,8 +244,8 @@ describe("TreeRenderer", () => {
     );
 
     const nodeAfter = getByText("test_node_2");
-    expect(nodeAfter.style.height).to.be.equal("20px");
-    expect(nodeAfter.style.top).to.be.equal("20px");
+    expect(nodeAfter.style.height).toEqual("20px");
+    expect(nodeAfter.style.top).toEqual("20px");
   });
 
   it("calls 'onItemRendered' callback when nodes are rendered", () => {
@@ -266,14 +261,14 @@ describe("TreeRenderer", () => {
         createRandomMutableTreeModelNode(undefined, undefined, "test node 1")
       );
 
-    const spy = sinon.spy();
+    const spy = vi.fn();
 
     const { getByText } = render(
       <TreeRenderer {...defaultProps} onItemsRendered={spy} />
     );
 
     getByText("test node 1");
-    expect(spy).to.be.calledOnceWith({
+    expect(spy).toHaveBeenCalledWith({
       overscanStartIndex: 0,
       visibleStartIndex: 0,
       overscanStopIndex: 1,
@@ -310,14 +305,14 @@ describe("TreeRenderer", () => {
       return <div className={HighlightingEngine.ACTIVE_CLASS_NAME} />;
     };
 
-    const verticalScrollSpy = sinon.spy();
-    sinon.replace(
-      VariableSizeList.prototype,
-      "scrollToItem",
+    const verticalScrollSpy = vi.fn();
+    vi.spyOn(VariableSizeList.prototype, "scrollToItem").mockImplementation(
       verticalScrollSpy
     );
-    const horizontalScrollSpy = sinon.spy();
-    sinon.replace(HTMLElement.prototype, "scrollIntoView", horizontalScrollSpy);
+    const horizontalScrollSpy = vi.fn();
+    vi.spyOn(HTMLElement.prototype, "scrollIntoView").mockImplementation(
+      horizontalScrollSpy
+    );
 
     const { rerender } = render(<TreeRenderer {...defaultProps} />);
 
@@ -331,8 +326,8 @@ describe("TreeRenderer", () => {
     );
     onLabelRendered!(node2);
 
-    expect(verticalScrollSpy).to.be.calledWith(1);
-    expect(horizontalScrollSpy).to.be.called;
+    expect(verticalScrollSpy).toHaveBeenCalledWith(1);
+    expect(horizontalScrollSpy).toHaveBeenCalled();
   });
 
   it("calls treeActions.onTreeKeyDown & onTreeKeyUp", () => {
@@ -341,25 +336,25 @@ describe("TreeRenderer", () => {
     visibleNodesMock.setup((x) => x.getNumNodes()).returns(() => 1);
     visibleNodesMock.setup((x) => x.getAtIndex(0)).returns(() => node);
 
-    const spyKeyDown = sinon.spy();
-    const spyKeyUp = sinon.spy();
+    const spyKeyDown = vi.fn();
+    const spyKeyUp = vi.fn();
     treeActionsMock.setup((x) => x.onTreeKeyDown).returns(() => spyKeyDown);
     treeActionsMock.setup((x) => x.onTreeKeyUp).returns(() => spyKeyUp);
 
     const renderNode = render(<TreeRenderer {...defaultProps} />);
 
-    expect(renderNode).to.not.be.undefined;
+    expect(renderNode).toBeTruthy();
 
     const treeNode: HTMLElement =
       renderNode.container.querySelector(".core-tree-node")!;
     fireEvent.keyDown(treeNode, { key: " " });
     fireEvent.keyUp(treeNode, { key: " " });
-    expect(spyKeyDown).to.be.called;
-    expect(spyKeyUp).to.be.called;
+    expect(spyKeyDown).toHaveBeenCalled();
+    expect(spyKeyUp).toHaveBeenCalled();
   });
 
   it("calls onNodeEditorClosed when node.editingInfo changes to undefined", () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const label = "test node";
     const node = createRandomMutableTreeModelNode(undefined, undefined, label);
     visibleNodesMock.setup((x) => x.getNumNodes()).returns(() => 1);
@@ -369,7 +364,7 @@ describe("TreeRenderer", () => {
       <TreeRenderer {...defaultProps} onNodeEditorClosed={spy} />
     );
 
-    expect(spy).to.not.be.called;
+    expect(spy).not.toBeCalled();
     node.editingInfo = { onCommit: () => {}, onCancel: () => {} };
 
     const nodeRenderer = (_props: TreeNodeRendererProps) => {
@@ -384,17 +379,15 @@ describe("TreeRenderer", () => {
       />
     );
 
-    expect(spy).to.not.be.called;
+    expect(spy).not.toBeCalled();
     node.editingInfo = undefined;
 
     rerender(<TreeRenderer {...defaultProps} onNodeEditorClosed={spy} />);
 
-    expect(spy).to.be.called;
+    expect(spy).toHaveBeenCalled();
   });
 
   describe("scrollToNode", () => {
-    let scrollToItemFake: sinon.SinonSpy;
-
     beforeEach(() => {
       visibleNodesMock.setup((x) => x.getNumNodes()).returns(() => 20);
       visibleNodesMock
@@ -405,24 +398,19 @@ describe("TreeRenderer", () => {
       visibleNodesMock
         .setup((x) => x.getIndexOfNode("test_id"))
         .returns(() => 15);
-
-      scrollToItemFake = sinon.fake();
-      sinon.replace(
-        VariableSizeList.prototype,
-        "scrollToItem",
-        scrollToItemFake
-      );
     });
 
     it("scrolls to the specified node", () => {
+      const spy = vi.spyOn(VariableSizeList.prototype, "scrollToItem");
       const treeRendererRef: React.RefObject<TreeRenderer> = { current: null };
       render(<TreeRenderer ref={treeRendererRef} {...defaultProps} />);
 
       treeRendererRef.current!.scrollToNode("test_id", "smart");
-      expect(scrollToItemFake).to.have.been.calledOnceWithExactly(15, "smart");
+      expect(spy).toHaveBeenCalledWith(15, "smart");
     });
 
     it("does not throw if called early", () => {
+      const spy = vi.spyOn(VariableSizeList.prototype, "scrollToItem");
       render(
         React.createElement(() => {
           const treeRendererRef = React.useRef<TreeRenderer>(null);
@@ -435,7 +423,7 @@ describe("TreeRenderer", () => {
         })
       );
 
-      expect(scrollToItemFake).to.have.been.calledOnceWithExactly(15, "smart");
+      expect(spy).toHaveBeenCalledWith(15, "smart");
     });
   });
 });

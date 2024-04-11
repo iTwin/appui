@@ -20,6 +20,7 @@ internal;calculateBoxShadowOpacity: (proximityScale: number) => number
 internal;calculateProximityScale: (proximity: number, snap?: boolean, threshold?: number) => number
 internal;calculateToolbarOpacity: (proximityScale: number) => number
 public;Centered(props: CommonDivProps): React_2.JSX.Element
+deprecated;Centered(props: CommonDivProps): React_2.JSX.Element
 public;CheckBoxInfo
 public;CheckBoxState
 public;CheckListBox 
@@ -47,8 +48,11 @@ public;DialogAlignment
 public;DialogProps 
 public;DisabledText(props: TextProps): React_2.JSX.Element
 public;Div(props: DivProps): React_2.JSX.Element
+deprecated;Div(props: DivProps): React_2.JSX.Element
 public;DivProps 
+deprecated;DivProps 
 public;DivWithOutsideClick:
+deprecated;DivWithOutsideClick:
 public;ElementResizeObserver({ watchedElement, render, }:
 public;ElementSeparator: (props: ElementSeparatorProps) => React_2.JSX.Element
 public;ElementSeparatorProps 
@@ -58,21 +62,26 @@ public;ExpandableListProps
 public;ExpansionToggle(props: ExpansionToggleProps): React_2.JSX.Element
 public;ExpansionToggleProps 
 public;FillCentered(props: CommonDivProps): React_2.JSX.Element
+deprecated;FillCentered(props: CommonDivProps): React_2.JSX.Element
 alpha;FilteredText(props: FilteredTextProps): React_2.JSX.Element
 alpha;FilteredTextProps 
 internal;flattenChildren: (children: React_2.ReactNode) => React_2.ReactNode
 public;FlexWrapContainer(props: CommonDivProps): React_2.JSX.Element
+deprecated;FlexWrapContainer(props: CommonDivProps): React_2.JSX.Element
 internal;focusIntoContainer(focusContainer: HTMLDivElement, initialFocusElement?: React_2.RefObject
 internal;FocusTrap(props: FocusTrapProps): React_2.JSX.Element | null
 internal;FocusTrapProps 
 public;Gap(props: GapProps): React_2.JSX.Element
+deprecated;Gap(props: GapProps): React_2.JSX.Element
 public;GapProps 
+deprecated;GapProps 
 public;GetAutoSuggestDataFunc = (value: string) => AutoSuggestData[]
 internal;getBestBWContrastColor(hexColor: string): "black" | "white"
 public;getCssVariable(variableName: string, htmlElement?: HTMLElement): string
 public;getCssVariableAsNumber(variableName: string, htmlElement?: HTMLElement): number
 internal;getDisplayName: (component: React_2.ComponentType
 internal;getObjectClassName: (obj: any) => string
+internal;getResizeObserver():
 internal;getToolbarBackdropFilter: (filterBlur: number) => string
 internal;getToolbarBackgroundColor: (opacity: number) => string
 internal;getToolbarBoxShadow: (opacity: number) => string
@@ -165,6 +174,7 @@ public;ResizableContainerObserver({ onResize, children, }:
 internal;ResizeObserverType = default_2
 public;ScrollPositionMaintainer 
 public;ScrollView(props: CommonDivProps): React_2.JSX.Element
+deprecated;ScrollView(props: CommonDivProps): React_2.JSX.Element
 public;SearchBox 
 public;SearchBoxProps 
 public;SettingsContainer: ({ tabs, onSettingsTabSelected, currentSettingsTab, settingsManager, showHeader, }: SettingsContainerProps) => React_2.JSX.Element
@@ -209,7 +219,7 @@ public;UiStateStorageResult
 public;UiStateStorageStatus
 public;UnderlinedButton(props: UnderlinedButtonProps): React_2.JSX.Element
 public;UnderlinedButtonProps
-beta;useCrossOriginPopup(visible: boolean, url: string | undefined, title: string, width: number, height: number, onClose: () => void): void
+public;useCrossOriginPopup(visible: boolean, url: string | undefined, title: string, width: number, height: number, onClose: () => void): void
 public;useDisposable
 deprecated;useDisposable
 public;useEffectSkipFirst(callback: () => (void | (() => void | undefined)) | void, deps?: any[]): void

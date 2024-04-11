@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { ExpandableBlock } from "@itwin/itwinui-react";
 import { ExpandableList } from "../../core-react";
 import TestUtils from "../TestUtils";
@@ -17,7 +15,7 @@ describe("ExpandableList", () => {
     theUserTo = userEvent.setup();
   });
 
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiCore();
   });
 
@@ -54,7 +52,7 @@ describe("ExpandableList", () => {
   });
 
   it("should handle block click", async () => {
-    const toggleSpy = sinon.spy();
+    const toggleSpy = vi.fn();
     render(
       <ExpandableList>
         <ExpandableBlock title="Test" isExpanded={true} onToggle={toggleSpy}>
@@ -64,7 +62,7 @@ describe("ExpandableList", () => {
     );
 
     await theUserTo.click(screen.getByText("Test"));
-    expect(toggleSpy.calledOnce).to.be.true;
+    expect(toggleSpy).toHaveBeenCalledOnce();
   });
 
   it("should support singleExpandOnly & singleIsCollapsible props", async () => {

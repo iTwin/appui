@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { render, waitFor } from "@testing-library/react";
 import type { ModalFrontstageInfo } from "../../appui-react";
 import {
@@ -23,7 +21,7 @@ import {
   useSaveBeforeActivatingNewSettingsTab,
   useSaveBeforeClosingSettingsContainer,
 } from "@itwin/core-react";
-import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
+import { IModelApp } from "@itwin/core-frontend";
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
 
 function TestModalSettingsPage({
@@ -66,16 +64,6 @@ function renderModalFrontstage(isOpen: boolean): React.ReactElement<any> {
 }
 
 describe("ModalSettingsStage", () => {
-  beforeEach(async () => {
-    await TestUtils.initializeUiFramework();
-    await NoRenderApp.startup();
-  });
-
-  afterEach(async () => {
-    await IModelApp.shutdown();
-    TestUtils.terminateUiFramework();
-  });
-
   it("will display no settings when none are registered", () => {
     const modalFrontstage = new SettingsModalFrontstage();
     UiFramework.frontstages.openModalFrontstage(modalFrontstage);
@@ -83,22 +71,22 @@ describe("ModalSettingsStage", () => {
     const wrapper = render(renderModalFrontstage(true));
     expect(
       wrapper.container.querySelectorAll("div.uifw-modal-frontstage").length
-    ).to.eq(1);
+    ).toEqual(1);
 
     const centeredDiv = wrapper.container.querySelectorAll(
       "div.uicore-centered"
     );
-    expect(centeredDiv.length).to.eq(1);
-    expect(centeredDiv[0].textContent).to.eq("settings.noSettingsAvailable");
+    expect(centeredDiv.length).toEqual(1);
+    expect(centeredDiv[0].textContent).toEqual("settings.noSettingsAvailable");
 
     UiFramework.frontstages.closeModalFrontstage();
     wrapper.unmount();
   });
 
   it("will open no available settings message", () => {
-    const spyOutput = sinon.spy(IModelApp.notifications, "outputMessage");
+    const spy = vi.spyOn(IModelApp.notifications, "outputMessage");
     SettingsModalFrontstage.showSettingsStage("page1");
-    spyOutput.calledOnce.should.true;
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("will return action item", () => {
@@ -108,10 +96,11 @@ describe("ModalSettingsStage", () => {
     );
     expect(backstageActionItem.groupPriority).to.be.eql(400);
     expect(backstageActionItem.itemPriority).to.be.eql(40);
-    expect(backstageActionItem.icon).not.to.be.undefined;
-    expect(backstageActionItem.label).not.to.be.undefined;
-    expect(ConditionalBooleanValue.getValue(backstageActionItem.isHidden)).to.be
-      .true;
+    expect(backstageActionItem.icon).toBeTruthy();
+    expect(backstageActionItem.label).toBeTruthy();
+    expect(
+      ConditionalBooleanValue.getValue(backstageActionItem.isHidden)
+    ).toEqual(true);
   });
 
   class TestSettingsProvider implements SettingsTabsProvider {
@@ -173,9 +162,11 @@ describe("ModalSettingsStage", () => {
       usage: "General",
       contentGroup: TestUtils.TestContentGroup2,
     });
-    sinon
-      .stub(UiFramework.frontstages, "activeFrontstageDef")
-      .get(() => frontstageDef);
+    vi.spyOn(
+      UiFramework.frontstages,
+      "activeFrontstageDef",
+      "get"
+    ).mockImplementation(() => frontstageDef);
 
     settingsManager.addSettingsProvider(new TestSettingsProvider());
     // const modalFrontstage = new SettingsModalFrontstage();
@@ -187,25 +178,25 @@ describe("ModalSettingsStage", () => {
 
     expect(
       wrapper.container.querySelectorAll("div.uifw-modal-frontstage").length
-    ).to.eq(1);
+    ).toEqual(1);
     const liPage1 = wrapper.container.querySelector(
       `li[data-for='page1']`
     ) as HTMLLIElement;
-    expect(liPage1.classList.contains("core-active")).to.be.true;
+    expect(liPage1.classList.contains("core-active")).toEqual(true);
 
     SettingsModalFrontstage.showSettingsStage("page2");
     await TestUtils.flushAsyncOperations();
     const liPage2 = wrapper.container.querySelector(
       `li[data-for='page-2']`
     ) as HTMLLIElement;
-    expect(liPage2.classList.contains("core-active")).to.be.true;
+    expect(liPage2.classList.contains("core-active")).toEqual(true);
 
     SettingsModalFrontstage.showSettingsStage("page-3");
     const liPage3 = wrapper.container.querySelector(
       `li[data-for='page-3']`
     ) as HTMLLIElement;
     await waitFor(() => {
-      expect(liPage3.classList.contains("core-active")).to.be.true;
+      expect(liPage3.classList.contains("core-active")).toEqual(true);
     });
 
     settingsManager.removeSettingsProvider("AppSettingsProvider");
@@ -223,9 +214,11 @@ describe("ModalSettingsStage", () => {
       usage: "General",
       contentGroup: TestUtils.TestContentGroup2,
     });
-    sinon
-      .stub(UiFramework.frontstages, "activeFrontstageDef")
-      .get(() => frontstageDef);
+    vi.spyOn(
+      UiFramework.frontstages,
+      "activeFrontstageDef",
+      "get"
+    ).mockImplementation(() => frontstageDef);
 
     settingsManager.addSettingsProvider(new TestSettingsProvider());
     SettingsModalFrontstage.showSettingsStage("page-3");
@@ -238,7 +231,7 @@ describe("ModalSettingsStage", () => {
       const liPage3 = wrapper.container.querySelector(
         `li[data-for='page-3']`
       ) as HTMLLIElement;
-      expect(liPage3.classList.contains("core-active")).to.be.true;
+      expect(liPage3.classList.contains("core-active")).toEqual(true);
     });
 
     settingsManager.removeSettingsProvider("AppSettingsProvider");
@@ -256,9 +249,11 @@ describe("ModalSettingsStage", () => {
       usage: "General",
       contentGroup: TestUtils.TestContentGroup2,
     });
-    sinon
-      .stub(UiFramework.frontstages, "activeFrontstageDef")
-      .get(() => frontstageDef);
+    vi.spyOn(
+      UiFramework.frontstages,
+      "activeFrontstageDef",
+      "get"
+    ).mockImplementation(() => frontstageDef);
 
     settingsManager.addSettingsProvider(new TestSettingsProvider());
     SettingsModalFrontstage.showSettingsStage("page2");
@@ -269,7 +264,7 @@ describe("ModalSettingsStage", () => {
       const liPage2 = wrapper.container.querySelector(
         `li[data-for='page-2']`
       ) as HTMLLIElement;
-      expect(liPage2.classList.contains("core-active")).to.be.true;
+      expect(liPage2.classList.contains("core-active")).toEqual(true);
     });
 
     settingsManager.removeSettingsProvider("AppSettingsProvider");

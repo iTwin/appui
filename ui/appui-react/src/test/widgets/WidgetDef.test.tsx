@@ -2,11 +2,8 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import produce from "immer";
 import * as React from "react";
-import * as sinon from "sinon";
-import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { BadgeType } from "@itwin/core-react";
 import { SvgList } from "@itwin/itwinui-icons-react";
 import {
@@ -19,23 +16,12 @@ import {
   WidgetDef,
   WidgetState,
 } from "../../appui-react";
-import TestUtils from "../TestUtils";
 import { defaultFrontstageConfig } from "../frontstage/FrontstageDef.test";
 import { createNineZoneState } from "../../appui-react/layout/state/NineZoneState";
 import { addTab } from "../../appui-react/layout/state/internal/TabStateHelpers";
 import { addPanelWidget } from "../../appui-react/layout/state/internal/PanelStateHelpers";
 
 describe("WidgetDef", () => {
-  before(async () => {
-    await NoRenderApp.startup();
-    await TestUtils.initializeUiFramework();
-  });
-
-  after(async () => {
-    TestUtils.terminateUiFramework();
-    await IModelApp.shutdown();
-  });
-
   it("optional properties", () => {
     const widgetDef = WidgetDef.create({
       id: "w1",
@@ -51,23 +37,23 @@ describe("WidgetDef", () => {
       content: <div />,
     });
 
-    expect(widgetDef.isVisible).to.eq(true);
-    expect(widgetDef.isActive).to.eq(true);
-    expect(widgetDef.isFloating).to.eq(false);
-    expect(widgetDef.priority).to.eq(100);
-    expect(widgetDef.isFloatingStateSupported).to.eq(true);
-    expect(widgetDef.isFloatingStateWindowResizable).to.eq(false);
-    expect(widgetDef.isToolSettings).to.eq(false);
-    expect(widgetDef.isStatusBar).to.eq(false);
+    expect(widgetDef.isVisible).toEqual(true);
+    expect(widgetDef.isActive).toEqual(true);
+    expect(widgetDef.isFloating).toEqual(false);
+    expect(widgetDef.priority).toEqual(100);
+    expect(widgetDef.isFloatingStateSupported).toEqual(true);
+    expect(widgetDef.isFloatingStateWindowResizable).toEqual(false);
+    expect(widgetDef.isToolSettings).toEqual(false);
+    expect(widgetDef.isStatusBar).toEqual(false);
 
-    expect(widgetDef.label).to.eq("label");
-    expect(widgetDef.tooltip).to.eq("tooltip");
-    expect(widgetDef.iconSpec).to.eq("icon-home");
-    expect(widgetDef.badgeType).to.eq(BadgeType.TechnicalPreview);
+    expect(widgetDef.label).toEqual("label");
+    expect(widgetDef.tooltip).toEqual("tooltip");
+    expect(widgetDef.iconSpec).toEqual("icon-home");
+    expect(widgetDef.badgeType).toEqual(BadgeType.TechnicalPreview);
 
     widgetDef.iconSpec = "icon-lightbulb";
-    expect(widgetDef.iconSpec).to.eq("icon-lightbulb");
-    expect(React.isValidElement(widgetDef.iconSpec)).to.be.false;
+    expect(widgetDef.iconSpec).toEqual("icon-lightbulb");
+    expect(React.isValidElement(widgetDef.iconSpec)).toEqual(false);
   });
 
   it("should work with react icon", () => {
@@ -82,7 +68,7 @@ describe("WidgetDef", () => {
         isResizable: true,
       },
     });
-    expect(React.isValidElement(widgetDef.iconSpec)).to.be.true;
+    expect(React.isValidElement(widgetDef.iconSpec)).toEqual(true);
   });
 
   it("should properly handle iconSpec set/get", () => {
@@ -97,15 +83,15 @@ describe("WidgetDef", () => {
         isResizable: true,
       },
     });
-    expect(widgetDef.iconSpec).to.eq("icon-lightbulb");
-    expect(React.isValidElement(widgetDef.iconSpec)).to.be.false;
+    expect(widgetDef.iconSpec).toEqual("icon-lightbulb");
+    expect(React.isValidElement(widgetDef.iconSpec)).toEqual(false);
 
     widgetDef.iconSpec = <SvgList />;
-    expect(React.isValidElement(widgetDef.iconSpec)).to.be.true;
+    expect(React.isValidElement(widgetDef.iconSpec)).toEqual(true);
 
     widgetDef.iconSpec = "icon-home";
-    expect(widgetDef.iconSpec).to.eq("icon-home");
-    expect(React.isValidElement(widgetDef.iconSpec)).to.be.false;
+    expect(widgetDef.iconSpec).toEqual("icon-home");
+    expect(React.isValidElement(widgetDef.iconSpec)).toEqual(false);
   });
 
   it("labelKey and tooltipKey should return translated string", () => {
@@ -115,8 +101,8 @@ describe("WidgetDef", () => {
       tooltipKey: "App:tooltip",
     });
 
-    expect(widgetDef.label).to.eq("label");
-    expect(widgetDef.tooltip).to.eq("tooltip");
+    expect(widgetDef.label).toEqual("label");
+    expect(widgetDef.tooltip).toEqual("tooltip");
   });
 
   it("reactNode supports set and get", () => {
@@ -125,7 +111,7 @@ describe("WidgetDef", () => {
     });
 
     widgetDef.reactNode = <div />;
-    expect(widgetDef.reactNode).to.not.be.undefined;
+    expect(widgetDef.reactNode).toBeTruthy();
   });
 
   describe("setWidgetState", () => {
@@ -145,9 +131,11 @@ describe("WidgetDef", () => {
         },
       });
       initializeNineZoneState(activeFrontstageDef);
-      sinon
-        .stub(UiFramework.frontstages, "activeFrontstageDef")
-        .get(() => activeFrontstageDef);
+      vi.spyOn(
+        UiFramework.frontstages,
+        "activeFrontstageDef",
+        "get"
+      ).mockImplementation(() => activeFrontstageDef);
 
       // __PUBLISH_EXTRACT_START__ AppUI.WidgetDef.setWidgetState
       const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
@@ -156,8 +144,8 @@ describe("WidgetDef", () => {
       widgetDef?.setWidgetState(WidgetState.Open);
       // __PUBLISH_EXTRACT_END__
 
-      expect(widgetDef?.state).to.eq(WidgetState.Open);
-      expect(widgetDef?.stateChanged).to.eq(true);
+      expect(widgetDef?.state).toEqual(WidgetState.Open);
+      expect(widgetDef?.stateChanged).toEqual(true);
     });
 
     it("should emit `UiFramework.frontstages.onWidgetStateChangedEvent`", async () => {
@@ -176,17 +164,19 @@ describe("WidgetDef", () => {
         },
       });
       initializeNineZoneState(frontstageDef);
-      sinon
-        .stub(UiFramework.frontstages, "activeFrontstageDef")
-        .get(() => frontstageDef);
+      vi.spyOn(
+        UiFramework.frontstages,
+        "activeFrontstageDef",
+        "get"
+      ).mockImplementation(() => frontstageDef);
 
-      const spy = sinon.spy();
+      const spy = vi.fn();
       UiFramework.frontstages.onWidgetStateChangedEvent.addListener(spy);
 
       const widgetDef = frontstageDef.findWidgetDef("w1")!;
       widgetDef.setWidgetState(WidgetState.Open);
 
-      sinon.assert.calledOnceWithExactly(spy, {
+      expect(spy).toHaveBeenCalledWith({
         widgetDef,
         widgetState: WidgetState.Open,
       });
@@ -198,7 +188,7 @@ describe("WidgetDef", () => {
       const sut = new WidgetDef();
       sut.setLabel("test");
 
-      sut.label.should.eq("test");
+      expect(sut.label).toEqual("test");
     });
   });
 });
@@ -206,7 +196,7 @@ describe("WidgetDef", () => {
 describe("getWidgetState", () => {
   it("should return `Closed` if panel size is undefined", () => {
     const frontstageDef = new FrontstageDef();
-    sinon.stub(frontstageDef, "isReady").get(() => true);
+    vi.spyOn(frontstageDef, "isReady", "get").mockImplementation(() => true);
 
     let nineZoneState = createNineZoneState();
     nineZoneState = addTab(nineZoneState, "t1");
@@ -233,16 +223,12 @@ describe("getWidgetState", () => {
       },
       StagePanelLocation.Left
     );
-    sinon.stub(frontstageDef, "leftPanel").get(() => leftPanel);
+    vi.spyOn(frontstageDef, "leftPanel", "get").mockImplementation(
+      () => leftPanel
+    );
 
-    sinon
-      .stub(frontstageDef, "getStagePanelDef")
-      .withArgs(StagePanelLocation.Left)
-      .returns(leftPanel);
-    sinon
-      .stub(frontstageDef, "findWidgetDef")
-      .withArgs("t1")
-      .returns(widgetDef);
+    vi.spyOn(frontstageDef, "getStagePanelDef").mockReturnValue(leftPanel);
+    vi.spyOn(frontstageDef, "findWidgetDef").mockReturnValue(widgetDef);
 
     expect(getWidgetState(widgetDef, frontstageDef.nineZoneState)).to.be.eql(
       WidgetState.Closed
@@ -251,7 +237,7 @@ describe("getWidgetState", () => {
 
   it("should return `Closed` if panel size is 0", () => {
     const frontstageDef = new FrontstageDef();
-    sinon.stub(frontstageDef, "isReady").get(() => true);
+    vi.spyOn(frontstageDef, "isReady", "get").mockImplementation(() => true);
 
     let nineZoneState = createNineZoneState();
     nineZoneState = addTab(nineZoneState, "t1");
@@ -279,16 +265,12 @@ describe("getWidgetState", () => {
       },
       StagePanelLocation.Left
     );
-    sinon.stub(frontstageDef, "leftPanel").get(() => leftPanel);
+    vi.spyOn(frontstageDef, "leftPanel", "get").mockImplementation(
+      () => leftPanel
+    );
 
-    sinon
-      .stub(frontstageDef, "getStagePanelDef")
-      .withArgs(StagePanelLocation.Left)
-      .returns(leftPanel);
-    sinon
-      .stub(frontstageDef, "findWidgetDef")
-      .withArgs("t1")
-      .returns(widgetDef);
+    vi.spyOn(frontstageDef, "getStagePanelDef").mockReturnValue(leftPanel);
+    vi.spyOn(frontstageDef, "findWidgetDef").mockReturnValue(widgetDef);
 
     expect(getWidgetState(widgetDef, frontstageDef.nineZoneState)).to.be.eql(
       WidgetState.Closed
@@ -297,7 +279,7 @@ describe("getWidgetState", () => {
 
   it("should return `Closed` if panel is collapsed", () => {
     const frontstageDef = new FrontstageDef();
-    sinon.stub(frontstageDef, "isReady").get(() => true);
+    vi.spyOn(frontstageDef, "isReady", "get").mockImplementation(() => true);
 
     let nineZoneState = createNineZoneState();
     nineZoneState = addTab(nineZoneState, "t1");
@@ -318,10 +300,7 @@ describe("getWidgetState", () => {
       defaultState: WidgetState.Open,
     });
 
-    sinon
-      .stub(frontstageDef, "findWidgetDef")
-      .withArgs("t1")
-      .returns(widgetDef);
+    vi.spyOn(frontstageDef, "findWidgetDef").mockReturnValue(widgetDef);
     expect(getWidgetState(widgetDef, frontstageDef.nineZoneState)).to.be.eql(
       WidgetState.Closed
     );
@@ -338,10 +317,7 @@ describe("getWidgetState", () => {
       id: "t1",
     });
 
-    sinon
-      .stub(frontstageDef, "findWidgetDef")
-      .withArgs("t1")
-      .returns(widgetDef);
+    vi.spyOn(frontstageDef, "findWidgetDef").mockReturnValue(widgetDef);
     expect(getWidgetState(widgetDef, frontstageDef.nineZoneState)).to.be.eql(
       WidgetState.Unloaded
     );

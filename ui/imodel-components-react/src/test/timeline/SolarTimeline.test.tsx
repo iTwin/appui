@@ -2,10 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-
-import { expect } from "chai";
 import React from "react";
-import * as sinon from "sinon";
 import { fireEvent, render, waitFor } from "@testing-library/react";
 import { NoRenderApp, type ScreenViewport } from "@itwin/core-frontend";
 import { BaseSolarDataProvider } from "../../imodel-components-react/timeline/BaseSolarDataProvider";
@@ -31,14 +28,11 @@ class TestSolarDataProvider extends BaseSolarDataProvider {
 }
 
 describe("<SpeedTimeline />", () => {
-  before(async () => {
-    // need to initialize to get localized strings
+  beforeEach(async () => {
     await TestUtils.initializeUiIModelComponents();
   });
 
-  afterEach(() => {});
-
-  after(() => {
+  afterEach(() => {
     TestUtils.terminateUiIModelComponents();
   });
 
@@ -51,37 +45,22 @@ describe("<SpeedTimeline />", () => {
     const renderedComponent = render(
       <SpeedTimeline speed={3} onChange={onChange} />
     );
-    expect(renderedComponent).not.to.be.undefined;
-    // renderedComponent.debug();
-    expect(valueChanged).to.be.false;
+    expect(renderedComponent).toBeTruthy();
+    expect(valueChanged).toEqual(false);
     const sliderDiv = renderedComponent.getByRole("slider");
-    expect(sliderDiv).not.to.be.undefined;
+    expect(sliderDiv).toBeTruthy();
     const ariaValue = sliderDiv.getAttribute("aria-valuenow");
-    expect(ariaValue).to.be.equal("3");
+    expect(ariaValue).toEqual("3");
   });
 });
 
 describe("<SolarTimeline />", () => {
-  const rafSpy = sinon.spy((cb: FrameRequestCallback) => {
-    return window.setTimeout(cb, 0);
-  });
-
-  before(async () => {
-    // need to initialize to get localized strings
+  beforeEach(async () => {
     await TestUtils.initializeUiIModelComponents();
     await NoRenderApp.startup();
-
-    // JSDom used in testing does not provide implementations for requestAnimationFrame/cancelAnimationFrame so add dummy ones here.
-    window.requestAnimationFrame = rafSpy;
-    window.cancelAnimationFrame = () => {};
   });
 
   afterEach(() => {
-    rafSpy.resetHistory();
-  });
-
-  after(() => {
-    sinon.restore();
     TestUtils.terminateUiIModelComponents();
   });
 
@@ -161,7 +140,7 @@ describe("<SolarTimeline />", () => {
   });
 
   it("should render", async () => {
-    const fakeTimers = sinon.useFakeTimers();
+    vi.useFakeTimers();
     const dataProvider = new TestSolarDataProvider();
 
     const renderedComponent = render(
@@ -171,20 +150,20 @@ describe("<SolarTimeline />", () => {
     const playButton = renderedComponent.getByRole("button", {
       name: "timeline.play",
     });
-    expect(dataProvider.timeChangeCallbackCalled).to.be.false;
+    expect(dataProvider.timeChangeCallbackCalled).toEqual(false);
 
     fireEvent.click(playButton);
 
     // kill some time to wait for setState and subsequent call to window.requestAnimationFrame to process
-    fakeTimers.tick(500);
-    fakeTimers.restore();
+    vi.advanceTimersByTime(500);
+
     // the following sets up a MutationObserver which triggers when the DOM is updated
     await waitFor(() =>
       renderedComponent.getByRole("button", {
         name: "timeline.pause",
       })
     );
-    expect(dataProvider.timeChangeCallbackCalled).to.be.true;
+    expect(dataProvider.timeChangeCallbackCalled).toEqual(true);
 
     // hit play/pause button to pause animation
     fireEvent.click(playButton);

@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
 import {
   NotifyMessageDetails,
@@ -14,17 +13,12 @@ import {
   MessageManager,
   UiFramework,
 } from "../../appui-react";
-import TestUtils, { childStructure } from "../TestUtils";
+import { childStructure } from "../TestUtils";
 import { render, screen, waitFor } from "@testing-library/react";
 
 describe("InputFieldMessage", () => {
-  before(async () => {
-    await TestUtils.initializeUiFramework();
+  beforeEach(async () => {
     UiFramework.keyboardShortcuts.closeMenu();
-  });
-
-  after(() => {
-    TestUtils.terminateUiFramework();
   });
 
   // TODO: These look for the webfont icon classnames. This only tests that an icon is displayed and should be replaced with visual testing
@@ -54,7 +48,7 @@ describe("InputFieldMessage", () => {
     MessageManager.hideInputFieldMessage();
 
     await waitFor(() => {
-      expect(screen.queryByText("Input field message.")).to.be.null;
+      expect(screen.queryByText("Input field message.")).toEqual(null);
     });
 
     // Warning icon
@@ -116,7 +110,7 @@ describe("InputFieldMessage", () => {
     );
 
     await waitFor(() => {
-      expect(screen.queryByText("Input field message.")).to.be.null;
+      expect(screen.queryByText("Input field message.")).toEqual(null);
     });
   });
 });

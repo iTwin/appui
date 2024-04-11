@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
 import { getDisplayName } from "../../core-react";
 
@@ -19,17 +18,17 @@ describe("getDisplayName", () => {
     }
   }
   it("should use displayName if specified", () => {
-    expect(getDisplayName(DisplayNameComponentDisplayName)).to.eq(
+    expect(getDisplayName(DisplayNameComponentDisplayName)).toEqual(
       "CustomDisplayName"
     );
   });
   it("should use name if no custom displayName is specified", () => {
-    expect(getDisplayName(NameComponentDisplayName)).to.eq(
+    expect(getDisplayName(NameComponentDisplayName)).toEqual(
       "NameComponentDisplayName"
     );
   });
   it("should default to Component for components with no defined name", () => {
-    expect(getDisplayName("default" as any as React.FunctionComponent)).to.eq(
+    expect(getDisplayName("default" as any as React.FunctionComponent)).toEqual(
       "Component"
     );
   });

@@ -3,53 +3,21 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { act, fireEvent, render, waitFor } from "@testing-library/react";
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { Key } from "ts-key-enum";
 import { AccuDrawInputField } from "../../appui-react/accudraw/AccuDrawInputField";
-import type { IModelAppOptions } from "@itwin/core-frontend";
-import { IModelApp, ItemField, NoRenderApp } from "@itwin/core-frontend";
+import { IModelApp, ItemField } from "@itwin/core-frontend";
 import { FrameworkAccuDraw } from "../../appui-react/accudraw/FrameworkAccuDraw";
 import { UiFramework } from "../../appui-react";
-import TestUtils from "../TestUtils";
-
-// cspell:ignore uiadmin
-
-function requestNextAnimation() {}
 
 describe("AccuDrawInputField", () => {
-  const rnaDescriptorToRestore = Object.getOwnPropertyDescriptor(
-    IModelApp,
-    "requestNextAnimation"
-  )!;
-
   beforeEach(async () => {
-    // Avoid requestAnimationFrame exception during test by temporarily replacing function that calls it.
-    // Tried replacing window.requestAnimationFrame first but that did not work.
-    Object.defineProperty(IModelApp, "requestNextAnimation", {
-      get: () => requestNextAnimation,
-    });
-
-    await TestUtils.initializeUiFramework();
-
-    const opts: IModelAppOptions = {};
-    opts.accuDraw = new FrameworkAccuDraw();
-    await NoRenderApp.startup(opts);
     const accuDraw = new FrameworkAccuDraw();
-    sinon.stub(IModelApp, "accuDraw").get(() => accuDraw);
-  });
-
-  afterEach(async () => {
-    Object.defineProperty(
-      IModelApp,
-      "requestNextAnimation",
-      rnaDescriptorToRestore
-    );
+    vi.spyOn(IModelApp, "accuDraw", "get").mockImplementation(() => accuDraw);
   });
 
   it("should render with lock", () => {
-    const spyChanged = sinon.spy();
+    const spyChanged = vi.fn();
     const wrapper = render(
       <AccuDrawInputField
         isLocked={true}
@@ -59,58 +27,57 @@ describe("AccuDrawInputField", () => {
       />
     );
     const icon = wrapper.container.querySelector(".uifw-accudraw-lock");
-    expect(icon).not.to.be.null;
+    expect(icon).toBeTruthy();
   });
 
   it("should call onValueChanged on change", () => {
-    const spyMethod = sinon.spy();
+    const spy = vi.fn();
     const wrapper = render(
       <AccuDrawInputField
         isLocked={false}
         field={ItemField.X_Item}
         id="x"
-        onValueChanged={spyMethod}
+        onValueChanged={spy}
       />
     );
     const input = wrapper.container.querySelector("input");
-    expect(input).not.to.be.null;
+    expect(input).toBeTruthy();
     fireEvent.change(input!, { target: { value: "22.3" } });
-    expect((input as HTMLInputElement).value).to.eq("22.3");
+    expect((input as HTMLInputElement).value).toEqual("22.3");
     fireEvent.keyDown(input!, { key: Key.Enter });
-    spyMethod.calledOnce.should.be.true;
+    expect(spy).toHaveBeenCalledOnce();
     fireEvent.change(input!, { target: { value: "22.3" } }); // Test no value change
-    expect((input as HTMLInputElement).value).to.eq("22.3");
+    expect((input as HTMLInputElement).value).toEqual("22.3");
     fireEvent.keyDown(input!, { key: Key.Enter });
-    spyMethod.calledOnce.should.be.true;
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should call onValueChanged on change after delay", async () => {
-    const fakeTimers = sinon.useFakeTimers();
-    const spyMethod = sinon.spy();
+    vi.useFakeTimers();
+    const spy = vi.fn();
     const wrapper = render(
       <AccuDrawInputField
         isLocked={false}
         field={ItemField.X_Item}
         id="x"
-        onValueChanged={spyMethod}
+        onValueChanged={spy}
         valueChangedDelay={10}
       />
     );
     const input = wrapper.container.querySelector("input");
-    expect(input).not.to.be.null;
+    expect(input).toBeTruthy();
     fireEvent.change(input!, { target: { value: "22.3" } });
-    expect((input as HTMLInputElement).value).to.eq("22.3");
+    expect((input as HTMLInputElement).value).toEqual("22.3");
     fireEvent.keyDown(input!, { key: Key.Enter });
-    spyMethod.called.should.not.be.true;
+    expect(spy).not.toBeCalled();
 
-    fakeTimers.tick(20);
-    spyMethod.calledOnce.should.be.true;
-    fakeTimers.restore();
+    vi.advanceTimersByTime(20);
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should call onEscPressed on ESC", () => {
-    const spyEsc = sinon.spy();
-    const spyChanged = sinon.spy();
+    const spyEsc = vi.fn();
+    const spyChanged = vi.fn();
     const wrapper = render(
       <AccuDrawInputField
         onEscPressed={spyEsc}
@@ -121,14 +88,14 @@ describe("AccuDrawInputField", () => {
       />
     );
     const input = wrapper.container.querySelector("input");
-    expect(input).not.to.be.null;
+    expect(input).toBeTruthy();
     fireEvent.keyDown(input!, { key: Key.Escape });
-    spyEsc.calledOnce.should.be.true;
+    expect(spyEsc).toHaveBeenCalledOnce();
   });
 
   it("should call onEnterPressed on Enter", () => {
-    const spyEnter = sinon.spy();
-    const spyChanged = sinon.spy();
+    const spyEnter = vi.fn();
+    const spyChanged = vi.fn();
     const wrapper = render(
       <AccuDrawInputField
         onEnterPressed={spyEnter}
@@ -139,14 +106,14 @@ describe("AccuDrawInputField", () => {
       />
     );
     const input = wrapper.container.querySelector("input");
-    expect(input).not.to.be.null;
+    expect(input).toBeTruthy();
     fireEvent.keyDown(input!, { key: Key.Enter });
-    spyEnter.calledOnce.should.be.true;
+    expect(spyEnter).toHaveBeenCalledOnce();
   });
 
   it("should call UiFramework.keyboardShortcuts.processKey on a letter", () => {
-    const spyMethod = sinon.spy(UiFramework.keyboardShortcuts, "processKey");
-    const spyChanged = sinon.spy();
+    const spy = vi.spyOn(UiFramework.keyboardShortcuts, "processKey");
+    const spyChanged = vi.fn();
     const wrapper = render(
       <AccuDrawInputField
         isLocked={false}
@@ -156,16 +123,15 @@ describe("AccuDrawInputField", () => {
       />
     );
     const input = wrapper.container.querySelector("input");
-    expect(input).not.to.be.null;
+    expect(input).toBeTruthy();
     fireEvent.keyDown(input!, { key: "a" });
-    spyMethod.calledOnce.should.be.true;
+    expect(spy).toHaveBeenCalledOnce();
     fireEvent.keyDown(input!, { key: "1" });
-    spyMethod.calledTwice.should.not.be.true;
-    (UiFramework.keyboardShortcuts.processKey as any).restore();
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should update value when calling onFieldValueChange", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const wrapper = render(
       <AccuDrawInputField
         isLocked={false}
@@ -175,7 +141,7 @@ describe("AccuDrawInputField", () => {
       />
     );
     const input = wrapper.container.querySelector("input");
-    expect(input).not.to.be.null;
+    expect(input).toBeTruthy();
 
     act(() => {
       IModelApp.accuDraw.setFocusItem(ItemField.X_Item);
@@ -184,8 +150,8 @@ describe("AccuDrawInputField", () => {
     });
 
     await waitFor(() => {
-      expect((input as HTMLInputElement).value).to.eq("100'-0\"");
+      expect((input as HTMLInputElement).value).toEqual("100'-0\"");
     });
-    sinon.assert.notCalled(spy);
+    expect(spy).not.toBeCalled();
   });
 });

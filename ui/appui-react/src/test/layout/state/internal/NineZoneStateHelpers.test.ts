@@ -3,7 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import type { RectangleProps } from "@itwin/core-react";
-import { expect } from "chai";
 import produce from "immer";
 import {
   initRectangleProps,
@@ -16,7 +15,7 @@ describe("initSizeProps", () => {
     const sut = produce(obj, (draft) => {
       initSizeProps(draft, "x", { height: 10, width: 20 });
     });
-    sut.should.eq(obj);
+    expect(sut).toEqual(obj);
   });
 
   it("should reset", () => {
@@ -26,7 +25,7 @@ describe("initSizeProps", () => {
     const sut = produce(obj, (draft) => {
       initSizeProps(draft, "x", undefined);
     });
-    expect(sut.x).to.undefined;
+    expect(sut.x).toEqual(undefined);
   });
 });
 
@@ -56,7 +55,7 @@ describe("initRectangleProps", () => {
     const sut = produce(obj, (draft) => {
       initRectangleProps(draft, "x", undefined);
     });
-    expect(sut.x).to.undefined;
+    expect(sut.x).toEqual(undefined);
   });
 
   it("should not update object", () => {
@@ -69,6 +68,6 @@ describe("initRectangleProps", () => {
         right: 40,
       });
     });
-    expect(sut).to.eq(obj);
+    expect(sut).toEqual(obj);
   });
 });

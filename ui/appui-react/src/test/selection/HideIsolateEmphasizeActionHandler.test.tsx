@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import type { ScreenViewport, Viewport } from "@itwin/core-frontend";
 import * as moq from "typemoq";
 import { HideIsolateEmphasizeActionHandler } from "../../appui-react/selection/HideIsolateEmphasizeManager";
@@ -93,24 +92,24 @@ describe("Use Custom HideIsolateEmphasizeActionHandler", () => {
       UiFramework.hideIsolateEmphasizeActionHandler.areFeatureOverridesActive(
         vp
       )
-    ).to.be.false;
+    ).toEqual(false);
     await UiFramework.hideIsolateEmphasizeActionHandler.processEmphasizeSelected();
     expect(
       (
         UiFramework.hideIsolateEmphasizeActionHandler as TestHideIsolateEmphasizeManager
       ).processEmphasizeSelectedCalled
-    ).to.be.true;
+    ).toEqual(true);
     expect(
       UiFramework.hideIsolateEmphasizeActionHandler.areFeatureOverridesActive(
         vp
       )
-    ).to.be.true;
+    ).toEqual(true);
     await UiFramework.hideIsolateEmphasizeActionHandler.processClearEmphasize();
     expect(
       UiFramework.hideIsolateEmphasizeActionHandler.areFeatureOverridesActive(
         vp
       )
-    ).to.be.false;
+    ).toEqual(false);
   });
 
   it("processIsolateSelectedElementsModel", async () => {
@@ -118,24 +117,24 @@ describe("Use Custom HideIsolateEmphasizeActionHandler", () => {
       UiFramework.hideIsolateEmphasizeActionHandler.areFeatureOverridesActive(
         vp
       )
-    ).to.be.false;
+    ).toEqual(false);
     await UiFramework.hideIsolateEmphasizeActionHandler.processIsolateSelectedElementsModel();
     expect(
       (
         UiFramework.hideIsolateEmphasizeActionHandler as TestHideIsolateEmphasizeManager
       ).processIsolateSelectedElementsModelCalled
-    ).to.be.true;
+    ).toEqual(true);
     expect(
       UiFramework.hideIsolateEmphasizeActionHandler.areFeatureOverridesActive(
         vp
       )
-    ).to.be.true;
+    ).toEqual(true);
     await UiFramework.hideIsolateEmphasizeActionHandler.processClearEmphasize();
     expect(
       UiFramework.hideIsolateEmphasizeActionHandler.areFeatureOverridesActive(
         vp
       )
-    ).to.be.false;
+    ).toEqual(false);
   });
 
   it("processIsolateSelectedElementsCategory", async () => {
@@ -143,24 +142,24 @@ describe("Use Custom HideIsolateEmphasizeActionHandler", () => {
       UiFramework.hideIsolateEmphasizeActionHandler.areFeatureOverridesActive(
         vp
       )
-    ).to.be.false;
+    ).toEqual(false);
     await UiFramework.hideIsolateEmphasizeActionHandler.processIsolateSelectedElementsCategory();
     expect(
       (
         UiFramework.hideIsolateEmphasizeActionHandler as TestHideIsolateEmphasizeManager
       ).processIsolateSelectedElementsCategoryCalled
-    ).to.be.true;
+    ).toEqual(true);
     expect(
       UiFramework.hideIsolateEmphasizeActionHandler.areFeatureOverridesActive(
         vp
       )
-    ).to.be.true;
+    ).toEqual(true);
     await UiFramework.hideIsolateEmphasizeActionHandler.processClearEmphasize();
     expect(
       UiFramework.hideIsolateEmphasizeActionHandler.areFeatureOverridesActive(
         vp
       )
-    ).to.be.false;
+    ).toEqual(false);
   });
 
   it("processIsolateSelected", async () => {
@@ -168,24 +167,24 @@ describe("Use Custom HideIsolateEmphasizeActionHandler", () => {
       UiFramework.hideIsolateEmphasizeActionHandler.areFeatureOverridesActive(
         vp
       )
-    ).to.be.false;
+    ).toEqual(false);
     await UiFramework.hideIsolateEmphasizeActionHandler.processIsolateSelected();
     expect(
       (
         UiFramework.hideIsolateEmphasizeActionHandler as TestHideIsolateEmphasizeManager
       ).processIsolateSelectedCalled
-    ).to.be.true;
+    ).toEqual(true);
     expect(
       UiFramework.hideIsolateEmphasizeActionHandler.areFeatureOverridesActive(
         vp
       )
-    ).to.be.true;
+    ).toEqual(true);
     await UiFramework.hideIsolateEmphasizeActionHandler.processClearEmphasize();
     expect(
       UiFramework.hideIsolateEmphasizeActionHandler.areFeatureOverridesActive(
         vp
       )
-    ).to.be.false;
+    ).toEqual(false);
   });
 
   it("processHideSelectedElementsModel", async () => {
@@ -193,24 +192,24 @@ describe("Use Custom HideIsolateEmphasizeActionHandler", () => {
       UiFramework.hideIsolateEmphasizeActionHandler.areFeatureOverridesActive(
         vp
       )
-    ).to.be.false;
+    ).toEqual(false);
     await UiFramework.hideIsolateEmphasizeActionHandler.processHideSelectedElementsModel();
     expect(
       (
         UiFramework.hideIsolateEmphasizeActionHandler as TestHideIsolateEmphasizeManager
       ).processHideSelectedElementsModelCalled
-    ).to.be.true;
+    ).toEqual(true);
     expect(
       UiFramework.hideIsolateEmphasizeActionHandler.areFeatureOverridesActive(
         vp
       )
-    ).to.be.true;
+    ).toEqual(true);
     await UiFramework.hideIsolateEmphasizeActionHandler.processClearEmphasize();
     expect(
       UiFramework.hideIsolateEmphasizeActionHandler.areFeatureOverridesActive(
         vp
       )
-    ).to.be.false;
+    ).toEqual(false);
   });
 
   it("processHideSelectedElementsCategory", async () => {
@@ -218,24 +217,24 @@ describe("Use Custom HideIsolateEmphasizeActionHandler", () => {
       UiFramework.hideIsolateEmphasizeActionHandler.areFeatureOverridesActive(
         vp
       )
-    ).to.be.false;
+    ).toEqual(false);
     await UiFramework.hideIsolateEmphasizeActionHandler.processHideSelectedElementsCategory();
     expect(
       (
         UiFramework.hideIsolateEmphasizeActionHandler as TestHideIsolateEmphasizeManager
       ).processHideSelectedElementsCategoryCalled
-    ).to.be.true;
+    ).toEqual(true);
     expect(
       UiFramework.hideIsolateEmphasizeActionHandler.areFeatureOverridesActive(
         vp
       )
-    ).to.be.true;
+    ).toEqual(true);
     await UiFramework.hideIsolateEmphasizeActionHandler.processClearEmphasize();
     expect(
       UiFramework.hideIsolateEmphasizeActionHandler.areFeatureOverridesActive(
         vp
       )
-    ).to.be.false;
+    ).toEqual(false);
   });
 
   it("processHideSelected", async () => {
@@ -243,24 +242,24 @@ describe("Use Custom HideIsolateEmphasizeActionHandler", () => {
       UiFramework.hideIsolateEmphasizeActionHandler.areFeatureOverridesActive(
         vp
       )
-    ).to.be.false;
+    ).toEqual(false);
     await UiFramework.hideIsolateEmphasizeActionHandler.processHideSelected();
     expect(
       (
         UiFramework.hideIsolateEmphasizeActionHandler as TestHideIsolateEmphasizeManager
       ).processHideSelectedCalled
-    ).to.be.true;
+    ).toEqual(true);
     expect(
       UiFramework.hideIsolateEmphasizeActionHandler.areFeatureOverridesActive(
         vp
       )
-    ).to.be.true;
+    ).toEqual(true);
     await UiFramework.hideIsolateEmphasizeActionHandler.processClearEmphasize();
     expect(
       UiFramework.hideIsolateEmphasizeActionHandler.areFeatureOverridesActive(
         vp
       )
-    ).to.be.false;
+    ).toEqual(false);
   });
 
   it("processHideSelected", async () => {
@@ -268,24 +267,24 @@ describe("Use Custom HideIsolateEmphasizeActionHandler", () => {
       UiFramework.hideIsolateEmphasizeActionHandler.areFeatureOverridesActive(
         vp
       )
-    ).to.be.false;
+    ).toEqual(false);
     await UiFramework.hideIsolateEmphasizeActionHandler.processHideSelected();
     expect(
       (
         UiFramework.hideIsolateEmphasizeActionHandler as TestHideIsolateEmphasizeManager
       ).processHideSelectedCalled
-    ).to.be.true;
+    ).toEqual(true);
     expect(
       UiFramework.hideIsolateEmphasizeActionHandler.areFeatureOverridesActive(
         vp
       )
-    ).to.be.true;
+    ).toEqual(true);
     await UiFramework.hideIsolateEmphasizeActionHandler.processClearEmphasize();
     expect(
       UiFramework.hideIsolateEmphasizeActionHandler.areFeatureOverridesActive(
         vp
       )
-    ).to.be.false;
+    ).toEqual(false);
   });
 
   it("processClearOverrideModels", async () => {
@@ -293,19 +292,19 @@ describe("Use Custom HideIsolateEmphasizeActionHandler", () => {
       UiFramework.hideIsolateEmphasizeActionHandler.areFeatureOverridesActive(
         vp
       )
-    ).to.be.false;
+    ).toEqual(false);
     await UiFramework.hideIsolateEmphasizeActionHandler.processClearOverrideModels();
     expect(
       (
         UiFramework.hideIsolateEmphasizeActionHandler as TestHideIsolateEmphasizeManager
       ).processClearOverrideModelsCalled
-    ).to.be.true;
+    ).toEqual(true);
     await UiFramework.hideIsolateEmphasizeActionHandler.processClearEmphasize();
     expect(
       UiFramework.hideIsolateEmphasizeActionHandler.areFeatureOverridesActive(
         vp
       )
-    ).to.be.false;
+    ).toEqual(false);
   });
 
   it("processClearOverrideCategories", async () => {
@@ -313,18 +312,18 @@ describe("Use Custom HideIsolateEmphasizeActionHandler", () => {
       UiFramework.hideIsolateEmphasizeActionHandler.areFeatureOverridesActive(
         vp
       )
-    ).to.be.false;
+    ).toEqual(false);
     await UiFramework.hideIsolateEmphasizeActionHandler.processClearOverrideCategories();
     expect(
       (
         UiFramework.hideIsolateEmphasizeActionHandler as TestHideIsolateEmphasizeManager
       ).processClearOverrideCategoriesCalled
-    ).to.be.true;
+    ).toEqual(true);
     await UiFramework.hideIsolateEmphasizeActionHandler.processClearEmphasize();
     expect(
       UiFramework.hideIsolateEmphasizeActionHandler.areFeatureOverridesActive(
         vp
       )
-    ).to.be.false;
+    ).toEqual(false);
   });
 });

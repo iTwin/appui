@@ -2,16 +2,12 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import * as sinon from "sinon";
-import { expect } from "chai";
-import type { IModelAppOptions } from "@itwin/core-frontend";
 import {
   BeButtonEvent,
   CompassMode,
   CurrentState,
   IModelApp,
   ItemField,
-  NoRenderApp,
   RotationMode,
 } from "@itwin/core-frontend";
 import TestUtils, { storageMock } from "../TestUtils";
@@ -26,240 +22,227 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
   )!;
   const localStorageMock = storageMock();
 
-  before(async () => {
+  beforeEach(async () => {
     Object.defineProperty(window, "localStorage", {
       get: () => localStorageMock,
     });
   });
 
-  after(() => {
+  afterEach(() => {
     Object.defineProperty(window, "localStorage", localStorageToRestore);
   });
 
   describe("FrameworkAccuDraw", () => {
-    before(async () => {
-      await TestUtils.initializeUiFramework();
-
-      const opts: IModelAppOptions = {};
-      opts.accuDraw = new FrameworkAccuDraw();
-      await NoRenderApp.startup(opts);
+    beforeEach(() => {
+      const accuDraw = new FrameworkAccuDraw();
+      vi.spyOn(IModelApp, "accuDraw", "get").mockReturnValue(accuDraw);
     });
 
-    after(async () => {
-      await IModelApp.shutdown();
-      TestUtils.terminateUiFramework();
-      beforeEach(async () => {
-        const accuDraw = new FrameworkAccuDraw();
-        sinon.stub(IModelApp, "accuDraw").get(() => accuDraw);
-      });
+    it("FrameworkAccuDraw.displayNotifications should set & return correctly", () => {
+      FrameworkAccuDraw.displayNotifications = false;
+      expect(FrameworkAccuDraw.displayNotifications).toEqual(false);
+      FrameworkAccuDraw.displayNotifications = true;
+      expect(FrameworkAccuDraw.displayNotifications).toEqual(true);
+    });
 
-      it("FrameworkAccuDraw.displayNotifications should set & return correctly", () => {
-        FrameworkAccuDraw.displayNotifications = false;
-        expect(FrameworkAccuDraw.displayNotifications).to.be.false;
-        FrameworkAccuDraw.displayNotifications = true;
-        expect(FrameworkAccuDraw.displayNotifications).to.be.true;
-      });
+    it("should call onCompassModeChange & emit onAccuDrawSetModeEvent & set conditionals", () => {
+      FrameworkAccuDraw.displayNotifications = true;
+      const spy = vi.fn();
+      const spyMessage = vi.spyOn(IModelApp.notifications, "outputMessage");
+      const remove =
+        FrameworkAccuDraw.onAccuDrawSetCompassModeEvent.addListener(spy);
 
-      it("should call onCompassModeChange & emit onAccuDrawSetModeEvent & set conditionals", () => {
-        FrameworkAccuDraw.displayNotifications = true;
-        const spy = sinon.spy();
-        const spyMessage = sinon.spy(IModelApp.notifications, "outputMessage");
-        const remove =
-          FrameworkAccuDraw.onAccuDrawSetCompassModeEvent.addListener(spy);
+      IModelApp.accuDraw.setCompassMode(CompassMode.Polar);
+      FrameworkAccuDraw.isPolarModeConditional.refresh();
+      expect(
+        ConditionalBooleanValue.getValue(
+          FrameworkAccuDraw.isPolarModeConditional
+        )
+      ).toEqual(true);
+      expect(spy).toHaveBeenCalledOnce();
+      expect(spyMessage).toHaveBeenCalledOnce();
+      spyMessage.mockReset();
 
-        IModelApp.accuDraw.setCompassMode(CompassMode.Polar);
-        FrameworkAccuDraw.isPolarModeConditional.refresh();
-        expect(
-          ConditionalBooleanValue.getValue(
-            FrameworkAccuDraw.isPolarModeConditional
-          )
-        ).to.be.true;
-        spy.calledOnce.should.true;
-        spyMessage.calledOnce.should.true;
-        spyMessage.resetHistory();
+      IModelApp.accuDraw.setCompassMode(CompassMode.Rectangular);
+      FrameworkAccuDraw.isRectangularModeConditional.refresh();
+      expect(
+        ConditionalBooleanValue.getValue(
+          FrameworkAccuDraw.isRectangularModeConditional
+        )
+      ).toEqual(true);
+      expect(spy).toHaveBeenCalledTimes(2);
+      expect(spyMessage).toHaveBeenCalledOnce();
+      spyMessage.mockReset();
 
-        IModelApp.accuDraw.setCompassMode(CompassMode.Rectangular);
-        FrameworkAccuDraw.isRectangularModeConditional.refresh();
-        expect(
-          ConditionalBooleanValue.getValue(
-            FrameworkAccuDraw.isRectangularModeConditional
-          )
-        ).to.be.true;
-        spy.calledTwice.should.true;
-        spyMessage.calledOnce.should.true;
-        spyMessage.resetHistory();
+      FrameworkAccuDraw.displayNotifications = false;
+      IModelApp.accuDraw.setCompassMode(CompassMode.Polar);
+      expect(spyMessage).not.toBeCalled();
+      spyMessage.mockReset();
 
-        FrameworkAccuDraw.displayNotifications = false;
-        IModelApp.accuDraw.setCompassMode(CompassMode.Polar);
-        spyMessage.called.should.false;
-        spyMessage.resetHistory();
+      remove();
+    });
 
-        remove();
-      });
+    it("should call onFieldLockChange & emit onAccuDrawSetFieldLockEvent", () => {
+      const spy = vi.fn();
+      const remove =
+        FrameworkAccuDraw.onAccuDrawSetFieldLockEvent.addListener(spy);
+      IModelApp.accuDraw.setFieldLock(ItemField.X_Item, true);
+      expect(spy).toHaveBeenCalledOnce();
+      spy.mockReset();
+      IModelApp.accuDraw.setFieldLock(ItemField.Y_Item, true);
+      expect(spy).toHaveBeenCalledOnce();
+      spy.mockReset();
+      IModelApp.accuDraw.setFieldLock(ItemField.Z_Item, true);
+      expect(spy).toHaveBeenCalledOnce();
+      spy.mockReset();
+      IModelApp.accuDraw.setFieldLock(ItemField.ANGLE_Item, true);
+      expect(spy).toHaveBeenCalledOnce();
+      spy.mockReset();
+      IModelApp.accuDraw.setFieldLock(ItemField.DIST_Item, true);
+      expect(spy).toHaveBeenCalledOnce();
+      spy.mockReset();
+      remove();
+    });
 
-      it("should call onFieldLockChange & emit onAccuDrawSetFieldLockEvent", () => {
-        const spy = sinon.spy();
-        const remove =
-          FrameworkAccuDraw.onAccuDrawSetFieldLockEvent.addListener(spy);
-        IModelApp.accuDraw.setFieldLock(ItemField.X_Item, true);
-        spy.calledOnce.should.true;
-        spy.resetHistory();
-        IModelApp.accuDraw.setFieldLock(ItemField.Y_Item, true);
-        spy.calledOnce.should.true;
-        spy.resetHistory();
-        IModelApp.accuDraw.setFieldLock(ItemField.Z_Item, true);
-        spy.calledOnce.should.true;
-        spy.resetHistory();
-        IModelApp.accuDraw.setFieldLock(ItemField.ANGLE_Item, true);
-        spy.calledOnce.should.true;
-        spy.resetHistory();
-        IModelApp.accuDraw.setFieldLock(ItemField.DIST_Item, true);
-        spy.calledOnce.should.true;
-        spy.resetHistory();
-        remove();
-      });
+    it("should set rotation & conditionals correctly & notify", () => {
+      FrameworkAccuDraw.displayNotifications = true;
+      const spyMessage = vi.spyOn(IModelApp.notifications, "outputMessage");
 
-      it("should set rotation & conditionals correctly & notify", () => {
-        FrameworkAccuDraw.displayNotifications = true;
-        const spyMessage = sinon.spy(IModelApp.notifications, "outputMessage");
+      IModelApp.accuDraw.setRotationMode(RotationMode.Top);
+      FrameworkAccuDraw.isTopRotationConditional.refresh();
+      expect(
+        ConditionalBooleanValue.getValue(
+          FrameworkAccuDraw.isTopRotationConditional
+        )
+      ).toEqual(true);
+      expect(spyMessage).toHaveBeenCalledOnce();
+      spyMessage.mockReset();
+      IModelApp.accuDraw.setRotationMode(RotationMode.Front);
+      FrameworkAccuDraw.isFrontRotationConditional.refresh();
+      expect(
+        ConditionalBooleanValue.getValue(
+          FrameworkAccuDraw.isFrontRotationConditional
+        )
+      ).toEqual(true);
+      expect(spyMessage).toHaveBeenCalledOnce();
+      spyMessage.mockReset();
+      IModelApp.accuDraw.setRotationMode(RotationMode.Side);
+      FrameworkAccuDraw.isSideRotationConditional.refresh();
+      expect(
+        ConditionalBooleanValue.getValue(
+          FrameworkAccuDraw.isSideRotationConditional
+        )
+      ).toEqual(true);
+      expect(spyMessage).toHaveBeenCalledOnce();
+      spyMessage.mockReset();
+      IModelApp.accuDraw.setRotationMode(RotationMode.View);
+      FrameworkAccuDraw.isViewRotationConditional.refresh();
+      expect(
+        ConditionalBooleanValue.getValue(
+          FrameworkAccuDraw.isViewRotationConditional
+        )
+      ).toEqual(true);
+      expect(spyMessage).toHaveBeenCalledOnce();
+      spyMessage.mockReset();
+      IModelApp.accuDraw.setRotationMode(RotationMode.ACS);
+      FrameworkAccuDraw.isACSRotationConditional.refresh();
+      expect(
+        ConditionalBooleanValue.getValue(
+          FrameworkAccuDraw.isACSRotationConditional
+        )
+      ).toEqual(true);
+      expect(spyMessage).toHaveBeenCalledOnce();
+      spyMessage.mockReset();
+      IModelApp.accuDraw.setRotationMode(RotationMode.Context);
+      FrameworkAccuDraw.isContextRotationConditional.refresh();
+      expect(
+        ConditionalBooleanValue.getValue(
+          FrameworkAccuDraw.isContextRotationConditional
+        )
+      ).toEqual(true);
+      expect(spyMessage).toHaveBeenCalledOnce();
+      spyMessage.mockReset();
 
-        IModelApp.accuDraw.setRotationMode(RotationMode.Top);
-        FrameworkAccuDraw.isTopRotationConditional.refresh();
-        expect(
-          ConditionalBooleanValue.getValue(
-            FrameworkAccuDraw.isTopRotationConditional
-          )
-        ).to.be.true;
-        spyMessage.calledOnce.should.true;
-        spyMessage.resetHistory();
-        IModelApp.accuDraw.setRotationMode(RotationMode.Front);
-        FrameworkAccuDraw.isFrontRotationConditional.refresh();
-        expect(
-          ConditionalBooleanValue.getValue(
-            FrameworkAccuDraw.isFrontRotationConditional
-          )
-        ).to.be.true;
-        spyMessage.calledOnce.should.true;
-        spyMessage.resetHistory();
-        IModelApp.accuDraw.setRotationMode(RotationMode.Side);
-        FrameworkAccuDraw.isSideRotationConditional.refresh();
-        expect(
-          ConditionalBooleanValue.getValue(
-            FrameworkAccuDraw.isSideRotationConditional
-          )
-        ).to.be.true;
-        spyMessage.calledOnce.should.true;
-        spyMessage.resetHistory();
-        IModelApp.accuDraw.setRotationMode(RotationMode.View);
-        FrameworkAccuDraw.isViewRotationConditional.refresh();
-        expect(
-          ConditionalBooleanValue.getValue(
-            FrameworkAccuDraw.isViewRotationConditional
-          )
-        ).to.be.true;
-        spyMessage.calledOnce.should.true;
-        spyMessage.resetHistory();
-        IModelApp.accuDraw.setRotationMode(RotationMode.ACS);
-        FrameworkAccuDraw.isACSRotationConditional.refresh();
-        expect(
-          ConditionalBooleanValue.getValue(
-            FrameworkAccuDraw.isACSRotationConditional
-          )
-        ).to.be.true;
-        spyMessage.calledOnce.should.true;
-        spyMessage.resetHistory();
-        IModelApp.accuDraw.setRotationMode(RotationMode.Context);
-        FrameworkAccuDraw.isContextRotationConditional.refresh();
-        expect(
-          ConditionalBooleanValue.getValue(
-            FrameworkAccuDraw.isContextRotationConditional
-          )
-        ).to.be.true;
-        spyMessage.calledOnce.should.true;
-        spyMessage.resetHistory();
+      FrameworkAccuDraw.displayNotifications = false;
+      IModelApp.accuDraw.setRotationMode(RotationMode.Top);
+      expect(spyMessage).not.toBeCalled();
+    });
 
-        FrameworkAccuDraw.displayNotifications = false;
-        IModelApp.accuDraw.setRotationMode(RotationMode.Top);
-        spyMessage.calledOnce.should.false;
-        spyMessage.resetHistory();
-      });
+    it("should call onFieldValueChange & emit onAccuDrawSetFieldValueToUiEvent", () => {
+      const spy = vi.fn();
+      const remove =
+        FrameworkAccuDraw.onAccuDrawSetFieldValueToUiEvent.addListener(spy);
+      IModelApp.accuDraw.setValueByIndex(ItemField.X_Item, 1.0);
+      IModelApp.accuDraw.onFieldValueChange(ItemField.X_Item);
+      expect(spy).toHaveBeenCalledOnce();
+      remove();
+    });
 
-      it("should call onFieldValueChange & emit onAccuDrawSetFieldValueToUiEvent", () => {
-        const spy = sinon.spy();
-        const remove =
-          FrameworkAccuDraw.onAccuDrawSetFieldValueToUiEvent.addListener(spy);
-        IModelApp.accuDraw.setValueByIndex(ItemField.X_Item, 1.0);
-        IModelApp.accuDraw.onFieldValueChange(ItemField.X_Item);
-        spy.calledOnce.should.true;
-        remove();
-      });
+    it("should emit onAccuDrawSetFieldFocusEvent", () => {
+      const spy = vi.fn();
+      const remove =
+        FrameworkAccuDraw.onAccuDrawSetFieldFocusEvent.addListener(spy);
+      IModelApp.accuDraw.setFocusItem(ItemField.X_Item);
+      expect(spy).toHaveBeenCalledOnce();
+      remove();
+    });
 
-      it("should emit onAccuDrawSetFieldFocusEvent", () => {
-        const spy = sinon.spy();
-        const remove =
-          FrameworkAccuDraw.onAccuDrawSetFieldFocusEvent.addListener(spy);
-        IModelApp.accuDraw.setFocusItem(ItemField.X_Item);
-        spy.calledOnce.should.true;
-        remove();
-      });
+    it("should emit onAccuDrawGrabInputFocusEvent", () => {
+      const spy = vi.fn();
+      const remove =
+        FrameworkAccuDraw.onAccuDrawGrabInputFocusEvent.addListener(spy);
+      IModelApp.accuDraw.grabInputFocus();
+      expect(spy).toHaveBeenCalledOnce();
+      remove();
+    });
 
-      it("should emit onAccuDrawGrabInputFocusEvent", () => {
-        const spy = sinon.spy();
-        const remove =
-          FrameworkAccuDraw.onAccuDrawGrabInputFocusEvent.addListener(spy);
-        IModelApp.accuDraw.grabInputFocus();
-        spy.calledOnce.should.true;
-        remove();
-      });
+    it("hasInputFocus should return false", () => {
+      expect(IModelApp.accuDraw.hasInputFocus).toEqual(false);
+    });
 
-      it("hasInputFocus should return false", () => {
-        expect(IModelApp.accuDraw.hasInputFocus).to.be.false;
-      });
+    it("should emit onAccuDrawSetFieldValueToUiEvent & onAccuDrawSetFieldFocusEvent", () => {
+      const spyValue = vi.fn();
+      const remove =
+        FrameworkAccuDraw.onAccuDrawSetFieldValueToUiEvent.addListener(
+          spyValue
+        );
+      const spyFocus = vi.fn();
+      const removeFocusSpy =
+        FrameworkAccuDraw.onAccuDrawSetFieldFocusEvent.addListener(spyFocus);
 
-      it("should emit onAccuDrawSetFieldValueToUiEvent & onAccuDrawSetFieldFocusEvent", () => {
-        const spyValue = sinon.spy();
-        const remove =
-          FrameworkAccuDraw.onAccuDrawSetFieldValueToUiEvent.addListener(
-            spyValue
-          );
-        const spyFocus = sinon.spy();
-        const removeFocusSpy =
-          FrameworkAccuDraw.onAccuDrawSetFieldFocusEvent.addListener(spyFocus);
+      IModelApp.accuDraw.currentState = CurrentState.Deactivated;
+      IModelApp.accuDraw.onMotion(new BeButtonEvent());
+      expect(spyValue).not.toBeCalled();
+      spyValue.mockReset();
 
-        IModelApp.accuDraw.currentState = CurrentState.Deactivated;
-        IModelApp.accuDraw.onMotion(new BeButtonEvent());
-        spyValue.called.should.false;
-        spyValue.resetHistory();
+      IModelApp.accuDraw.currentState = CurrentState.Active;
+      IModelApp.accuDraw.onMotion(new BeButtonEvent());
+      expect(spyValue).toBeCalled();
+      expect(spyFocus).toBeCalled();
+      spyValue.mockReset();
+      spyFocus.mockReset();
 
-        IModelApp.accuDraw.currentState = CurrentState.Active;
-        IModelApp.accuDraw.onMotion(new BeButtonEvent());
-        spyValue.called.should.true;
-        spyFocus.called.should.true;
-        spyValue.resetHistory();
-        spyFocus.resetHistory();
+      IModelApp.accuDraw.dontMoveFocus = true;
+      IModelApp.accuDraw.onMotion(new BeButtonEvent());
+      expect(spyValue).toBeCalled();
+      expect(spyFocus).not.toBeCalled();
 
-        IModelApp.accuDraw.dontMoveFocus = true;
-        IModelApp.accuDraw.onMotion(new BeButtonEvent());
-        spyValue.called.should.true;
-        spyFocus.called.should.false;
+      remove();
+      removeFocusSpy();
+    });
 
-        remove();
-        removeFocusSpy();
-      });
+    it("should save/retrieve displayNotifications to/from user storage", async () => {
+      FrameworkAccuDraw.displayNotifications = true;
+      await TestUtils.flushAsyncOperations();
+      expect(FrameworkAccuDraw.displayNotifications).toEqual(true);
+      FrameworkAccuDraw.displayNotifications = false;
+      await TestUtils.flushAsyncOperations();
+      expect(FrameworkAccuDraw.displayNotifications).toEqual(false);
 
-      it("should save/retrieve displayNotifications to/from user storage", async () => {
-        FrameworkAccuDraw.displayNotifications = true;
-        await TestUtils.flushAsyncOperations();
-        expect(FrameworkAccuDraw.displayNotifications).to.be.true;
-        FrameworkAccuDraw.displayNotifications = false;
-        await TestUtils.flushAsyncOperations();
-        expect(FrameworkAccuDraw.displayNotifications).to.be.false;
-
-        const instance = new FrameworkAccuDraw();
-        await instance.loadUserSettings(UiFramework.getUiStateStorage());
-        await TestUtils.flushAsyncOperations();
-        expect(FrameworkAccuDraw.displayNotifications).to.be.false;
-      });
+      const instance = new FrameworkAccuDraw();
+      await instance.loadUserSettings(UiFramework.getUiStateStorage());
+      await TestUtils.flushAsyncOperations();
+      expect(FrameworkAccuDraw.displayNotifications).toEqual(false);
     });
   });
 });

@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import { fireEvent, render, screen } from "@testing-library/react";
-import sinon from "sinon";
 import * as React from "react";
 import { Key } from "ts-key-enum";
 import type {
@@ -28,17 +26,9 @@ import { EditorContainer } from "../../components-react/editors/EditorContainer"
 import { PropertyEditorManager } from "../../components-react/editors/PropertyEditorManager";
 
 describe("<NumericInputEditor />", () => {
-  before(async () => {
-    await TestUtils.initializeUiComponents();
-  });
-
   let theUserTo: ReturnType<typeof userEvent.setup>;
   beforeEach(() => {
     theUserTo = userEvent.setup();
-  });
-
-  after(() => {
-    TestUtils.terminateUiComponents();
   });
 
   it("should render without record", () => {
@@ -56,7 +46,7 @@ describe("<NumericInputEditor />", () => {
     );
     render(<NumericInputEditor propertyRecord={record} />);
 
-    expect(screen.getByRole<HTMLInputElement>("textbox").value).to.eq("123");
+    expect(screen.getByRole<HTMLInputElement>("textbox").value).toEqual("123");
   });
 
   it("HTML input onChange updates value", () => {
@@ -70,14 +60,14 @@ describe("<NumericInputEditor />", () => {
     const input = component.container.querySelector(
       "input"
     ) as HTMLInputElement;
-    expect(input.value).to.eq("5");
+    expect(input.value).toEqual("5");
 
     const incrementor = component.container.querySelectorAll(
       ".core-number-input-button"
     );
-    expect(incrementor.length).to.eq(2);
+    expect(incrementor.length).toEqual(2);
     fireEvent.click(incrementor[0]);
-    expect(input.value).to.eq("6");
+    expect(input.value).toEqual("6");
   });
 
   it("new props should update the display", async () => {
@@ -88,7 +78,7 @@ describe("<NumericInputEditor />", () => {
     );
     const { rerender } = render(<NumericInputEditor propertyRecord={record} />);
 
-    expect(screen.getByRole<HTMLInputElement>("textbox").value).to.eq("123");
+    expect(screen.getByRole<HTMLInputElement>("textbox").value).toEqual("123");
 
     const newRecord = TestUtils.createNumericProperty(
       "Test",
@@ -97,7 +87,7 @@ describe("<NumericInputEditor />", () => {
     );
     rerender(<NumericInputEditor propertyRecord={newRecord} />);
 
-    expect(screen.getByRole<HTMLInputElement>("textbox").value).to.eq("987");
+    expect(screen.getByRole<HTMLInputElement>("textbox").value).toEqual("987");
   });
 
   it("should support InputEditorSize params", async () => {
@@ -183,7 +173,7 @@ describe("<NumericInputEditor />", () => {
       123,
       StandardEditorNames.NumericInput
     );
-    const spyOnCommit = sinon.spy();
+    const spyOnCommit = vi.fn();
     function handleCommit(_commit: PropertyUpdatedArgs): void {
       spyOnCommit();
     }
@@ -196,11 +186,11 @@ describe("<NumericInputEditor />", () => {
       />
     );
     const inputNode = wrapper.container.querySelector("input");
-    expect(inputNode).not.to.be.null;
+    expect(inputNode).toBeTruthy();
 
     fireEvent.keyDown(inputNode as HTMLElement, { key: Key.Enter });
     await TestUtils.flushAsyncOperations();
-    expect(spyOnCommit.calledOnce).to.be.true;
+    expect(spyOnCommit).toHaveBeenCalledOnce();
   });
 
   it("calls onCommit on increment click", async () => {
@@ -209,7 +199,7 @@ describe("<NumericInputEditor />", () => {
       123,
       StandardEditorNames.NumericInput
     );
-    const spyOnCommit = sinon.spy();
+    const spyOnCommit = vi.fn();
     function handleCommit(_commit: PropertyUpdatedArgs): void {
       spyOnCommit();
     }
@@ -222,19 +212,19 @@ describe("<NumericInputEditor />", () => {
       />
     );
     const inputNode = wrapper.container.querySelector("input");
-    expect(inputNode).not.to.be.null;
+    expect(inputNode).toBeTruthy();
 
     const input = wrapper.container.querySelector("input") as HTMLInputElement;
     const incrementor = wrapper.container.querySelectorAll(
       ".core-number-input-button"
     );
-    expect(incrementor.length).to.eq(2);
+    expect(incrementor.length).toEqual(2);
     fireEvent.click(incrementor[0]);
 
     await TestUtils.flushAsyncOperations();
-    expect(spyOnCommit.calledOnce).to.be.true;
+    expect(spyOnCommit).toHaveBeenCalledOnce();
 
-    expect(input.value).to.eq("124");
+    expect(input.value).toEqual("124");
   });
 
   it("should not commit if DataController fails to validate", async () => {
@@ -246,8 +236,8 @@ describe("<NumericInputEditor />", () => {
     );
     record.property.dataController = "myData";
 
-    const spyOnCommit = sinon.spy();
-    const spyOnCancel = sinon.spy();
+    const spyOnCommit = vi.fn();
+    const spyOnCancel = vi.fn();
     const renderedComponent = render(
       <EditorContainer
         propertyRecord={record}
@@ -256,18 +246,18 @@ describe("<NumericInputEditor />", () => {
         onCancel={spyOnCancel}
       />
     );
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
 
     const inputNode = renderedComponent.container.querySelector("input");
-    expect(inputNode).not.to.be.null;
+    expect(inputNode).toBeTruthy();
 
     fireEvent.keyDown(inputNode as HTMLElement, { key: Key.Enter });
     await TestUtils.flushAsyncOperations();
-    expect(spyOnCommit.called).to.be.false;
+    expect(spyOnCommit).not.toBeCalled();
 
     fireEvent.keyDown(inputNode as HTMLElement, { key: Key.Escape });
     await TestUtils.flushAsyncOperations();
-    expect(spyOnCancel.calledOnce).to.be.true;
+    expect(spyOnCancel).toHaveBeenCalledOnce();
 
     PropertyEditorManager.deregisterDataController("myData");
   });

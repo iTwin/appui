@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/components-react",
-      "comment": "Added note to `PropertyFilterRuleOperator` that `Like` operator should be handled as a contains operator.",
+      "comment": "",
       "type": "none"
     }
   ],

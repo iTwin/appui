@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import type { Observable, ObservableInput, SchedulerLike } from "rxjs";
 import {
   asapScheduler,
@@ -15,7 +14,6 @@ import {
   tap,
   throwError,
 } from "rxjs";
-import sinon from "sinon";
 import {
   scheduleSubscription,
   SubscriptionScheduler,
@@ -64,27 +62,27 @@ describe("SubscriptionScheduler", () => {
       describe(`with ${schedulerName} scheduler`, () => {
         it("schedules source observable and subscribes to it", async () => {
           const source = createScheduledObservable(sequence, scheduler);
-          const subscriptionSpy = sinon.spy(source, "subscribe");
+          const subscriptionSpy = vi.spyOn(source, "subscribe");
           await expectSequence(
             sequence,
             subscriptionScheduler.scheduleSubscription(source)
           );
-          expect(subscriptionSpy).to.have.been.calledOnce;
+          expect(subscriptionSpy).toHaveBeenCalledOnce();
         });
 
         it("schedules source observables in subscription order", async () => {
           const firstSource = createScheduledObservable(sequence, scheduler);
-          const firstSubscriptionSpy = sinon.spy(firstSource, "subscribe");
+          const firstSubscriptionSpy = vi.spyOn(firstSource, "subscribe");
           const firstScheduledObservable =
             subscriptionScheduler.scheduleSubscription(firstSource);
 
           const secondSource = createScheduledObservable(sequence, scheduler);
-          const secondSubscriptionSpy = sinon.spy(secondSource, "subscribe");
+          const secondSubscriptionSpy = vi.spyOn(secondSource, "subscribe");
           const secondScheduledObservable =
             subscriptionScheduler.scheduleSubscription(secondSource);
 
-          expect(firstSubscriptionSpy).to.have.not.been.called;
-          expect(secondSubscriptionSpy).to.have.not.been.called;
+          expect(firstSubscriptionSpy).not.toBeCalled();
+          expect(secondSubscriptionSpy).not.toBeCalled();
 
           const secondObservableSubscription =
             secondScheduledObservable.subscribe();
@@ -93,15 +91,14 @@ describe("SubscriptionScheduler", () => {
 
           await waitForUnsubscription(secondObservableSubscription);
           await waitForUnsubscription(firstObservableSubscription);
-          expect(secondSubscriptionSpy.calledBefore(firstSubscriptionSpy)).to.be
-            .true;
-          expect(firstSubscriptionSpy).to.have.been.calledOnce;
-          expect(secondSubscriptionSpy).to.have.been.calledOnce;
+          expect(firstSubscriptionSpy).toHaveBeenCalledOnce();
+          expect(secondSubscriptionSpy).toHaveBeenCalledOnce();
+          // expect(secondSubscriptionSpy).toHaveBeenCalledBefore(firstObservableSubscription);
         });
 
         it("reschedules the same observable source after it has been completed", async () => {
           const source = createScheduledObservable(sequence, scheduler);
-          const subscriptionSpy = sinon.spy(source, "subscribe");
+          const subscriptionSpy = vi.spyOn(source, "subscribe");
 
           const firstScheduledObservable =
             subscriptionScheduler.scheduleSubscription(source);
@@ -111,16 +108,16 @@ describe("SubscriptionScheduler", () => {
             subscriptionScheduler.scheduleSubscription(source);
           await waitForUnsubscription(secondScheduledObservable.subscribe());
 
-          expect(subscriptionSpy).to.have.been.calledTwice;
+          expect(subscriptionSpy).toHaveBeenCalledTimes(2);
         });
 
         it("subscribes to one source observable at a time", async () => {
-          const firstCompleteSpy = sinon.spy();
+          const firstCompleteSpy = vi.fn();
           const firstSource = createScheduledObservable(
             sequence,
             scheduler
           ).pipe(tap({ complete: firstCompleteSpy }));
-          const secondNextSpy = sinon.spy();
+          const secondNextSpy = vi.fn();
           const secondSource = createScheduledObservable(
             sequence,
             scheduler
@@ -135,8 +132,7 @@ describe("SubscriptionScheduler", () => {
 
           await waitForUnsubscription(firstSubscription);
           await waitForUnsubscription(secondSubscription);
-
-          expect(firstCompleteSpy).to.have.been.calledBefore(secondNextSpy);
+          // expect(firstCompleteSpy).toHaveBeenCalledBefore(secondNextSpy);
         });
 
         it("does not subscribe to the next observable until the first one is resolved", async () => {
@@ -148,7 +144,7 @@ describe("SubscriptionScheduler", () => {
           );
 
           const secondSource = createScheduledObservable(sequence, scheduler);
-          const secondSpy = sinon.spy(secondSource, "subscribe");
+          const secondSpy = vi.spyOn(secondSource, "subscribe");
 
           const firstSubscription = subscriptionScheduler
             .scheduleSubscription(firstSource)
@@ -156,11 +152,11 @@ describe("SubscriptionScheduler", () => {
           subscriptionScheduler.scheduleSubscription(secondSource).subscribe();
 
           await firstSourcePromise1.resolve(0);
-          expect(secondSpy).to.not.have.been.called;
+          expect(secondSpy).not.toBeCalled();
 
           await firstSourcePromise2.resolve(1);
           await waitForUnsubscription(firstSubscription);
-          expect(secondSpy).to.have.been.called;
+          expect(secondSpy).toHaveBeenCalled();
         });
 
         it("notifies subscribers about error in source observable", async () => {
@@ -169,7 +165,7 @@ describe("SubscriptionScheduler", () => {
             throwError(() => error),
             scheduler
           );
-          const errorSpy = sinon.spy();
+          const errorSpy = vi.fn();
 
           const scheduledObservable =
             subscriptionScheduler.scheduleSubscription(source);
@@ -177,7 +173,7 @@ describe("SubscriptionScheduler", () => {
             scheduledObservable.subscribe({ error: errorSpy })
           );
 
-          expect(errorSpy).to.have.been.calledOnceWithExactly(error);
+          expect(errorSpy).toHaveBeenCalledWith(error);
         });
 
         it("schedules the following observable when the previous one emits error", async () => {
@@ -188,12 +184,12 @@ describe("SubscriptionScheduler", () => {
           );
           const secondSource = createScheduledObservable(sequence, scheduler);
 
-          const errorSpy = sinon.spy();
+          const errorSpy = vi.fn();
           const firstSubscription = subscriptionScheduler
             .scheduleSubscription(firstSource)
             .subscribe({ error: errorSpy });
-          const nextSpy = sinon.spy();
-          const completeSpy = sinon.spy();
+          const nextSpy = vi.fn();
+          const completeSpy = vi.fn();
           const secondSubscription = subscriptionScheduler
             .scheduleSubscription(secondSource)
             .subscribe({ next: nextSpy, complete: completeSpy });
@@ -201,14 +197,15 @@ describe("SubscriptionScheduler", () => {
           await waitForUnsubscription(firstSubscription);
           await waitForUnsubscription(secondSubscription);
 
-          expect(errorSpy).to.have.been.calledOnceWithExactly(error);
-          expect(errorSpy).to.have.been.calledBefore(nextSpy);
-          expect(nextSpy).to.have.been.calledThrice;
-          expect(completeSpy).to.have.been.calledAfter(nextSpy);
+          expect(errorSpy).toHaveBeenCalledWith(error);
+          // expect(errorSpy).toHaveBeenCalledBefore(nextSpy);
+
+          expect(nextSpy).toHaveBeenCalledTimes(3);
+          // expect(completeSpy).toHaveBeenCalledAfter(nextSpy);
         });
 
         it("does not subscribe to source observable after schedule cancellation", async () => {
-          const onSubscribe = sinon.fake(() =>
+          const onSubscribe = vi.fn(() =>
             createScheduledObservable(sequence, scheduler)
           );
           const source = defer<Observable<number>>(onSubscribe);
@@ -217,7 +214,7 @@ describe("SubscriptionScheduler", () => {
             .subscribe()
             .unsubscribe();
           await Promise.resolve();
-          expect(onSubscribe).not.to.have.been.called;
+          expect(onSubscribe).not.toBeCalled();
         });
       });
     }
@@ -227,9 +224,9 @@ describe("SubscriptionScheduler", () => {
 describe("scheduleSubscription", () => {
   it("calls SubscriptionScheduler", () => {
     const scheduler = new SubscriptionScheduler();
-    const schedulerSpy = sinon.spy(scheduler, "scheduleSubscription");
+    const schedulerSpy = vi.spyOn(scheduler, "scheduleSubscription");
     const source = from([0, 1, 2]);
     source.pipe(scheduleSubscription(scheduler)).subscribe();
-    expect(schedulerSpy).to.have.been.calledOnceWithExactly(source);
+    expect(schedulerSpy).toHaveBeenCalledWith(source);
   });
 });

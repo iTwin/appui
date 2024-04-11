@@ -3,14 +3,12 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import * as sinon from "sinon";
 import * as moq from "typemoq";
 import { Matrix3d } from "@itwin/core-geometry";
 import type {
   OrthographicViewState,
   ScreenViewport,
 } from "@itwin/core-frontend";
-import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import type { ViewportContentControl } from "../../appui-react";
 import {
   BasicNavigationWidget,
@@ -18,15 +16,13 @@ import {
   ToolbarHelper,
   UiFramework,
 } from "../../appui-react";
-import TestUtils, { childStructure } from "../TestUtils";
+import { childStructure } from "../TestUtils";
 import { render } from "@testing-library/react";
-import { expect } from "chai";
 
 describe("BasicNavigationWidget", () => {
   beforeEach(() => {
-    sinon
-      .stub(Element.prototype, "getBoundingClientRect")
-      .callsFake(function rect(this: any) {
+    vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+      function rect(this: any) {
         if (
           this instanceof HTMLButtonElement ||
           this.firstElementChild?.tagName === "BUTTON"
@@ -34,16 +30,8 @@ describe("BasicNavigationWidget", () => {
           return DOMRect.fromRect({ width: 16, height: 16 });
         }
         return DOMRect.fromRect({ width: 300, height: 300 });
-      });
-  });
-  before(async () => {
-    await TestUtils.initializeUiFramework();
-    await NoRenderApp.startup();
-  });
-
-  after(async () => {
-    await IModelApp.shutdown();
-    TestUtils.terminateUiFramework();
+      }
+    );
   });
 
   it("BasicNavigationWidget should render correctly", () => {
@@ -191,9 +179,9 @@ describe("BasicNavigationWidget", () => {
       .setup((viewport) => viewport.view)
       .returns(() => spatialViewStateMock.object);
 
-    sinon
-      .stub(UiFramework.content, "getActiveContentControl")
-      .returns(contentControlMock.object);
+    vi.spyOn(UiFramework.content, "getActiveContentControl").mockReturnValue(
+      contentControlMock.object
+    );
 
     const { container } = render(<BasicNavigationWidget />);
 

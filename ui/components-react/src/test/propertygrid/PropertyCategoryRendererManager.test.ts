@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import type * as React from "react";
-import sinon from "sinon";
 import type { MutableGridCategory } from "../../components-react/propertygrid/internal/flat-items/MutableGridCategory";
 import { PropertyCategoryRendererManager } from "../../components-react/propertygrid/PropertyCategoryRendererManager";
 import { FlatGridTestUtils } from "./component/internal/flat-items/FlatGridTestUtils";
@@ -17,7 +15,10 @@ describe("PropertyCategoryRendererManager", () => {
     renderer: string
   ): MutableGridCategory {
     const categoryItem = FlatGridTestUtils.createMockGridCategory(name);
-    sinon.replaceGetter(categoryItem, "derivedCategory", () => ({
+    Object.assign(categoryItem, {
+      derivedCategory: categoryItem.derivedCategory ?? {},
+    });
+    vi.spyOn(categoryItem, "derivedCategory", "get").mockImplementation(() => ({
       name,
       label: name,
       expand: false,
@@ -33,9 +34,7 @@ describe("PropertyCategoryRendererManager", () => {
 
       manager.addRenderer("test_renderer", () => TestComponent);
 
-      expect(manager.getCategoryComponent(categoryItem)).to.be.equal(
-        TestComponent
-      );
+      expect(manager.getCategoryComponent(categoryItem)).toEqual(TestComponent);
     });
 
     it("fails to implicitly override category renderer", () => {
@@ -55,7 +54,7 @@ describe("PropertyCategoryRendererManager", () => {
       const TestComponent2: React.FC = () => null;
       manager.addRenderer("test_renderer", () => TestComponent2, true);
 
-      expect(manager.getCategoryComponent(categoryItem)).to.be.equal(
+      expect(manager.getCategoryComponent(categoryItem)).toEqual(
         TestComponent2
       );
     });
@@ -69,7 +68,7 @@ describe("PropertyCategoryRendererManager", () => {
       manager.addRenderer("test_renderer", () => TestComponent);
       manager.removeRenderer("test_renderer");
 
-      expect(manager.getCategoryComponent(categoryItem)).to.be.undefined;
+      expect(manager.getCategoryComponent(categoryItem)).toEqual(undefined);
     });
   });
 
@@ -81,7 +80,7 @@ describe("PropertyCategoryRendererManager", () => {
 
       manager.addRenderer("test_renderer", () => TestComponent);
 
-      expect(manager.getCategoryComponent(categoryItem)).to.be.undefined;
+      expect(manager.getCategoryComponent(categoryItem)).toEqual(undefined);
     });
 
     it("returns `undefined` when category renderer factory returns `undefined`", () => {
@@ -90,7 +89,7 @@ describe("PropertyCategoryRendererManager", () => {
 
       manager.addRenderer("test_renderer", () => undefined);
 
-      expect(manager.getCategoryComponent(categoryItem)).to.be.undefined;
+      expect(manager.getCategoryComponent(categoryItem)).toEqual(undefined);
     });
 
     it("returns `undefined` when matching category renderer is not found", () => {
@@ -99,7 +98,7 @@ describe("PropertyCategoryRendererManager", () => {
 
       manager.addRenderer("other_test_renderer", () => TestComponent);
 
-      expect(manager.getCategoryComponent(categoryItem)).to.be.undefined;
+      expect(manager.getCategoryComponent(categoryItem)).toEqual(undefined);
     });
 
     it("returns matching category rendering component", () => {
@@ -108,9 +107,7 @@ describe("PropertyCategoryRendererManager", () => {
 
       manager.addRenderer("test_renderer", () => TestComponent);
 
-      expect(manager.getCategoryComponent(categoryItem)).to.be.equal(
-        TestComponent
-      );
+      expect(manager.getCategoryComponent(categoryItem)).toEqual(TestComponent);
     });
   });
 });

@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/core-react",
-      "comment": "Inline svg of badge components instead of using the `svg-loader`.",
+      "comment": "Bump `useCrossOriginPopup` to `@public`.",
       "type": "none"
     }
   ],

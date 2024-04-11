@@ -3,10 +3,11 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
-import { expect } from "chai";
 import * as React from "react";
 import { FillCentered } from "../../core-react";
 import { classesFromElement } from "../TestUtils";
+
+/* eslint-disable deprecation/deprecation */
 
 describe("<FillCentered />", () => {
   it("has correct text", () => {

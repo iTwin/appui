@@ -8,13 +8,12 @@ import {
   MessageSeverity,
 } from "@itwin/appui-abstract";
 import { render, screen } from "@testing-library/react";
-import { expect } from "chai";
 import * as React from "react";
 import { MessageBox, MessageContainer } from "../../core-react";
 import TestUtils from "../TestUtils";
 
 describe("MessageBox", () => {
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiCore();
   });
 

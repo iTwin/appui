@@ -2,11 +2,9 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
 import * as moq from "typemoq";
 import { render } from "@testing-library/react";
-import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import type { ScreenViewport, ViewState3d } from "@itwin/core-frontend";
 import {
   ConfigurableUiControlType,
@@ -21,7 +19,7 @@ import type {
   IModelViewportControlOptions,
   SupportsViewSelectorChange,
 } from "../../appui-react";
-import TestUtils, { storageMock } from "../TestUtils";
+import { storageMock } from "../TestUtils";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";
 
@@ -35,22 +33,16 @@ describe("IModelViewportControl", () => {
   const viewportMock = moq.Mock.ofType<ScreenViewport>();
   const viewMock = moq.Mock.ofType<ViewState3d>();
 
-  before(async () => {
+  beforeEach(async () => {
     Object.defineProperty(window, "sessionStorage", {
       get: () => mySessionStorage,
     });
-
-    await TestUtils.initializeUiFramework();
-    await NoRenderApp.startup();
 
     InternalFrontstageManager.isInitialized = false;
     InternalFrontstageManager.initialize();
   });
 
-  after(async () => {
-    await IModelApp.shutdown();
-    TestUtils.terminateUiFramework();
-
+  afterEach(async () => {
     // restore the overriden property getter
     Object.defineProperty(
       window,
@@ -148,29 +140,31 @@ describe("IModelViewportControl", () => {
       expect(UiFramework.content.layouts.activeLayout).to.exist;
 
       const contentControl = UiFramework.content.getActiveContentControl();
-      expect(contentControl).to.not.be.undefined;
-      expect(contentControl instanceof TestViewportContentControl).to.be.true;
+      expect(contentControl).toBeTruthy();
+      expect(contentControl instanceof TestViewportContentControl).toEqual(
+        true
+      );
 
       if (contentControl) {
-        expect(contentControl.isViewport).to.be.true;
-        expect(contentControl.viewport).to.not.be.undefined;
-        expect(contentControl.getType()).to.eq(
+        expect(contentControl.isViewport).toEqual(true);
+        expect(contentControl.viewport).toBeTruthy();
+        expect(contentControl.getType()).toEqual(
           ConfigurableUiControlType.Viewport
         );
 
         const supportsContentControl =
           contentControl as unknown as SupportsViewSelectorChange;
-        expect(supportsContentControl.supportsViewSelectorChange).to.be.true;
+        expect(supportsContentControl.supportsViewSelectorChange).toEqual(true);
 
         const controlNode = (contentControl as TestViewportContentControl)
           .reactNode;
-        expect(controlNode).to.not.be.undefined;
-        expect(React.isValidElement(controlNode)).to.be.true;
+        expect(controlNode).toBeTruthy();
+        expect(React.isValidElement(controlNode)).toEqual(true);
 
         const componentWrapper = render(controlNode as React.ReactElement);
-        expect(componentWrapper).to.not.be.undefined;
-        expect(componentWrapper.getByTestId("MainContent")).to.not.be.undefined;
-        expect(componentWrapper.getByTestId("ViewOverlay")).to.not.be.undefined;
+        expect(componentWrapper).toBeTruthy();
+        expect(componentWrapper.getByTestId("MainContent")).toBeTruthy();
+        expect(componentWrapper.getByTestId("ViewOverlay")).toBeTruthy();
       }
     }
   });

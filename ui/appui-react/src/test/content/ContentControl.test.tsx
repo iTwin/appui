@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { StandardContentLayouts } from "@itwin/appui-abstract";
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import type {
   ConfigurableCreateInfo,
   FrontstageConfig,
@@ -16,7 +14,6 @@ import {
   FrontstageProvider,
   UiFramework,
 } from "../../appui-react";
-import TestUtils from "../TestUtils";
 
 describe("ContentControl", () => {
   class TestContentControl extends ContentControl {
@@ -27,13 +24,12 @@ describe("ContentControl", () => {
     }
   }
 
-  before(async () => {
-    await TestUtils.initializeUiFramework();
+  beforeEach(() => {
     UiFramework.controls.register("TestContentControl", TestContentControl);
   });
 
-  after(() => {
-    TestUtils.terminateUiFramework();
+  afterEach(() => {
+    UiFramework.controls.unregister("TestContentControl");
   });
 
   it("activated", async () => {
@@ -70,36 +66,25 @@ describe("ContentControl", () => {
     const frontstageDef = await UiFramework.frontstages.getFrontstageDef(
       Frontstage1.stageId
     );
-    expect(frontstageDef).to.not.be.undefined;
+    expect(frontstageDef).toBeTruthy();
 
-    if (frontstageDef) {
-      await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
-      const contentGroup = frontstageDef.contentGroup;
-      expect(contentGroup).to.not.be.undefined;
+    await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
+    const contentGroup = frontstageDef!.contentGroup;
+    expect(contentGroup).toBeTruthy();
 
-      if (contentGroup) {
-        const contentSet = contentGroup.getContentNodes();
-        expect(contentSet.length).to.eq(2);
+    const contentSet = contentGroup!.getContentNodes();
+    expect(contentSet.length).toEqual(2);
 
-        const contentControl = contentGroup.getControlFromElement(
-          contentSet[1]
-        );
-        expect(contentControl).to.not.be.undefined;
+    const contentControl = contentGroup!.getControlFromElement(contentSet[1])!;
+    expect(contentControl).toBeTruthy();
 
-        if (contentControl) {
-          const activatedMethod = sinon.spy(contentControl, "onActivated");
-          UiFramework.content.setActive(contentSet[1]);
-          expect(
-            activatedMethod.calledOnce,
-            `onActivated called ${activatedMethod.callCount} times`
-          ).to.be.true;
+    const activatedMethod = vi.spyOn(contentControl, "onActivated");
+    UiFramework.content.setActive(contentSet[1]);
+    expect(activatedMethod).toHaveBeenCalledOnce();
 
-          expect(contentControl.isViewport).to.be.false;
-          expect(contentControl.viewport).to.be.undefined;
-          expect(contentControl.navigationAidControl.length).to.eq(0);
-        }
-      }
-    }
+    expect(contentControl.isViewport).toEqual(false);
+    expect(contentControl.viewport).toEqual(undefined);
+    expect(contentControl.navigationAidControl.length).toEqual(0);
   });
 
   it("deactivated", async () => {
@@ -136,30 +121,30 @@ describe("ContentControl", () => {
     const frontstageDef = await UiFramework.frontstages.getFrontstageDef(
       Frontstage2.stageId
     );
-    expect(frontstageDef).to.not.be.undefined;
+    expect(frontstageDef).toBeTruthy();
 
     if (frontstageDef) {
       await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
       const contentGroup = frontstageDef.contentGroup;
-      expect(contentGroup).to.not.be.undefined;
+      expect(contentGroup).toBeTruthy();
 
       if (contentGroup) {
         const contentSet = contentGroup.getContentNodes();
-        expect(contentSet.length).to.eq(2);
+        expect(contentSet.length).toEqual(2);
 
         const contentControl = contentGroup.getControlFromElement(
           contentSet[0]
         );
-        expect(contentControl).to.not.be.undefined;
+        expect(contentControl).toBeTruthy();
 
         if (contentControl) {
-          const deactivatedMethod = sinon.spy(contentControl, "onDeactivated");
+          const deactivatedMethod = vi.spyOn(contentControl, "onDeactivated");
           UiFramework.content.setActive(contentSet[1]);
-          expect(deactivatedMethod.calledOnce).to.be.true;
+          expect(deactivatedMethod).toHaveBeenCalledOnce();
 
-          const activatedMethod = sinon.spy(contentControl, "onActivated");
+          const activatedMethod = vi.spyOn(contentControl, "onActivated");
           UiFramework.content.refreshActive(contentSet[0]);
-          expect(activatedMethod.calledOnce).to.be.true;
+          expect(activatedMethod).toHaveBeenCalledOnce();
         }
       }
     }

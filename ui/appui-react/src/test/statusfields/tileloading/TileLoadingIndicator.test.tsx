@@ -4,26 +4,13 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import * as moq from "typemoq";
-import * as sinon from "sinon";
 import { BeEvent } from "@itwin/core-bentley";
 import type { ScreenViewport, Viewport } from "@itwin/core-frontend";
-import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
+import { IModelApp } from "@itwin/core-frontend";
 import { TileLoadingIndicator } from "../../../appui-react";
-import TestUtils from "../../TestUtils";
 import { cleanup, render, screen, waitFor } from "@testing-library/react";
-import { expect } from "chai";
 
 describe("TileLoadingIndicator", () => {
-  before(async () => {
-    await TestUtils.initializeUiFramework();
-    await NoRenderApp.startup();
-  });
-
-  after(async () => {
-    await IModelApp.shutdown();
-    TestUtils.terminateUiFramework();
-  });
-
   it("should render correctly as footer by default", () => {
     const wrapper = render(<TileLoadingIndicator />);
 
@@ -32,16 +19,16 @@ describe("TileLoadingIndicator", () => {
   });
 
   it("should unmount correctly", () => {
-    const spy = sinon.spy();
-    const viewOpenSpy = sinon
-      .stub(IModelApp.viewManager.onViewOpen, "addListener")
-      .returns(spy);
+    const spy = vi.fn();
+    const viewOpenSpy = vi
+      .spyOn(IModelApp.viewManager.onViewOpen, "addListener")
+      .mockReturnValue(spy);
 
     const { unmount } = render(<TileLoadingIndicator />);
-    expect(viewOpenSpy).to.have.been.called;
+    expect(viewOpenSpy).toHaveBeenCalled();
 
     unmount();
-    expect(spy).to.have.been.called;
+    expect(spy).toHaveBeenCalled();
   });
 
   it("50% then 100% complete", async () => {

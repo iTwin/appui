@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { withOnOutsideClick } from "../../core-react";
 import userEvent from "@testing-library/user-event";
 import { render, screen } from "@testing-library/react";
@@ -19,7 +17,7 @@ describe("WithOnOutsideClick", async () => {
     children?: React.ReactNode;
   }>((props) => <div {...props} />, undefined, true, false);
 
-  const defaultOnClose = sinon.spy();
+  const defaultOnClose = vi.fn();
   const WithOnOutsideClickAndDefaultDiv = withOnOutsideClick(
     (props) => <div {...props} />,
     defaultOnClose,
@@ -41,15 +39,15 @@ describe("WithOnOutsideClick", async () => {
   );
 
   it("should handle document click", async () => {
-    const spyOnClose = sinon.spy();
+    const spyOnClose = vi.fn();
     render(<WithOnOutsideClickDiv onOutsideClick={spyOnClose} />);
 
     await theUserTo.pointer(["[MouseLeft]"]);
-    expect(spyOnClose.calledOnce).to.be.true;
+    expect(spyOnClose).toHaveBeenCalledOnce();
   });
 
   it("should handle inner click", async () => {
-    const spyOnClose = sinon.spy();
+    const spyOnClose = vi.fn();
     render(
       <WithOnOutsideClickDiv onOutsideClick={spyOnClose}>
         <div>Inside</div>
@@ -57,23 +55,23 @@ describe("WithOnOutsideClick", async () => {
     );
 
     await theUserTo.click(screen.getByText("Inside"));
-    expect(spyOnClose).not.to.be.called;
+    expect(spyOnClose).not.toBeCalled();
   });
 
   it("should handle document click in default", async () => {
-    defaultOnClose.resetHistory();
+    defaultOnClose.mockReset();
     render(<WithOnOutsideClickAndDefaultDiv />);
 
     await theUserTo.pointer("[MouseLeft]");
-    expect(defaultOnClose.calledOnce).to.be.true;
+    expect(defaultOnClose).toHaveBeenCalledOnce();
   });
 
   it("should handle document pointer events", async () => {
-    const spyOnClose = sinon.spy();
+    const spyOnClose = vi.fn();
     render(<WithOnOutsidePointerDiv onOutsideClick={spyOnClose} />);
 
     await theUserTo.pointer("[MouseLeft]");
-    expect(spyOnClose.calledOnce).to.be.true;
+    expect(spyOnClose).toHaveBeenCalledOnce();
   });
 
   it("should handle empty onOutsideClick (Coverage only)", async () => {
@@ -85,15 +83,15 @@ describe("WithOnOutsideClick", async () => {
   });
 
   it("should handle document pointer events in default", async () => {
-    defaultOnClose.resetHistory();
+    defaultOnClose.mockReset();
     render(<WithOnOutsidePointerAndDefaultDiv />);
 
     await theUserTo.pointer("[MouseLeft]");
-    expect(defaultOnClose.calledOnce).to.be.true;
+    expect(defaultOnClose).toHaveBeenCalledOnce();
   });
 
   it("should dispatch close processing if clicking on a popup", async () => {
-    defaultOnClose.resetHistory();
+    defaultOnClose.mockReset();
     render(
       <>
         <div className="core-popup" data-testid="popup" />
@@ -102,11 +100,11 @@ describe("WithOnOutsideClick", async () => {
     );
 
     await theUserTo.click(screen.getByTestId("popup"));
-    expect(defaultOnClose.calledOnce).to.be.true;
+    expect(defaultOnClose).toHaveBeenCalledOnce();
   });
 
   it("should not dispatch close processing if clicking on a popup", async () => {
-    defaultOnClose.resetHistory();
+    defaultOnClose.mockReset();
     // build an hierarchy that will test all recursion in code
     render(
       <>
@@ -122,10 +120,10 @@ describe("WithOnOutsideClick", async () => {
     );
 
     await theUserTo.click(screen.getByText("PopupContent"));
-    expect(defaultOnClose.calledOnce).to.be.false;
+    expect(defaultOnClose).not.toBeCalled();
 
     await theUserTo.unhover(screen.getByText("PopupContent"));
     await theUserTo.pointer("[MouseLeft]");
-    expect(defaultOnClose.calledOnce).to.be.true;
+    expect(defaultOnClose).toHaveBeenCalledOnce();
   });
 });

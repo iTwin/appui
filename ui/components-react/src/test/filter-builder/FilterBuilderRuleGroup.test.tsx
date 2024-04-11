@@ -3,7 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import * as React from "react";
 import type { PropertyDescription } from "@itwin/appui-abstract";
 import type { PropertyFilterBuilderRuleGroupRendererProps } from "../../components-react/filter-builder/FilterBuilderRuleGroup";
@@ -14,7 +13,6 @@ import {
 } from "../../components-react/filter-builder/FilterBuilderState";
 import TestUtils from "../TestUtils";
 import { renderWithContext } from "./Common";
-import sinon from "sinon";
 
 describe("PropertyFilterBuilderRuleGroupRenderer", () => {
   const rootGroup: PropertyFilterBuilderRuleGroup = {
@@ -37,20 +35,12 @@ describe("PropertyFilterBuilderRuleGroupRenderer", () => {
     isGroupOperatorDisabled: false,
   };
 
-  beforeEach(async () => {
-    await TestUtils.initializeUiComponents();
-  });
-
-  afterEach(() => {
-    TestUtils.terminateUiComponents();
-  });
-
   it("does not render remove button for root group", () => {
     const { queryByTestId } = renderWithContext(
       <PropertyFilterBuilderRuleGroupRenderer {...defaultProps} />
     );
 
-    expect(queryByTestId("rule-group-remove")).to.be.null;
+    expect(queryByTestId("rule-group-remove")).toEqual(null);
   });
 
   it("does not render operator selector if only one rule is in group", () => {
@@ -70,7 +60,7 @@ describe("PropertyFilterBuilderRuleGroupRenderer", () => {
           "Components:filterBuilder.operators.and"
         )
       )
-    ).to.be.null;
+    ).toEqual(null);
   });
 
   it("renders child rule", () => {
@@ -101,17 +91,17 @@ describe("PropertyFilterBuilderRuleGroupRenderer", () => {
   });
 
   it("dispatches operator change event when operator is selected", async () => {
-    const actions = new PropertyFilterBuilderActions(sinon.spy());
+    const actions = new PropertyFilterBuilderActions(vi.fn());
     const { container, findByText } = renderWithContext(
       <PropertyFilterBuilderRuleGroupRenderer {...defaultProps} />,
       { actions }
     );
-    const setRuleGroupOperatorSpy = sinon.stub(actions, "setRuleGroupOperator");
+    const setRuleGroupOperatorSpy = vi.spyOn(actions, "setRuleGroupOperator");
 
     const selector = container.querySelector<HTMLAnchorElement>(
       ".fb-group-operator .fb-logical-operator-toggle"
     );
-    expect(selector).to.not.be.null;
+    expect(selector).toBeTruthy();
 
     selector?.click();
 
@@ -121,13 +111,16 @@ describe("PropertyFilterBuilderRuleGroupRenderer", () => {
           "Components:filterBuilder.operators.and"
         )
       )
-    ).to.not.be.null;
+    ).toBeTruthy();
 
-    expect(setRuleGroupOperatorSpy).to.be.calledWith(defaultProps.path, "or");
+    expect(setRuleGroupOperatorSpy).toHaveBeenCalledWith(
+      defaultProps.path,
+      "or"
+    );
   });
 
   it("Toggles operator 'Or' to 'And'", async () => {
-    const actions = new PropertyFilterBuilderActions(sinon.spy());
+    const actions = new PropertyFilterBuilderActions(vi.fn());
     const props: PropertyFilterBuilderRuleGroupRendererProps = {
       group: { ...rootGroup, operator: "or" },
       path: [],
@@ -137,12 +130,12 @@ describe("PropertyFilterBuilderRuleGroupRenderer", () => {
       <PropertyFilterBuilderRuleGroupRenderer {...props} />,
       { actions }
     );
-    const setRuleGroupOperatorSpy = sinon.stub(actions, "setRuleGroupOperator");
+    const setRuleGroupOperatorSpy = vi.spyOn(actions, "setRuleGroupOperator");
 
     const selector = container.querySelector<HTMLAnchorElement>(
       ".fb-group-operator .fb-logical-operator-toggle"
     );
-    expect(selector).to.not.be.null;
+    expect(selector).toBeTruthy();
 
     selector?.click();
 
@@ -152,13 +145,16 @@ describe("PropertyFilterBuilderRuleGroupRenderer", () => {
           "Components:filterBuilder.operators.or"
         )
       )
-    ).to.not.be.null;
+    ).toBeTruthy();
 
-    expect(setRuleGroupOperatorSpy).to.be.calledWith(defaultProps.path, "and");
+    expect(setRuleGroupOperatorSpy).toHaveBeenCalledWith(
+      defaultProps.path,
+      "and"
+    );
   });
 
   it("'Or' Operator should not be clickable if toggle disabled", async () => {
-    const actions = new PropertyFilterBuilderActions(sinon.spy());
+    const actions = new PropertyFilterBuilderActions(vi.fn());
     const props: PropertyFilterBuilderRuleGroupRendererProps = {
       group: { ...rootGroup, operator: "or" },
       path: [],
@@ -175,16 +171,16 @@ describe("PropertyFilterBuilderRuleGroupRenderer", () => {
           "Components:filterBuilder.operators.or"
         )
       )
-    ).to.not.be.null;
+    ).toBeTruthy();
 
     const selector = container.querySelector<HTMLAnchorElement>(
       ".fb-group-operator .fb-logical-operator-toggle"
     );
-    expect(selector).to.be.null;
+    expect(selector).toEqual(null);
   });
 
   it("'And' Operator should not be clickable if toggled disabled", async () => {
-    const actions = new PropertyFilterBuilderActions(sinon.spy());
+    const actions = new PropertyFilterBuilderActions(vi.fn());
     const props: PropertyFilterBuilderRuleGroupRendererProps = {
       group: rootGroup,
       path: [],
@@ -201,11 +197,11 @@ describe("PropertyFilterBuilderRuleGroupRenderer", () => {
           "Components:filterBuilder.operators.and"
         )
       )
-    ).to.not.be.null;
+    ).toBeTruthy();
 
     const selector = container.querySelector<HTMLAnchorElement>(
       ".fb-group-operator .fb-logical-operator-toggle"
     );
-    expect(selector).to.be.null;
+    expect(selector).toEqual(null);
   });
 });

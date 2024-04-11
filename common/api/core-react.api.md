@@ -18,7 +18,7 @@ import type { Localization as Localization_2 } from '@itwin/core-common';
 import { MessageSeverity } from '@itwin/appui-abstract';
 import { ProgressRadial } from '@itwin/itwinui-react';
 import * as React_2 from 'react';
-import * as ReactAutosuggest from 'react-autosuggest';
+import ReactAutosuggest from 'react-autosuggest';
 import { RelativePosition } from '@itwin/appui-abstract';
 
 // @public
@@ -143,7 +143,7 @@ export const calculateProximityScale: (proximity: number, snap?: boolean, thresh
 // @internal
 export const calculateToolbarOpacity: (proximityScale: number) => number;
 
-// @public
+// @public @deprecated
 export function Centered(props: CommonDivProps): React_2.JSX.Element;
 
 // @public
@@ -473,15 +473,15 @@ export interface DialogProps extends Omit_2<React_2.AllHTMLAttributes<HTMLDivEle
 // @public
 export function DisabledText(props: TextProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export function Div(props: DivProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface DivProps extends CommonDivProps {
     mainClassName: string;
 }
 
-// @public
+// @public @deprecated
 export const DivWithOutsideClick: {
     new (props: (CommonDivProps & WithOnOutsideClickProps) | Readonly<CommonDivProps & WithOnOutsideClickProps>): {
         outsideClickContainerDiv?: HTMLDivElement | null | undefined;
@@ -611,7 +611,7 @@ export interface ExpansionToggleProps extends CommonProps {
     onClick?: (e: React_2.MouseEvent<HTMLDivElement>) => void;
 }
 
-// @public
+// @public @deprecated
 export function FillCentered(props: CommonDivProps): React_2.JSX.Element;
 
 // @alpha
@@ -628,7 +628,7 @@ export interface FilteredTextProps extends CommonProps {
 // @internal
 export const flattenChildren: (children: React_2.ReactNode) => React_2.ReactNode;
 
-// @public
+// @public @deprecated
 export function FlexWrapContainer(props: CommonDivProps): React_2.JSX.Element;
 
 // @internal
@@ -645,10 +645,10 @@ export interface FocusTrapProps extends React_2.AllHTMLAttributes<any> {
     returnFocusOnDeactivate: boolean;
 }
 
-// @public
+// @public @deprecated
 export function Gap(props: GapProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface GapProps extends CommonProps {
     // (undocumented)
     size?: string;
@@ -671,6 +671,12 @@ export const getDisplayName: (component: React_2.ComponentType<any>) => string;
 
 // @internal
 export const getObjectClassName: (obj: any) => string;
+
+// @internal (undocumented)
+export function getResizeObserver(): {
+    new (callback: ResizeObserverCallback): ResizeObserver;
+    prototype: ResizeObserver;
+};
 
 // @internal
 export const getToolbarBackdropFilter: (filterBlur: number) => string;
@@ -1418,10 +1424,6 @@ export function ResizableContainerObserver({ onResize, children, }: {
 }): React_2.JSX.Element;
 
 // @internal (undocumented)
-const ResizeObserver_2: ResizeObserverType;
-export { ResizeObserver_2 as ResizeObserver }
-
-// @internal (undocumented)
 export type ResizeObserverType = default_2;
 
 // @public
@@ -1431,7 +1433,7 @@ export class ScrollPositionMaintainer implements IDisposable {
     dispose(): void;
 }
 
-// @public
+// @public @deprecated
 export function ScrollView(props: CommonDivProps): React_2.JSX.Element;
 
 // @public
@@ -1840,7 +1842,7 @@ export interface UnderlinedButtonProps {
     title?: string;
 }
 
-// @beta
+// @public
 export function useCrossOriginPopup(visible: boolean, url: string | undefined, title: string, width: number, height: number, onClose: () => void): void;
 
 // @public @deprecated

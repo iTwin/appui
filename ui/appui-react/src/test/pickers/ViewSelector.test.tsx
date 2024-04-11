@@ -2,14 +2,11 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
 import * as moq from "typemoq";
 import {
   DrawingViewState,
-  IModelApp,
   IModelConnection,
-  NoRenderApp,
   SheetViewState,
   SpatialViewState,
 } from "@itwin/core-frontend";
@@ -69,18 +66,6 @@ describe("ViewSelector", () => {
     theUserTo = userEvent.setup();
   });
 
-  before(async () => {
-    await TestUtils.initializeUiFramework();
-    await NoRenderApp.startup();
-    await TestUtils.flushAsyncOperations();
-  });
-
-  after(async () => {
-    await IModelApp.shutdown();
-    await TestUtils.flushAsyncOperations();
-    TestUtils.terminateUiFramework();
-  });
-
   it("should support empty props", async () => {
     render(
       <Provider store={TestUtils.store}>
@@ -90,10 +75,10 @@ describe("ViewSelector", () => {
     await waitFor(async () => theUserTo.click(screen.getByRole("button")));
 
     expect(screen.getByText("viewTypes.views")).to.exist;
-    expect(screen.queryByText("viewTypes.spatialViews")).to.be.null;
-    expect(screen.queryByText("viewTypes.drawings")).to.be.null;
-    expect(screen.queryByText("viewTypes.sheets")).to.be.null;
-    expect(screen.queryByText("viewTypes.others")).to.be.null;
+    expect(screen.queryByText("viewTypes.spatialViews")).toEqual(null);
+    expect(screen.queryByText("viewTypes.drawings")).toEqual(null);
+    expect(screen.queryByText("viewTypes.sheets")).toEqual(null);
+    expect(screen.queryByText("viewTypes.others")).toEqual(null);
   });
 
   it("should set Show settings by ViewSelector.updateShowSettings", async () => {
@@ -118,9 +103,9 @@ describe("ViewSelector", () => {
     await waitFor(
       () => expect(screen.queryByText("viewTypes.spatialViews")).to.be.null
     );
-    expect(screen.queryByText("viewTypes.drawings")).to.be.null;
-    expect(screen.queryByText("viewTypes.sheets")).to.be.null;
-    expect(screen.queryByText("viewTypes.others")).to.be.null;
+    expect(screen.queryByText("viewTypes.drawings")).toEqual(null);
+    expect(screen.queryByText("viewTypes.sheets")).toEqual(null);
+    expect(screen.queryByText("viewTypes.others")).toEqual(null);
   });
 
   it("should trigger componentDidUpdate processing", async () => {

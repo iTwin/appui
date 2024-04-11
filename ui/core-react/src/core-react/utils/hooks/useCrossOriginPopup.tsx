@@ -10,7 +10,7 @@ import * as React from "react";
 import { useInterval } from "./useInterval";
 
 /** Hook that will show a popup window
- * @beta
+ * @public
  */
 export function useCrossOriginPopup(
   visible: boolean,

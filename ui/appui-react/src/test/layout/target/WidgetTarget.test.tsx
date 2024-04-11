@@ -42,8 +42,8 @@ describe("WidgetTarget", () => {
         <Wrapper defaultState={state} widgetId="fw1" {...props} />
       ),
     });
-    container
-      .getElementsByClassName("nz-target-mergeTarget")
-      .length.should.eq(1);
+    expect(
+      container.getElementsByClassName("nz-target-mergeTarget")
+    ).toHaveLength(1);
   });
 });

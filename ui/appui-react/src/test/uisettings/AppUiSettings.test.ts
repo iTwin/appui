@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import { storageMock, TestUtils } from "../TestUtils";
 import { UiFramework } from "../../appui-react/UiFramework";
 import type { InitialAppUiSettings } from "../../appui-react/uistate/AppUiSettings";
@@ -16,17 +15,15 @@ describe("AppUiSettings", () => {
   )!;
   let localStorageMock = storageMock();
 
-  beforeEach(async () => {
+  beforeEach(() => {
     // create a new mock each run so there are no "stored values"
     localStorageMock = storageMock();
-    await TestUtils.initializeUiFramework();
     Object.defineProperty(window, "localStorage", {
       get: () => localStorageMock,
     });
   });
 
   afterEach(() => {
-    TestUtils.terminateUiFramework();
     Object.defineProperty(window, "localStorage", localStorageToRestore);
   });
 

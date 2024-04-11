@@ -3,10 +3,8 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
-import sinon from "sinon";
 import { MutableCustomGridCategory } from "../../../../../components-react/propertygrid/internal/flat-items/MutableCustomGridCategory";
-import { MutableGridItemFactory } from "../../../../../components-react/propertygrid/internal/flat-items/MutableGridItemFactory";
+import type { MutableGridItemFactory } from "../../../../../components-react/propertygrid/internal/flat-items/MutableGridItemFactory";
 import type { PropertyCategory } from "../../../../../components-react/propertygrid/PropertyDataProvider";
 import { FlatGridTestUtils } from "./FlatGridTestUtils";
 
@@ -28,10 +26,10 @@ describe("MutableCustomGridCategory", () => {
     category,
   ]);
 
-  let factoryStub: sinon.SinonStubbedInstance<MutableGridItemFactory>;
+  let factoryStub: MutableGridItemFactory;
 
   beforeEach(() => {
-    factoryStub = sinon.createStubInstance(MutableGridItemFactory);
+    factoryStub = {} as MutableGridItemFactory;
   });
 
   describe("constructor", () => {
@@ -43,7 +41,7 @@ describe("MutableCustomGridCategory", () => {
         "parent",
         0
       );
-      expect(categoryItem.selectionKey).to.be.equal("parent_test_category");
+      expect(categoryItem.selectionKey).toEqual("parent_test_category");
     });
 
     it("successfully creates instance when category name is not present in `recordsDict`", () => {
@@ -70,7 +68,7 @@ describe("MutableCustomGridCategory", () => {
         undefined,
         0
       );
-      expect(categoryItem.isRootCategory).to.be.true;
+      expect(categoryItem.isRootCategory).toEqual(true);
     });
 
     it("is `false` when not at depth 0", () => {
@@ -81,7 +79,7 @@ describe("MutableCustomGridCategory", () => {
         undefined,
         1
       );
-      expect(categoryItem.isRootCategory).to.be.false;
+      expect(categoryItem.isRootCategory).toEqual(false);
     });
   });
 
@@ -94,7 +92,7 @@ describe("MutableCustomGridCategory", () => {
         undefined,
         0
       );
-      expect(categoryItem.getSelf()).to.be.equal(categoryItem);
+      expect(categoryItem.getSelf()).toEqual(categoryItem);
     });
   });
 });

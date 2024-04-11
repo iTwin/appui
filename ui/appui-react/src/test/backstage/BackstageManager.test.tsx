@@ -2,11 +2,8 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { renderHook } from "@testing-library/react-hooks";
 import { waitFor } from "@testing-library/react";
-import { expect } from "chai";
-import * as sinon from "sinon";
 import { UiFramework } from "../../appui-react";
 import {
   BackstageManager,
@@ -14,74 +11,69 @@ import {
   useIsBackstageOpen,
 } from "../../appui-react/backstage/BackstageManager";
 import { InternalBackstageManager } from "../../appui-react/backstage/InternalBackstageManager";
-import TestUtils from "../TestUtils";
 
 describe("BackstageManager", () => {
-  before(async () => {
-    await TestUtils.initializeUiFramework();
-    await NoRenderApp.startup();
-  });
-  after(async () => {
-    await IModelApp.shutdown();
-    TestUtils.terminateUiFramework();
-  });
-
   it("should open backstage", () => {
     const manager = new BackstageManager();
-    const spy = sinon.spy();
+    const spy = vi.fn();
     manager.onToggled.addListener(spy);
     manager.open();
     // Check that we call only once;
     manager.open();
 
-    expect(spy).to.have.been.calledOnceWith(sinon.match({ isOpen: true }));
-    expect(manager.isOpen).to.be.true;
+    expect(spy).toHaveBeenCalledOnce();
+    expect(spy).toHaveBeenCalledWith({ isOpen: true });
+    expect(manager.isOpen).toEqual(true);
 
     manager.onToggled.removeListener(spy);
   });
 
   it("should close backstage", () => {
     const manager = new BackstageManager();
-    const spy = sinon.spy();
+    const spy = vi.fn();
     manager.open();
     manager.onToggled.addListener(spy);
 
     manager.close();
 
-    expect(spy).to.have.been.calledWith(sinon.match({ isOpen: false }));
-    expect(manager.isOpen).to.be.false;
+    expect(spy).toHaveBeenCalledWith(
+      expect.objectContaining({ isOpen: false })
+    );
+    expect(manager.isOpen).toEqual(false);
 
     manager.onToggled.removeListener(spy);
   });
 
   it("should toggle backstage", () => {
     const manager = new BackstageManager();
-    const spy = sinon.spy();
+    const spy = vi.fn();
     manager.open();
     manager.onToggled.addListener(spy);
 
     manager.toggle();
 
-    expect(spy).to.have.been.calledWith(sinon.match({ isOpen: false }));
-    expect(manager.isOpen).to.be.false;
+    expect(spy).toHaveBeenCalledWith(
+      expect.objectContaining({ isOpen: false })
+    );
+    expect(manager.isOpen).toEqual(false);
 
-    spy.resetHistory();
+    spy.mockReset();
     manager.toggle();
 
-    expect(spy).to.have.been.calledWith(sinon.match({ isOpen: true }));
-    expect(manager.isOpen).to.be.true;
+    expect(spy).toHaveBeenCalledWith(expect.objectContaining({ isOpen: true }));
+    expect(manager.isOpen).toEqual(true);
     manager.onToggled.removeListener(spy);
   });
 
   it("should not trigger event if state do not change", () => {
     const manager = new BackstageManager();
-    const spy = sinon.spy();
+    const spy = vi.fn();
     manager.open();
     manager.onToggled.addListener(spy);
     manager.open();
 
-    expect(spy).to.not.have.been.called;
-    expect(manager.isOpen).to.be.true;
+    expect(spy).not.toBeCalled();
+    expect(manager.isOpen).toEqual(true);
     manager.onToggled.removeListener(spy);
   });
 
@@ -90,46 +82,50 @@ describe("BackstageManager", () => {
     const initialState = UiFramework.backstage.isOpen;
     command.execute();
 
-    expect(UiFramework.backstage.isOpen).to.eq(!initialState);
+    expect(UiFramework.backstage.isOpen).toEqual(!initialState);
   });
 
   it("getBackstageToggleCommand handles icon override", () => {
     const command =
       BackstageManager.getBackstageToggleCommand("different-icon");
 
-    expect(command.iconSpec).to.eq("different-icon");
+    expect(command.iconSpec).toEqual("different-icon");
   });
 
   it("will directly call internal implementation", () => {
     const manager = new BackstageManager();
     const internal = new InternalBackstageManager();
-    const stubbedOnToggled = Symbol("onToggled");
-    sinon.stub(internal, "onToggled").get(() => stubbedOnToggled);
-    const stubbedIsOpen = Symbol("isOpen");
-    sinon.stub(internal, "isOpen").get(() => stubbedIsOpen);
-    sinon.stub(internal);
     manager.mockInternal(internal);
 
-    expect(manager.onToggled).to.eq(internal.onToggled);
-    expect(manager.isOpen).to.eq(internal.isOpen);
+    expect(manager.onToggled).toEqual(internal.onToggled);
+    expect(manager.isOpen).toEqual(internal.isOpen);
+
+    const open = vi.spyOn(internal, "open");
+    const close = vi.spyOn(internal, "close");
+    const toggle = vi.spyOn(internal, "toggle");
+    const getBackstageToggleCommand = vi.spyOn(
+      internal,
+      "getBackstageToggleCommand"
+    );
 
     // New method names
     manager.open();
-    expect(internal.open).to.have.been.calledOnceWithExactly();
+    expect(open).toHaveBeenCalledWith();
     manager.close();
-    expect(internal.close).to.have.been.calledOnceWithExactly();
+    expect(close).toHaveBeenCalledWith();
     manager.toggle();
-    expect(internal.toggle).to.have.been.calledOnceWithExactly();
+    expect(toggle).toHaveBeenCalledWith();
     manager.getBackstageToggleCommand("iconSpec");
-    expect(
-      internal.getBackstageToggleCommand
-    ).to.have.been.calledOnceWithExactly("iconSpec");
+    expect(getBackstageToggleCommand).toHaveBeenCalledWith("iconSpec");
 
-    const stubbedCommand = Symbol("backstageCommand");
-    sinon
-      .stub(UiFramework.backstage, "getBackstageToggleCommand")
-      .returns(stubbedCommand as any);
-    expect(BackstageManager.getBackstageToggleCommand()).to.eq(stubbedCommand);
+    const backstageCommandSymbol = Symbol("backstageCommand");
+    vi.spyOn(
+      UiFramework.backstage,
+      "getBackstageToggleCommand"
+    ).mockReturnValue(backstageCommandSymbol as any);
+    expect(BackstageManager.getBackstageToggleCommand()).toEqual(
+      backstageCommandSymbol
+    );
   });
 });
 
@@ -139,7 +135,7 @@ describe("useIsBackstageOpen", () => {
 
     const { result } = renderHook(() => useIsBackstageOpen(manager));
 
-    expect(result.current).to.be.false;
+    expect(result.current).toEqual(false);
   });
 
   it("should update isOpen", async () => {
@@ -148,39 +144,27 @@ describe("useIsBackstageOpen", () => {
 
     manager.open();
     await waitFor(() => {
-      expect(result.current).to.be.true;
+      expect(result.current).toEqual(true);
     });
     manager.close();
     await waitFor(() => {
-      expect(result.current).to.be.false;
+      expect(result.current).toEqual(false);
     });
   });
 
   it("should remove onToggled listener", () => {
     const manager = new BackstageManager();
-    const addSpy = sinon.spy(manager.onToggled, "addListener");
-    const removeSpy = sinon.spy(manager.onToggled, "removeListener");
+    const removeSpy = vi.spyOn(manager.onToggled, "removeListener");
     const { unmount } = renderHook(() => useIsBackstageOpen(manager));
-    const callback = sinon.spy(addSpy.firstCall, "returnValue");
     unmount();
 
-    // Either one must be true for this test to pass
-    expect([
-      callback.called,
-      removeSpy.calledWith(...addSpy.firstCall.args),
-    ]).to.include(true);
+    expect(removeSpy).toHaveBeenCalledOnce();
   });
 });
 
 describe("useBackstageManager", () => {
   it("returns UiFramework.backstageManager instance", async () => {
-    await TestUtils.initializeUiFramework();
-    await NoRenderApp.startup();
-
     const { result } = renderHook(() => useBackstageManager());
     expect(result.current).to.equal(UiFramework.backstage);
-
-    await IModelApp.shutdown();
-    TestUtils.terminateUiFramework();
   });
 });

@@ -2,8 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-
-import { expect } from "chai";
 import { isPropertyFilterRuleGroup } from "../../components-react/filter-builder/Types";
 
 describe("isPropertyFilterRuleGroup", () => {
@@ -13,12 +11,12 @@ describe("isPropertyFilterRuleGroup", () => {
         operator: "and",
         rules: [],
       })
-    ).to.be.true;
+    ).toEqual(true);
     expect(
       isPropertyFilterRuleGroup({
         property: { name: "prop", displayLabel: "Prop", typename: "string" },
         operator: "is-null",
       })
-    ).to.be.false;
+    ).toEqual(false);
   });
 });

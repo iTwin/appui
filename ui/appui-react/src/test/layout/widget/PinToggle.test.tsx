@@ -4,7 +4,6 @@
  *--------------------------------------------------------------------------------------------*/
 import { fireEvent, render } from "@testing-library/react";
 import * as React from "react";
-import * as sinon from "sinon";
 import type { NineZoneDispatch } from "../../../appui-react/layout/base/NineZone";
 import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState";
 import { updatePanelState } from "../../../appui-react/layout/state/internal/PanelStateHelpers";
@@ -49,7 +48,7 @@ describe("PinToggle", () => {
   });
 
   it("should dispatch PANEL_TOGGLE_PINNED", () => {
-    const dispatch = sinon.stub<NineZoneDispatch>();
+    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
     const state = createNineZoneState();
     const component = render(
       <TestNineZoneProvider
@@ -68,7 +67,8 @@ describe("PinToggle", () => {
     const button = component.getByTitle("Unpin panel");
     fireEvent.click(button);
 
-    sinon.assert.calledOnceWithExactly(dispatch, {
+    expect(dispatch).toHaveBeenCalledOnce();
+    expect(dispatch).toHaveBeenCalledWith({
       type: "PANEL_TOGGLE_PINNED",
       side: "left",
     });

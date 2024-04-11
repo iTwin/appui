@@ -58,6 +58,27 @@ export const storageMock = () => {
   };
 };
 
+/** @internal */
+export function createResizeObserverMock() {
+  const callbacks: ResizeObserverCallback[] = [];
+  return class ResizeObserverMock implements ResizeObserver {
+    public constructor(public readonly callback: ResizeObserverCallback) {
+      callbacks.push(callback);
+    }
+
+    public observe(_: Element): void {}
+
+    public unobserve(_: Element): void {}
+
+    public disconnect(): void {}
+  };
+}
+
+/** @internal */
+export type ResizeObserverMock = InstanceType<
+  ReturnType<typeof createResizeObserverMock>
+>;
+
 /**
  * Extracts e.classList.values() and return as an array for expect.
  * @param e Element to get class list

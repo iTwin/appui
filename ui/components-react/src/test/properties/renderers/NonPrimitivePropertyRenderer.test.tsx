@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { Orientation } from "@itwin/core-react";
 import { NonPrimitivePropertyRenderer } from "../../../components-react/properties/renderers/NonPrimitivePropertyRenderer";
 import TestUtils, {
@@ -18,10 +16,6 @@ describe("NonPrimitivePropertyRenderer", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
   beforeEach(() => {
     theUserTo = userEvent.setup();
-  });
-
-  before(async () => {
-    await TestUtils.initializeUiComponents();
   });
 
   it("renders correctly", async () => {
@@ -98,8 +92,8 @@ describe("NonPrimitivePropertyRenderer", () => {
       />
     );
 
-    expect(screen.queryByTitle("Building")).to.be.null;
-    expect(screen.queryByTitle("Street")).to.be.null;
+    expect(screen.queryByTitle("Building")).toEqual(null);
+    expect(screen.queryByTitle("Street")).toEqual(null);
 
     await theUserTo.click(screen.getByTitle("House"));
 
@@ -108,8 +102,8 @@ describe("NonPrimitivePropertyRenderer", () => {
 
     await theUserTo.click(screen.getByTitle("House"));
 
-    expect(screen.queryByTitle("Building")).to.be.null;
-    expect(screen.queryByTitle("Street")).to.be.null;
+    expect(screen.queryByTitle("Building")).toEqual(null);
+    expect(screen.queryByTitle("Street")).toEqual(null);
   });
 
   it("does not render base struct properties", async () => {
@@ -130,8 +124,8 @@ describe("NonPrimitivePropertyRenderer", () => {
 
     expect(screen.getByTitle("Title")).to.exist;
     expect(screen.getByTitle("Model")).to.exist;
-    expect(screen.queryByTitle("Size")).to.be.null;
-    expect(screen.queryByTitle("Huge")).to.be.null;
+    expect(screen.queryByTitle("Size")).toEqual(null);
+    expect(screen.queryByTitle("Huge")).toEqual(null);
   });
 
   it("renders property with an offset when indentation is more than 0", () => {
@@ -151,7 +145,7 @@ describe("NonPrimitivePropertyRenderer", () => {
   });
 
   it("uses unique key as a click parameter when used", async () => {
-    const keySpy = sinon.spy();
+    const keySpy = vi.fn();
     render(
       <NonPrimitivePropertyRenderer
         orientation={Orientation.Horizontal}
@@ -164,7 +158,7 @@ describe("NonPrimitivePropertyRenderer", () => {
       />
     );
     await theUserTo.click(screen.getByTitle("Pipes (1)"));
-    expect(keySpy).to.have.been.calledWith(sinon.match.any, "unique_key");
+    expect(keySpy).toHaveBeenCalledWith(expect.anything(), "unique_key");
   });
 
   it("renders as expanded if property should be automatically expanded", () => {

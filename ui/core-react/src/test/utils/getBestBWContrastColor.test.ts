@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import { getBestBWContrastColor } from "../../core-react";
 
 const COLORS = [
@@ -40,7 +39,7 @@ describe("getBestBWContrastColor", () => {
       const contrast = getBestBWContrastColor(color);
       if (contrast !== CONTRAST[index])
         console.log(`getBestBWContrastColor failed on ${color}`); // eslint-disable-line no-console
-      expect(contrast).to.eq(CONTRAST[index]);
+      expect(contrast).toEqual(CONTRAST[index]);
     });
   });
 });

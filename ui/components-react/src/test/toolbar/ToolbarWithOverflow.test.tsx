@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import React from "react";
-import * as sinon from "sinon";
 import { Key } from "ts-key-enum";
 import type {
   ActionButton,
@@ -13,7 +11,7 @@ import type {
   GroupButton,
 } from "@itwin/appui-abstract";
 import { ToolbarItemUtilities } from "@itwin/appui-abstract";
-import { fireEvent, render, waitFor } from "@testing-library/react";
+import { fireEvent, render } from "@testing-library/react";
 import type { CustomToolbarItem } from "../../components-react/toolbar/InternalToolbarComponent";
 import {
   ToolbarOpacitySetting,
@@ -22,11 +20,10 @@ import {
   ToolbarPopupAutoHideContext,
 } from "../../components-react/toolbar/InternalToolbarComponent";
 import { Direction } from "../../components-react/toolbar/utilities/Direction";
-import TestUtils, { BadgeType } from "../TestUtils";
 import { ToolbarWithOverflow } from "../../components-react/toolbar/ToolbarWithOverflow";
+import { BadgeType } from "@itwin/core-react";
 
 /* eslint-disable deprecation/deprecation */
-// cSpell:ignore testid
 
 function createBubbledEvent(type: string, props = {}) {
   const event = new Event(type, { bubbles: true });
@@ -35,22 +32,8 @@ function createBubbledEvent(type: string, props = {}) {
 }
 
 describe("<ToolbarWithOverflow />", () => {
-  const sandbox = sinon.createSandbox();
-
-  before(async () => {
-    await TestUtils.initializeUiComponents();
-  });
-
-  after(() => {
-    TestUtils.terminateUiComponents();
-  });
-
-  afterEach(() => {
-    sandbox.restore();
-  });
-
   describe("<Horizontal ToolbarWithOverflow />", () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
 
     const toolbarItems: CommonToolbarItem[] = [
       ToolbarItemUtilities.createActionButton(
@@ -105,16 +88,15 @@ describe("<ToolbarWithOverflow />", () => {
         ToolbarPanelAlignmentHelpers.getCssClassName(
           ToolbarPanelAlignment.Start
         )
-      ).to.eq(ToolbarPanelAlignmentHelpers.START_CLASS_NAME);
+      ).toEqual(ToolbarPanelAlignmentHelpers.START_CLASS_NAME);
       expect(
         ToolbarPanelAlignmentHelpers.getCssClassName(ToolbarPanelAlignment.End)
-      ).to.eq(ToolbarPanelAlignmentHelpers.END_CLASS_NAME);
+      ).toEqual(ToolbarPanelAlignmentHelpers.END_CLASS_NAME);
     });
 
     it("will render 6 items without overflow", () => {
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 252 }); // 6*42 = 252
           } else if (
@@ -123,19 +105,18 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
       const renderedComponent = render(
         <ToolbarWithOverflow items={toolbarItems} />
       );
-      expect(renderedComponent).not.to.be.undefined;
-      // renderedComponent.debug();
-      expect(renderedComponent.queryByTitle("Entry6")).not.to.be.null;
+      expect(renderedComponent).toBeTruthy();
+      expect(renderedComponent.queryByTitle("Entry6")).toBeTruthy();
     });
 
     it("will render 6 items without overflow - simulate horizontal toolbar at bottom right of window.", () => {
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 252 }); // 6*42 = 252
           } else if (
@@ -144,7 +125,8 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
       const renderedComponent = render(
         <ToolbarWithOverflow
           panelAlignment={ToolbarPanelAlignment.End}
@@ -153,15 +135,13 @@ describe("<ToolbarWithOverflow />", () => {
           overflowExpandsTo={Direction.Top}
         />
       );
-      expect(renderedComponent).not.to.be.undefined;
-      // renderedComponent.debug();
-      expect(renderedComponent.queryByTitle("Entry6")).not.to.be.null;
+      expect(renderedComponent).toBeTruthy();
+      expect(renderedComponent.queryByTitle("Entry6")).toBeTruthy();
     });
 
     it("will render 3 items with overflow - simulate horizontal toolbar right of window.", () => {
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 168 }); // 4*42 = 168
           } else if (
@@ -170,38 +150,37 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
       const renderedComponent = render(
         <ToolbarWithOverflow
           panelAlignment={ToolbarPanelAlignment.End}
           items={toolbarItems}
         />
       );
-      expect(renderedComponent).not.to.be.undefined;
-      // renderedComponent.debug();
+      expect(renderedComponent).toBeTruthy();
 
       // first 3 on left should be in overflow since panel alignment is set to ToolbarPanelAlignment.End
-      expect(renderedComponent.queryByTitle("Entry1")).to.be.null;
-      expect(renderedComponent.queryByTitle("Entry2")).to.be.null;
-      expect(renderedComponent.queryByTitle("Entry3")).to.be.null;
-      expect(renderedComponent.queryByTitle("Entry4")).not.to.be.null;
-      expect(renderedComponent.queryByTitle("Entry5")).not.to.be.null;
-      expect(renderedComponent.queryByTitle("Entry6")).not.to.be.null;
+      expect(renderedComponent.queryByTitle("Entry1")).toEqual(null);
+      expect(renderedComponent.queryByTitle("Entry2")).toEqual(null);
+      expect(renderedComponent.queryByTitle("Entry3")).toEqual(null);
+      expect(renderedComponent.queryByTitle("Entry4")).toBeTruthy();
+      expect(renderedComponent.queryByTitle("Entry5")).toBeTruthy();
+      expect(renderedComponent.queryByTitle("Entry6")).toBeTruthy();
 
       const overflowButton = renderedComponent.container.querySelector(
         ".components-toolbar-button-item.components-ellipsis-icon"
       );
-      expect(overflowButton).not.to.be.undefined;
+      expect(overflowButton).toBeTruthy();
       fireEvent.click(overflowButton!);
-      expect(renderedComponent.queryByTitle("Entry1")).not.to.be.null;
-      expect(renderedComponent.queryByTitle("Entry2")).not.to.be.null;
-      expect(renderedComponent.queryByTitle("Entry2")).not.to.be.null;
+      expect(renderedComponent.queryByTitle("Entry1")).toBeTruthy();
+      expect(renderedComponent.queryByTitle("Entry2")).toBeTruthy();
+      expect(renderedComponent.queryByTitle("Entry2")).toBeTruthy();
     });
 
     it("will render with 3 items + overflow", () => {
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 168 }); // 4*42 = 168
           } else if (
@@ -210,32 +189,31 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
       const renderedComponent = render(
         <ToolbarWithOverflow items={toolbarItems} />
       );
-      expect(renderedComponent).not.to.be.undefined;
-      expect(renderedComponent.queryByTitle("Entry3")).not.to.be.null;
-      expect(renderedComponent.queryByTitle("Entry4")).to.be.null;
+      expect(renderedComponent).toBeTruthy();
+      expect(renderedComponent.queryByTitle("Entry3")).toBeTruthy();
+      expect(renderedComponent.queryByTitle("Entry4")).toEqual(null);
 
       const overflowButton = renderedComponent.container.querySelector(
         ".components-toolbar-button-item.components-ellipsis-icon"
       );
-      expect(overflowButton).not.to.be.undefined;
+      expect(overflowButton).toBeTruthy();
       fireEvent.click(overflowButton!);
-      expect(renderedComponent.queryByTitle("Entry4")).not.to.be.null;
-      expect(renderedComponent.queryByTitle("Entry5")).not.to.be.null;
+      expect(renderedComponent.queryByTitle("Entry4")).toBeTruthy();
+      expect(renderedComponent.queryByTitle("Entry5")).toBeTruthy();
       const entryButton = renderedComponent.queryByTitle("Entry6");
-      expect(entryButton).not.to.be.null;
+      expect(entryButton).toBeTruthy();
       fireEvent.click(entryButton!);
-      // renderedComponent.debug();
-      spy.calledOnce.should.true;
+      expect(spy).toHaveBeenCalledOnce();
     });
 
     it("will auto-hide rendered with 3 items + overflow", () => {
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 168 }); // 4*42 = 168
           } else if (
@@ -244,30 +222,30 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
       let isHidden = false;
       const renderedComponent = render(
         <ToolbarPopupAutoHideContext.Provider value={isHidden}>
           <ToolbarWithOverflow items={toolbarItems} />
         </ToolbarPopupAutoHideContext.Provider>
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
 
       const overflowButton = renderedComponent.container.querySelector(
         ".components-toolbar-button-item.components-ellipsis-icon"
       );
-      expect(overflowButton).not.to.be.undefined;
+      expect(overflowButton).toBeTruthy();
       fireEvent.click(overflowButton!);
-      expect(renderedComponent.queryByTitle("Entry4")).not.to.be.null;
+      expect(renderedComponent.queryByTitle("Entry4")).toBeTruthy();
       isHidden = true;
       renderedComponent.rerender(
         <ToolbarPopupAutoHideContext.Provider value={isHidden}>
           <ToolbarWithOverflow items={toolbarItems} />
         </ToolbarPopupAutoHideContext.Provider>
       );
-      // renderedComponent.debug();
       const overflowPopup = renderedComponent.getByTestId("core-popup");
-      expect(overflowPopup).not.to.be.null;
+      expect(overflowPopup).toBeTruthy();
       expect(overflowPopup.className).to.contain("nz-hidden");
     });
 
@@ -336,9 +314,8 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 168 }); // 4*42 = 168
           } else if (
@@ -347,32 +324,32 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
       const renderedComponent = render(
         <ToolbarWithOverflow
           items={toolbarItemsWithGroup}
           toolbarOpacitySetting={ToolbarOpacitySetting.Transparent}
         />
       );
-      expect(renderedComponent).not.to.be.undefined;
-      expect(renderedComponent.queryByTitle("Entry3")).not.to.be.null;
-      expect(renderedComponent.queryByTitle("Entry4")).to.be.null;
+      expect(renderedComponent).toBeTruthy();
+      expect(renderedComponent.queryByTitle("Entry3")).toBeTruthy();
+      expect(renderedComponent.queryByTitle("Entry4")).toEqual(null);
 
       const overflowButton = renderedComponent.container.querySelector(
         ".components-toolbar-button-item.components-ellipsis-icon"
       );
-      expect(overflowButton).not.to.be.undefined;
+      expect(overflowButton).toBeTruthy();
       fireEvent.click(overflowButton!);
-      expect(renderedComponent.queryByTitle("Entry4")).not.to.be.null;
-      expect(renderedComponent.queryByTitle("Entry5")).not.to.be.null;
-      expect(renderedComponent.queryByTitle("Group6")).not.to.be.null;
-      // renderedComponent.debug();
+      expect(renderedComponent.queryByTitle("Entry4")).toBeTruthy();
+      expect(renderedComponent.queryByTitle("Entry5")).toBeTruthy();
+      expect(renderedComponent.queryByTitle("Group6")).toBeTruthy();
       // since group priorities are not defined no separator class should be found.
       expect(
         renderedComponent.container.querySelectorAll(
           ".components-toolbar-button-add-gap-before"
         ).length
-      ).to.be.eq(0);
+      ).toEqual(0);
     });
 
     it("will render with separator when group priority changes and not transparent ", () => {
@@ -418,9 +395,8 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 300 }); // plenty of room not no need overflow
           } else if (
@@ -429,20 +405,20 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
       const renderedComponent = render(
         <ToolbarWithOverflow
           items={toolbarItemsWithGroupPriority}
           toolbarOpacitySetting={ToolbarOpacitySetting.Defaults}
         />
       );
-      expect(renderedComponent).not.to.be.undefined;
-      // renderedComponent.debug();
+      expect(renderedComponent).toBeTruthy();
       expect(
         renderedComponent.container.querySelectorAll(
           ".components-toolbar-items-container.components-horizontal.components-toolbar-show-decorators"
         ).length
-      ).to.be.eq(1);
+      ).toEqual(1);
     });
 
     it("will not render separators if transparent ", () => {
@@ -488,9 +464,8 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 300 }); // plenty of room not no need overflow
           } else if (
@@ -499,20 +474,20 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
       const renderedComponent = render(
         <ToolbarWithOverflow
           items={toolbarItemsWithGroupPriority}
           toolbarOpacitySetting={ToolbarOpacitySetting.Transparent}
         />
       );
-      expect(renderedComponent).not.to.be.undefined;
-      // renderedComponent.debug();
+      expect(renderedComponent).toBeTruthy();
       expect(
         renderedComponent.container.querySelectorAll(
           ".components-toolbar-items-container.components-horizontal.components-toolbar-show-decorators"
         ).length
-      ).to.be.eq(0);
+      ).toEqual(0);
     });
 
     it("will render separators if toolbarOpacitySetting is undefined ", () => {
@@ -558,9 +533,8 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 300 }); // plenty of room not no need overflow
           } else if (
@@ -569,20 +543,20 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
       const renderedComponent = render(
         <ToolbarWithOverflow
           items={toolbarItemsWithGroupPriority}
           toolbarOpacitySetting={undefined}
         />
       );
-      expect(renderedComponent).not.to.be.undefined;
-      // renderedComponent.debug();
+      expect(renderedComponent).toBeTruthy();
       expect(
         renderedComponent.container.querySelectorAll(
           ".components-toolbar-items-container.components-horizontal.components-toolbar-show-decorators"
         ).length
-      ).to.be.eq(1);
+      ).toEqual(1);
     });
   });
 
@@ -633,9 +607,8 @@ describe("<ToolbarWithOverflow />", () => {
     ];
 
     it("will render 6 items without overflow", () => {
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ height: 252 }); // 6*42 = 252
           } else if (
@@ -644,7 +617,8 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ height: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
       const renderedComponent = render(
         <ToolbarWithOverflow
           expandsTo={Direction.Right}
@@ -652,14 +626,13 @@ describe("<ToolbarWithOverflow />", () => {
           items={toolbarItems}
         />
       );
-      expect(renderedComponent).not.to.be.undefined;
-      expect(renderedComponent.queryByTitle("Entry6")).not.to.be.null;
+      expect(renderedComponent).toBeTruthy();
+      expect(renderedComponent.queryByTitle("Entry6")).toBeTruthy();
     });
 
     it("will render 6 items without overflow - simulate vertical bar in Navigation Area", () => {
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ height: 252 }); // 6*42 = 252
           } else if (
@@ -668,7 +641,8 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ height: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
       const renderedComponent = render(
         <ToolbarWithOverflow
           expandsTo={Direction.Left}
@@ -676,14 +650,13 @@ describe("<ToolbarWithOverflow />", () => {
           items={toolbarItems}
         />
       );
-      expect(renderedComponent).not.to.be.undefined;
-      expect(renderedComponent.queryByTitle("Entry6")).not.to.be.null;
+      expect(renderedComponent).toBeTruthy();
+      expect(renderedComponent.queryByTitle("Entry6")).toBeTruthy();
     });
 
     it("will render with 3 items + overflow", () => {
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ height: 168 }); // 4*42 = 168
           } else if (
@@ -692,7 +665,8 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ height: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
       const renderedComponent = render(
         <ToolbarWithOverflow
           expandsTo={Direction.Right}
@@ -700,15 +674,15 @@ describe("<ToolbarWithOverflow />", () => {
           items={toolbarItems}
         />
       );
-      expect(renderedComponent).not.to.be.undefined;
-      expect(renderedComponent.queryByTitle("Entry3")).not.to.be.null;
-      expect(renderedComponent.queryByTitle("Entry4")).to.be.null;
+      expect(renderedComponent).toBeTruthy();
+      expect(renderedComponent.queryByTitle("Entry3")).toBeTruthy();
+      expect(renderedComponent.queryByTitle("Entry4")).toEqual(null);
     });
   });
 
   describe("<ToolbarWithOverflow Button />", () => {
     it("should fire when clicked", () => {
-      const spy = sinon.spy();
+      const spy = vi.fn();
       const toolbarItems: CommonToolbarItem[] = [
         ToolbarItemUtilities.createActionButton(
           "Entry1",
@@ -719,9 +693,8 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 252 }); // 6*42 = 252
           } else if (
@@ -730,16 +703,16 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
       const renderedComponent = render(
         <ToolbarWithOverflow items={toolbarItems} />
       );
-      expect(renderedComponent).not.to.be.undefined;
-      // renderedComponent.debug();
+      expect(renderedComponent).toBeTruthy();
       const button = renderedComponent.queryByTitle("Entry1");
-      expect(button).not.to.be.null;
+      expect(button).toBeTruthy();
       fireEvent.click(button!);
-      spy.calledOnce.should.true;
+      expect(spy).toHaveBeenCalledOnce();
     });
 
     it("should open panel when popup item clicked", () => {
@@ -756,9 +729,8 @@ describe("<ToolbarWithOverflow />", () => {
 
       const toolbarItems: CommonToolbarItem[] = [getCustomDefWithPopupPanel()];
 
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 252 }); // 6*42 = 252
           } else if (
@@ -767,26 +739,26 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
-      const onKeyDownSpy = sinon.spy();
+        }
+      );
+      const onKeyDownSpy = vi.fn();
 
       const renderedComponent = render(
         <ToolbarWithOverflow items={toolbarItems} onKeyDown={onKeyDownSpy} />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
       const button = renderedComponent.queryByTitle("PopupEntry");
-      expect(button).not.to.be.null;
-      expect(renderedComponent.queryByTestId("popup-panel")).to.be.null;
+      expect(button).toBeTruthy();
+      expect(renderedComponent.queryByTestId("popup-panel")).toEqual(null);
       fireEvent.click(button!);
-      // renderedComponent.debug();
 
       // Also make sure the popup panel can inform user when key down is pressed
       const popupPanel = renderedComponent.queryByTestId("popup-panel");
-      expect(popupPanel).not.to.be.null;
+      expect(popupPanel).toBeTruthy();
       popupPanel!.dispatchEvent(
         createBubbledEvent("keydown", { key: Key.Escape /* <Esc> */ })
       );
-      onKeyDownSpy.calledOnce.should.true;
+      expect(onKeyDownSpy).toHaveBeenCalledOnce();
     });
 
     it("should auto-hide open panel", () => {
@@ -803,9 +775,8 @@ describe("<ToolbarWithOverflow />", () => {
 
       const toolbarItems: CommonToolbarItem[] = [getCustomDefWithPopupPanel()];
 
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 252 }); // 6*42 = 252
           } else if (
@@ -814,23 +785,23 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
       let isHidden = false;
       const renderedComponent = render(
         <ToolbarPopupAutoHideContext.Provider value={isHidden}>
           <ToolbarWithOverflow items={toolbarItems} />
         </ToolbarPopupAutoHideContext.Provider>
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
       const button = renderedComponent.queryByTitle("PopupEntry");
-      expect(button).not.to.be.null;
-      expect(renderedComponent.queryByTestId("popup-panel")).to.be.null;
+      expect(button).toBeTruthy();
+      expect(renderedComponent.queryByTestId("popup-panel")).toEqual(null);
       fireEvent.click(button!);
-      // renderedComponent.debug();
 
       // Also make sure the popup panel can inform user when key down is pressed
       const popupPanel = renderedComponent.queryByTestId("popup-panel");
-      expect(popupPanel).not.to.be.null;
+      expect(popupPanel).toBeTruthy();
       isHidden = true;
       renderedComponent.rerender(
         <ToolbarPopupAutoHideContext.Provider value={isHidden}>
@@ -838,7 +809,7 @@ describe("<ToolbarWithOverflow />", () => {
         </ToolbarPopupAutoHideContext.Provider>
       );
       const corePopup = renderedComponent.getByTestId("core-popup");
-      expect(corePopup).not.to.be.null;
+      expect(corePopup).toBeTruthy();
       expect(corePopup.className).to.contain("nz-hidden");
     });
 
@@ -857,9 +828,8 @@ describe("<ToolbarWithOverflow />", () => {
 
       const toolbarItems: CommonToolbarItem[] = [getCustomDefWithPopupPanel()];
 
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 252 }); // 6*42 = 252
           } else if (
@@ -868,22 +838,23 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
-      const onKeyDownSpy = sinon.spy();
+        }
+      );
+      const onKeyDownSpy = vi.fn();
       const renderedComponent = render(
         <ToolbarWithOverflow items={toolbarItems} onKeyDown={onKeyDownSpy} />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
       // since keepContentsLoaded is true the popup-panel will render and its display will be set to `none`
       const popupDiv = renderedComponent.queryByTestId("core-popup");
-      expect(popupDiv!.classList.contains("core-popup-hidden")).to.be.true;
+      expect(popupDiv!.classList.contains("core-popup-hidden")).toEqual(true);
       const button = renderedComponent.queryByTitle("PopupEntry");
       fireEvent.click(button!);
-      expect(popupDiv!.classList.contains("core-popup-hidden")).to.be.false;
+      expect(popupDiv!.classList.contains("core-popup-hidden")).toEqual(false);
     });
 
     it("group button panel should open when clicked", () => {
-      const spy = sinon.spy();
+      const spy = vi.fn();
 
       const childItems: ActionButton[] = [
         ToolbarItemUtilities.createActionButton(
@@ -920,9 +891,8 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 252 }); // 6*42 = 252
           } else if (
@@ -931,29 +901,29 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
       const renderedComponent = render(
         <ToolbarWithOverflow items={toolbarItems} />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
 
       const button = renderedComponent.queryByTitle("Group1");
-      expect(button).not.to.be.null;
+      expect(button).toBeTruthy();
       fireEvent.click(button!);
-      // renderedComponent.debug();
-      expect(renderedComponent.queryByText("Group1-Tools")).not.to.be.null;
-      expect(renderedComponent.queryByText("Entry1")).not.to.be.null;
-      expect(renderedComponent.queryByText("Entry2")).not.to.be.null;
-      expect(renderedComponent.queryByText("Entry3")).not.to.be.null;
+      expect(renderedComponent.queryByText("Group1-Tools")).toBeTruthy();
+      expect(renderedComponent.queryByText("Entry1")).toBeTruthy();
+      expect(renderedComponent.queryByText("Entry2")).toBeTruthy();
+      expect(renderedComponent.queryByText("Entry3")).toBeTruthy();
 
       // find first item and click it.
       const firstAction = document.querySelector(
         ".components-toolbar-item-expandable-group-tool-item"
       );
-      expect(firstAction).not.to.be.null;
+      expect(firstAction).toBeTruthy();
 
       fireEvent.click(firstAction!);
-      spy.calledOnce.should.true;
+      expect(spy).toHaveBeenCalledOnce();
     });
 
     it("group button panel w/4 cols should open when clicked", () => {
@@ -1244,9 +1214,8 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 252 }); // 6*42 = 252
           } else if (
@@ -1255,21 +1224,21 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
       const renderedComponent = render(
         <ToolbarWithOverflow items={toolbarItems} />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
 
       const button = renderedComponent.queryByTitle("Group1");
-      expect(button).not.to.be.null;
+      expect(button).toBeTruthy();
       fireEvent.click(button!);
-      // renderedComponent.debug();
       expect(
         document.querySelectorAll(
           ".components-toolbar-item-expandable-group-column"
         ).length
-      ).to.eq(4);
+      ).toEqual(4);
     });
 
     it("group button panel w/3 cols should open when clicked", () => {
@@ -1539,9 +1508,8 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 252 }); // 6*42 = 252
           } else if (
@@ -1550,21 +1518,21 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
       const renderedComponent = render(
         <ToolbarWithOverflow items={toolbarItems} />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
 
       const button = renderedComponent.queryByTitle("Group1");
-      expect(button).not.to.be.null;
+      expect(button).toBeTruthy();
       fireEvent.click(button!);
-      // renderedComponent.debug();
       expect(
         document.querySelectorAll(
           ".components-toolbar-item-expandable-group-column"
         ).length
-      ).to.eq(3);
+      ).toEqual(3);
     });
 
     it("group button panel w/2 cols should open when clicked", () => {
@@ -1750,9 +1718,8 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 252 }); // 6*42 = 252
           } else if (
@@ -1761,21 +1728,21 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
       const renderedComponent = render(
         <ToolbarWithOverflow items={toolbarItems} />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
 
       const button = renderedComponent.queryByTitle("Group1");
-      expect(button).not.to.be.null;
+      expect(button).toBeTruthy();
       fireEvent.click(button!);
-      // renderedComponent.debug();
       expect(
         document.querySelectorAll(
           ".components-toolbar-item-expandable-group-column"
         ).length
-      ).to.eq(2);
+      ).toEqual(2);
     });
 
     it("nested group button panel should open when clicked", () => {
@@ -1838,9 +1805,8 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 252 }); // 6*42 = 252
           } else if (
@@ -1849,46 +1815,44 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
       const renderedComponent = render(
         <ToolbarWithOverflow items={toolbarItems} />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
 
       const button = renderedComponent.queryByTitle("Group1");
-      expect(button).not.to.be.null;
+      expect(button).toBeTruthy();
       fireEvent.click(button!);
-      // renderedComponent.debug();
 
       // find first item (GroupN1) and click it.
       const nestedGroup = document.querySelector(
         ".components-toolbar-item-expandable-group-tool-item"
       );
-      expect(nestedGroup).not.to.be.null;
+      expect(nestedGroup).toBeTruthy();
 
       fireEvent.click(nestedGroup!);
 
-      expect(renderedComponent.queryByText("Nested-Tools")).not.to.be.null;
-      expect(renderedComponent.queryByText("EntryN1")).not.to.be.null;
-      expect(renderedComponent.queryByText("EntryN2")).not.to.be.null;
-      expect(renderedComponent.queryByText("EntryN3")).not.to.be.null;
-      // renderedComponent.debug();
+      expect(renderedComponent.queryByText("Nested-Tools")).toBeTruthy();
+      expect(renderedComponent.queryByText("EntryN1")).toBeTruthy();
+      expect(renderedComponent.queryByText("EntryN2")).toBeTruthy();
+      expect(renderedComponent.queryByText("EntryN3")).toBeTruthy();
 
       const backArrow = document.querySelector(
         ".components-toolbar-item-expandable-group-backArrow"
       );
       fireEvent.click(backArrow!);
 
-      // renderedComponent.debug();
-      expect(renderedComponent.queryByText("GroupN1")).not.to.be.null;
-      expect(renderedComponent.queryByText("Entry2")).not.to.be.null;
-      expect(renderedComponent.queryByText("Entry3")).not.to.be.null;
+      expect(renderedComponent.queryByText("GroupN1")).toBeTruthy();
+      expect(renderedComponent.queryByText("Entry2")).toBeTruthy();
+      expect(renderedComponent.queryByText("Entry3")).toBeTruthy();
     });
   });
 
   describe("<ToolbarWithOverflow with Drag interaction />", () => {
     it("should fire first child when group item clicked", () => {
-      const spy = sinon.spy();
+      const spy = vi.fn();
 
       const childItems: ReadonlyArray<ActionButton | GroupButton> = [
         ToolbarItemUtilities.createActionButton(
@@ -2000,9 +1964,8 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 252 }); // 6*42 = 252
           } else if (
@@ -2011,36 +1974,36 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
 
       const renderedComponent = render(
         <ToolbarWithOverflow useDragInteraction={true} items={toolbarItems} />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
 
       // the group button should have the title for the first child
       const button = renderedComponent.queryByTitle("Child1");
-      expect(button).not.to.be.null;
+      expect(button).toBeTruthy();
 
       fireEvent.click(button!);
-      spy.calledOnce.should.false; // because Child1 is disabled
+      expect(spy).not.toBeCalled(); // because Child1 is disabled
 
       // Group2 button should have the title for the first child
       const button2 = renderedComponent.queryByTitle("EnabledChild1");
-      expect(button2).not.to.be.null;
+      expect(button2).toBeTruthy();
 
       fireEvent.click(button2!);
-      spy.calledOnce.should.true; // because EnabledChild1 is enabled
+      expect(spy).toHaveBeenCalledOnce(); // because EnabledChild1 is enabled
 
       // click overflow to force other group to render in overflow
       const overflowButton = renderedComponent.container.querySelector(
         ".components-toolbar-button-item.components-ellipsis-icon"
       );
-      expect(overflowButton).not.to.be.undefined;
+      expect(overflowButton).toBeTruthy();
       fireEvent.click(overflowButton!);
-      expect(renderedComponent.queryByTitle("Entry4")).not.to.be.null;
-      expect(renderedComponent.queryByTitle("Entry5")).not.to.be.null;
-      // renderedComponent.debug();
+      expect(renderedComponent.queryByTitle("Entry4")).toBeTruthy();
+      expect(renderedComponent.queryByTitle("Entry5")).toBeTruthy();
     });
 
     it("group with no children should render correctly", () => {
@@ -2098,9 +2061,8 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 252 }); // 6*42 = 252
           } else if (
@@ -2109,20 +2071,20 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
 
       const renderedComponent = render(
         <ToolbarWithOverflow useDragInteraction={true} items={toolbarItems} />
       );
-      expect(renderedComponent).not.to.be.undefined;
-      // renderedComponent.debug();
+      expect(renderedComponent).toBeTruthy();
       // the group button should have its own title since there are no children
       const button = renderedComponent.queryByTitle("Group1");
-      expect(button).not.to.be.null;
+      expect(button).toBeTruthy();
     });
 
     it("group button panel should activate 'active entry' when clicked", () => {
-      const spy = sinon.spy();
+      const spy = vi.fn();
 
       const childItems: ActionButton[] = [
         ToolbarItemUtilities.createActionButton(
@@ -2160,9 +2122,8 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 252 }); // 6*42 = 252
           } else if (
@@ -2171,22 +2132,22 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
       const renderedComponent = render(
         <ToolbarWithOverflow useDragInteraction={true} items={toolbarItems} />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
 
       const button = renderedComponent.queryByTitle("Entry3");
-      expect(button).not.to.be.null;
+      expect(button).toBeTruthy();
       fireEvent.click(button!);
-      // renderedComponent.debug();
 
-      spy.calledOnce.should.true;
+      expect(spy).toHaveBeenCalledOnce();
     });
 
     it("nested group item set active should activate when clicked", () => {
-      const spy = sinon.spy();
+      const spy = vi.fn();
 
       const nestedChildren: ActionButton[] = [
         ToolbarItemUtilities.createActionButton(
@@ -2249,9 +2210,8 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 252 }); // 6*42 = 252
           } else if (
@@ -2260,18 +2220,18 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
       const renderedComponent = render(
         <ToolbarWithOverflow useDragInteraction={true} items={toolbarItems} />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
 
       // group button should be set to active item
       const button = renderedComponent.queryByTitle("EntryN3");
-      expect(button).not.to.be.null;
+      expect(button).toBeTruthy();
       fireEvent.click(button!);
-      // renderedComponent.debug();
-      spy.calledOnce.should.true;
+      expect(spy).toHaveBeenCalledOnce();
     });
 
     it("nested group item set active to first action item available", () => {
@@ -2335,9 +2295,8 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 252 }); // 6*42 = 252
           } else if (
@@ -2346,16 +2305,16 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
       const renderedComponent = render(
         <ToolbarWithOverflow useDragInteraction={true} items={toolbarItems} />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
 
       // group button should be set to first action item
       const button = renderedComponent.queryByTitle("Entry2");
-      expect(button).not.to.be.null;
-      // renderedComponent.debug();
+      expect(button).toBeTruthy();
     });
 
     it("group item should be set to first nested action item available", () => {
@@ -2405,9 +2364,8 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 252 }); // 6*42 = 252
           } else if (
@@ -2416,16 +2374,16 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
       const renderedComponent = render(
         <ToolbarWithOverflow useDragInteraction={true} items={toolbarItems} />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
 
       // group button should be set to first action item
       const button = renderedComponent.queryByTitle("EntryN1");
-      expect(button).not.to.be.null;
-      // renderedComponent.debug();
+      expect(button).toBeTruthy();
     });
 
     it("should open on drag", async () => {
@@ -2464,9 +2422,8 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 252 }); // 6*42 = 252
           } else if (
@@ -2475,21 +2432,22 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
 
       const renderedComponent = render(
         <ToolbarWithOverflow useDragInteraction={true} items={toolbarItems} />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
 
       // the group button should have the title for the first child
       const button = renderedComponent.queryByTitle("Entry1");
-      expect(button).not.to.be.null;
+      expect(button).toBeTruthy();
 
-      expect(renderedComponent.queryByText("Group1-Tools")).to.be.null;
-      expect(renderedComponent.queryByText("Entry1")).to.be.null;
-      expect(renderedComponent.queryByText("Entry2")).to.be.null;
-      expect(renderedComponent.queryByText("Entry3")).to.be.null;
+      expect(renderedComponent.queryByText("Group1-Tools")).toEqual(null);
+      expect(renderedComponent.queryByText("Entry1")).toEqual(null);
+      expect(renderedComponent.queryByText("Entry2")).toEqual(null);
+      expect(renderedComponent.queryByText("Entry3")).toEqual(null);
 
       // dragging more than 20 px should open
       button!.releasePointerCapture = () => {};
@@ -2500,14 +2458,13 @@ describe("<ToolbarWithOverflow />", () => {
         createBubbledEvent("pointermove", { clientX: 30, clientY: 60 })
       );
 
-      // renderedComponent.debug();
-      await waitFor(
+      await vi.waitFor(
         () =>
           expect(renderedComponent.queryByText("Group1-Tools")).not.to.be.null
       );
-      expect(renderedComponent.queryByText("Entry1")).not.to.be.null;
-      expect(renderedComponent.queryByText("Entry2")).not.to.be.null;
-      expect(renderedComponent.queryByText("Entry3")).not.to.be.null;
+      expect(renderedComponent.queryByText("Entry1")).toBeTruthy();
+      expect(renderedComponent.queryByText("Entry2")).toBeTruthy();
+      expect(renderedComponent.queryByText("Entry3")).toBeTruthy();
 
       // try to simulate clicking outside of toolbar which should close - but that is not current working in test
       // window.dispatchEvent(createBubbledEvent("pointerdown", { clientX: 300, clientY: 300 }));
@@ -2549,9 +2506,8 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 252 }); // 6*42 = 252
           } else if (
@@ -2560,21 +2516,22 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
 
       const renderedComponent = render(
         <ToolbarWithOverflow useDragInteraction={true} items={toolbarItems} />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
 
       // the group button should have the title for the first child
       const button = renderedComponent.queryByTitle("Entry1");
-      expect(button).not.to.be.null;
+      expect(button).toBeTruthy();
 
-      expect(renderedComponent.queryByText("Group1-Tools")).to.be.null;
-      expect(renderedComponent.queryByText("Entry1")).to.be.null;
-      expect(renderedComponent.queryByText("Entry2")).to.be.null;
-      expect(renderedComponent.queryByText("Entry3")).to.be.null;
+      expect(renderedComponent.queryByText("Group1-Tools")).toEqual(null);
+      expect(renderedComponent.queryByText("Entry1")).toEqual(null);
+      expect(renderedComponent.queryByText("Entry2")).toEqual(null);
+      expect(renderedComponent.queryByText("Entry3")).toEqual(null);
 
       // dragging less than 20 px should NOT open
       button!.releasePointerCapture = () => {};
@@ -2585,15 +2542,15 @@ describe("<ToolbarWithOverflow />", () => {
         createBubbledEvent("pointermove", { clientX: 30, clientY: 34 })
       );
 
-      // renderedComponent.debug();
-      expect(renderedComponent.queryByText("Group1-Tools")).to.be.null;
-      expect(renderedComponent.queryByText("Entry1")).to.be.null;
-      expect(renderedComponent.queryByText("Entry2")).to.be.null;
-      expect(renderedComponent.queryByText("Entry3")).to.be.null;
+      expect(renderedComponent.queryByText("Group1-Tools")).toEqual(null);
+      expect(renderedComponent.queryByText("Entry1")).toEqual(null);
+      expect(renderedComponent.queryByText("Entry2")).toEqual(null);
+      expect(renderedComponent.queryByText("Entry3")).toEqual(null);
     });
 
     it("should open on long press", async () => {
-      const spy = sinon.spy();
+      vi.useFakeTimers();
+      const spy = vi.fn();
 
       const childItems: ReadonlyArray<ActionButton | GroupButton> = [
         ToolbarItemUtilities.createActionButton(
@@ -2630,9 +2587,8 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 252 }); // 6*42 = 252
           } else if (
@@ -2641,49 +2597,50 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
 
       const renderedComponent = render(
         <ToolbarWithOverflow useDragInteraction={true} items={toolbarItems} />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
 
       // the group button should have the title for the first child
       const button = renderedComponent.queryByTitle("Entry1");
-      expect(button).not.to.be.null;
+      expect(button).toBeTruthy();
 
-      expect(renderedComponent.queryByText("Group1-Tools")).to.be.null;
-      expect(renderedComponent.queryByText("Entry1")).to.be.null;
-      expect(renderedComponent.queryByText("Entry2")).to.be.null;
-      expect(renderedComponent.queryByText("Entry3")).to.be.null;
+      expect(renderedComponent.queryByText("Group1-Tools")).toEqual(null);
+      expect(renderedComponent.queryByText("Entry1")).toEqual(null);
+      expect(renderedComponent.queryByText("Entry2")).toEqual(null);
+      expect(renderedComponent.queryByText("Entry3")).toEqual(null);
 
       // long press should open group after 500 ms
-      const fakeTimers = sandbox.useFakeTimers();
       button!.releasePointerCapture = () => {};
       button!.dispatchEvent(
         createBubbledEvent("pointerdown", { clientX: 30, clientY: 30 })
       );
-      fakeTimers.tick(500);
+      vi.advanceTimersByTime(500);
 
-      await waitFor(
+      await vi.waitFor(
         () =>
           expect(renderedComponent.queryByText("Group1-Tools")).not.to.be.null
       );
-      expect(renderedComponent.queryByText("Entry1")).not.to.be.null;
+      expect(renderedComponent.queryByText("Entry1")).toBeTruthy();
       const groupEntry2 = renderedComponent.queryByText("Entry2");
-      expect(groupEntry2).not.to.be.null;
-      expect(renderedComponent.queryByText("Entry3")).not.to.be.null;
+      expect(groupEntry2).toBeTruthy();
+      expect(renderedComponent.queryByText("Entry3")).toBeTruthy();
 
       fireEvent.click(groupEntry2!);
-      spy.calledOnce.should.true;
+      expect(spy).toHaveBeenCalledOnce();
 
       // GroupButton should now have the title for the selected child
       const groupButton = renderedComponent.queryByTitle("Entry2");
-      expect(groupButton).not.to.be.null;
+      expect(groupButton).toBeTruthy();
     });
 
-    it("should not open on long press if we move pointer more than 10 px", async () => {
-      const spy = sinon.spy();
+    it("should not open on long press if we move pointer more than 10 px", () => {
+      vi.useFakeTimers();
+      const spy = vi.fn();
 
       const childItems: ReadonlyArray<ActionButton | GroupButton> = [
         ToolbarItemUtilities.createActionButton(
@@ -2720,9 +2677,8 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 252 }); // 6*42 = 252
           } else if (
@@ -2731,24 +2687,24 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
 
       const renderedComponent = render(
         <ToolbarWithOverflow useDragInteraction={true} items={toolbarItems} />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
 
       // the group button should have the title for the first child
       const button = renderedComponent.queryByTitle("Entry1");
-      expect(button).not.to.be.null;
+      expect(button).toBeTruthy();
 
-      expect(renderedComponent.queryByText("Group1-Tools")).to.be.null;
-      expect(renderedComponent.queryByText("Entry1")).to.be.null;
-      expect(renderedComponent.queryByText("Entry2")).to.be.null;
-      expect(renderedComponent.queryByText("Entry3")).to.be.null;
+      expect(renderedComponent.queryByText("Group1-Tools")).toEqual(null);
+      expect(renderedComponent.queryByText("Entry1")).toEqual(null);
+      expect(renderedComponent.queryByText("Entry2")).toEqual(null);
+      expect(renderedComponent.queryByText("Entry3")).toEqual(null);
 
       // long press should open group after 500 ms
-      const fakeTimers = sandbox.useFakeTimers();
       button!.releasePointerCapture = () => {};
       button!.dispatchEvent(
         createBubbledEvent("pointerdown", { clientX: 30, clientY: 25 })
@@ -2756,18 +2712,17 @@ describe("<ToolbarWithOverflow />", () => {
       button!.dispatchEvent(
         createBubbledEvent("pointermove", { clientX: 30, clientY: 36 })
       );
-      fakeTimers.tick(500);
+      vi.advanceTimersByTime(500);
 
-      // renderedComponent.debug();
-      expect(renderedComponent.queryByText("Group1-Tools")).to.be.null;
-      expect(renderedComponent.queryByText("Entry1")).to.be.null;
-      expect(renderedComponent.queryByText("Entry2")).to.be.null;
-      expect(renderedComponent.queryByText("Entry3")).to.be.null;
+      expect(renderedComponent.queryByText("Group1-Tools")).toEqual(null);
+      expect(renderedComponent.queryByText("Entry1")).toEqual(null);
+      expect(renderedComponent.queryByText("Entry2")).toEqual(null);
+      expect(renderedComponent.queryByText("Entry3")).toEqual(null);
     });
 
     it("should call onItemExecuted", async () => {
-      const toolSpy = sinon.spy();
-      const onItemExecuteSpy = sinon.spy();
+      const toolSpy = vi.fn();
+      const onItemExecuteSpy = vi.fn();
       const toolbarItems: CommonToolbarItem[] = [
         ToolbarItemUtilities.createActionButton(
           "Entry1",
@@ -2778,9 +2733,8 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 168 }); // 4*42 = 168
           } else if (
@@ -2789,7 +2743,8 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
       const renderedComponent = render(
         <ToolbarWithOverflow
           items={toolbarItems}
@@ -2798,16 +2753,15 @@ describe("<ToolbarWithOverflow />", () => {
       );
 
       const actionButton = renderedComponent.queryByTitle("Entry1");
-      expect(actionButton).not.to.be.null;
+      expect(actionButton).toBeTruthy();
       fireEvent.click(actionButton!);
-      // renderedComponent.debug();
-      toolSpy.calledOnce.should.true;
-      onItemExecuteSpy.calledOnce.should.true;
+      expect(toolSpy).toHaveBeenCalledOnce();
+      expect(onItemExecuteSpy).toHaveBeenCalledOnce();
     });
 
     it("should call onKeyDown", async () => {
-      const toolSpy = sinon.spy();
-      const onKeyDownSpy = sinon.spy();
+      const toolSpy = vi.fn();
+      const onKeyDownSpy = vi.fn();
       const toolbarItems: CommonToolbarItem[] = [
         ToolbarItemUtilities.createActionButton(
           "Entry1",
@@ -2818,9 +2772,8 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 168 }); // 4*42 = 168
           } else if (
@@ -2829,22 +2782,24 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
       const renderedComponent = render(
         <ToolbarWithOverflow items={toolbarItems} onKeyDown={onKeyDownSpy} />
       );
 
       const actionButton = renderedComponent.queryByTitle("Entry1");
-      expect(actionButton).not.to.be.null;
+      expect(actionButton).toBeTruthy();
       fireEvent.click(actionButton!);
       actionButton!.dispatchEvent(
         createBubbledEvent("keydown", { key: Key.Escape /* <Esc> */ })
       );
-      onKeyDownSpy.calledOnce.should.true;
+      expect(onKeyDownSpy).toHaveBeenCalledOnce();
     });
 
     it("should not open if we get pointer up before meeting drag requirements", async () => {
-      const spy = sinon.spy();
+      vi.useFakeTimers();
+      const spy = vi.fn();
 
       const childItems: ReadonlyArray<ActionButton | GroupButton> = [
         ToolbarItemUtilities.createActionButton(
@@ -2881,9 +2836,8 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 252 }); // 6*42 = 252
           } else if (
@@ -2892,24 +2846,24 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
 
       const renderedComponent = render(
         <ToolbarWithOverflow useDragInteraction={true} items={toolbarItems} />
       );
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
 
       // the group button should have the title for the first child
       const button = renderedComponent.queryByTitle("Entry1");
-      expect(button).not.to.be.null;
+      expect(button).toBeTruthy();
 
-      expect(renderedComponent.queryByText("Group1-Tools")).to.be.null;
-      expect(renderedComponent.queryByText("Entry1")).to.be.null;
-      expect(renderedComponent.queryByText("Entry2")).to.be.null;
-      expect(renderedComponent.queryByText("Entry3")).to.be.null;
+      expect(renderedComponent.queryByText("Group1-Tools")).toEqual(null);
+      expect(renderedComponent.queryByText("Entry1")).toEqual(null);
+      expect(renderedComponent.queryByText("Entry2")).toEqual(null);
+      expect(renderedComponent.queryByText("Entry3")).toEqual(null);
 
       // long press should open group after 500 ms if we have not moved pointer more than 10px and still have pointer down
-      const fakeTimers = sandbox.useFakeTimers();
       button!.releasePointerCapture = () => {};
       button!.dispatchEvent(
         createBubbledEvent("pointerdown", { clientX: 30, clientY: 25 })
@@ -2920,13 +2874,12 @@ describe("<ToolbarWithOverflow />", () => {
       button!.dispatchEvent(
         createBubbledEvent("pointerup", { clientX: 30, clientY: 36 })
       );
-      fakeTimers.tick(500);
+      vi.advanceTimersByTime(500);
 
-      // renderedComponent.debug();
-      expect(renderedComponent.queryByText("Group1-Tools")).to.be.null;
-      expect(renderedComponent.queryByText("Entry1")).to.be.null;
-      expect(renderedComponent.queryByText("Entry2")).to.be.null;
-      expect(renderedComponent.queryByText("Entry3")).to.be.null;
+      expect(renderedComponent.queryByText("Group1-Tools")).toEqual(null);
+      expect(renderedComponent.queryByText("Entry1")).toEqual(null);
+      expect(renderedComponent.queryByText("Entry2")).toEqual(null);
+      expect(renderedComponent.queryByText("Entry3")).toEqual(null);
     });
   });
 });

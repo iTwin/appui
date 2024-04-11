@@ -3,7 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import * as React from "react";
 import { Provider } from "react-redux";
 import { fireEvent, render } from "@testing-library/react";
@@ -14,7 +13,7 @@ import { UiFramework } from "../../appui-react/UiFramework";
 import TestUtils from "../TestUtils";
 
 describe("ConnectedContent", () => {
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiFramework(true);
   });
 
@@ -97,18 +96,18 @@ describe("ConnectedContent", () => {
       </Provider>
     );
 
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
 
     // simulate selecting toolId
     const buttonElement = renderedComponent.getByTestId(
       "testButton"
     ) as HTMLButtonElement;
     fireEvent.click(buttonElement);
-    expect(numClicks).to.be.eq(1);
+    expect(numClicks).toEqual(1);
     fireEvent.click(buttonElement);
-    expect(numClicks).to.be.eq(2);
+    expect(numClicks).toEqual(2);
     fireEvent.click(buttonElement);
-    expect(numClicks).to.be.eq(3);
+    expect(numClicks).toEqual(3);
 
     const span1 = renderedComponent.getByTestId(
       "numItemsSelected"
@@ -119,13 +118,8 @@ describe("ConnectedContent", () => {
     const span3 = renderedComponent.getByTestId(
       "defaultIModelViewportControlId"
     ) as HTMLSpanElement;
-    expect(span1.innerHTML).to.be.eq(numSelected.toString());
-    expect(span2.innerHTML).to.be.eq(defaultViewId);
-    expect(span3.innerHTML).to.be.eq(viewportControlId);
-  });
-
-  after(() => {
-    // clear out the framework key
-    TestUtils.terminateUiFramework();
+    expect(span1.innerHTML).toEqual(numSelected.toString());
+    expect(span2.innerHTML).toEqual(defaultViewId);
+    expect(span3.innerHTML).toEqual(viewportControlId);
   });
 });

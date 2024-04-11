@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
 import { Provider } from "react-redux";
 import { render, waitFor } from "@testing-library/react";
@@ -15,14 +14,6 @@ import {
 import TestUtils from "../TestUtils";
 
 describe("SelectionInfoField", () => {
-  beforeEach(async () => {
-    await TestUtils.initializeUiFramework();
-  });
-
-  afterEach(async () => {
-    TestUtils.terminateUiFramework();
-  });
-
   it("SelectionInfoField should render with 0", () => {
     UiFramework.frameworkState!.sessionState.numItemsSelected = 0;
     const component = render(
@@ -32,9 +23,9 @@ describe("SelectionInfoField", () => {
         </StatusBar>
       </Provider>
     );
-    expect(component).not.to.be.undefined;
+    expect(component).toBeTruthy();
     const foundText = component.getAllByText("0");
-    expect(foundText).not.to.be.undefined;
+    expect(foundText).toBeTruthy();
   });
 
   it("SelectionInfoField should render with 1", () => {
@@ -46,9 +37,9 @@ describe("SelectionInfoField", () => {
         </StatusBar>
       </Provider>
     );
-    expect(component).not.to.be.undefined;
+    expect(component).toBeTruthy();
     const foundText = component.getAllByText("1");
-    expect(foundText).not.to.be.undefined;
+    expect(foundText).toBeTruthy();
   });
 
   it("SelectionInfoField should update after Redux action", async () => {
@@ -59,14 +50,14 @@ describe("SelectionInfoField", () => {
         </StatusBar>
       </Provider>
     );
-    expect(component).not.to.be.undefined;
+    expect(component).toBeTruthy();
     UiFramework.dispatchActionToStore(
       SessionStateActionId.SetNumItemsSelected,
       99
     );
     await waitFor(() => {
       const foundText = component.getAllByText("99");
-      expect(foundText).not.to.be.undefined;
+      expect(foundText).toBeTruthy();
     });
   });
 });

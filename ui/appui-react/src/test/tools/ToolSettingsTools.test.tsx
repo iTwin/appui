@@ -4,30 +4,17 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { render } from "@testing-library/react";
-import { expect } from "chai";
-import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
-import { TestUtils } from "../TestUtils";
 import {
   BumpToolSetting,
   FocusToolSettings,
 } from "../../appui-react/tools/ToolSettingsTools";
 
 describe("ToolSettingsTools", () => {
-  before(async () => {
-    await TestUtils.initializeUiFramework();
-    await NoRenderApp.startup();
-  });
-
-  after(async () => {
-    await IModelApp.shutdown();
-    TestUtils.terminateUiFramework();
-  });
-
   describe("FocusToolSettings", () => {
     it("should return false if no ToolSettings div found", async () => {
       render(<div data-testid="div"></div>);
       const tool = new FocusToolSettings();
-      expect(await tool.parseAndRun()).to.be.false;
+      expect(await tool.parseAndRun()).toEqual(false);
     });
 
     it("should return true if focusable item in docked ToolSettings", async () => {
@@ -37,24 +24,24 @@ describe("ToolSettingsTools", () => {
         </div>
       );
       const tool = new FocusToolSettings();
-      expect(await tool.parseAndRun()).to.be.true;
+      expect(await tool.parseAndRun()).toEqual(true);
     });
   });
 
   describe("BumpToolSetting", () => {
     it("should return true if no args", async () => {
       const tool = new BumpToolSetting();
-      expect(await tool.parseAndRun()).to.be.true;
+      expect(await tool.parseAndRun()).toEqual(true);
     });
 
     it("should return true if valid arg", async () => {
       const tool = new BumpToolSetting();
-      expect(await tool.parseAndRun("2")).to.be.true;
+      expect(await tool.parseAndRun("2")).toEqual(true);
     });
 
     it("should return false if invalid arg", async () => {
       const tool = new BumpToolSetting();
-      expect(await tool.parseAndRun("bad")).to.be.false;
+      expect(await tool.parseAndRun("bad")).toEqual(false);
     });
   });
 });

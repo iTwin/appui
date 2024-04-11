@@ -3,8 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { expect } from "chai";
-import sinon from "sinon";
 import { fireEvent, render, screen } from "@testing-library/react";
 import {
   MultilineTextPropertyValueRenderer,
@@ -21,12 +19,12 @@ describe("MultilineTextPropertyValueRenderer", () => {
       const record = TestUtils.createMultilineTextPropertyRecord(
         TestUtils.createPrimitiveStringProperty("test", "test")
       );
-      expect(renderer.canRender(record)).to.be.true;
+      expect(renderer.canRender(record)).toEqual(true);
     });
 
     it("is not able to render when record value is not primitive", () => {
       const record = TestUtils.createArrayProperty("test");
-      expect(renderer.canRender(record)).to.be.false;
+      expect(renderer.canRender(record)).toEqual(false);
     });
   });
 
@@ -57,7 +55,7 @@ describe("MultilineTextPropertyValueRenderer", () => {
 
       it(`renders ${propertyRecord.property.typename} property record`, () => {
         const { getByText } = render(<>{renderer.render(record)}</>);
-        expect(getByText(expectedValue)).to.be.not.null;
+        expect(getByText(expectedValue)).toBeTruthy();
       });
     });
 
@@ -74,65 +72,77 @@ describe("MultilineTextPropertyValueRenderer", () => {
 });
 
 describe("MultilineTextRenderer", () => {
-  before(async () => {
-    await TestUtils.initializeUiComponents();
-  });
-
-  after(() => {
-    TestUtils.terminateUiComponents();
-  });
-
   it("renders child element", () => {
     const { getByText } = render(
       <MultilineTextRenderer>Test</MultilineTextRenderer>
     );
-    expect(getByText("Test")).to.be.not.null;
+    expect(getByText("Test")).toBeTruthy();
   });
 
   it("does not attempt to call `onExpansionToggled` callback that is not present and throw", () => {
-    sinon.stub(HTMLElement.prototype, "clientWidth").get(() => 50);
-    sinon.stub(HTMLElement.prototype, "scrollWidth").get(() => 100);
+    vi.spyOn(HTMLElement.prototype, "clientWidth", "get").mockImplementation(
+      () => 50
+    );
+    vi.spyOn(HTMLElement.prototype, "scrollWidth", "get").mockImplementation(
+      () => 100
+    );
     const { getByText } = render(<MultilineTextRenderer />);
     fireEvent.click(getByText("property.expand"));
   });
 
   describe("collapsed", () => {
     it('doesn\'t show "See more" button when text fits in one line', () => {
-      sinon.stub(HTMLElement.prototype, "clientWidth").get(() => 50);
-      sinon.stub(HTMLElement.prototype, "scrollWidth").get(() => 50);
+      vi.spyOn(HTMLElement.prototype, "clientWidth", "get").mockImplementation(
+        () => 50
+      );
+      vi.spyOn(HTMLElement.prototype, "scrollWidth", "get").mockImplementation(
+        () => 50
+      );
       const { queryByText } = render(<MultilineTextRenderer />);
-      expect(queryByText("property.expand")).to.be.null;
+      expect(queryByText("property.expand")).toEqual(null);
     });
 
     it('shows "See more" button when text overflows', () => {
-      sinon.stub(HTMLElement.prototype, "clientWidth").get(() => 50);
-      sinon.stub(HTMLElement.prototype, "scrollWidth").get(() => 100);
+      vi.spyOn(HTMLElement.prototype, "clientWidth", "get").mockImplementation(
+        () => 50
+      );
+      vi.spyOn(HTMLElement.prototype, "scrollWidth", "get").mockImplementation(
+        () => 100
+      );
       const { getByText } = render(<MultilineTextRenderer />);
-      expect(getByText("property.expand")).to.be.not.null;
+      expect(getByText("property.expand")).toBeTruthy();
     });
 
     it('reports expansion toggle when "See more" button is pressed', () => {
-      sinon.stub(HTMLElement.prototype, "clientWidth").get(() => 50);
-      sinon.stub(HTMLElement.prototype, "scrollWidth").get(() => 100);
-      const handleExpansionToggle = sinon.fake();
+      vi.spyOn(HTMLElement.prototype, "clientWidth", "get").mockImplementation(
+        () => 50
+      );
+      vi.spyOn(HTMLElement.prototype, "scrollWidth", "get").mockImplementation(
+        () => 100
+      );
+      const handleExpansionToggle = vi.fn();
       const { getByText } = render(
         <MultilineTextRenderer onExpansionToggled={handleExpansionToggle} />
       );
       fireEvent.click(getByText("property.expand"));
-      expect(handleExpansionToggle).to.have.been.calledOnce;
+      expect(handleExpansionToggle).toHaveBeenCalledOnce();
     });
   });
 
   describe("expanded", () => {
     it('shows "See less" button when text component is expanded', () => {
       const { getByText } = render(<MultilineTextRenderer isExpanded={true} />);
-      expect(getByText("property.collapse")).to.be.not.null;
+      expect(getByText("property.collapse")).toBeTruthy();
     });
 
     it('reports expansion toggle when "See less" button is pressed', () => {
-      sinon.stub(HTMLElement.prototype, "clientWidth").get(() => 50);
-      sinon.stub(HTMLElement.prototype, "scrollWidth").get(() => 100);
-      const handleExpansionToggle = sinon.fake();
+      vi.spyOn(HTMLElement.prototype, "clientWidth", "get").mockImplementation(
+        () => 50
+      );
+      vi.spyOn(HTMLElement.prototype, "scrollWidth", "get").mockImplementation(
+        () => 100
+      );
+      const handleExpansionToggle = vi.fn();
       const { getByText } = render(
         <MultilineTextRenderer
           isExpanded={true}
@@ -140,7 +150,7 @@ describe("MultilineTextRenderer", () => {
         />
       );
       fireEvent.click(getByText("property.collapse"));
-      expect(handleExpansionToggle).to.have.been.calledOnce;
+      expect(handleExpansionToggle).toHaveBeenCalledOnce();
     });
   });
 });

@@ -4,7 +4,6 @@
  *--------------------------------------------------------------------------------------------*/
 import { fireEvent, render } from "@testing-library/react";
 import * as React from "react";
-import * as sinon from "sinon";
 import type { NineZoneDispatch } from "../../../appui-react/layout/base/NineZone";
 import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState";
 import { addPanelWidget } from "../../../appui-react/layout/state/internal/PanelStateHelpers";
@@ -15,7 +14,7 @@ import { TestNineZoneProvider } from "../Providers";
 
 describe("PopoutToggle", () => {
   it("should dispatch PANEL_TOGGLE_PINNED", () => {
-    const dispatch = sinon.stub<NineZoneDispatch>();
+    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
     let state = createNineZoneState();
     state = addTab(state, "t1");
     state = addPanelWidget(state, "left", "w1", ["t1"]);
@@ -35,7 +34,7 @@ describe("PopoutToggle", () => {
     const button = component.getByTitle("Popout");
     fireEvent.click(button);
 
-    sinon.assert.calledOnceWithExactly(dispatch, {
+    expect(dispatch).toHaveBeenCalledWith({
       type: "WIDGET_TAB_POPOUT",
       id: "t1",
     });

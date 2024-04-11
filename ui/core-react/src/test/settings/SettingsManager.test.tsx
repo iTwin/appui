@@ -5,8 +5,6 @@
 
 import * as React from "react";
 import { render } from "@testing-library/react";
-import { expect } from "chai";
-import * as sinon from "sinon";
 import {
   SettingsContainer,
   useSaveBeforeActivatingNewSettingsTab,
@@ -112,14 +110,18 @@ describe("<SettingsManager />", () => {
     const liPage1 = wrapper.container.querySelector(
       activePageSelector
     ) as HTMLLIElement;
-    expect(liPage1.classList.contains("core-active")).to.be.true;
+    expect(liPage1.classList.contains("core-active")).toEqual(true);
     wrapper.unmount();
-    expect(settingsManager.removeSettingsProvider(testProvider.id)).to.be.true;
-    expect(settingsManager.removeSettingsProvider(testProvider.id)).to.be.false;
+    expect(settingsManager.removeSettingsProvider(testProvider.id)).toEqual(
+      true
+    );
+    expect(settingsManager.removeSettingsProvider(testProvider.id)).toEqual(
+      false
+    );
   });
 
   it("should fire close events", async () => {
-    const spyCloseMethod = sinon.spy();
+    const spyCloseMethod = vi.fn();
 
     const handleProcessSettingsContainerClose = () => {
       spyCloseMethod();
@@ -129,11 +131,11 @@ describe("<SettingsManager />", () => {
       handleProcessSettingsContainerClose
     );
     settingsManager.closeSettingsContainer(() => {});
-    expect(spyCloseMethod.calledOnce).to.be.true;
+    expect(spyCloseMethod).toHaveBeenCalledOnce();
   });
 
   it("should fire change tab events", async () => {
-    const spyChangeTabMethod = sinon.spy();
+    const spyChangeTabMethod = vi.fn();
 
     const handleProcessChangeTab = () => {
       spyChangeTabMethod();
@@ -141,6 +143,6 @@ describe("<SettingsManager />", () => {
 
     settingsManager.onActivateSettingsTab.addOnce(handleProcessChangeTab);
     settingsManager.activateSettingsTab("test-tab-id");
-    expect(spyChangeTabMethod.calledOnce).to.be.true;
+    expect(spyChangeTabMethod).toHaveBeenCalledOnce();
   });
 });

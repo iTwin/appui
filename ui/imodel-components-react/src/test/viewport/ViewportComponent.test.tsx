@@ -2,11 +2,8 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import * as moq from "typemoq";
-
 import { BeEvent, Logger } from "@itwin/core-bentley";
 import type { WritableXAndY } from "@itwin/core-geometry";
 import { AxisIndex, Matrix3d, Point3d, Vector3d } from "@itwin/core-geometry";
@@ -101,7 +98,7 @@ describe("ViewportComponent", () => {
   const clone = (): ViewState => {
     return getViewState(globalViewId);
   };
-  before(async () => {
+  beforeEach(async () => {
     Object.defineProperty(EntityState.prototype, "clone", {
       get: () => clone,
     });
@@ -110,7 +107,7 @@ describe("ViewportComponent", () => {
     await NoRenderApp.startup();
   });
 
-  after(async () => {
+  afterEach(async () => {
     Object.defineProperty(
       EntityState.prototype,
       "clone",
@@ -277,7 +274,7 @@ describe("ViewportComponent", () => {
   });
 
   it("should log error when fake viewDefinitionId is used", async () => {
-    const spyLogger = sinon.spy(Logger, "logError");
+    const spyLogger = vi.spyOn(Logger, "logError");
     globalViewId = "FakeId";
     render(
       <ViewportComponent
@@ -288,12 +285,11 @@ describe("ViewportComponent", () => {
       />
     );
     await TestUtils.flushAsyncOperations();
-    spyLogger.called.should.true;
-    (Logger.logError as any).restore();
+    expect(spyLogger).toHaveBeenCalledOnce();
   });
 
   it("should log error when rendering without viewState or viewDefinitionId", async () => {
-    const spyLogger = sinon.spy(Logger, "logError");
+    const spyLogger = vi.spyOn(Logger, "logError");
     render(
       <ViewportComponent
         imodel={imodelMock.object}
@@ -302,12 +298,11 @@ describe("ViewportComponent", () => {
       />
     );
     await TestUtils.flushAsyncOperations();
-    spyLogger.called.should.true;
-    (Logger.logError as any).restore();
+    expect(spyLogger).toHaveBeenCalledOnce();
   });
 
   it("should log error when re-rendering with fake viewDefinitionId", async () => {
-    const spyLogger = sinon.spy(Logger, "logError");
+    const spyLogger = vi.spyOn(Logger, "logError");
     const component = render(
       <ViewportComponent
         imodel={imodelMock.object}
@@ -316,7 +311,7 @@ describe("ViewportComponent", () => {
         screenViewportOverride={ScreenViewportMock}
       />
     );
-    expect(spyLogger).to.not.have.been.called;
+    expect(spyLogger).not.toBeCalled();
 
     globalViewId = "FakeId";
     component.rerender(
@@ -328,12 +323,12 @@ describe("ViewportComponent", () => {
       />
     );
     await waitFor(() => {
-      expect(spyLogger).to.have.been.called;
+      expect(spyLogger).toHaveBeenCalled();
     });
   });
 
   it("should return viewport to viewportRef callback", async () => {
-    const viewportRef = sinon.spy();
+    const viewportRef = vi.fn();
     render(
       <ViewportComponent
         imodel={imodelMock.object}
@@ -344,11 +339,11 @@ describe("ViewportComponent", () => {
       />
     );
     await TestUtils.flushAsyncOperations();
-    expect(viewportRef).to.be.calledWith(viewportMock.object);
+    expect(viewportRef).toHaveBeenCalledWith(viewportMock.object);
   });
 
   it("should return view to getViewOverlay callback", async () => {
-    const getViewOverlay = sinon.spy();
+    const getViewOverlay = vi.fn();
     render(
       <ViewportComponent
         imodel={imodelMock.object}
@@ -359,7 +354,7 @@ describe("ViewportComponent", () => {
       />
     );
     await TestUtils.flushAsyncOperations();
-    expect(getViewOverlay).to.be.calledWith(viewportMock.object);
+    expect(getViewOverlay).toHaveBeenCalledWith(viewportMock.object);
   });
 
   it("should not error when contextMenu event is triggered", async () => {
@@ -377,7 +372,7 @@ describe("ViewportComponent", () => {
   });
 
   it("should call onContextMenu callback when contextMenu event is triggered", async () => {
-    const onContextMenu = sinon.spy();
+    const onContextMenu = vi.fn();
     const component = render(
       <ViewportComponent
         imodel={imodelMock.object}
@@ -390,7 +385,7 @@ describe("ViewportComponent", () => {
     await TestUtils.flushAsyncOperations();
     const viewportDiv = component.getByTestId("viewport-component");
     fireEvent.contextMenu(viewportDiv);
-    expect(onContextMenu).to.be.called;
+    expect(onContextMenu).toHaveBeenCalled();
   });
 
   describe("drawingViewChangeEvent", () => {
@@ -411,8 +406,8 @@ describe("ViewportComponent", () => {
         rotation: rot,
         complete: false,
       });
-      expect(viewState.getOrigin().isAlmostEqual(or)).to.be.true;
-      expect(viewState.getRotation().isAlmostEqual(rot)).to.be.true;
+      expect(viewState.getOrigin().isAlmostEqual(or)).toEqual(true);
+      expect(viewState.getRotation().isAlmostEqual(rot)).toEqual(true);
     });
     it("should register drawingViewChangeEvent with complete: true", async () => {
       const or = Point3d.create(20, 20);
@@ -431,8 +426,8 @@ describe("ViewportComponent", () => {
         rotation: rot,
         complete: true,
       });
-      expect(viewState.getOrigin().isAlmostEqual(or)).to.be.true;
-      expect(viewState.getRotation().isAlmostEqual(rot)).to.be.true;
+      expect(viewState.getOrigin().isAlmostEqual(or)).toEqual(true);
+      expect(viewState.getRotation().isAlmostEqual(rot)).toEqual(true);
     });
   });
 
@@ -454,7 +449,7 @@ describe("ViewportComponent", () => {
         face: Face.Front,
       });
       // for some reason not evaluating as true, but still covers code path
-      // expect(viewState.getRotation().isAlmostEqual(rot)).to.be.true;
+      // expect(viewState.getRotation().isAlmostEqual(rot)).toEqual(true);
     });
     it("should register cubeRotationChangeEvent", async () => {
       const rot = Matrix3d.create90DegreeRotationAroundAxis(AxisIndex.X);
@@ -492,7 +487,7 @@ describe("ViewportComponent", () => {
         rotMatrix: rot,
         face: Face.Front,
       });
-      expect(viewState.getRotation().isAlmostEqual(rot)).to.be.true;
+      expect(viewState.getRotation().isAlmostEqual(rot)).toEqual(true);
     });
     it("should register cubeRotationChangeEvent where viewRect does not contain worldToView point", async () => {
       const rot = Matrix3d.create90DegreeRotationAroundAxis(AxisIndex.X);
@@ -511,7 +506,7 @@ describe("ViewportComponent", () => {
         rotMatrix: rot,
         face: Face.Front,
       });
-      expect(viewState.getRotation().isAlmostEqual(rot)).to.be.true;
+      expect(viewState.getRotation().isAlmostEqual(rot)).toEqual(true);
     });
     it("should register cubeRotationChangeEvent where targetPoint has been memoized and viewRect does not contain worldToView point", async () => {
       const rot = Matrix3d.create90DegreeRotationAroundAxis(AxisIndex.X);
@@ -570,7 +565,7 @@ describe("ViewportComponent", () => {
         rotMatrix: rot,
         face: Face.Front,
       });
-      expect(viewState.getRotation().isAlmostEqual(rot)).to.be.true;
+      expect(viewState.getRotation().isAlmostEqual(rot)).toEqual(true);
     });
     it("should register cubeRotationChangeEvent with vp.viewCmdTargetCenter defined where viewRect does not contain worldToView point", async () => {
       const rot = Matrix3d.create90DegreeRotationAroundAxis(AxisIndex.X);
@@ -589,7 +584,7 @@ describe("ViewportComponent", () => {
         rotMatrix: rot,
         face: Face.Front,
       });
-      expect(viewState.getRotation().isAlmostEqual(rot)).to.be.true;
+      expect(viewState.getRotation().isAlmostEqual(rot)).toEqual(true);
     });
   });
 

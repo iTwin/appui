@@ -2,16 +2,13 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import React from "react";
-import sinon from "sinon";
 import { Key } from "ts-key-enum";
 import { fireEvent, render } from "@testing-library/react";
 import type { DateFormatter } from "@itwin/appui-abstract";
 import { TimeDisplay } from "@itwin/appui-abstract";
 
 import { DateField } from "../../components-react/datepicker/DateField";
-import TestUtils from "../TestUtils";
 import { IntlFormatter } from "../../components-react/datepicker/IntlFormatter";
 
 /* eslint-disable deprecation/deprecation */
@@ -57,35 +54,22 @@ class MdyFormatter implements DateFormatter {
 }
 
 describe("<DateField />", () => {
-  let renderSpy: sinon.SinonSpy;
-
   const testDate = new Date("July 22, 2018 07:22:13 -0400");
   const testDate2 = new Date("July 23, 2018 07:22:13 -0400");
 
-  before(async () => {
-    await TestUtils.initializeUiComponents();
-  });
-
-  beforeEach(() => {
-    renderSpy = sinon.spy();
-  });
-
-  after(() => {
-    TestUtils.terminateUiComponents();
-  });
-
   it("should render ", () => {
     const renderedComponent = render(<DateField initialDate={testDate} />);
-    expect(renderedComponent).not.to.be.null;
+    expect(renderedComponent).toBeTruthy();
   });
 
   it("should render with custom class ", () => {
     const renderedComponent = render(
       <DateField className="TEST_CLASS_NAME" initialDate={testDate} />
     );
-    expect(renderedComponent).not.to.be.null;
-    expect(renderedComponent.container.querySelector(".TEST_CLASS_NAME")).not.to
-      .be.null;
+    expect(renderedComponent).toBeTruthy();
+    expect(
+      renderedComponent.container.querySelector(".TEST_CLASS_NAME")
+    ).toBeTruthy();
   });
 
   it("should render read only", () => {
@@ -93,8 +77,8 @@ describe("<DateField />", () => {
       <DateField initialDate={testDate} readOnly={true} />
     );
     const input = renderedComponent.container.querySelector("input");
-    expect(input).not.to.be.null;
-    expect(input!.disabled).to.be.true;
+    expect(input).toBeTruthy();
+    expect(input!.disabled).toEqual(true);
   });
 
   it("should render with time", () => {
@@ -102,10 +86,10 @@ describe("<DateField />", () => {
       <DateField initialDate={testDate} timeDisplay={TimeDisplay.H24M} />
     );
     const input = renderedComponent.container.querySelector("input");
-    expect(input).not.to.be.null;
+    expect(input).toBeTruthy();
     const localValue = input!.value;
-    expect(localValue.match(/:/)).not.to.be.null; // should contain hour:minute separator.
-    expect(input!.disabled).to.be.false;
+    expect(localValue.match(/:/)).toBeTruthy(); // should contain hour:minute separator.
+    expect(input!.disabled).toEqual(false);
     fireEvent.change(input!, { target: { value: localValue } });
     fireEvent.keyDown(input!, { key: Key.Enter });
     input!.focus();
@@ -128,9 +112,8 @@ describe("<DateField />", () => {
     const renderedComponent = render(
       <DateField initialDate={testDate} dateFormatter={new IntlFormatter()} />
     );
-    // renderedComponent.debug();
     const input = renderedComponent.container.querySelector("input");
-    expect(input).not.to.be.null;
+    expect(input).toBeTruthy();
     expect(input!.disabled);
   });
 
@@ -142,8 +125,8 @@ describe("<DateField />", () => {
       />
     );
     const input = renderedComponent.container.querySelector("input");
-    expect(input).not.to.be.null;
-    expect(input!.value.match(/Sunday/)).not.to.be.null;
+    expect(input).toBeTruthy();
+    expect(input!.value.match(/Sunday/)).toBeTruthy();
     expect(input!.disabled);
   });
 
@@ -152,47 +135,47 @@ describe("<DateField />", () => {
       <DateField initialDate={testDate} dateFormatter={new MdyFormatter()} />
     );
     const input = renderedComponent.container.querySelector("input");
-    expect(input).not.to.be.null;
-    expect(input!.value).to.eq("07-22-2018");
+    expect(input).toBeTruthy();
+    expect(input!.value).toEqual("07-22-2018");
   });
 
   it("should trigger onDateChange", () => {
+    const spy = vi.fn();
     const renderedComponent = render(
       <DateField
         initialDate={testDate}
         dateFormatter={new MdyFormatter()}
-        onDateChange={renderSpy}
+        onDateChange={spy}
       />
     );
     const input = renderedComponent.container.querySelector("input");
-    expect(input).not.to.be.null;
-    expect(input!.value).to.eq("07-22-2018");
+    expect(input).toBeTruthy();
+    expect(input!.value).toEqual("07-22-2018");
     fireEvent.change(input!, { target: { value: "07-04-2004" } });
     fireEvent.keyDown(input!, { key: Key.Enter });
-    expect(renderSpy).to.be.called;
-    expect(input!.value).to.eq("07-04-2004");
-    renderSpy.resetHistory();
+    expect(spy).toHaveBeenCalled();
+    expect(input!.value).toEqual("07-04-2004");
+    spy.mockReset();
     expect(
       renderedComponent.container.querySelector(
         "input.components-date-has-error"
       )
-    ).to.be.null;
+    ).toEqual(null);
     fireEvent.change(input!, { target: { value: "07-04-zzzz" } });
     fireEvent.keyDown(input!, { key: Key.Enter });
-    expect(renderSpy).not.to.be.called;
-    // renderedComponent.debug();
+    expect(spy).not.toBeCalled();
     expect(
       renderedComponent.container.querySelector(
         "input.components-date-has-error"
       )
-    ).not.to.be.null;
+    ).toBeTruthy();
     fireEvent.change(input!, { target: { value: "07-04-2004" } });
     fireEvent.keyDown(input!, { key: Key.Enter });
     expect(
       renderedComponent.container.querySelector(
         "input.components-date-has-error"
       )
-    ).to.be.null;
-    expect(renderSpy).to.be.called;
+    ).toEqual(null);
+    expect(spy).toHaveBeenCalled();
   });
 });

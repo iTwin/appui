@@ -3,8 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
-import sinon from "sinon";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import * as React from "react";
 import { Key } from "ts-key-enum";
@@ -42,9 +40,6 @@ import {
 } from "../../components-react";
 
 describe("<TextEditor />", () => {
-  before(async () => {
-    await TestUtils.initializeUiComponents();
-  });
   let theUserTo: ReturnType<typeof userEvent.setup>;
   beforeEach(() => {
     theUserTo = userEvent.setup();
@@ -184,7 +179,7 @@ describe("<TextEditor />", () => {
     const convertInfo: PropertyConverterInfo = { name: "" };
     propertyRecord.property.converter = convertInfo;
 
-    const spyOnCommit = sinon.spy();
+    const spyOnCommit = vi.fn();
     function handleCommit(_commit: PropertyUpdatedArgs): void {
       spyOnCommit();
     }
@@ -197,11 +192,11 @@ describe("<TextEditor />", () => {
       />
     );
     const inputNode = wrapper.container.querySelector("input");
-    expect(inputNode).not.to.be.null;
+    expect(inputNode).toBeTruthy();
 
     fireEvent.keyDown(inputNode as HTMLElement, { key: Key.Enter });
     await TestUtils.flushAsyncOperations();
-    expect(spyOnCommit.calledOnce).to.be.true;
+    expect(spyOnCommit).toHaveBeenCalledOnce();
   });
 
   it("should call onCommit after value change when shouldCommitOnChange is true", async () => {
@@ -212,7 +207,7 @@ describe("<TextEditor />", () => {
     const convertInfo: PropertyConverterInfo = { name: "" };
     propertyRecord.property.converter = convertInfo;
 
-    const spyOnCommit = sinon.spy();
+    const spyOnCommit = vi.fn();
 
     const wrapper = render(
       <EditorContainer
@@ -224,21 +219,13 @@ describe("<TextEditor />", () => {
       />
     );
     const inputNode = wrapper.container.querySelector("input");
-    expect(inputNode).not.to.be.null;
+    expect(inputNode).toBeTruthy();
 
     await theUserTo.type(inputNode!, "a");
-    expect(spyOnCommit.called).to.be.true;
+    expect(spyOnCommit).toHaveBeenCalled();
   });
 
   describe("Needs IModelApp", () => {
-    before(async () => {
-      await TestUtils.initializeUiComponents();
-    });
-
-    after(async () => {
-      TestUtils.terminateUiComponents();
-    });
-
     it("should not commit if DataController fails to validate", async () => {
       PropertyEditorManager.registerDataController(
         "myData",
@@ -252,7 +239,7 @@ describe("<TextEditor />", () => {
       propertyRecord.property.converter = convertInfo;
       propertyRecord.property.dataController = "myData";
 
-      const spyOnCommit = sinon.spy();
+      const spyOnCommit = vi.fn();
       const wrapper = render(
         <EditorContainer
           propertyRecord={propertyRecord}
@@ -262,11 +249,11 @@ describe("<TextEditor />", () => {
         />
       );
       const inputNode = wrapper.container.querySelector("input");
-      expect(inputNode).not.to.be.null;
+      expect(inputNode).toBeTruthy();
 
       fireEvent.keyDown(inputNode as HTMLElement, { key: Key.Enter });
       await TestUtils.flushAsyncOperations();
-      expect(spyOnCommit.calledOnce).to.be.false;
+      expect(spyOnCommit).not.toBeCalled();
 
       PropertyEditorManager.deregisterDataController("myData");
     });
@@ -299,7 +286,7 @@ describe("<TextEditor />", () => {
       propertyRecord.property.converter = convertInfo;
       propertyRecord.property.dataController = "myData";
 
-      const spyOnCommit = sinon.spy();
+      const spyOnCommit = vi.fn();
       const wrapper = render(
         <EditorContainer
           propertyRecord={propertyRecord}
@@ -309,11 +296,11 @@ describe("<TextEditor />", () => {
         />
       );
       const inputNode = wrapper.container.querySelector("input");
-      expect(inputNode).not.to.be.null;
+      expect(inputNode).toBeTruthy();
 
       fireEvent.keyDown(inputNode as HTMLElement, { key: Key.Enter });
       await TestUtils.flushAsyncOperations();
-      expect(spyOnCommit.calledOnce).to.be.false;
+      expect(spyOnCommit).not.toBeCalled();
 
       PropertyEditorManager.deregisterDataController("myData");
     });

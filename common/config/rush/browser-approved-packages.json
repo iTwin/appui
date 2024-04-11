@@ -267,28 +267,12 @@
       "allowedCategories": [ "internal" ]
     },
     {
+      "name": "@vitest/coverage-v8",
+      "allowedCategories": [ "frontend" ]
+    },
+    {
       "name": "appui-standalone-app",
       "allowedCategories": [ "internal" ]
-    },
-    {
-      "name": "chai",
-      "allowedCategories": [ "frontend" ]
-    },
-    {
-      "name": "chai-as-promised",
-      "allowedCategories": [ "frontend" ]
-    },
-    {
-      "name": "chai-jest-snapshot",
-      "allowedCategories": [ "frontend" ]
-    },
-    {
-      "name": "chai-string",
-      "allowedCategories": [ "frontend" ]
-    },
-    {
-      "name": "chai-subset",
-      "allowedCategories": [ "frontend" ]
     },
     {
       "name": "classnames",
@@ -387,20 +371,12 @@
       "allowedCategories": [ "frontend" ]
     },
     {
-      "name": "mocha",
-      "allowedCategories": [ "frontend", "internal" ]
-    },
-    {
       "name": "npm-run-all",
       "allowedCategories": [ "frontend", "internal" ]
     },
     {
       "name": "null-loader",
       "allowedCategories": [ "internal" ]
-    },
-    {
-      "name": "nyc",
-      "allowedCategories": [ "frontend" ]
     },
     {
       "name": "postcss",
@@ -479,14 +455,6 @@
       "allowedCategories": [ "frontend" ]
     },
     {
-      "name": "sinon",
-      "allowedCategories": [ "frontend" ]
-    },
-    {
-      "name": "sinon-chai",
-      "allowedCategories": [ "frontend" ]
-    },
-    {
       "name": "storybook",
       "allowedCategories": [ "internal" ]
     },
@@ -531,8 +499,12 @@
       "allowedCategories": [ "internal" ]
     },
     {
+      "name": "vitest",
+      "allowedCategories": [ "frontend" ]
+    },
+    {
       "name": "yargs",
-      "allowedCategories": [ "internal", "tools" ]
+      "allowedCategories": [ "tools" ]
     },
     {
       "name": "zustand",

@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import sinon from "sinon";
 import { PropertyCategoryBlock } from "../../../components-react/propertygrid/component/PropertyCategoryBlock";
 import type { PropertyCategory } from "../../../components-react/propertygrid/PropertyDataProvider";
 import { render, screen } from "@testing-library/react";
@@ -26,7 +24,7 @@ describe("PropertyCategoryBlock", () => {
       </PropertyCategoryBlock>
     );
 
-    expect(component.queryByText("My Content")).to.be.null;
+    expect(component.queryByText("My Content")).toEqual(null);
   });
 
   it("renders content correctly when expanded", () => {
@@ -50,7 +48,7 @@ describe("PropertyCategoryBlock", () => {
 
     await theUserTo.click(screen.getByText("Group 1"));
 
-    expect(screen.queryByText("My Content")).to.be.null;
+    expect(screen.queryByText("My Content")).toEqual(null);
     // #511: We dont provide the content, but the block is still expanded but empty
     // Probably not what we want.
     // expect(container.firstElementChild)
@@ -58,7 +56,7 @@ describe("PropertyCategoryBlock", () => {
   });
 
   it("expands when header gets clicked", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const component = render(
       <PropertyCategoryBlock category={category} onExpansionToggled={spy}>
         <div>My Content</div>
@@ -66,11 +64,12 @@ describe("PropertyCategoryBlock", () => {
     );
 
     await theUserTo.click(component.getByRole("button", { name: "Group 1" }));
-    sinon.assert.calledOnceWithExactly(spy, "Group_1");
+    expect(spy).toHaveBeenCalledOnce();
+    expect(spy).toHaveBeenCalledWith("Group_1");
   });
 
   it('expands when "Enter" or "Space" key gets pressed', async () => {
-    const toggleSpy = sinon.spy();
+    const toggleSpy = vi.fn();
 
     render(
       <PropertyCategoryBlock
@@ -80,14 +79,16 @@ describe("PropertyCategoryBlock", () => {
     );
 
     await theUserTo.keyboard("{tab} ");
-    expect(toggleSpy).to.have.been.calledOnceWith("Group_1");
-    toggleSpy.resetHistory();
+    expect(toggleSpy).toHaveBeenCalledOnce();
+    expect(toggleSpy).toHaveBeenCalledWith("Group_1");
+    toggleSpy.mockReset();
     await theUserTo.keyboard("{Enter}");
-    expect(toggleSpy).to.have.been.calledOnceWith("Group_1");
+    expect(toggleSpy).toHaveBeenCalledOnce();
+    expect(toggleSpy).toHaveBeenCalledWith("Group_1");
   });
 
   it("does not expand when wrong key gets pressed", async () => {
-    const toggleSpy = sinon.spy();
+    const toggleSpy = vi.fn();
 
     render(
       <PropertyCategoryBlock
@@ -98,6 +99,6 @@ describe("PropertyCategoryBlock", () => {
 
     screen.getByText("Group 1").focus();
     await theUserTo.keyboard("a");
-    expect(toggleSpy).to.not.have.been.called;
+    expect(toggleSpy).not.toBeCalled();
   });
 });

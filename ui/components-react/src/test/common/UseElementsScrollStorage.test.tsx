@@ -3,8 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
-import sinon from "sinon";
 import React, { forwardRef, useImperativeHandle } from "react";
 import { render } from "@testing-library/react";
 import { useElementsScrollStorage } from "../../components-react/common/UseElementsScrollStorage";
@@ -50,21 +48,19 @@ describe("useElementsScrollStorage", () => {
 
     let getterCalled = false;
     let setScroll: number = 0;
-    sinon
-      .stub(element, "scrollTop")
-      .get(() => {
-        getterCalled = true;
-        return 10;
-      })
-      .set((value: number) => {
-        setScroll = value;
-      });
+    vi.spyOn(element, "scrollTop", "get").mockImplementation(() => {
+      getterCalled = true;
+      return 10;
+    });
+    vi.spyOn(element, "scrollTop", "set").mockImplementation((value) => {
+      setScroll = value;
+    });
 
     ref.current!.persist();
-    expect(getterCalled).to.be.true;
+    expect(getterCalled).toEqual(true);
 
     ref.current!.restore();
-    expect(setScroll).to.be.eq(10);
+    expect(setScroll).toEqual(10);
   });
 
   it("does nothing if element is not found", () => {
@@ -73,25 +69,27 @@ describe("useElementsScrollStorage", () => {
       <TestComponent ref={ref} lookupClassName="invalid-class" />
     );
 
-    expect(queryByText("Test Element")).to.not.be.null;
+    expect(queryByText("Test Element")).toBeTruthy();
 
     let getterCalled = false;
     let scrollValue: number | undefined;
-    sinon
-      .stub(HTMLElement.prototype, "scrollTop")
-      .get(() => {
+    vi.spyOn(HTMLElement.prototype, "scrollTop", "get").mockImplementation(
+      () => {
         getterCalled = true;
         return 10;
-      })
-      .set((value: number) => {
+      }
+    );
+    vi.spyOn(HTMLElement.prototype, "scrollTop", "set").mockImplementation(
+      (value) => {
         scrollValue = value;
-      });
+      }
+    );
 
     ref.current!.persist();
-    expect(getterCalled).to.be.false;
+    expect(getterCalled).toEqual(false);
 
     ref.current!.restore();
-    expect(scrollValue).to.be.undefined;
+    expect(scrollValue).toEqual(undefined);
   });
 
   it("does not restore scroll if element count changes", () => {
@@ -104,22 +102,20 @@ describe("useElementsScrollStorage", () => {
 
     let getterCalled = false;
     let scrollValue: number | undefined;
-    sinon
-      .stub(element, "scrollTop")
-      .get(() => {
-        getterCalled = true;
-        return 10;
-      })
-      .set((value: number) => {
-        scrollValue = value;
-      });
+    vi.spyOn(element, "scrollTop", "get").mockImplementation(() => {
+      getterCalled = true;
+      return 10;
+    });
+    vi.spyOn(element, "scrollTop", "set").mockImplementation((value) => {
+      scrollValue = value;
+    });
 
     ref.current!.persist();
-    expect(getterCalled).to.be.true;
+    expect(getterCalled).toEqual(true);
 
     rerender(<TestComponent ref={ref} renderSecond={true} />);
 
     ref.current!.restore();
-    expect(scrollValue).to.be.undefined;
+    expect(scrollValue).toEqual(undefined);
   });
 });

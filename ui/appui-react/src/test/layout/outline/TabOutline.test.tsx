@@ -14,8 +14,8 @@ describe("TabOutline", () => {
     const { container } = render(<TabOutline />, {
       wrapper,
     });
-    container
-      .getElementsByClassName("nz-outline-tabOutline")
-      .length.should.eq(1);
+    expect(
+      container.getElementsByClassName("nz-outline-tabOutline")
+    ).toHaveLength(1);
   });
 });

@@ -3,10 +3,8 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { expect } from "chai";
-import * as sinon from "sinon";
 import { render } from "@testing-library/react";
-import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
+import { IModelApp } from "@itwin/core-frontend";
 import type {
   DialogItem,
   DialogItemValue,
@@ -17,7 +15,6 @@ import type {
 import { PropertyEditorParamTypes } from "@itwin/appui-abstract";
 import type { SyncToolSettingsPropertiesEventArgs } from "../../appui-react";
 import { SyncUiEventDispatcher } from "../../appui-react";
-import TestUtils from "../TestUtils";
 import { InternalToolSettingsManager } from "../../appui-react/toolsettings/InternalToolSettingsManager";
 
 // cSpell:Ignore USELENGTH
@@ -62,19 +59,10 @@ describe("InternalToolSettingsManager", () => {
     },
   };
 
-  before(async () => {
-    await TestUtils.initializeUiFramework();
-    await NoRenderApp.startup();
-  });
-
-  after(async () => {
-    TestUtils.terminateUiFramework();
-    await IModelApp.shutdown();
-  });
-
   it("check initial values", () => {
-    expect(InternalToolSettingsManager.useDefaultToolSettingsProvider).to.be
-      .false;
+    expect(InternalToolSettingsManager.useDefaultToolSettingsProvider).toEqual(
+      false
+    );
     expect(InternalToolSettingsManager.toolSettingsProperties).to.be.empty;
   });
 
@@ -122,13 +110,14 @@ describe("InternalToolSettingsManager", () => {
       }
     );
 
-    expect(InternalToolSettingsManager.useDefaultToolSettingsProvider).to.be
-      .true;
+    expect(InternalToolSettingsManager.useDefaultToolSettingsProvider).toEqual(
+      true
+    );
     expect(InternalToolSettingsManager.toolSettingsProperties.length).to.equal(
       toolSettingsProperties.length
     );
-    expect(InternalToolSettingsManager.activeToolLabel).to.eq(testToolLabel);
-    expect(InternalToolSettingsManager.activeToolDescription).to.eq(
+    expect(InternalToolSettingsManager.activeToolLabel).toEqual(testToolLabel);
+    expect(InternalToolSettingsManager.activeToolDescription).toEqual(
       testToolDescription
     );
 
@@ -140,8 +129,9 @@ describe("InternalToolSettingsManager", () => {
     );
 
     InternalToolSettingsManager.clearToolSettingsData();
-    expect(InternalToolSettingsManager.useDefaultToolSettingsProvider).to.be
-      .false;
+    expect(InternalToolSettingsManager.useDefaultToolSettingsProvider).toEqual(
+      false
+    );
     expect(InternalToolSettingsManager.toolSettingsProperties).to.be.empty;
     expect(InternalToolSettingsManager.activeToolLabel).to.be.empty;
     expect(InternalToolSettingsManager.activeToolDescription).to.be.empty;
@@ -152,13 +142,13 @@ describe("InternalToolSettingsManager", () => {
     const result = InternalToolSettingsManager.initializeToolSettingsData(
       toolSettingsProperties
     );
-    expect(result).to.be.false;
+    expect(result).toEqual(false);
   });
 
   it("should support setting active tool label", () => {
     const label = "Test Label";
     InternalToolSettingsManager.activeToolLabel = label;
-    expect(InternalToolSettingsManager.activeToolLabel).to.eq(label);
+    expect(InternalToolSettingsManager.activeToolLabel).toEqual(label);
   });
 
   it("handleSyncToolSettingsPropertiesEvent", () => {
@@ -175,29 +165,29 @@ describe("InternalToolSettingsManager", () => {
       args: SyncToolSettingsPropertiesEventArgs
     ): void => {
       eventCalled = true;
-      expect(args.toolId).to.be.equal(testToolId);
-      expect(args.syncProperties.length).to.be.equal(1);
-      expect(args.syncProperties[0].propertyName).to.be.equal(useLengthName);
+      expect(args.toolId).toEqual(testToolId);
+      expect(args.syncProperties.length).toEqual(1);
+      expect(args.syncProperties[0].propertyName).toEqual(useLengthName);
     };
 
     InternalToolSettingsManager.onSyncToolSettingsProperties.addListener(
       handleSyncToolSettingsPropertiesEvent
     );
-    expect(eventCalled).to.be.false;
+    expect(eventCalled).toEqual(false);
     const syncArgs = {
       toolId: testToolId,
       syncProperties: [syncItem],
     } as SyncToolSettingsPropertiesEventArgs;
     InternalToolSettingsManager.onSyncToolSettingsProperties.emit(syncArgs);
-    expect(eventCalled).to.be.true;
+    expect(eventCalled).toEqual(true);
     InternalToolSettingsManager.onSyncToolSettingsProperties.removeListener(
       handleSyncToolSettingsPropertiesEvent
     );
     eventCalled = false;
     InternalToolSettingsManager.onSyncToolSettingsProperties.emit(syncArgs);
-    expect(eventCalled).to.be.false;
+    expect(eventCalled).toEqual(false);
     InternalToolSettingsManager.onReloadToolSettingsProperties.emit();
-    expect(eventCalled).to.be.false;
+    expect(eventCalled).toEqual(false);
   });
 
   it("handleSyncToolSettingsPropertiesEvent", () => {
@@ -210,35 +200,37 @@ describe("InternalToolSettingsManager", () => {
     InternalToolSettingsManager.onReloadToolSettingsProperties.addListener(
       handleReloadToolSettingsPropertiesEvent
     );
-    expect(eventCalled).to.be.false;
+    expect(eventCalled).toEqual(false);
     InternalToolSettingsManager.onReloadToolSettingsProperties.emit();
-    expect(eventCalled).to.be.true;
+    expect(eventCalled).toEqual(true);
     InternalToolSettingsManager.onReloadToolSettingsProperties.removeListener(
       handleReloadToolSettingsPropertiesEvent
     );
     eventCalled = false;
     InternalToolSettingsManager.onReloadToolSettingsProperties.emit();
-    expect(eventCalled).to.be.false;
+    expect(eventCalled).toEqual(false);
   });
 
   it("handleDispatchSyncUiEvent", () => {
     InternalToolSettingsManager.initialize();
-    const immediateStub = sinon.stub(
+    const immediateStub = vi.spyOn(
       SyncUiEventDispatcher,
       "dispatchImmediateSyncUiEvent"
     );
-    const timerStub = sinon.stub(SyncUiEventDispatcher, "dispatchSyncUiEvent");
+    const timerStub = vi.spyOn(SyncUiEventDispatcher, "dispatchSyncUiEvent");
     IModelApp.toolAdmin.dispatchUiSyncEvent("test1");
-    timerStub.calledOnce.should.be.true;
+    expect(timerStub).toHaveBeenCalledOnce();
 
     IModelApp.toolAdmin.dispatchImmediateUiSyncEvent("test2");
-    immediateStub.calledOnce.should.be.true;
+    expect(immediateStub).toHaveBeenCalledOnce();
   });
 
   describe("focusIntoToolSettings", () => {
     it("should return false if no ToolSettings div found", async () => {
       render(<div data-testid="div"></div>);
-      expect(InternalToolSettingsManager.focusIntoToolSettings()).to.be.false;
+      expect(InternalToolSettingsManager.focusIntoToolSettings()).toEqual(
+        false
+      );
     });
 
     it("should return true if focusable item in docked ToolSettings", async () => {
@@ -247,12 +239,14 @@ describe("InternalToolSettingsManager", () => {
           <button />
         </div>
       );
-      expect(InternalToolSettingsManager.focusIntoToolSettings()).to.be.true;
+      expect(InternalToolSettingsManager.focusIntoToolSettings()).toEqual(true);
     });
 
     it("should return false if no focusable item in docked ToolSettings", async () => {
       render(<div className="nz-toolSettings-docked"></div>);
-      expect(InternalToolSettingsManager.focusIntoToolSettings()).to.be.false;
+      expect(InternalToolSettingsManager.focusIntoToolSettings()).toEqual(
+        false
+      );
     });
 
     it("should return true if focusable item in floating ToolSettings", async () => {
@@ -261,12 +255,14 @@ describe("InternalToolSettingsManager", () => {
           <button />
         </div>
       );
-      expect(InternalToolSettingsManager.focusIntoToolSettings()).to.be.true;
+      expect(InternalToolSettingsManager.focusIntoToolSettings()).toEqual(true);
     });
 
     it("should return false if no focusable item in floating ToolSettings", async () => {
       render(<div className="uifw-tool-settings-grid-container"></div>);
-      expect(InternalToolSettingsManager.focusIntoToolSettings()).to.be.false;
+      expect(InternalToolSettingsManager.focusIntoToolSettings()).toEqual(
+        false
+      );
     });
 
     // NEEDSWORK - need tests with real Tool Settings for V1 & V2

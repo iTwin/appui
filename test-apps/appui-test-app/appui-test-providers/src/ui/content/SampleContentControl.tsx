@@ -6,14 +6,14 @@
 import * as React from "react";
 import { ConfigurableCreateInfo, ContentControl } from "@itwin/appui-react";
 import "./SampleContentControl.scss";
-import { Centered } from "@itwin/core-react";
+import { Flex } from "@itwin/itwinui-react";
 
 export class SampleContentControl extends ContentControl {
   constructor(info: ConfigurableCreateInfo, options: any) {
     super(info, options);
     this.reactNode = (
       <div className="test-content-container">
-        <Centered>Hello World!</Centered>
+        <Flex justifyContent="center">Hello World!</Flex>
       </div>
     );
   }

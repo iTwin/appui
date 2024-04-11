@@ -2,12 +2,9 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
-import * as sinon from "sinon";
 import * as moq from "typemoq";
-import type { IModelRpcProps } from "@itwin/core-common";
-import type { IModelConnection, ScreenViewport } from "@itwin/core-frontend";
-import { IModelApp, NoRenderApp, SelectionSet } from "@itwin/core-frontend";
+import type { ScreenViewport } from "@itwin/core-frontend";
+import { IModelApp } from "@itwin/core-frontend";
 import type {
   ActiveContentChangedEventArgs,
   ContentControlActivatedEventArgs,
@@ -20,20 +17,11 @@ import type {
   WidgetStateChangedEventArgs,
 } from "../../appui-react";
 import { SyncUiEventDispatcher, UiFramework } from "../../appui-react";
-import TestUtils from "../TestUtils";
 import type { UiSyncEventArgs } from "../../appui-react/syncui/UiSyncEvent";
 
 const timeToWaitForUiSyncCallback = 60;
 
 describe("SyncUiEventDispatcher", () => {
-  before(async () => {
-    await TestUtils.initializeUiFramework();
-  });
-
-  after(() => {
-    TestUtils.terminateUiFramework();
-  });
-
   beforeEach(() => {
     SyncUiEventDispatcher.setTimeoutPeriod(2);
   });
@@ -50,32 +38,37 @@ describe("SyncUiEventDispatcher", () => {
         "cat",
         "rabbit",
       ])
-    ).to.be.true;
-    expect(SyncUiEventDispatcher.hasEventOfInterest(eventIds, ["dog", "cat"]))
-      .to.be.true;
-    expect(SyncUiEventDispatcher.hasEventOfInterest(eventIds, ["dog"])).to.be
-      .true;
+    ).toEqual(true);
+    expect(
+      SyncUiEventDispatcher.hasEventOfInterest(eventIds, ["dog", "cat"])
+    ).toEqual(true);
+    expect(SyncUiEventDispatcher.hasEventOfInterest(eventIds, ["dog"])).toEqual(
+      true
+    );
     expect(
       SyncUiEventDispatcher.hasEventOfInterest(eventIds, ["cat", "rabbit"])
-    ).to.be.true;
-    expect(SyncUiEventDispatcher.hasEventOfInterest(eventIds, ["rabbit"])).to.be
-      .true;
+    ).toEqual(true);
+    expect(
+      SyncUiEventDispatcher.hasEventOfInterest(eventIds, ["rabbit"])
+    ).toEqual(true);
     // idsOfInterest are now case insensitive - the set of eventIds held by the dispacther are in lower case.
-    expect(SyncUiEventDispatcher.hasEventOfInterest(eventIds, ["Rabbit"])).to.be
-      .true;
+    expect(
+      SyncUiEventDispatcher.hasEventOfInterest(eventIds, ["Rabbit"])
+    ).toEqual(true);
     expect(
       SyncUiEventDispatcher.hasEventOfInterest(eventIds, [
         "DOG",
         "cAT",
         "Rabbit",
       ])
-    ).to.be.true;
-    expect(SyncUiEventDispatcher.hasEventOfInterest(eventIds, ["horse"])).to.be
-      .false;
+    ).toEqual(true);
+    expect(
+      SyncUiEventDispatcher.hasEventOfInterest(eventIds, ["horse"])
+    ).toEqual(false);
 
     const dummyImodelId = "dummy";
     UiFramework.setActiveIModelId(dummyImodelId);
-    expect(UiFramework.getActiveIModelId()).to.be.equal(dummyImodelId);
+    expect(UiFramework.getActiveIModelId()).toEqual(dummyImodelId);
   });
 
   it("test immediate sync event", () => {
@@ -90,13 +83,13 @@ describe("SyncUiEventDispatcher", () => {
     SyncUiEventDispatcher.onSyncUiEvent.addListener(handleSyncUiEvent);
 
     SyncUiEventDispatcher.dispatchImmediateSyncUiEvent("Event1");
-    expect(callbackCalled).to.be.true;
-    expect(callbackHasExpectedEventId).to.be.true;
+    expect(callbackCalled).toEqual(true);
+    expect(callbackHasExpectedEventId).toEqual(true);
     SyncUiEventDispatcher.onSyncUiEvent.removeListener(handleSyncUiEvent);
   });
 
   it("test timed sync event", () => {
-    const fakeTimers = sinon.useFakeTimers();
+    vi.useFakeTimers();
     let callback1Called = false;
     let callback1HasExpectedEventId = false;
 
@@ -107,18 +100,17 @@ describe("SyncUiEventDispatcher", () => {
 
     SyncUiEventDispatcher.onSyncUiEvent.addListener(handleSyncUiEvent1);
     SyncUiEventDispatcher.dispatchSyncUiEvent("Event1");
-    expect(callback1Called).to.be.false;
+    expect(callback1Called).toEqual(false);
 
-    fakeTimers.tick(timeToWaitForUiSyncCallback);
-    fakeTimers.restore();
+    vi.advanceTimersByTime(timeToWaitForUiSyncCallback);
 
-    expect(callback1Called).to.be.true;
-    expect(callback1HasExpectedEventId).to.be.true;
+    expect(callback1Called).toEqual(true);
+    expect(callback1HasExpectedEventId).toEqual(true);
     SyncUiEventDispatcher.onSyncUiEvent.removeListener(handleSyncUiEvent1);
   });
 
   it("test multiple event Id with a timed sync event", () => {
-    const fakeTimers = sinon.useFakeTimers();
+    vi.useFakeTimers();
     let callbackCalled = false;
     let callbackHasExpectedEventIds = false;
 
@@ -131,18 +123,17 @@ describe("SyncUiEventDispatcher", () => {
     SyncUiEventDispatcher.onSyncUiEvent.addListener(handleSyncUiEvent);
 
     SyncUiEventDispatcher.dispatchSyncUiEvents(["Event1", "Event2"]);
-    expect(callbackCalled).to.be.false;
+    expect(callbackCalled).toEqual(false);
 
-    fakeTimers.tick(timeToWaitForUiSyncCallback);
-    fakeTimers.restore();
+    vi.advanceTimersByTime(timeToWaitForUiSyncCallback);
 
-    expect(callbackCalled).to.be.true;
-    expect(callbackHasExpectedEventIds).to.be.true;
+    expect(callbackCalled).toEqual(true);
+    expect(callbackHasExpectedEventIds).toEqual(true);
     SyncUiEventDispatcher.onSyncUiEvent.removeListener(handleSyncUiEvent);
   });
 
   it("test multiple event Id with a multiple dispatches", () => {
-    const fakeTimers = sinon.useFakeTimers();
+    vi.useFakeTimers();
     let callbackCalled = false;
     let callbackHasExpectedEventIds = false;
 
@@ -157,123 +148,96 @@ describe("SyncUiEventDispatcher", () => {
     SyncUiEventDispatcher.onSyncUiEvent.addListener(handleSyncUiEvent);
 
     SyncUiEventDispatcher.dispatchSyncUiEvents(["Event1", "Event2"]);
-    expect(callbackCalled).to.be.false;
+    expect(callbackCalled).toEqual(false);
     SyncUiEventDispatcher.dispatchSyncUiEvent("Event3");
-    expect(callbackCalled).to.be.false;
+    expect(callbackCalled).toEqual(false);
 
-    fakeTimers.runAll();
-    fakeTimers.restore();
+    vi.runAllTimers();
 
-    expect(callbackCalled).to.be.true;
-    expect(callbackHasExpectedEventIds).to.be.true;
+    expect(callbackCalled).toEqual(true);
+    expect(callbackHasExpectedEventIds).toEqual(true);
     SyncUiEventDispatcher.onSyncUiEvent.removeListener(handleSyncUiEvent);
   });
 
   it("Test event handlers", () => {
-    const fakeTimers = sinon.useFakeTimers();
-    const handleSyncUiEvent = sinon.spy();
+    vi.useFakeTimers();
+    const handleSyncUiEvent = vi.fn();
 
     SyncUiEventDispatcher.initialize();
     SyncUiEventDispatcher.onSyncUiEvent.addListener(handleSyncUiEvent);
 
-    handleSyncUiEvent.resetHistory();
+    handleSyncUiEvent.mockReset();
     UiFramework.frontstages.onContentControlActivatedEvent.emit(
       {} as ContentControlActivatedEventArgs
     );
-    fakeTimers.runAll();
-    expect(handleSyncUiEvent.calledOnce).to.be.true;
+    vi.runAllTimers();
+    expect(handleSyncUiEvent).toHaveBeenCalledOnce();
 
-    handleSyncUiEvent.resetHistory();
+    handleSyncUiEvent.mockReset();
     UiFramework.frontstages.onContentLayoutActivatedEvent.emit(
       {} as ContentLayoutActivatedEventArgs
     );
-    fakeTimers.runAll();
-    expect(handleSyncUiEvent.calledOnce).to.be.true;
+    vi.runAllTimers();
+    expect(handleSyncUiEvent).toHaveBeenCalledOnce();
 
-    handleSyncUiEvent.resetHistory();
+    handleSyncUiEvent.mockReset();
     UiFramework.frontstages.onFrontstageActivatedEvent.emit(
       {} as FrontstageActivatedEventArgs
     );
-    fakeTimers.runAll();
-    expect(handleSyncUiEvent.calledOnce).to.be.true;
+    vi.runAllTimers();
+    expect(handleSyncUiEvent).toHaveBeenCalledOnce();
 
-    handleSyncUiEvent.resetHistory();
+    handleSyncUiEvent.mockReset();
     UiFramework.frontstages.onFrontstageReadyEvent.emit(
       {} as FrontstageReadyEventArgs
     );
-    fakeTimers.runAll();
-    expect(handleSyncUiEvent.calledOnce).to.be.true;
+    vi.runAllTimers();
+    expect(handleSyncUiEvent).toHaveBeenCalledOnce();
 
-    handleSyncUiEvent.resetHistory();
+    handleSyncUiEvent.mockReset();
     UiFramework.frontstages.onModalFrontstageChangedEvent.emit(
       {} as ModalFrontstageChangedEventArgs
     );
-    fakeTimers.runAll();
-    expect(handleSyncUiEvent.calledOnce).to.be.true;
+    vi.runAllTimers();
+    expect(handleSyncUiEvent).toHaveBeenCalledOnce();
 
-    handleSyncUiEvent.resetHistory();
+    handleSyncUiEvent.mockReset();
     UiFramework.frontstages.onNavigationAidActivatedEvent.emit(
       {} as NavigationAidActivatedEventArgs
     );
-    fakeTimers.runAll();
-    expect(handleSyncUiEvent.calledOnce).to.be.true;
+    vi.runAllTimers();
+    expect(handleSyncUiEvent).toHaveBeenCalledOnce();
 
-    handleSyncUiEvent.resetHistory();
+    handleSyncUiEvent.mockReset();
     UiFramework.frontstages.onToolActivatedEvent.emit(
       {} as ToolActivatedEventArgs
     );
-    fakeTimers.runAll();
-    expect(handleSyncUiEvent.calledOnce).to.be.true;
+    vi.runAllTimers();
+    expect(handleSyncUiEvent).toHaveBeenCalledOnce();
 
-    handleSyncUiEvent.resetHistory();
+    handleSyncUiEvent.mockReset();
     UiFramework.frontstages.onWidgetStateChangedEvent.emit(
       {} as WidgetStateChangedEventArgs
     );
-    fakeTimers.runAll();
-    expect(handleSyncUiEvent.calledOnce).to.be.true;
+    vi.runAllTimers();
+    expect(handleSyncUiEvent).toHaveBeenCalledOnce();
 
-    handleSyncUiEvent.resetHistory();
+    handleSyncUiEvent.mockReset();
     UiFramework.backstage.open();
-    fakeTimers.runAll();
-    expect(handleSyncUiEvent.calledOnce).to.be.true;
+    vi.runAllTimers();
+    expect(handleSyncUiEvent).toHaveBeenCalledOnce();
 
-    handleSyncUiEvent.resetHistory();
+    handleSyncUiEvent.mockReset();
     UiFramework.content.onActiveContentChangedEvent.emit(
       {} as ActiveContentChangedEventArgs
     );
-    fakeTimers.runAll();
-    fakeTimers.restore();
-    expect(handleSyncUiEvent.calledOnce).to.be.true;
+    vi.runAllTimers();
+    expect(handleSyncUiEvent).toHaveBeenCalledOnce();
 
     SyncUiEventDispatcher.onSyncUiEvent.removeListener(handleSyncUiEvent);
   });
 
-  describe("ConnectionEvents", () => {
-    const imodelToken: IModelRpcProps = { key: "" };
-    const imodelMock = moq.Mock.ofType<IModelConnection>();
-    let ss: SelectionSet;
-
-    beforeEach(() => {
-      imodelMock.reset();
-      imodelMock.setup((x) => x.getRpcProps()).returns(() => imodelToken);
-
-      ss = new SelectionSet(imodelMock.object);
-      imodelMock.setup((x) => x.selectionSet).returns(() => ss);
-    });
-  });
-
   describe("SelectedViewportChanged", () => {
-    before(async () => {
-      await TestUtils.initializeUiFramework();
-      await NoRenderApp.startup();
-      SyncUiEventDispatcher.initialize();
-    });
-
-    after(async () => {
-      await IModelApp.shutdown();
-      TestUtils.terminateUiFramework();
-    });
-
     it("handles onSelectedViewportChanged", () => {
       IModelApp.viewManager.onSelectedViewportChanged.raiseEvent({});
     });

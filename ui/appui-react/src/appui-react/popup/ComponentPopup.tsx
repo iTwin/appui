@@ -66,6 +66,7 @@ export const ComponentPopup: React.FC<ComponentPopupProps> = ({
       point={point}
       onSizeKnown={handleSizeKnown}
     >
+      {/* eslint-disable-next-line deprecation/deprecation */}
       <DivWithOutsideClick onOutsideClick={onCancel}>
         {children}
       </DivWithOutsideClick>

@@ -3,8 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
-import sinon from "sinon";
 import * as moq from "typemoq";
 import type { ArrayValue, PropertyRecord } from "@itwin/appui-abstract";
 import type { IPropertyDataFilterer } from "../../../components-react";
@@ -184,10 +182,10 @@ describe("FilteringDataProvider", () => {
       dataProvider,
       mockFilterer.object
     );
-    const spy = sinon.spy();
+    const spy = vi.fn();
     filteringProvider.onDataChanged.addListener(spy);
     onFilterChanged.raiseEvent();
-    expect(spy.callCount).to.be.equal(1);
+    expect(spy).toHaveBeenCalledTimes(1);
   });
 
   it("Should listen to onDataChanged events and call and re-raise onDataChanged", () => {
@@ -196,10 +194,10 @@ describe("FilteringDataProvider", () => {
       dataProvider,
       mockFilterer.object
     );
-    const dataSpy = sinon.spy();
+    const dataSpy = vi.fn();
     filteringProvider.onDataChanged.addListener(dataSpy);
     onDataChanged.raiseEvent();
-    expect(dataSpy.callCount).to.be.equal(1);
+    expect(dataSpy).toHaveBeenCalledTimes(1);
   });
 
   it("Should dispose listeners when component is disposed", () => {
@@ -209,13 +207,13 @@ describe("FilteringDataProvider", () => {
       mockFilterer.object
     );
 
-    const dataSpy = sinon.spy();
+    const dataSpy = vi.fn();
     filteringProvider.onDataChanged.addListener(dataSpy);
 
     filteringProvider.dispose();
 
-    expect(onDataChanged.numberOfListeners).to.be.equal(0);
-    expect(onFilterChanged.numberOfListeners).to.be.equal(0);
+    expect(onDataChanged.numberOfListeners).toEqual(0);
+    expect(onFilterChanged.numberOfListeners).toEqual(0);
   });
 
   describe("getData", () => {
@@ -226,7 +224,7 @@ describe("FilteringDataProvider", () => {
         mockFilterer.object
       );
       const propertyData = await filteringProvider.getData();
-      expect(propertyData).to.be.equal(originalPropertyData);
+      expect(propertyData).toEqual(originalPropertyData);
     });
 
     it("Should return empty property data and matchesCount equal to 0 if filter is enabled and nothing matches it", async () => {
@@ -893,7 +891,7 @@ describe("FilteringDataProvider", () => {
       if (filteredData.getMatchByIndex)
         activeMatch = filteredData.getMatchByIndex(-1);
 
-      expect(activeMatch).to.be.undefined;
+      expect(activeMatch).toEqual(undefined);
     });
 
     it("Should return the same getData object and filter data only once if no dataChange event was fired", async () => {
@@ -931,7 +929,7 @@ describe("FilteringDataProvider", () => {
       const filteredData = await filteringProvider.getData();
       const filteredData2 = await filteringProvider.getData();
 
-      expect(filteredData === filteredData2).to.be.true;
+      expect(filteredData === filteredData2).toEqual(true);
       mockFilterer.verifyAll();
     });
 
@@ -974,7 +972,7 @@ describe("FilteringDataProvider", () => {
       const filteredData = await filteredDataPromise;
       const filteredData2 = await filteredDataPromise2;
 
-      expect(filteredData !== filteredData2).to.be.true;
+      expect(filteredData !== filteredData2).toEqual(true);
       mockFilterer.verifyAll();
     });
 
@@ -1018,7 +1016,7 @@ describe("FilteringDataProvider", () => {
       const filteredData = await filteredDataPromise;
       const filteredData2 = await filteredDataPromise2;
 
-      expect(filteredData !== filteredData2).to.be.true;
+      expect(filteredData !== filteredData2).toEqual(true);
       mockFilterer.verifyAll();
     });
   });

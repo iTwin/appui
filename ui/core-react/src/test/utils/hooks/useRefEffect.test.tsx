@@ -2,32 +2,32 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import * as sinon from "sinon";
 import { act, renderHook } from "@testing-library/react-hooks";
 import { useRefEffect } from "../../../core-react/utils/hooks/useRefEffect";
+import type { Mock } from "vitest";
 
 describe("useRefEffect", () => {
   it("should invoke callback", () => {
-    const callback = sinon.spy((_: string | null) => {});
+    const callback = vi.fn((_: string | null) => {});
     const { result } = renderHook(() => useRefEffect(callback, []));
     act(() => {
       result.current("abc");
     });
 
-    callback.calledOnceWithExactly("abc").should.true;
+    expect(callback).toHaveBeenCalledWith("abc");
   });
 
   it("should invoke cleanup", () => {
     const cleanups = new Array<{
       instance: string | null;
-      cleanup: sinon.SinonSpy<[], void>;
+      cleanup: Mock<[], void>;
     }>();
     const createCleanup = (instance: string | null) => {
-      const cleanup = sinon.spy(() => {});
+      const cleanup = vi.fn(() => {});
       cleanups.push({ instance, cleanup });
       return cleanup;
     };
-    const callback = sinon.spy((instance: string | null) => {
+    const callback = vi.fn((instance: string | null) => {
       const cleanup = createCleanup(instance);
       return cleanup;
     });
@@ -39,11 +39,11 @@ describe("useRefEffect", () => {
       result.current("abcd");
     });
 
-    cleanups.length.should.eq(2);
-    cleanups[0].instance!.should.eq("abc");
-    cleanups[0].cleanup.calledOnceWithExactly().should.true;
+    expect(cleanups).toHaveLength(2);
+    expect(cleanups[0].instance).toEqual("abc");
+    expect(cleanups[0].cleanup).toHaveBeenCalledOnce();
 
-    cleanups[1].instance!.should.eq("abcd");
-    cleanups[1].cleanup.notCalled.should.true;
+    expect(cleanups[1].instance).toEqual("abcd");
+    expect(cleanups[1].cleanup).not.toBeCalled();
   });
 });

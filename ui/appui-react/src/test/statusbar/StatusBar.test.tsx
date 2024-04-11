@@ -2,10 +2,8 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
 import { render, screen } from "@testing-library/react";
-import { NoRenderApp } from "@itwin/core-frontend";
 import {
   ConfigurableCreateInfo,
   MessageManager,
@@ -16,24 +14,16 @@ import {
   StatusBarSpaceBetween,
   StatusBarWidgetControl,
 } from "../../appui-react";
-import TestUtils from "../TestUtils";
 
 describe("StatusBar", () => {
-  before(async () => {
-    await NoRenderApp.startup();
-    await TestUtils.initializeUiFramework();
-
+  afterEach(() => {
     MessageManager.clearMessages();
-  });
-
-  after(async () => {
-    TestUtils.terminateUiFramework();
   });
 
   it("StatusBar should render children correctly", () => {
     render(<StatusBar>Hello</StatusBar>);
 
-    expect(screen.getByText("Hello")).to.be.not.null;
+    expect(screen.getByText("Hello")).toBeTruthy();
   });
 
   it("StatusBar should render widgetControl correctly", () => {
@@ -49,7 +39,7 @@ describe("StatusBar", () => {
       />
     );
 
-    expect(screen.getByText("ReactNodeContent")).to.be.not.null;
+    expect(screen.getByText("ReactNodeContent")).toBeTruthy();
   });
 
   it("StatusBarSpaceBetween should render correctly", () => {
@@ -58,16 +48,16 @@ describe("StatusBar", () => {
     );
     expect(
       container.querySelectorAll("div.uifw-statusbar-space-between").length
-    ).to.eq(1);
+    ).toEqual(1);
   });
 
   it("StatusBarLeftSection should render correctly", () => {
     const { container } = render(
       <StatusBarLeftSection>Hello</StatusBarLeftSection>
     );
-    expect(container.querySelectorAll("div.uifw-statusbar-left").length).to.eq(
-      1
-    );
+    expect(
+      container.querySelectorAll("div.uifw-statusbar-left").length
+    ).toEqual(1);
   });
 
   it("StatusBarCenterSection should render correctly", () => {
@@ -76,15 +66,15 @@ describe("StatusBar", () => {
     );
     expect(
       container.querySelectorAll("div.uifw-statusbar-center").length
-    ).to.eq(1);
+    ).toEqual(1);
   });
 
   it("StatusBarRightSection should render correctly", () => {
     const { container } = render(
       <StatusBarRightSection>Hello</StatusBarRightSection>
     );
-    expect(container.querySelectorAll("div.uifw-statusbar-right").length).to.eq(
-      1
-    );
+    expect(
+      container.querySelectorAll("div.uifw-statusbar-right").length
+    ).toEqual(1);
   });
 });

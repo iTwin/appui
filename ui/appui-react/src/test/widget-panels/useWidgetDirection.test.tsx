@@ -15,14 +15,6 @@ import { TabIdContext } from "../../appui-react/layout/widget/ContentRenderer";
 import TestUtils from "../TestUtils";
 
 describe("useWidgetDirection", () => {
-  before(async () => {
-    await TestUtils.initializeUiFramework();
-  });
-
-  after(() => {
-    TestUtils.terminateUiFramework();
-  });
-
   it("should return 'vertical'", async () => {
     await TestUtils.flushAsyncOperations();
 
@@ -34,7 +26,7 @@ describe("useWidgetDirection", () => {
         </NineZone>
       ),
     });
-    result.current.should.eq("vertical");
+    expect(result.current).toEqual("vertical");
   });
 
   it("should return 'horizontal' for a widget in a horizontal side panel", async () => {
@@ -53,7 +45,7 @@ describe("useWidgetDirection", () => {
         </Provider>
       ),
     });
-    result.current.should.eq("horizontal");
+    expect(result.current).toEqual("horizontal");
   });
 
   it("should return 'vertical' for a widget in a vertical side panel", async () => {
@@ -72,6 +64,6 @@ describe("useWidgetDirection", () => {
         </Provider>
       ),
     });
-    result.current.should.eq("vertical");
+    expect(result.current).toEqual("vertical");
   });
 });

@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import { fireEvent, render } from "@testing-library/react";
-import * as sinon from "sinon";
 import * as React from "react";
 
 import { Logger } from "@itwin/core-bentley";
@@ -13,15 +11,7 @@ import {
   FocusTrap,
 } from "../../core-react/focustrap/FocusTrap";
 
-// cspell:ignore focustrap
-
 describe("<FocusTrap />", () => {
-  const sandbox = sinon.createSandbox();
-
-  afterEach(() => {
-    sandbox.restore();
-  });
-
   it("renders correctly", () => {
     const component = render(
       <FocusTrap active={true} returnFocusOnDeactivate={false}>
@@ -32,7 +22,7 @@ describe("<FocusTrap />", () => {
   });
 
   it("sets focus to first element correctly", async () => {
-    const clock = sandbox.useFakeTimers();
+    vi.useFakeTimers();
 
     render(
       <FocusTrap active={true} returnFocusOnDeactivate={false}>
@@ -40,16 +30,17 @@ describe("<FocusTrap />", () => {
       </FocusTrap>
     );
 
-    clock.tick(1000);
+    vi.advanceTimersByTime(1000);
     await Promise.resolve();
 
     const activeElement = document.activeElement as HTMLElement;
-    expect(activeElement.id).to.eq("test");
+    expect(activeElement.id).toEqual("test");
   });
 
   it("logs error when initialFocusElement incorrectly specifies element", async () => {
-    const clock = sandbox.useFakeTimers();
-    const spyLogger = sinon.spy(Logger, "logError");
+    vi.useFakeTimers();
+
+    const spyLogger = vi.spyOn(Logger, "logError");
 
     render(
       <FocusTrap
@@ -61,15 +52,14 @@ describe("<FocusTrap />", () => {
       </FocusTrap>
     );
 
-    clock.tick(1000);
+    vi.advanceTimersByTime(1000);
     await Promise.resolve();
 
-    spyLogger.called.should.true;
-    (Logger.logError as any).restore();
+    expect(spyLogger).toHaveBeenCalled();
   });
 
   it("cycles to first item correctly", async () => {
-    const clock = sandbox.useFakeTimers();
+    vi.useFakeTimers();
 
     const component = render(
       <FocusTrap active={true} returnFocusOnDeactivate={false}>
@@ -79,7 +69,7 @@ describe("<FocusTrap />", () => {
       </FocusTrap>
     );
 
-    clock.tick(1000);
+    vi.advanceTimersByTime(1000);
     await Promise.resolve();
 
     const limitDiv = component.getByTestId("focus-trap-limit-div");
@@ -87,11 +77,11 @@ describe("<FocusTrap />", () => {
     fireEvent.focusIn(limitDiv);
 
     const activeElement = document.activeElement as HTMLElement;
-    expect(activeElement.id).to.eq("test1");
+    expect(activeElement.id).toEqual("test1");
   });
 
   it("cycles to last item correctly", async () => {
-    const clock = sandbox.useFakeTimers();
+    vi.useFakeTimers();
 
     const component = render(
       <FocusTrap active={true} returnFocusOnDeactivate={false}>
@@ -101,30 +91,24 @@ describe("<FocusTrap />", () => {
       </FocusTrap>
     );
 
-    clock.tick(1000);
+    vi.advanceTimersByTime(1000);
     await Promise.resolve();
 
     let activeElement = document.activeElement as HTMLElement;
-    expect(activeElement.id).to.eq("test1");
+    expect(activeElement.id).toEqual("test1");
 
     const firstDiv = component.getByTestId("focus-trap-div");
     expect(firstDiv).to.exist;
     fireEvent.focusIn(firstDiv);
 
     activeElement = document.activeElement as HTMLElement;
-    expect(activeElement.id).to.eq("test3");
+    expect(activeElement.id).toEqual("test3");
   });
 });
 
 describe("focusIntoContainer", () => {
-  const sandbox = sinon.createSandbox();
-
-  afterEach(() => {
-    sandbox.restore();
-  });
-
   it("should focus into first focusable element", async () => {
-    const clock = sandbox.useFakeTimers();
+    vi.useFakeTimers();
 
     const component = render(
       <div data-testid="div1">
@@ -138,20 +122,20 @@ describe("focusIntoContainer", () => {
     const button1 = component.getByTestId("button1");
     const button2 = component.getByTestId("button2");
 
-    expect(focusIntoContainer(div1 as HTMLDivElement)).to.be.true;
+    expect(focusIntoContainer(div1 as HTMLDivElement)).toEqual(true);
 
-    clock.tick(100);
+    vi.advanceTimersByTime(100);
     await Promise.resolve();
 
-    expect(document.activeElement).to.eq(button1);
+    expect(document.activeElement).toEqual(button1);
 
     button2.focus();
-    expect(focusIntoContainer(div1 as HTMLDivElement)).to.be.true;
+    expect(focusIntoContainer(div1 as HTMLDivElement)).toEqual(true);
 
-    clock.tick(100);
+    vi.advanceTimersByTime(100);
     await Promise.resolve();
 
-    expect(document.activeElement).to.eq(button1);
+    expect(document.activeElement).toEqual(button1);
   });
 
   it("should return false if no focusable element", async () => {
@@ -166,6 +150,6 @@ describe("focusIntoContainer", () => {
     );
 
     const div1 = component.getByTestId("div1");
-    expect(focusIntoContainer(div1 as HTMLDivElement)).to.be.false;
+    expect(focusIntoContainer(div1 as HTMLDivElement)).toEqual(false);
   });
 });

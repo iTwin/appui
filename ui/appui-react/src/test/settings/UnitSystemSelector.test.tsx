@@ -3,7 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import * as sinon from "sinon";
 import { fireEvent, render, within } from "@testing-library/react";
 import type { UnitSystemKey } from "@itwin/core-quantity";
 import { UnitSystemSelector } from "../../appui-react/settings/quantityformatting/UnitSystemSelector";
@@ -11,7 +10,7 @@ import { waitForPosition } from "../TestUtils";
 
 describe("UnitSystemSelector", () => {
   it("will render four systems", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const availableUnitSystems = new Set<UnitSystemKey>([
       "metric",
       "imperial",
@@ -38,11 +37,11 @@ describe("UnitSystemSelector", () => {
     fireEvent.click(
       within(menu).getByText("presentationUnitSystem.USCustomary")
     );
-    sinon.assert.calledOnce(spy);
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("will render three systems", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const availableUnitSystems = new Set<UnitSystemKey>([
       "metric",
       "imperial",
@@ -66,6 +65,6 @@ describe("UnitSystemSelector", () => {
       return within(element).queryByText("presentationUnitSystem.Metric");
     })!;
     fireEvent.click(within(menu).getByText("presentationUnitSystem.USSurvey"));
-    sinon.assert.calledOnce(spy);
+    expect(spy).toHaveBeenCalledOnce();
   });
 });

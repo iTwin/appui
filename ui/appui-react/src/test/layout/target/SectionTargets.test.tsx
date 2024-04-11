@@ -35,11 +35,11 @@ describe("SectionTargets", () => {
         <SectionTargets widgetId="w1" />
       </Wrapper>
     );
-    container
-      .getElementsByClassName("nz-target-mergeTarget")
-      .length.should.eq(1);
-    container
-      .getElementsByClassName("nz-target-sectionTarget")
-      .length.should.eq(2);
+    expect(
+      container.getElementsByClassName("nz-target-mergeTarget")
+    ).toHaveLength(1);
+    expect(
+      container.getElementsByClassName("nz-target-sectionTarget")
+    ).toHaveLength(2);
   });
 });

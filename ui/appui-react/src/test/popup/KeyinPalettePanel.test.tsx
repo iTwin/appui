@@ -2,11 +2,9 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { Key } from "ts-key-enum";
-import { IModelApp, NoRenderApp, Tool } from "@itwin/core-frontend";
+import { IModelApp, Tool } from "@itwin/core-frontend";
 import { fireEvent, render, waitFor } from "@testing-library/react";
 import type { KeyinEntry } from "../../appui-react/keyins/Keyins";
 import {
@@ -31,7 +29,7 @@ const rnaDescriptorToRestore = Object.getOwnPropertyDescriptor(
 function requestNextAnimation() {}
 
 describe("<KeyinPalettePanel>", () => {
-  before(async () => {
+  beforeEach(() => {
     // Avoid requestAnimationFrame exception during test by temporarily replacing function that calls it. Tried replacing window.requestAnimationFrame first
     // but that did not work.
     Object.defineProperty(IModelApp, "requestNextAnimation", {
@@ -41,15 +39,9 @@ describe("<KeyinPalettePanel>", () => {
     Object.defineProperty(window, "localStorage", {
       get: () => myLocalStorage,
     });
-
-    await TestUtils.initializeUiFramework();
-    // use mock renderer so standards tools are registered.
-    await NoRenderApp.startup();
   });
 
-  after(async () => {
-    await IModelApp.shutdown();
-
+  afterEach(() => {
     // restore the overriden property getter
     Object.defineProperty(window, "localStorage", propertyDescriptorToRestore);
     Object.defineProperty(
@@ -57,8 +49,6 @@ describe("<KeyinPalettePanel>", () => {
       "requestNextAnimation",
       rnaDescriptorToRestore
     );
-
-    TestUtils.terminateUiFramework();
   });
 
   it("test clearKeyinPaletteHistory", async () => {
@@ -91,14 +81,16 @@ describe("<KeyinPalettePanel>", () => {
       { value: "keyin two" },
     ];
     const renderedComponent = render(<KeyinPalettePanel keyins={keyins} />);
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
 
     await TestUtils.flushAsyncOperations();
     const history2 = await waitFor(() =>
       renderedComponent.getByTitle("test b")
     );
-    expect(history2).not.to.be.undefined;
-    expect(renderedComponent.container.querySelectorAll("li").length).to.eq(4);
+    expect(history2).toBeTruthy();
+    expect(renderedComponent.container.querySelectorAll("li").length).toEqual(
+      4
+    );
   });
 
   it("handles key presses in select input ", async () => {
@@ -109,7 +101,7 @@ describe("<KeyinPalettePanel>", () => {
       { value: "keyin two" },
     ];
     const renderedComponent = render(<KeyinPalettePanel keyins={keyins} />);
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
     const selectInput = renderedComponent.getByTestId(
       "command-palette-input"
     ) as HTMLInputElement;
@@ -118,12 +110,16 @@ describe("<KeyinPalettePanel>", () => {
     const history2 = await waitFor(() =>
       renderedComponent.getByTitle("test b")
     );
-    expect(history2).not.to.be.undefined;
-    expect(renderedComponent.container.querySelectorAll("li").length).to.eq(4);
+    expect(history2).toBeTruthy();
+    expect(renderedComponent.container.querySelectorAll("li").length).toEqual(
+      4
+    );
 
     fireEvent.change(selectInput, { target: { value: "two" } });
     await TestUtils.flushAsyncOperations();
-    expect(renderedComponent.container.querySelectorAll("li").length).to.eq(1);
+    expect(renderedComponent.container.querySelectorAll("li").length).toEqual(
+      1
+    );
     fireEvent.keyDown(selectInput, { key: Key.Enter });
   });
 
@@ -135,7 +131,7 @@ describe("<KeyinPalettePanel>", () => {
       { value: "keyin two" },
     ];
     const renderedComponent = render(<KeyinPalettePanel keyins={keyins} />);
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
     const selectInput = renderedComponent.getByTestId(
       "command-palette-input"
     ) as HTMLInputElement;
@@ -144,12 +140,16 @@ describe("<KeyinPalettePanel>", () => {
     const history2 = await waitFor(() =>
       renderedComponent.getByTitle("test b")
     );
-    expect(history2).not.to.be.undefined;
-    expect(renderedComponent.container.querySelectorAll("li").length).to.eq(4);
+    expect(history2).toBeTruthy();
+    expect(renderedComponent.container.querySelectorAll("li").length).toEqual(
+      4
+    );
 
     fireEvent.change(selectInput, { target: { value: "two" } });
     await TestUtils.flushAsyncOperations();
-    expect(renderedComponent.container.querySelectorAll("li").length).to.eq(1);
+    expect(renderedComponent.container.querySelectorAll("li").length).toEqual(
+      1
+    );
     fireEvent.keyDown(selectInput, { key: Key.Enter, ctrlKey: true });
     await TestUtils.flushAsyncOperations();
     fireEvent.change(selectInput, { target: { value: "two" } });
@@ -163,7 +163,7 @@ describe("<KeyinPalettePanel>", () => {
       { value: "keyin two" },
     ];
     const renderedComponent = render(<KeyinPalettePanel keyins={keyins} />);
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
     const selectInput = renderedComponent.getByTestId(
       "command-palette-input"
     ) as HTMLInputElement;
@@ -171,7 +171,7 @@ describe("<KeyinPalettePanel>", () => {
 
     await TestUtils.flushAsyncOperations();
     const listComponent = renderedComponent.container.querySelector("ul");
-    expect(listComponent).not.to.be.null;
+    expect(listComponent).toBeTruthy();
     fireEvent.keyDown(listComponent!, { key: Key.ArrowDown });
     fireEvent.keyDown(listComponent!, { key: Key.Enter });
   });
@@ -182,7 +182,7 @@ describe("<KeyinPalettePanel>", () => {
       { value: "keyin two" },
     ];
     const renderedComponent = render(<KeyinPalettePanel keyins={keyins} />);
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
     const selectInput = renderedComponent.getByTestId(
       "command-palette-input"
     ) as HTMLInputElement;
@@ -190,7 +190,7 @@ describe("<KeyinPalettePanel>", () => {
     await TestUtils.flushAsyncOperations();
     fireEvent.keyDown(selectInput, { key: Key.ArrowDown });
     const listComponent = renderedComponent.container.querySelector("ul");
-    expect(listComponent).not.to.be.null;
+    expect(listComponent).toBeTruthy();
     fireEvent.keyDown(listComponent!, { key: Key.ArrowDown });
     fireEvent.keyDown(listComponent!, { key: Key.Enter, ctrlKey: true });
     expect(selectInput.value.length > 0);
@@ -204,19 +204,19 @@ describe("<KeyinPalettePanel>", () => {
       { value: "keyin two" },
     ];
     const renderedComponent = render(<KeyinPalettePanel keyins={keyins} />);
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
     await TestUtils.flushAsyncOperations();
     const history2 = await waitFor(() =>
       renderedComponent.getByTitle("test b")
     );
-    expect(history2).not.to.be.undefined;
+    expect(history2).toBeTruthy();
 
     const selectInput = renderedComponent.getByTestId(
       "command-palette-input"
     ) as HTMLInputElement;
     expect(selectInput.value.length === 0);
     const liItems = renderedComponent.container.querySelectorAll("li");
-    expect(liItems.length).to.eq(4);
+    expect(liItems.length).toEqual(4);
     fireEvent.click(liItems[1]);
     expect(selectInput.value.length > 0);
   });
@@ -229,12 +229,12 @@ describe("<KeyinPalettePanel>", () => {
       { value: "keyin two" },
     ];
     const renderedComponent = render(<KeyinPalettePanel keyins={keyins} />);
-    expect(renderedComponent).not.to.be.undefined;
+    expect(renderedComponent).toBeTruthy();
     await TestUtils.flushAsyncOperations();
     const history2 = await waitFor(() =>
       renderedComponent.getByTitle("test b")
     );
-    expect(history2).not.to.be.undefined;
+    expect(history2).toBeTruthy();
 
     const selectInput = renderedComponent.getByTestId(
       "command-palette-input"
@@ -244,7 +244,7 @@ describe("<KeyinPalettePanel>", () => {
     fireEvent.keyDown(selectInput, { key: Key.ArrowDown });
 
     const liItems = renderedComponent.container.querySelectorAll("li");
-    expect(liItems.length).to.eq(4);
+    expect(liItems.length).toEqual(4);
     fireEvent.click(liItems[1], { ctrlKey: true });
     expect(selectInput.value.length > 0);
   });
@@ -258,14 +258,12 @@ describe("<KeyinPalettePanel>", () => {
     }
 
     beforeEach(() => {
-      sinon.stub(IModelApp.tools, "parseKeyin").callsFake((keyin: string) => {
-        if (keyin === "bogus") return { ok: false, error: 1 };
-        return { ok: true, args: [], tool: TestImmediate };
-      });
-    });
-
-    afterEach(() => {
-      sinon.restore();
+      vi.spyOn(IModelApp.tools, "parseKeyin").mockImplementation(
+        (keyin: string) => {
+          if (keyin === "bogus") return { ok: false, error: 1 };
+          return { ok: true, args: [], tool: TestImmediate };
+        }
+      );
     });
 
     it("Renders and filters out bogus history entry", async () => {
@@ -282,14 +280,14 @@ describe("<KeyinPalettePanel>", () => {
         { value: "keyin two" },
       ];
       const renderedComponent = render(<KeyinPalettePanel keyins={keyins} />);
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
 
       await TestUtils.flushAsyncOperations();
       const history2 = await waitFor(() =>
         renderedComponent.getByTitle("history2")
       );
-      expect(history2).not.to.be.undefined;
-      expect(renderedComponent.container.querySelectorAll("li").length).to.eq(
+      expect(history2).toBeTruthy();
+      expect(renderedComponent.container.querySelectorAll("li").length).toEqual(
         4
       );
     });
@@ -308,7 +306,7 @@ describe("<KeyinPalettePanel>", () => {
         { value: "keyin two" },
       ];
       const renderedComponent = render(<KeyinPalettePanel keyins={keyins} />);
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
       const selectInput = renderedComponent.getByTestId(
         "command-palette-input"
       ) as HTMLInputElement;
@@ -317,14 +315,14 @@ describe("<KeyinPalettePanel>", () => {
       const history2 = await waitFor(() =>
         renderedComponent.getByTitle("history2")
       );
-      expect(history2).not.to.be.undefined;
-      expect(renderedComponent.container.querySelectorAll("li").length).to.eq(
+      expect(history2).toBeTruthy();
+      expect(renderedComponent.container.querySelectorAll("li").length).toEqual(
         4
       );
 
       fireEvent.change(selectInput, { target: { value: "two" } });
       await TestUtils.flushAsyncOperations();
-      expect(renderedComponent.container.querySelectorAll("li").length).to.eq(
+      expect(renderedComponent.container.querySelectorAll("li").length).toEqual(
         1
       );
       fireEvent.keyDown(selectInput, { key: Key.Enter });
@@ -344,7 +342,7 @@ describe("<KeyinPalettePanel>", () => {
         { value: "keyin two" },
       ];
       const renderedComponent = render(<KeyinPalettePanel keyins={keyins} />);
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
       const selectInput = renderedComponent.getByTestId(
         "command-palette-input"
       ) as HTMLInputElement;
@@ -353,14 +351,14 @@ describe("<KeyinPalettePanel>", () => {
       const history2 = await waitFor(() =>
         renderedComponent.getByTitle("history2")
       );
-      expect(history2).not.to.be.undefined;
-      expect(renderedComponent.container.querySelectorAll("li").length).to.eq(
+      expect(history2).toBeTruthy();
+      expect(renderedComponent.container.querySelectorAll("li").length).toEqual(
         4
       );
 
       fireEvent.change(selectInput, { target: { value: "two" } });
       await TestUtils.flushAsyncOperations();
-      expect(renderedComponent.container.querySelectorAll("li").length).to.eq(
+      expect(renderedComponent.container.querySelectorAll("li").length).toEqual(
         1
       );
       fireEvent.keyDown(selectInput, { key: Key.Enter, ctrlKey: true });
@@ -376,7 +374,7 @@ describe("<KeyinPalettePanel>", () => {
         { value: "keyin two" },
       ];
       const renderedComponent = render(<KeyinPalettePanel keyins={keyins} />);
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
       const selectInput = renderedComponent.getByTestId(
         "command-palette-input"
       ) as HTMLInputElement;
@@ -384,7 +382,7 @@ describe("<KeyinPalettePanel>", () => {
 
       await TestUtils.flushAsyncOperations();
       const listComponent = renderedComponent.container.querySelector("ul");
-      expect(listComponent).not.to.be.null;
+      expect(listComponent).toBeTruthy();
       fireEvent.keyDown(listComponent!, { key: Key.ArrowDown });
       fireEvent.keyDown(listComponent!, { key: Key.Enter });
     });
@@ -403,19 +401,19 @@ describe("<KeyinPalettePanel>", () => {
         { value: "keyin two" },
       ];
       const renderedComponent = render(<KeyinPalettePanel keyins={keyins} />);
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
       await TestUtils.flushAsyncOperations();
       const history2 = await waitFor(() =>
         renderedComponent.getByTitle("history2")
       );
-      expect(history2).not.to.be.undefined;
+      expect(history2).toBeTruthy();
 
       const selectInput = renderedComponent.getByTestId(
         "command-palette-input"
       ) as HTMLInputElement;
       expect(selectInput.value.length === 0);
       const liItems = renderedComponent.container.querySelectorAll("li");
-      expect(liItems.length).to.eq(4);
+      expect(liItems.length).toEqual(4);
       fireEvent.click(liItems[1]);
       expect(selectInput.value.length > 0);
     });
@@ -434,12 +432,12 @@ describe("<KeyinPalettePanel>", () => {
         { value: "keyin two" },
       ];
       const renderedComponent = render(<KeyinPalettePanel keyins={keyins} />);
-      expect(renderedComponent).not.to.be.undefined;
+      expect(renderedComponent).toBeTruthy();
       await TestUtils.flushAsyncOperations();
       const history2 = await waitFor(() =>
         renderedComponent.getByTitle("history2")
       );
-      expect(history2).not.to.be.undefined;
+      expect(history2).toBeTruthy();
 
       const selectInput = renderedComponent.getByTestId(
         "command-palette-input"
@@ -449,7 +447,7 @@ describe("<KeyinPalettePanel>", () => {
       fireEvent.keyDown(selectInput, { key: Key.ArrowDown });
 
       const liItems = renderedComponent.container.querySelectorAll("li");
-      expect(liItems.length).to.eq(4);
+      expect(liItems.length).toEqual(4);
       fireEvent.click(liItems[1], { ctrlKey: true });
       expect(selectInput.value.length > 0);
     });

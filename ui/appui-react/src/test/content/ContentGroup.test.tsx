@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
 import type {
   ConfigurableCreateInfo,
@@ -15,7 +14,6 @@ import {
   NavigationAidControl,
   UiFramework,
 } from "../../appui-react";
-import TestUtils from "../TestUtils";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 
 describe("ContentGroup", () => {
@@ -34,14 +32,6 @@ describe("ContentGroup", () => {
       this.reactNode = <div>Test</div>;
     }
   }
-
-  before(async () => {
-    await TestUtils.initializeUiFramework();
-  });
-
-  after(() => {
-    TestUtils.terminateUiFramework();
-  });
 
   it("ContentGroup.getContentControl should throw Error if content type is not Content or Viewport", () => {
     const contentProps: ContentProps = {
@@ -97,7 +87,7 @@ describe("ContentGroup", () => {
     const contentGroup = new ContentGroup(groupProps);
 
     const props = contentGroup.toJSON();
-    expect(props.contents[0].classId).to.eq(classId);
+    expect(props.contents[0].classId).toEqual(classId);
 
     UiFramework.controls.unregister(classId);
   });
@@ -115,7 +105,7 @@ describe("ContentGroup", () => {
     const contentGroup = new ContentGroup(groupProps);
 
     const props = contentGroup.toJSON();
-    expect(props.contents[0].classId).to.eq(classId);
+    expect(props.contents[0].classId).toEqual(classId);
 
     UiFramework.controls.unregister(classId);
   });
@@ -135,7 +125,7 @@ describe("ContentGroup", () => {
     const contentGroup = new ContentGroup(groupProps);
 
     const viewports = contentGroup.getViewports();
-    expect(viewports[0]).to.eq(undefined);
+    expect(viewports[0]).toEqual(undefined);
 
     UiFramework.controls.unregister("TestContentControl");
   });
