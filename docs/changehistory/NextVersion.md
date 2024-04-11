@@ -27,6 +27,7 @@ Table of contents:
 ### Fixes
 
 - Replace `process.env.NODE_ENV === "development"` check used in combination with `console.warn` by preview features with `Logger.logWarning()`. Logger APIs can be used instead to disable/enable this warning message. [#783](https://github.com/iTwin/appui/pull/783)
+- Fix `PopoutWidget` getting increasingly bigger each time it is popped out. [#792](https://github.com/iTwin/appui/pull/792)
 
 ## @itwin/core-react
 
