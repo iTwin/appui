@@ -148,18 +148,6 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
     title: string
   ) {
     childWindow.document.title = title;
-    if (childWindow.expectedHeight && childWindow.expectedWidth) {
-      childWindow.deltaWidth =
-        childWindow.expectedWidth -
-        (childWindow.shouldUseOuterSized
-          ? childWindow.outerWidth
-          : childWindow.innerWidth);
-      childWindow.deltaHeight =
-        childWindow.expectedHeight -
-        (childWindow.shouldUseOuterSized
-          ? childWindow.outerHeight
-          : childWindow.innerHeight);
-    }
 
     const reactConnectionDiv = childWindow.document.getElementById("root");
     if (reactConnectionDiv && content && React.isValidElement(content)) {
@@ -215,6 +203,13 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
         copyStyles(childWindow.document);
         setTimeout(() => {
           this.render(element, reactConnectionDiv);
+
+          if (childWindow.expectedHeight && childWindow.expectedWidth) {
+            childWindow.deltaWidth =
+              childWindow.expectedWidth - childWindow.innerWidth;
+            childWindow.deltaHeight =
+              childWindow.expectedHeight - childWindow.innerHeight;
+          }
         });
       });
 
@@ -321,10 +316,8 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
     if (!childWindow) return false;
     childWindow.expectedHeight = location.height;
     childWindow.expectedWidth = location.width;
-
-    // Edge needs to use outer size
-    childWindow.shouldUseOuterSized =
-      navigator.userAgent.toLowerCase().indexOf("edg/") > -1;
+    childWindow.deltaLeft = location.left - childWindow.screenLeft;
+    childWindow.deltaTop = location.top - childWindow.screenTop;
 
     if (0 === url.length) {
       childWindow.document.write(childHtml);
@@ -336,7 +329,7 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
       );
     } else {
       childWindow.addEventListener(
-        "load",
+        "DOMContentLoaded",
         () => {
           this.renderChildWindowContents(
             childWindow,

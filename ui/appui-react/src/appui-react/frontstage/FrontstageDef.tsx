@@ -866,24 +866,26 @@ export class FrontstageDef {
     const widgetDef = this.findWidgetDef(tabId);
     if (!widgetDef) return;
 
-    let width = childWindow.shouldUseOuterSized
-      ? childWindow.outerWidth
-      : childWindow.innerWidth;
-    let height = childWindow.shouldUseOuterSized
-      ? childWindow.outerHeight
-      : childWindow.innerHeight;
+    let width = childWindow.innerWidth;
+    let height = childWindow.innerHeight;
     if (childWindow.deltaHeight) {
-      height = height + childWindow.deltaHeight;
+      height += childWindow.deltaHeight;
       if (height < 1) height = 100;
     }
     if (childWindow.deltaWidth) {
-      width = width + childWindow.deltaWidth;
+      width += childWindow.deltaWidth;
       if (width < 1) width = 100;
     }
 
+    let left = childWindow.screenLeft;
+    if (childWindow.deltaLeft) left += childWindow.deltaLeft;
+
+    let top = childWindow.screenTop;
+    if (childWindow.deltaTop) top += childWindow.deltaTop;
+
     const bounds = Rectangle.createFromSize({ width, height }).offset({
-      x: childWindow.screenX,
-      y: childWindow.screenY,
+      x: left,
+      y: top,
     });
 
     this.dispatch({

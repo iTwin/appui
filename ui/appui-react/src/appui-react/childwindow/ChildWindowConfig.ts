@@ -7,14 +7,16 @@
  * @internal
  */
 export interface ChildWindow extends Window {
-  /** Width that child window wants to open to */
+  /** Expected width of the child window. */
   expectedWidth?: number;
-  /** Height that child window wants to open to */
+  /** Expected height of the child window. */
   expectedHeight?: number;
-  /** Difference between width child window actually opened to as compared to expected */
+  /** Difference between expected child window width and actual value when opened. */
   deltaWidth?: number;
-  /** Difference between height child window actually opened to as compared to expected */
+  /** Difference between expected child window height and actual value when opened. */
   deltaHeight?: number;
-  /** If outer size should be used for calculations instead of inner size */
-  shouldUseOuterSized?: boolean;
+  /** Difference between expected child window left value and actual value when opened. */
+  deltaLeft?: number;
+  /** Difference between expected child window top value and actual value when opened. */
+  deltaTop?: number;
 }
