@@ -312,8 +312,7 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
     }
 
     location = this.adjustWidowLocation(location);
-    // Cannot use empty url because it will not emit events
-    const url = useDefaultPopoutUrl ? "/iTwinPopup.html" : "popout";
+    const url = useDefaultPopoutUrl ? "/iTwinPopup.html" : "";
     const childWindow: ChildWindow | null = window.open(
       url,
       "",
@@ -327,19 +326,28 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
     childWindow.shouldUseOuterSized =
       navigator.userAgent.toLowerCase().indexOf("edg/") > -1;
 
-    childWindow.addEventListener(
-      "DOMContentLoaded",
-      () => {
-        if (!useDefaultPopoutUrl) childWindow.document.write(childHtml);
-        this.renderChildWindowContents(
-          childWindow,
-          childWindowId,
-          content,
-          title
-        );
-      },
-      false
-    );
+    if (0 === url.length) {
+      childWindow.document.write(childHtml);
+      this.renderChildWindowContents(
+        childWindow,
+        childWindowId,
+        content,
+        title
+      );
+    } else {
+      childWindow.addEventListener(
+        "load",
+        () => {
+          this.renderChildWindowContents(
+            childWindow,
+            childWindowId,
+            content,
+            title
+          );
+        },
+        false
+      );
+    }
 
     window.addEventListener(
       "unload",
