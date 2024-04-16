@@ -866,12 +866,13 @@ export class FrontstageDef {
     const widgetDef = this.findWidgetDef(tabId);
     if (!widgetDef) return;
 
-    let width = childWindow.innerWidth;
     let height = childWindow.innerHeight;
     if (childWindow.deltaHeight) {
       height += childWindow.deltaHeight;
       if (height < 1) height = 100;
     }
+
+    let width = childWindow.innerWidth;
     if (childWindow.deltaWidth) {
       width += childWindow.deltaWidth;
       if (width < 1) width = 100;
