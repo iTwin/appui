@@ -292,11 +292,10 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
     location: ChildWindowLocationProps,
     useDefaultPopoutUrl?: boolean
   ) {
-    // first check to see if content is already open in child window
     if (
-      this.openChildWindows.findIndex(
+      this.openChildWindows.some(
         (openWindow) => openWindow.childWindowId === childWindowId
-      ) >= 0
+      )
     ) {
       return false;
     }
