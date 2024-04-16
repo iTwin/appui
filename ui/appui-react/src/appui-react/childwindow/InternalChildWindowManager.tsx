@@ -243,15 +243,15 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
 
   /**
    * Close a specific child window.
-   * @param childWindowId Id of the window to close
-   * @param processWindowClose should the `close` method be called on the closing window. (defaults to true)
+   * @param childWindowId Id of the window to close.
+   * @param processWindowClose should the `close` method be called on the closing window. (defaults to true).
    * @returns false if the window could not be found.
    */
   public close = (childWindowId: string, processWindowClose = true) => {
     const windowIndex = this.openChildWindows.findIndex(
       (openWindow) => openWindow.childWindowId === childWindowId
     );
-    if (-1 === windowIndex) return false;
+    if (windowIndex === -1) return false;
     const childWindow = this.openChildWindows[windowIndex];
     this.openChildWindows.splice(windowIndex, 1);
     if (processWindowClose) {
@@ -259,25 +259,20 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
     } else {
       // call the following to convert popout to docked widget
       const frontStageDef = UiFramework.frontstages.activeFrontstageDef;
-      frontStageDef &&
-        frontStageDef.dockWidgetContainerByContainerId(childWindowId);
+      frontStageDef?.dockWidgetContainerByContainerId(childWindowId);
     }
     return true;
   };
 
   // istanbul ignore next: Used in `open` which is not tested.
-  private adjustWidowLocation(
-    location: ChildWindowLocationProps
-  ): ChildWindowLocationProps {
-    const outLocation = { ...location };
-    if (0 === location.top && 0 === location.left) {
-      // If no location is provided, prepare position of the new window to be centered against the current window.
-      outLocation.left =
+  private adjustWindowLocation(location: ChildWindowLocationProps) {
+    // If no location is provided, child window will open in the center of the current window.
+    if (location.top === 0 && location.left === 0) {
+      location.left =
         window.outerWidth / 2 + window.screenX - location.width / 2;
-      outLocation.top =
+      location.top =
         window.outerHeight / 2 + window.screenY - location.height / 2;
     }
-    return outLocation;
   }
 
   /**
@@ -306,7 +301,7 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
       return false;
     }
 
-    location = this.adjustWidowLocation(location);
+    this.adjustWindowLocation(location);
     const url = useDefaultPopoutUrl ? "/iTwinPopup.html" : "";
     const childWindow: ChildWindow | null = window.open(
       url,
@@ -319,7 +314,7 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
     childWindow.deltaLeft = location.left - childWindow.screenLeft;
     childWindow.deltaTop = location.top - childWindow.screenTop;
 
-    if (0 === url.length) {
+    if (url.length === 0) {
       childWindow.document.write(childHtml);
       this.renderChildWindowContents(
         childWindow,
