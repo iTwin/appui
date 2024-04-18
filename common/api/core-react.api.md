@@ -1842,7 +1842,7 @@ export interface UnderlinedButtonProps {
     title?: string;
 }
 
-// @beta
+// @public
 export function useCrossOriginPopup(visible: boolean, url: string | undefined, title: string, width: number, height: number, onClose: () => void): void;
 
 // @public @deprecated

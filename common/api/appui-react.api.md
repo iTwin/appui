@@ -1795,10 +1795,10 @@ export interface FloatingViewportContentProps {
     viewportRef?: React_2.Ref<ScreenViewport>;
 }
 
-// @alpha (undocumented)
+// @public (undocumented)
 export function FloatingViewportContentWrapper({ children, }: FloatingViewportContentWrapperProps): React_2.JSX.Element;
 
-// @alpha (undocumented)
+// @public (undocumented)
 export interface FloatingViewportContentWrapperProps {
     // (undocumented)
     readonly children?: React_2.ReactNode;

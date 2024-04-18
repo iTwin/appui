@@ -268,7 +268,7 @@ export interface FrameworkFrontstages {
 
   /** Sets the active FrontstageDef give the stageId.
    * @param  frontstageId  Id of the Frontstage to set active.
-   * @returns A Promise that is fulfilled when the [[Frontstage]] is ready.
+   * @returns A Promise that is fulfilled when the Frontstage is ready.
    */
   setActiveFrontstage(frontstageId: string): Promise<void>;
 
