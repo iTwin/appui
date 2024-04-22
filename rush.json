@@ -79,11 +79,5 @@
       "reviewCategory": "frontend",
       "versionPolicyName": "prerelease-monorepo-lockStep"
     }
-  ],
-  "variants": [
-    {
-      "variantName": "core-3x",
-      "description": "Build this repo using iTwin.js core 3.7.x"
-    }
   ]
 }

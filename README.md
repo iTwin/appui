@@ -41,7 +41,6 @@ Each package has its own **node_modules** directory that contains symbolic links
 
 1. Clone repository (first time) with `git clone` or pull updates to the repository (subsequent times) with `git pull`
 2. Install dependencies: `rush install`
-   - Check variant version with: `rush install --variant core-3x` (see [variant](#itwinjs-core-3x-compatibility) for clarifications)
 3. Clean: `rush clean`
 4. Rebuild source: `rush rebuild`
 5. Run tests: `rush cover`
