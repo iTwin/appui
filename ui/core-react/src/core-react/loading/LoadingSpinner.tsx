@@ -40,7 +40,7 @@ export interface LoadingSpinnerProps extends Omit<ProgressRadialProps, "size"> {
 
 /** A loading spinner component that optionally shows a text message.
  * @public
- * @deprecated in 4.12.x. Use {@link https://itwinui.bentley.com/docs/progressindicator iTwinUI progress indicator} instead.
+ * @deprecated in 4.12.x. Use {@link https://itwinui.bentley.com/docs/progressindicator#progress-radial iTwinUI progress indicator} instead.
  */
 export class LoadingSpinner extends React.PureComponent<LoadingSpinnerProps> {
   public static defaultProps: Partial<LoadingSpinnerProps> = {
