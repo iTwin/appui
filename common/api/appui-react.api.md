@@ -176,7 +176,7 @@ export interface AccuDrawDialogProps extends CommonProps {
     orientation?: Orientation;
 }
 
-// @beta
+// @beta @deprecated
 export class AccuDrawGrabInputFocusEvent extends BeUiEvent<{}> {
 }
 
@@ -205,7 +205,7 @@ export class AccuDrawPopupManager {
     static showMenuButton(id: string, el: HTMLElement, pt: XAndY, menuItemsProps: CursorMenuItemProps[]): boolean;
 }
 
-// @beta
+// @beta @deprecated
 export class AccuDrawSetCompassModeEvent extends BeUiEvent<AccuDrawSetCompassModeEventArgs> {
 }
 
@@ -215,7 +215,7 @@ export interface AccuDrawSetCompassModeEventArgs {
     mode: CompassMode;
 }
 
-// @beta
+// @beta @deprecated
 export class AccuDrawSetFieldFocusEvent extends BeUiEvent<AccuDrawSetFieldFocusEventArgs> {
 }
 
@@ -225,7 +225,7 @@ export interface AccuDrawSetFieldFocusEventArgs {
     field: ItemField;
 }
 
-// @beta
+// @beta @deprecated
 export class AccuDrawSetFieldLockEvent extends BeUiEvent<AccuDrawSetFieldLockEventArgs> {
 }
 
@@ -237,7 +237,7 @@ export interface AccuDrawSetFieldLockEventArgs {
     lock: boolean;
 }
 
-// @beta
+// @beta @deprecated
 export class AccuDrawSetFieldValueFromUiEvent extends BeUiEvent<AccuDrawSetFieldValueFromUiEventArgs> {
 }
 
@@ -249,7 +249,7 @@ export interface AccuDrawSetFieldValueFromUiEventArgs {
     stringValue: string;
 }
 
-// @beta
+// @beta @deprecated
 export class AccuDrawSetFieldValueToUiEvent extends BeUiEvent<AccuDrawSetFieldValueToUiEventArgs> {
 }
 
@@ -292,7 +292,7 @@ export interface AccuDrawUiSettings {
     zStyle?: React.CSSProperties;
 }
 
-// @beta
+// @beta @deprecated
 export class AccuDrawUiSettingsChangedEvent extends BeUiEvent<{}> {
 }
 
@@ -343,7 +343,7 @@ export interface ActionWithPayload<T extends string, P> extends Action<T> {
     payload: P;
 }
 
-// @public
+// @public @deprecated
 export class ActiveContentChangedEvent extends UiEvent<ActiveContentChangedEventArgs> {
 }
 
@@ -359,7 +359,7 @@ export function ActiveFrontstageDefProvider({ frontstageDef, }: ActiveFrontstage
 // @public
 export function ActivityCenterField(props: CommonProps): React_2.JSX.Element | null;
 
-// @public
+// @public @deprecated
 export class ActivityMessageCancelledEvent extends UiEvent<{}> {
 }
 
@@ -371,7 +371,7 @@ export interface ActivityMessageEventArgs {
     restored?: boolean;
 }
 
-// @public
+// @public @deprecated
 export class ActivityMessageUpdatedEvent extends UiEvent<ActivityMessageEventArgs> {
 }
 
@@ -756,7 +756,7 @@ export interface CardInfo {
     viewId: any;
 }
 
-// @alpha
+// @alpha @deprecated
 export class CardSelectedEvent extends UiEvent<CardSelectedEventArgs> {
 }
 
@@ -1045,7 +1045,7 @@ export class ContentControl extends ConfigurableUiControl {
     get viewport(): ScreenViewport | undefined;
 }
 
-// @public
+// @public @deprecated
 export class ContentControlActivatedEvent extends UiEvent<ContentControlActivatedEventArgs> {
 }
 
@@ -1060,7 +1060,7 @@ export interface ContentControlActivatedEventArgs {
 // @public
 export function ContentDialog(props: ContentDialogProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export class ContentDialogChangedEvent extends DialogChangedEvent {
 }
 
@@ -1146,7 +1146,7 @@ export class ContentLayout extends React_2.Component<ContentLayoutComponentProps
     readonly state: Readonly<ContentLayoutState>;
 }
 
-// @public
+// @public @deprecated
 export class ContentLayoutActivatedEvent extends UiEvent<ContentLayoutActivatedEventArgs> {
 }
 
@@ -1364,10 +1364,6 @@ export class CursorPopup extends React_2.Component<CursorPopupProps, CursorPopup
 export function CursorPopupContent(props: CommonDivProps): React_2.JSX.Element;
 
 // @internal
-export class CursorPopupFadeOutEvent extends UiEvent<CursorPopupFadeOutEventArgs> {
-}
-
-// @internal
 export interface CursorPopupFadeOutEventArgs {
     // (undocumented)
     id: string;
@@ -1379,11 +1375,11 @@ export class CursorPopupManager {
     static clearPopups(): void;
     static close(id: string, apply: boolean, fadeOut?: boolean): void;
     // @internal (undocumented)
-    static readonly onCursorPopupFadeOutEvent: CursorPopupFadeOutEvent;
+    static readonly onCursorPopupFadeOutEvent: BeUiEvent<CursorPopupFadeOutEventArgs>;
     // @internal (undocumented)
-    static readonly onCursorPopupsChangedEvent: CursorPopupsChangedEvent;
+    static readonly onCursorPopupsChangedEvent: BeUiEvent<{}>;
     // @internal (undocumented)
-    static readonly onCursorPopupUpdatePositionEvent: CursorPopupUpdatePositionEvent;
+    static readonly onCursorPopupUpdatePositionEvent: BeUiEvent<CursorPopupUpdatePositionEventArgs>;
     static open(id: string, content: React_2.ReactNode, pt: XAndY, offset: XAndY, relativePosition: RelativePosition, priority?: number, options?: CursorPopupOptions): void;
     // (undocumented)
     static get popupCount(): number;
@@ -1447,10 +1443,6 @@ export enum CursorPopupShow {
 }
 
 // @internal
-export class CursorPopupUpdatePositionEvent extends UiEvent<CursorPopupUpdatePositionEventArgs> {
-}
-
-// @internal
 export interface CursorPopupUpdatePositionEventArgs {
     // (undocumented)
     pt: XAndY;
@@ -1464,7 +1456,7 @@ export class CursorPrompt {
     display(toolIconSpec: string, instruction: ToolAssistanceInstruction, offset?: XAndY, relativePosition?: RelativePosition): void;
 }
 
-// @public
+// @public @deprecated
 export class CursorUpdatedEvent extends UiEvent<CursorUpdatedEventArgs> {
 }
 
@@ -1608,7 +1600,7 @@ export class DefaultToolSettingsProvider extends ToolUiProvider {
 // @public
 export function DefaultViewOverlay({ viewport, onPlayPause, featureOptions, }: ViewOverlayProps): React_2.JSX.Element | null;
 
-// @public
+// @public @deprecated
 export class DialogChangedEvent extends UiEvent<DialogChangedEventArgs> {
 }
 
@@ -1635,7 +1627,7 @@ export interface DialogInfo {
 
 // @internal
 export class DialogManagerBase {
-    constructor(onDialogChangedEvent: DialogChangedEvent);
+    constructor(onDialogChangedEvent: BeUiEvent<DialogChangedEventArgs>);
     // (undocumented)
     get activeDialog(): React_2.ReactNode | undefined;
     // (undocumented)
@@ -1652,7 +1644,7 @@ export class DialogManagerBase {
     static getDialogZIndexDefault(): number;
     static initialize(): void;
     // (undocumented)
-    get onDialogChangedEvent(): DialogChangedEvent;
+    get onDialogChangedEvent(): BeUiEvent<DialogChangedEventArgs>;
     openDialog(dialog: React_2.ReactNode, id?: string, parentDocument?: Document): void;
     // (undocumented)
     pushDialog(dialogInfo: DialogInfo): void;
@@ -1721,7 +1713,7 @@ export class ElementTooltip extends React_2.Component<CommonProps, ElementToolti
     readonly state: Readonly<ElementTooltipState>;
 }
 
-// @public
+// @public @deprecated
 export class ElementTooltipChangedEvent extends UiEvent<ElementTooltipChangedEventArgs> {
 }
 
@@ -2171,7 +2163,7 @@ export interface FrameworkVisibility {
 // @internal (undocumented)
 export const FRONTSTAGE_SETTINGS_NAMESPACE = "uifw-frontstageSettings";
 
-// @public
+// @public @deprecated
 export class FrontstageActivatedEvent extends UiEvent<FrontstageActivatedEventArgs> {
 }
 
@@ -2200,7 +2192,7 @@ export interface FrontstageConfig extends CommonProps {
     readonly viewNavigation?: WidgetConfig;
 }
 
-// @public
+// @public @deprecated
 export class FrontstageDeactivatedEvent extends UiEvent<FrontstageDeactivatedEventArgs> {
 }
 
@@ -2342,7 +2334,7 @@ export abstract class FrontstageProvider {
     abstract get id(): string;
 }
 
-// @public
+// @public @deprecated
 export class FrontstageReadyEvent extends UiEvent<FrontstageReadyEventArgs> {
 }
 
@@ -2659,7 +2651,7 @@ export class InputFieldMessage extends React_2.PureComponent<InputFieldMessagePr
     readonly state: Readonly<InputFieldMessageState>;
 }
 
-// @public
+// @public @deprecated
 export class InputFieldMessageAddedEvent extends UiEvent<InputFieldMessageEventArgs> {
 }
 
@@ -2671,7 +2663,7 @@ export interface InputFieldMessageEventArgs {
     target: Element;
 }
 
-// @public
+// @public @deprecated
 export class InputFieldMessageRemovedEvent extends UiEvent<{}> {
 }
 
@@ -2836,7 +2828,7 @@ export class KeyboardShortcutMenu extends React_2.PureComponent<CommonProps, Key
     readonly state: KeyboardShortcutMenuState;
 }
 
-// @public
+// @public @deprecated
 export class KeyboardShortcutMenuEvent extends UiEvent<KeyboardShortcutMenuState> {
 }
 
@@ -3053,7 +3045,7 @@ export class MenuItemHelpers {
 // @public @deprecated
 export type MenuItemProps = AbstractMenuItemProps;
 
-// @public
+// @public @deprecated
 export class MessageAddedEvent extends UiEvent<MessageAddedEventArgs> {
 }
 
@@ -3129,11 +3121,11 @@ export class MessageManager {
     static updateMessages(): void;
 }
 
-// @public
+// @public @deprecated
 export class MessagesUpdatedEvent extends UiEvent<{}> {
 }
 
-// @public
+// @public @deprecated
 export class ModalDialogChangedEvent extends DialogChangedEvent {
 }
 
@@ -3151,7 +3143,7 @@ export class ModalFrontstage extends React_2.Component<ModalFrontstageProps> {
     render(): React_2.JSX.Element;
 }
 
-// @public
+// @public @deprecated
 export class ModalFrontstageChangedEvent extends UiEvent<ModalFrontstageChangedEventArgs> {
 }
 
@@ -3161,7 +3153,7 @@ export interface ModalFrontstageChangedEventArgs {
     modalFrontstageCount: number;
 }
 
-// @public
+// @public @deprecated
 export class ModalFrontstageClosedEvent extends UiEvent<ModalFrontstageClosedEventArgs> {
 }
 
@@ -3208,7 +3200,7 @@ export interface ModalFrontstageProps extends CommonProps {
     title: string;
 }
 
-// @alpha
+// @alpha @deprecated
 export class ModalFrontstageRequestedCloseEvent extends UiEvent<ModalFrontstageRequestedCloseEventArgs> {
 }
 
@@ -3225,7 +3217,7 @@ export class ModelessDialog extends React_2.Component<ModelessDialogProps> {
     render(): React_2.ReactElement;
 }
 
-// @public
+// @public @deprecated
 export class ModelessDialogChangedEvent extends DialogChangedEvent {
 }
 
@@ -3254,7 +3246,7 @@ export class ModelessDialogRenderer extends React_2.PureComponent<CommonProps> {
     render(): React_2.ReactNode;
 }
 
-// @public
+// @public @deprecated
 export class MouseDownChangedEvent extends UiEvent<MouseDownChangedEventArgs> {
 }
 
@@ -3269,7 +3261,7 @@ export interface NameToReducerMap {
     [name: string]: (state: any, action: any) => any;
 }
 
-// @public
+// @public @deprecated
 export class NavigationAidActivatedEvent extends UiEvent<NavigationAidActivatedEventArgs> {
 }
 
@@ -3331,7 +3323,7 @@ export interface OpenChildWindowInfo {
     window: Window;
 }
 
-// @public
+// @public @deprecated
 export class OpenMessageCenterEvent extends UiEvent<{}> {
 }
 
@@ -3352,10 +3344,6 @@ export interface PanelPinnedChangedEventArgs {
 }
 
 // @internal (undocumented)
-export class PanelSizeChangedEvent extends UiEvent<PanelSizeChangedEventArgs> {
-}
-
-// @internal (undocumented)
 export interface PanelSizeChangedEventArgs {
     // (undocumented)
     panelDef: StagePanelDef;
@@ -3363,7 +3351,7 @@ export interface PanelSizeChangedEventArgs {
     size: number | undefined;
 }
 
-// @beta
+// @beta @deprecated
 export class PanelStateChangedEvent extends UiEvent<PanelStateChangedEventArgs> {
 }
 
@@ -3401,7 +3389,7 @@ export class PointerMessage extends React_2.Component<PointerMessageProps, Point
     static updateMessage(displayPoint: XAndY, relativePosition: RelativePosition): void;
 }
 
-// @public
+// @public @deprecated
 export class PointerMessageChangedEvent extends UiEvent<PointerMessageChangedEventArgs> {
 }
 
@@ -3529,7 +3517,7 @@ export class PopupRenderer extends React_2.Component<{}, PopupRendererState> {
     readonly state: PopupRendererState;
 }
 
-// @public
+// @public @deprecated
 export class PopupsChangedEvent extends UiEvent<PopupsChangedEventArgs> {
 }
 
@@ -4494,7 +4482,7 @@ export interface SupportsViewSelectorChange {
     supportsViewSelectorChange: boolean;
 }
 
-// @public
+// @public @deprecated
 export class SyncToolSettingsPropertiesEvent extends UiEvent<SyncToolSettingsPropertiesEventArgs> {
 }
 
@@ -4567,7 +4555,7 @@ export class TileLoadingIndicator extends React_2.PureComponent<CommonProps, Til
     render(): React_2.JSX.Element;
 }
 
-// @public
+// @public @deprecated
 export class ToolActivatedEvent extends UiEvent<ToolActivatedEventArgs> {
 }
 
@@ -4577,7 +4565,7 @@ export interface ToolActivatedEventArgs {
     toolId: string;
 }
 
-// @public
+// @public @deprecated
 export class ToolAssistanceChangedEvent extends UiEvent<ToolAssistanceChangedEventArgs> {
 }
 
@@ -4754,7 +4742,7 @@ export interface ToolbarWithOverflowProps extends CommonProps, NoChildrenProps {
     useDragInteraction?: boolean;
 }
 
-// @public
+// @public @deprecated
 export class ToolIconChangedEvent extends UiEvent<ToolIconChangedEventArgs> {
 }
 
@@ -5081,7 +5069,7 @@ export const UiStateStorageContext: React_2.Context<UiStateStorage>;
 // @public
 export function UiStateStorageHandler(props: UiSettingsProviderProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export class UiSyncEvent extends BeUiEvent<UiSyncEventArgs> {
 }
 
@@ -5091,7 +5079,7 @@ export interface UiSyncEventArgs {
     eventIds: Set<string>;
 }
 
-// @public
+// @public @deprecated
 export class UiVisibilityChangedEvent extends UiEvent<UiVisibilityEventArgs> {
 }
 
@@ -5333,7 +5321,7 @@ export class ViewSelector extends React_2.Component<ViewSelectorProps, ViewSelec
     updateState(viewId?: any): Promise<void>;
 }
 
-// @beta
+// @beta @deprecated
 export class ViewSelectorChangedEvent extends UiEvent<ViewSelectorChangedEventArgs> {
 }
 
@@ -5602,7 +5590,7 @@ export class WidgetManager {
     addWidgetDef(widgetDef: WidgetDef, stageId: string | undefined, stageUsage: string | undefined, location: StagePanelLocation, section?: StagePanelSection): boolean;
     getWidgetDefs(stageId: string, stageUsage: string, location: StagePanelLocation, section?: StagePanelSection): ReadonlyArray<WidgetDef> | undefined;
     // @internal
-    readonly onWidgetsChanged: WidgetsChangedEvent;
+    readonly onWidgetsChanged: BeUiEvent<WidgetsChangedEventArgs>;
     removeWidgetDef(widgetId: string): boolean;
     // @internal (undocumented)
     get widgetCount(): number;
@@ -5643,10 +5631,6 @@ export function WidgetPanelsToolbars(): React_2.JSX.Element;
 export function WidgetPanelsToolSettings(): React_2.JSX.Element | null;
 
 // @internal
-export class WidgetsChangedEvent extends BeUiEvent<WidgetsChangedEventArgs> {
-}
-
-// @internal
 export interface WidgetsChangedEventArgs {
     // (undocumented)
     readonly items: ReadonlyArray<WidgetInfo>;
@@ -5666,7 +5650,7 @@ export enum WidgetState {
     Unloaded = 4
 }
 
-// @public
+// @public @deprecated
 export class WidgetStateChangedEvent extends UiEvent<WidgetStateChangedEventArgs> {
 }
 

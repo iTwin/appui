@@ -329,7 +329,7 @@ export interface CubeProps extends React_2.AllHTMLAttributes<HTMLDivElement>, Co
     rotMatrix: Matrix3d;
 }
 
-// @public
+// @public @deprecated
 export class CubeRotationChangeEvent extends UiEvent<CubeRotationChangeEventArgs> {
 }
 
@@ -425,7 +425,7 @@ export interface DrawingNavigationCanvasProps {
     zoom: number;
 }
 
-// @public
+// @public @deprecated
 export class DrawingViewportChangeEvent extends UiEvent<DrawingViewportChangeEventArgs> {
 }
 
@@ -801,7 +801,7 @@ export class SolarTimeline extends React_2.PureComponent<SolarTimelineComponentP
     render(): React_2.JSX.Element;
 }
 
-// @public
+// @public @deprecated
 export class StandardRotationChangeEvent extends UiEvent<StandardRotationChangeEventArgs> {
 }
 
@@ -931,7 +931,7 @@ export class UiIModelComponents {
 // @internal (undocumented)
 export function useFocusedThumb(sliderContainer: HTMLDivElement | undefined): boolean;
 
-// @public
+// @public @deprecated
 export class ViewClassFullNameChangedEvent extends UiEvent<ViewClassFullNameChangedEventArgs> {
 }
 
@@ -945,7 +945,7 @@ export interface ViewClassFullNameChangedEventArgs {
     viewport: Viewport;
 }
 
-// @public
+// @public @deprecated
 export class ViewIdChangedEvent extends UiEvent<ViewIdChangedEventArgs> {
 }
 
@@ -1018,7 +1018,7 @@ export interface ViewportProps extends CommonProps {
     viewState?: ViewStateProp;
 }
 
-// @public
+// @public @deprecated
 export class ViewRotationChangeEvent extends UiEvent<ViewRotationChangeEventArgs> {
 }
 

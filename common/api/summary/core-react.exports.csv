@@ -1,6 +1,7 @@
 sep=;
 Release Tag;API Item
 public;ActivateSettingsTabEvent 
+deprecated;ActivateSettingsTabEvent 
 public;ActivateSettingsTabEventArgs
 internal;AnnularSector
 internal;Annulus
@@ -29,7 +30,6 @@ public;CheckListBoxItemProps
 public;CheckListBoxSeparator(): React_2.JSX.Element
 internal;Circle
 public;ClassNameProps
-internal;CloseSettingsContainerEvent 
 public;CommonDivProps 
 public;CommonProps 
 public;ConditionalIconItem
@@ -156,8 +156,10 @@ public;PopupContextMenu(props: PopupContextMenuProps): React_2.JSX.Element
 public;PopupContextMenuProps 
 public;PopupProps 
 public;ProcessSettingsContainerCloseEvent 
+deprecated;ProcessSettingsContainerCloseEvent 
 public;ProcessSettingsContainerCloseEventArgs
 public;ProcessSettingsTabActivationEvent 
+deprecated;ProcessSettingsTabActivationEvent 
 public;ProcessSettingsTabActivationEventArgs
 internal;PROXIMITY_THRESHOLD_DEFAULT = 100
 public;RadialButton 
@@ -181,6 +183,7 @@ public;SettingsContainer: ({ tabs, onSettingsTabSelected, currentSettingsTab, se
 public;SettingsContainerProps
 public;SettingsManager
 public;SettingsProvidersChangedEvent 
+deprecated;SettingsProvidersChangedEvent 
 public;SettingsProvidersChangedEventArgs
 public;SettingsTabEntry
 public;SettingsTabsProvider
