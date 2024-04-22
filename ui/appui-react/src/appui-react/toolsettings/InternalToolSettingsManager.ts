@@ -9,7 +9,6 @@
 import type { InteractiveTool } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
 import type { DialogItem, DialogPropertySyncItem } from "@itwin/appui-abstract";
-import { UiEvent } from "@itwin/appui-abstract";
 import { focusIntoContainer } from "@itwin/core-react";
 import type { SyncToolSettingsPropertiesEventArgs } from "../framework/FrameworkToolSettings";
 import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
@@ -156,7 +155,7 @@ export class InternalToolSettingsManager {
   public static readonly onSyncToolSettingsProperties =
     new BeUiEvent<SyncToolSettingsPropertiesEventArgs>();
   // eslint-disable-next-line deprecation/deprecation
-  public static readonly onReloadToolSettingsProperties = new UiEvent<void>();
+  public static readonly onReloadToolSettingsProperties = new BeUiEvent<void>();
 
   /** Gets the Id of the active tool. If a tool is not active, blank is returned.
    * @return  Id of the active tool, or blank if one is not active.

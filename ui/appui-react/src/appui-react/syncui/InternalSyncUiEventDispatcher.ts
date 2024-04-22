@@ -6,7 +6,8 @@
  * @module SyncUi
  */
 
-import { UiSyncEvent } from "./UiSyncEvent";
+import { BeUiEvent } from "@itwin/core-bentley";
+import type { UiSyncEventArgs } from "./UiSyncEvent";
 
 /** This class is used to send eventIds to interested UI components so the component can determine if it needs
  * to refresh its display by calling setState on itself.
@@ -16,14 +17,14 @@ export class InternalSyncUiEventDispatcher {
   private _syncEventTimerId: number | undefined;
   private _eventIds: Set<string>;
   private _eventIdAdded;
-  private _uiSyncEvent: UiSyncEvent;
+  private _uiSyncEvent: BeUiEvent<UiSyncEventArgs>;
   private _timeoutPeriod;
   private _secondaryTimeoutPeriod;
 
   constructor() {
     this._eventIds = new Set<string>();
     this._eventIdAdded = false;
-    this._uiSyncEvent = new UiSyncEvent();
+    this._uiSyncEvent = new BeUiEvent<UiSyncEventArgs>();
     this._timeoutPeriod = 100;
     this._secondaryTimeoutPeriod = this._timeoutPeriod / 2;
   }
@@ -53,7 +54,7 @@ export class InternalSyncUiEventDispatcher {
   }
 
   /** Return UiSyncEvent so callers can register an event callback. */
-  public get onSyncUiEvent(): UiSyncEvent {
+  public get onSyncUiEvent(): BeUiEvent<UiSyncEventArgs> {
     return this._uiSyncEvent;
   }
 

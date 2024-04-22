@@ -52,7 +52,9 @@ export interface AccuDrawSetFieldFocusEventArgs {
 }
 
 /** AccuDraw Set Field Focus event
- * @beta */
+ * @beta
+ * @deprecated in 4.13.x. Use `BeUiEvent<AccuDrawSetFieldFocusEventArgs>` instead.
+ */
 export class AccuDrawSetFieldFocusEvent extends BeUiEvent<AccuDrawSetFieldFocusEventArgs> {}
 
 /** Arguments for [[AccuDrawSetFieldValueToUiEvent]]
@@ -64,7 +66,9 @@ export interface AccuDrawSetFieldValueToUiEventArgs {
 }
 
 /** AccuDraw Set Field Value to Ui event
- * @beta */
+ * @beta
+ * @deprecated in 4.13.x. Use `BeUiEvent<AccuDrawSetFieldValueToUiEventArgs>` instead.
+ */
 export class AccuDrawSetFieldValueToUiEvent extends BeUiEvent<AccuDrawSetFieldValueToUiEventArgs> {}
 
 /** Arguments for [[AccuDrawSetFieldValueFromUiEvent]]
@@ -75,7 +79,9 @@ export interface AccuDrawSetFieldValueFromUiEventArgs {
 }
 
 /** AccuDraw Set Field Value from Ui event
- * @beta */
+ * @beta
+ * @deprecated in 4.13.x. Use `BeUiEvent<AccuDrawSetFieldValueFromUiEventArgs>` instead.
+ */
 export class AccuDrawSetFieldValueFromUiEvent extends BeUiEvent<AccuDrawSetFieldValueFromUiEventArgs> {}
 
 /** Arguments for [[AccuDrawSetFieldLockEvent]]
@@ -86,7 +92,9 @@ export interface AccuDrawSetFieldLockEventArgs {
 }
 
 /** AccuDraw Set Field Lock event
- * @beta */
+ * @beta
+ * @deprecated in 4.13.x. Use `BeUiEvent<AccuDrawSetFieldLockEventArgs>` instead.
+ */
 export class AccuDrawSetFieldLockEvent extends BeUiEvent<AccuDrawSetFieldLockEventArgs> {}
 
 /** Arguments for [[AccuDrawSetCompassModeEvent]]
@@ -96,15 +104,21 @@ export interface AccuDrawSetCompassModeEventArgs {
 }
 
 /** AccuDraw Set Compass Mode event
- * @beta */
+ * @beta
+ * @deprecated in 4.13.x. Use `BeUiEvent<AccuDrawSetCompassModeEventArgs>` instead.
+ */
 export class AccuDrawSetCompassModeEvent extends BeUiEvent<AccuDrawSetCompassModeEventArgs> {}
 
 /** AccuDraw Grab Input Focus event
- * @beta */
+ * @beta
+ * @deprecated in 4.13.x. Use `BeUiEvent<{}>` instead.
+ */
 export class AccuDrawGrabInputFocusEvent extends BeUiEvent<{}> {}
 
 /** AccuDraw Ui Settings Changed event
- * @beta */
+ * @beta
+ * @deprecated in 4.13.x. Use `BeUiEvent<{}>` instead.
+ */
 export class AccuDrawUiSettingsChangedEvent extends BeUiEvent<{}> {}
 
 /** Subclass of `AccuDraw` in `@itwin/core-frontend` to be used to initialize `IModelApp`.
@@ -130,22 +144,22 @@ export class FrameworkAccuDraw
 
   /** AccuDraw Set Field Focus event. */
   public static readonly onAccuDrawSetFieldFocusEvent =
-    new AccuDrawSetFieldFocusEvent();
+    new AccuDrawSetFieldFocusEvent(); // eslint-disable-line deprecation/deprecation
   /** AccuDraw Set Field Value to Ui event. */
   public static readonly onAccuDrawSetFieldValueToUiEvent =
-    new AccuDrawSetFieldValueToUiEvent();
+    new AccuDrawSetFieldValueToUiEvent(); // eslint-disable-line deprecation/deprecation
   /** AccuDraw Set Field Value from Ui event. */
   public static readonly onAccuDrawSetFieldValueFromUiEvent =
-    new AccuDrawSetFieldValueFromUiEvent();
+    new AccuDrawSetFieldValueFromUiEvent(); // eslint-disable-line deprecation/deprecation
   /** AccuDraw Set Field Lock event. */
   public static readonly onAccuDrawSetFieldLockEvent =
-    new AccuDrawSetFieldLockEvent();
+    new AccuDrawSetFieldLockEvent(); // eslint-disable-line deprecation/deprecation
   /** AccuDraw Set Mode event. */
   public static readonly onAccuDrawSetCompassModeEvent =
-    new AccuDrawSetCompassModeEvent();
+    new AccuDrawSetCompassModeEvent(); // eslint-disable-line deprecation/deprecation
   /** AccuDraw Grab Input Focus event. */
   public static readonly onAccuDrawGrabInputFocusEvent =
-    new AccuDrawGrabInputFocusEvent();
+    new AccuDrawGrabInputFocusEvent(); // eslint-disable-line deprecation/deprecation
 
   /** Determines if AccuDraw.rotationMode === RotationMode.Top */
   public static readonly isTopRotationConditional = new ConditionalBooleanValue(
@@ -195,7 +209,7 @@ export class FrameworkAccuDraw
 
   /** AccuDraw Grab Input Focus event. */
   public static readonly onAccuDrawUiSettingsChangedEvent =
-    new AccuDrawUiSettingsChangedEvent();
+    new AccuDrawUiSettingsChangedEvent(); // eslint-disable-line deprecation/deprecation
 
   /** Determines if notifications should be displayed for AccuDraw changes */
   public static get displayNotifications(): boolean {

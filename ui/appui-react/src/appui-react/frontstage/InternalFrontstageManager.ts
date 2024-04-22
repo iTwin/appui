@@ -14,7 +14,6 @@ import type {
   Tool,
 } from "@itwin/core-frontend";
 import { IModelApp, InteractiveTool } from "@itwin/core-frontend";
-import { UiEvent } from "@itwin/appui-abstract";
 import type { Size } from "@itwin/core-react";
 import type { ContentControlActivatedEventArgs } from "../content/ContentControl";
 import type { ContentGroup } from "../content/ContentGroup";
@@ -223,13 +222,13 @@ export class InternalFrontstageManager {
 
   /** Get ToolSetting Reload event. */
   // eslint-disable-next-line deprecation/deprecation
-  public static readonly onToolSettingsReloadEvent = new UiEvent<void>();
+  public static readonly onToolSettingsReloadEvent = new BeUiEvent<void>();
 
   /** Get Tool Panel Opened event.
    * @internal
    */
   // eslint-disable-next-line deprecation/deprecation
-  public static readonly onToolPanelOpenedEvent = new UiEvent<void>();
+  public static readonly onToolPanelOpenedEvent = new BeUiEvent<void>();
 
   /** Get Tool Icon Changed event. */
   public static readonly onToolIconChangedEvent =
@@ -253,22 +252,22 @@ export class InternalFrontstageManager {
 
   /** @internal */
   // eslint-disable-next-line deprecation/deprecation
-  public static readonly onWidgetDefsUpdatedEvent = new UiEvent<void>();
+  public static readonly onWidgetDefsUpdatedEvent = new BeUiEvent<void>();
 
   /** @internal */
   public static readonly onFrontstageNineZoneStateChangedEvent =
     // eslint-disable-next-line deprecation/deprecation
-    new UiEvent<FrontstageNineZoneStateChangedEventArgs>();
+    new BeUiEvent<FrontstageNineZoneStateChangedEventArgs>();
 
   /** @internal */
   public static readonly onFrontstageRestoreLayoutEvent =
     // eslint-disable-next-line deprecation/deprecation
-    new UiEvent<FrontstageEventArgs>();
+    new BeUiEvent<FrontstageEventArgs>();
 
   /** @internal */
   public static readonly onFrontstageWidgetsChangedEvent =
     // eslint-disable-next-line deprecation/deprecation
-    new UiEvent<FrontstageEventArgs>();
+    new BeUiEvent<FrontstageEventArgs>();
 
   /** Get panel state changed event.
    * @alpha
@@ -281,7 +280,7 @@ export class InternalFrontstageManager {
    */
   public static readonly onPanelPinnedChangedEvent =
     // eslint-disable-next-line deprecation/deprecation
-    new UiEvent<PanelPinnedChangedEventArgs>();
+    new BeUiEvent<PanelPinnedChangedEventArgs>();
 
   /** @internal */
   public static readonly onPanelSizeChangedEvent =

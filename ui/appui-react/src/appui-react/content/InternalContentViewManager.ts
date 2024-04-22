@@ -7,7 +7,6 @@
  */
 
 import type * as React from "react";
-import { UiEvent } from "@itwin/appui-abstract";
 import { ViewUtilities } from "../utils/ViewUtilities";
 import type { ContentControl } from "./ContentControl";
 import { InternalContentLayoutManager } from "./InternalContentLayoutManager";
@@ -50,7 +49,7 @@ export class InternalContentViewManager {
   /** Fires when floating contents are added or removed */
 
   // eslint-disable-next-line deprecation/deprecation
-  public static readonly onAvailableContentChangedEvent = new UiEvent<{
+  public static readonly onAvailableContentChangedEvent = new BeUiEvent<{
     contentId: string;
   }>();
 

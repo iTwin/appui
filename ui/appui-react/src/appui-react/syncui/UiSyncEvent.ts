@@ -17,5 +17,6 @@ export interface UiSyncEventArgs {
 
 /** UiSync Event class.
  * @public
+ * @deprecated in 4.13.x. Use `BeUiEvent<UiSyncEventArgs>` instead.
  */
 export class UiSyncEvent extends BeUiEvent<UiSyncEventArgs> {}
