@@ -13,11 +13,11 @@ import type { ContentControl } from "./ContentControl";
 import { InternalContentLayoutManager } from "./InternalContentLayoutManager";
 import { IModelApp } from "@itwin/core-frontend";
 import type { ContentGroup } from "./ContentGroup";
-import { Logger } from "@itwin/core-bentley";
+import { BeUiEvent, Logger } from "@itwin/core-bentley";
 import { UiFramework } from "../UiFramework";
-import {
-  ActiveContentChangedEvent,
-  MouseDownChangedEvent,
+import type {
+  ActiveContentChangedEventArgs,
+  MouseDownChangedEventArgs,
 } from "../framework/FrameworkContent";
 import { InternalContentDialogManager } from "../dialog/InternalContentDialogManager";
 
@@ -29,7 +29,8 @@ export class InternalContentViewManager {
   private static _activeContent?: React.ReactNode;
 
   /** Gets the [[MouseDownChangedEvent]] */
-  public static readonly onMouseDownChangedEvent = new MouseDownChangedEvent();
+  public static readonly onMouseDownChangedEvent =
+    new BeUiEvent<MouseDownChangedEventArgs>();
 
   /** Determines if the mouse is down in a content view */
   public static get isMouseDown(): boolean {
@@ -44,7 +45,7 @@ export class InternalContentViewManager {
 
   /** Gets the [[ActiveContentChangedEvent]] */
   public static readonly onActiveContentChangedEvent =
-    new ActiveContentChangedEvent();
+    new BeUiEvent<ActiveContentChangedEventArgs>();
 
   /** Fires when floating contents are added or removed */
 

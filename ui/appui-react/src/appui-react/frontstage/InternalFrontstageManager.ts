@@ -6,7 +6,7 @@
  * @module Frontstage
  */
 
-import { Logger } from "@itwin/core-bentley";
+import { BeUiEvent, Logger } from "@itwin/core-bentley";
 import type {
   IModelConnection,
   SelectedViewportChangedArgs,
@@ -16,19 +16,23 @@ import type {
 import { IModelApp, InteractiveTool } from "@itwin/core-frontend";
 import { UiEvent } from "@itwin/appui-abstract";
 import type { Size } from "@itwin/core-react";
-import { ContentControlActivatedEvent } from "../content/ContentControl";
+import type { ContentControlActivatedEventArgs } from "../content/ContentControl";
 import type { ContentGroup } from "../content/ContentGroup";
-import type { ContentLayoutDef } from "../content/ContentLayout";
-import { ContentLayoutActivatedEvent } from "../content/ContentLayout";
-import { NavigationAidActivatedEvent } from "../navigationaids/NavigationAidControl";
-import type { PanelPinnedChangedEventArgs } from "../stagepanels/StagePanelDef";
-import {
-  PanelSizeChangedEvent,
-  PanelStateChangedEvent,
+import type {
+  ContentLayoutActivatedEventArgs,
+  ContentLayoutDef,
+} from "../content/ContentLayout";
+import type { NavigationAidActivatedEventArgs } from "../navigationaids/NavigationAidControl";
+import type {
+  PanelPinnedChangedEventArgs,
+  PanelSizeChangedEventArgs,
+  PanelStateChangedEventArgs,
 } from "../stagepanels/StagePanelDef";
 import { UiFramework } from "../UiFramework";
-import type { WidgetDef } from "../widgets/WidgetDef";
-import { WidgetStateChangedEvent } from "../widgets/WidgetDef";
+import type {
+  WidgetDef,
+  WidgetStateChangedEventArgs,
+} from "../widgets/WidgetDef";
 import { ToolInformation } from "../toolsettings/ToolInformation";
 import type { ToolUiProvider } from "../toolsettings/ToolUiProvider";
 import type {
@@ -40,18 +44,16 @@ import type { FrontstageProvider } from "./FrontstageProvider";
 import { TimeTracker } from "../configurableui/TimeTracker";
 import type { WidgetState } from "../widgets/WidgetState";
 import type {
+  FrontstageActivatedEventArgs,
+  FrontstageDeactivatedEventArgs,
+  FrontstageReadyEventArgs,
+  ModalFrontstageChangedEventArgs,
+  ModalFrontstageClosedEventArgs,
   ModalFrontstageInfo,
   ModalFrontstageItem,
-} from "../framework/FrameworkFrontstages";
-import {
-  FrontstageActivatedEvent,
-  FrontstageDeactivatedEvent,
-  FrontstageReadyEvent,
-  ModalFrontstageChangedEvent,
-  ModalFrontstageClosedEvent,
-  ModalFrontstageRequestedCloseEvent,
-  ToolActivatedEvent,
-  ToolIconChangedEvent,
+  ModalFrontstageRequestedCloseEventArgs,
+  ToolActivatedEventArgs,
+  ToolIconChangedEventArgs,
 } from "../framework/FrameworkFrontstages";
 import type { SyncToolSettingsPropertiesEventArgs } from "../framework/FrameworkToolSettings";
 
@@ -191,31 +193,33 @@ export class InternalFrontstageManager {
 
   /** Get Frontstage Deactivated event. */
   public static readonly onFrontstageDeactivatedEvent =
-    new FrontstageDeactivatedEvent();
+    new BeUiEvent<FrontstageDeactivatedEventArgs>();
 
   /** Get Frontstage Activated event. */
   public static readonly onFrontstageActivatedEvent =
-    new FrontstageActivatedEvent();
+    new BeUiEvent<FrontstageActivatedEventArgs>();
 
   /** Get Frontstage Activated event. */
-  public static readonly onFrontstageReadyEvent = new FrontstageReadyEvent();
+  public static readonly onFrontstageReadyEvent =
+    new BeUiEvent<FrontstageReadyEventArgs>();
 
   /** Get Modal Frontstage Changed event. */
   public static readonly onModalFrontstageChangedEvent =
-    new ModalFrontstageChangedEvent();
+    new BeUiEvent<ModalFrontstageChangedEventArgs>();
 
   /** Get Modal Frontstage Closed event. */
   public static readonly onModalFrontstageClosedEvent =
-    new ModalFrontstageClosedEvent();
+    new BeUiEvent<ModalFrontstageClosedEventArgs>();
 
   /** Get Modal Frontstage Requested Closed event.
    * @alpha
    */
   public static readonly onCloseModalFrontstageRequestedEvent =
-    new ModalFrontstageRequestedCloseEvent();
+    new BeUiEvent<ModalFrontstageRequestedCloseEventArgs>();
 
   /** Get Tool Activated event. */
-  public static readonly onToolActivatedEvent = new ToolActivatedEvent();
+  public static readonly onToolActivatedEvent =
+    new BeUiEvent<ToolActivatedEventArgs>();
 
   /** Get ToolSetting Reload event. */
   // eslint-disable-next-line deprecation/deprecation
@@ -228,23 +232,24 @@ export class InternalFrontstageManager {
   public static readonly onToolPanelOpenedEvent = new UiEvent<void>();
 
   /** Get Tool Icon Changed event. */
-  public static readonly onToolIconChangedEvent = new ToolIconChangedEvent();
+  public static readonly onToolIconChangedEvent =
+    new BeUiEvent<ToolIconChangedEventArgs>();
 
   /** Get Content Layout Activated event. */
   public static readonly onContentLayoutActivatedEvent =
-    new ContentLayoutActivatedEvent();
+    new BeUiEvent<ContentLayoutActivatedEventArgs>();
 
   /** Get Content Control Activated event. */
   public static readonly onContentControlActivatedEvent =
-    new ContentControlActivatedEvent();
+    new BeUiEvent<ContentControlActivatedEventArgs>();
 
   /** Get Navigation Aid Activated event. */
   public static readonly onNavigationAidActivatedEvent =
-    new NavigationAidActivatedEvent();
+    new BeUiEvent<NavigationAidActivatedEventArgs>();
 
   /** Get Widget State Changed event. */
   public static readonly onWidgetStateChangedEvent =
-    new WidgetStateChangedEvent();
+    new BeUiEvent<WidgetStateChangedEventArgs>();
 
   /** @internal */
   // eslint-disable-next-line deprecation/deprecation
@@ -269,7 +274,7 @@ export class InternalFrontstageManager {
    * @alpha
    */
   public static readonly onPanelStateChangedEvent =
-    new PanelStateChangedEvent();
+    new BeUiEvent<PanelStateChangedEventArgs>();
 
   /** Get panel pinned changed event.
    * @alpha
@@ -279,7 +284,8 @@ export class InternalFrontstageManager {
     new UiEvent<PanelPinnedChangedEventArgs>();
 
   /** @internal */
-  public static readonly onPanelSizeChangedEvent = new PanelSizeChangedEvent();
+  public static readonly onPanelSizeChangedEvent =
+    new BeUiEvent<PanelSizeChangedEventArgs>();
 
   /** Clears the Frontstage map.
    */

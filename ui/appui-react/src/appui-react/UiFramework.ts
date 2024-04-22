@@ -115,6 +115,7 @@ export interface UiVisibilityEventArgs {
 
 /** UiVisibility Event class.
  * @public
+ * @deprecated in 4.13.x. Use `BeUiEvent<UiVisibilityEventArgs>` instead.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class UiVisibilityChangedEvent extends UiEvent<UiVisibilityEventArgs> {}
@@ -262,6 +263,7 @@ export class UiFramework {
   /** Get Show Ui event.
    * @public
    */
+  // eslint-disable-next-line deprecation/deprecation
   public static readonly onUiVisibilityChanged = new UiVisibilityChangedEvent();
 
   /**

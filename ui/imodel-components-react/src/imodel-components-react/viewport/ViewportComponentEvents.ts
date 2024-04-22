@@ -27,6 +27,7 @@ export interface DrawingViewportChangeEventArgs {
 
 /** Drawing View Change event
  * @public
+ * @deprecated in 4.13.x. Use `BeUiEvent<DrawingViewportChangeEventArgs>` instead.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class DrawingViewportChangeEvent extends UiEvent<DrawingViewportChangeEventArgs> {}
@@ -42,6 +43,7 @@ export interface CubeRotationChangeEventArgs {
 
 /** 3d Cube Rotation Change event
  * @public
+ * @deprecated in 4.13.x. Use `BeUiEvent<CubeRotationChangeEventArgs>` instead.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class CubeRotationChangeEvent extends UiEvent<CubeRotationChangeEventArgs> {}
@@ -55,6 +57,7 @@ export interface StandardRotationChangeEventArgs {
 
 /** Standard Rotation Change event
  * @public
+ * @deprecated in 4.13.x. Use `BeUiEvent<StandardRotationChangeEventArgs>` instead.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class StandardRotationChangeEvent extends UiEvent<StandardRotationChangeEventArgs> {}
@@ -69,6 +72,7 @@ export interface ViewRotationChangeEventArgs {
 
 /** View Rotation Change event
  * @public
+ * @deprecated in 4.13.x. Use `BeUiEvent<ViewRotationChangeEventArgs>` instead.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class ViewRotationChangeEvent extends UiEvent<ViewRotationChangeEventArgs> {}
@@ -84,6 +88,7 @@ export interface ViewClassFullNameChangedEventArgs {
 
 /** View Class Full Name Change event
  * @public
+ * @deprecated in 4.13.x. Use `BeUiEvent<ViewClassFullNameChangedEventArgs>` instead.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class ViewClassFullNameChangedEvent extends UiEvent<ViewClassFullNameChangedEventArgs> {}
@@ -99,6 +104,7 @@ export interface ViewIdChangedEventArgs {
 
 /** View Id Change event
  * @public
+ * @deprecated in 4.13.x. Use `BeUiEvent<ViewIdChangedEventArgs>` instead.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class ViewIdChangedEvent extends UiEvent<ViewIdChangedEventArgs> {}
@@ -131,15 +137,16 @@ export class ViewportComponentEvents {
   public static readonly extents = Vector3d.createZero();
   public static readonly rotationMatrix = Matrix3d.createIdentity();
   public static readonly onDrawingViewportChangeEvent =
-    new DrawingViewportChangeEvent();
+    new DrawingViewportChangeEvent(); // eslint-disable-line deprecation/deprecation
   public static readonly onCubeRotationChangeEvent =
-    new CubeRotationChangeEvent();
+    new CubeRotationChangeEvent(); // eslint-disable-line deprecation/deprecation
   public static readonly onStandardRotationChangeEvent =
-    new StandardRotationChangeEvent();
+    new StandardRotationChangeEvent(); // eslint-disable-line deprecation/deprecation
   public static readonly onViewRotationChangeEvent =
-    new ViewRotationChangeEvent();
+    new ViewRotationChangeEvent(); // eslint-disable-line deprecation/deprecation
   public static readonly onViewClassFullNameChangedEvent =
-    new ViewClassFullNameChangedEvent();
+    new ViewClassFullNameChangedEvent(); // eslint-disable-line deprecation/deprecation
+  // eslint-disable-next-line deprecation/deprecation
   public static readonly onViewIdChangedEvent = new ViewIdChangedEvent();
 
   private static handleSelectedViewportChanged(

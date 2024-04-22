@@ -31,6 +31,7 @@ export interface FrontstageActivatedEventArgs {
 
 /** Frontstage Activated Event class.
  * @public
+ * @deprecated in 4.13.x. Use `BeUiEvent<FrontstageActivatedEventArgs>` instead.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class FrontstageActivatedEvent extends UiEvent<FrontstageActivatedEventArgs> {}
@@ -54,6 +55,7 @@ export interface FrontstageDeactivatedEventArgs {
 
 /** Frontstage Deactivated Event class.
  * @public
+ * @deprecated in 4.13.x. Use `BeUiEvent<FrontstageDeactivatedEventArgs>` instead.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class FrontstageDeactivatedEvent extends UiEvent<FrontstageDeactivatedEventArgs> {}
@@ -67,6 +69,7 @@ export interface FrontstageReadyEventArgs {
 
 /** Frontstage Ready Event class.
  * @public
+ * @deprecated in 4.13.x. Use `BeUiEvent<FrontstageReadyEventArgs>` instead.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class FrontstageReadyEvent extends UiEvent<FrontstageReadyEventArgs> {}
@@ -80,6 +83,7 @@ export interface ModalFrontstageChangedEventArgs {
 
 /** Modal Frontstage Stack Changed Event class.
  * @public
+ * @deprecated in 4.13.x. Use `BeUiEvent<ModalFrontstageChangedEventArgs>` instead.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class ModalFrontstageChangedEvent extends UiEvent<ModalFrontstageChangedEventArgs> {}
@@ -105,6 +109,7 @@ export interface ModalFrontstageClosedEventArgs {
  * to true it is up to the stage to register for this event and call the stageCloseFunc once it has saved
  * any unsaved data.
  * @alpha
+ * @deprecated in 4.13.x. Use `BeUiEvent<ModalFrontstageRequestedCloseEventArgs>` instead.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class ModalFrontstageRequestedCloseEvent extends UiEvent<ModalFrontstageRequestedCloseEventArgs> {}
@@ -121,6 +126,7 @@ export interface ModalFrontstageRequestedCloseEventArgs {
 
 /** Modal Frontstage Closed Event class.
  * @public
+ * @deprecated in 4.13.x. Use `BeUiEvent<ModalFrontstageClosedEventArgs>` instead.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class ModalFrontstageClosedEvent extends UiEvent<ModalFrontstageClosedEventArgs> {}
@@ -134,6 +140,7 @@ export interface ToolActivatedEventArgs {
 
 /** Tool Activated Event class.
  * @public
+ * @deprecated in 4.13.x. Use `BeUiEvent<ToolActivatedEventArgs>` instead.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class ToolActivatedEvent extends UiEvent<ToolActivatedEventArgs> {}
@@ -147,6 +154,7 @@ export interface ToolIconChangedEventArgs {
 
 /** Tool Icon Changed Event class.
  * @public
+ * @deprecated in 4.13.x. Use `BeUiEvent<ToolIconChangedEventArgs>` instead.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class ToolIconChangedEvent extends UiEvent<ToolIconChangedEventArgs> {}
@@ -181,26 +189,33 @@ export interface FrameworkFrontstages {
   readonly isLoading: boolean;
 
   /** Get Frontstage Deactivated event. */
+  // eslint-disable-next-line deprecation/deprecation
   readonly onFrontstageDeactivatedEvent: FrontstageDeactivatedEvent;
 
   /** Get Frontstage Activated event. */
+  // eslint-disable-next-line deprecation/deprecation
   readonly onFrontstageActivatedEvent: FrontstageActivatedEvent;
 
   /** Get Frontstage Activated event. */
+  // eslint-disable-next-line deprecation/deprecation
   readonly onFrontstageReadyEvent: FrontstageReadyEvent;
 
   /** Get Modal Frontstage Changed event. */
+  // eslint-disable-next-line deprecation/deprecation
   readonly onModalFrontstageChangedEvent: ModalFrontstageChangedEvent;
 
   /** Get Modal Frontstage Closed event. */
+  // eslint-disable-next-line deprecation/deprecation
   readonly onModalFrontstageClosedEvent: ModalFrontstageClosedEvent;
 
   /** Get Modal Frontstage Requested Closed event.
    * @alpha
    */
+  // eslint-disable-next-line deprecation/deprecation
   readonly onCloseModalFrontstageRequestedEvent: ModalFrontstageRequestedCloseEvent;
 
   /** Get Tool Activated event. */
+  // eslint-disable-next-line deprecation/deprecation
   readonly onToolActivatedEvent: ToolActivatedEvent;
 
   /** Get ToolSetting Reload event. */
@@ -208,23 +223,29 @@ export interface FrameworkFrontstages {
   readonly onToolSettingsReloadEvent: UiEvent<void>;
 
   /** Get Tool Icon Changed event. */
+  // eslint-disable-next-line deprecation/deprecation
   readonly onToolIconChangedEvent: ToolIconChangedEvent;
 
   /** Get Content Layout Activated event. */
+  // eslint-disable-next-line deprecation/deprecation
   readonly onContentLayoutActivatedEvent: ContentLayoutActivatedEvent;
 
   /** Get Content Control Activated event. */
+  // eslint-disable-next-line deprecation/deprecation
   readonly onContentControlActivatedEvent: ContentControlActivatedEvent;
 
   /** Get Navigation Aid Activated event. */
+  // eslint-disable-next-line deprecation/deprecation
   readonly onNavigationAidActivatedEvent: NavigationAidActivatedEvent;
 
   /** Get Widget State Changed event. */
+  // eslint-disable-next-line deprecation/deprecation
   readonly onWidgetStateChangedEvent: WidgetStateChangedEvent;
 
   /** Get panel state changed event.
    * @alpha
    */
+  // eslint-disable-next-line deprecation/deprecation
   readonly onPanelStateChangedEvent: PanelStateChangedEvent;
 
   /** Get panel pinned changed event.

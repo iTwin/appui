@@ -11,8 +11,9 @@ import { IModelApp } from "@itwin/core-frontend";
 import type { DialogItem, DialogPropertySyncItem } from "@itwin/appui-abstract";
 import { UiEvent } from "@itwin/appui-abstract";
 import { focusIntoContainer } from "@itwin/core-react";
-import { SyncToolSettingsPropertiesEvent } from "../framework/FrameworkToolSettings";
+import type { SyncToolSettingsPropertiesEventArgs } from "../framework/FrameworkToolSettings";
 import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
+import { BeUiEvent } from "@itwin/core-bentley";
 
 /** Tool Settings Manager class. Used to generate UI components for Tool Settings.
  * @internal
@@ -153,7 +154,7 @@ export class InternalToolSettingsManager {
 
   /** Get ToolSettings Properties sync event. */
   public static readonly onSyncToolSettingsProperties =
-    new SyncToolSettingsPropertiesEvent();
+    new BeUiEvent<SyncToolSettingsPropertiesEventArgs>();
   // eslint-disable-next-line deprecation/deprecation
   public static readonly onReloadToolSettingsProperties = new UiEvent<void>();
 

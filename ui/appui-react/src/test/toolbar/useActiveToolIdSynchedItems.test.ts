@@ -4,15 +4,16 @@
  *--------------------------------------------------------------------------------------------*/
 
 import { renderHook } from "@testing-library/react-hooks";
-import { ToolActivatedEvent } from "../../appui-react";
+import type { ToolActivatedEventArgs } from "../../appui-react";
 import { useActiveToolIdSynchedItems } from "../../appui-react/toolbar/useActiveToolIdSynchedItems";
+import { BeUiEvent } from "@itwin/core-bentley";
 
 describe("useActiveToolIdSynchedItems", () => {
   it("Should update items on mount", () => {
     const items = [{ id: "Btn1", isActive: false }];
     const syncHost = {
       activeToolId: "Btn1",
-      onToolActivatedEvent: new ToolActivatedEvent(),
+      onToolActivatedEvent: new BeUiEvent<ToolActivatedEventArgs>(),
     };
 
     const { result } = renderHook(() => {
@@ -30,7 +31,7 @@ describe("useActiveToolIdSynchedItems", () => {
     ];
     const syncHost = {
       activeToolId: "Btn1",
-      onToolActivatedEvent: new ToolActivatedEvent(),
+      onToolActivatedEvent: new BeUiEvent<ToolActivatedEventArgs>(),
     };
 
     const { result } = renderHook(() => {
@@ -48,7 +49,7 @@ describe("useActiveToolIdSynchedItems", () => {
     const items = [{ id: "Btn1", isActive: true }];
     const syncHost = {
       activeToolId: "Btn1",
-      onToolActivatedEvent: new ToolActivatedEvent(),
+      onToolActivatedEvent: new BeUiEvent<ToolActivatedEventArgs>(),
     };
 
     const { result } = renderHook(() => {
@@ -77,7 +78,7 @@ describe("useActiveToolIdSynchedItems", () => {
     ];
     const syncHost = {
       activeToolId: "Btn3",
-      onToolActivatedEvent: new ToolActivatedEvent(),
+      onToolActivatedEvent: new BeUiEvent<ToolActivatedEventArgs>(),
     };
     const { result } = renderHook(() => {
       return useActiveToolIdSynchedItems(items, syncHost);
@@ -92,7 +93,7 @@ describe("useActiveToolIdSynchedItems", () => {
     const items = [{ id: "Btn1" }];
     const syncHost = {
       activeToolId: "Btn1",
-      onToolActivatedEvent: new ToolActivatedEvent(),
+      onToolActivatedEvent: new BeUiEvent<ToolActivatedEventArgs>(),
     };
     const spy = vi.spyOn(syncHost.onToolActivatedEvent, "removeListener");
     const { unmount } = renderHook(() => {

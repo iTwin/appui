@@ -569,6 +569,7 @@ export interface ContentLayoutActivatedEventArgs {
 
 /** Content Layout Activated Event class.
  * @public
+ * @deprecated in 4.13.x. Use `BeUiEvent<ContentLayoutActivatedEventArgs>` instead.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class ContentLayoutActivatedEvent extends UiEvent<ContentLayoutActivatedEventArgs> {}

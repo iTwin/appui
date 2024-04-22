@@ -30,6 +30,7 @@ export interface ContentControlActivatedEventArgs {
 
 /** ContentControl Activated Event class.
  * @public
+ * @deprecated in 4.13.x. Use `BeUiEvent<ContentControlActivatedEventArgs>` instead.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class ContentControlActivatedEvent extends UiEvent<ContentControlActivatedEventArgs> {}

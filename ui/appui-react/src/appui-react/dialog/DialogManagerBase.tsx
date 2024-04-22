@@ -7,6 +7,7 @@
  */
 
 import * as React from "react";
+import type { BeUiEvent } from "@itwin/core-bentley";
 import { Logger } from "@itwin/core-bentley";
 import { UiEvent } from "@itwin/appui-abstract";
 import { UiFramework } from "../UiFramework";
@@ -22,6 +23,7 @@ export interface DialogChangedEventArgs {
 
 /** Dialog Changed Event class.
  * @public
+ * @deprecated in 4.13.x. Use `BeUiEvent<DialogChangedEventArgs>` instead.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class DialogChangedEvent extends UiEvent<DialogChangedEventArgs> {}
@@ -44,10 +46,10 @@ const ZINDEX_DEFAULT = 12000;
 export class DialogManagerBase {
   private static _sId = 0;
   private _dialogs: DialogInfo[] = new Array<DialogInfo>();
-  private _onDialogChangedEvent: DialogChangedEvent;
+  private _onDialogChangedEvent: BeUiEvent<DialogChangedEventArgs>;
   private static _topZIndex = ZINDEX_DEFAULT;
 
-  constructor(onDialogChangedEvent: DialogChangedEvent) {
+  constructor(onDialogChangedEvent: BeUiEvent<DialogChangedEventArgs>) {
     this._onDialogChangedEvent = onDialogChangedEvent;
   }
 
@@ -67,7 +69,7 @@ export class DialogManagerBase {
     return this._dialogs;
   }
 
-  public get onDialogChangedEvent(): DialogChangedEvent {
+  public get onDialogChangedEvent(): BeUiEvent<DialogChangedEventArgs> {
     return this._onDialogChangedEvent;
   }
 

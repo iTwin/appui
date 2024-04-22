@@ -46,6 +46,7 @@ export interface CursorUpdatedEventArgs {
 
 /** Cursor Updated Event class.
  * @public
+ * @deprecated in 4.13.x. Use `BeUiEvent<CursorUpdatedEventArgs>` instead.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class CursorUpdatedEvent extends UiEvent<CursorUpdatedEventArgs> {}
@@ -83,6 +84,7 @@ export class CursorInformation {
   }
 
   /** Gets the [[CursorUpdatedEvent]]. */
+  // eslint-disable-next-line deprecation/deprecation
   public static readonly onCursorUpdatedEvent = new CursorUpdatedEvent();
 
   /** Handles the mouse movement.  Sets the cursor position and direction and emits onCursorUpdatedEvent. */

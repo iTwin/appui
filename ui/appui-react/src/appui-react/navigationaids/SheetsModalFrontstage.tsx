@@ -23,6 +23,7 @@ import type { ModalFrontstageInfo } from "../framework/FrameworkFrontstages";
 import { UiFramework } from "../UiFramework";
 import type { SheetData } from "./SheetNavigationAid";
 import { SvgDocument, SvgPlaceholder } from "@itwin/itwinui-icons-react";
+import { BeUiEvent } from "@itwin/core-bentley";
 
 /** Data about a sheet card
  * @alpha
@@ -45,6 +46,7 @@ export interface CardSelectedEventArgs {
 
 /** Class for CardSelectedEvent
  * @alpha
+ * @deprecated in 4.13.x. Use `BeUiEvent<CardSelectedEventArgs>` instead.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class CardSelectedEvent extends UiEvent<CardSelectedEventArgs> {}
@@ -133,10 +135,10 @@ export interface CardContainerProps extends CommonProps {
  * @alpha
  */
 export class CardContainer extends React.Component<CardContainerProps> {
-  private static _cardSelectedEvent: CardSelectedEvent =
-    new CardSelectedEvent();
+  private static _cardSelectedEvent = new BeUiEvent<CardSelectedEventArgs>();
 
   /** Get CardSelectedEvent event */
+  // eslint-disable-next-line deprecation/deprecation
   public static get onCardSelectedEvent(): CardSelectedEvent {
     return CardContainer._cardSelectedEvent;
   }

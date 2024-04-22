@@ -25,6 +25,7 @@ export interface NavigationAidActivatedEventArgs {
 
 /** NavigationAid Activated Event class.
  * @public
+ * @deprecated in 4.13.x. Use `BeUiEvent<NavigationAidActivatedEventArgs>` instead.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class NavigationAidActivatedEvent extends UiEvent<NavigationAidActivatedEventArgs> {}

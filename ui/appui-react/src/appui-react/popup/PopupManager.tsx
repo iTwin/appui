@@ -80,6 +80,7 @@ export interface PopupsChangedEventArgs {
 
 /** Popups Changed Event class.
  * @public
+ * @deprecated in 4.13.x. Use `BeUiEvent<PopupsChangedEventArgs>` instead.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class PopupsChangedEvent extends UiEvent<PopupsChangedEventArgs> {}
@@ -129,6 +130,7 @@ export class PopupManager {
 
   private static _defaultOffset = { x: 8, y: 8 };
 
+  // eslint-disable-next-line deprecation/deprecation
   public static readonly onPopupsChangedEvent = new PopupsChangedEvent();
 
   public static get popupCount() {

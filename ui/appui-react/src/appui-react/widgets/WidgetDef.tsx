@@ -46,6 +46,7 @@ export interface WidgetStateChangedEventArgs {
 
 /** Widget State Changed Event class.
  * @public
+ * @deprecated in 4.13.x. Use `BeUiEvent<WidgetStateChangedEventArgs>` instead.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class WidgetStateChangedEvent extends UiEvent<WidgetStateChangedEventArgs> {}

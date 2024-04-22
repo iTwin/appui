@@ -19,6 +19,7 @@ export interface SyncToolSettingsPropertiesEventArgs {
 
 /** Sync Tool Settings Properties Event class.
  * @public
+ * @deprecated in 4.13.x. Use `BeUiEvent<SyncToolSettingsPropertiesEventArgs>` instead.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class SyncToolSettingsPropertiesEvent extends UiEvent<SyncToolSettingsPropertiesEventArgs> {}
@@ -58,6 +59,7 @@ export interface FrameworkToolSettings {
   readonly activeToolDescription: string;
 
   /** Get ToolSettings Properties sync event. */
+  // eslint-disable-next-line deprecation/deprecation
   readonly onSyncToolSettingsProperties: SyncToolSettingsPropertiesEvent;
   // eslint-disable-next-line deprecation/deprecation
   readonly onReloadToolSettingsProperties: UiEvent<void>;

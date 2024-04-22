@@ -10,12 +10,16 @@ import { DialogChangedEvent } from "../dialog/DialogManagerBase";
 
 /** Modal Dialog Changed Event class.
  * @public
+ * @deprecated in 4.13.x. Use `BeUiEvent<DialogChangedEventArgs>` instead.
  */
+// eslint-disable-next-line deprecation/deprecation
 export class ModalDialogChangedEvent extends DialogChangedEvent {}
 
 /** Modeless Dialog Changed Event class.
  * @public
+ * @deprecated in 4.13.x. Use `BeUiEvent<DialogChangedEventArgs>` instead.
  */
+// eslint-disable-next-line deprecation/deprecation
 export class ModelessDialogChangedEvent extends DialogChangedEvent {}
 
 /** @public */
@@ -85,6 +89,7 @@ export interface FrameworkDialogs {
    */
   readonly modal: FrameworkDialog & {
     /** Modal Dialog Changed Event */
+    // eslint-disable-next-line deprecation/deprecation
     readonly onModalDialogChangedEvent: ModalDialogChangedEvent;
   };
 
@@ -94,6 +99,7 @@ export interface FrameworkDialogs {
    */
   readonly modeless: FrameworkStackedDialog<ModelessDialogInfo> & {
     /** Modeless Dialog Changed Event */
+    // eslint-disable-next-line deprecation/deprecation
     readonly onModelessDialogChangedEvent: ModelessDialogChangedEvent;
   };
 }
