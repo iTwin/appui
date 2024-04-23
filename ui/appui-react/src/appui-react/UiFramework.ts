@@ -958,20 +958,16 @@ export class UiFramework {
   ): boolean {
     const anchor = this.resolveHtmlElement(anchorElement);
 
-    return PopupManager.displayCard(
-      // FIXME: displayCard should take a wrapped { reactNode } type
-      { reactNode: content } as any as React.ReactNode,
-      {
-        title,
-        toolbarProps,
-        location,
-        offset,
-        onItemExecuted,
-        onCancel,
-        placement,
-        anchor,
-      }
-    );
+    return PopupManager.displayCard(content, {
+      title,
+      toolbarProps,
+      location,
+      offset,
+      onItemExecuted,
+      onCancel,
+      placement,
+      anchor,
+    });
   }
 
   /**
