@@ -5,7 +5,6 @@
 import * as fs from "fs";
 import * as path from "path";
 import { Logger, ProcessDetector } from "@itwin/core-bentley";
-import { getSupportedRpcs } from "../common/rpcs";
 import { loggerCategory } from "../common/TestAppConfiguration";
 import { initializeElectron } from "./electron/ElectronMain";
 import { initializeLogging } from "./logging";
