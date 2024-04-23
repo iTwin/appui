@@ -125,7 +125,7 @@ export function ViewportComponent(props: ViewportProps) {
   };
 
   const handleStandardRotationChangeEvent = (
-    args: StandardRotationChangeEventArgs
+    args: StandardRotationChangeEventArgs // eslint-disable-line deprecation/deprecation
   ) => {
     const viewManager = viewManagerRef.current;
     const currentScreenViewport = screenViewportRef.current;
@@ -141,7 +141,7 @@ export function ViewportComponent(props: ViewportProps) {
   };
 
   const handleDrawingViewportChangeEvent = (
-    args: DrawingViewportChangeEventArgs
+    args: DrawingViewportChangeEventArgs // eslint-disable-line deprecation/deprecation
   ) => {
     const viewManager = viewManagerRef.current;
     const currentScreenViewport = screenViewportRef.current;
@@ -187,6 +187,7 @@ export function ViewportComponent(props: ViewportProps) {
     return targetPoint.current ?? vp.view.getCenter();
   };
 
+  // eslint-disable-next-line deprecation/deprecation
   const handleCubeRotationChangeEvent = (args: CubeRotationChangeEventArgs) => {
     const viewManager = viewManagerRef.current;
     const currentScreenViewport = screenViewportRef.current;

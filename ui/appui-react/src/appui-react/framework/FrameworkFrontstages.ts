@@ -23,6 +23,7 @@ import type { WidgetState } from "../widgets/WidgetState";
 
 /** Frontstage Activated Event Args interface.
  * @public
+ * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface FrontstageActivatedEventArgs {
   deactivatedFrontstageDef?: FrontstageDef;
@@ -31,13 +32,14 @@ export interface FrontstageActivatedEventArgs {
 
 /** Frontstage Activated Event class.
  * @public
- * @deprecated in 4.13.x. Use `BeUiEvent<FrontstageActivatedEventArgs>` instead.
+ * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class FrontstageActivatedEvent extends UiEvent<FrontstageActivatedEventArgs> {}
 
 /** Frontstage Deactivated Event Args interface.
  * @public
+ * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface FrontstageDeactivatedEventArgs {
   /** Frontstage being deactivated */
@@ -55,13 +57,14 @@ export interface FrontstageDeactivatedEventArgs {
 
 /** Frontstage Deactivated Event class.
  * @public
- * @deprecated in 4.13.x. Use `BeUiEvent<FrontstageDeactivatedEventArgs>` instead.
+ * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class FrontstageDeactivatedEvent extends UiEvent<FrontstageDeactivatedEventArgs> {}
 
 /** Frontstage Ready Event Args interface.
  * @public
+ * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface FrontstageReadyEventArgs {
   frontstageDef: FrontstageDef;
@@ -69,13 +72,14 @@ export interface FrontstageReadyEventArgs {
 
 /** Frontstage Ready Event class.
  * @public
- * @deprecated in 4.13.x. Use `BeUiEvent<FrontstageReadyEventArgs>` instead.
+ * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class FrontstageReadyEvent extends UiEvent<FrontstageReadyEventArgs> {}
 
 /** Modal Frontstage Changed Event Args interface.
  * @public
+ * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface ModalFrontstageChangedEventArgs {
   modalFrontstageCount: number;
@@ -83,13 +87,14 @@ export interface ModalFrontstageChangedEventArgs {
 
 /** Modal Frontstage Stack Changed Event class.
  * @public
- * @deprecated in 4.13.x. Use `BeUiEvent<ModalFrontstageChangedEventArgs>` instead.
+ * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class ModalFrontstageChangedEvent extends UiEvent<ModalFrontstageChangedEventArgs> {}
 
 /** Modal Frontstage Closed Event Args interface.
  * @public
+ * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface ModalFrontstageClosedEventArgs {
   /** Modal Frontstage being closed */
@@ -109,13 +114,14 @@ export interface ModalFrontstageClosedEventArgs {
  * to true it is up to the stage to register for this event and call the stageCloseFunc once it has saved
  * any unsaved data.
  * @alpha
- * @deprecated in 4.13.x. Use `BeUiEvent<ModalFrontstageRequestedCloseEventArgs>` instead.
+ * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class ModalFrontstageRequestedCloseEvent extends UiEvent<ModalFrontstageRequestedCloseEventArgs> {}
 
 /** Modal Frontstage RequestedClose Event Args interface.
  * @alpha
+ * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface ModalFrontstageRequestedCloseEventArgs {
   /** Modal Frontstage that is to be closed */
@@ -126,13 +132,14 @@ export interface ModalFrontstageRequestedCloseEventArgs {
 
 /** Modal Frontstage Closed Event class.
  * @public
- * @deprecated in 4.13.x. Use `BeUiEvent<ModalFrontstageClosedEventArgs>` instead.
+ * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class ModalFrontstageClosedEvent extends UiEvent<ModalFrontstageClosedEventArgs> {}
 
 /** Tool Activated Event Args interface.
  * @public
+ * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface ToolActivatedEventArgs {
   toolId: string;
@@ -140,13 +147,14 @@ export interface ToolActivatedEventArgs {
 
 /** Tool Activated Event class.
  * @public
- * @deprecated in 4.13.x. Use `BeUiEvent<ToolActivatedEventArgs>` instead.
+ * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class ToolActivatedEvent extends UiEvent<ToolActivatedEventArgs> {}
 
 /** Tool Icon Changed Event Args interface.
  * @public
+ * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface ToolIconChangedEventArgs {
   iconSpec: string;
@@ -154,7 +162,7 @@ export interface ToolIconChangedEventArgs {
 
 /** Tool Icon Changed Event class.
  * @public
- * @deprecated in 4.13.x. Use `BeUiEvent<ToolIconChangedEventArgs>` instead.
+ * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class ToolIconChangedEvent extends UiEvent<ToolIconChangedEventArgs> {}

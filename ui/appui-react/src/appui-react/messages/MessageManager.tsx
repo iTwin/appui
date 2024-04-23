@@ -63,6 +63,7 @@ class MessageBoxCallbacks {
 
 /** [[MessageAddedEvent]] arguments.
  * @public
+ * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface MessageAddedEventArgs {
   /** Message details for the message added */
@@ -71,6 +72,7 @@ export interface MessageAddedEventArgs {
 
 /** Activity Message Event arguments.
  * @public
+ * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface ActivityMessageEventArgs {
   /** Current message for the activity */
@@ -85,6 +87,7 @@ export interface ActivityMessageEventArgs {
 
 /** Input Field Message Event arguments.
  * @public
+ * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface InputFieldMessageEventArgs {
   /** Target HTML element for the Input Field message */
@@ -99,6 +102,7 @@ export interface InputFieldMessageEventArgs {
 
 /** Tool Assistance Changed event arguments.
  * @public
+ * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface ToolAssistanceChangedEventArgs {
   /** Tool Assistance instructions for the active tool */
@@ -107,56 +111,56 @@ export interface ToolAssistanceChangedEventArgs {
 
 /** Message Added Event class.
  * @public
- * @deprecated in 4.13.x. Use `BeUiEvent<MessageAddedEventArgs>` instead.
+ * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class MessageAddedEvent extends UiEvent<MessageAddedEventArgs> {}
 
 /** Messages Updated Event class.
  * @public
- * @deprecated in 4.13.x. Use `BeUiEvent<{}>` instead.
+ * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class MessagesUpdatedEvent extends UiEvent<{}> {}
 
 /** Activity Message Added Event class.
  * @public
- * @deprecated in 4.13.x. Use `BeUiEvent<ActivityMessageEventArgs>` instead.
+ * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class ActivityMessageUpdatedEvent extends UiEvent<ActivityMessageEventArgs> {}
 
 /** Activity Message Cancelled Event class.
  * @public
- * @deprecated in 4.13.x. Use `BeUiEvent<{}>` instead.
+ * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class ActivityMessageCancelledEvent extends UiEvent<{}> {}
 
 /** Input Field Message Added Event class
  * @public
- * @deprecated in 4.13.x. Use `BeUiEvent<InputFieldMessageEventArgs>` instead.
+ * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class InputFieldMessageAddedEvent extends UiEvent<InputFieldMessageEventArgs> {}
 
 /** Input Field Message Removed Event class.
  * @public
- * @deprecated in 4.13.x. Use `BeUiEvent<{}>` instead.
+ * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class InputFieldMessageRemovedEvent extends UiEvent<{}> {}
 
 /** Open Message Center Event class.
  * @public
- * @deprecated in 4.13.x. Use `BeUiEvent<{}>` instead.
+ * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class OpenMessageCenterEvent extends UiEvent<{}> {}
 
 /** Tool Assistance Changed event class
  * @public
- * @deprecated in 4.13.x. Use `BeUiEvent<ToolAssistanceChangedEventArgs>` instead.
+ * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class ToolAssistanceChangedEvent extends UiEvent<ToolAssistanceChangedEventArgs> {}

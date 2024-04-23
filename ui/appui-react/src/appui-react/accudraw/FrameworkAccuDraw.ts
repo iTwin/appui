@@ -46,19 +46,24 @@ const rotationModeToKeyMap = new Map<RotationMode, string>([
 ]);
 
 /** Arguments for [[AccuDrawSetFieldFocusEvent]]
- * @beta */
+ * @beta
+ * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
+ */
 export interface AccuDrawSetFieldFocusEventArgs {
   field: ItemField;
 }
 
 /** AccuDraw Set Field Focus event
  * @beta
- * @deprecated in 4.13.x. Use `BeUiEvent<AccuDrawSetFieldFocusEventArgs>` instead.
+ * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
  */
+// eslint-disable-next-line deprecation/deprecation
 export class AccuDrawSetFieldFocusEvent extends BeUiEvent<AccuDrawSetFieldFocusEventArgs> {}
 
 /** Arguments for [[AccuDrawSetFieldValueToUiEvent]]
- * @beta */
+ * @beta
+ * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
+ */
 export interface AccuDrawSetFieldValueToUiEventArgs {
   field: ItemField;
   value: number;
@@ -67,12 +72,15 @@ export interface AccuDrawSetFieldValueToUiEventArgs {
 
 /** AccuDraw Set Field Value to Ui event
  * @beta
- * @deprecated in 4.13.x. Use `BeUiEvent<AccuDrawSetFieldValueToUiEventArgs>` instead.
+ * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
  */
+// eslint-disable-next-line deprecation/deprecation
 export class AccuDrawSetFieldValueToUiEvent extends BeUiEvent<AccuDrawSetFieldValueToUiEventArgs> {}
 
 /** Arguments for [[AccuDrawSetFieldValueFromUiEvent]]
- * @beta */
+ * @beta
+ * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
+ */
 export interface AccuDrawSetFieldValueFromUiEventArgs {
   field: ItemField;
   stringValue: string;
@@ -80,12 +88,15 @@ export interface AccuDrawSetFieldValueFromUiEventArgs {
 
 /** AccuDraw Set Field Value from Ui event
  * @beta
- * @deprecated in 4.13.x. Use `BeUiEvent<AccuDrawSetFieldValueFromUiEventArgs>` instead.
+ * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
  */
+// eslint-disable-next-line deprecation/deprecation
 export class AccuDrawSetFieldValueFromUiEvent extends BeUiEvent<AccuDrawSetFieldValueFromUiEventArgs> {}
 
 /** Arguments for [[AccuDrawSetFieldLockEvent]]
- * @beta */
+ * @beta
+ * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
+ */
 export interface AccuDrawSetFieldLockEventArgs {
   field: ItemField;
   lock: boolean;
@@ -93,31 +104,35 @@ export interface AccuDrawSetFieldLockEventArgs {
 
 /** AccuDraw Set Field Lock event
  * @beta
- * @deprecated in 4.13.x. Use `BeUiEvent<AccuDrawSetFieldLockEventArgs>` instead.
+ * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
  */
+// eslint-disable-next-line deprecation/deprecation
 export class AccuDrawSetFieldLockEvent extends BeUiEvent<AccuDrawSetFieldLockEventArgs> {}
 
 /** Arguments for [[AccuDrawSetCompassModeEvent]]
- * @beta */
+ * @beta
+ * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
+ */
 export interface AccuDrawSetCompassModeEventArgs {
   mode: CompassMode;
 }
 
 /** AccuDraw Set Compass Mode event
  * @beta
- * @deprecated in 4.13.x. Use `BeUiEvent<AccuDrawSetCompassModeEventArgs>` instead.
+ * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
  */
+// eslint-disable-next-line deprecation/deprecation
 export class AccuDrawSetCompassModeEvent extends BeUiEvent<AccuDrawSetCompassModeEventArgs> {}
 
 /** AccuDraw Grab Input Focus event
  * @beta
- * @deprecated in 4.13.x. Use `BeUiEvent<{}>` instead.
+ * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
  */
 export class AccuDrawGrabInputFocusEvent extends BeUiEvent<{}> {}
 
 /** AccuDraw Ui Settings Changed event
  * @beta
- * @deprecated in 4.13.x. Use `BeUiEvent<{}>` instead.
+ * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
  */
 export class AccuDrawUiSettingsChangedEvent extends BeUiEvent<{}> {}
 
@@ -252,7 +267,7 @@ export class FrameworkAccuDraw
   }
 
   private handleSetFieldValueFromUiEvent = async (
-    args: AccuDrawSetFieldValueFromUiEventArgs
+    args: AccuDrawSetFieldValueFromUiEventArgs // eslint-disable-line deprecation/deprecation
   ) => {
     return this.processFieldInput(args.field, args.stringValue, false);
   };

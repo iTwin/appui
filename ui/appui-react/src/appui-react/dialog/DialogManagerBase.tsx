@@ -15,6 +15,7 @@ import { getCssVariableAsNumber } from "@itwin/core-react";
 
 /** Dialog Stack Changed Event Args class.
  * @public
+ * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface DialogChangedEventArgs {
   dialogCount: number;
@@ -23,7 +24,7 @@ export interface DialogChangedEventArgs {
 
 /** Dialog Changed Event class.
  * @public
- * @deprecated in 4.13.x. Use `BeUiEvent<DialogChangedEventArgs>` instead.
+ * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class DialogChangedEvent extends UiEvent<DialogChangedEventArgs> {}
@@ -46,9 +47,11 @@ const ZINDEX_DEFAULT = 12000;
 export class DialogManagerBase {
   private static _sId = 0;
   private _dialogs: DialogInfo[] = new Array<DialogInfo>();
+  // eslint-disable-next-line deprecation/deprecation
   private _onDialogChangedEvent: BeUiEvent<DialogChangedEventArgs>;
   private static _topZIndex = ZINDEX_DEFAULT;
 
+  // eslint-disable-next-line deprecation/deprecation
   constructor(onDialogChangedEvent: BeUiEvent<DialogChangedEventArgs>) {
     this._onDialogChangedEvent = onDialogChangedEvent;
   }
@@ -69,6 +72,7 @@ export class DialogManagerBase {
     return this._dialogs;
   }
 
+  // eslint-disable-next-line deprecation/deprecation
   public get onDialogChangedEvent(): BeUiEvent<DialogChangedEventArgs> {
     return this._onDialogChangedEvent;
   }
@@ -220,6 +224,7 @@ export class DialogRendererBase extends React.PureComponent<
     );
   }
 
+  // eslint-disable-next-line deprecation/deprecation
   private _handleDialogChangedEvent = (_args: DialogChangedEventArgs) => {
     this.forceUpdate();
   };

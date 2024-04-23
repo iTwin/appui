@@ -29,6 +29,7 @@ interface ElementTooltipState {
 
 /** [[ElementTooltipChangedEvent]] arguments.
  * @public
+ * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface ElementTooltipChangedEventArgs {
   isTooltipVisible: boolean;
@@ -40,7 +41,7 @@ export interface ElementTooltipChangedEventArgs {
 
 /** ElementTooltip Changed Event class.
  * @public
- * @deprecated in 4.13.x. Use `BeUiEvent<ElementTooltipChangedEventArgs>` instead.
+ * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class ElementTooltipChangedEvent extends UiEvent<ElementTooltipChangedEventArgs> {}
@@ -53,7 +54,7 @@ export class ElementTooltip extends React.Component<
   ElementTooltipState
 > {
   private static _elementTooltipChangedEvent =
-    new BeUiEvent<ElementTooltipChangedEventArgs>();
+    new BeUiEvent<ElementTooltipChangedEventArgs>(); // eslint-disable-line deprecation/deprecation
   private static _isTooltipVisible: boolean;
   private static _isTooltipHalted: boolean;
 
@@ -181,7 +182,7 @@ export class ElementTooltip extends React.Component<
     }
   }
   private _handleElementTooltipChangedEvent = (
-    args: ElementTooltipChangedEventArgs
+    args: ElementTooltipChangedEventArgs // eslint-disable-line deprecation/deprecation
   ) => {
     this._element = args.el;
     this._position = args.pt;

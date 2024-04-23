@@ -108,6 +108,7 @@ export interface UserSettingsProvider {
 
 /** UiVisibility Event Args interface.
  * @public
+ * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface UiVisibilityEventArgs {
   visible: boolean;
@@ -115,7 +116,7 @@ export interface UiVisibilityEventArgs {
 
 /** UiVisibility Event class.
  * @public
- * @deprecated in 4.13.x. Use `BeUiEvent<UiVisibilityEventArgs>` instead.
+ * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class UiVisibilityChangedEvent extends UiEvent<UiVisibilityEventArgs> {}

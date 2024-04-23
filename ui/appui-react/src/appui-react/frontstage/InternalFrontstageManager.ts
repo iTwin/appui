@@ -92,7 +92,7 @@ export class InternalFrontstageManager {
 
   // pass on SyncToolSettingsPropertiesEvent from ToolAdmin so they are treated as DialogItemSync events
   private static handleSyncToolSettingsPropertiesEvent(
-    args: SyncToolSettingsPropertiesEventArgs
+    args: SyncToolSettingsPropertiesEventArgs // eslint-disable-line deprecation/deprecation
   ): void {
     InternalFrontstageManager.activeToolSettingsProvider &&
       InternalFrontstageManager.activeToolSettingsProvider.syncToolSettingsProperties(
@@ -192,33 +192,33 @@ export class InternalFrontstageManager {
 
   /** Get Frontstage Deactivated event. */
   public static readonly onFrontstageDeactivatedEvent =
-    new BeUiEvent<FrontstageDeactivatedEventArgs>();
+    new BeUiEvent<FrontstageDeactivatedEventArgs>(); // eslint-disable-line deprecation/deprecation
 
   /** Get Frontstage Activated event. */
   public static readonly onFrontstageActivatedEvent =
-    new BeUiEvent<FrontstageActivatedEventArgs>();
+    new BeUiEvent<FrontstageActivatedEventArgs>(); // eslint-disable-line deprecation/deprecation
 
   /** Get Frontstage Activated event. */
   public static readonly onFrontstageReadyEvent =
-    new BeUiEvent<FrontstageReadyEventArgs>();
+    new BeUiEvent<FrontstageReadyEventArgs>(); // eslint-disable-line deprecation/deprecation
 
   /** Get Modal Frontstage Changed event. */
   public static readonly onModalFrontstageChangedEvent =
-    new BeUiEvent<ModalFrontstageChangedEventArgs>();
+    new BeUiEvent<ModalFrontstageChangedEventArgs>(); // eslint-disable-line deprecation/deprecation
 
   /** Get Modal Frontstage Closed event. */
   public static readonly onModalFrontstageClosedEvent =
-    new BeUiEvent<ModalFrontstageClosedEventArgs>();
+    new BeUiEvent<ModalFrontstageClosedEventArgs>(); // eslint-disable-line deprecation/deprecation
 
   /** Get Modal Frontstage Requested Closed event.
    * @alpha
    */
   public static readonly onCloseModalFrontstageRequestedEvent =
-    new BeUiEvent<ModalFrontstageRequestedCloseEventArgs>();
+    new BeUiEvent<ModalFrontstageRequestedCloseEventArgs>(); // eslint-disable-line deprecation/deprecation
 
   /** Get Tool Activated event. */
   public static readonly onToolActivatedEvent =
-    new BeUiEvent<ToolActivatedEventArgs>();
+    new BeUiEvent<ToolActivatedEventArgs>(); // eslint-disable-line deprecation/deprecation
 
   /** Get ToolSetting Reload event. */
   // eslint-disable-next-line deprecation/deprecation
@@ -232,23 +232,23 @@ export class InternalFrontstageManager {
 
   /** Get Tool Icon Changed event. */
   public static readonly onToolIconChangedEvent =
-    new BeUiEvent<ToolIconChangedEventArgs>();
+    new BeUiEvent<ToolIconChangedEventArgs>(); // eslint-disable-line deprecation/deprecation
 
   /** Get Content Layout Activated event. */
   public static readonly onContentLayoutActivatedEvent =
-    new BeUiEvent<ContentLayoutActivatedEventArgs>();
+    new BeUiEvent<ContentLayoutActivatedEventArgs>(); // eslint-disable-line deprecation/deprecation
 
   /** Get Content Control Activated event. */
   public static readonly onContentControlActivatedEvent =
-    new BeUiEvent<ContentControlActivatedEventArgs>();
+    new BeUiEvent<ContentControlActivatedEventArgs>(); // eslint-disable-line deprecation/deprecation
 
   /** Get Navigation Aid Activated event. */
   public static readonly onNavigationAidActivatedEvent =
-    new BeUiEvent<NavigationAidActivatedEventArgs>();
+    new BeUiEvent<NavigationAidActivatedEventArgs>(); // eslint-disable-line deprecation/deprecation
 
   /** Get Widget State Changed event. */
   public static readonly onWidgetStateChangedEvent =
-    new BeUiEvent<WidgetStateChangedEventArgs>();
+    new BeUiEvent<WidgetStateChangedEventArgs>(); // eslint-disable-line deprecation/deprecation
 
   /** @internal */
   // eslint-disable-next-line deprecation/deprecation
@@ -273,7 +273,7 @@ export class InternalFrontstageManager {
    * @alpha
    */
   public static readonly onPanelStateChangedEvent =
-    new BeUiEvent<PanelStateChangedEventArgs>();
+    new BeUiEvent<PanelStateChangedEventArgs>(); // eslint-disable-line deprecation/deprecation
 
   /** Get panel pinned changed event.
    * @alpha

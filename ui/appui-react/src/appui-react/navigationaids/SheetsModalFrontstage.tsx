@@ -38,6 +38,7 @@ export interface CardInfo {
 
 /** Arguments for CardSelectedEvent
  * @alpha
+ * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface CardSelectedEventArgs {
   id: any;
@@ -46,7 +47,7 @@ export interface CardSelectedEventArgs {
 
 /** Class for CardSelectedEvent
  * @alpha
- * @deprecated in 4.13.x. Use `BeUiEvent<CardSelectedEventArgs>` instead.
+ * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class CardSelectedEvent extends UiEvent<CardSelectedEventArgs> {}
@@ -135,6 +136,7 @@ export interface CardContainerProps extends CommonProps {
  * @alpha
  */
 export class CardContainer extends React.Component<CardContainerProps> {
+  // eslint-disable-next-line deprecation/deprecation
   private static _cardSelectedEvent = new BeUiEvent<CardSelectedEventArgs>();
 
   /** Get CardSelectedEvent event */

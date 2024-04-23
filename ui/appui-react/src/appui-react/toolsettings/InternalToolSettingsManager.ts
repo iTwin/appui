@@ -153,7 +153,7 @@ export class InternalToolSettingsManager {
 
   /** Get ToolSettings Properties sync event. */
   public static readonly onSyncToolSettingsProperties =
-    new BeUiEvent<SyncToolSettingsPropertiesEventArgs>();
+    new BeUiEvent<SyncToolSettingsPropertiesEventArgs>(); // eslint-disable-line deprecation/deprecation
   // eslint-disable-next-line deprecation/deprecation
   public static readonly onReloadToolSettingsProperties = new BeUiEvent<void>();
 

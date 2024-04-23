@@ -31,7 +31,7 @@ const CONTENT_DIALOG_ZINDEX_DEFAULT = 2000;
 export class InternalContentDialogManager {
   /** Content Dialog Changed Event */
   public static readonly onContentDialogChangedEvent =
-    new BeUiEvent<DialogChangedEventArgs>();
+    new BeUiEvent<DialogChangedEventArgs>(); // eslint-disable-line deprecation/deprecation
 
   /** @internal */
   public static readonly dialogManager: DialogManagerBase =

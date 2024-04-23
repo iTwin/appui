@@ -590,7 +590,7 @@ const SampleAppViewer = () => {
   }, []);
 
   const _handleFrontstageDeactivatedEvent = (
-    args: FrontstageDeactivatedEventArgs
+    args: FrontstageDeactivatedEventArgs // eslint-disable-line deprecation/deprecation
   ): void => {
     Logger.logInfo(
       SampleAppIModelApp.loggerCategory(this),
@@ -599,7 +599,7 @@ const SampleAppViewer = () => {
   };
 
   const _handleModalFrontstageClosedEvent = (
-    args: ModalFrontstageClosedEventArgs
+    args: ModalFrontstageClosedEventArgs // eslint-disable-line deprecation/deprecation
   ): void => {
     Logger.logInfo(
       SampleAppIModelApp.loggerCategory(this),

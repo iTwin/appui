@@ -16,6 +16,7 @@ import type { FrameworkStackedDialog } from "./FrameworkDialogs";
 
 /** [[MouseDownChangedEvent]] Args interface.
  * @public
+ * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface MouseDownChangedEventArgs {
   /** Indicates whether the mouse is down */
@@ -24,13 +25,14 @@ export interface MouseDownChangedEventArgs {
 
 /** Mouse Down Changed Event class.
  * @public
- * @deprecated in 4.13.x. Use `BeUiEvent<MouseDownChangedEventArgs>` instead.
+ * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class MouseDownChangedEvent extends UiEvent<MouseDownChangedEventArgs> {}
 
 /** [[ActiveContentChangedEvent]] Args interface.
  * @public
+ * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface ActiveContentChangedEventArgs {
   /** React node of the old content */
@@ -41,14 +43,14 @@ export interface ActiveContentChangedEventArgs {
 
 /** Active Content Changed Event class.
  * @public
- * @deprecated in 4.13.x. Use `BeUiEvent<ActiveContentChangedEventArgs>` instead.
+ * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class ActiveContentChangedEvent extends UiEvent<ActiveContentChangedEventArgs> {}
 
 /** Content Dialog Changed Event class.
  * @public
- * @deprecated in 4.13.x. Use `BeUiEvent<DialogChangedEventArgs>` instead.
+ * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class ContentDialogChangedEvent extends DialogChangedEvent {}

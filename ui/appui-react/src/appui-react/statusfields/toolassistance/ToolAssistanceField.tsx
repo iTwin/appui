@@ -242,7 +242,7 @@ export class ToolAssistanceField extends React.Component<
   }
 
   private _handleToolAssistanceChangedEvent = (
-    args: ToolAssistanceChangedEventArgs
+    args: ToolAssistanceChangedEventArgs // eslint-disable-line deprecation/deprecation
   ): void => {
     let showMouseTouchTabs = false;
     let showMouseInstructions = false;
@@ -312,7 +312,7 @@ export class ToolAssistanceField extends React.Component<
     instruction.inputMethod === ToolAssistanceInputMethod.Touch;
 
   private _handleToolIconChangedEvent = (
-    args: ToolIconChangedEventArgs
+    args: ToolIconChangedEventArgs // eslint-disable-line deprecation/deprecation
   ): void => {
     // istanbul ignore else
     if (this._isMounted)

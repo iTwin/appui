@@ -29,7 +29,7 @@ export class InternalContentViewManager {
 
   /** Gets the [[MouseDownChangedEvent]] */
   public static readonly onMouseDownChangedEvent =
-    new BeUiEvent<MouseDownChangedEventArgs>();
+    new BeUiEvent<MouseDownChangedEventArgs>(); // eslint-disable-line deprecation/deprecation
 
   /** Determines if the mouse is down in a content view */
   public static get isMouseDown(): boolean {
@@ -44,7 +44,7 @@ export class InternalContentViewManager {
 
   /** Gets the [[ActiveContentChangedEvent]] */
   public static readonly onActiveContentChangedEvent =
-    new BeUiEvent<ActiveContentChangedEventArgs>();
+    new BeUiEvent<ActiveContentChangedEventArgs>(); // eslint-disable-line deprecation/deprecation
 
   /** Fires when floating contents are added or removed */
 

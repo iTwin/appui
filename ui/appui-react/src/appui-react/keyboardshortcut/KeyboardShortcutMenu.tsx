@@ -28,7 +28,7 @@ export interface KeyboardShortcutMenuState {
 
 /** KeyboardShortcut Menu Event class.
  * @public
- * @deprecated in 4.13.x. Use `BeUiEvent<KeyboardShortcutMenuState>` instead.
+ * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class KeyboardShortcutMenuEvent extends UiEvent<KeyboardShortcutMenuState> {}

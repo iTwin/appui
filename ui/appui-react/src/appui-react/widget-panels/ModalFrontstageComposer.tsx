@@ -19,7 +19,7 @@ export function useActiveModalFrontstageInfo() {
     React.useState(UiFramework.frontstages.activeModalFrontstage);
   React.useEffect(() => {
     const handleModalFrontstageChangedEvent = (
-      args: ModalFrontstageChangedEventArgs
+      args: ModalFrontstageChangedEventArgs // eslint-disable-line deprecation/deprecation
     ) => {
       setActiveModalFrontstageInfo(
         args.modalFrontstageCount === 0

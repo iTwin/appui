@@ -15,6 +15,7 @@ import { UiFramework } from "../UiFramework";
 export function useUiVisibility() {
   const [uiIsVisible, setUiIsVisible] = useState(UiFramework.getIsUiVisible());
   useEffect(() => {
+    // eslint-disable-next-line deprecation/deprecation
     const handleUiVisibilityChanged = (args: UiVisibilityEventArgs): void =>
       setUiIsVisible(args.visible);
     UiFramework.onUiVisibilityChanged.addListener(handleUiVisibilityChanged);
