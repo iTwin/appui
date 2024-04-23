@@ -8,6 +8,7 @@ Table of contents:
 - [@itwin/core-react](#itwincore-react)
   - [Deprecations](#deprecations-1)
   - [Changes](#changes-1)
+  - [Fixes](#fixes)
 
 ## @itwin/appui-react
 
@@ -34,3 +35,7 @@ Table of contents:
 ### Changes
 
 - Bump `useCrossOriginPopup` to `@public`. [#802](https://github.com/iTwin/appui/pull/802)
+
+### Fixes
+
+- Fix `PopoutWidget` getting increasingly bigger each time it is popped out. [#792](https://github.com/iTwin/appui/pull/792)
