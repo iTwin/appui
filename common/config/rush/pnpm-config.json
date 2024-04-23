@@ -12,9 +12,6 @@
     "pnpm": {
       "auditConfig": {
         "ignoreCves": []
-      },
-      "overrides": {
-        "formidable": "^3.5.1" // https://github.com/advisories/GHSA-8cp3-66vr-3r4c standalone>@itwin/core-mobile@4.4.0>superagent@7.1.5>formidable@2.1.2
       }
     }
   }

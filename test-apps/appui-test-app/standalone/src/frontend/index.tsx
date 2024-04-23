@@ -75,10 +75,6 @@ import {
   ToolAdmin,
   ViewClipByPlaneTool,
 } from "@itwin/core-frontend";
-import {
-  MobileApp,
-  MobileAppOpts,
-} from "@itwin/core-mobile/lib/cjs/MobileFrontend";
 import { getObjectClassName } from "@itwin/core-react";
 import { FrontendDevTools } from "@itwin/frontend-devtools";
 import { HyperModeling } from "@itwin/hypermodeling-frontend";
@@ -255,8 +251,6 @@ export class SampleAppIModelApp {
     if (ProcessDetector.isElectronAppFrontend) {
       await ElectronApp.startup({ ...opts, iModelApp: iModelAppOpts });
       NativeAppLogger.initialize();
-    } else if (ProcessDetector.isMobileAppFrontend) {
-      await MobileApp.startup(opts as MobileAppOpts);
     } else {
       await IModelApp.startup(iModelAppOpts);
     }

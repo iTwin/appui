@@ -5,7 +5,6 @@
 import * as fs from "fs";
 import * as path from "path";
 import { Logger, ProcessDetector } from "@itwin/core-bentley";
-import { MobileHost } from "@itwin/core-mobile/lib/cjs/MobileBackend";
 import { getSupportedRpcs } from "../common/rpcs";
 import { loggerCategory } from "../common/TestAppConfiguration";
 import { initializeElectron } from "./electron/ElectronMain";
@@ -33,10 +32,6 @@ void (async () => {
     // invoke platform-specific initialization
     if (ProcessDetector.isElectronAppBackend) {
       await initializeElectron();
-    } else if (ProcessDetector.isMobileAppBackend) {
-      await MobileHost.startup({
-        mobileHost: { rpcInterfaces: getSupportedRpcs() },
-      });
     } else {
       await initializeWeb();
     }
