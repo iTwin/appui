@@ -13,7 +13,7 @@ Table of contents:
 
 ### Deprecations
 
-- `UiFramework.isMobile()` method in favor of `ProcessDetector.isMobileBrowser()` from `@itwin/core-bentley`. [#810](https://github.com/iTwin/appui/pull/810)
+- `UiFramework.isMobile()` method in favor of `ProcessDetector.isMobileBrowser` from `@itwin/core-bentley`. [#810](https://github.com/iTwin/appui/pull/810)
 
 ### Changes
 
