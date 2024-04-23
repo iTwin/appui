@@ -3,12 +3,18 @@
 Table of contents:
 
 - [@itwin/appui-react](#itwinappui-react)
+  - [Deprecations](#deprecations)
   - [Changes](#changes)
 - [@itwin/core-react](#itwincore-react)
-  - [Deprecations](#deprecations)
+  - [Deprecations](#deprecations-1)
   - [Changes](#changes-1)
+  - [Fixes](#fixes)
 
 ## @itwin/appui-react
+
+### Deprecations
+
+- `UiFramework.isMobile()` method in favor of `ProcessDetector.isMobileBrowser` from `@itwin/core-bentley`. [#810](https://github.com/iTwin/appui/pull/810)
 
 ### Changes
 
@@ -43,3 +49,7 @@ Table of contents:
 ### Changes
 
 - Bump `useCrossOriginPopup` to `@public`. [#802](https://github.com/iTwin/appui/pull/802)
+
+### Fixes
+
+- Fix `PopoutWidget` getting increasingly bigger each time it is popped out. [#792](https://github.com/iTwin/appui/pull/792)
