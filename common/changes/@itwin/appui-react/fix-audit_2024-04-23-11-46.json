@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Deprecate UiFramework.isMobile in favor of ProcessDetector.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}

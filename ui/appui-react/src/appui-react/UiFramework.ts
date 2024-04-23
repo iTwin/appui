@@ -815,6 +815,7 @@ export class UiFramework {
       : /* istanbul ignore next */ WIDGET_OPACITY_DEFAULT;
   }
 
+  /** @deprecated in 4.13.x. Use {@link @itwin/core-bentley#ProcessDetector.isMobileBrowser} instead. */
   // eslint-disable-next-line @itwin/prefer-get
   public static isMobile() {
     return ProcessDetector.isMobileBrowser;
