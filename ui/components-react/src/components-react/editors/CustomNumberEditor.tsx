@@ -372,6 +372,7 @@ export class CustomNumberEditor
     if (this.state.iconSpec) {
       const icon = <Icon iconSpec={this.state.iconSpec} />;
       reactNode = (
+        // eslint-disable-next-line deprecation/deprecation
         <IconInput
           {...inputProps}
           ref={this._inputElement}

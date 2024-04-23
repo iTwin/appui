@@ -9,7 +9,7 @@
 import * as React from "react";
 import type { PropertyRecord } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
-import type { Orientation, RatioChangeResult } from "@itwin/core-react";
+import type { Orientation } from "@itwin/core-react";
 import type { HighlightingComponentProps } from "../../common/HighlightingComponentProps";
 import type { PropertyUpdatedArgs } from "../../editors/EditorContainer";
 import { EditorContainer } from "../../editors/EditorContainer";
@@ -43,7 +43,9 @@ export interface SharedRendererProps {
   /** Ratio between label and value cells */
   columnRatio?: number;
   /** Callback to column ratio changed event */
-  onColumnRatioChanged?: (ratio: number) => void | RatioChangeResult;
+  onColumnRatioChanged?: (ratio: number) => void | {
+    ratio: number;
+  };
   /** Indicates that properties have *hover* effect */
   isHoverable?: boolean;
   /** Indicates that properties can be selected */

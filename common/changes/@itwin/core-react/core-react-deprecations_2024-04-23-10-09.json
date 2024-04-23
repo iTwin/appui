@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/core-react",
+      "comment": "Deprecate components replaced by iTwinUI equivalents.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/core-react"
+}

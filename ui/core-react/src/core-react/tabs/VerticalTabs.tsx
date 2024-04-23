@@ -11,8 +11,11 @@ import type { TabsProps } from "./Tabs";
 import { Tabs } from "./Tabs";
 import { Orientation } from "../enums/Orientation";
 
+/* eslint-disable deprecation/deprecation */
+
 /** Vertical tabs meant to represent the current position in a page/section
  * @public
+ * @deprecated in 4.12.x. Use {@link https://itwinui.bentley.com/docs/tabs#vertical iTwinUI Tabs} instead.
  */
 export function VerticalTabs(props: TabsProps) {
   return (

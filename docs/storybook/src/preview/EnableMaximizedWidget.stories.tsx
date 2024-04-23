@@ -8,7 +8,7 @@ import { Page } from "../AppUiStory";
 import { PreviewStory } from "./EnableMaximizedWidget";
 
 const meta = {
-  title: "preview features/EnableMaximizedWidget",
+  title: "PreviewFeatures/EnableMaximizedWidget",
   component: PreviewStory,
   tags: ["autodocs"],
   decorators: [AppUiDecorator],

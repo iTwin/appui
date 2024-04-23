@@ -7,6 +7,8 @@ import * as React from "react";
 import { LoadingBar } from "../../core-react";
 import { classesFromElement } from "../TestUtils";
 
+/* eslint-disable deprecation/deprecation */
+
 describe("<LoadingBar />", () => {
   it("renders correctly", () => {
     const { container } = render(<LoadingBar />);

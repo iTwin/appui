@@ -76,6 +76,7 @@ export function useActiveContentControlId(): string | undefined {
 /** Properties for the [[ContentDialog]] component
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface ContentDialogProps extends DialogProps {
   dialogId: string;
   movable?: boolean;
@@ -122,6 +123,7 @@ export function ContentDialog(props: ContentDialogProps) {
   }, [dialogId, zIndex]);
 
   return (
+    // eslint-disable-next-line deprecation/deprecation
     <Dialog
       className={dialogClassName}
       data-item-type="content-dialog"

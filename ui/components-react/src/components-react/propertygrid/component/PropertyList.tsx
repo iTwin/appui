@@ -10,7 +10,7 @@ import classnames from "classnames";
 import * as React from "react";
 import type { PropertyRecord } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
-import type { CommonProps, RatioChangeResult } from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
 import { Orientation } from "@itwin/core-react";
 import type { PropertyUpdatedArgs } from "../../editors/EditorContainer";
 import type { ActionButtonRenderer } from "../../properties/renderers/ActionButtonRenderer";
@@ -36,7 +36,9 @@ export interface PropertyListProps extends CommonProps {
   ) => void;
   columnRatio?: number;
   /** Callback to column ratio changed event */
-  onColumnChanged?: (ratio: number) => void | RatioChangeResult;
+  onColumnChanged?: (ratio: number) => void | {
+    ratio: number;
+  };
   propertyValueRendererManager?: PropertyValueRendererManager;
   editingPropertyKey?: string;
   onEditCommit?: (

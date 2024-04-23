@@ -103,6 +103,7 @@ export class TableNonPrimitiveValueRenderer extends React.PureComponent<TableNon
   /** @internal */
   public override render() {
     return (
+      // eslint-disable-next-line deprecation/deprecation
       <UnderlinedButton
         // ref={this._buttonRef}
         className="components-table-value-button"

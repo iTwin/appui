@@ -8,6 +8,8 @@ import { UnderlinedButton } from "../../core-react/button/UnderlinedButton";
 import userEvent from "@testing-library/user-event";
 import { classesFromElement } from "../TestUtils";
 
+/* eslint-disable deprecation/deprecation */
+
 describe("<UnderlinedButton />", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
   beforeEach(() => {

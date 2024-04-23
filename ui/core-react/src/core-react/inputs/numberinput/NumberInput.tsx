@@ -23,6 +23,7 @@ type InputProps = React.ComponentPropsWithoutRef<typeof Input>;
 
 /** Step function prototype for [[NumberInput]] component
  * @public
+ * @deprecated in 4.12.x. Interface used in a deprecated component {@link NumberInput}.
  */
 export type StepFunctionProp =
   | number
@@ -30,6 +31,7 @@ export type StepFunctionProp =
 
 /** Properties for the [[NumberInput]] component
  * @public
+ * @deprecated in 4.12.x. Props of deprecated component {@link NumberInput}.
  */
 export interface NumberInputProps
   extends Omit<InputProps, "min" | "max" | "step" | "onChange"> {
@@ -44,6 +46,7 @@ export interface NumberInputProps
   /** number or function	defaults to Number.MAX_SAFE_INTEGER */
   max?: number;
   /** increment step value used while incrementing or decrementing (up/down buttons or arrow keys) defaults to 1. */
+  // eslint-disable-next-line deprecation/deprecation
   step?: StepFunctionProp;
   /** number of decimal places, defaults to 0 */
   precision?: number;
@@ -68,6 +71,7 @@ export interface NumberInputProps
 
 const ForwardRefNumberInput = React.forwardRef<
   HTMLInputElement,
+  // eslint-disable-next-line deprecation/deprecation
   NumberInputProps
 >(function ForwardRefNumberInput(props, ref) {
   const {
@@ -331,7 +335,9 @@ const ForwardRefNumberInput = React.forwardRef<
 
 /** Input component for numbers with up and down buttons to increment and decrement the value.
  * @public
+ * @deprecated in 4.12.x. Use {@link https://itwinui.bentley.com/docs/input iTwinUI input} instead.
  */
 export const NumberInput: (
+  // eslint-disable-next-line deprecation/deprecation
   props: NumberInputProps
 ) => React.ReactElement | null = ForwardRefNumberInput;
