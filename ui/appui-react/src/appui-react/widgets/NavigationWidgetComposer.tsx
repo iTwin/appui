@@ -159,7 +159,7 @@ export function NavigationAidHost(props: NavigationAidHostProps) {
   if (
     (UiFramework.visibility.useProximityOpacity || // eslint-disable-line deprecation/deprecation
       UiFramework.visibility.snapWidgetOpacity) &&
-    !UiFramework.isMobile()
+    !UiFramework.isMobile() // eslint-disable-line deprecation/deprecation
   ) {
     const navigationAidOpacity = 0.3 * proximityScale + 0.7;
     divStyle.opacity = `${navigationAidOpacity}`;

@@ -147,6 +147,7 @@ export class ToolAssistanceField extends React.Component<
   constructor(p: ToolAssistanceFieldProps) {
     super(p);
 
+    // eslint-disable-next-line deprecation/deprecation
     const mobile = UiFramework.isMobile();
 
     this.state = {

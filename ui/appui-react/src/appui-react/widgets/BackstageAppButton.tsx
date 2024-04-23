@@ -66,7 +66,7 @@ export function BackstageAppButton(props: BackstageAppButtonProps) {
   if (
     (UiFramework.visibility.useProximityOpacity || // eslint-disable-line deprecation/deprecation
       UiFramework.visibility.snapWidgetOpacity) &&
-    !UiFramework.isMobile()
+    !UiFramework.isMobile() // eslint-disable-line deprecation/deprecation
   ) {
     buttonProximityScale = proximityScale;
   }

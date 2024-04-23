@@ -245,6 +245,7 @@ export function ToolbarComposer(props: ExtensibleToolbarProps) {
       items={items}
       useDragInteraction={isDragEnabled}
       toolbarOpacitySetting={
+        // eslint-disable-next-line deprecation/deprecation
         (useProximityOpacity || snapWidgetOpacity) && !UiFramework.isMobile()
           ? ToolbarOpacitySetting.Proximity
           : /* istanbul ignore next */ ToolbarOpacitySetting.Defaults
