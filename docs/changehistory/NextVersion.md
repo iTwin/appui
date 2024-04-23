@@ -3,13 +3,18 @@
 Table of contents:
 
 - [@itwin/appui-react](#itwinappui-react)
+  - [Deprecations](#deprecations)
   - [Changes](#changes)
 - [@itwin/core-react](#itwincore-react)
-  - [Deprecations](#deprecations)
+  - [Deprecations](#deprecations-1)
   - [Changes](#changes-1)
   - [Fixes](#fixes)
 
 ## @itwin/appui-react
+
+### Deprecations
+
+- `UiFramework.isMobile()` method in favor of `ProcessDetector.isMobileBrowser` from `@itwin/core-bentley`. [#810](https://github.com/iTwin/appui/pull/810)
 
 ### Changes
 
