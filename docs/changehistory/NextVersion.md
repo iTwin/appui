@@ -15,7 +15,8 @@ Table of contents:
 
 ### Deprecations
 
-- Deprecated all UI event classes (e.g. `ContentControlActivatedEvent`). These are only emitter classes that should not be exported. It is possible to use `BeUiEvent<EventArgs>` (`EventArgs` can be any of the exported event args interfaces e.g. `ContentControlActivatedEventArgs`) instead. [#806](https://github.com/iTwin/appui/pull/806)
+- Deprecated all UI event classes (e.g. `ContentControlActivatedEvent`). These are only emitter classes and applications should not use these classes to instantiate objects. Therefore they should not be exported. [#806](https://github.com/iTwin/appui/pull/806)
+- Deprecated all event args interfaces (e.g. `ContentControlActivatedEventArgs`). Event args should be inferred from a listener. If explicit type is needed use a type helper. [#806](https://github.com/iTwin/appui/pull/806)
 
 ### Changes
 
@@ -25,7 +26,8 @@ Table of contents:
 
 ### Deprecations
 
-- Deprecated all UI event classes (e.g. `StandardRotationChangeEvent`). These are only emitter classes that should not be exported. It is possible to use `BeUiEvent<EventArgs>` (`EventArgs` can be any of the exported event args interfaces e.g. `StandardRotationChangeEventArgs`) instead. [#806](https://github.com/iTwin/appui/pull/806)
+- Deprecated all UI event classes (e.g. `StandardRotationChangeEvent`). These are only emitter classes and applications should not use these classes to instantiate objects. Therefore they should not be exported. [#806](https://github.com/iTwin/appui/pull/806)
+- Deprecated all event args interfaces (e.g. `StandardRotationChangeEventArgs`). Event args should be inferred from a listener. If explicit type is needed use a type helper. [#806](https://github.com/iTwin/appui/pull/806)
 
 ## @itwin/core-react
 
@@ -38,7 +40,8 @@ Table of contents:
 - `FlexWrapContainer` component in favor of [iTwinUI Flex](https://itwinui.bentley.com/docs/flex). [#795](https://github.com/iTwin/appui/pull/795)
 - `Gap` component in favor of [iTwinUI size variables](https://itwinui.bentley.com/docs/variables#size). [#795](https://github.com/iTwin/appui/pull/795)
 - `ScrollView` component in favor of [overflow property](https://developer.mozilla.org/en-US/docs/Web/CSS/overflow). [#795](https://github.com/iTwin/appui/pull/795)
-- Deprecated all UI event classes (e.g. `SettingsProvidersChangedEvent`). These are only emitter classes that should not be exported. It is possible to use `BeUiEvent<EventArgs>` (`EventArgs` can be any of the exported event args interfaces e.g. `SettingsProvidersChangedEventArgs`) instead. [#806](https://github.com/iTwin/appui/pull/806)
+- Deprecated all UI event classes (e.g. `SettingsProvidersChangedEvent`). These are only emitter classes and applications should not use these classes to instantiate objects. Therefore they should not be exported. [#806](https://github.com/iTwin/appui/pull/806)
+- Deprecated all event args interfaces (e.g. `SettingsProvidersChangedEventArgs`). Event args should be inferred from a listener. If explicit type is needed use a type helper. [#806](https://github.com/iTwin/appui/pull/806)
 
 ### Changes
 
