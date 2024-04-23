@@ -30,7 +30,7 @@ export interface UnderlinedButtonProps {
 
 /** A React component that makes text clickable and underlined
  * @public
- * @deprecated in 4.12.x. Use iTwinUI {@link https://itwinui.bentley.com/docs/anchor anchor} or {@link https://itwinui.bentley.com/docs/button button} instead.
+ * @deprecated in 4.13.x. Use iTwinUI {@link https://itwinui.bentley.com/docs/anchor anchor} or {@link https://itwinui.bentley.com/docs/button button} instead.
  */
 // eslint-disable-next-line deprecation/deprecation
 export function UnderlinedButton(props: UnderlinedButtonProps) {
