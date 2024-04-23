@@ -25,20 +25,20 @@ Table of contents:
 - `FlexWrapContainer` component in favor of [iTwinUI Flex](https://itwinui.bentley.com/docs/flex). [#795](https://github.com/iTwin/appui/pull/795)
 - `Gap` component in favor of [iTwinUI size variables](https://itwinui.bentley.com/docs/variables#size). [#795](https://github.com/iTwin/appui/pull/795)
 - `ScrollView` component in favor of [overflow property](https://developer.mozilla.org/en-US/docs/Web/CSS/overflow). [#795](https://github.com/iTwin/appui/pull/795)
-- `BlockText`, `DisabledText` components in favor of [iTwinUI Text](https://itwinui.bentley.com/docs/typography#text).
-- `CheckListBox`, `CheckListBoxItem`, `CheckListBoxSeparator` components in favor of [iTwinUI list](https://itwinui.bentley.com/docs/list).
-- `Dialog`, `GlobalDialog` components and `DialogAlignment` enum in favor of [iTwinUI Dialog](https://itwinui.bentley.com/docs/dialog).
-- `ElementSeparator` without a direct replacement as components that need to be user-resized support this out of the box.
-- `ExpandableList` component in favor of [iTwinUI expandable block](https://itwinui.bentley.com/docs/expandableblock).
-- `IconInput` component in favor of [iTwinUI input decorations](https://itwinui.bentley.com/docs/inputwithdecorations).
-- `ImageCheckBox` component in favor of [iTwinUI checkbox](https://itwinui.bentley.com/docs/checkbox).
-- `InputLabel` component and `InputStatus` enum in favor of [iTwinUI input](https://itwinui.bentley.com/docs/input).
-- `Listbox`, `ListboxItem` components, `ListboxContext` and `ListboxValue` type in favor of [iTwinUI list](https://itwinui.bentley.com/docs/list).
-- `LoadingBar`, `LoadingPrompt`, `LoadingStatus` components in favor of [iTwinUI progress indicator](https://itwinui.bentley.com/docs/progressindicator).
-- `LoadingSpinner` component in favor of [iTwinUI radial progress indicator](https://itwinui.bentley.com/docs/progressindicator#progress-radial).
-- `SearchBox` component in favor of [iTwinUI SearchBox](https://itwinui.bentley.com/docs/searchbox).
-- `Tabs`, `VerticalTabs` components in favor of [iTwinUI Tabs](https://itwinui.bentley.com/docs/tabs).
-- `BlockText`, `DisabledText` components in favor of [iTwinUI Text](https://itwinui.bentley.com/docs/typography#text).
+- `BlockText`, `DisabledText` components in favor of [iTwinUI Text](https://itwinui.bentley.com/docs/typography#text). [#809](https://github.com/iTwin/appui/pull/809)
+- `CheckListBox`, `CheckListBoxItem`, `CheckListBoxSeparator` components in favor of [iTwinUI list](https://itwinui.bentley.com/docs/list). [#809](https://github.com/iTwin/appui/pull/809)
+- `Dialog`, `GlobalDialog` components and `DialogAlignment` enum in favor of [iTwinUI Dialog](https://itwinui.bentley.com/docs/dialog). [#809](https://github.com/iTwin/appui/pull/809)
+- `ElementSeparator` without a direct replacement as components that need to be user-resized support this out of the box. [#809](https://github.com/iTwin/appui/pull/809)
+- `ExpandableList` component in favor of [iTwinUI expandable block](https://itwinui.bentley.com/docs/expandableblock). [#809](https://github.com/iTwin/appui/pull/809)
+- `IconInput` component in favor of [iTwinUI input decorations](https://itwinui.bentley.com/docs/inputwithdecorations). [#809](https://github.com/iTwin/appui/pull/809)
+- `ImageCheckBox` component in favor of [iTwinUI checkbox](https://itwinui.bentley.com/docs/checkbox). [#809](https://github.com/iTwin/appui/pull/809)
+- `InputLabel` component and `InputStatus` enum in favor of [iTwinUI input](https://itwinui.bentley.com/docs/input). [#809](https://github.com/iTwin/appui/pull/809)
+- `Listbox`, `ListboxItem` components, `ListboxContext` and `ListboxValue` type in favor of [iTwinUI list](https://itwinui.bentley.com/docs/list). [#809](https://github.com/iTwin/appui/pull/809)
+- `LoadingBar`, `LoadingPrompt`, `LoadingStatus` components in favor of [iTwinUI progress indicator](https://itwinui.bentley.com/docs/progressindicator). [#809](https://github.com/iTwin/appui/pull/809)
+- `LoadingSpinner` component in favor of [iTwinUI radial progress indicator](https://itwinui.bentley.com/docs/progressindicator#progress-radial). [#809](https://github.com/iTwin/appui/pull/809)
+- `SearchBox` component in favor of [iTwinUI SearchBox](https://itwinui.bentley.com/docs/searchbox). [#809](https://github.com/iTwin/appui/pull/809)
+- `Tabs`, `VerticalTabs` components in favor of [iTwinUI Tabs](https://itwinui.bentley.com/docs/tabs). [#809](https://github.com/iTwin/appui/pull/809)
+- `BlockText`, `DisabledText` components in favor of [iTwinUI Text](https://itwinui.bentley.com/docs/typography#text). [#809](https://github.com/iTwin/appui/pull/809)
 
 ### Changes
 
