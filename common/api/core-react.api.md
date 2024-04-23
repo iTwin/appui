@@ -25,7 +25,7 @@ import { RelativePosition } from '@itwin/appui-abstract';
 export class ActivateSettingsTabEvent extends BeUiEvent<ActivateSettingsTabEventArgs> {
 }
 
-// @public
+// @public @deprecated
 export interface ActivateSettingsTabEventArgs {
     // (undocumented)
     readonly settingsTabId: string;
@@ -1247,7 +1247,7 @@ export interface PopupProps extends CommonProps {
 export class ProcessSettingsContainerCloseEvent extends BeUiEvent<ProcessSettingsContainerCloseEventArgs> {
 }
 
-// @public
+// @public @deprecated
 export interface ProcessSettingsContainerCloseEventArgs {
     // (undocumented)
     readonly closeFunc: (args: any) => void;
@@ -1259,7 +1259,7 @@ export interface ProcessSettingsContainerCloseEventArgs {
 export class ProcessSettingsTabActivationEvent extends BeUiEvent<ProcessSettingsTabActivationEventArgs> {
 }
 
-// @public
+// @public @deprecated
 export interface ProcessSettingsTabActivationEventArgs {
     // (undocumented)
     readonly requestedSettingsTabId: string;
@@ -1498,7 +1498,7 @@ export class SettingsManager {
 export class SettingsProvidersChangedEvent extends BeUiEvent<SettingsProvidersChangedEventArgs> {
 }
 
-// @public
+// @public @deprecated
 export interface SettingsProvidersChangedEventArgs {
     // (undocumented)
     readonly providers: ReadonlyArray<SettingsTabsProvider>;

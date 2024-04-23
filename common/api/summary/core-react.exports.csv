@@ -3,6 +3,7 @@ Release Tag;API Item
 public;ActivateSettingsTabEvent 
 deprecated;ActivateSettingsTabEvent 
 public;ActivateSettingsTabEventArgs
+deprecated;ActivateSettingsTabEventArgs
 internal;AnnularSector
 internal;Annulus
 public;AsyncGetAutoSuggestDataFunc = (value: string) => Promise
@@ -158,9 +159,11 @@ public;PopupProps
 public;ProcessSettingsContainerCloseEvent 
 deprecated;ProcessSettingsContainerCloseEvent 
 public;ProcessSettingsContainerCloseEventArgs
+deprecated;ProcessSettingsContainerCloseEventArgs
 public;ProcessSettingsTabActivationEvent 
 deprecated;ProcessSettingsTabActivationEvent 
 public;ProcessSettingsTabActivationEventArgs
+deprecated;ProcessSettingsTabActivationEventArgs
 internal;PROXIMITY_THRESHOLD_DEFAULT = 100
 public;RadialButton 
 public;RadialButtonProps 
@@ -185,6 +188,7 @@ public;SettingsManager
 public;SettingsProvidersChangedEvent 
 deprecated;SettingsProvidersChangedEvent 
 public;SettingsProvidersChangedEventArgs
+deprecated;SettingsProvidersChangedEventArgs
 public;SettingsTabEntry
 public;SettingsTabsProvider
 internal;shallowDiffers: (a:

@@ -3119,7 +3119,7 @@ export interface TreeActions {
     onTreeKeyUp: (event: React.KeyboardEvent) => void;
 }
 
-// @public
+// @public @deprecated
 export interface TreeCheckboxStateChangeEventArgs {
     stateChanges: Observable<CheckboxStateChange[]>;
 }
@@ -3356,7 +3356,7 @@ export interface TreeNodeEditorProps {
 // @public
 export type TreeNodeEditorRenderer = (props: TreeNodeEditorProps) => React_3.ReactNode;
 
-// @public
+// @public @deprecated
 export interface TreeNodeEventArgs {
     nodeId: string;
 }
@@ -3472,12 +3472,12 @@ export interface TreeSelectionChange {
     selectedNodeItems: TreeNodeItem[];
 }
 
-// @public
+// @public @deprecated
 export interface TreeSelectionModificationEventArgs {
     modifications: Observable<TreeSelectionChange>;
 }
 
-// @public
+// @public @deprecated
 export interface TreeSelectionReplacementEventArgs {
     replacements: Observable<{
         selectedNodeItems: TreeNodeItem[];

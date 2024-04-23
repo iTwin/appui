@@ -333,7 +333,7 @@ export interface CubeProps extends React_2.AllHTMLAttributes<HTMLDivElement>, Co
 export class CubeRotationChangeEvent extends UiEvent<CubeRotationChangeEventArgs> {
 }
 
-// @public
+// @public @deprecated
 export interface CubeRotationChangeEventArgs {
     // (undocumented)
     complete?: boolean;
@@ -429,7 +429,7 @@ export interface DrawingNavigationCanvasProps {
 export class DrawingViewportChangeEvent extends UiEvent<DrawingViewportChangeEventArgs> {
 }
 
-// @public
+// @public @deprecated
 export interface DrawingViewportChangeEventArgs {
     // (undocumented)
     complete: boolean;
@@ -805,7 +805,7 @@ export class SolarTimeline extends React_2.PureComponent<SolarTimelineComponentP
 export class StandardRotationChangeEvent extends UiEvent<StandardRotationChangeEventArgs> {
 }
 
-// @public
+// @public @deprecated
 export interface StandardRotationChangeEventArgs {
     // (undocumented)
     standardRotation: StandardViewId;
@@ -935,7 +935,7 @@ export function useFocusedThumb(sliderContainer: HTMLDivElement | undefined): bo
 export class ViewClassFullNameChangedEvent extends UiEvent<ViewClassFullNameChangedEventArgs> {
 }
 
-// @public
+// @public @deprecated
 export interface ViewClassFullNameChangedEventArgs {
     // (undocumented)
     newName: string;
@@ -949,7 +949,7 @@ export interface ViewClassFullNameChangedEventArgs {
 export class ViewIdChangedEvent extends UiEvent<ViewIdChangedEventArgs> {
 }
 
-// @public
+// @public @deprecated
 export interface ViewIdChangedEventArgs {
     // (undocumented)
     newId: string;
@@ -1022,7 +1022,7 @@ export interface ViewportProps extends CommonProps {
 export class ViewRotationChangeEvent extends UiEvent<ViewRotationChangeEventArgs> {
 }
 
-// @public
+// @public @deprecated
 export interface ViewRotationChangeEventArgs {
     // (undocumented)
     animationTime?: number;

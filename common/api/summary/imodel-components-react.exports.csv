@@ -38,6 +38,7 @@ public;CubeProps
 public;CubeRotationChangeEvent 
 deprecated;CubeRotationChangeEvent 
 public;CubeRotationChangeEventArgs
+deprecated;CubeRotationChangeEventArgs
 internal;CustomThumb(): React_2.JSX.Element
 public;DrawingNavigationAid 
 public;DrawingNavigationAidProps 
@@ -46,6 +47,7 @@ internal;DrawingNavigationCanvasProps
 public;DrawingViewportChangeEvent 
 deprecated;DrawingViewportChangeEvent 
 public;DrawingViewportChangeEventArgs
+deprecated;DrawingViewportChangeEventArgs
 public;Face
 internal;FaceCell 
 internal;FaceCellProps 
@@ -96,6 +98,7 @@ alpha;SolarTimeline
 public;StandardRotationChangeEvent 
 deprecated;StandardRotationChangeEvent 
 public;StandardRotationChangeEventArgs
+deprecated;StandardRotationChangeEventArgs
 beta;StepFunctionProp = number | ((direction: string) => number | undefined)
 public;TimelineComponent(props: TimelineComponentProps): React_2.JSX.Element
 public;TimelineComponentProps
@@ -112,15 +115,18 @@ internal;useFocusedThumb(sliderContainer: HTMLDivElement | undefined): boolean
 public;ViewClassFullNameChangedEvent 
 deprecated;ViewClassFullNameChangedEvent 
 public;ViewClassFullNameChangedEventArgs
+deprecated;ViewClassFullNameChangedEventArgs
 public;ViewIdChangedEvent 
 deprecated;ViewIdChangedEvent 
 public;ViewIdChangedEventArgs
+deprecated;ViewIdChangedEventArgs
 public;ViewportComponent(props: ViewportProps): React_2.JSX.Element
 public;ViewportComponentEvents
 public;ViewportProps 
 public;ViewRotationChangeEvent 
 deprecated;ViewRotationChangeEvent 
 public;ViewRotationChangeEventArgs
+deprecated;ViewRotationChangeEventArgs
 public;ViewStateProp = ViewState | (() => ViewState)
 public;WeightEditor 
 public;WeightPickerButton 

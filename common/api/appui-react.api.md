@@ -209,7 +209,7 @@ export class AccuDrawPopupManager {
 export class AccuDrawSetCompassModeEvent extends BeUiEvent<AccuDrawSetCompassModeEventArgs> {
 }
 
-// @beta
+// @beta @deprecated
 export interface AccuDrawSetCompassModeEventArgs {
     // (undocumented)
     mode: CompassMode;
@@ -219,7 +219,7 @@ export interface AccuDrawSetCompassModeEventArgs {
 export class AccuDrawSetFieldFocusEvent extends BeUiEvent<AccuDrawSetFieldFocusEventArgs> {
 }
 
-// @beta
+// @beta @deprecated
 export interface AccuDrawSetFieldFocusEventArgs {
     // (undocumented)
     field: ItemField;
@@ -229,7 +229,7 @@ export interface AccuDrawSetFieldFocusEventArgs {
 export class AccuDrawSetFieldLockEvent extends BeUiEvent<AccuDrawSetFieldLockEventArgs> {
 }
 
-// @beta
+// @beta @deprecated
 export interface AccuDrawSetFieldLockEventArgs {
     // (undocumented)
     field: ItemField;
@@ -241,7 +241,7 @@ export interface AccuDrawSetFieldLockEventArgs {
 export class AccuDrawSetFieldValueFromUiEvent extends BeUiEvent<AccuDrawSetFieldValueFromUiEventArgs> {
 }
 
-// @beta
+// @beta @deprecated
 export interface AccuDrawSetFieldValueFromUiEventArgs {
     // (undocumented)
     field: ItemField;
@@ -253,7 +253,7 @@ export interface AccuDrawSetFieldValueFromUiEventArgs {
 export class AccuDrawSetFieldValueToUiEvent extends BeUiEvent<AccuDrawSetFieldValueToUiEventArgs> {
 }
 
-// @beta
+// @beta @deprecated
 export interface AccuDrawSetFieldValueToUiEventArgs {
     // (undocumented)
     field: ItemField;
@@ -347,7 +347,7 @@ export interface ActionWithPayload<T extends string, P> extends Action<T> {
 export class ActiveContentChangedEvent extends UiEvent<ActiveContentChangedEventArgs> {
 }
 
-// @public
+// @public @deprecated
 export interface ActiveContentChangedEventArgs {
     activeContent?: React.ReactNode;
     oldContent?: React.ReactNode;
@@ -363,7 +363,7 @@ export function ActivityCenterField(props: CommonProps): React_2.JSX.Element | n
 export class ActivityMessageCancelledEvent extends UiEvent<{}> {
 }
 
-// @public
+// @public @deprecated
 export interface ActivityMessageEventArgs {
     details?: ActivityMessageDetails;
     message: NotifyMessageType;
@@ -760,7 +760,7 @@ export interface CardInfo {
 export class CardSelectedEvent extends UiEvent<CardSelectedEventArgs> {
 }
 
-// @alpha
+// @alpha @deprecated
 export interface CardSelectedEventArgs {
     // (undocumented)
     id: any;
@@ -1049,7 +1049,7 @@ export class ContentControl extends ConfigurableUiControl {
 export class ContentControlActivatedEvent extends UiEvent<ContentControlActivatedEventArgs> {
 }
 
-// @public
+// @public @deprecated
 export interface ContentControlActivatedEventArgs {
     // (undocumented)
     activeContentControl: ContentControl;
@@ -1150,7 +1150,7 @@ export class ContentLayout extends React_2.Component<ContentLayoutComponentProps
 export class ContentLayoutActivatedEvent extends UiEvent<ContentLayoutActivatedEventArgs> {
 }
 
-// @public
+// @public @deprecated
 export interface ContentLayoutActivatedEventArgs {
     // (undocumented)
     contentGroup: ContentGroup;
@@ -1460,7 +1460,7 @@ export class CursorPrompt {
 export class CursorUpdatedEvent extends UiEvent<CursorUpdatedEventArgs> {
 }
 
-// @public
+// @public @deprecated
 export interface CursorUpdatedEventArgs {
     // (undocumented)
     direction: CursorDirection;
@@ -1604,7 +1604,7 @@ export function DefaultViewOverlay({ viewport, onPlayPause, featureOptions, }: V
 export class DialogChangedEvent extends UiEvent<DialogChangedEventArgs> {
 }
 
-// @public
+// @public @deprecated
 export interface DialogChangedEventArgs {
     // (undocumented)
     activeDialog: React_2.ReactNode | undefined;
@@ -1717,7 +1717,7 @@ export class ElementTooltip extends React_2.Component<CommonProps, ElementToolti
 export class ElementTooltipChangedEvent extends UiEvent<ElementTooltipChangedEventArgs> {
 }
 
-// @public
+// @public @deprecated
 export interface ElementTooltipChangedEventArgs {
     // (undocumented)
     el?: HTMLElement;
@@ -2167,7 +2167,7 @@ export const FRONTSTAGE_SETTINGS_NAMESPACE = "uifw-frontstageSettings";
 export class FrontstageActivatedEvent extends UiEvent<FrontstageActivatedEventArgs> {
 }
 
-// @public
+// @public @deprecated
 export interface FrontstageActivatedEventArgs {
     // (undocumented)
     activatedFrontstageDef: FrontstageDef;
@@ -2196,7 +2196,7 @@ export interface FrontstageConfig extends CommonProps {
 export class FrontstageDeactivatedEvent extends UiEvent<FrontstageDeactivatedEventArgs> {
 }
 
-// @public
+// @public @deprecated
 export interface FrontstageDeactivatedEventArgs {
     activatedFrontstageDef?: FrontstageDef;
     deactivatedFrontstageDef: FrontstageDef;
@@ -2338,7 +2338,7 @@ export abstract class FrontstageProvider {
 export class FrontstageReadyEvent extends UiEvent<FrontstageReadyEventArgs> {
 }
 
-// @public
+// @public @deprecated
 export interface FrontstageReadyEventArgs {
     // (undocumented)
     frontstageDef: FrontstageDef;
@@ -2655,7 +2655,7 @@ export class InputFieldMessage extends React_2.PureComponent<InputFieldMessagePr
 export class InputFieldMessageAddedEvent extends UiEvent<InputFieldMessageEventArgs> {
 }
 
-// @public
+// @public @deprecated
 export interface InputFieldMessageEventArgs {
     detailedMessage: NotifyMessageType;
     messageText: NotifyMessageType;
@@ -3049,7 +3049,7 @@ export type MenuItemProps = AbstractMenuItemProps;
 export class MessageAddedEvent extends UiEvent<MessageAddedEventArgs> {
 }
 
-// @public
+// @public @deprecated
 export interface MessageAddedEventArgs {
     message: NotifyMessageDetailsType;
 }
@@ -3147,7 +3147,7 @@ export class ModalFrontstage extends React_2.Component<ModalFrontstageProps> {
 export class ModalFrontstageChangedEvent extends UiEvent<ModalFrontstageChangedEventArgs> {
 }
 
-// @public
+// @public @deprecated
 export interface ModalFrontstageChangedEventArgs {
     // (undocumented)
     modalFrontstageCount: number;
@@ -3157,7 +3157,7 @@ export interface ModalFrontstageChangedEventArgs {
 export class ModalFrontstageClosedEvent extends UiEvent<ModalFrontstageClosedEventArgs> {
 }
 
-// @public
+// @public @deprecated
 export interface ModalFrontstageClosedEventArgs {
     engagementTime: number;
     idleTime: number;
@@ -3204,7 +3204,7 @@ export interface ModalFrontstageProps extends CommonProps {
 export class ModalFrontstageRequestedCloseEvent extends UiEvent<ModalFrontstageRequestedCloseEventArgs> {
 }
 
-// @alpha
+// @alpha @deprecated
 export interface ModalFrontstageRequestedCloseEventArgs {
     modalFrontstage: ModalFrontstageInfo;
     stageCloseFunc: () => void;
@@ -3250,7 +3250,7 @@ export class ModelessDialogRenderer extends React_2.PureComponent<CommonProps> {
 export class MouseDownChangedEvent extends UiEvent<MouseDownChangedEventArgs> {
 }
 
-// @public
+// @public @deprecated
 export interface MouseDownChangedEventArgs {
     mouseDown: boolean;
 }
@@ -3265,7 +3265,7 @@ export interface NameToReducerMap {
 export class NavigationAidActivatedEvent extends UiEvent<NavigationAidActivatedEventArgs> {
 }
 
-// @public
+// @public @deprecated
 export interface NavigationAidActivatedEventArgs {
     // (undocumented)
     iModelConnection: IModelConnection;
@@ -3335,7 +3335,7 @@ export interface OverflowToolbarOptions {
 // @internal
 export function packNineZoneState(state: NineZoneState): NineZoneState;
 
-// @public
+// @public @deprecated
 export interface PanelPinnedChangedEventArgs {
     // (undocumented)
     panelDef: StagePanelDef;
@@ -3355,7 +3355,7 @@ export interface PanelSizeChangedEventArgs {
 export class PanelStateChangedEvent extends UiEvent<PanelStateChangedEventArgs> {
 }
 
-// @public
+// @public @deprecated
 export interface PanelStateChangedEventArgs {
     // (undocumented)
     panelDef: StagePanelDef;
@@ -3393,7 +3393,7 @@ export class PointerMessage extends React_2.Component<PointerMessageProps, Point
 export class PointerMessageChangedEvent extends UiEvent<PointerMessageChangedEventArgs> {
 }
 
-// @public
+// @public @deprecated
 export interface PointerMessageChangedEventArgs {
     // (undocumented)
     detailedMessage?: NotifyMessageType;
@@ -3521,7 +3521,7 @@ export class PopupRenderer extends React_2.Component<{}, PopupRendererState> {
 export class PopupsChangedEvent extends UiEvent<PopupsChangedEventArgs> {
 }
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 export interface PopupsChangedEventArgs {
     // (undocumented)
     popups: ReadonlyArray<PopupInfo>;
@@ -4486,7 +4486,7 @@ export interface SupportsViewSelectorChange {
 export class SyncToolSettingsPropertiesEvent extends UiEvent<SyncToolSettingsPropertiesEventArgs> {
 }
 
-// @public
+// @public @deprecated
 export interface SyncToolSettingsPropertiesEventArgs {
     // (undocumented)
     syncProperties: DialogPropertySyncItem[];
@@ -4559,7 +4559,7 @@ export class TileLoadingIndicator extends React_2.PureComponent<CommonProps, Til
 export class ToolActivatedEvent extends UiEvent<ToolActivatedEventArgs> {
 }
 
-// @public
+// @public @deprecated
 export interface ToolActivatedEventArgs {
     // (undocumented)
     toolId: string;
@@ -4569,7 +4569,7 @@ export interface ToolActivatedEventArgs {
 export class ToolAssistanceChangedEvent extends UiEvent<ToolAssistanceChangedEventArgs> {
 }
 
-// @public
+// @public @deprecated
 export interface ToolAssistanceChangedEventArgs {
     instructions: ToolAssistanceInstructions | undefined;
 }
@@ -4746,7 +4746,7 @@ export interface ToolbarWithOverflowProps extends CommonProps, NoChildrenProps {
 export class ToolIconChangedEvent extends UiEvent<ToolIconChangedEventArgs> {
 }
 
-// @public
+// @public @deprecated
 export interface ToolIconChangedEventArgs {
     // (undocumented)
     iconSpec: string;
@@ -5048,7 +5048,7 @@ export interface UiItemsProvider {
 // @public
 export type UiItemsProviderOverrides = MarkRequired<AllowedUiItemsProviderOverrides, "providerId" | "stageUsages"> | MarkRequired<AllowedUiItemsProviderOverrides, "providerId" | "stageIds"> | MarkRequired<AllowedUiItemsProviderOverrides, "stageIds"> | MarkRequired<AllowedUiItemsProviderOverrides, "stageUsages"> | MarkRequired<AllowedUiItemsProviderOverrides, "providerId" | "stageUsages" | "stageIds">;
 
-// @public
+// @public @deprecated
 export interface UiItemsProviderRegisteredEventArgs {
     // (undocumented)
     providerId: string;
@@ -5073,7 +5073,7 @@ export function UiStateStorageHandler(props: UiSettingsProviderProps): React_2.J
 export class UiSyncEvent extends BeUiEvent<UiSyncEventArgs> {
 }
 
-// @public
+// @public @deprecated
 export interface UiSyncEventArgs {
     // (undocumented)
     eventIds: Set<string>;
@@ -5083,7 +5083,7 @@ export interface UiSyncEventArgs {
 export class UiVisibilityChangedEvent extends UiEvent<UiVisibilityEventArgs> {
 }
 
-// @public
+// @public @deprecated
 export interface UiVisibilityEventArgs {
     // (undocumented)
     visible: boolean;
@@ -5325,7 +5325,7 @@ export class ViewSelector extends React_2.Component<ViewSelectorProps, ViewSelec
 export class ViewSelectorChangedEvent extends UiEvent<ViewSelectorChangedEventArgs> {
 }
 
-// @beta
+// @beta @deprecated
 export interface ViewSelectorChangedEventArgs {
     // (undocumented)
     iModelConnection: IModelConnection;
@@ -5654,7 +5654,7 @@ export enum WidgetState {
 export class WidgetStateChangedEvent extends UiEvent<WidgetStateChangedEventArgs> {
 }
 
-// @public
+// @public @deprecated
 export interface WidgetStateChangedEventArgs {
     // (undocumented)
     widgetDef: WidgetDef;
