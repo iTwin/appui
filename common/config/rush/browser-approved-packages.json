@@ -63,10 +63,6 @@
       "allowedCategories": [ "frontend" ]
     },
     {
-      "name": "@itwin/core-mobile",
-      "allowedCategories": [ "internal" ]
-    },
-    {
       "name": "@itwin/core-orbitgt",
       "allowedCategories": [ "frontend", "internal" ]
     },

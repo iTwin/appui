@@ -125,7 +125,7 @@ export type BadgeType = BadgeType_2;
 // @public
 export const BadgeType: typeof BadgeType_2;
 
-// @public
+// @public @deprecated
 export function BlockText(props: TextProps): React_2.JSX.Element;
 
 // @public @deprecated
@@ -168,7 +168,7 @@ export enum CheckBoxState {
     Partial = 2
 }
 
-// @public
+// @public @deprecated
 export class CheckListBox extends React_2.PureComponent<CommonProps & {
     children?: React_2.ReactNode;
 }> {
@@ -176,13 +176,13 @@ export class CheckListBox extends React_2.PureComponent<CommonProps & {
     render(): React_2.JSX.Element;
 }
 
-// @public
+// @public @deprecated
 export class CheckListBoxItem extends React_2.PureComponent<CheckListBoxItemProps> {
     // (undocumented)
     render(): React_2.JSX.Element;
 }
 
-// @public
+// @public @deprecated
 export interface CheckListBoxItemProps extends CommonProps {
     checked?: boolean;
     disabled?: boolean;
@@ -191,7 +191,7 @@ export interface CheckListBoxItemProps extends CommonProps {
     onClick?: () => any;
 }
 
-// @public
+// @public @deprecated
 export function CheckListBoxSeparator(): React_2.JSX.Element;
 
 // @internal
@@ -395,7 +395,7 @@ export enum Corner {
 // @internal
 export type CrossAxisArrowKeyFunc = (forward: boolean) => void;
 
-// @public
+// @public @deprecated
 export class Dialog extends React_2.Component<DialogProps> {
     constructor(props: DialogProps);
     // (undocumented)
@@ -414,7 +414,7 @@ export class Dialog extends React_2.Component<DialogProps> {
     render(): React_2.ReactElement;
 }
 
-// @public
+// @public @deprecated
 export enum DialogAlignment {
     // (undocumented)
     Bottom = "bottom",
@@ -436,7 +436,7 @@ export enum DialogAlignment {
     TopRight = "top-right"
 }
 
-// @public
+// @public @deprecated
 export interface DialogProps extends Omit_2<React_2.AllHTMLAttributes<HTMLDivElement>, "title">, CommonProps {
     alignment?: DialogAlignment;
     backgroundStyle?: React_2.CSSProperties;
@@ -470,7 +470,7 @@ export interface DialogProps extends Omit_2<React_2.AllHTMLAttributes<HTMLDivEle
     y?: number;
 }
 
-// @public
+// @public @deprecated
 export function DisabledText(props: TextProps): React_2.JSX.Element;
 
 // @public @deprecated
@@ -560,10 +560,10 @@ export function ElementResizeObserver({ watchedElement, render, }: {
     render: (props: RenderPropsArgs) => React_2.ReactElement;
 }): React_2.ReactElement<any, string | React_2.JSXElementConstructor<any>>;
 
-// @public
+// @public @deprecated
 export const ElementSeparator: (props: ElementSeparatorProps) => React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface ElementSeparatorProps extends CommonProps {
     isResizeHandleBeingDragged?: boolean;
     isResizeHandleHovered?: boolean;
@@ -579,7 +579,7 @@ export interface ElementSeparatorProps extends CommonProps {
 // @public
 export type ExecuteHandler = (this: void) => void;
 
-// @public
+// @public @deprecated
 export class ExpandableList extends React_2.PureComponent<ExpandableListProps, ExpandableListState> {
     constructor(props: ExpandableListProps);
     // @internal (undocumented)
@@ -590,7 +590,7 @@ export class ExpandableList extends React_2.PureComponent<ExpandableListProps, E
     render(): React_2.ReactElement;
 }
 
-// @public
+// @public @deprecated
 export interface ExpandableListProps extends CommonProps {
     children?: React_2.ReactNode;
     defaultActiveBlock?: number;
@@ -709,7 +709,7 @@ export interface GlobalContextMenuProps extends ContextMenuProps {
     y: number | string;
 }
 
-// @public
+// @public @deprecated
 export class GlobalDialog extends React_2.Component<GlobalDialogProps, GlobalDialogState> {
     constructor(props: GlobalDialogProps);
     // (undocumented)
@@ -720,13 +720,13 @@ export class GlobalDialog extends React_2.Component<GlobalDialogProps, GlobalDia
     readonly state: GlobalDialogState;
 }
 
-// @public
+// @public @deprecated
 export interface GlobalDialogProps extends DialogProps {
     // (undocumented)
     identifier?: string;
 }
 
-// @public
+// @public @deprecated
 export interface GlobalDialogState {
     // (undocumented)
     parentDocument: Document | null;
@@ -760,10 +760,10 @@ export class IconHelper {
     static get reactIconKey(): string;
 }
 
-// @public
+// @public @deprecated
 export const IconInput: (props: IconInputProps) => React_2.ReactElement | null;
 
-// @public
+// @public @deprecated
 export interface IconInputProps extends Omit<InputProps, "size"> {
     containerClassName?: string;
     icon: React_2.ReactNode;
@@ -779,13 +779,13 @@ export interface IconProps extends CommonProps {
 // @public
 export type IconSpec = string | ConditionalStringValue | React_2.ReactNode | ConditionalIconItem;
 
-// @public
+// @public @deprecated
 export class ImageCheckBox extends React_2.PureComponent<ImageCheckBoxProps> {
     // @internal (undocumented)
     render(): React_2.JSX.Element;
 }
 
-// @public
+// @public @deprecated
 export interface ImageCheckBoxProps extends CommonProps {
     border?: boolean;
     checked?: boolean;
@@ -799,20 +799,20 @@ export interface ImageCheckBoxProps extends CommonProps {
     tooltip?: string;
 }
 
-// @public
+// @public @deprecated
 export class InputLabel extends React_2.PureComponent<InputLabelProps> {
     // (undocumented)
     render(): React_2.ReactElement;
 }
 
-// @public
+// @public @deprecated
 export interface InputLabelProps extends LabeledComponentProps, MessagedComponentProps, CommonProps {
     children?: React_2.ReactNode;
     // (undocumented)
     disabled?: boolean;
 }
 
-// @public
+// @public @deprecated
 export enum InputStatus {
     // (undocumented)
     Error = "error",
@@ -853,7 +853,7 @@ export class ItemKeyboardNavigator {
     set orientation(orientation: Orientation);
 }
 
-// @public
+// @public @deprecated
 export interface LabeledComponentProps {
     inputClassName?: string;
     inputStyle?: React_2.CSSProperties;
@@ -873,13 +873,13 @@ export class Line {
     p2: Point;
 }
 
-// @alpha
+// @alpha @deprecated
 export function Listbox(props: ListboxProps): React_2.JSX.Element;
 
-// @alpha
+// @alpha @deprecated
 export const ListboxContext: React_2.Context<ListboxContextProps>;
 
-// @alpha
+// @alpha @deprecated
 export interface ListboxContextProps {
     // (undocumented)
     focusValue?: ListboxValue;
@@ -893,16 +893,16 @@ export interface ListboxContextProps {
     onListboxValueChange: (newValue: ListboxValue, isControlOrCommandPressed?: boolean) => void;
 }
 
-// @alpha
+// @alpha @deprecated
 export function ListboxItem(props: ListboxItemProps): React_2.JSX.Element;
 
-// @alpha
+// @alpha @deprecated
 export interface ListboxItemProps extends React_2.DetailedHTMLProps<React_2.LiHTMLAttributes<HTMLLIElement>, HTMLLIElement> {
     disabled?: boolean;
     value: ListboxValue;
 }
 
-// @alpha
+// @alpha @deprecated
 export interface ListboxProps extends React_2.DetailedHTMLProps<React_2.HTMLAttributes<HTMLUListElement>, HTMLUListElement> {
     // (undocumented)
     ariaLabel?: any;
@@ -916,10 +916,10 @@ export interface ListboxProps extends React_2.DetailedHTMLProps<React_2.HTMLAttr
     selectedValue?: ListboxValue;
 }
 
-// @alpha
+// @alpha @deprecated
 export type ListboxValue = string;
 
-// @public
+// @public @deprecated
 export class LoadingBar extends React_2.PureComponent<LoadingBarProps> {
     // (undocumented)
     static defaultProps: Partial<LoadingBarProps>;
@@ -927,14 +927,14 @@ export class LoadingBar extends React_2.PureComponent<LoadingBarProps> {
     render(): React_2.JSX.Element;
 }
 
-// @public
+// @public @deprecated
 export interface LoadingBarProps extends CommonProps {
     barHeight: number;
     percent: number;
     showPercentage?: boolean;
 }
 
-// @public
+// @public @deprecated
 export class LoadingPrompt extends React_2.PureComponent<LoadingPromptProps> {
     // (undocumented)
     static defaultProps: Partial<LoadingPromptProps>;
@@ -942,7 +942,7 @@ export class LoadingPrompt extends React_2.PureComponent<LoadingPromptProps> {
     render(): React_2.JSX.Element;
 }
 
-// @public
+// @public @deprecated
 export interface LoadingPromptProps extends CommonProps {
     isDeterminate: boolean;
     message?: string;
@@ -956,7 +956,7 @@ export interface LoadingPromptProps extends CommonProps {
     title: string;
 }
 
-// @public
+// @public @deprecated
 export class LoadingSpinner extends React_2.PureComponent<LoadingSpinnerProps> {
     // (undocumented)
     static defaultProps: Partial<LoadingSpinnerProps>;
@@ -964,14 +964,14 @@ export class LoadingSpinner extends React_2.PureComponent<LoadingSpinnerProps> {
     render(): React_2.JSX.Element;
 }
 
-// @public
+// @public @deprecated
 export interface LoadingSpinnerProps extends Omit<ProgressRadialProps, "size"> {
     message?: string;
     messageOnTop?: boolean;
     size?: RadialSizeType;
 }
 
-// @public
+// @public @deprecated
 export class LoadingStatus extends React_2.PureComponent<LoadingStatusProps> {
     // (undocumented)
     static defaultProps: Partial<LoadingStatusProps>;
@@ -979,7 +979,7 @@ export class LoadingStatus extends React_2.PureComponent<LoadingStatusProps> {
     render(): React_2.JSX.Element;
 }
 
-// @public
+// @public @deprecated
 export interface LoadingStatusProps extends CommonProps {
     message: string;
     percent: number;
@@ -1003,7 +1003,7 @@ export class LocalStateStorage implements UiStateStorage {
     w: Window;
 }
 
-// @public
+// @public @deprecated
 export interface MainTabsProps extends TabsProps {
     mainClassName: string;
     orientation: Orientation;
@@ -1055,7 +1055,7 @@ export interface MessageContainerProps extends CommonProps {
     severity: MessageSeverity;
 }
 
-// @public
+// @public @deprecated
 export interface MessagedComponentProps {
     message?: string;
     messageClassName?: string;
@@ -1100,10 +1100,10 @@ export type NodeCheckboxRenderProps = Omit_2<CheckboxProps, "onChange" | "onClic
     onClick: (e: React_2.MouseEvent) => void;
 };
 
-// @public
+// @public @deprecated
 export const NumberInput: (props: NumberInputProps) => React_2.ReactElement | null;
 
-// @public
+// @public @deprecated
 export interface NumberInputProps extends Omit<InputProps_2, "min" | "max" | "step" | "onChange"> {
     containerClassName?: string;
     containerStyle?: React_2.CSSProperties;
@@ -1327,10 +1327,10 @@ export interface RadialMenuProps extends CommonProps {
     top?: number | string;
 }
 
-// @public
+// @public @deprecated
 export type RadialSizeType = ProgressRadialProps["size"];
 
-// @public
+// @public @deprecated
 export interface RatioChangeResult {
     // (undocumented)
     ratio: number;
@@ -1436,7 +1436,7 @@ export class ScrollPositionMaintainer implements IDisposable {
 // @public @deprecated
 export function ScrollView(props: CommonDivProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export class SearchBox extends React_2.Component<SearchBoxProps, SearchBoxState> {
     constructor(props: SearchBoxProps);
     // (undocumented)
@@ -1449,7 +1449,7 @@ export class SearchBox extends React_2.Component<SearchBoxProps, SearchBoxState>
     readonly state: Readonly<SearchBoxState>;
 }
 
-// @public
+// @public @deprecated
 export interface SearchBoxProps extends CommonProps {
     initialValue?: string;
     onClear?: () => void;
@@ -1564,13 +1564,13 @@ export enum SortDirection {
     NoSort = 0
 }
 
-// @public
+// @public @deprecated
 export type StepFunctionProp = number | ((direction: string) => number | undefined);
 
 // @public @deprecated
 export function StyledText(props: StyledTextProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface StyledTextProps extends TextProps {
     mainClassName: string;
 }
@@ -1588,7 +1588,7 @@ export interface SvgPathProps extends CommonProps {
     viewBoxWidth: number;
 }
 
-// @public
+// @public @deprecated
 export interface TabLabel {
     // (undocumented)
     disabled?: boolean;
@@ -1603,7 +1603,7 @@ export interface TabLabel {
     tooltip?: string | React_2.ReactElement;
 }
 
-// @public
+// @public @deprecated
 export class Tabs extends React_2.PureComponent<MainTabsProps, TabsState> {
     constructor(props: MainTabsProps);
     // @internal (undocumented)
@@ -1614,7 +1614,7 @@ export class Tabs extends React_2.PureComponent<MainTabsProps, TabsState> {
     render(): React_2.ReactElement;
 }
 
-// @public
+// @public @deprecated
 export interface TabsProps extends React_2.AllHTMLAttributes<HTMLUListElement>, CommonProps {
     activeIndex?: number;
     green?: boolean;
@@ -1622,7 +1622,7 @@ export interface TabsProps extends React_2.AllHTMLAttributes<HTMLUListElement>, 
     onActivateTab?: (index: number) => any;
 }
 
-// @public
+// @public @deprecated
 export interface TextProps extends React_2.AllHTMLAttributes<HTMLSpanElement>, CommonProps {
 }
 
@@ -1830,10 +1830,10 @@ export enum UiStateStorageStatus {
     UnknownError = 2
 }
 
-// @public
+// @public @deprecated
 export function UnderlinedButton(props: UnderlinedButtonProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface UnderlinedButtonProps {
     children: string | React_2.ReactNode;
     className?: string;
@@ -1842,7 +1842,7 @@ export interface UnderlinedButtonProps {
     title?: string;
 }
 
-// @beta
+// @public
 export function useCrossOriginPopup(visible: boolean, url: string | undefined, title: string, width: number, height: number, onClose: () => void): void;
 
 // @public @deprecated
@@ -1913,7 +1913,7 @@ export enum VerticalAlignment {
     Top = 1
 }
 
-// @public
+// @public @deprecated
 export function VerticalTabs(props: TabsProps): React_2.JSX.Element;
 
 // @public

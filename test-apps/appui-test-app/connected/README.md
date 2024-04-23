@@ -6,7 +6,7 @@ The application contained within this directory provides a test environment for 
 
 ## Getting Started
 
-The application may be run as an Electron app, Mobile app or within a browser. The following steps outline the procedure for successfully building the application as part of a larger monorepo, and then starting the application via npm scripts.
+The application may be run as an Electron app or within a browser. The following steps outline the procedure for successfully building the application as part of a larger monorepo, and then starting the application via npm scripts.
 
 1. To get started, follow the instructions to setup the entire repository, located [here](../../../README.md#build-instructions).
 2. To work online, follow the configure the [client application section](#client-configuration).
@@ -24,8 +24,6 @@ The application may be run as an Electron app, Mobile app or within a browser. T
   ```cmd
   npm run start:servers
   ```
-
-- To start the application as an iOS app, run the following: WIP
 
 ## Dependencies
 
@@ -109,7 +107,7 @@ If you do have an existing client, set the following environment variables with 
     - By default set this to `http://localhost:3000/signin-callback`
   - IMJS_OIDC_BROWSER_TEST_SCOPES
     - By default set this to `openid profile organization email itwinjs projects:read imodels:read`
-- For Electron/Desktop, use a client that is "Type" `Desktop/Mobile` and set the following variables
+- For Electron/Desktop, use a client that is "Type" `Desktop` and set the following variables
   - IMJS_OIDC_ELECTRON_TEST_CLIENT_ID
   - IMJS_OIDC_ELECTRON_TEST_REDIRECT_URI
     - By default set this to `http://localhost:3000/signin-callback`

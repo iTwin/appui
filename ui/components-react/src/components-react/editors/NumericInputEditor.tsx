@@ -207,6 +207,7 @@ export class NumericInputEditor
     };
 
     return (
+      // eslint-disable-next-line deprecation/deprecation
       <NumberInput
         ref={this._inputElement}
         className={className}

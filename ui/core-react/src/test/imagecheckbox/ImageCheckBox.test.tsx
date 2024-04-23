@@ -7,6 +7,8 @@ import { ImageCheckBox } from "../../core-react";
 import userEvent from "@testing-library/user-event";
 import { render, screen } from "@testing-library/react";
 
+/* eslint-disable deprecation/deprecation */
+
 describe("<ImageCheckBox />", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
   beforeEach(() => {

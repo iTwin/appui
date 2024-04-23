@@ -16,7 +16,6 @@ import {
   OutputMessagePriority,
   OutputMessageType,
 } from "@itwin/core-frontend";
-import { UnderlinedButton } from "@itwin/core-react";
 import { ThemeProvider } from "@itwin/itwinui-react";
 import {
   AppNotificationManager,
@@ -197,11 +196,7 @@ describe("MessageManager", () => {
     MessageManager.clearMessages();
     expect(MessageManager.messages.length).toEqual(0);
 
-    const reactNode = (
-      <span>
-        For more details, <UnderlinedButton>click here</UnderlinedButton>.
-      </span>
-    );
+    const reactNode = <span>For more details, click here.</span>;
     MessageManager.outputMessage(
       new ReactNotifyMessageDetails(
         OutputMessagePriority.Debug,

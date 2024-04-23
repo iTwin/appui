@@ -259,6 +259,7 @@ export function getListPanel(props: ListPickerProps): React.ReactNode {
     <Panel className="ListPickerContainer">
       <Title>{props.title}</Title>
       {props.searchBox && props.onSearchValueChange && (
+        // eslint-disable-next-line deprecation/deprecation
         <SearchBox
           className="ListPickerSearchBox"
           onValueChanged={props.onSearchValueChange}

@@ -12,6 +12,7 @@ import { Icon, useWidgetOpacityContext } from "@itwin/core-react";
 import * as React from "react";
 import { UiFramework } from "../UiFramework";
 import { AppButton } from "../layout/widget/tools/button/App";
+import { ProcessDetector } from "@itwin/core-bentley";
 
 /**
  * Properties for the [[BackstageAppButton]] React component
@@ -66,7 +67,7 @@ export function BackstageAppButton(props: BackstageAppButtonProps) {
   if (
     (UiFramework.visibility.useProximityOpacity || // eslint-disable-line deprecation/deprecation
       UiFramework.visibility.snapWidgetOpacity) &&
-    !UiFramework.isMobile()
+    !ProcessDetector.isMobileBrowser
   ) {
     buttonProximityScale = proximityScale;
   }

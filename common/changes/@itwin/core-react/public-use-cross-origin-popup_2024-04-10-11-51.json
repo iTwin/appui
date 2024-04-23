@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/core-react",
+      "comment": "Bump `useCrossOriginPopup` to `@public`.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/core-react"
+}

@@ -12,6 +12,7 @@ import type { CommonProps } from "../utils/Props";
 
 /** Properties for [[ExpandableList]] component
  * @public
+ * @deprecated in 4.12.x. Props of deprecated component {@link ExpandableList}.
  */
 export interface ExpandableListProps extends CommonProps {
   /** Index of the default active block */
@@ -24,25 +25,27 @@ export interface ExpandableListProps extends CommonProps {
   children?: React.ReactNode;
 }
 
-/** @internal */
 interface ExpandableListState {
   activeBlock: number;
 }
 
-/**
- * ExpandableList React component is a container for ExpandableBlock components.
+/** ExpandableList React component is a container for ExpandableBlock components.
  * @public
+ * @deprecated in 4.12.x. Use a custom container and manage {@link https://itwinui.bentley.com/docs/expandableblock expandable block} state manually.
  */
 export class ExpandableList extends React.PureComponent<
+  // eslint-disable-next-line deprecation/deprecation
   ExpandableListProps,
   ExpandableListState
 > {
+  // eslint-disable-next-line deprecation/deprecation
   constructor(props: ExpandableListProps) {
     super(props);
 
     this.state = { activeBlock: this.props.defaultActiveBlock! };
   }
 
+  // eslint-disable-next-line deprecation/deprecation
   public static defaultProps: Partial<ExpandableListProps> = {
     singleExpandOnly: false,
     defaultActiveBlock: 0,
@@ -79,6 +82,7 @@ export class ExpandableList extends React.PureComponent<
   }
 
   /** @internal */
+  // eslint-disable-next-line deprecation/deprecation
   public override componentDidUpdate(prevProps: ExpandableListProps) {
     if (
       this.props.defaultActiveBlock !== prevProps.defaultActiveBlock &&

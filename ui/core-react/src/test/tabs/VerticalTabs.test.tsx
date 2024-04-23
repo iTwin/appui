@@ -7,6 +7,8 @@ import * as React from "react";
 import { VerticalTabs } from "../../core-react";
 import { classesFromElement } from "../TestUtils";
 
+/* eslint-disable deprecation/deprecation */
+
 describe("<VerticalTabs />", () => {
   it("should render", () => {
     const { container } = render(<VerticalTabs labels={[]} />);

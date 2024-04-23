@@ -82,6 +82,7 @@ export class MessageBox extends React.PureComponent<MessageBoxProps> {
 
   public override render(): React.ReactElement {
     return (
+      // eslint-disable-next-line deprecation/deprecation
       <Dialog
         title={this.props.title}
         buttonCluster={this.props.buttonCluster}

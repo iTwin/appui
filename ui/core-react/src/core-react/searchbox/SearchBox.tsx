@@ -17,10 +17,11 @@ import { Icon } from "../icons/IconComponent";
 import { SvgClose, SvgSearch } from "@itwin/itwinui-icons-react";
 import { useTranslation } from "../l10n/useTranslation";
 
-// TODO: deprecate in favor of iTwinUI SearchBox.
+/* eslint-disable deprecation/deprecation */
 
 /** Properties for [[SearchBox]] component
  * @public
+ * @deprecated in 4.12.x. Props of deprecated component {@link SearchBox}.
  */
 export interface SearchBoxProps extends CommonProps {
   /** Value to set SearchBox to initially */
@@ -39,15 +40,14 @@ export interface SearchBoxProps extends CommonProps {
   onClear?: () => void;
 }
 
-/** @internal */
 interface SearchBoxState {
   value: string;
 }
 
-/**
- * Input box for entering text to search for.
+/** Input box for entering text to search for.
  * The SearchBox has an icon right-justified and bounded by the box and shows a Search or Clear icon.
  * @public
+ * @deprecated in 4.12.x. Use {@link https://itwinui.bentley.com/docs/searchbox iTwinUI SearchBox} instead.
  */
 export class SearchBox extends React.Component<SearchBoxProps, SearchBoxState> {
   private _inputElement: HTMLInputElement | null = null;

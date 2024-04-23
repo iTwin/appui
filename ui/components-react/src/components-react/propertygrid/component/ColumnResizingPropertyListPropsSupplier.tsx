@@ -3,7 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import type { RatioChangeResult } from "@itwin/core-react";
 import { Orientation, UiGeometry } from "@itwin/core-react";
 import type { PropertyListProps } from "./PropertyList";
 
@@ -78,7 +77,7 @@ export class ColumnResizingPropertyListPropsSupplier extends React.Component<
       minValueWidth: 100,
     };
 
-  private _onColumnRatioChanged = (ratio: number): RatioChangeResult => {
+  private _onColumnRatioChanged = (ratio: number) => {
     ratio = UiGeometry.clamp(ratio, this._minRatio, this._maxRatio);
     if (this.state.columnRatio === ratio) return { ratio };
 

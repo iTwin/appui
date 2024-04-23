@@ -134,6 +134,7 @@ export class Calculator extends React.PureComponent<
     const classNames = classnames("uifw-calculator", className);
 
     const topSection = resultIcon ? (
+      // eslint-disable-next-line deprecation/deprecation
       <IconInput
         containerClassName="uifw-calculator-top-input"
         value={this.state.displayValue}

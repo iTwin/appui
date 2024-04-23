@@ -9,6 +9,8 @@ import TestUtils from "../TestUtils";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
+/* eslint-disable deprecation/deprecation */
+
 describe("ExpandableList", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
   beforeEach(() => {

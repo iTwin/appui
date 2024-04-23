@@ -6,6 +6,8 @@ import { render, screen } from "@testing-library/react";
 import * as React from "react";
 import { BlockText } from "../../core-react";
 
+/* eslint-disable deprecation/deprecation */
+
 describe("<BlockText />", () => {
   it("renders correctly", () => {
     render(<BlockText>Tested content</BlockText>);
