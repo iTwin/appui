@@ -5,10 +5,12 @@ Table of contents:
 - [@itwin/appui-react](#itwinappui-react)
   - [Deprecations](#deprecations)
   - [Changes](#changes)
-- [@itwin/imodel-components-react](#itwinimodel-components-react)
+- [@itwin/components-react](#itwincomponents-react)
   - [Deprecations](#deprecations-1)
-- [@itwin/core-react](#itwincore-react)
+- [@itwin/imodel-components-react](#itwinimodel-components-react)
   - [Deprecations](#deprecations-2)
+- [@itwin/core-react](#itwincore-react)
+  - [Deprecations](#deprecations-3)
   - [Changes](#changes-1)
 
 ## @itwin/appui-react
@@ -21,6 +23,12 @@ Table of contents:
 ### Changes
 
 - Bump `FloatingViewportContentWrapper` to `@public`. [#801](https://github.com/iTwin/appui/pull/801)
+
+## @itwin/components-react
+
+### Deprecations
+
+- Deprecated all event args interfaces (e.g. `TreeSelectionModificationEventArgs`). Event args should be inferred from a listener. If explicit type is needed use a type helper. [#806](https://github.com/iTwin/appui/pull/806)
 
 ## @itwin/imodel-components-react
 
