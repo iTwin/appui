@@ -53,13 +53,9 @@ function getWebComponentSource(iconSpec: string): string | undefined {
 export function Icon(props: IconProps) {
   if (!props.iconSpec) return null;
 
-  const iconString =
-    typeof props.iconSpec === "string" ||
-    props.iconSpec instanceof ConditionalStringValue
-      ? ConditionalStringValue.getValue(props.iconSpec)
-      : undefined;
-
-  if (iconString) {
+  const iconSpecValue = getIconSpecValue(props.iconSpec);
+  if (typeof iconSpecValue === "string") {
+    const iconString = iconSpecValue;
     const webComponentString = getWebComponentSource(iconString);
 
     if (
@@ -96,6 +92,8 @@ export function Icon(props: IconProps) {
         </i>
       );
     }
+
+    // CSS icon
     return (
       <i
         className={classnames("icon", iconString, props.className)}
@@ -104,26 +102,31 @@ export function Icon(props: IconProps) {
     );
   }
 
-  if (ConditionalIconItem.isConditionalIconItem(props.iconSpec)) {
-    return (
-      <i
-        className={classnames("icon", "core-svg-icon", props.className)}
-        style={props.style}
-      >
-        {/* FIXME: how can react render this? was this a bug in the types */}
-        {ConditionalIconItem.getValue(props.iconSpec) as React.ReactNode}
-      </i>
-    );
-  }
-
+  // ReactNode icon
   return (
     <i
       className={classnames("icon", "core-svg-icon", props.className)}
       style={props.style}
     >
-      {props.iconSpec instanceof ConditionalStringValue
-        ? undefined
-        : props.iconSpec}
+      {iconSpecValue}
     </i>
   );
+}
+
+function getIconSpecValue(
+  iconSpec: IconSpec
+): Exclude<IconSpec, ConditionalIconItem | ConditionalStringValue> {
+  let value = iconSpec;
+  while (true) {
+    if (ConditionalIconItem.isConditionalIconItem(value)) {
+      value = ConditionalIconItem.getValue(value);
+      continue;
+    }
+    if (value instanceof ConditionalStringValue) {
+      value = ConditionalStringValue.getValue(value);
+      break;
+    }
+    break;
+  }
+  return value;
 }
