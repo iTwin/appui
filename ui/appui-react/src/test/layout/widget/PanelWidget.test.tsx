@@ -229,7 +229,7 @@ describe("useMode", () => {
     state = addPanelWidget(state, "left", "w2", ["t2"]);
     state = addPanelWidget(state, "left", "w3", ["t3"], { minimized: true });
     const { result } = renderHook(() => useMode("w2"), {
-      wrapper: (props) => <Provider defaultState={state} {...props} />,
+      wrapper: (props: any) => <Provider defaultState={state} {...props} />,
     });
     expect(result.current).toEqual("fill");
   });
@@ -246,7 +246,7 @@ describe("useMode", () => {
     state = addPanelWidget(state, "left", "w2", ["t2"]);
     state = addPanelWidget(state, "left", "w3", ["t3"]);
     const { result } = renderHook(() => useMode("w2"), {
-      wrapper: (props) => <Provider defaultState={state} {...props} />,
+      wrapper: (props: any) => <Provider defaultState={state} {...props} />,
     });
     expect(result.current).toEqual("fit");
   });
