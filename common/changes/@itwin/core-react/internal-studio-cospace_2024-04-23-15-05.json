@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/core-react",
+      "comment": "Fix `Icon` component to render correctly with nested conditional items.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/core-react"
+}

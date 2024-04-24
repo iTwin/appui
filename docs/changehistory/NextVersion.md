@@ -5,12 +5,13 @@ Table of contents:
 - [@itwin/appui-react](#itwinappui-react)
   - [Deprecations](#deprecations)
   - [Changes](#changes)
+  - [Fixes](#fixes)
 - [@itwin/core-react](#itwincore-react)
   - [Deprecations](#deprecations-1)
   - [Changes](#changes-1)
-  - [Fixes](#fixes)
-- [@itwin/components-react](#itwincomponents-react)
   - [Fixes](#fixes-1)
+- [@itwin/components-react](#itwincomponents-react)
+  - [Fixes](#fixes-2)
 
 ## @itwin/appui-react
 
@@ -21,6 +22,10 @@ Table of contents:
 ### Changes
 
 - Bump `FloatingViewportContentWrapper` to `@public`. [#801](https://github.com/iTwin/appui/pull/801)
+
+### Fixes
+
+- Fix `FrameworkUiAdmin.showCard()` runtime error. [#803](https://github.com/iTwin/appui/pull/803)
 
 ## @itwin/core-react
 
@@ -55,6 +60,7 @@ Table of contents:
 ### Fixes
 
 - Fix `PopoutWidget` getting increasingly bigger each time it is popped out. [#792](https://github.com/iTwin/appui/pull/792)
+- Fix `Icon` to render correctly with nested conditional items. [#803](https://github.com/iTwin/appui/pull/803)
 
 ## @itwin/components-react
 

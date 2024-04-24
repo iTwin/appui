@@ -73,7 +73,7 @@ describe("useHidden", () => {
   it("should return `true` if target is not a panel", () => {
     const dragManagerRef = React.createRef<DragManager>();
     const { result } = renderHook(() => useHidden(), {
-      wrapper: (props) => (
+      wrapper: (props: any) => (
         <Wrapper dragManagerRef={dragManagerRef} {...props} />
       ),
     });
@@ -89,7 +89,7 @@ describe("useHidden", () => {
   it("should return `true` if target is not a current panel", () => {
     const dragManagerRef = React.createRef<DragManager>();
     const { result } = renderHook(() => useHidden(), {
-      wrapper: (props) => (
+      wrapper: (props: any) => (
         <Wrapper dragManagerRef={dragManagerRef} {...props} />
       ),
     });
@@ -107,7 +107,7 @@ describe("useHidden", () => {
   it("should return `false` if target is a current panel", () => {
     const dragManagerRef = React.createRef<DragManager>();
     const { result } = renderHook(() => useHidden(), {
-      wrapper: (props) => (
+      wrapper: (props: any) => (
         <Wrapper dragManagerRef={dragManagerRef} {...props} />
       ),
     });
@@ -135,7 +135,7 @@ describe("useHidden", () => {
 
     useActiveSendBackWidgetIdStore.setState("w1");
     const { result } = renderHook(() => useHidden(), {
-      wrapper: (props) => <Wrapper defaultState={state} {...props} />,
+      wrapper: (props: any) => <Wrapper defaultState={state} {...props} />,
     });
 
     expect(result.current).toEqual(false);
@@ -154,7 +154,7 @@ describe("useHidden", () => {
 
     useActiveSendBackWidgetIdStore.setState("w1");
     const { result } = renderHook(() => useHidden(), {
-      wrapper: (props) => <Wrapper defaultState={state} {...props} />,
+      wrapper: (props: any) => <Wrapper defaultState={state} {...props} />,
     });
 
     expect(result.current).toEqual(true);

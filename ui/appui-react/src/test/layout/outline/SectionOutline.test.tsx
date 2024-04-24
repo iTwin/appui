@@ -47,7 +47,7 @@ describe("SectionOutline", () => {
     });
     state = addTab(state, "t1");
     const { container } = render(<SectionOutline sectionIndex={0} />, {
-      wrapper: (props) => (
+      wrapper: (props: any) => (
         <Wrapper defaultState={state} dragManagerRef={dragManager} {...props} />
       ),
     });

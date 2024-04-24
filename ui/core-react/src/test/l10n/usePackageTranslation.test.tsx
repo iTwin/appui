@@ -29,7 +29,7 @@ describe("usePackageTranslation", () => {
           defaults: {},
         }),
       {
-        wrapper: (props) => (
+        wrapper: (props: any) => (
           <LocalizationProvider localization={localization} {...props} />
         ),
       }
@@ -134,7 +134,7 @@ describe("usePackageTranslation", () => {
           defaults: {},
         }),
       {
-        wrapper: (props) => (
+        wrapper: (props: any) => (
           <LocalizationProvider localization={localization} {...props} />
         ),
       }
@@ -160,7 +160,7 @@ describe("usePackageTranslation", () => {
           },
         }),
       {
-        wrapper: (props) => (
+        wrapper: (props: any) => (
           <LocalizationProvider localization={localization} {...props} />
         ),
       }
