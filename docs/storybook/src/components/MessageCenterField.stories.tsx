@@ -2,6 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+import * as React from "react";
 import type { Decorator, Meta, StoryObj } from "@storybook/react";
 import { AppUiDecorator, InitializerDecorator } from "../Decorators";
 import { MessageManager, MessageCenterField } from "@itwin/appui-react";
@@ -10,7 +11,6 @@ import {
   OutputMessagePriority,
 } from "@itwin/core-frontend";
 import { DropdownButton, MenuItem } from "@itwin/itwinui-react";
-import * as React from "react";
 
 const AlignComponent: Decorator = (Story) => {
   return (
@@ -19,6 +19,7 @@ const AlignComponent: Decorator = (Story) => {
         height: "100%",
         display: "flex",
         justifyContent: "center",
+        alignItems: "center",
         paddingBlock: "2em",
         gap: "10",
       }}
@@ -41,29 +42,18 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const EmptyDecorator: Decorator = (Story) => {
+const NoMessages: Decorator = (Story) => {
   React.useEffect(() => {
     MessageManager.clearMessages();
-  });
-  return (
-    <div
-      style={{
-        height: "100%",
-        display: "flex",
-        justifyContent: "center",
-        paddingBlock: "2em",
-        gap: "10",
-      }}
-    >
-      <Story />
-    </div>
-  );
+  }, []);
+  return <Story />;
 };
 
-export const Empty: Story = { decorators: EmptyDecorator };
+export const Empty: Story = {
+  decorators: [...meta.decorators, NoMessages],
+};
 
-//Info UseCase
-const InfoDecorator: Decorator = (Story) => {
+const InfoMessages: Decorator = (Story) => {
   React.useEffect(() => {
     MessageManager.clearMessages();
     ["1", "2", "3", "4"].forEach((num) => {
@@ -71,22 +61,15 @@ const InfoDecorator: Decorator = (Story) => {
         new NotifyMessageDetails(OutputMessagePriority.Info, `Message ${num}`)
       );
     });
-  });
-
-  return (
-    <div>
-      <Story />
-    </div>
-  );
+  }, []);
+  return <Story />;
 };
 
 export const Info: Story = {
-  decorators: InfoDecorator,
+  decorators: [...meta.decorators, InfoMessages],
 };
 
-//Error Use Case
-
-const ErrorDecorator: Decorator = (Story) => {
+const ErrorMessages: Decorator = (Story) => {
   React.useEffect(() => {
     MessageManager.clearMessages();
     ["1", "2", "3", "4"].forEach((num) => {
@@ -94,22 +77,15 @@ const ErrorDecorator: Decorator = (Story) => {
         new NotifyMessageDetails(OutputMessagePriority.Error, `Error ${num}`)
       );
     });
-  });
-
-  return (
-    <div>
-      <Story />
-    </div>
-  );
+  }, []);
+  return <Story />;
 };
 
 export const Error: Story = {
-  decorators: ErrorDecorator,
+  decorators: [...meta.decorators, ErrorMessages],
 };
 
-//Detailed Message
-
-const DetailedDecorator: Decorator = (Story) => {
+const DetailedMessages: Decorator = (Story) => {
   React.useEffect(() => {
     MessageManager.clearMessages();
     [1, 2, 3, 4].forEach(() => {
@@ -121,20 +97,13 @@ const DetailedDecorator: Decorator = (Story) => {
         )
       );
     });
-  });
-
-  return (
-    <div>
-      <Story />
-    </div>
-  );
+  }, []);
+  return <Story />;
 };
 
 export const Detailed: Story = {
-  decorators: DetailedDecorator,
+  decorators: [...meta.decorators, DetailedMessages],
 };
-
-//Dynamic Use Case
 
 const menuItems = () => [
   <MenuItem
@@ -178,20 +147,16 @@ const menuItems = () => [
 ];
 
 const DynamicDecorator: Decorator = (Story) => {
-  React.useEffect(() => {
-    MessageManager.clearMessages();
-  });
-
   return (
-    <div>
+    <>
       <Story />
       <DropdownButton menuItems={menuItems} styleType="borderless">
         Add Messages
       </DropdownButton>
-    </div>
+    </>
   );
 };
 
 export const Dynamic: Story = {
-  decorators: DynamicDecorator,
+  decorators: [...meta.decorators, NoMessages, DynamicDecorator],
 };
