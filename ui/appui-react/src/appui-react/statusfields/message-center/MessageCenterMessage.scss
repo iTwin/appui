@@ -6,13 +6,11 @@
 @import "../../layout/footer/variables.scss";
 
 .uifw-footer-messageCenter-message {
-  $vertical-padding: $nz-message-horizontal-padding;
-
   min-height: 48px;
   box-sizing: border-box;
-  padding-left: $nz-message-horizontal-padding;
-  padding-right: $nz-message-horizontal-padding;
-  padding-bottom: $vertical-padding;
+  padding-left: var(--iui-size-xs);
+  padding-right: var(--iui-size-xs);
+  padding-bottom: var(--iui-size-xs);
   display: grid;
   grid-gap: 12px;
   grid-auto-flow: column;
@@ -23,7 +21,7 @@
   font-size: $text-font-size;
 
   &:not(:first-child) {
-    padding-top: $vertical-padding;
+    padding-top: var(--iui-size-xs);
     border-top: 1px solid lightgrey;
   }
 
