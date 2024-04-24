@@ -64,7 +64,9 @@ describe("WidgetContentRenderer", () => {
     const { findByText, queryByText } = render(
       <WidgetContentRenderer tabId="t1">Widget content</WidgetContentRenderer>,
       {
-        wrapper: (props: any) => <TestNineZoneProvider layout={layout} {...props} />,
+        wrapper: (props: any) => (
+          <TestNineZoneProvider layout={layout} {...props} />
+        ),
       }
     );
 

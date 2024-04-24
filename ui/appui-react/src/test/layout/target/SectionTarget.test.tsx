@@ -79,7 +79,9 @@ describe("useAllowedPanelTarget", () => {
     state = addTab(state, "t3");
     state = addPanelWidget(state, "left", "w2", ["t3"]);
     const { container } = render(<SectionTargets widgetId="w2" />, {
-      wrapper: (props: any) => <DragWidgetWrapper defaultState={state} {...props} />,
+      wrapper: (props: any) => (
+        <DragWidgetWrapper defaultState={state} {...props} />
+      ),
     });
     expect(container.getElementsByClassName("nz-hidden")).toHaveLength(3);
   });
@@ -92,7 +94,9 @@ describe("useAllowedPanelTarget", () => {
     state = addTab(state, "t2");
     state = addPanelWidget(state, "left", "w1", ["t2"]);
     const { container } = render(<SectionTargets widgetId="w1" />, {
-      wrapper: (props: any) => <DragTabWrapper defaultState={state} {...props} />,
+      wrapper: (props: any) => (
+        <DragTabWrapper defaultState={state} {...props} />
+      ),
     });
     expect(container.getElementsByClassName("nz-hidden")).toHaveLength(3);
   });
