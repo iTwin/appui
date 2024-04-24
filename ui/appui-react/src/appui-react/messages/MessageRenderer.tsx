@@ -18,7 +18,7 @@ import { useTranslation } from "../hooks/useTranslation";
 interface UseActivityMessageProps {
   cancelActivityMessage?: () => void;
   dismissActivityMessage?: () => void;
-  activityMessageInfo?: ActivityMessageEventArgs;
+  activityMessageInfo?: ActivityMessageEventArgs; // eslint-disable-line deprecation/deprecation
 }
 
 /** Hook to render an Activity message.
@@ -73,7 +73,7 @@ function useActivityMessage({
  */
 export function MessageRenderer() {
   const [activityMessageInfo, setActivityMessageInfo] = React.useState<
-    ActivityMessageEventArgs | undefined
+    ActivityMessageEventArgs | undefined // eslint-disable-line deprecation/deprecation
   >();
   React.useEffect(() => {
     return MessageManager.onActivityMessageUpdatedEvent.addListener((args) => {
@@ -102,7 +102,7 @@ export function MessageRenderer() {
 function ActivityMessageContent({
   initialActivityMessageInfo,
 }: {
-  initialActivityMessageInfo: ActivityMessageEventArgs;
+  initialActivityMessageInfo: ActivityMessageEventArgs; // eslint-disable-line deprecation/deprecation
 }) {
   const { translate } = useTranslation();
 
@@ -113,7 +113,7 @@ function ActivityMessageContent({
 
   React.useEffect(() => {
     const handleActivityMessageUpdatedEvent = (
-      args: ActivityMessageEventArgs
+      args: ActivityMessageEventArgs // eslint-disable-line deprecation/deprecation
     ) => {
       setActivityMessageInfo(args);
     };

@@ -239,6 +239,7 @@ export class SheetNavigationAid extends React.Component<
   }
 
   /** Sets index of newly selected card */
+  // eslint-disable-next-line deprecation/deprecation
   private _handleCardSelected = (event: CardSelectedEventArgs) => {
     event &&
       this.setState({
@@ -282,6 +283,7 @@ export class SheetNavigationAid extends React.Component<
   };
 
   // istanbul ignore next
+  // eslint-disable-next-line deprecation/deprecation
   private _handleViewIdChanged = (args: ViewIdChangedEventArgs) => {
     if (this._viewport === args.viewport)
       this._handleViewportChanged(args.viewport as ScreenViewport);

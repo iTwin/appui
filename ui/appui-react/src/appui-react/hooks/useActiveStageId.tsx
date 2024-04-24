@@ -19,7 +19,7 @@ export function useActiveStageId(): string {
   );
   useEffect(() => {
     const handleFrontstageActivatedEvent = (
-      args: FrontstageActivatedEventArgs
+      args: FrontstageActivatedEventArgs // eslint-disable-line deprecation/deprecation
     ) => {
       setActiveStageId(args.activatedFrontstageDef.id);
     };

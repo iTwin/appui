@@ -9,7 +9,7 @@
 import * as React from "react";
 import { UiEvent } from "@itwin/appui-abstract";
 import type { Id64String } from "@itwin/core-bentley";
-import { Logger } from "@itwin/core-bentley";
+import { BeUiEvent, Logger } from "@itwin/core-bentley";
 import type { IModelConnection, ViewState } from "@itwin/core-frontend";
 import { FuzzySearch, IModelApp } from "@itwin/core-frontend";
 import type { SupportsViewSelectorChange } from "../content/ContentControl";
@@ -25,6 +25,7 @@ import svgSavedView from "@bentley/icons-generic/icons/saved-view.svg";
 
 /** [[ViewSelectorChangedEvent]] Args interface.
  * @beta
+ * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface ViewSelectorChangedEventArgs {
   iModelConnection: IModelConnection;
@@ -35,6 +36,7 @@ export interface ViewSelectorChangedEventArgs {
 
 /** ViewSelector Changed Event class.
  * @beta
+ * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class ViewSelectorChangedEvent extends UiEvent<ViewSelectorChangedEventArgs> {}
@@ -87,11 +89,6 @@ interface ViewSelectorShowUpdateEventArgs {
   showUnknown: boolean;
 }
 
-/** ViewSelector Show Update Event class.
- */
-// eslint-disable-next-line deprecation/deprecation
-class ViewSelectorShowUpdateEvent extends UiEvent<ViewSelectorShowUpdateEventArgs> {}
-
 /** View Selector React component
  * @beta
  */
@@ -100,7 +97,7 @@ export class ViewSelector extends React.Component<
   ViewSelectorState
 > {
   private static readonly _onViewSelectorShowUpdateEvent =
-    new ViewSelectorShowUpdateEvent();
+    new BeUiEvent<ViewSelectorShowUpdateEventArgs>();
   private _removeShowUpdateListener?: () => void;
   private _isMounted = false;
   private _searchInput = "";
@@ -114,7 +111,7 @@ export class ViewSelector extends React.Component<
 
   /** Gets the [[ViewSelectorChangedEvent]] */
   public static readonly onViewSelectorChangedEvent =
-    new ViewSelectorChangedEvent();
+    new ViewSelectorChangedEvent(); // eslint-disable-line deprecation/deprecation
 
   /** Updates the ViewSelector show settings.
    */

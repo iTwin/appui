@@ -122,6 +122,7 @@ export class InternalKeyboardShortcutManager {
     return CursorInformation.cursorY;
   }
 
+  // eslint-disable-next-line deprecation/deprecation
   private static _handleSyncUiEvent = (args: UiSyncEventArgs) => {
     const updateBooleanValue = (booleanValue: ConditionalBooleanValue) => {
       if (

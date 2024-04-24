@@ -85,7 +85,7 @@ export class DefaultToolSettingsProvider extends ToolUiProvider {
 
   // called to process UiFramework.toolSettings.onSyncToolSettingsProperties event
   public override syncToolSettingsProperties(
-    args: SyncToolSettingsPropertiesEventArgs
+    args: SyncToolSettingsPropertiesEventArgs // eslint-disable-line deprecation/deprecation
   ): void {
     this.uiDataProvider.fireSyncPropertiesEvent(args.syncProperties);
   }

@@ -142,6 +142,7 @@ export class AppUiSettings implements UserSettingsProvider {
     SyncUiEventDispatcher.onSyncUiEvent.addListener(this.handleSyncUiEvent);
   }
 
+  // eslint-disable-next-line deprecation/deprecation
   private handleSyncUiEvent = async (args: UiSyncEventArgs) => {
     if (this._applyingLocalSettings) return;
 

@@ -340,7 +340,7 @@ describe("DefaultToolUiSettingsProvider", () => {
       const syncArgs = {
         toolId: testToolId,
         syncProperties: [syncItem],
-      } as SyncToolSettingsPropertiesEventArgs;
+      } as SyncToolSettingsPropertiesEventArgs; // eslint-disable-line deprecation/deprecation
       // UiFramework.toolSettings.onSyncToolSettingsProperties.emit(syncArgs);
       InternalFrontstageManager.activeToolSettingsProvider?.syncToolSettingsProperties(
         syncArgs
@@ -481,7 +481,7 @@ describe("DefaultToolUiSettingsProvider", () => {
       const syncArgs = {
         toolId: testToolId,
         syncProperties: [syncItem],
-      } as SyncToolSettingsPropertiesEventArgs;
+      } as SyncToolSettingsPropertiesEventArgs; // eslint-disable-line deprecation/deprecation
       InternalFrontstageManager.activeToolSettingsProvider?.syncToolSettingsProperties(
         syncArgs
       );

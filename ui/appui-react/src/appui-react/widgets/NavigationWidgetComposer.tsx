@@ -83,7 +83,7 @@ export function NavigationAidHost(props: NavigationAidHostProps) {
   React.useEffect(() => {
     // istanbul ignore next
     const handleContentControlActivated = (
-      args: ContentControlActivatedEventArgs
+      args: ContentControlActivatedEventArgs // eslint-disable-line deprecation/deprecation
     ) => {
       setActiveContentControl(args.activeContentControl);
       setActiveContentViewport(args.activeContentControl.viewport);
@@ -109,7 +109,7 @@ export function NavigationAidHost(props: NavigationAidHostProps) {
   React.useEffect(() => {
     // istanbul ignore next
     const handleViewClassFullNameChange = (
-      args: ViewClassFullNameChangedEventArgs
+      args: ViewClassFullNameChangedEventArgs // eslint-disable-line deprecation/deprecation
     ) => {
       setActiveViewClass(args.newName);
     };

@@ -10,12 +10,16 @@ Table of contents:
   - [Deprecations](#deprecations-1)
   - [Changes](#changes-1)
   - [Fixes](#fixes-1)
+- [@itwin/imodel-components-react](#itwinimodel-components-react)
+  - [Deprecations](#deprecations-2)
 
 ## @itwin/appui-react
 
 ### Deprecations
 
 - `UiFramework.isMobile()` method in favor of `ProcessDetector.isMobileBrowser` from `@itwin/core-bentley`. [#810](https://github.com/iTwin/appui/pull/810)
+- Deprecated all UI event classes (e.g. `ContentControlActivatedEvent`). These are only emitter classes and applications should not use these classes to instantiate objects. Therefore they should not be exported. [#806](https://github.com/iTwin/appui/pull/806)
+- Deprecated all event args interfaces (e.g. `ContentControlActivatedEventArgs`). Event args should be inferred from a listener. If explicit type is needed use a type helper. [#806](https://github.com/iTwin/appui/pull/806)
 
 ### Changes
 
@@ -50,6 +54,8 @@ Table of contents:
 - `SearchBox` component in favor of [iTwinUI SearchBox](https://itwinui.bentley.com/docs/searchbox). [#809](https://github.com/iTwin/appui/pull/809)
 - `Tabs`, `VerticalTabs` components in favor of [iTwinUI Tabs](https://itwinui.bentley.com/docs/tabs). [#809](https://github.com/iTwin/appui/pull/809)
 - `BlockText`, `DisabledText` components in favor of [iTwinUI Text](https://itwinui.bentley.com/docs/typography#text). [#809](https://github.com/iTwin/appui/pull/809)
+- Deprecated all UI event classes (e.g. `SettingsProvidersChangedEvent`). These are only emitter classes and applications should not use these classes to instantiate objects. Therefore they should not be exported. [#806](https://github.com/iTwin/appui/pull/806)
+- Deprecated all event args interfaces (e.g. `SettingsProvidersChangedEventArgs`). Event args should be inferred from a listener. If explicit type is needed use a type helper. [#806](https://github.com/iTwin/appui/pull/806)
 
 ### Changes
 
@@ -60,3 +66,10 @@ Table of contents:
 
 - Fix `PopoutWidget` getting increasingly bigger each time it is popped out. [#792](https://github.com/iTwin/appui/pull/792)
 - Fix `Icon` to render correctly with nested conditional items. [#803](https://github.com/iTwin/appui/pull/803)
+
+## @itwin/imodel-components-react
+
+### Deprecations
+
+- Deprecated all UI event classes (e.g. `StandardRotationChangeEvent`). These are only emitter classes and applications should not use these classes to instantiate objects. Therefore they should not be exported. [#806](https://github.com/iTwin/appui/pull/806)
+- Deprecated all event args interfaces (e.g. `StandardRotationChangeEventArgs`). Event args should be inferred from a listener. If explicit type is needed use a type helper. [#806](https://github.com/iTwin/appui/pull/806)
