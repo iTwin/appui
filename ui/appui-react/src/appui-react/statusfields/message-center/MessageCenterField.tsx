@@ -132,7 +132,7 @@ export function MessageCenterField() {
       visible={isOpen}
       onVisibleChange={(visible) => handleOpenChange(visible)}
       placement="top"
-      className="uifw-statusFields-messageCenter-popover"
+      className="uifw-statusFields-messageCenter-messageCenterField_popover"
       content={
         <>
           <TitleBar title={title}></TitleBar>
