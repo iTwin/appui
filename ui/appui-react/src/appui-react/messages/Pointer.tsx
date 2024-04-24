@@ -30,6 +30,7 @@ import type {
   NotifyMessageDetailsType,
   NotifyMessageType,
 } from "./ReactNotifyMessageDetails";
+import { BeUiEvent } from "@itwin/core-bentley";
 
 // cSpell:ignore noicon
 
@@ -54,6 +55,7 @@ interface PointerMessageState {
 
 /** [[PointerMessageChangedEvent]] arguments.
  * @public
+ * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface PointerMessageChangedEventArgs {
   isVisible: boolean;
@@ -68,6 +70,7 @@ export interface PointerMessageChangedEventArgs {
 
 /** Pointer Message Changed Event emitted by the [[PointerMessage]] component
  * @public
+ * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class PointerMessageChangedEvent extends UiEvent<PointerMessageChangedEventArgs> {}
@@ -80,12 +83,6 @@ interface PointerMessagePositionChangedEventArgs {
   relativePosition: RelativePosition;
 }
 
-/** Pointer Message Position Changed Event emitted by the [[PointerMessage]] component
- * @internal
- */
-// eslint-disable-next-line deprecation/deprecation
-class PointerMessagePositionChangedEvent extends UiEvent<PointerMessagePositionChangedEventArgs> {}
-
 /** Pointer message pops up near pointer when attempting an invalid interaction.
  * @public
  */
@@ -93,11 +90,12 @@ export class PointerMessage extends React.Component<
   PointerMessageProps,
   PointerMessageState
 > {
-  private static _pointerMessageChangedEvent: PointerMessageChangedEvent =
-    new PointerMessageChangedEvent();
+  private static _pointerMessageChangedEvent =
+    new BeUiEvent<PointerMessageChangedEventArgs>(); // eslint-disable-line deprecation/deprecation
   private static readonly _onPointerMessagePositionChangedEvent =
-    new PointerMessagePositionChangedEvent();
+    new BeUiEvent<PointerMessagePositionChangedEventArgs>();
 
+  // eslint-disable-next-line deprecation/deprecation
   public static get onPointerMessageChangedEvent(): PointerMessageChangedEvent {
     return PointerMessage._pointerMessageChangedEvent;
   }
@@ -217,7 +215,7 @@ export class PointerMessage extends React.Component<
   };
 
   private _handlePointerMessageChangedEvent = (
-    args: PointerMessageChangedEventArgs
+    args: PointerMessageChangedEventArgs // eslint-disable-line deprecation/deprecation
   ) => {
     this._relativePosition = args.relativePosition;
     this._viewport = args.viewport;

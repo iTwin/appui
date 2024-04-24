@@ -7,9 +7,9 @@
  */
 
 import * as React from "react";
-import { Logger } from "@itwin/core-bentley";
+import { BeUiEvent, Logger } from "@itwin/core-bentley";
 import type { XAndY } from "@itwin/core-geometry";
-import { RelativePosition, UiEvent } from "@itwin/appui-abstract";
+import { RelativePosition } from "@itwin/appui-abstract";
 import type { RectangleProps, SizeProps } from "@itwin/core-react";
 import { Point, Size } from "@itwin/core-react";
 import { UiFramework } from "../../UiFramework";
@@ -36,24 +36,12 @@ export interface CursorPopupUpdatePositionEventArgs {
   pt: XAndY;
 }
 
-/** CursorPopup Update Position Event class.
- * @internal
- */
-// eslint-disable-next-line deprecation/deprecation
-export class CursorPopupUpdatePositionEvent extends UiEvent<CursorPopupUpdatePositionEventArgs> {}
-
 /** CursorPopup FadeOut Event Args interface.
  * @internal
  */
 export interface CursorPopupFadeOutEventArgs {
   id: string;
 }
-
-/** CursorPopup FadeOut Event class.
- * @internal
- */
-// eslint-disable-next-line deprecation/deprecation
-export class CursorPopupFadeOutEvent extends UiEvent<CursorPopupFadeOutEventArgs> {}
 
 /** Information maintained by CursorPopupManager about a CursorPopup
  * @internal
@@ -70,12 +58,6 @@ interface CursorPopupInfo {
   popupSize?: Size;
 }
 
-/** Cursor Popups Changed Event class.
- * @internal
- */
-// eslint-disable-next-line deprecation/deprecation
-class CursorPopupsChangedEvent extends UiEvent<{}> {}
-
 /** CursorPopup component
  * @public
  */
@@ -84,13 +66,12 @@ export class CursorPopupManager {
 
   /** @internal */
   public static readonly onCursorPopupUpdatePositionEvent =
-    new CursorPopupUpdatePositionEvent();
+    new BeUiEvent<CursorPopupUpdatePositionEventArgs>();
   /** @internal */
   public static readonly onCursorPopupFadeOutEvent =
-    new CursorPopupFadeOutEvent();
+    new BeUiEvent<CursorPopupFadeOutEventArgs>();
   /** @internal */
-  public static readonly onCursorPopupsChangedEvent =
-    new CursorPopupsChangedEvent();
+  public static readonly onCursorPopupsChangedEvent = new BeUiEvent<{}>();
   /** @internal */
   public static clearPopups() {
     this._popups.length = 0;

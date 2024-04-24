@@ -26,6 +26,7 @@ export function useActiveViewport(): ScreenViewport | undefined {
     IModelApp.viewManager.selectedView
   );
   useEffect(() => {
+    // eslint-disable-next-line deprecation/deprecation
     const onActiveContentChanged = (_args: ActiveContentChangedEventArgs) => {
       setActiveViewport(IModelApp.viewManager.selectedView);
     };
@@ -49,6 +50,7 @@ export function useActiveViewport(): ScreenViewport | undefined {
       SyncUiEventId.ContentControlActivated,
       SyncUiEventId.FrontstageReady,
     ];
+    // eslint-disable-next-line deprecation/deprecation
     const handleSyncUiEvent = (args: UiSyncEventArgs): void => {
       // istanbul ignore else
       if (

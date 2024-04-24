@@ -329,11 +329,11 @@ export interface CubeProps extends React_2.AllHTMLAttributes<HTMLDivElement>, Co
     rotMatrix: Matrix3d;
 }
 
-// @public
+// @public @deprecated
 export class CubeRotationChangeEvent extends UiEvent<CubeRotationChangeEventArgs> {
 }
 
-// @public
+// @public @deprecated
 export interface CubeRotationChangeEventArgs {
     // (undocumented)
     complete?: boolean;
@@ -425,11 +425,11 @@ export interface DrawingNavigationCanvasProps {
     zoom: number;
 }
 
-// @public
+// @public @deprecated
 export class DrawingViewportChangeEvent extends UiEvent<DrawingViewportChangeEventArgs> {
 }
 
-// @public
+// @public @deprecated
 export interface DrawingViewportChangeEventArgs {
     // (undocumented)
     complete: boolean;
@@ -801,11 +801,11 @@ export class SolarTimeline extends React_2.PureComponent<SolarTimelineComponentP
     render(): React_2.JSX.Element;
 }
 
-// @public
+// @public @deprecated
 export class StandardRotationChangeEvent extends UiEvent<StandardRotationChangeEventArgs> {
 }
 
-// @public
+// @public @deprecated
 export interface StandardRotationChangeEventArgs {
     // (undocumented)
     standardRotation: StandardViewId;
@@ -931,11 +931,11 @@ export class UiIModelComponents {
 // @internal (undocumented)
 export function useFocusedThumb(sliderContainer: HTMLDivElement | undefined): boolean;
 
-// @public
+// @public @deprecated
 export class ViewClassFullNameChangedEvent extends UiEvent<ViewClassFullNameChangedEventArgs> {
 }
 
-// @public
+// @public @deprecated
 export interface ViewClassFullNameChangedEventArgs {
     // (undocumented)
     newName: string;
@@ -945,11 +945,11 @@ export interface ViewClassFullNameChangedEventArgs {
     viewport: Viewport;
 }
 
-// @public
+// @public @deprecated
 export class ViewIdChangedEvent extends UiEvent<ViewIdChangedEventArgs> {
 }
 
-// @public
+// @public @deprecated
 export interface ViewIdChangedEventArgs {
     // (undocumented)
     newId: string;
@@ -1018,11 +1018,11 @@ export interface ViewportProps extends CommonProps {
     viewState?: ViewStateProp;
 }
 
-// @public
+// @public @deprecated
 export class ViewRotationChangeEvent extends UiEvent<ViewRotationChangeEventArgs> {
 }
 
-// @public
+// @public @deprecated
 export interface ViewRotationChangeEventArgs {
     // (undocumented)
     animationTime?: number;

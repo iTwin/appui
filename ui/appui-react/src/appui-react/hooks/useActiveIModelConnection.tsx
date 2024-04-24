@@ -23,6 +23,7 @@ export function useActiveIModelConnection(): IModelConnection | undefined {
     UiFramework.getIModelConnection()
   );
   useEffect(() => {
+    // eslint-disable-next-line deprecation/deprecation
     const handleSyncUiEvent = (args: UiSyncEventArgs): void => {
       const eventIds = [SessionStateActionId.SetIModelConnection];
       // istanbul ignore else

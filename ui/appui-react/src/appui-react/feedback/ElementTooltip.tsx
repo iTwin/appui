@@ -15,6 +15,7 @@ import classnames from "classnames";
 import * as React from "react";
 import { offsetAndContainInContainer, Tooltip } from "../layout/popup/Tooltip";
 import type { NotifyMessageType } from "../messages/ReactNotifyMessageDetails";
+import { BeUiEvent } from "@itwin/core-bentley";
 
 /** [[ElementTooltip]] State.
  * @internal
@@ -28,6 +29,7 @@ interface ElementTooltipState {
 
 /** [[ElementTooltipChangedEvent]] arguments.
  * @public
+ * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface ElementTooltipChangedEventArgs {
   isTooltipVisible: boolean;
@@ -39,6 +41,7 @@ export interface ElementTooltipChangedEventArgs {
 
 /** ElementTooltip Changed Event class.
  * @public
+ * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class ElementTooltipChangedEvent extends UiEvent<ElementTooltipChangedEventArgs> {}
@@ -50,11 +53,12 @@ export class ElementTooltip extends React.Component<
   CommonProps,
   ElementTooltipState
 > {
-  private static _elementTooltipChangedEvent: ElementTooltipChangedEvent =
-    new ElementTooltipChangedEvent();
+  private static _elementTooltipChangedEvent =
+    new BeUiEvent<ElementTooltipChangedEventArgs>(); // eslint-disable-line deprecation/deprecation
   private static _isTooltipVisible: boolean;
   private static _isTooltipHalted: boolean;
 
+  // eslint-disable-next-line deprecation/deprecation
   public static get onElementTooltipChangedEvent(): ElementTooltipChangedEvent {
     return ElementTooltip._elementTooltipChangedEvent;
   }
@@ -178,7 +182,7 @@ export class ElementTooltip extends React.Component<
     }
   }
   private _handleElementTooltipChangedEvent = (
-    args: ElementTooltipChangedEventArgs
+    args: ElementTooltipChangedEventArgs // eslint-disable-line deprecation/deprecation
   ) => {
     this._element = args.el;
     this._position = args.pt;

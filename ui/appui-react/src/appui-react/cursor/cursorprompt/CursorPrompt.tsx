@@ -97,6 +97,7 @@ export class CursorPrompt {
     );
   };
 
+  // eslint-disable-next-line deprecation/deprecation
   private _handleCursorUpdated = (args: CursorUpdatedEventArgs) => {
     CursorPopupManager.updatePosition(args.newPt);
   };

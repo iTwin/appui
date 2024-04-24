@@ -89,7 +89,7 @@ export function DisplayStyleField(props: CommonProps) {
 
   React.useEffect(() => {
     const handleContentControlActivatedEvent = (
-      args: ContentControlActivatedEventArgs
+      args: ContentControlActivatedEventArgs // eslint-disable-line deprecation/deprecation
     ) => {
       setTimeout(async () =>
         setStateFromActiveContent(args.activeContentControl)

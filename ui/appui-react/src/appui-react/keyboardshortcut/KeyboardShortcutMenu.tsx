@@ -28,6 +28,7 @@ export interface KeyboardShortcutMenuState {
 
 /** KeyboardShortcut Menu Event class.
  * @public
+ * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class KeyboardShortcutMenuEvent extends UiEvent<KeyboardShortcutMenuState> {}
@@ -48,7 +49,7 @@ export class KeyboardShortcutMenu extends React.PureComponent<
 
   /** Get KeyboardShortcut Menu Event. */
   public static readonly onKeyboardShortcutMenuEvent =
-    new KeyboardShortcutMenuEvent();
+    new KeyboardShortcutMenuEvent(); // eslint-disable-line deprecation/deprecation
 
   public override componentDidMount() {
     KeyboardShortcutMenu.onKeyboardShortcutMenuEvent.addListener(

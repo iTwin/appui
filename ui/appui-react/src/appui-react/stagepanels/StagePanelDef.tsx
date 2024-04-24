@@ -26,6 +26,7 @@ import { StagePanelState } from "./StagePanelState";
 
 /** Panel state changed event args interface.
  * @public
+ * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface PanelStateChangedEventArgs {
   panelDef: StagePanelDef;
@@ -34,6 +35,7 @@ export interface PanelStateChangedEventArgs {
 
 /** Panel state changed event class.
  * @beta
+ * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class PanelStateChangedEvent extends UiEvent<PanelStateChangedEventArgs> {}
@@ -44,12 +46,9 @@ export interface PanelSizeChangedEventArgs {
   size: number | undefined;
 }
 
-/** @internal */
-// eslint-disable-next-line deprecation/deprecation
-export class PanelSizeChangedEvent extends UiEvent<PanelSizeChangedEventArgs> {}
-
 /** Panel pinned changed event args interface.
  * @public
+ * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface PanelPinnedChangedEventArgs {
   panelDef: StagePanelDef;

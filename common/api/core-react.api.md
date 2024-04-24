@@ -21,11 +21,11 @@ import * as React_2 from 'react';
 import ReactAutosuggest from 'react-autosuggest';
 import { RelativePosition } from '@itwin/appui-abstract';
 
-// @public
+// @public @deprecated
 export class ActivateSettingsTabEvent extends BeUiEvent<ActivateSettingsTabEventArgs> {
 }
 
-// @public
+// @public @deprecated
 export interface ActivateSettingsTabEventArgs {
     // (undocumented)
     readonly settingsTabId: string;
@@ -206,10 +206,6 @@ export class Circle {
 // @public
 export interface ClassNameProps {
     className?: string;
-}
-
-// @internal
-export class CloseSettingsContainerEvent extends BeUiEvent<ProcessSettingsContainerCloseEventArgs> {
 }
 
 // @public
@@ -1247,11 +1243,11 @@ export interface PopupProps extends CommonProps {
     top: number;
 }
 
-// @public
+// @public @deprecated
 export class ProcessSettingsContainerCloseEvent extends BeUiEvent<ProcessSettingsContainerCloseEventArgs> {
 }
 
-// @public
+// @public @deprecated
 export interface ProcessSettingsContainerCloseEventArgs {
     // (undocumented)
     readonly closeFunc: (args: any) => void;
@@ -1259,11 +1255,11 @@ export interface ProcessSettingsContainerCloseEventArgs {
     readonly closeFuncArgs?: any;
 }
 
-// @public
+// @public @deprecated
 export class ProcessSettingsTabActivationEvent extends BeUiEvent<ProcessSettingsTabActivationEventArgs> {
 }
 
-// @public
+// @public @deprecated
 export interface ProcessSettingsTabActivationEventArgs {
     // (undocumented)
     readonly requestedSettingsTabId: string;
@@ -1485,9 +1481,9 @@ export class SettingsManager {
     closeSettingsContainer(closeFunc: (args: any) => void, closeFuncArgs?: any): void;
     getSettingEntries(stageId: string, stageUsage: string): Array<SettingsTabEntry>;
     // @internal
-    readonly onActivateSettingsTab: ActivateSettingsTabEvent;
+    readonly onActivateSettingsTab: BeUiEvent<ActivateSettingsTabEventArgs>;
     // @internal
-    readonly onCloseSettingsContainer: CloseSettingsContainerEvent;
+    readonly onCloseSettingsContainer: BeUiEvent<ProcessSettingsContainerCloseEventArgs>;
     readonly onProcessSettingsContainerClose: ProcessSettingsContainerCloseEvent;
     readonly onProcessSettingsTabActivation: ProcessSettingsTabActivationEvent;
     readonly onSettingsProvidersChanged: SettingsProvidersChangedEvent;
@@ -1498,11 +1494,11 @@ export class SettingsManager {
     removeSettingsProvider(providerId: string): boolean;
 }
 
-// @public
+// @public @deprecated
 export class SettingsProvidersChangedEvent extends BeUiEvent<SettingsProvidersChangedEventArgs> {
 }
 
-// @public
+// @public @deprecated
 export interface SettingsProvidersChangedEventArgs {
     // (undocumented)
     readonly providers: ReadonlyArray<SettingsTabsProvider>;

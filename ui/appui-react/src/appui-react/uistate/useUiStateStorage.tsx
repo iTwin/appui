@@ -53,6 +53,7 @@ export function UiStateStorageHandler(props: UiSettingsProviderProps) {
 
   React.useEffect(() => {
     // istanbul ignore next
+    // eslint-disable-next-line deprecation/deprecation
     const handleSyncUiEvent = (args: UiSyncEventArgs): void => {
       if (
         SyncUiEventDispatcher.hasEventOfInterest(args.eventIds, [

@@ -39,7 +39,9 @@ function useBackstageItemSyncEffect(
     }
 
     return SyncUiEventDispatcher.onSyncUiEvent.addListener(
-      (args: UiSyncEventArgs) => {
+      (
+        args: UiSyncEventArgs // eslint-disable-line deprecation/deprecation
+      ) => {
         if (0 === syncIdsOfInterest.length) return;
 
         // istanbul ignore else

@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/core-react",
+      "comment": "Deprecated all UI event classes.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/core-react"
+}

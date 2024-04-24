@@ -58,10 +58,12 @@ function ModalSettingsStage({
   }, [initialSettingsTabId, tabEntries]);
 
   React.useEffect(() => {
-    const handleFrontstageCloseRequested = ({
-      modalFrontstage,
-      stageCloseFunc,
-    }: ModalFrontstageRequestedCloseEventArgs) => {
+    const handleFrontstageCloseRequested = (
+      {
+        modalFrontstage,
+        stageCloseFunc,
+      }: ModalFrontstageRequestedCloseEventArgs // eslint-disable-line deprecation/deprecation
+    ) => {
       // istanbul ignore else
       if (
         modalFrontstage instanceof SettingsModalFrontstage &&
