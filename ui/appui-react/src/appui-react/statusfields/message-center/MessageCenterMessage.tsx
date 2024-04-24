@@ -35,7 +35,10 @@ export function MessageCenterMessage(props: MessageCenterMessageProps) {
   const { icon, message, details, style, className } = props;
 
   return (
-    <div className={"uifw-footer-messageCenter-message"} style={style}>
+    <div
+      className={"uifw-statusFields-messageCenter-messageCenterMessage"}
+      style={style}
+    >
       {icon && <Icon size="small">{icon}</Icon>}
       {message && (
         <span>
