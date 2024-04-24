@@ -17,7 +17,7 @@ import { createResizeObserverMock, flushAsyncOperations } from "../Utils";
 describe("DockedToolSettings", () => {
   it("should render w/o entries", () => {
     const sut = render(<DockedToolSettings />, {
-      wrapper: (props) => (
+      wrapper: (props: any) => (
         <TestNineZoneProvider
           labels={{ toolSettingsHandleTitle: "Undock" }}
           {...props}

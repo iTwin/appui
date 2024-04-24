@@ -213,7 +213,7 @@ describe("useFloatingWidgetId", () => {
     state = addTab(state, "t1");
     state = addFloatingWidget(state, "w1", ["t1"]);
     const { result } = renderHook(() => useFloatingWidgetId(), {
-      wrapper: (props) => (
+      wrapper: (props: any) => (
         <TestNineZoneProvider layout={createLayoutStore(state)}>
           <WidgetIdContext.Provider value="w1" {...props} />
         </TestNineZoneProvider>
@@ -224,7 +224,7 @@ describe("useFloatingWidgetId", () => {
 
   it("should return `undefined` if WidgetIdContext is not provided", () => {
     const { result } = renderHook(() => useFloatingWidgetId(), {
-      wrapper: (props) => <TestNineZoneProvider {...props} />,
+      wrapper: (props: any) => <TestNineZoneProvider {...props} />,
     });
     expect(result.current).toEqual(undefined);
   });
@@ -236,7 +236,7 @@ describe("useWidgetAllowedToDock", () => {
     state = addTab(state, "t1");
     state = addFloatingWidget(state, "w1", ["t1"]);
     const { result } = renderHook(() => useWidgetAllowedToDock(), {
-      wrapper: (props) => (
+      wrapper: (props: any) => (
         <TestNineZoneProvider layout={createLayoutStore(state)}>
           <WidgetIdContext.Provider value="w1" {...props} />
         </TestNineZoneProvider>
@@ -251,7 +251,7 @@ describe("useWidgetAllowedToDock", () => {
     state = addFloatingWidget(state, "test1", ["t1"]);
 
     const { result } = renderHook(() => useWidgetAllowedToDock(), {
-      wrapper: (props) => (
+      wrapper: (props: any) => (
         <TestNineZoneProvider layout={createLayoutStore(state)}>
           <WidgetIdContext.Provider value="test1" {...props} />
         </TestNineZoneProvider>

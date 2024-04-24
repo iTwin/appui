@@ -5,7 +5,6 @@
 import { ConditionalStringValue } from "@itwin/appui-abstract";
 import { render, waitFor } from "@testing-library/react";
 import * as React from "react";
-import type { IconSpec } from "../../core-react/icons/IconComponent";
 import { ConditionalIconItem, Icon } from "../../core-react";
 import TestUtils from "../TestUtils";
 
@@ -28,9 +27,8 @@ describe("IconComponent", () => {
   it("should handle correctly with icon conditional value empty string", () => {
     const spec = new ConditionalStringValue(() => "", []);
     const { container } = render(<Icon iconSpec={spec} />);
-    const iconContainer = container.querySelector(".core-svg-icon");
+    const iconContainer = container.querySelector(".icon");
     expect(iconContainer).toBeTruthy();
-    expect(iconContainer?.childElementCount).toEqual(0);
   });
 
   it("should render correctly with icon class string", () => {
@@ -127,16 +125,16 @@ describe("IconComponent", () => {
     );
   });
 
-  it("should return value from a ConditionalIconItem", () => {
-    const iconSpec1: IconSpec = "icon1.svg";
-    const icon1Getter = (): IconSpec => iconSpec1;
-    const syncEventIds = ["sync-id-one", "sync-id-two", "sync-id-THREE"];
+  it("should return a ReactNode from a ConditionalIconItem", () => {
+    const sut = new ConditionalIconItem(() => <>Test Icon</>, ["event1"]);
+    const { getByText } = render(<Icon iconSpec={sut} />);
+    getByText("Test Icon");
+  });
 
-    const sut = new ConditionalIconItem(icon1Getter, syncEventIds);
-    const { container } = render(<Icon iconSpec={sut} />);
-    const iconItem = container.firstElementChild;
-    const iconName = iconItem?.firstChild?.nodeValue;
-    expect(iconName).toBeTruthy();
-    expect(iconName).to.contain("icon1.svg");
+  it("should return value from a nested conditional", () => {
+    const item1 = new ConditionalIconItem(() => <>Test Icon</>, ["event1"]);
+    const item2 = new ConditionalIconItem(() => item1, ["event1"]);
+    const { getByText } = render(<Icon iconSpec={item2} />);
+    getByText("Test Icon");
   });
 });

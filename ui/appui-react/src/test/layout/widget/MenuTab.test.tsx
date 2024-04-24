@@ -50,7 +50,7 @@ describe("MenuTab", () => {
     state = addTab(state, "t1");
     state = addPanelWidget(state, "top", "w1", ["t1"]);
     const { container } = render(<WidgetMenuTab />, {
-      wrapper: (props) => (
+      wrapper: (props: any) => (
         <Wrapper defaultState={state} widgetId="w1" tabId="t1" {...props} />
       ),
     });
@@ -68,7 +68,7 @@ describe("MenuTab", () => {
         <WidgetMenuTab badge={<div>badge</div>} />
       </ShowWidgetIconContext.Provider>,
       {
-        wrapper: (props) => (
+        wrapper: (props: any) => (
           <Wrapper defaultState={state} widgetId="w1" tabId="t1" {...props} />
         ),
       }
@@ -89,7 +89,7 @@ describe("MenuTab", () => {
         </WidgetContext.Provider>
       </WidgetOverflowContext.Provider>,
       {
-        wrapper: (props) => (
+        wrapper: (props: any) => (
           <Wrapper defaultState={state} widgetId="w1" tabId="t1" {...props} />
         ),
       }
