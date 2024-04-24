@@ -60,4 +60,4 @@ Table of contents:
 
 ### Fixes
 
-- Fix spacing between categories in `VirtualizedPropertyGrid`
+- Fix spacing between categories in `VirtualizedPropertyGrid`. [#812](https://github.com/iTwin/appui/pull/812)
