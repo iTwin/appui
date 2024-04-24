@@ -937,7 +937,7 @@ export class UiFramework {
   }
 
   /** Show a Card containing content, a title and a toolbar at a particular location.
-   * @param content The React component or HTMLElement of the content to display
+   * @param content The React component of the content to display
    * @param title Title to display at the top of the card.
    * @param toolbarProps Properties of the Toolbar to display.
    * @param location Location of the Card, relative to the origin of anchorElement or the window.
@@ -962,19 +962,16 @@ export class UiFramework {
   ): boolean {
     const anchor = this.resolveHtmlElement(anchorElement);
 
-    return PopupManager.displayCard(
-      { reactNode: content },
-      {
-        title,
-        toolbarProps,
-        location,
-        offset,
-        onItemExecuted,
-        onCancel,
-        placement,
-        anchor,
-      }
-    );
+    return PopupManager.displayCard(content, {
+      title,
+      toolbarProps,
+      location,
+      offset,
+      onItemExecuted,
+      onCancel,
+      placement,
+      anchor,
+    });
   }
 
   /**

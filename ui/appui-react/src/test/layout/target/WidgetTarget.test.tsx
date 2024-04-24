@@ -38,7 +38,7 @@ describe("WidgetTarget", () => {
     state = addTab(state, "ft1");
     state = addFloatingWidget(state, "fw1", ["ft1"]);
     const { container } = render(<WidgetTarget />, {
-      wrapper: (props) => (
+      wrapper: (props: any) => (
         <Wrapper defaultState={state} widgetId="fw1" {...props} />
       ),
     });

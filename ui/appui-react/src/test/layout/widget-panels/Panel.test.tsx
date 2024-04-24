@@ -128,7 +128,9 @@ describe("WidgetPanelProvider", () => {
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     const layout = createLayoutStore(state);
     const { container } = render(<WidgetPanelProvider side="left" />, {
-      wrapper: (props) => <TestNineZoneProvider layout={layout} {...props} />,
+      wrapper: (props: any) => (
+        <TestNineZoneProvider layout={layout} {...props} />
+      ),
     });
 
     const panel = container.getElementsByClassName(
@@ -169,7 +171,9 @@ describe("WidgetPanelProvider", () => {
     });
     const layout = createLayoutStore(state);
     const { container } = render(<WidgetPanelProvider side="left" />, {
-      wrapper: (props) => <TestNineZoneProvider layout={layout} {...props} />,
+      wrapper: (props: any) => (
+        <TestNineZoneProvider layout={layout} {...props} />
+      ),
     });
 
     const panel = container.getElementsByClassName(
@@ -205,7 +209,9 @@ describe("WidgetPanelProvider", () => {
     });
     const layout = createLayoutStore(state);
     const { container } = render(<WidgetPanelProvider side="left" />, {
-      wrapper: (props) => <TestNineZoneProvider layout={layout} {...props} />,
+      wrapper: (props: any) => (
+        <TestNineZoneProvider layout={layout} {...props} />
+      ),
     });
 
     const panel = container.getElementsByClassName(
@@ -258,7 +264,7 @@ describe("WidgetPanelProvider", () => {
       }
     };
     const { container } = render(<WidgetPanelProvider side="left" />, {
-      wrapper: (props) => (
+      wrapper: (props: any) => (
         <TestNineZoneProvider layout={layout} dispatch={dispatch} {...props} />
       ),
     });
@@ -291,7 +297,7 @@ describe("WidgetPanelProvider", () => {
     });
     const layout = createLayoutStore(state);
     const { container } = render(<WidgetPanelProvider side="left" />, {
-      wrapper: (props) => (
+      wrapper: (props: any) => (
         <TestNineZoneProvider
           layout={layout}
           dragManagerRef={dragManager}
@@ -331,7 +337,9 @@ describe("WidgetPanelProvider", () => {
     });
     const layout = createLayoutStore(state);
     const { container } = render(<WidgetPanelProvider side="left" />, {
-      wrapper: (props) => <TestNineZoneProvider layout={layout} {...props} />,
+      wrapper: (props: any) => (
+        <TestNineZoneProvider layout={layout} {...props} />
+      ),
     });
     const panel = container.getElementsByClassName(
       "nz-widgetPanels-panel"
@@ -380,7 +388,9 @@ describe("WidgetPanelProvider", () => {
     });
     const layout = createLayoutStore(state);
     const { container } = render(<WidgetPanelProvider side="left" />, {
-      wrapper: (props) => <TestNineZoneProvider layout={layout} {...props} />,
+      wrapper: (props: any) => (
+        <TestNineZoneProvider layout={layout} {...props} />
+      ),
     });
 
     const panel = container.getElementsByClassName(
@@ -408,7 +418,9 @@ describe("WidgetPanelProvider", () => {
 
     const layout = createLayoutStore(state);
     const { container } = render(<WidgetPanelProvider side="top" />, {
-      wrapper: (props) => <TestNineZoneProvider layout={layout} {...props} />,
+      wrapper: (props: any) => (
+        <TestNineZoneProvider layout={layout} {...props} />
+      ),
     });
 
     const panel = container.getElementsByClassName(
@@ -447,7 +459,7 @@ describe("WidgetPanelProvider", () => {
       draft.panels.left.collapsed = true;
     });
     const { container } = render(<WidgetPanelProvider side="left" />, {
-      wrapper: (props) => (
+      wrapper: (props: any) => (
         <TestNineZoneProvider defaultState={state} {...props} />
       ),
     });
