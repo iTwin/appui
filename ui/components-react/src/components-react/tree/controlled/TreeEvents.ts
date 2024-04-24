@@ -26,33 +26,28 @@ import type { Observable, Subscription } from "./Observable";
  */
 export interface TreeEvents {
   /** Called when tree node is expanded. */
-  // eslint-disable-next-line deprecation/deprecation
   onNodeExpanded?(event: TreeNodeEventArgs): void;
   /** Called when tree node is collapsed. */
-  // eslint-disable-next-line deprecation/deprecation
   onNodeCollapsed?(event: TreeNodeEventArgs): void;
   /** Called when selected tree node is clicked. */
-  // eslint-disable-next-line deprecation/deprecation
   onDelayedNodeClick?(event: TreeNodeEventArgs): void;
   /** Called when a tree node is double-clicked */
-  // eslint-disable-next-line deprecation/deprecation
   onNodeDoubleClick?(event: TreeNodeEventArgs): void;
   /** Called when selected tree node editor is activated. */
-  // eslint-disable-next-line deprecation/deprecation
   onNodeEditorActivated?(event: TreeNodeEventArgs): void;
   /**
    * Called when tree selection is modified.
    * If Subscription is returned it can be used to stop event handling by calling `unsubscribe()`.
    */
   onSelectionModified?(
-    event: TreeSelectionModificationEventArgs // eslint-disable-line deprecation/deprecation
+    event: TreeSelectionModificationEventArgs
   ): Subscription | undefined;
   /**
    * Called when tree selection is replaced.
    * If Subscription is returned it can be used to stop event handling by calling `unsubscribe()`.
    */
   onSelectionReplaced?(
-    event: TreeSelectionReplacementEventArgs // eslint-disable-line deprecation/deprecation
+    event: TreeSelectionReplacementEventArgs
   ): Subscription | undefined;
 
   /**
@@ -60,14 +55,13 @@ export interface TreeEvents {
    * If Subscription is returned it can be used to stop event handling by calling `unsubscribe()`.
    */
   onCheckboxStateChanged?(
-    event: TreeCheckboxStateChangeEventArgs // eslint-disable-line deprecation/deprecation
+    event: TreeCheckboxStateChangeEventArgs
   ): Subscription | undefined;
 }
 
 /**
  * Data structure that describes tree node event payload.
  * @public
- * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface TreeNodeEventArgs {
   /** Id of node that is affected by event. */
@@ -77,7 +71,6 @@ export interface TreeNodeEventArgs {
 /**
  * Data structure that describes tree selection modification event payload.
  * @public
- * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface TreeSelectionModificationEventArgs {
   /**
@@ -101,7 +94,6 @@ export interface TreeSelectionChange {
 /**
  * Data structure that describes tree selection replacement event payload.
  * @public
- * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface TreeSelectionReplacementEventArgs {
   /**
@@ -114,7 +106,6 @@ export interface TreeSelectionReplacementEventArgs {
 /**
  * Data structure that describes tree checkbox state change event payload.
  * @public
- * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface TreeCheckboxStateChangeEventArgs {
   /**

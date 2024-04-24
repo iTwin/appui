@@ -76,7 +76,6 @@ export class TreeEventHandler implements TreeEvents, IDisposable {
   }
 
   /** Expands node and starts loading children. */
-  // eslint-disable-next-line deprecation/deprecation
   public onNodeExpanded({ nodeId }: TreeNodeEventArgs) {
     toRxjsObservable(this._modelMutator.expandNode(nodeId))
       .pipe(takeUntil(this._disposed))
@@ -84,15 +83,14 @@ export class TreeEventHandler implements TreeEvents, IDisposable {
   }
 
   /** Collapses node */
-  // eslint-disable-next-line deprecation/deprecation
   public onNodeCollapsed({ nodeId }: TreeNodeEventArgs) {
     this._modelMutator.collapseNode(nodeId);
   }
 
   /** Selects and deselects nodes until event is handled, handler is disposed or selection replaced event occurs. */
-  public onSelectionModified(
-    { modifications }: TreeSelectionModificationEventArgs // eslint-disable-line deprecation/deprecation
-  ): Subscription | undefined {
+  public onSelectionModified({
+    modifications,
+  }: TreeSelectionModificationEventArgs): Subscription | undefined {
     return toRxjsObservable(modifications)
       .pipe(takeUntil(this._disposed), takeUntil(this._selectionReplaced))
       .subscribe({
@@ -106,9 +104,9 @@ export class TreeEventHandler implements TreeEvents, IDisposable {
   }
 
   /** Replaces currently selected nodes until event is handled, handler is disposed or another selection replaced event occurs. */
-  public onSelectionReplaced(
-    { replacements }: TreeSelectionReplacementEventArgs // eslint-disable-line deprecation/deprecation
-  ): Subscription | undefined {
+  public onSelectionReplaced({
+    replacements,
+  }: TreeSelectionReplacementEventArgs): Subscription | undefined {
     this._selectionReplaced.next();
 
     let firstEmission = true;
@@ -127,26 +125,23 @@ export class TreeEventHandler implements TreeEvents, IDisposable {
   }
 
   /** Changes nodes checkbox states. */
-  public onCheckboxStateChanged(
-    { stateChanges }: TreeCheckboxStateChangeEventArgs // eslint-disable-line deprecation/deprecation
-  ): Subscription | undefined {
+  public onCheckboxStateChanged({
+    stateChanges,
+  }: TreeCheckboxStateChangeEventArgs): Subscription | undefined {
     return stateChanges.subscribe((changes) =>
       this._modelMutator.setCheckboxStates(changes)
     );
   }
 
   /** Activates node editing if editing parameters are supplied and node is editable. */
-  // eslint-disable-next-line deprecation/deprecation
   public onDelayedNodeClick({ nodeId }: TreeNodeEventArgs) {
     this.activateEditor(nodeId);
   }
 
   /** This method is declared here to be overridden by classes that extend TreeEventHandler */
-  // eslint-disable-next-line deprecation/deprecation
   public onNodeDoubleClick(_: TreeNodeEventArgs) {}
 
   /** Activates node editing if editing parameters are supplied and node is editable. */
-  // eslint-disable-next-line deprecation/deprecation
   public onNodeEditorActivated({ nodeId }: TreeNodeEventArgs) {
     this.activateEditor(nodeId);
   }
