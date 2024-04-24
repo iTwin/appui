@@ -6,17 +6,18 @@
  * @module Notification
  */
 import * as React from "react";
+import type { CommonProps } from "@itwin/core-react";
+import { Icon } from "@itwin/core-react";
 import {
   Button,
   NotificationMarker,
   Popover,
   Tabs,
 } from "@itwin/itwinui-react";
-
 import { SvgChat } from "@itwin/itwinui-icons-react";
-import { Icon } from "@itwin/core-react";
-import { UiFramework } from "../../UiFramework";
 import { OutputMessagePriority } from "@itwin/core-frontend";
+
+import { UiFramework } from "../../UiFramework";
 import { MessageCenterMessage } from "./MessageCenterMessage";
 import { MessageManager } from "../../messages/MessageManager";
 import { TitleBar } from "../../layout/footer/dialog/TitleBar";
@@ -32,7 +33,7 @@ type NotificationMarkerStatus = "primary" | "negative" | "positive";
 /** Message Center Field React component.
  * @public
  */
-export function MessageCenterField() {
+export function MessageCenterField(props: CommonProps) {
   const [messages, setMessages] = React.useState(MessageManager.messages);
   const [notify, setNotify] = React.useState(false);
   const [isOpen, setIsOpen] = React.useState(false);
@@ -159,6 +160,8 @@ export function MessageCenterField() {
             <SvgChat />
           </NotificationMarker>
         }
+        className={props.className}
+        style={props.style}
       >
         {title}
       </Button>
