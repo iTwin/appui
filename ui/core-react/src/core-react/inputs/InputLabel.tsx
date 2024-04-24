@@ -24,9 +24,12 @@ import type {
 
 /** Properties for [[InputLabel]] components
  * @public
+ * @deprecated in 4.12.x. Props of deprecated component {@link InputLabel}.
  */
 export interface InputLabelProps
+  // eslint-disable-next-line deprecation/deprecation
   extends LabeledComponentProps,
+    // eslint-disable-next-line deprecation/deprecation
     MessagedComponentProps,
     CommonProps {
   disabled?: boolean;
@@ -35,14 +38,19 @@ export interface InputLabelProps
 }
 
 const inputLabelIconSpec: { [key: string]: IconSpec } = {
+  // eslint-disable-next-line deprecation/deprecation
   [InputStatus.Error]: <SvgStatusError />,
+  // eslint-disable-next-line deprecation/deprecation
   [InputStatus.Success]: <SvgStatusSuccess />,
+  // eslint-disable-next-line deprecation/deprecation
   [InputStatus.Warning]: <SvgStatusWarning />,
 };
 
 /** Text input wrapper that provides additional styling and labeling
  * @public
+ * @deprecated in 4.12.x. Use {@link https://itwinui.bentley.com/docs/input iTwinUI input} instead.
  */
+// eslint-disable-next-line deprecation/deprecation
 export class InputLabel extends React.PureComponent<InputLabelProps> {
   public override render(): React.ReactElement {
     const {

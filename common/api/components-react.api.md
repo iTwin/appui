@@ -35,7 +35,6 @@ import type { PrimitiveValue } from '@itwin/appui-abstract';
 import { PropertyDescription } from '@itwin/appui-abstract';
 import { PropertyRecord } from '@itwin/appui-abstract';
 import type { PropertyValue } from '@itwin/appui-abstract';
-import type { RatioChangeResult } from '@itwin/core-react';
 import { default as React_2 } from 'react';
 import * as React_3 from 'react';
 import { ReactNode } from 'react';
@@ -2344,7 +2343,9 @@ export interface PropertyListProps extends CommonProps {
     isPropertySelectionEnabled?: boolean;
     isResizeHandleBeingDragged?: boolean;
     isResizeHandleHovered?: boolean;
-    onColumnChanged?: (ratio: number) => void | RatioChangeResult;
+    onColumnChanged?: (ratio: number) => void | {
+        ratio: number;
+    };
     // (undocumented)
     onEditCancel?: () => void;
     // (undocumented)
@@ -2575,7 +2576,9 @@ export interface SharedRendererProps {
     isSelectable?: boolean;
     isSelected?: boolean;
     onClick?: (property: PropertyRecord, key?: string) => void;
-    onColumnRatioChanged?: (ratio: number) => void | RatioChangeResult;
+    onColumnRatioChanged?: (ratio: number) => void | {
+        ratio: number;
+    };
     onContextMenu?: (property: PropertyRecord, e: React_3.MouseEvent) => void;
     onResizeHandleDragChanged?: (isDragStarted: boolean) => void;
     onResizeHandleHoverChanged?: (isHovered: boolean) => void;
@@ -3703,7 +3706,9 @@ export interface VirtualizedPropertyGridContext {
     // (undocumented)
     isResizeHandleHovered: boolean;
     // (undocumented)
-    onColumnRatioChanged: (ratio: number) => void | RatioChangeResult;
+    onColumnRatioChanged: (ratio: number) => void | {
+        ratio: number;
+    };
     // (undocumented)
     onEditCancel?: () => void;
     // (undocumented)

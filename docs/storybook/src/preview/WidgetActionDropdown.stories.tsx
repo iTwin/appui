@@ -8,7 +8,7 @@ import { Page } from "../AppUiStory";
 import { PreviewStory } from "./WidgetActionDropdown";
 
 const meta = {
-  title: "preview features/WidgetActionDropdown",
+  title: "PreviewFeatures/WidgetActionDropdown",
   component: PreviewStory,
   tags: ["autodocs"],
   decorators: [AppUiDecorator],

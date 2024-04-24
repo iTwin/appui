@@ -14,11 +14,6 @@ steps:
   - script: node common/scripts/install-run-rush.js check
     displayName: rush check
     workingDirectory: ${{ parameters.workingDir }}
-    condition: and(succeeded(), eq(variables['variant'], ''))
-  - script: node common/scripts/install-run-rush.js check --variant $(variant)
-    displayName: rush check (variant)
-    workingDirectory: ${{ parameters.workingDir }}
-    condition: and(succeeded(), ne(variables['variant'], ''))
   - task: PythonScript@0
     displayName: "rush change -v"
     inputs:
@@ -30,11 +25,6 @@ steps:
   - script: node common/scripts/install-run-rush.js install
     displayName: rush install
     workingDirectory: ${{ parameters.workingDir }}
-    condition: and(succeeded(), eq(variables['variant'], ''))
-  - script: node common/scripts/install-run-rush.js install --variant $(variant)
-    displayName: rush install (variant)
-    workingDirectory: ${{ parameters.workingDir }}
-    condition: and(succeeded(), ne(variables['variant'], ''))
   - script: node common/scripts/install-run-rush.js audit
     displayName: rush audit
     workingDirectory: ${{ parameters.workingDir }}
@@ -83,4 +73,3 @@ steps:
   - script: node common/scripts/install-run-rush.js docs
     displayName: rush docs
     workingDirectory: ${{ parameters.workingDir }}
-    condition: and(succeeded(), eq(variables['variant'], ''))

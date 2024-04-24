@@ -12,7 +12,7 @@ import {
   ToolbarOpacitySetting,
   ToolbarPanelAlignment,
 } from "@itwin/components-react";
-import { Logger } from "@itwin/core-bentley";
+import { Logger, ProcessDetector } from "@itwin/core-bentley";
 import { Orientation } from "@itwin/core-react";
 import { UiFramework } from "../UiFramework";
 import { ToolbarDragInteractionContext } from "./DragInteraction";
@@ -245,7 +245,8 @@ export function ToolbarComposer(props: ExtensibleToolbarProps) {
       items={items}
       useDragInteraction={isDragEnabled}
       toolbarOpacitySetting={
-        (useProximityOpacity || snapWidgetOpacity) && !UiFramework.isMobile()
+        (useProximityOpacity || snapWidgetOpacity) &&
+        !ProcessDetector.isMobileBrowser
           ? ToolbarOpacitySetting.Proximity
           : /* istanbul ignore next */ ToolbarOpacitySetting.Defaults
       }

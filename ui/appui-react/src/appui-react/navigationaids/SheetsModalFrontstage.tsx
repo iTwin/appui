@@ -107,6 +107,7 @@ export class SheetsModalFrontstage implements ModalFrontstageInfo {
   /** Gets components to be placed in the app bar */
   public get appBarRight(): React.ReactNode {
     return (
+      // eslint-disable-next-line deprecation/deprecation
       <SearchBox
         placeholder={UiFramework.translate("general.search")}
         onValueChanged={this._handleSearchValueChanged}

@@ -221,6 +221,7 @@ export const SettingsContainer = ({
   return (
     <div className="core-settings-container">
       <div className="core-settings-container-left">
+        {/* eslint-disable-next-line deprecation/deprecation */}
         <VerticalTabs
           labels={labels}
           activeIndex={activeIndex}

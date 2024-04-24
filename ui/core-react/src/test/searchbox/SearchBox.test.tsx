@@ -7,6 +7,8 @@ import { SearchBox } from "../../core-react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
+/* eslint-disable deprecation/deprecation */
+
 describe("SearchBox", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
   const throttleMs = 16;

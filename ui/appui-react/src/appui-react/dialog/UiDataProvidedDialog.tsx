@@ -130,6 +130,7 @@ export function UiDataProvidedDialog({
   const handleClose = React.useCallback(() => closeDialog(), []);
 
   return (
+    // eslint-disable-next-line deprecation/deprecation
     <Dialog
       {...dialogProps}
       opened={true}

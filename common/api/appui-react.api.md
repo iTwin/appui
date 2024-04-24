@@ -4929,7 +4929,7 @@ export class UiFramework {
     static initializeStateFromUserSettingsProviders(immediateSync?: boolean): Promise<void>;
     // @alpha
     static get isContextMenuOpen(): boolean;
-    // (undocumented)
+    // @deprecated (undocumented)
     static isMobile(): boolean;
     static get keyboardShortcuts(): FrameworkKeyboardShortcuts;
     static get localizationNamespace(): string;

@@ -105,6 +105,7 @@ export const ComponentExamplesPage: React.FC<ComponentExamplesPageProps> = (
   return (
     <div className="component-examples">
       <div className="component-examples-categories">
+        {/* eslint-disable-next-line deprecation/deprecation */}
         <VerticalTabs
           labels={props.categories.map(
             (category: ComponentExampleCategory) => category.title
