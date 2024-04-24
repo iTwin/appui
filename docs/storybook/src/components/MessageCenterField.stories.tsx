@@ -105,52 +105,60 @@ export const Detailed: Story = {
   decorators: [...meta.decorators, DetailedMessages],
 };
 
-const menuItems = () => [
-  <MenuItem
-    onClick={() => {
-      MessageManager.addToMessageCenter(
-        new NotifyMessageDetails(OutputMessagePriority.Info, `Info Message`)
-      );
-    }}
-  >
-    Info{" "}
-  </MenuItem>,
-  <MenuItem
-    onClick={() => {
-      MessageManager.addToMessageCenter(
-        new NotifyMessageDetails(OutputMessagePriority.Error, `Error Message`)
-      );
-    }}
-  >
-    Error
-  </MenuItem>,
-  <MenuItem
-    onClick={() => {
-      MessageManager.addToMessageCenter(
-        new NotifyMessageDetails(
-          1,
-          "This is the brief message",
-          "This is the detailed message"
-        )
-      );
-    }}
-  >
-    Detailed
-  </MenuItem>,
-  <MenuItem
-    onClick={() => {
-      MessageManager.clearMessages();
-    }}
-  >
-    Clear
-  </MenuItem>,
-];
-
 const DynamicDecorator: Decorator = (Story) => {
+  const idRef = React.useRef(0);
   return (
     <>
       <Story />
-      <DropdownButton menuItems={menuItems} styleType="borderless">
+      <DropdownButton
+        menuItems={() => [
+          <MenuItem
+            onClick={() => {
+              MessageManager.addToMessageCenter(
+                new NotifyMessageDetails(
+                  OutputMessagePriority.Info,
+                  `Info Message ${++idRef.current}`
+                )
+              );
+            }}
+          >
+            Info
+          </MenuItem>,
+          <MenuItem
+            onClick={() => {
+              MessageManager.addToMessageCenter(
+                new NotifyMessageDetails(
+                  OutputMessagePriority.Error,
+                  `Error Message ${++idRef.current}`
+                )
+              );
+            }}
+          >
+            Error
+          </MenuItem>,
+          <MenuItem
+            onClick={() => {
+              MessageManager.addToMessageCenter(
+                new NotifyMessageDetails(
+                  1,
+                  `Detailed message ${++idRef.current}`,
+                  "Additional message details"
+                )
+              );
+            }}
+          >
+            Detailed
+          </MenuItem>,
+          <MenuItem
+            onClick={() => {
+              MessageManager.clearMessages();
+            }}
+          >
+            Clear
+          </MenuItem>,
+        ]}
+        styleType="borderless"
+      >
         Add Messages
       </DropdownButton>
     </>
