@@ -95,6 +95,10 @@ export const ComponentExamplesPage: React.FC<ComponentExamplesPageProps> = (
     .nz-status-bar-popup, .components-toolbar-popupItem_popupItemPopup {
       z-index: 16000;
     }
+
+    .uifw-statusFields-messageCenter-messageCenterField_popover {
+      z-index: 16000 !important;
+    }
     `;
     document.head.appendChild(style);
     return () => {
