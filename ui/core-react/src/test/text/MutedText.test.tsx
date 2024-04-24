@@ -2,10 +2,11 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-/* eslint-disable deprecation/deprecation */
 import { render, screen } from "@testing-library/react";
 import * as React from "react";
 import { MutedText } from "../../core-react";
+
+/* eslint-disable deprecation/deprecation */
 
 describe("<MutedText />", () => {
   it("renders correctly", () => {

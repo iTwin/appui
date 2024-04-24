@@ -10,8 +10,11 @@ import classnames from "classnames";
 import * as React from "react";
 import type { TextProps } from "./TextProps";
 
+/* eslint-disable deprecation/deprecation */
+
 /** Properties for [[StyledText]] component
  * @public
+ * @deprecated in 4.12.x. Props of deprecated component {@link StyledText}.
  */
 export interface StyledTextProps extends TextProps {
   /** Main CSS class name */

@@ -14,6 +14,7 @@ import { UiFramework } from "../UiFramework";
 /** Properties for the [[ModelessDialog]] component
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface ModelessDialogProps extends DialogProps {
   dialogId: string;
   movable?: boolean;
@@ -39,6 +40,7 @@ export class ModelessDialog extends React.Component<ModelessDialogProps> {
     } = this.props;
 
     return (
+      // eslint-disable-next-line deprecation/deprecation
       <Dialog
         {...props}
         modal={false}

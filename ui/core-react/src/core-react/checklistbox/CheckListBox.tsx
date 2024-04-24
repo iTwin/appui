@@ -14,6 +14,7 @@ import type { CommonProps } from "../utils/Props";
 
 /** Properties for the [[CheckListBoxItem]] component
  * @public
+ * @deprecated in 4.12.x. Props of deprecated component {@link CheckListBoxItem}.
  */
 export interface CheckListBoxItemProps extends CommonProps {
   /** Label */
@@ -30,7 +31,9 @@ export interface CheckListBoxItemProps extends CommonProps {
 
 /** Item with a checkbox added to a [[CheckListBox]].
  * @public
+ * @deprecated in 4.12.x. Use {@link https://itwinui.bentley.com/docs/list iTwinUI list} instead.
  */
+// eslint-disable-next-line deprecation/deprecation
 export class CheckListBoxItem extends React.PureComponent<CheckListBoxItemProps> {
   public override render() {
     const className = classnames(
@@ -58,6 +61,7 @@ export class CheckListBoxItem extends React.PureComponent<CheckListBoxItemProps>
 
 /** Separator added to a [[CheckListBox]].
  * @public
+ * @deprecated in 4.12.x. Use {@link https://itwinui.bentley.com/docs/list iTwinUI list} instead.
  */
 export function CheckListBoxSeparator() {
   return <div className="core-chk-listbox-separator" />;
@@ -65,6 +69,7 @@ export function CheckListBoxSeparator() {
 
 /** React component showing a list of Checkbox items.
  * @public
+ * @deprecated in 4.12.x. Use {@link https://itwinui.bentley.com/docs/list iTwinUI list} instead.
  */
 export class CheckListBox extends React.PureComponent<
   CommonProps & {

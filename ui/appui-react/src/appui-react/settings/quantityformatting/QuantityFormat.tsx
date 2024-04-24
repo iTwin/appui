@@ -330,6 +330,7 @@ export function QuantityFormatSettingsPage({
       </span>
       <div className="uifw-quantity-types-container">
         <div className="left-panel">
+          {/* eslint-disable-next-line deprecation/deprecation */}
           <Listbox
             id="uifw-quantity-types-list"
             className="uifw-quantity-types"
@@ -343,6 +344,7 @@ export function QuantityFormatSettingsPage({
                 const description = entry.description;
                 const label = entry.label;
                 return (
+                  // eslint-disable-next-line deprecation/deprecation
                   <ListboxItem
                     key={entry.key}
                     className="quantity-type-list-entry"
@@ -434,6 +436,7 @@ function SaveFormatModalDialog({
   }, [handleClose]);
 
   return (
+    // eslint-disable-next-line deprecation/deprecation
     <Dialog
       title={"Save Format Changes"}
       opened={isOpen}

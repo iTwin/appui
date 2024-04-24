@@ -111,6 +111,7 @@ export class PropertyView extends React.Component<
           {this.props.labelElement}
         </div>
         {needElementSeparator ? (
+          // eslint-disable-next-line deprecation/deprecation
           <ElementSeparator
             movableArea={this.props.width}
             onRatioChanged={this.props.onColumnRatioChanged}

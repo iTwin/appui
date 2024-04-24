@@ -11,8 +11,11 @@ import classnames from "classnames";
 import * as React from "react";
 import type { CommonProps } from "../utils/Props";
 
+/* eslint-disable deprecation/deprecation */
+
 /** Properties for [[LoadingBar]] component
  * @public
+ * @deprecated in 4.12.x. Props of deprecated component {@link LoadingBar}.
  */
 export interface LoadingBarProps extends CommonProps {
   /** Percent */
@@ -23,9 +26,9 @@ export interface LoadingBarProps extends CommonProps {
   barHeight: number;
 }
 
-/**
- * A loading bar with optional percentage text.
+/** A loading bar with optional percentage text.
  * @public
+ * @deprecated in 4.12.x. Use {@link https://itwinui.bentley.com/docs/progressindicator#progress-linear iTwinUI progress indicator} instead.
  */
 export class LoadingBar extends React.PureComponent<LoadingBarProps> {
   public static defaultProps: Partial<LoadingBarProps> = {

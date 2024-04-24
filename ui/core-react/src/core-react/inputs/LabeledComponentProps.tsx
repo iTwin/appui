@@ -7,15 +7,18 @@
  */
 
 import type * as React from "react";
+import type { InputLabel } from "./InputLabel";
 import type { InputStatus } from "./InputStatus";
 
 /** Properties for labeled components
  * @public
+ * @deprecated in 4.12.x. Props of deprecated component {@link InputLabel}.
  */
 export interface LabeledComponentProps {
   /** Text that will be shown next to or above the input. */
   label?: string;
   /** Input status like: "Success", "Warning" or "Error" */
+  // eslint-disable-next-line deprecation/deprecation
   status?: InputStatus;
   /** Custom CSS class name for the checkbox input element */
   inputClassName?: string;
@@ -29,6 +32,7 @@ export interface LabeledComponentProps {
 
 /** Properties for components with messages
  * @public
+ * @deprecated in 4.12.x. Props of deprecated component {@link InputLabel}.
  */
 export interface MessagedComponentProps {
   /** Optional text shown below the input. */

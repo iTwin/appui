@@ -14,6 +14,7 @@ import type { TextProps } from "./TextProps";
  * @public
  * @deprecated in 4.0 Use \<Text isMuted /\> from iTwinUI-react package.
  */
+// eslint-disable-next-line deprecation/deprecation
 export function MutedText(props: TextProps) {
   // eslint-disable-next-line deprecation/deprecation
   return <StyledText {...props} mainClassName="uicore-text-muted" />;

@@ -1795,10 +1795,10 @@ export interface FloatingViewportContentProps {
     viewportRef?: React_2.Ref<ScreenViewport>;
 }
 
-// @alpha (undocumented)
+// @public (undocumented)
 export function FloatingViewportContentWrapper({ children, }: FloatingViewportContentWrapperProps): React_2.JSX.Element;
 
-// @alpha (undocumented)
+// @public (undocumented)
 export interface FloatingViewportContentWrapperProps {
     // (undocumented)
     readonly children?: React_2.ReactNode;
@@ -4933,7 +4933,7 @@ export class UiFramework {
     static initializeStateFromUserSettingsProviders(immediateSync?: boolean): Promise<void>;
     // @alpha
     static get isContextMenuOpen(): boolean;
-    // (undocumented)
+    // @deprecated (undocumented)
     static isMobile(): boolean;
     static get keyboardShortcuts(): FrameworkKeyboardShortcuts;
     static get localizationNamespace(): string;

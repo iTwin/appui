@@ -14,7 +14,6 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        variant: ["''", "core-3x"]
     runs-on: ${{ matrix.os }}
 
     steps:
@@ -32,7 +31,7 @@ jobs:
           node-version: 20.x
 
       - name: Rush install
-        run: node common/scripts/install-run-rush.js install --variant ${{ matrix.variant }}
+        run: node common/scripts/install-run-rush.js install
 
       - name: Rush build
         run: node common/scripts/install-run-rush.js build -v -p max

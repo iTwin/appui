@@ -3,25 +3,17 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import type { Meta, StoryObj } from "@storybook/react";
-import { InputLabel } from "@itwin/core-react/src/core-react/inputs/InputLabel";
-import { Input } from "@itwin/itwinui-react";
+import { LoadingPrompt } from "@itwin/core-react/src/core-react/loading/LoadingPrompt";
 import { AppUiDecorator } from "../Decorators";
-import { InputStatus } from "@itwin/core-react";
 
 const meta = {
-  title: "Components/Inputs/InputLabel",
-  component: InputLabel,
+  title: "Deprecated/LoadingPrompt",
+  component: LoadingPrompt,
   tags: ["autodocs"],
   decorators: [AppUiDecorator],
-} satisfies Meta<typeof InputLabel>;
+} satisfies Meta<typeof LoadingPrompt>;
 
 export default meta;
-type Story = StoryObj<typeof InputLabel>;
+type Story = StoryObj<typeof LoadingPrompt>;
 
-export const Basic: Story = {
-  args: {
-    label: "Label",
-    status: InputStatus.Success,
-    children: <Input />,
-  },
-};
+export const Basic: Story = {};

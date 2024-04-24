@@ -187,8 +187,8 @@ beta;FloatingContentControl
 beta;FloatingViewportContent(props: FloatingViewportContentProps): React_2.JSX.Element
 beta;FloatingViewportContentControl 
 beta;FloatingViewportContentProps
-alpha;FloatingViewportContentWrapper({ children, }: FloatingViewportContentWrapperProps): React_2.JSX.Element
-alpha;FloatingViewportContentWrapperProps
+public;FloatingViewportContentWrapper({ children, }: FloatingViewportContentWrapperProps): React_2.JSX.Element
+public;FloatingViewportContentWrapperProps
 alpha;FocusToolSettings 
 beta;FrameworkAccuDraw 
 public;FrameworkBackstage

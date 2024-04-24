@@ -10,17 +10,21 @@ import "./LoadingSpinner.scss";
 import * as React from "react";
 import { ProgressRadial } from "@itwin/itwinui-react";
 
+/* eslint-disable deprecation/deprecation */
+
 type ProgressRadialProps = React.ComponentPropsWithoutRef<
   typeof ProgressRadial
 >;
 
 /** Type for ProgressRadialProps.size
  * @public
+ * @deprecated in 4.12.x. Type used in a deprecated component {@link LoadingSpinner}.
  */
 export type RadialSizeType = ProgressRadialProps["size"];
 
 /** Properties for [[LoadingSpinner]] component
  * @public
+ * @deprecated in 4.12.x. Props of deprecated component {@link LoadingSpinner}.
  */
 export interface LoadingSpinnerProps extends Omit<ProgressRadialProps, "size"> {
   /** Message (text) displayed */
@@ -34,9 +38,9 @@ export interface LoadingSpinnerProps extends Omit<ProgressRadialProps, "size"> {
   size?: RadialSizeType;
 }
 
-/**
- * A loading spinner component that optionally shows a text message.
+/** A loading spinner component that optionally shows a text message.
  * @public
+ * @deprecated in 4.12.x. Use {@link https://itwinui.bentley.com/docs/progressindicator#progress-radial iTwinUI progress indicator} instead.
  */
 export class LoadingSpinner extends React.PureComponent<LoadingSpinnerProps> {
   public static defaultProps: Partial<LoadingSpinnerProps> = {

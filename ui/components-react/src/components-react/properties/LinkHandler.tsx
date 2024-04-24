@@ -18,6 +18,7 @@ function renderTag(
   highlight?: (text: string) => React.ReactNode
 ) {
   return (
+    // eslint-disable-next-line deprecation/deprecation
     <UnderlinedButton
       onClick={(e) => {
         e.preventDefault();
