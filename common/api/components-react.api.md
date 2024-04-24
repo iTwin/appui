@@ -3122,7 +3122,7 @@ export interface TreeActions {
     onTreeKeyUp: (event: React.KeyboardEvent) => void;
 }
 
-// @public @deprecated
+// @public
 export interface TreeCheckboxStateChangeEventArgs {
     stateChanges: Observable<CheckboxStateChange[]>;
 }
@@ -3180,14 +3180,14 @@ export class TreeEventHandler implements TreeEvents, IDisposable {
     dispose(): void;
     // (undocumented)
     get modelSource(): TreeModelSource;
-    onCheckboxStateChanged({ stateChanges }: TreeCheckboxStateChangeEventArgs): Subscription | undefined;
+    onCheckboxStateChanged({ stateChanges, }: TreeCheckboxStateChangeEventArgs): Subscription | undefined;
     onDelayedNodeClick({ nodeId }: TreeNodeEventArgs): void;
     onNodeCollapsed({ nodeId }: TreeNodeEventArgs): void;
     onNodeDoubleClick(_: TreeNodeEventArgs): void;
     onNodeEditorActivated({ nodeId }: TreeNodeEventArgs): void;
     onNodeExpanded({ nodeId }: TreeNodeEventArgs): void;
-    onSelectionModified({ modifications }: TreeSelectionModificationEventArgs): Subscription | undefined;
-    onSelectionReplaced({ replacements }: TreeSelectionReplacementEventArgs): Subscription | undefined;
+    onSelectionModified({ modifications, }: TreeSelectionModificationEventArgs): Subscription | undefined;
+    onSelectionReplaced({ replacements, }: TreeSelectionReplacementEventArgs): Subscription | undefined;
 }
 
 // @public
@@ -3359,7 +3359,7 @@ export interface TreeNodeEditorProps {
 // @public
 export type TreeNodeEditorRenderer = (props: TreeNodeEditorProps) => React_3.ReactNode;
 
-// @public @deprecated
+// @public
 export interface TreeNodeEventArgs {
     nodeId: string;
 }
@@ -3475,12 +3475,12 @@ export interface TreeSelectionChange {
     selectedNodeItems: TreeNodeItem[];
 }
 
-// @public @deprecated
+// @public
 export interface TreeSelectionModificationEventArgs {
     modifications: Observable<TreeSelectionChange>;
 }
 
-// @public @deprecated
+// @public
 export interface TreeSelectionReplacementEventArgs {
     replacements: Observable<{
         selectedNodeItems: TreeNodeItem[];

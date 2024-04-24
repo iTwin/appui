@@ -359,7 +359,6 @@ public;toTimeString: (date: Date, timeZoneOffset?: number, formatOptions?: DateF
 internal;toToolbarPopupRelativePosition(expandsTo: Direction, alignment: ToolbarPanelAlignment): RelativePosition
 public;TreeActions
 public;TreeCheckboxStateChangeEventArgs
-deprecated;TreeCheckboxStateChangeEventArgs
 public;TreeDataProvider = TreeDataProviderRaw | TreeDataProviderPromise | TreeDataProviderMethod | ITreeDataProvider
 public;TreeDataProviderMethod = (node?: TreeNodeItem) => Promise
 public;TreeDataProviderPromise = Promise
@@ -386,7 +385,6 @@ public;TreeNodeEditor(props: TreeNodeEditorProps): React_3.JSX.Element
 public;TreeNodeEditorProps
 public;TreeNodeEditorRenderer = (props: TreeNodeEditorProps) => React_3.ReactNode
 public;TreeNodeEventArgs
-deprecated;TreeNodeEventArgs
 public;TreeNodeIcon(props: TreeNodeIconProps): React_3.JSX.Element | null
 public;TreeNodeIconProps
 public;TreeNodeItem
@@ -400,9 +398,7 @@ public;TreeRendererAttributes
 public;TreeRendererProps
 public;TreeSelectionChange
 public;TreeSelectionModificationEventArgs
-deprecated;TreeSelectionModificationEventArgs
 public;TreeSelectionReplacementEventArgs
-deprecated;TreeSelectionReplacementEventArgs
 public;class TypeConverter 
 public;TypeConverterManager
 public;TypeEditor
