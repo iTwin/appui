@@ -9,6 +9,7 @@
   $horizontal-padding: $nz-dialog-padding;
   $vertical-padding: 12px;
 
+  background-color: var(--iui-color-background-backdrop);
   border-bottom: 1px solid var(--iui-color-border-subtle);
   min-height: $nz-footer-title-bar-height;
   box-sizing: border-box;
