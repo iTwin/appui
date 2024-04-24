@@ -17,13 +17,13 @@ import {
 import { SvgChat } from "@itwin/itwinui-icons-react";
 import { OutputMessagePriority } from "@itwin/core-frontend";
 
-import { UiFramework } from "../../UiFramework";
 import { MessageCenterMessage } from "./MessageCenterMessage";
 import { MessageManager } from "../../messages/MessageManager";
 import { TitleBar } from "../../layout/footer/dialog/TitleBar";
 
 import type { NotifyMessageDetailsType } from "../../messages/ReactNotifyMessageDetails";
 import "./MessageCenterField.scss";
+import { useTranslation } from "../../hooks/useTranslation";
 
 /**
  * Type for Status state to satisfy NotificationMarker type checking
@@ -39,9 +39,9 @@ export function MessageCenterField(props: CommonProps) {
   const [isOpen, setIsOpen] = React.useState(false);
   const [status, setStatus] =
     React.useState<NotificationMarkerStatus>("primary");
+  const { translate } = useTranslation();
 
   const indicatorRef = React.useRef<HTMLButtonElement>(null);
-  const title = UiFramework.translate("messageCenter.messages");
 
   const handleOpenChange = (isOpenState: boolean) => {
     setNotify(false);
@@ -139,12 +139,20 @@ export function MessageCenterField(props: CommonProps) {
       className="uifw-statusFields-messageCenter-messageCenterField_popover"
       content={
         <>
-          <TitleBar title={title}></TitleBar>
+          <TitleBar title={translate("messageCenter.messages")}></TitleBar>
 
           <Tabs.Wrapper type="pill">
             <Tabs.TabList>
-              <Tabs.Tab label="All" key="all" value="all" />
-              <Tabs.Tab label="Error" key="error" value="error" />
+              <Tabs.Tab
+                label={translate("messageCenter.all")}
+                key="all"
+                value="all"
+              />
+              <Tabs.Tab
+                label={translate("messageCenter.errors")}
+                key="error"
+                value="error"
+              />
             </Tabs.TabList>
             {tabs}
           </Tabs.Wrapper>
@@ -163,7 +171,7 @@ export function MessageCenterField(props: CommonProps) {
         className={props.className}
         style={props.style}
       >
-        {title}
+        {translate("messageCenter.messages")}
       </Button>
     </Popover>
   );
