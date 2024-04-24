@@ -9,6 +9,8 @@ Table of contents:
   - [Deprecations](#deprecations-1)
   - [Changes](#changes-1)
   - [Fixes](#fixes)
+- [@itwin/components-react](#itwincomponents-react)
+  - [Fixes](#fixes-1)
 
 ## @itwin/appui-react
 
@@ -53,3 +55,9 @@ Table of contents:
 ### Fixes
 
 - Fix `PopoutWidget` getting increasingly bigger each time it is popped out. [#792](https://github.com/iTwin/appui/pull/792)
+
+## @itwin/components-react
+
+### Fixes
+
+- Fix spacing between categories in `VirtualizedPropertyGrid`
