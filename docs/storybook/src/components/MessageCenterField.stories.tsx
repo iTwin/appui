@@ -50,7 +50,7 @@ const NoMessages: Decorator = (Story) => {
 };
 
 export const Empty: Story = {
-  decorators: [...meta.decorators, NoMessages],
+  decorators: [NoMessages],
 };
 
 const InfoMessages: Decorator = (Story) => {
@@ -66,7 +66,7 @@ const InfoMessages: Decorator = (Story) => {
 };
 
 export const Info: Story = {
-  decorators: [...meta.decorators, InfoMessages],
+  decorators: [InfoMessages],
 };
 
 const ErrorMessages: Decorator = (Story) => {
@@ -82,7 +82,7 @@ const ErrorMessages: Decorator = (Story) => {
 };
 
 export const Error: Story = {
-  decorators: [...meta.decorators, ErrorMessages],
+  decorators: [ErrorMessages],
 };
 
 const DetailedMessages: Decorator = (Story) => {
@@ -102,7 +102,7 @@ const DetailedMessages: Decorator = (Story) => {
 };
 
 export const Detailed: Story = {
-  decorators: [...meta.decorators, DetailedMessages],
+  decorators: [DetailedMessages],
 };
 
 const DynamicDecorator: Decorator = (Story) => {
@@ -158,6 +158,7 @@ const DynamicDecorator: Decorator = (Story) => {
           </MenuItem>,
         ]}
         styleType="borderless"
+        style={{ alignSelf: "flex-end" }}
       >
         Add Messages
       </DropdownButton>
@@ -166,5 +167,5 @@ const DynamicDecorator: Decorator = (Story) => {
 };
 
 export const Dynamic: Story = {
-  decorators: [...meta.decorators, NoMessages, DynamicDecorator],
+  decorators: [NoMessages, DynamicDecorator],
 };
