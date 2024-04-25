@@ -4,19 +4,17 @@
  *--------------------------------------------------------------------------------------------*/
 @import "../../layout/footer/variables.scss";
 
-.uifw-statusFields-messageCenter-messageCenterField {
-  width: 305px;
-  max-height: 200px;
+.uifw-statusFields-messageCenter-messageCenterField_panel {
+  height: 250px;
   overflow: auto;
-  scrollbar-gutter: stable;
-  min-width: $nz-footer-popup-min-width;
-  max-width: $nz-footer-popup-max-width;
   padding-left: 10px;
+  scrollbar-gutter: stable;
 
   > .uifw-message-prompt {
-    display: none;
-    text-align: center;
-    margin: 30px 15px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-style: italic;
     color: var(--iui-color-text-muted);
   }
@@ -24,5 +22,4 @@
 
 .uifw-statusFields-messageCenter-messageCenterField_popover {
   width: 305px;
-  min-height: 200px;
 }

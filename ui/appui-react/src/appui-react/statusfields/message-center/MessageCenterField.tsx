@@ -25,10 +25,10 @@ import type { NotifyMessageDetailsType } from "../../messages/ReactNotifyMessage
 import "./MessageCenterField.scss";
 import { useTranslation } from "../../hooks/useTranslation";
 
-/**
- * Type for Status state to satisfy NotificationMarker type checking
- */
+/** Type for Status state to satisfy NotificationMarker type checking. */
 type NotificationMarkerStatus = "primary" | "negative" | "positive";
+
+const tabs = ["all", "errors"] as const;
 
 /** Message Center Field React component.
  * @public
@@ -87,47 +87,6 @@ export function MessageCenterField(props: CommonProps) {
     });
   }, []);
 
-  const getMessages = (tab: string) => {
-    return [...messages].reverse().map((message, index) => {
-      if (messages.length > 0) {
-        const iconClassName = MessageManager.getIconClassName(message);
-        const iconSpec = MessageManager.getIconSpecFromDetails(message);
-
-        if ((tab === "error" && isProblemStatus(message)) || tab === "all") {
-          return (
-            <MessageCenterMessage
-              key={index.toString()}
-              message={message.briefMessage}
-              details={message.detailedMessage}
-              icon={<Icon iconSpec={iconSpec} className={iconClassName} />}
-            />
-          );
-        }
-        return;
-      } else {
-        return (
-          <span className="uifw-message-prompt" key={`${index.toString()}`}>
-            No Messages.
-          </span>
-        );
-      }
-    });
-  };
-
-  const tabs = (
-    <>
-      {["all", "error"].map((tabType) => {
-        return (
-          <Tabs.Panel value={tabType} key={tabType}>
-            <div className="uifw-statusFields-messageCenter-messageCenterField">
-              {getMessages(tabType)}
-            </div>
-          </Tabs.Panel>
-        );
-      })}
-    </>
-  );
-
   return (
     <Popover
       visible={isOpen}
@@ -143,18 +102,55 @@ export function MessageCenterField(props: CommonProps) {
 
           <Tabs.Wrapper type="pill">
             <Tabs.TabList>
-              <Tabs.Tab
-                label={translate("messageCenter.all")}
-                key="all"
-                value="all"
-              />
-              <Tabs.Tab
-                label={translate("messageCenter.errors")}
-                key="error"
-                value="error"
-              />
+              {tabs.map((tab) => (
+                <Tabs.Tab
+                  label={translate(`messageCenter.${tab}`)}
+                  key={tab}
+                  value={tab}
+                />
+              ))}
             </Tabs.TabList>
-            {tabs}
+            {tabs.map((tab) => {
+              let tabMessages = [...messages].reverse();
+              tabMessages =
+                tab === "errors"
+                  ? tabMessages.filter(isProblemStatus)
+                  : tabMessages;
+              return (
+                <Tabs.Panel
+                  value={tab}
+                  key={tab}
+                  className="uifw-statusFields-messageCenter-messageCenterField_panel"
+                >
+                  {tabMessages.length === 0 ? (
+                    <span className="uifw-message-prompt">
+                      {translate("messageCenter.prompt")}
+                    </span>
+                  ) : (
+                    tabMessages.map((message, index) => {
+                      const iconClassName =
+                        MessageManager.getIconClassName(message);
+                      const iconSpec =
+                        MessageManager.getIconSpecFromDetails(message);
+
+                      return (
+                        <MessageCenterMessage
+                          key={index}
+                          message={message.briefMessage}
+                          details={message.detailedMessage}
+                          icon={
+                            <Icon
+                              iconSpec={iconSpec}
+                              className={iconClassName}
+                            />
+                          }
+                        />
+                      );
+                    })
+                  )}
+                </Tabs.Panel>
+              );
+            })}
           </Tabs.Wrapper>
         </>
       }
