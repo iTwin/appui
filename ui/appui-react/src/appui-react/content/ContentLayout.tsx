@@ -68,7 +68,7 @@ export function ContentWrapper(props: ContentWrapperProps) {
 
   React.useEffect(() => {
     const handleActiveContentChanged = (
-      args: ActiveContentChangedEventArgs
+      args: ActiveContentChangedEventArgs // eslint-disable-line deprecation/deprecation
     ) => {
       const contentIsIdentical = content === args.activeContent;
       if (contentIsIdentical) setIsActive(contentIsIdentical);
@@ -561,6 +561,7 @@ export class ContentLayoutDef {
 
 /** Content Layout Activated Event Args class.
  * @public
+ * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface ContentLayoutActivatedEventArgs {
   contentLayout: ContentLayoutDef;
@@ -569,6 +570,7 @@ export interface ContentLayoutActivatedEventArgs {
 
 /** Content Layout Activated Event class.
  * @public
+ * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class ContentLayoutActivatedEvent extends UiEvent<ContentLayoutActivatedEventArgs> {}
@@ -631,7 +633,7 @@ export class ContentLayout extends React.Component<
   }
 
   private _handleContentLayoutActivated = (
-    args: ContentLayoutActivatedEventArgs
+    args: ContentLayoutActivatedEventArgs // eslint-disable-line deprecation/deprecation
   ) => {
     const contentLayoutDef = args.contentLayout;
     const contentGroup = args.contentGroup;

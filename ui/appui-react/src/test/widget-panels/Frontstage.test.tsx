@@ -561,7 +561,7 @@ describe("Frontstage local storage wrapper", () => {
         });
         const frontstageDef = new FrontstageDef();
         renderHook(() => useSavedFrontstageState(frontstageDef), {
-          wrapper: (props) => <UiStateStorageHandler {...props} />,
+          wrapper: (props: any) => <UiStateStorageHandler {...props} />,
         });
         await TestUtils.flushAsyncOperations();
         expect(frontstageDef.nineZoneState).toBeTruthy();
@@ -575,7 +575,7 @@ describe("Frontstage local storage wrapper", () => {
 
         const spy = vi.spyOn(uiStateStorage, "getSetting");
         renderHook(() => useSavedFrontstageState(frontstageDef), {
-          wrapper: (props) => <UiStateStorageHandler {...props} />,
+          wrapper: (props: any) => <UiStateStorageHandler {...props} />,
         });
         expect(spy).not.toBeCalled();
       });
@@ -596,7 +596,7 @@ describe("Frontstage local storage wrapper", () => {
           () => setting.version + 1
         );
         renderHook(() => useSavedFrontstageState(frontstageDef), {
-          wrapper: (props) => <UiStateStorageHandler {...props} />,
+          wrapper: (props: any) => <UiStateStorageHandler {...props} />,
         });
         await TestUtils.flushAsyncOperations();
         expect(frontstageDef.nineZoneState).to.exist;
@@ -627,7 +627,7 @@ describe("Frontstage local storage wrapper", () => {
         );
 
         renderHook(() => useSavedFrontstageState(frontstageDef), {
-          wrapper: (props) => <UiStateStorageHandler {...props} />,
+          wrapper: (props: any) => <UiStateStorageHandler {...props} />,
         });
         await TestUtils.flushAsyncOperations();
 
@@ -648,7 +648,7 @@ describe("Frontstage local storage wrapper", () => {
 
         const layout = createLayoutStore();
         renderHook(() => useSaveFrontstageSettings(frontstageDef, layout), {
-          wrapper: (props) => <UiStateStorageHandler {...props} />,
+          wrapper: (props: any) => <UiStateStorageHandler {...props} />,
         });
         vi.advanceTimersByTime(1000);
 
@@ -673,7 +673,7 @@ describe("Frontstage local storage wrapper", () => {
 
         const layout = createLayoutStore(frontstageDef.nineZoneState);
         renderHook(() => useSaveFrontstageSettings(frontstageDef, layout), {
-          wrapper: (props) => <UiStateStorageHandler {...props} />,
+          wrapper: (props: any) => <UiStateStorageHandler {...props} />,
         });
         vi.advanceTimersByTime(1000);
 
@@ -723,7 +723,7 @@ describe("Frontstage local storage wrapper", () => {
 
           const spy = vi.spyOn(uiStateStorage, "deleteSetting");
           renderHook(() => useFrontstageManager(frontstageDef), {
-            wrapper: (props) => <UiStateStorageHandler {...props} />,
+            wrapper: (props: any) => <UiStateStorageHandler {...props} />,
           });
           InternalFrontstageManager.onFrontstageRestoreLayoutEvent.emit({
             frontstageDef,
@@ -738,7 +738,7 @@ describe("Frontstage local storage wrapper", () => {
           await UiFramework.setUiStateStorage(uiStateStorage);
 
           renderHook(() => useFrontstageManager(frontstageDef), {
-            wrapper: (props) => <UiStateStorageHandler {...props} />,
+            wrapper: (props: any) => <UiStateStorageHandler {...props} />,
           });
           const frontstageDef1 = new FrontstageDef();
           vi.spyOn(frontstageDef1, "id", "get").mockImplementation(() => "f1");
@@ -1662,7 +1662,7 @@ describe("Frontstage local storage wrapper", () => {
             <WidgetPanelsFrontstage />
           </Provider>,
           {
-            wrapper: (props) => <UiStateStorageHandler {...props} />,
+            wrapper: (props: any) => <UiStateStorageHandler {...props} />,
           }
         );
         await findByText("Left Start 1");

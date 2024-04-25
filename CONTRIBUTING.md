@@ -162,30 +162,11 @@ Use these instructions to update dependencies and devDependencies on external pa
 2. Run `rush check` to make sure that you are specifying consistent versions across the repository
 3. Run `rush update` to make sure the newer version of the module specified in #1 is installed
 
-**Note:** Also see the [variant info](#external-dependencies-check).
-
 ---
 
 ## iTwin.js core 3.x compatibility
 
-AppUI 4.0 version must keep compatibility with iTwin.js core version ^3.7.0 to facilitate migration, in order to do so, a rush variant has been created.
-
-### Validating code for the variant
-
-Once we are clear with the changes we have, it is a good idea to validate that they work as expected in the variant test app, this will also be done in the CI pipeline.
-
-Simply replace step 2 of the [Build Instructions](#build-instructions) with:
-
-- Install dependencies: `rush install --variant core-3x`
-
-and follow the same instructions for the build and coverage steps.
-
-### External dependencies check
-
-The external dependencies must be updated in this variant with the following commands.
-
-1. Run `rush check --variant core-3x`
-2. Run `rush update --variant core-3x`
+AppUI 4.0 version must keep compatibility with iTwin.js core version ^3.7.0 to facilitate migration.
 
 ### Other NPM scripts
 

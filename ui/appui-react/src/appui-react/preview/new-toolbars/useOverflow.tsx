@@ -79,7 +79,7 @@ export const useOverflow = <
   }, [calculate, allItems, getItemSize, getOverflowSize, orientation]);
   const containerRoRef = useResizeObserver<TContainer>(
     React.useCallback(
-      (width, height) => {
+      (width: number, height: number) => {
         const length = containerSizeRef.current
           ? getLength(containerSizeRef.current, orientation)
           : undefined;
@@ -94,7 +94,7 @@ export const useOverflow = <
   );
   const componentRoRef = useResizeObserver<TComponent>(
     React.useCallback(
-      (width, height) => {
+      (width: number, height: number) => {
         const length = componentSizeRef.current
           ? getLength(componentSizeRef.current, orientation)
           : undefined;

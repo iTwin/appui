@@ -73,13 +73,17 @@ interface DisplayCardPopupOptions extends CommonPopupOptions {
   onItemExecuted: (item: any) => void;
 }
 
-/** @public */
+/**
+ * @public
+ * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
+ */
 export interface PopupsChangedEventArgs {
   popups: ReadonlyArray<PopupInfo>;
 }
 
 /** Popups Changed Event class.
  * @public
+ * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class PopupsChangedEvent extends UiEvent<PopupsChangedEventArgs> {}
@@ -129,6 +133,7 @@ export class PopupManager {
 
   private static _defaultOffset = { x: 8, y: 8 };
 
+  // eslint-disable-next-line deprecation/deprecation
   public static readonly onPopupsChangedEvent = new PopupsChangedEvent();
 
   public static get popupCount() {
@@ -647,6 +652,7 @@ export class PopupRenderer extends React.Component<{}, PopupRendererState> {
     );
   }
 
+  // eslint-disable-next-line deprecation/deprecation
   private _handlePopupsChangedEvent = (args: PopupsChangedEventArgs) => {
     this.setState({ popups: args.popups });
   };

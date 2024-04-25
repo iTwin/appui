@@ -4,20 +4,32 @@ beta;AccuDrawCommandItems
 beta;AccuDrawDialog(props: AccuDrawDialogProps): React_2.JSX.Element
 beta;AccuDrawDialogProps 
 beta;AccuDrawGrabInputFocusEvent 
+deprecated;AccuDrawGrabInputFocusEvent 
 beta;AccuDrawKeyboardShortcuts
 alpha;AccuDrawPopupManager
 beta;AccuDrawSetCompassModeEvent 
+deprecated;AccuDrawSetCompassModeEvent 
 beta;AccuDrawSetCompassModeEventArgs
+deprecated;AccuDrawSetCompassModeEventArgs
 beta;AccuDrawSetFieldFocusEvent 
+deprecated;AccuDrawSetFieldFocusEvent 
 beta;AccuDrawSetFieldFocusEventArgs
+deprecated;AccuDrawSetFieldFocusEventArgs
 beta;AccuDrawSetFieldLockEvent 
+deprecated;AccuDrawSetFieldLockEvent 
 beta;AccuDrawSetFieldLockEventArgs
+deprecated;AccuDrawSetFieldLockEventArgs
 beta;AccuDrawSetFieldValueFromUiEvent 
+deprecated;AccuDrawSetFieldValueFromUiEvent 
 beta;AccuDrawSetFieldValueFromUiEventArgs
+deprecated;AccuDrawSetFieldValueFromUiEventArgs
 beta;AccuDrawSetFieldValueToUiEvent 
+deprecated;AccuDrawSetFieldValueToUiEvent 
 beta;AccuDrawSetFieldValueToUiEventArgs
+deprecated;AccuDrawSetFieldValueToUiEventArgs
 beta;AccuDrawUiSettings
 beta;AccuDrawUiSettingsChangedEvent 
+deprecated;AccuDrawUiSettingsChangedEvent 
 beta;AccuDrawWidget(): React_2.JSX.Element
 beta;AccuDrawWidgetControl 
 public;Action
@@ -27,12 +39,17 @@ public;ActionsUnion
 public;ActionTypes
 public;ActionWithPayload
 public;ActiveContentChangedEvent 
+deprecated;ActiveContentChangedEvent 
 public;ActiveContentChangedEventArgs
+deprecated;ActiveContentChangedEventArgs
 internal;ActiveFrontstageDefProvider({ frontstageDef, }: ActiveFrontstageDefProviderProps): React_2.JSX.Element
 public;ActivityCenterField(props: CommonProps): React_2.JSX.Element | null
 public;ActivityMessageCancelledEvent 
+deprecated;ActivityMessageCancelledEvent 
 public;ActivityMessageEventArgs
+deprecated;ActivityMessageEventArgs
 public;ActivityMessageUpdatedEvent 
+deprecated;ActivityMessageUpdatedEvent 
 internal;addFrontstageWidgetDefs(frontstageDef: FrontstageDef): void
 internal;addPanelSectionWidgetDefs(frontstageDef: FrontstageDef, location: StagePanelLocation, section: StagePanelSection): void
 public;AllowedUiItemsProviderOverrides
@@ -78,7 +95,9 @@ alpha;CardContainer
 alpha;CardContainerProps 
 alpha;CardInfo
 alpha;CardSelectedEvent 
+deprecated;CardSelectedEvent 
 alpha;CardSelectedEventArgs
+deprecated;CardSelectedEventArgs
 public;ChildWindowLocationProps
 internal;clearKeyinPaletteHistory(): void
 public;ColorTheme
@@ -109,9 +128,12 @@ beta;connectIModelConnectionAndViewState: (mapStateToProps?: any, mapDispatchToP
 public;ContentCallback = (content: ContentProps) => void
 public;ContentControl 
 public;ContentControlActivatedEvent 
+deprecated;ContentControlActivatedEvent 
 public;ContentControlActivatedEventArgs
+deprecated;ContentControlActivatedEventArgs
 public;ContentDialog(props: ContentDialogProps): React_2.JSX.Element
 public;ContentDialogChangedEvent 
+deprecated;ContentDialogChangedEvent 
 public;ContentDialogInfo
 public;ContentDialogProps 
 public;ContentDialogRenderer 
@@ -120,7 +142,9 @@ public;ContentGroupProps
 public;class ContentGroupProvider
 public;ContentLayout 
 public;ContentLayoutActivatedEvent 
+deprecated;ContentLayoutActivatedEvent 
 public;ContentLayoutActivatedEventArgs
+deprecated;ContentLayoutActivatedEventArgs
 public;ContentLayoutComponentProps 
 public;ContentLayoutDef
 public;ContentProps
@@ -141,7 +165,6 @@ public;CursorMenuItemProps
 public;CursorMenuPayload
 public;CursorPopup 
 public;CursorPopupContent(props: CommonDivProps): React_2.JSX.Element
-internal;CursorPopupFadeOutEvent 
 internal;CursorPopupFadeOutEventArgs
 public;CursorPopupManager
 alpha;CursorPopupMenu 
@@ -149,11 +172,12 @@ public;CursorPopupOptions
 public;CursorPopupProps =
 public;CursorPopupRenderer 
 internal;CursorPopupShow
-internal;CursorPopupUpdatePositionEvent 
 internal;CursorPopupUpdatePositionEventArgs
 internal;CursorPrompt
 public;CursorUpdatedEvent 
+deprecated;CursorUpdatedEvent 
 public;CursorUpdatedEventArgs
+deprecated;CursorUpdatedEventArgs
 public;CustomItemDef 
 public;CustomItemProps 
 public;DeepReadonly
@@ -167,7 +191,9 @@ public;DefaultStatusbarItems
 internal;DefaultToolSettingsProvider 
 public;DefaultViewOverlay({ viewport, onPlayPause, featureOptions, }: ViewOverlayProps): React_2.JSX.Element | null
 public;DialogChangedEvent 
+deprecated;DialogChangedEvent 
 public;DialogChangedEventArgs
+deprecated;DialogChangedEventArgs
 internal;DialogGridContainer({ componentGenerator, containerClassName, }: DialogGridContainerProps): React_2.JSX.Element
 public;DialogInfo
 internal;DialogManagerBase
@@ -177,7 +203,9 @@ internal;DockedStatusBarItem(props: StatusBarItemProps): React_2.JSX.Element
 beta;DrawingNavigationAidControl 
 public;ElementTooltip 
 public;ElementTooltipChangedEvent 
+deprecated;ElementTooltipChangedEvent 
 public;ElementTooltipChangedEventArgs
+deprecated;ElementTooltipChangedEventArgs
 public;EmphasizeElementsChangedArgs
 beta;ExpandableSection 
 beta;ExpandableSectionProps 
@@ -211,16 +239,22 @@ public;FrameworkUiAdmin
 public;FrameworkVisibility
 internal;FRONTSTAGE_SETTINGS_NAMESPACE = "uifw-frontstageSettings"
 public;FrontstageActivatedEvent 
+deprecated;FrontstageActivatedEvent 
 public;FrontstageActivatedEventArgs
+deprecated;FrontstageActivatedEventArgs
 public;FrontstageConfig 
 public;FrontstageDeactivatedEvent 
+deprecated;FrontstageDeactivatedEvent 
 public;FrontstageDeactivatedEventArgs
+deprecated;FrontstageDeactivatedEventArgs
 public;FrontstageDef
 internal;FrontstageEventArgs
 internal;FrontstageNineZoneStateChangedEventArgs 
 public;class FrontstageProvider
 public;FrontstageReadyEvent 
+deprecated;FrontstageReadyEvent 
 public;FrontstageReadyEventArgs
+deprecated;FrontstageReadyEventArgs
 public;FunctionType = (...args: any[]) => any
 internal;getBadgeClassName(badgeType: BadgeType | undefined): "uifw-badge-new" | "uifw-badge-tp" | undefined
 beta;getFeatureOverrideSyncEventIds(): string[]
@@ -258,8 +292,11 @@ alpha;InputEditorPopup
 beta;InputEditorPopupProps 
 public;InputFieldMessage 
 public;InputFieldMessageAddedEvent 
+deprecated;InputFieldMessageAddedEvent 
 public;InputFieldMessageEventArgs
+deprecated;InputFieldMessageEventArgs
 public;InputFieldMessageRemovedEvent 
+deprecated;InputFieldMessageRemovedEvent 
 alpha;InputStatus
 public;isBackstageActionItem(item: BackstageItem): item is BackstageActionItem
 public;isBackstageStageLauncher(item: BackstageItem): item is BackstageStageLauncher
@@ -281,6 +318,7 @@ public;KeyboardShortcut
 public;KeyboardShortcutContainer
 public;KeyboardShortcutMenu 
 public;KeyboardShortcutMenuEvent 
+deprecated;KeyboardShortcutMenuEvent 
 public;KeyboardShortcutMenuState
 public;KeyboardShortcutProps 
 public;KeyinEntry
@@ -306,33 +344,48 @@ alpha;MenuItemHelpers
 public;MenuItemProps = AbstractMenuItemProps
 deprecated;MenuItemProps = AbstractMenuItemProps
 public;MessageAddedEvent 
+deprecated;MessageAddedEvent 
 public;MessageAddedEventArgs
-public;MessageCenterField 
+deprecated;MessageAddedEventArgs
+public;MessageCenterField(props: CommonProps): React_2.JSX.Element
 public;MessageManager
 public;MessagesUpdatedEvent 
+deprecated;MessagesUpdatedEvent 
 public;ModalDialogChangedEvent 
+deprecated;ModalDialogChangedEvent 
 public;ModalDialogRenderer 
 public;ModalFrontstage 
 public;ModalFrontstageChangedEvent 
+deprecated;ModalFrontstageChangedEvent 
 public;ModalFrontstageChangedEventArgs
+deprecated;ModalFrontstageChangedEventArgs
 public;ModalFrontstageClosedEvent 
+deprecated;ModalFrontstageClosedEvent 
 public;ModalFrontstageClosedEventArgs
+deprecated;ModalFrontstageClosedEventArgs
 internal;ModalFrontstageComposer({ stageInfo, }:
 public;ModalFrontstageInfo
 internal;ModalFrontstageItem
 public;ModalFrontstageProps 
 alpha;ModalFrontstageRequestedCloseEvent 
+deprecated;ModalFrontstageRequestedCloseEvent 
 alpha;ModalFrontstageRequestedCloseEventArgs
+deprecated;ModalFrontstageRequestedCloseEventArgs
 public;ModelessDialog 
 public;ModelessDialogChangedEvent 
+deprecated;ModelessDialogChangedEvent 
 public;ModelessDialogInfo
 public;ModelessDialogProps 
 public;ModelessDialogRenderer 
 public;MouseDownChangedEvent 
+deprecated;MouseDownChangedEvent 
 public;MouseDownChangedEventArgs
+deprecated;MouseDownChangedEventArgs
 public;NameToReducerMap
 public;NavigationAidActivatedEvent 
+deprecated;NavigationAidActivatedEvent 
 public;NavigationAidActivatedEventArgs
+deprecated;NavigationAidActivatedEventArgs
 public;NavigationAidControl 
 public;NavigationAidHost(props: NavigationAidHostProps): React_2.JSX.Element
 public;NavigationAidHostProps
@@ -343,18 +396,23 @@ public;NotifyMessageDetailsType = NotifyMessageDetails | ReactNotifyMessageDetai
 public;NotifyMessageType = MessageType
 public;OpenChildWindowInfo
 public;OpenMessageCenterEvent 
+deprecated;OpenMessageCenterEvent 
 public;OverflowToolbarOptions
 internal;packNineZoneState(state: NineZoneState): NineZoneState
 public;PanelPinnedChangedEventArgs
-internal;PanelSizeChangedEvent 
+deprecated;PanelPinnedChangedEventArgs
 internal;PanelSizeChangedEventArgs
 beta;PanelStateChangedEvent 
+deprecated;PanelStateChangedEvent 
 public;PanelStateChangedEventArgs
+deprecated;PanelStateChangedEventArgs
 public;Placement = Side | `${Side}-${Alignment}`
 internal;PlacementOrRelativePosition = Placement | RelativePosition
 public;PointerMessage 
 public;PointerMessageChangedEvent 
+deprecated;PointerMessageChangedEvent 
 public;PointerMessageChangedEventArgs
+deprecated;PointerMessageChangedEventArgs
 public;PointerMessageProps 
 public;PopupContentType = HTMLElement | ReactContent
 public;PopupInfo
@@ -362,7 +420,9 @@ public;PopupManager
 public;PopupPropsBase
 public;PopupRenderer 
 public;PopupsChangedEvent 
+deprecated;PopupsChangedEvent 
 public;PopupsChangedEventArgs
+deprecated;PopupsChangedEventArgs
 beta;PositionPopup 
 beta;PositionPopupContent(props: CommonDivProps): React_2.JSX.Element
 beta;PositionPopupProps 
@@ -481,7 +541,9 @@ public;StatusBarWidgetComposerControl
 public;class StatusBarWidgetControl 
 public;SupportsViewSelectorChange
 public;SyncToolSettingsPropertiesEvent 
+deprecated;SyncToolSettingsPropertiesEvent 
 public;SyncToolSettingsPropertiesEventArgs
+deprecated;SyncToolSettingsPropertiesEventArgs
 public;SyncUiEventDispatcher
 public;SyncUiEventId
 public;SYSTEM_PREFERRED_COLOR_THEME = "SYSTEM_PREFERRED"
@@ -489,9 +551,13 @@ public;ThemeId = `${ColorTheme}` | (string & {})
 public;ThemeManager: ConnectedComponent
 public;TileLoadingIndicator 
 public;ToolActivatedEvent 
+deprecated;ToolActivatedEvent 
 public;ToolActivatedEventArgs
+deprecated;ToolActivatedEventArgs
 public;ToolAssistanceChangedEvent 
+deprecated;ToolAssistanceChangedEvent 
 public;ToolAssistanceChangedEventArgs
+deprecated;ToolAssistanceChangedEventArgs
 public;ToolAssistanceField 
 internal;ToolAssistanceFieldDefaultProps = Pick
 public;ToolAssistanceFieldProps 
@@ -515,7 +581,9 @@ public;ToolbarUsage
 beta;ToolbarWithOverflow(props: ToolbarWithOverflowProps): React_2.JSX.Element
 beta;ToolbarWithOverflowProps 
 public;ToolIconChangedEvent 
+deprecated;ToolIconChangedEvent 
 public;ToolIconChangedEventArgs
+deprecated;ToolIconChangedEventArgs
 public;ToolInformation
 public;ToolItemDef 
 public;ToolItemProps 
@@ -538,14 +606,19 @@ public;UiItemsManager
 public;UiItemsProvider
 public;UiItemsProviderOverrides = MarkRequired
 public;UiItemsProviderRegisteredEventArgs
+deprecated;UiItemsProviderRegisteredEventArgs
 beta;UiSettingsPage(): React_2.JSX.Element
 public;UiSettingsProviderProps
 internal;UiStateStorageContext: React_2.Context
 public;UiStateStorageHandler(props: UiSettingsProviderProps): React_2.JSX.Element
 public;UiSyncEvent 
+deprecated;UiSyncEvent 
 public;UiSyncEventArgs
+deprecated;UiSyncEventArgs
 public;UiVisibilityChangedEvent 
+deprecated;UiVisibilityChangedEvent 
 public;UiVisibilityEventArgs
+deprecated;UiVisibilityEventArgs
 alpha;UnitSystemSelector(props: UnitSystemSelectorProps): React_2.JSX.Element
 beta;UnitSystemSelectorProps
 internal;useActiveContentControlId(): string | undefined
@@ -602,7 +675,9 @@ public;ViewOverlayProps
 public;ViewportContentControl 
 beta;ViewSelector 
 beta;ViewSelectorChangedEvent 
+deprecated;ViewSelectorChangedEvent 
 beta;ViewSelectorChangedEventArgs
+deprecated;ViewSelectorChangedEventArgs
 beta;ViewSelectorDefaultProps = Pick
 beta;ViewSelectorProps
 public;ViewStateHelper
@@ -630,10 +705,11 @@ internal;WidgetPanelsStatusBar(props: CommonProps): React_2.JSX.Element | null
 internal;WidgetPanelsTab(): React_2.JSX.Element
 internal;WidgetPanelsToolbars(): React_2.JSX.Element
 internal;WidgetPanelsToolSettings(): React_2.JSX.Element | null
-internal;WidgetsChangedEvent 
 internal;WidgetsChangedEventArgs
 public;WidgetState
 public;WidgetStateChangedEvent 
+deprecated;WidgetStateChangedEvent 
 public;WidgetStateChangedEventArgs
+deprecated;WidgetStateChangedEventArgs
 public;WidgetType
 internal;WrapperContext: React_2.Context

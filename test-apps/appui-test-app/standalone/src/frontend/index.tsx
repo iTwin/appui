@@ -75,10 +75,6 @@ import {
   ToolAdmin,
   ViewClipByPlaneTool,
 } from "@itwin/core-frontend";
-import {
-  MobileApp,
-  MobileAppOpts,
-} from "@itwin/core-mobile/lib/cjs/MobileFrontend";
 import { getObjectClassName } from "@itwin/core-react";
 import { FrontendDevTools } from "@itwin/frontend-devtools";
 import { HyperModeling } from "@itwin/hypermodeling-frontend";
@@ -255,8 +251,6 @@ export class SampleAppIModelApp {
     if (ProcessDetector.isElectronAppFrontend) {
       await ElectronApp.startup({ ...opts, iModelApp: iModelAppOpts });
       NativeAppLogger.initialize();
-    } else if (ProcessDetector.isMobileAppFrontend) {
-      await MobileApp.startup(opts as MobileAppOpts);
     } else {
       await IModelApp.startup(iModelAppOpts);
     }
@@ -590,7 +584,7 @@ const SampleAppViewer = () => {
   }, []);
 
   const _handleFrontstageDeactivatedEvent = (
-    args: FrontstageDeactivatedEventArgs
+    args: FrontstageDeactivatedEventArgs // eslint-disable-line deprecation/deprecation
   ): void => {
     Logger.logInfo(
       SampleAppIModelApp.loggerCategory(this),
@@ -599,7 +593,7 @@ const SampleAppViewer = () => {
   };
 
   const _handleModalFrontstageClosedEvent = (
-    args: ModalFrontstageClosedEventArgs
+    args: ModalFrontstageClosedEventArgs // eslint-disable-line deprecation/deprecation
   ): void => {
     Logger.logInfo(
       SampleAppIModelApp.loggerCategory(this),

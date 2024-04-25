@@ -13,13 +13,16 @@ import { Dialog } from "./Dialog";
 
 /** Properties for the [[GlobalDialog]] component
  * @public
+ * @deprecated in 4.12.x. Props of deprecated component {@link GlobalDialog}.
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface GlobalDialogProps extends DialogProps {
   identifier?: string;
 }
 
 /** State properties for the [[GlobalDialog]] component
  * @public
+ * @deprecated in 4.12.x. State of deprecated component {@link GlobalDialog}.
  */
 export interface GlobalDialogState {
   parentDocument: Document | null;
@@ -27,17 +30,22 @@ export interface GlobalDialogState {
 
 /** GlobalDialog React component used to display a [[Dialog]] on the top of screen
  * @public
+ * @deprecated in 4.12.x. Use {@link https://itwinui.bentley.com/docs/dialog iTwinUI dialog} instead.
  */
 export class GlobalDialog extends React.Component<
+  // eslint-disable-next-line deprecation/deprecation
   GlobalDialogProps,
+  // eslint-disable-next-line deprecation/deprecation
   GlobalDialogState
 > {
   private _container?: HTMLDivElement;
 
+  // eslint-disable-next-line deprecation/deprecation
   public override readonly state: GlobalDialogState = {
     parentDocument: null,
   };
 
+  // eslint-disable-next-line deprecation/deprecation
   constructor(props: GlobalDialogProps) {
     super(props);
   }
@@ -79,6 +87,7 @@ export class GlobalDialog extends React.Component<
       <div ref={this._handleRefSet}>
         {this.state.parentDocument &&
           ReactDOM.createPortal(
+            // eslint-disable-next-line deprecation/deprecation
             <Dialog {...props} />,
             this.state.parentDocument.body
           )}

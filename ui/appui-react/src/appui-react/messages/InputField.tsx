@@ -153,7 +153,7 @@ export class InputFieldMessage extends React.PureComponent<
   };
 
   private _handleInputFieldMessageAddedEvent = (
-    args: InputFieldMessageEventArgs
+    args: InputFieldMessageEventArgs // eslint-disable-line deprecation/deprecation
   ) => {
     this.setState({
       inputFieldElement: args.target as HTMLElement,

@@ -11,15 +11,17 @@ import { Guid } from "@itwin/core-bentley";
 
 /** Ideas borrowed from  https://reacttraining.com/reach-ui/listbox */
 
-/**
- * `Listbox` value.
+/* eslint-disable deprecation/deprecation */
+
+/** `Listbox` value.
  * @alpha
+ * @deprecated in 4.12.x. Value used in a deprecated component {@link Listbox}.
  */
 export type ListboxValue = string;
 
-/**
- * `Listbox` Props.
+/** `Listbox` Props.
  * @alpha
+ * @deprecated in 4.12.x. Props of deprecated component {@link Listbox}.
  */
 export interface ListboxProps
   extends React.DetailedHTMLProps<
@@ -36,9 +38,9 @@ export interface ListboxProps
   ) => void;
 }
 
-/**
- * `ListboxItem` Props.
+/** `ListboxItem` Props.
  * @alpha
+ * @deprecated in 4.12.x. Props of deprecated component {@link ListboxItem}.
  */
 export interface ListboxItemProps
   extends React.DetailedHTMLProps<
@@ -51,9 +53,9 @@ export interface ListboxItemProps
   disabled?: boolean;
 }
 
-/**
- * `Listbox` Context.
+/** `Listbox` Context.
  * @alpha
+ * @deprecated in 4.12.x. Props of deprecated context {@link ListboxContext}.
  */
 export interface ListboxContextProps {
   listboxId?: string;
@@ -66,11 +68,10 @@ export interface ListboxContextProps {
   listboxRef?: React.RefObject<HTMLUListElement>;
 }
 
-/**
- * Context set up by listbox for use by `ListboxItems` .
+/** Context set up by listbox for use by `ListboxItems` .
  * @alpha
+ * @deprecated in 4.12.x. Context of deprecated component {@link Listbox}.
  */
-// istanbul ignore next
 export const ListboxContext = React.createContext<ListboxContextProps>({
   onListboxValueChange: (_newValue: ListboxValue | undefined) => {},
 });
@@ -133,9 +134,9 @@ function processKeyboardNavigation(
   return [newIndex, keyProcessed];
 }
 
-/**
- * Single select `Listbox` component
+/** Single select `Listbox` component
  * @alpha
+ * @deprecated in 4.12.x. Use {@link https://itwinui.bentley.com/docs/list iTwinUI list} instead.
  */
 export function Listbox(props: ListboxProps) {
   const {
@@ -344,9 +345,9 @@ export function Listbox(props: ListboxProps) {
   );
 }
 
-/**
- * `ListboxItem` component.
+/** `ListboxItem` component.
  * @alpha
+ * @deprecated in 4.12.x. Use {@link https://itwinui.bentley.com/docs/list iTwinUI list} instead.
  */
 export function ListboxItem(props: ListboxItemProps) {
   const { children, value, className, disabled, ...otherProps } = props;

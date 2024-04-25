@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Fixed popout widgets getting bigger each time they are popped out.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}

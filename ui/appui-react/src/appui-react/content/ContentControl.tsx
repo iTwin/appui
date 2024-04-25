@@ -22,6 +22,7 @@ import {
 
 /** ControlControl Activated Event Args interface.
  * @public
+ * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface ContentControlActivatedEventArgs {
   activeContentControl: ContentControl;
@@ -30,6 +31,7 @@ export interface ContentControlActivatedEventArgs {
 
 /** ContentControl Activated Event class.
  * @public
+ * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class ContentControlActivatedEvent extends UiEvent<ContentControlActivatedEventArgs> {}

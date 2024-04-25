@@ -108,6 +108,7 @@ export interface UserSettingsProvider {
 
 /** UiVisibility Event Args interface.
  * @public
+ * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface UiVisibilityEventArgs {
   visible: boolean;
@@ -115,6 +116,7 @@ export interface UiVisibilityEventArgs {
 
 /** UiVisibility Event class.
  * @public
+ * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class UiVisibilityChangedEvent extends UiEvent<UiVisibilityEventArgs> {}
@@ -262,6 +264,7 @@ export class UiFramework {
   /** Get Show Ui event.
    * @public
    */
+  // eslint-disable-next-line deprecation/deprecation
   public static readonly onUiVisibilityChanged = new UiVisibilityChangedEvent();
 
   /**
@@ -815,6 +818,7 @@ export class UiFramework {
       : /* istanbul ignore next */ WIDGET_OPACITY_DEFAULT;
   }
 
+  /** @deprecated in 4.13.x. Use {@link @itwin/core-bentley#ProcessDetector.isMobileBrowser} instead. */
   // eslint-disable-next-line @itwin/prefer-get
   public static isMobile() {
     return ProcessDetector.isMobileBrowser;
@@ -933,7 +937,7 @@ export class UiFramework {
   }
 
   /** Show a Card containing content, a title and a toolbar at a particular location.
-   * @param content The React component or HTMLElement of the content to display
+   * @param content The React component of the content to display
    * @param title Title to display at the top of the card.
    * @param toolbarProps Properties of the Toolbar to display.
    * @param location Location of the Card, relative to the origin of anchorElement or the window.
@@ -958,19 +962,16 @@ export class UiFramework {
   ): boolean {
     const anchor = this.resolveHtmlElement(anchorElement);
 
-    return PopupManager.displayCard(
-      { reactNode: content },
-      {
-        title,
-        toolbarProps,
-        location,
-        offset,
-        onItemExecuted,
-        onCancel,
-        placement,
-        anchor,
-      }
-    );
+    return PopupManager.displayCard(content, {
+      title,
+      toolbarProps,
+      location,
+      offset,
+      onItemExecuted,
+      onCancel,
+      placement,
+      anchor,
+    });
   }
 
   /**

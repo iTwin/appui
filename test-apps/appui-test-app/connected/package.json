@@ -75,7 +75,6 @@
     "@itwin/core-electron": "^3.7.0 || ^4.0.0",
     "@itwin/core-frontend": "^3.7.0 || ^4.0.0",
     "@itwin/core-geometry": "^3.7.0 || ^4.0.0",
-    "@itwin/core-mobile": "^3.7.0 || ^4.0.0",
     "@itwin/core-orbitgt": "^3.7.0 || ^4.0.0",
     "@itwin/core-quantity": "^3.7.0 || ^4.0.0",
     "@itwin/core-react": "workspace:*",

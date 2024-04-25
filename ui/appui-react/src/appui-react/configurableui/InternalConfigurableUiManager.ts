@@ -36,22 +36,12 @@ export interface UiActivityEventArgs {
   event: Event;
 }
 
-/** Ui Activity Event class.
- * @internal
- */
-export class UiActivityEvent extends BeUiEvent<UiActivityEventArgs> {}
-
 /** Ui Interval Event Args interface
  * @internal
  */
 export interface UiIntervalEventArgs {
   idleTimeout?: number;
 }
-
-/** Ui Interval Event class.
- * @internal
- */
-export class UiIntervalEvent extends BeUiEvent<UiIntervalEventArgs> {}
 
 /** Configurable Ui Manager maintains controls, Frontstages, Content Groups, Content Layouts, Tasks and Workflows.
  * @internal
@@ -66,9 +56,11 @@ export class InternalConfigurableUiManager {
   /** @internal */
   public static readonly activityTracker = new ActivityTracker();
   /** @internal */
-  public static readonly onUiActivityEvent = new UiActivityEvent();
+  public static readonly onUiActivityEvent =
+    new BeUiEvent<UiActivityEventArgs>();
   /** @internal */
-  public static readonly onUiIntervalEvent = new UiIntervalEvent();
+  public static readonly onUiIntervalEvent =
+    new BeUiEvent<UiIntervalEventArgs>();
 
   /** Initializes the InternalConfigurableUiManager and registers core controls.
    * @internal

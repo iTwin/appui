@@ -356,6 +356,7 @@ export function KeyinPalettePanel({
         size="small"
       />
       {filteredKeyins.length > 0 && (
+        // eslint-disable-next-line deprecation/deprecation
         <Listbox
           id="uifw-command-sources"
           className="map-manager-source-list"
@@ -370,6 +371,7 @@ export function KeyinPalettePanel({
               index === lastHistoryIndex ? " uifw-history-bottom-border" : ""
             }`;
             return (
+              // eslint-disable-next-line deprecation/deprecation
               <ListboxItem
                 key={`${entry.value}-${index}`}
                 className={itemClass}

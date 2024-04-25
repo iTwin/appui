@@ -29,6 +29,7 @@ export function useActiveContentControlId(): string | undefined {
   );
 
   React.useEffect(() => {
+    // eslint-disable-next-line deprecation/deprecation
     const onActiveContentChanged = (_args: ActiveContentChangedEventArgs) => {
       setActiveContentId(
         UiFramework.content.getActiveContentControl()?.uniqueId
@@ -54,6 +55,7 @@ export function useActiveContentControlId(): string | undefined {
       SyncUiEventId.ContentControlActivated,
       SyncUiEventId.FrontstageReady,
     ];
+    // eslint-disable-next-line deprecation/deprecation
     const handleSyncUiEvent = (args: UiSyncEventArgs): void => {
       // istanbul ignore else
       if (
@@ -76,6 +78,7 @@ export function useActiveContentControlId(): string | undefined {
 /** Properties for the [[ContentDialog]] component
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface ContentDialogProps extends DialogProps {
   dialogId: string;
   movable?: boolean;
@@ -122,6 +125,7 @@ export function ContentDialog(props: ContentDialogProps) {
   }, [dialogId, zIndex]);
 
   return (
+    // eslint-disable-next-line deprecation/deprecation
     <Dialog
       className={dialogClassName}
       data-item-type="content-dialog"

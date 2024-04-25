@@ -20,7 +20,7 @@ describe("useWidgetDirection", () => {
 
     const layout = createLayoutStore();
     const { result } = renderHook(() => useWidgetDirection(), {
-      wrapper: ({ children }) => (
+      wrapper: ({ children }: React.PropsWithChildren<{}>) => (
         <NineZone layout={layout} dispatch={() => {}}>
           {children}
         </NineZone>
@@ -37,7 +37,7 @@ describe("useWidgetDirection", () => {
     state = addPanelWidget(state, "top", "w1", ["t1"]);
     const layout = createLayoutStore(state);
     const { result } = renderHook(() => useWidgetDirection(), {
-      wrapper: ({ children }) => (
+      wrapper: ({ children }: React.PropsWithChildren<{}>) => (
         <Provider store={TestUtils.store}>
           <NineZone layout={layout} dispatch={() => {}}>
             <TabIdContext.Provider value="t1">{children}</TabIdContext.Provider>
@@ -56,7 +56,7 @@ describe("useWidgetDirection", () => {
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     const layout = createLayoutStore(state);
     const { result } = renderHook(() => useWidgetDirection(), {
-      wrapper: ({ children }) => (
+      wrapper: ({ children }: React.PropsWithChildren<{}>) => (
         <Provider store={TestUtils.store}>
           <NineZone layout={layout} dispatch={() => {}}>
             <TabIdContext.Provider value="t1">{children}</TabIdContext.Provider>

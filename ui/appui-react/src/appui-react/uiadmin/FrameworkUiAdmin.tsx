@@ -6,7 +6,7 @@
  * @module Admin
  */
 
-import type * as React from "react";
+import * as React from "react";
 import type { XAndY } from "@itwin/core-geometry";
 import { IModelApp } from "@itwin/core-frontend";
 import type {
@@ -417,7 +417,7 @@ export class FrameworkUiAdmin extends UiAdmin {
   ): boolean {
     const placement = mapToPlacement(relativePosition);
     return UiFramework.showCard(
-      content,
+      <CardRenderer content={content} />,
       title,
       toolbarProps
         ? AbstractToolbarPropsToToolbarProps(toolbarProps)
@@ -555,4 +555,22 @@ function CommonToolbarItemToToolBarItem(item: CommonToolbarItem): ToolbarItem {
     ...item,
     badge: item.badgeType,
   };
+}
+
+interface CardRendererProps {
+  content: HTMLElement;
+}
+
+function CardRenderer({ content }: CardRendererProps) {
+  const ref = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    const el = ref.current;
+    el?.appendChild(content);
+    return () => {
+      el?.removeChild(content);
+    };
+  }, [content]);
+
+  return <div ref={ref} />;
 }

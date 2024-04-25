@@ -37,6 +37,7 @@ export enum CursorDirection {
 
 /** Cursor Updated Event Args interface.
  * @public
+ * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface CursorUpdatedEventArgs {
   oldPt: XAndY;
@@ -46,6 +47,7 @@ export interface CursorUpdatedEventArgs {
 
 /** Cursor Updated Event class.
  * @public
+ * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class CursorUpdatedEvent extends UiEvent<CursorUpdatedEventArgs> {}
@@ -83,6 +85,7 @@ export class CursorInformation {
   }
 
   /** Gets the [[CursorUpdatedEvent]]. */
+  // eslint-disable-next-line deprecation/deprecation
   public static readonly onCursorUpdatedEvent = new CursorUpdatedEvent();
 
   /** Handles the mouse movement.  Sets the cursor position and direction and emits onCursorUpdatedEvent. */

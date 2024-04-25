@@ -7,8 +7,9 @@
  */
 
 import type * as React from "react";
+import type { DialogChangedEventArgs } from "./DialogManagerBase";
 import { DialogManagerBase } from "./DialogManagerBase";
-import { ModalDialogChangedEvent } from "../framework/FrameworkDialogs";
+import { BeUiEvent } from "@itwin/core-bentley";
 
 /** Modal Dialog Manager class displays and manages multiple modal dialogs
  * @internal
@@ -16,7 +17,7 @@ import { ModalDialogChangedEvent } from "../framework/FrameworkDialogs";
 export class InternalModalDialogManager {
   /** Modal Dialog Changed Event */
   public static readonly onModalDialogChangedEvent =
-    new ModalDialogChangedEvent();
+    new BeUiEvent<DialogChangedEventArgs>(); // eslint-disable-line deprecation/deprecation
 
   /** @internal */
   public static readonly dialogManager: DialogManagerBase =

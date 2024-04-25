@@ -24,6 +24,7 @@ import type {
 import { NavigationArea } from "../layout/widget/NavigationArea";
 import type { NavigationAidControl } from "../navigationaids/NavigationAidControl";
 import { UiFramework } from "../UiFramework";
+import { ProcessDetector } from "@itwin/core-bentley";
 
 function createNavigationAidControl(
   activeContentControl: ContentControl | undefined,
@@ -82,7 +83,7 @@ export function NavigationAidHost(props: NavigationAidHostProps) {
   React.useEffect(() => {
     // istanbul ignore next
     const handleContentControlActivated = (
-      args: ContentControlActivatedEventArgs
+      args: ContentControlActivatedEventArgs // eslint-disable-line deprecation/deprecation
     ) => {
       setActiveContentControl(args.activeContentControl);
       setActiveContentViewport(args.activeContentControl.viewport);
@@ -108,7 +109,7 @@ export function NavigationAidHost(props: NavigationAidHostProps) {
   React.useEffect(() => {
     // istanbul ignore next
     const handleViewClassFullNameChange = (
-      args: ViewClassFullNameChangedEventArgs
+      args: ViewClassFullNameChangedEventArgs // eslint-disable-line deprecation/deprecation
     ) => {
       setActiveViewClass(args.newName);
     };
@@ -159,7 +160,7 @@ export function NavigationAidHost(props: NavigationAidHostProps) {
   if (
     (UiFramework.visibility.useProximityOpacity || // eslint-disable-line deprecation/deprecation
       UiFramework.visibility.snapWidgetOpacity) &&
-    !UiFramework.isMobile()
+    !ProcessDetector.isMobileBrowser
   ) {
     const navigationAidOpacity = 0.3 * proximityScale + 0.7;
     divStyle.opacity = `${navigationAidOpacity}`;

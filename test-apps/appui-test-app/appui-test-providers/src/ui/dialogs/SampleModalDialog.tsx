@@ -30,6 +30,7 @@ export function SampleModalDialog() {
   }, [closeDialog]);
 
   return (
+    // eslint-disable-next-line deprecation/deprecation
     <Dialog
       title={translate("Dialogs.SampleModal.title")}
       opened={true}

@@ -39,10 +39,9 @@ export function useSaveBeforeClosingSettingsContainer(
   saveFunction: (closeFunc: (args: any) => void, closeFuncArgs?: any) => void
 ) {
   React.useEffect(() => {
-    const handleProcessSettingsContainerClose = ({
-      closeFunc,
-      closeFuncArgs,
-    }: ProcessSettingsContainerCloseEventArgs) => {
+    const handleProcessSettingsContainerClose = (
+      { closeFunc, closeFuncArgs }: ProcessSettingsContainerCloseEventArgs // eslint-disable-line deprecation/deprecation
+    ) => {
       saveFunction(closeFunc, closeFuncArgs);
     };
     return settingsManager.onProcessSettingsContainerClose.addListener(
@@ -62,10 +61,12 @@ export function useSaveBeforeActivatingNewSettingsTab(
   ) => void
 ) {
   React.useEffect(() => {
-    const handleProcessSettingsTabActivation = ({
-      tabSelectionFunc,
-      requestedSettingsTabId,
-    }: ProcessSettingsTabActivationEventArgs) => {
+    const handleProcessSettingsTabActivation = (
+      {
+        tabSelectionFunc,
+        requestedSettingsTabId,
+      }: ProcessSettingsTabActivationEventArgs // eslint-disable-line deprecation/deprecation
+    ) => {
       saveFunction(tabSelectionFunc, requestedSettingsTabId);
     };
     return settingsManager.onProcessSettingsTabActivation.addListener(
@@ -150,9 +151,9 @@ export const SettingsContainer = ({
   );
 
   React.useEffect(() => {
-    const handleActivateSettingsTab = ({
-      settingsTabId,
-    }: ActivateSettingsTabEventArgs) => {
+    const handleActivateSettingsTab = (
+      { settingsTabId }: ActivateSettingsTabEventArgs // eslint-disable-line deprecation/deprecation
+    ) => {
       const idToFind = settingsTabId.toLowerCase();
       let tabToActivate = tabs.find(
         (tab) => tab.tabId.toLowerCase() === idToFind
@@ -185,10 +186,9 @@ export const SettingsContainer = ({
   ]);
 
   React.useEffect(() => {
-    const handleSettingsContainerClose = ({
-      closeFunc,
-      closeFuncArgs,
-    }: ProcessSettingsContainerCloseEventArgs) => {
+    const handleSettingsContainerClose = (
+      { closeFunc, closeFuncArgs }: ProcessSettingsContainerCloseEventArgs // eslint-disable-line deprecation/deprecation
+    ) => {
       if (openTab && openTab.pageWillHandleCloseRequest)
         settingsManager.onProcessSettingsContainerClose.emit({
           closeFunc,
@@ -221,6 +221,7 @@ export const SettingsContainer = ({
   return (
     <div className="core-settings-container">
       <div className="core-settings-container-left">
+        {/* eslint-disable-next-line deprecation/deprecation */}
         <VerticalTabs
           labels={labels}
           activeIndex={activeIndex}

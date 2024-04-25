@@ -16,18 +16,6 @@ jobs:
         "MacOS_${{ parameters.name }}":
           OS: macOS-latest
           platform: Darwin
-        "Windows_${{ parameters.name }}_core_3x":
-          OS: windows-latest
-          platform: Windows_NT
-          variant: core-3x
-        "Linux_${{ parameters.name }}_core_3x":
-          OS: ubuntu-latest
-          platform: Linux
-          variant: core-3x
-        "MacOS_${{ parameters.name }}_core_3x":
-          OS: macOS-latest
-          platform: Darwin
-          variant: core-3x
 
     timeoutInMinutes: 60
 

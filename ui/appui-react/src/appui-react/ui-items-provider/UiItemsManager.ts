@@ -25,6 +25,7 @@ import {
 
 /** UiItemsProvider register event args.
  * @public
+ * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface UiItemsProviderRegisteredEventArgs {
   providerId: string;
@@ -70,7 +71,7 @@ export class UiItemsManager {
   private static _registeredUiItemsProviders: Map<string, UiItemProviderEntry> =
     new Map<string, UiItemProviderEntry>();
   private static _onUiProviderRegisteredEvent =
-    new BeUiEvent<UiItemsProviderRegisteredEventArgs>();
+    new BeUiEvent<UiItemsProviderRegisteredEventArgs>(); // eslint-disable-line deprecation/deprecation
   private static _abstractAdapter = createAbstractUiItemsManagerAdapter();
 
   /** For use in unit testing
@@ -93,6 +94,7 @@ export class UiItemsManager {
   }
 
   /** Event raised any time a UiProvider is registered or unregistered. */
+  // eslint-disable-next-line deprecation/deprecation
   public static get onUiProviderRegisteredEvent(): BeUiEvent<UiItemsProviderRegisteredEventArgs> {
     if (this._abstractAdapter)
       return this._abstractAdapter.onUiProviderRegisteredEvent;
@@ -130,6 +132,7 @@ export class UiItemsManager {
     return UiItemsManager._registeredUiItemsProviders.get(providerId)?.provider;
   }
 
+  // eslint-disable-next-line deprecation/deprecation
   private static sendRegisteredEvent(args: UiItemsProviderRegisteredEventArgs) {
     UiItemsManager.onUiProviderRegisteredEvent.raiseEvent(args);
   }

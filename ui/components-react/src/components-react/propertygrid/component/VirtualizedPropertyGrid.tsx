@@ -13,7 +13,6 @@ import type { ListChildComponentProps } from "react-window";
 import { areEqual, VariableSizeList } from "react-window";
 import type { PropertyRecord } from "@itwin/appui-abstract";
 import { assert } from "@itwin/core-bentley";
-import type { RatioChangeResult } from "@itwin/core-react";
 import { Orientation } from "@itwin/core-react";
 import { createContextWithMandatoryProvider } from "../../common/UseContextWithMandatoryProvider";
 import type { PropertyUpdatedArgs } from "../../editors/EditorContainer";
@@ -133,7 +132,9 @@ export interface VirtualizedPropertyGridContext {
   columnInfo: PropertyGridColumnInfo;
   isResizeHandleBeingDragged: boolean;
   isResizeHandleHovered: boolean;
-  onColumnRatioChanged: (ratio: number) => void | RatioChangeResult;
+  onColumnRatioChanged: (ratio: number) => void | {
+    ratio: number;
+  };
   onResizeHandleDragChanged: (newValue: boolean) => void;
   onResizeHandleHoverChanged: (newValue: boolean) => void;
 
@@ -257,21 +258,13 @@ export class VirtualizedPropertyGrid extends React.Component<
    * @returns current height of node.
    */
   private calculateNodeHeight(node: FlatGridItem) {
-    const bottomBorderPadding = 5;
-
-    return (
-      getPropertyHeight(this.state) +
-      node.lastInNumberOfCategories * bottomBorderPadding
-    );
+    return getPropertyHeight(this.state);
 
     function getPropertyHeight(state: VirtualizedPropertyGridState) {
       const dynamicHeight = state.dynamicNodeHeights.get(node.key);
       if (dynamicHeight !== undefined) {
         if (node instanceof MutableCustomGridCategory) {
-          return (
-            CATEGORY_HEADER_HEIGHT +
-            (node.isExpanded ? dynamicHeight + bottomBorderPadding : 0)
-          );
+          return CATEGORY_HEADER_HEIGHT + (node.isExpanded ? dynamicHeight : 0);
         }
 
         return dynamicHeight;

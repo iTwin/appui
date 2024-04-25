@@ -7,6 +7,8 @@ import * as React from "react";
 import { LoadingStatus } from "../../core-react";
 import { classesFromElement } from "../TestUtils";
 
+/* eslint-disable deprecation/deprecation */
+
 describe("<LoadingStatus />", () => {
   it("renders with message correctly", () => {
     render(<LoadingStatus message="test" />);

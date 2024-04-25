@@ -78,10 +78,6 @@ import {
   ViewClipByPlaneTool,
 } from "@itwin/core-frontend";
 import { getObjectClassName } from "@itwin/core-react";
-import {
-  MobileApp,
-  MobileAppOpts,
-} from "@itwin/core-mobile/lib/cjs/MobileFrontend";
 import { IModelsClient } from "@itwin/imodels-client-management";
 import {
   AccessTokenAdapter,
@@ -242,8 +238,6 @@ export class SampleAppIModelApp {
       iModelAppOpts.authorizationClient = authClient;
       await ElectronApp.startup({ ...opts, iModelApp: iModelAppOpts });
       NativeAppLogger.initialize();
-    } else if (ProcessDetector.isMobileAppFrontend) {
-      await MobileApp.startup(opts as MobileAppOpts);
     } else {
       if (
         undefined === import.meta.env.IMJS_OIDC_BROWSER_TEST_CLIENT_ID &&
@@ -775,7 +769,7 @@ const SampleAppViewer2 = () => {
   };
 
   const _handleFrontstageDeactivatedEvent = (
-    args: FrontstageDeactivatedEventArgs
+    args: FrontstageDeactivatedEventArgs // eslint-disable-line deprecation/deprecation
   ): void => {
     Logger.logInfo(
       SampleAppIModelApp.loggerCategory(this),
@@ -784,7 +778,7 @@ const SampleAppViewer2 = () => {
   };
 
   const _handleModalFrontstageClosedEvent = (
-    args: ModalFrontstageClosedEventArgs
+    args: ModalFrontstageClosedEventArgs // eslint-disable-line deprecation/deprecation
   ): void => {
     Logger.logInfo(
       SampleAppIModelApp.loggerCategory(this),

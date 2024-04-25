@@ -44,7 +44,9 @@ export function SynchronizedFloatingView({ contentId }: { contentId: string }) {
   );
 
   const handleViewIdChange = React.useCallback(
-    async (args: ViewIdChangedEventArgs) => {
+    async (
+      args: ViewIdChangedEventArgs // eslint-disable-line deprecation/deprecation
+    ) => {
       if (args.newId === args.oldId) return;
 
       const activeFrontstageDef = UiFramework.frontstages.activeFrontstageDef;

@@ -65,7 +65,7 @@ export class ToolUiProvider extends ConfigurableUiControl {
   }
 
   public syncToolSettingsProperties(
-    _args: SyncToolSettingsPropertiesEventArgs
+    _args: SyncToolSettingsPropertiesEventArgs // eslint-disable-line deprecation/deprecation
   ): void {}
   public reloadPropertiesFromTool(): void {}
 }

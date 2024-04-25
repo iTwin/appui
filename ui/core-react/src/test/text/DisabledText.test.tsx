@@ -6,6 +6,8 @@ import { render, screen } from "@testing-library/react";
 import * as React from "react";
 import { DisabledText } from "../../core-react";
 
+/* eslint-disable deprecation/deprecation */
+
 describe("<DisabledText />", () => {
   it("renders correctly", () => {
     render(<DisabledText>Tested content</DisabledText>);

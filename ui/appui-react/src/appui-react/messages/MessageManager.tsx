@@ -63,6 +63,7 @@ class MessageBoxCallbacks {
 
 /** [[MessageAddedEvent]] arguments.
  * @public
+ * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface MessageAddedEventArgs {
   /** Message details for the message added */
@@ -71,6 +72,7 @@ export interface MessageAddedEventArgs {
 
 /** Activity Message Event arguments.
  * @public
+ * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface ActivityMessageEventArgs {
   /** Current message for the activity */
@@ -85,6 +87,7 @@ export interface ActivityMessageEventArgs {
 
 /** Input Field Message Event arguments.
  * @public
+ * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface InputFieldMessageEventArgs {
   /** Target HTML element for the Input Field message */
@@ -99,6 +102,7 @@ export interface InputFieldMessageEventArgs {
 
 /** Tool Assistance Changed event arguments.
  * @public
+ * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface ToolAssistanceChangedEventArgs {
   /** Tool Assistance instructions for the active tool */
@@ -107,48 +111,56 @@ export interface ToolAssistanceChangedEventArgs {
 
 /** Message Added Event class.
  * @public
+ * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class MessageAddedEvent extends UiEvent<MessageAddedEventArgs> {}
 
 /** Messages Updated Event class.
  * @public
+ * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class MessagesUpdatedEvent extends UiEvent<{}> {}
 
 /** Activity Message Added Event class.
  * @public
+ * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class ActivityMessageUpdatedEvent extends UiEvent<ActivityMessageEventArgs> {}
 
 /** Activity Message Cancelled Event class.
  * @public
+ * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class ActivityMessageCancelledEvent extends UiEvent<{}> {}
 
 /** Input Field Message Added Event class
  * @public
+ * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class InputFieldMessageAddedEvent extends UiEvent<InputFieldMessageEventArgs> {}
 
 /** Input Field Message Removed Event class.
  * @public
+ * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class InputFieldMessageRemovedEvent extends UiEvent<{}> {}
 
 /** Open Message Center Event class.
  * @public
+ * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class OpenMessageCenterEvent extends UiEvent<{}> {}
 
 /** Tool Assistance Changed event class
  * @public
+ * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class ToolAssistanceChangedEvent extends UiEvent<ToolAssistanceChangedEventArgs> {}
@@ -188,29 +200,31 @@ export class MessageManager {
   }[] = [];
 
   /** The MessageAddedEvent is fired when a message is added via outputMessage(). */
+  // eslint-disable-next-line deprecation/deprecation
   public static readonly onMessageAddedEvent = new MessageAddedEvent();
 
   /** The MessagesUpdatedEvent is fired when a message is added or the messages are cleared. */
+  // eslint-disable-next-line deprecation/deprecation
   public static readonly onMessagesUpdatedEvent = new MessagesUpdatedEvent();
 
   /** The ActivityMessageUpdatedEvent is fired when an Activity message updates via outputActivityMessage(). */
   public static readonly onActivityMessageUpdatedEvent =
-    new ActivityMessageUpdatedEvent();
+    new ActivityMessageUpdatedEvent(); // eslint-disable-line deprecation/deprecation
 
   /** The ActivityMessageCancelledEvent is fired when an Activity message is cancelled via
    * endActivityMessage(ActivityMessageEndReason.Cancelled) or
    * by the user clicking the 'Cancel' link.
    */
   public static readonly onActivityMessageCancelledEvent =
-    new ActivityMessageCancelledEvent();
+    new ActivityMessageCancelledEvent(); // eslint-disable-line deprecation/deprecation
 
   public static readonly onInputFieldMessageAddedEvent =
-    new InputFieldMessageAddedEvent();
+    new InputFieldMessageAddedEvent(); // eslint-disable-line deprecation/deprecation
   public static readonly onInputFieldMessageRemovedEvent =
-    new InputFieldMessageRemovedEvent();
+    new InputFieldMessageRemovedEvent(); // eslint-disable-line deprecation/deprecation
 
   public static readonly onOpenMessageCenterEvent =
-    new OpenMessageCenterEvent();
+    new OpenMessageCenterEvent(); // eslint-disable-line deprecation/deprecation
 
   /** @internal */
   public static readonly onDisplayMessage = new BeUiEvent<{
@@ -226,7 +240,7 @@ export class MessageManager {
    * @public
    */
   public static readonly onToolAssistanceChangedEvent =
-    new ToolAssistanceChangedEvent();
+    new ToolAssistanceChangedEvent(); // eslint-disable-line deprecation/deprecation
 
   /** List of messages as NotifyMessageDetailsType. */
   public static get messages(): Readonly<NotifyMessageDetailsType[]> {

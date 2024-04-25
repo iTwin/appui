@@ -95,6 +95,10 @@ export const ComponentExamplesPage: React.FC<ComponentExamplesPageProps> = (
     .nz-status-bar-popup, .components-toolbar-popupItem_popupItemPopup {
       z-index: 16000;
     }
+
+    .uifw-statusFields-messageCenter-messageCenterField_popover {
+      z-index: 16000 !important;
+    }
     `;
     document.head.appendChild(style);
     return () => {
@@ -105,6 +109,7 @@ export const ComponentExamplesPage: React.FC<ComponentExamplesPageProps> = (
   return (
     <div className="component-examples">
       <div className="component-examples-categories">
+        {/* eslint-disable-next-line deprecation/deprecation */}
         <VerticalTabs
           labels={props.categories.map(
             (category: ComponentExampleCategory) => category.title

@@ -23,6 +23,7 @@ import type { ModalFrontstageInfo } from "../framework/FrameworkFrontstages";
 import { UiFramework } from "../UiFramework";
 import type { SheetData } from "./SheetNavigationAid";
 import { SvgDocument, SvgPlaceholder } from "@itwin/itwinui-icons-react";
+import { BeUiEvent } from "@itwin/core-bentley";
 
 /** Data about a sheet card
  * @alpha
@@ -37,6 +38,7 @@ export interface CardInfo {
 
 /** Arguments for CardSelectedEvent
  * @alpha
+ * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface CardSelectedEventArgs {
   id: any;
@@ -45,6 +47,7 @@ export interface CardSelectedEventArgs {
 
 /** Class for CardSelectedEvent
  * @alpha
+ * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class CardSelectedEvent extends UiEvent<CardSelectedEventArgs> {}
@@ -104,6 +107,7 @@ export class SheetsModalFrontstage implements ModalFrontstageInfo {
   /** Gets components to be placed in the app bar */
   public get appBarRight(): React.ReactNode {
     return (
+      // eslint-disable-next-line deprecation/deprecation
       <SearchBox
         placeholder={UiFramework.translate("general.search")}
         onValueChanged={this._handleSearchValueChanged}
@@ -133,10 +137,11 @@ export interface CardContainerProps extends CommonProps {
  * @alpha
  */
 export class CardContainer extends React.Component<CardContainerProps> {
-  private static _cardSelectedEvent: CardSelectedEvent =
-    new CardSelectedEvent();
+  // eslint-disable-next-line deprecation/deprecation
+  private static _cardSelectedEvent = new BeUiEvent<CardSelectedEventArgs>();
 
   /** Get CardSelectedEvent event */
+  // eslint-disable-next-line deprecation/deprecation
   public static get onCardSelectedEvent(): CardSelectedEvent {
     return CardContainer._cardSelectedEvent;
   }

@@ -10,7 +10,7 @@ import { TestNineZoneProvider } from "../Providers";
 describe("useAllowedWidgetTarget", () => {
   it("should return `false` for popout widget", () => {
     const { result } = renderHook(() => useAllowedWidgetTarget("w1"), {
-      wrapper: (props) => <TestNineZoneProvider {...props} />,
+      wrapper: (props: any) => <TestNineZoneProvider {...props} />,
     });
     expect(result.current).toEqual(false);
   });
