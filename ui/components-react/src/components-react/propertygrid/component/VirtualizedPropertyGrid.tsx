@@ -258,21 +258,13 @@ export class VirtualizedPropertyGrid extends React.Component<
    * @returns current height of node.
    */
   private calculateNodeHeight(node: FlatGridItem) {
-    const bottomBorderPadding = 5;
-
-    return (
-      getPropertyHeight(this.state) +
-      node.lastInNumberOfCategories * bottomBorderPadding
-    );
+    return getPropertyHeight(this.state);
 
     function getPropertyHeight(state: VirtualizedPropertyGridState) {
       const dynamicHeight = state.dynamicNodeHeights.get(node.key);
       if (dynamicHeight !== undefined) {
         if (node instanceof MutableCustomGridCategory) {
-          return (
-            CATEGORY_HEADER_HEIGHT +
-            (node.isExpanded ? dynamicHeight + bottomBorderPadding : 0)
-          );
+          return CATEGORY_HEADER_HEIGHT + (node.isExpanded ? dynamicHeight : 0);
         }
 
         return dynamicHeight;
