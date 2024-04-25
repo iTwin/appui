@@ -735,7 +735,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         fireEvent.click(category);
 
         component.getByText("Custom renderer");
-        expect(node.style.height).toEqual("547px");
+        expect(node.style.height).toEqual("542px");
       });
 
       it("updates node height on collapse", async () => {
@@ -758,7 +758,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         const node = baseElement.querySelector(
           ".virtualized-grid-node"
         ) as HTMLElement;
-        expect(node.style.height).toEqual("547px");
+        expect(node.style.height).toEqual("542px");
 
         fireEvent.click(category);
         expect(node.style.height).toEqual("42px");
@@ -812,7 +812,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
       const node = baseElement.querySelectorAll(
         ".virtualized-grid-node"
       )[1] as HTMLElement;
-      expect(node.style.height).toEqual("20px");
+      expect(node.style.height).toEqual("15px");
     });
   });
 

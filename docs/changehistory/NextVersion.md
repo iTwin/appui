@@ -10,6 +10,8 @@ Table of contents:
   - [Deprecations](#deprecations-1)
   - [Changes](#changes-1)
   - [Fixes](#fixes-1)
+- [@itwin/components-react](#itwincomponents-react)
+  - [Fixes](#fixes-2)
 - [@itwin/imodel-components-react](#itwinimodel-components-react)
   - [Deprecations](#deprecations-2)
 
@@ -66,6 +68,12 @@ Table of contents:
 
 - Fix `PopoutWidget` getting increasingly bigger each time it is popped out. [#792](https://github.com/iTwin/appui/pull/792)
 - Fix `Icon` to render correctly with nested conditional items. [#803](https://github.com/iTwin/appui/pull/803)
+
+## @itwin/components-react
+
+### Fixes
+
+- Fix spacing between categories in `VirtualizedPropertyGrid`. [#812](https://github.com/iTwin/appui/pull/812)
 
 ## @itwin/imodel-components-react
 
