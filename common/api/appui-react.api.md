@@ -3055,7 +3055,7 @@ export interface MessageAddedEventArgs {
 }
 
 // @public
-export function MessageCenterField(): React_2.JSX.Element;
+export function MessageCenterField(props: CommonProps): React_2.JSX.Element;
 
 // @public
 export class MessageManager {
