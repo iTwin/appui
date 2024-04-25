@@ -7,8 +7,9 @@
  */
 
 import type * as React from "react";
-import { Logger } from "@itwin/core-bentley";
+import { BeUiEvent, Logger } from "@itwin/core-bentley";
 import { UiFramework } from "../UiFramework";
+import type { DialogChangedEventArgs } from "./DialogManagerBase";
 import { DialogManagerBase } from "./DialogManagerBase";
 import {
   IModelApp,
@@ -17,7 +18,6 @@ import {
   OutputMessageType,
 } from "@itwin/core-frontend";
 import type { ModelessDialogInfo } from "../framework/FrameworkDialogs";
-import { ModelessDialogChangedEvent } from "../framework/FrameworkDialogs";
 
 // cSpell:ignore ZINDEX modeless
 
@@ -27,7 +27,7 @@ import { ModelessDialogChangedEvent } from "../framework/FrameworkDialogs";
 export class InternalModelessDialogManager {
   /** Modeless Dialog Changed Event */
   public static readonly onModelessDialogChangedEvent =
-    new ModelessDialogChangedEvent();
+    new BeUiEvent<DialogChangedEventArgs>(); // eslint-disable-line deprecation/deprecation
 
   /** @internal */
   public static readonly dialogManager: DialogManagerBase =

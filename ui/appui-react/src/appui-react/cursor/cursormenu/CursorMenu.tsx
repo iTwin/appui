@@ -46,6 +46,7 @@ export class CursorPopupMenu extends React.PureComponent<
     items: undefined,
   };
 
+  // eslint-disable-next-line deprecation/deprecation
   private _handleSyncUiEvent = (args: UiSyncEventArgs): void => {
     /* istanbul ignore next */
     if (!this._isMounted) return;

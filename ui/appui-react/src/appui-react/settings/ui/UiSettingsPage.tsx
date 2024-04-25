@@ -85,6 +85,7 @@ export function UiSettingsPage() {
       SyncUiEventId.ShowHideManagerSettingChange,
     ];
 
+    // eslint-disable-next-line deprecation/deprecation
     const handleSyncUiEvent = (args: UiSyncEventArgs) => {
       // istanbul ignore else
       if (

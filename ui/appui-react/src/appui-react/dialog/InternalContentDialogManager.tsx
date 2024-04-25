@@ -7,9 +7,10 @@
  */
 
 import type * as React from "react";
-import { Logger } from "@itwin/core-bentley";
+import { BeUiEvent, Logger } from "@itwin/core-bentley";
 import { getCssVariableAsNumber } from "@itwin/core-react";
 import { UiFramework } from "../UiFramework";
+import type { DialogChangedEventArgs } from "./DialogManagerBase";
 import { DialogManagerBase } from "./DialogManagerBase";
 import {
   IModelApp,
@@ -18,7 +19,6 @@ import {
   OutputMessageType,
 } from "@itwin/core-frontend";
 import type { ContentDialogInfo } from "../framework/FrameworkContent";
-import { ContentDialogChangedEvent } from "../framework/FrameworkContent";
 
 // cSpell:ignore ZINDEX modeless
 
@@ -31,7 +31,7 @@ const CONTENT_DIALOG_ZINDEX_DEFAULT = 2000;
 export class InternalContentDialogManager {
   /** Content Dialog Changed Event */
   public static readonly onContentDialogChangedEvent =
-    new ContentDialogChangedEvent();
+    new BeUiEvent<DialogChangedEventArgs>(); // eslint-disable-line deprecation/deprecation
 
   /** @internal */
   public static readonly dialogManager: DialogManagerBase =

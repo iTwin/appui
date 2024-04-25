@@ -138,6 +138,7 @@ function useStatusBarItemSyncEffect(
   syncIdsOfInterest: string[]
 ) {
   React.useEffect(() => {
+    // eslint-disable-next-line deprecation/deprecation
     const handleSyncUiEvent = (args: UiSyncEventArgs) => {
       if (0 === syncIdsOfInterest.length) return;
 

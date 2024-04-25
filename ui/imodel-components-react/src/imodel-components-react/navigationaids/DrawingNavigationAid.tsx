@@ -510,7 +510,7 @@ export class DrawingNavigationAid extends React.Component<
 
   // Synchronize with rotation coming from the Viewport
   private _handleViewRotationChangeEvent = (
-    args: ViewRotationChangeEventArgs
+    args: ViewRotationChangeEventArgs // eslint-disable-line deprecation/deprecation
   ) => {
     // istanbul ignore else
     if (

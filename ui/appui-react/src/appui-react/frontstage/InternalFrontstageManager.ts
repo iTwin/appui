@@ -6,7 +6,7 @@
  * @module Frontstage
  */
 
-import { Logger } from "@itwin/core-bentley";
+import { BeUiEvent, Logger } from "@itwin/core-bentley";
 import type {
   IModelConnection,
   SelectedViewportChangedArgs,
@@ -14,21 +14,24 @@ import type {
   Tool,
 } from "@itwin/core-frontend";
 import { IModelApp, InteractiveTool } from "@itwin/core-frontend";
-import { UiEvent } from "@itwin/appui-abstract";
 import type { Size } from "@itwin/core-react";
-import { ContentControlActivatedEvent } from "../content/ContentControl";
+import type { ContentControlActivatedEventArgs } from "../content/ContentControl";
 import type { ContentGroup } from "../content/ContentGroup";
-import type { ContentLayoutDef } from "../content/ContentLayout";
-import { ContentLayoutActivatedEvent } from "../content/ContentLayout";
-import { NavigationAidActivatedEvent } from "../navigationaids/NavigationAidControl";
-import type { PanelPinnedChangedEventArgs } from "../stagepanels/StagePanelDef";
-import {
-  PanelSizeChangedEvent,
-  PanelStateChangedEvent,
+import type {
+  ContentLayoutActivatedEventArgs,
+  ContentLayoutDef,
+} from "../content/ContentLayout";
+import type { NavigationAidActivatedEventArgs } from "../navigationaids/NavigationAidControl";
+import type {
+  PanelPinnedChangedEventArgs,
+  PanelSizeChangedEventArgs,
+  PanelStateChangedEventArgs,
 } from "../stagepanels/StagePanelDef";
 import { UiFramework } from "../UiFramework";
-import type { WidgetDef } from "../widgets/WidgetDef";
-import { WidgetStateChangedEvent } from "../widgets/WidgetDef";
+import type {
+  WidgetDef,
+  WidgetStateChangedEventArgs,
+} from "../widgets/WidgetDef";
 import { ToolInformation } from "../toolsettings/ToolInformation";
 import type { ToolUiProvider } from "../toolsettings/ToolUiProvider";
 import type {
@@ -40,18 +43,16 @@ import type { FrontstageProvider } from "./FrontstageProvider";
 import { TimeTracker } from "../configurableui/TimeTracker";
 import type { WidgetState } from "../widgets/WidgetState";
 import type {
+  FrontstageActivatedEventArgs,
+  FrontstageDeactivatedEventArgs,
+  FrontstageReadyEventArgs,
+  ModalFrontstageChangedEventArgs,
+  ModalFrontstageClosedEventArgs,
   ModalFrontstageInfo,
   ModalFrontstageItem,
-} from "../framework/FrameworkFrontstages";
-import {
-  FrontstageActivatedEvent,
-  FrontstageDeactivatedEvent,
-  FrontstageReadyEvent,
-  ModalFrontstageChangedEvent,
-  ModalFrontstageClosedEvent,
-  ModalFrontstageRequestedCloseEvent,
-  ToolActivatedEvent,
-  ToolIconChangedEvent,
+  ModalFrontstageRequestedCloseEventArgs,
+  ToolActivatedEventArgs,
+  ToolIconChangedEventArgs,
 } from "../framework/FrameworkFrontstages";
 import type { SyncToolSettingsPropertiesEventArgs } from "../framework/FrameworkToolSettings";
 
@@ -91,7 +92,7 @@ export class InternalFrontstageManager {
 
   // pass on SyncToolSettingsPropertiesEvent from ToolAdmin so they are treated as DialogItemSync events
   private static handleSyncToolSettingsPropertiesEvent(
-    args: SyncToolSettingsPropertiesEventArgs
+    args: SyncToolSettingsPropertiesEventArgs // eslint-disable-line deprecation/deprecation
   ): void {
     InternalFrontstageManager.activeToolSettingsProvider &&
       InternalFrontstageManager.activeToolSettingsProvider.syncToolSettingsProperties(
@@ -191,95 +192,99 @@ export class InternalFrontstageManager {
 
   /** Get Frontstage Deactivated event. */
   public static readonly onFrontstageDeactivatedEvent =
-    new FrontstageDeactivatedEvent();
+    new BeUiEvent<FrontstageDeactivatedEventArgs>(); // eslint-disable-line deprecation/deprecation
 
   /** Get Frontstage Activated event. */
   public static readonly onFrontstageActivatedEvent =
-    new FrontstageActivatedEvent();
+    new BeUiEvent<FrontstageActivatedEventArgs>(); // eslint-disable-line deprecation/deprecation
 
   /** Get Frontstage Activated event. */
-  public static readonly onFrontstageReadyEvent = new FrontstageReadyEvent();
+  public static readonly onFrontstageReadyEvent =
+    new BeUiEvent<FrontstageReadyEventArgs>(); // eslint-disable-line deprecation/deprecation
 
   /** Get Modal Frontstage Changed event. */
   public static readonly onModalFrontstageChangedEvent =
-    new ModalFrontstageChangedEvent();
+    new BeUiEvent<ModalFrontstageChangedEventArgs>(); // eslint-disable-line deprecation/deprecation
 
   /** Get Modal Frontstage Closed event. */
   public static readonly onModalFrontstageClosedEvent =
-    new ModalFrontstageClosedEvent();
+    new BeUiEvent<ModalFrontstageClosedEventArgs>(); // eslint-disable-line deprecation/deprecation
 
   /** Get Modal Frontstage Requested Closed event.
    * @alpha
    */
   public static readonly onCloseModalFrontstageRequestedEvent =
-    new ModalFrontstageRequestedCloseEvent();
+    new BeUiEvent<ModalFrontstageRequestedCloseEventArgs>(); // eslint-disable-line deprecation/deprecation
 
   /** Get Tool Activated event. */
-  public static readonly onToolActivatedEvent = new ToolActivatedEvent();
+  public static readonly onToolActivatedEvent =
+    new BeUiEvent<ToolActivatedEventArgs>(); // eslint-disable-line deprecation/deprecation
 
   /** Get ToolSetting Reload event. */
   // eslint-disable-next-line deprecation/deprecation
-  public static readonly onToolSettingsReloadEvent = new UiEvent<void>();
+  public static readonly onToolSettingsReloadEvent = new BeUiEvent<void>();
 
   /** Get Tool Panel Opened event.
    * @internal
    */
   // eslint-disable-next-line deprecation/deprecation
-  public static readonly onToolPanelOpenedEvent = new UiEvent<void>();
+  public static readonly onToolPanelOpenedEvent = new BeUiEvent<void>();
 
   /** Get Tool Icon Changed event. */
-  public static readonly onToolIconChangedEvent = new ToolIconChangedEvent();
+  public static readonly onToolIconChangedEvent =
+    new BeUiEvent<ToolIconChangedEventArgs>(); // eslint-disable-line deprecation/deprecation
 
   /** Get Content Layout Activated event. */
   public static readonly onContentLayoutActivatedEvent =
-    new ContentLayoutActivatedEvent();
+    new BeUiEvent<ContentLayoutActivatedEventArgs>(); // eslint-disable-line deprecation/deprecation
 
   /** Get Content Control Activated event. */
   public static readonly onContentControlActivatedEvent =
-    new ContentControlActivatedEvent();
+    new BeUiEvent<ContentControlActivatedEventArgs>(); // eslint-disable-line deprecation/deprecation
 
   /** Get Navigation Aid Activated event. */
   public static readonly onNavigationAidActivatedEvent =
-    new NavigationAidActivatedEvent();
+    new BeUiEvent<NavigationAidActivatedEventArgs>(); // eslint-disable-line deprecation/deprecation
 
   /** Get Widget State Changed event. */
   public static readonly onWidgetStateChangedEvent =
-    new WidgetStateChangedEvent();
+    new BeUiEvent<WidgetStateChangedEventArgs>(); // eslint-disable-line deprecation/deprecation
 
   /** @internal */
   // eslint-disable-next-line deprecation/deprecation
-  public static readonly onWidgetDefsUpdatedEvent = new UiEvent<void>();
+  public static readonly onWidgetDefsUpdatedEvent = new BeUiEvent<void>();
 
   /** @internal */
   public static readonly onFrontstageNineZoneStateChangedEvent =
     // eslint-disable-next-line deprecation/deprecation
-    new UiEvent<FrontstageNineZoneStateChangedEventArgs>();
+    new BeUiEvent<FrontstageNineZoneStateChangedEventArgs>();
 
   /** @internal */
   public static readonly onFrontstageRestoreLayoutEvent =
     // eslint-disable-next-line deprecation/deprecation
-    new UiEvent<FrontstageEventArgs>();
+    new BeUiEvent<FrontstageEventArgs>();
 
   /** @internal */
   public static readonly onFrontstageWidgetsChangedEvent =
     // eslint-disable-next-line deprecation/deprecation
-    new UiEvent<FrontstageEventArgs>();
+    new BeUiEvent<FrontstageEventArgs>();
 
   /** Get panel state changed event.
    * @alpha
    */
   public static readonly onPanelStateChangedEvent =
-    new PanelStateChangedEvent();
+    new BeUiEvent<PanelStateChangedEventArgs>(); // eslint-disable-line deprecation/deprecation
 
   /** Get panel pinned changed event.
    * @alpha
    */
   public static readonly onPanelPinnedChangedEvent =
     // eslint-disable-next-line deprecation/deprecation
-    new UiEvent<PanelPinnedChangedEventArgs>();
+    new BeUiEvent<PanelPinnedChangedEventArgs>();
 
   /** @internal */
-  public static readonly onPanelSizeChangedEvent = new PanelSizeChangedEvent();
+  public static readonly onPanelSizeChangedEvent =
+    new BeUiEvent<PanelSizeChangedEventArgs>();
 
   /** Clears the Frontstage map.
    */
