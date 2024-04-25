@@ -14,10 +14,9 @@ const openMessageCenterPopup = async (page: Page) => {
   return await page
     .locator("div")
     .filter({
-      hasText:
-        /^Message Center FieldMessages\dFill message centerClear message center$/,
+      hasText: /^MessagesFill message centerClear message center$/,
     })
-    .getByRole("button", { name: /^Messages \d$/ })
+    .getByRole("button", { name: /^Messages$/ })
     .click();
 };
 

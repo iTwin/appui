@@ -61,6 +61,7 @@ Table of contents:
 
 ### Changes
 
+- Reuse iTwinUI components and update the visuals of `MessageCenterField` component. The component will now display a visual indicator when new messages are added. [#746](https://github.com/iTwin/appui/pull/746)
 - Bump `useCrossOriginPopup` to `@public`. [#802](https://github.com/iTwin/appui/pull/802)
 
 ### Fixes

@@ -3,20 +3,14 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
-@import "variables";
-@import "../variables";
+@import "../../layout/footer/variables.scss";
 
-.nz-footer-messageCenter-message {
-  $vertical-padding: $nz-message-horizontal-padding;
-
+.uifw-statusFields-messageCenter-messageCenterMessage {
   min-height: 48px;
   box-sizing: border-box;
-  margin-left: $nz-message-horizontal-padding;
-  margin-right: $nz-message-horizontal-padding;
-  padding-left: $nz-message-horizontal-padding;
-  padding-right: $nz-message-horizontal-padding;
-  padding-top: $vertical-padding;
-  padding-bottom: $vertical-padding;
+  padding-left: var(--iui-size-xs);
+  padding-right: var(--iui-size-xs);
+  padding-bottom: var(--iui-size-xs);
   display: grid;
   grid-gap: 12px;
   grid-auto-flow: column;
@@ -27,14 +21,11 @@
   font-size: $text-font-size;
 
   &:not(:first-child) {
-    border-top: 1px solid $buic-background-4;
+    padding-top: var(--iui-size-xs);
+    border-top: 1px solid lightgrey;
   }
 
-  > .nz-icon {
-    min-width: 20px;
-  }
-
-  > .nz-content {
+  > .uifw-content {
     overflow: hidden;
     overflow-wrap: break-word;
   }

@@ -4,22 +4,24 @@
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
 import * as React from "react";
-import { MessageCenterMessage } from "../../../../appui-react/layout/footer/message-center/Message";
+import { MessageCenterMessage } from "../../../../appui-react/statusfields/message-center/MessageCenterMessage";
 import { selectorMatches } from "../../Utils";
 
 describe("<MessageCenterMessage />", () => {
   it("renders correctly", () => {
     const { container } = render(<MessageCenterMessage />);
     expect(container.firstElementChild).to.satisfy(
-      selectorMatches(".nz-footer-messageCenter-message")
+      selectorMatches(".uifw-statusFields-messageCenter-messageCenterMessage")
     );
   });
 
   it("renders correctly with icon and content", () => {
     render(
-      <MessageCenterMessage icon={<img alt=""></img>}>
-        Custom message
-      </MessageCenterMessage>
+      <MessageCenterMessage
+        icon={<img alt=""></img>}
+        message="Custom message"
+        className="nz-content"
+      />
     );
     expect(screen.getByText("Custom message")).to.satisfy(
       selectorMatches(".nz-content")

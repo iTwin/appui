@@ -347,7 +347,7 @@ public;MessageAddedEvent
 deprecated;MessageAddedEvent 
 public;MessageAddedEventArgs
 deprecated;MessageAddedEventArgs
-public;MessageCenterField 
+public;MessageCenterField(props: CommonProps): React_2.JSX.Element
 public;MessageManager
 public;MessagesUpdatedEvent 
 deprecated;MessagesUpdatedEvent 

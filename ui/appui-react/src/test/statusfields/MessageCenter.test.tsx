@@ -9,7 +9,7 @@ import {
   MessageManager,
   StatusBar,
 } from "../../appui-react";
-import { userEvent } from "../TestUtils";
+import { userEvent, waitForPosition } from "../TestUtils";
 
 describe(`MessageCenter`, () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
@@ -25,13 +25,15 @@ describe(`MessageCenter`, () => {
         </StatusBar>
       </div>
     );
+
     await theUserTo.click(screen.getByRole("button"));
 
-    expect(screen.getByRole("tablist")).to.exist;
+    expect(screen.getByRole("dialog")).to.exist;
 
     await theUserTo.click(screen.getByTitle("outside"));
+    await waitForPosition();
 
-    expect(screen.queryByRole("tablist")).toEqual(null);
+    expect(screen.queryByRole("dialog")).toEqual(null);
   });
 
   it("Message Center should open on OpenMessageCenterEvent", async () => {
@@ -40,8 +42,8 @@ describe(`MessageCenter`, () => {
         <MessageCenterField />
       </StatusBar>
     );
-    expect(screen.queryByRole("tablist")).toEqual(null);
+    expect(screen.queryByRole("dialog")).toEqual(null);
     MessageManager.onOpenMessageCenterEvent.emit({});
-    expect(await screen.findByRole("tablist")).to.exist;
+    expect(await screen.findByRole("dialog")).to.exist;
   });
 });
