@@ -41,10 +41,10 @@ export function MessageCenterMessage(props: MessageCenterMessageProps) {
     >
       {icon && <Icon size="small">{icon}</Icon>}
       {message && (
-        <span>
+        <span className="uifw-content">
           <MessageRenderer message={message} className={className} useSpan />
           {details && (
-            <Text variant="small" className="uifw-content">
+            <Text variant="small">
               <MessageRenderer message={details} />
             </Text>
           )}
