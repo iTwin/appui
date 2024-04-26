@@ -103,11 +103,8 @@ export function EditorContainer(props: EditorContainerProps) {
     ...rest
   } = props;
 
-  let propertyEditor: PropertyEditorBase;
-
-  const editorRef = React.useRef<TypeEditor | null>(null);
-
-  const setEditorRef = (ref: TypeEditor | null) => (editorRef.current = ref);
+  const editorRef = React.useRef<TypeEditor | undefined>();
+  const propertyEditorRef = React.useRef<PropertyEditorBase | undefined>();
 
   /** Event Handlers
    * @internal
@@ -129,13 +126,12 @@ export function EditorContainer(props: EditorContainerProps) {
   };
 
   const onPressEscape = (): void => {
-    // istanbul ignore else
-    if (propertyEditor?.containerHandlesEscape) onCancel();
+    if (propertyEditorRef.current?.containerHandlesEscape) onCancel();
   };
 
   const onPressEnter = (e: React.KeyboardEvent): void => {
     // istanbul ignore else
-    if (propertyEditor?.containerHandlesEnter) {
+    if (propertyEditorRef.current?.containerHandlesEnter) {
       // istanbul ignore else
       if (editorRef?.current?.hasFocus) e.stopPropagation();
       void handleContainerCommit();
@@ -144,7 +140,7 @@ export function EditorContainer(props: EditorContainerProps) {
 
   const onPressTab = (e: React.KeyboardEvent): void => {
     // istanbul ignore else
-    if (propertyEditor?.containerHandlesTab) {
+    if (propertyEditorRef.current?.containerHandlesTab) {
       e.stopPropagation();
       void handleContainerCommit();
     }
@@ -162,14 +158,14 @@ export function EditorContainer(props: EditorContainerProps) {
         onPressTab(e);
         break;
       default:
-        if (propertyEditor?.containerStopsKeydownPropagation)
+        if (propertyEditorRef.current?.containerStopsKeydownPropagation)
           e.stopPropagation();
     }
   };
 
   const handleEditorBlur = () => {
     // istanbul ignore else
-    if (ignoreEditorBlur && propertyEditor?.containerHandlesBlur)
+    if (ignoreEditorBlur && propertyEditorRef.current?.containerHandlesBlur)
       void onPressEscape();
   };
 
@@ -177,8 +173,8 @@ export function EditorContainer(props: EditorContainerProps) {
     let isValid = true;
 
     // istanbul ignore else
-    if (propertyEditor && propertyRecord) {
-      const validateResult = await propertyEditor.validateValue(
+    if (propertyEditorRef.current && propertyRecord) {
+      const validateResult = await propertyEditorRef.current.validateValue(
         value,
         propertyRecord
       );
@@ -224,8 +220,8 @@ export function EditorContainer(props: EditorContainerProps) {
     if (isValid) {
       let doCommit = true;
       // istanbul ignore else
-      if (propertyEditor && args.propertyRecord) {
-        const commitResult = await propertyEditor.commitValue(
+      if (propertyEditorRef.current && args.propertyRecord) {
+        const commitResult = await propertyEditorRef.current.commitValue(
           newValue,
           args.propertyRecord
         );
@@ -242,7 +238,9 @@ export function EditorContainer(props: EditorContainerProps) {
   };
 
   const editorProps: CloneProps = {
-    ref: setEditorRef,
+    ref: (ref: TypeEditor | null) => {
+      editorRef.current = ref ?? undefined;
+    },
     onCommit: handleEditorCommit,
     onCancel,
     onBlur: handleEditorBlur,
@@ -259,14 +257,14 @@ export function EditorContainer(props: EditorContainerProps) {
       ? propDescription.editor.name
       : undefined;
 
-  propertyEditor = PropertyEditorManager.createEditor(
+  propertyEditorRef.current = PropertyEditorManager.createEditor(
     propDescription.typename,
     editorName,
     propDescription.dataController
   );
 
-  const clonedNode = React.isValidElement(propertyEditor.reactNode)
-    ? React.cloneElement(propertyEditor.reactNode, editorProps)
+  const clonedNode = React.isValidElement(propertyEditorRef.current.reactNode)
+    ? React.cloneElement(propertyEditorRef.current.reactNode, editorProps)
     : undefined;
 
   return (
