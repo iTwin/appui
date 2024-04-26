@@ -19,6 +19,7 @@ import { isProviderItem } from "../ui-items-provider/isProviderItem";
 import type { WidgetDef } from "../widgets/WidgetDef";
 import { useTransientState } from "./useTransientState";
 import { useTranslation } from "../hooks/useTranslation";
+import { WidgetState } from "../widgets/WidgetState";
 
 function WidgetFallback() {
   const { translate } = useTranslation();
@@ -94,4 +95,26 @@ export function useWidgetDef(): WidgetDef | undefined {
   }, [frontstage, tabId]);
 
   return widgetDef;
+}
+
+/** @internal */
+export function HideSuspended(props: React.PropsWithChildren<{}>) {
+  return (
+    <React.Suspense fallback={<HideSuspendedFallback />}>
+      {props.children}
+    </React.Suspense>
+  );
+}
+
+function HideSuspendedFallback() {
+  const widgetDef = useWidgetDef();
+  React.useEffect(() => {
+    if (!widgetDef) return;
+    const state = widgetDef.state;
+    widgetDef.setWidgetState(WidgetState.Hidden);
+    return () => {
+      widgetDef.setWidgetState(state);
+    };
+  }, [widgetDef]);
+  return null;
 }

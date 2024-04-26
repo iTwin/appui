@@ -30,6 +30,7 @@ import {
   FrameworkUiAdmin,
   FrontstageDeactivatedEventArgs,
   getKeyinsFromToolList,
+  HideSuspended,
   IModelViewportControl,
   InitialAppUiSettings,
   ModalFrontstageClosedEventArgs,
@@ -396,7 +397,11 @@ export class SampleAppIModelApp {
         {
           id: "lazy-1:widget-1",
           label: "Lazy 1",
-          content: <LazyWidget />,
+          content: (
+            <HideSuspended>
+              <LazyWidget />
+            </HideSuspended>
+          ),
           defaultState: WidgetState.Unloaded,
           layouts: {
             standard: {
