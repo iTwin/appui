@@ -54,7 +54,9 @@ export function WidgetContent() {
   return (
     <ScrollableWidgetContent itemId={itemId} providerId={providerId}>
       <ErrorBoundary FallbackComponent={WidgetFallback}>
-        {widget?.reactNode}
+        <React.Suspense fallback={"Suspense fallback..."}>
+          {widget?.reactNode}
+        </React.Suspense>
       </ErrorBoundary>
     </ScrollableWidgetContent>
   );

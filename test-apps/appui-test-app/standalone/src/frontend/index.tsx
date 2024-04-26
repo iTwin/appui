@@ -37,6 +37,8 @@ import {
   SafeAreaContext,
   SafeAreaInsets,
   SessionStateActionId,
+  StagePanelLocation,
+  StagePanelSection,
   StandardContentToolsUiItemsProvider,
   StateManager,
   StatusBarItemUtilities,
@@ -48,6 +50,7 @@ import {
   UiFramework,
   UiItemsManager,
   UiStateStorageHandler,
+  WidgetState,
 } from "@itwin/appui-react";
 import {
   Id64String,
@@ -116,6 +119,14 @@ import {
 } from "./appui/frontstages/EditorFrontstageProvider";
 import { useEditorToolSettings } from "./appui/useEditorToolSettings";
 import { AppLanguageSelect, AppLocalizationProvider } from "./Localization";
+
+const LazyWidget = React.lazy(async () => delay(import("./appui/LazyWidget")));
+
+async function delay<T extends Promise<any>>(promise: T) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, 5000);
+  }).then(() => promise);
+}
 
 // Initialize my application gateway configuration for the frontend
 RpcConfiguration.developmentMode = true;
@@ -379,6 +390,23 @@ export class SampleAppIModelApp {
       AppUiTestProviders.localizationNamespace
     );
     PopoutWindowsFrontstage.register(AppUiTestProviders.localizationNamespace);
+    UiItemsManager.register({
+      id: "lazy-1",
+      getWidgets: () => [
+        {
+          id: "lazy-1:widget-1",
+          label: "Lazy 1",
+          content: <LazyWidget />,
+          defaultState: WidgetState.Unloaded,
+          layouts: {
+            standard: {
+              location: StagePanelLocation.Left,
+              section: StagePanelSection.Start,
+            },
+          },
+        },
+      ],
+    });
 
     if (ProcessDetector.isElectronAppFrontend) {
       await initializeEditor();
