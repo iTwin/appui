@@ -610,10 +610,7 @@ export interface EditableTreeDataProvider extends ITreeDataProvider {
 }
 
 // @public
-export class EditorContainer extends React_3.PureComponent<EditorContainerProps> {
-    // @internal (undocumented)
-    render(): React_3.JSX.Element;
-}
+export function EditorContainer(props: EditorContainerProps): React_3.JSX.Element;
 
 // @public
 export interface EditorContainerProps extends CommonProps {

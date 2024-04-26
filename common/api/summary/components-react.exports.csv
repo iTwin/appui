@@ -68,7 +68,7 @@ public;DisplayValuePropertyDataFilterer
 public;DoublePropertyValueRenderer 
 internal;DragAction
 public;EditableTreeDataProvider 
-public;EditorContainer 
+public;EditorContainer(props: EditorContainerProps): React_3.JSX.Element
 public;EditorContainerProps 
 public;EnumButtonGroupEditor 
 public;EnumEditor 
