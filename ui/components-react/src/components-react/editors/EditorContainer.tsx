@@ -126,7 +126,8 @@ export function EditorContainer(props: EditorContainerProps) {
   };
 
   const onPressEscape = (): void => {
-    if (propertyEditorRef.current?.containerHandlesEscape) onCancel();
+    if (!propertyEditorRef.current?.containerHandlesEscape) return;
+    onCancel();
   };
 
   const onPressEnter = (e: React.KeyboardEvent): void => {
@@ -164,9 +165,9 @@ export function EditorContainer(props: EditorContainerProps) {
   };
 
   const handleEditorBlur = () => {
-    // istanbul ignore else
-    if (ignoreEditorBlur && propertyEditorRef.current?.containerHandlesBlur)
-      void onPressEscape();
+    if (ignoreEditorBlur) return;
+    if (!propertyEditorRef.current?.containerHandlesBlur) return;
+    void handleContainerCommit();
   };
 
   const isNewValueValid = async (value: PropertyValue): Promise<boolean> => {
