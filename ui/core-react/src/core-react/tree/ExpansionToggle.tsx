@@ -38,6 +38,7 @@ export function ExpansionToggle(props: ExpansionToggleProps) {
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events
     <div
+      onMouseDown={(e) => e.stopPropagation()}
       onClick={props.onClick}
       className={className}
       style={props.style}

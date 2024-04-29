@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/core-react",
+      "comment": "Disabled event propagation for `ExpansionToggle`.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/core-react"
+}
