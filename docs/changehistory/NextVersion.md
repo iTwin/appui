@@ -30,7 +30,7 @@ Table of contents:
 ### Fixes
 
 - Fix `FrameworkUiAdmin.showCard()` runtime error. [#803](https://github.com/iTwin/appui/pull/803)
-- Fix `FrontstageDef` to correctly update widgets if a new provider is registered while a frontstage is activated.
+- Fix `FrontstageDef` to correctly update widgets if a new provider is registered while a frontstage is activating.
 
 ## @itwin/core-react
 
