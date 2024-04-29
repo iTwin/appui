@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/core-react",
-      "comment": "Disabled event propagation for `ExpansionToggle`.",
+      "comment": "Disabled `onMouseDown` event propagation for `ExpansionToggle`.",
       "type": "none"
     }
   ],
