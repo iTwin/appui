@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Fix `FrontstageDef` to correctly update widgets if a new provider is registered while a frontstage is activating.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}

@@ -55,6 +55,7 @@ import type {
   ToolIconChangedEventArgs,
 } from "../framework/FrameworkFrontstages";
 import type { SyncToolSettingsPropertiesEventArgs } from "../framework/FrameworkToolSettings";
+import { UiItemsManager } from "../ui-items-provider/UiItemsManager";
 
 /** Frontstage Manager class.
  * @internal
@@ -114,35 +115,33 @@ export class InternalFrontstageManager {
   public static initialize() {
     if (this._initialized) return;
 
-    // istanbul ignore else
-    if (IModelApp && IModelApp.toolAdmin) {
-      IModelApp.toolAdmin.activeToolChanged.addListener(
-        (tool: Tool, _start: StartOrResume) => {
-          // make sure tool settings properties are cached before creating ToolInformation
-          UiFramework.toolSettings.clearToolSettingsData();
-          // istanbul ignore else
-          if (tool instanceof InteractiveTool)
-            UiFramework.toolSettings.initializeDataForTool(tool);
+    IModelApp.toolAdmin.activeToolChanged.addListener(
+      (tool: Tool, _start: StartOrResume) => {
+        // make sure tool settings properties are cached before creating ToolInformation
+        UiFramework.toolSettings.clearToolSettingsData();
+        // istanbul ignore else
+        if (tool instanceof InteractiveTool)
+          UiFramework.toolSettings.initializeDataForTool(tool);
 
-          // if the tool data is not already cached then see if there is data to cache
-          InternalFrontstageManager.ensureToolInformationIsSet(tool.toolId);
-          InternalFrontstageManager.setActiveTool(tool);
-        }
-      );
-      UiFramework.toolSettings.onSyncToolSettingsProperties.addListener(
-        InternalFrontstageManager.handleSyncToolSettingsPropertiesEvent
-      );
-      UiFramework.toolSettings.onReloadToolSettingsProperties.addListener(
-        InternalFrontstageManager.handleReloadToolSettingsEvent
-      );
-    }
-
-    // istanbul ignore else
-    if (IModelApp && IModelApp.viewManager) {
-      IModelApp.viewManager.onSelectedViewportChanged.addListener(
-        InternalFrontstageManager._handleSelectedViewportChanged
-      );
-    }
+        // if the tool data is not already cached then see if there is data to cache
+        InternalFrontstageManager.ensureToolInformationIsSet(tool.toolId);
+        InternalFrontstageManager.setActiveTool(tool);
+      }
+    );
+    UiFramework.toolSettings.onSyncToolSettingsProperties.addListener(
+      InternalFrontstageManager.handleSyncToolSettingsPropertiesEvent
+    );
+    UiFramework.toolSettings.onReloadToolSettingsProperties.addListener(
+      InternalFrontstageManager.handleReloadToolSettingsEvent
+    );
+    IModelApp.viewManager.onSelectedViewportChanged.addListener(
+      InternalFrontstageManager._handleSelectedViewportChanged
+    );
+    UiItemsManager.onUiProviderRegisteredEvent.addListener(() => {
+      const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
+      if (!frontstageDef) return;
+      frontstageDef.updateWidgetDefs();
+    });
 
     this._initialized = true;
   }
