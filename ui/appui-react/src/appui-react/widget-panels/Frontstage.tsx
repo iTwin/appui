@@ -932,8 +932,7 @@ export function useItemsManager(frontstageDef: FrontstageDef) {
     // Not initialized yet.
     if (!frontstageDef.nineZoneState) return;
 
-    // Need to refresh anytime frontstageDef changes because uiItemsProvider may have added something to
-    // another stage before it was possibly unloaded in this stage.
+    // Need to refresh because UiItemsProvider may have added something while another frontstage was active.
     refreshNineZoneState(frontstageDef);
   }, [frontstageDef]);
   React.useEffect(() => {

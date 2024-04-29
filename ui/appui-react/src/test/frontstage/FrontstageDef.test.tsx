@@ -11,6 +11,7 @@ import type {
 } from "../../appui-react";
 import {
   ContentGroup,
+  ContentGroupProvider,
   FrontstageDef,
   FrontstageProvider,
   initializeNineZoneState,
@@ -18,6 +19,8 @@ import {
   StagePanelLocation,
   StagePanelSection,
   StagePanelState,
+  StageUsage,
+  StandardFrontstageProvider,
   UiFramework,
   UiItemsManager,
   useSpecificWidgetDef,
@@ -450,15 +453,12 @@ describe("FrontstageDef", () => {
       }
     }
 
-    beforeEach(() => {
-      UiItemsManager.register(new WidgetsProvider());
-    });
-
     afterEach(() => {
-      UiItemsManager.unregister("WidgetsProvider");
+      UiItemsManager.clearAllProviders();
     });
 
     it("should add extension widgets to stage panel zones", async () => {
+      UiItemsManager.register(new WidgetsProvider());
       const frontstageProvider = new EmptyFrontstageProvider();
       UiFramework.frontstages.addFrontstageProvider(frontstageProvider);
       const frontstageDef = await UiFramework.frontstages.getFrontstageDef(
@@ -482,6 +482,39 @@ describe("FrontstageDef", () => {
           .leftPanel!.getPanelSectionDef(StagePanelSection.Start)
           .widgetDefs.map((w) => w.id)
       ).toEqual(["WidgetsProviderW1"]);
+    });
+
+    it("should provide widgets from content group getter", async () => {
+      UiFramework.frontstages.addFrontstageProvider(
+        new StandardFrontstageProvider({
+          id: "frontstage-1",
+          version: 1,
+          usage: StageUsage.General,
+          contentGroupProps: new (class extends ContentGroupProvider {
+            public override async contentGroup() {
+              UiItemsManager.register({
+                id: "provider-1",
+                getWidgets: () => [
+                  {
+                    id: "w1",
+                    layouts: {
+                      standard: {
+                        location: StagePanelLocation.Left,
+                        section: StagePanelSection.Start,
+                      },
+                    },
+                  },
+                ],
+              });
+              return TestUtils.TestContentGroup1;
+            }
+          })(),
+        })
+      );
+      await UiFramework.frontstages.setActiveFrontstage("frontstage-1");
+      const frontstageDef = UiFramework.frontstages.activeFrontstageDef!;
+      const widgets = Array.from(frontstageDef.widgetDefs).map((w) => w.id);
+      expect(widgets).toContain("w1");
     });
   });
 
