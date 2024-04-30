@@ -79,7 +79,7 @@ Table of contents:
 
 ### Changes
 
-- Updated `TreeSelectionManager` to not start a drag operation when only one node is selected.
+- Updated `TreeSelectionManager` to not start a drag operation when only one node is selected. [#818](https://github.com/iTwin/appui/pull/818)
 
 ## @itwin/imodel-components-react
 
