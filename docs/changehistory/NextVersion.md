@@ -65,6 +65,7 @@ Table of contents:
 
 - Reuse iTwinUI components and update the visuals of `MessageCenterField` component. The component will now display a visual indicator when new messages are added. [#746](https://github.com/iTwin/appui/pull/746)
 - Bump `useCrossOriginPopup` to `@public`. [#802](https://github.com/iTwin/appui/pull/802)
+- Disabled `onMouseDown` event propagation for `ExpansionToggle`. [#816](https://github.com/iTwin/appui/pull/816)
 
 ### Fixes
 
@@ -76,6 +77,7 @@ Table of contents:
 ### Fixes
 
 - Fix spacing between categories in `VirtualizedPropertyGrid`. [#812](https://github.com/iTwin/appui/pull/812)
+- Clipped node content when it does not fit in `VirtualizedPropertyGrid`. [#814](https://github.com/iTwin/appui/pull/814)
 
 ### Changes
 

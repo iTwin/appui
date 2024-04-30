@@ -8,8 +8,7 @@
 
 import { Point } from "../utils/Point";
 
-/**
- * 2D Line consisting of a start point, and an end point
+/** 2D Line consisting of a start point, and an end point
  * @internal
  */
 export class Line {
@@ -26,8 +25,8 @@ export class Line {
     this.p1.equals(line.p1) && this.p2.equals(line.p2);
 }
 
-/** @internal
- * 2D Circle
+/** 2D Circle.
+ * @internal
  */
 export class Circle {
   public center: Point;
@@ -38,8 +37,8 @@ export class Circle {
   }
 }
 
-/** @internal
- * 2D Annulus (2D doughnut shape/flattened torus) defined by an inner and outer circle with a shared center point.
+/** 2D Annulus (2D doughnut shape/flattened torus) defined by an inner and outer circle with a shared center point.
+ * @internal
  */
 export class Annulus {
   public center: Point;
@@ -54,8 +53,8 @@ export class Annulus {
   }
 }
 
-/** @internal
- * 2D Sector of an Annulus, defined by both a parent annulus, a startAngle, and an endAngle.
+/** 2D Sector of an Annulus, defined by both a parent annulus, a startAngle, and an endAngle.
+ * @internal
  */
 export class AnnularSector {
   public parent: Annulus;
