@@ -32,7 +32,7 @@ export function WidgetContentContainer(props: WidgetContentContainerProps) {
     return { minimized: widget.minimized, activeTabId: widget.activeTabId };
   }, true);
   const ref = React.useCallback(
-    (instance: HTMLDivElement) => {
+    (instance: HTMLDivElement | null) => {
       if (!widgetContentManager) return;
 
       widgetContentManager.setContainer(activeTabId, instance);
