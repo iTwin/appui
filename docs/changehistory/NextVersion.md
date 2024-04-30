@@ -12,6 +12,7 @@ Table of contents:
   - [Fixes](#fixes-1)
 - [@itwin/components-react](#itwincomponents-react)
   - [Fixes](#fixes-2)
+  - [Changes](#changes-2)
 - [@itwin/imodel-components-react](#itwinimodel-components-react)
   - [Deprecations](#deprecations-2)
 
@@ -75,6 +76,10 @@ Table of contents:
 ### Fixes
 
 - Fix spacing between categories in `VirtualizedPropertyGrid`. [#812](https://github.com/iTwin/appui/pull/812)
+
+### Changes
+
+- Updated `TreeSelectionManager` to not start a drag operation when only one node is selected.
 
 ## @itwin/imodel-components-react
 
