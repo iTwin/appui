@@ -11,11 +11,9 @@ import * as React from "react";
 import type { WidgetDef } from "../widgets/WidgetDef";
 import { usePreviewFeatures } from "../preview/PreviewFeatures";
 import { useContainersStore } from "../layout/widget/ContentManager";
-import type { FrontstageDef } from "../frontstage/FrontstageDef";
 
 interface PopoutWidgetProps {
   widgetContainerId: string;
-  frontstageDef: FrontstageDef;
   widgetDef: WidgetDef;
 }
 
@@ -24,17 +22,11 @@ interface PopoutWidgetProps {
  */
 export function PopoutWidget({
   widgetContainerId,
-  frontstageDef,
   widgetDef,
 }: PopoutWidgetProps) {
   const { reparentPopoutWidgets } = usePreviewFeatures();
   if (reparentPopoutWidgets) {
-    return (
-      <ReparentedPopoutWidget
-        widgetContainerId={widgetContainerId}
-        frontstageDef={frontstageDef}
-      />
-    );
+    return <ReparentedPopoutWidget widgetContainerId={widgetContainerId} />;
   }
   return (
     <div
@@ -47,25 +39,16 @@ export function PopoutWidget({
 }
 
 function ReparentedPopoutWidget({
-  frontstageDef,
   widgetContainerId,
-}: Pick<PopoutWidgetProps, "widgetContainerId" | "frontstageDef">) {
-  const setContainer = useContainersStore((state) => state.setContainer);
+}: Pick<PopoutWidgetProps, "widgetContainerId">) {
+  const setPopoutContainer = useContainersStore(
+    (state) => state.setPopoutContainer
+  );
   const ref = React.useCallback(
     (instance: HTMLDivElement | null) => {
-      const nineZoneState = frontstageDef.nineZoneState;
-      if (!nineZoneState) return;
-
-      const popoutWidget = nineZoneState.popoutWidgets.byId[widgetContainerId];
-      if (!popoutWidget) return;
-
-      const widget = nineZoneState.widgets[widgetContainerId];
-      const tabId = widget.tabs[0];
-      if (!tabId) return;
-
-      setContainer(tabId, instance);
+      setPopoutContainer(widgetContainerId, instance);
     },
-    [setContainer, widgetContainerId, frontstageDef]
+    [setPopoutContainer, widgetContainerId]
   );
 
   return (

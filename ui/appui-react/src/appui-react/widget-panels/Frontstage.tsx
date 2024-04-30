@@ -65,6 +65,7 @@ import { WidgetContentRenderers } from "../layout/widget/ContentRenderer";
 import { useCursor } from "../layout/widget-panels/CursorOverlay";
 import { WidgetPanelExpanders } from "../layout/widget-panels/Expander";
 import { useTranslation } from "../hooks/useTranslation";
+import { PopoutWidgets } from "../layout/widget/PopoutWidgets";
 
 function WidgetPanelsFrontstageComponent() {
   const activeModalFrontstageInfo = useActiveModalFrontstageInfo();
@@ -97,6 +98,7 @@ function WidgetPanelsFrontstageComponent() {
           </StandardLayout>
           <WidgetContentRenderers />
           <FloatingWidgets />
+          <PopoutWidgets />
         </ToolbarPopupAutoHideContext.Provider>
       </PreviewHorizontalPanelAlignFeatureProvider>
     </MaximizedWidgetProvider>
