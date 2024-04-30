@@ -46,6 +46,8 @@ interface KnownPreviewFeatures {
   widgetActionDropdown: { threshold: number };
   /** If true, the [[Toolbar]] component will be replaced by a new iTwinUI based toolbar. */
   newToolbars: boolean;
+  /** If true, popout widgets will not be rendered in a separate element tree, instead widget content will be re-assigned to a popout content container. */
+  reparentPopoutWidgets: boolean;
 }
 
 /** Object used trim to only known features at runtime.
@@ -59,6 +61,7 @@ const knownFeaturesObject: Record<keyof KnownPreviewFeatures, undefined> = {
   horizontalPanelAlignment: undefined,
   widgetActionDropdown: undefined,
   newToolbars: undefined,
+  reparentPopoutWidgets: undefined,
 };
 
 /** List of preview features that can be enabled/disabled.
