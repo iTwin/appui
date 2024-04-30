@@ -50,6 +50,7 @@ $text-font-color: var(--iui-color-text);
 
 .components-property-record-label {
   @include record-cell;
+  overflow: hidden;
 }
 
 .components-property-record-value {
