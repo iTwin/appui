@@ -25,6 +25,7 @@ import {
   getTabLocation,
   isPopoutTabLocation,
 } from "../layout/state/TabLocation";
+import { ThemeProvider as ThemeProviderV2 } from "@itwin/itwinui-react-v2";
 
 function WidgetFallback() {
   const { translate } = useTranslation();
@@ -73,12 +74,18 @@ export function WidgetContent() {
     return state.popoutContainers[tabLocation.popoutWidgetId] as HTMLElement;
   });
   return (
-    <ThemeProvider portalContainer={popoutContainer ?? undefined}>
-      <ScrollableWidgetContent itemId={itemId} providerId={providerId}>
-        <ErrorBoundary FallbackComponent={WidgetFallback}>
-          {widget?.reactNode}
-        </ErrorBoundary>
-      </ScrollableWidgetContent>
+    // Theme providers are required to open floating/popover elements in a popout widget window (instead of a main window).
+    <ThemeProvider
+      portalContainer={popoutContainer ?? undefined}
+      style={{ height: "100%" }}
+    >
+      <ThemeProviderV2 theme="inherit" style={{ height: "100%" }}>
+        <ScrollableWidgetContent itemId={itemId} providerId={providerId}>
+          <ErrorBoundary FallbackComponent={WidgetFallback}>
+            {widget?.reactNode}
+          </ErrorBoundary>
+        </ScrollableWidgetContent>
+      </ThemeProviderV2>
     </ThemeProvider>
   );
 }
