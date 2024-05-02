@@ -170,19 +170,15 @@ export class TreeSelectionManager
     window.addEventListener(
       "mouseup",
       () => {
+        this._selectionHandler.completeDragAction();
         /* istanbul ignore else */
         if (this._dragSelectionOperation) {
-          this._selectionHandler.completeDragAction();
           this._dragSelectionOperation.complete();
           this._dragSelectionOperation = undefined;
         }
       },
       { once: true }
     );
-    this._dragSelectionOperation = new Subject();
-    this.onDragSelection.emit({
-      selectionChanges: this._dragSelectionOperation,
-    });
   }
 
   public onNodeMouseMove(nodeId: string) {
@@ -198,10 +194,17 @@ export class TreeSelectionManager
         { from: item1 as string, to: item2 as string },
       ],
       updateSelection: (selections, deselections) => {
+        if (!this._dragSelectionOperation) {
+          this._dragSelectionOperation = new Subject();
+          this.onDragSelection.emit({
+            selectionChanges: this._dragSelectionOperation,
+          });
+        }
+
         // Assumes `updateSelection` will never be called with selection ranges
         const selectedNodeIds = selections as string[];
         const deselectedNodeIds = deselections as string[];
-        this._dragSelectionOperation!.next({
+        this._dragSelectionOperation.next({
           selectedNodes: selectedNodeIds,
           deselectedNodes: deselectedNodeIds,
         });

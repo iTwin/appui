@@ -5,7 +5,10 @@
 import { SelectionMode } from "../../../components-react/common/selection/SelectionModes";
 import { toRxjsObservable } from "../../../components-react/tree/controlled/Observable";
 import { TreeEventDispatcher } from "../../../components-react/tree/controlled/TreeEventDispatcher";
-import type { TreeEvents } from "../../../components-react/tree/controlled/TreeEvents";
+import type {
+  TreeEvents,
+  TreeSelectionModificationEventArgs,
+} from "../../../components-react/tree/controlled/TreeEvents";
 import type {
   TreeModelNode,
   TreeModelRootNode,
@@ -365,20 +368,25 @@ describe("TreeEventDispatcher", () => {
         }
       );
 
-      dispatcher.onNodeMouseDown("A");
-      expect(treeEvents.onSelectionModified).toHaveBeenCalledOnce();
-      const [args0] = treeEvents.onSelectionModified.mock.calls[0];
-      const result0 = startExtractingSequence(
-        toRxjsObservable(args0.modifications)
+      const results: ReturnType<typeof startExtractingSequence>[] = [];
+      treeEvents.onSelectionModified.mockImplementation(
+        (event: TreeSelectionModificationEventArgs) => {
+          results.push(
+            startExtractingSequence(toRxjsObservable(event.modifications))
+          );
+          return undefined;
+        }
       );
-
-      dispatcher.onNodeMouseMove("A");
+      dispatcher.onNodeMouseDown("A");
       dispatcher.onNodeMouseMove("B");
+
+      expect(treeEvents.onSelectionModified).toHaveBeenCalledOnce();
+
       dispatcher.onNodeMouseMove("C");
       fireEvent.mouseUp(window);
 
-      await result0.waitForComplete;
-      expect(result0.current.sequence)
+      await results[0].waitForComplete;
+      expect(results[0].current.sequence)
         .to.have.lengthOf(2)
         .and.containSubset([
           {
@@ -393,12 +401,35 @@ describe("TreeEventDispatcher", () => {
 
       // `onSelectionModified` is called second time with selected items when drag operation is completed
       expect(treeEvents.onSelectionModified).toHaveBeenCalledTimes(2);
-      const [args1] = treeEvents.onSelectionModified.mock.calls[1];
-      expect(await extractSequence(toRxjsObservable(args1.modifications)))
+      await results[1].waitForComplete;
+      expect(results[1].current.sequence)
         .to.have.lengthOf(1)
         .and.containSubset([
           { selectedNodeItems: [{ id: "A" }, { id: "B" }, { id: "C" }] },
         ]);
+    });
+
+    it("does not start drag operation when only initial node is selected", async () => {
+      const { dispatcher } = setupTreeEventDispatcher(
+        SelectionMode.Multiple,
+        (model) => {
+          model.setChildren(
+            undefined,
+            [
+              createTreeNodeInput("A"),
+              createTreeNodeInput("B"),
+              createTreeNodeInput("C"),
+            ],
+            0
+          );
+        }
+      );
+
+      dispatcher.onNodeMouseDown("A");
+      dispatcher.onNodeMouseMove("A");
+      fireEvent.mouseUp(window);
+
+      expect(treeEvents.onSelectionModified).not.toBeCalled();
     });
 
     it("deselects selected nodes", async () => {
@@ -417,21 +448,25 @@ describe("TreeEventDispatcher", () => {
         }
       );
 
-      dispatcher.onNodeMouseDown("A");
-      expect(treeEvents.onSelectionModified).toHaveBeenCalledOnce();
-      const [args0] = treeEvents.onSelectionModified.mock.calls[0];
-      const result0 = startExtractingSequence(
-        toRxjsObservable(args0.modifications)
+      const results: ReturnType<typeof startExtractingSequence>[] = [];
+      treeEvents.onSelectionModified.mockImplementation(
+        (event: TreeSelectionModificationEventArgs) => {
+          results.push(
+            startExtractingSequence(toRxjsObservable(event.modifications))
+          );
+          return undefined;
+        }
       );
-
-      dispatcher.onNodeMouseMove("A");
+      dispatcher.onNodeMouseDown("A");
       dispatcher.onNodeMouseMove("B");
-      dispatcher.onNodeMouseMove("C");
 
+      expect(treeEvents.onSelectionModified).toHaveBeenCalledOnce();
+
+      dispatcher.onNodeMouseMove("C");
       fireEvent.mouseUp(window);
 
-      await result0.waitForComplete;
-      expect(result0.current.sequence)
+      await results[0].waitForComplete;
+      expect(results[0].current.sequence)
         .to.have.lengthOf(2)
         .and.containSubset([
           {
@@ -448,8 +483,8 @@ describe("TreeEventDispatcher", () => {
       // - first call has all the items that were selected during drag operation
       // - second call has all the items that were deselected during drag operation
       expect(treeEvents.onSelectionModified).toHaveBeenCalledTimes(3);
-      const [args1] = treeEvents.onSelectionModified.mock.calls[1];
-      expect(await extractSequence(toRxjsObservable(args1.modifications)))
+      await results[1].waitForComplete;
+      expect(results[1].current.sequence)
         .to.have.lengthOf(1)
         .and.containSubset([
           {
@@ -457,8 +492,8 @@ describe("TreeEventDispatcher", () => {
           },
         ]);
 
-      const [args2] = treeEvents.onSelectionModified.mock.calls[2];
-      expect(await extractSequence(toRxjsObservable(args2.modifications)))
+      await results[2].waitForComplete;
+      expect(results[2].current.sequence)
         .to.have.lengthOf(1)
         .and.containSubset([
           {
