@@ -11,7 +11,6 @@ import * as React from "react";
 import { create } from "zustand";
 import { BeEvent } from "@itwin/core-bentley";
 import type { TabState } from "../state/TabState";
-import type { WidgetState } from "../state/WidgetState";
 
 /** @internal */
 export interface WidgetContentManagerProps {
@@ -55,30 +54,17 @@ export function WidgetContentManager(props: WidgetContentManagerProps) {
 }
 
 interface ContainersStore {
-  popoutContainers: { readonly [id in WidgetState["id"]]: Element | null };
   containers: { readonly [id in TabState["id"]]: Element | null };
   setContainer: (tabId: TabState["id"], container: Element | null) => void;
-  setPopoutContainer: (
-    widgetId: WidgetState["id"],
-    container: Element | null
-  ) => void;
 }
 
 /** @internal */
 export const useContainersStore = create<ContainersStore>((set) => ({
   containers: {},
-  popoutContainers: {},
   setContainer: (tabId: TabState["id"], container: Element | null) => {
     set((state) =>
       produce(state, (draft) => {
         draft.containers[tabId] = castDraft(container);
-      })
-    );
-  },
-  setPopoutContainer: (tabId: TabState["id"], container: Element | null) => {
-    set((state) =>
-      produce(state, (draft) => {
-        draft.popoutContainers[tabId] = castDraft(container);
       })
     );
   },

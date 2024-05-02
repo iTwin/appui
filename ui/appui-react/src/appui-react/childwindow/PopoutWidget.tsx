@@ -10,7 +10,9 @@ import "./PopoutWidget.scss";
 import * as React from "react";
 import type { WidgetDef } from "../widgets/WidgetDef";
 import { usePreviewFeatures } from "../preview/PreviewFeatures";
-import { useContainersStore } from "../layout/widget/ContentManager";
+import { useRefs } from "@itwin/core-react";
+import { BeUiEvent } from "@itwin/core-bentley";
+import { usePopoutsStore } from "./usePopoutsStore";
 
 interface PopoutWidgetProps {
   widgetContainerId: string;
@@ -41,15 +43,15 @@ export function PopoutWidget({
 function ReparentedPopoutWidget({
   widgetContainerId,
 }: Pick<PopoutWidgetProps, "widgetContainerId">) {
-  const setPopoutContainer = useContainersStore(
-    (state) => state.setPopoutContainer
-  );
-  const ref = React.useCallback(
+  const setPopout = usePopoutsStore((state) => state.setPopout);
+  const setPopoutRef = React.useCallback(
     (instance: HTMLDivElement | null) => {
-      setPopoutContainer(widgetContainerId, instance);
+      setPopout(widgetContainerId, instance);
     },
-    [setPopoutContainer, widgetContainerId]
+    [setPopout, widgetContainerId]
   );
+  const autoCloseRef = useAutoClosePopovers(widgetContainerId);
+  const ref = useRefs(setPopoutRef, autoCloseRef);
 
   return (
     <div
@@ -58,4 +60,26 @@ function ReparentedPopoutWidget({
       ref={ref}
     />
   );
+}
+
+/** @internal */
+export const onClosePopoutWidget = new BeUiEvent<{
+  windowId: string;
+}>();
+
+/** A workaround to close floating/popover elements when a popout widget is closed.
+ * There are some issues with the popover alignment, especially if the tab is not active (popover target is not rendered) after closing the popout.
+ */
+function useAutoClosePopovers(widgetContainerId: string) {
+  const ref = React.useRef<HTMLDivElement | null>(null);
+  React.useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+    return onClosePopoutWidget.addListener(({ windowId }) => {
+      if (windowId !== widgetContainerId) return;
+      element.dispatchEvent(new MouseEvent("mousedown"));
+      element.dispatchEvent(new PointerEvent("pointerdown"));
+    });
+  }, [widgetContainerId]);
+  return ref;
 }

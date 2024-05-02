@@ -19,13 +19,13 @@ import { isProviderItem } from "../ui-items-provider/isProviderItem";
 import type { WidgetDef } from "../widgets/WidgetDef";
 import { useTransientState } from "./useTransientState";
 import { useTranslation } from "../hooks/useTranslation";
-import { useContainersStore } from "../layout/widget/ContentManager";
 import { useLayoutStore } from "../layout/base/LayoutStore";
 import {
   getTabLocation,
   isPopoutTabLocation,
 } from "../layout/state/TabLocation";
 import { ThemeProvider as ThemeProviderV2 } from "@itwin/itwinui-react-v2";
+import { usePopoutsStore } from "../childwindow/usePopoutsStore";
 
 function WidgetFallback() {
   const { translate } = useTranslation();
@@ -66,12 +66,12 @@ export function WidgetContent() {
     () => layoutStore.subscribe((state) => (stateRef.current = state)),
     [layoutStore]
   );
-  const popoutContainer = useContainersStore((state) => {
+  const popoutContainer = usePopoutsStore((state) => {
     if (!tabId) return undefined;
     const tabLocation = getTabLocation(stateRef.current, tabId);
     if (!tabLocation) return undefined;
     if (!isPopoutTabLocation(tabLocation)) return undefined;
-    return state.popoutContainers[tabLocation.popoutWidgetId] as HTMLElement;
+    return state.popouts[tabLocation.popoutWidgetId] as HTMLElement;
   });
   return (
     // Theme providers are required to open floating/popover elements in a popout widget window (instead of a main window).

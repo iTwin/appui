@@ -26,6 +26,7 @@ import { UiStateStorageHandler } from "../uistate/useUiStateStorage";
 import type { ChildWindow } from "./ChildWindowConfig";
 import { copyStyles } from "./CopyStyles";
 import "./InternalChildWindowManager.scss";
+import { onClosePopoutWidget } from "./PopoutWidget";
 
 const childHtml = `<!DOCTYPE html>
 <html>
@@ -254,6 +255,8 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
       (openWindow) => openWindow.childWindowId === childWindowId
     );
     if (windowIndex === -1) return false;
+    onClosePopoutWidget.raiseEvent({ windowId: childWindowId });
+
     const childWindow = this.openChildWindows[windowIndex];
     this.openChildWindows.splice(windowIndex, 1);
     if (processWindowClose) {
