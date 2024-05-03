@@ -30,14 +30,13 @@ export function ITwinUIv2Widget() {
       <Checkbox label="Checkbox" />
       <Radio label="Radio" />
       <DropdownMenu
-        menuItems={(close) => [
-          <MenuItem key={1} onClick={close}>
-            Item 1
-          </MenuItem>,
-          <MenuItem key={2} onClick={close}>
-            Item 2
-          </MenuItem>,
-        ]}
+        menuItems={(close) =>
+          [...Array(6)].map((_, index) => (
+            <MenuItem key={index + 1} onClick={close}>
+              Item {index + 1}
+            </MenuItem>
+          ))
+        }
       >
         <IconButton>
           <SvgMore />
