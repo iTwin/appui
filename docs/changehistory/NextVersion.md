@@ -27,7 +27,7 @@ Table of contents:
 
 ### Additions
 
-- `reparentPopoutWidgets` preview feature. When enabled, popout widgets will not be rendered in a separate element tree, instead widget content will be re-parented to a popout content container. This new behavior is similar to what is being done when moving widget between stage panels and floating widgets in a main window and has certain advantages:
+- `reparentPopoutWidgets` preview feature. When enabled, popout widgets will not be rendered in a separate element tree, instead widget content will be re-parented to a popout content container. This new behavior is similar to what is being done when moving widget between stage panels and floating widgets in a main window and has certain advantages: [#820](https://github.com/iTwin/appui/pull/820)
   - Persisted React state
   - Persisted DOM state
   - Same element tree (access to root context providers)
