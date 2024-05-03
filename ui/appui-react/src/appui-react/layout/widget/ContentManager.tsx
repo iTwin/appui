@@ -30,7 +30,9 @@ export function WidgetContentManager(props: WidgetContentManagerProps) {
     WidgetContentManagerContextArgs["setContainer"]
   >(
     (tabId, container) => {
-      container === null && saveTransientStateRef.current.raiseEvent(tabId);
+      if (!container) {
+        saveTransientStateRef.current.raiseEvent(tabId);
+      }
       setContentContainer(tabId, container);
     },
     [setContentContainer]
@@ -54,16 +56,21 @@ export function WidgetContentManager(props: WidgetContentManagerProps) {
 }
 
 interface ContainersStore {
-  containers: { readonly [id in TabState["id"]]: Element | null };
-  setContainer: (tabId: TabState["id"], container: Element | null) => void;
+  containers: { readonly [id in TabState["id"]]: Element | undefined };
+  setContainer: (tabId: TabState["id"], container: Element | undefined) => void;
 }
 
 /** @internal */
 export const useContainersStore = create<ContainersStore>((set) => ({
   containers: {},
-  setContainer: (tabId: TabState["id"], container: Element | null) => {
+  setContainer: (tabId: TabState["id"], container: Element | undefined) => {
     set((state) =>
       produce(state, (draft) => {
+        if (!container) {
+          delete draft.containers[tabId];
+          return;
+        }
+
         draft.containers[tabId] = castDraft(container);
       })
     );
@@ -72,7 +79,7 @@ export const useContainersStore = create<ContainersStore>((set) => ({
 
 /** @internal */
 export interface WidgetContentManagerContextArgs {
-  setContainer(tabId: TabState["id"], container: Element | null): void;
+  setContainer(tabId: TabState["id"], container: Element | undefined): void;
   onSaveTransientState: BeEvent<(tabId: TabState["id"]) => void>;
   onRestoreTransientState: BeEvent<(tabId: TabState["id"]) => void>;
 }

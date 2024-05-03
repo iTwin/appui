@@ -44,9 +44,9 @@ function ReparentedPopoutWidget({
   widgetContainerId,
 }: Pick<PopoutWidgetProps, "widgetContainerId">) {
   const setPopout = usePopoutsStore((state) => state.setPopout);
-  const setPopoutRef = React.useCallback(
-    (instance: HTMLDivElement | null) => {
-      setPopout(widgetContainerId, instance);
+  const setPopoutRef = React.useCallback<React.RefCallback<HTMLDivElement>>(
+    (instance) => {
+      setPopout(widgetContainerId, instance ?? undefined);
     },
     [setPopout, widgetContainerId]
   );

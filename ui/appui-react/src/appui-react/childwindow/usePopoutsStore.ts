@@ -12,17 +12,25 @@ import type { WidgetState } from "../layout/state/WidgetState";
 import { BeEvent } from "@itwin/core-bentley";
 
 interface PopoutWidgetsStore {
-  popouts: { readonly [id in WidgetState["id"]]: Element | null };
-  setPopout: (widgetId: WidgetState["id"], container: Element | null) => void;
+  popouts: { readonly [id in WidgetState["id"]]: Element | undefined };
+  setPopout: (
+    widgetId: WidgetState["id"],
+    container: Element | undefined
+  ) => void;
   onClosePopoutWidget: BeEvent<(args: { windowId: string }) => void>;
 }
 
 /** @internal */
 export const usePopoutsStore = create<PopoutWidgetsStore>((set) => ({
   popouts: {},
-  setPopout: (widgetId: WidgetState["id"], container: Element | null) => {
+  setPopout: (widgetId: WidgetState["id"], container: Element | undefined) => {
     set((state) =>
       produce(state, (draft) => {
+        if (!container) {
+          delete draft.popouts[widgetId];
+          return;
+        }
+
         draft.popouts[widgetId] = castDraft(container);
       })
     );

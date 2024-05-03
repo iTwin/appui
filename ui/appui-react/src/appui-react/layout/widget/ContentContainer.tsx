@@ -31,11 +31,11 @@ export function WidgetContentContainer(props: WidgetContentContainerProps) {
     const widget = getWidgetState(state, widgetId);
     return { minimized: widget.minimized, activeTabId: widget.activeTabId };
   }, true);
-  const ref = React.useCallback(
-    (instance: HTMLDivElement | null) => {
+  const ref = React.useCallback<React.RefCallback<HTMLDivElement>>(
+    (instance) => {
       if (!widgetContentManager) return;
 
-      widgetContentManager.setContainer(activeTabId, instance);
+      widgetContentManager.setContainer(activeTabId, instance ?? undefined);
     },
     [widgetContentManager, activeTabId]
   );
