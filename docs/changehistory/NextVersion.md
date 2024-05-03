@@ -4,6 +4,7 @@ Table of contents:
 
 - [@itwin/appui-react](#itwinappui-react)
   - [Deprecations](#deprecations)
+  - [Additions](#additions)
   - [Changes](#changes)
   - [Fixes](#fixes)
 - [@itwin/core-react](#itwincore-react)
@@ -23,6 +24,13 @@ Table of contents:
 - Deprecated all UI event classes (e.g. `ContentControlActivatedEvent`). These are only emitter classes and applications should not use these classes to instantiate objects. Therefore they should not be exported. [#806](https://github.com/iTwin/appui/pull/806)
 - Deprecated all event args interfaces (e.g. `ContentControlActivatedEventArgs`). Event args should be inferred from a listener. If explicit type is needed use a type helper. [#806](https://github.com/iTwin/appui/pull/806)
 
+### Additions
+
+- `reparentPopoutWidgets` preview feature. When enabled, popout widgets will not be rendered in a separate element tree, instead widget content will be re-parented to a popout content container. This new behavior is similar to what is being done when moving widget between stage panels and floating widgets in a main window and has certain advantages:
+  - Persisted React state
+  - Persisted DOM state
+  - Same element tree (access to root context providers)
+
 ### Changes
 
 - Bump `FloatingViewportContentWrapper` to `@public`. [#801](https://github.com/iTwin/appui/pull/801)
@@ -30,7 +38,7 @@ Table of contents:
 ### Fixes
 
 - Fix `FrameworkUiAdmin.showCard()` runtime error. [#803](https://github.com/iTwin/appui/pull/803)
-- Fix `FrontstageDef` to correctly update widgets if a new provider is registered while a frontstage is activating.
+- Fix `FrontstageDef` to correctly update widgets if a new provider is registered while a frontstage is activating. [#815](https://github.com/iTwin/appui/pull/815)
 
 ## @itwin/core-react
 

@@ -10,6 +10,7 @@ import * as React from "react";
 import { create } from "zustand";
 import { Logger } from "@itwin/core-bentley";
 import { UiFramework } from "../UiFramework";
+import type { useTransientState } from "../widget-panels/useTransientState";
 
 /** List of known preview features. */
 interface KnownPreviewFeatures {
@@ -46,7 +47,9 @@ interface KnownPreviewFeatures {
   widgetActionDropdown: { threshold: number };
   /** If true, the [[Toolbar]] component will be replaced by a new iTwinUI based toolbar. */
   newToolbars: boolean;
-  /** If true, popout widgets will not be rendered in a separate element tree, instead widget content will be re-assigned to a popout content container. */
+  /** If true, popout widgets will not be rendered in a separate element tree, instead widget content will be re-parented to a popout content container.
+   * @note Use {@link useTransientState} to save and restore DOM transient state when re-parenting widgets.
+   */
   reparentPopoutWidgets: boolean;
 }
 
