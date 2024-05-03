@@ -5,6 +5,7 @@
 /** @packageDocumentation
  * @module Widget
  */
+import "./Content.scss";
 import { assert } from "@itwin/core-bentley";
 import { SvgError } from "@itwin/itwinui-illustrations-react";
 import { NonIdealState, ThemeProvider } from "@itwin/itwinui-react";
@@ -77,9 +78,12 @@ export function WidgetContent() {
     // Theme providers are required to open floating/popover elements in a popout widget window (instead of a main window).
     <ThemeProvider
       portalContainer={popoutContainer ?? undefined}
-      style={{ height: "100%" }}
+      className="uifw-widgetPanels-content_themeProvider"
     >
-      <ThemeProviderV2 theme="inherit" style={{ height: "100%" }}>
+      <ThemeProviderV2
+        theme="inherit"
+        className="uifw-widgetPanels-content_themeProviderV2"
+      >
         <ScrollableWidgetContent itemId={itemId} providerId={providerId}>
           <ErrorBoundary FallbackComponent={WidgetFallback}>
             {widget?.reactNode}
