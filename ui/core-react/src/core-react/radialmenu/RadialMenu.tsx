@@ -44,7 +44,6 @@ export interface RadialMenuProps extends CommonProps {
   children?: React.ReactNode;
 }
 
-/** @internal */
 interface RadialMenuState {
   sectors: AnnularSector[];
 }

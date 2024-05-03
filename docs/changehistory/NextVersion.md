@@ -13,6 +13,7 @@ Table of contents:
   - [Fixes](#fixes-1)
 - [@itwin/components-react](#itwincomponents-react)
   - [Fixes](#fixes-2)
+  - [Changes](#changes-2)
 - [@itwin/imodel-components-react](#itwinimodel-components-react)
   - [Deprecations](#deprecations-2)
 
@@ -72,6 +73,7 @@ Table of contents:
 
 - Reuse iTwinUI components and update the visuals of `MessageCenterField` component. The component will now display a visual indicator when new messages are added. [#746](https://github.com/iTwin/appui/pull/746)
 - Bump `useCrossOriginPopup` to `@public`. [#802](https://github.com/iTwin/appui/pull/802)
+- Disabled `onMouseDown` event propagation for `ExpansionToggle`. [#816](https://github.com/iTwin/appui/pull/816)
 
 ### Fixes
 
@@ -83,6 +85,11 @@ Table of contents:
 ### Fixes
 
 - Fix spacing between categories in `VirtualizedPropertyGrid`. [#812](https://github.com/iTwin/appui/pull/812)
+- Clipped node content when it does not fit in `VirtualizedPropertyGrid`. [#814](https://github.com/iTwin/appui/pull/814)
+
+### Changes
+
+- Updated `TreeSelectionManager` to not start a drag operation when only one node is selected. [#818](https://github.com/iTwin/appui/pull/818)
 
 ## @itwin/imodel-components-react
 
