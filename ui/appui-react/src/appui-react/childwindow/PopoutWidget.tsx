@@ -11,7 +11,6 @@ import * as React from "react";
 import type { WidgetDef } from "../widgets/WidgetDef";
 import { usePreviewFeatures } from "../preview/PreviewFeatures";
 import { useRefs } from "@itwin/core-react";
-import { BeUiEvent } from "@itwin/core-bentley";
 import { usePopoutsStore } from "./usePopoutsStore";
 
 interface PopoutWidgetProps {
@@ -62,16 +61,14 @@ function ReparentedPopoutWidget({
   );
 }
 
-/** @internal */
-export const onClosePopoutWidget = new BeUiEvent<{
-  windowId: string;
-}>();
-
 /** A workaround to close floating/popover elements when a popout widget is closed.
  * There are some issues with the popover alignment, especially if the tab is not active (popover target is not rendered) after closing the popout.
  */
 function useAutoClosePopovers(widgetContainerId: string) {
   const ref = React.useRef<HTMLDivElement | null>(null);
+  const onClosePopoutWidget = usePopoutsStore(
+    (state) => state.onClosePopoutWidget
+  );
   React.useEffect(() => {
     const element = ref.current;
     if (!element) return;
@@ -80,6 +77,6 @@ function useAutoClosePopovers(widgetContainerId: string) {
       element.dispatchEvent(new MouseEvent("mousedown"));
       element.dispatchEvent(new PointerEvent("pointerdown"));
     });
-  }, [widgetContainerId]);
+  }, [widgetContainerId, onClosePopoutWidget]);
   return ref;
 }
