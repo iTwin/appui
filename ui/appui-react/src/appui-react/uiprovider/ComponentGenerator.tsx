@@ -62,8 +62,7 @@ function EditorLabel({
   // istanbul ignore next
   const className = classnames(
     "uifw-default-label",
-    !!isLeftmostRecord && "uifw-default-narrow-only-display",
-    !isLeftmostRecord && "uifw-default-inline-label"
+    !!isLeftmostRecord && "uifw-default-narrow-only-display"
   );
   return (
     <Label
@@ -350,14 +349,14 @@ export class ComponentGenerator {
     return (
       <div className="uifw-default-inline-editor-group">
         {row.items.map((item: DialogItem, index: number) =>
-          this.getInlineLabelAndEditor(item, 0 === index)
+          this.getInlineLabelAndEditor(item, index === 0)
         )}
       </div>
     );
   }
 
   private getDivForRow(row: DialogRow): React.ReactNode {
-    if (1 === row.items.length) return this.getEditor(row.items[0]);
+    if (row.items.length === 1) return this.getEditor(row.items[0]);
     return this.getRowWithMultipleEditors(row);
   }
 

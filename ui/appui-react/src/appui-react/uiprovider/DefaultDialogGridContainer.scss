@@ -13,9 +13,9 @@
 
 .uifw-default-inline-editor-group {
   display: flex;
+  gap: var(--iui-size-xs);
 
   .uifw-default-label {
-    margin-left: var(--iui-size-xs);
     margin-right: var(--iui-size-xs);
   }
 }
