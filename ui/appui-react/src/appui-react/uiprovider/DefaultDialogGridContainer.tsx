@@ -57,10 +57,10 @@ export function DialogGridContainer({
 }: DialogGridContainerProps) {
   const className = classnames("uifw-default-container", containerClassName);
   return (
-      <div className={className}>
-        {componentGenerator.uiDataProvider.rows.map(
+    <div className={className}>
+      {componentGenerator.uiDataProvider.rows.map(
         (row: DialogRow, index: number) => componentGenerator.getRow(row, index)
-        )}
+      )}
     </div>
   );
 }
