@@ -2,6 +2,24 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+@import "../layout/safearea";
+
+.uifw-statusBar {
+  display: flex;
+
+  &.nz-safe-area-left {
+    @include nz-safe-area-left;
+  }
+
+  &.nz-safe-area-right {
+    @include nz-safe-area-right;
+  }
+
+  &.nz-safe-area-bottom {
+    @include nz-safe-area-bottom;
+  }
+}
+
 .uifw-statusbar-space-between {
   width: 100%;
   height: 100%;

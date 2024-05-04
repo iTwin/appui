@@ -7,6 +7,8 @@ import { render, screen } from "@testing-library/react";
 import {
   ConfigurableCreateInfo,
   MessageManager,
+  SafeAreaContext,
+  SafeAreaInsets,
   StatusBar,
   StatusBarCenterSection,
   StatusBarLeftSection,
@@ -14,6 +16,7 @@ import {
   StatusBarSpaceBetween,
   StatusBarWidgetControl,
 } from "../../appui-react";
+import { childStructure } from "../TestUtils";
 
 describe("StatusBar", () => {
   afterEach(() => {
@@ -40,6 +43,18 @@ describe("StatusBar", () => {
     );
 
     expect(screen.getByText("ReactNodeContent")).toBeTruthy();
+  });
+
+  it("StatusBar should render safe area correctly", () => {
+    const { container } = render(
+      <SafeAreaContext.Provider value={SafeAreaInsets.Left}>
+        <StatusBar />
+      </SafeAreaContext.Provider>
+    );
+
+    expect(container).toSatisfy(
+      childStructure(".uifw-dockedBar.uifw-statusBar.nz-safe-area-left")
+    );
   });
 
   it("StatusBarSpaceBetween should render correctly", () => {

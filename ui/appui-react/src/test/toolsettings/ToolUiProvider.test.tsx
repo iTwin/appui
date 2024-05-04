@@ -12,7 +12,6 @@ import {
   ConfigurableCreateInfo,
   ContentControl,
   FrontstageProvider,
-  ToolSettingsGrid,
   ToolUiProvider,
   UiFramework,
 } from "../../appui-react";
@@ -68,9 +67,7 @@ describe("ToolUiProvider", () => {
     constructor(info: ConfigurableCreateInfo, options: any) {
       super(info, options);
 
-      this.toolSettingsNode = (
-        <ToolSettingsGrid settings={this.getHorizontalToolSettings()} />
-      );
+      this.toolSettingsNode = this.getHorizontalToolSettings();
       this.horizontalToolSettingNodes = this.getHorizontalToolSettings();
     }
 

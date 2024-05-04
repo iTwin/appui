@@ -138,7 +138,7 @@ export function DockedToolSettings(props: DockedToolSettingsProps) {
   const PanelContainer = props.panelContainer
     ? props.panelContainer
     : DefaultPanelContainer;
-  const className = classnames("nz-toolSettings-docked", props.className);
+  const className = classnames("uifw-toolSettings-docked", props.className);
   return (
     <div
       data-toolsettings-provider={props.itemId}
@@ -440,7 +440,7 @@ function verifiedMapEntries<T>(map: Map<string, T | undefined>) {
 
 function DefaultPanelContainer(props: { children: React.ReactNode }) {
   return (
-    <div className="nz-toolSettings-docked_container">{props.children}</div>
+    <div className="uifw-toolSettings-docked_container">{props.children}</div>
   );
 }
 

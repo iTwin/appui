@@ -28,10 +28,8 @@ describe("WidgetPanelsStatusBar", () => {
       "get"
     ).mockImplementation(() => frontstageDef);
     const { container } = render(<WidgetPanelsStatusBar />);
-    expect(container).to.satisfy(
-      childStructure([
-        ".uifw-widgetPanels-statusBar .nz-messages + .nz-indicators",
-      ])
+    expect(container).toSatisfy(
+      childStructure(".uifw-dockedBar.uifw-statusBar")
     );
   });
 

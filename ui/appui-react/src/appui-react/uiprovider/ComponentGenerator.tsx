@@ -25,6 +25,7 @@ import type { PropertyUpdatedArgs } from "@itwin/components-react";
 import { EditorContainer } from "@itwin/components-react";
 import type { ToolSettingsEntry } from "../widget-panels/ToolSettings";
 import { assert, Logger } from "@itwin/core-bentley";
+import { Label } from "@itwin/itwinui-react";
 
 function EditorLabel({
   uiDataProvider,
@@ -37,14 +38,8 @@ function EditorLabel({
 }) {
   const [isDisabled, setIsDisabled] = React.useState(!!item.isDisabled);
   const displayLabel = React.useMemo(() => {
-    return item.property.displayLabel
-      ? item.property.displayLabel
-      : /* istanbul ignore next */ item.property.name;
+    return item.property.displayLabel || item.property.name;
   }, [item]);
-  const propertyId = React.useMemo(
-    () => `dialogItemProperty-${item.property.name}`,
-    [item]
-  );
 
   // listen for tool sync property events and update the isDisabled state
   React.useEffect(() => {
@@ -67,14 +62,17 @@ function EditorLabel({
   // istanbul ignore next
   const className = classnames(
     "uifw-default-label",
-    isDisabled && "uifw-label-disabled",
     !!isLeftmostRecord && "uifw-default-narrow-only-display",
     !isLeftmostRecord && "uifw-default-inline-label"
   );
   return (
-    <label className={className} htmlFor={propertyId}>
+    <Label
+      className={className}
+      htmlFor={item.property.name}
+      disabled={isDisabled}
+    >
       {displayLabel}:
-    </label>
+    </Label>
   );
 }
 

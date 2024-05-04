@@ -19,7 +19,7 @@ describe("ToolSettingsTools", () => {
 
     it("should return true if focusable item in docked ToolSettings", async () => {
       render(
-        <div className="nz-toolSettings-docked">
+        <div className="uifw-toolSettings-docked">
           <button />
         </div>
       );

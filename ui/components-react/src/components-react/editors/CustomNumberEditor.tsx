@@ -381,13 +381,13 @@ export class CustomNumberEditor
         />
       );
     } else {
-      // NEEDSWORK: still using core-react Input component because of `nativeKeyHandler` prop
       reactNode = (
         <Input
           {...inputProps}
           ref={this._inputElement}
           data-testid="components-customnumber-editor"
           size="small"
+          id={this.props.propertyRecord?.property.name}
         />
       );
     }

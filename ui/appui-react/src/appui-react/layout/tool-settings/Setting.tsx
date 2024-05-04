@@ -27,7 +27,7 @@ export interface ToolSettingProps extends CommonProps {
 export function DockedToolSetting(props: ToolSettingProps) {
   const { onResize } = useToolSettingsEntry();
   const ref = useResizeObserver<HTMLDivElement>(onResize);
-  const className = classnames("nz-toolSettings-setting", props.className);
+  const className = classnames("uifw-toolSettings-setting", props.className);
   return (
     <div className={className} ref={ref} style={props.style}>
       {props.children}

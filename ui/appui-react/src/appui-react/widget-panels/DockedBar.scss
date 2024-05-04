@@ -3,15 +3,19 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-.nz-toolSettings-handle {
+.uifw-dockedBar {
+  background-color: var(--iui-color-background);
   height: var(--iui-component-height);
-  width: var(--iui-component-height);
-  display: grid;
-  place-items: center;
-  cursor: grab;
-  flex-shrink: 0;
 
-  &:active {
-    cursor: grabbing;
+  &[data-placement="top"] {
+    border-block-end: 1px solid var(--iui-color-border);
+  }
+
+  &[data-placement="bottom"] {
+    border-block-start: 1px solid var(--iui-color-border);
+  }
+
+  label {
+    margin-right: var(--iui-size-xs);
   }
 }

@@ -6,8 +6,6 @@
  * @module StatusBar
  */
 
-import "./StatusBar.scss";
-import classnames from "classnames";
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
 import { ConfigurableUiControlType } from "../configurableui/ConfigurableUiControl";
@@ -27,14 +25,9 @@ export function WidgetPanelsStatusBar(props: CommonProps) {
           ConfigurableUiControlType.StatusBarWidget
         ) as StatusBarWidgetControl | undefined)
       : undefined;
-  const className = classnames("uifw-widgetPanels-statusBar", props.className);
   return (
-    <StatusBar
-      className={className}
-      style={props.style}
-      widgetControl={widgetControl}
-    >
-      {widgetDef.reactNode}
+    <StatusBar {...props} widgetControl={widgetControl}>
+      {content}
     </StatusBar>
   );
 }
