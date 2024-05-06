@@ -36,8 +36,11 @@
 }
 
 .uifw-default-label {
-  margin-right: var(--iui-size-xs);
   white-space: nowrap;
+}
+
+.uifw-dockedBar .uifw-default-label {
+  margin-right: var(--iui-size-xs);
 }
 
 .uifw-default-narrow-only-display {
