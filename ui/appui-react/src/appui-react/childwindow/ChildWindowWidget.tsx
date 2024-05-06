@@ -6,14 +6,14 @@
  * @module ChildWindowManager
  */
 
-import "./PopoutWidget.scss";
+import "./ChildWindowWidget.scss";
 import * as React from "react";
 import type { WidgetDef } from "../widgets/WidgetDef";
 import { useRefs } from "@itwin/core-react";
 import { usePopoutsStore } from "./usePopoutsStore";
 import { useReparentPopoutWidget } from "../preview/reparent-popout-widgets/useReparentPopoutWidget";
 
-interface PopoutWidgetProps {
+interface ChildWindowWidgetProps {
   widgetContainerId: string;
   widgetDef: WidgetDef;
 }
@@ -21,13 +21,13 @@ interface PopoutWidgetProps {
 /** Component used to wrap a widget for use in a child window.
  * @internal
  */
-export function PopoutWidget({
+export function ChildWindowWidget({
   widgetContainerId,
   widgetDef,
-}: PopoutWidgetProps) {
+}: ChildWindowWidgetProps) {
   const reparent = useReparentPopoutWidget(widgetDef.id);
   if (reparent) {
-    return <ReparentedPopoutWidget widgetContainerId={widgetContainerId} />;
+    return <Reparented widgetContainerId={widgetContainerId} />;
   }
   return (
     <div
@@ -39,9 +39,9 @@ export function PopoutWidget({
   );
 }
 
-function ReparentedPopoutWidget({
+function Reparented({
   widgetContainerId,
-}: Pick<PopoutWidgetProps, "widgetContainerId">) {
+}: Pick<ChildWindowWidgetProps, "widgetContainerId">) {
   const setPopout = usePopoutsStore((state) => state.setPopout);
   const setPopoutRef = React.useCallback<React.RefCallback<HTMLDivElement>>(
     (instance) => {
@@ -54,7 +54,7 @@ function ReparentedPopoutWidget({
 
   return (
     <div
-      className="uifw-childWindow-popoutWidget_reparented"
+      className="uifw-childWindow-childWindowWidget_reparented"
       data-widget-id={widgetContainerId}
       ref={ref}
     />
