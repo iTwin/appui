@@ -25,7 +25,6 @@ import {
   getTabLocation,
   isPopoutTabLocation,
 } from "../layout/state/TabLocation";
-import { ThemeProvider as ThemeProviderV2 } from "@itwin/itwinui-react-v2";
 import { usePopoutsStore } from "../childwindow/usePopoutsStore";
 
 function WidgetFallback() {
@@ -80,16 +79,11 @@ export function WidgetContent() {
       portalContainer={popoutContainer ?? undefined}
       className="uifw-widgetPanels-content_themeProvider"
     >
-      <ThemeProviderV2
-        theme="inherit"
-        className="uifw-widgetPanels-content_themeProviderV2"
-      >
-        <ScrollableWidgetContent itemId={itemId} providerId={providerId}>
-          <ErrorBoundary FallbackComponent={WidgetFallback}>
-            {widget?.reactNode}
-          </ErrorBoundary>
-        </ScrollableWidgetContent>
-      </ThemeProviderV2>
+      <ScrollableWidgetContent itemId={itemId} providerId={providerId}>
+        <ErrorBoundary FallbackComponent={WidgetFallback}>
+          {widget?.reactNode}
+        </ErrorBoundary>
+      </ScrollableWidgetContent>
     </ThemeProvider>
   );
 }

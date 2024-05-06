@@ -11,6 +11,7 @@ import { create } from "zustand";
 import { Logger } from "@itwin/core-bentley";
 import { UiFramework } from "../UiFramework";
 import type { useTransientState } from "../widget-panels/useTransientState";
+import type { WidgetDef } from "../widgets/WidgetDef";
 
 /** List of known preview features. */
 interface KnownPreviewFeatures {
@@ -47,10 +48,12 @@ interface KnownPreviewFeatures {
   widgetActionDropdown: { threshold: number };
   /** If true, the [[Toolbar]] component will be replaced by a new iTwinUI based toolbar. */
   newToolbars: boolean;
-  /** If true, popout widgets will not be rendered in a separate element tree, instead widget content will be re-parented to a popout content container.
+  /** If `true`, popout widgets will not be rendered in a separate element tree, instead widget content will be re-parented to a popout content container.
+   * Alternatively, an array of widget ids can be provided to only re-parent specific widgets.
    * @note Use {@link useTransientState} to save and restore DOM transient state when re-parenting widgets.
+   * @note There is a known limitation where iTwinUI v2 popover elements will be rendered in the main window. Prefer using iTwinUI v3 when using this feature.
    */
-  reparentPopoutWidgets: boolean;
+  reparentPopoutWidgets: boolean | WidgetDef["id"][];
 }
 
 /** Object used trim to only known features at runtime.

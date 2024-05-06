@@ -9,9 +9,9 @@
 import "./PopoutWidget.scss";
 import * as React from "react";
 import type { WidgetDef } from "../widgets/WidgetDef";
-import { usePreviewFeatures } from "../preview/PreviewFeatures";
 import { useRefs } from "@itwin/core-react";
 import { usePopoutsStore } from "./usePopoutsStore";
+import { useReparentPopoutWidget } from "../preview/reparent-popout-widgets/useReparentPopoutWidget";
 
 interface PopoutWidgetProps {
   widgetContainerId: string;
@@ -25,8 +25,8 @@ export function PopoutWidget({
   widgetContainerId,
   widgetDef,
 }: PopoutWidgetProps) {
-  const { reparentPopoutWidgets } = usePreviewFeatures();
-  if (reparentPopoutWidgets) {
+  const reparent = useReparentPopoutWidget(widgetDef.id);
+  if (reparent) {
     return <ReparentedPopoutWidget widgetContainerId={widgetContainerId} />;
   }
   return (
