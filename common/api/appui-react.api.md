@@ -4302,10 +4302,7 @@ export type StateType<R extends Reducer<any, any>> = DeepReadonly<ReturnType<R>>
 export const stateVersion = 17;
 
 // @public
-export class StatusBar extends React_2.Component<StatusBarProps> {
-    // (undocumented)
-    render(): React_2.ReactNode;
-}
+export function StatusBar(props: StatusBarProps): React_2.JSX.Element;
 
 // @public
 export namespace StatusBar {
@@ -4782,19 +4779,10 @@ export interface ToolSettingsEntry {
     labelNode: React_2.ReactNode;
 }
 
-// @internal
-export function ToolSettingsGrid({ settings }: ToolSettingsGridProps): React_2.JSX.Element;
-
 // @public
 export function ToolSettingsGridContainer({ componentGenerator, }: {
     componentGenerator: ComponentGenerator;
 }): React_2.JSX.Element;
-
-// @internal
-export interface ToolSettingsGridProps {
-    // (undocumented)
-    settings?: ToolSettingsEntry[];
-}
 
 // @internal (undocumented)
 export function ToolSettingsWidgetContent(): React_2.JSX.Element;
