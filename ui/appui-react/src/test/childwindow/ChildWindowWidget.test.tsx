@@ -5,9 +5,9 @@
 import * as React from "react";
 import { render } from "@testing-library/react";
 import { WidgetDef, WidgetState } from "../../appui-react";
-import { PopoutWidget } from "../../appui-react/childwindow/PopoutWidget";
+import { ChildWindowWidget } from "../../appui-react/childwindow/ChildWindowWidget";
 
-describe("PopoutWidget", () => {
+describe("ChildWindowWidget", () => {
   const widgetDef = WidgetDef.create({
     id: "w1",
     defaultState: WidgetState.Open,
@@ -18,7 +18,10 @@ describe("PopoutWidget", () => {
       <div>Hello</div>
     ));
     const renderedComponent = render(
-      <PopoutWidget widgetContainerId="testContainer" widgetDef={widgetDef} />
+      <ChildWindowWidget
+        widgetContainerId="testContainer"
+        widgetDef={widgetDef}
+      />
     );
     expect(renderedComponent.queryByText("Hello")).toBeTruthy();
     renderedComponent.unmount();

@@ -19,6 +19,7 @@ import { isProviderItem } from "../ui-items-provider/isProviderItem";
 import type { WidgetDef } from "../widgets/WidgetDef";
 import { useTransientState } from "./useTransientState";
 import { useTranslation } from "../hooks/useTranslation";
+import { PopoutThemeProvider } from "../preview/reparent-popout-widgets/PopoutThemeProvider";
 
 function WidgetFallback() {
   const { translate } = useTranslation();
@@ -51,12 +52,15 @@ export function WidgetContent() {
     widget?.initialConfig && isProviderItem(widget?.initialConfig)
       ? widget?.initialConfig.providerId
       : undefined;
+
   return (
-    <ScrollableWidgetContent itemId={itemId} providerId={providerId}>
-      <ErrorBoundary FallbackComponent={WidgetFallback}>
-        {widget?.reactNode}
-      </ErrorBoundary>
-    </ScrollableWidgetContent>
+    <PopoutThemeProvider>
+      <ScrollableWidgetContent itemId={itemId} providerId={providerId}>
+        <ErrorBoundary FallbackComponent={WidgetFallback}>
+          {widget?.reactNode}
+        </ErrorBoundary>
+      </ScrollableWidgetContent>
+    </PopoutThemeProvider>
   );
 }
 
