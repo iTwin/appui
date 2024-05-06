@@ -10,7 +10,7 @@ import "./ChildWindowWidget.scss";
 import * as React from "react";
 import type { WidgetDef } from "../widgets/WidgetDef";
 import { useRefs } from "@itwin/core-react";
-import { usePopoutsStore } from "./usePopoutsStore";
+import { usePopoutsStore } from "../preview/reparent-popout-widgets/usePopoutsStore";
 import { useReparentPopoutWidget } from "../preview/reparent-popout-widgets/useReparentPopoutWidget";
 
 interface ChildWindowWidgetProps {

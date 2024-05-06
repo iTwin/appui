@@ -26,7 +26,7 @@ import { UiStateStorageHandler } from "../uistate/useUiStateStorage";
 import type { ChildWindow } from "./ChildWindowConfig";
 import { copyStyles } from "./CopyStyles";
 import "./InternalChildWindowManager.scss";
-import { usePopoutsStore } from "./usePopoutsStore";
+import { usePopoutsStore } from "../preview/reparent-popout-widgets/usePopoutsStore";
 
 const childHtml = `<!DOCTYPE html>
 <html>
