@@ -584,7 +584,7 @@ export class DisplayValuePropertyDataFilterer extends PropertyRecordDataFilterer
     recordMatchesFilter(node: PropertyRecord): Promise<PropertyDataFilterResult>;
 }
 
-// @public @deprecated
+// @public
 export class DoublePropertyValueRenderer implements IPropertyValueRenderer {
     canRender(record: PropertyRecord): boolean;
     render(record: PropertyRecord, context?: PropertyValueRendererContext): React_3.JSX.Element;
@@ -1599,7 +1599,7 @@ export class NavigationPropertyTypeConverter extends TypeConverter {
     sortCompare(a: Primitives.Value, b: Primitives.Value, ignoreCase?: boolean): number;
 }
 
-// @public @deprecated
+// @public
 export class NavigationPropertyValueRenderer implements IPropertyValueRenderer {
     canRender(record: PropertyRecord): boolean;
     render(record: PropertyRecord, context?: PropertyValueRendererContext): React_3.JSX.Element;
