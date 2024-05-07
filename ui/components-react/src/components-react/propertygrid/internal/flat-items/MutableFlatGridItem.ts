@@ -6,10 +6,10 @@
  * @module PropertyGrid
  */
 import { immerable } from "immer";
+import shortid from "shortid";
 import type { PropertyDescription } from "@itwin/appui-abstract";
 import { PropertyRecord, PropertyValueFormat } from "@itwin/appui-abstract";
 import type { PropertyCategory } from "../../PropertyDataProvider";
-import { Guid } from "@itwin/core-bentley";
 
 /**
  * Types of FlatGridItems for differentiating what property FlatGridItem is wrapping.
@@ -63,7 +63,7 @@ export abstract class MutableFlatPropertyGridItem
 {
   public [immerable] = true;
 
-  public readonly key: string = Guid.createValue();
+  public readonly key: string = shortid.generate();
   protected _isExpanded: boolean = false;
   protected _lastInNumberOfCategories: number = 0;
   protected _isLastInRootCategory: boolean = false;

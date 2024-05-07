@@ -15,6 +15,7 @@ import type { MutableGridCategory } from "../../../../../components-react/proper
 import type { MutableCategorizedPrimitiveProperty } from "../../../../../components-react/propertygrid/internal/flat-items/MutableCategorizedPrimitiveProperty";
 import type { MutableCategorizedArrayProperty } from "../../../../../components-react/propertygrid/internal/flat-items/MutableCategorizedArrayProperty";
 import type { MutableCategorizedStructProperty } from "../../../../../components-react/propertygrid/internal/flat-items/MutableCategorizedStructProperty";
+import shortid from "shortid";
 import type { MutableGridItemFactory } from "../../../../../components-react/propertygrid/internal/flat-items/MutableGridItemFactory";
 import type {
   CategorizedPropertyItem,
@@ -27,7 +28,6 @@ import type {
 } from "../../../../../components-react/propertygrid/PropertyDataProvider";
 import * as faker from "faker";
 import type { IPropertyGridModel } from "../../../../../components-react/propertygrid/internal/PropertyGridModel";
-import { Guid } from "@itwin/core-bentley";
 
 /** @internal */
 export interface GridModelLastItemData {
@@ -286,7 +286,7 @@ export class FlatGridTestUtils {
     isExpanded?: boolean
   ) {
     Object.assign(mockItem, {
-      key: Guid.createValue(),
+      key: shortid.generate(),
       type: mockItem.type ?? {},
       isExpanded: mockItem.isExpanded ?? {},
       selectionKey: mockItem.selectionKey ?? {},

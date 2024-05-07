@@ -447,6 +447,10 @@
       "allowedCategories": [ "internal" ]
     },
     {
+      "name": "shortid",
+      "allowedCategories": [ "frontend" ]
+    },
+    {
       "name": "storybook",
       "allowedCategories": [ "internal" ]
     },
