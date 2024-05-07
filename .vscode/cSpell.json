@@ -79,6 +79,8 @@
     "readlink",
     "readonly",
     "reinitialization",
+    "reparent",
+    "reparented",
     "Resizer",
     "rpcinterface",
     "ruleset",

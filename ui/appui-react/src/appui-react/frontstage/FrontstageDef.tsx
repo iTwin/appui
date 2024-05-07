@@ -23,7 +23,7 @@ import { Rectangle } from "@itwin/core-react";
 import * as React from "react";
 import { UiFramework } from "../UiFramework";
 import type { ChildWindow } from "../childwindow/ChildWindowConfig";
-import { PopoutWidget } from "../childwindow/PopoutWidget";
+import { ChildWindowWidget } from "../childwindow/ChildWindowWidget";
 import { TimeTracker } from "../configurableui/TimeTracker";
 import type { ContentControl } from "../content/ContentControl";
 import type { ContentGroup } from "../content/ContentGroup";
@@ -786,7 +786,7 @@ export class FrontstageDef {
     if (!widgetDef) return false;
 
     const popoutContent = (
-      <PopoutWidget
+      <ChildWindowWidget
         widgetContainerId={widgetContainerId}
         widgetDef={widgetDef}
       />

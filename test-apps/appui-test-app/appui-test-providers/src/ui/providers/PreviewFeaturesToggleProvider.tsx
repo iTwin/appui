@@ -44,6 +44,10 @@ const availableFeatures: AvailableFeatures = {
   newToolbars: {
     label: "Enable iTwinUI based toolbars",
   },
+  reparentPopoutWidgets: {
+    label: "Re-parent popout widgets",
+    value: ["widget-layout-info", "widget-info-Floating"],
+  },
 };
 
 function PreviewFeatureList() {

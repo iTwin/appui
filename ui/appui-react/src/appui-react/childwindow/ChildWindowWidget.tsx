@@ -6,11 +6,13 @@
  * @module ChildWindowManager
  */
 
-import "./PopoutWidget.scss";
+import "./ChildWindowWidget.scss";
 import * as React from "react";
 import type { WidgetDef } from "../widgets/WidgetDef";
+import { useReparentPopoutWidget } from "../preview/reparent-popout-widgets/useReparentPopoutWidget";
+import { ReparentedPopoutWidget } from "../preview/reparent-popout-widgets/ReparentedPopoutWidget";
 
-interface PopoutWidgetProps {
+interface ChildWindowWidgetProps {
   widgetContainerId: string;
   widgetDef: WidgetDef;
 }
@@ -18,10 +20,14 @@ interface PopoutWidgetProps {
 /** Component used to wrap a widget for use in a child window.
  * @internal
  */
-export function PopoutWidget({
+export function ChildWindowWidget({
   widgetContainerId,
   widgetDef,
-}: PopoutWidgetProps) {
+}: ChildWindowWidgetProps) {
+  const reparent = useReparentPopoutWidget(widgetDef.id);
+  if (reparent) {
+    return <ReparentedPopoutWidget widgetId={widgetContainerId} />;
+  }
   return (
     <div
       className="uifw-popout-widget-filled-container"

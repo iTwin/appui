@@ -26,6 +26,7 @@ import { UiStateStorageHandler } from "../uistate/useUiStateStorage";
 import type { ChildWindow } from "./ChildWindowConfig";
 import { copyStyles } from "./CopyStyles";
 import "./InternalChildWindowManager.scss";
+import { usePopoutsStore } from "../preview/reparent-popout-widgets/usePopoutsStore";
 
 const childHtml = `<!DOCTYPE html>
 <html>
@@ -220,8 +221,10 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
           childWindowId,
           childWindow
         );
+
         // Trigger first so popout can be converted back to main window widget
         this.close(childWindowId, false);
+
         // UnmountComponentAtNode is deprecated in React 18, so if they are
         // using React 18 and passing in a createRoot function, unmount()
         // will be used
@@ -252,6 +255,9 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
       (openWindow) => openWindow.childWindowId === childWindowId
     );
     if (windowIndex === -1) return false;
+    const { onClosePopoutWidget } = usePopoutsStore.getState();
+    onClosePopoutWidget.raiseEvent({ windowId: childWindowId });
+
     const childWindow = this.openChildWindows[windowIndex];
     this.openChildWindows.splice(windowIndex, 1);
     if (processWindowClose) {
