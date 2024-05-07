@@ -363,9 +363,6 @@ export namespace ConvertedPrimitives {
     export type Value = boolean | number | string | Date | Point | Id64String;
 }
 
-// @internal
-export function convertPrimitiveRecordToString(record: PropertyRecord): string | Promise<string>;
-
 // @public
 export function CustomizablePropertyRenderer(props: CustomizablePropertyRendererProps): React_3.JSX.Element;
 

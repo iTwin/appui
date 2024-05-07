@@ -11,10 +11,8 @@ import type { PropertyRecord } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
 import type { Orientation } from "@itwin/core-react";
 import { ArrayPropertyValueRenderer } from "./renderers/value/ArrayPropertyValueRenderer";
-import { DoublePropertyValueRenderer } from "./renderers/value/DoublePropertyValueRenderer";
 import { MergedPropertyValueRenderer } from "./renderers/value/MergedPropertyValueRenderer";
 import { MultilineTextPropertyValueRenderer } from "./renderers/value/MultilineTextPropertyValueRenderer";
-import { NavigationPropertyValueRenderer } from "./renderers/value/NavigationPropertyValueRenderer";
 import { PrimitivePropertyValueRenderer } from "./renderers/value/PrimitivePropertyValueRenderer";
 import { StructPropertyValueRenderer } from "./renderers/value/StructPropertyValueRenderer";
 import { UrlPropertyValueRenderer } from "./renderers/value/UrlPropertyValueRenderer";
@@ -194,16 +192,8 @@ export class PropertyValueRendererManager {
 }
 
 PropertyValueRendererManager.defaultManager.registerRenderer(
-  "navigation",
-  new NavigationPropertyValueRenderer()
-);
-PropertyValueRendererManager.defaultManager.registerRenderer(
   "url",
   new UrlPropertyValueRenderer()
-);
-PropertyValueRendererManager.defaultManager.registerRenderer(
-  "double",
-  new DoublePropertyValueRenderer()
 );
 PropertyValueRendererManager.defaultManager.registerRenderer(
   "multiline",
