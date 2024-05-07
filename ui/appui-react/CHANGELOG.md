@@ -1,6 +1,22 @@
 # Change Log - @itwin/appui-react
 
-This log was last generated on Fri, 05 Apr 2024 09:55:35 GMT and should not be manually modified.
+This log was last generated on Tue, 07 May 2024 08:44:06 GMT and should not be manually modified.
+
+## 4.13.0
+Tue, 07 May 2024 08:44:06 GMT
+
+### Updates
+
+- Refactor of MessageCenterField
+- docs: remove incorrect frontstage links
+- Deprecated all UI event classes.
+- Used iTwinUI labels in StatusBar and ToolSettings.
+- Fix `FrontstageDef` to correctly update widgets if a new provider is registered while a frontstage is activating.
+- Deprecate UiFramework.isMobile in favor of ProcessDetector.
+- Fixed popout widgets getting bigger each time they are popped out.
+- Fix `FrameworkUiAdmin.showCard()` runtime error.
+- Add `reparentPopoutWidgets` preview feature.
+- Bump `FloatingViewportContentWrapper` to `@public`.
 
 ## 4.12.0
 Fri, 05 Apr 2024 09:55:35 GMT
