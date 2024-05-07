@@ -1,6 +1,13 @@
 # Change Log - @itwin/components-react
 
-This log was last generated on Tue, 07 May 2024 08:44:06 GMT and should not be manually modified.
+This log was last generated on Tue, 07 May 2024 15:01:46 GMT and should not be manually modified.
+
+## 4.13.1
+Tue, 07 May 2024 15:01:46 GMT
+
+### Updates
+
+- Fixed `VirtualizedPropertyGrid` not rendering primitive property display value and instead always trying to convert raw value into string.
 
 ## 4.13.0
 Tue, 07 May 2024 08:44:06 GMT
