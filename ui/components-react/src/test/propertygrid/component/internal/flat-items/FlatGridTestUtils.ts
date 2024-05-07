@@ -3,6 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { PropertyRecord, PropertyValueFormat } from "@itwin/appui-abstract";
+import { Guid } from "@itwin/core-bentley";
 import type {
   CategorizedPropertyTypes,
   IMutableCategorizedPropertyItem,
@@ -15,7 +16,6 @@ import type { MutableGridCategory } from "../../../../../components-react/proper
 import type { MutableCategorizedPrimitiveProperty } from "../../../../../components-react/propertygrid/internal/flat-items/MutableCategorizedPrimitiveProperty";
 import type { MutableCategorizedArrayProperty } from "../../../../../components-react/propertygrid/internal/flat-items/MutableCategorizedArrayProperty";
 import type { MutableCategorizedStructProperty } from "../../../../../components-react/propertygrid/internal/flat-items/MutableCategorizedStructProperty";
-import shortid from "shortid";
 import type { MutableGridItemFactory } from "../../../../../components-react/propertygrid/internal/flat-items/MutableGridItemFactory";
 import type {
   CategorizedPropertyItem,
@@ -286,7 +286,7 @@ export class FlatGridTestUtils {
     isExpanded?: boolean
   ) {
     Object.assign(mockItem, {
-      key: shortid.generate(),
+      key: Guid.createValue(),
       type: mockItem.type ?? {},
       isExpanded: mockItem.isExpanded ?? {},
       selectionKey: mockItem.selectionKey ?? {},

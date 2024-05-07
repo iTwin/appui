@@ -65,6 +65,7 @@ public;Direction
 internal;DirectionHelpers
 public;DisplayValuePropertyDataFilterer 
 public;DoublePropertyValueRenderer 
+deprecated;DoublePropertyValueRenderer 
 internal;DragAction
 public;EditableTreeDataProvider 
 public;EditorContainer(props: EditorContainerProps): React_3.JSX.Element
@@ -180,6 +181,7 @@ public;MutableTreeModel
 public;MutableTreeModelNode 
 public;NavigationPropertyTypeConverter 
 public;NavigationPropertyValueRenderer 
+deprecated;NavigationPropertyValueRenderer 
 public;NextObserver
 public;NonPrimitivePropertyLabelRenderer 
 public;NonPrimitivePropertyLabelRendererProps 
