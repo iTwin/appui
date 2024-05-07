@@ -39,6 +39,19 @@ describe("PrimitivePropertyValueRenderer", () => {
       renderedElement.getByText("Test property");
     });
 
+    it("renders primitive property's display value", () => {
+      const renderer = new PrimitivePropertyValueRenderer();
+      const stringProperty = TestUtils.createPrimitiveStringProperty(
+        "Label",
+        "Raw Value",
+        "Display Value"
+      );
+
+      const element = renderer.render(stringProperty);
+      const renderedElement = render(<>{element}</>);
+      renderedElement.getByText("Display Value");
+    });
+
     it("supports PropertyConverterInfo", () => {
       const renderer = new PrimitivePropertyValueRenderer();
       const stringProperty = TestUtils.createPrimitiveStringProperty(
