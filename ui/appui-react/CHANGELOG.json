@@ -2,6 +2,45 @@
   "name": "@itwin/appui-react",
   "entries": [
     {
+      "version": "4.13.0",
+      "tag": "@itwin/appui-react_v4.13.0",
+      "date": "Tue, 07 May 2024 08:44:06 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Refactor of MessageCenterField"
+          },
+          {
+            "comment": "docs: remove incorrect frontstage links"
+          },
+          {
+            "comment": "Deprecated all UI event classes."
+          },
+          {
+            "comment": "Used iTwinUI labels in StatusBar and ToolSettings."
+          },
+          {
+            "comment": "Fix `FrontstageDef` to correctly update widgets if a new provider is registered while a frontstage is activating."
+          },
+          {
+            "comment": "Deprecate UiFramework.isMobile in favor of ProcessDetector."
+          },
+          {
+            "comment": "Fixed popout widgets getting bigger each time they are popped out."
+          },
+          {
+            "comment": "Fix `FrameworkUiAdmin.showCard()` runtime error."
+          },
+          {
+            "comment": "Add `reparentPopoutWidgets` preview feature."
+          },
+          {
+            "comment": "Bump `FloatingViewportContentWrapper` to `@public`."
+          }
+        ]
+      }
+    },
+    {
       "version": "4.12.0",
       "tag": "@itwin/appui-react_v4.12.0",
       "date": "Fri, 05 Apr 2024 09:55:35 GMT",

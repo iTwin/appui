@@ -1,6 +1,13 @@
 # Change Log - @itwin/imodel-components-react
 
-This log was last generated on Fri, 05 Apr 2024 09:55:35 GMT and should not be manually modified.
+This log was last generated on Tue, 07 May 2024 08:44:06 GMT and should not be manually modified.
+
+## 4.13.0
+Tue, 07 May 2024 08:44:06 GMT
+
+### Updates
+
+- Deprecated all UI event classes.
 
 ## 4.12.0
 Fri, 05 Apr 2024 09:55:35 GMT
