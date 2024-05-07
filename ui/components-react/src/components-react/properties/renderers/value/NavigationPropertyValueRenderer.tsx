@@ -18,6 +18,7 @@ import { convertRecordToString } from "./Common";
 
 /** Default Navigation Property Renderer
  * @public
+ * @deprecated in 4.14.0. Use [[PrimitivePropertyValueRenderer]] instead.
  */
 export class NavigationPropertyValueRenderer implements IPropertyValueRenderer {
   /** Checks if the renderer can handle given property */
