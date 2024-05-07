@@ -235,7 +235,7 @@ describe("InternalToolSettingsManager", () => {
 
     it("should return true if focusable item in docked ToolSettings", async () => {
       render(
-        <div className="nz-toolSettings-docked">
+        <div className="uifw-toolSettings-docked">
           <button />
         </div>
       );
@@ -243,7 +243,7 @@ describe("InternalToolSettingsManager", () => {
     });
 
     it("should return false if no focusable item in docked ToolSettings", async () => {
-      render(<div className="nz-toolSettings-docked"></div>);
+      render(<div className="uifw-toolSettings-docked"></div>);
       expect(InternalToolSettingsManager.focusIntoToolSettings()).toEqual(
         false
       );

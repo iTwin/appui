@@ -35,6 +35,7 @@ Table of contents:
 ### Changes
 
 - Bump `FloatingViewportContentWrapper` to `@public`. [#801](https://github.com/iTwin/appui/pull/801)
+- Use iTwinUI labels in `StatusBar` and `ToolSettings`. [#821](https://github.com/iTwin/appui/pull/821)
 
 ### Fixes
 

@@ -17,6 +17,8 @@ import { ScrollableWidgetContent } from "../layout/widget/Content";
 import "./ToolSettings.scss";
 import { useActiveToolId } from "../hooks/useActiveToolId";
 import { useTranslation } from "../hooks/useTranslation";
+import { Text } from "@itwin/itwinui-react";
+import { DockedBar } from "./DockedBar";
 
 /** Defines a ToolSettings property entry.
  * @public
@@ -33,19 +35,11 @@ function EmptyToolSettingsLabel({ toolId }: { toolId: string }) {
   const tool = IModelApp.tools.find(toolId);
   const toolName = tool?.flyover;
   return (
-    <div className="uif-toolsetting-label-docked-horizontal-empty">
+    <Text as="i" isMuted={true} className="uifw-toolSettings-label-empty">
       {translate("tools.noToolSettingsStart")}
-      {toolName ? toolName : translate("tools.noToolSettingsPlaceholderName")}
+      {toolName || translate("tools.noToolSettingsPlaceholderName")}
       {translate("tools.noToolSettingsEnd")}
-    </div>
-  );
-}
-
-/** @internal */
-// istanbul ignore next - need to work on overflow unit testing
-function TsLabel({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="uif-toolsetting-label-docked-horizontal">{children}</div>
+    </Text>
   );
 }
 
@@ -55,8 +49,7 @@ function TsLabel({ children }: { children: React.ReactNode }) {
 export function useShouldRenderDockedToolSettings() {
   return useLayout((state) => {
     const toolSettings = state.toolSettings;
-    if (!toolSettings) return false;
-    if (toolSettings.type === "widget") return false;
+    if (!toolSettings || toolSettings.type === "widget") return false;
     return !toolSettings.hidden;
   });
 }
@@ -76,7 +69,7 @@ export function ToolSettingsDockedContent() {
   const emptySettings = React.useMemo<ToolSettingsEntry[]>(
     () => [
       {
-        editorNode: <div />,
+        editorNode: null,
         labelNode: <EmptyToolSettingsLabel toolId={activeToolId} />,
       },
     ],
@@ -89,20 +82,22 @@ export function ToolSettingsDockedContent() {
 
   // for the overflow to work properly each setting in the DockedToolSettings should be wrapped by a DockedToolSetting component
   return (
-    <DockedToolSettings
-      itemId={
-        InternalFrontstageManager.activeToolSettingsProvider?.uniqueId ?? "none"
-      }
-      key={forceRefreshKey}
-    >
-      {entries &&
-        entries.map((entry, index) => (
+    <DockedBar placement="top">
+      <DockedToolSettings
+        itemId={
+          InternalFrontstageManager.activeToolSettingsProvider?.uniqueId ??
+          "none"
+        }
+        key={forceRefreshKey}
+      >
+        {entries.map((entry, index) => (
           <DockedToolSetting key={index}>
-            <TsLabel>{entry.labelNode}</TsLabel>
+            {entry.labelNode}
             {entry.editorNode}
           </DockedToolSetting>
         ))}
-    </DockedToolSettings>
+      </DockedToolSettings>
+    </DockedBar>
   );
 }
 
@@ -134,37 +129,6 @@ export function useHorizontalToolSettingEntries() {
   }, []);
 
   return settings;
-}
-
-/** Defines the ToolSettingsEntry entries that are used to populate a grid layout of ToolSetting properties.
- * @internal
- */
-export interface ToolSettingsGridProps {
-  // label node which potentially can contain a lock node as well.
-  settings?: ToolSettingsEntry[];
-}
-
-/** Component that arranges an array of ToolSettingsEntry items into a two column grid layout.
- * The left column is considered the label column, the right column is considered the property
- * editor column.
- * @internal
- */
-export function ToolSettingsGrid({ settings }: ToolSettingsGridProps) {
-  return (
-    <div className="uifw-standard-toolsettings-two-column-grid">
-      {settings &&
-        settings.map((setting: ToolSettingsEntry, index: number) => {
-          return (
-            <React.Fragment key={index}>
-              <span className="uifw-standard-toolsettings-label-entry">
-                {setting.labelNode}
-              </span>
-              {setting.editorNode}
-            </React.Fragment>
-          );
-        })}
-    </div>
-  );
 }
 
 /** @internal */
@@ -213,7 +177,7 @@ export function ToolSettingsWidgetContent() {
   return (
     <div
       data-toolsettings-provider={providerId}
-      className="uifw-floating-toolsettings-container"
+      className="uifw-floating-toolSettings-container"
       ref={floatingToolSettingsContainerRef}
       key={forceRefreshKey}
     >

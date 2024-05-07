@@ -3,33 +3,10 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-.uif-toolsetting-label-docked-horizontal {
-  align-self: center;
+.uifw-toolSettings-label-empty {
+  padding-right: var(--iui-size-s);
 }
 
-.uif-toolsetting-label-docked-horizontal-empty {
-  padding-right: 0.5em;
-  align-self: center;
-  font-style: italic;
-  color: var(--iui-color-text-muted);
-}
-
-.uifw-standard-toolsettings-two-column-grid {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  row-gap: 0.5em;
-  column-gap: 0.75em;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  align-items: center;
-  margin: 4px 4px 0px 4px;
-
-  .uifw-standard-toolsettings-label-entry {
-    text-align: end;
-  }
-}
-
-.uifw-floating-toolsettings-container {
-  padding-top: 4px;
+.uifw-floating-toolSettings-container {
+  padding-top: var(--iui-size-2xs);
 }

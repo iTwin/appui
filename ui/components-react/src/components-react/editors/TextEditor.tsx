@@ -225,6 +225,7 @@ export class TextEditor
           ref={this._inputElement}
           data-testid="components-text-editor"
           size="small"
+          id={this.props.propertyRecord?.property.name}
         />
       );
     }

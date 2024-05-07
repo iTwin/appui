@@ -93,7 +93,7 @@ export function MessageCenterField(props: CommonProps) {
       onVisibleChange={(visible) => handleOpenChange(visible)}
       placement="top"
       middleware={{
-        offset: 6,
+        offset: 4,
       }}
       className="uifw-statusFields-messageCenter-messageCenterField_popover"
       content={

@@ -165,7 +165,7 @@ export class InternalToolSettingsManager {
   }
 
   public static focusIntoToolSettings(): boolean {
-    let divElement = document.querySelector("div.nz-toolSettings-docked");
+    let divElement = document.querySelector("div.uifw-toolSettings-docked");
     if (divElement) {
       if (focusIntoContainer(divElement as HTMLDivElement)) return true;
     }

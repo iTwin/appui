@@ -13,14 +13,14 @@
 
   > .uifw-statusFields-selectionScope-label {
     display: inline;
-    padding-right: 4px;
+    margin-right: var(--iui-size-xs);
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
 
     @include for-tablet-portrait-down {
       display: none;
-      padding-right: 0px;
+      margin-right: 0px;
     }
   }
 

@@ -57,13 +57,10 @@ export function DialogGridContainer({
 }: DialogGridContainerProps) {
   const className = classnames("uifw-default-container", containerClassName);
   return (
-    <div className="uifw-default-resizer-parent">
-      <div className={className}>
-        {componentGenerator.uiDataProvider.rows.map(
-          (row: DialogRow, index: number) =>
-            componentGenerator.getRow(row, index)
-        )}
-      </div>
+    <div className={className}>
+      {componentGenerator.uiDataProvider.rows.map(
+        (row: DialogRow, index: number) => componentGenerator.getRow(row, index)
+      )}
     </div>
   );
 }

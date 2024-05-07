@@ -9,15 +9,15 @@
 import type { CommonDivProps, CommonProps } from "@itwin/core-react";
 import { Div } from "@itwin/core-react";
 import * as React from "react";
+import classnames from "classnames";
 import { UiFramework } from "../UiFramework";
-import { Footer } from "../layout/footer/Footer";
 import { SafeAreaContext } from "../safearea/SafeAreaContext";
 import { StatusBarField } from "./Field";
 import { StatusBarPopup } from "./popup/Popup";
 import "./StatusBar.scss";
 import type { StatusBarWidgetControl } from "./StatusBarWidgetControl";
-
-// cspell:ignore safearea
+import { SafeAreaInsetsHelpers } from "../layout/base/SafeAreaInsets";
+import { DockedBar } from "../widget-panels/DockedBar";
 
 /** Properties for the [[StatusBar]] React component
  * @public
@@ -30,24 +30,25 @@ export interface StatusBarProps extends CommonProps {
 /** Status Bar React component.
  * @public
  */
-export class StatusBar extends React.Component<StatusBarProps> {
-  public override render(): React.ReactNode {
-    return (
-      <SafeAreaContext.Consumer>
-        {(safeAreaInsets) => (
-          <Footer
-            className={this.props.className}
-            onMouseEnter={UiFramework.visibility.handleWidgetMouseEnter}
-            safeAreaInsets={safeAreaInsets}
-            style={this.props.style}
-          >
-            {this.props.widgetControl?.getReactNode?.() ?? null}
-            {this.props.children}
-          </Footer>
-        )}
-      </SafeAreaContext.Consumer>
-    );
-  }
+export function StatusBar(props: StatusBarProps) {
+  const safeAreaInsets = React.useContext(SafeAreaContext);
+  const className = classnames(
+    "uifw-statusBar",
+    safeAreaInsets && SafeAreaInsetsHelpers.getCssClassNames(safeAreaInsets),
+    props.className
+  );
+
+  return (
+    <DockedBar
+      placement="bottom"
+      className={className}
+      style={props.style}
+      onMouseEnter={UiFramework.visibility.handleWidgetMouseEnter}
+    >
+      {props.widgetControl?.getReactNode?.() ?? null}
+      {props.children}
+    </DockedBar>
+  );
 }
 
 /** StatusBar With Space Between Items React functional component

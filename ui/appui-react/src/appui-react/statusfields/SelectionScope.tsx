@@ -7,7 +7,7 @@
  */
 
 import type { CommonProps } from "@itwin/core-react";
-import { Select } from "@itwin/itwinui-react";
+import { Label, Select } from "@itwin/itwinui-react";
 import classnames from "classnames";
 import * as React from "react";
 import type { ConnectedComponent } from "react-redux";
@@ -55,9 +55,9 @@ function SelectionScopeFieldComponent(props: SelectionScopeFieldProps) {
       )}
       style={props.style}
     >
-      <label className="uifw-statusFields-selectionScope-label">
+      <Label className="uifw-statusFields-selectionScope-label">
         {translate("selectionScopeField.label")}:
-      </label>
+      </Label>
       <Select
         className="uifw-statusFields-selectionScope-selector"
         value={props.activeSelectionScope}

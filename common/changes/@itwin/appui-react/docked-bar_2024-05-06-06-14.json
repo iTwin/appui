@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Used iTwinUI labels in StatusBar and ToolSettings.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}

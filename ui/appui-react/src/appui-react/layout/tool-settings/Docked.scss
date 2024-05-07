@@ -3,23 +3,13 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-.nz-toolSettings-docked {
-  --_uifw-tool-settings-docked-height: var(--iui-component-height);
-
-  height: var(--_uifw-tool-settings-docked-height);
-  width: 100%;
+.uifw-toolSettings-docked {
   display: flex;
+  height: 100%;
   gap: var(--iui-size-m);
-  position: relative;
-  background-color: var(--iui-color-background);
-  border-block-end: 1px solid var(--iui-color-border);
-
-  > .nz-container {
-    display: flex;
-  }
 }
 
-.nz-toolSettings-docked_container {
+.uifw-toolSettings-docked_container {
   display: grid;
   grid-template-columns: auto 1fr;
   gap: var(--iui-size-2xs);

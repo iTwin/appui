@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { Rectangle } from "@itwin/core-react";
-import { render, screen } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import { act, renderHook } from "@testing-library/react-hooks";
 import * as React from "react";
 import type { ToolSettingsEntry } from "../../appui-react";
@@ -12,7 +12,6 @@ import {
   FrontstageDef,
   ToolSettingsContent,
   ToolSettingsDockedContent,
-  ToolSettingsGrid,
   ToolUiProvider,
   UiFramework,
   useHorizontalToolSettingEntries,
@@ -34,7 +33,6 @@ import {
   addWidgetToolSettings,
 } from "../../appui-react/layout/state/internal/ToolSettingsStateHelpers";
 import { addFloatingWidget } from "../../appui-react/layout/state/internal/WidgetStateHelpers";
-import { childStructure } from "../TestUtils";
 
 describe("WidgetPanelsToolSettings", () => {
   it("should not render w/o tool settings top center zone", () => {
@@ -118,22 +116,6 @@ describe("ToolSettingsDockedContent", () => {
       </DragManagerContext.Provider>
     );
     sut.getByText("Date");
-  });
-});
-
-describe("ToolSettingsGrid", () => {
-  it("should render", () => {
-    const entries: ToolSettingsEntry[] = [
-      { labelNode: "Date", editorNode: <input type="date" /> },
-    ];
-
-    render(<ToolSettingsGrid settings={entries} />);
-    expect(
-      screen.getByText("Date", {
-        selector:
-          ".uifw-standard-toolsettings-two-column-grid .uifw-standard-toolsettings-label-entry",
-      }).parentElement
-    ).to.satisfy(childStructure("input[type='date']"));
   });
 });
 

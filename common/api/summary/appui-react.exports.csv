@@ -508,7 +508,7 @@ beta;StandardStatusbarUiItemsProvider
 public;StateManager
 public;StateType
 internal;stateVersion = 17
-public;StatusBar 
+public;StatusBar(props: StatusBarProps): React_2.JSX.Element
 public;StatusBar
 public;StatusBarActionItem 
 public;StatusBarCenterSection(props: CommonDivProps): React_2.JSX.Element
@@ -590,9 +590,7 @@ public;ToolItemProps
 internal;ToolSettingsContent(): React_2.JSX.Element | null
 internal;ToolSettingsDockedContent(): React_2.JSX.Element
 public;ToolSettingsEntry
-internal;ToolSettingsGrid({ settings }: ToolSettingsGridProps): React_2.JSX.Element
 public;ToolSettingsGridContainer({ componentGenerator, }:
-internal;ToolSettingsGridProps
 internal;ToolSettingsWidgetContent(): React_2.JSX.Element
 public;ToolUiProvider 
 public;ToolWidgetComposer(props: ToolWidgetComposerProps): React_2.JSX.Element

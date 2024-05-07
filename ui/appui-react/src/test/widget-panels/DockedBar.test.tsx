@@ -2,10 +2,14 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
+import * as React from "react";
+import { DockedBar } from "../../appui-react/widget-panels/DockedBar";
+import { render, screen } from "@testing-library/react";
 
-.uifw-widgetPanels-statusBar {
-  > div {
-    background-color: $buic-background-2;
-  }
-}
+describe("DockedBar", () => {
+  it("should render correctly", () => {
+    render(<DockedBar>Content</DockedBar>);
+
+    expect(screen.getByText("Content")).toBeTruthy();
+  });
+});

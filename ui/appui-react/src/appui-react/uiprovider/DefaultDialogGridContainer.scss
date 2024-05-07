@@ -3,23 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-.uifw-default-resizer-parent {
-  min-width: 200px;
-
-  &.uifw-fill {
-    width: 100%;
-    height: 100%;
-  }
-}
-
-.uifw-label-disabled {
-  color: var(--iui-color-text-disabled);
-}
-
-div.uifw-default-property-lock input[type="checkbox"] {
-  margin-right: 8px;
-}
-
 .uifw-default-center-across-width {
   display: flex;
   flex-direction: row;
@@ -28,95 +11,44 @@ div.uifw-default-property-lock input[type="checkbox"] {
   grid-column: 1 / span 2;
 }
 
-.uifw-width-100percent {
-  width: 100%;
-}
-
-.uifw-width-6rem {
-  width: 6rem;
-}
-
-.uifw-width-fit-content {
-  width: fit-content;
-}
-
-div.uifw-default-inline-editor-group {
+.uifw-default-inline-editor-group {
   display: flex;
-  flex-wrap: nowrap;
-}
+  gap: var(--iui-size-xs);
 
-div.uifw-default-inline-editor-group .uifw-default-label {
-  margin-right: 4px;
-  margin-left: 4px;
-  width: auto;
-  align-self: center;
-  margin-bottom: 6px;
-}
-
-div.nz-toolSettings-docked
-  .uifw-default-inline-editor-group
   .uifw-default-label {
-  margin-bottom: 0px;
-}
-
-div.uifw-default-inline-editor-group .uifw-default-editor {
-  margin-right: 6px;
-  margin-bottom: 6px;
-
-  &:last-child {
-    margin-right: 0px;
+    margin-right: var(--iui-size-xs);
   }
 }
 
-div.uifw-default-lock-and-label {
-  align-content: flex-start;
+.uifw-default-lock-and-label {
+  display: flex;
   align-items: center;
-  flex-direction: row;
-  display: inline-flex;
-  margin-bottom: 6px;
+  justify-content: flex-end;
+}
 
-  .uifw-default-property-lock {
-    padding: 0 4px 0 0;
-  }
-
-  &:last-child {
-    margin-bottom: 3px;
-  }
+.uifw-default-property-lock {
+  margin-right: var(--iui-size-s);
 }
 
 .uifw-default-inline-label-and-editor {
   display: flex;
-  flex-direction: row;
-  width: auto;
+  align-items: center;
 }
 
-.uifw-default-wide-only-display {
-  display: inline-flex;
-  flex-wrap: none;
+.uifw-default-label {
+  white-space: nowrap;
+}
+
+.uifw-dockedBar .uifw-default-label {
+  margin-right: var(--iui-size-xs);
 }
 
 .uifw-default-narrow-only-display {
   display: none;
 }
 
-/* Fixed spacing used to hold lock/enable toggle in first column */
-.uifw-default-lock {
-  min-width: 30px;
-  height: 1rem;
-  margin: 3px;
-}
-
-.uifw-default-editor {
-  margin-bottom: 6px;
-  display: flex;
-  align-items: center;
-
-  &:last-child {
-    margin-bottom: 3px;
-  }
-}
-
-div.uifw-default-container {
+.uifw-default-container {
+  min-width: 200px;
   display: grid;
   grid-template-columns: auto 1fr;
   grid-row-gap: 0px;
@@ -129,88 +61,43 @@ div.uifw-default-container {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   align-items: center;
-  margin: 4px 4px 0px 4px;
+  margin: var(--iui-size-2xs);
 }
 
-.uifw-default-label {
-  width: fit-content;
-  margin-left: auto;
-  white-space: nowrap;
+.uifw-default-container.uifw-tool-settings-grid-container {
+  row-gap: var(--iui-size-xs);
 }
 
-/* Overrides when uifw-default-narrow class is added to parent container div */
-div.uifw-default-container.uifw-default-narrow {
+.uifw-default-container.uifw-default-narrow {
   grid-template-columns: 1fr;
-}
+  row-gap: var(--iui-size-2xs);
 
-div.uifw-default-container.uifw-default-narrow
-  div.uifw-default-center-across-width {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-content: center;
-  grid-column: 1 / span 1;
-}
+  .uifw-default-label {
+    margin-left: var(--iui-size-2xs);
+  }
 
-div.uifw-default-container.uifw-default-narrow
-  .uifw-default-narrow-only-display {
-  display: block;
-}
+  .uifw-default-lock-and-label {
+    justify-content: flex-start;
+  }
 
-div.uifw-default-container.uifw-default-narrow
-  .uifw-default-lock-and-label.uifw-default-wide-only-display {
-  display: none;
-}
-
-div.uifw-default-container.uifw-default-narrow
-  div.uifw-default-inline-editor-group {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-div.uifw-default-container.uifw-default-narrow .uifw-default-lock {
-  min-width: 0px;
-  height: 1rem;
-  margin-left: 0px;
-}
-
-div.uifw-default-container.uifw-default-narrow .uifw-default-lock-and-label {
-  margin-bottom: 0px;
-}
-
-div.uifw-default-container.uifw-default-narrow .uifw-default-label {
-  text-align: left;
-  margin-bottom: 3px;
-  align-self: flex-start;
-}
-
-div.uifw-default-container.uifw-default-narrow
   .uifw-default-inline-label-and-editor {
-  align-content: flex-start;
-  display: flex;
-  flex-direction: column;
-  width: auto;
-}
+    flex-direction: column;
+    align-items: flex-start;
+  }
 
-div.uifw-default-container.uifw-default-narrow
-  .uifw-default-inline-editor-group
-  .uifw-default-editor {
-  margin-left: 0px;
-}
+  .uifw-default-narrow-only-display {
+    display: block;
+  }
 
-div.nz-toolSettings-docked div.uifw-default-lock-and-label {
-  margin-bottom: 0;
-  align-self: center;
-}
+  .uifw-default-wide-only-display {
+    display: none;
+  }
 
-div.nz-toolSettings-docked
-  div.uifw-default-inline-editor-group
-  .uifw-default-editor {
-  margin-bottom: 0;
-  align-self: center;
-}
-
-div.nz-toolSettings-docked .uifw-default-editor:last-child {
-  margin-bottom: 0;
-  align-self: center;
+  .uifw-default-center-across-width {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+    grid-column: 1 / span 1;
+  }
 }

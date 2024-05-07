@@ -2,10 +2,9 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-.nz-toolSettings-setting {
+.uifw-toolSettings-setting {
   height: 100%;
   white-space: nowrap;
   display: flex;
-  gap: var(--iui-size-xs);
   align-items: center;
 }

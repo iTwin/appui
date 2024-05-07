@@ -47,9 +47,9 @@ describe("DockedToolSettings", () => {
   it("should render overflow button", () => {
     vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
       function (this: HTMLElement) {
-        if (this.classList.contains("nz-toolSettings-docked")) {
+        if (this.classList.contains("uifw-toolSettings-docked")) {
           return DOMRect.fromRect({ width: 100 });
-        } else if (this.classList.contains("nz-toolSettings-setting")) {
+        } else if (this.classList.contains("uifw-toolSettings-setting")) {
           return DOMRect.fromRect({ width: 50 });
         }
         return new DOMRect();
@@ -73,9 +73,9 @@ describe("DockedToolSettings", () => {
   it("should render overflown entries", () => {
     vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
       function (this: HTMLElement) {
-        if (this.classList.contains("nz-toolSettings-docked")) {
+        if (this.classList.contains("uifw-toolSettings-docked")) {
           return DOMRect.fromRect({ width: 100 });
-        } else if (this.classList.contains("nz-toolSettings-setting")) {
+        } else if (this.classList.contains("uifw-toolSettings-setting")) {
           return DOMRect.fromRect({ width: 50 });
         }
         return new DOMRect();
@@ -105,9 +105,9 @@ describe("DockedToolSettings", () => {
   it("should render panel container", () => {
     vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
       function (this: HTMLElement) {
-        if (this.classList.contains("nz-toolSettings-docked")) {
+        if (this.classList.contains("uifw-toolSettings-docked")) {
           return DOMRect.fromRect({ width: 100 });
-        } else if (this.classList.contains("nz-toolSettings-setting")) {
+        } else if (this.classList.contains("uifw-toolSettings-setting")) {
           return DOMRect.fromRect({ width: 50 });
         }
         return new DOMRect();
@@ -139,9 +139,9 @@ describe("DockedToolSettings", () => {
   it("should close overflow panel on outside click", () => {
     vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
       function (this: HTMLElement) {
-        if (this.classList.contains("nz-toolSettings-docked")) {
+        if (this.classList.contains("uifw-toolSettings-docked")) {
           return DOMRect.fromRect({ width: 100 });
-        } else if (this.classList.contains("nz-toolSettings-setting")) {
+        } else if (this.classList.contains("uifw-toolSettings-setting")) {
           return DOMRect.fromRect({ width: 50 });
         }
         return new DOMRect();
@@ -180,9 +180,9 @@ describe("DockedToolSettings", () => {
     let width = 100;
     vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
       function (this: HTMLElement) {
-        if (this.classList.contains("nz-toolSettings-docked")) {
+        if (this.classList.contains("uifw-toolSettings-docked")) {
           return DOMRect.fromRect({ width });
-        } else if (this.classList.contains("nz-toolSettings-setting")) {
+        } else if (this.classList.contains("uifw-toolSettings-setting")) {
           return DOMRect.fromRect({ width: 50 });
         }
         return new DOMRect();
@@ -197,7 +197,7 @@ describe("DockedToolSettings", () => {
       this: InstanceType<typeof ResizeObserver>,
       element: Element
     ) {
-      if (element.classList.contains("nz-toolSettings-docked")) {
+      if (element.classList.contains("uifw-toolSettings-docked")) {
         resizeObserver = this; // eslint-disable-line @typescript-eslint/no-this-alias
         target = element;
       }
@@ -240,9 +240,9 @@ describe("DockedToolSettings", () => {
     let width = 50;
     vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
       function (this: HTMLElement) {
-        if (this.classList.contains("nz-toolSettings-docked")) {
+        if (this.classList.contains("uifw-toolSettings-docked")) {
           return DOMRect.fromRect({ width: 100 });
-        } else if (this.classList.contains("nz-toolSettings-setting")) {
+        } else if (this.classList.contains("uifw-toolSettings-setting")) {
           return DOMRect.fromRect({ width });
         }
         return new DOMRect();
@@ -259,7 +259,7 @@ describe("DockedToolSettings", () => {
     ) {
       if (
         element instanceof HTMLElement &&
-        element.classList.contains("nz-toolSettings-setting") &&
+        element.classList.contains("uifw-toolSettings-setting") &&
         queryByText(element, "Entry 1")
       ) {
         resizeObserver = this; // eslint-disable-line @typescript-eslint/no-this-alias
