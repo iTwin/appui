@@ -13,10 +13,8 @@ import type {
   IPropertyValueRenderer,
   PropertyValueRendererContext,
 } from "../../ValueRendererManager";
-import {
-  convertPrimitiveRecordToString,
-  PrimitivePropertyValueRendererImpl,
-} from "./PrimitivePropertyValueRenderer";
+import { PrimitivePropertyValueRendererImpl } from "./PrimitivePropertyValueRenderer";
+import { convertRecordToString } from "./Common";
 
 /**
  * URL property value renderer that renders the whole value as a URL without matching it
@@ -46,7 +44,7 @@ export class UrlPropertyValueRenderer implements IPropertyValueRenderer {
       <PrimitivePropertyValueRendererImpl
         record={record}
         context={context}
-        stringValueCalculator={convertPrimitiveRecordToString}
+        stringValueCalculator={convertRecordToString}
         linksHandler={URI_PROPERTY_LINK_HANDLER}
       />
     );
