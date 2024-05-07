@@ -77,7 +77,6 @@ export class TestUtils {
     const v: PrimitiveValue = {
       valueFormat: PropertyValueFormat.Primitive,
       value,
-      displayValue: value,
     };
     const pd: PropertyDescription = {
       typename,

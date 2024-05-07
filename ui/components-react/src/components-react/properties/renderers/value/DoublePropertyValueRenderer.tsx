@@ -18,6 +18,7 @@ import { convertRecordToString } from "./Common";
 
 /** Default Double Property Renderer
  * @public
+ * @deprecated in 4.13.1. Use [[PrimitivePropertyValueRenderer]] instead.
  */
 export class DoublePropertyValueRenderer implements IPropertyValueRenderer {
   /** Checks if the renderer can handle given property */

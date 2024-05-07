@@ -7,20 +7,16 @@
  */
 
 import * as React from "react";
-import type {
-  LinkElementsInfo,
-  PrimitiveValue,
-  PropertyRecord,
-} from "@itwin/appui-abstract";
+import type { LinkElementsInfo, PropertyRecord } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
 import { useAsyncValue } from "../../../common/UseAsyncValue";
-import { TypeConverterManager } from "../../../converters/TypeConverterManager";
 import { PropertyGridCommons } from "../../../propertygrid/component/PropertyGridCommons";
 import { LinksRenderer } from "../../LinkHandler";
 import type {
   IPropertyValueRenderer,
   PropertyValueRendererContext,
 } from "../../ValueRendererManager";
+import { convertRecordToString } from "./Common";
 
 /** Default Primitive Property Renderer
  * @public
@@ -40,24 +36,10 @@ export class PrimitivePropertyValueRenderer implements IPropertyValueRenderer {
       <PrimitivePropertyValueRendererImpl
         record={record}
         context={context}
-        stringValueCalculator={convertPrimitiveRecordToString}
+        stringValueCalculator={convertRecordToString}
       />
     );
   }
-}
-
-/**
- * Function that converts primitive [[PropertyRecord]] to string
- * @internal
- */
-export function convertPrimitiveRecordToString(
-  record: PropertyRecord
-): string | Promise<string> {
-  const primitive = record.value as PrimitiveValue;
-  return TypeConverterManager.getConverter(
-    record.property.typename,
-    record.property.converter?.name
-  ).convertPropertyToString(record.property, primitive.value);
 }
 
 /** @internal */
