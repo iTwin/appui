@@ -36,7 +36,6 @@ public;ControlledSelectableContentProps
 public;ControlledTree(props: ControlledTreeProps): React_3.JSX.Element
 public;ControlledTreeProps 
 public;ConvertedPrimitives
-internal;convertPrimitiveRecordToString(record: PropertyRecord): string | Promise
 public;CustomizablePropertyRenderer(props: CustomizablePropertyRendererProps): React_3.JSX.Element
 alpha;CustomNumberEditor 
 alpha;CustomNumberPropertyEditor 
@@ -66,6 +65,7 @@ public;Direction
 internal;DirectionHelpers
 public;DisplayValuePropertyDataFilterer 
 public;DoublePropertyValueRenderer 
+deprecated;DoublePropertyValueRenderer 
 internal;DragAction
 public;EditableTreeDataProvider 
 public;EditorContainer(props: EditorContainerProps): React_3.JSX.Element
@@ -181,6 +181,7 @@ public;MutableTreeModel
 public;MutableTreeModelNode 
 public;NavigationPropertyTypeConverter 
 public;NavigationPropertyValueRenderer 
+deprecated;NavigationPropertyValueRenderer 
 public;NextObserver
 public;NonPrimitivePropertyLabelRenderer 
 public;NonPrimitivePropertyLabelRendererProps 
