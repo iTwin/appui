@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/core-react",
+      "comment": "upgrade to TypeScript@5.3.3 and @itwin/build-tools@4.6.x",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/core-react"
+}

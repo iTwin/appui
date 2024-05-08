@@ -38,7 +38,7 @@
     "NOTE: All tools used by scripts in this package must be listed as devDependencies"
   ],
   "devDependencies": {
-    "@itwin/build-tools": "^3.7.0 || ^4.0.0",
+    "@itwin/build-tools": "^3.7.0 || ^4.6.0-dev.27",
     "@itwin/eslint-plugin": "^4.0.0-dev.52",
     "@itwin/itwins-client": "^1.2.0",
     "@types/node": "18.11.5",
@@ -58,7 +58,7 @@
     "null-loader": "^4.0.1",
     "rimraf": "^3.0.2",
     "sass": "^1.72.0",
-    "typescript": "~5.0.2",
+    "typescript": "~5.3.3",
     "vite": "^5.2.0",
     "vite-plugin-static-copy": "^1.0.1"
   },
