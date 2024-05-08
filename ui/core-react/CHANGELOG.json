@@ -2,6 +2,45 @@
   "name": "@itwin/core-react",
   "entries": [
     {
+      "version": "4.13.2",
+      "tag": "@itwin/core-react_v4.13.2",
+      "date": "Wed, 08 May 2024 08:24:46 GMT",
+      "comments": {}
+    },
+    {
+      "version": "4.13.1",
+      "tag": "@itwin/core-react_v4.13.1",
+      "date": "Tue, 07 May 2024 15:01:46 GMT",
+      "comments": {}
+    },
+    {
+      "version": "4.13.0",
+      "tag": "@itwin/core-react_v4.13.0",
+      "date": "Tue, 07 May 2024 08:44:06 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Deprecate components replaced by iTwinUI equivalents."
+          },
+          {
+            "comment": "Deprecate core-react base components."
+          },
+          {
+            "comment": "Deprecated all UI event classes."
+          },
+          {
+            "comment": "Disabled `onMouseDown` event propagation for `ExpansionToggle`."
+          },
+          {
+            "comment": "Fix `Icon` component to render correctly with nested conditional items."
+          },
+          {
+            "comment": "Bump `useCrossOriginPopup` to `@public`."
+          }
+        ]
+      }
+    },
+    {
       "version": "4.12.0",
       "tag": "@itwin/core-react_v4.12.0",
       "date": "Fri, 05 Apr 2024 09:55:35 GMT",
