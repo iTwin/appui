@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Change DockedBar position to relative.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
