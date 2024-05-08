@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Fixed `StatusBar` and `ToolSettings` not being visible when `contentAlwaysMaxSize` preview feature is enabled.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
