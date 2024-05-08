@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/appui-react",
-      "comment": "Change DockedBar position to relative.",
+      "comment": "Fixed `StatusBar` and `ToolSettings` not being visible when `contentAlwaysMaxSize` preview feature is enabled.",
       "type": "none"
     }
   ],
