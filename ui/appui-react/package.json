@@ -62,7 +62,7 @@
   ],
   "devDependencies": {
     "@itwin/appui-abstract": "^3.7.0 || ^4.0.0",
-    "@itwin/build-tools": "^3.7.0 || ^4.0.0",
+    "@itwin/build-tools": "^3.7.0 || ^4.6.0-dev.27",
     "@itwin/components-react": "workspace:*",
     "@itwin/core-bentley": "^3.7.0 || ^4.0.0",
     "@itwin/core-common": "^3.7.0 || ^4.0.0",
@@ -106,7 +106,7 @@
     "rimraf": "^3.0.2",
     "ts-node": "^10.8.2",
     "typemoq": "^2.1.0",
-    "typescript": "~5.0.2",
+    "typescript": "~5.3.3",
     "upath": "^2.0.1",
     "vitest": "^1.4.0"
   },
