@@ -43,16 +43,13 @@ export const WithIcons: Story = {
   render: (props) => {
     return (
       <ContextMenu {...props}>
-        <ContextSubMenu icon={<SvgPlaceholder />} label="Test 1" id="1">
+        <ContextSubMenu icon={<SvgPlaceholder />} label="Svg Icons" id="1">
           <ContextMenuItem icon={<SvgPlaceholder />}>Test 1.1</ContextMenuItem>
+          <ContextSubMenu icon={<SvgPlaceholder />} label="Test 1.2" id="1.2" />
         </ContextSubMenu>
-        <ContextSubMenu icon={<SvgPlaceholder />} label="Test 2" id="2">
-          <ContextMenuItem icon={<SvgPlaceholder />}>Test 2.1</ContextMenuItem>
-          <ContextSubMenu icon={<SvgPlaceholder />} label="Test 2.2" id="22">
-            <ContextMenuItem icon={<SvgPlaceholder />}>
-              Test 2.2.1
-            </ContextMenuItem>
-          </ContextSubMenu>
+        <ContextSubMenu icon={<SvgPlaceholder />} label="Web Font Icons" id="2">
+          <ContextMenuItem icon="icon-placeholder">Test 2.1</ContextMenuItem>
+          <ContextSubMenu icon="icon-placeholder" label="Test 2.2" id="2.2" />
         </ContextSubMenu>
       </ContextMenu>
     );
