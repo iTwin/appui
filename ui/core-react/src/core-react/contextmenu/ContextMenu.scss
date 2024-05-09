@@ -131,6 +131,8 @@ $uicore-menu-top-bottom-padding: calc(#{$uicore-menu-padding} * 0.6667);
         text-align: center;
         margin-right: $uicore-unbordered-padding;
         opacity: $uicore-opacity-2;
+        display: flex;
+        align-items: center;
 
         &.core-context-menu-icon-right {
           margin-left: $uicore-unbordered-padding;

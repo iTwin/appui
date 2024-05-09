@@ -212,12 +212,10 @@ export class ContextMenu extends React.PureComponent<
       this._lastSelectedIndex = this.state.selectedIndex;
     }
 
-    const classNames = classnames("core-context-menu", className);
-
     return (
       <div
         role="presentation"
-        className={classNames}
+        className={classnames("core-context-menu", className)}
         onKeyUp={this._handleKeyUp}
         onClick={this._handleClick}
         data-testid="core-context-menu-root"
