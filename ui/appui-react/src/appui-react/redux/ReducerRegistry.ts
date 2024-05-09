@@ -11,6 +11,7 @@ import { UiFramework } from "../UiFramework";
 
 /** NameToReducerMap used by Reducer Registry
  * @public
+ * @deprecated in 4.14.x. Use your preferred state management library instead.
  */
 export interface NameToReducerMap {
   [name: string]: (state: any, action: any) => any;
@@ -20,6 +21,7 @@ export interface NameToReducerMap {
  * Follows the example at http://nicolasgallagher.com/redux-modules-and-code-splitting/
  * Allows for small modules to provide their own reducers so that the they can manage their own state
  * @beta
+ * @deprecated in 4.14.x. Use your preferred state management library instead.
  */
 export class ReducerRegistry {
   private _onReducerListChanged:
@@ -78,5 +80,6 @@ export class ReducerRegistry {
 
 /** ReducerRegistryInstance singleton instance of Reducer Registry
  * @beta
+ * @deprecated in 4.14.x. Use your preferred state management library instead.
  */
 export const ReducerRegistryInstance = new ReducerRegistry();
