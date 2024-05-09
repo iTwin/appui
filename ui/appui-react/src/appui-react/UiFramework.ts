@@ -267,8 +267,7 @@ export class UiFramework {
   // eslint-disable-next-line deprecation/deprecation
   public static readonly onUiVisibilityChanged = new UiVisibilityChangedEvent();
 
-  /**
-   * Called by the application to initialize the UiFramework. Also initializes UIIModelComponents, UiComponents, UiCore.
+  /** Called by the application to initialize the UiFramework. Also initializes UIIModelComponents, UiComponents, UiCore.
    * @param store The single Redux store created by the host application. If this is `undefined` then it is assumed that the [[StateManager]] is being used to provide the Redux store.
    * @param frameworkStateKey The name of the key used by the app when adding the UiFramework state into the Redux store. If not defined "frameworkState" is assumed. This value is ignored if [[StateManager]] is being used. The StateManager use "frameworkState".
    */
@@ -367,23 +366,32 @@ export class UiFramework {
     return UiFramework._settingsManager;
   }
 
-  /** @public */
+  /** Key used to access framework state from redux store.
+   * @public
+   * @deprecated in 4.14.x. Use your preferred state management library instead.
+   */
   public static get frameworkStateKey(): string {
     return UiFramework._frameworkStateKeyInStore;
   }
 
   /** The UiFramework state maintained by Redux
    * @public
+   * @deprecated in 4.14.x. Use your preferred state management library instead.
    */
   public static get frameworkState(): FrameworkState | undefined {
     try {
-      return UiFramework.store.getState()[UiFramework.frameworkStateKey];
+      // eslint-disable-next-line deprecation/deprecation
+      const state = UiFramework.store.getState();
+      // eslint-disable-next-line deprecation/deprecation
+      return state[UiFramework.frameworkStateKey];
     } catch (_e) {
       return undefined;
     }
   }
 
-  /** The Redux store */
+  /** The Redux store
+   * @deprecated in 4.14.x. Use your preferred state management library instead.
+   */
   public static get store(): Store<any> {
     if (UiFramework._store) return UiFramework._store;
 
@@ -465,6 +473,7 @@ export class UiFramework {
     return category;
   }
 
+  /** @deprecated in 4.14.x. Use your preferred state management library instead. */
   public static dispatchActionToStore(
     type: string,
     payload: any,
@@ -484,45 +493,46 @@ export class UiFramework {
   }
 
   public static getAccudrawSnapMode(): SnapMode {
+    // eslint-disable-next-line deprecation/deprecation
     return UiFramework.frameworkState
-      ? UiFramework.frameworkState.configurableUiState.snapMode
-      : /* istanbul ignore next */ SnapMode.NearestKeypoint;
+      ? // eslint-disable-next-line deprecation/deprecation
+        UiFramework.frameworkState.configurableUiState.snapMode
+      : SnapMode.NearestKeypoint;
   }
 
-  /**
-   * Returns the stored active selection scope id.
-   */
+  /** Returns the stored active selection scope id. */
   public static getActiveSelectionScope(): string {
     return UiFramework.frameworkState
       ? UiFramework.frameworkState.sessionState.activeSelectionScope
       : /* istanbul ignore next */ "element";
   }
 
-  /**
-   * This method stores the active selection scope to the supplied scope id, and triggers
+  /** This method stores the active selection scope to the supplied scope id, and triggers
    * a `SessionStateActionId.SetSelectionScope` event in the `SyncUiEventDispatcher`.
    * Note: As of 4.0, this method *does not change* the active selection scope in the `Presentation.selection.scopes.activeScope` property.
    * This event should be listened to and the change should typically be applied to
    * `Presentation.selection.scopes.activeScope` property from the `@itwin/presentation-frontend` package.
    */
   public static setActiveSelectionScope(selectionScopeId: string): void {
-    // istanbul ignore else
-    if (UiFramework.frameworkState) {
-      const foundIndex =
-        UiFramework.frameworkState.sessionState.availableSelectionScopes.findIndex(
-          (selectionScope: PresentationSelectionScope) =>
-            selectionScope.id === selectionScopeId
-        );
-      if (-1 !== foundIndex) {
-        const scope =
-          UiFramework.frameworkState.sessionState.availableSelectionScopes[
-            foundIndex
-          ];
-        UiFramework.dispatchActionToStore(
-          SessionStateActionId.SetSelectionScope,
-          scope.id
-        );
-      }
+    // eslint-disable-next-line deprecation/deprecation
+    if (!UiFramework.frameworkState) return;
+
+    const foundIndex =
+      // eslint-disable-next-line deprecation/deprecation
+      UiFramework.frameworkState.sessionState.availableSelectionScopes.findIndex(
+        (selectionScope) => selectionScope.id === selectionScopeId
+      );
+    if (-1 !== foundIndex) {
+      const scope =
+        // eslint-disable-next-line deprecation/deprecation
+        UiFramework.frameworkState.sessionState.availableSelectionScopes[
+          foundIndex
+        ];
+      // eslint-disable-next-line deprecation/deprecation
+      UiFramework.dispatchActionToStore(
+        SessionStateActionId.SetSelectionScope,
+        scope.id
+      );
     }
   }
 
