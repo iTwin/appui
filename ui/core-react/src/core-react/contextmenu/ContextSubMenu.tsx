@@ -97,6 +97,7 @@ export class ContextSubMenu extends React.Component<
       onClick,
       className,
       badgeType,
+      hideIconContainer,
       ...props
     } = this.props;
 
@@ -157,7 +158,11 @@ export class ContextSubMenu extends React.Component<
           aria-hidden={isHidden}
           aria-haspopup={true}
         >
-          <div className={classnames("core-context-menu-icon", "icon", icon)} />
+          {!hideIconContainer && (
+            <div className="core-context-menu-icon">
+              {icon !== undefined && <Icon iconSpec={icon} />}
+            </div>
+          )}
           <div className={"core-context-menu-content"}>{this._parsedLabel}</div>
           <div className={classnames("core-context-submenu-arrow", "icon")}>
             <Icon iconSpec={<SvgCaretRightSmall />} />
