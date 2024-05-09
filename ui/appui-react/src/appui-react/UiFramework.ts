@@ -94,8 +94,6 @@ interface ShowInputEditorOptions {
   onCancel: () => void;
 }
 
-// cSpell:ignore Mobi
-
 /** Interface to be implemented but any classes that wants to load their user settings when the UiStateEntry storage class is set.
  * @public
  */
@@ -144,10 +142,7 @@ type OptionalShowComponentParams = [
  * @public
  */
 export class UiFramework {
-  /**
-   * Operation on the backstage component.
-   * @public
-   */
+  /** Operation on the backstage component. */
   public static get backstage(): FrameworkBackstage {
     // istanbul ignore next
     if (!UiFramework._backstageManager)
@@ -159,50 +154,32 @@ export class UiFramework {
     return UiFramework._backstageManager;
   }
 
-  /**
-   * Manage access to the child windows.
-   * @public
-   */
+  /** Manage access to the child windows. */
   public static get childWindows(): FrameworkChildWindows {
     return this._childWindowManager;
   }
 
-  /**
-   * Manage registered controls
-   * @public
-   */
+  /** Manage registered controls. */
   public static get controls(): FrameworkControls {
     return InternalConfigurableUiManager;
   }
 
-  /**
-   * Manage access to frontstages and related helper methods.
-   * @public
-   */
+  /** Manage access to frontstages and related helper methods. */
   public static get frontstages(): FrameworkFrontstages {
     return InternalFrontstageManager;
   }
 
-  /**
-   * Manage access and behavior of the tool settings.
-   * @public
-   */
+  /** Manage access and behavior of the tool settings. */
   public static get toolSettings(): FrameworkToolSettings {
     return InternalToolSettingsManager;
   }
 
-  /**
-   * Manage content presented by the frontstages.
-   * @public
-   */
+  /** Manage content presented by the frontstages. */
   public static get content(): FrameworkContent {
     return InternalContentViewManager;
   }
 
-  /**
-   * Manage displayed dialogs.
-   * @public
-   */
+  /** Manage displayed dialogs. */
   public static get dialogs(): FrameworkDialogs {
     return {
       modal: InternalModalDialogManager,
@@ -210,23 +187,18 @@ export class UiFramework {
     };
   }
 
-  /**
-   * Manages global keyboard shortcuts
+  /** Manages global keyboard shortcuts
    *
    * Note: This only manages the list of available shortcuts registered with it. It does not listens to the actual
    * keyboard events. In order for these shortcuts to be called upon a keyboard event, the application can
    * override the `IModelApp.toolAdmin` and assign it [[FrameworkToolAdmin]] or create an event listener
    * and call `UiFramework.keyboardShortcuts.processKey`.
-   * @public
    */
   public static get keyboardShortcuts(): FrameworkKeyboardShortcuts {
     return InternalKeyboardShortcutManager;
   }
 
-  /**
-   * Manages UI visibility (Show/Hide)
-   * @public
-   */
+  /** Manages UI visibility (Show/Hide). */
   public static get visibility(): FrameworkVisibility {
     return InternalUiShowHideManager;
   }
@@ -252,7 +224,6 @@ export class UiFramework {
   /** Registers class that will be informed when the UserSettingsStorage location has been set or changed. This allows
    * classes to load any previously saved settings from the new storage location. Common storage locations are the browser's
    * local storage, or the iTwin Product Settings cloud storage available via the SettingsAdmin see `IModelApp.settingsAdmin`.
-   * @public
    */
   public static registerUserSettingsProvider(entry: UserSettingsProvider) {
     if (this._uiSettingsProviderRegistry.has(entry.providerId)) return false;
@@ -261,9 +232,7 @@ export class UiFramework {
     return true;
   }
 
-  /** Get Show Ui event.
-   * @public
-   */
+  /** Get Show Ui event. */
   // eslint-disable-next-line deprecation/deprecation
   public static readonly onUiVisibilityChanged = new UiVisibilityChangedEvent();
 
@@ -357,9 +326,7 @@ export class UiFramework {
     return UiFramework._initialized;
   }
 
-  /** Property that returns the SettingManager used by AppUI-based applications.
-   * @public
-   */
+  /** Property that returns the SettingManager used by AppUI-based applications. */
   public static get settingsManager() {
     if (undefined === UiFramework._settingsManager)
       UiFramework._settingsManager = new SettingsManager();
@@ -367,15 +334,13 @@ export class UiFramework {
   }
 
   /** Key used to access framework state from redux store.
-   * @public
    * @deprecated in 4.14.x. Use your preferred state management library instead.
    */
   public static get frameworkStateKey(): string {
     return UiFramework._frameworkStateKeyInStore;
   }
 
-  /** The UiFramework state maintained by Redux
-   * @public
+  /** The UiFramework state maintained by Redux.
    * @deprecated in 4.14.x. Use your preferred state management library instead.
    */
   public static get frameworkState(): FrameworkState | undefined {
@@ -412,7 +377,6 @@ export class UiFramework {
     return "UiFramework";
   }
 
-  /** @public */
   public static get hideIsolateEmphasizeActionHandler(): HideIsolateEmphasizeActionHandler {
     // istanbul ignore next
     if (!UiFramework._hideIsolateEmphasizeActionHandler)
@@ -424,7 +388,6 @@ export class UiFramework {
     return UiFramework._hideIsolateEmphasizeActionHandler;
   }
 
-  /** @public */
   public static setHideIsolateEmphasizeActionHandler(
     handler: HideIsolateEmphasizeActionHandler | undefined
   ) {
@@ -578,7 +541,6 @@ export class UiFramework {
     return true;
   }
 
-  /** @public */
   public static openCursorMenu(
     // eslint-disable-next-line deprecation/deprecation
     menuData: CursorMenuData | CursorMenuPayload | undefined
@@ -589,7 +551,6 @@ export class UiFramework {
     );
   }
 
-  /** @public */
   public static closeCursorMenu(): void {
     UiFramework.dispatchActionToStore(
       SessionStateActionId.UpdateCursorMenu,
@@ -597,7 +558,6 @@ export class UiFramework {
     );
   }
 
-  /** @public */
   public static getCursorMenuData(): // eslint-disable-next-line deprecation/deprecation
   CursorMenuData | CursorMenuPayload | undefined {
     return UiFramework.frameworkState
@@ -654,9 +614,7 @@ export class UiFramework {
       : /* istanbul ignore next */ undefined;
   }
 
-  /** Called by iModelApp to initialize saved UI state from registered UseSettingsProviders
-   * @public
-   */
+  /** Called by iModelApp to initialize saved UI state from registered UseSettingsProviders. */
   public static async initializeStateFromUserSettingsProviders(
     immediateSync = false
   ) {
@@ -679,7 +637,6 @@ export class UiFramework {
       );
   }
 
-  /** @public */
   public static async setUiStateStorage(
     storage: UiStateStorage,
     immediateSync = false
@@ -693,7 +650,6 @@ export class UiFramework {
   /** The UI Settings Storage is a convenient wrapper around Local Storage to assist in caching state information across user sessions.
    * It was previously used to conflate both the state information across session and the information driven directly from user explicit action,
    * which are now handled with user preferences.
-   * @public
    */
   public static getUiStateStorage(): UiStateStorage {
     return UiFramework._uiStateStorage;
@@ -746,12 +702,11 @@ export class UiFramework {
       : /* istanbul ignore next */ undefined;
   }
 
-  /**
-   * Returns the stored list of available selection scopes. This list should be set by the application
+  /** Returns the stored list of available selection scopes. This list should be set by the application
    * by dispatching the `setAvailableSelectionScopes` action.
    * The value for this action typically come from `Presentation.selection.scopes.getSelectionScopes()`
    * method found in the `@itwin/presentation-frontend` package.
-   * @public */
+   */
   public static getAvailableSelectionScopes(): PresentationSelectionScope[] {
     return UiFramework.frameworkState
       ? UiFramework.frameworkState.sessionState.availableSelectionScopes
@@ -791,7 +746,6 @@ export class UiFramework {
 
   /** UiFramework.setToolbarOpacity() sets the non-hovered opacity to the value specified.
    * @param opacity a value between 0 and 1. The default value is 0.5. IT IS NOT ADVISED TO USE A VALUE BELOW 0.2
-   * @public
    */
   public static setToolbarOpacity(opacity: number) {
     if (UiFramework.getToolbarOpacity() === opacity) return;
@@ -803,9 +757,7 @@ export class UiFramework {
     );
   }
 
-  /** UiFramework.getToolbarOpacity() returns a number between 0 and 1 that is the non-hovered opacity for toolbars.
-   * @public
-   */
+  /** UiFramework.getToolbarOpacity() returns a number between 0 and 1 that is the non-hovered opacity for toolbars. */
   public static getToolbarOpacity(): number {
     return UiFramework.frameworkState
       ? UiFramework.frameworkState.configurableUiState.toolbarOpacity
@@ -882,7 +834,7 @@ export class UiFramework {
 
   /** When `true`, panels will close as soon as the mouse leave the panel.
    * When `false` (default), panels will close on next click outside the panel.
-   * @public */
+   */
   public static get autoCollapseUnpinnedPanels(): boolean {
     return UiFramework.frameworkState
       ? UiFramework.frameworkState.configurableUiState
@@ -893,8 +845,7 @@ export class UiFramework {
   /** Method used to enable the automatic closing of an unpinned widget panel as soon as the
    * mouse leaves the widget panel. The default behavior is to require a mouse click outside
    * the panel before it is closed.
-   * @public */
-
+   */
   public static setAutoCollapseUnpinnedPanels(value: boolean) {
     if (UiFramework.autoCollapseUnpinnedPanels === value) return;
 
@@ -919,17 +870,13 @@ export class UiFramework {
     );
   }
 
-  /** Returns the variable controlling whether the overlay is displayed in a Viewport
-   * @public
-   */
+  /** Returns the variable controlling whether the overlay is displayed in a Viewport. */
   public static get viewOverlayDisplay() {
     return UiFramework.frameworkState
       ? UiFramework.frameworkState.configurableUiState.viewOverlayDisplay
       : /* istanbul ignore next */ true;
   }
-  /** Set the variable that controls display of the view overlay. Applies to all viewports in the app
-   * @public
-   */
+  /** Set the variable that controls display of the view overlay. Applies to all viewports in the app. */
   public static setViewOverlayDisplay(display: boolean) {
     if (UiFramework.viewOverlayDisplay === display) return;
     UiFramework.dispatchActionToStore(
@@ -940,7 +887,7 @@ export class UiFramework {
 
   /** Determines whether a ContextMenu is open
    * @alpha
-   * */
+   */
   public static get isContextMenuOpen(): boolean {
     const contextMenu = document.querySelector("div.core-context-menu-opened");
     return contextMenu !== null && contextMenu !== undefined;
