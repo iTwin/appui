@@ -6,12 +6,11 @@
  * @module State
  */
 
-// The following definitions are causing extract-api issues on linux so for now just using any until we can figure out the issue.
 import type { XAndY } from "@itwin/core-geometry";
-// import { IModelConnection, ViewState } from "@itwin/core-frontend";
 import type { CursorMenuItemProps, MenuItemProps } from "../shared/MenuItem";
 import type { ActionsUnion, DeepReadonly } from "./redux-ts";
 import { createAction } from "./redux-ts";
+
 // cSpell:ignore configurableui snapmode toolprompt sessionstate imodelid viewid viewportid rulesetid
 
 /** PresentationSelectionScope holds the id and the localized label for a selection scope supported for a specific iModel.
@@ -35,8 +34,7 @@ export interface CursorMenuData {
   items: MenuItemProps[];
 }
 
-/**
- * Definition of data added to Redux store to define cursor menu.  If menuItems are empty the menu control is not displayed.
+/** Definition of data added to Redux store to define cursor menu.  If menuItems are empty the menu control is not displayed.
  * To close the menu clear the menuItems or pass in undefined as the CursorData.
  * @public
  */
@@ -47,7 +45,7 @@ export interface CursorMenuPayload {
 }
 
 /** Action Ids used by Redux and to send sync UI components. Typically used to refresh visibility or enable state of control.
- *  Since these are also used as sync ids they should be in lowercase.
+ * Since these are also used as sync ids they should be in lowercase.
  * @public
  */
 export enum SessionStateActionId {
@@ -84,7 +82,7 @@ const defaultSelectionScope = {
   label: "Element",
 } as PresentationSelectionScope;
 
-/** used on first call of SessionStateReducer */
+/** Used on first call of SessionStateReducer. */
 const initialState: SessionState = {
   /** number of selected items in Presentation Selection */
   numItemsSelected: 0,
@@ -104,6 +102,7 @@ const initialState: SessionState = {
 
 /** An interface that allows redux connected object to dispatch changes to the SessionState reducer.
  * @beta
+ * @deprecated in 4.14.x. Use your preferred state management library instead.
  */
 export interface SessionStateActionsProps {
   setActiveIModelId: typeof SessionStateActions.setActiveIModelId;
@@ -119,6 +118,7 @@ export interface SessionStateActionsProps {
 
 /** An object with a function that creates each SessionStateReducer that can be handled by our reducer.
  * @public
+ * @deprecated in 4.14.x. Use your preferred state management library instead.
  */
 export const SessionStateActions = {
   setActiveIModelId:
@@ -166,17 +166,19 @@ export const SessionStateActions = {
 /** Object that contains available actions that modify SessionState. Parent control's props should
  * extend from SessionStateActionsProps before using this in Redux 'connect' function.
  * @beta
+ * @deprecated in 4.14.x. Use your preferred state management library instead.
  */
-// ...SessionStateActionsProps
 export const sessionStateMapDispatchToProps = { ...SessionStateActions };
 
 /** Union of SessionState Redux actions
  * @public
+ * @deprecated in 4.14.x. Use your preferred state management library instead.
  */
 export type SessionStateActionsUnion = ActionsUnion<typeof SessionStateActions>;
 
 /** Handles actions to update SessionState.
  * @public
+ * @deprecated in 4.14.x. Use your preferred state management library instead.
  */
 export function SessionStateReducer(
   state: SessionState = initialState,

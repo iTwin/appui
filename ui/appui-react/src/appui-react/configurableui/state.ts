@@ -21,6 +21,7 @@ import {
 /** Action Ids used by Redux and to send sync UI components. Typically used to refresh visibility or enable state of control.
  *  Since these are also used as sync ids they should be in lowercase.
  * @public
+ * @deprecated in 4.14.x. Use your preferred state management library instead.
  */
 export enum ConfigurableUiActionId {
   SetSnapMode = "configurableui:set_snapmode",
@@ -53,7 +54,7 @@ export interface ConfigurableUiState {
   toolbarOpacity: number;
 }
 
-/** used on first call of ConfigurableUiReducer */
+/** Used on first call of ConfigurableUiReducer. */
 const initialState: ConfigurableUiState = {
   snapMode: SnapMode.NearestKeypoint as number,
   toolPrompt: "",
@@ -70,6 +71,7 @@ const initialState: ConfigurableUiState = {
 
 /** An object with a function that creates each ConfigurableUiReducer that can be handled by our reducer.
  * @public
+ * @deprecated in 4.14.x. Use your preferred state management library instead.
  */
 export const ConfigurableUiActions = {
   setSnapMode: (snapMode: number) =>
@@ -118,6 +120,7 @@ export const ConfigurableUiActions = {
 
 /** Union of ConfigurableUi Redux actions
  * @public
+ * @deprecated in 4.14.x. Use your preferred state management library instead.
  */
 export type ConfigurableUiActionsUnion = ActionsUnion<
   typeof ConfigurableUiActions
@@ -125,6 +128,7 @@ export type ConfigurableUiActionsUnion = ActionsUnion<
 
 /** Handles actions to update ConfigurableUiState.
  * @public
+ * @deprecated in 4.14.x. Use your preferred state management library instead.
  */
 export function ConfigurableUiReducer(
   state: ConfigurableUiState = initialState,

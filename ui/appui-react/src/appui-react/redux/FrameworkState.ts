@@ -22,6 +22,7 @@ export interface FrameworkState {
 
 /** Framework reducer that combines the [[ConfigurableUiReducer]] and [[SessionStateReducer]].
  * @public
+ * @deprecated in 4.14.x. Use your preferred state management library instead.
  */
 export const FrameworkReducer = combineReducers({
   configurableUiState: ConfigurableUiReducer,
