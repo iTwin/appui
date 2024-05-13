@@ -97,7 +97,6 @@ interface WithOnRenderProps {
 export const withOnRender = <P extends {}, C>(
   Component: React.JSXElementConstructor<P> & C
 ) => {
-  // eslint-disable-next-line deprecation/deprecation
   type Props = JSX.LibraryManagedAttributes<C, P & WithOnRenderProps>;
   return function WithOnRender(props: Props) {
     const { onRender, ...otherProps } = props;

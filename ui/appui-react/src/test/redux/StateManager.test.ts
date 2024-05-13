@@ -146,7 +146,6 @@ describe("StateManager", () => {
   });
 
   it("should not be to access store if StateManager has not been created", () => {
-    // eslint-disable-next-line deprecation/deprecation
     expect(() => StateManager.store).to.throw(UiError);
   });
 

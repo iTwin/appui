@@ -158,7 +158,7 @@ describe("ToolUiProvider", () => {
           const syncArgs = {
             toolId: testToolId,
             syncProperties: [syncItem],
-          } as SyncToolSettingsPropertiesEventArgs; // eslint-disable-line deprecation/deprecation
+          } as SyncToolSettingsPropertiesEventArgs;
           toolUiProvider.syncToolSettingsProperties(syncArgs);
           //    expect(toolUiProvider.dataProvider).toEqual(undefined);
         }

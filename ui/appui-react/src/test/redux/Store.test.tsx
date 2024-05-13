@@ -23,8 +23,6 @@ import {
 } from "../../appui-react";
 import TestUtils from "../TestUtils";
 
-/* eslint-disable deprecation/deprecation */
-
 function ReduxThemeRenderer() {
   const theme = useSelector((state: Partial<FrameworkRootState>) => {
     return state.frameworkState?.configurableUiState.theme;

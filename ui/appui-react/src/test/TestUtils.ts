@@ -96,7 +96,6 @@ export class TestUtils {
         });
       }
 
-      // eslint-disable-next-line deprecation/deprecation
       this.store = createStore(
         this._rootReducer,
         (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&

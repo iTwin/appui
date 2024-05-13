@@ -27,7 +27,7 @@ describe("useActiveViewport", () => {
     );
     act(() => {
       UiFramework.content.onActiveContentChangedEvent.emit(
-        {} as ActiveContentChangedEventArgs // eslint-disable-line deprecation/deprecation
+        {} as ActiveContentChangedEventArgs
       );
     });
 
