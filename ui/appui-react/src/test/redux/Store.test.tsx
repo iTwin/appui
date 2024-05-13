@@ -9,19 +9,21 @@ import type { Dispatch } from "redux";
 import { combineReducers, createStore } from "redux";
 import type {
   ConfigurableUiActionsUnion,
-  FrameworkDispatch,
   FrameworkRootState,
 } from "../../appui-react";
 import {
   ConfigurableUiActionId,
   createFrameworkState,
   FrameworkReducer,
-  FrameworkStateProvider,
   UiFramework,
-  useFrameworkDispatch,
-  useFrameworkState,
 } from "../../appui-react";
 import TestUtils from "../TestUtils";
+import type { FrameworkDispatch } from "../../appui-react/redux/useFrameworkState";
+import {
+  FrameworkStateProvider,
+  useFrameworkDispatch,
+  useFrameworkState,
+} from "../../appui-react/redux/useFrameworkState";
 
 function ReduxThemeRenderer() {
   const theme = useSelector((state: Partial<FrameworkRootState>) => {

@@ -12,8 +12,7 @@ import type { ReducersMapObject, Store } from "redux";
 import { combineReducers, createStore } from "redux";
 import { Logger } from "@itwin/core-bentley";
 import { UiError } from "@itwin/appui-abstract";
-import type { FrameworkState } from "./FrameworkState";
-import { FrameworkReducer } from "./FrameworkState";
+import { FrameworkReducer, type FrameworkState } from "./FrameworkState";
 import type { NameToReducerMap } from "./ReducerRegistry";
 import { ReducerRegistryInstance } from "./ReducerRegistry";
 

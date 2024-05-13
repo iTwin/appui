@@ -7,46 +7,14 @@
  */
 
 import * as React from "react";
-import type {
-  ConfigurableUiActionsUnion,
-  ConfigurableUiState,
-} from "../configurableui/state";
+import type { Store } from "redux";
+import { ReactReduxContext } from "react-redux";
 import {
   ConfigurableUiActionId,
-  ConfigurableUiReducer,
-  initialConfigurableUiState,
+  type ConfigurableUiActionsUnion,
 } from "../configurableui/state";
-import { combineReducers } from "./redux-ts";
-import type { SessionState } from "./SessionState";
-import { initialSessionState, SessionStateReducer } from "./SessionState";
-import { ReactReduxContext } from "react-redux";
 import { UiFramework } from "../UiFramework";
-import type { Store } from "redux";
-
-/** Interface combining all the Framework state interfaces.
- * @public
- */
-export interface FrameworkState {
-  configurableUiState: ConfigurableUiState;
-  sessionState: SessionState;
-}
-
-/** @internal */
-export function createFrameworkState(): FrameworkState {
-  return {
-    configurableUiState: { ...initialConfigurableUiState },
-    sessionState: { ...initialSessionState },
-  };
-}
-
-/** Framework reducer that combines the [[ConfigurableUiReducer]] and [[SessionStateReducer]].
- * @public
- * @deprecated in 4.14.x. Use your preferred state management library instead.
- */
-export const FrameworkReducer = combineReducers({
-  configurableUiState: ConfigurableUiReducer,
-  sessionState: SessionStateReducer,
-});
+import type { FrameworkState } from "./FrameworkState";
 
 /** @internal */
 export const FrameworkStateContext = React.createContext<
