@@ -54,8 +54,10 @@ export interface ConfigurableUiState {
   toolbarOpacity: number;
 }
 
-/** Used on first call of ConfigurableUiReducer. */
-const initialState: ConfigurableUiState = {
+/** Used on first call of ConfigurableUiReducer.
+ * @internal
+ */
+export const initialConfigurableUiState: ConfigurableUiState = {
   snapMode: SnapMode.NearestKeypoint as number,
   toolPrompt: "",
   theme: SYSTEM_PREFERRED_COLOR_THEME,
@@ -131,7 +133,7 @@ export type ConfigurableUiActionsUnion = ActionsUnion<
  * @deprecated in 4.14.x. Use your preferred state management library instead.
  */
 export function ConfigurableUiReducer(
-  state: ConfigurableUiState = initialState,
+  state: ConfigurableUiState = initialConfigurableUiState,
   action: ConfigurableUiActionsUnion
 ): ConfigurableUiState {
   const outState = state;

@@ -82,8 +82,10 @@ const defaultSelectionScope = {
   label: "Element",
 } as PresentationSelectionScope;
 
-/** Used on first call of SessionStateReducer. */
-const initialState: SessionState = {
+/** Used on first call of SessionStateReducer.
+ * @internal
+ */
+export const initialSessionState: SessionState = {
   /** number of selected items in Presentation Selection */
   numItemsSelected: 0,
   /** initialize to only support "Element" scope, this will be overwritten when iModelConnection is established */
@@ -181,7 +183,7 @@ export type SessionStateActionsUnion = ActionsUnion<typeof SessionStateActions>;
  * @deprecated in 4.14.x. Use your preferred state management library instead.
  */
 export function SessionStateReducer(
-  state: SessionState = initialState,
+  state: SessionState = initialSessionState,
   action: SessionStateActionsUnion
 ): DeepReadonly<SessionState> {
   switch (action.type) {

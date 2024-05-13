@@ -354,22 +354,35 @@ export class UiFramework {
     }
   }
 
-  /** The Redux store
+  /** The Redux store.
    * @deprecated in 4.14.x. Use your preferred state management library instead.
    */
   public static get store(): Store<any> {
-    if (UiFramework._store) return UiFramework._store;
-
-    // istanbul ignore else
-    if (!StateManager.isInitialized(true))
+    const reduxStore = this.reduxStore;
+    if (!reduxStore) {
       // eslint-disable-next-line deprecation/deprecation
       throw new UiError(
         UiFramework.loggerCategory(this),
         `Error trying to access redux store before either store or StateManager has been initialized.`
       );
+    }
 
-    // istanbul ignore next
-    return StateManager.store;
+    return reduxStore;
+  }
+
+  /** @internal */
+  public static get reduxStore(): Store<any> | undefined {
+    if (UiFramework._store) {
+      return UiFramework._store;
+    }
+
+    // eslint-disable-next-line deprecation/deprecation
+    if (StateManager.isInitialized(true)) {
+      // eslint-disable-next-line deprecation/deprecation
+      return StateManager.store;
+    }
+
+    return undefined;
   }
 
   /** The internationalization service namespace. */
@@ -436,7 +449,7 @@ export class UiFramework {
     return category;
   }
 
-  /** @deprecated in 4.14.x. Use your preferred state management library instead. */
+  /** @deprecated in 4.14.x. Use `useFrameworkDispatch()` to dispatch an action together with `SyncUiEventDispatcher` to dispatch a sync UI event. */
   public static dispatchActionToStore(
     type: string,
     payload: any,

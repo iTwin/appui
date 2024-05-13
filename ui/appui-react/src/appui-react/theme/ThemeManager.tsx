@@ -98,8 +98,7 @@ function mapStateToProps(state: any) {
   };
 }
 
-/** ThemeManagerComponent handles setting themes.
- */
+/** ThemeManagerComponent handles setting themes. */
 class ThemeManagerComponent extends React.Component<ThemeManagerProps> {
   public override componentDidMount() {
     this._setTheme(this.props.theme);
