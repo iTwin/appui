@@ -8,12 +8,11 @@
 
 import "./ThemeManager.scss";
 import * as React from "react";
-import { connect } from "react-redux";
+import { assert } from "@itwin/core-bentley";
 import type { ThemeType } from "@itwin/itwinui-react";
 import { ThemeProvider } from "@itwin/itwinui-react";
 import { ThemeProvider as ThemeProviderV2 } from "@itwin/itwinui-react-v2";
-import type { FrameworkState } from "../redux/FrameworkState";
-import { UiFramework } from "../UiFramework";
+import { useFrameworkState } from "../redux/useFrameworkState";
 
 /** System preferred color theme.
  * @public
@@ -38,16 +37,13 @@ export enum ColorTheme {
   HighContrastDark = "high-contrast-dark",
 }
 
-/**
- * Describe valid themes.
+/** Describe valid themes.
  * See [[ThemeManager]] for more information.
  * @public
  */
 export type ThemeId = `${ColorTheme}` | (string & {});
 
-/**
- * Map of ColorTheme to ThemeType
- */
+/** Map of ColorTheme to ThemeType. */
 const colorThemeToThemeTypeMap: { [x: string]: ThemeType } = {
   [ColorTheme.Light]: "light",
   [ColorTheme.HighContrastLight]: "light",
@@ -57,9 +53,7 @@ const colorThemeToThemeTypeMap: { [x: string]: ThemeType } = {
   os: "os", // handle "os" for backwards compatibility
 };
 
-/**
- * List of high contrast color themes
- */
+/** List of high contrast color themes. */
 const highContrastColorThemes: string[] = [
   ColorTheme.HighContrastDark,
   ColorTheme.HighContrastLight,
@@ -74,104 +68,6 @@ export const WIDGET_OPACITY_DEFAULT = 0.9;
  * @public
  */
 export const TOOLBAR_OPACITY_DEFAULT = 0.5;
-
-/** Properties of [[ThemeManagerComponent]].
- */
-interface ThemeManagerProps {
-  /** theme ("light", "dark", etc.) */
-  theme: ThemeId;
-  /* Widget Opacity */
-  widgetOpacity: number;
-  children?: React.ReactNode;
-  toolbarOpacity: number;
-}
-
-function mapStateToProps(state: any) {
-  const frameworkState = state[UiFramework.frameworkStateKey] as FrameworkState; // since app sets up key, don't hard-code name
-  // istanbul ignore if
-  if (!frameworkState) return undefined;
-
-  return {
-    theme: frameworkState.configurableUiState.theme,
-    widgetOpacity: frameworkState.configurableUiState.widgetOpacity,
-    toolbarOpacity: frameworkState.configurableUiState.toolbarOpacity,
-  };
-}
-
-/** ThemeManagerComponent handles setting themes. */
-class ThemeManagerComponent extends React.Component<ThemeManagerProps> {
-  public override componentDidMount() {
-    this._setTheme(this.props.theme);
-    this._setWidgetOpacity(this.props.widgetOpacity);
-    this._setToolbarOpacity(this.props.toolbarOpacity);
-  }
-
-  public override componentDidUpdate(prevProps: ThemeManagerProps) {
-    if (this.props.theme !== prevProps.theme) this._setTheme(this.props.theme);
-    if (this.props.widgetOpacity !== prevProps.widgetOpacity)
-      this._setWidgetOpacity(this.props.widgetOpacity);
-    if (this.props.toolbarOpacity !== prevProps.toolbarOpacity)
-      this._setToolbarOpacity(this.props.toolbarOpacity);
-  }
-
-  private _setTheme = (theme: string) => {
-    document.documentElement.classList.add("theme-transition");
-    document.documentElement.setAttribute("data-theme", theme);
-    window.setTimeout(
-      () => document.documentElement.classList.remove("theme-transition"),
-      1000
-    );
-  };
-
-  private _setWidgetOpacity = (opacity: number) => {
-    const currentWidgetOpacity =
-      document.documentElement.style.getPropertyValue("--buic-widget-opacity");
-    if (currentWidgetOpacity !== opacity.toString()) {
-      setTimeout(() =>
-        document.documentElement.style.setProperty(
-          "--buic-widget-opacity",
-          opacity.toString()
-        )
-      );
-    }
-  };
-
-  private _setToolbarOpacity = (opacity: number) => {
-    const currentToolbarOpacity =
-      document.documentElement.style.getPropertyValue("--buic-toolbar-opacity");
-    if (currentToolbarOpacity !== opacity.toString()) {
-      setTimeout(() => {
-        document.documentElement.style.setProperty(
-          "--buic-toolbar-opacity",
-          opacity.toString()
-        );
-      });
-    }
-  };
-
-  public override render(): React.ReactNode {
-    const theme = colorThemeToThemeTypeMap[this.props.theme];
-    const highContrast = highContrastColorThemes.includes(this.props.theme);
-
-    return (
-      <ThemeProvider
-        className="uifw-root"
-        theme={theme ?? "inherit"}
-        themeOptions={{ highContrast }}
-        data-root-container="appui-root-id"
-        includeCss={true}
-      >
-        <ThemeProviderV2 /* v2 ThemeProvider is required to fix popup styling issues in widget popouts. */
-          style={{ height: "100%" }}
-          theme={theme ?? "inherit"}
-          themeOptions={{ highContrast }}
-        >
-          {this.props.children}
-        </ThemeProviderV2>
-      </ThemeProvider>
-    );
-  }
-}
 
 /** ThemeManager handles setting color themes and element opacity management. Note that this component will
  * affect the entire application by setting the data-theme attribute to the html element.
@@ -193,4 +89,67 @@ class ThemeManagerComponent extends React.Component<ThemeManagerProps> {
  * ```
  * @public
  */
-export const ThemeManager = connect(mapStateToProps)(ThemeManagerComponent);
+export function ThemeManager({ children }: React.PropsWithChildren<{}>) {
+  const frameworkState = useFrameworkState();
+  assert(!!frameworkState);
+  const { theme, toolbarOpacity, widgetOpacity } =
+    frameworkState.configurableUiState;
+
+  const setToolbarOpacity = (opacity: number) => {
+    const currentToolbarOpacity =
+      document.documentElement.style.getPropertyValue("--buic-toolbar-opacity");
+    if (currentToolbarOpacity === opacity.toString()) return;
+    setTimeout(() => {
+      document.documentElement.style.setProperty(
+        "--buic-toolbar-opacity",
+        opacity.toString()
+      );
+    });
+  };
+
+  React.useEffect(() => {
+    document.documentElement.classList.add("theme-transition");
+    document.documentElement.setAttribute("data-theme", theme);
+    setTimeout(
+      () => document.documentElement.classList.remove("theme-transition"),
+      1000
+    );
+  }, [theme]);
+
+  React.useEffect(() => {
+    const currentWidgetOpacity =
+      document.documentElement.style.getPropertyValue("--buic-widget-opacity");
+    if (currentWidgetOpacity === widgetOpacity.toString()) return;
+    setTimeout(() =>
+      document.documentElement.style.setProperty(
+        "--buic-widget-opacity",
+        widgetOpacity.toString()
+      )
+    );
+  }, [widgetOpacity]);
+
+  React.useEffect(() => {
+    setToolbarOpacity(toolbarOpacity);
+  }, [toolbarOpacity]);
+
+  const providerTheme = colorThemeToThemeTypeMap[theme];
+  const highContrast = highContrastColorThemes.includes(theme);
+
+  return (
+    <ThemeProvider
+      className="uifw-root"
+      theme={providerTheme ?? "inherit"}
+      themeOptions={{ highContrast }}
+      data-root-container="appui-root-id"
+      includeCss={true}
+    >
+      <ThemeProviderV2 /* v2 ThemeProvider is required to fix popup styling issues in widget popouts. */
+        style={{ height: "100%" }}
+        theme={providerTheme ?? "inherit"}
+        themeOptions={{ highContrast }}
+      >
+        {children}
+      </ThemeProviderV2>
+    </ThemeProvider>
+  );
+}
