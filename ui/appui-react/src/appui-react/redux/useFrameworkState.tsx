@@ -7,8 +7,8 @@
  */
 
 import produce from "immer";
+import { useSyncExternalStore } from "use-sync-external-store/shim";
 import * as React from "react";
-import { ReactReduxContext } from "react-redux";
 import { create } from "zustand";
 import {
   ConfigurableUiActionId,
@@ -27,7 +27,7 @@ export const FrameworkDispatchContext = React.createContext<
   FrameworkDispatch | undefined
 >(undefined);
 
-interface FrameworkStateProviderProps {
+interface FrameworkProviderProps {
   children?: React.ReactNode;
   state?: FrameworkState;
   dispatch?: FrameworkDispatch;
@@ -70,12 +70,14 @@ const { getProviderId, setProvider } = (() => {
   };
 })();
 
-/** @internal */
-export function FrameworkStateProvider({
+/** Applications should use redux provider until none of the components are referencing framework state from the redux store.
+ * @internal
+ */
+export function FrameworkProvider({
   children,
   state,
   dispatch,
-}: FrameworkStateProviderProps) {
+}: FrameworkProviderProps) {
   const parentProvider = React.useContext(FrameworkStateContext);
   const idRef = React.useRef(() => {
     return getProviderId();
@@ -98,54 +100,47 @@ export function FrameworkStateProvider({
 export function FrameworkStateReducer(
   state: FrameworkState,
   action: FrameworkAction
-) {
+): FrameworkState {
   switch (action.type) {
     case "SET_THEME":
-      return {
-        ...state,
-        theme: action.theme,
-      };
-    // eslint-disable-next-line deprecation/deprecation
-    case ConfigurableUiActionId.SetTheme.valueOf():
-      const anyAction = action as AnyFrameworkAction;
-      return {
-        ...state,
-        theme: anyAction.payload,
-      };
+      return produce(state, (draft) => {
+        draft.configurableUiState.theme = action.theme;
+      });
   }
   return state;
 }
 
-/** @internal */
+/** Returns framework state.
+ * @note Uses redux store if available. Fallbacks to `FrameworkProvider`.
+ * @internal
+ */
 export function useFrameworkState() {
   const context = React.useContext(FrameworkStateContext);
-  const reduxContext = React.useContext(ReactReduxContext);
-  const [reduxState, setReduxState] = React.useState<
-    FrameworkState | undefined
-  >(() => {
-    if (!reduxContext) return undefined;
-    const state = reduxContext.store.getState();
+  const subscribe = React.useCallback((onStoreChange: () => void) => {
+    const reduxStore = UiFramework.reduxStore;
+    if (!reduxStore) return () => {};
+
+    return reduxStore.subscribe(onStoreChange);
+  }, []);
+  const getSnapshot = React.useCallback(() => {
+    const reduxStore = UiFramework.reduxStore;
+    if (!reduxStore) return undefined;
+
+    const state = reduxStore.getState();
     // eslint-disable-next-line deprecation/deprecation
-    return state[UiFramework.frameworkStateKey];
-  });
-  React.useEffect(() => {
-    if (!reduxContext) {
-      setReduxState(undefined);
-      return;
-    }
-    return reduxContext.store.subscribe(() => {
-      const state = reduxContext.store.getState();
-      // eslint-disable-next-line deprecation/deprecation
-      setReduxState(state[UiFramework.frameworkStateKey]);
-    });
-  }, [reduxContext]);
+    return state[UiFramework.frameworkStateKey] as FrameworkState | undefined;
+  }, []);
+  const reduxState = useSyncExternalStore(subscribe, getSnapshot);
   return reduxState ?? context;
 }
 
 /** @internal */
 export type FrameworkDispatch = (action: FrameworkAction) => void;
 
-/** @internal */
+/** Returns framework dispatch function.
+ * @note Uses redux dispatch if available. Fallbacks to `FrameworkProvider`.
+ * @internal
+ */
 export function useFrameworkDispatch() {
   const context = React.useContext(FrameworkDispatchContext);
   const dispatch = React.useCallback<FrameworkDispatch>(
@@ -165,8 +160,7 @@ export function useFrameworkDispatch() {
   return dispatch;
 }
 
-/** @internal */
-export function actionToReduxAction(
+function actionToReduxAction(
   action: FrameworkAction
   // eslint-disable-next-line deprecation/deprecation
 ): ConfigurableUiActionsUnion | undefined {
@@ -204,7 +198,9 @@ interface RootFramework {
   ) => void;
 }
 
-/** @internal */
+/** Store for root `FrameworkProvider`. Used for backwards compatibility in `UiFramework` statics to access framework state and dispatch.
+ * @internal
+ */
 export const useRootFrameworkStore = create<RootFramework>((set) => ({
   state: undefined,
   dispatch: undefined,
