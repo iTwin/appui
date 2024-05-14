@@ -187,7 +187,7 @@ describe("Store", () => {
       getByText("frameworkState:custom-theme");
     });
 
-    it("should dispatch a framework action w/o redux", async () => {
+    it("should dispatch w/o redux", async () => {
       const state = createFrameworkState();
       state.configurableUiState.theme = "initial-theme";
 
@@ -203,6 +203,24 @@ describe("Store", () => {
       expect(dispatch).toHaveBeenCalledWith({
         type: "SET_THEME",
         theme: "custom-theme",
+      });
+    });
+  });
+
+  describe("UiFramework.dispatchActionToStore", () => {
+    it("should dispatch w/o redux", async () => {
+      const dispatch = vi.fn<Parameters<FrameworkDispatch>>();
+
+      render(
+        <FrameworkStateProvider dispatch={dispatch}>
+          <ThemeRenderer />
+        </FrameworkStateProvider>
+      );
+
+      UiFramework.dispatchActionToStore("set-theme", "custom-theme");
+      expect(dispatch).toHaveBeenCalledWith({
+        type: "set-theme",
+        payload: "custom-theme",
       });
     });
   });

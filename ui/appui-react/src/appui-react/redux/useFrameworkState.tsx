@@ -6,9 +6,10 @@
  * @module State
  */
 
+import produce from "immer";
 import * as React from "react";
-import type { Store } from "redux";
 import { ReactReduxContext } from "react-redux";
+import { create } from "zustand";
 import {
   ConfigurableUiActionId,
   type ConfigurableUiActionsUnion,
@@ -32,12 +33,58 @@ interface FrameworkStateProviderProps {
   dispatch?: FrameworkDispatch;
 }
 
+const { getProviderId, setProvider } = (() => {
+  const frameworkProviders = new Map<
+    number,
+    {
+      state: FrameworkState | undefined;
+      dispatch: FrameworkDispatch | undefined;
+    }
+  >();
+  let providerId = 0;
+
+  function updateStore() {
+    const entries = Array.from(frameworkProviders.entries());
+    if (entries.length === 0) {
+      useRootFrameworkStore.getState().setRoot(undefined, undefined);
+      return;
+    }
+    const sorted = entries.sort(([id1, _], [id2, __]) => id1 - id2);
+    const lowest = sorted[0][1];
+    useRootFrameworkStore.getState().setRoot(lowest.state, lowest.dispatch);
+  }
+  return {
+    getProviderId: () => ++providerId,
+    setProvider: (
+      id: number,
+      state: FrameworkState | undefined,
+      dispatch: FrameworkDispatch | undefined
+    ) => {
+      frameworkProviders.set(id, { state, dispatch });
+      updateStore();
+      return () => {
+        frameworkProviders.delete(id);
+        updateStore();
+      };
+    },
+  };
+})();
+
 /** @internal */
 export function FrameworkStateProvider({
   children,
   state,
   dispatch,
 }: FrameworkStateProviderProps) {
+  const parentProvider = React.useContext(FrameworkStateContext);
+  const idRef = React.useRef(() => {
+    return getProviderId();
+  });
+  React.useEffect(() => {
+    if (parentProvider) return;
+    const id = idRef.current();
+    return setProvider(id, state, dispatch);
+  }, [state, dispatch, parentProvider]);
   return (
     <FrameworkDispatchContext.Provider value={dispatch}>
       <FrameworkStateContext.Provider value={state}>
@@ -48,29 +95,51 @@ export function FrameworkStateProvider({
 }
 
 /** @internal */
+export function FrameworkStateReducer(
+  state: FrameworkState,
+  action: FrameworkAction
+) {
+  switch (action.type) {
+    case "SET_THEME":
+      return {
+        ...state,
+        theme: action.theme,
+      };
+    // eslint-disable-next-line deprecation/deprecation
+    case ConfigurableUiActionId.SetTheme.valueOf():
+      const anyAction = action as AnyFrameworkAction;
+      return {
+        ...state,
+        theme: anyAction.payload,
+      };
+  }
+  return state;
+}
+
+/** @internal */
 export function useFrameworkState() {
   const context = React.useContext(FrameworkStateContext);
   const reduxContext = React.useContext(ReactReduxContext);
-  const [reduxFrameworkState, setReduxFrameworkState] = React.useState<
+  const [reduxState, setReduxState] = React.useState<
     FrameworkState | undefined
   >(() => {
     if (!reduxContext) return undefined;
-    const reduxState = reduxContext.store.getState();
+    const state = reduxContext.store.getState();
     // eslint-disable-next-line deprecation/deprecation
-    return reduxState[UiFramework.frameworkStateKey];
+    return state[UiFramework.frameworkStateKey];
   });
   React.useEffect(() => {
     if (!reduxContext) {
-      setReduxFrameworkState(undefined);
+      setReduxState(undefined);
       return;
     }
     return reduxContext.store.subscribe(() => {
-      const reduxState = reduxContext.store.getState();
+      const state = reduxContext.store.getState();
       // eslint-disable-next-line deprecation/deprecation
-      setReduxFrameworkState(reduxState[UiFramework.frameworkStateKey]);
+      setReduxState(state[UiFramework.frameworkStateKey]);
     });
   }, [reduxContext]);
-  return reduxFrameworkState ?? context;
+  return reduxState ?? context;
 }
 
 /** @internal */
@@ -83,7 +152,9 @@ export function useFrameworkDispatch() {
     (action) => {
       const reduxStore = UiFramework.reduxStore;
       if (reduxStore) {
-        reduxDispatch(reduxStore, action);
+        const reduxAction = actionToReduxAction(action);
+        if (!reduxAction) return;
+        reduxStore.dispatch(reduxAction);
         return;
       }
 
@@ -94,13 +165,8 @@ export function useFrameworkDispatch() {
   return dispatch;
 }
 
-function reduxDispatch(reduxStore: Store, action: FrameworkAction) {
-  const reduxAction = actionToReduxAction(action);
-  if (!reduxAction) return;
-  reduxStore.dispatch(reduxAction);
-}
-
-function actionToReduxAction(
+/** @internal */
+export function actionToReduxAction(
   action: FrameworkAction
   // eslint-disable-next-line deprecation/deprecation
 ): ConfigurableUiActionsUnion | undefined {
@@ -115,13 +181,42 @@ function actionToReduxAction(
   return undefined;
 }
 
+interface AnyFrameworkAction {
+  type: string;
+  [key: string]: any;
+}
+
 /** @internal */
 export type FrameworkAction =
   | {
       type: "SET_THEME";
       theme: string;
     }
-  | {
-      type: string;
-      [key: string]: any;
-    };
+  // TODO: is there a way to keep type auto-completion and known action types strict? i.e. for string literals: "SET_THEME" | (string & {})
+  | AnyFrameworkAction;
+
+interface RootFramework {
+  state: FrameworkState | undefined;
+  dispatch: FrameworkDispatch | undefined;
+  setRoot: (
+    state: FrameworkState | undefined,
+    dispatch: FrameworkDispatch | undefined
+  ) => void;
+}
+
+/** @internal */
+export const useRootFrameworkStore = create<RootFramework>((set) => ({
+  state: undefined,
+  dispatch: undefined,
+  setRoot: (frameworkState, dispatch) => {
+    set((state) =>
+      produce(state, (draft) => {
+        draft.state = frameworkState;
+        draft.dispatch = dispatch;
+      })
+    );
+  },
+  reset: () => {
+    set({ state: undefined, dispatch: undefined });
+  },
+}));

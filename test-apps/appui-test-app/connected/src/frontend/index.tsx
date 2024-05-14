@@ -8,7 +8,7 @@ import "./index.scss";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { connect, Provider } from "react-redux";
-import { Store } from "redux"; // createStore,
+import { Store } from "redux";
 import { Key } from "ts-key-enum";
 import { BrowserAuthorizationClient } from "@itwin/browser-authorization";
 import {

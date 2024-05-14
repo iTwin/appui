@@ -84,6 +84,7 @@ import type { KeyinEntry } from "./keyins/Keyins";
 import { mapToRelativePosition, type Placement } from "./utils/Placement";
 import type { ToolbarProps } from "./toolbar/Toolbar";
 import type { CursorMenuItemProps } from "./shared/MenuItem";
+import { useRootFrameworkStore } from "./redux/useFrameworkState";
 
 interface ShowInputEditorOptions {
   location: XAndY;
@@ -344,14 +345,13 @@ export class UiFramework {
    * @deprecated in 4.14.x. Use your preferred state management library instead.
    */
   public static get frameworkState(): FrameworkState | undefined {
-    try {
-      // eslint-disable-next-line deprecation/deprecation
-      const state = UiFramework.store.getState();
+    const reduxStore = UiFramework.reduxStore;
+    if (reduxStore) {
+      const state = reduxStore.getState();
       // eslint-disable-next-line deprecation/deprecation
       return state[UiFramework.frameworkStateKey];
-    } catch (_e) {
-      return undefined;
     }
+    return useRootFrameworkStore.getState().state;
   }
 
   /** The Redux store.
@@ -455,7 +455,13 @@ export class UiFramework {
     payload: any,
     immediateSync = false
   ) {
-    UiFramework.store.dispatch({ type, payload });
+    const reduxStore = UiFramework.reduxStore;
+    if (reduxStore) {
+      reduxStore.dispatch({ type, payload });
+    } else {
+      const { dispatch } = useRootFrameworkStore.getState();
+      dispatch?.({ type, payload });
+    }
     if (immediateSync) SyncUiEventDispatcher.dispatchImmediateSyncUiEvent(type);
     else SyncUiEventDispatcher.dispatchSyncUiEvent(type);
   }
