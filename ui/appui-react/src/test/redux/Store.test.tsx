@@ -10,7 +10,6 @@ import { combineReducers, createStore } from "redux";
 import type {
   ConfigurableUiActionsUnion,
   FrameworkRootState,
-  FrameworkState,
 } from "../../appui-react";
 import {
   ConfigurableUiActionId,
@@ -19,16 +18,9 @@ import {
   UiFramework,
 } from "../../appui-react";
 import TestUtils from "../TestUtils";
-import type {
-  FrameworkAction,
-  FrameworkDispatch,
-} from "../../appui-react/redux/useFrameworkState";
-import {
-  FrameworkProvider,
-  FrameworkStateReducer,
-  useFrameworkDispatch,
-  useFrameworkState,
-} from "../../appui-react/redux/useFrameworkState";
+import { renderHook } from "@testing-library/react-hooks";
+import { useGlobalStore } from "../../appui-react/redux/useGlobalStore";
+import { useGlobalState } from "../../appui-react/redux/useGlobalState";
 
 function ReduxThemeRenderer() {
   const theme = useSelector((state: Partial<FrameworkRootState>) => {
@@ -51,19 +43,15 @@ function ReduxThemeRenderer() {
 }
 
 function ThemeRenderer() {
-  const frameworkState = useFrameworkState();
-  const dispatch = useFrameworkDispatch();
+  const frameworkState = useGlobalState();
   if (!frameworkState) return null;
   return (
     <button
       onClick={() => {
-        dispatch({
-          type: "SET_THEME",
-          theme: "custom-theme",
-        });
+        frameworkState.configurableUi.setTheme("custom-theme");
       }}
     >
-      frameworkState:{frameworkState.configurableUiState.theme}
+      frameworkState:{frameworkState.configurableUi.theme}
     </button>
   );
 }
@@ -73,7 +61,45 @@ describe("Store", () => {
     TestUtils.terminateUiFramework();
   });
 
-  describe("useFrameworkState", () => {
+  describe("useGlobalState", () => {
+    describe("with redux", () => {
+      it("should return redux store value", async () => {
+        const reducer = combineReducers({
+          frameworkState: FrameworkReducer,
+        });
+        const store = createStore(reducer);
+        store.dispatch({
+          type: ConfigurableUiActionId.SetTheme,
+          payload: "initial-theme",
+        });
+        await UiFramework.initialize(store);
+
+        expect(
+          store.getState().frameworkState.configurableUiState.theme
+        ).toEqual("initial-theme");
+
+        const { result } = renderHook(() => useGlobalState(), {
+          wrapper: Provider,
+          initialProps: { store: UiFramework.store },
+        });
+
+        expect(result.current.configurableUi.theme).toEqual("initial-theme");
+
+        result.current.configurableUi.setTheme("custom-theme");
+        expect(result.current.configurableUi.theme).toEqual("custom-theme");
+      });
+    });
+
+    describe("without redux", () => {
+      it("should return store value", () => {
+        const { result } = renderHook(() => useGlobalState());
+        expect(result.current.configurableUi.theme).toEqual("SYSTEM_PREFERRED");
+
+        result.current.configurableUi.setTheme("custom-theme");
+        expect(result.current.configurableUi.theme).toEqual("custom-theme");
+      });
+    });
+
     it("should use redux w/o FrameworkStateProvider", async () => {
       const reducer = combineReducers({
         frameworkState: FrameworkReducer,
@@ -117,10 +143,8 @@ describe("Store", () => {
 
       const { getByText } = render(
         <Provider store={UiFramework.store}>
-          <FrameworkProvider state={state}>
-            <ReduxThemeRenderer />
-            <ThemeRenderer />
-          </FrameworkProvider>
+          <ReduxThemeRenderer />
+          <ThemeRenderer />
         </Provider>
       );
 
@@ -132,45 +156,49 @@ describe("Store", () => {
       getByText("frameworkState:SYSTEM_PREFERRED");
     });
 
-    it("should use FrameworkProvider if framework state is not available in redux", async () => {
+    it("should use framework state if one is not available in redux store", async () => {
       const reducer = combineReducers({
-        customState: FrameworkReducer,
+        fs: FrameworkReducer,
       });
       const store = createStore(reducer);
       await UiFramework.initialize(store);
 
-      const state = createFrameworkState();
-      state.configurableUiState.theme = "initial-theme";
+      useGlobalStore.setState((prev) => ({
+        configurableUi: {
+          ...prev.configurableUi,
+          theme: "initial-theme",
+        },
+      }));
 
       const { getByText } = render(
         <Provider store={UiFramework.store}>
-          <FrameworkProvider state={state}>
-            <ReduxThemeRenderer />
-            <ThemeRenderer />
-          </FrameworkProvider>
+          <ReduxThemeRenderer />
+          <ThemeRenderer />
         </Provider>
       );
 
-      expect(UiFramework.frameworkState).toEqual(undefined);
-      expect(UiFramework.getColorTheme()).toEqual("SYSTEM_PREFERRED");
+      expect(UiFramework.frameworkState?.configurableUiState.theme).toEqual(
+        "initial-theme"
+      );
+      expect(UiFramework.getColorTheme()).toEqual("initial-theme");
       getByText("frameworkState:initial-theme");
     });
 
-    it("should use FrameworkProvider w/o redux store", async () => {
+    it("should use framework state w/o redux store", async () => {
       const state = createFrameworkState();
       state.configurableUiState.theme = "initial-theme";
 
-      const { getByText } = render(
-        <FrameworkProvider state={state}>
-          <ThemeRenderer />
-        </FrameworkProvider>
-      );
+      useGlobalStore.setState((prev) => ({
+        configurableUi: {
+          ...prev.configurableUi,
+          theme: "initial-theme",
+        },
+      }));
 
+      const { getByText } = render(<ThemeRenderer />);
       getByText("frameworkState:initial-theme");
     });
-  });
 
-  describe("useFrameworkDispatch", () => {
     it("should dispatch a redux action", async () => {
       const reducer = combineReducers({
         frameworkState: FrameworkReducer,
@@ -192,127 +220,49 @@ describe("Store", () => {
       getByText("frameworkState:custom-theme");
     });
 
-    it("should dispatch w/o redux", () => {
-      const state = createFrameworkState();
-      state.configurableUiState.theme = "initial-theme";
+    it("should update framework state w/o redux store", () => {
+      useGlobalStore.setState((prev) => ({
+        configurableUi: {
+          ...prev.configurableUi,
+          theme: "initial-theme",
+        },
+      }));
 
-      const dispatch = vi.fn<Parameters<FrameworkDispatch>>();
-
-      const { getByText } = render(
-        <FrameworkProvider state={state} dispatch={dispatch}>
-          <ThemeRenderer />
-        </FrameworkProvider>
-      );
+      const { getByText } = render(<ThemeRenderer />);
 
       fireEvent.click(getByText("frameworkState:initial-theme"));
-      expect(dispatch).toHaveBeenCalledWith({
-        type: "SET_THEME",
-        theme: "custom-theme",
-      });
+      getByText("frameworkState:custom-theme");
     });
   });
 
   describe("UiFramework.dispatchActionToStore", () => {
-    it("should dispatch w/o redux", () => {
-      const dispatch = vi.fn<Parameters<FrameworkDispatch>>();
+    it("should update framework state w/o redux store", () => {
+      const { getByText } = render(<ThemeRenderer />);
 
-      render(
-        <FrameworkProvider dispatch={dispatch}>
-          <ThemeRenderer />
-        </FrameworkProvider>
+      UiFramework.dispatchActionToStore(
+        ConfigurableUiActionId.SetTheme,
+        "custom-theme"
       );
-
-      UiFramework.dispatchActionToStore("set-theme", "custom-theme");
-      expect(dispatch).toHaveBeenCalledWith({
-        type: "set-theme",
-        payload: "custom-theme",
-      });
-    });
-  });
-
-  describe("FrameworkStateReducer", () => {
-    it("should use React reducer", () => {
-      function TestFrameworkProvider({
-        children,
-      }: React.PropsWithChildren<{}>) {
-        const [state, dispatch] = React.useReducer(
-          FrameworkStateReducer,
-          undefined,
-          () => {
-            const s = createFrameworkState();
-            s.configurableUiState.theme = "initial-theme";
-            return s;
-          }
-        );
-        return (
-          <FrameworkProvider state={state} dispatch={dispatch}>
-            {children}
-          </FrameworkProvider>
-        );
-      }
-
-      const { getByText } = render(
-        <TestFrameworkProvider>
-          <ThemeRenderer />
-        </TestFrameworkProvider>
-      );
-
-      expect(UiFramework.getColorTheme()).toEqual("initial-theme");
-
-      fireEvent.click(getByText("frameworkState:initial-theme"));
-
-      expect(UiFramework.getColorTheme()).toEqual("custom-theme");
       getByText("frameworkState:custom-theme");
     });
 
-    it("should use custom redux store", () => {
+    it("should update framework state w/o framework state in redux store", async () => {
       const reducer = combineReducers({
-        fs: (
-          state: FrameworkState = (() => {
-            const s = createFrameworkState();
-            s.configurableUiState.theme = "initial-theme";
-            return s;
-          })(),
-          action: FrameworkAction
-        ) => FrameworkStateReducer(state, action),
+        fs: FrameworkReducer,
       });
       const store = createStore(reducer);
-
-      function TestThemeRenderer() {
-        const theme = useSelector(({ fs }: { fs: FrameworkState }) => {
-          return fs.configurableUiState.theme;
-        });
-        if (!theme) return null;
-        return <button>test:{theme}</button>;
-      }
-
-      function TestFrameworkProvider({
-        children,
-      }: React.PropsWithChildren<{}>) {
-        const state = useSelector(({ fs }: { fs: FrameworkState }) => fs);
-        return (
-          <FrameworkProvider state={state} dispatch={store.dispatch}>
-            {children}
-          </FrameworkProvider>
-        );
-      }
+      await UiFramework.initialize(store);
 
       const { getByText } = render(
-        <Provider store={store}>
-          <TestFrameworkProvider>
-            <TestThemeRenderer />
-            <ThemeRenderer />
-          </TestFrameworkProvider>
+        <Provider store={UiFramework.store}>
+          <ThemeRenderer />
         </Provider>
       );
 
-      expect(UiFramework.getColorTheme()).toEqual("initial-theme");
-      getByText("test:initial-theme");
-
-      fireEvent.click(getByText("frameworkState:initial-theme"));
-
-      expect(UiFramework.getColorTheme()).toEqual("custom-theme");
-      getByText("test:custom-theme");
+      UiFramework.dispatchActionToStore(
+        ConfigurableUiActionId.SetTheme,
+        "custom-theme"
+      );
       getByText("frameworkState:custom-theme");
     });
   });

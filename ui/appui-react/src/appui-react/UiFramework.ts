@@ -22,7 +22,11 @@ import type {
 } from "@itwin/appui-abstract";
 import { UiAdmin, UiError, UiEvent } from "@itwin/appui-abstract";
 import type { UiStateStorage } from "@itwin/core-react";
-import { LocalStateStorage, SettingsManager } from "@itwin/core-react";
+import {
+  LocalStateStorage,
+  SettingsManager,
+  TOOLBAR_OPACITY_DEFAULT,
+} from "@itwin/core-react";
 import { getObjectClassName } from "@itwin/core-react";
 import { UiIModelComponents } from "@itwin/imodel-components-react";
 import { BackstageManager } from "./backstage/BackstageManager";
@@ -39,12 +43,6 @@ import { SessionStateActionId } from "./redux/SessionState";
 import { StateManager } from "./redux/StateManager";
 import type { HideIsolateEmphasizeActionHandler } from "./selection/HideIsolateEmphasizeManager";
 import { HideIsolateEmphasizeManager } from "./selection/HideIsolateEmphasizeManager";
-import type { ThemeId } from "./theme/ThemeManager";
-import {
-  SYSTEM_PREFERRED_COLOR_THEME,
-  TOOLBAR_OPACITY_DEFAULT,
-  WIDGET_OPACITY_DEFAULT,
-} from "./theme/ThemeManager";
 import * as keyinPaletteTools from "./tools/KeyinPaletteTools";
 import * as openSettingTools from "./tools/OpenSettingsTool";
 import * as restoreLayoutTools from "./tools/RestoreLayoutTool";
@@ -84,7 +82,15 @@ import type { KeyinEntry } from "./keyins/Keyins";
 import { mapToRelativePosition, type Placement } from "./utils/Placement";
 import type { ToolbarProps } from "./toolbar/Toolbar";
 import type { CursorMenuItemProps } from "./shared/MenuItem";
-import { useRootFrameworkStore } from "./redux/useFrameworkState";
+import type { GlobalState } from "./redux/useGlobalStore";
+import { useGlobalStore } from "./redux/useGlobalStore";
+import { castDraft } from "immer";
+import type { ThemeId } from "./theme/ThemeId";
+import {
+  SYSTEM_PREFERRED_COLOR_THEME,
+  WIDGET_OPACITY_DEFAULT,
+} from "./theme/ThemeId";
+import { dispatchActionToFrameworkStore } from "./redux/useGlobalState";
 
 interface ShowInputEditorOptions {
   location: XAndY;
@@ -305,6 +311,8 @@ export class UiFramework {
 
   /** Un-registers the UiFramework internationalization service namespace */
   public static terminate() {
+    useGlobalStore.setState(useGlobalStore.getInitialState());
+
     UiFramework._store = undefined;
     UiFramework._frameworkStateKeyInStore = "frameworkState";
     if (StateManager.isInitialized(true)) StateManager.clearStore();
@@ -346,12 +354,19 @@ export class UiFramework {
    */
   public static get frameworkState(): FrameworkState | undefined {
     const reduxStore = UiFramework.reduxStore;
-    if (reduxStore) {
-      const state = reduxStore.getState();
-      // eslint-disable-next-line deprecation/deprecation
-      return state[UiFramework.frameworkStateKey];
+    const reduxState = reduxStore?.getState();
+    // eslint-disable-next-line deprecation/deprecation
+    const frameworkState = reduxState?.[UiFramework.frameworkStateKey];
+    if (frameworkState) {
+      return frameworkState;
     }
-    return useRootFrameworkStore.getState().state;
+
+    const storeState = useGlobalStore.getState();
+    const draftState = castDraft(storeState);
+    return {
+      configurableUiState: draftState.configurableUi,
+      sessionState: draftState.session,
+    };
   }
 
   /** The Redux store.
@@ -368,6 +383,11 @@ export class UiFramework {
     }
 
     return reduxStore;
+  }
+
+  /** @internal */
+  public static get globalState(): GlobalState {
+    return useGlobalStore.getState();
   }
 
   /** @internal */
@@ -456,11 +476,13 @@ export class UiFramework {
     immediateSync = false
   ) {
     const reduxStore = UiFramework.reduxStore;
-    if (reduxStore) {
-      reduxStore.dispatch({ type, payload });
+    const reduxState = reduxStore?.getState();
+    // eslint-disable-next-line deprecation/deprecation
+    const frameworkState = reduxState?.[UiFramework.frameworkStateKey];
+    if (frameworkState) {
+      reduxStore!.dispatch({ type, payload });
     } else {
-      const { dispatch } = useRootFrameworkStore.getState();
-      dispatch?.({ type, payload });
+      dispatchActionToFrameworkStore(type, payload);
     }
     if (immediateSync) SyncUiEventDispatcher.dispatchImmediateSyncUiEvent(type);
     else SyncUiEventDispatcher.dispatchSyncUiEvent(type);
@@ -727,10 +749,9 @@ export class UiFramework {
    * method found in the `@itwin/presentation-frontend` package.
    */
   public static getAvailableSelectionScopes(): PresentationSelectionScope[] {
-    return UiFramework.frameworkState
-      ? UiFramework.frameworkState.sessionState.availableSelectionScopes
-      : /* istanbul ignore next */
-        [{ id: "element", label: "Element" } as PresentationSelectionScope];
+    if (!UiFramework.frameworkState)
+      return [{ id: "element", label: "Element" }];
+    return UiFramework.frameworkState.sessionState.availableSelectionScopes;
   }
 
   public static getIsUiVisible() {
