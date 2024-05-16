@@ -1,4 +1,9 @@
 {
+  "button": {
+    "label": {
+      "settings": "Settings"
+    }
+  },
   "timeline": {
     "expand": "Expand",
     "minimize": "Minimize",
