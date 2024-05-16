@@ -63,7 +63,7 @@ import { useCursor } from "../layout/widget-panels/CursorOverlay";
 import { WidgetPanelExpanders } from "../layout/widget-panels/Expander";
 import { useTranslation } from "../hooks/useTranslation";
 import { PopoutWidgets } from "../preview/reparent-popout-widgets/PopoutWidgets";
-import { useFrameworkState } from "../redux/useFrameworkState";
+import { useGlobalState } from "../redux/useGlobalState";
 
 function WidgetPanelsFrontstageComponent() {
   const activeModalFrontstageInfo = useActiveModalFrontstageInfo();
@@ -220,14 +220,14 @@ export function ActiveFrontstageDefProvider({
   useItemsManager(frontstageDef);
   const labels = useLabels();
   const uiIsVisible = useUiVisibility();
-  const frameworkState = useFrameworkState();
+  const frameworkState = useGlobalState();
   assert(!!frameworkState);
   const {
     showWidgetIcon,
     autoCollapseUnpinnedPanels,
     animateToolSettings,
     useToolAsToolSettingsLabel,
-  } = frameworkState.configurableUiState;
+  } = frameworkState.configurableUi;
 
   useFrontstageManager(frontstageDef, useToolAsToolSettingsLabel);
 

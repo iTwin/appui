@@ -15,7 +15,7 @@ import { Label, Select } from "@itwin/itwinui-react";
 import { UiFramework } from "../UiFramework";
 import { FooterIndicator } from "../layout/footer/Indicator";
 import { useTranslation } from "../hooks/useTranslation";
-import { useFrameworkState } from "../redux/useFrameworkState";
+import { useGlobalState } from "../redux/useGlobalState";
 
 /** `SelectionScopeField` component is designed to be specified in a status bar.
  * It displays the active selection scope and the stored list of scopes from which the user can change the active selection scope.
@@ -23,10 +23,10 @@ import { useFrameworkState } from "../redux/useFrameworkState";
  */
 export function SelectionScopeField(props: CommonProps) {
   const { translate } = useTranslation();
-  const frameworkState = useFrameworkState();
+  const frameworkState = useGlobalState();
   assert(!!frameworkState);
   const { activeSelectionScope, availableSelectionScopes } =
-    frameworkState.sessionState;
+    frameworkState.session;
 
   const options = React.useMemo(
     () =>
