@@ -6,8 +6,9 @@ import { render, waitFor } from "@testing-library/react";
 import * as React from "react";
 import { Provider } from "react-redux";
 import { UiFramework } from "../../appui-react";
-import { ColorTheme, ThemeManager } from "../../appui-react/theme/ThemeManager";
+import { ThemeManager } from "../../appui-react/theme/ThemeManager";
 import TestUtils from "../TestUtils";
+import { ColorTheme } from "../../appui-react/theme/ThemeId";
 
 describe("ThemeManager", () => {
   it("should change the theme", () => {

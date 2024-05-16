@@ -14,10 +14,6 @@ import * as React from "react";
 import type { SettingsTabEntry } from "@itwin/core-react";
 import { UiFramework } from "../../UiFramework";
 import {
-  ColorTheme,
-  SYSTEM_PREFERRED_COLOR_THEME,
-} from "../../theme/ThemeManager";
-import {
   SyncUiEventDispatcher,
   SyncUiEventId,
 } from "../../syncui/SyncUiEventDispatcher";
@@ -25,6 +21,7 @@ import type { SelectOption } from "@itwin/itwinui-react";
 import { Select, Slider, ToggleSwitch } from "@itwin/itwinui-react";
 import type { UiSyncEventArgs } from "../../syncui/UiSyncEvent";
 import { useTranslation } from "../../hooks/useTranslation";
+import { ColorTheme, SYSTEM_PREFERRED_COLOR_THEME } from "../../theme/ThemeId";
 
 /** UiSettingsPage displaying the active UI settings. This page lets users set the following settings.
  *

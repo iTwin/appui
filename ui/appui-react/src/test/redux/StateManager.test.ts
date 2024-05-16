@@ -9,17 +9,19 @@ import {
   createAction,
   FrameworkReducer,
   ReducerRegistryInstance,
-  SYSTEM_PREFERRED_COLOR_THEME,
-  TOOLBAR_OPACITY_DEFAULT,
-  WIDGET_OPACITY_DEFAULT,
 } from "../../appui-react";
 import { StateManager } from "../../appui-react/redux/StateManager";
-import type { ConfigurableUiState } from "../../appui-react/configurableui/state";
+import type { ConfigurableUiState } from "../../appui-react/redux/ConfigurableUiState";
 import {
   ConfigurableUiActions,
   ConfigurableUiReducer,
-} from "../../appui-react/configurableui/state";
+} from "../../appui-react/redux/ConfigurableUiState";
 import { SnapMode } from "@itwin/core-frontend";
+import { TOOLBAR_OPACITY_DEFAULT } from "@itwin/core-react";
+import {
+  SYSTEM_PREFERRED_COLOR_THEME,
+  WIDGET_OPACITY_DEFAULT,
+} from "../../appui-react/theme/ThemeId";
 
 // Fake state for the host app
 interface IAppState {

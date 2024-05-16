@@ -12,7 +12,7 @@ import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
 import type { UserSettingsProvider } from "../UiFramework";
 import { UiFramework } from "../UiFramework";
 import type { UiSyncEventArgs } from "../syncui/UiSyncEvent";
-import type { ThemeId } from "../theme/ThemeManager";
+import type { ThemeId } from "../theme/ThemeId";
 
 // cSpell:ignore configurableui
 

@@ -12,36 +12,8 @@ import { assert } from "@itwin/core-bentley";
 import type { ThemeType } from "@itwin/itwinui-react";
 import { ThemeProvider } from "@itwin/itwinui-react";
 import { ThemeProvider as ThemeProviderV2 } from "@itwin/itwinui-react-v2";
-import { useFrameworkState } from "../redux/useFrameworkState";
-
-/** System preferred color theme.
- * @public
- */
-export const SYSTEM_PREFERRED_COLOR_THEME = "SYSTEM_PREFERRED";
-
-/** Enum for the Color Theme string.
- * @public
- */
-export enum ColorTheme {
-  /** Will use iTwinUI `light` theme. */
-  Light = "light",
-  /** Will use iTwinUI `dark` theme. */
-  Dark = "dark",
-  /** Will use iTwinUI `os` theme. */
-  System = SYSTEM_PREFERRED_COLOR_THEME,
-  /** Will use iTwinUI wrapping `ThemeProvider` if provided, or default to 'Light' */
-  Inherit = "inherit",
-  /** Will use iTwinUI `light` theme with `highContrast` set to `true` */
-  HighContrastLight = "high-contrast-light",
-  /** Will use iTwinUI `dark` theme with `highContrast` set to `true` */
-  HighContrastDark = "high-contrast-dark",
-}
-
-/** Describe valid themes.
- * See [[ThemeManager]] for more information.
- * @public
- */
-export type ThemeId = `${ColorTheme}` | (string & {});
+import { useGlobalState } from "../redux/useGlobalState";
+import { ColorTheme } from "./ThemeId";
 
 /** Map of ColorTheme to ThemeType. */
 const colorThemeToThemeTypeMap: { [x: string]: ThemeType } = {
@@ -58,16 +30,6 @@ const highContrastColorThemes: string[] = [
   ColorTheme.HighContrastDark,
   ColorTheme.HighContrastLight,
 ];
-
-/** The default widget opacity.
- * @public
- */
-export const WIDGET_OPACITY_DEFAULT = 0.9;
-
-/** The default widget opacity.
- * @public
- */
-export const TOOLBAR_OPACITY_DEFAULT = 0.5;
 
 /** ThemeManager handles setting color themes and element opacity management. Note that this component will
  * affect the entire application by setting the data-theme attribute to the html element.
@@ -90,10 +52,10 @@ export const TOOLBAR_OPACITY_DEFAULT = 0.5;
  * @public
  */
 export function ThemeManager({ children }: React.PropsWithChildren<{}>) {
-  const frameworkState = useFrameworkState();
+  const frameworkState = useGlobalState();
   assert(!!frameworkState);
   const { theme, toolbarOpacity, widgetOpacity } =
-    frameworkState.configurableUiState;
+    frameworkState.configurableUi;
 
   const setToolbarOpacity = (opacity: number) => {
     const currentToolbarOpacity =
