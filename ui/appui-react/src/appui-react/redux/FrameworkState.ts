@@ -17,6 +17,7 @@ import { initialSessionState, SessionStateReducer } from "./SessionState";
 
 /** Interface combining all the Framework state interfaces.
  * @public
+ * @deprecated in 4.14.x. Use your preferred state management library instead.
  */
 export interface FrameworkState {
   configurableUiState: ConfigurableUiState;

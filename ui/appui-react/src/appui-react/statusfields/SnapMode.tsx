@@ -23,7 +23,7 @@ import { SnapModePanel } from "../layout/footer/snap-mode/Panel";
 import { Snap } from "../layout/footer/snap-mode/Snap";
 import { StatusBarLabelIndicator } from "../statusbar/LabelIndicator";
 import { useTranslation } from "../hooks/useTranslation";
-import { useGlobalState } from "../redux/useGlobalState";
+import { useFrameworkState } from "../uistate/useFrameworkState";
 
 /** Define the properties that will be used to represent the available snap modes. */
 interface SnapModeFieldEntry {
@@ -80,7 +80,7 @@ const getSnapModeIconNameFromMode = (
  */
 export function SnapModeField(props: CommonProps) {
   const { translate } = useTranslation();
-  const frameworkState = useGlobalState();
+  const frameworkState = useFrameworkState();
   assert(!!frameworkState);
   const { snapMode } = frameworkState.configurableUi;
 

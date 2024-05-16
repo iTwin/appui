@@ -63,7 +63,7 @@ import { useCursor } from "../layout/widget-panels/CursorOverlay";
 import { WidgetPanelExpanders } from "../layout/widget-panels/Expander";
 import { useTranslation } from "../hooks/useTranslation";
 import { PopoutWidgets } from "../preview/reparent-popout-widgets/PopoutWidgets";
-import { useGlobalState } from "../redux/useGlobalState";
+import { useFrameworkState } from "../uistate/useFrameworkState";
 
 function WidgetPanelsFrontstageComponent() {
   const activeModalFrontstageInfo = useActiveModalFrontstageInfo();
@@ -220,7 +220,7 @@ export function ActiveFrontstageDefProvider({
   useItemsManager(frontstageDef);
   const labels = useLabels();
   const uiIsVisible = useUiVisibility();
-  const frameworkState = useGlobalState();
+  const frameworkState = useFrameworkState();
   assert(!!frameworkState);
   const {
     showWidgetIcon,

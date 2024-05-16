@@ -12,7 +12,7 @@ import { assert } from "@itwin/core-bentley";
 import type { ThemeType } from "@itwin/itwinui-react";
 import { ThemeProvider } from "@itwin/itwinui-react";
 import { ThemeProvider as ThemeProviderV2 } from "@itwin/itwinui-react-v2";
-import { useGlobalState } from "../redux/useGlobalState";
+import { useFrameworkState } from "../uistate/useFrameworkState";
 import { ColorTheme } from "./ThemeId";
 
 /** Map of ColorTheme to ThemeType. */
@@ -52,7 +52,7 @@ const highContrastColorThemes: string[] = [
  * @public
  */
 export function ThemeManager({ children }: React.PropsWithChildren<{}>) {
-  const frameworkState = useGlobalState();
+  const frameworkState = useFrameworkState();
   assert(!!frameworkState);
   const { theme, toolbarOpacity, widgetOpacity } =
     frameworkState.configurableUi;

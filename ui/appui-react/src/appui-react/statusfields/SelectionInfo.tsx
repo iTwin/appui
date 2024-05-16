@@ -9,7 +9,7 @@
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
 import { SelectionCountField } from "./SelectionCount";
-import { useGlobalState } from "../redux/useGlobalState";
+import { useFrameworkState } from "../uistate/useFrameworkState";
 
 /** `SelectionInfoField` component is designed to be specified in a status bar.
  * It is used to display the number of items in a selection set.
@@ -17,7 +17,7 @@ import { useGlobalState } from "../redux/useGlobalState";
  * @public
  */
 export function SelectionInfoField(props: CommonProps) {
-  const frameworkState = useGlobalState();
+  const frameworkState = useFrameworkState();
   const numItemsSelected = frameworkState
     ? frameworkState.session.numItemsSelected
     : 0;

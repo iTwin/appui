@@ -33,7 +33,7 @@ import { BackstageManager } from "./backstage/BackstageManager";
 import { InternalChildWindowManager } from "./childwindow/InternalChildWindowManager";
 import { InternalConfigurableUiManager } from "./configurableui/InternalConfigurableUiManager";
 import { ConfigurableUiActionId } from "./redux/ConfigurableUiState";
-import type { FrameworkState } from "./redux/FrameworkState";
+import type { FrameworkState as ReduxFrameworkState } from "./redux/FrameworkState";
 import type {
   CursorMenuData,
   CursorMenuPayload,
@@ -82,15 +82,15 @@ import type { KeyinEntry } from "./keyins/Keyins";
 import { mapToRelativePosition, type Placement } from "./utils/Placement";
 import type { ToolbarProps } from "./toolbar/Toolbar";
 import type { CursorMenuItemProps } from "./shared/MenuItem";
-import type { GlobalState } from "./redux/useGlobalStore";
-import { useGlobalStore } from "./redux/useGlobalStore";
+import type { FrameworkState } from "./uistate/useFrameworkStore";
+import { useFrameworkStore } from "./uistate/useFrameworkStore";
 import { castDraft } from "immer";
 import type { ThemeId } from "./theme/ThemeId";
 import {
   SYSTEM_PREFERRED_COLOR_THEME,
   WIDGET_OPACITY_DEFAULT,
 } from "./theme/ThemeId";
-import { dispatchActionToFrameworkStore } from "./redux/useGlobalState";
+import { dispatchActionToFrameworkStore } from "./uistate/useFrameworkState";
 
 interface ShowInputEditorOptions {
   location: XAndY;
@@ -311,7 +311,7 @@ export class UiFramework {
 
   /** Un-registers the UiFramework internationalization service namespace */
   public static terminate() {
-    useGlobalStore.setState(useGlobalStore.getInitialState());
+    useFrameworkStore.setState(useFrameworkStore.getInitialState());
 
     UiFramework._store = undefined;
     UiFramework._frameworkStateKeyInStore = "frameworkState";
@@ -352,7 +352,8 @@ export class UiFramework {
   /** The UiFramework state maintained by Redux.
    * @deprecated in 4.14.x. Use your preferred state management library instead.
    */
-  public static get frameworkState(): FrameworkState | undefined {
+  // eslint-disable-next-line deprecation/deprecation
+  public static get frameworkState(): ReduxFrameworkState | undefined {
     const reduxStore = UiFramework.reduxStore;
     const reduxState = reduxStore?.getState();
     // eslint-disable-next-line deprecation/deprecation
@@ -361,12 +362,17 @@ export class UiFramework {
       return frameworkState;
     }
 
-    const storeState = useGlobalStore.getState();
+    const storeState = useFrameworkStore.getState();
     const draftState = castDraft(storeState);
     return {
       configurableUiState: draftState.configurableUi,
       sessionState: draftState.session,
     };
+  }
+
+  /** @internal */
+  public static get state(): FrameworkState {
+    return useFrameworkStore.getState();
   }
 
   /** The Redux store.
@@ -383,11 +389,6 @@ export class UiFramework {
     }
 
     return reduxStore;
-  }
-
-  /** @internal */
-  public static get globalState(): GlobalState {
-    return useGlobalStore.getState();
   }
 
   /** @internal */

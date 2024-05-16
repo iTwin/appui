@@ -72,8 +72,9 @@ export interface SessionState {
   defaultViewId: string | undefined;
   defaultViewState: any;
   iModelConnection: any;
+  /** @deprecated in 4.11.x use {@link CursorMenuPayload} instead */
   // eslint-disable-next-line deprecation/deprecation
-  cursorMenuData: CursorMenuData | undefined; // @deprecated in 4.11.x use {@link CursorMenuPayload} instead
+  cursorMenuData: CursorMenuData | undefined;
   cursorMenuPayload: CursorMenuPayload | undefined;
 }
 

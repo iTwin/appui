@@ -19,8 +19,8 @@ import {
 } from "../../appui-react";
 import TestUtils from "../TestUtils";
 import { renderHook } from "@testing-library/react-hooks";
-import { useGlobalStore } from "../../appui-react/redux/useGlobalStore";
-import { useGlobalState } from "../../appui-react/redux/useGlobalState";
+import { useFrameworkStore } from "../../appui-react/uistate/useFrameworkStore";
+import { useFrameworkState } from "../../appui-react/uistate/useFrameworkState";
 
 function ReduxThemeRenderer() {
   const theme = useSelector((state: Partial<FrameworkRootState>) => {
@@ -43,7 +43,7 @@ function ReduxThemeRenderer() {
 }
 
 function ThemeRenderer() {
-  const frameworkState = useGlobalState();
+  const frameworkState = useFrameworkState();
   if (!frameworkState) return null;
   return (
     <button
@@ -61,7 +61,7 @@ describe("Store", () => {
     TestUtils.terminateUiFramework();
   });
 
-  describe("useGlobalState", () => {
+  describe("useFrameworkState", () => {
     describe("with redux", () => {
       it("should return redux store value", async () => {
         const reducer = combineReducers({
@@ -78,7 +78,7 @@ describe("Store", () => {
           store.getState().frameworkState.configurableUiState.theme
         ).toEqual("initial-theme");
 
-        const { result } = renderHook(() => useGlobalState(), {
+        const { result } = renderHook(() => useFrameworkState(), {
           wrapper: Provider,
           initialProps: { store: UiFramework.store },
         });
@@ -92,7 +92,7 @@ describe("Store", () => {
 
     describe("without redux", () => {
       it("should return store value", () => {
-        const { result } = renderHook(() => useGlobalState());
+        const { result } = renderHook(() => useFrameworkState());
         expect(result.current.configurableUi.theme).toEqual("SYSTEM_PREFERRED");
 
         result.current.configurableUi.setTheme("custom-theme");
@@ -163,7 +163,7 @@ describe("Store", () => {
       const store = createStore(reducer);
       await UiFramework.initialize(store);
 
-      useGlobalStore.setState((prev) => ({
+      useFrameworkStore.setState((prev) => ({
         configurableUi: {
           ...prev.configurableUi,
           theme: "initial-theme",
@@ -188,7 +188,7 @@ describe("Store", () => {
       const state = createFrameworkState();
       state.configurableUiState.theme = "initial-theme";
 
-      useGlobalStore.setState((prev) => ({
+      useFrameworkStore.setState((prev) => ({
         configurableUi: {
           ...prev.configurableUi,
           theme: "initial-theme",
@@ -221,7 +221,7 @@ describe("Store", () => {
     });
 
     it("should update framework state w/o redux store", () => {
-      useGlobalStore.setState((prev) => ({
+      useFrameworkStore.setState((prev) => ({
         configurableUi: {
           ...prev.configurableUi,
           theme: "initial-theme",

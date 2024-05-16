@@ -10,24 +10,28 @@ import type { Immutable } from "immer";
 import produce, { castDraft } from "immer";
 import type { StoreApi, UseBoundStore } from "zustand";
 import { create } from "zustand";
-import type { ConfigurableUiState } from "./ConfigurableUiState";
-import { createFrameworkState } from "./FrameworkState";
-import type { SessionState } from "./SessionState";
+import type { ConfigurableUiState } from "../redux/ConfigurableUiState";
+import { createFrameworkState } from "../redux/FrameworkState";
+import type { SessionState } from "../redux/SessionState";
 import type { ThemeId } from "../theme/ThemeId";
 
-/** @internal */
-export type GlobalState = Immutable<{
+/** Interface that replaces framework state and actions used in redux.
+ * @note This type is mapped to the redux framework state for backwards compatibility.
+ * @note This type should not be used by consumers directly. Additional required properties can be added.
+ * @internal
+ */
+export type FrameworkState = Immutable<{
   configurableUi: ConfigurableUiState & {
     setTheme: (theme: ThemeId) => void;
   };
   session: SessionState;
 }>;
 
-/** Global store that will replace existing redux store.
+/** Internal global store that replaces redux store.
  * @internal
  */
-export const useGlobalStore: UseBoundStore<StoreApi<GlobalState>> = create(
-  (set) => {
+export const useFrameworkStore: UseBoundStore<StoreApi<FrameworkState>> =
+  create((set) => {
     const frameworkState = createFrameworkState();
     return {
       configurableUi: {
@@ -42,5 +46,4 @@ export const useGlobalStore: UseBoundStore<StoreApi<GlobalState>> = create(
       },
       session: frameworkState.sessionState,
     };
-  }
-);
+  });
