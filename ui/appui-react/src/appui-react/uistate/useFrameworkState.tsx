@@ -16,10 +16,12 @@ import type { FrameworkState as ReduxFrameworkState } from "../redux/FrameworkSt
 import { UiFramework } from "../UiFramework";
 import type { ThemeId } from "../theme/ThemeId";
 import { type FrameworkState, useFrameworkStore } from "./useFrameworkStore";
+import { castDraft } from "immer";
+import type { Store } from "redux";
 
 /** Returns the current framework state. Redux state is used if available, otherwise the root framework state is used.
  * @note This should be used as a replacement for redux `useSelector()` hook when accessing framework state.
- * @internal
+ * @beta
  */
 export function useFrameworkState(): FrameworkState {
   const frameworkState = useFrameworkStore();
@@ -56,16 +58,7 @@ export function useFrameworkState(): FrameworkState {
 
     cachedStateRef.current = {
       reduxState: reduxFrameworkState,
-      state: {
-        session: reduxFrameworkState.sessionState,
-        configurableUi: {
-          ...reduxFrameworkState.configurableUiState,
-          setTheme: (theme: ThemeId) => {
-            // eslint-disable-next-line deprecation/deprecation
-            reduxStore.dispatch(ConfigurableUiActions.setTheme(theme));
-          },
-        },
-      },
+      state: toFrameworkState(reduxFrameworkState, reduxStore),
     };
     return cachedStateRef.current.state;
   }, []);
@@ -80,4 +73,34 @@ export function dispatchActionToFrameworkStore(type: string, payload: any) {
     case ConfigurableUiActionId.SetTheme.valueOf():
       return useFrameworkStore.getState().configurableUi.setTheme(payload);
   }
+}
+
+/** @internal */
+export function toReduxFrameworkState(
+  state: FrameworkState
+  // eslint-disable-next-line deprecation/deprecation
+): ReduxFrameworkState {
+  const draftState = castDraft(state);
+  return {
+    configurableUiState: draftState.configurableUi,
+    sessionState: draftState.session,
+  };
+}
+
+/** @internal */
+export function toFrameworkState(
+  // eslint-disable-next-line deprecation/deprecation
+  reduxState: ReduxFrameworkState,
+  reduxStore: Store
+): FrameworkState {
+  return {
+    session: reduxState.sessionState,
+    configurableUi: {
+      ...reduxState.configurableUiState,
+      setTheme: (theme: ThemeId) => {
+        // eslint-disable-next-line deprecation/deprecation
+        reduxStore.dispatch(ConfigurableUiActions.setTheme(theme));
+      },
+    },
+  };
 }

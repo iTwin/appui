@@ -27,7 +27,7 @@ export type FrameworkState = Immutable<{
   session: SessionState;
 }>;
 
-/** Internal global store that replaces redux store.
+/** Internal framework state store that replaces redux store.
  * @internal
  */
 export const useFrameworkStore: UseBoundStore<StoreApi<FrameworkState>> =

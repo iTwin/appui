@@ -84,13 +84,17 @@ import type { ToolbarProps } from "./toolbar/Toolbar";
 import type { CursorMenuItemProps } from "./shared/MenuItem";
 import type { FrameworkState } from "./uistate/useFrameworkStore";
 import { useFrameworkStore } from "./uistate/useFrameworkStore";
-import { castDraft } from "immer";
 import type { ThemeId } from "./theme/ThemeId";
 import {
   SYSTEM_PREFERRED_COLOR_THEME,
   WIDGET_OPACITY_DEFAULT,
 } from "./theme/ThemeId";
-import { dispatchActionToFrameworkStore } from "./uistate/useFrameworkState";
+import {
+  dispatchActionToFrameworkStore,
+  toFrameworkState,
+  toReduxFrameworkState,
+} from "./uistate/useFrameworkState";
+import type { useFrameworkState } from "./uistate/useFrameworkState";
 
 interface ShowInputEditorOptions {
   location: XAndY;
@@ -350,28 +354,34 @@ export class UiFramework {
   }
 
   /** The UiFramework state maintained by Redux.
-   * @deprecated in 4.14.x. Use your preferred state management library instead.
+   * @note Returned fields should not be modified. Use the appropriate action dispatchers to modify the state.
+   * @deprecated in 4.14.x. Use {@link UiFramework.state} instead.
    */
   // eslint-disable-next-line deprecation/deprecation
   public static get frameworkState(): ReduxFrameworkState | undefined {
     const reduxStore = UiFramework.reduxStore;
-    const reduxState = reduxStore?.getState();
     // eslint-disable-next-line deprecation/deprecation
-    const frameworkState = reduxState?.[UiFramework.frameworkStateKey];
-    if (frameworkState) {
-      return frameworkState;
+    const reduxState = reduxStore?.getState()[UiFramework.frameworkStateKey];
+    if (reduxState) {
+      return reduxState;
     }
 
     const storeState = useFrameworkStore.getState();
-    const draftState = castDraft(storeState);
-    return {
-      configurableUiState: draftState.configurableUi,
-      sessionState: draftState.session,
-    };
+    return toReduxFrameworkState(storeState);
   }
 
-  /** @internal */
+  /** Global framework state accessor.
+   * @note This API is added to facilitate replacement of legacy redux based API.
+   * @note Prefer using {@link useFrameworkState} instead, where available.
+   * @beta
+   */
   public static get state(): FrameworkState {
+    const reduxStore = UiFramework.reduxStore;
+    // eslint-disable-next-line deprecation/deprecation
+    const reduxState = reduxStore?.getState()[UiFramework.frameworkStateKey];
+    if (reduxState) {
+      return toFrameworkState(reduxState, reduxStore);
+    }
     return useFrameworkStore.getState();
   }
 
@@ -470,7 +480,7 @@ export class UiFramework {
     return category;
   }
 
-  /** @deprecated in 4.14.x. Use `useFrameworkDispatch()` to dispatch an action together with `SyncUiEventDispatcher` to dispatch a sync UI event. */
+  /** @deprecated in 4.14.x. Use {@link useFrameworkState} to dispatch actions and {@link SyncUiEventDispatcher} to dispatch a sync UI event. */
   public static dispatchActionToStore(
     type: string,
     payload: any,
