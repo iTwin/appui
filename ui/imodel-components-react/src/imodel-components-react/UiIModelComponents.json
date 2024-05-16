@@ -1,9 +1,4 @@
 {
-  "button": {
-    "label": {
-      "settings": "Settings"
-    }
-  },
   "timeline": {
     "expand": "Expand",
     "minimize": "Minimize",
@@ -15,10 +10,10 @@
     "pause": "Pause",
     "backward": "Backward",
     "forward": "Forward",
-    "step": "Step"
+    "step": "Step",
+    "settings": "Settings"
   },
   "solartimeline": {
-    "settings": "Settings",
     "speed": "Speed",
     "dateTime": "Date & time"
   },
