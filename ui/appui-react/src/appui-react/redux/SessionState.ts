@@ -10,6 +10,7 @@ import type { XAndY } from "@itwin/core-geometry";
 import type { CursorMenuItemProps, MenuItemProps } from "../shared/MenuItem";
 import type { ActionsUnion, DeepReadonly } from "./redux-ts";
 import { createAction } from "./redux-ts";
+import type { useFrameworkState } from "../uistate/useFrameworkState";
 
 // cSpell:ignore configurableui snapmode toolprompt sessionstate imodelid viewid viewportid rulesetid
 
@@ -47,6 +48,7 @@ export interface CursorMenuPayload {
 /** Action Ids used by Redux and to send sync UI components. Typically used to refresh visibility or enable state of control.
  * Since these are also used as sync ids they should be in lowercase.
  * @public
+ * @deprecated in 4.14.x. Use {@link useFrameworkState} instead.
  */
 export enum SessionStateActionId {
   SetNumItemsSelected = "sessionstate:set-num-items-selected",
@@ -62,6 +64,7 @@ export enum SessionStateActionId {
 
 /** The portion of state managed by the SessionStateReducer.
  * @public
+ * @deprecated in 4.14.x. Use {@link useFrameworkState} instead.
  */
 export interface SessionState {
   numItemsSelected: number;
@@ -105,7 +108,7 @@ export const initialSessionState: SessionState = {
 
 /** An interface that allows redux connected object to dispatch changes to the SessionState reducer.
  * @beta
- * @deprecated in 4.14.x. Use your preferred state management library instead.
+ * @deprecated in 4.14.x. Use {@link useFrameworkState} instead.
  */
 export interface SessionStateActionsProps {
   setActiveIModelId: typeof SessionStateActions.setActiveIModelId;
@@ -121,7 +124,7 @@ export interface SessionStateActionsProps {
 
 /** An object with a function that creates each SessionStateReducer that can be handled by our reducer.
  * @public
- * @deprecated in 4.14.x. Use your preferred state management library instead.
+ * @deprecated in 4.14.x. Use {@link useFrameworkState} instead.
  */
 export const SessionStateActions = {
   setActiveIModelId:
@@ -169,19 +172,19 @@ export const SessionStateActions = {
 /** Object that contains available actions that modify SessionState. Parent control's props should
  * extend from SessionStateActionsProps before using this in Redux 'connect' function.
  * @beta
- * @deprecated in 4.14.x. Use your preferred state management library instead.
+ * @deprecated in 4.14.x. Use {@link useFrameworkState} instead.
  */
 export const sessionStateMapDispatchToProps = { ...SessionStateActions };
 
 /** Union of SessionState Redux actions
  * @public
- * @deprecated in 4.14.x. Use your preferred state management library instead.
+ * @deprecated in 4.14.x. Use {@link useFrameworkState} instead.
  */
 export type SessionStateActionsUnion = ActionsUnion<typeof SessionStateActions>;
 
 /** Handles actions to update SessionState.
  * @public
- * @deprecated in 4.14.x. Use your preferred state management library instead.
+ * @@deprecated in 4.14.x. Use {@link useFrameworkState} instead.
  */
 export function SessionStateReducer(
   state: SessionState = initialSessionState,

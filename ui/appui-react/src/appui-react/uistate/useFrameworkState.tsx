@@ -6,7 +6,9 @@
  * @module State
  */
 
+import { castDraft } from "immer";
 import * as React from "react";
+import type { Store } from "redux";
 import { useSyncExternalStore } from "use-sync-external-store/shim";
 import {
   ConfigurableUiActionId,
@@ -16,11 +18,10 @@ import type { FrameworkState as ReduxFrameworkState } from "../redux/FrameworkSt
 import { UiFramework } from "../UiFramework";
 import type { ThemeId } from "../theme/ThemeId";
 import { type FrameworkState, useFrameworkStore } from "./useFrameworkStore";
-import { castDraft } from "immer";
-import type { Store } from "redux";
 
 /** Returns the current framework state. Redux state is used if available, otherwise the root framework state is used.
  * @note This should be used as a replacement for redux `useSelector()` hook when accessing framework state.
+ * @note Use {@link UiFramework.state} to access framework state globally.
  * @beta
  */
 export function useFrameworkState(): FrameworkState {

@@ -347,7 +347,7 @@ export class UiFramework {
   }
 
   /** Key used to access framework state from redux store.
-   * @deprecated in 4.14.x. Use your preferred state management library instead.
+   * @deprecated in 4.14.x. Use {@link useFrameworkState} instead.
    */
   public static get frameworkStateKey(): string {
     return UiFramework._frameworkStateKeyInStore;
@@ -371,8 +371,8 @@ export class UiFramework {
   }
 
   /** Global framework state accessor.
-   * @note This API is added to facilitate replacement of legacy redux based API.
-   * @note Prefer using {@link useFrameworkState} instead, where available.
+   * @note This is added to facilitate replacement of globally accessible redux based API.
+   * @note Prefer using {@link useFrameworkState} instead.
    * @beta
    */
   public static get state(): FrameworkState {

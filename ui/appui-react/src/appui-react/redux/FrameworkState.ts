@@ -14,10 +14,11 @@ import {
 } from "./ConfigurableUiState";
 import type { SessionState } from "./SessionState";
 import { initialSessionState, SessionStateReducer } from "./SessionState";
+import type { useFrameworkState } from "../uistate/useFrameworkState";
 
 /** Interface combining all the Framework state interfaces.
  * @public
- * @deprecated in 4.14.x. Use your preferred state management library instead.
+ * @deprecated in 4.14.x. Use {@link useFrameworkState} instead.
  */
 export interface FrameworkState {
   configurableUiState: ConfigurableUiState;
@@ -25,6 +26,7 @@ export interface FrameworkState {
 }
 
 /** @internal */
+// eslint-disable-next-line deprecation/deprecation
 export function createFrameworkState(): FrameworkState {
   return {
     configurableUiState: { ...initialConfigurableUiState },
@@ -34,9 +36,11 @@ export function createFrameworkState(): FrameworkState {
 
 /** Framework reducer that combines the [[ConfigurableUiReducer]] and [[SessionStateReducer]].
  * @public
- * @deprecated in 4.14.x. Use your preferred state management library instead.
+ * @deprecated in 4.14.x. Use {@link useFrameworkState} instead.
  */
 export const FrameworkReducer = combineReducers({
+  // eslint-disable-next-line deprecation/deprecation
   configurableUiState: ConfigurableUiReducer,
+  // eslint-disable-next-line deprecation/deprecation
   sessionState: SessionStateReducer,
 });
