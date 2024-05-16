@@ -16,8 +16,8 @@ import {
 } from "../redux/ConfigurableUiState";
 import type { FrameworkState as ReduxFrameworkState } from "../redux/FrameworkState";
 import { UiFramework } from "../UiFramework";
-import type { ThemeId } from "../theme/ThemeId";
 import { type FrameworkState, useFrameworkStore } from "./useFrameworkStore";
+import { SessionStateActions } from "../redux/SessionState";
 
 /** Returns the current framework state. Redux state is used if available, otherwise the root framework state is used.
  * @note This should be used as a replacement for redux `useSelector()` hook when accessing framework state.
@@ -68,11 +68,14 @@ export function useFrameworkState(): FrameworkState {
 }
 
 /** @internal */
-export function dispatchActionToFrameworkStore(type: string, payload: any) {
+export function dispatchActionToFrameworkState(
+  state: FrameworkState,
+  type: string,
+  payload: any
+) {
   switch (type) {
-    // eslint-disable-next-line deprecation/deprecation
     case ConfigurableUiActionId.SetTheme.valueOf():
-      return useFrameworkStore.getState().configurableUi.setTheme(payload);
+      return state.configurableUi.setTheme(payload);
   }
 }
 
@@ -95,10 +98,18 @@ export function toFrameworkState(
   reduxStore: Store
 ): FrameworkState {
   return {
-    session: reduxState.sessionState,
+    session: {
+      ...reduxState.sessionState,
+      setNumItemsSelected: (numItemsSelected) => {
+        reduxStore.dispatch(
+          // eslint-disable-next-line deprecation/deprecation
+          SessionStateActions.setNumItemsSelected(numItemsSelected)
+        );
+      },
+    },
     configurableUi: {
       ...reduxState.configurableUiState,
-      setTheme: (theme: ThemeId) => {
+      setTheme: (theme) => {
         // eslint-disable-next-line deprecation/deprecation
         reduxStore.dispatch(ConfigurableUiActions.setTheme(theme));
       },

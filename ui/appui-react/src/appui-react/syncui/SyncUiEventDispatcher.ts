@@ -269,11 +269,7 @@ export class SyncUiEventDispatcher {
       }),
       iModelConnection.selectionSet.onChanged.addListener((ev) => {
         const numSelected = ev.set.elements.size;
-        // eslint-disable-next-line deprecation/deprecation
-        UiFramework.dispatchActionToStore(
-          SessionStateActionId.SetNumItemsSelected,
-          numSelected
-        );
+        UiFramework.state.session.setNumItemsSelected(numSelected);
       })
     );
   }

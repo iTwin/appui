@@ -54,8 +54,8 @@ export const initialConfigurableUiState: ConfigurableUiState = {
 
 /** Action Ids used by Redux and to send sync UI components. Typically used to refresh visibility or enable state of control.
  *  Since these are also used as sync ids they should be in lowercase.
+ * @note This is used by sync UI event APIs.
  * @public
- * @deprecated in 4.14.x. Use {@link useFrameworkState} instead.
  */
 export enum ConfigurableUiActionId {
   SetSnapMode = "configurableui:set_snapmode",

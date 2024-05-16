@@ -90,11 +90,12 @@ import {
   WIDGET_OPACITY_DEFAULT,
 } from "./theme/ThemeId";
 import {
+  dispatchActionToFrameworkState,
   dispatchActionToFrameworkStore,
   toFrameworkState,
   toReduxFrameworkState,
 } from "./uistate/useFrameworkState";
-import type { useFrameworkState } from "./uistate/useFrameworkState";
+import { useFrameworkState } from "./uistate/useFrameworkState";
 
 interface ShowInputEditorOptions {
   location: XAndY;
@@ -493,7 +494,11 @@ export class UiFramework {
     if (frameworkState) {
       reduxStore!.dispatch({ type, payload });
     } else {
-      dispatchActionToFrameworkStore(type, payload);
+      dispatchActionToFrameworkState(
+        useFrameworkStore.getState(),
+        type,
+        payload
+      );
     }
     if (immediateSync) SyncUiEventDispatcher.dispatchImmediateSyncUiEvent(type);
     else SyncUiEventDispatcher.dispatchSyncUiEvent(type);
