@@ -10,7 +10,7 @@ import type { Immutable } from "immer";
 import produce, { castDraft } from "immer";
 import type { StoreApi, UseBoundStore } from "zustand";
 import { create } from "zustand";
-import type { ConfigurableUiState } from "../configurableui/ConfigurableUiState";
+import type { ConfigurableUiState } from "./ConfigurableUiState";
 import { createFrameworkState } from "./FrameworkState";
 import type { SessionState } from "./SessionState";
 import type { ThemeId } from "../theme/ThemeId";

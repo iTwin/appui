@@ -27,7 +27,7 @@ import {
 import { MessageSeverity, UiEvent } from "@itwin/appui-abstract";
 import type { IconSpec } from "@itwin/core-react";
 import { MessageContainer, MessageRenderer } from "@itwin/core-react";
-import { ConfigurableUiActionId } from "../configurableui/state";
+import { ConfigurableUiActionId } from "../redux/ConfigurableUiState";
 import { StandardMessageBox } from "../dialog/StandardMessageBox";
 import { ElementTooltip } from "../feedback/ElementTooltip";
 import { UiFramework } from "../UiFramework";

@@ -32,7 +32,7 @@ import { UiIModelComponents } from "@itwin/imodel-components-react";
 import { BackstageManager } from "./backstage/BackstageManager";
 import { InternalChildWindowManager } from "./childwindow/InternalChildWindowManager";
 import { InternalConfigurableUiManager } from "./configurableui/InternalConfigurableUiManager";
-import { ConfigurableUiActionId } from "./configurableui/state";
+import { ConfigurableUiActionId } from "./redux/ConfigurableUiState";
 import type { FrameworkState } from "./redux/FrameworkState";
 import type {
   CursorMenuData,

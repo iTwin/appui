@@ -7,11 +7,11 @@
  */
 
 import { combineReducers } from "redux";
+import type { ConfigurableUiState } from "./ConfigurableUiState";
 import {
   ConfigurableUiReducer,
-  type ConfigurableUiState,
   initialConfigurableUiState,
-} from "../configurableui/state";
+} from "./ConfigurableUiState";
 import type { SessionState } from "./SessionState";
 import { initialSessionState, SessionStateReducer } from "./SessionState";
 

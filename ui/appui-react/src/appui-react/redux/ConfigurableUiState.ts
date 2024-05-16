@@ -6,36 +6,15 @@
  * @module State
  */
 
-import { SnapMode } from "@itwin/core-frontend";
-import type { ActionsUnion } from "../redux/redux-ts";
-import { createAction } from "../redux/redux-ts";
-import type { ThemeId } from "../theme/ThemeManager";
+import type { ActionsUnion } from "./redux-ts";
+import { createAction } from "./redux-ts";
 import {
   SYSTEM_PREFERRED_COLOR_THEME,
+  type ThemeId,
   TOOLBAR_OPACITY_DEFAULT,
   WIDGET_OPACITY_DEFAULT,
-} from "../theme/ThemeManager";
-
-// cSpell:ignore configurableui snapmode toolprompt
-
-/** Action Ids used by Redux and to send sync UI components. Typically used to refresh visibility or enable state of control.
- *  Since these are also used as sync ids they should be in lowercase.
- * @public
- * @deprecated in 4.14.x. Use your preferred state management library instead.
- */
-export enum ConfigurableUiActionId {
-  SetSnapMode = "configurableui:set_snapmode",
-  SetTheme = "configurableui:set_theme",
-  SetToolPrompt = "configurableui:set_toolprompt",
-  SetWidgetOpacity = "configurableui:set_widget_opacity",
-  SetDragInteraction = "configurableui:set-drag-interaction",
-  SetShowWidgetIcon = "configurableui:set-show-widget-icon",
-  AutoCollapseUnpinnedPanels = "configurableui:set-auto-collapse-unpinned-panels",
-  SetViewOverlayDisplay = "configurableui:set-view-overlay-display",
-  AnimateToolSettings = "configurableui:set-animate-tool-settings",
-  UseToolAsToolSettingsLabel = "configurableui:set-use-tool-as-tool-settings-label",
-  SetToolbarOpacity = "configurableui:set-toolbar-opacity",
-}
+} from "../theme/ThemeId";
+import { SnapMode } from "@itwin/core-frontend";
 
 /** The portion of state managed by the ConfigurableUiReducer.
  * @public
@@ -70,6 +49,25 @@ export const initialConfigurableUiState: ConfigurableUiState = {
   useToolAsToolSettingsLabel: false,
   toolbarOpacity: TOOLBAR_OPACITY_DEFAULT,
 };
+
+/** Action Ids used by Redux and to send sync UI components. Typically used to refresh visibility or enable state of control.
+ *  Since these are also used as sync ids they should be in lowercase.
+ * @public
+ * @deprecated in 4.14.x. Use your preferred state management library instead.
+ */
+export enum ConfigurableUiActionId {
+  SetSnapMode = "configurableui:set_snapmode",
+  SetTheme = "configurableui:set_theme",
+  SetToolPrompt = "configurableui:set_toolprompt",
+  SetWidgetOpacity = "configurableui:set_widget_opacity",
+  SetDragInteraction = "configurableui:set-drag-interaction",
+  SetShowWidgetIcon = "configurableui:set-show-widget-icon",
+  AutoCollapseUnpinnedPanels = "configurableui:set-auto-collapse-unpinned-panels",
+  SetViewOverlayDisplay = "configurableui:set-view-overlay-display",
+  AnimateToolSettings = "configurableui:set-animate-tool-settings",
+  UseToolAsToolSettingsLabel = "configurableui:set-use-tool-as-tool-settings-label",
+  SetToolbarOpacity = "configurableui:set-toolbar-opacity",
+}
 
 /** An object with a function that creates each ConfigurableUiReducer that can be handled by our reducer.
  * @public

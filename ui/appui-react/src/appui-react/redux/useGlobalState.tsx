@@ -11,7 +11,7 @@ import { useSyncExternalStore } from "use-sync-external-store/shim";
 import {
   ConfigurableUiActionId,
   ConfigurableUiActions,
-} from "../configurableui/state";
+} from "./ConfigurableUiState";
 import { type FrameworkState } from "./FrameworkState";
 import { UiFramework } from "../UiFramework";
 import { type GlobalState, useGlobalStore } from "./useGlobalStore";
