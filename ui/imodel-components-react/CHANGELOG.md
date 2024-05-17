@@ -1,6 +1,14 @@
 # Change Log - @itwin/imodel-components-react
 
-This log was last generated on Wed, 08 May 2024 08:24:46 GMT and should not be manually modified.
+This log was last generated on Fri, 17 May 2024 09:43:31 GMT and should not be manually modified.
+
+## 4.13.3
+Fri, 17 May 2024 09:43:31 GMT
+
+### Updates
+
+- timeline.settings added to UiIModelComponents.json
+- upgrade to TypeScript@5.3.3 and @itwin/build-tools@4.6.x
 
 ## 4.13.2
 Wed, 08 May 2024 08:24:46 GMT
