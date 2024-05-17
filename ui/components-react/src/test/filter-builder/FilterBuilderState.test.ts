@@ -4,8 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import type { PropertyDescription, PropertyValue } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
-import { waitFor } from "@testing-library/react";
-import { renderHook } from "@testing-library/react-hooks";
+import { renderHook, waitFor } from "@testing-library/react";
 import type {
   PropertyFilterBuilderRule,
   PropertyFilterBuilderRuleGroup,

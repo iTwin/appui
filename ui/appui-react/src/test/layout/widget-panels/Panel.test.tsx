@@ -2,8 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { fireEvent, render, waitFor } from "@testing-library/react";
-import { act } from "@testing-library/react-hooks";
+import { act, fireEvent, render, waitFor } from "@testing-library/react";
 import produce from "immer";
 import * as React from "react";
 import type { DragManager } from "../../../appui-react/layout/base/DragManager";

@@ -2,8 +2,8 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { renderHook } from "@testing-library/react-hooks";
 import * as React from "react";
+import { renderHook } from "@testing-library/react";
 import { DraggedWidgetIdContext } from "../../../appui-react/layout/base/DragManager";
 import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState";
 import { addPanelWidget } from "../../../appui-react/layout/state/internal/PanelStateHelpers";

@@ -3,7 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { act, renderHook } from "@testing-library/react-hooks";
 import {
   ElementResizeObserver,
   ResizableContainerObserver,
@@ -11,7 +10,7 @@ import {
 } from "../../../core-react/utils/hooks/useResizeObserver";
 import type { ResizeObserverMock } from "../../TestUtils";
 import TestUtils, { createResizeObserverMock } from "../../TestUtils";
-import { render, waitFor } from "@testing-library/react";
+import { act, render, renderHook, waitFor } from "@testing-library/react";
 
 /** Stubs requestAnimationFrame. */
 function stubRaf() {

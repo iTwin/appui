@@ -3,9 +3,8 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { renderHook } from "@testing-library/react-hooks";
-import { LocalizationProvider } from "../../core-react";
-import { usePackageTranslation } from "../../core-react";
+import { renderHook } from "@testing-library/react";
+import { LocalizationProvider, usePackageTranslation } from "../../core-react";
 
 type Localization = React.ComponentProps<
   typeof LocalizationProvider
@@ -21,7 +20,7 @@ const localization: Localization = {
 describe("usePackageTranslation", () => {
   it("should use a localization context", async () => {
     const spy = vi.spyOn(localization, "getLocalizedString");
-    const { result, waitFor } = renderHook(
+    const { result } = renderHook(
       () =>
         usePackageTranslation({
           namespace: "test-namespace",
@@ -35,7 +34,7 @@ describe("usePackageTranslation", () => {
       }
     );
 
-    await waitFor(() => {
+    await vi.waitFor(() => {
       expect(result.current.translate("prop.val")).to.eq("localized-string");
       expect(spy).toHaveBeenCalledWith("test-namespace:prop.val");
     });
@@ -89,7 +88,7 @@ describe("usePackageTranslation", () => {
   });
 
   it("should update translations when localization context changes", async () => {
-    const { result, rerender, waitFor } = renderHook(
+    const { result, rerender } = renderHook(
       () =>
         usePackageTranslation({
           namespace: "test-namespace",
@@ -97,8 +96,8 @@ describe("usePackageTranslation", () => {
           defaults: {},
         }),
       {
-        wrapper: (props: { localization: Localization }) => (
-          <LocalizationProvider {...props} />
+        wrapper: (props: any) => (
+          <LocalizationProvider localization={localization} {...props} />
         ),
         initialProps: {
           localization,
@@ -115,7 +114,7 @@ describe("usePackageTranslation", () => {
       localization: newLocalization,
     });
 
-    await waitFor(() => {
+    await vi.waitFor(() => {
       expect(result.current.translate("prop.val")).to.eq(
         "updated-localized-string"
       );
@@ -150,7 +149,7 @@ describe("usePackageTranslation", () => {
     });
     vi.spyOn(localization, "registerNamespace").mockReturnValue(promise);
 
-    const { result, waitFor } = renderHook(
+    const { result } = renderHook(
       () =>
         usePackageTranslation({
           namespace: "test-namespace",
@@ -167,7 +166,7 @@ describe("usePackageTranslation", () => {
     );
 
     await expect(
-      waitFor(() => {
+      vi.waitFor(() => {
         expect(result.current.translate("val")).to.eq("localized-string");
       })
     ).rejects.toThrow();
@@ -175,7 +174,7 @@ describe("usePackageTranslation", () => {
 
     resolvePromise?.();
 
-    await waitFor(() => {
+    await vi.waitFor(() => {
       expect(result.current.translate("val")).to.eq("localized-string");
     });
   });

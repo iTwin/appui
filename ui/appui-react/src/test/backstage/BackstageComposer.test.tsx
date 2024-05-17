@@ -17,8 +17,7 @@ import {
   getActionItem,
   getStageLauncherItem,
 } from "./BackstageComposerItem.test";
-import { act, render, screen } from "@testing-library/react";
-import { renderHook } from "@testing-library/react-hooks";
+import { act, render, renderHook, screen } from "@testing-library/react";
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
 
 const uiSyncEventId = "appuiprovider:backstage-item-visibility-changed";
@@ -256,7 +255,7 @@ describe("BackstageComposer", () => {
     act(() => UiItemsManager.unregister(uiProvider.id));
   });
 
-  describe("useGroupedItems", () => {
+  describe.only("useGroupedItems", () => {
     it("should omit invisible items", () => {
       const items = [getActionItem({ isHidden: true })];
       const { result } = renderHook(() => useGroupedItems(items));

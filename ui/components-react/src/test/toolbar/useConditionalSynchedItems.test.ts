@@ -2,15 +2,14 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-
-import { renderHook } from "@testing-library/react-hooks";
 import {
   ConditionalBooleanValue,
   ConditionalStringValue,
 } from "@itwin/appui-abstract";
-import { useConditionalSynchedItems } from "../../components-react/toolbar/useConditionalSynchedItems";
-import { ConditionalIconItem } from "@itwin/core-react";
 import { BeUiEvent } from "@itwin/core-bentley";
+import { ConditionalIconItem } from "@itwin/core-react";
+import { renderHook } from "@testing-library/react";
+import { useConditionalSynchedItems } from "../../components-react/toolbar/useConditionalSynchedItems";
 
 interface BeUiEventProps {
   eventIds: Set<string>;

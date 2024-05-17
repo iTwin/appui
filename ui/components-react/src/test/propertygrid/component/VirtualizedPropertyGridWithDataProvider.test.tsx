@@ -13,10 +13,10 @@ import {
   fireEvent,
   getByTitle,
   render,
+  renderHook,
   waitFor,
   within,
 } from "@testing-library/react";
-import { renderHook } from "@testing-library/react-hooks";
 import type { HighlightingComponentProps } from "../../../components-react/common/HighlightingComponentProps";
 import type { VirtualizedPropertyGridWithDataProviderProps } from "../../../components-react/propertygrid/component/VirtualizedPropertyGridWithDataProvider";
 import { VirtualizedPropertyGridWithDataProvider } from "../../../components-react/propertygrid/component/VirtualizedPropertyGridWithDataProvider";
