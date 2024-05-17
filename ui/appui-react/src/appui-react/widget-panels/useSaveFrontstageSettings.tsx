@@ -18,6 +18,7 @@ import {
   packNineZoneState,
   stateVersion,
 } from "./Frontstage";
+import { debounce } from "lodash";
 
 /** @internal */
 export function useSaveFrontstageSettings(
@@ -45,12 +46,12 @@ export function useSaveFrontstageSettings(
       1000
     );
 
-    const save = (frontstage: FrontstageDef, state: NineZoneState) => {
+    const save = async (frontstage: FrontstageDef, state: NineZoneState) => {
       if (state.draggedTab) return;
-      debounced(frontstage, state);
+      await debounced(frontstage, state);
     };
     save.cancel = debounced.cancel;
-    pendingSave.current = debounced.immediate;
+    pendingSave.current = debounced.flush;
     return save;
   }, [uiSettingsStorage]);
   React.useEffect(() => {
@@ -65,44 +66,15 @@ export function useSaveFrontstageSettings(
   }, [saveSetting]);
 
   React.useEffect(() => {
-    saveSetting(frontstageDef, store.getState());
+    void (async () => {
+      await saveSetting(frontstageDef, store.getState());
+    })();
   }, [saveSetting, frontstageDef, store]);
   React.useEffect(() => {
     return store.subscribe(() => {
-      saveSetting(frontstageDef, store.getState());
+      void (async () => {
+        await saveSetting(frontstageDef, store.getState());
+      })();
     });
   }, [saveSetting, frontstageDef, store]);
-}
-
-// istanbul ignore next
-function debounce<T extends (...args: any[]) => any>(
-  func: T,
-  duration: number
-) {
-  let timeout: number | undefined;
-  let handler: () => any;
-  const debounced = (...args: Parameters<T>) => {
-    handler = () => {
-      timeout = undefined;
-      return func(...args);
-    };
-    window.clearTimeout(timeout);
-    timeout = window.setTimeout(handler, duration);
-  };
-  /**
-   * Will cancel the timeout without running the function.
-   */
-  debounced.cancel = () => {
-    window.clearTimeout(timeout);
-    timeout = undefined;
-  };
-  /**
-   * If not already ran, will run the function immediately and remove the timeout.
-   */
-  debounced.immediate = () => {
-    if (timeout === undefined) return;
-    debounced.cancel();
-    handler?.();
-  };
-  return debounced;
 }
