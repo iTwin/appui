@@ -2,6 +2,18 @@
   "name": "@itwin/appui-react",
   "entries": [
     {
+      "version": "4.13.3",
+      "tag": "@itwin/appui-react_v4.13.3",
+      "date": "Fri, 17 May 2024 09:43:31 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "upgrade to TypeScript@5.3.3 and @itwin/build-tools@4.6.x"
+          }
+        ]
+      }
+    },
+    {
       "version": "4.13.2",
       "tag": "@itwin/appui-react_v4.13.2",
       "date": "Wed, 08 May 2024 08:24:46 GMT",

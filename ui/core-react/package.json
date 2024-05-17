@@ -1,6 +1,6 @@
 {
   "name": "@itwin/core-react",
-  "version": "4.13.2",
+  "version": "4.13.3",
   "description": "iTwin.js UI core components",
   "main": "lib/cjs/core-react.js",
   "module": "lib/esm/core-react.js",
