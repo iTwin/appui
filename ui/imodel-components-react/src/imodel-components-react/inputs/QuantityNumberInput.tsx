@@ -490,4 +490,4 @@ const ForwardRefQuantityNumberInput = React.forwardRef<
  */
 export const QuantityNumberInput: (
   props: QuantityNumberInputProps
-) => React.ReactElement | null = ForwardRefQuantityNumberInput;
+) => React.ReactNode = ForwardRefQuantityNumberInput;

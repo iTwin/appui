@@ -230,4 +230,4 @@ const ForwardRefColorPickerPopup = React.forwardRef<
 export const ColorPickerPopup: (
   // eslint-disable-next-line deprecation/deprecation
   props: ColorPickerPopupProps
-) => React.ReactElement | null = ForwardRefColorPickerPopup;
+) => React.ReactNode = ForwardRefColorPickerPopup;

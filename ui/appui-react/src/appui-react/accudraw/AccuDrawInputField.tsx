@@ -218,4 +218,4 @@ const ForwardRefAccuDrawInput = React.forwardRef<
  */
 export const AccuDrawInputField: (
   props: AccuDrawInputFieldProps
-) => React.ReactElement | null = ForwardRefAccuDrawInput;
+) => React.ReactNode = ForwardRefAccuDrawInput;
