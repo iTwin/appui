@@ -37,6 +37,7 @@ const meta = {
   decorators: [PaddingDecorator, AppUiDecorator],
   args: {
     height: 600,
+    width: 1300,
   },
 } satisfies Meta<typeof VirtualizedPropertyGridWithDataProvider>;
 
