@@ -18,7 +18,13 @@ import {
   packNineZoneState,
   stateVersion,
 } from "./Frontstage";
+import type { DebouncedFunc } from "lodash";
 import { debounce } from "lodash";
+
+type SaveSettingFn = (
+  frontstage: FrontstageDef,
+  state: NineZoneState
+) => Promise<void>;
 
 /** @internal */
 export function useSaveFrontstageSettings(
@@ -26,9 +32,16 @@ export function useSaveFrontstageSettings(
   store: LayoutStore
 ) {
   const uiSettingsStorage = useUiStateStorageHandler();
-  const pendingSave = React.useRef(() => {});
-  const saveSetting = React.useMemo(() => {
-    const debounced = debounce(
+  const saveSettingRef = React.useRef<DebouncedFunc<SaveSettingFn> | undefined>(
+    undefined
+  );
+  const save = React.useCallback<SaveSettingFn>(async (frontstage, state) => {
+    if (!saveSettingRef.current) return;
+    if (state.draggedTab) return;
+    return saveSettingRef.current(frontstage, state);
+  }, []);
+  React.useEffect(() => {
+    const saveSetting = (saveSettingRef.current = debounce(
       async (frontstage: FrontstageDef, state: NineZoneState) => {
         const id = frontstage.id;
         const setting: WidgetPanelsFrontstageState = {
@@ -44,37 +57,21 @@ export function useSaveFrontstageSettings(
         );
       },
       1000
-    );
-
-    const save = async (frontstage: FrontstageDef, state: NineZoneState) => {
-      if (state.draggedTab) return;
-      await debounced(frontstage, state);
+    ));
+    return () => {
+      saveSettingRef.current = undefined;
+      saveSetting.cancel();
     };
-    save.cancel = debounced.cancel;
-    pendingSave.current = debounced.flush;
-    return save;
   }, [uiSettingsStorage]);
   React.useEffect(() => {
     return () => {
-      pendingSave.current();
+      // Save pending frontstage changes when changing frontstage.
+      void saveSettingRef.current?.flush();
     };
   }, [frontstageDef]);
   React.useEffect(() => {
-    return () => {
-      saveSetting.cancel();
-    };
-  }, [saveSetting]);
-
-  React.useEffect(() => {
-    void (async () => {
-      await saveSetting(frontstageDef, store.getState());
-    })();
-  }, [saveSetting, frontstageDef, store]);
-  React.useEffect(() => {
     return store.subscribe(() => {
-      void (async () => {
-        await saveSetting(frontstageDef, store.getState());
-      })();
+      void save(frontstageDef, store.getState());
     });
-  }, [saveSetting, frontstageDef, store]);
+  }, [save, frontstageDef, store]);
 }
