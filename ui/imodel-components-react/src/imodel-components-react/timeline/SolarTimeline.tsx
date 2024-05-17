@@ -591,7 +591,7 @@ export class SolarTimeline extends React.PureComponent<
             <IconButton
               styleType="borderless"
               data-testid="shadow-settings-button"
-              label={UiIModelComponents.translate("solartimeline.settings")}
+              label={UiIModelComponents.translate("timeline.settings")}
               onClick={this._onOpenSettingsPopup}
             >
               <SvgSettings />
