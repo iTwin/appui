@@ -88,7 +88,16 @@ describe("usePackageTranslation", () => {
   });
 
   it("should update translations when localization context changes", async () => {
-    const { result, rerender } = renderHook(
+    const store = {
+      localization,
+      update: (_l: Localization) => {},
+    };
+    function Wrapper(props: any) {
+      const [l, setL] = React.useState(store.localization);
+      store.update = setL;
+      return <LocalizationProvider localization={l} {...props} />;
+    }
+    const { result } = renderHook(
       () =>
         usePackageTranslation({
           namespace: "test-namespace",
@@ -96,12 +105,7 @@ describe("usePackageTranslation", () => {
           defaults: {},
         }),
       {
-        wrapper: (props: any) => (
-          <LocalizationProvider localization={localization} {...props} />
-        ),
-        initialProps: {
-          localization,
-        },
+        wrapper: (props) => <Wrapper {...props} />,
       }
     );
 
@@ -110,9 +114,7 @@ describe("usePackageTranslation", () => {
       getLocalizedString: (_key: string) => "updated-localized-string",
     };
     const spy = vi.spyOn(newLocalization, "getLocalizedString");
-    rerender({
-      localization: newLocalization,
-    });
+    store.update(newLocalization);
 
     await vi.waitFor(() => {
       expect(result.current.translate("prop.val")).to.eq(
