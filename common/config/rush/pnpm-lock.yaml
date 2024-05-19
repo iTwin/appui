@@ -847,9 +847,6 @@ importers:
       jsdom:
         specifier: ^24.0.0
         version: 24.0.0
-      jsdom-global:
-        specifier: 3.0.2
-        version: 3.0.2(jsdom@24.0.0)
       npm-run-all:
         specifier: ^4.1.5
         version: 4.1.5
@@ -1004,9 +1001,6 @@ importers:
       jsdom:
         specifier: ^24.0.0
         version: 24.0.0
-      jsdom-global:
-        specifier: 3.0.2
-        version: 3.0.2(jsdom@24.0.0)
       npm-run-all:
         specifier: ^4.1.5
         version: 4.1.5
@@ -1134,9 +1128,6 @@ importers:
       jsdom:
         specifier: ^24.0.0
         version: 24.0.0
-      jsdom-global:
-        specifier: 3.0.2
-        version: 3.0.2(jsdom@24.0.0)
       npm-run-all:
         specifier: ^4.1.5
         version: 4.1.5
@@ -1267,9 +1258,6 @@ importers:
       jsdom:
         specifier: ^24.0.0
         version: 24.0.0
-      jsdom-global:
-        specifier: 3.0.2
-        version: 3.0.2(jsdom@24.0.0)
       npm-run-all:
         specifier: ^4.1.5
         version: 4.1.5
@@ -11437,14 +11425,6 @@ packages:
   /jsdoc-type-pratt-parser@4.0.0:
     resolution: {integrity: sha512-YtOli5Cmzy3q4dP26GraSOeAhqecewG04hoO8DY56CH4KJ9Fvv5qKWUCCo3HZob7esJQHCv6/+bnTy72xZZaVQ==}
     engines: {node: '>=12.0.0'}
-    dev: true
-
-  /jsdom-global@3.0.2(jsdom@24.0.0):
-    resolution: {integrity: sha512-t1KMcBkz/pT5JrvcJbpUR2u/w1kO9jXctaaGJ0vZDzwFnIvGWw9IDSRciT83kIs8Bnw4qpOl8bQK08V01YgMPg==}
-    peerDependencies:
-      jsdom: '>=10.0.0'
-    dependencies:
-      jsdom: 24.0.0
     dev: true
 
   /jsdom@24.0.0:

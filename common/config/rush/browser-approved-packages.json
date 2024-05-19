@@ -355,10 +355,6 @@
       "allowedCategories": [ "frontend" ]
     },
     {
-      "name": "jsdom-global",
-      "allowedCategories": [ "frontend" ]
-    },
-    {
       "name": "linkify-it",
       "allowedCategories": [ "frontend" ]
     },
