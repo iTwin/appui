@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import type { PropertyDescription, PropertyValue } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
-import { renderHook, waitFor } from "@testing-library/react";
+import { act, renderHook, waitFor } from "@testing-library/react";
 import type {
   PropertyFilterBuilderRule,
   PropertyFilterBuilderRuleGroup,
@@ -48,7 +48,9 @@ describe("usePropertyFilterBuilder", () => {
   it("adds rule to root group", () => {
     const { result } = renderHook(() => usePropertyFilterBuilder());
     const { actions } = result.current;
-    actions.addItem([], "RULE");
+    act(() => {
+      actions.addItem([], "RULE");
+    });
 
     const { rootGroup } = result.current;
     expect(rootGroup.items).to.have.lengthOf(2);
@@ -127,13 +129,16 @@ describe("usePropertyFilterBuilder", () => {
   it("removes rule from root group", () => {
     const { result } = renderHook(() => usePropertyFilterBuilder());
     const { actions } = result.current;
-    actions.addItem([], "RULE");
+    act(() => {
+      actions.addItem([], "RULE");
+    });
 
     let { rootGroup } = result.current;
 
     expect(rootGroup.items).to.have.lengthOf(2);
-    actions.removeItem([rootGroup.items[0].id]);
-
+    act(() => {
+      actions.removeItem([rootGroup.items[0].id]);
+    });
     rootGroup = result.current.rootGroup;
 
     expect(rootGroup.items).to.have.lengthOf(1);
@@ -147,12 +152,16 @@ describe("usePropertyFilterBuilder", () => {
     const { actions } = result.current;
     let { rootGroup } = result.current;
 
-    actions.addItem([], "RULE");
-    actions.addItem([], "RULE_GROUP");
+    act(() => {
+      actions.addItem([], "RULE");
+      actions.addItem([], "RULE_GROUP");
+    });
 
     rootGroup = result.current.rootGroup;
     expect(rootGroup.items).to.have.lengthOf(3);
-    actions.removeAllItems();
+    act(() => {
+      actions.removeAllItems();
+    });
 
     rootGroup = result.current.rootGroup;
     expect(rootGroup.items).to.have.lengthOf(1);
@@ -167,17 +176,21 @@ describe("usePropertyFilterBuilder", () => {
 
     let { rootGroup } = result.current;
     expect(rootGroup.items).to.have.lengthOf(1);
-    actions.setRuleOperator([rootGroup.items[0].id], "is-true");
-    actions.setRuleValue([rootGroup.items[0].id], {
-      valueFormat: PropertyValueFormat.Primitive,
+    act(() => {
+      actions.setRuleOperator([rootGroup.items[0].id], "is-true");
+      actions.setRuleValue([rootGroup.items[0].id], {
+        valueFormat: PropertyValueFormat.Primitive,
+      });
+      actions.setRuleProperty([rootGroup.items[0].id], property);
     });
-    actions.setRuleProperty([rootGroup.items[0].id], property);
 
     rootGroup = result.current.rootGroup;
     expect((rootGroup.items[0] as PropertyFilterBuilderRule).property).toEqual(
       property
     );
-    actions.removeItem([rootGroup.items[0].id]);
+    act(() => {
+      actions.removeItem([rootGroup.items[0].id]);
+    });
 
     rootGroup = result.current.rootGroup;
     expect(result.current.rootGroup).to.containSubset({
@@ -355,7 +368,9 @@ describe("usePropertyFilterBuilder", () => {
       (rootGroup.items[0] as PropertyFilterBuilderRule).value
     ).to.be.deep.eq(value);
 
-    actions.setRuleOperator([rootGroup.items[0].id], "less");
+    act(() => {
+      actions.setRuleOperator([rootGroup.items[0].id], "less");
+    });
 
     rootGroup = result.current.rootGroup;
 
@@ -382,7 +397,9 @@ describe("usePropertyFilterBuilder", () => {
       (rootGroup.items[0] as PropertyFilterBuilderRule).value
     ).to.be.deep.eq(value);
 
-    actions.setRuleOperator([rootGroup.items[0].id], "is-not-equal");
+    act(() => {
+      actions.setRuleOperator([rootGroup.items[0].id], "is-not-equal");
+    });
 
     rootGroup = result.current.rootGroup;
 
@@ -562,11 +579,12 @@ describe("usePropertyFilterBuilder", () => {
     const { actions } = result.current;
     let { rootGroup } = result.current;
 
-    actions.addItem([], "RULE");
-
-    actions.setRuleErrorMessages(
-      new Map([[rootGroup.items[0].id, "error message"]])
-    );
+    act(() => {
+      actions.addItem([], "RULE");
+      actions.setRuleErrorMessages(
+        new Map([[rootGroup.items[0].id, "error message"]])
+      );
+    });
 
     rootGroup = result.current.rootGroup;
 
@@ -581,7 +599,7 @@ describe("usePropertyFilterBuilder", () => {
 
   describe("buildFilter", () => {
     describe("defaultRuleValidator", () => {
-      it("returns undefined and sets rule error message to `Value is empty` if item has a property but value is undefined", () => {
+      it("returns undefined and sets rule error message to `Value is empty` if item has a property but value is undefined", async () => {
         const { result } = renderHook(() =>
           usePropertyFilterBuilder({
             initialFilter: {
@@ -592,7 +610,7 @@ describe("usePropertyFilterBuilder", () => {
         );
         const { buildFilter } = result.current;
 
-        const buildFilterResult = buildFilter();
+        const buildFilterResult = await act(() => buildFilter());
 
         const { rootGroup } = result.current;
         expect(
@@ -604,7 +622,7 @@ describe("usePropertyFilterBuilder", () => {
         expect(buildFilterResult).toEqual(undefined);
       });
 
-      it("returns undefined and sets rule error message to `Value is empty` if item`s value is empty string", () => {
+      it("returns undefined and sets rule error message to `Value is empty` if item`s value is empty string", async () => {
         const { result } = renderHook(() =>
           usePropertyFilterBuilder({
             initialFilter: {
@@ -616,7 +634,7 @@ describe("usePropertyFilterBuilder", () => {
         );
         const { buildFilter } = result.current;
 
-        const buildFilterResult = buildFilter();
+        const buildFilterResult = await act(() => buildFilter());
 
         const { rootGroup } = result.current;
         expect(
@@ -688,7 +706,7 @@ describe("usePropertyFilterBuilder", () => {
       });
 
       describe("range value", () => {
-        it("returns undefined and sets rule error message to `Value is empty` if item`s range `from` value is empty", () => {
+        it("returns undefined and sets rule error message to `Value is empty` if item`s range `from` value is empty", async () => {
           const { result } = renderHook(() =>
             usePropertyFilterBuilder({
               initialFilter: createRangeFilter(
@@ -706,7 +724,7 @@ describe("usePropertyFilterBuilder", () => {
           );
           const { buildFilter } = result.current;
 
-          const buildFilterResult = buildFilter();
+          const buildFilterResult = await act(() => buildFilter());
           expect(buildFilterResult).toEqual(undefined);
 
           const { rootGroup } = result.current;
@@ -717,7 +735,7 @@ describe("usePropertyFilterBuilder", () => {
           );
         });
 
-        it("returns undefined and sets rule error message to `Value is empty` if item`s range `to` value is empty", () => {
+        it("returns undefined and sets rule error message to `Value is empty` if item`s range `to` value is empty", async () => {
           const { result } = renderHook(() =>
             usePropertyFilterBuilder({
               initialFilter: createRangeFilter(
@@ -735,7 +753,7 @@ describe("usePropertyFilterBuilder", () => {
           );
           const { buildFilter } = result.current;
 
-          const buildFilterResult = buildFilter();
+          const buildFilterResult = await act(() => buildFilter());
           expect(buildFilterResult).toEqual(undefined);
 
           const { rootGroup } = result.current;
@@ -746,7 +764,7 @@ describe("usePropertyFilterBuilder", () => {
           );
         });
 
-        it("returns undefined and sets rule error message to `Invalid range` if item`s range is not valid", () => {
+        it("returns undefined and sets rule error message to `Invalid range` if item`s range is not valid", async () => {
           const { result } = renderHook(() =>
             usePropertyFilterBuilder({
               initialFilter: createRangeFilter(
@@ -765,7 +783,7 @@ describe("usePropertyFilterBuilder", () => {
           );
           const { buildFilter } = result.current;
 
-          const buildFilterResult = buildFilter();
+          const buildFilterResult = await act(() => buildFilter());
           expect(buildFilterResult).toEqual(undefined);
 
           const { rootGroup } = result.current;
@@ -877,7 +895,9 @@ describe("usePropertyFilterBuilder", () => {
       );
       const { buildFilter } = result.current;
 
-      buildFilter();
+      act(() => {
+        buildFilter();
+      });
 
       const { rootGroup } = result.current;
 

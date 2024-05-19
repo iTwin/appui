@@ -8,7 +8,7 @@ import {
 } from "@itwin/appui-abstract";
 import { BeUiEvent } from "@itwin/core-bentley";
 import { ConditionalIconItem } from "@itwin/core-react";
-import { renderHook } from "@testing-library/react";
+import { act, renderHook } from "@testing-library/react";
 import { useConditionalSynchedItems } from "../../components-react/toolbar/useConditionalSynchedItems";
 
 interface BeUiEventProps {
@@ -122,7 +122,9 @@ describe("useConditionalSynchedItems", () => {
     const updatedItems = result.current;
     state.value = "updatedItem";
 
-    event.emit({ eventIds: new Set(["string-update"]) });
+    act(() => {
+      event.emit({ eventIds: new Set(["string-update"]) });
+    });
     expect(result.current).to.not.eq(updatedItems);
   });
 
@@ -153,7 +155,10 @@ describe("useConditionalSynchedItems", () => {
     state.iconValue = "updatedIcon";
     state.stringValue = "updatedString";
     state.boolValue = false;
-    event.emit({ eventIds: new Set(["change"]) });
+
+    act(() => {
+      event.emit({ eventIds: new Set(["change"]) });
+    });
 
     expect(ConditionalIconItem.getValue(result.current[0].iconValue)).toEqual(
       "updatedIcon"
@@ -209,7 +214,9 @@ describe("useConditionalSynchedItems", () => {
 
     level1State.value = "updated1";
     level2State.value = "updated2";
-    event.emit({ eventIds: new Set(["change-1"]) });
+    act(() => {
+      event.emit({ eventIds: new Set(["change-1"]) });
+    });
     expect(
       ConditionalStringValue.getValue(result.current[0].items[0].stringValue)
     ).toEqual("updated1");
@@ -221,7 +228,9 @@ describe("useConditionalSynchedItems", () => {
 
     level1State.value = "final1";
     level2State.value = "final2";
-    event.emit({ eventIds: new Set(["change-both"]) });
+    act(() => {
+      event.emit({ eventIds: new Set(["change-both"]) });
+    });
     expect(
       ConditionalStringValue.getValue(result.current[0].items[0].stringValue)
     ).toEqual("final1");
