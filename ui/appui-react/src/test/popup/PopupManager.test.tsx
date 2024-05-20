@@ -28,7 +28,7 @@ import {
 } from "../../appui-react/popup/PopupManager";
 import type { CursorMenuItemProps } from "../../appui-react/shared/MenuItem";
 import TestUtils, { storageMock } from "../TestUtils";
-import { fireEvent, render, waitFor } from "@testing-library/react";
+import { act, fireEvent, render, waitFor } from "@testing-library/react";
 import { Button } from "@itwin/itwinui-react";
 import type { KeyinEntry } from "../../appui-react/keyins/Keyins";
 const myLocalStorage = storageMock();
@@ -736,11 +736,13 @@ describe("PopupManager", () => {
 
     expect(queryByText("Test Component xyz1")).toEqual(null);
 
-    PopupManager.showComponent(component, {
-      location: new Point(150, 250),
-      offset: new Point(8, 8),
-      onCancel: spyCancel,
-      placement: "top",
+    act(() => {
+      PopupManager.showComponent(component, {
+        location: new Point(150, 250),
+        offset: new Point(8, 8),
+        onCancel: spyCancel,
+        placement: "top",
+      });
     });
 
     getByText("Test Component xyz1");

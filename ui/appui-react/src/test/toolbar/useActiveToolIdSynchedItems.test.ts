@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { renderHook } from "@testing-library/react";
+import { act, renderHook } from "@testing-library/react";
 import type { ToolActivatedEventArgs } from "../../appui-react";
 import { useActiveToolIdSynchedItems } from "../../appui-react/toolbar/useActiveToolIdSynchedItems";
 import { BeUiEvent } from "@itwin/core-bentley";
@@ -37,8 +37,10 @@ describe("useActiveToolIdSynchedItems", () => {
       return useActiveToolIdSynchedItems(items, syncHost);
     });
 
-    syncHost.activeToolId = "Btn1";
-    syncHost.onToolActivatedEvent.emit({ toolId: "Btn2" });
+    act(() => {
+      syncHost.activeToolId = "Btn1";
+      syncHost.onToolActivatedEvent.emit({ toolId: "Btn2" });
+    });
 
     expect(result.current[0].isActive).toEqual(false);
     expect(result.current[1].isActive).toEqual(true);
@@ -83,7 +85,9 @@ describe("useActiveToolIdSynchedItems", () => {
       return useActiveToolIdSynchedItems(items, syncHost);
     });
 
-    syncHost.onToolActivatedEvent.emit({ toolId: "Btn2" });
+    act(() => {
+      syncHost.onToolActivatedEvent.emit({ toolId: "Btn2" });
+    });
     expect(result.current[1].isActive).toEqual(false);
     expect(result.current[0].items?.[1].items?.[0].isActive).toEqual(true);
   });
