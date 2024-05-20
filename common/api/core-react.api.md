@@ -479,7 +479,7 @@ export interface DivProps extends CommonDivProps {
 
 // @public @deprecated
 export const DivWithOutsideClick: {
-    new (props: (CommonDivProps & WithOnOutsideClickProps) | Readonly<CommonDivProps & WithOnOutsideClickProps>): {
+    new (props: CommonDivProps & WithOnOutsideClickProps): {
         outsideClickContainerDiv?: HTMLDivElement | null | undefined;
         isDownOutside: boolean;
         isInCorePopup(element: HTMLElement): boolean;
@@ -492,12 +492,10 @@ export const DivWithOutsideClick: {
         componentDidMount(): void;
         componentWillUnmount(): void;
         render(): React_2.JSX.Element;
-        context: any;
+        context: unknown;
         setState<K extends never>(state: {} | ((prevState: Readonly<{}>, props: Readonly<CommonDivProps & WithOnOutsideClickProps>) => {} | Pick<{}, K> | null) | Pick<{}, K> | null, callback?: (() => void) | undefined): void;
         forceUpdate(callback?: (() => void) | undefined): void;
-        readonly props: Readonly<CommonDivProps & WithOnOutsideClickProps> & Readonly<{
-            children?: React_2.ReactNode;
-        }>;
+        readonly props: Readonly<CommonDivProps & WithOnOutsideClickProps>;
         state: Readonly<{}>;
         refs: {
             [key: string]: React_2.ReactInstance;
@@ -526,12 +524,10 @@ export const DivWithOutsideClick: {
         componentDidMount(): void;
         componentWillUnmount(): void;
         render(): React_2.JSX.Element;
-        context: any;
+        context: unknown;
         setState<K extends never>(state: {} | ((prevState: Readonly<{}>, props: Readonly<CommonDivProps & WithOnOutsideClickProps>) => {} | Pick<{}, K> | null) | Pick<{}, K> | null, callback?: (() => void) | undefined): void;
         forceUpdate(callback?: (() => void) | undefined): void;
-        readonly props: Readonly<CommonDivProps & WithOnOutsideClickProps> & Readonly<{
-            children?: React_2.ReactNode;
-        }>;
+        readonly props: Readonly<CommonDivProps & WithOnOutsideClickProps>;
         state: Readonly<{}>;
         refs: {
             [key: string]: React_2.ReactInstance;
@@ -757,7 +753,7 @@ export class IconHelper {
 }
 
 // @public @deprecated
-export const IconInput: (props: IconInputProps) => React_2.ReactElement | null;
+export const IconInput: (props: IconInputProps) => React_2.ReactNode;
 
 // @public @deprecated
 export interface IconInputProps extends Omit<InputProps, "size"> {
@@ -1097,7 +1093,7 @@ export type NodeCheckboxRenderProps = Omit_2<CheckboxProps, "onChange" | "onClic
 };
 
 // @public @deprecated
-export const NumberInput: (props: NumberInputProps) => React_2.ReactElement | null;
+export const NumberInput: (props: NumberInputProps) => React_2.ReactNode;
 
 // @public @deprecated
 export interface NumberInputProps extends Omit<InputProps_2, "min" | "max" | "step" | "onChange"> {
@@ -1941,18 +1937,16 @@ export interface WidgetOpacityContextProps {
 
 // @public
 export const withIsPressed: <ComponentProps extends {}>(Component: React_2.ComponentType<ComponentProps>) => {
-    new (props: (ComponentProps & WithIsPressedProps) | Readonly<ComponentProps & WithIsPressedProps>): {
+    new (props: ComponentProps & WithIsPressedProps): {
         handleOnPointerDown: () => void;
         handleOnPointerUp: () => void;
         handleOnMouseLeave: () => void;
         changeIsPressed: (isPressed: boolean) => void;
         render(): React_2.JSX.Element;
-        context: any;
+        context: unknown;
         setState<K extends never>(state: {} | ((prevState: Readonly<{}>, props: Readonly<ComponentProps & WithIsPressedProps>) => {} | Pick<{}, K> | null) | Pick<{}, K> | null, callback?: (() => void) | undefined): void;
         forceUpdate(callback?: (() => void) | undefined): void;
-        readonly props: Readonly<ComponentProps & WithIsPressedProps> & Readonly<{
-            children?: React_2.ReactNode;
-        }>;
+        readonly props: Readonly<ComponentProps & WithIsPressedProps>;
         state: Readonly<{}>;
         refs: {
             [key: string]: React_2.ReactInstance;
@@ -1976,12 +1970,10 @@ export const withIsPressed: <ComponentProps extends {}>(Component: React_2.Compo
         handleOnMouseLeave: () => void;
         changeIsPressed: (isPressed: boolean) => void;
         render(): React_2.JSX.Element;
-        context: any;
+        context: unknown;
         setState<K extends never>(state: {} | ((prevState: Readonly<{}>, props: Readonly<ComponentProps & WithIsPressedProps>) => {} | Pick<{}, K> | null) | Pick<{}, K> | null, callback?: (() => void) | undefined): void;
         forceUpdate(callback?: (() => void) | undefined): void;
-        readonly props: Readonly<ComponentProps & WithIsPressedProps> & Readonly<{
-            children?: React_2.ReactNode;
-        }>;
+        readonly props: Readonly<ComponentProps & WithIsPressedProps>;
         state: Readonly<{}>;
         refs: {
             [key: string]: React_2.ReactInstance;
@@ -2010,7 +2002,7 @@ export interface WithIsPressedProps {
 
 // @public
 export const withOnOutsideClick: <ComponentProps extends {}>(Component: React_2.ComponentType<ComponentProps>, defaultOnOutsideClick?: ((event: MouseEvent) => any) | undefined, useCapture?: boolean, usePointerEvents?: boolean) => {
-    new (props: (ComponentProps & WithOnOutsideClickProps) | Readonly<ComponentProps & WithOnOutsideClickProps>): {
+    new (props: ComponentProps & WithOnOutsideClickProps): {
         outsideClickContainerDiv?: HTMLDivElement | null | undefined;
         isDownOutside: boolean;
         isInCorePopup(element: HTMLElement): boolean;
@@ -2023,12 +2015,10 @@ export const withOnOutsideClick: <ComponentProps extends {}>(Component: React_2.
         componentDidMount(): void;
         componentWillUnmount(): void;
         render(): React_2.JSX.Element;
-        context: any;
+        context: unknown;
         setState<K extends never>(state: {} | ((prevState: Readonly<{}>, props: Readonly<ComponentProps & WithOnOutsideClickProps>) => {} | Pick<{}, K> | null) | Pick<{}, K> | null, callback?: (() => void) | undefined): void;
         forceUpdate(callback?: (() => void) | undefined): void;
-        readonly props: Readonly<ComponentProps & WithOnOutsideClickProps> & Readonly<{
-            children?: React_2.ReactNode;
-        }>;
+        readonly props: Readonly<ComponentProps & WithOnOutsideClickProps>;
         state: Readonly<{}>;
         refs: {
             [key: string]: React_2.ReactInstance;
@@ -2057,12 +2047,10 @@ export const withOnOutsideClick: <ComponentProps extends {}>(Component: React_2.
         componentDidMount(): void;
         componentWillUnmount(): void;
         render(): React_2.JSX.Element;
-        context: any;
+        context: unknown;
         setState<K extends never>(state: {} | ((prevState: Readonly<{}>, props: Readonly<ComponentProps & WithOnOutsideClickProps>) => {} | Pick<{}, K> | null) | Pick<{}, K> | null, callback?: (() => void) | undefined): void;
         forceUpdate(callback?: (() => void) | undefined): void;
-        readonly props: Readonly<ComponentProps & WithOnOutsideClickProps> & Readonly<{
-            children?: React_2.ReactNode;
-        }>;
+        readonly props: Readonly<ComponentProps & WithOnOutsideClickProps>;
         state: Readonly<{}>;
         refs: {
             [key: string]: React_2.ReactInstance;
@@ -2089,19 +2077,17 @@ export interface WithOnOutsideClickProps {
 
 // @public
 export const withTimeout: <ComponentProps extends {}>(Component: React_2.ComponentType<ComponentProps>) => {
-    new (props: (ComponentProps & WithTimeoutProps) | Readonly<ComponentProps & WithTimeoutProps>): {
+    new (props: ComponentProps & WithTimeoutProps): {
         timer: Timer;
         componentDidMount(): void;
         componentDidUpdate(_prevProps: Readonly<ComponentProps & WithTimeoutProps>): void;
         componentWillUnmount(): void;
         render(): React_2.JSX.Element;
         startTimer(timeout: number): void;
-        context: any;
+        context: unknown;
         setState<K extends never>(state: {} | ((prevState: Readonly<{}>, props: Readonly<ComponentProps & WithTimeoutProps>) => {} | Pick<{}, K> | null) | Pick<{}, K> | null, callback?: (() => void) | undefined): void;
         forceUpdate(callback?: (() => void) | undefined): void;
-        readonly props: Readonly<ComponentProps & WithTimeoutProps> & Readonly<{
-            children?: React_2.ReactNode;
-        }>;
+        readonly props: Readonly<ComponentProps & WithTimeoutProps>;
         state: Readonly<{}>;
         refs: {
             [key: string]: React_2.ReactInstance;
@@ -2123,12 +2109,10 @@ export const withTimeout: <ComponentProps extends {}>(Component: React_2.Compone
         componentWillUnmount(): void;
         render(): React_2.JSX.Element;
         startTimer(timeout: number): void;
-        context: any;
+        context: unknown;
         setState<K extends never>(state: {} | ((prevState: Readonly<{}>, props: Readonly<ComponentProps & WithTimeoutProps>) => {} | Pick<{}, K> | null) | Pick<{}, K> | null, callback?: (() => void) | undefined): void;
         forceUpdate(callback?: (() => void) | undefined): void;
-        readonly props: Readonly<ComponentProps & WithTimeoutProps> & Readonly<{
-            children?: React_2.ReactNode;
-        }>;
+        readonly props: Readonly<ComponentProps & WithTimeoutProps>;
         state: Readonly<{}>;
         refs: {
             [key: string]: React_2.ReactInstance;
