@@ -64,7 +64,9 @@ describe("PopupManager", () => {
       "requestNextAnimation",
       rnaDescriptorToRestore
     );
-    PopupManager.clearPopups();
+    act(() => {
+      PopupManager.clearPopups();
+    });
   });
 
   describe("Manager API", () => {
@@ -507,17 +509,19 @@ describe("PopupManager", () => {
       const spyItemExecuted = vi.fn();
       const spyCancel = vi.fn();
 
-      PopupManager.showCard(
-        content.documentElement,
-        "Title",
-        toolbarProps,
-        wrapper.container,
-        new Point(150, 250),
-        new Point(8, 8),
-        spyItemExecuted,
-        spyCancel,
-        RelativePosition.TopRight
-      );
+      act(() => {
+        PopupManager.showCard(
+          content.documentElement,
+          "Title",
+          toolbarProps,
+          wrapper.container,
+          new Point(150, 250),
+          new Point(8, 8),
+          spyItemExecuted,
+          spyCancel,
+          RelativePosition.TopRight
+        );
+      });
       await waitFor(() => {
         expect(
           wrapper.container.querySelectorAll("div.uifw-card-content").length
@@ -536,60 +540,74 @@ describe("PopupManager", () => {
       fireEvent.keyDown(buttonNodes[0] as HTMLElement, { key: "Escape" });
       await TestUtils.flushAsyncOperations();
       expect(spyCancel).toHaveBeenCalled();
-      PopupManager.hideCard();
+      act(() => {
+        PopupManager.hideCard();
+      });
 
       const record = TestUtils.createPrimitiveStringProperty("record", "Title");
-      PopupManager.showCard(
-        content.documentElement,
-        record,
-        toolbarProps,
-        wrapper.container,
-        new Point(150, 250),
-        new Point(8, 8),
-        spyItemExecuted,
-        spyCancel,
-        RelativePosition.TopRight
-      );
+      act(() => {
+        PopupManager.showCard(
+          content.documentElement,
+          record,
+          toolbarProps,
+          wrapper.container,
+          new Point(150, 250),
+          new Point(8, 8),
+          spyItemExecuted,
+          spyCancel,
+          RelativePosition.TopRight
+        );
+      });
       expect(
         wrapper.container.querySelectorAll("div.uifw-card-content").length
       ).toEqual(1);
       wrapper.getByText("Title");
-      PopupManager.hideCard();
+      act(() => {
+        PopupManager.hideCard();
+      });
 
-      PopupManager.showCard(
-        content.documentElement,
-        undefined,
-        undefined,
-        wrapper.container,
-        new Point(150, 250),
-        new Point(8, 8),
-        spyItemExecuted,
-        spyCancel,
-        RelativePosition.TopRight
-      );
+      act(() => {
+        PopupManager.showCard(
+          content.documentElement,
+          undefined,
+          undefined,
+          wrapper.container,
+          new Point(150, 250),
+          new Point(8, 8),
+          spyItemExecuted,
+          spyCancel,
+          RelativePosition.TopRight
+        );
+      });
       await waitFor(() => {
         expect(
           wrapper.container.querySelectorAll("div.uifw-card-content").length
         ).toEqual(1);
       });
-      PopupManager.hideCard();
+      act(() => {
+        PopupManager.hideCard();
+      });
 
       const reactContent = { reactNode: <Button>Label</Button> };
-      PopupManager.showCard(
-        reactContent,
-        undefined,
-        undefined,
-        wrapper.container,
-        new Point(150, 250),
-        new Point(8, 8),
-        spyItemExecuted,
-        spyCancel,
-        RelativePosition.TopRight
-      );
+      act(() => {
+        PopupManager.showCard(
+          reactContent,
+          undefined,
+          undefined,
+          wrapper.container,
+          new Point(150, 250),
+          new Point(8, 8),
+          spyItemExecuted,
+          spyCancel,
+          RelativePosition.TopRight
+        );
+      });
       expect(
         wrapper.container.querySelectorAll("div.uifw-card-content").length
       ).toEqual(1);
-      PopupManager.hideCard();
+      act(() => {
+        PopupManager.hideCard();
+      });
     });
 
     it("PopupRenderer should render Tool Settings", async () => {
