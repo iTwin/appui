@@ -1701,7 +1701,7 @@ export interface TreeNodeProps extends CommonProps {
     // (undocumented)
     children?: React_2.ReactNode;
     // (undocumented)
-    icon?: React_2.ReactChild;
+    icon?: React_2.ReactElement | string | number;
     // (undocumented)
     isExpanded?: boolean;
     // (undocumented)
