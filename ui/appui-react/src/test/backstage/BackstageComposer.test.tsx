@@ -255,7 +255,7 @@ describe("BackstageComposer", () => {
     act(() => UiItemsManager.unregister(uiProvider.id));
   });
 
-  describe.only("useGroupedItems", () => {
+  describe("useGroupedItems", () => {
     it("should omit invisible items", () => {
       const items = [getActionItem({ isHidden: true })];
       const { result } = renderHook(() => useGroupedItems(items));
