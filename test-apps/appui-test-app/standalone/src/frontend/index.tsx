@@ -776,10 +776,15 @@ async function main() {
   await SampleAppIModelApp.initialize();
 
   const root = createRoot(document.getElementById("root")!);
+  const isStrict = getUrlParam("strict") !== "0";
   root.render(
-    <React.StrictMode>
+    isStrict ? (
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    ) : (
       <App />
-    </React.StrictMode>
+    )
   );
 }
 
