@@ -95,44 +95,51 @@ describe("AccuDrawFieldContainer", () => {
     );
     expect(IModelApp.accuDraw.hasInputFocus).toEqual(false);
 
-    IModelApp.accuDraw.setCompassMode(CompassMode.Rectangular);
-    await TestUtils.flushAsyncOperations();
+    act(() => {
+      IModelApp.accuDraw.setCompassMode(CompassMode.Rectangular);
+      IModelApp.accuDraw.setFocusItem(ItemField.X_Item);
+    });
 
-    IModelApp.accuDraw.setFocusItem(ItemField.X_Item);
     expect(spy).toHaveBeenCalledOnce();
     let input = wrapper.queryByTestId("uifw-accudraw-x");
     expect(input).toBeTruthy();
-    expect(document.activeElement === input).toEqual(true);
+    expect(document.activeElement).toEqual(input);
     spy.mockReset();
 
-    IModelApp.accuDraw.setFocusItem(ItemField.Y_Item);
+    act(() => {
+      IModelApp.accuDraw.setFocusItem(ItemField.Y_Item);
+    });
     expect(spy).toHaveBeenCalledOnce();
     input = wrapper.queryByTestId("uifw-accudraw-y");
     expect(input).toBeTruthy();
-    expect(document.activeElement === input).toEqual(true);
+    expect(document.activeElement).toEqual(input);
     spy.mockReset();
 
     input = wrapper.queryByTestId("uifw-accudraw-z");
     expect(input).toEqual(null);
 
-    IModelApp.accuDraw.setCompassMode(CompassMode.Polar);
-    await TestUtils.flushAsyncOperations();
+    act(() => {
+      IModelApp.accuDraw.setCompassMode(CompassMode.Polar);
+    });
+    act(() => {
+      IModelApp.accuDraw.setFocusItem(ItemField.ANGLE_Item);
+    });
 
-    IModelApp.accuDraw.setFocusItem(ItemField.ANGLE_Item);
     expect(spy).toHaveBeenCalledOnce();
     input = wrapper.queryByTestId("uifw-accudraw-angle");
     expect(input).toBeTruthy();
-    expect(document.activeElement === input).toEqual(true);
+    expect(document.activeElement).toEqual(input);
     spy.mockReset();
 
-    IModelApp.accuDraw.setFocusItem(ItemField.DIST_Item);
+    act(() => {
+      IModelApp.accuDraw.setFocusItem(ItemField.DIST_Item);
+    });
     expect(spy).toHaveBeenCalledOnce();
     input = wrapper.queryByTestId("uifw-accudraw-distance");
     expect(input).toBeTruthy();
-    expect(document.activeElement === input).toEqual(true);
+    expect(document.activeElement).toEqual(input);
     spy.mockReset();
 
-    await TestUtils.flushAsyncOperations();
     expect(IModelApp.accuDraw.hasInputFocus).toEqual(true);
 
     remove();
@@ -185,17 +192,17 @@ describe("AccuDrawFieldContainer", () => {
     expect(spySet).toHaveBeenCalledOnce();
     const input = wrapper.queryByTestId("uifw-accudraw-x");
     expect(input).toBeTruthy();
-    expect(document.activeElement === input).toEqual(true);
+    expect(document.activeElement).toEqual(input);
 
     UiFramework.keyboardShortcuts.setFocusToHome();
-    expect(document.activeElement === input).toEqual(false);
+    expect(document.activeElement).not.toEqual(input);
 
     const spyGrab = vi.fn();
     const removeGrab =
       FrameworkAccuDraw.onAccuDrawGrabInputFocusEvent.addListener(spyGrab);
     IModelApp.accuDraw.grabInputFocus();
     expect(spyGrab).toHaveBeenCalledOnce();
-    expect(document.activeElement === input).toEqual(true);
+    expect(document.activeElement).toEqual(input);
 
     removeSet();
     removeGrab();
