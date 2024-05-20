@@ -57,6 +57,7 @@ export class FavoritePropertiesRenderer {
     if (createRoot) {
       createRoot(div).render(element);
     } else {
+      // eslint-disable-next-line react/no-deprecated, deprecation/deprecation
       ReactDOM.render(element, div);
     }
     return div;
