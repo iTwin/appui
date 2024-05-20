@@ -165,7 +165,7 @@ export class ColorEditor extends React_2.PureComponent<PropertyEditorProps, Colo
 }
 
 // @beta @deprecated
-export const ColorPickerButton: (props: ColorPickerProps) => React_2.ReactElement | null;
+export const ColorPickerButton: (props: ColorPickerProps) => React_2.ReactNode;
 
 // @beta @deprecated
 export function ColorPickerDialog({ dialogTitle, color, onOkResult, onCancelResult, colorPresets, colorInputType, }: ColorPickerDialogProps): React_2.JSX.Element;
@@ -185,7 +185,7 @@ export interface ColorPickerDialogProps {
 }
 
 // @public @deprecated
-export const ColorPickerPopup: (props: ColorPickerPopupProps) => React_2.ReactElement | null;
+export const ColorPickerPopup: (props: ColorPickerPopupProps) => React_2.ReactNode;
 
 // @public @deprecated
 export interface ColorPickerPopupProps extends React_2.ButtonHTMLAttributes<HTMLButtonElement>, CommonProps {
@@ -699,7 +699,7 @@ export interface QuantityFormatPanelProps extends CommonProps {
 export function QuantityInput({ initialValue, quantityType, readonly, className, style, onQuantityChange, ref, }: QuantityProps): React_2.JSX.Element;
 
 // @beta
-export const QuantityNumberInput: (props: QuantityNumberInputProps) => React_2.ReactElement | null;
+export const QuantityNumberInput: (props: QuantityNumberInputProps) => React_2.ReactNode;
 
 // @beta
 export interface QuantityNumberInputProps extends Omit<InputProps, "value" | "min" | "max" | "step" | "onFocus" | "onChange"> {

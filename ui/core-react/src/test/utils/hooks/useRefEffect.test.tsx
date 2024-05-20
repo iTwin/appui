@@ -2,9 +2,9 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { act, renderHook } from "@testing-library/react-hooks";
-import { useRefEffect } from "../../../core-react/utils/hooks/useRefEffect";
 import type { Mock } from "vitest";
+import { act, renderHook } from "@testing-library/react";
+import { useRefEffect } from "../../../core-react/utils/hooks/useRefEffect";
 
 describe("useRefEffect", () => {
   it("should invoke callback", () => {

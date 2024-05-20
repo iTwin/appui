@@ -3,8 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { Rectangle } from "@itwin/core-react";
-import { render } from "@testing-library/react";
-import { act, renderHook } from "@testing-library/react-hooks";
+import { act, render, renderHook } from "@testing-library/react";
 import * as React from "react";
 import type { ToolSettingsEntry } from "../../appui-react";
 import {

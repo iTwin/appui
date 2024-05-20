@@ -6,7 +6,7 @@ import "../../lib/webfont/bentley-icons-generic-webfont.css";
 import "@itwin/itwinui-react/styles.css";
 import "./index.scss";
 import * as React from "react";
-import * as ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import classnames from "classnames";
 import { connect, Provider } from "react-redux";
 import { Store } from "redux"; // createStore,
@@ -775,11 +775,16 @@ async function main() {
   });
   await SampleAppIModelApp.initialize();
 
-  ReactDOM.render(
-    <React.StrictMode>
+  const root = createRoot(document.getElementById("root")!);
+  const isStrict = getUrlParam("strict") !== "0";
+  root.render(
+    isStrict ? (
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    ) : (
       <App />
-    </React.StrictMode>,
-    document.getElementById("root") as HTMLElement
+    )
   );
 }
 

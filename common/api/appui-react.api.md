@@ -5162,9 +5162,6 @@ export interface UserSettingsProvider {
 // @internal (undocumented)
 export function useSavedFrontstageState(frontstageDef: FrontstageDef): void;
 
-// @internal (undocumented)
-export function useSaveFrontstageSettings(frontstageDef: FrontstageDef, store: LayoutStore): void;
-
 // @public
 export function useScheduleAnimationDataProvider(viewport: ScreenViewport | undefined): ScheduleAnimationTimelineDataProvider | undefined;
 
@@ -5190,7 +5187,7 @@ export function useSpecificWidgetDef(widgetId: string): WidgetDef | undefined;
 export function useStatusBarEntry(): DockedStatusBarEntryContextArg;
 
 // @internal (undocumented)
-export function useToolSettingsNode(): string | number | boolean | {} | React_2.ReactElement<any, string | React_2.JSXElementConstructor<any>> | Iterable<React_2.ReactNode> | React_2.ReactPortal | null | undefined;
+export function useToolSettingsNode(): string | number | boolean | React_2.ReactElement<any, string | React_2.JSXElementConstructor<any>> | Iterable<React_2.ReactNode> | React_2.ReactPortal | null | undefined;
 
 // @beta
 export function useTransientState(onSave?: () => void, onRestore?: () => void): void;

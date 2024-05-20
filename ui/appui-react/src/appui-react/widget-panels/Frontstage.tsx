@@ -6,8 +6,6 @@
  * @module Frontstage
  */
 
-// cSpell:ignore popout
-
 import { ToolbarPopupAutoHideContext } from "@itwin/components-react";
 import { assert, Logger, ProcessDetector } from "@itwin/core-bentley";
 import { IModelApp } from "@itwin/core-frontend";
@@ -22,7 +20,6 @@ import { useActiveFrontstageDef } from "../frontstage/FrontstageDef";
 import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager";
 import { useEscapeSetFocusToHome } from "../hooks/useEscapeSetFocusToHome";
 import { useUiVisibility } from "../hooks/useUiVisibility";
-import type { LayoutStore } from "../layout/base/LayoutStore";
 import { createLayoutStore } from "../layout/base/LayoutStore";
 import type { NineZoneDispatch, NineZoneLabels } from "../layout/base/NineZone";
 import { getUniqueId, NineZone } from "../layout/base/NineZone";
@@ -66,6 +63,7 @@ import { useCursor } from "../layout/widget-panels/CursorOverlay";
 import { WidgetPanelExpanders } from "../layout/widget-panels/Expander";
 import { useTranslation } from "../hooks/useTranslation";
 import { PopoutWidgets } from "../preview/reparent-popout-widgets/PopoutWidgets";
+import { useSaveFrontstageSettings } from "./useSaveFrontstageSettings";
 
 function WidgetPanelsFrontstageComponent() {
   const activeModalFrontstageInfo = useActiveModalFrontstageInfo();
@@ -755,61 +753,6 @@ export function useSavedFrontstageState(frontstageDef: FrontstageDef) {
 }
 
 /** @internal */
-export function useSaveFrontstageSettings(
-  frontstageDef: FrontstageDef,
-  store: LayoutStore
-) {
-  const uiSettingsStorage = useUiStateStorageHandler();
-  const pendingSave = React.useRef(() => {});
-  const saveSetting = React.useMemo(() => {
-    const debounced = debounce(
-      async (frontstage: FrontstageDef, state: NineZoneState) => {
-        const id = frontstage.id;
-        const setting: WidgetPanelsFrontstageState = {
-          id,
-          version: frontstage.version,
-          stateVersion,
-          nineZone: packNineZoneState(state),
-        };
-        await uiSettingsStorage.saveSetting(
-          FRONTSTAGE_SETTINGS_NAMESPACE,
-          getFrontstageStateSettingName(id),
-          setting
-        );
-      },
-      1000
-    );
-
-    const save = (frontstage: FrontstageDef, state: NineZoneState) => {
-      if (state.draggedTab) return;
-      debounced(frontstage, state);
-    };
-    save.cancel = debounced.cancel;
-    pendingSave.current = debounced.immediate;
-    return save;
-  }, [uiSettingsStorage]);
-  React.useEffect(() => {
-    return () => {
-      pendingSave.current();
-    };
-  }, [frontstageDef]);
-  React.useEffect(() => {
-    return () => {
-      saveSetting.cancel();
-    };
-  }, [saveSetting]);
-
-  React.useEffect(() => {
-    saveSetting(frontstageDef, store.getState());
-  }, [saveSetting, frontstageDef, store]);
-  React.useEffect(() => {
-    return store.subscribe(() => {
-      saveSetting(frontstageDef, store.getState());
-    });
-  }, [saveSetting, frontstageDef, store]);
-}
-
-/** @internal */
 export const FRONTSTAGE_SETTINGS_NAMESPACE = "uifw-frontstageSettings";
 
 /** @internal */
@@ -817,39 +760,6 @@ export function getFrontstageStateSettingName(
   frontstageId: WidgetPanelsFrontstageState["id"]
 ) {
   return `frontstageState[${frontstageId}]`;
-}
-
-// istanbul ignore next
-function debounce<T extends (...args: any[]) => any>(
-  func: T,
-  duration: number
-) {
-  let timeout: number | undefined;
-  let handler: () => any;
-  const debounced = (...args: Parameters<T>) => {
-    handler = () => {
-      timeout = undefined;
-      return func(...args);
-    };
-    window.clearTimeout(timeout);
-    timeout = window.setTimeout(handler, duration);
-  };
-  /**
-   * Will cancel the timeout without running the function.
-   */
-  debounced.cancel = () => {
-    window.clearTimeout(timeout);
-    timeout = undefined;
-  };
-  /**
-   * If not already ran, will run the function immediately and remove the timeout.
-   */
-  debounced.immediate = () => {
-    if (timeout === undefined) return;
-    debounced.cancel();
-    handler?.();
-  };
-  return debounced;
 }
 
 /** @internal */

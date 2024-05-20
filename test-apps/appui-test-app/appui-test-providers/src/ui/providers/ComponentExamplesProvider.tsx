@@ -830,14 +830,12 @@ export class ComponentExamplesProvider {
           <Button
             id="input-message-field-button"
             onClick={() => {
-              <div className="input-field-message">
-                {MessageManager.displayInputFieldMessage(
-                  document.getElementById("input-message-field-button")!,
-                  details.briefMessage,
-                  details.detailedMessage,
-                  details.priority
-                )}
-              </div>;
+              MessageManager.displayInputFieldMessage(
+                document.getElementById("input-message-field-button")!,
+                details.briefMessage,
+                details.detailedMessage,
+                details.priority
+              );
             }}
           >
             Open Input Message Field

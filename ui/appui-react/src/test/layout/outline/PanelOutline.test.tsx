@@ -2,10 +2,8 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { render } from "@testing-library/react";
-import { act, renderHook } from "@testing-library/react-hooks";
 import * as React from "react";
-
+import { act, render, renderHook } from "@testing-library/react";
 import type { DragManager } from "../../../appui-react/layout/base/DragManager";
 import {
   PanelOutline,

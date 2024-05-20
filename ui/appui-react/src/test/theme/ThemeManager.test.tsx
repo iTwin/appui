@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { render, waitFor } from "@testing-library/react";
+import { act, render, waitFor } from "@testing-library/react";
 import * as React from "react";
 import { Provider } from "react-redux";
 import { UiFramework } from "../../appui-react";
@@ -18,7 +18,9 @@ describe("ThemeManager", () => {
         </ThemeManager>
       </Provider>
     );
-    UiFramework.setColorTheme(ColorTheme.Dark);
+    act(() => {
+      UiFramework.setColorTheme(ColorTheme.Dark);
+    });
     expect(UiFramework.getColorTheme()).toEqual(ColorTheme.Dark);
     expect(
       container.ownerDocument.documentElement.getAttribute("data-theme")
