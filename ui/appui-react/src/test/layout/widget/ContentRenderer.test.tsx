@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { render } from "@testing-library/react";
+import { act, render } from "@testing-library/react";
 import produce from "immer";
 import * as React from "react";
 import { createLayoutStore } from "../../../appui-react/layout/base/LayoutStore";
@@ -72,11 +72,13 @@ describe("WidgetContentRenderer", () => {
 
     await findByText("Widget content");
 
-    layout.setState((prev) =>
-      produce(prev, (draft) => {
-        draft.tabs.t1.unloaded = true;
-      })
-    );
+    act(() => {
+      layout.setState((prev) =>
+        produce(prev, (draft) => {
+          draft.tabs.t1.unloaded = true;
+        })
+      );
+    });
     const content = queryByText("Widget content");
     expect(content).toEqual(null);
   });

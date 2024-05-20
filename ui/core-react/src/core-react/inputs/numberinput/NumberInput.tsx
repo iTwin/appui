@@ -340,4 +340,4 @@ const ForwardRefNumberInput = React.forwardRef<
 export const NumberInput: (
   // eslint-disable-next-line deprecation/deprecation
   props: NumberInputProps
-) => React.ReactElement | null = ForwardRefNumberInput;
+) => React.ReactNode = ForwardRefNumberInput;

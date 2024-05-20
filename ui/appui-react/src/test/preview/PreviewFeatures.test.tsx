@@ -3,8 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { renderHook } from "@testing-library/react-hooks";
-import { render } from "@testing-library/react";
+import { render, renderHook } from "@testing-library/react";
 import { PreviewFeaturesProvider } from "../../appui-react";
 import { usePreviewFeatures } from "../../appui-react/preview/PreviewFeatures";
 

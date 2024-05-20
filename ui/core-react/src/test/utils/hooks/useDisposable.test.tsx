@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import type { Mock } from "vitest";
 import type { IDisposable } from "@itwin/core-bentley";
-import { renderHook } from "@testing-library/react-hooks";
+import { renderHook } from "@testing-library/react";
 import {
   useDisposable,
   useOptionalDisposable,

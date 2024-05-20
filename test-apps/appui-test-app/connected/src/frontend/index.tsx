@@ -6,7 +6,7 @@ import "../../lib/webfont/bentley-icons-generic-webfont.css";
 import "@itwin/itwinui-react/styles.css";
 import "./index.scss";
 import * as React from "react";
-import * as ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import { connect, Provider } from "react-redux";
 import { Store } from "redux"; // createStore,
 import { Key } from "ts-key-enum";
@@ -930,11 +930,11 @@ async function main() {
   if (!IModelApp.initialized) return;
   await SampleAppIModelApp.initialize();
 
-  ReactDOM.render(
+  const root = createRoot(document.getElementById("root")!);
+  root.render(
     <React.StrictMode>
       <SampleAppViewer2 />
-    </React.StrictMode>,
-    document.getElementById("root") as HTMLElement
+    </React.StrictMode>
   );
 }
 

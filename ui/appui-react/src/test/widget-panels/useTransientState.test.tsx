@@ -2,9 +2,9 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { BeEvent } from "@itwin/core-bentley";
-import { act, renderHook } from "@testing-library/react-hooks";
 import * as React from "react";
+import { act, renderHook } from "@testing-library/react";
+import { BeEvent } from "@itwin/core-bentley";
 import { useTransientState } from "../../appui-react";
 import type { TabState } from "../../appui-react/layout/state/TabState";
 import type { WidgetContentManagerContextArgs } from "../../appui-react/layout/widget/ContentManager";

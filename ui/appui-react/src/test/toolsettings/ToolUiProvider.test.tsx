@@ -67,7 +67,7 @@ describe("ToolUiProvider", () => {
     constructor(info: ConfigurableCreateInfo, options: any) {
       super(info, options);
 
-      this.toolSettingsNode = this.getHorizontalToolSettings();
+      this.toolSettingsNode = <>Tool Settings Node</>;
       this.horizontalToolSettingNodes = this.getHorizontalToolSettings();
     }
 

@@ -3,9 +3,8 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { act, renderHook } from "@testing-library/react-hooks";
 import { createDragInfo, createDragStartArgs, setRefValue } from "../Providers";
-import { waitFor } from "@testing-library/react";
+import { act, renderHook, waitFor } from "@testing-library/react";
 import {
   DragManager,
   DragManagerContext,

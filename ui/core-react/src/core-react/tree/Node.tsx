@@ -62,7 +62,7 @@ export interface NodeCheckboxProps {
 export interface TreeNodeProps extends CommonProps {
   label: React.ReactNode;
   level: number;
-  icon?: React.ReactChild;
+  icon?: React.ReactElement | string | number;
   /** Properties for the checkbox.
    * @public */
   checkboxProps?: NodeCheckboxProps;

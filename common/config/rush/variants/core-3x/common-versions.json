@@ -24,7 +24,7 @@
     "@itwin/hypermodeling-frontend": "^3.7.0",
     "@itwin/presentation-common": "^3.7.0",
     "@itwin/webgl-compatibility": "^3.7.0",
-    "@types/react": "^17.0.37",
+    "@types/react": "^18.3.2",
     "caniuse-lite": "^1.0.30001458",
     "electron": "^22.0.0",
     "event-stream": "~4.0.1",
