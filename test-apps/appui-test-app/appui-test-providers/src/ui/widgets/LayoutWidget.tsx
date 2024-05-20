@@ -94,7 +94,7 @@ function PanelInfo({ location }: { location: StagePanelLocation }) {
   const { size, pinned, resizable, state } = usePanelInfo(location);
   return (
     <>
-      <div>size={size}px</div>
+      <div>size={JSON.stringify(size)}px</div>
       <div>pinned={String(pinned)}</div>
       <div>resizable={String(resizable)}</div>
       {state !== undefined && <div>state={StagePanelState[state]}</div>}
