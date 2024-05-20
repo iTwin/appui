@@ -60,7 +60,9 @@ describe("useSaveFrontstageSettings", () => {
     expect(setting.nineZone.tabs).toHaveProperty("t1");
 
     // Nothing else is scheduled.
+    spy.mockClear();
     vi.advanceTimersByTime(1000);
+    expect(spy).not.toBeCalled();
   });
 
   it("should not save if tab is dragged", async () => {
@@ -72,9 +74,10 @@ describe("useSaveFrontstageSettings", () => {
     const frontstageDef = new FrontstageDef();
     await UiFramework.setUiStateStorage(uiStateStorage);
 
-    frontstageDef.nineZoneState = produce(createNineZoneState(), (draft) => {
+    let state = produce(createNineZoneState(), (draft) => {
       draft.draggedTab = createDraggedTabState("t1");
     });
+    frontstageDef.nineZoneState = state;
 
     const layout = createLayoutStore(frontstageDef.nineZoneState);
     renderHook(() => useSaveFrontstageSettings(frontstageDef, layout), {
@@ -84,8 +87,62 @@ describe("useSaveFrontstageSettings", () => {
         </React.StrictMode>
       ),
     });
-    vi.advanceTimersByTime(1000);
+    // Schedule save.
+    state = addTab(state, "t1");
+    layout.setState(state);
 
+    // Save is not called due to dragged tab.
+    vi.advanceTimersByTime(1000);
     expect(spy).not.toBeCalled();
+
+    // Dragged tab is cleared.
+    state = produce(state, (draft) => {
+      draft.draggedTab = undefined;
+    });
+    layout.setState(state);
+
+    // Save is called.
+    vi.advanceTimersByTime(1000);
+    expect(spy).toHaveBeenCalledOnce();
+  });
+
+  it("should flush save when frontstage is changed", async () => {
+    vi.useFakeTimers();
+    const uiStateStorage = new UiStateStorageStub();
+    const spy = vi.spyOn(uiStateStorage, "saveSetting").mockResolvedValue({
+      status: UiStateStorageStatus.Success,
+    });
+    await UiFramework.setUiStateStorage(uiStateStorage);
+
+    const state = createNineZoneState();
+    const initialFrontstage = new FrontstageDef();
+    initialFrontstage.nineZoneState = state;
+
+    const layout = createLayoutStore();
+    const { rerender } = renderHook(
+      ({ frontstageDef }) => useSaveFrontstageSettings(frontstageDef, layout),
+      {
+        wrapper: (props: any) => (
+          <React.StrictMode>
+            <UiStateStorageHandler {...props} />,
+          </React.StrictMode>
+        ),
+        initialProps: {
+          frontstageDef: initialFrontstage,
+        },
+      }
+    );
+
+    // Schedule save.
+    layout.setState(addTab(state, "t1"));
+    expect(spy).not.toBeCalled();
+
+    // Frontstage changed. Flush save.
+    const newFrontstage = new FrontstageDef();
+    rerender({ frontstageDef: newFrontstage });
+
+    expect(spy).toHaveBeenCalledOnce();
+    const setting = spy.mock.calls[0][2] as WidgetPanelsFrontstageState;
+    expect(setting.nineZone.tabs).toHaveProperty("t1");
   });
 });
