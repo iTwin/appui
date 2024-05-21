@@ -55,12 +55,7 @@ export function getSelectionContextSyncEventIds(): string[] {
  */
 export function isNoSelectionActive(): boolean {
   const activeContentControl = UiFramework.content.getActiveContentControl();
-  let selectionCount = 0;
-  // istanbul ignore if
-  if (!UiFramework.frameworkStateKey)
-    selectionCount =
-      UiFramework.store.getState()[UiFramework.frameworkStateKey].frameworkState
-        .sessionState.numItemsSelected;
+  const selectionCount = UiFramework.state.session.numItemsSelected;
 
   // istanbul ignore if
   if (activeContentControl?.viewport) {
@@ -134,19 +129,13 @@ export function featureOverridesActiveStateFunc(
 /** return state with isVisible set to true is SectionSet is active.
  * @beta
  */
-// istanbul ignore next
 export function selectionContextStateFunc(
   state: Readonly<BaseItemState>
 ): BaseItemState {
   const activeContentControl = UiFramework.content.getActiveContentControl();
   let isVisible = false;
 
-  let selectionCount = 0;
-  if (!UiFramework.frameworkStateKey)
-    selectionCount =
-      UiFramework.store.getState()[UiFramework.frameworkStateKey].frameworkState
-        .sessionState.numItemsSelected;
-
+  const selectionCount = UiFramework.state.session.numItemsSelected;
   if (
     activeContentControl &&
     activeContentControl.viewport &&

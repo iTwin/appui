@@ -81,8 +81,9 @@ describe("Store", () => {
         ).toEqual("initial-theme");
 
         const { result } = renderHook(() => useFrameworkState(), {
-          wrapper: Provider,
-          initialProps: { store: UiFramework.store },
+          wrapper: (props: any) => (
+            <Provider store={UiFramework.store} {...props} />
+          ),
         });
 
         expect(result.current.configurableUi.theme).toEqual("initial-theme");
@@ -235,16 +236,30 @@ describe("Store", () => {
       fireEvent.click(getByText("frameworkState:initial-theme"));
       getByText("frameworkState:custom-theme");
     });
-  });
 
-  describe("useFrameworkStore", () => {
-    it("should dispatch SyncUiEvent only if state is changed", () => {
+    it("should dispatch SyncUiEvent only if state is changed", async () => {
+      const reducer = combineReducers({
+        frameworkState: FrameworkReducer,
+      });
+      const store = createStore(reducer);
+      await UiFramework.initialize(store);
+
+      const { result } = renderHook(() => useFrameworkState(), {
+        wrapper: (props: any) => (
+          <Provider store={UiFramework.store} {...props} />
+        ),
+      });
+
       const spy =
         vi.fn<
           Parameters<ListenerType<typeof SyncUiEventDispatcher.onSyncUiEvent>>
         >();
       SyncUiEventDispatcher.onSyncUiEvent.addListener(spy);
-      const { result } = renderHook(() => useFrameworkStore());
+      result.current.configurableUi.setTheme("SYSTEM_PREFERRED", {
+        immediateSync: true,
+      });
+      expect(spy).not.toBeCalled();
+
       result.current.configurableUi.setTheme("custom-theme", {
         immediateSync: true,
       });
@@ -300,6 +315,55 @@ describe("Store", () => {
         true
       );
       getByText("frameworkState:custom-theme");
+      expect(spy).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe("UiFramework.state", () => {
+    it("should return state from useFrameworkStore", () => {
+      useFrameworkStore.setState((prev) => ({
+        configurableUi: {
+          ...prev.configurableUi,
+          theme: "initial-theme",
+        },
+      }));
+
+      const state = UiFramework.state;
+      expect(state).toStrictEqual(useFrameworkStore.getState());
+    });
+
+    it("should use redux state", async () => {
+      const reducer = combineReducers({
+        frameworkState: FrameworkReducer,
+      });
+      const store = createStore(reducer);
+      store.dispatch({
+        type: ConfigurableUiActionId.SetTheme,
+        payload: "custom-theme",
+      });
+      await UiFramework.initialize(store);
+
+      const state = UiFramework.state;
+      expect(state.configurableUi.theme).toEqual("custom-theme");
+    });
+  });
+
+  describe("useFrameworkStore", () => {
+    it("should dispatch SyncUiEvent only if state is changed", () => {
+      const spy =
+        vi.fn<
+          Parameters<ListenerType<typeof SyncUiEventDispatcher.onSyncUiEvent>>
+        >();
+      SyncUiEventDispatcher.onSyncUiEvent.addListener(spy);
+      const { result } = renderHook(() => useFrameworkStore());
+      result.current.configurableUi.setTheme("custom-theme", {
+        immediateSync: true,
+      });
+      expect(spy).toHaveBeenCalledTimes(1);
+
+      result.current.configurableUi.setTheme("custom-theme", {
+        immediateSync: true,
+      });
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });

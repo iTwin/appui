@@ -371,6 +371,7 @@ export class UiFramework {
   /** Global framework state accessor.
    * @note This is added to facilitate replacement of globally accessible redux based API.
    * @note Prefer using {@link useFrameworkState} instead.
+   * @note Returned object is immutable, getter should be called again after dispatching actions.
    * @beta
    */
   public static get state(): FrameworkState {
