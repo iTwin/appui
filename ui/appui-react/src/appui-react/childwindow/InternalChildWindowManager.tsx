@@ -108,6 +108,7 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
         this._roots[childWindowId].render(element);
       }
     } else {
+      // eslint-disable-next-line react/no-deprecated, deprecation/deprecation
       ReactDOM.render(element, container);
     }
   }
@@ -230,6 +231,7 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
         // will be used
         if (this._roots[childWindowId]) {
           this._roots[childWindowId].unmount();
+          // eslint-disable-next-line react/no-deprecated, deprecation/deprecation
         } else ReactDOM.unmountComponentAtNode(reactConnectionDiv);
       });
     }

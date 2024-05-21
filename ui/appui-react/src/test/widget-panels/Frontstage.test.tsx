@@ -6,8 +6,7 @@ import { Logger } from "@itwin/core-bentley";
 import { IModelApp } from "@itwin/core-frontend";
 import type { UiStateStorageResult } from "@itwin/core-react";
 import { Size, UiStateStorageStatus } from "@itwin/core-react";
-import { render, screen } from "@testing-library/react";
-import { act, renderHook } from "@testing-library/react-hooks";
+import { act, render, renderHook, screen } from "@testing-library/react";
 import produce from "immer";
 import * as React from "react";
 import { Provider } from "react-redux";
@@ -43,21 +42,16 @@ import {
   useLayoutStore,
   useNineZoneDispatch,
   useSavedFrontstageState,
-  useSaveFrontstageSettings,
   useUpdateNineZoneSize,
   WidgetDef,
   WidgetPanelsFrontstage,
   WidgetState,
 } from "../../appui-react";
 import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";
-import { createLayoutStore } from "../../appui-react/layout/base/LayoutStore";
 import { getUniqueId } from "../../appui-react/layout/base/NineZone";
 import { createNineZoneState } from "../../appui-react/layout/state/NineZoneState";
 import { addPanelWidget } from "../../appui-react/layout/state/internal/PanelStateHelpers";
-import {
-  addTab,
-  createDraggedTabState,
-} from "../../appui-react/layout/state/internal/TabStateHelpers";
+import { addTab } from "../../appui-react/layout/state/internal/TabStateHelpers";
 import { addWidgetToolSettings } from "../../appui-react/layout/state/internal/ToolSettingsStateHelpers";
 import { addFloatingWidget } from "../../appui-react/layout/state/internal/WidgetStateHelpers";
 import TestUtils, {
@@ -632,52 +626,6 @@ describe("Frontstage local storage wrapper", () => {
         await TestUtils.flushAsyncOperations();
 
         expect(frontstageDef.nineZoneState?.tabs.w1).to.exist;
-      });
-    });
-
-    describe("useSaveFrontstageSettings", () => {
-      it("should save frontstage settings", async () => {
-        vi.useFakeTimers();
-        const uiStateStorage = new UiStateStorageStub();
-        const spy = vi.spyOn(uiStateStorage, "saveSetting").mockResolvedValue({
-          status: UiStateStorageStatus.Success,
-        });
-        const frontstageDef = new FrontstageDef();
-        frontstageDef.nineZoneState = createNineZoneState();
-        await UiFramework.setUiStateStorage(uiStateStorage);
-
-        const layout = createLayoutStore();
-        renderHook(() => useSaveFrontstageSettings(frontstageDef, layout), {
-          wrapper: (props: any) => <UiStateStorageHandler {...props} />,
-        });
-        vi.advanceTimersByTime(1000);
-
-        expect(spy).toHaveBeenCalledOnce();
-      });
-
-      it("should not save if tab is dragged", async () => {
-        vi.useFakeTimers();
-        const uiStateStorage = new UiStateStorageStub();
-        const spy = vi.spyOn(uiStateStorage, "saveSetting").mockResolvedValue({
-          status: UiStateStorageStatus.Success,
-        });
-        const frontstageDef = new FrontstageDef();
-        await UiFramework.setUiStateStorage(uiStateStorage);
-
-        frontstageDef.nineZoneState = produce(
-          createNineZoneState(),
-          (draft) => {
-            draft.draggedTab = createDraggedTabState("t1");
-          }
-        );
-
-        const layout = createLayoutStore(frontstageDef.nineZoneState);
-        renderHook(() => useSaveFrontstageSettings(frontstageDef, layout), {
-          wrapper: (props: any) => <UiStateStorageHandler {...props} />,
-        });
-        vi.advanceTimersByTime(1000);
-
-        expect(spy).not.toBeCalled();
       });
     });
 

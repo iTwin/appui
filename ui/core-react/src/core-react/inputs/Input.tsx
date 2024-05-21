@@ -81,5 +81,4 @@ const ForwardRefInput = React.forwardRef<HTMLInputElement, InputProps>(
 /** Basic text input, is a wrapper for the `<input type="text">` HTML element.
  * @internal
  */
-export const Input: (props: InputProps) => React.ReactElement | null =
-  ForwardRefInput;
+export const Input: (props: InputProps) => React.ReactNode = ForwardRefInput;

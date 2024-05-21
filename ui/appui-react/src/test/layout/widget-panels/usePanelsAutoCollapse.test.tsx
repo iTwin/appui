@@ -2,8 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { fireEvent } from "@testing-library/react";
-import { renderHook } from "@testing-library/react-hooks";
+import { fireEvent, renderHook } from "@testing-library/react";
 import type { NineZoneDispatch } from "../../../appui-react/layout/base/NineZone";
 import { updatePanelState } from "../../../appui-react/layout/state/internal/PanelStateHelpers";
 import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState";

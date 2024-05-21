@@ -21,6 +21,7 @@ import type { IconDefinition } from '@itwin/appui-abstract';
 import type { Id64String } from '@itwin/core-bentley';
 import type { IDisposable } from '@itwin/core-bentley';
 import { immerable } from 'immer';
+import { JSX as JSX_2 } from 'react';
 import type { LinkElementsInfo } from '@itwin/appui-abstract';
 import type { Localization } from '@itwin/core-common';
 import type { MessageSeverity } from '@itwin/appui-abstract';
@@ -97,7 +98,7 @@ export function adjustDateToTimezone(inDateTime: Date, utcOffset: number): Date;
 // @public
 export class ArrayPropertyValueRenderer implements IPropertyValueRenderer {
     canRender(record: PropertyRecord): boolean;
-    render(record: PropertyRecord, context?: PropertyValueRendererContext): React_3.ReactNode;
+    render(record: PropertyRecord, context?: PropertyValueRendererContext): string | number | boolean | Iterable<React_3.ReactNode> | React_3.JSX.Element | null | undefined;
 }
 
 // @public
@@ -1364,7 +1365,7 @@ export const matchLinks: (text: string) => Array<{
 // @public
 export class MergedPropertyValueRenderer implements IPropertyValueRenderer {
     canRender(record: PropertyRecord): boolean;
-    render(_record: PropertyRecord, context?: PropertyValueRendererContext): ReactNode;
+    render(_record: PropertyRecord, context?: PropertyValueRendererContext): string | number | boolean | Iterable<ReactNode> | JSX_2.Element | null | undefined;
 }
 
 // @internal (undocumented)
@@ -1772,7 +1773,7 @@ export interface PanelProps extends CommonProps {
 }
 
 // @public
-export const ParsedInput: (props: ParsedInputProps) => React_3.ReactElement | null;
+export const ParsedInput: (props: ParsedInputProps) => React_3.ReactNode;
 
 // @public
 export interface ParsedInputProps extends CommonProps {
@@ -2769,7 +2770,7 @@ export class StringTypeConverter extends TypeConverter implements StringOperator
 // @public
 export class StructPropertyValueRenderer implements IPropertyValueRenderer {
     canRender(record: PropertyRecord): boolean;
-    render(record: PropertyRecord, context?: PropertyValueRendererContext): React_3.ReactNode;
+    render(record: PropertyRecord, context?: PropertyValueRendererContext): string | number | boolean | Iterable<React_3.ReactNode> | React_3.JSX.Element | null | undefined;
 }
 
 // @public
@@ -3765,7 +3766,7 @@ export interface VisibleTreeNodes extends Iterable<TreeModelNode | TreeModelNode
 }
 
 // @public
-export const withContextStyle: (node: React_3.ReactNode, context?: PropertyValueRendererContext) => React_3.ReactNode;
+export const withContextStyle: (node: React_3.ReactNode, context?: PropertyValueRendererContext) => string | number | boolean | Iterable<React_3.ReactNode> | React_3.JSX.Element | null | undefined;
 
 // @public
 export const withLinks: (stringValue: string, links?: LinkElementsInfo, highlight?: ((text: string) => React_3.ReactNode) | undefined) => React_3.ReactNode;

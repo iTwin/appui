@@ -56,5 +56,5 @@ const ForwardRefIconInput = React.forwardRef<HTMLInputElement, IconInputProps>(
  * @deprecated in 4.12.x. Use {@link https://itwinui.bentley.com/docs/inputwithdecorations iTwinUI input decorations} instead.
  */
 // eslint-disable-next-line deprecation/deprecation
-export const IconInput: (props: IconInputProps) => React.ReactElement | null =
+export const IconInput: (props: IconInputProps) => React.ReactNode =
   ForwardRefIconInput;

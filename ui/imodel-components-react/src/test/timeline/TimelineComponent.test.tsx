@@ -543,7 +543,9 @@ describe("<TimelineComponent showDuration={true} />", () => {
       uiComponentId: "TestTimeline",
       timelineAction: TimelinePausePlayAction.Play,
     };
-    UiAdmin.sendUiEvent(args);
+    act(() => {
+      UiAdmin.sendUiEvent(args);
+    });
 
     getByRole("button", { name: "timeline.pause" });
 

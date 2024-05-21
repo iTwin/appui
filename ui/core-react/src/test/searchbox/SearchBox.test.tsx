@@ -14,7 +14,9 @@ describe("SearchBox", () => {
   const throttleMs = 16;
 
   beforeEach(() => {
-    vi.useFakeTimers();
+    vi.useFakeTimers({
+      shouldAdvanceTime: true,
+    });
     theUserTo = userEvent.setup({
       advanceTimers: (delay) => {
         vi.advanceTimersByTime(delay);

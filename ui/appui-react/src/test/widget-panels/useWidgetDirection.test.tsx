@@ -2,9 +2,9 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { renderHook } from "@testing-library/react-hooks";
 import * as React from "react";
 import { Provider } from "react-redux";
+import { renderHook } from "@testing-library/react";
 import { useWidgetDirection } from "../../appui-react";
 import { createLayoutStore } from "../../appui-react/layout/base/LayoutStore";
 import { NineZone } from "../../appui-react/layout/base/NineZone";

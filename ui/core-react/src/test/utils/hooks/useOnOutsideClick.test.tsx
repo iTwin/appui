@@ -2,8 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { fireEvent } from "@testing-library/react";
-import { act, renderHook } from "@testing-library/react-hooks";
+import { act, fireEvent, renderHook } from "@testing-library/react";
 import type { OutsideClickEvent } from "../../../core-react";
 import { useOnOutsideClick } from "../../../core-react";
 
