@@ -237,6 +237,26 @@ describe("Store", () => {
     });
   });
 
+  describe("useFrameworkStore", () => {
+    it("should dispatch SyncUiEvent only if state is changed", () => {
+      const spy =
+        vi.fn<
+          Parameters<ListenerType<typeof SyncUiEventDispatcher.onSyncUiEvent>>
+        >();
+      SyncUiEventDispatcher.onSyncUiEvent.addListener(spy);
+      const { result } = renderHook(() => useFrameworkStore());
+      result.current.configurableUi.setTheme("custom-theme", {
+        immediateSync: true,
+      });
+      expect(spy).toHaveBeenCalledTimes(1);
+
+      result.current.configurableUi.setTheme("custom-theme", {
+        immediateSync: true,
+      });
+      expect(spy).toHaveBeenCalledTimes(1);
+    });
+  });
+
   describe("UiFramework.dispatchActionToStore", () => {
     it("without redux store", async () => {
       const { getByText } = render(<ThemeRenderer />);

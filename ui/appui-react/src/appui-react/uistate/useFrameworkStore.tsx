@@ -45,12 +45,14 @@ export type FrameworkState = Immutable<{
  * @internal
  */
 export const useFrameworkStore: UseBoundStore<StoreApi<FrameworkState>> =
-  create<FrameworkState>((set) => {
-    const frameworkState = createFrameworkState();
+  create<FrameworkState>((set, get) => {
+    const initialState = createFrameworkState();
     return {
       configurableUi: {
-        ...frameworkState.configurableUiState,
+        ...initialState.configurableUiState,
         setTheme: (theme, args) => {
+          const frameworkState = get();
+          if (frameworkState.configurableUi.theme === theme) return;
           set((state) =>
             produce(state, (draft) => {
               draft.configurableUi.theme = castDraft(theme);
@@ -62,8 +64,10 @@ export const useFrameworkStore: UseBoundStore<StoreApi<FrameworkState>> =
         },
       },
       session: {
-        ...frameworkState.sessionState,
+        ...initialState.sessionState,
         setNumItemsSelected: (numSelected, args) => {
+          const frameworkState = get();
+          if (frameworkState.session.numItemsSelected === numSelected) return;
           set((state) =>
             produce(state, (draft) => {
               draft.session.numItemsSelected = numSelected;
