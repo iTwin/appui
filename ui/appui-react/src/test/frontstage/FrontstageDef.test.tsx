@@ -29,6 +29,7 @@ import {
 } from "../../appui-react";
 import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";
 import { createNineZoneState } from "../../appui-react/layout/state/NineZoneState";
+import type { ListenerType } from "../TestUtils";
 import TestUtils, { storageMock } from "../TestUtils";
 import { addTab } from "../../appui-react/layout/state/internal/TabStateHelpers";
 import {
@@ -738,9 +739,9 @@ describe("FrontstageDef", () => {
       const spy =
         vi.fn<
           Parameters<
-            Parameters<
-              typeof UiFramework.frontstages.onPanelStateChangedEvent.addListener
-            >[0]
+            ListenerType<
+              typeof UiFramework.frontstages.onPanelStateChangedEvent
+            >
           >
         >();
       UiFramework.frontstages.onPanelStateChangedEvent.addListener(spy);
@@ -783,9 +784,9 @@ describe("FrontstageDef", () => {
       const spy =
         vi.fn<
           Parameters<
-            Parameters<
-              typeof UiFramework.frontstages.onPanelStateChangedEvent.addListener
-            >[0]
+            ListenerType<
+              typeof UiFramework.frontstages.onPanelStateChangedEvent
+            >
           >
         >();
       UiFramework.frontstages.onPanelStateChangedEvent.addListener(spy);

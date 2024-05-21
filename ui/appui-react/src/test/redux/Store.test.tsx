@@ -18,6 +18,7 @@ import {
   SyncUiEventDispatcher,
   UiFramework,
 } from "../../appui-react";
+import type { ListenerType } from "../TestUtils";
 import TestUtils from "../TestUtils";
 import { renderHook } from "@testing-library/react-hooks";
 import { useFrameworkStore } from "../../appui-react/uistate/useFrameworkStore";
@@ -242,11 +243,7 @@ describe("Store", () => {
 
       const spy =
         vi.fn<
-          Parameters<
-            Parameters<
-              typeof SyncUiEventDispatcher.onSyncUiEvent.addListener
-            >[0]
-          >
+          Parameters<ListenerType<typeof SyncUiEventDispatcher.onSyncUiEvent>>
         >();
       SyncUiEventDispatcher.onSyncUiEvent.addListener(spy);
       UiFramework.dispatchActionToStore(
@@ -274,11 +271,7 @@ describe("Store", () => {
 
       const spy =
         vi.fn<
-          Parameters<
-            Parameters<
-              typeof SyncUiEventDispatcher.onSyncUiEvent.addListener
-            >[0]
-          >
+          Parameters<ListenerType<typeof SyncUiEventDispatcher.onSyncUiEvent>>
         >();
       SyncUiEventDispatcher.onSyncUiEvent.addListener(spy);
       UiFramework.dispatchActionToStore(
