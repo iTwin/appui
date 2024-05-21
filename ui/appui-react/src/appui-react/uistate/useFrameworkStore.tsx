@@ -27,7 +27,7 @@ interface ActionArgs {
 /** Interface that replaces framework state and actions used in redux.
  * @note This type is mapped to the redux framework state for backwards compatibility.
  * @note This type should not be used by consumers directly. Additional required properties can be added.
- * @note Actions dispatch sync UI events by default.
+ * @note Actions dispatch sync UI events by default. See `args` parameter for more options.
  * @internal
  */
 export type FrameworkState = Immutable<{

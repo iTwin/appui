@@ -71,11 +71,12 @@ export function useFrameworkState(): FrameworkState {
 export function dispatchActionToFrameworkState(
   state: FrameworkState,
   type: string,
-  payload: any
+  payload: any,
+  immediateSync: boolean
 ) {
   switch (type) {
     case ConfigurableUiActionId.SetTheme.valueOf():
-      return state.configurableUi.setTheme(payload);
+      return state.configurableUi.setTheme(payload, { immediateSync });
   }
 }
 

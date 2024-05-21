@@ -493,15 +493,19 @@ export class UiFramework {
     const frameworkState = reduxState?.[UiFramework.frameworkStateKey];
     if (frameworkState) {
       reduxStore!.dispatch({ type, payload });
-    } else {
-      dispatchActionToFrameworkState(
-        useFrameworkStore.getState(),
-        type,
-        payload
-      );
+      if (immediateSync) {
+        SyncUiEventDispatcher.dispatchImmediateSyncUiEvent(type);
+      } else {
+        SyncUiEventDispatcher.dispatchSyncUiEvent(type);
+      }
+      return;
     }
-    if (immediateSync) SyncUiEventDispatcher.dispatchImmediateSyncUiEvent(type);
-    else SyncUiEventDispatcher.dispatchSyncUiEvent(type);
+    dispatchActionToFrameworkState(
+      useFrameworkStore.getState(),
+      type,
+      payload,
+      immediateSync
+    );
   }
 
   public static setAccudrawSnapMode(snapMode: SnapMode) {
