@@ -2,6 +2,18 @@
   "name": "@itwin/appui-react",
   "entries": [
     {
+      "version": "4.13.4",
+      "tag": "@itwin/appui-react_v4.13.4",
+      "date": "Tue, 21 May 2024 08:21:34 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Fix save and restore of frontstage layout for react 18 strict mode."
+          }
+        ]
+      }
+    },
+    {
       "version": "4.13.3",
       "tag": "@itwin/appui-react_v4.13.3",
       "date": "Fri, 17 May 2024 09:43:31 GMT",
