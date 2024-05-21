@@ -16,6 +16,8 @@ import type { SessionState } from "./SessionState";
 import { initialSessionState, SessionStateReducer } from "./SessionState";
 import type { useFrameworkState } from "../uistate/useFrameworkState";
 
+/* eslint-disable deprecation/deprecation */
+
 /** Interface combining all the Framework state interfaces.
  * @public
  * @deprecated in 4.14.x. Use {@link useFrameworkState} instead.

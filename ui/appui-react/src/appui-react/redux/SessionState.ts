@@ -62,6 +62,8 @@ export enum SessionStateActionId {
   UpdateCursorMenu = "sessionstate:update-cursor-menu",
 }
 
+/* eslint-disable deprecation/deprecation */
+
 /** The portion of state managed by the SessionStateReducer.
  * @public
  * @deprecated in 4.14.x. Use {@link useFrameworkState} instead.
@@ -76,7 +78,6 @@ export interface SessionState {
   defaultViewState: any;
   iModelConnection: any;
   /** @deprecated in 4.11.x use {@link CursorMenuPayload} instead */
-  // eslint-disable-next-line deprecation/deprecation
   cursorMenuData: CursorMenuData | undefined;
   cursorMenuPayload: CursorMenuPayload | undefined;
 }
@@ -164,7 +165,6 @@ export const SessionStateActions = {
       ),
   updateCursorMenu:
     // istanbul ignore next
-    // eslint-disable-next-line deprecation/deprecation
     (cursorMenuData: CursorMenuData | CursorMenuPayload) =>
       createAction(SessionStateActionId.UpdateCursorMenu, cursorMenuData),
 };
@@ -184,7 +184,7 @@ export type SessionStateActionsUnion = ActionsUnion<typeof SessionStateActions>;
 
 /** Handles actions to update SessionState.
  * @public
- * @@deprecated in 4.14.x. Use {@link useFrameworkState} instead.
+ * @deprecated in 4.14.x. Use {@link useFrameworkState} instead.
  */
 export function SessionStateReducer(
   state: SessionState = initialSessionState,
@@ -234,7 +234,6 @@ export function SessionStateReducer(
       return {
         ...state,
         cursorMenuPayload: action.payload as CursorMenuPayload,
-        // eslint-disable-next-line deprecation/deprecation
         cursorMenuData: action.payload as CursorMenuData,
       };
     }

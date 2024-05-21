@@ -13,13 +13,13 @@ import { BeUiEvent, Logger } from "@itwin/core-bentley";
 import type { IModelConnection, ViewState } from "@itwin/core-frontend";
 import { FuzzySearch, IModelApp } from "@itwin/core-frontend";
 import type { SupportsViewSelectorChange } from "../content/ContentControl";
-import { connectIModelConnection } from "../redux/connectIModel";
 import { UiFramework } from "../UiFramework";
 import { ViewUtilities } from "../utils/ViewUtilities";
 import type { ListItem } from "./ListPicker";
 import { ListItemType, ListPicker } from "./ListPicker";
 import { debounce } from "lodash";
 import svgSavedView from "@bentley/icons-generic/icons/saved-view.svg";
+import { useFrameworkState } from "../uistate/useFrameworkState";
 
 // cSpell:ignore Spatials
 
@@ -470,10 +470,20 @@ export class ViewSelector extends React.Component<
   }
 }
 
+type IModelConnectedViewSelectorProps = Omit<
+  ViewSelectorProps,
+  "imodel" | keyof ViewSelectorDefaultProps
+> &
+  Partial<ViewSelectorDefaultProps>;
+
 /** ViewSelector that is connected to the IModelConnection property in the Redux store. The application must set up the Redux store and include the FrameworkReducer.
  * @beta
  */
-export const IModelConnectedViewSelector = connectIModelConnection(
-  null,
-  null
-)(ViewSelector);
+export function IModelConnectedViewSelector(
+  props: IModelConnectedViewSelectorProps
+) {
+  const frameworkState = useFrameworkState();
+  return (
+    <ViewSelector imodel={frameworkState.session.iModelConnection} {...props} />
+  );
+}

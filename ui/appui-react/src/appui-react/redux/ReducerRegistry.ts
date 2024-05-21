@@ -9,6 +9,8 @@
 import { UiError } from "@itwin/appui-abstract";
 import { UiFramework } from "../UiFramework";
 
+/* eslint-disable deprecation/deprecation */
+
 /** NameToReducerMap used by Reducer Registry
  * @public
  * @deprecated in 4.14.x. Use your preferred state management library instead.

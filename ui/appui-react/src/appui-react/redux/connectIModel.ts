@@ -9,12 +9,14 @@
 
 import { connect } from "react-redux";
 import { UiFramework } from "../UiFramework";
+import type { useFrameworkState } from "../uistate/useFrameworkState";
 
 /** Private function that will map store's iModelConnection to the 'iModelConnection', 'iModel', and 'imodel' properties of props. This
  * is not ideal but it is a result of not having standard prop name for an iModelConnection.
  */
 const iModeMapStateToProps = (mapStateToProps: any) => {
   return (state: any, ownProps: any) => {
+    // eslint-disable-next-line deprecation/deprecation
     const frameworkState = state[UiFramework.frameworkStateKey]; // since app sets up key, don't hard-code name
 
     /* istanbul ignore next */
@@ -48,6 +50,7 @@ const iModeMapStateToProps = (mapStateToProps: any) => {
 const iModelAndViewMapStateToProps = (mapStateToProps: any) => {
   // istanbul ignore next
   return (state: any, ownProps: any) => {
+    // eslint-disable-next-line deprecation/deprecation
     const frameworkState = state[UiFramework.frameworkStateKey]; // since app sets up key, don't hard-code name
 
     /* istanbul ignore next */
@@ -70,6 +73,7 @@ const iModelAndViewMapStateToProps = (mapStateToProps: any) => {
  * @param mapStateToProps optional user function that, if defined, will be executed to provide additional properties from store.
  * @param mapDispatchToProps data passed to Redux connect function.
  * @public
+ * @deprecated in 4.14.x. Use {@link useFrameworkState} instead.
  */
 export const connectIModelConnection = (
   mapStateToProps?: any,
@@ -95,7 +99,7 @@ export const connectIModelConnection = (
  *
  *  //  this then allows connected control to update the store using a call like shown below.
  *  this.props.setNumItemsSelected(30);
- *
+ * @deprecated in 4.14.x. Use {@link useFrameworkState} instead.
  */
 export const connectIModelConnectionAndViewState = (
   mapStateToProps?: any,
