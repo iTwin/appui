@@ -16,8 +16,15 @@ import {
 } from "../redux/ConfigurableUiState";
 import type { FrameworkState as ReduxFrameworkState } from "../redux/FrameworkState";
 import { UiFramework } from "../UiFramework";
-import { type FrameworkState, useFrameworkStore } from "./useFrameworkStore";
-import { SessionStateActions } from "../redux/SessionState";
+import {
+  type FrameworkState,
+  handleArgs,
+  useFrameworkStore,
+} from "./useFrameworkStore";
+import {
+  SessionStateActionId,
+  SessionStateActions,
+} from "../redux/SessionState";
 
 /** Returns the current framework state. Redux state is used if available, otherwise the root framework state is used.
  * @note This should be used as a replacement for redux `useSelector()` hook when accessing framework state.
@@ -95,24 +102,34 @@ export function toReduxFrameworkState(
 /** @internal */
 export function toFrameworkState(
   // eslint-disable-next-line deprecation/deprecation
-  reduxState: ReduxFrameworkState,
+  reduxFrameworkState: ReduxFrameworkState,
   reduxStore: Store
 ): FrameworkState {
   return {
     session: {
-      ...reduxState.sessionState,
-      setNumItemsSelected: (numItemsSelected) => {
+      ...reduxFrameworkState.sessionState,
+      setNumItemsSelected: (numItemsSelected, args) => {
+        if (
+          reduxFrameworkState.sessionState.numItemsSelected === numItemsSelected
+        ) {
+          return;
+        }
         reduxStore.dispatch(
           // eslint-disable-next-line deprecation/deprecation
           SessionStateActions.setNumItemsSelected(numItemsSelected)
         );
+        handleArgs(args, { eventId: SessionStateActionId.SetNumItemsSelected });
       },
     },
     configurableUi: {
-      ...reduxState.configurableUiState,
-      setTheme: (theme) => {
+      ...reduxFrameworkState.configurableUiState,
+      setTheme: (theme, args) => {
+        if (reduxFrameworkState.configurableUiState.theme === theme) {
+          return;
+        }
         // eslint-disable-next-line deprecation/deprecation
         reduxStore.dispatch(ConfigurableUiActions.setTheme(theme));
+        handleArgs(args, { eventId: ConfigurableUiActionId.SetTheme });
       },
     },
   };

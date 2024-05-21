@@ -81,7 +81,8 @@ export const useFrameworkStore: UseBoundStore<StoreApi<FrameworkState>> =
     };
   });
 
-function handleArgs(
+/** @internal */
+export function handleArgs(
   args: ActionArgs | undefined,
   {
     eventId,

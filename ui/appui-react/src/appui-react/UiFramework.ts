@@ -6,13 +6,15 @@
  * @module Utilities
  */
 
-// cSpell:ignore configurableui clientservices
-
 import type { Store } from "redux";
 import { Logger, ProcessDetector } from "@itwin/core-bentley";
 import type { TranslationOptions } from "@itwin/core-common";
-import type { IModelConnection, ViewState } from "@itwin/core-frontend";
-import { IModelApp, SnapMode } from "@itwin/core-frontend";
+import type {
+  IModelConnection,
+  SnapMode,
+  ViewState,
+} from "@itwin/core-frontend";
+import { IModelApp } from "@itwin/core-frontend";
 import type {
   DialogLayoutDataProvider,
   DialogProps,
@@ -22,11 +24,7 @@ import type {
 } from "@itwin/appui-abstract";
 import { UiAdmin, UiError, UiEvent } from "@itwin/appui-abstract";
 import type { UiStateStorage } from "@itwin/core-react";
-import {
-  LocalStateStorage,
-  SettingsManager,
-  TOOLBAR_OPACITY_DEFAULT,
-} from "@itwin/core-react";
+import { LocalStateStorage, SettingsManager } from "@itwin/core-react";
 import { getObjectClassName } from "@itwin/core-react";
 import { UiIModelComponents } from "@itwin/imodel-components-react";
 import { BackstageManager } from "./backstage/BackstageManager";
@@ -86,16 +84,12 @@ import type { FrameworkState } from "./uistate/useFrameworkStore";
 import { useFrameworkStore } from "./uistate/useFrameworkStore";
 import type { ThemeId } from "./theme/ThemeId";
 import {
-  SYSTEM_PREFERRED_COLOR_THEME,
-  WIDGET_OPACITY_DEFAULT,
-} from "./theme/ThemeId";
-import {
   dispatchActionToFrameworkState,
-  dispatchActionToFrameworkStore,
   toFrameworkState,
   toReduxFrameworkState,
 } from "./uistate/useFrameworkState";
 import { useFrameworkState } from "./uistate/useFrameworkState";
+import { castDraft } from "immer";
 
 interface ShowInputEditorOptions {
   location: XAndY;
@@ -266,7 +260,9 @@ export class UiFramework {
 
     /* if store is undefined then the StateManager class should have been initialized by parent app and the apps default set of reducers registered with it.
       If the app has no reducers to add and does not initialize a StateManager then just initialize the StateManager with the default framework reducer now */
+    // eslint-disable-next-line deprecation/deprecation
     if (undefined === store && !StateManager.isInitialized(true))
+      // eslint-disable-next-line deprecation/deprecation
       new StateManager();
 
     UiFramework._store = store;
@@ -320,6 +316,7 @@ export class UiFramework {
 
     UiFramework._store = undefined;
     UiFramework._frameworkStateKeyInStore = "frameworkState";
+    // eslint-disable-next-line deprecation/deprecation
     if (StateManager.isInitialized(true)) StateManager.clearStore();
     // istanbul ignore next
     IModelApp.localization?.unregisterNamespace(
@@ -517,18 +514,12 @@ export class UiFramework {
   }
 
   public static getAccudrawSnapMode(): SnapMode {
-    // eslint-disable-next-line deprecation/deprecation
-    return UiFramework.frameworkState
-      ? // eslint-disable-next-line deprecation/deprecation
-        UiFramework.frameworkState.configurableUiState.snapMode
-      : SnapMode.NearestKeypoint;
+    return UiFramework.state.configurableUi.snapMode;
   }
 
   /** Returns the stored active selection scope id. */
   public static getActiveSelectionScope(): string {
-    return UiFramework.frameworkState
-      ? UiFramework.frameworkState.sessionState.activeSelectionScope
-      : /* istanbul ignore next */ "element";
+    return UiFramework.state.session.activeSelectionScope;
   }
 
   /** This method stores the active selection scope to the supplied scope id, and triggers
@@ -538,21 +529,17 @@ export class UiFramework {
    * `Presentation.selection.scopes.activeScope` property from the `@itwin/presentation-frontend` package.
    */
   public static setActiveSelectionScope(selectionScopeId: string): void {
-    // eslint-disable-next-line deprecation/deprecation
     if (!UiFramework.frameworkState) return;
 
     const foundIndex =
-      // eslint-disable-next-line deprecation/deprecation
       UiFramework.frameworkState.sessionState.availableSelectionScopes.findIndex(
         (selectionScope) => selectionScope.id === selectionScopeId
       );
     if (-1 !== foundIndex) {
       const scope =
-        // eslint-disable-next-line deprecation/deprecation
         UiFramework.frameworkState.sessionState.availableSelectionScopes[
           foundIndex
         ];
-      // eslint-disable-next-line deprecation/deprecation
       UiFramework.dispatchActionToStore(
         SessionStateActionId.SetSelectionScope,
         scope.id
@@ -619,18 +606,18 @@ export class UiFramework {
     );
   }
 
+  /** @note Returned value is immutable.  */
   public static getCursorMenuData(): // eslint-disable-next-line deprecation/deprecation
   CursorMenuData | CursorMenuPayload | undefined {
-    return UiFramework.frameworkState
-      ? UiFramework.frameworkState.sessionState.cursorMenuPayload ??
-          UiFramework.frameworkState.sessionState.cursorMenuData
-      : /* istanbul ignore next */ undefined;
+    const session = UiFramework.state.session;
+    return (
+      // eslint-disable-next-line deprecation/deprecation
+      castDraft(session.cursorMenuPayload) ?? castDraft(session.cursorMenuData)
+    );
   }
 
   public static getActiveIModelId(): string {
-    return UiFramework.frameworkState
-      ? UiFramework.frameworkState.sessionState.iModelId
-      : /* istanbul ignore next */ "";
+    return UiFramework.state.session.iModelId;
   }
 
   public static setActiveIModelId(iModelId: string): void {
@@ -670,9 +657,7 @@ export class UiFramework {
   }
 
   public static getIModelConnection(): IModelConnection | undefined {
-    return UiFramework.frameworkState
-      ? UiFramework.frameworkState.sessionState.iModelConnection
-      : /* istanbul ignore next */ undefined;
+    return UiFramework.state.session.iModelConnection;
   }
 
   /** Called by iModelApp to initialize saved UI state from registered UseSettingsProviders. */
@@ -728,9 +713,7 @@ export class UiFramework {
   }
 
   public static getDefaultIModelViewportControlId(): string | undefined {
-    return UiFramework.frameworkState
-      ? UiFramework.frameworkState.sessionState.defaultIModelViewportControlId
-      : /* istanbul ignore next */ undefined;
+    return UiFramework.state.session.defaultIModelViewportControlId;
   }
 
   public static setDefaultViewId(viewId: string, immediateSync = false) {
@@ -742,9 +725,7 @@ export class UiFramework {
   }
 
   public static getDefaultViewId(): string | undefined {
-    return UiFramework.frameworkState
-      ? UiFramework.frameworkState.sessionState.defaultViewId
-      : /* istanbul ignore next */ undefined;
+    return UiFramework.state.session.defaultViewId;
   }
 
   public static setDefaultViewState(
@@ -758,20 +739,17 @@ export class UiFramework {
     );
   }
   public static getDefaultViewState(): ViewState | undefined {
-    return UiFramework.frameworkState
-      ? UiFramework.frameworkState.sessionState.defaultViewState
-      : /* istanbul ignore next */ undefined;
+    return UiFramework.state.session.defaultViewState;
   }
 
   /** Returns the stored list of available selection scopes. This list should be set by the application
    * by dispatching the `setAvailableSelectionScopes` action.
    * The value for this action typically come from `Presentation.selection.scopes.getSelectionScopes()`
    * method found in the `@itwin/presentation-frontend` package.
+   * @note Returned value is immutable.
    */
   public static getAvailableSelectionScopes(): PresentationSelectionScope[] {
-    if (!UiFramework.frameworkState)
-      return [{ id: "element", label: "Element" }];
-    return UiFramework.frameworkState.sessionState.availableSelectionScopes;
+    return castDraft(UiFramework.state.session.availableSelectionScopes);
   }
 
   public static getIsUiVisible() {
@@ -785,23 +763,15 @@ export class UiFramework {
     }
   }
 
-  /**
-   * Set the theme value used by the [[ThemeManager]] component.
-   */
+  /** Set the theme value used by the [[ThemeManager]] component. */
   public static setColorTheme(theme: ThemeId) {
-    if (UiFramework.getColorTheme() === theme) return;
-
-    UiFramework.dispatchActionToStore(
-      ConfigurableUiActionId.SetTheme,
-      theme,
-      true
-    );
+    return UiFramework.state.configurableUi.setTheme(theme, {
+      immediateSync: true,
+    });
   }
 
   public static getColorTheme(): ThemeId {
-    return UiFramework.frameworkState
-      ? UiFramework.frameworkState.configurableUiState.theme
-      : /* istanbul ignore next */ SYSTEM_PREFERRED_COLOR_THEME;
+    return UiFramework.state.configurableUi.theme;
   }
 
   /** UiFramework.setToolbarOpacity() sets the non-hovered opacity to the value specified.
@@ -819,9 +789,7 @@ export class UiFramework {
 
   /** UiFramework.getToolbarOpacity() returns a number between 0 and 1 that is the non-hovered opacity for toolbars. */
   public static getToolbarOpacity(): number {
-    return UiFramework.frameworkState
-      ? UiFramework.frameworkState.configurableUiState.toolbarOpacity
-      : /* istanbul ignore next */ TOOLBAR_OPACITY_DEFAULT;
+    return UiFramework.state.configurableUi.toolbarOpacity;
   }
 
   public static setWidgetOpacity(opacity: number) {
@@ -835,9 +803,7 @@ export class UiFramework {
   }
 
   public static getWidgetOpacity(): number {
-    return UiFramework.frameworkState
-      ? UiFramework.frameworkState.configurableUiState.widgetOpacity
-      : /* istanbul ignore next */ WIDGET_OPACITY_DEFAULT;
+    return UiFramework.state.configurableUi.widgetOpacity;
   }
 
   /** @deprecated in 4.13.x. Use {@link @itwin/core-bentley#ProcessDetector.isMobileBrowser} instead. */
@@ -847,9 +813,7 @@ export class UiFramework {
   }
 
   public static get showWidgetIcon(): boolean {
-    return UiFramework.frameworkState
-      ? UiFramework.frameworkState.configurableUiState.showWidgetIcon
-      : /* istanbul ignore next */ false;
+    return UiFramework.state.configurableUi.showWidgetIcon;
   }
 
   public static setShowWidgetIcon(value: boolean) {
@@ -861,12 +825,12 @@ export class UiFramework {
       true
     );
   }
+
   /** Animate Tool Settings on appear  */
   public static get animateToolSettings(): boolean {
-    return UiFramework.frameworkState
-      ? UiFramework.frameworkState.configurableUiState.animateToolSettings
-      : /* istanbul ignore next */ false;
+    return UiFramework.state.configurableUi.animateToolSettings;
   }
+
   public static setAnimateToolSettings(value: boolean) {
     if (UiFramework.animateToolSettings === value) return;
     UiFramework.dispatchActionToStore(
@@ -878,11 +842,9 @@ export class UiFramework {
 
   /** Use Tool Name As Tool Settings Widget Tab Label */
   public static get useToolAsToolSettingsLabel(): boolean {
-    return UiFramework.frameworkState
-      ? UiFramework.frameworkState.configurableUiState
-          .useToolAsToolSettingsLabel
-      : /* istanbul ignore next */ false;
+    return UiFramework.state.configurableUi.useToolAsToolSettingsLabel;
   }
+
   public static setUseToolAsToolSettingsLabel(value: boolean) {
     if (UiFramework.useToolAsToolSettingsLabel === value) return;
     UiFramework.dispatchActionToStore(
@@ -896,10 +858,7 @@ export class UiFramework {
    * When `false` (default), panels will close on next click outside the panel.
    */
   public static get autoCollapseUnpinnedPanels(): boolean {
-    return UiFramework.frameworkState
-      ? UiFramework.frameworkState.configurableUiState
-          .autoCollapseUnpinnedPanels
-      : /* istanbul ignore next */ false;
+    return UiFramework.state.configurableUi.autoCollapseUnpinnedPanels;
   }
 
   /** Method used to enable the automatic closing of an unpinned widget panel as soon as the
@@ -917,9 +876,7 @@ export class UiFramework {
   }
 
   public static get useDragInteraction(): boolean {
-    return UiFramework.frameworkState
-      ? UiFramework.frameworkState.configurableUiState.useDragInteraction
-      : false;
+    return UiFramework.state.configurableUi.useDragInteraction;
   }
 
   public static setUseDragInteraction(useDragInteraction: boolean) {
@@ -932,10 +889,9 @@ export class UiFramework {
 
   /** Returns the variable controlling whether the overlay is displayed in a Viewport. */
   public static get viewOverlayDisplay() {
-    return UiFramework.frameworkState
-      ? UiFramework.frameworkState.configurableUiState.viewOverlayDisplay
-      : /* istanbul ignore next */ true;
+    return UiFramework.state.configurableUi.viewOverlayDisplay;
   }
+
   /** Set the variable that controls display of the view overlay. Applies to all viewports in the app. */
   public static setViewOverlayDisplay(display: boolean) {
     if (UiFramework.viewOverlayDisplay === display) return;

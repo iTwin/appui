@@ -84,7 +84,7 @@ export interface SessionState {
 const defaultSelectionScope = {
   id: "element",
   label: "Element",
-} as PresentationSelectionScope;
+} as const satisfies PresentationSelectionScope;
 
 /** Used on first call of SessionStateReducer.
  * @internal
