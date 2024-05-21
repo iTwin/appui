@@ -15,6 +15,7 @@ import {
   ConfigurableUiActionId,
   createFrameworkState,
   FrameworkReducer,
+  SyncUiEventDispatcher,
   UiFramework,
 } from "../../appui-react";
 import TestUtils from "../TestUtils";
@@ -236,17 +237,29 @@ describe("Store", () => {
   });
 
   describe("UiFramework.dispatchActionToStore", () => {
-    it("should update framework state w/o redux store", () => {
+    it("without redux store", async () => {
       const { getByText } = render(<ThemeRenderer />);
 
+      const spy =
+        vi.fn<
+          Parameters<
+            Parameters<
+              typeof SyncUiEventDispatcher.onSyncUiEvent.addListener
+            >[0]
+          >
+        >();
+      SyncUiEventDispatcher.onSyncUiEvent.addListener(spy);
       UiFramework.dispatchActionToStore(
         ConfigurableUiActionId.SetTheme,
-        "custom-theme"
+        "custom-theme",
+        true
       );
       getByText("frameworkState:custom-theme");
+
+      expect(spy).toHaveBeenCalledTimes(1);
     });
 
-    it("should update framework state w/o framework state in redux store", async () => {
+    it("without framework state in redux store", async () => {
       const reducer = combineReducers({
         fs: FrameworkReducer,
       });
@@ -259,11 +272,22 @@ describe("Store", () => {
         </Provider>
       );
 
+      const spy =
+        vi.fn<
+          Parameters<
+            Parameters<
+              typeof SyncUiEventDispatcher.onSyncUiEvent.addListener
+            >[0]
+          >
+        >();
+      SyncUiEventDispatcher.onSyncUiEvent.addListener(spy);
       UiFramework.dispatchActionToStore(
         ConfigurableUiActionId.SetTheme,
-        "custom-theme"
+        "custom-theme",
+        true
       );
       getByText("frameworkState:custom-theme");
+      expect(spy).toHaveBeenCalledTimes(1);
     });
   });
 });

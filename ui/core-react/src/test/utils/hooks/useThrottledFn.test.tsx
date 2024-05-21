@@ -60,7 +60,7 @@ describe("useThrottledFn", () => {
       );
       callThrottledFn(result.current, test.callInfo);
 
-      expect(spy).toBeCalledTimes(resultCalls);
+      expect(spy).toHaveBeenCalledTimes(resultCalls);
     });
   }
 

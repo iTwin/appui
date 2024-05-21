@@ -80,7 +80,7 @@ describe("useOnOutsideClick", () => {
       document.dispatchEvent(pointerDown);
       document.dispatchEvent(pointerUp);
 
-      expect(onOutsideClick).toBeCalledTimes(2);
+      expect(onOutsideClick).toHaveBeenCalledTimes(2);
       expect(onOutsideClick).toBeCalledWith(pointerDown);
       expect(onOutsideClick).toBeCalledWith(pointerUp);
       expect(spy).not.toBeCalled();
@@ -147,6 +147,6 @@ describe("useOnOutsideClick", () => {
     fireEvent.mouseDown(document);
     fireEvent.mouseUp(document);
 
-    expect(spy).toBeCalledTimes(2);
+    expect(spy).toHaveBeenCalledTimes(2);
   });
 });
