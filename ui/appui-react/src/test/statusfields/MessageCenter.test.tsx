@@ -4,11 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { render, screen } from "@testing-library/react";
-import {
-  MessageCenterField,
-  MessageManager,
-  StatusBar,
-} from "../../appui-react";
+import { MessageCenterField, MessageManager } from "../../appui-react";
 import { userEvent, waitForPosition } from "../TestUtils";
 
 describe(`MessageCenter`, () => {
@@ -20,9 +16,7 @@ describe(`MessageCenter`, () => {
   it("Message Center should close on outside click", async () => {
     render(
       <div title="outside">
-        <StatusBar>
-          <MessageCenterField />
-        </StatusBar>
+        <MessageCenterField />
       </div>
     );
 
@@ -37,11 +31,7 @@ describe(`MessageCenter`, () => {
   });
 
   it("Message Center should open on OpenMessageCenterEvent", async () => {
-    render(
-      <StatusBar>
-        <MessageCenterField />
-      </StatusBar>
-    );
+    render(<MessageCenterField />);
     expect(screen.queryByRole("dialog")).toEqual(null);
     MessageManager.onOpenMessageCenterEvent.emit({});
     expect(await screen.findByRole("dialog")).to.exist;

@@ -8,7 +8,6 @@ import { fireEvent, render, within } from "@testing-library/react";
 import {
   SelectionScopeField,
   SessionStateActionId,
-  StatusBar,
   UiFramework,
 } from "../../appui-react";
 import TestUtils, { waitForPosition } from "../TestUtils";
@@ -18,9 +17,7 @@ describe(`SelectionScopeField`, () => {
     it("SelectionScopeField with default data", () => {
       const component = render(
         <Provider store={TestUtils.store}>
-          <StatusBar>
-            <SelectionScopeField />
-          </StatusBar>
+          <SelectionScopeField />
         </Provider>
       );
       expect(component).toBeTruthy();
@@ -49,9 +46,7 @@ describe(`SelectionScopeField`, () => {
       // UiFramework.frameworkState!.sessionState.availableSelectionScopes = 1;
       const component = render(
         <Provider store={TestUtils.store}>
-          <StatusBar>
-            <SelectionScopeField />
-          </StatusBar>
+          <SelectionScopeField />
         </Provider>
       );
       expect(component).toBeTruthy();
@@ -83,9 +78,7 @@ describe(`SelectionScopeField`, () => {
 
       const component = render(
         <Provider store={TestUtils.store}>
-          <StatusBar>
-            <SelectionScopeField />
-          </StatusBar>
+          <SelectionScopeField />
         </Provider>
       );
 
@@ -117,9 +110,7 @@ describe(`SelectionScopeField`, () => {
 
       const component = render(
         <Provider store={TestUtils.store}>
-          <StatusBar>
-            <SelectionScopeField />
-          </StatusBar>
+          <SelectionScopeField />
         </Provider>
       );
       expect(component).toBeTruthy();
