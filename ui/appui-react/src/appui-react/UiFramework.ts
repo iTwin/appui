@@ -83,10 +83,6 @@ import type { CursorMenuItemProps } from "./shared/MenuItem";
 import type { FrameworkState } from "./uistate/useFrameworkStore";
 import { useFrameworkStore } from "./uistate/useFrameworkStore";
 import type { ThemeId } from "./theme/ThemeId";
-import {
-  dispatchActionToFrameworkState,
-  toReduxFrameworkState,
-} from "./uistate/useFrameworkState";
 import { useFrameworkState } from "./uistate/useFrameworkState";
 
 interface ShowInputEditorOptions {
@@ -363,9 +359,6 @@ export class UiFramework {
     if (reduxState) {
       return reduxState;
     }
-
-    const storeState = useFrameworkStore.getState();
-    return toReduxFrameworkState(storeState);
   }
 
   /** Global framework state accessor.
@@ -483,21 +476,13 @@ export class UiFramework {
     const reduxState = reduxStore?.getState();
     // eslint-disable-next-line deprecation/deprecation
     const frameworkState = reduxState?.[UiFramework.frameworkStateKey];
-    if (frameworkState) {
-      reduxStore!.dispatch({ type, payload });
-      if (immediateSync) {
-        SyncUiEventDispatcher.dispatchImmediateSyncUiEvent(type);
-      } else {
-        SyncUiEventDispatcher.dispatchSyncUiEvent(type);
-      }
-      return;
+    if (!frameworkState) return;
+    reduxStore!.dispatch({ type, payload });
+    if (immediateSync) {
+      SyncUiEventDispatcher.dispatchImmediateSyncUiEvent(type);
+    } else {
+      SyncUiEventDispatcher.dispatchSyncUiEvent(type);
     }
-    dispatchActionToFrameworkState(
-      useFrameworkStore.getState(),
-      type,
-      payload,
-      immediateSync
-    );
   }
 
   public static setAccudrawSnapMode(snapMode: SnapMode) {
