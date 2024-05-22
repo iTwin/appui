@@ -139,6 +139,8 @@ type OptionalShowComponentParams = [
   >?
 ];
 
+let numItemsSelected = 0;
+
 /** Main entry point to configure and interact with the features provided by the AppUi-react package.
  * @public
  */
@@ -346,19 +348,6 @@ export class UiFramework {
    */
   public static get frameworkStateKey(): string {
     return UiFramework._frameworkStateKeyInStore;
-  }
-
-  /** The UiFramework state maintained by Redux.
-   * @note Returned fields should not be modified. Use the appropriate action dispatchers to modify the state.
-   * @deprecated in 4.14.x. Use {@link UiFramework.state} instead.
-   */
-  // eslint-disable-next-line deprecation/deprecation
-  public static get frameworkState(): ReduxFrameworkState | undefined {
-    const store = UiFramework.reduxStore;
-    const state = store?.getState();
-    // eslint-disable-next-line deprecation/deprecation
-    const frameworkState = state?.[UiFramework.frameworkStateKey];
-    return frameworkState;
   }
 
   /** Global framework state accessor.
@@ -638,12 +627,40 @@ export class UiFramework {
     const itemsSelected = iModelConnection
       ? iModelConnection.selectionSet.elements.size
       : 0;
-    UiFramework.state.session.setNumItemsSelected(itemsSelected);
+
+    UiFramework.setNumItemsSelected(itemsSelected);
     UiFramework.setActiveIModelId(iModelConnection?.iModelId ?? "");
   }
 
   public static getIModelConnection(): IModelConnection | undefined {
     return UiFramework.state.session.iModelConnection;
+  }
+
+  public static setNumItemsSelected(numSelected: number) {
+    // eslint-disable-next-line deprecation/deprecation
+    if (this.frameworkState) {
+      // eslint-disable-next-line deprecation/deprecation
+      this.dispatchActionToStore(
+        SessionStateActionId.SetNumItemsSelected,
+        numSelected
+      );
+      return;
+    }
+
+    numItemsSelected = numSelected;
+    SyncUiEventDispatcher.dispatchSyncUiEvent(
+      SessionStateActionId.SetNumItemsSelected
+    );
+  }
+
+  public static getNumItemsSelected() {
+    // eslint-disable-next-line deprecation/deprecation
+    const state = this.frameworkState;
+    if (state) {
+      return state.sessionState.numItemsSelected;
+    }
+
+    return numItemsSelected;
   }
 
   /** Called by iModelApp to initialize saved UI state from registered UseSettingsProviders. */
@@ -1234,6 +1251,18 @@ export class UiFramework {
   }
 
   /* eslint-disable deprecation/deprecation */
+
+  /** The UiFramework state maintained by Redux.
+   * @note Returned fields should not be modified. Use the appropriate action dispatchers to modify the state.
+   * @deprecated in 4.14.x. Use {@link UiFramework.state} instead.
+   */
+  public static get frameworkState(): ReduxFrameworkState | undefined {
+    const store = UiFramework.reduxStore;
+    const state = store?.getState();
+    // eslint-disable-next-line deprecation/deprecation
+    const frameworkState = state?.[UiFramework.frameworkStateKey];
+    return frameworkState;
+  }
 
   /** Set the theme value used by the [[ThemeManager]] component.
    * @note Requires redux provider.

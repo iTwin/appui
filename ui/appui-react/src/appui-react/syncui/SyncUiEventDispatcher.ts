@@ -268,7 +268,7 @@ export class SyncUiEventDispatcher {
       }),
       iModelConnection.selectionSet.onChanged.addListener((ev) => {
         const numSelected = ev.set.elements.size;
-        UiFramework.state.session.setNumItemsSelected(numSelected);
+        UiFramework.setNumItemsSelected(numSelected);
       })
     );
   }

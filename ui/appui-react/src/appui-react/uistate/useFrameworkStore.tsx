@@ -63,7 +63,7 @@ export interface FrameworkState {
   session: Omit<
     // eslint-disable-next-line deprecation/deprecation
     SessionState,
-    "defaultViewState" | "iModelConnection"
+    "defaultViewState" | "iModelConnection" | "numItemsSelected"
   > & {
     defaultViewState: ViewState | undefined;
     iModelConnection: IModelConnection | undefined;
@@ -82,7 +82,6 @@ export interface FrameworkState {
       viewState: ViewState | undefined,
       args?: ActionArgs
     ) => void;
-    setNumItemsSelected: (numSelected: number, args?: ActionArgs) => void;
     setIModelConnection: (
       iModelConnection: IModelConnection | undefined,
       args?: ActionArgs
@@ -337,18 +336,6 @@ export const useFrameworkStore: UseBoundStore<StoreApi<FrameworkState>> =
           );
           handleArgs(args, {
             eventId: SessionStateActionId.SetDefaultViewState,
-          });
-        },
-        setNumItemsSelected: (numSelected, args) => {
-          const frameworkState = get();
-          if (frameworkState.session.numItemsSelected === numSelected) return;
-          set((state) =>
-            produce(state, (draft) => {
-              draft.session.numItemsSelected = numSelected;
-            })
-          );
-          handleArgs(args, {
-            eventId: SessionStateActionId.SetNumItemsSelected,
           });
         },
         setIModelConnection: (

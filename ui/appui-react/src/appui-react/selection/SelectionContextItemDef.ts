@@ -55,7 +55,7 @@ export function getSelectionContextSyncEventIds(): string[] {
  */
 export function isNoSelectionActive(): boolean {
   const activeContentControl = UiFramework.content.getActiveContentControl();
-  const selectionCount = UiFramework.state.session.numItemsSelected;
+  const selectionCount = UiFramework.getNumItemsSelected();
 
   // istanbul ignore if
   if (activeContentControl?.viewport) {
@@ -135,7 +135,7 @@ export function selectionContextStateFunc(
   const activeContentControl = UiFramework.content.getActiveContentControl();
   let isVisible = false;
 
-  const selectionCount = UiFramework.state.session.numItemsSelected;
+  const selectionCount = UiFramework.getNumItemsSelected();
   if (
     activeContentControl &&
     activeContentControl.viewport &&
