@@ -7,6 +7,7 @@
  */
 
 import type { Store } from "redux";
+import { castDraft } from "immer";
 import { Logger, ProcessDetector } from "@itwin/core-bentley";
 import type { TranslationOptions } from "@itwin/core-common";
 import type {
@@ -88,7 +89,6 @@ import {
   toReduxFrameworkState,
 } from "./uistate/useFrameworkState";
 import { useFrameworkState } from "./uistate/useFrameworkState";
-import { castDraft } from "immer";
 
 interface ShowInputEditorOptions {
   location: XAndY;
@@ -527,22 +527,15 @@ export class UiFramework {
    * `Presentation.selection.scopes.activeScope` property from the `@itwin/presentation-frontend` package.
    */
   public static setActiveSelectionScope(selectionScopeId: string): void {
-    if (!UiFramework.frameworkState) return;
-
-    const foundIndex =
-      UiFramework.frameworkState.sessionState.availableSelectionScopes.findIndex(
-        (selectionScope) => selectionScope.id === selectionScopeId
-      );
-    if (-1 !== foundIndex) {
-      const scope =
-        UiFramework.frameworkState.sessionState.availableSelectionScopes[
-          foundIndex
-        ];
-      UiFramework.dispatchActionToStore(
-        SessionStateActionId.SetSelectionScope,
-        scope.id
-      );
+    const state = UiFramework.state;
+    const foundIndex = state.session.availableSelectionScopes.findIndex(
+      (selectionScope) => selectionScope.id === selectionScopeId
+    );
+    if (foundIndex < 0) {
+      return;
     }
+
+    state.session.setSelectionScope(selectionScopeId);
   }
 
   /** Show a context menu at a particular location.
@@ -591,27 +584,49 @@ export class UiFramework {
     // eslint-disable-next-line deprecation/deprecation
     menuData: CursorMenuData | CursorMenuPayload | undefined
   ): void {
-    UiFramework.dispatchActionToStore(
-      SessionStateActionId.UpdateCursorMenu,
-      menuData
-    );
+    const reduxStore = UiFramework.reduxStore;
+    // eslint-disable-next-line deprecation/deprecation
+    const reduxState = reduxStore?.getState()[
+      // eslint-disable-next-line deprecation/deprecation
+      UiFramework.frameworkStateKey
+      // eslint-disable-next-line deprecation/deprecation
+    ] as ReduxFrameworkState | undefined;
+    if (reduxState) {
+      // eslint-disable-next-line deprecation/deprecation
+      UiFramework.dispatchActionToStore(
+        SessionStateActionId.UpdateCursorMenu,
+        menuData
+      );
+      return;
+    }
+
+    UiFramework.state.session.updateCursorMenu(menuData);
   }
 
   public static closeCursorMenu(): void {
-    UiFramework.dispatchActionToStore(
-      SessionStateActionId.UpdateCursorMenu,
-      undefined
-    );
+    UiFramework.state.session.updateCursorMenu(undefined);
   }
 
   /** @note Returned value is immutable.  */
   public static getCursorMenuData(): // eslint-disable-next-line deprecation/deprecation
   CursorMenuData | CursorMenuPayload | undefined {
-    const session = UiFramework.state.session;
-    return (
+    const reduxStore = UiFramework.reduxStore;
+    // eslint-disable-next-line deprecation/deprecation
+    const reduxState = reduxStore?.getState()[
       // eslint-disable-next-line deprecation/deprecation
-      castDraft(session.cursorMenuPayload) ?? castDraft(session.cursorMenuData)
-    );
+      UiFramework.frameworkStateKey
+      // eslint-disable-next-line deprecation/deprecation
+    ] as ReduxFrameworkState | undefined;
+    if (reduxState) {
+      return (
+        reduxState.sessionState.cursorMenuPayload ??
+        // eslint-disable-next-line deprecation/deprecation
+        reduxState.sessionState.cursorMenuData
+      );
+    }
+
+    const session = UiFramework.state.session;
+    return session.cursorMenuPayload;
   }
 
   public static getActiveIModelId(): string {
@@ -619,10 +634,7 @@ export class UiFramework {
   }
 
   public static setActiveIModelId(iModelId: string): void {
-    UiFramework.dispatchActionToStore(
-      SessionStateActionId.SetActiveIModelId,
-      iModelId
-    );
+    UiFramework.state.session.setActiveIModelId(iModelId);
   }
 
   public static setIModelConnection(
@@ -639,18 +651,14 @@ export class UiFramework {
     oldConnection && SyncUiEventDispatcher.clearConnectionEvents(oldConnection);
     iModelConnection &&
       SyncUiEventDispatcher.initializeConnectionEvents(iModelConnection);
-    UiFramework.dispatchActionToStore(
-      SessionStateActionId.SetIModelConnection,
-      iModelConnection,
-      immediateSync
-    );
+
+    UiFramework.state.session.setIModelConnection(iModelConnection, {
+      immediateSync,
+    });
     const itemsSelected = iModelConnection
       ? iModelConnection.selectionSet.elements.size
       : 0;
-    UiFramework.dispatchActionToStore(
-      SessionStateActionId.SetNumItemsSelected,
-      itemsSelected
-    );
+    UiFramework.state.session.setNumItemsSelected(itemsSelected);
     UiFramework.setActiveIModelId(iModelConnection?.iModelId ?? "");
   }
 
@@ -703,10 +711,9 @@ export class UiFramework {
     iModelViewportControlId: string,
     immediateSync = false
   ) {
-    UiFramework.dispatchActionToStore(
-      SessionStateActionId.SetDefaultIModelViewportControlId,
+    UiFramework.state.session.setDefaultIModelViewportControlId(
       iModelViewportControlId,
-      immediateSync
+      { immediateSync }
     );
   }
 
@@ -715,11 +722,7 @@ export class UiFramework {
   }
 
   public static setDefaultViewId(viewId: string, immediateSync = false) {
-    UiFramework.dispatchActionToStore(
-      SessionStateActionId.SetDefaultViewId,
-      viewId,
-      immediateSync
-    );
+    UiFramework.state.session.setDefaultViewId(viewId, { immediateSync });
   }
 
   public static getDefaultViewId(): string | undefined {
@@ -730,12 +733,9 @@ export class UiFramework {
     viewState: ViewState,
     immediateSync = false
   ) {
-    UiFramework.dispatchActionToStore(
-      SessionStateActionId.SetDefaultViewState,
-      viewState,
-      immediateSync
-    );
+    UiFramework.state.session.setDefaultViewState(viewState, { immediateSync });
   }
+
   public static getDefaultViewState(): ViewState | undefined {
     return UiFramework.state.session.defaultViewState;
   }

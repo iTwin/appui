@@ -6,8 +6,7 @@
  * @module State
  */
 
-import type { Immutable } from "immer";
-import produce from "immer";
+import produce, { castDraft } from "immer";
 import type { StoreApi, UseBoundStore } from "zustand";
 import { create } from "zustand";
 import {
@@ -15,9 +14,15 @@ import {
   type ConfigurableUiState,
 } from "../redux/ConfigurableUiState";
 import { createFrameworkState } from "../redux/FrameworkState";
+import type {
+  CursorMenuData,
+  CursorMenuPayload,
+  PresentationSelectionScope,
+} from "../redux/SessionState";
 import { type SessionState, SessionStateActionId } from "../redux/SessionState";
 import type { ThemeId } from "../theme/ThemeId";
 import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
+import type { IModelConnection, ViewState } from "@itwin/core-frontend";
 
 interface ActionArgs {
   /** Defaults to `false`. */
@@ -30,7 +35,7 @@ interface ActionArgs {
  * @note Actions dispatch sync UI events. Use `args` parameter to provide additional options.
  * @internal
  */
-export type FrameworkState = Immutable<{
+export interface FrameworkState {
   // eslint-disable-next-line deprecation/deprecation
   configurableUi: ConfigurableUiState & {
     setTheme: (theme: ThemeId, args?: ActionArgs) => void;
@@ -57,11 +62,44 @@ export type FrameworkState = Immutable<{
     ) => void;
     setToolbarOpacity: (opacity: number, args?: ActionArgs) => void;
   };
-  // eslint-disable-next-line deprecation/deprecation
-  session: SessionState & {
+  session: Omit<
+    // eslint-disable-next-line deprecation/deprecation
+    SessionState,
+    "defaultViewState" | "iModelConnection"
+  > & {
+    defaultViewState: ViewState | undefined;
+    iModelConnection: IModelConnection | undefined;
+
+    setActiveIModelId: (iModelId: string, args?: ActionArgs) => void;
+    setAvailableSelectionScopes: (
+      availableSelectionScopes: PresentationSelectionScope[],
+      args?: ActionArgs
+    ) => void;
+    setDefaultViewId: (viewId: string, args?: ActionArgs) => void;
+    setDefaultIModelViewportControlId: (
+      iModelViewportControlId: string,
+      args?: ActionArgs
+    ) => void;
+    setDefaultViewState: (
+      viewState: ViewState | undefined,
+      args?: ActionArgs
+    ) => void;
     setNumItemsSelected: (numSelected: number, args?: ActionArgs) => void;
+    setIModelConnection: (
+      iModelConnection: IModelConnection | undefined,
+      args?: ActionArgs
+    ) => void;
+    setSelectionScope: (
+      activeSelectionScope: string,
+      args?: ActionArgs
+    ) => void;
+    updateCursorMenu: (
+      // eslint-disable-next-line deprecation/deprecation
+      cursorMenuData: CursorMenuData | CursorMenuPayload | undefined,
+      args?: ActionArgs
+    ) => void;
   };
-}>;
+}
 
 /** Internal framework state store that replaces redux store.
  * @internal
@@ -237,6 +275,84 @@ export const useFrameworkStore: UseBoundStore<StoreApi<FrameworkState>> =
       },
       session: {
         ...initialState.sessionState,
+        setActiveIModelId: (iModelId: string, args?: ActionArgs) => {
+          const frameworkState = get();
+          if (frameworkState.session.iModelId === iModelId) return;
+          set((state) =>
+            produce(state, (draft) => {
+              draft.session.iModelId = iModelId;
+            })
+          );
+          handleArgs(args, {
+            eventId: SessionStateActionId.SetActiveIModelId,
+          });
+        },
+        setAvailableSelectionScopes: (
+          availableSelectionScopes: PresentationSelectionScope[],
+          args?: ActionArgs
+        ) => {
+          const frameworkState = get();
+          if (
+            frameworkState.session.availableSelectionScopes ===
+            availableSelectionScopes
+          )
+            return;
+          set((state) =>
+            produce(state, (draft) => {
+              draft.session.availableSelectionScopes = availableSelectionScopes;
+            })
+          );
+          handleArgs(args, {
+            eventId: SessionStateActionId.SetAvailableSelectionScopes,
+          });
+        },
+        setDefaultViewId: (viewId: string, args?: ActionArgs) => {
+          const frameworkState = get();
+          if (frameworkState.session.defaultViewId === viewId) return;
+          set((state) =>
+            produce(state, (draft) => {
+              draft.session.defaultViewId = viewId;
+            })
+          );
+          handleArgs(args, {
+            eventId: SessionStateActionId.SetDefaultViewId,
+          });
+        },
+        setDefaultIModelViewportControlId: (
+          iModelViewportControlId: string,
+          args?: ActionArgs
+        ) => {
+          const frameworkState = get();
+          if (
+            frameworkState.session.defaultIModelViewportControlId ===
+            iModelViewportControlId
+          )
+            return;
+          set((state) =>
+            produce(state, (draft) => {
+              draft.session.defaultIModelViewportControlId =
+                iModelViewportControlId;
+            })
+          );
+          handleArgs(args, {
+            eventId: SessionStateActionId.SetDefaultIModelViewportControlId,
+          });
+        },
+        setDefaultViewState: (
+          viewState: ViewState | undefined,
+          args?: ActionArgs
+        ) => {
+          const frameworkState = get();
+          if (frameworkState.session.defaultViewState === viewState) return;
+          set((state) =>
+            produce(state, (draft) => {
+              draft.session.defaultViewState = castDraft(viewState);
+            })
+          );
+          handleArgs(args, {
+            eventId: SessionStateActionId.SetDefaultViewState,
+          });
+        },
         setNumItemsSelected: (numSelected, args) => {
           const frameworkState = get();
           if (frameworkState.session.numItemsSelected === numSelected) return;
@@ -247,6 +363,56 @@ export const useFrameworkStore: UseBoundStore<StoreApi<FrameworkState>> =
           );
           handleArgs(args, {
             eventId: SessionStateActionId.SetNumItemsSelected,
+          });
+        },
+        setIModelConnection: (
+          iModelConnection: IModelConnection | undefined,
+          args?: ActionArgs
+        ) => {
+          const frameworkState = get();
+          if (frameworkState.session.iModelConnection === iModelConnection)
+            return;
+          set((state) =>
+            produce(state, (draft) => {
+              draft.session.iModelConnection = iModelConnection;
+            })
+          );
+          handleArgs(args, {
+            eventId: SessionStateActionId.SetIModelConnection,
+          });
+        },
+        setSelectionScope: (
+          activeSelectionScope: string,
+          args?: ActionArgs
+        ) => {
+          const frameworkState = get();
+          if (
+            frameworkState.session.activeSelectionScope === activeSelectionScope
+          )
+            return;
+          set((state) =>
+            produce(state, (draft) => {
+              draft.session.activeSelectionScope = activeSelectionScope;
+            })
+          );
+          handleArgs(args, {
+            eventId: SessionStateActionId.SetSelectionScope,
+          });
+        },
+        updateCursorMenu: (
+          // eslint-disable-next-line deprecation/deprecation
+          cursorMenuData: CursorMenuData | CursorMenuPayload | undefined,
+          args?: ActionArgs
+        ) => {
+          set((state) =>
+            produce(state, (draft) => {
+              // eslint-disable-next-line deprecation/deprecation
+              // draft.session.cursorMenuData = cursorMenuData; // TODO: type check
+              draft.session.cursorMenuPayload = cursorMenuData;
+            })
+          );
+          handleArgs(args, {
+            eventId: SessionStateActionId.UpdateCursorMenu,
           });
         },
       },
