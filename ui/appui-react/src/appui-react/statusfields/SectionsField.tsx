@@ -14,7 +14,8 @@ import {
   ViewClipDecoration,
   ViewClipDecorationProvider,
 } from "@itwin/core-frontend";
-import { type CommonProps, Icon } from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
+import { Icon } from "@itwin/core-react";
 import { Button, IconButton, ToggleSwitch } from "@itwin/itwinui-react";
 import classnames from "classnames";
 import * as React from "react";
