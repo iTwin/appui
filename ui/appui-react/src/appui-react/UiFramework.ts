@@ -895,11 +895,7 @@ export class UiFramework {
 
   /** Set the variable that controls display of the view overlay. Applies to all viewports in the app. */
   public static setViewOverlayDisplay(display: boolean) {
-    if (UiFramework.viewOverlayDisplay === display) return;
-    UiFramework.dispatchActionToStore(
-      ConfigurableUiActionId.SetViewOverlayDisplay,
-      display
-    );
+    UiFramework.state.configurableUi.setViewOverlayDisplay(display);
   }
 
   /** Determines whether a ContextMenu is open

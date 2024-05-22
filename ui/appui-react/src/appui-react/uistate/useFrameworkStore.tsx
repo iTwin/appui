@@ -7,7 +7,7 @@
  */
 
 import type { Immutable } from "immer";
-import produce, { castDraft } from "immer";
+import produce from "immer";
 import type { StoreApi, UseBoundStore } from "zustand";
 import { create } from "zustand";
 import {
@@ -34,6 +34,11 @@ export type FrameworkState = Immutable<{
   // eslint-disable-next-line deprecation/deprecation
   configurableUi: ConfigurableUiState & {
     setTheme: (theme: ThemeId, args?: ActionArgs) => void;
+    setToolPrompt: (toolPrompt: string, args?: ActionArgs) => void;
+    setViewOverlayDisplay: (
+      displayViewOverlay: boolean,
+      args?: ActionArgs
+    ) => void;
   };
   // eslint-disable-next-line deprecation/deprecation
   session: SessionState & {
@@ -55,11 +60,39 @@ export const useFrameworkStore: UseBoundStore<StoreApi<FrameworkState>> =
           if (frameworkState.configurableUi.theme === theme) return;
           set((state) =>
             produce(state, (draft) => {
-              draft.configurableUi.theme = castDraft(theme);
+              draft.configurableUi.theme = theme;
             })
           );
           handleArgs(args, {
             eventId: ConfigurableUiActionId.SetTheme,
+          });
+        },
+        setToolPrompt: (toolPrompt, args) => {
+          const frameworkState = get();
+          if (frameworkState.configurableUi.toolPrompt === toolPrompt) return;
+          set((state) =>
+            produce(state, (draft) => {
+              draft.configurableUi.theme = toolPrompt;
+            })
+          );
+          handleArgs(args, {
+            eventId: ConfigurableUiActionId.SetToolPrompt,
+          });
+        },
+        setViewOverlayDisplay: (displayViewOverlay, args) => {
+          const frameworkState = get();
+          if (
+            frameworkState.configurableUi.viewOverlayDisplay ===
+            displayViewOverlay
+          )
+            return;
+          set((state) =>
+            produce(state, (draft) => {
+              draft.configurableUi.viewOverlayDisplay = displayViewOverlay;
+            })
+          );
+          handleArgs(args, {
+            eventId: ConfigurableUiActionId.SetViewOverlayDisplay,
           });
         },
       },

@@ -27,7 +27,6 @@ import {
 import { MessageSeverity, UiEvent } from "@itwin/appui-abstract";
 import type { IconSpec } from "@itwin/core-react";
 import { MessageContainer, MessageRenderer } from "@itwin/core-react";
-import { ConfigurableUiActionId } from "../redux/ConfigurableUiState";
 import { StandardMessageBox } from "../dialog/StandardMessageBox";
 import { ElementTooltip } from "../feedback/ElementTooltip";
 import { UiFramework } from "../UiFramework";
@@ -551,11 +550,9 @@ export class MessageManager {
 
   /** Output a prompt to the user. A 'prompt' indicates an action the user should take to proceed. */
   public static outputPrompt(prompt: string): void {
-    UiFramework.dispatchActionToStore(
-      ConfigurableUiActionId.SetToolPrompt,
-      prompt,
-      true
-    );
+    UiFramework.state.configurableUi.setToolPrompt(prompt, {
+      immediateSync: true,
+    });
   }
 
   /** Extracts the message severity from the message details and returns the corresponding React icon.

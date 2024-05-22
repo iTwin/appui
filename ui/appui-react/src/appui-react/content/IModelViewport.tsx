@@ -13,27 +13,32 @@ import type {
   ScreenViewport,
   ViewState,
 } from "@itwin/core-frontend";
-import type { ViewStateProp } from "@itwin/imodel-components-react";
+import type {
+  ViewportProps,
+  ViewStateProp,
+} from "@itwin/imodel-components-react";
 import { ViewportComponent } from "@itwin/imodel-components-react";
 import { FillCentered } from "@itwin/core-react";
 
 import type { ConfigurableCreateInfo } from "../configurableui/ConfigurableUiControl";
-import { connectIModelConnectionAndViewState } from "../redux/connectIModel";
 import { UiFramework } from "../UiFramework";
 import { DefaultViewOverlay } from "./DefaultViewOverlay";
 import { ViewportContentControl } from "./ViewportContentControl";
 import { StandardRotationNavigationAidControl } from "../navigationaids/StandardRotationNavigationAid";
 import { UiError } from "@itwin/appui-abstract";
-import { useSelector } from "react-redux";
-import type { FrameworkState } from "../redux/FrameworkState";
+import { useFrameworkState } from "../uistate/useFrameworkState";
 
 /** Viewport that is connected to the IModelConnection property in the Redux store. The application must set up the Redux store and include the FrameworkReducer.
  * @public
  */
-export const IModelConnectedViewport = connectIModelConnectionAndViewState(
-  null,
-  null
-)(ViewportComponent);
+export function IModelConnectedViewport(
+  props: Omit<ViewportProps, "imodel" | "viewState">
+) {
+  const frameworkState = useFrameworkState();
+  const iModel = frameworkState.session.iModelConnection;
+  const viewState = frameworkState.session.defaultViewState;
+  return <ViewportComponent imodel={iModel} viewState={viewState} {...props} />;
+}
 
 /** [[IModelViewportControl]] options. These options are set in the applicationData property of the [[ContentProps]].
  * @public
@@ -60,23 +65,15 @@ interface ViewOverlayHostProps {
   featureOptions?: { [key: string]: any };
   userSuppliedOverlay?: (_viewport: ScreenViewport) => React.ReactNode;
 }
-/** View Overlay component -- exported for testing
- * @internal
- */
-// istanbul ignore next
+
+/** @internal */
 export function ViewOverlayHost({
   viewport,
   featureOptions,
   userSuppliedOverlay,
 }: ViewOverlayHostProps) {
-  const displayViewOverlay = useSelector((state: FrameworkState) => {
-    const frameworkState: FrameworkState = (state as any)[
-      UiFramework.frameworkStateKey
-    ];
-    return frameworkState
-      ? frameworkState.configurableUiState.viewOverlayDisplay
-      : true;
-  });
+  const frameworkState = useFrameworkState();
+  const displayViewOverlay = frameworkState.configurableUi.viewOverlayDisplay;
   if (!displayViewOverlay) return null;
   return userSuppliedOverlay ? (
     <React.Fragment>{userSuppliedOverlay(viewport)}</React.Fragment>
@@ -87,7 +84,6 @@ export function ViewOverlayHost({
 /** iModel Viewport Control
  * @public
  */
-// istanbul ignore next
 export class IModelViewportControl extends ViewportContentControl {
   public static get id() {
     return "UiFramework.IModelViewportControl";
