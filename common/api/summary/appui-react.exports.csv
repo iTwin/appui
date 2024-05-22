@@ -654,7 +654,7 @@ public;UserSettingsProvider
 internal;useSavedFrontstageState(frontstageDef: FrontstageDef): void
 public;useScheduleAnimationDataProvider(viewport: ScreenViewport | undefined): ScheduleAnimationTimelineDataProvider | undefined
 beta;useSelectionSetSize(args: UseSelectionSetSizeArgs): number
-public;UseSelectionSetSizeArgs
+beta;UseSelectionSetSizeArgs
 internal;useShouldRenderDockedToolSettings(): boolean
 beta;useSolarDataProvider(viewport: ScreenViewport | undefined): SolarDataProvider | undefined
 public;useSpecificWidgetDef(widgetId: string): WidgetDef | undefined

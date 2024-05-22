@@ -39,7 +39,7 @@ export function SelectionCountField(props: SelectionCountFieldProps) {
 }
 
 /** Arguments for [[useSelectionSetSize]] hook.
- * @public
+ * @beta
  */
 export interface UseSelectionSetSizeArgs {
   iModel: IModelConnection | undefined;

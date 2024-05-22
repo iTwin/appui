@@ -5172,7 +5172,7 @@ export function useScheduleAnimationDataProvider(viewport: ScreenViewport | unde
 // @beta
 export function useSelectionSetSize(args: UseSelectionSetSizeArgs): number;
 
-// @public
+// @beta
 export interface UseSelectionSetSizeArgs {
     // (undocumented)
     iModel: IModelConnection | undefined;
