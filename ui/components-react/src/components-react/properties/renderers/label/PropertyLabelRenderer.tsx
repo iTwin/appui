@@ -40,12 +40,16 @@ export class PropertyLabelRenderer extends React.PureComponent<PropertyLabelRend
         : /* istanbul ignore next */ undefined);
     return (
       <>
-        <span className="components-property-label-renderer" title={title}>
+        <span
+          className={`components-property-label-renderer ${
+            this.props.renderColon
+              ? "components-property-label-renderer-colon"
+              : ""
+          }`}
+          title={title}
+        >
           {this.props.children}
         </span>
-        {this.props.renderColon ? (
-          <span className="components-property-label-renderer-colon">:</span>
-        ) : undefined}
       </>
     );
   }
