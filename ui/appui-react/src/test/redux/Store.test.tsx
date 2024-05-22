@@ -13,9 +13,11 @@ import type {
 } from "../../appui-react";
 import {
   ConfigurableUiActionId,
+  ConfigurableUiActions,
   createFrameworkState,
   FrameworkReducer,
   SyncUiEventDispatcher,
+  ThemeManager,
   UiFramework,
 } from "../../appui-react";
 import type { ListenerType } from "../TestUtils";
@@ -368,3 +370,34 @@ import { useFrameworkState } from "../../appui-react/uistate/useFrameworkState";
 //     });
 //   });
 // });
+
+describe("ThemeManager", () => {
+  beforeEach(() => {
+    TestUtils.terminateUiFramework();
+  });
+
+  it("w/ redux", async () => {
+    const reducer = combineReducers({
+      frameworkState: FrameworkReducer,
+    });
+    const store = createStore(reducer);
+    store.dispatch(ConfigurableUiActions.setTheme("custom-theme"));
+    await UiFramework.initialize(store);
+
+    const { container } = render(<ThemeManager />, {
+      wrapper: (props: any) => (
+        <Provider store={UiFramework.store} {...props} />
+      ),
+    });
+    expect(
+      container.ownerDocument.documentElement.getAttribute("data-theme")
+    ).toEqual("custom-theme");
+  });
+
+  it("w/o redux", () => {
+    const { container } = render(<ThemeManager />);
+    expect(
+      container.ownerDocument.documentElement.getAttribute("data-theme")
+    ).toEqual("SYSTEM_PREFERRED");
+  });
+});

@@ -82,8 +82,9 @@ import type { ToolbarProps } from "./toolbar/Toolbar";
 import type { CursorMenuItemProps } from "./shared/MenuItem";
 import type { FrameworkState } from "./uistate/useFrameworkStore";
 import { useFrameworkStore } from "./uistate/useFrameworkStore";
-import type { ThemeId } from "./theme/ThemeId";
+import { SYSTEM_PREFERRED_COLOR_THEME, type ThemeId } from "./theme/ThemeId";
 import { useFrameworkState } from "./uistate/useFrameworkState";
+import { ConfigurableUiActionId } from "./redux/ConfigurableUiState";
 
 interface ShowInputEditorOptions {
   location: XAndY;
@@ -353,12 +354,11 @@ export class UiFramework {
    */
   // eslint-disable-next-line deprecation/deprecation
   public static get frameworkState(): ReduxFrameworkState | undefined {
-    const reduxStore = UiFramework.reduxStore;
+    const store = UiFramework.reduxStore;
+    const state = store?.getState();
     // eslint-disable-next-line deprecation/deprecation
-    const reduxState = reduxStore?.getState()[UiFramework.frameworkStateKey];
-    if (reduxState) {
-      return reduxState;
-    }
+    const frameworkState = state?.[UiFramework.frameworkStateKey];
+    return frameworkState;
   }
 
   /** Global framework state accessor.
@@ -739,17 +739,6 @@ export class UiFramework {
       UiFramework.visibility.isUiVisible = visible;
       UiFramework.onUiVisibilityChanged.emit({ visible });
     }
-  }
-
-  /** Set the theme value used by the [[ThemeManager]] component. */
-  public static setColorTheme(theme: ThemeId) {
-    return UiFramework.state.configurableUi.setTheme(theme, {
-      immediateSync: true,
-    });
-  }
-
-  public static getColorTheme(): ThemeId {
-    return UiFramework.state.configurableUi.theme;
   }
 
   /** UiFramework.setToolbarOpacity() sets the non-hovered opacity to the value specified.
@@ -1243,4 +1232,33 @@ export class UiFramework {
     const el = htmlElement ?? UiFramework.controls.getWrapperElement();
     return el;
   }
+
+  /* eslint-disable deprecation/deprecation */
+
+  /** Set the theme value used by the [[ThemeManager]] component.
+   * @note Requires redux provider.
+   * @deprecated in 4.14.x. Components take `theme` as a prop.
+   */
+  public static setColorTheme(theme: ThemeId) {
+    if (UiFramework.getColorTheme() === theme) return;
+
+    UiFramework.dispatchActionToStore(
+      ConfigurableUiActionId.SetTheme,
+      theme,
+      true
+    );
+  }
+
+  /** Set the theme value used by the [[ThemeManager]] component.
+   * @note Requires redux provider.
+   * @deprecated in 4.14.x. Components should take `theme` as a prop.
+   */
+  public static getColorTheme(): ThemeId {
+    return (
+      UiFramework.frameworkState?.configurableUiState.theme ??
+      SYSTEM_PREFERRED_COLOR_THEME
+    );
+  }
+
+  /* eslint-enable deprecation/deprecation */
 }

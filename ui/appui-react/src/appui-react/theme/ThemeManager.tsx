@@ -8,12 +8,17 @@
 
 import "./ThemeManager.scss";
 import * as React from "react";
-import { assert } from "@itwin/core-bentley";
 import type { ThemeType } from "@itwin/itwinui-react";
 import { ThemeProvider } from "@itwin/itwinui-react";
 import { ThemeProvider as ThemeProviderV2 } from "@itwin/itwinui-react-v2";
-import { useFrameworkState } from "../uistate/useFrameworkState";
-import { ColorTheme } from "./ThemeId";
+import type { ThemeId } from "./ThemeId";
+import {
+  ColorTheme,
+  SYSTEM_PREFERRED_COLOR_THEME,
+  TOOLBAR_OPACITY_DEFAULT,
+  WIDGET_OPACITY_DEFAULT,
+} from "./ThemeId";
+import { useReduxFrameworkState } from "../uistate/useFrameworkState";
 
 /** Map of ColorTheme to ThemeType. */
 const colorThemeToThemeTypeMap: { [x: string]: ThemeType } = {
@@ -30,6 +35,12 @@ const highContrastColorThemes: string[] = [
   ColorTheme.HighContrastDark,
   ColorTheme.HighContrastLight,
 ];
+
+interface ThemeManagerProps {
+  children?: React.ReactNode;
+  /** Uses redux store as a fallback. Defaults to {@link SYSTEM_PREFERRED_COLOR_THEME}. */
+  theme?: ThemeId;
+}
 
 /** ThemeManager handles setting color themes and element opacity management. Note that this component will
  * affect the entire application by setting the data-theme attribute to the html element.
@@ -51,11 +62,20 @@ const highContrastColorThemes: string[] = [
  * ```
  * @public
  */
-export function ThemeManager({ children }: React.PropsWithChildren<{}>) {
-  const frameworkState = useFrameworkState();
-  assert(!!frameworkState);
-  const { theme, toolbarOpacity, widgetOpacity } =
-    frameworkState.configurableUi;
+export function ThemeManager({ children, ...props }: ThemeManagerProps) {
+  const reduxTheme = useReduxFrameworkState((state) => {
+    return state?.configurableUiState.theme;
+  });
+  const reduxToolbarOpacity = useReduxFrameworkState((state) => {
+    return state?.configurableUiState.toolbarOpacity;
+  });
+  const reduxWidgetOpacity = useReduxFrameworkState((state) => {
+    return state?.configurableUiState.widgetOpacity;
+  });
+
+  const theme = props.theme ?? reduxTheme ?? SYSTEM_PREFERRED_COLOR_THEME;
+  const toolbarOpacity = reduxToolbarOpacity ?? TOOLBAR_OPACITY_DEFAULT;
+  const widgetOpacity = reduxWidgetOpacity ?? WIDGET_OPACITY_DEFAULT;
 
   const setToolbarOpacity = (opacity: number) => {
     const currentToolbarOpacity =

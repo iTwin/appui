@@ -20,7 +20,6 @@ import type {
   PresentationSelectionScope,
 } from "../redux/SessionState";
 import { type SessionState, SessionStateActionId } from "../redux/SessionState";
-import type { ThemeId } from "../theme/ThemeId";
 import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
 import type { IModelConnection, ViewState } from "@itwin/core-frontend";
 
@@ -37,8 +36,7 @@ interface ActionArgs {
  */
 export interface FrameworkState {
   // eslint-disable-next-line deprecation/deprecation
-  configurableUi: ConfigurableUiState & {
-    setTheme: (theme: ThemeId, args?: ActionArgs) => void;
+  configurableUi: Omit<ConfigurableUiState, "theme"> & {
     setToolPrompt: (toolPrompt: string, args?: ActionArgs) => void;
     setWidgetOpacity: (opacity: number, args?: ActionArgs) => void;
     setSnapMode: (snapMode: number, args?: ActionArgs) => void;
@@ -110,24 +108,12 @@ export const useFrameworkStore: UseBoundStore<StoreApi<FrameworkState>> =
     return {
       configurableUi: {
         ...initialState.configurableUiState,
-        setTheme: (theme, args) => {
-          const frameworkState = get();
-          if (frameworkState.configurableUi.theme === theme) return;
-          set((state) =>
-            produce(state, (draft) => {
-              draft.configurableUi.theme = theme;
-            })
-          );
-          handleArgs(args, {
-            eventId: ConfigurableUiActionId.SetTheme,
-          });
-        },
         setToolPrompt: (toolPrompt, args) => {
           const frameworkState = get();
           if (frameworkState.configurableUi.toolPrompt === toolPrompt) return;
           set((state) =>
             produce(state, (draft) => {
-              draft.configurableUi.theme = toolPrompt;
+              draft.configurableUi.toolPrompt = toolPrompt;
             })
           );
           handleArgs(args, {
