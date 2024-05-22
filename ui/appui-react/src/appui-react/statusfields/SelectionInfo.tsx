@@ -14,7 +14,9 @@ import { useFrameworkState } from "../uistate/useFrameworkState";
 /** `SelectionInfoField` component is designed to be specified in a status bar.
  * It is used to display the number of items in a selection set.
  * @note Use [[SelectionCountField]] to display custom selection count.
+ * @note Requires redux provider.
  * @public
+ * @deprecated in 4.14.x. Use {@link SelectionCountField} instead.
  */
 export function SelectionInfoField(props: CommonProps) {
   const frameworkState = useFrameworkState();
