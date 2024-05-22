@@ -143,7 +143,10 @@ type OptionalShowComponentParams = [
   >?
 ];
 
-let numItemsSelected = 0;
+const globalState = {
+  numItemsSelected: 0,
+  iModelConnection: undefined as IModelConnection | undefined,
+};
 
 /** Main entry point to configure and interact with the features provided by the AppUi-react package.
  * @public
@@ -295,9 +298,7 @@ export class UiFramework {
     await UiIModelComponents.initialize();
 
     UiFramework.settingsManager.onSettingsProvidersChanged.addListener(() => {
-      SyncUiEventDispatcher.dispatchSyncUiEvent(
-        SyncUiEventId.SettingsProvidersChanged
-      );
+      dispatchSyncUiEvent(SyncUiEventId.SettingsProvidersChanged);
     });
 
     // Initialize the MessagePresenter interface in UiAdmin for Editor notifications
@@ -471,11 +472,7 @@ export class UiFramework {
     const frameworkState = reduxState?.[UiFramework.frameworkStateKey];
     if (!frameworkState) return;
     reduxStore!.dispatch({ type, payload });
-    if (immediateSync) {
-      SyncUiEventDispatcher.dispatchImmediateSyncUiEvent(type);
-    } else {
-      SyncUiEventDispatcher.dispatchSyncUiEvent(type);
-    }
+    dispatchSyncUiEvent(type, immediateSync);
   }
 
   public static setAccudrawSnapMode(snapMode: SnapMode) {
@@ -625,9 +622,19 @@ export class UiFramework {
     iModelConnection &&
       SyncUiEventDispatcher.initializeConnectionEvents(iModelConnection);
 
-    UiFramework.state.session.setIModelConnection(iModelConnection, {
-      immediateSync,
-    });
+    // eslint-disable-next-line deprecation/deprecation
+    if (UiFramework.frameworkState) {
+      // eslint-disable-next-line deprecation/deprecation
+      UiFramework.dispatchActionToStore(
+        SessionStateActionId.SetIModelConnection,
+        iModelConnection,
+        immediateSync
+      );
+    } else {
+      globalState.iModelConnection = iModelConnection;
+      dispatchSyncUiEvent(SessionStateActionId.SetIModelConnection);
+    }
+
     const itemsSelected = iModelConnection
       ? iModelConnection.selectionSet.elements.size
       : 0;
@@ -637,24 +644,27 @@ export class UiFramework {
   }
 
   public static getIModelConnection(): IModelConnection | undefined {
-    return UiFramework.state.session.iModelConnection;
+    // eslint-disable-next-line deprecation/deprecation
+    const frameworkState = UiFramework.frameworkState;
+    if (frameworkState) {
+      return frameworkState.sessionState.iModelConnection;
+    }
+    return globalState.iModelConnection;
   }
 
   public static setNumItemsSelected(numSelected: number) {
     // eslint-disable-next-line deprecation/deprecation
-    if (this.frameworkState) {
+    if (UiFramework.frameworkState) {
       // eslint-disable-next-line deprecation/deprecation
-      this.dispatchActionToStore(
+      UiFramework.dispatchActionToStore(
         SessionStateActionId.SetNumItemsSelected,
         numSelected
       );
       return;
     }
 
-    numItemsSelected = numSelected;
-    SyncUiEventDispatcher.dispatchSyncUiEvent(
-      SessionStateActionId.SetNumItemsSelected
-    );
+    globalState.numItemsSelected = numSelected;
+    dispatchSyncUiEvent(SessionStateActionId.SetNumItemsSelected);
   }
 
   public static getNumItemsSelected() {
@@ -664,7 +674,7 @@ export class UiFramework {
       return state.sessionState.numItemsSelected;
     }
 
-    return numItemsSelected;
+    return globalState.numItemsSelected;
   }
 
   /** Called by iModelApp to initialize saved UI state from registered UseSettingsProviders. */
@@ -679,15 +689,7 @@ export class UiFramework {
         .loadUserSettings(UiFramework._uiStateStorage);
     }
 
-    // istanbul ignore next
-    if (immediateSync)
-      SyncUiEventDispatcher.dispatchImmediateSyncUiEvent(
-        SyncUiEventId.UiStateStorageChanged
-      );
-    else
-      SyncUiEventDispatcher.dispatchSyncUiEvent(
-        SyncUiEventId.UiStateStorageChanged
-      );
+    dispatchSyncUiEvent(SyncUiEventId.UiStateStorageChanged, immediateSync);
   }
 
   public static async setUiStateStorage(
@@ -1305,4 +1307,12 @@ export class UiFramework {
   }
 
   /* eslint-enable deprecation/deprecation */
+}
+
+function dispatchSyncUiEvent(eventId: string, immediateSync = false) {
+  if (immediateSync) {
+    SyncUiEventDispatcher.dispatchImmediateSyncUiEvent(eventId);
+    return;
+  }
+  SyncUiEventDispatcher.dispatchSyncUiEvent(eventId);
 }

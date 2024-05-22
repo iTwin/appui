@@ -21,7 +21,7 @@ import type {
 } from "../redux/SessionState";
 import { type SessionState, SessionStateActionId } from "../redux/SessionState";
 import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
-import type { IModelConnection, ViewState } from "@itwin/core-frontend";
+import type { ViewState } from "@itwin/core-frontend";
 
 interface ActionArgs {
   /** Defaults to `false`. */
@@ -62,8 +62,6 @@ export interface FrameworkState {
     "defaultViewState" | "iModelConnection" | "numItemsSelected"
   > & {
     defaultViewState: ViewState | undefined;
-    iModelConnection: IModelConnection | undefined;
-
     setActiveIModelId: (iModelId: string, args?: ActionArgs) => void;
     setAvailableSelectionScopes: (
       availableSelectionScopes: PresentationSelectionScope[],
@@ -76,10 +74,6 @@ export interface FrameworkState {
     ) => void;
     setDefaultViewState: (
       viewState: ViewState | undefined,
-      args?: ActionArgs
-    ) => void;
-    setIModelConnection: (
-      iModelConnection: IModelConnection | undefined,
       args?: ActionArgs
     ) => void;
     setSelectionScope: (
@@ -316,22 +310,6 @@ export const useFrameworkStore: UseBoundStore<StoreApi<FrameworkState>> =
           );
           handleArgs(args, {
             eventId: SessionStateActionId.SetDefaultViewState,
-          });
-        },
-        setIModelConnection: (
-          iModelConnection: IModelConnection | undefined,
-          args?: ActionArgs
-        ) => {
-          const frameworkState = get();
-          if (frameworkState.session.iModelConnection === iModelConnection)
-            return;
-          set((state) =>
-            produce(state, (draft) => {
-              draft.session.iModelConnection = iModelConnection;
-            })
-          );
-          handleArgs(args, {
-            eventId: SessionStateActionId.SetIModelConnection,
           });
         },
         setSelectionScope: (

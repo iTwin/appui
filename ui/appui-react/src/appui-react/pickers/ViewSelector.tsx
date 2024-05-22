@@ -19,7 +19,7 @@ import type { ListItem } from "./ListPicker";
 import { ListItemType, ListPicker } from "./ListPicker";
 import { debounce } from "lodash";
 import svgSavedView from "@bentley/icons-generic/icons/saved-view.svg";
-import { useFrameworkState } from "../uistate/useFrameworkState";
+import { useReduxFrameworkState } from "../uistate/useFrameworkState";
 
 // cSpell:ignore Spatials
 
@@ -477,13 +477,15 @@ type IModelConnectedViewSelectorProps = Omit<
   Partial<ViewSelectorDefaultProps>;
 
 /** ViewSelector that is connected to the IModelConnection property in the Redux store. The application must set up the Redux store and include the FrameworkReducer.
+ * @note Uses redux provider.
  * @beta
+ * @deprecated in 4.14.x. Use {@link ViewSelector} instead.
  */
 export function IModelConnectedViewSelector(
   props: IModelConnectedViewSelectorProps
 ) {
-  const frameworkState = useFrameworkState();
-  return (
-    <ViewSelector imodel={frameworkState.session.iModelConnection} {...props} />
+  const iModel = useReduxFrameworkState(
+    (state) => state?.sessionState.iModelConnection
   );
+  return <ViewSelector imodel={iModel} {...props} />;
 }
