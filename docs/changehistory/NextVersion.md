@@ -24,7 +24,7 @@ Table of contents:
 
 ### Additions
 
-- Added `StatusBarPopover` to replace `StatusBar.Popup`. The component uses [iTwinUI Popover](https://itwinui.bentley.com/docs/popover) with some consistent styling for all `StatusBar` fields. `StatusBarPopover` should wrap the element that trigger it (e.g. a button). [#848](https://github.com/iTwin/appui/pull/848)
+- Added `StatusBarPopover` to replace `StatusBar.Popup`. The component uses [iTwinUI Popover](https://itwinui.bentley.com/docs/popover) with some consistent styling for all `StatusBar` fields. `StatusBarPopover` should wrap the element that triggers it (e.g. a button). [#848](https://github.com/iTwin/appui/pull/848)
 
 ### Changes
 
