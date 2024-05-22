@@ -35,10 +35,27 @@ export type FrameworkState = Immutable<{
   configurableUi: ConfigurableUiState & {
     setTheme: (theme: ThemeId, args?: ActionArgs) => void;
     setToolPrompt: (toolPrompt: string, args?: ActionArgs) => void;
+    setWidgetOpacity: (opacity: number, args?: ActionArgs) => void;
+    setSnapMode: (snapMode: number, args?: ActionArgs) => void;
+    setDragInteraction: (dragInteraction: boolean, args?: ActionArgs) => void;
+    setShowWidgetIcon: (showWidgetIcon: boolean, args?: ActionArgs) => void;
+    setAutoCollapseUnpinnedPanels: (
+      autoCollapse: boolean,
+      args?: ActionArgs
+    ) => void;
     setViewOverlayDisplay: (
       displayViewOverlay: boolean,
       args?: ActionArgs
     ) => void;
+    setAnimateToolSettings: (
+      animateToolSettings: boolean,
+      args?: ActionArgs
+    ) => void;
+    setUseToolAsToolSettingsLabel: (
+      useToolAsToolSettingsLabel: boolean,
+      args?: ActionArgs
+    ) => void;
+    setToolbarOpacity: (opacity: number, args?: ActionArgs) => void;
   };
   // eslint-disable-next-line deprecation/deprecation
   session: SessionState & {
@@ -79,6 +96,77 @@ export const useFrameworkStore: UseBoundStore<StoreApi<FrameworkState>> =
             eventId: ConfigurableUiActionId.SetToolPrompt,
           });
         },
+        setWidgetOpacity: (opacity: number, args?: ActionArgs) => {
+          const frameworkState = get();
+          if (frameworkState.configurableUi.widgetOpacity === opacity) return;
+          set((state) =>
+            produce(state, (draft) => {
+              draft.configurableUi.widgetOpacity = opacity;
+            })
+          );
+          handleArgs(args, {
+            eventId: ConfigurableUiActionId.SetWidgetOpacity,
+          });
+        },
+        setSnapMode: (snapMode: number, args?: ActionArgs) => {
+          const frameworkState = get();
+          if (frameworkState.configurableUi.snapMode === snapMode) return;
+          set((state) =>
+            produce(state, (draft) => {
+              draft.configurableUi.snapMode = snapMode;
+            })
+          );
+          handleArgs(args, {
+            eventId: ConfigurableUiActionId.SetSnapMode,
+          });
+        },
+        setDragInteraction: (dragInteraction: boolean, args?: ActionArgs) => {
+          const frameworkState = get();
+          if (
+            frameworkState.configurableUi.useDragInteraction === dragInteraction
+          )
+            return;
+          set((state) =>
+            produce(state, (draft) => {
+              draft.configurableUi.useDragInteraction = dragInteraction;
+            })
+          );
+          handleArgs(args, {
+            eventId: ConfigurableUiActionId.SetDragInteraction,
+          });
+        },
+        setShowWidgetIcon: (showWidgetIcon: boolean, args?: ActionArgs) => {
+          const frameworkState = get();
+          if (frameworkState.configurableUi.showWidgetIcon === showWidgetIcon)
+            return;
+          set((state) =>
+            produce(state, (draft) => {
+              draft.configurableUi.showWidgetIcon = showWidgetIcon;
+            })
+          );
+          handleArgs(args, {
+            eventId: ConfigurableUiActionId.SetShowWidgetIcon,
+          });
+        },
+        setAutoCollapseUnpinnedPanels: (
+          autoCollapse: boolean,
+          args?: ActionArgs
+        ) => {
+          const frameworkState = get();
+          if (
+            frameworkState.configurableUi.autoCollapseUnpinnedPanels ===
+            autoCollapse
+          )
+            return;
+          set((state) =>
+            produce(state, (draft) => {
+              draft.configurableUi.autoCollapseUnpinnedPanels = autoCollapse;
+            })
+          );
+          handleArgs(args, {
+            eventId: ConfigurableUiActionId.AutoCollapseUnpinnedPanels,
+          });
+        },
         setViewOverlayDisplay: (displayViewOverlay, args) => {
           const frameworkState = get();
           if (
@@ -93,6 +181,57 @@ export const useFrameworkStore: UseBoundStore<StoreApi<FrameworkState>> =
           );
           handleArgs(args, {
             eventId: ConfigurableUiActionId.SetViewOverlayDisplay,
+          });
+        },
+        setAnimateToolSettings: (
+          animateToolSettings: boolean,
+          args?: ActionArgs
+        ) => {
+          const frameworkState = get();
+          if (
+            frameworkState.configurableUi.animateToolSettings ===
+            animateToolSettings
+          )
+            return;
+          set((state) =>
+            produce(state, (draft) => {
+              draft.configurableUi.animateToolSettings = animateToolSettings;
+            })
+          );
+          handleArgs(args, {
+            eventId: ConfigurableUiActionId.AnimateToolSettings,
+          });
+        },
+        setUseToolAsToolSettingsLabel: (
+          useToolAsToolSettingsLabel: boolean,
+          args?: ActionArgs
+        ) => {
+          const frameworkState = get();
+          if (
+            frameworkState.configurableUi.useToolAsToolSettingsLabel ===
+            useToolAsToolSettingsLabel
+          )
+            return;
+          set((state) =>
+            produce(state, (draft) => {
+              draft.configurableUi.useToolAsToolSettingsLabel =
+                useToolAsToolSettingsLabel;
+            })
+          );
+          handleArgs(args, {
+            eventId: ConfigurableUiActionId.UseToolAsToolSettingsLabel,
+          });
+        },
+        setToolbarOpacity: (opacity: number, args?: ActionArgs) => {
+          const frameworkState = get();
+          if (frameworkState.configurableUi.toolbarOpacity === opacity) return;
+          set((state) =>
+            produce(state, (draft) => {
+              draft.configurableUi.toolbarOpacity = opacity;
+            })
+          );
+          handleArgs(args, {
+            eventId: ConfigurableUiActionId.SetToolbarOpacity,
           });
         },
       },

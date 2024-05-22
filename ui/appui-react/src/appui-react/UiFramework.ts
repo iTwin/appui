@@ -30,7 +30,6 @@ import { UiIModelComponents } from "@itwin/imodel-components-react";
 import { BackstageManager } from "./backstage/BackstageManager";
 import { InternalChildWindowManager } from "./childwindow/InternalChildWindowManager";
 import { InternalConfigurableUiManager } from "./configurableui/InternalConfigurableUiManager";
-import { ConfigurableUiActionId } from "./redux/ConfigurableUiState";
 import type { FrameworkState as ReduxFrameworkState } from "./redux/FrameworkState";
 import type {
   CursorMenuData,
@@ -507,11 +506,9 @@ export class UiFramework {
   }
 
   public static setAccudrawSnapMode(snapMode: SnapMode) {
-    UiFramework.dispatchActionToStore(
-      ConfigurableUiActionId.SetSnapMode,
-      snapMode,
-      true
-    );
+    UiFramework.state.configurableUi.setSnapMode(snapMode, {
+      immediateSync: true,
+    });
   }
 
   public static getAccudrawSnapMode(): SnapMode {
@@ -779,13 +776,9 @@ export class UiFramework {
    * @param opacity a value between 0 and 1. The default value is 0.5. IT IS NOT ADVISED TO USE A VALUE BELOW 0.2
    */
   public static setToolbarOpacity(opacity: number) {
-    if (UiFramework.getToolbarOpacity() === opacity) return;
-
-    UiFramework.dispatchActionToStore(
-      ConfigurableUiActionId.SetToolbarOpacity,
-      opacity,
-      true
-    );
+    UiFramework.state.configurableUi.setToolbarOpacity(opacity, {
+      immediateSync: true,
+    });
   }
 
   /** UiFramework.getToolbarOpacity() returns a number between 0 and 1 that is the non-hovered opacity for toolbars. */
@@ -794,13 +787,9 @@ export class UiFramework {
   }
 
   public static setWidgetOpacity(opacity: number) {
-    if (UiFramework.getWidgetOpacity() === opacity) return;
-
-    UiFramework.dispatchActionToStore(
-      ConfigurableUiActionId.SetWidgetOpacity,
-      opacity,
-      true
-    );
+    UiFramework.state.configurableUi.setWidgetOpacity(opacity, {
+      immediateSync: true,
+    });
   }
 
   public static getWidgetOpacity(): number {
@@ -818,13 +807,9 @@ export class UiFramework {
   }
 
   public static setShowWidgetIcon(value: boolean) {
-    if (UiFramework.showWidgetIcon === value) return;
-
-    UiFramework.dispatchActionToStore(
-      ConfigurableUiActionId.SetShowWidgetIcon,
-      value,
-      true
-    );
+    UiFramework.state.configurableUi.setShowWidgetIcon(value, {
+      immediateSync: true,
+    });
   }
 
   /** Animate Tool Settings on appear  */
@@ -833,12 +818,9 @@ export class UiFramework {
   }
 
   public static setAnimateToolSettings(value: boolean) {
-    if (UiFramework.animateToolSettings === value) return;
-    UiFramework.dispatchActionToStore(
-      ConfigurableUiActionId.AnimateToolSettings,
-      value,
-      true
-    );
+    UiFramework.state.configurableUi.setAnimateToolSettings(value, {
+      immediateSync: true,
+    });
   }
 
   /** Use Tool Name As Tool Settings Widget Tab Label */
@@ -847,12 +829,9 @@ export class UiFramework {
   }
 
   public static setUseToolAsToolSettingsLabel(value: boolean) {
-    if (UiFramework.useToolAsToolSettingsLabel === value) return;
-    UiFramework.dispatchActionToStore(
-      ConfigurableUiActionId.UseToolAsToolSettingsLabel,
-      value,
-      true
-    );
+    UiFramework.state.configurableUi.setUseToolAsToolSettingsLabel(value, {
+      immediateSync: true,
+    });
   }
 
   /** When `true`, panels will close as soon as the mouse leave the panel.
@@ -867,13 +846,9 @@ export class UiFramework {
    * the panel before it is closed.
    */
   public static setAutoCollapseUnpinnedPanels(value: boolean) {
-    if (UiFramework.autoCollapseUnpinnedPanels === value) return;
-
-    UiFramework.dispatchActionToStore(
-      ConfigurableUiActionId.AutoCollapseUnpinnedPanels,
-      value,
-      true
-    );
+    UiFramework.state.configurableUi.setAutoCollapseUnpinnedPanels(value, {
+      immediateSync: true,
+    });
   }
 
   public static get useDragInteraction(): boolean {
@@ -881,11 +856,9 @@ export class UiFramework {
   }
 
   public static setUseDragInteraction(useDragInteraction: boolean) {
-    UiFramework.dispatchActionToStore(
-      ConfigurableUiActionId.SetDragInteraction,
-      useDragInteraction,
-      true
-    );
+    UiFramework.state.configurableUi.setDragInteraction(useDragInteraction, {
+      immediateSync: true,
+    });
   }
 
   /** Returns the variable controlling whether the overlay is displayed in a Viewport. */
