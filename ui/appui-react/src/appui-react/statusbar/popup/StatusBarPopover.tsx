@@ -6,15 +6,23 @@
  * @module StatusBar
  */
 
-import "./Separator.scss";
+import "./Popup.scss";
 import * as React from "react";
-import classnames from "classnames";
-import type { CommonProps } from "@itwin/core-react";
+import { Popover } from "@itwin/itwinui-react";
 
-/** Component used to separate status fields in a status bar.
+/** Popover component used in [[StatusBar]] component.
+ * This component should wrap the element that triggers the popover.
  * @public
  */
-export function StatusBarSeparator(props: CommonProps) {
-  const className = classnames("uifw-statusBar-separator", props.className);
-  return <div className={className} style={props.style} />;
+export function StatusBarPopover(props: React.ComponentProps<typeof Popover>) {
+  return (
+    <Popover
+      {...props}
+      placement="top"
+      applyBackground
+      middleware={{
+        offset: 4,
+      }}
+    />
+  );
 }

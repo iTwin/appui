@@ -21,8 +21,9 @@ import { connect } from "react-redux";
 import { UiFramework } from "../UiFramework";
 import { SnapModePanel } from "../layout/footer/snap-mode/Panel";
 import { Snap } from "../layout/footer/snap-mode/Snap";
-import { StatusBarLabelIndicator } from "../statusbar/LabelIndicator";
 import { useTranslation } from "../hooks/useTranslation";
+import { Button } from "@itwin/itwinui-react";
+import { StatusBarPopover } from "../statusbar/popup/StatusBarPopover";
 
 // cSpell:ignore multione
 
@@ -127,13 +128,8 @@ function SnapModeFieldComponent(props: SnapModeFieldProps) {
 
   const title = translate("snapModeField.snapMode");
   return (
-    <StatusBarLabelIndicator
-      iconSpec={getIconFromIconName(
-        getSnapModeIconNameFromMode(props.snapMode)
-      )}
-      title={title}
-      label={title}
-      popup={
+    <StatusBarPopover
+      content={
         <SnapModePanel title={title}>
           {snapModes.map((item, index) => (
             <Snap
@@ -152,7 +148,21 @@ function SnapModeFieldComponent(props: SnapModeFieldProps) {
           ))}
         </SnapModePanel>
       }
-    />
+    >
+      <Button
+        styleType="borderless"
+        title={title}
+        endIcon={
+          <Icon
+            iconSpec={getIconFromIconName(
+              getSnapModeIconNameFromMode(props.snapMode)
+            )}
+          />
+        }
+      >
+        {title}
+      </Button>
+    </StatusBarPopover>
   );
 }
 

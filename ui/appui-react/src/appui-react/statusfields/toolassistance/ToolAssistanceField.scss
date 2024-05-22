@@ -4,6 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/breakpoints";
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
+@import "../../layout/footer/variables";
+@import "~@itwin/core-react/lib/cjs/core-react/geometry";
 
 $image-size: 22px;
 $image-size-wide: 30px;
@@ -16,34 +18,18 @@ $key-size-medium: 18px;
 $key-size-large: 36px;
 $key-size-modifier: 24px;
 
-.uifw-statusFields-toolassistance {
-  $font-size-medium: var(--iui-font-size-0);
-  $font-size-small: var(--iui-font-size-0) - 1px;
+.temp {
+  width: 18em;
+  justify-content: flex-start;
+}
 
-  overflow: hidden;
-  width: 20em;
+.nz-triangle {
+  position: absolute;
+  right: 2px;
+  bottom: 2px;
+  filter: $icon-shadow;
 
-  @include for-tablet-landscape-down {
-    width: 16em;
-  }
-
-  @include for-tablet-portrait-down {
-    font-size: $font-size-medium;
-  }
-
-  @include for-phone-only {
-    font-size: $font-size-small;
-    width: 12em;
-  }
-
-  .nz-indicator {
-    display: flex;
-    flex: auto;
-
-    .nz-icons :nth-child(1) {
-      margin-right: 4px;
-    }
-  }
+  @include triangle-bottom-right(5px, $color: var(--iui-color-icon));
 }
 
 .uifw-toolassistance-key {

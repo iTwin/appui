@@ -2,11 +2,10 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "../layout/footer/variables";
 
-.uifw-statusbar-separator {
-  height: calc(100% - (#{$nz-footer-indicator-vertical-padding} * 2));
+.uifw-statusBar-separator {
+  height: calc(100% - 6px);
   width: 1px;
-  margin: $nz-footer-indicator-vertical-padding 0;
+  margin: 3px 0;
   background-color: var(--iui-color-border-subtle);
 }

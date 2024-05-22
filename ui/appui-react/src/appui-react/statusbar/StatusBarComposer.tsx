@@ -20,7 +20,6 @@ import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
 import type { UiSyncEventArgs } from "../syncui/UiSyncEvent";
 import { isProviderItem } from "../ui-items-provider/isProviderItem";
 import { StatusBarOverflow } from "./Overflow";
-import { StatusBarOverflowPanel } from "./OverflowPanel";
 import {
   StatusBarCenterSection,
   StatusBarLeftSection,
@@ -163,12 +162,14 @@ function useStatusBarItemSyncEffect(
 
 function StatusBarLabelItemComponent(props: StatusBarLabelItem) {
   const label = ConditionalStringValue.getValue(props.label);
+  // eslint-disable-next-line deprecation/deprecation
   return <StatusBarLabelIndicator iconSpec={props.icon} label={label} />;
 }
 
 function StatusBarActionItemComponent(props: StatusBarActionItem) {
   const title = ConditionalStringValue.getValue(props.tooltip);
   return (
+    // eslint-disable-next-line deprecation/deprecation
     <StatusBarLabelIndicator
       title={title}
       onClick={props.execute}
@@ -285,7 +286,6 @@ export function StatusBarComposer(props: StatusBarComposerProps) {
   const [defaultItemsManager, setDefaultItemsManager] = React.useState(
     () => new StatusBarItemsManager(items)
   );
-  const [isOverflowPanelOpen, setIsOverflowPanelOpen] = React.useState(false);
   const containerWidth = React.useRef<number | undefined>(undefined);
 
   const isInitialMount = React.useRef(true);
@@ -337,11 +337,8 @@ export function StatusBarComposer(props: StatusBarComposerProps) {
     );
     if (!eqlOverflown(overflown, newOverflown)) {
       setOverflown(newOverflown);
-      // istanbul ignore next
-      if (0 === newOverflown.length && isOverflowPanelOpen)
-        setIsOverflowPanelOpen(false);
     }
-  }, [isOverflowPanelOpen, overflown]);
+  }, [overflown]);
 
   const handleOverflowResize = React.useCallback(
     (w: number) => {
@@ -474,18 +471,10 @@ export function StatusBarComposer(props: StatusBarComposerProps) {
   );
 
   const containerRef = React.useRef<HTMLDivElement>(null);
-  const targetRef = React.useRef<HTMLDivElement>(null);
   const resizeObserverRef = useResizeObserver(handleContainerResize);
   // allow  both the containerRef and the resize observer function that takes a ref to be processed when the ref is set.
   const refs = useRefs(containerRef, resizeObserverRef);
 
-  const onOverflowClick = React.useCallback(() => {
-    setIsOverflowPanelOpen((prev) => !prev);
-  }, []);
-  // istanbul ignore next
-  const handleOnClose = React.useCallback(() => {
-    setIsOverflowPanelOpen(false);
-  }, []);
   const leftItems = React.useMemo(
     () => getSectionItems(StatusBarSection.Left),
     [getSectionItems]
@@ -527,29 +516,10 @@ export function StatusBarComposer(props: StatusBarComposerProps) {
         <StatusBarRightSection className={rightClassName}>
           {rightItems}
           {(!overflown || overflown.length > 0) && (
-            <>
-              <StatusBarOverflow
-                onClick={onOverflowClick}
-                onResize={handleOverflowResize}
-                ref={targetRef}
-              />
-              {overflowItems.length > 0 &&
-                isOverflowPanelOpen &&
-                targetRef.current && (
-                  <StatusBarOverflowPanel
-                    onClose={handleOnClose}
-                    open={true}
-                    target={targetRef.current}
-                  >
-                    <div
-                      className="uifw-statusbar-overflow-items-container"
-                      data-testid="uifw-statusbar-overflow-items-container"
-                    >
-                      {overflowItems.map((overflowEntry) => overflowEntry)}
-                    </div>
-                  </StatusBarOverflowPanel>
-                )}
-            </>
+            <StatusBarOverflow
+              onResize={handleOverflowResize}
+              overflowItems={overflowItems}
+            />
           )}
         </StatusBarRightSection>
       </StatusBarSpaceBetween>

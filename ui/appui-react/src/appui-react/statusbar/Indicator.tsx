@@ -8,10 +8,12 @@
 
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
-import { StatusBar } from "./StatusBar";
+import { StatusBarPopup } from "./popup/Popup";
+import { StatusBarField } from "./Field";
 
 /** Properties of [[StatusBarIndicator]] component.
  * @beta
+ * @deprecated in 4.13.x. Props of deprecated component {@link StatusBarIndicator}.
  */
 export interface StatusBarIndicatorProps extends CommonProps {
   /** Indicator content. */
@@ -28,7 +30,9 @@ export interface StatusBarIndicatorProps extends CommonProps {
 
 /** General-purpose [[StatusBar]] indicator.
  * @beta
+ * @deprecated in 4.13.x. Use [iTwinUI Button](https://itwinui.bentley.com/docs/typography#label) (or other components) and {@link StatusBarPopup AppUI StatusBarPopup} instead.
  */
+// eslint-disable-next-line deprecation/deprecation
 export function StatusBarIndicator(props: StatusBarIndicatorProps) {
   const hasClickAction = !!props.onClick || !!props.popup;
   const [isOpen, setIsOpen] = React.useState(!!props.defaultIsOpen);
@@ -39,7 +43,8 @@ export function StatusBarIndicator(props: StatusBarIndicatorProps) {
   const target = React.useRef<HTMLDivElement>(null);
   return (
     <>
-      <StatusBar.Field
+      {/* eslint-disable-next-line deprecation/deprecation */}
+      <StatusBarField
         ref={target}
         className={props.className}
         title={props.title}
@@ -47,15 +52,16 @@ export function StatusBarIndicator(props: StatusBarIndicatorProps) {
         onClick={hasClickAction ? handleOnIndicatorClick : undefined}
       >
         {props.children}
-      </StatusBar.Field>
+      </StatusBarField>
       {props.popup && (
-        <StatusBar.Popup
+        // eslint-disable-next-line deprecation/deprecation
+        <StatusBarPopup
           target={target.current}
           onClose={() => setIsOpen(false)}
           isOpen={isOpen}
         >
           {props.popup}
-        </StatusBar.Popup>
+        </StatusBarPopup>
       )}
     </>
   );

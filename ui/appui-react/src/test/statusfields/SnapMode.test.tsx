@@ -21,23 +21,25 @@ describe("SnapModeField", () => {
   });
 
   it("Status Bar with SnapModes Field should render", () => {
-    const wrapper = render(
+    const { container } = render(
       <Provider store={TestUtils.store}>
+        {/* eslint-disable-next-line deprecation/deprecation */}
         <StatusBar>
           <SnapModeField />
         </StatusBar>
       </Provider>
     );
 
-    const button = wrapper.container.querySelector(".uifw-statusbar-field");
+    const button = container.querySelector("button");
     expect(button).toBeTruthy();
     fireEvent.click(button!);
 
-    const iconContainer = wrapper.container.querySelector(".uifw-icon");
+    const iconContainer = container.querySelector(".icon");
     expect(iconContainer).toBeTruthy();
 
-    const popup = wrapper.getByTestId("core-popup");
-    const snaps = popup.querySelectorAll(".nz-footer-snapMode-snap");
+    const snaps = container.parentElement!.querySelectorAll(
+      ".nz-footer-snapMode-snap"
+    );
     expect(snaps.length).to.eql(7);
 
     fireEvent.click(button!); // Closes popup
@@ -50,14 +52,15 @@ describe("SnapModeField", () => {
     );
     const snapMode = UiFramework.getAccudrawSnapMode();
     expect(snapMode).toEqual(SnapMode.Intersection | SnapMode.NearestKeypoint);
-    const wrapper = render(
+    const { container } = render(
       <Provider store={TestUtils.store}>
+        {/* eslint-disable-next-line deprecation/deprecation */}
         <StatusBar>
           <SnapModeField />
         </StatusBar>
       </Provider>
     );
-    const iconContainer = wrapper.container.querySelector(".uifw-icon");
+    const iconContainer = container.querySelector(".icon");
     expect(iconContainer).toBeTruthy();
   });
 
@@ -71,6 +74,7 @@ describe("SnapModeField", () => {
     SyncUiEventDispatcher.onSyncUiEvent.addListener(spy);
     render(
       <Provider store={TestUtils.store}>
+        {/* eslint-disable-next-line deprecation/deprecation */}
         <StatusBar>
           <SnapModeField />
         </StatusBar>

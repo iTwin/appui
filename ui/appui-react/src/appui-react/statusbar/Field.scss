@@ -2,108 +2,19 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "../layout/footer/variables";
-@import "~@itwin/core-react/lib/cjs/core-react/style/colors";
-
-@keyframes uifw-field-fadeIn {
-  0% {
-    opacity: 0;
-    -webkit-transform: scale(0.5);
-    transform: scale(0.5);
-  }
-
-  50% {
-    -webkit-transform: scale(1.5);
-    transform: scale(1.5);
-  }
-
-  100% {
-    -webkit-transform: scale(1);
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-@keyframes uifw-field-fadeOut {
-  0% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
-  }
-}
 
 .uifw-statusbar-field {
-  visibility: visible;
   gap: var(--iui-size-xs);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
 
   &.uifw-action {
     cursor: pointer;
 
     &:hover {
       color: var(--iui-color-text-accent-hover);
-    }
-  }
-
-  &.uifw-field-fade-in {
-    animation: uifw-field-fadeIn 1s linear;
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  &.uifw-field-fade-out {
-    animation: uifw-field-fadeOut 500ms linear;
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  > .nz-balloon-container {
-    height: 100%;
-    position: relative;
-    display: grid;
-    align-content: center;
-
-    > .nz-balloon {
-      background-color: var(--iui-color-text);
-      text-align: center;
-      cursor: pointer;
-      min-width: $min-balloon-width;
-      min-height: $min-balloon-height;
-      border-radius: 50%;
-      padding: $balloon-padding;
-      filter: $icon-shadow;
-      position: relative;
-      align-self: center;
-
-      > .nz-arrow {
-        position: absolute;
-        width: 0;
-        bottom: -3px;
-        left: 0;
-        display: block;
-        border-width: 0;
-        border-bottom-width: $balloon-arrow-height;
-        border-left-width: $balloon-arrow-width;
-        border-style: solid;
-        border-color: transparent var(--iui-color-icon);
-        transform: rotate(25deg);
-      }
-
-      > .nz-content {
-        position: relative;
-        color: #fff;
-        line-height: $min-balloon-height;
-        font-size: 11px;
-      }
-    }
-
-    > .nz-dialog {
-      height: 100%;
-      width: 100%;
-      position: absolute;
-      top: 0;
-      left: 50%;
     }
   }
 }
