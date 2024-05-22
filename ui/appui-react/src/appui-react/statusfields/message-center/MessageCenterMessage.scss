@@ -18,7 +18,6 @@
   grid-template-columns: auto 1fr;
   line-height: 16px;
   color: var(--iui-color-text);
-  font-size: $text-font-size;
 
   &:not(:first-child) {
     padding-top: var(--iui-size-xs);

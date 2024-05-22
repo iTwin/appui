@@ -27,7 +27,7 @@ $key-size-modifier: 24px;
   position: absolute;
   right: 2px;
   bottom: 2px;
-  filter: $icon-shadow;
+  filter: drop-shadow(0 1px $buic-icon-color-reverse);
 
   @include triangle-bottom-right(5px, $color: var(--iui-color-icon));
 }
