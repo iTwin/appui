@@ -452,10 +452,9 @@ beta;SectionsStatusField(props: SectionsStatusFieldProps): React_2.JSX.Element
 beta;SectionsStatusFieldProps 
 beta;selectionContextStateFunc(state: Readonly
 public;SelectionContextToolDefinitions
-public;SelectionCountField(props: SelectionCountFieldProps): React_2.JSX.Element
-public;SelectionCountFieldProps 
+beta;SelectionCountField(props: SelectionCountFieldProps): React_2.JSX.Element
+beta;SelectionCountFieldProps 
 public;SelectionInfoField(props: CommonProps): React_2.JSX.Element
-deprecated;SelectionInfoField(props: CommonProps): React_2.JSX.Element
 public;SelectionScope
 public;SelectionScopeField: ConnectedComponent
 public;SessionState
@@ -654,7 +653,7 @@ internal;usePreviewFeatures(): PreviewFeatures
 public;UserSettingsProvider
 internal;useSavedFrontstageState(frontstageDef: FrontstageDef): void
 public;useScheduleAnimationDataProvider(viewport: ScreenViewport | undefined): ScheduleAnimationTimelineDataProvider | undefined
-public;useSelectionSetSize(args: UseSelectionSetSizeArgs): number
+beta;useSelectionSetSize(args: UseSelectionSetSizeArgs): number
 public;UseSelectionSetSizeArgs
 internal;useShouldRenderDockedToolSettings(): boolean
 beta;useSolarDataProvider(viewport: ScreenViewport | undefined): SolarDataProvider | undefined

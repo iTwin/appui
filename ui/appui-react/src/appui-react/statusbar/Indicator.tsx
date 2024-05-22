@@ -30,7 +30,7 @@ export interface StatusBarIndicatorProps extends CommonProps {
 
 /** General-purpose [[StatusBar]] indicator.
  * @beta
- * @deprecated in 4.13.x. Use [iTwinUI Button](https://itwinui.bentley.com/docs/typography#label) (or other components) and {@link StatusBarPopup AppUI StatusBarPopup} instead.
+ * @deprecated in 4.13.x. Use [iTwinUI Button](https://itwinui.bentley.com/docs/button) (or other components) and {@link StatusBarPopup AppUI StatusBarPopup} instead.
  */
 // eslint-disable-next-line deprecation/deprecation
 export function StatusBarIndicator(props: StatusBarIndicatorProps) {

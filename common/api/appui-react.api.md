@@ -3743,16 +3743,16 @@ export class SelectionContextToolDefinitions {
     static get isolateSelectionToolGroup(): GroupItemDef;
 }
 
-// @public
+// @beta
 export function SelectionCountField(props: SelectionCountFieldProps): React_2.JSX.Element;
 
-// @public
+// @beta
 export interface SelectionCountFieldProps extends CommonProps {
     // (undocumented)
     count: number;
 }
 
-// @public @deprecated
+// @public
 export function SelectionInfoField(props: CommonProps): React_2.JSX.Element;
 
 // @public
@@ -5169,7 +5169,7 @@ export function useSavedFrontstageState(frontstageDef: FrontstageDef): void;
 // @public
 export function useScheduleAnimationDataProvider(viewport: ScreenViewport | undefined): ScheduleAnimationTimelineDataProvider | undefined;
 
-// @public
+// @beta
 export function useSelectionSetSize(args: UseSelectionSetSizeArgs): number;
 
 // @public

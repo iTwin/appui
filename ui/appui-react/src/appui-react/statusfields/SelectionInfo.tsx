@@ -19,7 +19,6 @@ import type { FrameworkState } from "../redux/FrameworkState";
  * This React component is Redux connected.
  * @note Use [[SelectionCountField]] to display custom selection count.
  * @public
- * @deprecated in 4.13.x. Please use {@link SelectionCountField} instead.
  */
 export function SelectionInfoField(props: CommonProps) {
   const count = useSelector((state: any) => {

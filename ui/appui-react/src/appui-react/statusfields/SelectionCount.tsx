@@ -15,7 +15,7 @@ import * as React from "react";
 import "./SelectionCount.scss";
 
 /** Properties for the [[SelectionCountField]] component.
- * @public
+ * @beta
  */
 export interface SelectionCountFieldProps extends CommonProps {
   count: number;
@@ -23,7 +23,7 @@ export interface SelectionCountFieldProps extends CommonProps {
 
 /** Status field component used to display the number of selected items.
  * @note Use [[useSelectionSetSize]] hook to get the selection count.
- * @public
+ * @beta
  */
 export function SelectionCountField(props: SelectionCountFieldProps) {
   const className = classnames(
@@ -46,7 +46,7 @@ export interface UseSelectionSetSizeArgs {
 }
 
 /** React hook that returns element count of a selection set.
- * @public
+ * @beta
  */
 export function useSelectionSetSize(args: UseSelectionSetSizeArgs): number {
   const [size, setSize] = React.useState(0);
