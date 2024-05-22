@@ -45,11 +45,13 @@ export enum ConfigurableUiActionId {
 export interface ConfigurableUiState {
   snapMode: number;
   toolPrompt: string;
+  /** @deprecated in 4.14.x. Use `theme` prop of {@link ThemeManager} instead. */
   theme: string;
   widgetOpacity: number;
   useDragInteraction: boolean;
   showWidgetIcon: boolean;
   autoCollapseUnpinnedPanels: boolean;
+  /** @deprecated in 4.14.x. Use {@link ConfigurableUiContentProps.viewOverlay} prop of {@link ConfigurableUiContent} instead. */
   viewOverlayDisplay: boolean;
   animateToolSettings: boolean;
   useToolAsToolSettingsLabel: boolean;

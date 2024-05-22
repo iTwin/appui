@@ -85,6 +85,10 @@ import { useFrameworkStore } from "./uistate/useFrameworkStore";
 import { SYSTEM_PREFERRED_COLOR_THEME, type ThemeId } from "./theme/ThemeId";
 import { useFrameworkState } from "./uistate/useFrameworkState";
 import { ConfigurableUiActionId } from "./redux/ConfigurableUiState";
+import type {
+  ConfigurableUiContent,
+  ConfigurableUiContentProps,
+} from "./configurableui/ConfigurableUiContent";
 
 interface ShowInputEditorOptions {
   location: XAndY;
@@ -847,16 +851,6 @@ export class UiFramework {
     });
   }
 
-  /** Returns the variable controlling whether the overlay is displayed in a Viewport. */
-  public static get viewOverlayDisplay() {
-    return UiFramework.state.configurableUi.viewOverlayDisplay;
-  }
-
-  /** Set the variable that controls display of the view overlay. Applies to all viewports in the app. */
-  public static setViewOverlayDisplay(display: boolean) {
-    UiFramework.state.configurableUi.setViewOverlayDisplay(display);
-  }
-
   /** Determines whether a ContextMenu is open
    * @alpha
    */
@@ -1266,7 +1260,7 @@ export class UiFramework {
 
   /** Set the theme value used by the [[ThemeManager]] component.
    * @note Requires redux provider.
-   * @deprecated in 4.14.x. Components take `theme` as a prop.
+   * @deprecated in 4.14.x. Use `theme` prop of {@link ThemeManager}.
    */
   public static setColorTheme(theme: ThemeId) {
     if (UiFramework.getColorTheme() === theme) return;
@@ -1286,6 +1280,27 @@ export class UiFramework {
     return (
       UiFramework.frameworkState?.configurableUiState.theme ??
       SYSTEM_PREFERRED_COLOR_THEME
+    );
+  }
+
+  /** Set the variable that controls display of the view overlay. Applies to all viewports in the app.
+   * @deprecated in 4.14.x. Use {@link ConfigurableUiContentProps.viewOverlay} prop of {@link ConfigurableUiContent}.
+   */
+  public static setViewOverlayDisplay(display: boolean) {
+    if (UiFramework.viewOverlayDisplay === display) return;
+
+    UiFramework.dispatchActionToStore(
+      ConfigurableUiActionId.SetViewOverlayDisplay,
+      display
+    );
+  }
+
+  /** Returns the variable controlling whether the overlay is displayed in a Viewport.
+   * @deprecated in 4.14.x. Components should take `viewOverlay` as a prop.
+   */
+  public static get viewOverlayDisplay() {
+    return (
+      UiFramework.frameworkState?.configurableUiState.viewOverlayDisplay ?? true
     );
   }
 

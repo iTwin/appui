@@ -27,7 +27,12 @@ import { UiFramework } from "../UiFramework";
 import { InternalConfigurableUiManager } from "./InternalConfigurableUiManager";
 import { MessageRenderer } from "../messages/MessageRenderer";
 
-// cSpell:ignore cursormenu cursorpopup
+/** @internal */
+export const ConfigurableUiContext = React.createContext<{
+  viewOverlay: boolean | undefined;
+}>({
+  viewOverlay: undefined,
+});
 
 /** Properties for [[ConfigurableUiContent]]
  * @public
@@ -35,6 +40,8 @@ import { MessageRenderer } from "../messages/MessageRenderer";
 export interface ConfigurableUiContentProps extends CommonProps {
   /** React node of the Backstage */
   appBackstage?: React.ReactNode;
+  /** Controls if the view overlay should be displayed. Uses redux store as a fallback. Defaults to `true`. */
+  viewOverlay?: boolean;
 
   /** @internal */
   idleTimeout?: number;
@@ -78,38 +85,44 @@ export function ConfigurableUiContent(props: ConfigurableUiContentProps) {
   }, []);
 
   return (
-    <main
-      role="main"
-      id="uifw-configurableui-wrapper"
-      className={props.className}
-      style={props.style}
-      onMouseMove={handleMouseMove}
-      ref={setMainElement}
+    <ConfigurableUiContext.Provider
+      value={{
+        viewOverlay: props.viewOverlay,
+      }}
     >
-      <WrapperContext.Provider value={mainElement!}>
-        <ThemeProvider
-          style={{ height: "100%" }}
-          portalContainer={portalContainer}
-        >
-          {props.appBackstage}
-          <WidgetPanelsFrontstage />
-          <ContentDialogRenderer />
-          <ModelessDialogRenderer />
-          <ModalDialogRenderer />
-          <ElementTooltip />
-          <PointerMessage />
-          <KeyboardShortcutMenu />
-          <InputFieldMessage />
-          <CursorPopupMenu />
-          <CursorPopupRenderer />
-          <PopupRenderer />
-          <MessageRenderer />
-        </ThemeProvider>
-      </WrapperContext.Provider>
-      <div
-        className="uifw-configurableui-portalContainer"
-        ref={(instance) => setPortalContainer(instance ?? undefined)}
-      />
-    </main>
+      <main
+        role="main"
+        id="uifw-configurableui-wrapper"
+        className={props.className}
+        style={props.style}
+        onMouseMove={handleMouseMove}
+        ref={setMainElement}
+      >
+        <WrapperContext.Provider value={mainElement!}>
+          <ThemeProvider
+            style={{ height: "100%" }}
+            portalContainer={portalContainer}
+          >
+            {props.appBackstage}
+            <WidgetPanelsFrontstage />
+            <ContentDialogRenderer />
+            <ModelessDialogRenderer />
+            <ModalDialogRenderer />
+            <ElementTooltip />
+            <PointerMessage />
+            <KeyboardShortcutMenu />
+            <InputFieldMessage />
+            <CursorPopupMenu />
+            <CursorPopupRenderer />
+            <PopupRenderer />
+            <MessageRenderer />
+          </ThemeProvider>
+        </WrapperContext.Provider>
+        <div
+          className="uifw-configurableui-portalContainer"
+          ref={(instance) => setPortalContainer(instance ?? undefined)}
+        />
+      </main>
+    </ConfigurableUiContext.Provider>
   );
 }

@@ -36,7 +36,7 @@ interface ActionArgs {
  */
 export interface FrameworkState {
   // eslint-disable-next-line deprecation/deprecation
-  configurableUi: Omit<ConfigurableUiState, "theme"> & {
+  configurableUi: Omit<ConfigurableUiState, "theme" | "viewOverlayDisplay"> & {
     setToolPrompt: (toolPrompt: string, args?: ActionArgs) => void;
     setWidgetOpacity: (opacity: number, args?: ActionArgs) => void;
     setSnapMode: (snapMode: number, args?: ActionArgs) => void;
@@ -44,10 +44,6 @@ export interface FrameworkState {
     setShowWidgetIcon: (showWidgetIcon: boolean, args?: ActionArgs) => void;
     setAutoCollapseUnpinnedPanels: (
       autoCollapse: boolean,
-      args?: ActionArgs
-    ) => void;
-    setViewOverlayDisplay: (
-      displayViewOverlay: boolean,
       args?: ActionArgs
     ) => void;
     setAnimateToolSettings: (
@@ -188,22 +184,6 @@ export const useFrameworkStore: UseBoundStore<StoreApi<FrameworkState>> =
           );
           handleArgs(args, {
             eventId: ConfigurableUiActionId.AutoCollapseUnpinnedPanels,
-          });
-        },
-        setViewOverlayDisplay: (displayViewOverlay, args) => {
-          const frameworkState = get();
-          if (
-            frameworkState.configurableUi.viewOverlayDisplay ===
-            displayViewOverlay
-          )
-            return;
-          set((state) =>
-            produce(state, (draft) => {
-              draft.configurableUi.viewOverlayDisplay = displayViewOverlay;
-            })
-          );
-          handleArgs(args, {
-            eventId: ConfigurableUiActionId.SetViewOverlayDisplay,
           });
         },
         setAnimateToolSettings: (

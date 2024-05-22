@@ -27,6 +27,7 @@ import { ViewportContentControl } from "./ViewportContentControl";
 import { StandardRotationNavigationAidControl } from "../navigationaids/StandardRotationNavigationAid";
 import { UiError } from "@itwin/appui-abstract";
 import { useReduxFrameworkState } from "../uistate/useFrameworkState";
+import { ConfigurableUiContext } from "../configurableui/ConfigurableUiContent";
 
 /** Viewport that is connected to the IModelConnection property in the Redux store. The application must set up the Redux store and include the FrameworkReducer.
  * @note Uses redux provider.
@@ -79,9 +80,12 @@ export function ViewOverlayHost({
   userSuppliedOverlay,
 }: ViewOverlayHostProps) {
   const reduxDisplayViewOverlay = useReduxFrameworkState(
+    // eslint-disable-next-line deprecation/deprecation
     (state) => state?.configurableUiState.viewOverlayDisplay
   );
-  const displayViewOverlay = reduxDisplayViewOverlay ?? true;
+  const configurableUi = React.useContext(ConfigurableUiContext);
+  const displayViewOverlay =
+    configurableUi?.viewOverlay ?? reduxDisplayViewOverlay ?? true;
   if (!displayViewOverlay) return null;
   return userSuppliedOverlay ? (
     <React.Fragment>{userSuppliedOverlay(viewport)}</React.Fragment>
