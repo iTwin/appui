@@ -85,7 +85,6 @@ import { useFrameworkStore } from "./uistate/useFrameworkStore";
 import type { ThemeId } from "./theme/ThemeId";
 import {
   dispatchActionToFrameworkState,
-  toFrameworkState,
   toReduxFrameworkState,
 } from "./uistate/useFrameworkState";
 import { useFrameworkState } from "./uistate/useFrameworkState";
@@ -265,6 +264,8 @@ export class UiFramework {
       new StateManager();
 
     UiFramework._store = store;
+    // TODO: subscribe to redux store and sync changes to `useFrameworkStore`.
+
     // ignore setting _frameworkStateKeyInStore if not using store
     if (frameworkStateKey && store)
       UiFramework._frameworkStateKeyInStore = frameworkStateKey;
@@ -374,12 +375,6 @@ export class UiFramework {
    * @beta
    */
   public static get state(): FrameworkState {
-    const reduxStore = UiFramework.reduxStore;
-    // eslint-disable-next-line deprecation/deprecation
-    const reduxState = reduxStore?.getState()[UiFramework.frameworkStateKey];
-    if (reduxState) {
-      return toFrameworkState(reduxState, reduxStore);
-    }
     return useFrameworkStore.getState();
   }
 

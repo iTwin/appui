@@ -37,6 +37,7 @@ export function IModelConnectedViewport(
   const frameworkState = useFrameworkState();
   const iModel = frameworkState.session.iModelConnection;
   const viewState = frameworkState.session.defaultViewState;
+  if (!iModel) return null;
   return <ViewportComponent imodel={iModel} viewState={viewState} {...props} />;
 }
 
