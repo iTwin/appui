@@ -10,8 +10,6 @@ import { GlobalDialog } from "../../core-react/dialog/GlobalDialog";
 import { DialogButtonType } from "@itwin/appui-abstract";
 import userEvent from "@testing-library/user-event";
 
-/* eslint-disable deprecation/deprecation */
-
 describe("Dialog", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
   beforeEach(async () => {

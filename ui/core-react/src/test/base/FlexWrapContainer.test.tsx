@@ -7,8 +7,6 @@ import * as React from "react";
 import { FlexWrapContainer } from "../../core-react";
 import { classesFromElement } from "../TestUtils";
 
-/* eslint-disable deprecation/deprecation */
-
 describe("<FlexWrapContainer />", () => {
   it("content renders correctly", () => {
     render(<FlexWrapContainer>Test content</FlexWrapContainer>);

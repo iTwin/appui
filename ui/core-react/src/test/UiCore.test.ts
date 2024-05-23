@@ -25,13 +25,11 @@ describe("UiCore", () => {
 
   it("translate should return the key (in test environment)", async () => {
     await TestUtils.initializeUiCore();
-    // eslint-disable-next-line deprecation/deprecation
     expect(UiCore.translate("test1.test2")).toEqual("test1.test2");
   });
 
   it("translate should return blank and log error if UiCore not initialized", () => {
     const spyLogger = vi.spyOn(Logger, "logError");
-    // eslint-disable-next-line deprecation/deprecation
     expect(UiCore.translate("xyz")).toEqual("");
     expect(spyLogger).toHaveBeenCalledOnce();
   });

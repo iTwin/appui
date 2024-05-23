@@ -1266,7 +1266,7 @@ export interface ProcessSettingsTabActivationEventArgs {
 // @internal
 export const PROXIMITY_THRESHOLD_DEFAULT = 100;
 
-// @public
+// @public @deprecated
 export class RadialButton extends React_2.Component<RadialButtonProps, RadialButtonState> {
     constructor(props: RadialButtonProps);
     // (undocumented)
@@ -1276,7 +1276,7 @@ export class RadialButton extends React_2.Component<RadialButtonProps, RadialBut
     readonly state: Readonly<RadialButtonState>;
 }
 
-// @public
+// @public @deprecated
 export interface RadialButtonProps extends CommonProps {
     // @internal (undocumented)
     annularSector?: AnnularSector;
@@ -1287,7 +1287,7 @@ export interface RadialButtonProps extends CommonProps {
     selected?: boolean;
 }
 
-// @public
+// @public @deprecated
 export class RadialMenu extends React_2.Component<RadialMenuProps, RadialMenuState> {
     constructor(props: RadialMenuProps);
     // (undocumented)
@@ -1305,7 +1305,7 @@ export class RadialMenu extends React_2.Component<RadialMenuProps, RadialMenuSta
     readonly state: Readonly<RadialMenuState>;
 }
 
-// @public
+// @public @deprecated
 export interface RadialMenuProps extends CommonProps {
     children?: React_2.ReactNode;
     innerRadius: number;

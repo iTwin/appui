@@ -7,8 +7,6 @@ import { MessageRenderer } from "../../core-react/notification/MessageRenderer";
 import { UnderlinedButton } from "../../core-react/button/UnderlinedButton";
 import { render, screen } from "@testing-library/react";
 
-/* eslint-disable deprecation/deprecation */
-
 describe("MessageRenderer", () => {
   describe("Span", () => {
     it("with message text", () => {
