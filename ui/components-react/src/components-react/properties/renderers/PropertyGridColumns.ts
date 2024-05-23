@@ -88,7 +88,7 @@ export class PropertyGridColumnStyleProvider {
     ratio: number,
     needElementSeparator: boolean
   ): React.CSSProperties {
-    const separatorColumn = needElementSeparator ? "1px" : undefined;
+    const separatorColumn = needElementSeparator ? "auto" : undefined;
     const actionButtonColumn = needActionButtons
       ? this.actionButtonWidth
         ? `${this.actionButtonWidth}px`
