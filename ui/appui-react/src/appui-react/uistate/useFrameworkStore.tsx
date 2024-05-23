@@ -45,11 +45,8 @@ export interface FrameworkState {
     | "snapMode"
     | "useDragInteraction"
     | "showWidgetIcon"
+    | "autoCollapseUnpinnedPanels"
   > & {
-    setAutoCollapseUnpinnedPanels: (
-      autoCollapse: boolean,
-      args?: ActionArgs
-    ) => void;
     setAnimateToolSettings: (
       animateToolSettings: boolean,
       args?: ActionArgs
@@ -101,25 +98,6 @@ export const useFrameworkStore: UseBoundStore<StoreApi<FrameworkState>> =
     return {
       configurableUi: {
         ...initialState.configurableUiState,
-        setAutoCollapseUnpinnedPanels: (
-          autoCollapse: boolean,
-          args?: ActionArgs
-        ) => {
-          const frameworkState = get();
-          if (
-            frameworkState.configurableUi.autoCollapseUnpinnedPanels ===
-            autoCollapse
-          )
-            return;
-          set((state) =>
-            produce(state, (draft) => {
-              draft.configurableUi.autoCollapseUnpinnedPanels = autoCollapse;
-            })
-          );
-          handleArgs(args, {
-            eventId: ConfigurableUiActionId.AutoCollapseUnpinnedPanels,
-          });
-        },
         setAnimateToolSettings: (
           animateToolSettings: boolean,
           args?: ActionArgs

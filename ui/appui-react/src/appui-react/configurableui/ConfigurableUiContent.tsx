@@ -32,7 +32,7 @@ import type { WIDGET_OPACITY_DEFAULT } from "../theme/ThemeId";
 export const ConfigurableUiContext = React.createContext<
   Pick<
     ConfigurableUiContentProps,
-    "viewOverlay" | "widgetOpacity" | "widgetIcon"
+    "viewOverlay" | "widgetOpacity" | "widgetIcon" | "collapsePanels"
   >
 >({});
 
@@ -48,6 +48,8 @@ export interface ConfigurableUiContentProps extends CommonProps {
   widgetOpacity?: number;
   /** Controls if the widget icons should be displayed. Uses redux store as a fallback. Defaults to `true`. */
   widgetIcon?: boolean;
+  /** Controls if the unpinned panels should be collapsed automatically. Uses redux store as a fallback. Defaults to `false`. */
+  collapsePanels?: boolean;
 
   /** @internal */
   idleTimeout?: number;
@@ -96,6 +98,7 @@ export function ConfigurableUiContent(props: ConfigurableUiContentProps) {
         viewOverlay: props.viewOverlay,
         widgetOpacity: props.widgetOpacity,
         widgetIcon: props.widgetIcon,
+        collapsePanels: props.collapsePanels,
       }}
     >
       <main

@@ -798,23 +798,6 @@ export class UiFramework {
     });
   }
 
-  /** When `true`, panels will close as soon as the mouse leave the panel.
-   * When `false` (default), panels will close on next click outside the panel.
-   */
-  public static get autoCollapseUnpinnedPanels(): boolean {
-    return UiFramework.state.configurableUi.autoCollapseUnpinnedPanels;
-  }
-
-  /** Method used to enable the automatic closing of an unpinned widget panel as soon as the
-   * mouse leaves the widget panel. The default behavior is to require a mouse click outside
-   * the panel before it is closed.
-   */
-  public static setAutoCollapseUnpinnedPanels(value: boolean) {
-    UiFramework.state.configurableUi.setAutoCollapseUnpinnedPanels(value, {
-      immediateSync: true,
-    });
-  }
-
   /** Determines whether a ContextMenu is open
    * @alpha
    */
@@ -1360,6 +1343,34 @@ export class UiFramework {
 
     UiFramework.dispatchActionToStore(
       ConfigurableUiActionId.SetShowWidgetIcon,
+      value,
+      true
+    );
+  }
+
+  /** When `true`, panels will close as soon as the mouse leave the panel.
+   * When `false` (default), panels will close on next click outside the panel.
+   * @note Requires redux provider.
+   * @deprecated in 4.14.x. Components should take `collapsePanels` as a prop.
+   */
+  public static get autoCollapseUnpinnedPanels(): boolean {
+    return (
+      UiFramework.frameworkState?.configurableUiState
+        .autoCollapseUnpinnedPanels ?? false
+    );
+  }
+
+  /** Method used to enable the automatic closing of an unpinned widget panel as soon as the
+   * mouse leaves the widget panel. The default behavior is to require a mouse click outside
+   * the panel before it is closed.
+   * @note Requires redux provider.
+   * @deprecated in 4.14.x. Use {@link ConfigurableUiContentProps.collapsePanels} prop of {@link ConfigurableUiContent}.
+   */
+  public static setAutoCollapseUnpinnedPanels(value: boolean) {
+    if (UiFramework.autoCollapseUnpinnedPanels === value) return;
+
+    UiFramework.dispatchActionToStore(
+      ConfigurableUiActionId.AutoCollapseUnpinnedPanels,
       value,
       true
     );

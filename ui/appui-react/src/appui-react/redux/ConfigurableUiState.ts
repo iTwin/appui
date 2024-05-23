@@ -55,6 +55,7 @@ export interface ConfigurableUiState {
   useDragInteraction: boolean;
   /** @deprecated in 4.14.x. Use `widgetIcon` prop of {@link ConfigurableUiContent} instead. */
   showWidgetIcon: boolean;
+  /** @deprecated in 4.14.x. Use `collapsePanels` prop of {@link ConfigurableUiContent} instead. */
   autoCollapseUnpinnedPanels: boolean;
   /** @deprecated in 4.14.x. Use `viewOverlay` prop of {@link ConfigurableUiContent} instead. */
   viewOverlayDisplay: boolean;
