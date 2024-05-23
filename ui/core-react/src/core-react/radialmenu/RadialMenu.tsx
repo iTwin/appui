@@ -15,6 +15,7 @@ import { Icon } from "../icons/IconComponent";
 import { Point } from "../utils/Point";
 import type { CommonProps } from "../utils/Props";
 import { AnnularSector, Annulus } from "./Annulus";
+import type { ContextMenu } from "../contextmenu/ContextMenu";
 
 /* eslint-disable deprecation/deprecation */
 
@@ -53,7 +54,7 @@ interface RadialMenuState {
 
 /** A context menu arranged in a radial layout.
  * @public
- * @deprecated in 4.14.x. Use {@link https://itwinui.bentley.com/docs/dropdownmenu dropdown menu} instead.
+ * @deprecated in 4.14.x. Use {@link ContextMenu} or {@link https://itwinui.bentley.com/docs/dropdownmenu iTwinUI dropdown menu} instead.
  */
 export class RadialMenu extends React.Component<
   RadialMenuProps,
