@@ -37,6 +37,7 @@ export const ConfigurableUiContext = React.createContext<
     | "widgetIcon"
     | "collapsePanels"
     | "animateToolSettings"
+    | "toolAsToolSettingsLabel"
   >
 >({});
 
@@ -56,6 +57,8 @@ export interface ConfigurableUiContentProps extends CommonProps {
   collapsePanels?: boolean;
   /** Controls if the tool settings should be animated. Uses redux store as a fallback. Defaults to `false`. */
   animateToolSettings?: boolean;
+  /** Controls if the tool settings label should be set based on activated tool. Uses redux store as a fallback. Defaults to `false`. */
+  toolAsToolSettingsLabel?: boolean;
 
   /** @internal */
   idleTimeout?: number;
@@ -106,6 +109,7 @@ export function ConfigurableUiContent(props: ConfigurableUiContentProps) {
         widgetIcon: props.widgetIcon,
         collapsePanels: props.collapsePanels,
         animateToolSettings: props.animateToolSettings,
+        toolAsToolSettingsLabel: props.toolAsToolSettingsLabel,
       }}
     >
       <main

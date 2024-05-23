@@ -47,11 +47,8 @@ export interface FrameworkState {
     | "showWidgetIcon"
     | "autoCollapseUnpinnedPanels"
     | "animateToolSettings"
+    | "useToolAsToolSettingsLabel"
   > & {
-    setUseToolAsToolSettingsLabel: (
-      useToolAsToolSettingsLabel: boolean,
-      args?: ActionArgs
-    ) => void;
     setToolbarOpacity: (opacity: number, args?: ActionArgs) => void;
   };
   session: Omit<
@@ -95,26 +92,6 @@ export const useFrameworkStore: UseBoundStore<StoreApi<FrameworkState>> =
     return {
       configurableUi: {
         ...initialState.configurableUiState,
-        setUseToolAsToolSettingsLabel: (
-          useToolAsToolSettingsLabel: boolean,
-          args?: ActionArgs
-        ) => {
-          const frameworkState = get();
-          if (
-            frameworkState.configurableUi.useToolAsToolSettingsLabel ===
-            useToolAsToolSettingsLabel
-          )
-            return;
-          set((state) =>
-            produce(state, (draft) => {
-              draft.configurableUi.useToolAsToolSettingsLabel =
-                useToolAsToolSettingsLabel;
-            })
-          );
-          handleArgs(args, {
-            eventId: ConfigurableUiActionId.UseToolAsToolSettingsLabel,
-          });
-        },
         setToolbarOpacity: (opacity: number, args?: ActionArgs) => {
           const frameworkState = get();
           if (frameworkState.configurableUi.toolbarOpacity === opacity) return;

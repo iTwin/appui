@@ -61,6 +61,7 @@ export interface ConfigurableUiState {
   viewOverlayDisplay: boolean;
   /** @deprecated in 4.14.x. Use `animateToolSettings` prop of {@link ConfigurableUiContent} instead. */
   animateToolSettings: boolean;
+  /** @deprecated in 4.14.x. Use `animateToolSettings` prop of {@link ConfigurableUiContent} instead. */
   useToolAsToolSettingsLabel: boolean;
   toolbarOpacity: number;
 }

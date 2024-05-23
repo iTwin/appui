@@ -776,17 +776,6 @@ export class UiFramework {
     return ProcessDetector.isMobileBrowser;
   }
 
-  /** Use Tool Name As Tool Settings Widget Tab Label */
-  public static get useToolAsToolSettingsLabel(): boolean {
-    return UiFramework.state.configurableUi.useToolAsToolSettingsLabel;
-  }
-
-  public static setUseToolAsToolSettingsLabel(value: boolean) {
-    UiFramework.state.configurableUi.setUseToolAsToolSettingsLabel(value, {
-      immediateSync: true,
-    });
-  }
-
   /** Determines whether a ContextMenu is open
    * @alpha
    */
@@ -1384,6 +1373,30 @@ export class UiFramework {
     if (UiFramework.animateToolSettings === value) return;
     UiFramework.dispatchActionToStore(
       ConfigurableUiActionId.AnimateToolSettings,
+      value,
+      true
+    );
+  }
+
+  /** Use Tool Name As Tool Settings Widget Tab Label.
+   * @note Requires redux provider.
+   * @deprecated in 4.14.x. Components should take `toolAsToolSettingsLabel` as a prop.
+   */
+  public static get useToolAsToolSettingsLabel(): boolean {
+    return (
+      UiFramework.frameworkState?.configurableUiState
+        .useToolAsToolSettingsLabel ?? false
+    );
+  }
+
+  /**
+   * @note Requires redux provider.
+   * @deprecated in 4.14.x. Use {@link ConfigurableUiContentProps.toolAsToolSettingsLabel} prop of {@link ConfigurableUiContent}.
+   */
+  public static setUseToolAsToolSettingsLabel(value: boolean) {
+    if (UiFramework.useToolAsToolSettingsLabel === value) return;
+    UiFramework.dispatchActionToStore(
+      ConfigurableUiActionId.UseToolAsToolSettingsLabel,
       value,
       true
     );
