@@ -46,6 +46,8 @@ export interface ToolbarProps extends CommonProps, NoChildrenProps {
   useDragInteraction?: boolean;
   /** Determines whether to use mouse proximity to alter the opacity of the toolbar */
   toolbarOpacitySetting?: ToolbarOpacitySetting;
+  /** Describes the opacity of a toolbar. Defaults to {@link TOOLBAR_OPACITY_DEFAULT}. */
+  opacity?: number;
   /** Optional function to call on any item execution */
   onItemExecuted?: OnItemExecutedFunc;
   /** Optional function to call on any KeyDown events processed by toolbar */

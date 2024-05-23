@@ -49,7 +49,7 @@ export interface ConfigurableUiContentProps extends CommonProps {
   appBackstage?: React.ReactNode;
   /** Controls if the view overlay should be displayed. Uses redux store as a fallback. Defaults to `true`. */
   viewOverlay?: boolean;
-  /** Controls if the view overlay should be displayed. Uses redux store as a fallback. Defaults to {@link WIDGET_OPACITY_DEFAULT}. */
+  /** Describes the opacity of widgets. Uses redux store as a fallback. Defaults to {@link WIDGET_OPACITY_DEFAULT}. */
   widgetOpacity?: number;
   /** Controls if the widget icons should be displayed. Uses redux store as a fallback. Defaults to `true`. */
   widgetIcon?: boolean;

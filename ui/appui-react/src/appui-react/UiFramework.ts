@@ -82,6 +82,7 @@ import { useFrameworkStore } from "./uistate/useFrameworkStore";
 import {
   SYSTEM_PREFERRED_COLOR_THEME,
   type ThemeId,
+  TOOLBAR_OPACITY_DEFAULT,
   WIDGET_OPACITY_DEFAULT,
 } from "./theme/ThemeId";
 import { useFrameworkState } from "./uistate/useFrameworkState";
@@ -756,20 +757,6 @@ export class UiFramework {
     }
   }
 
-  /** UiFramework.setToolbarOpacity() sets the non-hovered opacity to the value specified.
-   * @param opacity a value between 0 and 1. The default value is 0.5. IT IS NOT ADVISED TO USE A VALUE BELOW 0.2
-   */
-  public static setToolbarOpacity(opacity: number) {
-    UiFramework.state.configurableUi.setToolbarOpacity(opacity, {
-      immediateSync: true,
-    });
-  }
-
-  /** UiFramework.getToolbarOpacity() returns a number between 0 and 1 that is the non-hovered opacity for toolbars. */
-  public static getToolbarOpacity(): number {
-    return UiFramework.state.configurableUi.toolbarOpacity;
-  }
-
   /** @deprecated in 4.13.x. Use {@link @itwin/core-bentley#ProcessDetector.isMobileBrowser} instead. */
   // eslint-disable-next-line @itwin/prefer-get
   public static isMobile() {
@@ -1398,6 +1385,32 @@ export class UiFramework {
     UiFramework.dispatchActionToStore(
       ConfigurableUiActionId.UseToolAsToolSettingsLabel,
       value,
+      true
+    );
+  }
+
+  /** UiFramework.getToolbarOpacity() returns a number between 0 and 1 that is the non-hovered opacity for toolbars.
+   * @note Requires redux provider.
+   * @deprecated in 4.14.x. Components should take `opacity` as a prop.
+   */
+  public static getToolbarOpacity(): number {
+    return (
+      UiFramework.frameworkState?.configurableUiState.toolbarOpacity ??
+      TOOLBAR_OPACITY_DEFAULT
+    );
+  }
+
+  /** UiFramework.setToolbarOpacity() sets the non-hovered opacity to the value specified.
+   * @param opacity a value between 0 and 1. The default value is 0.5. IT IS NOT ADVISED TO USE A VALUE BELOW 0.2
+   * @note Requires redux provider.
+   * @deprecated in 4.14.x. Use `opacity` prop of {@link Toolbar}.
+   */
+  public static setToolbarOpacity(opacity: number) {
+    if (UiFramework.getToolbarOpacity() === opacity) return;
+
+    UiFramework.dispatchActionToStore(
+      ConfigurableUiActionId.SetToolbarOpacity,
+      opacity,
       true
     );
   }

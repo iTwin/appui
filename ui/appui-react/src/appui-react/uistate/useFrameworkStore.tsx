@@ -9,10 +9,6 @@
 import produce, { castDraft } from "immer";
 import type { StoreApi, UseBoundStore } from "zustand";
 import { create } from "zustand";
-import {
-  ConfigurableUiActionId,
-  type ConfigurableUiState,
-} from "../redux/ConfigurableUiState";
 import { createFrameworkState } from "../redux/FrameworkState";
 import type {
   CursorMenuData,
@@ -35,22 +31,6 @@ interface ActionArgs {
  * @internal
  */
 export interface FrameworkState {
-  configurableUi: Omit<
-    // eslint-disable-next-line deprecation/deprecation
-    ConfigurableUiState,
-    | "theme"
-    | "viewOverlayDisplay"
-    | "toolPrompt"
-    | "widgetOpacity"
-    | "snapMode"
-    | "useDragInteraction"
-    | "showWidgetIcon"
-    | "autoCollapseUnpinnedPanels"
-    | "animateToolSettings"
-    | "useToolAsToolSettingsLabel"
-  > & {
-    setToolbarOpacity: (opacity: number, args?: ActionArgs) => void;
-  };
   session: Omit<
     // eslint-disable-next-line deprecation/deprecation
     SessionState,
@@ -90,21 +70,6 @@ export const useFrameworkStore: UseBoundStore<StoreApi<FrameworkState>> =
   create<FrameworkState>((set, get) => {
     const initialState = createFrameworkState();
     return {
-      configurableUi: {
-        ...initialState.configurableUiState,
-        setToolbarOpacity: (opacity: number, args?: ActionArgs) => {
-          const frameworkState = get();
-          if (frameworkState.configurableUi.toolbarOpacity === opacity) return;
-          set((state) =>
-            produce(state, (draft) => {
-              draft.configurableUi.toolbarOpacity = opacity;
-            })
-          );
-          handleArgs(args, {
-            eventId: ConfigurableUiActionId.SetToolbarOpacity,
-          });
-        },
-      },
       session: {
         ...initialState.sessionState,
         setActiveIModelId: (iModelId: string, args?: ActionArgs) => {

@@ -63,6 +63,7 @@ export interface ConfigurableUiState {
   animateToolSettings: boolean;
   /** @deprecated in 4.14.x. Use `animateToolSettings` prop of {@link ConfigurableUiContent} instead. */
   useToolAsToolSettingsLabel: boolean;
+  /** @deprecated in 4.14.x. Use `opacity` prop of {@link Toolbar}. */
   toolbarOpacity: number;
 }
 
