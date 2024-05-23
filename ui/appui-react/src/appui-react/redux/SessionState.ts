@@ -70,7 +70,9 @@ export enum SessionStateActionId {
  */
 export interface SessionState {
   numItemsSelected: number;
+  /** @deprecated in 4.14.x. Use `selectionScopes` prop of {@link SelectionScopeField} instead. */
   availableSelectionScopes: PresentationSelectionScope[];
+  /** @deprecated in 4.14.x. Use `activeScope` prop of {@link SelectionScopeField} instead. */
   activeSelectionScope: string;
   /** @deprecated in 4.14.x. Not used by AppUI components. */
   iModelId: string;

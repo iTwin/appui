@@ -10,11 +10,7 @@ import produce from "immer";
 import type { StoreApi, UseBoundStore } from "zustand";
 import { create } from "zustand";
 import { createFrameworkState } from "../redux/FrameworkState";
-import type {
-  CursorMenuData,
-  CursorMenuPayload,
-  PresentationSelectionScope,
-} from "../redux/SessionState";
+import type { CursorMenuData, CursorMenuPayload } from "../redux/SessionState";
 import { type SessionState, SessionStateActionId } from "../redux/SessionState";
 import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
 
@@ -33,19 +29,16 @@ export interface FrameworkState {
   session: Omit<
     // eslint-disable-next-line deprecation/deprecation
     SessionState,
-    "defaultViewState" | "iModelConnection" | "numItemsSelected" | "iModelId"
+    | "defaultViewState"
+    | "iModelConnection"
+    | "numItemsSelected"
+    | "iModelId"
+    | "availableSelectionScopes"
+    | "activeSelectionScope"
   > & {
-    setAvailableSelectionScopes: (
-      availableSelectionScopes: PresentationSelectionScope[],
-      args?: ActionArgs
-    ) => void;
     setDefaultViewId: (viewId: string, args?: ActionArgs) => void;
     setDefaultIModelViewportControlId: (
       iModelViewportControlId: string,
-      args?: ActionArgs
-    ) => void;
-    setSelectionScope: (
-      activeSelectionScope: string,
       args?: ActionArgs
     ) => void;
     updateCursorMenu: (
@@ -65,25 +58,6 @@ export const useFrameworkStore: UseBoundStore<StoreApi<FrameworkState>> =
     return {
       session: {
         ...initialState.sessionState,
-        setAvailableSelectionScopes: (
-          availableSelectionScopes: PresentationSelectionScope[],
-          args?: ActionArgs
-        ) => {
-          const frameworkState = get();
-          if (
-            frameworkState.session.availableSelectionScopes ===
-            availableSelectionScopes
-          )
-            return;
-          set((state) =>
-            produce(state, (draft) => {
-              draft.session.availableSelectionScopes = availableSelectionScopes;
-            })
-          );
-          handleArgs(args, {
-            eventId: SessionStateActionId.SetAvailableSelectionScopes,
-          });
-        },
         setDefaultViewId: (viewId: string, args?: ActionArgs) => {
           const frameworkState = get();
           if (frameworkState.session.defaultViewId === viewId) return;
@@ -114,24 +88,6 @@ export const useFrameworkStore: UseBoundStore<StoreApi<FrameworkState>> =
           );
           handleArgs(args, {
             eventId: SessionStateActionId.SetDefaultIModelViewportControlId,
-          });
-        },
-        setSelectionScope: (
-          activeSelectionScope: string,
-          args?: ActionArgs
-        ) => {
-          const frameworkState = get();
-          if (
-            frameworkState.session.activeSelectionScope === activeSelectionScope
-          )
-            return;
-          set((state) =>
-            produce(state, (draft) => {
-              draft.session.activeSelectionScope = activeSelectionScope;
-            })
-          );
-          handleArgs(args, {
-            eventId: SessionStateActionId.SetSelectionScope,
           });
         },
         updateCursorMenu: (

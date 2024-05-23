@@ -478,29 +478,6 @@ export class UiFramework {
     dispatchSyncUiEvent(type, immediateSync);
   }
 
-  /** Returns the stored active selection scope id. */
-  public static getActiveSelectionScope(): string {
-    return UiFramework.state.session.activeSelectionScope;
-  }
-
-  /** This method stores the active selection scope to the supplied scope id, and triggers
-   * a `SessionStateActionId.SetSelectionScope` event in the `SyncUiEventDispatcher`.
-   * Note: As of 4.0, this method *does not change* the active selection scope in the `Presentation.selection.scopes.activeScope` property.
-   * This event should be listened to and the change should typically be applied to
-   * `Presentation.selection.scopes.activeScope` property from the `@itwin/presentation-frontend` package.
-   */
-  public static setActiveSelectionScope(selectionScopeId: string): void {
-    const state = UiFramework.state;
-    const foundIndex = state.session.availableSelectionScopes.findIndex(
-      (selectionScope) => selectionScope.id === selectionScopeId
-    );
-    if (foundIndex < 0) {
-      return;
-    }
-
-    state.session.setSelectionScope(selectionScopeId);
-  }
-
   /** Show a context menu at a particular location.
    * @param items Properties of the menu items to display.
    * @param location Location of the context menu, relative to the origin of anchorElement or the overall window.
@@ -748,16 +725,6 @@ export class UiFramework {
       return frameworkState.sessionState.defaultViewState;
     }
     return globalState.viewState;
-  }
-
-  /** Returns the stored list of available selection scopes. This list should be set by the application
-   * by dispatching the `setAvailableSelectionScopes` action.
-   * The value for this action typically come from `Presentation.selection.scopes.getSelectionScopes()`
-   * method found in the `@itwin/presentation-frontend` package.
-   * @note Returned value is immutable.
-   */
-  public static getAvailableSelectionScopes(): PresentationSelectionScope[] {
-    return castDraft(UiFramework.state.session.availableSelectionScopes);
   }
 
   public static getIsUiVisible() {
@@ -1445,6 +1412,56 @@ export class UiFramework {
     UiFramework.dispatchActionToStore(
       SessionStateActionId.SetActiveIModelId,
       iModelId
+    );
+  }
+
+  /** Returns the stored active selection scope id.
+   * @note Requires redux provider.
+   * @deprecated in 4.14.x. Components should take `activeScope` as a prop.
+   */
+  public static getActiveSelectionScope(): string {
+    return (
+      UiFramework.frameworkState?.sessionState.activeSelectionScope ?? "element"
+    );
+  }
+
+  /** This method stores the active selection scope to the supplied scope id, and triggers
+   * a `SessionStateActionId.SetSelectionScope` event in the `SyncUiEventDispatcher`.
+   * Note: As of 4.0, this method *does not change* the active selection scope in the `Presentation.selection.scopes.activeScope` property.
+   * This event should be listened to and the change should typically be applied to
+   * `Presentation.selection.scopes.activeScope` property from the `@itwin/presentation-frontend` package.
+   * @note Requires redux provider.
+   * @deprecated in 4.14.x. Use `activeScope` prop of {@link SelectionScopeField}.
+   */
+  public static setActiveSelectionScope(selectionScopeId: string): void {
+    if (!UiFramework.frameworkState) return;
+
+    const foundIndex =
+      UiFramework.frameworkState.sessionState.availableSelectionScopes.findIndex(
+        (selectionScope: PresentationSelectionScope) =>
+          selectionScope.id === selectionScopeId
+      );
+    if (foundIndex < 0) return;
+
+    UiFramework.dispatchActionToStore(
+      SessionStateActionId.SetSelectionScope,
+      selectionScopeId
+    );
+  }
+
+  /** Returns the stored list of available selection scopes. This list should be set by the application
+   * by dispatching the `setAvailableSelectionScopes` action.
+   * The value for this action typically come from `Presentation.selection.scopes.getSelectionScopes()`
+   * method found in the `@itwin/presentation-frontend` package.
+   * @note Returned value is immutable.
+   * @note Requires redux provider.
+   * @deprecated in 4.14.x. Components should take `selectionScopes` as a prop.
+   */
+  public static getAvailableSelectionScopes(): PresentationSelectionScope[] {
+    return (
+      UiFramework.frameworkState?.sessionState.availableSelectionScopes ?? [
+        { id: "element", label: "Element" },
+      ]
     );
   }
 
