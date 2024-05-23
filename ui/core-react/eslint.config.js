@@ -18,4 +18,10 @@ module.exports = [
       ...prettierConfig.rules,
     },
   },
+  {
+    files: ["src/test/**/*.{ts,tsx}"],
+    rules: {
+      "deprecation/deprecation": "off",
+    },
+  },
 ];
