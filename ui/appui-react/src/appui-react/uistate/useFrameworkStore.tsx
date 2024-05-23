@@ -35,9 +35,11 @@ interface ActionArgs {
  * @internal
  */
 export interface FrameworkState {
-  // eslint-disable-next-line deprecation/deprecation
-  configurableUi: Omit<ConfigurableUiState, "theme" | "viewOverlayDisplay"> & {
-    setToolPrompt: (toolPrompt: string, args?: ActionArgs) => void;
+  configurableUi: Omit<
+    // eslint-disable-next-line deprecation/deprecation
+    ConfigurableUiState,
+    "theme" | "viewOverlayDisplay" | "toolPrompt"
+  > & {
     setWidgetOpacity: (opacity: number, args?: ActionArgs) => void;
     setSnapMode: (snapMode: number, args?: ActionArgs) => void;
     setDragInteraction: (dragInteraction: boolean, args?: ActionArgs) => void;
@@ -97,18 +99,6 @@ export const useFrameworkStore: UseBoundStore<StoreApi<FrameworkState>> =
     return {
       configurableUi: {
         ...initialState.configurableUiState,
-        setToolPrompt: (toolPrompt, args) => {
-          const frameworkState = get();
-          if (frameworkState.configurableUi.toolPrompt === toolPrompt) return;
-          set((state) =>
-            produce(state, (draft) => {
-              draft.configurableUi.toolPrompt = toolPrompt;
-            })
-          );
-          handleArgs(args, {
-            eventId: ConfigurableUiActionId.SetToolPrompt,
-          });
-        },
         setWidgetOpacity: (opacity: number, args?: ActionArgs) => {
           const frameworkState = get();
           if (frameworkState.configurableUi.widgetOpacity === opacity) return;

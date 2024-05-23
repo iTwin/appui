@@ -44,6 +44,7 @@ import {
 } from "@itwin/itwinui-icons-react";
 import type { useToaster } from "@itwin/itwinui-react";
 import { BeUiEvent } from "@itwin/core-bentley";
+import { ConfigurableUiActionId } from "../redux/ConfigurableUiState";
 
 type Toaster = ReturnType<typeof useToaster>;
 type ToasterSettings = Parameters<Toaster["setSettings"]>;
@@ -550,9 +551,16 @@ export class MessageManager {
 
   /** Output a prompt to the user. A 'prompt' indicates an action the user should take to proceed. */
   public static outputPrompt(prompt: string): void {
-    UiFramework.state.configurableUi.setToolPrompt(prompt, {
-      immediateSync: true,
-    });
+    // eslint-disable-next-line deprecation/deprecation
+    if (UiFramework.frameworkState) {
+      // eslint-disable-next-line deprecation/deprecation
+      UiFramework.dispatchActionToStore(
+        ConfigurableUiActionId.SetToolPrompt,
+        prompt,
+        true
+      );
+      return;
+    }
   }
 
   /** Extracts the message severity from the message details and returns the corresponding React icon.

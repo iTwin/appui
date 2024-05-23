@@ -44,6 +44,7 @@ export enum ConfigurableUiActionId {
  */
 export interface ConfigurableUiState {
   snapMode: number;
+  /** @deprecated in 4.14.x. Not used by AppUI components. */
   toolPrompt: string;
   /** @deprecated in 4.14.x. Use `theme` prop of {@link ThemeManager} instead. */
   theme: string;
