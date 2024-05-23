@@ -19,7 +19,7 @@ Table of contents:
 - Updated `VirtualizedPropertyGrid` component [#849](https://github.com/iTwin/appui/pull/849):
   - Enable user selection for property records
   - Display browser context menu on property records if `onPropertyContextMenu` and `isPropertySelectionOnRightClickEnabled` props are not set
-  - Increased area of an element selector to avoid column overlap
+  - Increased area of an element separator to avoid column overlap
 
 ## @itwin/core-react
 
