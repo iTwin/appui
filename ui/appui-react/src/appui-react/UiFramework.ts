@@ -825,16 +825,6 @@ export class UiFramework {
     });
   }
 
-  public static get useDragInteraction(): boolean {
-    return UiFramework.state.configurableUi.useDragInteraction;
-  }
-
-  public static setUseDragInteraction(useDragInteraction: boolean) {
-    UiFramework.state.configurableUi.setDragInteraction(useDragInteraction, {
-      immediateSync: true,
-    });
-  }
-
   /** Determines whether a ContextMenu is open
    * @alpha
    */
@@ -1334,6 +1324,29 @@ export class UiFramework {
     UiFramework.dispatchActionToStore(
       ConfigurableUiActionId.SetSnapMode,
       snapMode,
+      true
+    );
+  }
+
+  /**
+   * @note Requires redux provider.
+   * @deprecated in 4.14.x. Components should take `useDragInteraction` as a prop.
+   */
+  public static get useDragInteraction(): boolean {
+    return (
+      UiFramework.frameworkState?.configurableUiState.useDragInteraction ??
+      false
+    );
+  }
+
+  /**
+   * @note Requires redux provider.
+   * @deprecated in 4.14.x. Use `useDragInteraction` prop of {@link Toolbar}.
+   */
+  public static setUseDragInteraction(useDragInteraction: boolean) {
+    UiFramework.dispatchActionToStore(
+      ConfigurableUiActionId.SetDragInteraction,
+      useDragInteraction,
       true
     );
   }

@@ -38,9 +38,13 @@ export interface FrameworkState {
   configurableUi: Omit<
     // eslint-disable-next-line deprecation/deprecation
     ConfigurableUiState,
-    "theme" | "viewOverlayDisplay" | "toolPrompt" | "widgetOpacity" | "snapMode"
+    | "theme"
+    | "viewOverlayDisplay"
+    | "toolPrompt"
+    | "widgetOpacity"
+    | "snapMode"
+    | "useDragInteraction"
   > & {
-    setDragInteraction: (dragInteraction: boolean, args?: ActionArgs) => void;
     setShowWidgetIcon: (showWidgetIcon: boolean, args?: ActionArgs) => void;
     setAutoCollapseUnpinnedPanels: (
       autoCollapse: boolean,
@@ -97,21 +101,6 @@ export const useFrameworkStore: UseBoundStore<StoreApi<FrameworkState>> =
     return {
       configurableUi: {
         ...initialState.configurableUiState,
-        setDragInteraction: (dragInteraction: boolean, args?: ActionArgs) => {
-          const frameworkState = get();
-          if (
-            frameworkState.configurableUi.useDragInteraction === dragInteraction
-          )
-            return;
-          set((state) =>
-            produce(state, (draft) => {
-              draft.configurableUi.useDragInteraction = dragInteraction;
-            })
-          );
-          handleArgs(args, {
-            eventId: ConfigurableUiActionId.SetDragInteraction,
-          });
-        },
         setShowWidgetIcon: (showWidgetIcon: boolean, args?: ActionArgs) => {
           const frameworkState = get();
           if (frameworkState.configurableUi.showWidgetIcon === showWidgetIcon)

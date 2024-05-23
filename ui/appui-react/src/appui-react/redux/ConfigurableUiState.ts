@@ -51,6 +51,7 @@ export interface ConfigurableUiState {
   theme: string;
   /** @deprecated in 4.14.x. Use {@link ConfigurableUiContentProps.widgetOpacity} prop of {@link ConfigurableUiContent} instead. */
   widgetOpacity: number;
+  /** @deprecated in 4.14.x. Use `useDragInteraction` prop of {@link Toolbar}. */
   useDragInteraction: boolean;
   showWidgetIcon: boolean;
   autoCollapseUnpinnedPanels: boolean;
