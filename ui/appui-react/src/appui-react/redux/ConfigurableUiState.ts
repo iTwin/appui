@@ -49,13 +49,14 @@ export interface ConfigurableUiState {
   toolPrompt: string;
   /** @deprecated in 4.14.x. Use `theme` prop of {@link ThemeManager} instead. */
   theme: string;
-  /** @deprecated in 4.14.x. Use {@link ConfigurableUiContentProps.widgetOpacity} prop of {@link ConfigurableUiContent} instead. */
+  /** @deprecated in 4.14.x. Use `widgetOpacity` prop of {@link ConfigurableUiContent} instead. */
   widgetOpacity: number;
   /** @deprecated in 4.14.x. Use `useDragInteraction` prop of {@link Toolbar}. */
   useDragInteraction: boolean;
+  /** @deprecated in 4.14.x. Use `widgetIcon` prop of {@link ConfigurableUiContent} instead. */
   showWidgetIcon: boolean;
   autoCollapseUnpinnedPanels: boolean;
-  /** @deprecated in 4.14.x. Use {@link ConfigurableUiContentProps.viewOverlay} prop of {@link ConfigurableUiContent} instead. */
+  /** @deprecated in 4.14.x. Use `viewOverlay` prop of {@link ConfigurableUiContent} instead. */
   viewOverlayDisplay: boolean;
   animateToolSettings: boolean;
   useToolAsToolSettingsLabel: boolean;

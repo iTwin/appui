@@ -30,7 +30,10 @@ import type { WIDGET_OPACITY_DEFAULT } from "../theme/ThemeId";
 
 /** @internal */
 export const ConfigurableUiContext = React.createContext<
-  Pick<ConfigurableUiContentProps, "viewOverlay" | "widgetOpacity">
+  Pick<
+    ConfigurableUiContentProps,
+    "viewOverlay" | "widgetOpacity" | "widgetIcon"
+  >
 >({});
 
 /** Properties for [[ConfigurableUiContent]]
@@ -43,6 +46,8 @@ export interface ConfigurableUiContentProps extends CommonProps {
   viewOverlay?: boolean;
   /** Controls if the view overlay should be displayed. Uses redux store as a fallback. Defaults to {@link WIDGET_OPACITY_DEFAULT}. */
   widgetOpacity?: number;
+  /** Controls if the widget icons should be displayed. Uses redux store as a fallback. Defaults to `true`. */
+  widgetIcon?: boolean;
 
   /** @internal */
   idleTimeout?: number;
@@ -90,6 +95,7 @@ export function ConfigurableUiContent(props: ConfigurableUiContentProps) {
       value={{
         viewOverlay: props.viewOverlay,
         widgetOpacity: props.widgetOpacity,
+        widgetIcon: props.widgetIcon,
       }}
     >
       <main

@@ -44,8 +44,8 @@ export interface FrameworkState {
     | "widgetOpacity"
     | "snapMode"
     | "useDragInteraction"
+    | "showWidgetIcon"
   > & {
-    setShowWidgetIcon: (showWidgetIcon: boolean, args?: ActionArgs) => void;
     setAutoCollapseUnpinnedPanels: (
       autoCollapse: boolean,
       args?: ActionArgs
@@ -101,19 +101,6 @@ export const useFrameworkStore: UseBoundStore<StoreApi<FrameworkState>> =
     return {
       configurableUi: {
         ...initialState.configurableUiState,
-        setShowWidgetIcon: (showWidgetIcon: boolean, args?: ActionArgs) => {
-          const frameworkState = get();
-          if (frameworkState.configurableUi.showWidgetIcon === showWidgetIcon)
-            return;
-          set((state) =>
-            produce(state, (draft) => {
-              draft.configurableUi.showWidgetIcon = showWidgetIcon;
-            })
-          );
-          handleArgs(args, {
-            eventId: ConfigurableUiActionId.SetShowWidgetIcon,
-          });
-        },
         setAutoCollapseUnpinnedPanels: (
           autoCollapse: boolean,
           args?: ActionArgs

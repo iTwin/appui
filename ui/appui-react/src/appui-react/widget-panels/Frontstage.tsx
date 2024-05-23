@@ -63,7 +63,11 @@ import { useCursor } from "../layout/widget-panels/CursorOverlay";
 import { WidgetPanelExpanders } from "../layout/widget-panels/Expander";
 import { useTranslation } from "../hooks/useTranslation";
 import { PopoutWidgets } from "../preview/reparent-popout-widgets/PopoutWidgets";
-import { useFrameworkState } from "../uistate/useFrameworkState";
+import {
+  useFrameworkState,
+  useReduxFrameworkState,
+} from "../uistate/useFrameworkState";
+import { ConfigurableUiContext } from "../configurableui/ConfigurableUiContent";
 
 function WidgetPanelsFrontstageComponent() {
   const activeModalFrontstageInfo = useActiveModalFrontstageInfo();
@@ -211,6 +215,7 @@ interface ActiveFrontstageDefProviderProps {
 export function ActiveFrontstageDefProvider({
   frontstageDef,
 }: ActiveFrontstageDefProviderProps) {
+  const configurableUi = React.useContext(ConfigurableUiContext);
   const dispatch = useNineZoneDispatch(frontstageDef);
   frontstageDef.dispatch = dispatch;
   const layout = useLayoutStore(frontstageDef);
@@ -223,11 +228,16 @@ export function ActiveFrontstageDefProvider({
   const frameworkState = useFrameworkState();
   assert(!!frameworkState);
   const {
-    showWidgetIcon,
     autoCollapseUnpinnedPanels,
     animateToolSettings,
     useToolAsToolSettingsLabel,
   } = frameworkState.configurableUi;
+  const reduxShowWidgetIcon = useReduxFrameworkState(
+    // eslint-disable-next-line deprecation/deprecation
+    (state) => state?.configurableUiState.showWidgetIcon
+  );
+  const showWidgetIcon =
+    configurableUi.widgetIcon ?? reduxShowWidgetIcon ?? true;
 
   useFrontstageManager(frontstageDef, useToolAsToolSettingsLabel);
 

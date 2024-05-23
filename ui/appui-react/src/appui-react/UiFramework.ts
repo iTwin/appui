@@ -776,16 +776,6 @@ export class UiFramework {
     return ProcessDetector.isMobileBrowser;
   }
 
-  public static get showWidgetIcon(): boolean {
-    return UiFramework.state.configurableUi.showWidgetIcon;
-  }
-
-  public static setShowWidgetIcon(value: boolean) {
-    UiFramework.state.configurableUi.setShowWidgetIcon(value, {
-      immediateSync: true,
-    });
-  }
-
   /** Animate Tool Settings on appear  */
   public static get animateToolSettings(): boolean {
     return UiFramework.state.configurableUi.animateToolSettings;
@@ -1347,6 +1337,30 @@ export class UiFramework {
     UiFramework.dispatchActionToStore(
       ConfigurableUiActionId.SetDragInteraction,
       useDragInteraction,
+      true
+    );
+  }
+
+  /**
+   * @note Requires redux provider.
+   * @deprecated in 4.14.x. Components should take `widgetIcon` as a prop.
+   */
+  public static get showWidgetIcon(): boolean {
+    return (
+      UiFramework.frameworkState?.configurableUiState.showWidgetIcon ?? false
+    );
+  }
+
+  /**
+   * @note Requires redux provider.
+   * @deprecated in 4.14.x. Use {@link ConfigurableUiContentProps.widgetIcon} prop of {@link ConfigurableUiContent}.
+   */
+  public static setShowWidgetIcon(value: boolean) {
+    if (UiFramework.showWidgetIcon === value) return;
+
+    UiFramework.dispatchActionToStore(
+      ConfigurableUiActionId.SetShowWidgetIcon,
+      value,
       true
     );
   }
