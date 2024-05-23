@@ -59,6 +59,7 @@ export interface ConfigurableUiState {
   autoCollapseUnpinnedPanels: boolean;
   /** @deprecated in 4.14.x. Use `viewOverlay` prop of {@link ConfigurableUiContent} instead. */
   viewOverlayDisplay: boolean;
+  /** @deprecated in 4.14.x. Use `animateToolSettings` prop of {@link ConfigurableUiContent} instead. */
   animateToolSettings: boolean;
   useToolAsToolSettingsLabel: boolean;
   toolbarOpacity: number;

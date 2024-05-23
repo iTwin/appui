@@ -776,17 +776,6 @@ export class UiFramework {
     return ProcessDetector.isMobileBrowser;
   }
 
-  /** Animate Tool Settings on appear  */
-  public static get animateToolSettings(): boolean {
-    return UiFramework.state.configurableUi.animateToolSettings;
-  }
-
-  public static setAnimateToolSettings(value: boolean) {
-    UiFramework.state.configurableUi.setAnimateToolSettings(value, {
-      immediateSync: true,
-    });
-  }
-
   /** Use Tool Name As Tool Settings Widget Tab Label */
   public static get useToolAsToolSettingsLabel(): boolean {
     return UiFramework.state.configurableUi.useToolAsToolSettingsLabel;
@@ -1371,6 +1360,30 @@ export class UiFramework {
 
     UiFramework.dispatchActionToStore(
       ConfigurableUiActionId.AutoCollapseUnpinnedPanels,
+      value,
+      true
+    );
+  }
+
+  /** Animate Tool Settings on appear.
+   * @note Requires redux provider.
+   * @deprecated in 4.14.x. Components should take `animateToolSettings` as a prop.
+   */
+  public static get animateToolSettings(): boolean {
+    return (
+      UiFramework.frameworkState?.configurableUiState.animateToolSettings ??
+      false
+    );
+  }
+
+  /**
+   * @note Requires redux provider.
+   * @deprecated in 4.14.x. Use {@link ConfigurableUiContentProps.animateToolSettings} prop of {@link ConfigurableUiContent}.
+   */
+  public static setAnimateToolSettings(value: boolean) {
+    if (UiFramework.animateToolSettings === value) return;
+    UiFramework.dispatchActionToStore(
+      ConfigurableUiActionId.AnimateToolSettings,
       value,
       true
     );

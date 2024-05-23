@@ -46,11 +46,8 @@ export interface FrameworkState {
     | "useDragInteraction"
     | "showWidgetIcon"
     | "autoCollapseUnpinnedPanels"
+    | "animateToolSettings"
   > & {
-    setAnimateToolSettings: (
-      animateToolSettings: boolean,
-      args?: ActionArgs
-    ) => void;
     setUseToolAsToolSettingsLabel: (
       useToolAsToolSettingsLabel: boolean,
       args?: ActionArgs
@@ -98,25 +95,6 @@ export const useFrameworkStore: UseBoundStore<StoreApi<FrameworkState>> =
     return {
       configurableUi: {
         ...initialState.configurableUiState,
-        setAnimateToolSettings: (
-          animateToolSettings: boolean,
-          args?: ActionArgs
-        ) => {
-          const frameworkState = get();
-          if (
-            frameworkState.configurableUi.animateToolSettings ===
-            animateToolSettings
-          )
-            return;
-          set((state) =>
-            produce(state, (draft) => {
-              draft.configurableUi.animateToolSettings = animateToolSettings;
-            })
-          );
-          handleArgs(args, {
-            eventId: ConfigurableUiActionId.AnimateToolSettings,
-          });
-        },
         setUseToolAsToolSettingsLabel: (
           useToolAsToolSettingsLabel: boolean,
           args?: ActionArgs

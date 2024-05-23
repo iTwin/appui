@@ -227,8 +227,7 @@ export function ActiveFrontstageDefProvider({
   const uiIsVisible = useUiVisibility();
   const frameworkState = useFrameworkState();
   assert(!!frameworkState);
-  const { animateToolSettings, useToolAsToolSettingsLabel } =
-    frameworkState.configurableUi;
+  const { useToolAsToolSettingsLabel } = frameworkState.configurableUi;
   const reduxShowWidgetIcon = useReduxFrameworkState(
     // eslint-disable-next-line deprecation/deprecation
     (state) => state?.configurableUiState.showWidgetIcon
@@ -237,10 +236,16 @@ export function ActiveFrontstageDefProvider({
     // eslint-disable-next-line deprecation/deprecation
     (state) => state?.configurableUiState.autoCollapseUnpinnedPanels
   );
+  const reduxAnimateToolSettings = useReduxFrameworkState(
+    // eslint-disable-next-line deprecation/deprecation
+    (state) => state?.configurableUiState.autoCollapseUnpinnedPanels
+  );
   const showWidgetIcon =
     configurableUi.widgetIcon ?? reduxShowWidgetIcon ?? true;
   const autoCollapseUnpinnedPanels =
     configurableUi.collapsePanels ?? reduxAutoCollapseUnpinnedPanels ?? false;
+  const animateToolSettings =
+    configurableUi.animateToolSettings ?? reduxAnimateToolSettings ?? false;
 
   useFrontstageManager(frontstageDef, useToolAsToolSettingsLabel);
 
