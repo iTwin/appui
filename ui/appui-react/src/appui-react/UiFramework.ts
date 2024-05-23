@@ -592,14 +592,6 @@ export class UiFramework {
     return session.cursorMenuPayload;
   }
 
-  public static getActiveIModelId(): string {
-    return UiFramework.state.session.iModelId;
-  }
-
-  public static setActiveIModelId(iModelId: string): void {
-    UiFramework.state.session.setActiveIModelId(iModelId);
-  }
-
   public static setIModelConnection(
     iModelConnection: IModelConnection | undefined,
     immediateSync = false
@@ -1434,6 +1426,25 @@ export class UiFramework {
       ConfigurableUiActionId.SetToolbarOpacity,
       opacity,
       true
+    );
+  }
+
+  /**
+   * @note Requires redux provider.
+   * @deprecated in 4.14.x. Get id from iModel connection.
+   */
+  public static getActiveIModelId(): string {
+    return UiFramework.frameworkState?.sessionState.iModelId ?? "";
+  }
+
+  /**
+   * @note Requires redux provider.
+   * @deprecated in 4.14.x. Not used by AppUI components.
+   */
+  public static setActiveIModelId(iModelId: string): void {
+    UiFramework.dispatchActionToStore(
+      SessionStateActionId.SetActiveIModelId,
+      iModelId
     );
   }
 

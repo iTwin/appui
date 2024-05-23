@@ -33,9 +33,8 @@ export interface FrameworkState {
   session: Omit<
     // eslint-disable-next-line deprecation/deprecation
     SessionState,
-    "defaultViewState" | "iModelConnection" | "numItemsSelected"
+    "defaultViewState" | "iModelConnection" | "numItemsSelected" | "iModelId"
   > & {
-    setActiveIModelId: (iModelId: string, args?: ActionArgs) => void;
     setAvailableSelectionScopes: (
       availableSelectionScopes: PresentationSelectionScope[],
       args?: ActionArgs
@@ -66,18 +65,6 @@ export const useFrameworkStore: UseBoundStore<StoreApi<FrameworkState>> =
     return {
       session: {
         ...initialState.sessionState,
-        setActiveIModelId: (iModelId: string, args?: ActionArgs) => {
-          const frameworkState = get();
-          if (frameworkState.session.iModelId === iModelId) return;
-          set((state) =>
-            produce(state, (draft) => {
-              draft.session.iModelId = iModelId;
-            })
-          );
-          handleArgs(args, {
-            eventId: SessionStateActionId.SetActiveIModelId,
-          });
-        },
         setAvailableSelectionScopes: (
           availableSelectionScopes: PresentationSelectionScope[],
           args?: ActionArgs

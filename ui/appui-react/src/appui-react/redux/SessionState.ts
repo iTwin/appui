@@ -72,6 +72,7 @@ export interface SessionState {
   numItemsSelected: number;
   availableSelectionScopes: PresentationSelectionScope[];
   activeSelectionScope: string;
+  /** @deprecated in 4.14.x. Not used by AppUI components. */
   iModelId: string;
   defaultIModelViewportControlId: string | undefined;
   defaultViewId: string | undefined;
