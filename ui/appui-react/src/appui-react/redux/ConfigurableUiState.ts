@@ -48,6 +48,7 @@ export interface ConfigurableUiState {
   toolPrompt: string;
   /** @deprecated in 4.14.x. Use `theme` prop of {@link ThemeManager} instead. */
   theme: string;
+  /** @deprecated in 4.14.x. Use {@link ConfigurableUiContentProps.widgetOpacity} prop of {@link ConfigurableUiContent} instead. */
   widgetOpacity: number;
   useDragInteraction: boolean;
   showWidgetIcon: boolean;

@@ -82,7 +82,11 @@ import type { ToolbarProps } from "./toolbar/Toolbar";
 import type { CursorMenuItemProps } from "./shared/MenuItem";
 import type { FrameworkState } from "./uistate/useFrameworkStore";
 import { useFrameworkStore } from "./uistate/useFrameworkStore";
-import { SYSTEM_PREFERRED_COLOR_THEME, type ThemeId } from "./theme/ThemeId";
+import {
+  SYSTEM_PREFERRED_COLOR_THEME,
+  type ThemeId,
+  WIDGET_OPACITY_DEFAULT,
+} from "./theme/ThemeId";
 import { useFrameworkState } from "./uistate/useFrameworkState";
 import { ConfigurableUiActionId } from "./redux/ConfigurableUiState";
 import type {
@@ -647,6 +651,7 @@ export class UiFramework {
     // eslint-disable-next-line deprecation/deprecation
     const frameworkState = UiFramework.frameworkState;
     if (frameworkState) {
+      // eslint-disable-next-line deprecation/deprecation
       return frameworkState.sessionState.iModelConnection;
     }
     return globalState.iModelConnection;
@@ -776,16 +781,6 @@ export class UiFramework {
   /** UiFramework.getToolbarOpacity() returns a number between 0 and 1 that is the non-hovered opacity for toolbars. */
   public static getToolbarOpacity(): number {
     return UiFramework.state.configurableUi.toolbarOpacity;
-  }
-
-  public static setWidgetOpacity(opacity: number) {
-    UiFramework.state.configurableUi.setWidgetOpacity(opacity, {
-      immediateSync: true,
-    });
-  }
-
-  public static getWidgetOpacity(): number {
-    return UiFramework.state.configurableUi.widgetOpacity;
   }
 
   /** @deprecated in 4.13.x. Use {@link @itwin/core-bentley#ProcessDetector.isMobileBrowser} instead. */
@@ -1286,6 +1281,7 @@ export class UiFramework {
   }
 
   /** Set the variable that controls display of the view overlay. Applies to all viewports in the app.
+   * @note Requires redux provider.
    * @deprecated in 4.14.x. Use {@link ConfigurableUiContentProps.viewOverlay} prop of {@link ConfigurableUiContent}.
    */
   public static setViewOverlayDisplay(display: boolean) {
@@ -1298,11 +1294,37 @@ export class UiFramework {
   }
 
   /** Returns the variable controlling whether the overlay is displayed in a Viewport.
+   * @note Requires redux provider.
    * @deprecated in 4.14.x. Components should take `viewOverlay` as a prop.
    */
   public static get viewOverlayDisplay() {
     return (
       UiFramework.frameworkState?.configurableUiState.viewOverlayDisplay ?? true
+    );
+  }
+
+  /**
+   * @note Requires redux provider.
+   * @deprecated in 4.14.x. Use {@link ConfigurableUiContentProps.widgetOpacity} prop of {@link ConfigurableUiContent}.
+   */
+  public static setWidgetOpacity(opacity: number) {
+    if (UiFramework.getWidgetOpacity() === opacity) return;
+
+    UiFramework.dispatchActionToStore(
+      ConfigurableUiActionId.SetWidgetOpacity,
+      opacity,
+      true
+    );
+  }
+
+  /**
+   * @note Requires redux provider.
+   * @deprecated in 4.14.x. Components should take `widgetOpacity` as a prop.
+   */
+  public static getWidgetOpacity(): number {
+    return (
+      UiFramework.frameworkState?.configurableUiState.widgetOpacity ??
+      WIDGET_OPACITY_DEFAULT
     );
   }
 

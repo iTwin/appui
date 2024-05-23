@@ -26,13 +26,12 @@ import { ContentDialogRenderer } from "../dialog/ContentDialogManager";
 import { UiFramework } from "../UiFramework";
 import { InternalConfigurableUiManager } from "./InternalConfigurableUiManager";
 import { MessageRenderer } from "../messages/MessageRenderer";
+import type { WIDGET_OPACITY_DEFAULT } from "../theme/ThemeId";
 
 /** @internal */
-export const ConfigurableUiContext = React.createContext<{
-  viewOverlay: boolean | undefined;
-}>({
-  viewOverlay: undefined,
-});
+export const ConfigurableUiContext = React.createContext<
+  Pick<ConfigurableUiContentProps, "viewOverlay" | "widgetOpacity">
+>({});
 
 /** Properties for [[ConfigurableUiContent]]
  * @public
@@ -42,6 +41,8 @@ export interface ConfigurableUiContentProps extends CommonProps {
   appBackstage?: React.ReactNode;
   /** Controls if the view overlay should be displayed. Uses redux store as a fallback. Defaults to `true`. */
   viewOverlay?: boolean;
+  /** Controls if the view overlay should be displayed. Uses redux store as a fallback. Defaults to {@link WIDGET_OPACITY_DEFAULT}. */
+  widgetOpacity?: number;
 
   /** @internal */
   idleTimeout?: number;
@@ -88,6 +89,7 @@ export function ConfigurableUiContent(props: ConfigurableUiContentProps) {
     <ConfigurableUiContext.Provider
       value={{
         viewOverlay: props.viewOverlay,
+        widgetOpacity: props.widgetOpacity,
       }}
     >
       <main
