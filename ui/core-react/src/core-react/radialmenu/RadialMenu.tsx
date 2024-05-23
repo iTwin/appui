@@ -16,8 +16,11 @@ import { Point } from "../utils/Point";
 import type { CommonProps } from "../utils/Props";
 import { AnnularSector, Annulus } from "./Annulus";
 
+/* eslint-disable deprecation/deprecation */
+
 /** Properties for [[RadialMenu]]
  * @public
+ * @deprecated in 4.14.x. Props of deprecated component {@link RadialMenu}.
  */
 export interface RadialMenuProps extends CommonProps {
   /** Whether to show RadialMenu */
@@ -48,9 +51,9 @@ interface RadialMenuState {
   sectors: AnnularSector[];
 }
 
-/**
- * A context menu arranged in a radial layout.
+/** A context menu arranged in a radial layout.
  * @public
+ * @deprecated in 4.14.x. Use {@link https://itwinui.bentley.com/docs/dropdownmenu dropdown menu} instead.
  */
 export class RadialMenu extends React.Component<
   RadialMenuProps,
@@ -208,6 +211,7 @@ export class RadialMenu extends React.Component<
 
 /** Properties for [[RadialButton]] component
  * @public
+ * @deprecated in 4.14.x. Props of deprecated component {@link RadialButton}.
  */
 export interface RadialButtonProps extends CommonProps {
   /** Whether label is rotated to radial menu. Default: Inherit */
@@ -224,14 +228,13 @@ export interface RadialButtonProps extends CommonProps {
   children?: React.ReactNode;
 }
 
-/** @internal */
 interface RadialButtonState {
   hover: boolean;
 }
 
-/**
- * Button for use within a [[RadialMenu]]
+/** Button for use within a [[RadialMenu]]
  * @public
+ * @deprecated in 4.14.x. Component used in a deprecated component {@link RadialMenu}.
  */
 export class RadialButton extends React.Component<
   RadialButtonProps,
