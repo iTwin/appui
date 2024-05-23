@@ -11,10 +11,6 @@
   justify-content: center;
 }
 
-.components-virtualized-property-grid {
-  user-select: none;
-}
-
 .components-property-grid-wrapper {
   @include uicore-touch-scrolling;
   @include uicore-scrollbar();

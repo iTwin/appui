@@ -194,7 +194,9 @@ export class PropertyGridEventsRelatedPropsSupplier extends React.Component<
       onPropertyRightClicked: this._isRightClickSupported()
         ? this._onPropertyRightClicked
         : undefined,
-      onPropertyContextMenu: this._onPropertyContextMenu,
+      onPropertyContextMenu: this.props.onPropertyContextMenu
+        ? this._onPropertyContextMenu
+        : undefined,
     };
 
     return (

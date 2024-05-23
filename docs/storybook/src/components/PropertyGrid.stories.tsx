@@ -66,6 +66,7 @@ export const Basic: Story = {
       }),
       onDataChanged: new PropertyDataChangeEvent(),
     },
+    onPropertyContextMenu: undefined,
   },
 };
 
