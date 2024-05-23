@@ -7,8 +7,6 @@ import * as React from "react";
 import { Centered } from "../../core-react";
 import { classesFromElement } from "../TestUtils";
 
-/* eslint-disable deprecation/deprecation */
-
 describe("<Centered />", () => {
   it("content renders correctly", () => {
     render(<Centered>Test content</Centered>);

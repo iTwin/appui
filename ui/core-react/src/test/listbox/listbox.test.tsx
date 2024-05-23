@@ -9,8 +9,6 @@ import { fireEvent, render } from "@testing-library/react";
 import type { ListboxValue } from "../../core-react/listbox/Listbox";
 import { Listbox, ListboxItem } from "../../core-react/listbox/Listbox";
 
-/* eslint-disable deprecation/deprecation */
-
 describe("<ListBox />", () => {
   const listItems = [
     "London",

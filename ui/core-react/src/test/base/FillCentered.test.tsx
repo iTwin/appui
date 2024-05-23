@@ -7,8 +7,6 @@ import * as React from "react";
 import { FillCentered } from "../../core-react";
 import { classesFromElement } from "../TestUtils";
 
-/* eslint-disable deprecation/deprecation */
-
 describe("<FillCentered />", () => {
   it("has correct text", () => {
     render(<FillCentered>Test content</FillCentered>);

@@ -7,8 +7,6 @@ import * as React from "react";
 import { InputLabel, InputStatus } from "../../core-react";
 import { classesFromElement } from "../TestUtils";
 
-/* eslint-disable deprecation/deprecation */
-
 describe("<InputLabel />", () => {
   it("renders correctly", () => {
     render(
