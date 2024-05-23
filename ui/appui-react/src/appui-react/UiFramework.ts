@@ -148,6 +148,7 @@ type OptionalShowComponentParams = [
 const globalState = {
   numItemsSelected: 0,
   iModelConnection: undefined as IModelConnection | undefined,
+  viewState: undefined as ViewState | undefined,
 };
 
 /** Main entry point to configure and interact with the features provided by the AppUi-react package.
@@ -729,11 +730,32 @@ export class UiFramework {
     viewState: ViewState,
     immediateSync = false
   ) {
-    UiFramework.state.session.setDefaultViewState(viewState, { immediateSync });
+    // eslint-disable-next-line deprecation/deprecation
+    if (UiFramework.frameworkState) {
+      // eslint-disable-next-line deprecation/deprecation
+      UiFramework.dispatchActionToStore(
+        SessionStateActionId.SetDefaultViewState,
+        viewState,
+        immediateSync
+      );
+      return;
+    }
+
+    globalState.viewState = viewState;
+    dispatchSyncUiEvent(
+      SessionStateActionId.SetDefaultViewState,
+      immediateSync
+    );
   }
 
   public static getDefaultViewState(): ViewState | undefined {
-    return UiFramework.state.session.defaultViewState;
+    // eslint-disable-next-line deprecation/deprecation
+    const frameworkState = UiFramework.frameworkState;
+    if (frameworkState) {
+      // eslint-disable-next-line deprecation/deprecation
+      return frameworkState.sessionState.defaultViewState;
+    }
+    return globalState.viewState;
   }
 
   /** Returns the stored list of available selection scopes. This list should be set by the application

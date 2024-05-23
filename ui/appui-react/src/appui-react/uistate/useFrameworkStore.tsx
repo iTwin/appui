@@ -6,7 +6,7 @@
  * @module State
  */
 
-import produce, { castDraft } from "immer";
+import produce from "immer";
 import type { StoreApi, UseBoundStore } from "zustand";
 import { create } from "zustand";
 import { createFrameworkState } from "../redux/FrameworkState";
@@ -17,7 +17,6 @@ import type {
 } from "../redux/SessionState";
 import { type SessionState, SessionStateActionId } from "../redux/SessionState";
 import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
-import type { ViewState } from "@itwin/core-frontend";
 
 interface ActionArgs {
   /** Defaults to `false`. */
@@ -36,7 +35,6 @@ export interface FrameworkState {
     SessionState,
     "defaultViewState" | "iModelConnection" | "numItemsSelected"
   > & {
-    defaultViewState: ViewState | undefined;
     setActiveIModelId: (iModelId: string, args?: ActionArgs) => void;
     setAvailableSelectionScopes: (
       availableSelectionScopes: PresentationSelectionScope[],
@@ -45,10 +43,6 @@ export interface FrameworkState {
     setDefaultViewId: (viewId: string, args?: ActionArgs) => void;
     setDefaultIModelViewportControlId: (
       iModelViewportControlId: string,
-      args?: ActionArgs
-    ) => void;
-    setDefaultViewState: (
-      viewState: ViewState | undefined,
       args?: ActionArgs
     ) => void;
     setSelectionScope: (
@@ -133,21 +127,6 @@ export const useFrameworkStore: UseBoundStore<StoreApi<FrameworkState>> =
           );
           handleArgs(args, {
             eventId: SessionStateActionId.SetDefaultIModelViewportControlId,
-          });
-        },
-        setDefaultViewState: (
-          viewState: ViewState | undefined,
-          args?: ActionArgs
-        ) => {
-          const frameworkState = get();
-          if (frameworkState.session.defaultViewState === viewState) return;
-          set((state) =>
-            produce(state, (draft) => {
-              draft.session.defaultViewState = castDraft(viewState);
-            })
-          );
-          handleArgs(args, {
-            eventId: SessionStateActionId.SetDefaultViewState,
           });
         },
         setSelectionScope: (

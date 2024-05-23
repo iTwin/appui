@@ -75,6 +75,7 @@ export interface SessionState {
   iModelId: string;
   defaultIModelViewportControlId: string | undefined;
   defaultViewId: string | undefined;
+  /** @deprecated in 4.14.x. Use {@link UiFramework.getDefaultViewState} or {@link useActiveIModelConnection} instead. */
   defaultViewState: any;
   /** @deprecated in 4.14.x. Use {@link UiFramework.getIModelConnection} or {@link useActiveIModelConnection} instead. */
   iModelConnection: any;
