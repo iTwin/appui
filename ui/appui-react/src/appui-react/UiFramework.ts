@@ -10,11 +10,8 @@ import type { Store } from "redux";
 import { castDraft } from "immer";
 import { Logger, ProcessDetector } from "@itwin/core-bentley";
 import type { TranslationOptions } from "@itwin/core-common";
-import type {
-  IModelConnection,
-  SnapMode,
-  ViewState,
-} from "@itwin/core-frontend";
+import type { IModelConnection, ViewState } from "@itwin/core-frontend";
+import { SnapMode } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
 import type {
   DialogLayoutDataProvider,
@@ -477,16 +474,6 @@ export class UiFramework {
     if (!frameworkState) return;
     reduxStore!.dispatch({ type, payload });
     dispatchSyncUiEvent(type, immediateSync);
-  }
-
-  public static setAccudrawSnapMode(snapMode: SnapMode) {
-    UiFramework.state.configurableUi.setSnapMode(snapMode, {
-      immediateSync: true,
-    });
-  }
-
-  public static getAccudrawSnapMode(): SnapMode {
-    return UiFramework.state.configurableUi.snapMode;
   }
 
   /** Returns the stored active selection scope id. */
@@ -1257,6 +1244,17 @@ export class UiFramework {
 
   /** Set the theme value used by the [[ThemeManager]] component.
    * @note Requires redux provider.
+   * @deprecated in 4.14.x. Components should take `theme` as a prop.
+   */
+  public static getColorTheme(): ThemeId {
+    return (
+      UiFramework.frameworkState?.configurableUiState.theme ??
+      SYSTEM_PREFERRED_COLOR_THEME
+    );
+  }
+
+  /** Set the theme value used by the [[ThemeManager]] component.
+   * @note Requires redux provider.
    * @deprecated in 4.14.x. Use `theme` prop of {@link ThemeManager}.
    */
   public static setColorTheme(theme: ThemeId) {
@@ -1269,14 +1267,13 @@ export class UiFramework {
     );
   }
 
-  /** Set the theme value used by the [[ThemeManager]] component.
+  /** Returns the variable controlling whether the overlay is displayed in a Viewport.
    * @note Requires redux provider.
-   * @deprecated in 4.14.x. Components should take `theme` as a prop.
+   * @deprecated in 4.14.x. Components should take `viewOverlay` as a prop.
    */
-  public static getColorTheme(): ThemeId {
+  public static get viewOverlayDisplay() {
     return (
-      UiFramework.frameworkState?.configurableUiState.theme ??
-      SYSTEM_PREFERRED_COLOR_THEME
+      UiFramework.frameworkState?.configurableUiState.viewOverlayDisplay ?? true
     );
   }
 
@@ -1293,13 +1290,14 @@ export class UiFramework {
     );
   }
 
-  /** Returns the variable controlling whether the overlay is displayed in a Viewport.
+  /**
    * @note Requires redux provider.
-   * @deprecated in 4.14.x. Components should take `viewOverlay` as a prop.
+   * @deprecated in 4.14.x. Components should take `widgetOpacity` as a prop.
    */
-  public static get viewOverlayDisplay() {
+  public static getWidgetOpacity(): number {
     return (
-      UiFramework.frameworkState?.configurableUiState.viewOverlayDisplay ?? true
+      UiFramework.frameworkState?.configurableUiState.widgetOpacity ??
+      WIDGET_OPACITY_DEFAULT
     );
   }
 
@@ -1319,12 +1317,24 @@ export class UiFramework {
 
   /**
    * @note Requires redux provider.
-   * @deprecated in 4.14.x. Components should take `widgetOpacity` as a prop.
+   * @deprecated in 4.14.x. Components should take `snapMode` as a prop.
    */
-  public static getWidgetOpacity(): number {
+  public static getAccudrawSnapMode(): SnapMode {
     return (
-      UiFramework.frameworkState?.configurableUiState.widgetOpacity ??
-      WIDGET_OPACITY_DEFAULT
+      UiFramework.frameworkState?.configurableUiState.snapMode ??
+      SnapMode.NearestKeypoint
+    );
+  }
+
+  /**
+   * @note Requires redux provider.
+   * @deprecated in 4.14.x. Use `snapMode` prop of {@link SnapModeField}.
+   */
+  public static setAccudrawSnapMode(snapMode: SnapMode) {
+    UiFramework.dispatchActionToStore(
+      ConfigurableUiActionId.SetSnapMode,
+      snapMode,
+      true
     );
   }
 

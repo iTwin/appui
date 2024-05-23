@@ -43,6 +43,7 @@ export enum ConfigurableUiActionId {
  * @deprecated in 4.14.x. Use {@link useFrameworkState} instead.
  */
 export interface ConfigurableUiState {
+  /** @deprecated in 4.14.x. Use `snapMode` prop of {@link SnapModeField} instead. */
   snapMode: number;
   /** @deprecated in 4.14.x. Not used by AppUI components. */
   toolPrompt: string;

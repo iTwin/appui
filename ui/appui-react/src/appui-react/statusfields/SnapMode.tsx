@@ -13,7 +13,6 @@ import snapModeMidpoint from "@bentley/icons-generic/icons/snaps-midpoint.svg";
 import snapModeNearest from "@bentley/icons-generic/icons/snaps-nearest.svg";
 import snapModeOrigin from "@bentley/icons-generic/icons/snaps-origin.svg";
 import snapModeKeypoint from "@bentley/icons-generic/icons/snaps.svg";
-import { assert } from "@itwin/core-bentley";
 import { SnapMode } from "@itwin/core-frontend";
 import { Icon } from "@itwin/core-react";
 import type { CommonProps, IconSpec } from "@itwin/core-react";
@@ -23,7 +22,7 @@ import { SnapModePanel } from "../layout/footer/snap-mode/Panel";
 import { Snap } from "../layout/footer/snap-mode/Snap";
 import { StatusBarLabelIndicator } from "../statusbar/LabelIndicator";
 import { useTranslation } from "../hooks/useTranslation";
-import { useFrameworkState } from "../uistate/useFrameworkState";
+import { useReduxFrameworkState } from "../uistate/useFrameworkState";
 
 /** Define the properties that will be used to represent the available snap modes. */
 interface SnapModeFieldEntry {
@@ -74,15 +73,26 @@ const getSnapModeIconNameFromMode = (
   return "placeholder";
 };
 
+interface SnapModeFieldProps extends CommonProps {
+  /** Uses redux store as a fallback. Defaults to {@link SnapMode.NearestKeypoint}.
+   * @note Enum flags are supported.
+   */
+  snapMode?: SnapMode;
+}
+
+<SnapModeField snapMode={SnapMode.Intersection | SnapMode.NearestKeypoint} />;
+
 /** `SnapModeField` component designed to be specified in a status bar. It will
  * display the active snap mode that AccuSnap will use and allow the user to select a new snap mode.
  * @public
  */
-export function SnapModeField(props: CommonProps) {
+export function SnapModeField(props: SnapModeFieldProps) {
   const { translate } = useTranslation();
-  const frameworkState = useFrameworkState();
-  assert(!!frameworkState);
-  const { snapMode } = frameworkState.configurableUi;
+  const reduxSnapMode = useReduxFrameworkState(
+    // eslint-disable-next-line deprecation/deprecation
+    (state) => state?.configurableUiState.snapMode
+  );
+  const snapMode = props.snapMode ?? reduxSnapMode ?? SnapMode.NearestKeypoint;
 
   const snapModes: SnapModeFieldEntry[] = [
     {
