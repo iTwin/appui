@@ -12,8 +12,6 @@ import {
 } from "../../core-react";
 import { classesFromElement } from "../TestUtils";
 
-/* eslint-disable deprecation/deprecation */
-
 describe("<CheckListBox />", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
   beforeEach(() => {

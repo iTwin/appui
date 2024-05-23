@@ -7,8 +7,6 @@ import userEvent from "@testing-library/user-event";
 import * as React from "react";
 import { DivWithOutsideClick } from "../../core-react";
 
-/* eslint-disable deprecation/deprecation */
-
 describe("<DivWithOutsideClick />", () => {
   it("should use onOutsideClick", async () => {
     const theUserTo = userEvent.setup();

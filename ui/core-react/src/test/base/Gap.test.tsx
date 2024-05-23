@@ -6,8 +6,6 @@ import { render, screen } from "@testing-library/react";
 import * as React from "react";
 import { Gap } from "../../core-react";
 
-/* eslint-disable deprecation/deprecation */
-
 describe("<Gap />", () => {
   it("renders correctly", () => {
     render(<Gap data-testid="tested" />);

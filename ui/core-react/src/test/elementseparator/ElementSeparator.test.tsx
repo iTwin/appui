@@ -11,8 +11,6 @@ import { Orientation } from "../../core-react/enums/Orientation";
 import { classesFromElement } from "../TestUtils";
 import type { Mock } from "vitest";
 
-/* eslint-disable deprecation/deprecation */
-
 describe("ElementSeparator", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
   const throttleMs = 16;

@@ -7,8 +7,6 @@ import * as React from "react";
 import { IconInput } from "../../../core-react";
 import { classesFromElement } from "../../TestUtils";
 
-/* eslint-disable deprecation/deprecation */
-
 describe("IconInput", () => {
   it("renders correctly", () => {
     render(<IconInput icon={<div data-testid="tested" />} />);
