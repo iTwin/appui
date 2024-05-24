@@ -3,28 +3,16 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { fireEvent, render } from "@testing-library/react";
-import { Provider, useDispatch, useSelector } from "react-redux";
-import type { Dispatch } from "redux";
+import { render } from "@testing-library/react";
+import { Provider } from "react-redux";
 import { combineReducers, createStore } from "redux";
-import type {
-  ConfigurableUiActionsUnion,
-  FrameworkRootState,
-} from "../../appui-react";
 import {
-  ConfigurableUiActionId,
   ConfigurableUiActions,
-  createFrameworkState,
   FrameworkReducer,
-  SyncUiEventDispatcher,
   ThemeManager,
   UiFramework,
 } from "../../appui-react";
-import type { ListenerType } from "../TestUtils";
 import TestUtils from "../TestUtils";
-import { renderHook } from "@testing-library/react-hooks";
-import { useFrameworkStore } from "../../appui-react/uistate/useFrameworkStore";
-import { useFrameworkState } from "../../appui-react/uistate/useFrameworkState";
 
 // function ReduxThemeRenderer() {
 //   const theme = useSelector((state: Partial<FrameworkRootState>) => {

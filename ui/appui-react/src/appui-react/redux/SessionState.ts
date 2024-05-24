@@ -10,7 +10,6 @@ import type { XAndY } from "@itwin/core-geometry";
 import type { CursorMenuItemProps, MenuItemProps } from "../shared/MenuItem";
 import type { ActionsUnion, DeepReadonly } from "./redux-ts";
 import { createAction } from "./redux-ts";
-import type { useFrameworkState } from "../uistate/useFrameworkState";
 
 // cSpell:ignore configurableui snapmode toolprompt sessionstate imodelid viewid viewportid rulesetid
 

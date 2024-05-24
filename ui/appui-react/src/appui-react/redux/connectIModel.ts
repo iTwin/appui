@@ -2,21 +2,20 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-
 /** @packageDocumentation
  * @module State
  */
 
 import { connect } from "react-redux";
 import { UiFramework } from "../UiFramework";
-import type { useFrameworkState } from "../uistate/useFrameworkState";
+
+/* eslint-disable deprecation/deprecation */
 
 /** Private function that will map store's iModelConnection to the 'iModelConnection', 'iModel', and 'imodel' properties of props. This
  * is not ideal but it is a result of not having standard prop name for an iModelConnection.
  */
 const iModeMapStateToProps = (mapStateToProps: any) => {
   return (state: any, ownProps: any) => {
-    // eslint-disable-next-line deprecation/deprecation
     const frameworkState = state[UiFramework.frameworkStateKey]; // since app sets up key, don't hard-code name
 
     /* istanbul ignore next */
@@ -50,7 +49,6 @@ const iModeMapStateToProps = (mapStateToProps: any) => {
 const iModelAndViewMapStateToProps = (mapStateToProps: any) => {
   // istanbul ignore next
   return (state: any, ownProps: any) => {
-    // eslint-disable-next-line deprecation/deprecation
     const frameworkState = state[UiFramework.frameworkStateKey]; // since app sets up key, don't hard-code name
 
     /* istanbul ignore next */

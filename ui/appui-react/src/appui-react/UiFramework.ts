@@ -77,15 +77,12 @@ import type { KeyinEntry } from "./keyins/Keyins";
 import { mapToRelativePosition, type Placement } from "./utils/Placement";
 import type { ToolbarProps } from "./toolbar/Toolbar";
 import type { CursorMenuItemProps } from "./shared/MenuItem";
-import type { FrameworkState } from "./uistate/useFrameworkStore";
-import { useFrameworkStore } from "./uistate/useFrameworkStore";
 import {
   SYSTEM_PREFERRED_COLOR_THEME,
   type ThemeId,
   TOOLBAR_OPACITY_DEFAULT,
   WIDGET_OPACITY_DEFAULT,
 } from "./theme/ThemeId";
-import { useFrameworkState } from "./uistate/useFrameworkState";
 import { ConfigurableUiActionId } from "./redux/ConfigurableUiState";
 import type {
   ConfigurableUiContent,
@@ -323,8 +320,6 @@ export class UiFramework {
 
   /** Un-registers the UiFramework internationalization service namespace */
   public static terminate() {
-    useFrameworkStore.setState(useFrameworkStore.getInitialState());
-
     UiFramework._store = undefined;
     UiFramework._frameworkStateKeyInStore = "frameworkState";
     // eslint-disable-next-line deprecation/deprecation
@@ -353,54 +348,6 @@ export class UiFramework {
     if (undefined === UiFramework._settingsManager)
       UiFramework._settingsManager = new SettingsManager();
     return UiFramework._settingsManager;
-  }
-
-  /** Key used to access framework state from redux store.
-   * @deprecated in 4.14.x. Use {@link useFrameworkState} instead.
-   */
-  public static get frameworkStateKey(): string {
-    return UiFramework._frameworkStateKeyInStore;
-  }
-
-  /** Global framework state accessor.
-   * @note This is added to facilitate replacement of globally accessible redux based API.
-   * @note Prefer using {@link useFrameworkState} instead.
-   * @note Returned object is immutable, getter should be called again after dispatching actions.
-   * @beta
-   */
-  public static get state(): FrameworkState {
-    return useFrameworkStore.getState();
-  }
-
-  /** The Redux store.
-   * @deprecated in 4.14.x. Use your preferred state management library instead.
-   */
-  public static get store(): Store<any> {
-    const reduxStore = this.reduxStore;
-    if (!reduxStore) {
-      // eslint-disable-next-line deprecation/deprecation
-      throw new UiError(
-        UiFramework.loggerCategory(this),
-        `Error trying to access redux store before either store or StateManager has been initialized.`
-      );
-    }
-
-    return reduxStore;
-  }
-
-  /** @internal */
-  public static get reduxStore(): Store<any> | undefined {
-    if (UiFramework._store) {
-      return UiFramework._store;
-    }
-
-    // eslint-disable-next-line deprecation/deprecation
-    if (StateManager.isInitialized(true)) {
-      // eslint-disable-next-line deprecation/deprecation
-      return StateManager.store;
-    }
-
-    return undefined;
   }
 
   /** The internationalization service namespace. */
@@ -640,6 +587,7 @@ export class UiFramework {
     // eslint-disable-next-line deprecation/deprecation
     const state = this.frameworkState;
     if (state) {
+      // eslint-disable-next-line deprecation/deprecation
       return state.sessionState.numItemsSelected;
     }
 
@@ -1123,8 +1071,45 @@ export class UiFramework {
 
   /* eslint-disable deprecation/deprecation */
 
+  /** Key used to access framework state from redux store.
+   * @deprecated in 4.14.x. Use {@link useFrameworkState} instead.
+   */
+  public static get frameworkStateKey(): string {
+    return UiFramework._frameworkStateKeyInStore;
+  }
+
+  /** The Redux store.
+   * @note Requires redux provider.
+   * @deprecated in 4.14.x. Use your preferred state management library instead.
+   */
+  public static get store(): Store<any> {
+    const reduxStore = this.reduxStore;
+    if (!reduxStore) {
+      throw new UiError(
+        UiFramework.loggerCategory(this),
+        `Error trying to access redux store before either store or StateManager has been initialized.`
+      );
+    }
+
+    return reduxStore;
+  }
+
+  /** @internal */
+  public static get reduxStore(): Store<any> | undefined {
+    if (UiFramework._store) {
+      return UiFramework._store;
+    }
+
+    if (StateManager.isInitialized(true)) {
+      return StateManager.store;
+    }
+
+    return undefined;
+  }
+
   /** The UiFramework state maintained by Redux.
    * @note Returned fields should not be modified. Use the appropriate action dispatchers to modify the state.
+   * @note Requires redux provider.
    * @deprecated in 4.14.x. Use {@link UiFramework.state} instead.
    */
   public static get frameworkState(): ReduxFrameworkState | undefined {

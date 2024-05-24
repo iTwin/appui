@@ -15,7 +15,6 @@ import {
   WIDGET_OPACITY_DEFAULT,
 } from "../theme/ThemeId";
 import { SnapMode } from "@itwin/core-frontend";
-import { useFrameworkState } from "../uistate/useFrameworkState";
 
 /** Action Ids used by Redux and to send sync UI components. Typically used to refresh visibility or enable state of control.
  *  Since these are also used as sync ids they should be in lowercase.

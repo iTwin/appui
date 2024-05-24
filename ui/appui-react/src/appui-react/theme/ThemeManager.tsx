@@ -18,7 +18,7 @@ import {
   TOOLBAR_OPACITY_DEFAULT,
   WIDGET_OPACITY_DEFAULT,
 } from "./ThemeId";
-import { useReduxFrameworkState } from "../uistate/useFrameworkState";
+import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState";
 
 /** Map of ColorTheme to ThemeType. */
 const colorThemeToThemeTypeMap: { [x: string]: ThemeType } = {

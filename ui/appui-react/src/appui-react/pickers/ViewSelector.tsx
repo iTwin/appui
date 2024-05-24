@@ -19,7 +19,7 @@ import type { ListItem } from "./ListPicker";
 import { ListItemType, ListPicker } from "./ListPicker";
 import { debounce } from "lodash";
 import svgSavedView from "@bentley/icons-generic/icons/saved-view.svg";
-import { useReduxFrameworkState } from "../uistate/useFrameworkState";
+import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState";
 
 // cSpell:ignore Spatials
 

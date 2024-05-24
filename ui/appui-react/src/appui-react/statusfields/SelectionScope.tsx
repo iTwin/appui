@@ -14,7 +14,7 @@ import { Label, Select } from "@itwin/itwinui-react";
 import { UiFramework } from "../UiFramework";
 import { FooterIndicator } from "../layout/footer/Indicator";
 import { useTranslation } from "../hooks/useTranslation";
-import { useReduxFrameworkState } from "../uistate/useFrameworkState";
+import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState";
 import type { PresentationSelectionScope } from "../redux/SessionState";
 
 interface SelectionScopeFieldProps extends CommonProps {

@@ -63,10 +63,7 @@ import { useCursor } from "../layout/widget-panels/CursorOverlay";
 import { WidgetPanelExpanders } from "../layout/widget-panels/Expander";
 import { useTranslation } from "../hooks/useTranslation";
 import { PopoutWidgets } from "../preview/reparent-popout-widgets/PopoutWidgets";
-import {
-  useFrameworkState,
-  useReduxFrameworkState,
-} from "../uistate/useFrameworkState";
+import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState";
 import { ConfigurableUiContext } from "../configurableui/ConfigurableUiContent";
 
 function WidgetPanelsFrontstageComponent() {

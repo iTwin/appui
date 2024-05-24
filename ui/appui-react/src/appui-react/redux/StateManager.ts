@@ -13,7 +13,6 @@ import { UiError } from "@itwin/appui-abstract";
 import { FrameworkReducer, type FrameworkState } from "./FrameworkState";
 import type { NameToReducerMap } from "./ReducerRegistry";
 import { ReducerRegistryInstance } from "./ReducerRegistry";
-import type { useFrameworkState } from "../uistate/useFrameworkState";
 
 /* eslint-disable deprecation/deprecation */
 

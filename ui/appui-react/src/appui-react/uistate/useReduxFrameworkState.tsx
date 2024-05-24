@@ -9,18 +9,7 @@
 import * as React from "react";
 import { useSyncExternalStore } from "use-sync-external-store/shim";
 import { UiFramework } from "../UiFramework";
-import { type FrameworkState, useFrameworkStore } from "./useFrameworkStore";
 import type { FrameworkState as ReduxFrameworkState } from "../redux/FrameworkState";
-
-/** Returns the current framework state. Redux state is used if available, otherwise the root framework state is used.
- * @note This should be used as a replacement for redux `useSelector()` hook when accessing framework state.
- * @note Use {@link UiFramework.state} to access framework state globally.
- * @beta
- */
-export function useFrameworkState(): FrameworkState {
-  const frameworkState = useFrameworkStore();
-  return frameworkState;
-}
 
 /* eslint-disable deprecation/deprecation */
 

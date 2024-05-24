@@ -22,7 +22,7 @@ import { SnapModePanel } from "../layout/footer/snap-mode/Panel";
 import { Snap } from "../layout/footer/snap-mode/Snap";
 import { StatusBarLabelIndicator } from "../statusbar/LabelIndicator";
 import { useTranslation } from "../hooks/useTranslation";
-import { useReduxFrameworkState } from "../uistate/useFrameworkState";
+import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState";
 
 /** Define the properties that will be used to represent the available snap modes. */
 interface SnapModeFieldEntry {

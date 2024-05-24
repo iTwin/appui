@@ -26,7 +26,7 @@ import { DefaultViewOverlay } from "./DefaultViewOverlay";
 import { ViewportContentControl } from "./ViewportContentControl";
 import { StandardRotationNavigationAidControl } from "../navigationaids/StandardRotationNavigationAid";
 import { UiError } from "@itwin/appui-abstract";
-import { useReduxFrameworkState } from "../uistate/useFrameworkState";
+import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState";
 import { ConfigurableUiContext } from "../configurableui/ConfigurableUiContent";
 
 /** Viewport that is connected to the IModelConnection property in the Redux store. The application must set up the Redux store and include the FrameworkReducer.
