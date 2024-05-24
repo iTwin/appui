@@ -26,7 +26,10 @@ import { ContentDialogRenderer } from "../dialog/ContentDialogManager";
 import { UiFramework } from "../UiFramework";
 import { InternalConfigurableUiManager } from "./InternalConfigurableUiManager";
 import { MessageRenderer } from "../messages/MessageRenderer";
-import { WIDGET_OPACITY_DEFAULT } from "../theme/ThemeId";
+import {
+  TOOLBAR_OPACITY_DEFAULT,
+  WIDGET_OPACITY_DEFAULT,
+} from "../theme/ThemeId";
 import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState";
 
 /** @internal */
@@ -60,6 +63,8 @@ export interface ConfigurableUiContentProps extends CommonProps {
   animateToolSettings?: boolean;
   /** Controls if the tool settings label should be set based on activated tool. Uses redux store as a fallback. Defaults to `false`. */
   toolAsToolSettingsLabel?: boolean;
+  /** Describes the opacity of toolbars. Uses redux store as a fallback. Defaults to {@link TOOLBAR_OPACITY_DEFAULT}. */
+  toolbarOpacity?: number;
 
   /** @internal */
   idleTimeout?: number;
@@ -78,6 +83,7 @@ export const WrapperContext = React.createContext<HTMLElement>(document.body);
  */
 export function ConfigurableUiContent(props: ConfigurableUiContentProps) {
   useWidgetOpacity(props.widgetOpacity);
+  useToolbarOpacity(props.toolbarOpacity);
   const [mainElement, setMainElement] = React.useState<HTMLElement | null>(
     null
   );
@@ -170,6 +176,31 @@ function useWidgetOpacity(
     );
     return () => {
       document.documentElement.style.removeProperty("--buic-widget-opacity");
+    };
+  }, [opacity]);
+}
+
+function useToolbarOpacity(
+  toolbarOpacity: ConfigurableUiContentProps["toolbarOpacity"]
+) {
+  const reduxToolbarOpacity = useReduxFrameworkState((state) => {
+    // eslint-disable-next-line deprecation/deprecation
+    return state?.configurableUiState.toolbarOpacity;
+  });
+
+  const opacity =
+    toolbarOpacity ?? reduxToolbarOpacity ?? TOOLBAR_OPACITY_DEFAULT;
+
+  React.useEffect(() => {
+    const currentToolbarOpacity =
+      document.documentElement.style.getPropertyValue("--buic-toolbar-opacity");
+    if (currentToolbarOpacity === opacity.toString()) return;
+    document.documentElement.style.setProperty(
+      "--buic-toolbar-opacity",
+      opacity.toString()
+    );
+    return () => {
+      document.documentElement.style.removeProperty("--buic-toolbar-opacity");
     };
   }, [opacity]);
 }

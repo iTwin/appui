@@ -12,11 +12,7 @@ import type { ThemeType } from "@itwin/itwinui-react";
 import { ThemeProvider } from "@itwin/itwinui-react";
 import { ThemeProvider as ThemeProviderV2 } from "@itwin/itwinui-react-v2";
 import type { ThemeId } from "./ThemeId";
-import {
-  ColorTheme,
-  SYSTEM_PREFERRED_COLOR_THEME,
-  TOOLBAR_OPACITY_DEFAULT,
-} from "./ThemeId";
+import { ColorTheme, SYSTEM_PREFERRED_COLOR_THEME } from "./ThemeId";
 import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState";
 
 /** Map of ColorTheme to ThemeType. */
@@ -66,25 +62,7 @@ export function ThemeManager({ children, ...props }: ThemeManagerProps) {
     // eslint-disable-next-line deprecation/deprecation
     return state?.configurableUiState.theme;
   });
-  const reduxToolbarOpacity = useReduxFrameworkState((state) => {
-    // eslint-disable-next-line deprecation/deprecation
-    return state?.configurableUiState.toolbarOpacity;
-  });
-
   const theme = props.theme ?? reduxTheme ?? SYSTEM_PREFERRED_COLOR_THEME;
-  const toolbarOpacity = reduxToolbarOpacity ?? TOOLBAR_OPACITY_DEFAULT;
-
-  const setToolbarOpacity = (opacity: number) => {
-    const currentToolbarOpacity =
-      document.documentElement.style.getPropertyValue("--buic-toolbar-opacity");
-    if (currentToolbarOpacity === opacity.toString()) return;
-    setTimeout(() => {
-      document.documentElement.style.setProperty(
-        "--buic-toolbar-opacity",
-        opacity.toString()
-      );
-    });
-  };
 
   React.useEffect(() => {
     document.documentElement.classList.add("theme-transition");
@@ -94,10 +72,6 @@ export function ThemeManager({ children, ...props }: ThemeManagerProps) {
       1000
     );
   }, [theme]);
-
-  React.useEffect(() => {
-    setToolbarOpacity(toolbarOpacity);
-  }, [toolbarOpacity]);
 
   const providerTheme = colorThemeToThemeTypeMap[theme];
   const highContrast = highContrastColorThemes.includes(theme);
