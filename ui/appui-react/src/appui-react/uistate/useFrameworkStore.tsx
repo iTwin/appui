@@ -41,11 +41,6 @@ export interface FrameworkState {
       iModelViewportControlId: string,
       args?: ActionArgs
     ) => void;
-    updateCursorMenu: (
-      // eslint-disable-next-line deprecation/deprecation
-      cursorMenuData: CursorMenuData | CursorMenuPayload | undefined,
-      args?: ActionArgs
-    ) => void;
   };
 }
 
@@ -88,22 +83,6 @@ export const useFrameworkStore: UseBoundStore<StoreApi<FrameworkState>> =
           );
           handleArgs(args, {
             eventId: SessionStateActionId.SetDefaultIModelViewportControlId,
-          });
-        },
-        updateCursorMenu: (
-          // eslint-disable-next-line deprecation/deprecation
-          cursorMenuData: CursorMenuData | CursorMenuPayload | undefined,
-          args?: ActionArgs
-        ) => {
-          set((state) =>
-            produce(state, (draft) => {
-              // eslint-disable-next-line deprecation/deprecation
-              // draft.session.cursorMenuData = cursorMenuData; // TODO: type check
-              draft.session.cursorMenuPayload = cursorMenuData;
-            })
-          );
-          handleArgs(args, {
-            eventId: SessionStateActionId.UpdateCursorMenu,
           });
         },
       },

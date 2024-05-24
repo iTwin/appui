@@ -149,6 +149,10 @@ const globalState = {
   numItemsSelected: 0,
   iModelConnection: undefined as IModelConnection | undefined,
   viewState: undefined as ViewState | undefined,
+  cursorMenuPayload: undefined as  // eslint-disable-next-line deprecation/deprecation
+    | CursorMenuData
+    | CursorMenuPayload
+    | undefined,
 };
 
 /** Main entry point to configure and interact with the features provided by the AppUi-react package.
@@ -524,14 +528,8 @@ export class UiFramework {
     // eslint-disable-next-line deprecation/deprecation
     menuData: CursorMenuData | CursorMenuPayload | undefined
   ): void {
-    const reduxStore = UiFramework.reduxStore;
     // eslint-disable-next-line deprecation/deprecation
-    const reduxState = reduxStore?.getState()[
-      // eslint-disable-next-line deprecation/deprecation
-      UiFramework.frameworkStateKey
-      // eslint-disable-next-line deprecation/deprecation
-    ] as ReduxFrameworkState | undefined;
-    if (reduxState) {
+    if (this.frameworkState) {
       // eslint-disable-next-line deprecation/deprecation
       UiFramework.dispatchActionToStore(
         SessionStateActionId.UpdateCursorMenu,
@@ -540,33 +538,40 @@ export class UiFramework {
       return;
     }
 
-    UiFramework.state.session.updateCursorMenu(menuData);
+    globalState.cursorMenuPayload = menuData;
+    dispatchSyncUiEvent(SessionStateActionId.UpdateCursorMenu);
   }
 
   public static closeCursorMenu(): void {
-    UiFramework.state.session.updateCursorMenu(undefined);
+    // eslint-disable-next-line deprecation/deprecation
+    if (UiFramework.frameworkState) {
+      // eslint-disable-next-line deprecation/deprecation
+      UiFramework.dispatchActionToStore(
+        SessionStateActionId.UpdateCursorMenu,
+        undefined
+      );
+      return;
+    }
+
+    globalState.cursorMenuPayload = undefined;
+    dispatchSyncUiEvent(SessionStateActionId.UpdateCursorMenu);
   }
 
   /** @note Returned value is immutable.  */
   public static getCursorMenuData(): // eslint-disable-next-line deprecation/deprecation
   CursorMenuData | CursorMenuPayload | undefined {
-    const reduxStore = UiFramework.reduxStore;
     // eslint-disable-next-line deprecation/deprecation
-    const reduxState = reduxStore?.getState()[
-      // eslint-disable-next-line deprecation/deprecation
-      UiFramework.frameworkStateKey
-      // eslint-disable-next-line deprecation/deprecation
-    ] as ReduxFrameworkState | undefined;
-    if (reduxState) {
+    const state = this.frameworkState;
+    if (state) {
       return (
-        reduxState.sessionState.cursorMenuPayload ??
         // eslint-disable-next-line deprecation/deprecation
-        reduxState.sessionState.cursorMenuData
+        state.sessionState.cursorMenuPayload ??
+        // eslint-disable-next-line deprecation/deprecation
+        state.sessionState.cursorMenuData
       );
     }
 
-    const session = UiFramework.state.session;
-    return session.cursorMenuPayload;
+    return globalState.cursorMenuPayload;
   }
 
   public static setIModelConnection(
@@ -602,6 +607,7 @@ export class UiFramework {
       : 0;
 
     UiFramework.setNumItemsSelected(itemsSelected);
+    // eslint-disable-next-line deprecation/deprecation
     UiFramework.setActiveIModelId(iModelConnection?.iModelId ?? "");
   }
 

@@ -84,6 +84,7 @@ export interface SessionState {
   iModelConnection: any;
   /** @deprecated in 4.11.x use {@link CursorMenuPayload} instead */
   cursorMenuData: CursorMenuData | undefined;
+  /** @deprecated in 4.14.x. Use cursor APIs of {@link UiFramework}. */
   cursorMenuPayload: CursorMenuPayload | undefined;
 }
 
