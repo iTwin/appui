@@ -6,12 +6,8 @@
  * @module State
  */
 
-import produce from "immer";
 import type { StoreApi, UseBoundStore } from "zustand";
 import { create } from "zustand";
-import { createFrameworkState } from "../redux/FrameworkState";
-import type { CursorMenuData, CursorMenuPayload } from "../redux/SessionState";
-import { type SessionState, SessionStateActionId } from "../redux/SessionState";
 import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
 
 interface ActionArgs {
@@ -26,66 +22,16 @@ interface ActionArgs {
  * @internal
  */
 export interface FrameworkState {
-  session: Omit<
-    // eslint-disable-next-line deprecation/deprecation
-    SessionState,
-    | "defaultViewState"
-    | "iModelConnection"
-    | "numItemsSelected"
-    | "iModelId"
-    | "availableSelectionScopes"
-    | "activeSelectionScope"
-  > & {
-    setDefaultViewId: (viewId: string, args?: ActionArgs) => void;
-    setDefaultIModelViewportControlId: (
-      iModelViewportControlId: string,
-      args?: ActionArgs
-    ) => void;
-  };
+  session: {};
 }
 
 /** Internal framework state store that replaces redux store.
  * @internal
  */
 export const useFrameworkStore: UseBoundStore<StoreApi<FrameworkState>> =
-  create<FrameworkState>((set, get) => {
-    const initialState = createFrameworkState();
+  create<FrameworkState>(() => {
     return {
-      session: {
-        ...initialState.sessionState,
-        setDefaultViewId: (viewId: string, args?: ActionArgs) => {
-          const frameworkState = get();
-          if (frameworkState.session.defaultViewId === viewId) return;
-          set((state) =>
-            produce(state, (draft) => {
-              draft.session.defaultViewId = viewId;
-            })
-          );
-          handleArgs(args, {
-            eventId: SessionStateActionId.SetDefaultViewId,
-          });
-        },
-        setDefaultIModelViewportControlId: (
-          iModelViewportControlId: string,
-          args?: ActionArgs
-        ) => {
-          const frameworkState = get();
-          if (
-            frameworkState.session.defaultIModelViewportControlId ===
-            iModelViewportControlId
-          )
-            return;
-          set((state) =>
-            produce(state, (draft) => {
-              draft.session.defaultIModelViewportControlId =
-                iModelViewportControlId;
-            })
-          );
-          handleArgs(args, {
-            eventId: SessionStateActionId.SetDefaultIModelViewportControlId,
-          });
-        },
-      },
+      session: {},
     };
   });
 

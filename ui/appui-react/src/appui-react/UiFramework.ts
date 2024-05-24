@@ -679,28 +679,6 @@ export class UiFramework {
     return UiFramework._uiStateStorage;
   }
 
-  public static setDefaultIModelViewportControlId(
-    iModelViewportControlId: string,
-    immediateSync = false
-  ) {
-    UiFramework.state.session.setDefaultIModelViewportControlId(
-      iModelViewportControlId,
-      { immediateSync }
-    );
-  }
-
-  public static getDefaultIModelViewportControlId(): string | undefined {
-    return UiFramework.state.session.defaultIModelViewportControlId;
-  }
-
-  public static setDefaultViewId(viewId: string, immediateSync = false) {
-    UiFramework.state.session.setDefaultViewId(viewId, { immediateSync });
-  }
-
-  public static getDefaultViewId(): string | undefined {
-    return UiFramework.state.session.defaultViewId;
-  }
-
   public static setDefaultViewState(
     viewState: ViewState,
     immediateSync = false
@@ -1468,6 +1446,52 @@ export class UiFramework {
       UiFramework.frameworkState?.sessionState.availableSelectionScopes ?? [
         { id: "element", label: "Element" },
       ]
+    );
+  }
+
+  /**
+   * @note Requires redux provider.
+   * @deprecated in 4.14.x. Not used by AppUI components.
+   */
+  public static getDefaultIModelViewportControlId(): string | undefined {
+    return (
+      UiFramework.frameworkState?.sessionState.defaultIModelViewportControlId ??
+      undefined
+    );
+  }
+
+  /**
+   * @note Requires redux provider.
+   * @deprecated in 4.14.x. Not used by AppUI components.
+   */
+  public static setDefaultIModelViewportControlId(
+    iModelViewportControlId: string,
+    immediateSync = false
+  ) {
+    UiFramework.dispatchActionToStore(
+      SessionStateActionId.SetDefaultIModelViewportControlId,
+      iModelViewportControlId,
+      immediateSync
+    );
+  }
+
+  /**
+   * @note Requires redux provider.
+   * @deprecated in 4.14.x. Not used by AppUI components.
+   */
+  public static getDefaultViewId(): string | undefined {
+    return UiFramework.frameworkState?.sessionState.defaultViewId ?? undefined;
+  }
+
+  /**
+   * @note Requires redux provider.
+   * @deprecated in 4.14.x. Not used by AppUI components.
+   */
+  public static setDefaultViewId(viewId: string, immediateSync = false) {
+    UiFramework.dispatchActionToStore(
+      SessionStateActionId.SetDefaultViewId,
+      viewId,
+      immediateSync
     );
   }
 

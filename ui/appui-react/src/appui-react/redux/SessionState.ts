@@ -69,6 +69,7 @@ export enum SessionStateActionId {
  * @deprecated in 4.14.x. Use {@link useFrameworkState} instead.
  */
 export interface SessionState {
+  /** @deprecated in 4.14.x. Use {@link UiFramework.getNumItemsSelected} instead. */
   numItemsSelected: number;
   /** @deprecated in 4.14.x. Use `selectionScopes` prop of {@link SelectionScopeField} instead. */
   availableSelectionScopes: PresentationSelectionScope[];
@@ -76,7 +77,9 @@ export interface SessionState {
   activeSelectionScope: string;
   /** @deprecated in 4.14.x. Not used by AppUI components. */
   iModelId: string;
+  /** @deprecated in 4.14.x. Not used by AppUI components. */
   defaultIModelViewportControlId: string | undefined;
+  /** @deprecated in 4.14.x. Not used by AppUI components. */
   defaultViewId: string | undefined;
   /** @deprecated in 4.14.x. Use {@link UiFramework.getDefaultViewState} or {@link useActiveIModelConnection} instead. */
   defaultViewState: any;
