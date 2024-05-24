@@ -16,7 +16,6 @@ import {
   ColorTheme,
   SYSTEM_PREFERRED_COLOR_THEME,
   TOOLBAR_OPACITY_DEFAULT,
-  WIDGET_OPACITY_DEFAULT,
 } from "./ThemeId";
 import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState";
 
@@ -64,18 +63,16 @@ interface ThemeManagerProps {
  */
 export function ThemeManager({ children, ...props }: ThemeManagerProps) {
   const reduxTheme = useReduxFrameworkState((state) => {
+    // eslint-disable-next-line deprecation/deprecation
     return state?.configurableUiState.theme;
   });
   const reduxToolbarOpacity = useReduxFrameworkState((state) => {
+    // eslint-disable-next-line deprecation/deprecation
     return state?.configurableUiState.toolbarOpacity;
-  });
-  const reduxWidgetOpacity = useReduxFrameworkState((state) => {
-    return state?.configurableUiState.widgetOpacity;
   });
 
   const theme = props.theme ?? reduxTheme ?? SYSTEM_PREFERRED_COLOR_THEME;
   const toolbarOpacity = reduxToolbarOpacity ?? TOOLBAR_OPACITY_DEFAULT;
-  const widgetOpacity = reduxWidgetOpacity ?? WIDGET_OPACITY_DEFAULT;
 
   const setToolbarOpacity = (opacity: number) => {
     const currentToolbarOpacity =
@@ -97,18 +94,6 @@ export function ThemeManager({ children, ...props }: ThemeManagerProps) {
       1000
     );
   }, [theme]);
-
-  React.useEffect(() => {
-    const currentWidgetOpacity =
-      document.documentElement.style.getPropertyValue("--buic-widget-opacity");
-    if (currentWidgetOpacity === widgetOpacity.toString()) return;
-    setTimeout(() =>
-      document.documentElement.style.setProperty(
-        "--buic-widget-opacity",
-        widgetOpacity.toString()
-      )
-    );
-  }, [widgetOpacity]);
 
   React.useEffect(() => {
     setToolbarOpacity(toolbarOpacity);

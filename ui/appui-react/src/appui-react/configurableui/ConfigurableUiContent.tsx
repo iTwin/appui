@@ -26,7 +26,8 @@ import { ContentDialogRenderer } from "../dialog/ContentDialogManager";
 import { UiFramework } from "../UiFramework";
 import { InternalConfigurableUiManager } from "./InternalConfigurableUiManager";
 import { MessageRenderer } from "../messages/MessageRenderer";
-import type { WIDGET_OPACITY_DEFAULT } from "../theme/ThemeId";
+import { WIDGET_OPACITY_DEFAULT } from "../theme/ThemeId";
+import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState";
 
 /** @internal */
 export const ConfigurableUiContext = React.createContext<
@@ -76,6 +77,7 @@ export const WrapperContext = React.createContext<HTMLElement>(document.body);
  * @public
  */
 export function ConfigurableUiContent(props: ConfigurableUiContentProps) {
+  useWidgetOpacity(props.widgetOpacity);
   const [mainElement, setMainElement] = React.useState<HTMLElement | null>(
     null
   );
@@ -147,4 +149,27 @@ export function ConfigurableUiContent(props: ConfigurableUiContentProps) {
       </main>
     </ConfigurableUiContext.Provider>
   );
+}
+
+function useWidgetOpacity(
+  widgetOpacity: ConfigurableUiContentProps["widgetOpacity"]
+) {
+  const reduxWidgetOpacity = useReduxFrameworkState((state) => {
+    // eslint-disable-next-line deprecation/deprecation
+    return state?.configurableUiState.widgetOpacity;
+  });
+  const opacity = widgetOpacity ?? reduxWidgetOpacity ?? WIDGET_OPACITY_DEFAULT;
+
+  React.useEffect(() => {
+    const currentWidgetOpacity =
+      document.documentElement.style.getPropertyValue("--buic-widget-opacity");
+    if (currentWidgetOpacity === opacity.toString()) return;
+    document.documentElement.style.setProperty(
+      "--buic-widget-opacity",
+      opacity.toString()
+    );
+    return () => {
+      document.documentElement.style.removeProperty("--buic-widget-opacity");
+    };
+  }, [opacity]);
 }
