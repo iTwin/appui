@@ -13,11 +13,13 @@ import type { UserSettingsProvider } from "../UiFramework";
 import { UiFramework } from "../UiFramework";
 import type { UiSyncEventArgs } from "../syncui/UiSyncEvent";
 import type { ThemeId } from "../theme/ThemeId";
+import { ConfigurableUiActionId } from "../redux/ConfigurableUiState";
 
-// cSpell:ignore configurableui
+/* eslint-disable deprecation/deprecation */
 
 /** Default values that may be specified for [[AppUiSettings]].
  * @public
+ * @deprecated in 4.14.x. Interface used in a deprecated class {@link AppUiSettings}.
  */
 export interface InitialAppUiSettings {
   colorTheme: ThemeId;
@@ -39,8 +41,8 @@ export interface InitialAppUiSettings {
  * ```ts
  * UiFramework.registerUserSettingsProvider(new AppUiSettings(defaults));
  * ```
- *
  * @public
+ * @deprecated in 4.14.x. Use {@link UiStateStorage} to persist UI settings.
  */
 export class AppUiSettings implements UserSettingsProvider {
   public readonly providerId = "AppUiSettingsProvider";
@@ -146,7 +148,7 @@ export class AppUiSettings implements UserSettingsProvider {
   private handleSyncUiEvent = async (args: UiSyncEventArgs) => {
     if (this._applyingLocalSettings) return;
 
-    if (args.eventIds.has("configurableui:set_theme")) {
+    if (args.eventIds.has(ConfigurableUiActionId.SetTheme)) {
       await this.colorTheme.saveSetting(UiFramework.getUiStateStorage());
       // always store as default theme in local storage to avoid flicker during startup if user is not yet logged-in
       window.localStorage.setItem(
@@ -155,31 +157,31 @@ export class AppUiSettings implements UserSettingsProvider {
       );
     }
 
-    if (args.eventIds.has("configurableui:set-drag-interaction"))
+    if (args.eventIds.has(ConfigurableUiActionId.SetDragInteraction))
       await this.dragInteraction.saveSetting(UiFramework.getUiStateStorage());
 
-    if (args.eventIds.has("configurableui:set-show-widget-icon"))
+    if (args.eventIds.has(ConfigurableUiActionId.SetShowWidgetIcon))
       await this.showWidgetIcon.saveSetting(UiFramework.getUiStateStorage());
 
-    if (args.eventIds.has("configurableui:set-auto-collapse-unpinned-panels"))
+    if (args.eventIds.has(ConfigurableUiActionId.AutoCollapseUnpinnedPanels))
       await this.autoCollapseUnpinnedPanels.saveSetting(
         UiFramework.getUiStateStorage()
       );
 
-    if (args.eventIds.has("configurableui:set_widget_opacity"))
+    if (args.eventIds.has(ConfigurableUiActionId.SetWidgetOpacity))
       await this.widgetOpacity.saveSetting(UiFramework.getUiStateStorage());
 
-    if (args.eventIds.has("configurableui:set-animate-tool-settings"))
+    if (args.eventIds.has(ConfigurableUiActionId.AnimateToolSettings))
       await this.animateToolSettings.saveSetting(
         UiFramework.getUiStateStorage()
       );
 
-    if (args.eventIds.has("configurableui:set-use-tool-as-tool-settings-label"))
+    if (args.eventIds.has(ConfigurableUiActionId.UseToolAsToolSettingsLabel))
       await this.useToolAsToolSettingsLabel.saveSetting(
         UiFramework.getUiStateStorage()
       );
 
-    if (args.eventIds.has("configurableui:set-toolbar-opacity"))
+    if (args.eventIds.has(ConfigurableUiActionId.SetToolbarOpacity))
       await this.toolbarOpacity.saveSetting(UiFramework.getUiStateStorage());
   };
 
