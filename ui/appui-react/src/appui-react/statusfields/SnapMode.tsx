@@ -78,9 +78,8 @@ interface SnapModeFieldProps extends CommonProps {
    * @note Enum flags are supported.
    */
   snapMode?: SnapMode;
+  onChange?: (newSnapMode: SnapMode) => void;
 }
-
-<SnapModeField snapMode={SnapMode.Intersection | SnapMode.NearestKeypoint} />;
 
 /** `SnapModeField` component designed to be specified in a status bar. It will
  * display the active snap mode that AccuSnap will use and allow the user to select a new snap mode.
@@ -144,7 +143,14 @@ export function SnapModeField(props: SnapModeFieldProps) {
           {snapModes.map((item, index) => (
             <Snap
               key={`SM_${index}`}
-              onClick={() => UiFramework.setAccudrawSnapMode(item.value)}
+              onClick={() => {
+                if (props.onChange) {
+                  props.onChange(item.value);
+                  return;
+                }
+                // eslint-disable-next-line deprecation/deprecation
+                UiFramework.setAccudrawSnapMode(item.value);
+              }}
               isActive={(snapMode & item.value) === item.value}
               icon={
                 <Icon
