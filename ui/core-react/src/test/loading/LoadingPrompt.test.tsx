@@ -6,8 +6,6 @@ import { render, screen } from "@testing-library/react";
 import * as React from "react";
 import { LoadingPrompt } from "../../core-react";
 
-/* eslint-disable deprecation/deprecation */
-
 describe("<LoadingPrompt />", () => {
   it("renders with text correctly", () => {
     render(<LoadingPrompt title="title" />);

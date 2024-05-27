@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import type { Mock } from "vitest";
 import type { IDisposable } from "@itwin/core-bentley";
-import { renderHook } from "@testing-library/react-hooks";
+import { renderHook } from "@testing-library/react";
 import {
   useDisposable,
   useOptionalDisposable,
@@ -22,7 +22,6 @@ describe("useDisposable", () => {
   it("creates disposable and disposes it on unmount", () => {
     const { result, unmount } = renderHook(
       (props: { createDisposable: () => IDisposable }) =>
-        // eslint-disable-next-line deprecation/deprecation
         useDisposable(props.createDisposable),
       { initialProps: { createDisposable } }
     );
@@ -35,7 +34,6 @@ describe("useDisposable", () => {
   it("disposes old disposable when creating new one", () => {
     const { result, rerender } = renderHook(
       (props: { createDisposable: () => IDisposable }) =>
-        // eslint-disable-next-line deprecation/deprecation
         useDisposable(props.createDisposable),
       { initialProps: { createDisposable } }
     );

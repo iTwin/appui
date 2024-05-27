@@ -7,8 +7,6 @@ import * as React from "react";
 import { Key } from "ts-key-enum";
 import { NumberInput } from "../../../core-react/inputs/numberinput/NumberInput";
 
-/* eslint-disable deprecation/deprecation */
-
 function parseDollar(stringValue: string) {
   const noDollarSign = stringValue.replace(/^\$/, "");
   let n = parseFloat(noDollarSign);

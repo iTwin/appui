@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { render } from "@testing-library/react";
+import { act, render } from "@testing-library/react";
 import * as React from "react";
 import { Provider } from "react-redux";
 import {
@@ -14,7 +14,6 @@ import { ThemeManager } from "../../appui-react/theme/ThemeManager";
 import TestUtils from "../TestUtils";
 import { ColorTheme } from "../../appui-react/theme/ThemeId";
 import { combineReducers, createStore } from "redux";
-import { act } from "react-dom/test-utils";
 
 describe("ThemeManager", () => {
   it("w/ redux", async () => {

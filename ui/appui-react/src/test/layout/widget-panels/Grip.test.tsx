@@ -3,8 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { Rectangle } from "@itwin/core-react";
-import { fireEvent, render } from "@testing-library/react";
-import { act, renderHook } from "@testing-library/react-hooks";
+import { act, fireEvent, render, renderHook } from "@testing-library/react";
 import type { TestNineZoneProviderProps } from "../Providers";
 import { createDragInfo, TestNineZoneProvider } from "../Providers";
 import produce from "immer";

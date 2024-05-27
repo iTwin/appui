@@ -298,6 +298,15 @@ test.describe("widget state", () => {
     expect(widgetLifecycle.mountCount).toBe(0);
     expect(widgetLifecycle.unMountCount).toBe(0);
   });
+});
+
+test.describe("widget lifecycle", () => {
+  test.beforeEach(async ({ page, baseURL }) => {
+    assert(baseURL);
+    await page.goto(
+      `${baseURL}?frontstage=appui-test-providers:WidgetApi&strict=0`
+    );
+  });
 
   test("should mount unloaded widget on open", async ({ page }) => {
     const widgetLifecycle = trackWidgetLifecycle(page, "WL-B");

@@ -3,8 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import React from "react";
-import { render, waitFor } from "@testing-library/react";
-import { renderHook } from "@testing-library/react-hooks";
+import { render, renderHook, waitFor } from "@testing-library/react";
 import { useDebouncedAsyncValue } from "../../components-react/common/UseDebouncedAsyncValue";
 import { ResolvablePromise } from "../test-helpers/misc";
 import { TestErrorBoundary } from "../TestUtils";

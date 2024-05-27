@@ -140,7 +140,9 @@ describe("<SolarTimeline />", () => {
   });
 
   it("should render", async () => {
-    vi.useFakeTimers();
+    vi.useFakeTimers({
+      shouldAdvanceTime: true,
+    });
     const dataProvider = new TestSolarDataProvider();
 
     const renderedComponent = render(

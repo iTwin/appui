@@ -3,8 +3,8 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { act } from "react-dom/test-utils";
 import {
+  act,
   fireEvent,
   render,
   screen,

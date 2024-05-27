@@ -3,8 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import type { Rectangle } from "@itwin/core-react";
-import { render } from "@testing-library/react";
-import { renderHook } from "@testing-library/react-hooks";
+import { render, renderHook } from "@testing-library/react";
 import * as React from "react";
 import { createLayoutStore } from "../../../appui-react/layout/base/LayoutStore";
 import type {

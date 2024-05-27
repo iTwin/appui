@@ -4,7 +4,6 @@
  *--------------------------------------------------------------------------------------------*/
 import * as moq from "typemoq";
 import * as React from "react";
-import { renderHook } from "@testing-library/react-hooks";
 import type {
   TreeEventHandler,
   TreeEventHandlerParams,
@@ -27,7 +26,7 @@ import type {
 } from "../../../components-react/tree/TreeDataProvider";
 import type { PrimitiveValue } from "@itwin/appui-abstract";
 import { PropertyRecord } from "@itwin/appui-abstract";
-import { render, waitFor } from "@testing-library/react";
+import { render, renderHook, waitFor } from "@testing-library/react";
 
 describe("useTreeModel", () => {
   it("subscribes to onModelChange event and returns visible nodes", () => {

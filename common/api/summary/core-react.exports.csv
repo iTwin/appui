@@ -112,8 +112,8 @@ internal;hasPointerEventsSupport(): boolean
 public;HorizontalAlignment
 public;Icon(props: IconProps): React_2.JSX.Element | null
 public;IconHelper
-public;IconInput: (props: IconInputProps) => React_2.ReactElement | null
-deprecated;IconInput: (props: IconInputProps) => React_2.ReactElement | null
+public;IconInput: (props: IconInputProps) => React_2.ReactNode
+deprecated;IconInput: (props: IconInputProps) => React_2.ReactNode
 public;IconInputProps 
 deprecated;IconInputProps 
 public;IconProps 
@@ -186,8 +186,8 @@ public;NoChildrenProps
 public;NodeCheckboxProps
 public;NodeCheckboxRenderer = (props: NodeCheckboxRenderProps) => React_2.ReactNode
 public;NodeCheckboxRenderProps = Omit_2
-public;NumberInput: (props: NumberInputProps) => React_2.ReactElement | null
-deprecated;NumberInput: (props: NumberInputProps) => React_2.ReactElement | null
+public;NumberInput: (props: NumberInputProps) => React_2.ReactNode
+deprecated;NumberInput: (props: NumberInputProps) => React_2.ReactNode
 public;NumberInputProps 
 deprecated;NumberInputProps 
 public;OmitChildrenProp
@@ -209,9 +209,13 @@ public;ProcessSettingsTabActivationEventArgs
 deprecated;ProcessSettingsTabActivationEventArgs
 internal;PROXIMITY_THRESHOLD_DEFAULT = 100
 public;RadialButton 
+deprecated;RadialButton 
 public;RadialButtonProps 
+deprecated;RadialButtonProps 
 public;RadialMenu 
+deprecated;RadialMenu 
 public;RadialMenuProps 
+deprecated;RadialMenuProps 
 public;RadialSizeType = ProgressRadialProps["size"]
 deprecated;RadialSizeType = ProgressRadialProps["size"]
 public;RatioChangeResult

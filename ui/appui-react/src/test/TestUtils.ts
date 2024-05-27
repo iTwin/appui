@@ -263,7 +263,11 @@ export class UiStateStorageStub implements UiStateStorage {
     };
   }
 
-  public async saveSetting(): Promise<UiStateStorageResult> {
+  public async saveSetting(
+    _settingNamespace: string,
+    _settingName: string,
+    _setting: any
+  ): Promise<UiStateStorageResult> {
     return {
       status: UiStateStorageStatus.Success,
       setting: {},

@@ -8,8 +8,6 @@ import * as React from "react";
 import { Orientation, Tabs, VerticalTabs } from "../../core-react";
 import { classesFromElement } from "../TestUtils";
 
-/* eslint-disable deprecation/deprecation */
-
 describe("<Tabs />", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
   beforeEach(() => {

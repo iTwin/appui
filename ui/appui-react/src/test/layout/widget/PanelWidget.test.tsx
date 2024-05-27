@@ -3,8 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { act, fireEvent, render } from "@testing-library/react";
-import { renderHook } from "@testing-library/react-hooks";
+import { act, fireEvent, render, renderHook } from "@testing-library/react";
 import type { NineZoneDispatch } from "../../../appui-react/layout/base/NineZone";
 import * as NineZoneModule from "../../../appui-react/layout/base/NineZone";
 import type { PanelWidgetDragStartAction } from "../../../appui-react/layout/state/NineZoneAction";

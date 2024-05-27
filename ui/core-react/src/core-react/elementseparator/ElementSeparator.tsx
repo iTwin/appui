@@ -280,6 +280,7 @@ export const ElementSeparator = (props: ElementSeparatorProps) => {
       onPointerOver={onPointerOver}
       onPointerOut={onPointerOut}
       aria-label={translate("elementSeparator.label")}
+      tabIndex={-1}
     />
   );
 };

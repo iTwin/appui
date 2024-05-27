@@ -80,7 +80,7 @@ describe("PropertyView", () => {
         />
       );
       expect(screen.getByRole("presentation")).satisfy(
-        styleMatch({ gridTemplateColumns: "25% 1px auto" })
+        styleMatch({ gridTemplateColumns: "25% auto auto" })
       );
     });
 
@@ -102,7 +102,7 @@ describe("PropertyView", () => {
       );
 
       expect(screen.getByRole("presentation")).satisfy(
-        styleMatch({ gridTemplateColumns: "25% 1px auto 60px" })
+        styleMatch({ gridTemplateColumns: "25% auto auto 60px" })
       );
     });
 
@@ -118,7 +118,7 @@ describe("PropertyView", () => {
       );
 
       expect(screen.getByRole("presentation")).satisfy(
-        styleMatch({ gridTemplateColumns: "25% 1px auto auto" })
+        styleMatch({ gridTemplateColumns: "25% auto auto auto" })
       );
     });
   });
@@ -187,7 +187,7 @@ describe("PropertyView", () => {
 
       expect(screen.getByRole("presentation")).satisfy(
         styleMatch({
-          gridTemplateColumns: "minmax(30px, 25%) 1px minmax(45px, 1fr)",
+          gridTemplateColumns: "minmax(30px, 25%) auto minmax(45px, 1fr)",
         })
       );
     });
@@ -211,7 +211,7 @@ describe("PropertyView", () => {
 
       expect(screen.getByRole("presentation")).satisfy(
         styleMatch({
-          gridTemplateColumns: "minmax(30px, 25%) 1px minmax(45px, 1fr) 60px",
+          gridTemplateColumns: "minmax(30px, 25%) auto minmax(45px, 1fr) 60px",
         })
       );
     });

@@ -1081,7 +1081,7 @@ export const useActiveFrontstageId = () => {
 };
 
 /** Hook to return the active Frontstage def.
- *  @public
+ * @public
  */
 export function useActiveFrontstageDef() {
   const [def, setDef] = React.useState(

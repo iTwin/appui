@@ -32,8 +32,8 @@
     "@itwin/imodels-client-authoring": "^3.0.0",
     "@itwin/itwinui-icons-react": "^2.8.0",
     "@itwin/itwinui-react": "^3.6.0",
-    "react": "^17.0.0",
-    "react-dom": "^17.0.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-redux": "^7.2.2"
   },
   "devDependencies": {
@@ -49,8 +49,8 @@
     "@storybook/react-vite": "^7.6.17",
     "@storybook/testing-library": "^0.2.2",
     "@storybook/theming": "^7.6.17",
-    "@types/react": "^17.0.37",
-    "@types/react-dom": "^17.0.0",
+    "@types/react": "^18.3.2",
+    "@types/react-dom": "^18.3.0",
     "@types/react-redux": "^7.1.18",
     "@typescript-eslint/eslint-plugin": "^5.59.0",
     "@typescript-eslint/parser": "^6.1.0",

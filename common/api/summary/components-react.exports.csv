@@ -203,7 +203,7 @@ public;PagedTreeNodeLoader
 public;PageOptions
 internal;Panel(props: PanelProps): React_3.JSX.Element
 internal;PanelProps 
-public;ParsedInput: (props: ParsedInputProps) => React_3.ReactElement | null
+public;ParsedInput: (props: ParsedInputProps) => React_3.ReactNode
 public;ParsedInputProps 
 public;Point2dTypeConverter 
 public;Point3dTypeConverter 
@@ -438,5 +438,5 @@ public;VirtualizedPropertyGridProps
 public;VirtualizedPropertyGridWithDataProvider(props: VirtualizedPropertyGridWithDataProviderProps): React_2.JSX.Element
 public;VirtualizedPropertyGridWithDataProviderProps 
 public;VisibleTreeNodes 
-public;withContextStyle: (node: React_3.ReactNode, context?: PropertyValueRendererContext) => React_3.ReactNode
+public;withContextStyle: (node: React_3.ReactNode, context?: PropertyValueRendererContext) => string | number | boolean | Iterable
 public;withLinks: (stringValue: string, links?: LinkElementsInfo, highlight?: ((text: string) => React_3.ReactNode) | undefined) => React_3.ReactNode

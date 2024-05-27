@@ -4,11 +4,11 @@
  *--------------------------------------------------------------------------------------------*/
 
 import React from "react";
+import { Key } from "ts-key-enum";
 import type { ActionButton, CommonToolbarItem } from "@itwin/appui-abstract";
 import { ToolbarItemUtilities } from "@itwin/appui-abstract";
-import { fireEvent, render } from "@testing-library/react";
-import { Key } from "ts-key-enum";
-import { renderHook } from "@testing-library/react-hooks";
+import { BadgeType } from "@itwin/core-react";
+import { act, fireEvent, render, renderHook } from "@testing-library/react";
 import type { CustomToolbarItem } from "../../components-react/toolbar/InternalToolbarComponent";
 import {
   ToolbarOpacitySetting,
@@ -20,7 +20,6 @@ import { Toolbar } from "../../components-react/toolbar/Toolbar";
 import { Direction } from "../../components-react/toolbar/utilities/Direction";
 import { BackArrow } from "../../components-react/toolbar/groupPanel/BackArrow";
 import { GroupTool } from "../../components-react/toolbar/groupPanel/tool/Tool";
-import { BadgeType } from "@itwin/core-react";
 
 /* eslint-disable deprecation/deprecation */
 // cSpell:ignore testid
@@ -542,7 +541,9 @@ describe("<Toolbar (No Overflow) />", () => {
       vi.spyOn(pointerMove, "target", "get").mockImplementation(
         () => renderedComponent.container.children[0]
       );
-      document.dispatchEvent(pointerMove);
+      act(() => {
+        document.dispatchEvent(pointerMove);
+      });
       expect(
         renderedComponent.container.querySelector(".components-targeted")
       ).toBeTruthy();
@@ -571,7 +572,9 @@ describe("<Toolbar (No Overflow) />", () => {
       vi.spyOn(pointerMove, "target", "get").mockImplementation(
         () => renderedComponent.container.children[0]
       );
-      document.dispatchEvent(pointerMove);
+      act(() => {
+        document.dispatchEvent(pointerMove);
+      });
       expect(
         renderedComponent.container.querySelector(".components-targeted")
       ).toBeTruthy();

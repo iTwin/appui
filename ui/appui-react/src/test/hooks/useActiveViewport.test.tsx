@@ -6,7 +6,7 @@ import type { ScreenViewport } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
 import type { ActiveContentChangedEventArgs } from "../../appui-react";
 import { UiFramework, useActiveViewport } from "../../appui-react";
-import { act, renderHook } from "@testing-library/react-hooks";
+import { act, renderHook } from "@testing-library/react";
 
 describe("useActiveViewport", () => {
   const selectedView = {} as ScreenViewport;
@@ -18,7 +18,7 @@ describe("useActiveViewport", () => {
   });
 
   it("should update active viewport", async () => {
-    const { result, waitFor } = renderHook(() => useActiveViewport());
+    const { result } = renderHook(() => useActiveViewport());
     expect(result.current).toEqual(selectedView);
 
     const updatedView = {} as ScreenViewport;
@@ -31,7 +31,7 @@ describe("useActiveViewport", () => {
       );
     });
 
-    await waitFor(() => {
+    await vi.waitFor(() => {
       expect(result.current).toEqual(updatedView);
     });
   });
