@@ -13,12 +13,13 @@ import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState";
 
 /** `SelectionInfoField` component is designed to be specified in a status bar.
  * It is used to display the number of items in a selection set.
- * @note Uses redux provider.
+ * @note Requires redux provider.
  * @public
  * @deprecated in 4.14.x. Use {@link SelectionCountField} instead.
  */
 export function SelectionInfoField(props: CommonProps) {
   const numItemsSelected = useReduxFrameworkState(
+    // eslint-disable-next-line deprecation/deprecation
     (state) => state?.sessionState.numItemsSelected ?? 0
   );
   return (

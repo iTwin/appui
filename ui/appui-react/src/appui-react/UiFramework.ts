@@ -7,7 +7,6 @@
  */
 
 import type { Store } from "redux";
-import { castDraft } from "immer";
 import { Logger, ProcessDetector } from "@itwin/core-bentley";
 import type { TranslationOptions } from "@itwin/core-common";
 import type { IModelConnection, ViewState } from "@itwin/core-frontend";
@@ -75,7 +74,7 @@ import { createElement } from "react";
 import type { DialogInfo } from "./dialog/DialogManagerBase";
 import type { KeyinEntry } from "./keyins/Keyins";
 import { mapToRelativePosition, type Placement } from "./utils/Placement";
-import type { ToolbarProps } from "./toolbar/Toolbar";
+import type { Toolbar, ToolbarProps } from "./toolbar/Toolbar";
 import type { CursorMenuItemProps } from "./shared/MenuItem";
 import {
   SYSTEM_PREFERRED_COLOR_THEME,
@@ -88,6 +87,9 @@ import type {
   ConfigurableUiContent,
   ConfigurableUiContentProps,
 } from "./configurableui/ConfigurableUiContent";
+import type { SelectionScopeField } from "./statusfields/SelectionScope";
+import type { SnapModeField } from "./statusfields/SnapMode";
+import type { ThemeManager } from "./theme/ThemeManager";
 
 interface ShowInputEditorOptions {
   location: XAndY;
@@ -146,10 +148,7 @@ const globalState = {
   numItemsSelected: 0,
   iModelConnection: undefined as IModelConnection | undefined,
   viewState: undefined as ViewState | undefined,
-  cursorMenuPayload: undefined as  // eslint-disable-next-line deprecation/deprecation
-    | CursorMenuData
-    | CursorMenuPayload
-    | undefined,
+  cursorMenuPayload: undefined as CursorMenuPayload | undefined,
 };
 
 /** Main entry point to configure and interact with the features provided by the AppUi-react package.
@@ -414,7 +413,7 @@ export class UiFramework {
     return category;
   }
 
-  /** @deprecated in 4.14.x. Use {@link useFrameworkState} to dispatch actions and {@link SyncUiEventDispatcher} to dispatch a sync UI event. */
+  /** @deprecated in 4.14.x. Use your preferred state management library instead and {@link SyncUiEventDispatcher} to dispatch sync UI events. */
   public static dispatchActionToStore(
     type: string,
     payload: any,
@@ -1072,7 +1071,8 @@ export class UiFramework {
   /* eslint-disable deprecation/deprecation */
 
   /** Key used to access framework state from redux store.
-   * @deprecated in 4.14.x. Use {@link useFrameworkState} instead.
+   * @note Uses redux provider.
+   * @deprecated in 4.14.x. Use your preferred state management library instead.
    */
   public static get frameworkStateKey(): string {
     return UiFramework._frameworkStateKeyInStore;
@@ -1353,7 +1353,7 @@ export class UiFramework {
   /** UiFramework.setToolbarOpacity() sets the non-hovered opacity to the value specified.
    * @param opacity a value between 0 and 1. The default value is 0.5. IT IS NOT ADVISED TO USE A VALUE BELOW 0.2
    * @note Requires redux provider.
-   * @deprecated in 4.14.x. Use `opacity` prop of {@link Toolbar}.
+   * @deprecated in 4.14.x. Use {@link ConfigurableUiContentProps.toolbarOpacity} prop of {@link ConfigurableUiContent}.
    */
   public static setToolbarOpacity(opacity: number) {
     if (UiFramework.getToolbarOpacity() === opacity) return;
@@ -1393,7 +1393,6 @@ export class UiFramework {
       UiFramework.frameworkState?.sessionState.activeSelectionScope ?? "element"
     );
   }
-
   /** This method stores the active selection scope to the supplied scope id, and triggers
    * a `SessionStateActionId.SetSelectionScope` event in the `SyncUiEventDispatcher`.
    * Note: As of 4.0, this method *does not change* the active selection scope in the `Presentation.selection.scopes.activeScope` property.

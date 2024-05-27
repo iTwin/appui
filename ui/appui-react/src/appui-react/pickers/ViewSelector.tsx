@@ -477,7 +477,7 @@ type IModelConnectedViewSelectorProps = Omit<
   Partial<ViewSelectorDefaultProps>;
 
 /** ViewSelector that is connected to the IModelConnection property in the Redux store. The application must set up the Redux store and include the FrameworkReducer.
- * @note Uses redux provider.
+ * @note Requires redux provider.
  * @beta
  * @deprecated in 4.14.x. Use {@link ViewSelector} instead.
  */
@@ -485,6 +485,7 @@ export function IModelConnectedViewSelector(
   props: IModelConnectedViewSelectorProps
 ) {
   const iModel = useReduxFrameworkState(
+    // eslint-disable-next-line deprecation/deprecation
     (state) => state?.sessionState.iModelConnection
   );
   return <ViewSelector imodel={iModel} {...props} />;

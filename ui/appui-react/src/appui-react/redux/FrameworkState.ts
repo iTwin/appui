@@ -8,35 +8,24 @@
 
 import { combineReducers } from "redux";
 import type { ConfigurableUiState } from "./ConfigurableUiState";
-import {
-  ConfigurableUiReducer,
-  initialConfigurableUiState,
-} from "./ConfigurableUiState";
+import { ConfigurableUiReducer } from "./ConfigurableUiState";
 import type { SessionState } from "./SessionState";
-import { initialSessionState, SessionStateReducer } from "./SessionState";
+import { SessionStateReducer } from "./SessionState";
 
 /* eslint-disable deprecation/deprecation */
 
 /** Interface combining all the Framework state interfaces.
  * @public
- * @deprecated in 4.14.x. Use {@link useFrameworkState} instead.
+ * @deprecated in 4.14.x. Use your preferred state management library instead.
  */
 export interface FrameworkState {
   configurableUiState: ConfigurableUiState;
   sessionState: SessionState;
 }
 
-/** @internal */
-export function createFrameworkState(): FrameworkState {
-  return {
-    configurableUiState: { ...initialConfigurableUiState },
-    sessionState: { ...initialSessionState },
-  };
-}
-
 /** Framework reducer that combines the [[ConfigurableUiReducer]] and [[SessionStateReducer]].
  * @public
- * @deprecated in 4.14.x. Use {@link useFrameworkState} instead.
+ * @deprecated in 4.14.x. Use your preferred state management library instead.
  */
 export const FrameworkReducer = combineReducers({
   configurableUiState: ConfigurableUiReducer,

@@ -9,7 +9,10 @@
 import type { XAndY } from "@itwin/core-geometry";
 import type { CursorMenuItemProps, MenuItemProps } from "../shared/MenuItem";
 import type { ActionsUnion, DeepReadonly } from "./redux-ts";
+import type { UiFramework } from "../UiFramework";
 import { createAction } from "./redux-ts";
+import type { useActiveIModelConnection } from "../hooks/useActiveIModelConnection";
+import { SelectionScopeField } from "../statusfields/SelectionScope";
 
 // cSpell:ignore configurableui snapmode toolprompt sessionstate imodelid viewid viewportid rulesetid
 
@@ -65,7 +68,7 @@ export enum SessionStateActionId {
 
 /** The portion of state managed by the SessionStateReducer.
  * @public
- * @deprecated in 4.14.x. Use {@link useFrameworkState} instead.
+ * @deprecated in 4.14.x. Use your preferred state management library instead.
  */
 export interface SessionState {
   /** @deprecated in 4.14.x. Use {@link UiFramework.getNumItemsSelected} instead. */
@@ -117,7 +120,7 @@ export const initialSessionState: SessionState = {
 
 /** An interface that allows redux connected object to dispatch changes to the SessionState reducer.
  * @beta
- * @deprecated in 4.14.x. Use {@link useFrameworkState} instead.
+ * @deprecated in 4.14.x. Use your preferred state management library instead.
  */
 export interface SessionStateActionsProps {
   setActiveIModelId: typeof SessionStateActions.setActiveIModelId;
@@ -133,7 +136,7 @@ export interface SessionStateActionsProps {
 
 /** An object with a function that creates each SessionStateReducer that can be handled by our reducer.
  * @public
- * @deprecated in 4.14.x. Use {@link useFrameworkState} instead.
+ * @deprecated in 4.14.x. Use your preferred state management library instead.
  */
 export const SessionStateActions = {
   setActiveIModelId:
@@ -180,19 +183,19 @@ export const SessionStateActions = {
 /** Object that contains available actions that modify SessionState. Parent control's props should
  * extend from SessionStateActionsProps before using this in Redux 'connect' function.
  * @beta
- * @deprecated in 4.14.x. Use {@link useFrameworkState} instead.
+ * @deprecated in 4.14.x. Use your preferred state management library instead.
  */
 export const sessionStateMapDispatchToProps = { ...SessionStateActions };
 
 /** Union of SessionState Redux actions
  * @public
- * @deprecated in 4.14.x. Use {@link useFrameworkState} instead.
+ * @deprecated in 4.14.x. Use your preferred state management library instead.
  */
 export type SessionStateActionsUnion = ActionsUnion<typeof SessionStateActions>;
 
 /** Handles actions to update SessionState.
  * @public
- * @deprecated in 4.14.x. Use {@link useFrameworkState} instead.
+ * @deprecated in 4.14.x. Use your preferred state management library instead.
  */
 export function SessionStateReducer(
   state: SessionState = initialSessionState,

@@ -19,7 +19,7 @@ import { ReducerRegistryInstance } from "./ReducerRegistry";
 /** Generic 'root' state for the appui-react package. Since this state contains common values needed by many applications
  * it is automatically added to the Redux store when using [[StateManager]].
  * @beta
- * @deprecated in 4.14.x. Use {@link useFrameworkState} instead.
+ * @deprecated in 4.14.x. Use your preferred state management library instead.
  */
 export interface FrameworkRootState {
   frameworkState: FrameworkState;

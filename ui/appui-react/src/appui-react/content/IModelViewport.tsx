@@ -30,7 +30,7 @@ import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState";
 import { ConfigurableUiContext } from "../configurableui/ConfigurableUiContent";
 
 /** Viewport that is connected to the IModelConnection property in the Redux store. The application must set up the Redux store and include the FrameworkReducer.
- * @note Uses redux provider.
+ * @note Requires redux provider.
  * @public
  * @deprecated in 4.14.x. Use {@link ViewportComponent} instead.
  */
@@ -38,9 +38,11 @@ export function IModelConnectedViewport(
   props: Omit<ViewportProps, "imodel" | "viewState">
 ) {
   const iModel = useReduxFrameworkState(
+    // eslint-disable-next-line deprecation/deprecation
     (state) => state?.sessionState.iModelConnection
   );
   const viewState = useReduxFrameworkState(
+    // eslint-disable-next-line deprecation/deprecation
     (state) => state?.sessionState.defaultViewState
   );
   if (!iModel) return null;
