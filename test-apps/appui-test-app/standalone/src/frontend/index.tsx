@@ -147,12 +147,16 @@ const initialState: SampleAppState = {
 // An object with a function that creates each OpenIModelAction that can be handled by our reducer.
 export const SampleAppActions = {
   setTestProperty: (testProperty: string) =>
+    // eslint-disable-next-line deprecation/deprecation
     createAction(SampleAppUiActionId.setTestProperty, testProperty),
   setAnimationViewId: (viewId: string) =>
+    // eslint-disable-next-line deprecation/deprecation
     createAction(SampleAppUiActionId.setAnimationViewId, viewId),
   setIsIModelLocal: (isIModelLocal: boolean) =>
+    // eslint-disable-next-line deprecation/deprecation
     createAction(SampleAppUiActionId.setIsIModelLocal, isIModelLocal),
   setInitialViewIds: (viewIds: string[]) =>
+    // eslint-disable-next-line deprecation/deprecation
     createAction(SampleAppUiActionId.setInitialViewIds, viewIds),
 };
 
@@ -162,7 +166,7 @@ class SampleAppAccuSnap extends AccuSnap {
     if (SampleAppIModelApp.store.getState().frameworkState) {
       const snapMode =
         SampleAppIModelApp.store.getState().frameworkState.configurableUiState
-          .snapMode;
+          .snapMode; // eslint-disable-line deprecation/deprecation
       if ((snapMode & SnapMode.Bisector) === (SnapMode.Bisector as number))
         snaps.push(SnapMode.Bisector);
       if ((snapMode & SnapMode.Center) === (SnapMode.Center as number))
@@ -190,11 +194,13 @@ class SampleAppAccuSnap extends AccuSnap {
   }
 }
 
+// eslint-disable-next-line deprecation/deprecation
 export type SampleAppActionsUnion = ActionsUnion<typeof SampleAppActions>;
 
 function SampleAppReducer(
   state: SampleAppState = initialState,
   action: SampleAppActionsUnion
+  // eslint-disable-next-line deprecation/deprecation
 ): DeepReadonly<SampleAppState> {
   switch (action.type) {
     case SampleAppUiActionId.setTestProperty: {
@@ -214,6 +220,7 @@ function SampleAppReducer(
 }
 
 // React-redux interface stuff
+// eslint-disable-next-line deprecation/deprecation
 export interface RootState extends FrameworkRootState {
   sampleAppState: SampleAppState;
 }
@@ -229,9 +236,11 @@ export class SampleAppIModelApp {
   public static sampleAppNamespace?: string;
   public static iModelParams: SampleIModelParams | undefined;
   public static testAppConfiguration: TestAppConfiguration | undefined;
+  // eslint-disable-next-line deprecation/deprecation
   private static _appStateManager: StateManager | undefined;
 
   public static get store(): Store<RootState> {
+    // eslint-disable-next-line deprecation/deprecation
     return StateManager.store as Store<RootState>;
   }
 
@@ -265,8 +274,10 @@ export class SampleAppIModelApp {
 
     // use new state manager that allows dynamic additions from extensions and snippets
     if (!this._appStateManager) {
+      // eslint-disable-next-line deprecation/deprecation
       this._appStateManager = new StateManager({
         sampleAppState: SampleAppReducer,
+        // eslint-disable-next-line deprecation/deprecation
         frameworkState: FrameworkReducer,
       });
     }
@@ -291,6 +302,7 @@ export class SampleAppIModelApp {
     });
 
     // store name of this registered control in Redux store so it can be access by extensions
+    // eslint-disable-next-line deprecation/deprecation
     UiFramework.setDefaultIModelViewportControlId(IModelViewportControl.id);
 
     // default to showing imperial formatted units
@@ -304,6 +316,7 @@ export class SampleAppIModelApp {
       { id: "assembly", label: "Assembly" },
       { id: "top-assembly", label: "Top Assembly" },
     ];
+    // eslint-disable-next-line deprecation/deprecation
     UiFramework.dispatchActionToStore(
       SessionStateActionId.SetAvailableSelectionScopes,
       availableScopes
@@ -320,6 +333,7 @@ export class SampleAppIModelApp {
       (window.localStorage &&
         window.localStorage.getItem("uifw:defaultTheme")) ??
       SYSTEM_PREFERRED_COLOR_THEME;
+    // eslint-disable-next-line deprecation/deprecation
     const defaults: InitialAppUiSettings = {
       colorTheme: lastTheme ?? SYSTEM_PREFERRED_COLOR_THEME,
       dragInteraction: false,
@@ -330,6 +344,7 @@ export class SampleAppIModelApp {
     };
 
     // initialize any settings providers that may need to have defaults set by iModelApp
+    // eslint-disable-next-line deprecation/deprecation
     UiFramework.registerUserSettingsProvider(new AppUiSettings(defaults));
 
     UiFramework.useDefaultPopoutUrl = true;
@@ -489,6 +504,7 @@ export class SampleAppIModelApp {
 
   public static setTestProperty(value: string, immediateSync = false) {
     if (value !== SampleAppIModelApp.getTestProperty()) {
+      // eslint-disable-next-line deprecation/deprecation
       UiFramework.dispatchActionToStore(
         SampleAppUiActionId.setTestProperty,
         value,
@@ -507,6 +523,7 @@ export class SampleAppIModelApp {
 
   public static saveAnimationViewId(value: string, immediateSync = false) {
     if (value !== SampleAppIModelApp.getTestProperty()) {
+      // eslint-disable-next-line deprecation/deprecation
       UiFramework.dispatchActionToStore(
         SampleAppUiActionId.setAnimationViewId,
         value,
@@ -523,6 +540,7 @@ export class SampleAppIModelApp {
     isIModelLocal: boolean,
     immediateSync = false
   ) {
+    // eslint-disable-next-line deprecation/deprecation
     UiFramework.dispatchActionToStore(
       SampleAppUiActionId.setIsIModelLocal,
       isIModelLocal,
@@ -531,6 +549,7 @@ export class SampleAppIModelApp {
   }
 
   public static setInitialViewIds(viewIds: string[], immediateSync = false) {
+    // eslint-disable-next-line deprecation/deprecation
     UiFramework.dispatchActionToStore(
       SampleAppUiActionId.setInitialViewIds,
       viewIds,
@@ -564,6 +583,7 @@ function AppDragInteractionComponent(props: {
 function mapDragInteractionStateToProps(state: RootState) {
   return {
     dragInteraction:
+      // eslint-disable-next-line deprecation/deprecation
       state.frameworkState.configurableUiState.useDragInteraction,
   };
 }

@@ -92,7 +92,6 @@ import { AppUi } from "./appui/AppUi";
 import { ExternalIModel } from "./appui/ExternalIModel";
 import { MainFrontstage } from "./appui/frontstages/MainFrontstage";
 import { AppSettingsTabsProvider } from "./appui/settingsproviders/AppSettingsTabsProvider";
-// import { ECSchemaRpcLocater } from "@itwin/ecschema-rpcinterface-common";
 import { IModelOpenFrontstage } from "./appui/frontstages/IModelOpenFrontstage";
 import { SignInFrontstage } from "./appui/frontstages/SignInFrontstage";
 import {
@@ -108,6 +107,8 @@ import {
   SynchronizedFloatingViewportStage,
   WidgetApiStage,
 } from "@itwin/appui-test-providers";
+
+/* eslint-disable deprecation/deprecation */
 
 // Initialize my application gateway configuration for the frontend
 RpcConfiguration.developmentMode = true;
