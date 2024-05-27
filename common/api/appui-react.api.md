@@ -4918,6 +4918,8 @@ export class UiFramework {
     static hideKeyinPalette(): boolean;
     static hideMenuButton(id: string): boolean;
     static hideToolbar(): boolean;
+    static initialize(): Promise<void>;
+    // @deprecated
     static initialize(store: Store<any> | undefined, frameworkStateKey?: string): Promise<void>;
     static get initialized(): boolean;
     static initializeStateFromUserSettingsProviders(immediateSync?: boolean): Promise<void>;

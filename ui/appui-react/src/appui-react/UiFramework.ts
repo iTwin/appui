@@ -282,7 +282,6 @@ export class UiFramework {
       new StateManager();
 
     UiFramework._store = store;
-    // TODO: subscribe to redux store and sync changes to `useFrameworkStore`.
 
     // ignore setting _frameworkStateKeyInStore if not using store
     if (frameworkStateKey && store)
@@ -420,21 +419,6 @@ export class UiFramework {
     const category =
       UiFramework.packageName + (className ? `.${className}` : "");
     return category;
-  }
-
-  /** @deprecated in 4.14.x. Use your preferred state management library instead and {@link SyncUiEventDispatcher} to dispatch sync UI events. */
-  public static dispatchActionToStore(
-    type: string,
-    payload: any,
-    immediateSync = false
-  ) {
-    const reduxStore = UiFramework.reduxStore;
-    const reduxState = reduxStore?.getState();
-    // eslint-disable-next-line deprecation/deprecation
-    const frameworkState = reduxState?.[UiFramework.frameworkStateKey];
-    if (!frameworkState) return;
-    reduxStore!.dispatch({ type, payload });
-    dispatchSyncUiEvent(type, immediateSync);
   }
 
   /** Show a context menu at a particular location.
@@ -1079,8 +1063,21 @@ export class UiFramework {
 
   /* eslint-disable deprecation/deprecation */
 
+  /** @deprecated in 4.14.x. Use your preferred state management library instead and {@link SyncUiEventDispatcher} to dispatch sync UI events. */
+  public static dispatchActionToStore(
+    type: string,
+    payload: any,
+    immediateSync = false
+  ) {
+    const reduxStore = UiFramework.reduxStore;
+    const reduxState = reduxStore?.getState();
+    const frameworkState = reduxState?.[UiFramework.frameworkStateKey];
+    if (!frameworkState) return;
+    reduxStore!.dispatch({ type, payload });
+    dispatchSyncUiEvent(type, immediateSync);
+  }
+
   /** Key used to access framework state from redux store.
-   * @note Uses redux provider.
    * @deprecated in 4.14.x. Use your preferred state management library instead.
    */
   public static get frameworkStateKey(): string {
@@ -1124,7 +1121,6 @@ export class UiFramework {
   public static get frameworkState(): ReduxFrameworkState | undefined {
     const store = UiFramework.reduxStore;
     const state = store?.getState();
-    // eslint-disable-next-line deprecation/deprecation
     const frameworkState = state?.[UiFramework.frameworkStateKey];
     return frameworkState;
   }

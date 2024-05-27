@@ -27,7 +27,7 @@ interface SelectionScopeFieldProps extends CommonProps {
 }
 
 /** `SelectionScopeField` component is designed to be specified in a status bar.
- * It displays the active selection scope and the stored list of scopes from which the user can change the active selection scope.
+ * It displays the active selection scope and the list of scopes from which the user can change the active selection scope.
  * @public
  */
 export function SelectionScopeField(props: SelectionScopeFieldProps) {

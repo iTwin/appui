@@ -46,14 +46,12 @@ interface ThemeManagerProps {
  * and `ThemeProvider` theme will be set to `inherit`, in this case the application is
  * responsible for setting the theme by overriding iTwinUI css variables.
  *
- * This React component is Redux connected and should wrap [[ConfigurableUiContent]].
+ * This React component should wrap [[ConfigurableUiContent]].
  *
  * ```tsx
- * <Provider store={UiFramework.store}>
- *   <ThemeManager>
- *     <ConfigurableUiContent />
- *   </ThemeManager>
- * </Provider>
+ * <ThemeManager>
+ *   <ConfigurableUiContent />
+ * </ThemeManager>
  * ```
  * @public
  */
