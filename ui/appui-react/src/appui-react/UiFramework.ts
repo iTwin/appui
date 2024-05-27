@@ -249,14 +249,23 @@ export class UiFramework {
   // eslint-disable-next-line deprecation/deprecation
   public static readonly onUiVisibilityChanged = new UiVisibilityChangedEvent();
 
+  /** Called by the application to initialize the UiFramework. Also initializes UIIModelComponents, UiComponents, UiCore. */
+  public static async initialize(): Promise<void>;
   /** Called by the application to initialize the UiFramework. Also initializes UIIModelComponents, UiComponents, UiCore.
    * @param store The single Redux store created by the host application. If this is `undefined` then it is assumed that the [[StateManager]] is being used to provide the Redux store.
    * @param frameworkStateKey The name of the key used by the app when adding the UiFramework state into the Redux store. If not defined "frameworkState" is assumed. This value is ignored if [[StateManager]] is being used. The StateManager use "frameworkState".
+   * @deprecated in 4.14.x. Continue using redux initializer until all application components react to redux deprecations. Use {@link UiFramework.initialize} overload instead.
    */
   public static async initialize(
     store: Store<any> | undefined,
+    // eslint-disable-next-line @typescript-eslint/unified-signatures
+    frameworkStateKey?: string
+  ): Promise<void>;
+  public static async initialize(
+    store?: Store<any> | undefined,
     frameworkStateKey?: string
   ): Promise<void> {
+    // TODO: check `arguments` to determine between redux & no-redux initializers.
     if (UiFramework._initialized) {
       Logger.logInfo(
         UiFramework.loggerCategory(UiFramework),
