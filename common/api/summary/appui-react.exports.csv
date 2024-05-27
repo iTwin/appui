@@ -33,11 +33,16 @@ deprecated;AccuDrawUiSettingsChangedEvent
 beta;AccuDrawWidget(): React_2.JSX.Element
 beta;AccuDrawWidgetControl 
 public;Action
+deprecated;Action
 public;class ActionButtonItemDef 
-public;ActionCreatorsObject =
+public;ActionCreatorsObject
+deprecated;ActionCreatorsObject
 public;ActionsUnion
+deprecated;ActionsUnion
 public;ActionTypes
+deprecated;ActionTypes
 public;ActionWithPayload
+deprecated;ActionWithPayload
 public;ActiveContentChangedEvent 
 deprecated;ActiveContentChangedEvent 
 public;ActiveContentChangedEventArgs
@@ -58,6 +63,7 @@ public;AnyItemDef = GroupItemDef | CommandItemDef | ToolItemDef | ActionButtonIt
 public;AnyToolbarItemDef = AnyItemDef | CustomItemDef
 public;AppNotificationManager 
 public;AppUiSettings 
+deprecated;AppUiSettings 
 beta;areNoFeatureOverridesActive(): boolean
 public;BackstageActionItem 
 public;BackstageAppButton(props: BackstageAppButtonProps): React_2.JSX.Element
@@ -102,8 +108,11 @@ public;ChildWindowLocationProps
 internal;clearKeyinPaletteHistory(): void
 public;ColorTheme
 public;CombinedReducerState
+deprecated;CombinedReducerState
 public;combineReducers: CombineReducersFunction
+deprecated;combineReducers: CombineReducersFunction
 public;CombineReducersFunction = 
+deprecated;CombineReducersFunction = 
 public;CommandHandler
 public;CommandItemDef 
 public;CommandItemProps 
@@ -114,17 +123,24 @@ public;ConfigurableBase
 public;ConfigurableCreateInfo
 public;ConfigurableUiActionId
 public;ConfigurableUiActions:
+deprecated;ConfigurableUiActions:
 public;ConfigurableUiActionsUnion = ActionsUnion
+deprecated;ConfigurableUiActionsUnion = ActionsUnion
 public;ConfigurableUiContent(props: ConfigurableUiContentProps): React_2.JSX.Element
 public;ConfigurableUiContentProps 
+internal;ConfigurableUiContext: React_2.Context
 public;class ConfigurableUiControl 
 public;ConfigurableUiControlConstructor = new (info: ConfigurableCreateInfo, options: any) => ConfigurableUiElement
 public;ConfigurableUiControlType
 public;ConfigurableUiElement
 public;ConfigurableUiReducer(state: ConfigurableUiState | undefined, action: ConfigurableUiActionsUnion): ConfigurableUiState
+deprecated;ConfigurableUiReducer(state: ConfigurableUiState | undefined, action: ConfigurableUiActionsUnion): ConfigurableUiState
 public;ConfigurableUiState
+deprecated;ConfigurableUiState
 public;connectIModelConnection: (mapStateToProps?: any, mapDispatchToProps?: any) => InferableComponentEnhancerWithProps
+deprecated;connectIModelConnection: (mapStateToProps?: any, mapDispatchToProps?: any) => InferableComponentEnhancerWithProps
 beta;connectIModelConnectionAndViewState: (mapStateToProps?: any, mapDispatchToProps?: any) => InferableComponentEnhancerWithProps
+deprecated;connectIModelConnectionAndViewState: (mapStateToProps?: any, mapDispatchToProps?: any) => InferableComponentEnhancerWithProps
 public;ContentCallback = (content: ContentProps) => void
 public;ContentControl 
 public;ContentControlActivatedEvent 
@@ -153,7 +169,9 @@ public;ContentToolWidgetComposerProps
 internal;ContentWrapper(props: ContentWrapperProps): React_2.JSX.Element
 public;CoreTools
 public;createAction
+deprecated;createAction
 public;createAction
+deprecated;createAction
 internal;createStableWidgetDef(widgetDef: WidgetDef, stableId: string): WidgetDef
 public;CubeNavigationAidControl 
 public;CursorDirection
@@ -181,8 +199,11 @@ deprecated;CursorUpdatedEventArgs
 public;CustomItemDef 
 public;CustomItemProps 
 public;DeepReadonly
+deprecated;DeepReadonly
 public;DeepReadonlyArray
+deprecated;DeepReadonlyArray
 public;DeepReadonlyObject
+deprecated;DeepReadonlyObject
 public;DefaultContentTools
 public;DefaultContentToolsAppData
 public;DefaultDialogGridContainer({ componentGenerator, isToolSettings, }:
@@ -229,10 +250,13 @@ public;FrameworkFrontstages
 public;FrameworkKeyboardShortcut 
 public;FrameworkKeyboardShortcutContainer
 public;FrameworkKeyboardShortcuts
-public;FrameworkReducer: (state: CombinedReducerState
+public;FrameworkReducer: Reducer_2
+deprecated;FrameworkReducer: Reducer_2
 beta;FrameworkRootState
+deprecated;FrameworkRootState
 beta;FrameworkStackedDialog
 public;FrameworkState
+deprecated;FrameworkState
 beta;FrameworkToolAdmin 
 public;FrameworkToolSettings
 public;FrameworkUiAdmin 
@@ -256,6 +280,7 @@ deprecated;FrontstageReadyEvent
 public;FrontstageReadyEventArgs
 deprecated;FrontstageReadyEventArgs
 public;FunctionType = (...args: any[]) => any
+deprecated;FunctionType = (...args: any[]) => any
 internal;getBadgeClassName(badgeType: BadgeType | undefined): "uifw-badge-new" | "uifw-badge-tp" | undefined
 beta;getFeatureOverrideSyncEventIds(): string[]
 internal;getFrontstageStateSettingName(frontstageId: WidgetPanelsFrontstageState["id"]): string
@@ -280,11 +305,14 @@ alpha;HTMLElementPopup
 deprecated;HTMLElementPopup 
 alpha;HTMLElementPopupProps 
 deprecated;HTMLElementPopupProps 
-public;IModelConnectedViewport: ConnectedComponent
-beta;IModelConnectedViewSelector: ConnectedComponent
+public;IModelConnectedViewport(props: Omit
+deprecated;IModelConnectedViewport(props: Omit
+beta;IModelConnectedViewSelector(props: IModelConnectedViewSelectorProps): React_2.JSX.Element
+deprecated;IModelConnectedViewSelector(props: IModelConnectedViewSelectorProps): React_2.JSX.Element
 public;IModelViewportControl 
 public;IModelViewportControlOptions
 public;InitialAppUiSettings
+deprecated;InitialAppUiSettings
 internal;initializeNineZoneState(frontstageDef: FrontstageDef): void
 internal;initializePanel(frontstageDef: FrontstageDef, location: StagePanelLocation): void
 beta;InputEditorCommitHandler
@@ -382,6 +410,7 @@ deprecated;MouseDownChangedEvent
 public;MouseDownChangedEventArgs
 deprecated;MouseDownChangedEventArgs
 public;NameToReducerMap
+deprecated;NameToReducerMap
 public;NavigationAidActivatedEvent 
 deprecated;NavigationAidActivatedEvent 
 public;NavigationAidActivatedEventArgs
@@ -437,10 +466,15 @@ beta;QuantityFormatterSettingsOptions
 public;ReactContent
 public;ReactNotifyMessageDetails
 public;Reducer
+deprecated;Reducer
 public;ReducerActions
+deprecated;ReducerActions
 public;ReducerMapActions
+deprecated;ReducerMapActions
 beta;ReducerRegistry
+deprecated;ReducerRegistry
 beta;ReducerRegistryInstance: ReducerRegistry
+deprecated;ReducerRegistryInstance: ReducerRegistry
 public;RestoreAllFrontstagesTool 
 public;RestoreFrontstageLayoutTool 
 internal;restoreNineZoneState(frontstageDef: FrontstageDef, packed: NineZoneState): void
@@ -455,15 +489,22 @@ public;SelectionContextToolDefinitions
 beta;SelectionCountField(props: SelectionCountFieldProps): React_2.JSX.Element
 beta;SelectionCountFieldProps 
 public;SelectionInfoField(props: CommonProps): React_2.JSX.Element
+deprecated;SelectionInfoField(props: CommonProps): React_2.JSX.Element
 public;SelectionScope
-public;SelectionScopeField: ConnectedComponent
+public;SelectionScopeField(props: SelectionScopeFieldProps): React_2.JSX.Element
 public;SessionState
+deprecated;SessionState
 public;SessionStateActionId
 public;SessionStateActions:
+deprecated;SessionStateActions:
 beta;SessionStateActionsProps
+deprecated;SessionStateActionsProps
 public;SessionStateActionsUnion = ActionsUnion
+deprecated;SessionStateActionsUnion = ActionsUnion
 beta;sessionStateMapDispatchToProps:
+deprecated;sessionStateMapDispatchToProps:
 public;SessionStateReducer(state: SessionState | undefined, action: SessionStateActionsUnion): DeepReadonly
+deprecated;SessionStateReducer(state: SessionState | undefined, action: SessionStateActionsUnion): DeepReadonly
 internal;setPanelPinned: (nineZone: NineZoneState, side: PanelSide, pinned: boolean) => NineZoneState
 beta;SettingsModalFrontstage 
 alpha;SheetCard 
@@ -473,7 +514,7 @@ alpha;SheetNavigationAid
 alpha;SheetNavigationAidControl 
 alpha;SheetNavigationProps 
 alpha;SheetsModalFrontstage 
-public;SnapModeField: ConnectedComponent
+public;SnapModeField(props: SnapModeFieldProps): React_2.JSX.Element
 alpha;SolarTimelineDataProvider 
 public;SplitPane(props: SplitPaneProps): React_2.JSX.Element
 public;SplitPaneProps
@@ -506,7 +547,9 @@ alpha;StandardRotationNavigationAidControl
 public;StandardStatusbarItemsProvider 
 beta;StandardStatusbarUiItemsProvider 
 public;StateManager
+deprecated;StateManager
 public;StateType
+deprecated;StateType
 internal;stateVersion = 17
 public;StatusBar(props: StatusBarProps): React_2.JSX.Element
 public;StatusBar
@@ -548,7 +591,7 @@ public;SyncUiEventDispatcher
 public;SyncUiEventId
 public;SYSTEM_PREFERRED_COLOR_THEME = "SYSTEM_PREFERRED"
 public;ThemeId = `${ColorTheme}` | (string & {})
-public;ThemeManager: ConnectedComponent
+public;ThemeManager({ children, ...props }: ThemeManagerProps): React_2.JSX.Element
 public;TileLoadingIndicator 
 public;ToolActivatedEvent 
 deprecated;ToolActivatedEvent 
@@ -606,6 +649,7 @@ public;UiItemsProviderOverrides = MarkRequired
 public;UiItemsProviderRegisteredEventArgs
 deprecated;UiItemsProviderRegisteredEventArgs
 beta;UiSettingsPage(): React_2.JSX.Element
+deprecated;UiSettingsPage(): React_2.JSX.Element
 public;UiSettingsProviderProps
 internal;UiStateStorageContext: React_2.Context
 public;UiStateStorageHandler(props: UiSettingsProviderProps): React_2.JSX.Element

@@ -1110,7 +1110,7 @@ export class UiFramework {
   /** The UiFramework state maintained by Redux.
    * @note Returned fields should not be modified. Use the appropriate action dispatchers to modify the state.
    * @note Requires redux provider.
-   * @deprecated in 4.14.x. Use {@link UiFramework.state} instead.
+   * @deprecated in 4.14.x. Use your preferred state management library instead.
    */
   public static get frameworkState(): ReduxFrameworkState | undefined {
     const store = UiFramework.reduxStore;

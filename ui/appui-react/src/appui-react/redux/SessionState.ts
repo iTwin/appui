@@ -98,10 +98,8 @@ const defaultSelectionScope = {
   label: "Element",
 } as const satisfies PresentationSelectionScope;
 
-/** Used on first call of SessionStateReducer.
- * @internal
- */
-export const initialSessionState: SessionState = {
+/** Used on first call of SessionStateReducer. */
+const initialSessionState: SessionState = {
   /** number of selected items in Presentation Selection */
   numItemsSelected: 0,
   /** initialize to only support "Element" scope, this will be overwritten when iModelConnection is established */

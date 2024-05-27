@@ -42,7 +42,7 @@ export interface InitialAppUiSettings {
  * UiFramework.registerUserSettingsProvider(new AppUiSettings(defaults));
  * ```
  * @public
- * @deprecated in 4.14.x. Use {@link UiStateStorage} to persist UI settings.
+ * @deprecated in 4.14.x. Use {@link @itwin/core-react#UiStateStorage} to persist UI settings.
  */
 export class AppUiSettings implements UserSettingsProvider {
   public readonly providerId = "AppUiSettingsProvider";
