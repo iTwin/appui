@@ -11,7 +11,6 @@ import { Icon } from "@itwin/core-react";
 import {
   Button,
   NotificationMarker,
-  Popover,
   Tabs,
 } from "@itwin/itwinui-react";
 import { SvgChat } from "@itwin/itwinui-icons-react";
@@ -24,6 +23,7 @@ import { TitleBar } from "../../layout/footer/dialog/TitleBar";
 import type { NotifyMessageDetailsType } from "../../messages/ReactNotifyMessageDetails";
 import "./MessageCenterField.scss";
 import { useTranslation } from "../../hooks/useTranslation";
+import { StatusBarPopover } from "../../statusbar/popup/StatusBarPopover";
 
 /** Type for Status state to satisfy NotificationMarker type checking. */
 type NotificationMarkerStatus = "primary" | "negative" | "positive";
@@ -88,13 +88,9 @@ export function MessageCenterField(props: CommonProps) {
   }, []);
 
   return (
-    <Popover
+    <StatusBarPopover
       visible={isOpen}
       onVisibleChange={(visible) => handleOpenChange(visible)}
-      placement="top"
-      middleware={{
-        offset: 4,
-      }}
       className="uifw-statusFields-messageCenter-messageCenterField_popover"
       content={
         <>
@@ -169,6 +165,6 @@ export function MessageCenterField(props: CommonProps) {
       >
         {translate("messageCenter.messages")}
       </Button>
-    </Popover>
+    </StatusBarPopover>
   );
 }
