@@ -81,25 +81,10 @@ export function useWidgetDef(id?: WidgetDef["id"]): WidgetDef | undefined {
   }
 
   React.useEffect(() => {
-    return InternalFrontstageManager.onFrontstageNineZoneStateChangedEvent.addListener(
-      (args) => {
-        if (
-          args.frontstageDef !== frontstage ||
-          !frontstage ||
-          frontstage.isStageClosing ||
-          frontstage.isApplicationClosing
-        )
-          return;
-        setWidgetDef(frontstage.findWidgetDef(tabId));
-      }
-    );
-  }, [frontstage, tabId]);
-
-  React.useEffect(() => {
     return UiItemsManager.onUiProviderRegisteredEvent.addListener(() => {
       setWidgetDef(frontstage?.findWidgetDef(tabId));
     });
   }, [frontstage, tabId]);
 
-  return widgetDef;
+  return widgetDef?.id === tabId ? widgetDef : undefined;
 }
