@@ -65,14 +65,20 @@ export function WidgetContent() {
 }
 
 /** @internal */
-export function useWidgetDef(): WidgetDef | undefined {
-  const tabId = React.useContext(TabIdContext);
-  assert(!!tabId);
-
+export function useWidgetDef(id?: WidgetDef["id"]): WidgetDef | undefined {
   const frontstage = useActiveFrontstageDef();
+  const context = React.useContext(TabIdContext);
+  const tabId = id ?? context;
+  assert(!!tabId);
   const [widgetDef, setWidgetDef] = React.useState(() =>
     frontstage?.findWidgetDef(tabId)
   );
+
+  const [prevTabId, setPrevTabId] = React.useState(tabId);
+  if (prevTabId !== tabId) {
+    setPrevTabId(tabId);
+    setWidgetDef(frontstage?.findWidgetDef(tabId));
+  }
 
   React.useEffect(() => {
     return InternalFrontstageManager.onFrontstageNineZoneStateChangedEvent.addListener(
