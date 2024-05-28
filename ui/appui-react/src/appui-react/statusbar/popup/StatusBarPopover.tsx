@@ -6,7 +6,6 @@
  * @module StatusBar
  */
 
-import "./Popup.scss";
 import * as React from "react";
 import { Popover } from "@itwin/itwinui-react";
 
