@@ -24,6 +24,10 @@ import {
   MaximizeToggle,
   useMaximizeToggle,
 } from "../../preview/enable-maximized-widget/MaximizeToggle";
+import {
+  CloseTabButton,
+  useCloseTab,
+} from "../../preview/control-widget-visibility/CloseTabButton";
 
 /** @internal */
 export type WidgetFeature =
@@ -32,7 +36,8 @@ export type WidgetFeature =
   | "sendBack"
   | "dock"
   | "horizontalAlign"
-  | "pin";
+  | "pin"
+  | "closeTab";
 
 /** @internal */
 export function TabBarButtons() {
@@ -53,6 +58,8 @@ export function TabBarButtons() {
         return <PreviewHorizontalPanelAlignButton key="horizontalAlign" />;
       case "pin":
         return <PinToggle key="pin" />;
+      case "closeTab":
+        return <CloseTabButton key="closeTab" />;
     }
     return undefined;
   });
@@ -72,7 +79,9 @@ export function useWidgetFeatures(): WidgetFeature[] {
   const dock = useDock();
   const horizontalPanelAlignButton = useHorizontalPanelAlignButton();
   const pinToggle = usePinToggle();
+  const closeTab = useCloseTab();
   return [
+    ...(closeTab ? (["closeTab"] as const) : []),
     ...(popoutToggle ? (["popout"] as const) : []),
     ...(maximizeToggle ? (["maximize"] as const) : []),
     ...(sendBack ? (["sendBack"] as const) : []),
