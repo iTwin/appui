@@ -28,6 +28,10 @@ import {
   CloseTabButton,
   useCloseTab,
 } from "../../preview/control-widget-visibility/CloseTabButton";
+import {
+  AddTabButton,
+  useAddTab,
+} from "../../preview/control-widget-visibility/AddTabButton";
 
 /** @internal */
 export type WidgetFeature =
@@ -37,7 +41,8 @@ export type WidgetFeature =
   | "dock"
   | "horizontalAlign"
   | "pin"
-  | "closeTab";
+  | "closeTab"
+  | "addTab";
 
 /** @internal */
 export function TabBarButtons() {
@@ -60,6 +65,8 @@ export function TabBarButtons() {
         return <PinToggle key="pin" />;
       case "closeTab":
         return <CloseTabButton key="closeTab" />;
+      case "addTab":
+        return <AddTabButton key="addTab" />;
     }
     return undefined;
   });
@@ -80,7 +87,9 @@ export function useWidgetFeatures(): WidgetFeature[] {
   const horizontalPanelAlignButton = useHorizontalPanelAlignButton();
   const pinToggle = usePinToggle();
   const closeTab = useCloseTab();
+  const addTab = useAddTab();
   return [
+    ...(addTab ? (["addTab"] as const) : []),
     ...(closeTab ? (["closeTab"] as const) : []),
     ...(popoutToggle ? (["popout"] as const) : []),
     ...(maximizeToggle ? (["maximize"] as const) : []),

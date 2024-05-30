@@ -481,6 +481,10 @@ export function NineZoneStateReducer(
         home.floatingWidget
       );
     }
+    case "WIDGET_TAB_ADD_TO_WIDGET": {
+      const { id, widgetId } = action;
+      return addTabToWidget(state, id, widgetId);
+    }
     case "WIDGET_TAB_CLICK": {
       const { id, widgetId } = action;
       state = setWidgetActiveTabId(state, widgetId, id);

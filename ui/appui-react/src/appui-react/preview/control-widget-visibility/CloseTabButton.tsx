@@ -7,7 +7,7 @@
  */
 
 import * as React from "react";
-import { SvgClose } from "@itwin/itwinui-icons-react";
+import { SvgCloseSmall } from "@itwin/itwinui-icons-react";
 import { ActionButton } from "../widget-action-dropdown/Button";
 import { WidgetState } from "../../widgets/WidgetState";
 import { usePreviewFeatures } from "../PreviewFeatures";
@@ -21,7 +21,7 @@ export function CloseTabButton() {
 
   return (
     <ActionButton
-      icon={<SvgClose />}
+      icon={<SvgCloseSmall />}
       title="Close tab"
       onClick={() => {
         widgetDef?.setWidgetState(WidgetState.Hidden);
