@@ -11,7 +11,6 @@ import { NonIdealState } from "@itwin/itwinui-react";
 import * as React from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { useActiveFrontstageDef } from "../frontstage/FrontstageDef";
-import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager";
 import { ScrollableWidgetContent } from "../layout/widget/Content";
 import { TabIdContext } from "../layout/widget/ContentRenderer";
 import { UiItemsManager } from "../ui-items-provider/UiItemsManager";
@@ -65,10 +64,9 @@ export function WidgetContent() {
 }
 
 /** @internal */
-export function useWidgetDef(id?: WidgetDef["id"]): WidgetDef | undefined {
+export function useWidgetDef(): WidgetDef | undefined {
   const frontstage = useActiveFrontstageDef();
-  const context = React.useContext(TabIdContext);
-  const tabId = id ?? context;
+  const tabId = React.useContext(TabIdContext);
   assert(!!tabId);
   const [widgetDef, setWidgetDef] = React.useState(() =>
     frontstage?.findWidgetDef(tabId)
