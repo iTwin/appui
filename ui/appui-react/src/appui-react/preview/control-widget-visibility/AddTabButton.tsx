@@ -15,39 +15,52 @@ import { getTabLocation } from "../../layout/state/TabLocation";
 import { SvgAdd } from "@itwin/itwinui-icons-react";
 import { NineZoneDispatchContext } from "../../layout/base/NineZone";
 import { WidgetIdContext } from "../../layout/widget/Widget";
+import { WidgetActionDropdownContext } from "../widget-action-dropdown/MoreButton";
 
 /** @internal */
 export function AddTabButton() {
-  const tabs = useHiddenTabs();
   const dispatch = React.useContext(NineZoneDispatchContext);
   const widgetId = React.useContext(WidgetIdContext);
+  const dropdownContext = React.useContext(WidgetActionDropdownContext);
+  const tabs = useHiddenTabs();
+
   if (!widgetId) return null;
 
-  const menuItems = tabs.map((tab) => {
+  const getMenuItems = (close?: () => void) =>
+    tabs.map((tab) => {
+      return (
+        <MenuItem
+          key={tab.id}
+          onClick={() => {
+            dispatch({
+              type: "WIDGET_TAB_ADD_TO_WIDGET",
+              id: tab.id,
+              widgetId,
+            });
+            dispatch({
+              type: "WIDGET_TAB_OPEN",
+              id: tab.id,
+            });
+            close?.();
+          }}
+        >
+          {tab.label}
+        </MenuItem>
+      );
+    });
+
+  const title = "Add tab";
+  const icon = <SvgAdd />;
+  if (dropdownContext !== undefined) {
     return (
-      <MenuItem
-        key={tab.id}
-        onClick={() => {
-          dispatch({
-            type: "WIDGET_TAB_ADD_TO_WIDGET",
-            id: tab.id,
-            widgetId,
-          });
-          dispatch({
-            type: "WIDGET_TAB_OPEN",
-            id: tab.id,
-          });
-        }}
-      >
-        {tab.label}
+      <MenuItem startIcon={icon} subMenuItems={getMenuItems()}>
+        {title}
       </MenuItem>
     );
-  });
+  }
   return (
-    <DropdownMenu menuItems={(_close) => menuItems}>
-      <TabBarButton title="Add tab">
-        <SvgAdd />
-      </TabBarButton>
+    <DropdownMenu menuItems={(close) => getMenuItems(close)}>
+      <TabBarButton title={title}>{icon}</TabBarButton>
     </DropdownMenu>
   );
 }
