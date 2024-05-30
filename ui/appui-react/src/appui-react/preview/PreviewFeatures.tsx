@@ -54,7 +54,7 @@ interface KnownPreviewFeatures {
    * @note There is a known limitation where iTwinUI v2 popover elements will be rendered in the main window. Prefer using iTwinUI v3 when using this feature.
    */
   reparentPopoutWidgets: boolean | WidgetDef["id"][];
-  /** If `true`, additional capability is exposed in the UI to allow the end user of the layout to control widget visibility. */
+  /** If `true`, additional UI elements are rendered to allow the end user of the layout to control widget visibility. */
   controlWidgetVisibility: boolean;
 }
 
