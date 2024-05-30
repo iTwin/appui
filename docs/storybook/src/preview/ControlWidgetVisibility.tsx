@@ -31,13 +31,19 @@ function createProvider(): UiItemsProvider {
   };
 }
 
+interface PreviewStoryProps {
+  /** Threshold of `widgetActionDropdown`. */
+  threshold: number;
+}
+
 /** `enableMaximizedFloatingWidget` and `enableMaximizedPanelWidget` preview features. When enabled the widget will have a "maximize" button. */
-export function PreviewStory() {
+export function PreviewStory({ threshold }: PreviewStoryProps) {
   const provider = createProvider();
   return (
     <PreviewFeaturesProvider
       features={{
         controlWidgetVisibility: true,
+        widgetActionDropdown: { threshold },
       }}
     >
       <AppUiStory

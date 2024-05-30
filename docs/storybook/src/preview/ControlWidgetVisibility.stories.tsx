@@ -17,6 +17,9 @@ const meta = {
       page: () => <Page />,
     },
   },
+  args: {
+    threshold: 2,
+  },
 } satisfies Meta<typeof PreviewStory>;
 
 export default meta;

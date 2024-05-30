@@ -28,7 +28,7 @@ function createProvider(): UiItemsProvider {
             },
           },
         }),
-        createWidget(1, {
+        createWidget(2, {
           defaultState: WidgetState.Floating,
         }),
       ];
@@ -46,6 +46,7 @@ export function PreviewStory(props: PreviewStoryProps) {
       features={{
         enableMaximizedFloatingWidget: true,
         horizontalPanelAlignment: true,
+        controlWidgetVisibility: true,
         widgetActionDropdown: { threshold: props.threshold },
       }}
     >
