@@ -24,7 +24,14 @@ export function ActionButton(props: ActionButtonProps) {
   const dropdownContext = React.useContext(WidgetActionDropdownContext);
   if (dropdownContext !== undefined) {
     return (
-      <MenuItem icon={props.icon} onClick={props.onClick} {...props.menuProps}>
+      <MenuItem
+        icon={props.icon}
+        onClick={() => {
+          props.onClick?.();
+          dropdownContext.onClose();
+        }}
+        {...props.menuProps}
+      >
         {props.title}
       </MenuItem>
     );

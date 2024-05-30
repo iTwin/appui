@@ -53,7 +53,10 @@ export function AddTabButton() {
   const icon = <SvgAdd />;
   if (dropdownContext !== undefined) {
     return (
-      <MenuItem startIcon={icon} subMenuItems={getMenuItems()}>
+      <MenuItem
+        startIcon={icon}
+        subMenuItems={getMenuItems(dropdownContext.onClose)}
+      >
         {title}
       </MenuItem>
     );

@@ -179,7 +179,7 @@ export function PreviewHorizontalPanelAlignButton() {
     return (
       <MenuItem
         icon={getIcon(side, alignments[side])}
-        subMenuItems={getMenuItems()}
+        subMenuItems={getMenuItems(dropdownContext.onClose)}
       >
         {title}
       </MenuItem>
