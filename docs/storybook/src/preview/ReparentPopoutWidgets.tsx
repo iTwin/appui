@@ -22,7 +22,7 @@ import {
   MenuItem,
 } from "@itwin/itwinui-react";
 import { AppUiStory } from "../AppUiStory";
-import { createFrontstageProvider } from "../Utils";
+import { createFrontstageProvider, createWidget } from "../Utils";
 
 function Content({ id }: { id: string }) {
   const [count, setCount] = React.useState(0);
@@ -53,43 +53,19 @@ function createProvider(): UiItemsProvider {
     id: "widgets",
     getWidgets: () => {
       return [
-        {
-          id: "w1",
-          label: "Widget 1",
+        createWidget(1, {
           canPopout: true,
           content: <Content id="1" />,
           defaultState: WidgetState.Floating,
-          layouts: {
-            standard: {
-              location: StagePanelLocation.Left,
-              section: StagePanelSection.Start,
-            },
-          },
-        },
-        {
-          id: "w2",
-          label: "Widget 2",
+        }),
+        createWidget(2, {
           canPopout: true,
           content: <Content id="2" />,
-          layouts: {
-            standard: {
-              location: StagePanelLocation.Left,
-              section: StagePanelSection.Start,
-            },
-          },
-        },
-        {
-          id: "w3",
-          label: "Widget 3",
+        }),
+        createWidget(3, {
           canPopout: true,
           content: <Content id="3" />,
-          layouts: {
-            standard: {
-              location: StagePanelLocation.Left,
-              section: StagePanelSection.Start,
-            },
-          },
-        },
+        }),
       ];
     },
   };

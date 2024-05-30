@@ -3,10 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import {
-  PreviewFeatures,
   PreviewFeaturesProvider,
-  StagePanelLocation,
-  StagePanelSection,
   StagePanelState,
   UiItemsProvider,
   WidgetState,
@@ -19,33 +16,30 @@ function createProvider(): UiItemsProvider {
     id: "widgets",
     getWidgets: () => {
       return [
-        createWidget(1, {
-          canPopout: true,
-          layouts: {
-            standard: {
-              location: StagePanelLocation.Bottom,
-              section: StagePanelSection.Start,
-            },
-          },
-        }),
+        createWidget(1),
         createWidget(2, {
-          defaultState: WidgetState.Floating,
+          defaultState: WidgetState.Hidden,
+        }),
+        createWidget(3, {
+          defaultState: WidgetState.Hidden,
+        }),
+        createWidget(4, {
+          defaultState: WidgetState.Hidden,
         }),
       ];
     },
   };
 }
 
-type PreviewStoryProps = Pick<
-  Required<PreviewFeatures>,
-  "enableMaximizedFloatingWidget" | "enableMaximizedPanelWidget"
->;
-
 /** `enableMaximizedFloatingWidget` and `enableMaximizedPanelWidget` preview features. When enabled the widget will have a "maximize" button. */
-export function PreviewStory(props: PreviewStoryProps) {
+export function PreviewStory() {
   const provider = createProvider();
   return (
-    <PreviewFeaturesProvider features={props}>
+    <PreviewFeaturesProvider
+      features={{
+        controlWidgetVisibility: true,
+      }}
+    >
       <AppUiStory
         itemProviders={[provider]}
         frontstageProviders={[

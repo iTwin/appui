@@ -12,16 +12,14 @@ import {
   WidgetState,
 } from "@itwin/appui-react";
 import { AppUiStory } from "../AppUiStory";
-import { createFrontstageProvider } from "../Utils";
+import { createFrontstageProvider, createWidget } from "../Utils";
 
 function createProvider(): UiItemsProvider {
   return {
     id: "widgets",
     getWidgets: () => {
       return [
-        {
-          id: "w1",
-          label: "Widget 1",
+        createWidget(1, {
           canPopout: true,
           layouts: {
             standard: {
@@ -29,18 +27,10 @@ function createProvider(): UiItemsProvider {
               section: StagePanelSection.Start,
             },
           },
-        },
-        {
-          id: "w2",
-          label: "Widget 2",
+        }),
+        createWidget(1, {
           defaultState: WidgetState.Floating,
-          layouts: {
-            standard: {
-              location: StagePanelLocation.Left,
-              section: StagePanelSection.Start,
-            },
-          },
-        },
+        }),
       ];
     },
   };
