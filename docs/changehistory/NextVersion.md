@@ -2,11 +2,24 @@
 
 Table of contents:
 
+- [@itwin/appui-react](#itwinappui-react)
+  - [Additions](#additions)
+  - [Changes](#changes)
 - [@itwin/components-react](#itwincomponents-react)
   - [Deprecations](#deprecations)
-  - [Changes](#changes)
+  - [Changes](#changes-1)
 - [@itwin/core-react](#itwincore-react)
   - [Fixes](#fixes)
+
+## @itwin/appui-react
+
+### Additions
+
+- `controlWidgetVisibility` preview feature. When enabled, additional UI elements are rendered to allow the end user of the layout to control widget visibility. [#856](https://github.com/iTwin/appui/pull/856)
+
+### Changes
+
+- The dropdown menu of `widgetActionDropdown` preview feature will now close once one of the menu items is activated. [#856](https://github.com/iTwin/appui/pull/856)
 
 ## @itwin/components-react
 
