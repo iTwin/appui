@@ -9,22 +9,24 @@
 import * as React from "react";
 import { SvgCloseSmall } from "@itwin/itwinui-icons-react";
 import { ActionButton } from "../widget-action-dropdown/Button";
-import { WidgetState } from "../../widgets/WidgetState";
 import { usePreviewFeatures } from "../PreviewFeatures";
 import { useActiveTabId } from "../../layout/widget/Widget";
-import { useWidgetDef } from "../../widget-panels/Content";
+import { NineZoneDispatchContext } from "../../layout/base/NineZone";
 
 /** @internal */
 export function CloseTabButton() {
   const activeTabId = useActiveTabId();
-  const widgetDef = useWidgetDef(activeTabId);
+  const dispatch = React.useContext(NineZoneDispatchContext);
 
   return (
     <ActionButton
       icon={<SvgCloseSmall />}
       title="Close tab"
       onClick={() => {
-        widgetDef?.setWidgetState(WidgetState.Hidden);
+        dispatch({
+          type: "WIDGET_TAB_HIDE",
+          id: activeTabId,
+        });
       }}
     />
   );

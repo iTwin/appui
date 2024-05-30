@@ -76,7 +76,8 @@ export function useAddTab() {
   return !!controlWidgetVisibility;
 }
 
-function useHiddenTabs() {
+/** @internal */
+export function useHiddenTabs() {
   const hiddenTabs = useLayout((state) => {
     const tabs = Object.values(state.tabs);
     const toolSettingsTabId = state.toolSettings?.tabId;
