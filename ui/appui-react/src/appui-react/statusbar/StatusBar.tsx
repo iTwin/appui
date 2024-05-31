@@ -124,7 +124,7 @@ export namespace StatusBar {
 
   /** Popup of a [[StatusBar]].
    * @beta
-   * @deprecated in 4.13.x. Use {@link StatusBarPopover} instead.
+   * @deprecated in 4.13.x. Use {@link StatusBarPopover#StatusBarPopover} instead.
    */
   // eslint-disable-next-line deprecation/deprecation
   export const Popup = StatusBarPopup;
