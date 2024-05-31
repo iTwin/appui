@@ -142,7 +142,6 @@ export class StatusBarItemsManager {
     items: readonly StatusBarItem[],
     eventIds: Set<string>
   ): { itemsUpdated: boolean; updatedItems: StatusBarItem[] } {
-    // istanbul ignore next
     if (0 === eventIds.size) return { itemsUpdated: false, updatedItems: [] };
 
     let updateRequired = false;
@@ -172,7 +171,6 @@ export class StatusBarItemsManager {
   }
 
   public refreshAffectedItems(eventIds: Set<string>) {
-    // istanbul ignore next
     if (0 === eventIds.size) return;
 
     const { itemsUpdated, updatedItems } = this.internalRefreshAffectedItems(

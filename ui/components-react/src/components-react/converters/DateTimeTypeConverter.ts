@@ -48,7 +48,6 @@ export abstract class DateTimeTypeConverterBase
       return value.toISOString();
     }
 
-    // istanbul ignore next
     return value.toString(); // eslint-disable-line @typescript-eslint/no-base-to-string
   }
 

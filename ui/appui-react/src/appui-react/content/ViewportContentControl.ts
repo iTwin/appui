@@ -142,7 +142,6 @@ export class ViewportContentControl
   }
 
   /** Process a ViewSelector change. */
-  // istanbul ignore next
   public async processViewSelectorChange(
     iModel: IModelConnection,
     viewDefinitionId: Id64String,
@@ -167,7 +166,6 @@ export class ViewportContentControl
   }
 
   /** Get the React.Element for a ViewSelector change. */
-  // istanbul ignore next
   public getReactElementForViewSelectorChange(
     _iModel: IModelConnection,
     _viewDefinitionId: Id64String,

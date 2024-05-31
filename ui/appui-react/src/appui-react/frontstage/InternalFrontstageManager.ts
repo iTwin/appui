@@ -305,7 +305,6 @@ export class InternalFrontstageManager {
 
   /** @internal */
   public static clearFrontstageDefsForIModelId(iModelId: string | undefined) {
-    // istanbul ignore next
     if (!iModelId) return;
     const keysToRemove: string[] = [];
     InternalFrontstageManager._frontstageDefs.forEach(

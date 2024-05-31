@@ -83,7 +83,6 @@ export function ToolbarItems(props: ToolbarItemsProps) {
     toolbarOpacity = calculateToolbarOpacity(proximityScale);
     boxShadowOpacity = calculateBoxShadowOpacity(proximityScale);
     filterBlur = calculateBackdropFilterBlur(proximityScale);
-    // istanbul ignore next
     if (proximityScale < 0.25) showSeparators = false;
   }
 

@@ -302,7 +302,7 @@ export class TreeEventDispatcher implements TreeActions {
           ? toRxjsObservable(
               this._nodeLoader.loadNode(parentNode, node.childIndex)
             )
-          : /* istanbul ignore next */ EMPTY;
+          : EMPTY;
       })
     ).pipe(
       // We have requested multiple nodes that may belong to the same page.

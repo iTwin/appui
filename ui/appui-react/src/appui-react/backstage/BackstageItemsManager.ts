@@ -133,7 +133,6 @@ export class BackstageItemsManager {
     items: readonly BackstageItem[],
     eventIds: Set<string>
   ): { itemsUpdated: boolean; updatedItems: BackstageItem[] } {
-    // istanbul ignore next
     if (0 === eventIds.size) return { itemsUpdated: false, updatedItems: [] };
 
     let updateRequired = false;
@@ -163,7 +162,6 @@ export class BackstageItemsManager {
   }
 
   public refreshAffectedItems(eventIds: Set<string>) {
-    // istanbul ignore next
     if (0 === eventIds.size) return;
 
     const { itemsUpdated, updatedItems } = this.internalRefreshAffectedItems(

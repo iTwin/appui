@@ -51,7 +51,6 @@ export function ContentToolWidgetComposer(
 ) {
   const { cornerButton } = props;
   const uiIsVisible = useUiVisibility();
-  // istanbul ignore next
   const className = classnames(!uiIsVisible && "nz-hidden");
   return (
     <ToolWidgetComposer

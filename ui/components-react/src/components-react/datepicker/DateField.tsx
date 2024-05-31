@@ -92,7 +92,6 @@ export function formatInputDate(
             hour: "2-digit",
             minute: "2-digit",
           });
-          // istanbul ignore next
           if (timeString === "24:00") timeString = "00:00";
           break;
         case TimeDisplay.H24MS:
@@ -102,7 +101,6 @@ export function formatInputDate(
             minute: "2-digit",
             second: "2-digit",
           });
-          // istanbul ignore next
           if (timeString === "24:00:00") timeString = "00:00:00";
           break;
       }
@@ -152,16 +150,14 @@ export function DateField({
           return dateFormatter.parseDate(dateString);
 
         const newDateValue = Date.parse(dateString);
-        // istanbul ignore next
         if (newDateValue) return new Date(newDateValue);
-      } catch (_error) /* istanbul ignore next */ {
+      } catch (_error) {
         Logger.logInfo(
           "DateField",
           `Encountered error parsing input value '${dateString}' as a date.`
         );
         return undefined;
       }
-      // istanbul ignore next
       return undefined;
     },
     [dateFormatter]
@@ -179,7 +175,6 @@ export function DateField({
           setHasBadInput(true);
         }
       } catch (_error) {
-        // istanbul ignore next
         setHasBadInput(true);
       }
     },

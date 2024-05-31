@@ -14,7 +14,6 @@ import { BaseTimelineDataProvider } from "@itwin/imodel-components-react";
  * @public
  */
 // No access to scheduleScript to even mock in test
-// istanbul ignore next
 export class ScheduleAnimationTimelineDataProvider extends BaseTimelineDataProvider {
   private _viewState: ViewState;
 

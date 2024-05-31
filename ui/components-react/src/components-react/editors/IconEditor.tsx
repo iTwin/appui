@@ -42,7 +42,6 @@ interface IconEditorState {
 /** IconEditor React component that is a property editor with button and popup
  * @alpha
  */
-// istanbul ignore next
 export class IconEditor
   extends React.PureComponent<PropertyEditorProps, IconEditorState>
   implements TypeEditor
@@ -205,7 +204,6 @@ export class IconEditor
  * It uses the [[IconEditor]] React component.
  * @alpha
  */
-// istanbul ignore next
 export class IconPropertyEditor extends PropertyEditorBase {
   public get reactNode(): React.ReactNode {
     return <IconEditor />;

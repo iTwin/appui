@@ -127,7 +127,6 @@ export const isTreeDataProviderInterface = (
  * @returns whether node has children
  * @public
  */
-// istanbul ignore next
 export const hasChildren = (node: TreeNodeItem) => {
   const nodeAsImmediate = node as ImmediatelyLoadedTreeNodeItem;
   if (

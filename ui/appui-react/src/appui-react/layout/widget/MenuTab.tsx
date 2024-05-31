@@ -63,13 +63,7 @@ export function WidgetMenuTab(props: WidgetMenuTabProps) {
         </div>
       )}
       <span>{label}</span>
-      <div
-        className={classnames(
-          "nz-checkmark",
-          // istanbul ignore next
-          !active && "nz-hidden"
-        )}
-      />
+      <div className={classnames("nz-checkmark", !active && "nz-hidden")} />
     </div>
   );
 }

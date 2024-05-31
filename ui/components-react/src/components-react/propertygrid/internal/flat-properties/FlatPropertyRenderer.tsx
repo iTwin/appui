@@ -189,7 +189,7 @@ const DisplayValue: React.FC<DisplayValueProps> = (props) => {
       <EditorContainer
         propertyRecord={props.propertyRecord}
         onCommit={_onEditCommit}
-        onCancel={props.onEditCancel ?? /* istanbul ignore next */ (() => {})}
+        onCancel={props.onEditCancel ?? (() => {})}
         setFocus={true}
       />
     );

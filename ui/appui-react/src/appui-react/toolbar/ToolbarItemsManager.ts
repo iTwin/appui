@@ -215,7 +215,6 @@ export class ToolbarItemsManager {
     items: readonly ToolbarItem[],
     eventIds: Set<string>
   ): { itemsUpdated: boolean; updatedItems: ToolbarItem[] } {
-    // istanbul ignore next
     if (0 === eventIds.size) return { itemsUpdated: false, updatedItems: [] };
 
     let updateRequired = false;
@@ -262,7 +261,6 @@ export class ToolbarItemsManager {
   }
 
   public refreshAffectedItems(eventIds: Set<string>) {
-    // istanbul ignore next
     if (0 === eventIds.size) return;
 
     const { itemsUpdated, updatedItems } = this.internalRefreshAffectedItems(

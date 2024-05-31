@@ -26,7 +26,6 @@ export class ImageRenderer {
 
   private hexToBase64(hexstring: string) {
     const match = hexstring.match(/\w{2}/g);
-    // istanbul ignore next
     if (!match) return "";
 
     return window.btoa(

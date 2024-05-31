@@ -17,11 +17,9 @@ export class OpenSettingsTool extends Tool {
   public static override toolId = "OpenSettings";
   public static override iconSpec = svgSettings;
 
-  // istanbul ignore next
   public static override get minArgs() {
     return 0;
   }
-  // istanbul ignore next
   public static override get maxArgs() {
     return 1;
   }

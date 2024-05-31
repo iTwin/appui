@@ -260,10 +260,10 @@ export class DrawingNavigationAid extends React.Component<
         : halfMapExtents;
     const viewManager = this.props.viewManagerOverride
       ? this.props.viewManagerOverride
-      : /* istanbul ignore next */ IModelApp.viewManager;
+      : IModelApp.viewManager;
     const screenViewport = this.props.screenViewportOverride
       ? this.props.screenViewportOverride
-      : /* istanbul ignore next */ ScreenViewport;
+      : ScreenViewport;
     const nodes = (
       <div
         className={classnames(
@@ -408,7 +408,6 @@ export class DrawingNavigationAid extends React.Component<
       );
       this._updateFrustum();
 
-      // istanbul ignore next
       if (this._mounted) {
         this.setState({ animation }, () => {
           this._animationFrame = setTimeout(this._animation, 16.667);
@@ -429,7 +428,6 @@ export class DrawingNavigationAid extends React.Component<
     const startDrawingZoom = this.state.drawingZoom;
     const startOrigin = this.state.origin;
     const startRotation = this.state.rotation;
-    // istanbul ignore next
     if (this._mounted) {
       this.setState(
         {
@@ -465,7 +463,6 @@ export class DrawingNavigationAid extends React.Component<
 
       const origin = this.state.origin.plus(offset);
       this._updateFrustum();
-      // istanbul ignore next
       if (this._mounted) {
         this.setState({ mapOrigin, origin, panningDirection }, () => {
           this._animationFrame = setTimeout(this._panAnimation, 16.667);
@@ -555,7 +552,6 @@ export class DrawingNavigationAid extends React.Component<
           view: args.viewport.view.clone(),
         });
       }
-      // istanbul ignore next
       if (this._mounted) {
         this.setState({
           startOrigin: origin,
@@ -637,7 +633,6 @@ export class DrawingNavigationAid extends React.Component<
       setTimeout(() => {
         const startMapOrigin = this.state.mapOrigin;
         const mapOrigin = this.state.origin.clone();
-        // istanbul ignore next
         if (this._mounted) {
           this.setState({ startMapOrigin, mapOrigin, animation: 0 }, () => {
             this._animationFrame = setTimeout(this._animation, 16.667);
@@ -719,7 +714,6 @@ export class DrawingNavigationAid extends React.Component<
     this._lastClientXY = Point2d.create(event.clientX, event.clientY);
   };
 
-  // istanbul ignore next - unable to test touch
   private _handleWindowTouchStart = (event: any) => {
     if (1 !== event.targetTouches.length) return;
     window.addEventListener("touchmove", this._onTouchMove, false);
@@ -733,7 +727,6 @@ export class DrawingNavigationAid extends React.Component<
     this.setState({ isMoving: true });
   };
 
-  // istanbul ignore next - unable to test touch
   private _onTouchMove = (event: TouchEvent) => {
     if (1 !== event.targetTouches.length) return;
     const mouse = Point2d.create(
@@ -746,7 +739,6 @@ export class DrawingNavigationAid extends React.Component<
     this._lastClientXY = mouse;
   };
 
-  // istanbul ignore next - unable to test touch
   private _onTouchEnd = (event: TouchEvent) => {
     if (0 !== event.targetTouches.length) return;
     this._processWindowEndDrag();
@@ -1043,11 +1035,11 @@ export class DrawingNavigationCanvas extends React.Component<DrawingNavigationCa
     if (this._canvasElement.current && this.props.view !== undefined) {
       const viewManager = this.props.viewManagerOverride
         ? this.props.viewManagerOverride
-        : /* istanbul ignore next */ IModelApp.viewManager;
-      /* istanbul ignore next */
+        : IModelApp.viewManager;
+
       const screenViewport = this.props.screenViewportOverride
         ? this.props.screenViewportOverride
-        : /* istanbul ignore next */ ScreenViewport;
+        : ScreenViewport;
       const previousView = viewManager.selectedView;
       this._vp = screenViewport.create(
         this._canvasElement.current,
@@ -1061,10 +1053,8 @@ export class DrawingNavigationCanvas extends React.Component<DrawingNavigationCa
   }
 
   private customizeViewport(vp: ScreenViewport): void {
-    /* istanbul ignore next */
     if (vp.logo.style) vp.logo.style.display = "none";
 
-    /* istanbul ignore next */
     if (vp.viewFlags.acsTriad)
       vp.viewFlags = vp.viewFlags.with("acsTriad", false);
   }
@@ -1084,12 +1074,12 @@ export class DrawingNavigationCanvas extends React.Component<DrawingNavigationCa
   public override componentDidUpdate(oldProps: DrawingNavigationCanvasProps) {
     const viewManager = this.props.viewManagerOverride
       ? this.props.viewManagerOverride
-      : /* istanbul ignore next */ IModelApp.viewManager;
+      : IModelApp.viewManager;
     if (this.props.view !== undefined) {
       if (oldProps.view !== this.props.view) {
         const screenViewport = this.props.screenViewportOverride
           ? this.props.screenViewportOverride
-          : /* istanbul ignore next */ ScreenViewport;
+          : ScreenViewport;
         if (
           oldProps !== undefined &&
           oldProps.viewId !== "" &&
@@ -1102,10 +1092,8 @@ export class DrawingNavigationCanvas extends React.Component<DrawingNavigationCa
         if (
           this._canvasElement.current &&
           (this.props.canvasSizeOverride ||
-            /* istanbul ignore next */ (this._canvasElement.current
-              .clientWidth !== 0 &&
-              /* istanbul ignore next */ this._canvasElement.current
-                .clientHeight !== 0))
+            (this._canvasElement.current.clientWidth !== 0 &&
+              this._canvasElement.current.clientHeight !== 0))
         ) {
           const previousView = viewManager.selectedView;
           this._vp = screenViewport.create(
@@ -1132,7 +1120,7 @@ export class DrawingNavigationCanvas extends React.Component<DrawingNavigationCa
     if (this._vp) {
       const viewManager = this.props.viewManagerOverride
         ? this.props.viewManagerOverride
-        : /* istanbul ignore next */ IModelApp.viewManager;
+        : IModelApp.viewManager;
       viewManager.dropViewport(this._vp, true);
     }
   }

@@ -189,7 +189,6 @@ export class ViewportComponentEvents {
   ): void {
     // When handling onViewChanged, use setTimeout
     setTimeout(() => {
-      // istanbul ignore next
       if (viewport.view) {
         this.origin.setFrom(viewport.view.getOrigin());
         this.extents.setFrom(viewport.view.getExtents());

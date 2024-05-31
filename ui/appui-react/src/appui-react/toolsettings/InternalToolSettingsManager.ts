@@ -23,7 +23,6 @@ export class InternalToolSettingsManager {
   private static _activeToolLabel: string = "";
   private static _activeToolDescription: string = "";
 
-  // istanbul ignore next
   private static syncToolSettingsProperties(
     toolId: string,
     syncProperties: DialogPropertySyncItem[]
@@ -34,7 +33,6 @@ export class InternalToolSettingsManager {
     });
   }
 
-  // istanbul ignore next
   private static reloadToolSettingsProperties(): void {
     InternalToolSettingsManager.onReloadToolSettingsProperties.emit();
   }

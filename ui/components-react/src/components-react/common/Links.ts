@@ -36,7 +36,6 @@ linkify
         // istanbul ignore else
         if (matches !== null) return matches[0].length;
       }
-      // istanbul ignore next
       return 0;
     },
   })
@@ -62,7 +61,6 @@ linkify
         // istanbul ignore else
         if (matches !== null) return matches[0].length;
       }
-      // istanbul ignore next
       return 0;
     },
     normalize: (match: LinkifyIt.Match) => {

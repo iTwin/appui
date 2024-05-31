@@ -123,7 +123,6 @@ export class RadialMenu extends React.Component<
           className={"core-radial-menu-container"}
         >
           {React.Children.map(this.props.children, (child, index) => {
-            // istanbul ignore next
             if (!child || typeof child !== "object" || !("props" in child))
               return child;
 
@@ -270,9 +269,7 @@ export class RadialButton extends React.Component<
       if (this.props.labelRotate) {
         let a = (angle * 180) / Math.PI + 90;
         while (a > 180) a -= 360;
-        while (a < -180)
-          /* istanbul ignore next */
-          a += 360;
+        while (a < -180) a += 360;
         if (a > 90) a -= 180;
         if (a < -90) a += 180;
         t = `rotate(${a} ${p.x}, ${p.y})`;

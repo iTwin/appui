@@ -67,7 +67,6 @@ export class WeightPickerButton extends React.PureComponent<
   }
 
   public setFocus(): void {
-    // istanbul ignore next
     this._focusTarget.current && this._focusTarget.current.focus();
   }
 
@@ -114,7 +113,6 @@ export class WeightPickerButton extends React.PureComponent<
         const foundIndex = this.props.weights.findIndex(
           (val) => val === weight
         );
-        // istanbul ignore next
         if (foundIndex < 0) return;
 
         const nextWeight = moveUp

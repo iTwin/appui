@@ -54,7 +54,6 @@ export function ContentWrapper(props: ContentWrapperProps) {
     return controlId;
   };
 
-  // istanbul ignore next
   const [hasMultipleContents, setHasMultipleContents] = React.useState(
     () =>
       (activeFrontstageDef &&
@@ -77,7 +76,6 @@ export function ContentWrapper(props: ContentWrapperProps) {
         const activeContentId = contentControlKey(args.activeContent);
         setIsActive(contentId === activeContentId);
       }
-      // istanbul ignore next
       setHasMultipleContents(
         (activeFrontstageDef &&
           !!activeFrontstageDef.floatingContentControls?.length) ||
@@ -97,7 +95,6 @@ export function ContentWrapper(props: ContentWrapperProps) {
 
   React.useEffect(() => {
     const onAvailableContentChanged = () => {
-      // istanbul ignore next
       setHasMultipleContents(
         (activeFrontstageDef &&
           !!activeFrontstageDef.floatingContentControls?.length) ||

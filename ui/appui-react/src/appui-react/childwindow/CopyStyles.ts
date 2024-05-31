@@ -16,7 +16,6 @@ export function copyStyles(
     ? Array.from([...sourceDoc.styleSheets, ...sourceDoc.adoptedStyleSheets])
     : Array.from(sourceDoc.styleSheets);
 
-  // istanbul ignore next
   stylesheets.forEach((stylesheet) => {
     const css = stylesheet;
     if (stylesheet.href) {

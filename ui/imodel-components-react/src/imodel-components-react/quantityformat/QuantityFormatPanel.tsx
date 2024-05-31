@@ -215,7 +215,7 @@ export function QuantityFormatPanel(props: QuantityFormatPanelProps) {
             spec.setString,
             fireFormatChange
           );
-        /* istanbul ignore next */
+
         return <div key={index} />;
       });
     },

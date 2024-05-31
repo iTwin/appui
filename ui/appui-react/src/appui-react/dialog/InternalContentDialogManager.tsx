@@ -61,7 +61,6 @@ export class InternalContentDialogManager {
     const variable = "--uicore-z-index-view-content-dialog";
     const value = getCssVariableAsNumber(variable);
 
-    // istanbul ignore next
     if (!isNaN(value)) return value;
 
     Logger.logError(

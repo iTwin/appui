@@ -93,9 +93,7 @@ export function FormatUnits(props: FormatUnitsProps) {
                 ...formatProps.composite.units,
                 { name: unitParts[1], label: unitParts[2] },
               ]
-            : /* istanbul ignore next*/ [
-                { name: unitParts[1], label: unitParts[2] },
-              ];
+            : [{ name: unitParts[1], label: unitParts[2] }];
         const composite = { ...formatProps.composite, units };
         const newFormatProps = { ...formatProps, composite };
         handleSetFormatProps(newFormatProps);
@@ -131,9 +129,7 @@ export function FormatUnits(props: FormatUnitsProps) {
     (e: React.ChangeEvent<HTMLInputElement>) => {
       // istanbul ignore else
       if (formatProps.composite) {
-        const spacerValue = e.target.value.length
-          ? e.target.value[0]
-          : /* istanbul ignore next */ ""; // spacer can only be empty or a single character
+        const spacerValue = e.target.value.length ? e.target.value[0] : ""; // spacer can only be empty or a single character
         const composite = { ...formatProps.composite, spacer: spacerValue };
         const newFormatProps = { ...formatProps, composite };
         handleSetFormatProps(newFormatProps);

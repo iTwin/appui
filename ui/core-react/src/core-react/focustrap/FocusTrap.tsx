@@ -53,7 +53,6 @@ function isFocusable(element: HTMLElement): boolean {
 function processFindFocusableDescendant(
   element: HTMLElement | null
 ): HTMLElement | null {
-  // istanbul ignore next
   if (!element) return null;
 
   for (const child of element.childNodes) {
@@ -98,7 +97,6 @@ function getInitialFocusElement(
   focusContainer: HTMLDivElement | null,
   initialFocusSpec: React.RefObject<HTMLElement> | string | undefined
 ): HTMLElement | null {
-  // istanbul ignore next
   if (!focusContainer) return null;
 
   if (initialFocusSpec) {
@@ -120,17 +118,15 @@ function getInitialFocusElement(
 }
 
 function attemptFocus(element: HTMLElement, preventScroll: boolean): boolean {
-  // istanbul ignore next
   if (!isFocusable(element)) return false;
 
   try {
     // istanbul ignore else
     if (document.activeElement !== element)
       element.focus({
-        preventScroll: preventScroll ? true : /* istanbul ignore next */ false,
+        preventScroll: preventScroll ? true : false,
       });
   } catch (e) {
-    // istanbul ignore next
     return false;
   }
   return document.activeElement === element;
@@ -228,7 +224,6 @@ export function FocusTrap(props: FocusTrapProps) {
   // this is hit if Shift tab is used.
   const cycleFocusToEnd = React.useCallback(
     (event: React.FocusEvent<HTMLDivElement>) => {
-      // istanbul ignore next
       if (!props.active) return;
 
       if (focusContainer.current && event.target === focusContainer.current) {
@@ -254,7 +249,6 @@ export function FocusTrap(props: FocusTrapProps) {
   // this is hit if tab is used on last focusable item in child container.
   const cycleFocusToStart = React.useCallback(
     (event: React.FocusEvent<HTMLDivElement>) => {
-      // istanbul ignore next
       if (!props.active) return;
 
       event.stopPropagation();

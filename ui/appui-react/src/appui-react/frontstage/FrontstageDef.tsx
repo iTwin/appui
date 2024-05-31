@@ -338,7 +338,6 @@ export class FrontstageDef {
       this._contentGroup = await provider.contentGroup(this._initialConfig);
     }
 
-    // istanbul ignore next
     if (!this._contentGroup)
       // eslint-disable-next-line deprecation/deprecation
       throw new UiError(
@@ -373,7 +372,6 @@ export class FrontstageDef {
 
     // istanbul ignore else
     if (this.contentGroup) this.contentGroup.onFrontstageDeactivated();
-    // istanbul ignore next
     if (this.contentGroupProvider)
       await this.contentGroupProvider.onFrontstageDeactivated();
 
@@ -511,7 +509,6 @@ export class FrontstageDef {
       return true;
     }
 
-    // istanbul ignore next
     return false;
   }
 
@@ -586,7 +583,6 @@ export class FrontstageDef {
   }
 
   public addFloatingContentControl(contentControl?: ContentControl) {
-    // istanbul ignore next
     if (!contentControl) return;
     if (!this._floatingContentControls)
       this._floatingContentControls = new Array<ContentControl>();
@@ -598,7 +594,6 @@ export class FrontstageDef {
   }
 
   public dropFloatingContentControl(contentControl?: ContentControl) {
-    // istanbul ignore next
     if (!contentControl || !this._floatingContentControls) return;
 
     const index = this._floatingContentControls.indexOf(contentControl);
@@ -975,7 +970,6 @@ export class FrontstageDef {
     if (location && isFloatingTabLocation(location)) {
       return location.floatingWidgetId;
     }
-    // istanbul ignore next
     return undefined;
   }
 
@@ -992,7 +986,6 @@ export class FrontstageDef {
       const foundWidget = document.querySelector(
         `div.nz-widget-floatingWidget[data-widget-id='${floatingWidgetId}']`
       );
-      // istanbul ignore next
       if (foundWidget) {
         const domRect = foundWidget.getBoundingClientRect();
         return {
@@ -1073,10 +1066,7 @@ function getStagePanel(
  */
 export const useActiveFrontstageId = () => {
   const def = useActiveFrontstageDef();
-  const id = React.useMemo(
-    () => (def ? /* istanbul ignore next */ def.id : ""),
-    [def]
-  );
+  const id = React.useMemo(() => (def ? def.id : ""), [def]);
   return id;
 };
 

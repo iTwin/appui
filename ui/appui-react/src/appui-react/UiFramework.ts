@@ -149,7 +149,6 @@ export class UiFramework {
    * @public
    */
   public static get backstage(): FrameworkBackstage {
-    // istanbul ignore next
     if (!UiFramework._backstageManager)
       // eslint-disable-next-line deprecation/deprecation
       throw new UiError(
@@ -339,7 +338,6 @@ export class UiFramework {
     UiFramework._store = undefined;
     UiFramework._frameworkStateKeyInStore = "frameworkState";
     if (StateManager.isInitialized(true)) StateManager.clearStore();
-    // istanbul ignore next
     IModelApp.localization?.unregisterNamespace(
       UiFramework.localizationNamespace
     );
@@ -395,7 +393,6 @@ export class UiFramework {
         `Error trying to access redux store before either store or StateManager has been initialized.`
       );
 
-    // istanbul ignore next
     return StateManager.store;
   }
 
@@ -406,7 +403,6 @@ export class UiFramework {
 
   /** @public */
   public static get hideIsolateEmphasizeActionHandler(): HideIsolateEmphasizeActionHandler {
-    // istanbul ignore next
     if (!UiFramework._hideIsolateEmphasizeActionHandler)
       // eslint-disable-next-line deprecation/deprecation
       throw new UiError(
@@ -429,7 +425,6 @@ export class UiFramework {
 
   /** @alpha */
   public static get widgetManager(): WidgetManager {
-    // istanbul ignore next
     if (!UiFramework._widgetManager)
       // eslint-disable-next-line deprecation/deprecation
       throw new UiError(
@@ -486,7 +481,7 @@ export class UiFramework {
   public static getAccudrawSnapMode(): SnapMode {
     return UiFramework.frameworkState
       ? UiFramework.frameworkState.configurableUiState.snapMode
-      : /* istanbul ignore next */ SnapMode.NearestKeypoint;
+      : SnapMode.NearestKeypoint;
   }
 
   /**
@@ -495,7 +490,7 @@ export class UiFramework {
   public static getActiveSelectionScope(): string {
     return UiFramework.frameworkState
       ? UiFramework.frameworkState.sessionState.activeSelectionScope
-      : /* istanbul ignore next */ "element";
+      : "element";
   }
 
   /**
@@ -593,13 +588,13 @@ export class UiFramework {
     return UiFramework.frameworkState
       ? UiFramework.frameworkState.sessionState.cursorMenuPayload ??
           UiFramework.frameworkState.sessionState.cursorMenuData
-      : /* istanbul ignore next */ undefined;
+      : undefined;
   }
 
   public static getActiveIModelId(): string {
     return UiFramework.frameworkState
       ? UiFramework.frameworkState.sessionState.iModelId
-      : /* istanbul ignore next */ "";
+      : "";
   }
 
   public static setActiveIModelId(iModelId: string): void {
@@ -641,7 +636,7 @@ export class UiFramework {
   public static getIModelConnection(): IModelConnection | undefined {
     return UiFramework.frameworkState
       ? UiFramework.frameworkState.sessionState.iModelConnection
-      : /* istanbul ignore next */ undefined;
+      : undefined;
   }
 
   /** Called by iModelApp to initialize saved UI state from registered UseSettingsProviders
@@ -658,7 +653,6 @@ export class UiFramework {
         .loadUserSettings(UiFramework._uiStateStorage);
     }
 
-    // istanbul ignore next
     if (immediateSync)
       SyncUiEventDispatcher.dispatchImmediateSyncUiEvent(
         SyncUiEventId.UiStateStorageChanged
@@ -703,7 +697,7 @@ export class UiFramework {
   public static getDefaultIModelViewportControlId(): string | undefined {
     return UiFramework.frameworkState
       ? UiFramework.frameworkState.sessionState.defaultIModelViewportControlId
-      : /* istanbul ignore next */ undefined;
+      : undefined;
   }
 
   public static setDefaultViewId(viewId: string, immediateSync = false) {
@@ -717,7 +711,7 @@ export class UiFramework {
   public static getDefaultViewId(): string | undefined {
     return UiFramework.frameworkState
       ? UiFramework.frameworkState.sessionState.defaultViewId
-      : /* istanbul ignore next */ undefined;
+      : undefined;
   }
 
   public static setDefaultViewState(
@@ -733,7 +727,7 @@ export class UiFramework {
   public static getDefaultViewState(): ViewState | undefined {
     return UiFramework.frameworkState
       ? UiFramework.frameworkState.sessionState.defaultViewState
-      : /* istanbul ignore next */ undefined;
+      : undefined;
   }
 
   /**
@@ -745,8 +739,7 @@ export class UiFramework {
   public static getAvailableSelectionScopes(): PresentationSelectionScope[] {
     return UiFramework.frameworkState
       ? UiFramework.frameworkState.sessionState.availableSelectionScopes
-      : /* istanbul ignore next */
-        [{ id: "element", label: "Element" } as PresentationSelectionScope];
+      : [{ id: "element", label: "Element" } as PresentationSelectionScope];
   }
 
   public static getIsUiVisible() {
@@ -776,7 +769,7 @@ export class UiFramework {
   public static getColorTheme(): ThemeId {
     return UiFramework.frameworkState
       ? UiFramework.frameworkState.configurableUiState.theme
-      : /* istanbul ignore next */ SYSTEM_PREFERRED_COLOR_THEME;
+      : SYSTEM_PREFERRED_COLOR_THEME;
   }
 
   /** UiFramework.setToolbarOpacity() sets the non-hovered opacity to the value specified.
@@ -799,7 +792,7 @@ export class UiFramework {
   public static getToolbarOpacity(): number {
     return UiFramework.frameworkState
       ? UiFramework.frameworkState.configurableUiState.toolbarOpacity
-      : /* istanbul ignore next */ TOOLBAR_OPACITY_DEFAULT;
+      : TOOLBAR_OPACITY_DEFAULT;
   }
 
   public static setWidgetOpacity(opacity: number) {
@@ -815,7 +808,7 @@ export class UiFramework {
   public static getWidgetOpacity(): number {
     return UiFramework.frameworkState
       ? UiFramework.frameworkState.configurableUiState.widgetOpacity
-      : /* istanbul ignore next */ WIDGET_OPACITY_DEFAULT;
+      : WIDGET_OPACITY_DEFAULT;
   }
 
   /** @deprecated in 4.13.x. Use {@link @itwin/core-bentley#ProcessDetector.isMobileBrowser} instead. */
@@ -827,7 +820,7 @@ export class UiFramework {
   public static get showWidgetIcon(): boolean {
     return UiFramework.frameworkState
       ? UiFramework.frameworkState.configurableUiState.showWidgetIcon
-      : /* istanbul ignore next */ false;
+      : false;
   }
 
   public static setShowWidgetIcon(value: boolean) {
@@ -843,7 +836,7 @@ export class UiFramework {
   public static get animateToolSettings(): boolean {
     return UiFramework.frameworkState
       ? UiFramework.frameworkState.configurableUiState.animateToolSettings
-      : /* istanbul ignore next */ false;
+      : false;
   }
   public static setAnimateToolSettings(value: boolean) {
     if (UiFramework.animateToolSettings === value) return;
@@ -859,7 +852,7 @@ export class UiFramework {
     return UiFramework.frameworkState
       ? UiFramework.frameworkState.configurableUiState
           .useToolAsToolSettingsLabel
-      : /* istanbul ignore next */ false;
+      : false;
   }
   public static setUseToolAsToolSettingsLabel(value: boolean) {
     if (UiFramework.useToolAsToolSettingsLabel === value) return;
@@ -877,7 +870,7 @@ export class UiFramework {
     return UiFramework.frameworkState
       ? UiFramework.frameworkState.configurableUiState
           .autoCollapseUnpinnedPanels
-      : /* istanbul ignore next */ false;
+      : false;
   }
 
   /** Method used to enable the automatic closing of an unpinned widget panel as soon as the
@@ -915,7 +908,7 @@ export class UiFramework {
   public static get viewOverlayDisplay() {
     return UiFramework.frameworkState
       ? UiFramework.frameworkState.configurableUiState.viewOverlayDisplay
-      : /* istanbul ignore next */ true;
+      : true;
   }
   /** Set the variable that controls display of the view overlay. Applies to all viewports in the app
    * @public
@@ -1292,7 +1285,6 @@ export class UiFramework {
       return true;
     }
 
-    // istanbul ignore next
     return false;
   }
 

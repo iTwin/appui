@@ -109,7 +109,6 @@ export class MenuButton extends React.PureComponent<
     }
   };
 
-  // istanbul ignore next
   private _handleClose = () => {
     this.setState({ expanded: false });
   };

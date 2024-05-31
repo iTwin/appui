@@ -213,7 +213,6 @@ export class TreeNodeLoader<
     });
   }
 
-  // istanbul ignore next
   protected load(): Observable<LoadedNodeHierarchy> {
     throw new Error("Method not implemented.");
   }
@@ -300,7 +299,6 @@ export class PagedTreeNodeLoader<
     });
   }
 
-  // istanbul ignore next
   protected load(): Observable<LoadedNodeHierarchy> {
     throw new Error("Method not implemented.");
   }

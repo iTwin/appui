@@ -13,7 +13,6 @@ import { IModelApp } from "@itwin/core-frontend";
 import { SolarTimelineDataProvider } from "../timeline/SolarTimelineDataProvider";
 
 /** @internal */
-// istanbul ignore next
 function useSupportsShadowDisplay(viewport: ScreenViewport | undefined) {
   const [supportsShadows, setSupportsShadows] = React.useState(
     !!viewport?.displayStyle?.wantShadows &&
@@ -65,7 +64,6 @@ function useSupportsShadowDisplay(viewport: ScreenViewport | undefined) {
 /** Hook that returns either a SolarTimelineDataProvider or undefined based on if the supplied viewport's display style is set to display shadows.
  * @beta
  **/
-// istanbul ignore next
 export function useSolarDataProvider(
   viewport: ScreenViewport | undefined
 ): SolarDataProvider | undefined {

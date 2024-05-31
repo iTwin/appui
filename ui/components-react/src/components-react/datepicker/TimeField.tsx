@@ -44,7 +44,6 @@ function getValidInt(
     const newValue = parseInt(intText, 10);
     if (newValue >= min && newValue <= max) return newValue;
   } catch (_e) {
-    // istanbul ignore next
     return defaultValue;
   }
   return defaultValue;

@@ -85,7 +85,6 @@ export class ColumnResizingPropertyListPropsSupplier extends React.Component<
     return { ratio };
   };
 
-  // istanbul ignore next
   private _onResizeHandleHoverChanged = (isHovered: boolean) => {
     this.setState({ isResizeHandleHovered: isHovered });
   };

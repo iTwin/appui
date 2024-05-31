@@ -107,9 +107,7 @@ export class CustomNumberEditor
             MessageSeverity.Error,
             parseResults.parseError
               ? parseResults.parseError
-              : /* istanbul ignore next */ UiComponents.translate(
-                  "errors.unable-to-parse-quantity"
-                )
+              : UiComponents.translate("errors.unable-to-parse-quantity")
           );
           this.htmlElement.focus();
         } else {
@@ -117,21 +115,19 @@ export class CustomNumberEditor
             MessageSeverity.Error,
             parseResults.parseError
               ? parseResults.parseError
-              : /* istanbul ignore next */ UiComponents.translate(
-                  "errors.unable-to-parse-quantity"
-                )
+              : UiComponents.translate("errors.unable-to-parse-quantity")
           );
         }
 
         const displayValue =
           record.value.displayValue && record.value.displayValue.length > 0
             ? record.value.displayValue
-            : /* istanbul ignore next */ (
+            : (
                 this._formatParams as CustomFormattedNumberParams
               ).formatFunction(record.value.value as number);
         propertyValue = this._lastValidValue
           ? { ...this._lastValidValue }
-          : /* istanbul ignore next */ {
+          : {
               valueFormat: PropertyValueFormat.Primitive,
               value: record.value.value,
               displayValue,
@@ -208,7 +204,7 @@ export class CustomNumberEditor
         numberValue =
           undefined !== primitiveValue.value
             ? (primitiveValue.value as number)
-            : /* istanbul ignore next */ 0;
+            : 0;
         // istanbul ignore else
         if (primitiveValue.displayValue)
           initialDisplayValue = primitiveValue.displayValue;
@@ -224,7 +220,6 @@ export class CustomNumberEditor
 
   private async setStateFromProps() {
     const record = this.props.propertyRecord;
-    // istanbul ignore next
     if (!record || !record.property) {
       Logger.logError(
         UiComponents.loggerCategory(this),
@@ -304,7 +299,7 @@ export class CustomNumberEditor
     const initialDisplayValue =
       (this._lastValidValue &&
         (this._lastValidValue as PrimitiveValue).displayValue) ??
-      /* istanbul ignore next */ this._getInitialDisplayValue();
+      this._getInitialDisplayValue();
     this.setState({ inputValue: initialDisplayValue });
   }
 
@@ -314,7 +309,7 @@ export class CustomNumberEditor
       const initialDisplayValue =
         (this._lastValidValue &&
           (this._lastValidValue as PrimitiveValue).displayValue) ??
-        /* istanbul ignore next */ this._getInitialDisplayValue();
+        this._getInitialDisplayValue();
       if (initialDisplayValue !== this.state.inputValue) {
         e.preventDefault();
         e.stopPropagation();
@@ -331,7 +326,6 @@ export class CustomNumberEditor
     }
   };
 
-  // istanbul ignore next
   private _onFocus = (e: React.FocusEvent<HTMLInputElement>) => {
     e.target.select();
   };

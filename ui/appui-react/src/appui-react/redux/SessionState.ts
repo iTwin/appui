@@ -121,17 +121,15 @@ export interface SessionStateActionsProps {
  * @public
  */
 export const SessionStateActions = {
-  setActiveIModelId:
-    // istanbul ignore next
-    (iModelId: string) =>
-      createAction(SessionStateActionId.SetActiveIModelId, iModelId),
-  setAvailableSelectionScopes:
-    // istanbul ignore next
-    (availableSelectionScopes: PresentationSelectionScope[]) =>
-      createAction(
-        SessionStateActionId.SetAvailableSelectionScopes,
-        availableSelectionScopes
-      ),
+  setActiveIModelId: (iModelId: string) =>
+    createAction(SessionStateActionId.SetActiveIModelId, iModelId),
+  setAvailableSelectionScopes: (
+    availableSelectionScopes: PresentationSelectionScope[]
+  ) =>
+    createAction(
+      SessionStateActionId.SetAvailableSelectionScopes,
+      availableSelectionScopes
+    ),
   setDefaultIModelViewportControlId: (iModelViewportControlId: string) =>
     createAction(
       SessionStateActionId.SetDefaultIModelViewportControlId,
@@ -139,25 +137,15 @@ export const SessionStateActions = {
     ),
   setDefaultViewId: (viewId: string) =>
     createAction(SessionStateActionId.SetDefaultViewId, viewId),
-  setDefaultViewState:
-    // istanbul ignore next
-    (viewState: any) =>
-      createAction(SessionStateActionId.SetDefaultViewState, viewState),
+  setDefaultViewState: (viewState: any) =>
+    createAction(SessionStateActionId.SetDefaultViewState, viewState),
   setNumItemsSelected: (numSelected: number) =>
     createAction(SessionStateActionId.SetNumItemsSelected, numSelected),
-  setIModelConnection:
-    // istanbul ignore next
-    (iModelConnection: any) =>
-      createAction(SessionStateActionId.SetIModelConnection, iModelConnection),
-  setSelectionScope:
-    // istanbul ignore next
-    (activeSelectionScope: string) =>
-      createAction(
-        SessionStateActionId.SetSelectionScope,
-        activeSelectionScope
-      ),
+  setIModelConnection: (iModelConnection: any) =>
+    createAction(SessionStateActionId.SetIModelConnection, iModelConnection),
+  setSelectionScope: (activeSelectionScope: string) =>
+    createAction(SessionStateActionId.SetSelectionScope, activeSelectionScope),
   updateCursorMenu:
-    // istanbul ignore next
     // eslint-disable-next-line deprecation/deprecation
     (cursorMenuData: CursorMenuData | CursorMenuPayload) =>
       createAction(SessionStateActionId.UpdateCursorMenu, cursorMenuData),

@@ -169,7 +169,6 @@ export class ToggleEditor
  * @public
  */
 export class TogglePropertyEditor extends PropertyEditorBase {
-  // istanbul ignore next
   public override get containerHandlesBlur(): boolean {
     return false;
   }

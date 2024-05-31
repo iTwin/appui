@@ -30,7 +30,6 @@ interface CursorPopupMenuState {
 /** Popup Menu to show at cursor typically used by tools to provide a right-click context menu.
  * @alpha
  */
-// istanbul ignore next
 export class CursorPopupMenu extends React.PureComponent<
   CommonProps,
   CursorPopupMenuState
@@ -48,7 +47,6 @@ export class CursorPopupMenu extends React.PureComponent<
 
   // eslint-disable-next-line deprecation/deprecation
   private _handleSyncUiEvent = (args: UiSyncEventArgs): void => {
-    /* istanbul ignore next */
     if (!this._isMounted) return;
 
     /* istanbul ignore else */

@@ -61,7 +61,6 @@ export function QuantityInput({
       if (formatterSpec) {
         return formatterSpec.applyFormatting(value);
       }
-      // istanbul ignore next
       return value.toFixed(2);
     },
     [formatterSpec]
@@ -89,7 +88,6 @@ export function QuantityInput({
           };
         }
       }
-      // istanbul ignore next
       return {
         parseError: translate("QuantityInput.NoParserDefined"),
       };

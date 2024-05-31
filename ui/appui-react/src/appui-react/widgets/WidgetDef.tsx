@@ -274,7 +274,6 @@ export class WidgetDef {
     this._widgetReactNode = config.content;
     this._icon = config.icon;
 
-    // istanbul ignore next
     if (config.icon !== undefined && this._icon === undefined)
       this._icon = config.icon;
 
@@ -369,7 +368,6 @@ export class WidgetDef {
       }
     }
 
-    // istanbul ignore next - To avoid breaking API changes, if a WidgetControl is not specified for a status bar use Default one.
     if (!this._widgetControl && this.isStatusBar) {
       const info = new ConfigurableCreateInfo(
         "StatusBarWidgetComposerControl",

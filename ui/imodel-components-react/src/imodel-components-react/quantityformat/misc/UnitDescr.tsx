@@ -68,7 +68,6 @@ function getUnitName(fullUnitName: string) {
   const nameParts = fullUnitName.split(/[.:]/);
   // istanbul ignore else
   if (nameParts.length > 0) return nameParts[nameParts.length - 1];
-  // istanbul ignore next
   throw Error("Bad unit name encountered");
 }
 
@@ -133,8 +132,7 @@ export function UnitDescr(props: UnitDescrProps) {
                   };
                 })
                 .sort((a, b) => a.label.localeCompare(b.label))
-            : /* istanbul ignore next */
-              [
+            : [
                 {
                   value: `${currentUnitProps.name}:${currentUnitProps.label}`,
                   label: getUnitName(name),

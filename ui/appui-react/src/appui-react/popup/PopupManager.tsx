@@ -454,11 +454,7 @@ export class PopupManager {
         offset={offset}
         content={content}
         title={title}
-        items={
-          toolbarProps
-            ? toolbarProps.items
-            : /* istanbul ignore next */ undefined
-        }
+        items={toolbarProps ? toolbarProps.items : undefined}
         placement={placement}
         orientation={Orientation.Horizontal}
         onCancel={onCancel}

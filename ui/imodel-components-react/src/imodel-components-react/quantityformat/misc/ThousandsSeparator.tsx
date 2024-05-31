@@ -47,9 +47,7 @@ export function ThousandsSeparator(props: ThousandsSeparatorProps) {
         if (formatProps.formatTraits) {
           const traits = Array.isArray(formatProps.formatTraits)
             ? formatProps.formatTraits
-            : /* istanbul ignore next */ formatProps.formatTraits.split(
-                /,|;|\|/
-              );
+            : formatProps.formatTraits.split(/,|;|\|/);
           formatTraits = [...traits, traitStr];
         }
       } else {
@@ -58,9 +56,7 @@ export function ThousandsSeparator(props: ThousandsSeparatorProps) {
         if (formatProps.formatTraits) {
           const traits = Array.isArray(formatProps.formatTraits)
             ? formatProps.formatTraits
-            : /* istanbul ignore next */ formatProps.formatTraits.split(
-                /,|;|\|/
-              );
+            : formatProps.formatTraits.split(/,|;|\|/);
           formatTraits = traits.filter((traitEntry) => traitEntry !== traitStr);
         }
       }

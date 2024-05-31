@@ -61,7 +61,6 @@ export const Widget = React.forwardRef<HTMLDivElement, WidgetProps>(
     const { preferredFloatingWidgetSize, userSized } = useLayout((state) => {
       const widget = getWidgetState(state, id);
       const tab = state.tabs[widget.activeTabId];
-      // istanbul ignore next
       return {
         preferredFloatingWidgetSize: tab.preferredFloatingWidgetSize,
         userSized:
@@ -140,15 +139,12 @@ export const Widget = React.forwardRef<HTMLDivElement, WidgetProps>(
           });
       };
       const element = elementRef.current;
-      // istanbul ignore next
       element?.addEventListener("click", listener);
       return () => {
-        // istanbul ignore next
         element?.removeEventListener("click", listener);
       };
     }, [dispatch, floatingWidgetId]);
     const measure = React.useCallback<WidgetContextArgs["measure"]>(() => {
-      // istanbul ignore next
       if (!elementRef.current) return new Rectangle();
       const bounds = elementRef.current.getBoundingClientRect();
       return Rectangle.create(bounds);

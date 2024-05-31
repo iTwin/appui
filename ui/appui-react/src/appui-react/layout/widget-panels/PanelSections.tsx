@@ -20,7 +20,6 @@ import {
   useMaximizedSection,
 } from "../../preview/enable-maximized-widget/useMaximizedWidget";
 
-// istanbul ignore next
 function PanelSplitter() {
   const dispatch = React.useContext(NineZoneDispatchContext);
   const side = React.useContext(PanelSideContext);

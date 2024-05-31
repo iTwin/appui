@@ -205,7 +205,6 @@ function combineItems(
 /** local function to ensure a width value is defined for a status bar entries.  */
 function verifiedMapEntries<T>(map: Map<string, T | undefined>) {
   for (const [, val] of map) {
-    // istanbul ignore next
     if (val === undefined) return undefined;
   }
   return map as Map<string, T>;
@@ -337,7 +336,6 @@ export function StatusBarComposer(props: StatusBarComposerProps) {
     );
     if (!eqlOverflown(overflown, newOverflown)) {
       setOverflown(newOverflown);
-      // istanbul ignore next
       if (0 === newOverflown.length && isOverflowPanelOpen)
         setIsOverflowPanelOpen(false);
     }
@@ -482,7 +480,6 @@ export function StatusBarComposer(props: StatusBarComposerProps) {
   const onOverflowClick = React.useCallback(() => {
     setIsOverflowPanelOpen((prev) => !prev);
   }, []);
-  // istanbul ignore next
   const handleOnClose = React.useCallback(() => {
     setIsOverflowPanelOpen(false);
   }, []);

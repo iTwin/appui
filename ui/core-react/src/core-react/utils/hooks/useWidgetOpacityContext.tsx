@@ -22,9 +22,7 @@ export interface WidgetOpacityContextProps {
  */
 export const WidgetOpacityContext =
   React.createContext<WidgetOpacityContextProps>({
-    onElementRef: /* istanbul ignore next */ (
-      _elementRef: React.RefObject<Element>
-    ) => void {},
+    onElementRef: (_elementRef: React.RefObject<Element>) => void {},
     proximityScale: 1.0,
   });
 

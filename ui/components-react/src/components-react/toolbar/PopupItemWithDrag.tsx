@@ -102,7 +102,6 @@ export function PopupItemWithDrag(props: PopupItemWithDragProps) {
     const newActiveAction = getActiveAction(props.groupItem);
     // istanbul ignore else
     if (newActiveAction) {
-      // istanbul ignore next
       if (newActiveAction.isActive) {
         setActiveAction(newActiveAction);
       } else {
@@ -166,18 +165,14 @@ export function PopupItemWithDrag(props: PopupItemWithDragProps) {
     processPanelOpenClose(false);
   }, [processPanelOpenClose]);
   const { hasOverflow } = useToolItemEntryContext();
-  const expandsToDirection = hasOverflow
-    ? /* istanbul ignore next */ overflowExpandsTo
-    : expandsTo;
+  const expandsToDirection = hasOverflow ? overflowExpandsTo : expandsTo;
 
   return (
     <ToolbarPopupContext.Provider
       value={{
-        closePanel: /* istanbul ignore next */ () =>
-          processPanelOpenClose(false),
-        setSelectedItem: /* istanbul ignore next */ (
-          buttonItem: ActionButton
-        ) => setActiveAction(buttonItem),
+        closePanel: () => processPanelOpenClose(false),
+        setSelectedItem: (buttonItem: ActionButton) =>
+          setActiveAction(buttonItem),
       }}
     >
       <button
@@ -229,7 +224,6 @@ export function toToolbarPopupRelativePosition(
   expandsTo: Direction,
   alignment: ToolbarPanelAlignment
 ): RelativePosition {
-  // istanbul ignore next
   switch (expandsTo) {
     case Direction.Bottom: {
       if (alignment === ToolbarPanelAlignment.End)

@@ -74,7 +74,6 @@ export function KeyinPalettePopup({
   const xMid =
     _el.getBoundingClientRect().left + _el.getBoundingClientRect().width / 2;
   let point = new Point(xMid, _el.getBoundingClientRect().top);
-  // istanbul ignore next
   if (popupSize.width > 0) point = point.offsetX(popupSize.width / -2);
 
   return (

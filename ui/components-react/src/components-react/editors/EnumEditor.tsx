@@ -62,12 +62,10 @@ export class EnumEditor
     return propertyValue;
   }
 
-  // istanbul ignore next
   public get htmlElement(): HTMLElement | null {
     return this._divElement.current;
   }
 
-  // istanbul ignore next
   public get hasFocus(): boolean {
     let containsFocus = false;
     // istanbul ignore else
@@ -182,7 +180,7 @@ export class EnumEditor
     const selectValue =
       this.state.selectValue !== undefined
         ? this.state.selectValue.toString()
-        : /* istanbul ignore next */ undefined;
+        : undefined;
 
     // set min-width to show about 4 characters + down arrow
     const minWidthStyle: React.CSSProperties = {
@@ -220,7 +218,6 @@ export class EnumEditor
  * @public
  */
 export class EnumPropertyEditor extends PropertyEditorBase {
-  // istanbul ignore next
   public override get containerHandlesEnter(): boolean {
     return false;
   }

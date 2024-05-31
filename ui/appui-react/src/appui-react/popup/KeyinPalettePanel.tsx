@@ -93,7 +93,6 @@ export function KeyinPalettePanel({
     void fetchState();
   }, [uiSettingsStorage]);
 
-  // istanbul ignore next
   const storeHistoryKeyins = React.useCallback(
     async (value: string[]) => {
       const result = await uiSettingsStorage.saveSetting(
@@ -134,17 +133,14 @@ export function KeyinPalettePanel({
           case ParseAndRunResult.ToolNotFound:
             message = `translate("keyinbrowser.couldNotFindTool")} ${value}`;
             break;
-          // istanbul ignore next
           case ParseAndRunResult.BadArgumentCount:
             message = translate("keyinbrowser.incorrectArgs");
             break;
-          // istanbul ignore next
           case ParseAndRunResult.FailedToRun:
             message = translate("keyinbrowser.failedToRun");
             break;
         }
       } catch (ex) {
-        // istanbul ignore next
         {
           message = translate("keyinbrowser.exceptionOccurred");
           detailedMessage = `${translate(
@@ -163,7 +159,6 @@ export function KeyinPalettePanel({
         );
         IModelApp.notifications.outputMessage(errorDetails);
       } else {
-        // istanbul ignore next
         if (
           value.length < 400 &&
           value !== ClearKeyinPaletteHistoryTool.keyin &&
@@ -218,7 +213,6 @@ export function KeyinPalettePanel({
       // istanbul ignore else
       if (indexSeparator) return value.substring(0, indexSeparator);
     }
-    // istanbul ignore next
     return undefined;
   };
 
@@ -230,7 +224,6 @@ export function KeyinPalettePanel({
       // istanbul ignore else
       if (key === Key.Enter.valueOf()) {
         event.preventDefault();
-        // istanbul ignore next
         const keyinToSend = getKeyinFromListboxValue(
           event.currentTarget?.dataset?.focusvalue
         );

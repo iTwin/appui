@@ -189,7 +189,7 @@ export class EnumButtonGroupEditor
   private getButton(choice: EnumerationChoice, index: number) {
     const choiceValue = this.state.choices
       ? this.state.choices[index].value
-      : /* istanbul ignore next */ 0;
+      : 0;
     const isActive = choiceValue === this.state.selectValue ? true : false;
     let isDisabled = false;
     const isEnabledFunction = this.state.enumIcons[index].isEnabledFunction;
@@ -246,7 +246,6 @@ export class EnumButtonGroupEditor
  * @public
  */
 export class EnumPropertyButtonGroupEditor extends PropertyEditorBase {
-  // istanbul ignore next
   public get reactNode(): React.ReactNode {
     return <EnumButtonGroupEditor />;
   }

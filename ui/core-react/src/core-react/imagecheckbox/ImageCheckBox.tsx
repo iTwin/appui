@@ -46,7 +46,6 @@ export interface ImageCheckBoxProps extends CommonProps {
 // eslint-disable-next-line deprecation/deprecation
 export class ImageCheckBox extends React.PureComponent<ImageCheckBoxProps> {
   private _onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // istanbul ignore next
     if (e && e.stopPropagation) e.stopPropagation();
 
     // istanbul ignore else
@@ -56,12 +55,10 @@ export class ImageCheckBox extends React.PureComponent<ImageCheckBoxProps> {
   };
 
   private _onInputClick = (e: React.MouseEvent<HTMLInputElement>) => {
-    // istanbul ignore next
     if (e && e.stopPropagation) e.stopPropagation();
   };
 
   private _onLabelClick = (e: React.MouseEvent<HTMLLabelElement>) => {
-    // istanbul ignore next
     if (e && e.stopPropagation) e.stopPropagation();
   };
 

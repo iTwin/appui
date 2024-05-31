@@ -192,7 +192,7 @@ export class AutoSuggest extends React.PureComponent<
 
     return Promise.resolve(
       inputLength === 0
-        ? /* istanbul ignore next */ []
+        ? []
         : this.props.options.filter((data: AutoSuggestData) => {
             return (
               data.label.toLowerCase().includes(inputValue) ||

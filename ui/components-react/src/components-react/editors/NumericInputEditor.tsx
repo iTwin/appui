@@ -97,7 +97,7 @@ export class NumericInputEditor
     value: number | undefined,
     _stringValue: string
   ): void => {
-    const newValue = value !== undefined ? value : /* istanbul ignore next */ 0;
+    const newValue = value !== undefined ? value : 0;
 
     // istanbul ignore else
     if (this._isMounted)
@@ -236,7 +236,6 @@ export class NumericInputPropertyEditor extends PropertyEditorBase {
   public get reactNode(): React.ReactNode {
     return <NumericInputEditor />;
   }
-  // istanbul ignore next
   public override get containerHandlesEnter(): boolean {
     // let input editor process enter key
     return false;

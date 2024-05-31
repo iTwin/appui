@@ -58,10 +58,7 @@ function addItemToSpecifiedParentGroup<T extends ToolbarItem>(
     if (foundIndices.length) {
       // process in reverse order so groupChildren can be reduced as we find matches
       foundIndices
-        .sort(
-          // istanbul ignore next
-          (a, b) => a - b
-        )
+        .sort((a, b) => a - b)
         .reverse()
         .forEach((foundIndex) => {
           newChildren.push(groupChildren[foundIndex]);
@@ -86,10 +83,7 @@ function cloneGroup(inGroup: ToolbarGroupItem): ToolbarGroupItem {
 }
 
 function getItemSortValue(item: ToolbarItem) {
-  const groupValue =
-    undefined === item.groupPriority
-      ? 0
-      : /* istanbul ignore next */ item.groupPriority;
+  const groupValue = undefined === item.groupPriority ? 0 : item.groupPriority;
   return groupValue * 10000 + item.itemPriority;
 }
 
@@ -248,7 +242,7 @@ export function ToolbarComposer(props: ExtensibleToolbarProps) {
         (useProximityOpacity || snapWidgetOpacity) &&
         !ProcessDetector.isMobileBrowser
           ? ToolbarOpacitySetting.Proximity
-          : /* istanbul ignore next */ ToolbarOpacitySetting.Defaults
+          : ToolbarOpacitySetting.Defaults
       }
     />
   );

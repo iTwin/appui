@@ -93,7 +93,7 @@ export function PopupItemsPanel(props: PopupItemsPanelProps) {
     useToolbarWithOverflowDirectionContext();
 
   const handleOnPointerUp = React.useCallback(
-    /* istanbul ignore next */ (panelItem: GroupButton | ActionButton) => {
+    (panelItem: GroupButton | ActionButton) => {
       // istanbul ignore else
       if (ToolbarItemUtilities.isActionButton(panelItem)) {
         props.activateOnPointerUp &&
@@ -120,7 +120,6 @@ export function PopupItemsPanel(props: PopupItemsPanelProps) {
     [setSelectedItem, closePanel, onItemExecuted]
   );
 
-  // istanbul ignore next - NEEDSWORK add complete tests
   const handleOnKeyDown = React.useCallback(
     (e: React.KeyboardEvent) => {
       onKeyDown(e);

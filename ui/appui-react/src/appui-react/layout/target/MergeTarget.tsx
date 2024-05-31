@@ -30,17 +30,14 @@ export function MergeTarget(props: MergeTargetProps) {
   const draggedTab = useLayout((state) => !!state.draggedTab);
   const [ref, targeted] = useTarget<HTMLDivElement>(useTargetArgs(widgetId));
   const allowedTarget = useAllowedWidgetTarget(widgetId);
-  // istanbul ignore next
   const hidden =
     !allowedTarget ||
     (!draggedTab && !draggedWidgetId) ||
     draggedWidgetId === widgetId;
   const className = classnames(
     "nz-target-mergeTarget",
-    // istanbul ignore next
     targeted && "nz-targeted",
     hidden && "nz-hidden",
-    // istanbul ignore next
     cursorType && getCursorClassName(cursorType)
   );
   return <div className={className} ref={ref} />;

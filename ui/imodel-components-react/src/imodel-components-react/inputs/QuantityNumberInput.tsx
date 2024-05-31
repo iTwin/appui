@@ -103,13 +103,11 @@ function convertValueFromDisplayToPersistence(
   unitConversions: UnitConversionSpec[] | undefined,
   unit: UnitProps
 ) {
-  // istanbul ignore next
   if (!unitConversions || 0 === unitConversions.length) return value;
 
   const unitConversion = unitConversions.find(
     (spec) => spec.name === unit.name
   );
-  // istanbul ignore next
   if (!unitConversion) return value;
 
   const convertedValue =
@@ -124,7 +122,6 @@ function getUnitLabel(parserSpec: ParserSpec | undefined) {
   // istanbul ignore else
   if (!format.units || !format.units[0]) return parserSpec.outUnit.label;
   const [unit, label] = format.units[0];
-  // istanbul ignore next
   return label ?? unit.label;
 }
 
@@ -165,7 +162,6 @@ const ForwardRefQuantityNumberInput = React.forwardRef<
       if (formatterSpec) {
         return formatterSpec.applyFormatting(value);
       }
-      // istanbul ignore next
       return value.toFixed(2);
     },
     [formatterSpec]
@@ -256,7 +252,7 @@ const ForwardRefQuantityNumberInput = React.forwardRef<
         // convert value from display unit to persistence unit
         const [unit] = parserSpec.format.units
           ? parserSpec.format.units[0]
-          : /* istanbul ignore next */ [parserSpec.outUnit];
+          : [parserSpec.outUnit];
         persistedValue = convertValueFromDisplayToPersistence(
           newValue,
           parserSpec.unitConversions,
@@ -283,7 +279,6 @@ const ForwardRefQuantityNumberInput = React.forwardRef<
       if (!x) return 0;
 
       let n = parseFloat(x);
-      // istanbul ignore next
       if (isNaN(n) || !isFinite(n)) {
         n = 0;
       }
@@ -419,7 +414,6 @@ const ForwardRefQuantityNumberInput = React.forwardRef<
     [applyStep]
   );
 
-  // istanbul ignore next
   const handleFocus = React.useCallback(
     (event: React.FocusEvent<HTMLInputElement>) => {
       event.currentTarget.select();

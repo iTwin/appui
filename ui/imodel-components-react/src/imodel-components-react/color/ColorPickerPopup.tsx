@@ -104,7 +104,6 @@ const ForwardRefColorPickerPopup = React.forwardRef<
     ColorValue.fromTbgr(ColorByName.darkGreen),
   ]);
 
-  // istanbul ignore next
   const closePopup = React.useCallback(() => {
     props.onClose && props.onClose(colorDef);
     setShowPopup(false);

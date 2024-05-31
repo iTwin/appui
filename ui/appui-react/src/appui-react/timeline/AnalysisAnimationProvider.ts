@@ -43,17 +43,14 @@ export class AnalysisAnimationTimelineDataProvider extends BaseTimelineDataProvi
       return true;
     }
 
-    // istanbul ignore next
     return false;
   }
 
   public override onAnimationFractionChanged = (animationFraction: number) => {
     this.animationFraction = animationFraction;
-    // istanbul ignore next
     if (this._viewport) this._viewport.analysisFraction = animationFraction;
   };
 
-  // istanbul ignore next
   public override onPlaybackSettingChanged = (settings: PlaybackSettings) => {
     this.updateSettings(settings);
   };

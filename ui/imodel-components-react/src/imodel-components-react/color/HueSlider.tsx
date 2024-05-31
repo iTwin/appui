@@ -16,7 +16,6 @@ import { useTranslation } from "../useTranslation";
 
 // hue is a value from 0 to 360
 function calculateHue(currentPos: number, high: number, isVertical: boolean) {
-  // istanbul ignore next
   if (currentPos <= 0) {
     return isVertical ? 359 : 0;
   } else if (currentPos >= high) {

@@ -45,8 +45,7 @@ export class TileLoadingIndicator extends React.PureComponent<
     const requested = vp.numRequestedTiles;
     const ready = vp.numReadyTiles;
     const total = ready + requested;
-    const pctComplete =
-      total > 0 ? (ready / total) * 100 : /* istanbul ignore next */ 100;
+    const pctComplete = total > 0 ? (ready / total) * 100 : 100;
     let enabled = this.state.enabled;
     let finished = this.state.finished;
 
@@ -84,13 +83,11 @@ export class TileLoadingIndicator extends React.PureComponent<
   };
 
   private _onViewOpen = (vp: ScreenViewport) => {
-    // istanbul ignore next
     this._removeOnRenderListener && this._removeOnRenderListener();
     this._removeOnRenderListener = vp.onRender.addListener(this._update);
   };
 
   public override componentDidMount() {
-    // istanbul ignore next
     if (!IModelApp.viewManager) return;
 
     // get selected viewport
@@ -107,10 +104,8 @@ export class TileLoadingIndicator extends React.PureComponent<
   }
 
   public override componentWillUnmount() {
-    // istanbul ignore next
     if (!IModelApp.viewManager) return;
 
-    // istanbul ignore next
     if (this._removeViewOpenListener) this._removeViewOpenListener();
 
     // istanbul ignore else

@@ -67,7 +67,6 @@ export function GroupTool(props: GroupToolProps) {
     if (!props.isDisabled && props.onPointerUp) props.onPointerUp(props.item);
   }, [props]);
 
-  // istanbul ignore next
   const providerId =
     "providerId" in props.item ? props.item.providerId : undefined;
   return (

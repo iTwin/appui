@@ -235,7 +235,6 @@ export class ContextSubMenu extends React.Component<
         parentWindow.innerWidth,
         parentWindow.innerHeight
       );
-      // istanbul ignore next
       if (renderDirection !== this.state.direction)
         this.setState({ direction: renderDirection });
     }
@@ -267,7 +266,6 @@ export class ContextSubMenu extends React.Component<
       // istanbul ignore else
       if (this._menuElement) this._menuElement.blur();
     });
-    // istanbul ignore next
     if (
       propagate &&
       this.props.parentMenu &&
@@ -297,7 +295,6 @@ export class ContextSubMenu extends React.Component<
     if (!isDisabled) {
       // istanbul ignore else
       if (this.props.onClick !== undefined) this.props.onClick(event);
-      // istanbul ignore next
       if (this.props.opened) this.close();
       else this.select();
     }

@@ -11,7 +11,6 @@ import { ScheduleAnimationTimelineDataProvider } from "../timeline/ScheduleAnima
 import type { ScreenViewport, Viewport } from "@itwin/core-frontend";
 
 /** @internal */
-// istanbul ignore next
 function useSupportsScheduleScript(viewport: Viewport | undefined) {
   const [supportsScheduleScript, setSupportsScheduleScript] = React.useState(
     !!viewport?.view?.scheduleScript
@@ -46,7 +45,6 @@ function useSupportsScheduleScript(viewport: Viewport | undefined) {
 /** Hook that returns either a ScheduleAnimationTimelineDataProvider or undefined based on if the supplied viewport contains schedule script.
  * @public
  **/
-// istanbul ignore next
 export function useScheduleAnimationDataProvider(
   viewport: ScreenViewport | undefined
 ) {

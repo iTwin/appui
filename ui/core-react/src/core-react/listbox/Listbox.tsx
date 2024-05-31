@@ -201,7 +201,6 @@ export function Listbox(props: ListboxProps) {
         if (optionToFocus && listElement) {
           let newScrollTop = listElement.scrollTop;
 
-          // istanbul ignore next
           if (listElement.scrollHeight > listElement.clientHeight) {
             const scrollBottom =
               listElement.clientHeight + listElement.scrollTop;
@@ -280,7 +279,6 @@ export function Listbox(props: ListboxProps) {
     }
   }, [focusValue, focusOption, optionValues]);
 
-  // istanbul ignore next
   const handleOnScroll = React.useCallback(
     (_event: React.UIEvent<HTMLUListElement, UIEvent>) => {
       if (listRef.current) scrollTopRef.current = listRef.current.scrollTop;
@@ -288,7 +286,6 @@ export function Listbox(props: ListboxProps) {
     []
   );
 
-  // istanbul ignore next
   const handleOnFocus = React.useCallback(
     (_event: React.FocusEvent<HTMLUListElement>) => {
       if (!focusValue || 0 === focusValue.length) {
@@ -367,7 +364,6 @@ export function ListboxItem(props: ListboxItemProps) {
   const handleClick = React.useCallback(
     (event: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
       event.preventDefault();
-      // istanbul ignore next
       const selectedValue = event.currentTarget?.dataset?.value;
       // istanbul ignore else
       if (undefined !== selectedValue) {

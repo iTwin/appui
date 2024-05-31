@@ -59,7 +59,6 @@ export class ToolbarButtonHelper {
     // istanbul ignore else
     if (button) return button;
 
-    // istanbul ignore next
     return null;
   }
 
@@ -70,7 +69,6 @@ export class ToolbarButtonHelper {
     );
     // istanbul ignore else
     if (node) return node as HTMLButtonElement;
-    // istanbul ignore next
     return null;
   }
 }

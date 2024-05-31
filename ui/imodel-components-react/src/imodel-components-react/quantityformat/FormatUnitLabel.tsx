@@ -40,7 +40,6 @@ function UomSeparatorSelector(props: UomSeparatorSelectorProps) {
     ];
     const completeListOfEntries: SelectOption<string>[] = [];
 
-    // istanbul ignore next (only used if format already has a character that does not match standard options)
     if (
       undefined ===
       uomDefaultEntries.find((option) => option.value === separator)
@@ -101,9 +100,7 @@ export function FormatUnitLabel(props: FormatUnitLabelProps) {
         if (formatProps.formatTraits) {
           const traits = Array.isArray(formatProps.formatTraits)
             ? formatProps.formatTraits
-            : /* istanbul ignore next */ formatProps.formatTraits.split(
-                /,|;|\|/
-              );
+            : formatProps.formatTraits.split(/,|;|\|/);
           // istanbul ignore else
           if (!traits.find((traitEntry) => traitStr === traitEntry)) {
             formatTraits = [...traits, traitStr];
@@ -111,11 +108,10 @@ export function FormatUnitLabel(props: FormatUnitLabelProps) {
         }
       } else {
         // clearing trait
-        // istanbul ignore next
         if (!formatProps.formatTraits) return;
         const traits = Array.isArray(formatProps.formatTraits)
           ? formatProps.formatTraits
-          : /* istanbul ignore next */ formatProps.formatTraits.split(/,|;|\|/);
+          : formatProps.formatTraits.split(/,|;|\|/);
         formatTraits = traits.filter((traitEntry) => traitEntry !== traitStr);
       }
       const newFormatProps = { ...formatProps, formatTraits };

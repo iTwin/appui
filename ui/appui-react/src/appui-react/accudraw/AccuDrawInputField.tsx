@@ -92,7 +92,6 @@ const ForwardRefAccuDrawInput = React.forwardRef<
     (event: React.ChangeEvent<HTMLInputElement>): void => {
       const value = event.currentTarget.value;
 
-      // istanbul ignore next
       if (value === undefined) return;
 
       // istanbul ignore else

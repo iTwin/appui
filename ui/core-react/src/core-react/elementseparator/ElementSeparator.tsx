@@ -191,7 +191,6 @@ ElementSeparatorProps) => {
   );
 
   const onPointerOver = useCallback(() => {
-    // istanbul ignore next
     if (isGroupHovered) return;
 
     setIsHovered(true);
@@ -199,7 +198,6 @@ ElementSeparatorProps) => {
   }, [isGroupHovered, onResizeHandleHoverChanged]);
 
   const onPointerOut = useCallback(() => {
-    // istanbul ignore next
     if (!isGroupHovered) return;
 
     setIsHovered(false);

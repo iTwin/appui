@@ -29,7 +29,6 @@ interface IconItemProps
 /** IconItem Functional component
  * @internal
  */
-// istanbul ignore next
 class IconItem extends React.PureComponent<IconItemProps> {
   /** @internal */
   constructor(props: IconItemProps) {
@@ -65,7 +64,6 @@ class IconItem extends React.PureComponent<IconItemProps> {
 /** Properties for the [[IconPicker]] React component
  * @internal
  */
-// istanbul ignore next
 export interface IconPickerProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     CommonProps {
@@ -94,7 +92,6 @@ interface IconPickerState {
 /** IconPickerButton component
  * @internal
  */
-// istanbul ignore next
 export class IconPickerButton extends React.PureComponent<
   IconPickerProps,
   IconPickerState

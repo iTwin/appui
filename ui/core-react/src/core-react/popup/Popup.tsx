@@ -137,7 +137,6 @@ export class Popup extends React.Component<PopupProps, PopupState> {
   }
 
   private getParentWindow() {
-    // istanbul ignore next
     return this.state.parentDocument.defaultView ?? window;
   }
 
@@ -150,7 +149,6 @@ export class Popup extends React.Component<PopupProps, PopupState> {
     }
 
     if (this.props.target !== previousProps.target) {
-      // istanbul ignore next
       {
         const parentDocument = this.props.target?.ownerDocument ?? document;
         if (parentDocument !== this.state.parentDocument) {
@@ -501,9 +499,7 @@ export class Popup extends React.Component<PopupProps, PopupState> {
     const targetRect = target.getBoundingClientRect();
     const { popupWidth, popupHeight } = this._getPopupDimensions();
     const containerStyle = activeWindow.getComputedStyle(target);
-    const offsetArrow = this.props.showArrow
-      ? /* istanbul ignore next */ 10
-      : 2;
+    const offsetArrow = this.props.showArrow ? 10 : 2;
 
     const bottomMargin = parseMargin(containerStyle.marginBottom);
     if (
@@ -654,7 +650,6 @@ export class Popup extends React.Component<PopupProps, PopupState> {
   }
 
   private getContainer() {
-    // istanbul ignore next
     return (
       this.state.parentDocument.body.querySelector(
         '[data-root-container="appui-root-id"]'
@@ -669,5 +664,5 @@ function parsePxString(pxStr: string): number {
 }
 
 function parseMargin(value: string) {
-  return value ? /* istanbul ignore next */ parseFloat(value) : 0;
+  return value ? parseFloat(value) : 0;
 }

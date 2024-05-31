@@ -103,7 +103,6 @@ export class ValidationTextbox extends React.PureComponent<
   }
 
   private processValidateText(target: HTMLInputElement | undefined): void {
-    // istanbul ignore next
     if (undefined === target) return;
 
     const value = target.value;
@@ -138,7 +137,7 @@ export class ValidationTextbox extends React.PureComponent<
   private _calculateIsValid(value: string): boolean {
     if (this.props.onValueChanged)
       return this.props.onValueChanged(value) === InputStatus.Valid
-        ? /* istanbul ignore next */ true
+        ? true
         : false;
     return value.length > 0;
   }

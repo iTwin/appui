@@ -30,7 +30,6 @@ function calculateChange(
   if ("pageX" in e) {
     x = e.pageX;
   } else {
-    // istanbul ignore next
     if (undefined !== e.touches && e.touches.length) x = e.touches[0].pageX;
   }
   // istanbul ignore if
@@ -40,7 +39,6 @@ function calculateChange(
   if ("pageY" in e) {
     y = e.pageY;
   } else {
-    // istanbul ignore next
     if (undefined !== e.touches && e.touches.length) y = e.touches[0].pageY;
   }
   // istanbul ignore if
@@ -49,7 +47,6 @@ function calculateChange(
   let left = x - (containerLeft + window.scrollX);
   let top = y - (containerTop + window.scrollY);
 
-  // istanbul ignore next
   if (left < 0) {
     left = 0;
   } else if (left > containerWidth) {

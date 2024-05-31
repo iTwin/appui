@@ -590,8 +590,7 @@ export function NineZoneStateReducer(
         const containedBounds = bounds.containIn(nzBounds);
         const userSized =
           tab.userSized ||
-          (tab.isFloatingWidgetResizable &&
-            /* istanbul ignore next */ !!tab.preferredFloatingWidgetSize);
+          (tab.isFloatingWidgetResizable && !!tab.preferredFloatingWidgetSize);
 
         state = addFloatingWidget(
           state,
@@ -725,8 +724,7 @@ export function NineZoneStateReducer(
 
       const userSized =
         tab.userSized ||
-        (tab.isFloatingWidgetResizable &&
-          /* istanbul ignore next */ !!tab.preferredFloatingWidgetSize);
+        (tab.isFloatingWidgetResizable && !!tab.preferredFloatingWidgetSize);
 
       if (isPanelTabLocation(location)) {
         const panel = state.panels[location.side];
@@ -934,7 +932,6 @@ function openWidgetTab(state: NineZoneState, id: TabState["id"]) {
     if (isPanelTabLocation(location)) {
       const panel = draft.panels[location.side];
       panel.collapsed = false;
-      // istanbul ignore next
       if (undefined === panel.size || 0 === panel.size) {
         panel.size = panel.minSize ?? 200;
       }

@@ -173,7 +173,7 @@ export class WeightEditor
           activeWeight={this.state.weightValue}
           weights={
             this._availableWeights.length > 0
-              ? /* istanbul ignore next */ this._availableWeights
+              ? this._availableWeights
               : undefined
           }
           disabled={this.state.isDisabled ? true : false}
@@ -191,7 +191,6 @@ export class WeightEditor
  * @public
  */
 export class WeightPropertyEditor extends PropertyEditorBase {
-  // istanbul ignore next
   public get reactNode(): React.ReactNode {
     return <WeightEditor />;
   }

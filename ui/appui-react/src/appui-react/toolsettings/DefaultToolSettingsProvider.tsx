@@ -30,7 +30,6 @@ class ToolSettingsUiDataProvider extends UiLayoutDataProvider {
   public override applyUiPropertyChange = (
     syncItem: DialogPropertySyncItem
   ) => {
-    // istanbul ignore next
     IModelApp.toolAdmin.activeTool
       ?.applyToolSettingPropertyChange(syncItem)
       .catch((err) => UnexpectedErrors.handle(err));

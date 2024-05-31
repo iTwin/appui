@@ -208,7 +208,6 @@ export class PointerMessage extends React.Component<
     );
   }
 
-  // istanbul ignore next
   private _handleSizeChanged = (size: SizeProps) => {
     this._size = size;
     this.updatePosition();
@@ -290,7 +289,6 @@ export class PointerMessage extends React.Component<
       // istanbul ignore else
       if (position.equals(prevState.position)) return null;
 
-      // istanbul ignore next
       return {
         position,
       };

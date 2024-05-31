@@ -93,9 +93,7 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
         if (formatProps.formatTraits) {
           const traits = Array.isArray(formatProps.formatTraits)
             ? formatProps.formatTraits
-            : /* istanbul ignore next */ formatProps.formatTraits.split(
-                /,|;|\|/
-              );
+            : formatProps.formatTraits.split(/,|;|\|/);
           // istanbul ignore else
           if (!traits.find((traitEntry) => traitStr === traitEntry)) {
             formatTraits = [...traits, traitStr];
@@ -103,11 +101,10 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
         }
       } else {
         // clearing trait
-        // istanbul ignore next
         if (!formatProps.formatTraits) return;
         const traits = Array.isArray(formatProps.formatTraits)
           ? formatProps.formatTraits
-          : /* istanbul ignore next */ formatProps.formatTraits.split(/,|;|\|/);
+          : formatProps.formatTraits.split(/,|;|\|/);
         formatTraits = traits.filter((traitEntry) => traitEntry !== traitStr);
       }
       const newFormatProps = { ...formatProps, formatTraits };

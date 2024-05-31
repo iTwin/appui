@@ -199,7 +199,6 @@ export class DateTimeEditor
         if ("timeDisplay" in options && this.props.showTime) {
           timeDisplay = options.timeDisplay;
           // use 24 hr time display if alternateDateFormat is defined
-          // istanbul ignore next
           if (
             alternateDateFormat &&
             timeDisplay !== TimeDisplay.H24MS &&
@@ -235,12 +234,10 @@ export class DateTimeEditor
       }
     }
 
-    // istanbul ignore next
     if (!initialValue) {
       throw new Error("Bad Value");
     }
 
-    // istanbul ignore next
     if (!typeConverter) {
       throw new Error("Unable to determine TypeConverter");
     }
@@ -272,7 +269,6 @@ export class DateTimeEditor
     if (this._enterKey) {
       this._enterKey = false;
     } else {
-      // istanbul ignore next
       if (this.props.onCancel) this.props.onCancel();
     }
   };
@@ -371,7 +367,6 @@ export class ShortDateTimePropertyEditor extends PropertyEditorBase {
   public get reactNode(): React.ReactNode {
     return <DateTimeEditor showTime={false} />;
   }
-  // istanbul ignore next
   public override get containerHandlesTab(): boolean {
     return false;
   }
@@ -385,7 +380,6 @@ export class DateTimePropertyEditor extends PropertyEditorBase {
   public get reactNode(): React.ReactNode {
     return <DateTimeEditor showTime={true} />;
   }
-  // istanbul ignore next
   public override get containerHandlesTab(): boolean {
     return false;
   }

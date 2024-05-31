@@ -113,7 +113,6 @@ export const withOnOutsideClick = <ComponentProps extends {}>(
     };
 
     public getParentDocument() {
-      // istanbul ignore next
       return this.outsideClickContainerDiv?.ownerDocument ?? document;
     }
 

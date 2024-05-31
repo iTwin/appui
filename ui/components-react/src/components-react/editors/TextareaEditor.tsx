@@ -79,12 +79,10 @@ export class TextareaEditor
     return propertyValue;
   }
 
-  // istanbul ignore next
   public get htmlElement(): HTMLElement | null {
     return this._divElement.current;
   }
 
-  // istanbul ignore next
   public get hasFocus(): boolean {
     let containsFocus = false;
     // istanbul ignore else
@@ -256,15 +254,12 @@ export class TextareaEditor
  * @public
  */
 export class TextareaPropertyEditor extends PropertyEditorBase {
-  // istanbul ignore next
   public override get containerHandlesBlur(): boolean {
     return false;
   }
-  // istanbul ignore next
   public override get containerHandlesEnter(): boolean {
     return false;
   }
-  // istanbul ignore next
   public override get containerHandlesTab(): boolean {
     return false;
   }

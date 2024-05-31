@@ -90,7 +90,6 @@ export class FilteringInput extends React.PureComponent<
   }
 
   private focus() {
-    // istanbul ignore next
     if (this._inputElement.current) this._inputElement.current.focus();
   }
 

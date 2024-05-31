@@ -265,12 +265,9 @@ export class CubeNavigationAid extends React.Component<
       const animation = Math.min(
         1,
         this.state.animation +
-          delta /
-            (1000 *
-              (this.props.animationTime || /* istanbul ignore next */ 0.4))
+          delta / (1000 * (this.props.animationTime || 0.4))
       );
 
-      // istanbul ignore next
       if (this._mounted) {
         this.setState({ animation }, () => {
           this._animationFrame = setTimeout(this._animation, 16.667);
@@ -289,7 +286,6 @@ export class CubeNavigationAid extends React.Component<
       true
     );
     const startRotMatrix = this.state.endRotMatrix.clone();
-    // istanbul ignore next
     if (this._mounted) {
       this.setState({ startRotMatrix }, () => {
         // istanbul ignore else
@@ -506,7 +502,6 @@ export class CubeNavigationAid extends React.Component<
         return newMatrix;
       }
     }
-    // istanbul ignore next
     return end;
   };
 
@@ -534,7 +529,6 @@ export class CubeNavigationAid extends React.Component<
     const zz = z === -0 ? Math.abs(z) : z;
 
     // adjust any adjacent pair of near equal values to the first.
-    // istanbul ignore next
     if (Geometry.isSameCoordinate(xx, yy, tolerance)) {
       y = Geometry.split3WaySign(y, -xx, xx, xx);
     }
@@ -568,7 +562,6 @@ export class CubeNavigationAid extends React.Component<
     // special case this to take x direction from the input.
     // This methodology results in always "righting" the face when rotation from an upside-down cube.
     // The behavior was made opt-in in response to https://github.com/iTwin/appui/issues/259
-    // istanbul ignore next
     if (!headsUp || (newZ.x === 0.0 && newZ.y === 0)) {
       const perpVector = worldToView.rowX();
       result = Matrix3d.createRigidFromColumns(
@@ -628,7 +621,6 @@ export class CubeNavigationAid extends React.Component<
 
   private _onArrowClick = (arrow: Pointer) => {
     if (this._isInteractionLocked()) {
-      // istanbul ignore next
       this.props.onAnimationEnd?.();
       return;
     }
@@ -696,7 +688,6 @@ export class CubeNavigationAid extends React.Component<
     window.removeEventListener("mouseup", this._onMouseUp);
   };
 
-  // istanbul ignore next - unable to test touch
   private _handleBoxTouchStart = (event: any) => {
     if (this._isInteractionLocked()) {
       this.props.onAnimationEnd?.();
@@ -712,7 +703,6 @@ export class CubeNavigationAid extends React.Component<
     this._start = this._lastClientXY;
   };
 
-  // istanbul ignore next - unable to test touch
   private _onTouchMove = (event: TouchEvent) => {
     if (1 !== event.targetTouches.length) return;
     const mousePos = Vector2d.create(
@@ -722,7 +712,6 @@ export class CubeNavigationAid extends React.Component<
     this._processDrag(mousePos);
   };
 
-  // istanbul ignore next - unable to test touch
   private _onTouchEnd = (event: TouchEvent) => {
     if (0 !== event.targetTouches.length) return;
 

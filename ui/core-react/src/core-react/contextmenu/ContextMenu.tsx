@@ -169,7 +169,6 @@ export class ContextMenu extends React.PureComponent<
     this._hotKeyMap.set(index, hotKey);
   };
 
-  // istanbul ignore next
   private _handleOnOutsideClick = (event: MouseEvent): void => {
     if (this.props.opened && this.props.onOutsideClick)
       this.props.onOutsideClick(event);
@@ -249,7 +248,6 @@ export class ContextMenu extends React.PureComponent<
   ): string => {
     let className = "";
 
-    // istanbul ignore next
     if (direction === undefined) direction = ContextMenuDirection.BottomRight;
 
     if (direction === ContextMenuDirection.None) return "";
@@ -326,8 +324,7 @@ export class ContextMenu extends React.PureComponent<
         };
         if (child.type === ContextSubMenu) {
           // add direction only to sub-menus
-          childProps.direction =
-            child.props.direction || /* istanbul ignore next */ direction;
+          childProps.direction = child.props.direction || direction;
         }
         index++;
         return React.cloneElement(child, childProps);
@@ -346,11 +343,8 @@ export class ContextMenu extends React.PureComponent<
   };
 
   private getWindow() {
-    const el = this._rootElement
-      ? this._rootElement
-      : /* istanbul ignore next */ this._menuElement;
+    const el = this._rootElement ? this._rootElement : this._menuElement;
     const parentDocument = el!.ownerDocument;
-    // istanbul ignore next
     return parentDocument.defaultView ?? window;
   }
 
@@ -396,7 +390,6 @@ export class ContextMenu extends React.PureComponent<
         parentWindow.innerWidth,
         parentWindow.innerHeight
       );
-      // istanbul ignore next
       if (renderDirection !== this.state.direction)
         this.setState({ direction: renderDirection });
     }
@@ -492,8 +485,7 @@ export class ContextMenu extends React.PureComponent<
       // istanbul ignore else
       if (
         event.key === Key.Enter.valueOf() ||
-        /* istanbul ignore next */ this._selectedElement instanceof
-          ContextSubMenu
+        this._selectedElement instanceof ContextSubMenu
       ) {
         // istanbul ignore else
         if (this._selectedElement.select) this._selectedElement.select();

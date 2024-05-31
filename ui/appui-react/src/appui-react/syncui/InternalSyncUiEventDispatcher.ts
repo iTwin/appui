@@ -32,7 +32,7 @@ export class InternalSyncUiEventDispatcher {
   }
 
   /** @internal - used for testing only */
-  /* istanbul ignore next */
+
   public setTimeoutPeriod(period: number): void {
     this._timeoutPeriod = period;
     this._secondaryTimeoutPeriod = Math.floor(this._timeoutPeriod / 2);
@@ -125,15 +125,12 @@ export class InternalSyncUiEventDispatcher {
       return;
     }
 
-    // istanbul ignore next
     if (this._syncEventTimerId) {
       window.clearTimeout(this._syncEventTimerId);
       this._syncEventTimerId = undefined;
     }
-    // istanbul ignore next
     this._eventIdAdded = false;
     // if events have been added before the initial timer expired wait half that time to see if events are still being added.
-    // istanbul ignore next
     this._syncEventTimerId = window.setTimeout(() => {
       this.checkForAdditionalIds();
     }, this._secondaryTimeoutPeriod);

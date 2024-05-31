@@ -132,12 +132,8 @@ export class ColorEditor
       let numColumns = 4;
       const availableColors = new Array<ColorDef>();
       const readonly =
-        record && undefined !== record.isReadonly
-          ? record.isReadonly
-          : /* istanbul ignore next */ false;
-      const isDisabled = record
-        ? record.isDisabled
-        : /* istanbul ignore next */ undefined;
+        record && undefined !== record.isReadonly ? record.isReadonly : false;
+      const isDisabled = record ? record.isDisabled : undefined;
 
       if (record.property.editor && record.property.editor.params) {
         const colorParams = record.property.editor.params.find(

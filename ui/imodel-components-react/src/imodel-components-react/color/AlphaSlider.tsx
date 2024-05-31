@@ -80,7 +80,6 @@ export class AlphaSlider extends React.PureComponent<AlphaSliderProps> {
     let t = 0;
 
     if (!isHorizontal) {
-      // istanbul ignore next
       if (top < 0) {
         t = 1;
       } else if (top > containerHeight) {
@@ -90,7 +89,6 @@ export class AlphaSlider extends React.PureComponent<AlphaSliderProps> {
       }
     } else {
       // horizontal
-      // istanbul ignore next
       if (left < 0) {
         t = 0;
       } else if (left > containerWidth) {
@@ -104,7 +102,6 @@ export class AlphaSlider extends React.PureComponent<AlphaSliderProps> {
     if (t < 0) t = 0;
     // istanbul ignore if
     if (t > 1) t = 1;
-    // istanbul ignore next
     return alpha !== t ? t : undefined;
   };
 

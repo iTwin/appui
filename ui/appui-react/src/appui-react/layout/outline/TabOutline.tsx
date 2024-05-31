@@ -21,7 +21,6 @@ export function TabOutline() {
   return <div className={className} />;
 }
 
-// istanbul ignore next
 function useHidden() {
   const widgetId = React.useContext(WidgetIdContext);
   const targeted = useTargeted();

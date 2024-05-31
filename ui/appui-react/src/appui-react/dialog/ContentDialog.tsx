@@ -19,7 +19,6 @@ import { UiFramework } from "../UiFramework";
 import classnames from "classnames";
 import type { UiSyncEventArgs } from "../syncui/UiSyncEvent";
 
-// istanbul ignore next
 /**
  *@internal
  */
@@ -101,7 +100,6 @@ export function ContentDialog(props: ContentDialogProps) {
     ...otherProps
   } = props;
   const activeContentControlId = useActiveContentControlId();
-  // istanbul ignore next
   const dialogClassName = React.useMemo(
     () =>
       classnames(

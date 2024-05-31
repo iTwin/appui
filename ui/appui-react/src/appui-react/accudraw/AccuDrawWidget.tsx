@@ -38,7 +38,6 @@ export function AccuDrawWidget() {
   const [orientation, setOrientation] = React.useState(Orientation.Vertical);
   const breakpoint = 400;
 
-  // istanbul ignore next - currently unable to replicate resizing in unit test
   const handleResize = React.useCallback((w: number, _h: number) => {
     setOrientation(
       w <= breakpoint ? Orientation.Vertical : Orientation.Horizontal

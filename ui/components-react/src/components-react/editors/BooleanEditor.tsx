@@ -165,7 +165,6 @@ export class BooleanEditor
  * @public
  */
 export class BooleanPropertyEditor extends PropertyEditorBase {
-  // istanbul ignore next
   public override get containerHandlesBlur(): boolean {
     return false;
   }

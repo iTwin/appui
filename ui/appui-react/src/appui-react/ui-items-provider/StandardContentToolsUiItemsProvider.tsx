@@ -49,7 +49,6 @@ function getGroupPriority(potentialId: any, defaultValue: number) {
     return potentialId;
   }
 
-  // istanbul ignore next
   return defaultValue;
 }
 

@@ -169,12 +169,10 @@ export class InternalContentViewManager {
         // Only call setActiveView if going to or coming from a non-viewport ContentControl
         // istanbul ignore else
         if (activeContentControl) {
-          // istanbul ignore next
           const doSetActiveView =
             forceEventProcessing ||
             !activeContentControl.viewport ||
-            /* istanbul ignore next */ (oldContentControl &&
-              /* istanbul ignore next */ !oldContentControl.viewport);
+            (oldContentControl && !oldContentControl.viewport);
 
           // istanbul ignore else
           if (doSetActiveView) {
