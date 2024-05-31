@@ -4425,6 +4425,11 @@ export function StatusBarLeftSection(props: CommonDivProps): React_2.JSX.Element
 export function StatusBarPopover(props: React_2.ComponentProps<typeof Popover>): React_2.JSX.Element;
 
 // @public
+export namespace StatusBarPopover {
+    const ExpandIndicator: typeof ButtonExpandIndicator;
+}
+
+// @public
 export interface StatusBarProps extends CommonProps {
     // (undocumented)
     children?: React_2.ReactNode;

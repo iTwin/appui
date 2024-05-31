@@ -539,6 +539,7 @@ public;StatusBarLabelItem
 public;StatusBarLabelSide
 public;StatusBarLeftSection(props: CommonDivProps): React_2.JSX.Element
 public;StatusBarPopover(props: React_2.ComponentProps
+public;StatusBarPopover
 public;StatusBarProps 
 public;StatusBarRightSection(props: CommonDivProps): React_2.JSX.Element
 public;StatusBarSection
