@@ -209,9 +209,13 @@ public;ProcessSettingsTabActivationEventArgs
 deprecated;ProcessSettingsTabActivationEventArgs
 internal;PROXIMITY_THRESHOLD_DEFAULT = 100
 public;RadialButton 
+deprecated;RadialButton 
 public;RadialButtonProps 
+deprecated;RadialButtonProps 
 public;RadialMenu 
+deprecated;RadialMenu 
 public;RadialMenuProps 
+deprecated;RadialMenuProps 
 public;RadialSizeType = ProgressRadialProps["size"]
 deprecated;RadialSizeType = ProgressRadialProps["size"]
 public;RatioChangeResult

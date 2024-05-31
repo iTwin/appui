@@ -9,7 +9,7 @@ import { Svg2D, Svg3D, SvgActivity } from "@itwin/itwinui-icons-react";
 import { AppUiDecorator } from "../Decorators";
 
 const meta = {
-  title: "Components/RadialMenu",
+  title: "Deprecated/RadialMenu",
   component: RadialMenu,
   tags: ["autodocs"],
   decorators: [AppUiDecorator],

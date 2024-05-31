@@ -37,7 +37,7 @@ describe("ColumnResizingPropertyListPropsSupplier", () => {
       );
 
       expect(screen.getByRole("presentation")).satisfy(
-        styleMatch({ gridTemplateColumns: "25% 1px auto" })
+        styleMatch({ gridTemplateColumns: "25% auto auto" })
       );
       await theUserTo.pointer([
         {
@@ -50,7 +50,7 @@ describe("ColumnResizingPropertyListPropsSupplier", () => {
 
       await waitFor(() => {
         expect(screen.getByRole("presentation")).satisfy(
-          styleMatch({ gridTemplateColumns: /^55(?:\.\d*|)% 1px auto/ })
+          styleMatch({ gridTemplateColumns: /^55(?:\.\d*|)% auto auto/ })
         );
       });
     });
@@ -66,7 +66,7 @@ describe("ColumnResizingPropertyListPropsSupplier", () => {
       );
 
       expect(screen.getByRole("presentation")).satisfy(
-        styleMatch({ gridTemplateColumns: "25% 1px auto" })
+        styleMatch({ gridTemplateColumns: "25% auto auto" })
       );
       await theUserTo.pointer([
         {
@@ -79,7 +79,7 @@ describe("ColumnResizingPropertyListPropsSupplier", () => {
 
       await waitFor(() => {
         expect(screen.getByRole("presentation")).satisfy(
-          styleMatch({ gridTemplateColumns: "15% 1px auto" })
+          styleMatch({ gridTemplateColumns: "15% auto auto" })
         );
       });
     });
@@ -95,7 +95,7 @@ describe("ColumnResizingPropertyListPropsSupplier", () => {
       );
 
       expect(screen.getByRole("presentation")).satisfy(
-        styleMatch({ gridTemplateColumns: "25% 1px auto" })
+        styleMatch({ gridTemplateColumns: "25% auto auto" })
       );
       await theUserTo.pointer([
         {
@@ -108,7 +108,7 @@ describe("ColumnResizingPropertyListPropsSupplier", () => {
 
       await waitFor(() => {
         expect(screen.getByRole("presentation")).satisfy(
-          styleMatch({ gridTemplateColumns: "60% 1px auto" })
+          styleMatch({ gridTemplateColumns: "60% auto auto" })
         );
       });
     });
@@ -132,7 +132,7 @@ describe("ColumnResizingPropertyListPropsSupplier", () => {
       );
 
       expect(screen.getByRole("presentation")).satisfy(
-        styleMatch({ gridTemplateColumns: "25% 1px auto 30px" })
+        styleMatch({ gridTemplateColumns: "25% auto auto 30px" })
       );
       await theUserTo.pointer([
         {
@@ -148,7 +148,7 @@ describe("ColumnResizingPropertyListPropsSupplier", () => {
       // (100 - 30 - 10 - 16 - 10) / 100
       await waitFor(() => {
         expect(screen.getByRole("presentation")).satisfy(
-          styleMatch({ gridTemplateColumns: "34% 1px auto 30px" })
+          styleMatch({ gridTemplateColumns: "34% auto auto 30px" })
         );
       });
     });
@@ -170,7 +170,7 @@ describe("ColumnResizingPropertyListPropsSupplier", () => {
 
       expect(screen.getByRole("presentation")).satisfy(
         styleMatch({
-          gridTemplateColumns: "minmax(100px, 25%) 1px minmax(100px, 1fr)",
+          gridTemplateColumns: "minmax(100px, 25%) auto minmax(100px, 1fr)",
         })
       );
       await theUserTo.pointer([
@@ -185,7 +185,7 @@ describe("ColumnResizingPropertyListPropsSupplier", () => {
       await waitFor(() => {
         expect(screen.getByRole("presentation")).satisfy(
           styleMatch({
-            gridTemplateColumns: "minmax(100px, 50%) 1px minmax(100px, 1fr)",
+            gridTemplateColumns: "minmax(100px, 50%) auto minmax(100px, 1fr)",
           })
         );
       });
@@ -206,7 +206,7 @@ describe("ColumnResizingPropertyListPropsSupplier", () => {
 
       expect(screen.getByRole("presentation")).satisfy(
         styleMatch({
-          gridTemplateColumns: "minmax(100px, 25%) 1px minmax(100px, 1fr)",
+          gridTemplateColumns: "minmax(100px, 25%) auto minmax(100px, 1fr)",
         })
       );
       await theUserTo.pointer([
@@ -221,7 +221,7 @@ describe("ColumnResizingPropertyListPropsSupplier", () => {
       await waitFor(() => {
         expect(screen.getByRole("presentation")).satisfy(
           styleMatch({
-            gridTemplateColumns: "minmax(100px, 10%) 1px minmax(100px, 1fr)",
+            gridTemplateColumns: "minmax(100px, 10%) auto minmax(100px, 1fr)",
           })
         );
       });
@@ -241,7 +241,7 @@ describe("ColumnResizingPropertyListPropsSupplier", () => {
       );
       expect(screen.getByRole("presentation")).satisfy(
         styleMatch({
-          gridTemplateColumns: "minmax(100px, 25%) 1px minmax(100px, 1fr)",
+          gridTemplateColumns: "minmax(100px, 25%) auto minmax(100px, 1fr)",
         })
       );
       await theUserTo.pointer([
@@ -256,7 +256,7 @@ describe("ColumnResizingPropertyListPropsSupplier", () => {
       await waitFor(() => {
         expect(screen.getByRole("presentation")).satisfy(
           styleMatch({
-            gridTemplateColumns: "minmax(100px, 80%) 1px minmax(100px, 1fr)",
+            gridTemplateColumns: "minmax(100px, 80%) auto minmax(100px, 1fr)",
           })
         );
       });
@@ -277,7 +277,7 @@ describe("ColumnResizingPropertyListPropsSupplier", () => {
 
       expect(screen.getByRole("presentation")).satisfy(
         styleMatch({
-          gridTemplateColumns: "minmax(100px, 25%) 1px minmax(100px, 1fr)",
+          gridTemplateColumns: "minmax(100px, 25%) auto minmax(100px, 1fr)",
         })
       );
       await theUserTo.pointer([
@@ -292,7 +292,7 @@ describe("ColumnResizingPropertyListPropsSupplier", () => {
       await waitFor(() => {
         expect(screen.getByRole("presentation")).satisfy(
           styleMatch({
-            gridTemplateColumns: "minmax(100px, 80%) 1px minmax(100px, 1fr)",
+            gridTemplateColumns: "minmax(100px, 80%) auto minmax(100px, 1fr)",
           })
         );
       });
@@ -302,7 +302,7 @@ describe("ColumnResizingPropertyListPropsSupplier", () => {
       await waitFor(() => {
         expect(screen.getByRole("presentation")).satisfy(
           styleMatch({
-            gridTemplateColumns: "minmax(100px, 80%) 1px minmax(100px, 1fr)",
+            gridTemplateColumns: "minmax(100px, 80%) auto minmax(100px, 1fr)",
           })
         );
       });
@@ -323,7 +323,7 @@ describe("ColumnResizingPropertyListPropsSupplier", () => {
 
       expect(screen.getByRole("presentation")).satisfy(
         styleMatch({
-          gridTemplateColumns: "minmax(100px, 25%) 1px minmax(100px, 1fr)",
+          gridTemplateColumns: "minmax(100px, 25%) auto minmax(100px, 1fr)",
         })
       );
       await theUserTo.pointer([
@@ -338,7 +338,7 @@ describe("ColumnResizingPropertyListPropsSupplier", () => {
       await waitFor(() => {
         expect(screen.getByRole("presentation")).satisfy(
           styleMatch({
-            gridTemplateColumns: "minmax(100px, 10%) 1px minmax(100px, 1fr)",
+            gridTemplateColumns: "minmax(100px, 10%) auto minmax(100px, 1fr)",
           })
         );
       });

@@ -6,8 +6,6 @@ import { render, screen } from "@testing-library/react";
 import * as React from "react";
 import { MutedText } from "../../core-react";
 
-/* eslint-disable deprecation/deprecation */
-
 describe("<MutedText />", () => {
   it("renders correctly", () => {
     render(<MutedText>Tested content</MutedText>);

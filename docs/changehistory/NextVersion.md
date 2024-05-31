@@ -8,6 +8,7 @@ Table of contents:
   - [Changes](#changes)
 - [@itwin/components-react](#itwincomponents-react)
   - [Deprecations](#deprecations-1)
+  - [Changes](#changes-1)
 - [@itwin/core-react](#itwincore-react)
   - [Fixes](#fixes)
 
@@ -36,6 +37,14 @@ Table of contents:
 ### Deprecations
 
 - Deprecated `DoublePropertyValueRenderer` and `NavigationPropertyValueRenderer` in favor of default `PrimitivePropertyValueRenderer`. [#832](https://github.com/iTwin/appui/pull/832)
+- Deprecated `RadialMenu` and `RadialButton` components that were designed for a retired design pattern in favor of `ContextMenu` or [iTwinUI dropdown menu](https://itwinui.bentley.com/docs/dropdownmenu). [#850](https://github.com/iTwin/appui/pull/850)
+
+### Changes
+
+- Updated `VirtualizedPropertyGrid` component [#849](https://github.com/iTwin/appui/pull/849):
+  - Enable user selection for property records
+  - Display browser context menu on property records if `onPropertyContextMenu` and `isPropertySelectionOnRightClickEnabled` props are not set
+  - Increased area of an element separator to avoid column overlap
 
 ## @itwin/core-react
 
