@@ -193,7 +193,6 @@ export class VirtualizedPropertyGrid extends React.Component<
       this.updateOrientation(this.props.width);
 
     if (this.props.model !== prevProps.model) {
-      // istanbul ignore else
       if (this._listRef.current) this._listRef.current.resetAfterIndex(0);
     }
 
@@ -219,7 +218,6 @@ export class VirtualizedPropertyGrid extends React.Component<
         index++;
       }
       if (foundMatchingItem) {
-        // istanbul ignore else
         if (this._listRef.current) this._listRef.current.scrollToItem(index);
       }
     }

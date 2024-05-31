@@ -85,7 +85,6 @@ export function ViewportComponent(props: ViewportProps) {
     controlId,
     viewportRef,
   } = props;
-  // istanbul ignore next
   const viewManagerRef = React.useRef(
     viewManagerOverride ?? IModelApp.viewManager
   );
@@ -97,9 +96,7 @@ export function ViewportComponent(props: ViewportProps) {
   const viewClassFullName = React.useRef("");
   const viewId = React.useRef("0");
 
-  // istanbul ignore next
   const handleViewChanged = (vp: Viewport) => {
-    // istanbul ignore next
     if (!(vp.iModel.isOpen || vp.iModel.isBlank)) return;
     ViewportComponentEvents.setViewMatrix(vp);
     if (viewClassFullName.current !== vp.view.classFullName) {
@@ -161,18 +158,14 @@ export function ViewportComponent(props: ViewportProps) {
 
   const getRotatePoint = (vp: ScreenViewport): Point3d => {
     const lastTargetPoint = targetPoint.current;
-    // istanbul ignore next
     const tentativePoint =
       tentativePointOverrideRef.current ?? IModelApp.tentativePoint;
-    // istanbul ignore else
     if (tentativePoint.isActive) return tentativePoint.getPoint();
 
-    // istanbul ignore else
     if (null !== lastTargetPoint) {
       const testPt = vp.worldToView(lastTargetPoint);
       const viewRect = vp.viewRect.clone();
       viewRect.scaleAboutCenter(0.25, 0.25);
-      // istanbul ignore next hard to reach because of mocks
       if (viewRect.containsPoint(testPt)) return lastTargetPoint;
       targetPoint.current = null;
     }
@@ -183,7 +176,6 @@ export function ViewportComponent(props: ViewportProps) {
     );
     targetPoint.current =
       undefined !== visiblePoint ? visiblePoint : vp.view.getTargetPoint();
-    // istanbul ignore next
     return targetPoint.current ?? vp.view.getCenter();
   };
 
@@ -191,13 +183,11 @@ export function ViewportComponent(props: ViewportProps) {
   const handleCubeRotationChangeEvent = (args: CubeRotationChangeEventArgs) => {
     const viewManager = viewManagerRef.current;
     const currentScreenViewport = screenViewportRef.current;
-    // istanbul ignore else
     if (
       currentScreenViewport &&
       viewManager.selectedView === currentScreenViewport
     ) {
       const rotMatrix = args.rotMatrix;
-      // istanbul ignore else
       if (currentScreenViewport.rotation !== rotMatrix) {
         const inverse = rotMatrix.transpose(); // rotation is from current nav cube state...
         const center = getRotatePoint(currentScreenViewport);
@@ -236,7 +226,6 @@ export function ViewportComponent(props: ViewportProps) {
     }
   };
 
-  // istanbul ignore next
   const handleWindowUnload = () => {
     const parentDiv = viewportDiv.current;
     if (parentDiv) {
@@ -251,7 +240,6 @@ export function ViewportComponent(props: ViewportProps) {
     parentDiv: HTMLDivElement,
     inViewState: ViewState
   ) => {
-    // istanbul ignore next
     const screenViewportFactory = screenViewportOverride
       ? screenViewportOverride
       : ScreenViewport;
@@ -311,12 +299,10 @@ export function ViewportComponent(props: ViewportProps) {
       } else if (viewDefinitionId && imodel) {
         try {
           currentViewState = await imodel.views.load(viewDefinitionId);
-          // istanbul ignore next
           if (!currentViewState) {
             Logger.logError("ViewportComponent", `Viewstate failed to load`);
           }
         } catch (_e) {
-          // istanbul ignore next
           Logger.logError("ViewportComponent", `Viewstate failed to load`);
         }
       } else {
@@ -325,7 +311,6 @@ export function ViewportComponent(props: ViewportProps) {
           `A Viewstate or a viewId and imodel must be provided`
         );
       }
-      // istanbul ignore next
       if (
         isMounted.current &&
         (currentViewState?.iModel.isOpen || currentViewState?.iModel.isBlank)
@@ -342,7 +327,6 @@ export function ViewportComponent(props: ViewportProps) {
   React.useEffect(() => {
     const parentDiv = viewportDiv.current;
     const viewManager = viewManagerRef.current;
-    // istanbul ignore next
     if (
       parentDiv &&
       initialViewState &&
@@ -363,7 +347,6 @@ export function ViewportComponent(props: ViewportProps) {
         // overlay component is set up once a ScreenViewport is available. The overlay component must handle any view changes itself.
         setViewOverlay(getViewOverlay ? getViewOverlay(screenViewport) : null);
       } else {
-        // istanbul ignore next
         screenViewportRef.current?.changeView(initialViewState);
       }
     }

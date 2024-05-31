@@ -218,12 +218,9 @@ export function getListPanel(props: ListPickerProps): React.ReactNode {
             key={itemIndex.toString()}
             label={item.name}
             isActive={item.enabled}
-            onClick={
-              // istanbul ignore next
-              () => {
-                props.setEnabled(item, !item.enabled);
-              }
-            }
+            onClick={() => {
+              props.setEnabled(item, !item.enabled);
+            }}
           />
         );
       case ListItemType.Separator:
@@ -249,7 +246,6 @@ export function getListPanel(props: ListPickerProps): React.ReactNode {
         } else {
           return <div key={itemIndex.toString()} />;
         }
-      // istanbul ignore next
       default:
         return <div key={itemIndex.toString()} />;
     }
@@ -281,7 +277,7 @@ export function getListPanel(props: ListPickerProps): React.ReactNode {
  */
 function ListPickerPopupItem(props: ListPickerProps) {
   const icon = props.iconSpec ? (
-    /* istanbul ignore next */ typeof props.iconSpec === "string" ? (
+    typeof props.iconSpec === "string" ? (
       <Icon iconSpec={props.iconSpec} />
     ) : (
       <i className="icon uifw-item-svg-icon">{props.iconSpec}</i>
@@ -418,17 +414,14 @@ export class ListPicker extends React.Component<ListPickerPropsExtended> {
     if (this.isSpecialItem(item)) {
       switch (item.key) {
         case ListPicker.Key_All: {
-          // istanbul ignore else
           if (this.props.enableAllFunc) this.props.enableAllFunc();
           return;
         }
         case ListPicker.Key_None: {
-          // istanbul ignore else
           if (this.props.disableAllFunc) this.props.disableAllFunc();
           return;
         }
         case ListPicker.Key_Invert: {
-          // istanbul ignore else
           if (this.props.invertFunc) this.props.invertFunc();
           return;
         }

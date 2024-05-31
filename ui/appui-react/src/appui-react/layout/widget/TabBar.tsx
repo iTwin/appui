@@ -134,7 +134,6 @@ export function useDrag<T extends HTMLElement>(
 
   React.useEffect(() => {
     const handleExecute = () => {
-      // istanbul ignore else
       if (clickCount.current === 2) onDoubleClick && onDoubleClick();
       clickCount.current = 0;
     };

@@ -26,11 +26,9 @@ export class OpenCustomDialogTool extends Tool {
   public static override toolId = "appuiTestProviders-OpenCustomDialogTool";
   public static override iconSpec = connectedQuerySvg;
 
-  // istanbul ignore next
   public static override get minArgs() {
     return 0;
   }
-  // istanbul ignore next
   public static override get maxArgs() {
     return 0;
   }

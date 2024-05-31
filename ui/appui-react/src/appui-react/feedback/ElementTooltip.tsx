@@ -72,7 +72,6 @@ export class ElementTooltip extends React.Component<
     pt?: XAndY,
     options?: ToolTipOptions
   ): void {
-    // istanbul ignore if
     if (ElementTooltip._isTooltipHalted) return;
     ElementTooltip._isTooltipVisible = true;
     ElementTooltip.onElementTooltipChangedEvent.emit({
@@ -96,11 +95,9 @@ export class ElementTooltip extends React.Component<
     });
   }
 
-  // istanbul ignore next
   public static get isTooltipHalted(): boolean {
     return ElementTooltip._isTooltipHalted;
   }
-  // istanbul ignore next
   public static set isTooltipHalted(halt: boolean) {
     ElementTooltip._isTooltipHalted = halt;
     if (halt && ElementTooltip._isTooltipVisible) ElementTooltip.hideTooltip();
@@ -171,7 +168,6 @@ export class ElementTooltip extends React.Component<
       ? el.elementFromPoint(event.clientX, event.clientY)
       : undefined;
     /* If the mouse has moved to an element that is not the view canvas, close the ElementTooltip. */
-    // istanbul ignore next.
     if (hoveredElement && hoveredElement.localName !== "canvas") {
       ElementTooltip.onElementTooltipChangedEvent.emit({
         isTooltipVisible: false,
@@ -193,7 +189,6 @@ export class ElementTooltip extends React.Component<
     this.updatePosition();
   };
 
-  // istanbul ignore next
   private _handleSizeChanged = (size: SizeProps) => {
     this._size = size;
     this.updatePosition();
@@ -202,7 +197,6 @@ export class ElementTooltip extends React.Component<
   private updatePosition() {
     this.setState((prevState) => {
       if (!this._element) return null;
-      // istanbul ignore next
       if (!this._position) return null;
 
       const containerBounds = Rectangle.create(
@@ -218,10 +212,8 @@ export class ElementTooltip extends React.Component<
       );
       const position = adjustedPosition.offset(containerBounds.topLeft());
 
-      // istanbul ignore else
       if (position.equals(prevState.position)) return null;
 
-      // istanbul ignore next
       return {
         position,
       };

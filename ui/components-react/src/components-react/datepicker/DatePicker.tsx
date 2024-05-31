@@ -193,7 +193,6 @@ export function DatePicker(props: DatePickerProps) {
         const focusedDayIndex = days.findIndex((day) =>
           isSameDay(day, focusedDay)
         );
-        // istanbul ignore else
         if (focusedDayIndex - 1 >= 0) setFocusedDay(days[focusedDayIndex - 1]);
         event.preventDefault();
       }
@@ -201,7 +200,6 @@ export function DatePicker(props: DatePickerProps) {
         const focusedDayIndex = days.findIndex((day) =>
           isSameDay(day, focusedDay)
         );
-        // istanbul ignore else
         if (focusedDayIndex + 1 <= 41) setFocusedDay(days[focusedDayIndex + 1]);
         event.preventDefault();
       }

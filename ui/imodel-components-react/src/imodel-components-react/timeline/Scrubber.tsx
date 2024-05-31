@@ -18,7 +18,6 @@ export function getPercentageOfRectangle(rect: DOMRect, pointer: number) {
   return (position - rect.left) / rect.width;
 }
 
-// istanbul ignore next - WIP
 const formatDuration = (value: number) => {
   const addZero = (i: number) => {
     return i < 10 ? `0${i}` : i;
@@ -41,7 +40,6 @@ const formatDate = (
   return toDateString(date, timeZoneOffset);
 };
 
-// istanbul ignore next - WIP
 const formatTime = (
   startDate: Date,
   endDate: Date,
@@ -101,10 +99,8 @@ function markDateInTimelineRange(
   startDate?: Date,
   endDate?: Date
 ): boolean {
-  // istanbul ignore else
   if (dateMarkerProps && startDate && endDate) {
     const inDate = dateMarkerProps.date ? dateMarkerProps.date : new Date();
-    // istanbul ignore else
     if (
       inDate.getTime() >= startDate.getTime() &&
       inDate.getTime() <= endDate.getTime()
@@ -241,12 +237,10 @@ export function Scrubber(props: ScrubberProps) {
 
   const [showRailTooltip, setShowRailTooltip] = React.useState(false);
 
-  // istanbul ignore next
   const handlePointerEnter = React.useCallback(() => {
     setShowRailTooltip(true);
   }, []);
 
-  // istanbul ignore next
   const handlePointerLeave = React.useCallback(() => {
     setShowRailTooltip(false);
   }, []);

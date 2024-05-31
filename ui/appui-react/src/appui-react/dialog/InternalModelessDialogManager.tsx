@@ -100,7 +100,6 @@ export class InternalModelessDialogManager {
       );
       InternalModelessDialogManager._dialogMap.delete(id);
       const index = InternalModelessDialogManager._idArray.indexOf(id);
-      // istanbul ignore else
       if (index >= 0) InternalModelessDialogManager._idArray.splice(index, 1);
 
       if (InternalModelessDialogManager.active === undefined)
@@ -136,7 +135,6 @@ export class InternalModelessDialogManager {
           InternalModelessDialogManager._idArray.length - 1
         ];
       const dialogInfo = InternalModelessDialogManager._dialogMap.get(id);
-      // istanbul ignore else
       if (dialogInfo) return dialogInfo.reactNode;
     }
 
@@ -177,7 +175,6 @@ export class InternalModelessDialogManager {
   public static getZIndex(id: string): number {
     let zIndex = DialogManagerBase.getDialogZIndexDefault();
     const dialogInfo = InternalModelessDialogManager._dialogMap.get(id);
-    // istanbul ignore else
     if (dialogInfo) zIndex = dialogInfo.zIndex;
     return zIndex;
   }

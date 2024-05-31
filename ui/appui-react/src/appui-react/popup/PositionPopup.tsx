@@ -53,12 +53,10 @@ export class PositionPopup extends React.PureComponent<PositionPopupProps> {
   }
 
   private setDivRef(div: HTMLDivElement | null) {
-    // istanbul ignore else
     if (div) {
       const rect = div.getBoundingClientRect();
       const size = new Size(rect.width, rect.height);
 
-      // istanbul ignore else
       if (this.props.onSizeKnown) this.props.onSizeKnown(size);
     }
   }

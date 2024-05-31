@@ -58,7 +58,6 @@ export class TypeConverterManager {
       converterName
     );
 
-    // istanbul ignore else
     if (TypeConverterManager._converters.hasOwnProperty(fullConverterName)) {
       delete TypeConverterManager._converters[fullConverterName];
     }

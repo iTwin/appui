@@ -31,12 +31,10 @@ export class FlatNonPrimitivePropertyRenderer extends React.Component<FlatNonPri
   }
 
   private _onExpanded = () => {
-    /* istanbul ignore else */
     if (!this.props.isExpanded) this.props.onExpandToggled();
   };
 
   private _onCollapsed = () => {
-    /* istanbul ignore else */
     if (this.props.isExpanded) this.props.onExpandToggled();
   };
 

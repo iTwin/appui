@@ -33,7 +33,6 @@ export function ToolSettingsGridContainer({
   const layoutMode = toLayoutMode(availableContentWidth);
   const className = classnames(
     "uifw-tool-settings-grid-container",
-    // istanbul ignore next
     LayoutMode.Narrow === layoutMode && "uifw-default-narrow"
   );
   return (
@@ -50,7 +49,6 @@ interface DialogGridContainerProps {
 }
 
 /** @internal */
-// istanbul ignore next
 export function DialogGridContainer({
   componentGenerator,
   containerClassName,
@@ -78,13 +76,10 @@ export function DefaultDialogGridContainer({
   return !!isToolSettings ? (
     <ToolSettingsGridContainer componentGenerator={componentGenerator} />
   ) : (
-    /* istanbul ignore next */
     <DialogGridContainer componentGenerator={componentGenerator} />
   );
 }
 
 const toLayoutMode = (width: number) => {
-  return width < 250 && width > 0
-    ? /* istanbul ignore next */ LayoutMode.Narrow
-    : LayoutMode.Wide;
+  return width < 250 && width > 0 ? LayoutMode.Narrow : LayoutMode.Wide;
 };

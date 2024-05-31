@@ -120,7 +120,6 @@ export class InternalContentLayoutManager {
   /** Refreshes the active layout and content group.
    */
   public static refreshActive(): void {
-    // istanbul ignore else
     const activeFrontstageDef = UiFramework.frontstages.activeFrontstageDef;
     if (
       activeFrontstageDef &&

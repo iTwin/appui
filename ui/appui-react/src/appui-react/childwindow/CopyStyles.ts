@@ -16,7 +16,6 @@ export function copyStyles(
     ? Array.from([...sourceDoc.styleSheets, ...sourceDoc.adoptedStyleSheets])
     : Array.from(sourceDoc.styleSheets);
 
-  // istanbul ignore next
   stylesheets.forEach((stylesheet) => {
     const css = stylesheet;
     if (stylesheet.href) {
@@ -37,7 +36,6 @@ export function copyStyles(
 
   // copy sprites
   const svgSymbolParent = sourceDoc.getElementById("__SVG_SPRITE_NODE__");
-  // istanbul ignore else
   if (svgSymbolParent) {
     targetDoc.body.appendChild(svgSymbolParent.cloneNode(true));
   }

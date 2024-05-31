@@ -23,7 +23,6 @@ function useDrag(args: UseDragArgs) {
   const { initialPosition, onDrag } = args;
   const handlePointerMove = React.useCallback(
     (e: PointerEvent) => {
-      // istanbul ignore if
       if (!initialPosition.current) return;
       const newPosition = new Point(e.clientX, e.clientY);
       const dragDistance = getDragDistance(
@@ -100,7 +99,6 @@ export function useDragInteraction(
     onLongPress: handleOpenPanel,
   });
   const handleButtonClick = React.useCallback(() => {
-    // istanbul ignore if
     if (skipClick.current) return;
     onClick && onClick();
   }, [onClick]);

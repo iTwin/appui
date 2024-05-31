@@ -39,7 +39,6 @@ export class SheetNavigationAidControl extends NavigationAidControl {
     this.reactNode = <SheetNavigationAid iModelConnection={options.imodel} />;
   }
 
-  // istanbul ignore next
   public override getSize(): string | undefined {
     return "96px";
   }
@@ -128,31 +127,25 @@ export class SheetNavigationAid extends React.Component<
       sheetData: [],
     };
 
-    // istanbul ignore else
     if (
       !this.props.iModelConnection ||
       !this.props.iModelConnection.views.getViewList
     )
       return stateData;
 
-    // istanbul ignore next
     let viewId = "";
-    // istanbul ignore next
     if (this._viewport) {
       viewId = this._viewport.view.id.toString();
     }
 
-    // istanbul ignore next
     const sheets = await this.props.iModelConnection.views.getViewList({
       from: "BisCore.SheetViewDefinition",
     });
-    // istanbul ignore next
     sheets.forEach((viewSpec: IModelConnection.ViewSpec, index: number) => {
       stateData.sheetData.push({ name: viewSpec.name, viewId: viewSpec.id });
       if (viewSpec.id === viewId) stateData.index = index;
     });
 
-    // istanbul ignore next
     return stateData;
   }
 
@@ -160,25 +153,24 @@ export class SheetNavigationAid extends React.Component<
   public override render(): React.ReactNode {
     const name =
       this.state.sheetData.length > 0
-        ? /* istanbul ignore next */ this.state.sheetData[this.state.index].name
+        ? this.state.sheetData[this.state.index].name
         : "";
     const leftIndex =
       this.state.index === 0
         ? this.state.sheetData.length - 1
-        : /* istanbul ignore next */ this.state.index - 1;
+        : this.state.index - 1;
     const rightIndex =
       this.state.index >= this.state.sheetData.length - 1
         ? 0
-        : /* istanbul ignore next */ this.state.index + 1;
+        : this.state.index + 1;
     const leftTitle = this.state.sheetData[leftIndex]
-      ? /* istanbul ignore next */ this.state.sheetData[leftIndex].name
+      ? this.state.sheetData[leftIndex].name
       : undefined;
     const rightTitle = this.state.sheetData[rightIndex]
-      ? /* istanbul ignore next */ this.state.sheetData[rightIndex].name
+      ? this.state.sheetData[rightIndex].name
       : undefined;
 
     let content: React.ReactNode;
-    // istanbul ignore if
     if (this.state.sheetData.length > 0) {
       content = (
         <>
@@ -248,7 +240,6 @@ export class SheetNavigationAid extends React.Component<
   };
 
   /** Updates view to the next lowest index in sheetData */
-  // istanbul ignore next
   private _handleOnClickLeftArrow = () => {
     this.setState(
       (prevState) => ({
@@ -262,7 +253,6 @@ export class SheetNavigationAid extends React.Component<
   };
 
   /** Updates view to next highest index in sheetData */
-  // istanbul ignore next
   private _handleOnClickRightArrow = () => {
     this.setState(
       (prevState) => ({
@@ -273,7 +263,6 @@ export class SheetNavigationAid extends React.Component<
   };
 
   /** Handles a Viewport change & synchs the index */
-  // istanbul ignore next
   private _handleSelectedViewportChanged = (
     args: SelectedViewportChangedArgs
   ) => {
@@ -282,7 +271,6 @@ export class SheetNavigationAid extends React.Component<
     }
   };
 
-  // istanbul ignore next
   // eslint-disable-next-line deprecation/deprecation
   private _handleViewIdChanged = (args: ViewIdChangedEventArgs) => {
     if (this._viewport === args.viewport)
@@ -290,7 +278,6 @@ export class SheetNavigationAid extends React.Component<
   };
 
   /** Handles a Viewport change & synchs the index */
-  // istanbul ignore next
   private _handleViewportChanged = (viewport: ScreenViewport) => {
     const className = ViewUtilities.getBisBaseClass(
       viewport.view.classFullName
@@ -310,7 +297,6 @@ export class SheetNavigationAid extends React.Component<
   };
 
   /** Updates view to currently set sheet */
-  // istanbul ignore next
   private async _updateView() {
     const viewState = await this.props.iModelConnection.views.load(
       this.state.sheetData[this.state.index].viewId
@@ -319,7 +305,6 @@ export class SheetNavigationAid extends React.Component<
   }
 
   /** Creates a new SheetsModalFrontstage */
-  // istanbul ignore next
   private modalFrontstage(): ModalFrontstageInfo {
     return new SheetsModalFrontstage(
       this.state.sheetData,
@@ -329,7 +314,6 @@ export class SheetNavigationAid extends React.Component<
   }
 
   /** Opens a new SheetsModelFrontstage on sheetName click */
-  // istanbul ignore next
   private _handleOnClickSheetName = () => {
     UiFramework.frontstages.openModalFrontstage(this.modalFrontstage());
   };

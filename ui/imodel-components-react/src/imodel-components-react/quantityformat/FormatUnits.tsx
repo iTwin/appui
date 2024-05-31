@@ -54,14 +54,12 @@ export function FormatUnits(props: FormatUnitsProps) {
 
   const handleUnitLabelChange = React.useCallback(
     (newLabel: string, index: number) => {
-      // istanbul ignore else
       if (
         formatProps.composite &&
         formatProps.composite.units.length > index &&
         index >= 0
       ) {
         const units = formatProps.composite.units.map((entry, ndx) => {
-          // istanbul ignore else
           if (index === ndx) return { name: entry.name, label: newLabel };
           else return entry;
         });
@@ -78,7 +76,6 @@ export function FormatUnits(props: FormatUnitsProps) {
     (newUnit: string, index: number) => {
       const unitParts = newUnit.split(/:/);
       if (unitParts[0] === "REMOVEUNIT") {
-        // istanbul ignore else
         if (formatProps.composite && formatProps.composite.units.length > 1) {
           const units = [...formatProps.composite.units];
           units.pop();
@@ -93,21 +90,17 @@ export function FormatUnits(props: FormatUnitsProps) {
                 ...formatProps.composite.units,
                 { name: unitParts[1], label: unitParts[2] },
               ]
-            : /* istanbul ignore next*/ [
-                { name: unitParts[1], label: unitParts[2] },
-              ];
+            : [{ name: unitParts[1], label: unitParts[2] }];
         const composite = { ...formatProps.composite, units };
         const newFormatProps = { ...formatProps, composite };
         handleSetFormatProps(newFormatProps);
       } else {
-        // istanbul ignore else
         if (
           formatProps.composite &&
           formatProps.composite.units.length > index &&
           index >= 0
         ) {
           const units = formatProps.composite.units.map((entry, ndx) => {
-            // istanbul ignore else
             if (index === ndx)
               return { name: unitParts[0], label: unitParts[1] };
             else return entry;
@@ -129,11 +122,8 @@ export function FormatUnits(props: FormatUnitsProps) {
 
   const handleOnSpacerChange = React.useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      // istanbul ignore else
       if (formatProps.composite) {
-        const spacerValue = e.target.value.length
-          ? e.target.value[0]
-          : /* istanbul ignore next */ ""; // spacer can only be empty or a single character
+        const spacerValue = e.target.value.length ? e.target.value[0] : ""; // spacer can only be empty or a single character
         const composite = { ...formatProps.composite, spacer: spacerValue };
         const newFormatProps = { ...formatProps, composite };
         handleSetFormatProps(newFormatProps);

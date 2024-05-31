@@ -66,9 +66,7 @@ async function getPossibleUnits(
 
 function getUnitName(fullUnitName: string) {
   const nameParts = fullUnitName.split(/[.:]/);
-  // istanbul ignore else
   if (nameParts.length > 0) return nameParts[nameParts.length - 1];
-  // istanbul ignore next
   throw Error("Bad unit name encountered");
 }
 
@@ -105,7 +103,6 @@ export function UnitDescr(props: UnitDescrProps) {
       const parentUnit = await unitsProvider.findUnitByName(
         parentUnitName ? parentUnitName : name
       );
-      // istanbul ignore else
       if (parentUnit && currentUnitProps) {
         let potentialSubUnit: UnitProps | undefined;
         const potentialUnits = await getPossibleUnits(
@@ -113,7 +110,6 @@ export function UnitDescr(props: UnitDescrProps) {
           unitsProvider,
           index !== 0
         );
-        // istanbul ignore else
         if (index < 3) {
           const potentialSubUnits = await getPossibleUnits(
             currentUnitProps,
@@ -133,8 +129,7 @@ export function UnitDescr(props: UnitDescrProps) {
                   };
                 })
                 .sort((a, b) => a.label.localeCompare(b.label))
-            : /* istanbul ignore next */
-              [
+            : [
                 {
                   value: `${currentUnitProps.name}:${currentUnitProps.label}`,
                   label: getUnitName(name),
@@ -151,7 +146,6 @@ export function UnitDescr(props: UnitDescrProps) {
 
         if (index !== 0) options.push({ value: "REMOVEUNIT", label: "Remove" }); // NEEDSWORK - i18n
 
-        // istanbul ignore else
         if (isMounted.current) {
           setUnitOptions(options);
           setCurrentUnit(currentUnitProps);

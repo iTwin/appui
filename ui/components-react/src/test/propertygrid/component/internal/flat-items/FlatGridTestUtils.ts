@@ -229,7 +229,7 @@ export class FlatGridTestUtils {
         return FlatGridItemType.Array;
       case PropertyValueFormat.Struct:
         return FlatGridItemType.Struct;
-      /* istanbul ignore next */
+
       default:
         const unhandledType: never = valueType;
         throw Error(`Property Value Format not handled: ${unhandledType}`);
@@ -375,7 +375,7 @@ export class FlatGridTestUtils {
         return this.createMockCategorizedArray(selectionKey, isExpanded);
       case FlatGridItemType.Struct:
         return this.createMockCategorizedStruct(selectionKey, isExpanded);
-      /* istanbul ignore next */
+
       default:
         const unhandledType: never = type;
         throw new Error(`Unhandled FlatGridItemType: ${unhandledType}`);

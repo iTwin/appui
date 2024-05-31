@@ -46,7 +46,6 @@ export class ReducerRegistry {
     }
 
     this._reducers = { ...this._reducers, [name]: reducer };
-    // istanbul ignore else
     if (this._onReducerListChanged) {
       this._onReducerListChanged(this._reducers);
     }
@@ -69,7 +68,6 @@ export class ReducerRegistry {
    */
   public clearReducers() {
     this._reducers = {};
-    // istanbul ignore else
     if (this._onReducerListChanged) {
       this._onReducerListChanged(this._reducers);
     }

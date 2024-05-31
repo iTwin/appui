@@ -39,7 +39,6 @@ export class CursorPrompt {
     relativePosition: RelativePosition = RelativePosition.BottomRight
   ) {
     if (!instruction.text) {
-      // istanbul ignore else
       if (this._timer.isRunning) this.close(false);
       return;
     }

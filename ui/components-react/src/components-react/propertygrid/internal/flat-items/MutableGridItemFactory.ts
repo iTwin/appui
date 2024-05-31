@@ -149,7 +149,7 @@ export class MutableGridItemFactory implements IMutableGridItemFactory {
           overrideName,
           overrideDisplayLabel
         );
-      /* istanbul ignore next */
+
       default:
         const unhandledRecordType: never = valueFormat;
         throw new Error(

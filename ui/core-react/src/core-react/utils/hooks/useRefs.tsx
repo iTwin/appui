@@ -20,7 +20,6 @@ export function useRefs<T>(...refs: ReadonlyArray<React.Ref<T> | undefined>) {
   return React.useCallback(
     (instance: T | null) => {
       for (const ref of refs) {
-        // istanbul ignore else
         if (ref) {
           if (isRefCallback(ref)) {
             ref(instance);
@@ -41,7 +40,6 @@ export function useRefs<T>(...refs: ReadonlyArray<React.Ref<T> | undefined>) {
 export function mergeRefs<T>(...refs: ReadonlyArray<React.Ref<T>>) {
   return (instance: T | null) => {
     for (const ref of refs) {
-      // istanbul ignore else
       if (ref) {
         if (isRefCallback(ref)) {
           ref(instance);

@@ -22,7 +22,6 @@ export function useResizeObserver<T extends Element>(
   const isMountedRef = React.useRef(false);
   const owningWindowRef = React.useRef<any>(null);
 
-  // istanbul ignore next
   const resizeObserverCleanup = () => {
     if (rafRef.current)
       owningWindowRef.current.cancelAnimationFrame(rafRef.current);
@@ -47,7 +46,6 @@ export function useResizeObserver<T extends Element>(
   const processResize = React.useCallback(
     (target: HTMLElement) => {
       const newBounds = target.getBoundingClientRect();
-      // istanbul ignore else
       if (
         isMountedRef.current &&
         (bounds.current.width !== newBounds.width ||
@@ -62,7 +60,6 @@ export function useResizeObserver<T extends Element>(
 
   const handleResize = React.useCallback(
     (entries: any[]) => {
-      // istanbul ignore if
       if (
         !isMountedRef.current ||
         !Array.isArray(entries) ||
@@ -71,7 +68,6 @@ export function useResizeObserver<T extends Element>(
         return;
       }
       const target = entries[0].target as HTMLElement;
-      // istanbul ignore next
       owningWindowRef.current &&
         owningWindowRef.current.removeEventListener(
           "beforeunload",
@@ -79,7 +75,6 @@ export function useResizeObserver<T extends Element>(
         );
 
       owningWindowRef.current = target.ownerDocument.defaultView;
-      // istanbul ignore else
       if (owningWindowRef.current) {
         owningWindowRef.current.addEventListener(
           "unload",
@@ -108,10 +103,7 @@ export function useResizeObserver<T extends Element>(
       }
 
       return () => {
-        instance &&
-          /* istanbul ignore next */ resizeObserver.current?.unobserve(
-            instance
-          );
+        instance && resizeObserver.current?.unobserve(instance);
         resizeObserver.current = null;
       };
     },
@@ -121,7 +113,6 @@ export function useResizeObserver<T extends Element>(
   const handleRef = React.useCallback(
     (instance: Element | null) => {
       const newBounds = instance && instance.getBoundingClientRect();
-      // istanbul ignore if
       if (
         newBounds &&
         (bounds.current.width !== newBounds.width ||
@@ -158,7 +149,6 @@ export function useLayoutResizeObserver(
   const isMountedRef = React.useRef(false);
   const owningWindowRef = React.useRef<any>(null);
 
-  // istanbul ignore next
   const resizeObserverCleanup = () => {
     if (rafRef.current)
       owningWindowRef.current.cancelAnimationFrame(rafRef.current);
@@ -171,7 +161,6 @@ export function useLayoutResizeObserver(
     isMountedRef.current = true;
     setWatchedElement(inElement);
 
-    // istanbul ignore next
     if (inElement) {
       const newBounds = inElement.getBoundingClientRect();
       onResize && onResize(newBounds.width, newBounds.height);
@@ -194,7 +183,6 @@ export function useLayoutResizeObserver(
   const processResize = React.useCallback(
     (target: HTMLElement) => {
       const newBounds = target.getBoundingClientRect();
-      // istanbul ignore next
       if (
         isMountedRef.current &&
         (bounds.width !== newBounds.width || bounds.height !== newBounds.height)
@@ -208,7 +196,6 @@ export function useLayoutResizeObserver(
 
   const handleResize = React.useCallback(
     (entries: any[]) => {
-      // istanbul ignore next
       if (
         !isMountedRef.current ||
         !Array.isArray(entries) ||
@@ -217,7 +204,6 @@ export function useLayoutResizeObserver(
         return;
       }
       const target = entries[0].target as HTMLElement;
-      // istanbul ignore next
       if (owningWindowRef.current)
         owningWindowRef.current.removeEventListener(
           "beforeunload",
@@ -225,7 +211,6 @@ export function useLayoutResizeObserver(
         );
 
       owningWindowRef.current = target.ownerDocument.defaultView;
-      // istanbul ignore else
       if (owningWindowRef.current) {
         owningWindowRef.current.addEventListener(
           "unload",
@@ -250,7 +235,6 @@ export function useLayoutResizeObserver(
     resizeObserver.current = new RO(handleResize);
     resizeObserver.current.observe(watchedElement);
     return () => {
-      // istanbul ignore next
       resizeObserver.current?.disconnect();
       resizeObserver.current = null;
     };
@@ -303,7 +287,6 @@ export function ResizableContainerObserver({
 
   // if no children are specified then monitor size of parent element.
   React.useEffect(() => {
-    // istanbul ignore next
     if (!isMountedRef.current && containerRef.current) {
       isMountedRef.current = true;
       const hasParent = !!containerRef.current.parentElement;
@@ -317,7 +300,6 @@ export function ResizableContainerObserver({
 
   const processResize = React.useCallback(
     (width?: number, height?: number) => {
-      // istanbul ignore next
       onResize(width ?? 0, height ?? 0);
     },
     [onResize]

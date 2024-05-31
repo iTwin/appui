@@ -57,11 +57,9 @@ export function QuantityInput({
 
   const formatValue = React.useCallback(
     (value: number) => {
-      // istanbul ignore else
       if (formatterSpec) {
         return formatterSpec.applyFormatting(value);
       }
-      // istanbul ignore next
       return value.toFixed(2);
     },
     [formatterSpec]
@@ -69,13 +67,11 @@ export function QuantityInput({
 
   const parseString = React.useCallback(
     (userInput: string): ParseResults => {
-      // istanbul ignore else
       if (parserSpec) {
         const parseResult = IModelApp.quantityFormatter.parseToQuantityValue(
           userInput,
           parserSpec
         );
-        // istanbul ignore else
         if (Parser.isParsedQuantity(parseResult)) {
           return { value: parseResult.value };
         } else {
@@ -89,7 +85,6 @@ export function QuantityInput({
           };
         }
       }
-      // istanbul ignore next
       return {
         parseError: translate("QuantityInput.NoParserDefined"),
       };
@@ -127,7 +122,6 @@ export function QuantityInput({
     ): void => {
       const quantityKey =
         IModelApp.quantityFormatter.getQuantityTypeKey(quantityType);
-      // istanbul ignore else
       if (args.quantityType === quantityKey) {
         setFormatterSpec(
           IModelApp.quantityFormatter.findFormatterSpecByQuantityType(

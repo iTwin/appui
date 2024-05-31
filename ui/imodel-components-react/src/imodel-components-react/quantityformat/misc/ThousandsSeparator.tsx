@@ -43,24 +43,18 @@ export function ThousandsSeparator(props: ThousandsSeparatorProps) {
       let formatTraits: string[] = [traitStr];
       if (setActive) {
         // setting trait
-        // istanbul ignore else
         if (formatProps.formatTraits) {
           const traits = Array.isArray(formatProps.formatTraits)
             ? formatProps.formatTraits
-            : /* istanbul ignore next */ formatProps.formatTraits.split(
-                /,|;|\|/
-              );
+            : formatProps.formatTraits.split(/,|;|\|/);
           formatTraits = [...traits, traitStr];
         }
       } else {
         // clearing trait
-        // istanbul ignore else
         if (formatProps.formatTraits) {
           const traits = Array.isArray(formatProps.formatTraits)
             ? formatProps.formatTraits
-            : /* istanbul ignore next */ formatProps.formatTraits.split(
-                /,|;|\|/
-              );
+            : formatProps.formatTraits.split(/,|;|\|/);
           formatTraits = traits.filter((traitEntry) => traitEntry !== traitStr);
         }
       }
@@ -88,7 +82,6 @@ export function ThousandsSeparator(props: ThousandsSeparatorProps) {
     (thousandSeparator: string) => {
       let decimalSeparator = formatProps.decimalSeparator;
       // make sure 1000 and decimal separator do not match
-      // istanbul ignore else
       if (isFormatTraitSet(FormatTraits.Use1000Separator)) {
         if (thousandSeparator === ".") decimalSeparator = ",";
         // thousandSeparator === ","

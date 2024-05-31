@@ -54,7 +54,6 @@ import { ConditionalIconItem } from "@itwin/core-react";
 /** Utility Class that provides definitions of tools provided by the ($core-frontend) core. These definitions can be used to populate the UI.
  * @public
  */
-// istanbul ignore next
 export class CoreTools {
   public static get keyinPaletteButtonItemDef() {
     return new ToolItemDef({

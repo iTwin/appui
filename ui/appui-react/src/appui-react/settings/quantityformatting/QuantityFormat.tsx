@@ -117,7 +117,6 @@ export function QuantityFormatSettingsPage({
 
   React.useEffect(() => {
     const handleUnitSystemChanged = (): void => {
-      // istanbul ignore else
       if (
         activeUnitSystemKey !== IModelApp.quantityFormatter.activeUnitSystem
       ) {
@@ -152,7 +151,6 @@ export function QuantityFormatSettingsPage({
       if (!newQuantityTypeRef.current) {
         const quantityKey =
           IModelApp.quantityFormatter.getQuantityTypeKey(activeQuantityType);
-        // istanbul ignore else
         if (args.quantityType === quantityKey) {
           setActiveFormatterSpec(
             IModelApp.quantityFormatter.findFormatterSpecByQuantityType(
@@ -182,7 +180,6 @@ export function QuantityFormatSettingsPage({
 
   const saveChanges = React.useCallback(
     (afterSaveFunction: (args: any) => void, args?: any) => {
-      // istanbul ignore else
       if (activeFormatterSpec) {
         const formatProps = activeFormatterSpec.format.toJSON();
         const formatPropsInUse = IModelApp.quantityFormatter
@@ -236,7 +233,6 @@ export function QuantityFormatSettingsPage({
 
   const onListboxValueChange = React.useCallback(
     (newQuantityType: string) => {
-      // istanbul ignore else
       if (activeFormatterSpec) {
         const formatProps = activeFormatterSpec.format.toJSON();
         const formatPropsInUse = IModelApp.quantityFormatter
@@ -266,7 +262,6 @@ export function QuantityFormatSettingsPage({
 
   const handleOnFormatChanged = React.useCallback(
     async (formatProps: FormatProps) => {
-      // istanbul ignore else
       if (activeFormatterSpec) {
         const newSpec =
           await IModelApp.quantityFormatter.generateFormatterSpecByType(
@@ -277,7 +272,6 @@ export function QuantityFormatSettingsPage({
           IModelApp.quantityFormatter.getFormatPropsByQuantityType(
             activeQuantityType
           );
-        // istanbul ignore else
         if (formatPropsInUse)
           setSaveEnabled(!formatAreEqual(formatProps, formatPropsInUse));
         setActiveFormatterSpec(newSpec);
@@ -287,7 +281,6 @@ export function QuantityFormatSettingsPage({
   );
 
   const handleOnFormatSave = React.useCallback(async () => {
-    // istanbul ignore else
     if (activeFormatterSpec) {
       const format = activeFormatterSpec.format.toJSON();
       await IModelApp.quantityFormatter.setOverrideFormat(

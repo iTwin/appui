@@ -40,13 +40,11 @@ export function FilteredText(props: FilteredTextProps) {
     matchStyle,
     ...otherProps
   } = props;
-  // istanbul ignore else
   if (matches && matches.length > 0) {
     const spans: React.ReactNode[] = [];
 
     let startPos = 0;
     for (const span of matches) {
-      // istanbul ignore else
       if (span.start !== startPos)
         spans.push(
           <span key={startPos} className="uicore-partial-filtered-text">
@@ -65,7 +63,6 @@ export function FilteredText(props: FilteredTextProps) {
       startPos = span.end;
     }
     const endPos = value.length;
-    // istanbul ignore else
     if (startPos < endPos) {
       spans.push(
         <span key={startPos} className="uicore-partial-filtered-text">

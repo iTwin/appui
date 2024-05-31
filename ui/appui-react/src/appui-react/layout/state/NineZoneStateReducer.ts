@@ -322,7 +322,6 @@ export function NineZoneStateReducer(
 
       const floatingWidget = state.floatingWidgets.byId[action.id];
       // if this is not a tool settings widget then set the userSized flag
-      // istanbul ignore else
       if (!isToolSettingsFloatingWidget(state, action.id)) {
         state = updateFloatingWidgetState(state, action.id, {
           userSized: true,
@@ -590,8 +589,7 @@ export function NineZoneStateReducer(
         const containedBounds = bounds.containIn(nzBounds);
         const userSized =
           tab.userSized ||
-          (tab.isFloatingWidgetResizable &&
-            /* istanbul ignore next */ !!tab.preferredFloatingWidgetSize);
+          (tab.isFloatingWidgetResizable && !!tab.preferredFloatingWidgetSize);
 
         state = addFloatingWidget(
           state,
@@ -698,7 +696,6 @@ export function NineZoneStateReducer(
 
       // TODO: should change activeTabId of a widget with multiple tabs.
       const widget = state.widgets[location.widgetId];
-      // istanbul ignore else
       if (isFloatingTabLocation(location) && id === widget.activeTabId) {
         state = updateWidgetState(state, widget.id, {
           minimized: true,
@@ -725,8 +722,7 @@ export function NineZoneStateReducer(
 
       const userSized =
         tab.userSized ||
-        (tab.isFloatingWidgetResizable &&
-          /* istanbul ignore next */ !!tab.preferredFloatingWidgetSize);
+        (tab.isFloatingWidgetResizable && !!tab.preferredFloatingWidgetSize);
 
       if (isPanelTabLocation(location)) {
         const panel = state.panels[location.side];
@@ -795,7 +791,6 @@ export function NineZoneStateReducer(
     case "WIDGET_TAB_EXPAND": {
       state = showWidgetTab(state, action.id);
       const location = getTabLocation(state, action.id);
-      // istanbul ignore else
       if (location && isPanelTabLocation(location)) {
         state = updatePanelState(state, location.side, (draft) => {
           draft.splitterPercent =
@@ -934,7 +929,6 @@ function openWidgetTab(state: NineZoneState, id: TabState["id"]) {
     if (isPanelTabLocation(location)) {
       const panel = draft.panels[location.side];
       panel.collapsed = false;
-      // istanbul ignore next
       if (undefined === panel.size || 0 === panel.size) {
         panel.size = panel.minSize ?? 200;
       }

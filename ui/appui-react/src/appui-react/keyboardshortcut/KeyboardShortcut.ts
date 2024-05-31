@@ -145,7 +145,6 @@ export class KeyboardShortcut extends ItemDefBase {
       this._shortcuts.showShortcutsMenu();
     } else {
       setTimeout(() => {
-        // istanbul ignore else
         if (this._item) this._item.execute();
       });
     }
@@ -201,14 +200,12 @@ export class KeyboardShortcutContainer {
       const index = this._keyArray.findIndex((value: KeyboardShortcut) => {
         return value.keyMapKey === keyMapKey;
       });
-      // istanbul ignore else
       if (index >= 0) {
         shortcut = inShortcut;
         this._keyArray[index] = shortcut;
       }
     }
 
-    // istanbul ignore else
     if (shortcut) this._keyMap.set(keyMapKey, shortcut);
 
     return shortcut;

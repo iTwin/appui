@@ -20,7 +20,6 @@ import type {
 import { BaseSolarDataProvider } from "@itwin/imodel-components-react";
 
 // the interface and class are in alpha state - it may change after usability testing - test coverage not complete
-/* istanbul ignore file */
 
 /** Default Solar Data Provider interface for getting and setting solar position from iModels view definitions.
  * @alpha

@@ -182,7 +182,6 @@ export class ContextMenuItem extends React.PureComponent<
   };
 
   private _handleMouseOver = (_event: React.MouseEvent<HTMLDivElement>) => {
-    // istanbul ignore else
     if (
       this._root &&
       this._root.style.visibility !== "hidden" &&
@@ -193,7 +192,6 @@ export class ContextMenuItem extends React.PureComponent<
   };
 
   public select = () => {
-    // istanbul ignore else
     if (this._root) {
       this._root.click();
       if (this.props.parentMenu && this.props.parentMenu.props.parentSubmenu)

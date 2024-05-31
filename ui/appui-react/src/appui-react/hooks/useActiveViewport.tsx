@@ -20,7 +20,6 @@ import type { UiSyncEventArgs } from "../syncui/UiSyncEvent";
 /** React hook that maintains the active viewport.
  * @public
  */
-// istanbul ignore next
 export function useActiveViewport(): ScreenViewport | undefined {
   const [activeViewport, setActiveViewport] = useState(
     IModelApp.viewManager.selectedView
@@ -52,7 +51,6 @@ export function useActiveViewport(): ScreenViewport | undefined {
     ];
     // eslint-disable-next-line deprecation/deprecation
     const handleSyncUiEvent = (args: UiSyncEventArgs): void => {
-      // istanbul ignore else
       if (
         syncIdsOfInterest.some((value: string): boolean =>
           args.eventIds.has(value)

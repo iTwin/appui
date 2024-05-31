@@ -29,14 +29,12 @@ export const useUiItemsProviderStatusBarItems = (
   // current stage's composer allows entries from extensions.
   React.useEffect(() => {
     const uiProviders = uiItemProviderIds.join("-");
-    // istanbul ignore else
     if (
       providersRef.current !== uiProviders ||
       currentStageRef.current !== stageId
     ) {
       currentStageRef.current = stageId;
       const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
-      // istanbul ignore else
       if (frontstageDef) {
         providersRef.current = uiProviders;
         const statusBarItems = UiItemsManager.getStatusBarItems(

@@ -338,7 +338,6 @@ export class FrontstageDef {
       this._contentGroup = await provider.contentGroup(this._initialConfig);
     }
 
-    // istanbul ignore next
     if (!this._contentGroup)
       // eslint-disable-next-line deprecation/deprecation
       throw new UiError(
@@ -371,9 +370,7 @@ export class FrontstageDef {
       control.onFrontstageDeactivated();
     }
 
-    // istanbul ignore else
     if (this.contentGroup) this.contentGroup.onFrontstageDeactivated();
-    // istanbul ignore next
     if (this.contentGroupProvider)
       await this.contentGroupProvider.onFrontstageDeactivated();
 
@@ -410,11 +407,9 @@ export class FrontstageDef {
       controlReadyPromises.push(control.isReady);
     });
 
-    // istanbul ignore else
     if (this.contentLayoutDef) {
       const usedContentIndexes = this.contentLayoutDef.getUsedContentIndexes();
       this.contentControls.forEach((control: ContentControl, index: number) => {
-        // istanbul ignore else
         if (usedContentIndexes.includes(index))
           controlReadyPromises.push(control.isReady);
       });
@@ -438,7 +433,6 @@ export class FrontstageDef {
       control.onFrontstageReady();
     }
 
-    // istanbul ignore else
     if (this.contentGroup) this.contentGroup.onFrontstageReady();
 
     if (IModelApp.toolAdmin && IModelApp.viewManager && this._initialConfig) {
@@ -469,7 +463,6 @@ export class FrontstageDef {
     let contentControl: ContentControl | undefined;
     let activated = false;
 
-    // istanbul ignore else
     if (!contentControl && this.contentControls.length >= 0) {
       contentControl = this.contentControls[0];
     }
@@ -505,13 +498,11 @@ export class FrontstageDef {
     const contentControl = this.contentControls.find(
       (control: ContentControl) => control.viewport === viewport
     );
-    // istanbul ignore else
     if (contentControl) {
       UiFramework.content.setActive(contentControl.reactNode, true);
       return true;
     }
 
-    // istanbul ignore next
     return false;
   }
 
@@ -577,7 +568,6 @@ export class FrontstageDef {
     this.panelDefs.forEach((panelDef: StagePanelDef) => {
       panelDef.widgetDefs.forEach((widgetDef: WidgetDef) => {
         const widgetControl = widgetDef.widgetControl;
-        // istanbul ignore if
         if (widgetControl) widgetControls.push(widgetControl);
       });
     });
@@ -586,7 +576,6 @@ export class FrontstageDef {
   }
 
   public addFloatingContentControl(contentControl?: ContentControl) {
-    // istanbul ignore next
     if (!contentControl) return;
     if (!this._floatingContentControls)
       this._floatingContentControls = new Array<ContentControl>();
@@ -598,11 +587,9 @@ export class FrontstageDef {
   }
 
   public dropFloatingContentControl(contentControl?: ContentControl) {
-    // istanbul ignore next
     if (!contentControl || !this._floatingContentControls) return;
 
     const index = this._floatingContentControls.indexOf(contentControl);
-    // istanbul ignore else
     if (index > -1) {
       this._floatingContentControls.splice(index, 1);
       UiFramework.content.onAvailableContentChangedEvent.emit({
@@ -614,7 +601,6 @@ export class FrontstageDef {
   /** Gets the list of [[ContentControl]]s */
   public get contentControls(): ContentControl[] {
     const contentControls = new Array<ContentControl>();
-    // istanbul ignore else
     if (this.contentGroup) {
       contentControls.push(...this.contentGroup.getContentControls());
     }
@@ -700,10 +686,8 @@ export class FrontstageDef {
   }
 
   public isPopoutWidget(widgetId: string) {
-    // istanbul ignore else
     if (this.nineZoneState) {
       const location = getTabLocation(this.nineZoneState, widgetId);
-      // istanbul ignore else
       if (location) return isPopoutTabLocation(location);
     }
 
@@ -711,10 +695,8 @@ export class FrontstageDef {
   }
 
   public isFloatingWidget(widgetId: string) {
-    // istanbul ignore else
     if (this.nineZoneState) {
       const location = getTabLocation(this.nineZoneState, widgetId);
-      // istanbul ignore else
       if (location) return isFloatingTabLocation(location);
     }
 
@@ -971,11 +953,9 @@ export class FrontstageDef {
     if (!this.nineZoneState) return undefined;
 
     const location = getTabLocation(this.nineZoneState, widgetId);
-    // istanbul ignore else
     if (location && isFloatingTabLocation(location)) {
       return location.floatingWidgetId;
     }
-    // istanbul ignore next
     return undefined;
   }
 
@@ -984,7 +964,6 @@ export class FrontstageDef {
   ) {
     if (!floatingWidgetId) return undefined;
 
-    // istanbul ignore else
     if (
       this.nineZoneState &&
       floatingWidgetId in this.nineZoneState.floatingWidgets.byId
@@ -992,7 +971,6 @@ export class FrontstageDef {
       const foundWidget = document.querySelector(
         `div.nz-widget-floatingWidget[data-widget-id='${floatingWidgetId}']`
       );
-      // istanbul ignore next
       if (foundWidget) {
         const domRect = foundWidget.getBoundingClientRect();
         return {
@@ -1073,10 +1051,7 @@ function getStagePanel(
  */
 export const useActiveFrontstageId = () => {
   const def = useActiveFrontstageDef();
-  const id = React.useMemo(
-    () => (def ? /* istanbul ignore next */ def.id : ""),
-    [def]
-  );
+  const id = React.useMemo(() => (def ? def.id : ""), [def]);
   return id;
 };
 

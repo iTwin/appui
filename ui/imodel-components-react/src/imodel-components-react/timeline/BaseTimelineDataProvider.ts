@@ -24,7 +24,6 @@ export class BaseTimelineDataProvider implements TimelineDataProvider {
 
   constructor(viewport?: ScreenViewport) {
     this._viewport = viewport;
-    // istanbul ignore if - WIP
     if (viewport) this.viewId = viewport.view.id;
   }
 
@@ -33,7 +32,6 @@ export class BaseTimelineDataProvider implements TimelineDataProvider {
     loop: true,
   };
 
-  // istanbul ignore next
   public async loadTimelineData(): Promise<boolean> {
     return false;
   }
@@ -45,26 +43,22 @@ export class BaseTimelineDataProvider implements TimelineDataProvider {
 
   /** Called to get playback duration  */
   public get duration(): number {
-    return this.getSettings().duration
-      ? this.getSettings().duration!
-      : /* istanbul ignore next */ 20000;
+    return this.getSettings().duration ? this.getSettings().duration! : 20000;
   }
 
-  // istanbul ignore next - WIP
   public set viewport(viewport: ScreenViewport | undefined) {
     this._viewport = viewport;
     if (viewport) this.viewId = viewport.view.id;
     else this.viewId = "";
   }
 
-  // istanbul ignore next - WIP
   public get viewport(): ScreenViewport | undefined {
     return this._viewport;
   }
 
   public get loop(): boolean {
     return undefined === this.getSettings().loop
-      ? /* istanbul ignore next */ false
+      ? false
       : this.getSettings().loop!;
   }
 
@@ -76,9 +70,7 @@ export class BaseTimelineDataProvider implements TimelineDataProvider {
     this._settings = { ...this._settings, ...settings };
   }
 
-  // istanbul ignore next
   public onPlaybackSettingChanged = (_settings: PlaybackSettings) => {};
 
-  // istanbul ignore next
   public onAnimationFractionChanged = (_animationFraction: number) => {};
 }
