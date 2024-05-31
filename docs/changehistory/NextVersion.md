@@ -23,8 +23,8 @@ Table of contents:
 
 ### Changes
 
-- The dropdown menu of `widgetActionDropdown` preview feature will now close once one of the menu items is activated. [#856](https://github.com/iTwin/appui/pull/856)
-- The labels for the buttons in the widget title bar will now be rendered as tooltips, rather than using the `title` attribute. [#856](https://github.com/iTwin/appui/pull/856)
+- The dropdown menu of `widgetActionDropdown` preview feature will close once one of the menu items is activated. [#856](https://github.com/iTwin/appui/pull/856)
+- The labels for the buttons in the widget title bar will be rendered as tooltips, rather than using the `title` attribute. [#856](https://github.com/iTwin/appui/pull/856)
 
 ## @itwin/components-react
 
