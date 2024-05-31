@@ -11,22 +11,17 @@ import {
 import { AppUiStory } from "../AppUiStory";
 import { createFrontstageProvider, createWidget } from "../Utils";
 
-function createProvider(): UiItemsProvider {
+function createProvider(visibleWidgets: number): UiItemsProvider {
   return {
     id: "widgets",
     getWidgets: () => {
-      return [
-        createWidget(1),
-        createWidget(2, {
-          defaultState: WidgetState.Hidden,
-        }),
-        createWidget(3, {
-          defaultState: WidgetState.Hidden,
-        }),
-        createWidget(4, {
-          defaultState: WidgetState.Hidden,
-        }),
-      ];
+      const count = Math.max(5, visibleWidgets + 3);
+      return [...Array(count)].map((_, index) => {
+        const id = index + 1;
+        return createWidget(id, {
+          defaultState: index < visibleWidgets ? undefined : WidgetState.Hidden,
+        });
+      });
     },
   };
 }
@@ -34,11 +29,13 @@ function createProvider(): UiItemsProvider {
 interface PreviewStoryProps {
   /** Threshold of `widgetActionDropdown`. */
   threshold: number;
+  /** Number of non-hidden widgets. */
+  visibleWidgets: number;
 }
 
 /** `enableMaximizedFloatingWidget` and `enableMaximizedPanelWidget` preview features. When enabled the widget will have a "maximize" button. */
-export function PreviewStory({ threshold }: PreviewStoryProps) {
-  const provider = createProvider();
+export function PreviewStory({ threshold, visibleWidgets }: PreviewStoryProps) {
+  const provider = createProvider(visibleWidgets);
   return (
     <PreviewFeaturesProvider
       features={{

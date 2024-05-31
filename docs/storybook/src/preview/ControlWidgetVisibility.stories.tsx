@@ -19,6 +19,7 @@ const meta = {
   },
   args: {
     threshold: 2,
+    visibleWidgets: 1,
   },
 } satisfies Meta<typeof PreviewStory>;
 
@@ -26,3 +27,9 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
+
+export const HiddenTabs: Story = {
+  args: {
+    visibleWidgets: 0,
+  },
+};
