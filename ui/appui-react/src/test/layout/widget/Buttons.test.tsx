@@ -29,7 +29,7 @@ describe("TabBarButtons", () => {
         </WidgetIdContext.Provider>
       </TestNineZoneProvider>
     );
-    wrapper.getByTitle("Send back");
+    wrapper.getByRole("button", { name: "Send back" });
   });
 
   it("should render PopoutToggle in a floating widget that canPopout ", () => {
@@ -46,7 +46,7 @@ describe("TabBarButtons", () => {
         </WidgetIdContext.Provider>
       </TestNineZoneProvider>
     );
-    wrapper.getByTitle("Popout");
+    wrapper.getByRole("button", { name: "Popout" });
   });
 
   it("should render Dock button in floating ToolSettings", () => {
@@ -66,7 +66,7 @@ describe("TabBarButtons", () => {
         </WidgetIdContext.Provider>
       </TestNineZoneProvider>
     );
-    wrapper.getByTitle("Dock");
+    wrapper.getByRole("button", { name: "Dock" });
   });
 
   it("should render PinToggle in main panel widget", () => {
@@ -85,7 +85,7 @@ describe("TabBarButtons", () => {
         </PanelSideContext.Provider>
       </TestNineZoneProvider>
     );
-    wrapper.getByTitle("Unpin panel");
+    wrapper.getByRole("button", { name: "Unpin panel" });
   });
 
   it("should render PopoutToggle in main panel widget that canPopout", () => {
@@ -104,7 +104,7 @@ describe("TabBarButtons", () => {
         </PanelSideContext.Provider>
       </TestNineZoneProvider>
     );
-    wrapper.getByTitle("Popout widget");
+    wrapper.getByRole("button", { name: "Popout widget" });
   });
 
   it("should render popout button", () => {
@@ -123,6 +123,6 @@ describe("TabBarButtons", () => {
         </PanelSideContext.Provider>
       </TestNineZoneProvider>
     );
-    wrapper.getByTitle("Popout");
+    wrapper.getByRole("button", { name: "Popout" });
   });
 });

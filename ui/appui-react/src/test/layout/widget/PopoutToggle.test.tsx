@@ -31,7 +31,7 @@ describe("PopoutToggle", () => {
         </WidgetIdContext.Provider>
       </TestNineZoneProvider>
     );
-    const button = component.getByTitle("Popout");
+    const button = component.getByRole("button", { name: "Popout" });
     fireEvent.click(button);
 
     expect(dispatch).toHaveBeenCalledWith({

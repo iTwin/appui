@@ -24,7 +24,7 @@ describe("PinToggle", () => {
         </PanelSideContext.Provider>
       </TestNineZoneProvider>
     );
-    component.getByTitle("Unpin panel");
+    component.getByRole("button", { name: "Unpin panel" });
   });
 
   it("should render in unpinned panel", () => {
@@ -32,7 +32,7 @@ describe("PinToggle", () => {
     state = updatePanelState(state, "left", (draft) => {
       draft.pinned = false;
     });
-    const { getByTitle } = render(
+    const component = render(
       <TestNineZoneProvider
         defaultState={state}
         labels={{
@@ -44,7 +44,7 @@ describe("PinToggle", () => {
         </PanelSideContext.Provider>
       </TestNineZoneProvider>
     );
-    getByTitle("Pin panel");
+    component.getByRole("button", { name: "Pin panel" });
   });
 
   it("should dispatch PANEL_TOGGLE_PINNED", () => {
@@ -64,7 +64,7 @@ describe("PinToggle", () => {
       </TestNineZoneProvider>
     );
 
-    const button = component.getByTitle("Unpin panel");
+    const button = component.getByRole("button", { name: "Unpin panel" });
     fireEvent.click(button);
 
     expect(dispatch).toHaveBeenCalledOnce();
