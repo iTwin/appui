@@ -29,6 +29,12 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
 
+export const NoDropdown: Story = {
+  args: {
+    dropdownThreshold: 10,
+  },
+};
+
 export const AllHidden: Story = {
   args: {
     visibleWidgets: 0,
