@@ -65,7 +65,7 @@ export function AddWidgetButton() {
   }
   return (
     <DropdownMenu menuItems={(close) => getMenuItems(close)}>
-      <TabBarButton title={label}>{icon}</TabBarButton>
+      <TabBarButton label={label}>{icon}</TabBarButton>
     </DropdownMenu>
   );
 }

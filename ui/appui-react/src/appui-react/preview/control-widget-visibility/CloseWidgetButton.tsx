@@ -21,7 +21,7 @@ export function CloseWidgetButton() {
   return (
     <ActionButton
       icon={<SvgCloseSmall />}
-      title="Close widget"
+      label="Close widget"
       onClick={() => {
         dispatch({
           type: "WIDGET_TAB_HIDE",

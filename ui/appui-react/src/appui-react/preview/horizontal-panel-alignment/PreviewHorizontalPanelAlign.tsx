@@ -151,7 +151,7 @@ export function PreviewHorizontalPanelAlignButton() {
   const { alignments, setAlignment } = React.useContext(
     HorizontalPanelAlignContext
   );
-  const title = "Align panel";
+  const label = "Align panel";
 
   const getMenuItems = (onClose?: () => void) =>
     [
@@ -181,13 +181,13 @@ export function PreviewHorizontalPanelAlignButton() {
         icon={getIcon(side, alignments[side])}
         subMenuItems={getMenuItems(dropdownContext.onClose)}
       >
-        {title}
+        {label}
       </MenuItem>
     );
   }
   return (
     <DropdownMenu menuItems={(close) => getMenuItems(close)}>
-      <TabBarButton title={title}>
+      <TabBarButton label={label}>
         {getIcon(side, alignments[side])}
       </TabBarButton>
     </DropdownMenu>
