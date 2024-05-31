@@ -528,12 +528,16 @@ export class ToolAssistanceField extends React.Component<
         <Button
           styleType="borderless"
           startIcon={<>{toolIcon}</>}
-          className={classnames("temp", this.props.className)}
+          className={classnames(
+            "uifw-statusFields-toolAssistance-toolAssistanceField",
+            this.props.className
+          )}
           title={tooltip}
           style={this.props.style}
           ref={this._indicator}
+          labelProps={{ className: "prompt" }}
         >
-            {prompt}
+          {prompt}
           <StatusBarPopover.ExpandIndicator />
         </Button>
       </StatusBarPopover>

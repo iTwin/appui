@@ -4,7 +4,6 @@
  *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/breakpoints";
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
-@import "~@itwin/core-react/lib/cjs/core-react/geometry";
 
 $image-size: 22px;
 $image-size-wide: 30px;
@@ -17,18 +16,15 @@ $key-size-medium: 18px;
 $key-size-large: 36px;
 $key-size-modifier: 24px;
 
-.temp {
-  width: 18em;
+.uifw-statusFields-toolAssistance-toolAssistanceField {
+  width: 30ch;
   justify-content: flex-start;
-}
 
-.nz-triangle {
-  position: absolute;
-  right: 2px;
-  bottom: 2px;
-  filter: drop-shadow(0 1px $buic-icon-color-reverse);
-
-  @include triangle-bottom-right(5px, $color: var(--iui-color-icon));
+  .prompt {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
 
 .uifw-toolassistance-key {
