@@ -18,7 +18,10 @@ import { WidgetIdContext } from "../../layout/widget/Widget";
 import { WidgetActionDropdownContext } from "../widget-action-dropdown/MoreButton";
 
 /** @internal */
-export function AddTabButton() {
+export const label = "Add widget";
+
+/** @internal */
+export function AddWidgetButton() {
   const dispatch = React.useContext(NineZoneDispatchContext);
   const widgetId = React.useContext(WidgetIdContext);
   const dropdownContext = React.useContext(WidgetActionDropdownContext);
@@ -49,7 +52,6 @@ export function AddTabButton() {
       );
     });
 
-  const title = "Add tab";
   const icon = <SvgAdd />;
   if (dropdownContext !== undefined) {
     return (
@@ -57,13 +59,13 @@ export function AddTabButton() {
         startIcon={icon}
         subMenuItems={getMenuItems(dropdownContext.onClose)}
       >
-        {title}
+        {label}
       </MenuItem>
     );
   }
   return (
     <DropdownMenu menuItems={(close) => getMenuItems(close)}>
-      <TabBarButton title={title}>{icon}</TabBarButton>
+      <TabBarButton title={label}>{icon}</TabBarButton>
     </DropdownMenu>
   );
 }

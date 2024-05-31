@@ -14,14 +14,14 @@ import { useActiveTabId } from "../../layout/widget/Widget";
 import { NineZoneDispatchContext } from "../../layout/base/NineZone";
 
 /** @internal */
-export function CloseTabButton() {
+export function CloseWidgetButton() {
   const id = useActiveTabId();
   const dispatch = React.useContext(NineZoneDispatchContext);
 
   return (
     <ActionButton
       icon={<SvgCloseSmall />}
-      title="Close tab"
+      title="Close widget"
       onClick={() => {
         dispatch({
           type: "WIDGET_TAB_HIDE",

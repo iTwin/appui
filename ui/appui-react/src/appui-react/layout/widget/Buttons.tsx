@@ -25,13 +25,13 @@ import {
   useMaximizeToggle,
 } from "../../preview/enable-maximized-widget/MaximizeToggle";
 import {
-  CloseTabButton,
+  CloseWidgetButton,
   useCloseTab,
-} from "../../preview/control-widget-visibility/CloseTabButton";
+} from "../../preview/control-widget-visibility/CloseWidgetButton";
 import {
-  AddTabButton,
+  AddWidgetButton,
   useAddTab,
-} from "../../preview/control-widget-visibility/AddTabButton";
+} from "../../preview/control-widget-visibility/AddWidgetButton";
 
 /** @internal */
 export type WidgetFeature =
@@ -41,8 +41,8 @@ export type WidgetFeature =
   | "dock"
   | "horizontalAlign"
   | "pin"
-  | "closeTab"
-  | "addTab";
+  | "closeWidget"
+  | "addWidget";
 
 /** @internal */
 export function TabBarButtons() {
@@ -63,10 +63,10 @@ export function TabBarButtons() {
         return <PreviewHorizontalPanelAlignButton key="horizontalAlign" />;
       case "pin":
         return <PinToggle key="pin" />;
-      case "closeTab":
-        return <CloseTabButton key="closeTab" />;
-      case "addTab":
-        return <AddTabButton key="addTab" />;
+      case "closeWidget":
+        return <CloseWidgetButton key="closeWidget" />;
+      case "addWidget":
+        return <AddWidgetButton key="addWidget" />;
     }
     return undefined;
   });
@@ -89,8 +89,8 @@ export function useWidgetFeatures(): WidgetFeature[] {
   const closeTab = useCloseTab();
   const addTab = useAddTab();
   return [
-    ...(addTab ? (["addTab"] as const) : []),
-    ...(closeTab ? (["closeTab"] as const) : []),
+    ...(addTab ? (["addWidget"] as const) : []),
+    ...(closeTab ? (["closeWidget"] as const) : []),
     ...(popoutToggle ? (["popout"] as const) : []),
     ...(maximizeToggle ? (["maximize"] as const) : []),
     ...(sendBack ? (["sendBack"] as const) : []),

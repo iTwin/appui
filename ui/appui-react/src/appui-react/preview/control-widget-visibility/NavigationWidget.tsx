@@ -10,12 +10,14 @@ import "./NavigationWidget.scss";
 import * as React from "react";
 import { DropdownButton, MenuItem } from "@itwin/itwinui-react";
 import { SvgAdd } from "@itwin/itwinui-icons-react";
-import { useUserControlledHiddenTabs } from "./AddTabButton";
+import { label, useUserControlledHiddenTabs } from "./AddWidgetButton";
 import { NineZoneDispatchContext } from "../../layout/base/NineZone";
 import { useLayout } from "../../layout/base/LayoutStore";
 import { panelSides } from "../../layout/widget-panels/Panel";
 
-/** @internal */
+/** Displays a dropdown button to un-hide widgets in the bottom-right corner of the navigation widget area.
+ * @internal
+ */
 export function NavigationWidget({ children }: React.PropsWithChildren<{}>) {
   const dispatch = React.useContext(NineZoneDispatchContext);
   const tabs = useUserControlledHiddenTabs();
@@ -48,7 +50,7 @@ export function NavigationWidget({ children }: React.PropsWithChildren<{}>) {
               })
             }
           >
-            Add tab
+            {label}
           </DropdownButton>
         )}
       </div>
@@ -56,6 +58,7 @@ export function NavigationWidget({ children }: React.PropsWithChildren<{}>) {
   );
 }
 
+/** Returns `false` if there are no floating widgets or panel sections. */
 function useHasWidgets() {
   return useLayout((state) => {
     if (state.floatingWidgets.allIds.length > 0) return true;
