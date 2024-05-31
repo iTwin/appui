@@ -49,7 +49,6 @@ export function KeyinPalettePopup({
 
   const onSizeKnown = React.useCallback(
     (newSize: SizeProps) => {
-      // istanbul ignore else
       if (!popupSize.equals(newSize)) setPopupSize(Size.create(newSize));
     },
     [popupSize]

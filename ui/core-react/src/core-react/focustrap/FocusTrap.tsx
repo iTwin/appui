@@ -56,7 +56,6 @@ function processFindFocusableDescendant(
   if (!element) return null;
 
   for (const child of element.childNodes) {
-    // istanbul ignore else
     if (isFocusable(child as HTMLElement)) return child as HTMLElement;
 
     const focusable = processFindFocusableDescendant(child as HTMLElement);
@@ -78,10 +77,8 @@ function processFindLastFocusableDescendant(
     const child = element.childNodes[i] as HTMLElement;
 
     const focusable = processFindLastFocusableDescendant(child);
-    // istanbul ignore else
     if (focusable) return focusable;
 
-    // istanbul ignore else
     if (isFocusable(child)) return child;
   }
   return null;
@@ -121,7 +118,6 @@ function attemptFocus(element: HTMLElement, preventScroll: boolean): boolean {
   if (!isFocusable(element)) return false;
 
   try {
-    // istanbul ignore else
     if (document.activeElement !== element)
       element.focus({
         preventScroll: preventScroll ? true : false,
@@ -183,7 +179,6 @@ export function FocusTrap(props: FocusTrapProps) {
 
   // Run on initial mount and when dependencies change. which could happen often.
   React.useEffect(() => {
-    // istanbul ignore else
     if (isInitialMount.current) {
       isInitialMount.current = false;
       if (props.active) {
@@ -231,7 +226,6 @@ export function FocusTrap(props: FocusTrapProps) {
         event.preventDefault();
         const focusable = findLastFocusableDescendant(focusContainer.current);
 
-        // istanbul ignore else
         if (focusable) {
           focusable.focus();
         } else {
@@ -252,7 +246,6 @@ export function FocusTrap(props: FocusTrapProps) {
       if (!props.active) return;
 
       event.stopPropagation();
-      // istanbul ignore else
       if (
         initialFocusElement.current &&
         initialFocusElement.current !== document.activeElement

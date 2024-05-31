@@ -55,7 +55,6 @@ export class StatusBarItemsManager {
         const { itemsUpdated, updatedItems } =
           this.internalRefreshAffectedItems(items, new Set(eventIds));
 
-        // istanbul ignore else
         if (itemsUpdated) items = updatedItems;
       }
     }
@@ -77,7 +76,6 @@ export class StatusBarItemsManager {
   }
 
   public set items(items: ReadonlyArray<StatusBarItem>) {
-    // istanbul ignore else
     if (items !== this._items) this.loadItemsInternal(items, true, true);
   }
 
@@ -126,9 +124,7 @@ export class StatusBarItemsManager {
           entry.syncEventIds.forEach((eventId: string) =>
             eventIds.add(eventId.toLowerCase())
           );
-        } /* istanbul ignore else */ else if (
-          entry instanceof ConditionalStringValue
-        ) {
+        } else if (entry instanceof ConditionalStringValue) {
           entry.syncEventIds.forEach((eventId: string) =>
             eventIds.add(eventId.toLowerCase())
           );
@@ -152,13 +148,9 @@ export class StatusBarItemsManager {
 
       for (const [, entry] of Object.entries(updatedItem)) {
         if (entry instanceof ConditionalBooleanValue) {
-          // istanbul ignore else
           if (ConditionalBooleanValue.refreshValue(entry, eventIds))
             updateRequired = true;
-        } /* istanbul ignore else */ else if (
-          entry instanceof ConditionalStringValue
-        ) {
-          // istanbul ignore else
+        } else if (entry instanceof ConditionalStringValue) {
           if (ConditionalStringValue.refreshValue(entry, eventIds))
             updateRequired = true;
         }
@@ -178,7 +170,6 @@ export class StatusBarItemsManager {
       eventIds
     );
 
-    // istanbul ignore else
     if (itemsUpdated) this.loadItemsInternal(updatedItems, false, true);
   }
 }

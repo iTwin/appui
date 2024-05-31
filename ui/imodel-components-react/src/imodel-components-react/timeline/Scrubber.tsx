@@ -99,10 +99,8 @@ function markDateInTimelineRange(
   startDate?: Date,
   endDate?: Date
 ): boolean {
-  // istanbul ignore else
   if (dateMarkerProps && startDate && endDate) {
     const inDate = dateMarkerProps.date ? dateMarkerProps.date : new Date();
-    // istanbul ignore else
     if (
       inDate.getTime() >= startDate.getTime() &&
       inDate.getTime() <= endDate.getTime()

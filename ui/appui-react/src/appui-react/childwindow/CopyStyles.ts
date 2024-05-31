@@ -36,7 +36,6 @@ export function copyStyles(
 
   // copy sprites
   const svgSymbolParent = sourceDoc.getElementById("__SVG_SPRITE_NODE__");
-  // istanbul ignore else
   if (svgSymbolParent) {
     targetDoc.body.appendChild(svgSymbolParent.cloneNode(true));
   }

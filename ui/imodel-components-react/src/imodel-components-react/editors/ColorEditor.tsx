@@ -60,7 +60,6 @@ export class ColorEditor
     const record = this.props.propertyRecord;
     let propertyValue: PropertyValue | undefined;
 
-    // istanbul ignore else
     if (record && record.value.valueFormat === PropertyValueFormat.Primitive) {
       propertyValue = {
         valueFormat: PropertyValueFormat.Primitive,
@@ -81,7 +80,6 @@ export class ColorEditor
   }
 
   private setFocus(): void {
-    // istanbul ignore else
     if (
       this._buttonElement &&
       this._buttonElement.current &&
@@ -99,10 +97,8 @@ export class ColorEditor
         colorValue: color.tbgr,
       },
       async () => {
-        // istanbul ignore else
         if (propertyRecord && this.props.onCommit) {
           const propertyValue = await this.getPropertyValue();
-          // istanbul ignore else
           if (propertyValue !== undefined) {
             this.props.onCommit({ propertyRecord, newValue: propertyValue });
           }
@@ -126,7 +122,6 @@ export class ColorEditor
   private async setStateFromProps() {
     const record = this.props.propertyRecord;
 
-    // istanbul ignore else
     if (record && record.value.valueFormat === PropertyValueFormat.Primitive) {
       const colorValue = record.value.value as number;
       let numColumns = 4;
@@ -140,12 +135,10 @@ export class ColorEditor
           (param: PropertyEditorParams) =>
             param.type === PropertyEditorParamTypes.ColorData.valueOf()
         ) as ColorEditorParams;
-        // istanbul ignore else
         if (colorParams) {
           colorParams.colorValues.forEach((colorNumber: number) => {
             availableColors.push(ColorDef.create(colorNumber));
           });
-          // istanbul ignore else
           if (colorParams.numColumns) numColumns = colorParams.numColumns;
         }
       }

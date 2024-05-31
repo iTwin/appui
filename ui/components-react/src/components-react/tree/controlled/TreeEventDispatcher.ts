@@ -101,7 +101,6 @@ export class TreeEventDispatcher implements TreeActions {
           })
         );
 
-        /* istanbul ignore else */
         if (this._treeEvents.onSelectionModified !== undefined)
           this._treeEvents.onSelectionModified({ modifications });
       }
@@ -124,7 +123,6 @@ export class TreeEventDispatcher implements TreeActions {
           })
         );
 
-        /* istanbul ignore else */
         if (this._treeEvents.onSelectionModified !== undefined)
           this._treeEvents.onSelectionModified({ modifications });
       }
@@ -147,7 +145,6 @@ export class TreeEventDispatcher implements TreeActions {
           })
         );
 
-        /* istanbul ignore else */
         if (this._treeEvents.onSelectionReplaced !== undefined)
           this._treeEvents.onSelectionReplaced({ replacements });
       }
@@ -187,19 +184,16 @@ export class TreeEventDispatcher implements TreeActions {
       })
     );
 
-    /* istanbul ignore else */
     if (this._treeEvents.onCheckboxStateChanged !== undefined)
       this._treeEvents.onCheckboxStateChanged({ stateChanges });
   }
 
   public onNodeExpanded(nodeId: string) {
-    /* istanbul ignore else */
     if (this._treeEvents.onNodeExpanded !== undefined)
       this._treeEvents.onNodeExpanded({ nodeId });
   }
 
   public onNodeCollapsed(nodeId: string) {
-    /* istanbul ignore else */
     if (this._treeEvents.onNodeCollapsed !== undefined)
       this._treeEvents.onNodeCollapsed({ nodeId });
   }
@@ -363,7 +357,6 @@ export class TreeEventDispatcher implements TreeActions {
     const items: TreeNodeItem[] = [];
     for (const nodeId of nodeIds) {
       const node = this._getVisibleNodes().getModel().getNode(nodeId);
-      // istanbul ignore else
       if (node !== undefined && !node.isSelectionDisabled) {
         items.push(node.item);
       }

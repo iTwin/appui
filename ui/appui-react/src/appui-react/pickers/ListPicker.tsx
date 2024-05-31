@@ -414,17 +414,14 @@ export class ListPicker extends React.Component<ListPickerPropsExtended> {
     if (this.isSpecialItem(item)) {
       switch (item.key) {
         case ListPicker.Key_All: {
-          // istanbul ignore else
           if (this.props.enableAllFunc) this.props.enableAllFunc();
           return;
         }
         case ListPicker.Key_None: {
-          // istanbul ignore else
           if (this.props.disableAllFunc) this.props.disableAllFunc();
           return;
         }
         case ListPicker.Key_Invert: {
-          // istanbul ignore else
           if (this.props.invertFunc) this.props.invertFunc();
           return;
         }

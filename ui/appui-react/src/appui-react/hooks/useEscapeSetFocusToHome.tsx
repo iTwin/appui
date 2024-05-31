@@ -14,7 +14,6 @@ import { UiFramework } from "../UiFramework";
  * @internal
  */
 export function onEscapeSetFocusToHome(e: React.KeyboardEvent): void {
-  // istanbul ignore else
   if (e.key === Key.Escape.valueOf()) {
     UiFramework.keyboardShortcuts.setFocusToHome();
   }

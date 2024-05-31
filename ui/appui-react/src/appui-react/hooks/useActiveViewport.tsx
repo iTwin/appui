@@ -51,7 +51,6 @@ export function useActiveViewport(): ScreenViewport | undefined {
     ];
     // eslint-disable-next-line deprecation/deprecation
     const handleSyncUiEvent = (args: UiSyncEventArgs): void => {
-      // istanbul ignore else
       if (
         syncIdsOfInterest.some((value: string): boolean =>
           args.eventIds.has(value)

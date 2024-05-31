@@ -48,7 +48,6 @@ export class ImageCheckBox extends React.PureComponent<ImageCheckBoxProps> {
   private _onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e && e.stopPropagation) e.stopPropagation();
 
-    // istanbul ignore else
     if (this.props.onClick) {
       this.props.onClick(e.target.checked);
     }

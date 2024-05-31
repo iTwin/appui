@@ -107,7 +107,6 @@ ElementSeparatorProps) => {
     pointerOutOfBounds.current = false;
 
   const stopDrag = useCallback(() => {
-    // istanbul ignore else
     if (isGroupDragged) {
       setIsDragged(false);
       if (onResizeHandleDragChanged) onResizeHandleDragChanged(false);
@@ -118,7 +117,6 @@ ElementSeparatorProps) => {
     (e: PointerEvent | React.PointerEvent) => {
       globalPosition.current = getCurrentGlobalPosition(orientation, e);
 
-      // istanbul ignore else
       if (!isGroupDragged) {
         setIsDragged(true);
         if (onResizeHandleDragChanged) onResizeHandleDragChanged(true);

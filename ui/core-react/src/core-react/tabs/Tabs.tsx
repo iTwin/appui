@@ -118,17 +118,14 @@ export class Tabs extends React.PureComponent<MainTabsProps, TabsState> {
     if (prevProps.activeIndex !== this.props.activeIndex) {
       let hadFocus = false;
       const element = this._anchorRefs[this.state.activeIndex].current;
-      // istanbul ignore else
       if (element && document.activeElement === element) hadFocus = true;
       const activeIndex = this.validateActiveIndex(this.props.activeIndex);
 
       this.setState(
         () => ({ activeIndex }),
         () => {
-          // istanbul ignore else
           if (hadFocus) {
             const newElement = this._anchorRefs[activeIndex].current;
-            // istanbul ignore else
             if (newElement) newElement.focus();
           }
         }
@@ -138,7 +135,6 @@ export class Tabs extends React.PureComponent<MainTabsProps, TabsState> {
 
   private _handleFocusItem = (index: number) => {
     const itemRef = this._anchorRefs[index];
-    // istanbul ignore else
     if (itemRef && itemRef.current) itemRef.current.focus();
   };
 

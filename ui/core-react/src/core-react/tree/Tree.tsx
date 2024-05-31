@@ -125,7 +125,6 @@ export class Tree extends React.PureComponent<TreeProps> {
       const element = this._treeElement.current.querySelector(
         selector
       ) as HTMLElement;
-      // istanbul ignore else
       if (element && element.focus) {
         element.focus();
         status = true;

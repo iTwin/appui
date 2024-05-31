@@ -20,7 +20,6 @@ export class AnalysisAnimationTimelineDataProvider extends BaseTimelineDataProvi
     super(viewport);
     this._viewState = viewState;
 
-    // istanbul ignore else
     if (viewState && viewState.analysisStyle) {
       this.supportsTimelineAnimation = true;
     }
@@ -28,11 +27,9 @@ export class AnalysisAnimationTimelineDataProvider extends BaseTimelineDataProvi
 
   public override async loadTimelineData(): Promise<boolean> {
     // if animationFraction is set pointer should match
-    // istanbul ignore else
     if (this._viewport)
       this.animationFraction = this._viewport.analysisFraction;
 
-    // istanbul ignore else
     if (this.supportsTimelineAnimation && this._viewState.analysisStyle) {
       // for now just initial settings
       this.updateSettings({

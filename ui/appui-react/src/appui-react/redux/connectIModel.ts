@@ -28,7 +28,6 @@ const iModeMapStateToProps = (mapStateToProps: any) => {
       iModel: frameworkState.sessionState.iModelConnection,
     };
 
-    // istanbul ignore else
     if (mapStateToProps) {
       return {
         ...storeProps,

@@ -213,7 +213,6 @@ export class ElementTooltip extends React.Component<
       );
       const position = adjustedPosition.offset(containerBounds.topLeft());
 
-      // istanbul ignore else
       if (position.equals(prevState.position)) return null;
 
       return {

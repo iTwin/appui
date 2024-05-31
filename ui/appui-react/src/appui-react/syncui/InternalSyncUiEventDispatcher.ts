@@ -94,7 +94,6 @@ export class InternalSyncUiEventDispatcher {
     }
 
     eventIds.forEach((id) => this.syncEventIds.add(id.toLowerCase()));
-    // istanbul ignore else
     if (!this._syncEventTimerId) {
       // if there is not a timer active, create one
       this._syncEventTimerId = window.setTimeout(() => {
@@ -107,15 +106,12 @@ export class InternalSyncUiEventDispatcher {
 
   /** Trigger registered event processing when timer has expired and no addition eventId are added. */
   public checkForAdditionalIds() {
-    /* istanbul ignore else */
     if (!this._eventIdAdded) {
-      // istanbul ignore else
       if (this._syncEventTimerId) {
         window.clearTimeout(this._syncEventTimerId);
         this._syncEventTimerId = undefined;
       }
       this._eventIdAdded = false;
-      // istanbul ignore else
       if (this.syncEventIds.size > 0) {
         const eventIds = new Set<string>();
         this.syncEventIds.forEach((value) => eventIds.add(value));
@@ -138,7 +134,6 @@ export class InternalSyncUiEventDispatcher {
 
   /** Checks to see if an eventId of interest is contained in the set of eventIds */
   public hasEventOfInterest(eventIds: Set<string>, idsOfInterest: string[]) {
-    /* istanbul ignore else */
     if (
       idsOfInterest.length > 0 &&
       idsOfInterest.some((value: string): boolean =>

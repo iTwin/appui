@@ -142,7 +142,6 @@ function useStatusBarItemSyncEffect(
     const handleSyncUiEvent = (args: UiSyncEventArgs) => {
       if (0 === syncIdsOfInterest.length) return;
 
-      // istanbul ignore else
       if (
         syncIdsOfInterest.some((value: string): boolean =>
           args.eventIds.has(value.toLowerCase())

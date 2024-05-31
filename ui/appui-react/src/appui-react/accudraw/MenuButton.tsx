@@ -83,19 +83,16 @@ export class MenuButton extends React.PureComponent<
   }
 
   private setDivRef(div: HTMLDivElement | null) {
-    // istanbul ignore else
     if (div) {
       const rect = div.getBoundingClientRect();
       const size = new Size(rect.width, rect.height);
 
-      // istanbul ignore else
       if (this.props.onSizeKnown) this.props.onSizeKnown(size);
     }
   }
 
   private _open = () => {
     this.setState({ expanded: true }, () => {
-      // istanbul ignore else
       if (this._menu) this._menu.focus();
     });
   };

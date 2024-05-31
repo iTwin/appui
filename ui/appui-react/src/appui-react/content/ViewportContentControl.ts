@@ -80,7 +80,6 @@ export class ViewportContentControl
   /** Returns a promise that resolves when the control is ready for usage.
    */
   public setIsReady(): void {
-    // istanbul ignore else
     if (this._viewportReadyCallback) {
       this._viewportReadyCallback();
     }
@@ -101,7 +100,6 @@ export class ViewportContentControl
   public override get navigationAidControl(): string {
     let navigationAidId = "";
 
-    // istanbul ignore else
     if (this.viewport) {
       navigationAidId = this._getNavigationAid(
         this.viewport.view.classFullName
@@ -195,7 +193,6 @@ export class FloatingViewportContentControl extends ViewportContentControl {
     this._reactNode = r;
     const activeFrontstageDef = UiFramework.frontstages.activeFrontstageDef;
 
-    // istanbul ignore else
     if (this.viewport && activeFrontstageDef)
       activeFrontstageDef.setActiveViewFromViewport(this.viewport);
   }

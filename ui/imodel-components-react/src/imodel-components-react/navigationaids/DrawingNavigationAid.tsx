@@ -438,7 +438,6 @@ export class DrawingNavigationAid extends React.Component<
           startMapExtents,
         },
         () => {
-          // istanbul ignore else
           if (this.props.onAnimationEnd) this.props.onAnimationEnd();
           if (hasViewportMoved) this._updateFrustum(true);
         }
@@ -453,7 +452,6 @@ export class DrawingNavigationAid extends React.Component<
     if (this._lastPanTime === undefined) this._lastPanTime = t - 16.667;
     const delta = t - this._lastPanTime;
     this._lastPanTime = t;
-    // istanbul ignore else
     if (!this.state.panningDirection.isAlmostZero && this.state.isMoving) {
       const { panningDirection } = this.state;
       const offset = panningDirection.scale(
@@ -509,7 +507,6 @@ export class DrawingNavigationAid extends React.Component<
   private _handleViewRotationChangeEvent = (
     args: ViewRotationChangeEventArgs // eslint-disable-line deprecation/deprecation
   ) => {
-    // istanbul ignore else
     if (
       !this.state.isMoving &&
       !this.state.isPanning &&
@@ -591,7 +588,6 @@ export class DrawingNavigationAid extends React.Component<
   };
 
   private _handleKeyUp = (event: React.KeyboardEvent) => {
-    // istanbul ignore else
     if (
       event.key === Key.Escape.valueOf() &&
       this.state.mode === MapMode.Opened
@@ -668,7 +664,6 @@ export class DrawingNavigationAid extends React.Component<
       // add scaled mouse movement
       this._processWindowDrag(movement);
     } else {
-      // istanbul ignore else
       if (this.state.isPanning && this.state.mode === MapMode.Opened) {
         const vect = Vector3d.create(
           movement.x / this.state.drawingZoom,
@@ -698,7 +693,6 @@ export class DrawingNavigationAid extends React.Component<
     } else if (this.state.isMoving) {
       this._processWindowEndDrag();
     } else if (this.state.isPanning) {
-      // istanbul ignore else
       if (this.state.mode === MapMode.Opened) {
         event.stopPropagation();
         this.setState({ isPanning: false });
@@ -783,9 +777,7 @@ export class DrawingNavigationAid extends React.Component<
   };
 
   private _openLargeMap = () => {
-    // istanbul ignore else
     if (this.state.mode === MapMode.Closed && this.state.animation === 1.0) {
-      // istanbul ignore else
       if (this._rootElement.current) {
         const rect = this._rootElement.current.getBoundingClientRect();
         this._rootOffset = rect;
@@ -809,7 +801,6 @@ export class DrawingNavigationAid extends React.Component<
   };
 
   private _closeLargeMap = () => {
-    // istanbul ignore else
     if (this.state.mode === MapMode.Opened && this.state.animation === 1.0) {
       const startMapOrigin = this.state.mapOrigin;
       const mapOrigin = this.state.origin.clone();
@@ -892,7 +883,6 @@ export class DrawingNavigationAid extends React.Component<
   };
 
   private _handleWheel = (event: React.WheelEvent) => {
-    // istanbul ignore else
     if (this.state.mode === MapMode.Opened && this.state.animation === 1) {
       const { mapOrigin, drawingZoom } = this.state;
       const mapSize = this._getOpenedMapSize();
@@ -1060,7 +1050,6 @@ export class DrawingNavigationCanvas extends React.Component<DrawingNavigationCa
   }
 
   private _update = () => {
-    // istanbul ignore else
     if (this._vp) {
       const max = Math.max(this.props.extents.x, this.props.extents.y);
       this._vp.view.extentLimits = { max, min: Constant.oneMillimeter };
@@ -1088,7 +1077,6 @@ export class DrawingNavigationCanvas extends React.Component<DrawingNavigationCa
         ) {
           viewManager.dropViewport(this._vp, true);
         }
-        // istanbul ignore else
         if (
           this._canvasElement.current &&
           (this.props.canvasSizeOverride ||

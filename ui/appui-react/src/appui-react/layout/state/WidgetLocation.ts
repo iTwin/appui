@@ -70,7 +70,6 @@ export function getWidgetLocation(
       floatingWidgetId: id,
     };
   }
-  // istanbul ignore else
   if (state.popoutWidgets) {
     if (id in state.popoutWidgets.byId) {
       return {

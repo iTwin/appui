@@ -39,7 +39,6 @@ const KEYIN_HISTORY_KEY = "historyArray";
 /** @internal */
 export function clearKeyinPaletteHistory() {
   const uiSettingsStorage = UiFramework.getUiStateStorage();
-  // istanbul ignore else
   if (uiSettingsStorage) {
     void uiSettingsStorage.deleteSetting(
       KEYIN_PALETTE_NAMESPACE,
@@ -76,7 +75,6 @@ export function KeyinPalettePanel({
         KEYIN_PALETTE_NAMESPACE,
         KEYIN_HISTORY_KEY
       );
-      // istanbul ignore else
       if (UiStateStorageStatus.Success === settingsResult.status) {
         const filteredHistory = (settingsResult.setting as string[]).filter(
           (keyin) => {
@@ -149,7 +147,6 @@ export function KeyinPalettePanel({
         }
       }
 
-      // istanbul ignore else
       if (undefined !== message) {
         const errorDetails = new NotifyMessageDetails(
           OutputMessagePriority.Error,
@@ -188,7 +185,6 @@ export function KeyinPalettePanel({
   );
 
   const selectKeyin = React.useCallback(() => {
-    // istanbul ignore else
     if (inputRef.current) {
       inputRef.current.focus();
       inputRef.current.setSelectionRange(
@@ -207,10 +203,8 @@ export function KeyinPalettePanel({
   );
 
   const getKeyinFromListboxValue = (value: string | undefined) => {
-    // istanbul ignore else
     if (value) {
       const indexSeparator = value.search(keyinSeparator);
-      // istanbul ignore else
       if (indexSeparator) return value.substring(0, indexSeparator);
     }
     return undefined;
@@ -221,13 +215,11 @@ export function KeyinPalettePanel({
       const key = event.key;
       // built into listbox a "Space" key will trigger the selection of a entry so if an Enter key is pressed
       // assume user wants to execute the entry.
-      // istanbul ignore else
       if (key === Key.Enter.valueOf()) {
         event.preventDefault();
         const keyinToSend = getKeyinFromListboxValue(
           event.currentTarget?.dataset?.focusvalue
         );
-        // istanbul ignore else
         if (keyinToSend) {
           if (event.ctrlKey) updateKeyin(keyinToSend);
           else await submitKeyin(keyinToSend);
@@ -240,7 +232,6 @@ export function KeyinPalettePanel({
   const onListboxValueChange = React.useCallback(
     async (value: string, isControlOrCommandPressed?: boolean) => {
       const keyin = getKeyinFromListboxValue(value);
-      // istanbul ignore else
       if (keyin) {
         if (isControlOrCommandPressed) updateKeyin(keyin);
         else await submitKeyin(keyin);
@@ -271,13 +262,11 @@ export function KeyinPalettePanel({
             currentKeyin.length > 60
           );
           if (matches && matches.length) {
-            // istanbul ignore else
             if (value.isHistory) {
               filteredHistory.push(value);
               newKeyinSet.push({ ...value, matches });
             } else {
               // only add entry if no match in filtered history
-              // istanbul ignore else
               if (
                 -1 ===
                 filteredHistory.findIndex(
@@ -299,7 +288,6 @@ export function KeyinPalettePanel({
       if (Key.Enter.valueOf() === event.key) {
         event.preventDefault();
         event.stopPropagation();
-        // istanbul ignore else
         if (1 === filteredKeyins.length) {
           if (event.ctrlKey) updateKeyin(filteredKeyins[0].value);
           else await submitKeyin(filteredKeyins[0].value);
@@ -320,7 +308,6 @@ export function KeyinPalettePanel({
         ) {
           event.preventDefault();
           event.stopPropagation();
-          // istanbul ignore else
           if (inputRef.current) {
             const nextElement = inputRef.current
               .nextElementSibling as HTMLElement;

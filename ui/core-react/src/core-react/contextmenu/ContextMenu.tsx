@@ -396,19 +396,16 @@ export class ContextMenu extends React.PureComponent<
   }
 
   public focus = () => {
-    // istanbul ignore else
     if (this._menuElement) this._menuElement.focus();
   };
 
   public blur = () => {
-    // istanbul ignore else
     if (this._menuElement) this._menuElement.blur();
   };
 
   public getRect = (): DOMRect => {
     let clientRect = DOMRect.fromRect({ x: 0, y: 0, width: 0, height: 0 });
 
-    // istanbul ignore else
     if (this._menuElement) {
       clientRect = this._menuElement.getBoundingClientRect();
     }
@@ -416,7 +413,6 @@ export class ContextMenu extends React.PureComponent<
   };
 
   private _handleFocusChange = (event: any): void => {
-    // istanbul ignore else
     if (
       this._rootElement &&
       this.props.opened &&
@@ -437,7 +433,6 @@ export class ContextMenu extends React.PureComponent<
       return;
     }
 
-    // istanbul ignore else
     if (event.key) {
       for (const [key, value] of this._hotKeyMap) {
         if (!this.props.hotkeySelect! && key > this.state.selectedIndex) {
@@ -471,7 +466,6 @@ export class ContextMenu extends React.PureComponent<
     }
 
     if (event.key === Key.Escape.valueOf()) {
-      // istanbul ignore else
       if (this.props.onEsc) this.props.onEsc(event);
     }
 
@@ -482,12 +476,10 @@ export class ContextMenu extends React.PureComponent<
     ) {
       event.stopPropagation();
 
-      // istanbul ignore else
       if (
         event.key === Key.Enter.valueOf() ||
         this._selectedElement instanceof ContextSubMenu
       ) {
-        // istanbul ignore else
         if (this._selectedElement.select) this._selectedElement.select();
       }
     }

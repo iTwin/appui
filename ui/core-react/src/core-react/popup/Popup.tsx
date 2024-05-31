@@ -226,7 +226,6 @@ export class Popup extends React.Component<PopupProps, PopupState> {
       if (element.parentElement && this.isInCorePopup(element.parentElement))
         return true;
     } else {
-      // istanbul ignore else
       if (element.parentElement && this.isInCorePopup(element.parentElement))
         return true;
     }
@@ -358,7 +357,6 @@ export class Popup extends React.Component<PopupProps, PopupState> {
   private _getPopupDimensions(): { popupWidth: number; popupHeight: number } {
     let popupWidth = 0;
     let popupHeight = 0;
-    // istanbul ignore else
     if (this._popup) {
       const activeWindow = this.getParentWindow();
       const style = activeWindow.getComputedStyle(this._popup);

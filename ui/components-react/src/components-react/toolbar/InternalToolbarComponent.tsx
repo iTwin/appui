@@ -313,7 +313,6 @@ export function ToolbarItemComponent({
   } else if (isCustomToolbarItem(item)) {
     return <CustomItem item={item} addGroupSeparator={addGroupSeparator} />;
   } else {
-    // istanbul ignore else
     if (ToolbarItemUtilities.isActionButton(item)) {
       return <ActionItem item={item} addGroupSeparator={addGroupSeparator} />;
     }
@@ -331,7 +330,6 @@ function OverflowItemsContainer(p: { children: React.ReactNode }) {
 }
 
 function getItemWrapperClass(child: React.ReactNode) {
-  // istanbul ignore else
   if (React.isValidElement(child)) {
     if (child.props && child.props.addGroupSeparator)
       return "components-toolbar-button-add-gap-before";
@@ -643,7 +641,6 @@ export function InternalToolbarComponent(props: InternalToolbarComponentProps) {
  * @internal
  */
 function getChildKey(child: React.ReactNode, index: number) {
-  // istanbul ignore else
   if (React.isValidElement(child) && child.key !== null) {
     return child.key.toString();
   }

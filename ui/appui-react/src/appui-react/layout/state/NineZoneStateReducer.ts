@@ -322,7 +322,6 @@ export function NineZoneStateReducer(
 
       const floatingWidget = state.floatingWidgets.byId[action.id];
       // if this is not a tool settings widget then set the userSized flag
-      // istanbul ignore else
       if (!isToolSettingsFloatingWidget(state, action.id)) {
         state = updateFloatingWidgetState(state, action.id, {
           userSized: true,
@@ -697,7 +696,6 @@ export function NineZoneStateReducer(
 
       // TODO: should change activeTabId of a widget with multiple tabs.
       const widget = state.widgets[location.widgetId];
-      // istanbul ignore else
       if (isFloatingTabLocation(location) && id === widget.activeTabId) {
         state = updateWidgetState(state, widget.id, {
           minimized: true,
@@ -793,7 +791,6 @@ export function NineZoneStateReducer(
     case "WIDGET_TAB_EXPAND": {
       state = showWidgetTab(state, action.id);
       const location = getTabLocation(state, action.id);
-      // istanbul ignore else
       if (location && isPanelTabLocation(location)) {
         state = updatePanelState(state, location.side, (draft) => {
           draft.splitterPercent =

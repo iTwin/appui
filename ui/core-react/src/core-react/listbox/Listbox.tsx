@@ -177,7 +177,6 @@ export function Listbox(props: ListboxProps) {
   const scrollTopRef = React.useRef(0);
   const handleValueChange = React.useCallback(
     (newValue: ListboxValue, isControlOrCommandPressed?: boolean) => {
-      // istanbul ignore else
       if (newValue !== currentValue) {
         setCurrentValue(newValue);
         setFocusValue(newValue);
@@ -190,14 +189,12 @@ export function Listbox(props: ListboxProps) {
 
   const focusOption = React.useCallback(
     (itemIndex: number) => {
-      // istanbul ignore else
       if (itemIndex >= 0 && itemIndex < optionValues.length) {
         const newSelection = optionValues[itemIndex];
         const listElement = listRef.current as HTMLUListElement;
         const optionToFocus = listElement.querySelector<HTMLLIElement>(
           `li[data-value="${newSelection.value}"]`
         );
-        // istanbul ignore else
         if (optionToFocus && listElement) {
           let newScrollTop = listElement.scrollTop;
 
@@ -233,7 +230,6 @@ export function Listbox(props: ListboxProps) {
 
       if (event.key === " ") {
         event.preventDefault();
-        // istanbul ignore else
         if (focusValue)
           handleValueChange(
             focusValue,
@@ -246,7 +242,6 @@ export function Listbox(props: ListboxProps) {
           itemIndex,
           event.key
         );
-        // istanbul ignore else
         if (keyProcessed) {
           event.preventDefault();
           focusOption(newItemIndex);
@@ -254,7 +249,6 @@ export function Listbox(props: ListboxProps) {
         }
       }
 
-      // istanbul ignore else
       if (onKeyDown) onKeyDown(event);
     },
     [focusValue, optionValues, focusOption, onKeyDown, handleValueChange]
@@ -365,7 +359,6 @@ export function ListboxItem(props: ListboxItemProps) {
     (event: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
       event.preventDefault();
       const selectedValue = event.currentTarget?.dataset?.value;
-      // istanbul ignore else
       if (undefined !== selectedValue) {
         onListboxValueChange(selectedValue, event.ctrlKey);
       }

@@ -20,7 +20,6 @@ export class ToolbarButtonHelper {
         horizontal ? "horizontal" : "vertical"
       }.nz-items .nz-toolbar-item-item`
     );
-    // istanbul ignore else
     if (nodeList && nodeList.length > 0) {
       for (const node of nodeList) {
         const button = node as HTMLButtonElement;
@@ -56,7 +55,6 @@ export class ToolbarButtonHelper {
     if (button) return button;
 
     button = ToolbarButtonHelper.searchVerticalToolbarsByTitle(title);
-    // istanbul ignore else
     if (button) return button;
 
     return null;
@@ -67,7 +65,6 @@ export class ToolbarButtonHelper {
     const node = document.documentElement.querySelector(
       "div.nz-app-button > button"
     );
-    // istanbul ignore else
     if (node) return node as HTMLButtonElement;
     return null;
   }

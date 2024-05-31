@@ -385,7 +385,6 @@ export class UiFramework {
   public static get store(): Store<any> {
     if (UiFramework._store) return UiFramework._store;
 
-    // istanbul ignore else
     if (!StateManager.isInitialized(true))
       // eslint-disable-next-line deprecation/deprecation
       throw new UiError(
@@ -416,7 +415,6 @@ export class UiFramework {
   public static setHideIsolateEmphasizeActionHandler(
     handler: HideIsolateEmphasizeActionHandler | undefined
   ) {
-    // istanbul ignore else
     if (handler) UiFramework._hideIsolateEmphasizeActionHandler = handler;
     else
       UiFramework._hideIsolateEmphasizeActionHandler =
@@ -501,7 +499,6 @@ export class UiFramework {
    * `Presentation.selection.scopes.activeScope` property from the `@itwin/presentation-frontend` package.
    */
   public static setActiveSelectionScope(selectionScopeId: string): void {
-    // istanbul ignore else
     if (UiFramework.frameworkState) {
       const foundIndex =
         UiFramework.frameworkState.sessionState.availableSelectionScopes.findIndex(
@@ -1273,13 +1270,11 @@ export class UiFramework {
    */
   public static closeDialog(dialogId: string): boolean {
     const findFn = (info: DialogInfo) => info.id === dialogId;
-    // istanbul ignore else
     if (UiFramework.dialogs.modeless.dialogs.findIndex(findFn) !== -1) {
       UiFramework.dialogs.modeless.close(dialogId);
       return true;
     }
 
-    // istanbul ignore else
     if (UiFramework.dialogs.modal.dialogs.findIndex(findFn) !== -1) {
       UiFramework.dialogs.modal.close();
       return true;

@@ -88,7 +88,6 @@ export class PropertyList extends React.Component<PropertyListProps> {
   private _listRef = React.createRef<HTMLDivElement>();
 
   private _onEditCommit = (args: PropertyUpdatedArgs) => {
-    // istanbul ignore else
     if (this.props.onEditCommit && this.props.category)
       this.props.onEditCommit(args, this.props.category);
   };

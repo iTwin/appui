@@ -119,7 +119,6 @@ function getUnitLabel(parserSpec: ParserSpec | undefined) {
   if (undefined === parserSpec) return "";
 
   const format = parserSpec.format;
-  // istanbul ignore else
   if (!format.units || !format.units[0]) return parserSpec.outUnit.label;
   const [unit, label] = format.units[0];
   return label ?? unit.label;
@@ -158,7 +157,6 @@ const ForwardRefQuantityNumberInput = React.forwardRef<
     (value: number | undefined) => {
       if (undefined === value) return "";
 
-      // istanbul ignore else
       if (formatterSpec) {
         return formatterSpec.applyFormatting(value);
       }
@@ -202,7 +200,6 @@ const ForwardRefQuantityNumberInput = React.forwardRef<
     ): void => {
       const quantityKey =
         IModelApp.quantityFormatter.getQuantityTypeKey(quantityType);
-      // istanbul ignore else
       if (args.quantityType === quantityKey) {
         setFormatterSpec(
           adjustFormatterSpec(
@@ -247,7 +244,6 @@ const ForwardRefQuantityNumberInput = React.forwardRef<
   const updateValue = React.useCallback(
     (newValue: number) => {
       let persistedValue = newValue;
-      // istanbul ignore else
       if (parserSpec) {
         // convert value from display unit to persistence unit
         const [unit] = parserSpec.format.units
@@ -297,7 +293,6 @@ const ForwardRefQuantityNumberInput = React.forwardRef<
 
   const updateValueFromString = React.useCallback(
     (strValue: string) => {
-      // istanbul ignore else
       if (parserSpec) {
         const parseResult = IModelApp.quantityFormatter.parseToQuantityValue(
           strValue,
@@ -309,7 +304,6 @@ const ForwardRefQuantityNumberInput = React.forwardRef<
           // set strValue and let it go through parseInternal which will ensure min/max limits are observed
           strValue = formatValue(persistedValue)!;
         } else {
-          // istanbul ignore else
           if (rawValueRef.current) {
             // restore last known good value
             const lastKnownFormattedVal = formatValue(rawValueRef.current);
@@ -319,7 +313,6 @@ const ForwardRefQuantityNumberInput = React.forwardRef<
         }
       }
       const newValue = parseInternal(strValue);
-      // istanbul ignore else
       if (undefined !== newValue) updateValue(newValue);
     },
     [formatValue, parseInternal, parserSpec, updateValue]
@@ -379,7 +372,6 @@ const ForwardRefQuantityNumberInput = React.forwardRef<
 
   const handleKeyDown = React.useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>) => {
-      // istanbul ignore else
       if (event.key === Key.Enter.valueOf()) {
         updateValueFromString(event.currentTarget.value);
         event.preventDefault();

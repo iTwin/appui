@@ -38,7 +38,6 @@ export interface PopupItemWithDragProps extends ToolbarButtonItemProps {
 
 function tryFindActiveAction(item: GroupButton): ActionButton | undefined {
   for (const childItem of item.items) {
-    // istanbul ignore else
     if (ToolbarItemUtilities.isActionButton(childItem)) {
       if (childItem.isActive) return childItem;
     } else if (ToolbarItemUtilities.isGroupButton(childItem)) {
@@ -56,10 +55,8 @@ function getFirstAvailableChildActionItem(
     if (ToolbarItemUtilities.isActionButton(childItem)) {
       return childItem;
     } else {
-      // istanbul ignore else
       if (ToolbarItemUtilities.isGroupButton(childItem)) {
         const nestedChild = getFirstAvailableChildActionItem(childItem);
-        // istanbul ignore else
         if (nestedChild) return nestedChild;
       }
     }
@@ -73,7 +70,6 @@ function getActiveAction(item: GroupButton): ActionButton | undefined {
 
   // initially look only in root items
   for (const childItem of item.items) {
-    // istanbul ignore else
     if (ToolbarItemUtilities.isActionButton(childItem)) {
       return childItem;
     }
@@ -100,7 +96,6 @@ export function PopupItemWithDrag(props: PopupItemWithDragProps) {
 
   React.useEffect(() => {
     const newActiveAction = getActiveAction(props.groupItem);
-    // istanbul ignore else
     if (newActiveAction) {
       if (newActiveAction.isActive) {
         setActiveAction(newActiveAction);
@@ -115,7 +110,6 @@ export function PopupItemWithDrag(props: PopupItemWithDragProps) {
   const processPanelOpenClose = React.useCallback(
     (isOpening: boolean) => {
       setPanelShown((prev) => {
-        // istanbul ignore else
         if (prev !== isOpening) onPopupPanelOpenClose(isOpening);
         return isOpening;
       });

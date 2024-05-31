@@ -89,12 +89,10 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
       let formatTraits: string[] = [traitStr];
       if (setActive) {
         // setting trait
-        // istanbul ignore else
         if (formatProps.formatTraits) {
           const traits = Array.isArray(formatProps.formatTraits)
             ? formatProps.formatTraits
             : formatProps.formatTraits.split(/,|;|\|/);
-          // istanbul ignore else
           if (!traits.find((traitEntry) => traitStr === traitEntry)) {
             formatTraits = [...traits, traitStr];
           }
@@ -152,7 +150,6 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
     (decimalSeparator: string) => {
       let thousandSeparator = formatProps.thousandSeparator;
       // make sure 1000 and decimal separator do not match
-      // istanbul ignore else
       if (isFormatTraitSet(FormatTraits.Use1000Separator)) {
         switch (decimalSeparator) {
           case ".":
@@ -210,7 +207,6 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
 
   const handleKeyUpOnLink = React.useCallback(
     (e: React.KeyboardEvent<HTMLAnchorElement>) => {
-      // istanbul ignore else
       if (e.key === Key.Enter.valueOf() || e.key === " ") {
         onShowHideOptions(!showOptions);
         e.preventDefault();

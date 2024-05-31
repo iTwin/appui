@@ -75,7 +75,6 @@ function unFocus(ownerDoc: Document | undefined) {
   if (!ownerDoc) return;
 
   const docSelection = ownerDoc.getSelection();
-  // istanbul ignore else
   if (docSelection) {
     docSelection.empty();
   } else {
@@ -246,7 +245,6 @@ export function SplitPane(props: SplitPaneProps) {
 
   const onTouchStart = React.useCallback(
     (event: TouchEvent) => {
-      // istanbul ignore else
       if (allowResize) {
         initializeDrag(event.touches[0].clientX, event.touches[0].clientY);
       }
@@ -262,11 +260,9 @@ export function SplitPane(props: SplitPaneProps) {
       const ref2 = isPrimaryFirst ? pane2.current : pane1.current;
       const splitPaneDiv = splitPane.current;
 
-      // istanbul ignore else
       if (ref && ref2 && splitPaneDiv) {
         const node = ref;
         const node2 = ref2;
-        // istanbul ignore else
         if (node.getBoundingClientRect) {
           const width = node.getBoundingClientRect().width;
           const height = node.getBoundingClientRect().height;
@@ -352,7 +348,6 @@ export function SplitPane(props: SplitPaneProps) {
 
   const onMouseDown = React.useCallback(
     (event: MouseEvent) => {
-      // istanbul ignore else
       if (allowResize) {
         event.preventDefault();
         initializeDrag(event.clientX, event.clientY);
@@ -362,7 +357,6 @@ export function SplitPane(props: SplitPaneProps) {
   );
 
   const processResizeFinished = React.useCallback(() => {
-    // istanbul ignore else
     if (undefined !== draggedSize && allowResize && active) {
       onDragFinished && onDragFinished(draggedSize);
     }

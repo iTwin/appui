@@ -127,7 +127,6 @@ export class SheetNavigationAid extends React.Component<
       sheetData: [],
     };
 
-    // istanbul ignore else
     if (
       !this.props.iModelConnection ||
       !this.props.iModelConnection.views.getViewList

@@ -286,7 +286,6 @@ export class PointerMessage extends React.Component<
       );
       const position = adjustedPosition.offset(viewportOffset);
 
-      // istanbul ignore else
       if (position.equals(prevState.position)) return null;
 
       return {

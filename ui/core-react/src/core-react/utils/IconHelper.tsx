@@ -34,13 +34,10 @@ export class IconHelper {
       | ConditionalIconItem,
     internalData?: Map<string, any>
   ): React.ReactNode {
-    // istanbul ignore else
     if (!icon) return null;
 
-    // istanbul ignore else
     if (ConditionalIconItem.isConditionalIconItem(icon))
       return <Icon iconSpec={ConditionalIconItem.getValue(icon)} />;
-    // istanbul ignore else
     if (React.isValidElement(icon)) return <Icon iconSpec={icon} />;
 
     // istanbul ignore if
@@ -50,9 +47,7 @@ export class IconHelper {
     const iconString = ConditionalStringValue.getValue(icon);
     if (!iconString) return null;
 
-    // istanbul ignore else
     if (iconString === IconHelper.reactIconKey) {
-      // istanbul ignore else
       if (internalData)
         return (
           <Icon
@@ -63,7 +58,6 @@ export class IconHelper {
         );
       return null;
     } else if (iconString === IconHelper.conditionalIconItemKey) {
-      // istanbul ignore else
       if (internalData) {
         const iconItem = internalData.get(
           IconHelper.conditionalIconItemKey
@@ -87,7 +81,6 @@ export class IconHelper {
     let icon;
     if (ConditionalIconItem.isConditionalIconItem(iconSpec)) {
       icon = IconHelper.conditionalIconItemKey;
-      // istanbul ignore else
       if (internalData)
         internalData.set(IconHelper.conditionalIconItemKey, iconSpec);
       return icon;

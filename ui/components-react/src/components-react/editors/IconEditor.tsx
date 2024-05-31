@@ -70,7 +70,6 @@ export class IconEditor
         (param: PropertyEditorParams) =>
           param.type === PropertyEditorParamTypes.IconListData.valueOf()
       ) as IconListEditorParams;
-      // istanbul ignore else
       if (iconParams) {
         if (iconParams.iconValue) icon = iconParams.iconValue;
         if (iconParams.numColumns) numColumns = iconParams.numColumns;
@@ -86,7 +85,6 @@ export class IconEditor
     const record = this.props.propertyRecord;
     let propertyValue: PropertyValue | undefined;
 
-    // istanbul ignore else
     if (record && record.value.valueFormat === PropertyValueFormat.Primitive) {
       propertyValue = {
         valueFormat: PropertyValueFormat.Primitive,
@@ -110,7 +108,6 @@ export class IconEditor
   }
 
   private setFocus(): void {
-    // istanbul ignore else
     if (this._control && !this.state.isDisabled) {
       this._control.setFocus();
     }
@@ -124,10 +121,8 @@ export class IconEditor
         icon,
       },
       async () => {
-        // istanbul ignore else
         if (propertyRecord && this.props.onCommit) {
           const propertyValue = await this.getPropertyValue();
-          // istanbul ignore else
           if (propertyValue) {
             this.props.onCommit({ propertyRecord, newValue: propertyValue });
           }
@@ -158,7 +153,6 @@ export class IconEditor
     const record = this.props.propertyRecord;
     let initialValue = "";
 
-    // istanbul ignore else
     if (record && record.value.valueFormat === PropertyValueFormat.Primitive) {
       initialValue = record.value.value as string;
     }
@@ -167,7 +161,6 @@ export class IconEditor
       record && undefined !== record.isReadonly ? record.isReadonly : false;
     const isDisabled = record ? record.isDisabled : undefined;
 
-    // istanbul ignore else
     if (this._isMounted)
       this.setState({ icon: initialValue, readonly, isDisabled }, () => {
         if (this.props.setFocus) {

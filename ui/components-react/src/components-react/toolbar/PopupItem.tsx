@@ -72,7 +72,6 @@ export function PopupItem(props: PopupItemProps) {
   const processPanelOpenClose = React.useCallback(
     (isOpening: boolean) => {
       setPanelShown((prev) => {
-        // istanbul ignore else
         if (prev !== isOpening) onPopupPanelOpenClose(isOpening);
         return isOpening;
       });

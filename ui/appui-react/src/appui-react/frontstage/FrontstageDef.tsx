@@ -370,7 +370,6 @@ export class FrontstageDef {
       control.onFrontstageDeactivated();
     }
 
-    // istanbul ignore else
     if (this.contentGroup) this.contentGroup.onFrontstageDeactivated();
     if (this.contentGroupProvider)
       await this.contentGroupProvider.onFrontstageDeactivated();
@@ -408,11 +407,9 @@ export class FrontstageDef {
       controlReadyPromises.push(control.isReady);
     });
 
-    // istanbul ignore else
     if (this.contentLayoutDef) {
       const usedContentIndexes = this.contentLayoutDef.getUsedContentIndexes();
       this.contentControls.forEach((control: ContentControl, index: number) => {
-        // istanbul ignore else
         if (usedContentIndexes.includes(index))
           controlReadyPromises.push(control.isReady);
       });
@@ -436,7 +433,6 @@ export class FrontstageDef {
       control.onFrontstageReady();
     }
 
-    // istanbul ignore else
     if (this.contentGroup) this.contentGroup.onFrontstageReady();
 
     if (IModelApp.toolAdmin && IModelApp.viewManager && this._initialConfig) {
@@ -467,7 +463,6 @@ export class FrontstageDef {
     let contentControl: ContentControl | undefined;
     let activated = false;
 
-    // istanbul ignore else
     if (!contentControl && this.contentControls.length >= 0) {
       contentControl = this.contentControls[0];
     }
@@ -503,7 +498,6 @@ export class FrontstageDef {
     const contentControl = this.contentControls.find(
       (control: ContentControl) => control.viewport === viewport
     );
-    // istanbul ignore else
     if (contentControl) {
       UiFramework.content.setActive(contentControl.reactNode, true);
       return true;
@@ -597,7 +591,6 @@ export class FrontstageDef {
     if (!contentControl || !this._floatingContentControls) return;
 
     const index = this._floatingContentControls.indexOf(contentControl);
-    // istanbul ignore else
     if (index > -1) {
       this._floatingContentControls.splice(index, 1);
       UiFramework.content.onAvailableContentChangedEvent.emit({
@@ -609,7 +602,6 @@ export class FrontstageDef {
   /** Gets the list of [[ContentControl]]s */
   public get contentControls(): ContentControl[] {
     const contentControls = new Array<ContentControl>();
-    // istanbul ignore else
     if (this.contentGroup) {
       contentControls.push(...this.contentGroup.getContentControls());
     }
@@ -695,10 +687,8 @@ export class FrontstageDef {
   }
 
   public isPopoutWidget(widgetId: string) {
-    // istanbul ignore else
     if (this.nineZoneState) {
       const location = getTabLocation(this.nineZoneState, widgetId);
-      // istanbul ignore else
       if (location) return isPopoutTabLocation(location);
     }
 
@@ -706,10 +696,8 @@ export class FrontstageDef {
   }
 
   public isFloatingWidget(widgetId: string) {
-    // istanbul ignore else
     if (this.nineZoneState) {
       const location = getTabLocation(this.nineZoneState, widgetId);
-      // istanbul ignore else
       if (location) return isFloatingTabLocation(location);
     }
 
@@ -966,7 +954,6 @@ export class FrontstageDef {
     if (!this.nineZoneState) return undefined;
 
     const location = getTabLocation(this.nineZoneState, widgetId);
-    // istanbul ignore else
     if (location && isFloatingTabLocation(location)) {
       return location.floatingWidgetId;
     }
@@ -978,7 +965,6 @@ export class FrontstageDef {
   ) {
     if (!floatingWidgetId) return undefined;
 
-    // istanbul ignore else
     if (
       this.nineZoneState &&
       floatingWidgetId in this.nineZoneState.floatingWidgets.byId

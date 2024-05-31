@@ -43,7 +43,6 @@ export function ThousandsSeparator(props: ThousandsSeparatorProps) {
       let formatTraits: string[] = [traitStr];
       if (setActive) {
         // setting trait
-        // istanbul ignore else
         if (formatProps.formatTraits) {
           const traits = Array.isArray(formatProps.formatTraits)
             ? formatProps.formatTraits
@@ -52,7 +51,6 @@ export function ThousandsSeparator(props: ThousandsSeparatorProps) {
         }
       } else {
         // clearing trait
-        // istanbul ignore else
         if (formatProps.formatTraits) {
           const traits = Array.isArray(formatProps.formatTraits)
             ? formatProps.formatTraits
@@ -84,7 +82,6 @@ export function ThousandsSeparator(props: ThousandsSeparatorProps) {
     (thousandSeparator: string) => {
       let decimalSeparator = formatProps.decimalSeparator;
       // make sure 1000 and decimal separator do not match
-      // istanbul ignore else
       if (isFormatTraitSet(FormatTraits.Use1000Separator)) {
         if (thousandSeparator === ".") decimalSeparator = ",";
         // thousandSeparator === ","

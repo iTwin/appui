@@ -195,7 +195,6 @@ export class UiItemsManager {
     stageId?: string,
     stageUsage?: string
   ) {
-    // istanbul ignore else
     const overrides = entry.overrides;
     if (
       undefined !== stageId &&

@@ -332,7 +332,6 @@ export class WidgetDef {
       let usedClassId: string = "";
 
       if (typeof this.classId === "string") {
-        // istanbul ignore else
         if (this.classId)
           this._widgetControl = UiFramework.controls.create(
             this.classId,
@@ -353,7 +352,6 @@ export class WidgetDef {
         ) as WidgetControl;
       }
 
-      // istanbul ignore else
       if (this._widgetControl) {
         if (this._widgetControl.getType() !== type) {
           // eslint-disable-next-line deprecation/deprecation
@@ -388,7 +386,6 @@ export class WidgetDef {
         ConfigurableUiControlType.Widget
       );
 
-      // istanbul ignore else
       if (widgetControl && widgetControl.reactNode)
         this._widgetReactNode = widgetControl.reactNode;
     }

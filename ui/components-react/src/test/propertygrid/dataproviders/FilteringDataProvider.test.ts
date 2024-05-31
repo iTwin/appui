@@ -290,7 +290,6 @@ describe("FilteringDataProvider", () => {
       propertyData: PropertyData
     ): PropertyRecord {
       for (const categoryName in propertyData.records) {
-        // istanbul ignore else
         if (propertyData.records.hasOwnProperty(categoryName)) {
           const potentialMatch = findRecord(
             propertyData.records[categoryName],

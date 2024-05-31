@@ -42,7 +42,6 @@ export abstract class ActionButtonItemDef extends ItemDefBase {
       else this._commandHandler.execute(this._commandHandler.parameters);
     }
 
-    // istanbul ignore else
     if (this._onItemExecuted) this._onItemExecuted(this);
   }
 

@@ -33,9 +33,7 @@ export class ScrollPositionMaintainer implements IDisposable {
     storage: Map<Element, number>
   ) {
     for (const el of elems) {
-      // istanbul ignore else
       if (el.scrollTop) storage.set(el, el.scrollTop);
-      // istanbul ignore else
       if (el.children) this.saveScrollPositions(el.children, storage);
     }
   }

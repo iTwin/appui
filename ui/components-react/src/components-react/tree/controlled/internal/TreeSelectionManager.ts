@@ -168,7 +168,7 @@ export class TreeSelectionManager
       "mouseup",
       () => {
         this._selectionHandler.completeDragAction();
-        /* istanbul ignore else */
+
         if (this._dragSelectionOperation) {
           this._dragSelectionOperation.complete();
           this._dragSelectionOperation = undefined;

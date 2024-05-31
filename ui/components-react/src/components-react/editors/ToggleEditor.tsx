@@ -48,7 +48,6 @@ export class ToggleEditor
     const record = this.props.propertyRecord;
     let propertyValue: PropertyValue | undefined;
 
-    // istanbul ignore else
     if (record && record.value.valueFormat === PropertyValueFormat.Primitive) {
       propertyValue = {
         valueFormat: PropertyValueFormat.Primitive,
@@ -70,9 +69,7 @@ export class ToggleEditor
   private _updateToggleValue = (
     e: React.ChangeEvent<HTMLInputElement>
   ): any => {
-    // istanbul ignore else
     if (this._isMounted) {
-      // istanbul ignore else
       if (this._isMounted) {
         const toggleValue = !!e.target.checked;
 
@@ -81,10 +78,8 @@ export class ToggleEditor
             toggleValue,
           },
           async () => {
-            // istanbul ignore else
             if (this.props.propertyRecord && this.props.onCommit) {
               const propertyValue = await this.getPropertyValue();
-              // istanbul ignore else
               if (propertyValue !== undefined) {
                 this.props.onCommit({
                   propertyRecord: this.props.propertyRecord,
@@ -121,7 +116,6 @@ export class ToggleEditor
     let toggleValue = false;
     let isDisabled = false;
 
-    // istanbul ignore else
     if (
       propertyRecord &&
       propertyRecord.value.valueFormat === PropertyValueFormat.Primitive
@@ -130,11 +124,9 @@ export class ToggleEditor
       toggleValue = primitiveValue as boolean;
     }
 
-    // istanbul ignore else
     if (propertyRecord && propertyRecord.isDisabled)
       isDisabled = propertyRecord.isDisabled;
 
-    // istanbul ignore else
     if (this._isMounted) this.setState({ toggleValue, isDisabled });
   }
 

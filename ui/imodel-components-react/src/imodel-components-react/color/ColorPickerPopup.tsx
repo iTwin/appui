@@ -116,11 +116,9 @@ const ForwardRefColorPickerPopup = React.forwardRef<
   const handleColorChanged = React.useCallback(
     (newColorValue: ColorValue) => {
       const newColor = ColorDef.fromTbgr(newColorValue.toTbgr());
-      // istanbul ignore else
       if (!newColor.equals(colorDef)) {
         setColorDef(newColor);
 
-        // istanbul ignore else
         props.onColorChange && props.onColorChange(newColor);
       }
     },
@@ -138,7 +136,6 @@ const ForwardRefColorPickerPopup = React.forwardRef<
   );
 
   const clickHandler = (event: React.MouseEvent) => {
-    // istanbul ignore else
     if (props.captureClicks) event.stopPropagation();
   };
 

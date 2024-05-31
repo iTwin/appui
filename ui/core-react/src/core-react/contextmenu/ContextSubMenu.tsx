@@ -226,7 +226,6 @@ export class ContextSubMenu extends React.Component<
     const { autoflip } = this.props;
     const parentWindow = this.getWindow();
     let renderDirection = this.state.direction;
-    // istanbul ignore else
     if (parentWindow && autoflip && this._menuElement) {
       const menuRect = this._menuElement.getRect();
       renderDirection = ContextMenu.autoFlip(
@@ -255,7 +254,6 @@ export class ContextSubMenu extends React.Component<
 
   public select = () => {
     this.setState({ opened: true }, () => {
-      // istanbul ignore else
       if (this._menuElement) this._menuElement.focus();
       if (this.props.onSelect !== undefined) this.props.onSelect(undefined);
     });
@@ -263,7 +261,6 @@ export class ContextSubMenu extends React.Component<
 
   public close = (propagate?: boolean) => {
     this.setState({ opened: false }, () => {
-      // istanbul ignore else
       if (this._menuElement) this._menuElement.blur();
     });
     if (
@@ -276,7 +273,6 @@ export class ContextSubMenu extends React.Component<
   };
 
   private _handleMouseOver = (_event: React.MouseEvent<HTMLDivElement>) => {
-    // istanbul ignore else
     if (
       this._menuButtonElement &&
       this._menuButtonElement.style.visibility !== "hidden" &&
@@ -291,9 +287,7 @@ export class ContextSubMenu extends React.Component<
 
     const isDisabled = ConditionalBooleanValue.getValue(this.props.disabled);
 
-    // istanbul ignore else
     if (!isDisabled) {
-      // istanbul ignore else
       if (this.props.onClick !== undefined) this.props.onClick(event);
       if (this.props.opened) this.close();
       else this.select();

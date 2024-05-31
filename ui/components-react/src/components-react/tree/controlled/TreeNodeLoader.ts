@@ -427,7 +427,7 @@ export function handleLoadedNodeHierarchy(
     );
     if (loadedHierarchy.parentId !== undefined) {
       const parentNode = model.getNode(loadedHierarchy.parentId);
-      /* istanbul ignore else */
+
       if (
         parentNode &&
         parentNode.isLoading &&

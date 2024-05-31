@@ -166,7 +166,6 @@ export class ViewSelector extends React.Component<
 
   public override componentWillUnmount() {
     this._isMounted = false;
-    // istanbul ignore else
     if (this._removeShowUpdateListener) this._removeShowUpdateListener();
   }
 

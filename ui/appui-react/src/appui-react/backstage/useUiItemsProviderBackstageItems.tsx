@@ -25,7 +25,6 @@ export const useUiItemsProviderBackstageItems = (
   // current stage's composer allows entries from extensions.
   React.useEffect(() => {
     const uiProviders = uiItemProviderIds.join("-");
-    // istanbul ignore else
     if (providersRef.current !== uiProviders) {
       providersRef.current = uiProviders;
       const backstageItems = UiItemsManager.getBackstageItems();

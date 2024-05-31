@@ -149,7 +149,6 @@ const ForwardRefColorPickerButton = React.forwardRef<
     (color: ColorDef) => {
       closePopup();
 
-      // istanbul ignore else
       if (!color.equals(colorDef)) {
         setColorDef(color);
         onColorPick && onColorPick(color);

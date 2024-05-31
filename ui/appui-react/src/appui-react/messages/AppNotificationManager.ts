@@ -151,7 +151,6 @@ export class AppNotificationManager extends NotificationManager {
 
   /** Clear the ToolTip if it is currently open. If not open, does nothing. */
   public override clearToolTip(): void {
-    // istanbul ignore else
     if (this.isToolTipOpen) ElementTooltip.hideTooltip();
   }
 

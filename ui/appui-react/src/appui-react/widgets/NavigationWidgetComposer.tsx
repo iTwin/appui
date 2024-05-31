@@ -31,7 +31,6 @@ function createNavigationAidControl(
   navigationAidId: string,
   activeViewport: ScreenViewport | undefined
 ): NavigationAidControl | undefined {
-  // istanbul ignore else
   if (
     !activeContentControl ||
     !navigationAidId ||
@@ -134,7 +133,6 @@ export function NavigationAidHost(props: NavigationAidHostProps) {
   const { onElementRef, proximityScale } = useWidgetOpacityContext();
 
   React.useEffect(() => {
-    // istanbul ignore else
     if (isInitialMount.current) {
       isInitialMount.current = false;
       onElementRef(ref);
@@ -146,7 +144,6 @@ export function NavigationAidHost(props: NavigationAidHostProps) {
     minHeight: props.minHeight ? props.minHeight : "64px",
   };
 
-  // istanbul ignore else
   if (
     (UiFramework.visibility.useProximityOpacity || // eslint-disable-line deprecation/deprecation
       UiFramework.visibility.snapWidgetOpacity) &&

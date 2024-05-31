@@ -160,10 +160,8 @@ export function ViewportComponent(props: ViewportProps) {
     const lastTargetPoint = targetPoint.current;
     const tentativePoint =
       tentativePointOverrideRef.current ?? IModelApp.tentativePoint;
-    // istanbul ignore else
     if (tentativePoint.isActive) return tentativePoint.getPoint();
 
-    // istanbul ignore else
     if (null !== lastTargetPoint) {
       const testPt = vp.worldToView(lastTargetPoint);
       const viewRect = vp.viewRect.clone();
@@ -185,13 +183,11 @@ export function ViewportComponent(props: ViewportProps) {
   const handleCubeRotationChangeEvent = (args: CubeRotationChangeEventArgs) => {
     const viewManager = viewManagerRef.current;
     const currentScreenViewport = screenViewportRef.current;
-    // istanbul ignore else
     if (
       currentScreenViewport &&
       viewManager.selectedView === currentScreenViewport
     ) {
       const rotMatrix = args.rotMatrix;
-      // istanbul ignore else
       if (currentScreenViewport.rotation !== rotMatrix) {
         const inverse = rotMatrix.transpose(); // rotation is from current nav cube state...
         const center = getRotatePoint(currentScreenViewport);

@@ -71,7 +71,6 @@ export class ImageRenderer {
   /** Render svg string into JSX */
   private renderSvg(svg: string) {
     let svgAsDataUri = ImageRenderer._svgCache.get(svg);
-    // istanbul ignore else
     if (undefined === svgAsDataUri) {
       svgAsDataUri = this.convertSvgToDataUri(svg.trim());
       ImageRenderer._svgCache.set(svg, svgAsDataUri);

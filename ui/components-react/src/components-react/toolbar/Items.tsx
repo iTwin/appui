@@ -68,7 +68,6 @@ export function ToolbarItems(props: ToolbarItemsProps) {
   const { onElementRef, proximityScale } = useWidgetOpacityContext();
 
   React.useEffect(() => {
-    // istanbul ignore else
     if (isInitialMount.current) {
       isInitialMount.current = false;
       onElementRef(ref);

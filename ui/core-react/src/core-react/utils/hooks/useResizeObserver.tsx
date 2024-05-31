@@ -46,7 +46,6 @@ export function useResizeObserver<T extends Element>(
   const processResize = React.useCallback(
     (target: HTMLElement) => {
       const newBounds = target.getBoundingClientRect();
-      // istanbul ignore else
       if (
         isMountedRef.current &&
         (bounds.current.width !== newBounds.width ||
@@ -77,7 +76,6 @@ export function useResizeObserver<T extends Element>(
         );
 
       owningWindowRef.current = target.ownerDocument.defaultView;
-      // istanbul ignore else
       if (owningWindowRef.current) {
         owningWindowRef.current.addEventListener(
           "unload",
@@ -215,7 +213,6 @@ export function useLayoutResizeObserver(
         );
 
       owningWindowRef.current = target.ownerDocument.defaultView;
-      // istanbul ignore else
       if (owningWindowRef.current) {
         owningWindowRef.current.addEventListener(
           "unload",

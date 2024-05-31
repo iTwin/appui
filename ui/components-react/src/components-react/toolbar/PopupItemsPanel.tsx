@@ -72,7 +72,6 @@ export function PopupItemsPanel(props: PopupItemsPanelProps) {
 
   const handleGroupItemClick = React.useCallback(
     (item: GroupButton | ActionButton) => {
-      // istanbul ignore else
       if (ToolbarItemUtilities.isGroupButton(item)) {
         // push group to front of array
         setGroupArray([item, ...groupArray]);
@@ -82,7 +81,6 @@ export function PopupItemsPanel(props: PopupItemsPanelProps) {
   );
 
   const handleBackArrowClick = React.useCallback(() => {
-    // istanbul ignore else
     if (groupArray.length > 1) {
       setGroupArray(groupArray.slice(1));
     }
@@ -94,7 +92,6 @@ export function PopupItemsPanel(props: PopupItemsPanelProps) {
 
   const handleOnPointerUp = React.useCallback(
     (panelItem: GroupButton | ActionButton) => {
-      // istanbul ignore else
       if (ToolbarItemUtilities.isActionButton(panelItem)) {
         props.activateOnPointerUp &&
           setSelectedItem &&
@@ -109,7 +106,6 @@ export function PopupItemsPanel(props: PopupItemsPanelProps) {
 
   const handleActionItemClick = React.useCallback(
     (panelItem: GroupButton | ActionButton) => {
-      // istanbul ignore else
       if (ToolbarItemUtilities.isActionButton(panelItem)) {
         setSelectedItem && setSelectedItem(panelItem);
         panelItem.execute();

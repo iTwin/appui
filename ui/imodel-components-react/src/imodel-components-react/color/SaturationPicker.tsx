@@ -104,12 +104,9 @@ SaturationPickerProps) {
     (
       e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>
     ) => {
-      // istanbul ignore else
       if (container.current) {
         const newHsvColor = calculateChange(e, hsv, container.current);
-        // istanbul ignore else
         if (newHsvColor) {
-          // istanbul ignore else
           if (onSaturationChange) onSaturationChange(newHsvColor);
         }
       }
@@ -121,7 +118,6 @@ SaturationPickerProps) {
     (
       e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>
     ) => {
-      // istanbul ignore else
       if (isDragging.current) {
         onChange(e);
       }
@@ -130,7 +126,6 @@ SaturationPickerProps) {
   );
 
   const onMouseUp = React.useCallback(() => {
-    // istanbul ignore else
     if (isDragging.current) {
       isDragging.current = false;
     }
@@ -138,7 +133,6 @@ SaturationPickerProps) {
 
   const onTouchEnd = React.useCallback(
     (event: React.TouchEvent<HTMLDivElement>) => {
-      // istanbul ignore else
       if (isDragging.current) {
         onChange(event);
         isDragging.current = false;
@@ -149,7 +143,6 @@ SaturationPickerProps) {
 
   const onMouseDown = React.useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
-      // istanbul ignore else
       if (e.target !== e.currentTarget) {
         isDragging.current = true;
         document.addEventListener("mouseup", onMouseUp, {
@@ -160,7 +153,6 @@ SaturationPickerProps) {
 
       onChange(e);
 
-      // istanbul ignore else
       if (container.current) container.current.focus();
 
       e.preventDefault();
@@ -170,12 +162,10 @@ SaturationPickerProps) {
 
   const onTouchStart = React.useCallback(
     (e: React.TouchEvent<HTMLDivElement>) => {
-      // istanbul ignore else
       if (e.target !== e.currentTarget) isDragging.current = true;
 
       onChange(e);
 
-      // istanbul ignore else
       if (container.current) container.current.focus();
     },
     [onChange]
@@ -200,7 +190,6 @@ SaturationPickerProps) {
       } else if (evt.key === Key.Home.valueOf()) {
         s = 0;
       } else {
-        // istanbul ignore else
         if (evt.key === Key.End.valueOf()) {
           s = 100;
         }
@@ -216,7 +205,6 @@ SaturationPickerProps) {
       if (v > 100) v = 100;
 
       const newColor = new HSVColor(h, s, v);
-      // istanbul ignore else
       if (onSaturationChange) onSaturationChange(newColor);
 
       evt.preventDefault();

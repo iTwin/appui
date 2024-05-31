@@ -37,7 +37,6 @@ export abstract class DateTimeTypeConverterBase
 
     if (typeof value === "string") value = new Date(value);
 
-    // istanbul ignore else
     if (value instanceof Date) {
       switch (this.getTimeFormat()) {
         case TimeFormat.Short:
@@ -79,7 +78,6 @@ export abstract class DateTimeTypeConverterBase
           : undefined;
       let alternateDateFormat = AlternateDateFormats.None;
 
-      // istanbul ignore else
       if (
         "alternateDateFormat" in options &&
         DateTimeTypeConverterBase.isAlternateDateFormats(
@@ -90,7 +88,6 @@ export abstract class DateTimeTypeConverterBase
       }
 
       if (this.getTimeFormat() === TimeFormat.Long) {
-        // istanbul ignore else
         if ("timeDisplay" in options) {
           // istanbul ignore if
           if (alternateDateFormat) {
@@ -99,7 +96,6 @@ export abstract class DateTimeTypeConverterBase
               `Invalid specification of timeDisplay with alternateDateFormat specification`
             );
           } else {
-            // istanbul ignore else
             if (
               DateTimeTypeConverterBase.isValidTimeDisplay(options.timeDisplay)
             )
@@ -108,17 +104,14 @@ export abstract class DateTimeTypeConverterBase
         }
       }
 
-      // istanbul ignore else
       if (typeof value === "string") {
         value = new Date(value); // this value will be based on local time zone
-        // istanbul ignore else
         if (value instanceof Date && alternateDateFormat) {
           // alternateDateFormat displays UTC time, so assume string is specifying UTC Date and Time
           value = adjustDateToTimezone(value, value.getTimezoneOffset() * -1);
         }
       }
 
-      // istanbul ignore else
       if (value instanceof Date) {
         // Ensure if alternateDateFormat is specified make sure it matches proper Long/Short format.
         if (this.getTimeFormat() === TimeFormat.Long) {
@@ -144,7 +137,6 @@ export abstract class DateTimeTypeConverterBase
           undefined,
           alternateDateFormat
         );
-        // istanbul ignore else
         if (formattedDateTime) return formattedDateTime;
       }
     }
@@ -165,7 +157,6 @@ export abstract class DateTimeTypeConverterBase
     if (options) {
       let alternateDateFormat = AlternateDateFormats.None;
 
-      // istanbul ignore else
       if (
         "alternateDateFormat" in options &&
         DateTimeTypeConverterBase.isAlternateDateFormats(
@@ -175,9 +166,7 @@ export abstract class DateTimeTypeConverterBase
         alternateDateFormat = options.alternateDateFormat;
       }
 
-      // istanbul ignore else
       let date = new Date(value); // this value will be based on local time zone
-      // istanbul ignore else
       if (date instanceof Date && alternateDateFormat) {
         // alternateDateFormat displays UTC time, so assume string is specifying UTC Date and Time
         date = adjustDateToTimezone(date, date.getTimezoneOffset() * -1);

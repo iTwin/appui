@@ -54,7 +54,6 @@ function addItemToSpecifiedParentGroup<T extends ToolbarItem>(
       }
     });
 
-    // istanbul ignore else
     if (foundIndices.length) {
       // process in reverse order so groupChildren can be reduced as we find matches
       foundIndices

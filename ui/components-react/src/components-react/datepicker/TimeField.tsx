@@ -174,7 +174,6 @@ export function TimeField({
   }, [seconds, secondsText, timeSpec, updateTimeSpec]);
   const handleDayPeriodOnBlur = React.useCallback(() => {
     let newPeriodText: string | undefined;
-    // istanbul ignore else
     if (
       dayPeriodText === "AM" ||
       dayPeriodText === "am" ||
@@ -188,7 +187,6 @@ export function TimeField({
     )
       newPeriodText = pmLabel;
 
-    // istanbul ignore else
     if (undefined !== newPeriodText) {
       setDayPeriodText(newPeriodText);
       if (newPeriodText === amLabel && hours > 12) {
@@ -201,7 +199,6 @@ export function TimeField({
 
   const handleHoursOnKeyDown = React.useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>) => {
-      // istanbul ignore else
       if (
         event.key === Key.ArrowDown.valueOf() ||
         event.key === Key.ArrowUp.valueOf()
@@ -238,7 +235,6 @@ export function TimeField({
 
   const handleMinutesOnKeyDown = React.useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>) => {
-      // istanbul ignore else
       if (event.key === Key.ArrowDown.valueOf()) {
         const newMinutes = minutes === 0 ? 59 : minutes - 1;
         setMinutesText(newMinutes.toString().padStart(2, "0"));
@@ -269,7 +265,6 @@ export function TimeField({
 
   const handleSecondsOnKeyDown = React.useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>) => {
-      // istanbul ignore else
       if (event.key === Key.ArrowDown.valueOf()) {
         const newSeconds = seconds === 0 ? 59 : seconds - 1;
         setSecondsText(newSeconds.toString().padStart(2, "0"));
@@ -301,7 +296,6 @@ export function TimeField({
   const handleDayPeriodOnKeyDown = React.useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>) => {
       let newPeriodText: string | undefined;
-      // istanbul ignore else
       if (
         event.key === Key.ArrowDown.valueOf() ||
         event.key === Key.Home.valueOf() ||
@@ -333,10 +327,9 @@ export function TimeField({
           newPeriodText = pmLabel;
         event.preventDefault();
       }
-      // istanbul ignore else
       if (undefined !== newPeriodText) {
         setDayPeriodText(newPeriodText);
-        /* istanbul ignore else */
+
         if (newPeriodText === amLabel && hours > 12) {
           updateTimeSpec({ ...timeSpec, hours: hours - 12 });
         } else if (newPeriodText === pmLabel && hours <= 11) {

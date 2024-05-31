@@ -76,7 +76,6 @@ export class InlineEdit extends React.Component<
   };
 
   private _sendChange(value: string) {
-    // istanbul ignore else
     if (this.props.onChange) this.props.onChange(value);
   }
 

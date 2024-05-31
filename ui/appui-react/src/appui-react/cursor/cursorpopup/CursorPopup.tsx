@@ -98,7 +98,6 @@ export class CursorPopup extends React.Component<
     args: CursorPopupFadeOutEventArgs
   ) => {
     if (this.props.id === args.id) {
-      // istanbul ignore else
       if (this._isMounted)
         this.setState({ showPopup: CursorPopupShow.FadeOut });
     }
@@ -221,17 +220,13 @@ export class CursorPopup extends React.Component<
   }
 
   private setDivRef(div: HTMLDivElement | null) {
-    // istanbul ignore else
     if (div) {
       const rect = div.getBoundingClientRect();
       const newSize = new Size(rect.width, rect.height);
 
-      // istanbul ignore else
       if (!this.state.size.equals(newSize)) {
-        // istanbul ignore else
         if (this.props.onSizeKnown) this.props.onSizeKnown(newSize);
 
-        // istanbul ignore else
         if (this._isMounted) this.setState({ size: newSize });
       }
     }

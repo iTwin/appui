@@ -129,7 +129,6 @@ export function DateField({
 
   // See if new initialDate props have changed since component mounted
   React.useEffect(() => {
-    // istanbul ignore else
     if (initialDate.getTime() !== initialDateRef.current.getTime()) {
       initialDateRef.current = initialDate;
     }
@@ -189,7 +188,6 @@ export function DateField({
   );
 
   function onInputKeyDown(event: React.KeyboardEvent<HTMLInputElement>): void {
-    // istanbul ignore else
     if (event.key === "Enter") {
       updateInputDate(event.currentTarget.value);
       event.preventDefault();

@@ -21,7 +21,6 @@ linkify
     ): number => {
       const tail = text.slice(pos);
 
-      // istanbul ignore else
       if (!self.re.pw) {
         self.re.pw = new RegExp(
           `(//|\\\\\\\\)${self.re.src_host}:` +
@@ -30,10 +29,8 @@ linkify
           "i"
         );
       }
-      // istanbul ignore else
       if (self.re.pw.test(tail)) {
         const matches = tail.match(self.re.pw);
-        // istanbul ignore else
         if (matches !== null) return matches[0].length;
       }
       return 0;
@@ -55,10 +52,8 @@ linkify
           "i"
         );
       }
-      // istanbul ignore else
       if (self.re.www.test(tail)) {
         const matches = tail.match(self.re.www);
-        // istanbul ignore else
         if (matches !== null) return matches[0].length;
       }
       return 0;

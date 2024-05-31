@@ -43,7 +43,6 @@ export const withOnOutsideClick = <ComponentProps extends {}>(
         if (element.parentElement && this.isInCorePopup(element.parentElement))
           return true;
       } else {
-        // istanbul ignore else
         if (element.parentElement && this.isInCorePopup(element.parentElement))
           return true;
       }
@@ -52,9 +51,7 @@ export const withOnOutsideClick = <ComponentProps extends {}>(
 
     /** @internal */
     public onOutsideClick(e: MouseEvent) {
-      // istanbul ignore else
       if (e.target instanceof Node && e.target.nodeType === Node.ELEMENT_NODE) {
-        // istanbul ignore else
         if (
           !this.props.closeOnNestedPopupOutsideClick &&
           this.isInCorePopup(e.target as HTMLElement)
@@ -81,7 +78,6 @@ export const withOnOutsideClick = <ComponentProps extends {}>(
     /** @internal */
     public handleDocumentPointerDown = (e: PointerEvent) => {
       this.isDownOutside = true;
-      // istanbul ignore else
       if (this.outsideClickContainerDiv) {
         // typically e.target test for instance of Node, but this is not working from pop out windows
         this.isDownOutside =
@@ -93,7 +89,6 @@ export const withOnOutsideClick = <ComponentProps extends {}>(
     /** @internal */
     public handleDocumentPointerUp = (e: PointerEvent) => {
       let isUpOutside = true;
-      // istanbul ignore else
       if (this.outsideClickContainerDiv) {
         // typically e.target test for instance of Node, but this is not working from pop out windows
         isUpOutside =

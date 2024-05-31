@@ -118,7 +118,6 @@ function SnapModeFieldComponent(props: SnapModeFieldProps) {
       if (mode.value === snapMode) return mode.iconName;
     }
 
-    /* istanbul ignore else */
     if (snapMode > 0) return "snaps-multione";
 
     return "placeholder";

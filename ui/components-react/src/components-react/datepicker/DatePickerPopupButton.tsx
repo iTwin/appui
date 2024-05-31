@@ -109,7 +109,6 @@ DatePickerPopupButtonProps) {
   const [showFocusOutline, setShowFocusOutline] = React.useState(false);
   const handlePopupKeyDown = React.useCallback(
     (event: React.KeyboardEvent<HTMLButtonElement>) => {
-      // istanbul ignore else
       if (event.key === " ") {
         setShowFocusOutline(true);
         setIsSettingsOpen(true);

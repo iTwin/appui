@@ -172,7 +172,6 @@ export class PropertyEditorManager {
 
   /** @internal */
   public static deregisterDataController(controllerName: string): void {
-    // istanbul ignore else
     if (PropertyEditorManager._dataControllers.hasOwnProperty(controllerName)) {
       delete PropertyEditorManager._dataControllers[controllerName];
     }

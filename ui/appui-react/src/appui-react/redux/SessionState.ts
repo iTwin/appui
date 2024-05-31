@@ -172,7 +172,6 @@ export function SessionStateReducer(
 ): DeepReadonly<SessionState> {
   switch (action.type) {
     case SessionStateActionId.SetNumItemsSelected: {
-      // istanbul ignore else
       if (undefined !== action.payload)
         return { ...state, numItemsSelected: action.payload };
       else return { ...state, numItemsSelected: 0 };
@@ -180,20 +179,17 @@ export function SessionStateReducer(
     case SessionStateActionId.SetAvailableSelectionScopes: {
       const payloadArray: PresentationSelectionScope[] = [];
       action.payload.forEach((scope) => payloadArray.push(scope));
-      // istanbul ignore else
       if (undefined !== action.payload)
         return { ...state, availableSelectionScopes: payloadArray };
       else
         return { ...state, availableSelectionScopes: [defaultSelectionScope] };
     }
     case SessionStateActionId.SetSelectionScope: {
-      // istanbul ignore else
       if (undefined !== action.payload)
         return { ...state, activeSelectionScope: action.payload };
       else return { ...state, activeSelectionScope: defaultSelectionScope.id };
     }
     case SessionStateActionId.SetActiveIModelId: {
-      // istanbul ignore else
       if (undefined !== action.payload)
         return { ...state, iModelId: action.payload };
       else return { ...state, iModelId: "" };

@@ -96,12 +96,10 @@ export function FormatUnitLabel(props: FormatUnitLabelProps) {
       let formatTraits: string[] = [traitStr];
       if (setActive) {
         // setting trait
-        // istanbul ignore else
         if (formatProps.formatTraits) {
           const traits = Array.isArray(formatProps.formatTraits)
             ? formatProps.formatTraits
             : formatProps.formatTraits.split(/,|;|\|/);
-          // istanbul ignore else
           if (!traits.find((traitEntry) => traitStr === traitEntry)) {
             formatTraits = [...traits, traitStr];
           }

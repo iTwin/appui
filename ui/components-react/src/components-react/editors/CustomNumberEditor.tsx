@@ -79,7 +79,6 @@ export class CustomNumberEditor
       };
     }
 
-    // istanbul ignore else
     if (record && record.value.valueFormat === PropertyValueFormat.Primitive) {
       const parseResults = (
         this._formatParams as CustomFormattedNumberParams
@@ -95,12 +94,10 @@ export class CustomNumberEditor
         };
         this._lastValidValue = { ...propertyValue };
         // make sure the text in the input item matches the latest formatted text... this could get out if the input string say 1.5 === the display string of 1'-6"
-        // istanbul ignore else
         if (newDisplayValue !== this.state.inputValue) {
           this.setState({ inputValue: newDisplayValue });
         }
       } else {
-        // istanbul ignore else
         if (this.htmlElement) {
           UiAdmin.messagePresenter.displayInputFieldMessage(
             this.htmlElement,
@@ -163,7 +160,6 @@ export class CustomNumberEditor
 
     if (readonly || disabled) return;
 
-    // istanbul ignore else
     if (this._isMounted)
       this.setState({
         inputValue: userInput,
@@ -196,16 +192,13 @@ export class CustomNumberEditor
     const record = this.props.propertyRecord;
     let initialDisplayValue = "";
     let numberValue = 0;
-    // istanbul ignore else
     if (record) {
-      // istanbul ignore else
       if (record.value.valueFormat === PropertyValueFormat.Primitive) {
         const primitiveValue = record.value;
         numberValue =
           undefined !== primitiveValue.value
             ? (primitiveValue.value as number)
             : 0;
-        // istanbul ignore else
         if (primitiveValue.displayValue)
           initialDisplayValue = primitiveValue.displayValue;
         else
@@ -227,7 +220,6 @@ export class CustomNumberEditor
       );
       return;
     }
-    // istanbul ignore else
     if (
       record.property &&
       record.property.editor &&
@@ -258,7 +250,6 @@ export class CustomNumberEditor
     let maxLength: number | undefined;
     let iconSpec: string | undefined;
 
-    // istanbul ignore else
     if (
       record.property &&
       record.property.editor &&
@@ -268,11 +259,8 @@ export class CustomNumberEditor
         (param: PropertyEditorParams) =>
           param.type === PropertyEditorParamTypes.InputEditorSize.valueOf()
       ) as InputEditorSizeParams;
-      // istanbul ignore else
       if (editorSizeParams) {
-        // istanbul ignore else
         if (editorSizeParams.size) size = editorSizeParams.size;
-        // istanbul ignore else
         if (editorSizeParams.maxLength) maxLength = editorSizeParams.maxLength;
       }
 
@@ -285,7 +273,6 @@ export class CustomNumberEditor
       }
     }
 
-    // istanbul ignore else
     if (this._isMounted)
       this.setState({
         inputValue: initialDisplayValue,
@@ -304,7 +291,6 @@ export class CustomNumberEditor
   }
 
   private _onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    // istanbul ignore else
     if (e.key === Key.Escape.valueOf()) {
       const initialDisplayValue =
         (this._lastValidValue &&
@@ -315,12 +301,10 @@ export class CustomNumberEditor
         e.stopPropagation();
         this._resetToLastValidDisplayValue();
       } else {
-        // istanbul ignore else
         if (this.props.onCancel) this.props.onCancel();
       }
     }
 
-    // istanbul ignore else
     if (e.key !== Key.Enter.valueOf()) {
       UiAdmin.messagePresenter.closeInputFieldMessage();
     }

@@ -49,7 +49,6 @@ export class TileLoadingIndicator extends React.PureComponent<
     let enabled = this.state.enabled;
     let finished = this.state.finished;
 
-    // istanbul ignore else
     if (!enabled && total !== 0 && pctComplete !== 100) enabled = true;
 
     if (enabled && (total === 0 || pctComplete === 100)) enabled = false;
@@ -66,7 +65,6 @@ export class TileLoadingIndicator extends React.PureComponent<
       );
     }
 
-    // istanbul ignore else
     if (pctComplete !== 100 && finished) finished = false;
 
     this.setState({
@@ -94,7 +92,6 @@ export class TileLoadingIndicator extends React.PureComponent<
     const vp = IModelApp.viewManager.selectedView;
 
     // if view exists bind update routine to onRender loop, otherwise do so once the onViewOpen event runs
-    // istanbul ignore else
     if (vp) {
       this._onViewOpen(vp);
     } else {
@@ -108,7 +105,6 @@ export class TileLoadingIndicator extends React.PureComponent<
 
     if (this._removeViewOpenListener) this._removeViewOpenListener();
 
-    // istanbul ignore else
     if (this._removeOnRenderListener) this._removeOnRenderListener();
   }
 

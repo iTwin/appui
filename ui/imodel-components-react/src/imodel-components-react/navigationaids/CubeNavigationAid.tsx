@@ -243,7 +243,6 @@ export class CubeNavigationAid extends React.Component<
     args: ViewRotationChangeEventArgs // eslint-disable-line deprecation/deprecation
   ) => {
     const { animation, dragging, endRotMatrix } = this.state;
-    // istanbul ignore else
     if (this.props.viewport === args.viewport && animation >= 1 && !dragging) {
       const newMatrix = this.props.viewport.view.getRotation().clone();
       if (!endRotMatrix.isAlmostEqual(newMatrix)) {
@@ -288,7 +287,6 @@ export class CubeNavigationAid extends React.Component<
     const startRotMatrix = this.state.endRotMatrix.clone();
     if (this._mounted) {
       this.setState({ startRotMatrix }, () => {
-        // istanbul ignore else
         if (this.props.onAnimationEnd) this.props.onAnimationEnd();
       });
     }
@@ -321,7 +319,6 @@ export class CubeNavigationAid extends React.Component<
 
     const faces: { [key: string]: React.ReactNode } = {};
     for (const key in this._labels) {
-      // istanbul ignore else
       if (this._labels.hasOwnProperty(key)) {
         const f = key as Face;
         const label = this._labels[f];
@@ -424,7 +421,6 @@ export class CubeNavigationAid extends React.Component<
       return Face.None;
     }
 
-    // istanbul ignore else
     if (
       rotMatrix.coffs[6] === cubeNavigationFaceRotations[Face.Top].coffs[6] &&
       rotMatrix.coffs[7] === cubeNavigationFaceRotations[Face.Top].coffs[7] &&
@@ -432,7 +428,6 @@ export class CubeNavigationAid extends React.Component<
     )
       return Face.Top;
 
-    // istanbul ignore else
     if (
       rotMatrix.coffs[6] ===
         cubeNavigationFaceRotations[Face.Bottom].coffs[6] &&
@@ -442,7 +437,6 @@ export class CubeNavigationAid extends React.Component<
     )
       return Face.Bottom;
 
-    // istanbul ignore else
     if (
       rotMatrix.coffs[6] === cubeNavigationFaceRotations[Face.Left].coffs[6] &&
       rotMatrix.coffs[7] === cubeNavigationFaceRotations[Face.Left].coffs[7] &&
@@ -450,7 +444,6 @@ export class CubeNavigationAid extends React.Component<
     )
       return Face.Left;
 
-    // istanbul ignore else
     if (
       rotMatrix.coffs[6] === cubeNavigationFaceRotations[Face.Right].coffs[6] &&
       rotMatrix.coffs[7] === cubeNavigationFaceRotations[Face.Right].coffs[7] &&
@@ -458,7 +451,6 @@ export class CubeNavigationAid extends React.Component<
     )
       return Face.Right;
 
-    // istanbul ignore else
     if (
       rotMatrix.coffs[6] === cubeNavigationFaceRotations[Face.Back].coffs[6] &&
       rotMatrix.coffs[7] === cubeNavigationFaceRotations[Face.Back].coffs[7] &&
@@ -466,7 +458,6 @@ export class CubeNavigationAid extends React.Component<
     )
       return Face.Back;
 
-    // istanbul ignore else
     if (
       rotMatrix.coffs[6] === cubeNavigationFaceRotations[Face.Front].coffs[6] &&
       rotMatrix.coffs[7] === cubeNavigationFaceRotations[Face.Front].coffs[7] &&
@@ -487,7 +478,6 @@ export class CubeNavigationAid extends React.Component<
     const startInverse = start.transpose();
     const diff = end.multiplyMatrixMatrix(startInverse);
     const angleAxis = diff.getAxisAndAngleOfRotation();
-    // istanbul ignore else
     if (angleAxis.ok) {
       const angle = Angle.createRadians(
         angleAxis.angle.radians * CubeNavigationAid._animationFn(anim)
@@ -496,7 +486,6 @@ export class CubeNavigationAid extends React.Component<
         angleAxis.axis,
         angle
       );
-      // istanbul ignore else
       if (newDiff) {
         const newMatrix = newDiff.multiplyMatrixMatrix(start);
         return newMatrix;
@@ -578,7 +567,6 @@ export class CubeNavigationAid extends React.Component<
         result
       );
     }
-    // istanbul ignore else
     if (result) result.transposeInPlace();
     return result;
   }
@@ -635,7 +623,6 @@ export class CubeNavigationAid extends React.Component<
 
   private _lastClientXY: Vector2d = Vector2d.createZero();
   private _processDrag(mousePos: Vector2d) {
-    // istanbul ignore else
     if (!this._start.isAlmostEqual(mousePos)) {
       const movement = mousePos.minus(this._lastClientXY);
       const diff = movement.scale(0.05);
@@ -739,7 +726,6 @@ export class CubeNavigationAid extends React.Component<
       pos.y,
       pos.z
     ).inverse();
-    // istanbul ignore else
     if (rotMatrix) {
       // if isMatrixFace and user is clicking on top/bottom, the current matrix face must be top or bottom
       if (
@@ -747,7 +733,6 @@ export class CubeNavigationAid extends React.Component<
         (face === Face.Top || face === Face.Bottom)
       ) {
         const angleAxis = endRotMatrix.getAxisAndAngleOfRotation();
-        // istanbul ignore else
         if (angleAxis.ok) {
           const xAx = endRotMatrix.columnX();
           const a = Math.atan2(xAx.y, xAx.x);

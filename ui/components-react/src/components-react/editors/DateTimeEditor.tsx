@@ -69,7 +69,6 @@ export class DateTimeEditor
     const record = this.props.propertyRecord;
     let propertyValue: PropertyValue | undefined;
 
-    // istanbul ignore else
     if (record && record.value.valueFormat === PropertyValueFormat.Primitive) {
       propertyValue = {
         valueFormat: PropertyValueFormat.Primitive,
@@ -87,7 +86,6 @@ export class DateTimeEditor
 
   public get hasFocus(): boolean {
     let containsFocus = false;
-    // istanbul ignore else
     if (this.htmlElement)
       containsFocus = this.htmlElement.contains(document.activeElement);
     return containsFocus;
@@ -97,7 +95,6 @@ export class DateTimeEditor
     typeConverter: TypeConverter,
     newValue: Date
   ): Promise<void> {
-    // istanbul ignore else
     if (this.props.propertyRecord) {
       const displayValue = await typeConverter.convertPropertyToString(
         this.props.propertyRecord.property,
@@ -111,9 +108,7 @@ export class DateTimeEditor
   }
 
   private _handleChange = (newValue: Date): void => {
-    // istanbul ignore else
     if (this._isMounted && this.state.typeConverter) {
-      // istanbul ignore else
       if (this.state.editInUtc) {
         newValue = adjustDateToTimezone(
           newValue,
@@ -164,12 +159,9 @@ export class DateTimeEditor
     let alternateDateFormat = AlternateDateFormats.None;
     let editInUtc = false;
 
-    // istanbul ignore else
     if (this.props.showTime) timeDisplay = TimeDisplay.H12MC;
 
-    // istanbul ignore else
     if (record && record.value.valueFormat === PropertyValueFormat.Primitive) {
-      // istanbul ignore else
       if (record.value.value instanceof Date)
         initialValue = new Date(record.value.value);
       else if (typeof record.value.value === "string")
@@ -183,9 +175,7 @@ export class DateTimeEditor
 
       const options = record.property.converter?.options;
       if (options) {
-        // istanbul ignore else
         if ("alternateDateFormat" in options) {
-          // istanbul ignore else
           if (
             DateTimeTypeConverterBase.isAlternateDateFormats(
               options.alternateDateFormat
@@ -207,7 +197,6 @@ export class DateTimeEditor
             timeDisplay = TimeDisplay.H24MS;
         }
 
-        // istanbul ignore else
         if (alternateDateFormat) {
           editInUtc = true;
 
@@ -248,7 +237,6 @@ export class DateTimeEditor
       initialValue
     );
 
-    // istanbul ignore else
     if (this._isMounted)
       this.setState({
         value: initialValue,
@@ -278,17 +266,14 @@ export class DateTimeEditor
   };
 
   private _handleCancel = (_event: React.MouseEvent): void => {
-    // istanbul ignore else
     if (this.props.onCancel) {
       this.props.onCancel();
     }
   };
 
   private _handleCommit = async (): Promise<void> => {
-    // istanbul ignore else
     if (this.props.propertyRecord && this.props.onCommit) {
       const propertyValue = await this.getPropertyValue();
-      // istanbul ignore else
       if (propertyValue !== undefined) {
         this.props.onCommit({
           propertyRecord: this.props.propertyRecord,

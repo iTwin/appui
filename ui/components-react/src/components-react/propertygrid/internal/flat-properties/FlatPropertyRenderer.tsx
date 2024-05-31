@@ -181,7 +181,6 @@ const DisplayValue: React.FC<DisplayValueProps> = (props) => {
 
   if (props.isEditing) {
     const _onEditCommit = (args: PropertyUpdatedArgs) => {
-      /* istanbul ignore else */
       if (props.category) props.onEditCommit?.(args, props.category);
     };
 

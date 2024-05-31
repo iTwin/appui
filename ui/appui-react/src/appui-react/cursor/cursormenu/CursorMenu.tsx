@@ -49,7 +49,6 @@ export class CursorPopupMenu extends React.PureComponent<
   private _handleSyncUiEvent = (args: UiSyncEventArgs): void => {
     if (!this._isMounted) return;
 
-    /* istanbul ignore else */
     if (
       SyncUiEventDispatcher.hasEventOfInterest(args.eventIds, [
         SessionStateActionId.UpdateCursorMenu,

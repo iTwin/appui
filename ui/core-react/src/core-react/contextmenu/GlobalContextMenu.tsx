@@ -48,7 +48,6 @@ export class GlobalContextMenu extends React.PureComponent<
   }
 
   public override componentWillUnmount() {
-    // istanbul ignore else
     if (this._container && this._container.parentElement) {
       // cleanup
       this._container.parentElement.removeChild(this._container);

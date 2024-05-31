@@ -41,7 +41,6 @@ function SelectionScopeFieldComponent(props: SelectionScopeFieldProps) {
   );
 
   const updateSelectValue = (newValue: string) => {
-    // istanbul ignore else
     if (newValue) {
       UiFramework.setActiveSelectionScope(newValue);
     }

@@ -50,7 +50,6 @@ export class DefaultToolSettingsProvider extends ToolUiProvider {
   }
 
   public updateToolSettingsNodes(): void {
-    // istanbul ignore else
     if (this.uiDataProvider.layoutDialogRows()) {
       const componentGenerator = new ComponentGenerator(this.uiDataProvider);
 

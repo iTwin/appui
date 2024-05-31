@@ -183,7 +183,6 @@ export class RadialMenu extends React.Component<
 
   /** Manually call onSelect of highlighted button. */
   public select = () => {
-    // istanbul ignore else
     if (this._selectedButton) this._selectedButton.select();
   };
 
@@ -317,12 +316,10 @@ export class RadialButton extends React.Component<
 
   /** Manually call this.props.onSelect */
   public select = () => {
-    // istanbul ignore else
     if (this.props.onSelect) this.props.onSelect(undefined);
   };
 
   private _handleClick = (event: React.MouseEvent<SVGElement>) => {
-    // istanbul ignore else
     if (this.props.onSelect) this.props.onSelect(event);
   };
 

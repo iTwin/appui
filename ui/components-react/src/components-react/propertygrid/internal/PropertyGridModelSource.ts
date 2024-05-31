@@ -58,7 +58,6 @@ export class PropertyGridModelSource implements IPropertyGridModelSource {
 
     flatGrid.forEach((gridItem) => {
       const oldGridItem = oldModelMap.get(gridItem.selectionKey);
-      // istanbul ignore else
       if (oldGridItem) gridItem.isExpanded = oldGridItem.isExpanded;
     });
   }

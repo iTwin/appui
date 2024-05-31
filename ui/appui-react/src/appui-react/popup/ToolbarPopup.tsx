@@ -62,7 +62,6 @@ export class ToolbarPopup extends React.PureComponent<
   };
 
   private _onSizeKnown = (newSize: SizeProps) => {
-    // istanbul ignore else
     if (!this.state.size.equals(newSize))
       this.setState({ size: Size.create(newSize) });
   };
@@ -78,7 +77,6 @@ export class ToolbarPopup extends React.PureComponent<
   };
 
   private _cancel() {
-    // istanbul ignore else
     if (this.props.onCancel) {
       this.props.onCancel();
     }

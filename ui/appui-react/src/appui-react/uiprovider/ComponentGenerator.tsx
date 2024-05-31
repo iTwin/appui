@@ -95,7 +95,6 @@ function PropertyEditor({
       : uiDataProvider.items.find(
           (item) => item.property.name === initialItem.property.name
         );
-    // istanbul ignore else
     if (foundItem) {
       if (isLock) {
         newRecord = newRecord.copyWithNewValue({
@@ -124,7 +123,6 @@ function PropertyEditor({
         (syncItem: DialogPropertySyncItem) =>
           syncItem.propertyName === initialItem.property.name
       );
-      // istanbul ignore else
       if (mySyncItem) {
         const newPropertyValue = propertyRecord.copyWithNewValue(
           {
@@ -136,7 +134,6 @@ function PropertyEditor({
         );
 
         if (mySyncItem.property) {
-          // istanbul ignore else
           if (mySyncItem.property.name === mySyncItem.propertyName) {
             newPropertyValue.isDisabled = mySyncItem.isDisabled;
             setPropertyRecord(newPropertyValue);
@@ -227,7 +224,6 @@ export class ComponentGenerator {
     row: DialogRow,
     rowIndex: number
   ): React.ReactNode {
-    // istanbul ignore else
     if (1 === row.items.length) {
       return (
         <div
@@ -255,7 +251,6 @@ export class ComponentGenerator {
     row: DialogRow,
     rowIndex: number
   ): ToolSettingsEntry {
-    // istanbul ignore else
     if (1 === row.items.length) {
       return {
         labelNode: "",

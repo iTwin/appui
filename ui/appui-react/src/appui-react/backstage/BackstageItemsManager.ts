@@ -28,7 +28,6 @@ export class BackstageItemsManager {
   private _items: ReadonlyArray<BackstageItem> = [];
 
   constructor(items?: ReadonlyArray<BackstageItem>) {
-    // istanbul ignore else
     if (items) this.loadItemsInternal(items, true, false);
   }
 
@@ -43,7 +42,6 @@ export class BackstageItemsManager {
         const { itemsUpdated, updatedItems } =
           this.internalRefreshAffectedItems(items, new Set(eventIds));
 
-        // istanbul ignore else
         if (itemsUpdated) items = updatedItems;
       }
     }
@@ -71,7 +69,6 @@ export class BackstageItemsManager {
   }
 
   public set items(items: ReadonlyArray<BackstageItem>) {
-    // istanbul ignore else
     if (items !== this._items) this.loadItemsInternal(items, true, true);
   }
 
@@ -117,9 +114,7 @@ export class BackstageItemsManager {
           entry.syncEventIds.forEach((eventId: string) =>
             eventIds.add(eventId.toLowerCase())
           );
-        } /* istanbul ignore else */ else if (
-          entry instanceof ConditionalStringValue
-        ) {
+        } else if (entry instanceof ConditionalStringValue) {
           entry.syncEventIds.forEach((eventId: string) =>
             eventIds.add(eventId.toLowerCase())
           );
@@ -143,13 +138,9 @@ export class BackstageItemsManager {
 
       for (const [, entry] of Object.entries(updatedItem)) {
         if (entry instanceof ConditionalBooleanValue) {
-          // istanbul ignore else
           if (ConditionalBooleanValue.refreshValue(entry, eventIds))
             updateRequired = true;
-        } /* istanbul ignore else */ else if (
-          entry instanceof ConditionalStringValue
-        ) {
-          // istanbul ignore else
+        } else if (entry instanceof ConditionalStringValue) {
           if (ConditionalStringValue.refreshValue(entry, eventIds))
             updateRequired = true;
         }
@@ -169,7 +160,6 @@ export class BackstageItemsManager {
       eventIds
     );
 
-    // istanbul ignore else
     if (itemsUpdated) this.loadItemsInternal(updatedItems, false, true);
   }
 }
