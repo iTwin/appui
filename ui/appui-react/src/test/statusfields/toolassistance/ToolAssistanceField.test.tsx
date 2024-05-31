@@ -17,7 +17,7 @@ import {
   ToolAssistanceField,
   UiFramework,
 } from "../../../appui-react";
-import { storageMock, userEvent } from "../../TestUtils";
+import { selectorMatches, storageMock, userEvent } from "../../TestUtils";
 
 describe(`ToolAssistanceField`, () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
@@ -38,6 +38,20 @@ describe(`ToolAssistanceField`, () => {
   const uiSettingsStorage = new LocalStateStorage({
     localStorage: storageMock(),
   } as Window);
+
+  it("ToolAssistanceField should mount", async () => {
+    render(<ToolAssistanceField uiStateStorage={uiSettingsStorage} />);
+
+    const notifications = new AppNotificationManager();
+    notifications.outputPrompt("Hello World!");
+    await waitFor(() => {
+      expect(screen.getByText("Hello World!")).to.satisfy(
+        selectorMatches(
+          ".uifw-statusFields-toolAssistance-toolAssistanceField .prompt"
+        )
+      );
+    });
+  });
 
   it("ToolAssistanceField should display prompt", async () => {
     const wrapper = render(
