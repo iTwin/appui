@@ -473,7 +473,6 @@ export class Popup extends React.Component<PopupProps, PopupState> {
 
     if (!this._popup || !target) return position;
 
-    // istanbul ignore if
     if (this._isPositionAbsolute()) return position;
 
     let newPosition = position;
@@ -554,7 +553,6 @@ export class Popup extends React.Component<PopupProps, PopupState> {
   private _fitPopup = (point: PopupPoint) => {
     const fittedPoint = point;
 
-    // istanbul ignore if
     if (!this._popup) {
       return fittedPoint;
     }
@@ -563,17 +561,14 @@ export class Popup extends React.Component<PopupProps, PopupState> {
     const { popupWidth, popupHeight } = this._getPopupDimensions();
     const { innerWidth, innerHeight } = window;
 
-    // istanbul ignore if
     if (fittedPoint.y + popupHeight > innerHeight) {
       fittedPoint.y = innerHeight - popupHeight;
     }
 
-    // istanbul ignore if
     if (fittedPoint.x + popupWidth > innerWidth) {
       fittedPoint.x = innerWidth - popupWidth;
     }
 
-    // istanbul ignore if
     if (fittedPoint.y < 0) {
       fittedPoint.y = 0;
     }

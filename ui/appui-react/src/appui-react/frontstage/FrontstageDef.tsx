@@ -568,7 +568,6 @@ export class FrontstageDef {
     this.panelDefs.forEach((panelDef: StagePanelDef) => {
       panelDef.widgetDefs.forEach((widgetDef: WidgetDef) => {
         const widgetControl = widgetDef.widgetControl;
-        // istanbul ignore if
         if (widgetControl) widgetControls.push(widgetControl);
       });
     });

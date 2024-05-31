@@ -60,7 +60,6 @@ export function useResizeObserver<T extends Element>(
 
   const handleResize = React.useCallback(
     (entries: any[]) => {
-      // istanbul ignore if
       if (
         !isMountedRef.current ||
         !Array.isArray(entries) ||
@@ -114,7 +113,6 @@ export function useResizeObserver<T extends Element>(
   const handleRef = React.useCallback(
     (instance: Element | null) => {
       const newBounds = instance && instance.getBoundingClientRect();
-      // istanbul ignore if
       if (
         newBounds &&
         (bounds.current.width !== newBounds.width ||

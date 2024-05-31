@@ -56,22 +56,18 @@ export class AlphaSlider extends React.PureComponent<AlphaSliderProps> {
     if ("pageX" in e) {
       x = e.pageX;
     } else {
-      // istanbul ignore if
       if (undefined === e.touches) return undefined;
       x = e.touches[0].pageX;
     }
-    // istanbul ignore if
     if (undefined === x) return undefined;
 
     let y = 0;
     if ("pageY" in e) {
       y = e.pageY;
     } else {
-      // istanbul ignore if
       if (undefined === e.touches) return;
       y = e.touches[0].pageY;
     }
-    // istanbul ignore if
     if (undefined === y) return undefined;
 
     const left = x - (container.getBoundingClientRect().left + window.scrollX);
@@ -98,9 +94,7 @@ export class AlphaSlider extends React.PureComponent<AlphaSliderProps> {
       }
     }
 
-    // istanbul ignore if
     if (t < 0) t = 0;
-    // istanbul ignore if
     if (t > 1) t = 1;
     return alpha !== t ? t : undefined;
   };
@@ -158,9 +152,7 @@ export class AlphaSlider extends React.PureComponent<AlphaSliderProps> {
     }
 
     if (undefined !== newTransparency) {
-      // istanbul ignore if
       if (newTransparency > 1) newTransparency = 1;
-      // istanbul ignore if
       if (newTransparency < 0) newTransparency = 0;
       if (this.props.onAlphaChange) this.props.onAlphaChange(newTransparency);
     }

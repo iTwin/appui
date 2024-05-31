@@ -561,7 +561,6 @@ export class ToolAssistanceField extends React.Component<
   };
 
   private _handleOutsideClick = (e: MouseEvent) => {
-    // istanbul ignore if
     if (
       !this._indicator.current ||
       !(e.target instanceof Node) ||

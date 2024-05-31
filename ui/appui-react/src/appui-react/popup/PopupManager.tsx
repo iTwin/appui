@@ -144,7 +144,6 @@ export class PopupManager {
   }
 
   public static set popups(popups: ReadonlyArray<PopupInfo>) {
-    // istanbul ignore if
     if (this._popups === popups) return;
     this._popups = popups;
     this.onPopupsChangedEvent.emit({ popups });
@@ -161,7 +160,6 @@ export class PopupManager {
   }
 
   private static updatePopup(popupInfo: PopupInfo, itemIndex: number): void {
-    // istanbul ignore if
     if (itemIndex < 0) return;
 
     const popups = [

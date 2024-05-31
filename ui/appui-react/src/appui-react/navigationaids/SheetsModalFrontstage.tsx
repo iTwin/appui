@@ -199,7 +199,6 @@ export class CardContainer extends React.Component<CardContainerProps> {
    * @param card Data about the sheet card selected.
    */
   private async _handleCardSelected(card: CardInfo) {
-    // istanbul ignore if
     if (IModelApp.viewManager && IModelApp.viewManager.selectedView) {
       const vp = IModelApp.viewManager.selectedView;
       const viewState = await this.props.connection.views.load(card.viewId);

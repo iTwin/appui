@@ -89,7 +89,6 @@ export abstract class DateTimeTypeConverterBase
 
       if (this.getTimeFormat() === TimeFormat.Long) {
         if ("timeDisplay" in options) {
-          // istanbul ignore if
           if (alternateDateFormat) {
             Logger.logInfo(
               UiComponents.loggerCategory(this),

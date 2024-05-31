@@ -268,7 +268,6 @@ export class PointerMessage extends React.Component<
 
     this.setState((prevState) => {
       if (!this._viewport) return null;
-      // istanbul ignore if
       if (!this._position) return null;
 
       const containerBounds = Rectangle.create(

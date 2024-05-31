@@ -213,7 +213,6 @@ export class ViewSelector extends React.Component<
 
     const containers = [views3dContainer, views2dContainer, sheetContainer];
 
-    // istanbul ignore if
     if (unknown && unknown.length > 0) {
       // This should never show, but just in case we missed a type of view state
       const unknownContainer: ListItem = {

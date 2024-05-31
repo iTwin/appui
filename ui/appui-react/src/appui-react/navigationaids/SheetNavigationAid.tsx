@@ -171,7 +171,6 @@ export class SheetNavigationAid extends React.Component<
       : undefined;
 
     let content: React.ReactNode;
-    // istanbul ignore if
     if (this.state.sheetData.length > 0) {
       content = (
         <>

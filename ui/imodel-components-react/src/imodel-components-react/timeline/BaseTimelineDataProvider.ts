@@ -24,7 +24,6 @@ export class BaseTimelineDataProvider implements TimelineDataProvider {
 
   constructor(viewport?: ScreenViewport) {
     this._viewport = viewport;
-    // istanbul ignore if - WIP
     if (viewport) this.viewId = viewport.view.id;
   }
 

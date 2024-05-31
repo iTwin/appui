@@ -72,7 +72,6 @@ export class ElementTooltip extends React.Component<
     pt?: XAndY,
     options?: ToolTipOptions
   ): void {
-    // istanbul ignore if
     if (ElementTooltip._isTooltipHalted) return;
     ElementTooltip._isTooltipVisible = true;
     ElementTooltip.onElementTooltipChangedEvent.emit({

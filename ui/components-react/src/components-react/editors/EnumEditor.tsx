@@ -76,7 +76,6 @@ export class EnumEditor
     if (this._isMounted) {
       let selectValue: string | number;
 
-      // istanbul ignore if
       if (this.state.valueIsNumber) selectValue = parseInt(newValue, 10);
       else selectValue = newValue;
 

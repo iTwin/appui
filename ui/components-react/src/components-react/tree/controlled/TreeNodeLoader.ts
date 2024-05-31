@@ -414,7 +414,6 @@ export function handleLoadedNodeHierarchy(
   modelSource.modifyModel((model) => {
     if (loadedHierarchy.parentId !== undefined) {
       // Make sure the model sill contains the parent node
-      /* istanbul ignore if */
       if (model.getNode(loadedHierarchy.parentId) === undefined) return;
     }
 

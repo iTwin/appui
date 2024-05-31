@@ -114,7 +114,6 @@ export class SyncUiEventDispatcher {
 
   /** Save multiple eventIds in Set for processing. */
   public static dispatchSyncUiEvents(eventIds: string[]): void {
-    // istanbul ignore if
     if (0 === SyncUiEventDispatcher._uiEventDispatcher.timeoutPeriod) {
       Logger.logInfo(
         UiFramework.loggerCategory(this),

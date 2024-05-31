@@ -56,13 +56,11 @@ export function getSelectionContextSyncEventIds(): string[] {
 export function isNoSelectionActive(): boolean {
   const activeContentControl = UiFramework.content.getActiveContentControl();
   let selectionCount = 0;
-  // istanbul ignore if
   if (!UiFramework.frameworkStateKey)
     selectionCount =
       UiFramework.store.getState()[UiFramework.frameworkStateKey].frameworkState
         .sessionState.numItemsSelected;
 
-  // istanbul ignore if
   if (activeContentControl?.viewport) {
     const hiddenElementsSet = activeContentControl.viewport.neverDrawn;
     const selectedElementsSet =

@@ -70,7 +70,6 @@ export class InternalSyncUiEventDispatcher {
 
   /** Save eventId in Set for processing. */
   public dispatchSyncUiEvent(eventId: string): void {
-    // istanbul ignore if
     if (0 === this._timeoutPeriod) {
       return;
     }
@@ -88,7 +87,6 @@ export class InternalSyncUiEventDispatcher {
 
   /** Save multiple eventIds in Set for processing. */
   public dispatchSyncUiEvents(eventIds: string[]): void {
-    // istanbul ignore if
     if (0 === this._timeoutPeriod) {
       return;
     }

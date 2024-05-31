@@ -44,22 +44,18 @@ function calculateChange(
   if ("pageX" in e) {
     x = e.pageX;
   } else {
-    // istanbul ignore if
     if (undefined === e.touches || 0 === e.touches.length) return currentHue;
     x = e.touches[0].pageX;
   }
-  // istanbul ignore if
   if (undefined === x) return currentHue;
 
   let y: number | undefined;
   if ("pageY" in e) {
     y = e.pageY;
   } else {
-    // istanbul ignore if
     if (undefined === e.touches || 0 === e.touches.length) return currentHue;
     y = e.touches[0].pageY;
   }
-  // istanbul ignore if
   if (undefined === y) return currentHue;
 
   const pointerX = x - (containerLeft + window.scrollX);
@@ -211,9 +207,7 @@ HueSliderProps) {
       }
 
       if (undefined !== newHue) {
-        // istanbul ignore if
         if (newHue > 359) newHue = 359; // 360 is same as zero
-        // istanbul ignore if
         if (newHue < 0) newHue = 0;
 
         const newColor = hsv.clone(newHue);

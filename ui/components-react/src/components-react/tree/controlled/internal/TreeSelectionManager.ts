@@ -257,12 +257,10 @@ export class TreeSelectionManager
       .getModel()
       .getNode(processedNodeId);
 
-    // istanbul ignore if
     if (!processedNode || isEditing(processedNode)) return;
 
     const handleKeyboardSelectItem = (index: number) => {
       const node = this.getVisibleNodeAtIndex(this._getVisibleNodes(), index);
-      // istanbul ignore if
       if (!node || isEditing(node)) return;
 
       const selectionFunc = this._selectionHandler.createSelectionFunction(

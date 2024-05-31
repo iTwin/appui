@@ -32,7 +32,6 @@ function calculateChange(
   } else {
     if (undefined !== e.touches && e.touches.length) x = e.touches[0].pageX;
   }
-  // istanbul ignore if
   if (undefined === x) return hsv;
 
   let y = 0;
@@ -41,7 +40,6 @@ function calculateChange(
   } else {
     if (undefined !== e.touches && e.touches.length) y = e.touches[0].pageY;
   }
-  // istanbul ignore if
   if (undefined === y) return hsv;
 
   let left = x - (containerLeft + window.scrollX);
@@ -60,13 +58,9 @@ function calculateChange(
   let saturation = Math.round((left * 100) / containerWidth);
   let value = Math.round(-((top * 100) / containerHeight) + 100);
 
-  // istanbul ignore if
   if (saturation < 0) saturation = 0;
-  // istanbul ignore if
   if (saturation > 100) saturation = 100;
-  // istanbul ignore if
   if (value < 0) value = 0;
-  // istanbul ignore if
   if (value > 100) value = 100;
 
   return hsv.clone(hsv.h, saturation, value);
@@ -195,13 +189,9 @@ SaturationPickerProps) {
         }
       }
 
-      // istanbul ignore if
       if (s < 0) s = 0;
-      // istanbul ignore if
       if (s > 100) s = 100;
-      // istanbul ignore if
       if (v < 0) v = 0;
-      // istanbul ignore if
       if (v > 100) v = 100;
 
       const newColor = new HSVColor(h, s, v);
