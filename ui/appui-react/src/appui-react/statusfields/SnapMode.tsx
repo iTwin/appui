@@ -161,6 +161,7 @@ function SnapModeFieldComponent(props: SnapModeFieldProps) {
         }
       >
         {title}
+        <StatusBarPopover.ExpandIndicator />
       </Button>
     </StatusBarPopover>
   );

@@ -6,6 +6,7 @@ import * as React from "react";
 import { render, screen } from "@testing-library/react";
 import { StatusBarPopover } from "../../appui-react/statusbar/popup/StatusBarPopover";
 import userEvent from "@testing-library/user-event";
+import { Button } from "@itwin/itwinui-react";
 
 describe("<StatusBarPopover />", () => {
   let user: ReturnType<typeof userEvent.setup>;
@@ -17,13 +18,28 @@ describe("<StatusBarPopover />", () => {
   it("renders correctly", async () => {
     const { container } = render(
       <StatusBarPopover content={<div data-testId="popover-content" />}>
-        <button className="popoverTrigger" />
+        <Button className="popoverTrigger" />
       </StatusBarPopover>
     );
 
     expect(container.querySelector(".popoverTrigger")).toBeTruthy();
     await user.click(screen.getByRole("button"));
     expect(screen.queryByTestId("popover-content")).toBeTruthy();
+  });
+
+  it("renders ExpandIndicator", async () => {
+    const { container } = render(
+      <StatusBarPopover content={<div data-testId="popover-content" />}>
+        <Button className="popoverTrigger">
+          Trigger
+          <StatusBarPopover.ExpandIndicator />
+        </Button>
+      </StatusBarPopover>
+    );
+
+    expect(
+      container.querySelector(".uifw-statusBar-popup-expandIndicator")
+    ).toBeTruthy();
   });
 
   it("should not close on outside click when closeOnOutsideClick is false", async () => {
@@ -36,7 +52,7 @@ describe("<StatusBarPopover />", () => {
           content={<div data-testId="popover-content" />}
           onVisibleChange={spyOnVisibleChange}
         >
-          <button data-testId="popover-trigger" />
+          <Button data-testId="popover-trigger" />
         </StatusBarPopover>
       </>
     );
@@ -57,7 +73,7 @@ describe("<StatusBarPopover />", () => {
           content={<div data-testId="popover-content" />}
           onVisibleChange={spyOnVisibleChange}
         >
-          <button data-testId="popover-trigger" />
+          <Button data-testId="popover-trigger" />
         </StatusBarPopover>
       </>
     );

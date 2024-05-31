@@ -150,7 +150,6 @@ export function MessageCenterField(props: CommonProps) {
           </Tabs.Wrapper>
         </>
       }
-      applyBackground
     >
       <Button
         ref={indicatorRef}
@@ -164,6 +163,7 @@ export function MessageCenterField(props: CommonProps) {
         style={props.style}
       >
         {translate("messageCenter.messages")}
+        <StatusBarPopover.ExpandIndicator />
       </Button>
     </StatusBarPopover>
   );

@@ -533,10 +533,8 @@ export class ToolAssistanceField extends React.Component<
           style={this.props.style}
           ref={this._indicator}
         >
-          <>
             {prompt}
-            <div className="nz-triangle" />
-          </>
+          <StatusBarPopover.ExpandIndicator />
         </Button>
       </StatusBarPopover>
     );

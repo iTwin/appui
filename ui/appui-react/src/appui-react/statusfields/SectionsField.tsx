@@ -128,6 +128,7 @@ export function SectionsStatusField(props: SectionsStatusFieldProps) {
         >
           <IconButton title={tooltip} styleType="borderless">
             <Icon iconSpec={svgSectionTool} />
+            <StatusBarPopover.ExpandIndicator />
           </IconButton>
         </StatusBarPopover>
       )}

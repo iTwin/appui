@@ -67,6 +67,7 @@ export function UnitsField(props: UnitsFieldProps) {
     >
       <IconButton styleType="borderless" label={label}>
         <SvgLightbulbHollow />
+        <StatusBarPopover.ExpandIndicator />
       </IconButton>
     </StatusBarPopover>
   );
