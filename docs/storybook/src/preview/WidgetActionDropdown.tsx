@@ -46,7 +46,6 @@ export function PreviewStory(props: PreviewStoryProps) {
       features={{
         enableMaximizedFloatingWidget: true,
         horizontalPanelAlignment: true,
-        controlWidgetVisibility: true,
         widgetActionDropdown: { threshold: props.threshold },
       }}
     >
