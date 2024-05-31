@@ -370,7 +370,6 @@ export class FrameworkUiAdmin extends UiAdmin {
   ): boolean {
     const el = anchorElement ?? UiFramework.controls.getWrapperElement();
 
-    // istanbul ignore if
     if (relativePosition === undefined)
       relativePosition = RelativePosition.TopRight;
 

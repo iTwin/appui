@@ -81,7 +81,6 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
    * @param createRootFn Function imported from `import { createRoot } from "react-dom/client";`
    * @beta Will be removed once the transition to React 18 is complete.
    */
-  // istanbul ignore next: Result of this assignment is only visible in `open`, which is not tested.
   public useCreateRoot(createRootFn: CreateRoot): void {
     this._createRoot = createRootFn;
   }
@@ -91,7 +90,6 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
    * @param element Element to render.
    * @param container Container to render to.
    */
-  // istanbul ignore next: Used in `open` which is not tested.
   private render(
     element: React.FunctionComponentElement<any>,
     container: Element | DocumentFragment
@@ -142,7 +140,6 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
     return childWindow?.childWindowId;
   }
 
-  // istanbul ignore next: Used in `open` which is not tested.
   private renderChildWindowContents(
     childWindow: ChildWindow,
     childWindowId: string,
@@ -239,7 +236,6 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
 
   /** Close all child/pop-out windows. This typically is called when the frontstage is changed. */
   public closeAll() {
-    // istanbul ignore next
     this.openChildWindows.forEach((openChildWindow) =>
       openChildWindow.window.close()
     );
@@ -272,7 +268,6 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
     return true;
   };
 
-  // istanbul ignore next: Used in `open` which is not tested.
   private adjustWindowLocation(location: ChildWindowLocationProps) {
     // If no location is provided, child window will open in the center of the current window.
     if (location.top === 0 && location.left === 0) {
@@ -292,7 +287,6 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
    * @param useDefaultPopoutUrl use "/iTwinPopup.html" as the window Url, "" otherwise.
    * @returns true if the window is opened successfully.
    */
-  // istanbul ignore next: Would require mocking window.open to return a window object.
   public open(
     childWindowId: string,
     title: string,

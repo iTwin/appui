@@ -36,14 +36,11 @@ function WidgetFallback() {
 /** @internal */
 export function WidgetContent() {
   const widget = useWidgetDef();
-  // istanbul ignore next
   const itemId = widget?.id ?? widget?.label ?? "unknown";
   const onSave = React.useCallback(() => {
-    // istanbul ignore next
     widget?.saveTransientState();
   }, [widget]);
   const onRestore = React.useCallback(() => {
-    // istanbul ignore next
     widget?.restoreTransientState();
   }, [widget]);
   useTransientState(onSave, onRestore);

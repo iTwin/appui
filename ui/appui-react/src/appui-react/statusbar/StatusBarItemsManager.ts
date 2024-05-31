@@ -55,7 +55,6 @@ export class StatusBarItemsManager {
         const { itemsUpdated, updatedItems } =
           this.internalRefreshAffectedItems(items, new Set(eventIds));
 
-        // istanbul ignore else
         if (itemsUpdated) items = updatedItems;
       }
     }
@@ -77,7 +76,6 @@ export class StatusBarItemsManager {
   }
 
   public set items(items: ReadonlyArray<StatusBarItem>) {
-    // istanbul ignore else
     if (items !== this._items) this.loadItemsInternal(items, true, true);
   }
 
@@ -126,9 +124,7 @@ export class StatusBarItemsManager {
           entry.syncEventIds.forEach((eventId: string) =>
             eventIds.add(eventId.toLowerCase())
           );
-        } /* istanbul ignore else */ else if (
-          entry instanceof ConditionalStringValue
-        ) {
+        } else if (entry instanceof ConditionalStringValue) {
           entry.syncEventIds.forEach((eventId: string) =>
             eventIds.add(eventId.toLowerCase())
           );
@@ -142,7 +138,6 @@ export class StatusBarItemsManager {
     items: readonly StatusBarItem[],
     eventIds: Set<string>
   ): { itemsUpdated: boolean; updatedItems: StatusBarItem[] } {
-    // istanbul ignore next
     if (0 === eventIds.size) return { itemsUpdated: false, updatedItems: [] };
 
     let updateRequired = false;
@@ -153,13 +148,9 @@ export class StatusBarItemsManager {
 
       for (const [, entry] of Object.entries(updatedItem)) {
         if (entry instanceof ConditionalBooleanValue) {
-          // istanbul ignore else
           if (ConditionalBooleanValue.refreshValue(entry, eventIds))
             updateRequired = true;
-        } /* istanbul ignore else */ else if (
-          entry instanceof ConditionalStringValue
-        ) {
-          // istanbul ignore else
+        } else if (entry instanceof ConditionalStringValue) {
           if (ConditionalStringValue.refreshValue(entry, eventIds))
             updateRequired = true;
         }
@@ -172,7 +163,6 @@ export class StatusBarItemsManager {
   }
 
   public refreshAffectedItems(eventIds: Set<string>) {
-    // istanbul ignore next
     if (0 === eventIds.size) return;
 
     const { itemsUpdated, updatedItems } = this.internalRefreshAffectedItems(
@@ -180,7 +170,6 @@ export class StatusBarItemsManager {
       eventIds
     );
 
-    // istanbul ignore else
     if (itemsUpdated) this.loadItemsInternal(updatedItems, false, true);
   }
 }

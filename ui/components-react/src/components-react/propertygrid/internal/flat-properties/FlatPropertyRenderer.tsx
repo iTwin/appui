@@ -181,7 +181,6 @@ const DisplayValue: React.FC<DisplayValueProps> = (props) => {
 
   if (props.isEditing) {
     const _onEditCommit = (args: PropertyUpdatedArgs) => {
-      /* istanbul ignore else */
       if (props.category) props.onEditCommit?.(args, props.category);
     };
 
@@ -189,7 +188,7 @@ const DisplayValue: React.FC<DisplayValueProps> = (props) => {
       <EditorContainer
         propertyRecord={props.propertyRecord}
         onCommit={_onEditCommit}
-        onCancel={props.onEditCancel ?? /* istanbul ignore next */ (() => {})}
+        onCancel={props.onEditCancel ?? (() => {})}
         setFocus={true}
       />
     );

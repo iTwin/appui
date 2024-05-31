@@ -274,7 +274,6 @@ export class WidgetDef {
     this._widgetReactNode = config.content;
     this._icon = config.icon;
 
-    // istanbul ignore next
     if (config.icon !== undefined && this._icon === undefined)
       this._icon = config.icon;
 
@@ -333,7 +332,6 @@ export class WidgetDef {
       let usedClassId: string = "";
 
       if (typeof this.classId === "string") {
-        // istanbul ignore else
         if (this.classId)
           this._widgetControl = UiFramework.controls.create(
             this.classId,
@@ -354,7 +352,6 @@ export class WidgetDef {
         ) as WidgetControl;
       }
 
-      // istanbul ignore else
       if (this._widgetControl) {
         if (this._widgetControl.getType() !== type) {
           // eslint-disable-next-line deprecation/deprecation
@@ -369,7 +366,6 @@ export class WidgetDef {
       }
     }
 
-    // istanbul ignore next - To avoid breaking API changes, if a WidgetControl is not specified for a status bar use Default one.
     if (!this._widgetControl && this.isStatusBar) {
       const info = new ConfigurableCreateInfo(
         "StatusBarWidgetComposerControl",
@@ -390,7 +386,6 @@ export class WidgetDef {
         ConfigurableUiControlType.Widget
       );
 
-      // istanbul ignore else
       if (widgetControl && widgetControl.reactNode)
         this._widgetReactNode = widgetControl.reactNode;
     }

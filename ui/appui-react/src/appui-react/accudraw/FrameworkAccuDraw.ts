@@ -367,7 +367,6 @@ export class FrameworkAccuDraw
           ? QuantityType.Angle
           : QuantityType.Length
       );
-    // istanbul ignore else
     if (formatterSpec)
       formattedValue = IModelApp.quantityFormatter.formatQuantity(
         value,
@@ -389,7 +388,6 @@ export class FrameworkAccuDraw
   }
 
   private outputInfoMessage(message: string): void {
-    // istanbul ignore else
     if (FrameworkAccuDraw.displayNotifications)
       IModelApp.notifications.outputMessage(
         new NotifyMessageDetails(OutputMessagePriority.Info, message)

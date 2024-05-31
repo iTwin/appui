@@ -40,7 +40,6 @@ export function ThousandsSelector(props: ThousandsSelectorProps) {
       },
     ];
     const completeListOfEntries: SelectOption<string>[] = [];
-    // istanbul ignore next (only used if format already has a character that does not match standard options)
     if (
       undefined ===
       uomDefaultEntries.find((option) => option.value === separator)

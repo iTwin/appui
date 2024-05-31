@@ -123,7 +123,7 @@ export class StandardNavigationToolsUiItemsProvider implements UiItemsProvider {
           )
         );
       }
-    } /* istanbul ignore else */ else if (
+    } else if (
       toolbarUsage === ToolbarUsage.ViewNavigation &&
       toolbarOrientation === ToolbarOrientation.Vertical
     ) {

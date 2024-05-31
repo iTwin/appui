@@ -56,13 +56,11 @@ export function getSelectionContextSyncEventIds(): string[] {
 export function isNoSelectionActive(): boolean {
   const activeContentControl = UiFramework.content.getActiveContentControl();
   let selectionCount = 0;
-  // istanbul ignore if
   if (!UiFramework.frameworkStateKey)
     selectionCount =
       UiFramework.store.getState()[UiFramework.frameworkStateKey].frameworkState
         .sessionState.numItemsSelected;
 
-  // istanbul ignore if
   if (activeContentControl?.viewport) {
     const hiddenElementsSet = activeContentControl.viewport.neverDrawn;
     const selectedElementsSet =
@@ -82,7 +80,6 @@ export function isNoSelectionActive(): boolean {
  */
 export function areNoFeatureOverridesActive(): boolean {
   const activeContentControl = UiFramework.content.getActiveContentControl();
-  // istanbul ignore next
   if (activeContentControl && activeContentControl.viewport)
     return !UiFramework.hideIsolateEmphasizeActionHandler.areFeatureOverridesActive(
       activeContentControl.viewport
@@ -114,14 +111,12 @@ export function getIsHiddenIfSelectionNotActive(): ConditionalBooleanValue {
 /** return state with isVisible set to true is SectionSet is active.
  * @beta
  */
-// istanbul ignore next
 export function featureOverridesActiveStateFunc(
   state: Readonly<BaseItemState>
 ): BaseItemState {
   const activeContentControl = UiFramework.content.getActiveContentControl();
   let isVisible = false;
 
-  // istanbul ignore next
   if (activeContentControl && activeContentControl.viewport)
     isVisible =
       UiFramework.hideIsolateEmphasizeActionHandler.areFeatureOverridesActive(
@@ -134,7 +129,6 @@ export function featureOverridesActiveStateFunc(
 /** return state with isVisible set to true is SectionSet is active.
  * @beta
  */
-// istanbul ignore next
 export function selectionContextStateFunc(
   state: Readonly<BaseItemState>
 ): BaseItemState {
@@ -160,7 +154,6 @@ export function selectionContextStateFunc(
 /** Utility Class that provides definitions for tools dependent on current selection. These definitions can be used to populate toolbars.
  * @public
  */
-// istanbul ignore next
 export class SelectionContextToolDefinitions {
   public static get isolateModelsInSelectionItemDef() {
     return new CommandItemDef({

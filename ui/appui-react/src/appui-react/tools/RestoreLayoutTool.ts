@@ -25,11 +25,9 @@ export class RestoreFrontstageLayoutTool extends Tool {
   public static override toolId = "RestoreFrontstageLayout";
   public static override iconSpec = svgViewLayouts;
 
-  // istanbul ignore next
   public static override get minArgs() {
     return 0;
   }
-  // istanbul ignore next
   public static override get maxArgs() {
     return 1;
   }

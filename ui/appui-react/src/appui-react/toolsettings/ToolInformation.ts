@@ -39,7 +39,6 @@ export class ToolInformation {
             this.toolId
           ) as ToolUiProvider;
       }
-      // istanbul ignore else
       if (provider) {
         if (provider.getType() !== ConfigurableUiControlType.ToolUiProvider) {
           // eslint-disable-next-line deprecation/deprecation

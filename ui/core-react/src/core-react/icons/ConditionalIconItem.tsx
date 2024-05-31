@@ -31,17 +31,15 @@ export class ConditionalIconItem {
    * @internal
    */
   public static isConditionalIconItem(item: any): item is ConditionalIconItem {
-    /* istanbul ignore else */
     if (!item || typeof item !== "object") return false;
     const itemPrototype = Object.getPrototypeOf(item);
-    /* istanbul ignore else */
+
     if (itemPrototype.constructor.name !== "ConditionalIconItem") return false;
 
     return true;
   }
   /** The current IconSpec according to conditions */
   public get value(): IconSpec {
-    /* istanbul ignore else */
     if (undefined !== this._value) return this._value;
     this._value = this.iconGetter();
     return this._value;
@@ -50,7 +48,7 @@ export class ConditionalIconItem {
   /** Called to update the value by running the iconGetter */
   public refresh(): boolean {
     const newValue = this.iconGetter();
-    /* istanbul ignore else */
+
     if (newValue !== this._value) {
       this._value = newValue;
       return true;
@@ -63,7 +61,6 @@ export class ConditionalIconItem {
     conditionalValue: ConditionalIconItem | string | undefined,
     eventIds: Set<string>
   ): boolean {
-    /* istanbul ignore else */
     if (
       undefined === conditionalValue ||
       !ConditionalIconItem.isConditionalIconItem(conditionalValue)
@@ -71,7 +68,7 @@ export class ConditionalIconItem {
       return false;
 
     const iconItem = conditionalValue;
-    /* istanbul ignore else */
+
     if (
       iconItem.syncEventIds.some((value: string): boolean =>
         eventIds.has(value.toLowerCase())
@@ -85,10 +82,8 @@ export class ConditionalIconItem {
   public static getValue(
     conditionalValue: ConditionalIconItem | string | undefined
   ): IconSpec | undefined {
-    /* istanbul ignore else */
     if (undefined === conditionalValue) return undefined;
 
-    /* istanbul ignore else */
     if (ConditionalIconItem.isConditionalIconItem(conditionalValue)) {
       const iconItem = conditionalValue;
       return iconItem.value;

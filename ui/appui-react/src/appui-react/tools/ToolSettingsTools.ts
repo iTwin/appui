@@ -27,7 +27,6 @@ export class FocusToolSettings extends Tool {
 export class BumpToolSetting extends Tool {
   public static override toolId = "BumpToolSetting";
 
-  // istanbul ignore next
   public static override get maxArgs() {
     return 1;
   }

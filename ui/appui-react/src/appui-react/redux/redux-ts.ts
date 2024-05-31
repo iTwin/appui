@@ -112,9 +112,7 @@ export function createAction<T extends string, P>(
   payload: P
 ): ActionWithPayload<T, DeepReadonly<P>>;
 export function createAction<T extends string, P>(type: T, payload?: P) {
-  return payload === undefined
-    ? /* istanbul ignore next */ { type }
-    : { type, payload };
+  return payload === undefined ? { type } : { type, payload };
 }
 
 /**

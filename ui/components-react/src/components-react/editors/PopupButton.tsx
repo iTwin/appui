@@ -96,13 +96,11 @@ export class PopupButton extends React.PureComponent<
     this.setState({ showPopup: false }, () => {
       this.props.onClose && this.props.onClose();
 
-      // istanbul ignore else
       if (this._buttonRef.current) this._buttonRef.current.focus();
     });
   };
 
   private _handleKeyDown = (event: React.KeyboardEvent) => {
-    // istanbul ignore else
     if (
       (event.key === Key.ArrowDown.valueOf() ||
         event.key === " " ||

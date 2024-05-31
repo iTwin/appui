@@ -56,8 +56,7 @@ export class WeightEditor
     //  const record = this.props.propertyRecord;
     //  if (record && record.property && record.property.editor && record.property.editor.params) {
     //    const weightParams = record.property.editor.params.find((param: PropertyEditorParams) => param.type === PropertyEditorParamTypes.ColorData) as WeightEditorParams;
-    //    // istanbul ignore else
-    //    if (weightParams) {
+    //        //    if (weightParams) {
     //      weightParams.weightValues.forEach((weight: number) => {
     //        this._availableWeights.push(weight);
     //      });
@@ -69,7 +68,6 @@ export class WeightEditor
     const record = this.props.propertyRecord;
     let propertyValue: PropertyValue | undefined;
 
-    // istanbul ignore else
     if (record && record.value.valueFormat === PropertyValueFormat.Primitive) {
       propertyValue = {
         valueFormat: PropertyValueFormat.Primitive,
@@ -87,14 +85,12 @@ export class WeightEditor
 
   public get hasFocus(): boolean {
     let containsFocus = false;
-    // istanbul ignore else
     if (this._divElement.current)
       containsFocus = this._divElement.current.contains(document.activeElement);
     return containsFocus;
   }
 
   private setFocus(): void {
-    // istanbul ignore else
     if (this._control && !this.state.isDisabled) {
       this._control.setFocus();
     }
@@ -108,10 +104,8 @@ export class WeightEditor
         weightValue: weight,
       },
       async () => {
-        // istanbul ignore else
         if (propertyRecord && this.props.onCommit) {
           const propertyValue = await this.getPropertyValue();
-          // istanbul ignore else
           if (propertyValue !== undefined) {
             this.props.onCommit({ propertyRecord, newValue: propertyValue });
           }
@@ -142,7 +136,6 @@ export class WeightEditor
     const record = this.props.propertyRecord;
     let initialValue = 0;
 
-    // istanbul ignore else
     if (record && record.value.valueFormat === PropertyValueFormat.Primitive) {
       initialValue = record.value.value as number;
     }
@@ -151,7 +144,6 @@ export class WeightEditor
       record && undefined !== record.isReadonly ? record.isReadonly : false;
     const isDisabled = record ? record.isDisabled : undefined;
 
-    // istanbul ignore else
     if (this._isMounted)
       this.setState({ weightValue: initialValue, readonly, isDisabled }, () => {
         if (this.props.setFocus) {
@@ -173,7 +165,7 @@ export class WeightEditor
           activeWeight={this.state.weightValue}
           weights={
             this._availableWeights.length > 0
-              ? /* istanbul ignore next */ this._availableWeights
+              ? this._availableWeights
               : undefined
           }
           disabled={this.state.isDisabled ? true : false}
@@ -191,7 +183,6 @@ export class WeightEditor
  * @public
  */
 export class WeightPropertyEditor extends PropertyEditorBase {
-  // istanbul ignore next
   public get reactNode(): React.ReactNode {
     return <WeightEditor />;
   }

@@ -95,7 +95,6 @@ export class Calculator extends React.PureComponent<
   };
 
   private _ok() {
-    // istanbul ignore else
     if (this.props.onOk) {
       this.props.onOk(this.props.engine.result);
     }
@@ -107,7 +106,6 @@ export class Calculator extends React.PureComponent<
   };
 
   private _cancel() {
-    // istanbul ignore else
     if (this.props.onCancel) {
       this.props.onCancel();
     }

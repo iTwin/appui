@@ -61,7 +61,6 @@ export class ImageCheckBoxEditor
     const record = this.props.propertyRecord;
     let propertyValue: PropertyValue | undefined;
 
-    // istanbul ignore else
     if (record && record.value.valueFormat === PropertyValueFormat.Primitive) {
       propertyValue = {
         valueFormat: PropertyValueFormat.Primitive,
@@ -106,7 +105,6 @@ export class ImageCheckBoxEditor
     let imageOff = "";
     let isDisabled = false;
 
-    // istanbul ignore else
     if (
       propertyRecord &&
       propertyRecord.value.valueFormat === PropertyValueFormat.Primitive
@@ -115,7 +113,6 @@ export class ImageCheckBoxEditor
       checkboxValue = primitiveValue as boolean;
     }
 
-    // istanbul ignore else
     if (propertyRecord && propertyRecord.isDisabled)
       isDisabled = propertyRecord.isDisabled;
 
@@ -129,7 +126,6 @@ export class ImageCheckBoxEditor
         (param: PropertyEditorParams) =>
           param.type === PropertyEditorParamTypes.CheckBoxImages.valueOf()
       ) as ImageCheckBoxParams;
-      // istanbul ignore else
       if (imageCheckBoxParams) {
         imageOn = imageCheckBoxParams.imageOn;
         imageOff = imageCheckBoxParams.imageOff;
@@ -144,10 +140,8 @@ export class ImageCheckBoxEditor
         checkboxValue: checked,
       },
       async () => {
-        // istanbul ignore else
         if (this.props.propertyRecord && this.props.onCommit) {
           const propertyValue = await this.getPropertyValue();
-          // istanbul ignore else
           if (this._isMounted && propertyValue !== undefined) {
             this.props.onCommit({
               propertyRecord: this.props.propertyRecord,

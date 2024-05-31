@@ -190,7 +190,6 @@ export class ToolAssistanceField extends React.Component<
       this._handleToolIconChangedEvent
     );
 
-    // istanbul ignore else
     if (this.props.uiStateStorage)
       this._uiSettingsStorage = this.props.uiStateStorage;
     else if (this.context) this._uiSettingsStorage = this.context;
@@ -211,7 +210,6 @@ export class ToolAssistanceField extends React.Component<
 
   private async restoreSettings() {
     let getShowPromptAtCursor: Promise<UiStateStorageResult> | undefined;
-    // istanbul ignore else
     if (this.props.includePromptAtCursor) {
       getShowPromptAtCursor = this._showPromptAtCursorSetting.getSetting(
         this._uiSettingsStorage
@@ -223,19 +221,15 @@ export class ToolAssistanceField extends React.Component<
     const [showPromptAtCursorResult, mouseTouchTabIndexResult] =
       await Promise.all([getShowPromptAtCursor, getMouseTouchTabIndex]);
 
-    // istanbul ignore else
     if (
       showPromptAtCursorResult !== undefined &&
       showPromptAtCursorResult.status === UiStateStorageStatus.Success
     ) {
-      // istanbul ignore else
       if (this._isMounted)
         this.setState({ showPromptAtCursor: showPromptAtCursorResult.setting });
     }
 
-    // istanbul ignore else
     if (mouseTouchTabIndexResult.status === UiStateStorageStatus.Success) {
-      // istanbul ignore else
       if (this._isMounted)
         this.setState({ mouseTouchTabIndex: mouseTouchTabIndexResult.setting });
     }
@@ -283,7 +277,6 @@ export class ToolAssistanceField extends React.Component<
       }
     }
 
-    // istanbul ignore else
     if (this._isMounted)
       this.setState(
         {
@@ -314,7 +307,6 @@ export class ToolAssistanceField extends React.Component<
   private _handleToolIconChangedEvent = (
     args: ToolIconChangedEventArgs // eslint-disable-line deprecation/deprecation
   ): void => {
-    // istanbul ignore else
     if (this._isMounted)
       this.setState({ toolIconSpec: args.iconSpec }, () => {
         this._showCursorPrompt();
@@ -357,7 +349,6 @@ export class ToolAssistanceField extends React.Component<
     const showMouseInstructions = index === 0;
     const showTouchInstructions = index === 1;
 
-    // istanbul ignore else
     if (this._isMounted)
       this.setState(
         {
@@ -377,7 +368,7 @@ export class ToolAssistanceField extends React.Component<
   public override render(): React.ReactNode {
     const { instructions } = this.state;
     const dialogTitle = IModelApp.toolAdmin.activeTool
-      ? /* istanbul ignore next */ IModelApp.toolAdmin.activeTool.flyover
+      ? IModelApp.toolAdmin.activeTool.flyover
       : UiFramework.translate("toolAssistance.title");
     const mouseLabel = UiFramework.translate("toolAssistance.mouse");
     const touchLabel = UiFramework.translate("toolAssistance.touch");
@@ -481,7 +472,6 @@ export class ToolAssistanceField extends React.Component<
 
     if (prompt) tooltip = prompt;
 
-    // istanbul ignore next
     if (IModelApp.toolAdmin.activeTool)
       tooltip = `${IModelApp.toolAdmin.activeTool.flyover} > ${tooltip}  `;
 
@@ -553,7 +543,6 @@ export class ToolAssistanceField extends React.Component<
   private _onPromptAtCursorChange = async (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
-    // istanbul ignore else
     if (this._isMounted)
       this.setState(
         {
@@ -572,7 +561,6 @@ export class ToolAssistanceField extends React.Component<
   };
 
   private _handleOutsideClick = (e: MouseEvent) => {
-    // istanbul ignore if
     if (
       !this._indicator.current ||
       !(e.target instanceof Node) ||
@@ -588,7 +576,6 @@ export class ToolAssistanceField extends React.Component<
   };
 
   private _handlePinButtonClick = () => {
-    // istanbul ignore else
     if (this._isMounted) this.setState({ isPinned: true });
   };
 
@@ -688,7 +675,6 @@ export class ToolAssistanceField extends React.Component<
       ? "uifw-toolassistance-svg-medium"
       : "uifw-toolassistance-svg";
 
-    // istanbul ignore else
     if (
       typeof instruction.image !== "string" &&
       instruction.image !== ToolAssistanceImage.Keyboard
@@ -754,17 +740,14 @@ export class ToolAssistanceField extends React.Component<
         case ToolAssistanceImage.TouchCursorDrag:
           svgImage = touchCursorDragIcon;
           className = mediumSize
-            ? /* istanbul ignore next */ "uifw-toolassistance-svg-medium-wide"
+            ? "uifw-toolassistance-svg-medium-wide"
             : "uifw-toolassistance-svg-wide";
           break;
       }
 
       image = (
         <div className={className}>
-          {svgImage && (
-            // istanbul ignore next
-            <Icon iconSpec={svgImage} />
-          )}
+          {svgImage && <Icon iconSpec={svgImage} />}
         </div>
       );
     }

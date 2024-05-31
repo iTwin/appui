@@ -33,7 +33,6 @@ export function TabTarget() {
     useTargetArgs(widgetId, tabIndex)
   );
   const allowedTarget = useAllowedWidgetTarget(widgetId);
-  // istanbul ignore next
   const hidden =
     !allowedTarget ||
     (!draggedTab && !draggedWidgetId) ||
@@ -41,9 +40,7 @@ export function TabTarget() {
   const className = classnames(
     "nz-target-tabTarget",
     hidden && "nz-hidden",
-    // istanbul ignore next
     targeted && "nz-targeted",
-    // istanbul ignore next
     cursorType && getCursorClassName(cursorType)
   );
   return <div className={className} ref={ref} />;

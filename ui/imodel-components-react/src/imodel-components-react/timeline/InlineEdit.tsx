@@ -49,7 +49,6 @@ export class InlineEdit extends React.Component<
     }
   }
 
-  // istanbul ignore next
   private _onBlur = (event: React.ChangeEvent<HTMLInputElement>) => {
     this._sendChange(event.target.value);
   };
@@ -77,7 +76,6 @@ export class InlineEdit extends React.Component<
   };
 
   private _sendChange(value: string) {
-    // istanbul ignore else
     if (this.props.onChange) this.props.onChange(value);
   }
 

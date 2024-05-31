@@ -32,7 +32,6 @@ export interface ViewOverlayProps {
  * data provider is attached to the TimelineComponent and the overlay is made visible.
  * @public
  */
-// istanbul ignore next
 export function DefaultViewOverlay({
   viewport,
   onPlayPause,

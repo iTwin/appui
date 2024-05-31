@@ -208,7 +208,6 @@ export class PointerMessage extends React.Component<
     );
   }
 
-  // istanbul ignore next
   private _handleSizeChanged = (size: SizeProps) => {
     this._size = size;
     this.updatePosition();
@@ -269,7 +268,6 @@ export class PointerMessage extends React.Component<
 
     this.setState((prevState) => {
       if (!this._viewport) return null;
-      // istanbul ignore if
       if (!this._position) return null;
 
       const containerBounds = Rectangle.create(
@@ -287,10 +285,8 @@ export class PointerMessage extends React.Component<
       );
       const position = adjustedPosition.offset(viewportOffset);
 
-      // istanbul ignore else
       if (position.equals(prevState.position)) return null;
 
-      // istanbul ignore next
       return {
         position,
       };

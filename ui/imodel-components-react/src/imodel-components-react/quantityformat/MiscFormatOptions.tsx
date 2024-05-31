@@ -89,25 +89,20 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
       let formatTraits: string[] = [traitStr];
       if (setActive) {
         // setting trait
-        // istanbul ignore else
         if (formatProps.formatTraits) {
           const traits = Array.isArray(formatProps.formatTraits)
             ? formatProps.formatTraits
-            : /* istanbul ignore next */ formatProps.formatTraits.split(
-                /,|;|\|/
-              );
-          // istanbul ignore else
+            : formatProps.formatTraits.split(/,|;|\|/);
           if (!traits.find((traitEntry) => traitStr === traitEntry)) {
             formatTraits = [...traits, traitStr];
           }
         }
       } else {
         // clearing trait
-        // istanbul ignore next
         if (!formatProps.formatTraits) return;
         const traits = Array.isArray(formatProps.formatTraits)
           ? formatProps.formatTraits
-          : /* istanbul ignore next */ formatProps.formatTraits.split(/,|;|\|/);
+          : formatProps.formatTraits.split(/,|;|\|/);
         formatTraits = traits.filter((traitEntry) => traitEntry !== traitStr);
       }
       const newFormatProps = { ...formatProps, formatTraits };
@@ -155,7 +150,6 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
     (decimalSeparator: string) => {
       let thousandSeparator = formatProps.thousandSeparator;
       // make sure 1000 and decimal separator do not match
-      // istanbul ignore else
       if (isFormatTraitSet(FormatTraits.Use1000Separator)) {
         switch (decimalSeparator) {
           case ".":
@@ -213,7 +207,6 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
 
   const handleKeyUpOnLink = React.useCallback(
     (e: React.KeyboardEvent<HTMLAnchorElement>) => {
-      // istanbul ignore else
       if (e.key === Key.Enter.valueOf() || e.key === " ") {
         onShowHideOptions(!showOptions);
         e.preventDefault();

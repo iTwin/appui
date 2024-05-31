@@ -63,7 +63,6 @@ export class NumericInputEditor
     const record = this.props.propertyRecord;
     let propertyValue: PropertyValue | undefined;
 
-    // istanbul ignore else
     if (record && record.value.valueFormat === PropertyValueFormat.Primitive) {
       propertyValue = {
         valueFormat: PropertyValueFormat.Primitive,
@@ -80,10 +79,8 @@ export class NumericInputEditor
   }
 
   private _handleCommit = async (): Promise<void> => {
-    // istanbul ignore else
     if (this.props.propertyRecord && this.props.onCommit) {
       const propertyValue = await this.getPropertyValue();
-      // istanbul ignore else
       if (propertyValue !== undefined) {
         this.props.onCommit({
           propertyRecord: this.props.propertyRecord,
@@ -97,9 +94,8 @@ export class NumericInputEditor
     value: number | undefined,
     _stringValue: string
   ): void => {
-    const newValue = value !== undefined ? value : /* istanbul ignore next */ 0;
+    const newValue = value !== undefined ? value : 0;
 
-    // istanbul ignore else
     if (this._isMounted)
       this.setState(
         {
@@ -133,7 +129,6 @@ export class NumericInputEditor
     const record = this.props.propertyRecord;
     let initialValue = 0;
 
-    // istanbul ignore else
     if (record && record.value.valueFormat === PropertyValueFormat.Primitive) {
       initialValue = record.value.value as number;
     }
@@ -160,9 +155,7 @@ export class NumericInputEditor
           param.type === PropertyEditorParamTypes.InputEditorSize.valueOf()
       ) as InputEditorSizeParams;
       if (editorSizeParams) {
-        // istanbul ignore else
         if (editorSizeParams.size) size = editorSizeParams.size;
-        // istanbul ignore else
         if (editorSizeParams.maxLength) maxLength = editorSizeParams.maxLength;
       }
 
@@ -178,7 +171,6 @@ export class NumericInputEditor
       }
     }
 
-    // istanbul ignore else
     if (this._isMounted)
       this.setState({
         value: initialValue,
@@ -236,7 +228,6 @@ export class NumericInputPropertyEditor extends PropertyEditorBase {
   public get reactNode(): React.ReactNode {
     return <NumericInputEditor />;
   }
-  // istanbul ignore next
   public override get containerHandlesEnter(): boolean {
     // let input editor process enter key
     return false;

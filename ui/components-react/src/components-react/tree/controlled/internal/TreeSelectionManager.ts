@@ -147,10 +147,7 @@ export class TreeSelectionManager
     nodes: VisibleTreeNodes | undefined,
     index: number
   ): TreeModelNode | undefined {
-    const foundNode =
-      nodes !== undefined
-        ? nodes.getAtIndex(index)
-        : /* istanbul ignore next */ undefined;
+    const foundNode = nodes !== undefined ? nodes.getAtIndex(index) : undefined;
     return isTreeModelNode(foundNode) ? foundNode : undefined;
   }
 
@@ -171,7 +168,7 @@ export class TreeSelectionManager
       "mouseup",
       () => {
         this._selectionHandler.completeDragAction();
-        /* istanbul ignore else */
+
         if (this._dragSelectionOperation) {
           this._dragSelectionOperation.complete();
           this._dragSelectionOperation = undefined;
@@ -260,12 +257,10 @@ export class TreeSelectionManager
       .getModel()
       .getNode(processedNodeId);
 
-    // istanbul ignore if
     if (!processedNode || isEditing(processedNode)) return;
 
     const handleKeyboardSelectItem = (index: number) => {
       const node = this.getVisibleNodeAtIndex(this._getVisibleNodes(), index);
-      // istanbul ignore if
       if (!node || isEditing(node)) return;
 
       const selectionFunc = this._selectionHandler.createSelectionFunction(
@@ -322,18 +317,14 @@ class ItemHandler implements SingleSelectionHandler<string> {
     this._node = node;
   }
 
-  /* istanbul ignore next: noop */
   public preselect() {}
 
-  /* istanbul ignore next: noop */
   public select() {}
 
-  /* istanbul ignore next: noop */
   public deselect() {}
 
   // eslint-disable-next-line @itwin/prefer-get
   public isSelected(): boolean {
-    // istanbul ignore next
     return !!this._node?.isSelected;
   }
 

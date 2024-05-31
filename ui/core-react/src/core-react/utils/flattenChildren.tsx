@@ -13,7 +13,6 @@ import * as React from "react";
  */
 export const flattenChildren = (children: React.ReactNode): React.ReactNode => {
   const items = React.Children.map(children, (child) => {
-    // istanbul ignore next
     if (!React.isValidElement<{ children?: React.ReactNode }>(child))
       return child;
 

@@ -81,7 +81,6 @@ export class DialogManagerBase {
     const variable = "--uicore-z-index-dialog";
     const value = getCssVariableAsNumber(variable);
 
-    // istanbul ignore next
     if (!isNaN(value)) return value;
 
     Logger.logError(
@@ -104,7 +103,6 @@ export class DialogManagerBase {
   ): void {
     if (!id) id = `Dialog-${++DialogManagerBase._sId}`;
 
-    // istanbul ignore next
     const owningDoc = parentDocument ?? document;
     this.pushDialog({ reactNode: dialog, id, parentDocument: owningDoc });
   }
