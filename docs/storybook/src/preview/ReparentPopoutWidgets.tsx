@@ -6,8 +6,6 @@ import * as React from "react";
 import {
   PreviewFeatures,
   PreviewFeaturesProvider,
-  StagePanelLocation,
-  StagePanelSection,
   StagePanelState,
   UiItemsProvider,
   WidgetState,

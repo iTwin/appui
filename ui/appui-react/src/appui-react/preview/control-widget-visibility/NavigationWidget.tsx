@@ -10,7 +10,7 @@ import "./NavigationWidget.scss";
 import * as React from "react";
 import { DropdownButton, MenuItem } from "@itwin/itwinui-react";
 import { SvgAdd } from "@itwin/itwinui-icons-react";
-import { useHiddenTabs } from "./AddTabButton";
+import { useUserControlledHiddenTabs } from "./AddTabButton";
 import { NineZoneDispatchContext } from "../../layout/base/NineZone";
 import { useLayout } from "../../layout/base/LayoutStore";
 import { panelSides } from "../../layout/widget-panels/Panel";
@@ -18,7 +18,7 @@ import { panelSides } from "../../layout/widget-panels/Panel";
 /** @internal */
 export function NavigationWidget({ children }: React.PropsWithChildren<{}>) {
   const dispatch = React.useContext(NineZoneDispatchContext);
-  const tabs = useHiddenTabs();
+  const tabs = useUserControlledHiddenTabs();
   const hasWidgets = useHasWidgets();
   const showAdd = tabs.length > 0 && !hasWidgets;
   return (

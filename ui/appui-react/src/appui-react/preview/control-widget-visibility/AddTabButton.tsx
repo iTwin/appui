@@ -22,7 +22,7 @@ export function AddTabButton() {
   const dispatch = React.useContext(NineZoneDispatchContext);
   const widgetId = React.useContext(WidgetIdContext);
   const dropdownContext = React.useContext(WidgetActionDropdownContext);
-  const tabs = useHiddenTabs();
+  const tabs = useUserControlledHiddenTabs();
 
   if (!widgetId) return null;
 
@@ -70,21 +70,35 @@ export function AddTabButton() {
 
 /** @internal */
 export function useAddTab() {
-  const tabs = useHiddenTabs();
+  const tabs = useUserControlledHiddenTabs();
   const { controlWidgetVisibility } = usePreviewFeatures();
   if (tabs.length === 0) return false;
   return !!controlWidgetVisibility;
 }
 
-/** @internal */
-export function useHiddenTabs() {
+/** Returns hidden tabs whose visibility can be manipulated by the end user.
+ * @internal
+ */
+export function useUserControlledHiddenTabs() {
+  const { controlWidgetVisibility } = usePreviewFeatures();
   const hiddenTabs = useLayout((state) => {
+    if (!controlWidgetVisibility) return [];
+
     const tabs = Object.values(state.tabs);
     const toolSettingsTabId = state.toolSettings?.tabId;
     return tabs.filter((tab) => {
       if (tab.id === toolSettingsTabId) return false;
+
       const location = getTabLocation(state, tab.id);
-      return !location;
+      // Tab is visible.
+      if (!!location) return false;
+
+      // Case where only specific tabs are user-controlled.
+      if (Array.isArray(controlWidgetVisibility)) {
+        return controlWidgetVisibility.includes(tab.id);
+      }
+
+      return true;
     });
   }, true);
   return hiddenTabs;

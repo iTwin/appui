@@ -3,6 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import {
+  PreviewFeatures,
   PreviewFeaturesProvider,
   StagePanelState,
   UiItemsProvider,
@@ -26,21 +27,26 @@ function createProvider(visibleWidgets: number): UiItemsProvider {
   };
 }
 
-interface PreviewStoryProps {
-  /** Threshold of `widgetActionDropdown`. */
-  threshold: number;
+interface PreviewStoryProps
+  extends Pick<Required<PreviewFeatures>, "controlWidgetVisibility"> {
   /** Number of non-hidden widgets. */
   visibleWidgets: number;
+  /** Threshold of `widgetActionDropdown`. */
+  dropdownThreshold: number;
 }
 
 /** `enableMaximizedFloatingWidget` and `enableMaximizedPanelWidget` preview features. When enabled the widget will have a "maximize" button. */
-export function PreviewStory({ threshold, visibleWidgets }: PreviewStoryProps) {
+export function PreviewStory({
+  controlWidgetVisibility,
+  dropdownThreshold,
+  visibleWidgets,
+}: PreviewStoryProps) {
   const provider = createProvider(visibleWidgets);
   return (
     <PreviewFeaturesProvider
       features={{
-        controlWidgetVisibility: true,
-        widgetActionDropdown: { threshold },
+        controlWidgetVisibility,
+        widgetActionDropdown: { threshold: dropdownThreshold },
       }}
     >
       <AppUiStory

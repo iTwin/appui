@@ -18,8 +18,9 @@ const meta = {
     },
   },
   args: {
-    threshold: 2,
+    controlWidgetVisibility: true,
     visibleWidgets: 1,
+    dropdownThreshold: 2,
   },
 } satisfies Meta<typeof PreviewStory>;
 
@@ -28,8 +29,15 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
 
-export const HiddenTabs: Story = {
+export const AllHidden: Story = {
   args: {
     visibleWidgets: 0,
+  },
+};
+
+export const SpecifiedIds: Story = {
+  args: {
+    controlWidgetVisibility: ["w1", "w2"],
+    visibleWidgets: 5,
   },
 };

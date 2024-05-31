@@ -12,6 +12,7 @@ import { Logger } from "@itwin/core-bentley";
 import { UiFramework } from "../UiFramework";
 import type { useTransientState } from "../widget-panels/useTransientState";
 import type { WidgetDef } from "../widgets/WidgetDef";
+import type { UiItemsManager } from "../ui-items-provider/UiItemsManager";
 
 /** List of known preview features. */
 interface KnownPreviewFeatures {
@@ -54,8 +55,11 @@ interface KnownPreviewFeatures {
    * @note There is a known limitation where iTwinUI v2 popover elements will be rendered in the main window. Prefer using iTwinUI v3 when using this feature.
    */
   reparentPopoutWidgets: boolean | WidgetDef["id"][];
-  /** If `true`, additional UI elements are rendered to allow the end user of the layout to control widget visibility. */
-  controlWidgetVisibility: boolean;
+  /** If `true`, additional UI elements are rendered to allow the end user of the layout to control widget visibility.
+   * Alternatively, an array of widget ids can be provided to only control specific widgets.
+   * @note Use {@link UiItemsManager} APIs to manage what widgets are available to the end-user.
+   */
+  controlWidgetVisibility: boolean | WidgetDef["id"][];
 }
 
 /** Object used trim to only known features at runtime.

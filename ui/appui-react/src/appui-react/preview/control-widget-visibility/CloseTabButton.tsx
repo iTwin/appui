@@ -15,7 +15,7 @@ import { NineZoneDispatchContext } from "../../layout/base/NineZone";
 
 /** @internal */
 export function CloseTabButton() {
-  const activeTabId = useActiveTabId();
+  const id = useActiveTabId();
   const dispatch = React.useContext(NineZoneDispatchContext);
 
   return (
@@ -25,7 +25,7 @@ export function CloseTabButton() {
       onClick={() => {
         dispatch({
           type: "WIDGET_TAB_HIDE",
-          id: activeTabId,
+          id,
         });
       }}
     />
@@ -34,6 +34,10 @@ export function CloseTabButton() {
 
 /** @internal */
 export function useCloseTab() {
+  const id = useActiveTabId();
   const { controlWidgetVisibility } = usePreviewFeatures();
+  if (Array.isArray(controlWidgetVisibility)) {
+    return controlWidgetVisibility.includes(id);
+  }
   return !!controlWidgetVisibility;
 }
