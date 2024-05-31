@@ -20,7 +20,7 @@ const meta = {
   args: {
     controlWidgetVisibility: true,
     visibleWidgets: 1,
-    dropdownThreshold: 2,
+    dropdownThreshold: 0,
   },
 } satisfies Meta<typeof PreviewStory>;
 
