@@ -25,6 +25,7 @@ Table of contents:
 ### Additions
 
 - Added `StatusBarPopover` to replace `StatusBar.Popup`. The component uses [iTwinUI Popover](https://itwinui.bentley.com/docs/popover) with some consistent styling for all `StatusBar` fields. `StatusBarPopover` should wrap the element that triggers it (e.g. a button). [#848](https://github.com/iTwin/appui/pull/848)
+- Added `StatusBarPopover.ExpandIndicator` which adds an indicator to show that a button has expandable content. `StatusBarPopover.ExpandIndicator` is supposed to be used in `StatusBarPopover` trigger buttons. [#848](https://github.com/iTwin/appui/pull/848)
 
 ### Changes
 
