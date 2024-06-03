@@ -134,7 +134,7 @@ export class PropertyGridCommons {
     const foundLink = linksArray[0];
     // istanbul ignore else
     if (foundLink && foundLink.url) {
-      if (foundLink.schema === "mailto:" || foundLink.schema === "pw:")
+      if (foundLink.schema === "mailto:")
         location.href = foundLink.url;
       else {
         const windowOpen = window.open(foundLink.url, "_blank");
