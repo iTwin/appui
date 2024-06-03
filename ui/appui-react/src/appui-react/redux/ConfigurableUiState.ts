@@ -21,10 +21,13 @@ import type { ThemeManager } from "../theme/ThemeManager";
 import type { SnapModeField } from "../statusfields/SnapMode";
 import type { ToolbarDragInteractionContext } from "../toolbar/DragInteraction";
 
+/* eslint-disable deprecation/deprecation */
+
 /** Action Ids used by Redux and to send sync UI components. Typically used to refresh visibility or enable state of control.
  *  Since these are also used as sync ids they should be in lowercase.
  * @note This is used by sync UI event APIs.
  * @public
+ * @deprecated in 4.14.x. Use your preferred state management library instead.
  */
 export enum ConfigurableUiActionId {
   SetSnapMode = "configurableui:set_snapmode",
@@ -39,8 +42,6 @@ export enum ConfigurableUiActionId {
   UseToolAsToolSettingsLabel = "configurableui:set-use-tool-as-tool-settings-label",
   SetToolbarOpacity = "configurableui:set-toolbar-opacity",
 }
-
-/* eslint-disable deprecation/deprecation */
 
 /** The portion of state managed by the ConfigurableUiReducer.
  * @public

@@ -14,11 +14,21 @@ import { createAction } from "./redux-ts";
 import type { useActiveIModelConnection } from "../hooks/useActiveIModelConnection";
 import { SelectionScopeField } from "../statusfields/SelectionScope";
 
-// cSpell:ignore configurableui snapmode toolprompt sessionstate imodelid viewid viewportid rulesetid
+/** Definition of a cursor menu. If menuItems are empty the menu control is not displayed.
+ * @public
+ */
+export interface CursorMenuPayload {
+  position: XAndY;
+  childWindowId?: string;
+  items: CursorMenuItemProps[];
+}
+
+/* eslint-disable deprecation/deprecation */
 
 /** PresentationSelectionScope holds the id and the localized label for a selection scope supported for a specific iModel.
  * Added to avoid an api-extract error caused by using SelectionScope.
  * @public
+ * @deprecated in 4.14.x Use `selectionScopes` prop of {@link SelectionScopeField} component.
  */
 export interface PresentationSelectionScope {
   id: string;
@@ -28,29 +38,19 @@ export interface PresentationSelectionScope {
 /** Definition of data added to Redux store to define cursor menu.  If menuItems are empty the menu control is not displayed.
  * To close the menu clear the menuItems or pass in undefined as the CursorData.
  * @public
- * @deprecated in 4.11.x use {@link CursorMenuPayload} instead.
+ * @deprecated in 4.11.x Use {@link CursorMenuPayload} instead.
  */
 export interface CursorMenuData {
   position: XAndY;
   childWindowId?: string;
-  // eslint-disable-next-line deprecation/deprecation
   items: MenuItemProps[];
-}
-
-/** Definition of data added to Redux store to define cursor menu.  If menuItems are empty the menu control is not displayed.
- * To close the menu clear the menuItems or pass in undefined as the CursorData.
- * @public
- */
-export interface CursorMenuPayload {
-  position: XAndY;
-  childWindowId?: string;
-  items: CursorMenuItemProps[];
 }
 
 /** Action Ids used by Redux and to send sync UI components. Typically used to refresh visibility or enable state of control.
  * Since these are also used as sync ids they should be in lowercase.
  * @note This is used by sync UI event APIs.
  * @public
+ * @deprecated in 4.14.x. Use your preferred state management library instead.
  */
 export enum SessionStateActionId {
   SetNumItemsSelected = "sessionstate:set-num-items-selected",
@@ -63,8 +63,6 @@ export enum SessionStateActionId {
   SetDefaultViewState = "sessionstate:set-default-view-state",
   UpdateCursorMenu = "sessionstate:update-cursor-menu",
 }
-
-/* eslint-disable deprecation/deprecation */
 
 /** The portion of state managed by the SessionStateReducer.
  * @public

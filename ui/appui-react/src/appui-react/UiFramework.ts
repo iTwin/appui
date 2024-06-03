@@ -466,6 +466,7 @@ export class UiFramework {
     if (this.frameworkState) {
       // eslint-disable-next-line deprecation/deprecation
       UiFramework.dispatchActionToStore(
+        // eslint-disable-next-line deprecation/deprecation
         SessionStateActionId.UpdateCursorMenu,
         menuData
       );
@@ -473,6 +474,7 @@ export class UiFramework {
     }
 
     globalState.cursorMenuPayload = menuData;
+    // eslint-disable-next-line deprecation/deprecation
     dispatchSyncUiEvent(SessionStateActionId.UpdateCursorMenu);
   }
 
@@ -481,6 +483,7 @@ export class UiFramework {
     if (UiFramework.frameworkState) {
       // eslint-disable-next-line deprecation/deprecation
       UiFramework.dispatchActionToStore(
+        // eslint-disable-next-line deprecation/deprecation
         SessionStateActionId.UpdateCursorMenu,
         undefined
       );
@@ -488,6 +491,7 @@ export class UiFramework {
     }
 
     globalState.cursorMenuPayload = undefined;
+    // eslint-disable-next-line deprecation/deprecation
     dispatchSyncUiEvent(SessionStateActionId.UpdateCursorMenu);
   }
 
@@ -527,12 +531,14 @@ export class UiFramework {
     if (UiFramework.frameworkState) {
       // eslint-disable-next-line deprecation/deprecation
       UiFramework.dispatchActionToStore(
+        // eslint-disable-next-line deprecation/deprecation
         SessionStateActionId.SetIModelConnection,
         iModelConnection,
         immediateSync
       );
     } else {
       globalState.iModelConnection = iModelConnection;
+      // eslint-disable-next-line deprecation/deprecation
       dispatchSyncUiEvent(SessionStateActionId.SetIModelConnection);
     }
 
@@ -560,6 +566,7 @@ export class UiFramework {
     if (UiFramework.frameworkState) {
       // eslint-disable-next-line deprecation/deprecation
       UiFramework.dispatchActionToStore(
+        // eslint-disable-next-line deprecation/deprecation
         SessionStateActionId.SetNumItemsSelected,
         numSelected
       );
@@ -567,6 +574,7 @@ export class UiFramework {
     }
 
     globalState.numItemsSelected = numSelected;
+    // eslint-disable-next-line deprecation/deprecation
     dispatchSyncUiEvent(SessionStateActionId.SetNumItemsSelected);
   }
 
@@ -622,6 +630,7 @@ export class UiFramework {
     if (UiFramework.frameworkState) {
       // eslint-disable-next-line deprecation/deprecation
       UiFramework.dispatchActionToStore(
+        // eslint-disable-next-line deprecation/deprecation
         SessionStateActionId.SetDefaultViewState,
         viewState,
         immediateSync
@@ -631,6 +640,7 @@ export class UiFramework {
 
     globalState.viewState = viewState;
     dispatchSyncUiEvent(
+      // eslint-disable-next-line deprecation/deprecation
       SessionStateActionId.SetDefaultViewState,
       immediateSync
     );

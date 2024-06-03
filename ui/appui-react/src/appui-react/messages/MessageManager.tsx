@@ -555,6 +555,7 @@ export class MessageManager {
     if (UiFramework.frameworkState) {
       // eslint-disable-next-line deprecation/deprecation
       UiFramework.dispatchActionToStore(
+        // eslint-disable-next-line deprecation/deprecation
         ConfigurableUiActionId.SetToolPrompt,
         prompt,
         true

@@ -287,6 +287,7 @@ export class SampleAppIModelApp {
   }
 
   public static async initialize() {
+    // eslint-disable-next-line deprecation/deprecation
     await UiFramework.initialize(undefined, undefined);
 
     IModelApp.toolAdmin.defaultToolId = SelectionTool.toolId;
@@ -311,6 +312,7 @@ export class SampleAppIModelApp {
       new LocalUnitFormatProvider(IModelApp.quantityFormatter, true)
     ); // pass true to save per imodel
 
+    // eslint-disable-next-line deprecation/deprecation
     const availableScopes: PresentationSelectionScope[] = [
       { id: "element", label: "Element" },
       { id: "assembly", label: "Assembly" },
@@ -318,6 +320,7 @@ export class SampleAppIModelApp {
     ];
     // eslint-disable-next-line deprecation/deprecation
     UiFramework.dispatchActionToStore(
+      // eslint-disable-next-line deprecation/deprecation
       SessionStateActionId.SetAvailableSelectionScopes,
       availableScopes
     );

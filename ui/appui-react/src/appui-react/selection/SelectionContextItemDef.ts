@@ -44,6 +44,7 @@ export function getSelectionContextSyncEventIds(): string[] {
     SyncUiEventId.SelectionSetChanged,
     SyncUiEventId.ActiveContentChanged,
     SyncUiEventId.ActiveViewportChanged,
+    // eslint-disable-next-line deprecation/deprecation
     SessionStateActionId.SetNumItemsSelected,
     SyncUiEventId.FeatureOverridesChanged,
     SyncUiEventId.ViewedModelsChanged,

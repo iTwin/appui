@@ -51,6 +51,7 @@ export class CursorPopupMenu extends React.PureComponent<
 
     if (
       SyncUiEventDispatcher.hasEventOfInterest(args.eventIds, [
+        // eslint-disable-next-line deprecation/deprecation
         SessionStateActionId.UpdateCursorMenu,
       ])
     ) {

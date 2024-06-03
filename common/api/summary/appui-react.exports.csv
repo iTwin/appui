@@ -122,6 +122,7 @@ public;CommonToolbarItem
 public;ConfigurableBase 
 public;ConfigurableCreateInfo
 public;ConfigurableUiActionId
+deprecated;ConfigurableUiActionId
 public;ConfigurableUiActions:
 deprecated;ConfigurableUiActions:
 public;ConfigurableUiActionsUnion = ActionsUnion
@@ -456,6 +457,7 @@ beta;PositionPopup
 beta;PositionPopupContent(props: CommonDivProps): React_2.JSX.Element
 beta;PositionPopupProps 
 public;PresentationSelectionScope
+deprecated;PresentationSelectionScope
 beta;PreviewFeatures 
 beta;PreviewFeaturesProvider({ children, features, }: PreviewFeaturesProviderProps): React_2.JSX.Element
 beta;PreviewFeaturesProviderProps
@@ -495,6 +497,7 @@ public;SelectionScopeField(props: SelectionScopeFieldProps): React_2.JSX.Element
 public;SessionState
 deprecated;SessionState
 public;SessionStateActionId
+deprecated;SessionStateActionId
 public;SessionStateActions:
 deprecated;SessionStateActions:
 beta;SessionStateActionsProps

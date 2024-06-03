@@ -891,7 +891,7 @@ export class ConfigurableCreateInfo {
     readonly uniqueId: string;
 }
 
-// @public
+// @public @deprecated
 export enum ConfigurableUiActionId {
     // (undocumented)
     AnimateToolSettings = "configurableui:set-animate-tool-settings",
@@ -3543,7 +3543,7 @@ export interface PositionPopupProps extends CommonProps {
     point: XAndY;
 }
 
-// @public
+// @public @deprecated
 export interface PresentationSelectionScope {
     // (undocumented)
     id: string;
@@ -3802,7 +3802,7 @@ export interface SessionState {
     numItemsSelected: number;
 }
 
-// @public
+// @public @deprecated
 export enum SessionStateActionId {
     // (undocumented)
     SetActiveIModelId = "sessionstate:set-active-imodelid",
