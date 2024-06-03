@@ -113,6 +113,7 @@ interface ToolAssistanceFieldState {
 
 /** Tool Assistance Field React component.
  * @public
+ * @note Tool assistance field will only display 30 characters in the status bar. Any additional text will be hidden. The full text will always be shown in the opened popover.
  */
 export class ToolAssistanceField extends React.Component<
   ToolAssistanceFieldProps,
