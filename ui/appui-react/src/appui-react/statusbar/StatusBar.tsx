@@ -19,7 +19,6 @@ import type { StatusBarWidgetControl } from "./StatusBarWidgetControl";
 import { SafeAreaInsetsHelpers } from "../layout/base/SafeAreaInsets";
 import { DockedBar } from "../widget-panels/DockedBar";
 import { StatusBarComposer } from "./StatusBarComposer";
-import { StatusBarPopover } from "./popup/StatusBarPopover";
 
 /** Properties for the [[StatusBar]] React component
  * @public
@@ -124,7 +123,7 @@ export namespace StatusBar {
 
   /** Popup of a [[StatusBar]].
    * @beta
-   * @deprecated in 4.13.x. Use {@link StatusBarPopover#StatusBarPopover} instead.
+   * @deprecated in 4.13.x. Use `StatusBarPopover` instead.
    */
   // eslint-disable-next-line deprecation/deprecation
   export const Popup = StatusBarPopup;
