@@ -11,7 +11,9 @@
   "unsupportedPackageJsonSettings": {
     "pnpm": {
       "auditConfig": {
-        "ignoreCves": []
+        "ignoreCves": [
+          "CVE-2024-29415", // https://github.com/advisories/GHSA-2p57-rm9w-gvfp appui-storybook>storybook>@storybook/cli>@storybook/core-server>ip
+        ]
       }
     }
   }
