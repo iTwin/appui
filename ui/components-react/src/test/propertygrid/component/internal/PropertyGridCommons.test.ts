@@ -74,11 +74,13 @@ describe("PropertyGrid Commons", () => {
     });
 
     it("sets location href value to value got in the text if it is an ProjectWise Explorer link", async () => {
+      const spy = vi.spyOn(window, "open");
       PropertyGridCommons.handleLinkClick(
         "pw://server.bentley.com:datasource-01/Documents/ProjectName"
       );
-      expect(locationMockRef.object.href).toEqual(
-        "pw://server.bentley.com:datasource-01/Documents/ProjectName"
+      expect(spy).toHaveBeenCalledWith(
+        "pw://server.bentley.com:datasource-01/Documents/ProjectName",
+        "_blank"
       );
     });
 
