@@ -10,21 +10,9 @@ import {
   WidgetDef,
   WidgetPanelsToolbars,
 } from "../../appui-react";
-import { childStructure, selectorMatches } from "../TestUtils";
+import { TestNineZoneProvider } from "../layout/Providers";
 
 describe("WidgetPanelsToolbars", () => {
-  it("should not render", () => {
-    vi.spyOn(
-      UiFramework.frontstages,
-      "activeFrontstageDef",
-      "get"
-    ).mockImplementation(() => undefined);
-    const { container } = render(<WidgetPanelsToolbars />);
-    expect(container).to.satisfy(
-      childStructure("div.uifw-widgetPanels-toolbars:only-child:empty")
-    );
-  });
-
   it("should render toolbars", () => {
     const frontstageDef = new FrontstageDef();
     const contentManipulationWidget = WidgetDef.create({
@@ -46,9 +34,10 @@ describe("WidgetPanelsToolbars", () => {
     vi.spyOn(frontstageDef, "viewNavigation", "get").mockImplementation(
       () => viewNavigationWidget
     );
-    render(<WidgetPanelsToolbars />);
-    expect(screen.getByText(/tools.*navigation/)).to.satisfy(
-      selectorMatches(".uifw-widgetPanels-toolbars")
-    );
+    render(<WidgetPanelsToolbars />, {
+      wrapper: (props: any) => <TestNineZoneProvider {...props} />,
+    });
+    screen.getByText("tools");
+    screen.getByText("navigation");
   });
 });

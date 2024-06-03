@@ -5,8 +5,6 @@
 import {
   PreviewFeatures,
   PreviewFeaturesProvider,
-  StagePanelLocation,
-  StagePanelSection,
   StagePanelState,
   UiItemsProvider,
   WidgetState,
@@ -14,39 +12,41 @@ import {
 import { AppUiStory } from "../AppUiStory";
 import { createFrontstageProvider, createWidget } from "../Utils";
 
-function createProvider(): UiItemsProvider {
+function createProvider(visibleWidgets: number): UiItemsProvider {
   return {
     id: "widgets",
     getWidgets: () => {
-      return [
-        createWidget(1, {
-          canPopout: true,
-          layouts: {
-            standard: {
-              location: StagePanelLocation.Bottom,
-              section: StagePanelSection.Start,
-            },
-          },
-        }),
-        createWidget(2, {
-          defaultState: WidgetState.Floating,
-        }),
-      ];
+      const count = Math.max(5, visibleWidgets + 3);
+      return [...Array(count)].map((_, index) => {
+        const id = index + 1;
+        return createWidget(id, {
+          defaultState: index < visibleWidgets ? undefined : WidgetState.Hidden,
+        });
+      });
     },
   };
 }
 
-type PreviewStoryProps = Required<PreviewFeatures>["widgetActionDropdown"];
+interface PreviewStoryProps
+  extends Pick<Required<PreviewFeatures>, "controlWidgetVisibility"> {
+  /** Number of non-hidden widgets. */
+  visibleWidgets: number;
+  /** Threshold of `widgetActionDropdown`. */
+  dropdownThreshold: number;
+}
 
-/** `widgetActionDropdown` preview feature. When widget title bar buttons exceed the specified threshold a drop down menu is rendered instead. */
-export function PreviewStory(props: PreviewStoryProps) {
-  const provider = createProvider();
+/** `enableMaximizedFloatingWidget` and `enableMaximizedPanelWidget` preview features. When enabled the widget will have a "maximize" button. */
+export function PreviewStory({
+  controlWidgetVisibility,
+  dropdownThreshold,
+  visibleWidgets,
+}: PreviewStoryProps) {
+  const provider = createProvider(visibleWidgets);
   return (
     <PreviewFeaturesProvider
       features={{
-        enableMaximizedFloatingWidget: true,
-        horizontalPanelAlignment: true,
-        widgetActionDropdown: { threshold: props.threshold },
+        controlWidgetVisibility,
+        widgetActionDropdown: { threshold: dropdownThreshold },
       }}
     >
       <AppUiStory

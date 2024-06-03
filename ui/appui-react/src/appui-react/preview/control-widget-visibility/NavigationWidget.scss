@@ -1,0 +1,17 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+@layer appui.preview {
+  .uifw-preview-navigationWidget {
+    display: grid;
+    grid-gap: 6px;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr auto;
+  }
+
+  .uifw-preview-navigationWidget_add {
+    pointer-events: all;
+    float: right;
+  }
+}

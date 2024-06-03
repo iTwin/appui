@@ -12,31 +12,32 @@ import { Logger } from "@itwin/core-bentley";
 import { UiFramework } from "../UiFramework";
 import type { useTransientState } from "../widget-panels/useTransientState";
 import type { WidgetDef } from "../widgets/WidgetDef";
+import type { UiItemsManager } from "../ui-items-provider/UiItemsManager";
 
 /** List of known preview features. */
 interface KnownPreviewFeatures {
-  /** If true, the panels and tool settings will always be rendered over the content.
+  /** If `true`, the panels and tool settings will always be rendered over the content.
    * The content will never change size.
    *
    * Discuss or upvote this feature: https://github.com/iTwin/appui/discussions/672
    */
   contentAlwaysMaxSize: boolean;
-  /** If true, the floating widget will have a "maximize" button. Use `enableMaximizedPanelWidget` to enable the feature for panel widgets.
+  /** If `true`, the floating widget will have a "maximize" button. Use `enableMaximizedPanelWidget` to enable the feature for panel widgets.
    *
    * Discuss or upvote this feature: https://github.com/iTwin/appui/discussions/673
    */
   enableMaximizedFloatingWidget: boolean;
-  /** If true, the panel widget will have a "maximize" button. Use `enableMaximizedFloatingWidget` to enable the feature for floating widgets.
+  /** If `true`, the panel widget will have a "maximize" button. Use `enableMaximizedFloatingWidget` to enable the feature for floating widgets.
    *
    * Discuss or upvote this feature: https://github.com/iTwin/appui/discussions/673
    */
   enableMaximizedPanelWidget: boolean;
-  /** If true, the active tab of a dragged widget will become active when dropped in a container.
+  /** If `true`, the active tab of a dragged widget will become active when dropped in a container.
    *
    * Discuss or upvote this feature: https://github.com/iTwin/appui/discussions/679
    */
   activateDroppedTab: boolean;
-  /** If true, the horizontal panels will have an additional "Align" button.
+  /** If `true`, the horizontal panels will have an additional "Align" button.
    *
    * Discuss or upvote this feature: https://github.com/iTwin/appui/discussions/706
    */
@@ -46,14 +47,19 @@ interface KnownPreviewFeatures {
    * Discuss or upvote this feature: https://github.com/iTwin/appui/discussions/723
    */
   widgetActionDropdown: { threshold: number };
-  /** If true, the [[Toolbar]] component will be replaced by a new iTwinUI based toolbar. */
+  /** If `true`, the [[Toolbar]] component will be replaced by a new iTwinUI based toolbar. */
   newToolbars: boolean;
   /** If `true`, popout widgets will not be rendered in a separate element tree, instead widget content will be re-parented to a popout content container.
-   * Alternatively, an array of widget ids can be provided to only re-parent specific widgets.
+   * Alternatively, an array of widget ids can be specified to only re-parent specific widgets.
    * @note Use {@link useTransientState} to save and restore DOM transient state when re-parenting widgets.
    * @note There is a known limitation where iTwinUI v2 popover elements will be rendered in the main window. Prefer using iTwinUI v3 when using this feature.
    */
   reparentPopoutWidgets: boolean | WidgetDef["id"][];
+  /** If `true`, additional UI elements are rendered to allow the end user of the layout to control widget visibility.
+   * Alternatively, an array of widget ids can be specified to only control specific widgets.
+   * @note Use {@link UiItemsManager} APIs to manage what widgets are available to the end-user.
+   */
+  controlWidgetVisibility: boolean | WidgetDef["id"][];
 }
 
 /** Object used trim to only known features at runtime.
@@ -68,6 +74,7 @@ const knownFeaturesObject: Record<keyof KnownPreviewFeatures, undefined> = {
   widgetActionDropdown: undefined,
   newToolbars: undefined,
   reparentPopoutWidgets: undefined,
+  controlWidgetVisibility: undefined,
 };
 
 /** List of preview features that can be enabled/disabled.
