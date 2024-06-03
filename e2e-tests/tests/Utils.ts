@@ -60,7 +60,7 @@ export function backstageItemLocator(page: Page, label: string) {
 }
 
 export function popoutButtonLocator(widget: Locator) {
-  return widget.locator('[title="Pop out active widget tab"]');
+  return widget.getByRole("button", { name: "Pop out active widget tab" });
 }
 
 type PanelLocatorArgs = { page: Page; side: PanelSide } | { tab: Locator };
