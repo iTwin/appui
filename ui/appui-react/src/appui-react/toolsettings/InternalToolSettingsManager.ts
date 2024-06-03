@@ -23,7 +23,6 @@ export class InternalToolSettingsManager {
   private static _activeToolLabel: string = "";
   private static _activeToolDescription: string = "";
 
-  // istanbul ignore next
   private static syncToolSettingsProperties(
     toolId: string,
     syncProperties: DialogPropertySyncItem[]
@@ -34,7 +33,6 @@ export class InternalToolSettingsManager {
     });
   }
 
-  // istanbul ignore next
   private static reloadToolSettingsProperties(): void {
     InternalToolSettingsManager.onReloadToolSettingsProperties.emit();
   }
@@ -52,7 +50,6 @@ export class InternalToolSettingsManager {
    * @internal
    */
   public static initialize() {
-    // istanbul ignore else
     if (IModelApp && IModelApp.toolAdmin) {
       IModelApp.toolAdmin.toolSettingsChangeHandler =
         InternalToolSettingsManager.syncToolSettingsProperties;
@@ -79,16 +76,12 @@ export class InternalToolSettingsManager {
     toolDescription?: string
   ): boolean {
     InternalToolSettingsManager.clearToolSettingsData();
-    // istanbul ignore else
     if (toolLabel) InternalToolSettingsManager._activeToolLabel = toolLabel;
 
-    // istanbul ignore else
     if (toolDescription)
       InternalToolSettingsManager._activeToolDescription = toolDescription;
 
-    /* istanbul ignore else */
     if (toolSettingsProperties && toolSettingsProperties.length > 0) {
-      // istanbul ignore else
       if (toolId) InternalToolSettingsManager._toolIdForToolSettings = toolId;
 
       InternalToolSettingsManager._useDefaultToolSettingsProvider = true;
@@ -118,7 +111,6 @@ export class InternalToolSettingsManager {
     ) {
       const properties =
         IModelApp.toolAdmin.activeTool.supplyToolSettingsProperties();
-      // istanbul ignore else
       if (properties) return properties;
     }
 

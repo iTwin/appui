@@ -64,7 +64,6 @@ export function useDragTab(args: UseDragTabArgs) {
   );
   const handleDragEnd = React.useCallback<DragEventHandler>(
     (_item, info, target) => {
-      // istanbul ignore next
       if (!onDragEnd) return;
 
       let tabTarget: TabDragDropTargetState;
@@ -707,7 +706,6 @@ export class DragManager {
   }
 
   public handleDragUpdate(item: DragItem) {
-    // istanbul ignore next
     if (!this._dragged) return;
 
     this._dragged.item = item;

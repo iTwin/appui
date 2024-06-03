@@ -58,16 +58,13 @@ export function GroupTool(props: GroupToolProps) {
   );
 
   const handleClick = React.useCallback(() => {
-    // istanbul ignore else
     if (!props.isDisabled && props.onClick) props.onClick(props.item);
   }, [props]);
 
   const handlePointerUp = React.useCallback(() => {
-    // istanbul ignore else
     if (!props.isDisabled && props.onPointerUp) props.onPointerUp(props.item);
   }, [props]);
 
-  // istanbul ignore next
   const providerId =
     "providerId" in props.item ? props.item.providerId : undefined;
   return (

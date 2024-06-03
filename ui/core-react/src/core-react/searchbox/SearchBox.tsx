@@ -104,7 +104,6 @@ export class SearchBox extends React.Component<SearchBoxProps, SearchBoxState> {
 
   /** Wrapper for onValueChanged to make sure we don't call search unless the new value is different from the previous value */
   private _onValueChanged = (value: string, previousValue: string) => {
-    // istanbul ignore else
     if (value === previousValue) return;
 
     this.setState(
@@ -122,7 +121,6 @@ export class SearchBox extends React.Component<SearchBoxProps, SearchBoxState> {
     let value = "";
     const previousValue = this.state.value;
 
-    // istanbul ignore else
     if (this._inputElement) value = this._inputElement.value;
 
     if (this.props.valueChangedDelay) {
@@ -138,22 +136,18 @@ export class SearchBox extends React.Component<SearchBoxProps, SearchBoxState> {
   private _handleKeyDown = (e: React.KeyboardEvent) => {
     switch (e.key) {
       case Key.Escape.valueOf():
-        // istanbul ignore else
         if (this.props.onEscPressed) this.props.onEscPressed();
         break;
       case Key.Enter.valueOf():
-        // istanbul ignore else
         if (this.props.onEnterPressed) this.props.onEnterPressed();
         break;
     }
   };
 
   private _handleIconClick = (_event: React.MouseEvent<HTMLElement>): void => {
-    // istanbul ignore else
     if (this._inputElement) {
       const clear = this.state.value !== "";
       this._inputElement.value = "";
-      // istanbul ignore else
       if (clear && this.props.onClear) this.props.onClear();
       this._inputElement.focus();
     }
@@ -172,7 +166,6 @@ export class SearchBox extends React.Component<SearchBoxProps, SearchBoxState> {
   }
 
   public focus() {
-    // istanbul ignore else
     if (this._inputElement) this._inputElement.focus();
   }
 }

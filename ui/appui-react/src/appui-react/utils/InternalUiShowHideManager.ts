@@ -201,7 +201,6 @@ export class InternalUiShowHideManager {
 
   /** Handler for when a Frontstage is ready */
   public static handleFrontstageReady() {
-    // istanbul ignore next
     if (!InternalUiShowHideManager._autoHideUi) return;
 
     InternalUiShowHideManager.showUiAndResetTimer();

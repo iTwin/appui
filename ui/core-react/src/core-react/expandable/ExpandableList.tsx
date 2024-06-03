@@ -63,7 +63,6 @@ export class ExpandableList extends React.PureComponent<
 
     this.setState({ activeBlock });
 
-    // istanbul ignore else
     if (onToggle) {
       onToggle(activeBlock === index); // fire the ExpandableBlock onToggle
     }

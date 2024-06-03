@@ -43,7 +43,6 @@ export function isAllowedSideTarget(
     allowedPanelTargets = activeTab.allowedPanelTargets;
     widget.tabs.forEach((tabId) => {
       const tab = tabsState[tabId];
-      // istanbul ignore else
       if (!allowedPanelTargets) {
         allowedPanelTargets = tab.allowedPanelTargets;
       } else if (tab.allowedPanelTargets !== undefined) {

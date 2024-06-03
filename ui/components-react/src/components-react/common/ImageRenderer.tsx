@@ -26,7 +26,6 @@ export class ImageRenderer {
 
   private hexToBase64(hexstring: string) {
     const match = hexstring.match(/\w{2}/g);
-    // istanbul ignore next
     if (!match) return "";
 
     return window.btoa(
@@ -50,7 +49,6 @@ export class ImageRenderer {
     const doc = parser.parseFromString(input, "application/xml");
 
     const errorNode = doc.querySelector("parsererror");
-    // istanbul ignore if
     if (errorNode) {
       return false;
     }
@@ -60,7 +58,6 @@ export class ImageRenderer {
   }
 
   private convertSvgToDataUri(svg: string) {
-    // istanbul ignore if
     if (!this.isSvg(svg)) {
       return "";
     }
@@ -72,7 +69,6 @@ export class ImageRenderer {
   /** Render svg string into JSX */
   private renderSvg(svg: string) {
     let svgAsDataUri = ImageRenderer._svgCache.get(svg);
-    // istanbul ignore else
     if (undefined === svgAsDataUri) {
       svgAsDataUri = this.convertSvgToDataUri(svg.trim());
       ImageRenderer._svgCache.set(svg, svgAsDataUri);

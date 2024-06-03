@@ -133,7 +133,7 @@ export class MessageContainer extends React.PureComponent<MessageContainerProps>
     // eslint-disable-next-line @typescript-eslint/unified-signatures
     hollow?: boolean
   ): string;
-  /* istanbul ignore next */
+
   public static getIconClassName(
     severity: MessageSeverity,
     _hollow?: boolean
@@ -173,7 +173,7 @@ export class MessageContainer extends React.PureComponent<MessageContainerProps>
    * @returns IconSpec
    */
   /* ignore for unit tests and replace with visual testing */
-  /* istanbul ignore next */
+
   public static getIcon(severity: MessageSeverity, hollow?: boolean): IconSpec {
     let iconSpec: IconSpec = "";
     switch (severity) {

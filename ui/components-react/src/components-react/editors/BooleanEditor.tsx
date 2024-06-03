@@ -48,7 +48,6 @@ export class BooleanEditor
     const record = this.props.propertyRecord;
     let propertyValue: PropertyValue | undefined;
 
-    // istanbul ignore else
     if (record && record.value.valueFormat === PropertyValueFormat.Primitive) {
       propertyValue = {
         valueFormat: PropertyValueFormat.Primitive,
@@ -69,7 +68,6 @@ export class BooleanEditor
   }
 
   private _updateCheckboxValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // istanbul ignore else
     if (this._isMounted) {
       const checkboxValue = !!e.target.checked;
 
@@ -78,10 +76,8 @@ export class BooleanEditor
           checkboxValue,
         },
         () => {
-          // istanbul ignore else
           if (this.props.propertyRecord && this.props.onCommit) {
             const propertyValue = this.getPropertyValueSync();
-            // istanbul ignore else
             if (propertyValue !== undefined) {
               this.props.onCommit({
                 propertyRecord: this.props.propertyRecord,
@@ -117,7 +113,6 @@ export class BooleanEditor
     let checkboxValue = false;
     let isDisabled = false;
 
-    // istanbul ignore else
     if (
       propertyRecord &&
       propertyRecord.value.valueFormat === PropertyValueFormat.Primitive
@@ -126,11 +121,9 @@ export class BooleanEditor
       checkboxValue = primitiveValue as boolean;
     }
 
-    // istanbul ignore else
     if (propertyRecord && propertyRecord.isDisabled)
       isDisabled = propertyRecord.isDisabled;
 
-    // istanbul ignore else
     if (this._isMounted) this.setState({ checkboxValue, isDisabled });
   }
 
@@ -165,7 +158,6 @@ export class BooleanEditor
  * @public
  */
 export class BooleanPropertyEditor extends PropertyEditorBase {
-  // istanbul ignore next
   public override get containerHandlesBlur(): boolean {
     return false;
   }

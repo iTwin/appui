@@ -153,14 +153,12 @@ export class StandardMessageBox extends React.PureComponent<
 
   private _handleButton = (buttonType: MessageBoxValue) => {
     this._closeDialog(() => {
-      // istanbul ignore else
       if (this.props.onResult) this.props.onResult(buttonType);
     });
   };
 
   private _handleCancel = () => {
     this._closeDialog(() => {
-      // istanbul ignore else
       if (this.props.onResult) this.props.onResult(MessageBoxValue.Cancel);
     });
   };

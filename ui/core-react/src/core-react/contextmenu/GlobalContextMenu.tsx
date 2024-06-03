@@ -48,7 +48,6 @@ export class GlobalContextMenu extends React.PureComponent<
   }
 
   public override componentWillUnmount() {
-    // istanbul ignore else
     if (this._container && this._container.parentElement) {
       // cleanup
       this._container.parentElement.removeChild(this._container);
@@ -69,7 +68,6 @@ export class GlobalContextMenu extends React.PureComponent<
       if (!rt) {
         rt = parentDocument.createElement("div");
         rt.id = "core-global-context-menu-root";
-        // istanbul ignore next
         (
           parentDocument.body.querySelector(
             '[data-root-container="appui-root-id"]'
@@ -99,7 +97,6 @@ export class GlobalContextMenu extends React.PureComponent<
             <div className="core-context-menu-global" style={positioningStyle}>
               <CtxMenu {...props} />
             </div>,
-            // istanbul ignore next
             this.state.parentDocument.body.querySelector(
               '[data-root-container="appui-root-id"]'
             ) ?? this.state.parentDocument.body

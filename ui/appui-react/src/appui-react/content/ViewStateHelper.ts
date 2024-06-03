@@ -42,7 +42,6 @@ export class ViewStateHelper {
       undefined
     )) as typeof ViewState | undefined;
 
-    // istanbul ignore next
     if (undefined === ctor)
       throw new Error(`Invalid ViewState class name of [${className}]`);
 

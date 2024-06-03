@@ -74,10 +74,7 @@ export class UiIModelComponents {
    * @internal
    */
   public static translate(key: string | string[]): string {
-    if (
-      !UiIModelComponents.initialized ||
-      /* istanbul ignore next */ !IModelApp.localization
-    ) {
+    if (!UiIModelComponents.initialized || !IModelApp.localization) {
       Logger.logError(
         UiIModelComponents.loggerCategory(this),
         `translate: IModelApp.localization has not been setup. Returning blank string.`

@@ -2,11 +2,29 @@
 
 Table of contents:
 
+- [@itwin/appui-react](#itwinappui-react)
+  - [Additions](#additions)
+  - [Changes](#changes)
 - [@itwin/components-react](#itwincomponents-react)
   - [Deprecations](#deprecations)
-  - [Changes](#changes)
+  - [Changes](#changes-1)
 - [@itwin/core-react](#itwincore-react)
   - [Fixes](#fixes)
+
+## @itwin/appui-react
+
+### Additions
+
+- `controlWidgetVisibility` preview feature. When enabled, additional UI elements are rendered to allow the end user of the layout to control widget visibility. [#856](https://github.com/iTwin/appui/pull/856)
+
+  Currently applications might use `WidgetState` to control widget visibility programmatically and expect the widgets to stay hidden until a certain condition is met. Since this preview feature adds UI elements to control widget visibility, it might conflict with the application's logic. To avoid this, the application should use `UiItemsManager.register()` and `UiItemsManager.unregister()` to strictly manage what widgets are available to the end-user.
+
+  Additionally an array of widget ids can be specified to only expose visibility controls for specific widgets. This allows applications to experiment with other use-cases, like keeping at least one widget visible at all times.
+
+### Changes
+
+- The dropdown menu of `widgetActionDropdown` preview feature will close once one of the menu items is activated. [#856](https://github.com/iTwin/appui/pull/856)
+- The labels for the buttons in the widget title bar will be rendered as tooltips, rather than using the `title` attribute. [#856](https://github.com/iTwin/appui/pull/856)
 
 ## @itwin/components-react
 

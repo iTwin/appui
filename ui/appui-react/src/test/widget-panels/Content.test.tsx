@@ -17,6 +17,7 @@ import { createNineZoneState } from "../../appui-react/layout/state/NineZoneStat
 import { addPanelWidget } from "../../appui-react/layout/state/internal/PanelStateHelpers";
 import { addTab } from "../../appui-react/layout/state/internal/TabStateHelpers";
 import { WidgetIdContext } from "../../appui-react/layout/widget/Widget";
+import { TabIdContext } from "../../appui-react/layout/widget/ContentRenderer";
 
 describe("WidgetContent", () => {
   it("should render", () => {
@@ -40,7 +41,9 @@ describe("WidgetContent", () => {
         measure={() => new Rectangle()}
       >
         <WidgetIdContext.Provider value="leftStart">
-          <WidgetContent />
+          <TabIdContext.Provider value="w1">
+            <WidgetContent />
+          </TabIdContext.Provider>
         </WidgetIdContext.Provider>
       </NineZoneProvider>
     );

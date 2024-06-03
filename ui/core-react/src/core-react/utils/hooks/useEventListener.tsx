@@ -35,7 +35,6 @@ export function useEventListener(
     }
 
     const eventListener = (event: Event) => {
-      // istanbul ignore else
       if (savedHandler.current) savedHandler.current(event);
     };
     element.addEventListener(eventName, eventListener);

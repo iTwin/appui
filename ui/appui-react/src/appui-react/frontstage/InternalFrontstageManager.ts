@@ -83,7 +83,6 @@ export class InternalFrontstageManager {
    *  @internal
    */
   public static ensureToolInformationIsSet(toolId: string): void {
-    // istanbul ignore else
     if (!InternalFrontstageManager._toolInformationMap.get(toolId))
       InternalFrontstageManager._toolInformationMap.set(
         toolId,
@@ -103,7 +102,6 @@ export class InternalFrontstageManager {
 
   // pass on ReloadToolSettingsEvent from ToolAdmin so they are treated by UiProviders
   private static handleReloadToolSettingsEvent(): void {
-    // istanbul ignore else
     if (InternalFrontstageManager.activeToolSettingsProvider) {
       InternalFrontstageManager.activeToolSettingsProvider.reloadPropertiesFromTool();
     }
@@ -119,7 +117,6 @@ export class InternalFrontstageManager {
       (tool: Tool, _start: StartOrResume) => {
         // make sure tool settings properties are cached before creating ToolInformation
         UiFramework.toolSettings.clearToolSettingsData();
-        // istanbul ignore else
         if (tool instanceof InteractiveTool)
           UiFramework.toolSettings.initializeDataForTool(tool);
 
@@ -150,7 +147,6 @@ export class InternalFrontstageManager {
   private static _handleSelectedViewportChanged = (
     args: SelectedViewportChangedArgs
   ) => {
-    // istanbul ignore else
     if (
       args.current &&
       InternalFrontstageManager.activeFrontstageDef &&
@@ -305,7 +301,6 @@ export class InternalFrontstageManager {
 
   /** @internal */
   public static clearFrontstageDefsForIModelId(iModelId: string | undefined) {
-    // istanbul ignore next
     if (!iModelId) return;
     const keysToRemove: string[] = [];
     InternalFrontstageManager._frontstageDefs.forEach(
@@ -369,13 +364,11 @@ export class InternalFrontstageManager {
     let frontstageDef = InternalFrontstageManager.findFrontstageDef(id);
     if (frontstageDef) return frontstageDef;
 
-    // istanbul ignore else
     if (id) {
       const frontstageProvider =
         InternalFrontstageManager.findFrontstageProvider(id);
       if (frontstageProvider) {
         frontstageDef = await FrontstageDef.create(frontstageProvider);
-        // istanbul ignore else
         if (frontstageDef) {
           const key = InternalFrontstageManager.getFrontstageKey(
             frontstageDef.id
@@ -536,7 +529,6 @@ export class InternalFrontstageManager {
     contentGroup: ContentGroup
   ): Promise<void> {
     const activeFrontstageDef = InternalFrontstageManager.activeFrontstageDef;
-    // istanbul ignore else
     if (activeFrontstageDef) {
       InternalFrontstageManager._isLoading = false;
 
@@ -595,7 +587,6 @@ export class InternalFrontstageManager {
   /** Closes the top-most modal Frontstage.
    */
   public static closeModalFrontstage(): void {
-    // istanbul ignore else
     if (InternalFrontstageManager._modalFrontstages.length > 0) {
       const topMostStageItem =
         InternalFrontstageManager._modalFrontstages[
@@ -612,7 +603,6 @@ export class InternalFrontstageManager {
 
   private static popModalFrontstage(): void {
     const frontstageItem = InternalFrontstageManager._modalFrontstages.pop();
-    // istanbul ignore else
     if (frontstageItem) {
       const modalFrontstage = frontstageItem.modalFrontstage;
       const timeTracker = frontstageItem.timeTracker;
@@ -706,7 +696,6 @@ export class InternalFrontstageManager {
   public static findWidget(widgetId: string): WidgetDef | undefined {
     const activeFrontstageDef = InternalFrontstageManager.activeFrontstageDef;
 
-    // istanbul ignore else
     if (activeFrontstageDef) return activeFrontstageDef.findWidgetDef(widgetId);
 
     return undefined;
@@ -756,7 +745,6 @@ export class InternalFrontstageManager {
    * @returns Top-most nested Frontstage, or undefined if there is none.
    */
   public static get activeNestedFrontstage(): FrontstageDef | undefined {
-    // istanbul ignore else
     if (InternalFrontstageManager._nestedFrontstages.length > 0)
       return InternalFrontstageManager._nestedFrontstages[
         InternalFrontstageManager._nestedFrontstages.length - 1

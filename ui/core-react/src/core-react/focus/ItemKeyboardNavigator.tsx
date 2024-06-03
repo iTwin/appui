@@ -167,14 +167,12 @@ export class ItemKeyboardNavigator {
     const pressed = event.key;
     const targetDirection = this._direction.get(pressed);
 
-    // istanbul ignore else
     if (targetDirection) {
       const newIndex = index + targetDirection;
 
       if (0 <= newIndex && newIndex < this._itemCount) {
         this.onFocusItem(newIndex);
       } else {
-        // istanbul ignore else
         if (this._allowWrap) {
           if (
             pressed === Key.ArrowLeft.valueOf() ||

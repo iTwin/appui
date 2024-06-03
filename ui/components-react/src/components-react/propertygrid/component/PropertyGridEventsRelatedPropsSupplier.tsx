@@ -95,13 +95,11 @@ export class PropertyGridEventsRelatedPropsSupplier extends React.Component<
     property: PropertyRecord,
     key?: string
   ) => {
-    // istanbul ignore else
     if (this._isRightClickSupported())
       this.onEnabledPropertyRightClicked(property, key);
   };
 
   private _onPropertyClicked = (property: PropertyRecord, key?: string) => {
-    // istanbul ignore else
     if (this._isClickSupported())
       this.onEnabledPropertyLeftClicked(property, key);
   };
@@ -119,7 +117,6 @@ export class PropertyGridEventsRelatedPropsSupplier extends React.Component<
     args: PropertyUpdatedArgs,
     category: PropertyCategory
   ) => {
-    // istanbul ignore else
     if (this.props.onPropertyUpdated) {
       await this.props.onPropertyUpdated(args, category);
       this.setState({ editingPropertyKey: undefined });

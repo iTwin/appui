@@ -216,7 +216,6 @@ export function useTabInteractions<T extends HTMLElement>({
     onClick?.();
   }, [dispatch, widgetId, id, side, onClick]);
   const handleDoubleClick = React.useCallback(() => {
-    // istanbul ignore next (preview)
     if (clickOnly) return;
     dispatch({
       type: "WIDGET_TAB_DOUBLE_CLICK",
@@ -241,7 +240,6 @@ export function useTabInteractions<T extends HTMLElement>({
   });
   const handleDragStart = React.useCallback(
     (pointerPosition: Point) => {
-      // istanbul ignore next (preview)
       if (clickOnly) return;
       assert(!!ref.current);
       assert(!!initialPointerPosition.current);
@@ -253,8 +251,7 @@ export function useTabInteractions<T extends HTMLElement>({
       const tab = tabRef.current;
       const userSized =
         tab.userSized ||
-        (tab.isFloatingWidgetResizable &&
-          /* istanbul ignore next */ !!tab.preferredFloatingWidgetSize);
+        (tab.isFloatingWidgetResizable && !!tab.preferredFloatingWidgetSize);
       let position = bounds.topLeft();
       const widgetBounds = widgetContext.measure();
       const widgetSize = restrainInitialWidgetSize(
@@ -317,7 +314,6 @@ export function useTabInteractions<T extends HTMLElement>({
   );
   const handlePointerMove = React.useCallback(
     (args: PointerCaptorArgs) => {
-      // istanbul ignore next
       if (!initialPointerPosition.current) return;
 
       const pointerPosition = new Point(args.clientX, args.clientY);

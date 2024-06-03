@@ -48,7 +48,6 @@ export interface EmphasizeElementsChangedArgs {
 /** Overrides given models to provide emphasize functionality
  * @public
  */
-// istanbul ignore next
 class ModelOverrideProvider implements FeatureOverrideProvider {
   constructor(
     public modelIds: string[],
@@ -71,7 +70,6 @@ class ModelOverrideProvider implements FeatureOverrideProvider {
 /** Overrides given categories to provide emphasize functionality
  *  @public
  */
-// istanbul ignore next
 class SubCategoryOverrideProvider implements FeatureOverrideProvider {
   constructor(
     public subCategoryIds: string[],
@@ -166,7 +164,6 @@ export abstract class HideIsolateEmphasizeActionHandler {
 /** Provides helper functions for doing commands on logical selection like categories and subjects.
  * @public
  */
-// istanbul ignore next
 export class HideIsolateEmphasizeManager extends HideIsolateEmphasizeActionHandler {
   private static _overrideCategoryIds = new Map<Viewport, Set<string>>();
   private static _overrideModelIds = new Map<Viewport, Set<string>>();

@@ -61,7 +61,6 @@ export class InternalContentDialogManager {
     const variable = "--uicore-z-index-view-content-dialog";
     const value = getCssVariableAsNumber(variable);
 
-    // istanbul ignore next
     if (!isNaN(value)) return value;
 
     Logger.logError(
@@ -121,7 +120,6 @@ export class InternalContentDialogManager {
       );
       InternalContentDialogManager._dialogMap.delete(id);
       const index = InternalContentDialogManager._idArray.indexOf(id);
-      // istanbul ignore else
       if (index >= 0) InternalContentDialogManager._idArray.splice(index, 1);
 
       if (InternalContentDialogManager.active === undefined)
@@ -159,7 +157,6 @@ export class InternalContentDialogManager {
           InternalContentDialogManager._idArray.length - 1
         ];
       const dialogInfo = InternalContentDialogManager._dialogMap.get(id);
-      // istanbul ignore else
       if (dialogInfo) return dialogInfo.reactNode;
     }
 
@@ -199,7 +196,6 @@ export class InternalContentDialogManager {
   public static getZIndex(id: string): number {
     let zIndex = InternalContentDialogManager.getDialogZIndexDefault();
     const dialogInfo = InternalContentDialogManager._dialogMap.get(id);
-    // istanbul ignore else
     if (dialogInfo) zIndex = dialogInfo.zIndex;
     return zIndex;
   }

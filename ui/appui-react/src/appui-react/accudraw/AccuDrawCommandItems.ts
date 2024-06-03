@@ -30,7 +30,6 @@ import { BumpToolSetting, FocusToolSettings } from "../tools/ToolSettingsTools";
 /** AccuDraw Command Items - useful in Keyboard Shortcuts
  * @beta
  */
-// istanbul ignore next
 export class AccuDrawCommandItems {
   public static get lockSmart() {
     return ToolItemDef.getItemDefForTool(AccuDrawSetLockSmartTool);

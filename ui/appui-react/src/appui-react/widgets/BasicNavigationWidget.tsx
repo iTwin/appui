@@ -81,7 +81,6 @@ export function BasicNavigationWidget(props: BasicNavigationWidgetProps) {
   ]);
 
   const uiIsVisible = useUiVisibility();
-  // istanbul ignore next
   const className = classnames(!uiIsVisible && "nz-hidden");
 
   return (

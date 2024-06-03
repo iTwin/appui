@@ -88,7 +88,6 @@ export class ContentControl extends ConfigurableUiControl {
 
   protected getKeyedReactNode(): React.ReactNode {
     if (!this._keyAdded && React.isValidElement(this._reactNode)) {
-      // istanbul ignore else
       if (!(this._reactNode as React.ReactElement<any>).key) {
         const additionalProps: any = { key: this.uniqueId };
         this._reactNode = React.cloneElement(this._reactNode, additionalProps);

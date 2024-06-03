@@ -77,7 +77,7 @@ function FilterBuilderRulePrimitiveValueRenderer({
   return (
     <EditorContainer
       propertyRecord={propertyRecord}
-      onCancel={/* istanbul ignore next */ () => {}}
+      onCancel={() => {}}
       onCommit={onValueChange}
       setFocus={false}
       shouldCommitOnChange={false}
@@ -122,7 +122,7 @@ function FilterBuilderRuleRangeValueRenderer({
       <Flex.Item>
         <EditorContainer
           propertyRecord={from}
-          onCancel={/* istanbul ignore next */ () => {}}
+          onCancel={() => {}}
           onCommit={handleFromValue}
           setFocus={false}
           shouldCommitOnChange={false}
@@ -132,7 +132,7 @@ function FilterBuilderRuleRangeValueRenderer({
       <Flex.Item>
         <EditorContainer
           propertyRecord={to}
-          onCancel={/* istanbul ignore next */ () => {}}
+          onCancel={() => {}}
           onCommit={handleToValue}
           setFocus={false}
           shouldCommitOnChange={false}
@@ -142,7 +142,6 @@ function FilterBuilderRuleRangeValueRenderer({
   );
 }
 
-// istanbul ignore next
 function getSerializedRangeValue(from: PropertyValue, to: PropertyValue) {
   return PropertyFilterBuilderRuleRangeValue.serialize({
     from:
