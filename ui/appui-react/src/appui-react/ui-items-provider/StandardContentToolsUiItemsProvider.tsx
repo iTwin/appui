@@ -44,12 +44,10 @@ export interface DefaultContentTools {
 function getGroupPriority(potentialId: any, defaultValue: number) {
   if (undefined === potentialId) return defaultValue;
 
-  // istanbul ignore else
   if (typeof potentialId === "number") {
     return potentialId;
   }
 
-  // istanbul ignore next
   return defaultValue;
 }
 
@@ -171,7 +169,7 @@ export class StandardContentToolsUiItemsProvider implements UiItemsProvider {
           )
         );
       }
-    } /* istanbul ignore else */ else if (
+    } else if (
       toolbarUsage === ToolbarUsage.ContentManipulation &&
       toolbarOrientation === ToolbarOrientation.Vertical
     ) {

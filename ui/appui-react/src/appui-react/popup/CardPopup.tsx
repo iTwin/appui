@@ -74,7 +74,6 @@ export class CardPopup extends React.PureComponent<
   };
 
   private _onSizeKnown = (newSize: SizeProps) => {
-    // istanbul ignore else
     if (!this.state.size.equals(newSize))
       this.setState({ size: Size.create(newSize) });
   };
@@ -88,7 +87,6 @@ export class CardPopup extends React.PureComponent<
   };
 
   private _cancel() {
-    // istanbul ignore else
     if (this.props.onCancel) {
       this.props.onCancel();
     }
@@ -149,7 +147,6 @@ export interface CardProps {
  * @beta */
 export function Card(props: CardProps) {
   let titleNode: React.ReactNode;
-  // istanbul ignore else
   if (props.title) {
     if (typeof props.title === "string")
       titleNode = <Text variant="leading">{props.title}</Text>;

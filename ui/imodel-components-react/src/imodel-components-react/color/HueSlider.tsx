@@ -16,7 +16,6 @@ import { useTranslation } from "../useTranslation";
 
 // hue is a value from 0 to 360
 function calculateHue(currentPos: number, high: number, isVertical: boolean) {
-  // istanbul ignore next
   if (currentPos <= 0) {
     return isVertical ? 359 : 0;
   } else if (currentPos >= high) {
@@ -45,22 +44,18 @@ function calculateChange(
   if ("pageX" in e) {
     x = e.pageX;
   } else {
-    // istanbul ignore if
     if (undefined === e.touches || 0 === e.touches.length) return currentHue;
     x = e.touches[0].pageX;
   }
-  // istanbul ignore if
   if (undefined === x) return currentHue;
 
   let y: number | undefined;
   if ("pageY" in e) {
     y = e.pageY;
   } else {
-    // istanbul ignore if
     if (undefined === e.touches || 0 === e.touches.length) return currentHue;
     y = e.touches[0].pageY;
   }
-  // istanbul ignore if
   if (undefined === y) return currentHue;
 
   const pointerX = x - (containerLeft + window.scrollX);
@@ -110,7 +105,6 @@ HueSliderProps) {
     (
       e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>
     ) => {
-      // istanbul ignore else
       if (container.current) {
         const newHue = calculateChange(
           hsv.h,
@@ -118,9 +112,7 @@ HueSliderProps) {
           !!isHorizontal,
           container.current
         );
-        // istanbul ignore else
         const newColor = hsv.clone(newHue);
-        // istanbul ignore else
         if (onHueChange) onHueChange(newColor);
       }
     },
@@ -131,7 +123,6 @@ HueSliderProps) {
     (
       e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>
     ) => {
-      // istanbul ignore else
       if (isDragging.current) {
         onChange(e);
       }
@@ -140,7 +131,6 @@ HueSliderProps) {
   );
 
   const onMouseUp = React.useCallback(() => {
-    // istanbul ignore else
     if (isDragging.current) {
       isDragging.current = false;
     }
@@ -150,7 +140,6 @@ HueSliderProps) {
     (event: React.TouchEvent<HTMLDivElement>) => {
       event.preventDefault();
 
-      // istanbul ignore else
       if (isDragging.current) {
         onChange(event);
         isDragging.current = false;
@@ -163,9 +152,7 @@ HueSliderProps) {
     (e: React.MouseEvent<HTMLDivElement>) => {
       e.preventDefault();
 
-      // istanbul ignore else
       if (e.target !== e.currentTarget) {
-        // istanbul ignore else
         if (!isDragging.current) {
           document.addEventListener("mouseup", onMouseUp, {
             capture: true,
@@ -177,7 +164,6 @@ HueSliderProps) {
 
       onChange(e);
 
-      // istanbul ignore else
       if (container.current) container.current.focus();
     },
     [onChange, onMouseUp]
@@ -185,12 +171,10 @@ HueSliderProps) {
 
   const onTouchStart = React.useCallback(
     (e: React.TouchEvent<HTMLDivElement>) => {
-      // istanbul ignore else
       if (e.target !== e.currentTarget) isDragging.current = true;
 
       onChange(e);
 
-      // istanbul ignore else
       if (container.current) container.current.focus();
     },
     [onChange]
@@ -217,21 +201,16 @@ HueSliderProps) {
       } else if (evt.key === Key.Home.valueOf()) {
         newHue = 0;
       } else {
-        // istanbul ignore else
         if (evt.key === Key.End.valueOf()) {
           newHue = 359;
         }
       }
 
-      // istanbul ignore else
       if (undefined !== newHue) {
-        // istanbul ignore if
         if (newHue > 359) newHue = 359; // 360 is same as zero
-        // istanbul ignore if
         if (newHue < 0) newHue = 0;
 
         const newColor = hsv.clone(newHue);
-        // istanbul ignore else
         if (onHueChange) onHueChange(newColor);
         evt.preventDefault();
       }

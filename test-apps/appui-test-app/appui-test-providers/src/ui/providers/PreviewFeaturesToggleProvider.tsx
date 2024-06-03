@@ -48,6 +48,9 @@ const availableFeatures: AvailableFeatures = {
     label: "Re-parent popout widgets",
     value: ["widget-layout-info", "widget-info-Floating"],
   },
+  controlWidgetVisibility: {
+    label: "Control widget visibility",
+  },
 };
 
 function PreviewFeatureList() {

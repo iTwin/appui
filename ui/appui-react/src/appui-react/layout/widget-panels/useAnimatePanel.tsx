@@ -48,7 +48,6 @@ export function useAnimatePanel() {
   if (prevCollapsed !== panel.collapsed) {
     setPrevCollapsed(panel.collapsed);
     let from = animateFrom.current;
-    // istanbul ignore else
     if (from === undefined && ref.current) {
       const bounds = ref.current.getBoundingClientRect();
       from = getPanelSize(horizontal, bounds);
@@ -161,7 +160,6 @@ export function useAnimatePanel() {
 
   const handleTransitionEnd = React.useCallback(
     (e: React.TransitionEvent<HTMLDivElement>) => {
-      // istanbul ignore if
       if (e.target !== ref.current) return;
 
       maxPanelSize.current = undefined;

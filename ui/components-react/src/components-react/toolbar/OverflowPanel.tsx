@@ -66,7 +66,6 @@ export function ToolbarOverflowPanel(props: ToolbarOverflowPanelProps) {
   let showSeparators =
     toolbarOpacitySetting === ToolbarOpacitySetting.Transparent ? false : true;
 
-  // istanbul ignore next
   if (
     toolbarOpacitySetting === ToolbarOpacitySetting.Proximity &&
     openPopupCount < 1 &&

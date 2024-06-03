@@ -235,7 +235,6 @@ const ForwardRefNumberInput = React.forwardRef<
 
   const handleKeyDown = React.useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>) => {
-      // istanbul ignore else
       if (event.key === Key.Enter.valueOf()) {
         updateValueFromString(event.currentTarget.value);
         event.preventDefault();

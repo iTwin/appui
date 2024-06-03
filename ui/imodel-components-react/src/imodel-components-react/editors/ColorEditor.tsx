@@ -60,7 +60,6 @@ export class ColorEditor
     const record = this.props.propertyRecord;
     let propertyValue: PropertyValue | undefined;
 
-    // istanbul ignore else
     if (record && record.value.valueFormat === PropertyValueFormat.Primitive) {
       propertyValue = {
         valueFormat: PropertyValueFormat.Primitive,
@@ -81,7 +80,6 @@ export class ColorEditor
   }
 
   private setFocus(): void {
-    // istanbul ignore else
     if (
       this._buttonElement &&
       this._buttonElement.current &&
@@ -99,10 +97,8 @@ export class ColorEditor
         colorValue: color.tbgr,
       },
       async () => {
-        // istanbul ignore else
         if (propertyRecord && this.props.onCommit) {
           const propertyValue = await this.getPropertyValue();
-          // istanbul ignore else
           if (propertyValue !== undefined) {
             this.props.onCommit({ propertyRecord, newValue: propertyValue });
           }
@@ -126,30 +122,23 @@ export class ColorEditor
   private async setStateFromProps() {
     const record = this.props.propertyRecord;
 
-    // istanbul ignore else
     if (record && record.value.valueFormat === PropertyValueFormat.Primitive) {
       const colorValue = record.value.value as number;
       let numColumns = 4;
       const availableColors = new Array<ColorDef>();
       const readonly =
-        record && undefined !== record.isReadonly
-          ? record.isReadonly
-          : /* istanbul ignore next */ false;
-      const isDisabled = record
-        ? record.isDisabled
-        : /* istanbul ignore next */ undefined;
+        record && undefined !== record.isReadonly ? record.isReadonly : false;
+      const isDisabled = record ? record.isDisabled : undefined;
 
       if (record.property.editor && record.property.editor.params) {
         const colorParams = record.property.editor.params.find(
           (param: PropertyEditorParams) =>
             param.type === PropertyEditorParamTypes.ColorData.valueOf()
         ) as ColorEditorParams;
-        // istanbul ignore else
         if (colorParams) {
           colorParams.colorValues.forEach((colorNumber: number) => {
             availableColors.push(ColorDef.create(colorNumber));
           });
-          // istanbul ignore else
           if (colorParams.numColumns) numColumns = colorParams.numColumns;
         }
       }

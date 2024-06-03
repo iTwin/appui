@@ -103,13 +103,11 @@ function convertValueFromDisplayToPersistence(
   unitConversions: UnitConversionSpec[] | undefined,
   unit: UnitProps
 ) {
-  // istanbul ignore next
   if (!unitConversions || 0 === unitConversions.length) return value;
 
   const unitConversion = unitConversions.find(
     (spec) => spec.name === unit.name
   );
-  // istanbul ignore next
   if (!unitConversion) return value;
 
   const convertedValue =
@@ -121,10 +119,8 @@ function getUnitLabel(parserSpec: ParserSpec | undefined) {
   if (undefined === parserSpec) return "";
 
   const format = parserSpec.format;
-  // istanbul ignore else
   if (!format.units || !format.units[0]) return parserSpec.outUnit.label;
   const [unit, label] = format.units[0];
-  // istanbul ignore next
   return label ?? unit.label;
 }
 
@@ -161,11 +157,9 @@ const ForwardRefQuantityNumberInput = React.forwardRef<
     (value: number | undefined) => {
       if (undefined === value) return "";
 
-      // istanbul ignore else
       if (formatterSpec) {
         return formatterSpec.applyFormatting(value);
       }
-      // istanbul ignore next
       return value.toFixed(2);
     },
     [formatterSpec]
@@ -206,7 +200,6 @@ const ForwardRefQuantityNumberInput = React.forwardRef<
     ): void => {
       const quantityKey =
         IModelApp.quantityFormatter.getQuantityTypeKey(quantityType);
-      // istanbul ignore else
       if (args.quantityType === quantityKey) {
         setFormatterSpec(
           adjustFormatterSpec(
@@ -251,12 +244,11 @@ const ForwardRefQuantityNumberInput = React.forwardRef<
   const updateValue = React.useCallback(
     (newValue: number) => {
       let persistedValue = newValue;
-      // istanbul ignore else
       if (parserSpec) {
         // convert value from display unit to persistence unit
         const [unit] = parserSpec.format.units
           ? parserSpec.format.units[0]
-          : /* istanbul ignore next */ [parserSpec.outUnit];
+          : [parserSpec.outUnit];
         persistedValue = convertValueFromDisplayToPersistence(
           newValue,
           parserSpec.unitConversions,
@@ -283,7 +275,6 @@ const ForwardRefQuantityNumberInput = React.forwardRef<
       if (!x) return 0;
 
       let n = parseFloat(x);
-      // istanbul ignore next
       if (isNaN(n) || !isFinite(n)) {
         n = 0;
       }
@@ -302,7 +293,6 @@ const ForwardRefQuantityNumberInput = React.forwardRef<
 
   const updateValueFromString = React.useCallback(
     (strValue: string) => {
-      // istanbul ignore else
       if (parserSpec) {
         const parseResult = IModelApp.quantityFormatter.parseToQuantityValue(
           strValue,
@@ -314,7 +304,6 @@ const ForwardRefQuantityNumberInput = React.forwardRef<
           // set strValue and let it go through parseInternal which will ensure min/max limits are observed
           strValue = formatValue(persistedValue)!;
         } else {
-          // istanbul ignore else
           if (rawValueRef.current) {
             // restore last known good value
             const lastKnownFormattedVal = formatValue(rawValueRef.current);
@@ -324,7 +313,6 @@ const ForwardRefQuantityNumberInput = React.forwardRef<
         }
       }
       const newValue = parseInternal(strValue);
-      // istanbul ignore else
       if (undefined !== newValue) updateValue(newValue);
     },
     [formatValue, parseInternal, parserSpec, updateValue]
@@ -384,7 +372,6 @@ const ForwardRefQuantityNumberInput = React.forwardRef<
 
   const handleKeyDown = React.useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>) => {
-      // istanbul ignore else
       if (event.key === Key.Enter.valueOf()) {
         updateValueFromString(event.currentTarget.value);
         event.preventDefault();
@@ -419,7 +406,6 @@ const ForwardRefQuantityNumberInput = React.forwardRef<
     [applyStep]
   );
 
-  // istanbul ignore next
   const handleFocus = React.useCallback(
     (event: React.FocusEvent<HTMLInputElement>) => {
       event.currentTarget.select();

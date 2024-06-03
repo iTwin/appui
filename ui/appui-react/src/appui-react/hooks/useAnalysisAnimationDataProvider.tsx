@@ -11,7 +11,6 @@ import { AnalysisAnimationTimelineDataProvider } from "../timeline/AnalysisAnima
 import type { ScreenViewport, Viewport } from "@itwin/core-frontend";
 
 /** @internal */
-// istanbul ignore next
 function useSupportsAnalysisAnimation(viewport: Viewport | undefined) {
   const [supportsAnalysisAnimation, setSupportsAnalysisAnimation] =
     React.useState(!!viewport?.view?.analysisStyle);
@@ -45,7 +44,6 @@ function useSupportsAnalysisAnimation(viewport: Viewport | undefined) {
 /** Hook that returns either a AnalysisAnimationTimelineDataProvider or undefined based on if the supplied viewport contains analysis data.
  * @public
  **/
-// istanbul ignore next
 export function useAnalysisAnimationDataProvider(
   viewport: ScreenViewport | undefined
 ) {

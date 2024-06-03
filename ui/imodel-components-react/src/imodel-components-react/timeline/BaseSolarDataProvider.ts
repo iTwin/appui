@@ -20,7 +20,6 @@ const millisecPerMinute = 1000 * 60;
 const millisecPerHour = millisecPerMinute * 60;
 
 // the interface and class are in alpha state - it may change after usability testing - test coverage not complete
-/* istanbul ignore file */
 
 /** Base class that provides solar data for animation control
  * @alpha

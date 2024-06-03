@@ -76,7 +76,7 @@ export class SyncUiEventDispatcher {
   private static _iModelConnection?: IModelConnection;
 
   /** @internal - used for testing only */
-  /* istanbul ignore next */
+
   public static setTimeoutPeriod(period: number): void {
     SyncUiEventDispatcher._uiEventDispatcher.setTimeoutPeriod(period);
   }
@@ -113,7 +113,6 @@ export class SyncUiEventDispatcher {
 
   /** Save multiple eventIds in Set for processing. */
   public static dispatchSyncUiEvents(eventIds: string[]): void {
-    // istanbul ignore if
     if (0 === SyncUiEventDispatcher._uiEventDispatcher.timeoutPeriod) {
       Logger.logInfo(
         UiFramework.loggerCategory(this),
@@ -134,21 +133,18 @@ export class SyncUiEventDispatcher {
     );
   }
 
-  // istanbul ignore next
   private static _dispatchViewChange() {
     SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvent(
       SyncUiEventId.ViewStateChanged
     );
   }
 
-  // istanbul ignore next
   private static _dispatchFeatureOverridesChange() {
     SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvent(
       SyncUiEventId.FeatureOverridesChanged
     );
   }
 
-  // istanbul ignore next
   private static _dispatchViewedModelsChanged() {
     SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvent(
       SyncUiEventId.ViewedModelsChanged
@@ -231,7 +227,6 @@ export class SyncUiEventDispatcher {
             SyncUiEventDispatcher._dispatchViewedModelsChanged
           );
         }
-        // istanbul ignore next
         if (args.current) {
           args.current.onViewChanged.addListener(
             SyncUiEventDispatcher._dispatchViewChange

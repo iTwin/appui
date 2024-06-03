@@ -63,7 +63,6 @@ export class NonPrimitivePropertyRenderer extends React.Component<
     state: NonPrimitivePropertyRendererState
   ): React.ReactNode {
     const { orientation, indentation, width, columnRatio, columnInfo } = props;
-    // istanbul ignore next
     const minLabelWidth = columnInfo?.minLabelWidth;
     const offset = CommonPropertyRenderer.getLabelOffset(
       indentation,

@@ -31,7 +31,6 @@ function createNavigationAidControl(
   navigationAidId: string,
   activeViewport: ScreenViewport | undefined
 ): NavigationAidControl | undefined {
-  // istanbul ignore else
   if (
     !activeContentControl ||
     !navigationAidId ||
@@ -40,9 +39,7 @@ function createNavigationAidControl(
     return undefined;
 
   const viewport = activeContentControl.viewport;
-  const imodel = viewport
-    ? viewport.iModel
-    : /* istanbul ignore next */ UiFramework.getIModelConnection();
+  const imodel = viewport ? viewport.iModel : UiFramework.getIModelConnection();
   const navigationAidControl = UiFramework.controls.create(
     navigationAidId,
     navigationAidId,
@@ -72,16 +69,13 @@ export function NavigationAidHost(props: NavigationAidHostProps) {
     UiFramework.content.getActiveContentControl()
   );
   const [activeContentViewport, setActiveContentViewport] = React.useState(
-    () => /* istanbul ignore next */ activeContentControl?.viewport
+    () => activeContentControl?.viewport
   );
   const [navigationAidId, setNavigationAidId] = React.useState(() =>
-    activeContentControl
-      ? activeContentControl.navigationAidControl
-      : /* istanbul ignore next */ ""
+    activeContentControl ? activeContentControl.navigationAidControl : ""
   );
 
   React.useEffect(() => {
-    // istanbul ignore next
     const handleContentControlActivated = (
       args: ContentControlActivatedEventArgs // eslint-disable-line deprecation/deprecation
     ) => {
@@ -107,7 +101,6 @@ export function NavigationAidHost(props: NavigationAidHostProps) {
   });
 
   React.useEffect(() => {
-    // istanbul ignore next
     const handleViewClassFullNameChange = (
       args: ViewClassFullNameChangedEventArgs // eslint-disable-line deprecation/deprecation
     ) => {
@@ -140,7 +133,6 @@ export function NavigationAidHost(props: NavigationAidHostProps) {
   const { onElementRef, proximityScale } = useWidgetOpacityContext();
 
   React.useEffect(() => {
-    // istanbul ignore else
     if (isInitialMount.current) {
       isInitialMount.current = false;
       onElementRef(ref);
@@ -148,15 +140,10 @@ export function NavigationAidHost(props: NavigationAidHostProps) {
   }, [onElementRef]);
 
   const divStyle: React.CSSProperties = {
-    minWidth: props.minWidth
-      ? /* istanbul ignore next */ props.minWidth
-      : "64px",
-    minHeight: props.minHeight
-      ? /* istanbul ignore next */ props.minHeight
-      : "64px",
+    minWidth: props.minWidth ? props.minWidth : "64px",
+    minHeight: props.minHeight ? props.minHeight : "64px",
   };
 
-  // istanbul ignore else
   if (
     (UiFramework.visibility.useProximityOpacity || // eslint-disable-line deprecation/deprecation
       UiFramework.visibility.snapWidgetOpacity) &&
@@ -211,7 +198,7 @@ export function NavigationWidgetComposer(props: NavigationWidgetComposerProps) {
     elementSet,
     UiFramework.visibility.snapWidgetOpacity
   );
-  /* istanbul ignore next */
+
   const navigationAid = hideNavigationAid
     ? undefined
     : navigationAidHost ?? <NavigationAidHost />;

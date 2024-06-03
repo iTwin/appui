@@ -25,23 +25,23 @@ export function MaximizeToggle() {
     MaximizedWidgetContext
   );
 
-  const { id, title, iconSpec } =
+  const { id, label, iconSpec } =
     maximizedWidget === widgetId
       ? {
           id: undefined,
-          title: "Restore",
+          label: "Restore",
           iconSpec: <SvgWindowMinimize />,
         }
       : {
           id: widgetId,
-          title: "Maximize",
+          label: "Maximize",
           iconSpec: <SvgWindowMaximize />,
         };
 
   return (
     <ActionButton
       icon={iconSpec}
-      title={title}
+      label={label}
       onClick={() => {
         setMaximizedWidget(id);
       }}

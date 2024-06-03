@@ -11,7 +11,6 @@ import type { UiVisibilityEventArgs } from "../UiFramework";
 import { UiFramework } from "../UiFramework";
 
 /** @internal */
-// istanbul ignore next
 export function useUiVisibility() {
   const [uiIsVisible, setUiIsVisible] = useState(UiFramework.getIsUiVisible());
   useEffect(() => {

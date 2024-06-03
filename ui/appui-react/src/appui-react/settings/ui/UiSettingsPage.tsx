@@ -192,7 +192,6 @@ export function UiSettingsPage() {
 
   const onWidgetOpacityChange = React.useCallback(
     async (values: readonly number[]) => {
-      // istanbul ignore else
       if (values.length > 0) {
         UiFramework.setWidgetOpacity(values[0]);
       }
@@ -215,7 +214,6 @@ export function UiSettingsPage() {
 
   const onToolbarOpacityChange = React.useCallback(
     async (values: readonly number[]) => {
-      // istanbul ignore else
       if (values.length > 0) {
         UiFramework.setToolbarOpacity(values[0]);
       }

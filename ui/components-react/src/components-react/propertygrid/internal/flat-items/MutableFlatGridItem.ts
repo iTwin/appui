@@ -278,7 +278,7 @@ export abstract class MutableCategorizedProperty
         return FlatGridItemType.Array;
       case PropertyValueFormat.Struct:
         return FlatGridItemType.Struct;
-      /* istanbul ignore next */
+
       default:
         const unhandledType: never = valueType;
         throw Error(`Property Value Format not handled: ${unhandledType}`);

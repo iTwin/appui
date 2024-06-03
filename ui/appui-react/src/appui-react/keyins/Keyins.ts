@@ -50,12 +50,9 @@ export function getKeyinsFromToolList(
         break;
       case KeyinFieldLocalization.Both:
         toolKeyins.push({ value: tool.keyin });
-        // istanbul ignore else
         if (tool.keyin === tool.englishKeyin) break;
-      // istanbul ignore next
       default: // eslint-disable-line no-fallthrough
       case KeyinFieldLocalization.NonLocalized:
-        // istanbul ignore next
         if (
           KeyinFieldLocalization.NonLocalized === localizedKeyinPreference ||
           (KeyinFieldLocalization.Both === localizedKeyinPreference &&

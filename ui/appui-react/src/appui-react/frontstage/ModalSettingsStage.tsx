@@ -64,7 +64,6 @@ function ModalSettingsStage({
         stageCloseFunc,
       }: ModalFrontstageRequestedCloseEventArgs // eslint-disable-line deprecation/deprecation
     ) => {
-      // istanbul ignore else
       if (
         modalFrontstage instanceof SettingsModalFrontstage &&
         stageCloseFunc
@@ -135,7 +134,6 @@ export class SettingsModalFrontstage implements ModalFrontstageInfo {
   public static showSettingsStage(initialSettingsTab?: string) {
     if (UiFramework.settingsManager.providers.length) {
       // Check to see if it is already open
-      // istanbul ignore else
       if (
         UiFramework.frontstages.activeModalFrontstage &&
         UiFramework.frontstages.activeModalFrontstage instanceof

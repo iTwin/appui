@@ -58,7 +58,6 @@ export class TextEditor
     const record = this.props.propertyRecord;
     let propertyValue: PropertyValue | undefined;
 
-    // istanbul ignore else
     if (record && record.value.valueFormat === PropertyValueFormat.Primitive) {
       propertyValue = await TypeConverterManager.getConverter(
         record.property.typename,
@@ -79,7 +78,6 @@ export class TextEditor
   }
 
   private _updateInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // istanbul ignore else
     if (this._isMounted)
       this.setState(
         {
@@ -92,7 +90,6 @@ export class TextEditor
             this.props.propertyRecord
           ) {
             const newValue = await this.getPropertyValue();
-            // istanbul ignore else
             if (newValue)
               this.props.onCommit({
                 propertyRecord: this.props.propertyRecord,
@@ -125,7 +122,6 @@ export class TextEditor
     const record = this.props.propertyRecord;
     let initialValue = "";
 
-    // istanbul ignore else
     if (record && record.value.valueFormat === PropertyValueFormat.Primitive) {
       const value = record.value.value;
       initialValue = await TypeConverterManager.getConverter(
@@ -153,9 +149,7 @@ export class TextEditor
           param.type === PropertyEditorParamTypes.InputEditorSize.valueOf()
       ) as InputEditorSizeParams;
       if (editorSizeParams) {
-        // istanbul ignore else
         if (editorSizeParams.size) size = editorSizeParams.size;
-        // istanbul ignore else
         if (editorSizeParams.maxLength) maxLength = editorSizeParams.maxLength;
       }
 
@@ -168,7 +162,6 @@ export class TextEditor
       }
     }
 
-    // istanbul ignore else
     if (this._isMounted)
       this.setState({
         inputValue: initialValue,

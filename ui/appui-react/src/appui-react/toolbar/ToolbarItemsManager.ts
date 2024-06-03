@@ -63,7 +63,6 @@ export class ToolbarItemsManager {
         const { itemsUpdated, updatedItems } =
           this.internalRefreshAffectedItems(items, new Set(eventIds));
 
-        // istanbul ignore else
         if (itemsUpdated) items = updatedItems;
       }
     }
@@ -85,7 +84,6 @@ export class ToolbarItemsManager {
   }
 
   public set items(items: ReadonlyArray<ToolbarItem>) {
-    // istanbul ignore else
     if (items !== this._items) this.loadItemsInternal(items, true, true);
   }
 
@@ -138,15 +136,12 @@ export class ToolbarItemsManager {
           entry.syncEventIds.forEach((eventId: string) =>
             eventIds.add(eventId.toLowerCase())
           );
-        } /* istanbul ignore else */ else if (
-          ConditionalIconItem.isConditionalIconItem(entry)
-        ) {
+        } else if (ConditionalIconItem.isConditionalIconItem(entry)) {
           entry.syncEventIds.forEach((eventId: string) =>
             eventIds.add(eventId.toLowerCase())
           );
         }
       }
-      // istanbul ignore else
       if (isToolbarGroupItem(item)) {
         this.gatherSyncIds(eventIds, item.items);
       }
@@ -177,7 +172,6 @@ export class ToolbarItemsManager {
           updatedItem,
           eventIds
         );
-        // istanbul ignore else
         if (childrenUpdated) {
           updatedItem.items = childItems;
           itemsUpdated = true;
@@ -188,19 +182,12 @@ export class ToolbarItemsManager {
 
       for (const [, entry] of Object.entries(updatedItem)) {
         if (entry instanceof ConditionalBooleanValue) {
-          // istanbul ignore else
           if (ConditionalBooleanValue.refreshValue(entry, eventIds))
             itemsUpdated = true;
-        } /* istanbul ignore else */ else if (
-          entry instanceof ConditionalStringValue
-        ) {
-          // istanbul ignore else
+        } else if (entry instanceof ConditionalStringValue) {
           if (ConditionalStringValue.refreshValue(entry, eventIds))
             itemsUpdated = true;
-        } /* istanbul ignore else */ else if (
-          ConditionalIconItem.isConditionalIconItem(entry)
-        ) {
-          // istanbul ignore else
+        } else if (ConditionalIconItem.isConditionalIconItem(entry)) {
           if (ConditionalIconItem.refreshValue(entry, eventIds))
             itemsUpdated = true;
         }
@@ -215,7 +202,6 @@ export class ToolbarItemsManager {
     items: readonly ToolbarItem[],
     eventIds: Set<string>
   ): { itemsUpdated: boolean; updatedItems: ToolbarItem[] } {
-    // istanbul ignore next
     if (0 === eventIds.size) return { itemsUpdated: false, updatedItems: [] };
 
     let updateRequired = false;
@@ -227,7 +213,6 @@ export class ToolbarItemsManager {
         const { childrenUpdated, childItems } =
           // eslint-disable-next-line deprecation/deprecation
           ToolbarItemsManager.refreshChildItems(updatedItem, eventIds);
-        // istanbul ignore else
         if (childrenUpdated) {
           updatedItem = {
             ...updatedItem,
@@ -239,17 +224,12 @@ export class ToolbarItemsManager {
 
       for (const [, entry] of Object.entries(updatedItem)) {
         if (entry instanceof ConditionalBooleanValue) {
-          // istanbul ignore else
           if (ConditionalBooleanValue.refreshValue(entry, eventIds))
             updateRequired = true;
         } else if (entry instanceof ConditionalStringValue) {
-          // istanbul ignore else
           if (ConditionalStringValue.refreshValue(entry, eventIds))
             updateRequired = true;
-        } /* istanbul ignore else */ else if (
-          ConditionalIconItem.isConditionalIconItem(entry)
-        ) {
-          // istanbul ignore else
+        } else if (ConditionalIconItem.isConditionalIconItem(entry)) {
           if (ConditionalIconItem.refreshValue(entry, eventIds))
             updateRequired = true;
         }
@@ -262,7 +242,6 @@ export class ToolbarItemsManager {
   }
 
   public refreshAffectedItems(eventIds: Set<string>) {
-    // istanbul ignore next
     if (0 === eventIds.size) return;
 
     const { itemsUpdated, updatedItems } = this.internalRefreshAffectedItems(
@@ -270,7 +249,6 @@ export class ToolbarItemsManager {
       eventIds
     );
 
-    // istanbul ignore else
     if (itemsUpdated) this.loadItemsInternal(updatedItems, false, true);
   }
 

@@ -151,7 +151,6 @@ export class AppNotificationManager extends NotificationManager {
 
   /** Clear the ToolTip if it is currently open. If not open, does nothing. */
   public override clearToolTip(): void {
-    // istanbul ignore else
     if (this.isToolTipOpen) ElementTooltip.hideTooltip();
   }
 
@@ -183,9 +182,7 @@ export class AppNotificationManager extends NotificationManager {
     instructions: ToolAssistanceInstructions | undefined
   ) {
     MessageManager.outputPrompt(
-      instructions
-        ? instructions.mainInstruction.text
-        : /* istanbul ignore next */ ""
+      instructions ? instructions.mainInstruction.text : ""
     );
     MessageManager.setToolAssistance(instructions);
   }

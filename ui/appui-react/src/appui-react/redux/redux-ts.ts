@@ -120,9 +120,7 @@ export function createAction<T extends string, P>(
 
 /** */
 export function createAction<T extends string, P>(type: T, payload?: P) {
-  return payload === undefined
-    ? /* istanbul ignore next */ { type }
-    : { type, payload };
+  return payload === undefined ? { type } : { type, payload };
 }
 
 /** Just an object where every property is a Redux [Action Creator](https://redux.js.org/basics/actions#action-creators).

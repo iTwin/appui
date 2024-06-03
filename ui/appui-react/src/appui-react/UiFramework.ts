@@ -157,7 +157,6 @@ const globalState = {
 export class UiFramework {
   /** Operation on the backstage component. */
   public static get backstage(): FrameworkBackstage {
-    // istanbul ignore next
     if (!UiFramework._backstageManager)
       // eslint-disable-next-line deprecation/deprecation
       throw new UiError(
@@ -331,7 +330,6 @@ export class UiFramework {
     UiFramework._frameworkStateKeyInStore = "frameworkState";
     // eslint-disable-next-line deprecation/deprecation
     if (StateManager.isInitialized(true)) StateManager.clearStore();
-    // istanbul ignore next
     IModelApp.localization?.unregisterNamespace(
       UiFramework.localizationNamespace
     );
@@ -363,7 +361,6 @@ export class UiFramework {
   }
 
   public static get hideIsolateEmphasizeActionHandler(): HideIsolateEmphasizeActionHandler {
-    // istanbul ignore next
     if (!UiFramework._hideIsolateEmphasizeActionHandler)
       // eslint-disable-next-line deprecation/deprecation
       throw new UiError(
@@ -376,7 +373,6 @@ export class UiFramework {
   public static setHideIsolateEmphasizeActionHandler(
     handler: HideIsolateEmphasizeActionHandler | undefined
   ) {
-    // istanbul ignore else
     if (handler) UiFramework._hideIsolateEmphasizeActionHandler = handler;
     else
       UiFramework._hideIsolateEmphasizeActionHandler =
@@ -385,7 +381,6 @@ export class UiFramework {
 
   /** @alpha */
   public static get widgetManager(): WidgetManager {
-    // istanbul ignore next
     if (!UiFramework._widgetManager)
       // eslint-disable-next-line deprecation/deprecation
       throw new UiError(
@@ -1020,19 +1015,16 @@ export class UiFramework {
    */
   public static closeDialog(dialogId: string): boolean {
     const findFn = (info: DialogInfo) => info.id === dialogId;
-    // istanbul ignore else
     if (UiFramework.dialogs.modeless.dialogs.findIndex(findFn) !== -1) {
       UiFramework.dialogs.modeless.close(dialogId);
       return true;
     }
 
-    // istanbul ignore else
     if (UiFramework.dialogs.modal.dialogs.findIndex(findFn) !== -1) {
       UiFramework.dialogs.modal.close();
       return true;
     }
 
-    // istanbul ignore next
     return false;
   }
 

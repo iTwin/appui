@@ -44,7 +44,6 @@ function useBackstageItemSyncEffect(
       ) => {
         if (0 === syncIdsOfInterest.length) return;
 
-        // istanbul ignore else
         if (
           syncIdsOfInterest.some((value: string): boolean =>
             args.eventIds.has(value.toLowerCase())

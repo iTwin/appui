@@ -68,7 +68,6 @@ export class TextareaEditor
     const record = this.props.propertyRecord;
     let propertyValue: PropertyValue | undefined;
 
-    // istanbul ignore else
     if (record && record.value.valueFormat === PropertyValueFormat.Primitive) {
       propertyValue = await TypeConverterManager.getConverter(
         record.property.typename
@@ -79,15 +78,12 @@ export class TextareaEditor
     return propertyValue;
   }
 
-  // istanbul ignore next
   public get htmlElement(): HTMLElement | null {
     return this._divElement.current;
   }
 
-  // istanbul ignore next
   public get hasFocus(): boolean {
     let containsFocus = false;
-    // istanbul ignore else
     if (this._divElement.current)
       containsFocus = this._divElement.current.contains(document.activeElement);
     return containsFocus;
@@ -96,7 +92,6 @@ export class TextareaEditor
   private _updateTextareaValue = (
     e: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
-    // istanbul ignore else
     if (this._isMounted)
       this.setState({
         inputValue: e.target.value,
@@ -125,7 +120,6 @@ export class TextareaEditor
     const record = this.props.propertyRecord;
     let initialValue = "";
 
-    // istanbul ignore else
     if (record && record.value.valueFormat === PropertyValueFormat.Primitive) {
       const value = record.value.value;
       initialValue = await TypeConverterManager.getConverter(
@@ -152,9 +146,7 @@ export class TextareaEditor
           param.type === PropertyEditorParamTypes.InputEditorSize.valueOf()
       ) as InputEditorSizeParams;
       if (editorSizeParams) {
-        // istanbul ignore else
         if (editorSizeParams.size) size = editorSizeParams.size;
-        // istanbul ignore else
         if (editorSizeParams.maxLength) maxLength = editorSizeParams.maxLength;
       }
 
@@ -167,7 +159,6 @@ export class TextareaEditor
       }
     }
 
-    // istanbul ignore else
     if (this._isMounted)
       this.setState({
         inputValue: initialValue,
@@ -180,10 +171,8 @@ export class TextareaEditor
   }
 
   private _handleOk = async (_event: React.MouseEvent): Promise<void> => {
-    // istanbul ignore else
     if (this.props.propertyRecord && this.props.onCommit) {
       const propertyValue = await this.getPropertyValue();
-      // istanbul ignore else
       if (propertyValue !== undefined) {
         this.props.onCommit({
           propertyRecord: this.props.propertyRecord,
@@ -194,7 +183,6 @@ export class TextareaEditor
   };
 
   private _handleCancel = (_event: React.MouseEvent): void => {
-    // istanbul ignore else
     if (this.props.onCancel) {
       this.props.onCancel();
     }
@@ -256,15 +244,12 @@ export class TextareaEditor
  * @public
  */
 export class TextareaPropertyEditor extends PropertyEditorBase {
-  // istanbul ignore next
   public override get containerHandlesBlur(): boolean {
     return false;
   }
-  // istanbul ignore next
   public override get containerHandlesEnter(): boolean {
     return false;
   }
-  // istanbul ignore next
   public override get containerHandlesTab(): boolean {
     return false;
   }

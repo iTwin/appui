@@ -21,11 +21,9 @@ export class OpenPopoutDialogTool extends Tool {
   public static override toolId = "appuiTestProviders-OpenPopoutDialogTool";
   public static override iconSpec = windowAddSvg;
 
-  // istanbul ignore next
   public static override get minArgs() {
     return 0;
   }
-  // istanbul ignore next
   public static override get maxArgs() {
     return 0;
   }

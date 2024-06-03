@@ -137,17 +137,15 @@ export interface SessionStateActionsProps {
  * @deprecated in 4.14.x. Use your preferred state management library instead.
  */
 export const SessionStateActions = {
-  setActiveIModelId:
-    // istanbul ignore next
-    (iModelId: string) =>
-      createAction(SessionStateActionId.SetActiveIModelId, iModelId),
-  setAvailableSelectionScopes:
-    // istanbul ignore next
-    (availableSelectionScopes: PresentationSelectionScope[]) =>
-      createAction(
-        SessionStateActionId.SetAvailableSelectionScopes,
-        availableSelectionScopes
-      ),
+  setActiveIModelId: (iModelId: string) =>
+    createAction(SessionStateActionId.SetActiveIModelId, iModelId),
+  setAvailableSelectionScopes: (
+    availableSelectionScopes: PresentationSelectionScope[]
+  ) =>
+    createAction(
+      SessionStateActionId.SetAvailableSelectionScopes,
+      availableSelectionScopes
+    ),
   setDefaultIModelViewportControlId: (iModelViewportControlId: string) =>
     createAction(
       SessionStateActionId.SetDefaultIModelViewportControlId,
@@ -155,27 +153,16 @@ export const SessionStateActions = {
     ),
   setDefaultViewId: (viewId: string) =>
     createAction(SessionStateActionId.SetDefaultViewId, viewId),
-  setDefaultViewState:
-    // istanbul ignore next
-    (viewState: any) =>
-      createAction(SessionStateActionId.SetDefaultViewState, viewState),
+  setDefaultViewState: (viewState: any) =>
+    createAction(SessionStateActionId.SetDefaultViewState, viewState),
   setNumItemsSelected: (numSelected: number) =>
     createAction(SessionStateActionId.SetNumItemsSelected, numSelected),
-  setIModelConnection:
-    // istanbul ignore next
-    (iModelConnection: any) =>
-      createAction(SessionStateActionId.SetIModelConnection, iModelConnection),
-  setSelectionScope:
-    // istanbul ignore next
-    (activeSelectionScope: string) =>
-      createAction(
-        SessionStateActionId.SetSelectionScope,
-        activeSelectionScope
-      ),
-  updateCursorMenu:
-    // istanbul ignore next
-    (cursorMenuData: CursorMenuData | CursorMenuPayload) =>
-      createAction(SessionStateActionId.UpdateCursorMenu, cursorMenuData),
+  setIModelConnection: (iModelConnection: any) =>
+    createAction(SessionStateActionId.SetIModelConnection, iModelConnection),
+  setSelectionScope: (activeSelectionScope: string) =>
+    createAction(SessionStateActionId.SetSelectionScope, activeSelectionScope),
+  updateCursorMenu: (cursorMenuData: CursorMenuData | CursorMenuPayload) =>
+    createAction(SessionStateActionId.UpdateCursorMenu, cursorMenuData),
 };
 
 /** Object that contains available actions that modify SessionState. Parent control's props should
@@ -201,7 +188,6 @@ export function SessionStateReducer(
 ): DeepReadonly<SessionState> {
   switch (action.type) {
     case SessionStateActionId.SetNumItemsSelected: {
-      // istanbul ignore else
       if (undefined !== action.payload)
         return { ...state, numItemsSelected: action.payload };
       else return { ...state, numItemsSelected: 0 };
@@ -209,20 +195,17 @@ export function SessionStateReducer(
     case SessionStateActionId.SetAvailableSelectionScopes: {
       const payloadArray: PresentationSelectionScope[] = [];
       action.payload.forEach((scope) => payloadArray.push(scope));
-      // istanbul ignore else
       if (undefined !== action.payload)
         return { ...state, availableSelectionScopes: payloadArray };
       else
         return { ...state, availableSelectionScopes: [defaultSelectionScope] };
     }
     case SessionStateActionId.SetSelectionScope: {
-      // istanbul ignore else
       if (undefined !== action.payload)
         return { ...state, activeSelectionScope: action.payload };
       else return { ...state, activeSelectionScope: defaultSelectionScope.id };
     }
     case SessionStateActionId.SetActiveIModelId: {
-      // istanbul ignore else
       if (undefined !== action.payload)
         return { ...state, iModelId: action.payload };
       else return { ...state, iModelId: "" };

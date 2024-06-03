@@ -63,7 +63,6 @@ export class StateManager {
     );
 
     // create the Redux Store.
-    // istanbul ignore next
     // eslint-disable-next-line deprecation/deprecation
     this._store = createStore(
       allReducers,

@@ -99,14 +99,10 @@ export const ConfigurableUiActions = {
      * @param theme ThemeId
      */
     (theme: string) => createAction(ConfigurableUiActionId.SetTheme, theme),
-  setToolPrompt:
-    // istanbul ignore next
-    (toolPrompt: string) =>
-      createAction(ConfigurableUiActionId.SetToolPrompt, toolPrompt),
-  setWidgetOpacity:
-    // istanbul ignore next
-    (opacity: number) =>
-      createAction(ConfigurableUiActionId.SetWidgetOpacity, opacity),
+  setToolPrompt: (toolPrompt: string) =>
+    createAction(ConfigurableUiActionId.SetToolPrompt, toolPrompt),
+  setWidgetOpacity: (opacity: number) =>
+    createAction(ConfigurableUiActionId.SetWidgetOpacity, opacity),
   setDragInteraction: (dragInteraction: boolean) =>
     createAction(ConfigurableUiActionId.SetDragInteraction, dragInteraction),
   setShowWidgetIcon: (showWidgetIcon: boolean) =>

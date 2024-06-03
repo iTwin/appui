@@ -18,7 +18,6 @@ const iModeMapStateToProps = (mapStateToProps: any) => {
   return (state: any, ownProps: any) => {
     const frameworkState = state[UiFramework.frameworkStateKey]; // since app sets up key, don't hard-code name
 
-    /* istanbul ignore next */
     if (!frameworkState) {
       if (mapStateToProps) return mapStateToProps(state, ownProps);
       return {};
@@ -30,7 +29,6 @@ const iModeMapStateToProps = (mapStateToProps: any) => {
       iModel: frameworkState.sessionState.iModelConnection,
     };
 
-    // istanbul ignore else
     if (mapStateToProps) {
       return {
         ...storeProps,
@@ -38,7 +36,6 @@ const iModeMapStateToProps = (mapStateToProps: any) => {
       };
     }
 
-    // istanbul ignore next
     return storeProps;
   };
 };
@@ -47,11 +44,9 @@ const iModeMapStateToProps = (mapStateToProps: any) => {
  * and 'viewState' property of props
  */
 const iModelAndViewMapStateToProps = (mapStateToProps: any) => {
-  // istanbul ignore next
   return (state: any, ownProps: any) => {
     const frameworkState = state[UiFramework.frameworkStateKey]; // since app sets up key, don't hard-code name
 
-    /* istanbul ignore next */
     if (!frameworkState) return {};
 
     const props = {

@@ -12,6 +12,7 @@ import {
   Title,
 } from "@storybook/blocks";
 import {
+  AppNotificationManager,
   ConfigurableUiContent,
   FrameworkToolAdmin,
   FrontstageProvider,
@@ -66,6 +67,7 @@ export function AppUiStory(props: AppUiStoryProps) {
           })
         ),
         authorizationClient: new DemoAuthClient(),
+        notifications: new AppNotificationManager(),
       });
       await UiFramework.initialize(undefined);
 
