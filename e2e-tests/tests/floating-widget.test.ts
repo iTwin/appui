@@ -226,7 +226,7 @@ test.describe("floating widget send back outline", () => {
 
     await expect(widgetOutline).not.toBeVisible();
     await expect(tabOutline).not.toBeVisible();
-    await sendBackButton.hover();
+    await sendBackButton.hover({ position: { x: 1, y: 1 } }); // TODO: onMouseOut is called w/o explicit position
     await expect(widgetOutline).toBeVisible();
     await expect(tabOutline).toBeVisible();
     await page.mouse.move(0, 0);
@@ -249,7 +249,7 @@ test.describe("floating widget send back outline", () => {
     const outline = outlineLocator({ page, side: "left" });
 
     await expect(outline).not.toBeVisible();
-    await sendBackButton.hover();
+    await sendBackButton.hover({ position: { x: 1, y: 1 } }); // TODO: onMouseOut is called w/o explicit position
     await expect(outline).toBeVisible();
     await page.mouse.move(0, 0);
     await expect(outline).not.toBeVisible();
@@ -268,7 +268,7 @@ test.describe("floating widget send back outline", () => {
     const outline = outlineLocator({ panel, sectionId: 0 });
 
     await expect(outline).not.toBeVisible();
-    await sendBackButton.hover();
+    await sendBackButton.hover({ position: { x: 1, y: 1 } }); // TODO: onMouseOut is called w/o explicit position
     await expect(outline).toBeVisible();
     await page.mouse.move(0, 0);
     await expect(outline).not.toBeVisible();
@@ -297,7 +297,7 @@ test.describe("floating widget send back outline", () => {
     const outline = outlineLocator({ panel, sectionId: 1 });
 
     await expect(outline).not.toBeVisible();
-    await sendBackButton.hover();
+    await sendBackButton.hover({ position: { x: 1, y: 1 } }); // TODO: onMouseOut is called w/o explicit position
     await expect(outline).toBeVisible();
     await page.mouse.move(0, 0);
     await expect(outline).not.toBeVisible();
