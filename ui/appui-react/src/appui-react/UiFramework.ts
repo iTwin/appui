@@ -90,6 +90,7 @@ import type {
 import type { SelectionScopeField } from "./statusfields/SelectionScope";
 import type { SnapModeField } from "./statusfields/SnapMode";
 import type { ThemeManager } from "./theme/ThemeManager";
+import { useGlobalStore } from "./uistate/useGlobalStore";
 
 interface ShowInputEditorOptions {
   location: XAndY;
@@ -143,13 +144,6 @@ type OptionalShowComponentParams = [
     }
   >?
 ];
-
-const globalState = {
-  numItemsSelected: 0,
-  iModelConnection: undefined as IModelConnection | undefined,
-  viewState: undefined as ViewState | undefined,
-  cursorMenuPayload: undefined as CursorMenuPayload | undefined,
-};
 
 /** Main entry point to configure and interact with the features provided by the AppUi-react package.
  * @public
@@ -473,7 +467,7 @@ export class UiFramework {
       return;
     }
 
-    globalState.cursorMenuPayload = menuData;
+    useGlobalStore.setState({ cursorMenuPayload: menuData });
     // eslint-disable-next-line deprecation/deprecation
     dispatchSyncUiEvent(SessionStateActionId.UpdateCursorMenu);
   }
@@ -490,7 +484,7 @@ export class UiFramework {
       return;
     }
 
-    globalState.cursorMenuPayload = undefined;
+    useGlobalStore.setState({ cursorMenuPayload: undefined });
     // eslint-disable-next-line deprecation/deprecation
     dispatchSyncUiEvent(SessionStateActionId.UpdateCursorMenu);
   }
@@ -509,7 +503,7 @@ export class UiFramework {
       );
     }
 
-    return globalState.cursorMenuPayload;
+    return useGlobalStore.getState().cursorMenuPayload;
   }
 
   public static setIModelConnection(
@@ -537,7 +531,7 @@ export class UiFramework {
         immediateSync
       );
     } else {
-      globalState.iModelConnection = iModelConnection;
+      useGlobalStore.setState({ iModelConnection });
       // eslint-disable-next-line deprecation/deprecation
       dispatchSyncUiEvent(SessionStateActionId.SetIModelConnection);
     }
@@ -558,7 +552,7 @@ export class UiFramework {
       // eslint-disable-next-line deprecation/deprecation
       return frameworkState.sessionState.iModelConnection;
     }
-    return globalState.iModelConnection;
+    return useGlobalStore.getState().iModelConnection;
   }
 
   public static setNumItemsSelected(numSelected: number) {
@@ -573,7 +567,7 @@ export class UiFramework {
       return;
     }
 
-    globalState.numItemsSelected = numSelected;
+    useGlobalStore.setState({ numItemsSelected: numSelected });
     // eslint-disable-next-line deprecation/deprecation
     dispatchSyncUiEvent(SessionStateActionId.SetNumItemsSelected);
   }
@@ -586,7 +580,7 @@ export class UiFramework {
       return state.sessionState.numItemsSelected;
     }
 
-    return globalState.numItemsSelected;
+    return useGlobalStore.getState().numItemsSelected;
   }
 
   /** Called by iModelApp to initialize saved UI state from registered UseSettingsProviders. */
@@ -638,7 +632,7 @@ export class UiFramework {
       return;
     }
 
-    globalState.viewState = viewState;
+    useGlobalStore.setState({ viewState });
     dispatchSyncUiEvent(
       // eslint-disable-next-line deprecation/deprecation
       SessionStateActionId.SetDefaultViewState,
@@ -653,7 +647,7 @@ export class UiFramework {
       // eslint-disable-next-line deprecation/deprecation
       return frameworkState.sessionState.defaultViewState;
     }
-    return globalState.viewState;
+    return useGlobalStore.getState().viewState;
   }
 
   public static getIsUiVisible() {
