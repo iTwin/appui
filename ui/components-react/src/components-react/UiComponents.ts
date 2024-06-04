@@ -6,7 +6,6 @@
  * @module Common
  */
 
-import { enablePatches } from "immer";
 import { Logger } from "@itwin/core-bentley";
 import type { Localization } from "@itwin/core-common";
 import { UiCore } from "@itwin/core-react";
@@ -33,7 +32,6 @@ export class UiComponents {
       return;
     }
 
-    enablePatches();
     UiComponents._localization = localization;
     await UiComponents._localization.registerNamespace(
       UiComponents.localizationNamespace
