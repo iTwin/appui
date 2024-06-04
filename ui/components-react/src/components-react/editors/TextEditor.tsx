@@ -24,7 +24,7 @@ import { Icon, IconInput } from "@itwin/core-react";
 import { Input } from "@itwin/itwinui-react";
 import { TypeConverterManager } from "../converters/TypeConverterManager";
 import type { PropertyEditorProps, TypeEditor } from "./EditorContainer";
-import { UiComponents } from "../UiComponents";
+import { useTranslation } from "../useTranslation";
 
 type InputProps = React.ComponentPropsWithoutRef<typeof Input>;
 
@@ -197,14 +197,11 @@ export class TextEditor
       autoFocus: this.props.setFocus && !this.state.isDisabled,
     };
 
-    inputProps["aria-label"] = UiComponents.translate("editor.text");
-
     let reactNode: React.ReactNode;
     if (this.state.iconSpec) {
       const icon = <Icon iconSpec={this.state.iconSpec} />;
       reactNode = (
-        // eslint-disable-next-line deprecation/deprecation
-        <IconInput
+        <LabeledIconInput
           {...inputProps}
           ref={this._inputElement}
           icon={icon}
@@ -213,7 +210,7 @@ export class TextEditor
       );
     } else {
       reactNode = (
-        <Input
+        <LabeledInput
           {...inputProps}
           ref={this._inputElement}
           data-testid="components-text-editor"
@@ -226,3 +223,23 @@ export class TextEditor
     return reactNode;
   }
 }
+
+const LabeledIconInput = React.forwardRef<
+  HTMLInputElement,
+  // eslint-disable-next-line deprecation/deprecation
+  React.ComponentProps<typeof IconInput>
+>(function LabeledIconInput(props, ref) {
+  const { translate } = useTranslation();
+  return (
+    // eslint-disable-next-line deprecation/deprecation
+    <IconInput aria-label={translate("editor.text")} {...props} ref={ref} />
+  );
+});
+
+const LabeledInput = React.forwardRef<
+  HTMLInputElement,
+  React.ComponentProps<typeof Input>
+>(function LabeledInput(props, ref) {
+  const { translate } = useTranslation();
+  return <Input aria-label={translate("editor.text")} {...props} ref={ref} />;
+});

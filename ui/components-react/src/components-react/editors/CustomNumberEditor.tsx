@@ -104,7 +104,8 @@ export class CustomNumberEditor
             MessageSeverity.Error,
             parseResults.parseError
               ? parseResults.parseError
-              : UiComponents.translate("errors.unable-to-parse-quantity")
+              : // eslint-disable-next-line deprecation/deprecation
+                UiComponents.translate("errors.unable-to-parse-quantity")
           );
           this.htmlElement.focus();
         } else {
@@ -112,7 +113,8 @@ export class CustomNumberEditor
             MessageSeverity.Error,
             parseResults.parseError
               ? parseResults.parseError
-              : UiComponents.translate("errors.unable-to-parse-quantity")
+              : // eslint-disable-next-line deprecation/deprecation
+                UiComponents.translate("errors.unable-to-parse-quantity")
           );
         }
 

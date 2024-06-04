@@ -13,7 +13,6 @@ import type { Orientation } from "@itwin/core-react";
 import type { HighlightingComponentProps } from "../../common/HighlightingComponentProps";
 import type { PropertyUpdatedArgs } from "../../editors/EditorContainer";
 import { EditorContainer } from "../../editors/EditorContainer";
-import { UiComponents } from "../../UiComponents";
 import type { PropertyValueRendererManager } from "../ValueRendererManager";
 import type { ActionButtonRenderer } from "./ActionButtonRenderer";
 import { CommonPropertyRenderer } from "./CommonPropertyRenderer";
@@ -21,6 +20,7 @@ import { NonPrimitivePropertyRenderer } from "./NonPrimitivePropertyRenderer";
 import type { PrimitiveRendererProps } from "./PrimitivePropertyRenderer";
 import { PrimitivePropertyRenderer } from "./PrimitivePropertyRenderer";
 import type { PropertyGridColumnInfo } from "./PropertyGridColumns";
+import { useTranslation } from "../../useTranslation";
 
 /** Properties shared by all renderers and PropertyView
  * @public
@@ -101,7 +101,7 @@ export class PropertyRenderer extends React.Component<
 > {
   /** @internal */
   public override readonly state: Readonly<PropertyRendererState> = {
-    displayValue: UiComponents.translate("general.loading"),
+    displayValue: <Loading />,
   };
 
   constructor(props: PropertyRendererProps) {
@@ -212,4 +212,9 @@ export class PropertyRenderer extends React.Component<
         );
     }
   }
+}
+
+function Loading() {
+  const { translate } = useTranslation();
+  return translate("general.loading");
 }

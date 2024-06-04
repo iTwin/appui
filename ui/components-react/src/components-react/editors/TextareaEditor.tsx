@@ -30,7 +30,7 @@ import {
   PropertyEditorManager,
 } from "./PropertyEditorManager";
 import { PopupButton, PopupContent, PopupOkCancelButtons } from "./PopupButton";
-import { UiComponents } from "../UiComponents";
+import { useTranslation } from "../useTranslation";
 
 type TextareaProps = React.ComponentPropsWithoutRef<typeof Textarea>;
 
@@ -212,8 +212,6 @@ export class TextareaEditor
       autoFocus: this.props.setFocus && !this.state.isDisabled,
     };
 
-    textareaProps["aria-label"] = UiComponents.translate("editor.textarea");
-
     return (
       <div className={className} ref={this._divElement}>
         <PopupButton
@@ -223,7 +221,7 @@ export class TextareaEditor
           focusTarget={this._textAreaElement}
         >
           <PopupContent>
-            <Textarea
+            <LabeledTextArea
               {...textareaProps}
               data-testid="components-textarea-editor"
               ref={this._textAreaElement}
@@ -238,6 +236,16 @@ export class TextareaEditor
     );
   }
 }
+
+const LabeledTextArea = React.forwardRef<
+  HTMLTextAreaElement,
+  React.ComponentProps<typeof Textarea>
+>(function LabeledTextArea(props, ref) {
+  const { translate } = useTranslation();
+  return (
+    <Textarea aria-label={translate("editor.textarea")} {...props} ref={ref} />
+  );
+});
 
 /** Textarea Property Editor registered for the "text" and "string" type names and "multi-line" editor name.
  * It uses the [[TextareaEditor]] React component.
