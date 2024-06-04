@@ -16,7 +16,7 @@ import type {
 } from "../../ValueRendererManager";
 import { PropertyContainerType } from "../../ValueRendererManager";
 import { TableArrayValueRenderer } from "./table/ArrayValueRenderer";
-import { withContextStyle } from "./WithContextStyle";
+import { ContextStyle } from "./WithContextStyle";
 
 /** Default Array Property Renderer
  * @public
@@ -35,15 +35,16 @@ export class ArrayPropertyValueRenderer implements IPropertyValueRenderer {
     const recordItems = (record.value as ArrayValue).items;
 
     if (context && context.containerType === PropertyContainerType.Table) {
-      return withContextStyle(
-        <TableArrayValueRenderer
-          propertyRecord={record}
-          onDialogOpen={context.onDialogOpen}
-          orientation={
-            context.orientation ? context.orientation : Orientation.Horizontal
-          }
-        />,
-        context
+      return (
+        <ContextStyle context={context}>
+          <TableArrayValueRenderer
+            propertyRecord={record}
+            onDialogOpen={context.onDialogOpen}
+            orientation={
+              context.orientation ? context.orientation : Orientation.Horizontal
+            }
+          />
+        </ContextStyle>
       );
     }
 
@@ -51,14 +52,17 @@ export class ArrayPropertyValueRenderer implements IPropertyValueRenderer {
       context &&
       context.containerType === PropertyContainerType.PropertyPane
     ) {
-      return withContextStyle("", context);
+      return <ContextStyle context={context} />;
     }
 
-    return withContextStyle(
-      recordItems.length !== 0
-        ? `${(record.value as ArrayValue).itemsTypeName}[${recordItems.length}]`
-        : `${(record.value as ArrayValue).itemsTypeName}[]`,
-      context
+    return (
+      <ContextStyle context={context}>
+        {recordItems.length !== 0
+          ? `${(record.value as ArrayValue).itemsTypeName}[${
+              recordItems.length
+            }]`
+          : `${(record.value as ArrayValue).itemsTypeName}[]`}
+      </ContextStyle>
     );
   }
 }

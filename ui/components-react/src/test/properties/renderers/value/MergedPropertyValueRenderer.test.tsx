@@ -2,6 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+import { render } from "@testing-library/react";
 import { MergedPropertyValueRenderer } from "../../../../components-react/properties/renderers/value/MergedPropertyValueRenderer";
 import TestUtils from "../../../TestUtils";
 
@@ -12,7 +13,8 @@ describe("MergedPropertyValueRenderer", () => {
       const property = TestUtils.createPrimitiveStringProperty("a", "b");
       property.isMerged = true;
       const element = renderer.render(property);
-      expect(element).toEqual("property.varies");
+      const { getByText } = render(element);
+      getByText("property.varies");
     });
   });
 

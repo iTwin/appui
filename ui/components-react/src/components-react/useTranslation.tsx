@@ -15,6 +15,7 @@ export function useTranslation() {
     if (!UiComponents.initialized) {
       return undefined;
     }
+    // eslint-disable-next-line deprecation/deprecation
     return UiComponents.translate(key);
   }, []);
   return usePackageTranslation({
