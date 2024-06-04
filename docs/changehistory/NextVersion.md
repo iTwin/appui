@@ -6,11 +6,12 @@ Table of contents:
   - [Deprecations](#deprecations)
   - [Additions](#additions)
   - [Changes](#changes)
+  - [Fixes](#fixes)
 - [@itwin/components-react](#itwincomponents-react)
   - [Deprecations](#deprecations-1)
   - [Changes](#changes-1)
 - [@itwin/core-react](#itwincore-react)
-  - [Fixes](#fixes)
+  - [Fixes](#fixes-1)
 
 ## @itwin/appui-react
 
@@ -59,6 +60,10 @@ Table of contents:
 - The dropdown menu of `widgetActionDropdown` preview feature will close once one of the menu items is activated. [#856](https://github.com/iTwin/appui/pull/856)
 - The labels for the buttons in the widget title bar will be rendered as tooltips, rather than using the `title` attribute. [#856](https://github.com/iTwin/appui/pull/856)
 - Started using iTwinUI components for `StatusBar` field components. That includes both the button and the popup. [#848](https://github.com/iTwin/appui/pull/848)
+
+### Fixes
+
+- Fixed `StatusBarComposer` overflow item order. Now status fields should always go into overflow from right to left. [#848](https://github.com/iTwin/appui/pull/848)
 
 ## @itwin/components-react
 
