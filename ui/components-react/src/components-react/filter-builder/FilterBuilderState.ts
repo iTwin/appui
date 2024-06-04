@@ -385,6 +385,7 @@ export function defaultPropertyFilterBuilderRuleValidator(
     return rangeRuleValidator(item.value);
   }
   if (isEmptyValue(item.value)) {
+    // eslint-disable-next-line deprecation/deprecation
     return UiComponents.translate("filterBuilder.errorMessages.emptyValue");
   }
   return undefined;
@@ -393,9 +394,11 @@ export function defaultPropertyFilterBuilderRuleValidator(
 function rangeRuleValidator(value?: PropertyValue) {
   const range = PropertyFilterBuilderRuleRangeValue.parse(value);
   if (isEmptyValue(range.from) || isEmptyValue(range.to)) {
+    // eslint-disable-next-line deprecation/deprecation
     return UiComponents.translate("filterBuilder.errorMessages.emptyValue");
   }
   if (!PropertyFilterBuilderRuleRangeValue.isRangeValid(range)) {
+    // eslint-disable-next-line deprecation/deprecation
     return UiComponents.translate("filterBuilder.errorMessages.invalidRange");
   }
   return undefined;

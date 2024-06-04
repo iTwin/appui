@@ -13,10 +13,10 @@ import { Key } from "ts-key-enum";
 import type { CommonProps } from "@itwin/core-react";
 import { Icon } from "@itwin/core-react";
 import { Input } from "@itwin/itwinui-react";
-import { UiComponents } from "../UiComponents";
 import type { ResultSelectorProps } from "./ResultSelector";
 import { ResultSelector } from "./ResultSelector";
 import { SvgClose, SvgSearch } from "@itwin/itwinui-icons-react";
+import { useTranslation } from "../useTranslation";
 
 /** [[FilteringInput]] React Component state
  * @internal
@@ -146,7 +146,6 @@ export class FilteringInput extends React.PureComponent<
 
   public override render() {
     const status = this.props.status;
-    const searchLabel = UiComponents.translate("general.search");
     return (
       // TODO: What is filtering-input-preload-images?
       <div
@@ -160,16 +159,12 @@ export class FilteringInput extends React.PureComponent<
         role="presentation"
       >
         <span className="components-filtering-input-input">
-          <Input
-            type="text"
-            placeholder={UiComponents.translate("filteringInput.placeholder")}
+          <TextInput
             // eslint-disable-next-line jsx-a11y/no-autofocus
             autoFocus={this.props.autoFocus}
             onKeyDown={this._onFilterKeyDown}
             value={this.state.searchText}
             onChange={this._onInputChanged}
-            aria-label={searchLabel}
-            size="small"
           />
 
           <span className="components-filtering-input-input-components">
@@ -182,46 +177,80 @@ export class FilteringInput extends React.PureComponent<
             ) : undefined}
             {status === FilteringInputStatus.ReadyToFilter ? (
               // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-              <span
-                className="icon"
-                onClick={this._onSearchButtonClick}
-                data-testid="filter-input-search"
-                role="button"
-                tabIndex={-1}
-                title={searchLabel}
-              >
-                <Icon iconSpec={<SvgSearch />} />{" "}
-              </span>
+              <SearchIcon onClick={this._onSearchButtonClick} />
             ) : undefined}
             {status === FilteringInputStatus.FilteringInProgress ? (
-              // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-              <span
-                className="icon"
-                onClick={this._onCancelButtonClick}
-                data-testid="filter-input-close"
-                role="button"
-                tabIndex={-1}
-                title={UiComponents.translate("dialog.cancel")}
-              >
-                <Icon iconSpec={<SvgClose />} />{" "}
-              </span>
+              <Cancel onClick={this._onCancelButtonClick} />
             ) : undefined}
             {status === FilteringInputStatus.FilteringFinished ? (
-              // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-              <span
-                className="components-filtering-input-clear icon"
-                onClick={this._onClearButtonClick}
-                data-testid="filter-input-close"
-                role="button"
-                tabIndex={-1}
-                title={UiComponents.translate("general.clear")}
-              >
-                <Icon iconSpec={<SvgClose />} />{" "}
-              </span>
+              <Clear onClick={this._onClearButtonClick} />
             ) : undefined}
           </span>
         </span>
       </div>
     );
   }
+}
+
+function Clear(props: React.HTMLAttributes<HTMLSpanElement>) {
+  const { translate } = useTranslation();
+  return (
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events
+    <span
+      className="components-filtering-input-clear icon"
+      data-testid="filter-input-close"
+      role="button"
+      tabIndex={-1}
+      title={translate("general.clear")}
+      {...props}
+    >
+      <Icon iconSpec={<SvgClose />} />{" "}
+    </span>
+  );
+}
+
+function Cancel(props: React.HTMLAttributes<HTMLSpanElement>) {
+  const { translate } = useTranslation();
+  return (
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events
+    <span
+      className="icon"
+      data-testid="filter-input-close"
+      role="button"
+      tabIndex={-1}
+      title={translate("dialog.cancel")}
+      {...props}
+    >
+      <Icon iconSpec={<SvgClose />} />{" "}
+    </span>
+  );
+}
+
+function TextInput(props: React.ComponentProps<typeof Input>) {
+  const { translate } = useTranslation();
+  return (
+    <Input
+      type="text"
+      placeholder={translate("filteringInput.placeholder")}
+      aria-label={translate("general.search")}
+      size="small"
+      {...props}
+    />
+  );
+}
+
+function SearchIcon(props: React.HTMLAttributes<HTMLSpanElement>) {
+  const { translate } = useTranslation();
+  return (
+    <span
+      className="icon"
+      data-testid="filter-input-search"
+      role="button"
+      tabIndex={-1}
+      title={translate("general.search")}
+      {...props}
+    >
+      <Icon iconSpec={<SvgSearch />} />{" "}
+    </span>
+  );
 }

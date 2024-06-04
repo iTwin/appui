@@ -18,7 +18,7 @@ import {
   PropertyEditorBase,
   PropertyEditorManager,
 } from "./PropertyEditorManager";
-import { UiComponents } from "../UiComponents";
+import { useTranslation } from "../useTranslation";
 
 /** @internal */
 interface EnumEditorState {
@@ -182,7 +182,7 @@ export class EnumEditor
     // onBlur={this.props.onBlur}
     return (
       <div ref={this._divElement}>
-        <Select
+        <LabeledSelect
           className={className}
           style={this.props.style ? this.props.style : minWidthStyle}
           value={selectValue}
@@ -196,12 +196,16 @@ export class EnumEditor
             },
             className: "components-button",
           }}
-          aria-label={UiComponents.translate("editor.enum")}
           size="small"
         />
       </div>
     );
   }
+}
+
+function LabeledSelect<T>(props: React.ComponentProps<typeof Select<T>>) {
+  const { translate } = useTranslation();
+  return <Select<T> aria-label={translate("editor.enum")} {...props} />;
 }
 
 /** Enum Property Button Group Editor registered for the "enum" type name.

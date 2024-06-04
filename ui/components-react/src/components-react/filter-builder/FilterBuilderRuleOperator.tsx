@@ -76,12 +76,16 @@ export function getPropertyFilterBuilderOperatorLabel(
 ) {
   switch (operator) {
     case "is-true":
+      // eslint-disable-next-line deprecation/deprecation
       return UiComponents.translate("filterBuilder.operators.isTrue");
     case "is-false":
+      // eslint-disable-next-line deprecation/deprecation
       return UiComponents.translate("filterBuilder.operators.isFalse");
     case "is-equal":
+      // eslint-disable-next-line deprecation/deprecation
       return UiComponents.translate("filterBuilder.operators.equal");
     case "is-not-equal":
+      // eslint-disable-next-line deprecation/deprecation
       return UiComponents.translate("filterBuilder.operators.notEqual");
     case "greater":
       return ">";
@@ -92,14 +96,19 @@ export function getPropertyFilterBuilderOperatorLabel(
     case "less-or-equal":
       return "<=";
     case "like":
+      // eslint-disable-next-line deprecation/deprecation
       return UiComponents.translate("filterBuilder.operators.contains");
     case "is-null":
+      // eslint-disable-next-line deprecation/deprecation
       return UiComponents.translate("filterBuilder.operators.isNull");
     case "is-not-null":
+      // eslint-disable-next-line deprecation/deprecation
       return UiComponents.translate("filterBuilder.operators.isNotNull");
     case "between":
+      // eslint-disable-next-line deprecation/deprecation
       return UiComponents.translate("filterBuilder.operators.between");
     case "not-between":
+      // eslint-disable-next-line deprecation/deprecation
       return UiComponents.translate("filterBuilder.operators.notBetween");
   }
 }

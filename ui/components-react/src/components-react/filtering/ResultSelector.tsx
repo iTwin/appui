@@ -12,8 +12,8 @@ import * as React from "react";
 import { Key } from "ts-key-enum";
 import type { CommonProps } from "@itwin/core-react";
 import { Icon } from "@itwin/core-react";
-import { UiComponents } from "../UiComponents";
 import { SvgChevronLeft, SvgChevronRight } from "@itwin/itwinui-icons-react";
+import { useTranslation } from "../useTranslation";
 
 /** [[ResultSelector]] React Component state
  * @internal
@@ -167,9 +167,7 @@ export class ResultSelector extends React.PureComponent<
           ) : (
             this.state.selectedResultId
           )}
-          <span style={{ marginLeft: "5px", marginRight: "5px" }}>
-            {UiComponents.translate("general.of")}
-          </span>
+          <Of />
           <span>{this.props.resultCount}</span>
         </span>
 
@@ -184,4 +182,13 @@ export class ResultSelector extends React.PureComponent<
       </span>
     );
   }
+}
+
+function Of() {
+  const { translate } = useTranslation();
+  return (
+    <span style={{ marginLeft: "5px", marginRight: "5px" }}>
+      {translate("general.of")}
+    </span>
+  );
 }
