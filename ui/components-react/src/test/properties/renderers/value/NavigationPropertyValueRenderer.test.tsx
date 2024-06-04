@@ -10,8 +10,6 @@ import type { PropertyValueRendererContext } from "../../../../components-react/
 import TestUtils from "../../../TestUtils";
 import type { PropertyConverterInfo } from "@itwin/appui-abstract";
 
-/* eslint-disable deprecation/deprecation */
-
 describe("NavigationPropertyValueRenderer", () => {
   const instanceKey = { className: "", id: Id64.fromUint32Pair(1, 0) };
 
