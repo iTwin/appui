@@ -388,6 +388,7 @@ export class UiFramework {
   }
 
   /** Calls localization.getLocalizedString with the "UiFramework" namespace. Do NOT include the namespace in the key.
+   * @deprecated in 4.14.x. Do not use this internally, this is replaced by `useTranslation`.
    * @internal
    */
   public static translate(
