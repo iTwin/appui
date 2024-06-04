@@ -74,6 +74,7 @@ import { OutputMessageType } from '@itwin/core-frontend';
 import type { PlaybackSettings } from '@itwin/imodel-components-react';
 import { Point } from '@itwin/core-react';
 import type { Point2d } from '@itwin/core-geometry';
+import { Popover } from '@itwin/itwinui-react';
 import type { PopupProps } from '@itwin/core-react';
 import type { Primitives } from '@itwin/appui-abstract';
 import type { PropertyDescription } from '@itwin/appui-abstract';
