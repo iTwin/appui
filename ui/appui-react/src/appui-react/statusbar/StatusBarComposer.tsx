@@ -203,6 +203,24 @@ function combineItems(
   return items;
 }
 
+/** local function to sort status bar items from left to right */
+const sortItems = (items: StatusBarItem[]) => {
+  const sortedItems: StatusBarItem[] = [];
+  [
+    StatusBarSection.Left,
+    StatusBarSection.Center,
+    StatusBarSection.Context,
+    StatusBarSection.Right,
+  ].forEach((section) => {
+    items
+      .filter((item) => item.section.valueOf() === section.valueOf())
+      .sort((a, b) => a.itemPriority - b.itemPriority)
+      .forEach((item) => sortedItems.push(item));
+  });
+
+  return sortedItems;
+};
+
 /** local function to ensure a width value is defined for a status bar entries.  */
 function verifiedMapEntries<T>(map: Map<string, T | undefined>) {
   for (const [, val] of map) {
@@ -211,6 +229,21 @@ function verifiedMapEntries<T>(map: Map<string, T | undefined>) {
   }
   return map as Map<string, T>;
 }
+
+/** local function to sort status bar item widths */
+const sortWidths = (
+  widths: Map<string, number>,
+  statusBarItems: StatusBarItem[]
+) => {
+  const widthsArray = Array.from(widths.entries());
+  widthsArray.sort((a, b) => {
+    const aIndex = statusBarItems.findIndex((item) => item.id === a[0]);
+    const bIndex = statusBarItems.findIndex((item) => item.id === b[0]);
+    return aIndex - bIndex;
+  });
+
+  return new Map<string, number>(widthsArray);
+};
 
 /** Returns a subset of docked entry keys that exceed given width and should be placed in overflow panel. */
 function getItemToPlaceInOverflow(
@@ -310,16 +343,17 @@ export function StatusBarComposer(props: StatusBarComposerProps) {
   );
   useStatusBarItemSyncEffect(addonItemsManager, addonSyncIdsOfInterest);
 
-  const statusBarItems = React.useMemo(
-    () => combineItems(defaultItems, addonItems),
-    [defaultItems, addonItems]
-  );
   const entryWidths = React.useRef(new Map<string, number | undefined>());
   const overflowWidth = React.useRef<number | undefined>(undefined);
   const [overflown, setOverflown] = React.useState<ReadonlyArray<string>>();
+  const statusBarItems = React.useMemo(() => {
+    const combinedItems = combineItems(defaultItems, addonItems);
+    return sortItems(combinedItems);
+  }, [defaultItems, addonItems]);
 
   const calculateOverflow = React.useCallback(() => {
     const widths = verifiedMapEntries(entryWidths.current);
+
     if (
       containerWidth.current === undefined ||
       widths === undefined ||
@@ -352,12 +386,19 @@ export function StatusBarComposer(props: StatusBarComposerProps) {
   const handleEntryResize = React.useCallback(
     (key: string) => (w: number) => {
       const oldW = entryWidths.current.get(key);
-      if (undefined === oldW || Math.abs(oldW - w) > 2) {
+      if (oldW === undefined || Math.abs(oldW - w) > 2) {
         entryWidths.current.set(key, w);
+        if (oldW === undefined) {
+          console.log("here");
+          const widths = verifiedMapEntries(entryWidths.current);
+          if (widths !== undefined)
+            entryWidths.current = sortWidths(widths, statusBarItems);
+        }
+
         calculateOverflow();
       }
     },
-    [calculateOverflow]
+    [calculateOverflow, statusBarItems]
   );
 
   const getSectionName = (section: StatusBarSection) => {
