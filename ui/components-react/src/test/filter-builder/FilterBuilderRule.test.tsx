@@ -13,7 +13,6 @@ import type { PropertyFilterBuilderRuleOperatorProps } from "../../components-re
 import type { PropertyFilterBuilderRuleValueProps } from "../../components-react/filter-builder/FilterBuilderRuleValue";
 import { PropertyFilterBuilderActions } from "../../components-react/filter-builder/FilterBuilderState";
 import { renderWithContext } from "./Common";
-import { UiComponents } from "../../components-react";
 
 describe("PropertyFilterBuilderRuleRenderer", () => {
   const defaultProps: PropertyFilterBuilderRuleRendererProps = {
@@ -69,7 +68,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
         ".fb-row-condition span"
       );
       expect(operatorSpan?.innerHTML).toEqual(
-        UiComponents.translate("filterBuilder.operators.contains")
+        "filterBuilder.operators.contains"
       );
     });
 
@@ -88,7 +87,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
         ".fb-row-condition span"
       );
       expect(operatorSpan?.innerHTML).toEqual(
-        UiComponents.translate("filterBuilder.operators.contains")
+        "filterBuilder.operators.contains"
       );
     });
 

@@ -15,7 +15,6 @@ import {
   isPropertyFilterBuilderRuleGroup,
   usePropertyFilterBuilder,
 } from "../../components-react/filter-builder/FilterBuilderState";
-import { UiComponents } from "../../components-react/UiComponents";
 import type { PropertyFilter } from "../../components-react/filter-builder/Types";
 import { PropertyFilterBuilderRuleRangeValue } from "../../components-react";
 
@@ -615,9 +614,7 @@ describe("usePropertyFilterBuilder", () => {
         const { rootGroup } = result.current;
         expect(
           (rootGroup.items[0] as PropertyFilterBuilderRule).errorMessage
-        ).toEqual(
-          UiComponents.translate("filterBuilder.errorMessages.emptyValue")
-        );
+        ).toEqual("filterBuilder.errorMessages.emptyValue");
 
         expect(buildFilterResult).toEqual(undefined);
       });
@@ -639,9 +636,7 @@ describe("usePropertyFilterBuilder", () => {
         const { rootGroup } = result.current;
         expect(
           (rootGroup.items[0] as PropertyFilterBuilderRule).errorMessage
-        ).toEqual(
-          UiComponents.translate("filterBuilder.errorMessages.emptyValue")
-        );
+        ).toEqual("filterBuilder.errorMessages.emptyValue");
 
         expect(buildFilterResult).toEqual(undefined);
       });
@@ -730,9 +725,7 @@ describe("usePropertyFilterBuilder", () => {
           const { rootGroup } = result.current;
           expect(
             (rootGroup.items[0] as PropertyFilterBuilderRule).errorMessage
-          ).toEqual(
-            UiComponents.translate("filterBuilder.errorMessages.emptyValue")
-          );
+          ).toEqual("filterBuilder.errorMessages.emptyValue");
         });
 
         it("returns undefined and sets rule error message to `Value is empty` if item`s range `to` value is empty", async () => {
@@ -759,9 +752,7 @@ describe("usePropertyFilterBuilder", () => {
           const { rootGroup } = result.current;
           expect(
             (rootGroup.items[0] as PropertyFilterBuilderRule).errorMessage
-          ).toEqual(
-            UiComponents.translate("filterBuilder.errorMessages.emptyValue")
-          );
+          ).toEqual("filterBuilder.errorMessages.emptyValue");
         });
 
         it("returns undefined and sets rule error message to `Invalid range` if item`s range is not valid", async () => {
@@ -789,9 +780,7 @@ describe("usePropertyFilterBuilder", () => {
           const { rootGroup } = result.current;
           expect(
             (rootGroup.items[0] as PropertyFilterBuilderRule).errorMessage
-          ).toEqual(
-            UiComponents.translate("filterBuilder.errorMessages.invalidRange")
-          );
+          ).toEqual("filterBuilder.errorMessages.invalidRange");
         });
 
         it("returns property filter with `Between` rule when value is valid", () => {
