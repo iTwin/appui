@@ -41,6 +41,7 @@ import {
   PropertyEditorBase,
   PropertyEditorManager,
 } from "./PropertyEditorManager";
+import { useTranslation } from "../useTranslation";
 
 /** @internal */
 interface CustomNumberEditorState {
@@ -60,6 +61,8 @@ export class CustomNumberEditor
   private _isMounted = false;
   private _formatParams: CustomFormattedNumberParams | undefined;
   private _inputElement = React.createRef<HTMLInputElement>();
+  private _messagePresenter =
+    React.createRef<React.ComponentRef<typeof LocalizedMessagePresenter>>();
   private _lastValidValue: PropertyValue | undefined;
 
   /** @internal */
@@ -99,22 +102,16 @@ export class CustomNumberEditor
         }
       } else {
         if (this.htmlElement) {
-          UiAdmin.messagePresenter.displayInputFieldMessage(
+          this._messagePresenter.current?.displayInputFieldMessage(
             this.htmlElement,
             MessageSeverity.Error,
             parseResults.parseError
-              ? parseResults.parseError
-              : // eslint-disable-next-line deprecation/deprecation
-                UiComponents.translate("errors.unable-to-parse-quantity")
           );
           this.htmlElement.focus();
         } else {
-          UiAdmin.messagePresenter.displayMessage(
+          this._messagePresenter.current?.displayMessage(
             MessageSeverity.Error,
             parseResults.parseError
-              ? parseResults.parseError
-              : // eslint-disable-next-line deprecation/deprecation
-                UiComponents.translate("errors.unable-to-parse-quantity")
           );
         }
 
@@ -372,7 +369,12 @@ export class CustomNumberEditor
       );
     }
 
-    return reactNode;
+    return (
+      <>
+        {reactNode}
+        <LocalizedMessagePresenter ref={this._messagePresenter} />
+      </>
+    );
   }
 }
 
@@ -393,3 +395,34 @@ PropertyEditorManager.registerEditor(
   CustomNumberPropertyEditor,
   StandardEditorNames.NumberCustom
 );
+
+const LocalizedMessagePresenter = React.forwardRef<{
+  displayInputFieldMessage: (
+    inputField: HTMLElement,
+    severity: MessageSeverity,
+    briefMessage?: string
+  ) => void;
+  displayMessage: (severity: MessageSeverity, briefMessage?: string) => void;
+}>(function LocalizedMessagePresenter(_, ref) {
+  const { translate } = useTranslation();
+  React.useImperativeHandle(
+    ref,
+    () => ({
+      displayInputFieldMessage: (inputField, severity, briefMessage) => {
+        UiAdmin.messagePresenter.displayInputFieldMessage(
+          inputField,
+          severity,
+          briefMessage ?? translate("errors.unable-to-parse-quantity")
+        );
+      },
+      displayMessage: (severity, briefMessage) => {
+        UiAdmin.messagePresenter.displayMessage(
+          severity,
+          briefMessage ?? translate("errors.unable-to-parse-quantity")
+        );
+      },
+    }),
+    [translate]
+  );
+  return <></>;
+});
