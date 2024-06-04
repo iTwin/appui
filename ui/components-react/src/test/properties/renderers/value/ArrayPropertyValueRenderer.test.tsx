@@ -26,27 +26,24 @@ describe("ArrayPropertyValueRenderer", () => {
         stringProperty,
       ]);
 
-      const element = renderer.render(arrayProperty);
-
-      expect(element).toEqual("string[1]");
+      const { getByText } = render(renderer.render(arrayProperty));
+      getByText("string[1]");
     });
 
     it("renders empty array property", () => {
       const renderer = new ArrayPropertyValueRenderer();
       const arrayProperty = TestUtils.createArrayProperty("LabelArray");
 
-      const element = renderer.render(arrayProperty);
-
-      expect(element).toEqual("string[]");
+      const { getByText } = render(renderer.render(arrayProperty));
+      getByText("string[]");
     });
 
     it("renders default way if empty context is provided", () => {
       const renderer = new ArrayPropertyValueRenderer();
       const arrayProperty = TestUtils.createArrayProperty("LabelArray");
 
-      const element = renderer.render(arrayProperty, {});
-
-      expect(element).toEqual("string[]");
+      const { getByText } = render(renderer.render(arrayProperty, {}));
+      getByText("string[]");
     });
 
     it("renders array with Table renderer if container type is Table", async () => {
@@ -116,11 +113,12 @@ describe("ArrayPropertyValueRenderer", () => {
         stringProperty,
       ]);
 
-      const element = renderer.render(arrayProperty, {
-        containerType: PropertyContainerType.PropertyPane,
-      });
-
-      expect(element).toEqual("");
+      const { container } = render(
+        renderer.render(arrayProperty, {
+          containerType: PropertyContainerType.PropertyPane,
+        })
+      );
+      expect(container.childElementCount).toEqual(0);
     });
   });
 

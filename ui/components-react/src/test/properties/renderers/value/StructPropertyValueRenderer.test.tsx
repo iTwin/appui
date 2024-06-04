@@ -20,18 +20,16 @@ describe("StructPropertyValueRenderer", () => {
       const renderer = new StructPropertyValueRenderer();
       const structProperty = TestUtils.createStructProperty("NameStruct");
 
-      const element = renderer.render(structProperty);
-
-      expect(element).toEqual("{struct}");
+      const { getByText } = render(renderer.render(structProperty));
+      getByText("{struct}");
     });
 
     it("renders default way when provided with empty context", () => {
       const renderer = new StructPropertyValueRenderer();
       const structProperty = TestUtils.createStructProperty("NameStruct");
 
-      const element = renderer.render(structProperty, {});
-
-      expect(element).toEqual("{struct}");
+      const { getByText } = render(renderer.render(structProperty, {}));
+      getByText("{struct}");
     });
 
     it("renders struct with Table renderer if container type is Table", async () => {
@@ -97,8 +95,8 @@ describe("StructPropertyValueRenderer", () => {
       const element = renderer.render(structProperty, {
         containerType: PropertyContainerType.PropertyPane,
       });
-
-      expect(element).toEqual("");
+      const { container } = render(element);
+      expect(container.childElementCount).toEqual(0);
     });
   });
 
