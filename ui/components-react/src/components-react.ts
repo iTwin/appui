@@ -5,6 +5,8 @@
 
 // cSpell:ignore iconpicker lineweight hocs datepicker quantityformat
 
+import { enablePatches } from "immer";
+
 export { UiComponents } from "./components-react/UiComponents";
 export * from "./components-react/useTranslation";
 
@@ -165,6 +167,8 @@ export * from "./components-react/tree/controlled/component/TreeNodeEditor";
 export * from "./components-react/tree/controlled/component/TreeNodeRenderer";
 export * from "./components-react/tree/controlled/component/TreeRenderer";
 export * from "./components-react/tree/controlled/internal/SparseTree";
+
+enablePatches();
 
 /** @docs-package-description
  * The components-react package contains React components that are data-oriented, such as PropertyGrid, Table and Tree.
