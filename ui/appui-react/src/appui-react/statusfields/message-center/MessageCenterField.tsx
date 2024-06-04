@@ -8,11 +8,7 @@
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
 import { Icon } from "@itwin/core-react";
-import {
-  Button,
-  NotificationMarker,
-  Tabs,
-} from "@itwin/itwinui-react";
+import { Button, NotificationMarker, Tabs } from "@itwin/itwinui-react";
 import { SvgChat } from "@itwin/itwinui-icons-react";
 import { OutputMessagePriority } from "@itwin/core-frontend";
 

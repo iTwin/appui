@@ -74,7 +74,6 @@ import { OutputMessageType } from '@itwin/core-frontend';
 import type { PlaybackSettings } from '@itwin/imodel-components-react';
 import { Point } from '@itwin/core-react';
 import type { Point2d } from '@itwin/core-geometry';
-import { Popover } from '@itwin/itwinui-react';
 import type { PopupProps } from '@itwin/core-react';
 import type { Primitives } from '@itwin/appui-abstract';
 import type { PropertyDescription } from '@itwin/appui-abstract';
@@ -4422,7 +4421,7 @@ export enum StatusBarLabelSide {
 export function StatusBarLeftSection(props: CommonDivProps): React_2.JSX.Element;
 
 // @public
-export function StatusBarPopover(props: React_2.ComponentProps<typeof Popover>): React_2.JSX.Element;
+export function StatusBarPopover(props: StatusBarPopoverProps): React_2.JSX.Element;
 
 // @public
 export namespace StatusBarPopover {
