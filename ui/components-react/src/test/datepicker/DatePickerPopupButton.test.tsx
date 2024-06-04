@@ -9,8 +9,6 @@ import { DatePickerPopupButton } from "../../components-react/datepicker/DatePic
 import { TimeDisplay } from "@itwin/appui-abstract";
 import { Key } from "ts-key-enum";
 
-/* eslint-disable deprecation/deprecation */
-
 describe("<DatePickerPopupButton />", () => {
   const testDate = new Date("July 22, 2018 07:22:13 -0400");
   const testDate2 = new Date("July 20, 1969");
