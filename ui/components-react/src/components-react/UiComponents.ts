@@ -69,6 +69,7 @@ export class UiComponents {
   }
 
   /** Calls localization.getLocalizedString with the "UiComponents" namespace. Do NOT include the namespace in the key.
+   * @deprecated in 4.14.x. Do not use this internally, this is replaced by `useTranslation`.
    * @internal
    */
   public static translate(key: string | string[]): string {
