@@ -14,6 +14,7 @@ import { TypeConverterManager } from "./TypeConverterManager";
 
 /** Boolean Type Converter.
  * @public
+ * @note Requires `UiComponents.initialize` to convert localized boolean values.
  */
 export class BooleanTypeConverter extends TypeConverter {
   /** @internal */
@@ -25,10 +26,16 @@ export class BooleanTypeConverter extends TypeConverter {
   public static getLocalizedTrueFalse() {
     if (!BooleanTypeConverter.sl10nTrue)
       // eslint-disable-next-line deprecation/deprecation
-      BooleanTypeConverter.sl10nTrue = UiComponents.translate("general.true");
+      BooleanTypeConverter.sl10nTrue = UiComponents.translate(
+        "general.true",
+        "true"
+      );
     if (!BooleanTypeConverter.sl10nFalse)
       // eslint-disable-next-line deprecation/deprecation
-      BooleanTypeConverter.sl10nFalse = UiComponents.translate("general.false");
+      BooleanTypeConverter.sl10nFalse = UiComponents.translate(
+        "general.false",
+        "false"
+      );
   }
 
   public override convertToString(value?: Primitives.Boolean) {

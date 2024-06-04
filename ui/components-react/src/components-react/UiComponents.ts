@@ -72,13 +72,16 @@ export class UiComponents {
    * @deprecated in 4.14.x. Do not use this internally, this is replaced by `useTranslation`.
    * @internal
    */
-  public static translate(key: string | string[]): string {
+  public static translate(key: string | string[], fallback?: string): string {
     if (!UiComponents._localization) {
-      Logger.logError(
-        UiComponents.loggerCategory(this),
-        `translate: UiComponents.initialize has not been called. Returning blank string.`
-      );
-      return "";
+      if (fallback === undefined) {
+        Logger.logError(
+          UiComponents.loggerCategory(this),
+          `translate: UiComponents.initialize has not been called. Returning blank string.`
+        );
+        return "";
+      }
+      return fallback;
     }
     return UiComponents._localization.getLocalizedString(
       `${UiComponents.localizationNamespace}:${key}`
