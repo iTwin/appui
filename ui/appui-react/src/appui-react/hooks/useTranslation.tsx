@@ -15,6 +15,7 @@ export function useTranslation() {
     if (!UiFramework.initialized) {
       return undefined;
     }
+    // eslint-disable-next-line deprecation/deprecation
     return UiFramework.translate(key);
   }, []);
   return usePackageTranslation({
