@@ -7,7 +7,6 @@ import { render, screen } from "@testing-library/react";
 import * as React from "react";
 import type { IPropertyValueRenderer } from "../../components-react/properties/ValueRendererManager";
 import { PropertyValueRendererManager } from "../../components-react/properties/ValueRendererManager";
-import { UiComponents } from "../../components-react/UiComponents";
 import TestUtils from "../TestUtils";
 
 describe("PropertyValueRendererManager", () => {
@@ -148,8 +147,7 @@ describe("PropertyValueRendererManager", () => {
 
       render(<>{value}</>);
 
-      expect(screen.getByText(UiComponents.translate("property.varies"))).to
-        .exist;
+      expect(screen.getByText("property.varies")).to.exist;
     });
 
     it("renders merged properties before looking for custom renderer in property typename", () => {
@@ -165,8 +163,7 @@ describe("PropertyValueRendererManager", () => {
 
       const value = rendererManager.render(property);
       render(<>{value}</>);
-      expect(screen.getByText(UiComponents.translate("property.varies"))).to
-        .exist;
+      expect(screen.getByText("property.varies")).to.exist;
       expect(fakeRenderer.render).not.toBeCalled();
     });
   });
