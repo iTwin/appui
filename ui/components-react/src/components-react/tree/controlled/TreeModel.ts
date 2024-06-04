@@ -506,7 +506,6 @@ export class MutableTreeModel implements TreeModel {
       parentId === undefined ? this._rootNode : this._tree.getNode(parentId);
     this._tree.removeChild(parentId, child);
 
-    // istanbul ignore else
     if (parentNode)
       MutableTreeModel.setNumChildrenForNode(
         parentNode,

@@ -58,7 +58,6 @@ export class Tree extends React.PureComponent<TreeProps> {
     const container = this._scrollableContainer;
     if (!container) return;
 
-    // istanbul ignore next
     if (!Element.prototype.scrollTo) {
       // workaround for Edge scrollTo issue https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/15534521/
       element.scrollIntoView();
@@ -120,14 +119,12 @@ export class Tree extends React.PureComponent<TreeProps> {
     for (let i = 0; i < collection.length; ++i) elems.push(collection.item(i)!);
     return elems;
   }
-  // istanbul ignore next
   public setFocusByClassName(selector: string): boolean {
     let status = false;
     if (this._treeElement.current) {
       const element = this._treeElement.current.querySelector(
         selector
       ) as HTMLElement;
-      // istanbul ignore else
       if (element && element.focus) {
         element.focus();
         status = true;

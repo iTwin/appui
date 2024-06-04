@@ -23,7 +23,7 @@ describe("Dock", () => {
         </NineZoneLabelsContext.Provider>
       </NineZoneDispatchContext.Provider>
     );
-    const button = component.getByTitle("Dock");
+    const button = component.getByRole("button", { name: "Dock" });
     fireEvent.click(button);
 
     expect(dispatch).toHaveBeenCalledWith({

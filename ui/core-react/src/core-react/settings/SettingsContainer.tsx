@@ -162,7 +162,6 @@ export const SettingsContainer = ({
         tabToActivate = tabs.find(
           (tab) => tab.label.toLowerCase() === idToFind
         );
-      // istanbul ignore else
       if (tabToActivate) {
         if (openTab && openTab.pageWillHandleCloseRequest)
           settingsManager.onProcessSettingsTabActivation.emit({

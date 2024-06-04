@@ -213,7 +213,6 @@ export class TreeNodeLoader<
     });
   }
 
-  // istanbul ignore next
   protected load(): Observable<LoadedNodeHierarchy> {
     throw new Error("Method not implemented.");
   }
@@ -300,7 +299,6 @@ export class PagedTreeNodeLoader<
     });
   }
 
-  // istanbul ignore next
   protected load(): Observable<LoadedNodeHierarchy> {
     throw new Error("Method not implemented.");
   }
@@ -416,7 +414,6 @@ export function handleLoadedNodeHierarchy(
   modelSource.modifyModel((model) => {
     if (loadedHierarchy.parentId !== undefined) {
       // Make sure the model sill contains the parent node
-      /* istanbul ignore if */
       if (model.getNode(loadedHierarchy.parentId) === undefined) return;
     }
 
@@ -429,7 +426,7 @@ export function handleLoadedNodeHierarchy(
     );
     if (loadedHierarchy.parentId !== undefined) {
       const parentNode = model.getNode(loadedHierarchy.parentId);
-      /* istanbul ignore else */
+
       if (
         parentNode &&
         parentNode.isLoading &&

@@ -23,7 +23,6 @@ interface SpeedProps extends CommonProps {
  * @internal
  */
 export function SpeedTimeline(props: SpeedProps) {
-  // istanbul ignore next - WIP
   const onChange = (values: ReadonlyArray<number>) => {
     const value = values[0];
     if (props.onChange && value >= 1 && value <= 6) props.onChange(value);

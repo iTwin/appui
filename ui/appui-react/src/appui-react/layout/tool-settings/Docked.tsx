@@ -289,7 +289,6 @@ export function getOverflown(
 
   // Remove items until they fit.
   let j = i;
-  // istanbul ignore else
   if (j < docked.length) {
     for (; j > 0; j--) {
       if (j === activeIndex) continue;

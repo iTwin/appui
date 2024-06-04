@@ -49,7 +49,7 @@ describe("WidgetPanelsTab", () => {
       "get"
     ).mockImplementation(() => frontstageDef);
     const widgetDef = WidgetDef.create({
-      id: "w1",
+      id: "t1",
       badge: BadgeType.New,
     });
     vi.spyOn(frontstageDef, "findWidgetDef").mockReturnValue(widgetDef);

@@ -45,12 +45,10 @@ export class TileLoadingIndicator extends React.PureComponent<
     const requested = vp.numRequestedTiles;
     const ready = vp.numReadyTiles;
     const total = ready + requested;
-    const pctComplete =
-      total > 0 ? (ready / total) * 100 : /* istanbul ignore next */ 100;
+    const pctComplete = total > 0 ? (ready / total) * 100 : 100;
     let enabled = this.state.enabled;
     let finished = this.state.finished;
 
-    // istanbul ignore else
     if (!enabled && total !== 0 && pctComplete !== 100) enabled = true;
 
     if (enabled && (total === 0 || pctComplete === 100)) enabled = false;
@@ -67,7 +65,6 @@ export class TileLoadingIndicator extends React.PureComponent<
       );
     }
 
-    // istanbul ignore else
     if (pctComplete !== 100 && finished) finished = false;
 
     this.setState({
@@ -84,20 +81,17 @@ export class TileLoadingIndicator extends React.PureComponent<
   };
 
   private _onViewOpen = (vp: ScreenViewport) => {
-    // istanbul ignore next
     this._removeOnRenderListener && this._removeOnRenderListener();
     this._removeOnRenderListener = vp.onRender.addListener(this._update);
   };
 
   public override componentDidMount() {
-    // istanbul ignore next
     if (!IModelApp.viewManager) return;
 
     // get selected viewport
     const vp = IModelApp.viewManager.selectedView;
 
     // if view exists bind update routine to onRender loop, otherwise do so once the onViewOpen event runs
-    // istanbul ignore else
     if (vp) {
       this._onViewOpen(vp);
     } else {
@@ -107,13 +101,10 @@ export class TileLoadingIndicator extends React.PureComponent<
   }
 
   public override componentWillUnmount() {
-    // istanbul ignore next
     if (!IModelApp.viewManager) return;
 
-    // istanbul ignore next
     if (this._removeViewOpenListener) this._removeViewOpenListener();
 
-    // istanbul ignore else
     if (this._removeOnRenderListener) this._removeOnRenderListener();
   }
 

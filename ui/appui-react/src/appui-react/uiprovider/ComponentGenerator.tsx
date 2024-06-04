@@ -48,7 +48,6 @@ function EditorLabel({
         (syncItem: DialogPropertySyncItem) =>
           syncItem.propertyName === item.property.name
       );
-      // istanbul ignore next
       if (mySyncItem) {
         setIsDisabled(!!mySyncItem.isDisabled);
       }
@@ -59,7 +58,6 @@ function EditorLabel({
     };
   }, [uiDataProvider, item]);
 
-  // istanbul ignore next
   const className = classnames(
     "uifw-default-label",
     !!isLeftmostRecord && "uifw-default-narrow-only-display"
@@ -89,7 +87,6 @@ function PropertyEditor({
   const getLatestRecordValue = React.useCallback(() => {
     let newRecord = UiLayoutDataProvider.getPropertyRecord(initialItem);
 
-    // istanbul ignore next
     const foundItem = isLock
       ? uiDataProvider.items.find(
           (item) =>
@@ -98,7 +95,6 @@ function PropertyEditor({
       : uiDataProvider.items.find(
           (item) => item.property.name === initialItem.property.name
         );
-    // istanbul ignore else
     if (foundItem) {
       if (isLock) {
         newRecord = newRecord.copyWithNewValue({
@@ -127,7 +123,6 @@ function PropertyEditor({
         (syncItem: DialogPropertySyncItem) =>
           syncItem.propertyName === initialItem.property.name
       );
-      // istanbul ignore else
       if (mySyncItem) {
         const newPropertyValue = propertyRecord.copyWithNewValue(
           {
@@ -139,7 +134,6 @@ function PropertyEditor({
         );
 
         if (mySyncItem.property) {
-          // istanbul ignore else
           if (mySyncItem.property.name === mySyncItem.propertyName) {
             newPropertyValue.isDisabled = mySyncItem.isDisabled;
             setPropertyRecord(newPropertyValue);
@@ -165,11 +159,9 @@ function PropertyEditor({
     () => (isLock ? "uifw-default-property-lock" : "uifw-default-editor"),
     [isLock]
   );
-  // istanbul ignore next
   const handleCommit = React.useCallback(
     (commit: PropertyUpdatedArgs) => {
       // UiLayoutDataProvider supports only primitive property types
-      // istanbul ignore next
       assert(
         commit.newValue.valueFormat === PropertyValueFormat.Primitive &&
           commit.propertyRecord.value.valueFormat ===
@@ -187,7 +179,6 @@ function PropertyEditor({
     },
     [initialItem.property.name, propertyRecord, uiDataProvider]
   );
-  // istanbul ignore next
   const handleCancel = () => {};
 
   return (
@@ -233,7 +224,6 @@ export class ComponentGenerator {
     row: DialogRow,
     rowIndex: number
   ): React.ReactNode {
-    // istanbul ignore else
     if (1 === row.items.length) {
       return (
         <div
@@ -261,7 +251,6 @@ export class ComponentGenerator {
     row: DialogRow,
     rowIndex: number
   ): ToolSettingsEntry {
-    // istanbul ignore else
     if (1 === row.items.length) {
       return {
         labelNode: "",
@@ -309,7 +298,6 @@ export class ComponentGenerator {
     multiplePropertiesOnRow: boolean
   ): React.ReactNode {
     const record = UiLayoutDataProvider.getPropertyRecord(rowItem);
-    // istanbul ignore next
     const lockEditor = UiLayoutDataProvider.hasAssociatedLockProperty(rowItem)
       ? this.getEditor(rowItem.lockProperty!, true)
       : null;

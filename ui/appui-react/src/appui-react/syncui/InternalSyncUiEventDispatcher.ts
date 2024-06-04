@@ -32,7 +32,7 @@ export class InternalSyncUiEventDispatcher {
   }
 
   /** @internal - used for testing only */
-  /* istanbul ignore next */
+
   public setTimeoutPeriod(period: number): void {
     this._timeoutPeriod = period;
     this._secondaryTimeoutPeriod = Math.floor(this._timeoutPeriod / 2);
@@ -70,7 +70,6 @@ export class InternalSyncUiEventDispatcher {
 
   /** Save eventId in Set for processing. */
   public dispatchSyncUiEvent(eventId: string): void {
-    // istanbul ignore if
     if (0 === this._timeoutPeriod) {
       return;
     }
@@ -88,13 +87,11 @@ export class InternalSyncUiEventDispatcher {
 
   /** Save multiple eventIds in Set for processing. */
   public dispatchSyncUiEvents(eventIds: string[]): void {
-    // istanbul ignore if
     if (0 === this._timeoutPeriod) {
       return;
     }
 
     eventIds.forEach((id) => this.syncEventIds.add(id.toLowerCase()));
-    // istanbul ignore else
     if (!this._syncEventTimerId) {
       // if there is not a timer active, create one
       this._syncEventTimerId = window.setTimeout(() => {
@@ -107,15 +104,12 @@ export class InternalSyncUiEventDispatcher {
 
   /** Trigger registered event processing when timer has expired and no addition eventId are added. */
   public checkForAdditionalIds() {
-    /* istanbul ignore else */
     if (!this._eventIdAdded) {
-      // istanbul ignore else
       if (this._syncEventTimerId) {
         window.clearTimeout(this._syncEventTimerId);
         this._syncEventTimerId = undefined;
       }
       this._eventIdAdded = false;
-      // istanbul ignore else
       if (this.syncEventIds.size > 0) {
         const eventIds = new Set<string>();
         this.syncEventIds.forEach((value) => eventIds.add(value));
@@ -125,15 +119,12 @@ export class InternalSyncUiEventDispatcher {
       return;
     }
 
-    // istanbul ignore next
     if (this._syncEventTimerId) {
       window.clearTimeout(this._syncEventTimerId);
       this._syncEventTimerId = undefined;
     }
-    // istanbul ignore next
     this._eventIdAdded = false;
     // if events have been added before the initial timer expired wait half that time to see if events are still being added.
-    // istanbul ignore next
     this._syncEventTimerId = window.setTimeout(() => {
       this.checkForAdditionalIds();
     }, this._secondaryTimeoutPeriod);
@@ -141,7 +132,6 @@ export class InternalSyncUiEventDispatcher {
 
   /** Checks to see if an eventId of interest is contained in the set of eventIds */
   public hasEventOfInterest(eventIds: Set<string>, idsOfInterest: string[]) {
-    /* istanbul ignore else */
     if (
       idsOfInterest.length > 0 &&
       idsOfInterest.some((value: string): boolean =>

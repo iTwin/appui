@@ -37,7 +37,6 @@ export interface ViewToolWidgetComposerProps {
  */
 export function ViewToolWidgetComposer(props: ViewToolWidgetComposerProps) {
   const uiIsVisible = useUiVisibility();
-  // istanbul ignore next
   const className = classnames(!uiIsVisible && "nz-hidden");
 
   return (

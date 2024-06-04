@@ -147,7 +147,6 @@ export class Dialog extends React.Component<DialogProps> {
     this._parentDocument.addEventListener("keyup", this._handleKeyUp, true);
   }
 
-  // istanbul ignore next
   public handleRefSet = (containerDiv: HTMLDivElement | null) => {
     if (containerDiv) this._parentDocument = containerDiv.ownerDocument;
   };
@@ -234,7 +233,7 @@ export class Dialog extends React.Component<DialogProps> {
         className={classnames("core-dialog", className)}
         isDraggable={movable}
         isResizable={resizable}
-        trapFocus={trapFocus && /* istanbul ignore next */ modal}
+        trapFocus={trapFocus && modal}
         preventDocumentScroll={true}
         data-testid="core-dialog-root"
         {...props}
@@ -343,7 +342,6 @@ export class Dialog extends React.Component<DialogProps> {
   };
 
   protected _handleContainerPointerDown = (event: React.PointerEvent): void => {
-    // istanbul ignore next
     if (!this.props.modal) {
       if (this.props.onModelessPointerDown && this.props.modelessId)
         this.props.onModelessPointerDown(event, this.props.modelessId);

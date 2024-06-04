@@ -66,7 +66,6 @@ export class StatusMessageManager {
       (message: StatusMessage) => message.id === id
     );
 
-    // istanbul ignore else
     if (foundIndex >= 0) {
       const messages = this._messages.slice();
       messages.splice(foundIndex, 1);

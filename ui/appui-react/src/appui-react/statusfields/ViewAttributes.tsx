@@ -45,7 +45,6 @@ export class ViewAttributesStatusField extends React.Component<
     this.updateState();
   }
 
-  // istanbul ignore next
   private updateState() {
     if (IModelApp.viewManager.selectedView) {
       const viewFlags: ViewFlagProps = {
@@ -60,7 +59,6 @@ export class ViewAttributesStatusField extends React.Component<
     }
   }
 
-  // istanbul ignore next
   private _handleViewFlagClick = (flagName: string) => {
     if (IModelApp.viewManager.selectedView) {
       const props: ViewFlagProps =
@@ -96,7 +94,7 @@ export class ViewAttributesStatusField extends React.Component<
 
   private getFlagState(flagName: string) {
     return this.state.viewFlags.hasOwnProperty(flagName)
-      ? /* istanbul ignore next */ (this.state.viewFlags as any)[flagName]
+      ? (this.state.viewFlags as any)[flagName]
       : false;
   }
 

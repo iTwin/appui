@@ -32,7 +32,6 @@ export function TitleBarTarget() {
   const [ref] = useTarget<HTMLDivElement>(useTargetArgs(widgetId));
   const allowedTarget = useAllowedWidgetTarget(widgetId);
 
-  // istanbul ignore next
   const hidden =
     !allowedTarget ||
     (((!draggedTab && !draggedWidgetId) || draggedWidgetId === widgetId) &&
@@ -40,7 +39,6 @@ export function TitleBarTarget() {
   const className = classnames(
     "nz-target-titleBarTarget",
     hidden && "nz-hidden",
-    // istanbul ignore next
     cursorType && getCursorClassName(cursorType)
   );
   return (

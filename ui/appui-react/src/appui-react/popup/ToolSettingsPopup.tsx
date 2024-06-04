@@ -53,7 +53,6 @@ export class ToolSettingsPopup extends React.PureComponent<
   }
 
   private _onSizeKnown = (newSize: SizeProps) => {
-    // istanbul ignore else
     if (!this.state.size.equals(newSize))
       this.setState({ size: Size.create(newSize) });
   };
@@ -61,7 +60,6 @@ export class ToolSettingsPopup extends React.PureComponent<
   private _handleKeyDown = (e: React.KeyboardEvent) => {
     switch (e.key) {
       case Key.Escape.valueOf():
-        // istanbul ignore else
         if (this.props.onCancel) this.props.onCancel();
         break;
     }

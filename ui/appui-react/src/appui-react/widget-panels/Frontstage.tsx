@@ -621,7 +621,6 @@ export function restoreNineZoneState(
         const oldLeftMiddleIndex = packed.panels.left.widgets.findIndex(
           (value) => value === "leftMiddle"
         );
-        // istanbul ignore next
         if (-1 !== oldLeftMiddleIndex) {
           draft.panels.left.widgets = packed.panels.left.widgets.filter(
             (value) => value !== "leftMiddle"
@@ -639,7 +638,6 @@ export function restoreNineZoneState(
         const oldRightMiddleIndex = packed.panels.right.widgets.findIndex(
           (value) => value === "rightMiddle"
         );
-        // istanbul ignore next
         if (-1 !== oldRightMiddleIndex) {
           draft.panels.right.widgets = packed.panels.right.widgets.filter(
             (value) => value !== "rightMiddle"

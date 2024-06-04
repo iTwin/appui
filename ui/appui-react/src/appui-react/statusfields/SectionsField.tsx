@@ -45,7 +45,6 @@ export function SectionsStatusField(props: SectionsStatusFieldProps) {
   const [hasManipulatorsShown, setHasManipulatorsShown] = React.useState(false);
 
   React.useEffect(() => {
-    // istanbul ignore next
     const onClipChanged = (
       viewport: Viewport,
       _eventType: ClipEventType,
@@ -58,14 +57,10 @@ export function SectionsStatusField(props: SectionsStatusFieldProps) {
       setShowIndicator(isClipActive || !props.hideWhenUnused);
     };
 
-    const clipActive =
-      !!activeViewport &&
-      /* istanbul ignore next */ !!activeViewport.view.getViewClip();
+    const clipActive = !!activeViewport && !!activeViewport.view.getViewClip();
     setShowIndicator(clipActive || !props.hideWhenUnused);
     setHasManipulatorsShown(
-      clipActive &&
-        /* istanbul ignore next */ !!activeViewport &&
-        /* istanbul ignore next */ !!ViewClipDecoration.get(activeViewport)
+      clipActive && !!activeViewport && !!ViewClipDecoration.get(activeViewport)
     );
 
     ViewClipDecorationProvider.create().onActiveClipChanged.addListener(
@@ -79,7 +74,6 @@ export function SectionsStatusField(props: SectionsStatusFieldProps) {
     };
   }, [activeViewport, props.hideWhenUnused, isPopupOpen]);
 
-  // istanbul ignore next
   const toggleManipulators = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (activeViewport) {
       setHasManipulatorsShown(e.target.checked);
@@ -89,7 +83,6 @@ export function SectionsStatusField(props: SectionsStatusFieldProps) {
     }
   };
 
-  // istanbul ignore next
   const handleClear = async () => {
     await IModelApp.tools.run(
       ViewClipClearTool.toolId,

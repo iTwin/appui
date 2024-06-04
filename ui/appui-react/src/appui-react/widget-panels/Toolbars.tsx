@@ -9,6 +9,7 @@
 import "./Toolbars.scss";
 import * as React from "react";
 import { useActiveFrontstageDef } from "../frontstage/FrontstageDef";
+import { NavigationWidget } from "../preview/control-widget-visibility/NavigationWidget";
 
 /** @internal */
 export function WidgetPanelsToolbars() {
@@ -18,7 +19,7 @@ export function WidgetPanelsToolbars() {
   return (
     <div className="uifw-widgetPanels-toolbars">
       {tools}
-      {navigation}
+      <NavigationWidget>{navigation}</NavigationWidget>
     </div>
   );
 }

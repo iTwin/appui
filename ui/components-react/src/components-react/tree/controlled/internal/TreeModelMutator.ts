@@ -151,7 +151,6 @@ export class TreeModelMutator {
     const closeEditing = () => {
       this._modelSource.modifyModel((model) => {
         const node = model.getNode(nodeId);
-        // istanbul ignore if
         if (!node) return;
         node.editingInfo = undefined;
       });

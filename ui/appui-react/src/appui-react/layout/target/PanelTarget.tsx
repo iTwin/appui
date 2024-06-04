@@ -34,17 +34,13 @@ export function PanelTarget(props: PanelTargetProps) {
     side,
     newWidgetId,
   });
-  // istanbul ignore next
   const visible = (draggedTab || !!draggedWidgetId) && allowedTarget;
   const isHorizontal = isHorizontalPanelSide(side);
   const className = classnames(
     "nz-target-panelTarget",
-    // istanbul ignore next
     isHorizontal ? "nz-horizontal" : "nz-vertical",
-    // istanbul ignore next
     targeted && "nz-targeted",
     !visible && "nz-hidden",
-    // istanbul ignore next
     cursorType && getCursorClassName(cursorType)
   );
   return <div className={className} ref={ref} />;

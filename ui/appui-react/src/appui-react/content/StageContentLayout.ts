@@ -55,7 +55,6 @@ export class StageContentLayout {
     const viewStateProps = new Array<ViewStateHelperProps>();
     const viewports = contentGroup.getViewports();
     for (const viewport of viewports) {
-      // istanbul ignore else
       if (viewport) {
         const savedViewProps = ViewStateHelper.viewStateToProps(viewport.view);
         if (emphasizeElements)
@@ -103,7 +102,6 @@ export class StageContentLayout {
     let index = 0;
     for (const savedViewProps of savedProps.viewStateProps) {
       const viewport = viewports[index];
-      // istanbul ignore else
       if (viewport) {
         const changed = ViewStateHelper.emphasizeElementsFromProps(
           viewport,

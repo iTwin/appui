@@ -142,7 +142,6 @@ export class AutoSuggest extends React.PureComponent<
   };
 
   private _onFocus = (e: React.FocusEvent<HTMLInputElement>) => {
-    // istanbul ignore else
     if (this.props.onInputFocus) this.props.onInputFocus(e);
   };
 
@@ -192,7 +191,7 @@ export class AutoSuggest extends React.PureComponent<
 
     return Promise.resolve(
       inputLength === 0
-        ? /* istanbul ignore next */ []
+        ? []
         : this.props.options.filter((data: AutoSuggestData) => {
             return (
               data.label.toLowerCase().includes(inputValue) ||
@@ -234,15 +233,12 @@ export class AutoSuggest extends React.PureComponent<
   private _handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     switch (e.key) {
       case Key.Enter.valueOf():
-        // istanbul ignore else
         if (this.props.onPressEnter) this.props.onPressEnter(e);
         break;
       case Key.Escape.valueOf():
-        // istanbul ignore else
         if (this.props.onPressEscape) this.props.onPressEscape(e);
         break;
       case Key.Tab.valueOf():
-        // istanbul ignore else
         if (this.props.onPressTab) this.props.onPressTab(e);
         break;
     }

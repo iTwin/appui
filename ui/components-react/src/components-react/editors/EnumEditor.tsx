@@ -50,7 +50,6 @@ export class EnumEditor
     const record = this.props.propertyRecord;
     let propertyValue: PropertyValue | undefined;
 
-    // istanbul ignore else
     if (record && record.value.valueFormat === PropertyValueFormat.Primitive) {
       propertyValue = {
         valueFormat: PropertyValueFormat.Primitive,
@@ -62,26 +61,21 @@ export class EnumEditor
     return propertyValue;
   }
 
-  // istanbul ignore next
   public get htmlElement(): HTMLElement | null {
     return this._divElement.current;
   }
 
-  // istanbul ignore next
   public get hasFocus(): boolean {
     let containsFocus = false;
-    // istanbul ignore else
     if (this._divElement.current)
       containsFocus = this._divElement.current.contains(document.activeElement);
     return containsFocus;
   }
 
   private _updateSelectValue = (newValue: string) => {
-    // istanbul ignore else
     if (this._isMounted) {
       let selectValue: string | number;
 
-      // istanbul ignore if
       if (this.state.valueIsNumber) selectValue = parseInt(newValue, 10);
       else selectValue = newValue;
 
@@ -90,10 +84,8 @@ export class EnumEditor
           selectValue,
         },
         async () => {
-          // istanbul ignore else
           if (this.props.propertyRecord && this.props.onCommit) {
             const propertyValue = await this.getPropertyValue();
-            // istanbul ignore else
             if (propertyValue) {
               this.props.onCommit({
                 propertyRecord: this.props.propertyRecord,
@@ -129,7 +121,6 @@ export class EnumEditor
     let initialValue: string | number = "";
     let valueIsNumber: boolean = false;
 
-    // istanbul ignore else
     if (
       propertyRecord &&
       propertyRecord.value.valueFormat === PropertyValueFormat.Primitive
@@ -147,7 +138,6 @@ export class EnumEditor
     let choices: EnumerationChoice[] | undefined;
 
     if (propertyRecord && propertyRecord.property.enum) {
-      // istanbul ignore else
       if (propertyRecord.property.enum.choices instanceof Promise) {
         choices = await propertyRecord.property.enum.choices;
       } else {
@@ -162,7 +152,6 @@ export class EnumEditor
       });
     }
 
-    // istanbul ignore else
     if (this._isMounted)
       this.setState({
         selectValue: initialValue,
@@ -182,7 +171,7 @@ export class EnumEditor
     const selectValue =
       this.state.selectValue !== undefined
         ? this.state.selectValue.toString()
-        : /* istanbul ignore next */ undefined;
+        : undefined;
 
     // set min-width to show about 4 characters + down arrow
     const minWidthStyle: React.CSSProperties = {
@@ -220,7 +209,6 @@ export class EnumEditor
  * @public
  */
 export class EnumPropertyEditor extends PropertyEditorBase {
-  // istanbul ignore next
   public override get containerHandlesEnter(): boolean {
     return false;
   }

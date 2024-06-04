@@ -23,7 +23,6 @@ export class InputEditorCommitHandler {
 
   public handleCommit = (args: PropertyUpdatedArgs) => {
     let newValue: Primitives.Value = 0;
-    // istanbul ignore else
     if (
       args.newValue.valueFormat === PropertyValueFormat.Primitive &&
       args.newValue.value !== undefined
@@ -60,7 +59,6 @@ export class InputEditorPopup extends React.PureComponent<
   };
 
   private _onSizeKnown = (newSize: SizeProps) => {
-    // istanbul ignore else
     if (!this.state.size.equals(newSize))
       this.setState({ size: Size.create(newSize) });
   };

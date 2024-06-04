@@ -54,7 +54,6 @@ ColorPickerDialogProps) {
     onOkResult(activeColor);
   }, [onOkResult, activeColor]);
   const handleCancel = React.useCallback(() => {
-    // istanbul ignore else
     if (onCancelResult) onCancelResult();
   }, [onCancelResult]);
 

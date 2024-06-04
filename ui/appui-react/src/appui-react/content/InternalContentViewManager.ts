@@ -88,7 +88,6 @@ export class InternalContentViewManager {
     }
 
     // if it's not a floating control, look through the content area views
-    // istanbul ignore else
     if (activeContentGroup) {
       const activeContentControl =
         activeContentGroup.getControlFromElement(content);
@@ -109,7 +108,6 @@ export class InternalContentViewManager {
     let activeContentControl: ContentControl | undefined;
     const activeFrontstageDef = UiFramework.frontstages.activeFrontstageDef;
 
-    // istanbul ignore else
     if (this._activeContent && activeFrontstageDef) {
       const activeContentGroup = activeFrontstageDef.contentGroup;
       activeContentControl = this.getControlFromElement(
@@ -124,7 +122,6 @@ export class InternalContentViewManager {
 
   public static addFloatingContentControl(contentControl?: ContentControl) {
     const activeFrontstageDef = UiFramework.frontstages.activeFrontstageDef;
-    // istanbul ignore else
     if (activeFrontstageDef && contentControl) {
       activeFrontstageDef.addFloatingContentControl(contentControl);
     }
@@ -132,7 +129,6 @@ export class InternalContentViewManager {
 
   public static dropFloatingContentControl(contentControl?: ContentControl) {
     const activeFrontstageDef = UiFramework.frontstages.activeFrontstageDef;
-    // istanbul ignore else
     if (activeFrontstageDef && contentControl)
       activeFrontstageDef.dropFloatingContentControl(contentControl);
   }
@@ -142,18 +138,15 @@ export class InternalContentViewManager {
     activeContent?: React.ReactNode,
     forceEventProcessing = false
   ): void {
-    // istanbul ignore else
     if (this._activeContent !== activeContent || forceEventProcessing) {
       const oldContent = this._activeContent;
       this._activeContent = activeContent;
 
       const activeFrontstageDef = UiFramework.frontstages.activeFrontstageDef;
 
-      // istanbul ignore else
       if (activeFrontstageDef) {
         const activeContentGroup = activeFrontstageDef.contentGroup;
 
-        // istanbul ignore else
         const oldContentControl = this.getControlFromElement(
           oldContent,
           activeContentGroup,
@@ -167,16 +160,12 @@ export class InternalContentViewManager {
         );
 
         // Only call setActiveView if going to or coming from a non-viewport ContentControl
-        // istanbul ignore else
         if (activeContentControl) {
-          // istanbul ignore next
           const doSetActiveView =
             forceEventProcessing ||
             !activeContentControl.viewport ||
-            /* istanbul ignore next */ (oldContentControl &&
-              /* istanbul ignore next */ !oldContentControl.viewport);
+            (oldContentControl && !oldContentControl.viewport);
 
-          // istanbul ignore else
           if (doSetActiveView) {
             activeFrontstageDef.setActiveView(
               activeContentControl,

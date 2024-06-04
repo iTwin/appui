@@ -38,7 +38,6 @@ export function MessageRenderer(props: MessageRendererProps) {
   } else if (isHTMLElement(props.message)) {
     // the esm build of dompurify has a default import but the cjs build does not
     // if there is a default export, use it (likely esm), otherwise use the namespace
-    // istanbul ignore next
     const sanitizer = DOMPurify ?? DOMPurifyNS; // `sanitizer` is default function name for "jam3/no-sanitizer-with-danger" ESLint rule
 
     let validAnchors = false;
@@ -73,7 +72,7 @@ export function MessageRenderer(props: MessageRendererProps) {
     // check for anchor tags in the message that have target _blank also have a relationship that avoids security holes
     // https://web.dev/external-anchors-use-rel-noopener/
     // first check the message element
-    /* istanbul ignore else */
+
     if (
       props.message.hasAttribute("target") &&
       (props.message as HTMLAnchorElement).target === "_blank"
@@ -106,7 +105,6 @@ export function MessageRenderer(props: MessageRendererProps) {
       />
     );
   } else {
-    /* istanbul ignore else */
     if (isReactMessage(props.message))
       messageNode = (
         <OutElement className={props.className}>

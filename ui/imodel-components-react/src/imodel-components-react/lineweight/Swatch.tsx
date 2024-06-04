@@ -81,7 +81,6 @@ export class LineWeightSwatch extends React.PureComponent<LineWeightSwatchProps>
         };
 
     const handleClick = (_e: React.MouseEvent) => {
-      // istanbul ignore else
       if (onClick) onClick();
     };
 

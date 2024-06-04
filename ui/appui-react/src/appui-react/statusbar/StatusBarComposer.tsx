@@ -141,7 +141,6 @@ function useStatusBarItemSyncEffect(
     const handleSyncUiEvent = (args: UiSyncEventArgs) => {
       if (0 === syncIdsOfInterest.length) return;
 
-      // istanbul ignore else
       if (
         syncIdsOfInterest.some((value: string): boolean =>
           args.eventIds.has(value.toLowerCase())
@@ -224,7 +223,6 @@ const sortItems = (items: StatusBarItem[]) => {
 /** local function to ensure a width value is defined for a status bar entries.  */
 function verifiedMapEntries<T>(map: Map<string, T | undefined>) {
   for (const [, val] of map) {
-    // istanbul ignore next
     if (val === undefined) return undefined;
   }
   return map as Map<string, T>;

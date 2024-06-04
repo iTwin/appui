@@ -68,7 +68,6 @@ export function ToolbarItems(props: ToolbarItemsProps) {
   const { onElementRef, proximityScale } = useWidgetOpacityContext();
 
   React.useEffect(() => {
-    // istanbul ignore else
     if (isInitialMount.current) {
       isInitialMount.current = false;
       onElementRef(ref);
@@ -83,7 +82,6 @@ export function ToolbarItems(props: ToolbarItemsProps) {
     toolbarOpacity = calculateToolbarOpacity(proximityScale);
     boxShadowOpacity = calculateBoxShadowOpacity(proximityScale);
     filterBlur = calculateBackdropFilterBlur(proximityScale);
-    // istanbul ignore next
     if (proximityScale < 0.25) showSeparators = false;
   }
 

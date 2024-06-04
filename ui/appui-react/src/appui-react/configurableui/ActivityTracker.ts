@@ -41,7 +41,6 @@ export class ActivityTracker {
   /** Initializes the time tracker and adds event listeners
    */
   public initialize(props?: ActivityTrackerProps): void {
-    // istanbul ignore else
     if (props) {
       this._idleTimeout = props.idleTimeout;
       if (props.intervalTimeout !== undefined)
@@ -61,7 +60,6 @@ export class ActivityTracker {
   public terminate(): void {
     this._unbindEvents();
 
-    // istanbul ignore else
     if (this._intervalId) {
       clearInterval(this._intervalId);
       this._intervalId = undefined;

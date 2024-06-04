@@ -72,7 +72,6 @@ export class SliderEditor
     const record = this.props.propertyRecord;
     let propertyValue: PropertyValue | undefined;
 
-    // istanbul ignore else
     if (record && record.value.valueFormat === PropertyValueFormat.Primitive) {
       propertyValue = {
         valueFormat: PropertyValueFormat.Primitive,
@@ -90,7 +89,6 @@ export class SliderEditor
 
   public get hasFocus(): boolean {
     let containsFocus = false;
-    // istanbul ignore else
     if (this.htmlElement)
       containsFocus = this.htmlElement.contains(document.activeElement);
     return containsFocus;
@@ -99,7 +97,6 @@ export class SliderEditor
   private _handleChange = (values: readonly number[]): void => {
     const newValue = values[0];
 
-    // istanbul ignore else
     if (this._isMounted)
       this.setState({
         value: newValue,
@@ -137,7 +134,6 @@ export class SliderEditor
     const record = this.props.propertyRecord;
     let initialValue = 0;
 
-    // istanbul ignore else
     if (record && record.value.valueFormat === PropertyValueFormat.Primitive) {
       initialValue = record.value.value as number;
     }
@@ -172,7 +168,6 @@ export class SliderEditor
         (param: PropertyEditorParams) =>
           param.type === PropertyEditorParamTypes.Slider.valueOf()
       ) as SliderEditorParams;
-      // istanbul ignore else
       if (sliderParams) {
         min = sliderParams.minimum;
         max = sliderParams.maximum;
@@ -227,7 +222,6 @@ export class SliderEditor
       }
     }
 
-    // istanbul ignore else
     if (this._isMounted)
       this.setState({
         value: initialValue,
@@ -256,7 +250,6 @@ export class SliderEditor
     if (this._enterKey) {
       this._enterKey = false;
     } else {
-      // istanbul ignore else
       if (this.props.onCancel) this.props.onCancel();
     }
   };
@@ -266,17 +259,14 @@ export class SliderEditor
   };
 
   private _handleCancel = (_event: React.MouseEvent): void => {
-    // istanbul ignore else
     if (this.props.onCancel) {
       this.props.onCancel();
     }
   };
 
   private _handleCommit = async (): Promise<void> => {
-    // istanbul ignore else
     if (this.props.propertyRecord && this.props.onCommit) {
       const propertyValue = await this.getPropertyValue();
-      // istanbul ignore else
       if (propertyValue !== undefined) {
         this.props.onCommit({
           propertyRecord: this.props.propertyRecord,

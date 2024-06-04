@@ -17,12 +17,12 @@ import { ActionButton } from "../../preview/widget-action-dropdown/Button";
 export function PopoutToggle() {
   const dispatch = React.useContext(NineZoneDispatchContext);
   const activeTabId = useActiveTabId();
-  const popoutTitle = useLabel("popoutActiveTab");
+  const label = useLabel("popoutActiveTab");
 
   return (
     <ActionButton
       icon={<SvgWindowPopout />}
-      title={popoutTitle}
+      label={label}
       onClick={() => {
         dispatch({
           id: activeTabId,

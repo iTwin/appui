@@ -63,7 +63,6 @@ interface ViewOverlayHostProps {
 /** View Overlay component -- exported for testing
  * @internal
  */
-// istanbul ignore next
 export function ViewOverlayHost({
   viewport,
   featureOptions,
@@ -87,7 +86,6 @@ export function ViewOverlayHost({
 /** iModel Viewport Control
  * @public
  */
-// istanbul ignore next
 export class IModelViewportControl extends ViewportContentControl {
   public static get id() {
     return "UiFramework.IModelViewportControl";
