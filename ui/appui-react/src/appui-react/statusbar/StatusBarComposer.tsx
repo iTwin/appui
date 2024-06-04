@@ -389,7 +389,6 @@ export function StatusBarComposer(props: StatusBarComposerProps) {
       if (oldW === undefined || Math.abs(oldW - w) > 2) {
         entryWidths.current.set(key, w);
         if (oldW === undefined) {
-          console.log("here");
           const widths = verifiedMapEntries(entryWidths.current);
           if (widths !== undefined)
             entryWidths.current = sortWidths(widths, statusBarItems);
