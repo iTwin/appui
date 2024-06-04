@@ -16,7 +16,7 @@ import type {
 } from "../../ValueRendererManager";
 import { PropertyContainerType } from "../../ValueRendererManager";
 import { TableStructValueRenderer } from "./table/StructValueRenderer";
-import { withContextStyle } from "./WithContextStyle";
+import { ContextStyle } from "./WithContextStyle";
 
 /** Default Struct Property Renderer
  * @public
@@ -33,15 +33,16 @@ export class StructPropertyValueRenderer implements IPropertyValueRenderer {
     context?: PropertyValueRendererContext
   ) {
     if (context && context.containerType === PropertyContainerType.Table) {
-      return withContextStyle(
-        <TableStructValueRenderer
-          propertyRecord={record}
-          onDialogOpen={context.onDialogOpen}
-          orientation={
-            context.orientation ? context.orientation : Orientation.Horizontal
-          }
-        />,
-        context
+      return (
+        <ContextStyle context={context}>
+          <TableStructValueRenderer
+            propertyRecord={record}
+            onDialogOpen={context.onDialogOpen}
+            orientation={
+              context.orientation ? context.orientation : Orientation.Horizontal
+            }
+          />
+        </ContextStyle>
       );
     }
 
@@ -49,9 +50,13 @@ export class StructPropertyValueRenderer implements IPropertyValueRenderer {
       context &&
       context.containerType === PropertyContainerType.PropertyPane
     ) {
-      return withContextStyle("", context);
+      return <ContextStyle context={context} />;
     }
 
-    return withContextStyle(`{${record.property.typename}}`, context);
+    return (
+      <ContextStyle context={context}>
+        {`{${record.property.typename}}`}
+      </ContextStyle>
+    );
   }
 }
