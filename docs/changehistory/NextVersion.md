@@ -78,6 +78,7 @@ Table of contents:
   - Enable user selection for property records
   - Display browser context menu on property records if `onPropertyContextMenu` and `isPropertySelectionOnRightClickEnabled` props are not set
   - Increased area of an element separator to avoid column overlap
+- Changed handlers of `VirtualizedPropertyGrid` and `UrlPropertyValueRenderer` components to open links with `pw` scheme in a new window.
 
 ## @itwin/core-react
 

@@ -136,8 +136,9 @@ describe("UrlPropertyValueRenderer", () => {
         )[0];
         expect(linkElement.textContent).toEqual("pw:Test property");
 
+        const spy = vi.spyOn(window, "open");
         fireEvent.click(linkElement);
-        expect(locationMockRef.object.href).toEqual("pw:Test property");
+        expect(spy).toHaveBeenCalledWith("pw:Test property", "_blank");
       });
 
       it("sets location.href to the whole URI value, when link starting with mailto: is clicked", () => {
