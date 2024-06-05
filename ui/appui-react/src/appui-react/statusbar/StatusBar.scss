@@ -52,18 +52,16 @@
   background-color: var(--iui-color-background);
 
   .uifw-statusbar-item-container {
-    &:not(:first-child) {
-      @include for-medium-desktop-up {
-        padding-left: var(--iui-size-m);
-      }
+    @include for-medium-desktop-up {
+      padding-left: var(--iui-size-m);
+    }
 
-      @include for-small-desktop-down {
-        padding-left: var(--iui-size-s);
-      }
+    @include for-small-desktop-down {
+      padding-left: var(--iui-size-s);
+    }
 
-      @include for-phone-only {
-        padding-left: var(--iui-size-xs);
-      }
+    @include for-phone-only {
+      padding-left: var(--iui-size-xs);
     }
 
     &:has(.uifw-statusBar-separator) {
@@ -72,6 +70,12 @@
       + .uifw-statusbar-item-container {
         padding-left: 0;
       }
+    }
+  }
+
+  .uifw-statusbar-left .uifw-statusbar-item-container {
+    &:first-child {
+      padding-left: 0;
     }
   }
 }

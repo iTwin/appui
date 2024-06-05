@@ -255,7 +255,7 @@ function getItemToPlaceInOverflow(
   for (; i < docked.length; i++) {
     const w = docked[i][1];
     const newSettingsWidth = settingsWidth + w;
-    if (newSettingsWidth > width) {
+    if (newSettingsWidth + overflowWidth > width) {
       settingsWidth += overflowWidth;
       break;
     }
