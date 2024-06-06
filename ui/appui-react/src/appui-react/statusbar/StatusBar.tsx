@@ -30,7 +30,7 @@ export interface StatusBarProps extends CommonProps {
 
 /** Status Bar React component.
  * @public
- * @deprecated in 4.13.x. Use {@link StatusBarComposer} instead.
+ * @deprecated in 4.14.0. Use {@link StatusBarComposer} instead.
  */
 export function StatusBar(props: StatusBarProps) {
   const safeAreaInsets = React.useContext(SafeAreaContext);
@@ -111,19 +111,19 @@ export function StatusBarRightSection(props: CommonDivProps) {
 
 /** Components used in a [[StatusBar]].
  * @public
- * @deprecated in 4.13.x. Please use components directly.
+ * @deprecated in 4.14.0. Please use components directly.
  */
 export namespace StatusBar {
   /** Field of a [[StatusBar]].
    * @beta
-   * @deprecated in 4.13.x. Use [iTwinUI Button](https://itwinui.bentley.com/docs/button) instead.
+   * @deprecated in 4.14.0. Use [iTwinUI Button](https://itwinui.bentley.com/docs/button) instead.
    */
   // eslint-disable-next-line deprecation/deprecation
   export const Field = StatusBarField;
 
   /** Popup of a [[StatusBar]].
    * @beta
-   * @deprecated in 4.13.x. Use `StatusBarPopover` instead.
+   * @deprecated in 4.14.0. Use `StatusBarPopover` instead.
    */
   // eslint-disable-next-line deprecation/deprecation
   export const Popup = StatusBarPopup;

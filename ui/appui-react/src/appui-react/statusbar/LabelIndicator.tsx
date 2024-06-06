@@ -18,7 +18,7 @@ import { Label } from "@itwin/itwinui-react";
 
 /** Properties of [[StatusBarLabelIndicator]] component.
  * @beta
- * @deprecated in 4.13.x. Props of deprecated component {@link StatusBarLabelIndicator}.
+ * @deprecated in 4.14.0. Props of deprecated component {@link StatusBarLabelIndicator}.
  */
 export interface StatusBarLabelIndicatorProps
   // eslint-disable-next-line deprecation/deprecation
@@ -33,7 +33,7 @@ export interface StatusBarLabelIndicatorProps
 
 /** [[StatusBar]] indicator that shows a label with an icon.
  * @beta
- * @deprecated in 4.13.x. Use [iTwinUI Label](https://itwinui.bentley.com/docs/typography#label) and {@link Icon AppUI Icon} instead.
+ * @deprecated in 4.14.0. Use [iTwinUI Label](https://itwinui.bentley.com/docs/typography#label) and {@link Icon AppUI Icon} instead.
  */
 // eslint-disable-next-line deprecation/deprecation
 export function StatusBarLabelIndicator(props: StatusBarLabelIndicatorProps) {
