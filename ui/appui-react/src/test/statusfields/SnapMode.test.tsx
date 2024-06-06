@@ -8,7 +8,6 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { SnapMode } from "@itwin/core-frontend";
 import {
   SnapModeField,
-  StatusBar,
   SyncUiEventDispatcher,
   UiFramework,
 } from "../../appui-react";
@@ -23,10 +22,7 @@ describe("SnapModeField", () => {
   it("Status Bar with SnapModes Field should render", () => {
     const { container } = render(
       <Provider store={TestUtils.store}>
-        {/* eslint-disable-next-line deprecation/deprecation */}
-        <StatusBar>
-          <SnapModeField />
-        </StatusBar>
+        <SnapModeField />
       </Provider>
     );
 
@@ -54,10 +50,7 @@ describe("SnapModeField", () => {
     expect(snapMode).toEqual(SnapMode.Intersection | SnapMode.NearestKeypoint);
     const { container } = render(
       <Provider store={TestUtils.store}>
-        {/* eslint-disable-next-line deprecation/deprecation */}
-        <StatusBar>
-          <SnapModeField />
-        </StatusBar>
+        <SnapModeField />
       </Provider>
     );
     const iconContainer = container.querySelector(".icon");
@@ -74,10 +67,7 @@ describe("SnapModeField", () => {
     SyncUiEventDispatcher.onSyncUiEvent.addListener(spy);
     render(
       <Provider store={TestUtils.store}>
-        {/* eslint-disable-next-line deprecation/deprecation */}
-        <StatusBar>
-          <SnapModeField />
-        </StatusBar>
+        <SnapModeField />
       </Provider>
     );
     await theUserTo.click(screen.getByRole("button"));

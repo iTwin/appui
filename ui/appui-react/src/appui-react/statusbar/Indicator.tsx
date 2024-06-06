@@ -10,6 +10,7 @@ import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
 import { StatusBarPopup } from "./popup/Popup";
 import { StatusBarField } from "./Field";
+import { StatusBarPopover } from "./popup/StatusBarPopover";
 
 /** Properties of [[StatusBarIndicator]] component.
  * @beta
@@ -30,7 +31,7 @@ export interface StatusBarIndicatorProps extends CommonProps {
 
 /** General-purpose [[StatusBar]] indicator.
  * @beta
- * @deprecated in 4.13.x. Use [iTwinUI Button](https://itwinui.bentley.com/docs/button) (or other components) and {@link StatusBarPopup AppUI StatusBarPopup} instead.
+ * @deprecated in 4.13.x. Use [iTwinUI Button](https://itwinui.bentley.com/docs/button) (or other components) and {@link StatusBarPopover AppUI StatusBarPopover} instead.
  */
 // eslint-disable-next-line deprecation/deprecation
 export function StatusBarIndicator(props: StatusBarIndicatorProps) {
