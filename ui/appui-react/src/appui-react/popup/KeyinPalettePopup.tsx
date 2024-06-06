@@ -19,7 +19,7 @@ import type { KeyinEntry } from "../keyins/Keyins";
  * @public */
 export interface KeyinPalettePopupProps {
   id: string;
-  /** @deprecated in 4.11.x. Please use the optional `anchorEl` property moving forward. */
+  /** @deprecated in 4.11.0. Please use the optional `anchorEl` property moving forward. */
   el: HTMLElement;
   keyins: KeyinEntry[];
   anchorEl?: HTMLElement;

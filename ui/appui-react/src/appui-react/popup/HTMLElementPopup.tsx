@@ -21,7 +21,7 @@ import { PopupManager } from "./PopupManager";
 import { PositionPopup } from "./PositionPopup";
 
 /** @alpha
- * @deprecated in 4.11.x. Please use {@link @itwin/appui-react#UiFramework.showComponent}.
+ * @deprecated in 4.11.0. Please use {@link @itwin/appui-react#UiFramework.showComponent}.
  */
 export interface HTMLElementPopupProps extends PopupPropsBase {
   element: HTMLElement;
@@ -37,7 +37,7 @@ interface HTMLElementPopupState {
 
 /** Popup component for HTMLElement
  * @alpha
- * @deprecated in 4.11.x. Though this is alpha, the main interface to using it is not. Please use {@link @itwin/appui-react#UiFramework.showComponent}.
+ * @deprecated in 4.11.0. Though this is alpha, the main interface to using it is not. Please use {@link @itwin/appui-react#UiFramework.showComponent}.
  */
 export class HTMLElementPopup extends React.PureComponent<
   // eslint-disable-next-line deprecation/deprecation

@@ -15,7 +15,7 @@ import { UiIModelComponents } from "../UiIModelComponents";
 
 /** Properties for the [[AlphaSlider]] React component
  * @public
- * @deprecated in 4.11.x. Props of deprecated component {@link AlphaSlider}.
+ * @deprecated in 4.11.0. Props of deprecated component {@link AlphaSlider}.
  */
 export interface AlphaSliderProps
   extends React.HTMLAttributes<HTMLDivElement>,
@@ -30,7 +30,7 @@ export interface AlphaSliderProps
 
 /** AlphaSlider component used to set the alpha value.
  * @public
- * @deprecated in 4.11.x. Use {@link https://itwinui.bentley.com/docs/colorpicker iTwinUI color picker} instead.
+ * @deprecated in 4.11.0. Use {@link https://itwinui.bentley.com/docs/colorpicker iTwinUI color picker} instead.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class AlphaSlider extends React.PureComponent<AlphaSliderProps> {

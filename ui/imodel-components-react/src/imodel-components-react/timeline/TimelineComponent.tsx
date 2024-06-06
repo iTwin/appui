@@ -73,7 +73,7 @@ export interface TimelineComponentProps {
   /** Initial value for the current duration (the location of the thumb) in milliseconds */
   initialDuration?: number;
   /** Show in minimized mode (For future use. This prop will always be treated as true.)
-   * @deprecated in 4.10.x. Has no effect.
+   * @deprecated in 4.10.0. Has no effect.
    */
   minimized?: boolean;
   /** When playing, repeat indefinitely. Defaults to `false`.
@@ -87,17 +87,17 @@ export interface TimelineComponentProps {
   /** Callback triggered when play/pause button is pressed */
   onPlayPause?: (playing: boolean) => void;
   /** Callback triggered when backward/forward buttons are pressed.
-   * @deprecated in 4.10.x. Has no effect.
+   * @deprecated in 4.10.0. Has no effect.
    */
   onJump?: (forward: boolean) => void;
   /** Callback triggered when a setting is changed */
   onSettingsChange?: (arg: PlaybackSettings) => void;
   /** Always display in miniMode with no expand menu (For future use. This prop will always be treated as true)
-   * @deprecated in 4.10.x. Has no effect.
+   * @deprecated in 4.10.0. Has no effect.
    */
   alwaysMinimized?: boolean;
   /** ComponentId -- must be set to use TimelineComponentEvents
-   * @deprecated in 4.11.x.  Use the isPlaying prop instead.
+   * @deprecated in 4.11.0.  Use the isPlaying prop instead.
    */
   componentId?: string;
   /** Include the repeat option on the Timeline Context Menu. Defaults to `true`. */

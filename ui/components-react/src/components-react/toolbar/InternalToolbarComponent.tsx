@@ -44,7 +44,7 @@ import { useTranslation } from "../useTranslation";
 
 /** Describes the data needed to insert a custom `React` button into an ToolbarWithOverflow.
  * @public
- * @deprecated in 4.0. Use [ToolbarCustomItem]($appui-react) instead.
+ * @deprecated in 4.0.0. Use [ToolbarCustomItem]($appui-react) instead.
  */
 export interface CustomToolbarItem extends CustomButtonDefinition {
   /** defines the content to display in popup panel */
@@ -70,7 +70,7 @@ export function useToolbarPopupAutoHideContext() {
 
 /** Describes toolbar item.
  * @public
- * @deprecated in 4.0. Use [ToolbarItem]($appui-react) instead.
+ * @deprecated in 4.0.0. Use [ToolbarItem]($appui-react) instead.
  */
 export type ToolbarItem = ActionButton | GroupButton | CustomToolbarItem; // eslint-disable-line deprecation/deprecation
 

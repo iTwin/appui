@@ -75,7 +75,7 @@ interface DisplayCardPopupOptions extends CommonPopupOptions {
 
 /**
  * @public
- * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
+ * @deprecated in 4.13.0. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface PopupsChangedEventArgs {
   popups: ReadonlyArray<PopupInfo>;
@@ -83,7 +83,7 @@ export interface PopupsChangedEventArgs {
 
 /** Popups Changed Event class.
  * @public
- * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
+ * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class PopupsChangedEvent extends UiEvent<PopupsChangedEventArgs> {}
@@ -286,7 +286,7 @@ export class PopupManager {
     return PopupManager.removePopup(PopupManager._keyPalettePopupId);
   }
 
-  // @deprecated in 4.11.x. Use {@link PopupManager.displayToolbar} instead.
+  // @deprecated in 4.11.0. Use {@link PopupManager.displayToolbar} instead.
   public static showToolbar(
     toolbarProps: AbstractToolbarProps,
     el: HTMLElement,
@@ -347,7 +347,7 @@ export class PopupManager {
     return PopupManager.removePopup(PopupManager._toolbarId);
   }
 
-  // @deprecated in 4.11.x. Use {@link PopupManager.showComponent} instead.
+  // @deprecated in 4.11.0. Use {@link PopupManager.showComponent} instead.
   public static showHTMLElement(
     displayElement: HTMLElement,
     el: HTMLElement,
@@ -382,7 +382,7 @@ export class PopupManager {
     return true;
   }
 
-  // @deprecated in 4.11.x. Use {@link PopupManager.hideComponent} instead.
+  // @deprecated in 4.11.0. Use {@link PopupManager.hideComponent} instead.
   public static hideHTMLElement(): boolean {
     return PopupManager.removePopup(PopupManager._htmlElementId);
   }
@@ -430,7 +430,7 @@ export class PopupManager {
     return PopupManager.removePopup(id ?? PopupManager._htmlElementId);
   }
 
-  // @deprecated in 4.11.x. Use {@link PopupManager.displayCard} instead.
+  // @deprecated in 4.11.0. Use {@link PopupManager.displayCard} instead.
   public static showCard(
     content: PopupContentType,
     title: string | PropertyRecord | undefined,

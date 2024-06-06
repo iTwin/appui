@@ -15,7 +15,7 @@ import type { CommonProps } from "../utils/Props";
 
 /** Properties for [[LoadingStatus]] component
  * @public
- * @deprecated in 4.12.x. Props of deprecated component {@link LoadingStatus}.
+ * @deprecated in 4.12.0. Props of deprecated component {@link LoadingStatus}.
  */
 export interface LoadingStatusProps extends CommonProps {
   /** Message (text) displayed */
@@ -26,7 +26,7 @@ export interface LoadingStatusProps extends CommonProps {
 
 /** A loading indicator that shows status text along with the percentage.
  * @public
- * @deprecated in 4.12.x. Use labeled {@link https://itwinui.bentley.com/docs/progressindicator iTwinUI progress indicator} instead.
+ * @deprecated in 4.12.0. Use labeled {@link https://itwinui.bentley.com/docs/progressindicator iTwinUI progress indicator} instead.
  */
 export class LoadingStatus extends React.PureComponent<LoadingStatusProps> {
   public static defaultProps: Partial<LoadingStatusProps> = {

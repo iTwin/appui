@@ -1420,7 +1420,7 @@ export type CursorPopupProps = {
     shadow?: boolean;
     onSizeKnown?: (size: SizeProps) => void;
 } & CommonProps & RequireAtLeastOne<{
-    relativePosition: RelativePosition /** @deprecated in 4.11.x. Use `placement` instead. */;
+    relativePosition: RelativePosition /** @deprecated in 4.11.0. Use `placement` instead. */;
     placement: Placement;
 }>;
 

@@ -12,7 +12,7 @@ import type { CommonProps } from "../utils/Props";
 
 /** Properties for [[ExpandableList]] component
  * @public
- * @deprecated in 4.12.x. Props of deprecated component {@link ExpandableList}.
+ * @deprecated in 4.12.0. Props of deprecated component {@link ExpandableList}.
  */
 export interface ExpandableListProps extends CommonProps {
   /** Index of the default active block */
@@ -31,7 +31,7 @@ interface ExpandableListState {
 
 /** ExpandableList React component is a container for ExpandableBlock components.
  * @public
- * @deprecated in 4.12.x. Use a custom container and manage {@link https://itwinui.bentley.com/docs/expandableblock expandable block} state manually.
+ * @deprecated in 4.12.0. Use a custom container and manage {@link https://itwinui.bentley.com/docs/expandableblock expandable block} state manually.
  */
 export class ExpandableList extends React.PureComponent<
   // eslint-disable-next-line deprecation/deprecation

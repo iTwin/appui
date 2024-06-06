@@ -16,7 +16,7 @@ import { StatusBarPopover } from "./StatusBarPopover";
 
 /** Popup component used in [[StatusBar]] component.
  * @beta
- * @deprecated in 4.13.x. Use {@link StatusBarPopover} instead.
+ * @deprecated in 4.13.0. Use {@link StatusBarPopover} instead.
  */
 export function StatusBarPopup(props: Partial<PopupProps>) {
   const { className, offset, ...other } = props;

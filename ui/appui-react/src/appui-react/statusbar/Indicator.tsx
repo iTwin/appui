@@ -14,7 +14,7 @@ import { StatusBarPopover } from "./popup/StatusBarPopover";
 
 /** Properties of [[StatusBarIndicator]] component.
  * @beta
- * @deprecated in 4.13.x. Props of deprecated component {@link StatusBarIndicator}.
+ * @deprecated in 4.14.0. Props of deprecated component {@link StatusBarIndicator}.
  */
 export interface StatusBarIndicatorProps extends CommonProps {
   /** Indicator content. */
@@ -31,7 +31,7 @@ export interface StatusBarIndicatorProps extends CommonProps {
 
 /** General-purpose [[StatusBar]] indicator.
  * @beta
- * @deprecated in 4.13.x. Use [iTwinUI Button](https://itwinui.bentley.com/docs/button) (or other components) and {@link StatusBarPopover AppUI StatusBarPopover} instead.
+ * @deprecated in 4.14.0. Use [iTwinUI Button](https://itwinui.bentley.com/docs/button) (or other components) and {@link StatusBarPopover AppUI StatusBarPopover} instead.
  */
 // eslint-disable-next-line deprecation/deprecation
 export function StatusBarIndicator(props: StatusBarIndicatorProps) {

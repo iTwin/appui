@@ -13,7 +13,7 @@ import "./Field.scss";
 
 /** Properties of [[StatusBarField]] component.
  * @beta
- * @deprecated in 4.13.x. Props of deprecated component {@link StatusBarField}.
+ * @deprecated in 4.13.0. Props of deprecated component {@link StatusBarField}.
  */
 export interface StatusBarFieldProps extends CommonProps {
   /** Field content. */
@@ -26,7 +26,7 @@ export interface StatusBarFieldProps extends CommonProps {
 
 /** Field component used in [[StatusBar]] component.
  * @beta
- * @deprecated in 4.13.x. Use [iTwinUI Button](https://itwinui.bentley.com/docs/button) instead.
+ * @deprecated in 4.13.0. Use [iTwinUI Button](https://itwinui.bentley.com/docs/button) instead.
  */
 export const StatusBarField = React.forwardRef<
   HTMLDivElement,
