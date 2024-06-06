@@ -1,6 +1,15 @@
 # Change Log - @itwin/core-react
 
-This log was last generated on Wed, 08 May 2024 08:24:46 GMT and should not be manually modified.
+This log was last generated on Thu, 06 Jun 2024 08:24:21 GMT and should not be manually modified.
+
+## 4.14.0
+Thu, 06 Jun 2024 08:24:21 GMT
+
+### Updates
+
+- Fixed SVG icon alignment in ContextMenu components.
+- Deprecate RadialMenu and RadialButton components.
+- upgrade to TypeScript@5.3.3 and @itwin/build-tools@4.6.x
 
 ## 4.13.2
 Wed, 08 May 2024 08:24:46 GMT

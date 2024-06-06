@@ -2,6 +2,24 @@
   "name": "@itwin/core-react",
   "entries": [
     {
+      "version": "4.14.0",
+      "tag": "@itwin/core-react_v4.14.0",
+      "date": "Thu, 06 Jun 2024 08:24:21 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Fixed SVG icon alignment in ContextMenu components."
+          },
+          {
+            "comment": "Deprecate RadialMenu and RadialButton components."
+          },
+          {
+            "comment": "upgrade to TypeScript@5.3.3 and @itwin/build-tools@4.6.x"
+          }
+        ]
+      }
+    },
+    {
       "version": "4.13.2",
       "tag": "@itwin/core-react_v4.13.2",
       "date": "Wed, 08 May 2024 08:24:46 GMT",

@@ -1,6 +1,18 @@
 # Change Log - @itwin/appui-react
 
-This log was last generated on Wed, 08 May 2024 08:24:46 GMT and should not be manually modified.
+This log was last generated on Thu, 06 Jun 2024 08:24:21 GMT and should not be manually modified.
+
+## 4.14.0
+Thu, 06 Jun 2024 08:24:21 GMT
+
+### Updates
+
+- Add 'controlWidgetVisibility' preview feature.
+- Fix save and restore of frontstage layout for react 18 strict mode.
+- Deprecated some general `StatusBar` wrapper components.
+- Added `StatusBarPopover` to replace `StatusBar.Popup`.
+- Use iTwinUI components for `StatusBar` field components.
+- upgrade to TypeScript@5.3.3 and @itwin/build-tools@4.6.x
 
 ## 4.13.2
 Wed, 08 May 2024 08:24:46 GMT

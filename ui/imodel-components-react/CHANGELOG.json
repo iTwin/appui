@@ -2,6 +2,21 @@
   "name": "@itwin/imodel-components-react",
   "entries": [
     {
+      "version": "4.14.0",
+      "tag": "@itwin/imodel-components-react_v4.14.0",
+      "date": "Thu, 06 Jun 2024 08:24:21 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "timeline.settings added to UiIModelComponents.json"
+          },
+          {
+            "comment": "upgrade to TypeScript@5.3.3 and @itwin/build-tools@4.6.x"
+          }
+        ]
+      }
+    },
+    {
       "version": "4.13.2",
       "tag": "@itwin/imodel-components-react_v4.13.2",
       "date": "Wed, 08 May 2024 08:24:46 GMT",
