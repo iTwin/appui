@@ -35,7 +35,7 @@ export type ToolbarPopupProps = Omit<PopupPropsBase, "el"> & {
   onItemExecuted: (item: any) => void;
   el?: HTMLElement;
 } & RequireAtLeastOne<{
-    relativePosition: RelativePosition; // @deprecated in 4.11.x. Please use placement instead.
+    relativePosition: RelativePosition; // @deprecated in 4.11.0. Please use placement instead.
     placement: Placement;
   }>;
 

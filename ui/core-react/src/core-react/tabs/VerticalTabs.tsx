@@ -15,7 +15,7 @@ import { Orientation } from "../enums/Orientation";
 
 /** Vertical tabs meant to represent the current position in a page/section
  * @public
- * @deprecated in 4.12.x. Use {@link https://itwinui.bentley.com/docs/tabs#vertical iTwinUI Tabs} instead.
+ * @deprecated in 4.12.0. Use {@link https://itwinui.bentley.com/docs/tabs#vertical iTwinUI Tabs} instead.
  */
 export function VerticalTabs(props: TabsProps) {
   return (

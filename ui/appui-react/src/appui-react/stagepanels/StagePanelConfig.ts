@@ -16,13 +16,13 @@ export interface StagePanelConfig {
   /** Default Panel state. Controls how the panel is initially displayed. Defaults to StagePanelState.Open. */
   readonly defaultState?: StagePanelState;
   /** Maximum size of the panel.
-   * @deprecated in 4.12.x. Please use {@link StagePanelConfig.maxSizeSpec}.
+   * @deprecated in 4.12.0. Please use {@link StagePanelConfig.maxSizeSpec}.
    */
   readonly maxSize?: StagePanelMaxSizeSpec; // eslint-disable-line deprecation/deprecation
   /** Maximum size of the panel. */
   readonly maxSizeSpec?: StagePanelSizeSpec;
   /** Minimum size of the panel.
-   *  @deprecated in 4.12.x. Please use {@link StagePanelConfig.minSizeSpec}.
+   *  @deprecated in 4.12.0. Please use {@link StagePanelConfig.minSizeSpec}.
    */
   readonly minSize?: number;
   /** Minimum size of the panel. */
@@ -32,7 +32,7 @@ export interface StagePanelConfig {
   /** Indicates whether the panel is resizable. Defaults to true. */
   readonly resizable?: boolean;
   /** Default size of the panel.
-   * @deprecated in 4.12.x. Please use {@link StagePanelConfig.sizeSpec}.
+   * @deprecated in 4.12.0. Please use {@link StagePanelConfig.sizeSpec}.
    */
   readonly size?: number;
   /** Default size of the panel. */
@@ -59,7 +59,7 @@ export interface StagePanelSectionsConfig {
 /** Available units of panel max size. Pixels or percentage of App size.
  * @note Percentage of App `height` is used for top/bottom panel and percentage of App `width` is used for left/right panel.
  * @public
- * @deprecated in 4.12.x. Please use {@link StagePanelSizeSpec}.
+ * @deprecated in 4.12.0. Please use {@link StagePanelSizeSpec}.
  */
 export type StagePanelMaxSizeSpec = number | { percentage: number };
 

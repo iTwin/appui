@@ -14,7 +14,7 @@ import { Input } from "../Input"; // NEEDSWORK - for nativeKeyHandler
 
 /** Properties for the [[IconInput]] component
  * @public
- * @deprecated in 4.12.x. Props of deprecated component {@link IconInput}.
+ * @deprecated in 4.12.0. Props of deprecated component {@link IconInput}.
  */
 export interface IconInputProps extends Omit<InputProps, "size"> {
   /** Icon displayed to the left of the Input field within the IconInput component */
@@ -53,7 +53,7 @@ const ForwardRefIconInput = React.forwardRef<HTMLInputElement, IconInputProps>(
 
 /** Input component with icon to the left of the input field
  * @public
- * @deprecated in 4.12.x. Use {@link https://itwinui.bentley.com/docs/inputwithdecorations iTwinUI input decorations} instead.
+ * @deprecated in 4.12.0. Use {@link https://itwinui.bentley.com/docs/inputwithdecorations iTwinUI input decorations} instead.
  */
 // eslint-disable-next-line deprecation/deprecation
 export const IconInput: (props: IconInputProps) => React.ReactNode =

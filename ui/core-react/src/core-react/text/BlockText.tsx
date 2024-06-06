@@ -12,7 +12,7 @@ import type { TextProps } from "./TextProps";
 
 /** Styled block text React functional component
  * @public
- * @deprecated in 4.12.x. Use {@link https://itwinui.bentley.com/docs/typography#text iTwinUI Text} instead.
+ * @deprecated in 4.12.0. Use {@link https://itwinui.bentley.com/docs/typography#text iTwinUI Text} instead.
  */
 // eslint-disable-next-line deprecation/deprecation
 export function BlockText(props: TextProps) {

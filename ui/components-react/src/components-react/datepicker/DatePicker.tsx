@@ -27,7 +27,7 @@ function isSameDay(a: Date, b: Date) {
 /**
  * Props for [[DatePicker]] component.
  * @alpha
- * @deprecated in 4.11.x. Props of deprecated component {@link DatePicker}.
+ * @deprecated in 4.11.0. Props of deprecated component {@link DatePicker}.
  */
 export interface DatePickerProps {
   /** defines both date and time */
@@ -40,7 +40,7 @@ export interface DatePickerProps {
 
 /** DatePicker component. Show a month selector and a day calendar to select a specific date.
  * @alpha
- * @deprecated in 4.11.x. Use {@link https://itwinui.bentley.com/docs/datepicker iTwinUI date picker} instead.
+ * @deprecated in 4.11.0. Use {@link https://itwinui.bentley.com/docs/datepicker iTwinUI date picker} instead.
  */
 // eslint-disable-next-line deprecation/deprecation
 export function DatePicker(props: DatePickerProps) {
