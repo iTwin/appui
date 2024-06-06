@@ -395,28 +395,26 @@ export class FrameworkAccuDraw
   }
 
   private outputCompassModeMessage(): void {
-    if (FrameworkAccuDraw.displayNotifications) {
-      const modeKey = compassModeToKeyMap.get(this.compassMode) ?? "polar";
-      const modeString = UiFramework.translate(
-        `accuDraw.compassMode.${modeKey}`
-      );
-      const modeMessage = UiFramework.translate("accuDraw.compassModeSet", {
-        modeString,
-      });
-      this.outputInfoMessage(modeMessage);
-    }
+    const modeKey = compassModeToKeyMap.get(this.compassMode) ?? "polar";
+    // eslint-disable-next-line deprecation/deprecation
+    const modeString = UiFramework.translate(`accuDraw.compassMode.${modeKey}`);
+    // eslint-disable-next-line deprecation/deprecation
+    const modeMessage = UiFramework.translate("accuDraw.compassModeSet", {
+      modeString,
+    });
+    this.outputInfoMessage(modeMessage);
   }
 
   private outputRotationMessage(): void {
-    if (FrameworkAccuDraw.displayNotifications) {
-      const rotationKey = rotationModeToKeyMap.get(this.rotationMode) ?? "top";
-      const rotationString = UiFramework.translate(
-        `accuDraw.rotation.${rotationKey}`
-      );
-      const rotationMessage = UiFramework.translate("accuDraw.rotationSet", {
-        rotationString,
-      });
-      this.outputInfoMessage(rotationMessage);
-    }
+    const rotationKey = rotationModeToKeyMap.get(this.rotationMode) ?? "top";
+    // eslint-disable-next-line deprecation/deprecation
+    const rotationString = UiFramework.translate(
+      `accuDraw.rotation.${rotationKey}`
+    );
+    // eslint-disable-next-line deprecation/deprecation
+    const rotationMessage = UiFramework.translate("accuDraw.rotationSet", {
+      rotationString,
+    });
+    this.outputInfoMessage(rotationMessage);
   }
 }

@@ -7,6 +7,14 @@
  */
 
 import * as React from "react"; // cSpell:ignore keyinbrowser
+import svgGyroscope from "@bentley/icons-generic/icons/gyroscope.svg";
+import svgRotateLeft from "@bentley/icons-generic/icons/rotate-left.svg";
+import svgSectionTool from "@bentley/icons-generic/icons/section-tool.svg";
+import svgSelectionClear from "@bentley/icons-generic/icons/selection-clear.svg";
+import {
+  ConditionalBooleanValue,
+  ConditionalStringValue,
+} from "@itwin/appui-abstract";
 import {
   FitViewTool,
   FlyViewTool,
@@ -29,13 +37,12 @@ import {
   WindowAreaTool,
   ZoomViewTool,
 } from "@itwin/core-frontend";
-import {
-  ConditionalBooleanValue,
-  ConditionalStringValue,
-} from "@itwin/appui-abstract";
+import { ConditionalIconItem } from "@itwin/core-react";
 import {
   SvgCameraAnimation,
   SvgCameraAnimationDisabled,
+  SvgMeasure,
+  SvgProcess,
 } from "@itwin/itwinui-icons-react";
 import { getIsHiddenIfSelectionNotActive } from "../selection/SelectionContextItemDef";
 import { CommandItemDef } from "../shared/CommandItemDef";
@@ -44,12 +51,6 @@ import { SyncUiEventId } from "../syncui/SyncUiEventDispatcher";
 import { GroupItemDef } from "../toolbar/GroupItem";
 import { RestoreFrontstageLayoutTool } from "./RestoreLayoutTool";
 import { UiFramework } from "../UiFramework";
-import svgGyroscope from "@bentley/icons-generic/icons/gyroscope.svg";
-import svgRotateLeft from "@bentley/icons-generic/icons/rotate-left.svg";
-import svgSectionTool from "@bentley/icons-generic/icons/section-tool.svg";
-import svgSelectionClear from "@bentley/icons-generic/icons/selection-clear.svg";
-import { SvgMeasure, SvgProcess } from "@itwin/itwinui-icons-react";
-import { ConditionalIconItem } from "@itwin/core-react";
 import type { ToolbarItems } from "./ToolbarItems";
 
 /* eslint-disable deprecation/deprecation */
@@ -195,6 +196,7 @@ export class CoreTools {
     });
   }
 
+  /** @note Requires localization `namespace` to be registered. */
   public static get toggleCameraViewCommand() {
     return new ToolItemDef({
       toolId: ViewToggleCameraTool.toolId,
@@ -220,10 +222,12 @@ export class CoreTools {
           activeContentControl?.viewport?.view.is3d() &&
           activeContentControl?.viewport?.isCameraOn
         ) {
+          // eslint-disable-next-line deprecation/deprecation
           return UiFramework.translate(
             "tools.View.ToggleCamera.turnOffFlyover"
           );
         }
+        // eslint-disable-next-line deprecation/deprecation
         return UiFramework.translate("tools.View.ToggleCamera.turnOnFlyover");
       }, [
         SyncUiEventId.ActiveContentChanged,

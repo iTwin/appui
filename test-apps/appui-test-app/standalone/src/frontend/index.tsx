@@ -116,6 +116,7 @@ import {
 } from "./appui/frontstages/EditorFrontstageProvider";
 import { useEditorToolSettings } from "./appui/useEditorToolSettings";
 import { AppLanguageSelect, AppLocalizationProvider } from "./Localization";
+import { AppUiProviders } from "./AppUiProviders";
 
 // Initialize my application gateway configuration for the frontend
 RpcConfiguration.developmentMode = true;
@@ -646,17 +647,19 @@ const SampleAppViewer = () => {
   return (
     <AppPreviewFeatures>
       <AppLocalizationProvider>
-        <Provider store={SampleAppIModelApp.store}>
-          <ThemeManager>
-            <SafeAreaContext.Provider value={SafeAreaInsets.All}>
-              <AppDragInteraction>
-                <UiStateStorageHandler>
-                  <AppViewerContent />
-                </UiStateStorageHandler>
-              </AppDragInteraction>
-            </SafeAreaContext.Provider>
-          </ThemeManager>
-        </Provider>
+        <AppUiProviders>
+          <Provider store={SampleAppIModelApp.store}>
+            <ThemeManager>
+              <SafeAreaContext.Provider value={SafeAreaInsets.All}>
+                <AppDragInteraction>
+                  <UiStateStorageHandler>
+                    <AppViewerContent />
+                  </UiStateStorageHandler>
+                </AppDragInteraction>
+              </SafeAreaContext.Provider>
+            </ThemeManager>
+          </Provider>
+        </AppUiProviders>
       </AppLocalizationProvider>
     </AppPreviewFeatures>
   );

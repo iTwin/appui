@@ -282,7 +282,7 @@ export class UiFramework {
       UiFramework._frameworkStateKeyInStore = frameworkStateKey;
 
     // set up namespace and register all tools from package
-    const frameworkNamespace = IModelApp.localization?.registerNamespace(
+    const frameworkNamespace = IModelApp.localization.registerNamespace(
       UiFramework.localizationNamespace
     );
     [
@@ -327,7 +327,7 @@ export class UiFramework {
     UiFramework._frameworkStateKeyInStore = "frameworkState";
     // eslint-disable-next-line deprecation/deprecation
     if (StateManager.isInitialized(true)) StateManager.clearStore();
-    IModelApp.localization?.unregisterNamespace(
+    IModelApp.localization.unregisterNamespace(
       UiFramework.localizationNamespace
     );
     UiFramework._backstageManager = undefined;

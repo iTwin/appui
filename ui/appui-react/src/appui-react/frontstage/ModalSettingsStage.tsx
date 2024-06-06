@@ -124,6 +124,7 @@ export class SettingsModalFrontstage implements ModalFrontstageInfo {
         UiFramework.frontstages.openModalFrontstage(
           new SettingsModalFrontstage()
         ),
+      // eslint-disable-next-line deprecation/deprecation
       UiFramework.translate("settings.settingsStageLabel"),
       undefined,
       settingsIconSvg,

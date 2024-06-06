@@ -14,13 +14,15 @@ import type { ConfigurableCreateInfo } from "../configurableui/ConfigurableUiCon
 import { WidgetControl } from "../widgets/WidgetControl";
 import { UiFramework } from "../UiFramework";
 
-/** AccuDraw Widget Control
+/** AccuDraw widget control.
  * @beta
+ * @deprecated in 4.14.x. Use {@link AccuDrawWidget} component instead.
  */
 export class AccuDrawWidgetControl extends WidgetControl {
   public static id = "AccuDrawWidget";
 
   public static get label(): string {
+    // eslint-disable-next-line deprecation/deprecation
     return UiFramework.translate("accuDraw.dialogTitle");
   }
 
@@ -31,7 +33,7 @@ export class AccuDrawWidgetControl extends WidgetControl {
   }
 }
 
-/** AccuDraw Widget displays [[AccuDrawFieldContainer]] for AccuDraw Ui
+/** AccuDraw widget displays [[AccuDrawFieldContainer]] for AccuDraw UI.
  * @beta
  */
 export function AccuDrawWidget() {

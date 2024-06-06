@@ -30,8 +30,9 @@ export interface AccuDrawDialogProps extends CommonProps {
   onClose?: () => void;
 }
 
-/** Dialog displays [[AccuDrawFieldContainer]] for AccuDraw Ui
- * @beta */
+/** Dialog displays [[AccuDrawFieldContainer]] for AccuDraw UI.
+ * @beta
+ */
 export function AccuDrawDialog(props: AccuDrawDialogProps) {
   const { translate } = useTranslation();
   const [opened, setOpened] = React.useState(props.opened);

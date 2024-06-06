@@ -270,6 +270,7 @@ export class FrontstageDef {
       IModelApp.notifications.outputMessage(
         new NotifyMessageDetails(
           OutputMessagePriority.Error,
+          // eslint-disable-next-line deprecation/deprecation
           UiFramework.translate("widget.errorMessage.widgetPopoutFail"),
           undefined,
           OutputMessageType.Toast

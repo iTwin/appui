@@ -18,6 +18,9 @@ import { StatusBarDialog } from "../statusbar/dialog/Dialog";
 import { SvgWindowSettings } from "@itwin/itwinui-icons-react";
 import { StatusBarPopover } from "../statusbar/popup/StatusBarPopover";
 
+// TODO: wait for #848 to be merged
+/* eslint-disable deprecation/deprecation */
+
 interface ViewAttributesStatusFieldState {
   viewFlags: ViewFlagProps;
   cameraOn: boolean;

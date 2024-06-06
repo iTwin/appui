@@ -43,13 +43,13 @@ export function ViewToolWidgetComposer(props: ViewToolWidgetComposerProps) {
     <NavigationWidgetComposer
       className={className}
       hideNavigationAid={props.hideNavigationAid}
-      horizontalToolbar={
-        <ToolbarComposer
-          items={[]}
-          usage={ToolbarUsage.ViewNavigation}
-          orientation={ToolbarOrientation.Horizontal}
-        />
-      }
+      // horizontalToolbar={
+      //   <ToolbarComposer
+      //     items={[]}
+      //     usage={ToolbarUsage.ViewNavigation}
+      //     orientation={ToolbarOrientation.Horizontal}
+      //   />
+      // }
       verticalToolbar={
         <ToolbarComposer
           items={[]}

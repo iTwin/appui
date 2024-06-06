@@ -6,7 +6,11 @@
  * @module Tools
  */
 
+import * as React from "react";
+import { UiFramework } from "../UiFramework";
+import { useTranslation } from "../hooks/useTranslation";
 import { SelectionContextToolDefinitions } from "../selection/SelectionContextItemDef";
+import { ConditionalStringValue } from "../shared/ConditionalValue";
 import {
   itemDefToToolbarActionItem,
   itemDefToToolbarGroupItem,
@@ -16,6 +20,7 @@ import type {
   ToolbarGroupItem,
 } from "../toolbar/ToolbarItem";
 import { CoreTools } from "./CoreToolDefinitions";
+import { SyncUiEventId } from "../syncui/SyncUiEventDispatcher";
 
 /* eslint-disable deprecation/deprecation */
 
@@ -282,4 +287,30 @@ export namespace ToolbarItems {
       overrides
     );
   }
+}
+
+/** @internal */
+export function useToggleCameraViewToolbarItem() {
+  const { translate } = useTranslation();
+
+  return React.useMemo(() => {
+    const label = new ConditionalStringValue(() => {
+      const activeContentControl =
+        UiFramework.content.getActiveContentControl();
+      if (
+        activeContentControl?.viewport?.view.is3d() &&
+        activeContentControl?.viewport?.isCameraOn
+      ) {
+        return translate("tools.View.ToggleCamera.turnOffFlyover");
+      }
+      return translate("tools.View.ToggleCamera.turnOnFlyover");
+    }, [
+      SyncUiEventId.ActiveContentChanged,
+      SyncUiEventId.ActiveViewportChanged,
+      SyncUiEventId.ViewStateChanged,
+    ]);
+    return ToolbarItems.createToggleCameraView({
+      label,
+    });
+  }, [translate]);
 }

@@ -101,12 +101,12 @@ export class StandardFrontstageProvider extends FrontstageProvider {
       contentGroup,
       usage: this.props.usage,
       defaultTool: this.props.defaultTool,
-      contentManipulation: {
-        id: `${this.props.id}-contentManipulationTools`,
-        content: (
-          <ContentToolWidgetComposer cornerButton={this.props.cornerButton} />
-        ),
-      },
+      // contentManipulation: {
+      //   id: `${this.props.id}-contentManipulationTools`,
+      //   content: (
+      //     <ContentToolWidgetComposer cornerButton={this.props.cornerButton} />
+      //   ),
+      // },
       viewNavigation: {
         id: `${this.props.id}-viewNavigationTools`,
         content: (
