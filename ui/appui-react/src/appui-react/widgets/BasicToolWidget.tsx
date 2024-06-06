@@ -8,7 +8,6 @@
 
 import classnames from "classnames";
 import * as React from "react";
-import { CoreTools } from "../tools/CoreToolDefinitions";
 import { SelectionContextToolDefinitions } from "../selection/SelectionContextItemDef";
 import { ToolbarComposer } from "../toolbar/ToolbarComposer";
 import { ToolbarHelper } from "../toolbar/ToolbarHelper";
@@ -17,6 +16,7 @@ import { BackstageAppButton } from "./BackstageAppButton";
 import { useUiVisibility } from "../hooks/useUiVisibility";
 import type { ToolbarItem } from "../toolbar/ToolbarItem";
 import { ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
+import { ToolbarItems } from "../tools/ToolbarItems";
 
 /** Properties that can be used to append items to the default set of toolbar items.
  * @public
@@ -42,10 +42,9 @@ export function BasicToolWidget(props: BasicToolWidgetProps) {
       const items: ToolbarItem[] = [];
       if (useCategoryAndModelsContextTools) {
         items.push(
-          ToolbarHelper.createToolbarItemFromItemDef(
-            10,
-            CoreTools.clearSelectionItemDef
-          ),
+          ToolbarItems.createClearSelection({
+            itemPriority: 10,
+          }),
           ToolbarHelper.createToolbarItemFromItemDef(
             20,
             SelectionContextToolDefinitions.clearHideIsolateEmphasizeElementsItemDef
@@ -65,10 +64,9 @@ export function BasicToolWidget(props: BasicToolWidgetProps) {
         );
       } else {
         items.push(
-          ToolbarHelper.createToolbarItemFromItemDef(
-            10,
-            CoreTools.clearSelectionItemDef
-          ),
+          ToolbarItems.createClearSelection({
+            itemPriority: 10,
+          }),
           ToolbarHelper.createToolbarItemFromItemDef(
             20,
             SelectionContextToolDefinitions.clearHideIsolateEmphasizeElementsItemDef
@@ -97,15 +95,15 @@ export function BasicToolWidget(props: BasicToolWidgetProps) {
   const getVerticalToolbarItems = React.useCallback((): ToolbarItem[] => {
     const items: ToolbarItem[] = [];
     items.push(
-      ToolbarHelper.createToolbarItemFromItemDef(
-        10,
-        CoreTools.selectElementCommand
-      ),
-      ToolbarHelper.createToolbarItemFromItemDef(
-        20,
-        CoreTools.measureToolGroup
-      ),
-      ToolbarHelper.createToolbarItemFromItemDef(30, CoreTools.sectionToolGroup)
+      ToolbarItems.createSelectElement({
+        itemPriority: 10,
+      }),
+      ToolbarItems.createMeasureGroup({
+        itemPriority: 20,
+      }),
+      ToolbarItems.createSectionGroup({
+        itemPriority: 30,
+      })
     );
     if (props.additionalVerticalItems)
       items.push(...props.additionalVerticalItems);

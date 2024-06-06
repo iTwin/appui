@@ -15,8 +15,8 @@ import { SectionsStatusField } from "../statusfields/SectionsField";
 import { ToolbarHelper } from "../toolbar/ToolbarHelper";
 import type { ToolbarItem } from "../toolbar/ToolbarItem";
 import { ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
-import { CoreTools } from "../tools/CoreToolDefinitions";
 import type { UiItemsProvider } from "./UiItemsProvider";
+import { ToolbarItems } from "../tools/ToolbarItems";
 
 /**
  * Defines what tools to include from the provider. If any tools in the horizontal or vertical group are
@@ -90,11 +90,10 @@ export class StandardContentToolsUiItemsProvider implements UiItemsProvider {
         this.defaultContextTools.horizontal.clearSelection
       )
         items.push(
-          ToolbarHelper.createToolbarItemFromItemDef(
-            10,
-            CoreTools.clearSelectionItemDef,
-            { groupPriority: clearSelectionGroupPriority }
-          )
+          ToolbarItems.createClearSelection({
+            itemPriority: 10,
+            groupPriority: clearSelectionGroupPriority,
+          })
         );
 
       if (
@@ -192,11 +191,10 @@ export class StandardContentToolsUiItemsProvider implements UiItemsProvider {
         this.defaultContextTools.vertical.selectElement
       )
         items.push(
-          ToolbarHelper.createToolbarItemFromItemDef(
-            10,
-            CoreTools.selectElementCommand,
-            { groupPriority: selectElementGroupPriority }
-          )
+          ToolbarItems.createSelectElement({
+            itemPriority: 10,
+            groupPriority: selectElementGroupPriority,
+          })
         );
 
       if (
@@ -205,11 +203,10 @@ export class StandardContentToolsUiItemsProvider implements UiItemsProvider {
         this.defaultContextTools.vertical.measureGroup
       )
         items.push(
-          ToolbarHelper.createToolbarItemFromItemDef(
-            20,
-            CoreTools.measureToolGroup,
-            { groupPriority: measureGroupPriority }
-          )
+          ToolbarItems.createMeasureGroup({
+            itemPriority: 20,
+            groupPriority: measureGroupPriority,
+          })
         );
 
       if (
@@ -218,11 +215,10 @@ export class StandardContentToolsUiItemsProvider implements UiItemsProvider {
         this.defaultContextTools.vertical.sectionGroup
       ) {
         items.push(
-          ToolbarHelper.createToolbarItemFromItemDef(
-            30,
-            CoreTools.sectionToolGroup,
-            { groupPriority: selectionGroupPriority }
-          )
+          ToolbarItems.createSectionGroup({
+            itemPriority: 30,
+            groupPriority: selectionGroupPriority,
+          })
         );
       }
     }

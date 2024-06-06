@@ -14,6 +14,7 @@ import type {
   StringGetter,
 } from "@itwin/appui-abstract";
 import { ConditionalStringValue } from "@itwin/appui-abstract";
+import { assert } from "@itwin/core-bentley";
 import { IconHelper } from "@itwin/core-react";
 import type { AnyItemDef } from "../shared/AnyItemDef";
 import { CommandItemDef } from "../shared/CommandItemDef";
@@ -97,7 +98,7 @@ export class ToolbarHelper {
     return IconHelper.getIconReactNode(item.icon, item.internalData);
   }
 
-  /** Helper method to creates a generic toolbar item entry */
+  /** Helper method to creates a generic toolbar item entry. */
   public static createToolbarItemFromItemDef(
     itemPriority: number,
     itemDef: AnyItemDef,
@@ -121,6 +122,7 @@ export class ToolbarHelper {
       description: description ?? itemDef.description,
     };
 
+    // eslint-disable-next-line deprecation/deprecation
     if (itemDef instanceof CommandItemDef || itemDef instanceof ToolItemDef) {
       return {
         ...itemBase,
@@ -146,9 +148,7 @@ export class ToolbarHelper {
     }
   }
 
-  /**
-   * Helper method to creates a generic toolbar item entry list.
-   */
+  /** Helper method to creates a generic toolbar item entry list. */
   public static createToolbarItemsFromItemDefs(
     itemDefs: AnyItemDef[],
     startingItemPriority = 10,
@@ -161,4 +161,31 @@ export class ToolbarHelper {
       overrides
     );
   }
+}
+
+/** @internal */
+export function itemDefToToolbarActionItem(
+  // eslint-disable-next-line deprecation/deprecation
+  itemDef: ToolItemDef | CommandItemDef,
+  overrides?: Partial<ToolbarActionItem>
+): ToolbarActionItem {
+  const item = ToolbarHelper.createToolbarItemFromItemDef(0, itemDef);
+  assert(isToolbarActionItem(item));
+  return {
+    ...item,
+    ...overrides,
+  };
+}
+
+/** @internal */
+export function itemDefToToolbarGroupItem(
+  itemDef: GroupItemDef,
+  overrides?: Partial<ToolbarGroupItem>
+): ToolbarGroupItem {
+  const item = ToolbarHelper.createToolbarItemFromItemDef(0, itemDef);
+  assert(isToolbarGroupItem(item));
+  return {
+    ...item,
+    ...overrides,
+  };
 }

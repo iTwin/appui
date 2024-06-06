@@ -8,13 +8,12 @@
 
 import classnames from "classnames";
 import * as React from "react";
-import { CoreTools } from "../tools/CoreToolDefinitions";
 import { ToolbarComposer } from "../toolbar/ToolbarComposer";
-import { ToolbarHelper } from "../toolbar/ToolbarHelper";
 import { useUiVisibility } from "../hooks/useUiVisibility";
 import { NavigationWidgetComposer } from "./NavigationWidgetComposer";
 import type { ToolbarItem } from "../toolbar/ToolbarItem";
 import { ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
+import { ToolbarItems } from "../tools/ToolbarItems";
 
 /** Properties that can be used to append items to the default set of toolbar items.
  * @public
@@ -32,14 +31,26 @@ export interface BasicNavigationWidgetProps {
  */
 export function BasicNavigationWidget(props: BasicNavigationWidgetProps) {
   const getHorizontalToolbarItems = React.useCallback((): ToolbarItem[] => {
-    const items: ToolbarItem[] = ToolbarHelper.createToolbarItemsFromItemDefs([
-      CoreTools.rotateViewCommand,
-      CoreTools.panViewCommand,
-      CoreTools.fitViewCommand,
-      CoreTools.windowAreaCommand,
-      CoreTools.viewUndoCommand,
-      CoreTools.viewRedoCommand,
-    ]);
+    const items: ToolbarItem[] = [
+      ToolbarItems.createRotateView({
+        itemPriority: 10,
+      }),
+      ToolbarItems.createPanView({
+        itemPriority: 20,
+      }),
+      ToolbarItems.createFitView({
+        itemPriority: 30,
+      }),
+      ToolbarItems.createWindowArea({
+        itemPriority: 40,
+      }),
+      ToolbarItems.createViewUndo({
+        itemPriority: 50,
+      }),
+      ToolbarItems.createViewRedo({
+        itemPriority: 60,
+      }),
+    ];
     if (props.additionalHorizontalItems)
       items.push(...props.additionalHorizontalItems);
     return items;
@@ -48,11 +59,12 @@ export function BasicNavigationWidget(props: BasicNavigationWidgetProps) {
   const getVerticalToolbarItems = React.useCallback((): ToolbarItem[] => {
     const items: ToolbarItem[] = [];
     items.push(
-      ToolbarHelper.createToolbarItemFromItemDef(10, CoreTools.walkViewCommand),
-      ToolbarHelper.createToolbarItemFromItemDef(
-        20,
-        CoreTools.toggleCameraViewCommand
-      )
+      ToolbarItems.createWalkView({
+        itemPriority: 10,
+      }),
+      ToolbarItems.createToggleCameraView({
+        itemPriority: 20,
+      })
     );
     if (props.additionalVerticalItems)
       items.push(...props.additionalVerticalItems);

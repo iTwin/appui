@@ -27,6 +27,8 @@ import {
 import { ToolItemDef } from "../shared/ToolItemDef";
 import { BumpToolSetting, FocusToolSettings } from "../tools/ToolSettingsTools";
 
+/* eslint-disable deprecation/deprecation */
+
 /** AccuDraw Command Items - useful in Keyboard Shortcuts
  * @beta
  */

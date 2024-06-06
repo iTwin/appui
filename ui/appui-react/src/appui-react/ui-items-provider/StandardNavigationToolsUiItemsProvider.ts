@@ -6,10 +6,9 @@
  * @module StandardUiItemsProvider
  */
 
-import { ToolbarHelper } from "../toolbar/ToolbarHelper";
 import type { ToolbarItem } from "../toolbar/ToolbarItem";
 import { ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
-import { CoreTools } from "../tools/CoreToolDefinitions";
+import { ToolbarItems } from "../tools/ToolbarItems";
 import type { UiItemsProvider } from "./UiItemsProvider";
 
 /**
@@ -61,10 +60,9 @@ export class StandardNavigationToolsUiItemsProvider implements UiItemsProvider {
         this.defaultNavigationTools.horizontal.rotateView
       )
         items.push(
-          ToolbarHelper.createToolbarItemFromItemDef(
-            10,
-            CoreTools.rotateViewCommand
-          )
+          ToolbarItems.createRotateView({
+            itemPriority: 10,
+          })
         );
 
       if (
@@ -73,10 +71,9 @@ export class StandardNavigationToolsUiItemsProvider implements UiItemsProvider {
         this.defaultNavigationTools.horizontal.panView
       )
         items.push(
-          ToolbarHelper.createToolbarItemFromItemDef(
-            20,
-            CoreTools.panViewCommand
-          )
+          ToolbarItems.createPanView({
+            itemPriority: 20,
+          })
         );
 
       if (
@@ -85,10 +82,9 @@ export class StandardNavigationToolsUiItemsProvider implements UiItemsProvider {
         this.defaultNavigationTools.horizontal.fitView
       ) {
         items.push(
-          ToolbarHelper.createToolbarItemFromItemDef(
-            30,
-            CoreTools.fitViewCommand
-          )
+          ToolbarItems.createFitView({
+            itemPriority: 30,
+          })
         );
       }
 
@@ -98,10 +94,9 @@ export class StandardNavigationToolsUiItemsProvider implements UiItemsProvider {
         this.defaultNavigationTools.horizontal.windowArea
       ) {
         items.push(
-          ToolbarHelper.createToolbarItemFromItemDef(
-            40,
-            CoreTools.windowAreaCommand
-          )
+          ToolbarItems.createWindowArea({
+            itemPriority: 40,
+          })
         );
       }
 
@@ -111,16 +106,14 @@ export class StandardNavigationToolsUiItemsProvider implements UiItemsProvider {
         this.defaultNavigationTools.horizontal.viewUndoRedo
       ) {
         items.push(
-          ToolbarHelper.createToolbarItemFromItemDef(
-            50,
-            CoreTools.viewUndoCommand
-          )
+          ToolbarItems.createViewUndo({
+            itemPriority: 50,
+          })
         );
         items.push(
-          ToolbarHelper.createToolbarItemFromItemDef(
-            60,
-            CoreTools.viewRedoCommand
-          )
+          ToolbarItems.createViewRedo({
+            itemPriority: 60,
+          })
         );
       }
     } else if (
@@ -133,10 +126,9 @@ export class StandardNavigationToolsUiItemsProvider implements UiItemsProvider {
         this.defaultNavigationTools.vertical.setupWalkCamera
       )
         items.push(
-          ToolbarHelper.createToolbarItemFromItemDef(
-            5,
-            CoreTools.setupCameraWalkTool
-          )
+          ToolbarItems.createSetupWalkCamera({
+            itemPriority: 5,
+          })
         );
 
       if (
@@ -145,10 +137,9 @@ export class StandardNavigationToolsUiItemsProvider implements UiItemsProvider {
         this.defaultNavigationTools.vertical.walk
       )
         items.push(
-          ToolbarHelper.createToolbarItemFromItemDef(
-            10,
-            CoreTools.walkViewCommand
-          )
+          ToolbarItems.createWalkView({
+            itemPriority: 10,
+          })
         );
 
       if (
@@ -157,10 +148,9 @@ export class StandardNavigationToolsUiItemsProvider implements UiItemsProvider {
         this.defaultNavigationTools.vertical.toggleCamera
       )
         items.push(
-          ToolbarHelper.createToolbarItemFromItemDef(
-            20,
-            CoreTools.toggleCameraViewCommand
-          )
+          ToolbarItems.createToggleCameraView({
+            itemPriority: 20,
+          })
         );
     }
     return items;
