@@ -16,9 +16,10 @@ import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManag
 import { UiFramework } from "../UiFramework";
 import svgViewLayouts from "@bentley/icons-generic/icons/view-layouts.svg";
 
-/**
- * Immediate tool that will reset the layout to that specified in the stage definition. A stage Id
- * may be passed in, if not the active stage is used. The stage Id is case sensitive.
+/** Immediate tool that will reset the layout to that specified in the stage definition. A frontstage id
+ * may be passed in, if not the active stage is used.
+ * @note The `frontstageId` is case sensitive.
+ * @note Requires localization `namespace` to be registered.
  * @public
  */
 export class RestoreFrontstageLayoutTool extends Tool {
@@ -28,6 +29,7 @@ export class RestoreFrontstageLayoutTool extends Tool {
   public static override get minArgs() {
     return 0;
   }
+
   public static override get maxArgs() {
     return 1;
   }
@@ -48,6 +50,7 @@ export class RestoreFrontstageLayoutTool extends Tool {
       IModelApp.notifications.outputMessage(
         new NotifyMessageDetails(
           OutputMessagePriority.Info,
+          // eslint-disable-next-line deprecation/deprecation
           UiFramework.translate("tools.RestoreFrontstageLayout.noStageFound")
         )
       );
@@ -59,8 +62,7 @@ export class RestoreFrontstageLayoutTool extends Tool {
   }
 }
 
-/**
- * Immediate tool that will reset the layout of all frontstages to that specified in the stage definition.
+/** Immediate tool that will reset the layout of all frontstages to that specified in the stage definition.
  * @public
  */
 export class RestoreAllFrontstagesTool extends Tool {

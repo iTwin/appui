@@ -65,7 +65,8 @@ import touchCursorDragIcon from "./touch-cursor-pan.svg";
 import touchCursorTapIcon from "./touch-cursor-point.svg";
 import { StatusBarPopover } from "../../statusbar/popup/StatusBarPopover";
 
-// cSpell:ignore cursorprompt
+// TODO: wait for #848 to be merged
+/* eslint-disable deprecation/deprecation */
 
 /** Properties of [[ToolAssistanceField]] component.
  * @public

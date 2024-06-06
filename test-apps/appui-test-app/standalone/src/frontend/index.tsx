@@ -122,6 +122,7 @@ import {
   createElementStackingFrontstage,
   createElementStackingProvider,
 } from "./appui/frontstages/ElementStacking";
+import { AppUiProviders } from "./AppUiProviders";
 
 // Initialize my application gateway configuration for the frontend
 RpcConfiguration.developmentMode = true;
@@ -611,17 +612,19 @@ const SampleAppViewer = () => {
     <WidgetContentProvider>
       <AppPreviewFeatures>
         <AppLocalizationProvider>
-          <Provider store={SampleAppIModelApp.store}>
-            <ThemeManager>
-              <SafeAreaContext.Provider value={SafeAreaInsets.All}>
-                <AppDragInteraction>
-                  <UiStateStorageHandler>
-                    <AppViewerContent />
-                  </UiStateStorageHandler>
-                </AppDragInteraction>
-              </SafeAreaContext.Provider>
-            </ThemeManager>
-          </Provider>
+          <AppUiProviders>
+            <Provider store={SampleAppIModelApp.store}>
+              <ThemeManager>
+                <SafeAreaContext.Provider value={SafeAreaInsets.All}>
+                  <AppDragInteraction>
+                    <UiStateStorageHandler>
+                      <AppViewerContent />
+                    </UiStateStorageHandler>
+                  </AppDragInteraction>
+                </SafeAreaContext.Provider>
+              </ThemeManager>
+            </Provider>
+          </AppUiProviders>
         </AppLocalizationProvider>
       </AppPreviewFeatures>
     </WidgetContentProvider>

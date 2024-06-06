@@ -405,10 +405,12 @@ export function getUiSettingsManagerEntry(
   return {
     itemPriority,
     tabId: "uifw:UiStateStorage",
+    // eslint-disable-next-line deprecation/deprecation
     label: UiFramework.translate("settings.uiSettingsPage.label"),
     icon: widowSettingsIconSvg,
     page: <UiSettingsPage />,
     isDisabled: false,
+    // eslint-disable-next-line deprecation/deprecation
     tooltip: UiFramework.translate("settings.uiSettingsPage.tooltip"),
   };
 }

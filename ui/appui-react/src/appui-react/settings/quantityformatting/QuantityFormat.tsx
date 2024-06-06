@@ -68,7 +68,9 @@ export function getQuantityFormatsSettingsManagerEntry(
   return {
     itemPriority,
     tabId: "uifw:Quantity",
+    // eslint-disable-next-line deprecation/deprecation
     label: UiFramework.translate("settings.quantity-formatting.label"),
+    // eslint-disable-next-line deprecation/deprecation
     subLabel: UiFramework.translate("settings.quantity-formatting.subLabel"),
     page: (
       <QuantityFormatSettingsPage
@@ -81,6 +83,7 @@ export function getQuantityFormatsSettingsManagerEntry(
     ),
     isDisabled: false,
     icon: <SvgMeasure />,
+    // eslint-disable-next-line deprecation/deprecation
     tooltip: UiFramework.translate("settings.quantity-formatting.tooltip"),
     pageWillHandleCloseRequest: true,
   };
