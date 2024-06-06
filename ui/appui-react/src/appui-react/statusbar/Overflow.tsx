@@ -7,48 +7,52 @@
  */
 
 import type { CommonProps } from "@itwin/core-react";
-import { useRefs, useResizeObserver } from "@itwin/core-react";
-import classnames from "classnames";
+import { useResizeObserver } from "@itwin/core-react";
 import * as React from "react";
-import { Ellipsis } from "../layout/base/Ellipsis";
-import "./Overflow.scss";
 import { useTranslation } from "../hooks/useTranslation";
+import { IconButton } from "@itwin/itwinui-react";
+import { SvgMore } from "@itwin/itwinui-icons-react";
+import { StatusBarPopover } from "./popup/StatusBarPopover";
+import "./Overflow.scss";
 
 /** Properties of [[StatusBarOverflow]] component.
  * @internal
  */
 export interface StatusBarOverflowProps extends CommonProps {
-  /** Function called when button is clicked. */
-  onClick?: () => void;
   /** Function called when button is resized. */
-  onResize?: (w: number) => void;
+  onResize: (w: number) => void;
+  /** Fields to be placed in the overflow panel. */
+  overflowItems: React.ReactNode[];
 }
 
 /** Entry point to overflow status bar items of [[StatusBarComposer]] component.
  * @internal
  */
-export const StatusBarOverflow = React.forwardRef<
-  HTMLDivElement,
-  StatusBarOverflowProps
->(function StatusBarOverflow(props, ref) {
+export function StatusBarOverflow(props: StatusBarOverflowProps) {
+  const { overflowItems, onResize, ...otherProps } = props;
   const { translate } = useTranslation();
 
-  const roRef = useResizeObserver<HTMLDivElement>(props.onResize);
-  const refs = useRefs(roRef, ref);
-  const className = classnames("uifw-statusbar-overflow", props.className);
+  const roRef = useResizeObserver<HTMLDivElement>(onResize);
 
   return (
-    // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-    <div
-      className={className}
-      onClick={props.onClick}
-      ref={refs}
-      style={props.style}
-      role="button"
-      tabIndex={-1}
-      title={translate("statusBar.overflow")}
+    <StatusBarPopover
+      content={
+        <div
+          className="uifw-statusbar-overflow-panel"
+          data-testid="uifw-statusbar-overflow-panel"
+        >
+          {overflowItems}
+        </div>
+      }
     >
-      <Ellipsis />
-    </div>
+      <IconButton
+        {...otherProps}
+        ref={roRef}
+        title={translate("statusBar.overflow")}
+        styleType="borderless"
+      >
+        <SvgMore />
+      </IconButton>
+    </StatusBarPopover>
   );
-});
+}

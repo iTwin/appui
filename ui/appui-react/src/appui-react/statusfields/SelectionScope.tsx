@@ -7,13 +7,12 @@
  */
 
 import type { CommonProps } from "@itwin/core-react";
-import { Label, Select } from "@itwin/itwinui-react";
+import { LabeledSelect } from "@itwin/itwinui-react";
 import classnames from "classnames";
 import * as React from "react";
 import type { ConnectedComponent } from "react-redux";
 import { connect } from "react-redux";
 import { UiFramework } from "../UiFramework";
-import { FooterIndicator } from "../layout/footer/Indicator";
 import type { PresentationSelectionScope } from "../redux/SessionState";
 import "./SelectionScope.scss";
 import { useTranslation } from "../hooks/useTranslation";
@@ -47,18 +46,19 @@ function SelectionScopeFieldComponent(props: SelectionScopeFieldProps) {
   };
 
   return (
-    <FooterIndicator
+    <div
       className={classnames(
         "uifw-statusFields-selectionScope",
         props.className
       )}
       style={props.style}
     >
-      <Label className="uifw-statusFields-selectionScope-label">
-        {translate("selectionScopeField.label")}:
-      </Label>
-      <Select
+      <LabeledSelect
         className="uifw-statusFields-selectionScope-selector"
+        label={`${translate("selectionScopeField.label")}:`}
+        labelProps={{ className: "uifw-statusFields-selectionScope-label" }}
+        wrapperProps={{ style: { rowGap: "0px" } }} // TODO: remove when https://github.com/iTwin/iTwinUI/issues/2051 is fixed
+        displayStyle="inline"
         value={props.activeSelectionScope}
         options={options}
         onChange={updateSelectValue}
@@ -66,7 +66,7 @@ function SelectionScopeFieldComponent(props: SelectionScopeFieldProps) {
         title={translate("selectionScopeField.toolTip")}
         size="small"
       />
-    </FooterIndicator>
+    </div>
   );
 }
 

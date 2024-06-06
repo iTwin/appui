@@ -92,11 +92,7 @@ export const ComponentExamplesPage: React.FC<ComponentExamplesPageProps> = (
     // TODO: quick fix to display popups over a modal frontstage.
     const style = document.createElement("style");
     style.textContent = `
-    .nz-status-bar-popup, .components-toolbar-popupItem_popupItemPopup {
-      z-index: 16000;
-    }
-
-    .uifw-statusFields-messageCenter-messageCenterField_popover {
+    div[role=dialog] {
       z-index: 16000 !important;
     }
     `;

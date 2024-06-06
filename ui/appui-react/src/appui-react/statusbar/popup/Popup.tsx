@@ -12,9 +12,11 @@ import classnames from "classnames";
 import type { PopupProps } from "@itwin/core-react";
 import { Popup } from "@itwin/core-react";
 import { RelativePosition } from "@itwin/appui-abstract";
+import { StatusBarPopover } from "./StatusBarPopover";
 
 /** Popup component used in [[StatusBar]] component.
  * @beta
+ * @deprecated in 4.13.x. Use {@link StatusBarPopover} instead.
  */
 export function StatusBarPopup(props: Partial<PopupProps>) {
   const { className, offset, ...other } = props;

@@ -3,15 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-.uitestapp-footer-units-field {
-  height: 100%;
-
-  .units-indicator {
-    padding-left: 5px;
-    padding-right: 5px;
-
-    .units-button {
-      height: 100%;
-    }
-  }
+.uifw-statusFields-languageSelect-label {
+  margin-right: var(--iui-size-xs);
 }

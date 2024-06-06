@@ -3,15 +3,26 @@
 Table of contents:
 
 - [@itwin/appui-react](#itwinappui-react)
+  - [Deprecations](#deprecations)
   - [Additions](#additions)
   - [Changes](#changes)
+  - [Fixes](#fixes)
 - [@itwin/components-react](#itwincomponents-react)
-  - [Deprecations](#deprecations)
+  - [Deprecations](#deprecations-1)
   - [Changes](#changes-1)
 - [@itwin/core-react](#itwincore-react)
-  - [Fixes](#fixes)
+  - [Fixes](#fixes-1)
 
 ## @itwin/appui-react
+
+### Deprecations
+
+- Deprecated `StatusBar` component in favor of `StatusBarComposer`. [#848](https://github.com/iTwin/appui/pull/848)
+- Deprecated `StatusBar` namespace. Please use the components directly. [#848](https://github.com/iTwin/appui/pull/848)
+  - Deprecated `StatusBar.Popup` and `StatusBarPopup` in favor of `StatusBarPopover`.
+  - Deprecated `StatusBar.Field` and `StatusBarField` in favor of [iTwinUI Button](https://itwinui.bentley.com/docs/button).
+- Deprecated `StatusBarIndicator` in favor of [iTwinUI Button](https://itwinui.bentley.com/docs/button) (or other components) and AppUI `StatusBarPopover`. [#848](https://github.com/iTwin/appui/pull/848)
+- Deprecated `StatusBarLabelIndicator` in favor of [iTwinUI Label](https://itwinui.bentley.com/docs/typography#label) and AppUI `Icon`. [#848](https://github.com/iTwin/appui/pull/848)
 
 ### Additions
 
@@ -21,10 +32,38 @@ Table of contents:
 
   Additionally an array of widget ids can be specified to only expose visibility controls for specific widgets. This allows applications to experiment with other use-cases, like keeping at least one widget visible at all times.
 
+- Added `StatusBarPopover` to replace `StatusBar.Popup`. The component uses [iTwinUI Popover](https://itwinui.bentley.com/docs/popover) with some consistent styling for all `StatusBar` fields. `StatusBarPopover` should wrap the element that triggers it (e.g. a button). [#848](https://github.com/iTwin/appui/pull/848)
+- Added `StatusBarPopover.ExpandIndicator` which adds an indicator to show that a button has expandable content. `StatusBarPopover.ExpandIndicator` is supposed to be used in `StatusBarPopover` trigger buttons. [#848](https://github.com/iTwin/appui/pull/848)
+
+  Usage example:
+
+  ```tsx
+  // With iTwinUI Button
+  <StatusBarPopover>
+    <Button styleType="borderless">
+      {label}
+      <StatusBarPopover.ExpandIndicator />
+    </Button>
+  </StatusBarPopover>
+
+  // With iTwinUI IconButton
+  <StatusBarPopover>
+    <IconButton styleType="borderless">
+      <SvgLightbulbHollow />
+      <StatusBarPopover.ExpandIndicator />
+    </IconButton>
+  </StatusBarPopover>
+  ```
+
 ### Changes
 
 - The dropdown menu of `widgetActionDropdown` preview feature will close once one of the menu items is activated. [#856](https://github.com/iTwin/appui/pull/856)
 - The labels for the buttons in the widget title bar will be rendered as tooltips, rather than using the `title` attribute. [#856](https://github.com/iTwin/appui/pull/856)
+- Started using iTwinUI components for `StatusBar` field components. That includes both the button and the popup. [#848](https://github.com/iTwin/appui/pull/848)
+
+### Fixes
+
+- Fixed `StatusBarComposer` overflow item order. Now status fields should always go into overflow from right to left. [#848](https://github.com/iTwin/appui/pull/848)
 
 ## @itwin/components-react
 

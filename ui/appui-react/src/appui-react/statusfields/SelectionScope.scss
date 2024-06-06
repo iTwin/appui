@@ -3,42 +3,17 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/breakpoints";
-@import "../layout/footer/variables";
 
 .uifw-statusFields-selectionScope {
-  $font-size-medium: var(--iui-font-size-0);
-  $font-size-small: var(--iui-font-size-0) - 1px;
-  overflow: hidden;
-  padding-right: 0px;
+  display: flex;
+  align-items: center;
+}
 
-  > .uifw-statusFields-selectionScope-label {
-    display: inline;
-    margin-right: var(--iui-size-xs);
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-
-    @include for-tablet-portrait-down {
-      display: none;
-      margin-right: 0px;
-    }
-  }
-
-  > .uifw-statusFields-selectionScope-selector {
-    min-width: 140px;
-    width: auto;
-
-    @include for-tablet-portrait-down {
-      font-size: $font-size-medium;
-    }
-
-    @include for-phone-only {
-      font-size: $font-size-small;
-    }
-  }
+.uifw-statusFields-selectionScope-selector {
+  min-width: 140px;
 }
 
 .uifw-statusFields-selectionScope-label {
-  text-overflow: ellipsis;
-  overflow: hidden;
+  margin-right: var(--iui-size-xs);
+  white-space: nowrap;
 }

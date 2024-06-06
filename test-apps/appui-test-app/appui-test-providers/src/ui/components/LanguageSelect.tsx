@@ -3,7 +3,9 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { Select } from "@itwin/itwinui-react";
+import { LabeledSelect } from "@itwin/itwinui-react";
+import { useTranslation } from "../../useTranslation";
+import "./LanguageSelect.scss";
 
 export type Language = "en-US" | "en-PSEUDO";
 
@@ -14,8 +16,9 @@ export function LanguageSelect({
   language: Language;
   onChange?: (newLanguage: Language) => void;
 }) {
+  const { translate } = useTranslation();
   return (
-    <Select<Language>
+    <LabeledSelect<Language>
       options={[
         {
           label: "US",
@@ -29,6 +32,10 @@ export function LanguageSelect({
       value={language}
       size="small"
       onChange={onChange}
+      wrapperProps={{ style: { rowGap: "0px" } }} // TODO: remove when https://github.com/iTwin/iTwinUI/issues/2051 is fixed
+      label={`${translate("statusFields.languageSelect.label")}:`}
+      labelProps={{ className: "uifw-statusFields-languageSelect-label" }}
+      displayStyle="inline"
     />
   );
 }
