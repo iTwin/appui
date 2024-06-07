@@ -15,6 +15,7 @@ import type { CommonProps } from "../utils/Props";
  * @public
  * @deprecated in 4.15.0. Props of deprecated {@link TreeBranch} component.
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface TreeBranchProps extends CommonProps {
   /** Child nodes of the tree branch */
   children?: React.ReactNode;

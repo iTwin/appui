@@ -31,6 +31,7 @@ export interface InputLabelProps
   extends LabeledComponentProps,
     // eslint-disable-next-line deprecation/deprecation
     MessagedComponentProps,
+    // eslint-disable-next-line deprecation/deprecation
     CommonProps {
   disabled?: boolean;
   /** Labeled content */

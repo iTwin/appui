@@ -16,6 +16,7 @@ import type { CommonProps } from "../utils/Props";
  * @public
  * @deprecated in 4.12.x. Props of deprecated component {@link CheckListBoxItem}.
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface CheckListBoxItemProps extends CommonProps {
   /** Label */
   label: string;
@@ -72,6 +73,7 @@ export function CheckListBoxSeparator() {
  * @deprecated in 4.12.x. Use {@link https://itwinui.bentley.com/docs/list iTwinUI list} instead.
  */
 export class CheckListBox extends React.PureComponent<
+  // eslint-disable-next-line deprecation/deprecation
   CommonProps & {
     /** Content */
     children?: React.ReactNode;

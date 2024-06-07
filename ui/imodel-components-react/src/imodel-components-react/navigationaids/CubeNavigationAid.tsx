@@ -158,6 +158,7 @@ export enum CubeHover {
 /** Properties for the [[CubeNavigationAid]] component
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface CubeNavigationAidProps extends CommonProps {
   iModelConnection: IModelConnection;
   viewport?: Viewport;

@@ -21,6 +21,7 @@ import { CursorPopupManager } from "../cursorpopup/CursorPopupManager";
 export class CursorPrompt {
   private _timeOut: number;
   private _fadeOut: boolean;
+  // eslint-disable-next-line deprecation/deprecation
   private _timer: Timer;
   private _relativePosition = RelativePosition.BottomRight;
   private _offset: Point = new Point(20, 20);
@@ -29,6 +30,7 @@ export class CursorPrompt {
   constructor(timeOut: number, fadeOut: boolean) {
     this._timeOut = timeOut;
     this._fadeOut = fadeOut;
+    // eslint-disable-next-line deprecation/deprecation
     this._timer = new Timer(timeOut);
   }
 

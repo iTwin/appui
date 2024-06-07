@@ -15,6 +15,7 @@ import { Div } from "./Div";
  * @public
  * @deprecated in 4.12.x. Use CSS to style an element or {@link https://itwinui.bentley.com/docs/flex iTwinUI Flex} instead.
  */
+// eslint-disable-next-line deprecation/deprecation
 export function FillCentered(props: CommonDivProps) {
   // eslint-disable-next-line deprecation/deprecation
   return <Div {...props} mainClassName="uicore-fill-centered" />;

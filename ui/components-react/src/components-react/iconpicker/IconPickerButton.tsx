@@ -19,6 +19,7 @@ import { SvgChevronDown } from "@itwin/itwinui-icons-react";
  */
 interface IconItemProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    // eslint-disable-next-line deprecation/deprecation
     CommonProps {
   /** icon specification */
   icon: string;
@@ -66,6 +67,7 @@ class IconItem extends React.PureComponent<IconItemProps> {
  */
 export interface IconPickerProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    // eslint-disable-next-line deprecation/deprecation
     CommonProps {
   /** active string */
   icon: string;
@@ -178,6 +180,7 @@ export class IconPickerButton extends React.PureComponent<
             <Icon iconSpec={<SvgChevronDown />} />{" "}
           </span>
         </button>
+        {/* eslint-disable-next-line deprecation/deprecation */}
         <Popup
           className="components-iconpicker-popup"
           isOpen={this.state.showPopup}

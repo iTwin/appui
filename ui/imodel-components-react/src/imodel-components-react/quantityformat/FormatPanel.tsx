@@ -25,6 +25,7 @@ import { MiscFormatOptions } from "./MiscFormatOptions";
 /** Properties of [[FormatPanel]] component.
  * @alpha
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface FormatPanelProps extends CommonProps {
   initialFormat: FormatProps;
   unitsProvider: UnitsProvider;

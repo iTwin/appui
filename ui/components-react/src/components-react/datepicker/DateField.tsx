@@ -18,6 +18,7 @@ import { Logger } from "@itwin/core-bentley";
 /** Props for [[DateField]] Component.
  * @internal
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface DateFieldProps extends CommonProps {
   /** Defines initial date and time for component. */
   initialDate: Date;

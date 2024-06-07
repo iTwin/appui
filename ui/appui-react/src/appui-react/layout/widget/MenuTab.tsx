@@ -20,6 +20,7 @@ import { useLayout } from "../base/LayoutStore";
 import { TabIdContext } from "./ContentRenderer";
 
 /** @internal */
+// eslint-disable-next-line deprecation/deprecation
 export interface WidgetMenuTabProps extends CommonProps {
   badge?: React.ReactNode;
 }

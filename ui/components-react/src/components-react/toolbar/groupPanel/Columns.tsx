@@ -14,6 +14,7 @@ import type { CommonProps } from "@itwin/core-react";
 /** Properties of [[Columns]] component.
  * @internal
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface ColumnsProps extends CommonProps {
   /** Actual columns. I.e. [[GroupColumn]] */
   children?: React.ReactNode;

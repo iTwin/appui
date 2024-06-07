@@ -131,7 +131,7 @@ export function PopupItemWithDrag(props: PopupItemWithDragProps) {
   }, [activeAction]);
 
   const icon = activeAction
-    ? IconHelper.getIconReactNode(activeAction.icon, activeAction.internalData)
+    ? IconHelper.getIconReactNode(activeAction.icon, activeAction.internalData) // eslint-disable-line deprecation/deprecation
     : props.icon;
   const title = activeAction
     ? ConditionalStringValue.getValue(activeAction.label)

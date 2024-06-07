@@ -50,7 +50,7 @@ export class ElementTooltipChangedEvent extends UiEvent<ElementTooltipChangedEve
  * @public
  */
 export class ElementTooltip extends React.Component<
-  CommonProps,
+  CommonProps, // eslint-disable-line deprecation/deprecation
   ElementTooltipState
 > {
   private static _elementTooltipChangedEvent =
@@ -120,6 +120,7 @@ export class ElementTooltip extends React.Component<
     },
   };
 
+  // eslint-disable-next-line deprecation/deprecation
   constructor(props: CommonProps) {
     super(props);
   }
@@ -136,6 +137,7 @@ export class ElementTooltip extends React.Component<
           position={this.state.position}
           onSizeChanged={this._handleSizeChanged}
         >
+          {/* eslint-disable-next-line deprecation/deprecation */}
           <MessageRenderer message={this.state.message} />
         </Tooltip>
       </div>

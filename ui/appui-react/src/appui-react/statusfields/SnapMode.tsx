@@ -28,6 +28,7 @@ import { useTranslation } from "../hooks/useTranslation";
 
 /** Defines properties supported by the SnapMode Field Component.
  */
+// eslint-disable-next-line deprecation/deprecation
 interface SnapModeFieldProps extends CommonProps {
   snapMode: number;
 }

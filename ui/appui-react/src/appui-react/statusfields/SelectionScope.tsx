@@ -21,6 +21,7 @@ import { useTranslation } from "../hooks/useTranslation";
 /** Defines properties supported by the SelectionScopeField Component.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 interface SelectionScopeFieldProps extends CommonProps {
   activeSelectionScope: string;
   availableSelectionScopes: PresentationSelectionScope[];
@@ -92,5 +93,5 @@ function mapStateToProps(state: any) {
  */
 export const SelectionScopeField: ConnectedComponent<
   typeof SelectionScopeFieldComponent,
-  CommonProps
+  CommonProps // eslint-disable-line deprecation/deprecation
 > = connect(mapStateToProps)(SelectionScopeFieldComponent);

@@ -18,6 +18,7 @@ import "./SelectionCount.scss";
 /** Properties for the [[SelectionCountField]] component.
  * @beta
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface SelectionCountFieldProps extends CommonProps {
   count: number;
 }

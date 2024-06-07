@@ -30,12 +30,13 @@ interface TileLoadingIndicatorState {
  * @public
  */
 export class TileLoadingIndicator extends React.PureComponent<
-  CommonProps,
+  CommonProps, // eslint-disable-line deprecation/deprecation
   TileLoadingIndicatorState
 > {
   private _removeViewOpenListener?: () => void;
   private _removeOnRenderListener?: () => void;
 
+  // eslint-disable-next-line deprecation/deprecation
   constructor(props: CommonProps) {
     super(props);
     this.state = { label: "", progress: 0, enabled: false, finished: true };

@@ -28,6 +28,7 @@ import { useTranslation } from "../hooks/useTranslation";
 /** Sections Status Field Props
  * @beta
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface SectionsStatusFieldProps extends CommonProps {
   hideWhenUnused?: boolean;
 }

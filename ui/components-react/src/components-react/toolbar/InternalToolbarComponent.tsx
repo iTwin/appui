@@ -183,6 +183,7 @@ function CustomItem({
   const icon = React.useMemo(
     () =>
       (item.icon &&
+        // eslint-disable-next-line deprecation/deprecation
         IconHelper.getIconReactNode(item.icon, item.internalData)) || (
         <Icon className="icon" iconSpec={<SvgPlaceholder />} />
       ),
@@ -237,6 +238,7 @@ function GroupPopupItem({
         providerId={providerId}
         itemPriority={item.itemPriority}
         groupPriority={item.groupPriority}
+        // eslint-disable-next-line deprecation/deprecation
         icon={IconHelper.getIconReactNode(item.icon, item.internalData)}
         isDisabled={ConditionalBooleanValue.getValue(item.isDisabled)}
         title={title}
@@ -253,6 +255,7 @@ function GroupPopupItem({
       providerId={providerId}
       itemPriority={item.itemPriority}
       groupPriority={item.groupPriority}
+      // eslint-disable-next-line deprecation/deprecation
       icon={IconHelper.getIconReactNode(item.icon, item.internalData)}
       isDisabled={ConditionalBooleanValue.getValue(item.isDisabled)}
       title={title}
@@ -290,6 +293,7 @@ function ActionItem({
       key={item.id}
       isDisabled={ConditionalBooleanValue.getValue(item.isDisabled)}
       title={title}
+      // eslint-disable-next-line deprecation/deprecation
       icon={IconHelper.getIconReactNode(item.icon, item.internalData)}
       isActive={item.isActive}
       onClick={onExecute}
@@ -360,7 +364,8 @@ function filterHiddenItems<T extends CommonToolbarItem>(
  * @internal
  */
 export interface InternalToolbarComponentProps
-  extends CommonProps,
+  extends CommonProps, // eslint-disable-line deprecation/deprecation
+    // eslint-disable-next-line deprecation/deprecation
     NoChildrenProps {
   /** Describes to which direction the popup panels are expanded. Defaults to: [[Direction.Bottom]] */
   expandsTo?: Direction;

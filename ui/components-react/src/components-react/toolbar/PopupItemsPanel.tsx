@@ -129,6 +129,7 @@ export function PopupItemsPanel(props: PopupItemsPanelProps) {
       columnToItems.map((columnItems, columnIndex) => (
         <GroupColumn key={columnIndex}>
           {columnItems.map((panelItem) => {
+            // eslint-disable-next-line deprecation/deprecation
             const icon = IconHelper.getIconReactNode(
               panelItem.icon,
               panelItem.internalData

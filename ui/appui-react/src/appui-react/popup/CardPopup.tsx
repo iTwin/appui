@@ -161,6 +161,7 @@ export function Card(props: CardProps) {
   const content = isReactContent(props.content) ? (
     props.content.reactNode
   ) : (
+    // eslint-disable-next-line deprecation/deprecation
     <MessageRenderer message={props.content} />
   );
 

@@ -17,7 +17,8 @@ import { ToolbarIcon } from "./Icon";
  * @internal
  */
 export interface AppButtonProps
-  extends OmitChildrenProp<ToolbarIconProps>,
+  extends OmitChildrenProp<ToolbarIconProps>, // eslint-disable-line deprecation/deprecation
+    // eslint-disable-next-line deprecation/deprecation
     NoChildrenProps {
   /** Indicates whether to use a small App button */
   small?: boolean;

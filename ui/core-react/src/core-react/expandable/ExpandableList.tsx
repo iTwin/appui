@@ -14,6 +14,7 @@ import type { CommonProps } from "../utils/Props";
  * @public
  * @deprecated in 4.12.x. Props of deprecated component {@link ExpandableList}.
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface ExpandableListProps extends CommonProps {
   /** Index of the default active block */
   defaultActiveBlock?: number;

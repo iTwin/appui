@@ -33,6 +33,7 @@ const tabs = ["all", "errors"] as const;
 /** Message Center Field React component.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export function MessageCenterField(props: CommonProps) {
   const [messages, setMessages] = React.useState(MessageManager.messages);
   const [notify, setNotify] = React.useState(false);

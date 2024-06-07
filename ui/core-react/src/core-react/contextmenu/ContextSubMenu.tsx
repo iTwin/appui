@@ -25,6 +25,7 @@ import { Badge } from "../badge/Badge";
 export interface ContextSubMenuProps
   extends Omit<ContextMenuItemProps, "label">,
     Omit<ContextMenuProps, "label">,
+    // eslint-disable-next-line deprecation/deprecation
     CommonProps {
   /** Text/jsx to display in the list item */
   label: string | React.ReactElement;

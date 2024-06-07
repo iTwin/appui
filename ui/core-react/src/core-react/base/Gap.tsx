@@ -13,6 +13,7 @@ import type { CommonProps } from "../utils/Props";
  * @public
  * @deprecated in 4.12.x. Props of deprecated component {@link Gap}.
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface GapProps extends CommonProps {
   size?: string;
 }

@@ -14,6 +14,7 @@ import type { CommonDivProps } from "../utils/Props";
  * @public
  * @deprecated in 4.12.x. Props of deprecated component {@link Div}.
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface DivProps extends CommonDivProps {
   /** Main CSS class name */
   mainClassName: string;

@@ -158,6 +158,7 @@ export const ComponentExamplesPage: React.FC<ComponentExamplesPageProps> = (
 };
 
 /** Properties for the Component Example component */
+// eslint-disable-next-line deprecation/deprecation
 export interface ComponentExampleProps extends CommonProps {
   title: string;
   description?: string;

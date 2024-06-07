@@ -163,13 +163,14 @@ export class WidgetDef {
     return this.state === WidgetState.Floating;
   }
   public get iconSpec(): IconSpec {
+    // eslint-disable-next-line deprecation/deprecation
     return this._icon === IconHelper.reactIconKey
-      ? IconHelper.getIconReactNode(this._icon, this._internalData)
+      ? IconHelper.getIconReactNode(this._icon, this._internalData) // eslint-disable-line deprecation/deprecation
       : this._icon;
   }
   public set iconSpec(spec: IconSpec) {
     this._icon = this._internalData
-      ? IconHelper.getIconData(spec, this._internalData)
+      ? IconHelper.getIconData(spec, this._internalData) // eslint-disable-line deprecation/deprecation
       : spec;
   }
   public get badgeType(): BadgeType | undefined {

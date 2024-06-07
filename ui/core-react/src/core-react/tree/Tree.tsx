@@ -16,6 +16,7 @@ import { Rectangle } from "../utils/Rectangle";
  * @public
  * @deprecated in 4.15.0. Props of deprecated {@link Tree} component.
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface TreeProps extends CommonProps {
   children?: React.ReactNode;
   onMouseDown?: React.MouseEventHandler<HTMLDivElement>;

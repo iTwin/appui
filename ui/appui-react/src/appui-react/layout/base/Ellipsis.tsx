@@ -14,6 +14,7 @@ import type { CommonProps } from "@itwin/core-react";
 /** A component that renders three dots (common for text truncation). Used in overflow buttons.
  * @internal
  */
+// eslint-disable-next-line deprecation/deprecation
 export function Ellipsis(props: CommonProps) {
   const className = classnames("nz-base-ellipsis", props.className);
   return (

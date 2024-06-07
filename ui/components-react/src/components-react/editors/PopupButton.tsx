@@ -24,6 +24,7 @@ import { useTranslation } from "../useTranslation";
 /** Properties for [[PopupButton]] component
  * @alpha
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface PopupButtonProps extends CommonProps {
   /** Label to display in click area. */
   label?: string | React.ReactNode;
@@ -157,6 +158,7 @@ export class PopupButton extends React.PureComponent<
             </div>
           </div>
         </div>
+        {/* eslint-disable-next-line deprecation/deprecation */}
         <Popup
           className="components-popup-button-popup"
           isOpen={this.state.showPopup}
@@ -180,6 +182,7 @@ export class PopupButton extends React.PureComponent<
 /** Popup content with padding
  * @alpha
  */
+// eslint-disable-next-line deprecation/deprecation
 export function PopupContent(props: CommonDivProps) {
   // eslint-disable-next-line deprecation/deprecation
   return <Div {...props} mainClassName="components-editor-popup-content" />;

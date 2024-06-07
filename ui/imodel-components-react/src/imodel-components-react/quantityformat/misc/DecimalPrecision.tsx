@@ -15,6 +15,7 @@ import { useTranslation } from "../../useTranslation";
 /** Properties of [[DecimalPrecisionSelector]] component.
  * @internal
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface DecimalPrecisionSelectorProps extends CommonProps {
   precision: number;
   onChange: (value: number) => void;

@@ -14,6 +14,7 @@ import type { CommonProps } from "@itwin/core-react";
 /** Properties of [[Title]] component.
  * @internal
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface TitleProps extends CommonProps {
   /** Actual title. */
   children?: React.ReactNode;

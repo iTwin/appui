@@ -14,7 +14,6 @@ import { DialogButtonType } from "@itwin/appui-abstract";
 import { Dialog as BaseDialog, Button } from "@itwin/itwinui-react";
 import { DivWithOutsideClick } from "../base/DivWithOutsideClick";
 import type { CommonProps } from "../utils/Props";
-import type { Omit } from "../utils/typeUtils";
 import "./Dialog.scss";
 import { useTranslation } from "../l10n/useTranslation";
 
@@ -42,6 +41,7 @@ export enum DialogAlignment {
  */
 export interface DialogProps
   extends Omit<React.AllHTMLAttributes<HTMLDivElement>, "title">,
+    // eslint-disable-next-line deprecation/deprecation
     CommonProps {
   /** Indicates whether to show dialog or not */
   opened: boolean;

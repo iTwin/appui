@@ -19,6 +19,7 @@ import { getCSSColorFromDef } from "./getCSSColorFromDef";
  */
 export interface ColorSwatchProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    // eslint-disable-next-line deprecation/deprecation
     CommonProps {
   /** color specification */
   colorDef: ColorDef;

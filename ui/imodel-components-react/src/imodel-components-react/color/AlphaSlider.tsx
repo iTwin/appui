@@ -19,6 +19,7 @@ import { UiIModelComponents } from "../UiIModelComponents";
  */
 export interface AlphaSliderProps
   extends React.HTMLAttributes<HTMLDivElement>,
+    // eslint-disable-next-line deprecation/deprecation
     CommonProps {
   /** true if slider is oriented horizontal, else vertical orientation is assumed */
   isHorizontal?: boolean;

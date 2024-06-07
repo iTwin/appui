@@ -37,6 +37,7 @@ import { BeUiEvent } from "@itwin/core-bentley";
 /** Properties of [[PointerMessage]] component.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface PointerMessageProps extends CommonProps {
   /** Text to display */
   message?: string;
@@ -165,20 +166,24 @@ export class PointerMessage extends React.Component<
           {severity !== MessageSeverity.None && (
             <span className="uifw-pointer-message-icon">
               <Icon
+                // eslint-disable-next-line deprecation/deprecation
                 className={`icon ${MessageContainer.getIconClassName(
                   severity
                 )}`}
+                // eslint-disable-next-line deprecation/deprecation
                 iconSpec={`${MessageContainer.getIcon(severity, false)}`}
               />
             </span>
           )}
           <span className="uifw-pointer-message-text">
+            {/* eslint-disable-next-line deprecation/deprecation */}
             <MessageRenderer
               className="uifw-pointer-message-brief"
               message={this.state.message}
               useSpan
             />
             {this.state.detailedMessage && (
+              // eslint-disable-next-line deprecation/deprecation
               <MessageRenderer
                 className="uifw-pointer-message-detailed"
                 message={this.state.detailedMessage}

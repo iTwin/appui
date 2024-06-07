@@ -15,6 +15,7 @@ import type { CommonProps } from "../utils/Props";
  * @public
  * @deprecated in 4.15.0. Props of deprecated {@link SvgPath} component.
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface SvgPathProps extends CommonProps {
   /** Svg graphics paths */
   paths: string[];

@@ -72,6 +72,7 @@ function calculateChange(
  */
 export interface SaturationPickerProps
   extends React.HTMLAttributes<HTMLDivElement>,
+    // eslint-disable-next-line deprecation/deprecation
     CommonProps {
   /** function to run when user selects location in saturation region */
   onSaturationChange?: ((saturation: HSVColor) => void) | undefined;

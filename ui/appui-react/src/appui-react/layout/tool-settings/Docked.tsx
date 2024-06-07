@@ -52,6 +52,7 @@ function OverflowLabelAndEditor({ wrapper }: { wrapper: React.ReactNode }) {
 /** Properties of [[DockedToolSettings]] component.
  * @internal
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface DockedToolSettingsProps extends CommonProps {
   /** Tool settings content. */
   children?: React.ReactNode;
@@ -459,6 +460,7 @@ export function eqlOverflown(
 }
 
 function getGapVariable(htmlElement: HTMLElement) {
+  // eslint-disable-next-line deprecation/deprecation
   const gap = getCssVariableAsNumber("gap", htmlElement);
   if (isNaN(gap)) return 0;
   return gap;

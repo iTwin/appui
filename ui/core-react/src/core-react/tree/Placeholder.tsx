@@ -16,6 +16,7 @@ import { LEVEL_OFFSET } from "./Node";
  * @public
  * @deprecated in 4.15.0. Props of deprecated {@link TreeNodePlaceholder} component.
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface TreeNodePlaceholderProps extends CommonProps {
   level: number;
   minWidth?: number;

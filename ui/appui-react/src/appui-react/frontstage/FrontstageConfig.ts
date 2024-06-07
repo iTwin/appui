@@ -17,6 +17,7 @@ import type { WidgetConfig } from "../widgets/WidgetConfig";
 /** Configuration from which a frontstage is created.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface FrontstageConfig extends CommonProps {
   /** Id for the Frontstage */
   readonly id: string;

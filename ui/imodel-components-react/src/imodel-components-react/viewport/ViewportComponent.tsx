@@ -43,6 +43,7 @@ export type ViewStateProp = ViewState | (() => ViewState);
  * Properties for [[ViewportComponent]] component.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface ViewportProps extends CommonProps {
   /** IModel to display */
   imodel: IModelConnection;

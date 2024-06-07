@@ -60,6 +60,7 @@ export interface NodeCheckboxProps {
  * @public
  * @deprecated in 4.15.0. Props of deprecated {@link TreeNode} component.
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface TreeNodeProps extends CommonProps {
   label: React.ReactNode;
   level: number;

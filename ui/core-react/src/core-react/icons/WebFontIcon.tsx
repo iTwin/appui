@@ -15,6 +15,7 @@ import type { CommonProps } from "../utils/Props";
  * @public
  * @deprecated in 4.15.0. Props of deprecated {@link WebFontIcon} component.
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface WebFontIconProps extends CommonProps {
   /** Bentley Web Font icon name */
   iconName: string;

@@ -68,6 +68,7 @@ export function useStatusBarEntry() {
 /** Properties of [[DockedStatusBarItem]] component.
  * @internal future
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface StatusBarItemProps extends CommonProps {
   /** Tool setting content. */
   children?: React.ReactNode;
@@ -253,6 +254,7 @@ function isItemInOverflow(
 /** Properties for the [[StatusBarComposer]] React components
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface StatusBarComposerProps extends CommonProps {
   /** Status Bar items */
   items: StatusBarItem[];

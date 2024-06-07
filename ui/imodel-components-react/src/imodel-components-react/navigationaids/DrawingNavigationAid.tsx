@@ -54,6 +54,7 @@ export enum MapMode {
 /** Properties for the [[DrawingNavigationAid]] component
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface DrawingNavigationAidProps extends CommonProps {
   iModelConnection: IModelConnection;
   viewport?: Viewport;

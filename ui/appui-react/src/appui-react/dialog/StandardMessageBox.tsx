@@ -23,6 +23,7 @@ import { UiFramework } from "../UiFramework";
  * @public
  * @deprecated in 4.15.0. Props of deprecated {@link StandardMessageBox} component.
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface StandardMessageBoxProps extends CommonProps {
   /** Indicates whether the message box is open */
   opened: boolean;
@@ -139,6 +140,7 @@ export class StandardMessageBox extends React.PureComponent<
     }
 
     return (
+      // eslint-disable-next-line deprecation/deprecation
       <MessageBox
         className={this.props.className}
         style={{ zIndex: DialogManagerBase.topZIndex, ...this.props.style }}

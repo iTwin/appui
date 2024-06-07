@@ -64,6 +64,7 @@ function ColorOptions({
  */
 export interface ColorPickerProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    // eslint-disable-next-line deprecation/deprecation
     CommonProps {
   /** Active color */
   initialColor: ColorDef;
@@ -196,6 +197,7 @@ const ForwardRefColorPickerButton = React.forwardRef<
           )}
         </div>
       </button>
+      {/* eslint-disable-next-line deprecation/deprecation */}
       <Popup
         className="components-colorpicker-popup"
         isOpen={showPopup}

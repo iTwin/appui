@@ -28,6 +28,7 @@ interface PopupPoint {
  * @public
  * @deprecated in 4.15.0. Props of deprecated {@link Popup} component.
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface PopupProps extends CommonProps {
   /** Show or hide the box shadow (defaults to true) */
   showShadow: boolean;
@@ -146,7 +147,7 @@ export class Popup extends React.Component<PopupProps, PopupState> {
   }
 
   public override componentDidUpdate(
-    previousProps: PopupProps,
+    previousProps: PopupProps, // eslint-disable-line deprecation/deprecation
     prevState: PopupState
   ) {
     if (this.state.position !== prevState.position) {

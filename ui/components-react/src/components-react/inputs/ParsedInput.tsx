@@ -17,6 +17,7 @@ import "./ParsedInput.scss";
 /** Props for [[ParsedInput]] control
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface ParsedInputProps extends CommonProps {
   /** InitialValue which is used to restore input field if ESC is pressed */
   initialValue: number;

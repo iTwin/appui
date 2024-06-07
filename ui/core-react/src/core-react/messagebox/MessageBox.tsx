@@ -33,6 +33,7 @@ import { Dialog } from "../dialog/Dialog";
  * @public
  * @deprecated in 4.15.0. Props of deprecated {@link MessageBox} component.
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface MessageBoxProps extends CommonProps {
   /** Severity of MessageBox */
   severity: MessageSeverity;
@@ -115,6 +116,7 @@ export class MessageBox extends React.PureComponent<MessageBoxProps> {
  * @public
  * @deprecated in 4.15.0. Props of deprecated {@link MessageContainer} component.
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface MessageContainerProps extends CommonProps {
   severity: MessageSeverity;
   /** Message Content */

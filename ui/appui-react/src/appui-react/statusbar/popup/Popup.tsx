@@ -16,10 +16,12 @@ import { RelativePosition } from "@itwin/appui-abstract";
 /** Popup component used in [[StatusBar]] component.
  * @beta
  */
+// eslint-disable-next-line deprecation/deprecation
 export function StatusBarPopup(props: Partial<PopupProps>) {
   const { className, offset, ...other } = props;
 
   return (
+    // eslint-disable-next-line deprecation/deprecation
     <Popup
       className={classnames("nz-status-bar-popup", className)}
       position={RelativePosition.Top}

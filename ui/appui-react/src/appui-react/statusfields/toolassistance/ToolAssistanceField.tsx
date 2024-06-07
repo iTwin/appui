@@ -71,6 +71,7 @@ import touchCursorTapIcon from "./touch-cursor-point.svg";
 /** Properties of [[ToolAssistanceField]] component.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface ToolAssistanceFieldProps extends CommonProps {
   /** Indicates whether to include promptAtCursor Checkbox. Defaults to true. */
   includePromptAtCursor: boolean;

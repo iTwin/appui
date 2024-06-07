@@ -14,7 +14,9 @@ import { InternalModalDialogManager as internal } from "./InternalModalDialogMan
 /** ModalDialogRenderer React component renders modal dialogs
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export class ModalDialogRenderer extends React.PureComponent<CommonProps> {
+  // eslint-disable-next-line deprecation/deprecation
   constructor(props: CommonProps) {
     super(props);
   }

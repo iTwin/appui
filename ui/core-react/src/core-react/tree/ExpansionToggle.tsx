@@ -18,6 +18,7 @@ import { useTranslation } from "../l10n/useTranslation";
  * @public
  * @deprecated in 4.15.0. Props of deprecated {@link ExpansionToggle} component.
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface ExpansionToggleProps extends CommonProps {
   isExpanded?: boolean;
   onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;

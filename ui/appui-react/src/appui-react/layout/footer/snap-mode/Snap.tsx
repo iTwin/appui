@@ -14,6 +14,7 @@ import type { CommonProps } from "@itwin/core-react";
 /** Properties of [[Snap]] component.
  * @internal
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface SnapProps extends CommonProps {
   /** Label of snap row. */
   children?: string;

@@ -20,6 +20,7 @@ import type { FrameworkState } from "../redux/FrameworkState";
  * @note Use [[SelectionCountField]] to display custom selection count.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export function SelectionInfoField(props: CommonProps) {
   const count = useSelector((state: any) => {
     const frameworkState: FrameworkState | undefined =

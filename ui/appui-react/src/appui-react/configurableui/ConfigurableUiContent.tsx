@@ -32,6 +32,7 @@ import { MessageRenderer } from "../messages/MessageRenderer";
 /** Properties for [[ConfigurableUiContent]]
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface ConfigurableUiContentProps extends CommonProps {
   /** React node of the Backstage */
   appBackstage?: React.ReactNode;

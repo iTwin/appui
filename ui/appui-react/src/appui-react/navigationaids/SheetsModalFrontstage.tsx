@@ -126,6 +126,7 @@ export class SheetsModalFrontstage implements ModalFrontstageInfo {
 /** Properties for [[CardContainer]]
  * @alpha
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface CardContainerProps extends CommonProps {
   cards: CardInfo[];
   searchValue: string;

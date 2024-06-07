@@ -16,6 +16,7 @@ import { useTranslation } from "../../useTranslation";
 /** Properties of [[SignOptionSelector]] component.
  * @internal
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface SignOptionSelectorProps extends CommonProps {
   signOption: ShowSignOption;
   onChange: (value: ShowSignOption) => void;

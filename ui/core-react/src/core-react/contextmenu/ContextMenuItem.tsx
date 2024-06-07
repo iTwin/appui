@@ -23,6 +23,7 @@ import { Badge } from "../badge/Badge";
  */
 export interface ContextMenuItemProps
   extends Omit<React.AllHTMLAttributes<HTMLDivElement>, "disabled" | "hidden">,
+    // eslint-disable-next-line deprecation/deprecation
     CommonProps {
   onSelect?: (event: any) => any;
   /** @internal */

@@ -19,6 +19,7 @@ import "./ModalFrontstage.scss";
 /** Properties for the [[ModalFrontstage]] React component
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface ModalFrontstageProps extends CommonProps {
   /** Title displayed at the top of the modal Frontstage */
   title: string;

@@ -14,6 +14,7 @@ import type { CommonProps } from "@itwin/core-react";
 /** Properties of [[FooterIndicator]] component.
  * @internal
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface FooterIndicatorProps extends CommonProps {
   /** Indicator content. */
   children?: React.ReactNode;

@@ -18,6 +18,7 @@ import { getCSSColorFromDef } from "../color/getCSSColorFromDef";
  */
 export interface LineWeightSwatchProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    // eslint-disable-next-line deprecation/deprecation
     CommonProps {
   /** color specification */
   weight: number;
