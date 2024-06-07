@@ -19,7 +19,7 @@ import type { CommonProps } from "../utils/Props";
 
 /** Properties for [[LoadingPrompt]] component
  * @public
- * @deprecated in 4.12.x. Props of deprecated component {@link LoadingPrompt}.
+ * @deprecated in 4.12.0. Props of deprecated component {@link LoadingPrompt}.
  */
 export interface LoadingPromptProps extends CommonProps {
   /** Title */
@@ -46,7 +46,7 @@ export interface LoadingPromptProps extends CommonProps {
 
 /** A component to display during loading that optionally shows percentage, status text and a cancel button.
  * @public
- * @deprecated in 4.12.x. Use {@link https://itwinui.bentley.com/docs/progressindicator iTwinUI progress indicator} instead.
+ * @deprecated in 4.12.0. Use {@link https://itwinui.bentley.com/docs/progressindicator iTwinUI progress indicator} instead.
  */
 export class LoadingPrompt extends React.PureComponent<LoadingPromptProps> {
   public static defaultProps: Partial<LoadingPromptProps> = {

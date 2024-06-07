@@ -2,6 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+@import "~@itwin/core-react/lib/cjs/core-react/style/index";
 @import "../layout/safearea";
 
 .uifw-statusBar {
@@ -49,6 +50,34 @@
 .uifw-statusbar-docked {
   width: 100%;
   background-color: var(--iui-color-background);
+
+  .uifw-statusbar-item-container {
+    @include for-medium-desktop-up {
+      padding-left: var(--iui-size-m);
+    }
+
+    @include for-small-desktop-down {
+      padding-left: var(--iui-size-s);
+    }
+
+    @include for-phone-only {
+      padding-left: var(--iui-size-xs);
+    }
+
+    &:has(.uifw-statusBar-separator) {
+      padding-left: 0;
+
+      + .uifw-statusbar-item-container {
+        padding-left: 0;
+      }
+    }
+  }
+
+  .uifw-statusbar-left .uifw-statusbar-item-container {
+    &:first-child {
+      padding-left: 0;
+    }
+  }
 }
 
 .uifw-statusbar-item-container {

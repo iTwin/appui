@@ -170,6 +170,7 @@ export * from "./appui-react/statusbar/StatusBarComposer";
 export * from "./appui-react/statusbar/StatusBarItem";
 export * from "./appui-react/statusbar/StatusBarItemUtilities";
 export * from "./appui-react/statusbar/StatusBarComposer";
+export * from "./appui-react/statusbar/popup/StatusBarPopover";
 export * from "./appui-react/statusbar/useUiItemsProviderStatusBarItems";
 export * from "./appui-react/statusbar/useDefaultStatusBarItems";
 

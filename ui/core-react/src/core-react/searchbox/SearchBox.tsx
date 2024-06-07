@@ -21,7 +21,7 @@ import { useTranslation } from "../l10n/useTranslation";
 
 /** Properties for [[SearchBox]] component
  * @public
- * @deprecated in 4.12.x. Props of deprecated component {@link SearchBox}.
+ * @deprecated in 4.12.0. Props of deprecated component {@link SearchBox}.
  */
 export interface SearchBoxProps extends CommonProps {
   /** Value to set SearchBox to initially */
@@ -47,7 +47,7 @@ interface SearchBoxState {
 /** Input box for entering text to search for.
  * The SearchBox has an icon right-justified and bounded by the box and shows a Search or Clear icon.
  * @public
- * @deprecated in 4.12.x. Use {@link https://itwinui.bentley.com/docs/searchbox iTwinUI SearchBox} instead.
+ * @deprecated in 4.12.0. Use {@link https://itwinui.bentley.com/docs/searchbox iTwinUI SearchBox} instead.
  */
 export class SearchBox extends React.Component<SearchBoxProps, SearchBoxState> {
   private _inputElement: HTMLInputElement | null = null;

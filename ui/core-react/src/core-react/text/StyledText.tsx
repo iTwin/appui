@@ -14,7 +14,7 @@ import type { TextProps } from "./TextProps";
 
 /** Properties for [[StyledText]] component
  * @public
- * @deprecated in 4.12.x. Props of deprecated component {@link StyledText}.
+ * @deprecated in 4.12.0. Props of deprecated component {@link StyledText}.
  */
 export interface StyledTextProps extends TextProps {
   /** Main CSS class name */

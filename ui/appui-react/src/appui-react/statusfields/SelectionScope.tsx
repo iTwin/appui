@@ -10,9 +10,8 @@ import "./SelectionScope.scss";
 import classnames from "classnames";
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
-import { Label, Select } from "@itwin/itwinui-react";
+import { LabeledSelect } from "@itwin/itwinui-react";
 import { UiFramework } from "../UiFramework";
-import { FooterIndicator } from "../layout/footer/Indicator";
 import { useTranslation } from "../hooks/useTranslation";
 import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState";
 
@@ -72,18 +71,19 @@ export function SelectionScopeField(props: SelectionScopeFieldProps) {
   };
 
   return (
-    <FooterIndicator
+    <div
       className={classnames(
         "uifw-statusFields-selectionScope",
         props.className
       )}
       style={props.style}
     >
-      <Label className="uifw-statusFields-selectionScope-label">
-        {translate("selectionScopeField.label")}:
-      </Label>
-      <Select
+      <LabeledSelect
         className="uifw-statusFields-selectionScope-selector"
+        label={`${translate("selectionScopeField.label")}:`}
+        labelProps={{ className: "uifw-statusFields-selectionScope-label" }}
+        wrapperProps={{ style: { rowGap: "0px" } }} // TODO: remove when https://github.com/iTwin/iTwinUI/issues/2051 is fixed
+        displayStyle="inline"
         value={activeSelectionScope}
         options={options}
         onChange={updateSelectValue}
@@ -91,6 +91,6 @@ export function SelectionScopeField(props: SelectionScopeFieldProps) {
         title={translate("selectionScopeField.toolTip")}
         size="small"
       />
-    </FooterIndicator>
+    </div>
   );
 }

@@ -20,9 +20,10 @@ import * as React from "react";
 import { UiFramework } from "../UiFramework";
 import { SnapModePanel } from "../layout/footer/snap-mode/Panel";
 import { Snap } from "../layout/footer/snap-mode/Snap";
-import { StatusBarLabelIndicator } from "../statusbar/LabelIndicator";
 import { useTranslation } from "../hooks/useTranslation";
 import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState";
+import { Button } from "@itwin/itwinui-react";
+import { StatusBarPopover } from "../statusbar/popup/StatusBarPopover";
 
 /** Define the properties that will be used to represent the available snap modes. */
 interface SnapModeFieldEntry {
@@ -73,6 +74,7 @@ const getSnapModeIconNameFromMode = (
   return "placeholder";
 };
 
+/** Defines properties supported by the SnapMode Field Component. */
 interface SnapModeFieldProps extends CommonProps {
   /** Uses redux store as a fallback. Defaults to {@link SnapMode.NearestKeypoint}.
    * @note Enum flags are supported.
@@ -134,11 +136,8 @@ export function SnapModeField(props: SnapModeFieldProps) {
 
   const title = translate("snapModeField.snapMode");
   return (
-    <StatusBarLabelIndicator
-      iconSpec={getIconFromIconName(iconName)}
-      title={title}
-      label={title}
-      popup={
+    <StatusBarPopover
+      content={
         <SnapModePanel title={title}>
           {snapModes.map((item, index) => (
             <Snap
@@ -164,7 +163,15 @@ export function SnapModeField(props: SnapModeFieldProps) {
           ))}
         </SnapModePanel>
       }
-      {...props}
-    />
+    >
+      <Button
+        styleType="borderless"
+        title={title}
+        endIcon={<Icon iconSpec={getIconFromIconName(iconName)} />}
+      >
+        {title}
+        <StatusBarPopover.ExpandIndicator />
+      </Button>
+    </StatusBarPopover>
   );
 }

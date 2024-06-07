@@ -9,11 +9,11 @@
 import type { CommonProps } from "@itwin/core-react";
 import classnames from "classnames";
 import * as React from "react";
-import { FooterIndicator } from "../layout/footer/Indicator";
 import "./Field.scss";
 
 /** Properties of [[StatusBarField]] component.
  * @beta
+ * @deprecated in 4.13.0. Props of deprecated component {@link StatusBarField}.
  */
 export interface StatusBarFieldProps extends CommonProps {
   /** Field content. */
@@ -26,10 +26,11 @@ export interface StatusBarFieldProps extends CommonProps {
 
 /** Field component used in [[StatusBar]] component.
  * @beta
+ * @deprecated in 4.13.0. Use [iTwinUI Button](https://itwinui.bentley.com/docs/button) instead.
  */
 export const StatusBarField = React.forwardRef<
   HTMLDivElement,
-  StatusBarFieldProps
+  StatusBarFieldProps // eslint-disable-line deprecation/deprecation
 >(function StatusBarField(props, ref) {
   const hasClickAction = !!props.onClick;
   const classNames = classnames(
@@ -38,7 +39,8 @@ export const StatusBarField = React.forwardRef<
     props.className
   );
   return (
-    <FooterIndicator
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events
+    <div
       ref={ref}
       className={classNames}
       title={props.title}
@@ -50,6 +52,6 @@ export const StatusBarField = React.forwardRef<
       }}
     >
       {props.children}
-    </FooterIndicator>
+    </div>
   );
 });

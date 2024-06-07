@@ -48,7 +48,7 @@ export type CardPopupProps = Omit<PopupPropsBase, "el"> & {
   onItemExecuted: (item: any) => void;
   el?: HTMLElement;
 } & RequireAtLeastOne<{
-    relativePosition: RelativePosition; // @deprecated in 4.11.x. Please use placement instead.
+    relativePosition: RelativePosition; // @deprecated in 4.11.0. Please use placement instead.
     placement: Placement;
   }>;
 
@@ -139,7 +139,7 @@ export class CardPopup extends React.PureComponent<
 export interface CardProps {
   content: PopupContentType;
   title: string | PropertyRecord | undefined;
-  items?: CommonToolbarItem[] | ToolbarItem[] | undefined; // @deprecated in 4.11.x. Please use {@link CardProps.toolbarItems}
+  items?: CommonToolbarItem[] | ToolbarItem[] | undefined; // @deprecated in 4.11.0. Please use {@link CardProps.toolbarItems}
   onItemExecuted: (item: any) => void;
 }
 

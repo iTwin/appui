@@ -10,14 +10,14 @@ import { DialogChangedEvent } from "../dialog/DialogManagerBase";
 
 /** Modal Dialog Changed Event class.
  * @public
- * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
+ * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class ModalDialogChangedEvent extends DialogChangedEvent {}
 
 /** Modeless Dialog Changed Event class.
  * @public
- * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
+ * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class ModelessDialogChangedEvent extends DialogChangedEvent {}

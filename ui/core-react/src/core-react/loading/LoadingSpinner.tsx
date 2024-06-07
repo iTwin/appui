@@ -18,13 +18,13 @@ type ProgressRadialProps = React.ComponentPropsWithoutRef<
 
 /** Type for ProgressRadialProps.size
  * @public
- * @deprecated in 4.12.x. Type used in a deprecated component {@link LoadingSpinner}.
+ * @deprecated in 4.12.0. Type used in a deprecated component {@link LoadingSpinner}.
  */
 export type RadialSizeType = ProgressRadialProps["size"];
 
 /** Properties for [[LoadingSpinner]] component
  * @public
- * @deprecated in 4.12.x. Props of deprecated component {@link LoadingSpinner}.
+ * @deprecated in 4.12.0. Props of deprecated component {@link LoadingSpinner}.
  */
 export interface LoadingSpinnerProps extends Omit<ProgressRadialProps, "size"> {
   /** Message (text) displayed */
@@ -40,7 +40,7 @@ export interface LoadingSpinnerProps extends Omit<ProgressRadialProps, "size"> {
 
 /** A loading spinner component that optionally shows a text message.
  * @public
- * @deprecated in 4.12.x. Use {@link https://itwinui.bentley.com/docs/progressindicator#progress-radial iTwinUI progress indicator} instead.
+ * @deprecated in 4.12.0. Use {@link https://itwinui.bentley.com/docs/progressindicator#progress-radial iTwinUI progress indicator} instead.
  */
 export class LoadingSpinner extends React.PureComponent<LoadingSpinnerProps> {
   public static defaultProps: Partial<LoadingSpinnerProps> = {

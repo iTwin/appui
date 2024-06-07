@@ -8,6 +8,7 @@ import { StatusBarPopup } from "../../appui-react/statusbar/popup/Popup";
 
 describe("<StatusBarPopup />", () => {
   it("renders correctly", () => {
+    // eslint-disable-next-line deprecation/deprecation
     const { container } = render(<StatusBarPopup />);
 
     expect(container.innerHTML).to.be.empty;

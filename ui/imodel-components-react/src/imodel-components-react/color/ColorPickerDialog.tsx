@@ -20,7 +20,7 @@ import {
 
 /** Properties for the [[ColorPickerDialog]] React component
  * @beta
- * @deprecated in 4.11.x. Props of deprecated component {@link ColorPickerDialog}.
+ * @deprecated in 4.11.0. Props of deprecated component {@link ColorPickerDialog}.
  */
 export interface ColorPickerDialogProps {
   dialogTitle: string;
@@ -36,7 +36,7 @@ export interface ColorPickerDialogProps {
 /**
  * Color Picker Dialog to use as modal dialog.
  * @beta
- * @deprecated in 4.11.x. Use {@link https://itwinui.bentley.com/docs/colorpicker iTwinUI color picker} instead.
+ * @deprecated in 4.11.0. Use {@link https://itwinui.bentley.com/docs/colorpicker iTwinUI color picker} instead.
  */
 export function ColorPickerDialog({
   dialogTitle,

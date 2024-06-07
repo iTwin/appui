@@ -6,7 +6,7 @@ import * as React from "react";
 import { Provider } from "react-redux";
 import { IModelApp } from "@itwin/core-frontend";
 import { render, screen } from "@testing-library/react";
-import { StatusBar, ViewAttributesStatusField } from "../../appui-react";
+import { ViewAttributesStatusField } from "../../appui-react";
 import TestUtils, { userEvent } from "../TestUtils";
 
 describe(`ViewAttributes`, () => {
@@ -18,9 +18,7 @@ describe(`ViewAttributes`, () => {
   it("should open/close on click", async () => {
     render(
       <Provider store={TestUtils.store}>
-        <StatusBar>
-          <ViewAttributesStatusField />
-        </StatusBar>
+        <ViewAttributesStatusField />
       </Provider>
     );
 
@@ -38,9 +36,7 @@ describe(`ViewAttributes`, () => {
   it("should process Checkbox clicks", async () => {
     render(
       <Provider store={TestUtils.store}>
-        <StatusBar>
-          <ViewAttributesStatusField />
-        </StatusBar>
+        <ViewAttributesStatusField />
       </Provider>
     );
 

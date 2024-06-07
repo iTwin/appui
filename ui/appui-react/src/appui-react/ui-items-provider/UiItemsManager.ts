@@ -25,7 +25,7 @@ import {
 
 /** UiItemsProvider register event args.
  * @public
- * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
+ * @deprecated in 4.13.0. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface UiItemsProviderRegisteredEventArgs {
   providerId: string;
