@@ -6,6 +6,8 @@
  * @module Utilities
  */
 
+/* eslint-disable deprecation/deprecation */
+
 import * as React from "react";
 import { ConditionalStringValue } from "@itwin/appui-abstract";
 import type { IconSpec } from "../icons/IconComponent";
@@ -14,6 +16,7 @@ import { ConditionalIconItem } from "../icons/ConditionalIconItem";
 
 /** Icon Helper Class used to store the data needed to generate an <Icon> for use in any control that shows an icon.
  * @public
+ * @deprecated in 4.15.0. Used internally.
  */
 export class IconHelper {
   public static get reactIconKey(): string {

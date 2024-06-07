@@ -10,11 +10,17 @@ import * as React from "react";
 import { hasPointerEventsSupport } from "../../base/PointerEvents";
 import { Timer } from "../Timer";
 
-/** @public */
+/* eslint-disable deprecation/deprecation */
+
+/**
+ * @public
+ * @deprecated in 4.15.0. Used internally.
+ */
 export type OutsideClickEvent = PointerEvent | MouseEvent | TouchEvent;
 
 /** Invokes onOutsideClick handler when user clicks outside of referenced element.
  * @public
+ * @deprecated in 4.15.0. Used internally.
  */
 export function useOnOutsideClick<T extends Element>(
   onOutsideClick?: () => void,

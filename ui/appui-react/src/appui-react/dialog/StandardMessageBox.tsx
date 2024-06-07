@@ -21,6 +21,7 @@ import { UiFramework } from "../UiFramework";
 
 /** Properties for [[StandardMessageBox]] React component
  * @public
+ * @deprecated in 4.15.0. Props of deprecated {@link StandardMessageBox} component.
  */
 export interface StandardMessageBoxProps extends CommonProps {
   /** Indicates whether the message box is open */
@@ -46,14 +47,16 @@ interface StandardMessageBoxState {
 
 /** StandardMessageBox React component displays a standard icon, message text and a standard button set in the lower right.
  * @public
+ * @deprecated in 4.15.0. Use {@link https://itwinui.bentley.com/docs/dialog iTwinUI Dialog} instead.
  */
 export class StandardMessageBox extends React.PureComponent<
-  StandardMessageBoxProps,
+  StandardMessageBoxProps, // eslint-disable-line deprecation/deprecation
   StandardMessageBoxState
 > {
   /** @internal */
   public override readonly state: Readonly<StandardMessageBoxState>;
 
+  // eslint-disable-next-line deprecation/deprecation
   constructor(props: StandardMessageBoxProps) {
     super(props);
     this.state = {

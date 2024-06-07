@@ -26,6 +26,7 @@ interface PopupPoint {
 
 /** Properties for the [[Popup]] component
  * @public
+ * @deprecated in 4.15.0. Props of deprecated {@link Popup} component.
  */
 export interface PopupProps extends CommonProps {
   /** Show or hide the box shadow (defaults to true) */
@@ -102,10 +103,13 @@ interface PopupState {
 
 /** Popup React component displays a popup relative to an optional target element.
  * @public
+ * @deprecated in 4.15.0. Use {@link https://itwinui.bentley.com/docs/popover iTwinUI Popover} instead.
  */
+// eslint-disable-next-line deprecation/deprecation
 export class Popup extends React.Component<PopupProps, PopupState> {
   private _popup: HTMLElement | null = null;
 
+  // eslint-disable-next-line deprecation/deprecation
   constructor(props: PopupProps) {
     super(props);
     const parentDocument = this.props.target?.ownerDocument ?? document;
@@ -120,6 +124,7 @@ export class Popup extends React.Component<PopupProps, PopupState> {
     };
   }
 
+  // eslint-disable-next-line deprecation/deprecation
   public static defaultProps: Partial<PopupProps> = {
     position: RelativePosition.Bottom,
     showShadow: true,
