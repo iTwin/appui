@@ -14,6 +14,7 @@ import { ThemeProvider as ThemeProviderV2 } from "@itwin/itwinui-react-v2";
 import type { ThemeId } from "./ThemeId";
 import { ColorTheme, SYSTEM_PREFERRED_COLOR_THEME } from "./ThemeId";
 import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState";
+import type { ConfigurableUiContent } from "../configurableui/ConfigurableUiContent";
 
 /** Map of ColorTheme to ThemeType. */
 const colorThemeToThemeTypeMap: { [x: string]: ThemeType } = {
@@ -46,7 +47,7 @@ interface ThemeManagerProps {
  * and `ThemeProvider` theme will be set to `inherit`, in this case the application is
  * responsible for setting the theme by overriding iTwinUI css variables.
  *
- * This React component should wrap [[ConfigurableUiContent]].
+ * This React component should wrap {@link ConfigurableUiContent}.
  *
  * ```tsx
  * <ThemeManager>

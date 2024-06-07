@@ -18,12 +18,12 @@ import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState";
 interface SelectionScopeFieldProps extends CommonProps {
   /** Describes which selection scope is active. Uses redux store as a fallback. Defaults to `""`. */
   activeScope?: string;
-  /** Describes available selection scoped. Uses redux store as a fallback. Defaults to `{ id: "element", label: "Element" }`. */
+  /** Describes available selection scopes. Uses redux store as a fallback. Defaults to `{ id: "element", label: "Element" }`. */
   selectionScopes?: {
     id: string;
     label: string;
   }[];
-  /** Describes available selection scoped. Uses redux store as a fallback. Defaults to `{ id: "element", label: "Element" }`. */
+  /** Function called when the active selection scope is changed. */
   onChange?: (scope: string) => void;
 }
 

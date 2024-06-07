@@ -6,6 +6,8 @@
  * @module State
  */
 
+import type { ThemeManager } from "./ThemeManager";
+
 /** System preferred color theme.
  * @public
  */
@@ -30,7 +32,7 @@ export enum ColorTheme {
 }
 
 /** Describe valid themes.
- * See [[ThemeManager]] for more information.
+ * See {@link ThemeManager} for more information.
  * @public
  */
 export type ThemeId = `${ColorTheme}` | (string & {});

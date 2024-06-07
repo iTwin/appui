@@ -28,7 +28,7 @@ export interface CursorMenuPayload {
 /** PresentationSelectionScope holds the id and the localized label for a selection scope supported for a specific iModel.
  * Added to avoid an api-extract error caused by using SelectionScope.
  * @public
- * @deprecated in 4.15.0 Use `selectionScopes` prop of {@link SelectionScopeField} component.
+ * @deprecated in 4.15.0. Use `selectionScopes` prop of {@link SelectionScopeField} component.
  */
 export interface PresentationSelectionScope {
   id: string;
@@ -38,7 +38,7 @@ export interface PresentationSelectionScope {
 /** Definition of data added to Redux store to define cursor menu.  If menuItems are empty the menu control is not displayed.
  * To close the menu clear the menuItems or pass in undefined as the CursorData.
  * @public
- * @deprecated in 4.11.x Use {@link CursorMenuPayload} instead.
+ * @deprecated in 4.11.0. Use {@link CursorMenuPayload} instead.
  */
 export interface CursorMenuData {
   position: XAndY;
@@ -85,7 +85,7 @@ export interface SessionState {
   defaultViewState: any;
   /** @deprecated in 4.15.0. Use {@link UiFramework.getIModelConnection} or {@link useActiveIModelConnection} instead. */
   iModelConnection: any;
-  /** @deprecated in 4.11.x use {@link CursorMenuPayload} instead */
+  /** @deprecated in 4.11.0. Use {@link CursorMenuPayload} instead */
   cursorMenuData: CursorMenuData | undefined;
   /** @deprecated in 4.15.0. Use cursor APIs of {@link UiFramework}. */
   cursorMenuPayload: CursorMenuPayload | undefined;
@@ -110,7 +110,7 @@ const initialSessionState: SessionState = {
   defaultViewId: undefined,
   defaultViewState: undefined,
   iModelConnection: undefined,
-  cursorMenuData: undefined, // @deprecated in 4.11.x use {@link SessionState.cursorMenuPayload} instead
+  cursorMenuData: undefined, // @deprecated in 4.11.0. Use {@link SessionState.cursorMenuPayload} instead
   cursorMenuPayload: undefined,
 };
 
