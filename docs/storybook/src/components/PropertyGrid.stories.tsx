@@ -344,6 +344,25 @@ export const NestedCategories: Story = {
   },
 };
 
+export const Links: Story = {
+  args: {
+    dataProvider: {
+      getData: async () => ({
+        label: PropertyRecord.fromString("Record 1"),
+        categories: [{ name: "Group_1", label: "Group 1", expand: true }],
+        records: {
+          Group_1: [
+            PropertyRecord.fromString("https://www.bentley.com"),
+            PropertyRecord.fromString("pw://test"),
+          ],
+        },
+      }),
+      onDataChanged: new PropertyDataChangeEvent(),
+    },
+    onPropertyContextMenu: undefined,
+  },
+};
+
 rendererManager.registerRenderer("customRendererStructPropertyRenderer", {
   canRender: () => true,
   render: (record) => {

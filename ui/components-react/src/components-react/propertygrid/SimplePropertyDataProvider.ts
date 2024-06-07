@@ -82,7 +82,6 @@ export class SimplePropertyDataProvider
 
     let result = false;
 
-    // istanbul ignore else
     if (index >= 0) {
       this.records[this.categories[categoryIdx].name].splice(index, 1);
       this.updatePropertyData();
@@ -104,7 +103,6 @@ export class SimplePropertyDataProvider
 
     let result = false;
 
-    // istanbul ignore else
     if (index >= 0) {
       this.records[this.categories[categoryIdx].name].splice(
         index,

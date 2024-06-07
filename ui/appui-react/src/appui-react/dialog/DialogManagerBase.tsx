@@ -15,7 +15,7 @@ import { getCssVariableAsNumber } from "@itwin/core-react";
 
 /** Dialog Stack Changed Event Args class.
  * @public
- * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
+ * @deprecated in 4.13.0. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface DialogChangedEventArgs {
   dialogCount: number;
@@ -24,7 +24,7 @@ export interface DialogChangedEventArgs {
 
 /** Dialog Changed Event class.
  * @public
- * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
+ * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class DialogChangedEvent extends UiEvent<DialogChangedEventArgs> {}
@@ -81,7 +81,6 @@ export class DialogManagerBase {
     const variable = "--uicore-z-index-dialog";
     const value = getCssVariableAsNumber(variable);
 
-    // istanbul ignore next
     if (!isNaN(value)) return value;
 
     Logger.logError(
@@ -104,7 +103,6 @@ export class DialogManagerBase {
   ): void {
     if (!id) id = `Dialog-${++DialogManagerBase._sId}`;
 
-    // istanbul ignore next
     const owningDoc = parentDocument ?? document;
     this.pushDialog({ reactNode: dialog, id, parentDocument: owningDoc });
   }

@@ -103,7 +103,6 @@ export class ValidationTextbox extends React.PureComponent<
   }
 
   private processValidateText(target: HTMLInputElement | undefined): void {
-    // istanbul ignore next
     if (undefined === target) return;
 
     const value = target.value;
@@ -113,7 +112,6 @@ export class ValidationTextbox extends React.PureComponent<
       if (this.state.isValid) {
         this._hideErrorMessage();
       } else {
-        // istanbul ignore else
         if (this.props.errorText && !this.state.isValid)
           this._showErrorMessage(target);
       }
@@ -138,7 +136,7 @@ export class ValidationTextbox extends React.PureComponent<
   private _calculateIsValid(value: string): boolean {
     if (this.props.onValueChanged)
       return this.props.onValueChanged(value) === InputStatus.Valid
-        ? /* istanbul ignore next */ true
+        ? true
         : false;
     return value.length > 0;
   }
@@ -167,11 +165,9 @@ export class ValidationTextbox extends React.PureComponent<
 
     switch (event.key) {
       case Key.Escape.valueOf():
-        // istanbul ignore else
         if (this.props.onEscPressed) this.props.onEscPressed();
         break;
       case Key.Enter.valueOf():
-        // istanbul ignore else
         if (this.props.onEnterPressed) this.props.onEnterPressed();
         break;
     }

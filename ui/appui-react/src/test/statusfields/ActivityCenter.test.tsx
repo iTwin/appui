@@ -4,19 +4,11 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { fireEvent, render, waitFor } from "@testing-library/react";
-import {
-  ActivityCenterField,
-  MessageManager,
-  StatusBar,
-} from "../../appui-react";
+import { ActivityCenterField, MessageManager } from "../../appui-react";
 
 describe("ActivityCenter", () => {
   it("should show ActivityCenterField", async () => {
-    const { findByText, findByTitle } = render(
-      <StatusBar>
-        <ActivityCenterField />
-      </StatusBar>
-    );
+    const { findByText, findByTitle } = render(<ActivityCenterField />);
     const message = "Test";
     const percentage = 50;
     MessageManager.setupActivityMessageValues(message, percentage);
@@ -26,11 +18,7 @@ describe("ActivityCenter", () => {
   });
 
   it("should hide ActivityCenterField", async () => {
-    const { findByText, queryAllByText } = render(
-      <StatusBar>
-        <ActivityCenterField />
-      </StatusBar>
-    );
+    const { findByText, queryAllByText } = render(<ActivityCenterField />);
 
     MessageManager.setupActivityMessageValues("Test", 50);
     await findByText(/activityCenter.percentComplete/);
@@ -42,11 +30,7 @@ describe("ActivityCenter", () => {
   });
 
   it("click should be handled", async () => {
-    const { findByTitle } = render(
-      <StatusBar>
-        <ActivityCenterField />
-      </StatusBar>
-    );
+    const { findByTitle } = render(<ActivityCenterField />);
 
     MessageManager.setupActivityMessageValues("Test", 50);
     const field = await findByTitle(/activityCenter.moreDetails/);

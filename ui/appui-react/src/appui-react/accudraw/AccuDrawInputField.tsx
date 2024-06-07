@@ -92,10 +92,8 @@ const ForwardRefAccuDrawInput = React.forwardRef<
     (event: React.ChangeEvent<HTMLInputElement>): void => {
       const value = event.currentTarget.value;
 
-      // istanbul ignore next
       if (value === undefined) return;
 
-      // istanbul ignore else
       if (stringValue !== value) {
         setStringValue(value);
         setNeedValueChanged(true);
@@ -105,7 +103,6 @@ const ForwardRefAccuDrawInput = React.forwardRef<
   );
 
   const unsetTimeout = (): void => {
-    // istanbul ignore else
     if (timeoutId) {
       window.clearTimeout(timeoutId.current);
       timeoutId.current = 0;
@@ -114,7 +111,6 @@ const ForwardRefAccuDrawInput = React.forwardRef<
 
   React.useEffect(() => {
     // After setStringValue & re-render
-    // istanbul ignore else
     if (needValueChanged) {
       if (valueChangedDelay) {
         unsetTimeout();
@@ -158,7 +154,6 @@ const ForwardRefAccuDrawInput = React.forwardRef<
       (args) => {
         if (args.field === field && stringValue !== args.formattedValue) {
           setStringValue(args.formattedValue);
-          // istanbul ignore else
           if (isFocusField) setNeedSelection(true);
         }
       }
@@ -167,7 +162,6 @@ const ForwardRefAccuDrawInput = React.forwardRef<
 
   React.useEffect(() => {
     if (needSelection) {
-      // istanbul ignore else
       if (inputElementRef.current) inputElementRef.current.select();
       setNeedSelection(false);
     }

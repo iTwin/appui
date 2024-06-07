@@ -20,7 +20,7 @@ import type { ConditionalStringValue } from "./ConditionalValue";
 
 /** Menu Item Properties
  * @public
- * @deprecated in 4.11.x. Please use {@link CursorMenuItemProps}.
+ * @deprecated in 4.11.0. Please use {@link CursorMenuItemProps}.
  */
 export type MenuItemProps = AbstractMenuItemProps;
 
@@ -98,11 +98,9 @@ export class MenuItem extends ItemDefBase {
 
   public itemPicked(): void {
     setTimeout(() => {
-      // istanbul ignore else
       if (this._actionItem) this._actionItem.execute();
     });
 
-    // istanbul ignore else
     if (this._onSelection) this._onSelection();
   }
 }
@@ -127,7 +125,6 @@ export class MenuItemHelpers {
 
     itemList.forEach((item: MenuItem, index: number) => {
       const reactItem = this.createMenuItemNode(item, index);
-      // istanbul ignore else
       if (reactItem) itemNodes.push(reactItem);
     });
 
@@ -162,7 +159,6 @@ export class MenuItemHelpers {
         </ContextMenuItem>
       );
     } else {
-      // istanbul ignore else
       if (item.submenu && item.submenu.length > 0) {
         const items = this.createMenuItemNodes(item.submenu);
 

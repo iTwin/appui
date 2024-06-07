@@ -234,7 +234,7 @@ test.describe("tool settings", () => {
     const finalStateField = page.locator("[value='qqPAtype in field']");
     await expect(widgetToolSettings).toBeVisible();
     await expect(finalStateField).toBeVisible();
-    await page.getByTitle("Dock to top").click();
+    await page.getByRole("button", { name: "Dock to top" }).click();
     await expect(widgetToolSettings).not.toBeVisible();
     await expect(finalStateField).toBeVisible();
   });

@@ -30,7 +30,7 @@ import { useTranslation } from "../useTranslation";
 
 /** Properties for the [[ColorPickerPopup]] React component
  * @public
- * @deprecated in 4.11.x. Props of deprecated component {@link ColorPickerPopup}.
+ * @deprecated in 4.11.0. Props of deprecated component {@link ColorPickerPopup}.
  */
 export interface ColorPickerPopupProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
@@ -104,7 +104,6 @@ const ForwardRefColorPickerPopup = React.forwardRef<
     ColorValue.fromTbgr(ColorByName.darkGreen),
   ]);
 
-  // istanbul ignore next
   const closePopup = React.useCallback(() => {
     props.onClose && props.onClose(colorDef);
     setShowPopup(false);
@@ -117,11 +116,9 @@ const ForwardRefColorPickerPopup = React.forwardRef<
   const handleColorChanged = React.useCallback(
     (newColorValue: ColorValue) => {
       const newColor = ColorDef.fromTbgr(newColorValue.toTbgr());
-      // istanbul ignore else
       if (!newColor.equals(colorDef)) {
         setColorDef(newColor);
 
-        // istanbul ignore else
         props.onColorChange && props.onColorChange(newColor);
       }
     },
@@ -139,7 +136,6 @@ const ForwardRefColorPickerPopup = React.forwardRef<
   );
 
   const clickHandler = (event: React.MouseEvent) => {
-    // istanbul ignore else
     if (props.captureClicks) event.stopPropagation();
   };
 
@@ -225,7 +221,7 @@ const ForwardRefColorPickerPopup = React.forwardRef<
  * ColorPickerButton component that allows user to select a color from a set of color swatches or to define a new color.
  * @note Using forwardRef so the ColorEditor (Type Editor) can access the ref of the button element inside this component.
  * @public
- * @deprecated in 4.11.x. Use {@link https://itwinui.bentley.com/docs/colorpicker iTwinUI color picker} instead.
+ * @deprecated in 4.11.0. Use {@link https://itwinui.bentley.com/docs/colorpicker iTwinUI color picker} instead.
  */
 export const ColorPickerPopup: (
   // eslint-disable-next-line deprecation/deprecation

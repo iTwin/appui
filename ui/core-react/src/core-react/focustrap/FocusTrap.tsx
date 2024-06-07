@@ -53,11 +53,9 @@ function isFocusable(element: HTMLElement): boolean {
 function processFindFocusableDescendant(
   element: HTMLElement | null
 ): HTMLElement | null {
-  // istanbul ignore next
   if (!element) return null;
 
   for (const child of element.childNodes) {
-    // istanbul ignore else
     if (isFocusable(child as HTMLElement)) return child as HTMLElement;
 
     const focusable = processFindFocusableDescendant(child as HTMLElement);
@@ -79,10 +77,8 @@ function processFindLastFocusableDescendant(
     const child = element.childNodes[i] as HTMLElement;
 
     const focusable = processFindLastFocusableDescendant(child);
-    // istanbul ignore else
     if (focusable) return focusable;
 
-    // istanbul ignore else
     if (isFocusable(child)) return child;
   }
   return null;
@@ -98,7 +94,6 @@ function getInitialFocusElement(
   focusContainer: HTMLDivElement | null,
   initialFocusSpec: React.RefObject<HTMLElement> | string | undefined
 ): HTMLElement | null {
-  // istanbul ignore next
   if (!focusContainer) return null;
 
   if (initialFocusSpec) {
@@ -120,17 +115,14 @@ function getInitialFocusElement(
 }
 
 function attemptFocus(element: HTMLElement, preventScroll: boolean): boolean {
-  // istanbul ignore next
   if (!isFocusable(element)) return false;
 
   try {
-    // istanbul ignore else
     if (document.activeElement !== element)
       element.focus({
-        preventScroll: preventScroll ? true : /* istanbul ignore next */ false,
+        preventScroll: preventScroll ? true : false,
       });
   } catch (e) {
-    // istanbul ignore next
     return false;
   }
   return document.activeElement === element;
@@ -187,7 +179,6 @@ export function FocusTrap(props: FocusTrapProps) {
 
   // Run on initial mount and when dependencies change. which could happen often.
   React.useEffect(() => {
-    // istanbul ignore else
     if (isInitialMount.current) {
       isInitialMount.current = false;
       if (props.active) {
@@ -228,7 +219,6 @@ export function FocusTrap(props: FocusTrapProps) {
   // this is hit if Shift tab is used.
   const cycleFocusToEnd = React.useCallback(
     (event: React.FocusEvent<HTMLDivElement>) => {
-      // istanbul ignore next
       if (!props.active) return;
 
       if (focusContainer.current && event.target === focusContainer.current) {
@@ -236,7 +226,6 @@ export function FocusTrap(props: FocusTrapProps) {
         event.preventDefault();
         const focusable = findLastFocusableDescendant(focusContainer.current);
 
-        // istanbul ignore else
         if (focusable) {
           focusable.focus();
         } else {
@@ -254,11 +243,9 @@ export function FocusTrap(props: FocusTrapProps) {
   // this is hit if tab is used on last focusable item in child container.
   const cycleFocusToStart = React.useCallback(
     (event: React.FocusEvent<HTMLDivElement>) => {
-      // istanbul ignore next
       if (!props.active) return;
 
       event.stopPropagation();
-      // istanbul ignore else
       if (
         initialFocusElement.current &&
         initialFocusElement.current !== document.activeElement

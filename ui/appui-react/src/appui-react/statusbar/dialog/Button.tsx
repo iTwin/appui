@@ -8,7 +8,7 @@
 
 import type { CommonProps } from "@itwin/core-react";
 import * as React from "react";
-import { TitleBarButton } from "../../layout/footer/dialog/Button";
+import { IconButton } from "@itwin/itwinui-react";
 
 /** Properties of [[StatusBarDialogTitleBarButton]] component.
  * @beta
@@ -28,5 +28,5 @@ export interface StatusBarDialogTitleBarButtonProps extends CommonProps {
 export function StatusBarDialogTitleBarButton(
   props: StatusBarDialogTitleBarButtonProps
 ) {
-  return <TitleBarButton {...props} />;
+  return <IconButton {...props} styleType="borderless" size="small" />;
 }

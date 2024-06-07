@@ -88,7 +88,6 @@ interface ThemeManagerProps {
 
 function mapStateToProps(state: any) {
   const frameworkState = state[UiFramework.frameworkStateKey] as FrameworkState; // since app sets up key, don't hard-code name
-  // istanbul ignore if
   if (!frameworkState) return undefined;
 
   return {

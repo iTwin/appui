@@ -22,7 +22,7 @@ import { InternalToolbarComponent } from "./InternalToolbarComponent";
 
 /** Properties of [[Toolbar]] component.
  * @public
- * @deprecated in 4.0. Use [ToolbarProps]($appui-react) instead.
+ * @deprecated in 4.0.0. Use [ToolbarProps]($appui-react) instead.
  */
 // eslint-disable-next-line deprecation/deprecation
 export interface ToolbarProps extends CommonProps, NoChildrenProps {
@@ -44,7 +44,7 @@ export interface ToolbarProps extends CommonProps, NoChildrenProps {
 
 /** Component that displays toolbar items.
  * @public
- * @deprecated in 4.0. Use [Toolbar]($appui-react) instead.
+ * @deprecated in 4.0.0. Use [Toolbar]($appui-react) instead.
  */
 // eslint-disable-next-line deprecation/deprecation
 export function Toolbar(props: ToolbarProps) {

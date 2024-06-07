@@ -46,11 +46,9 @@ export function ModalFrontstageComposer({
   stageInfo: ModalFrontstageInfo | undefined;
 }) {
   const handleCloseModal = React.useCallback(
-    /* istanbul ignore next */ () =>
-      UiFramework.frontstages.closeModalFrontstage(),
+    () => UiFramework.frontstages.closeModalFrontstage(),
     []
   );
-  // istanbul ignore next
   if (!stageInfo) return null;
 
   const { title, content, appBarRight } = stageInfo;

@@ -18,7 +18,7 @@ import { IconHelper } from "../utils/IconHelper";
 /** TabLabel provides ability to define label, icon, and tooltip for a tab entry. The tooltip can be defined as JSX|Element
  *  to support react-tooltip component or a string that will be use to set the title property.
  * @public
- * @deprecated in 4.12.x. Interface used in a deprecated component {@link Tabs}.
+ * @deprecated in 4.12.0. Interface used in a deprecated component {@link Tabs}.
  */
 export interface TabLabel {
   label: string;
@@ -40,7 +40,7 @@ function isTabLabel(item: string | TabLabel): item is TabLabel {
 
 /** Properties for the [[VerticalTabs]] component
  * @public
- * @deprecated in 4.12.x. Props of deprecated component {@link Tabs}.
+ * @deprecated in 4.12.0. Props of deprecated component {@link Tabs}.
  */
 export interface TabsProps
   extends React.AllHTMLAttributes<HTMLUListElement>,
@@ -61,7 +61,7 @@ interface TabsState {
 
 /** Properties for the base [[Tabs]] component
  * @public
- * @deprecated in 4.12.x. Props of deprecated component {@link Tabs}.
+ * @deprecated in 4.12.0. Props of deprecated component {@link Tabs}.
  */
 export interface MainTabsProps extends TabsProps {
   /** Main CSS class name */
@@ -72,7 +72,7 @@ export interface MainTabsProps extends TabsProps {
 
 /** Tabs meant to represent the current position in a page/section
  * @public
- * @deprecated in 4.12.x. Use {@link https://itwinui.bentley.com/docs/tabs iTwinUI Tabs} instead.
+ * @deprecated in 4.12.0. Use {@link https://itwinui.bentley.com/docs/tabs iTwinUI Tabs} instead.
  */
 export class Tabs extends React.PureComponent<MainTabsProps, TabsState> {
   private _anchorRefs: Array<React.RefObject<HTMLAnchorElement>> = [];
@@ -118,17 +118,14 @@ export class Tabs extends React.PureComponent<MainTabsProps, TabsState> {
     if (prevProps.activeIndex !== this.props.activeIndex) {
       let hadFocus = false;
       const element = this._anchorRefs[this.state.activeIndex].current;
-      // istanbul ignore else
       if (element && document.activeElement === element) hadFocus = true;
       const activeIndex = this.validateActiveIndex(this.props.activeIndex);
 
       this.setState(
         () => ({ activeIndex }),
         () => {
-          // istanbul ignore else
           if (hadFocus) {
             const newElement = this._anchorRefs[activeIndex].current;
-            // istanbul ignore else
             if (newElement) newElement.focus();
           }
         }
@@ -138,7 +135,6 @@ export class Tabs extends React.PureComponent<MainTabsProps, TabsState> {
 
   private _handleFocusItem = (index: number) => {
     const itemRef = this._anchorRefs[index];
-    // istanbul ignore else
     if (itemRef && itemRef.current) itemRef.current.focus();
   };
 

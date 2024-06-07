@@ -143,14 +143,12 @@ export function QuantityFormatPanel(props: QuantityFormatPanelProps) {
   React.useEffect(() => {
     const newFormatProps =
       IModelApp.quantityFormatter.getFormatPropsByQuantityType(quantityType);
-    // istanbul ignore else
     if (!initialFormatProps.current)
       initialFormatProps.current = newFormatProps;
     setFormatProps(newFormatProps);
     const quantityTypeKey = getQuantityTypeKey(quantityType);
     const quantityTypeDefinition =
       IModelApp.quantityFormatter.quantityTypesRegistry.get(quantityTypeKey);
-    // istanbul ignore else
     if (quantityTypeDefinition)
       setPersistenceUnit(quantityTypeDefinition.persistenceUnit);
     else
@@ -162,7 +160,6 @@ export function QuantityFormatPanel(props: QuantityFormatPanelProps) {
   React.useEffect(() => {
     const newFormatProps =
       IModelApp.quantityFormatter.getFormatPropsByQuantityType(quantityType);
-    // istanbul ignore else
     if (initialFormatProps.current && newFormatProps) {
       if (!formatAreEqual(newFormatProps, initialFormatProps.current)) {
         initialFormatProps.current = newFormatProps;
@@ -205,7 +202,7 @@ export function QuantityFormatPanel(props: QuantityFormatPanelProps) {
             spec.setString,
             fireFormatChange
           );
-        /* istanbul ignore else */
+
         if (isTextInputFormatPropEditorSpec(spec))
           return createTextInputFormatPropEditor(
             `${spec.editorType}-${index}`,
@@ -215,7 +212,7 @@ export function QuantityFormatPanel(props: QuantityFormatPanelProps) {
             spec.setString,
             fireFormatChange
           );
-        /* istanbul ignore next */
+
         return <div key={index} />;
       });
     },
@@ -235,7 +232,6 @@ export function QuantityFormatPanel(props: QuantityFormatPanelProps) {
         isCustomQuantityTypeDefinition(quantityTypeDefinition) &&
         quantityTypeDefinition.isCompatibleFormatProps(inProps)
       ) {
-        // istanbul ignore else
         if (quantityTypeDefinition.primaryPropEditorSpecs)
           return createCustomPropEditors(
             quantityTypeDefinition.primaryPropEditorSpecs,
@@ -261,7 +257,6 @@ export function QuantityFormatPanel(props: QuantityFormatPanelProps) {
         isCustomQuantityTypeDefinition(quantityTypeDefinition) &&
         quantityTypeDefinition.isCompatibleFormatProps(inProps)
       ) {
-        // istanbul ignore else
         if (quantityTypeDefinition.secondaryPropEditorSpecs)
           return createCustomPropEditors(
             quantityTypeDefinition.secondaryPropEditorSpecs,

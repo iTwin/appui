@@ -28,7 +28,6 @@ export const useProximityToMouse = (
       let shortestProximity = Number.MAX_SAFE_INTEGER;
 
       for (const ref of elementSet) {
-        // istanbul ignore else
         if (ref.current) {
           const clientRect = ref.current.getBoundingClientRect();
           const rectangle = Rectangle.create(clientRect);

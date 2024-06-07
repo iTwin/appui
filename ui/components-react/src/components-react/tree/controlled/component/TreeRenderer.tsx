@@ -151,7 +151,6 @@ export class TreeRenderer
 
   /** @inheritdoc */
   public scrollToNode(nodeId: string, alignment?: Alignment) {
-    // istanbul ignore else
     if (this._ref.current) this._ref.current.scrollToNode(nodeId, alignment);
   }
 
@@ -176,7 +175,6 @@ const TreeRendererInner = React.forwardRef<
     (previousNodeHeight !== undefined &&
       previousNodeHeight !== props.nodeHeight)
   ) {
-    /* istanbul ignore else */
     if (variableSizeListRef.current) {
       variableSizeListRef.current.resetAfterIndex(0, false);
     }
@@ -329,7 +327,7 @@ const Node = React.memo<React.FC<ListChildComponentProps>>(function Node(
       isEditing.current = true;
     } else if (isEditing.current && node.editingInfo === undefined) {
       isEditing.current = false;
-      /* istanbul ignore else */
+
       if (onNodeEditorClosed) onNodeEditorClosed();
     }
   }, [node, onNodeEditorClosed]);
@@ -459,7 +457,6 @@ function useScrollToActiveMatch(
           HighlightingEngine.ACTIVE_CLASS_NAME
         ),
       ];
-      // istanbul ignore else
       if (scrollTo.length > 0 && scrollTo[0].scrollIntoView !== undefined)
         scrollTo[0].scrollIntoView({
           behavior: "auto",
@@ -474,7 +471,6 @@ function useScrollToActiveMatch(
 }
 
 function setFocusToSelected(treeRef: React.RefObject<CoreTree>) {
-  /* istanbul ignore else */
   if (treeRef.current)
     treeRef.current.setFocusByClassName(".core-tree-node.is-selected");
 }

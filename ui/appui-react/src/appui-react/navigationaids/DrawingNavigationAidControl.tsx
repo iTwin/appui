@@ -27,7 +27,6 @@ export class DrawingNavigationAidControl extends NavigationAidControl {
     );
   }
 
-  // istanbul ignore next
   public override getSize(): string | undefined {
     return "96px";
   }

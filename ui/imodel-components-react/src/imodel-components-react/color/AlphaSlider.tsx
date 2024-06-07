@@ -15,7 +15,7 @@ import { UiIModelComponents } from "../UiIModelComponents";
 
 /** Properties for the [[AlphaSlider]] React component
  * @public
- * @deprecated in 4.11.x. Props of deprecated component {@link AlphaSlider}.
+ * @deprecated in 4.11.0. Props of deprecated component {@link AlphaSlider}.
  */
 export interface AlphaSliderProps
   extends React.HTMLAttributes<HTMLDivElement>,
@@ -30,7 +30,7 @@ export interface AlphaSliderProps
 
 /** AlphaSlider component used to set the alpha value.
  * @public
- * @deprecated in 4.11.x. Use {@link https://itwinui.bentley.com/docs/colorpicker iTwinUI color picker} instead.
+ * @deprecated in 4.11.0. Use {@link https://itwinui.bentley.com/docs/colorpicker iTwinUI color picker} instead.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class AlphaSlider extends React.PureComponent<AlphaSliderProps> {
@@ -56,22 +56,18 @@ export class AlphaSlider extends React.PureComponent<AlphaSliderProps> {
     if ("pageX" in e) {
       x = e.pageX;
     } else {
-      // istanbul ignore if
       if (undefined === e.touches) return undefined;
       x = e.touches[0].pageX;
     }
-    // istanbul ignore if
     if (undefined === x) return undefined;
 
     let y = 0;
     if ("pageY" in e) {
       y = e.pageY;
     } else {
-      // istanbul ignore if
       if (undefined === e.touches) return;
       y = e.touches[0].pageY;
     }
-    // istanbul ignore if
     if (undefined === y) return undefined;
 
     const left = x - (container.getBoundingClientRect().left + window.scrollX);
@@ -80,7 +76,6 @@ export class AlphaSlider extends React.PureComponent<AlphaSliderProps> {
     let t = 0;
 
     if (!isHorizontal) {
-      // istanbul ignore next
       if (top < 0) {
         t = 1;
       } else if (top > containerHeight) {
@@ -90,7 +85,6 @@ export class AlphaSlider extends React.PureComponent<AlphaSliderProps> {
       }
     } else {
       // horizontal
-      // istanbul ignore next
       if (left < 0) {
         t = 0;
       } else if (left > containerWidth) {
@@ -100,11 +94,8 @@ export class AlphaSlider extends React.PureComponent<AlphaSliderProps> {
       }
     }
 
-    // istanbul ignore if
     if (t < 0) t = 0;
-    // istanbul ignore if
     if (t > 1) t = 1;
-    // istanbul ignore next
     return alpha !== t ? t : undefined;
   };
 
@@ -116,7 +107,6 @@ export class AlphaSlider extends React.PureComponent<AlphaSliderProps> {
   private _onChange = (
     e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>
   ) => {
-    // istanbul ignore else
     if (this._container && this.props.onAlphaChange) {
       const change = this._calculateChange(
         e,
@@ -132,7 +122,6 @@ export class AlphaSlider extends React.PureComponent<AlphaSliderProps> {
 
   private _onMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     this._onChange(e);
-    // istanbul ignore else
     if (this._container) this._container.focus();
     window.addEventListener("mousemove", this._onChange as any);
     window.addEventListener("mouseup", this._onMouseUp);
@@ -157,19 +146,14 @@ export class AlphaSlider extends React.PureComponent<AlphaSliderProps> {
     } else if (evt.key === Key.Home.valueOf()) {
       newTransparency = 0;
     } else {
-      // istanbul ignore else
       if (evt.key === Key.End.valueOf()) {
         newTransparency = 1;
       }
     }
 
-    // istanbul ignore else
     if (undefined !== newTransparency) {
-      // istanbul ignore if
       if (newTransparency > 1) newTransparency = 1;
-      // istanbul ignore if
       if (newTransparency < 0) newTransparency = 0;
-      // istanbul ignore else
       if (this.props.onAlphaChange) this.props.onAlphaChange(newTransparency);
     }
   };

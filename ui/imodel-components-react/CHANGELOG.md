@@ -1,6 +1,24 @@
 # Change Log - @itwin/imodel-components-react
 
-This log was last generated on Wed, 08 May 2024 08:24:46 GMT and should not be manually modified.
+This log was last generated on Thu, 06 Jun 2024 08:24:21 GMT and should not be manually modified.
+
+## 4.14.0
+Thu, 06 Jun 2024 08:24:21 GMT
+
+_Version update only_
+
+## 4.13.4
+Tue, 21 May 2024 08:21:34 GMT
+
+_Version update only_
+
+## 4.13.3
+Fri, 17 May 2024 09:43:31 GMT
+
+### Updates
+
+- timeline.settings added to UiIModelComponents.json
+- upgrade to TypeScript@5.3.3 and @itwin/build-tools@4.6.x
 
 ## 4.13.2
 Wed, 08 May 2024 08:24:46 GMT
@@ -384,7 +402,7 @@ Fri, 20 May 2022 13:10:54 GMT
 
 ### Updates
 
-- Fix for losing viewport content after clicking PW link 
+- Fix for losing viewport content after clicking PW link
 
 ## 3.1.3
 Fri, 15 Apr 2022 13:49:25 GMT

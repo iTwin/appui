@@ -99,7 +99,7 @@ export function SendBack() {
   const id = useFloatingWidgetId();
   assert(!!id);
   const dispatch = React.useContext(NineZoneDispatchContext);
-  const title = useLabel("sendWidgetHomeTitle");
+  const label = useLabel("sendWidgetHomeTitle");
   const setActiveWidgetId = (newId: WidgetState["id"] | undefined) =>
     useActiveSendBackWidgetIdStore.setState(newId);
 
@@ -126,7 +126,7 @@ export function SendBack() {
   return (
     <ActionButton
       icon={<Icon />}
-      title={title}
+      label={label}
       onClick={onClick}
       buttonProps={eventHandlers}
       // TODO: can not pass down event handlers due to iTwinUI type issues.

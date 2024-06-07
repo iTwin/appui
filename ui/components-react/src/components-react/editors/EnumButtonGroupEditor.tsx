@@ -61,7 +61,6 @@ export class EnumButtonGroupEditor
     const record = this.props.propertyRecord;
     let propertyValue: PropertyValue | undefined;
 
-    // istanbul ignore else
     if (record && record.value.valueFormat === PropertyValueFormat.Primitive) {
       propertyValue = {
         valueFormat: PropertyValueFormat.Primitive,
@@ -79,7 +78,6 @@ export class EnumButtonGroupEditor
 
   public get hasFocus(): boolean {
     let containsFocus = false;
-    // istanbul ignore else
     if (this._divElement.current)
       containsFocus = this._divElement.current.contains(document.activeElement);
     return containsFocus;
@@ -100,7 +98,6 @@ export class EnumButtonGroupEditor
   private async setStateFromProps() {
     const { propertyRecord } = this.props;
 
-    // istanbul ignore else
     if (
       propertyRecord &&
       propertyRecord.property.enum &&
@@ -116,7 +113,6 @@ export class EnumButtonGroupEditor
       }
 
       let choices: EnumerationChoice[] = [];
-      // istanbul ignore else
       if (propertyRecord && propertyRecord.property.enum) {
         if (propertyRecord.property.enum.choices instanceof Promise) {
           choices = await propertyRecord.property.enum.choices;
@@ -129,12 +125,10 @@ export class EnumButtonGroupEditor
       const enumIcons = new Array<IconDefinition>(numChoices);
       enumIcons.fill({ iconSpec: svgPlaceholder });
 
-      // istanbul ignore else
       if (
         propertyRecord.property.editor &&
         propertyRecord.property.editor.params
       ) {
-        // istanbul ignore else
         if (
           propertyRecord.property.editor &&
           propertyRecord.property.editor.params
@@ -143,11 +137,9 @@ export class EnumButtonGroupEditor
             (param: PropertyEditorParams) =>
               param.type === PropertyEditorParamTypes.ButtonGroupData.valueOf()
           ) as ButtonGroupEditorParams;
-          // istanbul ignore else
           if (bgParams) {
             bgParams.buttons.forEach(
               (iconDef: IconDefinition, index: number) => {
-                // istanbul ignore else
                 if (index < numChoices) {
                   enumIcons[index] = iconDef;
                 }
@@ -164,7 +156,6 @@ export class EnumButtonGroupEditor
   private _handleButtonClick = (index: number) => {
     const propertyRecord = this.props.propertyRecord as PropertyRecord;
 
-    // istanbul ignore else
     if (this.state.choices && this.state.choices.length > index) {
       const selectValue = this.state.choices[index].value;
 
@@ -173,10 +164,8 @@ export class EnumButtonGroupEditor
           selectValue,
         },
         async () => {
-          // istanbul ignore else
           if (propertyRecord && this.props.onCommit) {
             const propertyValue = await this.getPropertyValue();
-            // istanbul ignore else
             if (propertyValue !== undefined) {
               this.props.onCommit({ propertyRecord, newValue: propertyValue });
             }
@@ -189,11 +178,10 @@ export class EnumButtonGroupEditor
   private getButton(choice: EnumerationChoice, index: number) {
     const choiceValue = this.state.choices
       ? this.state.choices[index].value
-      : /* istanbul ignore next */ 0;
+      : 0;
     const isActive = choiceValue === this.state.selectValue ? true : false;
     let isDisabled = false;
     const isEnabledFunction = this.state.enumIcons[index].isEnabledFunction;
-    // istanbul ignore else
     if (isEnabledFunction) {
       isDisabled = !isEnabledFunction();
     }
@@ -246,7 +234,6 @@ export class EnumButtonGroupEditor
  * @public
  */
 export class EnumPropertyButtonGroupEditor extends PropertyEditorBase {
-  // istanbul ignore next
   public get reactNode(): React.ReactNode {
     return <EnumButtonGroupEditor />;
   }

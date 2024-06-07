@@ -78,9 +78,7 @@ export class TimeTracker {
   }
 
   private _idleTimeCounter = (args: UiIntervalEventArgs): void => {
-    // istanbul ignore next
     const idleTimeout = args.idleTimeout ?? this._idleTimeout;
-    // istanbul ignore else
     if (
       this._lastActiveTimestamp > 0 &&
       this._idleStartTimestamp === 0 &&

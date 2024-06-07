@@ -48,7 +48,7 @@ export type CardPopupProps = Omit<PopupPropsBase, "el"> & {
   onItemExecuted: (item: any) => void;
   el?: HTMLElement;
 } & RequireAtLeastOne<{
-    relativePosition: RelativePosition; // @deprecated in 4.11.x. Please use placement instead.
+    relativePosition: RelativePosition; // @deprecated in 4.11.0. Please use placement instead.
     placement: Placement;
   }>;
 
@@ -74,7 +74,6 @@ export class CardPopup extends React.PureComponent<
   };
 
   private _onSizeKnown = (newSize: SizeProps) => {
-    // istanbul ignore else
     if (!this.state.size.equals(newSize))
       this.setState({ size: Size.create(newSize) });
   };
@@ -88,7 +87,6 @@ export class CardPopup extends React.PureComponent<
   };
 
   private _cancel() {
-    // istanbul ignore else
     if (this.props.onCancel) {
       this.props.onCancel();
     }
@@ -141,7 +139,7 @@ export class CardPopup extends React.PureComponent<
 export interface CardProps {
   content: PopupContentType;
   title: string | PropertyRecord | undefined;
-  items?: CommonToolbarItem[] | ToolbarItem[] | undefined; // @deprecated in 4.11.x. Please use {@link CardProps.toolbarItems}
+  items?: CommonToolbarItem[] | ToolbarItem[] | undefined; // @deprecated in 4.11.0. Please use {@link CardProps.toolbarItems}
   onItemExecuted: (item: any) => void;
 }
 
@@ -149,7 +147,6 @@ export interface CardProps {
  * @beta */
 export function Card(props: CardProps) {
   let titleNode: React.ReactNode;
-  // istanbul ignore else
   if (props.title) {
     if (typeof props.title === "string")
       titleNode = <Text variant="leading">{props.title}</Text>;

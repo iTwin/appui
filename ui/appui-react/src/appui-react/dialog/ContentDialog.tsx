@@ -19,7 +19,6 @@ import { UiFramework } from "../UiFramework";
 import classnames from "classnames";
 import type { UiSyncEventArgs } from "../syncui/UiSyncEvent";
 
-// istanbul ignore next
 /**
  *@internal
  */
@@ -57,7 +56,6 @@ export function useActiveContentControlId(): string | undefined {
     ];
     // eslint-disable-next-line deprecation/deprecation
     const handleSyncUiEvent = (args: UiSyncEventArgs): void => {
-      // istanbul ignore else
       if (
         syncIdsOfInterest.some((value: string): boolean =>
           args.eventIds.has(value)
@@ -101,7 +99,6 @@ export function ContentDialog(props: ContentDialogProps) {
     ...otherProps
   } = props;
   const activeContentControlId = useActiveContentControlId();
-  // istanbul ignore next
   const dialogClassName = React.useMemo(
     () =>
       classnames(
@@ -118,7 +115,6 @@ export function ContentDialog(props: ContentDialogProps) {
   );
   const updateZIndex = React.useCallback(() => {
     const newZ = UiFramework.content.dialogs.getZIndex(dialogId);
-    // istanbul ignore else
     if (newZ !== zIndex) {
       setZIndex(newZ);
     }

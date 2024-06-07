@@ -21,14 +21,14 @@ export function PinToggle() {
   const side = React.useContext(PanelSideContext);
   assert(!!side);
   const dispatch = React.useContext(NineZoneDispatchContext);
-  const pinPanelTitle = useLabel("pinPanelTitle");
-  const unpinPanelTitle = useLabel("unpinPanelTitle");
+  const pinLabel = useLabel("pinPanelTitle");
+  const unpinLabel = useLabel("unpinPanelTitle");
   const pinned = useLayout((state) => state.panels[side].pinned);
 
   return (
     <ActionButton
       icon={pinned ? <SvgPin /> : <SvgPinHollow />}
-      title={pinned ? unpinPanelTitle : pinPanelTitle}
+      label={pinned ? unpinLabel : pinLabel}
       onClick={() => {
         dispatch({
           side,

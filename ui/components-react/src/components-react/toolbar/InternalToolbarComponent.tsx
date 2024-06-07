@@ -44,7 +44,7 @@ import { useTranslation } from "../useTranslation";
 
 /** Describes the data needed to insert a custom `React` button into an ToolbarWithOverflow.
  * @public
- * @deprecated in 4.0. Use [ToolbarCustomItem]($appui-react) instead.
+ * @deprecated in 4.0.0. Use [ToolbarCustomItem]($appui-react) instead.
  */
 export interface CustomToolbarItem extends CustomButtonDefinition {
   /** defines the content to display in popup panel */
@@ -70,7 +70,7 @@ export function useToolbarPopupAutoHideContext() {
 
 /** Describes toolbar item.
  * @public
- * @deprecated in 4.0. Use [ToolbarItem]($appui-react) instead.
+ * @deprecated in 4.0.0. Use [ToolbarItem]($appui-react) instead.
  */
 export type ToolbarItem = ActionButton | GroupButton | CustomToolbarItem; // eslint-disable-line deprecation/deprecation
 
@@ -164,12 +164,10 @@ export const ToolbarWithOverflowDirectionContext =
     useDragInteraction: false,
     toolbarOpacitySetting: ToolbarOpacitySetting.Proximity,
     openPopupCount: 0,
-    onPopupPanelOpenClose: /* istanbul ignore next */ (
-      _isOpening: boolean
-    ) => {},
+    onPopupPanelOpenClose: (_isOpening: boolean) => {},
     overflowDisplayActive: false,
-    onItemExecuted: /* istanbul ignore next */ (_item: any) => void {},
-    onKeyDown: /* istanbul ignore next */ (_e: React.KeyboardEvent) => void {},
+    onItemExecuted: (_item: any) => void {},
+    onKeyDown: (_e: React.KeyboardEvent) => void {},
   });
 
 /** @internal */
@@ -186,7 +184,6 @@ function CustomItem({
     () =>
       (item.icon &&
         IconHelper.getIconReactNode(item.icon, item.internalData)) || (
-        // istanbul ignore next
         <Icon className="icon" iconSpec={<SvgPlaceholder />} />
       ),
     [item.icon, item.internalData]
@@ -196,9 +193,7 @@ function CustomItem({
     [item.isDisabled]
   );
   const title = React.useMemo(
-    () =>
-      /* istanbul ignore next */ ConditionalStringValue.getValue(item.label) ??
-      item.id,
+    () => ConditionalStringValue.getValue(item.label) ?? item.id,
     [item.id, item.label]
   );
 
@@ -232,7 +227,6 @@ function GroupPopupItem({
     () => <PopupItemsPanel groupItem={item} activateOnPointerUp={false} />,
     [item]
   );
-  // istanbul ignore next
   const providerId =
     "providerId" in item ? (item.providerId as string) : undefined;
   if (useDragInteraction) {
@@ -285,7 +279,6 @@ function ActionItem({
     onItemExecuted(item);
   }, [item, onItemExecuted]);
 
-  // istanbul ignore next
   const providerId =
     "providerId" in item ? (item.providerId as string) : undefined;
   return (
@@ -320,12 +313,10 @@ export function ToolbarItemComponent({
   } else if (isCustomToolbarItem(item)) {
     return <CustomItem item={item} addGroupSeparator={addGroupSeparator} />;
   } else {
-    // istanbul ignore else
     if (ToolbarItemUtilities.isActionButton(item)) {
       return <ActionItem item={item} addGroupSeparator={addGroupSeparator} />;
     }
   }
-  // istanbul ignore next
   return null;
 }
 
@@ -339,7 +330,6 @@ function OverflowItemsContainer(p: { children: React.ReactNode }) {
 }
 
 function getItemWrapperClass(child: React.ReactNode) {
-  // istanbul ignore else
   if (React.isValidElement(child)) {
     if (child.props && child.props.addGroupSeparator)
       return "components-toolbar-button-add-gap-before";
@@ -421,12 +411,10 @@ export function InternalToolbarComponent(props: InternalToolbarComponentProps) {
   const handlePopupPanelOpenClose = React.useCallback((isOpening: boolean) => {
     // use setTimeout to avoid warning about setting state in ToolbarWithOverflow from render method of PopupItem/PopupItemWithDrag
     setTimeout(() => {
-      // istanbul ignore next
       if (!isMounted.current) return;
       setPopupPanelCount((prev) => {
-        /* istanbul ignore next */
         const nextCount = isOpening ? prev + 1 : prev - 1;
-        return nextCount < 0 ? /* istanbul ignore next */ 0 : nextCount;
+        return nextCount < 0 ? 0 : nextCount;
       });
     });
   }, []);
@@ -479,7 +467,6 @@ export function InternalToolbarComponent(props: InternalToolbarComponentProps) {
   const handleClick = React.useCallback(() => {
     setIsOverflowPanelOpen((prev) => !prev);
   }, []);
-  // istanbul ignore next - NEEDSWORK add complete tests
   const handleClose = React.useCallback(() => {
     setIsOverflowPanelOpen(false);
   }, []);
@@ -606,7 +593,7 @@ export function InternalToolbarComponent(props: InternalToolbarComponentProps) {
         onItemExecuted: props.onItemExecuted ? props.onItemExecuted : () => {},
         onKeyDown: props.onKeyDown
           ? props.onKeyDown
-          : /* istanbul ignore next */ (_e: React.KeyboardEvent) => {},
+          : (_e: React.KeyboardEvent) => {},
       }}
     >
       {availableItems.length > 0 && (
@@ -654,11 +641,9 @@ export function InternalToolbarComponent(props: InternalToolbarComponentProps) {
  * @internal
  */
 function getChildKey(child: React.ReactNode, index: number) {
-  // istanbul ignore else
   if (React.isValidElement(child) && child.key !== null) {
     return child.key.toString();
   }
-  // istanbul ignore next
   return index.toString();
 }
 
@@ -836,7 +821,6 @@ export function useToolItemEntryContext() {
 
 function verifiedMapEntries<T>(map: Map<string, T | undefined>) {
   for (const [, val] of map) {
-    // istanbul ignore next  during unit testing
     if (val === undefined) return undefined;
   }
   return map as Map<string, T>;
@@ -844,12 +828,10 @@ function verifiedMapEntries<T>(map: Map<string, T | undefined>) {
 
 function eql(prev: readonly string[] | undefined, value: readonly string[]) {
   if (!prev) return false;
-  // istanbul ignore next
   if (prev.length !== value.length) return false;
   for (let i = 0; i < prev.length; i++) {
     const p = prev[i];
     const v = value[i];
-    // istanbul ignore next
     if (p !== v) return false;
   }
   return true;

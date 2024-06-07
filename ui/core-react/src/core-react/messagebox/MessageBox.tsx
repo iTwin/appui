@@ -126,14 +126,14 @@ export class MessageContainer extends React.PureComponent<MessageContainerProps>
   /** Returns the class name associated with the WebFont icon corresponding to the MessageSeverity.
    * @param severity MessageSeverity
    * @param hollow Should the icon be hollow
-   * @deprecated in 4.0. Hollow parameter ignored, WebFont is not returned, only the color.
+   * @deprecated in 4.0.0. Hollow parameter ignored, WebFont is not returned, only the color.
    */
   public static getIconClassName(
     severity: MessageSeverity,
     // eslint-disable-next-line @typescript-eslint/unified-signatures
     hollow?: boolean
   ): string;
-  /* istanbul ignore next */
+
   public static getIconClassName(
     severity: MessageSeverity,
     _hollow?: boolean
@@ -173,7 +173,7 @@ export class MessageContainer extends React.PureComponent<MessageContainerProps>
    * @returns IconSpec
    */
   /* ignore for unit tests and replace with visual testing */
-  /* istanbul ignore next */
+
   public static getIcon(severity: MessageSeverity, hollow?: boolean): IconSpec {
     let iconSpec: IconSpec = "";
     switch (severity) {

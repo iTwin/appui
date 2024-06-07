@@ -75,10 +75,8 @@ export class PropsHelper {
     internalData?: Map<string, any>
     // eslint-disable-next-line deprecation/deprecation
   ): Partial<UIA_AbstractWidgetProps> | Partial<UIA_CommonBackstageItem> {
-    // istanbul ignore else
     if (!iconSpec || !React.isValidElement(iconSpec)) return {};
 
-    // istanbul ignore else
     if (!internalData) internalData = new Map<string, any>();
 
     const icon = IconHelper.getIconData(iconSpec, internalData);

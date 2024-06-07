@@ -79,7 +79,6 @@ export class CustomNumberEditor
       };
     }
 
-    // istanbul ignore else
     if (record && record.value.valueFormat === PropertyValueFormat.Primitive) {
       const parseResults = (
         this._formatParams as CustomFormattedNumberParams
@@ -95,21 +94,17 @@ export class CustomNumberEditor
         };
         this._lastValidValue = { ...propertyValue };
         // make sure the text in the input item matches the latest formatted text... this could get out if the input string say 1.5 === the display string of 1'-6"
-        // istanbul ignore else
         if (newDisplayValue !== this.state.inputValue) {
           this.setState({ inputValue: newDisplayValue });
         }
       } else {
-        // istanbul ignore else
         if (this.htmlElement) {
           UiAdmin.messagePresenter.displayInputFieldMessage(
             this.htmlElement,
             MessageSeverity.Error,
             parseResults.parseError
               ? parseResults.parseError
-              : /* istanbul ignore next */ UiComponents.translate(
-                  "errors.unable-to-parse-quantity"
-                )
+              : UiComponents.translate("errors.unable-to-parse-quantity")
           );
           this.htmlElement.focus();
         } else {
@@ -117,21 +112,19 @@ export class CustomNumberEditor
             MessageSeverity.Error,
             parseResults.parseError
               ? parseResults.parseError
-              : /* istanbul ignore next */ UiComponents.translate(
-                  "errors.unable-to-parse-quantity"
-                )
+              : UiComponents.translate("errors.unable-to-parse-quantity")
           );
         }
 
         const displayValue =
           record.value.displayValue && record.value.displayValue.length > 0
             ? record.value.displayValue
-            : /* istanbul ignore next */ (
+            : (
                 this._formatParams as CustomFormattedNumberParams
               ).formatFunction(record.value.value as number);
         propertyValue = this._lastValidValue
           ? { ...this._lastValidValue }
-          : /* istanbul ignore next */ {
+          : {
               valueFormat: PropertyValueFormat.Primitive,
               value: record.value.value,
               displayValue,
@@ -167,7 +160,6 @@ export class CustomNumberEditor
 
     if (readonly || disabled) return;
 
-    // istanbul ignore else
     if (this._isMounted)
       this.setState({
         inputValue: userInput,
@@ -200,16 +192,13 @@ export class CustomNumberEditor
     const record = this.props.propertyRecord;
     let initialDisplayValue = "";
     let numberValue = 0;
-    // istanbul ignore else
     if (record) {
-      // istanbul ignore else
       if (record.value.valueFormat === PropertyValueFormat.Primitive) {
         const primitiveValue = record.value;
         numberValue =
           undefined !== primitiveValue.value
             ? (primitiveValue.value as number)
-            : /* istanbul ignore next */ 0;
-        // istanbul ignore else
+            : 0;
         if (primitiveValue.displayValue)
           initialDisplayValue = primitiveValue.displayValue;
         else
@@ -224,7 +213,6 @@ export class CustomNumberEditor
 
   private async setStateFromProps() {
     const record = this.props.propertyRecord;
-    // istanbul ignore next
     if (!record || !record.property) {
       Logger.logError(
         UiComponents.loggerCategory(this),
@@ -232,7 +220,6 @@ export class CustomNumberEditor
       );
       return;
     }
-    // istanbul ignore else
     if (
       record.property &&
       record.property.editor &&
@@ -263,7 +250,6 @@ export class CustomNumberEditor
     let maxLength: number | undefined;
     let iconSpec: string | undefined;
 
-    // istanbul ignore else
     if (
       record.property &&
       record.property.editor &&
@@ -273,11 +259,8 @@ export class CustomNumberEditor
         (param: PropertyEditorParams) =>
           param.type === PropertyEditorParamTypes.InputEditorSize.valueOf()
       ) as InputEditorSizeParams;
-      // istanbul ignore else
       if (editorSizeParams) {
-        // istanbul ignore else
         if (editorSizeParams.size) size = editorSizeParams.size;
-        // istanbul ignore else
         if (editorSizeParams.maxLength) maxLength = editorSizeParams.maxLength;
       }
 
@@ -290,7 +273,6 @@ export class CustomNumberEditor
       }
     }
 
-    // istanbul ignore else
     if (this._isMounted)
       this.setState({
         inputValue: initialDisplayValue,
@@ -304,34 +286,30 @@ export class CustomNumberEditor
     const initialDisplayValue =
       (this._lastValidValue &&
         (this._lastValidValue as PrimitiveValue).displayValue) ??
-      /* istanbul ignore next */ this._getInitialDisplayValue();
+      this._getInitialDisplayValue();
     this.setState({ inputValue: initialDisplayValue });
   }
 
   private _onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    // istanbul ignore else
     if (e.key === Key.Escape.valueOf()) {
       const initialDisplayValue =
         (this._lastValidValue &&
           (this._lastValidValue as PrimitiveValue).displayValue) ??
-        /* istanbul ignore next */ this._getInitialDisplayValue();
+        this._getInitialDisplayValue();
       if (initialDisplayValue !== this.state.inputValue) {
         e.preventDefault();
         e.stopPropagation();
         this._resetToLastValidDisplayValue();
       } else {
-        // istanbul ignore else
         if (this.props.onCancel) this.props.onCancel();
       }
     }
 
-    // istanbul ignore else
     if (e.key !== Key.Enter.valueOf()) {
       UiAdmin.messagePresenter.closeInputFieldMessage();
     }
   };
 
-  // istanbul ignore next
   private _onFocus = (e: React.FocusEvent<HTMLInputElement>) => {
     e.target.select();
   };

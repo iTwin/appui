@@ -38,7 +38,7 @@ export interface CardInfo {
 
 /** Arguments for CardSelectedEvent
  * @alpha
- * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
+ * @deprecated in 4.13.0. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface CardSelectedEventArgs {
   id: any;
@@ -47,7 +47,7 @@ export interface CardSelectedEventArgs {
 
 /** Class for CardSelectedEvent
  * @alpha
- * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
+ * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class CardSelectedEvent extends UiEvent<CardSelectedEventArgs> {}
@@ -117,7 +117,6 @@ export class SheetsModalFrontstage implements ModalFrontstageInfo {
   }
 
   /** Updates stage based on search value */
-  // istanbul ignore next
   private _handleSearchValueChanged = (value: string): void => {
     this._searchValue = value;
     UiFramework.frontstages.updateModalFrontstage();
@@ -200,7 +199,6 @@ export class CardContainer extends React.Component<CardContainerProps> {
    * @param card Data about the sheet card selected.
    */
   private async _handleCardSelected(card: CardInfo) {
-    // istanbul ignore if
     if (IModelApp.viewManager && IModelApp.viewManager.selectedView) {
       const vp = IModelApp.viewManager.selectedView;
       const viewState = await this.props.connection.views.load(card.viewId);

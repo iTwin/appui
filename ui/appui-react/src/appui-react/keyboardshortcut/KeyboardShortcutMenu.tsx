@@ -28,7 +28,7 @@ export interface KeyboardShortcutMenuState {
 
 /** KeyboardShortcut Menu Event class.
  * @public
- * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
+ * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class KeyboardShortcutMenuEvent extends UiEvent<KeyboardShortcutMenuState> {}
@@ -103,11 +103,9 @@ export class KeyboardShortcutMenu extends React.PureComponent<
   ): React.ReactNode[] {
     const items: React.ReactNode[] = [];
 
-    // istanbul ignore else
     if (shortcuts) {
       shortcuts.forEach((shortcut: KeyboardShortcut, index: number) => {
         const item = this.getShortcutMenuItem(shortcut, index);
-        // istanbul ignore else
         if (item) items.push(item);
       });
     }

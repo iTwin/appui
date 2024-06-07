@@ -48,7 +48,6 @@ export function usePropertyData(props: {
  * @public
  * @deprecated in 4.9.0. Use `useTrackedPropertyGridModelSource` instead.
  */
-// istanbul ignore next: 'useTrackedPropertyGridModelSource' is almost identical.
 export function usePropertyGridModelSource(props: {
   dataProvider: IPropertyDataProvider;
 }) {

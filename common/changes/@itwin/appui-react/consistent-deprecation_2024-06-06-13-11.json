@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/appui-react",
-      "comment": "upgrade to TypeScript@5.3.3 and @itwin/build-tools@4.6.x",
+      "comment": "",
       "type": "none"
     }
   ],

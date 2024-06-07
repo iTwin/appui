@@ -24,6 +24,9 @@
       "label": "Display Style",
       "tooltip": "Select Display Style",
       "unnamedDisplayStyle": "Unnamed"
+    },
+    "languageSelect": {
+      "label": "Language"
     }
   },
   "tools": {

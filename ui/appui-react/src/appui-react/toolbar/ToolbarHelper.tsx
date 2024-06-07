@@ -121,7 +121,6 @@ export class ToolbarHelper {
       description: description ?? itemDef.description,
     };
 
-    // istanbul ignore else
     if (itemDef instanceof CommandItemDef || itemDef instanceof ToolItemDef) {
       return {
         ...itemBase,

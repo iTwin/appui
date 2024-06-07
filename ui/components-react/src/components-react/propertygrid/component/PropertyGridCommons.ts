@@ -132,13 +132,12 @@ export class PropertyGridCommons {
     const linksArray = matchLinks(text);
     if (linksArray.length <= 0) return;
     const foundLink = linksArray[0];
-    // istanbul ignore else
     if (foundLink && foundLink.url) {
-      if (foundLink.schema === "mailto:" || foundLink.schema === "pw:")
+      if (foundLink.schema === "mailto:") {
         location.href = foundLink.url;
-      else {
+      } else {
         const windowOpen = window.open(foundLink.url, "_blank");
-        if (windowOpen) windowOpen.focus();
+        windowOpen?.focus();
       }
     }
   }

@@ -3,10 +3,9 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/z-index";
-@import "../variables";
 
 .nz-footer-toolAssistance-dialog {
-  min-width: $nz-footer-popup-min-width;
+  min-width: 300px;
   min-height: 75px;
   color: var(--iui-color-border);
 

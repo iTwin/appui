@@ -15,15 +15,15 @@ import {
   ViewClipDecorationProvider,
 } from "@itwin/core-frontend";
 import type { CommonProps } from "@itwin/core-react";
-import { Button, ToggleSwitch } from "@itwin/itwinui-react";
+import { Icon } from "@itwin/core-react";
+import { Button, IconButton, ToggleSwitch } from "@itwin/itwinui-react";
 import classnames from "classnames";
 import * as React from "react";
 import { useActiveViewport } from "../hooks/useActiveViewport";
-import { StatusBarLabelIndicator } from "../statusbar/LabelIndicator";
-import { StatusBar } from "../statusbar/StatusBar";
 import { StatusBarDialog } from "../statusbar/dialog/Dialog";
 import "./SectionsField.scss";
 import { useTranslation } from "../hooks/useTranslation";
+import { StatusBarPopover } from "../statusbar/popup/StatusBarPopover";
 
 /** Sections Status Field Props
  * @beta
@@ -42,12 +42,9 @@ export function SectionsStatusField(props: SectionsStatusFieldProps) {
   const activeViewport = useActiveViewport();
   const [showIndicator, setShowIndicator] = React.useState(false);
   const [isPopupOpen, setPopupOpen] = React.useState(false);
-  const targetDiv = React.useRef<HTMLDivElement>(null);
-  const classes = showIndicator ? "uifw-field-fade-in" : "uifw-field-fade-out";
   const [hasManipulatorsShown, setHasManipulatorsShown] = React.useState(false);
 
   React.useEffect(() => {
-    // istanbul ignore next
     const onClipChanged = (
       viewport: Viewport,
       _eventType: ClipEventType,
@@ -60,14 +57,10 @@ export function SectionsStatusField(props: SectionsStatusFieldProps) {
       setShowIndicator(isClipActive || !props.hideWhenUnused);
     };
 
-    const clipActive =
-      !!activeViewport &&
-      /* istanbul ignore next */ !!activeViewport.view.getViewClip();
+    const clipActive = !!activeViewport && !!activeViewport.view.getViewClip();
     setShowIndicator(clipActive || !props.hideWhenUnused);
     setHasManipulatorsShown(
-      clipActive &&
-        /* istanbul ignore next */ !!activeViewport &&
-        /* istanbul ignore next */ !!ViewClipDecoration.get(activeViewport)
+      clipActive && !!activeViewport && !!ViewClipDecoration.get(activeViewport)
     );
 
     ViewClipDecorationProvider.create().onActiveClipChanged.addListener(
@@ -81,7 +74,6 @@ export function SectionsStatusField(props: SectionsStatusFieldProps) {
     };
   }, [activeViewport, props.hideWhenUnused, isPopupOpen]);
 
-  // istanbul ignore next
   const toggleManipulators = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (activeViewport) {
       setHasManipulatorsShown(e.target.checked);
@@ -91,7 +83,6 @@ export function SectionsStatusField(props: SectionsStatusFieldProps) {
     }
   };
 
-  // istanbul ignore next
   const handleClear = async () => {
     await IModelApp.tools.run(
       ViewClipClearTool.toolId,
@@ -101,21 +92,12 @@ export function SectionsStatusField(props: SectionsStatusFieldProps) {
   };
 
   return (
-    <div className="uifw-section-footer-popup-container">
+    <>
       {showIndicator && (
-        <>
-          <div ref={targetDiv} title={tooltip}>
-            <StatusBarLabelIndicator
-              className={classes}
-              iconSpec={svgSectionTool}
-              onClick={() => setPopupOpen(!isPopupOpen)}
-            />
-          </div>
-          <StatusBar.Popup
-            target={targetDiv.current}
-            onClose={() => setPopupOpen(false)}
-            isOpen={isPopupOpen}
-          >
+        <StatusBarPopover
+          visible={isPopupOpen}
+          onVisibleChange={setPopupOpen}
+          content={
             <StatusBarDialog
               titleBar={<StatusBarDialog.TitleBar title={tooltip} />}
             >
@@ -135,9 +117,14 @@ export function SectionsStatusField(props: SectionsStatusFieldProps) {
                 </div>
               </div>
             </StatusBarDialog>
-          </StatusBar.Popup>
-        </>
+          }
+        >
+          <IconButton title={tooltip} styleType="borderless">
+            <Icon iconSpec={svgSectionTool} />
+            <StatusBarPopover.ExpandIndicator />
+          </IconButton>
+        </StatusBarPopover>
       )}
-    </div>
+    </>
   );
 }

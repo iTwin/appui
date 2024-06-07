@@ -137,7 +137,6 @@ export function BasicToolWidget(props: BasicToolWidgetProps) {
   ]);
 
   const uiIsVisible = useUiVisibility();
-  // istanbul ignore next
   const className = classnames(!uiIsVisible && "nz-hidden");
   return (
     <ToolWidgetComposer

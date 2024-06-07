@@ -21,7 +21,7 @@ import type { ContextMenu } from "../contextmenu/ContextMenu";
 
 /** Properties for [[RadialMenu]]
  * @public
- * @deprecated in 4.14.x. Props of deprecated component {@link RadialMenu}.
+ * @deprecated in 4.14.0. Props of deprecated component {@link RadialMenu}.
  */
 export interface RadialMenuProps extends CommonProps {
   /** Whether to show RadialMenu */
@@ -54,7 +54,7 @@ interface RadialMenuState {
 
 /** A context menu arranged in a radial layout.
  * @public
- * @deprecated in 4.14.x. Use {@link ContextMenu} or {@link https://itwinui.bentley.com/docs/dropdownmenu iTwinUI dropdown menu} instead.
+ * @deprecated in 4.14.0. Use {@link ContextMenu} or {@link https://itwinui.bentley.com/docs/dropdownmenu iTwinUI dropdown menu} instead.
  */
 export class RadialMenu extends React.Component<
   RadialMenuProps,
@@ -123,7 +123,6 @@ export class RadialMenu extends React.Component<
           className={"core-radial-menu-container"}
         >
           {React.Children.map(this.props.children, (child, index) => {
-            // istanbul ignore next
             if (!child || typeof child !== "object" || !("props" in child))
               return child;
 
@@ -184,7 +183,6 @@ export class RadialMenu extends React.Component<
 
   /** Manually call onSelect of highlighted button. */
   public select = () => {
-    // istanbul ignore else
     if (this._selectedButton) this._selectedButton.select();
   };
 
@@ -212,7 +210,7 @@ export class RadialMenu extends React.Component<
 
 /** Properties for [[RadialButton]] component
  * @public
- * @deprecated in 4.14.x. Props of deprecated component {@link RadialButton}.
+ * @deprecated in 4.14.0. Props of deprecated component {@link RadialButton}.
  */
 export interface RadialButtonProps extends CommonProps {
   /** Whether label is rotated to radial menu. Default: Inherit */
@@ -235,7 +233,7 @@ interface RadialButtonState {
 
 /** Button for use within a [[RadialMenu]]
  * @public
- * @deprecated in 4.14.x. Component used in a deprecated component {@link RadialMenu}.
+ * @deprecated in 4.14.0. Component used in a deprecated component {@link RadialMenu}.
  */
 export class RadialButton extends React.Component<
   RadialButtonProps,
@@ -270,9 +268,7 @@ export class RadialButton extends React.Component<
       if (this.props.labelRotate) {
         let a = (angle * 180) / Math.PI + 90;
         while (a > 180) a -= 360;
-        while (a < -180)
-          /* istanbul ignore next */
-          a += 360;
+        while (a < -180) a += 360;
         if (a > 90) a -= 180;
         if (a < -90) a += 180;
         t = `rotate(${a} ${p.x}, ${p.y})`;
@@ -320,12 +316,10 @@ export class RadialButton extends React.Component<
 
   /** Manually call this.props.onSelect */
   public select = () => {
-    // istanbul ignore else
     if (this.props.onSelect) this.props.onSelect(undefined);
   };
 
   private _handleClick = (event: React.MouseEvent<SVGElement>) => {
-    // istanbul ignore else
     if (this.props.onSelect) this.props.onSelect(event);
   };
 

@@ -55,7 +55,7 @@ interface PointerMessageState {
 
 /** [[PointerMessageChangedEvent]] arguments.
  * @public
- * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
+ * @deprecated in 4.13.0. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface PointerMessageChangedEventArgs {
   isVisible: boolean;
@@ -70,7 +70,7 @@ export interface PointerMessageChangedEventArgs {
 
 /** Pointer Message Changed Event emitted by the [[PointerMessage]] component
  * @public
- * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
+ * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class PointerMessageChangedEvent extends UiEvent<PointerMessageChangedEventArgs> {}
@@ -208,7 +208,6 @@ export class PointerMessage extends React.Component<
     );
   }
 
-  // istanbul ignore next
   private _handleSizeChanged = (size: SizeProps) => {
     this._size = size;
     this.updatePosition();
@@ -269,7 +268,6 @@ export class PointerMessage extends React.Component<
 
     this.setState((prevState) => {
       if (!this._viewport) return null;
-      // istanbul ignore if
       if (!this._position) return null;
 
       const containerBounds = Rectangle.create(
@@ -287,10 +285,8 @@ export class PointerMessage extends React.Component<
       );
       const position = adjustedPosition.offset(viewportOffset);
 
-      // istanbul ignore else
       if (position.equals(prevState.position)) return null;
 
-      // istanbul ignore next
       return {
         position,
       };

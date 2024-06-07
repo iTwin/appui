@@ -18,7 +18,7 @@ import { Face } from "../navigationaids/Cube";
 
 /** Arguments for [[DrawingViewportChangeEvent]]
  * @public
- * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
+ * @deprecated in 4.13.0. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface DrawingViewportChangeEventArgs {
   rotation: Matrix3d;
@@ -28,14 +28,14 @@ export interface DrawingViewportChangeEventArgs {
 
 /** Drawing View Change event
  * @public
- * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
+ * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class DrawingViewportChangeEvent extends UiEvent<DrawingViewportChangeEventArgs> {}
 
 /** Arguments for [[CubeRotationChangeEvent]]
  * @public
- * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
+ * @deprecated in 4.13.0. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface CubeRotationChangeEventArgs {
   rotMatrix: Matrix3d;
@@ -45,14 +45,14 @@ export interface CubeRotationChangeEventArgs {
 
 /** 3d Cube Rotation Change event
  * @public
- * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
+ * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class CubeRotationChangeEvent extends UiEvent<CubeRotationChangeEventArgs> {}
 
 /** Arguments for [[StandardRotationChangeEvent]]
  * @public
- * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
+ * @deprecated in 4.13.0. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface StandardRotationChangeEventArgs {
   standardRotation: StandardViewId;
@@ -60,14 +60,14 @@ export interface StandardRotationChangeEventArgs {
 
 /** Standard Rotation Change event
  * @public
- * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
+ * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class StandardRotationChangeEvent extends UiEvent<StandardRotationChangeEventArgs> {}
 
 /** Arguments for [[ViewRotationChangeEvent]]
  * @public
- * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
+ * @deprecated in 4.13.0. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface ViewRotationChangeEventArgs {
   viewport: Viewport;
@@ -76,14 +76,14 @@ export interface ViewRotationChangeEventArgs {
 
 /** View Rotation Change event
  * @public
- * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
+ * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class ViewRotationChangeEvent extends UiEvent<ViewRotationChangeEventArgs> {}
 
 /** Arguments for [[ViewClassFullNameChangedEvent]]
  * @public
- * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
+ * @deprecated in 4.13.0. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface ViewClassFullNameChangedEventArgs {
   viewport: Viewport;
@@ -93,14 +93,14 @@ export interface ViewClassFullNameChangedEventArgs {
 
 /** View Class Full Name Change event
  * @public
- * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
+ * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class ViewClassFullNameChangedEvent extends UiEvent<ViewClassFullNameChangedEventArgs> {}
 
 /** Arguments for [[ViewIdChangedEvent]]
  * @public
- * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
+ * @deprecated in 4.13.0. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface ViewIdChangedEventArgs {
   viewport: Viewport;
@@ -110,7 +110,7 @@ export interface ViewIdChangedEventArgs {
 
 /** View Id Change event
  * @public
- * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
+ * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class ViewIdChangedEvent extends UiEvent<ViewIdChangedEventArgs> {}
@@ -189,7 +189,6 @@ export class ViewportComponentEvents {
   ): void {
     // When handling onViewChanged, use setTimeout
     setTimeout(() => {
-      // istanbul ignore next
       if (viewport.view) {
         this.origin.setFrom(viewport.view.getOrigin());
         this.extents.setFrom(viewport.view.getExtents());

@@ -78,7 +78,6 @@ export function UiDataProvidedDialog({
 
   const generateButtonCluster = React.useCallback(
     (buttons: DialogButtonDef[] | undefined) => {
-      // istanbul ignore else
       if (buttons) {
         for (const button of buttons) {
           if (DialogButtonType.Cancel === button.type) {

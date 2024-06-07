@@ -25,7 +25,7 @@ import svgSavedView from "@bentley/icons-generic/icons/saved-view.svg";
 
 /** [[ViewSelectorChangedEvent]] Args interface.
  * @beta
- * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
+ * @deprecated in 4.13.0. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface ViewSelectorChangedEventArgs {
   iModelConnection: IModelConnection;
@@ -36,7 +36,7 @@ export interface ViewSelectorChangedEventArgs {
 
 /** ViewSelector Changed Event class.
  * @beta
- * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
+ * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class ViewSelectorChangedEvent extends UiEvent<ViewSelectorChangedEventArgs> {}
@@ -166,14 +166,12 @@ export class ViewSelector extends React.Component<
 
   public override componentWillUnmount() {
     this._isMounted = false;
-    // istanbul ignore else
     if (this._removeShowUpdateListener) this._removeShowUpdateListener();
   }
 
   private _handleViewSelectorShowUpdateEvent = (
     args: ViewSelectorShowUpdateEventArgs
   ): void => {
-    // istanbul ignore next
     if (!this._isMounted) return;
 
     this.setState(args, async () => this.loadViews());
@@ -215,7 +213,6 @@ export class ViewSelector extends React.Component<
 
     const containers = [views3dContainer, views2dContainer, sheetContainer];
 
-    // istanbul ignore if
     if (unknown && unknown.length > 0) {
       // This should never show, but just in case we missed a type of view state
       const unknownContainer: ListItem = {
@@ -229,7 +226,6 @@ export class ViewSelector extends React.Component<
       if (unknown.length !== 0) containers.push(unknownContainer);
     }
 
-    // istanbul ignore next
     if (!this._isMounted) return;
 
     this.setState({
@@ -335,7 +331,6 @@ export class ViewSelector extends React.Component<
    * Update state of the entries in the widget.
    * @param viewId Identifier for the relevant view
    */
-  // istanbul ignore next
   public async updateState(viewId?: any): Promise<void> {
     // Wait for initialization finished
     if (!this.state.initialized) return;
@@ -361,7 +356,6 @@ export class ViewSelector extends React.Component<
   }
 
   // enable/disable the models
-  // istanbul ignore next
   private _setEnabled = async (item: ListItem, _enabled: boolean) => {
     const activeContentControl =
       UiFramework.content.getActiveContentControl() as unknown as SupportsViewSelectorChange;
@@ -397,7 +391,6 @@ export class ViewSelector extends React.Component<
       // Create the new array with the current item enabled
       const itemsWithEnabled = this.state.items.map(itemMapper);
 
-      // istanbul ignore next
       if (!this._isMounted) return;
 
       // Update the state so that we show the user it was enabled while we work in the background
@@ -428,7 +421,6 @@ export class ViewSelector extends React.Component<
   };
 
   // Hook on the category selector being expanded so that we may initialize if needed
-  // istanbul ignore next
   private _onExpanded = (expand: boolean) => {
     if (expand)
       void this.updateState(

@@ -30,7 +30,7 @@ import {
   UiStateEntry,
   UiStateStorageStatus,
 } from "@itwin/core-react";
-import { Tabs, ToggleSwitch } from "@itwin/itwinui-react";
+import { Button, Tabs, ToggleSwitch } from "@itwin/itwinui-react";
 import classnames from "classnames";
 import * as React from "react";
 import { UiFramework } from "../../UiFramework";
@@ -43,11 +43,9 @@ import "./ToolAssistanceField.scss";
 
 import { SvgClose, SvgPin } from "@itwin/itwinui-icons-react";
 import { ToolAssistanceDialog } from "../../layout/footer/tool-assistance/Dialog";
-import { ToolAssistance } from "../../layout/footer/tool-assistance/Indicator";
 import { ToolAssistanceInstruction as NZ_ToolAssistanceInstruction } from "../../layout/footer/tool-assistance/Instruction";
 import { ToolAssistanceItem } from "../../layout/footer/tool-assistance/Item";
 import { ToolAssistanceSeparator } from "../../layout/footer/tool-assistance/Separator";
-import { StatusBar } from "../../statusbar/StatusBar";
 import { StatusBarDialog } from "../../statusbar/dialog/Dialog";
 import acceptPointIcon from "./accept-point.svg";
 import cursorClickIcon from "./cursor-click.svg";
@@ -65,6 +63,7 @@ import clickMouseWheelDragIcon from "./mouse-click-wheel-drag.svg";
 import mouseWheelClickIcon from "./mouse-click-wheel.svg";
 import touchCursorDragIcon from "./touch-cursor-pan.svg";
 import touchCursorTapIcon from "./touch-cursor-point.svg";
+import { StatusBarPopover } from "../../statusbar/popup/StatusBarPopover";
 
 // cSpell:ignore cursorprompt
 
@@ -114,6 +113,7 @@ interface ToolAssistanceFieldState {
 
 /** Tool Assistance Field React component.
  * @public
+ * @note Tool assistance field will only display 30 characters in the status bar. Any additional text will be hidden. The full text will always be shown in the opened popover.
  */
 export class ToolAssistanceField extends React.Component<
   ToolAssistanceFieldProps,
@@ -129,8 +129,7 @@ export class ToolAssistanceField extends React.Component<
   private static _mouseTouchTabIndexKey = "mouseTouchTabIndex";
   private _showPromptAtCursorSetting: UiStateEntry<boolean>;
   private _mouseTouchTabIndexSetting: UiStateEntry<number>;
-  private _target: HTMLElement | null = null;
-  private _indicator = React.createRef<HTMLDivElement>();
+  private _indicator = React.createRef<HTMLButtonElement>();
   private _cursorPrompt: CursorPrompt;
   private _isMounted = false;
   private _uiSettingsStorage: UiStateStorage;
@@ -190,7 +189,6 @@ export class ToolAssistanceField extends React.Component<
       this._handleToolIconChangedEvent
     );
 
-    // istanbul ignore else
     if (this.props.uiStateStorage)
       this._uiSettingsStorage = this.props.uiStateStorage;
     else if (this.context) this._uiSettingsStorage = this.context;
@@ -211,7 +209,6 @@ export class ToolAssistanceField extends React.Component<
 
   private async restoreSettings() {
     let getShowPromptAtCursor: Promise<UiStateStorageResult> | undefined;
-    // istanbul ignore else
     if (this.props.includePromptAtCursor) {
       getShowPromptAtCursor = this._showPromptAtCursorSetting.getSetting(
         this._uiSettingsStorage
@@ -223,19 +220,15 @@ export class ToolAssistanceField extends React.Component<
     const [showPromptAtCursorResult, mouseTouchTabIndexResult] =
       await Promise.all([getShowPromptAtCursor, getMouseTouchTabIndex]);
 
-    // istanbul ignore else
     if (
       showPromptAtCursorResult !== undefined &&
       showPromptAtCursorResult.status === UiStateStorageStatus.Success
     ) {
-      // istanbul ignore else
       if (this._isMounted)
         this.setState({ showPromptAtCursor: showPromptAtCursorResult.setting });
     }
 
-    // istanbul ignore else
     if (mouseTouchTabIndexResult.status === UiStateStorageStatus.Success) {
-      // istanbul ignore else
       if (this._isMounted)
         this.setState({ mouseTouchTabIndex: mouseTouchTabIndexResult.setting });
     }
@@ -283,7 +276,6 @@ export class ToolAssistanceField extends React.Component<
       }
     }
 
-    // istanbul ignore else
     if (this._isMounted)
       this.setState(
         {
@@ -314,7 +306,6 @@ export class ToolAssistanceField extends React.Component<
   private _handleToolIconChangedEvent = (
     args: ToolIconChangedEventArgs // eslint-disable-line deprecation/deprecation
   ): void => {
-    // istanbul ignore else
     if (this._isMounted)
       this.setState({ toolIconSpec: args.iconSpec }, () => {
         this._showCursorPrompt();
@@ -357,7 +348,6 @@ export class ToolAssistanceField extends React.Component<
     const showMouseInstructions = index === 0;
     const showTouchInstructions = index === 1;
 
-    // istanbul ignore else
     if (this._isMounted)
       this.setState(
         {
@@ -377,7 +367,7 @@ export class ToolAssistanceField extends React.Component<
   public override render(): React.ReactNode {
     const { instructions } = this.state;
     const dialogTitle = IModelApp.toolAdmin.activeTool
-      ? /* istanbul ignore next */ IModelApp.toolAdmin.activeTool.flyover
+      ? IModelApp.toolAdmin.activeTool.flyover
       : UiFramework.translate("toolAssistance.title");
     const mouseLabel = UiFramework.translate("toolAssistance.mouse");
     const touchLabel = UiFramework.translate("toolAssistance.touch");
@@ -481,7 +471,6 @@ export class ToolAssistanceField extends React.Component<
 
     if (prompt) tooltip = prompt;
 
-    // istanbul ignore next
     if (IModelApp.toolAdmin.activeTool)
       tooltip = `${IModelApp.toolAdmin.activeTool.flyover} > ${tooltip}  `;
 
@@ -493,29 +482,13 @@ export class ToolAssistanceField extends React.Component<
     tooltip += UiFramework.translate("toolAssistance.moreInfo");
 
     return (
-      <>
-        <div style={{ height: "100%" }} ref={this._handleTargetRef}>
-          <ToolAssistance
-            icons={<>{toolIcon}</>}
-            indicatorRef={this._indicator}
-            className={classnames(
-              "uifw-statusFields-toolassistance",
-              this.props.className
-            )}
-            style={this.props.style}
-            onClick={this._handleToolAssistanceIndicatorClick}
-            title={tooltip}
-          >
-            {prompt}
-          </ToolAssistance>
-        </div>
-        <StatusBar.Popup
-          isOpen={this.state.isOpen}
-          onClose={this._handleClose}
-          onOutsideClick={this._handleOutsideClick}
-          target={this._target}
-          isPinned={this.state.isPinned}
-        >
+      <StatusBarPopover
+        visible={this.state.isOpen}
+        onVisibleChange={(visible) => {
+          this.setIsOpen(visible);
+        }}
+        closeOnOutsideClick={!this.state.isPinned}
+        content={
           <ToolAssistanceDialog
             buttons={
               <>
@@ -524,7 +497,7 @@ export class ToolAssistanceField extends React.Component<
                     onClick={this._handlePinButtonClick}
                     title={UiFramework.translate("toolAssistance.pin")}
                   >
-                    <Icon iconSpec={<SvgPin />} />
+                    <SvgPin />
                   </StatusBarDialog.TitleBarButton>
                 )}
                 {this.state.isPinned && (
@@ -532,7 +505,7 @@ export class ToolAssistanceField extends React.Component<
                     onClick={this._handleCloseButtonClick}
                     title={UiFramework.translate("dialog.close")}
                   >
-                    <Icon iconSpec={<SvgClose />} />
+                    <SvgClose />
                   </StatusBarDialog.TitleBarButton>
                 )}
               </>
@@ -541,19 +514,30 @@ export class ToolAssistanceField extends React.Component<
           >
             {dialogContent}
           </ToolAssistanceDialog>
-        </StatusBar.Popup>
-      </>
+        }
+      >
+        <Button
+          styleType="borderless"
+          startIcon={<>{toolIcon}</>}
+          className={classnames(
+            "uifw-statusFields-toolAssistance-toolAssistanceField",
+            this.props.className
+          )}
+          title={tooltip}
+          style={this.props.style}
+          ref={this._indicator}
+          labelProps={{ className: "prompt" }}
+        >
+          {prompt}
+          <StatusBarPopover.ExpandIndicator />
+        </Button>
+      </StatusBarPopover>
     );
   }
-
-  private _handleTargetRef = (target: HTMLElement | null) => {
-    this._target = target;
-  };
 
   private _onPromptAtCursorChange = async (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
-    // istanbul ignore else
     if (this._isMounted)
       this.setState(
         {
@@ -567,33 +551,12 @@ export class ToolAssistanceField extends React.Component<
       );
   };
 
-  private _handleClose = () => {
-    this.setIsOpen(false);
-  };
-
-  private _handleOutsideClick = (e: MouseEvent) => {
-    // istanbul ignore if
-    if (
-      !this._indicator.current ||
-      !(e.target instanceof Node) ||
-      this._indicator.current.contains(e.target)
-    )
-      return;
-
-    this._handleClose();
-  };
-
-  private _handleToolAssistanceIndicatorClick = () => {
-    this.setIsOpen(!this.state.isOpen);
-  };
-
   private _handlePinButtonClick = () => {
-    // istanbul ignore else
     if (this._isMounted) this.setState({ isPinned: true });
   };
 
   private _handleCloseButtonClick = () => {
-    this._handleClose();
+    this.setIsOpen(false);
   };
 
   private setIsOpen(isOpen: boolean) {
@@ -688,7 +651,6 @@ export class ToolAssistanceField extends React.Component<
       ? "uifw-toolassistance-svg-medium"
       : "uifw-toolassistance-svg";
 
-    // istanbul ignore else
     if (
       typeof instruction.image !== "string" &&
       instruction.image !== ToolAssistanceImage.Keyboard
@@ -754,17 +716,14 @@ export class ToolAssistanceField extends React.Component<
         case ToolAssistanceImage.TouchCursorDrag:
           svgImage = touchCursorDragIcon;
           className = mediumSize
-            ? /* istanbul ignore next */ "uifw-toolassistance-svg-medium-wide"
+            ? "uifw-toolassistance-svg-medium-wide"
             : "uifw-toolassistance-svg-wide";
           break;
       }
 
       image = (
         <div className={className}>
-          {svgImage && (
-            // istanbul ignore next
-            <Icon iconSpec={svgImage} />
-          )}
+          {svgImage && <Icon iconSpec={svgImage} />}
         </div>
       );
     }

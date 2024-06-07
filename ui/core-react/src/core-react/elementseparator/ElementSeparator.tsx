@@ -24,7 +24,7 @@ import { useTranslation } from "../l10n/useTranslation";
 
 /** Results returned by onRatioChanged callback for determining new ratio and whether the ratio was updated.
  * @public
- * @deprecated in 4.12.x. Interface used in a deprecated component {@link ElementSeparator}.
+ * @deprecated in 4.12.0. Interface used in a deprecated component {@link ElementSeparator}.
  */
 export interface RatioChangeResult {
   ratio: number;
@@ -32,7 +32,7 @@ export interface RatioChangeResult {
 
 /** Properties of [[ElementSeparator]] React component
  * @public
- * @deprecated in 4.12.x. Props of deprecated component {@link ElementSeparator}.
+ * @deprecated in 4.12.0. Props of deprecated component {@link ElementSeparator}.
  */
 export interface ElementSeparatorProps extends CommonProps {
   /** Separator orientation */
@@ -107,7 +107,6 @@ ElementSeparatorProps) => {
     pointerOutOfBounds.current = false;
 
   const stopDrag = useCallback(() => {
-    // istanbul ignore else
     if (isGroupDragged) {
       setIsDragged(false);
       if (onResizeHandleDragChanged) onResizeHandleDragChanged(false);
@@ -118,7 +117,6 @@ ElementSeparatorProps) => {
     (e: PointerEvent | React.PointerEvent) => {
       globalPosition.current = getCurrentGlobalPosition(orientation, e);
 
-      // istanbul ignore else
       if (!isGroupDragged) {
         setIsDragged(true);
         if (onResizeHandleDragChanged) onResizeHandleDragChanged(true);
@@ -191,7 +189,6 @@ ElementSeparatorProps) => {
   );
 
   const onPointerOver = useCallback(() => {
-    // istanbul ignore next
     if (isGroupHovered) return;
 
     setIsHovered(true);
@@ -199,7 +196,6 @@ ElementSeparatorProps) => {
   }, [isGroupHovered, onResizeHandleHoverChanged]);
 
   const onPointerOut = useCallback(() => {
-    // istanbul ignore next
     if (!isGroupHovered) return;
 
     setIsHovered(false);
@@ -234,7 +230,7 @@ function getStyle(
 
 /** A movable button, which allows to change the ratio between left element and right element
  * @public
- * @deprecated in 4.12.x. Basic components that need to be user-resized support this out of the box. Use {@link https://developer.mozilla.org/en-US/docs/Web/API/PointerEvent pointer events} API to implement a custom resizer.
+ * @deprecated in 4.12.0. Basic components that need to be user-resized support this out of the box. Use {@link https://developer.mozilla.org/en-US/docs/Web/API/PointerEvent pointer events} API to implement a custom resizer.
  */
 // eslint-disable-next-line deprecation/deprecation
 export const ElementSeparator = (props: ElementSeparatorProps) => {

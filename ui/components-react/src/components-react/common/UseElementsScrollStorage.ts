@@ -23,7 +23,6 @@ export function useElementsScrollStorage<T extends Element>(
   const scrollTop = useRef<number[]>([]);
 
   const getElements = () => {
-    // istanbul ignore if
     if (!ref.current) {
       return [];
     }

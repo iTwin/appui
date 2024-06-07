@@ -26,11 +26,13 @@ test.describe("WidgetApi", () => {
     const pinned = layoutInfoWidget.getByText("pinned=");
     await expect(pinned).toHaveText("pinned=true");
 
-    const unpinButton = panel.getByTitle("Unpin widget panel");
+    const unpinButton = panel.getByRole("button", {
+      name: "Unpin widget panel",
+    });
     await unpinButton.click();
     await expect(pinned).toHaveText("pinned=false");
 
-    const pinButton = panel.getByTitle("Pin widget panel");
+    const pinButton = panel.getByRole("button", { name: "Pin widget panel" });
     await pinButton.click();
     await expect(pinned).toHaveText("pinned=true");
   });

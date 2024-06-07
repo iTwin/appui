@@ -19,7 +19,6 @@ import {
 import {
   ContentControl,
   ContentControlActivatedEventArgs,
-  StatusBarIndicator,
   UiFramework,
 } from "@itwin/appui-react";
 import { Select, SelectOption } from "@itwin/itwinui-react";
@@ -124,19 +123,18 @@ export function DisplayStyleField(props: CommonProps) {
   if (!viewport) return null;
 
   return (
-    <StatusBarIndicator
-      className={classnames("uifw-statusFields-displayStyle", props.className)}
+    <Select
+      options={styleEntries}
+      value={displayStyleId}
+      onChange={handleDisplayStyleSelected}
+      title={translate("statusFields.displayStyle.tooltip")}
+      aria-label={translate("statusFields.displayStyle.label")}
+      className={classnames(
+        "uifw-statusFields-displayStyle-selector",
+        props.className
+      )}
       style={props.style}
-    >
-      <Select
-        options={styleEntries}
-        value={displayStyleId}
-        onChange={handleDisplayStyleSelected}
-        title={translate("statusFields.displayStyle.tooltip")}
-        aria-label={translate("statusFields.displayStyle.label")}
-        className="uifw-statusFields-displayStyle-selector"
-        size="small"
-      />
-    </StatusBarIndicator>
+      size="small"
+    />
   );
 }

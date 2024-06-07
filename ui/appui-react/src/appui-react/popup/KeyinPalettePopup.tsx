@@ -19,7 +19,7 @@ import type { KeyinEntry } from "../keyins/Keyins";
  * @public */
 export interface KeyinPalettePopupProps {
   id: string;
-  /** @deprecated in 4.11.x. Please use the optional `anchorEl` property moving forward. */
+  /** @deprecated in 4.11.0. Please use the optional `anchorEl` property moving forward. */
   el: HTMLElement;
   keyins: KeyinEntry[];
   anchorEl?: HTMLElement;
@@ -49,7 +49,6 @@ export function KeyinPalettePopup({
 
   const onSizeKnown = React.useCallback(
     (newSize: SizeProps) => {
-      // istanbul ignore else
       if (!popupSize.equals(newSize)) setPopupSize(Size.create(newSize));
     },
     [popupSize]
@@ -74,7 +73,6 @@ export function KeyinPalettePopup({
   const xMid =
     _el.getBoundingClientRect().left + _el.getBoundingClientRect().width / 2;
   let point = new Point(xMid, _el.getBoundingClientRect().top);
-  // istanbul ignore next
   if (popupSize.width > 0) point = point.offsetX(popupSize.width / -2);
 
   return (

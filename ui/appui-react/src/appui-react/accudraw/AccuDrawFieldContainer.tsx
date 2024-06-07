@@ -38,8 +38,7 @@ export interface AccuDrawFieldContainerProps extends CommonProps {
 let AccuDrawContainerIndex = 0;
 
 function determineShowZ(vp?: ScreenViewport): boolean {
-  const showZ =
-    vp !== undefined ? /* istanbul ignore next */ vp.view.is3d() : false;
+  const showZ = vp !== undefined ? vp.view.is3d() : false;
   return showZ;
 }
 

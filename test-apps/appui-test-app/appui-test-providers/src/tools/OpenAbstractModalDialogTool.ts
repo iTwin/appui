@@ -23,11 +23,9 @@ export class OpenAbstractDialogTool extends Tool {
     "appuiTestItemsProviders-OpenAbstractModalDialogTool";
   public static override iconSpec = "icon-lightbulb-2";
 
-  // istanbul ignore next
   public static override get minArgs() {
     return 0;
   }
-  // istanbul ignore next
   public static override get maxArgs() {
     return 0;
   }

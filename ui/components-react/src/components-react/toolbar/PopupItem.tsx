@@ -32,11 +32,9 @@ export interface ToolbarPopupContextProps {
 export const ToolbarPopupContext =
   React.createContext<ToolbarPopupContextProps>({
     /** function used to close popup panel */
-    closePanel: /* istanbul ignore next */ () => {},
+    closePanel: () => {},
     /** if popup panel is a GroupButton then this is call to set the selected action item within the panel */
-    setSelectedItem: /* istanbul ignore next */ (
-      _buttonItem: ActionButton
-    ) => {},
+    setSelectedItem: (_buttonItem: ActionButton) => {},
   });
 
 /**
@@ -74,7 +72,6 @@ export function PopupItem(props: PopupItemProps) {
   const processPanelOpenClose = React.useCallback(
     (isOpening: boolean) => {
       setPanelShown((prev) => {
-        // istanbul ignore else
         if (prev !== isOpening) onPopupPanelOpenClose(isOpening);
         return isOpening;
       });
@@ -85,7 +82,6 @@ export function PopupItem(props: PopupItemProps) {
   // handle open and closing overflow panel
   const onButtonClick = React.useCallback(() => {
     processPanelOpenClose(!isPanelShown);
-    // istanbul ignore next
     if (props.onClick) props.onClick();
   }, [props, isPanelShown, processPanelOpenClose]);
   const className = classnames(
@@ -96,7 +92,6 @@ export function PopupItem(props: PopupItemProps) {
   );
 
   const [targetRef, target] = useRefState<HTMLButtonElement>();
-  // istanbul ignore next
   const handleClose = React.useCallback(() => {
     processPanelOpenClose(false);
   }, [processPanelOpenClose]);
@@ -126,9 +121,7 @@ export function PopupItem(props: PopupItemProps) {
       >
         <div className="components-icon">{props.icon}</div>
         {props.badge && <div className="components-badge">{props.badge}</div>}
-        {hideIndicator ? /* istanbul ignore next */ undefined : (
-          <div className="components-triangle" />
-        )}
+        {hideIndicator ? undefined : <div className="components-triangle" />}
       </button>
       <PopupItemPopup
         isOpen={isPanelShown}

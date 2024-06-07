@@ -16,11 +16,11 @@ import { useIsMaximizedWidget } from "../../preview/enable-maximized-widget/useM
 /** @internal */
 export function Dock() {
   const dispatch = React.useContext(NineZoneDispatchContext);
-  const title = useLabel("dockToolSettingsTitle");
+  const label = useLabel("dockToolSettingsTitle");
   return (
     <ActionButton
       icon={<SvgDockTop />}
-      title={title}
+      label={label}
       onClick={() => {
         dispatch({
           type: "TOOL_SETTINGS_DOCK",

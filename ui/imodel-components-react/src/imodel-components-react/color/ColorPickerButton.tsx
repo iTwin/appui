@@ -60,7 +60,7 @@ function ColorOptions({
 
 /** Properties for the [[ColorPickerButton]] React component
  * @beta
- * @deprecated in 4.11.x. Props of deprecated component {@link ColorPickerButton}.
+ * @deprecated in 4.11.0. Props of deprecated component {@link ColorPickerButton}.
  */
 export interface ColorPickerProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
@@ -149,7 +149,6 @@ const ForwardRefColorPickerButton = React.forwardRef<
     (color: ColorDef) => {
       closePopup();
 
-      // istanbul ignore else
       if (!color.equals(colorDef)) {
         setColorDef(color);
         onColorPick && onColorPick(color);
@@ -220,7 +219,7 @@ const ForwardRefColorPickerButton = React.forwardRef<
 /** ColorPickerButton component
  * @note Using forwardRef so the ColorEditor (Type Editor) can access the ref of the button element inside this component.
  * @beta
- * @deprecated in 4.11.x. Use {@link https://itwinui.bentley.com/docs/colorpicker iTwinUI color picker} instead.
+ * @deprecated in 4.11.0. Use {@link https://itwinui.bentley.com/docs/colorpicker iTwinUI color picker} instead.
  */
 export const ColorPickerButton: (
   // eslint-disable-next-line deprecation/deprecation

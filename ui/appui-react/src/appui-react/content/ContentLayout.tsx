@@ -54,7 +54,6 @@ export function ContentWrapper(props: ContentWrapperProps) {
     return controlId;
   };
 
-  // istanbul ignore next
   const [hasMultipleContents, setHasMultipleContents] = React.useState(
     () =>
       (activeFrontstageDef &&
@@ -77,7 +76,6 @@ export function ContentWrapper(props: ContentWrapperProps) {
         const activeContentId = contentControlKey(args.activeContent);
         setIsActive(contentId === activeContentId);
       }
-      // istanbul ignore next
       setHasMultipleContents(
         (activeFrontstageDef &&
           !!activeFrontstageDef.floatingContentControls?.length) ||
@@ -97,7 +95,6 @@ export function ContentWrapper(props: ContentWrapperProps) {
 
   React.useEffect(() => {
     const onAvailableContentChanged = () => {
-      // istanbul ignore next
       setHasMultipleContents(
         (activeFrontstageDef &&
           !!activeFrontstageDef.floatingContentControls?.length) ||
@@ -156,19 +153,15 @@ class SplitContainer extends React.Component<SplitContainerProps> {
   private _onSplitterChange = (size: number): void => {
     let percentage = 0;
 
-    // istanbul ignore else
     if (this._containerDiv && size > 0) {
       if (this.props.orientation === Orientation.Horizontal) {
         const height = this._containerDiv.getBoundingClientRect().height;
-        // istanbul ignore if
         if (height > 0) percentage = size / height;
       } else {
         const width = this._containerDiv.getBoundingClientRect().width;
-        // istanbul ignore if
         if (width > 0) percentage = size / width;
       }
 
-      // istanbul ignore else
       if (this.props.onSplitterChange)
         this.props.onSplitterChange(size, percentage);
     }
@@ -262,10 +255,8 @@ class BaseSplit {
   constructor(props: LayoutSplitPropsBase) {
     this.defaultPercentage = props.percentage;
 
-    // istanbul ignore else
     if (props.id) this.stateId = props.id;
 
-    // istanbul ignore else
     if (props.lock) this.isLocked = props.lock;
   }
 }
@@ -561,7 +552,7 @@ export class ContentLayoutDef {
 
 /** Content Layout Activated Event Args class.
  * @public
- * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
+ * @deprecated in 4.13.0. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface ContentLayoutActivatedEventArgs {
   contentLayout: ContentLayoutDef;
@@ -570,7 +561,7 @@ export interface ContentLayoutActivatedEventArgs {
 
 /** Content Layout Activated Event class.
  * @public
- * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
+ * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class ContentLayoutActivatedEvent extends UiEvent<ContentLayoutActivatedEventArgs> {}

@@ -11,12 +11,12 @@ import * as React from "react";
 import type { ViewFlagProps } from "@itwin/core-common";
 import { ViewFlags } from "@itwin/core-common";
 import { IModelApp } from "@itwin/core-frontend";
-import { Checkbox } from "@itwin/itwinui-react";
+import { Checkbox, IconButton } from "@itwin/itwinui-react";
 import { UiFramework } from "../UiFramework";
 import type { CommonProps } from "@itwin/core-react";
-import { StatusBarLabelIndicator } from "../statusbar/LabelIndicator";
 import { StatusBarDialog } from "../statusbar/dialog/Dialog";
 import { SvgWindowSettings } from "@itwin/itwinui-icons-react";
+import { StatusBarPopover } from "../statusbar/popup/StatusBarPopover";
 
 interface ViewAttributesStatusFieldState {
   viewFlags: ViewFlagProps;
@@ -45,7 +45,6 @@ export class ViewAttributesStatusField extends React.Component<
     this.updateState();
   }
 
-  // istanbul ignore next
   private updateState() {
     if (IModelApp.viewManager.selectedView) {
       const viewFlags: ViewFlagProps = {
@@ -60,7 +59,6 @@ export class ViewAttributesStatusField extends React.Component<
     }
   }
 
-  // istanbul ignore next
   private _handleViewFlagClick = (flagName: string) => {
     if (IModelApp.viewManager.selectedView) {
       const props: ViewFlagProps =
@@ -96,7 +94,7 @@ export class ViewAttributesStatusField extends React.Component<
 
   private getFlagState(flagName: string) {
     return this.state.viewFlags.hasOwnProperty(flagName)
-      ? /* istanbul ignore next */ (this.state.viewFlags as any)[flagName]
+      ? (this.state.viewFlags as any)[flagName]
       : false;
   }
 
@@ -173,17 +171,20 @@ export class ViewAttributesStatusField extends React.Component<
     const title = UiFramework.translate("listTools.viewAttributes");
 
     return (
-      <StatusBarLabelIndicator
-        iconSpec={<SvgWindowSettings />}
-        title={title}
-        popup={
+      <StatusBarPopover
+        content={
           <StatusBarDialog
             titleBar={<StatusBarDialog.TitleBar title={title} />}
           >
             {this.getViewFlags()}
           </StatusBarDialog>
         }
-      />
+      >
+        <IconButton styleType="borderless" title={title}>
+          <SvgWindowSettings />
+          <StatusBarPopover.ExpandIndicator />
+        </IconButton>
+      </StatusBarPopover>
     );
   }
 }

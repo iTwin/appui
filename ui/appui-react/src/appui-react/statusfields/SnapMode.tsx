@@ -21,8 +21,9 @@ import { connect } from "react-redux";
 import { UiFramework } from "../UiFramework";
 import { SnapModePanel } from "../layout/footer/snap-mode/Panel";
 import { Snap } from "../layout/footer/snap-mode/Snap";
-import { StatusBarLabelIndicator } from "../statusbar/LabelIndicator";
 import { useTranslation } from "../hooks/useTranslation";
+import { Button } from "@itwin/itwinui-react";
+import { StatusBarPopover } from "../statusbar/popup/StatusBarPopover";
 
 // cSpell:ignore multione
 
@@ -118,22 +119,15 @@ function SnapModeFieldComponent(props: SnapModeFieldProps) {
       if (mode.value === snapMode) return mode.iconName;
     }
 
-    /* istanbul ignore else */
     if (snapMode > 0) return "snaps-multione";
 
-    /* istanbul ignore next */
     return "placeholder";
   };
 
   const title = translate("snapModeField.snapMode");
   return (
-    <StatusBarLabelIndicator
-      iconSpec={getIconFromIconName(
-        getSnapModeIconNameFromMode(props.snapMode)
-      )}
-      title={title}
-      label={title}
-      popup={
+    <StatusBarPopover
+      content={
         <SnapModePanel title={title}>
           {snapModes.map((item, index) => (
             <Snap
@@ -152,14 +146,29 @@ function SnapModeFieldComponent(props: SnapModeFieldProps) {
           ))}
         </SnapModePanel>
       }
-    />
+    >
+      <Button
+        styleType="borderless"
+        title={title}
+        endIcon={
+          <Icon
+            iconSpec={getIconFromIconName(
+              getSnapModeIconNameFromMode(props.snapMode)
+            )}
+          />
+        }
+      >
+        {title}
+        <StatusBarPopover.ExpandIndicator />
+      </Button>
+    </StatusBarPopover>
   );
 }
 
 /** Function used by Redux to map state data in Redux store to props that are used to render this component. */
 function mapStateToProps(state: any) {
   const frameworkState = state[UiFramework.frameworkStateKey]; // since app sets up key, don't hard-code name
-  /* istanbul ignore next */
+
   if (!frameworkState) return undefined;
 
   return { snapMode: frameworkState.configurableUiState.snapMode };
