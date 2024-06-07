@@ -4,77 +4,52 @@
  *--------------------------------------------------------------------------------------------*/
 import React from "react";
 import {
-  CommandItemDef,
   KeyboardShortcutProps,
   StagePanelState,
   UiFramework,
   UiItemsProvider,
-  Widget,
 } from "@itwin/appui-react";
 import { Input } from "@itwin/itwinui-react";
 import { AppUiStory } from "../AppUiStory";
-import { createFrontstageProvider } from "../Utils";
+import { createFrontstageProvider, createWidget } from "../Utils";
 
 function createProvider(): UiItemsProvider {
   return {
     id: "widgets",
     provideWidgets: () => {
-      const widget1: Widget = {
-        id: "w1",
-        label: "Widget 1",
-        content: (
-          <>
-            <div>
-              Press <code>m</code> to open a keyboard shortcut menu.
-            </div>
-            <Input />
-          </>
-        ),
-      };
-      return [widget1];
+      return [
+        createWidget(1, {
+          content: (
+            <>
+              <div>
+                Press <code>m</code> to open a keyboard shortcut menu.
+              </div>
+              <Input />
+            </>
+          ),
+        }),
+      ];
     },
   };
-}
-
-function createKeyboardShortcuts(): KeyboardShortcutProps[] {
-  return [
-    {
-      key: "x",
-      label: "Log to console",
-      item: new CommandItemDef({
-        commandId: "logToConsole",
-        iconSpec: "icon-placeholder",
-        execute: () => {
-          console.log("x");
-        },
-      }),
-    },
-    {
-      key: "m",
-      label: "Show shortcuts",
-      item: new CommandItemDef({
-        commandId: "showShortcutsMenu",
-        iconSpec: "icon-placeholder",
-        execute: () => {
-          UiFramework.keyboardShortcuts.displayMenu();
-        },
-      }),
-    },
-  ];
 }
 
 export interface KeyboardShortcutsStoryProps {
   /** If enabled adds additional key event processing to handle keyboard shortcuts. */
   processKeys: boolean;
+  /** List of keyboard shortcuts. */
+  shortcutList: KeyboardShortcutProps[];
 }
 
 /** [KeyboardShortcuts](https://www.itwinjs.org/reference/appui-react/keyboardshortcut/frameworkkeyboardshortcuts/) can be used to configure keyboard actions. */
-export function KeyboardShortcutsStory(props: KeyboardShortcutsStoryProps) {
+export function KeyboardShortcutsStory({
+  processKeys,
+  shortcutList,
+}: KeyboardShortcutsStoryProps) {
   const provider = createProvider();
   useDisableShortcuts();
   return (
     <>
-      {props.processKeys && <KeyboardShortcutHandler />}
+      {processKeys && <KeyboardShortcutHandler />}
       <AppUiStory
         itemProviders={[provider]}
         frontstageProviders={[
@@ -86,9 +61,7 @@ export function KeyboardShortcutsStory(props: KeyboardShortcutsStoryProps) {
           }),
         ]}
         onInitialize={async () => {
-          UiFramework.keyboardShortcuts.loadShortcuts(
-            createKeyboardShortcuts()
-          );
+          UiFramework.keyboardShortcuts.loadShortcuts(shortcutList);
         }}
       />
     </>
@@ -97,7 +70,7 @@ export function KeyboardShortcutsStory(props: KeyboardShortcutsStoryProps) {
 
 function KeyboardShortcutHandler() {
   React.useEffect(() => {
-    const handleKeyPress = (e: KeyboardEvent) => {
+    const handleKeyDown = (e: KeyboardEvent) => {
       if (e.target instanceof HTMLInputElement) return;
 
       UiFramework.keyboardShortcuts.processKey(
@@ -108,9 +81,9 @@ function KeyboardShortcutHandler() {
       );
     };
 
-    document.addEventListener("keypress", handleKeyPress);
+    document.addEventListener("keydown", handleKeyDown);
     return () => {
-      document.removeEventListener("keypress", handleKeyPress);
+      document.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
   return null;
