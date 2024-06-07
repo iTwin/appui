@@ -48,6 +48,7 @@ export interface ItemProps extends IconProps {
 
 /** Properties for a Tool item with a tool id.
  * @public
+ * @deprecated in 4.15.0. Use a custom type instead.
  */
 export interface ToolItemProps extends ItemProps, CommandHandler {
   toolId: string;
