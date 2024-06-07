@@ -26,11 +26,13 @@ import {
 } from "@itwin/core-frontend";
 import { ToolItemDef } from "../shared/ToolItemDef";
 import { BumpToolSetting, FocusToolSettings } from "../tools/ToolSettingsTools";
+import type { KeyboardShortcutUtilities } from "../keyboardshortcut/KeyboardShortcuUtilities";
 
 /* eslint-disable deprecation/deprecation */
 
 /** AccuDraw Command Items - useful in Keyboard Shortcuts
  * @beta
+ * @deprecated in 4.15.0. Use {@link KeyboardShortcutUtilities} instead.
  */
 export class AccuDrawCommandItems {
   public static get lockSmart() {

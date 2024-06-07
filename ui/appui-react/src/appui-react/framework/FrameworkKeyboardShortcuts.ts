@@ -5,32 +5,8 @@
 /** @packageDocumentation
  * @module KeyboardShortcut
  */
-import type { Key } from "ts-key-enum";
 import type { ActionButtonItemDef } from "../shared/ActionButtonItemDef";
 import type { ItemDefBase } from "../shared/ItemDefBase";
-import type { ItemProps } from "../shared/ItemProps";
-
-/** Properties for a Keyboard Shortcut
- * @public
- */
-export interface KeyboardShortcutProps extends ItemProps {
-  /** The key that invokes the shortcut.
-   * This is either an alphanumeric key, a function key or a special key.
-   */
-  key: string | Key;
-
-  /** The item to execute when this shortcut is invoked. Either 'item' or 'shortcuts' must be specified. */
-  item?: ActionButtonItemDef;
-  /** Nested array of shortcut props. Either 'item' or 'shortcuts' must be specified. */
-  shortcuts?: KeyboardShortcutProps[];
-
-  /** Indicates whether the Alt key required. Default - false */
-  isAltKeyRequired?: boolean;
-  /** Indicates whether the Ctrl key required. Default - false */
-  isCtrlKeyRequired?: boolean;
-  /** Indicates whether the Shift key required. Default - false */
-  isShiftKeyRequired?: boolean;
-}
 
 /** Keyboard Shortcut used to execute an action
  * @public

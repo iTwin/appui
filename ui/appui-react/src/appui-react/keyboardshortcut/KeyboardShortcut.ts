@@ -9,9 +9,9 @@
 import { UiError } from "@itwin/appui-abstract";
 import type { ActionButtonItemDef } from "../shared/ActionButtonItemDef";
 import { ItemDefBase } from "../shared/ItemDefBase";
-import type { KeyboardShortcutProps } from "../framework/FrameworkKeyboardShortcuts";
 import { UiFramework } from "../UiFramework";
 import { KeyboardShortcutMenu } from "./KeyboardShortcutMenu";
+import type { KeyboardShortcutProps } from "./KeyboardShortcutProps";
 
 enum FunctionKey {
   F1 = "F1",
@@ -77,7 +77,9 @@ export class KeyboardShortcut extends ItemDefBase {
 
     this._shortcuts = new KeyboardShortcutContainer();
 
+    // eslint-disable-next-line deprecation/deprecation
     if (props.item) {
+      // eslint-disable-next-line deprecation/deprecation
       this._item = props.item;
 
       // Copy over icon, label & tooltip from the item

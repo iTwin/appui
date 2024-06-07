@@ -6,9 +6,27 @@
  * @module AccuDraw
  */
 
-import type { KeyboardShortcutProps } from "../framework/FrameworkKeyboardShortcuts";
-import { AccuDrawCommandItems } from "./AccuDrawCommandItems";
+import {
+  AccuDrawChangeModeTool,
+  AccuDrawRotateAxesTool,
+  AccuDrawRotateCycleTool,
+  AccuDrawRotateElementTool,
+  AccuDrawRotateFrontTool,
+  AccuDrawRotateSideTool,
+  AccuDrawRotateTopTool,
+  AccuDrawRotateViewTool,
+  AccuDrawSetLockAngleTool,
+  AccuDrawSetLockDistanceTool,
+  AccuDrawSetLockSmartTool,
+  AccuDrawSetLockXTool,
+  AccuDrawSetLockYTool,
+  AccuDrawSetLockZTool,
+  AccuDrawSetOriginTool,
+} from "@itwin/core-frontend";
 import { FrameworkAccuDraw } from "./FrameworkAccuDraw";
+import { BumpToolSetting } from "../tools/ToolSettingsTools";
+import type { KeyboardShortcutProps } from "../keyboardshortcut/KeyboardShortcutProps";
+import { KeyboardShortcutUtilities } from "../keyboardshortcut/KeyboardShortcuUtilities";
 
 /** Default AccuDraw Keyboard Shortcuts
  *
@@ -30,85 +48,64 @@ export class AccuDrawKeyboardShortcuts {
         key: "a",
         labelKey: "UiFramework:accuDraw.subMenu",
         shortcuts: [
-          {
-            key: "s",
-            item: AccuDrawCommandItems.lockSmart,
-          },
-          {
-            key: "r",
-            item: AccuDrawCommandItems.setOrigin,
-          },
-          {
-            key: "t",
-            item: AccuDrawCommandItems.changeCompassMode,
-          },
-          {
-            key: "x",
-            item: AccuDrawCommandItems.lockX,
+          KeyboardShortcutUtilities.createForTool(
+            "s",
+            AccuDrawSetLockSmartTool
+          ),
+          KeyboardShortcutUtilities.createForTool("r", AccuDrawSetOriginTool),
+          KeyboardShortcutUtilities.createForTool("t", AccuDrawChangeModeTool),
+          KeyboardShortcutUtilities.createForTool("x", AccuDrawSetLockXTool, {
             isHidden: FrameworkAccuDraw.isPolarModeConditional,
-          },
-          {
-            key: "y",
-            item: AccuDrawCommandItems.lockY,
+          }),
+          KeyboardShortcutUtilities.createForTool("y", AccuDrawSetLockYTool, {
             isHidden: FrameworkAccuDraw.isPolarModeConditional,
-          },
-          {
-            key: "z",
-            item: AccuDrawCommandItems.lockZ,
+          }),
+          KeyboardShortcutUtilities.createForTool("z", AccuDrawSetLockZTool, {
             isHidden: FrameworkAccuDraw.isPolarModeConditional,
-          },
-          {
-            key: "a",
-            item: AccuDrawCommandItems.lockAngle,
-            isHidden: FrameworkAccuDraw.isRectangularModeConditional,
-          },
-          {
-            key: "d",
-            item: AccuDrawCommandItems.lockDistance,
-            isHidden: FrameworkAccuDraw.isRectangularModeConditional,
-          },
-          {
-            key: "b",
-            item: AccuDrawCommandItems.bumpToolSetting,
-          },
+          }),
+          KeyboardShortcutUtilities.createForTool(
+            "a",
+            AccuDrawSetLockAngleTool,
+            {
+              isHidden: FrameworkAccuDraw.isRectangularModeConditional,
+            }
+          ),
+          KeyboardShortcutUtilities.createForTool(
+            "d",
+            AccuDrawSetLockDistanceTool,
+            {
+              isHidden: FrameworkAccuDraw.isRectangularModeConditional,
+            }
+          ),
+          KeyboardShortcutUtilities.createForTool("b", BumpToolSetting),
         ],
       },
       {
         key: "r",
         labelKey: "UiFramework:accuDraw.rotateSubMenu",
         shortcuts: [
-          {
-            key: "t",
-            item: AccuDrawCommandItems.rotateTop,
+          KeyboardShortcutUtilities.createForTool("t", AccuDrawRotateTopTool, {
             isDisabled: FrameworkAccuDraw.isTopRotationConditional,
-          },
-          {
-            key: "s",
-            item: AccuDrawCommandItems.rotateSide,
+          }),
+          KeyboardShortcutUtilities.createForTool("s", AccuDrawRotateSideTool, {
             isDisabled: FrameworkAccuDraw.isSideRotationConditional,
-          },
-          {
-            key: "f",
-            item: AccuDrawCommandItems.rotateFront,
-            isDisabled: FrameworkAccuDraw.isFrontRotationConditional,
-          },
-          {
-            key: "v",
-            item: AccuDrawCommandItems.rotateView,
+          }),
+          KeyboardShortcutUtilities.createForTool(
+            "f",
+            AccuDrawRotateFrontTool,
+            {
+              isDisabled: FrameworkAccuDraw.isFrontRotationConditional,
+            }
+          ),
+          KeyboardShortcutUtilities.createForTool("v", AccuDrawRotateViewTool, {
             isDisabled: FrameworkAccuDraw.isViewRotationConditional,
-          },
-          {
-            key: "c",
-            item: AccuDrawCommandItems.rotateCycle,
-          },
-          {
-            key: "a",
-            item: AccuDrawCommandItems.rotateAxes,
-          },
-          {
-            key: "e",
-            item: AccuDrawCommandItems.rotateToElement,
-          },
+          }),
+          KeyboardShortcutUtilities.createForTool("c", AccuDrawRotateCycleTool),
+          KeyboardShortcutUtilities.createForTool("a", AccuDrawRotateAxesTool),
+          KeyboardShortcutUtilities.createForTool(
+            "e",
+            AccuDrawRotateElementTool
+          ),
         ],
       },
     ];
