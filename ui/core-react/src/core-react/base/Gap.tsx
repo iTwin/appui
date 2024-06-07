@@ -11,7 +11,7 @@ import type { CommonProps } from "../utils/Props";
 
 /** Properties for the [[Gap]] component.
  * @public
- * @deprecated in 4.12.x. Props of deprecated component {@link Gap}.
+ * @deprecated in 4.12.0. Props of deprecated component {@link Gap}.
  */
 // eslint-disable-next-line deprecation/deprecation
 export interface GapProps extends CommonProps {
@@ -20,7 +20,7 @@ export interface GapProps extends CommonProps {
 
 /** Horizontal gap or space React component. Defaults to 10px.
  * @public
- * @deprecated in 4.12.x. Use {@link https://itwinui.bentley.com/docs/flex iTwinUI Flex `gap`} or {@link https://itwinui.bentley.com/docs/variables#size iTwinUI size variables} instead.
+ * @deprecated in 4.12.0. Use {@link https://itwinui.bentley.com/docs/flex iTwinUI Flex `gap`} or {@link https://itwinui.bentley.com/docs/variables#size iTwinUI size variables} instead.
  */
 // eslint-disable-next-line deprecation/deprecation
 export function Gap(props: GapProps) {

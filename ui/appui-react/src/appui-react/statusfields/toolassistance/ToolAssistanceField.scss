@@ -16,33 +16,14 @@ $key-size-medium: 18px;
 $key-size-large: 36px;
 $key-size-modifier: 24px;
 
-.uifw-statusFields-toolassistance {
-  $font-size-medium: var(--iui-font-size-0);
-  $font-size-small: var(--iui-font-size-0) - 1px;
+.uifw-statusFields-toolAssistance-toolAssistanceField {
+  width: 30ch;
+  justify-content: flex-start;
 
-  overflow: hidden;
-  width: 20em;
-
-  @include for-tablet-landscape-down {
-    width: 16em;
-  }
-
-  @include for-tablet-portrait-down {
-    font-size: $font-size-medium;
-  }
-
-  @include for-phone-only {
-    font-size: $font-size-small;
-    width: 12em;
-  }
-
-  .nz-indicator {
-    display: flex;
-    flex: auto;
-
-    .nz-icons :nth-child(1) {
-      margin-right: 4px;
-    }
+  .prompt {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 

@@ -62,7 +62,7 @@ export class UiCore {
   }
 
   /** Calls localization.getLocalizedString with the "UiCore" namespace. Do NOT include the namespace in the key.
-   * @deprecated in 4.12.x. Do not use this internally, this is replaced by `useTranslation`.
+   * @deprecated in 4.12.0. Do not use this internally, this is replaced by `useTranslation`.
    * @internal
    */
   public static translate(key: string | string[]): string {

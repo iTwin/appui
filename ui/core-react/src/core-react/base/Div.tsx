@@ -12,7 +12,7 @@ import type { CommonDivProps } from "../utils/Props";
 
 /** Properties for the [[Div]] component
  * @public
- * @deprecated in 4.12.x. Props of deprecated component {@link Div}.
+ * @deprecated in 4.12.0. Props of deprecated component {@link Div}.
  */
 // eslint-disable-next-line deprecation/deprecation
 export interface DivProps extends CommonDivProps {
@@ -22,7 +22,7 @@ export interface DivProps extends CommonDivProps {
 
 /** Base div element React component
  * @public
- * @deprecated in 4.12.x. Use HTMLDivElement instead i.e. `<div />`.
+ * @deprecated in 4.12.0. Use HTMLDivElement instead i.e. `<div />`.
  */
 // eslint-disable-next-line deprecation/deprecation
 export function Div(props: DivProps) {

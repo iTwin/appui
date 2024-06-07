@@ -15,6 +15,6 @@ import type { CommonProps } from "@itwin/core-react";
  * @public
  */
 export function StatusBarSeparator(props: CommonProps) {
-  const className = classnames("uifw-statusbar-separator", props.className);
+  const className = classnames("uifw-statusBar-separator", props.className);
   return <div className={className} style={props.style} />;
 }

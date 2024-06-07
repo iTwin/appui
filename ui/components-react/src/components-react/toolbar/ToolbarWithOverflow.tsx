@@ -22,7 +22,7 @@ import { InternalToolbarComponent } from "./InternalToolbarComponent";
 
 /** Properties of [[ToolbarWithOverflow]] component.
  * @public
- * @deprecated in 4.0. Use [ToolbarWithOverflowProps]($appui-react) instead.
+ * @deprecated in 4.0.0. Use [ToolbarWithOverflowProps]($appui-react) instead.
  */
 // eslint-disable-next-line deprecation/deprecation
 export interface ToolbarWithOverflowProps extends CommonProps, NoChildrenProps {
@@ -47,7 +47,7 @@ export interface ToolbarWithOverflowProps extends CommonProps, NoChildrenProps {
 /** Component that displays toolbar items, displaying only the elements that can fit in the available space,
  * and put the other items into a single panel.
  * @public
- * @deprecated in 4.0. Use [ToolbarWithOverflow]($appui-react) instead.
+ * @deprecated in 4.0.0. Use [ToolbarWithOverflow]($appui-react) instead.
  */
 // eslint-disable-next-line deprecation/deprecation
 export function ToolbarWithOverflow(props: ToolbarWithOverflowProps) {

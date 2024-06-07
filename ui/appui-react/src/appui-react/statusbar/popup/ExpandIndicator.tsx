@@ -2,19 +2,14 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-.nz-base-ellipsis {
-  display: flex;
-  flex-direction: row;
+/** @packageDocumentation
+ * @module StatusBar
+ */
 
-  > .nz-dot {
-    $size: 0.25em;
-    width: $size;
-    height: $size;
-    border-radius: 50%;
-    background-color: currentColor;
+import * as React from "react";
+import "./ExpandIndicator.scss";
 
-    &:not(:first-child) {
-      margin-left: 3px;
-    }
-  }
+/** @internal */
+export function ButtonExpandIndicator() {
+  return <div className="uifw-statusBar-popup-expandIndicator" />;
 }

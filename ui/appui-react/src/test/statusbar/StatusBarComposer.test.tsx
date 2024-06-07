@@ -18,7 +18,6 @@ import type { StatusBarItem, UiItemsProvider } from "../../appui-react";
 import {
   FrontstageDef,
   StageUsage,
-  StatusBar,
   StatusBarComposer,
   StatusBarItemUtilities,
   StatusBarLabelSide,
@@ -127,11 +126,7 @@ describe("StatusBarComposer", () => {
 
   describe("StatusBarComposer", () => {
     it("StatusBarComposer should be instantiated", () => {
-      render(
-        <StatusBar>
-          <StatusBarComposer items={[]} />
-        </StatusBar>
-      );
+      render(<StatusBarComposer items={[]} />);
 
       expect(screen.getByRole("presentation")).to.satisfy(
         childStructure(".uifw-statusbar-space-between")
@@ -445,7 +440,7 @@ describe("StatusBarComposer", () => {
             return DOMRect.fromRect({ width: 1000 });
           } else if (this.classList.contains("uifw-statusbar-item-container")) {
             return DOMRect.fromRect({ width: 40 });
-          } else if (this.classList.contains("uifw-statusbar-overflow")) {
+          } else if (this instanceof HTMLButtonElement) {
             return DOMRect.fromRect({ width: 40 });
           }
 
@@ -518,7 +513,7 @@ describe("StatusBarComposer", () => {
             return DOMRect.fromRect({ width: 1600 });
           } else if (this.classList.contains("uifw-statusbar-item-container")) {
             return DOMRect.fromRect({ width: 40 });
-          } else if (this.classList.contains("uifw-statusbar-overflow")) {
+          } else if (this instanceof HTMLButtonElement) {
             return DOMRect.fromRect({ width: 40 });
           }
 
@@ -577,7 +572,7 @@ describe("StatusBarComposer", () => {
             return DOMRect.fromRect({ width: 168 }); // 4*42
           } else if (this.classList.contains("uifw-statusbar-item-container")) {
             return DOMRect.fromRect({ width: 40 });
-          } else if (this.classList.contains("uifw-statusbar-overflow")) {
+          } else if (this instanceof HTMLButtonElement) {
             return DOMRect.fromRect({ width: 40 });
           }
 
@@ -673,7 +668,7 @@ describe("StatusBarComposer", () => {
             return DOMRect.fromRect({ width: 84 }); // 2*42
           } else if (this.classList.contains("uifw-statusbar-item-container")) {
             return DOMRect.fromRect({ width: 40 });
-          } else if (this.classList.contains("uifw-statusbar-overflow")) {
+          } else if (this instanceof HTMLButtonElement) {
             return DOMRect.fromRect({ width: 40 });
           }
 
@@ -729,13 +724,11 @@ describe("StatusBarComposer", () => {
           ".uifw-statusbar-item-container"
         )
       ).lengthOf(1);
-      const overflow = renderedComponent.container.querySelector(
-        ".uifw-statusbar-overflow"
-      ) as HTMLDivElement;
+      const overflow = renderedComponent.getByRole("button");
       expect(overflow).toBeTruthy();
       fireEvent.click(overflow);
       const containerInPortal = renderedComponent.getByTestId(
-        "uifw-statusbar-overflow-items-container"
+        "uifw-statusbar-overflow-panel"
       );
       expect(
         containerInPortal.querySelectorAll(".uifw-statusbar-item-container")

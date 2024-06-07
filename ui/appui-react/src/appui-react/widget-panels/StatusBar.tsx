@@ -27,6 +27,7 @@ export function WidgetPanelsStatusBar(props: CommonProps) {
         ) as StatusBarWidgetControl | undefined)
       : undefined;
   return (
+    // eslint-disable-next-line deprecation/deprecation
     <StatusBar {...props} widgetControl={widgetControl}>
       {content}
     </StatusBar>

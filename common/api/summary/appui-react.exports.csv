@@ -509,7 +509,9 @@ public;StateManager
 public;StateType
 internal;stateVersion = 17
 public;StatusBar(props: StatusBarProps): React_2.JSX.Element
+deprecated;StatusBar(props: StatusBarProps): React_2.JSX.Element
 public;StatusBar
+deprecated;StatusBar
 public;StatusBarActionItem 
 public;StatusBarCenterSection(props: CommonDivProps): React_2.JSX.Element
 public;StatusBarComposer(props: StatusBarComposerProps): React_2.JSX.Element
@@ -520,7 +522,9 @@ beta;StatusBarDialog
 beta;StatusBarDialogProps 
 public;StatusBarFieldId = string | null
 beta;StatusBarIndicator(props: StatusBarIndicatorProps): React_2.JSX.Element
+deprecated;StatusBarIndicator(props: StatusBarIndicatorProps): React_2.JSX.Element
 beta;StatusBarIndicatorProps 
+deprecated;StatusBarIndicatorProps 
 public;StatusBarItem = StatusBarActionItem | StatusBarLabelItem | StatusBarCustomItem
 internal;StatusBarItemProps 
 public;StatusBarItemUtilities
@@ -528,10 +532,14 @@ beta;createActionItem(id: string, section: StatusBarSection, itemPriority: numbe
 beta;createCustomItem(id: string, section: StatusBarSection, itemPriority: number, content: React_2.ReactNode, overrides?: Partial
 beta;createLabelItem(id: string, section: StatusBarSection, itemPriority: number, icon: IconSpec, label: string | ConditionalStringValue, labelSide?: StatusBarLabelSide, overrides?: Partial
 beta;StatusBarLabelIndicator(props: StatusBarLabelIndicatorProps): React_2.JSX.Element
+deprecated;StatusBarLabelIndicator(props: StatusBarLabelIndicatorProps): React_2.JSX.Element
 beta;StatusBarLabelIndicatorProps 
+deprecated;StatusBarLabelIndicatorProps 
 public;StatusBarLabelItem 
 public;StatusBarLabelSide
 public;StatusBarLeftSection(props: CommonDivProps): React_2.JSX.Element
+public;StatusBarPopover(props: StatusBarPopoverProps): React_2.JSX.Element
+public;StatusBarPopover
 public;StatusBarProps 
 public;StatusBarRightSection(props: CommonDivProps): React_2.JSX.Element
 public;StatusBarSection

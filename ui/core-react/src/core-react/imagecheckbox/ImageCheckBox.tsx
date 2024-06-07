@@ -14,7 +14,7 @@ import type { CommonProps } from "../utils/Props";
 
 /** Properties for the [[ImageCheckBox]] component
  * @public
- * @deprecated in 4.12.x. Props of deprecated component {@link ImageCheckBox}.
+ * @deprecated in 4.12.0. Props of deprecated component {@link ImageCheckBox}.
  */
 // eslint-disable-next-line deprecation/deprecation
 export interface ImageCheckBoxProps extends CommonProps {
@@ -42,7 +42,7 @@ export interface ImageCheckBoxProps extends CommonProps {
 
 /** ImageCheckBox React component shows a checked or unchecked image
  * @public
- * @deprecated in 4.12.x. Use {@link https://itwinui.bentley.com/docs/checkbox iTwinUI checkbox} instead (custom icons are not supported at the moment, but feel free to submit your use cases).
+ * @deprecated in 4.12.0. Use {@link https://itwinui.bentley.com/docs/checkbox iTwinUI checkbox} instead (custom icons are not supported at the moment, but feel free to submit your use cases).
  */
 // eslint-disable-next-line deprecation/deprecation
 export class ImageCheckBox extends React.PureComponent<ImageCheckBoxProps> {

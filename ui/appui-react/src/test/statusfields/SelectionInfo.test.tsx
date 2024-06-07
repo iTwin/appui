@@ -8,19 +8,18 @@ import { render, waitFor } from "@testing-library/react";
 import {
   SelectionInfoField,
   SessionStateActionId,
-  StatusBar,
   UiFramework,
 } from "../../appui-react";
 import TestUtils from "../TestUtils";
+
+/* eslint-disable deprecation/deprecation */
 
 describe("SelectionInfoField", () => {
   it("SelectionInfoField should render with 0", () => {
     UiFramework.frameworkState!.sessionState.numItemsSelected = 0;
     const component = render(
       <Provider store={TestUtils.store}>
-        <StatusBar>
-          <SelectionInfoField />
-        </StatusBar>
+        <SelectionInfoField />
       </Provider>
     );
     expect(component).toBeTruthy();
@@ -32,9 +31,7 @@ describe("SelectionInfoField", () => {
     UiFramework.frameworkState!.sessionState.numItemsSelected = 1;
     const component = render(
       <Provider store={TestUtils.store}>
-        <StatusBar>
-          <SelectionInfoField />
-        </StatusBar>
+        <SelectionInfoField />
       </Provider>
     );
     expect(component).toBeTruthy();
@@ -45,9 +42,7 @@ describe("SelectionInfoField", () => {
   it("SelectionInfoField should update after Redux action", async () => {
     const component = render(
       <Provider store={TestUtils.store}>
-        <StatusBar>
-          <SelectionInfoField />
-        </StatusBar>
+        <SelectionInfoField />
       </Provider>
     );
     expect(component).toBeTruthy();

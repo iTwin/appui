@@ -38,7 +38,7 @@ export type CursorPopupProps = {
   onSizeKnown?: (size: SizeProps) => void;
 } & CommonProps & // eslint-disable-line deprecation/deprecation
   RequireAtLeastOne<{
-    relativePosition: RelativePosition /** @deprecated in 4.11.x. Use `placement` instead. */;
+    relativePosition: RelativePosition /** @deprecated in 4.11.0. Use `placement` instead. */;
     placement: Placement;
   }>;
 

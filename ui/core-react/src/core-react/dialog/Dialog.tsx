@@ -21,7 +21,7 @@ type ButtonProps = React.ComponentPropsWithoutRef<typeof Button>;
 
 /** Enum for dialog alignment
  * @public
- * @deprecated in 4.12.x. Enum used in a deprecated component {@link Dialog}.
+ * @deprecated in 4.12.0. Enum used in a deprecated component {@link Dialog}.
  */
 export enum DialogAlignment {
   TopLeft = "top-left",
@@ -37,7 +37,7 @@ export enum DialogAlignment {
 
 /** Properties for the [[Dialog]] component
  * @public
- * @deprecated in 4.12.x. Props of deprecated component {@link Dialog}.
+ * @deprecated in 4.12.0. Props of deprecated component {@link Dialog}.
  */
 export interface DialogProps
   extends Omit<React.AllHTMLAttributes<HTMLDivElement>, "title">,
@@ -117,7 +117,7 @@ export interface DialogProps
 
 /** Dialog React component with optional resizing and dragging functionality
  * @public
- * @deprecated in 4.12.x. Use {@link https://itwinui.bentley.com/docs/dialog iTwinUI dialog} instead.
+ * @deprecated in 4.12.0. Use {@link https://itwinui.bentley.com/docs/dialog iTwinUI dialog} instead.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class Dialog extends React.Component<DialogProps> {
@@ -309,7 +309,7 @@ export class Dialog extends React.Component<DialogProps> {
     }
   }
 
-  /** @deprecated in 4.12.x. Use iTwinUI Button instead. */
+  /** @deprecated in 4.12.0. Use iTwinUI Button instead. */
   protected getFooterButtons(
     buttonCluster: DialogButtonDef[] | undefined,
     primaryStyleType: ButtonProps["styleType"] = "cta",

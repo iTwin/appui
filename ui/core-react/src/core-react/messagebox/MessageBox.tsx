@@ -136,7 +136,7 @@ export class MessageContainer extends React.PureComponent<MessageContainerProps>
   /** Returns the class name associated with the WebFont icon corresponding to the MessageSeverity.
    * @param severity MessageSeverity
    * @param hollow Should the icon be hollow
-   * @deprecated in 4.0. Hollow parameter ignored, WebFont is not returned, only the color.
+   * @deprecated in 4.0.0. Hollow parameter ignored, WebFont is not returned, only the color.
    */
   public static getIconClassName(
     severity: MessageSeverity,

@@ -74,6 +74,7 @@ import { OutputMessageType } from '@itwin/core-frontend';
 import type { PlaybackSettings } from '@itwin/imodel-components-react';
 import { Point } from '@itwin/core-react';
 import type { Point2d } from '@itwin/core-geometry';
+import { Popover } from '@itwin/itwinui-react';
 import type { PopupProps } from '@itwin/core-react';
 import type { Primitives } from '@itwin/appui-abstract';
 import type { PropertyDescription } from '@itwin/appui-abstract';
@@ -1419,7 +1420,7 @@ export type CursorPopupProps = {
     shadow?: boolean;
     onSizeKnown?: (size: SizeProps) => void;
 } & CommonProps & RequireAtLeastOne<{
-    relativePosition: RelativePosition /** @deprecated in 4.11.x. Use `placement` instead. */;
+    relativePosition: RelativePosition /** @deprecated in 4.11.0. Use `placement` instead. */;
     placement: Placement;
 }>;
 
@@ -4301,14 +4302,14 @@ export type StateType<R extends Reducer<any, any>> = DeepReadonly<ReturnType<R>>
 // @internal (undocumented)
 export const stateVersion = 17;
 
-// @public
+// @public @deprecated
 export function StatusBar(props: StatusBarProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export namespace StatusBar {
-    const // @beta
+    const // @beta @deprecated
     Field: React_2.ForwardRefExoticComponent<StatusBarFieldProps & React_2.RefAttributes<HTMLDivElement>>;
-    const // @beta
+    const // @beta @deprecated
     Popup: typeof StatusBarPopup;
 }
 
@@ -4358,10 +4359,10 @@ export interface StatusBarDialogProps extends CommonProps {
 // @public
 export type StatusBarFieldId = string | null;
 
-// @beta
+// @beta @deprecated
 export function StatusBarIndicator(props: StatusBarIndicatorProps): React_2.JSX.Element;
 
-// @beta
+// @beta @deprecated
 export interface StatusBarIndicatorProps extends CommonProps {
     children?: React_2.ReactNode;
     defaultIsOpen?: boolean;
@@ -4394,10 +4395,10 @@ export namespace StatusBarItemUtilities {
     export function createLabelItem(id: string, section: StatusBarSection, itemPriority: number, icon: IconSpec, label: string | ConditionalStringValue, labelSide?: StatusBarLabelSide, overrides?: Partial<StatusBarLabelItem>): StatusBarLabelItem;
 }
 
-// @beta
+// @beta @deprecated
 export function StatusBarLabelIndicator(props: StatusBarLabelIndicatorProps): React_2.JSX.Element;
 
-// @beta
+// @beta @deprecated
 export interface StatusBarLabelIndicatorProps extends Omit<StatusBarIndicatorProps, "children"> {
     iconSpec?: IconSpec;
     label?: string;
@@ -4419,6 +4420,14 @@ export enum StatusBarLabelSide {
 
 // @public
 export function StatusBarLeftSection(props: CommonDivProps): React_2.JSX.Element;
+
+// @public
+export function StatusBarPopover(props: StatusBarPopoverProps): React_2.JSX.Element;
+
+// @public
+export namespace StatusBarPopover {
+    const ExpandIndicator: typeof ButtonExpandIndicator;
+}
 
 // @public
 export interface StatusBarProps extends CommonProps {

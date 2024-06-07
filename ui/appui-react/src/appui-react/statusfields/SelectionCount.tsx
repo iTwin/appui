@@ -12,7 +12,6 @@ import { Icon } from "@itwin/core-react";
 import { SvgCursor } from "@itwin/itwinui-icons-react";
 import classnames from "classnames";
 import * as React from "react";
-import { FooterIndicator } from "../layout/footer/Indicator";
 import "./SelectionCount.scss";
 
 /** Properties for the [[SelectionCountField]] component.
@@ -33,10 +32,10 @@ export function SelectionCountField(props: SelectionCountFieldProps) {
     props.className
   );
   return (
-    <FooterIndicator className={className} style={props.style}>
+    <div className={className} style={props.style}>
       <Icon iconSpec={<SvgCursor />} />
       {props.count}
-    </FooterIndicator>
+    </div>
   );
 }
 
@@ -59,9 +58,6 @@ export function useSelectionSetSize(args: UseSelectionSetSizeArgs): number {
       return;
     }
     setSize(iModel.selectionSet.size);
-  }, [iModel]);
-  React.useEffect(() => {
-    if (!iModel) return;
     return iModel.selectionSet.onChanged.addListener((ev) => {
       setSize(ev.set.size);
     });

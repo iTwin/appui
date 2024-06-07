@@ -15,15 +15,15 @@ import {
   ViewClipDecorationProvider,
 } from "@itwin/core-frontend";
 import type { CommonProps } from "@itwin/core-react";
-import { Button, ToggleSwitch } from "@itwin/itwinui-react";
+import { Icon } from "@itwin/core-react";
+import { Button, IconButton, ToggleSwitch } from "@itwin/itwinui-react";
 import classnames from "classnames";
 import * as React from "react";
 import { useActiveViewport } from "../hooks/useActiveViewport";
-import { StatusBarLabelIndicator } from "../statusbar/LabelIndicator";
-import { StatusBar } from "../statusbar/StatusBar";
 import { StatusBarDialog } from "../statusbar/dialog/Dialog";
 import "./SectionsField.scss";
 import { useTranslation } from "../hooks/useTranslation";
+import { StatusBarPopover } from "../statusbar/popup/StatusBarPopover";
 
 /** Sections Status Field Props
  * @beta
@@ -43,8 +43,6 @@ export function SectionsStatusField(props: SectionsStatusFieldProps) {
   const activeViewport = useActiveViewport();
   const [showIndicator, setShowIndicator] = React.useState(false);
   const [isPopupOpen, setPopupOpen] = React.useState(false);
-  const targetDiv = React.useRef<HTMLDivElement>(null);
-  const classes = showIndicator ? "uifw-field-fade-in" : "uifw-field-fade-out";
   const [hasManipulatorsShown, setHasManipulatorsShown] = React.useState(false);
 
   React.useEffect(() => {
@@ -95,21 +93,12 @@ export function SectionsStatusField(props: SectionsStatusFieldProps) {
   };
 
   return (
-    <div className="uifw-section-footer-popup-container">
+    <>
       {showIndicator && (
-        <>
-          <div ref={targetDiv} title={tooltip}>
-            <StatusBarLabelIndicator
-              className={classes}
-              iconSpec={svgSectionTool}
-              onClick={() => setPopupOpen(!isPopupOpen)}
-            />
-          </div>
-          <StatusBar.Popup
-            target={targetDiv.current}
-            onClose={() => setPopupOpen(false)}
-            isOpen={isPopupOpen}
-          >
+        <StatusBarPopover
+          visible={isPopupOpen}
+          onVisibleChange={setPopupOpen}
+          content={
             <StatusBarDialog
               titleBar={<StatusBarDialog.TitleBar title={tooltip} />}
             >
@@ -129,9 +118,14 @@ export function SectionsStatusField(props: SectionsStatusFieldProps) {
                 </div>
               </div>
             </StatusBarDialog>
-          </StatusBar.Popup>
-        </>
+          }
+        >
+          <IconButton title={tooltip} styleType="borderless">
+            <Icon iconSpec={svgSectionTool} />
+            <StatusBarPopover.ExpandIndicator />
+          </IconButton>
+        </StatusBarPopover>
       )}
-    </div>
+    </>
   );
 }

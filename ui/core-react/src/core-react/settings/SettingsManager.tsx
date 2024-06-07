@@ -37,14 +37,14 @@ export interface SettingsTabEntry {
 
 /** Event class for [[this.onSettingsProvidersChanged]] which is emitted when a new SettingsTabsProvider is added or removed.
  * @public
- * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
+ * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class SettingsProvidersChangedEvent extends BeUiEvent<SettingsProvidersChangedEventArgs> {}
 
 /** Arguments of [[this.onSettingsProvidersChanged]] event.
  * @public
- * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
+ * @deprecated in 4.13.0. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface SettingsProvidersChangedEventArgs {
   readonly providers: ReadonlyArray<SettingsTabsProvider>;
@@ -53,14 +53,14 @@ export interface SettingsProvidersChangedEventArgs {
 /** Event class for [[this.onProcessSettingsTabActivation]] which is emitted when a new Tab needs to be activated. This allows the current
  * settings page to save its settings before activating the new SettingTab.
  * @public
- * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
+ * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class ProcessSettingsTabActivationEvent extends BeUiEvent<ProcessSettingsTabActivationEventArgs> {}
 
 /** Arguments of [[this.onProcessSettingsTabActivation]] event.
  * @public
- * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
+ * @deprecated in 4.13.0. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface ProcessSettingsTabActivationEventArgs {
   readonly tabSelectionFunc: (tabId: string) => void;
@@ -70,14 +70,14 @@ export interface ProcessSettingsTabActivationEventArgs {
 /** Event class for [[this.onProcessSettingsContainerClose]] which is emitted when the settings container will be closed. This allows the current
  * settings page to save its settings before calling the function to close the container.
  * @public
- * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
+ * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class ProcessSettingsContainerCloseEvent extends BeUiEvent<ProcessSettingsContainerCloseEventArgs> {}
 
 /** Arguments of [[this.onProcessSettingsContainerClose]] event.
  * @public
- * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
+ * @deprecated in 4.13.0. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface ProcessSettingsContainerCloseEventArgs {
   readonly closeFunc: (args: any) => void;
@@ -86,14 +86,14 @@ export interface ProcessSettingsContainerCloseEventArgs {
 
 /** Event class for [[this.onActivateSettingsTab]] which is emitted when API call needs to set the active settings tab (ie via Tool key-in).
  * @public
- * @deprecated in 4.13.x. This class should not be used by applications to instantiate objects.
+ * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class ActivateSettingsTabEvent extends BeUiEvent<ActivateSettingsTabEventArgs> {}
 
 /** Arguments of [[this.onActivateSettingsTab]] event.
  * @public
- * @deprecated in 4.13.x. Event args are inferred from a listener. If explicit type is needed use a type helper.
+ * @deprecated in 4.13.0. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface ActivateSettingsTabEventArgs {
   readonly settingsTabId: string;

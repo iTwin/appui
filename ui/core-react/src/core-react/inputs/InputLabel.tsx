@@ -24,7 +24,7 @@ import type {
 
 /** Properties for [[InputLabel]] components
  * @public
- * @deprecated in 4.12.x. Props of deprecated component {@link InputLabel}.
+ * @deprecated in 4.12.0. Props of deprecated component {@link InputLabel}.
  */
 export interface InputLabelProps
   // eslint-disable-next-line deprecation/deprecation
@@ -49,7 +49,7 @@ const inputLabelIconSpec: { [key: string]: IconSpec } = {
 
 /** Text input wrapper that provides additional styling and labeling
  * @public
- * @deprecated in 4.12.x. Use {@link https://itwinui.bentley.com/docs/input iTwinUI input} instead.
+ * @deprecated in 4.12.0. Use {@link https://itwinui.bentley.com/docs/input iTwinUI input} instead.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class InputLabel extends React.PureComponent<InputLabelProps> {

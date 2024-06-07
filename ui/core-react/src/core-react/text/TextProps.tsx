@@ -11,7 +11,7 @@ import type { CommonProps } from "../utils/Props";
 
 /** Properties for various text components
  * @public
- * @deprecated in 4.12.x. Props of deprecated text components.
+ * @deprecated in 4.12.0. Props of deprecated text components.
  */
 export interface TextProps
   extends React.AllHTMLAttributes<HTMLSpanElement>,

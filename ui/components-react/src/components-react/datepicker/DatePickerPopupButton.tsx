@@ -21,7 +21,7 @@ import { useTranslation } from "../useTranslation";
 
 /** Props used by [[DatePickerPopupButton]] component.
  * @alpha
- * @deprecated in 4.11.x. Props of deprecated component {@link DatePickerPopupButton}.
+ * @deprecated in 4.11.0. Props of deprecated component {@link DatePickerPopupButton}.
  */
 // eslint-disable-next-line deprecation/deprecation
 export interface DatePickerPopupButtonProps extends CommonProps {
@@ -46,7 +46,7 @@ export interface DatePickerPopupButtonProps extends CommonProps {
 
 /** Component that displays a button used to pick a date and optionally a time.
  * @alpha
- * @deprecated in 4.11.x. Use {@link https://itwinui.bentley.com/docs/datepicker iTwinUI date picker} instead.
+ * @deprecated in 4.11.0. Use {@link https://itwinui.bentley.com/docs/datepicker iTwinUI date picker} instead.
  */
 export function DatePickerPopupButton({
   displayEditField,
