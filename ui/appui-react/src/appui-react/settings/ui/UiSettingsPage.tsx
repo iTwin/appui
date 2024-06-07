@@ -35,7 +35,7 @@ import { ConfigurableUiActionId } from "../../redux/ConfigurableUiState";
  * - snap widget opacity - triggers an abrupt change from transparent to opaque for tool and navigation widgets, instead of a gradual change based on mouse location.
  * - widget opacity - determines how transparent floating widgets become when the mouse in not in them.
  * @beta
- * @deprecated in 4.14.x. Use iTwinUI components to build a settings page.
+ * @deprecated in 4.15.0. Use iTwinUI components to build a settings page.
  */
 export function UiSettingsPage() {
   const { translate } = useTranslation();

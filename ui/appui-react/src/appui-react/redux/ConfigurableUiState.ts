@@ -27,7 +27,7 @@ import type { ToolbarDragInteractionContext } from "../toolbar/DragInteraction";
  *  Since these are also used as sync ids they should be in lowercase.
  * @note This is used by sync UI event APIs.
  * @public
- * @deprecated in 4.14.x. Use your preferred state management library instead.
+ * @deprecated in 4.15.0. Use your preferred state management library instead.
  */
 export enum ConfigurableUiActionId {
   SetSnapMode = "configurableui:set_snapmode",
@@ -45,30 +45,30 @@ export enum ConfigurableUiActionId {
 
 /** The portion of state managed by the ConfigurableUiReducer.
  * @public
- * @deprecated in 4.14.x. Use your preferred state management library instead.
+ * @deprecated in 4.15.0. Use your preferred state management library instead.
  */
 export interface ConfigurableUiState {
-  /** @deprecated in 4.14.x. Use `snapMode` prop of {@link SnapModeField} instead. */
+  /** @deprecated in 4.15.0. Use `snapMode` prop of {@link SnapModeField} instead. */
   snapMode: number;
-  /** @deprecated in 4.14.x. Not used by AppUI components. */
+  /** @deprecated in 4.15.0. Not used by AppUI components. */
   toolPrompt: string;
-  /** @deprecated in 4.14.x. Use `theme` prop of {@link ThemeManager} instead. */
+  /** @deprecated in 4.15.0. Use `theme` prop of {@link ThemeManager} instead. */
   theme: string;
-  /** @deprecated in 4.14.x. Use `widgetOpacity` prop of {@link ConfigurableUiContent} instead. */
+  /** @deprecated in 4.15.0. Use `widgetOpacity` prop of {@link ConfigurableUiContent} instead. */
   widgetOpacity: number;
-  /** @deprecated in 4.14.x. Use `useDragInteraction` prop of {@link Toolbar} or {@link ToolbarDragInteractionContext}. */
+  /** @deprecated in 4.15.0. Use `useDragInteraction` prop of {@link Toolbar} or {@link ToolbarDragInteractionContext}. */
   useDragInteraction: boolean;
-  /** @deprecated in 4.14.x. Use `widgetIcon` prop of {@link ConfigurableUiContent} instead. */
+  /** @deprecated in 4.15.0. Use `widgetIcon` prop of {@link ConfigurableUiContent} instead. */
   showWidgetIcon: boolean;
-  /** @deprecated in 4.14.x. Use `collapsePanels` prop of {@link ConfigurableUiContent} instead. */
+  /** @deprecated in 4.15.0. Use `collapsePanels` prop of {@link ConfigurableUiContent} instead. */
   autoCollapseUnpinnedPanels: boolean;
-  /** @deprecated in 4.14.x. Use `viewOverlay` prop of {@link ConfigurableUiContent} instead. */
+  /** @deprecated in 4.15.0. Use `viewOverlay` prop of {@link ConfigurableUiContent} instead. */
   viewOverlayDisplay: boolean;
-  /** @deprecated in 4.14.x. Use `animateToolSettings` prop of {@link ConfigurableUiContent} instead. */
+  /** @deprecated in 4.15.0. Use `animateToolSettings` prop of {@link ConfigurableUiContent} instead. */
   animateToolSettings: boolean;
-  /** @deprecated in 4.14.x. Use `animateToolSettings` prop of {@link ConfigurableUiContent} instead. */
+  /** @deprecated in 4.15.0. Use `animateToolSettings` prop of {@link ConfigurableUiContent} instead. */
   useToolAsToolSettingsLabel: boolean;
-  /** @deprecated in 4.14.x. Use `toolbarOpacity` prop of {@link ConfigurableUiContent}. */
+  /** @deprecated in 4.15.0. Use `toolbarOpacity` prop of {@link ConfigurableUiContent}. */
   toolbarOpacity: number;
 }
 
@@ -89,7 +89,7 @@ const initialConfigurableUiState: ConfigurableUiState = {
 
 /** An object with a function that creates each ConfigurableUiReducer that can be handled by our reducer.
  * @public
- * @deprecated in 4.14.x. Use your preferred state management library instead.
+ * @deprecated in 4.15.0. Use your preferred state management library instead.
  */
 export const ConfigurableUiActions = {
   setSnapMode: (snapMode: number) =>
@@ -134,7 +134,7 @@ export const ConfigurableUiActions = {
 
 /** Union of ConfigurableUi Redux actions
  * @public
- * @deprecated in 4.14.x. Use your preferred state management library instead.
+ * @deprecated in 4.15.0. Use your preferred state management library instead.
  */
 export type ConfigurableUiActionsUnion = ActionsUnion<
   typeof ConfigurableUiActions
@@ -142,7 +142,7 @@ export type ConfigurableUiActionsUnion = ActionsUnion<
 
 /** Handles actions to update ConfigurableUiState.
  * @public
- * @deprecated in 4.14.x. Use your preferred state management library instead.
+ * @deprecated in 4.15.0. Use your preferred state management library instead.
  */
 export function ConfigurableUiReducer(
   state: ConfigurableUiState = initialConfigurableUiState,

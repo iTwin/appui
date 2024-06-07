@@ -247,7 +247,7 @@ export class UiFramework {
   /** Called by the application to initialize the UiFramework. Also initializes UIIModelComponents, UiComponents, UiCore.
    * @param store The single Redux store created by the host application. If this is `undefined` then it is assumed that the [[StateManager]] is being used to provide the Redux store.
    * @param frameworkStateKey The name of the key used by the app when adding the UiFramework state into the Redux store. If not defined "frameworkState" is assumed. This value is ignored if [[StateManager]] is being used. The StateManager use "frameworkState".
-   * @deprecated in 4.14.x. Continue using redux initializer until all application components react to redux deprecations. Use overload without parameters instead.
+   * @deprecated in 4.15.0. Continue using redux initializer until all application components react to redux deprecations. Use overload without parameters instead.
    */
   public static async initialize(
     store: Store<any> | undefined,
@@ -1059,7 +1059,7 @@ export class UiFramework {
 
   /* eslint-disable deprecation/deprecation */
 
-  /** @deprecated in 4.14.x. Use your preferred state management library instead and {@link SyncUiEventDispatcher} to dispatch sync UI events. */
+  /** @deprecated in 4.15.0. Use your preferred state management library instead and {@link SyncUiEventDispatcher} to dispatch sync UI events. */
   public static dispatchActionToStore(
     type: string,
     payload: any,
@@ -1074,7 +1074,7 @@ export class UiFramework {
   }
 
   /** Key used to access framework state from redux store.
-   * @deprecated in 4.14.x. Use your preferred state management library instead.
+   * @deprecated in 4.15.0. Use your preferred state management library instead.
    */
   public static get frameworkStateKey(): string {
     return UiFramework._frameworkStateKeyInStore;
@@ -1082,7 +1082,7 @@ export class UiFramework {
 
   /** The Redux store.
    * @note Requires redux provider.
-   * @deprecated in 4.14.x. Use your preferred state management library instead.
+   * @deprecated in 4.15.0. Use your preferred state management library instead.
    */
   public static get store(): Store<any> {
     const reduxStore = this.reduxStore;
@@ -1112,7 +1112,7 @@ export class UiFramework {
   /** The UiFramework state maintained by Redux.
    * @note Returned fields should not be modified. Use the appropriate action dispatchers to modify the state.
    * @note Requires redux provider.
-   * @deprecated in 4.14.x. Use your preferred state management library instead.
+   * @deprecated in 4.15.0. Use your preferred state management library instead.
    */
   public static get frameworkState(): ReduxFrameworkState | undefined {
     const store = UiFramework.reduxStore;
@@ -1123,7 +1123,7 @@ export class UiFramework {
 
   /** Set the theme value used by the [[ThemeManager]] component.
    * @note Requires redux provider.
-   * @deprecated in 4.14.x. Components should take `theme` as a prop.
+   * @deprecated in 4.15.0. Components should take `theme` as a prop.
    */
   public static getColorTheme(): ThemeId {
     return (
@@ -1134,7 +1134,7 @@ export class UiFramework {
 
   /** Set the theme value used by the [[ThemeManager]] component.
    * @note Requires redux provider.
-   * @deprecated in 4.14.x. Use `theme` prop of {@link ThemeManager}.
+   * @deprecated in 4.15.0. Use `theme` prop of {@link ThemeManager}.
    */
   public static setColorTheme(theme: ThemeId) {
     if (UiFramework.getColorTheme() === theme) return;
@@ -1148,7 +1148,7 @@ export class UiFramework {
 
   /** Returns the variable controlling whether the overlay is displayed in a Viewport.
    * @note Requires redux provider.
-   * @deprecated in 4.14.x. Components should take `viewOverlay` as a prop.
+   * @deprecated in 4.15.0. Components should take `viewOverlay` as a prop.
    */
   public static get viewOverlayDisplay() {
     return (
@@ -1158,7 +1158,7 @@ export class UiFramework {
 
   /** Set the variable that controls display of the view overlay. Applies to all viewports in the app.
    * @note Requires redux provider.
-   * @deprecated in 4.14.x. Use {@link ConfigurableUiContentProps.viewOverlay} prop of {@link ConfigurableUiContent}.
+   * @deprecated in 4.15.0. Use {@link ConfigurableUiContentProps.viewOverlay} prop of {@link ConfigurableUiContent}.
    */
   public static setViewOverlayDisplay(display: boolean) {
     if (UiFramework.viewOverlayDisplay === display) return;
@@ -1171,7 +1171,7 @@ export class UiFramework {
 
   /**
    * @note Requires redux provider.
-   * @deprecated in 4.14.x. Components should take `widgetOpacity` as a prop.
+   * @deprecated in 4.15.0. Components should take `widgetOpacity` as a prop.
    */
   public static getWidgetOpacity(): number {
     return (
@@ -1182,7 +1182,7 @@ export class UiFramework {
 
   /**
    * @note Requires redux provider.
-   * @deprecated in 4.14.x. Use {@link ConfigurableUiContentProps.widgetOpacity} prop of {@link ConfigurableUiContent}.
+   * @deprecated in 4.15.0. Use {@link ConfigurableUiContentProps.widgetOpacity} prop of {@link ConfigurableUiContent}.
    */
   public static setWidgetOpacity(opacity: number) {
     if (UiFramework.getWidgetOpacity() === opacity) return;
@@ -1196,7 +1196,7 @@ export class UiFramework {
 
   /**
    * @note Requires redux provider.
-   * @deprecated in 4.14.x. Components should take `snapMode` as a prop.
+   * @deprecated in 4.15.0. Components should take `snapMode` as a prop.
    */
   public static getAccudrawSnapMode(): SnapMode {
     return (
@@ -1207,7 +1207,7 @@ export class UiFramework {
 
   /**
    * @note Requires redux provider.
-   * @deprecated in 4.14.x. Use `snapMode` prop of {@link SnapModeField}.
+   * @deprecated in 4.15.0. Use `snapMode` prop of {@link SnapModeField}.
    */
   public static setAccudrawSnapMode(snapMode: SnapMode) {
     UiFramework.dispatchActionToStore(
@@ -1219,7 +1219,7 @@ export class UiFramework {
 
   /**
    * @note Requires redux provider.
-   * @deprecated in 4.14.x. Components should take `useDragInteraction` as a prop.
+   * @deprecated in 4.15.0. Components should take `useDragInteraction` as a prop.
    */
   public static get useDragInteraction(): boolean {
     return (
@@ -1230,7 +1230,7 @@ export class UiFramework {
 
   /**
    * @note Requires redux provider.
-   * @deprecated in 4.14.x. Use `useDragInteraction` prop of {@link Toolbar}.
+   * @deprecated in 4.15.0. Use `useDragInteraction` prop of {@link Toolbar}.
    */
   public static setUseDragInteraction(useDragInteraction: boolean) {
     UiFramework.dispatchActionToStore(
@@ -1242,7 +1242,7 @@ export class UiFramework {
 
   /**
    * @note Requires redux provider.
-   * @deprecated in 4.14.x. Components should take `widgetIcon` as a prop.
+   * @deprecated in 4.15.0. Components should take `widgetIcon` as a prop.
    */
   public static get showWidgetIcon(): boolean {
     return (
@@ -1252,7 +1252,7 @@ export class UiFramework {
 
   /**
    * @note Requires redux provider.
-   * @deprecated in 4.14.x. Use {@link ConfigurableUiContentProps.widgetIcon} prop of {@link ConfigurableUiContent}.
+   * @deprecated in 4.15.0. Use {@link ConfigurableUiContentProps.widgetIcon} prop of {@link ConfigurableUiContent}.
    */
   public static setShowWidgetIcon(value: boolean) {
     if (UiFramework.showWidgetIcon === value) return;
@@ -1267,7 +1267,7 @@ export class UiFramework {
   /** When `true`, panels will close as soon as the mouse leave the panel.
    * When `false` (default), panels will close on next click outside the panel.
    * @note Requires redux provider.
-   * @deprecated in 4.14.x. Components should take `collapsePanels` as a prop.
+   * @deprecated in 4.15.0. Components should take `collapsePanels` as a prop.
    */
   public static get autoCollapseUnpinnedPanels(): boolean {
     return (
@@ -1280,7 +1280,7 @@ export class UiFramework {
    * mouse leaves the widget panel. The default behavior is to require a mouse click outside
    * the panel before it is closed.
    * @note Requires redux provider.
-   * @deprecated in 4.14.x. Use {@link ConfigurableUiContentProps.collapsePanels} prop of {@link ConfigurableUiContent}.
+   * @deprecated in 4.15.0. Use {@link ConfigurableUiContentProps.collapsePanels} prop of {@link ConfigurableUiContent}.
    */
   public static setAutoCollapseUnpinnedPanels(value: boolean) {
     if (UiFramework.autoCollapseUnpinnedPanels === value) return;
@@ -1294,7 +1294,7 @@ export class UiFramework {
 
   /** Animate Tool Settings on appear.
    * @note Requires redux provider.
-   * @deprecated in 4.14.x. Components should take `animateToolSettings` as a prop.
+   * @deprecated in 4.15.0. Components should take `animateToolSettings` as a prop.
    */
   public static get animateToolSettings(): boolean {
     return (
@@ -1305,7 +1305,7 @@ export class UiFramework {
 
   /**
    * @note Requires redux provider.
-   * @deprecated in 4.14.x. Use {@link ConfigurableUiContentProps.animateToolSettings} prop of {@link ConfigurableUiContent}.
+   * @deprecated in 4.15.0. Use {@link ConfigurableUiContentProps.animateToolSettings} prop of {@link ConfigurableUiContent}.
    */
   public static setAnimateToolSettings(value: boolean) {
     if (UiFramework.animateToolSettings === value) return;
@@ -1318,7 +1318,7 @@ export class UiFramework {
 
   /** Use Tool Name As Tool Settings Widget Tab Label.
    * @note Requires redux provider.
-   * @deprecated in 4.14.x. Components should take `toolAsToolSettingsLabel` as a prop.
+   * @deprecated in 4.15.0. Components should take `toolAsToolSettingsLabel` as a prop.
    */
   public static get useToolAsToolSettingsLabel(): boolean {
     return (
@@ -1329,7 +1329,7 @@ export class UiFramework {
 
   /**
    * @note Requires redux provider.
-   * @deprecated in 4.14.x. Use {@link ConfigurableUiContentProps.toolAsToolSettingsLabel} prop of {@link ConfigurableUiContent}.
+   * @deprecated in 4.15.0. Use {@link ConfigurableUiContentProps.toolAsToolSettingsLabel} prop of {@link ConfigurableUiContent}.
    */
   public static setUseToolAsToolSettingsLabel(value: boolean) {
     if (UiFramework.useToolAsToolSettingsLabel === value) return;
@@ -1342,7 +1342,7 @@ export class UiFramework {
 
   /** UiFramework.getToolbarOpacity() returns a number between 0 and 1 that is the non-hovered opacity for toolbars.
    * @note Requires redux provider.
-   * @deprecated in 4.14.x. Components should take `opacity` as a prop.
+   * @deprecated in 4.15.0. Components should take `opacity` as a prop.
    */
   public static getToolbarOpacity(): number {
     return (
@@ -1354,7 +1354,7 @@ export class UiFramework {
   /** UiFramework.setToolbarOpacity() sets the non-hovered opacity to the value specified.
    * @param opacity a value between 0 and 1. The default value is 0.5. IT IS NOT ADVISED TO USE A VALUE BELOW 0.2
    * @note Requires redux provider.
-   * @deprecated in 4.14.x. Use {@link ConfigurableUiContentProps.toolbarOpacity} prop of {@link ConfigurableUiContent}.
+   * @deprecated in 4.15.0. Use {@link ConfigurableUiContentProps.toolbarOpacity} prop of {@link ConfigurableUiContent}.
    */
   public static setToolbarOpacity(opacity: number) {
     if (UiFramework.getToolbarOpacity() === opacity) return;
@@ -1368,7 +1368,7 @@ export class UiFramework {
 
   /**
    * @note Requires redux provider.
-   * @deprecated in 4.14.x. Get id from iModel connection.
+   * @deprecated in 4.15.0. Get id from iModel connection.
    */
   public static getActiveIModelId(): string {
     return UiFramework.frameworkState?.sessionState.iModelId ?? "";
@@ -1376,7 +1376,7 @@ export class UiFramework {
 
   /**
    * @note Requires redux provider.
-   * @deprecated in 4.14.x. Not used by AppUI components.
+   * @deprecated in 4.15.0. Not used by AppUI components.
    */
   public static setActiveIModelId(iModelId: string): void {
     UiFramework.dispatchActionToStore(
@@ -1387,7 +1387,7 @@ export class UiFramework {
 
   /** Returns the stored active selection scope id.
    * @note Requires redux provider.
-   * @deprecated in 4.14.x. Components should take `activeScope` as a prop.
+   * @deprecated in 4.15.0. Components should take `activeScope` as a prop.
    */
   public static getActiveSelectionScope(): string {
     return (
@@ -1400,7 +1400,7 @@ export class UiFramework {
    * This event should be listened to and the change should typically be applied to
    * `Presentation.selection.scopes.activeScope` property from the `@itwin/presentation-frontend` package.
    * @note Requires redux provider.
-   * @deprecated in 4.14.x. Use `activeScope` prop of {@link SelectionScopeField}.
+   * @deprecated in 4.15.0. Use `activeScope` prop of {@link SelectionScopeField}.
    */
   public static setActiveSelectionScope(selectionScopeId: string): void {
     if (!UiFramework.frameworkState) return;
@@ -1424,7 +1424,7 @@ export class UiFramework {
    * method found in the `@itwin/presentation-frontend` package.
    * @note Returned value is immutable.
    * @note Requires redux provider.
-   * @deprecated in 4.14.x. Components should take `selectionScopes` as a prop.
+   * @deprecated in 4.15.0. Components should take `selectionScopes` as a prop.
    */
   public static getAvailableSelectionScopes(): PresentationSelectionScope[] {
     return (
@@ -1436,7 +1436,7 @@ export class UiFramework {
 
   /**
    * @note Requires redux provider.
-   * @deprecated in 4.14.x. Not used by AppUI components.
+   * @deprecated in 4.15.0. Not used by AppUI components.
    */
   public static getDefaultIModelViewportControlId(): string | undefined {
     return (
@@ -1447,7 +1447,7 @@ export class UiFramework {
 
   /**
    * @note Requires redux provider.
-   * @deprecated in 4.14.x. Not used by AppUI components.
+   * @deprecated in 4.15.0. Not used by AppUI components.
    */
   public static setDefaultIModelViewportControlId(
     iModelViewportControlId: string,
@@ -1462,7 +1462,7 @@ export class UiFramework {
 
   /**
    * @note Requires redux provider.
-   * @deprecated in 4.14.x. Not used by AppUI components.
+   * @deprecated in 4.15.0. Not used by AppUI components.
    */
   public static getDefaultViewId(): string | undefined {
     return UiFramework.frameworkState?.sessionState.defaultViewId ?? undefined;
@@ -1470,7 +1470,7 @@ export class UiFramework {
 
   /**
    * @note Requires redux provider.
-   * @deprecated in 4.14.x. Not used by AppUI components.
+   * @deprecated in 4.15.0. Not used by AppUI components.
    */
   public static setDefaultViewId(viewId: string, immediateSync = false) {
     UiFramework.dispatchActionToStore(

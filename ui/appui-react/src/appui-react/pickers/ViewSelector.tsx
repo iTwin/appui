@@ -471,7 +471,7 @@ type IModelConnectedViewSelectorProps = Omit<
 /** ViewSelector that is connected to the IModelConnection property in the Redux store. The application must set up the Redux store and include the FrameworkReducer.
  * @note Requires redux provider.
  * @beta
- * @deprecated in 4.14.x. Use {@link ViewSelector} instead.
+ * @deprecated in 4.15.0. Use {@link ViewSelector} instead.
  */
 export function IModelConnectedViewSelector(
   props: IModelConnectedViewSelectorProps

@@ -19,7 +19,7 @@ import { ConfigurableUiActionId } from "../redux/ConfigurableUiState";
 
 /** Default values that may be specified for [[AppUiSettings]].
  * @public
- * @deprecated in 4.14.x. Interface used in a deprecated class {@link AppUiSettings}.
+ * @deprecated in 4.15.0. Interface used in a deprecated class {@link AppUiSettings}.
  */
 export interface InitialAppUiSettings {
   colorTheme: ThemeId;
@@ -42,7 +42,7 @@ export interface InitialAppUiSettings {
  * UiFramework.registerUserSettingsProvider(new AppUiSettings(defaults));
  * ```
  * @public
- * @deprecated in 4.14.x. Use {@link @itwin/core-react#UiStateStorage} to persist UI settings.
+ * @deprecated in 4.15.0. Use {@link @itwin/core-react#UiStateStorage} to persist UI settings.
  */
 export class AppUiSettings implements UserSettingsProvider {
   public readonly providerId = "AppUiSettingsProvider";

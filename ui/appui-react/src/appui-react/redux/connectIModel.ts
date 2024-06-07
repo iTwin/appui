@@ -66,7 +66,7 @@ const iModelAndViewMapStateToProps = (mapStateToProps: any) => {
  * @param mapStateToProps optional user function that, if defined, will be executed to provide additional properties from store.
  * @param mapDispatchToProps data passed to Redux connect function.
  * @public
- * @deprecated in 4.14.x. Components should take iModel connection as props.
+ * @deprecated in 4.15.0. Components should take iModel connection as props.
  */
 export const connectIModelConnection = (
   mapStateToProps?: any,
@@ -92,7 +92,7 @@ export const connectIModelConnection = (
  *
  *  //  this then allows connected control to update the store using a call like shown below.
  *  this.props.setNumItemsSelected(30);
- * @deprecated in 4.14.x. Components should take iModel connection and view state as props.
+ * @deprecated in 4.15.0. Components should take iModel connection and view state as props.
  */
 export const connectIModelConnectionAndViewState = (
   mapStateToProps?: any,

@@ -28,7 +28,7 @@ export interface CursorMenuPayload {
 /** PresentationSelectionScope holds the id and the localized label for a selection scope supported for a specific iModel.
  * Added to avoid an api-extract error caused by using SelectionScope.
  * @public
- * @deprecated in 4.14.x Use `selectionScopes` prop of {@link SelectionScopeField} component.
+ * @deprecated in 4.15.0 Use `selectionScopes` prop of {@link SelectionScopeField} component.
  */
 export interface PresentationSelectionScope {
   id: string;
@@ -50,7 +50,7 @@ export interface CursorMenuData {
  * Since these are also used as sync ids they should be in lowercase.
  * @note This is used by sync UI event APIs.
  * @public
- * @deprecated in 4.14.x. Use your preferred state management library instead.
+ * @deprecated in 4.15.0. Use your preferred state management library instead.
  */
 export enum SessionStateActionId {
   SetNumItemsSelected = "sessionstate:set-num-items-selected",
@@ -66,28 +66,28 @@ export enum SessionStateActionId {
 
 /** The portion of state managed by the SessionStateReducer.
  * @public
- * @deprecated in 4.14.x. Use your preferred state management library instead.
+ * @deprecated in 4.15.0. Use your preferred state management library instead.
  */
 export interface SessionState {
-  /** @deprecated in 4.14.x. Use {@link UiFramework.getNumItemsSelected} instead. */
+  /** @deprecated in 4.15.0. Use {@link UiFramework.getNumItemsSelected} instead. */
   numItemsSelected: number;
-  /** @deprecated in 4.14.x. Use `selectionScopes` prop of {@link SelectionScopeField} instead. */
+  /** @deprecated in 4.15.0. Use `selectionScopes` prop of {@link SelectionScopeField} instead. */
   availableSelectionScopes: PresentationSelectionScope[];
-  /** @deprecated in 4.14.x. Use `activeScope` prop of {@link SelectionScopeField} instead. */
+  /** @deprecated in 4.15.0. Use `activeScope` prop of {@link SelectionScopeField} instead. */
   activeSelectionScope: string;
-  /** @deprecated in 4.14.x. Not used by AppUI components. */
+  /** @deprecated in 4.15.0. Not used by AppUI components. */
   iModelId: string;
-  /** @deprecated in 4.14.x. Not used by AppUI components. */
+  /** @deprecated in 4.15.0. Not used by AppUI components. */
   defaultIModelViewportControlId: string | undefined;
-  /** @deprecated in 4.14.x. Not used by AppUI components. */
+  /** @deprecated in 4.15.0. Not used by AppUI components. */
   defaultViewId: string | undefined;
-  /** @deprecated in 4.14.x. Use {@link UiFramework.getDefaultViewState} or {@link useActiveIModelConnection} instead. */
+  /** @deprecated in 4.15.0. Use {@link UiFramework.getDefaultViewState} or {@link useActiveIModelConnection} instead. */
   defaultViewState: any;
-  /** @deprecated in 4.14.x. Use {@link UiFramework.getIModelConnection} or {@link useActiveIModelConnection} instead. */
+  /** @deprecated in 4.15.0. Use {@link UiFramework.getIModelConnection} or {@link useActiveIModelConnection} instead. */
   iModelConnection: any;
   /** @deprecated in 4.11.x use {@link CursorMenuPayload} instead */
   cursorMenuData: CursorMenuData | undefined;
-  /** @deprecated in 4.14.x. Use cursor APIs of {@link UiFramework}. */
+  /** @deprecated in 4.15.0. Use cursor APIs of {@link UiFramework}. */
   cursorMenuPayload: CursorMenuPayload | undefined;
 }
 
@@ -116,7 +116,7 @@ const initialSessionState: SessionState = {
 
 /** An interface that allows redux connected object to dispatch changes to the SessionState reducer.
  * @beta
- * @deprecated in 4.14.x. Use your preferred state management library instead.
+ * @deprecated in 4.15.0. Use your preferred state management library instead.
  */
 export interface SessionStateActionsProps {
   setActiveIModelId: typeof SessionStateActions.setActiveIModelId;
@@ -132,7 +132,7 @@ export interface SessionStateActionsProps {
 
 /** An object with a function that creates each SessionStateReducer that can be handled by our reducer.
  * @public
- * @deprecated in 4.14.x. Use your preferred state management library instead.
+ * @deprecated in 4.15.0. Use your preferred state management library instead.
  */
 export const SessionStateActions = {
   setActiveIModelId: (iModelId: string) =>
@@ -166,19 +166,19 @@ export const SessionStateActions = {
 /** Object that contains available actions that modify SessionState. Parent control's props should
  * extend from SessionStateActionsProps before using this in Redux 'connect' function.
  * @beta
- * @deprecated in 4.14.x. Use your preferred state management library instead.
+ * @deprecated in 4.15.0. Use your preferred state management library instead.
  */
 export const sessionStateMapDispatchToProps = { ...SessionStateActions };
 
 /** Union of SessionState Redux actions
  * @public
- * @deprecated in 4.14.x. Use your preferred state management library instead.
+ * @deprecated in 4.15.0. Use your preferred state management library instead.
  */
 export type SessionStateActionsUnion = ActionsUnion<typeof SessionStateActions>;
 
 /** Handles actions to update SessionState.
  * @public
- * @deprecated in 4.14.x. Use your preferred state management library instead.
+ * @deprecated in 4.15.0. Use your preferred state management library instead.
  */
 export function SessionStateReducer(
   state: SessionState = initialSessionState,

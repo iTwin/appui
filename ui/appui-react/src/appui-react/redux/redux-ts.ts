@@ -12,14 +12,14 @@ import { combineReducers as baseCombineReducers } from "redux";
 
 /** Shorthand for "any function".  TSLint doesn't like the built-in `Function` type for some reason.
  * @public
- * @deprecated in 4.14.x. Use `(...args: any[]) => any` instead.
+ * @deprecated in 4.15.0. Use `(...args: any[]) => any` instead.
  */
 export type FunctionType = (...args: any[]) => any;
 
 /** Similar to the built-in [Readonly](https://www.typescriptlang.org/docs/handbook/advanced-types.html#mapped-types), type alias but applied recursively.
  * This basically makes all nested properties/members of an object/array immutable.
  * @public
- * @deprecated in 4.14.x. Use your state management types instead.
+ * @deprecated in 4.15.0. Use your state management types instead.
  */
 export type DeepReadonly<T> = T extends ReadonlyArray<infer R>
   ? R extends object
@@ -33,13 +33,13 @@ export type DeepReadonly<T> = T extends ReadonlyArray<infer R>
 
 /** TypeScript doesn't actually allow recursive type aliases, so these are just sort of a hack to make DeepReadonly work
  * @public
- * @deprecated in 4.14.x. Use your state management types instead.
+ * @deprecated in 4.15.0. Use your state management types instead.
  */
 export type DeepReadonlyArray<T> = ReadonlyArray<DeepReadonly<T>>;
 
 /** TypeScript doesn't actually allow recursive type aliases, so these are just sort of a hack to make DeepReadonly work
  * @public
- * @deprecated in 4.14.x. Use your state management types instead.
+ * @deprecated in 4.15.0. Use your state management types instead.
  */
 export type DeepReadonlyObject<T> = {
   readonly [P in keyof T]: DeepReadonly<T[P]>;
@@ -53,7 +53,7 @@ export type DeepReadonlyObject<T> = {
  *
  * See the [TS Handbook](https://www.typescriptlang.org/docs/handbook/advanced-types.html#string-literal-types) for more info on TypeScript string literal types.
  * @public
- * @deprecated in 4.14.x. Use your state management types instead.
+ * @deprecated in 4.15.0. Use your state management types instead.
  */
 export interface Action<T extends string> {
   type: T;
@@ -65,7 +65,7 @@ export interface Action<T extends string> {
  * However, in order to simplify TypeScript typings, we follow this [Flux Standard Actions](https://github.com/redux-utilities/flux-standard-action)-like
  * convention, where all additional action information goes into a `payload` property.
  * @public
- * @deprecated in 4.14.x. Use your state management types instead.
+ * @deprecated in 4.15.0. Use your state management types instead.
  */
 export interface ActionWithPayload<T extends string, P> extends Action<T> {
   payload: P;
@@ -88,7 +88,7 @@ export interface ActionWithPayload<T extends string, P> extends Action<T> {
  * Note that the generic type parameters can always be omitted - TypeScript will be able to infer them.
  * @param type The string to use as the action's type property. Should have a [string literal type](https://www.typescriptlang.org/docs/handbook/advanced-types.html#string-literal-types).
  * @public
- * @deprecated in 4.14.x. Use your state management types instead, i.e. {@link https://redux-toolkit.js.org/api/createAction createAction} from `@reduxjs/toolkit` instead.
+ * @deprecated in 4.15.0. Use your state management types instead, i.e. {@link https://redux-toolkit.js.org/api/createAction createAction} from `@reduxjs/toolkit` instead.
  */
 export function createAction<T extends string>(type: T): Action<T>;
 
@@ -111,7 +111,7 @@ export function createAction<T extends string>(type: T): Action<T>;
  * @param type The string to use as the action's type property. Should have a [string literal type](https://www.typescriptlang.org/docs/handbook/advanced-types.html#string-literal-types).
  * @param payload The value to use as the action's payload property. May be of any type.
  * @public
- * @deprecated in 4.14.x. Use {@link https://redux-toolkit.js.org/api/createAction createAction} from `@reduxjs/toolkit` instead.
+ * @deprecated in 4.15.0. Use {@link https://redux-toolkit.js.org/api/createAction createAction} from `@reduxjs/toolkit` instead.
  */
 export function createAction<T extends string, P>(
   type: T,
@@ -125,7 +125,7 @@ export function createAction<T extends string, P>(type: T, payload?: P) {
 
 /** Just an object where every property is a Redux [Action Creator](https://redux.js.org/basics/actions#action-creators).
  * @public
- * @deprecated in 4.14.x. Use your state management types instead.
+ * @deprecated in 4.15.0. Use your state management types instead.
  */
 export interface ActionCreatorsObject {
   [actionCreatorName: string]: FunctionType;
@@ -150,7 +150,7 @@ export interface ActionCreatorsObject {
  *            | ActionWithPayload<"ORANGE", number>;
  * ```
  * @public
- * @deprecated in 4.14.x. Use your state management types instead.
+ * @deprecated in 4.15.0. Use your state management types instead.
  */
 export type ActionsUnion<A extends ActionCreatorsObject> = ReturnType<
   A[keyof A]
@@ -173,7 +173,7 @@ export type ActionsUnion<A extends ActionCreatorsObject> = ReturnType<
  *   type X = "BANANA" | "APPLE" | "ORANGE";
  * ```
  * @public
- * @deprecated in 4.14.x. Use your state management types instead.
+ * @deprecated in 4.15.0. Use your state management types instead.
  */
 export type ActionTypes<A extends Action<any>> = A["type"] extends infer X
   ? X extends string
@@ -183,7 +183,7 @@ export type ActionTypes<A extends Action<any>> = A["type"] extends infer X
 
 /** A Redux [Reducer](https://redux.js.org/basics/reducers).
  * @public
- * @deprecated in 4.14.x. Use your state management types instead.
+ * @deprecated in 4.15.0. Use your state management types instead.
  */
 export type Reducer<S, A> = (state: S, action: A) => S;
 
@@ -191,7 +191,7 @@ export type Reducer<S, A> = (state: S, action: A) => S;
  *
  * If you have created a type-safe reducer function using `combineReducers`, you can use this to infer your actions union type instead of having to define it manually.
  * @public
- * @deprecated in 4.14.x. Use your state management types instead.
+ * @deprecated in 4.15.0. Use your state management types instead.
  */
 export type ReducerActions<R> = R extends Reducer<any, infer X>
   ? X extends ActionWithPayload<infer T, infer P>
@@ -205,7 +205,7 @@ export type ReducerActions<R> = R extends Reducer<any, infer X>
  *
  * If you have created a type-safe reducer function using `combineReducers`, you can use this to infer your state type instead of having to define it manually.
  * @public
- * @deprecated in 4.14.x. Use your state management types instead.
+ * @deprecated in 4.15.0. Use your state management types instead.
  */
 export type StateType<R extends Reducer<any, any>> = DeepReadonly<
   ReturnType<R>
@@ -214,7 +214,7 @@ export type StateType<R extends Reducer<any, any>> = DeepReadonly<
 /** So we don't actually need to implement our own version of combineReducers, but we are going to cast it
  * to this type, which will do a better job of preserving/deducing the Action and State types.
  * @public
- * @deprecated in 4.14.x. Use your state management types instead.
+ * @deprecated in 4.15.0. Use your state management types instead.
  */
 export type CombineReducersFunction = <A>(
   reducers: A
@@ -226,7 +226,7 @@ export type CombineReducersFunction = <A>(
 /** A type alias which represents the state created by the reducer returned by combineReducers for a given `reducers` argument.
  * Used above by `CombineReducersFunction`, our custom type definition for combineReducers.
  * @public
- * @deprecated in 4.14.x. Use your state management types instead.
+ * @deprecated in 4.15.0. Use your state management types instead.
  */
 export type CombinedReducerState<R> = {
   readonly [K in keyof R]: R[K] extends FunctionType ? StateType<R[K]> : never;
@@ -235,7 +235,7 @@ export type CombinedReducerState<R> = {
 /** A type alias which represents the union type of all actions handled by the reducer returned by combineReducers for a given `reducers` argument.
  * Used above by `CombineReducersFunction`, our custom type definition for combineReducers.
  * @public
- * @deprecated in 4.14.x. Use your state management types instead.
+ * @deprecated in 4.15.0. Use your state management types instead.
  */
 export type ReducerMapActions<R> = ReducerActions<R[keyof R]>;
 
@@ -257,7 +257,7 @@ export type ReducerMapActions<R> = ReducerActions<R[keyof R]>;
  * Returns: A reducer function that invokes every reducer inside the passed
  *   object, and builds a state object with the same shape.
  * @public
- * @deprecated in 4.14.x. Use your state management APIs instead.
+ * @deprecated in 4.15.0. Use your state management APIs instead.
  */
 export const combineReducers: CombineReducersFunction =
   baseCombineReducers as any;

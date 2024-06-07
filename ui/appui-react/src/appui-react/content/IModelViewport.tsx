@@ -32,7 +32,7 @@ import { ConfigurableUiContext } from "../configurableui/ConfigurableUiContent";
 /** Viewport that is connected to the IModelConnection property in the Redux store. The application must set up the Redux store and include the FrameworkReducer.
  * @note Requires redux provider.
  * @public
- * @deprecated in 4.14.x. Use {@link @itwin/imodel-components-react#ViewportComponent} instead.
+ * @deprecated in 4.15.0. Use {@link @itwin/imodel-components-react#ViewportComponent} instead.
  */
 export function IModelConnectedViewport(
   props: Omit<ViewportProps, "imodel" | "viewState">

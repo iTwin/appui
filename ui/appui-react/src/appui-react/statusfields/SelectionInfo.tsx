@@ -15,7 +15,7 @@ import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState";
  * It is used to display the number of items in a selection set.
  * @note Requires redux provider.
  * @public
- * @deprecated in 4.14.x. Use {@link SelectionCountField} instead.
+ * @deprecated in 4.15.0. Use {@link SelectionCountField} instead.
  */
 export function SelectionInfoField(props: CommonProps) {
   const numItemsSelected = useReduxFrameworkState(
