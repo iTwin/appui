@@ -9,7 +9,6 @@
 import { Logger } from "@itwin/core-bentley";
 import type { IModelConnection } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
-import { SessionStateActionId } from "../redux/SessionState";
 import { UiFramework } from "../UiFramework";
 import type { UiSyncEvent } from "./UiSyncEvent";
 import { InternalSyncUiEventDispatcher } from "./InternalSyncUiEventDispatcher";
@@ -264,10 +263,7 @@ export class SyncUiEventDispatcher {
       }),
       iModelConnection.selectionSet.onChanged.addListener((ev) => {
         const numSelected = ev.set.elements.size;
-        UiFramework.dispatchActionToStore(
-          SessionStateActionId.SetNumItemsSelected,
-          numSelected
-        );
+        UiFramework.setNumItemsSelected(numSelected);
       })
     );
   }

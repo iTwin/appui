@@ -281,6 +281,7 @@ export function getToggleCustomOverlayCommandItemDef() {
     execute: () => {
       const showCustomViewOverlay =
         getTestProviderState().showCustomViewOverlay;
+      // eslint-disable-next-line deprecation/deprecation
       StateManager.store.dispatch(
         setShowCustomViewOverlay(!showCustomViewOverlay)
       );

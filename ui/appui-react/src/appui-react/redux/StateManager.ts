@@ -6,30 +6,30 @@
  * @module State
  */
 
-// cSpell:ignore DEVTOOLS
-
 import type { ReducersMapObject, Store } from "redux";
 import { combineReducers, createStore } from "redux";
 import { Logger } from "@itwin/core-bentley";
 import { UiError } from "@itwin/appui-abstract";
-import type { FrameworkState } from "./FrameworkState";
-import { FrameworkReducer } from "./FrameworkState";
+import { FrameworkReducer, type FrameworkState } from "./FrameworkState";
 import type { NameToReducerMap } from "./ReducerRegistry";
 import { ReducerRegistryInstance } from "./ReducerRegistry";
+
+/* eslint-disable deprecation/deprecation */
 
 /** Generic 'root' state for the appui-react package. Since this state contains common values needed by many applications
  * it is automatically added to the Redux store when using [[StateManager]].
  * @beta
+ * @deprecated in 4.15.0. Use your preferred state management library instead.
  */
 export interface FrameworkRootState {
   frameworkState: FrameworkState;
 }
 
-/**
- * Centralized state management class using  Redux actions, reducers and store. This class monitors the ReducerRegistry and will
- * automatically update the store when a new reducer is registered.  This allows the store to be incrementally constructed as modules
+/** Centralized state management class using Redux actions, reducers and store. This class monitors the ReducerRegistry and will
+ * automatically update the store when a new reducer is registered. This allows the store to be incrementally constructed as modules
  * and/or extensions are loaded.
  * @public
+ * @deprecated in 4.15.0. Use your preferred state management library instead.
  */
 export class StateManager {
   private static _LOG_CATEGORY = "StateManager";

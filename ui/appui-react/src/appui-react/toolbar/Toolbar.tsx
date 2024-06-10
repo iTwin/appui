@@ -42,7 +42,7 @@ export interface ToolbarProps extends CommonProps, NoChildrenProps {
   items: ToolbarItem[];
   /** Describes how expanded panels are aligned. Defaults to: [[ToolbarPanelAlignment.Start]] */
   panelAlignment?: ToolbarPanelAlignment;
-  /** Use Drag Interaction to open popups with nest action buttons */
+  /** Use drag interaction to open popups with nested toolbar buttons. */
   useDragInteraction?: boolean;
   /** Determines whether to use mouse proximity to alter the opacity of the toolbar */
   toolbarOpacitySetting?: ToolbarOpacitySetting;

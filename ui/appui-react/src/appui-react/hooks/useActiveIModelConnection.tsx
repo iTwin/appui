@@ -25,6 +25,7 @@ export function useActiveIModelConnection(): IModelConnection | undefined {
   useEffect(() => {
     // eslint-disable-next-line deprecation/deprecation
     const handleSyncUiEvent = (args: UiSyncEventArgs): void => {
+      // eslint-disable-next-line deprecation/deprecation
       const eventIds = [SessionStateActionId.SetIModelConnection];
       if (
         eventIds.some((value: string): boolean =>

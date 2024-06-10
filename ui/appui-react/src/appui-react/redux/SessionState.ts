@@ -6,17 +6,29 @@
  * @module State
  */
 
-// The following definitions are causing extract-api issues on linux so for now just using any until we can figure out the issue.
 import type { XAndY } from "@itwin/core-geometry";
-// import { IModelConnection, ViewState } from "@itwin/core-frontend";
 import type { CursorMenuItemProps, MenuItemProps } from "../shared/MenuItem";
 import type { ActionsUnion, DeepReadonly } from "./redux-ts";
+import type { UiFramework } from "../UiFramework";
 import { createAction } from "./redux-ts";
-// cSpell:ignore configurableui snapmode toolprompt sessionstate imodelid viewid viewportid rulesetid
+import type { useActiveIModelConnection } from "../hooks/useActiveIModelConnection";
+import { SelectionScopeField } from "../statusfields/SelectionScope";
+
+/** Definition of a cursor menu. If menuItems are empty the menu control is not displayed.
+ * @public
+ */
+export interface CursorMenuPayload {
+  position: XAndY;
+  childWindowId?: string;
+  items: CursorMenuItemProps[];
+}
+
+/* eslint-disable deprecation/deprecation */
 
 /** PresentationSelectionScope holds the id and the localized label for a selection scope supported for a specific iModel.
  * Added to avoid an api-extract error caused by using SelectionScope.
  * @public
+ * @deprecated in 4.15.0. Use `selectionScopes` prop of {@link SelectionScopeField} component.
  */
 export interface PresentationSelectionScope {
   id: string;
@@ -26,29 +38,19 @@ export interface PresentationSelectionScope {
 /** Definition of data added to Redux store to define cursor menu.  If menuItems are empty the menu control is not displayed.
  * To close the menu clear the menuItems or pass in undefined as the CursorData.
  * @public
- * @deprecated in 4.11.x use {@link CursorMenuPayload} instead.
+ * @deprecated in 4.11.0. Use {@link CursorMenuPayload} instead.
  */
 export interface CursorMenuData {
   position: XAndY;
   childWindowId?: string;
-  // eslint-disable-next-line deprecation/deprecation
   items: MenuItemProps[];
 }
 
-/**
- * Definition of data added to Redux store to define cursor menu.  If menuItems are empty the menu control is not displayed.
- * To close the menu clear the menuItems or pass in undefined as the CursorData.
- * @public
- */
-export interface CursorMenuPayload {
-  position: XAndY;
-  childWindowId?: string;
-  items: CursorMenuItemProps[];
-}
-
 /** Action Ids used by Redux and to send sync UI components. Typically used to refresh visibility or enable state of control.
- *  Since these are also used as sync ids they should be in lowercase.
+ * Since these are also used as sync ids they should be in lowercase.
+ * @note This is used by sync UI event APIs.
  * @public
+ * @deprecated in 4.15.0. Use your preferred state management library instead.
  */
 export enum SessionStateActionId {
   SetNumItemsSelected = "sessionstate:set-num-items-selected",
@@ -64,28 +66,38 @@ export enum SessionStateActionId {
 
 /** The portion of state managed by the SessionStateReducer.
  * @public
+ * @deprecated in 4.15.0. Use your preferred state management library instead.
  */
 export interface SessionState {
+  /** @deprecated in 4.15.0. Use {@link UiFramework.getNumItemsSelected} instead. */
   numItemsSelected: number;
+  /** @deprecated in 4.15.0. Use `selectionScopes` prop of {@link SelectionScopeField} instead. */
   availableSelectionScopes: PresentationSelectionScope[];
+  /** @deprecated in 4.15.0. Use `activeScope` prop of {@link SelectionScopeField} instead. */
   activeSelectionScope: string;
+  /** @deprecated in 4.15.0. Not used by AppUI components. */
   iModelId: string;
+  /** @deprecated in 4.15.0. Not used by AppUI components. */
   defaultIModelViewportControlId: string | undefined;
+  /** @deprecated in 4.15.0. Not used by AppUI components. */
   defaultViewId: string | undefined;
+  /** @deprecated in 4.15.0. Use {@link UiFramework.getDefaultViewState} or {@link useActiveIModelConnection} instead. */
   defaultViewState: any;
+  /** @deprecated in 4.15.0. Use {@link UiFramework.getIModelConnection} or {@link useActiveIModelConnection} instead. */
   iModelConnection: any;
-  // eslint-disable-next-line deprecation/deprecation
-  cursorMenuData: CursorMenuData | undefined; // @deprecated in 4.11.x use {@link CursorMenuPayload} instead
+  /** @deprecated in 4.11.0. Use {@link CursorMenuPayload} instead */
+  cursorMenuData: CursorMenuData | undefined;
+  /** @deprecated in 4.15.0. Use cursor APIs of {@link UiFramework}. */
   cursorMenuPayload: CursorMenuPayload | undefined;
 }
 
 const defaultSelectionScope = {
   id: "element",
   label: "Element",
-} as PresentationSelectionScope;
+} as const satisfies PresentationSelectionScope;
 
-/** used on first call of SessionStateReducer */
-const initialState: SessionState = {
+/** Used on first call of SessionStateReducer. */
+const initialSessionState: SessionState = {
   /** number of selected items in Presentation Selection */
   numItemsSelected: 0,
   /** initialize to only support "Element" scope, this will be overwritten when iModelConnection is established */
@@ -98,12 +110,13 @@ const initialState: SessionState = {
   defaultViewId: undefined,
   defaultViewState: undefined,
   iModelConnection: undefined,
-  cursorMenuData: undefined, // @deprecated in 4.11.x use {@link SessionState.cursorMenuPayload} instead
+  cursorMenuData: undefined, // @deprecated in 4.11.0. Use {@link SessionState.cursorMenuPayload} instead
   cursorMenuPayload: undefined,
 };
 
 /** An interface that allows redux connected object to dispatch changes to the SessionState reducer.
  * @beta
+ * @deprecated in 4.15.0. Use your preferred state management library instead.
  */
 export interface SessionStateActionsProps {
   setActiveIModelId: typeof SessionStateActions.setActiveIModelId;
@@ -119,6 +132,7 @@ export interface SessionStateActionsProps {
 
 /** An object with a function that creates each SessionStateReducer that can be handled by our reducer.
  * @public
+ * @deprecated in 4.15.0. Use your preferred state management library instead.
  */
 export const SessionStateActions = {
   setActiveIModelId: (iModelId: string) =>
@@ -145,29 +159,29 @@ export const SessionStateActions = {
     createAction(SessionStateActionId.SetIModelConnection, iModelConnection),
   setSelectionScope: (activeSelectionScope: string) =>
     createAction(SessionStateActionId.SetSelectionScope, activeSelectionScope),
-  updateCursorMenu:
-    // eslint-disable-next-line deprecation/deprecation
-    (cursorMenuData: CursorMenuData | CursorMenuPayload) =>
-      createAction(SessionStateActionId.UpdateCursorMenu, cursorMenuData),
+  updateCursorMenu: (cursorMenuData: CursorMenuData | CursorMenuPayload) =>
+    createAction(SessionStateActionId.UpdateCursorMenu, cursorMenuData),
 };
 
 /** Object that contains available actions that modify SessionState. Parent control's props should
  * extend from SessionStateActionsProps before using this in Redux 'connect' function.
  * @beta
+ * @deprecated in 4.15.0. Use your preferred state management library instead.
  */
-// ...SessionStateActionsProps
 export const sessionStateMapDispatchToProps = { ...SessionStateActions };
 
 /** Union of SessionState Redux actions
  * @public
+ * @deprecated in 4.15.0. Use your preferred state management library instead.
  */
 export type SessionStateActionsUnion = ActionsUnion<typeof SessionStateActions>;
 
 /** Handles actions to update SessionState.
  * @public
+ * @deprecated in 4.15.0. Use your preferred state management library instead.
  */
 export function SessionStateReducer(
-  state: SessionState = initialState,
+  state: SessionState = initialSessionState,
   action: SessionStateActionsUnion
 ): DeepReadonly<SessionState> {
   switch (action.type) {
@@ -210,7 +224,6 @@ export function SessionStateReducer(
       return {
         ...state,
         cursorMenuPayload: action.payload as CursorMenuPayload,
-        // eslint-disable-next-line deprecation/deprecation
         cursorMenuData: action.payload as CursorMenuData,
       };
     }

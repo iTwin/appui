@@ -110,9 +110,9 @@ describe("FrontstageManager", () => {
   });
 
   it("setActiveModalFrontstage from backstage item", async () => {
-    const handleFrontstageCloseRequested = (
-      { stageCloseFunc }: ModalFrontstageRequestedCloseEventArgs // eslint-disable-line deprecation/deprecation
-    ) => {
+    const handleFrontstageCloseRequested = ({
+      stageCloseFunc,
+    }: ModalFrontstageRequestedCloseEventArgs) => {
       stageCloseFunc();
     };
 

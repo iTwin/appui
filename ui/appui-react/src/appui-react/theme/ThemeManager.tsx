@@ -8,46 +8,15 @@
 
 import "./ThemeManager.scss";
 import * as React from "react";
-import { connect } from "react-redux";
 import type { ThemeType } from "@itwin/itwinui-react";
 import { ThemeProvider } from "@itwin/itwinui-react";
 import { ThemeProvider as ThemeProviderV2 } from "@itwin/itwinui-react-v2";
-import type { FrameworkState } from "../redux/FrameworkState";
-import { UiFramework } from "../UiFramework";
+import type { ThemeId } from "./ThemeId";
+import { ColorTheme, SYSTEM_PREFERRED_COLOR_THEME } from "./ThemeId";
+import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState";
+import type { ConfigurableUiContent } from "../configurableui/ConfigurableUiContent";
 
-/** System preferred color theme.
- * @public
- */
-export const SYSTEM_PREFERRED_COLOR_THEME = "SYSTEM_PREFERRED";
-
-/** Enum for the Color Theme string.
- * @public
- */
-export enum ColorTheme {
-  /** Will use iTwinUI `light` theme. */
-  Light = "light",
-  /** Will use iTwinUI `dark` theme. */
-  Dark = "dark",
-  /** Will use iTwinUI `os` theme. */
-  System = SYSTEM_PREFERRED_COLOR_THEME,
-  /** Will use iTwinUI wrapping `ThemeProvider` if provided, or default to 'Light' */
-  Inherit = "inherit",
-  /** Will use iTwinUI `light` theme with `highContrast` set to `true` */
-  HighContrastLight = "high-contrast-light",
-  /** Will use iTwinUI `dark` theme with `highContrast` set to `true` */
-  HighContrastDark = "high-contrast-dark",
-}
-
-/**
- * Describe valid themes.
- * See [[ThemeManager]] for more information.
- * @public
- */
-export type ThemeId = `${ColorTheme}` | (string & {});
-
-/**
- * Map of ColorTheme to ThemeType
- */
+/** Map of ColorTheme to ThemeType. */
 const colorThemeToThemeTypeMap: { [x: string]: ThemeType } = {
   [ColorTheme.Light]: "light",
   [ColorTheme.HighContrastLight]: "light",
@@ -57,120 +26,16 @@ const colorThemeToThemeTypeMap: { [x: string]: ThemeType } = {
   os: "os", // handle "os" for backwards compatibility
 };
 
-/**
- * List of high contrast color themes
- */
+/** List of high contrast color themes. */
 const highContrastColorThemes: string[] = [
   ColorTheme.HighContrastDark,
   ColorTheme.HighContrastLight,
 ];
 
-/** The default widget opacity.
- * @public
- */
-export const WIDGET_OPACITY_DEFAULT = 0.9;
-
-/** The default widget opacity.
- * @public
- */
-export const TOOLBAR_OPACITY_DEFAULT = 0.5;
-
-/** Properties of [[ThemeManagerComponent]].
- */
 interface ThemeManagerProps {
-  /** theme ("light", "dark", etc.) */
-  theme: ThemeId;
-  /* Widget Opacity */
-  widgetOpacity: number;
   children?: React.ReactNode;
-  toolbarOpacity: number;
-}
-
-function mapStateToProps(state: any) {
-  const frameworkState = state[UiFramework.frameworkStateKey] as FrameworkState; // since app sets up key, don't hard-code name
-  if (!frameworkState) return undefined;
-
-  return {
-    theme: frameworkState.configurableUiState.theme,
-    widgetOpacity: frameworkState.configurableUiState.widgetOpacity,
-    toolbarOpacity: frameworkState.configurableUiState.toolbarOpacity,
-  };
-}
-
-/** ThemeManagerComponent handles setting themes.
- */
-class ThemeManagerComponent extends React.Component<ThemeManagerProps> {
-  public override componentDidMount() {
-    this._setTheme(this.props.theme);
-    this._setWidgetOpacity(this.props.widgetOpacity);
-    this._setToolbarOpacity(this.props.toolbarOpacity);
-  }
-
-  public override componentDidUpdate(prevProps: ThemeManagerProps) {
-    if (this.props.theme !== prevProps.theme) this._setTheme(this.props.theme);
-    if (this.props.widgetOpacity !== prevProps.widgetOpacity)
-      this._setWidgetOpacity(this.props.widgetOpacity);
-    if (this.props.toolbarOpacity !== prevProps.toolbarOpacity)
-      this._setToolbarOpacity(this.props.toolbarOpacity);
-  }
-
-  private _setTheme = (theme: string) => {
-    document.documentElement.classList.add("theme-transition");
-    document.documentElement.setAttribute("data-theme", theme);
-    window.setTimeout(
-      () => document.documentElement.classList.remove("theme-transition"),
-      1000
-    );
-  };
-
-  private _setWidgetOpacity = (opacity: number) => {
-    const currentWidgetOpacity =
-      document.documentElement.style.getPropertyValue("--buic-widget-opacity");
-    if (currentWidgetOpacity !== opacity.toString()) {
-      setTimeout(() =>
-        document.documentElement.style.setProperty(
-          "--buic-widget-opacity",
-          opacity.toString()
-        )
-      );
-    }
-  };
-
-  private _setToolbarOpacity = (opacity: number) => {
-    const currentToolbarOpacity =
-      document.documentElement.style.getPropertyValue("--buic-toolbar-opacity");
-    if (currentToolbarOpacity !== opacity.toString()) {
-      setTimeout(() => {
-        document.documentElement.style.setProperty(
-          "--buic-toolbar-opacity",
-          opacity.toString()
-        );
-      });
-    }
-  };
-
-  public override render(): React.ReactNode {
-    const theme = colorThemeToThemeTypeMap[this.props.theme];
-    const highContrast = highContrastColorThemes.includes(this.props.theme);
-
-    return (
-      <ThemeProvider
-        className="uifw-root"
-        theme={theme ?? "inherit"}
-        themeOptions={{ highContrast }}
-        data-root-container="appui-root-id"
-        includeCss={true}
-      >
-        <ThemeProviderV2 /* v2 ThemeProvider is required to fix popup styling issues in widget popouts. */
-          style={{ height: "100%" }}
-          theme={theme ?? "inherit"}
-          themeOptions={{ highContrast }}
-        >
-          {this.props.children}
-        </ThemeProviderV2>
-      </ThemeProvider>
-    );
-  }
+  /** Uses redux store as a fallback. Defaults to {@link SYSTEM_PREFERRED_COLOR_THEME}. */
+  theme?: ThemeId;
 }
 
 /** ThemeManager handles setting color themes and element opacity management. Note that this component will
@@ -182,15 +47,49 @@ class ThemeManagerComponent extends React.Component<ThemeManagerProps> {
  * and `ThemeProvider` theme will be set to `inherit`, in this case the application is
  * responsible for setting the theme by overriding iTwinUI css variables.
  *
- * This React component is Redux connected and should wrap [[ConfigurableUiContent]].
+ * This React component should wrap {@link ConfigurableUiContent}.
  *
  * ```tsx
- * <Provider store={UiFramework.store}>
- *   <ThemeManager>
- *     <ConfigurableUiContent />
- *   </ThemeManager>
- * </Provider>
+ * <ThemeManager>
+ *   <ConfigurableUiContent />
+ * </ThemeManager>
  * ```
  * @public
  */
-export const ThemeManager = connect(mapStateToProps)(ThemeManagerComponent);
+export function ThemeManager({ children, ...props }: ThemeManagerProps) {
+  const reduxTheme = useReduxFrameworkState((state) => {
+    // eslint-disable-next-line deprecation/deprecation
+    return state?.configurableUiState.theme;
+  });
+  const theme = props.theme ?? reduxTheme ?? SYSTEM_PREFERRED_COLOR_THEME;
+
+  React.useEffect(() => {
+    document.documentElement.classList.add("theme-transition");
+    document.documentElement.setAttribute("data-theme", theme);
+    setTimeout(
+      () => document.documentElement.classList.remove("theme-transition"),
+      1000
+    );
+  }, [theme]);
+
+  const providerTheme = colorThemeToThemeTypeMap[theme];
+  const highContrast = highContrastColorThemes.includes(theme);
+
+  return (
+    <ThemeProvider
+      className="uifw-root"
+      theme={providerTheme ?? "inherit"}
+      themeOptions={{ highContrast }}
+      data-root-container="appui-root-id"
+      includeCss={true}
+    >
+      <ThemeProviderV2 /* v2 ThemeProvider is required to fix popup styling issues in widget popouts. */
+        style={{ height: "100%" }}
+        theme={providerTheme ?? "inherit"}
+        themeOptions={{ highContrast }}
+      >
+        {children}
+      </ThemeProviderV2>
+    </ThemeProvider>
+  );
+}

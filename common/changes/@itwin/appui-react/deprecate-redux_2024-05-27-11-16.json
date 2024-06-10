@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Deprecate APIs related to redux.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
