@@ -26,7 +26,6 @@ import { Button } from "@itwin/itwinui-react";
 import { StatusBarPopover } from "../statusbar/popup/StatusBarPopover";
 
 /** Define the properties that will be used to represent the available snap modes. */
-// eslint-disable-next-line deprecation/deprecation
 interface SnapModeFieldEntry {
   label: string;
   value: number;
@@ -76,6 +75,7 @@ const getSnapModeIconNameFromMode = (
 };
 
 /** Defines properties supported by the SnapMode Field Component. */
+// eslint-disable-next-line deprecation/deprecation
 interface SnapModeFieldProps extends CommonProps {
   /** Uses redux store as a fallback. Defaults to {@link SnapMode.NearestKeypoint}.
    * @note Enum flags are supported.
