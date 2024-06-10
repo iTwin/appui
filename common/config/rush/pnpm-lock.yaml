@@ -59,8 +59,8 @@ importers:
         specifier: ^2.8.0
         version: 2.8.0(react-dom@18.3.1)(react@18.3.1)
       '@itwin/itwinui-react':
-        specifier: ^3.11.0
-        version: 3.11.0(@types/react@18.3.2)(react-dom@18.3.1)(react@18.3.1)
+        specifier: ^3.11.2
+        version: 3.11.2(@types/react@18.3.2)(react-dom@18.3.1)(react@18.3.1)
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -213,8 +213,8 @@ importers:
         specifier: ^2.8.0
         version: 2.8.0(react-dom@18.3.1)(react@18.3.1)
       '@itwin/itwinui-react':
-        specifier: ^3.11.0
-        version: 3.11.0(@types/react@18.3.2)(react-dom@18.3.1)(react@18.3.1)
+        specifier: ^3.11.2
+        version: 3.11.2(@types/react@18.3.2)(react-dom@18.3.1)(react@18.3.1)
       '@itwin/itwinui-react-v2':
         specifier: npm:@itwin/itwinui-react@^2.11.11
         version: /@itwin/itwinui-react@2.12.20(react-dom@18.3.1)(react@18.3.1)
@@ -367,8 +367,8 @@ importers:
         specifier: ^2.8.0
         version: 2.8.0(react-dom@18.3.1)(react@18.3.1)
       '@itwin/itwinui-react':
-        specifier: ^3.11.0
-        version: 3.11.0(@types/react@18.3.2)(react-dom@18.3.1)(react@18.3.1)
+        specifier: ^3.11.2
+        version: 3.11.2(@types/react@18.3.2)(react-dom@18.3.1)(react@18.3.1)
       '@itwin/itwinui-variables':
         specifier: ^3.0.0
         version: 3.1.0
@@ -548,8 +548,8 @@ importers:
         specifier: ^2.8.0
         version: 2.8.0(react-dom@18.3.1)(react@18.3.1)
       '@itwin/itwinui-react':
-        specifier: ^3.11.0
-        version: 3.11.0(@types/react@18.3.2)(react-dom@18.3.1)(react@18.3.1)
+        specifier: ^3.11.2
+        version: 3.11.2(@types/react@18.3.2)(react-dom@18.3.1)(react@18.3.1)
       '@itwin/itwinui-variables':
         specifier: ^3.0.0
         version: 3.1.0
@@ -709,8 +709,8 @@ importers:
         specifier: ^2.0.1
         version: 2.1.0(react-dom@18.3.1)(react@18.3.1)
       '@itwin/itwinui-react':
-        specifier: ^3.11.0
-        version: 3.11.0(@types/react@18.3.2)(react-dom@18.3.1)(react@18.3.1)
+        specifier: ^3.11.2
+        version: 3.11.2(@types/react@18.3.2)(react-dom@18.3.1)(react@18.3.1)
       '@itwin/itwinui-react-v2':
         specifier: npm:@itwin/itwinui-react@^2.11.11
         version: /@itwin/itwinui-react@2.12.20(react-dom@18.3.1)(react@18.3.1)
@@ -893,8 +893,8 @@ importers:
         specifier: ^2.8.0
         version: 2.8.0(react-dom@18.3.1)(react@18.3.1)
       '@itwin/itwinui-react':
-        specifier: ^3.11.0
-        version: 3.11.0(@types/react@18.3.2)(react-dom@18.3.1)(react@18.3.1)
+        specifier: ^3.11.2
+        version: 3.11.2(@types/react@18.3.2)(react-dom@18.3.1)(react@18.3.1)
       '@itwin/itwinui-variables':
         specifier: ^3.0.0
         version: 3.1.0
@@ -1041,8 +1041,8 @@ importers:
         specifier: ^2.8.0
         version: 2.8.0(react-dom@18.3.1)(react@18.3.1)
       '@itwin/itwinui-react':
-        specifier: ^3.11.0
-        version: 3.11.0(@types/react@18.3.2)(react-dom@18.3.1)(react@18.3.1)
+        specifier: ^3.11.2
+        version: 3.11.2(@types/react@18.3.2)(react-dom@18.3.1)(react@18.3.1)
       '@itwin/itwinui-variables':
         specifier: ^3.0.0
         version: 3.1.0
@@ -1168,8 +1168,8 @@ importers:
         specifier: ^2.8.0
         version: 2.8.0(react-dom@18.3.1)(react@18.3.1)
       '@itwin/itwinui-react':
-        specifier: ^3.11.0
-        version: 3.11.0(@types/react@18.3.2)(react-dom@18.3.1)(react@18.3.1)
+        specifier: ^3.11.2
+        version: 3.11.2(@types/react@18.3.2)(react-dom@18.3.1)(react@18.3.1)
       '@itwin/itwinui-variables':
         specifier: ^3.0.0
         version: 3.1.0
@@ -4080,8 +4080,8 @@ packages:
       tippy.js: 6.3.7
     dev: false
 
-  /@itwin/itwinui-react@3.11.0(@types/react@18.3.2)(react-dom@18.3.1)(react@18.3.1):
-    resolution: {integrity: sha512-wrdrTG3Q4+WIJTWhbPdS+9Q2xj8BSEbmednoPLes2QExgow7Ra9ybqoYuIVvNewSPNHemsMVugQIgGnPJscYRg==}
+  /@itwin/itwinui-react@3.11.2(@types/react@18.3.2)(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-STZOp3I2Z9lauRPoWpwuwwBbJpHK2Aece3H5zxU11E/uerb2oarDm6ck6GxWjWFEAvXXKjA+35ruErIr8Rq0Hw==}
     peerDependencies:
       react: '>= 17.0.0 < 19.0.0'
       react-dom: '>=17.0.0 < 19.0.0'
