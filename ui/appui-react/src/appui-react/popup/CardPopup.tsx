@@ -42,7 +42,7 @@ import type { RequireAtLeastOne } from "@itwin/core-bentley";
 export type CardPopupProps = Omit<PopupPropsBase, "el"> & {
   content: PopupContentType;
   title: string | PropertyRecord | undefined;
-  items: CommonToolbarItem[] | ToolbarItem[] | undefined; // {@link @itwin/appui-abstract#CommonToolbarItem} will be deprecated in 4.11.x. Please use {@link ToolbarItem[]} instead.
+  items: CommonToolbarItem[] | ToolbarItem[] | undefined; // {@link @itwin/appui-abstract#CommonToolbarItem} will be deprecated in 4.11.0. Please use {@link ToolbarItem[]} instead.
   orientation: Orientation;
   onCancel: () => void;
   onItemExecuted: (item: any) => void;

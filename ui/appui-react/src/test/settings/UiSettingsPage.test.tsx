@@ -10,7 +10,7 @@ import {
 } from "../../appui-react/settings/ui/UiSettingsPage";
 import TestUtils, { storageMock, waitForPosition } from "../TestUtils";
 import { UiFramework } from "../../appui-react/UiFramework";
-import { ColorTheme } from "../../appui-react/theme/ThemeManager";
+import { ColorTheme } from "../../appui-react/theme/ThemeId";
 
 describe("UiSettingsPage", () => {
   const localStorageToRestore = Object.getOwnPropertyDescriptor(

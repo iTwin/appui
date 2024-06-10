@@ -13,7 +13,6 @@ import { SelectionSet } from "@itwin/core-frontend";
 import type { CursorMenuPayload, UserSettingsProvider } from "../appui-react";
 import {
   AccuDrawPopupManager,
-  ColorTheme,
   SettingsModalFrontstage,
   UiFramework,
 } from "../appui-react";
@@ -26,6 +25,7 @@ import { createElement } from "react";
 import type { DialogLayoutDataProvider } from "@itwin/appui-abstract";
 import { InternalModalDialogManager } from "../appui-react/dialog/InternalModalDialogManager";
 import { InternalModelessDialogManager } from "../appui-react/dialog/InternalModelessDialogManager";
+import { ColorTheme } from "../appui-react/theme/ThemeId";
 
 describe("UiFramework localStorage Wrapper", () => {
   const localStorageToRestore = Object.getOwnPropertyDescriptor(

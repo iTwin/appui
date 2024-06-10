@@ -11,6 +11,7 @@ import {
   SyncUiEventDispatcher,
   UiFramework,
 } from "../../appui-react";
+import type { ListenerType } from "../TestUtils";
 import TestUtils, { userEvent } from "../TestUtils";
 
 describe("SnapModeField", () => {
@@ -60,9 +61,7 @@ describe("SnapModeField", () => {
   it("should change snapMode and dispatch SyncEvent on click", async () => {
     const spy =
       vi.fn<
-        Parameters<
-          Parameters<typeof SyncUiEventDispatcher.onSyncUiEvent.addListener>[0]
-        >
+        Parameters<ListenerType<typeof SyncUiEventDispatcher.onSyncUiEvent>>
       >();
     SyncUiEventDispatcher.onSyncUiEvent.addListener(spy);
     render(

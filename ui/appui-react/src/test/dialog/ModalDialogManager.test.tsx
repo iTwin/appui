@@ -15,7 +15,6 @@ import { render, screen, waitFor } from "@testing-library/react";
 describe("ModalDialogManager", () => {
   const spy = vi.fn();
 
-  // eslint-disable-next-line deprecation/deprecation
   function handleModalDialogChanged(_args: DialogChangedEventArgs) {
     spy();
   }

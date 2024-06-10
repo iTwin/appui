@@ -14,7 +14,6 @@ import { Size, UiStateStorageStatus } from "@itwin/core-react";
 import produce from "immer";
 import * as React from "react";
 import { unstable_batchedUpdates } from "react-dom";
-import { useSelector } from "react-redux";
 import type { FrontstageDef } from "../frontstage/FrontstageDef";
 import { useActiveFrontstageDef } from "../frontstage/FrontstageDef";
 import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager";
@@ -32,8 +31,6 @@ import type { TabState } from "../layout/state/TabState";
 import { FloatingWidgets } from "../layout/widget/FloatingWidgets";
 import { PreviewHorizontalPanelAlignFeatureProvider } from "../preview/horizontal-panel-alignment/PreviewHorizontalPanelAlign";
 import { usePreviewFeatures } from "../preview/PreviewFeatures";
-import type { FrameworkState } from "../redux/FrameworkState";
-import type { FrameworkRootState } from "../redux/StateManager";
 import { toPanelSide } from "../stagepanels/StagePanelDef";
 import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import { StagePanelSection } from "../stagepanels/StagePanelSection";
@@ -63,6 +60,8 @@ import { useCursor } from "../layout/widget-panels/CursorOverlay";
 import { WidgetPanelExpanders } from "../layout/widget-panels/Expander";
 import { useTranslation } from "../hooks/useTranslation";
 import { PopoutWidgets } from "../preview/reparent-popout-widgets/PopoutWidgets";
+import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState";
+import { ConfigurableUiContext } from "../configurableui/ConfigurableUiContent";
 import { useSaveFrontstageSettings } from "./useSaveFrontstageSettings";
 
 function WidgetPanelsFrontstageComponent() {
@@ -211,6 +210,7 @@ interface ActiveFrontstageDefProviderProps {
 export function ActiveFrontstageDefProvider({
   frontstageDef,
 }: ActiveFrontstageDefProviderProps) {
+  const configurableUi = React.useContext(ConfigurableUiContext);
   const dispatch = useNineZoneDispatch(frontstageDef);
   frontstageDef.dispatch = dispatch;
   const layout = useLayoutStore(frontstageDef);
@@ -220,34 +220,33 @@ export function ActiveFrontstageDefProvider({
   useItemsManager(frontstageDef);
   const labels = useLabels();
   const uiIsVisible = useUiVisibility();
-  const showWidgetIcon = useSelector((state: FrameworkRootState) => {
-    const frameworkState: FrameworkState = (state as any)[
-      UiFramework.frameworkStateKey
-    ];
-    return !!frameworkState.configurableUiState.showWidgetIcon;
-  });
-  const autoCollapseUnpinnedPanels = useSelector(
-    (state: FrameworkRootState) => {
-      const frameworkState: FrameworkState = (state as any)[
-        UiFramework.frameworkStateKey
-      ];
-      return !!frameworkState.configurableUiState.autoCollapseUnpinnedPanels;
-    }
+  const reduxToolAsToolSettingsLabel = useReduxFrameworkState(
+    // eslint-disable-next-line deprecation/deprecation
+    (state) => state?.configurableUiState.useToolAsToolSettingsLabel
   );
-  const animateToolSettings = useSelector((state: FrameworkRootState) => {
-    const frameworkState: FrameworkState = (state as any)[
-      UiFramework.frameworkStateKey
-    ];
-    return !!frameworkState.configurableUiState.animateToolSettings;
-  });
-  const useToolAsToolSettingsLabel = useSelector(
-    (state: FrameworkRootState) => {
-      const frameworkState: FrameworkState = (state as any)[
-        UiFramework.frameworkStateKey
-      ];
-      return !!frameworkState.configurableUiState.useToolAsToolSettingsLabel;
-    }
+  const reduxShowWidgetIcon = useReduxFrameworkState(
+    // eslint-disable-next-line deprecation/deprecation
+    (state) => state?.configurableUiState.showWidgetIcon
   );
+  const reduxAutoCollapseUnpinnedPanels = useReduxFrameworkState(
+    // eslint-disable-next-line deprecation/deprecation
+    (state) => state?.configurableUiState.autoCollapseUnpinnedPanels
+  );
+  const reduxAnimateToolSettings = useReduxFrameworkState(
+    // eslint-disable-next-line deprecation/deprecation
+    (state) => state?.configurableUiState.autoCollapseUnpinnedPanels
+  );
+  const showWidgetIcon =
+    configurableUi.widgetIcon ?? reduxShowWidgetIcon ?? true;
+  const autoCollapseUnpinnedPanels =
+    configurableUi.collapsePanels ?? reduxAutoCollapseUnpinnedPanels ?? false;
+  const animateToolSettings =
+    configurableUi.animateToolSettings ?? reduxAnimateToolSettings ?? false;
+  const useToolAsToolSettingsLabel =
+    configurableUi.toolAsToolSettingsLabel ??
+    reduxToolAsToolSettingsLabel ??
+    false;
+
   useFrontstageManager(frontstageDef, useToolAsToolSettingsLabel);
 
   const handleKeyDown = useEscapeSetFocusToHome();

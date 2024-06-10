@@ -23,7 +23,6 @@ describe("InternalModelessDialogManager", () => {
     spy.mockReset();
   });
 
-  // eslint-disable-next-line deprecation/deprecation
   function handleModelessDialogChanged(_args: DialogChangedEventArgs) {
     spy();
   }

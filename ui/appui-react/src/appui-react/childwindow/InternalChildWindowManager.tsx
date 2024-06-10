@@ -160,6 +160,7 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
       if (content.props.widgetDef) {
         const tabId = content.props.widgetDef.id as string;
         element = (
+          // eslint-disable-next-line deprecation/deprecation
           <Provider store={UiFramework.store}>
             <TabIdContext.Provider value={tabId}>
               <UiStateStorageHandler>
@@ -180,6 +181,7 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
         );
       } else {
         element = (
+          // eslint-disable-next-line deprecation/deprecation
           <Provider store={UiFramework.store}>
             <UiStateStorageHandler>
               <ThemeManager>

@@ -59,5 +59,6 @@ export const { setHideCustomDialogButton, setShowCustomViewOverlay } =
 
 /** Get the slice of the redux state that is specific to this UI provider */
 export function getTestProviderState(): TestProviderState {
+  // eslint-disable-next-line deprecation/deprecation
   return StateManager.store.getState().testProviderState as TestProviderState;
 }

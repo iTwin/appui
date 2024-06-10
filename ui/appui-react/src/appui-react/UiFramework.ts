@@ -6,13 +6,12 @@
  * @module Utilities
  */
 
-// cSpell:ignore configurableui clientservices
-
 import type { Store } from "redux";
 import { Logger, ProcessDetector } from "@itwin/core-bentley";
 import type { TranslationOptions } from "@itwin/core-common";
 import type { IModelConnection, ViewState } from "@itwin/core-frontend";
-import { IModelApp, SnapMode } from "@itwin/core-frontend";
+import { SnapMode } from "@itwin/core-frontend";
+import { IModelApp } from "@itwin/core-frontend";
 import type {
   DialogLayoutDataProvider,
   DialogProps,
@@ -28,8 +27,7 @@ import { UiIModelComponents } from "@itwin/imodel-components-react";
 import { BackstageManager } from "./backstage/BackstageManager";
 import { InternalChildWindowManager } from "./childwindow/InternalChildWindowManager";
 import { InternalConfigurableUiManager } from "./configurableui/InternalConfigurableUiManager";
-import { ConfigurableUiActionId } from "./configurableui/state";
-import type { FrameworkState } from "./redux/FrameworkState";
+import type { FrameworkState as ReduxFrameworkState } from "./redux/FrameworkState";
 import type {
   CursorMenuData,
   CursorMenuPayload,
@@ -39,12 +37,6 @@ import { SessionStateActionId } from "./redux/SessionState";
 import { StateManager } from "./redux/StateManager";
 import type { HideIsolateEmphasizeActionHandler } from "./selection/HideIsolateEmphasizeManager";
 import { HideIsolateEmphasizeManager } from "./selection/HideIsolateEmphasizeManager";
-import type { ThemeId } from "./theme/ThemeManager";
-import {
-  SYSTEM_PREFERRED_COLOR_THEME,
-  TOOLBAR_OPACITY_DEFAULT,
-  WIDGET_OPACITY_DEFAULT,
-} from "./theme/ThemeManager";
 import * as keyinPaletteTools from "./tools/KeyinPaletteTools";
 import * as openSettingTools from "./tools/OpenSettingsTool";
 import * as restoreLayoutTools from "./tools/RestoreLayoutTool";
@@ -82,8 +74,23 @@ import { createElement } from "react";
 import type { DialogInfo } from "./dialog/DialogManagerBase";
 import type { KeyinEntry } from "./keyins/Keyins";
 import { mapToRelativePosition, type Placement } from "./utils/Placement";
-import type { ToolbarProps } from "./toolbar/Toolbar";
+import type { Toolbar, ToolbarProps } from "./toolbar/Toolbar";
 import type { CursorMenuItemProps } from "./shared/MenuItem";
+import {
+  SYSTEM_PREFERRED_COLOR_THEME,
+  type ThemeId,
+  TOOLBAR_OPACITY_DEFAULT,
+  WIDGET_OPACITY_DEFAULT,
+} from "./theme/ThemeId";
+import { ConfigurableUiActionId } from "./redux/ConfigurableUiState";
+import type {
+  ConfigurableUiContent,
+  ConfigurableUiContentProps,
+} from "./configurableui/ConfigurableUiContent";
+import type { SelectionScopeField } from "./statusfields/SelectionScope";
+import type { SnapModeField } from "./statusfields/SnapMode";
+import type { ThemeManager } from "./theme/ThemeManager";
+import { useGlobalStore } from "./uistate/useGlobalStore";
 
 interface ShowInputEditorOptions {
   location: XAndY;
@@ -93,8 +100,6 @@ interface ShowInputEditorOptions {
   onCommit: (value: Primitives.Value) => void;
   onCancel: () => void;
 }
-
-// cSpell:ignore Mobi
 
 /** Interface to be implemented but any classes that wants to load their user settings when the UiStateEntry storage class is set.
  * @public
@@ -144,10 +149,7 @@ type OptionalShowComponentParams = [
  * @public
  */
 export class UiFramework {
-  /**
-   * Operation on the backstage component.
-   * @public
-   */
+  /** Operation on the backstage component. */
   public static get backstage(): FrameworkBackstage {
     if (!UiFramework._backstageManager)
       // eslint-disable-next-line deprecation/deprecation
@@ -158,50 +160,32 @@ export class UiFramework {
     return UiFramework._backstageManager;
   }
 
-  /**
-   * Manage access to the child windows.
-   * @public
-   */
+  /** Manage access to the child windows. */
   public static get childWindows(): FrameworkChildWindows {
     return this._childWindowManager;
   }
 
-  /**
-   * Manage registered controls
-   * @public
-   */
+  /** Manage registered controls. */
   public static get controls(): FrameworkControls {
     return InternalConfigurableUiManager;
   }
 
-  /**
-   * Manage access to frontstages and related helper methods.
-   * @public
-   */
+  /** Manage access to frontstages and related helper methods. */
   public static get frontstages(): FrameworkFrontstages {
     return InternalFrontstageManager;
   }
 
-  /**
-   * Manage access and behavior of the tool settings.
-   * @public
-   */
+  /** Manage access and behavior of the tool settings. */
   public static get toolSettings(): FrameworkToolSettings {
     return InternalToolSettingsManager;
   }
 
-  /**
-   * Manage content presented by the frontstages.
-   * @public
-   */
+  /** Manage content presented by the frontstages. */
   public static get content(): FrameworkContent {
     return InternalContentViewManager;
   }
 
-  /**
-   * Manage displayed dialogs.
-   * @public
-   */
+  /** Manage displayed dialogs. */
   public static get dialogs(): FrameworkDialogs {
     return {
       modal: InternalModalDialogManager,
@@ -209,23 +193,18 @@ export class UiFramework {
     };
   }
 
-  /**
-   * Manages global keyboard shortcuts
+  /** Manages global keyboard shortcuts
    *
    * Note: This only manages the list of available shortcuts registered with it. It does not listens to the actual
    * keyboard events. In order for these shortcuts to be called upon a keyboard event, the application can
    * override the `IModelApp.toolAdmin` and assign it [[FrameworkToolAdmin]] or create an event listener
    * and call `UiFramework.keyboardShortcuts.processKey`.
-   * @public
    */
   public static get keyboardShortcuts(): FrameworkKeyboardShortcuts {
     return InternalKeyboardShortcutManager;
   }
 
-  /**
-   * Manages UI visibility (Show/Hide)
-   * @public
-   */
+  /** Manages UI visibility (Show/Hide). */
   public static get visibility(): FrameworkVisibility {
     return InternalUiShowHideManager;
   }
@@ -251,7 +230,6 @@ export class UiFramework {
   /** Registers class that will be informed when the UserSettingsStorage location has been set or changed. This allows
    * classes to load any previously saved settings from the new storage location. Common storage locations are the browser's
    * local storage, or the iTwin Product Settings cloud storage available via the SettingsAdmin see `IModelApp.settingsAdmin`.
-   * @public
    */
   public static registerUserSettingsProvider(entry: UserSettingsProvider) {
     if (this._uiSettingsProviderRegistry.has(entry.providerId)) return false;
@@ -260,21 +238,27 @@ export class UiFramework {
     return true;
   }
 
-  /** Get Show Ui event.
-   * @public
-   */
+  /** Get Show Ui event. */
   // eslint-disable-next-line deprecation/deprecation
   public static readonly onUiVisibilityChanged = new UiVisibilityChangedEvent();
 
-  /**
-   * Called by the application to initialize the UiFramework. Also initializes UIIModelComponents, UiComponents, UiCore.
+  /** Called by the application to initialize the UiFramework. Also initializes UIIModelComponents, UiComponents, UiCore. */
+  public static async initialize(): Promise<void>;
+  /** Called by the application to initialize the UiFramework. Also initializes UIIModelComponents, UiComponents, UiCore.
    * @param store The single Redux store created by the host application. If this is `undefined` then it is assumed that the [[StateManager]] is being used to provide the Redux store.
    * @param frameworkStateKey The name of the key used by the app when adding the UiFramework state into the Redux store. If not defined "frameworkState" is assumed. This value is ignored if [[StateManager]] is being used. The StateManager use "frameworkState".
+   * @deprecated in 4.15.0. Continue using redux initializer until all application components react to redux deprecations. Use overload without parameters instead.
    */
   public static async initialize(
     store: Store<any> | undefined,
+    // eslint-disable-next-line @typescript-eslint/unified-signatures
+    frameworkStateKey?: string
+  ): Promise<void>;
+  public static async initialize(
+    store?: Store<any> | undefined,
     frameworkStateKey?: string
   ): Promise<void> {
+    // TODO: check `arguments` to determine between redux & no-redux initializers.
     if (UiFramework._initialized) {
       Logger.logInfo(
         UiFramework.loggerCategory(UiFramework),
@@ -285,10 +269,13 @@ export class UiFramework {
 
     /* if store is undefined then the StateManager class should have been initialized by parent app and the apps default set of reducers registered with it.
       If the app has no reducers to add and does not initialize a StateManager then just initialize the StateManager with the default framework reducer now */
+    // eslint-disable-next-line deprecation/deprecation
     if (undefined === store && !StateManager.isInitialized(true))
+      // eslint-disable-next-line deprecation/deprecation
       new StateManager();
 
     UiFramework._store = store;
+
     // ignore setting _frameworkStateKeyInStore if not using store
     if (frameworkStateKey && store)
       UiFramework._frameworkStateKeyInStore = frameworkStateKey;
@@ -315,9 +302,7 @@ export class UiFramework {
     await UiIModelComponents.initialize();
 
     UiFramework.settingsManager.onSettingsProvidersChanged.addListener(() => {
-      SyncUiEventDispatcher.dispatchSyncUiEvent(
-        SyncUiEventId.SettingsProvidersChanged
-      );
+      dispatchSyncUiEvent(SyncUiEventId.SettingsProvidersChanged);
     });
 
     // Initialize the MessagePresenter interface in UiAdmin for Editor notifications
@@ -333,10 +318,11 @@ export class UiFramework {
     return frameworkNamespace;
   }
 
-  /** Un-registers the UiFramework internationalization service namespace */
+  /** Un-registers the UiFramework internationalization service namespace. */
   public static terminate() {
     UiFramework._store = undefined;
     UiFramework._frameworkStateKeyInStore = "frameworkState";
+    // eslint-disable-next-line deprecation/deprecation
     if (StateManager.isInitialized(true)) StateManager.clearStore();
     IModelApp.localization?.unregisterNamespace(
       UiFramework.localizationNamespace
@@ -356,43 +342,11 @@ export class UiFramework {
     return UiFramework._initialized;
   }
 
-  /** Property that returns the SettingManager used by AppUI-based applications.
-   * @public
-   */
+  /** Property that returns the SettingManager used by AppUI-based applications. */
   public static get settingsManager() {
     if (undefined === UiFramework._settingsManager)
       UiFramework._settingsManager = new SettingsManager();
     return UiFramework._settingsManager;
-  }
-
-  /** @public */
-  public static get frameworkStateKey(): string {
-    return UiFramework._frameworkStateKeyInStore;
-  }
-
-  /** The UiFramework state maintained by Redux
-   * @public
-   */
-  public static get frameworkState(): FrameworkState | undefined {
-    try {
-      return UiFramework.store.getState()[UiFramework.frameworkStateKey];
-    } catch (_e) {
-      return undefined;
-    }
-  }
-
-  /** The Redux store */
-  public static get store(): Store<any> {
-    if (UiFramework._store) return UiFramework._store;
-
-    if (!StateManager.isInitialized(true))
-      // eslint-disable-next-line deprecation/deprecation
-      throw new UiError(
-        UiFramework.loggerCategory(this),
-        `Error trying to access redux store before either store or StateManager has been initialized.`
-      );
-
-    return StateManager.store;
   }
 
   /** The internationalization service namespace. */
@@ -400,7 +354,6 @@ export class UiFramework {
     return "UiFramework";
   }
 
-  /** @public */
   public static get hideIsolateEmphasizeActionHandler(): HideIsolateEmphasizeActionHandler {
     if (!UiFramework._hideIsolateEmphasizeActionHandler)
       // eslint-disable-next-line deprecation/deprecation
@@ -411,7 +364,6 @@ export class UiFramework {
     return UiFramework._hideIsolateEmphasizeActionHandler;
   }
 
-  /** @public */
   public static setHideIsolateEmphasizeActionHandler(
     handler: HideIsolateEmphasizeActionHandler | undefined
   ) {
@@ -458,66 +410,6 @@ export class UiFramework {
     return category;
   }
 
-  public static dispatchActionToStore(
-    type: string,
-    payload: any,
-    immediateSync = false
-  ) {
-    UiFramework.store.dispatch({ type, payload });
-    if (immediateSync) SyncUiEventDispatcher.dispatchImmediateSyncUiEvent(type);
-    else SyncUiEventDispatcher.dispatchSyncUiEvent(type);
-  }
-
-  public static setAccudrawSnapMode(snapMode: SnapMode) {
-    UiFramework.dispatchActionToStore(
-      ConfigurableUiActionId.SetSnapMode,
-      snapMode,
-      true
-    );
-  }
-
-  public static getAccudrawSnapMode(): SnapMode {
-    return UiFramework.frameworkState
-      ? UiFramework.frameworkState.configurableUiState.snapMode
-      : SnapMode.NearestKeypoint;
-  }
-
-  /**
-   * Returns the stored active selection scope id.
-   */
-  public static getActiveSelectionScope(): string {
-    return UiFramework.frameworkState
-      ? UiFramework.frameworkState.sessionState.activeSelectionScope
-      : "element";
-  }
-
-  /**
-   * This method stores the active selection scope to the supplied scope id, and triggers
-   * a `SessionStateActionId.SetSelectionScope` event in the `SyncUiEventDispatcher`.
-   * Note: As of 4.0, this method *does not change* the active selection scope in the `Presentation.selection.scopes.activeScope` property.
-   * This event should be listened to and the change should typically be applied to
-   * `Presentation.selection.scopes.activeScope` property from the `@itwin/presentation-frontend` package.
-   */
-  public static setActiveSelectionScope(selectionScopeId: string): void {
-    if (UiFramework.frameworkState) {
-      const foundIndex =
-        UiFramework.frameworkState.sessionState.availableSelectionScopes.findIndex(
-          (selectionScope: PresentationSelectionScope) =>
-            selectionScope.id === selectionScopeId
-        );
-      if (-1 !== foundIndex) {
-        const scope =
-          UiFramework.frameworkState.sessionState.availableSelectionScopes[
-            foundIndex
-          ];
-        UiFramework.dispatchActionToStore(
-          SessionStateActionId.SetSelectionScope,
-          scope.id
-        );
-      }
-    }
-  }
-
   /** Show a context menu at a particular location.
    * @param items Properties of the menu items to display.
    * @param location Location of the context menu, relative to the origin of anchorElement or the overall window.
@@ -560,45 +452,58 @@ export class UiFramework {
     return true;
   }
 
-  /** @public */
   public static openCursorMenu(
     // eslint-disable-next-line deprecation/deprecation
     menuData: CursorMenuData | CursorMenuPayload | undefined
   ): void {
-    UiFramework.dispatchActionToStore(
-      SessionStateActionId.UpdateCursorMenu,
-      menuData
-    );
+    // eslint-disable-next-line deprecation/deprecation
+    if (this.frameworkState) {
+      // eslint-disable-next-line deprecation/deprecation
+      UiFramework.dispatchActionToStore(
+        // eslint-disable-next-line deprecation/deprecation
+        SessionStateActionId.UpdateCursorMenu,
+        menuData
+      );
+      return;
+    }
+
+    useGlobalStore.setState({ cursorMenuPayload: menuData });
+    // eslint-disable-next-line deprecation/deprecation
+    dispatchSyncUiEvent(SessionStateActionId.UpdateCursorMenu);
   }
 
-  /** @public */
   public static closeCursorMenu(): void {
-    UiFramework.dispatchActionToStore(
-      SessionStateActionId.UpdateCursorMenu,
-      undefined
-    );
+    // eslint-disable-next-line deprecation/deprecation
+    if (UiFramework.frameworkState) {
+      // eslint-disable-next-line deprecation/deprecation
+      UiFramework.dispatchActionToStore(
+        // eslint-disable-next-line deprecation/deprecation
+        SessionStateActionId.UpdateCursorMenu,
+        undefined
+      );
+      return;
+    }
+
+    useGlobalStore.setState({ cursorMenuPayload: undefined });
+    // eslint-disable-next-line deprecation/deprecation
+    dispatchSyncUiEvent(SessionStateActionId.UpdateCursorMenu);
   }
 
-  /** @public */
+  /** @note Returned value is immutable.  */
   public static getCursorMenuData(): // eslint-disable-next-line deprecation/deprecation
   CursorMenuData | CursorMenuPayload | undefined {
-    return UiFramework.frameworkState
-      ? UiFramework.frameworkState.sessionState.cursorMenuPayload ??
-          UiFramework.frameworkState.sessionState.cursorMenuData
-      : undefined;
-  }
+    // eslint-disable-next-line deprecation/deprecation
+    const state = this.frameworkState;
+    if (state) {
+      return (
+        // eslint-disable-next-line deprecation/deprecation
+        state.sessionState.cursorMenuPayload ??
+        // eslint-disable-next-line deprecation/deprecation
+        state.sessionState.cursorMenuData
+      );
+    }
 
-  public static getActiveIModelId(): string {
-    return UiFramework.frameworkState
-      ? UiFramework.frameworkState.sessionState.iModelId
-      : "";
-  }
-
-  public static setActiveIModelId(iModelId: string): void {
-    UiFramework.dispatchActionToStore(
-      SessionStateActionId.SetActiveIModelId,
-      iModelId
-    );
+    return useGlobalStore.getState().cursorMenuPayload;
   }
 
   public static setIModelConnection(
@@ -615,30 +520,70 @@ export class UiFramework {
     oldConnection && SyncUiEventDispatcher.clearConnectionEvents(oldConnection);
     iModelConnection &&
       SyncUiEventDispatcher.initializeConnectionEvents(iModelConnection);
-    UiFramework.dispatchActionToStore(
-      SessionStateActionId.SetIModelConnection,
-      iModelConnection,
-      immediateSync
-    );
+
+    // eslint-disable-next-line deprecation/deprecation
+    if (UiFramework.frameworkState) {
+      // eslint-disable-next-line deprecation/deprecation
+      UiFramework.dispatchActionToStore(
+        // eslint-disable-next-line deprecation/deprecation
+        SessionStateActionId.SetIModelConnection,
+        iModelConnection,
+        immediateSync
+      );
+    } else {
+      useGlobalStore.setState({ iModelConnection });
+      // eslint-disable-next-line deprecation/deprecation
+      dispatchSyncUiEvent(SessionStateActionId.SetIModelConnection);
+    }
+
     const itemsSelected = iModelConnection
       ? iModelConnection.selectionSet.elements.size
       : 0;
-    UiFramework.dispatchActionToStore(
-      SessionStateActionId.SetNumItemsSelected,
-      itemsSelected
-    );
+
+    UiFramework.setNumItemsSelected(itemsSelected);
+    // eslint-disable-next-line deprecation/deprecation
     UiFramework.setActiveIModelId(iModelConnection?.iModelId ?? "");
   }
 
   public static getIModelConnection(): IModelConnection | undefined {
-    return UiFramework.frameworkState
-      ? UiFramework.frameworkState.sessionState.iModelConnection
-      : undefined;
+    // eslint-disable-next-line deprecation/deprecation
+    const frameworkState = UiFramework.frameworkState;
+    if (frameworkState) {
+      // eslint-disable-next-line deprecation/deprecation
+      return frameworkState.sessionState.iModelConnection;
+    }
+    return useGlobalStore.getState().iModelConnection;
   }
 
-  /** Called by iModelApp to initialize saved UI state from registered UseSettingsProviders
-   * @public
-   */
+  public static setNumItemsSelected(numSelected: number) {
+    // eslint-disable-next-line deprecation/deprecation
+    if (UiFramework.frameworkState) {
+      // eslint-disable-next-line deprecation/deprecation
+      UiFramework.dispatchActionToStore(
+        // eslint-disable-next-line deprecation/deprecation
+        SessionStateActionId.SetNumItemsSelected,
+        numSelected
+      );
+      return;
+    }
+
+    useGlobalStore.setState({ numItemsSelected: numSelected });
+    // eslint-disable-next-line deprecation/deprecation
+    dispatchSyncUiEvent(SessionStateActionId.SetNumItemsSelected);
+  }
+
+  public static getNumItemsSelected() {
+    // eslint-disable-next-line deprecation/deprecation
+    const state = this.frameworkState;
+    if (state) {
+      // eslint-disable-next-line deprecation/deprecation
+      return state.sessionState.numItemsSelected;
+    }
+
+    return useGlobalStore.getState().numItemsSelected;
+  }
+
+  /** Called by iModelApp to initialize saved UI state from registered UseSettingsProviders. */
   public static async initializeStateFromUserSettingsProviders(
     immediateSync = false
   ) {
@@ -650,17 +595,9 @@ export class UiFramework {
         .loadUserSettings(UiFramework._uiStateStorage);
     }
 
-    if (immediateSync)
-      SyncUiEventDispatcher.dispatchImmediateSyncUiEvent(
-        SyncUiEventId.UiStateStorageChanged
-      );
-    else
-      SyncUiEventDispatcher.dispatchSyncUiEvent(
-        SyncUiEventId.UiStateStorageChanged
-      );
+    dispatchSyncUiEvent(SyncUiEventId.UiStateStorageChanged, immediateSync);
   }
 
-  /** @public */
   public static async setUiStateStorage(
     storage: UiStateStorage,
     immediateSync = false
@@ -674,69 +611,43 @@ export class UiFramework {
   /** The UI Settings Storage is a convenient wrapper around Local Storage to assist in caching state information across user sessions.
    * It was previously used to conflate both the state information across session and the information driven directly from user explicit action,
    * which are now handled with user preferences.
-   * @public
    */
   public static getUiStateStorage(): UiStateStorage {
     return UiFramework._uiStateStorage;
-  }
-
-  public static setDefaultIModelViewportControlId(
-    iModelViewportControlId: string,
-    immediateSync = false
-  ) {
-    UiFramework.dispatchActionToStore(
-      SessionStateActionId.SetDefaultIModelViewportControlId,
-      iModelViewportControlId,
-      immediateSync
-    );
-  }
-
-  public static getDefaultIModelViewportControlId(): string | undefined {
-    return UiFramework.frameworkState
-      ? UiFramework.frameworkState.sessionState.defaultIModelViewportControlId
-      : undefined;
-  }
-
-  public static setDefaultViewId(viewId: string, immediateSync = false) {
-    UiFramework.dispatchActionToStore(
-      SessionStateActionId.SetDefaultViewId,
-      viewId,
-      immediateSync
-    );
-  }
-
-  public static getDefaultViewId(): string | undefined {
-    return UiFramework.frameworkState
-      ? UiFramework.frameworkState.sessionState.defaultViewId
-      : undefined;
   }
 
   public static setDefaultViewState(
     viewState: ViewState,
     immediateSync = false
   ) {
-    UiFramework.dispatchActionToStore(
+    // eslint-disable-next-line deprecation/deprecation
+    if (UiFramework.frameworkState) {
+      // eslint-disable-next-line deprecation/deprecation
+      UiFramework.dispatchActionToStore(
+        // eslint-disable-next-line deprecation/deprecation
+        SessionStateActionId.SetDefaultViewState,
+        viewState,
+        immediateSync
+      );
+      return;
+    }
+
+    useGlobalStore.setState({ viewState });
+    dispatchSyncUiEvent(
+      // eslint-disable-next-line deprecation/deprecation
       SessionStateActionId.SetDefaultViewState,
-      viewState,
       immediateSync
     );
   }
-  public static getDefaultViewState(): ViewState | undefined {
-    return UiFramework.frameworkState
-      ? UiFramework.frameworkState.sessionState.defaultViewState
-      : undefined;
-  }
 
-  /**
-   * Returns the stored list of available selection scopes. This list should be set by the application
-   * by dispatching the `setAvailableSelectionScopes` action.
-   * The value for this action typically come from `Presentation.selection.scopes.getSelectionScopes()`
-   * method found in the `@itwin/presentation-frontend` package.
-   * @public */
-  public static getAvailableSelectionScopes(): PresentationSelectionScope[] {
-    return UiFramework.frameworkState
-      ? UiFramework.frameworkState.sessionState.availableSelectionScopes
-      : [{ id: "element", label: "Element" } as PresentationSelectionScope];
+  public static getDefaultViewState(): ViewState | undefined {
+    // eslint-disable-next-line deprecation/deprecation
+    const frameworkState = UiFramework.frameworkState;
+    if (frameworkState) {
+      // eslint-disable-next-line deprecation/deprecation
+      return frameworkState.sessionState.defaultViewState;
+    }
+    return useGlobalStore.getState().viewState;
   }
 
   public static getIsUiVisible() {
@@ -750,177 +661,15 @@ export class UiFramework {
     }
   }
 
-  /**
-   * Set the theme value used by the [[ThemeManager]] component.
-   */
-  public static setColorTheme(theme: ThemeId) {
-    if (UiFramework.getColorTheme() === theme) return;
-
-    UiFramework.dispatchActionToStore(
-      ConfigurableUiActionId.SetTheme,
-      theme,
-      true
-    );
-  }
-
-  public static getColorTheme(): ThemeId {
-    return UiFramework.frameworkState
-      ? UiFramework.frameworkState.configurableUiState.theme
-      : SYSTEM_PREFERRED_COLOR_THEME;
-  }
-
-  /** UiFramework.setToolbarOpacity() sets the non-hovered opacity to the value specified.
-   * @param opacity a value between 0 and 1. The default value is 0.5. IT IS NOT ADVISED TO USE A VALUE BELOW 0.2
-   * @public
-   */
-  public static setToolbarOpacity(opacity: number) {
-    if (UiFramework.getToolbarOpacity() === opacity) return;
-
-    UiFramework.dispatchActionToStore(
-      ConfigurableUiActionId.SetToolbarOpacity,
-      opacity,
-      true
-    );
-  }
-
-  /** UiFramework.getToolbarOpacity() returns a number between 0 and 1 that is the non-hovered opacity for toolbars.
-   * @public
-   */
-  public static getToolbarOpacity(): number {
-    return UiFramework.frameworkState
-      ? UiFramework.frameworkState.configurableUiState.toolbarOpacity
-      : TOOLBAR_OPACITY_DEFAULT;
-  }
-
-  public static setWidgetOpacity(opacity: number) {
-    if (UiFramework.getWidgetOpacity() === opacity) return;
-
-    UiFramework.dispatchActionToStore(
-      ConfigurableUiActionId.SetWidgetOpacity,
-      opacity,
-      true
-    );
-  }
-
-  public static getWidgetOpacity(): number {
-    return UiFramework.frameworkState
-      ? UiFramework.frameworkState.configurableUiState.widgetOpacity
-      : WIDGET_OPACITY_DEFAULT;
-  }
-
   /** @deprecated in 4.13.0. Use {@link @itwin/core-bentley#ProcessDetector.isMobileBrowser} instead. */
   // eslint-disable-next-line @itwin/prefer-get
   public static isMobile() {
     return ProcessDetector.isMobileBrowser;
   }
 
-  public static get showWidgetIcon(): boolean {
-    return UiFramework.frameworkState
-      ? UiFramework.frameworkState.configurableUiState.showWidgetIcon
-      : false;
-  }
-
-  public static setShowWidgetIcon(value: boolean) {
-    if (UiFramework.showWidgetIcon === value) return;
-
-    UiFramework.dispatchActionToStore(
-      ConfigurableUiActionId.SetShowWidgetIcon,
-      value,
-      true
-    );
-  }
-  /** Animate Tool Settings on appear  */
-  public static get animateToolSettings(): boolean {
-    return UiFramework.frameworkState
-      ? UiFramework.frameworkState.configurableUiState.animateToolSettings
-      : false;
-  }
-  public static setAnimateToolSettings(value: boolean) {
-    if (UiFramework.animateToolSettings === value) return;
-    UiFramework.dispatchActionToStore(
-      ConfigurableUiActionId.AnimateToolSettings,
-      value,
-      true
-    );
-  }
-
-  /** Use Tool Name As Tool Settings Widget Tab Label */
-  public static get useToolAsToolSettingsLabel(): boolean {
-    return UiFramework.frameworkState
-      ? UiFramework.frameworkState.configurableUiState
-          .useToolAsToolSettingsLabel
-      : false;
-  }
-  public static setUseToolAsToolSettingsLabel(value: boolean) {
-    if (UiFramework.useToolAsToolSettingsLabel === value) return;
-    UiFramework.dispatchActionToStore(
-      ConfigurableUiActionId.UseToolAsToolSettingsLabel,
-      value,
-      true
-    );
-  }
-
-  /** When `true`, panels will close as soon as the mouse leave the panel.
-   * When `false` (default), panels will close on next click outside the panel.
-   * @public */
-  public static get autoCollapseUnpinnedPanels(): boolean {
-    return UiFramework.frameworkState
-      ? UiFramework.frameworkState.configurableUiState
-          .autoCollapseUnpinnedPanels
-      : false;
-  }
-
-  /** Method used to enable the automatic closing of an unpinned widget panel as soon as the
-   * mouse leaves the widget panel. The default behavior is to require a mouse click outside
-   * the panel before it is closed.
-   * @public */
-
-  public static setAutoCollapseUnpinnedPanels(value: boolean) {
-    if (UiFramework.autoCollapseUnpinnedPanels === value) return;
-
-    UiFramework.dispatchActionToStore(
-      ConfigurableUiActionId.AutoCollapseUnpinnedPanels,
-      value,
-      true
-    );
-  }
-
-  public static get useDragInteraction(): boolean {
-    return UiFramework.frameworkState
-      ? UiFramework.frameworkState.configurableUiState.useDragInteraction
-      : false;
-  }
-
-  public static setUseDragInteraction(useDragInteraction: boolean) {
-    UiFramework.dispatchActionToStore(
-      ConfigurableUiActionId.SetDragInteraction,
-      useDragInteraction,
-      true
-    );
-  }
-
-  /** Returns the variable controlling whether the overlay is displayed in a Viewport
-   * @public
-   */
-  public static get viewOverlayDisplay() {
-    return UiFramework.frameworkState
-      ? UiFramework.frameworkState.configurableUiState.viewOverlayDisplay
-      : true;
-  }
-  /** Set the variable that controls display of the view overlay. Applies to all viewports in the app
-   * @public
-   */
-  public static setViewOverlayDisplay(display: boolean) {
-    if (UiFramework.viewOverlayDisplay === display) return;
-    UiFramework.dispatchActionToStore(
-      ConfigurableUiActionId.SetViewOverlayDisplay,
-      display
-    );
-  }
-
   /** Determines whether a ContextMenu is open
    * @alpha
-   * */
+   */
   public static get isContextMenuOpen(): boolean {
     const contextMenu = document.querySelector("div.core-context-menu-opened");
     return contextMenu !== null && contextMenu !== undefined;
@@ -1307,4 +1056,437 @@ export class UiFramework {
     const el = htmlElement ?? UiFramework.controls.getWrapperElement();
     return el;
   }
+
+  /* eslint-disable deprecation/deprecation */
+
+  /** @deprecated in 4.15.0. Use your preferred state management library instead and {@link SyncUiEventDispatcher} to dispatch sync UI events. */
+  public static dispatchActionToStore(
+    type: string,
+    payload: any,
+    immediateSync = false
+  ) {
+    const reduxStore = UiFramework.reduxStore;
+    const reduxState = reduxStore?.getState();
+    const frameworkState = reduxState?.[UiFramework.frameworkStateKey];
+    if (!frameworkState) return;
+    reduxStore!.dispatch({ type, payload });
+    dispatchSyncUiEvent(type, immediateSync);
+  }
+
+  /** Key used to access framework state from redux store.
+   * @deprecated in 4.15.0. Use your preferred state management library instead.
+   */
+  public static get frameworkStateKey(): string {
+    return UiFramework._frameworkStateKeyInStore;
+  }
+
+  /** The Redux store.
+   * @note Requires redux provider.
+   * @deprecated in 4.15.0. Use your preferred state management library instead.
+   */
+  public static get store(): Store<any> {
+    const reduxStore = this.reduxStore;
+    if (!reduxStore) {
+      throw new UiError(
+        UiFramework.loggerCategory(this),
+        `Error trying to access redux store before either store or StateManager has been initialized.`
+      );
+    }
+
+    return reduxStore;
+  }
+
+  /** @internal */
+  public static get reduxStore(): Store<any> | undefined {
+    if (UiFramework._store) {
+      return UiFramework._store;
+    }
+
+    if (StateManager.isInitialized(true)) {
+      return StateManager.store;
+    }
+
+    return undefined;
+  }
+
+  /** The UiFramework state maintained by Redux.
+   * @note Returned fields should not be modified. Use the appropriate action dispatchers to modify the state.
+   * @note Requires redux provider.
+   * @deprecated in 4.15.0. Use your preferred state management library instead.
+   */
+  public static get frameworkState(): ReduxFrameworkState | undefined {
+    const store = UiFramework.reduxStore;
+    const state = store?.getState();
+    const frameworkState = state?.[UiFramework.frameworkStateKey];
+    return frameworkState;
+  }
+
+  /** Set the theme value used by the [[ThemeManager]] component.
+   * @note Requires redux provider.
+   * @deprecated in 4.15.0. Components should take `theme` as a prop.
+   */
+  public static getColorTheme(): ThemeId {
+    return (
+      UiFramework.frameworkState?.configurableUiState.theme ??
+      SYSTEM_PREFERRED_COLOR_THEME
+    );
+  }
+
+  /** Set the theme value used by the [[ThemeManager]] component.
+   * @note Requires redux provider.
+   * @deprecated in 4.15.0. Use `theme` prop of {@link ThemeManager}.
+   */
+  public static setColorTheme(theme: ThemeId) {
+    if (UiFramework.getColorTheme() === theme) return;
+
+    UiFramework.dispatchActionToStore(
+      ConfigurableUiActionId.SetTheme,
+      theme,
+      true
+    );
+  }
+
+  /** Returns the variable controlling whether the overlay is displayed in a Viewport.
+   * @note Requires redux provider.
+   * @deprecated in 4.15.0. Components should take `viewOverlay` as a prop.
+   */
+  public static get viewOverlayDisplay() {
+    return (
+      UiFramework.frameworkState?.configurableUiState.viewOverlayDisplay ?? true
+    );
+  }
+
+  /** Set the variable that controls display of the view overlay. Applies to all viewports in the app.
+   * @note Requires redux provider.
+   * @deprecated in 4.15.0. Use {@link ConfigurableUiContentProps.viewOverlay} prop of {@link ConfigurableUiContent}.
+   */
+  public static setViewOverlayDisplay(display: boolean) {
+    if (UiFramework.viewOverlayDisplay === display) return;
+
+    UiFramework.dispatchActionToStore(
+      ConfigurableUiActionId.SetViewOverlayDisplay,
+      display
+    );
+  }
+
+  /**
+   * @note Requires redux provider.
+   * @deprecated in 4.15.0. Components should take `widgetOpacity` as a prop.
+   */
+  public static getWidgetOpacity(): number {
+    return (
+      UiFramework.frameworkState?.configurableUiState.widgetOpacity ??
+      WIDGET_OPACITY_DEFAULT
+    );
+  }
+
+  /**
+   * @note Requires redux provider.
+   * @deprecated in 4.15.0. Use {@link ConfigurableUiContentProps.widgetOpacity} prop of {@link ConfigurableUiContent}.
+   */
+  public static setWidgetOpacity(opacity: number) {
+    if (UiFramework.getWidgetOpacity() === opacity) return;
+
+    UiFramework.dispatchActionToStore(
+      ConfigurableUiActionId.SetWidgetOpacity,
+      opacity,
+      true
+    );
+  }
+
+  /**
+   * @note Requires redux provider.
+   * @deprecated in 4.15.0. Components should take `snapMode` as a prop.
+   */
+  public static getAccudrawSnapMode(): SnapMode {
+    return (
+      UiFramework.frameworkState?.configurableUiState.snapMode ??
+      SnapMode.NearestKeypoint
+    );
+  }
+
+  /**
+   * @note Requires redux provider.
+   * @deprecated in 4.15.0. Use `snapMode` prop of {@link SnapModeField}.
+   */
+  public static setAccudrawSnapMode(snapMode: SnapMode) {
+    UiFramework.dispatchActionToStore(
+      ConfigurableUiActionId.SetSnapMode,
+      snapMode,
+      true
+    );
+  }
+
+  /**
+   * @note Requires redux provider.
+   * @deprecated in 4.15.0. Components should take `useDragInteraction` as a prop.
+   */
+  public static get useDragInteraction(): boolean {
+    return (
+      UiFramework.frameworkState?.configurableUiState.useDragInteraction ??
+      false
+    );
+  }
+
+  /**
+   * @note Requires redux provider.
+   * @deprecated in 4.15.0. Use `useDragInteraction` prop of {@link Toolbar}.
+   */
+  public static setUseDragInteraction(useDragInteraction: boolean) {
+    UiFramework.dispatchActionToStore(
+      ConfigurableUiActionId.SetDragInteraction,
+      useDragInteraction,
+      true
+    );
+  }
+
+  /**
+   * @note Requires redux provider.
+   * @deprecated in 4.15.0. Components should take `widgetIcon` as a prop.
+   */
+  public static get showWidgetIcon(): boolean {
+    return (
+      UiFramework.frameworkState?.configurableUiState.showWidgetIcon ?? false
+    );
+  }
+
+  /**
+   * @note Requires redux provider.
+   * @deprecated in 4.15.0. Use {@link ConfigurableUiContentProps.widgetIcon} prop of {@link ConfigurableUiContent}.
+   */
+  public static setShowWidgetIcon(value: boolean) {
+    if (UiFramework.showWidgetIcon === value) return;
+
+    UiFramework.dispatchActionToStore(
+      ConfigurableUiActionId.SetShowWidgetIcon,
+      value,
+      true
+    );
+  }
+
+  /** When `true`, panels will close as soon as the mouse leave the panel.
+   * When `false` (default), panels will close on next click outside the panel.
+   * @note Requires redux provider.
+   * @deprecated in 4.15.0. Components should take `collapsePanels` as a prop.
+   */
+  public static get autoCollapseUnpinnedPanels(): boolean {
+    return (
+      UiFramework.frameworkState?.configurableUiState
+        .autoCollapseUnpinnedPanels ?? false
+    );
+  }
+
+  /** Method used to enable the automatic closing of an unpinned widget panel as soon as the
+   * mouse leaves the widget panel. The default behavior is to require a mouse click outside
+   * the panel before it is closed.
+   * @note Requires redux provider.
+   * @deprecated in 4.15.0. Use {@link ConfigurableUiContentProps.collapsePanels} prop of {@link ConfigurableUiContent}.
+   */
+  public static setAutoCollapseUnpinnedPanels(value: boolean) {
+    if (UiFramework.autoCollapseUnpinnedPanels === value) return;
+
+    UiFramework.dispatchActionToStore(
+      ConfigurableUiActionId.AutoCollapseUnpinnedPanels,
+      value,
+      true
+    );
+  }
+
+  /** Animate Tool Settings on appear.
+   * @note Requires redux provider.
+   * @deprecated in 4.15.0. Components should take `animateToolSettings` as a prop.
+   */
+  public static get animateToolSettings(): boolean {
+    return (
+      UiFramework.frameworkState?.configurableUiState.animateToolSettings ??
+      false
+    );
+  }
+
+  /**
+   * @note Requires redux provider.
+   * @deprecated in 4.15.0. Use {@link ConfigurableUiContentProps.animateToolSettings} prop of {@link ConfigurableUiContent}.
+   */
+  public static setAnimateToolSettings(value: boolean) {
+    if (UiFramework.animateToolSettings === value) return;
+    UiFramework.dispatchActionToStore(
+      ConfigurableUiActionId.AnimateToolSettings,
+      value,
+      true
+    );
+  }
+
+  /** Use Tool Name As Tool Settings Widget Tab Label.
+   * @note Requires redux provider.
+   * @deprecated in 4.15.0. Components should take `toolAsToolSettingsLabel` as a prop.
+   */
+  public static get useToolAsToolSettingsLabel(): boolean {
+    return (
+      UiFramework.frameworkState?.configurableUiState
+        .useToolAsToolSettingsLabel ?? false
+    );
+  }
+
+  /**
+   * @note Requires redux provider.
+   * @deprecated in 4.15.0. Use {@link ConfigurableUiContentProps.toolAsToolSettingsLabel} prop of {@link ConfigurableUiContent}.
+   */
+  public static setUseToolAsToolSettingsLabel(value: boolean) {
+    if (UiFramework.useToolAsToolSettingsLabel === value) return;
+    UiFramework.dispatchActionToStore(
+      ConfigurableUiActionId.UseToolAsToolSettingsLabel,
+      value,
+      true
+    );
+  }
+
+  /** UiFramework.getToolbarOpacity() returns a number between 0 and 1 that is the non-hovered opacity for toolbars.
+   * @note Requires redux provider.
+   * @deprecated in 4.15.0. Components should take `opacity` as a prop.
+   */
+  public static getToolbarOpacity(): number {
+    return (
+      UiFramework.frameworkState?.configurableUiState.toolbarOpacity ??
+      TOOLBAR_OPACITY_DEFAULT
+    );
+  }
+
+  /** UiFramework.setToolbarOpacity() sets the non-hovered opacity to the value specified.
+   * @param opacity a value between 0 and 1. The default value is 0.5. IT IS NOT ADVISED TO USE A VALUE BELOW 0.2
+   * @note Requires redux provider.
+   * @deprecated in 4.15.0. Use {@link ConfigurableUiContentProps.toolbarOpacity} prop of {@link ConfigurableUiContent}.
+   */
+  public static setToolbarOpacity(opacity: number) {
+    if (UiFramework.getToolbarOpacity() === opacity) return;
+
+    UiFramework.dispatchActionToStore(
+      ConfigurableUiActionId.SetToolbarOpacity,
+      opacity,
+      true
+    );
+  }
+
+  /**
+   * @note Requires redux provider.
+   * @deprecated in 4.15.0. Get id from iModel connection.
+   */
+  public static getActiveIModelId(): string {
+    return UiFramework.frameworkState?.sessionState.iModelId ?? "";
+  }
+
+  /**
+   * @note Requires redux provider.
+   * @deprecated in 4.15.0. Not used by AppUI components.
+   */
+  public static setActiveIModelId(iModelId: string): void {
+    UiFramework.dispatchActionToStore(
+      SessionStateActionId.SetActiveIModelId,
+      iModelId
+    );
+  }
+
+  /** Returns the stored active selection scope id.
+   * @note Requires redux provider.
+   * @deprecated in 4.15.0. Components should take `activeScope` as a prop.
+   */
+  public static getActiveSelectionScope(): string {
+    return (
+      UiFramework.frameworkState?.sessionState.activeSelectionScope ?? "element"
+    );
+  }
+  /** This method stores the active selection scope to the supplied scope id, and triggers
+   * a `SessionStateActionId.SetSelectionScope` event in the `SyncUiEventDispatcher`.
+   * Note: As of 4.0, this method *does not change* the active selection scope in the `Presentation.selection.scopes.activeScope` property.
+   * This event should be listened to and the change should typically be applied to
+   * `Presentation.selection.scopes.activeScope` property from the `@itwin/presentation-frontend` package.
+   * @note Requires redux provider.
+   * @deprecated in 4.15.0. Use `activeScope` prop of {@link SelectionScopeField}.
+   */
+  public static setActiveSelectionScope(selectionScopeId: string): void {
+    if (!UiFramework.frameworkState) return;
+
+    const foundIndex =
+      UiFramework.frameworkState.sessionState.availableSelectionScopes.findIndex(
+        (selectionScope: PresentationSelectionScope) =>
+          selectionScope.id === selectionScopeId
+      );
+    if (foundIndex < 0) return;
+
+    UiFramework.dispatchActionToStore(
+      SessionStateActionId.SetSelectionScope,
+      selectionScopeId
+    );
+  }
+
+  /** Returns the stored list of available selection scopes. This list should be set by the application
+   * by dispatching the `setAvailableSelectionScopes` action.
+   * The value for this action typically come from `Presentation.selection.scopes.getSelectionScopes()`
+   * method found in the `@itwin/presentation-frontend` package.
+   * @note Returned value is immutable.
+   * @note Requires redux provider.
+   * @deprecated in 4.15.0. Components should take `selectionScopes` as a prop.
+   */
+  public static getAvailableSelectionScopes(): PresentationSelectionScope[] {
+    return (
+      UiFramework.frameworkState?.sessionState.availableSelectionScopes ?? [
+        { id: "element", label: "Element" },
+      ]
+    );
+  }
+
+  /**
+   * @note Requires redux provider.
+   * @deprecated in 4.15.0. Not used by AppUI components.
+   */
+  public static getDefaultIModelViewportControlId(): string | undefined {
+    return (
+      UiFramework.frameworkState?.sessionState.defaultIModelViewportControlId ??
+      undefined
+    );
+  }
+
+  /**
+   * @note Requires redux provider.
+   * @deprecated in 4.15.0. Not used by AppUI components.
+   */
+  public static setDefaultIModelViewportControlId(
+    iModelViewportControlId: string,
+    immediateSync = false
+  ) {
+    UiFramework.dispatchActionToStore(
+      SessionStateActionId.SetDefaultIModelViewportControlId,
+      iModelViewportControlId,
+      immediateSync
+    );
+  }
+
+  /**
+   * @note Requires redux provider.
+   * @deprecated in 4.15.0. Not used by AppUI components.
+   */
+  public static getDefaultViewId(): string | undefined {
+    return UiFramework.frameworkState?.sessionState.defaultViewId ?? undefined;
+  }
+
+  /**
+   * @note Requires redux provider.
+   * @deprecated in 4.15.0. Not used by AppUI components.
+   */
+  public static setDefaultViewId(viewId: string, immediateSync = false) {
+    UiFramework.dispatchActionToStore(
+      SessionStateActionId.SetDefaultViewId,
+      viewId,
+      immediateSync
+    );
+  }
+
+  /* eslint-enable deprecation/deprecation */
+}
+
+function dispatchSyncUiEvent(eventId: string, immediateSync = false) {
+  if (immediateSync) {
+    SyncUiEventDispatcher.dispatchImmediateSyncUiEvent(eventId);
+    return;
+  }
+  SyncUiEventDispatcher.dispatchSyncUiEvent(eventId);
 }

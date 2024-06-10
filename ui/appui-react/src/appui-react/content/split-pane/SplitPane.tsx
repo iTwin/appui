@@ -45,7 +45,7 @@ export interface SplitPaneProps {
   onDragStarted?: () => void;
   /** This callback is invoked when a drag ends. */
   onDragFinished?: (newSize: number) => void;
-  /** Callback is invoked with the current drag during a drag event.*/
+  /** Callback is invoked with the current drag during a drag event. */
   onChange?: (newSize: number) => void;
   /** Callback is invoked if user clicks on Resizer. */
   onResizerClick?: (event: MouseEvent) => void;

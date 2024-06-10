@@ -32,6 +32,7 @@ export class AppUiTestProviders {
     );
 
     /** Register a slice of state into the iModelApp Redux store. - this should only be called once */
+    // eslint-disable-next-line deprecation/deprecation
     ReducerRegistryInstance.registerReducer(
       TestProviderSliceName,
       providerSlice.reducer

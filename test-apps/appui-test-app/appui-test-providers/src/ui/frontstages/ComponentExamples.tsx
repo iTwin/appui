@@ -68,11 +68,13 @@ export const ComponentExamplesPage: React.FC<ComponentExamplesPageProps> = (
   const showThemeOption = !!!props.hideThemeOption;
   const [activeIndex, setActiveIndex] = React.useState(0);
   const [colorTheme, setColorTheme] = React.useState(() =>
+    // eslint-disable-next-line deprecation/deprecation
     UiFramework.getColorTheme()
   );
 
   const onThemeChange = () => {
     const theme = isLightTheme() ? ColorTheme.Dark : ColorTheme.Light;
+    // eslint-disable-next-line deprecation/deprecation
     UiFramework.setColorTheme(theme);
     setColorTheme(theme);
   };

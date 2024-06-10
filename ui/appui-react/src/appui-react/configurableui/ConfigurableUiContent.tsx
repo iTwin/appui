@@ -26,8 +26,24 @@ import { ContentDialogRenderer } from "../dialog/ContentDialogManager";
 import { UiFramework } from "../UiFramework";
 import { InternalConfigurableUiManager } from "./InternalConfigurableUiManager";
 import { MessageRenderer } from "../messages/MessageRenderer";
+import {
+  TOOLBAR_OPACITY_DEFAULT,
+  WIDGET_OPACITY_DEFAULT,
+} from "../theme/ThemeId";
+import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState";
 
-// cSpell:ignore cursormenu cursorpopup
+/** @internal */
+export const ConfigurableUiContext = React.createContext<
+  Pick<
+    ConfigurableUiContentProps,
+    | "viewOverlay"
+    | "widgetOpacity"
+    | "widgetIcon"
+    | "collapsePanels"
+    | "animateToolSettings"
+    | "toolAsToolSettingsLabel"
+  >
+>({});
 
 /** Properties for [[ConfigurableUiContent]]
  * @public
@@ -36,6 +52,20 @@ import { MessageRenderer } from "../messages/MessageRenderer";
 export interface ConfigurableUiContentProps extends CommonProps {
   /** React node of the Backstage */
   appBackstage?: React.ReactNode;
+  /** Controls if the view overlay should be displayed. Uses redux store as a fallback. Defaults to `true`. */
+  viewOverlay?: boolean;
+  /** Describes the opacity of widgets. Uses redux store as a fallback. Defaults to {@link WIDGET_OPACITY_DEFAULT}. */
+  widgetOpacity?: number;
+  /** Controls if the widget icons should be displayed. Uses redux store as a fallback. Defaults to `true`. */
+  widgetIcon?: boolean;
+  /** Controls if the unpinned panels should be collapsed automatically. Uses redux store as a fallback. Defaults to `false`. */
+  collapsePanels?: boolean;
+  /** Controls if the tool settings should be animated. Uses redux store as a fallback. Defaults to `false`. */
+  animateToolSettings?: boolean;
+  /** Controls if the tool settings label should be set based on activated tool. Uses redux store as a fallback. Defaults to `false`. */
+  toolAsToolSettingsLabel?: boolean;
+  /** Describes the opacity of toolbars. Uses redux store as a fallback. Defaults to {@link TOOLBAR_OPACITY_DEFAULT}. */
+  toolbarOpacity?: number;
 
   /** @internal */
   idleTimeout?: number;
@@ -53,6 +83,8 @@ export const WrapperContext = React.createContext<HTMLElement>(document.body);
  * @public
  */
 export function ConfigurableUiContent(props: ConfigurableUiContentProps) {
+  useWidgetOpacity(props.widgetOpacity);
+  useToolbarOpacity(props.toolbarOpacity);
   const [mainElement, setMainElement] = React.useState<HTMLElement | null>(
     null
   );
@@ -79,38 +111,97 @@ export function ConfigurableUiContent(props: ConfigurableUiContentProps) {
   }, []);
 
   return (
-    <main
-      role="main"
-      id="uifw-configurableui-wrapper"
-      className={props.className}
-      style={props.style}
-      onMouseMove={handleMouseMove}
-      ref={setMainElement}
+    <ConfigurableUiContext.Provider
+      value={{
+        viewOverlay: props.viewOverlay,
+        widgetOpacity: props.widgetOpacity,
+        widgetIcon: props.widgetIcon,
+        collapsePanels: props.collapsePanels,
+        animateToolSettings: props.animateToolSettings,
+        toolAsToolSettingsLabel: props.toolAsToolSettingsLabel,
+      }}
     >
-      <WrapperContext.Provider value={mainElement!}>
-        <ThemeProvider
-          style={{ height: "100%" }}
-          portalContainer={portalContainer}
-        >
-          {props.appBackstage}
-          <WidgetPanelsFrontstage />
-          <ContentDialogRenderer />
-          <ModelessDialogRenderer />
-          <ModalDialogRenderer />
-          <ElementTooltip />
-          <PointerMessage />
-          <KeyboardShortcutMenu />
-          <InputFieldMessage />
-          <CursorPopupMenu />
-          <CursorPopupRenderer />
-          <PopupRenderer />
-          <MessageRenderer />
-        </ThemeProvider>
-      </WrapperContext.Provider>
-      <div
-        className="uifw-configurableui-portalContainer"
-        ref={(instance) => setPortalContainer(instance ?? undefined)}
-      />
-    </main>
+      <main
+        role="main"
+        id="uifw-configurableui-wrapper"
+        className={props.className}
+        style={props.style}
+        onMouseMove={handleMouseMove}
+        ref={setMainElement}
+      >
+        <WrapperContext.Provider value={mainElement!}>
+          <ThemeProvider
+            style={{ height: "100%" }}
+            portalContainer={portalContainer}
+          >
+            {props.appBackstage}
+            <WidgetPanelsFrontstage />
+            <ContentDialogRenderer />
+            <ModelessDialogRenderer />
+            <ModalDialogRenderer />
+            <ElementTooltip />
+            <PointerMessage />
+            <KeyboardShortcutMenu />
+            <InputFieldMessage />
+            <CursorPopupMenu />
+            <CursorPopupRenderer />
+            <PopupRenderer />
+            <MessageRenderer />
+          </ThemeProvider>
+        </WrapperContext.Provider>
+        <div
+          className="uifw-configurableui-portalContainer"
+          ref={(instance) => setPortalContainer(instance ?? undefined)}
+        />
+      </main>
+    </ConfigurableUiContext.Provider>
   );
+}
+
+function useWidgetOpacity(
+  widgetOpacity: ConfigurableUiContentProps["widgetOpacity"]
+) {
+  const reduxWidgetOpacity = useReduxFrameworkState((state) => {
+    // eslint-disable-next-line deprecation/deprecation
+    return state?.configurableUiState.widgetOpacity;
+  });
+  const opacity = widgetOpacity ?? reduxWidgetOpacity ?? WIDGET_OPACITY_DEFAULT;
+
+  React.useEffect(() => {
+    const currentWidgetOpacity =
+      document.documentElement.style.getPropertyValue("--buic-widget-opacity");
+    if (currentWidgetOpacity === opacity.toString()) return;
+    document.documentElement.style.setProperty(
+      "--buic-widget-opacity",
+      opacity.toString()
+    );
+    return () => {
+      document.documentElement.style.removeProperty("--buic-widget-opacity");
+    };
+  }, [opacity]);
+}
+
+function useToolbarOpacity(
+  toolbarOpacity: ConfigurableUiContentProps["toolbarOpacity"]
+) {
+  const reduxToolbarOpacity = useReduxFrameworkState((state) => {
+    // eslint-disable-next-line deprecation/deprecation
+    return state?.configurableUiState.toolbarOpacity;
+  });
+
+  const opacity =
+    toolbarOpacity ?? reduxToolbarOpacity ?? TOOLBAR_OPACITY_DEFAULT;
+
+  React.useEffect(() => {
+    const currentToolbarOpacity =
+      document.documentElement.style.getPropertyValue("--buic-toolbar-opacity");
+    if (currentToolbarOpacity === opacity.toString()) return;
+    document.documentElement.style.setProperty(
+      "--buic-toolbar-opacity",
+      opacity.toString()
+    );
+    return () => {
+      document.documentElement.style.removeProperty("--buic-toolbar-opacity");
+    };
+  }, [opacity]);
 }
