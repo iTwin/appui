@@ -61,7 +61,6 @@ import type { MessageType } from '@itwin/core-react';
 import type { NoChildrenProps } from '@itwin/core-react';
 import { NotificationManager } from '@itwin/core-frontend';
 import { NotifyMessageDetails } from '@itwin/core-frontend';
-import { Omit as Omit_2 } from 'react-redux';
 import type { OnCancelFunc } from '@itwin/appui-abstract';
 import type { OnItemExecutedFunc } from '@itwin/appui-abstract';
 import type { OnNumberCommitFunc } from '@itwin/appui-abstract';
