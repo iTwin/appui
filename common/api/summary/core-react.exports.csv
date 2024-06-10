@@ -25,6 +25,7 @@ internal;calculateToolbarOpacity: (proximityScale: number) => number
 public;Centered(props: CommonDivProps): React_2.JSX.Element
 deprecated;Centered(props: CommonDivProps): React_2.JSX.Element
 public;CheckBoxInfo
+deprecated;CheckBoxInfo
 public;CheckBoxState
 public;CheckListBox 
 deprecated;CheckListBox 
@@ -36,8 +37,11 @@ public;CheckListBoxSeparator(): React_2.JSX.Element
 deprecated;CheckListBoxSeparator(): React_2.JSX.Element
 internal;Circle
 public;ClassNameProps
+deprecated;ClassNameProps
 public;CommonDivProps 
+deprecated;CommonDivProps 
 public;CommonProps 
+deprecated;CommonProps 
 public;ConditionalIconItem
 public;ContextMenu 
 public;ContextMenuDirection
@@ -64,21 +68,27 @@ deprecated;DivProps
 public;DivWithOutsideClick:
 deprecated;DivWithOutsideClick:
 public;ElementResizeObserver({ watchedElement, render, }:
+deprecated;ElementResizeObserver({ watchedElement, render, }:
 public;ElementSeparator: (props: ElementSeparatorProps) => React_2.JSX.Element
 deprecated;ElementSeparator: (props: ElementSeparatorProps) => React_2.JSX.Element
 public;ElementSeparatorProps 
 deprecated;ElementSeparatorProps 
 public;ExecuteHandler = (this: void) => void
+deprecated;ExecuteHandler = (this: void) => void
 public;ExpandableList 
 deprecated;ExpandableList 
 public;ExpandableListProps 
 deprecated;ExpandableListProps 
 public;ExpansionToggle(props: ExpansionToggleProps): React_2.JSX.Element
+deprecated;ExpansionToggle(props: ExpansionToggleProps): React_2.JSX.Element
 public;ExpansionToggleProps 
+deprecated;ExpansionToggleProps 
 public;FillCentered(props: CommonDivProps): React_2.JSX.Element
 deprecated;FillCentered(props: CommonDivProps): React_2.JSX.Element
 alpha;FilteredText(props: FilteredTextProps): React_2.JSX.Element
+deprecated;FilteredText(props: FilteredTextProps): React_2.JSX.Element
 alpha;FilteredTextProps 
+deprecated;FilteredTextProps 
 internal;flattenChildren: (children: React_2.ReactNode) => React_2.ReactNode
 public;FlexWrapContainer(props: CommonDivProps): React_2.JSX.Element
 deprecated;FlexWrapContainer(props: CommonDivProps): React_2.JSX.Element
@@ -92,7 +102,9 @@ deprecated;GapProps
 public;GetAutoSuggestDataFunc = (value: string) => AutoSuggestData[]
 internal;getBestBWContrastColor(hexColor: string): "black" | "white"
 public;getCssVariable(variableName: string, htmlElement?: HTMLElement): string
+deprecated;getCssVariable(variableName: string, htmlElement?: HTMLElement): string
 public;getCssVariableAsNumber(variableName: string, htmlElement?: HTMLElement): number
+deprecated;getCssVariableAsNumber(variableName: string, htmlElement?: HTMLElement): number
 internal;getDisplayName: (component: React_2.ComponentType
 internal;getObjectClassName: (obj: any) => string
 internal;getResizeObserver():
@@ -110,8 +122,10 @@ public;GlobalDialogState
 deprecated;GlobalDialogState
 internal;hasPointerEventsSupport(): boolean
 public;HorizontalAlignment
+deprecated;HorizontalAlignment
 public;Icon(props: IconProps): React_2.JSX.Element | null
 public;IconHelper
+deprecated;IconHelper
 public;IconInput: (props: IconInputProps) => React_2.ReactNode
 deprecated;IconInput: (props: IconInputProps) => React_2.ReactNode
 public;IconInputProps 
@@ -172,33 +186,46 @@ public;MainTabsProps
 deprecated;MainTabsProps 
 internal;mergeRefs
 public;MessageBox 
+deprecated;MessageBox 
 public;MessageBoxProps 
+deprecated;MessageBoxProps 
 public;MessageContainer 
+deprecated;MessageContainer 
 public;MessageContainerProps 
+deprecated;MessageContainerProps 
 public;MessagedComponentProps
 deprecated;MessagedComponentProps
 public;MessageRenderer(props: MessageRendererProps): React_2.JSX.Element | null
+deprecated;MessageRenderer(props: MessageRendererProps): React_2.JSX.Element | null
 public;MessageRendererProps 
+deprecated;MessageRendererProps 
 public;MessageType = string | HTMLElement | ReactMessage
+deprecated;MessageType = string | HTMLElement | ReactMessage
 public;MutedText(props: TextProps): React_2.JSX.Element
 deprecated;MutedText(props: TextProps): React_2.JSX.Element
 public;NoChildrenProps
+deprecated;NoChildrenProps
 public;NodeCheckboxProps
+deprecated;NodeCheckboxProps
 public;NodeCheckboxRenderer = (props: NodeCheckboxRenderProps) => React_2.ReactNode
-public;NodeCheckboxRenderProps = Omit_2
+public;NodeCheckboxRenderProps = Omit
 public;NumberInput: (props: NumberInputProps) => React_2.ReactNode
 deprecated;NumberInput: (props: NumberInputProps) => React_2.ReactNode
 public;NumberInputProps 
 deprecated;NumberInputProps 
 public;OmitChildrenProp
+deprecated;OmitChildrenProp
 public;Orientation
 public;OutsideClickEvent = PointerEvent | MouseEvent | TouchEvent
+deprecated;OutsideClickEvent = PointerEvent | MouseEvent | TouchEvent
 internal;percentInRange(percent: number): number
 internal;Point 
 public;Popup 
+deprecated;Popup 
 public;PopupContextMenu(props: PopupContextMenuProps): React_2.JSX.Element
 public;PopupContextMenuProps 
 public;PopupProps 
+deprecated;PopupProps 
 public;ProcessSettingsContainerCloseEvent 
 deprecated;ProcessSettingsContainerCloseEvent 
 public;ProcessSettingsContainerCloseEventArgs
@@ -221,12 +248,15 @@ deprecated;RadialSizeType = ProgressRadialProps["size"]
 public;RatioChangeResult
 deprecated;RatioChangeResult
 public;ReactMessage
+deprecated;ReactMessage
 internal;Rectangle 
 public;RectangleProps
 public;RenderPropsArgs
 public;ResizableContainerObserver({ onResize, children, }:
+deprecated;ResizableContainerObserver({ onResize, children, }:
 internal;ResizeObserverType = default_2
 public;ScrollPositionMaintainer 
+deprecated;ScrollPositionMaintainer 
 public;ScrollView(props: CommonDivProps): React_2.JSX.Element
 deprecated;ScrollView(props: CommonDivProps): React_2.JSX.Element
 public;SearchBox 
@@ -246,6 +276,7 @@ internal;shallowDiffers: (a:
 internal;Size 
 public;SizeProps
 public;SortDirection
+deprecated;SortDirection
 public;StepFunctionProp = number | ((direction: string) => number | undefined)
 deprecated;StepFunctionProp = number | ((direction: string) => number | undefined)
 public;StyledText(props: StyledTextProps): React_2.JSX.Element
@@ -253,7 +284,9 @@ deprecated;StyledText(props: StyledTextProps): React_2.JSX.Element
 public;StyledTextProps 
 deprecated;StyledTextProps 
 public;SvgPath 
+deprecated;SvgPath 
 public;SvgPathProps 
+deprecated;SvgPathProps 
 public;TabLabel
 deprecated;TabLabel
 public;Tabs 
@@ -264,17 +297,26 @@ public;TextProps
 deprecated;TextProps 
 public;TimeFormat
 public;Timer
+deprecated;Timer
 internal;TOOLBAR_BACKDROP_FILTER_BLUR_DEFAULT = 10
 internal;TOOLBAR_BOX_SHADOW_OPACITY_DEFAULT = 0.35
 internal;TOOLBAR_OPACITY_DEFAULT = 0.5
 public;Tree 
+deprecated;Tree 
 public;TreeBranch 
+deprecated;TreeBranch 
 public;TreeBranchProps 
+deprecated;TreeBranchProps 
 public;TreeNode 
+deprecated;TreeNode 
 public;TreeNodePlaceholder 
+deprecated;TreeNodePlaceholder 
 public;TreeNodePlaceholderProps 
+deprecated;TreeNodePlaceholderProps 
 public;TreeNodeProps 
+deprecated;TreeNodeProps 
 public;TreeProps 
+deprecated;TreeProps 
 public;UiCore
 internal;UiGeometry
 public;UiStateEntry
@@ -289,10 +331,13 @@ public;useCrossOriginPopup(visible: boolean, url: string | undefined, title: str
 public;useDisposable
 deprecated;useDisposable
 public;useEffectSkipFirst(callback: () => (void | (() => void | undefined)) | void, deps?: any[]): void
+deprecated;useEffectSkipFirst(callback: () => (void | (() => void | undefined)) | void, deps?: any[]): void
 internal;useEventListener(eventName: string, handler: (event: Event) => void, element: HTMLElement | Document | undefined): void
 beta;useInterval(callback: (...args: any[]) => void, delay: number | undefined): void
+deprecated;useInterval(callback: (...args: any[]) => void, delay: number | undefined): void
 internal;useLayoutResizeObserver(inElement: HTMLElement | null, onResize?: (width?: number, height?: number) => void): (number | undefined)[]
 public;useOptionalDisposable
+deprecated;useOptionalDisposable
 internal;usePackageTranslation({ namespace, fallback, defaults, }:
 internal;useProximityToMouse: (elementSet: WidgetElementSet, snap?: boolean, threshold?: number) => number
 internal;useRefEffect
@@ -304,16 +349,25 @@ public;useSaveBeforeClosingSettingsContainer(settingsManager: SettingsManager, s
 internal;useTargeted: (ref: React_2.RefObject
 internal;useWidgetOpacityContext(): WidgetOpacityContextProps
 public;VerticalAlignment
+deprecated;VerticalAlignment
 public;VerticalTabs(props: TabsProps): React_2.JSX.Element
 deprecated;VerticalTabs(props: TabsProps): React_2.JSX.Element
 public;WebFontIcon(props: WebFontIconProps): React_2.JSX.Element
+deprecated;WebFontIcon(props: WebFontIconProps): React_2.JSX.Element
 public;WebFontIconProps 
+deprecated;WebFontIconProps 
 internal;WidgetElementSet 
 internal;WidgetOpacityContext: React_2.Context
 internal;WidgetOpacityContextProps
 public;withIsPressed: 
+deprecated;withIsPressed: 
 public;WithIsPressedProps
+deprecated;WithIsPressedProps
 public;withOnOutsideClick: 
+deprecated;withOnOutsideClick: 
 public;WithOnOutsideClickProps
+deprecated;WithOnOutsideClickProps
 public;withTimeout: 
+deprecated;withTimeout: 
 public;WithTimeoutProps
+deprecated;WithTimeoutProps

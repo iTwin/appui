@@ -498,7 +498,9 @@ public;StandardFrontstageProvider
 alpha;StandardLayoutToolbarItem
 alpha;StandardLayoutWidget
 public;StandardMessageBox 
+deprecated;StandardMessageBox 
 public;StandardMessageBoxProps 
+deprecated;StandardMessageBoxProps 
 public;StandardNavigationToolsProvider 
 beta;StandardNavigationToolsUiItemsProvider 
 alpha;StandardRotationNavigationAid 

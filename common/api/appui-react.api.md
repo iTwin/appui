@@ -61,8 +61,7 @@ import type { MessageType } from '@itwin/core-react';
 import type { NoChildrenProps } from '@itwin/core-react';
 import { NotificationManager } from '@itwin/core-frontend';
 import { NotifyMessageDetails } from '@itwin/core-frontend';
-import type { Omit as Omit_2 } from '@itwin/core-react';
-import { Omit as Omit_3 } from 'react-redux';
+import { Omit as Omit_2 } from 'react-redux';
 import type { OnCancelFunc } from '@itwin/appui-abstract';
 import type { OnItemExecutedFunc } from '@itwin/appui-abstract';
 import type { OnNumberCommitFunc } from '@itwin/appui-abstract';
@@ -1391,7 +1390,8 @@ export class CursorPopupManager {
 }
 
 // @alpha
-export class CursorPopupMenu extends React_2.PureComponent<CommonProps, CursorPopupMenuState> {
+export class CursorPopupMenu extends React_2.PureComponent<CommonProps, // eslint-disable-line deprecation/deprecation
+CursorPopupMenuState> {
     // (undocumented)
     componentDidMount(): void;
     // (undocumented)
@@ -1419,7 +1419,8 @@ export type CursorPopupProps = {
     title?: string;
     shadow?: boolean;
     onSizeKnown?: (size: SizeProps) => void;
-} & CommonProps & RequireAtLeastOne<{
+} & CommonProps & // eslint-disable-line deprecation/deprecation
+RequireAtLeastOne<{
     relativePosition: RelativePosition /** @deprecated in 4.11.0. Use `placement` instead. */;
     placement: Placement;
 }>;
@@ -1691,7 +1692,8 @@ export class DrawingNavigationAidControl extends NavigationAidControl {
 }
 
 // @public
-export class ElementTooltip extends React_2.Component<CommonProps, ElementTooltipState> {
+export class ElementTooltip extends React_2.Component<CommonProps, // eslint-disable-line deprecation/deprecation
+ElementTooltipState> {
     constructor(props: CommonProps);
     // (undocumented)
     componentDidMount(): void;
@@ -2817,7 +2819,8 @@ export class KeyboardShortcutContainer {
 }
 
 // @public
-export class KeyboardShortcutMenu extends React_2.PureComponent<CommonProps, KeyboardShortcutMenuState> {
+export class KeyboardShortcutMenu extends React_2.PureComponent<CommonProps, // eslint-disable-line deprecation/deprecation
+KeyboardShortcutMenuState> {
     // (undocumented)
     componentDidMount(): void;
     // (undocumented)
@@ -3959,7 +3962,7 @@ export class SheetsModalFrontstage implements ModalFrontstageInfo {
 }
 
 // @public
-export const SnapModeField: ConnectedComponent<typeof SnapModeFieldComponent, Omit_3<SnapModeFieldProps, "snapMode">>;
+export const SnapModeField: ConnectedComponent<typeof SnapModeFieldComponent, Omit_2<SnapModeFieldProps, "snapMode">>;
 
 // @alpha
 export class SolarTimelineDataProvider extends BaseSolarDataProvider {
@@ -4217,8 +4220,9 @@ export interface StandardLayoutWidget {
     readonly section: StagePanelSection;
 }
 
-// @public
-export class StandardMessageBox extends React_2.PureComponent<StandardMessageBoxProps, StandardMessageBoxState> {
+// @public @deprecated
+export class StandardMessageBox extends React_2.PureComponent<StandardMessageBoxProps, // eslint-disable-line deprecation/deprecation
+StandardMessageBoxState> {
     constructor(props: StandardMessageBoxProps);
     // (undocumented)
     render(): React_2.ReactElement;
@@ -4226,7 +4230,7 @@ export class StandardMessageBox extends React_2.PureComponent<StandardMessageBox
     readonly state: Readonly<StandardMessageBoxState>;
 }
 
-// @public
+// @public @deprecated
 export interface StandardMessageBoxProps extends CommonProps {
     children?: React_2.ReactNode;
     iconType: MessageBoxIconType;
@@ -4254,7 +4258,8 @@ export class StandardNavigationToolsUiItemsProvider implements UiItemsProvider {
 }
 
 // @alpha
-export class StandardRotationNavigationAid extends React_2.Component<CommonProps, StandardRotationNavigationAidState> {
+export class StandardRotationNavigationAid extends React_2.Component<CommonProps, // eslint-disable-line deprecation/deprecation
+StandardRotationNavigationAidState> {
     constructor(props: any);
     // (undocumented)
     render(): React_2.ReactNode;
@@ -4541,10 +4546,11 @@ export const SYSTEM_PREFERRED_COLOR_THEME = "SYSTEM_PREFERRED";
 export type ThemeId = `${ColorTheme}` | (string & {});
 
 // @public
-export const ThemeManager: ConnectedComponent<typeof ThemeManagerComponent, Omit_3<React_2.ClassAttributes<ThemeManagerComponent> & ThemeManagerProps, "theme" | "widgetOpacity" | "toolbarOpacity">>;
+export const ThemeManager: ConnectedComponent<typeof ThemeManagerComponent, Omit_2<React_2.ClassAttributes<ThemeManagerComponent> & ThemeManagerProps, "theme" | "widgetOpacity" | "toolbarOpacity">>;
 
 // @public
-export class TileLoadingIndicator extends React_2.PureComponent<CommonProps, TileLoadingIndicatorState> {
+export class TileLoadingIndicator extends React_2.PureComponent<CommonProps, // eslint-disable-line deprecation/deprecation
+TileLoadingIndicatorState> {
     constructor(props: CommonProps);
     // (undocumented)
     componentDidMount(): void;
@@ -5240,7 +5246,8 @@ export class ValidationTextbox extends React_2.PureComponent<ValidationTextboxPr
 }
 
 // @beta
-export class ViewAttributesStatusField extends React_2.Component<CommonProps, ViewAttributesStatusFieldState> {
+export class ViewAttributesStatusField extends React_2.Component<CommonProps, // eslint-disable-line deprecation/deprecation
+ViewAttributesStatusFieldState> {
     constructor(props: CommonProps);
     // (undocumented)
     componentDidMount(): void;

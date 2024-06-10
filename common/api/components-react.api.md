@@ -1125,7 +1125,8 @@ export interface IMutablePropertyGridModel {
 export function InternalToolbarComponent(props: InternalToolbarComponentProps): React_3.JSX.Element;
 
 // @internal
-export interface InternalToolbarComponentProps extends CommonProps, NoChildrenProps {
+export interface InternalToolbarComponentProps extends CommonProps, // eslint-disable-line deprecation/deprecation
+NoChildrenProps {
     enableOverflow?: boolean | {
         overflowExpandsTo?: Direction;
     };
