@@ -6,7 +6,7 @@ import { storageMock, TestUtils } from "../TestUtils";
 import { UiFramework } from "../../appui-react/UiFramework";
 import type { InitialAppUiSettings } from "../../appui-react/uistate/AppUiSettings";
 import { AppUiSettings } from "../../appui-react/uistate/AppUiSettings";
-import { SYSTEM_PREFERRED_COLOR_THEME } from "../../appui-react/theme/ThemeManager";
+import { SYSTEM_PREFERRED_COLOR_THEME } from "../../appui-react/theme/ThemeId";
 
 describe("AppUiSettings", () => {
   const localStorageToRestore = Object.getOwnPropertyDescriptor(

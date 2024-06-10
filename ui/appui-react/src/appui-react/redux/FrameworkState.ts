@@ -6,14 +6,17 @@
  * @module State
  */
 
-import type { ConfigurableUiState } from "../configurableui/state";
-import { ConfigurableUiReducer } from "../configurableui/state";
-import { combineReducers } from "./redux-ts";
+import { combineReducers } from "redux";
+import type { ConfigurableUiState } from "./ConfigurableUiState";
+import { ConfigurableUiReducer } from "./ConfigurableUiState";
 import type { SessionState } from "./SessionState";
 import { SessionStateReducer } from "./SessionState";
 
+/* eslint-disable deprecation/deprecation */
+
 /** Interface combining all the Framework state interfaces.
  * @public
+ * @deprecated in 4.15.0. Use your preferred state management library instead.
  */
 export interface FrameworkState {
   configurableUiState: ConfigurableUiState;
@@ -22,6 +25,7 @@ export interface FrameworkState {
 
 /** Framework reducer that combines the [[ConfigurableUiReducer]] and [[SessionStateReducer]].
  * @public
+ * @deprecated in 4.15.0. Use your preferred state management library instead.
  */
 export const FrameworkReducer = combineReducers({
   configurableUiState: ConfigurableUiReducer,

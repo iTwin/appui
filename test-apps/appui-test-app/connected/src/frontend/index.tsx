@@ -8,7 +8,7 @@ import "./index.scss";
 import * as React from "react";
 import { createRoot } from "react-dom/client";
 import { connect, Provider } from "react-redux";
-import { Store } from "redux"; // createStore,
+import { Store } from "redux";
 import { Key } from "ts-key-enum";
 import { BrowserAuthorizationClient } from "@itwin/browser-authorization";
 import {
@@ -92,7 +92,6 @@ import { AppUi } from "./appui/AppUi";
 import { ExternalIModel } from "./appui/ExternalIModel";
 import { MainFrontstage } from "./appui/frontstages/MainFrontstage";
 import { AppSettingsTabsProvider } from "./appui/settingsproviders/AppSettingsTabsProvider";
-// import { ECSchemaRpcLocater } from "@itwin/ecschema-rpcinterface-common";
 import { IModelOpenFrontstage } from "./appui/frontstages/IModelOpenFrontstage";
 import { SignInFrontstage } from "./appui/frontstages/SignInFrontstage";
 import {
@@ -108,6 +107,8 @@ import {
   SynchronizedFloatingViewportStage,
   WidgetApiStage,
 } from "@itwin/appui-test-providers";
+
+/* eslint-disable deprecation/deprecation */
 
 // Initialize my application gateway configuration for the frontend
 RpcConfiguration.developmentMode = true;

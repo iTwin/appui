@@ -36,6 +36,7 @@ import {
 } from "../appui-react";
 import { TestContentControl } from "./frontstage/FrontstageTestUtils";
 import userEvent from "@testing-library/user-event";
+import type { BeEvent, Listener } from "@itwin/core-bentley";
 export { userEvent };
 
 interface SampleAppState {
@@ -96,7 +97,6 @@ export class TestUtils {
         });
       }
 
-      // eslint-disable-next-line deprecation/deprecation
       this.store = createStore(
         this._rootReducer,
         (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
@@ -411,5 +411,9 @@ export function selectAllBeforeType() {
 export async function waitForPosition() {
   return act(async () => {});
 }
+
+/** Extracts `Listener` type from `BeEvent`. */
+export type ListenerType<TEvent extends BeEvent<Listener>> =
+  TEvent extends BeEvent<infer TListener> ? TListener : never;
 
 export default TestUtils;
