@@ -59,8 +59,8 @@ importers:
         specifier: ^2.8.0
         version: 2.8.0(react-dom@18.3.1)(react@18.3.1)
       '@itwin/itwinui-react':
-        specifier: ^3.6.0
-        version: 3.6.0(react-dom@18.3.1)(react@18.3.1)
+        specifier: ^3.11.2
+        version: 3.11.2(@types/react@18.3.2)(react-dom@18.3.1)(react@18.3.1)
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -213,8 +213,8 @@ importers:
         specifier: ^2.8.0
         version: 2.8.0(react-dom@18.3.1)(react@18.3.1)
       '@itwin/itwinui-react':
-        specifier: ^3.6.0
-        version: 3.6.0(react-dom@18.3.1)(react@18.3.1)
+        specifier: ^3.11.2
+        version: 3.11.2(@types/react@18.3.2)(react-dom@18.3.1)(react@18.3.1)
       '@itwin/itwinui-react-v2':
         specifier: npm:@itwin/itwinui-react@^2.11.11
         version: /@itwin/itwinui-react@2.12.20(react-dom@18.3.1)(react@18.3.1)
@@ -367,8 +367,8 @@ importers:
         specifier: ^2.8.0
         version: 2.8.0(react-dom@18.3.1)(react@18.3.1)
       '@itwin/itwinui-react':
-        specifier: ^3.6.0
-        version: 3.6.0(react-dom@18.3.1)(react@18.3.1)
+        specifier: ^3.11.2
+        version: 3.11.2(@types/react@18.3.2)(react-dom@18.3.1)(react@18.3.1)
       '@itwin/itwinui-variables':
         specifier: ^3.0.0
         version: 3.1.0
@@ -548,8 +548,8 @@ importers:
         specifier: ^2.8.0
         version: 2.8.0(react-dom@18.3.1)(react@18.3.1)
       '@itwin/itwinui-react':
-        specifier: ^3.6.0
-        version: 3.6.0(react-dom@18.3.1)(react@18.3.1)
+        specifier: ^3.11.2
+        version: 3.11.2(@types/react@18.3.2)(react-dom@18.3.1)(react@18.3.1)
       '@itwin/itwinui-variables':
         specifier: ^3.0.0
         version: 3.1.0
@@ -709,8 +709,8 @@ importers:
         specifier: ^2.0.1
         version: 2.1.0(react-dom@18.3.1)(react@18.3.1)
       '@itwin/itwinui-react':
-        specifier: ^3.6.0
-        version: 3.6.0(react-dom@18.3.1)(react@18.3.1)
+        specifier: ^3.11.2
+        version: 3.11.2(@types/react@18.3.2)(react-dom@18.3.1)(react@18.3.1)
       '@itwin/itwinui-react-v2':
         specifier: npm:@itwin/itwinui-react@^2.11.11
         version: /@itwin/itwinui-react@2.12.20(react-dom@18.3.1)(react@18.3.1)
@@ -893,8 +893,8 @@ importers:
         specifier: ^2.8.0
         version: 2.8.0(react-dom@18.3.1)(react@18.3.1)
       '@itwin/itwinui-react':
-        specifier: ^3.6.0
-        version: 3.6.0(react-dom@18.3.1)(react@18.3.1)
+        specifier: ^3.11.2
+        version: 3.11.2(@types/react@18.3.2)(react-dom@18.3.1)(react@18.3.1)
       '@itwin/itwinui-variables':
         specifier: ^3.0.0
         version: 3.1.0
@@ -1041,8 +1041,8 @@ importers:
         specifier: ^2.8.0
         version: 2.8.0(react-dom@18.3.1)(react@18.3.1)
       '@itwin/itwinui-react':
-        specifier: ^3.6.0
-        version: 3.6.0(react-dom@18.3.1)(react@18.3.1)
+        specifier: ^3.11.2
+        version: 3.11.2(@types/react@18.3.2)(react-dom@18.3.1)(react@18.3.1)
       '@itwin/itwinui-variables':
         specifier: ^3.0.0
         version: 3.1.0
@@ -1168,8 +1168,8 @@ importers:
         specifier: ^2.8.0
         version: 2.8.0(react-dom@18.3.1)(react@18.3.1)
       '@itwin/itwinui-react':
-        specifier: ^3.6.0
-        version: 3.6.0(react-dom@18.3.1)(react@18.3.1)
+        specifier: ^3.11.2
+        version: 3.11.2(@types/react@18.3.2)(react-dom@18.3.1)(react@18.3.1)
       '@itwin/itwinui-variables':
         specifier: ^3.0.0
         version: 3.1.0
@@ -3495,14 +3495,26 @@ packages:
       '@floating-ui/dom': 1.6.3
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
+    dev: true
 
-  /@floating-ui/react@0.26.9(react-dom@18.3.1)(react@18.3.1):
-    resolution: {integrity: sha512-p86wynZJVEkEq2BBjY/8p2g3biQ6TlgT4o/3KgFKyTWoJLU1GZ8wpctwRqtkEl2tseYA+kw7dBAIDFcednfI5w==}
+  /@floating-ui/react-dom@2.1.0(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-lNzj5EQmEKn5FFKc04+zasr09h/uX8RtJRNj5gUXsSQIXHVWTVh+hVAg1vOMCexkX8EgvemMvIFpQfkosnVNyA==}
     peerDependencies:
       react: '>=16.8.0'
       react-dom: '>=16.8.0'
     dependencies:
-      '@floating-ui/react-dom': 2.0.8(react-dom@18.3.1)(react@18.3.1)
+      '@floating-ui/dom': 1.6.3
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+    dev: false
+
+  /@floating-ui/react@0.26.16(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-HEf43zxZNAI/E781QIVpYSF3K2VH4TTYZpqecjdsFkjsaU1EbaWcM++kw0HXFffj7gDUcBFevX8s0rQGQpxkow==}
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+    dependencies:
+      '@floating-ui/react-dom': 2.1.0(react-dom@18.3.1)(react@18.3.1)
       '@floating-ui/utils': 0.2.1
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
@@ -4068,20 +4080,23 @@ packages:
       tippy.js: 6.3.7
     dev: false
 
-  /@itwin/itwinui-react@3.6.0(react-dom@18.3.1)(react@18.3.1):
-    resolution: {integrity: sha512-Pd4qbIH8aXM9HScQdMMbBZKh50/PDDBKrjoGUP1ZdSQ62QPAr0ozEan6g94mGCYrfqxBeFWdjhFRvoGW/fx9lw==}
+  /@itwin/itwinui-react@3.11.2(@types/react@18.3.2)(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-STZOp3I2Z9lauRPoWpwuwwBbJpHK2Aece3H5zxU11E/uerb2oarDm6ck6GxWjWFEAvXXKjA+35ruErIr8Rq0Hw==}
     peerDependencies:
       react: '>= 17.0.0 < 19.0.0'
       react-dom: '>=17.0.0 < 19.0.0'
     dependencies:
-      '@floating-ui/react': 0.26.9(react-dom@18.3.1)(react@18.3.1)
+      '@floating-ui/react': 0.26.16(react-dom@18.3.1)(react@18.3.1)
       '@itwin/itwinui-illustrations-react': 2.1.0(react-dom@18.3.1)(react@18.3.1)
       classnames: 2.5.1
+      jotai: 2.8.2(@types/react@18.3.2)(react@18.3.1)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       react-table: 7.8.0(react@18.3.1)
       react-transition-group: 4.4.5(react-dom@18.3.1)(react@18.3.1)
       tslib: 2.6.2
+    transitivePeerDependencies:
+      - '@types/react'
     dev: false
 
   /@itwin/itwinui-variables@3.1.0:
@@ -11333,6 +11348,22 @@ packages:
   /jju@1.4.0:
     resolution: {integrity: sha512-8wb9Yw966OSxApiCt0K3yNJL8pnNeIv+OEq2YMidz4FKP6nonSRoOXc80iXY4JaN2FC11B9qsNmDsm+ZOfMROA==}
     dev: true
+
+  /jotai@2.8.2(@types/react@18.3.2)(react@18.3.1):
+    resolution: {integrity: sha512-AU+EU82YqP94izfbGYQQL3oa/06gmn+Ijf/CKx0QybAURtbqh2e4N6zA2fxeIh0JEUgASF6z5IhagJ8NicR95A==}
+    engines: {node: '>=12.20.0'}
+    peerDependencies:
+      '@types/react': '>=17.0.0'
+      react: '>=17.0.0'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      react:
+        optional: true
+    dependencies:
+      '@types/react': 18.3.2
+      react: 18.3.1
+    dev: false
 
   /js-base64@3.7.6:
     resolution: {integrity: sha512-NPrWuHFxFUknr1KqJRDgUQPexQF0uIJWjeT+2KjEePhitQxQEx5EJBG1lVn5/hc8aLycTpXrDOgPQ6Zq+EDiTA==}
