@@ -524,6 +524,50 @@ describe("usePropertyFilterBuilder", () => {
     ).to.be.deep.eq(initialValue);
   });
 
+  it("renders as `between` when fromValue and toValue are undefined instead of 2 `and` operator", () => {
+    const { result } = renderHook(() =>
+      usePropertyFilterBuilder({
+        initialFilter: createRangeFilter(
+          property,
+          "between",
+          undefined,
+          undefined
+        ),
+      })
+    );
+
+    const { rootGroup } = result.current;
+
+    expect((rootGroup.items[0] as PropertyFilterBuilderRule).operator).toEqual(
+      "between"
+    );
+    expect(
+      (rootGroup.items[0] as PropertyFilterBuilderRule).value
+    ).toBeTruthy();
+  });
+
+  it("renders as `not-between` when fromValue and toValue are undefined instead of 2 `or` operator", () => {
+    const { result } = renderHook(() =>
+      usePropertyFilterBuilder({
+        initialFilter: createRangeFilter(
+          property,
+          "not-between",
+          undefined,
+          undefined
+        ),
+      })
+    );
+
+    const { rootGroup } = result.current;
+
+    expect((rootGroup.items[0] as PropertyFilterBuilderRule).operator).toEqual(
+      "not-between"
+    );
+    expect(
+      (rootGroup.items[0] as PropertyFilterBuilderRule).value
+    ).toBeTruthy();
+  });
+
   it("does not change state when setting non existing rule operator", () => {
     const { result } = renderHook(() => usePropertyFilterBuilder());
     const { actions, rootGroup } = result.current;
@@ -861,6 +905,257 @@ describe("usePropertyFilterBuilder", () => {
           const { buildFilter } = result.current;
 
           const buildFilterResult = buildFilter();
+          expect(buildFilterResult).to.containSubset({
+            operator: "and",
+            rules: [
+              {
+                operator: "or",
+                rules: [
+                  {
+                    property,
+                    operator: "less",
+                  },
+                  {
+                    property,
+                    operator: "greater",
+                  },
+                ],
+              },
+            ],
+          });
+
+          const { rootGroup } = result.current;
+          expect(
+            (rootGroup.items[0] as PropertyFilterBuilderRule).errorMessage
+          ).toEqual(undefined);
+        });
+      });
+
+      describe("allowEmptyRules", () => {
+        it("returns property filter item and sets rule error message to `Value is empty` if item has a property but value is undefined", async () => {
+          const { result } = renderHook(() =>
+            usePropertyFilterBuilder({
+              initialFilter: {
+                property,
+                operator: "is-equal",
+              },
+            })
+          );
+          const { buildFilter } = result.current;
+
+          const buildFilterResult = await act(() =>
+            buildFilter({ allowEmptyRules: true })
+          );
+
+          const { rootGroup } = result.current;
+          expect(
+            (rootGroup.items[0] as PropertyFilterBuilderRule).errorMessage
+          ).toEqual(
+            UiComponents.translate("filterBuilder.errorMessages.emptyValue")
+          );
+
+          expect(buildFilterResult).to.be.deep.eq({
+            property,
+            operator: "is-equal",
+            value: undefined,
+          });
+        });
+        it("returns property filter item and sets rule error message to `Value is empty` if item`s value is empty string", async () => {
+          const { result } = renderHook(() =>
+            usePropertyFilterBuilder({
+              initialFilter: {
+                property,
+                operator: "is-equal",
+                value: {
+                  valueFormat: PropertyValueFormat.Primitive,
+                  value: "",
+                },
+              },
+            })
+          );
+          const { buildFilter } = result.current;
+
+          const buildFilterResult = await act(() =>
+            buildFilter({ allowEmptyRules: true })
+          );
+
+          const { rootGroup } = result.current;
+          expect(
+            (rootGroup.items[0] as PropertyFilterBuilderRule).errorMessage
+          ).toEqual(
+            UiComponents.translate("filterBuilder.errorMessages.emptyValue")
+          );
+
+          expect(buildFilterResult).to.be.deep.eq({
+            property,
+            operator: "is-equal",
+            value: {
+              valueFormat: PropertyValueFormat.Primitive,
+              value: "",
+            },
+          });
+        });
+        it("returns property filter item and sets rule error message to `Value is empty` if item`s range `from` value is empty", async () => {
+          const { result } = renderHook(() =>
+            usePropertyFilterBuilder({
+              initialFilter: createRangeFilter(
+                property,
+                "between",
+                {
+                  valueFormat: PropertyValueFormat.Primitive,
+                },
+                {
+                  valueFormat: PropertyValueFormat.Primitive,
+                  value: 2,
+                }
+              ),
+            })
+          );
+          const { buildFilter } = result.current;
+
+          const buildFilterResult = await act(() =>
+            buildFilter({ allowEmptyRules: true })
+          );
+          expect(buildFilterResult).toBeTruthy();
+
+          const { rootGroup } = result.current;
+          expect(
+            (rootGroup.items[0] as PropertyFilterBuilderRule).errorMessage
+          ).toEqual(
+            UiComponents.translate("filterBuilder.errorMessages.emptyValue")
+          );
+        });
+
+        it("returns property filter item and sets rule error message to `Value is empty` if item`s range `to` value is empty", async () => {
+          const { result } = renderHook(() =>
+            usePropertyFilterBuilder({
+              initialFilter: createRangeFilter(
+                property,
+                "between",
+                {
+                  valueFormat: PropertyValueFormat.Primitive,
+                  value: 1,
+                },
+                {
+                  valueFormat: PropertyValueFormat.Primitive,
+                }
+              ),
+            })
+          );
+          const { buildFilter } = result.current;
+
+          const buildFilterResult = await act(() =>
+            buildFilter({ allowEmptyRules: true })
+          );
+          expect(buildFilterResult).toBeTruthy();
+
+          const { rootGroup } = result.current;
+          expect(
+            (rootGroup.items[0] as PropertyFilterBuilderRule).errorMessage
+          ).toEqual(
+            UiComponents.translate("filterBuilder.errorMessages.emptyValue")
+          );
+        });
+
+        it("returns property filter item and sets rule error message to `Invalid range` if item`s range is not valid", async () => {
+          const { result } = renderHook(() =>
+            usePropertyFilterBuilder({
+              initialFilter: createRangeFilter(
+                property,
+                "between",
+                {
+                  valueFormat: PropertyValueFormat.Primitive,
+                  value: 2,
+                },
+                {
+                  valueFormat: PropertyValueFormat.Primitive,
+                  value: 1,
+                }
+              ),
+            })
+          );
+          const { buildFilter } = result.current;
+
+          const buildFilterResult = await act(() =>
+            buildFilter({ allowEmptyRules: true })
+          );
+          expect(buildFilterResult).toBeTruthy();
+
+          const { rootGroup } = result.current;
+          expect(
+            (rootGroup.items[0] as PropertyFilterBuilderRule).errorMessage
+          ).toEqual(
+            UiComponents.translate("filterBuilder.errorMessages.invalidRange")
+          );
+        });
+
+        it("returns property filter with `Between` rule when value is valid", () => {
+          const initialFilter = createRangeFilter(
+            property,
+            "between",
+            {
+              valueFormat: PropertyValueFormat.Primitive,
+              value: 1,
+            },
+            {
+              valueFormat: PropertyValueFormat.Primitive,
+              value: 2,
+            }
+          );
+          const { result } = renderHook(() =>
+            usePropertyFilterBuilder({
+              initialFilter,
+            })
+          );
+          const { buildFilter } = result.current;
+
+          const buildFilterResult = buildFilter({ allowEmptyRules: true });
+          expect(buildFilterResult).to.containSubset({
+            operator: "and",
+            rules: [
+              {
+                operator: "and",
+                rules: [
+                  {
+                    property,
+                    operator: "greater-or-equal",
+                  },
+                  {
+                    property,
+                    operator: "less-or-equal",
+                  },
+                ],
+              },
+            ],
+          });
+
+          const { rootGroup } = result.current;
+          expect(
+            (rootGroup.items[0] as PropertyFilterBuilderRule).errorMessage
+          ).toEqual(undefined);
+        });
+
+        it("returns property filter with `Not Between` rule when value is valid", () => {
+          const initialFilter = createRangeFilter(
+            property,
+            "not-between",
+            {
+              valueFormat: PropertyValueFormat.Primitive,
+              value: 1,
+            },
+            {
+              valueFormat: PropertyValueFormat.Primitive,
+              value: 2,
+            }
+          );
+          const { result } = renderHook(() =>
+            usePropertyFilterBuilder({
+              initialFilter,
+            })
+          );
+          const { buildFilter } = result.current;
+
+          const buildFilterResult = buildFilter({ allowEmptyRules: true });
           expect(buildFilterResult).to.containSubset({
             operator: "and",
             rules: [
@@ -1259,6 +1554,64 @@ describe("buildFilter", () => {
 
     const buildFilterResult = buildPropertyFilter(filter);
     expect(buildFilterResult).toEqual(undefined);
+  });
+
+  it("returns property filter with empty range value if `Between` rule value is invalid and allowEmptyRules is set to true", () => {
+    const filter: PropertyFilterBuilderRuleGroup = {
+      id: "1",
+      operator: "and",
+      items: [
+        {
+          id: "2",
+          groupId: "1",
+          property,
+          operator: "between",
+          value: {
+            valueFormat: PropertyValueFormat.Primitive,
+            value: 123,
+          },
+        },
+      ],
+    };
+
+    const buildFilterResult = buildPropertyFilter(filter, true);
+    const expectedResult = createRangeFilter(
+      property,
+      "between",
+      { valueFormat: PropertyValueFormat.Primitive },
+      { valueFormat: PropertyValueFormat.Primitive }
+    );
+    expect(buildFilterResult).toBeTruthy();
+    expect(buildFilterResult).to.be.deep.eq(expectedResult);
+  });
+
+  it("returns property filter if `Between` rule value has empty range end and allowEmptyRules is set to true", () => {
+    const filter: PropertyFilterBuilderRuleGroup = {
+      id: "1",
+      operator: "and",
+      items: [
+        {
+          id: "2",
+          groupId: "1",
+          property,
+          operator: "between",
+          value: PropertyFilterBuilderRuleRangeValue.serialize({
+            from: { valueFormat: PropertyValueFormat.Primitive, value: 1 },
+            to: { valueFormat: PropertyValueFormat.Primitive },
+          }),
+        },
+      ],
+    };
+
+    const buildFilterResult = buildPropertyFilter(filter, true);
+    const expectedResult = createRangeFilter(
+      property,
+      "between",
+      { valueFormat: PropertyValueFormat.Primitive, value: 1 },
+      { valueFormat: PropertyValueFormat.Primitive }
+    );
+    expect(buildFilterResult).toBeTruthy();
+    expect(buildFilterResult).to.be.deep.eq(expectedResult);
   });
 });
 

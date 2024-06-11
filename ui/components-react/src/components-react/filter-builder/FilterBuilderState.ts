@@ -264,6 +264,10 @@ export interface BuildFilterOptions {
    * This is useful in case component needs to get filter matching rule validator but does not want to show errors in UI.
    */
   ignoreErrors?: boolean;
+  /**
+   * Allows rules with empty values to be included in the filter. By default, the filter will be undefined if any rule has an empty value.
+   */
+  allowEmptyRules?: boolean;
 }
 
 /**
@@ -312,8 +316,8 @@ export function usePropertyFilterBuilder(
         actions.setRuleErrorMessages(ruleErrors);
       }
 
-      return ruleErrors.size === 0
-        ? buildPropertyFilter(state.rootGroup)
+      return ruleErrors.size === 0 || options?.allowEmptyRules
+        ? buildPropertyFilter(state.rootGroup, options?.allowEmptyRules)
         : undefined;
     },
     [state.rootGroup, actions, ruleValidator]
@@ -381,19 +385,21 @@ function rangeRuleValidator(value?: PropertyValue) {
 
 /** @internal */
 export function buildPropertyFilter(
-  groupItem: PropertyFilterBuilderRuleGroupItem
+  groupItem: PropertyFilterBuilderRuleGroupItem,
+  allowEmptyRules?: boolean
 ): PropertyFilter | undefined {
   if (isPropertyFilterBuilderRuleGroup(groupItem))
-    return buildPropertyFilterFromRuleGroup(groupItem);
-  return buildPropertyFilterFromRule(groupItem);
+    return buildPropertyFilterFromRuleGroup(groupItem, allowEmptyRules);
+  return buildPropertyFilterFromRule(groupItem, allowEmptyRules);
 }
 
 function buildPropertyFilterFromRuleGroup(
-  rootGroup: PropertyFilterBuilderRuleGroup
+  rootGroup: PropertyFilterBuilderRuleGroup,
+  allowEmptyRules?: boolean
 ): PropertyFilter | undefined {
   const rules = new Array<PropertyFilter>();
   for (const item of rootGroup.items) {
-    const rule = buildPropertyFilter(item);
+    const rule = buildPropertyFilter(item, allowEmptyRules);
     if (rule) rules.push(rule);
   }
 
@@ -410,7 +416,8 @@ function buildPropertyFilterFromRuleGroup(
 }
 
 function buildPropertyFilterFromRule(
-  rule: PropertyFilterBuilderRule
+  rule: PropertyFilterBuilderRule,
+  allowEmptyRules?: boolean
 ): PropertyFilter | undefined {
   const { property, operator, value } = rule;
   if (!property || operator === undefined) {
@@ -418,15 +425,22 @@ function buildPropertyFilterFromRule(
   }
 
   if (operator === "between" || operator === "not-between") {
-    return buildPropertyFilterFromRangeRule({
-      ...rule,
-      property,
-      operator,
-      value,
-    });
+    return buildPropertyFilterFromRangeRule(
+      {
+        ...rule,
+        property,
+        operator,
+        value,
+      },
+      allowEmptyRules
+    );
   }
 
-  if (!isUnaryPropertyFilterOperator(operator) && isEmptyValue(value)) {
+  if (
+    !allowEmptyRules &&
+    !isUnaryPropertyFilterOperator(operator) &&
+    isEmptyValue(value)
+  ) {
     return undefined;
   }
 
@@ -437,19 +451,21 @@ function buildPropertyFilterFromRangeRule(
   rule: PropertyFilterBuilderRule & {
     property: PropertyDescription;
     operator: "between" | "not-between";
-  }
+  },
+  allowEmptyRules?: boolean
 ): PropertyFilter | undefined {
   const { property, operator, value } = rule;
   if (
-    !value ||
-    value.valueFormat !== PropertyValueFormat.Primitive ||
-    typeof value.value !== "string"
+    !allowEmptyRules &&
+    (!value ||
+      value.valueFormat !== PropertyValueFormat.Primitive ||
+      typeof value.value !== "string")
   ) {
     return undefined;
   }
 
   const { to, from } = PropertyFilterBuilderRuleRangeValue.parse(value);
-  if (isEmptyValue(to) || isEmptyValue(from)) {
+  if (!allowEmptyRules && (isEmptyValue(to) || isEmptyValue(from))) {
     return undefined;
   }
 
@@ -559,12 +575,15 @@ function getRangeRuleItems(
   const [from, to] = group.rules;
   if (
     isPropertyFilterRuleGroup(from) ||
-    !from.value ||
-    from.value.valueFormat !== PropertyValueFormat.Primitive ||
     isPropertyFilterRuleGroup(to) ||
-    !to.value ||
-    to.value.valueFormat !== PropertyValueFormat.Primitive ||
     from.property.name !== to.property.name
+  ) {
+    return undefined;
+  }
+
+  if (
+    (from.value && from.value?.valueFormat !== PropertyValueFormat.Primitive) ||
+    (to.value && to.value?.valueFormat !== PropertyValueFormat.Primitive)
   ) {
     return undefined;
   }
@@ -580,8 +599,12 @@ function getRangeRuleItems(
       operator: "between",
       property: from.property,
       value: PropertyFilterBuilderRuleRangeValue.serialize({
-        from: from.value,
-        to: to.value,
+        from: from.value
+          ? from.value
+          : { valueFormat: PropertyValueFormat.Primitive },
+        to: to.value
+          ? to.value
+          : { valueFormat: PropertyValueFormat.Primitive },
       }),
     };
   }
@@ -597,8 +620,12 @@ function getRangeRuleItems(
       operator: "not-between",
       property: from.property,
       value: PropertyFilterBuilderRuleRangeValue.serialize({
-        from: from.value,
-        to: to.value,
+        from: from.value
+          ? from.value
+          : { valueFormat: PropertyValueFormat.Primitive },
+        to: to.value
+          ? to.value
+          : { valueFormat: PropertyValueFormat.Primitive },
       }),
     };
   }
