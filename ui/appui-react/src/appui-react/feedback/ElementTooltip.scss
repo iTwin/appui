@@ -1,0 +1,29 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+@import "~@itwin/core-react/lib/cjs/core-react/z-index";
+@import "../variables";
+
+.uifw-feedback-elementTooltip {
+  pointer-events: none;
+  width: max-content;
+  font-size: var(--iui-font-size-1);
+  border: {
+    color: $uifw-popup-border-color;
+    radius: $uifw-popup-border-radius;
+    style: solid;
+    width: $uifw-popup-border-width;
+  }
+}
+
+.uifw-feedback-elementTooltip_container {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+
+  @include uicore-z-index(tooltip);
+}

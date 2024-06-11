@@ -16,6 +16,8 @@ import ViewDefinitionSelector, {
 } from "../components/ViewDefinitionSelector";
 import { Id64String } from "@itwin/core-bentley";
 import { CursorMenuItemProps } from "@itwin/appui-react/lib/cjs/appui-react/shared/MenuItem";
+import { Button } from "@itwin/itwinui-react";
+import { ScreenViewport } from "@itwin/core-frontend";
 
 export function PopupTestView({
   contentId,
@@ -65,6 +67,7 @@ export function PopupTestView({
   const [initialViewState, setInitialViewState] = React.useState(
     UiFramework.getDefaultViewState()
   );
+  const viewportRef = React.useRef<ScreenViewport>(null);
 
   React.useEffect(() => {
     async function fetchView() {
@@ -128,9 +131,17 @@ export function PopupTestView({
             contentId={contentId}
             initialViewState={initialViewState}
             onContextMenu={handleContextMenu}
+            viewportRef={viewportRef}
           />
         </div>
       )}
+      <Button
+        onClick={() => {
+          viewportRef?.current?.openToolTip("Test tooltip", { x: 100, y: 50 });
+        }}
+      >
+        Open tooltip
+      </Button>
     </div>
   );
 }
