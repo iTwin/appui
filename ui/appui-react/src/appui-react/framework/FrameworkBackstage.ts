@@ -9,6 +9,7 @@
 import type { BeEvent } from "@itwin/core-bentley";
 import type { IconSpec } from "@itwin/core-react";
 import type { CommandItemDef } from "../shared/CommandItemDef";
+import type { BackstageAppButton } from "../widgets/BackstageAppButton";
 
 /** Arguments of [[Backstage.onToggled]].
  * @public
@@ -42,9 +43,9 @@ export interface FrameworkBackstage {
    * Toggle the backstage.
    */
   toggle(): void;
-  /**
-   * Creates a CommandItemDef that toggle the backstage.
+  /** Creates a CommandItemDef that toggle the backstage.
    * @param overrideIconSpec Icon to replace the default 'home'.
+   * @deprecated in 4.15.0. Use {@link BackstageAppButton} component and {@link FrameworkBackstage.toggle} instead.
    */
   getBackstageToggleCommand(overrideIconSpec?: IconSpec): CommandItemDef;
 }
