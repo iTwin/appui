@@ -25,26 +25,20 @@ export interface UiItemsProvider {
   readonly id: string;
 
   /** Provides toolbar items.
-   * @note Use [[ToolbarItem.layouts]] to map item to location previously specified by `provideToolbarItems` arguments.
-   * @alpha
+   * @note Use {@link ToolbarItem.layouts} to map item to location previously specified by `provideToolbarItems` arguments.
    */
   readonly getToolbarItems?: () => ReadonlyArray<ToolbarItem>;
-  /** Provides status bar items.
-   * @alpha
-   */
+  /** Provides status bar items. */
   readonly getStatusBarItems?: () => ReadonlyArray<StatusBarItem>;
-  /** Provides backstage items.
-   * @alpha
-   */
+  /** Provides backstage items. */
   readonly getBackstageItems?: () => ReadonlyArray<BackstageItem>;
   /** Provides widgets.
-   * @note Use [[Widget.layouts]] to map item to location previously specified by `provideWidgets` arguments.
-   * @alpha
+   * @note Use {@link Widget.layouts} to map item to location previously specified by `provideWidgets` arguments.
    */
   readonly getWidgets?: () => ReadonlyArray<Widget>;
 
   /** Provides toolbar items.
-   * @note Use [[UiItemsProvider.getToolbarItems]] instead. To map item to location previously specified by arguments use [[ToolbarItem.layouts]].
+   * @deprecated in 4.15.0. Use {@link UiItemsProvider.getToolbarItems} instead. To map item to location previously specified by arguments use {@link ToolbarItem.layouts}.
    */
   readonly provideToolbarItems?: (
     stageId: string,
@@ -53,18 +47,18 @@ export interface UiItemsProvider {
     toolbarOrientation: ToolbarOrientation
   ) => ReadonlyArray<ToolbarItem>;
   /** Provides status bar items.
-   * @note Use [[UiItemsProvider.getStatusBarItems]] instead.
+   * @deprecated in 4.15.0. Use {@link UiItemsProvider.getStatusBarItems} instead.
    */
   readonly provideStatusBarItems?: (
     stageId: string,
     stageUsage: string
   ) => ReadonlyArray<StatusBarItem>;
   /** Provides backstage items.
-   * @note Use [[UiItemsProvider.getBackstageItems]] instead.
+   * @deprecated in 4.15.0. Use {@link UiItemsProvider.getBackstageItems} instead.
    */
   readonly provideBackstageItems?: () => ReadonlyArray<BackstageItem>;
   /** Provides widgets.
-   * @note Use [[UiItemsProvider.getWidgets]] instead. To map item to location previously specified by arguments use [[Widget.layouts]].
+   * @deprecated in 4.15.0. Use {@link UiItemsProvider.getWidgets} instead. To map item to location previously specified by arguments use {@link Widget.layouts}.
    */
   readonly provideWidgets?: (
     stageId: string,

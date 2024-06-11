@@ -12,6 +12,7 @@ import type { BadgeType, IconSpec, SizeProps } from "@itwin/core-react";
 import type { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import type { WidgetState } from "./WidgetState";
 import type { StagePanelSection } from "../stagepanels/StagePanelSection";
+import { UiItemsProvider } from "../ui-items-provider/UiItemsProvider";
 
 /** Describes options of a floating widget.
  * @public
@@ -53,14 +54,13 @@ export interface Widget {
   readonly priority?: number;
   readonly tooltip?: string | ConditionalStringValue;
   /** Describes layout specific configuration of a widget.
-   * @note Only used by `get*` methods of [[UiItemsProvider]].
-   * @alpha
+   * @note Only used by {@link UiItemsProvider.getWidgetItems}.
    */
   readonly layouts?: WidgetLayouts;
 }
 
 /** Describes widget configuration specific for each layout.
- * @alpha
+ * @public
  */
 export interface WidgetLayouts {
   /** Widget configuration in a standard layout. */
@@ -68,7 +68,7 @@ export interface WidgetLayouts {
 }
 
 /** Describes widget configuration specific to a standard layout.
- * @alpha
+ * @public
  */
 export interface StandardLayoutWidget {
   /** Describes to which panel the widget is added. */

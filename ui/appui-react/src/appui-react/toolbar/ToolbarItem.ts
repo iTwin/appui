@@ -11,6 +11,7 @@ import type {
   ConditionalStringValue,
 } from "@itwin/appui-abstract";
 import type { BadgeType, IconSpec } from "@itwin/core-react";
+import { UiItemsProvider } from "../ui-items-provider/UiItemsProvider";
 
 /** Used to specify the usage of the toolbar which determine the toolbar position.
  * @public
@@ -56,8 +57,7 @@ export interface CommonToolbarItem {
   /** Priority within a toolbar or group. */
   readonly itemPriority: number;
   /** Describes layout specific configuration of a toolbar item.
-   * @note Only used by `get*` methods of [[UiItemsProvider]].
-   * @alpha
+   * @note Only used by {@link UiItemsProvider.getToolbarItems}.
    */
   readonly layouts?: ToolbarItemLayouts;
 }
@@ -140,7 +140,7 @@ export function isToolbarCustomItem(
 }
 
 /** Describes toolbar item configuration specific for each layout.
- * @alpha
+ * @public
  */
 export interface ToolbarItemLayouts {
   /** Toolbar item configuration in a standard layout. */
@@ -148,7 +148,7 @@ export interface ToolbarItemLayouts {
 }
 
 /** Describes toolbar item configuration specific to a standard layout.
- * @alpha
+ * @public
  */
 export interface StandardLayoutToolbarItem {
   /** Describes toolbar usage. */
