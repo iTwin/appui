@@ -366,7 +366,7 @@ export function addPanelSectionWidgetDefs(
   }
 }
 
-/** Sends back popout widgets if app is not not an electron app. */
+/** Sends back popout widgets if app is not an electron app. */
 function processPopoutWidgets(frontstageDef: FrontstageDef) {
   if (ProcessDetector.isElectronAppFrontend) return;
 
