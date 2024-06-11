@@ -87,7 +87,7 @@
     "@itwin/frontend-devtools": "^3.7.0 || ^4.0.0",
     "@itwin/hypermodeling-frontend": "^3.7.0 || ^4.0.0",
     "@itwin/imodel-components-react": "workspace:*",
-    "@itwin/itwinui-react": "^3.6.0",
+    "@itwin/itwinui-react": "^3.11.2",
     "@itwin/itwinui-variables": "^3.0.0",
     "@itwin/itwinui-icons-react": "^2.8.0",
     "@itwin/presentation-common": "^3.7.0 || ^4.0.0",

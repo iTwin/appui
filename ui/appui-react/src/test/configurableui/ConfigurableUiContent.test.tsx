@@ -5,7 +5,7 @@
 
 import * as React from "react";
 import { Provider } from "react-redux";
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import { Key } from "ts-key-enum";
 import TestUtils from "../TestUtils";
 import { ConfigurableUiContent } from "../../appui-react/configurableui/ConfigurableUiContent";
@@ -68,5 +68,45 @@ describe("ConfigurableUiContent", () => {
     );
 
     removeListener();
+  });
+
+  it("should change the widget opacity", async () => {
+    const { container } = render(
+      <Provider store={TestUtils.store}>
+        <ThemeManager>
+          <ConfigurableUiContent />
+        </ThemeManager>
+      </Provider>
+    );
+    const testValue = 0.699;
+    UiFramework.setWidgetOpacity(testValue);
+    expect(UiFramework.getWidgetOpacity()).toEqual(testValue);
+    await waitFor(() => {
+      expect(
+        container.ownerDocument.documentElement.style.getPropertyValue(
+          "--buic-widget-opacity"
+        )
+      ).toEqual("0.699");
+    });
+  });
+
+  it("should change the toolbar opacity", async () => {
+    const { container } = render(
+      <Provider store={TestUtils.store}>
+        <ThemeManager>
+          <ConfigurableUiContent />
+        </ThemeManager>
+      </Provider>
+    );
+    const testValue = 0.822;
+    UiFramework.setToolbarOpacity(testValue);
+    expect(UiFramework.getToolbarOpacity()).toEqual(testValue);
+    await waitFor(() => {
+      expect(
+        container.ownerDocument.documentElement.style.getPropertyValue(
+          "--buic-toolbar-opacity"
+        )
+      ).toEqual("0.822");
+    });
   });
 });

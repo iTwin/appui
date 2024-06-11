@@ -6,17 +6,11 @@
  * @module Settings
  */
 
-// cSpell:ignore configurableui checkmark
-
 import widowSettingsIconSvg from "@bentley/icons-generic/icons/window-settings.svg";
 import "./UiSettingsPage.scss";
 import * as React from "react";
 import type { SettingsTabEntry } from "@itwin/core-react";
 import { UiFramework } from "../../UiFramework";
-import {
-  ColorTheme,
-  SYSTEM_PREFERRED_COLOR_THEME,
-} from "../../theme/ThemeManager";
 import {
   SyncUiEventDispatcher,
   SyncUiEventId,
@@ -25,6 +19,10 @@ import type { SelectOption } from "@itwin/itwinui-react";
 import { Select, Slider, ToggleSwitch } from "@itwin/itwinui-react";
 import type { UiSyncEventArgs } from "../../syncui/UiSyncEvent";
 import { useTranslation } from "../../hooks/useTranslation";
+import { ColorTheme, SYSTEM_PREFERRED_COLOR_THEME } from "../../theme/ThemeId";
+import { ConfigurableUiActionId } from "../../redux/ConfigurableUiState";
+
+/* eslint-disable deprecation/deprecation */
 
 /** UiSettingsPage displaying the active UI settings. This page lets users set the following settings.
  *
@@ -36,8 +34,8 @@ import { useTranslation } from "../../hooks/useTranslation";
  * - use proximity - Changes the opacity of toolbar from transparent to opaque as the mouse moves closer.
  * - snap widget opacity - triggers an abrupt change from transparent to opaque for tool and navigation widgets, instead of a gradual change based on mouse location.
  * - widget opacity - determines how transparent floating widgets become when the mouse in not in them.
- *
  * @beta
+ * @deprecated in 4.15.0. Use iTwinUI components to build a settings page.
  */
 export function UiSettingsPage() {
   const { translate } = useTranslation();
@@ -74,14 +72,14 @@ export function UiSettingsPage() {
 
   React.useEffect(() => {
     const syncIdsOfInterest = [
-      "configurableui:set_theme",
-      "configurableui:set_widget_opacity",
-      "configurableui:set-show-widget-icon",
-      "configurableui:set-drag-interaction",
-      "configurableui:set-auto-collapse-unpinned-panels",
-      "configurableui:set-animate-tool-settings",
-      "configurableui:set-use-tool-as-tool-settings-label",
-      "configurableui:set-toolbar-opacity",
+      ConfigurableUiActionId.SetTheme,
+      ConfigurableUiActionId.SetWidgetOpacity,
+      ConfigurableUiActionId.SetShowWidgetIcon,
+      ConfigurableUiActionId.SetDragInteraction,
+      ConfigurableUiActionId.AutoCollapseUnpinnedPanels,
+      ConfigurableUiActionId.AnimateToolSettings,
+      ConfigurableUiActionId.UseToolAsToolSettingsLabel,
+      ConfigurableUiActionId.SetToolbarOpacity,
       SyncUiEventId.ShowHideManagerSettingChange,
     ];
 

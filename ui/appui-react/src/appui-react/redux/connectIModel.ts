@@ -2,13 +2,14 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-
 /** @packageDocumentation
  * @module State
  */
 
 import { connect } from "react-redux";
 import { UiFramework } from "../UiFramework";
+
+/* eslint-disable deprecation/deprecation */
 
 /** Private function that will map store's iModelConnection to the 'iModelConnection', 'iModel', and 'imodel' properties of props. This
  * is not ideal but it is a result of not having standard prop name for an iModelConnection.
@@ -65,6 +66,7 @@ const iModelAndViewMapStateToProps = (mapStateToProps: any) => {
  * @param mapStateToProps optional user function that, if defined, will be executed to provide additional properties from store.
  * @param mapDispatchToProps data passed to Redux connect function.
  * @public
+ * @deprecated in 4.15.0. Components should take iModel connection as props.
  */
 export const connectIModelConnection = (
   mapStateToProps?: any,
@@ -90,7 +92,7 @@ export const connectIModelConnection = (
  *
  *  //  this then allows connected control to update the store using a call like shown below.
  *  this.props.setNumItemsSelected(30);
- *
+ * @deprecated in 4.15.0. Components should take iModel connection and view state as props.
  */
 export const connectIModelConnectionAndViewState = (
   mapStateToProps?: any,

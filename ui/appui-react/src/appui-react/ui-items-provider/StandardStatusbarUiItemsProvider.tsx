@@ -144,6 +144,7 @@ export class StandardStatusbarUiItemsProvider implements UiItemsProvider {
           "uifw.SelectionInfo",
           StatusBarSection.Right,
           30,
+          // eslint-disable-next-line deprecation/deprecation
           <SelectionInfoField />
         )
       );

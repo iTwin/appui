@@ -75,7 +75,6 @@ describe("SyncUiEventDispatcher", () => {
     let callbackCalled = false;
     let callbackHasExpectedEventId = false;
 
-    // eslint-disable-next-line deprecation/deprecation
     const handleSyncUiEvent = (args: UiSyncEventArgs): void => {
       callbackCalled = true;
       callbackHasExpectedEventId = args.eventIds.has("event1");
@@ -94,7 +93,6 @@ describe("SyncUiEventDispatcher", () => {
     let callback1Called = false;
     let callback1HasExpectedEventId = false;
 
-    // eslint-disable-next-line deprecation/deprecation
     const handleSyncUiEvent1 = (args: UiSyncEventArgs): void => {
       callback1Called = true;
       callback1HasExpectedEventId = args.eventIds.has("event1");
@@ -116,7 +114,6 @@ describe("SyncUiEventDispatcher", () => {
     let callbackCalled = false;
     let callbackHasExpectedEventIds = false;
 
-    // eslint-disable-next-line deprecation/deprecation
     const handleSyncUiEvent = (args: UiSyncEventArgs): void => {
       callbackCalled = true;
       callbackHasExpectedEventIds =
@@ -140,7 +137,6 @@ describe("SyncUiEventDispatcher", () => {
     let callbackCalled = false;
     let callbackHasExpectedEventIds = false;
 
-    // eslint-disable-next-line deprecation/deprecation
     const handleSyncUiEvent = (args: UiSyncEventArgs): void => {
       callbackCalled = true;
       callbackHasExpectedEventIds =
@@ -172,56 +168,56 @@ describe("SyncUiEventDispatcher", () => {
 
     handleSyncUiEvent.mockReset();
     UiFramework.frontstages.onContentControlActivatedEvent.emit(
-      {} as ContentControlActivatedEventArgs // eslint-disable-line deprecation/deprecation
+      {} as ContentControlActivatedEventArgs
     );
     vi.runAllTimers();
     expect(handleSyncUiEvent).toHaveBeenCalledOnce();
 
     handleSyncUiEvent.mockReset();
     UiFramework.frontstages.onContentLayoutActivatedEvent.emit(
-      {} as ContentLayoutActivatedEventArgs // eslint-disable-line deprecation/deprecation
+      {} as ContentLayoutActivatedEventArgs
     );
     vi.runAllTimers();
     expect(handleSyncUiEvent).toHaveBeenCalledOnce();
 
     handleSyncUiEvent.mockReset();
     UiFramework.frontstages.onFrontstageActivatedEvent.emit(
-      {} as FrontstageActivatedEventArgs // eslint-disable-line deprecation/deprecation
+      {} as FrontstageActivatedEventArgs
     );
     vi.runAllTimers();
     expect(handleSyncUiEvent).toHaveBeenCalledOnce();
 
     handleSyncUiEvent.mockReset();
     UiFramework.frontstages.onFrontstageReadyEvent.emit(
-      {} as FrontstageReadyEventArgs // eslint-disable-line deprecation/deprecation
+      {} as FrontstageReadyEventArgs
     );
     vi.runAllTimers();
     expect(handleSyncUiEvent).toHaveBeenCalledOnce();
 
     handleSyncUiEvent.mockReset();
     UiFramework.frontstages.onModalFrontstageChangedEvent.emit(
-      {} as ModalFrontstageChangedEventArgs // eslint-disable-line deprecation/deprecation
+      {} as ModalFrontstageChangedEventArgs
     );
     vi.runAllTimers();
     expect(handleSyncUiEvent).toHaveBeenCalledOnce();
 
     handleSyncUiEvent.mockReset();
     UiFramework.frontstages.onNavigationAidActivatedEvent.emit(
-      {} as NavigationAidActivatedEventArgs // eslint-disable-line deprecation/deprecation
+      {} as NavigationAidActivatedEventArgs
     );
     vi.runAllTimers();
     expect(handleSyncUiEvent).toHaveBeenCalledOnce();
 
     handleSyncUiEvent.mockReset();
     UiFramework.frontstages.onToolActivatedEvent.emit(
-      {} as ToolActivatedEventArgs // eslint-disable-line deprecation/deprecation
+      {} as ToolActivatedEventArgs
     );
     vi.runAllTimers();
     expect(handleSyncUiEvent).toHaveBeenCalledOnce();
 
     handleSyncUiEvent.mockReset();
     UiFramework.frontstages.onWidgetStateChangedEvent.emit(
-      {} as WidgetStateChangedEventArgs // eslint-disable-line deprecation/deprecation
+      {} as WidgetStateChangedEventArgs
     );
     vi.runAllTimers();
     expect(handleSyncUiEvent).toHaveBeenCalledOnce();
@@ -233,7 +229,7 @@ describe("SyncUiEventDispatcher", () => {
 
     handleSyncUiEvent.mockReset();
     UiFramework.content.onActiveContentChangedEvent.emit(
-      {} as ActiveContentChangedEventArgs // eslint-disable-line deprecation/deprecation
+      {} as ActiveContentChangedEventArgs
     );
     vi.runAllTimers();
     expect(handleSyncUiEvent).toHaveBeenCalledOnce();
