@@ -18,14 +18,15 @@ import { ItemDefBase } from "./ItemDefBase";
 import type { CommandItemProps, ItemProps } from "./ItemProps";
 import type { ConditionalStringValue } from "./ConditionalValue";
 
+/* eslint-disable deprecation/deprecation */
+
 /** Menu Item Properties
  * @public
  * @deprecated in 4.11.0. Please use {@link CursorMenuItemProps}.
  */
 export type MenuItemProps = AbstractMenuItemProps;
 
-/**
- * Properties for context menu items.
+/** Properties for context menu items.
  * @public
  */
 export interface CursorMenuItemProps extends ItemProps {
@@ -43,6 +44,7 @@ export interface CursorMenuItemProps extends ItemProps {
 
 /** Menu Item
  * @alpha
+ * @deprecated in 4.15.0. Used in a deprecated class {@link MenuItemHelpers}.
  */
 export class MenuItem extends ItemDefBase {
   private _id = "";
@@ -107,6 +109,7 @@ export class MenuItem extends ItemDefBase {
 
 /** Menu Item helper methods
  * @alpha
+ * @deprecated in 4.15.0. Use {@link ContextMenuItem} and {@link ContextSubMenu} components.
  */
 export class MenuItemHelpers {
   public static createMenuItems(
