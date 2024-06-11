@@ -2,6 +2,12 @@
   "name": "@itwin/imodel-components-react",
   "entries": [
     {
+      "version": "4.14.1",
+      "tag": "@itwin/imodel-components-react_v4.14.1",
+      "date": "Tue, 11 Jun 2024 15:58:29 GMT",
+      "comments": {}
+    },
+    {
       "version": "4.14.0",
       "tag": "@itwin/imodel-components-react_v4.14.0",
       "date": "Thu, 06 Jun 2024 08:24:21 GMT",
