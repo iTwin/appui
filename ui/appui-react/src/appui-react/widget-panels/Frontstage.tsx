@@ -367,11 +367,9 @@ export function addPanelSectionWidgetDefs(
   }
 }
 
+/** Sends back popout widgets if app is not an electron app. */
 function processPopoutWidgets(frontstageDef: FrontstageDef) {
-  // Electron reopens popout windows w/o user interaction.
-  if (ProcessDetector.isElectronAppFrontend) {
-    return;
-  }
+  if (ProcessDetector.isElectronAppFrontend) return;
 
   assert(!!frontstageDef.nineZoneState);
   const state = frontstageDef.nineZoneState;
@@ -380,6 +378,18 @@ function processPopoutWidgets(frontstageDef: FrontstageDef) {
       type: "POPOUT_WIDGET_SEND_BACK",
       id,
     });
+  }
+}
+
+/** Opens popout widgets if app is an electron app. */
+function openPopoutWidgets(frontstageDef: FrontstageDef) {
+  // Only electron can reopen popout windows w/o user interaction.
+  if (!ProcessDetector.isElectronAppFrontend) return;
+
+  assert(!!frontstageDef.nineZoneState);
+  const state = frontstageDef.nineZoneState;
+  for (const id of state.popoutWidgets.allIds) {
+    frontstageDef.openPopoutWidgetContainer(id, undefined);
   }
 }
 
@@ -723,6 +733,7 @@ export function useSavedFrontstageState(frontstageDef: FrontstageDef) {
       // Switching to previously initialized frontstage.
       if (frontstageDef.nineZoneState) {
         processPopoutWidgets(frontstageDef);
+        openPopoutWidgets(frontstageDef);
         return;
       }
 
