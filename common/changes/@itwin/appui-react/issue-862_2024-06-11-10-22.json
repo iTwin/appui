@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Fix ElementTooltip to correctly open in a popup window.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
