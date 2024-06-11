@@ -33,23 +33,16 @@ export const Basic: Story = {
       {
         key: "x",
         label: "Log to console",
-        item: new CommandItemDef({
-          commandId: "logToConsole",
-          iconSpec: "icon-placeholder",
-          // TODO: this is executed twice
-          execute: action("x"),
-        }),
+        iconSpec: "icon-placeholder",
+        execute: action("x"),
       },
       {
         key: "m",
         label: "Show shortcuts",
-        item: new CommandItemDef({
-          commandId: "showShortcutsMenu",
-          iconSpec: "icon-placeholder",
-          execute: () => {
-            UiFramework.keyboardShortcuts.displayMenu();
-          },
-        }),
+        iconSpec: "icon-placeholder",
+        execute: () => {
+          UiFramework.keyboardShortcuts.displayMenu();
+        },
       },
     ],
   },
@@ -65,33 +58,24 @@ export const Nested: Story = {
           {
             key: "x",
             label: "Log to console",
-            item: new CommandItemDef({
-              commandId: "logToConsole",
-              iconSpec: "icon-placeholder",
-              execute: action("x"),
-            }),
+            iconSpec: "icon-placeholder",
+            execute: action("x"),
           },
           {
             key: "y",
             label: "Log to console",
-            item: new CommandItemDef({
-              commandId: "logToConsole",
-              iconSpec: "icon-placeholder",
-              execute: action("y"),
-            }),
+            iconSpec: "icon-placeholder",
+            execute: action("y"),
           },
         ],
       },
       {
         key: "m",
         label: "Show shortcuts",
-        item: new CommandItemDef({
-          commandId: "showShortcutsMenu",
-          iconSpec: "icon-placeholder",
-          execute: () => {
-            UiFramework.keyboardShortcuts.displayMenu();
-          },
-        }),
+        iconSpec: "icon-placeholder",
+        execute: () => {
+          UiFramework.keyboardShortcuts.displayMenu();
+        },
       },
     ],
   },

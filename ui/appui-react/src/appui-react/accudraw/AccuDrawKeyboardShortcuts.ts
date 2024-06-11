@@ -26,7 +26,7 @@ import {
 import { FrameworkAccuDraw } from "./FrameworkAccuDraw";
 import { BumpToolSetting } from "../tools/ToolSettingsTools";
 import type { KeyboardShortcutProps } from "../keyboardshortcut/KeyboardShortcutProps";
-import { KeyboardShortcutUtilities } from "../keyboardshortcut/KeyboardShortcuUtilities";
+import { KeyboardShortcutUtilities } from "../keyboardshortcut/KeyboardShortcutUtilities";
 
 /** Default AccuDraw Keyboard Shortcuts
  *

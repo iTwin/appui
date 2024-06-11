@@ -5,6 +5,7 @@
 /** @packageDocumentation
  * @module KeyboardShortcut
  */
+import type { KeyboardShortcutProps } from "../keyboardshortcut/KeyboardShortcutProps";
 import type { ActionButtonItemDef } from "../shared/ActionButtonItemDef";
 import type { ItemDefBase } from "../shared/ItemDefBase";
 

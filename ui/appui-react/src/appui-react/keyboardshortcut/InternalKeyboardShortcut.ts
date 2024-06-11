@@ -8,7 +8,6 @@
 
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
 import { CursorInformation } from "../cursor/CursorInformation";
-import type { KeyboardShortcutProps } from "../framework/FrameworkKeyboardShortcuts";
 import { KeyboardShortcutMenu } from "./KeyboardShortcutMenu";
 import {
   KeyboardShortcut,
@@ -16,6 +15,7 @@ import {
 } from "./KeyboardShortcut";
 import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
 import type { UiSyncEventArgs } from "../syncui/UiSyncEvent";
+import type { KeyboardShortcutProps } from "./KeyboardShortcutProps";
 
 type OnShortcutFunc = (shortcut: KeyboardShortcut) => void;
 

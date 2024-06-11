@@ -26,7 +26,7 @@ import {
 } from "@itwin/core-frontend";
 import { ToolItemDef } from "../shared/ToolItemDef";
 import { BumpToolSetting, FocusToolSettings } from "../tools/ToolSettingsTools";
-import type { KeyboardShortcutUtilities } from "../keyboardshortcut/KeyboardShortcuUtilities";
+import type { KeyboardShortcutUtilities } from "../keyboardshortcut/KeyboardShortcutUtilities";
 
 /* eslint-disable deprecation/deprecation */
 

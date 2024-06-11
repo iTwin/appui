@@ -91,7 +91,9 @@ export * from "./appui-react/hooks/useSolarDataProvider";
 export * from "./appui-react/hooks/useUiVisibility";
 
 export * from "./appui-react/keyboardshortcut/KeyboardShortcut";
+export * from "./appui-react/keyboardshortcut/KeyboardShortcutProps";
 export * from "./appui-react/keyboardshortcut/KeyboardShortcutMenu";
+export * from "./appui-react/keyboardshortcut/KeyboardShortcutUtilities";
 
 export * from "./appui-react/keyins/Keyins";
 
