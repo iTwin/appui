@@ -17,10 +17,9 @@ import {
   StageContentLayout,
   StageContentLayoutProps,
   SyncUiEventId,
-  ToolItemDef,
   UiFramework,
 } from "@itwin/appui-react";
-import { IModelApp, IModelConnection, Tool } from "@itwin/core-frontend";
+import { IModelConnection, Tool } from "@itwin/core-frontend";
 import { ConditionalIconItem, LocalStateStorage } from "@itwin/core-react";
 import { SvgWindow, SvgWindowSplitVertical } from "@itwin/itwinui-icons-react";
 
@@ -142,18 +141,6 @@ export class SaveContentLayoutTool extends Tool {
     }
     return true;
   }
-
-  public static get toolItemDef() {
-    return new ToolItemDef({
-      toolId: SaveContentLayoutTool.toolId,
-      iconSpec: SaveContentLayoutTool.iconSpec,
-      label: SaveContentLayoutTool.flyover,
-      tooltip: SaveContentLayoutTool.description,
-      execute: async () => {
-        await IModelApp.tools.run(SaveContentLayoutTool.toolId);
-      },
-    });
-  }
 }
 
 export class RestoreSavedContentLayoutTool extends Tool {
@@ -199,19 +186,8 @@ export class RestoreSavedContentLayoutTool extends Tool {
     }
     return true;
   }
-
-  public static get toolItemDef() {
-    return new ToolItemDef({
-      toolId: RestoreSavedContentLayoutTool.toolId,
-      iconSpec: RestoreSavedContentLayoutTool.iconSpec,
-      label: RestoreSavedContentLayoutTool.flyover,
-      tooltip: RestoreSavedContentLayoutTool.description,
-      execute: async () => {
-        await IModelApp.tools.run(RestoreSavedContentLayoutTool.toolId);
-      },
-    });
-  }
 }
+
 const getSplitWindowCmdIcon = () => {
   return 1 ===
     UiFramework.frontstages.activeFrontstageDef?.contentGroup?.getContentControls()

@@ -15,6 +15,7 @@ import {
   StatusBarSection,
   ToolbarHelper,
   ToolbarItem,
+  ToolbarItemUtilities,
   ToolbarOrientation,
   ToolbarUsage,
   UiItemsManager,
@@ -91,16 +92,14 @@ export class ContentLayoutStageUiItemsProvider implements UiItemsProvider {
         toolbarOrientation === ToolbarOrientation.Vertical
       ) {
         return [
-          ToolbarHelper.createToolbarItemFromItemDef(
-            10,
-            SaveContentLayoutTool.toolItemDef,
-            { groupPriority: 3000 }
-          ),
-          ToolbarHelper.createToolbarItemFromItemDef(
-            15,
-            RestoreSavedContentLayoutTool.toolItemDef,
-            { groupPriority: 3000 }
-          ),
+          ToolbarItemUtilities.createForTool(SaveContentLayoutTool, {
+            itemPriority: 10,
+            groupPriority: 3000,
+          }),
+          ToolbarItemUtilities.createForTool(RestoreSavedContentLayoutTool, {
+            itemPriority: 15,
+            groupPriority: 3000,
+          }),
           getCustomViewSelectorPopupItem(20, 3000),
         ];
       }

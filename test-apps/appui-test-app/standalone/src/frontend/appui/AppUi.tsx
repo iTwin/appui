@@ -9,10 +9,11 @@ import {
 import { IModelApp } from "@itwin/core-frontend";
 import { Key } from "ts-key-enum";
 import {
-  AccuDrawCommandItems,
   AccuDrawKeyboardShortcuts,
   CommandItemDef,
+  FocusToolSettings,
   KeyboardShortcutProps,
+  KeyboardShortcutUtilities,
   UiFramework,
 } from "@itwin/appui-react";
 
@@ -55,10 +56,7 @@ export class AppUi {
             key: "n",
             item: AppUi._bumpToolSettingToggle,
           },
-          {
-            key: "f",
-            item: AccuDrawCommandItems.focusToolSetting,
-          },
+          KeyboardShortcutUtilities.createForTool("f", FocusToolSettings),
         ],
       },
       {
