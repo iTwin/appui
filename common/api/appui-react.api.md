@@ -1702,11 +1702,6 @@ export class DrawingNavigationAidControl extends NavigationAidControl {
 
 // @public
 export class ElementTooltip extends React_2.Component<CommonProps, ElementTooltipState> {
-    constructor(props: CommonProps);
-    // (undocumented)
-    componentDidMount(): void;
-    // (undocumented)
-    componentWillUnmount(): void;
     // (undocumented)
     static hideTooltip(): void;
     // (undocumented)
@@ -1717,11 +1712,9 @@ export class ElementTooltip extends React_2.Component<CommonProps, ElementToolti
     // (undocumented)
     static get onElementTooltipChangedEvent(): ElementTooltipChangedEvent;
     // (undocumented)
-    render(): React_2.JSX.Element | null;
+    render(): React_2.JSX.Element;
     // (undocumented)
     static showTooltip(el: HTMLElement, message: NotifyMessageType, pt?: XAndY, options?: ToolTipOptions): void;
-    // @internal (undocumented)
-    readonly state: Readonly<ElementTooltipState>;
 }
 
 // @public @deprecated
