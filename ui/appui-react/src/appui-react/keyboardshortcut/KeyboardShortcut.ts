@@ -12,6 +12,12 @@ import { ItemDefBase } from "../shared/ItemDefBase";
 import { UiFramework } from "../UiFramework";
 import { KeyboardShortcutMenu } from "./KeyboardShortcutMenu";
 import type { KeyboardShortcutProps } from "./KeyboardShortcutProps";
+import type {
+  FrameworkKeyboardShortcut,
+  FrameworkKeyboardShortcutContainer,
+} from "../framework/FrameworkKeyboardShortcuts";
+
+/* eslint-disable deprecation/deprecation */
 
 enum FunctionKey {
   F1 = "F1",
@@ -55,6 +61,7 @@ enum SpecialKey {
 
 /** Keyboard Shortcut used to execute an action
  * @public
+ * @deprecated in 4.15.0. Use {@link KeyboardShortcutProps} or {@link FrameworkKeyboardShortcut} instead.
  */
 export class KeyboardShortcut extends ItemDefBase {
   private _key: string;
@@ -78,9 +85,7 @@ export class KeyboardShortcut extends ItemDefBase {
 
     this._shortcuts = new KeyboardShortcutContainer();
 
-    // eslint-disable-next-line deprecation/deprecation
     if (props.item) {
-      // eslint-disable-next-line deprecation/deprecation
       this._item = props.item;
 
       // Copy over icon, label & tooltip from the item
@@ -98,7 +103,6 @@ export class KeyboardShortcut extends ItemDefBase {
         this._shortcuts.registerKey(shortcut.keyMapKey, shortcut);
       });
     } else {
-      // eslint-disable-next-line deprecation/deprecation
       throw new UiError(
         UiFramework.loggerCategory(this),
         `Either 'item', 'execute' or 'shortcuts' must be specified for '${props.key}' key.`
@@ -184,6 +188,7 @@ export class KeyboardShortcut extends ItemDefBase {
 
 /** Keyboard Shortcut Container
  * @public
+ * @deprecated in 4.15.0. Use {@link FrameworkKeyboardShortcutContainer} instead.
  */
 export class KeyboardShortcutContainer {
   private _keyMap: Map<string, KeyboardShortcut> = new Map<
