@@ -14,6 +14,8 @@ import type {
 import type { BadgeType, IconProps, IconSpec } from "@itwin/core-react";
 import type { ToolbarGroupItem } from "../toolbar/ToolbarItem";
 
+/* eslint-disable deprecation/deprecation */
+
 /** Definition that specifies properties shared between many ConfigurableUi components.
  * @public
  * @deprecated in 4.15.0. Use item specific types like {@link ToolbarGroupItem} instead.
@@ -53,15 +55,14 @@ export interface ItemProps extends IconProps {
  * @public
  * @deprecated in 4.15.0. Use a custom type instead.
  */
-// eslint-disable-next-line deprecation/deprecation
 export interface ToolItemProps extends ItemProps, CommandHandler {
   toolId: string;
 }
 
 /** Properties for a Command item.
  * @public
+ * @deprecated in 4.15.0. Use a custom type instead.
  */
-// eslint-disable-next-line deprecation/deprecation
 export interface CommandItemProps extends ItemProps, CommandHandler {
   commandId?: string;
 }

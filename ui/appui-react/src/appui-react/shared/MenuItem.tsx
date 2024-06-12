@@ -27,8 +27,13 @@ import type { ConditionalStringValue } from "./ConditionalValue";
 export interface CursorMenuItemProps extends IconProps {
   /** The id for the menu item. */
   id: string;
-  /** The item to execute when this item is invoked. Either 'item' or 'submenu' must be specified. */
+  /** The item to execute when this item is invoked. Either 'item' or 'submenu' must be specified.
+   * @deprecated in 4.15.0. Use properties of this object instead.
+   */
+  // eslint-disable-next-line deprecation/deprecation
   item?: CommandItemProps;
+  /** Function to execute. */
+  execute?: () => any;
   /** Nested array of item props. Either 'item' or 'submenu' must be specified. */
   submenu?: CursorMenuItemProps[];
   /** Icon to display on right side of the menu item.
@@ -87,6 +92,7 @@ export class MenuItem extends ItemDefBase {
   private _actionItem?: ActionButtonItemDef;
   private _submenu: MenuItem[];
   private _onSelection?: () => void;
+  private _execute?: () => void;
 
   /** onSelection is an optional parameter typically supplied to allow menu parent to close context menu when a menu item is selected. */
   constructor(props: CursorMenuItemProps, onSelection?: () => void) {
@@ -104,6 +110,8 @@ export class MenuItem extends ItemDefBase {
       if (!this.label) this.setLabel(this._actionItem.label);
       if (!this.badgeType) this.badgeType = this._actionItem.badgeType;
       if (!this.isDisabled) this.isDisabled = this._actionItem.isDisabled;
+    } else if (props.execute) {
+      this._execute = props.execute;
     } else if (props.submenu) {
       props.submenu.forEach((childProps: CursorMenuItemProps) => {
         const childItem = new MenuItem(childProps, onSelection);
@@ -113,7 +121,7 @@ export class MenuItem extends ItemDefBase {
       // eslint-disable-next-line deprecation/deprecation
       throw new UiError(
         UiFramework.loggerCategory(this),
-        `Either 'item' or 'submenu' must be specified for '${props.id}'.`
+        `Either 'item', 'execute' or 'submenu' must be specified for '${props.id}'.`
       );
     }
 
@@ -137,6 +145,7 @@ export class MenuItem extends ItemDefBase {
   public itemPicked(): void {
     setTimeout(() => {
       if (this._actionItem) this._actionItem.execute();
+      else if (this._execute) this._execute();
     });
 
     if (this._onSelection) this._onSelection();
