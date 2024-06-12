@@ -15,6 +15,7 @@ import "./Field.scss";
  * @beta
  * @deprecated in 4.13.0. Props of deprecated component {@link StatusBarField}.
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface StatusBarFieldProps extends CommonProps {
   /** Field content. */
   children?: React.ReactNode;

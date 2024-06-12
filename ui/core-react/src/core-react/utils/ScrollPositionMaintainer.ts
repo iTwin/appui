@@ -18,14 +18,17 @@ import type { IDisposable } from "@itwin/core-bentley";
  * maintainer.dispose();
  * ```
  * @public
+ * @deprecated in 4.15.0. Not use by AppUI.
  */
 export class ScrollPositionMaintainer implements IDisposable {
   private _storage: Map<Element, number>;
   public constructor(el: Element) {
     this._storage = new Map();
+    // eslint-disable-next-line deprecation/deprecation
     ScrollPositionMaintainer.saveScrollPositions([el], this._storage);
   }
   public dispose() {
+    // eslint-disable-next-line deprecation/deprecation
     ScrollPositionMaintainer.restoreScrollPositions(this._storage);
   }
   private static saveScrollPositions(

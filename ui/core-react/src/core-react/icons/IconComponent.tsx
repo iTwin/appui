@@ -31,6 +31,7 @@ export type IconSpec =
 /** Properties for the [[Icon]] React component
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface IconProps extends CommonProps {
   /** CSS class name or SvgPath for icon. This is optional because it is improperly
    * used to extend other interfaces and changing it would break existing API.

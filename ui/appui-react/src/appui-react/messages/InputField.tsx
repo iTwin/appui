@@ -83,6 +83,7 @@ export class InputFieldMessage extends React.PureComponent<
     }
 
     return (
+      // eslint-disable-next-line deprecation/deprecation
       <Popup
         isOpen={isVisible}
         position={RelativePosition.BottomLeft}
@@ -101,11 +102,13 @@ export class InputFieldMessage extends React.PureComponent<
                 </span>
               )}
               <span className="uifw-popup-message-text">
+                {/* eslint-disable-next-line deprecation/deprecation */}
                 <MessageRenderer
                   className="uifw-popup-message-brief"
                   message={message}
                 />
                 {detailedMessage && (
+                  // eslint-disable-next-line deprecation/deprecation
                   <MessageRenderer
                     className="uifw-popup-message-detailed"
                     message={detailedMessage}

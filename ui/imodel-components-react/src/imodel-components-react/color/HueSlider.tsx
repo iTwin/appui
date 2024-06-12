@@ -76,6 +76,7 @@ function calculateChange(
  */
 export interface HueSliderProps
   extends React.HTMLAttributes<HTMLDivElement>,
+    // eslint-disable-next-line deprecation/deprecation
     CommonProps {
   /** true if slider is oriented horizontal, else vertical orientation is assumed */
   isHorizontal?: boolean;

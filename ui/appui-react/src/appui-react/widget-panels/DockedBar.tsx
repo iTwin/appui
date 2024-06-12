@@ -11,6 +11,7 @@ import classnames from "classnames";
 /** Properties of [[DockedBar]] component.
  * @internal
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface DockedBarProps extends CommonDivProps {
   /** Placement of the bar. */
   placement?: "top" | "bottom";

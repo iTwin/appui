@@ -19,6 +19,7 @@ import { useOverflow } from "./useOverflow";
 import { getChildKey } from "../../layout/tool-settings/Docked";
 import { ToolbarContext } from "./Toolbar";
 
+// eslint-disable-next-line deprecation/deprecation
 interface ToolGroupProps extends CommonProps {
   children?: React.ReactNode;
 }

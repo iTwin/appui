@@ -190,6 +190,7 @@ export function useFocusedThumb(sliderContainer: HTMLDivElement | undefined) {
 /** Properties for Scrubber/Slider used on timeline control
  * @internal
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface ScrubberProps extends CommonProps {
   currentDuration: number;
   totalDuration: number;

@@ -26,6 +26,7 @@ import { UiFramework } from "../UiFramework";
 /** Properties for [[AccuDrawFieldContainer]] component
  * @beta
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface AccuDrawFieldContainerProps extends CommonProps {
   /** Orientation of the fields */
   orientation: Orientation;

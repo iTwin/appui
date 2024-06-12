@@ -16,6 +16,7 @@ import { Div } from "./Div";
  * @public
  * @deprecated in 4.12.0. Use {@link https://developer.mozilla.org/en-US/docs/Web/CSS/overflow overflow property} instead.
  */
+// eslint-disable-next-line deprecation/deprecation
 export function ScrollView(props: CommonDivProps) {
   // eslint-disable-next-line deprecation/deprecation
   return <Div {...props} mainClassName="uicore-scrollview" />;

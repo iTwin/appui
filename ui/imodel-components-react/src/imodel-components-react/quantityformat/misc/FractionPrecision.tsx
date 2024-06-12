@@ -15,6 +15,7 @@ import { useTranslation } from "../../useTranslation";
 /** Properties of [[FractionPrecisionSelector]] component.
  * @internal
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface FractionPrecisionSelectorProps extends CommonProps {
   precision: number;
   onChange: (value: number) => void;

@@ -16,6 +16,7 @@ import type { CommonProps } from "../utils/Props";
  * @public
  * @deprecated in 4.12.0. Props of deprecated component {@link ImageCheckBox}.
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface ImageCheckBoxProps extends CommonProps {
   /** Image for the "checked" state */
   imageOn: string | React.ReactNode;

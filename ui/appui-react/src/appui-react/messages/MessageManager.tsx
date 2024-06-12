@@ -592,6 +592,7 @@ export class MessageManager {
    */
   public static getIconClassName(details: NotifyMessageDetailsType): string {
     const severity = MessageManager.getSeverity(details);
+    // eslint-disable-next-line deprecation/deprecation
     const className = MessageContainer.getIconClassName(severity);
     const iconClassName = classnames("icon", "notifymessage-icon", className);
 
@@ -678,6 +679,7 @@ export class MessageManager {
           onFulfilled,
           onRejected
         );
+        // eslint-disable-next-line deprecation/deprecation
         const messageElement = <MessageRenderer message={message} useSpan />;
         UiFramework.dialogs.modal.open(
           this.standardMessageBox(
@@ -699,9 +701,11 @@ export class MessageManager {
     const iconType = this.getIconType(messageDetails);
     const content = (
       <>
+        {/* eslint-disable-next-line deprecation/deprecation */}
         <MessageRenderer message={messageDetails.briefMessage} useSpan />
         {messageDetails.detailedMessage && (
           <p>
+            {/* eslint-disable-next-line deprecation/deprecation */}
             <MessageRenderer message={messageDetails.detailedMessage} useSpan />
           </p>
         )}
@@ -727,6 +731,7 @@ export class MessageManager {
     const onResult =
       callbacks !== undefined ? callbacks.handleMessageBoxResult : undefined;
     return (
+      // eslint-disable-next-line deprecation/deprecation
       <StandardMessageBox
         opened={true}
         messageBoxType={mbType}

@@ -15,6 +15,7 @@ import { Popup } from "@itwin/core-react";
 /** Properties of [[ToolSettingsOverflowPanel]] component.
  * @internal
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface ToolSettingsOverflowPanelProps extends CommonProps {
   /** Panel content. */
   children?: React.ReactNode;
@@ -31,6 +32,7 @@ export function ToolSettingsOverflowPanel(
 ) {
   const className = classnames("nz-toolSettings-panel", props.className);
   return (
+    // eslint-disable-next-line deprecation/deprecation
     <Popup
       className={className}
       isOpen={props.open}

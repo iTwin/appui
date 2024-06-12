@@ -17,6 +17,7 @@ import type { PropertyCategory } from "../PropertyDataProvider";
  * Properties for the [[PropertyCategoryBlock]] React component
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface PropertyCategoryBlockProps extends CommonProps {
   /** Category of the properties */
   category: PropertyCategory;

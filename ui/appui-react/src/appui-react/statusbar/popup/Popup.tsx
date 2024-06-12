@@ -18,10 +18,12 @@ import { StatusBarPopover } from "./StatusBarPopover";
  * @beta
  * @deprecated in 4.13.0. Use {@link StatusBarPopover} instead.
  */
+// eslint-disable-next-line deprecation/deprecation
 export function StatusBarPopup(props: Partial<PopupProps>) {
   const { className, offset, ...other } = props;
 
   return (
+    // eslint-disable-next-line deprecation/deprecation
     <Popup
       className={classnames("nz-status-bar-popup", className)}
       position={RelativePosition.Top}

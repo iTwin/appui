@@ -7,10 +7,10 @@
  */
 
 import type * as React from "react";
-import type { Omit } from "./typeUtils";
 
 /** Props used by components that expect class name to be passed in.
  * @public
+ * @deprecated in 4.15.0. Used internally.
  */
 export interface ClassNameProps {
   /** Custom CSS class name */
@@ -19,7 +19,9 @@ export interface ClassNameProps {
 
 /** Common props used by components.
  * @public
+ * @deprecated in 4.15.0. Used internally.
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface CommonProps extends ClassNameProps {
   /** Custom CSS style properties */
   style?: React.CSSProperties;
@@ -29,13 +31,15 @@ export interface CommonProps extends ClassNameProps {
 
 /** Common properties using a div element.
  * @public
+ * @deprecated in 4.15.0. Used internally.
  */
 export interface CommonDivProps
   extends React.AllHTMLAttributes<HTMLDivElement>,
-    CommonProps {}
+    CommonProps {} // eslint-disable-line deprecation/deprecation
 
 /** Props used by components that do not expect children to be passed in.
  * @public
+ * @deprecated in 4.15.0. Used internally.
  */
 export interface NoChildrenProps {
   children?: undefined;
@@ -43,6 +47,7 @@ export interface NoChildrenProps {
 
 /** Omit children property from T.
  * @public
+ * @deprecated in 4.15.0. Used internally.
  */
 export type OmitChildrenProp<T extends { children?: React.ReactNode }> = Omit<
   T,

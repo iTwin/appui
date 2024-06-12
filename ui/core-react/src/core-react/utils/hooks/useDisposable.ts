@@ -45,6 +45,7 @@ export function useDisposable<TDisposable extends IDisposable>(
  * which might as well be undefined. If the result was a disposable object, the
  * hook takes care of disposing it when necessary.
  * @public
+ * @deprecated in 4.15.0. Use `useState` + `useEffect` for creating and disposing disposable resources.
  */
 export function useOptionalDisposable<TDisposable extends IDisposable>(
   createDisposable: () => TDisposable | undefined

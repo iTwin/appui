@@ -35,6 +35,7 @@ import { useTranslation } from "../useTranslation";
 /** Properties of [[MiscFormatOptions]] component.
  * @alpha
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface MiscFormatOptionsProps extends CommonProps {
   formatProps: FormatProps;
   onChange?: (format: FormatProps) => void;

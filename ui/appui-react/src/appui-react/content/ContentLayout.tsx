@@ -28,6 +28,7 @@ import { useActiveFrontstageDef } from "../frontstage/FrontstageDef";
 import { UiFramework } from "../UiFramework";
 
 /** Properties for [[ContentWrapper]] */
+// eslint-disable-next-line deprecation/deprecation
 interface ContentWrapperProps extends CommonProps {
   content: React.ReactNode;
 }
@@ -129,6 +130,7 @@ export function ContentWrapper(props: ContentWrapperProps) {
 }
 
 /** Properties for the [[SplitContainer]] component */
+// eslint-disable-next-line deprecation/deprecation
 interface SplitContainerProps extends CommonProps {
   contentA: React.ReactNode;
   contentB: React.ReactNode;
@@ -205,6 +207,7 @@ class SplitContainer extends React.Component<SplitContainerProps> {
 
 /** Properties for [[SingleContentContainer]] component
  */
+// eslint-disable-next-line deprecation/deprecation
 interface SingleContentProps extends CommonProps {
   content: React.ReactNode;
 }
@@ -577,6 +580,7 @@ interface ContentLayoutState {
 /** Properties for the [[ContentLayout]] React component.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface ContentLayoutComponentProps extends CommonProps {
   contentLayout: ContentLayoutDef;
   contentGroup: ContentGroup;

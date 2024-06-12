@@ -144,6 +144,7 @@ export class ITwinDropdown extends React.Component<
 
   private renderDropdown() {
     return (
+      // eslint-disable-next-line deprecation/deprecation
       <Popup
         isOpen={this.state.isDropdownOpen}
         position={RelativePosition.Bottom}

@@ -15,6 +15,7 @@ import { TitleBar } from "../dialog/TitleBar";
 /** Properties of [[SnapModePanel]] component.
  * @internal
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface SnapModePanelProps extends CommonProps {
   /** Snap rows. I.e. [[Snap]] */
   children?: React.ReactNode;

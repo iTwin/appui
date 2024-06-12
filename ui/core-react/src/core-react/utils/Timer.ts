@@ -8,16 +8,19 @@
 
 /** Signature for [[Timer]] execute callback.
  * @public
+ * @deprecated in 4.15.0. Used internally.
  */
 export type ExecuteHandler = (this: void) => void;
 
 /** Notifies handler after a set interval.
  * @public
+ * @deprecated in 4.15.0. Used internally.
  */
 export class Timer {
   private _delay: number;
   private _isRunning = false;
   private _timerId = 0;
+  // eslint-disable-next-line deprecation/deprecation
   private _onExecute: ExecuteHandler | undefined;
 
   /**
@@ -42,6 +45,7 @@ export class Timer {
   }
 
   /** Set handler that is called after a set interval. */
+  // eslint-disable-next-line deprecation/deprecation
   public setOnExecute(onExecute: ExecuteHandler | undefined) {
     this._onExecute = onExecute;
   }

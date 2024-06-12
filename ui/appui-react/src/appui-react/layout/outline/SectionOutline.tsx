@@ -22,6 +22,7 @@ import { useLayout } from "../base/LayoutStore";
 import { useSendBackHomeState } from "../widget/SendBack";
 
 /** @internal */
+// eslint-disable-next-line deprecation/deprecation
 export interface SectionOutlineProps extends CommonProps {
   sectionIndex: 0 | 1;
 }

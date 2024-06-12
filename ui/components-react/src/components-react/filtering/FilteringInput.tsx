@@ -37,6 +37,7 @@ interface FilteringInputState {
  * [[FilteringInput]] React Component properties
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface FilteringInputProps extends CommonProps {
   /** Filtering should start */
   onFilterStart: (searchText: string) => void;

@@ -15,6 +15,7 @@ import { Input, Select } from "@itwin/itwinui-react";
 /** Properties of [[UnitDescr]] component.
  * @internal
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface UnitDescrProps extends CommonProps {
   name: string;
   parentUnitName?: string;

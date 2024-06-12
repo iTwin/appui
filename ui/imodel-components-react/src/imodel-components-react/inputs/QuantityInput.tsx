@@ -22,6 +22,7 @@ import { useTranslation } from "../useTranslation";
 /** Props for [[QuantityInput]] control
  * @beta
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface QuantityProps extends CommonProps {
   /** Initial magnitude in 'persistence' units. See `getPersistenceUnitByQuantityType` in [QuantityFormatter]($core-frontend) */
   initialValue: number;

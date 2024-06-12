@@ -9,7 +9,6 @@
 import "./SquareButton.scss";
 import classnames from "classnames";
 import * as React from "react";
-import type { Omit } from "@itwin/core-react";
 import { Button } from "@itwin/itwinui-react";
 
 type ButtonProps = React.ComponentPropsWithoutRef<typeof Button>;

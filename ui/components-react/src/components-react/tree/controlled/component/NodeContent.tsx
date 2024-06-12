@@ -26,6 +26,7 @@ import { TreeNodeEditor } from "./TreeNodeEditor";
  * Properties for [[TreeNodeContent]] component
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface TreeNodeContentProps extends CommonProps {
   /** Tree node to render label for. */
   node: TreeModelNode;
@@ -115,6 +116,7 @@ function getLabel(
     style: getStyle(node.item.style, node.isSelected),
     textHighlighter: highlightCallback,
     defaultValue: (
+      // eslint-disable-next-line deprecation/deprecation
       <TreeNodePlaceholder level={0} data-testid={"node-label-placeholder"} />
     ),
   };
