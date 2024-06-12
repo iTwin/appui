@@ -23,7 +23,7 @@ Table of contents:
   - `SelectionInfoField` component. Use `SelectionCountField` instead.
   - Static methods and properties of `UiFramework` related to redux store.
   - Deprecated `StandardMessageBox` in favor of [iTwinUI Dialog](https://itwinui.bentley.com/docs/dialog). [#866](https://github.com/iTwin/appui/pull/866)
-  - Deprecated `provideToolbarItems`, `provideStatusBarItems`, `provideWidgets` and `provideBackstageItems` methods of `UiItemsProvider`. Use `getToolbarItems`, `getStatusBarItems`, `getWidgets` and `getBackstageItems` methods of `UiItemsProvider` instead.
+  - Deprecated `provideToolbarItems`, `provideStatusBarItems`, `provideWidgets` and `provideBackstageItems` methods of `UiItemsProvider`. Use `getToolbarItems`, `getStatusBarItems`, `getWidgets` and `getBackstageItems` methods of `UiItemsProvider` instead. [#874](https://github.com/iTwin/appui/pull/874)
 
 ### Additions
 
@@ -41,7 +41,7 @@ Table of contents:
 
 ### Changes
 
-- Bumped `getToolbarItems`, `getStatusBarItems`, `getWidgets` and `getBackstageItems` methods of `UiItemsProvider`, `layouts` property of `CommonToolbarItem` and `Widget`, `StandardLayoutToolbarItem`, `StandardLayoutWidget`, `ToolbarItemLayouts`, `WidgetLayouts` to `@public`.
+- Bumped `getToolbarItems`, `getStatusBarItems`, `getWidgets` and `getBackstageItems` methods of `UiItemsProvider`, `layouts` property of `CommonToolbarItem` and `Widget`, `StandardLayoutToolbarItem`, `StandardLayoutWidget`, `ToolbarItemLayouts`, `WidgetLayouts` to `@public`. [#874](https://github.com/iTwin/appui/pull/874)
 
 ## @itwin/core-react
 
