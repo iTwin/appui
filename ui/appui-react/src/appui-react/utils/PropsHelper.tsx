@@ -79,6 +79,7 @@ export class PropsHelper {
 
     if (!internalData) internalData = new Map<string, any>();
 
+    // eslint-disable-next-line deprecation/deprecation
     const icon = IconHelper.getIconData(iconSpec, internalData);
 
     return icon === "" ? { icon } : { icon, internalData };

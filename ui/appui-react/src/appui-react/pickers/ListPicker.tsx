@@ -66,6 +66,7 @@ export interface ListPickerProps {
 /** Properties for the [[ListPickerItem]] component
  * @beta
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface ListPickerItemProps extends CommonProps {
   key: any;
   isActive?: boolean;
@@ -111,6 +112,7 @@ export class ListPickerItem extends React.PureComponent<ListPickerItemProps> {
 /** Properties for the [[ExpandableSection]] component
  * @beta
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface ExpandableSectionProps extends CommonProps {
   title?: string;
   expanded?: boolean;

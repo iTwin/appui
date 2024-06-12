@@ -10,6 +10,7 @@ import * as React from "react";
 
 /** Properties for [[withOnOutsideClick]] React higher-order component
  * @public
+ * @deprecated in 4.15.0. Props of deprecated {@link withOnOutsideClick} HOC.
  */
 export interface WithOnOutsideClickProps {
   /** Outside click callback function */
@@ -20,6 +21,7 @@ export interface WithOnOutsideClickProps {
 
 /** withOnOutsideClick is a React higher-order component that adds outside click support.
  * @public
+ * @deprecated in 4.15.0. Used internally.
  */
 export const withOnOutsideClick = <ComponentProps extends {}>(
   Component: React.ComponentType<ComponentProps>,
@@ -28,7 +30,7 @@ export const withOnOutsideClick = <ComponentProps extends {}>(
   usePointerEvents: boolean = true
 ) => {
   return class WithOnOutsideClick extends React.PureComponent<
-    ComponentProps & WithOnOutsideClickProps
+    ComponentProps & WithOnOutsideClickProps // eslint-disable-line deprecation/deprecation
   > {
     /** @internal */
     public outsideClickContainerDiv?: HTMLDivElement | null = null;

@@ -15,6 +15,7 @@ import { Div, Size } from "@itwin/core-react";
 
 /** Props for popup at screen position
  * @beta */
+// eslint-disable-next-line deprecation/deprecation
 export interface PositionPopupProps extends CommonProps {
   /** Center point */
   point: XAndY;
@@ -65,6 +66,7 @@ export class PositionPopup extends React.PureComponent<PositionPopupProps> {
 /** PositionPopup content with padding
  * @beta
  */
+// eslint-disable-next-line deprecation/deprecation
 export function PositionPopupContent(props: CommonDivProps) {
   // eslint-disable-next-line deprecation/deprecation
   return <Div {...props} mainClassName="uifw-position-popup-content" />;

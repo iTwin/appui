@@ -11,6 +11,7 @@ import { Popover } from "@itwin/itwinui-react";
 import { ButtonExpandIndicator } from "./ExpandIndicator";
 import type { CommonProps } from "@itwin/core-react";
 
+// eslint-disable-next-line deprecation/deprecation
 type StatusBarPopoverProps = CommonProps &
   Pick<
     React.ComponentProps<typeof Popover>,

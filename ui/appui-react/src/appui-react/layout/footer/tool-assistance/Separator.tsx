@@ -14,6 +14,7 @@ import type { CommonProps } from "@itwin/core-react";
 /** Properties of [[ToolAssistanceSeparator]] component.
  * @internal
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface ToolAssistanceSeparatorProps extends CommonProps {
   /** Separator label. */
   children?: string;

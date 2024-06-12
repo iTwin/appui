@@ -13,6 +13,7 @@ import { IconButton } from "@itwin/itwinui-react";
 /** Properties of [[StatusBarDialogTitleBarButton]] component.
  * @beta
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface StatusBarDialogTitleBarButtonProps extends CommonProps {
   /** Button content. */
   children?: React.ReactNode;

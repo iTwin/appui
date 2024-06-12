@@ -34,6 +34,7 @@ import { useTranslation } from "../useTranslation";
  */
 export interface ColorPickerPopupProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    // eslint-disable-next-line deprecation/deprecation
     CommonProps {
   /** Current color */
   initialColor: ColorDef;
@@ -180,6 +181,7 @@ const ForwardRefColorPickerPopup = React.forwardRef<
           )}
         </div>
       </button>
+      {/* eslint-disable-next-line deprecation/deprecation */}
       <Popup
         className="components-colorpicker-popup"
         isOpen={showPopup}

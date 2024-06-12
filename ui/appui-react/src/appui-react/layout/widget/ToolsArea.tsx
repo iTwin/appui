@@ -15,6 +15,7 @@ import type { ToolbarButtonProps } from "./tools/button/Button";
 /** Properties of [[ToolsArea]] component.
  * @internal
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface ToolsAreaProps extends CommonProps, NoChildrenProps {
   /**
    * Button displayed between horizontal and vertical toolbars.

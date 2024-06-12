@@ -14,6 +14,7 @@ import type { CommonProps } from "@itwin/core-react";
 
 // component is in alpha state - it may change after usability testing - test coverage not complete
 
+// eslint-disable-next-line deprecation/deprecation
 interface SpeedProps extends CommonProps {
   speed: number;
   onChange?: (value: number) => void;

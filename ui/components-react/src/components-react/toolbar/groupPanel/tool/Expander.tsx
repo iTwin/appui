@@ -9,7 +9,7 @@
 import "./Expander.scss";
 import classnames from "classnames";
 import * as React from "react";
-import type { NoChildrenProps, Omit } from "@itwin/core-react";
+import type { NoChildrenProps } from "@itwin/core-react";
 import type { GroupToolProps } from "./Tool";
 import { GroupTool } from "./Tool";
 
@@ -18,7 +18,7 @@ import { GroupTool } from "./Tool";
  */
 export interface GroupToolExpanderProps
   extends Omit<GroupToolProps, "isActive" | "children">,
-    NoChildrenProps {}
+    NoChildrenProps {} // eslint-disable-line deprecation/deprecation
 
 /** Expandable entry of tool group panel. Used in [[GroupColumn]] to select nested Groups.
  * @internal

@@ -79,6 +79,7 @@ export class DialogManagerBase {
 
   public static getDialogZIndexDefault(): number {
     const variable = "--uicore-z-index-dialog";
+    // eslint-disable-next-line deprecation/deprecation
     const value = getCssVariableAsNumber(variable);
 
     if (!isNaN(value)) return value;

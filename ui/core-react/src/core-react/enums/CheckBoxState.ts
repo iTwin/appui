@@ -17,6 +17,7 @@ export enum CheckBoxState {
 
 /** A data type that holds all the checkbox display attributes
  * @public
+ * @deprecated in 4.15.0. Not used by AppUI.
  */
 export interface CheckBoxInfo {
   isVisible?: boolean;

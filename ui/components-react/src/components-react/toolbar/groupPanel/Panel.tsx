@@ -14,6 +14,7 @@ import type { CommonProps } from "@itwin/core-react";
 /** Properties of [[Panel]] component.
  * @internal
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface PanelProps extends CommonProps {
   /** Panel content. */
   children?: React.ReactNode;

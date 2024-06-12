@@ -30,6 +30,7 @@ interface ResultSelectorState {
 /** [[ResultSelector]] React Component properties
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface ResultSelectorProps extends CommonProps {
   /** Total number of results/entries */
   resultCount: number;

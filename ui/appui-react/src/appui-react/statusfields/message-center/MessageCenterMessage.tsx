@@ -15,12 +15,15 @@ import { Icon, Text } from "@itwin/itwinui-react";
 /** Properties of [[MessageCenterMessage]] component.
  * @internal
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface MessageCenterMessageProps extends CommonProps {
   /** Message content. */
+  // eslint-disable-next-line deprecation/deprecation
   message?: MessageType;
   /** Message icon. */
   icon?: React.ReactNode;
   /** Additional Details */
+  // eslint-disable-next-line deprecation/deprecation
   details?: MessageType;
   /** className */
   className?: string;
@@ -42,9 +45,11 @@ export function MessageCenterMessage(props: MessageCenterMessageProps) {
       {icon && <Icon size="small">{icon}</Icon>}
       {message && (
         <span className="uifw-content">
+          {/* eslint-disable-next-line deprecation/deprecation */}
           <MessageRenderer message={message} className={className} useSpan />
           {details && (
             <Text variant="small">
+              {/* eslint-disable-next-line deprecation/deprecation */}
               <MessageRenderer message={details} />
             </Text>
           )}

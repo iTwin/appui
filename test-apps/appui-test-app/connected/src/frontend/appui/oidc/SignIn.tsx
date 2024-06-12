@@ -20,6 +20,7 @@ import { TestAppLocalization } from "../../useTranslation";
 /** Properties for the [[SignIn]] component
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface SignInProps extends CommonProps {
   /** Handler for clicking the Sign-In button */
   onSignIn: () => void;

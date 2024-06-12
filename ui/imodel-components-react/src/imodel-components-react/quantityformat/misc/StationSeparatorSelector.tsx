@@ -15,6 +15,7 @@ import { useTranslation } from "../../useTranslation";
 /** Properties of [[StationSeparatorSelector]] component.
  * @internal
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface StationSeparatorSelectorProps extends CommonProps {
   separator: string;
   disabled: boolean;

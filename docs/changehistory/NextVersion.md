@@ -6,6 +6,8 @@ Table of contents:
   - [Deprecations](#deprecations)
   - [Additions](#additions)
   - [Changes](#changes)
+- [@itwin/core-react](#itwincore-react)
+  - [Deprecations](#deprecations-1)
 
 ## @itwin/appui-react
 
@@ -20,7 +22,8 @@ Table of contents:
   - `IModelConnectedViewSelector` component. Use `ViewSelector` instead.
   - `SelectionInfoField` component. Use `SelectionCountField` instead.
   - Static methods and properties of `UiFramework` related to redux store.
-- Deprecated `provideToolbarItems`, `provideStatusBarItems`, `provideWidgets` and `provideBackstageItems` methods of `UiItemsProvider`. Use `getToolbarItems`, `getStatusBarItems`, `getWidgets` and `getBackstageItems` methods of `UiItemsProvider` instead.
+  - Deprecated `StandardMessageBox` in favor of [iTwinUI Dialog](https://itwinui.bentley.com/docs/dialog). [#866](https://github.com/iTwin/appui/pull/866)
+  - Deprecated `provideToolbarItems`, `provideStatusBarItems`, `provideWidgets` and `provideBackstageItems` methods of `UiItemsProvider`. Use `getToolbarItems`, `getStatusBarItems`, `getWidgets` and `getBackstageItems` methods of `UiItemsProvider` instead.
 
 ### Additions
 
@@ -39,3 +42,17 @@ Table of contents:
 ### Changes
 
 - Bumped `getToolbarItems`, `getStatusBarItems`, `getWidgets` and `getBackstageItems` methods of `UiItemsProvider`, `layouts` property of `CommonToolbarItem` and `Widget`, `StandardLayoutToolbarItem`, `StandardLayoutWidget`, `ToolbarItemLayouts`, `WidgetLayouts` to `@public`.
+
+## @itwin/core-react
+
+### Deprecations
+
+- Deprecated `HorizontalAlignment`, `VerticalAlignment`, `CheckBoxInfo`, `SortDirection`, `withIsPressed`, `withOnOutsideClick`, `withTimeout`, `MessageRenderer`, `MessageType`, `ReactMessage`, `FilteredText`, `IconHelper`, `ClassNameProps`, `CommonProps`, `CommonDivProps`, `NoChildrenProps`, `OmitChildrenProp`, `ScrollPositionMaintainer`, `ExecuteHandler`, `Timer`, `getCssVariable`, `getCssVariableAsNumber`, `useInterval`, `OutsideClickEvent`, `useOnOutsideClick`, `ElementResizeObserver`. These components and functions are intended for internal AppUI usage or are not used by AppUI at all. [#866](https://github.com/iTwin/appui/pull/866)
+- Deprecated `SvgPath` and `WebFontIcon`. Please use `@itwin/itwinui-icons-react` package (or svg element directly in the case of `SvgPath`) instead. [#866](https://github.com/iTwin/appui/pull/866)
+- Deprecated `MessageBox` and `MessageContainer` in favor of [iTwinUI Dialog](https://itwinui.bentley.com/docs/dialog). [#866](https://github.com/iTwin/appui/pull/866)
+- Deprecated `Popup` in favor of [iTwinUI Popover](https://itwinui.bentley.com/docs/popover). [#866](https://github.com/iTwin/appui/pull/866)
+- Deprecated `TreeBranch`, `ExpansionToggle`, `TreeNode`, `NodeCheckBoxProps`, `TreeNodePlaceholder`, `Tree` in favor of [iTwinUI Tree](https://itwinui.bentley.com/docs/tree). [#866](https://github.com/iTwin/appui/pull/866)
+- Deprecated `useOptionalDisposable`. Use `useState` + `useEffect` for creating and disposing disposable resources. [#866](https://github.com/iTwin/appui/pull/866)
+- Deprecated `useEffectSkipFirst`. Use `useEffect` instead. [#866](https://github.com/iTwin/appui/pull/866)
+- Deprecated `ResizableContainerObserver`. Please use third party packages. [#866](https://github.com/iTwin/appui/pull/866)
+- Deprecated `Omit`. Use TypeScript `Omit`. [#866](https://github.com/iTwin/appui/pull/866)

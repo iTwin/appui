@@ -23,6 +23,7 @@ import { useTranslation } from "../useTranslation";
  * @alpha
  * @deprecated in 4.11.0. Props of deprecated component {@link DatePickerPopupButton}.
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface DatePickerPopupButtonProps extends CommonProps {
   /** Date to be shown as the selected date. */
   selected: Date;
@@ -139,6 +140,7 @@ DatePickerPopupButtonProps) {
           </svg>
         </div>
       </button>
+      {/* eslint-disable-next-line deprecation/deprecation */}
       <Popup
         isOpen={isSettingsOpen}
         position={RelativePosition.BottomLeft}

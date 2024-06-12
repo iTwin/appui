@@ -37,7 +37,7 @@ export class KeyboardShortcutMenuEvent extends UiEvent<KeyboardShortcutMenuState
  * @public
  */
 export class KeyboardShortcutMenu extends React.PureComponent<
-  CommonProps,
+  CommonProps, // eslint-disable-line deprecation/deprecation
   KeyboardShortcutMenuState
 > {
   /** @internal */

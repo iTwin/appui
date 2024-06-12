@@ -542,7 +542,9 @@ public;StandardFrontstageProvider
 public;StandardLayoutToolbarItem
 public;StandardLayoutWidget
 public;StandardMessageBox 
+deprecated;StandardMessageBox 
 public;StandardMessageBoxProps 
+deprecated;StandardMessageBoxProps 
 public;StandardNavigationToolsProvider 
 beta;StandardNavigationToolsUiItemsProvider 
 alpha;StandardRotationNavigationAid 

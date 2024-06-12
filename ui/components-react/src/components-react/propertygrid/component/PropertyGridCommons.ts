@@ -41,6 +41,7 @@ export interface PropertyGridContextMenuArgs {
  * Common Property Grid Props to be used by Property Grid Variants
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface CommonPropertyGridProps extends CommonProps {
   /** Grid orientation. When not defined, it is chosen automatically based on width of the grid. */
   orientation?: Orientation;

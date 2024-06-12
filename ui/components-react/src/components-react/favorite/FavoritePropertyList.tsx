@@ -34,6 +34,7 @@ export function FavoritePropertyList(props: FavoritePropertyListProps) {
     const orientation = props.orientation ?? Orientation.Horizontal;
     return (
       <div className="components-favorite-property-list">
+        {/* eslint-disable-next-line deprecation/deprecation */}
         <ResizableContainerObserver onResize={onListResize} />
         {listWidth ? (
           <PropertyList

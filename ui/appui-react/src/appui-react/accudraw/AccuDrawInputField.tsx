@@ -25,6 +25,7 @@ function isLetter(char: string): boolean {
 /** Properties for [[AccuDrawInputField]] component
  * @beta
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface AccuDrawInputFieldProps extends CommonProps {
   /** Which AccuDraw field this represents */
   field: ItemField;

@@ -16,6 +16,7 @@ import { NewDot } from "./NewDot";
 /** Properties of [[ToolAssistanceInstruction]] component.
  * @internal
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface ToolAssistanceInstructionProps extends CommonProps {
   /** Image for instruction */
   image: React.ReactNode;

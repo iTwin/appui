@@ -18,6 +18,7 @@ import { useTranslation } from "../hooks/useTranslation";
 
 /** Properties for [[AccuDrawDialog]]
  * @beta */
+// eslint-disable-next-line deprecation/deprecation
 export interface AccuDrawDialogProps extends CommonProps {
   /** Indicates whether the dialog is open */
   opened: boolean;

@@ -10,6 +10,7 @@ import * as React from "react";
 
 /** Properties for [[withIsPressed]] React higher-order component
  * @public
+ * @deprecated in 4.15.0. Props of deprecated {@link withIsPressed} HOC.
  */
 export interface WithIsPressedProps {
   /** initial value for pressed status */
@@ -20,12 +21,13 @@ export interface WithIsPressedProps {
 
 /** withIsPressed is a React higher-order component that adds pointer and mouse events.
  * @public
+ * @deprecated in 4.15.0. Not used by AppUI.
  */
 export const withIsPressed = <ComponentProps extends {}>(
   Component: React.ComponentType<ComponentProps>
 ) => {
   return class WithIsPressed extends React.PureComponent<
-    ComponentProps & WithIsPressedProps
+    ComponentProps & WithIsPressedProps // eslint-disable-line deprecation/deprecation
   > {
     public handleOnPointerDown = () => {
       this.changeIsPressed(true);

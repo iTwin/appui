@@ -22,6 +22,7 @@ import { ContextSubMenu } from "./ContextSubMenu";
 /** Properties for the [[ContextMenu]] component
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface ContextMenuProps extends CommonProps {
   /** Whether ContextMenu is currently opened. */
   opened: boolean;

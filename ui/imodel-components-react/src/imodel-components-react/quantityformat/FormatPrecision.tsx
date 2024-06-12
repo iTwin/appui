@@ -17,6 +17,7 @@ import { useTranslation } from "../useTranslation";
 /** Properties of [[FormatPrecision]] component.
  * @alpha
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface FormatPrecisionProps extends CommonProps {
   formatProps: FormatProps;
   onChange?: (format: FormatProps) => void;

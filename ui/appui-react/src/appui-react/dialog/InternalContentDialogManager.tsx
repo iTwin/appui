@@ -59,6 +59,7 @@ export class InternalContentDialogManager {
 
   private static getDialogZIndexDefault(): number {
     const variable = "--uicore-z-index-view-content-dialog";
+    // eslint-disable-next-line deprecation/deprecation
     const value = getCssVariableAsNumber(variable);
 
     if (!isNaN(value)) return value;

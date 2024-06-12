@@ -158,6 +158,7 @@ export function PopupItemPopup(props: PopupItemPopupProps) {
   );
 
   return (
+    // eslint-disable-next-line deprecation/deprecation
     <Popup className={className} offset={0} showShadow={false} {...props} />
   );
 }

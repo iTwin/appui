@@ -51,7 +51,7 @@ export class ElementTooltipChangedEvent extends UiEvent<ElementTooltipChangedEve
  * @public
  */
 export class ElementTooltip extends React.Component<
-  CommonProps,
+  CommonProps, // eslint-disable-line deprecation/deprecation
   ElementTooltipState
 > {
   private static _elementTooltipChangedEvent =

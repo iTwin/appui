@@ -22,5 +22,6 @@ export function MessageLabel(props: {
     "uifw-statusbar-message-label",
     props.className
   );
+  // eslint-disable-next-line deprecation/deprecation
   return <MessageRenderer className={classNames} message={props.message} />;
 }

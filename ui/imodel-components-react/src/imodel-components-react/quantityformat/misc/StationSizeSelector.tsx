@@ -15,6 +15,7 @@ import { useTranslation } from "../../useTranslation";
 /** Properties of [[StationSizeSelector]] component.
  * @internal
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface StationSizeSelectorProps extends CommonProps {
   value: number;
   disabled: boolean;
