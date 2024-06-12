@@ -9,9 +9,13 @@
 import type * as React from "react";
 import { ActionButtonItemDef } from "./ActionButtonItemDef";
 import type { CustomItemProps } from "./CustomItemProps";
+import type { ToolbarItemUtilities } from "../toolbar/ToolbarItemUtilities";
+
+/* eslint-disable deprecation/deprecation */
 
 /** An Item that renders a React component.
  * @public
+ * @deprecated in 4.15.0. Use {@link ToolbarItemUtilities.createCustomItem} instead.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class CustomItemDef extends ActionButtonItemDef {

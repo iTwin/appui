@@ -28,6 +28,7 @@ import type {
   ToolbarItem,
 } from "./ToolbarItem";
 import { isToolbarActionItem, isToolbarGroupItem } from "./ToolbarItem";
+import type { ToolbarItemUtilities } from "./ToolbarItemUtilities";
 
 /**
  * Common implementation for `constructChildToolbarItems` and `createToolbarItemsFromItemDefs`.
@@ -64,9 +65,12 @@ function constructToolbarItemArray<T extends boolean>(
  * @public
  */
 export class ToolbarHelper {
-  /** Construct ToolbarCustomItem definitions given a CustomItemDef. */
+  /** Construct ToolbarCustomItem definitions given a CustomItemDef.
+   * @deprecated in 4.15.0. Use {@link ToolbarItemUtilities.createCustomItem} instead.
+   */
   public static createCustomDefinitionToolbarItem(
     itemPriority: number,
+    // eslint-disable-next-line deprecation/deprecation
     itemDef: CustomItemDef,
     overrides?: Partial<CustomButtonDefinition>
   ): ToolbarCustomItem {
@@ -129,6 +133,7 @@ export class ToolbarHelper {
         execute: itemDef.execute,
         ...itemOverrides,
       };
+      // eslint-disable-next-line deprecation/deprecation
     } else if (itemDef instanceof CustomItemDef) {
       return {
         ...itemBase,
