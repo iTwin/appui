@@ -75,6 +75,7 @@ const getSnapModeIconNameFromMode = (
 };
 
 /** Defines properties supported by the SnapMode Field Component. */
+// eslint-disable-next-line deprecation/deprecation
 interface SnapModeFieldProps extends CommonProps {
   /** Uses redux store as a fallback. Defaults to {@link SnapMode.NearestKeypoint}.
    * @note Enum flags are supported.

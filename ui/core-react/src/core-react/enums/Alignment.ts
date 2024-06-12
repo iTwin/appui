@@ -9,6 +9,7 @@
 /**
  * Enumeration for horizontal alignment.
  * @public
+ * @deprecated in 4.15.0. Used internally.
  */
 export enum HorizontalAlignment {
   Left = "left",
@@ -20,6 +21,7 @@ export enum HorizontalAlignment {
 /**
  * Enumeration for vertical alignment.
  * @public
+ * @deprecated in 4.15.0. Not used by AppUI.
  */
 export enum VerticalAlignment {
   Top = 1,

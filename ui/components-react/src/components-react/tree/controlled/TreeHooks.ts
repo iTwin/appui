@@ -116,5 +116,6 @@ export function useControlledTreeEventsHandler<
     if (typeof factoryOrParams === "function") return factoryOrParams();
     return new TreeEventHandler(factoryOrParams);
   }, [factoryOrParams]);
+  // eslint-disable-next-line deprecation/deprecation
   return useOptionalDisposable(factory);
 }

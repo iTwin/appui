@@ -23,6 +23,7 @@ import {
 /** Properties of [[ItemWrapper]] component.
  * @internal future
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface ItemWrapperProps extends CommonProps {
   /** Tool setting content. */
   children?: React.ReactNode;

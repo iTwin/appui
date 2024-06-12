@@ -12,7 +12,6 @@ import * as React from "react";
 import { Checkbox, ProgressRadial } from "@itwin/itwinui-react";
 import { CheckBoxState } from "../enums/CheckBoxState";
 import type { CommonProps } from "../utils/Props";
-import type { Omit } from "../utils/typeUtils";
 import { ExpansionToggle } from "./ExpansionToggle";
 
 type CheckboxProps = React.ComponentPropsWithoutRef<typeof Checkbox>;
@@ -44,6 +43,7 @@ const EXPANSION_TOGGLE_WIDTH = 24;
 
 /** Properties for Tree Node CheckBox
  * @public
+ * @deprecated in 4.15.0. Used in deprecated {@link TreeNodeProps} props.
  */
 export interface NodeCheckboxProps {
   /** State of the checkbox */
@@ -58,13 +58,14 @@ export interface NodeCheckboxProps {
 
 /** Properties for the [[TreeNode]] React component
  * @public
+ * @deprecated in 4.15.0. Props of deprecated {@link TreeNode} component.
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface TreeNodeProps extends CommonProps {
   label: React.ReactNode;
   level: number;
   icon?: React.ReactElement | string | number;
-  /** Properties for the checkbox.
-   * @public */
+  // eslint-disable-next-line deprecation/deprecation
   checkboxProps?: NodeCheckboxProps;
   isLeaf?: boolean;
   isLoading?: boolean;
@@ -90,8 +91,11 @@ export interface TreeNodeProps extends CommonProps {
 
 /** Presentation React component for a Tree node
  * @public
+ * @deprecated in 4.15.0. Use {@link https://itwinui.bentley.com/docs/tree iTwinUI Tree} instead.
  */
+// eslint-disable-next-line deprecation/deprecation
 export class TreeNode extends React.Component<TreeNodeProps> {
+  // eslint-disable-next-line deprecation/deprecation
   constructor(props: TreeNodeProps) {
     super(props);
   }
@@ -144,6 +148,7 @@ export class TreeNode extends React.Component<TreeNodeProps> {
     const toggle = this.props.isLoading ? undefined : this.props.isLeaf ? (
       <div />
     ) : (
+      // eslint-disable-next-line deprecation/deprecation
       <ExpansionToggle
         className="expansion-toggle"
         data-testid={this.createSubComponentTestId("expansion-toggle")}

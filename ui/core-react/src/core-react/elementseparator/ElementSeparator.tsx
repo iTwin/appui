@@ -34,6 +34,7 @@ export interface RatioChangeResult {
  * @public
  * @deprecated in 4.12.0. Props of deprecated component {@link ElementSeparator}.
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface ElementSeparatorProps extends CommonProps {
   /** Separator orientation */
   orientation: Orientation;

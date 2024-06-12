@@ -61,7 +61,6 @@ import type { MessageType } from '@itwin/core-react';
 import type { NoChildrenProps } from '@itwin/core-react';
 import { NotificationManager } from '@itwin/core-frontend';
 import { NotifyMessageDetails } from '@itwin/core-frontend';
-import type { Omit as Omit_2 } from '@itwin/core-react';
 import type { OnCancelFunc } from '@itwin/appui-abstract';
 import type { OnItemExecutedFunc } from '@itwin/appui-abstract';
 import type { OnNumberCommitFunc } from '@itwin/appui-abstract';
@@ -865,7 +864,6 @@ export interface CommonToolbarItem {
     readonly isDisabled?: boolean | ConditionalBooleanValue;
     readonly isHidden?: boolean | ConditionalBooleanValue;
     readonly itemPriority: number;
-    // @alpha
     readonly layouts?: ToolbarItemLayouts;
 }
 
@@ -1402,7 +1400,8 @@ export class CursorPopupManager {
 }
 
 // @alpha
-export class CursorPopupMenu extends React_2.PureComponent<CommonProps, CursorPopupMenuState> {
+export class CursorPopupMenu extends React_2.PureComponent<CommonProps, // eslint-disable-line deprecation/deprecation
+CursorPopupMenuState> {
     // (undocumented)
     componentDidMount(): void;
     // (undocumented)
@@ -1430,7 +1429,8 @@ export type CursorPopupProps = {
     title?: string;
     shadow?: boolean;
     onSizeKnown?: (size: SizeProps) => void;
-} & CommonProps & RequireAtLeastOne<{
+} & CommonProps & // eslint-disable-line deprecation/deprecation
+RequireAtLeastOne<{
     relativePosition: RelativePosition /** @deprecated in 4.11.0. Use `placement` instead. */;
     placement: Placement;
 }>;
@@ -1701,7 +1701,8 @@ export class DrawingNavigationAidControl extends NavigationAidControl {
 }
 
 // @public
-export class ElementTooltip extends React_2.Component<CommonProps, ElementTooltipState> {
+export class ElementTooltip extends React_2.Component<CommonProps, // eslint-disable-line deprecation/deprecation
+ElementTooltipState> {
     // (undocumented)
     static hideTooltip(): void;
     // (undocumented)
@@ -2817,7 +2818,8 @@ export class KeyboardShortcutContainer {
 }
 
 // @public
-export class KeyboardShortcutMenu extends React_2.PureComponent<CommonProps, KeyboardShortcutMenuState> {
+export class KeyboardShortcutMenu extends React_2.PureComponent<CommonProps, // eslint-disable-line deprecation/deprecation
+KeyboardShortcutMenuState> {
     // (undocumented)
     componentDidMount(): void;
     // (undocumented)
@@ -4205,20 +4207,21 @@ export class StandardFrontstageProvider extends FrontstageProvider {
     get id(): string;
 }
 
-// @alpha
+// @public
 export interface StandardLayoutToolbarItem {
     readonly orientation: ToolbarOrientation;
     readonly usage: ToolbarUsage;
 }
 
-// @alpha
+// @public
 export interface StandardLayoutWidget {
     readonly location: StagePanelLocation;
     readonly section: StagePanelSection;
 }
 
-// @public
-export class StandardMessageBox extends React_2.PureComponent<StandardMessageBoxProps, StandardMessageBoxState> {
+// @public @deprecated
+export class StandardMessageBox extends React_2.PureComponent<StandardMessageBoxProps, // eslint-disable-line deprecation/deprecation
+StandardMessageBoxState> {
     constructor(props: StandardMessageBoxProps);
     // (undocumented)
     render(): React_2.ReactElement;
@@ -4226,7 +4229,7 @@ export class StandardMessageBox extends React_2.PureComponent<StandardMessageBox
     readonly state: Readonly<StandardMessageBoxState>;
 }
 
-// @public
+// @public @deprecated
 export interface StandardMessageBoxProps extends CommonProps {
     children?: React_2.ReactNode;
     iconType: MessageBoxIconType;
@@ -4254,7 +4257,8 @@ export class StandardNavigationToolsUiItemsProvider implements UiItemsProvider {
 }
 
 // @alpha
-export class StandardRotationNavigationAid extends React_2.Component<CommonProps, StandardRotationNavigationAidState> {
+export class StandardRotationNavigationAid extends React_2.Component<CommonProps, // eslint-disable-line deprecation/deprecation
+StandardRotationNavigationAidState> {
     constructor(props: any);
     // (undocumented)
     render(): React_2.ReactNode;
@@ -4544,7 +4548,8 @@ export type ThemeId = `${ColorTheme}` | (string & {});
 export function ThemeManager({ children, ...props }: ThemeManagerProps): React_2.JSX.Element;
 
 // @public
-export class TileLoadingIndicator extends React_2.PureComponent<CommonProps, TileLoadingIndicatorState> {
+export class TileLoadingIndicator extends React_2.PureComponent<CommonProps, // eslint-disable-line deprecation/deprecation
+TileLoadingIndicatorState> {
     constructor(props: CommonProps);
     // (undocumented)
     componentDidMount(): void;
@@ -4663,7 +4668,7 @@ export class ToolbarHelper {
 // @public
 export type ToolbarItem = ToolbarActionItem | ToolbarGroupItem | ToolbarCustomItem;
 
-// @alpha
+// @public
 export interface ToolbarItemLayouts {
     readonly standard?: StandardLayoutToolbarItem;
 }
@@ -5039,19 +5044,19 @@ export class UiItemsManager {
 
 // @public
 export interface UiItemsProvider {
-    // @alpha
     readonly getBackstageItems?: () => ReadonlyArray<BackstageItem>;
-    // @alpha
     readonly getStatusBarItems?: () => ReadonlyArray<StatusBarItem>;
-    // @alpha
     readonly getToolbarItems?: () => ReadonlyArray<ToolbarItem>;
-    // @alpha
     readonly getWidgets?: () => ReadonlyArray<Widget>;
     readonly id: string;
     readonly onUnregister?: () => void;
+    // @deprecated
     readonly provideBackstageItems?: () => ReadonlyArray<BackstageItem>;
+    // @deprecated
     readonly provideStatusBarItems?: (stageId: string, stageUsage: string) => ReadonlyArray<StatusBarItem>;
+    // @deprecated
     readonly provideToolbarItems?: (stageId: string, stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation) => ReadonlyArray<ToolbarItem>;
+    // @deprecated
     readonly provideWidgets?: (stageId: string, stageUsage: string, location: StagePanelLocation, section?: StagePanelSection) => ReadonlyArray<Widget>;
 }
 
@@ -5261,7 +5266,8 @@ export class ValidationTextbox extends React_2.PureComponent<ValidationTextboxPr
 }
 
 // @beta
-export class ViewAttributesStatusField extends React_2.Component<CommonProps, ViewAttributesStatusFieldState> {
+export class ViewAttributesStatusField extends React_2.Component<CommonProps, // eslint-disable-line deprecation/deprecation
+ViewAttributesStatusFieldState> {
     constructor(props: CommonProps);
     // (undocumented)
     componentDidMount(): void;
@@ -5421,7 +5427,6 @@ export interface Widget {
     readonly id: string;
     // (undocumented)
     readonly label?: string | ConditionalStringValue;
-    // @alpha
     readonly layouts?: WidgetLayouts;
     // (undocumented)
     readonly priority?: number;
@@ -5587,7 +5592,7 @@ export interface WidgetInfo {
     widgetDef: WidgetDef;
 }
 
-// @alpha
+// @public
 export interface WidgetLayouts {
     readonly standard?: StandardLayoutWidget;
 }

@@ -11,6 +11,7 @@ import { useEffect, useRef } from "react";
 /**
  * Custom hook which works like useEffect hook, but does not invoke callback when effect is triggered for the first time.
  * @public
+ * @deprecated in 4.15.0. Use `useEffect` instead.
  */
 export function useEffectSkipFirst(
   callback: () => (void | (() => void | undefined)) | void,

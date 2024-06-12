@@ -16,6 +16,7 @@ import { useTranslation } from "../../useTranslation";
 /** Properties of [[ScientificTypeSelector]] component.
  * @internal
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface ScientificTypeSelectorProps extends CommonProps {
   type: ScientificType;
   onChange: (value: ScientificType) => void;

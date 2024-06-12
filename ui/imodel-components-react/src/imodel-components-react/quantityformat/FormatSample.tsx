@@ -18,6 +18,7 @@ import { useTranslation } from "../useTranslation";
 /** Properties of [[FormatSample]] component.
  * @alpha
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface FormatSampleProps extends CommonProps {
   formatSpec?: FormatterSpec;
   initialMagnitude?: number;

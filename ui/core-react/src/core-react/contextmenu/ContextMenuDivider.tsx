@@ -14,6 +14,7 @@ import type { CommonProps } from "../utils/Props";
  * Menu Divider for [[ContextMenu]]. Inserts a line between items, used for list item grouping.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export class ContextMenuDivider extends React.PureComponent<CommonProps> {
   public override render(): React.ReactElement {
     const { className, ...props } = this.props;

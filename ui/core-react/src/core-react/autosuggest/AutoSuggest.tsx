@@ -42,6 +42,7 @@ export type AsyncGetAutoSuggestDataFunc = (
  */
 export interface AutoSuggestProps
   extends React.InputHTMLAttributes<HTMLInputElement>,
+    // eslint-disable-next-line deprecation/deprecation
     CommonProps {
   /** Optional input value override. */
   value?: string;

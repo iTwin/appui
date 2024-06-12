@@ -14,6 +14,7 @@ import type { CommonProps } from "@itwin/core-react";
 /** Properties of [[ExpandableButton]] component.
  * @internal
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface ExpandableButtonProps extends CommonProps {
   /** One of toolbar buttons. I.e. [[Item]] */
   children?: React.ReactNode;

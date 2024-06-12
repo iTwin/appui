@@ -13,7 +13,9 @@ import type { CommonProps } from "../utils/Props";
 
 /** Properties of [[SvgPath]] component.
  * @public
+ * @deprecated in 4.15.0. Props of deprecated {@link SvgPath} component.
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface SvgPathProps extends CommonProps {
   /** Svg graphics paths */
   paths: string[];
@@ -25,7 +27,9 @@ export interface SvgPathProps extends CommonProps {
 
 /** Svg element wrapper with specified Svg paths.
  * @public
+ * @deprecated in 4.15.0. Not used by AppUI. Use `@itwin/itwinui-icons-react` package or svg element directly.
  */
+// eslint-disable-next-line deprecation/deprecation
 export class SvgPath extends React.PureComponent<SvgPathProps> {
   public override render() {
     const className = classnames("core-icons-svgPath", this.props.className);

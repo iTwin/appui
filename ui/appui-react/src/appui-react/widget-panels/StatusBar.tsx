@@ -14,6 +14,7 @@ import type { StatusBarWidgetControl } from "../statusbar/StatusBarWidgetControl
 import { useActiveFrontstageDef } from "../frontstage/FrontstageDef";
 
 /** @internal */
+// eslint-disable-next-line deprecation/deprecation
 export function WidgetPanelsStatusBar(props: CommonProps) {
   const frontstageDef = useActiveFrontstageDef();
   const widgetDef = frontstageDef?.statusBar;

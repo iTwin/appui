@@ -254,6 +254,7 @@ export interface RenderPropsArgs {
 /** ElementResizeObserver provides functionality similar to ReactResizeDetector when a render function is specified. This implementation properly handles
  * observing element in pop-out/child windows.
  *  @public
+ * @deprecated in 4.15.0. Used internally.
  */
 export function ElementResizeObserver({
   watchedElement,
@@ -271,6 +272,7 @@ export function ElementResizeObserver({
  * the div added by the component is considered the container whose size will be observed. If no children are provided then the component will report
  * size changes from its parent container.
  * @public
+ * @deprecated in 4.15.0. Please use third party packages.
  */
 export function ResizableContainerObserver({
   onResize,

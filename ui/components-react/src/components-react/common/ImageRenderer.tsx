@@ -88,6 +88,7 @@ export class ImageRenderer {
 
   /** Render image as core-react icon */
   private renderCoreIcon(iconName: string) {
+    // eslint-disable-next-line deprecation/deprecation
     return <WebFontIcon iconName={iconName} />;
   }
 
@@ -102,6 +103,7 @@ export class ImageRenderer {
    */
   private extractIconClassAndName(
     iconName: string
+    // eslint-disable-next-line deprecation/deprecation
   ): Pick<WebFontIconProps, "iconClassName" | "iconName"> {
     const matches = iconName.match(/(\\.|[^:])+/g);
     if (!matches || matches.length !== 2)
@@ -122,6 +124,7 @@ export class ImageRenderer {
    */
   private renderWebfontIcon(iconName: string) {
     const iconInfo = this.extractIconClassAndName(iconName);
+    // eslint-disable-next-line deprecation/deprecation
     return <WebFontIcon {...iconInfo} />;
   }
 

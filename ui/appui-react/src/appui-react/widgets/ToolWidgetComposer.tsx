@@ -19,6 +19,7 @@ import { UiFramework } from "../UiFramework";
 /** Properties for the [[ToolbarComposer]] React components
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface ToolWidgetComposerProps extends CommonProps {
   /** Optional Corner Item which for most stages is the [[BackstageAppButton]] used to toggle the display of the backstage menu. */
   cornerItem?: React.ReactNode;

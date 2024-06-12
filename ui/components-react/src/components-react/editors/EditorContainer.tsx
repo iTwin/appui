@@ -31,6 +31,7 @@ export interface PropertyUpdatedArgs {
 /** Properties for a property editor component
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface PropertyEditorProps extends CommonProps {
   /** The property being updated. */
   propertyRecord?: PropertyRecord;
@@ -52,6 +53,7 @@ export interface PropertyEditorProps extends CommonProps {
 /** [[EditorContainer]] React component properties
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface EditorContainerProps extends CommonProps {
   /** The property being updated. */
   propertyRecord: PropertyRecord;

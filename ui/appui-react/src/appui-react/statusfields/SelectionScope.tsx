@@ -15,6 +15,7 @@ import { UiFramework } from "../UiFramework";
 import { useTranslation } from "../hooks/useTranslation";
 import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState";
 
+// eslint-disable-next-line deprecation/deprecation
 interface SelectionScopeFieldProps extends CommonProps {
   /** Describes which selection scope is active. Uses redux store as a fallback. Defaults to `""`. */
   activeScope?: string;

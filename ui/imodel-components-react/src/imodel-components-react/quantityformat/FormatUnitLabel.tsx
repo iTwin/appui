@@ -15,6 +15,7 @@ import type { SelectOption } from "@itwin/itwinui-react";
 import { Checkbox, Select } from "@itwin/itwinui-react";
 import { useTranslation } from "../useTranslation";
 
+// eslint-disable-next-line deprecation/deprecation
 interface UomSeparatorSelectorProps extends CommonProps {
   separator: string;
   disabled?: boolean;
@@ -64,6 +65,7 @@ function UomSeparatorSelector(props: UomSeparatorSelectorProps) {
 /** Properties of [[FormatUnitLabel]] component.
  * @alpha
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface FormatUnitLabelProps extends CommonProps {
   formatProps: FormatProps;
   onUnitLabelChange?: (format: FormatProps) => void;

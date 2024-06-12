@@ -26,6 +26,7 @@ import type { TreeNodeEditorRenderer } from "./TreeNodeEditor";
  * Properties for [[TreeNodeRenderer]].
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface TreeNodeRendererProps extends CommonProps {
   /** Tree node to render. */
   node: TreeModelNode;
@@ -91,6 +92,7 @@ export const TreeNodeRenderer = React.memo(function TreeNodeRenderer(
 
   const createCheckboxProps = (
     checkboxInfo: CheckBoxInfo
+    // eslint-disable-next-line deprecation/deprecation
   ): NodeCheckboxProps => ({
     state: checkboxInfo.state,
     tooltip: checkboxInfo.tooltip,
@@ -100,6 +102,7 @@ export const TreeNodeRenderer = React.memo(function TreeNodeRenderer(
   });
 
   return (
+    // eslint-disable-next-line deprecation/deprecation
     <TreeNode
       data-testid={TreeComponentTestId.Node}
       className={props.className}

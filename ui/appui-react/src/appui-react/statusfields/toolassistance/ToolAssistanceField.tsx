@@ -70,6 +70,7 @@ import { StatusBarPopover } from "../../statusbar/popup/StatusBarPopover";
 /** Properties of [[ToolAssistanceField]] component.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface ToolAssistanceFieldProps extends CommonProps {
   /** Indicates whether to include promptAtCursor Checkbox. Defaults to true. */
   includePromptAtCursor: boolean;

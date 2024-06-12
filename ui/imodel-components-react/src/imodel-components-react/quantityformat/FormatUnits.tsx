@@ -20,6 +20,7 @@ import { useTranslation } from "../useTranslation";
 /** Properties of [[FormatUnits]] component.
  * @alpha
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface FormatUnitsProps extends CommonProps {
   initialFormat: FormatProps;
   persistenceUnit?: UnitProps;

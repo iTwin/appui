@@ -31,7 +31,9 @@ import { Dialog } from "../dialog/Dialog";
 
 /** Properties for the [[MessageBox]] component
  * @public
+ * @deprecated in 4.15.0. Props of deprecated {@link MessageBox} component.
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface MessageBoxProps extends CommonProps {
   /** Severity of MessageBox */
   severity: MessageSeverity;
@@ -71,8 +73,11 @@ export interface MessageBoxProps extends CommonProps {
 
 /** Message Box React component.
  * @public
+ * @deprecated in 4.15.0. Use {@link https://itwinui.bentley.com/docs/dialog iTwinUI Dialog} instead.
  */
+// eslint-disable-next-line deprecation/deprecation
 export class MessageBox extends React.PureComponent<MessageBoxProps> {
+  // eslint-disable-next-line deprecation/deprecation
   public static defaultProps: Partial<MessageBoxProps> = {
     minWidth: 400,
     minHeight: 400,
@@ -94,6 +99,7 @@ export class MessageBox extends React.PureComponent<MessageBoxProps> {
         style={this.props.style}
         width={this.props.width}
       >
+        {/* eslint-disable-next-line deprecation/deprecation */}
         <MessageContainer
           severity={this.props.severity}
           className={this.props.contentClassName}
@@ -108,7 +114,9 @@ export class MessageBox extends React.PureComponent<MessageBoxProps> {
 
 /** Properties for the [[MessageContainer]] component
  * @public
+ * @deprecated in 4.15.0. Props of deprecated {@link MessageContainer} component.
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface MessageContainerProps extends CommonProps {
   severity: MessageSeverity;
   /** Message Content */
@@ -117,7 +125,9 @@ export interface MessageContainerProps extends CommonProps {
 
 /** Message Container React component.
  * @public
+ * @deprecated in 4.15.0. Use {@link https://itwinui.bentley.com/docs/dialog iTwinUI Dialog} instead.
  */
+// eslint-disable-next-line deprecation/deprecation
 export class MessageContainer extends React.PureComponent<MessageContainerProps> {
   /** Returns the class name corresponding to the MessageSeverity.
    * @param severity MessageSeverity
@@ -206,9 +216,10 @@ export class MessageContainer extends React.PureComponent<MessageContainerProps>
     const iconClassName = classnames(
       "icon",
       "core-message-box-icon",
-      MessageContainer.getIconClassName(this.props.severity)
+      MessageContainer.getIconClassName(this.props.severity) // eslint-disable-line deprecation/deprecation
     );
 
+    // eslint-disable-next-line deprecation/deprecation
     const iconSpec = MessageContainer.getIcon(this.props.severity);
 
     return (

@@ -16,6 +16,7 @@ import { ContextMenuDirection } from "./ContextMenuDirection";
 /** Properties for [[PopupContextMenu]] component
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface PopupContextMenuProps extends CommonProps {
   /** Indicates whether the popup is shown or not (defaults to false) */
   isOpen: boolean;
@@ -78,6 +79,7 @@ export function PopupContextMenu(props: PopupContextMenuProps) {
     popupProps.position
   );
   return (
+    // eslint-disable-next-line deprecation/deprecation
     <Popup
       {...popupProps}
       closeOnNestedPopupOutsideClick

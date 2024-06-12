@@ -11,6 +11,7 @@ import { Timer } from "../utils/Timer";
 
 /** Properties for [[withTimeout]] React higher-order component
  * @public
+ * @deprecated in 4.15.0. Props of deprecated {@link withTimeout} HOC.
  */
 export interface WithTimeoutProps {
   /** Timeout duration in milliseconds */
@@ -21,13 +22,15 @@ export interface WithTimeoutProps {
 
 /** withTimeout is a React higher-order component that adds timeout support.
  * @public
+ * @deprecated in 4.15.0. Not used by AppUI.
  */
 export const withTimeout = <ComponentProps extends {}>(
   Component: React.ComponentType<ComponentProps>
 ) => {
   return class WithTimeout extends React.PureComponent<
-    ComponentProps & WithTimeoutProps
+    ComponentProps & WithTimeoutProps // eslint-disable-line deprecation/deprecation
   > {
+    // eslint-disable-next-line deprecation/deprecation
     public timer: Timer = new Timer(0);
 
     public override componentDidMount(): void {
@@ -38,7 +41,7 @@ export const withTimeout = <ComponentProps extends {}>(
     }
 
     public override componentDidUpdate(
-      _prevProps: Readonly<ComponentProps & WithTimeoutProps>
+      _prevProps: Readonly<ComponentProps & WithTimeoutProps> // eslint-disable-line deprecation/deprecation
     ): void {
       this.startTimer(this.props.timeout);
     }

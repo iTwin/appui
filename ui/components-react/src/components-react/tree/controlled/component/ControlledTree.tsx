@@ -34,6 +34,7 @@ import { useTranslation } from "../../../useTranslation";
  * Properties for [[ControlledTree]]
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface ControlledTreeProps extends CommonProps {
   /** Model of the tree to display. */
   model: TreeModel;

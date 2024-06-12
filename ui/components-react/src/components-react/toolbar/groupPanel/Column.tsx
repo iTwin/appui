@@ -14,6 +14,7 @@ import type { CommonProps } from "@itwin/core-react";
 /** Properties of [[GroupColumn]] component.
  * @internal
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface GroupColumnProps extends CommonProps {
   /** Actual content. I.e. tool items: [[GroupToolExpander]], [[GroupTool]] */
   children?: React.ReactNode;

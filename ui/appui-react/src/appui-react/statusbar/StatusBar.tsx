@@ -23,6 +23,7 @@ import { StatusBarComposer } from "./StatusBarComposer";
 /** Properties for the [[StatusBar]] React component
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface StatusBarProps extends CommonProps {
   children?: React.ReactNode;
   widgetControl?: StatusBarWidgetControl;
@@ -56,6 +57,7 @@ export function StatusBar(props: StatusBarProps) {
 /** StatusBar With Space Between Items React functional component
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export function StatusBarSpaceBetween(props: CommonDivProps) {
   const { className, ...divProps } = props;
   return (
@@ -70,6 +72,7 @@ export function StatusBarSpaceBetween(props: CommonDivProps) {
 /** StatusBar Left Section React functional component
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export function StatusBarLeftSection(props: CommonDivProps) {
   const { className, ...divProps } = props;
   return (
@@ -84,6 +87,7 @@ export function StatusBarLeftSection(props: CommonDivProps) {
 /** StatusBar Center Section React functional component
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export function StatusBarCenterSection(props: CommonDivProps) {
   const { className, ...divProps } = props;
   return (
@@ -98,6 +102,7 @@ export function StatusBarCenterSection(props: CommonDivProps) {
 /** StatusBar Right Section React functional component
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export function StatusBarRightSection(props: CommonDivProps) {
   const { className, ...divProps } = props;
   return (

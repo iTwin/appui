@@ -15,6 +15,7 @@ import { useTranslation } from "../../useTranslation";
 /** Properties of [[DecimalSeparatorSelector]] component.
  * @internal
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface DecimalSeparatorSelectorProps extends CommonProps {
   separator: string;
   disabled?: boolean;

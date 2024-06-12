@@ -14,6 +14,7 @@ import type { CommonProps } from "@itwin/core-react";
 /** Properties of [[ToolbarButtonItem]] component.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface ToolbarButtonItemProps extends CommonProps {
   /** button icon. */
   icon?: React.ReactNode;

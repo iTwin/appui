@@ -163,6 +163,7 @@ export function NavigationAidHost(props: NavigationAidHostProps) {
 /** Properties for the [[NavigationWidgetComposer]] React components
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface NavigationWidgetComposerProps extends CommonProps {
   /** Optional Horizontal Toolbar */
   horizontalToolbar?: React.ReactNode;

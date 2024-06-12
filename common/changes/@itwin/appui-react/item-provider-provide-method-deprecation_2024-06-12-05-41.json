@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Bumped `get*` methods of `UiItemsProvider` and all related types to `@public`.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}

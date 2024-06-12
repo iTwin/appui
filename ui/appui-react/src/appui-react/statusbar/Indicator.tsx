@@ -16,6 +16,7 @@ import { StatusBarPopover } from "./popup/StatusBarPopover";
  * @beta
  * @deprecated in 4.14.0. Props of deprecated component {@link StatusBarIndicator}.
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface StatusBarIndicatorProps extends CommonProps {
   /** Indicator content. */
   children?: React.ReactNode;

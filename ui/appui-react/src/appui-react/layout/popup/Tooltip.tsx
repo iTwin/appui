@@ -16,6 +16,7 @@ import type { XAndY } from "../state/internal/NineZoneStateHelpers";
 /** Properties of [[Tooltip]] component.
  * @internal
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface TooltipProps extends CommonProps {
   /** Tooltip content. */
   children?: React.ReactNode;

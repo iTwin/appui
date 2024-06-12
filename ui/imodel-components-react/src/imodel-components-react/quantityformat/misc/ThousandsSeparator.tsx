@@ -18,6 +18,7 @@ import { useTranslation } from "../../useTranslation";
 /** Properties of [[ThousandsSeparator]] component.
  * @internal
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface ThousandsSeparatorProps extends CommonProps {
   formatProps: FormatProps;
   onChange?: (format: FormatProps) => void;

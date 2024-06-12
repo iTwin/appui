@@ -25,6 +25,7 @@ import { useTranslation } from "../useTranslation";
 /** Properties of [[FormatTypeSelector]] component.
  * @alpha
  */
+// eslint-disable-next-line deprecation/deprecation
 interface FormatTypeSelectorProps extends CommonProps {
   type: FormatType;
   onChange: (value: FormatType) => void;
@@ -76,6 +77,7 @@ function FormatTypeSelector(props: FormatTypeSelectorProps) {
 /** Properties of [[FormatTypeOptionProps]] component.
  * @alpha
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface FormatTypeOptionProps extends CommonProps {
   formatProps: FormatProps;
   onChange?: (format: FormatProps) => void;

@@ -131,6 +131,7 @@ export const useGroupedItems = (
 /** Props of [[BackstageComposer]] component.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface BackstageComposerProps extends CommonProps {
   /** React node for an optional header item */
   readonly header?: React.ReactNode;

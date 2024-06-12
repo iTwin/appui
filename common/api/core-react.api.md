@@ -146,7 +146,7 @@ export const calculateToolbarOpacity: (proximityScale: number) => number;
 // @public @deprecated
 export function Centered(props: CommonDivProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface CheckBoxInfo {
     // (undocumented)
     isDisabled?: boolean;
@@ -203,16 +203,16 @@ export class Circle {
     radius: number;
 }
 
-// @public
+// @public @deprecated
 export interface ClassNameProps {
     className?: string;
 }
 
-// @public
+// @public @deprecated
 export interface CommonDivProps extends React_2.AllHTMLAttributes<HTMLDivElement>, CommonProps {
 }
 
-// @public
+// @public @deprecated
 export interface CommonProps extends ClassNameProps {
     itemId?: string;
     style?: React_2.CSSProperties;
@@ -433,7 +433,7 @@ export enum DialogAlignment {
 }
 
 // @public @deprecated
-export interface DialogProps extends Omit_2<React_2.AllHTMLAttributes<HTMLDivElement>, "title">, CommonProps {
+export interface DialogProps extends Omit<React_2.AllHTMLAttributes<HTMLDivElement>, "title">, CommonProps {
     alignment?: DialogAlignment;
     backgroundStyle?: React_2.CSSProperties;
     buttonCluster?: DialogButtonDef[];
@@ -546,7 +546,7 @@ export const DivWithOutsideClick: {
     contextType?: React_2.Context<any> | undefined;
 };
 
-// @public
+// @public @deprecated
 export function ElementResizeObserver({ watchedElement, render, }: {
     watchedElement: HTMLElement | null;
     render: (props: RenderPropsArgs) => React_2.ReactElement;
@@ -568,7 +568,7 @@ export interface ElementSeparatorProps extends CommonProps {
     separatorSize?: number;
 }
 
-// @public
+// @public @deprecated
 export type ExecuteHandler = (this: void) => void;
 
 // @public @deprecated
@@ -590,10 +590,10 @@ export interface ExpandableListProps extends CommonProps {
     singleIsCollapsible?: boolean;
 }
 
-// @public
+// @public @deprecated
 export function ExpansionToggle(props: ExpansionToggleProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface ExpansionToggleProps extends CommonProps {
     // (undocumented)
     ["data-testid"]?: string;
@@ -606,10 +606,10 @@ export interface ExpansionToggleProps extends CommonProps {
 // @public @deprecated
 export function FillCentered(props: CommonDivProps): React_2.JSX.Element;
 
-// @alpha
+// @alpha @deprecated
 export function FilteredText(props: FilteredTextProps): React_2.JSX.Element;
 
-// @alpha
+// @alpha @deprecated
 export interface FilteredTextProps extends CommonProps {
     matchClassName?: string;
     matches?: IMatch[];
@@ -652,10 +652,10 @@ export type GetAutoSuggestDataFunc = (value: string) => AutoSuggestData[];
 // @internal
 export function getBestBWContrastColor(hexColor: string): "black" | "white";
 
-// @public
+// @public @deprecated
 export function getCssVariable(variableName: string, htmlElement?: HTMLElement): string;
 
-// @public
+// @public @deprecated
 export function getCssVariableAsNumber(variableName: string, htmlElement?: HTMLElement): number;
 
 // @internal
@@ -727,7 +727,7 @@ export interface GlobalDialogState {
 // @internal
 export function hasPointerEventsSupport(): boolean;
 
-// @public
+// @public @deprecated
 export enum HorizontalAlignment {
     // (undocumented)
     Center = "center",
@@ -742,7 +742,7 @@ export enum HorizontalAlignment {
 // @public
 export function Icon(props: IconProps): React_2.JSX.Element | null;
 
-// @public
+// @public @deprecated
 export class IconHelper {
     // (undocumented)
     static get conditionalIconItemKey(): string;
@@ -1004,7 +1004,7 @@ export interface MainTabsProps extends TabsProps {
 // @internal
 export function mergeRefs<T>(...refs: ReadonlyArray<React_2.Ref<T>>): (instance: T | null) => void;
 
-// @public
+// @public @deprecated
 export class MessageBox extends React_2.PureComponent<MessageBoxProps> {
     // (undocumented)
     static defaultProps: Partial<MessageBoxProps>;
@@ -1012,7 +1012,7 @@ export class MessageBox extends React_2.PureComponent<MessageBoxProps> {
     render(): React_2.ReactElement;
 }
 
-// @public
+// @public @deprecated
 export interface MessageBoxProps extends CommonProps {
     buttonCluster: DialogButtonDef[];
     children?: React_2.ReactNode;
@@ -1030,7 +1030,7 @@ export interface MessageBoxProps extends CommonProps {
     width?: string | number;
 }
 
-// @public
+// @public @deprecated
 export class MessageContainer extends React_2.PureComponent<MessageContainerProps> {
     static getIcon(severity: MessageSeverity, hollow?: boolean): IconSpec;
     static getIconClassName(severity: MessageSeverity): string;
@@ -1040,7 +1040,7 @@ export class MessageContainer extends React_2.PureComponent<MessageContainerProp
     render(): React_2.ReactElement;
 }
 
-// @public
+// @public @deprecated
 export interface MessageContainerProps extends CommonProps {
     children?: React_2.ReactNode;
     // (undocumented)
@@ -1054,28 +1054,28 @@ export interface MessagedComponentProps {
     messageStyle?: React_2.CSSProperties;
 }
 
-// @public
+// @public @deprecated
 export function MessageRenderer(props: MessageRendererProps): React_2.JSX.Element | null;
 
-// @public
+// @public @deprecated
 export interface MessageRendererProps extends ClassNameProps {
     message: MessageType;
     useSpan?: boolean;
 }
 
-// @public
+// @public @deprecated
 export type MessageType = string | HTMLElement | ReactMessage;
 
 // @public @deprecated
 export function MutedText(props: TextProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface NoChildrenProps {
     // (undocumented)
     children?: undefined;
 }
 
-// @public
+// @public @deprecated
 export interface NodeCheckboxProps {
     isDisabled?: boolean;
     onClick?: (newState: CheckBoxState) => void;
@@ -1087,7 +1087,7 @@ export interface NodeCheckboxProps {
 export type NodeCheckboxRenderer = (props: NodeCheckboxRenderProps) => React_2.ReactNode;
 
 // @public
-export type NodeCheckboxRenderProps = Omit_2<CheckboxProps, "onChange" | "onClick"> & {
+export type NodeCheckboxRenderProps = Omit<CheckboxProps, "onChange" | "onClick"> & {
     onChange: (checked: boolean) => void;
     onClick: (e: React_2.MouseEvent) => void;
 };
@@ -1114,14 +1114,14 @@ export interface NumberInputProps extends Omit<InputProps_2, "min" | "max" | "st
     value?: number;
 }
 
-// @public
+// @public @deprecated
 type Omit_2<T, K> = Pick<T, Exclude<keyof T, K>>;
 export { Omit_2 as Omit }
 
-// @public
+// @public @deprecated
 export type OmitChildrenProp<T extends {
     children?: React_2.ReactNode;
-}> = Omit_2<T, "children">;
+}> = Omit<T, "children">;
 
 // @public
 export enum Orientation {
@@ -1131,7 +1131,7 @@ export enum Orientation {
     Vertical = 1
 }
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 export type OutsideClickEvent = PointerEvent | MouseEvent | TouchEvent;
 
 // @internal
@@ -1166,13 +1166,14 @@ export class Point implements PointProps {
     readonly y: number;
 }
 
-// @public
+// @public @deprecated
 export class Popup extends React_2.Component<PopupProps, PopupState> {
     constructor(props: PopupProps);
     // (undocumented)
     componentDidMount(): void;
     // (undocumented)
-    componentDidUpdate(previousProps: PopupProps, prevState: PopupState): void;
+    componentDidUpdate(previousProps: PopupProps, // eslint-disable-line deprecation/deprecation
+    prevState: PopupState): void;
     // (undocumented)
     componentWillUnmount(): void;
     // (undocumented)
@@ -1207,7 +1208,7 @@ export interface PopupContextMenuProps extends CommonProps {
     top?: number;
 }
 
-// @public
+// @public @deprecated
 export interface PopupProps extends CommonProps {
     animate?: boolean;
     ariaLabel?: string;
@@ -1328,7 +1329,7 @@ export interface RatioChangeResult {
     ratio: number;
 }
 
-// @public
+// @public @deprecated
 export interface ReactMessage {
     // (undocumented)
     reactNode: React_2.ReactNode;
@@ -1409,7 +1410,7 @@ export interface RenderPropsArgs {
     width?: number;
 }
 
-// @public
+// @public @deprecated
 export function ResizableContainerObserver({ onResize, children, }: {
     onResize: (width: number, height: number) => void;
     children?: React_2.ReactNode;
@@ -1418,7 +1419,7 @@ export function ResizableContainerObserver({ onResize, children, }: {
 // @internal (undocumented)
 export type ResizeObserverType = default_2;
 
-// @public
+// @public @deprecated
 export class ScrollPositionMaintainer implements IDisposable {
     constructor(el: Element);
     // (undocumented)
@@ -1546,7 +1547,7 @@ export interface SizeProps {
     readonly width: number;
 }
 
-// @public
+// @public @deprecated
 export enum SortDirection {
     // (undocumented)
     Ascending = 1,
@@ -1567,13 +1568,13 @@ export interface StyledTextProps extends TextProps {
     mainClassName: string;
 }
 
-// @public
+// @public @deprecated
 export class SvgPath extends React_2.PureComponent<SvgPathProps> {
     // (undocumented)
     render(): React_2.JSX.Element;
 }
 
-// @public
+// @public @deprecated
 export interface SvgPathProps extends CommonProps {
     paths: string[];
     viewBoxHeight: number;
@@ -1625,7 +1626,7 @@ export enum TimeFormat {
     Short = 1
 }
 
-// @public
+// @public @deprecated
 export class Timer {
     constructor(msDelay: number);
     get delay(): number;
@@ -1645,7 +1646,7 @@ export const TOOLBAR_BOX_SHADOW_OPACITY_DEFAULT = 0.35;
 // @internal
 export const TOOLBAR_OPACITY_DEFAULT = 0.5;
 
-// @public
+// @public @deprecated
 export class Tree extends React_2.PureComponent<TreeProps> {
     // (undocumented)
     getElementsByClassName(className: string): Element[];
@@ -1657,31 +1658,31 @@ export class Tree extends React_2.PureComponent<TreeProps> {
     setFocusByClassName(selector: string): boolean;
 }
 
-// @public
+// @public @deprecated
 export class TreeBranch extends React_2.PureComponent<TreeBranchProps> {
     // (undocumented)
     render(): React_2.JSX.Element;
 }
 
-// @public
+// @public @deprecated
 export interface TreeBranchProps extends CommonProps {
     children?: React_2.ReactNode;
 }
 
-// @public
+// @public @deprecated
 export class TreeNode extends React_2.Component<TreeNodeProps> {
     constructor(props: TreeNodeProps);
     // (undocumented)
     render(): React_2.JSX.Element;
 }
 
-// @public
+// @public @deprecated
 export class TreeNodePlaceholder extends React_2.PureComponent<TreeNodePlaceholderProps> {
     // (undocumented)
     render(): React_2.JSX.Element;
 }
 
-// @public
+// @public @deprecated
 export interface TreeNodePlaceholderProps extends CommonProps {
     // (undocumented)
     ["data-testid"]?: string;
@@ -1693,10 +1694,11 @@ export interface TreeNodePlaceholderProps extends CommonProps {
     minWidth?: number;
 }
 
-// @public
+// @public @deprecated
 export interface TreeNodeProps extends CommonProps {
     // (undocumented)
     ["data-testid"]?: string;
+    // (undocumented)
     checkboxProps?: NodeCheckboxProps;
     // (undocumented)
     children?: React_2.ReactNode;
@@ -1735,7 +1737,7 @@ export interface TreeNodeProps extends CommonProps {
     };
 }
 
-// @public
+// @public @deprecated
 export interface TreeProps extends CommonProps {
     // (undocumented)
     children?: React_2.ReactNode;
@@ -1840,23 +1842,23 @@ export function useCrossOriginPopup(visible: boolean, url: string | undefined, t
 // @public @deprecated
 export function useDisposable<TDisposable extends IDisposable>(createDisposable: () => TDisposable): TDisposable;
 
-// @public
+// @public @deprecated
 export function useEffectSkipFirst(callback: () => (void | (() => void | undefined)) | void, deps?: any[]): void;
 
 // @internal
 export function useEventListener(eventName: string, handler: (event: Event) => void, element: HTMLElement | Document | undefined): void;
 
-// @beta
+// @beta @deprecated
 export function useInterval(callback: (...args: any[]) => void, delay: number | undefined): void;
 
 // @internal
 export function useLayoutResizeObserver(inElement: HTMLElement | null, onResize?: (width?: number, height?: number) => void): (number | undefined)[];
 
-// @public
+// @public @deprecated
 export function useOnOutsideClick<T extends Element>(onOutsideClick?: () => void,
 outsideEventPredicate?: (e: OutsideClickEvent) => boolean): React_2.RefObject<T>;
 
-// @public
+// @public @deprecated
 export function useOptionalDisposable<TDisposable extends IDisposable>(createDisposable: () => TDisposable | undefined): TDisposable | undefined;
 
 // @internal
@@ -1895,7 +1897,7 @@ export const useTargeted: (ref: React_2.RefObject<Element>) => boolean;
 // @internal
 export function useWidgetOpacityContext(): WidgetOpacityContextProps;
 
-// @public
+// @public @deprecated
 export enum VerticalAlignment {
     // (undocumented)
     Bottom = 3,
@@ -1908,10 +1910,10 @@ export enum VerticalAlignment {
 // @public @deprecated
 export function VerticalTabs(props: TabsProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export function WebFontIcon(props: WebFontIconProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface WebFontIconProps extends CommonProps {
     iconClassName?: string;
     iconName: string;
@@ -1935,7 +1937,7 @@ export interface WidgetOpacityContextProps {
     readonly proximityScale: number;
 }
 
-// @public
+// @public @deprecated
 export const withIsPressed: <ComponentProps extends {}>(Component: React_2.ComponentType<ComponentProps>) => {
     new (props: ComponentProps & WithIsPressedProps): {
         handleOnPointerDown: () => void;
@@ -1994,13 +1996,13 @@ export const withIsPressed: <ComponentProps extends {}>(Component: React_2.Compo
     contextType?: React_2.Context<any> | undefined;
 };
 
-// @public
+// @public @deprecated
 export interface WithIsPressedProps {
     isPressed?: boolean;
     onIsPressedChange?: (isPressed: boolean) => void;
 }
 
-// @public
+// @public @deprecated
 export const withOnOutsideClick: <ComponentProps extends {}>(Component: React_2.ComponentType<ComponentProps>, defaultOnOutsideClick?: ((event: MouseEvent) => any) | undefined, useCapture?: boolean, usePointerEvents?: boolean) => {
     new (props: ComponentProps & WithOnOutsideClickProps): {
         outsideClickContainerDiv?: HTMLDivElement | null | undefined;
@@ -2069,13 +2071,13 @@ export const withOnOutsideClick: <ComponentProps extends {}>(Component: React_2.
     contextType?: React_2.Context<any> | undefined;
 };
 
-// @public
+// @public @deprecated
 export interface WithOnOutsideClickProps {
     closeOnNestedPopupOutsideClick?: boolean;
     onOutsideClick?: (event: MouseEvent) => any;
 }
 
-// @public
+// @public @deprecated
 export const withTimeout: <ComponentProps extends {}>(Component: React_2.ComponentType<ComponentProps>) => {
     new (props: ComponentProps & WithTimeoutProps): {
         timer: Timer;
@@ -2130,7 +2132,7 @@ export const withTimeout: <ComponentProps extends {}>(Component: React_2.Compone
     contextType?: React_2.Context<any> | undefined;
 };
 
-// @public
+// @public @deprecated
 export interface WithTimeoutProps {
     onTimeout?: () => void;
     timeout: number;

@@ -25,19 +25,19 @@ import { useIsMaximizedWidget } from "../enable-maximized-widget/useMaximizedWid
 
 /** Default value used when not provided or disabled. */
 const defaultAlignments = {
-  top: HorizontalAlignment.Justify,
-  bottom: HorizontalAlignment.Justify,
+  top: HorizontalAlignment.Justify, // eslint-disable-line deprecation/deprecation
+  bottom: HorizontalAlignment.Justify, // eslint-disable-line deprecation/deprecation
 };
 
 /** @internal */
 export const HorizontalPanelAlignContext = React.createContext<{
   enabled: boolean;
   alignments: {
-    [side in HorizontalPanelSide]: HorizontalAlignment;
+    [side in HorizontalPanelSide]: HorizontalAlignment; // eslint-disable-line deprecation/deprecation
   };
   setAlignment: (
     panel: PanelSide | undefined,
-    alignment: HorizontalAlignment
+    alignment: HorizontalAlignment // eslint-disable-line deprecation/deprecation
   ) => void;
 }>({
   enabled: false,
@@ -56,12 +56,13 @@ export function PreviewHorizontalPanelAlignFeatureProvider({
   children?: React.ReactNode;
 }) {
   const [alignments, setAlignments] = React.useState<{
-    [x in HorizontalPanelSide]: HorizontalAlignment;
+    [x in HorizontalPanelSide]: HorizontalAlignment; // eslint-disable-line deprecation/deprecation
   }>({
-    top: HorizontalAlignment.Justify,
-    bottom: HorizontalAlignment.Justify,
+    top: HorizontalAlignment.Justify, // eslint-disable-line deprecation/deprecation
+    bottom: HorizontalAlignment.Justify, // eslint-disable-line deprecation/deprecation
   });
   const setAlignment = React.useCallback(
+    // eslint-disable-next-line deprecation/deprecation
     (panel: PanelSide | undefined, alignment: HorizontalAlignment) => {
       if (!panel || !isHorizontalPanelSide(panel)) return;
       setAlignments((prev) => ({
@@ -129,12 +130,16 @@ function SvgCenter(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
+// eslint-disable-next-line deprecation/deprecation
 function getIcon(side: HorizontalPanelSide, alignment: HorizontalAlignment) {
   const scaleY = side === "top" ? "-1" : "1";
+  // eslint-disable-next-line deprecation/deprecation
   if (alignment === HorizontalAlignment.Justify)
     return <SvgJustify transform={`scale(1, ${scaleY})`} />;
+  // eslint-disable-next-line deprecation/deprecation
   if (alignment === HorizontalAlignment.Center)
     return <SvgCenter transform={`scale(1, ${scaleY})`} />;
+  // eslint-disable-next-line deprecation/deprecation
   const scaleX = alignment === HorizontalAlignment.Left ? "1" : "-1";
   return <SvgSide transform={`scale(${scaleX}, ${scaleY})`} />;
 }
@@ -155,10 +160,10 @@ export function PreviewHorizontalPanelAlignButton() {
 
   const getMenuItems = (onClose?: () => void) =>
     [
-      HorizontalAlignment.Justify,
-      HorizontalAlignment.Center,
-      HorizontalAlignment.Left,
-      HorizontalAlignment.Right,
+      HorizontalAlignment.Justify, // eslint-disable-line deprecation/deprecation
+      HorizontalAlignment.Center, // eslint-disable-line deprecation/deprecation
+      HorizontalAlignment.Left, // eslint-disable-line deprecation/deprecation
+      HorizontalAlignment.Right, // eslint-disable-line deprecation/deprecation
     ].map((align) => {
       return (
         <MenuItem
