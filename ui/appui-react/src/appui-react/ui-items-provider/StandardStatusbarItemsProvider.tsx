@@ -63,6 +63,7 @@ export class StandardStatusbarItemsProvider extends BaseUiItemsProvider {
     _stageUsage: string,
     _stageAppData?: any
   ): StatusBarItem[] {
+    // eslint-disable-next-line deprecation/deprecation
     return this.uiItemsProvider.provideStatusBarItems(
       _stageId,
       _stageUsage,
