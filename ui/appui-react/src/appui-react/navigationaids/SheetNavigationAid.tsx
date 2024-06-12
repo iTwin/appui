@@ -55,6 +55,7 @@ export interface SheetData {
 /** Properties for the [[SheetNavigationAid]] component
  * @alpha
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface SheetNavigationProps extends CommonProps {
   iModelConnection: IModelConnection;
 }

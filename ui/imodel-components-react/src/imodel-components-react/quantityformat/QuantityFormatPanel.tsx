@@ -121,6 +121,7 @@ function formatAreEqual(obj1: FormatProps, obj2: FormatProps) {
 /** Properties of [[QuantityFormatPanel]] component.
  * @alpha
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface QuantityFormatPanelProps extends CommonProps {
   quantityType: QuantityTypeArg;
   onFormatChange?: (format: FormatProps) => void;

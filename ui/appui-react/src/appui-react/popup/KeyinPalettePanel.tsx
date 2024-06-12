@@ -357,6 +357,7 @@ export function KeyinPalettePanel({
                 className={itemClass}
                 value={value}
               >
+                {/* eslint-disable-next-line deprecation/deprecation */}
                 <FilteredText value={entry.value} matches={entry.matches} />
               </ListboxItem>
             );

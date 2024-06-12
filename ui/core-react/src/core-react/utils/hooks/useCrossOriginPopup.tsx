@@ -92,6 +92,7 @@ export function useCrossOriginPopup(
   }, [closePopup]);
 
   // Timer that checks if popup was closed by end-user
+  // eslint-disable-next-line deprecation/deprecation
   useInterval(checkPopupClosed, checkPopupAliveDelay);
 
   // ==> Main render effect

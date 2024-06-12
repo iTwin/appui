@@ -20,6 +20,7 @@ import type { MessageType } from "@itwin/core-react";
 /** Types for message in [[MessageManager]]
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export type NotifyMessageType = MessageType;
 
 /** Types for NotifyMessageDetails.

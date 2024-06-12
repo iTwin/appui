@@ -99,6 +99,8 @@ export * from "./core-react/text/MutedText";
 export * from "./core-react/text/StyledText";
 export * from "./core-react/text/TextProps";
 
+/* eslint-disable deprecation/deprecation */
+
 export {
   ExpansionToggle,
   ExpansionToggleProps,
@@ -116,6 +118,8 @@ export {
   TreeNodePlaceholder,
   TreeNodePlaceholderProps,
 } from "./core-react/tree/Placeholder";
+
+/* eslint-enable deprecation/deprecation */
 
 export * from "./core-react/uistate/UiStateEntry";
 export * from "./core-react/uistate/UiStateStorage";

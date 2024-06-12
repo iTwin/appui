@@ -15,6 +15,7 @@ import { useTranslation } from "../../useTranslation";
 /** Properties of [[ThousandsSelector]] component.
  * @internal
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface ThousandsSelectorProps extends CommonProps {
   separator: string;
   disabled: boolean;

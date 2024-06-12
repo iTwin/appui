@@ -31,7 +31,6 @@ export * from "./appui-react/backstage/useUiItemsProviderBackstageItems";
 
 export * from "./appui-react/configurableui/ConfigurableUiContent";
 export * from "./appui-react/configurableui/ConfigurableUiControl";
-export * from "./appui-react/configurableui/state";
 
 export * from "./appui-react/content/ContentControl";
 export * from "./appui-react/content/ContentGroup";
@@ -126,6 +125,7 @@ export * from "./appui-react/popup/ToolbarPopup";
 
 export * from "./appui-react/preview/PreviewFeatures";
 
+export * from "./appui-react/redux/ConfigurableUiState";
 export * from "./appui-react/redux/SessionState";
 export * from "./appui-react/redux/StateManager";
 export * from "./appui-react/redux/FrameworkState";
@@ -191,6 +191,7 @@ export * from "./appui-react/statusfields/toolassistance/ToolAssistanceField";
 export * from "./appui-react/syncui/SyncUiEventDispatcher";
 export * from "./appui-react/syncui/UiSyncEvent";
 
+export * from "./appui-react/theme/ThemeId";
 export * from "./appui-react/theme/ThemeManager";
 
 export * from "./appui-react/timeline/ScheduleAnimationProvider";

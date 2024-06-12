@@ -14,24 +14,16 @@ import snapModeNearest from "@bentley/icons-generic/icons/snaps-nearest.svg";
 import snapModeOrigin from "@bentley/icons-generic/icons/snaps-origin.svg";
 import snapModeKeypoint from "@bentley/icons-generic/icons/snaps.svg";
 import { SnapMode } from "@itwin/core-frontend";
-import type { CommonProps, IconSpec } from "@itwin/core-react";
 import { Icon } from "@itwin/core-react";
+import type { CommonProps, IconSpec } from "@itwin/core-react";
 import * as React from "react";
-import { connect } from "react-redux";
 import { UiFramework } from "../UiFramework";
 import { SnapModePanel } from "../layout/footer/snap-mode/Panel";
 import { Snap } from "../layout/footer/snap-mode/Snap";
 import { useTranslation } from "../hooks/useTranslation";
+import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState";
 import { Button } from "@itwin/itwinui-react";
 import { StatusBarPopover } from "../statusbar/popup/StatusBarPopover";
-
-// cSpell:ignore multione
-
-/** Defines properties supported by the SnapMode Field Component.
- */
-interface SnapModeFieldProps extends CommonProps {
-  snapMode: number;
-}
 
 /** Define the properties that will be used to represent the available snap modes. */
 interface SnapModeFieldEntry {
@@ -68,12 +60,41 @@ function getIconFromIconName(iconName: string): IconSpec {
   return iconSpec;
 }
 
-/**
- * Snap Mode Field React component. This component is designed to be specified in a status bar definition. It will
+/** Return icon class name for a specific snapMode. */
+const getSnapModeIconNameFromMode = (
+  modeEntries: SnapModeFieldEntry[],
+  snapMode: number
+) => {
+  for (const modeEntry of modeEntries) {
+    if (modeEntry.value === snapMode) return modeEntry.iconName;
+  }
+
+  if (snapMode > 0) return "snaps-multione";
+
+  return "placeholder";
+};
+
+/** Defines properties supported by the SnapMode Field Component. */
+// eslint-disable-next-line deprecation/deprecation
+interface SnapModeFieldProps extends CommonProps {
+  /** Uses redux store as a fallback. Defaults to {@link SnapMode.NearestKeypoint}.
+   * @note Enum flags are supported.
+   */
+  snapMode?: SnapMode;
+  onChange?: (newSnapMode: SnapMode) => void;
+}
+
+/** `SnapModeField` component designed to be specified in a status bar. It will
  * display the active snap mode that AccuSnap will use and allow the user to select a new snap mode.
+ * @public
  */
-function SnapModeFieldComponent(props: SnapModeFieldProps) {
+export function SnapModeField(props: SnapModeFieldProps) {
   const { translate } = useTranslation();
+  const reduxSnapMode = useReduxFrameworkState(
+    // eslint-disable-next-line deprecation/deprecation
+    (state) => state?.configurableUiState.snapMode
+  );
+  const snapMode = props.snapMode ?? reduxSnapMode ?? SnapMode.NearestKeypoint;
 
   const snapModes: SnapModeFieldEntry[] = [
     {
@@ -112,17 +133,7 @@ function SnapModeFieldComponent(props: SnapModeFieldProps) {
       iconName: "snaps-bisector",
     },
   ];
-
-  /** Return icon class name for a specific snapMode. */
-  const getSnapModeIconNameFromMode = (snapMode: number) => {
-    for (const mode of snapModes) {
-      if (mode.value === snapMode) return mode.iconName;
-    }
-
-    if (snapMode > 0) return "snaps-multione";
-
-    return "placeholder";
-  };
+  const iconName = getSnapModeIconNameFromMode(snapModes, snapMode);
 
   const title = translate("snapModeField.snapMode");
   return (
@@ -132,8 +143,15 @@ function SnapModeFieldComponent(props: SnapModeFieldProps) {
           {snapModes.map((item, index) => (
             <Snap
               key={`SM_${index}`}
-              onClick={() => UiFramework.setAccudrawSnapMode(item.value)}
-              isActive={(props.snapMode & item.value) === item.value}
+              onClick={() => {
+                if (props.onChange) {
+                  props.onChange(item.value);
+                  return;
+                }
+                // eslint-disable-next-line deprecation/deprecation
+                UiFramework.setAccudrawSnapMode(item.value);
+              }}
+              isActive={(snapMode & item.value) === item.value}
               icon={
                 <Icon
                   className={`icon`}
@@ -150,13 +168,7 @@ function SnapModeFieldComponent(props: SnapModeFieldProps) {
       <Button
         styleType="borderless"
         title={title}
-        endIcon={
-          <Icon
-            iconSpec={getIconFromIconName(
-              getSnapModeIconNameFromMode(props.snapMode)
-            )}
-          />
-        }
+        endIcon={<Icon iconSpec={getIconFromIconName(iconName)} />}
       >
         {title}
         <StatusBarPopover.ExpandIndicator />
@@ -164,21 +176,3 @@ function SnapModeFieldComponent(props: SnapModeFieldProps) {
     </StatusBarPopover>
   );
 }
-
-/** Function used by Redux to map state data in Redux store to props that are used to render this component. */
-function mapStateToProps(state: any) {
-  const frameworkState = state[UiFramework.frameworkStateKey]; // since app sets up key, don't hard-code name
-
-  if (!frameworkState) return undefined;
-
-  return { snapMode: frameworkState.configurableUiState.snapMode };
-}
-
-// we declare the variable and export that rather than using export default.
-/**
- * Snap Mode Field React component. This component is designed to be specified in a status bar definition. It will
- * display the active snap mode that AccuSnap will use and allow the user to select a new snap mode.
- * This Field React component is Redux connected.
- * @public
- */
-export const SnapModeField = connect(mapStateToProps)(SnapModeFieldComponent);

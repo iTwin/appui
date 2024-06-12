@@ -104,6 +104,7 @@ export class ToolbarHelper {
   public static getIconReactNode(
     item: ActionButton | GroupButton
   ): React.ReactNode {
+    // eslint-disable-next-line deprecation/deprecation
     return IconHelper.getIconReactNode(item.icon, item.internalData);
   }
 
@@ -124,8 +125,8 @@ export class ToolbarHelper {
       isHidden: itemDef.isHidden,
       isDisabled: itemDef.isDisabled,
       icon:
-        internalData?.get(IconHelper.reactIconKey) ??
-        internalData?.get(IconHelper.conditionalIconItemKey) ??
+        internalData?.get(IconHelper.reactIconKey) ?? // eslint-disable-line deprecation/deprecation
+        internalData?.get(IconHelper.conditionalIconItemKey) ?? // eslint-disable-line deprecation/deprecation
         icon ??
         itemDef.iconSpec,
       label: this.getStringOrConditionalString(itemDef.rawLabel),

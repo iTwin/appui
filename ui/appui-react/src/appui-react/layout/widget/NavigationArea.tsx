@@ -14,6 +14,7 @@ import type { CommonProps, NoChildrenProps } from "@itwin/core-react";
 /** Properties of [[NavigationArea]] component.
  * @internal
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface NavigationAreaProps extends CommonProps, NoChildrenProps {
   /**
    * Button displayed between horizontal and vertical toolbars.

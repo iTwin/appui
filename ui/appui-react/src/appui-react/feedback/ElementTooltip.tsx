@@ -6,20 +6,22 @@
  * @module Notification
  */
 
-import { UiEvent } from "@itwin/appui-abstract";
-import type { ToolTipOptions } from "@itwin/core-frontend";
-import type { XAndY } from "@itwin/core-geometry";
-import type { CommonProps, Point, SizeProps } from "@itwin/core-react";
-import { MessageRenderer, Rectangle } from "@itwin/core-react";
+import "./ElementTooltip.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { offsetAndContainInContainer, Tooltip } from "../layout/popup/Tooltip";
-import type { NotifyMessageType } from "../messages/ReactNotifyMessageDetails";
+import * as ReactDOM from "react-dom";
+import { UiEvent } from "@itwin/appui-abstract";
 import { BeUiEvent } from "@itwin/core-bentley";
+import type { ToolTipOptions } from "@itwin/core-frontend";
+import type { XAndY } from "@itwin/core-geometry";
+import type { CommonProps, SizeProps } from "@itwin/core-react";
+import { MessageRenderer, Rectangle } from "@itwin/core-react";
+import type { NotifyMessageType } from "../messages/ReactNotifyMessageDetails";
+import { offsetAndContainInContainer, Tooltip } from "../layout/popup/Tooltip";
 
-/** [[ElementTooltip]] State.
- * @internal
- */
+/* eslint-disable deprecation/deprecation */
+
+/** [[ElementTooltip]] state. */
 interface ElementTooltipState {
   isVisible: boolean;
   message: NotifyMessageType;
@@ -43,25 +45,24 @@ export interface ElementTooltipChangedEventArgs {
  * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
-// eslint-disable-next-line deprecation/deprecation
 export class ElementTooltipChangedEvent extends UiEvent<ElementTooltipChangedEventArgs> {}
 
 /** ElementTooltip React component.
  * @public
  */
 export class ElementTooltip extends React.Component<
-  CommonProps,
+  CommonProps, // eslint-disable-line deprecation/deprecation
   ElementTooltipState
 > {
   private static _elementTooltipChangedEvent =
-    new BeUiEvent<ElementTooltipChangedEventArgs>(); // eslint-disable-line deprecation/deprecation
+    new BeUiEvent<ElementTooltipChangedEventArgs>();
   private static _isTooltipVisible: boolean;
   private static _isTooltipHalted: boolean;
 
-  // eslint-disable-next-line deprecation/deprecation
   public static get onElementTooltipChangedEvent(): ElementTooltipChangedEvent {
     return ElementTooltip._elementTooltipChangedEvent;
   }
+
   public static get isTooltipVisible(): boolean {
     return ElementTooltip._isTooltipVisible;
   }
@@ -81,10 +82,6 @@ export class ElementTooltip extends React.Component<
       pt,
       options,
     });
-    el.ownerDocument.addEventListener(
-      "mousemove",
-      ElementTooltip._handleMouseMove
-    );
   }
 
   public static hideTooltip(): void {
@@ -98,125 +95,94 @@ export class ElementTooltip extends React.Component<
   public static get isTooltipHalted(): boolean {
     return ElementTooltip._isTooltipHalted;
   }
+
   public static set isTooltipHalted(halt: boolean) {
     ElementTooltip._isTooltipHalted = halt;
     if (halt && ElementTooltip._isTooltipVisible) ElementTooltip.hideTooltip();
   }
 
-  private _size: SizeProps = {
-    height: 0,
-    width: 0,
-  };
-  private _element?: HTMLElement;
-  private _position?: XAndY;
-
-  /** @internal */
-  public override readonly state: Readonly<ElementTooltipState> = {
-    message: "",
-    isVisible: false,
-    position: {
-      x: 0,
-      y: 0,
-    },
-  };
-
-  constructor(props: CommonProps) {
-    super(props);
-  }
-
   public override render() {
-    if (!this.state.isVisible) return null;
-
-    const className = classnames("uifw-element-tooltip", this.props.className);
-    return (
-      <div className="uifw-element-tooltip-container">
-        <Tooltip
-          className={className}
-          style={this.props.style}
-          position={this.state.position}
-          onSizeChanged={this._handleSizeChanged}
-        >
-          <MessageRenderer message={this.state.message} />
-        </Tooltip>
-      </div>
-    );
+    return <ElementTooltipComponent />;
   }
+}
 
-  public override componentDidMount(): void {
-    ElementTooltip.onElementTooltipChangedEvent.addListener(
-      this._handleElementTooltipChangedEvent
-    );
-  }
+function ElementTooltipComponent(props: CommonProps) {
+  const [visible, setVisible] = React.useState(false);
+  const [message, setMessage] = React.useState<NotifyMessageType>("");
+  const [preferredPosition, setPreferredPosition] = React.useState<
+    XAndY | undefined
+  >(undefined);
+  const [position, setPosition] = React.useState<XAndY>({ x: 0, y: 0 });
 
-  public override componentWillUnmount(): void {
-    ElementTooltip.onElementTooltipChangedEvent.removeListener(
-      this._handleElementTooltipChangedEvent
-    );
-  }
+  // Use a dedicated container for the tooltip to avoid z-index issues in the main window.
+  const [mainContainer, setMainContainer] = React.useState<
+    HTMLDivElement | undefined
+  >(undefined);
+  const [container, setContainer] = React.useState<HTMLElement | undefined>(
+    undefined
+  );
+  const [popout, setPopout] = React.useState(false);
+  const [size, setSize] = React.useState<SizeProps | undefined>(undefined);
 
-  private static _handleMouseMove(event: MouseEvent) {
-    const el = event.currentTarget as Document;
-    /* Only monitor mouse movement when an ElementTooltip is open. */
-    if (
-      (el && ElementTooltip._isTooltipHalted) ||
-      !ElementTooltip._isTooltipVisible
-    ) {
-      el.removeEventListener("mousemove", ElementTooltip._handleMouseMove);
-      return;
-    }
-    const hoveredElement = el
-      ? el.elementFromPoint(event.clientX, event.clientY)
-      : undefined;
-    /* If the mouse has moved to an element that is not the view canvas, close the ElementTooltip. */
-    if (hoveredElement && hoveredElement.localName !== "canvas") {
-      ElementTooltip.onElementTooltipChangedEvent.emit({
-        isTooltipVisible: false,
-        message: "",
-      });
-      el.removeEventListener("mousemove", ElementTooltip._handleMouseMove);
-      return;
-    }
-  }
-  private _handleElementTooltipChangedEvent = (
-    args: ElementTooltipChangedEventArgs // eslint-disable-line deprecation/deprecation
-  ) => {
-    this._element = args.el;
-    this._position = args.pt;
-    this.setState({
-      isVisible: args.isTooltipVisible,
-      message: args.message,
+  React.useEffect(() => {
+    return ElementTooltip.onElementTooltipChangedEvent.addListener((args) => {
+      const isPopout = args.el?.ownerDocument.defaultView !== window;
+      setPopout(isPopout);
+      setVisible(args.isTooltipVisible);
+      setMessage(args.message);
+      setContainer(args.el);
+      setPreferredPosition(args.pt);
     });
-    this.updatePosition();
-  };
+  }, []);
 
-  private _handleSizeChanged = (size: SizeProps) => {
-    this._size = size;
-    this.updatePosition();
-  };
+  const portalContainer = popout ? container : mainContainer;
 
-  private updatePosition() {
-    this.setState((prevState) => {
-      if (!this._element) return null;
-      if (!this._position) return null;
+  React.useLayoutEffect(() => {
+    if (!preferredPosition) return;
 
-      const containerBounds = Rectangle.create(
-        this._element.getBoundingClientRect()
-      );
-      const relativeBounds = Rectangle.createFromSize(this._size).offset(
-        this._position
-      );
-      const adjustedPosition: Point = offsetAndContainInContainer(
-        relativeBounds,
-        containerBounds.getSize(),
-        { x: 8, y: 8 }
-      );
-      const position = adjustedPosition.offset(containerBounds.topLeft());
+    // Use preferred position by default.
+    setPosition(preferredPosition);
 
-      if (position.equals(prevState.position)) return null;
+    if (!container) return;
+    if (!size) return;
 
-      return {
-        position,
-      };
-    });
-  }
+    // Contain the tooltip based on the container bounds.
+    const containerBounds = Rectangle.create(container.getBoundingClientRect());
+    const bounds = Rectangle.createFromSize(size).offset(preferredPosition);
+    const adjustedPosition = offsetAndContainInContainer(
+      bounds,
+      containerBounds.getSize(),
+      { x: 8, y: 8 }
+    );
+    const newPosition = adjustedPosition.offset(containerBounds.topLeft());
+    setPosition(newPosition);
+  }, [container, size, preferredPosition]);
+
+  return (
+    <>
+      <div
+        className={classnames(
+          "uifw-feedback-elementTooltip_container",
+          props.className
+        )}
+        ref={(el) => setMainContainer(el ?? undefined)}
+      />
+      {portalContainer &&
+        visible &&
+        ReactDOM.createPortal(
+          <Tooltip
+            className={classnames(
+              "uifw-feedback-elementTooltip",
+              props.className
+            )}
+            style={props.style}
+            onSizeChanged={setSize}
+            position={position}
+          >
+            <MessageRenderer message={message} />
+          </Tooltip>,
+          portalContainer
+        )}
+    </>
+  );
 }

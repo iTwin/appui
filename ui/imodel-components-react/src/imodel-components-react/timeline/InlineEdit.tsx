@@ -9,6 +9,7 @@ import { Key } from "ts-key-enum";
 import type { CommonProps } from "@itwin/core-react";
 import { Input } from "@itwin/itwinui-react";
 
+// eslint-disable-next-line deprecation/deprecation
 interface InlineEditProps extends CommonProps {
   defaultValue: string;
   onChange?: (value: string) => void;

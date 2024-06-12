@@ -23,6 +23,7 @@ import { LineWeightSwatch } from "./Swatch";
  */
 export interface WeightPickerProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    // eslint-disable-next-line deprecation/deprecation
     CommonProps {
   /** active weight */
   activeWeight: number;
@@ -223,9 +224,11 @@ export class WeightPickerButton extends React.PureComponent<
             onClick={this._togglePopup}
           />
         </div>
+        {/* eslint-disable-next-line deprecation/deprecation */}
         <ElementResizeObserver
           watchedElement={this.state.targetElement}
           render={({ width }) => (
+            // eslint-disable-next-line deprecation/deprecation
             <Popup
               className="components-weightpicker-popup"
               style={{ width: `${width}px` }}

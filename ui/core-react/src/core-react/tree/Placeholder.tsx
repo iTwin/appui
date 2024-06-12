@@ -14,7 +14,9 @@ import { LEVEL_OFFSET } from "./Node";
 
 /** Properties for the [[TreeNodePlaceholder]] React component
  * @public
+ * @deprecated in 4.15.0. Props of deprecated {@link TreeNodePlaceholder} component.
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface TreeNodePlaceholderProps extends CommonProps {
   level: number;
   minWidth?: number;
@@ -25,7 +27,9 @@ export interface TreeNodePlaceholderProps extends CommonProps {
 /**
  * Presentation React component for a placeholder to be displayed instead of a node while it's being loaded
  * @public
+ * @deprecated in 4.15.0. Use {@link https://itwinui.bentley.com/docs/tree iTwinUI Tree} instead.
  */
+// eslint-disable-next-line deprecation/deprecation
 export class TreeNodePlaceholder extends React.PureComponent<TreeNodePlaceholderProps> {
   public override render() {
     const className = classnames("core-tree-placeholder", this.props.className);

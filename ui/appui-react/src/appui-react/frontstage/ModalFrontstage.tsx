@@ -19,14 +19,15 @@ import "./ModalFrontstage.scss";
 /** Properties for the [[ModalFrontstage]] React component
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface ModalFrontstageProps extends CommonProps {
   /** Title displayed at the top of the modal Frontstage */
   title: string;
   /** Indicates whether the modal Frontstage is open */
   isOpen?: boolean;
-  /** Callback for navigating back from the modal Frontstage. This is normally connected to Redux. */
+  /** Callback for navigating back from the modal Frontstage. */
   navigateBack?: () => any;
-  /** Callback for closing the modal Frontstage. This is normally connected to Redux. */
+  /** Callback for closing the modal Frontstage. */
   closeModal: () => any;
   /** An optional React node displayed in the upper right of the modal Frontstage. */
   appBarRight?: React.ReactNode;

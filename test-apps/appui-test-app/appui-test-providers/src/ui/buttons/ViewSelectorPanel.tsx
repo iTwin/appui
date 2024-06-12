@@ -5,8 +5,9 @@
 
 import "./ViewSelectorPanel.scss";
 import {
-  IModelConnectedViewSelector,
   ToolbarItemUtilities,
+  useActiveIModelConnection,
+  ViewSelector,
 } from "@itwin/appui-react";
 import * as React from "react";
 
@@ -19,10 +20,14 @@ export function getCustomViewSelectorPopupItem(
     itemPriority,
     "icon-saved-view",
     "Load selected view into active content view",
-    <IModelConnectedViewSelector panelOnly={true} />,
+    <ViewSelectorPanel />,
     {
-      // keepContentsLoaded: true, // TODO: 4.0
       groupPriority,
     }
   );
+}
+
+function ViewSelectorPanel() {
+  const iModel = useActiveIModelConnection();
+  return <ViewSelector imodel={iModel} panelOnly={true} />;
 }

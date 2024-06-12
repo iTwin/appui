@@ -16,9 +16,12 @@ import type { ClassNameProps } from "../utils/Props";
 
 /** Properties for the [[MessageRenderer]] component
  * @public
+ * @deprecated in 4.15.0. Props of deprecated {@link MessageRenderer} component.
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface MessageRendererProps extends ClassNameProps {
   /** Message to render */
+  // eslint-disable-next-line deprecation/deprecation
   message: MessageType;
   /** Indicates whether to use a `span` or `div` element for rendering */
   useSpan?: boolean;
@@ -26,7 +29,9 @@ export interface MessageRendererProps extends ClassNameProps {
 
 /** React component renders a string, HTMLElement or React node in a `div` or `span`
  * @public
+ * @deprecated in 4.15.0. Used internally.
  */
+// eslint-disable-next-line deprecation/deprecation
 export function MessageRenderer(props: MessageRendererProps) {
   let messageNode = null;
   const OutElement = props.useSpan ? "span" : "div";

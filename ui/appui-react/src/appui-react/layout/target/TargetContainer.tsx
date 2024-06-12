@@ -12,6 +12,7 @@ import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
 
 /** @internal */
+// eslint-disable-next-line deprecation/deprecation
 export interface TargetContainerProps extends CommonProps {
   children?: React.ReactNode;
   direction: "horizontal" | "vertical";

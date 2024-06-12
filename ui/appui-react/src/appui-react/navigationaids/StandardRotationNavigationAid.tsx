@@ -64,7 +64,7 @@ interface StandardRotationNavigationAidState {
  * @alpha
  */
 export class StandardRotationNavigationAid extends React.Component<
-  CommonProps,
+  CommonProps, // eslint-disable-line deprecation/deprecation
   StandardRotationNavigationAidState
 > {
   /** @internal */
@@ -136,6 +136,7 @@ export class StandardRotationNavigationAid extends React.Component<
             title={UiFramework.translate("standardRotationNavigationAid.title")}
           ></NZ_Icon>
         </NZ_Expandable>
+        {/* eslint-disable-next-line deprecation/deprecation */}
         <Popup
           isOpen={this.state.isExpanded}
           offset={0}

@@ -6,43 +6,69 @@
  * @module StatusBar
  */
 
-import type { CommonProps } from "@itwin/core-react";
-import { LabeledSelect } from "@itwin/itwinui-react";
+import "./SelectionScope.scss";
 import classnames from "classnames";
 import * as React from "react";
-import type { ConnectedComponent } from "react-redux";
-import { connect } from "react-redux";
+import type { CommonProps } from "@itwin/core-react";
+import { LabeledSelect } from "@itwin/itwinui-react";
 import { UiFramework } from "../UiFramework";
-import type { PresentationSelectionScope } from "../redux/SessionState";
-import "./SelectionScope.scss";
 import { useTranslation } from "../hooks/useTranslation";
+import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState";
 
-/** Defines properties supported by the SelectionScopeField Component.
- * @public
- */
+// eslint-disable-next-line deprecation/deprecation
 interface SelectionScopeFieldProps extends CommonProps {
-  activeSelectionScope: string;
-  availableSelectionScopes: PresentationSelectionScope[];
+  /** Describes which selection scope is active. Uses redux store as a fallback. Defaults to `""`. */
+  activeScope?: string;
+  /** Describes available selection scopes. Uses redux store as a fallback. Defaults to `{ id: "element", label: "Element" }`. */
+  selectionScopes?: {
+    id: string;
+    label: string;
+  }[];
+  /** Function called when the active selection scope is changed. */
+  onChange?: (scope: string) => void;
 }
 
-/**
- * Status Field React component. This component is designed to be specified in a status bar definition.
+/** `SelectionScopeField` component is designed to be specified in a status bar.
+ * It displays the active selection scope and the list of scopes from which the user can change the active selection scope.
+ * @public
  */
-function SelectionScopeFieldComponent(props: SelectionScopeFieldProps) {
+export function SelectionScopeField(props: SelectionScopeFieldProps) {
   const { translate } = useTranslation();
+  const reduxActiveSelectionScope = useReduxFrameworkState(
+    // eslint-disable-next-line deprecation/deprecation
+    (state) => state?.sessionState.activeSelectionScope
+  );
+  const reduxAvailableSelectionScopes = useReduxFrameworkState(
+    // eslint-disable-next-line deprecation/deprecation
+    (state) => state?.sessionState.availableSelectionScopes
+  );
+
+  const activeSelectionScope =
+    props.activeScope ?? reduxActiveSelectionScope ?? "";
+  const availableSelectionScopes = React.useMemo(
+    () =>
+      props.selectionScopes ??
+      reduxAvailableSelectionScopes ?? [{ id: "element", label: "Element" }],
+    [props.selectionScopes, reduxAvailableSelectionScopes]
+  );
 
   const options = React.useMemo(
     () =>
-      props.availableSelectionScopes.map((scope) => {
+      availableSelectionScopes.map((scope) => {
         return { value: scope.id, label: scope.label };
       }),
-    [props.availableSelectionScopes]
+    [availableSelectionScopes]
   );
 
   const updateSelectValue = (newValue: string) => {
-    if (newValue) {
-      UiFramework.setActiveSelectionScope(newValue);
+    if (!newValue) return;
+    if (props.onChange) {
+      props.onChange(newValue);
+      return;
     }
+
+    // eslint-disable-next-line deprecation/deprecation
+    UiFramework.setActiveSelectionScope(newValue);
   };
 
   return (
@@ -59,7 +85,7 @@ function SelectionScopeFieldComponent(props: SelectionScopeFieldProps) {
         labelProps={{ className: "uifw-statusFields-selectionScope-label" }}
         wrapperProps={{ style: { rowGap: "0px" } }} // TODO: remove when https://github.com/iTwin/iTwinUI/issues/2051 is fixed
         displayStyle="inline"
-        value={props.activeSelectionScope}
+        value={activeSelectionScope}
         options={options}
         onChange={updateSelectValue}
         data-testid="components-selectionScope-selector"
@@ -69,28 +95,3 @@ function SelectionScopeFieldComponent(props: SelectionScopeFieldProps) {
     </div>
   );
 }
-
-/** Function used by Redux to map state data in Redux store to props that are used to render this component. */
-function mapStateToProps(state: any) {
-  const frameworkState = state[UiFramework.frameworkStateKey]; // since app sets up key, don't hard-code name
-
-  if (!frameworkState) return undefined;
-
-  return {
-    activeSelectionScope: frameworkState.sessionState.activeSelectionScope,
-    availableSelectionScopes:
-      frameworkState.sessionState.availableSelectionScopes,
-  };
-}
-
-/**
- * SelectionScopeField React component. This component is designed to be specified in a status bar definition. It will
- * display the active selection scope from `UiFramework.getActiveSelectionScope()`, and display the stored list of scopes from
- * `UiFramework.getAvailableSelectionScopes()` to allow the user to change the active selection scope, using `UiFramework.setActiveSelectionScope()`.
- * This React component is Redux connected.
- * @public
- */
-export const SelectionScopeField: ConnectedComponent<
-  typeof SelectionScopeFieldComponent,
-  CommonProps
-> = connect(mapStateToProps)(SelectionScopeFieldComponent);

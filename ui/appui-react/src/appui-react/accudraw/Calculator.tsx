@@ -11,7 +11,7 @@ import classnames from "classnames";
 import * as React from "react";
 import { Key } from "ts-key-enum";
 import type { OnCancelFunc, OnNumberCommitFunc } from "@itwin/appui-abstract";
-import type { CommonProps, Omit } from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
 import { Icon, IconInput } from "@itwin/core-react";
 import { Button, Input } from "@itwin/itwinui-react";
 import { CalculatorEngine, CalculatorOperator } from "./CalculatorEngine";
@@ -23,6 +23,7 @@ import backspaceIcon from "./backspace.svg";
 // cSpell:ignore plusmn
 
 /** @alpha */
+// eslint-disable-next-line deprecation/deprecation
 export interface CalculatorProps extends CommonProps {
   /** Initial value */
   initialValue?: number;
@@ -246,6 +247,7 @@ export class Calculator extends React.PureComponent<
   };
 }
 
+// eslint-disable-next-line deprecation/deprecation
 interface CalculatorKeyPadProps extends CommonProps {
   /** A function to be run when a value is clicked */
   onValueClick: (key: string) => void;

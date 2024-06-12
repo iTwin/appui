@@ -33,6 +33,7 @@ export interface OverflowToolbarOptions {
 /** Properties of [[Toolbar]] component.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface ToolbarProps extends CommonProps, NoChildrenProps {
   /** Describes to which direction the popup panels are expanded, also defines the orientation of the toolbar (Top/Bottom will create an horizontal toolbar, Left/Right will create a vertical toolbar). Defaults to: [[Direction.Bottom]] */
   expandsTo?: Direction;
@@ -42,7 +43,7 @@ export interface ToolbarProps extends CommonProps, NoChildrenProps {
   items: ToolbarItem[];
   /** Describes how expanded panels are aligned. Defaults to: [[ToolbarPanelAlignment.Start]] */
   panelAlignment?: ToolbarPanelAlignment;
-  /** Use Drag Interaction to open popups with nest action buttons */
+  /** Use drag interaction to open popups with nested toolbar buttons. */
   useDragInteraction?: boolean;
   /** Determines whether to use mouse proximity to alter the opacity of the toolbar */
   toolbarOpacitySetting?: ToolbarOpacitySetting;

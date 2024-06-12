@@ -43,6 +43,7 @@ interface UseLongPressArgs {
 }
 
 function useLongPress(args: UseLongPressArgs) {
+  // eslint-disable-next-line deprecation/deprecation
   const longPressTimer = React.useRef(new Timer(500));
   const handlePointerDown = React.useCallback(() => {
     longPressTimer.current.start();

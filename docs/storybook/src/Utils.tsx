@@ -17,13 +17,19 @@ import { createContentControl } from "./createContentControl";
 export function createFrontstageProvider(
   overrides?: Partial<StandardFrontstageProps> & {
     content?: React.ReactNode;
-    contentManipulation?: React.ReactNode;
+    contentManipulation?: FrontstageConfig["contentManipulation"];
   }
 ) {
   return new (class extends StandardFrontstageProvider {
     public override frontstageConfig(): FrontstageConfig {
       const config = super.frontstageConfig();
-      return config;
+
+      const contentManipulation =
+        overrides?.contentManipulation ?? config.contentManipulation;
+      return {
+        ...config,
+        contentManipulation,
+      };
     }
   })({
     id: "main-frontstage",

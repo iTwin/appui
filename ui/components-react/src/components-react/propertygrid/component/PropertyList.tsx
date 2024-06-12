@@ -22,6 +22,7 @@ import type { PropertyCategory } from "../PropertyDataProvider";
 /** Properties of [[PropertyList]] React component
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface PropertyListProps extends CommonProps {
   orientation: Orientation;
   width: number;

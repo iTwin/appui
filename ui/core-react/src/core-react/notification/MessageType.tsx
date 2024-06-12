@@ -8,8 +8,11 @@
 
 import type * as React from "react";
 
+/* eslint-disable deprecation/deprecation */
+
 /** Describes a React based message
  * @public
+ * @deprecated in 4.15.0. Used internally.
  */
 export interface ReactMessage {
   reactNode: React.ReactNode;
@@ -17,6 +20,7 @@ export interface ReactMessage {
 
 /** Types for message
  * @public
+ * @deprecated in 4.15.0. Used internally.
  */
 export type MessageType = string | HTMLElement | ReactMessage;
 

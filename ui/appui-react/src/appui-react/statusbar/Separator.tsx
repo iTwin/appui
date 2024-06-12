@@ -14,6 +14,7 @@ import type { CommonProps } from "@itwin/core-react";
 /** Component used to separate status fields in a status bar.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export function StatusBarSeparator(props: CommonProps) {
   const className = classnames("uifw-statusBar-separator", props.className);
   return <div className={className} style={props.style} />;

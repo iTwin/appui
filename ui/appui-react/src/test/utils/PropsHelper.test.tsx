@@ -117,7 +117,7 @@ describe("PropsHelper", () => {
   });
 
   it("get abstract props for react icon", () => {
-    const props = PropsHelper.getAbstractPropsForReactIcon(<SvgCut />); // eslint-disable-line deprecation/deprecation
+    const props = PropsHelper.getAbstractPropsForReactIcon(<SvgCut />);
     expect(props.icon).toEqual("#-react-iconspec-node-#");
   });
 });

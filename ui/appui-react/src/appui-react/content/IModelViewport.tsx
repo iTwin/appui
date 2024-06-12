@@ -13,27 +13,41 @@ import type {
   ScreenViewport,
   ViewState,
 } from "@itwin/core-frontend";
-import type { ViewStateProp } from "@itwin/imodel-components-react";
+import type {
+  ViewportProps,
+  ViewStateProp,
+} from "@itwin/imodel-components-react";
 import { ViewportComponent } from "@itwin/imodel-components-react";
 import { FillCentered } from "@itwin/core-react";
 
 import type { ConfigurableCreateInfo } from "../configurableui/ConfigurableUiControl";
-import { connectIModelConnectionAndViewState } from "../redux/connectIModel";
 import { UiFramework } from "../UiFramework";
 import { DefaultViewOverlay } from "./DefaultViewOverlay";
 import { ViewportContentControl } from "./ViewportContentControl";
 import { StandardRotationNavigationAidControl } from "../navigationaids/StandardRotationNavigationAid";
 import { UiError } from "@itwin/appui-abstract";
-import { useSelector } from "react-redux";
-import type { FrameworkState } from "../redux/FrameworkState";
+import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState";
+import { ConfigurableUiContext } from "../configurableui/ConfigurableUiContent";
 
 /** Viewport that is connected to the IModelConnection property in the Redux store. The application must set up the Redux store and include the FrameworkReducer.
+ * @note Requires redux provider.
  * @public
+ * @deprecated in 4.15.0. Use {@link @itwin/imodel-components-react#ViewportComponent} instead.
  */
-export const IModelConnectedViewport = connectIModelConnectionAndViewState(
-  null,
-  null
-)(ViewportComponent);
+export function IModelConnectedViewport(
+  props: Omit<ViewportProps, "imodel" | "viewState">
+) {
+  const iModel = useReduxFrameworkState(
+    // eslint-disable-next-line deprecation/deprecation
+    (state) => state?.sessionState.iModelConnection
+  );
+  const viewState = useReduxFrameworkState(
+    // eslint-disable-next-line deprecation/deprecation
+    (state) => state?.sessionState.defaultViewState
+  );
+  if (!iModel) return null;
+  return <ViewportComponent imodel={iModel} viewState={viewState} {...props} />;
+}
 
 /** [[IModelViewportControl]] options. These options are set in the applicationData property of the [[ContentProps]].
  * @public
@@ -60,22 +74,20 @@ interface ViewOverlayHostProps {
   featureOptions?: { [key: string]: any };
   userSuppliedOverlay?: (_viewport: ScreenViewport) => React.ReactNode;
 }
-/** View Overlay component -- exported for testing
- * @internal
- */
+
+/** @internal */
 export function ViewOverlayHost({
   viewport,
   featureOptions,
   userSuppliedOverlay,
 }: ViewOverlayHostProps) {
-  const displayViewOverlay = useSelector((state: FrameworkState) => {
-    const frameworkState: FrameworkState = (state as any)[
-      UiFramework.frameworkStateKey
-    ];
-    return frameworkState
-      ? frameworkState.configurableUiState.viewOverlayDisplay
-      : true;
-  });
+  const reduxDisplayViewOverlay = useReduxFrameworkState(
+    // eslint-disable-next-line deprecation/deprecation
+    (state) => state?.configurableUiState.viewOverlayDisplay
+  );
+  const configurableUi = React.useContext(ConfigurableUiContext);
+  const displayViewOverlay =
+    configurableUi?.viewOverlay ?? reduxDisplayViewOverlay ?? true;
   if (!displayViewOverlay) return null;
   return userSuppliedOverlay ? (
     <React.Fragment>{userSuppliedOverlay(viewport)}</React.Fragment>
@@ -177,6 +189,7 @@ export class IModelViewportControl extends ViewportContentControl {
   /** Get the React component that will contain the Viewport */
   protected getImodelConnectedViewportReactElement(): React.ReactNode {
     return (
+      // eslint-disable-next-line deprecation/deprecation
       <IModelConnectedViewport
         viewportRef={(v: ScreenViewport) => {
           this.viewport = v;

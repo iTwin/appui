@@ -162,7 +162,7 @@ describe("InternalToolSettingsManager", () => {
     };
 
     const handleSyncToolSettingsPropertiesEvent = (
-      args: SyncToolSettingsPropertiesEventArgs // eslint-disable-line deprecation/deprecation
+      args: SyncToolSettingsPropertiesEventArgs
     ): void => {
       eventCalled = true;
       expect(args.toolId).toEqual(testToolId);
@@ -177,7 +177,7 @@ describe("InternalToolSettingsManager", () => {
     const syncArgs = {
       toolId: testToolId,
       syncProperties: [syncItem],
-    } as SyncToolSettingsPropertiesEventArgs; // eslint-disable-line deprecation/deprecation
+    } as SyncToolSettingsPropertiesEventArgs;
     InternalToolSettingsManager.onSyncToolSettingsProperties.emit(syncArgs);
     expect(eventCalled).toEqual(true);
     InternalToolSettingsManager.onSyncToolSettingsProperties.removeListener(

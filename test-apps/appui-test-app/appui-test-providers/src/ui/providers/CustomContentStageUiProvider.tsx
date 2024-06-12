@@ -51,6 +51,7 @@ export class CustomContentStageUiProvider implements UiItemsProvider {
 
   /** method that updates the value in redux store and dispatches a sync event so items are refreshed. */
   public toggleCustomDialogTool = () => {
+    // eslint-disable-next-line deprecation/deprecation
     StateManager.store.dispatch(
       setHideCustomDialogButton(!getTestProviderState().hideCustomDialogButton)
     );

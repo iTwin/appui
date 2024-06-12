@@ -31,7 +31,7 @@ interface CursorPopupMenuState {
  * @alpha
  */
 export class CursorPopupMenu extends React.PureComponent<
-  CommonProps,
+  CommonProps, // eslint-disable-line deprecation/deprecation
   CursorPopupMenuState
 > {
   private _isMounted = false; // used to ensure _handleSyncUiEvent callback is not processed after componentWillUnmount is called
@@ -51,6 +51,7 @@ export class CursorPopupMenu extends React.PureComponent<
 
     if (
       SyncUiEventDispatcher.hasEventOfInterest(args.eventIds, [
+        // eslint-disable-next-line deprecation/deprecation
         SessionStateActionId.UpdateCursorMenu,
       ])
     ) {

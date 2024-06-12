@@ -49,6 +49,7 @@ export function getSelectionContextSyncEventIds(): string[] {
     SyncUiEventId.SelectionSetChanged,
     SyncUiEventId.ActiveContentChanged,
     SyncUiEventId.ActiveViewportChanged,
+    // eslint-disable-next-line deprecation/deprecation
     SessionStateActionId.SetNumItemsSelected,
     SyncUiEventId.FeatureOverridesChanged,
     SyncUiEventId.ViewedModelsChanged,
@@ -61,11 +62,7 @@ export function getSelectionContextSyncEventIds(): string[] {
  */
 export function isNoSelectionActive(): boolean {
   const activeContentControl = UiFramework.content.getActiveContentControl();
-  let selectionCount = 0;
-  if (!UiFramework.frameworkStateKey)
-    selectionCount =
-      UiFramework.store.getState()[UiFramework.frameworkStateKey].frameworkState
-        .sessionState.numItemsSelected;
+  const selectionCount = UiFramework.getNumItemsSelected();
 
   if (activeContentControl?.viewport) {
     const hiddenElementsSet = activeContentControl.viewport.neverDrawn;
@@ -146,12 +143,7 @@ export function selectionContextStateFunc(
   const activeContentControl = UiFramework.content.getActiveContentControl();
   let isVisible = false;
 
-  let selectionCount = 0;
-  if (!UiFramework.frameworkStateKey)
-    selectionCount =
-      UiFramework.store.getState()[UiFramework.frameworkStateKey].frameworkState
-        .sessionState.numItemsSelected;
-
+  const selectionCount = UiFramework.getNumItemsSelected();
   if (
     activeContentControl &&
     activeContentControl.viewport &&

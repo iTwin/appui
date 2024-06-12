@@ -9,6 +9,7 @@
 /**
  * Enumeration for sorting direction.
  * @public
+ * @deprecated in 4.15.0. Not used by AppUI.
  */
 export enum SortDirection {
   NoSort,

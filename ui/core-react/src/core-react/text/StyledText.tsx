@@ -23,7 +23,7 @@ export interface StyledTextProps extends TextProps {
 
 /** The base component for other text components that pass a main CSS class name.
  * @public
- * @deprecated in 4.0 Use \<Text /\> component from iTwinUI-react library.
+ * @deprecated in 4.0.0. Use \<Text /\> component from iTwinUI-react library.
  */
 export function StyledText(props: StyledTextProps) {
   const { mainClassName, className, style, children, ...spanProps } = props;

@@ -9,30 +9,25 @@
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
 import { SelectionCountField } from "./SelectionCount";
-import { useSelector } from "react-redux";
-import { UiFramework } from "../UiFramework";
-import type { FrameworkState } from "../redux/FrameworkState";
+import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState";
 
-/**
- * SelectionInfo Status Field React component. This component is designed to be specified in a status bar definition.
+/** `SelectionInfoField` component is designed to be specified in a status bar.
  * It is used to display the number of items in a selection set.
- * This React component is Redux connected.
- * @note Use [[SelectionCountField]] to display custom selection count.
+ * @note Requires redux provider.
  * @public
+ * @deprecated in 4.15.0. Use {@link SelectionCountField} instead.
  */
+// eslint-disable-next-line deprecation/deprecation
 export function SelectionInfoField(props: CommonProps) {
-  const count = useSelector((state: any) => {
-    const frameworkState: FrameworkState | undefined =
-      state[UiFramework.frameworkStateKey];
-    if (!frameworkState) return 0;
-
-    return frameworkState.sessionState.numItemsSelected;
-  });
+  const numItemsSelected = useReduxFrameworkState(
+    // eslint-disable-next-line deprecation/deprecation
+    (state) => state?.sessionState.numItemsSelected ?? 0
+  );
   return (
     <SelectionCountField
       className={props.className}
       style={props.style}
-      count={count}
+      count={numItemsSelected}
     />
   );
 }

@@ -16,7 +16,9 @@ import { useTranslation } from "../l10n/useTranslation";
 
 /** Properties for the [[ExpansionToggle]] component
  * @public
+ * @deprecated in 4.15.0. Props of deprecated {@link ExpansionToggle} component.
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface ExpansionToggleProps extends CommonProps {
   isExpanded?: boolean;
   onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
@@ -25,7 +27,9 @@ export interface ExpansionToggleProps extends CommonProps {
 
 /** ExpansionToggle React component used by the [[TreeNode]] component to show collapsed or expanded state
  * @public
+ * @deprecated in 4.15.0. Use {@link https://itwinui.bentley.com/docs/tree iTwinUI Tree} instead.
  */
+// eslint-disable-next-line deprecation/deprecation
 export function ExpansionToggle(props: ExpansionToggleProps) {
   const { translate } = useTranslation();
   const className = classnames(

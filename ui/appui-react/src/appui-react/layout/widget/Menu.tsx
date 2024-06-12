@@ -14,6 +14,7 @@ import { Popup } from "@itwin/core-react";
 import { RelativePosition } from "@itwin/appui-abstract";
 
 /** @internal */
+// eslint-disable-next-line deprecation/deprecation
 export interface WidgetMenuProps extends CommonProps {
   children?: React.ReactNode;
   open?: boolean;
@@ -25,6 +26,7 @@ export interface WidgetMenuProps extends CommonProps {
 export function WidgetMenu(props: WidgetMenuProps) {
   const className = classnames("nz-widget-menu", props.className);
   return (
+    // eslint-disable-next-line deprecation/deprecation
     <Popup
       className={className}
       isOpen={props.open}

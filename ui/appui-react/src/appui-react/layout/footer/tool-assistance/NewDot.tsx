@@ -14,6 +14,7 @@ import type { CommonProps } from "@itwin/core-react";
 /** 'New' dot used in Tool assistance instruction component.
  * @internal
  */
+// eslint-disable-next-line deprecation/deprecation
 export class NewDot extends React.PureComponent<CommonProps> {
   public override render() {
     const className = classnames(

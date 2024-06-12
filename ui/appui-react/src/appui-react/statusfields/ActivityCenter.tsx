@@ -18,6 +18,7 @@ import { useTranslation } from "../hooks/useTranslation";
 /** Activity Center Field React component.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export function ActivityCenterField(props: CommonProps) {
   const { translate } = useTranslation();
   const [message, setMessage] = React.useState<NotifyMessageType>("");

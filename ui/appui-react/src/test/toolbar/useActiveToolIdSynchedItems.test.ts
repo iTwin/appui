@@ -12,7 +12,7 @@ describe("useActiveToolIdSynchedItems", () => {
     const items = [{ id: "Btn1", isActive: false }];
     const syncHost = {
       activeToolId: "Btn1",
-      onToolActivatedEvent: new BeUiEvent<ToolActivatedEventArgs>(), // eslint-disable-line deprecation/deprecation
+      onToolActivatedEvent: new BeUiEvent<ToolActivatedEventArgs>(),
     };
 
     const { result } = renderHook(() => {
@@ -30,7 +30,7 @@ describe("useActiveToolIdSynchedItems", () => {
     ];
     const syncHost = {
       activeToolId: "Btn1",
-      onToolActivatedEvent: new BeUiEvent<ToolActivatedEventArgs>(), // eslint-disable-line deprecation/deprecation
+      onToolActivatedEvent: new BeUiEvent<ToolActivatedEventArgs>(),
     };
 
     const { result } = renderHook(() => {
@@ -50,7 +50,7 @@ describe("useActiveToolIdSynchedItems", () => {
     const items = [{ id: "Btn1", isActive: true }];
     const syncHost = {
       activeToolId: "Btn1",
-      onToolActivatedEvent: new BeUiEvent<ToolActivatedEventArgs>(), // eslint-disable-line deprecation/deprecation
+      onToolActivatedEvent: new BeUiEvent<ToolActivatedEventArgs>(),
     };
 
     const { result } = renderHook(() => {
@@ -79,7 +79,7 @@ describe("useActiveToolIdSynchedItems", () => {
     ];
     const syncHost = {
       activeToolId: "Btn3",
-      onToolActivatedEvent: new BeUiEvent<ToolActivatedEventArgs>(), // eslint-disable-line deprecation/deprecation
+      onToolActivatedEvent: new BeUiEvent<ToolActivatedEventArgs>(),
     };
     const { result } = renderHook(() => {
       return useActiveToolIdSynchedItems(items, syncHost);
@@ -96,7 +96,7 @@ describe("useActiveToolIdSynchedItems", () => {
     const items = [{ id: "Btn1" }];
     const syncHost = {
       activeToolId: "Btn1",
-      onToolActivatedEvent: new BeUiEvent<ToolActivatedEventArgs>(), // eslint-disable-line deprecation/deprecation
+      onToolActivatedEvent: new BeUiEvent<ToolActivatedEventArgs>(),
     };
     const spy = vi.spyOn(syncHost.onToolActivatedEvent, "removeListener");
     const { unmount } = renderHook(() => {

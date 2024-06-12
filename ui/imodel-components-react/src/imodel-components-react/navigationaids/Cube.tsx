@@ -30,6 +30,7 @@ export enum Face {
  */
 export interface CubeProps
   extends React.AllHTMLAttributes<HTMLDivElement>,
+    // eslint-disable-next-line deprecation/deprecation
     CommonProps {
   faces?: { [key: string]: React.ReactNode };
   rotMatrix: Matrix3d;

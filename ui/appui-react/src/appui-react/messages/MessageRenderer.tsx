@@ -128,6 +128,7 @@ function ActivityMessageContent({
       {activityMessageInfo.message && (
         <Text>
           <>
+            {/* eslint-disable-next-line deprecation/deprecation */}
             {(activityMessageInfo.message as ReactMessage).reactNode ||
               activityMessageInfo.message}
           </>
@@ -165,9 +166,11 @@ function useDisplayMessage() {
       });
       const content = (
         <>
+          {/* eslint-disable-next-line deprecation/deprecation */}
           <CoreMessageRenderer message={message.briefMessage} />
           {message.detailedMessage && (
             <Text variant="small">
+              {/* eslint-disable-next-line deprecation/deprecation */}
               <CoreMessageRenderer message={message.detailedMessage} />
             </Text>
           )}

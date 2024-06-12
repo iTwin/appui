@@ -18,6 +18,7 @@ import { useLabel } from "../base/NineZone";
 /** Properties of [[ToolSettingsOverflow]] component.
  * @internal
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface DockedToolSettingsOverflowProps extends CommonProps {
   /** Function called when button is clicked. */
   onClick?: () => void;

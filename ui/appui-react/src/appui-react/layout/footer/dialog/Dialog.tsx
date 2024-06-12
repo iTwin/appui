@@ -14,6 +14,7 @@ import type { CommonProps } from "@itwin/core-react";
 /** Properties of [[Dialog]] component.
  * @internal
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface DialogProps extends CommonProps {
   /** Dialog content.  */
   children?: React.ReactNode;
