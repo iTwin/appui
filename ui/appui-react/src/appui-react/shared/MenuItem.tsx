@@ -7,29 +7,24 @@
  */
 
 import * as React from "react";
-import type { AbstractMenuItemProps } from "@itwin/appui-abstract";
+import type {
+  AbstractMenuItemProps,
+  StringGetter,
+} from "@itwin/appui-abstract";
 import { ConditionalBooleanValue, UiError } from "@itwin/appui-abstract";
-import type { IconSpec } from "@itwin/core-react";
+import type { BadgeType, IconProps, IconSpec } from "@itwin/core-react";
 import { ContextMenuItem, ContextSubMenu } from "@itwin/core-react";
 import { UiFramework } from "../UiFramework";
 import type { ActionButtonItemDef } from "./ActionButtonItemDef";
 import { CommandItemDef } from "./CommandItemDef";
 import { ItemDefBase } from "./ItemDefBase";
-import type { CommandItemProps, ItemProps } from "./ItemProps";
+import type { CommandItemProps } from "./ItemProps";
 import type { ConditionalStringValue } from "./ConditionalValue";
-
-/* eslint-disable deprecation/deprecation */
-
-/** Menu Item Properties
- * @public
- * @deprecated in 4.11.0. Please use {@link CursorMenuItemProps}.
- */
-export type MenuItemProps = AbstractMenuItemProps;
 
 /** Properties for context menu items.
  * @public
  */
-export interface CursorMenuItemProps extends ItemProps {
+export interface CursorMenuItemProps extends IconProps {
   /** The id for the menu item. */
   id: string;
   /** The item to execute when this item is invoked. Either 'item' or 'submenu' must be specified. */
@@ -40,7 +35,48 @@ export interface CursorMenuItemProps extends ItemProps {
    * Name of icon WebFont entry or if specifying an imported SVG symbol use "webSvg:" prefix  to imported symbol Id.
    */
   iconRight?: string | ConditionalStringValue;
+
+  // #region "ItemProps" properties previously extended from deprecated type.
+
+  /** if true component will be hidden - defaults to false */
+  isHidden?: boolean | ConditionalBooleanValue;
+  /** if true component will be disabled - defaults to false */
+  isDisabled?: boolean | ConditionalBooleanValue;
+  /** if set, component will be considered "active" an will display an "active stripe" - defaults to false */
+  isActive?: boolean;
+  /** if set, component will be considered selected but will NOT display an "active stripe" - defaults to false. Typically used by buttons that toggle between two states. */
+  isPressed?: boolean;
+  /** can be used by application to store miscellaneous data. */
+  applicationData?: any;
+  /** Badge to be overlaid on the item. */
+  badgeType?: BadgeType;
+  /** abstract icon definition, used when create itemDef from abstract item (ie. MenuItem) */
+  icon?: IconSpec;
+
+  /** if set, it is used to explicitly set the label shown by a component. */
+  label?: string | StringGetter | ConditionalStringValue;
+  /** if set, it is used to define a key that is used to look up a localized string. This value is used only if label is not explicitly set. */
+  labelKey?: string;
+
+  /** if set, it is used to explicitly set the description shown by a component. */
+  description?: string | StringGetter | ConditionalStringValue;
+  /** if set, it is used to define a key that is used to look up a localized string. This value is used only if description is not explicitly set. */
+  descriptionKey?: string;
+  /** used to explicitly set the tooltip shown by a component. */
+  tooltip?: string | StringGetter | ConditionalStringValue;
+  /** if set, it is used to define a key that is used to look up a localized string. This value is used only if label is not explicitly set. */
+  tooltipKey?: string;
+
+  // #endregion "ItemProps"
 }
+
+/* eslint-disable deprecation/deprecation */
+
+/** Menu Item Properties
+ * @public
+ * @deprecated in 4.11.0. Please use {@link CursorMenuItemProps}.
+ */
+export type MenuItemProps = AbstractMenuItemProps;
 
 /** Menu Item
  * @alpha

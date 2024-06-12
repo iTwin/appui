@@ -13,8 +13,9 @@ import type { ToolbarGroupItem } from "../toolbar/ToolbarItem";
 
 /** Definition for a Group item that opens a group of items.
  * @public
- * @deprecated in 4.15.0. Use {@link ToolbarGroupItem} instead.
+ * @deprecated in 4.15.0. Use item specific types like {@link ToolbarGroupItem} instead.
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface GroupItemProps extends ItemProps {
   defaultActiveItemId?: string;
   groupId?: string;

@@ -7,12 +7,18 @@
  */
 import type { Key } from "ts-key-enum";
 import type { ActionButtonItemDef } from "../shared/ActionButtonItemDef";
-import type { ItemProps } from "../shared/ItemProps";
+import type {
+  ConditionalBooleanValue,
+  ConditionalStringValue,
+} from "../shared/ConditionalValue";
+import type { BadgeType, IconProps, IconSpec } from "@itwin/core-react";
+import type { StringGetter } from "@itwin/appui-abstract";
 
 /** Properties for a Keyboard Shortcut
  * @public
  */
-export interface KeyboardShortcutProps extends ItemProps {
+// eslint-disable-next-line deprecation/deprecation
+export interface KeyboardShortcutProps extends IconProps {
   /** The key that invokes the shortcut.
    * This is either an alphanumeric key, a function key or a special key.
    */
@@ -37,4 +43,37 @@ export interface KeyboardShortcutProps extends ItemProps {
   isCtrlKeyRequired?: boolean;
   /** Indicates whether the Shift key required. Default - false */
   isShiftKeyRequired?: boolean;
+
+  // #region "ItemProps" properties previously extended from deprecated type.
+
+  /** if true component will be hidden - defaults to false */
+  isHidden?: boolean | ConditionalBooleanValue;
+  /** if true component will be disabled - defaults to false */
+  isDisabled?: boolean | ConditionalBooleanValue;
+  /** if set, component will be considered "active" an will display an "active stripe" - defaults to false */
+  isActive?: boolean;
+  /** if set, component will be considered selected but will NOT display an "active stripe" - defaults to false. Typically used by buttons that toggle between two states. */
+  isPressed?: boolean;
+  /** can be used by application to store miscellaneous data. */
+  applicationData?: any;
+  /** Badge to be overlaid on the item. */
+  badgeType?: BadgeType;
+  /** abstract icon definition, used when create itemDef from abstract item (ie. MenuItem) */
+  icon?: IconSpec;
+
+  /** if set, it is used to explicitly set the label shown by a component. */
+  label?: string | StringGetter | ConditionalStringValue;
+  /** if set, it is used to define a key that is used to look up a localized string. This value is used only if label is not explicitly set. */
+  labelKey?: string;
+
+  /** if set, it is used to explicitly set the description shown by a component. */
+  description?: string | StringGetter | ConditionalStringValue;
+  /** if set, it is used to define a key that is used to look up a localized string. This value is used only if description is not explicitly set. */
+  descriptionKey?: string;
+  /** used to explicitly set the tooltip shown by a component. */
+  tooltip?: string | StringGetter | ConditionalStringValue;
+  /** if set, it is used to define a key that is used to look up a localized string. This value is used only if label is not explicitly set. */
+  tooltipKey?: string;
+
+  // #endregion "ItemProps"
 }
