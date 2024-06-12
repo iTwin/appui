@@ -1704,11 +1704,6 @@ export class DrawingNavigationAidControl extends NavigationAidControl {
 // @public
 export class ElementTooltip extends React_2.Component<CommonProps, // eslint-disable-line deprecation/deprecation
 ElementTooltipState> {
-    constructor(props: CommonProps);
-    // (undocumented)
-    componentDidMount(): void;
-    // (undocumented)
-    componentWillUnmount(): void;
     // (undocumented)
     static hideTooltip(): void;
     // (undocumented)
@@ -1719,11 +1714,9 @@ ElementTooltipState> {
     // (undocumented)
     static get onElementTooltipChangedEvent(): ElementTooltipChangedEvent;
     // (undocumented)
-    render(): React_2.JSX.Element | null;
+    render(): React_2.JSX.Element;
     // (undocumented)
     static showTooltip(el: HTMLElement, message: NotifyMessageType, pt?: XAndY, options?: ToolTipOptions): void;
-    // @internal (undocumented)
-    readonly state: Readonly<ElementTooltipState>;
 }
 
 // @public @deprecated
