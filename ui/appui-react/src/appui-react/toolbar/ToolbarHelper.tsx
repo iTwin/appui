@@ -30,6 +30,8 @@ import type {
 import { isToolbarActionItem, isToolbarGroupItem } from "./ToolbarItem";
 import type { ToolbarItemUtilities } from "./ToolbarItemUtilities";
 
+/* eslint-disable deprecation/deprecation */
+
 /**
  * Common implementation for `constructChildToolbarItems` and `createToolbarItemsFromItemDefs`.
  * @param itemDefs List of itemDefs to convert.
@@ -63,6 +65,7 @@ function constructToolbarItemArray<T extends boolean>(
 
 /** Helper functions for defining a Toolbar items used in `Toolbar`, `ToolbarComposer` and `UiItemsProvider`.
  * @public
+ * @deprecated in 4.15.0. Use {@link ToolbarItemUtilities} instead.
  */
 export class ToolbarHelper {
   /** Construct ToolbarCustomItem definitions given a CustomItemDef.
@@ -70,14 +73,15 @@ export class ToolbarHelper {
    */
   public static createCustomDefinitionToolbarItem(
     itemPriority: number,
-    // eslint-disable-next-line deprecation/deprecation
     itemDef: CustomItemDef,
     overrides?: Partial<CustomButtonDefinition>
   ): ToolbarCustomItem {
     return this.createToolbarItemFromItemDef(itemPriority, itemDef, overrides);
   }
 
-  /** Construct ToolbarActionItem and ToolbarGroupItem definitions given an array of ItemDefs. */
+  /** Construct ToolbarActionItem and ToolbarGroupItem definitions given an array of ItemDefs.
+   * @deprecated in 4.15.0. Use {@link ToolbarItemUtilities} instead.
+   */
   public static constructChildToolbarItems(
     itemDefs: AnyItemDef[]
   ): Array<ToolbarActionItem | ToolbarGroupItem> {
@@ -96,13 +100,16 @@ export class ToolbarHelper {
     return inString();
   }
 
+  /** @deprecated in 4.15.0. Use {@link IconHelper} instead. */
   public static getIconReactNode(
     item: ActionButton | GroupButton
   ): React.ReactNode {
     return IconHelper.getIconReactNode(item.icon, item.internalData);
   }
 
-  /** Helper method to creates a generic toolbar item entry. */
+  /** Helper method to creates a generic toolbar item entry.
+   * @deprecated in 4.15.0. Use {@link ToolbarItemUtilities} instead.
+   */
   public static createToolbarItemFromItemDef(
     itemPriority: number,
     itemDef: AnyItemDef,
@@ -126,21 +133,18 @@ export class ToolbarHelper {
       description: description ?? itemDef.description,
     };
 
-    // eslint-disable-next-line deprecation/deprecation
     if (itemDef instanceof CommandItemDef || itemDef instanceof ToolItemDef) {
       return {
         ...itemBase,
         execute: itemDef.execute,
         ...itemOverrides,
       };
-      // eslint-disable-next-line deprecation/deprecation
     } else if (itemDef instanceof CustomItemDef) {
       return {
         ...itemBase,
         panelContent: itemDef.popupPanelNode,
         ...itemOverrides,
       };
-      // eslint-disable-next-line deprecation/deprecation
     } else if (itemDef instanceof GroupItemDef) {
       return {
         ...itemBase,
@@ -154,7 +158,9 @@ export class ToolbarHelper {
     }
   }
 
-  /** Helper method to creates a generic toolbar item entry list. */
+  /** Helper method to creates a generic toolbar item entry list.
+   * @deprecated in 4.15.0. Use {@link ToolbarItemUtilities} instead.
+   */
   public static createToolbarItemsFromItemDefs(
     itemDefs: AnyItemDef[],
     startingItemPriority = 10,
@@ -171,7 +177,6 @@ export class ToolbarHelper {
 
 /** @internal */
 export function itemDefToToolbarActionItem(
-  // eslint-disable-next-line deprecation/deprecation
   itemDef: ToolItemDef | CommandItemDef,
   overrides?: Partial<ToolbarActionItem>
 ): ToolbarActionItem {
@@ -185,7 +190,6 @@ export function itemDefToToolbarActionItem(
 
 /** @internal */
 export function itemDefToToolbarGroupItem(
-  // eslint-disable-next-line deprecation/deprecation
   itemDef: GroupItemDef,
   overrides?: Partial<ToolbarGroupItem>
 ): ToolbarGroupItem {
