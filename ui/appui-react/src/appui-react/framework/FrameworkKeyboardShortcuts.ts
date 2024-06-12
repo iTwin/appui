@@ -52,7 +52,8 @@ export interface FrameworkKeyboardShortcut {
   /** Gets whether this is a Special key. */
   readonly isSpecialKey: boolean;
 
-  // Properties extended from deprecated `ItemDefBase`
+  // #region "ItemDefBase" properties previously extended from deprecated type.
+
   isPressed: boolean;
   isActive: boolean;
   applicationData?: any;
@@ -69,6 +70,8 @@ export interface FrameworkKeyboardShortcut {
   setTooltip(v: string | StringGetter | ConditionalStringValue): void;
   readonly description: string;
   setDescription(v: string | StringGetter | ConditionalStringValue): void;
+
+  // #endregion "ItemDefBase"
 }
 
 /** Keyboard Shortcut Container
