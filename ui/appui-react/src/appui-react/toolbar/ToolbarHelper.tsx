@@ -135,6 +135,7 @@ export class ToolbarHelper {
         panelContent: itemDef.popupPanelNode,
         ...itemOverrides,
       };
+      // eslint-disable-next-line deprecation/deprecation
     } else if (itemDef instanceof GroupItemDef) {
       return {
         ...itemBase,
@@ -179,6 +180,7 @@ export function itemDefToToolbarActionItem(
 
 /** @internal */
 export function itemDefToToolbarGroupItem(
+  // eslint-disable-next-line deprecation/deprecation
   itemDef: GroupItemDef,
   overrides?: Partial<ToolbarGroupItem>
 ): ToolbarGroupItem {

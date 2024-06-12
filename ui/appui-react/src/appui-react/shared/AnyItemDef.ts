@@ -15,6 +15,7 @@ import type { ToolItemDef } from "./ToolItemDef";
  * @public
  */
 export type AnyItemDef =
+  // eslint-disable-next-line deprecation/deprecation
   | GroupItemDef
   // eslint-disable-next-line deprecation/deprecation
   | CommandItemDef

@@ -17,13 +17,13 @@ import type { GroupItemProps } from "../shared/GroupItemProps";
 import type { ItemDefBase } from "../shared/ItemDefBase";
 import { ItemList, ItemMap } from "../shared/ItemMap";
 import { PropsHelper } from "../utils/PropsHelper";
+import type { ToolbarItemUtilities } from "./ToolbarItemUtilities";
 
-// -----------------------------------------------------------------------------
-// GroupItemDef class
-// -----------------------------------------------------------------------------
+/* eslint-disable deprecation/deprecation */
 
 /** An Item that opens a group of items.
  * @public
+ * @deprecated in 4.15.0. Use {@link ToolbarItemUtilities.createGroupItem} instead.
  */
 export class GroupItemDef extends ActionButtonItemDef {
   private static _sId = 0;
