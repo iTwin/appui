@@ -100,7 +100,7 @@ export class ToolbarHelper {
     return inString();
   }
 
-  /** @deprecated in 4.15.0. Use {@link IconHelper} instead. */
+  /** @deprecated in 4.15.0. Use {@link @itwin/core-react#IconHelper} instead. */
   public static getIconReactNode(
     item: ActionButton | GroupButton
   ): React.ReactNode {

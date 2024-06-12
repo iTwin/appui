@@ -211,6 +211,7 @@ export * from "./appui-react/toolbar/useUiItemsProviderToolbarItems";
 export * from "./appui-react/tools/CoreToolDefinitions";
 export * from "./appui-react/tools/FrameworkToolAdmin";
 export * from "./appui-react/tools/RestoreLayoutTool";
+export * from "./appui-react/tools/ToolbarItems";
 export * from "./appui-react/tools/ToolSettingsTools";
 
 export * from "./appui-react/ui-items-provider/BaseUiItemsProvider";

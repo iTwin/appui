@@ -154,7 +154,7 @@ export class MenuItem extends ItemDefBase {
 
 /** Menu Item helper methods
  * @alpha
- * @deprecated in 4.15.0. Use {@link ContextMenuItem} and {@link ContextSubMenu} components.
+ * @deprecated in 4.15.0. Use {@link @itwin/core-react#ContextMenuItem} and {@link @itwin/core-react#ContextSubMenu} components.
  */
 export class MenuItemHelpers {
   public static createMenuItems(

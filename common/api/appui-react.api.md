@@ -107,6 +107,7 @@ import type { ToolbarOpacitySetting } from '@itwin/components-react';
 import { ToolbarPanelAlignment } from '@itwin/components-react';
 import type { ToolList } from '@itwin/core-frontend';
 import type { ToolTipOptions } from '@itwin/core-frontend';
+import { ToolType } from '@itwin/core-frontend';
 import type { TranslationOptions } from '@itwin/core-common';
 import { UiAdmin } from '@itwin/appui-abstract';
 import type { UiDataProvider } from '@itwin/appui-abstract';
@@ -126,7 +127,7 @@ import type { ViewStateProp } from '@itwin/imodel-components-react';
 import type { ViewStateProps } from '@itwin/core-common';
 import type { XAndY } from '@itwin/core-geometry';
 
-// @beta
+// @beta @deprecated
 export class AccuDrawCommandItems {
     // (undocumented)
     static get bumpToolSetting(): ToolItemDef;
@@ -315,7 +316,7 @@ export interface Action<T extends string> {
     type: T;
 }
 
-// @public
+// @public @deprecated
 export abstract class ActionButtonItemDef extends ItemDefBase {
     constructor(itemProps: ItemProps, onItemExecuted?: OnItemExecutedFunc);
     protected _commandHandler?: CommandHandler_2;
@@ -400,7 +401,7 @@ export class AnalysisAnimationTimelineDataProvider extends BaseTimelineDataProvi
     onPlaybackSettingChanged: (settings: PlaybackSettings) => void;
 }
 
-// @public
+// @public @deprecated
 export type AnyItemDef = GroupItemDef | CommandItemDef | ToolItemDef | ActionButtonItemDef;
 
 // @public
@@ -452,7 +453,7 @@ export class AppUiSettings implements UserSettingsProvider {
     widgetOpacity: UiStateEntry<number>;
 }
 
-// @beta
+// @beta @deprecated
 export function areNoFeatureOverridesActive(): boolean;
 
 // @public
@@ -462,7 +463,7 @@ export interface BackstageActionItem extends CommonBackstageItem {
 }
 
 // @public
-export function BackstageAppButton(props: BackstageAppButtonProps): React_2.JSX.Element;
+export function BackstageAppButton({ icon, label, execute, }: BackstageAppButtonProps): React_2.JSX.Element;
 
 // @public
 export interface BackstageAppButtonProps {
@@ -517,7 +518,7 @@ export namespace BackstageItemUtilities {
     export function createStageLauncher(frontstageId: string, groupPriority: number, itemPriority: number, label: string, subtitle?: string, icon?: IconSpec, overrides?: Partial<BackstageStageLauncher>): BackstageStageLauncher;
 }
 
-// @public
+// @public @deprecated
 export class BackstageManager {
     // (undocumented)
     close(): void;
@@ -547,7 +548,7 @@ export interface BackstageToggledArgs {
     readonly isOpen: boolean;
 }
 
-// @public
+// @public @deprecated
 export interface BaseItemState {
     // (undocumented)
     isActive?: boolean;
@@ -805,14 +806,14 @@ export const combineReducers: CombineReducersFunction;
 // @public
 export type CombineReducersFunction = <A>(reducers: A) => (state: CombinedReducerState<A>, action: ReducerMapActions<A>) => CombinedReducerState<A>;
 
-// @public
+// @public @deprecated
 export interface CommandHandler {
     execute?: (args?: any) => any;
     getCommandArgs?: () => any[];
     parameters?: any;
 }
 
-// @public
+// @public @deprecated
 export class CommandItemDef extends ActionButtonItemDef {
     constructor(commandItemProps: CommandItemProps, onItemExecuted?: OnItemExecutedFunc);
     // (undocumented)
@@ -823,7 +824,7 @@ export class CommandItemDef extends ActionButtonItemDef {
     get id(): string;
 }
 
-// @public
+// @public @deprecated
 export interface CommandItemProps extends ItemProps, CommandHandler {
     // (undocumented)
     commandId?: string;
@@ -1199,7 +1200,7 @@ export interface ContentToolWidgetComposerProps {
 // @internal
 export function ContentWrapper(props: ContentWrapperProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export class CoreTools {
     // (undocumented)
     static get clearSelectionItemDef(): CommandItemDef;
@@ -1328,11 +1329,26 @@ export interface CursorMenuData {
 }
 
 // @public
-export interface CursorMenuItemProps extends ItemProps {
+export interface CursorMenuItemProps extends IconProps {
+    applicationData?: any;
+    badgeType?: BadgeType;
+    description?: string | StringGetter | ConditionalStringValue_2;
+    descriptionKey?: string;
+    execute?: () => any;
+    icon?: IconSpec;
     iconRight?: string | ConditionalStringValue_2;
     id: string;
+    isActive?: boolean;
+    isDisabled?: boolean | ConditionalBooleanValue;
+    isHidden?: boolean | ConditionalBooleanValue;
+    isPressed?: boolean;
+    // @deprecated
     item?: CommandItemProps;
+    label?: string | StringGetter | ConditionalStringValue_2;
+    labelKey?: string;
     submenu?: CursorMenuItemProps[];
+    tooltip?: string | StringGetter | ConditionalStringValue_2;
+    tooltipKey?: string;
 }
 
 // @public
@@ -1471,7 +1487,7 @@ export interface CursorUpdatedEventArgs {
     oldPt: XAndY;
 }
 
-// @public
+// @public @deprecated
 export class CustomItemDef extends ActionButtonItemDef {
     constructor(props: CustomItemProps);
     // (undocumented)
@@ -1484,7 +1500,7 @@ export class CustomItemDef extends ActionButtonItemDef {
     popupPanelNode?: React_2.ReactNode;
 }
 
-// @public
+// @public @deprecated
 export interface CustomItemProps extends ItemProps {
     // (undocumented)
     customId?: string;
@@ -1762,7 +1778,7 @@ export interface ExtensibleToolbarProps {
     usage: ToolbarUsage;
 }
 
-// @beta
+// @beta @deprecated
 export function featureOverridesActiveStateFunc(state: Readonly<BaseItemState>): BaseItemState;
 
 // @beta (undocumented)
@@ -1854,6 +1870,7 @@ export class FrameworkAccuDraw extends AccuDraw implements UserSettingsProvider 
 // @public
 export interface FrameworkBackstage {
     close(): void;
+    // @deprecated
     getBackstageToggleCommand(overrideIconSpec?: IconSpec): CommandItemDef;
     readonly isOpen: boolean;
     readonly onToggled: BeEvent<(args: BackstageToggledArgs) => void>;
@@ -1999,19 +2016,52 @@ export interface FrameworkFrontstages {
 }
 
 // @public
-export interface FrameworkKeyboardShortcut extends ItemDefBase {
+export interface FrameworkKeyboardShortcut {
+    // (undocumented)
+    applicationData?: any;
+    // (undocumented)
+    badgeType?: BadgeType;
+    // (undocumented)
+    readonly description: string;
     getShortcut(mapKey: string): FrameworkKeyboardShortcut | undefined;
+    // (undocumented)
+    iconElement?: React.ReactNode;
+    // (undocumented)
+    iconSpec?: IconSpec;
     readonly id: string;
+    // (undocumented)
+    isActive: boolean;
     readonly isAltKeyRequired: boolean;
     readonly isCtrlKeyRequired: boolean;
+    // (undocumented)
+    isDisabled?: boolean | ConditionalBooleanValue_2;
     readonly isFunctionKey: boolean;
+    // (undocumented)
+    isHidden?: boolean | ConditionalBooleanValue_2;
+    // (undocumented)
+    isPressed: boolean;
     readonly isShiftKeyRequired: boolean;
     readonly isSpecialKey: boolean;
+    // @deprecated
     readonly item: ActionButtonItemDef | undefined;
     itemPicked(): void;
     readonly key: string;
     readonly keyMapKey: string;
+    // (undocumented)
+    readonly label: string;
+    // (undocumented)
+    readonly rawLabel: string | StringGetter | ConditionalStringValue_2;
+    // (undocumented)
+    setDescription(v: string | StringGetter | ConditionalStringValue_2): void;
+    // (undocumented)
+    setLabel(v: string | StringGetter | ConditionalStringValue_2): void;
+    // (undocumented)
+    setTooltip(v: string | StringGetter | ConditionalStringValue_2): void;
     readonly shortcutContainer: FrameworkKeyboardShortcutContainer;
+    // (undocumented)
+    readonly tooltip: string;
+    // (undocumented)
+    trayId: undefined;
 }
 
 // @public
@@ -2044,7 +2094,7 @@ export interface FrameworkKeyboardShortcuts {
 export const FrameworkReducer: (state: CombinedReducerState<    {
 configurableUiState: typeof ConfigurableUiReducer;
 sessionState: typeof SessionStateReducer;
-}>, action: DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetSnapMode, number>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetTheme, string>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetToolPrompt, string>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetWidgetOpacity, number>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetDragInteraction, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetShowWidgetIcon, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.AutoCollapseUnpinnedPanels, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetViewOverlayDisplay, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.AnimateToolSettings, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.UseToolAsToolSettingsLabel, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetToolbarOpacity, number>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetActiveIModelId, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetAvailableSelectionScopes, DeepReadonlyArray<PresentationSelectionScope>>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetDefaultIModelViewportControlId, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetDefaultViewId, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetDefaultViewState, any>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetNumItemsSelected, number>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetIModelConnection, any>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetSelectionScope, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject<CursorMenuData> | DeepReadonlyObject<CursorMenuPayload>>>) => CombinedReducerState<    {
+}>, action: DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetSnapMode, number>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetTheme, string>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetToolPrompt, string>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetWidgetOpacity, number>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetDragInteraction, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetShowWidgetIcon, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.AutoCollapseUnpinnedPanels, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetViewOverlayDisplay, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.AnimateToolSettings, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.UseToolAsToolSettingsLabel, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetToolbarOpacity, number>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetActiveIModelId, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetAvailableSelectionScopes, DeepReadonlyArray<PresentationSelectionScope>>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetDefaultIModelViewportControlId, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetDefaultViewId, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetDefaultViewState, any>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetNumItemsSelected, number>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetIModelConnection, any>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetSelectionScope, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject<CursorMenuPayload> | DeepReadonlyObject<CursorMenuData>>>) => CombinedReducerState<    {
 configurableUiState: typeof ConfigurableUiReducer;
 sessionState: typeof SessionStateReducer;
 }>;
@@ -2351,16 +2401,16 @@ export type FunctionType = (...args: any[]) => any;
 // @internal (undocumented)
 export function getBadgeClassName(badgeType: BadgeType | undefined): "uifw-badge-new" | "uifw-badge-tp" | undefined;
 
-// @beta
+// @beta @deprecated
 export function getFeatureOverrideSyncEventIds(): string[];
 
 // @internal (undocumented)
 export function getFrontstageStateSettingName(frontstageId: WidgetPanelsFrontstageState["id"]): string;
 
-// @beta
+// @beta @deprecated
 export function getIsHiddenIfFeatureOverridesActive(): ConditionalBooleanValue;
 
-// @beta
+// @beta @deprecated
 export function getIsHiddenIfSelectionNotActive(): ConditionalBooleanValue;
 
 // @internal
@@ -2381,7 +2431,7 @@ export function getPanelState(state: NineZoneState, side: PanelSide): StagePanel
 // @beta
 export function getQuantityFormatsSettingsManagerEntry(itemPriority: number, opts?: Partial<QuantityFormatterSettingsOptions>): SettingsTabEntry;
 
-// @beta
+// @beta @deprecated
 export function getSelectionContextSyncEventIds(): string[];
 
 // @beta
@@ -2393,7 +2443,7 @@ export function getWidgetState(widgetDef: WidgetDef, nineZone: NineZoneState): W
 // @internal (undocumented)
 export type GroupedItems = ReadonlyArray<ReadonlyArray<BackstageItem>>;
 
-// @public
+// @public @deprecated
 export class GroupItemDef extends ActionButtonItemDef {
     constructor(groupItemProps: GroupItemProps, onItemExecuted?: OnItemExecutedFunc);
     // (undocumented)
@@ -2424,7 +2474,7 @@ export class GroupItemDef extends ActionButtonItemDef {
     setPanelLabel(v: string | StringGetter | ConditionalStringValue): void;
 }
 
-// @public
+// @public @deprecated
 export interface GroupItemProps extends ItemProps {
     // (undocumented)
     defaultActiveItemId?: string;
@@ -2688,7 +2738,7 @@ export function isFrontstageStateSettingResult(settingsResult: UiStateStorageRes
     setting: WidgetPanelsFrontstageState;
 };
 
-// @beta
+// @beta @deprecated
 export function isNoSelectionActive(): boolean;
 
 // @internal
@@ -2715,7 +2765,7 @@ export function isToolbarCustomItem(item: ToolbarItem): item is ToolbarCustomIte
 // @public
 export function isToolbarGroupItem(item: ToolbarItem): item is ToolbarGroupItem;
 
-// @public
+// @public @deprecated
 export abstract class ItemDefBase {
     constructor(itemProps: ItemProps);
     // (undocumented)
@@ -2750,6 +2800,12 @@ export abstract class ItemDefBase {
     get trayId(): undefined;
 }
 
+// @internal (undocumented)
+export function itemDefToToolbarActionItem(itemDef: ToolItemDef | CommandItemDef, overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
+
+// @internal (undocumented)
+export function itemDefToToolbarGroupItem(itemDef: GroupItemDef, overrides?: Partial<ToolbarGroupItem>): ToolbarGroupItem;
+
 // @public
 export class ItemList extends Array<ItemDefBase> {
     constructor(items?: ItemDefBase[]);
@@ -2761,7 +2817,7 @@ export class ItemList extends Array<ItemDefBase> {
     get items(): ItemDefBase[];
 }
 
-// @public
+// @public @deprecated
 export class ItemMap extends Map<string, ItemDefBase> {
     constructor(items?: ItemDefBase[]);
     // (undocumented)
@@ -2770,7 +2826,7 @@ export class ItemMap extends Map<string, ItemDefBase> {
     addItems(items: ItemDefBase[]): void;
 }
 
-// @public
+// @public @deprecated
 export interface ItemProps extends IconProps {
     applicationData?: any;
     badgeType?: BadgeType;
@@ -2787,7 +2843,7 @@ export interface ItemProps extends IconProps {
     tooltipKey?: string;
 }
 
-// @public
+// @public @deprecated
 export class KeyboardShortcut extends ItemDefBase {
     constructor(props: KeyboardShortcutProps);
     getShortcut(mapKey: string): KeyboardShortcut | undefined;
@@ -2804,7 +2860,7 @@ export class KeyboardShortcut extends ItemDefBase {
     get shortcutContainer(): KeyboardShortcutContainer;
 }
 
-// @public
+// @public @deprecated
 export class KeyboardShortcutContainer {
     areKeyboardShortcutsAvailable(): boolean;
     emptyData(): void;
@@ -2816,7 +2872,7 @@ export class KeyboardShortcutContainer {
     showShortcutsMenu(): void;
 }
 
-// @public
+// @public @deprecated
 export class KeyboardShortcutMenu extends React_2.PureComponent<CommonProps, KeyboardShortcutMenuState> {
     // (undocumented)
     componentDidMount(): void;
@@ -2833,7 +2889,7 @@ export class KeyboardShortcutMenu extends React_2.PureComponent<CommonProps, Key
 export class KeyboardShortcutMenuEvent extends UiEvent<KeyboardShortcutMenuState> {
 }
 
-// @public
+// @public @deprecated
 export interface KeyboardShortcutMenuState {
     // (undocumented)
     menuVisible: boolean;
@@ -2846,13 +2902,33 @@ export interface KeyboardShortcutMenuState {
 }
 
 // @public
-export interface KeyboardShortcutProps extends ItemProps {
+export interface KeyboardShortcutProps extends IconProps {
+    applicationData?: any;
+    badgeType?: BadgeType;
+    description?: string | StringGetter | ConditionalStringValue_2;
+    descriptionKey?: string;
+    execute?: () => void;
+    icon?: IconSpec;
+    isActive?: boolean;
     isAltKeyRequired?: boolean;
     isCtrlKeyRequired?: boolean;
+    isDisabled?: boolean | ConditionalBooleanValue_2;
+    isHidden?: boolean | ConditionalBooleanValue_2;
+    isPressed?: boolean;
     isShiftKeyRequired?: boolean;
+    // @deprecated
     item?: ActionButtonItemDef;
     key: string | Key;
+    label?: string | StringGetter | ConditionalStringValue_2;
+    labelKey?: string;
     shortcuts?: KeyboardShortcutProps[];
+    tooltip?: string | StringGetter | ConditionalStringValue_2;
+    tooltipKey?: string;
+}
+
+// @beta
+export namespace KeyboardShortcutUtilities {
+    export function createForTool(key: string, toolType: ToolType, overrides?: Partial<KeyboardShortcutProps>): KeyboardShortcutProps;
 }
 
 // @public
@@ -3020,7 +3096,7 @@ export interface MenuButtonProps extends SquareButtonProps {
     point: XAndY;
 }
 
-// @alpha
+// @alpha @deprecated
 export class MenuItem extends ItemDefBase {
     constructor(props: CursorMenuItemProps, onSelection?: () => void);
     // (undocumented)
@@ -3035,7 +3111,7 @@ export class MenuItem extends ItemDefBase {
     get submenu(): MenuItem[];
 }
 
-// @alpha
+// @alpha @deprecated
 export class MenuItemHelpers {
     // (undocumented)
     static createMenuItemNodes(itemList: MenuItem[]): React_2.ReactNode[];
@@ -3295,10 +3371,13 @@ export interface NavigationWidgetComposerProps extends CommonProps {
     verticalToolbar?: React_2.ReactNode;
 }
 
-// @public
+// @public @deprecated
 export class NestedFrontstage {
     static get backToPreviousFrontstageCommand(): CommandItemDef;
 }
+
+// @public
+export function NestedFrontstageAppButton({ icon, label, onClick, }: NestedFrontstageAppButtonProps): React_2.JSX.Element;
 
 // @public
 export type NotifyMessageDetailsType = NotifyMessageDetails | ReactNotifyMessageDetails;
@@ -3716,10 +3795,10 @@ export interface SectionsStatusFieldProps extends CommonProps {
     hideWhenUnused?: boolean;
 }
 
-// @beta
+// @beta @deprecated
 export function selectionContextStateFunc(state: Readonly<BaseItemState>): BaseItemState;
 
-// @public
+// @public @deprecated
 export class SelectionContextToolDefinitions {
     // (undocumented)
     static get clearHideIsolateEmphasizeElementsItemDef(): CommandItemDef;
@@ -3828,7 +3907,7 @@ export const SessionStateActions: {
     setNumItemsSelected: (numSelected: number) => ActionWithPayload<SessionStateActionId.SetNumItemsSelected, number>;
     setIModelConnection: (iModelConnection: any) => ActionWithPayload<SessionStateActionId.SetIModelConnection, any>;
     setSelectionScope: (activeSelectionScope: string) => ActionWithPayload<SessionStateActionId.SetSelectionScope, string>;
-    updateCursorMenu: (cursorMenuData: CursorMenuData | CursorMenuPayload) => ActionWithPayload<SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject<CursorMenuData> | DeepReadonlyObject<CursorMenuPayload>>;
+    updateCursorMenu: (cursorMenuData: CursorMenuData | CursorMenuPayload) => ActionWithPayload<SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject<CursorMenuPayload> | DeepReadonlyObject<CursorMenuData>>;
 };
 
 // @beta
@@ -3866,7 +3945,7 @@ export const sessionStateMapDispatchToProps: {
     setNumItemsSelected: (numSelected: number) => ActionWithPayload<SessionStateActionId.SetNumItemsSelected, number>;
     setIModelConnection: (iModelConnection: any) => ActionWithPayload<SessionStateActionId.SetIModelConnection, any>;
     setSelectionScope: (activeSelectionScope: string) => ActionWithPayload<SessionStateActionId.SetSelectionScope, string>;
-    updateCursorMenu: (cursorMenuData: CursorMenuData | CursorMenuPayload) => ActionWithPayload<SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject<CursorMenuData> | DeepReadonlyObject<CursorMenuPayload>>;
+    updateCursorMenu: (cursorMenuData: CursorMenuData | CursorMenuPayload) => ActionWithPayload<SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject<CursorMenuPayload> | DeepReadonlyObject<CursorMenuData>>;
 };
 
 // @public
@@ -4650,13 +4729,17 @@ export interface ToolbarGroupItem extends CommonToolbarItem {
     readonly parentGroupItemId?: string;
 }
 
-// @public
+// @public @deprecated
 export class ToolbarHelper {
+    // @deprecated
     static constructChildToolbarItems(itemDefs: AnyItemDef[]): Array<ToolbarActionItem | ToolbarGroupItem>;
+    // @deprecated
     static createCustomDefinitionToolbarItem(itemPriority: number, itemDef: CustomItemDef, overrides?: Partial<CustomButtonDefinition>): ToolbarCustomItem;
+    // @deprecated
     static createToolbarItemFromItemDef(itemPriority: number, itemDef: AnyItemDef, overrides?: Partial<CommonToolbarItem_2>): ToolbarItem;
+    // @deprecated
     static createToolbarItemsFromItemDefs(itemDefs: AnyItemDef[], startingItemPriority?: number, overrides?: Partial<CommonToolbarItem_2>): ToolbarItem[];
-    // (undocumented)
+    // @deprecated (undocumented)
     static getIconReactNode(item: ActionButton | GroupButton): React_2.ReactNode;
 }
 
@@ -4668,10 +4751,81 @@ export interface ToolbarItemLayouts {
     readonly standard?: StandardLayoutToolbarItem;
 }
 
+// @beta (undocumented)
+export namespace ToolbarItems {
+    // (undocumented)
+    export function createClearHideIsolateEmphasizeElements(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
+    // (undocumented)
+    export function createClearSelection(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
+    // (undocumented)
+    export function createEmphasizeElements(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
+    // (undocumented)
+    export function createFitView(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
+    // (undocumented)
+    export function createFlyView(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
+    // (undocumented)
+    export function createHideCategoriesInSelection(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
+    // (undocumented)
+    export function createHideElements(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
+    // (undocumented)
+    export function createHideModelsInSelection(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
+    // (undocumented)
+    export function createHideSectionGroup(overrides?: Partial<ToolbarGroupItem>): ToolbarGroupItem;
+    // (undocumented)
+    export function createIsolateCategoriesInSelection(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
+    // (undocumented)
+    export function createIsolateElements(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
+    // (undocumented)
+    export function createIsolateModelsInSelection(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
+    // (undocumented)
+    export function createIsolateSelectionGroup(overrides?: Partial<ToolbarGroupItem>): ToolbarGroupItem;
+    // (undocumented)
+    export function createMeasureDistance(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
+    // (undocumented)
+    export function createMeasureGroup(overrides?: Partial<ToolbarGroupItem>): ToolbarGroupItem;
+    // (undocumented)
+    export function createMeasureLocation(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
+    // (undocumented)
+    export function createPanView(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
+    // (undocumented)
+    export function createRestoreFrontstageLayout(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
+    // (undocumented)
+    export function createRotateView(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
+    // (undocumented)
+    export function createSectionByElement(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
+    // (undocumented)
+    export function createSectionByPlane(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
+    // (undocumented)
+    export function createSectionByRange(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
+    // (undocumented)
+    export function createSectionByShape(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
+    // (undocumented)
+    export function createSectionGroup(overrides?: Partial<ToolbarGroupItem>): ToolbarGroupItem;
+    // (undocumented)
+    export function createSelectElement(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
+    // (undocumented)
+    export function createSetupWalkCamera(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
+    // (undocumented)
+    export function createShowKeyinPalette(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
+    // (undocumented)
+    export function createToggleCameraView(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
+    // (undocumented)
+    export function createViewRedo(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
+    // (undocumented)
+    export function createViewUndo(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
+    // (undocumented)
+    export function createWalkView(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
+    // (undocumented)
+    export function createWindowArea(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
+    // (undocumented)
+    export function createZoomView(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
+}
+
 // @beta
 export namespace ToolbarItemUtilities {
     export function createActionItem(id: ToolbarActionItem["id"], itemPriority: ToolbarActionItem["itemPriority"], icon: ToolbarActionItem["icon"], label: ToolbarActionItem["label"], execute: ToolbarActionItem["execute"], overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
     export function createCustomItem(id: string, itemPriority: number, icon: ToolbarCustomItem["icon"], label: ToolbarCustomItem["label"], panelContent?: ToolbarCustomItem["panelContent"], overrides?: Partial<ToolbarCustomItem>): ToolbarCustomItem;
+    export function createForTool(toolType: ToolType, overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
     export function createGroupItem(id: string, itemPriority: number, icon: ToolbarGroupItem["icon"], label: ToolbarGroupItem["label"], items: ToolbarGroupItem["items"], overrides?: Partial<ToolbarGroupItem>): ToolbarGroupItem;
 }
 
@@ -4758,9 +4912,10 @@ export class ToolInformation {
     get toolUiProvider(): ToolUiProvider | undefined;
 }
 
-// @public
+// @public @deprecated
 export class ToolItemDef extends ActionButtonItemDef {
     constructor(toolItemProps: ToolItemProps, onItemExecuted?: OnItemExecutedFunc);
+    // @deprecated
     static getItemDefForTool(tool: typeof Tool, icon?: string, ...args: any[]): ToolItemDef;
     // (undocumented)
     get id(): string;
@@ -4768,7 +4923,7 @@ export class ToolItemDef extends ActionButtonItemDef {
     toolId: string;
 }
 
-// @public
+// @public @deprecated
 export interface ToolItemProps extends ItemProps, CommandHandler {
     // (undocumented)
     toolId: string;

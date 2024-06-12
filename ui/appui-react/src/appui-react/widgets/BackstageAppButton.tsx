@@ -36,8 +36,8 @@ export function BackstageAppButton({
   execute,
 }: BackstageAppButtonProps) {
   const { translate } = useTranslation();
-  const backstageLabel = label ?? translate("commands.openBackstage");
-  const backstageIcon = icon ?? <SvgHome />;
+  label = label ?? translate("commands.openBackstage");
+  icon = icon ?? <SvgHome />;
   const isInitialMount = React.useRef(true);
   const divClassName = "uifw-app-button-small";
   const { onElementRef, proximityScale } = useWidgetOpacityContext();
@@ -75,8 +75,8 @@ export function BackstageAppButton({
         small={true}
         mouseProximity={buttonProximityScale}
         onClick={handleClick}
-        icon={<Icon iconSpec={backstageIcon} />}
-        title={backstageLabel}
+        icon={<Icon iconSpec={icon} />}
+        title={label}
       />
     </div>
   );
