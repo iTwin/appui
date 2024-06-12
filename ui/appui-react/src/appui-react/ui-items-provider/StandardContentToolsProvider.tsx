@@ -114,6 +114,7 @@ export class StandardContentToolsProvider extends BaseUiItemsProvider {
     toolbarOrientation: ToolbarOrientation,
     stageAppData?: any
   ): ToolbarItem[] {
+    // eslint-disable-next-line deprecation/deprecation
     return this.uiItemsProvider.provideToolbarItems(
       _stageId,
       _stageUsage,
@@ -128,6 +129,7 @@ export class StandardContentToolsProvider extends BaseUiItemsProvider {
     _stageUsage: string,
     _stageAppData?: any
   ): StatusBarItem[] {
+    // eslint-disable-next-line deprecation/deprecation
     return this.uiItemsProvider.provideStatusBarItems(
       _stageId,
       _stageUsage,

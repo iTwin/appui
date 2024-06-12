@@ -71,6 +71,7 @@ export class StandardNavigationToolsProvider extends BaseUiItemsProvider {
     toolbarOrientation: ToolbarOrientation,
     _stageAppData?: any
   ): ToolbarItem[] {
+    // eslint-disable-next-line deprecation/deprecation
     return this.uiItemsProvider.provideToolbarItems(
       _stageId,
       _stageUsage,
