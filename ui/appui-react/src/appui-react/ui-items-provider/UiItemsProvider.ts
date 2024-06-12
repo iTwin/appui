@@ -11,6 +11,7 @@ import type { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import type { StagePanelSection } from "../stagepanels/StagePanelSection";
 import type { StatusBarItem } from "../statusbar/StatusBarItem";
 import type {
+  CommonToolbarItem,
   ToolbarItem,
   ToolbarOrientation,
   ToolbarUsage,
@@ -25,7 +26,7 @@ export interface UiItemsProvider {
   readonly id: string;
 
   /** Provides toolbar items.
-   * @note Use {@link ToolbarItem.layouts} to map item to location previously specified by `provideToolbarItems` arguments.
+   * @note Use {@link CommonToolbarItem.layouts} to map item to location previously specified by `provideToolbarItems` arguments.
    */
   readonly getToolbarItems?: () => ReadonlyArray<ToolbarItem>;
   /** Provides status bar items. */
@@ -38,7 +39,7 @@ export interface UiItemsProvider {
   readonly getWidgets?: () => ReadonlyArray<Widget>;
 
   /** Provides toolbar items.
-   * @deprecated in 4.15.0. Use {@link UiItemsProvider.getToolbarItems} instead. To map item to location previously specified by arguments use {@link ToolbarItem.layouts}.
+   * @deprecated in 4.15.0. Use {@link UiItemsProvider.getToolbarItems} instead. To map item to location previously specified by arguments use {@link CommonToolbarItem.layouts}.
    */
   readonly provideToolbarItems?: (
     stageId: string,
