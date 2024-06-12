@@ -34,6 +34,7 @@ export class ItemMap extends Map<string, ItemDefBase> {
 
 /** Contains a list of Items.
  * @public
+ * @deprecated in 4.15.0. List of deprecated {@link ItemDefBase} class instances.
  */
 export class ItemList extends Array<ItemDefBase> {
   constructor(items?: ItemDefBase[]) {
