@@ -5,6 +5,7 @@ Table of contents:
 - [@itwin/appui-react](#itwinappui-react)
   - [Deprecations](#deprecations)
   - [Additions](#additions)
+  - [Changes](#changes)
 
 ## @itwin/appui-react
 
@@ -19,6 +20,7 @@ Table of contents:
   - `IModelConnectedViewSelector` component. Use `ViewSelector` instead.
   - `SelectionInfoField` component. Use `SelectionCountField` instead.
   - Static methods and properties of `UiFramework` related to redux store.
+- Deprecated `provideToolbarItems`, `provideStatusBarItems`, `provideWidgets` and `provideBackstageItems` methods of `UiItemsProvider`. Use `getToolbarItems`, `getStatusBarItems`, `getWidgets` and `getBackstageItems` methods of `UiItemsProvider` instead.
 
 ### Additions
 
@@ -33,3 +35,7 @@ Table of contents:
   Currently applications might use `WidgetState` to control widget visibility programmatically and expect the widgets to stay hidden until a certain condition is met. Since this preview feature adds UI elements to control widget visibility, it might conflict with the application's logic. To avoid this, the application should use `UiItemsManager.register()` and `UiItemsManager.unregister()` to strictly manage what widgets are available to the end-user.
 
   Additionally an array of widget ids can be specified to only expose visibility controls for specific widgets. This allows applications to experiment with other use-cases, like keeping at least one widget visible at all times.
+
+### Changes
+
+- Bumped `getToolbarItems`, `getStatusBarItems`, `getWidgets` and `getBackstageItems` methods of `UiItemsProvider`, `layouts` property of `CommonToolbarItem` and `Widget`, `StandardLayoutToolbarItem`, `StandardLayoutWidget`, `ToolbarItemLayouts`, `WidgetLayouts` to `@public`.
