@@ -5,14 +5,19 @@
 /** @packageDocumentation
  * @module KeyboardShortcut
  */
+import type { BadgeType, IconSpec } from "@itwin/core-react";
 import type { KeyboardShortcutProps } from "../keyboardshortcut/KeyboardShortcutProps";
 import type { ActionButtonItemDef } from "../shared/ActionButtonItemDef";
-import type { ItemDefBase } from "../shared/ItemDefBase";
+import type {
+  ConditionalBooleanValue,
+  ConditionalStringValue,
+} from "../shared/ConditionalValue";
+import type { StringGetter } from "@itwin/appui-abstract";
 
 /** Keyboard Shortcut used to execute an action
  * @public
  */
-export interface FrameworkKeyboardShortcut extends ItemDefBase {
+export interface FrameworkKeyboardShortcut {
   /** Returns the id for this shortcut */
   readonly id: string;
 
@@ -46,6 +51,24 @@ export interface FrameworkKeyboardShortcut extends ItemDefBase {
   readonly isFunctionKey: boolean;
   /** Gets whether this is a Special key. */
   readonly isSpecialKey: boolean;
+
+  // Properties extended from deprecated `ItemDefBase`
+  isPressed: boolean;
+  isActive: boolean;
+  applicationData?: any;
+  isHidden?: boolean | ConditionalBooleanValue;
+  isDisabled?: boolean | ConditionalBooleanValue;
+  badgeType?: BadgeType;
+  iconSpec?: IconSpec;
+  iconElement?: React.ReactNode;
+  trayId: undefined;
+  readonly rawLabel: string | StringGetter | ConditionalStringValue;
+  readonly label: string;
+  setLabel(v: string | StringGetter | ConditionalStringValue): void;
+  readonly tooltip: string;
+  setTooltip(v: string | StringGetter | ConditionalStringValue): void;
+  readonly description: string;
+  setDescription(v: string | StringGetter | ConditionalStringValue): void;
 }
 
 /** Keyboard Shortcut Container

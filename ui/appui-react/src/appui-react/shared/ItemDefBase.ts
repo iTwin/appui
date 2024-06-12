@@ -16,8 +16,11 @@ import { PropsHelper } from "../utils/PropsHelper";
 import type { ItemProps } from "./ItemProps";
 import type { BadgeType, IconSpec } from "@itwin/core-react";
 
+/* eslint-disable deprecation/deprecation */
+
 /** Base state for any 'stateful' React component
  * @public
+ * @deprecated in 4.15.0. Use props of a specific React component instead.
  */
 export interface BaseItemState {
   isVisible?: boolean; // Default - true
@@ -28,6 +31,7 @@ export interface BaseItemState {
 
 /** The base class for Items.
  * @public
+ * @deprecated in 4.15.0. Use specific item definitions instead.
  */
 export abstract class ItemDefBase {
   private _label: string | StringGetter | ConditionalStringValue = "";

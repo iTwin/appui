@@ -8,8 +8,11 @@
 
 import type { ItemDefBase } from "./ItemDefBase";
 
+/* eslint-disable deprecation/deprecation */
+
 /** Contains a map of Items.
  * @public
+ * @deprecated in 4.15.0. Map for deprecated {@link ItemDefBase} class instances.
  */
 export class ItemMap extends Map<string, ItemDefBase> {
   constructor(items?: ItemDefBase[]) {
