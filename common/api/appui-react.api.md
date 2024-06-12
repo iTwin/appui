@@ -865,7 +865,6 @@ export interface CommonToolbarItem {
     readonly isDisabled?: boolean | ConditionalBooleanValue;
     readonly isHidden?: boolean | ConditionalBooleanValue;
     readonly itemPriority: number;
-    // @alpha
     readonly layouts?: ToolbarItemLayouts;
 }
 
@@ -4205,13 +4204,13 @@ export class StandardFrontstageProvider extends FrontstageProvider {
     get id(): string;
 }
 
-// @alpha
+// @public
 export interface StandardLayoutToolbarItem {
     readonly orientation: ToolbarOrientation;
     readonly usage: ToolbarUsage;
 }
 
-// @alpha
+// @public
 export interface StandardLayoutWidget {
     readonly location: StagePanelLocation;
     readonly section: StagePanelSection;
@@ -4663,7 +4662,7 @@ export class ToolbarHelper {
 // @public
 export type ToolbarItem = ToolbarActionItem | ToolbarGroupItem | ToolbarCustomItem;
 
-// @alpha
+// @public
 export interface ToolbarItemLayouts {
     readonly standard?: StandardLayoutToolbarItem;
 }
@@ -5039,19 +5038,19 @@ export class UiItemsManager {
 
 // @public
 export interface UiItemsProvider {
-    // @alpha
     readonly getBackstageItems?: () => ReadonlyArray<BackstageItem>;
-    // @alpha
     readonly getStatusBarItems?: () => ReadonlyArray<StatusBarItem>;
-    // @alpha
     readonly getToolbarItems?: () => ReadonlyArray<ToolbarItem>;
-    // @alpha
     readonly getWidgets?: () => ReadonlyArray<Widget>;
     readonly id: string;
     readonly onUnregister?: () => void;
+    // @deprecated
     readonly provideBackstageItems?: () => ReadonlyArray<BackstageItem>;
+    // @deprecated
     readonly provideStatusBarItems?: (stageId: string, stageUsage: string) => ReadonlyArray<StatusBarItem>;
+    // @deprecated
     readonly provideToolbarItems?: (stageId: string, stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation) => ReadonlyArray<ToolbarItem>;
+    // @deprecated
     readonly provideWidgets?: (stageId: string, stageUsage: string, location: StagePanelLocation, section?: StagePanelSection) => ReadonlyArray<Widget>;
 }
 
@@ -5421,7 +5420,6 @@ export interface Widget {
     readonly id: string;
     // (undocumented)
     readonly label?: string | ConditionalStringValue;
-    // @alpha
     readonly layouts?: WidgetLayouts;
     // (undocumented)
     readonly priority?: number;
@@ -5587,7 +5585,7 @@ export interface WidgetInfo {
     widgetDef: WidgetDef;
 }
 
-// @alpha
+// @public
 export interface WidgetLayouts {
     readonly standard?: StandardLayoutWidget;
 }
