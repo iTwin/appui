@@ -47,5 +47,6 @@ export interface FrameworkBackstage {
    * @param overrideIconSpec Icon to replace the default 'home'.
    * @deprecated in 4.15.0. Use {@link BackstageAppButton} component and {@link FrameworkBackstage.toggle} instead.
    */
+  // eslint-disable-next-line deprecation/deprecation
   getBackstageToggleCommand(overrideIconSpec?: IconSpec): CommandItemDef;
 }

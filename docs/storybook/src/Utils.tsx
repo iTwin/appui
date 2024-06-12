@@ -4,6 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 import {
+  FrontstageConfig,
   StagePanelLocation,
   StagePanelSection,
   StageUsage,
@@ -14,9 +15,17 @@ import {
 import { createContentControl } from "./createContentControl";
 
 export function createFrontstageProvider(
-  overrides?: Partial<StandardFrontstageProps>
+  overrides?: Partial<StandardFrontstageProps> & {
+    content?: React.ReactNode;
+    contentManipulation?: React.ReactNode;
+  }
 ) {
-  return new StandardFrontstageProvider({
+  return new (class extends StandardFrontstageProvider {
+    public override frontstageConfig(): FrontstageConfig {
+      const config = super.frontstageConfig();
+      return config;
+    }
+  })({
     id: "main-frontstage",
     usage: StageUsage.Private,
     version: Math.random(),
@@ -27,16 +36,18 @@ export function createFrontstageProvider(
         {
           id: "Content",
           classId: createContentControl(
-            <h1
-              style={{
-                display: "flex",
-                height: "100%",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              Content
-            </h1>
+            overrides?.content ?? (
+              <h1
+                style={{
+                  display: "flex",
+                  height: "100%",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                Content
+              </h1>
+            )
           ),
         },
       ],
