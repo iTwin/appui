@@ -21,4 +21,5 @@ export type AnyItemDef =
   | CommandItemDef
   // eslint-disable-next-line deprecation/deprecation
   | ToolItemDef
+  // eslint-disable-next-line deprecation/deprecation
   | ActionButtonItemDef;

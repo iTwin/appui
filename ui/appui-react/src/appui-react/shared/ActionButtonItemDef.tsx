@@ -11,9 +11,13 @@ import type { SizeProps } from "@itwin/core-react";
 import { Orientation } from "@itwin/core-react";
 import { ItemDefBase } from "./ItemDefBase";
 import type { ItemProps } from "./ItemProps";
+import { ToolbarItemUtilities } from "../toolbar/ToolbarItemUtilities";
+
+/* eslint-disable deprecation/deprecation */
 
 /** Abstract base class that is used by classes to execute an action when pressed.
  * @public
+ * @deprecated in 4.15.0. Use {@link ToolbarItemUtilities.createActionItem} instead.
  */
 export abstract class ActionButtonItemDef extends ItemDefBase {
   private _onItemExecuted?: OnItemExecutedFunc;

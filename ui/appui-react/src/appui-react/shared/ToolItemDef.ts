@@ -17,7 +17,7 @@ import type { ToolbarItemUtilities } from "../toolbar/ToolbarItemUtilities";
 
 /** An Item that starts the execution of a Tool.
  * @public
- * @deprecated in 4.15.0. Use {@link ToolbarItemUtilities.createActionItem} instead.
+ * @deprecated in 4.15.0. Use {@link ToolbarItemUtilities.createForTool} instead.
  */
 export class ToolItemDef extends ActionButtonItemDef {
   public toolId: string = "";

@@ -13,6 +13,7 @@ import type { CustomItemProps } from "./CustomItemProps";
 /** An Item that renders a React component.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export class CustomItemDef extends ActionButtonItemDef {
   private static _sId = 0;
   public static customIdPrefix = "Custom-";

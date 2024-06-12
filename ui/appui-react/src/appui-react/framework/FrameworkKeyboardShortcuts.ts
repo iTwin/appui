@@ -25,7 +25,10 @@ export interface FrameworkKeyboardShortcut extends ItemDefBase {
   /** Returns the shortcut's key map key used as the id */
   readonly keyMapKey: string;
 
-  /** Returns the [[ActionButtonItemDef]] associated with this shortcut */
+  /** Returns the [[ActionButtonItemDef]] associated with this shortcut.
+   * @deprecated in 4.15.0. Use properties of this object instead.
+   */
+  // eslint-disable-next-line deprecation/deprecation
   readonly item: ActionButtonItemDef | undefined;
 
   /** Called when the [[ActionButtonItemDef]] associated with this shortcut is invoked */

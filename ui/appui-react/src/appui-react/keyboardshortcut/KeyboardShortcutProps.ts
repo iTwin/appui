@@ -21,6 +21,7 @@ export interface KeyboardShortcutProps extends ItemProps {
   /** The item to execute when this shortcut is invoked. Either 'item' or 'shortcuts' must be specified.
    * @deprecated in 4.15.0. Use properties of this object instead.
    */
+  // eslint-disable-next-line deprecation/deprecation
   item?: ActionButtonItemDef;
   /** Function to run when the keyboard shortcut is executed. */
   execute?: () => void;
