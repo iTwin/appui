@@ -524,48 +524,52 @@ describe("usePropertyFilterBuilder", () => {
     ).to.be.deep.eq(initialValue);
   });
 
-  it("renders as `between` when fromValue and toValue are undefined instead of 2 `and` operator", () => {
-    const { result } = renderHook(() =>
-      usePropertyFilterBuilder({
-        initialFilter: createRangeFilter(
-          property,
-          "between",
-          undefined,
-          undefined
-        ),
-      })
-    );
+  describe("allowEmptyInitialFilter", () => {
+    it("renders as `between` when fromValue and toValue are undefined instead of 2 `and` operator", () => {
+      const { result } = renderHook(() =>
+        usePropertyFilterBuilder({
+          initialFilter: createRangeFilter(
+            property,
+            "between",
+            undefined,
+            undefined
+          ),
+          allowInitialEmptyRules: true,
+        })
+      );
 
-    const { rootGroup } = result.current;
+      const { rootGroup } = result.current;
 
-    expect((rootGroup.items[0] as PropertyFilterBuilderRule).operator).toEqual(
-      "between"
-    );
-    expect(
-      (rootGroup.items[0] as PropertyFilterBuilderRule).value
-    ).toBeTruthy();
-  });
+      expect(
+        (rootGroup.items[0] as PropertyFilterBuilderRule).operator
+      ).toEqual("between");
+      expect(
+        (rootGroup.items[0] as PropertyFilterBuilderRule).value
+      ).toBeTruthy();
+    });
 
-  it("renders as `not-between` when fromValue and toValue are undefined instead of 2 `or` operator", () => {
-    const { result } = renderHook(() =>
-      usePropertyFilterBuilder({
-        initialFilter: createRangeFilter(
-          property,
-          "not-between",
-          undefined,
-          undefined
-        ),
-      })
-    );
+    it("renders as `not-between` when fromValue and toValue are undefined instead of 2 `or` operator", () => {
+      const { result } = renderHook(() =>
+        usePropertyFilterBuilder({
+          initialFilter: createRangeFilter(
+            property,
+            "not-between",
+            undefined,
+            undefined
+          ),
+          allowInitialEmptyRules: true,
+        })
+      );
 
-    const { rootGroup } = result.current;
+      const { rootGroup } = result.current;
 
-    expect((rootGroup.items[0] as PropertyFilterBuilderRule).operator).toEqual(
-      "not-between"
-    );
-    expect(
-      (rootGroup.items[0] as PropertyFilterBuilderRule).value
-    ).toBeTruthy();
+      expect(
+        (rootGroup.items[0] as PropertyFilterBuilderRule).operator
+      ).toEqual("not-between");
+      expect(
+        (rootGroup.items[0] as PropertyFilterBuilderRule).value
+      ).toBeTruthy();
+    });
   });
 
   it("does not change state when setting non existing rule operator", () => {

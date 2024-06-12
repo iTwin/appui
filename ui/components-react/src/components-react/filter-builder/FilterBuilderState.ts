@@ -252,6 +252,8 @@ export interface UsePropertyFilterBuilderProps {
   initialFilter?: PropertyFilter;
   /** Custom rule validator to be used when [[UsePropertyFilterBuilderResult.buildFilter]] is invoked. Should return error message or `undefined`, if rule is valid. */
   ruleValidator?: (rule: PropertyFilterBuilderRule) => string | undefined;
+  /** Allow initial filter to be incomplete while building the property builder filter*/
+  allowInitialEmptyRules?: boolean;
 }
 
 /**
@@ -301,7 +303,7 @@ export function usePropertyFilterBuilder(
   };
   const [state, setState] = React.useState<PropertyFilterBuilderState>(
     initialFilter
-      ? convertFilterToState(initialFilter)
+      ? convertFilterToState(initialFilter, props?.allowInitialEmptyRules)
       : { rootGroup: createEmptyRuleGroup() }
   );
 
@@ -536,11 +538,16 @@ function findRule(
 }
 function getRuleGroupItem(
   filter: PropertyFilter,
-  parentId: string
+  parentId: string,
+  allowInitialEmptyRules?: boolean
 ): PropertyFilterBuilderRuleGroupItem {
   const id = Guid.createValue();
   if (isPropertyFilterRuleGroup(filter)) {
-    const rangeRule = getRangeRuleItems(filter, parentId);
+    const rangeRule = getRangeRuleItems(
+      filter,
+      parentId,
+      allowInitialEmptyRules
+    );
 
     return rangeRule
       ? rangeRule
@@ -548,7 +555,9 @@ function getRuleGroupItem(
           id,
           groupId: parentId,
           operator: filter.operator,
-          items: filter.rules.map((rule) => getRuleGroupItem(rule, id)),
+          items: filter.rules.map((rule) =>
+            getRuleGroupItem(rule, id, allowInitialEmptyRules)
+          ),
         };
   }
   return getRuleItem(filter, id);
@@ -566,7 +575,8 @@ function getRuleItem(filter: PropertyFilterRule, parentId: string) {
 
 function getRangeRuleItems(
   group: PropertyFilterRuleGroup,
-  parentId: string
+  parentId: string,
+  allowInitialEmptyRules?: boolean
 ): PropertyFilterBuilderRuleGroupItem | undefined {
   if (group.rules.length !== 2) {
     return undefined;
@@ -582,8 +592,18 @@ function getRangeRuleItems(
   }
 
   if (
-    (from.value && from.value?.valueFormat !== PropertyValueFormat.Primitive) ||
-    (to.value && to.value?.valueFormat !== PropertyValueFormat.Primitive)
+    !allowInitialEmptyRules &&
+    (!from.value ||
+      from.value.valueFormat !== PropertyValueFormat.Primitive ||
+      !to.value ||
+      to.value.valueFormat !== PropertyValueFormat.Primitive)
+  ) {
+    return undefined;
+  }
+
+  if (
+    (from.value && from.value.valueFormat !== PropertyValueFormat.Primitive) ||
+    (to.value && to.value.valueFormat !== PropertyValueFormat.Primitive)
   ) {
     return undefined;
   }
@@ -599,12 +619,8 @@ function getRangeRuleItems(
       operator: "between",
       property: from.property,
       value: PropertyFilterBuilderRuleRangeValue.serialize({
-        from: from.value
-          ? from.value
-          : { valueFormat: PropertyValueFormat.Primitive },
-        to: to.value
-          ? to.value
-          : { valueFormat: PropertyValueFormat.Primitive },
+        from: from.value ?? { valueFormat: PropertyValueFormat.Primitive },
+        to: to.value ?? { valueFormat: PropertyValueFormat.Primitive },
       }),
     };
   }
@@ -620,12 +636,8 @@ function getRangeRuleItems(
       operator: "not-between",
       property: from.property,
       value: PropertyFilterBuilderRuleRangeValue.serialize({
-        from: from.value
-          ? from.value
-          : { valueFormat: PropertyValueFormat.Primitive },
-        to: to.value
-          ? to.value
-          : { valueFormat: PropertyValueFormat.Primitive },
+        from: from.value ?? { valueFormat: PropertyValueFormat.Primitive },
+        to: to.value ?? { valueFormat: PropertyValueFormat.Primitive },
       }),
     };
   }
@@ -634,7 +646,8 @@ function getRangeRuleItems(
 }
 
 function convertFilterToState(
-  filter: PropertyFilter
+  filter: PropertyFilter,
+  allowInitialEmptyRules?: boolean
 ): PropertyFilterBuilderState {
   const id = Guid.createValue();
   if (isPropertyFilterRuleGroup(filter)) {
@@ -642,7 +655,9 @@ function convertFilterToState(
       rootGroup: {
         id,
         operator: filter.operator,
-        items: filter.rules.map((rule) => getRuleGroupItem(rule, id)),
+        items: filter.rules.map((rule) =>
+          getRuleGroupItem(rule, id, allowInitialEmptyRules)
+        ),
       },
     };
   }
