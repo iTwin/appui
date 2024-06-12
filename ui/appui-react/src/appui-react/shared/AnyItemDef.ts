@@ -12,16 +12,14 @@ import type { ActionButtonItemDef } from "./ActionButtonItemDef";
 import type { CommandItemDef } from "./CommandItemDef";
 import type { ToolItemDef } from "./ToolItemDef";
 
+/* eslint-disable deprecation/deprecation */
+
 /** Union of all Item definitions that can be specified in a GroupItem
  * @public
- * @deprecated in 4.15.0. Use item definitions like {@link ToolbarItem} instead.
+ * @deprecated in 4.15.0. Use type specific item definitions instead, i.e. {@link ToolbarItem}.
  */
 export type AnyItemDef =
-  // eslint-disable-next-line deprecation/deprecation
   | GroupItemDef
-  // eslint-disable-next-line deprecation/deprecation
   | CommandItemDef
-  // eslint-disable-next-line deprecation/deprecation
   | ToolItemDef
-  // eslint-disable-next-line deprecation/deprecation
   | ActionButtonItemDef;

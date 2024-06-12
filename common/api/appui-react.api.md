@@ -2807,7 +2807,7 @@ export function itemDefToToolbarActionItem(itemDef: ToolItemDef | CommandItemDef
 // @internal (undocumented)
 export function itemDefToToolbarGroupItem(itemDef: GroupItemDef, overrides?: Partial<ToolbarGroupItem>): ToolbarGroupItem;
 
-// @public
+// @public @deprecated
 export class ItemList extends Array<ItemDefBase> {
     constructor(items?: ItemDefBase[]);
     // (undocumented)
@@ -2874,8 +2874,7 @@ export class KeyboardShortcutContainer {
 }
 
 // @public @deprecated
-export class KeyboardShortcutMenu extends React_2.PureComponent<CommonProps, // eslint-disable-line deprecation/deprecation
-KeyboardShortcutMenuState> {
+export class KeyboardShortcutMenu extends React_2.PureComponent<CommonProps, KeyboardShortcutMenuState> {
     // (undocumented)
     componentDidMount(): void;
     // (undocumented)

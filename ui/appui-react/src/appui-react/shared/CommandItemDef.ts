@@ -9,12 +9,13 @@
 import type { OnItemExecutedFunc } from "@itwin/appui-abstract";
 import { ActionButtonItemDef } from "./ActionButtonItemDef";
 import type { CommandItemProps } from "./ItemProps";
+import type { ToolbarActionItem } from "../toolbar/ToolbarItem";
 
 /* eslint-disable deprecation/deprecation */
 
 /** An Item that executes a Command.
  * @public
- * @deprecated in 4.15.0. Use corresponding interface types.
+ * @deprecated in 4.15.0. Use specific item types instead, i.e. {@link ToolbarActionItem}.
  */
 export class CommandItemDef extends ActionButtonItemDef {
   private static _sId = 0;

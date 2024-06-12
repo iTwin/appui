@@ -15,19 +15,19 @@ import { UiFramework } from "../UiFramework";
 import { AppButton } from "../layout/widget/tools/button/App";
 import { useTranslation } from "../hooks/useTranslation";
 
-/** Properties for the [[BackstageAppButton]] React component
+/** Properties of {@link BackstageAppButton} component.
  * @public
  */
 export interface BackstageAppButtonProps {
-  /** Icon specification for the App button */
+  /** If specified overrides the default icon. */
   icon?: IconSpec;
-  /** If specified overrides the default label shown in tooltip. */
+  /** If specified overrides the default label. */
   label?: string;
-  /** If specified overrides the default action that displays the backstage. */
+  /** If specified overrides the default action that toggles the backstage. */
   execute?: () => void;
 }
 
-/** BackstageAppButton used to toggle display of Backstage and is shown in the corner of the ToolWidget.
+/** Component shown in the top-left corner of the content manipulation area. It is usually used to toggle the display of a backstage or navigate between frontstages.
  * @public
  */
 export function BackstageAppButton({

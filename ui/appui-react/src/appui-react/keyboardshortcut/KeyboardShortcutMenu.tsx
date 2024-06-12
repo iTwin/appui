@@ -40,7 +40,7 @@ export class KeyboardShortcutMenuEvent extends UiEvent<KeyboardShortcutMenuState
  * @deprecated in 4.15.0. Component used internally to display keyboard shortcuts in a context menu.
  */
 export class KeyboardShortcutMenu extends React.PureComponent<
-  CommonProps, // eslint-disable-line deprecation/deprecation
+  CommonProps,
   KeyboardShortcutMenuState
 > {
   /** @internal */

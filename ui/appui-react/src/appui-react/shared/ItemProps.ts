@@ -12,13 +12,13 @@ import type {
   StringGetter,
 } from "@itwin/appui-abstract";
 import type { BadgeType, IconProps, IconSpec } from "@itwin/core-react";
-import type { ToolbarGroupItem } from "../toolbar/ToolbarItem";
+import type { ToolbarActionItem } from "../toolbar/ToolbarItem";
 
 /* eslint-disable deprecation/deprecation */
 
 /** Definition that specifies properties shared between many ConfigurableUi components.
  * @public
- * @deprecated in 4.15.0. Use item specific types like {@link ToolbarGroupItem} instead.
+ * @deprecated in 4.15.0. Use specific item types instead, i.e. {@link ToolbarActionItem}.
  */
 export interface ItemProps extends IconProps {
   /** if true component will be hidden - defaults to false */
@@ -53,7 +53,7 @@ export interface ItemProps extends IconProps {
 
 /** Properties for a Tool item with a tool id.
  * @public
- * @deprecated in 4.15.0. Use a custom type instead.
+ * @deprecated in 4.15.0. Use specific item types instead, i.e. {@link ToolbarActionItem}.
  */
 export interface ToolItemProps extends ItemProps, CommandHandler {
   toolId: string;
@@ -61,7 +61,7 @@ export interface ToolItemProps extends ItemProps, CommandHandler {
 
 /** Properties for a Command item.
  * @public
- * @deprecated in 4.15.0. Use a custom type instead.
+ * @deprecated in 4.15.0. Use specific item types instead, i.e. {@link ToolbarActionItem}.
  */
 export interface CommandItemProps extends ItemProps, CommandHandler {
   commandId?: string;
@@ -69,7 +69,7 @@ export interface CommandItemProps extends ItemProps, CommandHandler {
 
 /** Definition for a command handler.
  * @public
- * @deprecated in 4.15.0. Use a custom type instead.
+ * @deprecated in 4.15.0. Use specific item types instead, i.e. {@link ToolbarActionItem}.
  */
 export interface CommandHandler {
   /** Function to execute */

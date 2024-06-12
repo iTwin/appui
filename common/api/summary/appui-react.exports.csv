@@ -362,6 +362,7 @@ deprecated;class ItemDefBase
 internal;itemDefToToolbarActionItem(itemDef: ToolItemDef | CommandItemDef, overrides?: Partial
 internal;itemDefToToolbarGroupItem(itemDef: GroupItemDef, overrides?: Partial
 public;ItemList 
+deprecated;ItemList 
 public;ItemMap 
 deprecated;ItemMap 
 public;ItemProps 
@@ -370,6 +371,8 @@ public;KeyboardShortcut
 deprecated;KeyboardShortcut 
 public;KeyboardShortcutContainer
 deprecated;KeyboardShortcutContainer
+public;KeyboardShortcutMenu 
+deprecated;KeyboardShortcutMenu 
 public;KeyboardShortcutMenuEvent 
 deprecated;KeyboardShortcutMenuEvent 
 public;KeyboardShortcutMenuState

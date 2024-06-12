@@ -14,15 +14,15 @@ import { BackstageAppButton } from "../widgets/BackstageAppButton";
 
 /** Properties of {@link NestedFrontstageAppButton} component. */
 interface NestedFrontstageAppButtonProps {
-  /** Icon override. */
+  /** If specified overrides the default icon. */
   icon?: React.ReactNode;
-  /** Label override. */
+  /** If specified overrides the default label. */
   label?: string;
-  /** If specified overrides the default action that displays the backstage. */
+  /** If specified overrides the default action that closes the nested frontstage. */
   onClick?: () => void;
 }
 
-/** BackstageAppButton used to toggle display of Backstage and is shown in the corner of the ToolWidget.
+/** App button used in a nested frontstage. By default closes the top-most nested frontstage.
  * @public
  */
 export function NestedFrontstageAppButton({

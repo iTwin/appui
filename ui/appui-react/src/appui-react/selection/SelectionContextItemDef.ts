@@ -29,7 +29,7 @@ import type { ToolbarItems } from "../tools/ToolbarItems";
 
 /** Return SyncEventIds that trigger selection state function refresh.
  * @beta
- * @deprecated in 4.15.0. Use {@link ToolbarItems} instead.
+ * @deprecated in 4.15.0. Use {@link ToolbarItems} or a custom conditional value instead.
  */
 export function getFeatureOverrideSyncEventIds(): string[] {
   return [
@@ -42,7 +42,7 @@ export function getFeatureOverrideSyncEventIds(): string[] {
 
 /** Return SyncEventIds that trigger selection state function refresh.
  * @beta
- * @deprecated in 4.15.0. Use {@link ToolbarItems} instead.
+ * @deprecated in 4.15.0. Use {@link ToolbarItems} or a custom conditional value instead.
  */
 export function getSelectionContextSyncEventIds(): string[] {
   return [
@@ -58,7 +58,7 @@ export function getSelectionContextSyncEventIds(): string[] {
 
 /** Return SyncEventIds that trigger selection state function refresh.
  * @beta
- * @deprecated in 4.15.0. Use {@link ToolbarItems} instead.
+ * @deprecated in 4.15.0. Use {@link ToolbarItems} or a custom conditional value instead.
  */
 export function isNoSelectionActive(): boolean {
   const activeContentControl = UiFramework.content.getActiveContentControl();
@@ -80,7 +80,7 @@ export function isNoSelectionActive(): boolean {
 
 /** Return ConditionalBooleanValue object used to show items if selection set is active.
  * @beta
- * @deprecated in 4.15.0. Use {@link ToolbarItems} instead.
+ * @deprecated in 4.15.0. Use {@link ToolbarItems} or a custom conditional value instead.
  */
 export function areNoFeatureOverridesActive(): boolean {
   const activeContentControl = UiFramework.content.getActiveContentControl();
@@ -94,7 +94,7 @@ export function areNoFeatureOverridesActive(): boolean {
 
 /** Return ConditionalBooleanValue object used to show item if feature overrides are active.
  * @beta
- * @deprecated in 4.15.0. Use {@link ToolbarItems} instead.
+ * @deprecated in 4.15.0. Use {@link ToolbarItems} or a custom conditional value instead.
  */
 export function getIsHiddenIfFeatureOverridesActive(): ConditionalBooleanValue {
   return new ConditionalBooleanValue(
@@ -105,7 +105,7 @@ export function getIsHiddenIfFeatureOverridesActive(): ConditionalBooleanValue {
 
 /** Return ConditionalBooleanValue object used to show items if selection set is active.
  * @beta
- * @deprecated in 4.15.0. Use {@link ToolbarItems} instead.
+ * @deprecated in 4.15.0. Use {@link ToolbarItems} or a custom conditional value instead.
  */
 export function getIsHiddenIfSelectionNotActive(): ConditionalBooleanValue {
   return new ConditionalBooleanValue(
@@ -116,7 +116,7 @@ export function getIsHiddenIfSelectionNotActive(): ConditionalBooleanValue {
 
 /** Return state with isVisible set to true is SectionSet is active.
  * @beta
- * @deprecated in 4.15.0. Use {@link ToolbarItems} instead.
+ * @deprecated in 4.15.0. Use {@link ToolbarItems} or a custom conditional value instead.
  */
 export function featureOverridesActiveStateFunc(
   state: Readonly<BaseItemState>
@@ -135,7 +135,7 @@ export function featureOverridesActiveStateFunc(
 
 /** Return state with isVisible set to true is SectionSet is active.
  * @beta
- * @deprecated in 4.15.0. Use {@link ToolbarItems} instead.
+ * @deprecated in 4.15.0. Use {@link ToolbarItems} or a custom conditional value instead.
  */
 export function selectionContextStateFunc(
   state: Readonly<BaseItemState>

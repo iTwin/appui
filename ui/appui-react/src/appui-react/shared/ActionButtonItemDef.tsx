@@ -17,7 +17,7 @@ import { ToolbarItemUtilities } from "../toolbar/ToolbarItemUtilities";
 
 /** Abstract base class that is used by classes to execute an action when pressed.
  * @public
- * @deprecated in 4.15.0. Use {@link ToolbarItemUtilities.createActionItem} instead.
+ * @deprecated in 4.15.0. Use type specific utilities for creating items instead, i.e. {@link ToolbarItemUtilities.createActionItem}.
  */
 export abstract class ActionButtonItemDef extends ItemDefBase {
   private _onItemExecuted?: OnItemExecutedFunc;

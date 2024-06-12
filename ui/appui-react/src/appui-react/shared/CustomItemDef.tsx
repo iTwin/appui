@@ -15,9 +15,8 @@ import type { ToolbarItemUtilities } from "../toolbar/ToolbarItemUtilities";
 
 /** An Item that renders a React component.
  * @public
- * @deprecated in 4.15.0. Use {@link ToolbarItemUtilities.createCustomItem} instead.
+ * @deprecated in 4.15.0. Use specific item type utilities instead, i.e. {@link ToolbarItemUtilities.createCustomItem}.
  */
-// eslint-disable-next-line deprecation/deprecation
 export class CustomItemDef extends ActionButtonItemDef {
   private static _sId = 0;
   public static customIdPrefix = "Custom-";
