@@ -69,6 +69,7 @@ export interface CommandItemProps extends ItemProps, CommandHandler {
 
 /** Definition for a command handler.
  * @public
+ * @deprecated in 4.15.0. Use a custom type instead.
  */
 export interface CommandHandler {
   /** Function to execute */
