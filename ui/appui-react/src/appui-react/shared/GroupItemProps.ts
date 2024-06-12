@@ -18,6 +18,7 @@ import type { ToolbarGroupItem } from "../toolbar/ToolbarItem";
 export interface GroupItemProps extends ItemProps {
   defaultActiveItemId?: string;
   groupId?: string;
+  // eslint-disable-next-line deprecation/deprecation
   items: AnyItemDef[];
   itemsInColumn?: number;
   /** if set, it is used to explicitly set a label at top of open group component. */
