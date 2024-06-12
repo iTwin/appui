@@ -8,9 +8,7 @@
 
 import classnames from "classnames";
 import * as React from "react";
-import { SelectionContextToolDefinitions } from "../selection/SelectionContextItemDef";
 import { ToolbarComposer } from "../toolbar/ToolbarComposer";
-import { ToolbarHelper } from "../toolbar/ToolbarHelper";
 import { ToolWidgetComposer } from "./ToolWidgetComposer";
 import { BackstageAppButton } from "./BackstageAppButton";
 import { useUiVisibility } from "../hooks/useUiVisibility";
@@ -45,44 +43,36 @@ export function BasicToolWidget(props: BasicToolWidgetProps) {
           ToolbarItems.createClearSelection({
             itemPriority: 10,
           }),
-          ToolbarHelper.createToolbarItemFromItemDef(
-            20,
-            SelectionContextToolDefinitions.clearHideIsolateEmphasizeElementsItemDef
-          ),
-          ToolbarHelper.createToolbarItemFromItemDef(
-            30,
-            SelectionContextToolDefinitions.hideSectionToolGroup
-          ),
-          ToolbarHelper.createToolbarItemFromItemDef(
-            40,
-            SelectionContextToolDefinitions.isolateSelectionToolGroup
-          ),
-          ToolbarHelper.createToolbarItemFromItemDef(
-            50,
-            SelectionContextToolDefinitions.emphasizeElementsItemDef
-          )
+          ToolbarItems.createClearHideIsolateEmphasizeElements({
+            itemPriority: 20,
+          }),
+          ToolbarItems.createHideSectionGroup({
+            itemPriority: 30,
+          }),
+          ToolbarItems.createIsolateSelectionGroup({
+            itemPriority: 40,
+          }),
+          ToolbarItems.createEmphasizeElements({
+            itemPriority: 50,
+          })
         );
       } else {
         items.push(
           ToolbarItems.createClearSelection({
             itemPriority: 10,
           }),
-          ToolbarHelper.createToolbarItemFromItemDef(
-            20,
-            SelectionContextToolDefinitions.clearHideIsolateEmphasizeElementsItemDef
-          ),
-          ToolbarHelper.createToolbarItemFromItemDef(
-            30,
-            SelectionContextToolDefinitions.hideElementsItemDef
-          ),
-          ToolbarHelper.createToolbarItemFromItemDef(
-            40,
-            SelectionContextToolDefinitions.isolateElementsItemDef
-          ),
-          ToolbarHelper.createToolbarItemFromItemDef(
-            50,
-            SelectionContextToolDefinitions.emphasizeElementsItemDef
-          )
+          ToolbarItems.createClearHideIsolateEmphasizeElements({
+            itemPriority: 20,
+          }),
+          ToolbarItems.createHideElements({
+            itemPriority: 30,
+          }),
+          ToolbarItems.createIsolateElements({
+            itemPriority: 40,
+          }),
+          ToolbarItems.createEmphasizeElements({
+            itemPriority: 50,
+          })
         );
       }
       if (props.additionalHorizontalItems)

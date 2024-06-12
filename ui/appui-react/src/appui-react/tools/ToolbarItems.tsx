@@ -6,6 +6,7 @@
  * @module Tools
  */
 
+import { SelectionContextToolDefinitions } from "../selection/SelectionContextItemDef";
 import {
   itemDefToToolbarActionItem,
   itemDefToToolbarGroupItem,
@@ -178,6 +179,104 @@ export namespace ToolbarItems {
   ) {
     return itemDefToToolbarActionItem(
       CoreTools.restoreFrontstageLayoutCommandItemDef,
+      overrides
+    );
+  }
+
+  /** */
+  export function createIsolateModelsInSelection(
+    overrides?: Partial<ToolbarActionItem>
+  ) {
+    return itemDefToToolbarActionItem(
+      SelectionContextToolDefinitions.isolateModelsInSelectionItemDef,
+      overrides
+    );
+  }
+
+  /** */
+  export function createIsolateCategoriesInSelection(
+    overrides?: Partial<ToolbarActionItem>
+  ) {
+    return itemDefToToolbarActionItem(
+      SelectionContextToolDefinitions.isolateCategoriesInSelectionItemDef,
+      overrides
+    );
+  }
+
+  /** */
+  export function createIsolateElements(
+    overrides?: Partial<ToolbarActionItem>
+  ) {
+    return itemDefToToolbarActionItem(
+      SelectionContextToolDefinitions.isolateElementsItemDef,
+      overrides
+    );
+  }
+
+  /** */
+  export function createIsolateSelectionGroup(
+    overrides?: Partial<ToolbarGroupItem>
+  ) {
+    return itemDefToToolbarGroupItem(
+      SelectionContextToolDefinitions.isolateSelectionToolGroup,
+      overrides
+    );
+  }
+
+  /** */
+  export function createHideModelsInSelection(
+    overrides?: Partial<ToolbarActionItem>
+  ) {
+    return itemDefToToolbarActionItem(
+      SelectionContextToolDefinitions.hideModelsInSelectionItemDef,
+      overrides
+    );
+  }
+
+  /** */
+  export function createHideCategoriesInSelection(
+    overrides?: Partial<ToolbarActionItem>
+  ) {
+    return itemDefToToolbarActionItem(
+      SelectionContextToolDefinitions.hideCategoriesInSelectionItemDef,
+      overrides
+    );
+  }
+
+  /** */
+  export function createHideElements(overrides?: Partial<ToolbarActionItem>) {
+    return itemDefToToolbarActionItem(
+      SelectionContextToolDefinitions.hideElementsItemDef,
+      overrides
+    );
+  }
+
+  /** */
+  export function createHideSectionGroup(
+    overrides?: Partial<ToolbarGroupItem>
+  ) {
+    return itemDefToToolbarGroupItem(
+      SelectionContextToolDefinitions.hideSectionToolGroup,
+      overrides
+    );
+  }
+
+  /** */
+  export function createEmphasizeElements(
+    overrides?: Partial<ToolbarActionItem>
+  ) {
+    return itemDefToToolbarActionItem(
+      SelectionContextToolDefinitions.emphasizeElementsItemDef,
+      overrides
+    );
+  }
+
+  /** */
+  export function createClearHideIsolateEmphasizeElements(
+    overrides?: Partial<ToolbarActionItem>
+  ) {
+    return itemDefToToolbarActionItem(
+      SelectionContextToolDefinitions.clearHideIsolateEmphasizeElementsItemDef,
       overrides
     );
   }

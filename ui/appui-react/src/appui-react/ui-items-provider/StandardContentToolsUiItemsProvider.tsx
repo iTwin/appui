@@ -7,12 +7,10 @@
  */
 
 import * as React from "react";
-import { SelectionContextToolDefinitions } from "../selection/SelectionContextItemDef";
 import type { StatusBarItem } from "../statusbar/StatusBarItem";
 import { StatusBarSection } from "../statusbar/StatusBarItem";
 import { StatusBarItemUtilities } from "../statusbar/StatusBarItemUtilities";
 import { SectionsStatusField } from "../statusfields/SectionsField";
-import { ToolbarHelper } from "../toolbar/ToolbarHelper";
 import type { ToolbarItem } from "../toolbar/ToolbarItem";
 import { ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
 import type { UiItemsProvider } from "./UiItemsProvider";
@@ -102,11 +100,10 @@ export class StandardContentToolsUiItemsProvider implements UiItemsProvider {
         this.defaultContextTools.horizontal.clearDisplayOverrides
       )
         items.push(
-          ToolbarHelper.createToolbarItemFromItemDef(
-            20,
-            SelectionContextToolDefinitions.clearHideIsolateEmphasizeElementsItemDef,
-            { groupPriority: overridesGroupPriority }
-          )
+          ToolbarItems.createClearHideIsolateEmphasizeElements({
+            itemPriority: 20,
+            groupPriority: overridesGroupPriority,
+          })
         );
 
       if (
@@ -116,19 +113,17 @@ export class StandardContentToolsUiItemsProvider implements UiItemsProvider {
       ) {
         if (this.defaultContextTools?.horizontal?.hide === "group")
           items.push(
-            ToolbarHelper.createToolbarItemFromItemDef(
-              30,
-              SelectionContextToolDefinitions.hideSectionToolGroup,
-              { groupPriority: overridesGroupPriority }
-            )
+            ToolbarItems.createHideSectionGroup({
+              itemPriority: 30,
+              groupPriority: overridesGroupPriority,
+            })
           );
         else
           items.push(
-            ToolbarHelper.createToolbarItemFromItemDef(
-              30,
-              SelectionContextToolDefinitions.hideElementsItemDef,
-              { groupPriority: overridesGroupPriority }
-            )
+            ToolbarItems.createHideElements({
+              itemPriority: 30,
+              groupPriority: overridesGroupPriority,
+            })
           );
       }
 
@@ -139,19 +134,17 @@ export class StandardContentToolsUiItemsProvider implements UiItemsProvider {
       ) {
         if (this.defaultContextTools?.horizontal?.isolate === "group")
           items.push(
-            ToolbarHelper.createToolbarItemFromItemDef(
-              40,
-              SelectionContextToolDefinitions.isolateSelectionToolGroup,
-              { groupPriority: overridesGroupPriority }
-            )
+            ToolbarItems.createIsolateSelectionGroup({
+              itemPriority: 40,
+              groupPriority: overridesGroupPriority,
+            })
           );
         else
           items.push(
-            ToolbarHelper.createToolbarItemFromItemDef(
-              40,
-              SelectionContextToolDefinitions.isolateElementsItemDef,
-              { groupPriority: overridesGroupPriority }
-            )
+            ToolbarItems.createIsolateElements({
+              itemPriority: 40,
+              groupPriority: overridesGroupPriority,
+            })
           );
       }
 
@@ -161,11 +154,10 @@ export class StandardContentToolsUiItemsProvider implements UiItemsProvider {
         this.defaultContextTools.horizontal.emphasize
       ) {
         items.push(
-          ToolbarHelper.createToolbarItemFromItemDef(
-            50,
-            SelectionContextToolDefinitions.emphasizeElementsItemDef,
-            { groupPriority: overridesGroupPriority }
-          )
+          ToolbarItems.createEmphasizeElements({
+            itemPriority: 50,
+            groupPriority: overridesGroupPriority,
+          })
         );
       }
     } else if (
