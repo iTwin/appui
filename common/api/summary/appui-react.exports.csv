@@ -184,6 +184,7 @@ deprecated;createAction
 public;createAction
 deprecated;createAction
 internal;createStableWidgetDef(widgetDef: WidgetDef, stableId: string): WidgetDef
+public;createStandardFrontstage(props: StandardFrontstageProps): Frontstage
 public;CubeNavigationAidControl 
 public;CursorDirection
 public;CursorDirectionParts
@@ -273,12 +274,14 @@ beta;FrameworkToolAdmin
 public;FrameworkToolSettings
 public;FrameworkUiAdmin 
 public;FrameworkVisibility
+public;Frontstage = FrontstageConfig
 internal;FRONTSTAGE_SETTINGS_NAMESPACE = "uifw-frontstageSettings"
 public;FrontstageActivatedEvent 
 deprecated;FrontstageActivatedEvent 
 public;FrontstageActivatedEventArgs
 deprecated;FrontstageActivatedEventArgs
 public;FrontstageConfig 
+deprecated;FrontstageConfig 
 public;FrontstageDeactivatedEvent 
 deprecated;FrontstageDeactivatedEvent 
 public;FrontstageDeactivatedEventArgs
@@ -287,6 +290,7 @@ public;FrontstageDef
 internal;FrontstageEventArgs
 internal;FrontstageNineZoneStateChangedEventArgs 
 public;class FrontstageProvider
+deprecated;class FrontstageProvider
 public;FrontstageReadyEvent 
 deprecated;FrontstageReadyEvent 
 public;FrontstageReadyEventArgs
@@ -574,6 +578,7 @@ public;StandardContentToolsProvider
 beta;StandardContentToolsUiItemsProvider 
 public;StandardFrontstageProps
 public;StandardFrontstageProvider 
+deprecated;StandardFrontstageProvider 
 public;StandardLayoutToolbarItem
 public;StandardLayoutWidget
 public;StandardMessageBoxProps 
