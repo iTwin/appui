@@ -9,7 +9,6 @@ import {
   StandardContentLayouts,
 } from "@itwin/appui-abstract";
 import {
-  CommandItemDef,
   ContentGroup,
   ContentGroupProps,
   ContentProps,
@@ -17,6 +16,7 @@ import {
   StageContentLayout,
   StageContentLayoutProps,
   SyncUiEventId,
+  ToolbarItemUtilities,
   UiFramework,
 } from "@itwin/appui-react";
 import { IModelConnection, Tool } from "@itwin/core-frontend";
@@ -197,111 +197,110 @@ const getSplitWindowCmdIcon = () => {
     <SvgWindow />
   );
 };
-export function getSplitSingleViewportCommandDef() {
-  const commandId = "splitSingleViewportCommandDef";
-  return new CommandItemDef({
-    commandId,
-    iconSpec: new ConditionalIconItem(getSplitWindowCmdIcon, [
-      SyncUiEventId.ActiveContentChanged,
-    ]),
-    label: new ConditionalStringValue(
-      () =>
-        1 ===
-        UiFramework.frontstages.activeFrontstageDef?.contentGroup?.getContentControls()
-          .length
-          ? "Split Content View"
-          : "Single Content View",
-      [SyncUiEventId.ActiveContentChanged]
-    ),
-    execute: async () => {
-      // if the active frontstage is only showing an single viewport then split it and have two copies of it
-      const activeFrontstageDef = UiFramework.frontstages.activeFrontstageDef;
-      if (
-        activeFrontstageDef &&
-        1 === activeFrontstageDef.contentGroup?.getContentControls().length &&
-        activeFrontstageDef.contentControls[0].viewport
-      ) {
-        const vp = activeFrontstageDef.contentControls[0].viewport;
-        if (vp) {
-          const contentPropsArray: ContentProps[] = [];
-          contentPropsArray.push({
-            id: "imodel-view-0",
-            classId: IModelViewportControl.id,
-            applicationData: {
-              viewState: vp.view.clone(),
-              iModelConnection: vp.view.iModel,
-              featureOptions: {
-                defaultViewOverlay: {
-                  enableScheduleAnimationViewOverlay: true,
-                  enableAnalysisTimelineViewOverlay: true,
-                  enableSolarTimelineViewOverlay: true,
-                },
+
+export function createSplitSingleViewportToolbarItem() {
+  const id = "splitSingleViewportCommandDef";
+  const icon = new ConditionalIconItem(getSplitWindowCmdIcon, [
+    SyncUiEventId.ActiveContentChanged,
+  ]);
+  const label = new ConditionalStringValue(
+    () =>
+      1 ===
+      UiFramework.frontstages.activeFrontstageDef?.contentGroup?.getContentControls()
+        .length
+        ? "Split Content View"
+        : "Single Content View",
+    [SyncUiEventId.ActiveContentChanged]
+  );
+  const execute = async () => {
+    // if the active frontstage is only showing an single viewport then split it and have two copies of it
+    const activeFrontstageDef = UiFramework.frontstages.activeFrontstageDef;
+    if (
+      activeFrontstageDef &&
+      1 === activeFrontstageDef.contentGroup?.getContentControls().length &&
+      activeFrontstageDef.contentControls[0].viewport
+    ) {
+      const vp = activeFrontstageDef.contentControls[0].viewport;
+      if (vp) {
+        const contentPropsArray: ContentProps[] = [];
+        contentPropsArray.push({
+          id: "imodel-view-0",
+          classId: IModelViewportControl.id,
+          applicationData: {
+            viewState: vp.view.clone(),
+            iModelConnection: vp.view.iModel,
+            featureOptions: {
+              defaultViewOverlay: {
+                enableScheduleAnimationViewOverlay: true,
+                enableAnalysisTimelineViewOverlay: true,
+                enableSolarTimelineViewOverlay: true,
               },
             },
-          });
-          contentPropsArray.push({
-            id: "imodel-view-1",
-            classId: IModelViewportControl.id,
-            applicationData: {
-              viewState: vp.view.clone(),
-              iModelConnection: vp.view.iModel,
-              featureOptions: {
-                defaultViewOverlay: {
-                  enableScheduleAnimationViewOverlay: true,
-                  enableAnalysisTimelineViewOverlay: true,
-                  enableSolarTimelineViewOverlay: true,
-                },
+          },
+        });
+        contentPropsArray.push({
+          id: "imodel-view-1",
+          classId: IModelViewportControl.id,
+          applicationData: {
+            viewState: vp.view.clone(),
+            iModelConnection: vp.view.iModel,
+            featureOptions: {
+              defaultViewOverlay: {
+                enableScheduleAnimationViewOverlay: true,
+                enableAnalysisTimelineViewOverlay: true,
+                enableSolarTimelineViewOverlay: true,
               },
             },
-          });
+          },
+        });
 
-          let contentGroupProps: ContentGroupProps = {
-            id: "split-vertical-group",
-            layout: StandardContentLayouts.twoVerticalSplit,
-            contents: contentPropsArray,
-          };
+        let contentGroupProps: ContentGroupProps = {
+          id: "split-vertical-group",
+          layout: StandardContentLayouts.twoVerticalSplit,
+          contents: contentPropsArray,
+        };
 
-          if (activeFrontstageDef.contentGroupProvider)
-            contentGroupProps =
-              activeFrontstageDef.contentGroupProvider.applyUpdatesToSavedProps(
-                contentGroupProps
-              );
+        if (activeFrontstageDef.contentGroupProvider)
+          contentGroupProps =
+            activeFrontstageDef.contentGroupProvider.applyUpdatesToSavedProps(
+              contentGroupProps
+            );
 
-          const contentGroup = new ContentGroup(contentGroupProps);
-          await UiFramework.content.layouts.setActiveContentGroup(contentGroup);
-        }
-      } else if (
-        activeFrontstageDef &&
-        2 === activeFrontstageDef.contentGroup?.getContentControls().length &&
-        activeFrontstageDef.contentControls[0].viewport
-      ) {
-        const vp = activeFrontstageDef.contentControls[0].viewport;
-        if (vp) {
-          const contentPropsArray: ContentProps[] = [];
-          contentPropsArray.push({
-            id: "imodel-view-0",
-            classId: IModelViewportControl.id,
-            applicationData: {
-              viewState: vp.view.clone(),
-              iModelConnection: vp.view.iModel,
-            },
-          });
-
-          let contentGroupProps: ContentGroupProps = {
-            id: "single-content",
-            layout: StandardContentLayouts.singleView,
-            contents: contentPropsArray,
-          };
-          if (activeFrontstageDef.contentGroupProvider)
-            contentGroupProps =
-              activeFrontstageDef.contentGroupProvider.applyUpdatesToSavedProps(
-                contentGroupProps
-              );
-
-          const contentGroup = new ContentGroup(contentGroupProps);
-          await UiFramework.content.layouts.setActiveContentGroup(contentGroup);
-        }
+        const contentGroup = new ContentGroup(contentGroupProps);
+        await UiFramework.content.layouts.setActiveContentGroup(contentGroup);
       }
-    },
-  });
+    } else if (
+      activeFrontstageDef &&
+      2 === activeFrontstageDef.contentGroup?.getContentControls().length &&
+      activeFrontstageDef.contentControls[0].viewport
+    ) {
+      const vp = activeFrontstageDef.contentControls[0].viewport;
+      if (vp) {
+        const contentPropsArray: ContentProps[] = [];
+        contentPropsArray.push({
+          id: "imodel-view-0",
+          classId: IModelViewportControl.id,
+          applicationData: {
+            viewState: vp.view.clone(),
+            iModelConnection: vp.view.iModel,
+          },
+        });
+
+        let contentGroupProps: ContentGroupProps = {
+          id: "single-content",
+          layout: StandardContentLayouts.singleView,
+          contents: contentPropsArray,
+        };
+        if (activeFrontstageDef.contentGroupProvider)
+          contentGroupProps =
+            activeFrontstageDef.contentGroupProvider.applyUpdatesToSavedProps(
+              contentGroupProps
+            );
+
+        const contentGroup = new ContentGroup(contentGroupProps);
+        await UiFramework.content.layouts.setActiveContentGroup(contentGroup);
+      }
+    }
+  };
+  return ToolbarItemUtilities.createActionItem(id, 0, icon, label, execute);
 }

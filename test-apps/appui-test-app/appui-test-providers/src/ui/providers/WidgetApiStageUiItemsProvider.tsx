@@ -9,7 +9,6 @@ import {
   BackstageItemUtilities,
   StagePanelLocation,
   StagePanelSection,
-  ToolbarHelper,
   ToolbarItem,
   ToolbarOrientation,
   ToolbarUsage,
@@ -27,7 +26,7 @@ import {
   SvgUsers,
 } from "@itwin/itwinui-icons-react";
 import {
-  getToggleCustomOverlayCommandItemDef,
+  createToggleCustomOverlayToolbarItem,
   WidgetApiStage,
 } from "../frontstages/WidgetApiStage";
 import {
@@ -321,13 +320,11 @@ export class WidgetApiStageUiItemsProvider implements UiItemsProvider {
         toolbarOrientation === ToolbarOrientation.Horizontal
       ) {
         const items: ToolbarItem[] = [];
-        items.push(
-          ToolbarHelper.createToolbarItemFromItemDef(
-            17,
-            getToggleCustomOverlayCommandItemDef(),
-            { groupPriority: 3000 }
-          )
-        );
+        items.push({
+          ...createToggleCustomOverlayToolbarItem(),
+          itemPriority: 17,
+          groupPriority: 3000,
+        });
         return items;
       }
     }

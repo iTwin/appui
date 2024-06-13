@@ -13,7 +13,6 @@ import {
   StatusBarItem,
   StatusBarItemUtilities,
   StatusBarSection,
-  ToolbarHelper,
   ToolbarItem,
   ToolbarItemUtilities,
   ToolbarOrientation,
@@ -24,7 +23,7 @@ import {
   WidgetState,
 } from "@itwin/appui-react";
 import {
-  getSplitSingleViewportCommandDef,
+  createSplitSingleViewportToolbarItem,
   RestoreSavedContentLayoutTool,
   SaveContentLayoutTool,
 } from "../../tools/ContentLayoutTools";
@@ -81,11 +80,11 @@ export class ContentLayoutStageUiItemsProvider implements UiItemsProvider {
         toolbarOrientation === ToolbarOrientation.Horizontal
       ) {
         return [
-          ToolbarHelper.createToolbarItemFromItemDef(
-            15,
-            getSplitSingleViewportCommandDef(),
-            { groupPriority: 3000 }
-          ),
+          {
+            ...createSplitSingleViewportToolbarItem(),
+            itemPriority: 15,
+            groupPriority: 3000,
+          },
         ];
       } else if (
         toolbarUsage === ToolbarUsage.ViewNavigation &&

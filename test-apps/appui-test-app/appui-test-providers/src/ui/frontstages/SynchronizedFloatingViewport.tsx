@@ -142,11 +142,7 @@ export class SynchronizedFloatingViewportStage {
     const cornerButton = (
       <BackstageAppButton
         key="appui-test-providers-SynchronizedFloatingViewportExample-backstage"
-        label="Toggle Backstage"
-        icon={"icon-bentley-systems"}
-        execute={() =>
-          UiFramework.backstage.getBackstageToggleCommand().execute()
-        }
+        icon="icon-bentley-systems"
       />
     );
 

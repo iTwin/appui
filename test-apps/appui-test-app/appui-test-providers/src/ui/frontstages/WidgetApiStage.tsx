@@ -7,7 +7,6 @@ import { useSelector } from "react-redux";
 
 import {
   BackstageAppButton,
-  CommandItemDef,
   ContentGroup,
   ContentGroupProps,
   ContentGroupProvider,
@@ -22,6 +21,7 @@ import {
   StandardNavigationToolsUiItemsProvider,
   StandardStatusbarUiItemsProvider,
   StateManager,
+  ToolbarItemUtilities,
   UiFramework,
   UiItemsManager,
   WidgetState,
@@ -187,10 +187,7 @@ export class WidgetApiStage {
       <BackstageAppButton
         key="appui-test-providers-WidgetApi-backstage"
         label="Toggle Backstage"
-        icon={"icon-bentley-systems"}
-        execute={() =>
-          UiFramework.backstage.getBackstageToggleCommand().execute()
-        }
+        icon="icon-bentley-systems"
       />
     );
 
@@ -258,38 +255,33 @@ export class WidgetApiStage {
   }
 }
 
-// Return CommandItemDef that can be used to provide a toolbar button.
-export function getToggleCustomOverlayCommandItemDef() {
-  const commandId = "testHideShowItems";
-  return new CommandItemDef({
-    commandId,
-    iconSpec: new ConditionalStringValue(
-      () =>
-        getTestProviderState().showCustomViewOverlay
-          ? "icon-zoom-out"
-          : "icon-zoom-in",
-      [AppUiTestProviders.syncEventIdHideCustomViewOverlay]
-    ),
-    label: new ConditionalStringValue(
-      () =>
-        getTestProviderState().showCustomViewOverlay
-          ? "Hide overlay"
-          : "Show overlay",
-      [AppUiTestProviders.syncEventIdHideCustomViewOverlay]
-    ),
-
-    execute: () => {
-      const showCustomViewOverlay =
-        getTestProviderState().showCustomViewOverlay;
-      // eslint-disable-next-line deprecation/deprecation
-      StateManager.store.dispatch(
-        setShowCustomViewOverlay(!showCustomViewOverlay)
-      );
-      IModelApp.toolAdmin.dispatchUiSyncEvent(
-        AppUiTestProviders.syncEventIdHideCustomViewOverlay
-      );
-    },
-  });
+export function createToggleCustomOverlayToolbarItem() {
+  const id = "testHideShowItems";
+  const icon = new ConditionalStringValue(
+    () =>
+      getTestProviderState().showCustomViewOverlay
+        ? "icon-zoom-out"
+        : "icon-zoom-in",
+    [AppUiTestProviders.syncEventIdHideCustomViewOverlay]
+  );
+  const label = new ConditionalStringValue(
+    () =>
+      getTestProviderState().showCustomViewOverlay
+        ? "Hide overlay"
+        : "Show overlay",
+    [AppUiTestProviders.syncEventIdHideCustomViewOverlay]
+  );
+  const execute = () => {
+    const showCustomViewOverlay = getTestProviderState().showCustomViewOverlay;
+    // eslint-disable-next-line deprecation/deprecation
+    StateManager.store.dispatch(
+      setShowCustomViewOverlay(!showCustomViewOverlay)
+    );
+    IModelApp.toolAdmin.dispatchUiSyncEvent(
+      AppUiTestProviders.syncEventIdHideCustomViewOverlay
+    );
+  };
+  return ToolbarItemUtilities.createActionItem(id, 0, icon, label, execute);
 }
 
 /*

@@ -5,7 +5,6 @@
 import * as React from "react";
 import {
   BackstageAppButton,
-  BackstageManager,
   ConfigurableCreateInfo,
   ContentControl,
   ContentGroup,
@@ -56,17 +55,7 @@ export class CustomFrontstageProvider extends FrontstageProvider {
       contentManipulation: {
         id: `${id}-contentManipulationTools`,
         content: (
-          <ContentToolWidgetComposer
-            cornerButton={
-              <BackstageAppButton
-                label="Toggle Backstage"
-                icon="icon-bentley-systems"
-                execute={() =>
-                  BackstageManager.getBackstageToggleCommand().execute()
-                }
-              />
-            }
-          />
+          <ContentToolWidgetComposer cornerButton={<BackstageAppButton />} />
         ),
       },
     };
