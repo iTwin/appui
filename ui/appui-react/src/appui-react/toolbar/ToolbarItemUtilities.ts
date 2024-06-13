@@ -13,7 +13,7 @@ import type {
   ToolbarGroupItem,
 } from "./ToolbarItem";
 
-/** Helper class to create toolbar items.
+/** Helper namespace to create toolbar items.
  * @beta
  */
 export namespace ToolbarItemUtilities {

@@ -4755,73 +4755,40 @@ export interface ToolbarItemLayouts {
     readonly standard?: StandardLayoutToolbarItem;
 }
 
-// @beta (undocumented)
+// @beta
 export namespace ToolbarItems {
-    // (undocumented)
     export function createClearHideIsolateEmphasizeElements(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
-    // (undocumented)
     export function createClearSelection(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
-    // (undocumented)
     export function createEmphasizeElements(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
-    // (undocumented)
     export function createFitView(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
-    // (undocumented)
     export function createFlyView(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
-    // (undocumented)
     export function createHideCategoriesInSelection(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
-    // (undocumented)
     export function createHideElements(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
-    // (undocumented)
     export function createHideModelsInSelection(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
-    // (undocumented)
     export function createHideSectionGroup(overrides?: Partial<ToolbarGroupItem>): ToolbarGroupItem;
-    // (undocumented)
     export function createIsolateCategoriesInSelection(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
-    // (undocumented)
     export function createIsolateElements(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
-    // (undocumented)
     export function createIsolateModelsInSelection(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
-    // (undocumented)
     export function createIsolateSelectionGroup(overrides?: Partial<ToolbarGroupItem>): ToolbarGroupItem;
-    // (undocumented)
     export function createMeasureDistance(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
-    // (undocumented)
     export function createMeasureGroup(overrides?: Partial<ToolbarGroupItem>): ToolbarGroupItem;
-    // (undocumented)
     export function createMeasureLocation(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
-    // (undocumented)
     export function createPanView(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
-    // (undocumented)
     export function createRestoreFrontstageLayout(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
-    // (undocumented)
     export function createRotateView(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
-    // (undocumented)
     export function createSectionByElement(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
-    // (undocumented)
     export function createSectionByPlane(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
-    // (undocumented)
     export function createSectionByRange(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
-    // (undocumented)
     export function createSectionByShape(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
-    // (undocumented)
     export function createSectionGroup(overrides?: Partial<ToolbarGroupItem>): ToolbarGroupItem;
-    // (undocumented)
     export function createSelectElement(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
-    // (undocumented)
     export function createSetupWalkCamera(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
-    // (undocumented)
     export function createShowKeyinPalette(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
-    // (undocumented)
     export function createToggleCameraView(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
-    // (undocumented)
     export function createViewRedo(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
-    // (undocumented)
     export function createViewUndo(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
-    // (undocumented)
     export function createWalkView(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
-    // (undocumented)
     export function createWindowArea(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
-    // (undocumented)
     export function createZoomView(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
 }
 

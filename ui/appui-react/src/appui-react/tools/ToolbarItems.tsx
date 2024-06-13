@@ -19,9 +19,11 @@ import { CoreTools } from "./CoreToolDefinitions";
 
 /* eslint-disable deprecation/deprecation */
 
-/** @beta */
+/** Helper namespace to create commonly used toolbar items.
+ * @beta
+ */
 export namespace ToolbarItems {
-  /** */
+  /** Creates an action item to open a keyin palette. */
   export function createShowKeyinPalette(
     overrides?: Partial<ToolbarActionItem>
   ) {
@@ -31,37 +33,37 @@ export namespace ToolbarItems {
     );
   }
 
-  /** */
+  /** Creates an action item that runs a `FitViewTool`. */
   export function createFitView(overrides?: Partial<ToolbarActionItem>) {
     return itemDefToToolbarActionItem(CoreTools.fitViewCommand, overrides);
   }
 
-  /** */
+  /** Creates an action item that runs a `WindowAreaTool`. */
   export function createWindowArea(overrides?: Partial<ToolbarActionItem>) {
     return itemDefToToolbarActionItem(CoreTools.windowAreaCommand, overrides);
   }
 
-  /** */
+  /** Creates an action item that runs a `ZoomViewTool`. */
   export function createZoomView(overrides?: Partial<ToolbarActionItem>) {
     return itemDefToToolbarActionItem(CoreTools.zoomViewCommand, overrides);
   }
 
-  /** */
+  /** Creates an action item that runs a `PanViewTool`. */
   export function createPanView(overrides?: Partial<ToolbarActionItem>) {
     return itemDefToToolbarActionItem(CoreTools.panViewCommand, overrides);
   }
 
-  /** */
+  /** Creates an action item that runs a `RotateViewTool`. */
   export function createRotateView(overrides?: Partial<ToolbarActionItem>) {
     return itemDefToToolbarActionItem(CoreTools.rotateViewCommand, overrides);
   }
 
-  /** */
+  /** Creates an action item that runs a `WalkViewTool`. */
   export function createWalkView(overrides?: Partial<ToolbarActionItem>) {
     return itemDefToToolbarActionItem(CoreTools.walkViewCommand, overrides);
   }
 
-  /** */
+  /** Creates an action item that runs a `SelectionTool`. */
   export function createSelectElement(overrides?: Partial<ToolbarActionItem>) {
     return itemDefToToolbarActionItem(
       CoreTools.selectElementCommand,
@@ -69,14 +71,14 @@ export namespace ToolbarItems {
     );
   }
 
-  /** */
+  /** Creates an action item that runs a `SetupWalkCameraTool`. */
   export function createSetupWalkCamera(
     overrides?: Partial<ToolbarActionItem>
   ) {
     return itemDefToToolbarActionItem(CoreTools.setupCameraWalkTool, overrides);
   }
 
-  /** */
+  /** Creates an action item that runs a `ViewToggleCameraTool`. */
   export function createToggleCameraView(
     overrides?: Partial<ToolbarActionItem>
   ) {
@@ -86,22 +88,22 @@ export namespace ToolbarItems {
     );
   }
 
-  /** */
+  /** Creates an action item that runs a `FlyViewTool`. */
   export function createFlyView(overrides?: Partial<ToolbarActionItem>) {
     return itemDefToToolbarActionItem(CoreTools.flyViewCommand, overrides);
   }
 
-  /** */
+  /** Creates an action item that runs a `ViewUndoTool`. */
   export function createViewUndo(overrides?: Partial<ToolbarActionItem>) {
     return itemDefToToolbarActionItem(CoreTools.viewUndoCommand, overrides);
   }
 
-  /** */
+  /** Creates an action item that runs a `ViewRedoTool`. */
   export function createViewRedo(overrides?: Partial<ToolbarActionItem>) {
     return itemDefToToolbarActionItem(CoreTools.viewRedoCommand, overrides);
   }
 
-  /** */
+  /** Creates an action item that runs a `ViewClipByPlaneTool`. */
   export function createSectionByPlane(overrides?: Partial<ToolbarActionItem>) {
     return itemDefToToolbarActionItem(
       CoreTools.sectionByPlaneCommandItemDef,
@@ -109,7 +111,7 @@ export namespace ToolbarItems {
     );
   }
 
-  /** */
+  /** Creates an action item that runs a `ViewClipByElementTool`. */
   export function createSectionByElement(
     overrides?: Partial<ToolbarActionItem>
   ) {
@@ -119,7 +121,7 @@ export namespace ToolbarItems {
     );
   }
 
-  /** */
+  /** Creates an action item that runs a `ViewClipByRangeTool`. */
   export function createSectionByRange(overrides?: Partial<ToolbarActionItem>) {
     return itemDefToToolbarActionItem(
       CoreTools.sectionByRangeCommandItemDef,
@@ -127,7 +129,7 @@ export namespace ToolbarItems {
     );
   }
 
-  /** */
+  /** Creates an action item that runs a `ViewClipByShapeTool`. */
   export function createSectionByShape(overrides?: Partial<ToolbarActionItem>) {
     return itemDefToToolbarActionItem(
       CoreTools.sectionByShapeCommandItemDef,
@@ -135,12 +137,12 @@ export namespace ToolbarItems {
     );
   }
 
-  /** */
+  /** Creates a group item with all sectioning tools. */
   export function createSectionGroup(overrides?: Partial<ToolbarGroupItem>) {
     return itemDefToToolbarGroupItem(CoreTools.sectionToolGroup, overrides);
   }
 
-  /** */
+  /** Creates an action item that runs a `MeasureDistanceTool`. */
   export function createMeasureDistance(
     overrides?: Partial<ToolbarActionItem>
   ) {
@@ -150,7 +152,7 @@ export namespace ToolbarItems {
     );
   }
 
-  /** */
+  /** Creates an action item that runs a `MeasureLocationTool`. */
   export function createMeasureLocation(
     overrides?: Partial<ToolbarActionItem>
   ) {
@@ -160,12 +162,12 @@ export namespace ToolbarItems {
     );
   }
 
-  /** */
+  /** Creates a group item with all measurement tools. */
   export function createMeasureGroup(overrides?: Partial<ToolbarGroupItem>) {
     return itemDefToToolbarGroupItem(CoreTools.measureToolGroup, overrides);
   }
 
-  /** */
+  /** Creates an action item that clears a selection set. */
   export function createClearSelection(overrides?: Partial<ToolbarActionItem>) {
     return itemDefToToolbarActionItem(
       CoreTools.clearSelectionItemDef,
@@ -173,7 +175,7 @@ export namespace ToolbarItems {
     );
   }
 
-  /** */
+  /** Creates an action item that runs a `RestoreFrontstageLayoutTool`. */
   export function createRestoreFrontstageLayout(
     overrides?: Partial<ToolbarActionItem>
   ) {
@@ -183,7 +185,7 @@ export namespace ToolbarItems {
     );
   }
 
-  /** */
+  /** Creates an action item that isolates models in the selection. */
   export function createIsolateModelsInSelection(
     overrides?: Partial<ToolbarActionItem>
   ) {
@@ -193,7 +195,7 @@ export namespace ToolbarItems {
     );
   }
 
-  /** */
+  /** Creates an action item that isolates categories in the selection. */
   export function createIsolateCategoriesInSelection(
     overrides?: Partial<ToolbarActionItem>
   ) {
@@ -203,7 +205,7 @@ export namespace ToolbarItems {
     );
   }
 
-  /** */
+  /** Creates an action item that runs isolates elements. */
   export function createIsolateElements(
     overrides?: Partial<ToolbarActionItem>
   ) {
@@ -213,7 +215,7 @@ export namespace ToolbarItems {
     );
   }
 
-  /** */
+  /** Creates a group item with all isolation tools. */
   export function createIsolateSelectionGroup(
     overrides?: Partial<ToolbarGroupItem>
   ) {
@@ -223,7 +225,7 @@ export namespace ToolbarItems {
     );
   }
 
-  /** */
+  /** Creates an action item that hides models in selection. */
   export function createHideModelsInSelection(
     overrides?: Partial<ToolbarActionItem>
   ) {
@@ -233,7 +235,7 @@ export namespace ToolbarItems {
     );
   }
 
-  /** */
+  /** Creates an action item that hides categories in selection. */
   export function createHideCategoriesInSelection(
     overrides?: Partial<ToolbarActionItem>
   ) {
@@ -243,7 +245,7 @@ export namespace ToolbarItems {
     );
   }
 
-  /** */
+  /** Creates an action item that hides selected elements. */
   export function createHideElements(overrides?: Partial<ToolbarActionItem>) {
     return itemDefToToolbarActionItem(
       SelectionContextToolDefinitions.hideElementsItemDef,
@@ -251,7 +253,7 @@ export namespace ToolbarItems {
     );
   }
 
-  /** */
+  /** Creates a group item with all hide tools. */
   export function createHideSectionGroup(
     overrides?: Partial<ToolbarGroupItem>
   ) {
@@ -261,7 +263,7 @@ export namespace ToolbarItems {
     );
   }
 
-  /** */
+  /** Creates an action item that emphasizes selected elements. */
   export function createEmphasizeElements(
     overrides?: Partial<ToolbarActionItem>
   ) {
@@ -271,7 +273,7 @@ export namespace ToolbarItems {
     );
   }
 
-  /** */
+  /** Creates an action item that clears hide, isolate and emphasize visibility modifiers. */
   export function createClearHideIsolateEmphasizeElements(
     overrides?: Partial<ToolbarActionItem>
   ) {
