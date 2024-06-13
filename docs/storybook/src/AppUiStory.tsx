@@ -15,7 +15,7 @@ import {
   AppNotificationManager,
   ConfigurableUiContent,
   FrameworkToolAdmin,
-  FrontstageProvider,
+  Frontstage,
   ThemeManager,
   UiFramework,
   UiItemsManager,
@@ -32,7 +32,7 @@ import { IModelApp } from "@itwin/core-frontend";
 import { FrontendIModelsAccess } from "@itwin/imodels-access-frontend";
 import { IModelsClient } from "@itwin/imodels-client-authoring";
 import { ProgressLinear } from "@itwin/itwinui-react";
-import { createFrontstageProvider } from "./Utils";
+import { createFrontstage } from "./Utils";
 import { DemoIModel, useDemoIModel } from "../.storybook/addons/DemoIModel";
 import { openDemoIModel } from "./openDemoIModel";
 
@@ -40,7 +40,7 @@ export interface AppUiStoryProps {
   appBackstage?: React.ReactNode;
   children?: React.ReactNode;
   demoIModel?: boolean | { default: DemoIModel };
-  frontstageProviders?: FrontstageProvider[] | (() => FrontstageProvider[]);
+  frontstages?: Frontstage[] | (() => Frontstage[]);
   itemProviders?: UiItemsProvider[];
   layout?: "fullscreen";
   onInitialize?: () => Promise<void>;
@@ -92,11 +92,9 @@ export function AppUiStory(props: AppUiStoryProps) {
         UiItemsManager.register(provider);
       }
 
-      const frontstageProviders = getFrontstageProviders(
-        props.frontstageProviders
-      );
-      for (const provider of frontstageProviders) {
-        UiFramework.frontstages.addFrontstageProvider(provider);
+      const frontstages = getFrontstages(props.frontstages);
+      for (const frontstage of frontstages) {
+        UiFramework.frontstages.addFrontstage(frontstage);
       }
       for (const provider of props.itemProviders ?? []) {
         UiItemsManager.register(provider);
@@ -130,21 +128,21 @@ export function AppUiStory(props: AppUiStoryProps) {
 }
 
 function Initialized(props: AppUiStoryProps) {
-  const { frontstageProviders, onFrontstageActivated } = props;
+  const { frontstages: frontstagesGetter, onFrontstageActivated } = props;
   React.useEffect(() => {
     let ignore = false;
-    const providers = getFrontstageProviders(frontstageProviders);
-    const defaultProvider = providers[0];
+    const frontstages = getFrontstages(frontstagesGetter);
+    const frontstage = frontstages[0];
     (async function () {
-      if (!defaultProvider) return;
-      await UiFramework.frontstages.setActiveFrontstage(defaultProvider.id);
+      if (!frontstage) return;
+      await UiFramework.frontstages.setActiveFrontstage(frontstage.id);
       if (ignore) return;
       onFrontstageActivated?.();
     })();
     return () => {
       ignore = true;
     };
-  }, [frontstageProviders, onFrontstageActivated]);
+  }, [frontstagesGetter, onFrontstageActivated]);
   return (
     <>
       <Provider store={UiFramework.store}>
@@ -179,12 +177,10 @@ export function Page() {
   );
 }
 
-function getFrontstageProviders(
-  frontstageProviders: AppUiStoryProps["frontstageProviders"]
-) {
-  if (!frontstageProviders) return [createFrontstageProvider()];
-  if (Array.isArray(frontstageProviders)) return frontstageProviders;
-  return frontstageProviders();
+function getFrontstages(frontstages: AppUiStoryProps["frontstages"]) {
+  if (!frontstages) return [createFrontstage()];
+  if (Array.isArray(frontstages)) return frontstages;
+  return frontstages();
 }
 
 class DemoAuthClient implements AuthorizationClient {

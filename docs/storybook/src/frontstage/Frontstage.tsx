@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import { StandardFrontstageProps } from "@itwin/appui-react";
 import { AppUiStory, AppUiStoryProps } from "../AppUiStory";
-import { createFrontstageProvider } from "../Utils";
+import { createFrontstage } from "../Utils";
 
 type FrontstageStoryProps = Pick<AppUiStoryProps, "itemProviders"> &
   Pick<StandardFrontstageProps, "hideStatusBar" | "hideToolSettings"> & {
@@ -13,16 +13,12 @@ type FrontstageStoryProps = Pick<AppUiStoryProps, "itemProviders"> &
 
 /** [FrontstageProvider](https://www.itwinjs.org/reference/appui-react/frontstage/frontstageprovider/) can be used to configure a frontstage. */
 export function FrontstageStory(props: FrontstageStoryProps) {
-  const frontstageProvider = createFrontstageProvider({
+  const frontstage = createFrontstage({
     ...props.frontstage,
     hideStatusBar: props.hideStatusBar,
     hideToolSettings: props.hideToolSettings,
   });
   return (
-    <AppUiStory
-      layout="fullscreen"
-      frontstageProviders={[frontstageProvider]}
-      {...props}
-    />
+    <AppUiStory layout="fullscreen" frontstages={[frontstage]} {...props} />
   );
 }

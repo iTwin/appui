@@ -4,34 +4,23 @@
  *--------------------------------------------------------------------------------------------*/
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 import {
-  FrontstageConfig,
+  Frontstage,
   StagePanelLocation,
   StagePanelSection,
   StageUsage,
   StandardFrontstageProps,
-  StandardFrontstageProvider,
   Widget,
+  createStandardFrontstage,
 } from "@itwin/appui-react";
 import { createContentControl } from "./createContentControl";
 
-export function createFrontstageProvider(
+export function createFrontstage(
   overrides?: Partial<StandardFrontstageProps> & {
     content?: React.ReactNode;
-    contentManipulation?: FrontstageConfig["contentManipulation"];
+    contentManipulation?: Frontstage["contentManipulation"];
   }
-) {
-  return new (class extends StandardFrontstageProvider {
-    public override frontstageConfig(): FrontstageConfig {
-      const config = super.frontstageConfig();
-
-      const contentManipulation =
-        overrides?.contentManipulation ?? config.contentManipulation;
-      return {
-        ...config,
-        contentManipulation,
-      };
-    }
-  })({
+): Frontstage {
+  const config = createStandardFrontstage({
     id: "main-frontstage",
     usage: StageUsage.Private,
     version: Math.random(),
@@ -63,6 +52,13 @@ export function createFrontstageProvider(
     hideNavigationAid: true,
     ...overrides,
   });
+
+  const contentManipulation =
+    overrides?.contentManipulation ?? config.contentManipulation;
+  return {
+    ...config,
+    contentManipulation,
+  };
 }
 
 export function removeProperty() {
