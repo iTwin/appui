@@ -623,7 +623,7 @@ export class FrontstageDef {
     return contentControls;
   }
 
-  /** Initializes a FrontstageDef from FrontstageConfig.
+  /** Initializes a FrontstageDef from frontstage.
    * @internal
    */
   public async initializeFromConfig(config: Frontstage): Promise<void> {
@@ -1033,10 +1033,10 @@ function createWidgetDef(
 }
 
 function createStagePanelDef(
-  frontstageConfig: Frontstage,
+  frontstage: Frontstage,
   location: StagePanelLocation
 ): StagePanelDef {
-  const config = getStagePanel(location, frontstageConfig);
+  const config = getStagePanel(location, frontstage);
 
   const panelDef = new StagePanelDef();
   panelDef.initializeFromConfig(config, location);

@@ -12,7 +12,6 @@ import { ContentGroup, ContentGroupProvider } from "../content/ContentGroup";
 import { FrontstageProvider } from "./FrontstageProvider";
 import { ContentToolWidgetComposer } from "../widgets/ContentToolWidgetComposer";
 import { ViewToolWidgetComposer } from "../widgets/ViewToolWidgetComposer";
-import type { FrontstageConfig } from "./FrontstageConfig";
 import type { StagePanelConfig } from "../stagepanels/StagePanelConfig";
 import type { StageUsage } from "./StageUsage";
 import { StatusBarComposer } from "../statusbar/StatusBarComposer";
@@ -139,13 +138,12 @@ export function createStandardFrontstage(
   };
 }
 
-/* eslint-disable deprecation/deprecation */
-
 /** FrontstageProvider that provides an "empty" stage. All tool buttons, statusbar items, and widgets must
  * be provided by one or more item providers, see [[UiItemsProvider]].
  * @public
  * @deprecated in 4.15.0. Use {@link createStandardFrontstage} instead.
  */
+// eslint-disable-next-line deprecation/deprecation
 export class StandardFrontstageProvider extends FrontstageProvider {
   constructor(private props: StandardFrontstageProps) {
     super();
@@ -155,7 +153,7 @@ export class StandardFrontstageProvider extends FrontstageProvider {
     return this.props.id;
   }
 
-  public override frontstageConfig(): FrontstageConfig {
+  public override frontstageConfig(): Frontstage {
     const config = createStandardFrontstage(this.props);
     return config;
   }
