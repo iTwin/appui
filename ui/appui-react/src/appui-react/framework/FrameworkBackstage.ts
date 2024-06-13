@@ -43,7 +43,7 @@ export interface FrameworkBackstage {
    * Toggle the backstage.
    */
   toggle(): void;
-  /** Creates a CommandItemDef that toggle the backstage.
+  /** Creates a CommandItemDef that toggles the backstage.
    * @param overrideIconSpec Icon to replace the default 'home'.
    * @deprecated in 4.15.0. Use {@link BackstageAppButton} component or {@link FrameworkBackstage.toggle} instead.
    */
