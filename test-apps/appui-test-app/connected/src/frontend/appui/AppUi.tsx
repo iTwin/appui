@@ -10,10 +10,10 @@ import {
 import { IModelApp } from "@itwin/core-frontend";
 
 import {
-  AccuDrawCommandItems,
   AccuDrawKeyboardShortcuts,
-  CommandItemDef,
+  FocusToolSettings,
   KeyboardShortcutProps,
+  KeyboardShortcutUtilities,
   UiFramework,
 } from "@itwin/appui-react";
 import { SignInFrontstage } from "./frontstages/SignInFrontstage";
@@ -61,17 +61,19 @@ export class AppUi {
         shortcuts: [
           {
             key: "n",
-            item: AppUi._bumpToolSettingToggle,
+            labelKey: "SampleApp:buttons.bumpToolSettingToggle",
+            execute: async () => IModelApp.toolAdmin.bumpToolSetting(2),
           },
-          {
-            key: "f",
-            item: AccuDrawCommandItems.focusToolSetting,
-          },
+          KeyboardShortcutUtilities.createForTool("f", FocusToolSettings),
         ],
       },
       {
         key: Key.F7,
-        item: AppUi._showShortcutsMenuCommand,
+        iconSpec: "icon-placeholder",
+        labelKey: "SampleApp:buttons.showShortcutsMenu",
+        execute: () => {
+          UiFramework.keyboardShortcuts.displayMenu();
+        },
       },
     ];
 
@@ -80,24 +82,5 @@ export class AppUi {
     UiFramework.keyboardShortcuts.loadShortcuts(
       AccuDrawKeyboardShortcuts.getDefaultShortcuts()
     );
-  }
-
-  private static get _bumpToolSettingToggle() {
-    return new CommandItemDef({
-      commandId: "bumpToolSettingToggle",
-      labelKey: "SampleApp:buttons.bumpToolSettingToggle",
-      execute: async () => IModelApp.toolAdmin.bumpToolSetting(2), // Works with ToolWithSettings
-    });
-  }
-
-  private static get _showShortcutsMenuCommand() {
-    return new CommandItemDef({
-      commandId: "showShortcutsMenu",
-      iconSpec: "icon-placeholder",
-      labelKey: "SampleApp:buttons.showShortcutsMenu",
-      execute: () => {
-        UiFramework.keyboardShortcuts.displayMenu();
-      },
-    });
   }
 }

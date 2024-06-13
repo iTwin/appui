@@ -13,7 +13,6 @@ import {
   IModelViewportControl,
   StageUsage,
   StandardContentToolsUiItemsProvider,
-  StandardFrontstageProps,
   StandardFrontstageProvider,
   StandardNavigationToolsUiItemsProvider,
   StandardStatusbarUiItemsProvider,
@@ -133,28 +132,19 @@ export class PopoutWindowsFrontstage {
   }
 
   public static register(localizationNamespace: string) {
-    // set up custom corner button where we specify icon, label, and action
-    const cornerButton = (
-      <BackstageAppButton
-        key="appui-test-providers-popout-windows-backstage"
-        label="Toggle Backstage"
-        icon={"icon-bentley-systems"}
-        execute={() =>
-          UiFramework.backstage.getBackstageToggleCommand().execute()
-        }
-      />
-    );
-
-    const popoutWindowStageProps: StandardFrontstageProps = {
-      id: PopoutWindowsFrontstage.stageId,
-      version: 1.1,
-      contentGroupProps: PopoutWindowsFrontstage._contentGroupProvider,
-      cornerButton,
-      usage: StageUsage.General,
-    };
-
     UiFramework.frontstages.addFrontstageProvider(
-      new StandardFrontstageProvider(popoutWindowStageProps)
+      new StandardFrontstageProvider({
+        id: PopoutWindowsFrontstage.stageId,
+        version: 1.1,
+        contentGroupProps: PopoutWindowsFrontstage._contentGroupProvider,
+        cornerButton: (
+          <BackstageAppButton
+            key="appui-test-providers-popout-windows-backstage"
+            icon="icon-bentley-systems"
+          />
+        ),
+        usage: StageUsage.General,
+      })
     );
     this.registerToolProviders(localizationNamespace);
   }

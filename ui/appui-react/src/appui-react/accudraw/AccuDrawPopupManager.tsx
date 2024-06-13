@@ -33,7 +33,9 @@ export class AccuDrawPopupManager {
     pt: XAndY,
     menuItemsProps: CursorMenuItemProps[]
   ): boolean {
+    // eslint-disable-next-line deprecation/deprecation
     const menuItems = MenuItemHelpers.createMenuItems(menuItemsProps);
+    // eslint-disable-next-line deprecation/deprecation
     const menuContent = MenuItemHelpers.createMenuItemNodes(menuItems);
 
     const component = (

@@ -5,37 +5,19 @@
 /** @packageDocumentation
  * @module KeyboardShortcut
  */
-import type { Key } from "ts-key-enum";
+import type { BadgeType, IconSpec } from "@itwin/core-react";
+import type { KeyboardShortcutProps } from "../keyboardshortcut/KeyboardShortcutProps";
 import type { ActionButtonItemDef } from "../shared/ActionButtonItemDef";
-import type { ItemDefBase } from "../shared/ItemDefBase";
-import type { ItemProps } from "../shared/ItemProps";
-
-/** Properties for a Keyboard Shortcut
- * @public
- */
-export interface KeyboardShortcutProps extends ItemProps {
-  /** The key that invokes the shortcut.
-   * This is either an alphanumeric key, a function key or a special key.
-   */
-  key: string | Key;
-
-  /** The item to execute when this shortcut is invoked. Either 'item' or 'shortcuts' must be specified. */
-  item?: ActionButtonItemDef;
-  /** Nested array of shortcut props. Either 'item' or 'shortcuts' must be specified. */
-  shortcuts?: KeyboardShortcutProps[];
-
-  /** Indicates whether the Alt key required. Default - false */
-  isAltKeyRequired?: boolean;
-  /** Indicates whether the Ctrl key required. Default - false */
-  isCtrlKeyRequired?: boolean;
-  /** Indicates whether the Shift key required. Default - false */
-  isShiftKeyRequired?: boolean;
-}
+import type {
+  ConditionalBooleanValue,
+  ConditionalStringValue,
+} from "../shared/ConditionalValue";
+import type { StringGetter } from "@itwin/appui-abstract";
 
 /** Keyboard Shortcut used to execute an action
  * @public
  */
-export interface FrameworkKeyboardShortcut extends ItemDefBase {
+export interface FrameworkKeyboardShortcut {
   /** Returns the id for this shortcut */
   readonly id: string;
 
@@ -48,7 +30,10 @@ export interface FrameworkKeyboardShortcut extends ItemDefBase {
   /** Returns the shortcut's key map key used as the id */
   readonly keyMapKey: string;
 
-  /** Returns the [[ActionButtonItemDef]] associated with this shortcut */
+  /** Returns the [[ActionButtonItemDef]] associated with this shortcut.
+   * @deprecated in 4.15.0. Use properties of this object instead.
+   */
+  // eslint-disable-next-line deprecation/deprecation
   readonly item: ActionButtonItemDef | undefined;
 
   /** Called when the [[ActionButtonItemDef]] associated with this shortcut is invoked */
@@ -66,6 +51,27 @@ export interface FrameworkKeyboardShortcut extends ItemDefBase {
   readonly isFunctionKey: boolean;
   /** Gets whether this is a Special key. */
   readonly isSpecialKey: boolean;
+
+  // #region "ItemDefBase" properties previously extended from deprecated type.
+
+  isPressed: boolean;
+  isActive: boolean;
+  applicationData?: any;
+  isHidden?: boolean | ConditionalBooleanValue;
+  isDisabled?: boolean | ConditionalBooleanValue;
+  badgeType?: BadgeType;
+  iconSpec?: IconSpec;
+  iconElement?: React.ReactNode;
+  trayId: undefined;
+  readonly rawLabel: string | StringGetter | ConditionalStringValue;
+  readonly label: string;
+  setLabel(v: string | StringGetter | ConditionalStringValue): void;
+  readonly tooltip: string;
+  setTooltip(v: string | StringGetter | ConditionalStringValue): void;
+  readonly description: string;
+  setDescription(v: string | StringGetter | ConditionalStringValue): void;
+
+  // #endregion "ItemDefBase"
 }
 
 /** Keyboard Shortcut Container

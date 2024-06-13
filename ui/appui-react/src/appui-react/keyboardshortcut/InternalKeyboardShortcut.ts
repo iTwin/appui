@@ -8,7 +8,6 @@
 
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
 import { CursorInformation } from "../cursor/CursorInformation";
-import type { KeyboardShortcutProps } from "../framework/FrameworkKeyboardShortcuts";
 import { KeyboardShortcutMenu } from "./KeyboardShortcutMenu";
 import {
   KeyboardShortcut,
@@ -16,6 +15,9 @@ import {
 } from "./KeyboardShortcut";
 import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
 import type { UiSyncEventArgs } from "../syncui/UiSyncEvent";
+import type { KeyboardShortcutProps } from "./KeyboardShortcutProps";
+
+/* eslint-disable deprecation/deprecation */
 
 type OnShortcutFunc = (shortcut: KeyboardShortcut) => void;
 
@@ -122,7 +124,6 @@ export class InternalKeyboardShortcutManager {
     return CursorInformation.cursorY;
   }
 
-  // eslint-disable-next-line deprecation/deprecation
   private static _handleSyncUiEvent = (args: UiSyncEventArgs) => {
     const updateBooleanValue = (booleanValue: ConditionalBooleanValue) => {
       if (

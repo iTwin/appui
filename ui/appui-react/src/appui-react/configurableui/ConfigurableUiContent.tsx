@@ -141,6 +141,7 @@ export function ConfigurableUiContent(props: ConfigurableUiContentProps) {
             <ModalDialogRenderer />
             <ElementTooltip />
             <PointerMessage />
+            {/* eslint-disable-next-line deprecation/deprecation */}
             <KeyboardShortcutMenu />
             <InputFieldMessage />
             <CursorPopupMenu />

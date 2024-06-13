@@ -13,7 +13,6 @@ import {
   IModelViewportControl,
   StageUsage,
   StandardContentToolsUiItemsProvider,
-  StandardFrontstageProps,
   StandardFrontstageProvider,
   StandardNavigationToolsUiItemsProvider,
   StandardStatusbarUiItemsProvider,
@@ -137,28 +136,19 @@ export class ContentLayoutStage {
   }
 
   public static register(localizationNamespace: string) {
-    // set up custom corner button where we specify icon, label, and action
-    const cornerButton = (
-      <BackstageAppButton
-        key="appui-test-providers-ContentLayoutExample-backstage"
-        label="Toggle Backstage"
-        icon={"icon-bentley-systems"}
-        execute={() =>
-          UiFramework.backstage.getBackstageToggleCommand().execute()
-        }
-      />
-    );
-
-    const widgetApiStageProps: StandardFrontstageProps = {
-      id: ContentLayoutStage.stageId,
-      version: 1.1,
-      contentGroupProps: ContentLayoutStage._contentGroupProvider,
-      cornerButton,
-      usage: StageUsage.General,
-    };
-
     UiFramework.frontstages.addFrontstageProvider(
-      new StandardFrontstageProvider(widgetApiStageProps)
+      new StandardFrontstageProvider({
+        id: ContentLayoutStage.stageId,
+        version: 1.1,
+        contentGroupProps: ContentLayoutStage._contentGroupProvider,
+        cornerButton: (
+          <BackstageAppButton
+            key="appui-test-providers-ContentLayoutExample-backstage"
+            icon="icon-bentley-systems"
+          />
+        ),
+        usage: StageUsage.General,
+      })
     );
     this.registerToolProviders(localizationNamespace);
   }

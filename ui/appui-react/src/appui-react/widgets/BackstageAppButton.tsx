@@ -6,61 +6,58 @@
  * @module Widget
  */
 
-import widgetIconSvg from "@bentley/icons-generic/icons/home.svg";
+import * as React from "react";
+import { ProcessDetector } from "@itwin/core-bentley";
 import type { IconSpec } from "@itwin/core-react";
 import { Icon, useWidgetOpacityContext } from "@itwin/core-react";
-import * as React from "react";
+import { SvgHome } from "@itwin/itwinui-icons-react";
 import { UiFramework } from "../UiFramework";
 import { AppButton } from "../layout/widget/tools/button/App";
-import { ProcessDetector } from "@itwin/core-bentley";
+import { useTranslation } from "../hooks/useTranslation";
 
-/**
- * Properties for the [[BackstageAppButton]] React component
+/** Properties of {@link BackstageAppButton} component.
  * @public
  */
 export interface BackstageAppButtonProps {
-  /** Icon specification for the App button */
+  /** If specified overrides the default icon. */
   icon?: IconSpec;
-  /** If specified overrides the default label shown in tooltip. */
+  /** If specified overrides the default label. */
   label?: string;
-  /** If specified overrides the default action that displays the backstage. */
+  /** If specified overrides the default action that toggles the backstage. */
   execute?: () => void;
 }
 
-/**
- * BackstageAppButton used to toggle display of Backstage and is shown in the corner of the ToolWidget.
+/** Component shown in the top-left corner of the content manipulation area. It is usually used to toggle the display of a backstage or navigate between frontstages.
  * @public
  */
-export function BackstageAppButton(props: BackstageAppButtonProps) {
-  const backstageToggleCommand = React.useMemo(
-    () => UiFramework.backstage.getBackstageToggleCommand(props.icon),
-    [props.icon]
-  );
-  const backstageLabel = React.useMemo(
-    () => props.label || backstageToggleCommand.tooltip,
-    [backstageToggleCommand.tooltip, props.label]
-  );
-  const [icon, setIcon] = React.useState(
-    props.icon ? props.icon : widgetIconSvg
-  );
+export function BackstageAppButton({
+  icon,
+  label,
+  execute,
+}: BackstageAppButtonProps) {
+  const { translate } = useTranslation();
+  label = label ?? translate("commands.openBackstage");
+  icon = icon ?? <SvgHome />;
   const isInitialMount = React.useRef(true);
   const divClassName = "uifw-app-button-small";
   const { onElementRef, proximityScale } = useWidgetOpacityContext();
   const ref = React.useRef<HTMLDivElement>(null);
 
   const handleClick = React.useCallback(() => {
-    if (props.execute) props.execute();
-    else backstageToggleCommand.execute();
-  }, [backstageToggleCommand, props]);
+    if (execute) {
+      execute();
+      return;
+    }
+
+    UiFramework.backstage.toggle();
+  }, [execute]);
 
   React.useEffect(() => {
     if (isInitialMount.current) {
       isInitialMount.current = false;
       onElementRef(ref);
-    } else {
-      setIcon(props.icon ? props.icon : widgetIconSvg);
     }
-  }, [props.icon, onElementRef]);
+  }, [onElementRef]);
 
   let buttonProximityScale: number | undefined;
 
@@ -79,7 +76,7 @@ export function BackstageAppButton(props: BackstageAppButtonProps) {
         mouseProximity={buttonProximityScale}
         onClick={handleClick}
         icon={<Icon iconSpec={icon} />}
-        title={backstageLabel}
+        title={label}
       />
     </div>
   );

@@ -12,4 +12,5 @@ import type { CustomItemDef } from "./CustomItemDef";
 /** Union of all Item definitions that can be specified in a Toolbar
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export type AnyToolbarItemDef = AnyItemDef | CustomItemDef;

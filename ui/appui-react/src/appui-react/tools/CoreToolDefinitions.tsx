@@ -50,9 +50,13 @@ import svgSectionTool from "@bentley/icons-generic/icons/section-tool.svg";
 import svgSelectionClear from "@bentley/icons-generic/icons/selection-clear.svg";
 import { SvgMeasure, SvgProcess } from "@itwin/itwinui-icons-react";
 import { ConditionalIconItem } from "@itwin/core-react";
+import type { ToolbarItems } from "./ToolbarItems";
+
+/* eslint-disable deprecation/deprecation */
 
 /** Utility Class that provides definitions of tools provided by the ($core-frontend) core. These definitions can be used to populate the UI.
  * @public
+ * @deprecated in 4.15.0. Use {@link ToolbarItems} instead.
  */
 export class CoreTools {
   public static get keyinPaletteButtonItemDef() {

@@ -14,6 +14,7 @@ import type {
   StringGetter,
 } from "@itwin/appui-abstract";
 import { ConditionalStringValue } from "@itwin/appui-abstract";
+import { assert } from "@itwin/core-bentley";
 import { IconHelper } from "@itwin/core-react";
 import type { AnyItemDef } from "../shared/AnyItemDef";
 import { CommandItemDef } from "../shared/CommandItemDef";
@@ -27,6 +28,9 @@ import type {
   ToolbarItem,
 } from "./ToolbarItem";
 import { isToolbarActionItem, isToolbarGroupItem } from "./ToolbarItem";
+import type { ToolbarItemUtilities } from "./ToolbarItemUtilities";
+
+/* eslint-disable deprecation/deprecation */
 
 /**
  * Common implementation for `constructChildToolbarItems` and `createToolbarItemsFromItemDefs`.
@@ -61,9 +65,12 @@ function constructToolbarItemArray<T extends boolean>(
 
 /** Helper functions for defining a Toolbar items used in `Toolbar`, `ToolbarComposer` and `UiItemsProvider`.
  * @public
+ * @deprecated in 4.15.0. Use {@link ToolbarItemUtilities} instead.
  */
 export class ToolbarHelper {
-  /** Construct ToolbarCustomItem definitions given a CustomItemDef. */
+  /** Construct ToolbarCustomItem definitions given a CustomItemDef.
+   * @deprecated in 4.15.0. Use {@link ToolbarItemUtilities.createCustomItem} instead.
+   */
   public static createCustomDefinitionToolbarItem(
     itemPriority: number,
     itemDef: CustomItemDef,
@@ -72,7 +79,9 @@ export class ToolbarHelper {
     return this.createToolbarItemFromItemDef(itemPriority, itemDef, overrides);
   }
 
-  /** Construct ToolbarActionItem and ToolbarGroupItem definitions given an array of ItemDefs. */
+  /** Construct ToolbarActionItem and ToolbarGroupItem definitions given an array of ItemDefs.
+   * @deprecated in 4.15.0. Use {@link ToolbarItemUtilities} instead.
+   */
   public static constructChildToolbarItems(
     itemDefs: AnyItemDef[]
   ): Array<ToolbarActionItem | ToolbarGroupItem> {
@@ -91,6 +100,7 @@ export class ToolbarHelper {
     return inString();
   }
 
+  /** @deprecated in 4.15.0. Use {@link @itwin/core-react#IconHelper} instead. */
   public static getIconReactNode(
     item: ActionButton | GroupButton
   ): React.ReactNode {
@@ -98,7 +108,9 @@ export class ToolbarHelper {
     return IconHelper.getIconReactNode(item.icon, item.internalData);
   }
 
-  /** Helper method to creates a generic toolbar item entry */
+  /** Helper method to creates a generic toolbar item entry.
+   * @deprecated in 4.15.0. Use {@link ToolbarItemUtilities} instead.
+   */
   public static createToolbarItemFromItemDef(
     itemPriority: number,
     itemDef: AnyItemDef,
@@ -147,8 +159,8 @@ export class ToolbarHelper {
     }
   }
 
-  /**
-   * Helper method to creates a generic toolbar item entry list.
+  /** Helper method to creates a generic toolbar item entry list.
+   * @deprecated in 4.15.0. Use {@link ToolbarItemUtilities} instead.
    */
   public static createToolbarItemsFromItemDefs(
     itemDefs: AnyItemDef[],
@@ -162,4 +174,30 @@ export class ToolbarHelper {
       overrides
     );
   }
+}
+
+/** @internal */
+export function itemDefToToolbarActionItem(
+  itemDef: ToolItemDef | CommandItemDef,
+  overrides?: Partial<ToolbarActionItem>
+): ToolbarActionItem {
+  const item = ToolbarHelper.createToolbarItemFromItemDef(0, itemDef);
+  assert(isToolbarActionItem(item));
+  return {
+    ...item,
+    ...overrides,
+  };
+}
+
+/** @internal */
+export function itemDefToToolbarGroupItem(
+  itemDef: GroupItemDef,
+  overrides?: Partial<ToolbarGroupItem>
+): ToolbarGroupItem {
+  const item = ToolbarHelper.createToolbarItemFromItemDef(0, itemDef);
+  assert(isToolbarGroupItem(item));
+  return {
+    ...item,
+    ...overrides,
+  };
 }

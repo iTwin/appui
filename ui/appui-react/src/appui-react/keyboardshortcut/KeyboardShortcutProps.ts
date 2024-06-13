@@ -3,24 +3,49 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
- * @module Item
+ * @module KeyboardShortcut
  */
-
+import type { Key } from "ts-key-enum";
+import type { ActionButtonItemDef } from "../shared/ActionButtonItemDef";
 import type {
   ConditionalBooleanValue,
   ConditionalStringValue,
-  StringGetter,
-} from "@itwin/appui-abstract";
+} from "../shared/ConditionalValue";
 import type { BadgeType, IconProps, IconSpec } from "@itwin/core-react";
-import type { ToolbarActionItem } from "../toolbar/ToolbarItem";
+import type { StringGetter } from "@itwin/appui-abstract";
 
-/* eslint-disable deprecation/deprecation */
-
-/** Definition that specifies properties shared between many ConfigurableUi components.
+/** Properties for a Keyboard Shortcut
  * @public
- * @deprecated in 4.15.0. Use specific item types instead, i.e. {@link ToolbarActionItem}.
  */
-export interface ItemProps extends IconProps {
+// eslint-disable-next-line deprecation/deprecation
+export interface KeyboardShortcutProps extends IconProps {
+  /** The key that invokes the shortcut.
+   * This is either an alphanumeric key, a function key or a special key.
+   */
+  key: string | Key;
+
+  /** The item to execute when this shortcut is invoked. Either 'item' or 'shortcuts' must be specified.
+   * @deprecated in 4.15.0. Use properties of this object instead.
+   */
+  // eslint-disable-next-line deprecation/deprecation
+  item?: ActionButtonItemDef;
+  /** Function to run when the keyboard shortcut is executed. */
+  execute?: () => void;
+
+  /** Nested array of shortcut props.
+   * @note `execute` is ignored if `shortcuts` is specified.
+   */
+  shortcuts?: KeyboardShortcutProps[];
+
+  /** Indicates whether the Alt key required. Default - false */
+  isAltKeyRequired?: boolean;
+  /** Indicates whether the Ctrl key required. Default - false */
+  isCtrlKeyRequired?: boolean;
+  /** Indicates whether the Shift key required. Default - false */
+  isShiftKeyRequired?: boolean;
+
+  // #region "ItemProps" properties previously extended from deprecated type.
+
   /** if true component will be hidden - defaults to false */
   isHidden?: boolean | ConditionalBooleanValue;
   /** if true component will be disabled - defaults to false */
@@ -49,33 +74,6 @@ export interface ItemProps extends IconProps {
   tooltip?: string | StringGetter | ConditionalStringValue;
   /** if set, it is used to define a key that is used to look up a localized string. This value is used only if label is not explicitly set. */
   tooltipKey?: string;
-}
 
-/** Properties for a Tool item with a tool id.
- * @public
- * @deprecated in 4.15.0. Use specific item types instead, i.e. {@link ToolbarActionItem}.
- */
-export interface ToolItemProps extends ItemProps, CommandHandler {
-  toolId: string;
-}
-
-/** Properties for a Command item.
- * @public
- * @deprecated in 4.15.0. Use specific item types instead, i.e. {@link ToolbarActionItem}.
- */
-export interface CommandItemProps extends ItemProps, CommandHandler {
-  commandId?: string;
-}
-
-/** Definition for a command handler.
- * @public
- * @deprecated in 4.15.0. Use specific item types instead, i.e. {@link ToolbarActionItem}.
- */
-export interface CommandHandler {
-  /** Function to execute */
-  execute?: (args?: any) => any;
-  /** Parameters passed to the function */
-  parameters?: any;
-  /** Function to get the parameters passed to the function */
-  getCommandArgs?: () => any[];
+  // #endregion "ItemProps"
 }

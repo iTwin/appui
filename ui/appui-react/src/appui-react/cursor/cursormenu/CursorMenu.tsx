@@ -108,7 +108,9 @@ export class CursorPopupMenu extends React.PureComponent<
             edgeLimit={false}
             autoflip={true}
           >
+            {/* eslint-disable-next-line deprecation/deprecation */}
             {MenuItemHelpers.createMenuItemNodes(
+              // eslint-disable-next-line deprecation/deprecation
               MenuItemHelpers.createMenuItems(items, this._itemPicked)
             )}
           </GlobalContextMenu>

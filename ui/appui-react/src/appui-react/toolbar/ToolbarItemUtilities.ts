@@ -6,13 +6,14 @@
  * @module Toolbar
  */
 
+import { IModelApp, type ToolType } from "@itwin/core-frontend";
 import type {
   ToolbarActionItem,
   ToolbarCustomItem,
   ToolbarGroupItem,
 } from "./ToolbarItem";
 
-/** Helper class to create toolbar items.
+/** Helper namespace to create toolbar items.
  * @beta
  */
 export namespace ToolbarItemUtilities {
@@ -71,5 +72,25 @@ export namespace ToolbarItemUtilities {
       panelContent,
       ...overrides,
     };
+  }
+
+  /** Creates an action item from the specified tool type. */
+  export function createForTool(
+    toolType: ToolType,
+    overrides?: Partial<ToolbarActionItem>
+  ): ToolbarActionItem {
+    return ToolbarItemUtilities.createActionItem(
+      toolType.toolId,
+      0,
+      toolType.iconSpec,
+      toolType.flyover,
+      () => {
+        void IModelApp.tools.run(toolType.toolId);
+      },
+      {
+        description: toolType.description,
+        ...overrides,
+      }
+    );
   }
 }

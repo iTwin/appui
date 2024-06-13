@@ -82,9 +82,7 @@ export function IModelOpen(props: IModelOpenProps) {
           <div className="backstage-icon">
             <span
               className="icon icon-home"
-              onPointerUp={() =>
-                UiFramework.backstage.getBackstageToggleCommand()?.execute()
-              }
+              onPointerUp={() => UiFramework.backstage.toggle()}
             />
           </div>
           <div className="itwin-picker-content">

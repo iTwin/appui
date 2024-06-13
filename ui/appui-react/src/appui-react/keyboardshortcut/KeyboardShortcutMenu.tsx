@@ -16,8 +16,11 @@ import {
 import type { KeyboardShortcut } from "./KeyboardShortcut";
 import { ConditionalBooleanValue, UiEvent } from "@itwin/appui-abstract";
 
-/** State for a [[KeyboardShortcutMenuEvent]] and [[KeyboardShortcutMenu]] component
+/* eslint-disable deprecation/deprecation */
+
+/** State of a [[KeyboardShortcutMenuEvent]] and [[KeyboardShortcutMenu]] component
  * @public
+ * @deprecated in 4.15.0. Used internally by {@link KeyboardShortcutMenu} component.
  */
 export interface KeyboardShortcutMenuState {
   menuVisible: boolean;
@@ -30,14 +33,14 @@ export interface KeyboardShortcutMenuState {
  * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
-// eslint-disable-next-line deprecation/deprecation
 export class KeyboardShortcutMenuEvent extends UiEvent<KeyboardShortcutMenuState> {}
 
 /** React component that displays a context menu at the cursor containing keyboard shortcuts.
  * @public
+ * @deprecated in 4.15.0. Component used internally to display keyboard shortcuts in a context menu.
  */
 export class KeyboardShortcutMenu extends React.PureComponent<
-  CommonProps, // eslint-disable-line deprecation/deprecation
+  CommonProps,
   KeyboardShortcutMenuState
 > {
   /** @internal */
@@ -49,7 +52,7 @@ export class KeyboardShortcutMenu extends React.PureComponent<
 
   /** Get KeyboardShortcut Menu Event. */
   public static readonly onKeyboardShortcutMenuEvent =
-    new KeyboardShortcutMenuEvent(); // eslint-disable-line deprecation/deprecation
+    new KeyboardShortcutMenuEvent();
 
   public override componentDidMount() {
     KeyboardShortcutMenu.onKeyboardShortcutMenuEvent.addListener(

@@ -14,32 +14,24 @@ import {
 } from "@itwin/appui-react";
 import { createContentControl } from "./createContentControl";
 
-class StoryFrontstageProvider extends StandardFrontstageProvider {
-  private _contentManipulation: FrontstageConfig["contentManipulation"];
-
-  public constructor(
-    props: StandardFrontstageProps &
-      Pick<FrontstageConfig, "contentManipulation">
-  ) {
-    super(props);
-
-    this._contentManipulation = props.contentManipulation;
-  }
-
-  public override frontstageConfig(): FrontstageConfig {
-    const config = super.frontstageConfig();
-    return {
-      ...config,
-      contentManipulation:
-        this._contentManipulation ?? config.contentManipulation,
-    };
-  }
-}
-
 export function createFrontstageProvider(
-  overrides?: Partial<ConstructorParameters<typeof StoryFrontstageProvider>[0]>
+  overrides?: Partial<StandardFrontstageProps> & {
+    content?: React.ReactNode;
+    contentManipulation?: FrontstageConfig["contentManipulation"];
+  }
 ) {
-  return new StoryFrontstageProvider({
+  return new (class extends StandardFrontstageProvider {
+    public override frontstageConfig(): FrontstageConfig {
+      const config = super.frontstageConfig();
+
+      const contentManipulation =
+        overrides?.contentManipulation ?? config.contentManipulation;
+      return {
+        ...config,
+        contentManipulation,
+      };
+    }
+  })({
     id: "main-frontstage",
     usage: StageUsage.Private,
     version: Math.random(),
@@ -50,16 +42,18 @@ export function createFrontstageProvider(
         {
           id: "Content",
           classId: createContentControl(
-            <h1
-              style={{
-                display: "flex",
-                height: "100%",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              Content
-            </h1>
+            overrides?.content ?? (
+              <h1
+                style={{
+                  display: "flex",
+                  height: "100%",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                Content
+              </h1>
+            )
           ),
         },
       ],

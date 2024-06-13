@@ -3,22 +3,17 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import {
-  BadgeType,
-  ConditionalBooleanValue,
-  ToolbarItemUtilities,
-} from "@itwin/appui-abstract";
+import { BadgeType, ConditionalBooleanValue } from "@itwin/appui-abstract";
 import {
   BackstageItem,
   BackstageItemUtilities,
-  CommandItemDef,
   StagePanelLocation,
   StagePanelSection,
   StageUsage,
   StateManager,
   SyncUiEventDispatcher,
-  ToolbarHelper,
   ToolbarItem,
+  ToolbarItemUtilities,
   ToolbarOrientation,
   ToolbarUsage,
   UiFramework,
@@ -78,7 +73,7 @@ export class CustomContentStageUiProvider implements UiItemsProvider {
       toolbarUsage === ToolbarUsage.ContentManipulation &&
       toolbarOrientation === ToolbarOrientation.Horizontal
     ) {
-      const customActionButton = ToolbarItemUtilities.createActionButton(
+      const customActionButton = ToolbarItemUtilities.createActionItem(
         "custom-action-button",
         -1,
         visibilitySemiTransparentSvg,
@@ -114,7 +109,7 @@ export class CustomContentStageUiProvider implements UiItemsProvider {
         );
 
       /** The following test tool toggles the value Redux store and dispatches sync event that triggers tool refresh */
-      const toggleHiddenButton = ToolbarItemUtilities.createActionButton(
+      const toggleHiddenButton = ToolbarItemUtilities.createActionItem(
         "custom-dialog-tool-visibility-toggle",
         1001,
         "icon-activity",
@@ -124,22 +119,24 @@ export class CustomContentStageUiProvider implements UiItemsProvider {
         }
       );
 
-      const dialogId = "sampleModeless";
-      const openSampleModelessItem = new CommandItemDef({
-        badgeType: BadgeType.New,
-        iconSpec: <SvgWindowAdd />,
-        labelKey: "SampleApp:buttons.sampleModelessDialog",
-        execute: () => {
+      const sampleModelessToolButton = ToolbarItemUtilities.createActionItem(
+        "sample-modeless-dialog",
+        17,
+        <SvgWindowAdd />,
+        IModelApp.localization.getLocalizedString(
+          "SampleApp:buttons.sampleModelessDialog"
+        ),
+        () => {
+          const dialogId = "sampleModeless";
           UiFramework.dialogs.modeless.open(
             <SampleModelessDialog opened={true} dialogId={dialogId} />,
             dialogId
           );
         },
-      });
-      const sampleModelessToolButton =
-        ToolbarHelper.createToolbarItemFromItemDef(17, openSampleModelessItem, {
-          groupPriority: 3000,
-        });
+        {
+          badge: BadgeType.New,
+        }
+      );
 
       return [
         customActionButton,

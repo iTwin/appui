@@ -23,9 +23,13 @@ import svgAssetClassificationHide from "@bentley/icons-generic/icons/asset-class
 import svgVisibilitySemiTransparent from "@bentley/icons-generic/icons/visibility-semi-transparent.svg";
 import svgVisibilityHide from "@bentley/icons-generic/icons/visibility-hide_2.svg";
 import svgVisibility from "@bentley/icons-generic/icons/visibility.svg";
+import type { ToolbarItems } from "../tools/ToolbarItems";
 
-/** return SyncEventIds that trigger selection state function refresh.
+/* eslint-disable deprecation/deprecation */
+
+/** Return SyncEventIds that trigger selection state function refresh.
  * @beta
+ * @deprecated in 4.15.0. Use {@link ToolbarItems} or a custom conditional value instead.
  */
 export function getFeatureOverrideSyncEventIds(): string[] {
   return [
@@ -36,8 +40,9 @@ export function getFeatureOverrideSyncEventIds(): string[] {
   ];
 }
 
-/** return SyncEventIds that trigger selection state function refresh.
+/** Return SyncEventIds that trigger selection state function refresh.
  * @beta
+ * @deprecated in 4.15.0. Use {@link ToolbarItems} or a custom conditional value instead.
  */
 export function getSelectionContextSyncEventIds(): string[] {
   return [
@@ -51,8 +56,9 @@ export function getSelectionContextSyncEventIds(): string[] {
   ];
 }
 
-/** return SyncEventIds that trigger selection state function refresh.
+/** Return SyncEventIds that trigger selection state function refresh.
  * @beta
+ * @deprecated in 4.15.0. Use {@link ToolbarItems} or a custom conditional value instead.
  */
 export function isNoSelectionActive(): boolean {
   const activeContentControl = UiFramework.content.getActiveContentControl();
@@ -72,8 +78,9 @@ export function isNoSelectionActive(): boolean {
   return true;
 }
 
-/** return ConditionalBooleanValue object used to show items if selection set is active.
+/** Return ConditionalBooleanValue object used to show items if selection set is active.
  * @beta
+ * @deprecated in 4.15.0. Use {@link ToolbarItems} or a custom conditional value instead.
  */
 export function areNoFeatureOverridesActive(): boolean {
   const activeContentControl = UiFramework.content.getActiveContentControl();
@@ -85,8 +92,9 @@ export function areNoFeatureOverridesActive(): boolean {
   return true;
 }
 
-/** return ConditionalBooleanValue object used to show item if feature overrides are active.
+/** Return ConditionalBooleanValue object used to show item if feature overrides are active.
  * @beta
+ * @deprecated in 4.15.0. Use {@link ToolbarItems} or a custom conditional value instead.
  */
 export function getIsHiddenIfFeatureOverridesActive(): ConditionalBooleanValue {
   return new ConditionalBooleanValue(
@@ -95,8 +103,9 @@ export function getIsHiddenIfFeatureOverridesActive(): ConditionalBooleanValue {
   );
 }
 
-/** return ConditionalBooleanValue object used to show items if selection set is active.
+/** Return ConditionalBooleanValue object used to show items if selection set is active.
  * @beta
+ * @deprecated in 4.15.0. Use {@link ToolbarItems} or a custom conditional value instead.
  */
 export function getIsHiddenIfSelectionNotActive(): ConditionalBooleanValue {
   return new ConditionalBooleanValue(
@@ -105,8 +114,9 @@ export function getIsHiddenIfSelectionNotActive(): ConditionalBooleanValue {
   );
 }
 
-/** return state with isVisible set to true is SectionSet is active.
+/** Return state with isVisible set to true is SectionSet is active.
  * @beta
+ * @deprecated in 4.15.0. Use {@link ToolbarItems} or a custom conditional value instead.
  */
 export function featureOverridesActiveStateFunc(
   state: Readonly<BaseItemState>
@@ -123,8 +133,9 @@ export function featureOverridesActiveStateFunc(
   return { ...state, isVisible };
 }
 
-/** return state with isVisible set to true is SectionSet is active.
+/** Return state with isVisible set to true is SectionSet is active.
  * @beta
+ * @deprecated in 4.15.0. Use {@link ToolbarItems} or a custom conditional value instead.
  */
 export function selectionContextStateFunc(
   state: Readonly<BaseItemState>
@@ -145,6 +156,7 @@ export function selectionContextStateFunc(
 
 /** Utility Class that provides definitions for tools dependent on current selection. These definitions can be used to populate toolbars.
  * @public
+ * @deprecated in 4.15.0. Use {@link ToolbarItems} instead.
  */
 export class SelectionContextToolDefinitions {
   public static get isolateModelsInSelectionItemDef() {

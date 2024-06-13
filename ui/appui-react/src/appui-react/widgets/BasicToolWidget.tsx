@@ -8,15 +8,13 @@
 
 import classnames from "classnames";
 import * as React from "react";
-import { CoreTools } from "../tools/CoreToolDefinitions";
-import { SelectionContextToolDefinitions } from "../selection/SelectionContextItemDef";
 import { ToolbarComposer } from "../toolbar/ToolbarComposer";
-import { ToolbarHelper } from "../toolbar/ToolbarHelper";
 import { ToolWidgetComposer } from "./ToolWidgetComposer";
 import { BackstageAppButton } from "./BackstageAppButton";
 import { useUiVisibility } from "../hooks/useUiVisibility";
 import type { ToolbarItem } from "../toolbar/ToolbarItem";
 import { ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
+import { ToolbarItems } from "../tools/ToolbarItems";
 
 /** Properties that can be used to append items to the default set of toolbar items.
  * @public
@@ -42,49 +40,39 @@ export function BasicToolWidget(props: BasicToolWidgetProps) {
       const items: ToolbarItem[] = [];
       if (useCategoryAndModelsContextTools) {
         items.push(
-          ToolbarHelper.createToolbarItemFromItemDef(
-            10,
-            CoreTools.clearSelectionItemDef
-          ),
-          ToolbarHelper.createToolbarItemFromItemDef(
-            20,
-            SelectionContextToolDefinitions.clearHideIsolateEmphasizeElementsItemDef
-          ),
-          ToolbarHelper.createToolbarItemFromItemDef(
-            30,
-            SelectionContextToolDefinitions.hideSectionToolGroup
-          ),
-          ToolbarHelper.createToolbarItemFromItemDef(
-            40,
-            SelectionContextToolDefinitions.isolateSelectionToolGroup
-          ),
-          ToolbarHelper.createToolbarItemFromItemDef(
-            50,
-            SelectionContextToolDefinitions.emphasizeElementsItemDef
-          )
+          ToolbarItems.createClearSelection({
+            itemPriority: 10,
+          }),
+          ToolbarItems.createClearHideIsolateEmphasizeElements({
+            itemPriority: 20,
+          }),
+          ToolbarItems.createHideSectionGroup({
+            itemPriority: 30,
+          }),
+          ToolbarItems.createIsolateSelectionGroup({
+            itemPriority: 40,
+          }),
+          ToolbarItems.createEmphasizeElements({
+            itemPriority: 50,
+          })
         );
       } else {
         items.push(
-          ToolbarHelper.createToolbarItemFromItemDef(
-            10,
-            CoreTools.clearSelectionItemDef
-          ),
-          ToolbarHelper.createToolbarItemFromItemDef(
-            20,
-            SelectionContextToolDefinitions.clearHideIsolateEmphasizeElementsItemDef
-          ),
-          ToolbarHelper.createToolbarItemFromItemDef(
-            30,
-            SelectionContextToolDefinitions.hideElementsItemDef
-          ),
-          ToolbarHelper.createToolbarItemFromItemDef(
-            40,
-            SelectionContextToolDefinitions.isolateElementsItemDef
-          ),
-          ToolbarHelper.createToolbarItemFromItemDef(
-            50,
-            SelectionContextToolDefinitions.emphasizeElementsItemDef
-          )
+          ToolbarItems.createClearSelection({
+            itemPriority: 10,
+          }),
+          ToolbarItems.createClearHideIsolateEmphasizeElements({
+            itemPriority: 20,
+          }),
+          ToolbarItems.createHideElements({
+            itemPriority: 30,
+          }),
+          ToolbarItems.createIsolateElements({
+            itemPriority: 40,
+          }),
+          ToolbarItems.createEmphasizeElements({
+            itemPriority: 50,
+          })
         );
       }
       if (props.additionalHorizontalItems)
@@ -97,15 +85,15 @@ export function BasicToolWidget(props: BasicToolWidgetProps) {
   const getVerticalToolbarItems = React.useCallback((): ToolbarItem[] => {
     const items: ToolbarItem[] = [];
     items.push(
-      ToolbarHelper.createToolbarItemFromItemDef(
-        10,
-        CoreTools.selectElementCommand
-      ),
-      ToolbarHelper.createToolbarItemFromItemDef(
-        20,
-        CoreTools.measureToolGroup
-      ),
-      ToolbarHelper.createToolbarItemFromItemDef(30, CoreTools.sectionToolGroup)
+      ToolbarItems.createSelectElement({
+        itemPriority: 10,
+      }),
+      ToolbarItems.createMeasureGroup({
+        itemPriority: 20,
+      }),
+      ToolbarItems.createSectionGroup({
+        itemPriority: 30,
+      })
     );
     if (props.additionalVerticalItems)
       items.push(...props.additionalVerticalItems);

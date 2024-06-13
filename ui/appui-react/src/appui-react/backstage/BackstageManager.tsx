@@ -9,14 +9,12 @@
 import * as React from "react";
 import type { IconSpec } from "@itwin/core-react";
 import { UiFramework } from "../UiFramework";
-import type {
-  BackstageToggledArgs,
-  FrameworkBackstage,
-} from "../framework/FrameworkBackstage";
+import type { FrameworkBackstage } from "../framework/FrameworkBackstage";
 import { InternalBackstageManager } from "./InternalBackstageManager";
 
 /** Controls backstage.
  * @public
+ * @deprecated in 4.15.0. Use {@link UiFramework.backstage} instead.
  */
 export class BackstageManager {
   private internal = new InternalBackstageManager();
@@ -57,6 +55,7 @@ export class BackstageManager {
   /** Get CommandItemDef that will toggle display of Backstage and allow iconSpec to be overridden
    */
   public static getBackstageToggleCommand(overrideIconSpec?: IconSpec) {
+    // eslint-disable-next-line deprecation/deprecation
     return UiFramework.backstage.getBackstageToggleCommand(overrideIconSpec);
   }
 }
@@ -67,14 +66,10 @@ export class BackstageManager {
 export const useIsBackstageOpen = (manager: FrameworkBackstage) => {
   const [isOpen, setIsOpen] = React.useState(manager.isOpen);
   React.useEffect(() => {
-    const handleToggled = (args: BackstageToggledArgs) => {
-      setIsOpen(args.isOpen);
-    };
     setIsOpen(manager.isOpen);
-    manager.onToggled.addListener(handleToggled);
-    return () => {
-      manager.onToggled.removeListener(handleToggled);
-    };
+    return manager.onToggled.addListener((args) => {
+      setIsOpen(args.isOpen);
+    });
   }, [manager]);
   return isOpen;
 };

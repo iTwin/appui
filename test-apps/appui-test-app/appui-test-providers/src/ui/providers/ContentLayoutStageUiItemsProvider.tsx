@@ -13,8 +13,8 @@ import {
   StatusBarItem,
   StatusBarItemUtilities,
   StatusBarSection,
-  ToolbarHelper,
   ToolbarItem,
+  ToolbarItemUtilities,
   ToolbarOrientation,
   ToolbarUsage,
   UiItemsManager,
@@ -23,7 +23,7 @@ import {
   WidgetState,
 } from "@itwin/appui-react";
 import {
-  getSplitSingleViewportCommandDef,
+  createSplitSingleViewportToolbarItem,
   RestoreSavedContentLayoutTool,
   SaveContentLayoutTool,
 } from "../../tools/ContentLayoutTools";
@@ -80,27 +80,25 @@ export class ContentLayoutStageUiItemsProvider implements UiItemsProvider {
         toolbarOrientation === ToolbarOrientation.Horizontal
       ) {
         return [
-          ToolbarHelper.createToolbarItemFromItemDef(
-            15,
-            getSplitSingleViewportCommandDef(),
-            { groupPriority: 3000 }
-          ),
+          {
+            ...createSplitSingleViewportToolbarItem(),
+            itemPriority: 15,
+            groupPriority: 3000,
+          },
         ];
       } else if (
         toolbarUsage === ToolbarUsage.ViewNavigation &&
         toolbarOrientation === ToolbarOrientation.Vertical
       ) {
         return [
-          ToolbarHelper.createToolbarItemFromItemDef(
-            10,
-            SaveContentLayoutTool.toolItemDef,
-            { groupPriority: 3000 }
-          ),
-          ToolbarHelper.createToolbarItemFromItemDef(
-            15,
-            RestoreSavedContentLayoutTool.toolItemDef,
-            { groupPriority: 3000 }
-          ),
+          ToolbarItemUtilities.createForTool(SaveContentLayoutTool, {
+            itemPriority: 10,
+            groupPriority: 3000,
+          }),
+          ToolbarItemUtilities.createForTool(RestoreSavedContentLayoutTool, {
+            itemPriority: 15,
+            groupPriority: 3000,
+          }),
           getCustomViewSelectorPopupItem(20, 3000),
         ];
       }

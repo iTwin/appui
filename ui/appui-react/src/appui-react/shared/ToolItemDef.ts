@@ -11,9 +11,13 @@ import { IModelApp } from "@itwin/core-frontend";
 import type { OnItemExecutedFunc } from "@itwin/appui-abstract";
 import { ActionButtonItemDef } from "./ActionButtonItemDef";
 import type { ToolItemProps } from "./ItemProps";
+import type { ToolbarItemUtilities } from "../toolbar/ToolbarItemUtilities";
+
+/* eslint-disable deprecation/deprecation */
 
 /** An Item that starts the execution of a Tool.
  * @public
+ * @deprecated in 4.15.0. Use {@link ToolbarItemUtilities.createForTool} instead.
  */
 export class ToolItemDef extends ActionButtonItemDef {
   public toolId: string = "";
@@ -39,7 +43,9 @@ export class ToolItemDef extends ActionButtonItemDef {
     return this.toolId;
   }
 
-  /** Create a ToolItemDef that will run a registered tool. */
+  /** Create a ToolItemDef that will run a registered tool.
+   * @deprecated in 4.15.0. Use {@link ToolbarItemUtilities.createForTool} instead.
+   */
   public static getItemDefForTool(
     tool: typeof Tool,
     icon?: string,

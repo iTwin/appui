@@ -9,9 +9,15 @@
 import { UiError } from "@itwin/appui-abstract";
 import type { ActionButtonItemDef } from "../shared/ActionButtonItemDef";
 import { ItemDefBase } from "../shared/ItemDefBase";
-import type { KeyboardShortcutProps } from "../framework/FrameworkKeyboardShortcuts";
 import { UiFramework } from "../UiFramework";
 import { KeyboardShortcutMenu } from "./KeyboardShortcutMenu";
+import type { KeyboardShortcutProps } from "./KeyboardShortcutProps";
+import type {
+  FrameworkKeyboardShortcut,
+  FrameworkKeyboardShortcutContainer,
+} from "../framework/FrameworkKeyboardShortcuts";
+
+/* eslint-disable deprecation/deprecation */
 
 enum FunctionKey {
   F1 = "F1",
@@ -55,11 +61,13 @@ enum SpecialKey {
 
 /** Keyboard Shortcut used to execute an action
  * @public
+ * @deprecated in 4.15.0. Use {@link KeyboardShortcutProps} or {@link FrameworkKeyboardShortcut} instead.
  */
 export class KeyboardShortcut extends ItemDefBase {
   private _key: string;
   private _item?: ActionButtonItemDef;
   private _shortcuts: KeyboardShortcutContainer;
+  private _execute?: () => void;
 
   private _isAltKeyRequired: boolean = false;
   private _isCtrlKeyRequired: boolean = false;
@@ -87,16 +95,17 @@ export class KeyboardShortcut extends ItemDefBase {
       if (this.isDisabled === undefined)
         this.isDisabled = this._item.isDisabled;
       if (this.isHidden === undefined) this.isHidden = this._item.isHidden;
+    } else if (props.execute) {
+      this._execute = props.execute;
     } else if (props.shortcuts) {
       props.shortcuts.forEach((childProps: KeyboardShortcutProps) => {
         const shortcut = new KeyboardShortcut(childProps);
         this._shortcuts.registerKey(shortcut.keyMapKey, shortcut);
       });
     } else {
-      // eslint-disable-next-line deprecation/deprecation
       throw new UiError(
         UiFramework.loggerCategory(this),
-        `Either 'item' or 'shortcuts' must be specified for '${props.key}' key.`
+        `Either 'item', 'execute' or 'shortcuts' must be specified for '${props.key}' key.`
       );
     }
 
@@ -146,6 +155,7 @@ export class KeyboardShortcut extends ItemDefBase {
     } else {
       setTimeout(() => {
         if (this._item) this._item.execute();
+        else if (this._execute) this._execute();
       });
     }
   }
@@ -178,6 +188,7 @@ export class KeyboardShortcut extends ItemDefBase {
 
 /** Keyboard Shortcut Container
  * @public
+ * @deprecated in 4.15.0. Use {@link FrameworkKeyboardShortcutContainer} instead.
  */
 export class KeyboardShortcutContainer {
   private _keyMap: Map<string, KeyboardShortcut> = new Map<

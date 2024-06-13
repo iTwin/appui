@@ -213,6 +213,7 @@ export class UiFramework {
   private static _store?: Store<any>;
   private static _complaint = "UiFramework not initialized";
   private static _frameworkStateKeyInStore: string = "frameworkState"; // default name
+  // eslint-disable-next-line deprecation/deprecation
   private static _backstageManager?: BackstageManager;
   private static _widgetManager?: WidgetManager;
   private static _hideIsolateEmphasizeActionHandler?: HideIsolateEmphasizeActionHandler;
@@ -293,6 +294,7 @@ export class UiFramework {
       IModelApp.tools.registerModule(tool, this.localizationNamespace)
     );
 
+    // eslint-disable-next-line deprecation/deprecation
     UiFramework._backstageManager = new BackstageManager();
     UiFramework._hideIsolateEmphasizeActionHandler =
       new HideIsolateEmphasizeManager(); // this allows user to override the default HideIsolateEmphasizeManager implementation.
@@ -320,6 +322,7 @@ export class UiFramework {
 
   /** Un-registers the UiFramework internationalization service namespace. */
   public static terminate() {
+    InternalKeyboardShortcutManager.shortcutContainer.emptyData();
     UiFramework._store = undefined;
     UiFramework._frameworkStateKeyInStore = "frameworkState";
     // eslint-disable-next-line deprecation/deprecation

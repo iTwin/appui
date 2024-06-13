@@ -9,13 +9,18 @@
 import type { StringGetter } from "@itwin/appui-abstract";
 import type { AnyItemDef } from "./AnyItemDef";
 import type { ItemProps } from "./ItemProps";
+import type { ToolbarGroupItem } from "../toolbar/ToolbarItem";
+
+/* eslint-disable deprecation/deprecation */
 
 /** Definition for a Group item that opens a group of items.
  * @public
+ * @deprecated in 4.15.0. Use specific item types instead, i.e. {@link ToolbarGroupItem}.
  */
 export interface GroupItemProps extends ItemProps {
   defaultActiveItemId?: string;
   groupId?: string;
+  // eslint-disable-next-line deprecation/deprecation
   items: AnyItemDef[];
   itemsInColumn?: number;
   /** if set, it is used to explicitly set a label at top of open group component. */
