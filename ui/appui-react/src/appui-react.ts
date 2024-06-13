@@ -71,6 +71,7 @@ export * from "./appui-react/framework/FrameworkKeyboardShortcuts";
 export * from "./appui-react/framework/FrameworkToolSettings";
 export * from "./appui-react/framework/FrameworkVisibility";
 
+export * from "./appui-react/frontstage/Frontstage";
 export * from "./appui-react/frontstage/FrontstageConfig";
 export * from "./appui-react/frontstage/FrontstageDef";
 export * from "./appui-react/frontstage/FrontstageProvider";

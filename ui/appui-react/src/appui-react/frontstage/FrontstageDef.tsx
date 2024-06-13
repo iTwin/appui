@@ -55,10 +55,10 @@ import type { WidgetConfig } from "../widgets/WidgetConfig";
 import type { WidgetControl } from "../widgets/WidgetControl";
 import { getWidgetState, WidgetDef, WidgetType } from "../widgets/WidgetDef";
 import { WidgetState } from "../widgets/WidgetState";
-import type { FrontstageConfig } from "./FrontstageConfig";
-import type { FrontstageProvider } from "./FrontstageProvider";
+import { FrontstageProvider } from "./FrontstageProvider";
 import { InternalFrontstageManager } from "./InternalFrontstageManager";
 import { StageUsage } from "./StageUsage";
+import type { Frontstage } from "./Frontstage";
 
 /** @internal */
 export interface FrontstageEventArgs {
@@ -76,7 +76,7 @@ export interface FrontstageNineZoneStateChangedEventArgs
  */
 export class FrontstageDef {
   private _id: string = "";
-  private _initialConfig?: FrontstageConfig;
+  private _initialConfig?: Frontstage;
   private _isStageClosing = false;
   private _isReady = false;
   private _isApplicationClosing = false;
@@ -92,6 +92,7 @@ export class FrontstageDef {
   private _bottomPanel?: StagePanelDef;
   private _contentLayoutDef?: ContentLayoutDef;
   private _contentGroup?: ContentGroup;
+  // eslint-disable-next-line deprecation/deprecation
   private _frontstageProvider?: FrontstageProvider;
   private _timeTracker = new TimeTracker();
   private _nineZoneState?: NineZoneState;
@@ -149,6 +150,9 @@ export class FrontstageDef {
   public get contentGroup(): ContentGroup | undefined {
     return this._contentGroup;
   }
+
+  /** @deprecated in 4.15.0. Use {@link FrontstageDef.id} to look up a frontstage. */
+  // eslint-disable-next-line deprecation/deprecation
   public get frontstageProvider(): FrontstageProvider | undefined {
     return this._frontstageProvider;
   }
@@ -315,14 +319,23 @@ export class FrontstageDef {
     return this._timeTracker;
   }
 
-  /** Created a [[FrontstageDef]] and initialize it */
-  public static async create(provider: FrontstageProvider) {
+  /** Creates a [[FrontstageDef]] and initializes it. */
+  public static async create(
+    // eslint-disable-next-line deprecation/deprecation
+    providerOrFrontstage: FrontstageProvider | Frontstage
+  ) {
     const def = new FrontstageDef();
-    def._frontstageProvider = provider;
 
-    const config = provider.frontstageConfig();
+    let config;
+    // eslint-disable-next-line deprecation/deprecation
+    if (providerOrFrontstage instanceof FrontstageProvider) {
+      def._frontstageProvider = providerOrFrontstage;
+      config = providerOrFrontstage.frontstageConfig();
+    } else {
+      config = providerOrFrontstage;
+    }
+
     await def.initializeFromConfig(config);
-
     return def;
   }
 
@@ -613,7 +626,7 @@ export class FrontstageDef {
   /** Initializes a FrontstageDef from FrontstageConfig.
    * @internal
    */
-  public async initializeFromConfig(config: FrontstageConfig): Promise<void> {
+  public async initializeFromConfig(config: Frontstage): Promise<void> {
     this._id = config.id;
     this._initialConfig = config;
 
@@ -1020,7 +1033,7 @@ function createWidgetDef(
 }
 
 function createStagePanelDef(
-  frontstageConfig: FrontstageConfig,
+  frontstageConfig: Frontstage,
   location: StagePanelLocation
 ): StagePanelDef {
   const config = getStagePanel(location, frontstageConfig);
@@ -1032,7 +1045,7 @@ function createStagePanelDef(
 
 function getStagePanel(
   location: StagePanelLocation,
-  config: FrontstageConfig
+  config: Frontstage
 ): StagePanelConfig | undefined {
   switch (location) {
     case StagePanelLocation.Top:

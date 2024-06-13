@@ -13,9 +13,11 @@ import type {
 } from "../content/ContentGroup";
 import type { StagePanelConfig } from "../stagepanels/StagePanelConfig";
 import type { WidgetConfig } from "../widgets/WidgetConfig";
+import type { Frontstage } from "./Frontstage";
 
 /** Configuration from which a frontstage is created.
  * @public
+ * @deprecated in 4.15.0. Use {@link Frontstage} instead.
  */
 // eslint-disable-next-line deprecation/deprecation
 export interface FrontstageConfig extends CommonProps {

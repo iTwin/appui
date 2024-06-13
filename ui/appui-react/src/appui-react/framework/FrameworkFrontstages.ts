@@ -20,6 +20,7 @@ import type {
 } from "../stagepanels/StagePanelDef";
 import type { WidgetDef, WidgetStateChangedEvent } from "../widgets/WidgetDef";
 import type { WidgetState } from "../widgets/WidgetState";
+import type { Frontstage } from "../frontstage/Frontstage";
 
 /** Frontstage Activated Event Args interface.
  * @public
@@ -188,8 +189,7 @@ export interface ModalFrontstageItem {
   timeTracker: TimeTracker;
 }
 
-/**
- * [[UiFramework.frontstages]] interface
+/** [[UiFramework.frontstages]] interface
  * @public
  */
 export interface FrameworkFrontstages {
@@ -270,10 +270,15 @@ export interface FrameworkFrontstages {
    */
   clearFrontstageProviders(): void;
 
-  /** Add a Frontstage via a [[FrontstageProvider]].
+  /** Adds a frontstage provider.
    * @param frontstageProvider  FrontstageProvider representing the Frontstage to add
+   * @deprecated in 4.15.0. Use {@link FrameworkFrontstages.addFrontstage} instead.
    */
+  // eslint-disable-next-line deprecation/deprecation
   addFrontstageProvider(frontstageProvider: FrontstageProvider): void;
+
+  /** Adds a frontstage. */
+  addFrontstage(frontstage: Frontstage): void;
 
   /** Find a loaded Frontstage with a given id. If the id is not provided, the active Frontstage is returned. If
    * no cached FrontstageDef is found but a FrontstageProvider is registered a FrontstageDef will be created, cached, and
