@@ -9,11 +9,11 @@ import {
   ContentGroupProps,
   ContentGroupProvider,
   ContentProps,
-  FrontstageConfig,
+  createStandardFrontstage,
+  Frontstage,
   IModelViewportControl,
   StageUsage,
   StandardContentToolsUiItemsProvider,
-  StandardFrontstageProvider,
   StandardNavigationToolsUiItemsProvider,
   StandardStatusbarUiItemsProvider,
   UiFramework,
@@ -66,7 +66,7 @@ export class PopoutWindowsFrontstageGroupProvider extends ContentGroupProvider {
   }
 
   public override async contentGroup(
-    config: FrontstageConfig
+    config: Frontstage
   ): Promise<ContentGroup> {
     const savedViewLayoutProps = await getSavedViewLayoutProps(
       config.id,
@@ -132,8 +132,8 @@ export class PopoutWindowsFrontstage {
   }
 
   public static register(localizationNamespace: string) {
-    UiFramework.frontstages.addFrontstageProvider(
-      new StandardFrontstageProvider({
+    UiFramework.frontstages.addFrontstage(
+      createStandardFrontstage({
         id: PopoutWindowsFrontstage.stageId,
         version: 1.1,
         contentGroupProps: PopoutWindowsFrontstage._contentGroupProvider,

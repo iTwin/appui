@@ -11,13 +11,13 @@ import {
   ContentGroupProps,
   ContentGroupProvider,
   ContentProps,
-  FrontstageConfig,
+  createStandardFrontstage,
+  Frontstage,
   IModelViewportControl,
   StagePanelState,
   StageUsage,
   StandardContentToolsUiItemsProvider,
   StandardFrontstageProps,
-  StandardFrontstageProvider,
   StandardNavigationToolsUiItemsProvider,
   StandardStatusbarUiItemsProvider,
   StateManager,
@@ -100,7 +100,7 @@ export class WidgetApiStageContentGroupProvider extends ContentGroupProvider {
   }
 
   public override async contentGroup(
-    config: FrontstageConfig
+    config: Frontstage
   ): Promise<ContentGroup> {
     const savedViewLayoutProps = await getSavedViewLayoutProps(
       config.id,
@@ -147,25 +147,22 @@ export class WidgetApiStageContentGroupProvider extends ContentGroupProvider {
 }
 
 /** Tool settings widget can be configured by providing an URL param `toolSettings` with values `off` or `hidden`. */
-class WidgetApiFrontstage extends StandardFrontstageProvider {
-  public override frontstageConfig() {
-    const config = super.frontstageConfig();
-    const urlParams = new URLSearchParams(window.location.search);
-    const noToolSettings = urlParams.get("toolSettings") === "off";
-    const hiddenToolSettings = urlParams.get("toolSettings") === "hidden";
-    const toolSettings = noToolSettings
-      ? undefined
-      : {
-          id: "WidgetApi:ToolSettings",
-          defaultState: hiddenToolSettings ? WidgetState.Hidden : undefined,
-        };
+function createWidgetApiFrontstage(props: StandardFrontstageProps): Frontstage {
+  const config = createStandardFrontstage(props);
+  const urlParams = new URLSearchParams(window.location.search);
+  const noToolSettings = urlParams.get("toolSettings") === "off";
+  const hiddenToolSettings = urlParams.get("toolSettings") === "hidden";
+  const toolSettings = noToolSettings
+    ? undefined
+    : {
+        id: "WidgetApi:ToolSettings",
+        defaultState: hiddenToolSettings ? WidgetState.Hidden : undefined,
+      };
 
-    const updatedConfig: FrontstageConfig = {
-      ...config,
-      toolSettings,
-    };
-    return updatedConfig;
-  }
+  return {
+    ...config,
+    toolSettings,
+  };
 }
 
 export class WidgetApiStage {
@@ -210,8 +207,8 @@ export class WidgetApiStage {
       },
     };
 
-    UiFramework.frontstages.addFrontstageProvider(
-      new WidgetApiFrontstage(widgetApiStageProps)
+    UiFramework.frontstages.addFrontstage(
+      createWidgetApiFrontstage(widgetApiStageProps)
     );
     this.registerToolProviders(localizationNamespace);
   }

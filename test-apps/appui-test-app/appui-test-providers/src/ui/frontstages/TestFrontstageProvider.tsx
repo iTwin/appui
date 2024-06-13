@@ -7,8 +7,6 @@ import {
   ConfigurableCreateInfo,
   ContentControl,
   ContentGroup,
-  FrontstageConfig,
-  FrontstageProvider,
 } from "@itwin/appui-react";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 
@@ -32,15 +30,9 @@ class CustomContentControl extends ContentControl {
 }
 
 /** Used in e2e tests to test different configurations. */
-export class TestFrontstageProvider extends FrontstageProvider {
-  public static readonly stageId = "appui-test-providers:TestFrontstage";
-
-  public get id(): string {
-    return TestFrontstageProvider.stageId;
-  }
-
-  public override frontstageConfig(): FrontstageConfig {
-    const id = this.id;
+export const testFrontstageProvider = (() => {
+  {
+    const id = "appui-test-providers:TestFrontstage";
     const contentGroup = new ContentGroup({
       id: "test-group",
       layout: StandardContentLayouts.singleView,
@@ -75,4 +67,4 @@ export class TestFrontstageProvider extends FrontstageProvider {
       },
     };
   }
-}
+})();

@@ -7,9 +7,8 @@ import {
   BackstageAppButton,
   ContentGroup,
   ContentGroupProvider,
+  createStandardFrontstage,
   IModelViewportControl,
-  StandardFrontstageProps,
-  StandardFrontstageProvider,
   UiFramework,
 } from "@itwin/appui-react";
 import React from "react";
@@ -37,14 +36,13 @@ export class ViewportFrontstageGroupProvider extends ContentGroupProvider {
 
 // __PUBLISH_EXTRACT_START__ Example_Register_Viewport_Frontstage
 export function registerViewportFrontstage(): void {
-  const stageProps: StandardFrontstageProps = {
-    id: "example:ViewportFrontstage",
-    contentGroupProps: new ViewportFrontstageGroupProvider(),
-    cornerButton: <BackstageAppButton />,
-    usage: "General",
-  };
-  UiFramework.frontstages.addFrontstageProvider(
-    new StandardFrontstageProvider(stageProps)
+  UiFramework.frontstages.addFrontstage(
+    createStandardFrontstage({
+      id: "example:ViewportFrontstage",
+      contentGroupProps: new ViewportFrontstageGroupProvider(),
+      cornerButton: <BackstageAppButton />,
+      usage: "General",
+    })
   );
 }
 // __PUBLISH_EXTRACT_END__

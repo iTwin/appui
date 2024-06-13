@@ -5,10 +5,10 @@
 // __PUBLISH_EXTRACT_START__ AppUI.Frontstage.Register.Imports
 import { UiFramework } from "@itwin/appui-react";
 // __PUBLISH_EXTRACT_END__
-import { CustomFrontstageProvider } from "./CustomFrontstageProvider";
+import { customFrontstageProvider } from "./CustomFrontstageProvider";
 
 export function registerCustomFrontstage() {
   // __PUBLISH_EXTRACT_START__ AppUI.Frontstage.Register
-  UiFramework.frontstages.addFrontstageProvider(new CustomFrontstageProvider());
+  UiFramework.frontstages.addFrontstage(customFrontstageProvider);
   // __PUBLISH_EXTRACT_END__
 }

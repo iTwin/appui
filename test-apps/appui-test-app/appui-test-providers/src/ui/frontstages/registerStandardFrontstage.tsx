@@ -6,8 +6,8 @@ import * as React from "react";
 // __PUBLISH_EXTRACT_START__ AppUI.StandardFrontstageProvider.Imports
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 import {
+  createStandardFrontstage,
   StageUsage,
-  StandardFrontstageProvider,
   UiFramework,
 } from "@itwin/appui-react";
 // __PUBLISH_EXTRACT_END__
@@ -19,8 +19,8 @@ import {
 export async function registerStandardFrontstage() {
   // __PUBLISH_EXTRACT_START__ AppUI.StandardFrontstageProvider
   const id = "example:StandardFrontstage";
-  UiFramework.frontstages.addFrontstageProvider(
-    new StandardFrontstageProvider({
+  UiFramework.frontstages.addFrontstage(
+    createStandardFrontstage({
       id,
       usage: StageUsage.General,
       contentGroupProps: {

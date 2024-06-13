@@ -101,7 +101,7 @@ import {
   previewFeaturesToggleProvider,
   registerCustomFrontstage,
   SynchronizedFloatingViewportStage,
-  TestFrontstageProvider,
+  testFrontstageProvider,
   WidgetApiStage,
 } from "@itwin/appui-test-providers";
 import { getUrlParam, useHandleURLParams } from "./UrlParams";
@@ -110,7 +110,7 @@ import {
   registerExampleFrontstages,
 } from "./appui/frontstages/example-stages/ExampleStagesBackstageProvider";
 import {
-  editorFrontstageProvider,
+  editorFrontstage,
   editorUiItemsProvider,
   initializeEditor,
 } from "./appui/frontstages/EditorFrontstageProvider";
@@ -391,7 +391,7 @@ export class SampleAppIModelApp {
     CustomContentFrontstage.register(AppUiTestProviders.localizationNamespace);
     WidgetApiStage.register(AppUiTestProviders.localizationNamespace);
     ContentLayoutStage.register(AppUiTestProviders.localizationNamespace);
-    UiFramework.frontstages.addFrontstageProvider(new TestFrontstageProvider());
+    UiFramework.frontstages.addFrontstage(testFrontstageProvider);
     registerCustomFrontstage();
     SynchronizedFloatingViewportStage.register(
       AppUiTestProviders.localizationNamespace
@@ -400,12 +400,12 @@ export class SampleAppIModelApp {
 
     if (ProcessDetector.isElectronAppFrontend) {
       await initializeEditor();
-      UiFramework.frontstages.addFrontstageProvider(editorFrontstageProvider);
+      UiFramework.frontstages.addFrontstage(editorFrontstage);
       UiItemsManager.register(editorUiItemsProvider, {
-        stageIds: [editorFrontstageProvider.id],
+        stageIds: [editorFrontstage.id],
       });
       UiItemsManager.register(new StandardContentToolsUiItemsProvider(), {
-        stageIds: [editorFrontstageProvider.id],
+        stageIds: [editorFrontstage.id],
       });
     }
 
@@ -458,7 +458,7 @@ export class SampleAppIModelApp {
     if (this.iModelParams && this.iModelParams.stageId)
       stageId = this.iModelParams.stageId;
     else if (SampleAppIModelApp.testAppConfiguration?.readWrite) {
-      stageId = editorFrontstageProvider.id;
+      stageId = editorFrontstage.id;
     } else {
       stageId = defaultFrontstage;
     }

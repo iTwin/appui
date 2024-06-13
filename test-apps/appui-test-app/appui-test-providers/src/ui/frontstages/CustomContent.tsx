@@ -7,11 +7,10 @@ import {
   BackstageAppButton,
   ContentGroup,
   ContentGroupProvider,
+  createStandardFrontstage,
   IModelViewportControl,
   StageUsage,
   StandardContentToolsUiItemsProvider,
-  StandardFrontstageProps,
-  StandardFrontstageProvider,
   StandardNavigationToolsUiItemsProvider,
   StandardStatusbarUiItemsProvider,
   UiFramework,
@@ -81,19 +80,16 @@ export class CustomContentFrontstage {
   private static _contentGroupProvider = new CustomContentGroupProvider();
 
   public static register(localizationNamespace: string) {
-    const cornerButton = <BackstageAppButton />;
-    const customStageProps: StandardFrontstageProps = {
-      id: CustomContentFrontstage.stageId,
-      version: 1.1,
-      contentGroupProps: CustomContentFrontstage._contentGroupProvider,
-      hideNavigationAid: false,
-      cornerButton,
-      usage: StageUsage.General,
-    };
-
     CustomContentFrontstage.registerToolProviders(localizationNamespace);
-    UiFramework.frontstages.addFrontstageProvider(
-      new StandardFrontstageProvider(customStageProps)
+    UiFramework.frontstages.addFrontstage(
+      createStandardFrontstage({
+        id: CustomContentFrontstage.stageId,
+        version: 1.1,
+        contentGroupProps: CustomContentFrontstage._contentGroupProvider,
+        hideNavigationAid: false,
+        cornerButton: <BackstageAppButton />,
+        usage: StageUsage.General,
+      })
     );
   }
 

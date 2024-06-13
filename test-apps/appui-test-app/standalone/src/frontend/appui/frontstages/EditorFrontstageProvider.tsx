@@ -7,10 +7,10 @@ import {
   AccuDrawWidget,
   BackstageAppButton,
   BackstageItemUtilities,
+  createStandardFrontstage,
   StagePanelLocation,
   StagePanelSection,
   StageUsage,
-  StandardFrontstageProvider,
   ToolbarActionItem,
   ToolbarItemUtilities,
   ToolbarOrientation,
@@ -47,7 +47,7 @@ export async function initializeEditor() {
 }
 
 const frontstageId = "standalone:editor-frontstage";
-export const editorFrontstageProvider = new StandardFrontstageProvider({
+export const editorFrontstage = createStandardFrontstage({
   id: frontstageId,
   contentGroupProps: new InitialIModelContentStageProvider(),
   usage: StageUsage.General,

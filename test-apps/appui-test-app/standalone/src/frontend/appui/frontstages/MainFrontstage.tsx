@@ -15,7 +15,8 @@ import {
   ContentGroupProps,
   ContentGroupProvider,
   ContentProps,
-  FrontstageConfig,
+  createStandardFrontstage,
+  Frontstage,
   IModelViewportControl,
   SettingsModalFrontstage,
   StageContentLayout,
@@ -23,7 +24,6 @@ import {
   StageUsage,
   StandardContentToolsUiItemsProvider,
   StandardFrontstageProps,
-  StandardFrontstageProvider,
   StandardNavigationToolsUiItemsProvider,
   StandardStatusbarUiItemsProvider,
   UiFramework,
@@ -126,7 +126,7 @@ export class InitialIModelContentStageProvider extends ContentGroupProvider {
   }
 
   public override async contentGroup(
-    config: FrontstageConfig
+    config: Frontstage
   ): Promise<ContentGroup> {
     const viewIdsSelected = SampleAppIModelApp.getInitialViewIds();
     const iModelConnection = UiFramework.getIModelConnection();
@@ -264,9 +264,7 @@ export class MainFrontstage {
       usage: StageUsage.General,
     };
 
-    UiFramework.frontstages.addFrontstageProvider(
-      new StandardFrontstageProvider(stageProps)
-    );
+    UiFramework.frontstages.addFrontstage(createStandardFrontstage(stageProps));
     this.registerUiItemProviders();
   }
 
