@@ -5,12 +5,12 @@
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 import {
   Frontstage,
+  FrontstageUtilities,
   StagePanelLocation,
   StagePanelSection,
   StageUsage,
   StandardFrontstageProps,
   Widget,
-  createStandardFrontstage,
 } from "@itwin/appui-react";
 import { createContentControl } from "./createContentControl";
 
@@ -20,7 +20,7 @@ export function createFrontstage(
     contentManipulation?: Frontstage["contentManipulation"];
   }
 ): Frontstage {
-  const config = createStandardFrontstage({
+  const config = FrontstageUtilities.createStandardFrontstage({
     id: "main-frontstage",
     usage: StageUsage.Private,
     version: Math.random(),

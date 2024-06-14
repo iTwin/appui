@@ -9,8 +9,8 @@ import {
   ContentGroupProps,
   ContentGroupProvider,
   ContentProps,
-  createStandardFrontstage,
   Frontstage,
+  FrontstageUtilities,
   IModelViewportControl,
   StageUsage,
   StandardContentToolsUiItemsProvider,
@@ -146,7 +146,7 @@ export class SynchronizedFloatingViewportStage {
     );
 
     UiFramework.frontstages.addFrontstage(
-      createStandardFrontstage({
+      FrontstageUtilities.createStandardFrontstage({
         id: SynchronizedFloatingViewportStage.stageId,
         version: 1.1,
         contentGroupProps:

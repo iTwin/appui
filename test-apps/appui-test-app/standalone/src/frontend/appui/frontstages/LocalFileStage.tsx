@@ -17,7 +17,7 @@ import {
   ConfigurableCreateInfo,
   ContentControl,
   ContentGroupProps,
-  createStandardFrontstage,
+  FrontstageUtilities,
   StageUsage,
   StandardFrontstageProps,
   UiFramework,
@@ -139,7 +139,7 @@ export class LocalFileOpenFrontstage {
         };
 
         UiFramework.frontstages.addFrontstage(
-          createStandardFrontstage(stageProps)
+          FrontstageUtilities.createStandardFrontstage(stageProps)
         );
         UiItemsManager.register(new LocalFileOpenStageBackstageItemsProvider());
       } else {

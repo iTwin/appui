@@ -75,6 +75,7 @@ export * from "./appui-react/frontstage/Frontstage";
 export * from "./appui-react/frontstage/FrontstageConfig";
 export * from "./appui-react/frontstage/FrontstageDef";
 export * from "./appui-react/frontstage/FrontstageProvider";
+export * from "./appui-react/frontstage/FrontstageUtilities";
 export * from "./appui-react/frontstage/ModalFrontstage";
 export * from "./appui-react/frontstage/ModalSettingsStage";
 export * from "./appui-react/frontstage/NestedFrontstage";

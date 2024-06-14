@@ -184,7 +184,6 @@ deprecated;createAction
 public;createAction
 deprecated;createAction
 internal;createStableWidgetDef(widgetDef: WidgetDef, stableId: string): WidgetDef
-public;createStandardFrontstage(props: StandardFrontstageProps): Frontstage
 public;CubeNavigationAidControl 
 public;CursorDirection
 public;CursorDirectionParts
@@ -295,6 +294,7 @@ public;FrontstageReadyEvent
 deprecated;FrontstageReadyEvent 
 public;FrontstageReadyEventArgs
 deprecated;FrontstageReadyEventArgs
+beta;FrontstageUtilities
 public;FunctionType = (...args: any[]) => any
 deprecated;FunctionType = (...args: any[]) => any
 internal;getBadgeClassName(badgeType: BadgeType | undefined): "uifw-badge-new" | "uifw-badge-tp" | undefined

@@ -6,18 +6,16 @@
  * @module Frontstage
  */
 
-import * as React from "react";
-import type { ContentGroupProps } from "../content/ContentGroup";
-import { ContentGroup, ContentGroupProvider } from "../content/ContentGroup";
+import type * as React from "react";
+import type {
+  ContentGroupProps,
+  ContentGroupProvider,
+} from "../content/ContentGroup";
 import { FrontstageProvider } from "./FrontstageProvider";
-import { ContentToolWidgetComposer } from "../widgets/ContentToolWidgetComposer";
-import { ViewToolWidgetComposer } from "../widgets/ViewToolWidgetComposer";
 import type { StagePanelConfig } from "../stagepanels/StagePanelConfig";
 import type { StageUsage } from "./StageUsage";
-import { StatusBarComposer } from "../statusbar/StatusBarComposer";
-import { StagePanelState } from "../stagepanels/StagePanelState";
 import type { Frontstage } from "./Frontstage";
-import type { UiItemsProvider } from "../ui-items-provider/UiItemsProvider";
+import { FrontstageUtilities } from "./FrontstageUtilities";
 
 /** Widget panel properties used in a {@link StandardFrontstageProps}.
  * @public
@@ -76,72 +74,10 @@ export interface StandardFrontstageProps {
   bottomPanelProps?: WidgetPanelProps;
 }
 
-/** Frontstage that provides an "empty" stage. All tool buttons, status bar items, and widgets must
- * be provided by one or more item providers, see {@link UiItemsProvider}.
- * @public
- */
-export function createStandardFrontstage(
-  props: StandardFrontstageProps
-): Frontstage {
-  const contentGroup =
-    props.contentGroupProps instanceof ContentGroupProvider
-      ? props.contentGroupProps
-      : new ContentGroup(props.contentGroupProps);
-  return {
-    id: props.id,
-    version: props.version ?? 1.0,
-    contentGroup,
-    usage: props.usage,
-    defaultTool: props.defaultTool,
-    contentManipulation: {
-      id: `${props.id}-contentManipulationTools`,
-      content: <ContentToolWidgetComposer cornerButton={props.cornerButton} />,
-    },
-    viewNavigation: {
-      id: `${props.id}-viewNavigationTools`,
-      content: (
-        <ViewToolWidgetComposer hideNavigationAid={props.hideNavigationAid} />
-      ),
-    },
-    toolSettings: props.hideToolSettings
-      ? undefined
-      : {
-          id: `${props.id}-toolSettings`,
-        },
-    statusBar: props.hideStatusBar
-      ? undefined
-      : {
-          id: `${props.id}-statusBar`,
-          content: <StatusBarComposer items={[]} />,
-        },
-    leftPanel: {
-      sizeSpec: 300,
-      pinned: false,
-      defaultState: StagePanelState.Minimized,
-      ...props.leftPanelProps,
-    },
-    topPanel: {
-      sizeSpec: 90,
-      pinned: false,
-      defaultState: StagePanelState.Minimized,
-      ...props.topPanelProps,
-    },
-    rightPanel: {
-      defaultState: StagePanelState.Open,
-      ...props.rightPanelProps,
-    },
-    bottomPanel: {
-      sizeSpec: 180,
-      defaultState: StagePanelState.Open,
-      ...props.bottomPanelProps,
-    },
-  };
-}
-
 /** FrontstageProvider that provides an "empty" stage. All tool buttons, statusbar items, and widgets must
  * be provided by one or more item providers, see [[UiItemsProvider]].
  * @public
- * @deprecated in 4.15.0. Use {@link createStandardFrontstage} instead.
+ * @deprecated in 4.15.0. Use {@link FrontstageUtilities.createStandardFrontstage} instead.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class StandardFrontstageProvider extends FrontstageProvider {
@@ -154,7 +90,7 @@ export class StandardFrontstageProvider extends FrontstageProvider {
   }
 
   public override frontstageConfig(): Frontstage {
-    const config = createStandardFrontstage(this.props);
+    const config = FrontstageUtilities.createStandardFrontstage(this.props);
     return config;
   }
 }

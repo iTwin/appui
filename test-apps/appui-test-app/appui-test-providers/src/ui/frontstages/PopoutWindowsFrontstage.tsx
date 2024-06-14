@@ -9,8 +9,8 @@ import {
   ContentGroupProps,
   ContentGroupProvider,
   ContentProps,
-  createStandardFrontstage,
   Frontstage,
+  FrontstageUtilities,
   IModelViewportControl,
   StageUsage,
   StandardContentToolsUiItemsProvider,
@@ -133,7 +133,7 @@ export class PopoutWindowsFrontstage {
 
   public static register(localizationNamespace: string) {
     UiFramework.frontstages.addFrontstage(
-      createStandardFrontstage({
+      FrontstageUtilities.createStandardFrontstage({
         id: PopoutWindowsFrontstage.stageId,
         version: 1.1,
         contentGroupProps: PopoutWindowsFrontstage._contentGroupProvider,

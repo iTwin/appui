@@ -7,7 +7,7 @@ import {
   BackstageAppButton,
   ContentGroup,
   ContentGroupProvider,
-  createStandardFrontstage,
+  FrontstageUtilities,
   IModelViewportControl,
   UiFramework,
 } from "@itwin/appui-react";
@@ -37,7 +37,7 @@ export class ViewportFrontstageGroupProvider extends ContentGroupProvider {
 // __PUBLISH_EXTRACT_START__ Example_Register_Viewport_Frontstage
 export function registerViewportFrontstage(): void {
   UiFramework.frontstages.addFrontstage(
-    createStandardFrontstage({
+    FrontstageUtilities.createStandardFrontstage({
       id: "example:ViewportFrontstage",
       contentGroupProps: new ViewportFrontstageGroupProvider(),
       cornerButton: <BackstageAppButton />,

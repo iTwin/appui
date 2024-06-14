@@ -11,8 +11,8 @@ import {
   ContentGroupProps,
   ContentGroupProvider,
   ContentProps,
-  createStandardFrontstage,
   Frontstage,
+  FrontstageUtilities,
   IModelViewportControl,
   StagePanelState,
   StageUsage,
@@ -148,7 +148,7 @@ export class WidgetApiStageContentGroupProvider extends ContentGroupProvider {
 
 /** Tool settings widget can be configured by providing an URL param `toolSettings` with values `off` or `hidden`. */
 function createWidgetApiFrontstage(props: StandardFrontstageProps): Frontstage {
-  const config = createStandardFrontstage(props);
+  const config = FrontstageUtilities.createStandardFrontstage(props);
   const urlParams = new URLSearchParams(window.location.search);
   const noToolSettings = urlParams.get("toolSettings") === "off";
   const hiddenToolSettings = urlParams.get("toolSettings") === "hidden";

@@ -15,8 +15,8 @@ import {
   ContentGroupProps,
   ContentGroupProvider,
   ContentProps,
-  createStandardFrontstage,
   Frontstage,
+  FrontstageUtilities,
   IModelViewportControl,
   SettingsModalFrontstage,
   StageContentLayout,
@@ -264,7 +264,9 @@ export class MainFrontstage {
       usage: StageUsage.General,
     };
 
-    UiFramework.frontstages.addFrontstage(createStandardFrontstage(stageProps));
+    UiFramework.frontstages.addFrontstage(
+      FrontstageUtilities.createStandardFrontstage(stageProps)
+    );
     this.registerUiItemProviders();
   }
 

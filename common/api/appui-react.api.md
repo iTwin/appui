@@ -1271,9 +1271,6 @@ export function createAction<T extends string, P>(type: T, payload: P): ActionWi
 export function createStableWidgetDef(widgetDef: WidgetDef, stableId: string): WidgetDef;
 
 // @public
-export function createStandardFrontstage(props: StandardFrontstageProps): Frontstage;
-
-// @public
 export class CubeNavigationAidControl extends NavigationAidControl {
     constructor(info: ConfigurableCreateInfo, options: any);
     // (undocumented)
@@ -2402,6 +2399,11 @@ export class FrontstageReadyEvent extends UiEvent<FrontstageReadyEventArgs> {
 export interface FrontstageReadyEventArgs {
     // (undocumented)
     frontstageDef: FrontstageDef;
+}
+
+// @beta
+export namespace FrontstageUtilities {
+    export function createStandardFrontstage(props: StandardFrontstageProps): Frontstage;
 }
 
 // @public @deprecated

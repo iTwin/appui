@@ -9,8 +9,8 @@ import {
   ContentGroupProps,
   ContentGroupProvider,
   ContentProps,
-  createStandardFrontstage,
   Frontstage,
+  FrontstageUtilities,
   IModelViewportControl,
   StageUsage,
   StandardContentToolsUiItemsProvider,
@@ -137,7 +137,7 @@ export class ContentLayoutStage {
 
   public static register(localizationNamespace: string) {
     UiFramework.frontstages.addFrontstage(
-      createStandardFrontstage({
+      FrontstageUtilities.createStandardFrontstage({
         id: ContentLayoutStage.stageId,
         version: 1.1,
         contentGroupProps: ContentLayoutStage._contentGroupProvider,

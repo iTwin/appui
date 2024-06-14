@@ -7,7 +7,7 @@ import {
   BackstageAppButton,
   ContentGroup,
   ContentGroupProvider,
-  createStandardFrontstage,
+  FrontstageUtilities,
   IModelViewportControl,
   StageUsage,
   StandardContentToolsUiItemsProvider,
@@ -82,7 +82,7 @@ export class CustomContentFrontstage {
   public static register(localizationNamespace: string) {
     CustomContentFrontstage.registerToolProviders(localizationNamespace);
     UiFramework.frontstages.addFrontstage(
-      createStandardFrontstage({
+      FrontstageUtilities.createStandardFrontstage({
         id: CustomContentFrontstage.stageId,
         version: 1.1,
         contentGroupProps: CustomContentFrontstage._contentGroupProvider,
