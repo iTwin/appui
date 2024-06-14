@@ -8,6 +8,8 @@ Table of contents:
   - [Changes](#changes)
 - [@itwin/core-react](#itwincore-react)
   - [Deprecations](#deprecations-1)
+- [@itwin/components-react](#itwincomponents-react)
+  - [Fixes](#fixes)
 
 ## @itwin/appui-react
 
@@ -73,3 +75,9 @@ Table of contents:
 - Deprecated `useEffectSkipFirst`. Use `useEffect` instead. [#866](https://github.com/iTwin/appui/pull/866)
 - Deprecated `ResizableContainerObserver`. Please use third party packages. [#866](https://github.com/iTwin/appui/pull/866)
 - Deprecated `Omit`. Use TypeScript `Omit`. [#866](https://github.com/iTwin/appui/pull/866)
+
+## @itwin/components-react
+
+### Fixes
+
+- Portal editors to the same container used to portal other components.
