@@ -90,6 +90,9 @@ export interface PopupProps extends CommonProps {
 
   /** Content */
   children?: React.ReactNode;
+
+  /** Target that should be used when portaling popup. */
+  portalTarget?: HTMLElement;
 }
 
 /** @internal */
@@ -650,9 +653,11 @@ export class Popup extends React.Component<PopupProps, PopupState> {
 
   private getContainer() {
     return (
+      this.props.portalTarget ??
       this.state.parentDocument.body.querySelector(
         '[data-root-container="appui-root-id"]'
-      ) ?? this.state.parentDocument.body
+      ) ??
+      this.state.parentDocument.body
     );
   }
 }
