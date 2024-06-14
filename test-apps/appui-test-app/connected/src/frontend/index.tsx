@@ -93,7 +93,7 @@ import { ExternalIModel } from "./appui/ExternalIModel";
 import { MainFrontstage } from "./appui/frontstages/MainFrontstage";
 import { AppSettingsTabsProvider } from "./appui/settingsproviders/AppSettingsTabsProvider";
 import { IModelOpenFrontstage } from "./appui/frontstages/IModelOpenFrontstage";
-import { SignInFrontstage } from "./appui/frontstages/SignInFrontstage";
+import { signInFrontstage } from "./appui/frontstages/SignInFrontstage";
 import {
   AbstractUiItemsProvider,
   AppPreviewFeatures,
@@ -547,7 +547,7 @@ export class SampleAppIModelApp {
   }
 
   public static async showSignInPage() {
-    await SampleAppIModelApp.showFrontstage(SignInFrontstage.stageId);
+    await SampleAppIModelApp.showFrontstage(signInFrontstage.id);
   }
 
   // called after the user has signed in (or access token is still valid)
