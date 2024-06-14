@@ -6,14 +6,15 @@
  * @module Frontstage
  */
 
-import type { FrontstageConfig } from "./FrontstageConfig";
+import type { Frontstage } from "./Frontstage";
 
 /** Provides a definition required to create a Frontstage.
  * @public
+ * @deprecated in 4.15.0. Use {@link Frontstage} instead.
  */
 export abstract class FrontstageProvider {
   /** Get the FrontstageProvider id. */
   public abstract get id(): string;
   /** Return the frontstage configuration. */
-  public abstract frontstageConfig(): FrontstageConfig;
+  public abstract frontstageConfig(): Frontstage;
 }

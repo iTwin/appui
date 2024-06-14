@@ -10,7 +10,7 @@ import {
   WidgetState,
 } from "@itwin/appui-react";
 import { AppUiStory } from "../AppUiStory";
-import { createFrontstageProvider, createWidget } from "../Utils";
+import { createFrontstage, createWidget } from "../Utils";
 
 function createProvider(visibleWidgets: number): UiItemsProvider {
   return {
@@ -51,8 +51,8 @@ export function PreviewStory({
     >
       <AppUiStory
         itemProviders={[provider]}
-        frontstageProviders={[
-          createFrontstageProvider({
+        frontstages={[
+          createFrontstage({
             leftPanelProps: {
               defaultState: StagePanelState.Open,
               pinned: true,

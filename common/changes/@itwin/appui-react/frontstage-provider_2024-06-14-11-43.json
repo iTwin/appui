@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Deprecate APIs related to `FrontstageProvider` class.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}

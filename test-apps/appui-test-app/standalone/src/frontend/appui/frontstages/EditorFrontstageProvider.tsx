@@ -7,10 +7,10 @@ import {
   AccuDrawWidget,
   BackstageAppButton,
   BackstageItemUtilities,
+  FrontstageUtilities,
   StagePanelLocation,
   StagePanelSection,
   StageUsage,
-  StandardFrontstageProvider,
   ToolbarActionItem,
   ToolbarItemUtilities,
   ToolbarOrientation,
@@ -46,9 +46,8 @@ export async function initializeEditor() {
   await EditTools.initialize();
 }
 
-const frontstageId = "standalone:editor-frontstage";
-export const editorFrontstageProvider = new StandardFrontstageProvider({
-  id: frontstageId,
+export const editorFrontstage = FrontstageUtilities.createStandardFrontstage({
+  id: "standalone:editor-frontstage",
   contentGroupProps: new InitialIModelContentStageProvider(),
   usage: StageUsage.General,
   cornerButton: <BackstageAppButton />,
@@ -62,7 +61,7 @@ function createUiItemsProvider(): UiItemsProvider {
     id,
     getBackstageItems: () => [
       BackstageItemUtilities.createStageLauncher(
-        frontstageId,
+        editorFrontstage.id,
         400,
         0,
         "Editor",

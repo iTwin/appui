@@ -9,8 +9,6 @@ import {
   ContentControl,
   ContentGroup,
   ContentToolWidgetComposer,
-  FrontstageConfig,
-  FrontstageProvider,
 } from "@itwin/appui-react";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 
@@ -36,29 +34,19 @@ class CustomContentControl extends ContentControl {
 // __PUBLISH_EXTRACT_END__
 
 // __PUBLISH_EXTRACT_START__ Example_Custom_Frontstage_Provider
-export class CustomFrontstageProvider extends FrontstageProvider {
-  public override get id(): string {
-    return "example:CustomFrontstage";
-  }
-
-  public override frontstageConfig(): FrontstageConfig {
-    const id = this.id;
-    const contentGroup = new ContentGroup({
-      id: "test-group",
-      layout: StandardContentLayouts.singleView,
-      contents: [{ id: "custom-content", classId: CustomContentControl }],
-    });
-    return {
-      id,
-      version: 1,
-      contentGroup,
-      contentManipulation: {
-        id: `${id}-contentManipulationTools`,
-        content: (
-          <ContentToolWidgetComposer cornerButton={<BackstageAppButton />} />
-        ),
-      },
-    };
-  }
-}
+export const customFrontstage = {
+  id: "example:CustomFrontstage",
+  version: 1,
+  contentGroup: new ContentGroup({
+    id: "test-group",
+    layout: StandardContentLayouts.singleView,
+    contents: [{ id: "custom-content", classId: CustomContentControl }],
+  }),
+  contentManipulation: {
+    id: "contentManipulationTools",
+    content: (
+      <ContentToolWidgetComposer cornerButton={<BackstageAppButton />} />
+    ),
+  },
+};
 // __PUBLISH_EXTRACT_END__

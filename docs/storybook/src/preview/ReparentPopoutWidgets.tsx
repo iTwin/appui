@@ -20,7 +20,7 @@ import {
   MenuItem,
 } from "@itwin/itwinui-react";
 import { AppUiStory } from "../AppUiStory";
-import { createFrontstageProvider, createWidget } from "../Utils";
+import { createFrontstage, createWidget } from "../Utils";
 
 function Content({ id }: { id: string }) {
   const [count, setCount] = React.useState(0);
@@ -81,8 +81,8 @@ export function PreviewStory(props: PreviewStoryProps) {
     <PreviewFeaturesProvider features={props}>
       <AppUiStory
         itemProviders={[provider]}
-        frontstageProviders={[
-          createFrontstageProvider({
+        frontstages={[
+          createFrontstage({
             leftPanelProps: {
               defaultState: StagePanelState.Open,
               pinned: true,

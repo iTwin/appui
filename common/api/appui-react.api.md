@@ -1139,7 +1139,7 @@ export interface ContentGroupProps {
 // @public
 export abstract class ContentGroupProvider {
     applyUpdatesToSavedProps(contentGroupProps: ContentGroupProps): ContentGroupProps;
-    abstract contentGroup(config: FrontstageConfig): Promise<ContentGroup>;
+    abstract contentGroup(frontstage: Frontstage): Promise<ContentGroup>;
     onFrontstageDeactivated(): Promise<void>;
     prepareToSaveProps(contentGroupProps: ContentGroupProps): ContentGroupProps;
 }
@@ -1977,6 +1977,9 @@ export interface FrameworkFrontstages {
     readonly activeNestedFrontstage: FrontstageDef | undefined;
     readonly activeToolId: string;
     readonly activeToolInformation: ToolInformation | undefined;
+    // @beta
+    addFrontstage(frontstage: Frontstage): void;
+    // @deprecated
     addFrontstageProvider(frontstageProvider: FrontstageProvider): void;
     clearFrontstageDefs(): void;
     clearFrontstageProviders(): void;
@@ -2212,6 +2215,9 @@ export interface FrameworkVisibility {
     useProximityOpacity: boolean;
 }
 
+// @public
+export type Frontstage = FrontstageConfig;
+
 // @internal (undocumented)
 export const FRONTSTAGE_SETTINGS_NAMESPACE = "uifw-frontstageSettings";
 
@@ -2227,7 +2233,7 @@ export interface FrontstageActivatedEventArgs {
     deactivatedFrontstageDef?: FrontstageDef;
 }
 
-// @public
+// @public @deprecated
 export interface FrontstageConfig extends CommonProps {
     readonly bottomPanel?: StagePanelConfig;
     readonly contentGroup: ContentGroup | ContentGroupProvider;
@@ -2274,7 +2280,7 @@ export class FrontstageDef {
     get contentLayoutDef(): ContentLayoutDef | undefined;
     // (undocumented)
     get contentManipulation(): WidgetDef | undefined;
-    static create(provider: FrontstageProvider): Promise<FrontstageDef>;
+    static create(providerOrFrontstage: FrontstageProvider | Frontstage): Promise<FrontstageDef>;
     // @internal (undocumented)
     get dispatch(): NineZoneDispatch;
     set dispatch(dispatch: NineZoneDispatch);
@@ -2289,7 +2295,7 @@ export class FrontstageDef {
     get floatingContentControls(): ContentControl[] | undefined;
     // @beta
     floatWidget(widgetId: string, position?: XAndY, size?: SizeProps): void;
-    // (undocumented)
+    // @deprecated (undocumented)
     get frontstageProvider(): FrontstageProvider | undefined;
     // (undocumented)
     getFloatingWidgetContainerBounds(floatingWidgetId: string | undefined): RectangleProps | undefined;
@@ -2302,7 +2308,7 @@ export class FrontstageDef {
     // (undocumented)
     get id(): string;
     // @internal
-    initializeFromConfig(config: FrontstageConfig): Promise<void>;
+    initializeFromConfig(config: Frontstage): Promise<void>;
     // (undocumented)
     get isApplicationClosing(): boolean;
     // (undocumented)
@@ -2380,9 +2386,9 @@ export interface FrontstageNineZoneStateChangedEventArgs extends FrontstageEvent
     state: NineZoneState | undefined;
 }
 
-// @public
+// @public @deprecated
 export abstract class FrontstageProvider {
-    abstract frontstageConfig(): FrontstageConfig;
+    abstract frontstageConfig(): Frontstage;
     abstract get id(): string;
 }
 
@@ -2394,6 +2400,11 @@ export class FrontstageReadyEvent extends UiEvent<FrontstageReadyEventArgs> {
 export interface FrontstageReadyEventArgs {
     // (undocumented)
     frontstageDef: FrontstageDef;
+}
+
+// @beta
+export namespace FrontstageUtilities {
+    export function createStandardFrontstage(props: StandardFrontstageProps): Frontstage;
 }
 
 // @public @deprecated
@@ -4276,11 +4287,11 @@ export interface StandardFrontstageProps {
     version?: number;
 }
 
-// @public
+// @public @deprecated
 export class StandardFrontstageProvider extends FrontstageProvider {
     constructor(props: StandardFrontstageProps);
     // (undocumented)
-    frontstageConfig(): FrontstageConfig;
+    frontstageConfig(): Frontstage;
     // (undocumented)
     get id(): string;
 }

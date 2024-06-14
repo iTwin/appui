@@ -9,12 +9,11 @@ import {
   ContentGroupProps,
   ContentGroupProvider,
   ContentProps,
-  FrontstageConfig,
+  Frontstage,
+  FrontstageUtilities,
   IModelViewportControl,
   StageUsage,
   StandardContentToolsUiItemsProvider,
-  StandardFrontstageProps,
-  StandardFrontstageProvider,
   StandardNavigationToolsUiItemsProvider,
   StandardStatusbarUiItemsProvider,
   UiFramework,
@@ -71,7 +70,7 @@ export class SynchronizedFloatingViewportContentGroupProvider extends ContentGro
   }
 
   public override async contentGroup(
-    config: FrontstageConfig
+    config: Frontstage
   ): Promise<ContentGroup> {
     const savedViewLayoutProps = await getSavedViewLayoutProps(
       config.id,
@@ -146,17 +145,15 @@ export class SynchronizedFloatingViewportStage {
       />
     );
 
-    const synchronizedFloatingViewportStageProps: StandardFrontstageProps = {
-      id: SynchronizedFloatingViewportStage.stageId,
-      version: 1.1,
-      contentGroupProps:
-        SynchronizedFloatingViewportStage._contentGroupProvider,
-      cornerButton,
-      usage: StageUsage.General,
-    };
-
-    UiFramework.frontstages.addFrontstageProvider(
-      new StandardFrontstageProvider(synchronizedFloatingViewportStageProps)
+    UiFramework.frontstages.addFrontstage(
+      FrontstageUtilities.createStandardFrontstage({
+        id: SynchronizedFloatingViewportStage.stageId,
+        version: 1.1,
+        contentGroupProps:
+          SynchronizedFloatingViewportStage._contentGroupProvider,
+        cornerButton,
+        usage: StageUsage.General,
+      })
     );
     this.registerToolProviders(localizationNamespace);
   }

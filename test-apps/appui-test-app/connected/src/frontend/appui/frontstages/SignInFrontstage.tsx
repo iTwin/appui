@@ -9,8 +9,7 @@ import {
   ConfigurableCreateInfo,
   ContentControl,
   ContentGroup,
-  FrontstageConfig,
-  FrontstageProvider,
+  Frontstage,
   StageUsage,
 } from "@itwin/appui-react";
 import { IModelApp } from "@itwin/core-frontend";
@@ -53,29 +52,18 @@ class SignInControl extends ContentControl {
   };
 }
 
-export class SignInFrontstage extends FrontstageProvider {
-  public static stageId = "ui-test-app:SignIn";
-  public get id(): string {
-    return SignInFrontstage.stageId;
-  }
-
-  public override frontstageConfig(): FrontstageConfig {
-    const contentGroup = new ContentGroup({
-      id: "sign-in-stage",
-      layout: StandardContentLayouts.singleView,
-      contents: [
-        {
-          id: "sign-in",
-          classId: SignInControl,
-        },
-      ],
-    });
-
-    return {
-      id: this.id,
-      version: 1,
-      contentGroup,
-      usage: StageUsage.Private,
-    };
-  }
-}
+export const signInFrontstage: Frontstage = {
+  id: "ui-test-app:SignIn",
+  version: 1,
+  contentGroup: new ContentGroup({
+    id: "sign-in-stage",
+    layout: StandardContentLayouts.singleView,
+    contents: [
+      {
+        id: "sign-in",
+        classId: SignInControl,
+      },
+    ],
+  }),
+  usage: StageUsage.Private,
+};
