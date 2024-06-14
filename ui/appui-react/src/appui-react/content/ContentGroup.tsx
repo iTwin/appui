@@ -27,7 +27,7 @@ export interface ContentProps {
   /** A unique id for the Content View within the group. */
   id: string;
   /** The class name or [[ConfigurableUiControlConstructor]] of the content control.
-   * @deprecated in 4.15.0. Use {@link ContentProps.content} instead.
+   * @deprecated in 4.15.0. Use {@link ContentProps.content} instead and specify an empty string for this property.
    */
   // eslint-disable-next-line deprecation/deprecation
   classId: string | ConfigurableUiControlConstructor;

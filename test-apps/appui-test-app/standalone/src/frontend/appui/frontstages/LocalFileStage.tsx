@@ -14,8 +14,6 @@ import {
   BackstageAppButton,
   BackstageItem,
   BackstageItemUtilities,
-  ConfigurableCreateInfo,
-  ContentControl,
   ContentGroupProps,
   FrontstageUtilities,
   StageUsage,
@@ -81,31 +79,6 @@ async function getDefaultViewId(
   return viewId;
 }
 
-class LocalFileOpenControl extends ContentControl {
-  constructor(info: ConfigurableCreateInfo, options: any) {
-    super(info, options);
-
-    this.reactNode = (
-      <LocalFilePage
-        onClose={this._handleClose}
-        onViewsSelected={this._handleViewsSelected}
-      />
-    );
-  }
-
-  private _handleClose = () => {
-    UiFramework.frontstages.closeModalFrontstage();
-  };
-
-  private _handleViewsSelected = async (
-    iModelConnection: IModelConnection,
-    views: Id64String[]
-  ) => {
-    UiFramework.frontstages.closeModalFrontstage();
-    await SampleAppIModelApp.setViewIdAndOpenMainStage(iModelConnection, views);
-  };
-}
-
 export class LocalFileOpenFrontstage {
   public static stageId = "appui-test-app:LocalFileOpen";
 
@@ -123,7 +96,24 @@ export class LocalFileOpenFrontstage {
           contents: [
             {
               id: "file-open",
-              classId: LocalFileOpenControl,
+              classId: "",
+              content: (
+                <LocalFilePage
+                  onClose={() => {
+                    UiFramework.frontstages.closeModalFrontstage();
+                  }}
+                  onViewsSelected={async (
+                    iModelConnection: IModelConnection,
+                    views: Id64String[]
+                  ) => {
+                    UiFramework.frontstages.closeModalFrontstage();
+                    await SampleAppIModelApp.setViewIdAndOpenMainStage(
+                      iModelConnection,
+                      views
+                    );
+                  }}
+                />
+              ),
             },
           ],
         };

@@ -39,6 +39,7 @@ import { AppUi } from "../AppUi";
 import stageIconSvg from "./imodeljs.svg";
 import { getUrlParam } from "../../UrlParams";
 import { TestAppLocalization } from "../../useTranslation";
+import { ViewportComponent } from "@itwin/imodel-components-react";
 
 function getIModelSpecificKey(
   inKey: string,
@@ -71,7 +72,8 @@ export async function getSavedViewLayoutProps(
 
       // Add applicationData to the ContentProps
       savedViewLayoutProps.contentGroupProps.contents.forEach(
-        (contentProps: ContentProps, index: number) => {
+        (contentProps, index) => {
+          // eslint-disable-next-line deprecation/deprecation
           contentProps.applicationData = {
             viewState: viewStates[index],
             iModelConnection,
@@ -90,38 +92,38 @@ export class InitialIModelContentStageProvider extends ContentGroupProvider {
   }
 
   public override prepareToSaveProps(contentGroupProps: ContentGroupProps) {
-    const newContentsArray = contentGroupProps.contents.map(
-      (content: ContentProps) => {
-        const newContent = { ...content };
-        if (newContent.applicationData) delete newContent.applicationData;
-        return newContent;
-      }
-    );
+    const newContentsArray = contentGroupProps.contents.map((content) => {
+      const newContent = { ...content };
+      // eslint-disable-next-line deprecation/deprecation
+      if (newContent.applicationData) delete newContent.applicationData;
+      return newContent;
+    });
     return { ...contentGroupProps, contents: newContentsArray };
   }
 
   public override applyUpdatesToSavedProps(
     contentGroupProps: ContentGroupProps
   ) {
-    const newContentsArray = contentGroupProps.contents.map(
-      (content: ContentProps) => {
-        const newContent = { ...content };
+    const newContentsArray = contentGroupProps.contents.map((content) => {
+      const newContent = { ...content };
 
-        if (newContent.classId === IModelViewportControl.id) {
-          newContent.applicationData = {
-            ...newContent.applicationData,
-            featureOptions: {
-              defaultViewOverlay: {
-                enableScheduleAnimationViewOverlay: true,
-                enableAnalysisTimelineViewOverlay: true,
-                enableSolarTimelineViewOverlay: true,
-              },
+      // eslint-disable-next-line deprecation/deprecation
+      if (newContent.classId === IModelViewportControl.id) {
+        // eslint-disable-next-line deprecation/deprecation
+        newContent.applicationData = {
+          // eslint-disable-next-line deprecation/deprecation
+          ...newContent.applicationData,
+          featureOptions: {
+            defaultViewOverlay: {
+              enableScheduleAnimationViewOverlay: true,
+              enableAnalysisTimelineViewOverlay: true,
+              enableSolarTimelineViewOverlay: true,
             },
-          };
-        }
-        return newContent;
+          },
+        };
       }
-    );
+      return newContent;
+    });
     return { ...contentGroupProps, contents: newContentsArray };
   }
 
@@ -143,6 +145,7 @@ export class InitialIModelContentStageProvider extends ContentGroupProvider {
       );
       if (savedViewLayoutProps) {
         const viewState =
+          // eslint-disable-next-line deprecation/deprecation
           savedViewLayoutProps.contentGroupProps.contents[0].applicationData
             ?.viewState;
         if (viewState) {
@@ -157,8 +160,13 @@ export class InitialIModelContentStageProvider extends ContentGroupProvider {
         contents: [
           {
             id: "viewport",
-            classId: IModelViewportControl,
-            applicationData: {},
+            classId: "",
+            content: (
+              <ViewportComponent
+                imodel={UiFramework.getIModelConnection()!}
+                viewState={UiFramework.getDefaultViewState()}
+              />
+            ),
           },
         ],
       });
@@ -196,12 +204,14 @@ export class InitialIModelContentStageProvider extends ContentGroupProvider {
       if (0 === index) {
         UiFramework.setDefaultViewState(viewState);
       }
-      const thisContentProps: ContentProps = {
+      contentProps.push({
         id: `imodel-view-${index}`,
-        classId: IModelViewportControl,
+        classId: "",
+        content: (
+          <ViewportComponent viewState={viewState} imodel={iModelConnection} />
+        ),
+        // TODO: view overlay should be set in the content control
         applicationData: {
-          viewState,
-          iModelConnection,
           featureOptions: {
             defaultViewOverlay: {
               enableScheduleAnimationViewOverlay: true,
@@ -210,8 +220,7 @@ export class InitialIModelContentStageProvider extends ContentGroupProvider {
             },
           },
         },
-      };
-      contentProps.push(thisContentProps);
+      });
     });
 
     const myContentGroup: ContentGroup = new ContentGroup({

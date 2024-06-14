@@ -5,31 +5,25 @@
 import * as React from "react";
 import {
   BackstageAppButton,
-  ConfigurableCreateInfo,
-  ContentControl,
   ContentGroup,
   ContentToolWidgetComposer,
 } from "@itwin/appui-react";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 
 // __PUBLISH_EXTRACT_START__ Example_Custom_Content_Control
-class CustomContentControl extends ContentControl {
-  constructor(info: ConfigurableCreateInfo, options: any) {
-    super(info, options);
-
-    this.reactNode = (
-      <h1
-        style={{
-          height: "100%",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        Custom content!
-      </h1>
-    );
-  }
+function CustomContent() {
+  return (
+    <h1
+      style={{
+        height: "100%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      Custom content!
+    </h1>
+  );
 }
 // __PUBLISH_EXTRACT_END__
 
@@ -40,7 +34,9 @@ export const customFrontstage = {
   contentGroup: new ContentGroup({
     id: "test-group",
     layout: StandardContentLayouts.singleView,
-    contents: [{ id: "custom-content", classId: CustomContentControl }],
+    contents: [
+      { id: "custom-content", classId: "", content: <CustomContent /> },
+    ],
   }),
   contentManipulation: {
     id: "contentManipulationTools",
