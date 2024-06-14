@@ -10,13 +10,17 @@ import type { ConfigurableCreateInfo } from "../configurableui/ConfigurableUiCon
 import { ConfigurableUiControlType } from "../configurableui/ConfigurableUiControl";
 import { WidgetControl } from "../widgets/WidgetControl";
 
+/* eslint-disable deprecation/deprecation */
+
 /** Status Bar Field type.
  * @public
+ * @deprecated in 4.15.0. Type is not used in AppUI.
  */
 export type StatusBarFieldId = string | null;
 
 /** Status Bar Widget Control.
  * @public
+ * @deprecated in 4.15.0. Extends a deprecated class {@link WidgetControl}.
  */
 export abstract class StatusBarWidgetControl extends WidgetControl {
   constructor(info: ConfigurableCreateInfo, options: any) {

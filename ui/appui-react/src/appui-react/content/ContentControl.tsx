@@ -20,6 +20,8 @@ import {
   ConfigurableUiControlType,
 } from "../configurableui/ConfigurableUiControl";
 
+/* eslint-disable deprecation/deprecation */
+
 /** ControlControl Activated Event Args interface.
  * @public
  * @deprecated in 4.13.0. Event args are inferred from a listener. If explicit type is needed use a type helper.
@@ -38,6 +40,7 @@ export class ContentControlActivatedEvent extends UiEvent<ContentControlActivate
 
 /** Interface to be implemented when the ContentControl supports ViewSelector changes
  * @public
+ * @deprecated in 4.15.0. Implemented by classes derived from a deprecated {@link ContentControl}.
  */
 export interface SupportsViewSelectorChange {
   /** Returns true if this control supports reacting to ViewSelector changes. */
@@ -53,6 +56,7 @@ export interface SupportsViewSelectorChange {
 
 /** The base class for Frontstage content controls.
  * @public
+ * @deprecated in 4.15.0. Extends a deprecated class {@link ConfigurableUiControl}.
  */
 export class ContentControl extends ConfigurableUiControl {
   protected _reactNode: React.ReactNode;
@@ -119,6 +123,7 @@ export class ContentControl extends ConfigurableUiControl {
 
 /**
  * @beta
+ * @deprecated in 4.15.0. Extends a deprecated class {@link ContentControl}.
  */
 export class FloatingContentControl extends ContentControl {
   constructor(uniqueId: string, name: string, node: React.ReactNode) {

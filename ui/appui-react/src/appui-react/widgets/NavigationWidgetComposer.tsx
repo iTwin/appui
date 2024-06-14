@@ -27,9 +27,11 @@ import { UiFramework } from "../UiFramework";
 import { ProcessDetector } from "@itwin/core-bentley";
 
 function createNavigationAidControl(
+  // eslint-disable-next-line deprecation/deprecation
   activeContentControl: ContentControl | undefined,
   navigationAidId: string,
   activeViewport: ScreenViewport | undefined
+  // eslint-disable-next-line deprecation/deprecation
 ): NavigationAidControl | undefined {
   if (
     !activeContentControl ||
@@ -44,6 +46,7 @@ function createNavigationAidControl(
     navigationAidId,
     navigationAidId,
     { imodel, viewport }
+    // eslint-disable-next-line deprecation/deprecation
   ) as NavigationAidControl;
 
   navigationAidControl.initialize();

@@ -16,10 +16,12 @@ import {
 import type { ToolSettingsEntry } from "../widget-panels/ToolSettings";
 import type { SyncToolSettingsPropertiesEventArgs } from "../framework/FrameworkToolSettings";
 
-/**
- * ToolUiProvider provides the Tool Settings and/or Tool Assistance UI for a tool.
+/* eslint-disable deprecation/deprecation */
+
+/** ToolUiProvider provides the Tool Settings and/or Tool Assistance UI for a tool.
  * The ToolUiProvider is registered for the tool id via UiFramework.controls.register.
  * @public
+ * @deprecated in 4.15.0. Extends a deprecated class {@link ConfigurableUiControl}.
  */
 export class ToolUiProvider extends ConfigurableUiControl {
   private _toolSettingsNode: React.ReactNode;
@@ -65,7 +67,7 @@ export class ToolUiProvider extends ConfigurableUiControl {
   }
 
   public syncToolSettingsProperties(
-    _args: SyncToolSettingsPropertiesEventArgs // eslint-disable-line deprecation/deprecation
+    _args: SyncToolSettingsPropertiesEventArgs
   ): void {}
   public reloadPropertiesFromTool(): void {}
 }

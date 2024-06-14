@@ -39,7 +39,9 @@ class ToolSettingsUiDataProvider extends UiLayoutDataProvider {
 /** ToolUiProvider class that informs ConfigurableUi that Tool Settings are provided for the specified tool.
  * @internal
  */
+// eslint-disable-next-line deprecation/deprecation
 export class DefaultToolSettingsProvider extends ToolUiProvider {
+  // eslint-disable-next-line deprecation/deprecation
   constructor(info: ConfigurableCreateInfo, options: any) {
     super(info, options);
     this._dataProvider = new ToolSettingsUiDataProvider();

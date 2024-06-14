@@ -20,10 +20,12 @@ import { SafeAreaInsetsHelpers } from "../layout/base/SafeAreaInsets";
 import { DockedBar } from "../widget-panels/DockedBar";
 import { StatusBarComposer } from "./StatusBarComposer";
 
+/* eslint-disable deprecation/deprecation */
+
 /** Properties for the [[StatusBar]] React component
  * @public
+ * @deprecated in 4.15.0. Used in a deprecated component {@link StatusBar}.
  */
-// eslint-disable-next-line deprecation/deprecation
 export interface StatusBarProps extends CommonProps {
   children?: React.ReactNode;
   widgetControl?: StatusBarWidgetControl;
@@ -57,11 +59,9 @@ export function StatusBar(props: StatusBarProps) {
 /** StatusBar With Space Between Items React functional component
  * @public
  */
-// eslint-disable-next-line deprecation/deprecation
 export function StatusBarSpaceBetween(props: CommonDivProps) {
   const { className, ...divProps } = props;
   return (
-    // eslint-disable-next-line deprecation/deprecation
     <Div
       {...divProps}
       mainClassName={className ? className : "uifw-statusbar-space-between"}
@@ -72,11 +72,9 @@ export function StatusBarSpaceBetween(props: CommonDivProps) {
 /** StatusBar Left Section React functional component
  * @public
  */
-// eslint-disable-next-line deprecation/deprecation
 export function StatusBarLeftSection(props: CommonDivProps) {
   const { className, ...divProps } = props;
   return (
-    // eslint-disable-next-line deprecation/deprecation
     <Div
       {...divProps}
       mainClassName={className ? className : "uifw-statusbar-left"}
@@ -87,11 +85,9 @@ export function StatusBarLeftSection(props: CommonDivProps) {
 /** StatusBar Center Section React functional component
  * @public
  */
-// eslint-disable-next-line deprecation/deprecation
 export function StatusBarCenterSection(props: CommonDivProps) {
   const { className, ...divProps } = props;
   return (
-    // eslint-disable-next-line deprecation/deprecation
     <Div
       {...divProps}
       mainClassName={className ? className : "uifw-statusbar-center"}
@@ -102,11 +98,9 @@ export function StatusBarCenterSection(props: CommonDivProps) {
 /** StatusBar Right Section React functional component
  * @public
  */
-// eslint-disable-next-line deprecation/deprecation
 export function StatusBarRightSection(props: CommonDivProps) {
   const { className, ...divProps } = props;
   return (
-    // eslint-disable-next-line deprecation/deprecation
     <Div
       {...divProps}
       mainClassName={className ? className : "uifw-statusbar-right"}
@@ -123,13 +117,11 @@ export namespace StatusBar {
    * @beta
    * @deprecated in 4.14.0. Use [iTwinUI Button](https://itwinui.bentley.com/docs/button) instead.
    */
-  // eslint-disable-next-line deprecation/deprecation
   export const Field = StatusBarField;
 
   /** Popup of a [[StatusBar]].
    * @beta
    * @deprecated in 4.14.0. Use `StatusBarPopover` instead.
    */
-  // eslint-disable-next-line deprecation/deprecation
   export const Popup = StatusBarPopup;
 }

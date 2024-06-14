@@ -358,6 +358,7 @@ export class ViewSelector extends React.Component<
   // enable/disable the models
   private _setEnabled = async (item: ListItem, _enabled: boolean) => {
     const activeContentControl =
+      // eslint-disable-next-line deprecation/deprecation
       UiFramework.content.getActiveContentControl() as unknown as SupportsViewSelectorChange;
     if (
       !activeContentControl ||

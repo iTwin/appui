@@ -36,10 +36,13 @@ import "./StandardRotationNavigationAid.scss";
 
 /** A 3D Standard Rotation Navigation Aid control.
  * @alpha
+ * @deprecated in 4.15.0. Use {@link StandardRotationNavigationAid} component instead.
  */
+// eslint-disable-next-line deprecation/deprecation
 export class StandardRotationNavigationAidControl extends NavigationAidControl {
   public static navigationAidId = "StandardRotationNavigationAid";
 
+  // eslint-disable-next-line deprecation/deprecation
   constructor(info: ConfigurableCreateInfo, options: any) {
     super(info, options);
     this.reactNode = <StandardRotationNavigationAid />;
