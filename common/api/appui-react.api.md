@@ -2390,7 +2390,7 @@ export interface FrontstageNineZoneStateChangedEventArgs extends FrontstageEvent
 
 // @public @deprecated
 export abstract class FrontstageProvider {
-    abstract frontstageConfig(): FrontstageConfig;
+    abstract frontstageConfig(): Frontstage;
     abstract get id(): string;
 }
 
@@ -4288,7 +4288,7 @@ export interface StandardFrontstageProps {
 export class StandardFrontstageProvider extends FrontstageProvider {
     constructor(props: StandardFrontstageProps);
     // (undocumented)
-    frontstageConfig(): FrontstageConfig;
+    frontstageConfig(): Frontstage;
     // (undocumented)
     get id(): string;
 }

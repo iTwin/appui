@@ -6,7 +6,7 @@ import React from "react";
 import { action } from "@storybook/addon-actions";
 import { StagePanelState, UiItemsProvider, Widget } from "@itwin/appui-react";
 import { AppUiStory } from "../AppUiStory";
-import { createFrontstageProvider } from "../Utils";
+import { createFrontstage } from "../Utils";
 
 export function StoryWidget({ id }: { id: string }) {
   React.useEffect(() => {
@@ -37,8 +37,8 @@ export function WidgetStory(props: Widget) {
   const provider = createProvider(props);
   return (
     <AppUiStory
-      frontstageProviders={[
-        createFrontstageProvider({
+      frontstages={[
+        createFrontstage({
           leftPanelProps: {
             defaultState: StagePanelState.Open,
             pinned: true,
