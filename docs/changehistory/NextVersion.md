@@ -80,4 +80,4 @@ Table of contents:
 
 ### Fixes
 
-- Portal editors to the same container used to portal other components.
+- Portal editors to the same container used to portal other components. [#879](https://github.com/iTwin/appui/pull/879)
