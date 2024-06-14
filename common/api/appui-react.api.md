@@ -1977,6 +1977,7 @@ export interface FrameworkFrontstages {
     readonly activeNestedFrontstage: FrontstageDef | undefined;
     readonly activeToolId: string;
     readonly activeToolInformation: ToolInformation | undefined;
+    // @beta
     addFrontstage(frontstage: Frontstage): void;
     // @deprecated
     addFrontstageProvider(frontstageProvider: FrontstageProvider): void;
