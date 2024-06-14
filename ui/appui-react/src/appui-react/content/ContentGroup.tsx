@@ -24,12 +24,20 @@ import type { Frontstage } from "../frontstage/Frontstage";
  * @public
  */
 export interface ContentProps {
-  /** A unique id for the Content View within the group */
+  /** A unique id for the Content View within the group. */
   id: string;
-  /** The class name or [[ConfigurableUiControlConstructor]] of the content control */
+  /** The class name or [[ConfigurableUiControlConstructor]] of the content control.
+   * @deprecated in 4.15.0. Use {@link ContentProps.content} instead.
+   */
   classId: string | ConfigurableUiControlConstructor;
-  /** Optional application data passed down to the Content View */
+  /** Optional application data passed down to the content view.
+   * @deprecated in 4.15.0. Use {@link ContentProps.content} instead.
+   */
   applicationData?: any;
+  /** Content to be displayed in the content view.
+   * @beta
+   */
+  content?: React.ReactNode;
 }
 
 /** Properties for a [[ContentGroup]]
