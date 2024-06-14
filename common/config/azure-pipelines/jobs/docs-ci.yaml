@@ -69,7 +69,7 @@ stages:
             displayName: "Copy learning docs to: $(Build.StagingDirectory)"
             inputs:
               SourceFolder: $(Build.SourcesDirectory)/docs/ui
-              TargetFolder: $(Build.StagingDirectory)/docs
+              TargetFolder: $(Build.StagingDirectory)/docs/ui
 
           - task: PublishBuildArtifacts@1
             displayName: "Publish Artifact: AppUI Docs"
