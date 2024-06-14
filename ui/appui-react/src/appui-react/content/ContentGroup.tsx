@@ -112,16 +112,17 @@ export class ContentGroup {
 
     this._contentSetMap.clear();
 
-    this.contentPropsList.forEach(
-      (contentProps: ContentProps, index: number) => {
-        // eslint-disable-next-line deprecation/deprecation
-        const control = this.getContentControl(contentProps, index);
-        if (control) {
-          contentNodes.push(control.reactNode);
-          this._contentSetMap.set(control.controlId, control);
-        }
+    this.contentPropsList.forEach((contentProps, index) => {
+      // eslint-disable-next-line deprecation/deprecation
+      const control = this.getContentControl(contentProps, index);
+      if (control) {
+        contentNodes.push(control.reactNode);
+        this._contentSetMap.set(control.controlId, control);
       }
-    );
+      if (contentProps.content) {
+        contentNodes.push(contentProps.content);
+      }
+    });
 
     return contentNodes;
   }
