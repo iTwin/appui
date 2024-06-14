@@ -45,6 +45,7 @@ import {
 } from "@itwin/core-frontend";
 import { updatedUiItemsProvider } from "../providers/UpdatedUiItemsProvider";
 import { RegisterUiProviderTool } from "../../tools/RegisterUiProviderTool";
+import { ViewportComponent } from "@itwin/imodel-components-react";
 
 /**
  * The WidgetApiStageContentGroupProvider class method `provideContentGroup` returns a ContentGroup that displays
@@ -125,13 +126,11 @@ export class WidgetApiStageContentGroupProvider extends ContentGroupProvider {
       contents: [
         {
           id: "primaryContent",
-          classId: IModelViewportControl.id,
+          classId: "",
           applicationData: {
             supplyViewOverlay:
               WidgetApiStageContentGroupProvider.supplyViewOverlay,
             isPrimaryView: true,
-            viewState: UiFramework.getDefaultViewState,
-            iModelConnection: UiFramework.getIModelConnection,
             featureOptions: {
               defaultViewOverlay: {
                 enableScheduleAnimationViewOverlay: true,
@@ -140,10 +139,18 @@ export class WidgetApiStageContentGroupProvider extends ContentGroupProvider {
               },
             },
           },
+          content: <ViewportContent />,
         },
       ],
     });
   }
+}
+
+function ViewportContent() {
+  const [viewState] = React.useState(UiFramework.getDefaultViewState());
+  const [iModel] = React.useState(UiFramework.getIModelConnection());
+  if (!iModel) return null;
+  return <ViewportComponent viewState={viewState} imodel={iModel} />;
 }
 
 /** Tool settings widget can be configured by providing an URL param `toolSettings` with values `off` or `hidden`. */
@@ -170,13 +177,6 @@ export class WidgetApiStage {
 
   private static _contentGroupProvider =
     new WidgetApiStageContentGroupProvider();
-
-  public static supplyAppData(_id: string, _applicationData?: any) {
-    return {
-      viewState: UiFramework.getDefaultViewState,
-      iModelConnection: UiFramework.getIModelConnection,
-    };
-  }
 
   public static register(localizationNamespace: string) {
     // set up custom corner button where we specify icon, label, and action

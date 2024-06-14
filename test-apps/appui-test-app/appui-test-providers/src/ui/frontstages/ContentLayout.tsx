@@ -8,7 +8,6 @@ import {
   ContentGroup,
   ContentGroupProps,
   ContentGroupProvider,
-  ContentProps,
   Frontstage,
   FrontstageUtilities,
   IModelViewportControl,
@@ -22,6 +21,7 @@ import {
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 import { getSavedViewLayoutProps } from "../../tools/ContentLayoutTools";
 import { ContentLayoutStageUiItemsProvider } from "../providers/ContentLayoutStageUiItemsProvider";
+import { ViewportComponent } from "@itwin/imodel-components-react";
 
 /**
  * The ContentLayoutStageContentGroupProvider provides a class with the primary method `provideContentGroup` to provide a ContentGroup
@@ -33,39 +33,35 @@ import { ContentLayoutStageUiItemsProvider } from "../providers/ContentLayoutSta
  */
 export class ContentLayoutStageContentGroupProvider extends ContentGroupProvider {
   public override prepareToSaveProps(contentGroupProps: ContentGroupProps) {
-    const newContentsArray = contentGroupProps.contents.map(
-      (content: ContentProps) => {
-        const newContent = { ...content };
-        if (newContent.applicationData) delete newContent.applicationData;
-        return newContent;
-      }
-    );
+    const newContentsArray = contentGroupProps.contents.map((content) => {
+      const newContent = { ...content };
+      if (newContent.applicationData) delete newContent.applicationData;
+      return newContent;
+    });
     return { ...contentGroupProps, contents: newContentsArray };
   }
 
   public override applyUpdatesToSavedProps(
     contentGroupProps: ContentGroupProps
   ) {
-    const newContentsArray = contentGroupProps.contents.map(
-      (content: ContentProps) => {
-        const newContent = { ...content };
+    const newContentsArray = contentGroupProps.contents.map((content) => {
+      const newContent = { ...content };
 
-        if (newContent.classId === IModelViewportControl.id) {
-          newContent.applicationData = {
-            ...newContent.applicationData,
-            isPrimaryView: true,
-            featureOptions: {
-              defaultViewOverlay: {
-                enableScheduleAnimationViewOverlay: true,
-                enableAnalysisTimelineViewOverlay: true,
-                enableSolarTimelineViewOverlay: true,
-              },
+      if (newContent.classId === IModelViewportControl.id) {
+        newContent.applicationData = {
+          ...newContent.applicationData,
+          isPrimaryView: true,
+          featureOptions: {
+            defaultViewOverlay: {
+              enableScheduleAnimationViewOverlay: true,
+              enableAnalysisTimelineViewOverlay: true,
+              enableSolarTimelineViewOverlay: true,
             },
-          };
-        }
-        return newContent;
+          },
+        };
       }
-    );
+      return newContent;
+    });
     return { ...contentGroupProps, contents: newContentsArray };
   }
 
@@ -95,11 +91,10 @@ export class ContentLayoutStageContentGroupProvider extends ContentGroupProvider
       contents: [
         {
           id: "primaryContent",
-          classId: IModelViewportControl.id,
+          classId: "",
+          content: <ViewportContent />,
           applicationData: {
             isPrimaryView: true,
-            viewState: UiFramework.getDefaultViewState,
-            iModelConnection: UiFramework.getIModelConnection,
             featureOptions: {
               defaultViewOverlay: {
                 enableScheduleAnimationViewOverlay: true,
@@ -112,6 +107,13 @@ export class ContentLayoutStageContentGroupProvider extends ContentGroupProvider
       ],
     });
   }
+}
+
+function ViewportContent() {
+  const [viewState] = React.useState(UiFramework.getDefaultViewState());
+  const [iModel] = React.useState(UiFramework.getIModelConnection());
+  if (!iModel) return null;
+  return <ViewportComponent viewState={viewState} imodel={iModel} />;
 }
 
 /**
@@ -127,13 +129,6 @@ export class ContentLayoutStage {
 
   private static _contentGroupProvider =
     new ContentLayoutStageContentGroupProvider();
-
-  public static supplyAppData(_id: string, _applicationData?: any) {
-    return {
-      viewState: UiFramework.getDefaultViewState,
-      iModelConnection: UiFramework.getIModelConnection,
-    };
-  }
 
   public static register(localizationNamespace: string) {
     UiFramework.frontstages.addFrontstage(

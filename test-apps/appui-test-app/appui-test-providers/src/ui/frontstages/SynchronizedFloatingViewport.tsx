@@ -129,13 +129,6 @@ export class SynchronizedFloatingViewportStage {
   private static _contentGroupProvider =
     new SynchronizedFloatingViewportContentGroupProvider();
 
-  public static supplyAppData(_id: string, _applicationData?: any) {
-    return {
-      viewState: UiFramework.getDefaultViewState,
-      iModelConnection: UiFramework.getIModelConnection,
-    };
-  }
-
   public static register(localizationNamespace: string) {
     // set up custom corner button where we specify icon, label, and action
     const cornerButton = (

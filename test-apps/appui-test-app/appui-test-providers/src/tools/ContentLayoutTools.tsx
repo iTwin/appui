@@ -68,7 +68,7 @@ export async function getSavedViewLayoutProps(
 
       // Add applicationData to the ContentProps
       savedViewLayoutProps.contentGroupProps.contents.forEach(
-        (contentProps: ContentProps, index: number) => {
+        (contentProps, index) => {
           contentProps.applicationData = {
             viewState: viewStates[index],
             iModelConnection,
@@ -111,7 +111,7 @@ export class SaveContentLayoutTool extends Tool {
         UiFramework.content.layouts.activeLayout,
         UiFramework.content.layouts.activeContentGroup,
         true,
-        (contentProps: ContentProps) => {
+        (contentProps) => {
           if (contentProps.applicationData) {
             if (contentProps.applicationData.iModelConnection)
               delete contentProps.applicationData.iModelConnection;

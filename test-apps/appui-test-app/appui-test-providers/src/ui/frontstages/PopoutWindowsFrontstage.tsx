@@ -124,13 +124,6 @@ export class PopoutWindowsFrontstage {
   private static _contentGroupProvider =
     new PopoutWindowsFrontstageGroupProvider();
 
-  public static supplyAppData(_id: string, _applicationData?: any) {
-    return {
-      viewState: UiFramework.getDefaultViewState,
-      iModelConnection: UiFramework.getIModelConnection,
-    };
-  }
-
   public static register(localizationNamespace: string) {
     UiFramework.frontstages.addFrontstage(
       FrontstageUtilities.createStandardFrontstage({

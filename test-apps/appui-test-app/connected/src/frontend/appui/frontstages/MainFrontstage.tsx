@@ -226,13 +226,6 @@ export class MainFrontstage {
   private static _contentGroupProvider =
     new InitialIModelContentStageProvider();
 
-  public static supplyAppData(_id: string, _applicationData?: any) {
-    return {
-      viewState: UiFramework.getDefaultViewState,
-      iModelConnection: UiFramework.getIModelConnection,
-    };
-  }
-
   public static register() {
     const stageProps: StandardFrontstageProps = {
       id: MainFrontstage.stageId,
