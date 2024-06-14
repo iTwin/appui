@@ -41,7 +41,7 @@ Table of contents:
 - Deprecated `NestedFrontstage` class. Use `NestedFrontstageAppButton` component instead. [#875](https://github.com/iTwin/appui/pull/875)
 - Deprecated `ToolbarHelper` class. Use functions from `ToolbarItemUtilities` namespace instead. [#875](https://github.com/iTwin/appui/pull/875)
 - Deprecated `KeyboardShortcutProps.item`, `CursorMenuItemProps.item` properties. Use properties of the object instead. [#875](https://github.com/iTwin/appui/pull/875)
-- Deprecated all APIs associated to `FrontstageProvider` class which added unnecessary bloat and layer of complication as it would always map to a single frontstage and forced API consumers to use inheritance. [#878](https://github.com/iTwin/appui/pull/878)
+- Deprecated all APIs associated with `FrontstageProvider` class which added unnecessary bloat and layer of complication as it would always map to a single frontstage and forced API consumers to use inheritance. [#878](https://github.com/iTwin/appui/pull/878)
   - `addFrontstageProvider()` property of `FrameworkFrontstages` interface. Use `FrameworkFrontstages.addFrontstage()` instead.
   - `frontstageProvider` getter of `FrontstageDef` class. Use `FrontstageDef.id` to look up a frontstage.
   - `FrontstageProvider` class. Use `Frontstage` interface instead.
