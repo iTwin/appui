@@ -42,6 +42,7 @@ function createNavigationAidControl(
 
   const viewport = activeContentControl.viewport;
   const imodel = viewport ? viewport.iModel : UiFramework.getIModelConnection();
+  // eslint-disable-next-line deprecation/deprecation
   const navigationAidControl = UiFramework.controls.create(
     navigationAidId,
     navigationAidId,
@@ -69,6 +70,7 @@ export interface NavigationAidHostProps {
  */
 export function NavigationAidHost(props: NavigationAidHostProps) {
   const [activeContentControl, setActiveContentControl] = React.useState(() =>
+    // eslint-disable-next-line deprecation/deprecation
     UiFramework.content.getActiveContentControl()
   );
   const [activeContentViewport, setActiveContentViewport] = React.useState(
@@ -98,6 +100,7 @@ export function NavigationAidHost(props: NavigationAidHostProps) {
   }, []);
 
   const [activeViewClass, setActiveViewClass] = React.useState(() => {
+    // eslint-disable-next-line deprecation/deprecation
     const content = UiFramework.content.getActiveContentControl();
     if (content && content.viewport) return content.viewport.view.classFullName;
     return "";

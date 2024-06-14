@@ -59,6 +59,7 @@ export function ContentWrapper(props: ContentWrapperProps) {
     () =>
       (activeFrontstageDef &&
         !!activeFrontstageDef.floatingContentControls?.length) ||
+      // eslint-disable-next-line deprecation/deprecation
       (activeFrontstageDef?.contentGroup?.getContentControls().length ?? 0) > 1
   );
 
@@ -80,6 +81,7 @@ export function ContentWrapper(props: ContentWrapperProps) {
       setHasMultipleContents(
         (activeFrontstageDef &&
           !!activeFrontstageDef.floatingContentControls?.length) ||
+          // eslint-disable-next-line deprecation/deprecation
           (activeFrontstageDef?.contentGroup?.getContentControls().length ??
             0) > 1
       );
@@ -99,6 +101,7 @@ export function ContentWrapper(props: ContentWrapperProps) {
       setHasMultipleContents(
         (activeFrontstageDef &&
           !!activeFrontstageDef.floatingContentControls?.length) ||
+          // eslint-disable-next-line deprecation/deprecation
           (activeFrontstageDef?.contentGroup?.getContentControls().length ??
             0) > 1
       );

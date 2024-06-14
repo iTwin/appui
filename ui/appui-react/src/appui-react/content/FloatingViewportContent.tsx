@@ -68,6 +68,7 @@ export function useFloatingViewport(args: FloatingViewportContentProps) {
   const { contentId, initialViewState, onContextMenu, viewportRef } = args;
   const [viewport, setViewport] = React.useState<ScreenViewport | undefined>();
   const contentControl = React.useRef<
+    // eslint-disable-next-line deprecation/deprecation
     FloatingViewportContentControl | undefined
   >();
 
@@ -99,15 +100,18 @@ export function useFloatingViewport(args: FloatingViewportContentProps) {
 
   React.useEffect(() => {
     if (!contentControl.current) {
+      // eslint-disable-next-line deprecation/deprecation
       contentControl.current = new FloatingViewportContentControl(
         contentId,
         contentId,
         null
       );
+      // eslint-disable-next-line deprecation/deprecation
       UiFramework.content.addFloatingContentControl(contentControl.current);
     }
     return () => {
       if (contentControl.current) {
+        // eslint-disable-next-line deprecation/deprecation
         UiFramework.content.dropFloatingContentControl(contentControl.current);
         contentControl.current = undefined;
       }
@@ -124,13 +128,13 @@ export function useFloatingViewport(args: FloatingViewportContentProps) {
   }, [viewport, viewportControl]);
 
   React.useEffect(() => {
-    const onViewClose = (vp: ScreenViewport) => {
+    return IModelApp.viewManager.onViewClose.addListener((vp) => {
       if (contentControl.current?.viewport === vp) {
+        // eslint-disable-next-line deprecation/deprecation
         UiFramework.content.dropFloatingContentControl(contentControl.current);
         contentControl.current = undefined;
       }
-    };
-    return IModelApp.viewManager.onViewClose.addListener(onViewClose);
+    });
   }, []);
 
   return {

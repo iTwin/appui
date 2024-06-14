@@ -331,7 +331,10 @@ export interface FrameworkFrontstages {
   /** Sets the active tool */
   setActiveTool(tool: Tool): void;
 
-  /** Gets the active tool's [[ToolInformation]] */
+  /** Gets the active tool's [[ToolInformation]]
+   * @deprecated in 4.15.0. TODO
+   */
+  // eslint-disable-next-line deprecation/deprecation
   readonly activeToolInformation: ToolInformation | undefined;
 
   /** Opens a modal Frontstage. Modal Frontstages can be stacked.

@@ -91,6 +91,7 @@ export class DefaultToolSettingsProvider extends ToolUiProvider {
   }
 }
 
+// eslint-disable-next-line deprecation/deprecation
 UiFramework.controls.register(
   "DefaultToolSettings",
   DefaultToolSettingsProvider

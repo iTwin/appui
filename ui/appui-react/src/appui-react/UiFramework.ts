@@ -165,7 +165,10 @@ export class UiFramework {
     return this._childWindowManager;
   }
 
-  /** Manage registered controls. */
+  /** Manage registered controls.
+   * @deprecated in 4.15.0. TODO
+   */
+  // eslint-disable-next-line deprecation/deprecation
   public static get controls(): FrameworkControls {
     return InternalConfigurableUiManager;
   }
@@ -1056,6 +1059,7 @@ export class UiFramework {
   }
 
   private static resolveHtmlElement(htmlElement?: HTMLElement): HTMLElement {
+    // eslint-disable-next-line deprecation/deprecation
     const el = htmlElement ?? UiFramework.controls.getWrapperElement();
     return el;
   }

@@ -57,6 +57,7 @@ export function useActiveViewport(): ScreenViewport | undefined {
         )
       ) {
         const activeContentControl =
+          // eslint-disable-next-line deprecation/deprecation
           UiFramework.content.getActiveContentControl();
         setActiveViewport(
           activeContentControl && activeContentControl.viewport

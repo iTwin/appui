@@ -89,11 +89,18 @@ export interface FrameworkContent {
   /** Gets the active content as a React.ReactNode. */
   getActive(): React.ReactNode | undefined;
 
-  /** Return the active ContentControl. */
+  /** Return the active ContentControl.
+   * @deprecated in 4.15.0. TODO
+   */
+  // eslint-disable-next-line deprecation/deprecation
   getActiveContentControl(): ContentControl | undefined;
 
+  /** @deprecated in 4.15.0. TODO */
+  // eslint-disable-next-line deprecation/deprecation
   addFloatingContentControl(contentControl?: ContentControl): void;
 
+  /** @deprecated in 4.15.0. TODO */
+  // eslint-disable-next-line deprecation/deprecation
   dropFloatingContentControl(contentControl?: ContentControl): void;
 
   /** Sets the active [[ContentControl]] */
@@ -108,37 +115,49 @@ export interface FrameworkContent {
   /**
    * Determines if content displays a Sheet view.
    * @param content ContentControl to check
+   * @deprecated in 4.15.0. TODO
    */
+  // eslint-disable-next-line deprecation/deprecation
   isContentSheetView(content: ContentControl | undefined): boolean;
 
   /**
    * Determines if content displays a Drawing view.
    * @param content ContentControl to check
+   * @deprecated in 4.15.0. TODO
    */
+  // eslint-disable-next-line deprecation/deprecation
   isContentDrawingView(content: ContentControl | undefined): boolean;
 
   /**
    * Determines if content displays a Spatial view.
    * @param content ContentControl to check
+   * @deprecated in 4.15.0. TODO
    */
+  // eslint-disable-next-line deprecation/deprecation
   isContentSpatialView(content: ContentControl | undefined): boolean;
 
   /**
    * Determines if content displays a Orthographic view.
    * @param content ContentControl to check
+   * @deprecated in 4.15.0. TODO
    */
+  // eslint-disable-next-line deprecation/deprecation
   isContentOrthographicView(content: ContentControl | undefined): boolean;
 
   /**
    * Determines if content displays a 3d view.
    * @param content ContentControl to check
+   * @deprecated in 4.15.0. TODO
    */
+  // eslint-disable-next-line deprecation/deprecation
   isContent3dView(content: ContentControl | undefined): boolean;
 
   /**
    * Determines if viewport supports use of a camera.
    * @param content ContentControl to check
+   * @deprecated in 4.15.0. TODO
    */
+  // eslint-disable-next-line deprecation/deprecation
   contentSupportsCamera(content: ContentControl | undefined): boolean;
 
   /**

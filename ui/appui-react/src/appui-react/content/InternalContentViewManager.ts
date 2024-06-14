@@ -61,6 +61,7 @@ export class InternalContentViewManager {
   private static getControlFromElement(
     content: React.ReactNode,
     activeContentGroup: ContentGroup | undefined,
+    // eslint-disable-next-line deprecation/deprecation
     floatingControls: ContentControl[] | undefined,
     logIfNotFound = false
   ) {
@@ -78,7 +79,7 @@ export class InternalContentViewManager {
         // key has format `${contentProps.id}::${this.groupId}` which is stored as unique id
         controlId = key.split("::", 1)[0];
       }
-      floatingControls.forEach((contentControl: ContentControl) => {
+      floatingControls.forEach((contentControl) => {
         const node = contentControl.reactNode;
         const key = (node as React.ReactElement<any>)?.key as string;
         const nodeId = key && key.split("::", 1)[0];
@@ -90,6 +91,7 @@ export class InternalContentViewManager {
     // if it's not a floating control, look through the content area views
     if (activeContentGroup) {
       const activeContentControl =
+        // eslint-disable-next-line deprecation/deprecation
         activeContentGroup.getControlFromElement(content);
       if (activeContentControl) return activeContentControl;
     }
@@ -104,7 +106,9 @@ export class InternalContentViewManager {
   }
 
   /** Return the active ContentControl. */
+  // eslint-disable-next-line deprecation/deprecation
   public static getActiveContentControl(): ContentControl | undefined {
+    // eslint-disable-next-line deprecation/deprecation
     let activeContentControl: ContentControl | undefined;
     const activeFrontstageDef = UiFramework.frontstages.activeFrontstageDef;
 
@@ -120,16 +124,20 @@ export class InternalContentViewManager {
     return activeContentControl;
   }
 
+  // eslint-disable-next-line deprecation/deprecation
   public static addFloatingContentControl(contentControl?: ContentControl) {
     const activeFrontstageDef = UiFramework.frontstages.activeFrontstageDef;
     if (activeFrontstageDef && contentControl) {
+      // eslint-disable-next-line deprecation/deprecation
       activeFrontstageDef.addFloatingContentControl(contentControl);
     }
   }
 
+  // eslint-disable-next-line deprecation/deprecation
   public static dropFloatingContentControl(contentControl?: ContentControl) {
     const activeFrontstageDef = UiFramework.frontstages.activeFrontstageDef;
     if (activeFrontstageDef && contentControl)
+      // eslint-disable-next-line deprecation/deprecation
       activeFrontstageDef.dropFloatingContentControl(contentControl);
   }
 
@@ -167,6 +175,7 @@ export class InternalContentViewManager {
             (oldContentControl && !oldContentControl.viewport);
 
           if (doSetActiveView) {
+            // eslint-disable-next-line deprecation/deprecation
             activeFrontstageDef.setActiveView(
               activeContentControl,
               oldContentControl
@@ -202,6 +211,7 @@ export class InternalContentViewManager {
    * @param content ContentControl to check
    */
   public static isContentSheetView(
+    // eslint-disable-next-line deprecation/deprecation
     content: ContentControl | undefined
   ): boolean {
     if (!content || !content.viewport) return false;
@@ -213,6 +223,7 @@ export class InternalContentViewManager {
    * @param content ContentControl to check
    */
   public static isContentDrawingView(
+    // eslint-disable-next-line deprecation/deprecation
     content: ContentControl | undefined
   ): boolean {
     if (!content || !content.viewport) return false;
@@ -224,6 +235,7 @@ export class InternalContentViewManager {
    * @param content ContentControl to check
    */
   public static isContentSpatialView(
+    // eslint-disable-next-line deprecation/deprecation
     content: ContentControl | undefined
   ): boolean {
     if (!content || !content.viewport) return false;
@@ -235,6 +247,7 @@ export class InternalContentViewManager {
    * @param content ContentControl to check
    */
   public static isContentOrthographicView(
+    // eslint-disable-next-line deprecation/deprecation
     content: ContentControl | undefined
   ): boolean {
     if (!content || !content.viewport) return false;
@@ -245,6 +258,7 @@ export class InternalContentViewManager {
    * Determines if content displays a 3d view.
    * @param content ContentControl to check
    */
+  // eslint-disable-next-line deprecation/deprecation
   public static isContent3dView(content: ContentControl | undefined): boolean {
     if (!content || !content.viewport) return false;
     return ViewUtilities.is3dView(content.viewport);
@@ -255,23 +269,19 @@ export class InternalContentViewManager {
    * @param content ContentControl to check
    */
   public static contentSupportsCamera(
+    // eslint-disable-next-line deprecation/deprecation
     content: ContentControl | undefined
   ): boolean {
     if (!content || !content.viewport) return false;
     return ViewUtilities.viewSupportsCamera(content.viewport);
   }
 
-  /**
-   * Manage content layouts.
-   * @beta
-   */
+  /** Manage content layouts. */
   public static get layouts() {
     return InternalContentLayoutManager;
   }
-  /**
-   * Manage dialogs displaying managed content.
-   * @beta
-   */
+
+  /** Manage dialogs displaying managed content. */
   public static get dialogs() {
     return InternalContentDialogManager;
   }

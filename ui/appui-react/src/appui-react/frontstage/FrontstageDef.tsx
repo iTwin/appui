@@ -6,8 +6,6 @@
  * @module Frontstage
  */
 
-// cSpell:ignore popout
-
 import { UiError } from "@itwin/appui-abstract";
 import { BentleyStatus } from "@itwin/core-bentley";
 import type { ScreenViewport } from "@itwin/core-frontend";
@@ -97,6 +95,7 @@ export class FrontstageDef {
   private _timeTracker = new TimeTracker();
   private _nineZoneState?: NineZoneState;
   private _contentGroupProvider?: ContentGroupProvider;
+  // eslint-disable-next-line deprecation/deprecation
   private _floatingContentControls?: ContentControl[];
   private _toolAdminDefaultToolId?: string;
   private _dispatch?: NineZoneDispatch;
@@ -379,6 +378,7 @@ export class FrontstageDef {
       control.onFrontstageDeactivated();
     }
 
+    // eslint-disable-next-line deprecation/deprecation
     for (const control of this.contentControls) {
       control.onFrontstageDeactivated();
     }
@@ -416,13 +416,14 @@ export class FrontstageDef {
     this._isReady = false;
     // create an array of control-ready promises
     const controlReadyPromises = new Array<Promise<void>>();
-    this._widgetControls.forEach((control: WidgetControl) => {
+    this._widgetControls.forEach((control) => {
       controlReadyPromises.push(control.isReady);
     });
 
     if (this.contentLayoutDef) {
       const usedContentIndexes = this.contentLayoutDef.getUsedContentIndexes();
-      this.contentControls.forEach((control: ContentControl, index: number) => {
+      // eslint-disable-next-line deprecation/deprecation
+      this.contentControls.forEach((control, index) => {
         if (usedContentIndexes.includes(index))
           controlReadyPromises.push(control.isReady);
       });
@@ -442,6 +443,7 @@ export class FrontstageDef {
       control.onFrontstageReady();
     }
 
+    // eslint-disable-next-line deprecation/deprecation
     for (const control of this.contentControls) {
       control.onFrontstageReady();
     }
@@ -473,10 +475,13 @@ export class FrontstageDef {
 
   /** Sets the active view content control to the default or first */
   public async setActiveContent(): Promise<boolean> {
+    // eslint-disable-next-line deprecation/deprecation
     let contentControl: ContentControl | undefined;
     let activated = false;
 
+    // eslint-disable-next-line deprecation/deprecation
     if (!contentControl && this.contentControls.length >= 0) {
+      // eslint-disable-next-line deprecation/deprecation
       contentControl = this.contentControls[0];
     }
 
@@ -493,23 +498,11 @@ export class FrontstageDef {
     return activated;
   }
 
-  /** Sets the active view content control */
-  public setActiveView(
-    newContent: ContentControl,
-    oldContent?: ContentControl
-  ): void {
-    if (oldContent) oldContent.onDeactivated();
-    newContent.onActivated();
-    UiFramework.frontstages.onContentControlActivatedEvent.emit({
-      activeContentControl: newContent,
-      oldContentControl: oldContent,
-    });
-  }
-
   /** Sets the active view content control based on the selected viewport. */
   public setActiveViewFromViewport(viewport: ScreenViewport): boolean {
+    // eslint-disable-next-line deprecation/deprecation
     const contentControl = this.contentControls.find(
-      (control: ContentControl) => control.viewport === viewport
+      (control) => control.viewport === viewport
     );
     if (contentControl) {
       UiFramework.content.setActive(contentControl.reactNode, true);
@@ -575,52 +568,20 @@ export class FrontstageDef {
   }
 
   /** Gets the list of [[WidgetControl]]s */
+  // eslint-disable-next-line deprecation/deprecation
   private get _widgetControls(): WidgetControl[] {
+    // eslint-disable-next-line deprecation/deprecation
     const widgetControls = new Array<WidgetControl>();
 
-    this.panelDefs.forEach((panelDef: StagePanelDef) => {
-      panelDef.widgetDefs.forEach((widgetDef: WidgetDef) => {
+    this.panelDefs.forEach((panelDef) => {
+      panelDef.widgetDefs.forEach((widgetDef) => {
+        // eslint-disable-next-line deprecation/deprecation
         const widgetControl = widgetDef.widgetControl;
         if (widgetControl) widgetControls.push(widgetControl);
       });
     });
 
     return widgetControls;
-  }
-
-  public addFloatingContentControl(contentControl?: ContentControl) {
-    if (!contentControl) return;
-    if (!this._floatingContentControls)
-      this._floatingContentControls = new Array<ContentControl>();
-
-    this._floatingContentControls.push(contentControl);
-    UiFramework.content.onAvailableContentChangedEvent.emit({
-      contentId: contentControl.uniqueId,
-    });
-  }
-
-  public dropFloatingContentControl(contentControl?: ContentControl) {
-    if (!contentControl || !this._floatingContentControls) return;
-
-    const index = this._floatingContentControls.indexOf(contentControl);
-    if (index > -1) {
-      this._floatingContentControls.splice(index, 1);
-      UiFramework.content.onAvailableContentChangedEvent.emit({
-        contentId: contentControl.uniqueId,
-      });
-    }
-  }
-
-  /** Gets the list of [[ContentControl]]s */
-  public get contentControls(): ContentControl[] {
-    const contentControls = new Array<ContentControl>();
-    if (this.contentGroup) {
-      contentControls.push(...this.contentGroup.getContentControls());
-    }
-    if (this._floatingContentControls) {
-      contentControls.push(...this._floatingContentControls);
-    }
-    return contentControls;
   }
 
   /** Initializes a FrontstageDef from frontstage.
@@ -1020,6 +981,65 @@ export class FrontstageDef {
       },
     };
   }
+
+  /* eslint-disable deprecation/deprecation */
+
+  /** Sets the active view content control.
+   * @deprecated in 4.15.0. TODO
+   */
+  public setActiveView(
+    newContent: ContentControl,
+    oldContent?: ContentControl
+  ): void {
+    if (oldContent) oldContent.onDeactivated();
+    newContent.onActivated();
+    UiFramework.frontstages.onContentControlActivatedEvent.emit({
+      activeContentControl: newContent,
+      oldContentControl: oldContent,
+    });
+  }
+
+  /** @deprecated in 4.15.0. TODO */
+  public addFloatingContentControl(contentControl?: ContentControl) {
+    if (!contentControl) return;
+    if (!this._floatingContentControls)
+      // eslint-disable-next-line deprecation/deprecation
+      this._floatingContentControls = new Array<ContentControl>();
+
+    this._floatingContentControls.push(contentControl);
+    UiFramework.content.onAvailableContentChangedEvent.emit({
+      contentId: contentControl.uniqueId,
+    });
+  }
+
+  /** @deprecated in 4.15.0. TODO */
+  public dropFloatingContentControl(contentControl?: ContentControl) {
+    if (!contentControl || !this._floatingContentControls) return;
+
+    const index = this._floatingContentControls.indexOf(contentControl);
+    if (index > -1) {
+      this._floatingContentControls.splice(index, 1);
+      UiFramework.content.onAvailableContentChangedEvent.emit({
+        contentId: contentControl.uniqueId,
+      });
+    }
+  }
+
+  /** Gets the list of {@link ContentControl}s.
+   * @deprecated in 4.15.0. TODO
+   */
+  public get contentControls(): ContentControl[] {
+    const contentControls = new Array<ContentControl>();
+    if (this.contentGroup) {
+      contentControls.push(...this.contentGroup.getContentControls());
+    }
+    if (this._floatingContentControls) {
+      contentControls.push(...this._floatingContentControls);
+    }
+    return contentControls;
+  }
+
+  /* eslint-enable deprecation/deprecation */
 }
 
 function createWidgetDef(

@@ -10,7 +10,6 @@ import "./ContentDialog.scss";
 import * as React from "react";
 import type { DialogProps } from "@itwin/core-react";
 import { Dialog } from "@itwin/core-react";
-import type { ActiveContentChangedEventArgs } from "../framework/FrameworkContent";
 import {
   SyncUiEventDispatcher,
   SyncUiEventId,
@@ -24,28 +23,22 @@ import type { UiSyncEventArgs } from "../syncui/UiSyncEvent";
  */
 export function useActiveContentControlId(): string | undefined {
   const [activeContentId, setActiveContentId] = React.useState(
+    // eslint-disable-next-line deprecation/deprecation
     UiFramework.content.getActiveContentControl()?.uniqueId
   );
 
   React.useEffect(() => {
-    // eslint-disable-next-line deprecation/deprecation
-    const onActiveContentChanged = (_args: ActiveContentChangedEventArgs) => {
-      setActiveContentId(
-        UiFramework.content.getActiveContentControl()?.uniqueId
-      );
-    };
-
     // IModelApp.viewManager.onSelectedViewportChanged will often fire before UI components have mounted
     // so use UiFramework.content.onActiveContentChangedEvent which will always trigger once all stage components
     // are loaded and when the IModelApp.viewManager.selectedView changes.
-    UiFramework.content.onActiveContentChangedEvent.addListener(
-      onActiveContentChanged
+    return UiFramework.content.onActiveContentChangedEvent.addListener(
+      (_args) => {
+        setActiveContentId(
+          // eslint-disable-next-line deprecation/deprecation
+          UiFramework.content.getActiveContentControl()?.uniqueId
+        );
+      }
     );
-    return () => {
-      UiFramework.content.onActiveContentChangedEvent.removeListener(
-        onActiveContentChanged
-      );
-    };
   }, []);
 
   React.useEffect(() => {
@@ -62,6 +55,7 @@ export function useActiveContentControlId(): string | undefined {
         )
       ) {
         setActiveContentId(
+          // eslint-disable-next-line deprecation/deprecation
           UiFramework.content.getActiveContentControl()?.uniqueId
         );
       }
