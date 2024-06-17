@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/core-react",
-      "comment": "",
+      "comment": "Added `portalTarget` to `Popup` component.",
       "type": "none"
     }
   ],

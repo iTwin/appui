@@ -7,6 +7,7 @@ Table of contents:
   - [Additions](#additions)
   - [Changes](#changes)
 - [@itwin/core-react](#itwincore-react)
+  - [Additions](#additions-1)
   - [Deprecations](#deprecations-1)
 - [@itwin/components-react](#itwincomponents-react)
   - [Fixes](#fixes)
@@ -63,6 +64,10 @@ Table of contents:
 - Bumped `getToolbarItems`, `getStatusBarItems`, `getWidgets` and `getBackstageItems` methods of `UiItemsProvider`, `layouts` property of `CommonToolbarItem` and `Widget`, `StandardLayoutToolbarItem`, `StandardLayoutWidget`, `ToolbarItemLayouts`, `WidgetLayouts` to `@public`. [#874](https://github.com/iTwin/appui/pull/874)
 
 ## @itwin/core-react
+
+### Additions
+
+- Added `portalTarget` to `Popup` component to allow portaling `Popup` to specific element. [#879](https://github.com/iTwin/appui/pull/879)
 
 ### Deprecations
 
