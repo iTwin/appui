@@ -40,11 +40,7 @@ export function useActiveViewport(): ScreenViewport | undefined {
     ];
     // eslint-disable-next-line deprecation/deprecation
     return SyncUiEventDispatcher.onSyncUiEvent.addListener((args): void => {
-      if (
-        syncIdsOfInterest.some((value: string): boolean =>
-          args.eventIds.has(value)
-        )
-      ) {
+      if (syncIdsOfInterest.some((value) => args.eventIds.has(value))) {
         const activeContentControl =
           // eslint-disable-next-line deprecation/deprecation
           UiFramework.content.getActiveContentControl();

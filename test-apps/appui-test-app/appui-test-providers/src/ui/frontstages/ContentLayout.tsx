@@ -11,20 +11,22 @@ import {
   Frontstage,
   FrontstageUtilities,
   IModelViewportControl,
+  StagePanelLocation,
+  StagePanelSection,
   StageUsage,
   StandardContentToolsUiItemsProvider,
   StandardNavigationToolsUiItemsProvider,
   StandardStatusbarUiItemsProvider,
   UiFramework,
   UiItemsManager,
+  useActiveViewport,
 } from "@itwin/appui-react";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 import { getSavedViewLayoutProps } from "../../tools/ContentLayoutTools";
 import { ContentLayoutStageUiItemsProvider } from "../providers/ContentLayoutStageUiItemsProvider";
-import { ViewportComponent } from "@itwin/imodel-components-react";
+import { ViewportContent } from "../ViewportContent";
 
-/**
- * The ContentLayoutStageContentGroupProvider provides a class with the primary method `provideContentGroup` to provide a ContentGroup
+/** The ContentLayoutStageContentGroupProvider provides a class with the primary method `provideContentGroup` to provide a ContentGroup
  * to a stage when the stage is activated. This provider will look to see if the user saved out a ContentGroup to use when a stage and
  * specific iModel is opened. See `SaveContentLayoutTool` in `ContentLayoutTools.tsx` to see tool that saved the layout and ViewStates.
  * If no saved state was found `UiFramework.getDefaultViewState` is used to specify the ViewState and `StandardContentLayouts.singleView`
@@ -109,15 +111,7 @@ export class ContentLayoutStageContentGroupProvider extends ContentGroupProvider
   }
 }
 
-function ViewportContent() {
-  const [viewState] = React.useState(UiFramework.getDefaultViewState());
-  const [iModel] = React.useState(UiFramework.getIModelConnection());
-  if (!iModel) return null;
-  return <ViewportComponent viewState={viewState} imodel={iModel} />;
-}
-
-/**
- * The ContentLayoutStage provides a register method that registers a FrontstageProvider that is used to activate a stage.
+/** The ContentLayoutStage provides a register method that registers a FrontstageProvider that is used to activate a stage.
  * It also register "standard" providers to provide tool buttons and statusbar items. Finally it registers a UiItemsProvider
  * that provides tools that are only intended to be used in this stage. This stage also uses a ContentGroupProvider to provide a
  * ContentGroup to use when the stage is activated. Using a ContentGroupProvider allows async code to be run as a stage is activated
@@ -184,7 +178,43 @@ export class ContentLayoutStage {
       }
     );
 
+    UiItemsManager.register(
+      {
+        id: "widgets",
+        getWidgets: () => {
+          return [
+            {
+              id: "active-view",
+              label: "Active view",
+              content: <ActiveView />,
+              layouts: {
+                standard: {
+                  location: StagePanelLocation.Right,
+                  section: StagePanelSection.End,
+                },
+              },
+            },
+          ];
+        },
+      },
+      {
+        stageIds: [ContentLayoutStage.stageId],
+      }
+    );
+
     // Provides example widgets stage
     ContentLayoutStageUiItemsProvider.register(localizationNamespace);
   }
+}
+
+function ActiveView() {
+  const viewport = useActiveViewport();
+  if (!viewport) return <span>No active viewport</span>;
+  return (
+    <span>
+      <b>id:</b> {viewport.view.id}
+      <br />
+      <b>description:</b> {viewport.view.description}
+    </span>
+  );
 }

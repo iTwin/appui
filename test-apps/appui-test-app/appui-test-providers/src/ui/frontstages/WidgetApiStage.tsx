@@ -45,7 +45,7 @@ import {
 } from "@itwin/core-frontend";
 import { updatedUiItemsProvider } from "../providers/UpdatedUiItemsProvider";
 import { RegisterUiProviderTool } from "../../tools/RegisterUiProviderTool";
-import { ViewportComponent } from "@itwin/imodel-components-react";
+import { ViewportContent } from "../ViewportContent";
 
 /**
  * The WidgetApiStageContentGroupProvider class method `provideContentGroup` returns a ContentGroup that displays
@@ -144,13 +144,6 @@ export class WidgetApiStageContentGroupProvider extends ContentGroupProvider {
       ],
     });
   }
-}
-
-function ViewportContent() {
-  const [viewState] = React.useState(UiFramework.getDefaultViewState());
-  const [iModel] = React.useState(UiFramework.getIModelConnection());
-  if (!iModel) return null;
-  return <ViewportComponent viewState={viewState} imodel={iModel} />;
 }
 
 /** Tool settings widget can be configured by providing an URL param `toolSettings` with values `off` or `hidden`. */

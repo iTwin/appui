@@ -43,46 +43,41 @@ export function DisplayStyleField(props: CommonProps) {
 
   const setStateFromActiveContent = React.useCallback(
     async (contentControl?: ContentControl) => {
-      if (contentControl && contentControl.viewport) {
-        const newDisplayStyles = new Map<Id64String, DisplayStyleState>();
-        const view = contentControl.viewport.view;
-        const is3d = view.is3d();
-        const sqlName: string = is3d
-          ? DisplayStyle3dState.classFullName
-          : DisplayStyle2dState.classFullName;
-        const displayStyleProps = await view.iModel.elements.queryProps({
-          from: sqlName,
-          where: "IsPrivate=FALSE",
-        });
-        const newStyleEntries: SelectOption<string>[] = [];
-        let emptyNameSuffix = 0;
-        for (const displayStyleProp of displayStyleProps) {
-          let name = displayStyleProp.code.value!;
-          if (name.length === 0) {
-            emptyNameSuffix++;
-            const unnamedPrefix = translate("statusFields.unnamedDisplayStyle");
-            name = `${unnamedPrefix}-${emptyNameSuffix}`;
-          }
-          newStyleEntries.push({ value: displayStyleProp.id!, label: name });
-          let displayStyle: DisplayStyleState;
-          if (is3d)
-            displayStyle = new DisplayStyle3dState(
-              displayStyleProp,
-              view.iModel
-            );
-          else
-            displayStyle = new DisplayStyle2dState(
-              displayStyleProp,
-              view.iModel
-            );
-          newDisplayStyles.set(displayStyleProp.id!, displayStyle);
-        }
+      if (!contentControl) return;
+      if (!contentControl.viewport) return;
 
-        setDisplayStyles(newDisplayStyles);
-        setStyleEntries(newStyleEntries);
-        setViewport(contentControl.viewport);
-        setDisplayStyleId(contentControl.viewport.view.displayStyle.id);
+      const newDisplayStyles = new Map<Id64String, DisplayStyleState>();
+      const view = contentControl.viewport.view;
+      const is3d = view.is3d();
+      const sqlName: string = is3d
+        ? DisplayStyle3dState.classFullName
+        : DisplayStyle2dState.classFullName;
+      const displayStyleProps = await view.iModel.elements.queryProps({
+        from: sqlName,
+        where: "IsPrivate=FALSE",
+      });
+      const newStyleEntries: SelectOption<string>[] = [];
+      let emptyNameSuffix = 0;
+      for (const displayStyleProp of displayStyleProps) {
+        let name = displayStyleProp.code.value!;
+        if (name.length === 0) {
+          emptyNameSuffix++;
+          const unnamedPrefix = translate("statusFields.unnamedDisplayStyle");
+          name = `${unnamedPrefix}-${emptyNameSuffix}`;
+        }
+        newStyleEntries.push({ value: displayStyleProp.id!, label: name });
+        let displayStyle: DisplayStyleState;
+        if (is3d)
+          displayStyle = new DisplayStyle3dState(displayStyleProp, view.iModel);
+        else
+          displayStyle = new DisplayStyle2dState(displayStyleProp, view.iModel);
+        newDisplayStyles.set(displayStyleProp.id!, displayStyle);
       }
+
+      setDisplayStyles(newDisplayStyles);
+      setStyleEntries(newStyleEntries);
+      setViewport(contentControl.viewport);
+      setDisplayStyleId(contentControl.viewport.view.displayStyle.id);
     },
     [translate]
   );
@@ -110,19 +105,17 @@ export function DisplayStyleField(props: CommonProps) {
       if (!viewport) return;
 
       const style = displayStyles.get(newValue)!.clone();
-      if (style) {
-        await style.load();
-        viewport.displayStyle = style;
-        viewport.invalidateScene();
-        viewport.synchWithView();
-        setDisplayStyleId(newValue);
-      }
+      if (!style) return;
+      await style.load();
+      viewport.displayStyle = style;
+      viewport.invalidateScene();
+      viewport.synchWithView();
+      setDisplayStyleId(newValue);
     },
     [displayStyles, viewport]
   );
 
   if (!viewport) return null;
-
   return (
     <Select
       options={styleEntries}

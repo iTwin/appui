@@ -12,7 +12,6 @@ import {
   ContentGroup,
   ContentGroupProps,
   ContentProps,
-  IModelViewportControl,
   StageContentLayout,
   StageContentLayoutProps,
   SyncUiEventId,
@@ -25,6 +24,7 @@ import { SvgWindow, SvgWindowSplitVertical } from "@itwin/itwinui-icons-react";
 
 import layoutRestoreIconSvg from "@bentley/icons-generic/icons/download.svg";
 import layoutSaveIconSvg from "@bentley/icons-generic/icons/upload.svg";
+import { ViewportComponent } from "@itwin/imodel-components-react";
 
 function getIModelSpecificKey(
   inKey: string,
@@ -55,30 +55,28 @@ export async function getSavedViewLayoutProps(
     getIModelSpecificKey(activeFrontstageId, iModelConnection)
   );
 
-  if (result.setting) {
-    // Parse StageContentLayoutProps
-    const savedViewLayoutProps: StageContentLayoutProps = result.setting;
-    if (iModelConnection) {
-      // Create ViewStates
-      const viewStates = await StageContentLayout.viewStatesFromProps(
-        iModelConnection,
-        savedViewLayoutProps
-      );
-      if (0 === viewStates.length) return undefined;
+  if (!result.setting) return undefined;
+  if (!iModelConnection) return undefined;
 
-      // Add applicationData to the ContentProps
-      savedViewLayoutProps.contentGroupProps.contents.forEach(
-        (contentProps, index) => {
-          contentProps.applicationData = {
-            viewState: viewStates[index],
-            iModelConnection,
-          };
-        }
-      );
+  // Parse StageContentLayoutProps
+  const savedViewLayoutProps: StageContentLayoutProps = result.setting;
+  // Create ViewStates
+  const viewStates = await StageContentLayout.viewStatesFromProps(
+    iModelConnection,
+    savedViewLayoutProps
+  );
+  if (0 === viewStates.length) return undefined;
+
+  // Add applicationData to the ContentProps
+  savedViewLayoutProps.contentGroupProps.contents.forEach(
+    (contentProps, index) => {
+      contentProps.applicationData = {
+        viewState: viewStates[index],
+        iModelConnection,
+      };
     }
-    return savedViewLayoutProps;
-  }
-  return undefined;
+  );
+  return savedViewLayoutProps;
 }
 
 export class SaveContentLayoutTool extends Tool {
@@ -112,12 +110,9 @@ export class SaveContentLayoutTool extends Tool {
         UiFramework.content.layouts.activeContentGroup,
         true,
         (contentProps) => {
-          if (contentProps.applicationData) {
-            if (contentProps.applicationData.iModelConnection)
-              delete contentProps.applicationData.iModelConnection;
-            if (contentProps.applicationData.viewState)
-              delete contentProps.applicationData.viewState;
-          }
+          if (!contentProps.applicationData) return;
+          delete contentProps.applicationData.iModelConnection;
+          delete contentProps.applicationData.viewState;
         }
       );
 
@@ -190,7 +185,7 @@ export class RestoreSavedContentLayoutTool extends Tool {
 
 const getSplitWindowCmdIcon = () => {
   return 1 ===
-    UiFramework.frontstages.activeFrontstageDef?.contentGroup?.getContentControls()
+    UiFramework.frontstages.activeFrontstageDef?.contentGroup?.contentPropsList
       .length ? (
     <SvgWindowSplitVertical />
   ) : (
@@ -206,8 +201,8 @@ export function createSplitSingleViewportToolbarItem() {
   const label = new ConditionalStringValue(
     () =>
       1 ===
-      UiFramework.frontstages.activeFrontstageDef?.contentGroup?.getContentControls()
-        .length
+      UiFramework.frontstages.activeFrontstageDef?.contentGroup
+        ?.contentPropsList.length
         ? "Split Content View"
         : "Single Content View",
     [SyncUiEventId.ActiveContentChanged]
@@ -217,18 +212,21 @@ export function createSplitSingleViewportToolbarItem() {
     const activeFrontstageDef = UiFramework.frontstages.activeFrontstageDef;
     if (
       activeFrontstageDef &&
-      1 === activeFrontstageDef.contentGroup?.getContentControls().length &&
+      1 === activeFrontstageDef.contentGroup?.contentPropsList.length &&
       activeFrontstageDef.contentControls[0].viewport
     ) {
       const vp = activeFrontstageDef.contentControls[0].viewport;
       if (vp) {
         const contentPropsArray: ContentProps[] = [];
+        const viewState1 = vp.view.clone();
+        viewState1.description = "imodel-view-0";
         contentPropsArray.push({
           id: "imodel-view-0",
-          classId: IModelViewportControl.id,
+          classId: "",
+          content: (
+            <ViewportComponent viewState={viewState1} imodel={vp.view.iModel} />
+          ),
           applicationData: {
-            viewState: vp.view.clone(),
-            iModelConnection: vp.view.iModel,
             featureOptions: {
               defaultViewOverlay: {
                 enableScheduleAnimationViewOverlay: true,
@@ -238,12 +236,16 @@ export function createSplitSingleViewportToolbarItem() {
             },
           },
         });
+
+        const viewState2 = vp.view.clone();
+        viewState2.description = "imodel-view-1";
         contentPropsArray.push({
           id: "imodel-view-1",
-          classId: IModelViewportControl.id,
+          classId: "",
+          content: (
+            <ViewportComponent viewState={viewState2} imodel={vp.view.iModel} />
+          ),
           applicationData: {
-            viewState: vp.view.clone(),
-            iModelConnection: vp.view.iModel,
             featureOptions: {
               defaultViewOverlay: {
                 enableScheduleAnimationViewOverlay: true,
@@ -271,7 +273,7 @@ export function createSplitSingleViewportToolbarItem() {
       }
     } else if (
       activeFrontstageDef &&
-      2 === activeFrontstageDef.contentGroup?.getContentControls().length &&
+      2 === activeFrontstageDef.contentGroup?.contentPropsList.length &&
       activeFrontstageDef.contentControls[0].viewport
     ) {
       const vp = activeFrontstageDef.contentControls[0].viewport;
@@ -279,11 +281,13 @@ export function createSplitSingleViewportToolbarItem() {
         const contentPropsArray: ContentProps[] = [];
         contentPropsArray.push({
           id: "imodel-view-0",
-          classId: IModelViewportControl.id,
-          applicationData: {
-            viewState: vp.view.clone(),
-            iModelConnection: vp.view.iModel,
-          },
+          classId: "",
+          content: (
+            <ViewportComponent
+              viewState={vp.view.clone()}
+              imodel={vp.view.iModel}
+            />
+          ),
         });
 
         let contentGroupProps: ContentGroupProps = {

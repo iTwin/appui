@@ -192,7 +192,7 @@ export class IModelViewportControl extends ViewportContentControl {
   protected getImodelConnectedViewportReactElement(): React.ReactNode {
     return (
       <IModelConnectedViewport
-        viewportRef={(v: ScreenViewport) => {
+        viewportRef={(v) => {
           this.viewport = v;
           // for convenience, if window defined bind viewport to window
           if (undefined !== window) (window as any).viewport = v;
@@ -216,7 +216,7 @@ export class IModelViewportControl extends ViewportContentControl {
         viewState={viewState}
         imodel={iModelConnection}
         controlId={this.controlId}
-        viewportRef={(v: ScreenViewport) => {
+        viewportRef={(v) => {
           this.viewport = v;
           // for convenience, if window defined bind viewport to window
           if (undefined !== window) (window as any).viewport = v;
