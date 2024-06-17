@@ -44,7 +44,7 @@ _NOTE:_ widget component must be written in a way that works properly when opene
 
 ## Provide Toolbar Items
 
-Implement [UiItemsProvider.getToolbarItems]($appui-react) to provide additional toolbar items to the application. Set the [ToolbarItem.layouts]($appui-react) property to specify the toolbar to which the [ToolbarItem]($appui-react) should be added. You can use one of [ToolbarItemUtilities]($appui-react) to create a toolbar item of specific type.
+Implement [UiItemsProvider.getToolbarItems]($appui-react) to provide additional toolbar items to the application. Set the [ToolbarItem]($appui-react) `layouts` property to specify the toolbar to which the [ToolbarItem]($appui-react) should be added. You can use one of [ToolbarItemUtilities]($appui-react) to create a toolbar item of specific type.
 
 ```tsx
 [[include:AppUI.UiItemsProvider.ToolbarItems]]
