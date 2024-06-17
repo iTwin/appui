@@ -9,13 +9,11 @@
 import { useEffect, useState } from "react";
 import type { ScreenViewport } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
-import type { ActiveContentChangedEventArgs } from "../framework/FrameworkContent";
 import {
   SyncUiEventDispatcher,
   SyncUiEventId,
 } from "../syncui/SyncUiEventDispatcher";
 import { UiFramework } from "../UiFramework";
-import type { UiSyncEventArgs } from "../syncui/UiSyncEvent";
 
 /** React hook that maintains the active viewport.
  * @public
@@ -25,32 +23,23 @@ export function useActiveViewport(): ScreenViewport | undefined {
     IModelApp.viewManager.selectedView
   );
   useEffect(() => {
-    // eslint-disable-next-line deprecation/deprecation
-    const onActiveContentChanged = (_args: ActiveContentChangedEventArgs) => {
-      setActiveViewport(IModelApp.viewManager.selectedView);
-    };
-
     // IModelApp.viewManager.onSelectedViewportChanged will often fire before UI components have mounted
     // so use UiFramework.content.onActiveContentChangedEvent which will always trigger once all stage components
     // are loaded and when the IModelApp.viewManager.selectedView changes.
-    UiFramework.content.onActiveContentChangedEvent.addListener(
-      onActiveContentChanged
-    );
-    return () => {
-      UiFramework.content.onActiveContentChangedEvent.removeListener(
-        onActiveContentChanged
-      );
-    };
+    return UiFramework.content.onActiveContentChangedEvent.addListener(() => {
+      setActiveViewport(IModelApp.viewManager.selectedView);
+    });
   }, []);
 
   useEffect(() => {
     const syncIdsOfInterest = [
       SyncUiEventId.ActiveContentChanged,
+      // eslint-disable-next-line deprecation/deprecation
       SyncUiEventId.ContentControlActivated,
       SyncUiEventId.FrontstageReady,
     ];
     // eslint-disable-next-line deprecation/deprecation
-    const handleSyncUiEvent = (args: UiSyncEventArgs): void => {
+    return SyncUiEventDispatcher.onSyncUiEvent.addListener((args): void => {
       if (
         syncIdsOfInterest.some((value: string): boolean =>
           args.eventIds.has(value)
@@ -63,9 +52,7 @@ export function useActiveViewport(): ScreenViewport | undefined {
           activeContentControl && activeContentControl.viewport
         );
       }
-    };
-
-    return SyncUiEventDispatcher.onSyncUiEvent.addListener(handleSyncUiEvent);
+    });
   }, []);
 
   return activeViewport;

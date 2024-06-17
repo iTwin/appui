@@ -18,9 +18,7 @@ import { UiFramework } from "../UiFramework";
 import classnames from "classnames";
 import type { UiSyncEventArgs } from "../syncui/UiSyncEvent";
 
-/**
- *@internal
- */
+/** @internal */
 export function useActiveContentControlId(): string | undefined {
   const [activeContentId, setActiveContentId] = React.useState(
     // eslint-disable-next-line deprecation/deprecation
@@ -44,6 +42,7 @@ export function useActiveContentControlId(): string | undefined {
   React.useEffect(() => {
     const syncIdsOfInterest = [
       SyncUiEventId.ActiveContentChanged,
+      // eslint-disable-next-line deprecation/deprecation
       SyncUiEventId.ContentControlActivated,
       SyncUiEventId.FrontstageReady,
     ];

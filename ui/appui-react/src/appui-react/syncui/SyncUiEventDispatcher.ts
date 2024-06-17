@@ -12,6 +12,7 @@ import { IModelApp } from "@itwin/core-frontend";
 import { UiFramework } from "../UiFramework";
 import type { UiSyncEvent } from "./UiSyncEvent";
 import { InternalSyncUiEventDispatcher } from "./InternalSyncUiEventDispatcher";
+import type { ContentControl } from "../content/ContentControl";
 
 // cSpell:ignore activecontentchanged, activitymessageupdated, activitymessagecancelled, backstageevent, contentlayoutactivated, contentcontrolactivated,
 // cSpell:ignore elementtooltipchanged, frontstageactivated, inputfieldmessageadded, inputfieldmessageremoved, modalfrontstagechanged, modaldialogchanged
@@ -35,7 +36,9 @@ export enum SyncUiEventId {
   BackstageEvent = "backstageevent",
   /** A Content Layout has been activated.  */
   ContentLayoutActivated = "contentlayoutactivated",
-  /** A Content Control maintained by UiFramework.frontstages has been activated. */
+  /** A Content Control maintained by UiFramework.frontstages has been activated.
+   * @deprecated in 4.15.0. Uses a deprecated class {@link ContentControl}.
+   */
   ContentControlActivated = "contentcontrolactivated",
   /** A Frontstage is activating. */
   FrontstageActivating = "frontstageactivating",
@@ -158,8 +161,10 @@ export class SyncUiEventDispatcher {
     this._unregisterFuncs = [];
 
     this._unregisterFuncs.push(
+      // eslint-disable-next-line deprecation/deprecation
       UiFramework.frontstages.onContentControlActivatedEvent.addListener(() => {
         SyncUiEventDispatcher.dispatchSyncUiEvent(
+          // eslint-disable-next-line deprecation/deprecation
           SyncUiEventId.ContentControlActivated
         );
       }),

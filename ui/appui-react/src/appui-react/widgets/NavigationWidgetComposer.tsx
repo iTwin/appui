@@ -81,22 +81,16 @@ export function NavigationAidHost(props: NavigationAidHostProps) {
   );
 
   React.useEffect(() => {
-    const handleContentControlActivated = (
-      args: ContentControlActivatedEventArgs // eslint-disable-line deprecation/deprecation
-    ) => {
-      setActiveContentControl(args.activeContentControl);
-      setActiveContentViewport(args.activeContentControl.viewport);
-      setNavigationAidId(args.activeContentControl.navigationAidControl);
-    };
-
-    UiFramework.frontstages.onContentControlActivatedEvent.addListener(
-      handleContentControlActivated
+    // eslint-disable-next-line deprecation/deprecation
+    return UiFramework.frontstages.onContentControlActivatedEvent.addListener(
+      (
+        args: ContentControlActivatedEventArgs // eslint-disable-line deprecation/deprecation
+      ) => {
+        setActiveContentControl(args.activeContentControl);
+        setActiveContentViewport(args.activeContentControl.viewport);
+        setNavigationAidId(args.activeContentControl.navigationAidControl);
+      }
     );
-    return () => {
-      UiFramework.frontstages.onContentControlActivatedEvent.removeListener(
-        handleContentControlActivated
-      );
-    };
   }, []);
 
   const [activeViewClass, setActiveViewClass] = React.useState(() => {
@@ -107,20 +101,13 @@ export function NavigationAidHost(props: NavigationAidHostProps) {
   });
 
   React.useEffect(() => {
-    const handleViewClassFullNameChange = (
-      args: ViewClassFullNameChangedEventArgs // eslint-disable-line deprecation/deprecation
-    ) => {
-      setActiveViewClass(args.newName);
-    };
-
-    ViewportComponentEvents.onViewClassFullNameChangedEvent.addListener(
-      handleViewClassFullNameChange
+    return ViewportComponentEvents.onViewClassFullNameChangedEvent.addListener(
+      (
+        args: ViewClassFullNameChangedEventArgs // eslint-disable-line deprecation/deprecation
+      ) => {
+        setActiveViewClass(args.newName);
+      }
     );
-    return () => {
-      ViewportComponentEvents.onViewClassFullNameChangedEvent.removeListener(
-        handleViewClassFullNameChange
-      );
-    };
   }, [activeViewClass]);
 
   const navigationAidControl = React.useMemo(

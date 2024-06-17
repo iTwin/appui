@@ -9,7 +9,10 @@ import { UiEvent } from "@itwin/appui-abstract";
 import type { IModelConnection, Tool } from "@itwin/core-frontend";
 import type { ToolInformation } from "../toolsettings/ToolInformation";
 import type { TimeTracker } from "../configurableui/TimeTracker";
-import type { ContentControlActivatedEvent } from "../content/ContentControl";
+import {
+  ContentControl,
+  type ContentControlActivatedEvent,
+} from "../content/ContentControl";
 import type { ContentLayoutActivatedEvent } from "../content/ContentLayout";
 import type { FrontstageDef } from "../frontstage/FrontstageDef";
 import type { FrontstageProvider } from "../frontstage/FrontstageProvider";
@@ -238,7 +241,9 @@ export interface FrameworkFrontstages {
   // eslint-disable-next-line deprecation/deprecation
   readonly onContentLayoutActivatedEvent: ContentLayoutActivatedEvent;
 
-  /** Get Content Control Activated event. */
+  /** Get Content Control Activated event.
+   * @deprecated in 4.15.0. Uses a deprecated class {@link ContentControl}.
+   */
   // eslint-disable-next-line deprecation/deprecation
   readonly onContentControlActivatedEvent: ContentControlActivatedEvent;
 
