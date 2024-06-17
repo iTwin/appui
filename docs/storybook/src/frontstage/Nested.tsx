@@ -12,14 +12,14 @@ import {
 } from "@itwin/appui-react";
 import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
 import { AppUiStory } from "../AppUiStory";
-import { createFrontstageProvider } from "../Utils";
+import { createFrontstage } from "../Utils";
 
 type FrontstageStoryProps = {
   frontstage?: Partial<StandardFrontstageProps>;
 };
 
 function createNestedFrontstage() {
-  return createFrontstageProvider({
+  return createFrontstage({
     id: createNestedFrontstage.id,
     content: (
       <h1
@@ -36,7 +36,6 @@ function createNestedFrontstage() {
     cornerButton: <NestedFrontstageAppButton />,
   });
 }
-
 createNestedFrontstage.id = "nested-frontstage";
 
 /** [openNestedFrontstage](https://www.itwinjs.org/reference/appui-react/frontstage/frameworkfrontstages/#opennestedfrontstage) can be used to open a nested frontstage. */
@@ -44,10 +43,7 @@ export function NestedFrontstageStory(props: FrontstageStoryProps) {
   return (
     <AppUiStory
       layout="fullscreen"
-      frontstageProviders={() => [
-        createFrontstageProvider(),
-        createNestedFrontstage(),
-      ]}
+      frontstages={() => [createFrontstage(), createNestedFrontstage()]}
       itemProviders={[
         {
           id: "toolbar",

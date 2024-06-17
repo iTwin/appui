@@ -2,11 +2,14 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { AppUiStory, AppUiStoryProps } from "../AppUiStory";
+/** @packageDocumentation
+ * @module Frontstage
+ */
 
-/** This story shows two separate views. Depending on which view is active, the tools in the toolbars will change*/
-export function SplitViewportStory(
-  props: Pick<AppUiStoryProps, "frontstages" | "itemProviders">
-) {
-  return <AppUiStory layout="fullscreen" {...props} />;
-}
+import type { FrontstageConfig } from "./FrontstageConfig";
+
+/** Configuration from which a frontstage is created.
+ * @public
+ */
+// eslint-disable-next-line deprecation/deprecation
+export type Frontstage = FrontstageConfig;

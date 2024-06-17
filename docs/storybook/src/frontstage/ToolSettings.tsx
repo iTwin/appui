@@ -6,7 +6,7 @@ import { AppUiStory, AppUiStoryProps } from "../AppUiStory";
 
 /** [FrontstageProvider](https://www.itwinjs.org/reference/appui-react/frontstage/frontstageprovider/) can be used to configure a frontstage. */
 export function ToolSettingsStory(
-  props: Pick<AppUiStoryProps, "frontstageProviders" | "onFrontstageActivated">
+  props: Pick<AppUiStoryProps, "frontstages" | "onFrontstageActivated">
 ) {
   return (
     <AppUiStory

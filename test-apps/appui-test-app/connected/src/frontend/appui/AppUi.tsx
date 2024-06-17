@@ -16,7 +16,7 @@ import {
   KeyboardShortcutUtilities,
   UiFramework,
 } from "@itwin/appui-react";
-import { SignInFrontstage } from "./frontstages/SignInFrontstage";
+import { signInFrontstage } from "./frontstages/SignInFrontstage";
 import { IModelOpenFrontstage } from "./frontstages/IModelOpenFrontstage";
 
 /** Example Ui Configuration for an iTwin.js App */
@@ -30,7 +30,7 @@ export class AppUi {
   /** Define Frontstages
    */
   private static defineFrontstages() {
-    UiFramework.frontstages.addFrontstageProvider(new SignInFrontstage());
+    UiFramework.frontstages.addFrontstage(signInFrontstage);
     IModelOpenFrontstage.register();
   }
 

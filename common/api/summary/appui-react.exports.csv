@@ -273,12 +273,14 @@ beta;FrameworkToolAdmin
 public;FrameworkToolSettings
 public;FrameworkUiAdmin 
 public;FrameworkVisibility
+public;Frontstage = FrontstageConfig
 internal;FRONTSTAGE_SETTINGS_NAMESPACE = "uifw-frontstageSettings"
 public;FrontstageActivatedEvent 
 deprecated;FrontstageActivatedEvent 
 public;FrontstageActivatedEventArgs
 deprecated;FrontstageActivatedEventArgs
 public;FrontstageConfig 
+deprecated;FrontstageConfig 
 public;FrontstageDeactivatedEvent 
 deprecated;FrontstageDeactivatedEvent 
 public;FrontstageDeactivatedEventArgs
@@ -287,10 +289,12 @@ public;FrontstageDef
 internal;FrontstageEventArgs
 internal;FrontstageNineZoneStateChangedEventArgs 
 public;class FrontstageProvider
+deprecated;class FrontstageProvider
 public;FrontstageReadyEvent 
 deprecated;FrontstageReadyEvent 
 public;FrontstageReadyEventArgs
 deprecated;FrontstageReadyEventArgs
+beta;FrontstageUtilities
 public;FunctionType = (...args: any[]) => any
 deprecated;FunctionType = (...args: any[]) => any
 internal;getBadgeClassName(badgeType: BadgeType | undefined): "uifw-badge-new" | "uifw-badge-tp" | undefined
@@ -574,6 +578,7 @@ public;StandardContentToolsProvider
 beta;StandardContentToolsUiItemsProvider 
 public;StandardFrontstageProps
 public;StandardFrontstageProvider 
+deprecated;StandardFrontstageProvider 
 public;StandardLayoutToolbarItem
 public;StandardLayoutWidget
 public;StandardMessageBoxProps 

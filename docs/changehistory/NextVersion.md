@@ -44,6 +44,12 @@ Table of contents:
 - Deprecated `NestedFrontstage` class. Use `NestedFrontstageAppButton` component instead. [#875](https://github.com/iTwin/appui/pull/875)
 - Deprecated `ToolbarHelper` class. Use functions from `ToolbarItemUtilities` namespace instead. [#875](https://github.com/iTwin/appui/pull/875)
 - Deprecated `KeyboardShortcutProps.item`, `CursorMenuItemProps.item` properties. Use properties of the object instead. [#875](https://github.com/iTwin/appui/pull/875)
+- Deprecated all APIs associated with `FrontstageProvider` class which added unnecessary bloat and layer of complication as it would always map to a single frontstage and forced API consumers to use inheritance. [#878](https://github.com/iTwin/appui/pull/878)
+  - `addFrontstageProvider()` property of `FrameworkFrontstages` interface. Use `FrameworkFrontstages.addFrontstage()` instead.
+  - `frontstageProvider` getter of `FrontstageDef` class. Use `FrontstageDef.id` to look up a frontstage.
+  - `FrontstageProvider` class. Use `Frontstage` interface instead.
+  - `StandardFrontstageProvider` class. Use `FrontstageUtilities.createStandardFrontstage()` function instead.
+  - `FrontstageConfig` interface. Use `Frontstage` type instead.
 
 ### Additions
 
@@ -58,6 +64,11 @@ Table of contents:
 - Added `ToolbarItems` namespace with functions to create commonly used toolbar items. [#875](https://github.com/iTwin/appui/pull/875)
 - Added `ToolbarItemUtilities.createForTool()` function to create a toolbar item for a specified tool type.[#875](https://github.com/iTwin/appui/pull/875)
 - Added `KeyboardShortcutProps.execute()`, `CursorMenuItemProps.execute()` properties to replace execute action of deprecated `item` properties. [#875](https://github.com/iTwin/appui/pull/875)
+- Added additional APIs to support `FrontstageProvider` deprecation. [#878](https://github.com/iTwin/appui/pull/878)
+  - Added `FrontstageUtilities` namespace to provide utilities for creating frontstages.
+  - `addFrontstage()` property to `FrameworkFrontstages` interface.
+  - `Frontstage` alias type to rename existing `FrontstageConfig`.
+  - Expanded a union type of a static `FrontstageDef.create()` method to allow `Frontstage` type together with `FrontstageProvider`.
 
 ### Changes
 

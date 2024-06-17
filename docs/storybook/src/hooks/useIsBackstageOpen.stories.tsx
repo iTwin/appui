@@ -13,14 +13,14 @@ import {
   useIsBackstageOpen,
 } from "@itwin/appui-react";
 import { AppUiStory } from "../AppUiStory";
-import { createFrontstageProvider } from "../Utils";
+import { createFrontstage } from "../Utils";
 
 function HookStory() {
   return (
     <AppUiStory
       appBackstage={<BackstageComposer />}
-      frontstageProviders={() => [
-        createFrontstageProvider({
+      frontstages={() => [
+        createFrontstage({
           contentGroupProps: {
             id: "ViewportContentGroup",
             layout: StandardContentLayouts.singleView,

@@ -9,7 +9,7 @@ import {
   ToolAssistanceField,
 } from "@itwin/appui-react";
 import { AppUiStory } from "../../AppUiStory";
-import { createFrontstageProvider } from "../../Utils";
+import { createFrontstage } from "../../Utils";
 import { IModelApp } from "@itwin/core-frontend";
 
 /** [outputPrompt](https://www.itwinjs.org/reference/appui-react/notification/appnotificationmanager/outputprompt/) displays a prompt message in the status bar. */
@@ -17,8 +17,8 @@ export function NotificationsStory() {
   return (
     <AppUiStory
       layout="fullscreen"
-      frontstageProviders={[
-        createFrontstageProvider({
+      frontstages={[
+        createFrontstage({
           hideStatusBar: false,
         }),
       ]}

@@ -26,7 +26,7 @@ import {
 } from "@itwin/itwinui-icons-react";
 import { AppUiDecorator } from "../Decorators";
 import { Page } from "../AppUiStory";
-import { createFrontstageProvider, removeProperty } from "../Utils";
+import { createFrontstage, removeProperty } from "../Utils";
 import { SplitViewportStory } from "./SplitViewport";
 
 const meta = {
@@ -41,7 +41,7 @@ const meta = {
     layout: "fullscreen",
   },
   argTypes: {
-    frontstageProviders: removeProperty(),
+    frontstages: removeProperty(),
     itemProviders: removeProperty(),
   },
 } satisfies Meta<typeof SplitViewportStory>;
@@ -76,8 +76,8 @@ UiFramework.content.onActiveContentChangedEvent.addListener(() => {
 
 export const Default: Story = {
   args: {
-    frontstageProviders: [
-      createFrontstageProvider({
+    frontstages: [
+      createFrontstage({
         contentGroupProps: {
           id: "split-vertical-group",
           layout: StandardContentLayouts.twoVerticalSplit,

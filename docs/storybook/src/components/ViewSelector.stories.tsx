@@ -10,7 +10,7 @@ import {
   UiFramework,
 } from "@itwin/appui-react";
 import { AppUiStory, Page } from "../AppUiStory";
-import { createFrontstageProvider } from "../Utils";
+import { createFrontstage } from "../Utils";
 
 const StoryDecorator: Decorator = (Story) => {
   return (
@@ -20,8 +20,8 @@ const StoryDecorator: Decorator = (Story) => {
       onInitialize={async () => {
         UiFramework.visibility.autoHideUi = false;
       }}
-      frontstageProviders={[
-        createFrontstageProvider({
+      frontstages={[
+        createFrontstage({
           contentGroupProps: {
             id: "ViewportContentGroup",
             layout: StandardContentLayouts.singleView,

@@ -6,19 +6,18 @@
  * @module Frontstage
  */
 
-import * as React from "react";
-import type { ContentGroupProps } from "../content/ContentGroup";
-import { ContentGroup, ContentGroupProvider } from "../content/ContentGroup";
+import type * as React from "react";
+import type {
+  ContentGroupProps,
+  ContentGroupProvider,
+} from "../content/ContentGroup";
 import { FrontstageProvider } from "./FrontstageProvider";
-import { ContentToolWidgetComposer } from "../widgets/ContentToolWidgetComposer";
-import { ViewToolWidgetComposer } from "../widgets/ViewToolWidgetComposer";
-import type { FrontstageConfig } from "./FrontstageConfig";
 import type { StagePanelConfig } from "../stagepanels/StagePanelConfig";
 import type { StageUsage } from "./StageUsage";
-import { StatusBarComposer } from "../statusbar/StatusBarComposer";
-import { StagePanelState } from "../stagepanels/StagePanelState";
+import type { Frontstage } from "./Frontstage";
+import { FrontstageUtilities } from "./FrontstageUtilities";
 
-/** Properties of a [[WidgetPanelProps]] component
+/** Widget panel properties used in a {@link StandardFrontstageProps}.
  * @public
  */
 export type WidgetPanelProps = Omit<
@@ -26,8 +25,7 @@ export type WidgetPanelProps = Omit<
   "widgets" | "runtimeProps" | "header" | "allowedZones" | "panelZones"
 >;
 
-/**
- * Props for [[StandardFrontstageProvider]]
+/** Props of a {@link StandardFrontstageProvider}.
  * @public
  */
 export interface StandardFrontstageProps {
@@ -76,11 +74,12 @@ export interface StandardFrontstageProps {
   bottomPanelProps?: WidgetPanelProps;
 }
 
-/**
- * FrontstageProvider that provides an "empty" stage. All tool buttons, statusbar items, and widgets must
+/** FrontstageProvider that provides an "empty" stage. All tool buttons, statusbar items, and widgets must
  * be provided by one or more item providers, see [[UiItemsProvider]].
  * @public
+ * @deprecated in 4.15.0. Use {@link FrontstageUtilities.createStandardFrontstage} instead.
  */
+// eslint-disable-next-line deprecation/deprecation
 export class StandardFrontstageProvider extends FrontstageProvider {
   constructor(private props: StandardFrontstageProps) {
     super();
@@ -90,63 +89,8 @@ export class StandardFrontstageProvider extends FrontstageProvider {
     return this.props.id;
   }
 
-  public override frontstageConfig(): FrontstageConfig {
-    const contentGroup =
-      this.props.contentGroupProps instanceof ContentGroupProvider
-        ? this.props.contentGroupProps
-        : new ContentGroup(this.props.contentGroupProps);
-    return {
-      id: this.props.id,
-      version: this.props.version ?? 1.0,
-      contentGroup,
-      usage: this.props.usage,
-      defaultTool: this.props.defaultTool,
-      contentManipulation: {
-        id: `${this.props.id}-contentManipulationTools`,
-        content: (
-          <ContentToolWidgetComposer cornerButton={this.props.cornerButton} />
-        ),
-      },
-      viewNavigation: {
-        id: `${this.props.id}-viewNavigationTools`,
-        content: (
-          <ViewToolWidgetComposer
-            hideNavigationAid={this.props.hideNavigationAid}
-          />
-        ),
-      },
-      toolSettings: this.props.hideToolSettings
-        ? undefined
-        : {
-            id: `${this.props.id}-toolSettings`,
-          },
-      statusBar: this.props.hideStatusBar
-        ? undefined
-        : {
-            id: `${this.props.id}-statusBar`,
-            content: <StatusBarComposer items={[]} />,
-          },
-      leftPanel: {
-        sizeSpec: 300,
-        pinned: false,
-        defaultState: StagePanelState.Minimized,
-        ...this.props.leftPanelProps,
-      },
-      topPanel: {
-        sizeSpec: 90,
-        pinned: false,
-        defaultState: StagePanelState.Minimized,
-        ...this.props.topPanelProps,
-      },
-      rightPanel: {
-        defaultState: StagePanelState.Open,
-        ...this.props.rightPanelProps,
-      },
-      bottomPanel: {
-        sizeSpec: 180,
-        defaultState: StagePanelState.Open,
-        ...this.props.bottomPanelProps,
-      },
-    };
+  public override frontstageConfig(): Frontstage {
+    const config = FrontstageUtilities.createStandardFrontstage(this.props);
+    return config;
   }
 }

@@ -12,9 +12,9 @@ import {
   ConfigurableCreateInfo,
   ContentControl,
   ContentGroupProps,
+  FrontstageUtilities,
   StageUsage,
   StandardFrontstageProps,
-  StandardFrontstageProvider,
   UiFramework,
   UiItemsManager,
   UiItemsProvider,
@@ -81,8 +81,8 @@ export class IModelOpenFrontstage {
         hideStatusBar: true,
       };
 
-      UiFramework.frontstages.addFrontstageProvider(
-        new StandardFrontstageProvider(stageProps)
+      UiFramework.frontstages.addFrontstage(
+        FrontstageUtilities.createStandardFrontstage(stageProps)
       );
       UiItemsManager.register(new BackstageItemsProvider());
     }

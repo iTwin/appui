@@ -39,7 +39,7 @@ import type {
   FrontstageNineZoneStateChangedEventArgs,
 } from "./FrontstageDef";
 import { FrontstageDef } from "./FrontstageDef";
-import type { FrontstageProvider } from "./FrontstageProvider";
+import { FrontstageProvider } from "./FrontstageProvider";
 import { TimeTracker } from "../configurableui/TimeTracker";
 import type { WidgetState } from "../widgets/WidgetState";
 import type {
@@ -56,6 +56,7 @@ import type {
 } from "../framework/FrameworkFrontstages";
 import type { SyncToolSettingsPropertiesEventArgs } from "../framework/FrameworkToolSettings";
 import { UiItemsManager } from "../ui-items-provider/UiItemsManager";
+import type { Frontstage } from "./Frontstage";
 
 /** Frontstage Manager class.
  * @internal
@@ -68,7 +69,9 @@ export class InternalFrontstageManager {
   private static _frontstageDefs = new Map<string, FrontstageDef>();
   private static _modalFrontstages: ModalFrontstageItem[] =
     new Array<ModalFrontstageItem>();
+  // eslint-disable-next-line deprecation/deprecation
   private static _frontstageProviders = new Map<string, FrontstageProvider>();
+  private static _frontstages = new Map<string, Frontstage>();
   private static _nineZoneSize: Size | undefined = undefined;
 
   private static _nestedFrontstages: FrontstageDef[] =
@@ -313,10 +316,8 @@ export class InternalFrontstageManager {
     });
   }
 
-  /** Add a Frontstage via a [[FrontstageProvider]].
-   * @param frontstageProvider  FrontstageProvider representing the Frontstage to add
-   */
   public static addFrontstageProvider(
+    // eslint-disable-next-line deprecation/deprecation
     frontstageProvider: FrontstageProvider
   ): void {
     const key = InternalFrontstageManager.getFrontstageKey(
@@ -327,6 +328,12 @@ export class InternalFrontstageManager {
       frontstageProvider.id,
       frontstageProvider
     );
+  }
+
+  public static addFrontstage(frontstage: Frontstage) {
+    const key = InternalFrontstageManager.getFrontstageKey(frontstage.id);
+    key && InternalFrontstageManager._frontstageDefs.delete(key);
+    InternalFrontstageManager._frontstages.set(frontstage.id, frontstage);
   }
 
   /** Find a loaded Frontstage with a given id. If the id is not provided, the active Frontstage is returned.
@@ -344,10 +351,32 @@ export class InternalFrontstageManager {
 
   private static findFrontstageProvider(
     id?: string
+    // eslint-disable-next-line deprecation/deprecation
   ): FrontstageProvider | undefined {
-    return id
-      ? InternalFrontstageManager._frontstageProviders.get(id)
-      : undefined;
+    if (!id) {
+      return undefined;
+    }
+
+    const provider = InternalFrontstageManager._frontstageProviders.get(id);
+    if (provider) {
+      return provider;
+    }
+
+    const frontstage = InternalFrontstageManager._frontstages.get(id);
+    if (frontstage) {
+      // eslint-disable-next-line deprecation/deprecation
+      return new (class extends FrontstageProvider {
+        public get id() {
+          return frontstage?.id ?? "";
+        }
+
+        public frontstageConfig() {
+          return frontstage;
+        }
+      })();
+    }
+
+    return undefined;
   }
 
   /** Find a loaded Frontstage with a given id. If the id is not provided, the active Frontstage is returned. If
@@ -364,19 +393,17 @@ export class InternalFrontstageManager {
     let frontstageDef = InternalFrontstageManager.findFrontstageDef(id);
     if (frontstageDef) return frontstageDef;
 
-    if (id) {
-      const frontstageProvider =
-        InternalFrontstageManager.findFrontstageProvider(id);
-      if (frontstageProvider) {
-        frontstageDef = await FrontstageDef.create(frontstageProvider);
-        if (frontstageDef) {
-          const key = InternalFrontstageManager.getFrontstageKey(
-            frontstageDef.id
-          );
-          InternalFrontstageManager._frontstageDefs.set(key, frontstageDef);
-        }
-        return frontstageDef;
+    const frontstageProvider =
+      InternalFrontstageManager.findFrontstageProvider(id);
+    if (frontstageProvider) {
+      frontstageDef = await FrontstageDef.create(frontstageProvider);
+      if (frontstageDef) {
+        const key = InternalFrontstageManager.getFrontstageKey(
+          frontstageDef.id
+        );
+        InternalFrontstageManager._frontstageDefs.set(key, frontstageDef);
       }
+      return frontstageDef;
     }
 
     return undefined;

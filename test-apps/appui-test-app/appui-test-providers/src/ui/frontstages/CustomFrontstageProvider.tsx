@@ -5,11 +5,7 @@
 import * as React from "react";
 // __PUBLISH_EXTRACT_START__ AppUI.FrontstageProvider.Imports
 import { StandardContentLayouts } from "@itwin/appui-abstract";
-import {
-  ContentGroup,
-  FrontstageConfig,
-  FrontstageProvider,
-} from "@itwin/appui-react";
+import { ContentGroup } from "@itwin/appui-react";
 // __PUBLISH_EXTRACT_END__
 import {
   ReactContentControl,
@@ -17,32 +13,23 @@ import {
 } from "../content/ReactContentControl";
 
 // __PUBLISH_EXTRACT_START__ AppUI.FrontstageProvider
-class CustomFrontstageProvider extends FrontstageProvider {
-  public override get id(): string {
-    return "example:CustomFrontstage";
-  }
-
-  public override frontstageConfig(): FrontstageConfig {
-    const contentGroup = new ContentGroup({
-      id: `${this.id}:content-group`,
-      layout: StandardContentLayouts.singleView,
-      contents: [
-        {
-          id: `${this.id}:content`,
-          classId: ReactContentControl,
-          applicationData: {
-            node: <h1>Custom Content</h1>,
-          } satisfies ReactContentControlOptions,
-        },
-      ],
-    });
-    return {
-      id: this.id,
-      version: 1,
-      contentGroup,
-    };
-  }
-}
+const customFrontstageProvider = {
+  id: "example:CustomFrontstage",
+  version: 1,
+  contentGroup: new ContentGroup({
+    id: "content-group",
+    layout: StandardContentLayouts.singleView,
+    contents: [
+      {
+        id: "content",
+        classId: ReactContentControl,
+        applicationData: {
+          node: <h1>Custom Content</h1>,
+        } satisfies ReactContentControlOptions,
+      },
+    ],
+  }),
+};
 // __PUBLISH_EXTRACT_END__
 
-export { CustomFrontstageProvider };
+export { customFrontstageProvider };

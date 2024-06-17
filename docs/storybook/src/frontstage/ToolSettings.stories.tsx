@@ -8,7 +8,7 @@ import { IModelViewportControl, UiFramework } from "@itwin/appui-react";
 import { IModelApp } from "@itwin/core-frontend";
 import { AppUiDecorator } from "../Decorators";
 import { Page } from "../AppUiStory";
-import { createFrontstageProvider, removeProperty } from "../Utils";
+import { createFrontstage, removeProperty } from "../Utils";
 import { ToolSettingsStory } from "./ToolSettings";
 import { CustomTool } from "../tools/ToolSettingsProperties";
 
@@ -24,7 +24,7 @@ const meta = {
     layout: "fullscreen",
   },
   argTypes: {
-    frontstageProviders: removeProperty(),
+    frontstages: removeProperty(),
     onFrontstageActivated: removeProperty(),
   },
 } satisfies Meta<typeof ToolSettingsStory>;
@@ -34,8 +34,8 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    frontstageProviders: [
-      createFrontstageProvider({
+    frontstages: [
+      createFrontstage({
         contentGroupProps: {
           id: "ViewportContentGroup",
           layout: StandardContentLayouts.singleView,
