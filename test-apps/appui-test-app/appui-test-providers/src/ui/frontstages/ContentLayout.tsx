@@ -21,7 +21,7 @@ import {
 } from "@itwin/appui-react";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 import { getSavedViewLayoutProps } from "../../tools/ContentLayoutTools";
-import { ContentLayoutStageUiItemsProvider } from "../providers/ContentLayoutStageUiItemsProvider";
+import { createContentLayoutUiItemsProvider } from "../providers/ContentLayoutUiItemsProvider";
 
 /**
  * The ContentLayoutStageContentGroupProvider provides a class with the primary method `provideContentGroup` to provide a ContentGroup
@@ -189,7 +189,11 @@ export class ContentLayoutStage {
       }
     );
 
-    // Provides example widgets stage
-    ContentLayoutStageUiItemsProvider.register(localizationNamespace);
+    UiItemsManager.register(
+      createContentLayoutUiItemsProvider(localizationNamespace),
+      {
+        stageIds: [ContentLayoutStage.stageId],
+      }
+    );
   }
 }
