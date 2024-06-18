@@ -7,7 +7,10 @@ Table of contents:
   - [Additions](#additions)
   - [Changes](#changes)
 - [@itwin/core-react](#itwincore-react)
+  - [Additions](#additions-1)
   - [Deprecations](#deprecations-1)
+- [@itwin/components-react](#itwincomponents-react)
+  - [Fixes](#fixes)
 
 ## @itwin/appui-react
 
@@ -73,6 +76,10 @@ Table of contents:
 
 ## @itwin/core-react
 
+### Additions
+
+- Added `portalTarget` to `Popup` component to allow portaling `Popup` to specific element. [#879](https://github.com/iTwin/appui/pull/879)
+
 ### Deprecations
 
 - Deprecated `HorizontalAlignment`, `VerticalAlignment`, `CheckBoxInfo`, `SortDirection`, `withIsPressed`, `withOnOutsideClick`, `withTimeout`, `MessageRenderer`, `MessageType`, `ReactMessage`, `FilteredText`, `IconHelper`, `ClassNameProps`, `CommonProps`, `CommonDivProps`, `NoChildrenProps`, `OmitChildrenProp`, `ScrollPositionMaintainer`, `ExecuteHandler`, `Timer`, `getCssVariable`, `getCssVariableAsNumber`, `useInterval`, `OutsideClickEvent`, `useOnOutsideClick`, `ElementResizeObserver`. These components and functions are intended for internal AppUI usage or are not used by AppUI at all. [#866](https://github.com/iTwin/appui/pull/866)
@@ -84,3 +91,9 @@ Table of contents:
 - Deprecated `useEffectSkipFirst`. Use `useEffect` instead. [#866](https://github.com/iTwin/appui/pull/866)
 - Deprecated `ResizableContainerObserver`. Please use third party packages. [#866](https://github.com/iTwin/appui/pull/866)
 - Deprecated `Omit`. Use TypeScript `Omit`. [#866](https://github.com/iTwin/appui/pull/866)
+
+## @itwin/components-react
+
+### Fixes
+
+- Portal editors to the same container used to portal other components. [#879](https://github.com/iTwin/appui/pull/879)
