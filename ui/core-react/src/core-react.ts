@@ -163,7 +163,6 @@ registerIconWebComponent();
 
 /** @docs-package-description
  * The core-react package contains general purpose React components, such as Dialog, MessageBox, SearchBox, RadialMenu and SplitButton.
- * For more information, see [learning about core-react]($docs/learning/ui/core/index.md).
  */
 /**
  * @docs-group-description AutoSuggest
