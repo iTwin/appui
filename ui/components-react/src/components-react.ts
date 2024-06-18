@@ -168,7 +168,6 @@ export * from "./components-react/tree/controlled/internal/SparseTree";
 
 /** @docs-package-description
  * The components-react package contains React components that are data-oriented, such as PropertyGrid, Table and Tree.
- * For more information, see [learning about components-react]($docs/learning/ui/components/index.md).
  */
 /**
  * @docs-group-description Common
