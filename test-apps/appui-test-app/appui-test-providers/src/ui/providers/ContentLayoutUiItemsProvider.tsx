@@ -15,6 +15,8 @@ import {
   UiItemsProvider,
   WidgetState,
 } from "@itwin/appui-react";
+import { IModelApp } from "@itwin/core-frontend";
+import { SvgRename, SvgWindowSettings } from "@itwin/itwinui-icons-react";
 import {
   createSplitSingleViewportToolbarItem,
   RestoreSavedContentLayoutTool,
@@ -56,6 +58,48 @@ export function createContentLayoutUiItemsProvider(
           groupPriority: 3000,
           layouts: horizontal,
         },
+        ToolbarItemUtilities.createGroupItem(
+          "ui-admin",
+          3000,
+          <SvgWindowSettings />,
+          "UI Admin",
+          [
+            ToolbarItemUtilities.createActionItem(
+              "show-input-editor",
+              0,
+              <SvgRename />,
+              "Show Input Editor",
+              () => {
+                IModelApp.uiAdmin.showInputEditor(
+                  30,
+                  { name: "x", displayLabel: "Set X", typename: "number" },
+                  {
+                    x: 200,
+                    y: 150,
+                  },
+                  (args) => {
+                    console.log("Input editor commit", args);
+                  },
+                  () => {
+                    console.log("Input editor cancel");
+                  }
+                );
+              }
+            ),
+            ToolbarItemUtilities.createActionItem(
+              "hide-input-editor",
+              0,
+              <SvgRename />,
+              "Hide Input Editor",
+              () => {
+                IModelApp.uiAdmin.hideInputEditor();
+              }
+            ),
+          ],
+          {
+            layouts: horizontal,
+          }
+        ),
         ToolbarItemUtilities.createForTool(SaveContentLayoutTool, {
           itemPriority: 10,
           groupPriority: 3000,
