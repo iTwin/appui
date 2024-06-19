@@ -52,7 +52,6 @@ export * from "./imodel-components-react/viewport/ViewportComponentEvents";
 /** @docs-package-description
  * The imodel-components-react package contains React components that depend on the core-frontend, core-common or core-quantity packages.
  * The components pertain to Color, Cube, LineWeight, Navigation Aids, Quantity Inputs, Timeline and Viewport.
- * For more information, see [learning about imodel-components-react]($docs/learning/ui/imodel-components/index.md).
  */
 /**
  * @docs-group-description Color
