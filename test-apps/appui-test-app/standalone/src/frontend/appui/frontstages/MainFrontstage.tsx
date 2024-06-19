@@ -19,8 +19,10 @@ import {
   UiItemsManager,
   UiItemsProvider,
 } from "@itwin/appui-react";
-import { ComponentExamplesModalFrontstage } from "@itwin/appui-test-providers";
-import { ViewportComponent } from "@itwin/imodel-components-react";
+import {
+  ComponentExamplesModalFrontstage,
+  ViewportContent,
+} from "@itwin/appui-test-providers";
 import stageIconSvg from "./imodeljs.svg";
 import { TestAppLocalization } from "../../useTranslation";
 
@@ -58,12 +60,7 @@ export class MainFrontstage {
           {
             id: "viewport",
             classId: "",
-            content: (
-              <ViewportComponent
-                imodel={UiFramework.getIModelConnection()!}
-                viewState={UiFramework.getDefaultViewState()}
-              />
-            ),
+            content: <ViewportContent />,
           },
         ],
       },

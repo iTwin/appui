@@ -47,7 +47,7 @@ export async function hasSavedViewLayoutProps(
 
 export async function getSavedViewLayoutProps(
   activeFrontstageId: string,
-  iModelConnection: IModelConnection | undefined
+  iModelConnection: IModelConnection
 ) {
   const localSettings = new LocalStateStorage();
   const result = await localSettings.getSetting(
@@ -56,26 +56,11 @@ export async function getSavedViewLayoutProps(
   );
 
   if (!result.setting) return undefined;
-  if (!iModelConnection) return undefined;
 
   // Parse StageContentLayoutProps
-  const savedViewLayoutProps: StageContentLayoutProps = result.setting;
-  // Create ViewStates
-  const viewStates = await StageContentLayout.viewStatesFromProps(
-    iModelConnection,
-    savedViewLayoutProps
-  );
-  if (0 === viewStates.length) return undefined;
+  const savedViewLayoutProps: StageContentLayoutProps | undefined =
+    result.setting;
 
-  // Add applicationData to the ContentProps
-  savedViewLayoutProps.contentGroupProps.contents.forEach(
-    (contentProps, index) => {
-      contentProps.applicationData = {
-        viewState: viewStates[index],
-        iModelConnection,
-      };
-    }
-  );
   return savedViewLayoutProps;
 }
 
@@ -155,30 +140,34 @@ export class RestoreSavedContentLayoutTool extends Tool {
   }
 
   public override async run(): Promise<boolean> {
-    if (UiFramework.frontstages.activeFrontstageDef) {
-      const savedViewLayoutProps = await getSavedViewLayoutProps(
-        UiFramework.frontstages.activeFrontstageDef.id,
-        UiFramework.getIModelConnection()
-      );
-      if (savedViewLayoutProps) {
-        let contentGroupProps = savedViewLayoutProps.contentGroupProps;
-        if (UiFramework.frontstages.activeFrontstageDef.contentGroupProvider)
-          contentGroupProps =
-            UiFramework.frontstages.activeFrontstageDef.contentGroupProvider.applyUpdatesToSavedProps(
-              savedViewLayoutProps.contentGroupProps
-            );
-        const contentGroup = new ContentGroup(contentGroupProps);
+    const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
+    if (!frontstageDef) return true;
 
-        // activate the layout
-        await UiFramework.content.layouts.setActiveContentGroup(contentGroup);
+    const iModelConnection = UiFramework.getIModelConnection();
+    if (!iModelConnection) return true;
 
-        // emphasize the elements
-        StageContentLayout.emphasizeElementsFromProps(
-          contentGroup,
-          savedViewLayoutProps
+    const savedViewLayoutProps = await getSavedViewLayoutProps(
+      frontstageDef.id,
+      iModelConnection
+    );
+    if (!savedViewLayoutProps) return true;
+
+    let contentGroupProps = savedViewLayoutProps.contentGroupProps;
+    if (frontstageDef.contentGroupProvider)
+      contentGroupProps =
+        frontstageDef.contentGroupProvider.applyUpdatesToSavedProps(
+          savedViewLayoutProps.contentGroupProps
         );
-      }
-    }
+    const contentGroup = new ContentGroup(contentGroupProps);
+
+    // activate the layout
+    await UiFramework.content.layouts.setActiveContentGroup(contentGroup);
+
+    // emphasize the elements
+    StageContentLayout.emphasizeElementsFromProps(
+      contentGroup,
+      savedViewLayoutProps
+    );
     return true;
   }
 }

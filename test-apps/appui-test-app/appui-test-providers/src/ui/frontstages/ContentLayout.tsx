@@ -6,11 +6,10 @@ import * as React from "react";
 import {
   BackstageAppButton,
   ContentGroup,
-  ContentGroupProps,
   ContentGroupProvider,
   Frontstage,
   FrontstageUtilities,
-  IModelViewportControl,
+  StageContentLayout,
   StagePanelLocation,
   StagePanelSection,
   StageUsage,
@@ -34,60 +33,10 @@ import { ViewportContent } from "../ViewportContent";
  * method `applyUpdatesToSavedProps` is used to make any updates to the saved JSON before it is applied to the stage.
  */
 export class ContentLayoutStageContentGroupProvider extends ContentGroupProvider {
-  public override prepareToSaveProps(contentGroupProps: ContentGroupProps) {
-    const newContentsArray = contentGroupProps.contents.map((content) => {
-      const newContent = { ...content };
-      if (newContent.applicationData) delete newContent.applicationData;
-      return newContent;
-    });
-    return { ...contentGroupProps, contents: newContentsArray };
-  }
-
-  public override applyUpdatesToSavedProps(
-    contentGroupProps: ContentGroupProps
-  ) {
-    const newContentsArray = contentGroupProps.contents.map((content) => {
-      const newContent = { ...content };
-
-      if (newContent.classId === IModelViewportControl.id) {
-        newContent.applicationData = {
-          ...newContent.applicationData,
-          isPrimaryView: true,
-          featureOptions: {
-            defaultViewOverlay: {
-              enableScheduleAnimationViewOverlay: true,
-              enableAnalysisTimelineViewOverlay: true,
-              enableSolarTimelineViewOverlay: true,
-            },
-          },
-        };
-      }
-      return newContent;
-    });
-    return { ...contentGroupProps, contents: newContentsArray };
-  }
-
   public override async contentGroup(
     config: Frontstage
   ): Promise<ContentGroup> {
-    const savedViewLayoutProps = await getSavedViewLayoutProps(
-      config.id,
-      UiFramework.getIModelConnection()
-    );
-    if (savedViewLayoutProps) {
-      const viewState =
-        savedViewLayoutProps.contentGroupProps.contents[0].applicationData
-          ?.viewState;
-      if (viewState) {
-        UiFramework.setDefaultViewState(viewState);
-      }
-      const contentGroupProps = this.applyUpdatesToSavedProps(
-        savedViewLayoutProps.contentGroupProps
-      );
-      return new ContentGroup(contentGroupProps);
-    }
-
-    return new ContentGroup({
+    const defaultContent = new ContentGroup({
       id: "content-layout-stage-frontstage-main-content-group",
       layout: StandardContentLayouts.singleView,
       contents: [
@@ -107,6 +56,39 @@ export class ContentLayoutStageContentGroupProvider extends ContentGroupProvider
           },
         },
       ],
+    });
+
+    const iModelConnection = UiFramework.getIModelConnection();
+    if (!iModelConnection) return defaultContent;
+
+    const savedViewLayoutProps = await getSavedViewLayoutProps(
+      config.id,
+      iModelConnection
+    );
+
+    if (!savedViewLayoutProps) return defaultContent;
+    const viewStates = await StageContentLayout.viewStatesFromProps(
+      iModelConnection,
+      savedViewLayoutProps
+    );
+    if (0 === viewStates.length) return defaultContent;
+
+    const defaultViewState = viewStates[0];
+    if (defaultViewState) {
+      UiFramework.setDefaultViewState(defaultViewState);
+    }
+
+    return new ContentGroup({
+      ...savedViewLayoutProps.contentGroupProps,
+      contents: savedViewLayoutProps.contentGroupProps.contents.map(
+        (content, index) => {
+          const viewState = viewStates[index];
+          return {
+            ...content,
+            content: <ViewportContent viewState={viewState} />,
+          };
+        }
+      ),
     });
   }
 }

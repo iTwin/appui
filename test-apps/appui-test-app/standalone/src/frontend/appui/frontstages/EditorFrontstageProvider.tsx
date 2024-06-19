@@ -23,8 +23,9 @@ import {
   EditTools,
 } from "@itwin/editor-frontend";
 import { SvgDraw, SvgEdit } from "@itwin/itwinui-icons-react";
-import { InitialIModelContentStageProvider } from "./MainFrontstage";
 import { IModelApp, ToolType } from "@itwin/core-frontend";
+import { StandardContentLayouts } from "@itwin/appui-abstract";
+import { ViewportContent } from "@itwin/appui-test-providers";
 
 function createToolbarItem( // TODO: add to imodel-components-react?
   tool: ToolType,
@@ -48,7 +49,17 @@ export async function initializeEditor() {
 
 export const editorFrontstage = FrontstageUtilities.createStandardFrontstage({
   id: "standalone:editor-frontstage",
-  contentGroupProps: new InitialIModelContentStageProvider(),
+  contentGroupProps: {
+    id: "content-group",
+    layout: StandardContentLayouts.singleView,
+    contents: [
+      {
+        id: "viewport",
+        classId: "",
+        content: <ViewportContent />,
+      },
+    ],
+  },
   usage: StageUsage.General,
   cornerButton: <BackstageAppButton />,
 });

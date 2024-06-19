@@ -433,13 +433,13 @@ export class SampleAppIModelApp {
     registerExampleFrontstages();
     addExampleFrontstagesToBackstage();
 
-    // Reset QuantityFormatter UnitsProvider with new iModelConnection
-    // Remove comments once RPC error processing is fixed
-    // const schemaLocater = new ECSchemaRpcLocater(iModelConnection);
-    // await IModelApp.quantityFormatter.setUnitsProvider(new SchemaUnitProvider(schemaLocater));
-
     // store the IModelConnection in the sample app store - this may trigger redux connected components
     UiFramework.setIModelConnection(iModelConnection, true);
+    if (viewIdsSelected.length > 0) {
+      const defaultViewId = viewIdsSelected[0];
+      const viewState = await iModelConnection.views.load(defaultViewId);
+      UiFramework.setDefaultViewState(viewState);
+    }
 
     if (this.iModelParams && this.iModelParams.stageId)
       stageId = this.iModelParams.stageId;
