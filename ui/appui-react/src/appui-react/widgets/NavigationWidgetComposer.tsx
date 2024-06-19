@@ -5,8 +5,15 @@
 /** @packageDocumentation
  * @module Widget
  */
-
-import type { ScreenViewport } from "@itwin/core-frontend";
+import * as React from "react";
+import { ProcessDetector } from "@itwin/core-bentley";
+import {
+  DrawingViewState,
+  OrthographicViewState,
+  type ScreenViewport,
+  SheetViewState,
+  SpatialViewState,
+} from "@itwin/core-frontend";
 import type { CommonProps } from "@itwin/core-react";
 import {
   useProximityToMouse,
@@ -14,17 +21,18 @@ import {
   WidgetElementSet,
   WidgetOpacityContext,
 } from "@itwin/core-react";
-import type { ViewClassFullNameChangedEventArgs } from "@itwin/imodel-components-react";
-import { ViewportComponentEvents } from "@itwin/imodel-components-react";
-import * as React from "react";
-import type {
-  ContentControl,
-  ContentControlActivatedEventArgs,
-} from "../content/ContentControl";
+import {
+  CubeNavigationAid,
+  DrawingNavigationAid,
+  ViewportComponentEvents,
+} from "@itwin/imodel-components-react";
+import type { ContentControl } from "../content/ContentControl";
 import { NavigationArea } from "../layout/widget/NavigationArea";
 import type { NavigationAidControl } from "../navigationaids/NavigationAidControl";
 import { UiFramework } from "../UiFramework";
-import { ProcessDetector } from "@itwin/core-bentley";
+import { useActiveViewport } from "../hooks/useActiveViewport";
+import { ViewUtilities } from "../utils/ViewUtilities";
+import { SheetNavigationAid } from "../navigationaids/SheetNavigationAid";
 
 function createNavigationAidControl(
   // eslint-disable-next-line deprecation/deprecation
@@ -64,9 +72,9 @@ export interface NavigationAidHostProps {
   minHeight?: string;
 }
 
-/**
- * NavigationAidHost is a component that hosts a NavigationAid that is specific to the active content control.
+/** NavigationAidHost is a component that hosts a NavigationAid that is specific to the active content control.
  * @public
+ * @deprecated in 4.15.0. Used internally.
  */
 export function NavigationAidHost(props: NavigationAidHostProps) {
   const [activeContentControl, setActiveContentControl] = React.useState(() =>
@@ -83,9 +91,7 @@ export function NavigationAidHost(props: NavigationAidHostProps) {
   React.useEffect(() => {
     // eslint-disable-next-line deprecation/deprecation
     return UiFramework.frontstages.onContentControlActivatedEvent.addListener(
-      (
-        args: ContentControlActivatedEventArgs // eslint-disable-line deprecation/deprecation
-      ) => {
+      (args) => {
         setActiveContentControl(args.activeContentControl);
         setActiveContentViewport(args.activeContentControl.viewport);
         setNavigationAidId(args.activeContentControl.navigationAidControl);
@@ -102,9 +108,7 @@ export function NavigationAidHost(props: NavigationAidHostProps) {
 
   React.useEffect(() => {
     return ViewportComponentEvents.onViewClassFullNameChangedEvent.addListener(
-      (
-        args: ViewClassFullNameChangedEventArgs // eslint-disable-line deprecation/deprecation
-      ) => {
+      (args) => {
         setActiveViewClass(args.newName);
       }
     );
@@ -146,11 +150,42 @@ export function NavigationAidHost(props: NavigationAidHostProps) {
     divStyle.opacity = `${navigationAidOpacity}`;
   }
 
+  const navigationAid = navigationAidControl?.reactNode ?? (
+    <DefaultNavigationAid />
+  );
   return (
     <div style={divStyle} ref={ref}>
-      {navigationAidControl && navigationAidControl.reactNode}
+      {navigationAid}
     </div>
   );
+}
+
+function DefaultNavigationAid() {
+  const viewport = useActiveViewport();
+  if (!viewport) return null;
+
+  const className = ViewUtilities.getBisBaseClass(viewport.view.classFullName);
+  switch (className) {
+    case SheetViewState.className:
+      return <SheetNavigationAid iModelConnection={viewport.iModel} />;
+    case DrawingViewState.className:
+      return (
+        <DrawingNavigationAid
+          iModelConnection={viewport.iModel}
+          viewport={viewport}
+        />
+      );
+    case SpatialViewState.className:
+    case OrthographicViewState.className:
+      return (
+        <CubeNavigationAid
+          iModelConnection={viewport.iModel}
+          viewport={viewport}
+        />
+      );
+  }
+
+  return null;
 }
 
 /** Properties for the [[NavigationWidgetComposer]] React components
@@ -195,7 +230,8 @@ export function NavigationWidgetComposer(props: NavigationWidgetComposerProps) {
 
   const navigationAid = hideNavigationAid
     ? undefined
-    : navigationAidHost ?? <NavigationAidHost />;
+    : // eslint-disable-next-line deprecation/deprecation
+      navigationAidHost ?? <NavigationAidHost />;
 
   return (
     <WidgetOpacityContext.Provider

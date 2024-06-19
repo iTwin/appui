@@ -12,7 +12,6 @@ import {
   SettingsModalFrontstage,
   StageUsage,
   StandardContentToolsUiItemsProvider,
-  StandardFrontstageProps,
   StandardNavigationToolsUiItemsProvider,
   StandardStatusbarUiItemsProvider,
   UiFramework,
@@ -50,26 +49,24 @@ export class MainFrontstage {
   public static stageId = "appui-test-app:main-stage";
 
   public static register() {
-    const stageProps: StandardFrontstageProps = {
-      id: MainFrontstage.stageId,
-      version: 1.1,
-      contentGroupProps: {
-        id: "content-group",
-        layout: StandardContentLayouts.singleView,
-        contents: [
-          {
-            id: "viewport",
-            classId: "",
-            content: <ViewportContent />,
-          },
-        ],
-      },
-      cornerButton: <BackstageAppButton />,
-      usage: StageUsage.General,
-    };
-
     UiFramework.frontstages.addFrontstage(
-      FrontstageUtilities.createStandardFrontstage(stageProps)
+      FrontstageUtilities.createStandardFrontstage({
+        id: MainFrontstage.stageId,
+        version: 1.1,
+        contentGroupProps: {
+          id: "content-group",
+          layout: StandardContentLayouts.singleView,
+          contents: [
+            {
+              id: "viewport",
+              classId: "",
+              content: <ViewportContent />,
+            },
+          ],
+        },
+        cornerButton: <BackstageAppButton />,
+        usage: StageUsage.General,
+      })
     );
     this.registerUiItemProviders();
   }
