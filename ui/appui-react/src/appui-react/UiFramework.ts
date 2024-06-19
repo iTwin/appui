@@ -1004,6 +1004,7 @@ export class UiFramework {
     id: string,
     optionalProps?: DialogProps
   ): boolean {
+    // eslint-disable-next-line deprecation/deprecation
     const dialog = createElement(UiDataProvidedDialog, {
       uiDataProvider,
       title,
