@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { ContentDialog, UiFramework } from "@itwin/appui-react";
-import { Tool } from "@itwin/core-frontend";
+import { IModelApp, Tool } from "@itwin/core-frontend";
 import * as React from "react";
 import { SynchronizedFloatingView } from "../ui/dialogs/SynchronizedFloatingViewComponent";
 import panoramaconSvg from "@bentley/icons-generic/icons/panorama.svg";
@@ -74,7 +74,7 @@ export class OpenSynchronizedViewTool extends Tool {
   }
 }
 
-export function IModelViewDialog({
+function IModelViewDialog({
   x,
   y,
   id,
@@ -85,10 +85,12 @@ export function IModelViewDialog({
   id: string;
   title: string;
 }) {
+  const [viewport] = React.useState(() => IModelApp.viewManager.selectedView);
   const handleClose = React.useCallback(() => {
     UiFramework.content.dialogs.close(id);
   }, [id]);
 
+  if (!viewport) return null;
   return (
     <ContentDialog
       title={title}
@@ -96,13 +98,13 @@ export function IModelViewDialog({
       opened={true}
       onClose={handleClose}
       onEscape={handleClose}
-      width={"40vw"}
-      height={"40vh"}
+      width="40vw"
+      height="40vh"
       dialogId={id}
       x={x}
       y={y}
     >
-      <SynchronizedFloatingView contentId={id} />
+      <SynchronizedFloatingView contentId={id} viewport={viewport} />
     </ContentDialog>
   );
 }
