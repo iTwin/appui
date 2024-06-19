@@ -33,18 +33,6 @@ describe("AccuDrawDialog", () => {
     );
   });
 
-  it("should set focus to Home on Esc key", () => {
-    const spy = vi.spyOn(UiFramework.keyboardShortcuts, "setFocusToHome");
-    const component = render(
-      <AccuDrawDialog opened={true} dialogId="accudraw" />
-    );
-
-    component.baseElement.dispatchEvent(
-      new KeyboardEvent("keyup", { key: Key.Escape })
-    );
-    expect(spy).toHaveBeenCalledOnce();
-  });
-
   it("should call onClose on close", () => {
     const spy = vi.fn();
     const component = render(

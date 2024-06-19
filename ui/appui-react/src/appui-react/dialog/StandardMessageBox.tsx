@@ -107,6 +107,7 @@ export function StandardMessageBox(props: StandardMessageBoxProps) {
       }}
       closeOnEsc
       closeOnExternalClick={false}
+      data-testid="dialog-container"
     >
       <ModalContent>
         {/* eslint-disable-next-line deprecation/deprecation */}
