@@ -197,7 +197,7 @@ export interface FrameworkContent {
   /**
    * Manage dialogs displaying managed content.
    * @beta
-   * @deprecated in 4.15.0. Use {@link UiFramework.dialogs.modeless} or {@link UiFramework.dialogs.modal} instead.
+   * @deprecated in 4.15.0. Use `modeless` or `modal` properties of {@link UiFramework.dialogs} instead.
    */
   readonly dialogs: FrameworkStackedDialog<ContentDialogInfo> & {
     /** Content Dialog Changed Event */

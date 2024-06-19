@@ -158,10 +158,12 @@ deprecated;ContentControlActivatedEvent
 public;ContentControlActivatedEventArgs
 deprecated;ContentControlActivatedEventArgs
 public;ContentDialog(props: ContentDialogProps): React_2.JSX.Element
+deprecated;ContentDialog(props: ContentDialogProps): React_2.JSX.Element
 public;ContentDialogChangedEvent 
 deprecated;ContentDialogChangedEvent 
 public;ContentDialogInfo
 public;ContentDialogProps 
+deprecated;ContentDialogProps 
 public;ContentDialogRenderer 
 public;ContentGroup
 public;ContentGroupProps
@@ -436,10 +438,12 @@ deprecated;ModalFrontstageRequestedCloseEvent
 alpha;ModalFrontstageRequestedCloseEventArgs
 deprecated;ModalFrontstageRequestedCloseEventArgs
 public;ModelessDialog 
+deprecated;ModelessDialog 
 public;ModelessDialogChangedEvent 
 deprecated;ModelessDialogChangedEvent 
 public;ModelessDialogInfo
 public;ModelessDialogProps 
+deprecated;ModelessDialogProps 
 public;ModelessDialogRenderer 
 public;MouseDownChangedEvent 
 deprecated;MouseDownChangedEvent 
@@ -581,6 +585,8 @@ public;StandardFrontstageProvider
 deprecated;StandardFrontstageProvider 
 public;StandardLayoutToolbarItem
 public;StandardLayoutWidget
+public;StandardMessageBox(props: StandardMessageBoxProps): React_2.JSX.Element
+deprecated;StandardMessageBox(props: StandardMessageBoxProps): React_2.JSX.Element
 public;StandardMessageBoxProps 
 deprecated;StandardMessageBoxProps 
 public;StandardNavigationToolsProvider 
@@ -694,7 +700,9 @@ public;ToolWidgetComposerProps
 internal;toPanelSide(location: StagePanelLocation): PanelSide
 internal;TrackingTime
 public;UiDataProvidedDialog({ uiDataProvider, id, isModal, ...dialogProps }: UiDataProvidedDialogProps): React_2.JSX.Element
+deprecated;UiDataProvidedDialog({ uiDataProvider, id, isModal, ...dialogProps }: UiDataProvidedDialogProps): React_2.JSX.Element
 public;UiDataProvidedDialogProps
+deprecated;UiDataProvidedDialogProps
 public;UiFramework
 public;UiItemsManager
 public;UiItemsProvider
@@ -716,7 +724,6 @@ public;UiVisibilityEventArgs
 deprecated;UiVisibilityEventArgs
 alpha;UnitSystemSelector(props: UnitSystemSelectorProps): React_2.JSX.Element
 beta;UnitSystemSelectorProps
-internal;useActiveContentControlId(): string | undefined
 public;useActiveFrontstageDef(): FrontstageDef | undefined
 public;useActiveFrontstageId: () => string
 public;useActiveIModelConnection(): IModelConnection | undefined

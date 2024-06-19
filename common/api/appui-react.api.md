@@ -171,7 +171,8 @@ export function AccuDrawDialog(props: AccuDrawDialogProps): React_2.JSX.Element;
 
 // @beta
 export interface AccuDrawDialogProps extends CommonProps {
-    dialogId: string;
+    // @deprecated
+    dialogId?: string;
     onClose?: () => void;
     opened: boolean;
     orientation?: Orientation;
@@ -1068,7 +1069,7 @@ export interface ContentControlActivatedEventArgs {
     oldContentControl?: ContentControl;
 }
 
-// @public
+// @public @deprecated
 export function ContentDialog(props: ContentDialogProps): React_2.JSX.Element;
 
 // @public @deprecated
@@ -1085,7 +1086,7 @@ export interface ContentDialogInfo {
     zIndex: number;
 }
 
-// @public
+// @public @deprecated
 export interface ContentDialogProps extends DialogProps_2 {
     // (undocumented)
     children: React_2.ReactNode;
@@ -1899,7 +1900,7 @@ export interface FrameworkContent {
     // (undocumented)
     addFloatingContentControl(contentControl?: ContentControl): void;
     contentSupportsCamera(content: ContentControl | undefined): boolean;
-    // @beta
+    // @beta @deprecated
     readonly dialogs: FrameworkStackedDialog<ContentDialogInfo> & {
         readonly onContentDialogChangedEvent: ContentDialogChangedEvent;
     };
@@ -3291,7 +3292,7 @@ export interface ModalFrontstageRequestedCloseEventArgs {
     stageCloseFunc: () => void;
 }
 
-// @public
+// @public @deprecated
 export class ModelessDialog extends React_2.Component<ModelessDialogProps> {
     constructor(props: ModelessDialogProps);
     // (undocumented)
@@ -3312,7 +3313,7 @@ export interface ModelessDialogInfo {
     zIndex: number;
 }
 
-// @public
+// @public @deprecated
 export interface ModelessDialogProps extends DialogProps_2 {
     // (undocumented)
     dialogId: string;
@@ -4309,14 +4310,7 @@ export interface StandardLayoutWidget {
 }
 
 // @public @deprecated
-export class StandardMessageBox extends React_2.PureComponent<StandardMessageBoxProps, // eslint-disable-line deprecation/deprecation
-StandardMessageBoxState> {
-    constructor(props: StandardMessageBoxProps);
-    // (undocumented)
-    render(): React_2.ReactElement;
-    // @internal (undocumented)
-    readonly state: Readonly<StandardMessageBoxState>;
-}
+export function StandardMessageBox(props: StandardMessageBoxProps): React_2.JSX.Element;
 
 // @public @deprecated
 export interface StandardMessageBoxProps extends CommonProps {
@@ -4974,10 +4968,10 @@ export interface TrackingTime {
     startTime: Date;
 }
 
-// @public
+// @public @deprecated
 export function UiDataProvidedDialog({ uiDataProvider, id, isModal, ...dialogProps }: UiDataProvidedDialogProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface UiDataProvidedDialogProps {
     height?: string | number;
     id?: string;
@@ -5248,9 +5242,6 @@ export interface UnitSystemSelectorProps {
     // (undocumented)
     selectedUnitSystemKey: UnitSystemKey;
 }
-
-// @internal (undocumented)
-export function useActiveContentControlId(): string | undefined;
 
 // @public
 export function useActiveFrontstageDef(): FrontstageDef | undefined;
