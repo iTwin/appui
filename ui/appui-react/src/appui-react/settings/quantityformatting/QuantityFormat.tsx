@@ -411,6 +411,7 @@ function SaveFormatModalDialog({
   onDialogCloseArgs?: any;
   onDialogClose: (args?: any) => void;
 }) {
+  const { translate } = useTranslation();
   const [isOpen, setIsOpen] = React.useState(true);
 
   const handleClose = React.useCallback(() => {
@@ -445,9 +446,9 @@ function SaveFormatModalDialog({
       </ModalContent>
       <ModalButtonBar>
         <Button styleType="high-visibility" onClick={handleOK}>
-          Yes
+          {translate("dialog.yes")}
         </Button>
-        <Button onClick={handleCancel}>No</Button>
+        <Button onClick={handleCancel}>{translate("dialog.no")}</Button>
       </ModalButtonBar>
     </Modal>
   );
