@@ -194,16 +194,12 @@ describe("ContentGroupProvider", () => {
   });
 
   it("openStandardFrontstage with corner items", async () => {
-    const cornerButton = (
-      <BackstageAppButton key="ui2-backstage" icon={"icon-bentley-systems"} />
-    );
-
     const ui2StageProps: StandardFrontstageProps = {
       id: "Ui2",
       version: 1.1,
       contentGroupProps: new TestContentGroupProvider(),
       hideNavigationAid: false,
-      cornerButton,
+      cornerButton: <BackstageAppButton icon={"icon-bentley-systems"} />,
       usage: StageUsage.General,
     };
 

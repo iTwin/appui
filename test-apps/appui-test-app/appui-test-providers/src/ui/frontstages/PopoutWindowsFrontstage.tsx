@@ -3,15 +3,10 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
+import { StandardContentLayouts } from "@itwin/appui-abstract";
 import {
   BackstageAppButton,
-  ContentGroup,
-  ContentGroupProps,
-  ContentGroupProvider,
-  ContentProps,
-  Frontstage,
   FrontstageUtilities,
-  IModelViewportControl,
   StageUsage,
   StandardContentToolsUiItemsProvider,
   StandardNavigationToolsUiItemsProvider,
@@ -19,96 +14,8 @@ import {
   UiFramework,
   UiItemsManager,
 } from "@itwin/appui-react";
-import { StandardContentLayouts } from "@itwin/appui-abstract";
-import { getSavedViewLayoutProps } from "../../tools/ContentLayoutTools";
 import { PopoutWindowsStageUiItemsProvider } from "../providers/PopoutWindowsStageUiItemsProvider";
-
-/**
- * The PopoutWindowsFrontstageContentGroupProvider provides a class with the primary method `provideContentGroup` to provide a ContentGroup
- * to a stage when the stage is activated.
- */
-export class PopoutWindowsFrontstageGroupProvider extends ContentGroupProvider {
-  public override prepareToSaveProps(contentGroupProps: ContentGroupProps) {
-    const newContentsArray = contentGroupProps.contents.map(
-      (content: ContentProps) => {
-        const newContent = { ...content };
-        if (newContent.applicationData) delete newContent.applicationData;
-        return newContent;
-      }
-    );
-    return { ...contentGroupProps, contents: newContentsArray };
-  }
-
-  public override applyUpdatesToSavedProps(
-    contentGroupProps: ContentGroupProps
-  ) {
-    const newContentsArray = contentGroupProps.contents.map(
-      (content: ContentProps) => {
-        const newContent = { ...content };
-
-        if (newContent.classId === IModelViewportControl.id) {
-          newContent.applicationData = {
-            ...newContent.applicationData,
-            isPrimaryView: true,
-            featureOptions: {
-              defaultViewOverlay: {
-                enableScheduleAnimationViewOverlay: true,
-                enableAnalysisTimelineViewOverlay: true,
-                enableSolarTimelineViewOverlay: true,
-              },
-            },
-          };
-        }
-        return newContent;
-      }
-    );
-    return { ...contentGroupProps, contents: newContentsArray };
-  }
-
-  public override async contentGroup(
-    config: Frontstage
-  ): Promise<ContentGroup> {
-    const savedViewLayoutProps = await getSavedViewLayoutProps(
-      config.id,
-      UiFramework.getIModelConnection()
-    );
-    if (savedViewLayoutProps) {
-      const viewState =
-        savedViewLayoutProps.contentGroupProps.contents[0].applicationData
-          ?.viewState;
-      if (viewState) {
-        UiFramework.setDefaultViewState(viewState);
-      }
-      const contentGroupProps = this.applyUpdatesToSavedProps(
-        savedViewLayoutProps.contentGroupProps
-      );
-      return new ContentGroup(contentGroupProps);
-    }
-
-    return new ContentGroup({
-      id: "popout-windows-stage-frontstage-main-content-group",
-      layout: StandardContentLayouts.singleView,
-      contents: [
-        {
-          id: "primaryContent",
-          classId: IModelViewportControl.id,
-          applicationData: {
-            isPrimaryView: true,
-            viewState: UiFramework.getDefaultViewState,
-            iModelConnection: UiFramework.getIModelConnection,
-            featureOptions: {
-              defaultViewOverlay: {
-                enableScheduleAnimationViewOverlay: true,
-                enableAnalysisTimelineViewOverlay: true,
-                enableSolarTimelineViewOverlay: true,
-              },
-            },
-          },
-        },
-      ],
-    });
-  }
-}
+import { ViewportContent } from "../ViewportContent";
 
 /**
  * The PopoutWindowsFrontstage provides a register method that registers a FrontstageProvider that is used to activate a stage.
@@ -121,15 +28,34 @@ export class PopoutWindowsFrontstageGroupProvider extends ContentGroupProvider {
 export class PopoutWindowsFrontstage {
   public static stageId = "appui-test-providers:PopoutWindowsFrontstage";
 
-  private static _contentGroupProvider =
-    new PopoutWindowsFrontstageGroupProvider();
-
   public static register(localizationNamespace: string) {
     UiFramework.frontstages.addFrontstage(
       FrontstageUtilities.createStandardFrontstage({
         id: PopoutWindowsFrontstage.stageId,
         version: 1.1,
-        contentGroupProps: PopoutWindowsFrontstage._contentGroupProvider,
+        contentGroupProps: {
+          id: "popout-windows-stage-frontstage-main-content-group",
+          layout: StandardContentLayouts.singleView,
+          contents: [
+            {
+              id: "primaryContent",
+              classId: "",
+              content: <ViewportContent />,
+              applicationData: {
+                isPrimaryView: true,
+                viewState: UiFramework.getDefaultViewState,
+                iModelConnection: UiFramework.getIModelConnection,
+                featureOptions: {
+                  defaultViewOverlay: {
+                    enableScheduleAnimationViewOverlay: true,
+                    enableAnalysisTimelineViewOverlay: true,
+                    enableSolarTimelineViewOverlay: true,
+                  },
+                },
+              },
+            },
+          ],
+        },
         cornerButton: (
           <BackstageAppButton
             key="appui-test-providers-popout-windows-backstage"

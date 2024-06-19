@@ -2,9 +2,8 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { ToolbarItemUtilities } from "@itwin/appui-abstract";
 import { ContentDialog, UiFramework } from "@itwin/appui-react";
-import { IModelApp, Tool } from "@itwin/core-frontend";
+import { Tool } from "@itwin/core-frontend";
 import * as React from "react";
 import { SynchronizedFloatingView } from "../ui/dialogs/SynchronizedFloatingViewComponent";
 import panoramaconSvg from "@bentley/icons-generic/icons/panorama.svg";
@@ -72,25 +71,6 @@ export class OpenSynchronizedViewTool extends Tool {
 
   public static override get englishKeyin(): string {
     return "open view dialog";
-  }
-
-  public static getActionButtonDef(
-    itemPriority: number,
-    groupPriority?: number
-  ) {
-    const overrides = {
-      groupPriority,
-    };
-    return ToolbarItemUtilities.createActionButton(
-      OpenSynchronizedViewTool.toolId,
-      itemPriority,
-      OpenSynchronizedViewTool.iconSpec,
-      OpenSynchronizedViewTool.flyover,
-      async () => {
-        await IModelApp.tools.run(OpenSynchronizedViewTool.toolId);
-      },
-      overrides
-    );
   }
 }
 

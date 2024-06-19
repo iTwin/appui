@@ -127,21 +127,18 @@ export enum SampleAppUiActionId {
   setTestProperty = "sampleapp:settestproperty",
   setAnimationViewId = "sampleapp:setAnimationViewId",
   setIsIModelLocal = "sampleapp:setisimodellocal",
-  setInitialViewIds = "sampleapp:setInitialViewIds",
 }
 
 export interface SampleAppState {
   testProperty: string;
   animationViewId: string;
   isIModelLocal: boolean;
-  initialViewIds: string[];
 }
 
 const initialState: SampleAppState = {
   testProperty: "",
   animationViewId: "",
   isIModelLocal: true,
-  initialViewIds: [],
 };
 
 // An object with a function that creates each OpenIModelAction that can be handled by our reducer.
@@ -155,9 +152,6 @@ export const SampleAppActions = {
   setIsIModelLocal: (isIModelLocal: boolean) =>
     // eslint-disable-next-line deprecation/deprecation
     createAction(SampleAppUiActionId.setIsIModelLocal, isIModelLocal),
-  setInitialViewIds: (viewIds: string[]) =>
-    // eslint-disable-next-line deprecation/deprecation
-    createAction(SampleAppUiActionId.setInitialViewIds, viewIds),
 };
 
 class SampleAppAccuSnap extends AccuSnap {
@@ -211,9 +205,6 @@ function SampleAppReducer(
     }
     case SampleAppUiActionId.setIsIModelLocal: {
       return { ...state, isIModelLocal: action.payload };
-    }
-    case SampleAppUiActionId.setInitialViewIds: {
-      return { ...state, initialViewIds: action.payload };
     }
   }
   return state;
@@ -450,11 +441,6 @@ export class SampleAppIModelApp {
     // store the IModelConnection in the sample app store - this may trigger redux connected components
     UiFramework.setIModelConnection(iModelConnection, true);
 
-    // store off the selected viewIds so the content group provider knows what view(s) to show
-    if (viewIdsSelected.length) {
-      SampleAppIModelApp.setInitialViewIds(viewIdsSelected);
-    }
-
     if (this.iModelParams && this.iModelParams.stageId)
       stageId = this.iModelParams.stageId;
     else if (SampleAppIModelApp.testAppConfiguration?.readWrite) {
@@ -516,10 +502,6 @@ export class SampleAppIModelApp {
     }
   }
 
-  public static getInitialViewIds() {
-    return SampleAppIModelApp.store.getState().sampleAppState.initialViewIds;
-  }
-
   public static getTestProperty(): string {
     return SampleAppIModelApp.store.getState().sampleAppState.testProperty;
   }
@@ -547,15 +529,6 @@ export class SampleAppIModelApp {
     UiFramework.dispatchActionToStore(
       SampleAppUiActionId.setIsIModelLocal,
       isIModelLocal,
-      immediateSync
-    );
-  }
-
-  public static setInitialViewIds(viewIds: string[], immediateSync = false) {
-    // eslint-disable-next-line deprecation/deprecation
-    UiFramework.dispatchActionToStore(
-      SampleAppUiActionId.setInitialViewIds,
-      viewIds,
       immediateSync
     );
   }

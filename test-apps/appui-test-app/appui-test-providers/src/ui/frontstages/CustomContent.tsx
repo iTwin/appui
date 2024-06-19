@@ -5,8 +5,6 @@
 import * as React from "react";
 import {
   BackstageAppButton,
-  ContentGroup,
-  ContentGroupProvider,
   FrontstageUtilities,
   IModelViewportControl,
   StageUsage,
@@ -16,58 +14,9 @@ import {
   UiFramework,
   UiItemsManager,
 } from "@itwin/appui-react";
-import {
-  ContentLayoutProps,
-  StandardContentLayouts,
-} from "@itwin/appui-abstract";
+import { StandardContentLayouts } from "@itwin/appui-abstract";
 import { CustomContentStageUiProvider } from "../providers/CustomContentStageUiProvider";
 import { SampleContentControl } from "../content/SampleContentControl";
-
-/**
- * The CustomContentGroupProvider class method `provideContentGroup` returns a ContentGroup that displays two content view, one the
- * shows and IModel using `UiFramework.getDefaultViewState` and a second content that just display React components. The layout
- * used in StandardContentLayouts.twoHorizontalSplit which arrange the iModel view on top and the React content below.
- */
-export class CustomContentGroupProvider extends ContentGroupProvider {
-  public override async contentGroup(): Promise<ContentGroup> {
-    // copy and then modify standard layout so the content is always shown - note we could have just copied the standard and created a new one in line
-    const twoHorizontalSplit: ContentLayoutProps = {
-      ...StandardContentLayouts.twoHorizontalSplit,
-      horizontalSplit: {
-        ...StandardContentLayouts.twoHorizontalSplit.horizontalSplit!,
-        minSizeBottom: 100,
-        percentage: 0.8,
-      },
-    };
-
-    return new ContentGroup({
-      id: "appui-test-providers:custom-stage-content",
-      layout: twoHorizontalSplit,
-      contents: [
-        {
-          id: "primaryContent",
-          classId: IModelViewportControl.id,
-          applicationData: {
-            isPrimaryView: true,
-            viewState: UiFramework.getDefaultViewState,
-            iModelConnection: UiFramework.getIModelConnection,
-            featureOptions: {
-              defaultViewOverlay: {
-                enableScheduleAnimationViewOverlay: true,
-                enableAnalysisTimelineViewOverlay: true,
-                enableSolarTimelineViewOverlay: true,
-              },
-            },
-          },
-        },
-        {
-          id: "ui-test:customContent",
-          classId: SampleContentControl,
-        },
-      ],
-    });
-  }
-}
 
 /**
  * This class is used to register a new frontstage that is called 'Custom' which provides custom content along with imodel content.
@@ -77,7 +26,6 @@ export class CustomContentGroupProvider extends ContentGroupProvider {
  */
 export class CustomContentFrontstage {
   public static stageId = "appui-test-providers:CustomContent";
-  private static _contentGroupProvider = new CustomContentGroupProvider();
 
   public static register(localizationNamespace: string) {
     CustomContentFrontstage.registerToolProviders(localizationNamespace);
@@ -85,7 +33,40 @@ export class CustomContentFrontstage {
       FrontstageUtilities.createStandardFrontstage({
         id: CustomContentFrontstage.stageId,
         version: 1.1,
-        contentGroupProps: CustomContentFrontstage._contentGroupProvider,
+        contentGroupProps: {
+          id: "appui-test-providers:custom-stage-content",
+          layout: {
+            ...StandardContentLayouts.twoHorizontalSplit,
+            horizontalSplit: {
+              ...StandardContentLayouts.twoHorizontalSplit.horizontalSplit!,
+              minSizeBottom: 100,
+              percentage: 0.8,
+            },
+          },
+          contents: [
+            {
+              id: "primaryContent",
+              // eslint-disable-next-line deprecation/deprecation
+              classId: IModelViewportControl,
+              applicationData: {
+                isPrimaryView: true,
+                viewState: UiFramework.getDefaultViewState,
+                iModelConnection: UiFramework.getIModelConnection,
+                featureOptions: {
+                  defaultViewOverlay: {
+                    enableScheduleAnimationViewOverlay: true,
+                    enableAnalysisTimelineViewOverlay: true,
+                    enableSolarTimelineViewOverlay: true,
+                  },
+                },
+              },
+            },
+            {
+              id: "ui-test:customContent",
+              classId: SampleContentControl,
+            },
+          ],
+        },
         hideNavigationAid: false,
         cornerButton: <BackstageAppButton />,
         usage: StageUsage.General,

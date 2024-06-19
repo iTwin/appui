@@ -75,7 +75,7 @@ export function ViewportWidgetComponent() {
   );
 
   if (!activeIModelConnection || !isLoaded || !viewState)
-    return <div> Empty View </div>;
+    return <div>Empty View</div>;
 
   return (
     <div

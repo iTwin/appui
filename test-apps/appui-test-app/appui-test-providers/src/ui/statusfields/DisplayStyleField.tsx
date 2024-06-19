@@ -14,19 +14,14 @@ import {
   DisplayStyle2dState,
   DisplayStyle3dState,
   DisplayStyleState,
+  IModelApp,
   ScreenViewport,
 } from "@itwin/core-frontend";
-import {
-  ContentControl,
-  ContentControlActivatedEventArgs,
-  UiFramework,
-} from "@itwin/appui-react";
 import { Select, SelectOption } from "@itwin/itwinui-react";
 import { CommonProps } from "@itwin/core-react";
 import { useTranslation } from "../../useTranslation";
 
-/**
- * This component is designed to be specified in a status bar definition to select the display style in the active IModel view.
+/** This component is designed to be specified in a status bar definition to select the display style in the active IModel view.
  * It is used to enable/disable display of shadows.
  */
 // eslint-disable-next-line deprecation/deprecation
@@ -41,18 +36,16 @@ export function DisplayStyleField(props: CommonProps) {
   >(() => []);
   const [displayStyleId, setDisplayStyleId] = React.useState("");
 
-  const setStateFromActiveContent = React.useCallback(
-    async (contentControl?: ContentControl) => {
-      if (!contentControl) return;
-      if (!contentControl.viewport) return;
+  const setStateFromViewport = React.useCallback(
+    async (newViewport?: ScreenViewport) => {
+      if (!newViewport) return;
 
       const newDisplayStyles = new Map<Id64String, DisplayStyleState>();
-      const view = contentControl.viewport.view;
-      const is3d = view.is3d();
+      const is3d = newViewport.view.is3d();
       const sqlName: string = is3d
         ? DisplayStyle3dState.classFullName
         : DisplayStyle2dState.classFullName;
-      const displayStyleProps = await view.iModel.elements.queryProps({
+      const displayStyleProps = await newViewport.iModel.elements.queryProps({
         from: sqlName,
         where: "IsPrivate=FALSE",
       });
@@ -68,37 +61,33 @@ export function DisplayStyleField(props: CommonProps) {
         newStyleEntries.push({ value: displayStyleProp.id!, label: name });
         let displayStyle: DisplayStyleState;
         if (is3d)
-          displayStyle = new DisplayStyle3dState(displayStyleProp, view.iModel);
+          displayStyle = new DisplayStyle3dState(
+            displayStyleProp,
+            newViewport.iModel
+          );
         else
-          displayStyle = new DisplayStyle2dState(displayStyleProp, view.iModel);
+          displayStyle = new DisplayStyle2dState(
+            displayStyleProp,
+            newViewport.iModel
+          );
         newDisplayStyles.set(displayStyleProp.id!, displayStyle);
       }
 
       setDisplayStyles(newDisplayStyles);
       setStyleEntries(newStyleEntries);
-      setViewport(contentControl.viewport);
-      setDisplayStyleId(contentControl.viewport.view.displayStyle.id);
+      setViewport(newViewport);
+      setDisplayStyleId(newViewport.view.displayStyle.id);
     },
     [translate]
   );
-
   React.useEffect(() => {
-    const handleContentControlActivatedEvent = (
-      args: ContentControlActivatedEventArgs // eslint-disable-line deprecation/deprecation
-    ) => {
-      setTimeout(async () =>
-        setStateFromActiveContent(args.activeContentControl)
-      );
-    };
-
-    void setStateFromActiveContent(
-      UiFramework.content.getActiveContentControl()
+    void setStateFromViewport(IModelApp.viewManager.selectedView);
+    return IModelApp.viewManager.onSelectedViewportChanged.addListener(
+      (args) => {
+        void setStateFromViewport(args.current);
+      }
     );
-
-    return UiFramework.frontstages.onContentControlActivatedEvent.addListener(
-      handleContentControlActivatedEvent
-    );
-  }, [setStateFromActiveContent]);
+  }, [setStateFromViewport]);
 
   const handleDisplayStyleSelected = React.useCallback(
     async (newValue: string) => {
