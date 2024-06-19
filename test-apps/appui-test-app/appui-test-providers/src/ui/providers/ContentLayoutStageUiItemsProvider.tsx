@@ -32,6 +32,7 @@ import { getCustomViewSelectorPopupItem } from "../buttons/ViewSelectorPanel";
 import { ContentLayoutStage } from "../frontstages/ContentLayout";
 import { DisplayStyleField } from "../statusfields/DisplayStyleField";
 import { ViewportWidgetComponent } from "../widgets/ViewportWidget";
+import { IModelApp } from "@itwin/core-frontend";
 
 /**
  * The ContentLayoutStageUiItemsProvider provides additional items only to the `ContentLayoutStage` frontstage.
@@ -81,7 +82,9 @@ export class ContentLayoutStageUiItemsProvider implements UiItemsProvider {
       ) {
         return [
           {
-            ...createSplitSingleViewportToolbarItem(),
+            ...createSplitSingleViewportToolbarItem(() => {
+              return IModelApp.viewManager.selectedView;
+            }),
             itemPriority: 15,
             groupPriority: 3000,
           },

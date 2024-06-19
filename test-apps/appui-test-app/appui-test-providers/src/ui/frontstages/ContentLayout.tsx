@@ -65,17 +65,17 @@ export class ContentLayoutStageContentGroupProvider extends ContentGroupProvider
       config.id,
       iModelConnection
     );
-
     if (!savedViewLayoutProps) return defaultContent;
+
     const viewStates = await StageContentLayout.viewStatesFromProps(
       iModelConnection,
       savedViewLayoutProps
     );
-    if (0 === viewStates.length) return defaultContent;
-
-    const defaultViewState = viewStates[0];
-    if (defaultViewState) {
-      UiFramework.setDefaultViewState(defaultViewState);
+    if (viewStates.length > 0) {
+      const defaultViewState = viewStates[0];
+      if (defaultViewState) {
+        UiFramework.setDefaultViewState(defaultViewState);
+      }
     }
 
     return new ContentGroup({
