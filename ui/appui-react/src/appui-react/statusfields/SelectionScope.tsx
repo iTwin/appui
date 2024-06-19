@@ -83,7 +83,6 @@ export function SelectionScopeField(props: SelectionScopeFieldProps) {
         className="uifw-statusFields-selectionScope-selector"
         label={`${translate("selectionScopeField.label")}:`}
         labelProps={{ className: "uifw-statusFields-selectionScope-label" }}
-        wrapperProps={{ style: { rowGap: "0px" } }} // TODO: remove when https://github.com/iTwin/iTwinUI/issues/2051 is fixed
         displayStyle="inline"
         value={activeSelectionScope}
         options={options}

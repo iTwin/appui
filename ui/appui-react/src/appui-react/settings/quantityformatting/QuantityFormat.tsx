@@ -24,14 +24,12 @@ import type {
   FormatterSpec,
   UnitSystemKey,
 } from "@itwin/core-quantity";
-import { DialogButtonType } from "@itwin/appui-abstract";
 import {
   FormatSample,
   QuantityFormatPanel,
 } from "@itwin/imodel-components-react";
 import type { SettingsTabEntry } from "@itwin/core-react";
 import {
-  Dialog,
   Listbox,
   ListboxItem,
   useSaveBeforeActivatingNewSettingsTab,
@@ -39,7 +37,12 @@ import {
 } from "@itwin/core-react";
 import { UiFramework } from "../../UiFramework";
 import { UnitSystemSelector } from "./UnitSystemSelector";
-import { Button } from "@itwin/itwinui-react";
+import {
+  Button,
+  Modal,
+  ModalButtonBar,
+  ModalContent,
+} from "@itwin/itwinui-react";
 import { SvgMeasure } from "@itwin/itwinui-icons-react";
 import { useTranslation } from "../../hooks/useTranslation";
 
@@ -429,28 +432,23 @@ function SaveFormatModalDialog({
   }, [handleClose]);
 
   return (
-    // eslint-disable-next-line deprecation/deprecation
-    <Dialog
+    <Modal
+      isOpen={isOpen}
       title={"Save Format Changes"}
-      opened={isOpen}
-      resizable={false}
-      movable={false}
-      modal={true}
-      buttonCluster={[
-        { type: DialogButtonType.Yes, onClick: handleOK },
-        { type: DialogButtonType.No, onClick: handleCancel },
-      ]}
-      onEscape={handleCancel}
       onClose={handleCancel}
-      onOutsideClick={handleCancel}
-      minHeight={150}
-      maxHeight={400}
-      maxWidth={400}
-      minWidth={200}
+      style={{ minWidth: 200, maxWidth: 400, minHeight: 150, maxHeight: 400 }}
+      closeOnEsc
+      closeOnExternalClick
     >
-      <div className="modal-dialog2">
+      <ModalContent>
         Do you want to save changes to format before changing to another type?
-      </div>
-    </Dialog>
+      </ModalContent>
+      <ModalButtonBar>
+        <Button styleType="high-visibility" onClick={handleOK}>
+          Yes
+        </Button>
+        <Button onClick={handleCancel}>No</Button>
+      </ModalButtonBar>
+    </Modal>
   );
 }

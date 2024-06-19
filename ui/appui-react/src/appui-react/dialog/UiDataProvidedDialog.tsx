@@ -20,6 +20,7 @@ import { DefaultDialogGridContainer } from "../uiprovider/DefaultDialogGridConta
 
 /** Props for [[UiDataProvidedDialog]] component.
  * @public
+ * @deprecated in 4.15.0. Props of deprecated {@link UiDataProvidedDialog} component.
  */
 export interface UiDataProvidedDialogProps {
   /** Dialog title */
@@ -50,13 +51,15 @@ export interface UiDataProvidedDialogProps {
 
 /** Component to show dialog populated from properties supplied via uiDataProvider
  * @public
+ * @deprecated in 4.15.0. Use {@link https://itwinui.bentley.com/docs/dialog iTwinUI Dialog} instead.
  */
 export function UiDataProvidedDialog({
   uiDataProvider,
   id,
   isModal,
   ...dialogProps
-}: UiDataProvidedDialogProps) {
+}: // eslint-disable-next-line deprecation/deprecation
+UiDataProvidedDialogProps) {
   const dialogId = React.useRef(id ? id : getUniqueId());
   const dialogIsModal = React.useRef(isModal);
   const onOK = React.useRef<() => void>();

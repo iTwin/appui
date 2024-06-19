@@ -164,6 +164,7 @@
     "toggleTimelinePlay": "Toggle Timeline Pause/Play",
     "sampleModelessDialog": "Sample Modeless Dialog",
     "sampleModalDialog": "Sample Modal Dialog",
+    "sampleNonModalDialog": "Sample Non-modal Dialog",
     "misc": "Miscellaneous",
     "accuDrawDialogVertical": "AccuDraw Dialog - Vertical",
     "accuDrawDialogHorizontal": "AccuDraw Dialog - Horizontal",

@@ -34,7 +34,8 @@ import { SampleModelessDialog } from "../dialogs/SampleModelessDialog";
 import { CustomContentFrontstage } from "../frontstages/CustomContent";
 import visibilitySemiTransparentSvg from "../icons/visibility-semi-transparent.svg";
 import { SelectedElementDataWidgetComponent } from "../widgets/SelectedElementDataWidget";
-import { SvgWindowAdd } from "@itwin/itwinui-icons-react";
+import { SvgWindow, SvgWindowAdd } from "@itwin/itwinui-icons-react";
+import { SampleNonModalDialog } from "../dialogs/SampleNonModalDialog";
 
 /**
  * Test UiItemsProvider that provide buttons, and backstage item to stage.
@@ -132,17 +133,35 @@ export class CustomContentStageUiProvider implements UiItemsProvider {
             <SampleModelessDialog opened={true} dialogId={dialogId} />,
             dialogId
           );
-        },
-        {
-          badge: BadgeType.New,
         }
       );
+
+      const sampleNonModalDialogToolButton =
+        ToolbarItemUtilities.createActionItem(
+          "sample-non-modal-dialog",
+          18,
+          <SvgWindow />,
+          IModelApp.localization.getLocalizedString(
+            "SampleApp:buttons.sampleNonModalDialog"
+          ),
+          () => {
+            const dialogId = "sampleNonModal";
+            UiFramework.dialogs.modeless.open(
+              <SampleNonModalDialog dialogId={dialogId} />,
+              dialogId
+            );
+          },
+          {
+            badge: BadgeType.New,
+          }
+        );
 
       return [
         customActionButton,
         openCustomDialogActionButton,
         toggleHiddenButton,
         sampleModelessToolButton,
+        sampleNonModalDialogToolButton,
       ];
     }
     return [];

@@ -11,10 +11,9 @@ import classnames from "classnames";
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
 import { Orientation } from "@itwin/core-react";
-import { UiFramework } from "../UiFramework";
-import { ModelessDialog } from "../dialog/ModelessDialog";
 import { AccuDrawFieldContainer } from "./AccuDrawFieldContainer";
 import { useTranslation } from "../hooks/useTranslation";
+import { Dialog } from "@itwin/itwinui-react";
 
 /** Properties for [[AccuDrawDialog]]
  * @beta */
@@ -22,8 +21,10 @@ import { useTranslation } from "../hooks/useTranslation";
 export interface AccuDrawDialogProps extends CommonProps {
   /** Indicates whether the dialog is open */
   opened: boolean;
-  /** Unique id for the dialog */
-  dialogId: string;
+  /** Unique id for the dialog.
+   * @deprecated in 4.15.0. No longer used.
+   */
+  dialogId?: string;
   /** Orientation of the fields */
   orientation?: Orientation;
   /** Callback for when the dialog closes */
@@ -45,30 +46,27 @@ export function AccuDrawDialog(props: AccuDrawDialogProps) {
     closeDialog();
   }, [closeDialog]);
 
-  const handleEscape = React.useCallback(() => {
-    UiFramework.keyboardShortcuts.setFocusToHome();
-  }, []);
-
   const classNames = classnames("uifw-accudraw-dialog", props.className);
   const orientation =
     props.orientation !== undefined ? props.orientation : Orientation.Vertical;
   const dialogWidth = orientation === Orientation.Horizontal ? 500 : 250;
 
   return (
-    <ModelessDialog
+    <Dialog
+      isOpen={opened}
+      onClose={handleClose}
       className={classNames}
       style={props.style}
-      title={translate("accuDraw.dialogTitle")}
-      opened={opened}
-      dialogId={props.dialogId}
-      width={dialogWidth}
-      minHeight={75}
-      inset={false}
-      movable={true}
-      onClose={handleClose}
-      onEscape={handleEscape}
+      closeOnEsc
+      isDraggable
+      preventDocumentScroll
     >
-      <AccuDrawFieldContainer orientation={orientation} />
-    </ModelessDialog>
+      <Dialog.Main style={{ minHeight: 75, width: dialogWidth }}>
+        <Dialog.TitleBar titleText={translate("accuDraw.dialogTitle")} />
+        <Dialog.Content style={{ padding: 0 }}>
+          <AccuDrawFieldContainer orientation={orientation} />
+        </Dialog.Content>
+      </Dialog.Main>
+    </Dialog>
   );
 }
