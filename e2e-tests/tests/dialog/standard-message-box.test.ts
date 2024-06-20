@@ -12,6 +12,6 @@ test("standard message box test", async ({ page, baseURL }) => {
 
   await page.getByRole("button", { name: "Open Standard Message Box" }).click();
 
-  const standardMessageBox = page.getByTestId("core-dialog-container");
+  const standardMessageBox = page.getByTestId("message-box-dialog-container");
   await expect(standardMessageBox).toHaveScreenshot();
 });

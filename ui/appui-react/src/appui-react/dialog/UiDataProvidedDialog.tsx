@@ -166,7 +166,10 @@ UiDataProvidedDialogProps) {
       style={style}
     >
       {isModal && <Dialog.Backdrop />}
-      <Dialog.Main style={containerStyle}>
+      <Dialog.Main
+        style={containerStyle}
+        data-testid="ui-data-provided-dialog-container"
+      >
         <Dialog.TitleBar titleText={title} />
         <Dialog.Content>
           <DefaultDialogGridContainer

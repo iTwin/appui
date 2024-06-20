@@ -52,7 +52,7 @@ describe("StandardMessageBox", () => {
     );
 
     render(reactNode);
-    expect(screen.getByTestId("dialog-container")).to.satisfy(
+    expect(screen.getByTestId("message-box-dialog-container")).to.satisfy(
       childStructure(".icon.core-message-box-icon")
     );
 
@@ -74,7 +74,7 @@ describe("StandardMessageBox", () => {
     );
 
     render(reactNode);
-    expect(screen.getByTestId("dialog-container")).to.satisfy(
+    expect(screen.getByTestId("message-box-dialog-container")).to.satisfy(
       childStructure(".icon.core-message-box-icon")
     );
 
@@ -94,7 +94,7 @@ describe("StandardMessageBox", () => {
       />
     );
     render(reactNode);
-    expect(screen.getByTestId("dialog-container")).to.satisfy(
+    expect(screen.getByTestId("message-box-dialog-container")).to.satisfy(
       childStructure(".icon.core-message-box-icon")
     );
 
@@ -116,7 +116,7 @@ describe("StandardMessageBox", () => {
       />
     );
     render(reactNode);
-    expect(screen.getByTestId("dialog-container")).to.satisfy(
+    expect(screen.getByTestId("message-box-dialog-container")).to.satisfy(
       childStructure(".icon.core-message-box-icon")
     );
 
@@ -136,7 +136,7 @@ describe("StandardMessageBox", () => {
       />
     );
     render(reactNode);
-    expect(screen.getByTestId("dialog-container")).to.satisfy(
+    expect(screen.getByTestId("message-box-dialog-container")).to.satisfy(
       childStructure(".icon.core-message-box-icon")
     );
 

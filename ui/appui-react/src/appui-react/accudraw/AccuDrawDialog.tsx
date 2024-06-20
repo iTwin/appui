@@ -61,7 +61,10 @@ export function AccuDrawDialog(props: AccuDrawDialogProps) {
       isDraggable
       preventDocumentScroll
     >
-      <Dialog.Main style={{ minHeight: 75, width: dialogWidth }}>
+      <Dialog.Main
+        style={{ minHeight: 75, width: dialogWidth }}
+        data-testid="accudraw-dialog-container"
+      >
         <Dialog.TitleBar titleText={translate("accuDraw.dialogTitle")} />
         <Dialog.Content style={{ padding: 0 }}>
           <AccuDrawFieldContainer orientation={orientation} />

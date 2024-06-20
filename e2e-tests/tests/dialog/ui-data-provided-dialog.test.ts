@@ -14,6 +14,8 @@ test("ui data provided dialog test", async ({ page, baseURL }) => {
     .getByRole("button", { name: "Open UiDataProvided Dialog" })
     .click();
 
-  const uiDataProvidedDialog = page.getByTestId("core-dialog-container");
+  const uiDataProvidedDialog = page.getByTestId(
+    "ui-data-provided-dialog-container"
+  );
   await expect(uiDataProvidedDialog).toHaveScreenshot();
 });
