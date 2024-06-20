@@ -722,6 +722,7 @@ export class ComponentExamplesProvider {
                   movable={true}
                   uiDataProvider={new TestUiDataProvider()}
                   isModal={false}
+                  style={{ zIndex: 15000 }}
                 />,
                 "UiDataProvidedDialog1"
               );
