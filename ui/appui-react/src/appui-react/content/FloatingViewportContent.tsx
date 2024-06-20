@@ -16,8 +16,11 @@ import { ContentWrapper } from "./ContentLayout";
 import { UiFramework } from "../UiFramework";
 import { useRefs } from "@itwin/core-react";
 
+/* eslint-disable deprecation/deprecation */
+
 /**
  * @beta
+ * @deprecated in 4.15.0. TODO
  */
 export interface FloatingViewportContentProps {
   /** callback used to construct context menu when user right-clicks on canvas/viewport */
@@ -30,7 +33,10 @@ export interface FloatingViewportContentProps {
   viewportRef?: React.Ref<ScreenViewport>;
 }
 
-/** @beta */
+/**
+ * @beta
+ * @deprecated in 4.15.0. TODO
+ */
 export function FloatingViewportContent(props: FloatingViewportContentProps) {
   const { viewportControl } = useFloatingViewport(props);
   return (
@@ -40,12 +46,18 @@ export function FloatingViewportContent(props: FloatingViewportContentProps) {
   );
 }
 
-/** @public */
+/**
+ * @public
+ * @deprecated in 4.15.0. TODO
+ */
 export interface FloatingViewportContentWrapperProps {
   readonly children?: React.ReactNode;
 }
 
-/** @public */
+/**
+ * @public
+ * @deprecated in 4.15.0. TODO
+ */
 export function FloatingViewportContentWrapper({
   children,
 }: FloatingViewportContentWrapperProps) {
@@ -63,7 +75,10 @@ export function FloatingViewportContentWrapper({
   );
 }
 
-/** @alpha */
+/**
+ * @alpha
+ * @deprecated in 4.15.0. TODO
+ */
 export function useFloatingViewport(args: FloatingViewportContentProps) {
   const { contentId, initialViewState, onContextMenu, viewportRef } = args;
   const [viewport, setViewport] = React.useState<ScreenViewport | undefined>();

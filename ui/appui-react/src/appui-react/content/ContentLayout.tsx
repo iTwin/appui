@@ -25,6 +25,7 @@ import type {
 import { UiEvent } from "@itwin/appui-abstract";
 import { useActiveFrontstageDef } from "../frontstage/FrontstageDef";
 import { UiFramework } from "../UiFramework";
+import { ContentOverlay } from "./ContentOverlay";
 
 /** Properties for [[ContentWrapper]] */
 // eslint-disable-next-line deprecation/deprecation
@@ -110,24 +111,18 @@ export function ContentWrapper(props: ContentWrapperProps) {
     );
   }, [activeFrontstageDef]);
 
-  const overlayClassName = classnames(
-    "uifw-contentlayout-overlay-div",
-    isActive && hasMultipleContents
-      ? "uifw-contentlayout-overlay-active"
-      : "uifw-contentlayout-overlay-inactive"
-  );
-
+  const active = isActive && hasMultipleContents;
   return (
-    <div
+    <ContentOverlay
       className={classnames("uifw-contentlayout-wrapper", props.className)}
       style={props.style}
+      active={active}
       onMouseDown={handleMouseDown}
       onMouseMove={UiFramework.visibility.handleContentMouseMove}
       role="presentation"
     >
       {content}
-      <div className={overlayClassName} />
-    </div>
+    </ContentOverlay>
   );
 }
 

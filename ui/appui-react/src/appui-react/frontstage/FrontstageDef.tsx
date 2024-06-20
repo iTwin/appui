@@ -150,12 +150,6 @@ export class FrontstageDef {
     return this._contentGroup;
   }
 
-  /** @deprecated in 4.15.0. Use {@link FrontstageDef.id} to look up a frontstage. */
-  // eslint-disable-next-line deprecation/deprecation
-  public get frontstageProvider(): FrontstageProvider | undefined {
-    return this._frontstageProvider;
-  }
-
   private toStagePanelLocation(side: PanelSide): StagePanelLocation {
     switch (side) {
       case "bottom":
@@ -473,43 +467,30 @@ export class FrontstageDef {
     this._contentGroup = contentGroup;
   }
 
-  /** Sets the active view content control to the default or first */
+  /** Sets the active view content to the default or first. */
   public async setActiveContent(): Promise<boolean> {
-    // eslint-disable-next-line deprecation/deprecation
-    let contentControl: ContentControl | undefined;
-    let activated = false;
+    const content = this.contentGroup?.contentPropsList?.[0];
+    if (!content) return false;
 
+    let contentReactNode = content.content;
     // eslint-disable-next-line deprecation/deprecation
-    if (!contentControl && this.contentControls.length >= 0) {
+    let control: ContentControl | undefined;
+    if (!contentReactNode) {
       // eslint-disable-next-line deprecation/deprecation
-      contentControl = this.contentControls[0];
+      control = this.contentGroup.getContentControl(content, 0);
+      contentReactNode = control?.reactNode;
     }
 
-    if (contentControl) {
-      UiFramework.content.setActive(contentControl.reactNode, true);
-      if (contentControl.viewport) {
-        const status = await IModelApp.viewManager.setSelectedView(
-          contentControl.viewport
-        );
-        activated = status === BentleyStatus.SUCCESS;
-      }
-    }
+    if (!contentReactNode) return false;
 
-    return activated;
-  }
-
-  /** Sets the active view content control based on the selected viewport. */
-  public setActiveViewFromViewport(viewport: ScreenViewport): boolean {
     // eslint-disable-next-line deprecation/deprecation
-    const contentControl = this.contentControls.find(
-      (control) => control.viewport === viewport
-    );
-    if (contentControl) {
-      UiFramework.content.setActive(contentControl.reactNode, true);
-      return true;
-    }
+    UiFramework.content.setActive(contentReactNode, true);
+    if (!control?.viewport) return true;
 
-    return false;
+    const status = await IModelApp.viewManager.setSelectedView(
+      control.viewport
+    );
+    return status === BentleyStatus.SUCCESS;
   }
 
   /** Gets a [[StagePanelDef]] based on a given panel location
@@ -984,6 +965,11 @@ export class FrontstageDef {
 
   /* eslint-disable deprecation/deprecation */
 
+  /** @deprecated in 4.15.0. Use {@link FrontstageDef.id} to look up a frontstage. */
+  public get frontstageProvider(): FrontstageProvider | undefined {
+    return this._frontstageProvider;
+  }
+
   /** Sets the active view content control.
    * @deprecated in 4.15.0. TODO
    */
@@ -1037,6 +1023,23 @@ export class FrontstageDef {
       contentControls.push(...this._floatingContentControls);
     }
     return contentControls;
+  }
+
+  /** Sets the active view content control based on the selected viewport.
+   * @deprecated in 4.15.0. TODO
+   */
+  public setActiveViewFromViewport(viewport: ScreenViewport): boolean {
+    // eslint-disable-next-line deprecation/deprecation
+    const contentControl = this.contentControls.find(
+      (control) => control.viewport === viewport
+    );
+    if (contentControl) {
+      // eslint-disable-next-line deprecation/deprecation
+      UiFramework.content.setActive(contentControl.reactNode, true);
+      return true;
+    }
+
+    return false;
   }
 
   /* eslint-enable deprecation/deprecation */

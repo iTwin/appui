@@ -182,7 +182,14 @@ export class InternalContentViewManager {
       );
 
       // Only call setActiveView if going to or coming from a non-viewport ContentControl
-      if (!activeContentControl) return;
+      if (!activeContentControl) {
+        this.onActiveContentChangedEvent.emit({
+          activeContent,
+          oldContent,
+          id: undefined,
+        });
+        return;
+      }
       const doSetActiveView =
         forceEventProcessing ||
         !activeContentControl.viewport ||
@@ -206,6 +213,39 @@ export class InternalContentViewManager {
         }
       }
     }
+  }
+
+  public static setActiveId(contentId?: string) {
+    if (!contentId) {
+      // eslint-disable-next-line deprecation/deprecation
+      this.setActive(contentId);
+      return;
+    }
+
+    const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
+    if (!frontstageDef) return;
+
+    const contentGroup = frontstageDef.contentGroup;
+    if (!contentGroup) return;
+
+    const contentIndex = contentGroup.contentPropsList.findIndex(
+      (content) => content.id === contentId
+    );
+    if (contentIndex < 0) return;
+
+    const contentProps = contentGroup.contentPropsList[contentIndex];
+    if (contentProps.content) {
+      // eslint-disable-next-line deprecation/deprecation
+      this.setActive(contentProps.content);
+      return;
+    }
+
+    // eslint-disable-next-line deprecation/deprecation
+    const control = contentGroup.getContentControl(contentProps, contentIndex);
+    if (!control) return;
+
+    // eslint-disable-next-line deprecation/deprecation
+    this.setActive(control.reactNode);
   }
 
   /** Refreshes the active [[ContentControl]].

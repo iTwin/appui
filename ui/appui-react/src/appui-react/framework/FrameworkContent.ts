@@ -9,7 +9,11 @@
 import type { ContentLayoutProps } from "@itwin/appui-abstract";
 import { UiEvent } from "@itwin/appui-abstract";
 import type { ContentControl } from "../content/ContentControl";
-import type { ContentGroup, ContentGroupProps } from "../content/ContentGroup";
+import type {
+  ContentGroup,
+  ContentGroupProps,
+  ContentProps,
+} from "../content/ContentGroup";
 import type { ContentLayoutDef } from "../content/ContentLayout";
 import { DialogChangedEvent } from "../dialog/DialogManagerBase";
 import type { FrameworkStackedDialog } from "./FrameworkDialogs";
@@ -35,10 +39,14 @@ export class MouseDownChangedEvent extends UiEvent<MouseDownChangedEventArgs> {}
  * @deprecated in 4.13.0. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface ActiveContentChangedEventArgs {
-  /** React node of the old content */
+  /** React node of the old content.
+   * @deprecated in 4.15.0. Use {@link previousId} instead.
+   */
   oldContent?: React.ReactNode;
   /** React node of the newly active content */
   activeContent?: React.ReactNode;
+  /** Id of activated content. */
+  id?: ContentProps["id"];
 }
 
 /** Active Content Changed Event class.
@@ -103,13 +111,20 @@ export interface FrameworkContent {
   // eslint-disable-next-line deprecation/deprecation
   dropFloatingContentControl(contentControl?: ContentControl): void;
 
-  /** Sets the active [[ContentControl]] */
+  /** Sets the active [[ContentControl]].
+   * @deprecated in 4.15.0. TODO
+   */
   setActive(
     activeContent?: React.ReactNode,
     forceEventProcessing?: boolean
   ): void;
 
-  /** Refreshes the active [[ContentControl]] */
+  /** Sets the active content. */
+  setActiveId(contentId?: ContentProps["id"]): void;
+
+  /** Refreshes the active [[ContentControl]].
+   * @deprecated in 4.15.0. TODO
+   */
   refreshActive(activeContent: React.ReactNode): void;
 
   /**

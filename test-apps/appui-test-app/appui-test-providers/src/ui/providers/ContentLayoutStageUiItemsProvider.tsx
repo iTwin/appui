@@ -17,6 +17,7 @@ import {
   ToolbarItemUtilities,
   ToolbarOrientation,
   ToolbarUsage,
+  UiFramework,
   UiItemsManager,
   UiItemsProvider,
   Widget,
@@ -33,6 +34,7 @@ import { ContentLayoutStage } from "../frontstages/ContentLayout";
 import { DisplayStyleField } from "../statusfields/DisplayStyleField";
 import { ViewportWidgetComponent } from "../widgets/ViewportWidget";
 import { IModelApp } from "@itwin/core-frontend";
+import { ViewportComponent } from "@itwin/imodel-components-react";
 
 /**
  * The ContentLayoutStageUiItemsProvider provides additional items only to the `ContentLayoutStage` frontstage.
@@ -132,6 +134,17 @@ export class ContentLayoutStageUiItemsProvider implements UiItemsProvider {
         canPopout: true,
         content: <ViewportWidgetComponent />,
       });
+      widgets.push({
+        id: "appui-test-providers:viewport-widget1",
+        label: "Viewport 1",
+        icon: "icon-bentley-systems",
+        defaultState: WidgetState.Floating,
+        canFloat: {
+          containerId: "appui-test-providers:viewport-widget1",
+        },
+        canPopout: true,
+        content: <ViewportWidget />,
+      });
     }
     return widgets;
   }
@@ -166,4 +179,30 @@ export class ContentLayoutStageUiItemsProvider implements UiItemsProvider {
       ),
     ];
   }
+}
+
+function ViewportWidget() {
+  const [active, setActive] = React.useState(false);
+  const [viewState] = React.useState(() => {
+    return UiFramework.getDefaultViewState();
+  });
+  React.useEffect(() => {
+    UiFramework.content.onActiveContentChangedEvent.addListener(() => {
+      setActive(false);
+    });
+  }, []);
+  if (!viewState) return null;
+  return (
+    <div
+      onMouseDown={() => {
+        UiFramework.content.setActiveId(undefined);
+        setActive(true);
+      }}
+      style={{ height: "100%" }}
+      role="presentation"
+    >
+      {active && "active"}
+      <ViewportComponent viewState={viewState} imodel={viewState.iModel} />
+    </div>
+  );
 }

@@ -67,8 +67,7 @@ export interface ViewportProps extends CommonProps {
   tentativePointOverride?: TentativePoint;
 }
 
-/**
- * A viewport React component that creates a ScreenViewport.
+/** A viewport React component that creates a ScreenViewport.
  * @public
  */
 export function ViewportComponent(props: ViewportProps) {
