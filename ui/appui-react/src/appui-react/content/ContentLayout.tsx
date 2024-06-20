@@ -23,7 +23,6 @@ import type {
   LayoutVerticalSplitProps,
 } from "@itwin/appui-abstract";
 import { UiEvent } from "@itwin/appui-abstract";
-import type { ActiveContentChangedEventArgs } from "../framework/FrameworkContent";
 import { useActiveFrontstageDef } from "../frontstage/FrontstageDef";
 import { UiFramework } from "../UiFramework";
 
@@ -38,10 +37,10 @@ interface ContentWrapperProps extends CommonProps {
  */
 export function ContentWrapper(props: ContentWrapperProps) {
   const { content } = props;
-  const [isActive, setIsActive] = React.useState(
-    content === UiFramework.content.getActive()
-  );
   const activeFrontstageDef = useActiveFrontstageDef();
+  const [isActive, setIsActive] = React.useState(() => {
+    return content === UiFramework.content.getActive();
+  });
 
   const contentControlKey = (
     contentControl: React.ReactNode
@@ -68,30 +67,30 @@ export function ContentWrapper(props: ContentWrapperProps) {
   }, [content]);
 
   React.useEffect(() => {
-    const handleActiveContentChanged = (
-      args: ActiveContentChangedEventArgs // eslint-disable-line deprecation/deprecation
-    ) => {
-      const contentIsIdentical = content === args.activeContent;
-      if (contentIsIdentical) setIsActive(contentIsIdentical);
-      else {
-        const contentId = contentControlKey(content);
-        const activeContentId = contentControlKey(args.activeContent);
-        setIsActive(contentId === activeContentId);
-      }
-      setHasMultipleContents(
-        (activeFrontstageDef &&
-          !!activeFrontstageDef.floatingContentControls?.length) ||
-          // eslint-disable-next-line deprecation/deprecation
-          (activeFrontstageDef?.contentGroup?.getContentControls().length ??
-            0) > 1
-      );
-    };
     return UiFramework.content.onActiveContentChangedEvent.addListener(
-      handleActiveContentChanged
+      (args) => {
+        const contentIsIdentical = content === args.activeContent;
+        if (contentIsIdentical) {
+          setIsActive(contentIsIdentical);
+        } else {
+          const contentId = contentControlKey(content);
+          const activeContentId = contentControlKey(args.activeContent);
+          setIsActive(!!contentId && contentId === activeContentId);
+        }
+
+        setHasMultipleContents(
+          (activeFrontstageDef &&
+            !!activeFrontstageDef.floatingContentControls?.length) ||
+            // eslint-disable-next-line deprecation/deprecation
+            (activeFrontstageDef?.contentGroup?.contentPropsList.length ?? 0) >
+              1
+        );
+      }
     );
   }, [activeFrontstageDef, content]);
 
   const handleMouseDown = React.useCallback(() => {
+    // eslint-disable-next-line deprecation/deprecation
     UiFramework.content.setActive(content);
     setIsActive(true);
   }, [content]);
@@ -215,8 +214,7 @@ interface SingleContentProps extends CommonProps {
   content: React.ReactNode;
 }
 
-/** Single Content Container class.
- */
+/** Single Content Container class. */
 class SingleContentContainer extends React.Component<SingleContentProps> {
   public override render(): React.ReactNode {
     return (
@@ -238,8 +236,7 @@ class SingleContentContainer extends React.Component<SingleContentProps> {
   }
 }
 
-/** Common interface for HorizontalSplit and VerticalSplit
- */
+/** Common interface for HorizontalSplit and VerticalSplit. */
 interface LayoutSplit {
   createContentContainer(
     contentNodes: React.ReactNode[],
@@ -429,6 +426,7 @@ export class ContentLayoutDef {
       this.description = layoutProps.description;
   }
 
+  /** @deprecated in 4.15.0. TODO */
   public get rootSplit(): LayoutSplit | undefined {
     return this._rootSplit;
   }
@@ -440,7 +438,8 @@ export class ContentLayoutDef {
     return this._layoutProps;
   }
 
-  /** Fill a layout container with React nodes for each content view
+  /** Fill a layout container with React nodes for each content view.
+   * @deprecated in 4.15.0. TODO
    */
   public fillLayoutContainer(
     contentNodes: React.ReactNode[],
@@ -448,7 +447,9 @@ export class ContentLayoutDef {
   ): React.ReactNode | undefined {
     this._rootSplit = ContentLayoutDef.createSplit(this._layoutProps);
 
+    // eslint-disable-next-line deprecation/deprecation
     if (this.rootSplit) {
+      // eslint-disable-next-line deprecation/deprecation
       return this.rootSplit.createContentContainer(contentNodes, resizable);
     }
 
@@ -458,8 +459,7 @@ export class ContentLayoutDef {
     return undefined;
   }
 
-  /** Gets the indexes of content views used in this Content Layout
-   */
+  /** Gets the indexes of content views used in this Content Layout. */
   public getUsedContentIndexes(): number[] {
     let allContentIndexes: number[] = [];
 
@@ -572,14 +572,6 @@ export interface ContentLayoutActivatedEventArgs {
 // eslint-disable-next-line deprecation/deprecation
 export class ContentLayoutActivatedEvent extends UiEvent<ContentLayoutActivatedEventArgs> {}
 
-/** State for the [[ContentLayout]].
- */
-interface ContentLayoutState {
-  contentLayoutDef: ContentLayoutDef;
-  contentContainer?: React.ReactNode;
-  contentGroupId?: string;
-}
-
 /** Properties for the [[ContentLayout]] React component.
  * @public
  */
@@ -592,88 +584,54 @@ export interface ContentLayoutComponentProps extends CommonProps {
 /** Content Layout React component.
  * @public
  */
-export class ContentLayout extends React.Component<
-  ContentLayoutComponentProps,
-  ContentLayoutState
-> {
-  /** @internal */
-  public override readonly state: Readonly<ContentLayoutState>;
-
-  constructor(props: ContentLayoutComponentProps) {
-    super(props);
-
-    const contentLayoutDef = this.props.contentLayout;
-    const contentGroup = this.props.contentGroup;
-
-    const contentNodes = contentGroup.getContentNodes();
-    const contentContainer = contentLayoutDef.fillLayoutContainer(
-      contentNodes,
-      true
-    );
-
-    this.state = {
-      contentLayoutDef: this.props.contentLayout,
-      contentContainer,
-      contentGroupId: this.props.contentGroup.groupId,
-    };
-  }
-
-  public override componentDidMount() {
-    UiFramework.frontstages.onContentLayoutActivatedEvent.addListener(
-      this._handleContentLayoutActivated
-    );
-  }
-
-  public override componentWillUnmount() {
-    UiFramework.frontstages.onContentLayoutActivatedEvent.removeListener(
-      this._handleContentLayoutActivated
-    );
-  }
-
-  private _handleContentLayoutActivated = (
-    args: ContentLayoutActivatedEventArgs // eslint-disable-line deprecation/deprecation
-  ) => {
-    const contentLayoutDef = args.contentLayout;
-    const contentGroup = args.contentGroup;
-
-    const contentNodes = contentGroup.getContentNodes();
-    const contentContainer = contentLayoutDef.fillLayoutContainer(
-      contentNodes,
-      true
-    );
-
-    this.setState({
-      contentLayoutDef: args.contentLayout,
-      contentContainer,
-      contentGroupId: contentGroup.groupId,
-    });
-  };
-
-  public override render(): React.ReactNode {
-    if (this.state.contentContainer) {
-      return (
-        <div
-          id="uifw-contentlayout-div"
-          className={this.props.className}
-          style={this.props.style}
-          key={`${this.state.contentGroupId}-${this.state.contentLayoutDef.id}`}
-          onMouseDown={this._onMouseDown}
-          onMouseUp={this._onMouseUp}
-          role="presentation"
-        >
-          {this.state.contentContainer}
-        </div>
-      );
+export function ContentLayout(props: ContentLayoutComponentProps) {
+  const [contentLayoutDef, setContentLayoutDef] =
+    React.useState<ContentLayoutDef>(props.contentLayout);
+  const [contentGroupId, setContentGroupId] = React.useState<
+    ContentGroup["id"]
+  >(props.contentGroup.groupId);
+  const [contentNodes, setContentNodes] = React.useState<React.ReactNode[]>(
+    () => {
+      // eslint-disable-next-line deprecation/deprecation
+      return props.contentGroup.getContentNodes();
     }
+  );
 
-    return null;
+  React.useEffect(() => {
+    return UiFramework.frontstages.onContentLayoutActivatedEvent.addListener(
+      (args) => {
+        setContentLayoutDef(args.contentLayout);
+        setContentGroupId(args.contentGroup.groupId);
+        // eslint-disable-next-line deprecation/deprecation
+        setContentNodes(args.contentGroup.getContentNodes());
+      }
+    );
+  }, []);
+
+  // eslint-disable-next-line deprecation/deprecation
+  const contentContainer = contentLayoutDef.fillLayoutContainer(
+    contentNodes,
+    true
+  );
+  if (contentContainer) {
+    return (
+      <div
+        id="uifw-contentlayout-div"
+        className={props.className}
+        style={props.style}
+        key={`${contentGroupId}-${contentLayoutDef.id}`}
+        onMouseDown={() => {
+          UiFramework.content.setMouseDown(true);
+        }}
+        onMouseUp={() => {
+          UiFramework.content.setMouseDown(false);
+        }}
+        role="presentation"
+      >
+        {contentContainer}
+      </div>
+    );
   }
 
-  private _onMouseDown = (_event: React.MouseEvent<HTMLDivElement>) => {
-    UiFramework.content.setMouseDown(true);
-  };
-
-  private _onMouseUp = (_event: React.MouseEvent<HTMLDivElement>) => {
-    UiFramework.content.setMouseDown(false);
-  };
+  return null;
 }

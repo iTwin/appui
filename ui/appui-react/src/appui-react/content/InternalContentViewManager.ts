@@ -141,7 +141,9 @@ export class InternalContentViewManager {
       activeFrontstageDef.dropFloatingContentControl(contentControl);
   }
 
-  /** Sets the active [[ContentControl]] */
+  /** Sets the active [[ContentControl]].
+   * @deprecated in 4.15.0. TODO
+   */
   public static setActive(
     activeContent?: React.ReactNode,
     forceEventProcessing = false
@@ -150,59 +152,68 @@ export class InternalContentViewManager {
       const oldContent = this._activeContent;
       this._activeContent = activeContent;
 
-      const activeFrontstageDef = UiFramework.frontstages.activeFrontstageDef;
+      const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
+      if (!frontstageDef) return;
 
-      if (activeFrontstageDef) {
-        const activeContentGroup = activeFrontstageDef.contentGroup;
-
-        const oldContentControl = this.getControlFromElement(
-          oldContent,
-          activeContentGroup,
-          activeFrontstageDef.floatingContentControls
+      const contentGroup = frontstageDef.contentGroup;
+      if (contentGroup) {
+        const reactContent = contentGroup.contentPropsList.find(
+          (contentProps) => contentProps.content === activeContent
         );
-        const activeContentControl = this.getControlFromElement(
+        if (reactContent) {
+          this.onActiveContentChangedEvent.emit({
+            id: reactContent.id,
+            activeContent: reactContent.content,
+          });
+          return;
+        }
+      }
+
+      const oldContentControl = this.getControlFromElement(
+        oldContent,
+        contentGroup,
+        frontstageDef.floatingContentControls
+      );
+      const activeContentControl = this.getControlFromElement(
+        activeContent,
+        contentGroup,
+        frontstageDef.floatingContentControls,
+        true
+      );
+
+      // Only call setActiveView if going to or coming from a non-viewport ContentControl
+      if (!activeContentControl) return;
+      const doSetActiveView =
+        forceEventProcessing ||
+        !activeContentControl.viewport ||
+        (oldContentControl && !oldContentControl.viewport);
+
+      if (doSetActiveView) {
+        // eslint-disable-next-line deprecation/deprecation
+        frontstageDef.setActiveView(activeContentControl, oldContentControl);
+        this.onActiveContentChangedEvent.emit({
           activeContent,
-          activeContentGroup,
-          activeFrontstageDef.floatingContentControls,
-          true
-        );
-
-        // Only call setActiveView if going to or coming from a non-viewport ContentControl
-        if (activeContentControl) {
-          const doSetActiveView =
-            forceEventProcessing ||
-            !activeContentControl.viewport ||
-            (oldContentControl && !oldContentControl.viewport);
-
-          if (doSetActiveView) {
-            // eslint-disable-next-line deprecation/deprecation
-            activeFrontstageDef.setActiveView(
-              activeContentControl,
-              oldContentControl
-            );
-            this.onActiveContentChangedEvent.emit({
-              activeContent,
-              oldContent,
-            });
-          } else {
-            if (
-              activeContentControl.viewport &&
-              activeContentControl.viewport !==
-                IModelApp.viewManager.selectedView
-            ) {
-              void IModelApp.viewManager.setSelectedView(
-                activeContentControl.viewport
-              );
-            }
-          }
+          oldContent,
+        });
+      } else {
+        if (
+          activeContentControl.viewport &&
+          activeContentControl.viewport !== IModelApp.viewManager.selectedView
+        ) {
+          void IModelApp.viewManager.setSelectedView(
+            activeContentControl.viewport
+          );
         }
       }
     }
   }
 
-  /** Refreshes the active [[ContentControl]] */
+  /** Refreshes the active [[ContentControl]].
+   * @deprecated in 4.15.0. TODO
+   */
   public static refreshActive(activeContent: React.ReactNode) {
     this.layouts.refreshActive();
+    // eslint-disable-next-line deprecation/deprecation
     this.setActive(activeContent, true);
   }
 

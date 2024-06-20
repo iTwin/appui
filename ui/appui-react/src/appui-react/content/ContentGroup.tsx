@@ -106,22 +106,26 @@ export class ContentGroup {
     this.contentPropsList = contentGroupProps.contents;
   }
 
-  /** Gets the React nodes representing the Content Views in this Content Group. */
+  /** Gets the React nodes representing the content views in this content group.
+   * @deprecated in 4.15.0. Use {@link contentPropsList} instead.
+   */
   public getContentNodes(): React.ReactNode[] {
     const contentNodes: React.ReactNode[] = new Array<React.ReactNode>();
 
     this._contentSetMap.clear();
 
     this.contentPropsList.forEach((contentProps, index) => {
-      // eslint-disable-next-line deprecation/deprecation
-      const control = this.getContentControl(contentProps, index);
-      if (control) {
-        contentNodes.push(control.reactNode);
-        this._contentSetMap.set(control.controlId, control);
-      }
       if (contentProps.content) {
         contentNodes.push(contentProps.content);
+        return;
       }
+
+      // eslint-disable-next-line deprecation/deprecation
+      const control = this.getContentControl(contentProps, index);
+      if (!control) return;
+
+      contentNodes.push(control.reactNode);
+      this._contentSetMap.set(control.controlId, control);
     });
 
     return contentNodes;
@@ -290,14 +294,12 @@ export class ContentGroup {
   public getContentControls(): ContentControl[] {
     const contentControls: ContentControl[] = new Array<ContentControl>();
 
-    this.contentPropsList.forEach(
-      (contentProps: ContentProps, index: number) => {
-        const control = this.getContentControl(contentProps, index);
-        if (control) {
-          contentControls.push(control);
-        }
-      }
-    );
+    this.contentPropsList.forEach((contentProps, index) => {
+      const control = this.getContentControl(contentProps, index);
+      if (!control) return;
+
+      contentControls.push(control);
+    });
 
     return contentControls;
   }
