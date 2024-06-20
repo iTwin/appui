@@ -60,6 +60,32 @@ describe("usePropertyFilterBuilder", () => {
     ).toEqual(true);
   });
 
+  it("adds custom rule to root group", () => {
+    const { result } = renderHook(() => usePropertyFilterBuilder());
+    const { actions } = result.current;
+    const customRule: PropertyFilterBuilderRule = {
+      id: "customRule",
+      groupId: "",
+      operator: "is-equal",
+      property,
+      value,
+    };
+    act(() => {
+      actions.addItem([], "RULE", customRule);
+    });
+
+    const { rootGroup } = result.current;
+    expect(rootGroup.items).to.have.lengthOf(2);
+    expect(
+      rootGroup.items[0].groupId === rootGroup.items[1].groupId &&
+        rootGroup.items[0].groupId === rootGroup.id
+    ).toEqual(true);
+    const rule = rootGroup.items[1] as PropertyFilterBuilderRule;
+    expect(rule.value).to.be.deep.eq(value);
+    expect(rule.property).to.be.deep.eq(property);
+    expect(rule.operator === customRule.operator).toEqual(true);
+  });
+
   it("adds rule to nested group", async () => {
     const { result } = renderHook(() => usePropertyFilterBuilder());
     const { actions } = result.current;
@@ -121,6 +147,22 @@ describe("usePropertyFilterBuilder", () => {
     const { result } = renderHook(() => usePropertyFilterBuilder());
     const { rootGroup, actions } = result.current;
     actions.addItem(["invalidParent"], "RULE_GROUP");
+
+    const { rootGroup: newRootGroup } = result.current;
+    expect(rootGroup).toEqual(newRootGroup);
+  });
+
+  it("does not change state if parent group is not found when adding custom item", () => {
+    const { result } = renderHook(() => usePropertyFilterBuilder());
+    const { rootGroup, actions } = result.current;
+    const customRule: PropertyFilterBuilderRule = {
+      id: "customRule",
+      groupId: "",
+      operator: "is-equal",
+      property,
+      value,
+    };
+    actions.addItem(["invalidParent"], "RULE_GROUP", customRule);
 
     const { rootGroup: newRootGroup } = result.current;
     expect(rootGroup).toEqual(newRootGroup);
