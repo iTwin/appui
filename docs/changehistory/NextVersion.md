@@ -50,9 +50,9 @@ Table of contents:
   - `FrontstageProvider` class. Use `Frontstage` interface instead.
   - `StandardFrontstageProvider` class. Use `FrontstageUtilities.createStandardFrontstage()` function instead.
   - `FrontstageConfig` interface. Use `Frontstage` type instead.
-- Deprecated `ContentDialog`, `ModelessDialog` and `UiDataProvidedDialog` in favor of [iTwinUI Dialog](https://itwinui.bentley.com/docs/dialog). [#]
-- Deprecated `dialogId` prop of `AccuDrawDialogProps`. This prop is no longer needed. [#]
-- Deprecated `dialogs` prop of `FrameworkContent`. Use `UiFramework.dialogs.modal` or `UiFramework.dialogs.modeless` instead to control dialogs. [#]
+- Deprecated `ContentDialog`, `ModelessDialog` and `UiDataProvidedDialog` in favor of [iTwinUI Dialog](https://itwinui.bentley.com/docs/dialog). [#883](https://github.com/iTwin/appui/pull/883)
+- Deprecated `dialogId` prop of `AccuDrawDialogProps`. This prop is no longer needed. [#883](https://github.com/iTwin/appui/pull/883)
+- Deprecated `dialogs` prop of `FrameworkContent`. Use `UiFramework.dialogs.modal` or `UiFramework.dialogs.modeless` instead to control dialogs. [#883](https://github.com/iTwin/appui/pull/883)
 
 ### Additions
 
@@ -76,8 +76,8 @@ Table of contents:
 ### Changes
 
 - Bumped `getToolbarItems`, `getStatusBarItems`, `getWidgets` and `getBackstageItems` methods of `UiItemsProvider`, `layouts` property of `CommonToolbarItem` and `Widget`, `StandardLayoutToolbarItem`, `StandardLayoutWidget`, `ToolbarItemLayouts`, `WidgetLayouts` to `@public`. [#874](https://github.com/iTwin/appui/pull/874)
-- Changed `StandardMessageBox` from a class to a functional component. [#]
-- Changed components to use iTwinUI dialogs. [#]
+- Changed `StandardMessageBox` from a class to a functional component. [#883](https://github.com/iTwin/appui/pull/883)
+- Changed components to use iTwinUI dialogs. [#883](https://github.com/iTwin/appui/pull/883)
 
 ## @itwin/core-react
 
