@@ -5,9 +5,13 @@
 import * as React from "react";
 
 import { UiFramework } from "@itwin/appui-react";
-import { Dialog } from "@itwin/core-react";
-import { DialogButtonType } from "@itwin/appui-abstract";
 import { useTranslation } from "../../useTranslation";
+import {
+  Button,
+  Modal,
+  ModalButtonBar,
+  ModalContent,
+} from "@itwin/itwinui-react";
 
 /**
  *  This is an example of how to create a React-based modal dialog that can be opened via a toolbutton or a key-in.
@@ -30,25 +34,26 @@ export function SampleModalDialog() {
   }, [closeDialog]);
 
   return (
-    // eslint-disable-next-line deprecation/deprecation
-    <Dialog
+    <Modal
+      isOpen={true}
       title={translate("Dialogs.SampleModal.title")}
-      opened={true}
-      modal={true}
-      width={450}
-      height={300}
       onClose={handleCancel}
-      onEscape={handleCancel}
-      onOutsideClick={handleCancel}
-      buttonCluster={[
-        { type: DialogButtonType.OK, onClick: handleOK },
-        { type: DialogButtonType.Cancel, onClick: handleCancel },
-      ]}
+      style={{ width: 450, height: 300 }}
+      closeOnEsc
+      closeOnExternalClick
     >
-      Lorem ipsum dolor sit amet, posse imperdiet ius in, mundi cotidieque ei
-      per. Vel scripta ornatus assentior cu. Duo nonumy equidem te, per ad malis
-      deserunt consetetur. In per invidunt conceptam. Ea pri aeque corrumpit.
-      Eum ea ipsum perfecto vulputate, an cum oblique ornatus.
-    </Dialog>
+      <ModalContent>
+        Lorem ipsum dolor sit amet, posse imperdiet ius in, mundi cotidieque ei
+        per. Vel scripta ornatus assentior cu. Duo nonumy equidem te, per ad
+        malis deserunt consetetur. In per invidunt conceptam. Ea pri aeque
+        corrumpit. Eum ea ipsum perfecto vulputate, an cum oblique ornatus.
+      </ModalContent>
+      <ModalButtonBar>
+        <Button styleType="high-visibility" onClick={handleOK}>
+          OK
+        </Button>
+        <Button onClick={handleCancel}>Cancel</Button>
+      </ModalButtonBar>
+    </Modal>
   );
 }

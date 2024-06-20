@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Deprecated all AppUI dialogs and switched components to use iTwinUI dialogs.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}

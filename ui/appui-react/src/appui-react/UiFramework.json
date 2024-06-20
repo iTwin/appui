@@ -338,6 +338,12 @@
   },
   "dialog": {
     "cancel": "Cancel",
-    "close": "Close"
+    "close": "Close",
+    "ok": "OK",
+    "retry": "Retry",
+    "yes": "Yes",
+    "no": "No",
+    "next": "Next",
+    "previous": "Previous"
   }
 }

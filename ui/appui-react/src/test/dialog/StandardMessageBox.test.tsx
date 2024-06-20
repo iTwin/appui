@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { MessageBoxIconType, MessageBoxType } from "@itwin/core-frontend";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { StandardMessageBox } from "../../appui-react";
 import { childStructure, userEvent } from "../TestUtils";
 
@@ -52,7 +52,7 @@ describe("StandardMessageBox", () => {
     );
 
     render(reactNode);
-    expect(screen.getByTestId("core-dialog-container")).to.satisfy(
+    expect(screen.getByTestId("message-box-dialog-container")).to.satisfy(
       childStructure(".icon.core-message-box-icon")
     );
 
@@ -74,7 +74,7 @@ describe("StandardMessageBox", () => {
     );
 
     render(reactNode);
-    expect(screen.getByTestId("core-dialog-container")).to.satisfy(
+    expect(screen.getByTestId("message-box-dialog-container")).to.satisfy(
       childStructure(".icon.core-message-box-icon")
     );
 
@@ -94,7 +94,7 @@ describe("StandardMessageBox", () => {
       />
     );
     render(reactNode);
-    expect(screen.getByTestId("core-dialog-container")).to.satisfy(
+    expect(screen.getByTestId("message-box-dialog-container")).to.satisfy(
       childStructure(".icon.core-message-box-icon")
     );
 
@@ -116,7 +116,7 @@ describe("StandardMessageBox", () => {
       />
     );
     render(reactNode);
-    expect(screen.getByTestId("core-dialog-container")).to.satisfy(
+    expect(screen.getByTestId("message-box-dialog-container")).to.satisfy(
       childStructure(".icon.core-message-box-icon")
     );
 
@@ -136,7 +136,7 @@ describe("StandardMessageBox", () => {
       />
     );
     render(reactNode);
-    expect(screen.getByTestId("core-dialog-container")).to.satisfy(
+    expect(screen.getByTestId("message-box-dialog-container")).to.satisfy(
       childStructure(".icon.core-message-box-icon")
     );
 
@@ -159,7 +159,7 @@ describe("StandardMessageBox", () => {
     );
     render(reactNode);
 
-    await theUserTo.type(screen.getByText("My Title"), "[Escape]");
+    fireEvent.keyDown(screen.getByText("My Title"), { key: "Escape" });
     expect(spyOnEscape).toHaveBeenCalledOnce();
   });
 });

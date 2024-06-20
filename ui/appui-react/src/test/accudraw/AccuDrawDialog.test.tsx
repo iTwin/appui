@@ -4,12 +4,10 @@
  *--------------------------------------------------------------------------------------------*/
 import { fireEvent, render } from "@testing-library/react";
 import * as React from "react";
-import { Key } from "ts-key-enum";
 import { CompassMode, IModelApp } from "@itwin/core-frontend";
 import { Orientation } from "@itwin/core-react";
 import { FrameworkAccuDraw } from "../../appui-react/accudraw/FrameworkAccuDraw";
 import { AccuDrawDialog } from "../../appui-react/accudraw/AccuDrawDialog";
-import { UiFramework } from "../../appui-react";
 
 describe("AccuDrawDialog", () => {
   beforeEach(() => {
@@ -31,18 +29,6 @@ describe("AccuDrawDialog", () => {
         orientation={Orientation.Horizontal}
       />
     );
-  });
-
-  it("should set focus to Home on Esc key", () => {
-    const spy = vi.spyOn(UiFramework.keyboardShortcuts, "setFocusToHome");
-    const component = render(
-      <AccuDrawDialog opened={true} dialogId="accudraw" />
-    );
-
-    component.baseElement.dispatchEvent(
-      new KeyboardEvent("keyup", { key: Key.Escape })
-    );
-    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should call onClose on close", () => {

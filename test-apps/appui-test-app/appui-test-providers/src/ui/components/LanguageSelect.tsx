@@ -32,7 +32,6 @@ export function LanguageSelect({
       value={language}
       size="small"
       onChange={onChange}
-      wrapperProps={{ style: { rowGap: "0px" } }} // TODO: remove when https://github.com/iTwin/iTwinUI/issues/2051 is fixed
       label={`${translate("statusFields.languageSelect.label")}:`}
       labelProps={{ className: "uifw-statusFields-languageSelect-label" }}
       displayStyle="inline"

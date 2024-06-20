@@ -349,7 +349,7 @@ export class ComponentExamplesProvider {
                   onClose={() => {
                     UiFramework.dialogs.modeless.close("AccuDrawDialog1");
                   }}
-                  dialogId={"AccuDrawDialog1"}
+                  style={{ zIndex: 15000 }}
                 />,
                 "AccuDrawDialog1"
               );
@@ -601,7 +601,7 @@ export class ComponentExamplesProvider {
           undefined,
           <Button
             onClick={() => {
-              UiFramework.dialogs.modeless.open(
+              UiFramework.content.dialogs.open(
                 <ContentDialog
                   style={{ zIndex: 15000 }}
                   opened={true}
@@ -611,18 +611,18 @@ export class ComponentExamplesProvider {
                     {
                       type: DialogButtonType.OK,
                       onClick: () => {
-                        UiFramework.dialogs.modeless.close("ContentDialog1");
+                        UiFramework.content.dialogs.close("ContentDialog1");
                       },
                     },
                     {
                       type: DialogButtonType.Cancel,
                       onClick: () => {
-                        UiFramework.dialogs.modeless.close("ContentDialog1");
+                        UiFramework.content.dialogs.close("ContentDialog1");
                       },
                     },
                   ]}
                   onClose={() => {
-                    UiFramework.dialogs.modeless.close("ContentDialog1");
+                    UiFramework.content.dialogs.close("ContentDialog1");
                   }}
                 >
                   <div>
@@ -722,6 +722,7 @@ export class ComponentExamplesProvider {
                   movable={true}
                   uiDataProvider={new TestUiDataProvider()}
                   isModal={false}
+                  style={{ zIndex: 15000 }}
                 />,
                 "UiDataProvidedDialog1"
               );
