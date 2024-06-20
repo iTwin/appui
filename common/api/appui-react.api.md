@@ -4969,7 +4969,7 @@ export interface TrackingTime {
 }
 
 // @public @deprecated
-export function UiDataProvidedDialog({ uiDataProvider, id, isModal, ...dialogProps }: UiDataProvidedDialogProps): React_2.JSX.Element;
+export function UiDataProvidedDialog({ uiDataProvider, id, isModal, title, movable, resizable, minWidth, minHeight, maxWidth, maxHeight, width, height, style, }: UiDataProvidedDialogProps): React_2.JSX.Element;
 
 // @public @deprecated
 export interface UiDataProvidedDialogProps {
@@ -4982,6 +4982,7 @@ export interface UiDataProvidedDialogProps {
     minWidth?: string | number;
     movable?: boolean;
     resizable?: boolean;
+    style?: React_2.CSSProperties;
     title: string;
     uiDataProvider: DialogLayoutDataProvider;
     width?: string | number;

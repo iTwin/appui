@@ -699,8 +699,8 @@ public;ToolWidgetComposer(props: ToolWidgetComposerProps): React_2.JSX.Element
 public;ToolWidgetComposerProps 
 internal;toPanelSide(location: StagePanelLocation): PanelSide
 internal;TrackingTime
-public;UiDataProvidedDialog({ uiDataProvider, id, isModal, ...dialogProps }: UiDataProvidedDialogProps): React_2.JSX.Element
-deprecated;UiDataProvidedDialog({ uiDataProvider, id, isModal, ...dialogProps }: UiDataProvidedDialogProps): React_2.JSX.Element
+public;UiDataProvidedDialog({ uiDataProvider, id, isModal, title, movable, resizable, minWidth, minHeight, maxWidth, maxHeight, width, height, style, }: UiDataProvidedDialogProps): React_2.JSX.Element
+deprecated;UiDataProvidedDialog({ uiDataProvider, id, isModal, title, movable, resizable, minWidth, minHeight, maxWidth, maxHeight, width, height, style, }: UiDataProvidedDialogProps): React_2.JSX.Element
 public;UiDataProvidedDialogProps
 deprecated;UiDataProvidedDialogProps
 public;UiFramework
