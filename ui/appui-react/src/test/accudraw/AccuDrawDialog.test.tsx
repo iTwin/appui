@@ -4,12 +4,10 @@
  *--------------------------------------------------------------------------------------------*/
 import { fireEvent, render } from "@testing-library/react";
 import * as React from "react";
-import { Key } from "ts-key-enum";
 import { CompassMode, IModelApp } from "@itwin/core-frontend";
 import { Orientation } from "@itwin/core-react";
 import { FrameworkAccuDraw } from "../../appui-react/accudraw/FrameworkAccuDraw";
 import { AccuDrawDialog } from "../../appui-react/accudraw/AccuDrawDialog";
-import { UiFramework } from "../../appui-react";
 
 describe("AccuDrawDialog", () => {
   beforeEach(() => {
