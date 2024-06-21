@@ -9,7 +9,7 @@
 import * as React from "react";
 import { UiEvent } from "@itwin/appui-abstract";
 import type { Id64String } from "@itwin/core-bentley";
-import { BeUiEvent, Logger } from "@itwin/core-bentley";
+import { assert, BeUiEvent, Logger } from "@itwin/core-bentley";
 import type { IModelConnection, ViewState } from "@itwin/core-frontend";
 import { FuzzySearch, IModelApp } from "@itwin/core-frontend";
 import type { SupportsViewSelectorChange } from "../content/ContentControl";
@@ -47,6 +47,12 @@ export class ViewSelectorChangedEvent extends UiEvent<ViewSelectorChangedEventAr
 export interface ViewSelectorProps {
   imodel?: IModelConnection;
   listenForShowUpdates?: boolean;
+  onViewSelected?: (args: {
+    iModelConnection: IModelConnection;
+    viewDefinitionId: Id64String;
+    viewState: ViewState;
+    name: string;
+  }) => void;
 
   showSpatials: boolean;
   showDrawings: boolean;
@@ -109,7 +115,9 @@ export class ViewSelector extends React.Component<
     showUnknown: true,
   };
 
-  /** Gets the [[ViewSelectorChangedEvent]] */
+  /** Gets the [[ViewSelectorChangedEvent]].
+   * @deprecated in 4.15.0. TODO
+   */
   public static readonly onViewSelectorChangedEvent =
     new ViewSelectorChangedEvent(); // eslint-disable-line deprecation/deprecation
 
@@ -357,12 +365,14 @@ export class ViewSelector extends React.Component<
 
   // enable/disable the models
   private _setEnabled = async (item: ListItem, _enabled: boolean) => {
-    const activeContentControl =
-      // eslint-disable-next-line deprecation/deprecation
-      UiFramework.content.getActiveContentControl() as unknown as SupportsViewSelectorChange;
+    const activeContentControl = // eslint-disable-next-line deprecation/deprecation
+      UiFramework.content.getActiveContentControl() as unknown as  // eslint-disable-next-line deprecation/deprecation
+        | SupportsViewSelectorChange
+        | undefined;
     if (
-      !activeContentControl ||
-      !activeContentControl.supportsViewSelectorChange
+      !this.props.onViewSelected &&
+      (!activeContentControl ||
+        !activeContentControl.supportsViewSelectorChange)
     ) {
       Logger.logError(
         UiFramework.loggerCategory(this),
@@ -398,24 +408,37 @@ export class ViewSelector extends React.Component<
       this.setState({ items: itemsWithEnabled });
     }
 
+    assert(!!this.props.imodel);
+    assert(!!item.name);
+
     // Load the view state using the viewSpec's ID
-    const viewState = await this.props.imodel!.views.load(item.key);
+    const viewState = await this.props.imodel.views.load(item.key);
 
-    // Let activeContentControl process the ViewSelector change
-    await activeContentControl.processViewSelectorChange(
-      this.props.imodel!,
-      item.key,
-      viewState,
-      item.name!
-    );
+    if (this.props.onViewSelected) {
+      this.props.onViewSelected({
+        iModelConnection: this.props.imodel,
+        viewDefinitionId: item.key,
+        viewState,
+        name: item.name,
+      });
+    } else if (activeContentControl) {
+      // Let activeContentControl process the ViewSelector change
+      await activeContentControl.processViewSelectorChange(
+        this.props.imodel,
+        item.key,
+        viewState,
+        item.name
+      );
 
-    // Emit a change event
-    ViewSelector.onViewSelectorChangedEvent.emit({
-      iModelConnection: this.props.imodel!,
-      viewDefinitionId: item.key,
-      viewState,
-      name: item.name!,
-    });
+      // Emit a change event
+      // eslint-disable-next-line deprecation/deprecation
+      ViewSelector.onViewSelectorChangedEvent.emit({
+        iModelConnection: this.props.imodel,
+        viewDefinitionId: item.key,
+        viewState,
+        name: item.name,
+      });
+    }
 
     // Set state to show enabled the view that got selected
     void this.updateState(item.key);
