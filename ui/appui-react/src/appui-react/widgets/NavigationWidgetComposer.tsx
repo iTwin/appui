@@ -98,6 +98,28 @@ export function NavigationAidHost(props: NavigationAidHostProps) {
       }
     );
   }, []);
+  React.useEffect(() => {
+    return UiFramework.content.onActiveContentChangedEvent.addListener(
+      (args) => {
+        args.id;
+        const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
+        if (!frontstageDef) return;
+
+        const contentGroup = frontstageDef.contentGroup;
+        if (!contentGroup) return;
+
+        const content = contentGroup.contentPropsList.find(
+          (contentProps) => contentProps.id === args.id
+        );
+        if (!content?.content) return;
+
+        // Content w/o a control is activated - reset the navigation.
+        setActiveContentControl(undefined);
+        setActiveContentViewport(undefined);
+        setNavigationAidId("");
+      }
+    );
+  }, []);
 
   const [activeViewClass, setActiveViewClass] = React.useState(() => {
     // eslint-disable-next-line deprecation/deprecation
