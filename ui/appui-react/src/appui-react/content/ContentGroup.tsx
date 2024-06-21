@@ -107,7 +107,7 @@ export class ContentGroup {
   }
 
   /** Gets the React nodes representing the content views in this content group.
-   * @deprecated in 4.15.0. Use {@link contentPropsList} instead.
+   * @deprecated in 4.15.0. Use {@link ContentGroup.contentPropsList} instead.
    */
   public getContentNodes(): React.ReactNode[] {
     const contentNodes: React.ReactNode[] = new Array<React.ReactNode>();

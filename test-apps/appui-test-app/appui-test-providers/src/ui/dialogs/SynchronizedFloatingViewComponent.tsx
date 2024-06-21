@@ -178,6 +178,7 @@ export function SynchronizedFloatingView({
       <div className="test-syncrhonized-test-view" ref={divRef}>
         <div id="floatingviewportcontainerdiv">
           {initialViewState && (
+            // eslint-disable-next-line deprecation/deprecation
             <FloatingViewportContent
               contentId={contentId}
               initialViewState={initialViewState}

@@ -40,6 +40,7 @@ export function ContentWrapper(props: ContentWrapperProps) {
   const { content } = props;
   const activeFrontstageDef = useActiveFrontstageDef();
   const [isActive, setIsActive] = React.useState(() => {
+    // eslint-disable-next-line deprecation/deprecation
     return content === UiFramework.content.getActive();
   });
 
@@ -64,6 +65,7 @@ export function ContentWrapper(props: ContentWrapperProps) {
   );
 
   React.useEffect(() => {
+    // eslint-disable-next-line deprecation/deprecation
     setIsActive(content === UiFramework.content.getActive());
   }, [content]);
 

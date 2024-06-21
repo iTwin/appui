@@ -158,6 +158,7 @@ export class InternalFrontstageManager {
       InternalFrontstageManager.activeFrontstageDef &&
       !InternalFrontstageManager.isLoading
     ) {
+      // eslint-disable-next-line deprecation/deprecation
       InternalFrontstageManager.activeFrontstageDef.setActiveViewFromViewport(
         args.current
       );

@@ -40,7 +40,7 @@ export class MouseDownChangedEvent extends UiEvent<MouseDownChangedEventArgs> {}
  */
 export interface ActiveContentChangedEventArgs {
   /** React node of the old content.
-   * @deprecated in 4.15.0. Use {@link previousId} instead.
+   * @deprecated in 4.15.0. TODO
    */
   oldContent?: React.ReactNode;
   /** React node of the newly active content */
@@ -94,6 +94,9 @@ export interface FrameworkContent {
   // eslint-disable-next-line deprecation/deprecation
   readonly onAvailableContentChangedEvent: UiEvent<{ contentId: string }>;
 
+  /** Sets the active content. */
+  setActiveId(contentId?: ContentProps["id"]): void;
+
   /** Gets the active content as a React.ReactNode.
    * @deprecated in 4.15.0. TODO
    */
@@ -120,9 +123,6 @@ export interface FrameworkContent {
     activeContent?: React.ReactNode,
     forceEventProcessing?: boolean
   ): void;
-
-  /** Sets the active content. */
-  setActiveId(contentId?: ContentProps["id"]): void;
 
   /** Refreshes the active [[ContentControl]].
    * @deprecated in 4.15.0. TODO
