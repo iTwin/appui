@@ -94,7 +94,9 @@ export interface FrameworkContent {
   // eslint-disable-next-line deprecation/deprecation
   readonly onAvailableContentChangedEvent: UiEvent<{ contentId: string }>;
 
-  /** Gets the active content as a React.ReactNode. */
+  /** Gets the active content as a React.ReactNode.
+   * @deprecated in 4.15.0. TODO
+   */
   getActive(): React.ReactNode | undefined;
 
   /** Return the active ContentControl.

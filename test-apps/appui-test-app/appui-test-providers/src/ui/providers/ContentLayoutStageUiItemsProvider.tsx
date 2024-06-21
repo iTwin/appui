@@ -17,7 +17,6 @@ import {
   ToolbarItemUtilities,
   ToolbarOrientation,
   ToolbarUsage,
-  UiFramework,
   UiItemsManager,
   UiItemsProvider,
   Widget,
@@ -32,9 +31,10 @@ import { AppUiTestProviders } from "../../AppUiTestProviders";
 import { getCustomViewSelectorPopupItem } from "../buttons/ViewSelectorPanel";
 import { ContentLayoutStage } from "../frontstages/ContentLayout";
 import { DisplayStyleField } from "../statusfields/DisplayStyleField";
-import { ViewportWidgetComponent } from "../widgets/ViewportWidget";
 import { IModelApp } from "@itwin/core-frontend";
-import { ViewportComponent } from "@itwin/imodel-components-react";
+import { ControlViewportWidget } from "../widgets/ControlViewportWidget";
+import { ViewportWidget as ViewportWidgetBase } from "../widgets/ViewportWidget";
+import { WidgetContentContext } from "./WidgetContentProvider";
 
 /**
  * The ContentLayoutStageUiItemsProvider provides additional items only to the `ContentLayoutStage` frontstage.
@@ -124,15 +124,15 @@ export class ContentLayoutStageUiItemsProvider implements UiItemsProvider {
       section === StagePanelSection.Start
     ) {
       widgets.push({
-        id: "appui-test-providers:viewport-widget",
-        label: "Viewport",
+        id: "appui-test-providers:viewport-old",
+        label: "Viewport (old)",
         icon: "icon-bentley-systems",
         defaultState: WidgetState.Floating,
         canFloat: {
           containerId: "appui-test-providers:viewport-widget",
         },
         canPopout: true,
-        content: <ViewportWidgetComponent />,
+        content: <ControlViewportWidget />,
       });
       widgets.push({
         id: "appui-test-providers:viewport-widget1",
@@ -143,7 +143,19 @@ export class ContentLayoutStageUiItemsProvider implements UiItemsProvider {
           containerId: "appui-test-providers:viewport-widget1",
         },
         canPopout: true,
-        content: <ViewportWidget />,
+        content: <ViewportWidget contentId="viewport-widget1" />,
+      });
+      widgets.push({
+        id: "appui-test-providers:viewport-widget2",
+        label: "Viewport 2",
+        icon: "icon-bentley-systems",
+        defaultState: WidgetState.Floating,
+        // TODO: two viewports in the same floating widget: viewport can not be created from a div with zero w/h.
+        canFloat: {
+          containerId: "appui-test-providers:viewport-widget2",
+        },
+        canPopout: true,
+        content: <ViewportWidget contentId="viewport-widget2" />,
       });
     }
     return widgets;
@@ -181,28 +193,19 @@ export class ContentLayoutStageUiItemsProvider implements UiItemsProvider {
   }
 }
 
-function ViewportWidget() {
-  const [active, setActive] = React.useState(false);
-  const [viewState] = React.useState(() => {
-    return UiFramework.getDefaultViewState();
-  });
-  React.useEffect(() => {
-    UiFramework.content.onActiveContentChangedEvent.addListener(() => {
-      setActive(false);
-    });
-  }, []);
-  if (!viewState) return null;
+interface ViewportWidgetProps {
+  contentId: string;
+}
+
+function ViewportWidget({ contentId }: ViewportWidgetProps) {
+  // We could have used `IModelApp.viewManager` instead to track active viewport.
+  const context = React.useContext(WidgetContentContext);
   return (
-    <div
-      onMouseDown={() => {
-        UiFramework.content.setActiveId(undefined);
-        setActive(true);
+    <ViewportWidgetBase
+      active={contentId === context.activeId}
+      onActivate={() => {
+        context.setActiveId(contentId);
       }}
-      style={{ height: "100%" }}
-      role="presentation"
-    >
-      {active && "active"}
-      <ViewportComponent viewState={viewState} imodel={viewState.iModel} />
-    </div>
+    />
   );
 }

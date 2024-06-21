@@ -103,6 +103,7 @@ import {
   SynchronizedFloatingViewportStage,
   testFrontstageProvider,
   WidgetApiStage,
+  WidgetContentProvider,
 } from "@itwin/appui-test-providers";
 import { getUrlParam, useHandleURLParams } from "./UrlParams";
 import {
@@ -617,21 +618,23 @@ const SampleAppViewer = () => {
   useHandleURLParams();
 
   return (
-    <AppPreviewFeatures>
-      <AppLocalizationProvider>
-        <Provider store={SampleAppIModelApp.store}>
-          <ThemeManager>
-            <SafeAreaContext.Provider value={SafeAreaInsets.All}>
-              <AppDragInteraction>
-                <UiStateStorageHandler>
-                  <AppViewerContent />
-                </UiStateStorageHandler>
-              </AppDragInteraction>
-            </SafeAreaContext.Provider>
-          </ThemeManager>
-        </Provider>
-      </AppLocalizationProvider>
-    </AppPreviewFeatures>
+    <WidgetContentProvider>
+      <AppPreviewFeatures>
+        <AppLocalizationProvider>
+          <Provider store={SampleAppIModelApp.store}>
+            <ThemeManager>
+              <SafeAreaContext.Provider value={SafeAreaInsets.All}>
+                <AppDragInteraction>
+                  <UiStateStorageHandler>
+                    <AppViewerContent />
+                  </UiStateStorageHandler>
+                </AppDragInteraction>
+              </SafeAreaContext.Provider>
+            </ThemeManager>
+          </Provider>
+        </AppLocalizationProvider>
+      </AppPreviewFeatures>
+    </WidgetContentProvider>
   );
 };
 
