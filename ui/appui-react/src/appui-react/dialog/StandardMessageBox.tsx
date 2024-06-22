@@ -107,6 +107,7 @@ export function StandardMessageBox(props: StandardMessageBoxProps) {
       }}
       closeOnEsc
       closeOnExternalClick={false}
+      portal={false}
       data-testid="message-box-dialog-container"
     >
       <ModalContent>

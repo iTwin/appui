@@ -437,7 +437,14 @@ function SaveFormatModalDialog({
       isOpen={isOpen}
       title={"Save Format Changes"}
       onClose={handleCancel}
-      style={{ minWidth: 200, maxWidth: 400, minHeight: 150, maxHeight: 400 }}
+      style={{
+        minWidth: 200,
+        maxWidth: 400,
+        minHeight: 150,
+        maxHeight: 400,
+        zIndex: 15000,
+      }}
+      portal={false}
       closeOnEsc
       closeOnExternalClick
     >

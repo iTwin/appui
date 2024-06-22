@@ -39,6 +39,7 @@ export function SampleModalDialog() {
       title={translate("Dialogs.SampleModal.title")}
       onClose={handleCancel}
       style={{ width: 450, height: 300 }}
+      portal={false}
       closeOnEsc
       closeOnExternalClick
     >
