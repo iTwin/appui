@@ -18,12 +18,7 @@ import type { CommonProps } from "@itwin/core-react";
 import { MessageContainer } from "@itwin/core-react";
 import { DialogManagerBase } from "./DialogManagerBase";
 import { UiFramework } from "../UiFramework";
-import {
-  Button,
-  Modal,
-  ModalButtonBar,
-  ModalContent,
-} from "@itwin/itwinui-react";
+import { Button, Dialog } from "@itwin/itwinui-react";
 import { useTranslation } from "@itwin/components-react";
 
 /** Properties for [[StandardMessageBox]] React component
@@ -95,34 +90,35 @@ export function StandardMessageBox(props: StandardMessageBoxProps) {
   };
 
   return (
-    <Modal
+    <Dialog
       isOpen={isOpen}
-      title={props.title}
-      onClose={handleCancel}
+      style={{ zIndex: DialogManagerBase.topZIndex, ...props.style }}
       className={props.className}
-      style={{
-        zIndex: DialogManagerBase.topZIndex,
-        width: 512,
-        ...props.style,
-      }}
+      onClose={handleCancel}
       closeOnEsc
       closeOnExternalClick={false}
-      portal={false}
-      data-testid="message-box-dialog-container"
+      preventDocumentScroll
     >
-      <ModalContent>
-        {/* eslint-disable-next-line deprecation/deprecation */}
-        <MessageContainer severity={severity}>
-          {props.children}
-        </MessageContainer>
-      </ModalContent>
-      <ModalButtonBar>
-        <DialogButtons
-          messageBoxType={props.messageBoxType}
-          handleButton={handleButton}
-        />
-      </ModalButtonBar>
-    </Modal>
+      <Dialog.Backdrop />
+      <Dialog.Main
+        style={{ width: 512 }}
+        data-testid="message-box-dialog-container"
+      >
+        <Dialog.TitleBar titleText={props.title} />
+        <Dialog.Content>
+          {/* eslint-disable-next-line deprecation/deprecation */}
+          <MessageContainer severity={severity}>
+            {props.children}
+          </MessageContainer>
+        </Dialog.Content>
+        <Dialog.ButtonBar>
+          <DialogButtons
+            messageBoxType={props.messageBoxType}
+            handleButton={handleButton}
+          />
+        </Dialog.ButtonBar>
+      </Dialog.Main>
+    </Dialog>
   );
 }
 
