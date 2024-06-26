@@ -120,7 +120,9 @@ export function AppPreviewFeatures(props: React.PropsWithChildren<{}>) {
   const [features, setFeatures] = useSavedFeatures();
   return (
     <PreviewFeaturesContext.Provider value={[features, setFeatures]}>
-      <PreviewFeaturesProvider features={features}>
+      <PreviewFeaturesProvider
+        features={{ ...features, reparentPopoutWidgets: true }}
+      >
         {props.children}
       </PreviewFeaturesProvider>
     </PreviewFeaturesContext.Provider>

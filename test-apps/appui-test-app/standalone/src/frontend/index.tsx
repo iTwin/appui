@@ -97,6 +97,7 @@ import {
   FloatingWidgetsUiItemsProvider,
   InspectUiItemInfoToolProvider,
   MessageUiItemsProvider,
+  myTestProvider,
   PopoutWindowsFrontstage,
   previewFeaturesToggleProvider,
   registerCustomFrontstage,
@@ -374,6 +375,7 @@ export class SampleAppIModelApp {
       )
     );
     UiItemsManager.register(previewFeaturesToggleProvider);
+    UiItemsManager.register(myTestProvider);
     UiItemsManager.register(new CustomStageUiItemsProvider());
     UiItemsManager.register({
       id: "language",
