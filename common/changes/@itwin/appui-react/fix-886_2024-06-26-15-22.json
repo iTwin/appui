@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Fixed unexpected popout widget transition when popover is opened.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}

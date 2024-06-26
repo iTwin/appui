@@ -6,11 +6,12 @@ Table of contents:
   - [Deprecations](#deprecations)
   - [Additions](#additions)
   - [Changes](#changes)
+  - [Fixes](#fixes)
 - [@itwin/core-react](#itwincore-react)
   - [Additions](#additions-1)
   - [Deprecations](#deprecations-1)
 - [@itwin/components-react](#itwincomponents-react)
-  - [Fixes](#fixes)
+  - [Fixes](#fixes-1)
 
 ## @itwin/appui-react
 
@@ -78,6 +79,10 @@ Table of contents:
 - Bumped `getToolbarItems`, `getStatusBarItems`, `getWidgets` and `getBackstageItems` methods of `UiItemsProvider`, `layouts` property of `CommonToolbarItem` and `Widget`, `StandardLayoutToolbarItem`, `StandardLayoutWidget`, `ToolbarItemLayouts`, `WidgetLayouts` to `@public`. [#874](https://github.com/iTwin/appui/pull/874)
 - Changed `StandardMessageBox` from a class to a functional component. [#883](https://github.com/iTwin/appui/pull/883)
 - Changed components to use iTwinUI dialogs. [#883](https://github.com/iTwin/appui/pull/883)
+
+### Fixes
+
+- Fixed unexpected popout widget transition when popover is opened. [#887](https://github.com/iTwin/appui/pull/887)
 
 ## @itwin/core-react
 
