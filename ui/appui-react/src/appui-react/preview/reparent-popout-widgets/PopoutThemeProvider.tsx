@@ -29,16 +29,23 @@ export function PopoutThemeProvider({ children }: React.PropsWithChildren<{}>) {
     () => layoutStore.subscribe((state) => (stateRef.current = state)),
     [layoutStore]
   );
-  const popoutContainer = usePopoutsStore((state) => {
+  const portalContainer = usePopoutsStore((state) => {
     if (!tabId) return undefined;
     const tabLocation = getTabLocation(stateRef.current, tabId);
     if (!tabLocation) return undefined;
     if (!isPopoutTabLocation(tabLocation)) return undefined;
-    return state.popouts[tabLocation.popoutWidgetId];
+    const popout = state.popouts[tabLocation.popoutWidgetId];
+    if (!popout) return undefined;
+
+    const container = popout.ownerDocument.querySelector<HTMLDivElement>(
+      ".uifw-childwindow-internalChildWindowManager_portalContainer"
+    );
+    return container ?? undefined;
   });
+
   return (
     <ThemeProvider
-      portalContainer={popoutContainer ?? undefined}
+      portalContainer={portalContainer}
       className="uifw-preview-reparentPopoutWidgets-popoutThemeProvider"
     >
       {children}
