@@ -2055,7 +2055,7 @@ export function PropertyFilterBuilder(props: PropertyFilterBuilderProps): React_
 // @beta
 export class PropertyFilterBuilderActions {
     constructor(setState: (setter: (prevState: PropertyFilterBuilderState) => PropertyFilterBuilderState) => void);
-    addItem(path: string[], itemType: "RULE_GROUP" | "RULE"): void;
+    addItem(path: string[], item: "RULE_GROUP" | "RULE" | PropertyFilterRule | PropertyFilterRuleGroup): void;
     removeAllItems(): void;
     removeItem(path: string[]): void;
     setRuleErrorMessages(ruleIdsAndErrorMessages: Map<string, string>): void;
