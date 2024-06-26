@@ -4,6 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/inputs/variables";
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
+@import "~@itwin/core-react/lib/cjs/core-react/z-index";
 
 .quantity-formatting-container {
   box-sizing: border-box;
@@ -113,4 +114,8 @@
       }
     }
   }
+}
+
+.uifw-settings-quantityFormatting-saveFormatModalDialog {
+  @include uicore-z-index(dialog);
 }
