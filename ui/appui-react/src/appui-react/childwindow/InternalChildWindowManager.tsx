@@ -174,6 +174,7 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
                     {content}
                   </div>
                 </div>
+                <div className="uifw-childwindow-internalChildWindowManager_portalContainer" />
               </ThemeManager>
             </UiStateStorageHandler>
           </TabIdContext.Provider>
