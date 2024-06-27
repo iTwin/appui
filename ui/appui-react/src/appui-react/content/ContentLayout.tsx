@@ -423,7 +423,7 @@ export class ContentLayoutDef {
       this.description = layoutProps.description;
   }
 
-  /** @deprecated in 4.15.0. TODO */
+  /** @deprecated in 4.15.0. Used internally. */
   public get rootSplit(): LayoutSplit | undefined {
     return this._rootSplit;
   }
@@ -436,7 +436,7 @@ export class ContentLayoutDef {
   }
 
   /** Fill a layout container with React nodes for each content view.
-   * @deprecated in 4.15.0. TODO
+   * @deprecated in 4.15.0. Used internally.
    */
   public fillLayoutContainer(
     contentNodes: React.ReactNode[],

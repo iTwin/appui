@@ -206,7 +206,7 @@ export class ContentGroup {
   private _contentSetMap = new Map<string, ContentControl>();
 
   /** Gets a [[ContentControl]] from the Content Group based on its [[ContentProps]].
-   * @deprecated in 4.15.0. TODO
+   * @deprecated in 4.15.0. Uses a deprecated class {@link ContentControl}.
    */
   public getContentControl(
     contentProps: ContentProps,
@@ -264,14 +264,14 @@ export class ContentGroup {
   }
 
   /** Gets a [[ContentControl]] from the Content Group with a given ID.
-   * @deprecated in 4.15.0. TODO
+   * @deprecated in 4.15.0. Uses a deprecated class {@link ContentControl}.
    */
   public getContentControlById(id: string): ContentControl | undefined {
     return this._contentControls.get(id);
   }
 
   /** Gets the [[ContentControl]] associated with a given React node representing a Content View.
-   * @deprecated in 4.15.0. TODO
+   * @deprecated in 4.15.0. Uses a deprecated class {@link ContentControl}.
    */
   public getControlFromElement(
     node: React.ReactNode
@@ -289,7 +289,7 @@ export class ContentGroup {
   }
 
   /** Gets an array of the content controls representing the Content Views.
-   * @deprecated in 4.15.0. TODO
+   * @deprecated in 4.15.0. Uses a deprecated class {@link ContentControl}.
    */
   public getContentControls(): ContentControl[] {
     const contentControls: ContentControl[] = new Array<ContentControl>();

@@ -166,7 +166,7 @@ export class UiFramework {
   }
 
   /** Manage registered controls.
-   * @deprecated in 4.15.0. TODO
+   * @deprecated in 4.15.0. Uses a deprecated interface {@link FrameworkControls}.
    */
   // eslint-disable-next-line deprecation/deprecation
   public static get controls(): FrameworkControls {

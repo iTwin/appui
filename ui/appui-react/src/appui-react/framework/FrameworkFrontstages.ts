@@ -337,7 +337,7 @@ export interface FrameworkFrontstages {
   setActiveTool(tool: Tool): void;
 
   /** Gets the active tool's [[ToolInformation]]
-   * @deprecated in 4.15.0. TODO
+   * @deprecated in 4.15.0. Uses a deprecated class {@link ToolInformation}.
    */
   // eslint-disable-next-line deprecation/deprecation
   readonly activeToolInformation: ToolInformation | undefined;

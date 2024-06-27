@@ -116,7 +116,7 @@ export class ViewSelector extends React.Component<
   };
 
   /** Gets the [[ViewSelectorChangedEvent]].
-   * @deprecated in 4.15.0. TODO
+   * @deprecated in 4.15.0. Use {@link ViewSelectorProps.onViewSelected} prop instead.
    */
   public static readonly onViewSelectorChangedEvent =
     new ViewSelectorChangedEvent(); // eslint-disable-line deprecation/deprecation

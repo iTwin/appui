@@ -15,12 +15,13 @@ import { FloatingViewportContentControl } from "./ViewportContentControl";
 import { ContentWrapper } from "./ContentLayout";
 import { UiFramework } from "../UiFramework";
 import { useRefs } from "@itwin/core-react";
+import { ContentOverlay } from "./ContentOverlay";
 
 /* eslint-disable deprecation/deprecation */
 
 /**
  * @beta
- * @deprecated in 4.15.0. TODO
+ * @deprecated in 4.15.0. Props of a deprecated component {@link FloatingViewportContent}.
  */
 export interface FloatingViewportContentProps {
   /** callback used to construct context menu when user right-clicks on canvas/viewport */
@@ -35,7 +36,7 @@ export interface FloatingViewportContentProps {
 
 /**
  * @beta
- * @deprecated in 4.15.0. TODO
+ * @deprecated in 4.15.0. Wrap {@link ViewportComponent} component in a {@link ContentOverlay} instead.
  */
 export function FloatingViewportContent(props: FloatingViewportContentProps) {
   const { viewportControl } = useFloatingViewport(props);
@@ -48,7 +49,7 @@ export function FloatingViewportContent(props: FloatingViewportContentProps) {
 
 /**
  * @public
- * @deprecated in 4.15.0. TODO
+ * @deprecated in 4.15.0. Props of a deprecated component {@link FloatingViewportContentWrapper}.
  */
 export interface FloatingViewportContentWrapperProps {
   readonly children?: React.ReactNode;
@@ -56,7 +57,7 @@ export interface FloatingViewportContentWrapperProps {
 
 /**
  * @public
- * @deprecated in 4.15.0. TODO
+ * @deprecated in 4.15.0. Use {@link ContentOverlay} component instead.
  */
 export function FloatingViewportContentWrapper({
   children,
@@ -77,7 +78,7 @@ export function FloatingViewportContentWrapper({
 
 /**
  * @alpha
- * @deprecated in 4.15.0. TODO
+ * @deprecated in 4.15.0. Use {@link ViewportComponent} component instead.
  */
 export function useFloatingViewport(args: FloatingViewportContentProps) {
   const { contentId, initialViewState, onContextMenu, viewportRef } = args;

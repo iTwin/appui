@@ -141,9 +141,7 @@ export class InternalContentViewManager {
       activeFrontstageDef.dropFloatingContentControl(contentControl);
   }
 
-  /** Sets the active [[ContentControl]].
-   * @deprecated in 4.15.0. TODO
-   */
+  /** Sets the active [[ContentControl]]. */
   public static setActive(
     activeContent?: React.ReactNode,
     forceEventProcessing = false
@@ -265,9 +263,7 @@ export class InternalContentViewManager {
     return activeContent?.id;
   }
 
-  /** Refreshes the active [[ContentControl]].
-   * @deprecated in 4.15.0. TODO
-   */
+  /** Refreshes the active [[ContentControl]]. */
   public static refreshActive(activeContent: React.ReactNode) {
     this.layouts.refreshActive();
     // eslint-disable-next-line deprecation/deprecation
