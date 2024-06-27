@@ -72,11 +72,13 @@ export function ContentWrapper(props: ContentWrapperProps) {
   React.useEffect(() => {
     return UiFramework.content.onActiveContentChangedEvent.addListener(
       (args) => {
+        // eslint-disable-next-line deprecation/deprecation
         const contentIsIdentical = content === args.activeContent;
         if (contentIsIdentical) {
           setIsActive(contentIsIdentical);
         } else {
           const contentId = contentControlKey(content);
+          // eslint-disable-next-line deprecation/deprecation
           const activeContentId = contentControlKey(args.activeContent);
           setIsActive(!!contentId && contentId === activeContentId);
         }
