@@ -171,6 +171,11 @@ export class PopupButton extends React.PureComponent<
           showShadow={showShadow}
           moveFocus={moveFocus}
           focusTarget={this.props.focusTarget}
+          portalTarget={
+            this._buttonRef.current?.ownerDocument.querySelector(
+              ".uifw-configurableui-portalContainer"
+            ) ?? undefined
+          }
         >
           {this.props.children}
         </Popup>

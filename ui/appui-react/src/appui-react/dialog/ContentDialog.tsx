@@ -6,70 +6,17 @@
  * @module Dialog
  */
 
-import "./ContentDialog.scss";
 import * as React from "react";
 import type { DialogProps } from "@itwin/core-react";
 import { Dialog } from "@itwin/core-react";
-import {
-  SyncUiEventDispatcher,
-  SyncUiEventId,
-} from "../syncui/SyncUiEventDispatcher";
 import { UiFramework } from "../UiFramework";
-import classnames from "classnames";
-import type { UiSyncEventArgs } from "../syncui/UiSyncEvent";
 
-/** @internal */
-export function useActiveContentControlId(): string | undefined {
-  const [activeContentId, setActiveContentId] = React.useState(
-    // eslint-disable-next-line deprecation/deprecation
-    UiFramework.content.getActiveContentControl()?.uniqueId
-  );
-
-  React.useEffect(() => {
-    // IModelApp.viewManager.onSelectedViewportChanged will often fire before UI components have mounted
-    // so use UiFramework.content.onActiveContentChangedEvent which will always trigger once all stage components
-    // are loaded and when the IModelApp.viewManager.selectedView changes.
-    return UiFramework.content.onActiveContentChangedEvent.addListener(
-      (_args) => {
-        setActiveContentId(
-          // eslint-disable-next-line deprecation/deprecation
-          UiFramework.content.getActiveContentControl()?.uniqueId
-        );
-      }
-    );
-  }, []);
-
-  React.useEffect(() => {
-    const syncIdsOfInterest = [
-      SyncUiEventId.ActiveContentChanged,
-      // eslint-disable-next-line deprecation/deprecation
-      SyncUiEventId.ContentControlActivated,
-      SyncUiEventId.FrontstageReady,
-    ];
-    // eslint-disable-next-line deprecation/deprecation
-    const handleSyncUiEvent = (args: UiSyncEventArgs): void => {
-      if (
-        syncIdsOfInterest.some((value: string): boolean =>
-          args.eventIds.has(value)
-        )
-      ) {
-        setActiveContentId(
-          // eslint-disable-next-line deprecation/deprecation
-          UiFramework.content.getActiveContentControl()?.uniqueId
-        );
-      }
-    };
-
-    return SyncUiEventDispatcher.onSyncUiEvent.addListener(handleSyncUiEvent);
-  }, []);
-
-  return activeContentId;
-}
+/* eslint-disable deprecation/deprecation */
 
 /** Properties for the [[ContentDialog]] component
  * @public
+ * @deprecated in 4.15.0. Props of deprecated {@link ContentDialog} component.
  */
-// eslint-disable-next-line deprecation/deprecation
 export interface ContentDialogProps extends DialogProps {
   dialogId: string;
   movable?: boolean;
@@ -79,6 +26,7 @@ export interface ContentDialogProps extends DialogProps {
 /** Content Dialog React component uses the Dialog component with a modal={false} prop.
  * It controls the z-index to keep the focused dialog above content but below widgets.
  * @public
+ * @deprecated in 4.15.0. Use {@link https://itwinui.bentley.com/docs/dialog iTwinUI Dialog} instead.
  */
 export function ContentDialog(props: ContentDialogProps) {
   const {
@@ -91,17 +39,6 @@ export function ContentDialog(props: ContentDialogProps) {
     onModelessPointerDown,
     ...otherProps
   } = props;
-  const activeContentControlId = useActiveContentControlId();
-  const dialogClassName = React.useMemo(
-    () =>
-      classnames(
-        activeContentControlId === dialogId
-          ? "active-content-dialog"
-          : "inactive-content-dialog",
-        className
-      ),
-    [activeContentControlId, className, dialogId]
-  );
 
   const [zIndex, setZIndex] = React.useState(
     UiFramework.content.dialogs.getZIndex(dialogId)
@@ -114,9 +51,8 @@ export function ContentDialog(props: ContentDialogProps) {
   }, [dialogId, zIndex]);
 
   return (
-    // eslint-disable-next-line deprecation/deprecation
     <Dialog
-      className={dialogClassName}
+      className={className}
       data-item-type="content-dialog"
       data-item-id={dialogId}
       resizable={true}

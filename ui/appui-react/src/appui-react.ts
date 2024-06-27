@@ -276,7 +276,7 @@ export * from "./appui-react/toolsettings/DefaultToolSettingsProvider";
 /** @docs-package-description
  * The ui-framework package contains classes and components for specifying the application UI consisting of the
  * Backstage, Frontstages, Content Views, Tool Bars, Status Bars, Widgets and Panels.
- * For more information, see [learning about appui-react]($docs/learning/ui/appui-react/index.md).
+ * For more information, see [the AppUI learning docs]($docs/ui/appui/get-started.md).
  */
 /**
  * @docs-group-description AccuDraw
@@ -380,7 +380,7 @@ export * from "./appui-react/toolsettings/DefaultToolSettingsProvider";
  */
 /**
  * @docs-group-description ToolSettings
- * Classes for working Tool Settings.  See learning documentation [Tool Settings]($docs/learning/ui/appui-react/toolsettings.md).
+ * Classes for working Tool Settings.  See learning documentation [Tool Settings]($docs/ui/appui/configure-frontstage.md#tool-settings).
  */
 /**
  * @docs-group-description UiProvider

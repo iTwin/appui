@@ -2,11 +2,12 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { ContentDialog, UiFramework } from "@itwin/appui-react";
+import { UiFramework } from "@itwin/appui-react";
 import { IModelApp, Tool } from "@itwin/core-frontend";
 import * as React from "react";
 import { SynchronizedFloatingView } from "../ui/dialogs/SynchronizedFloatingViewComponent";
 import panoramaconSvg from "@bentley/icons-generic/icons/panorama.svg";
+import { Dialog } from "@itwin/itwinui-react";
 
 export class OpenSynchronizedViewTool extends Tool {
   private static _counter = 0;
@@ -49,7 +50,7 @@ export class OpenSynchronizedViewTool extends Tool {
           40 * (floatingContentCount - 1);
       }
     }
-    UiFramework.content.dialogs.open(
+    UiFramework.dialogs.modeless.open(
       <IModelViewDialog
         x={x}
         y={y}
@@ -86,25 +87,33 @@ function IModelViewDialog({
   title: string;
 }) {
   const [viewport] = React.useState(() => IModelApp.viewManager.selectedView);
-  const handleClose = React.useCallback(() => {
-    UiFramework.content.dialogs.close(id);
-  }, [id]);
+  const initialOffset =
+    x || y
+      ? {
+          left: x ?? 0,
+          top: y ?? 0,
+          transform: "none",
+        }
+      : {};
 
   if (!viewport) return null;
   return (
-    <ContentDialog
-      title={title}
-      inset={false}
-      opened={true}
-      onClose={handleClose}
-      onEscape={handleClose}
-      width="40vw"
-      height="40vh"
-      dialogId={id}
-      x={x}
-      y={y}
+    <Dialog
+      isOpen={true}
+      onClose={() => {
+        UiFramework.dialogs.modeless.close(id);
+      }}
+      closeOnEsc
+      isDraggable
+      isResizable
+      preventDocumentScroll={true}
     >
-      <SynchronizedFloatingView contentId={id} viewport={viewport} />
-    </ContentDialog>
+      <Dialog.Main style={{ width: "40vw", height: "40vh", ...initialOffset }}>
+        <Dialog.TitleBar titleText={title} />
+        <Dialog.Content style={{ padding: 0 }}>
+          <SynchronizedFloatingView contentId={id} viewport={viewport} />
+        </Dialog.Content>
+      </Dialog.Main>
+    </Dialog>
   );
 }

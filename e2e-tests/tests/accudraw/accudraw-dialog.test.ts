@@ -12,7 +12,7 @@ test("accudraw dialog test", async ({ page, baseURL }) => {
 
   await page.getByRole("button", { name: "Open Accudraw Dialog" }).click();
 
-  const accudrawDialog = page.getByTestId("core-dialog-container");
+  const accudrawDialog = page.getByTestId("accudraw-dialog-container");
   await expect(
     accudrawDialog.getByRole("img", { name: "distance" })
   ).toBeVisible();

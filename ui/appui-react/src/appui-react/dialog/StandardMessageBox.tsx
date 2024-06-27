@@ -15,9 +15,11 @@ import {
 import type { DialogButtonDef } from "@itwin/appui-abstract";
 import { DialogButtonType, MessageSeverity } from "@itwin/appui-abstract";
 import type { CommonProps } from "@itwin/core-react";
-import { MessageBox } from "@itwin/core-react";
+import { MessageContainer } from "@itwin/core-react";
 import { DialogManagerBase } from "./DialogManagerBase";
 import { UiFramework } from "../UiFramework";
+import { Button, Dialog } from "@itwin/itwinui-react";
+import { useTranslation } from "@itwin/components-react";
 
 /** Properties for [[StandardMessageBox]] React component
  * @public
@@ -25,158 +27,205 @@ import { UiFramework } from "../UiFramework";
  */
 // eslint-disable-next-line deprecation/deprecation
 export interface StandardMessageBoxProps extends CommonProps {
-  /** Indicates whether the message box is open */
+  /** Indicates whether the message box is open. */
   opened: boolean;
-  /** The standard icon to display in the message box */
+  /** The standard icon to display in the message box. */
   iconType: MessageBoxIconType;
-  /** Title to display in the message box */
+  /** Title to display in the message box. */
   title: string;
-  /** Controls the button set displayed */
+  /** Controls the button set displayed. */
   messageBoxType: MessageBoxType;
-  /** Callback function for processing the message box result */
+  /** Callback function for processing the message box result. */
   onResult?: (result: MessageBoxValue) => void;
-  /** Content */
+  /** Content. */
   children?: React.ReactNode;
-}
-
-/** State for [[StandardMessageBox]] React component
- * @internal
- */
-interface StandardMessageBoxState {
-  opened: boolean;
 }
 
 /** StandardMessageBox React component displays a standard icon, message text and a standard button set in the lower right.
  * @public
  * @deprecated in 4.15.0. Use {@link https://itwinui.bentley.com/docs/dialog iTwinUI Dialog} instead.
  */
-export class StandardMessageBox extends React.PureComponent<
-  StandardMessageBoxProps, // eslint-disable-line deprecation/deprecation
-  StandardMessageBoxState
-> {
-  /** @internal */
-  public override readonly state: Readonly<StandardMessageBoxState>;
+// eslint-disable-next-line deprecation/deprecation
+export function StandardMessageBox(props: StandardMessageBoxProps) {
+  const [isOpen, setIsOpen] = React.useState(props.opened);
 
-  // eslint-disable-next-line deprecation/deprecation
-  constructor(props: StandardMessageBoxProps) {
-    super(props);
-    this.state = {
-      opened: this.props.opened,
-    };
+  let severity = MessageSeverity.None;
+  switch (props.iconType) {
+    case MessageBoxIconType.NoSymbol:
+      severity = MessageSeverity.None;
+      break;
+    case MessageBoxIconType.Information:
+      severity = MessageSeverity.Information;
+      break;
+    case MessageBoxIconType.Question:
+      severity = MessageSeverity.Question;
+      break;
+    case MessageBoxIconType.Warning:
+      severity = MessageSeverity.Warning;
+      break;
+    case MessageBoxIconType.Critical:
+      severity = MessageSeverity.Error;
+      break;
+    case MessageBoxIconType.Success:
+      severity = MessageSeverity.Success;
+      break;
   }
 
-  public override render(): React.ReactElement {
-    const buttonCluster: DialogButtonDef[] = new Array<DialogButtonDef>();
+  const handleButton = (buttonType: MessageBoxValue) => {
+    closeDialog(() => {
+      if (props.onResult) props.onResult(buttonType);
+    });
+  };
 
-    switch (this.props.messageBoxType) {
-      case MessageBoxType.Ok:
-      case MessageBoxType.LargeOk:
-        buttonCluster.push({
-          type: DialogButtonType.OK,
-          onClick: () => {
-            this._handleButton(MessageBoxValue.Ok);
-          },
-        });
-        break;
-      case MessageBoxType.OkCancel:
-      case MessageBoxType.MediumAlert:
-        buttonCluster.push({
-          type: DialogButtonType.OK,
-          onClick: () => {
-            this._handleButton(MessageBoxValue.Ok);
-          },
-        });
+  const handleCancel = () => {
+    closeDialog(() => {
+      if (props.onResult) props.onResult(MessageBoxValue.Cancel);
+    });
+  };
+
+  const closeDialog = (followUp: () => void) => {
+    setIsOpen(false);
+    UiFramework.dialogs.modal.close();
+    followUp();
+  };
+
+  return (
+    <Dialog
+      isOpen={isOpen}
+      style={{ zIndex: DialogManagerBase.topZIndex, ...props.style }}
+      className={props.className}
+      onClose={handleCancel}
+      closeOnEsc
+      closeOnExternalClick={false}
+      preventDocumentScroll
+    >
+      <Dialog.Backdrop />
+      <Dialog.Main
+        style={{ width: 512 }}
+        data-testid="message-box-dialog-container"
+      >
+        <Dialog.TitleBar titleText={props.title} />
+        <Dialog.Content>
+          {/* eslint-disable-next-line deprecation/deprecation */}
+          <MessageContainer severity={severity}>
+            {props.children}
+          </MessageContainer>
+        </Dialog.Content>
+        <Dialog.ButtonBar>
+          <DialogButtons
+            messageBoxType={props.messageBoxType}
+            handleButton={handleButton}
+          />
+        </Dialog.ButtonBar>
+      </Dialog.Main>
+    </Dialog>
+  );
+}
+
+function DialogButtons(props: {
+  messageBoxType: MessageBoxType;
+  handleButton: (buttonType: MessageBoxValue) => void;
+}) {
+  const buttonCluster: DialogButtonDef[] = new Array<DialogButtonDef>();
+
+  switch (props.messageBoxType) {
+    case MessageBoxType.Ok:
+    case MessageBoxType.LargeOk:
+      buttonCluster.push({
+        type: DialogButtonType.OK,
+        onClick: () => {
+          props.handleButton(MessageBoxValue.Ok);
+        },
+      });
+      break;
+    case MessageBoxType.OkCancel:
+    case MessageBoxType.MediumAlert:
+      buttonCluster.push({
+        type: DialogButtonType.OK,
+        onClick: () => {
+          props.handleButton(MessageBoxValue.Ok);
+        },
+      });
+      buttonCluster.push({
+        type: DialogButtonType.Cancel,
+        onClick: () => {
+          props.handleButton(MessageBoxValue.Cancel);
+        },
+      });
+      break;
+    case MessageBoxType.YesNo:
+    case MessageBoxType.YesNoCancel:
+      buttonCluster.push({
+        type: DialogButtonType.Yes,
+        onClick: () => {
+          props.handleButton(MessageBoxValue.Yes);
+        },
+      });
+      buttonCluster.push({
+        type: DialogButtonType.No,
+        onClick: () => {
+          props.handleButton(MessageBoxValue.No);
+        },
+      });
+      if (MessageBoxType.YesNoCancel === props.messageBoxType)
         buttonCluster.push({
           type: DialogButtonType.Cancel,
           onClick: () => {
-            this._handleButton(MessageBoxValue.Cancel);
+            props.handleButton(MessageBoxValue.Cancel);
           },
         });
-        break;
-      case MessageBoxType.YesNo:
-      case MessageBoxType.YesNoCancel:
-        buttonCluster.push({
-          type: DialogButtonType.Yes,
-          onClick: () => {
-            this._handleButton(MessageBoxValue.Yes);
-          },
-        });
-        buttonCluster.push({
-          type: DialogButtonType.No,
-          onClick: () => {
-            this._handleButton(MessageBoxValue.No);
-          },
-        });
-        if (MessageBoxType.YesNoCancel === this.props.messageBoxType)
-          buttonCluster.push({
-            type: DialogButtonType.Cancel,
-            onClick: () => {
-              this._handleButton(MessageBoxValue.Cancel);
-            },
-          });
-        break;
-    }
-
-    let severity = MessageSeverity.None;
-    switch (this.props.iconType) {
-      case MessageBoxIconType.NoSymbol:
-        severity = MessageSeverity.None;
-        break;
-      case MessageBoxIconType.Information:
-        severity = MessageSeverity.Information;
-        break;
-      case MessageBoxIconType.Question:
-        severity = MessageSeverity.Question;
-        break;
-      case MessageBoxIconType.Warning:
-        severity = MessageSeverity.Warning;
-        break;
-      case MessageBoxIconType.Critical:
-        severity = MessageSeverity.Error;
-        break;
-      case MessageBoxIconType.Success:
-        severity = MessageSeverity.Success;
-        break;
-    }
-
-    return (
-      // eslint-disable-next-line deprecation/deprecation
-      <MessageBox
-        className={this.props.className}
-        style={{ zIndex: DialogManagerBase.topZIndex, ...this.props.style }}
-        opened={this.state.opened}
-        title={this.props.title}
-        severity={severity}
-        buttonCluster={buttonCluster}
-        onClose={this._handleCancel}
-        onEscape={this._handleCancel}
-      >
-        {this.props.children}
-      </MessageBox>
-    );
+      break;
   }
 
-  private _handleButton = (buttonType: MessageBoxValue) => {
-    this._closeDialog(() => {
-      if (this.props.onResult) this.props.onResult(buttonType);
-    });
-  };
+  return buttonCluster.map((button, index) => {
+    return <DialogButton button={button} key={index} />;
+  });
+}
 
-  private _handleCancel = () => {
-    this._closeDialog(() => {
-      if (this.props.onResult) this.props.onResult(MessageBoxValue.Cancel);
-    });
-  };
+function DialogButton({ button }: { button: DialogButtonDef }) {
+  const { translate } = useTranslation();
 
-  private _closeDialog = (followUp: () => void) => {
-    this.setState(
-      (_prevState) => ({
-        opened: false,
-      }),
-      () => {
-        UiFramework.dialogs.modal.close();
-        followUp();
-      }
-    );
-  };
+  let buttonText = "";
+  let usePrimaryStyleType = false;
+
+  switch (button.type) {
+    case DialogButtonType.OK:
+      buttonText = translate("dialog.ok");
+      usePrimaryStyleType = true;
+      break;
+    case DialogButtonType.Retry:
+      buttonText = translate("dialog.retry");
+      usePrimaryStyleType = true;
+      break;
+    case DialogButtonType.Yes:
+      buttonText = translate("dialog.yes");
+      usePrimaryStyleType = true;
+      break;
+    case DialogButtonType.No:
+      buttonText = translate("dialog.no");
+      break;
+    case DialogButtonType.Cancel:
+      buttonText = translate("dialog.cancel");
+      break;
+    case DialogButtonType.Close:
+      buttonText = translate("dialog.close");
+      break;
+    case DialogButtonType.Next:
+      buttonText = translate("dialog.next");
+      usePrimaryStyleType = true;
+      break;
+    case DialogButtonType.Previous:
+      buttonText = translate("dialog.previous");
+      usePrimaryStyleType = true;
+      break;
+  }
+
+  return (
+    <Button
+      styleType={usePrimaryStyleType ? "high-visibility" : undefined}
+      onClick={button.onClick}
+    >
+      {buttonText}
+    </Button>
+  );
 }

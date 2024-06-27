@@ -17,7 +17,8 @@ import type {
 import type { ContentLayoutDef } from "../content/ContentLayout";
 import { DialogChangedEvent } from "../dialog/DialogManagerBase";
 import type { FrameworkStackedDialog } from "./FrameworkDialogs";
-import { UiItemsProvider } from "../ui-items-provider/UiItemsProvider";
+import type { UiItemsProvider } from "../ui-items-provider/UiItemsProvider";
+import type { UiFramework } from "../UiFramework";
 
 /** [[MouseDownChangedEvent]] Args interface.
  * @public
@@ -237,6 +238,7 @@ export interface FrameworkContent {
   /**
    * Manage dialogs displaying managed content.
    * @beta
+   * @deprecated in 4.15.0. Use `modeless` or `modal` properties of {@link UiFramework.dialogs} instead.
    */
   readonly dialogs: FrameworkStackedDialog<ContentDialogInfo> & {
     /** Content Dialog Changed Event */

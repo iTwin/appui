@@ -27,6 +27,7 @@ import type { ChildWindow } from "./ChildWindowConfig";
 import { copyStyles } from "./CopyStyles";
 import "./InternalChildWindowManager.scss";
 import { usePopoutsStore } from "../preview/reparent-popout-widgets/usePopoutsStore";
+import type { WidgetDef } from "../widgets/WidgetDef";
 
 const childHtml = `<!DOCTYPE html>
 <html>
@@ -156,33 +157,12 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
         window: childWindow,
         parentWindow: window,
       });
-      let element: React.FunctionComponentElement<any>;
-      if (content.props.widgetDef) {
-        const tabId = content.props.widgetDef.id as string;
-        element = (
-          // eslint-disable-next-line deprecation/deprecation
-          <Provider store={UiFramework.store}>
-            <TabIdContext.Provider value={tabId}>
-              <UiStateStorageHandler>
-                <ThemeManager>
-                  <div className="uifw-child-window-container-host">
-                    <PopupRenderer />
-                    <ModalDialogRenderer />
-                    <ModelessDialogRenderer />
-                    <CursorPopupMenu />
-                    <div className="uifw-child-window-container nz-widget-widget">
-                      {content}
-                    </div>
-                  </div>
-                </ThemeManager>
-              </UiStateStorageHandler>
-            </TabIdContext.Provider>
-          </Provider>
-        );
-      } else {
-        element = (
-          // eslint-disable-next-line deprecation/deprecation
-          <Provider store={UiFramework.store}>
+      const widgetDef = content.props.widgetDef as WidgetDef | undefined;
+      const tabId = widgetDef?.id;
+      const element = (
+        // eslint-disable-next-line deprecation/deprecation
+        <Provider store={UiFramework.store}>
+          <TabIdContext.Provider value={tabId}>
             <UiStateStorageHandler>
               <ThemeManager>
                 <div className="uifw-child-window-container-host">
@@ -194,11 +174,12 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
                     {content}
                   </div>
                 </div>
+                <div className="uifw-childwindow-internalChildWindowManager_portalContainer" />
               </ThemeManager>
             </UiStateStorageHandler>
-          </Provider>
-        );
-      }
+          </TabIdContext.Provider>
+        </Provider>
+      );
 
       setTimeout(() => {
         copyStyles(childWindow.document);

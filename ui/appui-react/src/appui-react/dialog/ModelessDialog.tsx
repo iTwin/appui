@@ -11,10 +11,12 @@ import type { DialogProps } from "@itwin/core-react";
 import { Dialog } from "@itwin/core-react";
 import { UiFramework } from "../UiFramework";
 
+/* eslint-disable deprecation/deprecation */
+
 /** Properties for the [[ModelessDialog]] component
  * @public
+ * @deprecated in 4.15.0. Props of deprecated {@link ModelessDialog} component.
  */
-// eslint-disable-next-line deprecation/deprecation
 export interface ModelessDialogProps extends DialogProps {
   dialogId: string;
   movable?: boolean;
@@ -23,6 +25,7 @@ export interface ModelessDialogProps extends DialogProps {
 /** Modeless Dialog React component uses the Dialog component with a modal={false} prop.
  * It controls the z-index to keep the focused dialog above others.
  * @public
+ * @deprecated in 4.15.0. Use {@link https://itwinui.bentley.com/docs/dialog iTwinUI Dialog} instead.
  */
 export class ModelessDialog extends React.Component<ModelessDialogProps> {
   constructor(props: ModelessDialogProps) {

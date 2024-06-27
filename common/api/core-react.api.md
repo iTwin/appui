@@ -1230,6 +1230,7 @@ export interface PopupProps extends CommonProps {
     onOpen?: () => void;
     onOutsideClick?: (e: MouseEvent) => void;
     onWheel?: (e: WheelEvent) => void;
+    portalTarget?: HTMLElement;
     position: RelativePosition;
     // @beta
     repositionOnResize?: boolean;
