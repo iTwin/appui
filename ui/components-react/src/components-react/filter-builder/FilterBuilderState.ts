@@ -110,15 +110,37 @@ export class PropertyFilterBuilderActions {
   }
 
   /** Adds new rule or group of rules to the group specified by path. */
-  public addItem(path: string[], itemType: "RULE_GROUP" | "RULE") {
+  public addItem(
+    path: string[],
+    item: "RULE_GROUP" | "RULE" | PropertyFilterRule | PropertyFilterRuleGroup
+  ) {
     this.updateState((state) => {
       const parentGroup = findRuleGroup(state.rootGroup, path);
       if (!parentGroup) return;
-      const item =
-        itemType === "RULE_GROUP"
-          ? createEmptyRuleGroup(parentGroup.id)
-          : createEmptyRule(parentGroup.id);
-      parentGroup.items.push(item);
+
+      if (item === "RULE" || item === "RULE_GROUP") {
+        const newItem =
+          item === "RULE_GROUP"
+            ? createEmptyRuleGroup(parentGroup.id)
+            : createEmptyRule(parentGroup.id);
+        parentGroup.items.push(newItem);
+        return;
+      }
+
+      if (isPropertyFilterRuleGroup(item)) {
+        const itemId = Guid.createValue();
+        const newItem: PropertyFilterBuilderRuleGroup = {
+          id: itemId,
+          groupId: parentGroup.id,
+          operator: item.operator,
+
+          items: item.rules.map((rule) => getRuleGroupItem(rule, itemId)),
+        };
+        parentGroup.items.push(newItem);
+        return;
+      }
+
+      parentGroup.items.push(getRuleItem(item, parentGroup.id));
     });
   }
 

@@ -107,3 +107,7 @@ Table of contents:
 ### Fixes
 
 - Portal editors to the same container used to portal other components. [#879](https://github.com/iTwin/appui/pull/879)
+
+### Additions
+
+- `PropertyFilterBuilder`: Allow adding custom item for `PropertyFilterBuilderActions` [#884](https://github.com/iTwin/appui/pull/884)
