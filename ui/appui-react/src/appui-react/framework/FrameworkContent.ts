@@ -97,6 +97,9 @@ export interface FrameworkContent {
   /** Sets the active content. */
   setActiveId(contentId?: ContentProps["id"]): void;
 
+  /** Gets the active content id. */
+  getActiveId(): ContentProps["id"] | undefined;
+
   /** Gets the active content as a React.ReactNode.
    * @deprecated in 4.15.0. TODO
    */

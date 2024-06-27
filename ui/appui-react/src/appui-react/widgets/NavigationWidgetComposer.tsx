@@ -74,7 +74,6 @@ export interface NavigationAidHostProps {
 
 /** NavigationAidHost is a component that hosts a NavigationAid that is specific to the active content control.
  * @public
- * @deprecated in 4.15.0. Used internally.
  */
 export function NavigationAidHost(props: NavigationAidHostProps) {
   const [activeContentControl, setActiveContentControl] = React.useState(() =>

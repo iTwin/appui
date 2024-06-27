@@ -5,6 +5,7 @@
 import * as React from "react";
 import {
   BackstageAppButton,
+  Frontstage,
   FrontstageUtilities,
   IModelViewportControl,
   StageUsage,
@@ -13,10 +14,83 @@ import {
   StandardStatusbarUiItemsProvider,
   UiFramework,
   UiItemsManager,
+  ViewToolWidgetComposer,
 } from "@itwin/appui-react";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 import { CustomContentStageUiProvider } from "../providers/CustomContentStageUiProvider";
 import { SampleContentControl } from "../content/SampleContentControl";
+
+function useActiveContentId() {
+  const [activeId, setActiveId] = React.useState(
+    UiFramework.content.getActiveId()
+  );
+  React.useEffect(() => {
+    return UiFramework.content.onActiveContentChangedEvent.addListener(
+      (args) => {
+        setActiveId(args.id);
+      }
+    );
+  }, []);
+  return activeId;
+}
+
+function CustomViewToolWidgetComposer() {
+  const activeId = useActiveContentId();
+
+  const hideNavigationAid = activeId === "ui-test:customContent";
+  return <ViewToolWidgetComposer hideNavigationAid={hideNavigationAid} />;
+}
+
+function createFrontstage(): Frontstage {
+  const frontstage = FrontstageUtilities.createStandardFrontstage({
+    id: CustomContentFrontstage.stageId,
+    version: 1.1,
+    contentGroupProps: {
+      id: "appui-test-providers:custom-stage-content",
+      layout: {
+        ...StandardContentLayouts.twoHorizontalSplit,
+        horizontalSplit: {
+          ...StandardContentLayouts.twoHorizontalSplit.horizontalSplit!,
+          minSizeBottom: 100,
+          percentage: 0.8,
+        },
+      },
+      contents: [
+        {
+          id: "primaryContent",
+          // eslint-disable-next-line deprecation/deprecation
+          classId: IModelViewportControl,
+          applicationData: {
+            isPrimaryView: true,
+            viewState: UiFramework.getDefaultViewState,
+            iModelConnection: UiFramework.getIModelConnection,
+            featureOptions: {
+              defaultViewOverlay: {
+                enableScheduleAnimationViewOverlay: true,
+                enableAnalysisTimelineViewOverlay: true,
+                enableSolarTimelineViewOverlay: true,
+              },
+            },
+          },
+        },
+        {
+          id: "ui-test:customContent",
+          classId: SampleContentControl,
+        },
+      ],
+    },
+    hideNavigationAid: false,
+    cornerButton: <BackstageAppButton />,
+    usage: StageUsage.General,
+  });
+  return {
+    ...frontstage,
+    viewNavigation: {
+      ...frontstage.viewNavigation!,
+      content: <CustomViewToolWidgetComposer />,
+    },
+  };
+}
 
 /**
  * This class is used to register a new frontstage that is called 'Custom' which provides custom content along with imodel content.
@@ -29,49 +103,7 @@ export class CustomContentFrontstage {
 
   public static register(localizationNamespace: string) {
     CustomContentFrontstage.registerToolProviders(localizationNamespace);
-    UiFramework.frontstages.addFrontstage(
-      FrontstageUtilities.createStandardFrontstage({
-        id: CustomContentFrontstage.stageId,
-        version: 1.1,
-        contentGroupProps: {
-          id: "appui-test-providers:custom-stage-content",
-          layout: {
-            ...StandardContentLayouts.twoHorizontalSplit,
-            horizontalSplit: {
-              ...StandardContentLayouts.twoHorizontalSplit.horizontalSplit!,
-              minSizeBottom: 100,
-              percentage: 0.8,
-            },
-          },
-          contents: [
-            {
-              id: "primaryContent",
-              // eslint-disable-next-line deprecation/deprecation
-              classId: IModelViewportControl,
-              applicationData: {
-                isPrimaryView: true,
-                viewState: UiFramework.getDefaultViewState,
-                iModelConnection: UiFramework.getIModelConnection,
-                featureOptions: {
-                  defaultViewOverlay: {
-                    enableScheduleAnimationViewOverlay: true,
-                    enableAnalysisTimelineViewOverlay: true,
-                    enableSolarTimelineViewOverlay: true,
-                  },
-                },
-              },
-            },
-            {
-              id: "ui-test:customContent",
-              classId: SampleContentControl,
-            },
-          ],
-        },
-        hideNavigationAid: false,
-        cornerButton: <BackstageAppButton />,
-        usage: StageUsage.General,
-      })
-    );
+    UiFramework.frontstages.addFrontstage(createFrontstage());
   }
 
   private static registerToolProviders(localizationNamespace: string) {

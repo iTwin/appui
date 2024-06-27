@@ -199,6 +199,7 @@ export class InternalContentViewManager {
         // eslint-disable-next-line deprecation/deprecation
         frontstageDef.setActiveView(activeContentControl, oldContentControl);
         this.onActiveContentChangedEvent.emit({
+          id: activeContentControl.controlId,
           activeContent,
           oldContent,
         });
@@ -246,6 +247,22 @@ export class InternalContentViewManager {
 
     // eslint-disable-next-line deprecation/deprecation
     this.setActive(control.reactNode);
+  }
+
+  public static getActiveId() {
+    const activeContentControl = this.getActiveContentControl();
+    if (activeContentControl) {
+      return activeContentControl.controlId;
+    }
+
+    const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
+    const contentGroup = frontstageDef?.contentGroup;
+    const activeContent = contentGroup?.contentPropsList.find(
+      (contentProps) => {
+        return contentProps.content === this.getActive();
+      }
+    );
+    return activeContent?.id;
   }
 
   /** Refreshes the active [[ContentControl]].
