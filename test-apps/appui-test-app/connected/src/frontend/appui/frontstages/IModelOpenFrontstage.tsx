@@ -9,8 +9,6 @@ import {
   BackstageAppButton,
   BackstageItem,
   BackstageItemUtilities,
-  ConfigurableCreateInfo,
-  ContentControl,
   ContentGroupProps,
   FrontstageUtilities,
   StageUsage,
@@ -23,35 +21,28 @@ import { SampleAppIModelApp } from "../../index";
 import { IModelOpen } from "../imodelopen/IModelOpen";
 import { TestAppLocalization } from "../../useTranslation";
 
-class IModelOpenControl extends ContentControl {
-  constructor(info: ConfigurableCreateInfo, options: any) {
-    super(info, options);
-    let envUrlPrefix: "dev" | "qa" | "" | undefined;
-    switch (import.meta.env.IMJS_URL_PREFIX) {
-      case "qa-":
-        envUrlPrefix = "qa";
-        break;
-      case "dev-":
-        envUrlPrefix = "dev";
-        break;
-      case "":
-        envUrlPrefix = "";
-        break;
-    }
-
-    if (IModelApp.authorizationClient)
-      this.reactNode = (
-        <IModelOpen
-          onIModelSelected={this._onOpenIModel}
-          urlPrefix={envUrlPrefix}
-        />
-      );
+function IModelOpenContent() {
+  let envUrlPrefix: "dev" | "qa" | "" | undefined;
+  switch (import.meta.env.IMJS_URL_PREFIX) {
+    case "qa-":
+      envUrlPrefix = "qa";
+      break;
+    case "dev-":
+      envUrlPrefix = "dev";
+      break;
+    case "":
+      envUrlPrefix = "";
+      break;
   }
-
-  // called when an imodel has been selected in IModelOpen stage
-  private _onOpenIModel = async (arg: { iTwinId: string; id: string }) => {
-    await SampleAppIModelApp.openIModelAndViews(arg.iTwinId, arg.id);
-  };
+  if (!IModelApp.authorizationClient) return null;
+  return (
+    <IModelOpen
+      onIModelSelected={async (arg: { iTwinId: string; id: string }) => {
+        await SampleAppIModelApp.openIModelAndViews(arg.iTwinId, arg.id);
+      }}
+      urlPrefix={envUrlPrefix}
+    />
+  );
 }
 
 export class IModelOpenFrontstage {
@@ -66,7 +57,8 @@ export class IModelOpenFrontstage {
         contents: [
           {
             id: "imodel-open",
-            classId: IModelOpenControl,
+            classId: "",
+            content: <IModelOpenContent />,
           },
         ],
       };
