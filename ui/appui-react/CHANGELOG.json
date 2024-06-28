@@ -2,6 +2,39 @@
   "name": "@itwin/appui-react",
   "entries": [
     {
+      "version": "4.15.0",
+      "tag": "@itwin/appui-react_v4.15.0",
+      "date": "Fri, 28 Jun 2024 09:09:37 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Deprecate APIs related to redux."
+          },
+          {
+            "comment": "Deprecated all AppUI dialogs and switched components to use iTwinUI dialogs."
+          },
+          {
+            "comment": "Fixed unexpected popout widget transition when popover is opened."
+          },
+          {
+            "comment": "Deprecate APIs related to `FrontstageProvider` class."
+          },
+          {
+            "comment": "Deprecate APIs related to `ItemDefBase` class."
+          },
+          {
+            "comment": "Bumped `get*` methods of `UiItemsProvider` and all related types to `@public`."
+          },
+          {
+            "comment": "Deprecated `provide*` methods of `UiItemsProvider`."
+          },
+          {
+            "comment": "Deprecated `StandardMessageBox` component."
+          }
+        ]
+      }
+    },
+    {
       "version": "4.14.1",
       "tag": "@itwin/appui-react_v4.14.1",
       "date": "Tue, 11 Jun 2024 15:58:29 GMT",

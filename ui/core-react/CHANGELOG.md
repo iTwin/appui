@@ -1,6 +1,14 @@
 # Change Log - @itwin/core-react
 
-This log was last generated on Tue, 11 Jun 2024 15:58:29 GMT and should not be manually modified.
+This log was last generated on Fri, 28 Jun 2024 09:09:37 GMT and should not be manually modified.
+
+## 4.15.0
+Fri, 28 Jun 2024 09:09:37 GMT
+
+### Updates
+
+- Added `portalTarget` to `Popup` component.
+- Deprecated components, functions, enums that are intended for internal use, are not used by AppUI or can be replaced with alternatives.
 
 ## 4.14.1
 Tue, 11 Jun 2024 15:58:29 GMT
