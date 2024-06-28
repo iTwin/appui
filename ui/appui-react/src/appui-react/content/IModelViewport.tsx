@@ -98,7 +98,7 @@ export function ViewOverlayHost({
 
 /** iModel Viewport Control
  * @public
- * @deprecated in 4.15.0. Use {@link ViewportComponent} instead.
+ * @deprecated in 4.15.0. Use {@link @itwin/imodel-components-react#ViewportComponent} instead.
  */
 export class IModelViewportControl extends ViewportContentControl {
   public static get id() {
