@@ -14,13 +14,13 @@ import { WidgetControl } from "../widgets/WidgetControl";
 
 /** Status Bar Field type.
  * @public
- * @deprecated in 4.15.0. Type is not used in AppUI.
+ * @deprecated in 4.16.0. Type is not used in AppUI.
  */
 export type StatusBarFieldId = string | null;
 
 /** Status Bar Widget Control.
  * @public
- * @deprecated in 4.15.0. Extends a deprecated class {@link WidgetControl}.
+ * @deprecated in 4.16.0. Extends a deprecated class {@link WidgetControl}.
  */
 export abstract class StatusBarWidgetControl extends WidgetControl {
   constructor(info: ConfigurableCreateInfo, options: any) {

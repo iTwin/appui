@@ -21,7 +21,7 @@ import type { SyncToolSettingsPropertiesEventArgs } from "../framework/Framework
 /** ToolUiProvider provides the Tool Settings and/or Tool Assistance UI for a tool.
  * The ToolUiProvider is registered for the tool id via UiFramework.controls.register.
  * @public
- * @deprecated in 4.15.0. Extends a deprecated class {@link ConfigurableUiControl}.
+ * @deprecated in 4.16.0. Extends a deprecated class {@link ConfigurableUiControl}.
  */
 export class ToolUiProvider extends ConfigurableUiControl {
   private _toolSettingsNode: React.ReactNode;

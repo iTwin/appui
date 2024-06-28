@@ -19,7 +19,7 @@ import type { WidgetState } from "./WidgetState";
 
 /** The base class for Widget controls.
  * @public
- * @deprecated in 4.15.0. Extends a deprecated class {@link ConfigurableUiControl}.
+ * @deprecated in 4.16.0. Extends a deprecated class {@link ConfigurableUiControl}.
  */
 export class WidgetControl extends ConfigurableUiControl {
   private _widgetDef!: WidgetDef;

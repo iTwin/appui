@@ -14,7 +14,7 @@ import type {
 
 /** [[UiFramework.controls]] interface
  * @public
- * @deprecated in 4.15.0. Use React components instead.
+ * @deprecated in 4.16.0. Use React components instead.
  */
 export interface FrameworkControls {
   /** Registers a control implementing the [[ConfigurableUiElement]] interface.

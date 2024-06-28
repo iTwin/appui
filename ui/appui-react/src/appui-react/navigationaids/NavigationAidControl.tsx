@@ -34,7 +34,7 @@ export class NavigationAidActivatedEvent extends UiEvent<NavigationAidActivatedE
 
 /** The base class for Navigation Aid controls.
  * @public
- * @deprecated in 4.15.0. Extends a deprecated class {@link ConfigurableUiControl}.
+ * @deprecated in 4.16.0. Extends a deprecated class {@link ConfigurableUiControl}.
  */
 export class NavigationAidControl extends ConfigurableUiControl {
   private _reactNode: React.ReactNode;

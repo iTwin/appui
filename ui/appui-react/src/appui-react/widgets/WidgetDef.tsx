@@ -523,17 +523,17 @@ export class WidgetDef {
 
   /* eslint-disable deprecation/deprecation */
 
-  /** @deprecated in 4.15.0. Uses a deprecated type {@link ConfigurableUiControlConstructor}. */
+  /** @deprecated in 4.16.0. Uses a deprecated type {@link ConfigurableUiControlConstructor}. */
   public get classId(): string | ConfigurableUiControlConstructor | undefined {
     return undefined;
   }
 
-  /** @deprecated in 4.15.0. Returns an instance of a deprecated type {@link WidgetControl}. */
+  /** @deprecated in 4.16.0. Returns an instance of a deprecated type {@link WidgetControl}. */
   public get widgetControl(): WidgetControl | undefined {
     return this._widgetControl;
   }
 
-  /** @deprecated in 4.15.0. Returns an instance of a deprecated type {@link WidgetControl}. */
+  /** @deprecated in 4.16.0. Returns an instance of a deprecated type {@link WidgetControl}. */
   public getWidgetControl(
     type: ConfigurableUiControlType
   ): WidgetControl | undefined {

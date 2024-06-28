@@ -51,7 +51,7 @@ export function IModelConnectedViewport(
 
 /** [[IModelViewportControl]] options. These options are set in the applicationData property of the [[ContentProps]].
  * @public
- * @deprecated in 4.15.0. Used in a deprecated class {@link IModelViewportControl}.
+ * @deprecated in 4.16.0. Used in a deprecated class {@link IModelViewportControl}.
  */
 export interface IModelViewportControlOptions {
   /** ViewState or a function to return a ViewState */
@@ -98,7 +98,7 @@ export function ViewOverlayHost({
 
 /** iModel Viewport Control
  * @public
- * @deprecated in 4.15.0. Use {@link @itwin/imodel-components-react#ViewportComponent} instead.
+ * @deprecated in 4.16.0. Use {@link @itwin/imodel-components-react#ViewportComponent} component instead.
  */
 export class IModelViewportControl extends ViewportContentControl {
   public static get id() {

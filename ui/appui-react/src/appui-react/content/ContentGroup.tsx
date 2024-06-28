@@ -27,12 +27,12 @@ export interface ContentProps {
   /** A unique id for the Content View within the group. */
   id: string;
   /** The class name or [[ConfigurableUiControlConstructor]] of the content control.
-   * @deprecated in 4.15.0. Use {@link ContentProps.content} instead and specify an empty string for this property.
+   * @deprecated in 4.16.0. Use {@link ContentProps.content} instead and specify an empty string for this property. This will be made optional in 5.0.0.
    */
   // eslint-disable-next-line deprecation/deprecation
   classId: string | ConfigurableUiControlConstructor;
   /** Optional application data passed down to the content view.
-   * @deprecated in 4.15.0. Use {@link ContentProps.content} instead.
+   * @deprecated in 4.16.0. Use {@link ContentProps.content} instead.
    */
   applicationData?: any;
   /** Content to be displayed in the content view.
@@ -107,7 +107,7 @@ export class ContentGroup {
   }
 
   /** Gets the React nodes representing the content views in this content group.
-   * @deprecated in 4.15.0. Use {@link ContentGroup.contentPropsList} instead.
+   * @deprecated in 4.16.0. Use {@link ContentGroup.contentPropsList} instead.
    */
   public getContentNodes(): React.ReactNode[] {
     const contentNodes: React.ReactNode[] = new Array<React.ReactNode>();
@@ -206,7 +206,7 @@ export class ContentGroup {
   private _contentSetMap = new Map<string, ContentControl>();
 
   /** Gets a [[ContentControl]] from the Content Group based on its [[ContentProps]].
-   * @deprecated in 4.15.0. Uses a deprecated class {@link ContentControl}.
+   * @deprecated in 4.16.0. Uses a deprecated class {@link ContentControl}.
    */
   public getContentControl(
     contentProps: ContentProps,
@@ -264,14 +264,14 @@ export class ContentGroup {
   }
 
   /** Gets a [[ContentControl]] from the Content Group with a given ID.
-   * @deprecated in 4.15.0. Uses a deprecated class {@link ContentControl}.
+   * @deprecated in 4.16.0. Uses a deprecated class {@link ContentControl}.
    */
   public getContentControlById(id: string): ContentControl | undefined {
     return this._contentControls.get(id);
   }
 
   /** Gets the [[ContentControl]] associated with a given React node representing a Content View.
-   * @deprecated in 4.15.0. Uses a deprecated class {@link ContentControl}.
+   * @deprecated in 4.16.0. Uses a deprecated class {@link ContentControl}.
    */
   public getControlFromElement(
     node: React.ReactNode
@@ -289,7 +289,7 @@ export class ContentGroup {
   }
 
   /** Gets an array of the content controls representing the Content Views.
-   * @deprecated in 4.15.0. Uses a deprecated class {@link ContentControl}.
+   * @deprecated in 4.16.0. Uses a deprecated class {@link ContentControl}.
    */
   public getContentControls(): ContentControl[] {
     const contentControls: ContentControl[] = new Array<ContentControl>();

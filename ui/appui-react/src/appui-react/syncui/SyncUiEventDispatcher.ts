@@ -12,13 +12,12 @@ import { IModelApp } from "@itwin/core-frontend";
 import { UiFramework } from "../UiFramework";
 import type { UiSyncEvent } from "./UiSyncEvent";
 import { InternalSyncUiEventDispatcher } from "./InternalSyncUiEventDispatcher";
-import type { ContentControl } from "../content/ContentControl";
 
-// cSpell:ignore activecontentchanged, activitymessageupdated, activitymessagecancelled, backstageevent, contentlayoutactivated, contentcontrolactivated,
-// cSpell:ignore elementtooltipchanged, frontstageactivated, inputfieldmessageadded, inputfieldmessageremoved, modalfrontstagechanged, modaldialogchanged
-// cSpell:ignore navigationaidactivated, notificationmessageadded, toolactivated, taskactivated, widgetstatechanged, workflowactivated frontstageactivating
-// cSpell:ignore frontstageready activeviewportchanged selectionsetchanged presentationselectionchanged viewstatechanged
-// cSpell:ignore accudrawcompassmodechanged accudrawfieldlockchanged accudrawrotationchanged uisettingschanged configurableui
+// cSpell:ignore activecontentchanged backstageevent contentlayoutactivated contentcontrolactivated
+// cSpell:ignore frontstageactivated modalfrontstagechanged modaldialogchanged
+// cSpell:ignore navigationaidactivated toolactivated widgetstatechanged frontstageactivating
+// cSpell:ignore frontstageready activeviewportchanged selectionsetchanged viewstatechanged
+// cSpell:ignore accudrawcompassmodechanged accudrawrotationchanged
 
 /** Event Id used to sync UI components. Used to refresh visibility or enable state of control.
  * @public
@@ -37,7 +36,7 @@ export enum SyncUiEventId {
   /** A Content Layout has been activated.  */
   ContentLayoutActivated = "contentlayoutactivated",
   /** A Content Control maintained by UiFramework.frontstages has been activated.
-   * @deprecated in 4.15.0. Uses a deprecated class {@link ContentControl}.
+   * @deprecated in 4.16.0. Use {@link SyncUiEventId.ActiveContentChanged} instead.
    */
   ContentControlActivated = "contentcontrolactivated",
   /** A Frontstage is activating. */

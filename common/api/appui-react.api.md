@@ -298,7 +298,7 @@ export interface AccuDrawUiSettings {
 export class AccuDrawUiSettingsChangedEvent extends BeUiEvent<{}> {
 }
 
-// @beta
+// @public
 export function AccuDrawWidget(): React_2.JSX.Element;
 
 // @beta @deprecated
@@ -3786,14 +3786,6 @@ export class RestoreFrontstageLayoutTool extends Tool {
 // @internal
 export function restoreNineZoneState(frontstageDef: FrontstageDef, packed: NineZoneState): void;
 
-// @internal (undocumented)
-export interface RotationData {
-    // (undocumented)
-    iconsSpec?: IconSpec;
-    // (undocumented)
-    label: string;
-}
-
 // @public
 export const SafeAreaContext: React_2.Context<SafeAreaInsets | undefined>;
 
@@ -4038,7 +4030,7 @@ export interface SheetData {
     viewId: string;
 }
 
-// @alpha
+// @public
 export class SheetNavigationAid extends React_2.Component<SheetNavigationProps, SheetNavigationState> {
     constructor(props: SheetNavigationProps);
     componentDidMount(): Promise<void>;
@@ -4058,7 +4050,7 @@ export class SheetNavigationAidControl extends NavigationAidControl {
     static navigationAidId: string;
 }
 
-// @alpha
+// @public
 export interface SheetNavigationProps extends CommonProps {
     // (undocumented)
     iModelConnection: IModelConnection;
@@ -4362,7 +4354,7 @@ export class StandardNavigationToolsUiItemsProvider implements UiItemsProvider {
     provideToolbarItems(_stageId: string, _stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation, _stageAppData?: any): ToolbarItem[];
 }
 
-// @alpha
+// @public
 export class StandardRotationNavigationAid extends React_2.Component<CommonProps, // eslint-disable-line deprecation/deprecation
 StandardRotationNavigationAidState> {
     constructor(props: any);

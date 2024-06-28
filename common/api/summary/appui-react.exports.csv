@@ -31,7 +31,7 @@ deprecated;AccuDrawSetFieldValueToUiEventArgs
 beta;AccuDrawUiSettings
 beta;AccuDrawUiSettingsChangedEvent 
 deprecated;AccuDrawUiSettingsChangedEvent 
-beta;AccuDrawWidget(): React_2.JSX.Element
+public;AccuDrawWidget(): React_2.JSX.Element
 beta;AccuDrawWidgetControl 
 deprecated;AccuDrawWidgetControl 
 public;Action
@@ -542,7 +542,6 @@ deprecated;ReducerRegistryInstance: ReducerRegistry
 public;RestoreAllFrontstagesTool 
 public;RestoreFrontstageLayoutTool 
 internal;restoreNineZoneState(frontstageDef: FrontstageDef, packed: NineZoneState): void
-internal;RotationData
 public;SafeAreaContext: React_2.Context
 public;SafeAreaInsets
 public;ScheduleAnimationTimelineDataProvider 
@@ -577,10 +576,10 @@ beta;SettingsModalFrontstage
 alpha;SheetCard 
 alpha;SheetCardProps
 alpha;SheetData
-alpha;SheetNavigationAid 
+public;SheetNavigationAid 
 alpha;SheetNavigationAidControl 
 deprecated;SheetNavigationAidControl 
-alpha;SheetNavigationProps 
+public;SheetNavigationProps 
 alpha;SheetsModalFrontstage 
 public;SnapModeField(props: SnapModeFieldProps): React_2.JSX.Element
 alpha;SolarTimelineDataProvider 

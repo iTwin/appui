@@ -16,19 +16,8 @@ import { UiFramework } from "../UiFramework";
 /** StatusBarWidgetComposerControl provides status bar to specified Frontstage that allows status bar items to be populated
  * via UiItemsProviders. See [[StandardStatusbarItemsProvider]] that can be used to populate this status bar with a common
  * set of status fields.
- * @example
- * ```
- *       statusBar={
- *         <Zone
- *           widgets={
- *             [
- *               <Widget isStatusBar={true} control={StatusBarWidgetComposerControl}  />
- *             ]}
- *         />
- *       }
- * ```
  * @public
- * @deprecated in 4.15.0. Extends a deprecated class {@link StatusBarWidgetControl}.
+ * @deprecated in 4.16.0. Use {@link StatusBarComposer} component instead.
  */
 export class StatusBarWidgetComposerControl extends StatusBarWidgetControl {
   public static controlId = "uifw:StatusBarWidgetComposerControl";

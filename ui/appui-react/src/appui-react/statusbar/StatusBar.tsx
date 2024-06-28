@@ -24,7 +24,7 @@ import { StatusBarComposer } from "./StatusBarComposer";
 
 /** Properties for the [[StatusBar]] React component
  * @public
- * @deprecated in 4.15.0. Used in a deprecated component [[StatusBar]].
+ * @deprecated in 4.16.0. Used in a deprecated component [[StatusBar]].
  */
 export interface StatusBarProps extends CommonProps {
   children?: React.ReactNode;

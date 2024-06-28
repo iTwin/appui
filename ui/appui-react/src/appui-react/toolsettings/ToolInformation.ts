@@ -15,7 +15,7 @@ import type { ToolUiProvider } from "./ToolUiProvider";
 
 /** Provides information about a tool with a given id, including the ToolUiProvider.
  * @public
- * @deprecated in 4.15.0. Uses a deprecated class {@link ToolUiProvider}.
+ * @deprecated in 4.16.0. Uses a deprecated class {@link ToolUiProvider}.
  */
 export class ToolInformation {
   private _toolUiProvider: ToolUiProvider | undefined;

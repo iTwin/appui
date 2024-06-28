@@ -21,7 +21,7 @@ import { ContentOverlay } from "./ContentOverlay";
 
 /**
  * @beta
- * @deprecated in 4.15.0. Props of a deprecated component {@link FloatingViewportContent}.
+ * @deprecated in 4.16.0. Props of a deprecated component {@link FloatingViewportContent}.
  */
 export interface FloatingViewportContentProps {
   /** callback used to construct context menu when user right-clicks on canvas/viewport */
@@ -36,7 +36,7 @@ export interface FloatingViewportContentProps {
 
 /**
  * @beta
- * @deprecated in 4.15.0. Wrap {@link @itwin/imodel-components-react#ViewportComponent} component in a {@link ContentOverlay} instead.
+ * @deprecated in 4.16.0. Wrap {@link @itwin/imodel-components-react#ViewportComponent} component with a {@link ContentOverlay} instead.
  */
 export function FloatingViewportContent(props: FloatingViewportContentProps) {
   const { viewportControl } = useFloatingViewport(props);
@@ -49,7 +49,7 @@ export function FloatingViewportContent(props: FloatingViewportContentProps) {
 
 /**
  * @public
- * @deprecated in 4.15.0. Props of a deprecated component {@link FloatingViewportContentWrapper}.
+ * @deprecated in 4.16.0. Props of a deprecated component {@link FloatingViewportContentWrapper}.
  */
 export interface FloatingViewportContentWrapperProps {
   readonly children?: React.ReactNode;
@@ -57,7 +57,7 @@ export interface FloatingViewportContentWrapperProps {
 
 /**
  * @public
- * @deprecated in 4.15.0. Use {@link ContentOverlay} component instead.
+ * @deprecated in 4.16.0. Use {@link ContentOverlay} component to display the active content indicator instead.
  */
 export function FloatingViewportContentWrapper({
   children,
@@ -78,7 +78,7 @@ export function FloatingViewportContentWrapper({
 
 /**
  * @alpha
- * @deprecated in 4.15.0. Use {@link @itwin/imodel-components-react#ViewportComponent} component instead.
+ * @deprecated in 4.16.0. Use {@link @itwin/imodel-components-react#ViewportComponent} component instead.
  */
 export function useFloatingViewport(args: FloatingViewportContentProps) {
   const { contentId, initialViewState, onContextMenu, viewportRef } = args;

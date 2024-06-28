@@ -13,7 +13,7 @@ import { NavigationAidControl } from "./NavigationAidControl";
 
 /** Navigation Aid that displays an interactive rotation cube for Spatial views that synchronizes with the rotation of the iModel Viewport
  * @public
- * @deprecated in 4.15.0. Use {@link @itwin/imodel-components-react#CubeNavigationAid} component instead.
+ * @deprecated in 4.16.0. Use {@link @itwin/imodel-components-react#CubeNavigationAid} component instead.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class CubeNavigationAidControl extends NavigationAidControl {

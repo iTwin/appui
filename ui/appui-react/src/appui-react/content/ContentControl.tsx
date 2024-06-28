@@ -19,6 +19,9 @@ import {
   ConfigurableUiControl,
   ConfigurableUiControlType,
 } from "../configurableui/ConfigurableUiControl";
+import { Widget } from "../widgets/Widget";
+import { UiItemsProvider } from "../ui-items-provider/UiItemsProvider";
+import { ContentOverlay } from "./ContentOverlay";
 
 /* eslint-disable deprecation/deprecation */
 
@@ -40,7 +43,7 @@ export class ContentControlActivatedEvent extends UiEvent<ContentControlActivate
 
 /** Interface to be implemented when the ContentControl supports ViewSelector changes
  * @public
- * @deprecated in 4.15.0. Implemented by classes derived from a deprecated {@link ContentControl}.
+ * @deprecated in 4.16.0. Implemented by classes derived from a deprecated {@link ContentControl}.
  */
 export interface SupportsViewSelectorChange {
   /** Returns true if this control supports reacting to ViewSelector changes. */
@@ -56,7 +59,7 @@ export interface SupportsViewSelectorChange {
 
 /** The base class for Frontstage content controls.
  * @public
- * @deprecated in 4.15.0. Extends a deprecated class {@link ConfigurableUiControl}.
+ * @deprecated in 4.16.0. Extends a deprecated class {@link ConfigurableUiControl}.
  */
 export class ContentControl extends ConfigurableUiControl {
   protected _reactNode: React.ReactNode;
@@ -123,7 +126,8 @@ export class ContentControl extends ConfigurableUiControl {
 
 /**
  * @beta
- * @deprecated in 4.15.0. Extends a deprecated class {@link ContentControl}.
+ * @deprecated in 4.16.0. Use {@link UiItemsProvider} to provide a floating {@link Widget} instead.
+ * Additionally, use {@link ContentOverlay} component to display the active content indicator.
  */
 export class FloatingContentControl extends ContentControl {
   constructor(uniqueId: string, name: string, node: React.ReactNode) {

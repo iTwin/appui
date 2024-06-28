@@ -16,7 +16,7 @@ import { UiFramework } from "../UiFramework";
 
 /** AccuDraw Widget Control
  * @beta
- * @deprecated in 4.15.0. Use {@link AccuDrawWidget} component instead.
+ * @deprecated in 4.16.0. Use {@link AccuDrawWidget} component instead.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class AccuDrawWidgetControl extends WidgetControl {
@@ -35,7 +35,7 @@ export class AccuDrawWidgetControl extends WidgetControl {
 }
 
 /** AccuDraw Widget displays [[AccuDrawFieldContainer]] for AccuDraw Ui
- * @beta
+ * @public
  */
 export function AccuDrawWidget() {
   const [orientation, setOrientation] = React.useState(Orientation.Vertical);

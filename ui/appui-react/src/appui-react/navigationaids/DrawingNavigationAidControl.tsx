@@ -13,7 +13,7 @@ import { NavigationAidControl } from "./NavigationAidControl";
 
 /** Navigation Aid that displays an interactive mini-map for Drawing views that synchronizes with the iModel Viewport.
  * @beta
- * @deprecated in 4.15.0. Use {@link @itwin/imodel-components-react#DrawingNavigationAid} component instead.
+ * @deprecated in 4.16.0. Use {@link @itwin/imodel-components-react#DrawingNavigationAid} component instead.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class DrawingNavigationAidControl extends NavigationAidControl {

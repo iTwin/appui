@@ -973,7 +973,7 @@ export class FrontstageDef {
   }
 
   /** Sets the active view content control.
-   * @deprecated in 4.15.0. Uses a deprecated class {@link ContentControl}.
+   * @deprecated in 4.16.0. Uses a deprecated class {@link ContentControl}.
    */
   public setActiveView(
     newContent: ContentControl,
@@ -987,7 +987,7 @@ export class FrontstageDef {
     });
   }
 
-  /** @deprecated in 4.15.0. Use {@link UiItemsProvider} to provide a floating widget. */
+  /** @deprecated in 4.16.0. Use {@link UiItemsProvider} to provide a floating widget. */
   public addFloatingContentControl(contentControl?: ContentControl) {
     if (!contentControl) return;
     if (!this._floatingContentControls)
@@ -1000,7 +1000,7 @@ export class FrontstageDef {
     });
   }
 
-  /** @deprecated in 4.15.0. Unregister {@link UiItemsProvider} to remove a floating widget. */
+  /** @deprecated in 4.16.0. Unregister {@link UiItemsProvider} to remove a floating widget. */
   public dropFloatingContentControl(contentControl?: ContentControl) {
     if (!contentControl || !this._floatingContentControls) return;
 
@@ -1014,7 +1014,7 @@ export class FrontstageDef {
   }
 
   /** Gets the list of {@link ContentControl}s.
-   * @deprecated in 4.15.0. Uses a deprecated class {@link ContentControl}.
+   * @deprecated in 4.16.0. Uses a deprecated class {@link ContentControl}.
    */
   public get contentControls(): ContentControl[] {
     const contentControls = new Array<ContentControl>();
@@ -1028,7 +1028,7 @@ export class FrontstageDef {
   }
 
   /** Sets the active view content control based on the selected viewport.
-   * @deprecated in 4.15.0. Use {@link FrameworkContent.setActiveId} instead.
+   * @deprecated in 4.16.0. Use {@link FrameworkContent.setActiveId} instead.
    */
   public setActiveViewFromViewport(viewport: ScreenViewport): boolean {
     // eslint-disable-next-line deprecation/deprecation
