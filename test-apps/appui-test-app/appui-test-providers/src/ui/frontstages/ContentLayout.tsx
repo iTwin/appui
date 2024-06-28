@@ -45,7 +45,6 @@ export class ContentLayoutStageContentGroupProvider extends ContentGroupProvider
           classId: "",
           content: <ViewportContent />,
           applicationData: {
-            isPrimaryView: true,
             featureOptions: {
               defaultViewOverlay: {
                 enableScheduleAnimationViewOverlay: true,

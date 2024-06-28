@@ -61,7 +61,6 @@ function createFrontstage(): Frontstage {
           // eslint-disable-next-line deprecation/deprecation
           classId: IModelViewportControl,
           applicationData: {
-            isPrimaryView: true,
             viewState: UiFramework.getDefaultViewState,
             iModelConnection: UiFramework.getIModelConnection,
             featureOptions: {

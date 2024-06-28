@@ -60,7 +60,6 @@ function createWidgetApiFrontstage(): Frontstage {
           classId: "",
           applicationData: {
             supplyViewOverlay,
-            isPrimaryView: true,
             featureOptions: {
               defaultViewOverlay: {
                 enableScheduleAnimationViewOverlay: true,

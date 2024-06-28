@@ -43,7 +43,6 @@ export class SynchronizedFloatingViewportStage {
               classId: "",
               content: <ViewportContent />,
               applicationData: {
-                isPrimaryView: true,
                 viewState: UiFramework.getDefaultViewState,
                 iModelConnection: UiFramework.getIModelConnection,
                 featureOptions: {
