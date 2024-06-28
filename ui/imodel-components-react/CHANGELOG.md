@@ -1,6 +1,11 @@
 # Change Log - @itwin/imodel-components-react
 
-This log was last generated on Tue, 11 Jun 2024 15:58:29 GMT and should not be manually modified.
+This log was last generated on Fri, 28 Jun 2024 09:09:37 GMT and should not be manually modified.
+
+## 4.15.0
+Fri, 28 Jun 2024 09:09:37 GMT
+
+_Version update only_
 
 ## 4.14.1
 Tue, 11 Jun 2024 15:58:29 GMT
@@ -407,7 +412,7 @@ Fri, 20 May 2022 13:10:54 GMT
 
 ### Updates
 
-- Fix for losing viewport content after clicking PW link
+- Fix for losing viewport content after clicking PW link 
 
 ## 3.1.3
 Fri, 15 Apr 2022 13:49:25 GMT
