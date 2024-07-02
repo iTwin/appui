@@ -162,7 +162,9 @@ describe("CategorizedArrayProperty", () => {
         const expectedRecord = arrayChildren[index];
 
         const expectedOverrideName = `${expectedRecord.property.name}_${index}`;
-        const expectedOverrideDisplayLabel = `[${index + 1}]`;
+        const expectedOverrideDisplayLabel = `[${index + 1}] ${
+          expectedRecord.property.displayLabel
+        }`;
 
         expect(parentSelectionKey).toEqual(
           GridUtils.getSelectionKey(propertyRecord, expectedParentSelectionKey)
