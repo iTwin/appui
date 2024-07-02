@@ -50,7 +50,7 @@ export class MutableCategorizedArrayProperty
     const childrenDepth = depth + (this._renderLabel ? 1 : 0);
     this._children = record.getChildrenRecords().map((child, index) => {
       const newName = `${child.property.name}_${index}`;
-      const newDisplayLabel = `[${index + 1}]`;
+      const newDisplayLabel = `[${index + 1}] ${child.property.displayLabel}`;
       return gridItemFactory.createCategorizedProperty(
         child,
         this.selectionKey,
