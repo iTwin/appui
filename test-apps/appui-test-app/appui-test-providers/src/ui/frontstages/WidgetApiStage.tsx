@@ -48,7 +48,7 @@ function createWidgetApiFrontstage(): Frontstage {
           classId: "",
           content: (
             <ViewportContent
-              supplyViewOverlay={() => {
+              renderViewOverlay={() => {
                 return <MyCustomViewOverlay />;
               }}
             />

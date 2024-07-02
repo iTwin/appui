@@ -272,7 +272,7 @@ export function createSplitSingleViewportToolbarItem(
           <ViewportContent
             viewState={viewport.view.clone()}
             imodel={viewport.view.iModel}
-            supplyViewOverlay={() => undefined}
+            renderViewOverlay={() => undefined}
           />
         ),
       });

@@ -43,7 +43,7 @@ export class ContentLayoutStageContentGroupProvider extends ContentGroupProvider
         {
           id: "primaryContent",
           classId: "",
-          content: <ViewportContent supplyViewOverlay={() => undefined} />,
+          content: <ViewportContent renderViewOverlay={() => undefined} />,
         },
       ],
     });
@@ -78,7 +78,7 @@ export class ContentLayoutStageContentGroupProvider extends ContentGroupProvider
             content: (
               <ViewportContent
                 viewState={viewState}
-                supplyViewOverlay={() => undefined}
+                renderViewOverlay={() => undefined}
               />
             ),
           };
