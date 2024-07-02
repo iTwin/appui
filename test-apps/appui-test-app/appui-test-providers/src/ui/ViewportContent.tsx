@@ -11,7 +11,7 @@ type ViewportComponentProps = React.ComponentProps<typeof ViewportComponent>;
 
 interface ViewportContentProps extends Partial<ViewportComponentProps> {
   viewState?: ViewState;
-  supplyViewOverlay?: (viewport: ScreenViewport) => React.ReactNode;
+  renderViewOverlay?: (viewport: ScreenViewport) => React.ReactNode;
 }
 
 export function ViewportContent(props: ViewportContentProps) {
@@ -23,19 +23,6 @@ export function ViewportContent(props: ViewportContentProps) {
   viewState = props.viewState ?? viewState;
   if (!iModel) return null;
 
-  let viewOverlay: React.ReactNode;
-  if (viewport) {
-    viewOverlay = props.supplyViewOverlay ? (
-      props.supplyViewOverlay?.(viewport)
-    ) : (
-      <DefaultViewOverlay
-        viewport={viewport}
-        analysisTimeline={true}
-        solarTimeline={true}
-        scheduleAnimation={true}
-      />
-    );
-  }
   return (
     <>
       <ViewportComponent
@@ -43,7 +30,35 @@ export function ViewportContent(props: ViewportContentProps) {
         imodel={iModel}
         viewportRef={(v) => setViewport(v)}
       />
-      {viewOverlay}
+      <ViewOverlayRenderer
+        viewport={viewport}
+        renderViewOverlay={props.renderViewOverlay}
+      />
     </>
+  );
+}
+
+interface ViewOverlayRendererProps
+  extends Pick<ViewportContentProps, "renderViewOverlay"> {
+  viewport: ScreenViewport | undefined;
+}
+
+function ViewOverlayRenderer({
+  viewport,
+  renderViewOverlay,
+}: ViewOverlayRendererProps) {
+  if (!viewport) return null;
+
+  if (renderViewOverlay) {
+    return renderViewOverlay(viewport);
+  }
+
+  return (
+    <DefaultViewOverlay
+      viewport={viewport}
+      analysisTimeline={true}
+      solarTimeline={true}
+      scheduleAnimation={true}
+    />
   );
 }

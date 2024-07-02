@@ -3,6 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
+import { useSelector } from "react-redux";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 import {
   BackstageAppButton,
@@ -14,6 +15,9 @@ import {
   StandardContentToolsUiItemsProvider,
   StandardNavigationToolsUiItemsProvider,
   StandardStatusbarUiItemsProvider,
+  ToolbarItemUtilities,
+  ToolbarOrientation,
+  ToolbarUsage,
   UiFramework,
   UiItemsManager,
   UiItemsProvider,
@@ -22,8 +26,10 @@ import {
   ComponentExamplesModalFrontstage,
   ViewportContent,
 } from "@itwin/appui-test-providers";
+import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
 import stageIconSvg from "./imodeljs.svg";
 import { TestAppLocalization } from "../../useTranslation";
+import { RootState } from "../..";
 
 // Sample UI items provider that dynamically adds ui items
 class MainStageBackstageItemsProvider implements UiItemsProvider {
@@ -45,6 +51,19 @@ class MainStageBackstageItemsProvider implements UiItemsProvider {
   }
 }
 
+/** Application continues to use redux store and opts-in to respect `viewOverlayDisplay`. */
+function MainFrontstageViewport() {
+  const viewOverlay = useSelector((state: RootState) => {
+    // eslint-disable-next-line deprecation/deprecation
+    return state.frameworkState.configurableUiState.viewOverlayDisplay;
+  });
+  return (
+    <ViewportContent
+      renderViewOverlay={viewOverlay ? undefined : () => undefined}
+    />
+  );
+}
+
 export class MainFrontstage {
   public static stageId = "appui-test-app:main-stage";
 
@@ -60,7 +79,7 @@ export class MainFrontstage {
             {
               id: "viewport",
               classId: "",
-              content: <ViewportContent />,
+              content: <MainFrontstageViewport />,
             },
           ],
         },
@@ -91,5 +110,35 @@ export class MainFrontstage {
       providerId: "main-stage-standardStatusItems",
       stageIds: [MainFrontstage.stageId],
     });
+
+    UiItemsManager.register(
+      {
+        id: "main-stage-toolbar-items",
+        getToolbarItems: () => [
+          ToolbarItemUtilities.createActionItem(
+            "toggle-view-overlay",
+            100,
+            <SvgPlaceholder />,
+            "Toggle View Overlay",
+            () => {
+              // eslint-disable-next-line deprecation/deprecation
+              UiFramework.setViewOverlayDisplay(
+                // eslint-disable-next-line deprecation/deprecation
+                !UiFramework.viewOverlayDisplay
+              );
+            },
+            {
+              layouts: {
+                standard: {
+                  orientation: ToolbarOrientation.Horizontal,
+                  usage: ToolbarUsage.ContentManipulation,
+                },
+              },
+            }
+          ),
+        ],
+      },
+      { stageIds: [MainFrontstage.stageId] }
+    );
   }
 }

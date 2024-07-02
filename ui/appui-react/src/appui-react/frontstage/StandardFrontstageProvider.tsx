@@ -30,13 +30,13 @@ export type WidgetPanelProps = Omit<
  * @public
  */
 export interface StandardFrontstageProps {
-  /** Id of the frontstage. See {@link Frontstage.id}. */
+  /** Id of the frontstage. See {@link Frontstage["id"]}. */
   id: string;
-  /** Version of the frontstage. See {@link Frontstage.version}. */
+  /** Version of the frontstage. See {@link Frontstage["version"]}. */
   version?: number;
-  /** Usage of the frontstage. See {@link Frontstage.usage}. */
+  /** Usage of the frontstage. See {@link Frontstage["usage"]}. */
   usage: StageUsage | string;
-  /** Default tool of the frontstage. See {@link Frontstage.defaultTool}. */
+  /** Default tool of the frontstage. See {@link Frontstage["defaultTool"]}. */
   defaultTool?: string;
   /** Definition of available content groups or a function that provides them */
   contentGroupProps: ContentGroupProps | ContentGroupProvider;
