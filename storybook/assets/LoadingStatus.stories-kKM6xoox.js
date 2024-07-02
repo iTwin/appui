@@ -1,0 +1,42 @@
+var _a, _b, _c;
+import { L as LoadingStatus } from "./LoadingStatus-CXk8tyJf.js";
+import { A as AppUiDecorator } from "./Decorators-CXFrraVc.js";
+import "./jsx-runtime-D2-sc1j1.js";
+import "./index-DM9bPmif.js";
+import "./_commonjsHelpers-LQfde5yM.js";
+import "./Key.enum-Nky5yUvk.js";
+import "./iframe-vMT8xG5O.js";
+import "../sb-preview/runtime.js";
+import "./index-EDRsojbr.js";
+import "./inheritsLoose-CwB_PDSN.js";
+import "./DefaultToolSettingsProvider-BeaL6ll4.js";
+import "./getPrototypeOf-BiGzxcdS.js";
+import "./index-B47T7vRo.js";
+const meta = {
+  title: "Deprecated/LoadingStatus",
+  component: LoadingStatus,
+  tags: ["autodocs"],
+  decorators: [AppUiDecorator]
+};
+const Basic = {
+  args: {
+    message: "Loading...",
+    percent: 33
+  }
+};
+Basic.parameters = {
+  ...Basic.parameters,
+  docs: {
+    ...(_a = Basic.parameters) == null ? void 0 : _a.docs,
+    source: {
+      originalSource: '{\n  args: {\n    message: "Loading...",\n    percent: 33\n  }\n}',
+      ...(_c = (_b = Basic.parameters) == null ? void 0 : _b.docs) == null ? void 0 : _c.source
+    }
+  }
+};
+const __namedExportsOrder = ["Basic"];
+export {
+  Basic,
+  __namedExportsOrder,
+  meta as default
+};
