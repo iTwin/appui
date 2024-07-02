@@ -72,7 +72,9 @@ export interface NavigationAidHostProps {
   minHeight?: string;
 }
 
-/** NavigationAidHost is a component that hosts a NavigationAid that is specific to the active content control.
+/** Component that is used as a default navigation aid.
+ * Uses registered navigation aids and the active content control to determine if or which navigation aid to display.
+ * If an active content is defined without a content control (`classId` is set to an empty string) renders a default navigation aid based on an active viewport view state.
  * @public
  */
 export function NavigationAidHost(props: NavigationAidHostProps) {
@@ -214,11 +216,11 @@ function DefaultNavigationAid() {
  */
 // eslint-disable-next-line deprecation/deprecation
 export interface NavigationWidgetComposerProps extends CommonProps {
-  /** Optional Horizontal Toolbar */
+  /** Optional horizontal toolbar */
   horizontalToolbar?: React.ReactNode;
-  /** Optional Vertical Toolbar */
+  /** Optional vertical toolbar */
   verticalToolbar?: React.ReactNode;
-  /** Optional Navigation Aid host. If not specified a default host is provided which will use registered Navigation Aids and the active content control to determine which if any Navigation Aid to display. */
+  /** Optional navigation aid to override the default {@link NavigationAidHost}. */
   navigationAidHost?: React.ReactNode;
   /** If true no navigation aid will be shown. Defaults to `false`. */
   hideNavigationAid?: boolean;

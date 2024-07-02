@@ -234,7 +234,7 @@ public;DefaultDialogGridContainer({ componentGenerator, isToolSettings, }:
 public;DefaultNavigationTools
 public;DefaultStatusbarItems
 internal;DefaultToolSettingsProvider 
-public;DefaultViewOverlay({ viewport, onPlayPause, featureOptions, }: ViewOverlayProps): React_2.JSX.Element | null
+public;DefaultViewOverlay({ viewport, onPlayPause, featureOptions, ...props }: DefaultViewOverlayProps): React_2.JSX.Element | null
 public;DialogChangedEvent 
 deprecated;DialogChangedEvent 
 public;DialogChangedEventArgs

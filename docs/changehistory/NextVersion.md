@@ -12,7 +12,7 @@
   - `SheetNavigationAidControl` class. Use `SheetNavigationAid` component instead.
   - `StandardRotationNavigationAidControl` class. Use `StandardRotationNavigationAid` component instead.
   - `StatusBarWidgetComposerControl` class. Use `StatusBarComposer` component instead.
-  - `IModelViewportControl` class and `IModelViewportControlOptions` interface. Use `@itwin/imodel-components-react#ViewportComponent` component instead.
+  - `IModelViewportControl` class and `IModelViewportControlOptions` interface and `ViewOverlayProps.featureOptions` property. Use `@itwin/imodel-components-react#ViewportComponent` component instead.
 
     `IModelViewportControlOptions` previously specified through `applicationData` property of `ContentProps` interface can be passed as props to `ViewportComponent` component.
 
@@ -112,8 +112,8 @@
     } satisfies ContentProps;
     ```
 
-  - `ViewportContentControl` class.
-    - // TODO: navigation aid, view select changes
+  - `ConfigurableUiContentProps.viewOverlay` property. Components used in `ContentProps.content` should control view overlay visibility.
+  - `ViewportContentControl` class. `NavigationAidHost` component used this class to render navigation aid specific to activated content control and would handle view selection changes. `NavigationAidHost` is updated to render a default navigation aid depending on the active viewport view when content control is not used (`ContentProps.classId` is set to an empty string). If a custom navigation aid is needed, applications can provide a custom component via `navigationAid` prop of `ViewToolWidgetComposer` or `navigationAidHost` prop of `NavigationWidgetComposer` components.
   - `FloatingContentControl` class. Use `UiItemsProvider` to provide a floating `Widget` instead. Additionally, use `ContentOverlay` component to display the active content indicator.
   - `FloatingViewportContent` component, `useFloatingViewport` hook, `FloatingViewportContentControl` class and related type `FloatingViewportContentProps`. Wrap `@itwin/imodel-components-react#ViewportComponent` component with a `ContentOverlay` instead.
   - `FloatingViewportContentWrapper` component and related props type `FloatingViewportContentWrapperProps`. Use `ContentOverlay` component to display the active content indicator instead.
@@ -139,6 +139,8 @@
   - `content` property to `ContentProps` interface to replace existing `classId` property.
   - `getActiveId`, `setActiveId` properties to `FrameworkContent` to replace existing control based APIs.
   - `onViewSelected` to `ViewSelectorProps` to replace the static event.
+  - `solarTimeline`, `analysisTimeline`, `scheduleAnimation` props to `DefaultViewOverlay` component to replace existing `applicationData.featureOptions.defaultViewOverlay` property.
+  - `navigationAid` prop to `ViewToolWidgetComposer` to override the default navigation aid.
 
 ### Changes
 

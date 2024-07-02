@@ -953,6 +953,7 @@ export interface ConfigurableUiContentProps extends CommonProps {
     intervalTimeout?: number;
     toolAsToolSettingsLabel?: boolean;
     toolbarOpacity?: number;
+    // @deprecated
     viewOverlay?: boolean;
     widgetIcon?: boolean;
     widgetOpacity?: number;
@@ -1632,7 +1633,7 @@ export class DefaultToolSettingsProvider extends ToolUiProvider {
 }
 
 // @public
-export function DefaultViewOverlay({ viewport, onPlayPause, featureOptions, }: ViewOverlayProps): React_2.JSX.Element | null;
+export function DefaultViewOverlay({ viewport, onPlayPause, featureOptions, ...props }: DefaultViewOverlayProps): React_2.JSX.Element | null;
 
 // @public @deprecated
 export class DialogChangedEvent extends UiEvent<DialogChangedEventArgs> {
@@ -4292,14 +4293,11 @@ export interface StandardFrontstageProps {
     hideNavigationAid?: boolean;
     hideStatusBar?: boolean;
     hideToolSettings?: boolean;
-    // (undocumented)
     id: string;
     leftPanelProps?: WidgetPanelProps;
     rightPanelProps?: WidgetPanelProps;
     topPanelProps?: WidgetPanelProps;
-    // (undocumented)
     usage: StageUsage | string;
-    // (undocumented)
     version?: number;
 }
 
@@ -5431,7 +5429,7 @@ export function ViewOverlayHost({ viewport, featureOptions, userSuppliedOverlay,
 
 // @public
 export interface ViewOverlayProps {
-    // (undocumented)
+    // @deprecated (undocumented)
     featureOptions?: {
         [key: string]: any;
     };
@@ -5544,6 +5542,7 @@ export function ViewToolWidgetComposer(props: ViewToolWidgetComposerProps): Reac
 // @public
 export interface ViewToolWidgetComposerProps {
     hideNavigationAid?: boolean;
+    navigationAid?: React_2.ReactNode;
 }
 
 // @public

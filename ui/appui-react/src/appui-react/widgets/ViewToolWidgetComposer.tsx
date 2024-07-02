@@ -20,12 +20,14 @@ import { ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
 export interface ViewToolWidgetComposerProps {
   /** If true no navigation aid will be shown. Defaults to `false`. */
   hideNavigationAid?: boolean;
+  /** Overrides the default navigation aid. */
+  navigationAid?: React.ReactNode;
 }
 
 /**
  * ViewToolWidgetComposer composes a Navigation Widget with no tools defined by default. UiItemsProviders
  * must be used to provide tools to populate the toolbars. See [[StandardNavigationToolsProvider]].
- *  @example
+ * @example
  * ```
  * <ViewToolWidgetComposer />
  * ```
@@ -43,6 +45,7 @@ export function ViewToolWidgetComposer(props: ViewToolWidgetComposerProps) {
     <NavigationWidgetComposer
       className={className}
       hideNavigationAid={props.hideNavigationAid}
+      navigationAidHost={props.navigationAid}
       horizontalToolbar={
         <ToolbarComposer
           items={[]}
