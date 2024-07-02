@@ -4,7 +4,8 @@
 
 ### Deprecations
 
-- Deprecated all APIs associated with `ConfigurableUiControl` class. [#888](https://github.com/iTwin/appui/pull/888)
+- Deprecated all APIs associated with `ConfigurableUiControl` class. It is recommended for applications to continue using `classId` to specify content via content control APIs until all tools and UI elements that are used with that specific content control are refactored. [#888](https://github.com/iTwin/appui/pull/888)
+
   - `AccuDrawWidgetControl` class. Use `AccuDrawWidget` component instead.
   - `CubeNavigationAidControl` class. Use `@itwin/imodel-components-react#CubeNavigationAid` component instead.
   - `DrawingNavigationAidControl` class. Use `@itwin/imodel-components-react#DrawingNavigationAid` component instead.
@@ -12,7 +13,105 @@
   - `StandardRotationNavigationAidControl` class. Use `StandardRotationNavigationAid` component instead.
   - `StatusBarWidgetComposerControl` class. Use `StatusBarComposer` component instead.
   - `IModelViewportControl` class and `IModelViewportControlOptions` interface. Use `@itwin/imodel-components-react#ViewportComponent` component instead.
-    - // TODO: options, view overlay
+
+    `IModelViewportControlOptions` previously specified through `applicationData` property of `ContentProps` interface can be passed as props to `ViewportComponent` component.
+
+    ```tsx
+    // Before
+    const content = {
+      id: `viewport-1`,
+      classId: IModelViewportControl,
+      applicationData: {
+        viewState: UiFramework.getDefaultViewState,
+        iModelConnection: UiFramework.getIModelConnection,
+      },
+    } satisfies ContentProps;
+
+    // After
+    function ViewportContent() {
+      const [iModel] = React.useState(UiFramework.getIModelConnection());
+      const [viewState] = React.useState(UiFramework.getDefaultViewState());
+      return <ViewportComponent viewState={viewState} imodel={iModel} />;
+    }
+
+    const content = {
+      id: `viewport-1`,
+      classId: "",
+      content: <ViewportContent />,
+    } satisfies ContentProps;
+    ```
+
+    `DefaultViewOverlay` previously configured through `IModelViewportControlOptions` can be rendered as a sibling of `ViewportComponent` component. Configuration specified through `applicationData.featureOptions.defaultViewOverlay` can be passed as props to `DefaultViewOverlay` component.
+
+    ```tsx
+    // Before
+    const content = {
+      id: `viewport-1`,
+      classId: IModelViewportControl,
+      applicationData: {
+        featureOptions: {
+          defaultViewOverlay: {
+            enableScheduleAnimationViewOverlay: true,
+          },
+        },
+      },
+    } satisfies ContentProps;
+
+    // After
+    function ViewportContent() {
+      const [viewport, setViewport] = React.useState<ScreenViewport>();
+
+      return (
+        <>
+          <ViewportComponent viewportRef={(v) => setViewport(v)} />
+          {viewport && (
+            <DefaultViewOverlay viewport={viewport} scheduleAnimation={true} />
+          )}
+        </>
+      );
+    }
+
+    const content = {
+      id: `viewport-1`,
+      classId: "",
+      content: <ViewportContent />,
+    } satisfies ContentProps;
+    ```
+
+    To replicate `IModelViewportControlOptions.supplyViewOverlay` behavior you could use a render prop:
+
+    ```tsx
+    // Before
+    const content = {
+      id: `viewport-1`,
+      classId: IModelViewportControl,
+      applicationData: {
+        supplyViewOverlay: () => <>Custom view overlay</>,
+      },
+    } satisfies ContentProps;
+
+    // After
+    function ViewportContent(props: {
+      renderViewOverlay?: (viewport: ScreenViewport) => React.ReactNode;
+    }) {
+      const [viewport, setViewport] = React.useState<ScreenViewport>();
+      return (
+        <>
+          <ViewportComponent viewportRef={(v) => setViewport(v)} />
+          {viewport && props.renderViewOverlay?.(viewport)}
+        </>
+      );
+    }
+
+    const content = {
+      id: `viewport-1`,
+      classId: "",
+      content: (
+        <ViewportContent renderViewOverlay={() => <>Custom view overlay</>} />
+      ),
+    } satisfies ContentProps;
+    ```
+
   - `ViewportContentControl` class.
     - // TODO: navigation aid, view select changes
   - `FloatingContentControl` class. Use `UiItemsProvider` to provide a floating `Widget` instead. Additionally, use `ContentOverlay` component to display the active content indicator.

@@ -61,15 +61,6 @@ export class MainFrontstage {
             id: "imodel-view-0",
             classId: "",
             content: <ViewportContent />,
-            applicationData: {
-              featureOptions: {
-                defaultViewOverlay: {
-                  enableScheduleAnimationViewOverlay: true,
-                  enableAnalysisTimelineViewOverlay: true,
-                  enableSolarTimelineViewOverlay: true,
-                },
-              },
-            },
           },
         ],
       },

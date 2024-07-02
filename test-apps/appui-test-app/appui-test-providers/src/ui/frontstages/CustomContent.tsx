@@ -44,7 +44,7 @@ function CustomViewToolWidgetComposer() {
 function createFrontstage(): Frontstage {
   const frontstage = FrontstageUtilities.createStandardFrontstage({
     id: CustomContentFrontstage.stageId,
-    version: 1.1,
+    usage: StageUsage.General,
     contentGroupProps: {
       id: "appui-test-providers:custom-stage-content",
       layout: {
@@ -78,9 +78,7 @@ function createFrontstage(): Frontstage {
         },
       ],
     },
-    hideNavigationAid: false,
     cornerButton: <BackstageAppButton />,
-    usage: StageUsage.General,
   });
   return {
     ...frontstage,

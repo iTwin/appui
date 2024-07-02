@@ -220,7 +220,7 @@ export interface NavigationWidgetComposerProps extends CommonProps {
   verticalToolbar?: React.ReactNode;
   /** Optional Navigation Aid host. If not specified a default host is provided which will use registered Navigation Aids and the active content control to determine which if any Navigation Aid to display. */
   navigationAidHost?: React.ReactNode;
-  /** If true no navigation aid will be shown. Defaults to false. */
+  /** If true no navigation aid will be shown. Defaults to `false`. */
   hideNavigationAid?: boolean;
 }
 

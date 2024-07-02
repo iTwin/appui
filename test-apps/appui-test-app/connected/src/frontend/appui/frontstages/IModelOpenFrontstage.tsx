@@ -51,30 +51,25 @@ export class IModelOpenFrontstage {
   public static register() {
     // if frontstage has not yet been registered register it now
     if (!UiFramework.frontstages.hasFrontstage(IModelOpenFrontstage.stageId)) {
-      const contentGroupProps: ContentGroupProps = {
-        id: "appui-test-app:IModelOpenGroup",
-        layout: StandardContentLayouts.singleView,
-        contents: [
-          {
-            id: "imodel-open",
-            classId: "",
-            content: <IModelOpenContent />,
-          },
-        ],
-      };
-
-      const stageProps: StandardFrontstageProps = {
-        id: IModelOpenFrontstage.stageId,
-        version: 1.0,
-        contentGroupProps,
-        cornerButton: <BackstageAppButton />,
-        usage: StageUsage.Private,
-        hideToolSettings: true,
-        hideStatusBar: true,
-      };
-
       UiFramework.frontstages.addFrontstage(
-        FrontstageUtilities.createStandardFrontstage(stageProps)
+        FrontstageUtilities.createStandardFrontstage({
+          id: IModelOpenFrontstage.stageId,
+          usage: StageUsage.Private,
+          contentGroupProps: {
+            id: "appui-test-app:IModelOpenGroup",
+            layout: StandardContentLayouts.singleView,
+            contents: [
+              {
+                id: "imodel-open",
+                classId: "",
+                content: <IModelOpenContent />,
+              },
+            ],
+          },
+          cornerButton: <BackstageAppButton />,
+          hideToolSettings: true,
+          hideStatusBar: true,
+        })
       );
       UiItemsManager.register(new BackstageItemsProvider());
     }

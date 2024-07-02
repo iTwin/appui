@@ -32,7 +32,7 @@ export class PopoutWindowsFrontstage {
     UiFramework.frontstages.addFrontstage(
       FrontstageUtilities.createStandardFrontstage({
         id: PopoutWindowsFrontstage.stageId,
-        version: 1.1,
+        usage: StageUsage.General,
         contentGroupProps: {
           id: "popout-windows-stage-frontstage-main-content-group",
           layout: StandardContentLayouts.singleView,
@@ -41,17 +41,6 @@ export class PopoutWindowsFrontstage {
               id: "primaryContent",
               classId: "",
               content: <ViewportContent />,
-              applicationData: {
-                viewState: UiFramework.getDefaultViewState,
-                iModelConnection: UiFramework.getIModelConnection,
-                featureOptions: {
-                  defaultViewOverlay: {
-                    enableScheduleAnimationViewOverlay: true,
-                    enableAnalysisTimelineViewOverlay: true,
-                    enableSolarTimelineViewOverlay: true,
-                  },
-                },
-              },
             },
           ],
         },
@@ -61,7 +50,6 @@ export class PopoutWindowsFrontstage {
             icon="icon-bentley-systems"
           />
         ),
-        usage: StageUsage.General,
       })
     );
     this.registerToolProviders(localizationNamespace);

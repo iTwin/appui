@@ -198,7 +198,6 @@ describe("ContentGroupProvider", () => {
       id: "Ui2",
       version: 1.1,
       contentGroupProps: new TestContentGroupProvider(),
-      hideNavigationAid: false,
       cornerButton: <BackstageAppButton icon={"icon-bentley-systems"} />,
       usage: StageUsage.General,
     };

@@ -43,16 +43,7 @@ export class ContentLayoutStageContentGroupProvider extends ContentGroupProvider
         {
           id: "primaryContent",
           classId: "",
-          content: <ViewportContent />,
-          applicationData: {
-            featureOptions: {
-              defaultViewOverlay: {
-                enableScheduleAnimationViewOverlay: true,
-                enableAnalysisTimelineViewOverlay: true,
-                enableSolarTimelineViewOverlay: true,
-              },
-            },
-          },
+          content: <ViewportContent supplyViewOverlay={() => undefined} />,
         },
       ],
     });
@@ -84,7 +75,12 @@ export class ContentLayoutStageContentGroupProvider extends ContentGroupProvider
           const viewState = viewStates[index];
           return {
             ...content,
-            content: <ViewportContent viewState={viewState} />,
+            content: (
+              <ViewportContent
+                viewState={viewState}
+                supplyViewOverlay={() => undefined}
+              />
+            ),
           };
         }
       ),
@@ -109,7 +105,6 @@ export class ContentLayoutStage {
     UiFramework.frontstages.addFrontstage(
       FrontstageUtilities.createStandardFrontstage({
         id: ContentLayoutStage.stageId,
-        version: 1.1,
         contentGroupProps: ContentLayoutStage._contentGroupProvider,
         cornerButton: (
           <BackstageAppButton

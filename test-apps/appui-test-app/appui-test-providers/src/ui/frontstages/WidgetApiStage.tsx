@@ -30,27 +30,15 @@ import {
   TestProviderState,
 } from "../../store";
 import { AppUiTestProviders } from "../../AppUiTestProviders";
-import {
-  IModelApp,
-  MeasureDistanceTool,
-  ScreenViewport,
-} from "@itwin/core-frontend";
+import { IModelApp, MeasureDistanceTool } from "@itwin/core-frontend";
 import { updatedUiItemsProvider } from "../providers/UpdatedUiItemsProvider";
 import { RegisterUiProviderTool } from "../../tools/RegisterUiProviderTool";
 import { ViewportContent } from "../ViewportContent";
-
-const supplyViewOverlay = (viewport: ScreenViewport) => {
-  if (viewport.view) {
-    return <MyCustomViewOverlay />;
-  }
-  return null;
-};
 
 /** Tool settings widget can be configured by providing an URL param `toolSettings` with values `off` or `hidden`. */
 function createWidgetApiFrontstage(): Frontstage {
   const config = FrontstageUtilities.createStandardFrontstage({
     id: WidgetApiStage.stageId,
-    version: 1.1,
     contentGroupProps: {
       id: "widget-api-stage-frontstage-main-content-group",
       layout: StandardContentLayouts.singleView,
@@ -58,17 +46,13 @@ function createWidgetApiFrontstage(): Frontstage {
         {
           id: "primaryContent",
           classId: "",
-          applicationData: {
-            supplyViewOverlay,
-            featureOptions: {
-              defaultViewOverlay: {
-                enableScheduleAnimationViewOverlay: true,
-                enableAnalysisTimelineViewOverlay: true,
-                enableSolarTimelineViewOverlay: true,
-              },
-            },
-          },
-          content: <ViewportContent />,
+          content: (
+            <ViewportContent
+              supplyViewOverlay={() => {
+                return <MyCustomViewOverlay />;
+              }}
+            />
+          ),
         },
       ],
     },

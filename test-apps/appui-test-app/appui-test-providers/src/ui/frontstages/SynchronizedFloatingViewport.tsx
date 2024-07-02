@@ -33,7 +33,6 @@ export class SynchronizedFloatingViewportStage {
     UiFramework.frontstages.addFrontstage(
       FrontstageUtilities.createStandardFrontstage({
         id: SynchronizedFloatingViewportStage.stageId,
-        version: 1.1,
         contentGroupProps: {
           id: "synchronized-floating-viewport-stage-frontstage-main-content-group",
           layout: StandardContentLayouts.singleView,
@@ -42,17 +41,6 @@ export class SynchronizedFloatingViewportStage {
               id: "primaryContent",
               classId: "",
               content: <ViewportContent />,
-              applicationData: {
-                viewState: UiFramework.getDefaultViewState,
-                iModelConnection: UiFramework.getIModelConnection,
-                featureOptions: {
-                  defaultViewOverlay: {
-                    enableScheduleAnimationViewOverlay: true,
-                    enableAnalysisTimelineViewOverlay: true,
-                    enableSolarTimelineViewOverlay: true,
-                  },
-                },
-              },
             },
           ],
         },

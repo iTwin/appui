@@ -24,7 +24,6 @@ import { SvgWindow, SvgWindowSplitVertical } from "@itwin/itwinui-icons-react";
 
 import layoutRestoreIconSvg from "@bentley/icons-generic/icons/download.svg";
 import layoutSaveIconSvg from "@bentley/icons-generic/icons/upload.svg";
-import { ViewportComponent } from "@itwin/imodel-components-react";
 import { ViewportContent } from "../ui/ViewportContent";
 
 function getIModelSpecificKey(
@@ -230,20 +229,11 @@ export function createSplitSingleViewportToolbarItem(
         id: "imodel-view-0",
         classId: "",
         content: (
-          <ViewportComponent
+          <ViewportContent
             viewState={viewState1}
             imodel={viewport.view.iModel}
           />
         ),
-        applicationData: {
-          featureOptions: {
-            defaultViewOverlay: {
-              enableScheduleAnimationViewOverlay: true,
-              enableAnalysisTimelineViewOverlay: true,
-              enableSolarTimelineViewOverlay: true,
-            },
-          },
-        },
       });
 
       const viewState2 = viewport.view.clone();
@@ -252,20 +242,11 @@ export function createSplitSingleViewportToolbarItem(
         id: "imodel-view-1",
         classId: "",
         content: (
-          <ViewportComponent
+          <ViewportContent
             viewState={viewState2}
             imodel={viewport.view.iModel}
           />
         ),
-        applicationData: {
-          featureOptions: {
-            defaultViewOverlay: {
-              enableScheduleAnimationViewOverlay: true,
-              enableAnalysisTimelineViewOverlay: true,
-              enableSolarTimelineViewOverlay: true,
-            },
-          },
-        },
       });
 
       let contentGroupProps: ContentGroupProps = {
@@ -288,9 +269,10 @@ export function createSplitSingleViewportToolbarItem(
         id: "imodel-view-0",
         classId: "",
         content: (
-          <ViewportComponent
+          <ViewportContent
             viewState={viewport.view.clone()}
             imodel={viewport.view.iModel}
+            supplyViewOverlay={() => undefined}
           />
         ),
       });

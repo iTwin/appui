@@ -18,7 +18,7 @@ import { ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
  * @public
  */
 export interface ViewToolWidgetComposerProps {
-  /** If true no navigation aid will be shown. Defaults to false. */
+  /** If true no navigation aid will be shown. Defaults to `false`. */
   hideNavigationAid?: boolean;
 }
 
