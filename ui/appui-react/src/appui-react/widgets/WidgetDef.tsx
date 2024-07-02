@@ -83,11 +83,10 @@ export class WidgetDef {
   private _label: string | ConditionalStringValue | StringGetter = "";
   private _tooltip: string | ConditionalStringValue | StringGetter = "";
   private _widgetReactNode: React.ReactNode;
+  // eslint-disable-next-line deprecation/deprecation
   private _widgetControl!: WidgetControl;
   private _defaultState: WidgetState = WidgetState.Closed;
   private _id: string;
-  private _classId: string | ConfigurableUiControlConstructor | undefined =
-    undefined;
   private _priority: number = 0;
   private _stateChanged: boolean = false;
   private _widgetType: WidgetType = WidgetType.Rectangular;
@@ -118,9 +117,7 @@ export class WidgetDef {
   public get id(): string {
     return this._id;
   }
-  public get classId(): string | ConfigurableUiControlConstructor | undefined {
-    return this._classId;
-  }
+
   public get priority(): number {
     return this._priority;
   }
@@ -322,68 +319,11 @@ export class WidgetDef {
     this._tooltip = v;
   }
 
-  public get widgetControl(): WidgetControl | undefined {
-    return this._widgetControl;
-  }
-
-  public getWidgetControl(
-    type: ConfigurableUiControlType
-  ): WidgetControl | undefined {
-    if (!this._widgetControl && this.classId) {
-      let usedClassId: string = "";
-
-      if (typeof this.classId === "string") {
-        if (this.classId)
-          this._widgetControl = UiFramework.controls.create(
-            this.classId,
-            this.id,
-            this.applicationData
-          ) as WidgetControl;
-        usedClassId = this.classId;
-      } else {
-        const info = new ConfigurableCreateInfo(
-          this.classId.name,
-          this.id,
-          this.id
-        );
-        usedClassId = this.classId.name;
-        this._widgetControl = new this.classId(
-          info,
-          this.applicationData
-        ) as WidgetControl;
-      }
-
-      if (this._widgetControl) {
-        if (this._widgetControl.getType() !== type) {
-          // eslint-disable-next-line deprecation/deprecation
-          throw new UiError(
-            UiFramework.loggerCategory(this),
-            `getWidgetControl: '${usedClassId}' is NOT a ${type}; it is a ${this._widgetControl.getType()}`
-          );
-        }
-
-        this._widgetControl.widgetDef = this;
-        this._widgetControl.initialize();
-      }
-    }
-
-    if (!this._widgetControl && this.isStatusBar) {
-      const info = new ConfigurableCreateInfo(
-        "StatusBarWidgetComposerControl",
-        StatusBarWidgetComposerControl.controlId,
-        StatusBarWidgetComposerControl.controlId
-      );
-      this._widgetControl = new StatusBarWidgetComposerControl(info, undefined);
-      this._widgetControl.widgetDef = this;
-      this._widgetControl.initialize();
-    }
-
-    return this._widgetControl;
-  }
-
   public get reactNode(): React.ReactNode {
     if (!this._widgetReactNode) {
+      // eslint-disable-next-line deprecation/deprecation
       const widgetControl = this.getWidgetControl(
+        // eslint-disable-next-line deprecation/deprecation
         ConfigurableUiControlType.Widget
       );
 
@@ -509,11 +449,13 @@ export class WidgetDef {
   }
 
   public onWidgetStateChanged(): void {
+    // eslint-disable-next-line deprecation/deprecation
     this.widgetControl && this.widgetControl.onWidgetStateChanged();
   }
 
   /** Overwrite to save transient DOM state (i.e. scroll offset). */
   public saveTransientState(): void {
+    // eslint-disable-next-line deprecation/deprecation
     this.widgetControl && this.widgetControl.saveTransientState();
     this._saveTransientState && this._saveTransientState();
   }
@@ -523,10 +465,13 @@ export class WidgetDef {
    */
   public restoreTransientState(): boolean {
     let result = true;
+    // eslint-disable-next-line deprecation/deprecation
     if (this.widgetControl || this._restoreTransientState) {
       let result1 = false,
         result2 = false;
+      // eslint-disable-next-line deprecation/deprecation
       if (this.widgetControl)
+        // eslint-disable-next-line deprecation/deprecation
         result1 = this.widgetControl.restoreTransientState();
       if (this._restoreTransientState) result2 = this._restoreTransientState();
       result = !(result1 || result2);
@@ -575,6 +520,76 @@ export class WidgetDef {
       id: this.id,
     });
   }
+
+  /* eslint-disable deprecation/deprecation */
+
+  /** @deprecated in 4.16.0. Uses a deprecated type {@link ConfigurableUiControlConstructor}. */
+  public get classId(): string | ConfigurableUiControlConstructor | undefined {
+    return undefined;
+  }
+
+  /** @deprecated in 4.16.0. Returns an instance of a deprecated type {@link WidgetControl}. */
+  public get widgetControl(): WidgetControl | undefined {
+    return this._widgetControl;
+  }
+
+  /** @deprecated in 4.16.0. Returns an instance of a deprecated type {@link WidgetControl}. */
+  public getWidgetControl(
+    type: ConfigurableUiControlType
+  ): WidgetControl | undefined {
+    if (!this._widgetControl && this.classId) {
+      let usedClassId: string = "";
+
+      if (typeof this.classId === "string") {
+        if (this.classId)
+          this._widgetControl = UiFramework.controls.create(
+            this.classId,
+            this.id,
+            this.applicationData
+          ) as WidgetControl;
+        usedClassId = this.classId;
+      } else {
+        const info = new ConfigurableCreateInfo(
+          this.classId.name,
+          this.id,
+          this.id
+        );
+        usedClassId = this.classId.name;
+        this._widgetControl = new this.classId(
+          info,
+          this.applicationData
+        ) as WidgetControl;
+      }
+
+      if (this._widgetControl) {
+        if (this._widgetControl.getType() !== type) {
+          // eslint-disable-next-line deprecation/deprecation
+          throw new UiError(
+            UiFramework.loggerCategory(this),
+            `getWidgetControl: '${usedClassId}' is NOT a ${type}; it is a ${this._widgetControl.getType()}`
+          );
+        }
+
+        this._widgetControl.widgetDef = this;
+        this._widgetControl.initialize();
+      }
+    }
+
+    if (!this._widgetControl && this.isStatusBar) {
+      const info = new ConfigurableCreateInfo(
+        "StatusBarWidgetComposerControl",
+        StatusBarWidgetComposerControl.controlId,
+        StatusBarWidgetComposerControl.controlId
+      );
+      this._widgetControl = new StatusBarWidgetComposerControl(info, undefined);
+      this._widgetControl.widgetDef = this;
+      this._widgetControl.initialize();
+    }
+
+    return this._widgetControl;
+  }
+
+  /* eslint-enable deprecation/deprecation */
 }
 
 /** @internal */

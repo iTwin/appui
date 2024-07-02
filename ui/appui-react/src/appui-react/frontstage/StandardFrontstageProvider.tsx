@@ -16,6 +16,7 @@ import type { StagePanelConfig } from "../stagepanels/StagePanelConfig";
 import type { StageUsage } from "./StageUsage";
 import type { Frontstage } from "./Frontstage";
 import { FrontstageUtilities } from "./FrontstageUtilities";
+import type { BackstageAppButton } from "../widgets/BackstageAppButton";
 
 /** Widget panel properties used in a {@link StandardFrontstageProps}.
  * @public
@@ -29,48 +30,39 @@ export type WidgetPanelProps = Omit<
  * @public
  */
 export interface StandardFrontstageProps {
-  /* unique stage id. To ensure uniqueness it is common practice to format id like `appName:stageId` */
+  /** Id of the frontstage. See {@link Frontstage["id"]}. */
   id: string;
-  /* version id that is used to store state of stage */
+  /** Version of the frontstage. See {@link Frontstage["version"]}. */
   version?: number;
-  // Usage of stage. To allow generic UiItemProvides to populate this stage set to `StageUsage.General`.
+  /** Usage of the frontstage. See {@link Frontstage["usage"]}. */
   usage: StageUsage | string;
-  /** The defaultTool is is started when then frontstage loads and whenever any other tools exit.
-   * Most of the time, this is the Element Selection Tool (SelectionTool.toolId).
-   * Your app can specify its own tool or another core tool as default with this property.
-   */
+  /** Default tool of the frontstage. See {@link Frontstage["defaultTool"]}. */
   defaultTool?: string;
   /** Definition of available content groups or a function that provides them */
   contentGroupProps: ContentGroupProps | ContentGroupProvider;
-  /** Specify button to use to open backstage. Leave undefined for no backstage button.
-   * ```
-   * <BackstageAppButton icon={<SvgBentleySystems />} />
-   * ```
-   * Custom corner button definition
-   * ```
-   * const cornerButton = <BackstageAppButton icon={<SvgBentleySystems />}
-   *   label="Toggle Backstage display",
-   *   execute={() => UiFramework.backstage.getBackstageToggleCommand().execute()} />;
-   * ```
-   */
+  /** Specify a corner button. It is typically used to open the backstage, see {@link BackstageAppButton}. */
   cornerButton?: React.ReactNode;
-  /** Set to true if default Navigation aid is not desired */
+  /** Set to `true` if default navigation aid is not desired. */
   hideNavigationAid?: boolean;
-  /** Set to true if no tool setting dock is needed. Typically only used in modal stages. */
+  /** Set to `true` if no tool setting dock is needed. Typically only used in modal stages. */
   hideToolSettings?: boolean;
-  /** Set to true if no status bar is needed in stage */
+  /** Set to `true` if no status bar is needed in stage */
   hideStatusBar?: boolean;
   /** Props used to set initial size and state of panel. Defaults to:
-   *  {sizeSpec: 300, pinned=false, defaultState:StagePanelState.Minimized} */
+   *  { sizeSpec: 300, pinned: false, defaultState:StagePanelState.Minimized }
+   */
   leftPanelProps?: WidgetPanelProps;
   /** Props used to set initial size and state of panel. Defaults to:
-   *  {sizeSpec: 90, pinned=false, defaultState:StagePanelState.Minimized} */
+   *  { sizeSpec: 90, pinned: false, defaultState:StagePanelState.Minimized }
+   */
   topPanelProps?: WidgetPanelProps;
   /** Props used to set initial size and state of panel. Defaults to:
-   *  {sizeSpec: 200, pinned=true, defaultState:StagePanelState.Open} */
+   *  { sizeSpec: 200, pinned: true, defaultState:StagePanelState.Open }
+   */
   rightPanelProps?: WidgetPanelProps;
   /** Props used to set initial size and state of panel. Defaults to:
-   *  {sizeSpec: 180, pinned=true, defaultState:StagePanelState.Open} */
+   *  { sizeSpec: 180, pinned: true, defaultState:StagePanelState.Open }
+   */
   bottomPanelProps?: WidgetPanelProps;
 }
 

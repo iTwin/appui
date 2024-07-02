@@ -6,8 +6,6 @@
  * @module Frontstage
  */
 
-// cSpell:ignore popout
-
 import { UiError } from "@itwin/appui-abstract";
 import { BentleyStatus } from "@itwin/core-bentley";
 import type { ScreenViewport } from "@itwin/core-frontend";
@@ -59,6 +57,8 @@ import { FrontstageProvider } from "./FrontstageProvider";
 import { InternalFrontstageManager } from "./InternalFrontstageManager";
 import { StageUsage } from "./StageUsage";
 import type { Frontstage } from "./Frontstage";
+import { UiItemsProvider } from "../ui-items-provider/UiItemsProvider";
+import { FrameworkContent } from "../framework/FrameworkContent";
 
 /** @internal */
 export interface FrontstageEventArgs {
@@ -97,6 +97,7 @@ export class FrontstageDef {
   private _timeTracker = new TimeTracker();
   private _nineZoneState?: NineZoneState;
   private _contentGroupProvider?: ContentGroupProvider;
+  // eslint-disable-next-line deprecation/deprecation
   private _floatingContentControls?: ContentControl[];
   private _toolAdminDefaultToolId?: string;
   private _dispatch?: NineZoneDispatch;
@@ -149,12 +150,6 @@ export class FrontstageDef {
   }
   public get contentGroup(): ContentGroup | undefined {
     return this._contentGroup;
-  }
-
-  /** @deprecated in 4.15.0. Use {@link FrontstageDef.id} to look up a frontstage. */
-  // eslint-disable-next-line deprecation/deprecation
-  public get frontstageProvider(): FrontstageProvider | undefined {
-    return this._frontstageProvider;
   }
 
   private toStagePanelLocation(side: PanelSide): StagePanelLocation {
@@ -379,6 +374,7 @@ export class FrontstageDef {
       control.onFrontstageDeactivated();
     }
 
+    // eslint-disable-next-line deprecation/deprecation
     for (const control of this.contentControls) {
       control.onFrontstageDeactivated();
     }
@@ -416,13 +412,14 @@ export class FrontstageDef {
     this._isReady = false;
     // create an array of control-ready promises
     const controlReadyPromises = new Array<Promise<void>>();
-    this._widgetControls.forEach((control: WidgetControl) => {
+    this._widgetControls.forEach((control) => {
       controlReadyPromises.push(control.isReady);
     });
 
     if (this.contentLayoutDef) {
       const usedContentIndexes = this.contentLayoutDef.getUsedContentIndexes();
-      this.contentControls.forEach((control: ContentControl, index: number) => {
+      // eslint-disable-next-line deprecation/deprecation
+      this.contentControls.forEach((control, index) => {
         if (usedContentIndexes.includes(index))
           controlReadyPromises.push(control.isReady);
       });
@@ -442,6 +439,7 @@ export class FrontstageDef {
       control.onFrontstageReady();
     }
 
+    // eslint-disable-next-line deprecation/deprecation
     for (const control of this.contentControls) {
       control.onFrontstageReady();
     }
@@ -471,52 +469,30 @@ export class FrontstageDef {
     this._contentGroup = contentGroup;
   }
 
-  /** Sets the active view content control to the default or first */
+  /** Sets the active view content to the default or first. */
   public async setActiveContent(): Promise<boolean> {
-    let contentControl: ContentControl | undefined;
-    let activated = false;
+    const content = this.contentGroup?.contentPropsList?.[0];
+    if (!content) return false;
 
-    if (!contentControl && this.contentControls.length >= 0) {
-      contentControl = this.contentControls[0];
+    let contentReactNode = content.content;
+    // eslint-disable-next-line deprecation/deprecation
+    let control: ContentControl | undefined;
+    if (!contentReactNode) {
+      // eslint-disable-next-line deprecation/deprecation
+      control = this.contentGroup.getContentControl(content, 0);
+      contentReactNode = control?.reactNode;
     }
 
-    if (contentControl) {
-      UiFramework.content.setActive(contentControl.reactNode, true);
-      if (contentControl.viewport) {
-        const status = await IModelApp.viewManager.setSelectedView(
-          contentControl.viewport
-        );
-        activated = status === BentleyStatus.SUCCESS;
-      }
-    }
+    if (!contentReactNode) return false;
 
-    return activated;
-  }
+    // eslint-disable-next-line deprecation/deprecation
+    UiFramework.content.setActive(contentReactNode, true);
+    if (!control?.viewport) return true;
 
-  /** Sets the active view content control */
-  public setActiveView(
-    newContent: ContentControl,
-    oldContent?: ContentControl
-  ): void {
-    if (oldContent) oldContent.onDeactivated();
-    newContent.onActivated();
-    UiFramework.frontstages.onContentControlActivatedEvent.emit({
-      activeContentControl: newContent,
-      oldContentControl: oldContent,
-    });
-  }
-
-  /** Sets the active view content control based on the selected viewport. */
-  public setActiveViewFromViewport(viewport: ScreenViewport): boolean {
-    const contentControl = this.contentControls.find(
-      (control: ContentControl) => control.viewport === viewport
+    const status = await IModelApp.viewManager.setSelectedView(
+      control.viewport
     );
-    if (contentControl) {
-      UiFramework.content.setActive(contentControl.reactNode, true);
-      return true;
-    }
-
-    return false;
+    return status === BentleyStatus.SUCCESS;
   }
 
   /** Gets a [[StagePanelDef]] based on a given panel location
@@ -575,52 +551,20 @@ export class FrontstageDef {
   }
 
   /** Gets the list of [[WidgetControl]]s */
+  // eslint-disable-next-line deprecation/deprecation
   private get _widgetControls(): WidgetControl[] {
+    // eslint-disable-next-line deprecation/deprecation
     const widgetControls = new Array<WidgetControl>();
 
-    this.panelDefs.forEach((panelDef: StagePanelDef) => {
-      panelDef.widgetDefs.forEach((widgetDef: WidgetDef) => {
+    this.panelDefs.forEach((panelDef) => {
+      panelDef.widgetDefs.forEach((widgetDef) => {
+        // eslint-disable-next-line deprecation/deprecation
         const widgetControl = widgetDef.widgetControl;
         if (widgetControl) widgetControls.push(widgetControl);
       });
     });
 
     return widgetControls;
-  }
-
-  public addFloatingContentControl(contentControl?: ContentControl) {
-    if (!contentControl) return;
-    if (!this._floatingContentControls)
-      this._floatingContentControls = new Array<ContentControl>();
-
-    this._floatingContentControls.push(contentControl);
-    UiFramework.content.onAvailableContentChangedEvent.emit({
-      contentId: contentControl.uniqueId,
-    });
-  }
-
-  public dropFloatingContentControl(contentControl?: ContentControl) {
-    if (!contentControl || !this._floatingContentControls) return;
-
-    const index = this._floatingContentControls.indexOf(contentControl);
-    if (index > -1) {
-      this._floatingContentControls.splice(index, 1);
-      UiFramework.content.onAvailableContentChangedEvent.emit({
-        contentId: contentControl.uniqueId,
-      });
-    }
-  }
-
-  /** Gets the list of [[ContentControl]]s */
-  public get contentControls(): ContentControl[] {
-    const contentControls = new Array<ContentControl>();
-    if (this.contentGroup) {
-      contentControls.push(...this.contentGroup.getContentControls());
-    }
-    if (this._floatingContentControls) {
-      contentControls.push(...this._floatingContentControls);
-    }
-    return contentControls;
   }
 
   /** Initializes a FrontstageDef from frontstage.
@@ -1020,6 +964,87 @@ export class FrontstageDef {
       },
     };
   }
+
+  /* eslint-disable deprecation/deprecation */
+
+  /** @deprecated in 4.15.0. Use {@link FrontstageDef.id} to look up a frontstage. */
+  public get frontstageProvider(): FrontstageProvider | undefined {
+    return this._frontstageProvider;
+  }
+
+  /** Sets the active view content control.
+   * @deprecated in 4.16.0. Uses a deprecated class {@link ContentControl}.
+   */
+  public setActiveView(
+    newContent: ContentControl,
+    oldContent?: ContentControl
+  ): void {
+    if (oldContent) oldContent.onDeactivated();
+    newContent.onActivated();
+    UiFramework.frontstages.onContentControlActivatedEvent.emit({
+      activeContentControl: newContent,
+      oldContentControl: oldContent,
+    });
+  }
+
+  /** @deprecated in 4.16.0. Use {@link UiItemsProvider} to provide a floating widget. */
+  public addFloatingContentControl(contentControl?: ContentControl) {
+    if (!contentControl) return;
+    if (!this._floatingContentControls)
+      // eslint-disable-next-line deprecation/deprecation
+      this._floatingContentControls = new Array<ContentControl>();
+
+    this._floatingContentControls.push(contentControl);
+    UiFramework.content.onAvailableContentChangedEvent.emit({
+      contentId: contentControl.uniqueId,
+    });
+  }
+
+  /** @deprecated in 4.16.0. Unregister {@link UiItemsProvider} to remove a floating widget. */
+  public dropFloatingContentControl(contentControl?: ContentControl) {
+    if (!contentControl || !this._floatingContentControls) return;
+
+    const index = this._floatingContentControls.indexOf(contentControl);
+    if (index > -1) {
+      this._floatingContentControls.splice(index, 1);
+      UiFramework.content.onAvailableContentChangedEvent.emit({
+        contentId: contentControl.uniqueId,
+      });
+    }
+  }
+
+  /** Gets the list of {@link ContentControl}s.
+   * @deprecated in 4.16.0. Uses a deprecated class {@link ContentControl}.
+   */
+  public get contentControls(): ContentControl[] {
+    const contentControls = new Array<ContentControl>();
+    if (this.contentGroup) {
+      contentControls.push(...this.contentGroup.getContentControls());
+    }
+    if (this._floatingContentControls) {
+      contentControls.push(...this._floatingContentControls);
+    }
+    return contentControls;
+  }
+
+  /** Sets the active view content control based on the selected viewport.
+   * @deprecated in 4.16.0. Use {@link FrameworkContent.setActiveId} instead.
+   */
+  public setActiveViewFromViewport(viewport: ScreenViewport): boolean {
+    // eslint-disable-next-line deprecation/deprecation
+    const contentControl = this.contentControls.find(
+      (control) => control.viewport === viewport
+    );
+    if (contentControl) {
+      // eslint-disable-next-line deprecation/deprecation
+      UiFramework.content.setActive(contentControl.reactNode, true);
+      return true;
+    }
+
+    return false;
+  }
+
+  /* eslint-enable deprecation/deprecation */
 }
 
 function createWidgetDef(

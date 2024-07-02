@@ -6,8 +6,11 @@
  * @module ConfigurableUi
  */
 
+/* eslint-disable deprecation/deprecation */
+
 /** Interface for a ConfigurableUi element
  * @public
+ * @deprecated in 4.16.0. Used in a deprecated type {@link ConfigurableUiControlConstructor}.
  */
 export interface ConfigurableUiElement {
   uniqueId: string;
@@ -17,6 +20,7 @@ export interface ConfigurableUiElement {
 
 /** Information for creating a ConfigurableUi element
  * @public
+ * @deprecated in 4.16.0. Used in a deprecated type {@link ConfigurableUiControlConstructor}.
  */
 export class ConfigurableCreateInfo {
   constructor(
@@ -28,6 +32,7 @@ export class ConfigurableCreateInfo {
 
 /** The base class for all ConfigurableUi elements
  * @public
+ * @deprecated in 4.16.0. Base class for a deprecated interface {@link ConfigurableUiElement}.
  */
 export class ConfigurableBase implements ConfigurableUiElement {
   private _uniqueId: string;
@@ -68,6 +73,7 @@ export class ConfigurableBase implements ConfigurableUiElement {
 
 /** The type of the ConfigurableUiControl.
  * @public
+ * @deprecated in 4.16.0. Used in a deprecated class {@link ConfigurableUiControl}.
  */
 export enum ConfigurableUiControlType {
   Content = "ContentControl",
@@ -80,6 +86,7 @@ export enum ConfigurableUiControlType {
 
 /** Prototype for ConfigurableUiControl constructor
  * @public
+ * @deprecated in 4.16.0. Use React components instead.
  */
 export type ConfigurableUiControlConstructor = new (
   info: ConfigurableCreateInfo,
@@ -87,8 +94,6 @@ export type ConfigurableUiControlConstructor = new (
 ) => ConfigurableUiElement;
 
 /** The abstract base class for all Frontstage controls.
- * @public
- *
  * @note This is an abstract class which should not be derived from by the applications.
  * Instead, applications should derive from one of
  * [[ContentControl]],
@@ -96,6 +101,8 @@ export type ConfigurableUiControlConstructor = new (
  * [[WidgetControl]],
  * [[StatusBarWidgetControl]] or
  * [[NavigationAidControl]].
+ * @public
+ * @deprecated in 4.16.0. Use React components returned by the control instead.
  */
 export abstract class ConfigurableUiControl extends ConfigurableBase {
   private _cid: string;

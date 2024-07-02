@@ -7,6 +7,7 @@ import "./ViewSelectorPanel.scss";
 import {
   ToolbarItemUtilities,
   useActiveIModelConnection,
+  useActiveViewport,
   ViewSelector,
 } from "@itwin/appui-react";
 import * as React from "react";
@@ -29,5 +30,15 @@ export function getCustomViewSelectorPopupItem(
 
 function ViewSelectorPanel() {
   const iModel = useActiveIModelConnection();
-  return <ViewSelector imodel={iModel} panelOnly={true} />;
+  const viewport = useActiveViewport();
+  return (
+    <ViewSelector
+      imodel={iModel}
+      panelOnly={true}
+      onViewSelected={(args) => {
+        if (!viewport) return;
+        viewport.changeView(args.viewState);
+      }}
+    />
+  );
 }

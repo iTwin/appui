@@ -11,10 +11,6 @@ import {
   UiFramework,
 } from "@itwin/appui-react";
 // __PUBLISH_EXTRACT_END__
-import {
-  ReactContentControl,
-  ReactContentControlOptions,
-} from "../content/ReactContentControl";
 
 export async function registerStandardFrontstage() {
   // __PUBLISH_EXTRACT_START__ AppUI.StandardFrontstageProvider
@@ -29,10 +25,8 @@ export async function registerStandardFrontstage() {
         contents: [
           {
             id: `${id}:content`,
-            classId: ReactContentControl,
-            applicationData: {
-              node: <h1>Custom Content</h1>,
-            } satisfies ReactContentControlOptions,
+            classId: "",
+            content: <h1>Custom Content</h1>,
           },
         ],
       },

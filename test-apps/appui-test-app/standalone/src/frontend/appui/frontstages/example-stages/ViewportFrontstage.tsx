@@ -8,9 +8,9 @@ import {
   ContentGroup,
   ContentGroupProvider,
   FrontstageUtilities,
-  IModelViewportControl,
   UiFramework,
 } from "@itwin/appui-react";
+import { ViewportComponent } from "@itwin/imodel-components-react";
 import React from "react";
 
 // __PUBLISH_EXTRACT_START__ Example_Viewport_Frontstage_Group_Provider
@@ -22,16 +22,21 @@ export class ViewportFrontstageGroupProvider extends ContentGroupProvider {
       contents: [
         {
           id: "viewport",
-          classId: IModelViewportControl,
-          applicationData: {
-            viewState: UiFramework.getDefaultViewState,
-            iModelConnection: UiFramework.getIModelConnection,
-          },
+          classId: "",
+          content: <Viewport />,
         },
       ],
     });
   }
 }
+
+function Viewport() {
+  const [viewState] = React.useState(UiFramework.getDefaultViewState());
+  const [iModel] = React.useState(UiFramework.getIModelConnection());
+  if (!iModel) return null;
+  return <ViewportComponent viewState={viewState} imodel={iModel} />;
+}
+
 // __PUBLISH_EXTRACT_END__
 
 // __PUBLISH_EXTRACT_START__ Example_Register_Viewport_Frontstage

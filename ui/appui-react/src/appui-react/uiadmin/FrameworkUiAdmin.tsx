@@ -368,6 +368,7 @@ export class FrameworkUiAdmin extends UiAdmin {
     relativePosition?: RelativePosition,
     anchorElement?: HTMLElement
   ): boolean {
+    // eslint-disable-next-line deprecation/deprecation
     const el = anchorElement ?? UiFramework.controls.getWrapperElement();
 
     if (relativePosition === undefined)

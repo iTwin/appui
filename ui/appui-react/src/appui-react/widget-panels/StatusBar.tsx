@@ -22,8 +22,11 @@ export function WidgetPanelsStatusBar(props: CommonProps) {
   const content = widgetDef.reactNode;
   const widgetControl =
     content === undefined
-      ? (widgetDef.getWidgetControl(
+      ? // eslint-disable-next-line deprecation/deprecation
+        (widgetDef.getWidgetControl(
+          // eslint-disable-next-line deprecation/deprecation
           ConfigurableUiControlType.StatusBarWidget
+          // eslint-disable-next-line deprecation/deprecation
         ) as StatusBarWidgetControl | undefined)
       : undefined;
   return (

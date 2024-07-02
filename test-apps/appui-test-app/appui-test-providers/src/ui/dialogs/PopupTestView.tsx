@@ -127,6 +127,7 @@ export function PopupTestView({
       )}
       {initialViewState && (
         <div>
+          {/* eslint-disable-next-line deprecation/deprecation */}
           <FloatingViewportContent
             contentId={contentId}
             initialViewState={initialViewState}

@@ -15,6 +15,8 @@ import {
   ConfigurableUiControlType,
 } from "../configurableui/ConfigurableUiControl";
 
+/* eslint-disable deprecation/deprecation */
+
 /** NavigationAid Activated Event Args interface.
  * @public
  * @deprecated in 4.13.0. Event args are inferred from a listener. If explicit type is needed use a type helper.
@@ -28,11 +30,11 @@ export interface NavigationAidActivatedEventArgs {
  * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
-// eslint-disable-next-line deprecation/deprecation
 export class NavigationAidActivatedEvent extends UiEvent<NavigationAidActivatedEventArgs> {}
 
 /** The base class for Navigation Aid controls.
  * @public
+ * @deprecated in 4.16.0. Extends a deprecated class {@link ConfigurableUiControl}.
  */
 export class NavigationAidControl extends ConfigurableUiControl {
   private _reactNode: React.ReactNode;

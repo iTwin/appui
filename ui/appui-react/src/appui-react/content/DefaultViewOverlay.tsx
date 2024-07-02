@@ -24,7 +24,23 @@ import { useAnalysisAnimationDataProvider } from "../hooks/useAnalysisAnimationD
 export interface ViewOverlayProps {
   viewport: ScreenViewport;
   onPlayPause?: (playing: boolean) => void; // callback with play/pause button is pressed
+  /** @deprecated in 4.16.0. Use props specific to component features instead. */
   featureOptions?: { [key: string]: any };
+}
+
+interface DefaultViewOverlayProps extends ViewOverlayProps {
+  /** Specifies if the solar timeline should be displayed. Defaults to `false`.
+   * @note This is preferred over {@link ViewOverlayProps.featureOptions}.
+   */
+  solarTimeline?: boolean;
+  /** Specifies if the analysis timeline should be displayed. Defaults to `false`.
+   * @note This is preferred over {@link ViewOverlayProps.featureOptions}.
+   */
+  analysisTimeline?: boolean;
+  /** Specifies if the schedule animation timeline should be displayed. Defaults to `false`.
+   * @note This is preferred over {@link ViewOverlayProps.featureOptions}.
+   */
+  scheduleAnimation?: boolean;
 }
 
 /**
@@ -35,8 +51,10 @@ export interface ViewOverlayProps {
 export function DefaultViewOverlay({
   viewport,
   onPlayPause,
+  // eslint-disable-next-line deprecation/deprecation
   featureOptions,
-}: ViewOverlayProps) {
+  ...props
+}: DefaultViewOverlayProps) {
   const solarDataTimelineProvider = useSolarDataProvider(viewport);
   const analysisAnimationTimelineDataProvider =
     useAnalysisAnimationDataProvider(viewport);
@@ -47,10 +65,10 @@ export function DefaultViewOverlay({
   if (!currentViewport) return null;
 
   // Solar gets first shot
-  if (
-    solarDataTimelineProvider &&
-    !!featureOptions?.defaultViewOverlay?.enableSolarTimelineViewOverlay
-  ) {
+  const enableSolarTimelineViewOverlay =
+    props.solarTimeline ??
+    featureOptions?.defaultViewOverlay?.enableSolarTimelineViewOverlay;
+  if (solarDataTimelineProvider && enableSolarTimelineViewOverlay) {
     return (
       <div className="uifw-view-overlay">
         <div className="uifw-animation-overlay">
@@ -60,9 +78,12 @@ export function DefaultViewOverlay({
     );
   }
 
+  const enableAnalysisTimelineViewOverlay =
+    props.analysisTimeline ??
+    featureOptions?.defaultViewOverlay?.enableAnalysisTimelineViewOverlay;
   if (
     analysisAnimationTimelineDataProvider &&
-    !!featureOptions?.defaultViewOverlay?.enableAnalysisTimelineViewOverlay
+    enableAnalysisTimelineViewOverlay
   ) {
     return (
       <div className="uifw-view-overlay">
@@ -85,10 +106,10 @@ export function DefaultViewOverlay({
     );
   }
 
-  if (
-    scheduleTimelineDataProvider &&
-    !!featureOptions?.defaultViewOverlay?.enableScheduleAnimationViewOverlay
-  ) {
+  const enableScheduleAnimationViewOverlay =
+    props.scheduleAnimation ??
+    featureOptions?.defaultViewOverlay?.enableScheduleAnimationViewOverlay;
+  if (scheduleTimelineDataProvider && enableScheduleAnimationViewOverlay) {
     return (
       <div className="uifw-view-overlay">
         <div className="uifw-animation-overlay">

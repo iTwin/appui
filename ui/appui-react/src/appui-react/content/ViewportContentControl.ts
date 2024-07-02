@@ -31,10 +31,12 @@ import { ViewUtilities } from "../utils/ViewUtilities";
 import type { SupportsViewSelectorChange } from "./ContentControl";
 import { ContentControl } from "./ContentControl";
 
-/**
- * The base class for frontstage Viewport content controls that connects to a `ScreenViewport`
+/* eslint-disable deprecation/deprecation */
+
+/** The base class for frontstage Viewport content controls that connects to a `ScreenViewport`
  * that is managed by the `ViewManager`.
  * @public
+ * @deprecated in 4.16.0. Extends a deprecated class {@link ContentControl}.
  */
 export class ViewportContentControl
   extends ContentControl
@@ -176,6 +178,7 @@ export class ViewportContentControl
 
 /**
  * @beta
+ * @deprecated in 4.16.0. Extends a deprecated class {@link ViewportContentControl}.
  */
 export class FloatingViewportContentControl extends ViewportContentControl {
   constructor(uniqueId: string, name: string, node: React.ReactNode) {

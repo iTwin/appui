@@ -9,11 +9,16 @@
 import type { ContentLayoutProps } from "@itwin/appui-abstract";
 import { UiEvent } from "@itwin/appui-abstract";
 import type { ContentControl } from "../content/ContentControl";
-import type { ContentGroup, ContentGroupProps } from "../content/ContentGroup";
+import type {
+  ContentGroup,
+  ContentGroupProps,
+  ContentProps,
+} from "../content/ContentGroup";
 import type { ContentLayoutDef } from "../content/ContentLayout";
 import { DialogChangedEvent } from "../dialog/DialogManagerBase";
 import type { FrameworkStackedDialog } from "./FrameworkDialogs";
-import { UiFramework } from "../UiFramework";
+import type { UiItemsProvider } from "../ui-items-provider/UiItemsProvider";
+import type { UiFramework } from "../UiFramework";
 
 /** [[MouseDownChangedEvent]] Args interface.
  * @public
@@ -36,10 +41,16 @@ export class MouseDownChangedEvent extends UiEvent<MouseDownChangedEventArgs> {}
  * @deprecated in 4.13.0. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface ActiveContentChangedEventArgs {
-  /** React node of the old content */
+  /** React node of the old content.
+   * @deprecated in 4.16.0. Save activated content {@link ActiveContentChangedEventArgs.id} instead to identify previous content.
+   */
   oldContent?: React.ReactNode;
-  /** React node of the newly active content */
+  /** React node of the newly activated content.
+   * @deprecated in 4.16.0. Use {@link ActiveContentChangedEventArgs.id} instead to identify the activated content.
+   */
   activeContent?: React.ReactNode;
+  /** Id of activated content. */
+  id?: ContentProps["id"];
 }
 
 /** Active Content Changed Event class.
@@ -87,63 +98,93 @@ export interface FrameworkContent {
   // eslint-disable-next-line deprecation/deprecation
   readonly onAvailableContentChangedEvent: UiEvent<{ contentId: string }>;
 
-  /** Gets the active content as a React.ReactNode. */
+  /** Sets the active content. */
+  setActiveId(contentId?: ContentProps["id"]): void;
+
+  /** Gets the active content id. */
+  getActiveId(): ContentProps["id"] | undefined;
+
+  /** Gets the active content as a React.ReactNode.
+   * @deprecated in 4.16.0. Use {@link FrameworkContent.getActiveId} instead.
+   */
   getActive(): React.ReactNode | undefined;
 
-  /** Return the active ContentControl. */
+  /** Return the active ContentControl.
+   * @deprecated in 4.16.0. Use {@link FrameworkContent.getActiveId} instead.
+   */
+  // eslint-disable-next-line deprecation/deprecation
   getActiveContentControl(): ContentControl | undefined;
 
+  /** @deprecated in 4.16.0. Use {@link UiItemsProvider} to provide a floating widget. */
+  // eslint-disable-next-line deprecation/deprecation
   addFloatingContentControl(contentControl?: ContentControl): void;
 
+  /** @deprecated in 4.16.0. Unregister {@link UiItemsProvider} to remove a floating widget. */
+  // eslint-disable-next-line deprecation/deprecation
   dropFloatingContentControl(contentControl?: ContentControl): void;
 
-  /** Sets the active [[ContentControl]] */
+  /** Sets the active [[ContentControl]].
+   * @deprecated in 4.16.0. Use {@link FrameworkContent.setActiveId} instead.
+   */
   setActive(
     activeContent?: React.ReactNode,
     forceEventProcessing?: boolean
   ): void;
 
-  /** Refreshes the active [[ContentControl]] */
+  /** Refreshes the active [[ContentControl]].
+   * @deprecated in 4.16.0. Use {@link FrameworkContent.setActiveId} or use conditional rendering in your components.
+   */
   refreshActive(activeContent: React.ReactNode): void;
 
   /**
    * Determines if content displays a Sheet view.
    * @param content ContentControl to check
+   * @deprecated in 4.16.0. Uses a deprecated class {@link ContentControl}.
    */
+  // eslint-disable-next-line deprecation/deprecation
   isContentSheetView(content: ContentControl | undefined): boolean;
 
   /**
    * Determines if content displays a Drawing view.
    * @param content ContentControl to check
+   * @deprecated in 4.16.0. Uses a deprecated class {@link ContentControl}.
    */
+  // eslint-disable-next-line deprecation/deprecation
   isContentDrawingView(content: ContentControl | undefined): boolean;
 
   /**
    * Determines if content displays a Spatial view.
    * @param content ContentControl to check
+   * @deprecated in 4.16.0. Uses a deprecated class {@link ContentControl}.
    */
+  // eslint-disable-next-line deprecation/deprecation
   isContentSpatialView(content: ContentControl | undefined): boolean;
 
   /**
    * Determines if content displays a Orthographic view.
    * @param content ContentControl to check
+   * @deprecated in 4.16.0. Uses a deprecated class {@link ContentControl}.
    */
+  // eslint-disable-next-line deprecation/deprecation
   isContentOrthographicView(content: ContentControl | undefined): boolean;
 
   /**
    * Determines if content displays a 3d view.
    * @param content ContentControl to check
+   * @deprecated in 4.16.0. Uses a deprecated class {@link ContentControl}.
    */
+  // eslint-disable-next-line deprecation/deprecation
   isContent3dView(content: ContentControl | undefined): boolean;
 
   /**
    * Determines if viewport supports use of a camera.
    * @param content ContentControl to check
+   * @deprecated in 4.16.0. Uses a deprecated class {@link ContentControl}.
    */
+  // eslint-disable-next-line deprecation/deprecation
   contentSupportsCamera(content: ContentControl | undefined): boolean;
 
-  /**
-   * Manage content layouts.
+  /** Manage content layouts.
    * @public
    */
   readonly layouts: {

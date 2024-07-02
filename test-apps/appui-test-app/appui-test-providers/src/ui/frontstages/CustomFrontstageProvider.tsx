@@ -7,10 +7,6 @@ import * as React from "react";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 import { ContentGroup } from "@itwin/appui-react";
 // __PUBLISH_EXTRACT_END__
-import {
-  ReactContentControl,
-  ReactContentControlOptions,
-} from "../content/ReactContentControl";
 
 // __PUBLISH_EXTRACT_START__ AppUI.FrontstageProvider
 const customFrontstageProvider = {
@@ -22,10 +18,8 @@ const customFrontstageProvider = {
     contents: [
       {
         id: "content",
-        classId: ReactContentControl,
-        applicationData: {
-          node: <h1>Custom Content</h1>,
-        } satisfies ReactContentControlOptions,
+        classId: "",
+        content: <h1>Custom Content</h1>,
       },
     ],
   }),

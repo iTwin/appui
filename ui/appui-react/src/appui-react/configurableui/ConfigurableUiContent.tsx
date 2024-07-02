@@ -31,6 +31,7 @@ import {
   WIDGET_OPACITY_DEFAULT,
 } from "../theme/ThemeId";
 import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState";
+import type { ContentProps } from "../content/ContentGroup";
 
 /** @internal */
 export const ConfigurableUiContext = React.createContext<
@@ -52,7 +53,10 @@ export const ConfigurableUiContext = React.createContext<
 export interface ConfigurableUiContentProps extends CommonProps {
   /** React node of the Backstage */
   appBackstage?: React.ReactNode;
-  /** Controls if the view overlay should be displayed. Uses redux store as a fallback. Defaults to `true`. */
+  /** Controls if the view overlay should be displayed. Uses redux store as a fallback. Defaults to `true`.
+   * @note Only used by configurable control APIs. See {@link ContentProps.classId}.
+   * @deprecated in 4.16.0. View overlay visibility should be controlled by the components used in {@link ContentProps.content}.
+   */
   viewOverlay?: boolean;
   /** Describes the opacity of widgets. Uses redux store as a fallback. Defaults to {@link WIDGET_OPACITY_DEFAULT}. */
   widgetOpacity?: number;
@@ -113,6 +117,7 @@ export function ConfigurableUiContent(props: ConfigurableUiContentProps) {
   return (
     <ConfigurableUiContext.Provider
       value={{
+        // eslint-disable-next-line deprecation/deprecation
         viewOverlay: props.viewOverlay,
         widgetOpacity: props.widgetOpacity,
         widgetIcon: props.widgetIcon,

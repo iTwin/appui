@@ -3,31 +3,8 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import {
-  ConfigurableCreateInfo,
-  ContentControl,
-  ContentGroup,
-} from "@itwin/appui-react";
+import { ContentGroup } from "@itwin/appui-react";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
-
-class CustomContentControl extends ContentControl {
-  constructor(info: ConfigurableCreateInfo, options: any) {
-    super(info, options);
-
-    this.reactNode = (
-      <h1
-        style={{
-          height: "100%",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        Custom content!
-      </h1>
-    );
-  }
-}
 
 /** Used in e2e tests to test different configurations. */
 export const testFrontstageProvider = (() => {
@@ -36,7 +13,24 @@ export const testFrontstageProvider = (() => {
     const contentGroup = new ContentGroup({
       id: "test-group",
       layout: StandardContentLayouts.singleView,
-      contents: [{ id: "custom-content", classId: CustomContentControl }],
+      contents: [
+        {
+          id: "custom-content",
+          classId: "",
+          content: (
+            <h1
+              style={{
+                height: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              Custom content!
+            </h1>
+          ),
+        },
+      ],
     });
 
     const urlParams = new URLSearchParams(window.location.search);

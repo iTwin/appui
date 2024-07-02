@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { ToolbarItemUtilities } from "@itwin/appui-abstract";
 import { UiFramework } from "@itwin/appui-react";
 import { IModelApp, Tool } from "@itwin/core-frontend";
 import * as React from "react";
@@ -74,25 +73,6 @@ export class OpenSynchronizedViewTool extends Tool {
   public static override get englishKeyin(): string {
     return "open view dialog";
   }
-
-  public static getActionButtonDef(
-    itemPriority: number,
-    groupPriority?: number
-  ) {
-    const overrides = {
-      groupPriority,
-    };
-    return ToolbarItemUtilities.createActionButton(
-      OpenSynchronizedViewTool.toolId,
-      itemPriority,
-      OpenSynchronizedViewTool.iconSpec,
-      OpenSynchronizedViewTool.flyover,
-      async () => {
-        await IModelApp.tools.run(OpenSynchronizedViewTool.toolId);
-      },
-      overrides
-    );
-  }
 }
 
 function IModelViewDialog({
@@ -106,26 +86,23 @@ function IModelViewDialog({
   id: string;
   title: string;
 }) {
-  const handleClose = React.useCallback(() => {
-    UiFramework.dialogs.modeless.close(id);
-  }, [id]);
+  const [viewport] = React.useState(() => IModelApp.viewManager.selectedView);
+  const initialOffset =
+    x || y
+      ? {
+          left: x ?? 0,
+          top: y ?? 0,
+          transform: "none",
+        }
+      : {};
 
-  const initialOffset = React.useMemo(() => {
-    if (x || y) {
-      return {
-        left: x ?? 0,
-        top: y ?? 0,
-        transform: "none",
-      };
-    }
-
-    return {};
-  }, [x, y]);
-
+  if (!viewport) return null;
   return (
     <Dialog
       isOpen={true}
-      onClose={handleClose}
+      onClose={() => {
+        UiFramework.dialogs.modeless.close(id);
+      }}
       closeOnEsc
       isDraggable
       isResizable
@@ -134,7 +111,7 @@ function IModelViewDialog({
       <Dialog.Main style={{ width: "40vw", height: "40vh", ...initialOffset }}>
         <Dialog.TitleBar titleText={title} />
         <Dialog.Content style={{ padding: 0 }}>
-          <SynchronizedFloatingView contentId={id} />
+          <SynchronizedFloatingView contentId={id} viewport={viewport} />
         </Dialog.Content>
       </Dialog.Main>
     </Dialog>

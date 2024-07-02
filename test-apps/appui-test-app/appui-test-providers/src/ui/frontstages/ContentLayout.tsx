@@ -6,25 +6,26 @@ import * as React from "react";
 import {
   BackstageAppButton,
   ContentGroup,
-  ContentGroupProps,
   ContentGroupProvider,
-  ContentProps,
   Frontstage,
   FrontstageUtilities,
-  IModelViewportControl,
+  StageContentLayout,
+  StagePanelLocation,
+  StagePanelSection,
   StageUsage,
   StandardContentToolsUiItemsProvider,
   StandardNavigationToolsUiItemsProvider,
   StandardStatusbarUiItemsProvider,
   UiFramework,
   UiItemsManager,
+  useActiveViewport,
 } from "@itwin/appui-react";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 import { getSavedViewLayoutProps } from "../../tools/ContentLayoutTools";
 import { ContentLayoutStageUiItemsProvider } from "../providers/ContentLayoutStageUiItemsProvider";
+import { ViewportContent } from "../ViewportContent";
 
-/**
- * The ContentLayoutStageContentGroupProvider provides a class with the primary method `provideContentGroup` to provide a ContentGroup
+/** The ContentLayoutStageContentGroupProvider provides a class with the primary method `provideContentGroup` to provide a ContentGroup
  * to a stage when the stage is activated. This provider will look to see if the user saved out a ContentGroup to use when a stage and
  * specific iModel is opened. See `SaveContentLayoutTool` in `ContentLayoutTools.tsx` to see tool that saved the layout and ViewStates.
  * If no saved state was found `UiFramework.getDefaultViewState` is used to specify the ViewState and `StandardContentLayouts.singleView`
@@ -32,90 +33,62 @@ import { ContentLayoutStageUiItemsProvider } from "../providers/ContentLayoutSta
  * method `applyUpdatesToSavedProps` is used to make any updates to the saved JSON before it is applied to the stage.
  */
 export class ContentLayoutStageContentGroupProvider extends ContentGroupProvider {
-  public override prepareToSaveProps(contentGroupProps: ContentGroupProps) {
-    const newContentsArray = contentGroupProps.contents.map(
-      (content: ContentProps) => {
-        const newContent = { ...content };
-        if (newContent.applicationData) delete newContent.applicationData;
-        return newContent;
-      }
-    );
-    return { ...contentGroupProps, contents: newContentsArray };
-  }
-
-  public override applyUpdatesToSavedProps(
-    contentGroupProps: ContentGroupProps
-  ) {
-    const newContentsArray = contentGroupProps.contents.map(
-      (content: ContentProps) => {
-        const newContent = { ...content };
-
-        if (newContent.classId === IModelViewportControl.id) {
-          newContent.applicationData = {
-            ...newContent.applicationData,
-            isPrimaryView: true,
-            featureOptions: {
-              defaultViewOverlay: {
-                enableScheduleAnimationViewOverlay: true,
-                enableAnalysisTimelineViewOverlay: true,
-                enableSolarTimelineViewOverlay: true,
-              },
-            },
-          };
-        }
-        return newContent;
-      }
-    );
-    return { ...contentGroupProps, contents: newContentsArray };
-  }
-
   public override async contentGroup(
     config: Frontstage
   ): Promise<ContentGroup> {
-    const savedViewLayoutProps = await getSavedViewLayoutProps(
-      config.id,
-      UiFramework.getIModelConnection()
-    );
-    if (savedViewLayoutProps) {
-      const viewState =
-        savedViewLayoutProps.contentGroupProps.contents[0].applicationData
-          ?.viewState;
-      if (viewState) {
-        UiFramework.setDefaultViewState(viewState);
-      }
-      const contentGroupProps = this.applyUpdatesToSavedProps(
-        savedViewLayoutProps.contentGroupProps
-      );
-      return new ContentGroup(contentGroupProps);
-    }
-
-    return new ContentGroup({
+    const defaultContent = new ContentGroup({
       id: "content-layout-stage-frontstage-main-content-group",
       layout: StandardContentLayouts.singleView,
       contents: [
         {
           id: "primaryContent",
-          classId: IModelViewportControl.id,
-          applicationData: {
-            isPrimaryView: true,
-            viewState: UiFramework.getDefaultViewState,
-            iModelConnection: UiFramework.getIModelConnection,
-            featureOptions: {
-              defaultViewOverlay: {
-                enableScheduleAnimationViewOverlay: true,
-                enableAnalysisTimelineViewOverlay: true,
-                enableSolarTimelineViewOverlay: true,
-              },
-            },
-          },
+          classId: "",
+          content: <ViewportContent renderViewOverlay={() => undefined} />,
         },
       ],
+    });
+
+    const iModelConnection = UiFramework.getIModelConnection();
+    if (!iModelConnection) return defaultContent;
+
+    const savedViewLayoutProps = await getSavedViewLayoutProps(
+      config.id,
+      iModelConnection
+    );
+    if (!savedViewLayoutProps) return defaultContent;
+
+    const viewStates = await StageContentLayout.viewStatesFromProps(
+      iModelConnection,
+      savedViewLayoutProps
+    );
+    if (viewStates.length > 0) {
+      const defaultViewState = viewStates[0];
+      if (defaultViewState) {
+        UiFramework.setDefaultViewState(defaultViewState);
+      }
+    }
+
+    return new ContentGroup({
+      ...savedViewLayoutProps.contentGroupProps,
+      contents: savedViewLayoutProps.contentGroupProps.contents.map(
+        (content, index) => {
+          const viewState = viewStates[index];
+          return {
+            ...content,
+            content: (
+              <ViewportContent
+                viewState={viewState}
+                renderViewOverlay={() => undefined}
+              />
+            ),
+          };
+        }
+      ),
     });
   }
 }
 
-/**
- * The ContentLayoutStage provides a register method that registers a FrontstageProvider that is used to activate a stage.
+/** The ContentLayoutStage provides a register method that registers a FrontstageProvider that is used to activate a stage.
  * It also register "standard" providers to provide tool buttons and statusbar items. Finally it registers a UiItemsProvider
  * that provides tools that are only intended to be used in this stage. This stage also uses a ContentGroupProvider to provide a
  * ContentGroup to use when the stage is activated. Using a ContentGroupProvider allows async code to be run as a stage is activated
@@ -128,18 +101,10 @@ export class ContentLayoutStage {
   private static _contentGroupProvider =
     new ContentLayoutStageContentGroupProvider();
 
-  public static supplyAppData(_id: string, _applicationData?: any) {
-    return {
-      viewState: UiFramework.getDefaultViewState,
-      iModelConnection: UiFramework.getIModelConnection,
-    };
-  }
-
   public static register(localizationNamespace: string) {
     UiFramework.frontstages.addFrontstage(
       FrontstageUtilities.createStandardFrontstage({
         id: ContentLayoutStage.stageId,
-        version: 1.1,
         contentGroupProps: ContentLayoutStage._contentGroupProvider,
         cornerButton: (
           <BackstageAppButton
@@ -189,7 +154,43 @@ export class ContentLayoutStage {
       }
     );
 
+    UiItemsManager.register(
+      {
+        id: "widgets",
+        getWidgets: () => {
+          return [
+            {
+              id: "active-view",
+              label: "Active view",
+              content: <ActiveView />,
+              layouts: {
+                standard: {
+                  location: StagePanelLocation.Right,
+                  section: StagePanelSection.End,
+                },
+              },
+            },
+          ];
+        },
+      },
+      {
+        stageIds: [ContentLayoutStage.stageId],
+      }
+    );
+
     // Provides example widgets stage
     ContentLayoutStageUiItemsProvider.register(localizationNamespace);
   }
+}
+
+function ActiveView() {
+  const viewport = useActiveViewport();
+  if (!viewport) return <span>No active viewport</span>;
+  return (
+    <span>
+      <b>id:</b> {viewport.view.id}
+      <br />
+      <b>description:</b> {viewport.view.description}
+    </span>
+  );
 }

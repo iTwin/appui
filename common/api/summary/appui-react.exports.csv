@@ -31,8 +31,9 @@ deprecated;AccuDrawSetFieldValueToUiEventArgs
 beta;AccuDrawUiSettings
 beta;AccuDrawUiSettingsChangedEvent 
 deprecated;AccuDrawUiSettingsChangedEvent 
-beta;AccuDrawWidget(): React_2.JSX.Element
+public;AccuDrawWidget(): React_2.JSX.Element
 beta;AccuDrawWidgetControl 
+deprecated;AccuDrawWidgetControl 
 public;Action
 deprecated;Action
 public;class ActionButtonItemDef 
@@ -129,7 +130,9 @@ public;CommonBackstageItem
 public;CommonStatusBarItem
 public;CommonToolbarItem
 public;ConfigurableBase 
+deprecated;ConfigurableBase 
 public;ConfigurableCreateInfo
+deprecated;ConfigurableCreateInfo
 public;ConfigurableUiActionId
 deprecated;ConfigurableUiActionId
 public;ConfigurableUiActions:
@@ -140,9 +143,13 @@ public;ConfigurableUiContent(props: ConfigurableUiContentProps): React_2.JSX.Ele
 public;ConfigurableUiContentProps 
 internal;ConfigurableUiContext: React_2.Context
 public;class ConfigurableUiControl 
+deprecated;class ConfigurableUiControl 
 public;ConfigurableUiControlConstructor = new (info: ConfigurableCreateInfo, options: any) => ConfigurableUiElement
+deprecated;ConfigurableUiControlConstructor = new (info: ConfigurableCreateInfo, options: any) => ConfigurableUiElement
 public;ConfigurableUiControlType
+deprecated;ConfigurableUiControlType
 public;ConfigurableUiElement
+deprecated;ConfigurableUiElement
 public;ConfigurableUiReducer(state: ConfigurableUiState | undefined, action: ConfigurableUiActionsUnion): ConfigurableUiState
 deprecated;ConfigurableUiReducer(state: ConfigurableUiState | undefined, action: ConfigurableUiActionsUnion): ConfigurableUiState
 public;ConfigurableUiState
@@ -153,6 +160,7 @@ beta;connectIModelConnectionAndViewState: (mapStateToProps?: any, mapDispatchToP
 deprecated;connectIModelConnectionAndViewState: (mapStateToProps?: any, mapDispatchToProps?: any) => InferableComponentEnhancerWithProps
 public;ContentCallback = (content: ContentProps) => void
 public;ContentControl 
+deprecated;ContentControl 
 public;ContentControlActivatedEvent 
 deprecated;ContentControlActivatedEvent 
 public;ContentControlActivatedEventArgs
@@ -168,13 +176,14 @@ public;ContentDialogRenderer
 public;ContentGroup
 public;ContentGroupProps
 public;class ContentGroupProvider
-public;ContentLayout 
+public;ContentLayout(props: ContentLayoutComponentProps): React_2.JSX.Element | null
 public;ContentLayoutActivatedEvent 
 deprecated;ContentLayoutActivatedEvent 
 public;ContentLayoutActivatedEventArgs
 deprecated;ContentLayoutActivatedEventArgs
 public;ContentLayoutComponentProps 
 public;ContentLayoutDef
+beta;ContentOverlay({ className, children, active, ...other }: ContentOverlayProps): React_2.JSX.Element
 public;ContentProps
 public;ContentToolWidgetComposer(props: ContentToolWidgetComposerProps): React_2.JSX.Element
 public;ContentToolWidgetComposerProps
@@ -187,6 +196,7 @@ public;createAction
 deprecated;createAction
 internal;createStableWidgetDef(widgetDef: WidgetDef, stableId: string): WidgetDef
 public;CubeNavigationAidControl 
+deprecated;CubeNavigationAidControl 
 public;CursorDirection
 public;CursorDirectionParts
 public;CursorInformation
@@ -224,7 +234,7 @@ public;DefaultDialogGridContainer({ componentGenerator, isToolSettings, }:
 public;DefaultNavigationTools
 public;DefaultStatusbarItems
 internal;DefaultToolSettingsProvider 
-public;DefaultViewOverlay({ viewport, onPlayPause, featureOptions, }: ViewOverlayProps): React_2.JSX.Element | null
+public;DefaultViewOverlay({ viewport, onPlayPause, featureOptions, ...props }: DefaultViewOverlayProps): React_2.JSX.Element | null
 public;DialogChangedEvent 
 deprecated;DialogChangedEvent 
 public;DialogChangedEventArgs
@@ -236,6 +246,7 @@ internal;DialogRendererBase
 internal;DialogRendererProps
 internal;DockedStatusBarItem(props: StatusBarItemProps): React_2.JSX.Element
 beta;DrawingNavigationAidControl 
+deprecated;DrawingNavigationAidControl 
 public;ElementTooltipChangedEvent 
 deprecated;ElementTooltipChangedEvent 
 public;ElementTooltipChangedEventArgs
@@ -247,17 +258,24 @@ public;ExtensibleToolbarProps
 beta;featureOverridesActiveStateFunc(state: Readonly
 deprecated;featureOverridesActiveStateFunc(state: Readonly
 beta;FloatingContentControl 
+deprecated;FloatingContentControl 
 beta;FloatingViewportContent(props: FloatingViewportContentProps): React_2.JSX.Element
+deprecated;FloatingViewportContent(props: FloatingViewportContentProps): React_2.JSX.Element
 beta;FloatingViewportContentControl 
+deprecated;FloatingViewportContentControl 
 beta;FloatingViewportContentProps
+deprecated;FloatingViewportContentProps
 public;FloatingViewportContentWrapper({ children, }: FloatingViewportContentWrapperProps): React_2.JSX.Element
+deprecated;FloatingViewportContentWrapper({ children, }: FloatingViewportContentWrapperProps): React_2.JSX.Element
 public;FloatingViewportContentWrapperProps
+deprecated;FloatingViewportContentWrapperProps
 alpha;FocusToolSettings 
 beta;FrameworkAccuDraw 
 public;FrameworkBackstage
 public;FrameworkChildWindows
 public;FrameworkContent
 public;FrameworkControls
+deprecated;FrameworkControls
 beta;FrameworkDialog
 public;FrameworkDialogs
 public;FrameworkFrontstages
@@ -334,7 +352,9 @@ deprecated;IModelConnectedViewport(props: Omit
 beta;IModelConnectedViewSelector(props: IModelConnectedViewSelectorProps): React_2.JSX.Element
 deprecated;IModelConnectedViewSelector(props: IModelConnectedViewSelectorProps): React_2.JSX.Element
 public;IModelViewportControl 
+deprecated;IModelViewportControl 
 public;IModelViewportControlOptions
+deprecated;IModelViewportControlOptions
 public;InitialAppUiSettings
 deprecated;InitialAppUiSettings
 internal;initializeNineZoneState(frontstageDef: FrontstageDef): void
@@ -456,6 +476,7 @@ deprecated;NavigationAidActivatedEvent
 public;NavigationAidActivatedEventArgs
 deprecated;NavigationAidActivatedEventArgs
 public;NavigationAidControl 
+deprecated;NavigationAidControl 
 public;NavigationAidHost(props: NavigationAidHostProps): React_2.JSX.Element
 public;NavigationAidHostProps
 public;NavigationWidgetComposer(props: NavigationWidgetComposerProps): React_2.JSX.Element
@@ -521,7 +542,6 @@ deprecated;ReducerRegistryInstance: ReducerRegistry
 public;RestoreAllFrontstagesTool 
 public;RestoreFrontstageLayoutTool 
 internal;restoreNineZoneState(frontstageDef: FrontstageDef, packed: NineZoneState): void
-internal;RotationData
 public;SafeAreaContext: React_2.Context
 public;SafeAreaInsets
 public;ScheduleAnimationTimelineDataProvider 
@@ -556,9 +576,10 @@ beta;SettingsModalFrontstage
 alpha;SheetCard 
 alpha;SheetCardProps
 alpha;SheetData
-alpha;SheetNavigationAid 
+public;SheetNavigationAid 
 alpha;SheetNavigationAidControl 
-alpha;SheetNavigationProps 
+deprecated;SheetNavigationAidControl 
+public;SheetNavigationProps 
 alpha;SheetsModalFrontstage 
 public;SnapModeField(props: SnapModeFieldProps): React_2.JSX.Element
 alpha;SolarTimelineDataProvider 
@@ -592,6 +613,7 @@ deprecated;StandardMessageBoxProps
 public;StandardNavigationToolsProvider 
 beta;StandardNavigationToolsUiItemsProvider 
 alpha;StandardRotationNavigationAidControl 
+deprecated;StandardRotationNavigationAidControl 
 public;StandardStatusbarItemsProvider 
 beta;StandardStatusbarUiItemsProvider 
 public;StateManager
@@ -612,6 +634,7 @@ beta;StatusBarDialog(props: StatusBarDialogProps): React_2.JSX.Element
 beta;StatusBarDialog
 beta;StatusBarDialogProps 
 public;StatusBarFieldId = string | null
+deprecated;StatusBarFieldId = string | null
 beta;StatusBarIndicator(props: StatusBarIndicatorProps): React_2.JSX.Element
 deprecated;StatusBarIndicator(props: StatusBarIndicatorProps): React_2.JSX.Element
 beta;StatusBarIndicatorProps 
@@ -632,13 +655,17 @@ public;StatusBarLeftSection(props: CommonDivProps): React_2.JSX.Element
 public;StatusBarPopover(props: StatusBarPopoverProps): React_2.JSX.Element
 public;StatusBarPopover
 public;StatusBarProps 
+deprecated;StatusBarProps 
 public;StatusBarRightSection(props: CommonDivProps): React_2.JSX.Element
 public;StatusBarSection
 public;StatusBarSeparator(props: CommonProps): React_2.JSX.Element
 public;StatusBarSpaceBetween(props: CommonDivProps): React_2.JSX.Element
 public;StatusBarWidgetComposerControl 
+deprecated;StatusBarWidgetComposerControl 
 public;class StatusBarWidgetControl 
+deprecated;class StatusBarWidgetControl 
 public;SupportsViewSelectorChange
+deprecated;SupportsViewSelectorChange
 public;SyncToolSettingsPropertiesEvent 
 deprecated;SyncToolSettingsPropertiesEvent 
 public;SyncToolSettingsPropertiesEventArgs
@@ -685,6 +712,7 @@ deprecated;ToolIconChangedEvent
 public;ToolIconChangedEventArgs
 deprecated;ToolIconChangedEventArgs
 public;ToolInformation
+deprecated;ToolInformation
 public;ToolItemDef 
 deprecated;ToolItemDef 
 public;ToolItemProps 
@@ -695,6 +723,7 @@ public;ToolSettingsEntry
 public;ToolSettingsGridContainer({ componentGenerator, }:
 internal;ToolSettingsWidgetContent(): React_2.JSX.Element
 public;ToolUiProvider 
+deprecated;ToolUiProvider 
 public;ToolWidgetComposer(props: ToolWidgetComposerProps): React_2.JSX.Element
 public;ToolWidgetComposerProps 
 internal;toPanelSide(location: StagePanelLocation): PanelSide
@@ -738,6 +767,7 @@ public;useDefaultStatusBarItems: (manager: StatusBarItemsManager) => readonly St
 public;useDefaultToolbarItems: (manager: ToolbarItemsManager) => readonly ToolbarItem[]
 deprecated;useDefaultToolbarItems: (manager: ToolbarItemsManager) => readonly ToolbarItem[]
 alpha;useFloatingViewport(args: FloatingViewportContentProps):
+deprecated;useFloatingViewport(args: FloatingViewportContentProps):
 internal;useFrontstageManager(frontstageDef: FrontstageDef, useToolAsToolSettingsLabel?: boolean): void
 internal;useGroupedItems: (items: ReadonlyArray
 internal;useHorizontalToolSettingEntries(): ToolSettingsEntry[] | undefined
@@ -773,6 +803,7 @@ public;ViewLayout
 internal;ViewOverlayHost({ viewport, featureOptions, userSuppliedOverlay, }: ViewOverlayHostProps): React_2.JSX.Element | null
 public;ViewOverlayProps
 public;ViewportContentControl 
+deprecated;ViewportContentControl 
 beta;ViewSelector 
 beta;ViewSelectorChangedEvent 
 deprecated;ViewSelectorChangedEvent 
@@ -791,6 +822,7 @@ internal;WidgetChangedEventArgs
 public;WidgetConfig 
 internal;WidgetContent(): React_2.JSX.Element
 public;WidgetControl 
+deprecated;WidgetControl 
 public;WidgetDef
 internal;WidgetEventArgs
 public;WidgetHost

@@ -1,0 +1,19 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+.uifw-content-contentOverlay {
+  position: relative;
+}
+
+.uifw-content-contentOverlay_activeStrip {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+
+  &.uifw-active {
+    background-color: var(--iui-color-border-warning);
+  }
+}

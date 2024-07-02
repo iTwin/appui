@@ -31,7 +31,10 @@ import { AppUiTestProviders } from "../../AppUiTestProviders";
 import { getCustomViewSelectorPopupItem } from "../buttons/ViewSelectorPanel";
 import { ContentLayoutStage } from "../frontstages/ContentLayout";
 import { DisplayStyleField } from "../statusfields/DisplayStyleField";
-import { ViewportWidgetComponent } from "../widgets/ViewportWidget";
+import { IModelApp } from "@itwin/core-frontend";
+import { ControlViewportWidget } from "../widgets/ControlViewportWidget";
+import { ViewportWidget as ViewportWidgetBase } from "../widgets/ViewportWidget";
+import { WidgetContentContext } from "./WidgetContentProvider";
 
 /**
  * The ContentLayoutStageUiItemsProvider provides additional items only to the `ContentLayoutStage` frontstage.
@@ -81,7 +84,9 @@ export class ContentLayoutStageUiItemsProvider implements UiItemsProvider {
       ) {
         return [
           {
-            ...createSplitSingleViewportToolbarItem(),
+            ...createSplitSingleViewportToolbarItem(() => {
+              return IModelApp.viewManager.selectedView;
+            }),
             itemPriority: 15,
             groupPriority: 3000,
           },
@@ -119,15 +124,38 @@ export class ContentLayoutStageUiItemsProvider implements UiItemsProvider {
       section === StagePanelSection.Start
     ) {
       widgets.push({
-        id: "appui-test-providers:viewport-widget",
-        label: "Viewport",
+        id: "appui-test-providers:viewport-old",
+        label: "Viewport (old)",
         icon: "icon-bentley-systems",
         defaultState: WidgetState.Floating,
         canFloat: {
           containerId: "appui-test-providers:viewport-widget",
         },
         canPopout: true,
-        content: <ViewportWidgetComponent />,
+        content: <ControlViewportWidget />,
+      });
+      widgets.push({
+        id: "appui-test-providers:viewport-widget1",
+        label: "Viewport 1",
+        icon: "icon-bentley-systems",
+        defaultState: WidgetState.Floating,
+        canFloat: {
+          containerId: "appui-test-providers:viewport-widget1",
+        },
+        canPopout: true,
+        content: <ViewportWidget contentId="viewport-widget1" />,
+      });
+      widgets.push({
+        id: "appui-test-providers:viewport-widget2",
+        label: "Viewport 2",
+        icon: "icon-bentley-systems",
+        defaultState: WidgetState.Floating,
+        // TODO: two viewports in the same floating widget: viewport can not be created from a div with zero w/h.
+        canFloat: {
+          containerId: "appui-test-providers:viewport-widget2",
+        },
+        canPopout: true,
+        content: <ViewportWidget contentId="viewport-widget2" />,
       });
     }
     return widgets;
@@ -163,4 +191,21 @@ export class ContentLayoutStageUiItemsProvider implements UiItemsProvider {
       ),
     ];
   }
+}
+
+interface ViewportWidgetProps {
+  contentId: string;
+}
+
+function ViewportWidget({ contentId }: ViewportWidgetProps) {
+  // We could have used `IModelApp.viewManager` instead to track active viewport.
+  const context = React.useContext(WidgetContentContext);
+  return (
+    <ViewportWidgetBase
+      active={contentId === context.activeId}
+      onActivate={() => {
+        context.setActiveId(contentId);
+      }}
+    />
+  );
 }

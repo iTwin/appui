@@ -111,8 +111,7 @@ interface DrawingNavigationAidState {
   rotateMinimapWithView: boolean;
 }
 
-/**
- * A Drawing Navigation Aid.
+/** A Drawing Navigation Aid.
  * @public
  */
 export class DrawingNavigationAid extends React.Component<

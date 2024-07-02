@@ -8,7 +8,9 @@ import { ConfigurableCreateInfo, ContentControl } from "@itwin/appui-react";
 import "./SampleContentControl.scss";
 import { Flex } from "@itwin/itwinui-react";
 
+// eslint-disable-next-line deprecation/deprecation
 export class SampleContentControl extends ContentControl {
+  // eslint-disable-next-line deprecation/deprecation
   constructor(info: ConfigurableCreateInfo, options: any) {
     super(info, options);
     this.reactNode = (
