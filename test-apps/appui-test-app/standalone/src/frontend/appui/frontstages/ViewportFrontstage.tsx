@@ -5,12 +5,15 @@
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 import {
   BackstageAppButton,
+  BackstageItemUtilities,
   ContentGroup,
   ContentGroupProvider,
   FrontstageUtilities,
   UiFramework,
+  UiItemsProvider,
 } from "@itwin/appui-react";
 import { ViewportComponent } from "@itwin/imodel-components-react";
+import { SvgImodel } from "@itwin/itwinui-icons-react";
 import React from "react";
 
 // __PUBLISH_EXTRACT_START__ Example_Viewport_Frontstage_Group_Provider
@@ -51,3 +54,17 @@ export function registerViewportFrontstage(): void {
   );
 }
 // __PUBLISH_EXTRACT_END__
+
+export const viewportUiItemsProvider = {
+  id: "example-stage-backstageItemProvider",
+  getBackstageItems: () => [
+    BackstageItemUtilities.createStageLauncher(
+      "example:ViewportFrontstage",
+      100,
+      20,
+      "Simple viewport",
+      undefined,
+      <SvgImodel />
+    ),
+  ],
+} satisfies UiItemsProvider;
