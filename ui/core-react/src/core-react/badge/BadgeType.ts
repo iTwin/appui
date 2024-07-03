@@ -10,10 +10,22 @@ import { BadgeType as _BadgeType } from "@itwin/appui-abstract";
 
 /** Specifies type of badge, if any, that should be overlaid on UI component.
  * @public
+ * @deprecated in 4.16.0. Use {@link BadgeKind} instead.
  */
-export type BadgeType = _BadgeType; // eslint-disable-line deprecation/deprecation
+export type BadgeType = _BadgeType;
 
 /** Specifies type of badge, if any, that should be overlaid on UI component.
  * @public
+ * @deprecated in 4.16.0. Use {@link BadgeKind} instead.
  */
-export const BadgeType = _BadgeType; // eslint-disable-line @typescript-eslint/no-redeclare, deprecation/deprecation
+export const BadgeType = _BadgeType; // eslint-disable-line @typescript-eslint/no-redeclare
+
+/**
+ * Type of badge that should be overlaid on UI component.
+ * @public
+ */
+export type BadgeKind =
+  | "technical-preview"
+  | "new"
+  | "deprecated"
+  | (string & {});
