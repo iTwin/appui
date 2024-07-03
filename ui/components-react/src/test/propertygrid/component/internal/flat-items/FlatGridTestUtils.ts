@@ -107,7 +107,7 @@ export class FlatGridTestUtils {
       };
       if (isParentArray) {
         const name = `${record.property.name}_${index}`;
-        const displayLabel = `[${index + 1}] ${record.property.displayLabel}`;
+        const displayLabel = `[${index + 1}]`;
 
         itemToSave.item = this.overridePropertyDescription(
           record,

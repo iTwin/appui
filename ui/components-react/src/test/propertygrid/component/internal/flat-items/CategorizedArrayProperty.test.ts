@@ -162,9 +162,93 @@ describe("CategorizedArrayProperty", () => {
         const expectedRecord = arrayChildren[index];
 
         const expectedOverrideName = `${expectedRecord.property.name}_${index}`;
-        const expectedOverrideDisplayLabel = `[${index + 1}] ${
-          expectedRecord.property.displayLabel
-        }`;
+        const expectedOverrideDisplayLabel = `[${index + 1}]`;
+
+        expect(parentSelectionKey).toEqual(
+          GridUtils.getSelectionKey(propertyRecord, expectedParentSelectionKey)
+        );
+        expect(parentCategorySelectionKey).toEqual(
+          expectedParentCategorySelectionKey
+        );
+        expect(depth).toEqual(2);
+        expect(record).toEqual(expectedRecord);
+        expect(overrideName).toEqual(expectedOverrideName);
+        expect(overrideDisplayLabel).toEqual(expectedOverrideDisplayLabel);
+      });
+    });
+
+    it("Should append property description to non-primitive items that have more that 1 items", () => {
+      const propertyRecord = TestUtils.createArrayProperty(
+        "CADID1",
+        [
+          TestUtils.createPrimitiveStringProperty("CADID1_1", "V1"),
+          TestUtils.createStructProperty("CADID1_2"),
+          TestUtils.createArrayProperty("CADID1_3"),
+          TestUtils.createStructProperty("CADID1_4", {
+            prop1: TestUtils.createPrimitiveStringProperty(
+              "CADID1_4_1",
+              "test"
+            ),
+          }),
+          TestUtils.createArrayProperty("CADID1_5", [
+            TestUtils.createPrimitiveStringProperty("CADID1_5_1", "test"),
+          ]),
+          TestUtils.createStructProperty("CADID1_6", {
+            prop1: TestUtils.createPrimitiveStringProperty(
+              "CADID1_6_1",
+              "test"
+            ),
+            prop2: TestUtils.createPrimitiveStringProperty(
+              "CADID1_6_2",
+              "test"
+            ),
+          }),
+          TestUtils.createArrayProperty("CADID1_7", [
+            TestUtils.createPrimitiveStringProperty("CADID1_7_1", "test"),
+            TestUtils.createPrimitiveStringProperty("CADID1_7_2", "test"),
+          ]),
+        ].map((record, idx) => {
+          record.description = `${idx}`;
+          return record;
+        })
+      );
+
+      GridUtils.createCategorizedPropertyStub(
+        propertyRecord.getChildrenRecords(),
+        factoryStub
+      );
+
+      const expectedParentSelectionKey = "Cat1_Struct";
+      const expectedParentCategorySelectionKey = "Cat1";
+      new MutableCategorizedArrayProperty(
+        propertyRecord,
+        expectedParentSelectionKey,
+        expectedParentCategorySelectionKey,
+        1,
+        factoryStub
+      );
+
+      const arrayChildren = propertyRecord.getChildrenRecords();
+      expect(factoryStub.createCategorizedProperty).toHaveBeenCalledTimes(
+        arrayChildren.length
+      );
+
+      const createCategorizedProperty = factoryStub.createCategorizedProperty;
+      assert(vi.isMockFunction(createCategorizedProperty));
+      createCategorizedProperty.mock.calls.forEach((args, index) => {
+        const [
+          record,
+          parentSelectionKey,
+          parentCategorySelectionKey,
+          depth,
+          overrideName,
+          overrideDisplayLabel,
+        ] = args;
+        const expectedRecord = arrayChildren[index];
+
+        const expectedOverrideName = `${expectedRecord.property.name}_${index}`;
+        const expectedOverrideDisplayLabel =
+          index < 5 ? `[${index + 1}]` : `[${index + 1}] ${index}`;
 
         expect(parentSelectionKey).toEqual(
           GridUtils.getSelectionKey(propertyRecord, expectedParentSelectionKey)
