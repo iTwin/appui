@@ -149,7 +149,7 @@ export class ContentGroup {
     this._contentControls.clear();
   }
 
-  /** Creates [[ContentGroupProps]] for JSON purposes
+  /** Creates [[ContentGroupProps]] for JSON purposes.
    * @public
    */
   public toJSON(contentCallback?: ContentCallback): ContentGroupProps {
