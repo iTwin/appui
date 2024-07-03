@@ -35,7 +35,7 @@ import { updatedUiItemsProvider } from "../providers/UpdatedUiItemsProvider";
 import { RegisterUiProviderTool } from "../../tools/RegisterUiProviderTool";
 import { ViewportContent } from "../ViewportContent";
 
-/** Tool settings widget can be configured by providing an URL param `toolSettings` with values `off` or `hidden`. */
+/** Tool settings widget can be configured by providing a URL param `toolSettings` with values `off` or `hidden`. */
 function createWidgetApiFrontstage(): Frontstage {
   const config = FrontstageUtilities.createStandardFrontstage({
     id: WidgetApiStage.stageId,
