@@ -20,13 +20,11 @@ export async function openBlankConnection() {
     `openBlankConnection: Opening blank connection.`
   );
   const connection = createBlankConnection();
-
-  SampleAppIModelApp.setIsIModelLocal(true, true);
   const viewState = createBlankViewState(connection);
+
+  UiFramework.setIModelConnection(connection, true);
   UiFramework.setDefaultViewState(viewState, true);
+  SampleAppIModelApp.setIsIModelLocal(true, true);
 
   UiFramework.frontstages.closeModalFrontstage();
-  await SampleAppIModelApp.setViewIdAndOpenMainStage(connection, [
-    viewState.id,
-  ]);
 }
