@@ -181,7 +181,7 @@ export class ContentGroup {
     return contentGroupProps;
   }
 
-  /** Gets Viewports from Viewport Content Controls
+  /** Gets Viewports from Viewport Content Controls.
    * @internal
    */
   public getViewports(): Array<ScreenViewport | undefined> {
