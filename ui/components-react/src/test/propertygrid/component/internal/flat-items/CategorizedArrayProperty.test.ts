@@ -177,7 +177,7 @@ describe("CategorizedArrayProperty", () => {
       });
     });
 
-    it("Should append property description to non-primitive items that have more that 1 items", () => {
+    it("Should append property description to non-primitive items", () => {
       const propertyRecord = TestUtils.createArrayProperty(
         "CADID1",
         [
