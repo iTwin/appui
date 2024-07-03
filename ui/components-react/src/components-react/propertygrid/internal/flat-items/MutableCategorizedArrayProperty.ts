@@ -54,14 +54,7 @@ export class MutableCategorizedArrayProperty
     this._children = record.getChildrenRecords().map((child, index) => {
       const newName = `${child.property.name}_${index}`;
       let newDisplayLabel = `[${index + 1}]`;
-
-      if (
-        child.description &&
-        ((child.value.valueFormat === PropertyValueFormat.Array &&
-          child.value.items.length > 1) ||
-          (child.value.valueFormat === PropertyValueFormat.Struct &&
-            Object.keys(child.value.members).length > 1))
-      ) {
+      if (child.description && child.value.valueFormat !== PropertyValueFormat.Primitive) {
         newDisplayLabel += ` ${child.description}`;
       }
 
