@@ -197,7 +197,7 @@ describe("CategorizedArrayProperty", () => {
             TestUtils.createPrimitiveStringProperty("CADID1_7_2", "test"),
           ]),
         ].map((record, idx) => {
-          record.description = `${idx}`;
+          record.description = `Description_${idx}`;
           return record;
         })
       );
@@ -237,7 +237,7 @@ describe("CategorizedArrayProperty", () => {
 
         const expectedOverrideName = `${expectedRecord.property.name}_${index}`;
         const expectedOverrideDisplayLabel =
-          index === 0 ? `[${index + 1}]` : `[${index + 1}] ${index}`;
+          index === 0 ? `[${index + 1}]` : `[${index + 1}] Description_${index}`;
 
         expect(parentSelectionKey).toEqual(
           GridUtils.getSelectionKey(propertyRecord, expectedParentSelectionKey)
