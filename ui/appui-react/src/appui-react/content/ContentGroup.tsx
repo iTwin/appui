@@ -131,7 +131,7 @@ export class ContentGroup {
     return contentNodes;
   }
 
-  /** Refreshes the React nodes representing the Content Views in this Content Group.. */
+  /** Refreshes the React nodes representing the Content Views in this Content Group. */
   public refreshContentNodes() {
     this._contentSetMap.clear();
   }
