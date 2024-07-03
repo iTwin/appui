@@ -42,7 +42,7 @@ export function DisplayStyleField(props: CommonProps) {
 
       const newDisplayStyles = new Map<Id64String, DisplayStyleState>();
       const is3d = newViewport.view.is3d();
-      const sqlName: string = is3d
+      const sqlName = is3d
         ? DisplayStyle3dState.classFullName
         : DisplayStyle2dState.classFullName;
       const displayStyleProps = await newViewport.iModel.elements.queryProps({
