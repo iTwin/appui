@@ -368,31 +368,27 @@ describe("ContentLayout", () => {
     );
     let allTests = screen.getAllByText("Test");
     expect(allTests).toHaveLength(2);
-    expect(
-      allTests[0].parentElement!.getElementsByClassName(
-        "uifw-contentlayout-overlay-active"
+    expect(allTests[0].parentElement).to.satisfy(
+      childStructure(".uifw-content-contentOverlay_activeStrip.uifw-active")
+    );
+    expect(allTests[1].parentElement).to.satisfy(
+      childStructure(
+        ".uifw-content-contentOverlay_activeStrip:not(.uifw-active)"
       )
-    ).toHaveLength(1);
-    expect(
-      allTests[1].parentElement!.getElementsByClassName(
-        "uifw-contentlayout-overlay-inactive"
-      )
-    ).toHaveLength(1);
+    );
 
     await theUserTo.click(allTests[1]);
 
     allTests = screen.getAllByText("Test");
     expect(allTests).toHaveLength(2);
-    expect(
-      allTests[0].parentElement!.getElementsByClassName(
-        "uifw-contentlayout-overlay-inactive"
+    expect(allTests[0].parentElement).to.satisfy(
+      childStructure(
+        ".uifw-content-contentOverlay_activeStrip:not(.uifw-active)"
       )
-    ).toHaveLength(1);
-    expect(
-      allTests[1].parentElement!.getElementsByClassName(
-        "uifw-contentlayout-overlay-active"
-      )
-    ).toHaveLength(1);
+    );
+    expect(allTests[1].parentElement).to.satisfy(
+      childStructure(".uifw-content-contentOverlay_activeStrip.uifw-active")
+    );
   });
 
   it.skip("FLAKY:Vertical SplitPane onChanged", async () => {
@@ -637,14 +633,16 @@ describe("SingleContentLayout", () => {
       />
     );
     expect(screen.getByText("Test").parentElement).to.satisfy(
-      childStructure("div+.uifw-contentlayout-overlay-active")
+      childStructure(".uifw-content-contentOverlay_activeStrip.uifw-active")
     );
 
     UiFramework.content.setActive(floatingControl.reactNode, true);
 
     await waitFor(() => {
       expect(screen.getByText("Test").parentElement).to.satisfy(
-        childStructure("div+.uifw-contentlayout-overlay-inactive")
+        childStructure(
+          ".uifw-content-contentOverlay_activeStrip:not(.uifw-active)"
+        )
       );
     });
 
