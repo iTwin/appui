@@ -6,7 +6,10 @@
 /** @packageDocumentation
  * @module PropertyGrid
  */
-import type { PropertyRecord } from "@itwin/appui-abstract";
+import {
+  type PropertyRecord,
+  PropertyValueFormat,
+} from "@itwin/appui-abstract";
 import type {
   IMutableCategorizedPropertyItem,
   IMutableFlatGridItem,
@@ -50,7 +53,14 @@ export class MutableCategorizedArrayProperty
     const childrenDepth = depth + (this._renderLabel ? 1 : 0);
     this._children = record.getChildrenRecords().map((child, index) => {
       const newName = `${child.property.name}_${index}`;
-      const newDisplayLabel = `[${index + 1}]`;
+      let newDisplayLabel = `[${index + 1}]`;
+      if (
+        child.description &&
+        child.value.valueFormat !== PropertyValueFormat.Primitive
+      ) {
+        newDisplayLabel += ` ${child.description}`;
+      }
+
       return gridItemFactory.createCategorizedProperty(
         child,
         this.selectionKey,
