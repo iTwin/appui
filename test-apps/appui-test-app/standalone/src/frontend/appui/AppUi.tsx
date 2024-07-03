@@ -57,6 +57,14 @@ export class AppUi {
             execute: async () => IModelApp.toolAdmin.bumpToolSetting(2),
           },
           KeyboardShortcutUtilities.createForTool("f", FocusToolSettings),
+          {
+            key: "c",
+            label: "Log to console",
+            execute: () => {
+              // eslint-disable-next-line no-console
+              console.log("You pressed the 'c' key");
+            },
+          },
         ],
       },
       {
