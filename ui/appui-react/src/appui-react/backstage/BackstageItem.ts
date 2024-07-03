@@ -10,7 +10,7 @@ import type {
   ConditionalBooleanValue,
   ConditionalStringValue,
 } from "@itwin/appui-abstract";
-import type { BadgeType, IconSpec } from "@itwin/core-react";
+import type { BadgeKind, BadgeType, IconSpec } from "@itwin/core-react";
 
 /** Describes the data needed to insert a button into the backstage menu.
  * @public
@@ -18,8 +18,12 @@ import type { BadgeType, IconSpec } from "@itwin/core-react";
 export interface CommonBackstageItem {
   /** Required unique id of the item. To ensure uniqueness it is suggested that a namespace prefix of the extension name be used. */
   readonly id: string;
-  /** Describes badge. Renders no badge if not specified. */
+  /** Describes badge. Renders no badge if not specified.
+   * @deprecated in 4.16.0. Use {@link CommonBackstageItem.badgeKind} prop instead.
+   */
   readonly badge?: BadgeType;
+  /** Specifies the kind of badge, if any, to be rendered. */
+  readonly badgeKind?: BadgeKind;
   /** Specifies the item's grouping value. Items are sorted by group and then item priority. When
    * group priority changes a separator is inserted. It is recommended using values 10 through 100, incrementing by 10. This
    * allows extensions enough gaps to insert their own groups.

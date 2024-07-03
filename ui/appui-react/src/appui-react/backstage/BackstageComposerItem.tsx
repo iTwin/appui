@@ -50,7 +50,8 @@ export function BackstageComposerActionItem({
       isDisabled={ConditionalBooleanValue.getValue(item.isDisabled)}
       onClick={handleClick}
       subtitle={ConditionalStringValue.getValue(item.subtitle)}
-      badge={<Badge type={item.badge} />}
+      // eslint-disable-next-line deprecation/deprecation
+      badge={<Badge type={item.badgeKind || item.badge} />}
     >
       {ConditionalStringValue.getValue(item.label)}
     </NZ_BackstageItem>
@@ -91,7 +92,8 @@ export function BackstageComposerStageLauncher({
       isDisabled={ConditionalBooleanValue.getValue(item.isDisabled)}
       onClick={handleClick}
       subtitle={ConditionalStringValue.getValue(item.subtitle)}
-      badge={<Badge type={item.badge} />}
+      // eslint-disable-next-line deprecation/deprecation
+      badge={<Badge type={item.badgeKind || item.badge} />}
     >
       {ConditionalStringValue.getValue(item.label)}
     </NZ_BackstageItem>

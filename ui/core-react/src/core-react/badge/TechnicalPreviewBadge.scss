@@ -4,4 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 .core-badge-technicalPreviewBadge {
   transform: rotate(270deg);
+
+  svg {
+    fill: currentColor;
+  }
 }
