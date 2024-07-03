@@ -60,6 +60,21 @@ export class AppUi {
         ],
       },
       {
+        key: "z",
+        execute: () => {
+          // eslint-disable-next-line no-console
+          console.log("You pressed the 'z' key");
+        },
+      },
+      {
+        key: "x",
+        isCtrlKeyRequired: true,
+        execute: () => {
+          // eslint-disable-next-line no-console
+          console.log("You pressed the 'x'+'ctrl' keys");
+        },
+      },
+      {
         key: Key.F7,
         iconSpec: "icon-placeholder",
         labelKey: "SampleApp:buttons.showShortcutsMenu",
