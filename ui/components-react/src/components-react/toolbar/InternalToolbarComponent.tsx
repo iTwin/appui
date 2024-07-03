@@ -21,7 +21,11 @@ import {
   ConditionalStringValue,
   ToolbarItemUtilities,
 } from "@itwin/appui-abstract";
-import type { CommonProps, NoChildrenProps } from "@itwin/core-react";
+import type {
+  BadgeKind,
+  CommonProps,
+  NoChildrenProps,
+} from "@itwin/core-react";
 import { Badge, Icon, IconHelper } from "@itwin/core-react";
 import { ToolbarButtonItem } from "./Item";
 import { ToolbarItems } from "./Items";
@@ -174,10 +178,12 @@ export const ToolbarWithOverflowDirectionContext =
 function CustomItem({
   item,
   addGroupSeparator,
+  badgeKind,
 }: {
   // eslint-disable-next-line deprecation/deprecation
   item: CustomToolbarItem;
   addGroupSeparator: boolean;
+  badgeKind?: BadgeKind;
 }) {
   const { useDragInteraction } = useToolbarWithOverflowDirectionContext();
   const icon = React.useMemo(
@@ -207,7 +213,7 @@ function CustomItem({
       title={title}
       panel={item.panelContentNode}
       hideIndicator={useDragInteraction}
-      badge={<Badge type={item.badgeType} />}
+      badge={<Badge type={badgeKind || item.badgeType} />}
       addGroupSeparator={addGroupSeparator}
       keepContentsMounted={item.keepContentsLoaded}
     />
@@ -218,9 +224,11 @@ function CustomItem({
 function GroupPopupItem({
   item,
   addGroupSeparator,
+  badgeKind,
 }: {
   item: GroupButton;
   addGroupSeparator: boolean;
+  badgeKind?: BadgeKind;
 }) {
   const { useDragInteraction } = useToolbarWithOverflowDirectionContext();
   const title = ConditionalStringValue.getValue(item.label)!;
@@ -243,7 +251,7 @@ function GroupPopupItem({
         isDisabled={ConditionalBooleanValue.getValue(item.isDisabled)}
         title={title}
         groupItem={item}
-        badge={<Badge type={item.badgeType} />}
+        badge={<Badge type={badgeKind || item.badgeType} />}
         addGroupSeparator={addGroupSeparator}
       />
     );
@@ -271,9 +279,11 @@ function GroupPopupItem({
 function ActionItem({
   item,
   addGroupSeparator,
+  badgeKind,
 }: {
   item: ActionButton;
   addGroupSeparator: boolean;
+  badgeKind?: BadgeKind;
 }) {
   const title = ConditionalStringValue.getValue(item.label)!;
   const { onItemExecuted } = useToolbarWithOverflowDirectionContext();
@@ -297,7 +307,7 @@ function ActionItem({
       icon={IconHelper.getIconReactNode(item.icon, item.internalData)}
       isActive={item.isActive}
       onClick={onExecute}
-      badge={<Badge type={item.badgeType} />}
+      badge={<Badge type={badgeKind || item.badgeType} />}
       addGroupSeparator={addGroupSeparator}
     />
   );
@@ -307,18 +317,38 @@ function ActionItem({
 export function ToolbarItemComponent({
   item,
   addGroupSeparator,
+  badgeKind,
 }: {
   // eslint-disable-next-line deprecation/deprecation
   item: ToolbarItem;
   addGroupSeparator: boolean;
+  badgeKind?: BadgeKind;
 }) {
   if (ToolbarItemUtilities.isGroupButton(item)) {
-    return <GroupPopupItem item={item} addGroupSeparator={addGroupSeparator} />;
+    return (
+      <GroupPopupItem
+        item={item}
+        addGroupSeparator={addGroupSeparator}
+        badgeKind={badgeKind}
+      />
+    );
   } else if (isCustomToolbarItem(item)) {
-    return <CustomItem item={item} addGroupSeparator={addGroupSeparator} />;
+    return (
+      <CustomItem
+        item={item}
+        addGroupSeparator={addGroupSeparator}
+        badgeKind={badgeKind}
+      />
+    );
   } else {
     if (ToolbarItemUtilities.isActionButton(item)) {
-      return <ActionItem item={item} addGroupSeparator={addGroupSeparator} />;
+      return (
+        <ActionItem
+          item={item}
+          addGroupSeparator={addGroupSeparator}
+          badgeKind={badgeKind}
+        />
+      );
     }
   }
   return null;
@@ -360,6 +390,13 @@ function filterHiddenItems<T extends CommonToolbarItem>(
     });
 }
 
+/** Old toolbar item type with new badge type.
+ * @internal
+ */
+export type CommonToolbarItemWithBadgeKind = CommonToolbarItem & {
+  badgeKind?: BadgeKind;
+};
+
 /** Properties of [[ToolbarComponent]] component.
  * @internal
  */
@@ -377,18 +414,18 @@ export interface InternalToolbarComponentProps
         overflowExpandsTo?: Direction;
       };
   /** Definitions for items of the toolbar. Items are expected to be already sorted by group and item. */
-  items: CommonToolbarItem[];
+  items: CommonToolbarItemWithBadgeKind[];
   /** Describes how expanded panels are aligned. Defaults to: [[ToolbarPanelAlignment.Start]] */
   panelAlignment?: ToolbarPanelAlignment;
-  /** Use Drag Interaction to open popups with nest action buttons */
+  /** Use Drag Interaction to open popups with nest action buttons. */
   useDragInteraction?: boolean;
-  /** Determines whether to use mouse proximity to alter the opacity of the toolbar */
+  /** Determines whether to use mouse proximity to alter the opacity of the toolbar. */
   toolbarOpacitySetting?: ToolbarOpacitySetting;
-  /** Optional function to call on any item execution */
+  /** Optional function to call on any item execution. */
   onItemExecuted?: OnItemExecutedFunc;
-  /** Optional function to call on any KeyDown events processed by toolbar */
+  /** Optional function to call on any KeyDown events processed by toolbar. */
   onKeyDown?: (e: React.KeyboardEvent) => void;
-  /** SyncEvents on which the conditional should listen to */
+  /** SyncEvents on which the conditional should listen to. */
   syncUiEvent?: BeEvent<(args: { eventIds: Set<string> }) => void>;
 }
 
@@ -443,6 +480,7 @@ export function InternalToolbarComponent(props: InternalToolbarComponentProps) {
           key={item.id}
           item={item}
           addGroupSeparator={!!addGroupSeparator}
+          badgeKind={item.badgeKind}
         />
       );
     });
