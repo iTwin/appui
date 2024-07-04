@@ -23,28 +23,21 @@ import { UiFramework } from "../UiFramework";
  * @beta
  */
 export class FrameworkToolAdmin extends ToolAdmin {
-  /** Process shortcut key events */
   public override async processShortcutKey(
     e: KeyboardEvent,
     wentDown: boolean
   ): Promise<boolean> {
-    let handled = false;
+    if (!wentDown) return false;
+    if (UiFramework.isContextMenuOpen) return false;
+    if (!UiFramework.keyboardShortcuts.isFocusOnHome) return false;
+    if (e.key === Key.Escape.valueOf()) return false;
 
-    if (wentDown && !UiFramework.isContextMenuOpen) {
-      if (
-        UiFramework.keyboardShortcuts.isFocusOnHome &&
-        e.key !== Key.Escape.valueOf()
-      ) {
-        UiFramework.keyboardShortcuts.processKey(
-          e.key,
-          e.altKey,
-          e.ctrlKey,
-          e.shiftKey
-        );
-        handled = true;
-      }
-    }
-
-    return handled;
+    UiFramework.keyboardShortcuts.processKey(
+      e.key,
+      e.altKey,
+      e.ctrlKey,
+      e.shiftKey
+    );
+    return true;
   }
 }

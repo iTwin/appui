@@ -57,7 +57,30 @@ export class AppUi {
             execute: async () => IModelApp.toolAdmin.bumpToolSetting(2),
           },
           KeyboardShortcutUtilities.createForTool("f", FocusToolSettings),
+          {
+            key: "c",
+            label: "Log to console",
+            execute: () => {
+              // eslint-disable-next-line no-console
+              console.log("You pressed the 'c' key");
+            },
+          },
         ],
+      },
+      {
+        key: "z",
+        execute: () => {
+          // eslint-disable-next-line no-console
+          console.log("You pressed the 'z' key");
+        },
+      },
+      {
+        key: "x",
+        isCtrlKeyRequired: true,
+        execute: () => {
+          // eslint-disable-next-line no-console
+          console.log("You pressed the 'x'+'ctrl' keys");
+        },
       },
       {
         key: Key.F7,
