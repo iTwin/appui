@@ -169,4 +169,4 @@ Table of contents:
 
 ### Fixes
 
-- Fixed `activeMatchIndex` not working correctly on adjacent matches in `HighlightedText`. []()
+- Fixed `activeMatchIndex` not working correctly on adjacent matches in `HighlightedText`. [#898](https://github.com/iTwin/appui/pull/898)
