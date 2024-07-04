@@ -7,6 +7,7 @@ import {
   BackstageItemUtilities,
   StageUsage,
   ToolbarItem,
+  ToolbarItemUtilities,
   ToolbarOrientation,
   ToolbarUsage,
   UiItemsManager,
@@ -52,7 +53,12 @@ export class SynchronizedFloatingViewportProvider implements UiItemsProvider {
       toolbarOrientation === ToolbarOrientation.Horizontal
     ) {
       toolbarItems.push(getCustomViewSelectorPopupItem(20, 3000));
-      toolbarItems.push(OpenSynchronizedViewTool.getActionButtonDef(10, 10));
+      toolbarItems.push(
+        ToolbarItemUtilities.createForTool(OpenSynchronizedViewTool, {
+          itemPriority: 10,
+          groupPriority: 10,
+        })
+      );
     }
     return toolbarItems;
   }

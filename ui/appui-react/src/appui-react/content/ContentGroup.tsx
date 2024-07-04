@@ -24,12 +24,21 @@ import type { Frontstage } from "../frontstage/Frontstage";
  * @public
  */
 export interface ContentProps {
-  /** A unique id for the Content View within the group */
+  /** A unique id for the Content View within the group. */
   id: string;
-  /** The class name or [[ConfigurableUiControlConstructor]] of the content control */
+  /** The class name or [[ConfigurableUiControlConstructor]] of the content control.
+   * @deprecated in 4.16.0. Use {@link ContentProps.content} instead and specify an empty string for this property. This will be made optional in 5.0.0.
+   */
+  // eslint-disable-next-line deprecation/deprecation
   classId: string | ConfigurableUiControlConstructor;
-  /** Optional application data passed down to the Content View */
+  /** Optional application data passed down to the content view.
+   * @deprecated in 4.16.0. Use {@link ContentProps.content} instead.
+   */
   applicationData?: any;
+  /** Content to be displayed in the content view.
+   * @beta
+   */
+  content?: React.ReactNode;
 }
 
 /** Properties for a [[ContentGroup]]
@@ -84,8 +93,6 @@ export class ContentGroup {
   public propsId: string;
   public layout: ContentLayoutProps;
   public contentPropsList: ContentProps[];
-  private _contentControls = new Map<string, ContentControl>();
-  private _contentSetMap = new Map<string, ContentControl>();
 
   public get id() {
     return this.groupId;
@@ -99,7 +106,108 @@ export class ContentGroup {
     this.contentPropsList = contentGroupProps.contents;
   }
 
-  /** Gets a [[ContentControl]] from the Content Group based on its [[ContentProps]]. */
+  /** Gets the React nodes representing the content views in this content group.
+   * @deprecated in 4.16.0. Use {@link ContentGroup.contentPropsList} instead.
+   */
+  public getContentNodes(): React.ReactNode[] {
+    const contentNodes: React.ReactNode[] = new Array<React.ReactNode>();
+
+    this._contentSetMap.clear();
+
+    this.contentPropsList.forEach((contentProps, index) => {
+      if (contentProps.content) {
+        contentNodes.push(contentProps.content);
+        return;
+      }
+
+      // eslint-disable-next-line deprecation/deprecation
+      const control = this.getContentControl(contentProps, index);
+      if (!control) return;
+
+      contentNodes.push(control.reactNode);
+      this._contentSetMap.set(control.controlId, control);
+    });
+
+    return contentNodes;
+  }
+
+  /** Refreshes the React nodes representing the Content Views in this Content Group. */
+  public refreshContentNodes() {
+    this._contentSetMap.clear();
+  }
+
+  /** Called when Frontstage is deactivated. */
+  public onFrontstageDeactivated(): void {
+    this.clearContentControls();
+  }
+
+  /** Called when Frontstage is ready. */
+  public onFrontstageReady(): void {}
+
+  /** Clears the map of content controls. */
+  public clearContentControls(): void {
+    this._contentControls.clear();
+  }
+
+  /** Creates [[ContentGroupProps]] for JSON purposes.
+   * @public
+   */
+  public toJSON(contentCallback?: ContentCallback): ContentGroupProps {
+    const contentGroupProps: ContentGroupProps = {
+      id: this.propsId,
+      layout: this.layout,
+      contents: this.contentPropsList,
+    };
+
+    contentGroupProps.contents.forEach((content, index) => {
+      // eslint-disable-next-line deprecation/deprecation
+      if (typeof content.classId !== "string") {
+        const classId = InternalConfigurableUiManager.getConstructorClassId(
+          // eslint-disable-next-line deprecation/deprecation
+          content.classId
+        );
+        // eslint-disable-next-line deprecation/deprecation
+        if (classId !== undefined) content.classId = classId;
+        else
+          throw new UiError( // eslint-disable-line deprecation/deprecation
+            UiFramework.loggerCategory(this),
+            `toJSON: ContentControl at index ${index} is NOT registered with a string id`
+          );
+
+        if (contentCallback) contentCallback(content);
+      }
+    });
+
+    return contentGroupProps;
+  }
+
+  /** Gets Viewports from Viewport Content Controls.
+   * @internal
+   */
+  public getViewports(): Array<ScreenViewport | undefined> {
+    // eslint-disable-next-line deprecation/deprecation
+    const contentControls = this.getContentControls();
+    const viewports = new Array<ScreenViewport | undefined>();
+
+    contentControls.forEach((control) => {
+      if (control.isViewport && control.viewport) {
+        viewports.push(control.viewport);
+      } else {
+        viewports.push(undefined);
+      }
+    });
+
+    return viewports;
+  }
+
+  /* eslint-disable deprecation/deprecation */
+
+  private _contentControls = new Map<string, ContentControl>();
+  private _contentSetMap = new Map<string, ContentControl>();
+
+  /** Gets a [[ContentControl]] from the Content Group based on its [[ContentProps]].
+   * @deprecated in 4.16.0. Uses a deprecated class {@link ContentControl}.
+   */
   public getContentControl(
     contentProps: ContentProps,
     _index: number
@@ -142,7 +250,6 @@ export class ContentGroup {
           contentControl.getType() !== ConfigurableUiControlType.Content &&
           contentControl.getType() !== ConfigurableUiControlType.Viewport
         ) {
-          // eslint-disable-next-line deprecation/deprecation
           throw new UiError(
             UiFramework.loggerCategory(this),
             `getContentControl error: '${usedClassId}' is NOT a ContentControl or ViewportContentControl`
@@ -156,31 +263,16 @@ export class ContentGroup {
     return this._contentControls.get(contentProps.id);
   }
 
-  /** Gets a [[ContentControl]] from the Content Group with a given ID. */
+  /** Gets a [[ContentControl]] from the Content Group with a given ID.
+   * @deprecated in 4.16.0. Uses a deprecated class {@link ContentControl}.
+   */
   public getContentControlById(id: string): ContentControl | undefined {
     return this._contentControls.get(id);
   }
 
-  /** Gets the React nodes representing the Content Views in this Content Group. */
-  public getContentNodes(): React.ReactNode[] {
-    const contentNodes: React.ReactNode[] = new Array<React.ReactNode>();
-
-    this._contentSetMap.clear();
-
-    this.contentPropsList.forEach(
-      (contentProps: ContentProps, index: number) => {
-        const control = this.getContentControl(contentProps, index);
-        if (control) {
-          contentNodes.push(control.reactNode);
-          this._contentSetMap.set(control.controlId, control);
-        }
-      }
-    );
-
-    return contentNodes;
-  }
-
-  /** Gets the [[ContentControl]] associated with a given React node representing a Content View. */
+  /** Gets the [[ContentControl]] associated with a given React node representing a Content View.
+   * @deprecated in 4.16.0. Uses a deprecated class {@link ContentControl}.
+   */
   public getControlFromElement(
     node: React.ReactNode
   ): ContentControl | undefined {
@@ -196,86 +288,21 @@ export class ContentGroup {
     return undefined;
   }
 
-  /** Refreshes the React nodes representing the Content Views in this Content Group.. */
-  public refreshContentNodes() {
-    this._contentSetMap.clear();
-  }
-
-  /** Gets an array of the content controls representing the Content Views. */
+  /** Gets an array of the content controls representing the Content Views.
+   * @deprecated in 4.16.0. Uses a deprecated class {@link ContentControl}.
+   */
   public getContentControls(): ContentControl[] {
     const contentControls: ContentControl[] = new Array<ContentControl>();
 
-    this.contentPropsList.forEach(
-      (contentProps: ContentProps, index: number) => {
-        const control = this.getContentControl(contentProps, index);
-        if (control) {
-          contentControls.push(control);
-        }
-      }
-    );
+    this.contentPropsList.forEach((contentProps, index) => {
+      const control = this.getContentControl(contentProps, index);
+      if (!control) return;
+
+      contentControls.push(control);
+    });
 
     return contentControls;
   }
 
-  /** Called when Frontstage is deactivated. */
-  public onFrontstageDeactivated(): void {
-    this.clearContentControls();
-  }
-
-  /** Called when Frontstage is ready. */
-  public onFrontstageReady(): void {}
-
-  /** Clears the map of content controls. */
-  public clearContentControls(): void {
-    this._contentControls.clear();
-  }
-
-  /** Creates [[ContentGroupProps]] for JSON purposes
-   * @public
-   */
-  public toJSON(contentCallback?: ContentCallback): ContentGroupProps {
-    const contentGroupProps: ContentGroupProps = {
-      id: this.propsId,
-      layout: this.layout,
-      contents: this.contentPropsList,
-    };
-
-    contentGroupProps.contents.forEach(
-      (content: ContentProps, index: number) => {
-        if (typeof content.classId !== "string") {
-          const classId = InternalConfigurableUiManager.getConstructorClassId(
-            content.classId
-          );
-          if (classId !== undefined) content.classId = classId;
-          else
-            throw new UiError( // eslint-disable-line deprecation/deprecation
-              UiFramework.loggerCategory(this),
-              `toJSON: ContentControl at index ${index} is NOT registered with a string id`
-            );
-
-          if (contentCallback) contentCallback(content);
-        }
-      }
-    );
-
-    return contentGroupProps;
-  }
-
-  /** Gets Viewports from Viewport Content Controls
-   * @internal
-   */
-  public getViewports(): Array<ScreenViewport | undefined> {
-    const contentControls = this.getContentControls();
-    const viewports = new Array<ScreenViewport | undefined>();
-
-    contentControls.forEach((control: ContentControl) => {
-      if (control.isViewport && control.viewport) {
-        viewports.push(control.viewport);
-      } else {
-        viewports.push(undefined);
-      }
-    });
-
-    return viewports;
-  }
+  /* eslint-enable deprecation/deprecation */
 }

@@ -9,7 +9,7 @@ import { UiEvent } from "@itwin/appui-abstract";
 import type { IModelConnection, Tool } from "@itwin/core-frontend";
 import type { ToolInformation } from "../toolsettings/ToolInformation";
 import type { TimeTracker } from "../configurableui/TimeTracker";
-import type { ContentControlActivatedEvent } from "../content/ContentControl";
+import { type ContentControlActivatedEvent } from "../content/ContentControl";
 import type { ContentLayoutActivatedEvent } from "../content/ContentLayout";
 import type { FrontstageDef } from "../frontstage/FrontstageDef";
 import type { FrontstageProvider } from "../frontstage/FrontstageProvider";
@@ -21,6 +21,7 @@ import type {
 import type { WidgetDef, WidgetStateChangedEvent } from "../widgets/WidgetDef";
 import type { WidgetState } from "../widgets/WidgetState";
 import type { Frontstage } from "../frontstage/Frontstage";
+import { FrameworkContent } from "./FrameworkContent";
 
 /** Frontstage Activated Event Args interface.
  * @public
@@ -238,7 +239,9 @@ export interface FrameworkFrontstages {
   // eslint-disable-next-line deprecation/deprecation
   readonly onContentLayoutActivatedEvent: ContentLayoutActivatedEvent;
 
-  /** Get Content Control Activated event. */
+  /** Get Content Control Activated event.
+   * @deprecated in 4.16.0. Use {@link FrameworkContent.onActiveContentChangedEvent} instead.
+   */
   // eslint-disable-next-line deprecation/deprecation
   readonly onContentControlActivatedEvent: ContentControlActivatedEvent;
 
@@ -331,7 +334,10 @@ export interface FrameworkFrontstages {
   /** Sets the active tool */
   setActiveTool(tool: Tool): void;
 
-  /** Gets the active tool's [[ToolInformation]] */
+  /** Gets the active tool's [[ToolInformation]].
+   * @deprecated in 4.16.0. Uses a deprecated class {@link ToolInformation}.
+   */
+  // eslint-disable-next-line deprecation/deprecation
   readonly activeToolInformation: ToolInformation | undefined;
 
   /** Opens a modal Frontstage. Modal Frontstages can be stacked.

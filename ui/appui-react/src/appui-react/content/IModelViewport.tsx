@@ -29,6 +29,8 @@ import { UiError } from "@itwin/appui-abstract";
 import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState";
 import { ConfigurableUiContext } from "../configurableui/ConfigurableUiContent";
 
+/* eslint-disable deprecation/deprecation */
+
 /** Viewport that is connected to the IModelConnection property in the Redux store. The application must set up the Redux store and include the FrameworkReducer.
  * @note Requires redux provider.
  * @public
@@ -38,11 +40,9 @@ export function IModelConnectedViewport(
   props: Omit<ViewportProps, "imodel" | "viewState">
 ) {
   const iModel = useReduxFrameworkState(
-    // eslint-disable-next-line deprecation/deprecation
     (state) => state?.sessionState.iModelConnection
   );
   const viewState = useReduxFrameworkState(
-    // eslint-disable-next-line deprecation/deprecation
     (state) => state?.sessionState.defaultViewState
   );
   if (!iModel) return null;
@@ -51,6 +51,7 @@ export function IModelConnectedViewport(
 
 /** [[IModelViewportControl]] options. These options are set in the applicationData property of the [[ContentProps]].
  * @public
+ * @deprecated in 4.16.0. Used in a deprecated class {@link IModelViewportControl}.
  */
 export interface IModelViewportControlOptions {
   /** ViewState or a function to return a ViewState */
@@ -82,7 +83,6 @@ export function ViewOverlayHost({
   userSuppliedOverlay,
 }: ViewOverlayHostProps) {
   const reduxDisplayViewOverlay = useReduxFrameworkState(
-    // eslint-disable-next-line deprecation/deprecation
     (state) => state?.configurableUiState.viewOverlayDisplay
   );
   const configurableUi = React.useContext(ConfigurableUiContext);
@@ -95,8 +95,10 @@ export function ViewOverlayHost({
     <DefaultViewOverlay viewport={viewport} featureOptions={featureOptions} />
   );
 }
+
 /** iModel Viewport Control
  * @public
+ * @deprecated in 4.16.0. Use {@link @itwin/imodel-components-react#ViewportComponent} component instead.
  */
 export class IModelViewportControl extends ViewportContentControl {
   public static get id() {
@@ -178,7 +180,7 @@ export class IModelViewportControl extends ViewportContentControl {
       if (typeof this._viewState === "function") viewState = this._viewState();
       else viewState = this._viewState;
     } else
-      throw new UiError( // eslint-disable-line deprecation/deprecation
+      throw new UiError(
         UiFramework.loggerCategory(this),
         "No ViewState could be determined"
       );
@@ -189,9 +191,8 @@ export class IModelViewportControl extends ViewportContentControl {
   /** Get the React component that will contain the Viewport */
   protected getImodelConnectedViewportReactElement(): React.ReactNode {
     return (
-      // eslint-disable-next-line deprecation/deprecation
       <IModelConnectedViewport
-        viewportRef={(v: ScreenViewport) => {
+        viewportRef={(v) => {
           this.viewport = v;
           // for convenience, if window defined bind viewport to window
           if (undefined !== window) (window as any).viewport = v;
@@ -215,7 +216,7 @@ export class IModelViewportControl extends ViewportContentControl {
         viewState={viewState}
         imodel={iModelConnection}
         controlId={this.controlId}
-        viewportRef={(v: ScreenViewport) => {
+        viewportRef={(v) => {
           this.viewport = v;
           // for convenience, if window defined bind viewport to window
           if (undefined !== window) (window as any).viewport = v;
@@ -234,7 +235,6 @@ export class IModelViewportControl extends ViewportContentControl {
     _options: IModelViewportControlOptions
   ): React.ReactNode {
     return (
-      // eslint-disable-next-line deprecation/deprecation
       <FillCentered>{UiFramework.translate("general.no-content")}</FillCentered>
     );
   }

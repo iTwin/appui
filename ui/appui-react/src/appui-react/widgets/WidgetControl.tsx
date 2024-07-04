@@ -15,8 +15,11 @@ import {
 import type { WidgetDef } from "./WidgetDef";
 import type { WidgetState } from "./WidgetState";
 
+/* eslint-disable deprecation/deprecation */
+
 /** The base class for Widget controls.
  * @public
+ * @deprecated in 4.16.0. Extends a deprecated class {@link ConfigurableUiControl}.
  */
 export class WidgetControl extends ConfigurableUiControl {
   private _widgetDef!: WidgetDef;

@@ -5,8 +5,7 @@
 import * as React from "react";
 import {
   BackstageAppButton,
-  ContentGroup,
-  ContentGroupProvider,
+  Frontstage,
   FrontstageUtilities,
   IModelViewportControl,
   StageUsage,
@@ -15,40 +14,53 @@ import {
   StandardStatusbarUiItemsProvider,
   UiFramework,
   UiItemsManager,
+  ViewToolWidgetComposer,
 } from "@itwin/appui-react";
-import {
-  ContentLayoutProps,
-  StandardContentLayouts,
-} from "@itwin/appui-abstract";
+import { StandardContentLayouts } from "@itwin/appui-abstract";
 import { CustomContentStageUiProvider } from "../providers/CustomContentStageUiProvider";
 import { SampleContentControl } from "../content/SampleContentControl";
 
-/**
- * The CustomContentGroupProvider class method `provideContentGroup` returns a ContentGroup that displays two content view, one the
- * shows and IModel using `UiFramework.getDefaultViewState` and a second content that just display React components. The layout
- * used in StandardContentLayouts.twoHorizontalSplit which arrange the iModel view on top and the React content below.
- */
-export class CustomContentGroupProvider extends ContentGroupProvider {
-  public override async contentGroup(): Promise<ContentGroup> {
-    // copy and then modify standard layout so the content is always shown - note we could have just copied the standard and created a new one in line
-    const twoHorizontalSplit: ContentLayoutProps = {
-      ...StandardContentLayouts.twoHorizontalSplit,
-      horizontalSplit: {
-        ...StandardContentLayouts.twoHorizontalSplit.horizontalSplit!,
-        minSizeBottom: 100,
-        percentage: 0.8,
-      },
-    };
+function useActiveContentId() {
+  const [activeId, setActiveId] = React.useState(
+    UiFramework.content.getActiveId()
+  );
+  React.useEffect(() => {
+    return UiFramework.content.onActiveContentChangedEvent.addListener(
+      (args) => {
+        setActiveId(args.id);
+      }
+    );
+  }, []);
+  return activeId;
+}
 
-    return new ContentGroup({
+function CustomViewToolWidgetComposer() {
+  const activeId = useActiveContentId();
+
+  const hideNavigationAid = activeId === "ui-test:customContent";
+  return <ViewToolWidgetComposer hideNavigationAid={hideNavigationAid} />;
+}
+
+function createFrontstage(): Frontstage {
+  const frontstage = FrontstageUtilities.createStandardFrontstage({
+    id: CustomContentFrontstage.stageId,
+    usage: StageUsage.General,
+    contentGroupProps: {
       id: "appui-test-providers:custom-stage-content",
-      layout: twoHorizontalSplit,
+      layout: {
+        ...StandardContentLayouts.twoHorizontalSplit,
+        horizontalSplit: {
+          ...StandardContentLayouts.twoHorizontalSplit.horizontalSplit!,
+          minSizeBottom: 100,
+          percentage: 0.8,
+        },
+      },
       contents: [
         {
           id: "primaryContent",
-          classId: IModelViewportControl.id,
+          // eslint-disable-next-line deprecation/deprecation
+          classId: IModelViewportControl,
           applicationData: {
-            isPrimaryView: true,
             viewState: UiFramework.getDefaultViewState,
             iModelConnection: UiFramework.getIModelConnection,
             featureOptions: {
@@ -65,8 +77,16 @@ export class CustomContentGroupProvider extends ContentGroupProvider {
           classId: SampleContentControl,
         },
       ],
-    });
-  }
+    },
+    cornerButton: <BackstageAppButton />,
+  });
+  return {
+    ...frontstage,
+    viewNavigation: {
+      ...frontstage.viewNavigation!,
+      content: <CustomViewToolWidgetComposer />,
+    },
+  };
 }
 
 /**
@@ -77,20 +97,10 @@ export class CustomContentGroupProvider extends ContentGroupProvider {
  */
 export class CustomContentFrontstage {
   public static stageId = "appui-test-providers:CustomContent";
-  private static _contentGroupProvider = new CustomContentGroupProvider();
 
   public static register(localizationNamespace: string) {
     CustomContentFrontstage.registerToolProviders(localizationNamespace);
-    UiFramework.frontstages.addFrontstage(
-      FrontstageUtilities.createStandardFrontstage({
-        id: CustomContentFrontstage.stageId,
-        version: 1.1,
-        contentGroupProps: CustomContentFrontstage._contentGroupProvider,
-        hideNavigationAid: false,
-        cornerButton: <BackstageAppButton />,
-        usage: StageUsage.General,
-      })
-    );
+    UiFramework.frontstages.addFrontstage(createFrontstage());
   }
 
   private static registerToolProviders(localizationNamespace: string) {

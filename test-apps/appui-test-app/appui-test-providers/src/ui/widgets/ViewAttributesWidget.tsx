@@ -12,15 +12,15 @@ export function useWidgetDef(id: string) {
   const frontstageDef = useActiveFrontstageDef();
   return frontstageDef?.findWidgetDef(id);
 }
+
 export function ToggleCameraItem() {
   const activeViewport = useActiveViewport();
   const [cameraOn, setCameraOn] = React.useState(activeViewport?.isCameraOn);
 
   React.useEffect(() => {
-    const handleViewChanged = (vp: Viewport): void => {
+    return activeViewport?.onChangeView.addListener((vp) => {
       setCameraOn(vp.isCameraOn);
-    };
-    return activeViewport?.onChangeView.addListener(handleViewChanged);
+    });
   }, [activeViewport]);
 
   const onToggleCamera = React.useCallback(async () => {
@@ -40,7 +40,12 @@ export function ToggleCameraItem() {
     />
   );
 }
-export function ViewFlagItem(flagName: string) {
+
+interface ViewFlagItemProps {
+  flagName: string;
+}
+
+export function ViewFlagItem({ flagName }: ViewFlagItemProps) {
   const activeViewport = useActiveViewport();
 
   const flagValue = React.useCallback((name: string, vp?: Viewport) => {
@@ -51,7 +56,7 @@ export function ViewFlagItem(flagName: string) {
   const [value, setValue] = React.useState(flagValue(flagName, activeViewport));
 
   React.useEffect(() => {
-    const handleViewChanged = (vp: Viewport): void => {
+    return activeViewport?.onChangeView.addListener((vp) => {
       const props: ViewFlagProps = vp.viewFlags.toJSON();
       (props as any)[flagName] =
         (props as any)[flagName] === undefined
@@ -64,9 +69,7 @@ export function ViewFlagItem(flagName: string) {
           ? false
           : (props as any)[flagName]
       );
-    };
-
-    return activeViewport?.onChangeView.addListener(handleViewChanged);
+    });
   }, [activeViewport, flagName]);
 
   const onViewFlagChanged = React.useCallback(
@@ -108,17 +111,6 @@ export function ViewFlagItem(flagName: string) {
 }
 
 export function ViewAttributesWidgetComponent() {
-  const items: React.ReactElement[] = [];
-  items.push(ViewFlagItem("acs"));
-  items.push(ToggleCameraItem());
-  items.push(ViewFlagItem("noConstruct"));
-  items.push(ViewFlagItem("hidEdges"));
-  items.push(ViewFlagItem("monochrome"));
-  items.push(ViewFlagItem("visEdges"));
-  items.push(ViewFlagItem("ambientOcclusion"));
-  items.push(ViewFlagItem("shadows"));
-  items.push(ViewFlagItem("backgroundMap"));
-
   return (
     <div
       style={{
@@ -128,7 +120,15 @@ export function ViewAttributesWidgetComponent() {
         overflowY: "auto",
       }}
     >
-      {items}
+      <ViewFlagItem flagName="acs" />
+      <ToggleCameraItem />
+      <ViewFlagItem flagName="noConstruct" />
+      <ViewFlagItem flagName="hidEdges" />
+      <ViewFlagItem flagName="monochrome" />
+      <ViewFlagItem flagName="visEdges" />
+      <ViewFlagItem flagName="ambientOcclusion" />
+      <ViewFlagItem flagName="shadows" />
+      <ViewFlagItem flagName="backgroundMap" />
     </div>
   );
 }

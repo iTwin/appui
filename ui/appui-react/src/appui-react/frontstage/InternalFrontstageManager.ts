@@ -77,8 +77,10 @@ export class InternalFrontstageManager {
   private static _nestedFrontstages: FrontstageDef[] =
     new Array<FrontstageDef>();
   private static _activePrimaryFrontstageDef: FrontstageDef | undefined;
+  // eslint-disable-next-line deprecation/deprecation
   private static _toolInformationMap: Map<string, ToolInformation> = new Map<
     string,
+    // eslint-disable-next-line deprecation/deprecation
     ToolInformation
   >();
 
@@ -89,6 +91,7 @@ export class InternalFrontstageManager {
     if (!InternalFrontstageManager._toolInformationMap.get(toolId))
       InternalFrontstageManager._toolInformationMap.set(
         toolId,
+        // eslint-disable-next-line deprecation/deprecation
         new ToolInformation(toolId)
       );
   }
@@ -155,6 +158,7 @@ export class InternalFrontstageManager {
       InternalFrontstageManager.activeFrontstageDef &&
       !InternalFrontstageManager.isLoading
     ) {
+      // eslint-disable-next-line deprecation/deprecation
       InternalFrontstageManager.activeFrontstageDef.setActiveViewFromViewport(
         args.current
       );
@@ -531,6 +535,7 @@ export class InternalFrontstageManager {
   }
 
   /** Gets the active tool's [[ToolInformation]] */
+  // eslint-disable-next-line deprecation/deprecation
   public static get activeToolInformation(): ToolInformation | undefined {
     return InternalFrontstageManager._toolInformationMap.get(
       InternalFrontstageManager.activeToolId
@@ -541,6 +546,7 @@ export class InternalFrontstageManager {
    * @return  Tool Setting React node of the active tool, or undefined if there is no active tool or Tool Settings for the active tool.
    * @internal
    */
+  // eslint-disable-next-line deprecation/deprecation
   public static get activeToolSettingsProvider(): ToolUiProvider | undefined {
     const activeToolInformation =
       InternalFrontstageManager.activeToolInformation;

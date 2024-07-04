@@ -4,20 +4,17 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { useSelector } from "react-redux";
-
+import {
+  ConditionalStringValue,
+  StandardContentLayouts,
+} from "@itwin/appui-abstract";
 import {
   BackstageAppButton,
-  ContentGroup,
-  ContentGroupProps,
-  ContentGroupProvider,
-  ContentProps,
   Frontstage,
   FrontstageUtilities,
-  IModelViewportControl,
   StagePanelState,
   StageUsage,
   StandardContentToolsUiItemsProvider,
-  StandardFrontstageProps,
   StandardNavigationToolsUiItemsProvider,
   StandardStatusbarUiItemsProvider,
   StateManager,
@@ -26,11 +23,6 @@ import {
   UiItemsManager,
   WidgetState,
 } from "@itwin/appui-react";
-import {
-  ConditionalStringValue,
-  StandardContentLayouts,
-} from "@itwin/appui-abstract";
-import { getSavedViewLayoutProps } from "../../tools/ContentLayoutTools";
 import { WidgetApiStageUiItemsProvider } from "../providers/WidgetApiStageUiItemsProvider";
 import {
   getTestProviderState,
@@ -38,117 +30,52 @@ import {
   TestProviderState,
 } from "../../store";
 import { AppUiTestProviders } from "../../AppUiTestProviders";
-import {
-  IModelApp,
-  MeasureDistanceTool,
-  ScreenViewport,
-} from "@itwin/core-frontend";
+import { IModelApp, MeasureDistanceTool } from "@itwin/core-frontend";
 import { updatedUiItemsProvider } from "../providers/UpdatedUiItemsProvider";
 import { RegisterUiProviderTool } from "../../tools/RegisterUiProviderTool";
+import { ViewportContent } from "../ViewportContent";
 
-/**
- * The WidgetApiStageContentGroupProvider class method `provideContentGroup` returns a ContentGroup that displays
- * a single content view and also defines a custom view overlay. The display of the view overlay in its applicationData.
- */
-export class WidgetApiStageContentGroupProvider extends ContentGroupProvider {
-  public static supplyViewOverlay = (viewport: ScreenViewport) => {
-    if (viewport.view) {
-      return <MyCustomViewOverlay />;
-    }
-    return null;
-  };
-
-  public override prepareToSaveProps(contentGroupProps: ContentGroupProps) {
-    const newContentsArray = contentGroupProps.contents.map(
-      (content: ContentProps) => {
-        const newContent = { ...content };
-        if (newContent.applicationData) delete newContent.applicationData;
-        return newContent;
-      }
-    );
-    return { ...contentGroupProps, contents: newContentsArray };
-  }
-
-  public override applyUpdatesToSavedProps(
-    contentGroupProps: ContentGroupProps
-  ) {
-    const newContentsArray = contentGroupProps.contents.map(
-      (content: ContentProps, index) => {
-        const newContent = { ...content };
-
-        if (newContent.classId === IModelViewportControl.id) {
-          newContent.applicationData = {
-            ...newContent.applicationData,
-            supplyViewOverlay:
-              index === 0
-                ? WidgetApiStageContentGroupProvider.supplyViewOverlay
-                : undefined,
-            isPrimaryView: true,
-            featureOptions: {
-              defaultViewOverlay: {
-                enableScheduleAnimationViewOverlay: true,
-                enableAnalysisTimelineViewOverlay: true,
-                enableSolarTimelineViewOverlay: true,
-              },
-            },
-          };
-        }
-        return newContent;
-      }
-    );
-    return { ...contentGroupProps, contents: newContentsArray };
-  }
-
-  public override async contentGroup(
-    config: Frontstage
-  ): Promise<ContentGroup> {
-    const savedViewLayoutProps = await getSavedViewLayoutProps(
-      config.id,
-      UiFramework.getIModelConnection()
-    );
-    if (savedViewLayoutProps) {
-      const viewState =
-        savedViewLayoutProps.contentGroupProps.contents[0].applicationData
-          ?.viewState;
-      if (viewState) {
-        UiFramework.setDefaultViewState(viewState);
-      }
-      const contentGroupProps = this.applyUpdatesToSavedProps(
-        savedViewLayoutProps.contentGroupProps
-      );
-      return new ContentGroup(contentGroupProps);
-    }
-
-    return new ContentGroup({
+/** Tool settings widget can be configured by providing a URL param `toolSettings` with values `off` or `hidden`. */
+function createWidgetApiFrontstage(): Frontstage {
+  const config = FrontstageUtilities.createStandardFrontstage({
+    id: WidgetApiStage.stageId,
+    contentGroupProps: {
       id: "widget-api-stage-frontstage-main-content-group",
       layout: StandardContentLayouts.singleView,
       contents: [
         {
           id: "primaryContent",
-          classId: IModelViewportControl.id,
-          applicationData: {
-            supplyViewOverlay:
-              WidgetApiStageContentGroupProvider.supplyViewOverlay,
-            isPrimaryView: true,
-            viewState: UiFramework.getDefaultViewState,
-            iModelConnection: UiFramework.getIModelConnection,
-            featureOptions: {
-              defaultViewOverlay: {
-                enableScheduleAnimationViewOverlay: true,
-                enableAnalysisTimelineViewOverlay: true,
-                enableSolarTimelineViewOverlay: true,
-              },
-            },
-          },
+          classId: "",
+          content: (
+            <ViewportContent
+              renderViewOverlay={() => {
+                return <MyCustomViewOverlay />;
+              }}
+            />
+          ),
         },
       ],
-    });
-  }
-}
-
-/** Tool settings widget can be configured by providing an URL param `toolSettings` with values `off` or `hidden`. */
-function createWidgetApiFrontstage(props: StandardFrontstageProps): Frontstage {
-  const config = FrontstageUtilities.createStandardFrontstage(props);
+    },
+    cornerButton: (
+      <BackstageAppButton
+        key="appui-test-providers-WidgetApi-backstage"
+        label="Toggle Backstage"
+        icon="icon-bentley-systems"
+      />
+    ),
+    defaultTool: MeasureDistanceTool.toolId,
+    usage: StageUsage.General,
+    topPanelProps: {
+      resizable: true,
+      pinned: true,
+      defaultState: StagePanelState.Open,
+    },
+    leftPanelProps: {
+      resizable: true,
+      pinned: true,
+      defaultState: StagePanelState.Open,
+    },
+  });
   const urlParams = new URLSearchParams(window.location.search);
   const noToolSettings = urlParams.get("toolSettings") === "off";
   const hiddenToolSettings = urlParams.get("toolSettings") === "hidden";
@@ -168,48 +95,8 @@ function createWidgetApiFrontstage(props: StandardFrontstageProps): Frontstage {
 export class WidgetApiStage {
   public static stageId = "appui-test-providers:WidgetApi";
 
-  private static _contentGroupProvider =
-    new WidgetApiStageContentGroupProvider();
-
-  public static supplyAppData(_id: string, _applicationData?: any) {
-    return {
-      viewState: UiFramework.getDefaultViewState,
-      iModelConnection: UiFramework.getIModelConnection,
-    };
-  }
-
   public static register(localizationNamespace: string) {
-    // set up custom corner button where we specify icon, label, and action
-    const cornerButton = (
-      <BackstageAppButton
-        key="appui-test-providers-WidgetApi-backstage"
-        label="Toggle Backstage"
-        icon="icon-bentley-systems"
-      />
-    );
-
-    const widgetApiStageProps: StandardFrontstageProps = {
-      id: WidgetApiStage.stageId,
-      version: 1.1,
-      contentGroupProps: WidgetApiStage._contentGroupProvider,
-      cornerButton,
-      defaultTool: MeasureDistanceTool.toolId,
-      usage: StageUsage.General,
-      topPanelProps: {
-        resizable: true,
-        pinned: true,
-        defaultState: StagePanelState.Open,
-      },
-      leftPanelProps: {
-        resizable: true,
-        pinned: true,
-        defaultState: StagePanelState.Open,
-      },
-    };
-
-    UiFramework.frontstages.addFrontstage(
-      createWidgetApiFrontstage(widgetApiStageProps)
-    );
+    UiFramework.frontstages.addFrontstage(createWidgetApiFrontstage());
     this.registerToolProviders(localizationNamespace);
   }
 
@@ -281,11 +168,7 @@ export function createToggleCustomOverlayToolbarItem() {
   return ToolbarItemUtilities.createActionItem(id, 0, icon, label, execute);
 }
 
-/*
- * Simple View overlay that just displays static React component. The display of the overlay is controlled
- * based on a variable in the Redux store which can be seen in file `..\appui-test-providers\src\store\index.ts`.
- */
-export function MyCustomViewOverlay() {
+function MyCustomViewOverlay() {
   const showOverlay = useSelector(
     (state: { testProviderState: TestProviderState }) => {
       return !!state.testProviderState.showCustomViewOverlay;
