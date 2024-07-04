@@ -9,4 +9,4 @@ Table of contents:
 
 ### Changes
 
-- Property grid array items' description will are now shown next to the index when the items are non-primitive. [#890](https://github.com/iTwin/appui/pull/890)
+- Property grid array items' description will be shown next to the index when the items are non-primitive. [#890](https://github.com/iTwin/appui/pull/890)
