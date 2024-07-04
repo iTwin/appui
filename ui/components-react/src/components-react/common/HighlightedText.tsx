@@ -6,8 +6,7 @@
  * @module Common
  */
 
-import React from "react";
-import Highlighter from "react-highlight-words";
+import React, { useMemo } from "react";
 import { HighlightingEngine } from "../tree/HighlightingEngine";
 
 /**
@@ -33,42 +32,105 @@ export interface HighlightedTextProps {
  */
 export function HighlightedText(props: HighlightedTextProps) {
   const { searchText, activeMatchIndex, text, caseSensitive } = props;
-  return (
-    <Highlighter
-      searchWords={[searchText]}
-      findChunks={findChunksNoRegex as any} // .d.ts declaration wrong
-      activeIndex={activeMatchIndex as any} // .d.ts file seems to be wrong, doesn't work if it's a string
-      activeClassName={HighlightingEngine.ACTIVE_CLASS_NAME}
-      autoEscape={true}
-      textToHighlight={text}
-      caseSensitive={caseSensitive}
-    />
+  const chunks = useMemo(
+    () => findChunks(text, searchText, caseSensitive),
+    [text, searchText, caseSensitive]
   );
+  const markedChunks = useMemo(
+    () => markChunks(text, chunks, activeMatchIndex),
+    [text, chunks, activeMatchIndex]
+  );
+  return <>{markedChunks}</>;
 }
 
-interface HighlighterChunk {
-  highlight: boolean;
+interface HighlightedChunk {
   start: number;
   end: number;
 }
-interface FindChunksArgs {
-  autoEscape?: boolean;
-  caseSensitive?: boolean;
-  searchWords: string[];
-  textToHighlight: string;
-}
-const findChunksNoRegex = (args: FindChunksArgs): HighlighterChunk[] => {
-  const text = args.caseSensitive
-    ? args.textToHighlight
-    : args.textToHighlight.toUpperCase();
-  const term = args.caseSensitive
-    ? args.searchWords[0]
-    : args.searchWords[0].toUpperCase();
-  const chunks: HighlighterChunk[] = [];
-  let index = text.indexOf(term);
+
+function findChunks(
+  text: string,
+  searchText: string,
+  caseSensitive?: boolean
+): HighlightedChunk[] {
+  const chunks: HighlightedChunk[] = [];
+  const contentText = caseSensitive ? text : text.toLowerCase();
+  const inputText = caseSensitive ? searchText : searchText.toLowerCase();
+  let index = contentText.indexOf(inputText);
+
   while (index !== -1) {
-    chunks.push({ start: index, end: index + term.length, highlight: true });
-    index = text.indexOf(term, index + 1);
+    chunks.push({ start: index, end: index + inputText.length });
+    index = contentText.indexOf(inputText, index + 1);
   }
+
   return chunks;
-};
+}
+
+function markChunks(
+  text: string,
+  chunks: HighlightedChunk[],
+  activeChunk?: number
+) {
+  const markedText: React.ReactElement[] = [];
+  let previousIndex = 0;
+
+  const { mergedChunks, newActiveIndex } = mergeChunks(chunks, activeChunk);
+
+  for (let i = 0; i < mergedChunks.length; i++) {
+    const { start, end } = mergedChunks[i];
+
+    // add unmarked text between previous chunk and current one
+    const nonMarkedText = text.substring(previousIndex, start);
+    if (nonMarkedText.length) {
+      markedText.push(<span key={previousIndex}>{nonMarkedText}</span>);
+    }
+
+    // add marked chunk text
+    markedText.push(
+      <mark
+        key={start}
+        className={
+          i === newActiveIndex
+            ? HighlightingEngine.ACTIVE_CLASS_NAME
+            : undefined
+        }
+      >
+        {text.substring(start, end)}
+      </mark>
+    );
+    previousIndex = end;
+  }
+
+  // add unmarked text after last chunk
+  const lastNonMarkedText = text.substring(previousIndex, text.length);
+  if (lastNonMarkedText.length) {
+    markedText.push(<span key={previousIndex}>{lastNonMarkedText}</span>);
+  }
+
+  return markedText;
+}
+
+function mergeChunks(chunks: HighlightedChunk[], activeChunk?: number) {
+  const mergedChunks: HighlightedChunk[] = [];
+  let lastChunk: { isActive: boolean; info: HighlightedChunk } | undefined;
+  let newActiveIndex: number | undefined;
+
+  for (let i = 0; i < chunks.length; i++) {
+    const chunk = chunks[i];
+    const isActive = i === activeChunk;
+    if (
+      lastChunk &&
+      lastChunk.info.end === chunk.start &&
+      !isActive &&
+      !lastChunk.isActive
+    ) {
+      lastChunk.info.end = chunk.end;
+      continue;
+    }
+    isActive && (newActiveIndex = mergedChunks.length);
+    const newChunk = { start: chunk.start, end: chunk.end };
+    lastChunk = { isActive, info: newChunk };
+    mergedChunks.push(newChunk);
+  }
+  return { mergedChunks, newActiveIndex };
+}

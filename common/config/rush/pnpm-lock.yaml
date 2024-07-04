@@ -915,9 +915,6 @@ importers:
       lodash:
         specifier: ^4.17.10
         version: 4.17.21
-      react-highlight-words:
-        specifier: ^0.20.0
-        version: 0.20.0(react@18.3.1)
       react-window:
         specifier: ^1.8.9
         version: 1.8.10(react-dom@18.3.1)(react@18.3.1)
@@ -979,9 +976,6 @@ importers:
       '@types/react-dom':
         specifier: ^18.3.0
         version: 18.3.0
-      '@types/react-highlight-words':
-        specifier: ^0.16.1
-        version: 0.16.7
       '@types/react-window':
         specifier: ^1.8.2
         version: 1.8.8
@@ -6638,12 +6632,6 @@ packages:
       '@types/react': 18.3.2
     dev: true
 
-  /@types/react-highlight-words@0.16.7:
-    resolution: {integrity: sha512-+upXTIaRd3rGvh1aDQSs9z5X+sV3UM6Jrmjk03GN2GXl4v/+iOJKQj2LZHo6Vp2IoTvMdtxgME26feqo12xXLg==}
-    dependencies:
-      '@types/react': 18.3.2
-    dev: true
-
   /@types/react-redux@7.1.33:
     resolution: {integrity: sha512-NF8m5AjWCkert+fosDsN3hAlHzpjSiXlVy9EgQEmLoBhaNXbmyeGs/aj5dQzKuF+/q+S7JQagorGDW8pJ28Hmg==}
     dependencies:
@@ -10294,10 +10282,6 @@ packages:
     hasBin: true
     dev: true
 
-  /highlight-words-core@1.2.2:
-    resolution: {integrity: sha512-BXUKIkUuh6cmmxzi5OIbUJxrG8OAk2MqoL1DtO3Wo9D2faJg2ph5ntyuQeLqaHJmzER6H5tllCDA9ZnNe9BVGg==}
-    dev: false
-
   /hoist-non-react-statics@3.3.2:
     resolution: {integrity: sha512-/gGivxi8JPKWNm/W0jSmzcMPpfpPLc3dY/6GxhX2hQ9iGj3aDfklV4ET7NjKpSinLpJ5vafa9iiGIEZg10SfBw==}
     dependencies:
@@ -11882,10 +11866,6 @@ packages:
       p-is-promise: 2.1.0
     dev: false
 
-  /memoize-one@4.0.3:
-    resolution: {integrity: sha512-QmpUu4KqDmX0plH4u+tf0riMc1KHE1+lw95cMrLlXQAFOx/xnBtwhZ52XJxd9X2O6kwKBqX32kmhbhlobD0cuw==}
-    dev: false
-
   /memoize-one@5.2.1:
     resolution: {integrity: sha512-zYiwtZUcYyXKo/np96AGZAckk+FWWsUdJ3cHGGmld7+AhvcWmQyGCYUh1hc4Q/pkOhb65dQR/pqCyK0cOaHz4Q==}
     dev: false
@@ -13067,17 +13047,6 @@ packages:
       react: '>=16.13.1'
     dependencies:
       '@babel/runtime': 7.23.8
-      react: 18.3.1
-    dev: false
-
-  /react-highlight-words@0.20.0(react@18.3.1):
-    resolution: {integrity: sha512-asCxy+jCehDVhusNmCBoxDf2mm1AJ//D+EzDx1m5K7EqsMBIHdZ5G4LdwbSEXqZq1Ros0G0UySWmAtntSph7XA==}
-    peerDependencies:
-      react: ^0.14.0 || ^15.0.0 || ^16.0.0-0 || ^17.0.0-0 || ^18.0.0-0
-    dependencies:
-      highlight-words-core: 1.2.2
-      memoize-one: 4.0.3
-      prop-types: 15.8.1
       react: 18.3.1
     dev: false
 
