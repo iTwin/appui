@@ -2128,6 +2128,7 @@ export interface FrameworkState {
 
 // @beta
 export class FrameworkToolAdmin extends ToolAdmin {
+    // (undocumented)
     processShortcutKey(e: KeyboardEvent, wentDown: boolean): Promise<boolean>;
 }
 

@@ -16,8 +16,8 @@ test("keyboard shortcut menu test", async ({ page, baseURL }) => {
     .getByRole("button", { name: "Open Keyboard Shortcut Menu" })
     .click();
 
-  const keyboardShortcutMenu = page.getByText(
-    "M AccuDraw TestsN Bump Tool Setting ToggleF Focus into Tool SettingsA AccuDrawS "
-  );
+  const keyboardShortcutMenu = page
+    .getByRole("menu")
+    .filter({ hasText: "M AccuDraw Tests" });
   await expect(keyboardShortcutMenu).toHaveScreenshot();
 });
