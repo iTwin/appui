@@ -10,7 +10,6 @@ import {
   ConditionalBooleanValue,
   ConditionalStringValue,
 } from "@itwin/appui-abstract";
-import { ConditionalIconItem } from "@itwin/core-react";
 import { BeEvent } from "@itwin/core-bentley";
 import type {
   ToolbarActionItem,
@@ -18,6 +17,7 @@ import type {
   ToolbarItem,
 } from "./ToolbarItem";
 import { isToolbarGroupItem } from "./ToolbarItem";
+import { ConditionalIconValue } from "../shared/ConditionalValue";
 
 function isInstance<T>(args: T | ReadonlyArray<T>): args is T {
   return !Array.isArray(args);
@@ -136,7 +136,7 @@ export class ToolbarItemsManager {
           entry.syncEventIds.forEach((eventId: string) =>
             eventIds.add(eventId.toLowerCase())
           );
-        } else if (ConditionalIconItem.isConditionalIconItem(entry)) {
+        } else if (ConditionalIconValue.isConditionalIconItem(entry)) {
           entry.syncEventIds.forEach((eventId: string) =>
             eventIds.add(eventId.toLowerCase())
           );
@@ -187,8 +187,8 @@ export class ToolbarItemsManager {
         } else if (entry instanceof ConditionalStringValue) {
           if (ConditionalStringValue.refreshValue(entry, eventIds))
             itemsUpdated = true;
-        } else if (ConditionalIconItem.isConditionalIconItem(entry)) {
-          if (ConditionalIconItem.refreshValue(entry, eventIds))
+        } else if (ConditionalIconValue.isConditionalIconItem(entry)) {
+          if (ConditionalIconValue.refreshValue(entry, eventIds))
             itemsUpdated = true;
         }
       }
@@ -229,8 +229,8 @@ export class ToolbarItemsManager {
         } else if (entry instanceof ConditionalStringValue) {
           if (ConditionalStringValue.refreshValue(entry, eventIds))
             updateRequired = true;
-        } else if (ConditionalIconItem.isConditionalIconItem(entry)) {
-          if (ConditionalIconItem.refreshValue(entry, eventIds))
+        } else if (ConditionalIconValue.isConditionalIconItem(entry)) {
+          if (ConditionalIconValue.refreshValue(entry, eventIds))
             updateRequired = true;
         }
       }

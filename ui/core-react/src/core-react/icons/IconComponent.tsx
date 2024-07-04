@@ -26,6 +26,7 @@ export type IconSpec =
   | string
   | ConditionalStringValue
   | React.ReactNode
+  // eslint-disable-next-line deprecation/deprecation
   | ConditionalIconItem;
 
 /** Properties for the [[Icon]] React component
@@ -115,10 +116,13 @@ export function Icon(props: IconProps) {
 
 function getIconSpecValue(
   iconSpec: IconSpec
+  // eslint-disable-next-line deprecation/deprecation
 ): Exclude<IconSpec, ConditionalIconItem | ConditionalStringValue> {
   let value = iconSpec;
   while (true) {
+    // eslint-disable-next-line deprecation/deprecation
     if (ConditionalIconItem.isConditionalIconItem(value)) {
+      // eslint-disable-next-line deprecation/deprecation
       value = ConditionalIconItem.getValue(value);
       continue;
     }

@@ -30,6 +30,7 @@ function gatherSyncIds<T extends {} | { items: T[] }>(
         entry.syncEventIds.forEach((eventId: string) =>
           eventIds.add(eventId.toLowerCase())
         );
+        // eslint-disable-next-line deprecation/deprecation
       } else if (ConditionalIconItem.isConditionalIconItem(entry)) {
         entry.syncEventIds.forEach((eventId: string) =>
           eventIds.add(eventId.toLowerCase())
@@ -73,7 +74,9 @@ function refreshItems<T extends {} | { items: T[] }>(
           ConditionalBooleanValue.refreshValue(entry, eventIds)) ||
         (entry instanceof ConditionalStringValue &&
           ConditionalStringValue.refreshValue(entry, eventIds)) ||
+        // eslint-disable-next-line deprecation/deprecation
         (ConditionalIconItem.isConditionalIconItem(entry) &&
+          // eslint-disable-next-line deprecation/deprecation
           ConditionalIconItem.refreshValue(entry, eventIds))
       ) {
         itemsUpdated = true;
