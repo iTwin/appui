@@ -47,8 +47,10 @@ const EXPANSION_TOGGLE_WIDTH = 24;
  */
 export interface NodeCheckboxProps {
   /** State of the checkbox */
+  // eslint-disable-next-line deprecation/deprecation
   state?: CheckBoxState;
   /** Click event callback */
+  // eslint-disable-next-line deprecation/deprecation
   onClick?: (newState: CheckBoxState) => void;
   /** Indicates whether checkbox is disabled */
   isDisabled?: boolean;
@@ -116,7 +118,9 @@ export class TreeNode extends React.Component<TreeNodeProps> {
     if (this.props.checkboxProps) {
       const props: NodeCheckboxRenderProps = {
         label: "",
+        // eslint-disable-next-line deprecation/deprecation
         checked: this.props.checkboxProps.state === CheckBoxState.On,
+        // eslint-disable-next-line deprecation/deprecation
         indeterminate: this.props.checkboxProps.state === CheckBoxState.Partial,
         disabled: this.props.checkboxProps.isDisabled,
         title: this.props.checkboxProps.tooltip,
@@ -206,6 +210,7 @@ export class TreeNode extends React.Component<TreeNodeProps> {
       !this.props.checkboxProps.isDisabled
     )
       this.props.checkboxProps.onClick(
+        // eslint-disable-next-line deprecation/deprecation
         checked ? CheckBoxState.On : CheckBoxState.Off
       );
   };
