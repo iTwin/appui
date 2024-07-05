@@ -16,7 +16,12 @@ import "./DeprecatedBadge.scss";
 export function DeprecatedBadge() {
   return (
     <Icon className="core-badge-deprecatedBadge">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16.00462 16.00604">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 16 16"
+        width="1rem"
+        height="1rem"
+      >
         <defs>
           <linearGradient
             id="deprecated-fill"
@@ -41,8 +46,8 @@ export function DeprecatedBadge() {
           fill="red"
           style={{ strokeWidth: 0 }}
         />
-        <path
-          d="m13.154 6.2-.953.954-1.198-1.198-1.198 1.198-.953-.954 1.198-1.197-1.198-1.198.953-.953 1.198 1.198L12.2 2.852l.953.953-1.198 1.198L13.154 6.2z"
+        <polygon
+          points="13.15377 6.20045 12.20059 7.15363 11.00287 5.95591 9.80515 7.15363 8.85197 6.20045 10.04969 5.00273 8.85197 3.80501 9.80515 2.85183 11.00287 4.04955 12.20059 2.85183 13.15377 3.80501 11.95606 5.00273 13.15377 6.20045"
           style={{ strokeWidth: 0 }}
         />
       </svg>
