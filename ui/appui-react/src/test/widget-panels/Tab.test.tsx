@@ -18,7 +18,7 @@ import { addTab } from "../../appui-react/layout/state/internal/TabStateHelpers"
 import { TabIdContext } from "../../appui-react/layout/widget/ContentRenderer";
 import { TabPositionContext } from "../../appui-react/layout/widget/Tab";
 import { WidgetIdContext } from "../../appui-react/layout/widget/Widget";
-import { selectorMatches } from "../TestUtils";
+import { childStructure } from "../TestUtils";
 import { BadgeType } from "@itwin/core-react";
 
 describe("WidgetPanelsTab", () => {
@@ -40,7 +40,7 @@ describe("WidgetPanelsTab", () => {
     expect(screen.getByText("Tab1")).to.exist;
   });
 
-  it("should render with badge", () => {
+  it("should render with old badge", () => {
     const frontstageDef = new FrontstageDef();
     vi.spyOn(
       UiFramework.frontstages,
@@ -68,7 +68,39 @@ describe("WidgetPanelsTab", () => {
       </NineZone>
     );
     expect(screen.getByRole("tab")).to.satisfy(
-      selectorMatches(".uifw-badge-new")
+      childStructure(".nz-badge .core-badge-newBadge")
+    );
+  });
+
+  it("should render with new badge", () => {
+    const frontstageDef = new FrontstageDef();
+    vi.spyOn(
+      UiFramework.frontstages,
+      "activeFrontstageDef",
+      "get"
+    ).mockImplementation(() => frontstageDef);
+    const widgetDef = WidgetDef.create({
+      id: "t1",
+      badgeKind: "deprecated",
+    });
+    vi.spyOn(frontstageDef, "findWidgetDef").mockReturnValue(widgetDef);
+
+    let state = createNineZoneState();
+    state = addTab(state, "t1", { label: "Tab1" });
+    state = addPanelWidget(state, "left", "w1", ["t1"]);
+    render(
+      <NineZone dispatch={vi.fn()} layout={createLayoutStore(state)}>
+        <WidgetIdContext.Provider value="w1">
+          <TabIdContext.Provider value="t1">
+            <TabPositionContext.Provider value={{}}>
+              <WidgetPanelsTab />
+            </TabPositionContext.Provider>
+          </TabIdContext.Provider>
+        </WidgetIdContext.Provider>
+      </NineZone>
+    );
+    expect(screen.getByRole("tab")).to.satisfy(
+      childStructure(".nz-badge .core-badge-deprecatedBadge")
     );
   });
 });

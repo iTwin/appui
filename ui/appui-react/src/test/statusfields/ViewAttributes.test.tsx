@@ -30,7 +30,9 @@ describe(`ViewAttributes`, () => {
 
     await theUserTo.click(screen.getAllByRole("button")[0]);
 
-    expect(screen.queryByText("listTools.viewAttributes")).toEqual(null);
+    expect(
+      screen.queryByText("listTools.viewAttributes", { selector: ".nz-title" })
+    ).toEqual(null);
   });
 
   it("should process Checkbox clicks", async () => {
