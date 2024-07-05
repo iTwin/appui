@@ -12,7 +12,12 @@ import type {
   StringGetter,
 } from "@itwin/appui-abstract";
 import { ConditionalBooleanValue, UiError } from "@itwin/appui-abstract";
-import type { BadgeType, IconProps, IconSpec } from "@itwin/core-react";
+import type {
+  BadgeKind,
+  BadgeType,
+  IconProps,
+  IconSpec,
+} from "@itwin/core-react";
 import { ContextMenuItem, ContextSubMenu } from "@itwin/core-react";
 import { UiFramework } from "../UiFramework";
 import type { ActionButtonItemDef } from "./ActionButtonItemDef";
@@ -53,8 +58,12 @@ export interface CursorMenuItemProps extends IconProps {
   isPressed?: boolean;
   /** can be used by application to store miscellaneous data. */
   applicationData?: any;
-  /** Badge to be overlaid on the item. */
+  /** Badge to be overlaid on the item.
+   * @deprecated in 4.16.0. Use `badgeKind` property instead.
+   */
   badgeType?: BadgeType;
+  /** Specifies the kind of badge, if any, to be overlaid on the item. */
+  badgeKind?: BadgeKind;
   /** abstract icon definition, used when create itemDef from abstract item (ie. MenuItem) */
   icon?: IconSpec;
 
@@ -93,6 +102,7 @@ export class MenuItem extends ItemDefBase {
   private _submenu: MenuItem[];
   private _onSelection?: () => void;
   private _execute?: () => void;
+  private _badgeKind?: BadgeKind;
 
   /** onSelection is an optional parameter typically supplied to allow menu parent to close context menu when a menu item is selected. */
   constructor(props: CursorMenuItemProps, onSelection?: () => void) {
@@ -101,6 +111,7 @@ export class MenuItem extends ItemDefBase {
     this._id = props.id;
     this._submenu = new Array<MenuItem>();
     this._onSelection = onSelection;
+    this._badgeKind = props.badgeKind;
 
     if (props.item) {
       this._actionItem = new CommandItemDef(props.item);
@@ -138,6 +149,11 @@ export class MenuItem extends ItemDefBase {
 
   public get actionItem(): ActionButtonItemDef | undefined {
     return this._actionItem;
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
+  public get badgeKind(): BadgeKind | undefined {
+    return this._badgeKind;
   }
 
   public iconRightSpec?: IconSpec;
@@ -188,6 +204,7 @@ export class MenuItemHelpers {
     const iconSpec = item.iconSpec;
     const iconRightSpec = item.iconRightSpec;
     const badgeType = item.badgeType;
+    const badgeKind = item.badgeKind;
     const isDisabled: boolean = ConditionalBooleanValue.getValue(
       item.isDisabled
     );
@@ -201,6 +218,7 @@ export class MenuItemHelpers {
           icon={iconSpec}
           iconRight={iconRightSpec}
           badgeType={badgeType}
+          badgeKind={badgeKind}
           disabled={isDisabled}
         >
           {label}
@@ -216,6 +234,7 @@ export class MenuItemHelpers {
             icon={iconSpec}
             label={label}
             badgeType={badgeType}
+            badgeKind={badgeKind}
             disabled={isDisabled}
           >
             {items}
