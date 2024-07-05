@@ -19,6 +19,7 @@ import {
 import { Badge, IconHelper, useRefState } from "@itwin/core-react";
 import type { ToolbarButtonItemProps } from "./Item";
 import { PopupItemPopup, ToolbarPopupContext } from "./PopupItem";
+import type { ActionButtonWithBadgeKind } from "./PopupItemsPanel";
 import { PopupItemsPanel } from "./PopupItemsPanel";
 import {
   ToolbarPanelAlignment,
@@ -84,9 +85,9 @@ function getActiveAction(item: GroupButton): ActionButton | undefined {
  */
 export function PopupItemWithDrag(props: PopupItemWithDragProps) {
   const [isPanelShown, setPanelShown] = React.useState(false);
-  const [activeAction, setActiveAction] = React.useState(
-    getActiveAction(props.groupItem)
-  );
+  const [activeAction, setActiveAction] = React.useState<
+    ActionButtonWithBadgeKind | undefined
+  >(getActiveAction(props.groupItem));
   const {
     expandsTo,
     overflowExpandsTo,
@@ -187,7 +188,7 @@ export function PopupItemWithDrag(props: PopupItemWithDragProps) {
         {props.badge && (
           <div className="components-badge">
             {activeAction ? (
-              <Badge type={activeAction.badgeType} />
+              <Badge type={activeAction.badgeKind || activeAction.badgeType} />
             ) : (
               props.badge
             )}

@@ -268,7 +268,7 @@ function GroupPopupItem({
       isDisabled={ConditionalBooleanValue.getValue(item.isDisabled)}
       title={title}
       panel={panel}
-      badge={<Badge type={item.badgeType} />}
+      badge={<Badge type={badgeKind || item.badgeType} />}
       hideIndicator={useDragInteraction}
       addGroupSeparator={addGroupSeparator}
     />
@@ -374,7 +374,7 @@ function getItemWrapperClass(child: React.ReactNode) {
 /**
  * Recursively looks through all items and groups and removes the hidden items
  * from the working object.
- * @param items List of object to analyse
+ * @param items List of object to analyze.
  * @returns Copy of the provided items, minus the hidden ones.
  */
 function filterHiddenItems<T extends CommonToolbarItem>(

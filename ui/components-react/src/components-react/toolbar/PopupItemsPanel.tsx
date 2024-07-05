@@ -14,6 +14,7 @@ import {
   ConditionalStringValue,
   ToolbarItemUtilities,
 } from "@itwin/appui-abstract";
+import type { BadgeKind } from "@itwin/core-react";
 import { Badge, IconHelper } from "@itwin/core-react";
 import { BackArrow } from "./groupPanel/BackArrow";
 import { GroupColumn } from "./groupPanel/Column";
@@ -32,8 +33,21 @@ function getNumItemsInColumn(numTotalItems: number): number {
   return Math.ceil(numTotalItems / 4);
 }
 
+/** Abstract group button type with new badge type. */
+interface GroupButtonWithBadgeKind extends GroupButton {
+  badgeKind?: BadgeKind;
+  items: ReadonlyArray<ActionButtonWithBadgeKind | GroupButtonWithBadgeKind>;
+}
+
+/** Abstract action button type with new badge type.
+ * @internal
+ */
+export interface ActionButtonWithBadgeKind extends ActionButton {
+  badgeKind?: BadgeKind;
+}
+
 interface PopupItemsPanelProps {
-  groupItem: GroupButton;
+  groupItem: GroupButtonWithBadgeKind;
   activateOnPointerUp?: boolean;
 }
 
@@ -53,20 +67,21 @@ export function PopupItemsPanel(props: PopupItemsPanelProps) {
 
   const columnToItems = React.useMemo(
     () =>
-      items.reduce<ReadonlyArray<ReadonlyArray<GroupButton | ActionButton>>>(
-        (acc, item, index) => {
-          const columnIndex = Math.floor(index / numItemsPerColumn);
-          if (columnIndex >= acc.length) {
-            return [...acc, [item]];
-          }
-          return [
-            ...acc.slice(0, columnIndex),
-            [...acc[columnIndex], item],
-            ...acc.slice(columnIndex + 1),
-          ];
-        },
-        []
-      ),
+      items.reduce<
+        ReadonlyArray<
+          ReadonlyArray<GroupButtonWithBadgeKind | ActionButtonWithBadgeKind>
+        >
+      >((acc, item, index) => {
+        const columnIndex = Math.floor(index / numItemsPerColumn);
+        if (columnIndex >= acc.length) {
+          return [...acc, [item]];
+        }
+        return [
+          ...acc.slice(0, columnIndex),
+          [...acc[columnIndex], item],
+          ...acc.slice(columnIndex + 1),
+        ];
+      }, []),
     [items, numItemsPerColumn]
   );
 
@@ -144,7 +159,9 @@ export function PopupItemsPanel(props: PopupItemsPanelProps) {
                   key={panelItem.id}
                   label={label}
                   icon={icon}
-                  badge={<Badge type={panelItem.badgeType} />}
+                  badge={
+                    <Badge type={panelItem.badgeKind || panelItem.badgeType} />
+                  }
                   item={panelItem}
                   onClick={handleGroupItemClick}
                 />
@@ -163,7 +180,9 @@ export function PopupItemsPanel(props: PopupItemsPanelProps) {
                 item={panelItem}
                 onClick={handleActionItemClick}
                 onPointerUp={handleOnPointerUp}
-                badge={<Badge type={panelItem.badgeType} />}
+                badge={
+                  <Badge type={panelItem.badgeKind || panelItem.badgeType} />
+                }
               />
             );
           })}
