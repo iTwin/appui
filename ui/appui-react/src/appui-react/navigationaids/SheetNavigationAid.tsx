@@ -195,7 +195,7 @@ export class SheetNavigationAid extends React.Component<
               styleType="borderless"
               onClick={this._handleOnClickLeftArrow}
               tabIndex={-1}
-              title={leftTitle}
+              label={leftTitle}
             >
               <SvgChevronLeft />
             </IconButton>
@@ -210,7 +210,7 @@ export class SheetNavigationAid extends React.Component<
               onClick={this._handleOnClickRightArrow}
               role="button"
               tabIndex={-1}
-              title={rightTitle}
+              label={rightTitle}
             >
               <SvgChevronRight />
             </IconButton>
