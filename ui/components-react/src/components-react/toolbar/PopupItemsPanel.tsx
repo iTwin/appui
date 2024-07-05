@@ -101,6 +101,7 @@ export function PopupItemsPanel(props: PopupItemsPanelProps) {
     }
   }, [groupArray]);
 
+  // eslint-disable-next-line deprecation/deprecation
   const { closePanel, setSelectedItem } = useToolbarPopupContext();
   const { onItemExecuted, onKeyDown } =
     useToolbarWithOverflowDirectionContext();

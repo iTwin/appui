@@ -17,17 +17,25 @@ import {
   useToolbarWithOverflowDirectionContext,
   useToolItemEntryContext,
 } from "./InternalToolbarComponent";
-import { toToolbarPopupRelativePosition } from "./PopupItemWithDrag";
+import {
+  PopupItemWithDrag,
+  toToolbarPopupRelativePosition,
+} from "./PopupItemWithDrag";
 
-/** @public */
+/* eslint-disable deprecation/deprecation */
+
+/**
+ * @public
+ * @deprecated in 4.16.0. Props of deprecated {@link ToolbarPopupContext} context.
+ */
 export interface ToolbarPopupContextProps {
   readonly closePanel: () => void;
   readonly setSelectedItem?: (buttonItem: ActionButton) => void;
 }
 
-/**
- * Context used by Toolbar items in popups to close the popup panel.
+/** Context used by Toolbar items in popups to close the popup panel.
  * @public
+ * @deprecated in 4.16.0. Used in deprecated {@link PopupItem} and {@link PopupItemWithDrag} components.
  */
 export const ToolbarPopupContext =
   React.createContext<ToolbarPopupContextProps>({
@@ -37,9 +45,9 @@ export const ToolbarPopupContext =
     setSelectedItem: (_buttonItem: ActionButton) => {},
   });
 
-/**
- * React hook used to retrieve the ToolbarPopupContext.
- *  @public
+/** React hook used to retrieve the ToolbarPopupContext.
+ * @public
+ * @deprecated in 4.16.0. Uses deprecated {@link ToolbarPopupContext} context.
  */
 export function useToolbarPopupContext() {
   return React.useContext(ToolbarPopupContext);
@@ -47,6 +55,7 @@ export function useToolbarPopupContext() {
 
 /** Properties of [[PopupItem]] component.
  * @public
+ * @deprecated in 4.16.0. Props of deprecated {@link PopupItem} component.
  */
 export interface PopupItemProps extends ToolbarButtonItemProps {
   /** Describes if expandable item triangle indicator should be hidden. */
@@ -58,8 +67,9 @@ export interface PopupItemProps extends ToolbarButtonItemProps {
   keepContentsMounted?: boolean;
 }
 
-/** Popup toolbar item that displays a panel
+/** Popup toolbar item that displays a panel.
  * @public
+ * @deprecated in 4.16.0. Used internally to construct toolbars.
  */
 export function PopupItem(props: PopupItemProps) {
   const [isPanelShown, setPanelShown] = React.useState(false);
@@ -139,7 +149,6 @@ export function PopupItem(props: PopupItemProps) {
   );
 }
 
-/** @internal */
 interface PopupItemPopupProps {
   children?: React.ReactNode;
   isOpen?: boolean;
@@ -158,7 +167,6 @@ export function PopupItemPopup(props: PopupItemPopupProps) {
   );
 
   return (
-    // eslint-disable-next-line deprecation/deprecation
     <Popup className={className} offset={0} showShadow={false} {...props} />
   );
 }

@@ -205,6 +205,7 @@ function CustomItem({
   );
 
   return (
+    // eslint-disable-next-line deprecation/deprecation
     <PopupItem
       key={item.id}
       itemId={item.id}
@@ -240,6 +241,7 @@ function GroupPopupItem({
     "providerId" in item ? (item.providerId as string) : undefined;
   if (useDragInteraction) {
     return (
+      // eslint-disable-next-line deprecation/deprecation
       <PopupItemWithDrag
         key={item.id}
         itemId={item.id}
@@ -257,6 +259,7 @@ function GroupPopupItem({
     );
   }
   return (
+    // eslint-disable-next-line deprecation/deprecation
     <PopupItem
       key={item.id}
       itemId={item.id}
