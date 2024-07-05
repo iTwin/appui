@@ -11,7 +11,7 @@ import type {
   ConditionalBooleanValue,
   ConditionalStringValue,
 } from "@itwin/appui-abstract";
-import type { BadgeType, IconSpec } from "@itwin/core-react";
+import type { BadgeKind, BadgeType, IconSpec } from "@itwin/core-react";
 
 /** Status bar Groups/Sections from Left to Right
  * @public
@@ -49,8 +49,12 @@ export enum StatusBarLabelSide {
 export interface CommonStatusBarItem {
   /** Required unique id of the item. To ensure uniqueness it is suggested that a namespace prefix of the extension name be used. */
   readonly id: string;
-  /** Describes badge. Renders no badge if not specified. */
+  /** Describes badge. Renders no badge if not specified.
+   * @deprecated in 4.16.0. Use `badgeKind` property instead.
+   */
   readonly badge?: BadgeType;
+  /** Specifies the kind of badge, if any, to be rendered. */
+  readonly badgeKind?: BadgeKind;
   /** Describes if the item is visible or hidden. The default is for the item to be visible. */
   readonly isHidden?: boolean | ConditionalBooleanValue;
   /** Describes if the item is enabled or disabled. The default is for the item to be enabled. */
