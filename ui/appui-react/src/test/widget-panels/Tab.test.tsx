@@ -6,7 +6,6 @@ import { render, screen } from "@testing-library/react";
 import * as React from "react";
 import {
   FrontstageDef,
-  getBadgeClassName,
   UiFramework,
   WidgetDef,
   WidgetPanelsTab,
@@ -70,18 +69,6 @@ describe("WidgetPanelsTab", () => {
     );
     expect(screen.getByRole("tab")).to.satisfy(
       selectorMatches(".uifw-badge-new")
-    );
-  });
-});
-
-describe("getBadgeClassName", () => {
-  it("should return class name for BadgeType.New", () => {
-    expect(getBadgeClassName(BadgeType.New)).toEqual("uifw-badge-new");
-  });
-
-  it("should return class name for BadgeType.TechnicalPreview", () => {
-    expect(getBadgeClassName(BadgeType.TechnicalPreview)).toEqual(
-      "uifw-badge-tp"
     );
   });
 });
