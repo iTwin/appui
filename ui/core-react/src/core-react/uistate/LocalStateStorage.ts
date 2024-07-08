@@ -9,12 +9,11 @@
 import type { UiStateStorage, UiStateStorageResult } from "./UiStateStorage";
 import { UiStateStorageStatus } from "./UiStateStorage";
 
-// All of the Settings APIs that are available in core-react should be fully deprecated. However, some of the usage and implementation
-// of it from AppUI will continue to be supported there.
+/* eslint-disable deprecation/deprecation */
 
-/**
- * Implementation of [[UiStateStorage]] using Window.localStorage.
+/** Implementation of [[UiStateStorage]] using Window.localStorage.
  * @public
+ * @deprecated in 4.16.0. Use {@link @itwin/appui-react#LocalStateStorage} instead.
  */
 export class LocalStateStorage implements UiStateStorage {
   constructor(public w: Window = window) {}

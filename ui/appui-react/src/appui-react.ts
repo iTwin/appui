@@ -233,6 +233,8 @@ export * from "./appui-react/uiadmin/FrameworkUiAdmin";
 export * from "./appui-react/uiprovider/DefaultDialogGridContainer";
 
 export * from "./appui-react/uistate/AppUiSettings";
+export * from "./appui-react/uistate/LocalStateStorage";
+export * from "./appui-react/uistate/UiStateStorage";
 export * from "./appui-react/uistate/useUiStateStorage";
 
 export * from "./appui-react/utils/ViewUtilities";
