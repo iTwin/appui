@@ -16,7 +16,6 @@ import type {
   FrameworkKeyboardShortcut,
   FrameworkKeyboardShortcutContainer,
 } from "../framework/FrameworkKeyboardShortcuts";
-import type { BadgeKind } from "@itwin/core-react";
 
 /* eslint-disable deprecation/deprecation */
 
@@ -69,7 +68,6 @@ export class KeyboardShortcut extends ItemDefBase {
   private _item?: ActionButtonItemDef;
   private _shortcuts: KeyboardShortcutContainer;
   private _execute?: () => void;
-  private _badgeKind?: BadgeKind;
 
   private _isAltKeyRequired: boolean = false;
   private _isCtrlKeyRequired: boolean = false;
@@ -86,7 +84,6 @@ export class KeyboardShortcut extends ItemDefBase {
     if (this._key in SpecialKey) this._isSpecialKey = true;
 
     this._shortcuts = new KeyboardShortcutContainer();
-    this._badgeKind = props.badgeKind;
 
     if (props.item) {
       this._item = props.item;
@@ -161,11 +158,6 @@ export class KeyboardShortcut extends ItemDefBase {
         else if (this._execute) this._execute();
       });
     }
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
-  public get badgeKind(): BadgeKind | undefined {
-    return this._badgeKind;
   }
 
   /** Gets the keyboard key */

@@ -11,7 +11,12 @@ import type {
   ConditionalStringValue,
   StringGetter,
 } from "@itwin/appui-abstract";
-import type { BadgeType, IconProps, IconSpec } from "@itwin/core-react";
+import type {
+  BadgeKind,
+  BadgeType,
+  IconProps,
+  IconSpec,
+} from "@itwin/core-react";
 import type { ToolbarActionItem } from "../toolbar/ToolbarItem";
 
 /* eslint-disable deprecation/deprecation */
@@ -31,8 +36,12 @@ export interface ItemProps extends IconProps {
   isPressed?: boolean;
   /** can be used by application to store miscellaneous data. */
   applicationData?: any;
-  /** Badge to be overlaid on the item. */
+  /** Badge to be overlaid on the item.
+   * @deprecated in 4.16.0. Use `badgeKind` property instead.
+   */
   badgeType?: BadgeType;
+  /** Specifies the kind of badge, if any, to be overlaid on the item. */
+  badgeKind?: BadgeKind;
   /** abstract icon definition, used when create itemDef from abstract item (ie. MenuItem) */
   icon?: IconSpec;
 

@@ -102,7 +102,6 @@ export class MenuItem extends ItemDefBase {
   private _submenu: MenuItem[];
   private _onSelection?: () => void;
   private _execute?: () => void;
-  private _badgeKind?: BadgeKind;
 
   /** onSelection is an optional parameter typically supplied to allow menu parent to close context menu when a menu item is selected. */
   constructor(props: CursorMenuItemProps, onSelection?: () => void) {
@@ -111,7 +110,6 @@ export class MenuItem extends ItemDefBase {
     this._id = props.id;
     this._submenu = new Array<MenuItem>();
     this._onSelection = onSelection;
-    this._badgeKind = props.badgeKind;
 
     if (props.item) {
       this._actionItem = new CommandItemDef(props.item);
@@ -149,11 +147,6 @@ export class MenuItem extends ItemDefBase {
 
   public get actionItem(): ActionButtonItemDef | undefined {
     return this._actionItem;
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
-  public get badgeKind(): BadgeKind | undefined {
-    return this._badgeKind;
   }
 
   public iconRightSpec?: IconSpec;
