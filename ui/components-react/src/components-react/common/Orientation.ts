@@ -6,12 +6,13 @@
  * @module Common
  */
 
-/**
- * Enumeration of orientation.
+import { Orientation as _Orientation } from "@itwin/core-react";
+
+/* eslint-disable deprecation/deprecation */
+
+/** Enumeration of orientation.
  * @public
- * @deprecated in 4.16.0. Use {@link @itwin/components-react#Orientation} instead.
  */
-export enum Orientation {
-  Horizontal,
-  Vertical,
-}
+export type Orientation = _Orientation;
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const Orientation = _Orientation;
