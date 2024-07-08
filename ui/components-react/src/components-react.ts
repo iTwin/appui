@@ -6,7 +6,6 @@
 // cSpell:ignore iconpicker lineweight hocs datepicker quantityformat
 
 export { UiComponents } from "./components-react/UiComponents";
-export * from "./components-react/useTranslation";
 
 export * from "./components-react/common/selection/SelectionHandler";
 export * from "./components-react/common/selection/SelectionModes";
@@ -65,6 +64,9 @@ export * from "./components-react/filtering/FilteringInput";
 export * from "./components-react/filtering/ResultSelector";
 
 export * from "./components-react/inputs/ParsedInput";
+
+export * from "./components-react/l10n/LocalizationProvider";
+export * from "./components-react/l10n/useTranslation";
 
 export * from "./components-react/properties/LinkHandler";
 export * from "./components-react/properties/ValueRendererManager";

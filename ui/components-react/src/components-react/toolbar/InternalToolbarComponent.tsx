@@ -40,7 +40,7 @@ import {
 import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
 import type { BeEvent } from "@itwin/core-bentley";
 import { useConditionalSynchedItems } from "./useConditionalSynchedItems";
-import { useTranslation } from "../useTranslation";
+import { useTranslation } from "../l10n/useTranslation";
 
 /** Describes the data needed to insert a custom `React` button into an ToolbarWithOverflow.
  * @public

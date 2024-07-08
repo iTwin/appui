@@ -17,7 +17,7 @@ import { DateField } from "./DateField";
 import type { TimeSpec } from "./TimeField";
 import { TimeField } from "./TimeField";
 import "./DatePickerPopupButton.scss";
-import { useTranslation } from "../useTranslation";
+import { useTranslation } from "../l10n/useTranslation";
 
 /** Props used by [[DatePickerPopupButton]] component.
  * @alpha
