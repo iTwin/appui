@@ -6,15 +6,12 @@
  * @module Common
  */
 
+import { TimeFormat as _TimeFormat } from "@itwin/core-react";
+
 /** Enumeration of time formats.
  * @public
- * @deprecated in 4.16.0. Use {@link @itwin/components-react#TimeFormat} instead.
  */
-export enum TimeFormat {
-  /** Show Date and time using toISOString */
-  None = 0,
-  /** Show Date using toLocaleDateString */
-  Short,
-  /** Show Date Time using toLocaleString */
-  Long,
-}
+// eslint-disable-next-line deprecation/deprecation
+export type TimeFormat = _TimeFormat;
+// eslint-disable-next-line @typescript-eslint/no-redeclare, deprecation/deprecation
+export const TimeFormat = _TimeFormat;

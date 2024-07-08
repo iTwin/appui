@@ -19,6 +19,7 @@ export * from "./components-react/common/IImageLoader";
 export * from "./components-react/common/Links";
 export * from "./components-react/common/Orientation";
 export * from "./components-react/common/PageOptions";
+export * from "./components-react/common/TimeFormat";
 export * from "./components-react/common/UseAsyncValue";
 export * from "./components-react/common/UseDebouncedAsyncValue";
 
