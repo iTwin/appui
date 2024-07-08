@@ -622,12 +622,21 @@ describe("ContextMenu", () => {
       ).toBeTruthy();
     });
 
-    it("renders badge correctly", () => {
+    it("renders badge correctly using badgeType (old)", () => {
       const component = render(
         <ContextMenuItem badgeType={BadgeType.New}>Test</ContextMenuItem>
       );
       expect(
         component.container.querySelector(".core-badge-newBadge")
+      ).toBeTruthy();
+    });
+
+    it("renders badge correctly using badgeKind (new)", () => {
+      const component = render(
+        <ContextMenuItem badgeKind={"deprecated"}>Test</ContextMenuItem>
+      );
+      expect(
+        component.container.querySelector(".core-badge-deprecatedBadge")
       ).toBeTruthy();
     });
 
@@ -702,6 +711,7 @@ describe("ContextMenu", () => {
       );
       expect(component.getByText("test")).to.exist;
     });
+
     it("renders disabled correctly", () => {
       const component = render(
         <ContextMenu opened={true}>
@@ -719,6 +729,7 @@ describe("ContextMenu", () => {
         )
       ).toBeTruthy();
     });
+
     it("renders disabled by condition correctly", () => {
       const isDisabled = new ConditionalBooleanValue(
         () => true,
@@ -740,6 +751,7 @@ describe("ContextMenu", () => {
         )
       ).toBeTruthy();
     });
+
     it("renders hidden correctly", () => {
       const component = render(
         <ContextMenu opened={true}>
@@ -757,6 +769,7 @@ describe("ContextMenu", () => {
         )
       ).toBeTruthy();
     });
+
     it("renders hidden by condition correctly", () => {
       const isHidden = new ConditionalBooleanValue(
         () => true,
@@ -778,7 +791,8 @@ describe("ContextMenu", () => {
         )
       ).toBeTruthy();
     });
-    it("renders badge correctly", () => {
+
+    it("renders badge correctly using badgeType (old)", () => {
       const component = render(
         <ContextMenu opened={true}>
           <ContextSubMenu label="test" badgeType={BadgeType.TechnicalPreview}>
@@ -790,6 +804,20 @@ describe("ContextMenu", () => {
         component.container.querySelector(".core-badge-technicalPreviewBadge")
       ).toBeTruthy();
     });
+
+    it("renders badge correctly using badgeKind (new)", () => {
+      const component = render(
+        <ContextMenu opened={true}>
+          <ContextSubMenu label="test" badgeKind={"technical-preview"}>
+            <ContextMenuItem> Test </ContextMenuItem>
+          </ContextSubMenu>
+        </ContextMenu>
+      );
+      expect(
+        component.container.querySelector(".core-badge-technicalPreviewBadge")
+      ).toBeTruthy();
+    });
+
     it("onHover handled correctly", async () => {
       const handleHover = vi.fn();
       const component = render(
@@ -801,6 +829,7 @@ describe("ContextMenu", () => {
       await theUserTo.hover(item);
       expect(handleHover).toHaveBeenCalledOnce();
     });
+
     it("onHover handled internally when in ContextMenu", async () => {
       const handleHover = vi.fn();
       const component = render(
@@ -814,6 +843,7 @@ describe("ContextMenu", () => {
       await theUserTo.hover(item);
       expect(handleHover).not.toBeCalled();
     });
+
     it("onClick handled correctly", async () => {
       const handleClick = vi.fn();
       const component = render(
@@ -827,6 +857,7 @@ describe("ContextMenu", () => {
       await theUserTo.click(item);
       expect(handleClick).toHaveBeenCalledOnce();
     });
+
     it("onFocus handled correctly", () => {
       const component = render(
         <ContextMenu opened={true}>
@@ -839,6 +870,7 @@ describe("ContextMenu", () => {
       item.focus();
       expect(document.activeElement).toEqual(item);
     });
+
     it("should support changing direction (COVERAGE ONLY)", () => {
       // THIS TEST IS ONLY ADDING COVERAGE, AS STATED ABOVE, THE DIRECTION DO NOT CHANGE HERE!
       const { rerender } = render(
@@ -863,6 +895,7 @@ describe("ContextMenu", () => {
         "core-context-menu-right"
       );
     });
+
     it("handles label change correctly", () => {
       const component = render(
         <ContextSubMenu label="Test ~A">

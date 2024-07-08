@@ -279,6 +279,7 @@ describe("UiItemsManager", () => {
             execute2,
             {
               icon: <div className="s2-icon" />,
+              badgeKind: "new",
             }
           ),
         ],
@@ -334,6 +335,7 @@ describe("UiItemsManager", () => {
             id: "s2",
             section: StatusBarSection.Center,
             execute: execute2,
+            badgeKind: "new",
             icon: expect.objectContaining({
               props: {
                 className: "s2-icon",
@@ -391,6 +393,7 @@ describe("UiItemsManager", () => {
             id: "s2",
             section: StatusBarSection.Center,
             execute: execute2,
+            badgeType: abstract.BadgeType.New,
           })
         );
         expect(
@@ -442,7 +445,15 @@ describe("UiItemsManager", () => {
               badge: abstract.BadgeType.New,
             }
           ),
-          BackstageItemUtilities.createStageLauncher("b2", 0, 0, "b2-label"),
+          BackstageItemUtilities.createStageLauncher(
+            "b2",
+            0,
+            0,
+            "b2-label",
+            undefined,
+            undefined,
+            { badgeKind: "technical-preview" }
+          ),
         ],
       });
       AbstractUiItemsManager.register({
@@ -494,6 +505,7 @@ describe("UiItemsManager", () => {
           expect.objectContaining({
             id: "b2",
             stageId: "b2",
+            badgeKind: "technical-preview",
           })
         );
         expect(items[2]).toEqual(
@@ -531,6 +543,7 @@ describe("UiItemsManager", () => {
           expect.objectContaining({
             id: "b2",
             stageId: "b2",
+            badgeType: abstract.BadgeType.TechnicalPreview,
           })
         );
         expect(items[2]).toEqual(
@@ -691,6 +704,7 @@ describe("UiItemsManager", () => {
             },
             icon: <div className="w1-icon" />,
             content: <div className="w1-content" />,
+            badgeKind: "deprecated",
           },
         ],
       });
@@ -737,6 +751,7 @@ describe("UiItemsManager", () => {
                 className: "w1-icon",
               },
             }),
+            badgeKind: "deprecated",
           })
         );
         expect(widgets[1]).toEqual(
