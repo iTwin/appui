@@ -9,8 +9,11 @@
 import type { UiStateStorage, UiStateStorageResult } from "./UiStateStorage";
 import { UiStateStorageStatus } from "./UiStateStorage";
 
+/* eslint-disable deprecation/deprecation */
+
 /** A single UI State entry that is identified by namespace and setting name.
  * @public
+ * @deprecated in 4.16.0. Use {@link UiStateStorage} APIs instead.
  */
 export class UiStateEntry<T> {
   /** Constructor
