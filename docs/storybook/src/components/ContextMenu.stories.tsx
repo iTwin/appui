@@ -3,7 +3,11 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import type { Meta, StoryObj } from "@storybook/react";
-import { ContextMenuItem, ContextSubMenu } from "@itwin/core-react";
+import {
+  ContextMenuDivider,
+  ContextMenuItem,
+  ContextSubMenu,
+} from "@itwin/core-react";
 import { ContextMenu } from "@itwin/core-react/src/core-react/contextmenu/ContextMenu";
 import { AppUiDecorator } from "../Decorators";
 import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
@@ -51,6 +55,19 @@ export const WithIcons: Story = {
           <ContextMenuItem icon="icon-placeholder">Test 2.1</ContextMenuItem>
           <ContextSubMenu icon="icon-placeholder" label="Test 2.2" id="2.2" />
         </ContextSubMenu>
+      </ContextMenu>
+    );
+  },
+};
+
+export const WithDivider: Story = {
+  render: (props) => {
+    return (
+      <ContextMenu {...props}>
+        <ContextMenuItem icon={<SvgPlaceholder />}>Test 1.1</ContextMenuItem>
+        <ContextMenuItem icon={<SvgPlaceholder />}>Test 1.2</ContextMenuItem>
+        <ContextMenuDivider />
+        <ContextMenuItem icon={<SvgPlaceholder />}>Test 1.3</ContextMenuItem>
       </ContextMenu>
     );
   },

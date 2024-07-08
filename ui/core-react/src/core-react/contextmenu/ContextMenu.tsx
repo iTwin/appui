@@ -19,10 +19,12 @@ import { ContextMenuItem } from "./ContextMenuItem";
 import type { ContextSubMenuProps } from "./ContextSubMenu";
 import { ContextSubMenu } from "./ContextSubMenu";
 
+/* eslint-disable deprecation/deprecation */
+
 /** Properties for the [[ContextMenu]] component
  * @public
+ * @deprecated in 4.16.0. Props of a deprecated component {@link ContextMenu}.
  */
-// eslint-disable-next-line deprecation/deprecation
 export interface ContextMenuProps extends CommonProps {
   /** Whether ContextMenu is currently opened. */
   opened: boolean;
@@ -54,17 +56,16 @@ export interface ContextMenuProps extends CommonProps {
   children?: React.ReactNode;
 }
 
-/** @internal */
 interface ContextMenuState {
   selectedIndex: number;
   direction: ContextMenuDirection;
   ignoreNextKeyUp: boolean;
 }
 
-/**
- * A context menu populated with [[ContextMenuItem]] components.
+/** A context menu populated with [[ContextMenuItem]] components.
  * Can be nested using [[ContextSubMenu]] component.
  * @public
+ * @deprecated in 4.16.0. Use {@link @itwin/components-react#ContextMenu} component instead.
  */
 export class ContextMenu extends React.PureComponent<
   ContextMenuProps,
@@ -222,7 +223,6 @@ export class ContextMenu extends React.PureComponent<
         {...props}
         ref={this._rootRef}
       >
-        {/* eslint-disable-next-line deprecation/deprecation */}
         <DivWithOutsideClick onOutsideClick={this._handleOnOutsideClick}>
           <div
             ref={this._menuRef}
