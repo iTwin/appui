@@ -12,7 +12,7 @@ import { Key } from "ts-key-enum";
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
 import type { CommonProps } from "../utils/Props";
 import type { ContextMenu } from "./ContextMenu";
-import type { BadgeKind, BadgeType } from "../badge/BadgeType";
+import type { BadgeType } from "../badge/BadgeType";
 import { TildeFinder } from "./TildeFinder";
 import type { IconSpec } from "../icons/IconComponent";
 import { Icon } from "../icons/IconComponent";
@@ -40,7 +40,7 @@ export interface ContextMenuItemProps
   // eslint-disable-next-line deprecation/deprecation
   badgeType?: BadgeType;
   /** Specifies the kind of badge, if any, to be overlaid on the item. */
-  badgeKind?: BadgeKind;
+  badgeKind?: "technical-preview" | "new" | "deprecated" | (string & {});
   /** Icon to display in the right margin. */
   iconRight?: IconSpec;
   /** Hide the icon container. This can be used to eliminate space used to display an icon at the left of the menu item. */
