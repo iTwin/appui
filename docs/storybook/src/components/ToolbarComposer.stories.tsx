@@ -21,6 +21,7 @@ import {
   Svg2D,
   Svg3D,
   SvgActivity,
+  SvgAdd,
   SvgAirplane,
   SvgAndroid,
   SvgClipboard,
@@ -96,12 +97,17 @@ export const Badge: Story = {
         description: "New badge",
         badge: BadgeType.New,
         items: items.group2.items.map((item, index) => {
-          const badges = [BadgeType.New, BadgeType.TechnicalPreview];
+          const badges = [
+            BadgeType.New,
+            BadgeType.TechnicalPreview,
+            "deprecated",
+          ];
           const badgeIndex = index % badges.length;
           const badge = badges[badgeIndex];
           return {
             ...item,
-            badge,
+            badge: typeof badge === "string" ? undefined : badge,
+            badgeKind: typeof badge === "string" ? badge : undefined,
           };
         }),
       },
@@ -112,6 +118,21 @@ export const Badge: Story = {
       },
       {
         ...items.action3,
+        description: "Deprecated badge",
+        badgeKind: "deprecated",
+      },
+      {
+        ...items.group3,
+        description: "Deprecated badge",
+        badgeKind: "deprecated",
+      },
+      {
+        ...items.custom3,
+        description: "Deprecated badge",
+        badgeKind: "deprecated",
+      },
+      {
+        ...items.action4,
         description: "No badge",
         badge: BadgeType.None,
       },
@@ -302,6 +323,13 @@ function createItems() {
     "Item 3",
     action("Item 3")
   );
+  const action4 = ToolbarItemUtilities.createActionItem(
+    "item4",
+    100,
+    <SvgAdd />,
+    "Item 4",
+    action("Item 4")
+  );
 
   const group1 = ToolbarItemUtilities.createGroupItem(
     "group1",
@@ -375,6 +403,7 @@ function createItems() {
     action1,
     action2,
     action3,
+    action4,
     /** Group item. */
     group1,
     /** Group item with nested groups. */
