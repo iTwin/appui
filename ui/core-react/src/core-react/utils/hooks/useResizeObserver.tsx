@@ -10,6 +10,8 @@ import { getResizeObserver } from "./ResizeObserverPolyfill";
 import { useRefEffect } from "./useRefEffect";
 import { useRefs } from "./useRefs";
 
+/* eslint-disable deprecation/deprecation */
+
 /** Uses ResizeObserver API to notify about element bound changes.
  * @internal
  */
@@ -244,7 +246,8 @@ export function useLayoutResizeObserver(
 }
 
 /** Prop the ElementResizeObserver sends to the render function.
- *  @public
+ * @public
+ * @deprecated in 4.16.0. Interface used in a deprecated component {@link ElementResizeObserver}.
  */
 export interface RenderPropsArgs {
   width?: number;
@@ -253,7 +256,7 @@ export interface RenderPropsArgs {
 
 /** ElementResizeObserver provides functionality similar to ReactResizeDetector when a render function is specified. This implementation properly handles
  * observing element in pop-out/child windows.
- *  @public
+ * @public
  * @deprecated in 4.15.0. Used internally.
  */
 export function ElementResizeObserver({

@@ -20,7 +20,7 @@ type CheckboxProps = React.ComponentPropsWithoutRef<typeof Checkbox>;
 
 /** Props for node Checkbox renderer
  * @public
- * @deprecated in 4.16.0. Use `React.ComponentProps` helper instead, since this type will be inlined in component props.
+ * @deprecated in 4.16.0. Type is inlined in component props. Use `React.ComponentProps` type helper instead.
  */
 export type NodeCheckboxRenderProps = Omit<
   CheckboxProps,
@@ -32,7 +32,7 @@ export type NodeCheckboxRenderProps = Omit<
 
 /** Type for node Checkbox renderer
  * @public
- * @deprecated in 4.16.0. Use `React.ComponentProps` helper instead, since this type will be inlined in component props.
+ * @deprecated in 4.16.0. Type is inlined in component props. Use `React.ComponentProps` type helper instead.
  */
 export type NodeCheckboxRenderer = (
   props: NodeCheckboxRenderProps
