@@ -7,6 +7,8 @@ import * as React from "react";
 import { UiCore } from "../UiCore";
 import { usePackageTranslation } from "./usePackageTranslation";
 
+/* eslint-disable deprecation/deprecation */
+
 /** Returns a translation function to localize package components.
  * @internal
  */
@@ -16,7 +18,6 @@ export function useTranslation() {
       return undefined;
     }
 
-    // eslint-disable-next-line deprecation/deprecation
     return UiCore.translate(key);
   }, []);
   return usePackageTranslation({

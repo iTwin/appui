@@ -12,6 +12,8 @@ import type { SizeProps } from "./Size";
 import { Size } from "./Size";
 import { UiGeometry } from "./UiGeometry";
 
+/* eslint-disable deprecation/deprecation */
+
 /** Describes 2d bounds.
  * @public
  * @deprecated in 4.16.0. Use {@link @itwin/appui-react#RectangleProps} instead.
