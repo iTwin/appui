@@ -8,6 +8,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { AppUiDecorator } from "../Decorators";
 import { Page } from "../AppUiStory";
 import { KeyboardShortcutsStory } from "./KeyboardShortcuts";
+import { BadgeType } from "@itwin/core-react";
 
 const meta = {
   title: "KeyboardShortcuts",
@@ -114,6 +115,29 @@ export const KeyModifiers: Story = {
             UiFramework.keyboardShortcuts.displayMenu();
           },
         }),
+      },
+    ],
+  },
+};
+
+export const Badge: Story = {
+  args: {
+    shortcutList: [
+      {
+        key: "x",
+        label: "Log to console",
+        iconSpec: "icon-placeholder",
+        execute: action("x"),
+        badgeType: BadgeType.TechnicalPreview,
+      },
+      {
+        key: "m",
+        label: "Show shortcuts",
+        iconSpec: "icon-placeholder",
+        execute: () => {
+          UiFramework.keyboardShortcuts.displayMenu();
+        },
+        badgeKind: "deprecated",
       },
     ],
   },
