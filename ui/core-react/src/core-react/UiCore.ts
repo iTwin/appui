@@ -16,8 +16,11 @@ import { Logger } from "@itwin/core-bentley";
 import type { Localization } from "@itwin/core-common";
 import { getObjectClassName } from "./utils/getObjectClassName";
 
+/* eslint-disable deprecation/deprecation */
+
 /** Manages the Localization service for the core-react package.
  * @public
+ * @deprecated in 4.16.0. `@itwin/core-react` package is deprecated, see used modules for suggested replacements.
  */
 export class UiCore {
   private static _initialized = false;
