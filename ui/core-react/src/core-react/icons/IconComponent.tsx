@@ -14,6 +14,8 @@ import type { CommonProps } from "../utils/Props";
 import DOMPurify, * as DOMPurifyNS from "dompurify";
 import { ConditionalIconItem } from "./ConditionalIconItem";
 
+/* eslint-disable deprecation/deprecation */
+
 /** Prototype for an IconSpec which can be a string, ReactNode or ConditionalStringValue.
  * Strings are expected to be one of the following:
  *  - Created by `IconSpecUtilities.createWebComponentIconSpec` in appui-abstract (deprecated).
@@ -21,18 +23,18 @@ import { ConditionalIconItem } from "./ConditionalIconItem";
  *  - A dataURI with MimeTypes `image/svg+xml` (ensure valid dataURI encoding) or `image/svg+xml;base64`;
  *  - Anything else will be treated as a class name and be directly added to the `class` attribute.
  * @public
+ * @deprecated in 4.16.0. Use `React.ReactNode` instead.
  */
 export type IconSpec =
   | string
   | ConditionalStringValue
   | React.ReactNode
-  // eslint-disable-next-line deprecation/deprecation
   | ConditionalIconItem;
 
 /** Properties for the [[Icon]] React component
  * @public
+ * @deprecated in 4.16.0. Props of a deprecated component {@link Icon}.
  */
-// eslint-disable-next-line deprecation/deprecation
 export interface IconProps extends CommonProps {
   /** CSS class name or SvgPath for icon. This is optional because it is improperly
    * used to extend other interfaces and changing it would break existing API.
@@ -51,6 +53,7 @@ function getWebComponentSource(iconSpec: string): string | undefined {
 
 /** Icon Functional component displays an icon based on an [[IconSpec]].
  * @public
+ * @deprecated in 4.16.0. Used to render a deprecated {@link IconSpec} type. Use {@link https://itwinui.bentley.com/ iTwinUI Icon} instead.
  */
 export function Icon(props: IconProps) {
   if (!props.iconSpec) return null;
@@ -116,13 +119,10 @@ export function Icon(props: IconProps) {
 
 function getIconSpecValue(
   iconSpec: IconSpec
-  // eslint-disable-next-line deprecation/deprecation
 ): Exclude<IconSpec, ConditionalIconItem | ConditionalStringValue> {
   let value = iconSpec;
   while (true) {
-    // eslint-disable-next-line deprecation/deprecation
     if (ConditionalIconItem.isConditionalIconItem(value)) {
-      // eslint-disable-next-line deprecation/deprecation
       value = ConditionalIconItem.getValue(value);
       continue;
     }
