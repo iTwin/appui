@@ -35,8 +35,13 @@ export interface AccuDrawInputFieldProps extends CommonProps {
   isLocked?: boolean;
   /** label for the input element */
   label?: string;
-  /** icon for the input element */
+  /** Icon for the input element.
+   * @deprecated in 4.16.0. Use `icon` instead.
+   */
+  // eslint-disable-next-line deprecation/deprecation
   iconSpec?: IconSpec;
+  /** Icon for the input element */
+  icon?: React.ReactNode;
   /** Custom CSS class name for the label */
   labelClassName?: string;
   /** Custom CSS Style for the label */
@@ -64,7 +69,9 @@ const ForwardRefAccuDrawInput = React.forwardRef<
     style,
     id,
     label,
+    // eslint-disable-next-line deprecation/deprecation
     iconSpec,
+    icon,
     labelClassName,
     labelStyle,
     labelCentered,
@@ -192,7 +199,8 @@ const ForwardRefAccuDrawInput = React.forwardRef<
     <>
       <label htmlFor={id} className={labelClassNames} style={labelStyle}>
         {label}
-        {iconSpec && <Icon iconSpec={iconSpec} />}
+        {/* eslint-disable-next-line deprecation/deprecation */}
+        {icon ? icon : iconSpec && <Icon iconSpec={iconSpec} />}
       </label>
       <Input
         {...inputProps}
@@ -206,9 +214,7 @@ const ForwardRefAccuDrawInput = React.forwardRef<
         onKeyDown={handleKeyDown}
         size="small"
       />
-      <span className="uifw-accudraw-lock">
-        {isLocked && <Icon iconSpec={<SvgLock />} />}
-      </span>
+      <span className="uifw-accudraw-lock">{isLocked && <SvgLock />}</span>
     </>
   );
 });

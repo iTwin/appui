@@ -14,6 +14,7 @@ import {
 import {
   AppNotificationManager,
   ConfigurableUiContent,
+  FrameworkAccuDraw,
   FrameworkToolAdmin,
   Frontstage,
   ThemeManager,
@@ -58,6 +59,7 @@ export function AppUiStory(props: AppUiStoryProps) {
 
     const startup = async () => {
       await IModelApp.startup({
+        accuDraw: new FrameworkAccuDraw(),
         toolAdmin: new FrameworkToolAdmin(),
         hubAccess: new FrontendIModelsAccess(
           new IModelsClient({
