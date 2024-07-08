@@ -242,6 +242,7 @@ export * from "./appui-react/uistate/useUiStateStorage";
 
 export * from "./appui-react/utils/PropsHelper";
 export * from "./appui-react/utils/RectangleProps";
+export * from "./appui-react/utils/SizeProps";
 export * from "./appui-react/utils/ToolbarButtonHelper";
 export * from "./appui-react/utils/ViewUtilities";
 
