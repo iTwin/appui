@@ -18,23 +18,20 @@ export function StoryWidget({ id }: { id: string }) {
   return <>Widget {id} content </>;
 }
 
-function createProvider(props: Widget): UiItemsProvider {
+function createProvider(widgets: Widget[]): UiItemsProvider {
   return {
     id: "widgets",
-    provideWidgets: () => {
-      const widget2: Widget = {
-        id: "w2",
-        label: "Widget 2",
-        content: <StoryWidget id="w2" />,
-      };
-      return [props, widget2];
-    },
+    provideWidgets: () => widgets,
   };
 }
 
+interface WidgetStoryProps {
+  widgets: Widget[];
+}
+
 /** [Widget](https://www.itwinjs.org/reference/appui-react/widget/widget) interface allows you to configure the widget. */
-export function WidgetStory(props: Widget) {
-  const provider = createProvider(props);
+export function WidgetStory(props: WidgetStoryProps) {
+  const provider = createProvider(props.widgets);
   return (
     <AppUiStory
       frontstages={[
