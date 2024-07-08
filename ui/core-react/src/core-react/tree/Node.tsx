@@ -14,10 +14,13 @@ import { CheckBoxState } from "../enums/CheckBoxState";
 import type { CommonProps } from "../utils/Props";
 import { ExpansionToggle } from "./ExpansionToggle";
 
+/* eslint-disable deprecation/deprecation */
+
 type CheckboxProps = React.ComponentPropsWithoutRef<typeof Checkbox>;
 
 /** Props for node Checkbox renderer
  * @public
+ * @deprecated in 4.16.0. Use `React.ComponentProps` helper instead, since this type will be inlined in component props.
  */
 export type NodeCheckboxRenderProps = Omit<
   CheckboxProps,
@@ -29,6 +32,7 @@ export type NodeCheckboxRenderProps = Omit<
 
 /** Type for node Checkbox renderer
  * @public
+ * @deprecated in 4.16.0. Use `React.ComponentProps` helper instead, since this type will be inlined in component props.
  */
 export type NodeCheckboxRenderer = (
   props: NodeCheckboxRenderProps
@@ -47,10 +51,8 @@ const EXPANSION_TOGGLE_WIDTH = 24;
  */
 export interface NodeCheckboxProps {
   /** State of the checkbox */
-  // eslint-disable-next-line deprecation/deprecation
   state?: CheckBoxState;
   /** Click event callback */
-  // eslint-disable-next-line deprecation/deprecation
   onClick?: (newState: CheckBoxState) => void;
   /** Indicates whether checkbox is disabled */
   isDisabled?: boolean;
@@ -62,12 +64,10 @@ export interface NodeCheckboxProps {
  * @public
  * @deprecated in 4.15.0. Props of deprecated {@link TreeNode} component.
  */
-// eslint-disable-next-line deprecation/deprecation
 export interface TreeNodeProps extends CommonProps {
   label: React.ReactNode;
   level: number;
   icon?: React.ReactElement | string | number;
-  // eslint-disable-next-line deprecation/deprecation
   checkboxProps?: NodeCheckboxProps;
   isLeaf?: boolean;
   isLoading?: boolean;
@@ -95,9 +95,7 @@ export interface TreeNodeProps extends CommonProps {
  * @public
  * @deprecated in 4.15.0. Use {@link https://itwinui.bentley.com/docs/tree iTwinUI Tree} instead.
  */
-// eslint-disable-next-line deprecation/deprecation
 export class TreeNode extends React.Component<TreeNodeProps> {
-  // eslint-disable-next-line deprecation/deprecation
   constructor(props: TreeNodeProps) {
     super(props);
   }
@@ -118,9 +116,7 @@ export class TreeNode extends React.Component<TreeNodeProps> {
     if (this.props.checkboxProps) {
       const props: NodeCheckboxRenderProps = {
         label: "",
-        // eslint-disable-next-line deprecation/deprecation
         checked: this.props.checkboxProps.state === CheckBoxState.On,
-        // eslint-disable-next-line deprecation/deprecation
         indeterminate: this.props.checkboxProps.state === CheckBoxState.Partial,
         disabled: this.props.checkboxProps.isDisabled,
         title: this.props.checkboxProps.tooltip,
@@ -152,7 +148,6 @@ export class TreeNode extends React.Component<TreeNodeProps> {
     const toggle = this.props.isLoading ? undefined : this.props.isLeaf ? (
       <div />
     ) : (
-      // eslint-disable-next-line deprecation/deprecation
       <ExpansionToggle
         className="expansion-toggle"
         data-testid={this.createSubComponentTestId("expansion-toggle")}
@@ -210,7 +205,6 @@ export class TreeNode extends React.Component<TreeNodeProps> {
       !this.props.checkboxProps.isDisabled
     )
       this.props.checkboxProps.onClick(
-        // eslint-disable-next-line deprecation/deprecation
         checked ? CheckBoxState.On : CheckBoxState.Off
       );
   };

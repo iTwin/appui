@@ -7,12 +7,9 @@
  */
 
 import * as React from "react";
-import type {
-  CommonProps,
-  NodeCheckboxProps,
-  NodeCheckboxRenderer,
-} from "@itwin/core-react";
+import type { CommonProps, NodeCheckboxProps } from "@itwin/core-react";
 import { TreeNode } from "@itwin/core-react";
+import type { Checkbox } from "@itwin/itwinui-react";
 import { ImageRenderer } from "../../../common/ImageRenderer";
 import type { HighlightableTreeNodeProps } from "../../HighlightingEngine";
 import type { ITreeImageLoader } from "../../ImageLoader";
@@ -21,6 +18,13 @@ import type { TreeActions } from "../TreeActions";
 import type { CheckBoxInfo, TreeModelNode } from "../TreeModel";
 import { TreeNodeContent } from "./NodeContent";
 import type { TreeNodeEditorRenderer } from "./TreeNodeEditor";
+
+type CheckboxProps = React.ComponentPropsWithoutRef<typeof Checkbox>;
+
+type CheckboxRendererProps = Omit<CheckboxProps, "onChange" | "onClick"> & {
+  onChange: (checked: boolean) => void;
+  onClick: (e: React.MouseEvent) => void;
+};
 
 /**
  * Properties for [[TreeNodeRenderer]].
@@ -44,7 +48,7 @@ export interface TreeNodeRendererProps extends CommonProps {
   imageLoader?: ITreeImageLoader;
 
   /** Callback to render custom checkbox. */
-  checkboxRenderer?: NodeCheckboxRenderer;
+  checkboxRenderer?: (props: CheckboxRendererProps) => React.ReactNode;
 
   /** Callback to render custom node editor when node is in editing mode. */
   nodeEditorRenderer?: TreeNodeEditorRenderer;
