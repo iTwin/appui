@@ -23,7 +23,7 @@ import { ContextSubMenu } from "./ContextSubMenu";
 
 /** Properties for the [[ContextMenu]] component
  * @public
- * @deprecated in 4.16.0. Props of a deprecated component {@link ContextMenu}.
+ * @deprecated in 4.16.0. Props of deprecated {@link ContextMenu} component.
  */
 export interface ContextMenuProps extends CommonProps {
   /** Whether ContextMenu is currently opened. */

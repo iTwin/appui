@@ -17,7 +17,7 @@ import { ContextMenuDirection } from "./ContextMenuDirection";
 
 /** Properties for [[PopupContextMenu]] component
  * @public
- * @deprecated in 4.16.0. Props of a deprecated component {@link PopupContextMenu}.
+ * @deprecated in 4.16.0. Props of deprecated {@link PopupContextMenu} component.
  */
 export interface PopupContextMenuProps extends CommonProps {
   /** Indicates whether the popup is shown or not (defaults to false) */

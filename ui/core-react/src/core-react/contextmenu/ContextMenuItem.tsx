@@ -22,7 +22,7 @@ import { Badge } from "../badge/Badge";
 
 /** Properties for the [[ContextMenuItem]] component
  * @public
- * @deprecated in 4.16.0. Props of a deprecated {@link ContextMenuItem} component.
+ * @deprecated in 4.16.0. Props of deprecated {@link ContextMenuItem} component.
  */
 export interface ContextMenuItemProps
   extends Omit<React.AllHTMLAttributes<HTMLDivElement>, "disabled" | "hidden">,

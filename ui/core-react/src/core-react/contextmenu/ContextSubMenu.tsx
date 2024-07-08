@@ -23,7 +23,7 @@ import { Badge } from "../badge/Badge";
 
 /** Properties for the [[ContextSubMenu]] component
  * @public
- * @deprecated in 4.16.0. Props of a deprecated {@link ContextSubMenu} component.
+ * @deprecated in 4.16.0. Props of deprecated {@link ContextSubMenu} component.
  */
 export interface ContextSubMenuProps
   extends Omit<ContextMenuItemProps, "label">,

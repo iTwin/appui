@@ -15,7 +15,7 @@ import { ContextMenu } from "./ContextMenu";
 
 /** Properties for the [[GlobalContextMenu]] component
  * @public
- * @deprecated in 4.16.0. Props of a deprecated component {@link GlobalContextMenu}.
+ * @deprecated in 4.16.0. Props of deprecated {@link GlobalContextMenu} component.
  */
 export interface GlobalContextMenuProps extends ContextMenuProps {
   /** Unique identifier, to distinguish from other GlobalContextMenu components. Needed only if multiple GlobalContextMenus are used simultaneously. */

@@ -33,7 +33,7 @@ export type IconSpec =
 
 /** Properties for the [[Icon]] React component
  * @public
- * @deprecated in 4.16.0. Props of a deprecated component {@link Icon}.
+ * @deprecated in 4.16.0. Props of deprecated {@link Icon} component.
  */
 export interface IconProps extends CommonProps {
   /** CSS class name or SvgPath for icon. This is optional because it is improperly

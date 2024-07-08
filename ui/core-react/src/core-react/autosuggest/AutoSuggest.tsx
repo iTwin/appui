@@ -44,7 +44,7 @@ export type AsyncGetAutoSuggestDataFunc = (
 
 /** Properties for the [[AutoSuggest]] component.
  * @public
- * @deprecated in 4.16.0. Props of a deprecated component {@link AutoSuggest}.
+ * @deprecated in 4.16.0. Props of deprecated {@link AutoSuggest} component.
  */
 export interface AutoSuggestProps
   extends React.InputHTMLAttributes<HTMLInputElement>,
