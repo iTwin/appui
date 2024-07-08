@@ -141,9 +141,12 @@ export * from "./appui-react/safearea/SafeAreaInsets";
 export * from "./appui-react/selection/SelectionContextItemDef";
 export * from "./appui-react/selection/HideIsolateEmphasizeManager";
 
-export * from "./appui-react/settings/ui/UiSettingsPage";
 export * from "./appui-react/settings/quantityformatting/QuantityFormat";
 export * from "./appui-react/settings/quantityformatting/UnitSystemSelector";
+
+export * from "./appui-react/settings/ui/UiSettingsPage";
+
+export * from "./appui-react/settings/SettingsManager";
 
 export * from "./appui-react/shared/ActionButtonItemDef";
 export * from "./appui-react/shared/AnyItemDef";
