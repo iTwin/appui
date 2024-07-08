@@ -32,6 +32,7 @@ export const Basic: Story = {
   args: {
     shortcutList: [
       {
+        // TODO: this is called twice when `m` is pressed and menu is displayed.
         key: "x",
         label: "Log to console",
         iconSpec: "icon-placeholder",

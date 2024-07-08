@@ -5,8 +5,15 @@
 /** @packageDocumentation
  * @module Widget
  */
-
-import type { ScreenViewport } from "@itwin/core-frontend";
+import * as React from "react";
+import { ProcessDetector } from "@itwin/core-bentley";
+import {
+  DrawingViewState,
+  OrthographicViewState,
+  type ScreenViewport,
+  SheetViewState,
+  SpatialViewState,
+} from "@itwin/core-frontend";
 import type { CommonProps } from "@itwin/core-react";
 import {
   useProximityToMouse,
@@ -14,22 +21,25 @@ import {
   WidgetElementSet,
   WidgetOpacityContext,
 } from "@itwin/core-react";
-import type { ViewClassFullNameChangedEventArgs } from "@itwin/imodel-components-react";
-import { ViewportComponentEvents } from "@itwin/imodel-components-react";
-import * as React from "react";
-import type {
-  ContentControl,
-  ContentControlActivatedEventArgs,
-} from "../content/ContentControl";
+import {
+  CubeNavigationAid,
+  DrawingNavigationAid,
+  ViewportComponentEvents,
+} from "@itwin/imodel-components-react";
+import type { ContentControl } from "../content/ContentControl";
 import { NavigationArea } from "../layout/widget/NavigationArea";
 import type { NavigationAidControl } from "../navigationaids/NavigationAidControl";
 import { UiFramework } from "../UiFramework";
-import { ProcessDetector } from "@itwin/core-bentley";
+import { useActiveViewport } from "../hooks/useActiveViewport";
+import { ViewUtilities } from "../utils/ViewUtilities";
+import { SheetNavigationAid } from "../navigationaids/SheetNavigationAid";
 
 function createNavigationAidControl(
+  // eslint-disable-next-line deprecation/deprecation
   activeContentControl: ContentControl | undefined,
   navigationAidId: string,
   activeViewport: ScreenViewport | undefined
+  // eslint-disable-next-line deprecation/deprecation
 ): NavigationAidControl | undefined {
   if (
     !activeContentControl ||
@@ -40,10 +50,12 @@ function createNavigationAidControl(
 
   const viewport = activeContentControl.viewport;
   const imodel = viewport ? viewport.iModel : UiFramework.getIModelConnection();
+  // eslint-disable-next-line deprecation/deprecation
   const navigationAidControl = UiFramework.controls.create(
     navigationAidId,
     navigationAidId,
     { imodel, viewport }
+    // eslint-disable-next-line deprecation/deprecation
   ) as NavigationAidControl;
 
   navigationAidControl.initialize();
@@ -60,12 +72,14 @@ export interface NavigationAidHostProps {
   minHeight?: string;
 }
 
-/**
- * NavigationAidHost is a component that hosts a NavigationAid that is specific to the active content control.
+/** Component that is used as a default navigation aid.
+ * Uses registered navigation aids and the active content control to determine if or which navigation aid to display.
+ * If an active content is defined without a content control (`classId` is set to an empty string) renders a default navigation aid based on an active viewport view state.
  * @public
  */
 export function NavigationAidHost(props: NavigationAidHostProps) {
   const [activeContentControl, setActiveContentControl] = React.useState(() =>
+    // eslint-disable-next-line deprecation/deprecation
     UiFramework.content.getActiveContentControl()
   );
   const [activeContentViewport, setActiveContentViewport] = React.useState(
@@ -76,45 +90,51 @@ export function NavigationAidHost(props: NavigationAidHostProps) {
   );
 
   React.useEffect(() => {
-    const handleContentControlActivated = (
-      args: ContentControlActivatedEventArgs // eslint-disable-line deprecation/deprecation
-    ) => {
-      setActiveContentControl(args.activeContentControl);
-      setActiveContentViewport(args.activeContentControl.viewport);
-      setNavigationAidId(args.activeContentControl.navigationAidControl);
-    };
-
-    UiFramework.frontstages.onContentControlActivatedEvent.addListener(
-      handleContentControlActivated
+    // eslint-disable-next-line deprecation/deprecation
+    return UiFramework.frontstages.onContentControlActivatedEvent.addListener(
+      (args) => {
+        setActiveContentControl(args.activeContentControl);
+        setActiveContentViewport(args.activeContentControl.viewport);
+        setNavigationAidId(args.activeContentControl.navigationAidControl);
+      }
     );
-    return () => {
-      UiFramework.frontstages.onContentControlActivatedEvent.removeListener(
-        handleContentControlActivated
-      );
-    };
+  }, []);
+  React.useEffect(() => {
+    return UiFramework.content.onActiveContentChangedEvent.addListener(
+      (args) => {
+        args.id;
+        const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
+        if (!frontstageDef) return;
+
+        const contentGroup = frontstageDef.contentGroup;
+        if (!contentGroup) return;
+
+        const content = contentGroup.contentPropsList.find(
+          (contentProps) => contentProps.id === args.id
+        );
+        if (!content?.content) return;
+
+        // Content w/o a control is activated - reset the navigation.
+        setActiveContentControl(undefined);
+        setActiveContentViewport(undefined);
+        setNavigationAidId("");
+      }
+    );
   }, []);
 
   const [activeViewClass, setActiveViewClass] = React.useState(() => {
+    // eslint-disable-next-line deprecation/deprecation
     const content = UiFramework.content.getActiveContentControl();
     if (content && content.viewport) return content.viewport.view.classFullName;
     return "";
   });
 
   React.useEffect(() => {
-    const handleViewClassFullNameChange = (
-      args: ViewClassFullNameChangedEventArgs // eslint-disable-line deprecation/deprecation
-    ) => {
-      setActiveViewClass(args.newName);
-    };
-
-    ViewportComponentEvents.onViewClassFullNameChangedEvent.addListener(
-      handleViewClassFullNameChange
+    return ViewportComponentEvents.onViewClassFullNameChangedEvent.addListener(
+      (args) => {
+        setActiveViewClass(args.newName);
+      }
     );
-    return () => {
-      ViewportComponentEvents.onViewClassFullNameChangedEvent.removeListener(
-        handleViewClassFullNameChange
-      );
-    };
   }, [activeViewClass]);
 
   const navigationAidControl = React.useMemo(
@@ -153,11 +173,42 @@ export function NavigationAidHost(props: NavigationAidHostProps) {
     divStyle.opacity = `${navigationAidOpacity}`;
   }
 
+  const navigationAid = navigationAidControl?.reactNode ?? (
+    <DefaultNavigationAid />
+  );
   return (
     <div style={divStyle} ref={ref}>
-      {navigationAidControl && navigationAidControl.reactNode}
+      {navigationAid}
     </div>
   );
+}
+
+function DefaultNavigationAid() {
+  const viewport = useActiveViewport();
+  if (!viewport) return null;
+
+  const className = ViewUtilities.getBisBaseClass(viewport.view.classFullName);
+  switch (className) {
+    case SheetViewState.className:
+      return <SheetNavigationAid iModelConnection={viewport.iModel} />;
+    case DrawingViewState.className:
+      return (
+        <DrawingNavigationAid
+          iModelConnection={viewport.iModel}
+          viewport={viewport}
+        />
+      );
+    case SpatialViewState.className:
+    case OrthographicViewState.className:
+      return (
+        <CubeNavigationAid
+          iModelConnection={viewport.iModel}
+          viewport={viewport}
+        />
+      );
+  }
+
+  return null;
 }
 
 /** Properties for the [[NavigationWidgetComposer]] React components
@@ -165,13 +216,13 @@ export function NavigationAidHost(props: NavigationAidHostProps) {
  */
 // eslint-disable-next-line deprecation/deprecation
 export interface NavigationWidgetComposerProps extends CommonProps {
-  /** Optional Horizontal Toolbar */
+  /** Optional horizontal toolbar */
   horizontalToolbar?: React.ReactNode;
-  /** Optional Vertical Toolbar */
+  /** Optional vertical toolbar */
   verticalToolbar?: React.ReactNode;
-  /** Optional Navigation Aid host. If not specified a default host is provided which will use registered Navigation Aids and the active content control to determine which if any Navigation Aid to display. */
+  /** Optional navigation aid to override the default {@link NavigationAidHost}. */
   navigationAidHost?: React.ReactNode;
-  /** If true no navigation aid will be shown. Defaults to false. */
+  /** If true no navigation aid will be shown. Defaults to `false`. */
   hideNavigationAid?: boolean;
 }
 
@@ -202,7 +253,8 @@ export function NavigationWidgetComposer(props: NavigationWidgetComposerProps) {
 
   const navigationAid = hideNavigationAid
     ? undefined
-    : navigationAidHost ?? <NavigationAidHost />;
+    : // eslint-disable-next-line deprecation/deprecation
+      navigationAidHost ?? <NavigationAidHost />;
 
   return (
     <WidgetOpacityContext.Provider

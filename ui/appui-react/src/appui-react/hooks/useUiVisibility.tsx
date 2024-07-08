@@ -7,22 +7,15 @@
  */
 
 import { useEffect, useState } from "react";
-import type { UiVisibilityEventArgs } from "../UiFramework";
 import { UiFramework } from "../UiFramework";
 
 /** @internal */
 export function useUiVisibility() {
   const [uiIsVisible, setUiIsVisible] = useState(UiFramework.getIsUiVisible());
   useEffect(() => {
-    // eslint-disable-next-line deprecation/deprecation
-    const handleUiVisibilityChanged = (args: UiVisibilityEventArgs): void =>
+    return UiFramework.onUiVisibilityChanged.addListener((args) => {
       setUiIsVisible(args.visible);
-    UiFramework.onUiVisibilityChanged.addListener(handleUiVisibilityChanged);
-    return () => {
-      UiFramework.onUiVisibilityChanged.removeListener(
-        handleUiVisibilityChanged
-      );
-    };
+    });
   }, []);
   return uiIsVisible;
 }

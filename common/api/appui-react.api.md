@@ -299,10 +299,10 @@ export interface AccuDrawUiSettings {
 export class AccuDrawUiSettingsChangedEvent extends BeUiEvent<{}> {
 }
 
-// @beta
+// @public
 export function AccuDrawWidget(): React_2.JSX.Element;
 
-// @beta
+// @beta @deprecated
 export class AccuDrawWidgetControl extends WidgetControl {
     constructor(info: ConfigurableCreateInfo, options: any);
     // (undocumented)
@@ -353,7 +353,10 @@ export class ActiveContentChangedEvent extends UiEvent<ActiveContentChangedEvent
 
 // @public @deprecated
 export interface ActiveContentChangedEventArgs {
+    // @deprecated
     activeContent?: React.ReactNode;
+    id?: ContentProps["id"];
+    // @deprecated
     oldContent?: React.ReactNode;
 }
 
@@ -876,7 +879,7 @@ export interface CommonToolbarItem {
     readonly layouts?: ToolbarItemLayouts;
 }
 
-// @public
+// @public @deprecated
 export class ConfigurableBase implements ConfigurableUiElement {
     constructor(info: ConfigurableCreateInfo, options: any);
     // (undocumented)
@@ -888,7 +891,7 @@ export class ConfigurableBase implements ConfigurableUiElement {
     get uniqueId(): string;
 }
 
-// @public
+// @public @deprecated
 export class ConfigurableCreateInfo {
     constructor(classId: string, uniqueId: string, id: string);
     // (undocumented)
@@ -957,6 +960,7 @@ export interface ConfigurableUiContentProps extends CommonProps {
     intervalTimeout?: number;
     toolAsToolSettingsLabel?: boolean;
     toolbarOpacity?: number;
+    // @deprecated
     viewOverlay?: boolean;
     widgetIcon?: boolean;
     widgetOpacity?: number;
@@ -965,7 +969,7 @@ export interface ConfigurableUiContentProps extends CommonProps {
 // @internal (undocumented)
 export const ConfigurableUiContext: React_2.Context<Pick<ConfigurableUiContentProps, "viewOverlay" | "widgetOpacity" | "widgetIcon" | "collapsePanels" | "animateToolSettings" | "toolAsToolSettingsLabel">>;
 
-// @public
+// @public @deprecated
 export abstract class ConfigurableUiControl extends ConfigurableBase {
     constructor(info: ConfigurableCreateInfo, options: any);
     get controlId(): string;
@@ -978,10 +982,10 @@ export abstract class ConfigurableUiControl extends ConfigurableBase {
     onInitialize(): void;
 }
 
-// @public
+// @public @deprecated
 export type ConfigurableUiControlConstructor = new (info: ConfigurableCreateInfo, options: any) => ConfigurableUiElement;
 
-// @public
+// @public @deprecated
 export enum ConfigurableUiControlType {
     // (undocumented)
     Content = "ContentControl",
@@ -997,7 +1001,7 @@ export enum ConfigurableUiControlType {
     Widget = "WidgetControl"
 }
 
-// @public
+// @public @deprecated
 export interface ConfigurableUiElement {
     // (undocumented)
     classId: string;
@@ -1045,7 +1049,7 @@ export const connectIModelConnectionAndViewState: (mapStateToProps?: any, mapDis
 // @public
 export type ContentCallback = (content: ContentProps) => void;
 
-// @public
+// @public @deprecated
 export class ContentControl extends ConfigurableUiControl {
     constructor(info: ConfigurableCreateInfo, options: any);
     // (undocumented)
@@ -1116,10 +1120,15 @@ export class ContentGroup {
     clearContentControls(): void;
     // (undocumented)
     contentPropsList: ContentProps[];
+    // @deprecated
     getContentControl(contentProps: ContentProps, _index: number): ContentControl | undefined;
+    // @deprecated
     getContentControlById(id: string): ContentControl | undefined;
+    // @deprecated
     getContentControls(): ContentControl[];
+    // @deprecated
     getContentNodes(): React_2.ReactNode[];
+    // @deprecated
     getControlFromElement(node: React_2.ReactNode): ContentControl | undefined;
     // @internal
     getViewports(): Array<ScreenViewport | undefined>;
@@ -1153,17 +1162,7 @@ export abstract class ContentGroupProvider {
 }
 
 // @public
-export class ContentLayout extends React_2.Component<ContentLayoutComponentProps, ContentLayoutState> {
-    constructor(props: ContentLayoutComponentProps);
-    // (undocumented)
-    componentDidMount(): void;
-    // (undocumented)
-    componentWillUnmount(): void;
-    // (undocumented)
-    render(): React_2.ReactNode;
-    // @internal (undocumented)
-    readonly state: Readonly<ContentLayoutState>;
-}
+export function ContentLayout(props: ContentLayoutComponentProps): React_2.JSX.Element | null;
 
 // @public @deprecated
 export class ContentLayoutActivatedEvent extends UiEvent<ContentLayoutActivatedEventArgs> {
@@ -1191,18 +1190,26 @@ export class ContentLayoutDef {
     // @internal (undocumented)
     static createSplit(fragmentDef: LayoutFragmentProps): LayoutSplit | undefined;
     description: string;
+    // @deprecated
     fillLayoutContainer(contentNodes: React_2.ReactNode[], resizable: boolean): React_2.ReactNode | undefined;
     getUsedContentIndexes(): number[];
     id: string;
-    // (undocumented)
+    // @deprecated (undocumented)
     get rootSplit(): LayoutSplit | undefined;
     toJSON(): ContentLayoutProps;
 }
 
+// @beta
+export function ContentOverlay({ className, children, active, ...other }: ContentOverlayProps): React_2.JSX.Element;
+
 // @public
 export interface ContentProps {
+    // @deprecated
     applicationData?: any;
+    // @deprecated
     classId: string | ConfigurableUiControlConstructor;
+    // @beta
+    content?: React_2.ReactNode;
     id: string;
 }
 
@@ -1278,7 +1285,7 @@ export function createAction<T extends string, P>(type: T, payload: P): ActionWi
 // @internal
 export function createStableWidgetDef(widgetDef: WidgetDef, stableId: string): WidgetDef;
 
-// @public
+// @public @deprecated
 export class CubeNavigationAidControl extends NavigationAidControl {
     constructor(info: ConfigurableCreateInfo, options: any);
     // (undocumented)
@@ -1635,7 +1642,7 @@ export class DefaultToolSettingsProvider extends ToolUiProvider {
 }
 
 // @public
-export function DefaultViewOverlay({ viewport, onPlayPause, featureOptions, }: ViewOverlayProps): React_2.JSX.Element | null;
+export function DefaultViewOverlay({ viewport, onPlayPause, featureOptions, ...props }: DefaultViewOverlayProps): React_2.JSX.Element | null;
 
 // @public @deprecated
 export class DialogChangedEvent extends UiEvent<DialogChangedEventArgs> {
@@ -1717,7 +1724,7 @@ export interface DialogRendererProps {
 // @internal
 export function DockedStatusBarItem(props: StatusBarItemProps): React_2.JSX.Element;
 
-// @beta
+// @beta @deprecated
 export class DrawingNavigationAidControl extends NavigationAidControl {
     constructor(info: ConfigurableCreateInfo, options: any);
     // (undocumented)
@@ -1795,22 +1802,22 @@ export interface ExtensibleToolbarProps {
 // @beta @deprecated
 export function featureOverridesActiveStateFunc(state: Readonly<BaseItemState>): BaseItemState;
 
-// @beta (undocumented)
+// @beta @deprecated (undocumented)
 export class FloatingContentControl extends ContentControl {
     constructor(uniqueId: string, name: string, node: React_2.ReactNode);
 }
 
-// @beta (undocumented)
+// @beta @deprecated (undocumented)
 export function FloatingViewportContent(props: FloatingViewportContentProps): React_2.JSX.Element;
 
-// @beta (undocumented)
+// @beta @deprecated (undocumented)
 export class FloatingViewportContentControl extends ViewportContentControl {
     constructor(uniqueId: string, name: string, node: React.ReactNode);
     get reactNode(): React.ReactNode;
     set reactNode(r: React.ReactNode);
 }
 
-// @beta (undocumented)
+// @beta @deprecated (undocumented)
 export interface FloatingViewportContentProps {
     contentId: string;
     initialViewState: ViewStateProp;
@@ -1818,10 +1825,10 @@ export interface FloatingViewportContentProps {
     viewportRef?: React_2.Ref<ScreenViewport>;
 }
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 export function FloatingViewportContentWrapper({ children, }: FloatingViewportContentWrapperProps): React_2.JSX.Element;
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 export interface FloatingViewportContentWrapperProps {
     // (undocumented)
     readonly children?: React_2.ReactNode;
@@ -1906,21 +1913,30 @@ export interface FrameworkChildWindows {
 
 // @public
 export interface FrameworkContent {
-    // (undocumented)
+    // @deprecated (undocumented)
     addFloatingContentControl(contentControl?: ContentControl): void;
+    // @deprecated
     contentSupportsCamera(content: ContentControl | undefined): boolean;
     // @beta @deprecated
     readonly dialogs: FrameworkStackedDialog<ContentDialogInfo> & {
         readonly onContentDialogChangedEvent: ContentDialogChangedEvent;
     };
-    // (undocumented)
+    // @deprecated (undocumented)
     dropFloatingContentControl(contentControl?: ContentControl): void;
+    // @deprecated
     getActive(): React.ReactNode | undefined;
+    // @deprecated
     getActiveContentControl(): ContentControl | undefined;
+    getActiveId(): ContentProps["id"] | undefined;
+    // @deprecated
     isContent3dView(content: ContentControl | undefined): boolean;
+    // @deprecated
     isContentDrawingView(content: ContentControl | undefined): boolean;
+    // @deprecated
     isContentOrthographicView(content: ContentControl | undefined): boolean;
+    // @deprecated
     isContentSheetView(content: ContentControl | undefined): boolean;
+    // @deprecated
     isContentSpatialView(content: ContentControl | undefined): boolean;
     readonly isMouseDown: boolean;
     readonly layouts: {
@@ -1942,12 +1958,15 @@ export interface FrameworkContent {
         contentId: string;
     }>;
     readonly onMouseDownChangedEvent: MouseDownChangedEvent;
+    // @deprecated
     refreshActive(activeContent: React.ReactNode): void;
+    // @deprecated
     setActive(activeContent?: React.ReactNode, forceEventProcessing?: boolean): void;
+    setActiveId(contentId?: ContentProps["id"]): void;
     setMouseDown(mouseDown: boolean): void;
 }
 
-// @public
+// @public @deprecated
 export interface FrameworkControls {
     closeUi(): void;
     create(classId: string, uniqueId: string, options?: any, controlId?: string): ConfigurableUiElement | undefined;
@@ -1986,6 +2005,7 @@ export interface FrameworkFrontstages {
     readonly activeModalFrontstage: ModalFrontstageInfo | undefined;
     readonly activeNestedFrontstage: FrontstageDef | undefined;
     readonly activeToolId: string;
+    // @deprecated
     readonly activeToolInformation: ToolInformation | undefined;
     // @beta
     addFrontstage(frontstage: Frontstage): void;
@@ -2005,6 +2025,7 @@ export interface FrameworkFrontstages {
     readonly nestedFrontstageCount: number;
     // @alpha
     readonly onCloseModalFrontstageRequestedEvent: ModalFrontstageRequestedCloseEvent;
+    // @deprecated
     readonly onContentControlActivatedEvent: ContentControlActivatedEvent;
     readonly onContentLayoutActivatedEvent: ContentLayoutActivatedEvent;
     readonly onFrontstageActivatedEvent: FrontstageActivatedEvent;
@@ -2138,6 +2159,7 @@ export interface FrameworkState {
 
 // @beta
 export class FrameworkToolAdmin extends ToolAdmin {
+    // (undocumented)
     processShortcutKey(e: KeyboardEvent, wentDown: boolean): Promise<boolean>;
 }
 
@@ -2276,12 +2298,13 @@ export interface FrontstageDeactivatedEventArgs {
 
 // @public
 export class FrontstageDef {
-    // (undocumented)
+    // @deprecated (undocumented)
     addFloatingContentControl(contentControl?: ContentControl): void;
     // @internal
     batch(fn: () => void): void;
     // (undocumented)
     get bottomPanel(): StagePanelDef | undefined;
+    // @deprecated
     get contentControls(): ContentControl[];
     // (undocumented)
     get contentGroup(): ContentGroup | undefined;
@@ -2299,7 +2322,7 @@ export class FrontstageDef {
     dockWidgetContainer(widgetId: string): void;
     // @internal (undocumented)
     dockWidgetContainerByContainerId(widgetContainerId: string): void;
-    // (undocumented)
+    // @deprecated (undocumented)
     dropFloatingContentControl(contentControl?: ContentControl): void;
     findWidgetDef(id: string): WidgetDef | undefined;
     // (undocumented)
@@ -2355,7 +2378,9 @@ export class FrontstageDef {
     // @internal (undocumented)
     saveChildWindowSizeAndPosition(childWindowId: string, childWindow: ChildWindow): void;
     setActiveContent(): Promise<boolean>;
+    // @deprecated
     setActiveView(newContent: ContentControl, oldContent?: ContentControl): void;
+    // @deprecated
     setActiveViewFromViewport(viewport: ScreenViewport): boolean;
     setContentLayoutAndGroup(contentLayoutDef: ContentLayoutDef, contentGroup: ContentGroup): void;
     // (undocumented)
@@ -2613,7 +2638,7 @@ export function IModelConnectedViewport(props: Omit<ViewportProps, "imodel" | "v
 // @beta @deprecated
 export function IModelConnectedViewSelector(props: IModelConnectedViewSelectorProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export class IModelViewportControl extends ViewportContentControl {
     constructor(info: ConfigurableCreateInfo, _options: IModelViewportControlOptions);
     // (undocumented)
@@ -2642,7 +2667,7 @@ export class IModelViewportControl extends ViewportContentControl {
     protected _viewState: ViewStateProp | undefined;
 }
 
-// @public
+// @public @deprecated
 export interface IModelViewportControlOptions {
     alwaysUseSuppliedViewState?: boolean;
     bgColor?: string;
@@ -3368,7 +3393,7 @@ export interface NavigationAidActivatedEventArgs {
     navigationAidId: string;
 }
 
-// @public
+// @public @deprecated
 export class NavigationAidControl extends ConfigurableUiControl {
     constructor(info: ConfigurableCreateInfo, options: any);
     getSize(): string | undefined;
@@ -3776,14 +3801,6 @@ export class RestoreFrontstageLayoutTool extends Tool {
 // @internal
 export function restoreNineZoneState(frontstageDef: FrontstageDef, packed: NineZoneState): void;
 
-// @internal (undocumented)
-export interface RotationData {
-    // (undocumented)
-    iconsSpec?: IconSpec;
-    // (undocumented)
-    label: string;
-}
-
 // @public
 export const SafeAreaContext: React_2.Context<SafeAreaInsets | undefined>;
 
@@ -4028,7 +4045,7 @@ export interface SheetData {
     viewId: string;
 }
 
-// @alpha
+// @public
 export class SheetNavigationAid extends React_2.Component<SheetNavigationProps, SheetNavigationState> {
     constructor(props: SheetNavigationProps);
     componentDidMount(): Promise<void>;
@@ -4039,7 +4056,7 @@ export class SheetNavigationAid extends React_2.Component<SheetNavigationProps, 
     readonly state: Readonly<SheetNavigationState>;
 }
 
-// @alpha
+// @alpha @deprecated
 export class SheetNavigationAidControl extends NavigationAidControl {
     constructor(info: ConfigurableCreateInfo, options: any);
     // (undocumented)
@@ -4048,7 +4065,7 @@ export class SheetNavigationAidControl extends NavigationAidControl {
     static navigationAidId: string;
 }
 
-// @alpha
+// @public
 export interface SheetNavigationProps extends CommonProps {
     // (undocumented)
     iModelConnection: IModelConnection;
@@ -4290,14 +4307,11 @@ export interface StandardFrontstageProps {
     hideNavigationAid?: boolean;
     hideStatusBar?: boolean;
     hideToolSettings?: boolean;
-    // (undocumented)
     id: string;
     leftPanelProps?: WidgetPanelProps;
     rightPanelProps?: WidgetPanelProps;
     topPanelProps?: WidgetPanelProps;
-    // (undocumented)
     usage: StageUsage | string;
-    // (undocumented)
     version?: number;
 }
 
@@ -4352,7 +4366,7 @@ export class StandardNavigationToolsUiItemsProvider implements UiItemsProvider {
     provideToolbarItems(_stageId: string, _stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation, _stageAppData?: any): ToolbarItem[];
 }
 
-// @alpha
+// @public
 export class StandardRotationNavigationAid extends React_2.Component<CommonProps, // eslint-disable-line deprecation/deprecation
 StandardRotationNavigationAidState> {
     constructor(props: any);
@@ -4362,7 +4376,7 @@ StandardRotationNavigationAidState> {
     readonly state: Readonly<StandardRotationNavigationAidState>;
 }
 
-// @alpha
+// @alpha @deprecated
 export class StandardRotationNavigationAidControl extends NavigationAidControl {
     constructor(info: ConfigurableCreateInfo, options: any);
     // (undocumented)
@@ -4456,7 +4470,7 @@ export interface StatusBarDialogProps extends CommonProps {
     titleBar?: React_2.ReactNode;
 }
 
-// @public
+// @public @deprecated
 export type StatusBarFieldId = string | null;
 
 // @beta @deprecated
@@ -4529,7 +4543,7 @@ export namespace StatusBarPopover {
     const ExpandIndicator: typeof ButtonExpandIndicator;
 }
 
-// @public
+// @public @deprecated
 export interface StatusBarProps extends CommonProps {
     // (undocumented)
     children?: React_2.ReactNode;
@@ -4557,7 +4571,7 @@ export function StatusBarSeparator(props: CommonProps): React_2.JSX.Element;
 // @public
 export function StatusBarSpaceBetween(props: CommonDivProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export class StatusBarWidgetComposerControl extends StatusBarWidgetControl {
     // (undocumented)
     static controlId: string;
@@ -4567,14 +4581,14 @@ export class StatusBarWidgetComposerControl extends StatusBarWidgetControl {
     readonly id: string;
 }
 
-// @public
+// @public @deprecated
 export abstract class StatusBarWidgetControl extends WidgetControl {
     constructor(info: ConfigurableCreateInfo, options: any);
     abstract getReactNode(): React.ReactNode;
     getType(): ConfigurableUiControlType;
 }
 
-// @public
+// @public @deprecated
 export interface SupportsViewSelectorChange {
     processViewSelectorChange(iModel: IModelConnection, viewDefinitionId: Id64String, viewState: ViewState, name: string): Promise<void>;
     supportsViewSelectorChange: boolean;
@@ -4614,6 +4628,7 @@ export enum SyncUiEventId {
     ActiveContentChanged = "activecontentchanged",
     ActiveViewportChanged = "activeviewportchanged",
     BackstageEvent = "backstageevent",
+    // @deprecated
     ContentControlActivated = "contentcontrolactivated",
     ContentLayoutActivated = "contentlayoutactivated",
     FeatureOverridesChanged = "featureoverrideschanged",
@@ -4893,7 +4908,7 @@ export interface ToolIconChangedEventArgs {
     iconSpec: string;
 }
 
-// @public
+// @public @deprecated
 export class ToolInformation {
     constructor(toolId: string);
     // (undocumented)
@@ -4940,7 +4955,7 @@ export function ToolSettingsGridContainer({ componentGenerator, }: {
 // @internal (undocumented)
 export function ToolSettingsWidgetContent(): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export class ToolUiProvider extends ConfigurableUiControl {
     constructor(info: ConfigurableCreateInfo, options: any);
     get dataProvider(): UiDataProvider | undefined;
@@ -5016,6 +5031,7 @@ export class UiFramework {
     // @internal
     static closeToolSettingsPopup(): boolean;
     static get content(): FrameworkContent;
+    // @deprecated
     static get controls(): FrameworkControls;
     static get dialogs(): FrameworkDialogs;
     // @deprecated (undocumented)
@@ -5293,7 +5309,7 @@ export const useDefaultStatusBarItems: (manager: StatusBarItemsManager) => reado
 // @public @deprecated
 export const useDefaultToolbarItems: (manager: ToolbarItemsManager) => readonly ToolbarItem[];
 
-// @alpha (undocumented)
+// @alpha @deprecated (undocumented)
 export function useFloatingViewport(args: FloatingViewportContentProps): {
     viewportControl: React_2.JSX.Element;
 };
@@ -5427,7 +5443,7 @@ export function ViewOverlayHost({ viewport, featureOptions, userSuppliedOverlay,
 
 // @public
 export interface ViewOverlayProps {
-    // (undocumented)
+    // @deprecated (undocumented)
     featureOptions?: {
         [key: string]: any;
     };
@@ -5437,7 +5453,7 @@ export interface ViewOverlayProps {
     viewport: ScreenViewport;
 }
 
-// @public
+// @public @deprecated
 export class ViewportContentControl extends ContentControl implements SupportsViewSelectorChange {
     constructor(info: ConfigurableCreateInfo, options: any);
     getReactElementForViewSelectorChange(_iModel: IModelConnection, _viewDefinitionId: Id64String, _viewState: ViewState, _name: string): React.ReactNode;
@@ -5465,6 +5481,7 @@ export class ViewSelector extends React_2.Component<ViewSelectorProps, ViewSelec
     // (undocumented)
     static readonly defaultProps: ViewSelectorDefaultProps;
     loadViews(): Promise<void>;
+    // @deprecated
     static readonly onViewSelectorChangedEvent: ViewSelectorChangedEvent;
     render(): React_2.JSX.Element;
     static updateShowSettings(showSpatials: boolean, showDrawings: boolean, showSheets: boolean, showUnknown: boolean): void;
@@ -5496,6 +5513,13 @@ export interface ViewSelectorProps {
     imodel?: IModelConnection;
     // (undocumented)
     listenForShowUpdates?: boolean;
+    // (undocumented)
+    onViewSelected?: (args: {
+        iModelConnection: IModelConnection;
+        viewDefinitionId: Id64String;
+        viewState: ViewState;
+        name: string;
+    }) => void;
     // (undocumented)
     panelOnly?: boolean;
     // (undocumented)
@@ -5532,6 +5556,7 @@ export function ViewToolWidgetComposer(props: ViewToolWidgetComposerProps): Reac
 // @public
 export interface ViewToolWidgetComposerProps {
     hideNavigationAid?: boolean;
+    navigationAid?: React_2.ReactNode;
 }
 
 // @public
@@ -5592,7 +5617,7 @@ export interface WidgetConfig extends Widget {
 // @internal (undocumented)
 export function WidgetContent(): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export class WidgetControl extends ConfigurableUiControl {
     constructor(info: ConfigurableCreateInfo, options: any);
     getType(): ConfigurableUiControlType;
@@ -5624,7 +5649,7 @@ export class WidgetDef {
     canOpen(): boolean;
     // (undocumented)
     get canPopout(): boolean | undefined;
-    // (undocumented)
+    // @deprecated (undocumented)
     get classId(): string | ConfigurableUiControlConstructor | undefined;
     // @internal (undocumented)
     static create(config: WidgetConfig, type?: WidgetType): WidgetDef;
@@ -5639,7 +5664,7 @@ export class WidgetDef {
     expand(): void;
     // (undocumented)
     get floatingContainerId(): string | undefined;
-    // (undocumented)
+    // @deprecated (undocumented)
     getWidgetControl(type: ConfigurableUiControlType): WidgetControl | undefined;
     // @internal (undocumented)
     handleWidgetStateChanged(newState: WidgetState): void;
@@ -5693,7 +5718,7 @@ export class WidgetDef {
     // (undocumented)
     get stateChanged(): boolean;
     get tooltip(): string;
-    // (undocumented)
+    // @deprecated (undocumented)
     get widgetControl(): WidgetControl | undefined;
     // (undocumented)
     get widgetType(): WidgetType;

@@ -36,23 +36,24 @@ import "./StandardRotationNavigationAid.scss";
 
 /** A 3D Standard Rotation Navigation Aid control.
  * @alpha
+ * @deprecated in 4.16.0. Use {@link StandardRotationNavigationAid} component instead.
  */
+// eslint-disable-next-line deprecation/deprecation
 export class StandardRotationNavigationAidControl extends NavigationAidControl {
   public static navigationAidId = "StandardRotationNavigationAid";
 
+  // eslint-disable-next-line deprecation/deprecation
   constructor(info: ConfigurableCreateInfo, options: any) {
     super(info, options);
     this.reactNode = <StandardRotationNavigationAid />;
   }
 }
 
-/** @internal */
-export interface RotationData {
+interface RotationData {
   label: string;
   iconsSpec?: IconSpec;
 }
 
-/** @internal */
 interface StandardRotationNavigationAidState {
   element: HTMLDivElement | null;
   isExpanded: boolean;
@@ -61,7 +62,7 @@ interface StandardRotationNavigationAidState {
 }
 
 /** A 3D Standard Rotation Navigation Aid.
- * @alpha
+ * @public
  */
 export class StandardRotationNavigationAid extends React.Component<
   CommonProps, // eslint-disable-line deprecation/deprecation

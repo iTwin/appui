@@ -14,6 +14,8 @@ import type {
 import type { StagePanelConfig } from "../stagepanels/StagePanelConfig";
 import type { WidgetConfig } from "../widgets/WidgetConfig";
 import type { Frontstage } from "./Frontstage";
+import type { UiItemsProvider } from "../ui-items-provider/UiItemsProvider";
+import type { StageUsage } from "./StageUsage";
 
 /** Configuration from which a frontstage is created.
  * @public
@@ -21,11 +23,11 @@ import type { Frontstage } from "./Frontstage";
  */
 // eslint-disable-next-line deprecation/deprecation
 export interface FrontstageConfig extends CommonProps {
-  /** Id for the Frontstage */
+  /** Id of the frontstage. To ensure uniqueness it is common practice to format id like `appName:stageId` */
   readonly id: string;
-  /** The Content Group providing the Content Views */
+  /** Content group of the frontstage that describes the content views. Or a content group provider. */
   readonly contentGroup: ContentGroup | ContentGroupProvider;
-  /** Usage type for this Frontstage. */
+  /** Usage type for this Frontstage. To allow generic {@link UiItemsProvider} to populate this stage set to {@link StageUsage.General}. */
   readonly usage?: string;
   /** Frontstage version. Used to force saved layout reinitialization after changes to frontstage.
    * @note This value should be increased when changes are made to the Frontstage.

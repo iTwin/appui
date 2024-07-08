@@ -46,7 +46,6 @@ const availableFeatures: AvailableFeatures = {
   },
   reparentPopoutWidgets: {
     label: "Re-parent popout widgets",
-    value: ["widget-layout-info", "widget-info-Floating"],
   },
   controlWidgetVisibility: {
     label: "Control widget visibility",
