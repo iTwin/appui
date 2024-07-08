@@ -9,6 +9,7 @@ Table of contents:
   - [Fixes](#fixes)
 - [@itwin/components-react](#itwincomponents-react)
   - [Changes](#changes-1)
+  - [Fixes](#fixes-1)
 
 ## @itwin/appui-react
 
@@ -165,3 +166,7 @@ Table of contents:
 ### Changes
 
 - Property grid array items' description will be shown next to the index when the items are non-primitive. [#890](https://github.com/iTwin/appui/pull/890)
+
+### Fixes
+
+- Fixed `activeMatchIndex` not working correctly on adjacent matches in `HighlightedText`. [#898](https://github.com/iTwin/appui/pull/898)
