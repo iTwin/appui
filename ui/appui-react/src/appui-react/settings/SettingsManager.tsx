@@ -28,5 +28,6 @@ export type SettingsTabsProvider = _SettingsTabsProvider;
  */
 // eslint-disable-next-line deprecation/deprecation
 export type SettingsManager = _SettingsManager;
+/** @public */
 // eslint-disable-next-line @typescript-eslint/no-redeclare, deprecation/deprecation
 export const SettingsManager = _SettingsManager;

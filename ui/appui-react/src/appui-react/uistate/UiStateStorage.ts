@@ -22,6 +22,7 @@ export type UiStateStorage = _UiStateStorage;
  * @public
  */
 export type UiStateStorageStatus = _UiStateStorageStatus;
+/** @public */
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const UiStateStorageStatus = _UiStateStorageStatus;
 

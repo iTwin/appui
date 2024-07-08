@@ -52,6 +52,7 @@ import type { InteractiveTool } from '@itwin/core-frontend';
 import { ItemField } from '@itwin/core-frontend';
 import type { Key } from 'ts-key-enum';
 import type { LayoutFragmentProps } from '@itwin/appui-abstract';
+import { LocalStateStorage as LocalStateStorage_2 } from '@itwin/core-react';
 import type { MarkRequired } from '@itwin/core-bentley';
 import { MessageBoxIconType } from '@itwin/core-frontend';
 import { MessageBoxType } from '@itwin/core-frontend';
@@ -81,16 +82,17 @@ import type { PropertyUpdatedArgs } from '@itwin/components-react';
 import type { QuantityTypeArg } from '@itwin/core-frontend';
 import * as React_2 from 'react';
 import type { ReactElement } from 'react';
-import type { RectangleProps } from '@itwin/core-react';
+import type { RectangleProps as RectangleProps_2 } from '@itwin/core-react';
 import { Reducer as Reducer_2 } from 'redux';
 import type { RefObject } from 'react';
 import { RelativePosition } from '@itwin/appui-abstract';
 import type { RequireAtLeastOne } from '@itwin/core-bentley';
 import type { ScreenViewport } from '@itwin/core-frontend';
-import { SettingsManager } from '@itwin/core-react';
-import type { SettingsTabEntry } from '@itwin/core-react';
+import { SettingsManager as SettingsManager_2 } from '@itwin/core-react';
+import type { SettingsTabEntry as SettingsTabEntry_2 } from '@itwin/core-react';
+import type { SettingsTabsProvider as SettingsTabsProvider_2 } from '@itwin/core-react';
 import { Size } from '@itwin/core-react';
-import type { SizeProps } from '@itwin/core-react';
+import type { SizeProps as SizeProps_2 } from '@itwin/core-react';
 import { SnapMode } from '@itwin/core-frontend';
 import type { SolarDataProvider } from '@itwin/imodel-components-react';
 import { StandardViewId } from '@itwin/core-frontend';
@@ -113,9 +115,9 @@ import type { UiDataProvider } from '@itwin/appui-abstract';
 import { UiEvent } from '@itwin/appui-abstract';
 import { UiLayoutDataProvider } from '@itwin/appui-abstract';
 import { UiStateEntry } from '@itwin/core-react';
-import type { UiStateStorage } from '@itwin/core-react';
-import type { UiStateStorageResult } from '@itwin/core-react';
-import { UiStateStorageStatus } from '@itwin/core-react';
+import type { UiStateStorage as UiStateStorage_2 } from '@itwin/core-react';
+import type { UiStateStorageResult as UiStateStorageResult_2 } from '@itwin/core-react';
+import { UiStateStorageStatus as UiStateStorageStatus_2 } from '@itwin/core-react';
 import type { UnitSystemKey } from '@itwin/core-quantity';
 import type { useToaster } from '@itwin/itwinui-react';
 import type { ViewFlagProps } from '@itwin/core-common';
@@ -323,9 +325,9 @@ export abstract class ActionButtonItemDef extends ItemDefBase {
     static defaultButtonSize: number;
     execute(): void;
     getDimension(orientation: Orientation): number;
-    handleSizeKnown: (size: SizeProps) => void;
+    handleSizeKnown: (size: SizeProps_2) => void;
     parameters?: any;
-    size?: SizeProps;
+    size?: SizeProps_2;
 }
 
 // @public @deprecated
@@ -436,7 +438,7 @@ export class AppUiSettings implements UserSettingsProvider {
     // (undocumented)
     animateToolSettings: UiStateEntry<boolean>;
     // (undocumented)
-    apply(storage: UiStateStorage): Promise<void>;
+    apply(storage: UiStateStorage_2): Promise<void>;
     // (undocumented)
     autoCollapseUnpinnedPanels: UiStateEntry<boolean>;
     // (undocumented)
@@ -444,7 +446,7 @@ export class AppUiSettings implements UserSettingsProvider {
     // (undocumented)
     dragInteraction: UiStateEntry<boolean>;
     // (undocumented)
-    loadUserSettings(storage: UiStateStorage): Promise<void>;
+    loadUserSettings(storage: UiStateStorage_2): Promise<void>;
     // (undocumented)
     readonly providerId = "AppUiSettingsProvider";
     // (undocumented)
@@ -519,7 +521,37 @@ export type BackstageItem = BackstageActionItem | BackstageStageLauncher;
 // @beta
 export namespace BackstageItemUtilities {
     export function createActionItem(itemId: string, groupPriority: number, itemPriority: number, execute: () => void, label: string, subtitle?: string, icon?: IconSpec, overrides?: Partial<BackstageActionItem>): BackstageActionItem;
-    export function createStageLauncher(frontstageId: string, groupPriority: number, itemPriority: number, label: string, subtitle?: string, icon?: IconSpec, overrides?: Partial<BackstageStageLauncher>): BackstageStageLauncher;
+    export function createStageLauncher(args: CreateStageLauncherArgs): BackstageStageLauncher;
+    // @deprecated
+    export function createStageLauncher(...args: CreateStageLauncherArgsTuple): BackstageStageLauncher;
+    // (undocumented)
+    export interface CreateStageLauncherArgs {
+        // (undocumented)
+        frontstageId: string;
+        // (undocumented)
+        groupPriority: number;
+        // (undocumented)
+        icon?: React.ReactNode;
+        // (undocumented)
+        itemPriority: number;
+        // (undocumented)
+        label: string;
+        // (undocumented)
+        overrides?: Partial<Omit<BackstageStageLauncher, "icon">>;
+        // (undocumented)
+        subtitle?: string;
+    }
+    // (undocumented)
+    export type CreateStageLauncherArgsTuple = [
+    frontstageId: string,
+    groupPriority: number,
+    itemPriority: number,
+    label: string,
+    subtitle?: string,
+    icon?: IconSpec,
+    overrides?: Partial<BackstageStageLauncher>
+    ];
+        {};
 }
 
 // @public @deprecated
@@ -726,7 +758,7 @@ export interface CanFloatWidgetOptions {
     // (undocumented)
     readonly defaultPosition?: XAndY;
     // (undocumented)
-    readonly defaultSize?: SizeProps;
+    readonly defaultSize?: SizeProps_2;
     readonly hideWithUi?: boolean;
     readonly isResizable?: boolean;
 }
@@ -838,7 +870,9 @@ export interface CommandItemProps extends ItemProps, CommandHandler {
 export interface CommonBackstageItem {
     readonly badge?: BadgeType;
     readonly groupPriority: number;
+    // @deprecated
     readonly icon?: IconSpec;
+    readonly iconNode?: React.ReactNode;
     readonly id: string;
     readonly isActive?: boolean | ConditionalBooleanValue;
     readonly isDisabled?: boolean | ConditionalBooleanValue;
@@ -1389,7 +1423,7 @@ export class CursorPopup extends React_2.Component<CursorPopupProps, CursorPopup
     // @internal (undocumented)
     static fadeOutTime: number;
     // @internal (undocumented)
-    static getPopupRect(pt: XAndY, offset: XAndY, popupSize: SizeProps | undefined, relativePosition: RelativePosition | Placement): RectangleProps;
+    static getPopupRect(pt: XAndY, offset: XAndY, popupSize: SizeProps_2 | undefined, relativePosition: RelativePosition | Placement): RectangleProps_2;
     // @internal (undocumented)
     render(): React_2.JSX.Element;
 }
@@ -1452,7 +1486,7 @@ export type CursorPopupProps = {
     offset: XAndY;
     title?: string;
     shadow?: boolean;
-    onSizeKnown?: (size: SizeProps) => void;
+    onSizeKnown?: (size: SizeProps_2) => void;
 } & CommonProps & // eslint-disable-line deprecation/deprecation
 RequireAtLeastOne<{
     relativePosition: RelativePosition /** @deprecated in 4.11.0. Use `placement` instead. */;
@@ -1852,7 +1886,7 @@ export class FrameworkAccuDraw extends AccuDraw implements UserSettingsProvider 
     static readonly isTopRotationConditional: ConditionalBooleanValue;
     static readonly isViewRotationConditional: ConditionalBooleanValue;
     // (undocumented)
-    loadUserSettings(storage: UiStateStorage): Promise<void>;
+    loadUserSettings(storage: UiStateStorage_2): Promise<void>;
     static readonly onAccuDrawGrabInputFocusEvent: AccuDrawGrabInputFocusEvent;
     static readonly onAccuDrawSetCompassModeEvent: AccuDrawSetCompassModeEvent;
     static readonly onAccuDrawSetFieldFocusEvent: AccuDrawSetFieldFocusEvent;
@@ -2318,11 +2352,11 @@ export class FrontstageDef {
     // (undocumented)
     get floatingContentControls(): ContentControl[] | undefined;
     // @beta
-    floatWidget(widgetId: string, position?: XAndY, size?: SizeProps): void;
+    floatWidget(widgetId: string, position?: XAndY, size?: SizeProps_2): void;
     // @deprecated (undocumented)
     get frontstageProvider(): FrontstageProvider | undefined;
     // (undocumented)
-    getFloatingWidgetContainerBounds(floatingWidgetId: string | undefined): RectangleProps | undefined;
+    getFloatingWidgetContainerBounds(floatingWidgetId: string | undefined): RectangleProps_2 | undefined;
     // (undocumented)
     getFloatingWidgetContainerIdByWidgetId(widgetId: string): string | undefined;
     // (undocumented)
@@ -2360,7 +2394,7 @@ export class FrontstageDef {
     // @beta
     get panelDefs(): StagePanelDef[];
     // @beta
-    popoutWidget(widgetId: string, position?: XAndY, size?: SizeProps): void;
+    popoutWidget(widgetId: string, position?: XAndY, size?: SizeProps_2): void;
     // @beta
     restoreLayout(): void;
     // (undocumented)
@@ -2374,7 +2408,7 @@ export class FrontstageDef {
     setActiveViewFromViewport(viewport: ScreenViewport): boolean;
     setContentLayoutAndGroup(contentLayoutDef: ContentLayoutDef, contentGroup: ContentGroup): void;
     // (undocumented)
-    setFloatingWidgetContainerBounds(floatingWidgetId: string, bounds: RectangleProps): boolean;
+    setFloatingWidgetContainerBounds(floatingWidgetId: string, bounds: RectangleProps_2): boolean;
     // @internal (undocumented)
     setIsApplicationClosing(value: boolean): void;
     // (undocumented)
@@ -2467,13 +2501,13 @@ export function getPanelSectionWidgets(frontstageDef: FrontstageDef, location: S
 export function getPanelState(state: NineZoneState, side: PanelSide): StagePanelState.Minimized | StagePanelState.Open;
 
 // @beta
-export function getQuantityFormatsSettingsManagerEntry(itemPriority: number, opts?: Partial<QuantityFormatterSettingsOptions>): SettingsTabEntry;
+export function getQuantityFormatsSettingsManagerEntry(itemPriority: number, opts?: Partial<QuantityFormatterSettingsOptions>): SettingsTabEntry_2;
 
 // @beta @deprecated
 export function getSelectionContextSyncEventIds(): string[];
 
 // @beta
-export function getUiSettingsManagerEntry(itemPriority: number): SettingsTabEntry;
+export function getUiSettingsManagerEntry(itemPriority: number): SettingsTabEntry_2;
 
 // @internal (undocumented)
 export function getWidgetState(widgetDef: WidgetDef, nineZone: NineZoneState): WidgetState;
@@ -2771,8 +2805,8 @@ export function isBackstageActionItem(item: BackstageItem): item is BackstageAct
 export function isBackstageStageLauncher(item: BackstageItem): item is BackstageStageLauncher;
 
 // @internal (undocumented)
-export function isFrontstageStateSettingResult(settingsResult: UiStateStorageResult): settingsResult is {
-    status: UiStateStorageStatus.Success;
+export function isFrontstageStateSettingResult(settingsResult: UiStateStorageResult_2): settingsResult is {
+    status: UiStateStorageStatus_2.Success;
     setting: WidgetPanelsFrontstageState;
 };
 
@@ -3078,7 +3112,7 @@ export interface ListPickerProps {
     // (undocumented)
     onSearchValueChange?: (search: string) => void;
     // (undocumented)
-    onSizeKnown?: (size: SizeProps) => void;
+    onSizeKnown?: (size: SizeProps_2) => void;
     // (undocumented)
     panelOnly?: boolean;
     // (undocumented)
@@ -3098,6 +3132,12 @@ export interface ListPickerPropsExtended extends ListPickerProps {
     // (undocumented)
     invertFunc?: () => void;
 }
+
+// @public
+export type LocalStateStorage = LocalStateStorage_2;
+
+// @public (undocumented)
+export const LocalStateStorage: typeof LocalStateStorage_2;
 
 // @internal
 export function mapToPlacement(input?: Placement | RelativePosition): Placement;
@@ -3130,7 +3170,7 @@ export interface MenuButtonPopupProps extends PopupPropsBase {
 
 // @alpha (undocumented)
 export interface MenuButtonProps extends SquareButtonProps {
-    onSizeKnown?: (size: SizeProps) => void;
+    onSizeKnown?: (size: SizeProps_2) => void;
     point: XAndY;
 }
 
@@ -3562,7 +3602,7 @@ export class PopupManager {
         onItemExecuted: (item: any) => void;
     }): boolean;
     // (undocumented)
-    static getPopupPosition(el: HTMLElement, pt: XAndY, offset: XAndY, size: SizeProps): Point;
+    static getPopupPosition(el: HTMLElement, pt: XAndY, offset: XAndY, size: SizeProps_2): Point;
     // (undocumented)
     static hideCard(id?: string): boolean;
     // (undocumented)
@@ -3650,7 +3690,7 @@ export function PositionPopupContent(props: CommonDivProps): React_2.JSX.Element
 // @beta
 export interface PositionPopupProps extends CommonProps {
     children?: React_2.ReactNode;
-    onSizeKnown?: (size: SizeProps) => void;
+    onSizeKnown?: (size: SizeProps_2) => void;
     point: XAndY;
 }
 
@@ -3735,6 +3775,9 @@ export class ReactNotifyMessageDetails {
     setPointerTypeDetails(viewport: HTMLElement, displayPoint: XAndY, relativePosition?: RelativePosition): void;
     get viewport(): HTMLElement | undefined;
 }
+
+// @public
+export type RectangleProps = RectangleProps_2;
 
 // @public @deprecated
 export type Reducer<S, A> = (state: S, action: A) => S;
@@ -3984,6 +4027,12 @@ export function SessionStateReducer(state: SessionState | undefined, action: Ses
 // @internal (undocumented)
 export const setPanelPinned: (nineZone: NineZoneState, side: PanelSide, pinned: boolean) => NineZoneState;
 
+// @public
+export type SettingsManager = SettingsManager_2;
+
+// @public (undocumented)
+export const SettingsManager: typeof SettingsManager_2;
+
 // @beta
 export class SettingsModalFrontstage implements ModalFrontstageInfo {
     constructor(initialSettingsTabId?: string | undefined);
@@ -4002,6 +4051,12 @@ export class SettingsModalFrontstage implements ModalFrontstageInfo {
     // (undocumented)
     title: string;
 }
+
+// @public
+export type SettingsTabEntry = SettingsTabEntry_2;
+
+// @public
+export type SettingsTabsProvider = SettingsTabsProvider_2;
 
 // @alpha
 export class SheetCard extends React_2.Component<SheetCardProps, SheetCardState> {
@@ -4066,6 +4121,9 @@ export class SheetsModalFrontstage implements ModalFrontstageInfo {
     // (undocumented)
     title: string;
 }
+
+// @public
+export type SizeProps = SizeProps_2;
 
 // @public
 export function SnapModeField(props: SnapModeFieldProps): React_2.JSX.Element;
@@ -4686,7 +4744,7 @@ export class ToolAssistanceField extends React_2.Component<ToolAssistanceFieldPr
     // @internal (undocumented)
     context: React_2.ContextType<typeof UiStateStorageContext>;
     // @internal (undocumented)
-    static contextType: React_2.Context<UiStateStorage>;
+    static contextType: React_2.Context<UiStateStorage_2>;
     // @internal (undocumented)
     static readonly defaultProps: ToolAssistanceFieldDefaultProps;
     // @internal (undocumented)
@@ -4704,7 +4762,7 @@ export interface ToolAssistanceFieldProps extends CommonProps {
     defaultPromptAtCursor: boolean;
     fadeOutCursorPrompt: boolean;
     includePromptAtCursor: boolean;
-    uiStateStorage?: UiStateStorage;
+    uiStateStorage?: UiStateStorage_2;
 }
 
 // @beta
@@ -5054,7 +5112,7 @@ export class UiFramework {
     static getNumItemsSelected(): number;
     // @deprecated
     static getToolbarOpacity(): number;
-    static getUiStateStorage(): UiStateStorage;
+    static getUiStateStorage(): UiStateStorage_2;
     // @deprecated
     static getWidgetOpacity(): number;
     static hideCalculator(): boolean;
@@ -5122,11 +5180,11 @@ export class UiFramework {
     static setNumItemsSelected(numSelected: number): void;
     // @deprecated
     static setShowWidgetIcon(value: boolean): void;
-    static get settingsManager(): SettingsManager;
+    static get settingsManager(): SettingsManager_2;
     // @deprecated
     static setToolbarOpacity(opacity: number): void;
     // (undocumented)
-    static setUiStateStorage(storage: UiStateStorage, immediateSync?: boolean): Promise<void>;
+    static setUiStateStorage(storage: UiStateStorage_2, immediateSync?: boolean): Promise<void>;
     // @deprecated
     static setUseDragInteraction(useDragInteraction: boolean): void;
     // @deprecated
@@ -5221,11 +5279,23 @@ export interface UiSettingsProviderProps {
     children?: React_2.ReactNode;
 }
 
+// @public
+export type UiStateStorage = UiStateStorage_2;
+
 // @internal (undocumented)
-export const UiStateStorageContext: React_2.Context<UiStateStorage>;
+export const UiStateStorageContext: React_2.Context<UiStateStorage_2>;
 
 // @public
 export function UiStateStorageHandler(props: UiSettingsProviderProps): React_2.JSX.Element;
+
+// @public
+export type UiStateStorageResult = UiStateStorageResult_2;
+
+// @public
+export type UiStateStorageStatus = UiStateStorageStatus_2;
+
+// @public (undocumented)
+export const UiStateStorageStatus: typeof UiStateStorageStatus_2;
 
 // @public @deprecated
 export class UiSyncEvent extends BeUiEvent<UiSyncEventArgs> {
@@ -5330,7 +5400,7 @@ export function usePreviewFeatures(): PreviewFeatures;
 
 // @public
 export interface UserSettingsProvider {
-    loadUserSettings(storage: UiStateStorage): Promise<void>;
+    loadUserSettings(storage: UiStateStorage_2): Promise<void>;
     providerId: string;
 }
 
@@ -5377,7 +5447,7 @@ export const useUiItemsProviderStatusBarItems: (manager: StatusBarItemsManager) 
 export const useUiItemsProviderToolbarItems: (manager: ToolbarItemsManager, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation) => readonly ToolbarItem[];
 
 // @public (undocumented)
-export function useUiStateStorageHandler(): UiStateStorage;
+export function useUiStateStorageHandler(): UiStateStorage_2;
 
 // @internal (undocumented)
 export function useUiVisibility(): boolean;
@@ -5641,8 +5711,8 @@ export class WidgetDef {
     get defaultFloatingPosition(): XAndY | undefined;
     set defaultFloatingPosition(position: XAndY | undefined);
     // @internal (undocumented)
-    get defaultFloatingSize(): SizeProps | undefined;
-    set defaultFloatingSize(size: SizeProps | undefined);
+    get defaultFloatingSize(): SizeProps_2 | undefined;
+    set defaultFloatingSize(size: SizeProps_2 | undefined);
     // @internal (undocumented)
     get defaultState(): WidgetState;
     expand(): void;

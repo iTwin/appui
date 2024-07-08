@@ -48,7 +48,7 @@ export namespace BackstageItemUtilities {
     args: CreateStageLauncherArgs
   ): BackstageStageLauncher;
   /** Creates a stage launcher backstage item.
-   * @deprecated in 4.16.0. To avoid using a deprecated {@link IconSpec} type. Use an overload instead.
+   * @deprecated in 4.16.0. Uses a deprecated {@link @itwin/core-react#IconSpec} type. Use an overload instead.
    */
   export function createStageLauncher(
     ...args: CreateStageLauncherArgsTuple

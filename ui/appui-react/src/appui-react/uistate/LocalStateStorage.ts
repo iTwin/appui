@@ -14,5 +14,6 @@ import { UiStateStorage } from "./UiStateStorage";
  * @public
  */
 export type LocalStateStorage = _LocalStateStorage;
+/** @public */
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const LocalStateStorage = _LocalStateStorage;

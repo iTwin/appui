@@ -333,7 +333,7 @@ internal;getPanelState(state: NineZoneState, side: PanelSide): StagePanelState.M
 beta;getQuantityFormatsSettingsManagerEntry(itemPriority: number, opts?: Partial
 beta;getSelectionContextSyncEventIds(): string[]
 deprecated;getSelectionContextSyncEventIds(): string[]
-beta;getUiSettingsManagerEntry(itemPriority: number): SettingsTabEntry
+beta;getUiSettingsManagerEntry(itemPriority: number): SettingsTabEntry_2
 internal;getWidgetState(widgetDef: WidgetDef, nineZone: NineZoneState): WidgetState
 internal;GroupedItems = ReadonlyArray
 public;GroupItemDef 
@@ -372,7 +372,7 @@ deprecated;InputFieldMessageRemovedEvent
 alpha;InputStatus
 public;isBackstageActionItem(item: BackstageItem): item is BackstageActionItem
 public;isBackstageStageLauncher(item: BackstageItem): item is BackstageStageLauncher
-internal;isFrontstageStateSettingResult(settingsResult: UiStateStorageResult): settingsResult is
+internal;isFrontstageStateSettingResult(settingsResult: UiStateStorageResult_2): settingsResult is
 beta;isNoSelectionActive(): boolean
 deprecated;isNoSelectionActive(): boolean
 internal;isReactContent: (content: PopupContentType) => content is ReactContent
@@ -417,6 +417,8 @@ beta;ListPickerItem
 beta;ListPickerItemProps 
 beta;ListPickerProps
 beta;ListPickerPropsExtended 
+public;LocalStateStorage = LocalStateStorage_2
+public;LocalStateStorage: typeof LocalStateStorage_2
 internal;mapToPlacement(input?: Placement | RelativePosition): Placement
 internal;mapToRelativePosition(input: Placement | RelativePosition): RelativePosition
 alpha;MenuButton 
@@ -529,6 +531,7 @@ beta;QuantityFormatSettingsPage({ initialQuantityType, availableUnitSystems, }: 
 beta;QuantityFormatterSettingsOptions
 public;ReactContent
 public;ReactNotifyMessageDetails
+public;RectangleProps = RectangleProps_2
 public;Reducer
 deprecated;Reducer
 public;ReducerActions
@@ -572,7 +575,11 @@ deprecated;sessionStateMapDispatchToProps:
 public;SessionStateReducer(state: SessionState | undefined, action: SessionStateActionsUnion): DeepReadonly
 deprecated;SessionStateReducer(state: SessionState | undefined, action: SessionStateActionsUnion): DeepReadonly
 internal;setPanelPinned: (nineZone: NineZoneState, side: PanelSide, pinned: boolean) => NineZoneState
+public;SettingsManager = SettingsManager_2
+public;SettingsManager: typeof SettingsManager_2
 beta;SettingsModalFrontstage 
+public;SettingsTabEntry = SettingsTabEntry_2
+public;SettingsTabsProvider = SettingsTabsProvider_2
 alpha;SheetCard 
 alpha;SheetCardProps
 alpha;SheetData
@@ -581,6 +588,7 @@ alpha;SheetNavigationAidControl
 deprecated;SheetNavigationAidControl 
 public;SheetNavigationProps 
 alpha;SheetsModalFrontstage 
+public;SizeProps = SizeProps_2
 public;SnapModeField(props: SnapModeFieldProps): React_2.JSX.Element
 alpha;SolarTimelineDataProvider 
 public;SplitPane(props: SplitPaneProps): React_2.JSX.Element
@@ -741,8 +749,12 @@ deprecated;UiItemsProviderRegisteredEventArgs
 beta;UiSettingsPage(): React_2.JSX.Element
 deprecated;UiSettingsPage(): React_2.JSX.Element
 public;UiSettingsProviderProps
+public;UiStateStorage = UiStateStorage_2
 internal;UiStateStorageContext: React_2.Context
 public;UiStateStorageHandler(props: UiSettingsProviderProps): React_2.JSX.Element
+public;UiStateStorageResult = UiStateStorageResult_2
+public;UiStateStorageStatus = UiStateStorageStatus_2
+public;UiStateStorageStatus: typeof UiStateStorageStatus_2
 public;UiSyncEvent 
 deprecated;UiSyncEvent 
 public;UiSyncEventArgs
@@ -792,7 +804,7 @@ public;useUiItemsProviderBackstageItems: (manager: BackstageItemsManager) => rea
 public;useUiItemsProviderStatusBarItems: (manager: StatusBarItemsManager) => readonly StatusBarItem[]
 public;useUiItemsProviderToolbarItems: (manager: ToolbarItemsManager, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation) => readonly ToolbarItem[]
 deprecated;useUiItemsProviderToolbarItems: (manager: ToolbarItemsManager, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation) => readonly ToolbarItem[]
-public;useUiStateStorageHandler(): UiStateStorage
+public;useUiStateStorageHandler(): UiStateStorage_2
 internal;useUiVisibility(): boolean
 internal;useUpdateNineZoneSize(frontstageDef: FrontstageDef): void
 alpha;useWidget():
