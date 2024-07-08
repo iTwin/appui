@@ -7,9 +7,13 @@ deprecated;ActivateSettingsTabEventArgs
 internal;AnnularSector
 internal;Annulus
 public;AsyncGetAutoSuggestDataFunc = (value: string) => Promise
+deprecated;AsyncGetAutoSuggestDataFunc = (value: string) => Promise
 public;AutoSuggest 
+deprecated;AutoSuggest 
 public;AutoSuggestData
+deprecated;AutoSuggestData
 public;AutoSuggestProps 
+deprecated;AutoSuggestProps 
 internal;Badge({ type }: BadgeProps): React_2.JSX.Element | null
 internal;BadgeProps
 public;BadgeType = BadgeType_2
@@ -27,6 +31,7 @@ deprecated;Centered(props: CommonDivProps): React_2.JSX.Element
 public;CheckBoxInfo
 deprecated;CheckBoxInfo
 public;CheckBoxState
+deprecated;CheckBoxState
 public;CheckListBox 
 deprecated;CheckListBox 
 public;CheckListBoxItem 
@@ -43,14 +48,23 @@ deprecated;CommonDivProps
 public;CommonProps 
 deprecated;CommonProps 
 public;ConditionalIconItem
+deprecated;ConditionalIconItem
 public;ContextMenu 
+deprecated;ContextMenu 
 public;ContextMenuDirection
+deprecated;ContextMenuDirection
 public;ContextMenuDivider 
+deprecated;ContextMenuDivider 
 public;ContextMenuItem 
+deprecated;ContextMenuItem 
 public;ContextMenuItemProps 
+deprecated;ContextMenuItemProps 
 public;ContextMenuProps 
+deprecated;ContextMenuProps 
 public;ContextSubMenu 
+deprecated;ContextSubMenu 
 public;ContextSubMenuProps 
+deprecated;ContextSubMenuProps 
 internal;Corner
 internal;CrossAxisArrowKeyFunc = (forward: boolean) => void
 public;Dialog 
@@ -100,6 +114,7 @@ deprecated;Gap(props: GapProps): React_2.JSX.Element
 public;GapProps 
 deprecated;GapProps 
 public;GetAutoSuggestDataFunc = (value: string) => AutoSuggestData[]
+deprecated;GetAutoSuggestDataFunc = (value: string) => AutoSuggestData[]
 internal;getBestBWContrastColor(hexColor: string): "black" | "white"
 public;getCssVariable(variableName: string, htmlElement?: HTMLElement): string
 deprecated;getCssVariable(variableName: string, htmlElement?: HTMLElement): string
@@ -113,7 +128,9 @@ internal;getToolbarBackgroundColor: (opacity: number) => string
 internal;getToolbarBoxShadow: (opacity: number) => string
 internal;getUserColor(email: string): string
 public;GlobalContextMenu 
+deprecated;GlobalContextMenu 
 public;GlobalContextMenuProps 
+deprecated;GlobalContextMenuProps 
 public;GlobalDialog 
 deprecated;GlobalDialog 
 public;GlobalDialogProps 
@@ -124,6 +141,7 @@ internal;hasPointerEventsSupport(): boolean
 public;HorizontalAlignment
 deprecated;HorizontalAlignment
 public;Icon(props: IconProps): React_2.JSX.Element | null
+deprecated;Icon(props: IconProps): React_2.JSX.Element | null
 public;IconHelper
 deprecated;IconHelper
 public;IconInput: (props: IconInputProps) => React_2.ReactNode
@@ -131,7 +149,9 @@ deprecated;IconInput: (props: IconInputProps) => React_2.ReactNode
 public;IconInputProps 
 deprecated;IconInputProps 
 public;IconProps 
+deprecated;IconProps 
 public;IconSpec = string | ConditionalStringValue | React_2.ReactNode | ConditionalIconItem
+deprecated;IconSpec = string | ConditionalStringValue | React_2.ReactNode | ConditionalIconItem
 public;ImageCheckBox 
 deprecated;ImageCheckBox 
 public;ImageCheckBoxProps 
@@ -181,7 +201,9 @@ deprecated;LoadingStatus
 public;LoadingStatusProps 
 deprecated;LoadingStatusProps 
 alpha;LocalizationProvider(props: LocalizationProviderProps): React_2.JSX.Element
+deprecated;LocalizationProvider(props: LocalizationProviderProps): React_2.JSX.Element
 public;LocalStateStorage 
+deprecated;LocalStateStorage 
 public;MainTabsProps 
 deprecated;MainTabsProps 
 internal;mergeRefs
@@ -208,7 +230,9 @@ deprecated;NoChildrenProps
 public;NodeCheckboxProps
 deprecated;NodeCheckboxProps
 public;NodeCheckboxRenderer = (props: NodeCheckboxRenderProps) => React_2.ReactNode
+deprecated;NodeCheckboxRenderer = (props: NodeCheckboxRenderProps) => React_2.ReactNode
 public;NodeCheckboxRenderProps = Omit
+deprecated;NodeCheckboxRenderProps = Omit
 public;NumberInput: (props: NumberInputProps) => React_2.ReactNode
 deprecated;NumberInput: (props: NumberInputProps) => React_2.ReactNode
 public;NumberInputProps 
@@ -216,6 +240,7 @@ deprecated;NumberInputProps
 public;OmitChildrenProp
 deprecated;OmitChildrenProp
 public;Orientation
+deprecated;Orientation
 public;OutsideClickEvent = PointerEvent | MouseEvent | TouchEvent
 deprecated;OutsideClickEvent = PointerEvent | MouseEvent | TouchEvent
 internal;percentInRange(percent: number): number
@@ -223,7 +248,9 @@ internal;Point
 public;Popup 
 deprecated;Popup 
 public;PopupContextMenu(props: PopupContextMenuProps): React_2.JSX.Element
+deprecated;PopupContextMenu(props: PopupContextMenuProps): React_2.JSX.Element
 public;PopupContextMenuProps 
+deprecated;PopupContextMenuProps 
 public;PopupProps 
 deprecated;PopupProps 
 public;ProcessSettingsContainerCloseEvent 
@@ -251,7 +278,9 @@ public;ReactMessage
 deprecated;ReactMessage
 internal;Rectangle 
 public;RectangleProps
+deprecated;RectangleProps
 public;RenderPropsArgs
+deprecated;RenderPropsArgs
 public;ResizableContainerObserver({ onResize, children, }:
 deprecated;ResizableContainerObserver({ onResize, children, }:
 internal;ResizeObserverType = default_2
@@ -264,17 +293,23 @@ deprecated;SearchBox
 public;SearchBoxProps 
 deprecated;SearchBoxProps 
 public;SettingsContainer: ({ tabs, onSettingsTabSelected, currentSettingsTab, settingsManager, showHeader, }: SettingsContainerProps) => React_2.JSX.Element
+deprecated;SettingsContainer: ({ tabs, onSettingsTabSelected, currentSettingsTab, settingsManager, showHeader, }: SettingsContainerProps) => React_2.JSX.Element
 public;SettingsContainerProps
+deprecated;SettingsContainerProps
 public;SettingsManager
+deprecated;SettingsManager
 public;SettingsProvidersChangedEvent 
 deprecated;SettingsProvidersChangedEvent 
 public;SettingsProvidersChangedEventArgs
 deprecated;SettingsProvidersChangedEventArgs
 public;SettingsTabEntry
+deprecated;SettingsTabEntry
 public;SettingsTabsProvider
+deprecated;SettingsTabsProvider
 internal;shallowDiffers: (a:
 internal;Size 
 public;SizeProps
+deprecated;SizeProps
 public;SortDirection
 deprecated;SortDirection
 public;StepFunctionProp = number | ((direction: string) => number | undefined)
@@ -296,6 +331,7 @@ deprecated;TabsProps
 public;TextProps 
 deprecated;TextProps 
 public;TimeFormat
+deprecated;TimeFormat
 public;Timer
 deprecated;Timer
 internal;TOOLBAR_BACKDROP_FILTER_BLUR_DEFAULT = 10
@@ -318,16 +354,22 @@ deprecated;TreeNodeProps
 public;TreeProps 
 deprecated;TreeProps 
 public;UiCore
+deprecated;UiCore
 internal;UiGeometry
 public;UiStateEntry
+deprecated;UiStateEntry
 public;UiStateStorage
+deprecated;UiStateStorage
 public;UiStateStorageResult
+deprecated;UiStateStorageResult
 public;UiStateStorageStatus
+deprecated;UiStateStorageStatus
 public;UnderlinedButton(props: UnderlinedButtonProps): React_2.JSX.Element
 deprecated;UnderlinedButton(props: UnderlinedButtonProps): React_2.JSX.Element
 public;UnderlinedButtonProps
 deprecated;UnderlinedButtonProps
 public;useCrossOriginPopup(visible: boolean, url: string | undefined, title: string, width: number, height: number, onClose: () => void): void
+deprecated;useCrossOriginPopup(visible: boolean, url: string | undefined, title: string, width: number, height: number, onClose: () => void): void
 public;useDisposable
 deprecated;useDisposable
 public;useEffectSkipFirst(callback: () => (void | (() => void | undefined)) | void, deps?: any[]): void
@@ -345,7 +387,9 @@ internal;useRefs
 internal;useRefState
 internal;useResizeObserver
 public;useSaveBeforeActivatingNewSettingsTab(settingsManager: SettingsManager, saveFunction: (tabSelectionFunc: (args: any) => void, requestedSettingsTabId?: string) => void): void
+deprecated;useSaveBeforeActivatingNewSettingsTab(settingsManager: SettingsManager, saveFunction: (tabSelectionFunc: (args: any) => void, requestedSettingsTabId?: string) => void): void
 public;useSaveBeforeClosingSettingsContainer(settingsManager: SettingsManager, saveFunction: (closeFunc: (args: any) => void, closeFuncArgs?: any) => void): void
+deprecated;useSaveBeforeClosingSettingsContainer(settingsManager: SettingsManager, saveFunction: (closeFunc: (args: any) => void, closeFuncArgs?: any) => void): void
 internal;useTargeted: (ref: React_2.RefObject
 internal;useWidgetOpacityContext(): WidgetOpacityContextProps
 public;VerticalAlignment
