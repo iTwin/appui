@@ -25,8 +25,13 @@ export interface CommonBackstageItem {
    * allows extensions enough gaps to insert their own groups.
    */
   readonly groupPriority: number;
-  /** Name of icon WebFont entry or if specifying an imported SVG symbol use "webSvg:" prefix to imported symbol Id. */
+  /** Name of icon WebFont entry or if specifying an imported SVG symbol use "webSvg:" prefix to imported symbol Id.
+   * @deprecated in 4.16.0. Use {@link CommonBackstageItem.iconNode} instead.
+   */
+  // eslint-disable-next-line deprecation/deprecation
   readonly icon?: IconSpec;
+  /** Icon of the backstage item. */
+  readonly iconNode?: React.ReactNode;
   /** Describes if the item is visible or hidden. The default is for the item to be visible. */
   readonly isHidden?: boolean | ConditionalBooleanValue;
   /** Describes if the item is enabled or disabled. The default is for the item to be enabled. */
