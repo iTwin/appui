@@ -61,6 +61,7 @@ export interface CursorMenuItemProps extends IconProps {
   /** Badge to be overlaid on the item.
    * @deprecated in 4.16.0. Use `badgeKind` property instead.
    */
+  // eslint-disable-next-line deprecation/deprecation
   badgeType?: BadgeType;
   /** Specifies the kind of badge, if any, to be overlaid on the item. */
   badgeKind?: BadgeKind;

@@ -99,6 +99,7 @@ export class WidgetDef {
   private _applicationData?: any;
   private _icon?: IconSpec;
   private _internalData?: Map<string, any>;
+  // eslint-disable-next-line deprecation/deprecation
   private _badge?: BadgeType;
   private _badgeKind?: BadgeKind;
   private _saveTransientState?: () => void;
@@ -179,6 +180,8 @@ export class WidgetDef {
       ? IconHelper.getIconData(spec, this._internalData) // eslint-disable-line deprecation/deprecation
       : spec;
   }
+  /** @deprecated in 4.16.0. Use `badgeKind` instead. */
+  // eslint-disable-next-line deprecation/deprecation
   public get badgeType(): BadgeType | undefined {
     return this._badge;
   }

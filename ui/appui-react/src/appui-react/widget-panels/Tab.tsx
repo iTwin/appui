@@ -16,6 +16,7 @@ export function WidgetPanelsTab() {
   const widgetDef = useWidgetDef();
   return (
     <WidgetTab
+      // eslint-disable-next-line deprecation/deprecation
       badge={<Badge type={widgetDef?.badgeKind || widgetDef?.badgeType} />}
     />
   );

@@ -52,6 +52,7 @@ export interface CommonStatusBarItem {
   /** Describes badge. Renders no badge if not specified.
    * @deprecated in 4.16.0. Use `badgeKind` property instead.
    */
+  // eslint-disable-next-line deprecation/deprecation
   readonly badge?: BadgeType;
   /** Specifies the kind of badge, if any, to be rendered. */
   readonly badgeKind?: BadgeKind;

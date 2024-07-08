@@ -19,8 +19,9 @@ export interface CommonBackstageItem {
   /** Required unique id of the item. To ensure uniqueness it is suggested that a namespace prefix of the extension name be used. */
   readonly id: string;
   /** Describes badge. Renders no badge if not specified.
-   * @deprecated in 4.16.0. Use {@link CommonBackstageItem.badgeKind} prop instead.
+   * @deprecated in 4.16.0. Use `badgeKind` property instead.
    */
+  // eslint-disable-next-line deprecation/deprecation
   readonly badge?: BadgeType;
   /** Specifies the kind of badge, if any, to be rendered. */
   readonly badgeKind?: BadgeKind;
