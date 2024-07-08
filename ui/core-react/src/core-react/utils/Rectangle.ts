@@ -14,6 +14,7 @@ import { UiGeometry } from "./UiGeometry";
 
 /** Describes 2d bounds.
  * @public
+ * @deprecated in 4.16.0. Use {@link @itwin/appui-react#RectangleProps} instead.
  */
 export interface RectangleProps {
   readonly left: number;

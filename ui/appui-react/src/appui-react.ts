@@ -237,9 +237,10 @@ export * from "./appui-react/uistate/LocalStateStorage";
 export * from "./appui-react/uistate/UiStateStorage";
 export * from "./appui-react/uistate/useUiStateStorage";
 
-export * from "./appui-react/utils/ViewUtilities";
 export * from "./appui-react/utils/PropsHelper";
+export * from "./appui-react/utils/RectangleProps";
 export * from "./appui-react/utils/ToolbarButtonHelper";
+export * from "./appui-react/utils/ViewUtilities";
 
 export * from "./appui-react/widget-panels/Content";
 export * from "./appui-react/widget-panels/Frontstage";
