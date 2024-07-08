@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/components-react",
+      "comment": "Added support for new BadgeKind type in components.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/components-react"
+}
