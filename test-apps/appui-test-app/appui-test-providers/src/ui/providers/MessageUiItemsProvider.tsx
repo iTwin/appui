@@ -123,7 +123,7 @@ export class MessageUiItemsProvider implements UiItemsProvider {
                   )
                 );
               },
-              { badge: BadgeType.New }
+              { badgeKind: "new" }
             ),
           ]
         ),
