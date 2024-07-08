@@ -161,7 +161,6 @@ Table of contents:
   - `onViewSelected` to `ViewSelectorProps` to replace the static event.
   - `solarTimeline`, `analysisTimeline`, `scheduleAnimation` props to `DefaultViewOverlay` component to replace existing `applicationData.featureOptions.defaultViewOverlay` property.
   - `navigationAid` prop to `ViewToolWidgetComposer` to override the default navigation aid.
-
 - Added replacement properties that allow specifying the badge type in components using string values from `BadgeKind`. [#899](https://github.com/iTwin/appui/pull/899)
   - `badgeKind` property in `CommonBackstageItem`, `CommonStatusBarItem`, `CommonToolbarItem`, `Widget`, `CursorMenuItemProps`, `FrameworkKeyboardShortcut`, `ItemDefBase`, `ItemProps`, `KeyboardShortcutProps`.
   - `badgeKind` getter in `WidgetDef`.
