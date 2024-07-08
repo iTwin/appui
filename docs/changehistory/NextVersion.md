@@ -8,8 +8,11 @@ Table of contents:
   - [Changes](#changes)
   - [Fixes](#fixes)
 - [@itwin/components-react](#itwincomponents-react)
+  - [Additions](#additions-1)
   - [Changes](#changes-1)
   - [Fixes](#fixes-1)
+- [@itwin/core-react](#itwincore-react)
+  - [Deprecations](#deprecations-1)
 
 ## @itwin/appui-react
 
@@ -152,6 +155,7 @@ Table of contents:
   - `onViewSelected` to `ViewSelectorProps` to replace the static event.
   - `solarTimeline`, `analysisTimeline`, `scheduleAnimation` props to `DefaultViewOverlay` component to replace existing `applicationData.featureOptions.defaultViewOverlay` property.
   - `navigationAid` prop to `ViewToolWidgetComposer` to override the default navigation aid.
+- Added `LocalStateStorage`, `SettingsManager` classes, `UiStateStorageStatus` enum and `UiStateStorage`, `UiStateStorageResult`, `RectangleProps`, `SizeProps`, `SettingsTabEntry`, `SettingsTabsProvider` interfaces previously accessible from `@itwin/core-react` package. [#901](https://github.com/iTwin/appui/pull/901)
 
 ### Changes
 
@@ -163,6 +167,10 @@ Table of contents:
 
 ## @itwin/components-react
 
+### Additions
+
+- Added `CheckBoxState`, `Orientation`, `TimeFormat` enums and `LocalizationProvider` component previously accessible from `@itwin/core-react` package. [#901](https://github.com/iTwin/appui/pull/901)
+
 ### Changes
 
 - Property grid array items' description will be shown next to the index when the items are non-primitive. [#890](https://github.com/iTwin/appui/pull/890)
@@ -170,3 +178,42 @@ Table of contents:
 ### Fixes
 
 - Fixed `activeMatchIndex` not working correctly on adjacent matches in `HighlightedText`. [#898](https://github.com/iTwin/appui/pull/898)
+
+## @itwin/core-react
+
+### Deprecations
+
+- Deprecated all remaining APIs of `@itwin/core-react` package. `@itwin/core-react` package is now considered deprecated and usage of this package should be avoided. Existing APIs will continue to work as expected as described in [API deprecation policy](https://www.itwinjs.org/learning/api-support-policies/#api-deprecation-policy). Package will be removed entirely with `AppUI 6.0` version release. [#901](https://github.com/iTwin/appui/pull/901)
+
+  - `CheckBoxState`, `Orientation`, `TimeFormat` enums and `LocalizationProvider` component are now accessible from `@itwin/components-react` package.
+  - `LocalStateStorage`, `SettingsManager` classes, `UiStateStorageStatus` enum and `UiStateStorage`, `UiStateStorageResult`, `RectangleProps`, `SizeProps`, `SettingsTabEntry`, `SettingsTabsProvider` interfaces are now accessible from `@itwin/appui-react` package.
+  - `UiStateEntry` class. Use `UiStateStorage` APIs instead.
+  - `AutoSuggest` component and related types `AutoSuggestProps`, `AutoSuggestData`, `AsyncGetAutoSuggestDataFunc`, `GetAutoSuggestDataFunc`. Use [iTwinUI](https://itwinui.bentley.com) components instead. I.e. [ComboBox](https://itwinui.bentley.com/docs/combobox) can be used in most cases by providing a custom `filterFunction` in order to hide a dropdown menu via `dropdownMenuProps.style` and handling of input value via `inputProps.onChange`. Alternatively, please [upvote an existing](https://github.com/iTwin/iTwinUI/issues) or file a new [feature request](https://github.com/iTwin/iTwinUI/issues/new/choose) if additional customization is needed.
+  - `ContextMenu`, `ContextMenuItem`, `ContextSubMenu`, `ContextMenuDivider`, `GlobalContextMenu`, `PopupContextMenu` components, `ContextMenuDirection` enum and related types `ContextMenuProps`, `ContextMenuItemProps`, `ContextSubMenuProps`, `GlobalContextMenuProps`, `PopupContextMenuProps`. Use [iTwinUI DropdownMenu](https://itwinui.bentley.com/docs/dropdownmenu) component instead. In most cases, you will need to control visibility manually via `visible` prop. Additionally, if you need to position the menu i.e. based on the current mouse position, you can create a hidden target for the `DropdownMenu`.
+
+    ```tsx
+    <DropdownMenu
+      visible={true}
+      // ...
+    >
+      <div
+        style={{
+          visibility: "hidden",
+          position: "absolute",
+          left: 50,
+          top: 200,
+        }}
+      />
+    </DropdownMenu>
+    ```
+
+  - `ConditionalIconItem` class
+    - TODO: should be just `React.ReactNode`
+  - `Icon` component, `IconProps`, `IconSpec` type.
+    - TODO: `IconSpec` should be `React.ReactNode`
+  - `NodeCheckboxRenderer`, `NodeCheckboxRenderProps` types. Types are inlined in the component props definition. For advanced use-cases use `React.ComponentProps` type helper instead.
+  - `RenderPropsArgs` interface. Props of a deprecated component `ElementResizeObserver`.
+  - `SettingsContainer` component and props type `SettingsContainerProps`. Component is used internally by `SettingsModalFrontstage`. Use [iTwinUI](https://itwinui.bentley.com) components to build a custom solution instead or file a [feature request](https://github.com/iTwin/appui/issues/new/choose).
+  - `UiCore` class. It is recommended for applications to continue using `UiCore` initializer until the package is removed entirely to avoid unexpected behavior in dependencies.
+  - `useCrossOriginPopup` hook. Without a replacement, build a custom solution instead.
+  - `useSaveBeforeActivatingNewSettingsTab`, `useSaveBeforeClosingSettingsContainer` hooks. Use `SettingsManager` APIs instead.
