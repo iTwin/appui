@@ -8,15 +8,11 @@
 
 import "./SettingsContainer.scss";
 import * as React from "react";
-import type {
-  ActivateSettingsTabEventArgs,
-  ProcessSettingsContainerCloseEventArgs,
-  ProcessSettingsTabActivationEventArgs,
-  SettingsManager,
-  SettingsTabEntry,
-} from "./SettingsManager";
+import type { SettingsManager, SettingsTabEntry } from "./SettingsManager";
 import { VerticalTabs } from "../tabs/VerticalTabs";
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
+
+/* eslint-disable deprecation/deprecation */
 
 /*  ---------------------------------------------------------------------------------------------------
 // A typical implementation of a saveFunction callback
@@ -33,25 +29,24 @@ const saveChanges = React.useCallback((afterSaveFunction: (args: any) => void, a
 
 /** Hook to use within Settings Page component to allow saving the current page's data before the Setting Container is closed.
  * @public
+ * @deprecated in 4.16.0. Use {@link SettingsManager} instead.
  */
 export function useSaveBeforeClosingSettingsContainer(
   settingsManager: SettingsManager,
   saveFunction: (closeFunc: (args: any) => void, closeFuncArgs?: any) => void
 ) {
   React.useEffect(() => {
-    const handleProcessSettingsContainerClose = (
-      { closeFunc, closeFuncArgs }: ProcessSettingsContainerCloseEventArgs // eslint-disable-line deprecation/deprecation
-    ) => {
-      saveFunction(closeFunc, closeFuncArgs);
-    };
     return settingsManager.onProcessSettingsContainerClose.addListener(
-      handleProcessSettingsContainerClose
+      ({ closeFunc, closeFuncArgs }) => {
+        saveFunction(closeFunc, closeFuncArgs);
+      }
     );
   }, [saveFunction, settingsManager]);
 }
 
 /** Hook to use within Settings Page component to allow saving the current page's data before loading to the requested Setting Tab's page.
  * @public
+ * @deprecated in 4.16.0. Use {@link SettingsManager} instead.
  */
 export function useSaveBeforeActivatingNewSettingsTab(
   settingsManager: SettingsManager,
@@ -61,22 +56,18 @@ export function useSaveBeforeActivatingNewSettingsTab(
   ) => void
 ) {
   React.useEffect(() => {
-    const handleProcessSettingsTabActivation = (
-      {
-        tabSelectionFunc,
-        requestedSettingsTabId,
-      }: ProcessSettingsTabActivationEventArgs // eslint-disable-line deprecation/deprecation
-    ) => {
-      saveFunction(tabSelectionFunc, requestedSettingsTabId);
-    };
     return settingsManager.onProcessSettingsTabActivation.addListener(
-      handleProcessSettingsTabActivation
+      ({ tabSelectionFunc, requestedSettingsTabId }) => {
+        saveFunction(tabSelectionFunc, requestedSettingsTabId);
+      }
     );
   }, [saveFunction, settingsManager]);
 }
 
 /**
+ * Properties of {@link SettingsContainer} component.
  * @public
+ * @deprecated in 4.16.0. Props of a deprecated {@link SettingsContainer} component.
  */
 export interface SettingsContainerProps {
   tabs: SettingsTabEntry[];
@@ -90,10 +81,10 @@ export interface SettingsContainerProps {
   showHeader?: boolean;
 }
 
-/**
- * SettingsContainer component that displays Setting Tabs on Left and the P
- * Note: that SettingsContainer is not rendered if tabs array is empty
+/** Component that displays setting tabs on the left and the setting page on the right.
+ * Note: that SettingsContainer is not rendered if tabs array is empty.
  * @public
+ * @deprecated in 4.16.0. Used internally by {@link @itwin/appui-react#SettingsModalFrontstage}.
  */
 export const SettingsContainer = ({
   tabs,
@@ -151,29 +142,25 @@ export const SettingsContainer = ({
   );
 
   React.useEffect(() => {
-    const handleActivateSettingsTab = (
-      { settingsTabId }: ActivateSettingsTabEventArgs // eslint-disable-line deprecation/deprecation
-    ) => {
-      const idToFind = settingsTabId.toLowerCase();
-      let tabToActivate = tabs.find(
-        (tab) => tab.tabId.toLowerCase() === idToFind
-      );
-      if (!tabToActivate)
-        tabToActivate = tabs.find(
-          (tab) => tab.label.toLowerCase() === idToFind
-        );
-      if (tabToActivate) {
-        if (openTab && openTab.pageWillHandleCloseRequest)
-          settingsManager.onProcessSettingsTabActivation.emit({
-            requestedSettingsTabId: tabToActivate.tabId,
-            tabSelectionFunc: processTabSelectionById,
-          });
-        else processTabSelection(tabToActivate);
-      }
-    };
-
     return settingsManager.onActivateSettingsTab.addListener(
-      handleActivateSettingsTab
+      ({ settingsTabId }) => {
+        const idToFind = settingsTabId.toLowerCase();
+        let tabToActivate = tabs.find(
+          (tab) => tab.tabId.toLowerCase() === idToFind
+        );
+        if (!tabToActivate)
+          tabToActivate = tabs.find(
+            (tab) => tab.label.toLowerCase() === idToFind
+          );
+        if (tabToActivate) {
+          if (openTab && openTab.pageWillHandleCloseRequest)
+            settingsManager.onProcessSettingsTabActivation.emit({
+              requestedSettingsTabId: tabToActivate.tabId,
+              tabSelectionFunc: processTabSelectionById,
+            });
+          else processTabSelection(tabToActivate);
+        }
+      }
     );
   }, [
     openTab,
@@ -185,18 +172,15 @@ export const SettingsContainer = ({
   ]);
 
   React.useEffect(() => {
-    const handleSettingsContainerClose = (
-      { closeFunc, closeFuncArgs }: ProcessSettingsContainerCloseEventArgs // eslint-disable-line deprecation/deprecation
-    ) => {
-      if (openTab && openTab.pageWillHandleCloseRequest)
-        settingsManager.onProcessSettingsContainerClose.emit({
-          closeFunc,
-          closeFuncArgs,
-        });
-      else closeFunc(closeFuncArgs);
-    };
     return settingsManager.onCloseSettingsContainer.addListener(
-      handleSettingsContainerClose
+      ({ closeFunc, closeFuncArgs }) => {
+        if (openTab && openTab.pageWillHandleCloseRequest)
+          settingsManager.onProcessSettingsContainerClose.emit({
+            closeFunc,
+            closeFuncArgs,
+          });
+        else closeFunc(closeFuncArgs);
+      }
     );
   }, [
     openTab,
@@ -220,7 +204,6 @@ export const SettingsContainer = ({
   return (
     <div className="core-settings-container">
       <div className="core-settings-container-left">
-        {/* eslint-disable-next-line deprecation/deprecation */}
         <VerticalTabs
           labels={labels}
           activeIndex={activeIndex}
