@@ -59,6 +59,7 @@ export interface BackstageActionItem extends CommonBackstageItem {
  * @public
  */
 export interface BackstageStageLauncher extends CommonBackstageItem {
+  /** Id of a frontstage that this item activates. */
   readonly stageId: string;
 }
 
