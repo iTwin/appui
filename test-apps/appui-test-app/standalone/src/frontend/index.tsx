@@ -103,12 +103,9 @@ import {
   SynchronizedFloatingViewportStage,
   testFrontstageProvider,
   WidgetApiStage,
+  WidgetContentProvider,
 } from "@itwin/appui-test-providers";
 import { getUrlParam, useHandleURLParams } from "./UrlParams";
-import {
-  addExampleFrontstagesToBackstage,
-  registerExampleFrontstages,
-} from "./appui/frontstages/example-stages/ExampleStagesBackstageProvider";
 import {
   editorFrontstage,
   editorUiItemsProvider,
@@ -116,6 +113,10 @@ import {
 } from "./appui/frontstages/EditorFrontstageProvider";
 import { useEditorToolSettings } from "./appui/useEditorToolSettings";
 import { AppLanguageSelect, AppLocalizationProvider } from "./Localization";
+import {
+  registerViewportFrontstage,
+  viewportUiItemsProvider,
+} from "./appui/frontstages/ViewportFrontstage";
 
 // Initialize my application gateway configuration for the frontend
 RpcConfiguration.developmentMode = true;
@@ -127,21 +128,18 @@ export enum SampleAppUiActionId {
   setTestProperty = "sampleapp:settestproperty",
   setAnimationViewId = "sampleapp:setAnimationViewId",
   setIsIModelLocal = "sampleapp:setisimodellocal",
-  setInitialViewIds = "sampleapp:setInitialViewIds",
 }
 
 export interface SampleAppState {
   testProperty: string;
   animationViewId: string;
   isIModelLocal: boolean;
-  initialViewIds: string[];
 }
 
 const initialState: SampleAppState = {
   testProperty: "",
   animationViewId: "",
   isIModelLocal: true,
-  initialViewIds: [],
 };
 
 // An object with a function that creates each OpenIModelAction that can be handled by our reducer.
@@ -155,9 +153,6 @@ export const SampleAppActions = {
   setIsIModelLocal: (isIModelLocal: boolean) =>
     // eslint-disable-next-line deprecation/deprecation
     createAction(SampleAppUiActionId.setIsIModelLocal, isIModelLocal),
-  setInitialViewIds: (viewIds: string[]) =>
-    // eslint-disable-next-line deprecation/deprecation
-    createAction(SampleAppUiActionId.setInitialViewIds, viewIds),
 };
 
 class SampleAppAccuSnap extends AccuSnap {
@@ -212,9 +207,6 @@ function SampleAppReducer(
     case SampleAppUiActionId.setIsIModelLocal: {
       return { ...state, isIModelLocal: action.payload };
     }
-    case SampleAppUiActionId.setInitialViewIds: {
-      return { ...state, initialViewIds: action.payload };
-    }
   }
   return state;
 }
@@ -225,16 +217,8 @@ export interface RootState extends FrameworkRootState {
   sampleAppState: SampleAppState;
 }
 
-interface SampleIModelParams {
-  iTwinId: string;
-  iModelId: string;
-  viewIds?: string[];
-  stageId?: string;
-}
-
 export class SampleAppIModelApp {
   public static sampleAppNamespace?: string;
-  public static iModelParams: SampleIModelParams | undefined;
   public static testAppConfiguration: TestAppConfiguration | undefined;
   // eslint-disable-next-line deprecation/deprecation
   private static _appStateManager: StateManager | undefined;
@@ -386,6 +370,7 @@ export class SampleAppIModelApp {
         ),
       ],
     });
+    UiItemsManager.register(viewportUiItemsProvider);
 
     // Register frontstages
     CustomContentFrontstage.register(AppUiTestProviders.localizationNamespace);
@@ -397,6 +382,8 @@ export class SampleAppIModelApp {
       AppUiTestProviders.localizationNamespace
     );
     PopoutWindowsFrontstage.register(AppUiTestProviders.localizationNamespace);
+    MainFrontstage.register();
+    registerViewportFrontstage();
 
     if (ProcessDetector.isElectronAppFrontend) {
       await initializeEditor();
@@ -435,56 +422,30 @@ export class SampleAppIModelApp {
     iModelConnection: IModelConnection,
     viewIdsSelected: Id64String[]
   ) {
-    // we create a Frontstage that contains the views that we want.
-    let stageId: string;
-    const defaultFrontstage = MainFrontstage.stageId;
-
-    registerExampleFrontstages();
-    addExampleFrontstagesToBackstage();
-
-    // Reset QuantityFormatter UnitsProvider with new iModelConnection
-    // Remove comments once RPC error processing is fixed
-    // const schemaLocater = new ECSchemaRpcLocater(iModelConnection);
-    // await IModelApp.quantityFormatter.setUnitsProvider(new SchemaUnitProvider(schemaLocater));
+    const stageId = SampleAppIModelApp.testAppConfiguration?.readWrite
+      ? editorFrontstage.id
+      : MainFrontstage.stageId;
 
     // store the IModelConnection in the sample app store - this may trigger redux connected components
     UiFramework.setIModelConnection(iModelConnection, true);
-
-    // store off the selected viewIds so the content group provider knows what view(s) to show
-    if (viewIdsSelected.length) {
-      SampleAppIModelApp.setInitialViewIds(viewIdsSelected);
-    }
-
-    if (this.iModelParams && this.iModelParams.stageId)
-      stageId = this.iModelParams.stageId;
-    else if (SampleAppIModelApp.testAppConfiguration?.readWrite) {
-      stageId = editorFrontstage.id;
-    } else {
-      stageId = defaultFrontstage;
-    }
-
-    if (stageId === defaultFrontstage) {
-      if (stageId === MainFrontstage.stageId) {
-        MainFrontstage.register();
-      }
+    if (viewIdsSelected.length > 0) {
+      const defaultViewId = viewIdsSelected[0];
+      const viewState = await iModelConnection.views.load(defaultViewId);
+      UiFramework.setDefaultViewState(viewState);
     }
 
     const frontstageDef = await UiFramework.frontstages.getFrontstageDef(
       stageId
     );
-    if (frontstageDef) {
-      void UiFramework.frontstages
-        .setActiveFrontstageDef(frontstageDef)
-        .then(() => {
-          // Frontstage & ScreenViewports are ready
-          Logger.logInfo(
-            SampleAppIModelApp.loggerCategory(this),
-            `Frontstage & ScreenViewports are ready`
-          );
-        });
-    } else {
+    if (!frontstageDef) {
       throw new Error(`Frontstage with id "${stageId}" does not exist`);
     }
+
+    await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
+    Logger.logInfo(
+      SampleAppIModelApp.loggerCategory(this),
+      `Frontstage & ScreenViewports are ready`
+    );
   }
 
   public static async showLocalFileStage() {
@@ -516,10 +477,6 @@ export class SampleAppIModelApp {
     }
   }
 
-  public static getInitialViewIds() {
-    return SampleAppIModelApp.store.getState().sampleAppState.initialViewIds;
-  }
-
   public static getTestProperty(): string {
     return SampleAppIModelApp.store.getState().sampleAppState.testProperty;
   }
@@ -547,15 +504,6 @@ export class SampleAppIModelApp {
     UiFramework.dispatchActionToStore(
       SampleAppUiActionId.setIsIModelLocal,
       isIModelLocal,
-      immediateSync
-    );
-  }
-
-  public static setInitialViewIds(viewIds: string[], immediateSync = false) {
-    // eslint-disable-next-line deprecation/deprecation
-    UiFramework.dispatchActionToStore(
-      SampleAppUiActionId.setInitialViewIds,
-      viewIds,
       immediateSync
     );
   }
@@ -644,21 +592,23 @@ const SampleAppViewer = () => {
   useHandleURLParams();
 
   return (
-    <AppPreviewFeatures>
-      <AppLocalizationProvider>
-        <Provider store={SampleAppIModelApp.store}>
-          <ThemeManager>
-            <SafeAreaContext.Provider value={SafeAreaInsets.All}>
-              <AppDragInteraction>
-                <UiStateStorageHandler>
-                  <AppViewerContent />
-                </UiStateStorageHandler>
-              </AppDragInteraction>
-            </SafeAreaContext.Provider>
-          </ThemeManager>
-        </Provider>
-      </AppLocalizationProvider>
-    </AppPreviewFeatures>
+    <WidgetContentProvider>
+      <AppPreviewFeatures>
+        <AppLocalizationProvider>
+          <Provider store={SampleAppIModelApp.store}>
+            <ThemeManager>
+              <SafeAreaContext.Provider value={SafeAreaInsets.All}>
+                <AppDragInteraction>
+                  <UiStateStorageHandler>
+                    <AppViewerContent />
+                  </UiStateStorageHandler>
+                </AppDragInteraction>
+              </SafeAreaContext.Provider>
+            </ThemeManager>
+          </Provider>
+        </AppLocalizationProvider>
+      </AppPreviewFeatures>
+    </WidgetContentProvider>
   );
 };
 

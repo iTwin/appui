@@ -10,9 +10,11 @@ import type {
   ConfigurableUiElement,
 } from "../configurableui/ConfigurableUiControl";
 
-/**
- * [[UiFramework.controls]] interface
+/* eslint-disable deprecation/deprecation */
+
+/** [[UiFramework.controls]] interface
  * @public
+ * @deprecated in 4.16.0. Use React components instead.
  */
 export interface FrameworkControls {
   /** Registers a control implementing the [[ConfigurableUiElement]] interface.

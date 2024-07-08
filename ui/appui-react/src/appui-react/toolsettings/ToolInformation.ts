@@ -11,8 +11,11 @@ import { ConfigurableUiControlType } from "../configurableui/ConfigurableUiContr
 import { UiFramework } from "../UiFramework";
 import type { ToolUiProvider } from "./ToolUiProvider";
 
+/* eslint-disable deprecation/deprecation */
+
 /** Provides information about a tool with a given id, including the ToolUiProvider.
  * @public
+ * @deprecated in 4.16.0. Uses a deprecated class {@link ToolUiProvider}.
  */
 export class ToolInformation {
   private _toolUiProvider: ToolUiProvider | undefined;
@@ -41,7 +44,6 @@ export class ToolInformation {
       }
       if (provider) {
         if (provider.getType() !== ConfigurableUiControlType.ToolUiProvider) {
-          // eslint-disable-next-line deprecation/deprecation
           throw new UiError(
             UiFramework.loggerCategory(this),
             `toolUiProvider: toolId '${this.toolId}' is registered to a control that is NOT a ToolUiProvider`

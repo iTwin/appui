@@ -5,13 +5,7 @@
 import * as React from "react";
 import {
   BackstageAppButton,
-  ContentGroup,
-  ContentGroupProps,
-  ContentGroupProvider,
-  ContentProps,
-  Frontstage,
   FrontstageUtilities,
-  IModelViewportControl,
   StageUsage,
   StandardContentToolsUiItemsProvider,
   StandardNavigationToolsUiItemsProvider,
@@ -19,100 +13,9 @@ import {
   UiFramework,
   UiItemsManager,
 } from "@itwin/appui-react";
-import { StandardContentLayouts } from "@itwin/appui-abstract";
-import { getSavedViewLayoutProps } from "../../tools/ContentLayoutTools";
 import { SynchronizedFloatingViewportProvider } from "../providers/SynchronizedFloatingViewportProvider";
-
-/**
- * The SynchronizedFloatingViewportContentGroupProvider provides a class with the primary method `provideContentGroup` to provide a ContentGroup
- * to a stage when the stage is activated. This provider will look to see if the user saved out a ContentGroup to use when a stage and
- * specific iModel is opened. See `SaveContentLayoutTool` in `ContentLayoutTools.tsx` to see tool that saved the layout and ViewStates.
- * If no saved state was found `UiFramework.getDefaultViewState` is used to specify the ViewState and `StandardContentLayouts.singleView`
- * is used to specify the layout. The `prepareToSaveProps` prepare the JSON to be saved to local storage when saving ContentGroup data. The
- * method `applyUpdatesToSavedProps` is used to make any updates to the saved JSON before it is applied to the stage.
- */
-export class SynchronizedFloatingViewportContentGroupProvider extends ContentGroupProvider {
-  public override prepareToSaveProps(contentGroupProps: ContentGroupProps) {
-    const newContentsArray = contentGroupProps.contents.map(
-      (content: ContentProps) => {
-        const newContent = { ...content };
-        if (newContent.applicationData) delete newContent.applicationData;
-        return newContent;
-      }
-    );
-    return { ...contentGroupProps, contents: newContentsArray };
-  }
-
-  public override applyUpdatesToSavedProps(
-    contentGroupProps: ContentGroupProps
-  ) {
-    const newContentsArray = contentGroupProps.contents.map(
-      (content: ContentProps) => {
-        const newContent = { ...content };
-
-        if (newContent.classId === IModelViewportControl.id) {
-          newContent.applicationData = {
-            ...newContent.applicationData,
-            isPrimaryView: true,
-            featureOptions: {
-              defaultViewOverlay: {
-                enableScheduleAnimationViewOverlay: true,
-                enableAnalysisTimelineViewOverlay: true,
-                enableSolarTimelineViewOverlay: true,
-              },
-            },
-          };
-        }
-        return newContent;
-      }
-    );
-    return { ...contentGroupProps, contents: newContentsArray };
-  }
-
-  public override async contentGroup(
-    config: Frontstage
-  ): Promise<ContentGroup> {
-    const savedViewLayoutProps = await getSavedViewLayoutProps(
-      config.id,
-      UiFramework.getIModelConnection()
-    );
-    if (savedViewLayoutProps) {
-      const viewState =
-        savedViewLayoutProps.contentGroupProps.contents[0].applicationData
-          ?.viewState;
-      if (viewState) {
-        UiFramework.setDefaultViewState(viewState);
-      }
-      const contentGroupProps = this.applyUpdatesToSavedProps(
-        savedViewLayoutProps.contentGroupProps
-      );
-      return new ContentGroup(contentGroupProps);
-    }
-
-    return new ContentGroup({
-      id: "synchronized-floating-viewport-stage-frontstage-main-content-group",
-      layout: StandardContentLayouts.singleView,
-      contents: [
-        {
-          id: "primaryContent",
-          classId: IModelViewportControl.id,
-          applicationData: {
-            isPrimaryView: true,
-            viewState: UiFramework.getDefaultViewState,
-            iModelConnection: UiFramework.getIModelConnection,
-            featureOptions: {
-              defaultViewOverlay: {
-                enableScheduleAnimationViewOverlay: true,
-                enableAnalysisTimelineViewOverlay: true,
-                enableSolarTimelineViewOverlay: true,
-              },
-            },
-          },
-        },
-      ],
-    });
-  }
-}
+import { StandardContentLayouts } from "@itwin/appui-abstract";
+import { ViewportContent } from "../ViewportContent";
 
 /**
  * The SynchronizedFloatingViewport stage provides a register method that registers a FrontstageProvider that is used to activate a stage.
@@ -126,32 +29,22 @@ export class SynchronizedFloatingViewportStage {
   public static stageId =
     "appui-test-providers:SynchronizedFloatingViewportExample";
 
-  private static _contentGroupProvider =
-    new SynchronizedFloatingViewportContentGroupProvider();
-
-  public static supplyAppData(_id: string, _applicationData?: any) {
-    return {
-      viewState: UiFramework.getDefaultViewState,
-      iModelConnection: UiFramework.getIModelConnection,
-    };
-  }
-
   public static register(localizationNamespace: string) {
-    // set up custom corner button where we specify icon, label, and action
-    const cornerButton = (
-      <BackstageAppButton
-        key="appui-test-providers-SynchronizedFloatingViewportExample-backstage"
-        icon="icon-bentley-systems"
-      />
-    );
-
     UiFramework.frontstages.addFrontstage(
       FrontstageUtilities.createStandardFrontstage({
         id: SynchronizedFloatingViewportStage.stageId,
-        version: 1.1,
-        contentGroupProps:
-          SynchronizedFloatingViewportStage._contentGroupProvider,
-        cornerButton,
+        contentGroupProps: {
+          id: "synchronized-floating-viewport-stage-frontstage-main-content-group",
+          layout: StandardContentLayouts.singleView,
+          contents: [
+            {
+              id: "primaryContent",
+              classId: "",
+              content: <ViewportContent />,
+            },
+          ],
+        },
+        cornerButton: <BackstageAppButton icon="icon-bentley-systems" />,
         usage: StageUsage.General,
       })
     );

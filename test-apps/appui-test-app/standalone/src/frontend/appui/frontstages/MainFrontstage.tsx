@@ -3,225 +3,33 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import {
-  ContentLayoutProps,
-  StandardContentLayouts,
-} from "@itwin/appui-abstract";
+import { useSelector } from "react-redux";
+import { StandardContentLayouts } from "@itwin/appui-abstract";
 import {
   BackstageAppButton,
   BackstageItem,
   BackstageItemUtilities,
-  ContentGroup,
-  ContentGroupProps,
-  ContentGroupProvider,
-  ContentProps,
-  Frontstage,
   FrontstageUtilities,
-  IModelViewportControl,
   SettingsModalFrontstage,
-  StageContentLayout,
-  StageContentLayoutProps,
   StageUsage,
   StandardContentToolsUiItemsProvider,
-  StandardFrontstageProps,
   StandardNavigationToolsUiItemsProvider,
   StandardStatusbarUiItemsProvider,
+  ToolbarItemUtilities,
+  ToolbarOrientation,
+  ToolbarUsage,
   UiFramework,
   UiItemsManager,
   UiItemsProvider,
 } from "@itwin/appui-react";
-import { ComponentExamplesModalFrontstage } from "@itwin/appui-test-providers";
-import { AnalysisStyle } from "@itwin/core-common";
-import { IModelConnection, ViewState } from "@itwin/core-frontend";
-import { LocalStateStorage } from "@itwin/core-react";
-import { SampleAppIModelApp } from "../../index";
-import { AppUi } from "../AppUi";
+import {
+  ComponentExamplesModalFrontstage,
+  ViewportContent,
+} from "@itwin/appui-test-providers";
+import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
 import stageIconSvg from "./imodeljs.svg";
-import { getUrlParam } from "../../UrlParams";
 import { TestAppLocalization } from "../../useTranslation";
-
-function getIModelSpecificKey(
-  inKey: string,
-  iModelConnection: IModelConnection | undefined
-) {
-  const imodelId = iModelConnection?.iModelId ?? "unknownImodel";
-  return `[${imodelId}]${inKey}`;
-}
-
-export async function getSavedViewLayoutProps(
-  activeFrontstageId: string,
-  iModelConnection: IModelConnection | undefined
-) {
-  const localSettings = new LocalStateStorage();
-  const result = await localSettings.getSetting(
-    "ContentGroupLayout",
-    getIModelSpecificKey(activeFrontstageId, iModelConnection)
-  );
-
-  if (result.setting) {
-    // Parse StageContentLayoutProps
-    const savedViewLayoutProps: StageContentLayoutProps = result.setting;
-    if (iModelConnection) {
-      // Create ViewStates
-      const viewStates = await StageContentLayout.viewStatesFromProps(
-        iModelConnection,
-        savedViewLayoutProps
-      );
-      if (0 === viewStates.length) return undefined;
-
-      // Add applicationData to the ContentProps
-      savedViewLayoutProps.contentGroupProps.contents.forEach(
-        (contentProps: ContentProps, index: number) => {
-          contentProps.applicationData = {
-            viewState: viewStates[index],
-            iModelConnection,
-          };
-        }
-      );
-    }
-    return savedViewLayoutProps;
-  }
-  return undefined;
-}
-
-export class InitialIModelContentStageProvider extends ContentGroupProvider {
-  constructor(private _forEditing?: boolean) {
-    super();
-  }
-
-  public override prepareToSaveProps(contentGroupProps: ContentGroupProps) {
-    const newContentsArray = contentGroupProps.contents.map(
-      (content: ContentProps) => {
-        const newContent = { ...content };
-        if (newContent.applicationData) delete newContent.applicationData;
-        return newContent;
-      }
-    );
-    return { ...contentGroupProps, contents: newContentsArray };
-  }
-
-  public override applyUpdatesToSavedProps(
-    contentGroupProps: ContentGroupProps
-  ) {
-    const newContentsArray = contentGroupProps.contents.map(
-      (content: ContentProps) => {
-        const newContent = { ...content };
-
-        if (newContent.classId === IModelViewportControl.id) {
-          newContent.applicationData = {
-            ...newContent.applicationData,
-            featureOptions: {
-              defaultViewOverlay: {
-                enableScheduleAnimationViewOverlay: true,
-                enableAnalysisTimelineViewOverlay: true,
-                enableSolarTimelineViewOverlay: true,
-              },
-            },
-          };
-        }
-        return newContent;
-      }
-    );
-    return { ...contentGroupProps, contents: newContentsArray };
-  }
-
-  public override async contentGroup(
-    config: Frontstage
-  ): Promise<ContentGroup> {
-    const viewIdsSelected = SampleAppIModelApp.getInitialViewIds();
-    const iModelConnection = UiFramework.getIModelConnection();
-
-    if (!iModelConnection)
-      throw new Error(
-        `Unable to generate content group if not iModelConnection is available`
-      );
-
-    if (0 === viewIdsSelected.length) {
-      const savedViewLayoutProps = await getSavedViewLayoutProps(
-        config.id,
-        iModelConnection
-      );
-      if (savedViewLayoutProps) {
-        const viewState =
-          savedViewLayoutProps.contentGroupProps.contents[0].applicationData
-            ?.viewState;
-        if (viewState) {
-          UiFramework.setDefaultViewState(viewState);
-        }
-        return new ContentGroup(savedViewLayoutProps.contentGroupProps);
-      }
-
-      return new ContentGroup({
-        id: "content-group",
-        layout: StandardContentLayouts.singleView,
-        contents: [
-          {
-            id: "viewport",
-            classId: IModelViewportControl,
-            applicationData: {},
-          },
-        ],
-      });
-    }
-
-    // first find an appropriate layout
-    const contentLayoutProps: ContentLayoutProps | undefined =
-      AppUi.findLayoutFromContentCount(viewIdsSelected.length);
-    if (!contentLayoutProps) {
-      throw Error(
-        `Could not find layout ContentLayoutProps when number of viewStates=${viewIdsSelected.length}`
-      );
-    }
-
-    let viewStates: ViewState[] = [];
-    const promises = new Array<Promise<ViewState>>();
-    viewIdsSelected.forEach((viewId: string) => {
-      promises.push(iModelConnection.views.load(viewId));
-    });
-
-    const timeline = getUrlParam("timeline");
-    try {
-      viewStates = await Promise.all(promises);
-      if (timeline) {
-        viewStates.forEach((viewState) => {
-          viewState.displayStyle.settings.analysisStyle =
-            AnalysisStyle.fromJSON({});
-        });
-      }
-    } catch {}
-
-    // create the content props that specifies an iModelConnection and a viewState entry in the application data.
-    const contentProps: ContentProps[] = [];
-    viewStates.forEach((viewState, index) => {
-      if (0 === index) {
-        UiFramework.setDefaultViewState(viewState);
-      }
-      const thisContentProps: ContentProps = {
-        id: `imodel-view-${index}`,
-        classId: IModelViewportControl,
-        applicationData: {
-          viewState,
-          iModelConnection,
-          featureOptions: {
-            defaultViewOverlay: {
-              enableScheduleAnimationViewOverlay: true,
-              enableAnalysisTimelineViewOverlay: true,
-              enableSolarTimelineViewOverlay: true,
-            },
-          },
-        },
-      };
-      contentProps.push(thisContentProps);
-    });
-
-    const myContentGroup: ContentGroup = new ContentGroup({
-      id: "views-frontstage-default-content-group",
-      layout: contentLayoutProps,
-      contents: contentProps,
-    });
-    return myContentGroup;
-  }
-}
+import { RootState } from "../..";
 
 // Sample UI items provider that dynamically adds ui items
 class MainStageBackstageItemsProvider implements UiItemsProvider {
@@ -243,29 +51,41 @@ class MainStageBackstageItemsProvider implements UiItemsProvider {
   }
 }
 
+/** Application continues to use redux store and opts-in to respect `viewOverlayDisplay`. */
+function MainFrontstageViewport() {
+  const viewOverlay = useSelector((state: RootState) => {
+    // eslint-disable-next-line deprecation/deprecation
+    return state.frameworkState.configurableUiState.viewOverlayDisplay;
+  });
+  return (
+    <ViewportContent
+      renderViewOverlay={viewOverlay ? undefined : () => undefined}
+    />
+  );
+}
+
 export class MainFrontstage {
   public static stageId = "appui-test-app:main-stage";
-  private static _contentGroupProvider =
-    new InitialIModelContentStageProvider();
-
-  public static supplyAppData(_id: string, _applicationData?: any) {
-    return {
-      viewState: UiFramework.getDefaultViewState,
-      iModelConnection: UiFramework.getIModelConnection,
-    };
-  }
 
   public static register() {
-    const stageProps: StandardFrontstageProps = {
-      id: MainFrontstage.stageId,
-      version: 1.1,
-      contentGroupProps: MainFrontstage._contentGroupProvider,
-      cornerButton: <BackstageAppButton />,
-      usage: StageUsage.General,
-    };
-
     UiFramework.frontstages.addFrontstage(
-      FrontstageUtilities.createStandardFrontstage(stageProps)
+      FrontstageUtilities.createStandardFrontstage({
+        id: MainFrontstage.stageId,
+        version: 1.1,
+        contentGroupProps: {
+          id: "content-group",
+          layout: StandardContentLayouts.singleView,
+          contents: [
+            {
+              id: "viewport",
+              classId: "",
+              content: <MainFrontstageViewport />,
+            },
+          ],
+        },
+        cornerButton: <BackstageAppButton />,
+        usage: StageUsage.General,
+      })
     );
     this.registerUiItemProviders();
   }
@@ -290,5 +110,35 @@ export class MainFrontstage {
       providerId: "main-stage-standardStatusItems",
       stageIds: [MainFrontstage.stageId],
     });
+
+    UiItemsManager.register(
+      {
+        id: "main-stage-toolbar-items",
+        getToolbarItems: () => [
+          ToolbarItemUtilities.createActionItem(
+            "toggle-view-overlay",
+            100,
+            <SvgPlaceholder />,
+            "Toggle View Overlay",
+            () => {
+              // eslint-disable-next-line deprecation/deprecation
+              UiFramework.setViewOverlayDisplay(
+                // eslint-disable-next-line deprecation/deprecation
+                !UiFramework.viewOverlayDisplay
+              );
+            },
+            {
+              layouts: {
+                standard: {
+                  orientation: ToolbarOrientation.Horizontal,
+                  usage: ToolbarUsage.ContentManipulation,
+                },
+              },
+            }
+          ),
+        ],
+      },
+      { stageIds: [MainFrontstage.stageId] }
+    );
   }
 }

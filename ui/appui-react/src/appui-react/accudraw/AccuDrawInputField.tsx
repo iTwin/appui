@@ -143,7 +143,12 @@ const ForwardRefAccuDrawInput = React.forwardRef<
 
       if (isLetter(e.key)) {
         e.preventDefault();
-        UiFramework.keyboardShortcuts.processKey(e.key);
+        UiFramework.keyboardShortcuts.processKey(
+          e.key,
+          e.altKey,
+          e.ctrlKey,
+          e.shiftKey
+        );
         return;
       }
     },

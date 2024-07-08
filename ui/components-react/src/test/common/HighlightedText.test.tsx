@@ -33,4 +33,31 @@ describe("<HighlightedText />", () => {
       matchedNodes[1].classList.contains("components-activehighlight")
     ).toEqual(true);
   });
+
+  it("renders string with highlights on edges", () => {
+    const { container } = render(
+      <HighlightedText text="baaab" searchText="b" />
+    );
+    const matchedNodes = container.querySelectorAll("mark");
+    expect(matchedNodes.length).toEqual(2);
+  });
+
+  it("merges adjacent non-active chunks", () => {
+    const { container } = render(
+      <HighlightedText text="bbbbb" searchText="b" />
+    );
+    const matchedNodes = container.querySelectorAll("mark");
+    expect(matchedNodes.length).toEqual(1);
+  });
+
+  it("does not merge active chunk", () => {
+    const { container } = render(
+      <HighlightedText text="bbbbb" searchText="b" activeMatchIndex={2} />
+    );
+    const matchedNodes = container.querySelectorAll("mark");
+    expect(matchedNodes.length).toEqual(3);
+    expect(
+      matchedNodes[1].classList.contains("components-activehighlight")
+    ).toEqual(true);
+  });
 });
