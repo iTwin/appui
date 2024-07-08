@@ -43,7 +43,7 @@ interface ContextSubMenuState {
 
 /** Submenu wrapper class for use within a [[ContextMenu]] component.
  * @public
- * @deprecated in 4.16.0. Use {@link @itwin/components-react#ContextMenu.SubMenu} instead.
+ * @deprecated in 4.16.0. Use `subMenuItems` property {@link https://itwinui.bentley.com/docs/dropdownmenu#submenu iTwinUI MenuItem} component instead.
  */
 export class ContextSubMenu extends React.Component<
   ContextSubMenuProps,

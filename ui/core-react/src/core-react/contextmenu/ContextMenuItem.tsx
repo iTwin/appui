@@ -56,7 +56,7 @@ interface ContextMenuItemState {
 
 /** Menu item component for use within a [[ContextMenu]] component.
  * @public
- * @deprecated in 4.16.0. Use {@link @itwin/components-react#ContextMenu.Item} instead.
+ * @deprecated in 4.16.0. Use {@link https://itwinui.bentley.com/docs/dropdownmenu iTwinUI MenuItem} instead.
  */
 export class ContextMenuItem extends React.PureComponent<
   ContextMenuItemProps,

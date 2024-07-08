@@ -65,7 +65,7 @@ interface ContextMenuState {
 /** A context menu populated with [[ContextMenuItem]] components.
  * Can be nested using [[ContextSubMenu]] component.
  * @public
- * @deprecated in 4.16.0. Use {@link @itwin/components-react#ContextMenu} component instead.
+ * @deprecated in 4.16.0. Use {@link https://itwinui.bentley.com/docs/dropdownmenu iTwinUI DropdownMenu} component instead.
  */
 export class ContextMenu extends React.PureComponent<
   ContextMenuProps,

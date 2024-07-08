@@ -64,7 +64,7 @@ export interface PopupContextMenuProps extends CommonProps {
 
 /** Component that displays a ContextMenu within a Popup component, allowing the target element to be specified.
  * @public
- * @deprecated in 4.16.0. Use {@link @itwin/components-react#ContextMenu} and {@link https://itwinui.bentley.com/docs/popover iTwinUI Popover} instead.
+ * @deprecated in 4.16.0. Use {@link https://itwinui.bentley.com/docs/dropdownmenu iTwinUI DropdownMenu} component instead.
  */
 export function PopupContextMenu(props: PopupContextMenuProps) {
   const {

@@ -34,7 +34,7 @@ interface GlobalContextMenuState {
 
 /** GlobalContextMenu React component used to display a [[ContextMenu]] at the cursor
  * @public
- * @deprecated in 4.16.0. Use {@link @itwin/components-react#ContextMenu} and {@link https://itwinui.bentley.com/docs/popover iTwinUI Popover} instead.
+ * @deprecated in 4.16.0. Use {@link https://itwinui.bentley.com/docs/dropdownmenu iTwinUI DropdownMenu} component instead.
  */
 export class GlobalContextMenu extends React.PureComponent<
   GlobalContextMenuProps,
