@@ -136,7 +136,7 @@ export class ToolbarItemsManager {
           entry.syncEventIds.forEach((eventId: string) =>
             eventIds.add(eventId.toLowerCase())
           );
-        } else if (ConditionalIconValue.isConditionalIconItem(entry)) {
+        } else if (entry instanceof ConditionalIconValue) {
           entry.syncEventIds.forEach((eventId: string) =>
             eventIds.add(eventId.toLowerCase())
           );
@@ -187,7 +187,7 @@ export class ToolbarItemsManager {
         } else if (entry instanceof ConditionalStringValue) {
           if (ConditionalStringValue.refreshValue(entry, eventIds))
             itemsUpdated = true;
-        } else if (ConditionalIconValue.isConditionalIconItem(entry)) {
+        } else if (entry instanceof ConditionalIconValue) {
           if (ConditionalIconValue.refreshValue(entry, eventIds))
             itemsUpdated = true;
         }
@@ -229,7 +229,7 @@ export class ToolbarItemsManager {
         } else if (entry instanceof ConditionalStringValue) {
           if (ConditionalStringValue.refreshValue(entry, eventIds))
             updateRequired = true;
-        } else if (ConditionalIconValue.isConditionalIconItem(entry)) {
+        } else if (entry instanceof ConditionalIconValue) {
           if (ConditionalIconValue.refreshValue(entry, eventIds))
             updateRequired = true;
         }

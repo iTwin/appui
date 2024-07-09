@@ -122,7 +122,7 @@ function getIconSpecValue(
 ): Exclude<IconSpec, ConditionalIconItem | ConditionalStringValue> {
   let value = iconSpec;
   while (true) {
-    if (ConditionalIconItem.isConditionalIconItem(value)) {
+    if (value instanceof ConditionalIconItem) {
       value = ConditionalIconItem.getValue(value);
       continue;
     }
