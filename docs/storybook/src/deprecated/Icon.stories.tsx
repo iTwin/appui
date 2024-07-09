@@ -5,7 +5,7 @@
 import React from "react";
 import type { Decorator, Meta, StoryObj } from "@storybook/react";
 import placeholderSvg from "@bentley/icons-generic/icons/placeholder.svg";
-import { useConditionalValue } from "@itwin/appui-react/lib/esm/appui-react/hooks/useConditionalValue";
+import { useConditionalProp } from "@itwin/appui-react/lib/esm/appui-react/hooks/useConditionalProp";
 import { ImageRenderer } from "@itwin/components-react/src/components-react/common/ImageRenderer";
 import { ConditionalIconItem, Icon } from "@itwin/core-react";
 import { SvgAdd, SvgPlaceholder, SvgRemove } from "@itwin/itwinui-icons-react";
@@ -76,7 +76,7 @@ export const ConditionalCSSIcon: Story = {
     ),
   },
   render: (args) => {
-    const icon = useConditionalValue(args.iconSpec);
+    const icon = useConditionalProp(args.iconSpec);
     return <Icon iconSpec={icon} />;
   },
   decorators: [ToggleConditionals],

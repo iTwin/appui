@@ -11,7 +11,7 @@ import { assert } from "@itwin/core-bentley";
 import { Icon } from "@itwin/core-react";
 import { IconButton } from "@itwin/itwinui-react";
 import type { ToolbarItem } from "../../toolbar/ToolbarItem";
-import { useConditionalValue } from "../../hooks/useConditionalValue";
+import { useConditionalProp } from "../../hooks/useConditionalProp";
 import { Badge } from "./Badge";
 import { ToolbarContext } from "./Toolbar";
 
@@ -25,10 +25,10 @@ export interface ItemProps
 export const Item = React.forwardRef<HTMLButtonElement, ItemProps>(
   function Item(props, ref) {
     const { item, ...other } = props;
-    const label = useConditionalValue(item.label);
-    const isDisabled = useConditionalValue(item.isDisabled);
-    const isHidden = useConditionalValue(item.isHidden);
-    const iconSpec = useConditionalValue(item.icon);
+    const label = useConditionalProp(item.label);
+    const isDisabled = useConditionalProp(item.isDisabled);
+    const isHidden = useConditionalProp(item.isHidden);
+    const iconSpec = useConditionalProp(item.icon);
     const labelProps = useLabelProps();
 
     if (isHidden) return null;

@@ -13,7 +13,7 @@ import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
 /** Define a common interface for conditionals. */
 interface ConditionalValue<T> {
   syncEventIds: string[];
-  refresh: () => void;
+  refresh: () => boolean;
   value: T;
 }
 
@@ -34,7 +34,7 @@ function isConditionalValue<T>(
 }
 
 /** @internal */
-export function useConditionalValue<T>(conditionalProp: ConditionalProp<T>) {
+export function useConditionalProp<T>(conditionalProp: ConditionalProp<T>) {
   const subscribe = React.useCallback(
     (onStoreChange: () => void) => {
       if (isConditionalValue(conditionalProp)) {
@@ -42,7 +42,8 @@ export function useConditionalValue<T>(conditionalProp: ConditionalProp<T>) {
           ({ eventIds }) => {
             if (!conditionalProp.syncEventIds.some((id) => eventIds.has(id)))
               return;
-            conditionalProp.refresh();
+            if (!conditionalProp.refresh()) return;
+
             onStoreChange();
           }
         );
