@@ -10,7 +10,7 @@ import type {
   ConditionalBooleanValue,
   ConditionalStringValue,
 } from "@itwin/appui-abstract";
-import type { BadgeType, IconSpec } from "@itwin/core-react";
+import type { BadgeKind, BadgeType, IconSpec } from "@itwin/core-react";
 import { UiItemsProvider } from "../ui-items-provider/UiItemsProvider";
 
 /** Used to specify the usage of the toolbar which determine the toolbar position.
@@ -39,8 +39,13 @@ export enum ToolbarOrientation {
 export interface CommonToolbarItem {
   /** Require uniqueId for the item. To ensure uniqueness it is suggested that a namespace prefix of the extension name be used. */
   readonly id: string;
-  /** Describes badge. Renders no badge if not specified. */
+  /** Describes badge. Renders no badge if not specified.
+   * @deprecated in 4.16.0. Use `badgeKind` property instead.
+   */
+  // eslint-disable-next-line deprecation/deprecation
   readonly badge?: BadgeType;
+  /** Specifies the kind of badge, if any, to be rendered. */
+  readonly badgeKind?: BadgeKind;
   /** Optional description */
   readonly description?: string | ConditionalStringValue;
   /** Defines if the item is active (shown with an active stripe/bar). */

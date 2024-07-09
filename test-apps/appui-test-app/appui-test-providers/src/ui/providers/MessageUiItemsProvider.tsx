@@ -19,7 +19,6 @@ import {
   OutputMessagePriority,
   OutputMessageType,
 } from "@itwin/core-frontend";
-import { BadgeType } from "@itwin/core-react";
 
 /** UiItemsProvider that provides tools to test message APIs. */
 export class MessageUiItemsProvider implements UiItemsProvider {
@@ -123,7 +122,7 @@ export class MessageUiItemsProvider implements UiItemsProvider {
                   )
                 );
               },
-              { badge: BadgeType.New }
+              { badgeKind: "new" }
             ),
           ]
         ),

@@ -8,8 +8,12 @@ Table of contents:
   - [Changes](#changes)
   - [Fixes](#fixes)
 - [@itwin/components-react](#itwincomponents-react)
+  - [Deprecations](#deprecations-1)
   - [Changes](#changes-1)
   - [Fixes](#fixes-1)
+- [@itwin/core-react](#itwincore-react)
+  - [Deprecations](#deprecations-2)
+  - [Additions](#additions-1)
 
 ## @itwin/appui-react
 
@@ -142,6 +146,11 @@ Table of contents:
   - `StatusBarProps` interface of a deprecated `StatusBar` component.
   - `ViewSelector.onViewSelectorChangedEvent` property. Use `onViewSelected` prop of `ViewSelector` component instead.
 
+- Deprecated properties that have `BadgeType` as type and added replacement properties that use the new `BadgeKind` type. [#899](https://github.com/iTwin/appui/pull/899)
+  - `badge` property in `CommonBackstageItem`, `CommonStatusBarItem`, `CommonToolbarItem`, `Widget`. Use `badgeKind` property instead.
+  - `badgeType` property in `CursorMenuItemProps`, `FrameworkKeyboardShortcut`, `ItemDefBase`, `ItemProps`, `KeyboardShortcutProps`. Use `badgeKind` property instead.
+  - `badgeType` getter in `WidgetDef`. Use `badgeKind` getter instead.
+
 ### Additions
 
 - Added additional APIs to support `ConfigurableUiControl` deprecation in backwards compatible way. [#888](https://github.com/iTwin/appui/pull/888)
@@ -152,6 +161,9 @@ Table of contents:
   - `onViewSelected` to `ViewSelectorProps` to replace the static event.
   - `solarTimeline`, `analysisTimeline`, `scheduleAnimation` props to `DefaultViewOverlay` component to replace existing `applicationData.featureOptions.defaultViewOverlay` property.
   - `navigationAid` prop to `ViewToolWidgetComposer` to override the default navigation aid.
+- Added replacement properties that allow specifying the badge type in components using string values from `BadgeKind`. [#899](https://github.com/iTwin/appui/pull/899)
+  - `badgeKind` property in `CommonBackstageItem`, `CommonStatusBarItem`, `CommonToolbarItem`, `Widget`, `CursorMenuItemProps`, `FrameworkKeyboardShortcut`, `ItemDefBase`, `ItemProps`, `KeyboardShortcutProps`.
+  - `badgeKind` getter in `WidgetDef`.
 
 ### Changes
 
@@ -163,6 +175,10 @@ Table of contents:
 
 ## @itwin/components-react
 
+### Deprecations
+
+- Deprecated `PopupItem`, `PopupItemProps`, `PopupItemWithDrag`, `PopupItemWithDragProps`, `ToolbarPopupContext`, `ToolbarPopupContextProps`, `useToolbarPopupContext`. These components, context and hook are used internally to construct toolbars. [#899](https://github.com/iTwin/appui/pull/899)
+
 ### Changes
 
 - Property grid array items' description will be shown next to the index when the items are non-primitive. [#890](https://github.com/iTwin/appui/pull/890)
@@ -170,3 +186,15 @@ Table of contents:
 ### Fixes
 
 - Fixed `activeMatchIndex` not working correctly on adjacent matches in `HighlightedText`. [#898](https://github.com/iTwin/appui/pull/898)
+
+## @itwin/core-react
+
+### Deprecations
+
+- Deprecated `BadgeType` which is used as a type for properties and it is replaced by internal `BadgeKind` type. [#899](https://github.com/iTwin/appui/pull/899)
+- Deprecated `badgeType` property in `ContextMenuItemProps`. Use `badgeKind` property instead. [#899](https://github.com/iTwin/appui/pull/899)
+
+### Additions
+
+- Added `badgeKind` property to `ContextMenuItemProps`. It allows specifying the badge type using string values from `BadgeKind`. [#899](https://github.com/iTwin/appui/pull/899)
+- Added `Deprecated` badge. It can only be accessed by using `badgeKind` properties in components. [#899](https://github.com/iTwin/appui/pull/899)

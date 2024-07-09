@@ -136,7 +136,7 @@ describe("BackstageComposerItem", () => {
       expect(spy).toHaveBeenCalled();
     });
 
-    it("should render with TP badgeType", async () => {
+    it("should render with TechnicalPreview badgeType (old)", async () => {
       render(
         <BackstageComposerItem
           item={getActionItem({ badge: BadgeType.TechnicalPreview })}
@@ -148,7 +148,7 @@ describe("BackstageComposerItem", () => {
       );
     });
 
-    it("should render with New badgeType", async () => {
+    it("should render with New badgeType (old)", async () => {
       render(
         <BackstageComposerItem
           item={getStageLauncherItem({ badge: BadgeType.New })}
@@ -157,6 +157,18 @@ describe("BackstageComposerItem", () => {
 
       expect(screen.getByRole("menuitem")).to.satisfy(
         childStructure(".nz-badge .core-badge-newBadge")
+      );
+    });
+
+    it("should render with Deprecated badgeKind (new)", async () => {
+      render(
+        <BackstageComposerItem
+          item={getStageLauncherItem({ badgeKind: "deprecated" })}
+        />
+      );
+
+      expect(screen.getByRole("menuitem")).to.satisfy(
+        childStructure(".nz-badge .core-badge-deprecatedBadge")
       );
     });
   });

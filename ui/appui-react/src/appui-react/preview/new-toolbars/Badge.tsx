@@ -12,10 +12,13 @@ import { Badge as CoreBadge } from "@itwin/core-react";
 import type { ToolbarItem } from "../../toolbar/ToolbarItem";
 
 /** @internal */
-export function Badge({ badge }: Pick<ToolbarItem, "badge">) {
+export function Badge({
+  badge, // eslint-disable-line deprecation/deprecation
+  badgeKind,
+}: Pick<ToolbarItem, "badge" | "badgeKind">) {
   return (
     <div className="uifw-toolbar-group-badge">
-      <CoreBadge type={badge} />
+      <CoreBadge type={badgeKind || badge} />
     </div>
   );
 }

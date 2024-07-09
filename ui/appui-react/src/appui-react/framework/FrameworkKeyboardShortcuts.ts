@@ -5,7 +5,7 @@
 /** @packageDocumentation
  * @module KeyboardShortcut
  */
-import type { BadgeType, IconSpec } from "@itwin/core-react";
+import type { BadgeKind, BadgeType, IconSpec } from "@itwin/core-react";
 import type { KeyboardShortcutProps } from "../keyboardshortcut/KeyboardShortcutProps";
 import type { ActionButtonItemDef } from "../shared/ActionButtonItemDef";
 import type {
@@ -59,7 +59,11 @@ export interface FrameworkKeyboardShortcut {
   applicationData?: any;
   isHidden?: boolean | ConditionalBooleanValue;
   isDisabled?: boolean | ConditionalBooleanValue;
+  /** @deprecated in 4.16.0. Use `badgeKind` property instead. */
+  // eslint-disable-next-line deprecation/deprecation
   badgeType?: BadgeType;
+  /** Specifies the kind of badge, if any, to be overlaid on the item. */
+  badgeKind?: BadgeKind;
   iconSpec?: IconSpec;
   iconElement?: React.ReactNode;
   trayId: undefined;

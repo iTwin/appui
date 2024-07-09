@@ -6,33 +6,35 @@
  * @module Toolbar
  */
 
-import type { CommonToolbarItem as UIA_CommonToolbarItem } from "@itwin/appui-abstract";
-import type { CustomToolbarItem } from "@itwin/components-react";
+import type { CommonToolbarItemWithBadgeKind as UIACommonToolbarItemWithBadgeKind } from "@itwin/components-react";
 import type { ToolbarItem } from "./ToolbarItem";
 import { isToolbarCustomItem, isToolbarGroupItem } from "./ToolbarItem";
 
 /** @internal */
-export function toUIAToolbarItem(item: ToolbarItem): UIA_CommonToolbarItem {
+export function toUIAToolbarItem(
+  item: ToolbarItem
+): UIACommonToolbarItemWithBadgeKind {
   if (isToolbarCustomItem(item)) {
-    // eslint-disable-next-line deprecation/deprecation
-    const customItem: CustomToolbarItem = {
+    return {
       ...item,
-      badgeType: item.badge,
+      badgeType: item.badge, // eslint-disable-line deprecation/deprecation
+      badgeKind: item.badgeKind,
       isCustom: true,
       icon: item.icon as string,
       panelContentNode: item.panelContent,
-    };
-    return customItem;
+    } as UIACommonToolbarItemWithBadgeKind;
   }
   if (isToolbarGroupItem(item)) {
     return {
       ...item,
       items: item.items.map(toUIAToolbarItem),
-      badgeType: item.badge,
-    } as UIA_CommonToolbarItem;
+      badgeType: item.badge, // eslint-disable-line deprecation/deprecation
+      badgeKind: item.badgeKind,
+    } as UIACommonToolbarItemWithBadgeKind;
   }
   return {
     ...item,
-    badgeType: item.badge,
-  } as UIA_CommonToolbarItem;
+    badgeType: item.badge, // eslint-disable-line deprecation/deprecation
+    badgeKind: item.badgeKind,
+  } as UIACommonToolbarItemWithBadgeKind;
 }

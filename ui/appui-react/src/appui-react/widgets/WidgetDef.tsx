@@ -21,7 +21,12 @@ import {
 import { UiFramework } from "../UiFramework";
 import { PropsHelper } from "../utils/PropsHelper";
 import type { WidgetControl } from "./WidgetControl";
-import type { BadgeType, IconSpec, SizeProps } from "@itwin/core-react";
+import type {
+  BadgeKind,
+  BadgeType,
+  IconSpec,
+  SizeProps,
+} from "@itwin/core-react";
 import { IconHelper } from "@itwin/core-react";
 import type { WidgetConfig } from "./WidgetConfig";
 import { WidgetState } from "./WidgetState";
@@ -93,7 +98,9 @@ export class WidgetDef {
   private _applicationData?: any;
   private _icon?: IconSpec;
   private _internalData?: Map<string, any>;
+  // eslint-disable-next-line deprecation/deprecation
   private _badge?: BadgeType;
+  private _badgeKind?: BadgeKind;
   private _saveTransientState?: () => void;
   private _restoreTransientState?: () => boolean;
   private _preferredPanelSize: "fit-content" | undefined;
@@ -170,8 +177,14 @@ export class WidgetDef {
       ? IconHelper.getIconData(spec, this._internalData) // eslint-disable-line deprecation/deprecation
       : spec;
   }
+  /** @deprecated in 4.16.0. Use `badgeKind` instead. */
+  // eslint-disable-next-line deprecation/deprecation
   public get badgeType(): BadgeType | undefined {
     return this._badge;
+  }
+  // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
+  public get badgeKind(): BadgeKind | undefined {
+    return this._badgeKind;
   }
   public get initialConfig(): WidgetConfig | undefined {
     return this._initialConfig;
@@ -275,7 +288,9 @@ export class WidgetDef {
     if (config.icon !== undefined && this._icon === undefined)
       this._icon = config.icon;
 
+    // eslint-disable-next-line deprecation/deprecation
     if (config.badge !== undefined) this._badge = config.badge;
+    if (config.badgeKind !== undefined) this._badgeKind = config.badgeKind;
 
     this._preferredPanelSize = config.preferredPanelSize;
   }

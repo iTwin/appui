@@ -12,7 +12,12 @@ import type {
   StringGetter,
 } from "@itwin/appui-abstract";
 import { ConditionalBooleanValue, UiError } from "@itwin/appui-abstract";
-import type { BadgeType, IconProps, IconSpec } from "@itwin/core-react";
+import type {
+  BadgeKind,
+  BadgeType,
+  IconProps,
+  IconSpec,
+} from "@itwin/core-react";
 import { ContextMenuItem, ContextSubMenu } from "@itwin/core-react";
 import { UiFramework } from "../UiFramework";
 import type { ActionButtonItemDef } from "./ActionButtonItemDef";
@@ -53,8 +58,13 @@ export interface CursorMenuItemProps extends IconProps {
   isPressed?: boolean;
   /** can be used by application to store miscellaneous data. */
   applicationData?: any;
-  /** Badge to be overlaid on the item. */
+  /** Badge to be overlaid on the item.
+   * @deprecated in 4.16.0. Use `badgeKind` property instead.
+   */
+  // eslint-disable-next-line deprecation/deprecation
   badgeType?: BadgeType;
+  /** Specifies the kind of badge, if any, to be overlaid on the item. */
+  badgeKind?: BadgeKind;
   /** abstract icon definition, used when create itemDef from abstract item (ie. MenuItem) */
   icon?: IconSpec;
 
@@ -109,6 +119,7 @@ export class MenuItem extends ItemDefBase {
       if (!this.iconSpec) this.iconSpec = this._actionItem.iconSpec;
       if (!this.label) this.setLabel(this._actionItem.label);
       if (!this.badgeType) this.badgeType = this._actionItem.badgeType;
+      if (!this.badgeKind) this.badgeKind = this._actionItem.badgeKind;
       if (!this.isDisabled) this.isDisabled = this._actionItem.isDisabled;
     } else if (props.execute) {
       this._execute = props.execute;
@@ -188,6 +199,7 @@ export class MenuItemHelpers {
     const iconSpec = item.iconSpec;
     const iconRightSpec = item.iconRightSpec;
     const badgeType = item.badgeType;
+    const badgeKind = item.badgeKind;
     const isDisabled: boolean = ConditionalBooleanValue.getValue(
       item.isDisabled
     );
@@ -201,6 +213,7 @@ export class MenuItemHelpers {
           icon={iconSpec}
           iconRight={iconRightSpec}
           badgeType={badgeType}
+          badgeKind={badgeKind}
           disabled={isDisabled}
         >
           {label}
@@ -216,6 +229,7 @@ export class MenuItemHelpers {
             icon={iconSpec}
             label={label}
             badgeType={badgeType}
+            badgeKind={badgeKind}
             disabled={isDisabled}
           >
             {items}

@@ -14,7 +14,7 @@ import type {
 } from "@itwin/appui-abstract";
 import { PropsHelper } from "../utils/PropsHelper";
 import type { ItemProps } from "./ItemProps";
-import type { BadgeType, IconSpec } from "@itwin/core-react";
+import type { BadgeKind, BadgeType, IconSpec } from "@itwin/core-react";
 import type { ToolbarItem } from "../toolbar/ToolbarItem";
 
 /* eslint-disable deprecation/deprecation */
@@ -52,7 +52,9 @@ export abstract class ItemDefBase {
   public isHidden?: boolean | ConditionalBooleanValue;
   public isDisabled?: boolean | ConditionalBooleanValue;
 
+  /** @deprecated in 4.16.0. Use `badgeKind` property instead. */
   public badgeType?: BadgeType;
+  public badgeKind?: BadgeKind;
 
   public iconSpec?: IconSpec;
   public iconElement?: React.ReactNode;
@@ -66,6 +68,7 @@ export abstract class ItemDefBase {
     me.isActive = itemProps.isActive !== undefined ? itemProps.isActive : false;
 
     me.badgeType = itemProps.badgeType;
+    me.badgeKind = itemProps.badgeKind;
 
     if (itemProps.applicationData !== undefined)
       me.applicationData = itemProps.applicationData;

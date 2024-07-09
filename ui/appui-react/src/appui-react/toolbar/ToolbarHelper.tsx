@@ -8,13 +8,13 @@
 import type * as React from "react";
 import type {
   ActionButton,
-  CommonToolbarItem,
   CustomButtonDefinition,
   GroupButton,
   StringGetter,
 } from "@itwin/appui-abstract";
 import { ConditionalStringValue } from "@itwin/appui-abstract";
 import { assert } from "@itwin/core-bentley";
+import type { BadgeKind } from "@itwin/core-react";
 import { IconHelper } from "@itwin/core-react";
 import type { AnyItemDef } from "../shared/AnyItemDef";
 import { CommandItemDef } from "../shared/CommandItemDef";
@@ -29,6 +29,7 @@ import type {
 } from "./ToolbarItem";
 import { isToolbarActionItem, isToolbarGroupItem } from "./ToolbarItem";
 import type { ToolbarItemUtilities } from "./ToolbarItemUtilities";
+import type { CommonToolbarItemWithBadgeKind } from "@itwin/components-react";
 
 /* eslint-disable deprecation/deprecation */
 
@@ -44,7 +45,7 @@ function constructToolbarItemArray<T extends boolean>(
   itemDefs: AnyItemDef[],
   allowCustom: T,
   startingItemPriority = 10,
-  overrides?: Partial<CommonToolbarItem>
+  overrides?: Partial<CommonToolbarItemWithBadgeKind>
 ) {
   let priority = startingItemPriority;
   const items = [];
@@ -74,7 +75,7 @@ export class ToolbarHelper {
   public static createCustomDefinitionToolbarItem(
     itemPriority: number,
     itemDef: CustomItemDef,
-    overrides?: Partial<CustomButtonDefinition>
+    overrides?: Partial<CustomButtonDefinition & { badgeKind?: BadgeKind }>
   ): ToolbarCustomItem {
     return this.createToolbarItemFromItemDef(itemPriority, itemDef, overrides);
   }
@@ -114,10 +115,16 @@ export class ToolbarHelper {
   public static createToolbarItemFromItemDef(
     itemPriority: number,
     itemDef: AnyItemDef,
-    overrides?: Partial<CommonToolbarItem>
+    overrides?: Partial<CommonToolbarItemWithBadgeKind>
   ): ToolbarItem {
-    const { badgeType, description, icon, internalData, ...itemOverrides } =
-      overrides ?? {};
+    const {
+      badgeType,
+      badgeKind,
+      description,
+      icon,
+      internalData,
+      ...itemOverrides
+    } = overrides ?? {};
     const itemBase: ToolbarItem = {
       id: itemDef.id,
       itemPriority,
@@ -131,6 +138,7 @@ export class ToolbarHelper {
         itemDef.iconSpec,
       label: this.getStringOrConditionalString(itemDef.rawLabel),
       badge: badgeType ?? itemDef.badgeType,
+      badgeKind: badgeKind ?? itemDef.badgeKind,
       description: description ?? itemDef.description,
     };
 
@@ -165,7 +173,7 @@ export class ToolbarHelper {
   public static createToolbarItemsFromItemDefs(
     itemDefs: AnyItemDef[],
     startingItemPriority = 10,
-    overrides?: Partial<CommonToolbarItem>
+    overrides?: Partial<CommonToolbarItemWithBadgeKind>
   ): ToolbarItem[] {
     return constructToolbarItemArray(
       itemDefs,

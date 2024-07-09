@@ -5,4 +5,8 @@
 .core-badge-newBadge {
   color: var(--iui-color-text-positive);
   transform: rotate(270deg);
+
+  svg {
+    fill: currentColor;
+  }
 }

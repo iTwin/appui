@@ -181,7 +181,7 @@ export class ViewAttributesStatusField extends React.Component<
           </StatusBarDialog>
         }
       >
-        <IconButton styleType="borderless" title={title}>
+        <IconButton styleType="borderless" label={title}>
           <SvgWindowSettings />
           <StatusBarPopover.ExpandIndicator />
         </IconButton>

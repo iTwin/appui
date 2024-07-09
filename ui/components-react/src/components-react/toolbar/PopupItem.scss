@@ -14,13 +14,6 @@
   $arrow-shadow: $icon-shadow;
   position: relative;
 
-  > * {
-    &:not(.components-triangle) {
-      height: 100%;
-      width: 100%;
-    }
-  }
-
   > .components-triangle {
     border-radius: 0;
     position: absolute;

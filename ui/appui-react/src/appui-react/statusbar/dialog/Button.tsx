@@ -29,5 +29,13 @@ export interface StatusBarDialogTitleBarButtonProps extends CommonProps {
 export function StatusBarDialogTitleBarButton(
   props: StatusBarDialogTitleBarButtonProps
 ) {
-  return <IconButton {...props} styleType="borderless" size="small" />;
+  const { title, ...otherProps } = props;
+  return (
+    <IconButton
+      {...otherProps}
+      styleType="borderless"
+      size="small"
+      label={title}
+    />
+  );
 }

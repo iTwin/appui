@@ -26,6 +26,7 @@ public;CheckboxStateChange
 internal;Columns(props: ColumnsProps): React_3.JSX.Element
 internal;ColumnsProps 
 public;CommonPropertyGridProps 
+internal;CommonToolbarItemWithBadgeKind = CommonToolbarItem &
 public;CompletionObserver
 public;CompositeFilterType
 public;CompositePropertyDataFilterer 
@@ -207,10 +208,14 @@ public;ParsedInputProps
 public;Point2dTypeConverter 
 public;Point3dTypeConverter 
 public;PopupItem(props: PopupItemProps): React_3.JSX.Element
+deprecated;PopupItem(props: PopupItemProps): React_3.JSX.Element
 internal;PopupItemPopup(props: PopupItemPopupProps): React_3.JSX.Element
 public;PopupItemProps 
+deprecated;PopupItemProps 
 public;PopupItemWithDrag(props: PopupItemWithDragProps): React_3.JSX.Element
+deprecated;PopupItemWithDrag(props: PopupItemWithDragProps): React_3.JSX.Element
 public;PopupItemWithDragProps 
+deprecated;PopupItemWithDragProps 
 public;PrimitivePropertyLabelRenderer 
 public;PrimitivePropertyLabelRendererProps 
 public;PrimitivePropertyRenderer 
@@ -337,7 +342,7 @@ public;ToolbarButtonItem: React_3.MemoExoticComponent
 public;ToolbarButtonItemProps 
 public;ToolbarItem = ActionButton | GroupButton | CustomToolbarItem
 deprecated;ToolbarItem = ActionButton | GroupButton | CustomToolbarItem
-internal;ToolbarItemComponent({ item, addGroupSeparator, }:
+internal;ToolbarItemComponent({ item, addGroupSeparator, badgeKind, }:
 internal;ToolbarItemContext: React_3.Context
 internal;ToolbarItemContextArgs
 public;ToolbarOpacitySetting
@@ -346,7 +351,9 @@ public;ToolbarPanelAlignment
 internal;ToolbarPanelAlignmentHelpers
 public;ToolbarPopupAutoHideContext: React_3.Context
 public;ToolbarPopupContext: React_3.Context
+deprecated;ToolbarPopupContext: React_3.Context
 public;ToolbarPopupContextProps
+deprecated;ToolbarPopupContextProps
 public;ToolbarProps 
 deprecated;ToolbarProps 
 public;ToolbarWithOverflow(props: ToolbarWithOverflowProps): React_3.JSX.Element
@@ -421,6 +428,7 @@ deprecated;usePropertyGridModelSource(props:
 internal;useRenderedStringValue(record: PropertyRecord, stringValueCalculator: (record: PropertyRecord) => string | Promise
 public;useToolbarPopupAutoHideContext(): boolean
 public;useToolbarPopupContext(): ToolbarPopupContextProps
+deprecated;useToolbarPopupContext(): ToolbarPopupContextProps
 internal;useToolbarWithOverflowDirectionContext(): ToolbarOverflowContextProps
 internal;useToolItemEntryContext(): ToolbarItemContextArgs
 public;useTrackedPropertyGridModelSource(props:
