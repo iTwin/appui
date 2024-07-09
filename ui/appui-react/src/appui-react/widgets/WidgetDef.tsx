@@ -21,7 +21,7 @@ import {
 import { UiFramework } from "../UiFramework";
 import { PropsHelper } from "../utils/PropsHelper";
 import type { WidgetControl } from "./WidgetControl";
-import type { BadgeType, IconSpec, SizeProps } from "@itwin/core-react";
+import type { BadgeType, IconSpec } from "@itwin/core-react";
 import { IconHelper } from "@itwin/core-react";
 import type { WidgetConfig } from "./WidgetConfig";
 import { WidgetState } from "./WidgetState";
@@ -35,6 +35,7 @@ import {
 } from "../layout/state/TabLocation";
 import type { NineZoneState } from "../layout/state/NineZoneState";
 import { IModelApp } from "@itwin/core-frontend";
+import type { SizeProps } from "../utils/SizeProps";
 
 /** Widget State Changed Event Args interface.
  * @public

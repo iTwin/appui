@@ -12,7 +12,7 @@ import classnames from "classnames";
 import { Key } from "ts-key-enum";
 import type { CommonToolbarItem, PropertyRecord } from "@itwin/appui-abstract";
 import type { RelativePosition } from "@itwin/appui-abstract";
-import type { Orientation, SizeProps } from "@itwin/core-react";
+import type { Orientation } from "@itwin/core-react";
 import {
   DivWithOutsideClick,
   FocusTrap,
@@ -36,6 +36,7 @@ import type { ToolbarItem } from "../toolbar/ToolbarItem";
 import { mapToPlacement, type Placement } from "../utils/Placement";
 import { WrapperContext } from "../configurableui/ConfigurableUiContent";
 import type { RequireAtLeastOne } from "@itwin/core-bentley";
+import type { SizeProps } from "../utils/SizeProps";
 
 /** Props for defining a CardPopup editor
  * @beta */

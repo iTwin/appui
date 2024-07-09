@@ -7,11 +7,11 @@
  */
 
 import type { CommandHandler, OnItemExecutedFunc } from "@itwin/appui-abstract";
-import type { SizeProps } from "@itwin/core-react";
 import { Orientation } from "@itwin/core-react";
 import { ItemDefBase } from "./ItemDefBase";
 import type { ItemProps } from "./ItemProps";
 import { ToolbarItemUtilities } from "../toolbar/ToolbarItemUtilities";
+import type { SizeProps } from "../utils/SizeProps";
 
 /* eslint-disable deprecation/deprecation */
 

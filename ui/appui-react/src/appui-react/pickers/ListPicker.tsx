@@ -16,7 +16,7 @@ import {
   PopupItem,
   Title,
 } from "@itwin/components-react";
-import type { CommonProps, SizeProps } from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
 import { Icon, SearchBox } from "@itwin/core-react";
 import { ToolbarDragInteractionContext } from "../toolbar/DragInteraction";
 import { UiFramework } from "../UiFramework";
@@ -25,6 +25,7 @@ import {
   SvgChevronRight,
   SvgList,
 } from "@itwin/itwinui-icons-react";
+import type { SizeProps } from "../utils/SizeProps";
 
 /** Enum for the list picker item type
  * @beta

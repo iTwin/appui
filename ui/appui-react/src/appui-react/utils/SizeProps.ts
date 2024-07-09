@@ -11,4 +11,5 @@ import type { SizeProps as _SizeProps } from "@itwin/core-react";
 /** Describes 2d dimensions.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export type SizeProps = _SizeProps;

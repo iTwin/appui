@@ -22,7 +22,7 @@ import {
 } from "@itwin/appui-abstract";
 import { Logger } from "@itwin/core-bentley";
 import type { XAndY } from "@itwin/core-geometry";
-import type { Point, SizeProps } from "@itwin/core-react";
+import type { Point } from "@itwin/core-react";
 import { Orientation, Rectangle } from "@itwin/core-react";
 import * as React from "react";
 import type { ReactElement } from "react";
@@ -41,6 +41,7 @@ import { mapToPlacement, type Placement } from "../utils/Placement";
 import type { ToolbarItem } from "../toolbar/ToolbarItem";
 import type { ToolbarProps } from "../toolbar/Toolbar";
 import { InternalConfigurableUiManager } from "../configurableui/InternalConfigurableUiManager";
+import type { SizeProps } from "../utils/SizeProps";
 
 // cSpell:ignore uiadmin
 

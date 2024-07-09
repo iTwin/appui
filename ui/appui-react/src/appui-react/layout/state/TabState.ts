@@ -6,10 +6,11 @@
  * @module Base
  */
 
-import type { IconSpec, SizeProps } from "@itwin/core-react";
+import type { IconSpec } from "@itwin/core-react";
 import type { PanelSide } from "../widget-panels/PanelTypes";
 import type { XAndY } from "./internal/NineZoneStateHelpers";
 import type { PanelWidgetRestoreState } from "./WidgetRestoreState";
+import type { SizeProps } from "../../utils/SizeProps";
 
 /** `WidgetDef` is equivalent structure in `appui-react`.
  * @internal

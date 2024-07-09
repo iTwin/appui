@@ -16,7 +16,7 @@ import {
 } from "@itwin/appui-abstract";
 import { OutputMessagePriority } from "@itwin/core-frontend";
 import type { XAndY } from "@itwin/core-geometry";
-import type { CommonProps, SizeProps } from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
 import {
   Icon,
   MessageContainer,
@@ -31,6 +31,7 @@ import type {
   NotifyMessageType,
 } from "./ReactNotifyMessageDetails";
 import { BeUiEvent } from "@itwin/core-bentley";
+import type { SizeProps } from "../utils/SizeProps";
 
 // cSpell:ignore noicon
 

@@ -6,7 +6,7 @@
  * @module Base
  */
 
-import type { RectangleProps, SizeProps } from "@itwin/core-react";
+import type { RectangleProps } from "@itwin/core-react";
 import type {
   HorizontalPanelSide,
   PanelSide,
@@ -24,6 +24,7 @@ import type {
 import type { PanelState } from "./PanelState";
 import type { XAndY } from "./internal/NineZoneStateHelpers";
 import type { StagePanelSizeSpec } from "../../stagepanels/StagePanelConfig";
+import type { SizeProps } from "../../utils/SizeProps";
 
 /** @internal */
 export interface ResizeAction {

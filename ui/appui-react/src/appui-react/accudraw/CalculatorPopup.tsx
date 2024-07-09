@@ -8,12 +8,12 @@
 
 import * as React from "react";
 import type { OnCancelFunc, OnNumberCommitFunc } from "@itwin/appui-abstract";
-import type { SizeProps } from "@itwin/core-react";
 import { DivWithOutsideClick, Icon, Size } from "@itwin/core-react";
 import type { PopupPropsBase } from "../popup/PopupManager";
 import { PopupManager } from "../popup/PopupManager";
 import { PositionPopup, PositionPopupContent } from "../popup/PositionPopup";
 import { Calculator } from "./Calculator";
+import type { SizeProps } from "../utils/SizeProps";
 
 /** @alpha */
 export interface CalculatorPopupProps extends PopupPropsBase {

@@ -16,7 +16,7 @@ import {
   OutputMessageType,
 } from "@itwin/core-frontend";
 import type { XAndY } from "@itwin/core-geometry";
-import type { RectangleProps, SizeProps } from "@itwin/core-react";
+import type { RectangleProps } from "@itwin/core-react";
 import { Rectangle } from "@itwin/core-react";
 import * as React from "react";
 import { UiFramework } from "../UiFramework";
@@ -59,6 +59,7 @@ import { StageUsage } from "./StageUsage";
 import type { Frontstage } from "./Frontstage";
 import { UiItemsProvider } from "../ui-items-provider/UiItemsProvider";
 import { FrameworkContent } from "../framework/FrameworkContent";
+import type { SizeProps } from "../utils/SizeProps";
 
 /** @internal */
 export interface FrontstageEventArgs {

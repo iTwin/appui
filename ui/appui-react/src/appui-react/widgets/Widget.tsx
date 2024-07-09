@@ -8,11 +8,12 @@
 
 import type { ConditionalStringValue } from "@itwin/appui-abstract";
 import type { XAndY } from "@itwin/core-geometry";
-import type { BadgeType, IconSpec, SizeProps } from "@itwin/core-react";
+import type { BadgeType, IconSpec } from "@itwin/core-react";
 import type { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import type { WidgetState } from "./WidgetState";
 import type { StagePanelSection } from "../stagepanels/StagePanelSection";
 import { UiItemsProvider } from "../ui-items-provider/UiItemsProvider";
+import type { SizeProps } from "../utils/SizeProps";
 
 /** Describes options of a floating widget.
  * @public

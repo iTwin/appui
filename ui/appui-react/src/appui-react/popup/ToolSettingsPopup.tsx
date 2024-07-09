@@ -13,7 +13,7 @@ import type {
   OnCancelFunc,
   RelativePosition,
 } from "@itwin/appui-abstract";
-import type { Orientation, SizeProps } from "@itwin/core-react";
+import type { Orientation } from "@itwin/core-react";
 import { DivWithOutsideClick, FocusTrap, Point, Size } from "@itwin/core-react";
 import { CursorPopup } from "../cursor/cursorpopup/CursorPopup";
 import type { PopupPropsBase } from "./PopupManager";
@@ -21,6 +21,7 @@ import { PopupManager } from "./PopupManager";
 import { PositionPopup, PositionPopupContent } from "./PositionPopup";
 import { ComponentGenerator } from "../uiprovider/ComponentGenerator";
 import { DialogGridContainer } from "../uiprovider/DefaultDialogGridContainer";
+import type { SizeProps } from "../utils/SizeProps";
 
 /** Props for defining a popup tool settings component
  * @beta */

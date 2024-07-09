@@ -6,8 +6,6 @@
  * @module Base
  */
 
-// Cspell:ignore popout
-import type { SizeProps } from "@itwin/core-react";
 import type {
   FloatingWidgetsState,
   PopoutWidgetsState,
@@ -18,6 +16,7 @@ import type { ToolSettingsState } from "./ToolSettingsState";
 import { createPanelsState } from "./internal/PanelStateHelpers";
 import type { DraggedTabState, TabsState } from "./TabState";
 import type { SavedTabsState } from "./SavedTabState";
+import type { SizeProps } from "../../utils/SizeProps";
 
 /** @internal */
 export interface NineZoneState {

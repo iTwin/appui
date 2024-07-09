@@ -12,7 +12,6 @@ import type {
   CommonDivProps,
   CommonProps,
   RectangleProps,
-  SizeProps,
 } from "@itwin/core-react";
 import { Div, Size } from "@itwin/core-react";
 import classnames from "classnames";
@@ -23,6 +22,7 @@ import type { CursorPopupFadeOutEventArgs } from "./CursorPopupManager";
 import { CursorPopupManager } from "./CursorPopupManager";
 import { type Placement } from "../../utils/Placement";
 import type { RequireAtLeastOne } from "@itwin/core-bentley";
+import type { SizeProps } from "../../utils/SizeProps";
 
 /** Properties for the [[CursorPopup]] React component
  * @public
