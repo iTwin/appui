@@ -27,17 +27,6 @@ export class ConditionalIconItem {
     this._value = value;
   }
 
-  /** A work-around for instanceOf
-   * @internal
-   */
-  public static isConditionalIconItem(item: any): item is ConditionalIconItem {
-    if (!item || typeof item !== "object") return false;
-    const itemPrototype = Object.getPrototypeOf(item);
-
-    if (itemPrototype.constructor.name !== "ConditionalIconItem") return false;
-
-    return true;
-  }
   /** The current IconSpec according to conditions */
   public get value(): IconSpec {
     if (undefined !== this._value) return this._value;
@@ -63,7 +52,7 @@ export class ConditionalIconItem {
   ): boolean {
     if (
       undefined === conditionalValue ||
-      !ConditionalIconItem.isConditionalIconItem(conditionalValue)
+      !(conditionalValue instanceof ConditionalIconItem)
     )
       return false;
 
@@ -84,7 +73,7 @@ export class ConditionalIconItem {
   ): IconSpec | undefined {
     if (undefined === conditionalValue) return undefined;
 
-    if (ConditionalIconItem.isConditionalIconItem(conditionalValue)) {
+    if (conditionalValue instanceof ConditionalIconItem) {
       const iconItem = conditionalValue;
       return iconItem.value;
     }

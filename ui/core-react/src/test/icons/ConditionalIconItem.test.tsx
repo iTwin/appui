@@ -101,17 +101,4 @@ describe("ConditionalIconItem", () => {
       ConditionalIconItem.refreshValue(undefined, new Set<string>(["cat"]))
     ).toEqual(false);
   });
-
-  it("isConditionalIconItem should evaluate to true for instances", () => {
-    const sut = new ConditionalIconItem(
-      icon1Getter,
-      syncEventIds,
-      defaultIconSpec
-    );
-
-    expect(ConditionalIconItem.isConditionalIconItem(sut)).toEqual(true);
-    expect(ConditionalIconItem.isConditionalIconItem("icon.svg")).toEqual(
-      false
-    );
-  });
 });
