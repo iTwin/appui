@@ -119,6 +119,7 @@ export class MenuItem extends ItemDefBase {
       if (!this.iconSpec) this.iconSpec = this._actionItem.iconSpec;
       if (!this.label) this.setLabel(this._actionItem.label);
       if (!this.badgeType) this.badgeType = this._actionItem.badgeType;
+      if (!this.badgeKind) this.badgeKind = this._actionItem.badgeKind;
       if (!this.isDisabled) this.isDisabled = this._actionItem.isDisabled;
     } else if (props.execute) {
       this._execute = props.execute;

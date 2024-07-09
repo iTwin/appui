@@ -28,7 +28,7 @@ import type { CommandHandler as CommandHandler_2 } from '@itwin/appui-abstract';
 import type { CommonBackstageItem as CommonBackstageItem_2 } from '@itwin/appui-abstract';
 import type { CommonDivProps } from '@itwin/core-react';
 import type { CommonProps } from '@itwin/core-react';
-import type { CommonToolbarItem as CommonToolbarItem_2 } from '@itwin/appui-abstract';
+import type { CommonToolbarItemWithBadgeKind } from '@itwin/components-react';
 import { CompassMode } from '@itwin/core-frontend';
 import { ConditionalBooleanValue } from '@itwin/appui-abstract';
 import { ConditionalStringValue } from '@itwin/appui-abstract';
@@ -4771,11 +4771,13 @@ export class ToolbarHelper {
     // @deprecated
     static constructChildToolbarItems(itemDefs: AnyItemDef[]): Array<ToolbarActionItem | ToolbarGroupItem>;
     // @deprecated
-    static createCustomDefinitionToolbarItem(itemPriority: number, itemDef: CustomItemDef, overrides?: Partial<CustomButtonDefinition>): ToolbarCustomItem;
+    static createCustomDefinitionToolbarItem(itemPriority: number, itemDef: CustomItemDef, overrides?: Partial<CustomButtonDefinition & {
+        badgeKind?: BadgeKind;
+    }>): ToolbarCustomItem;
     // @deprecated
-    static createToolbarItemFromItemDef(itemPriority: number, itemDef: AnyItemDef, overrides?: Partial<CommonToolbarItem_2>): ToolbarItem;
+    static createToolbarItemFromItemDef(itemPriority: number, itemDef: AnyItemDef, overrides?: Partial<CommonToolbarItemWithBadgeKind>): ToolbarItem;
     // @deprecated
-    static createToolbarItemsFromItemDefs(itemDefs: AnyItemDef[], startingItemPriority?: number, overrides?: Partial<CommonToolbarItem_2>): ToolbarItem[];
+    static createToolbarItemsFromItemDefs(itemDefs: AnyItemDef[], startingItemPriority?: number, overrides?: Partial<CommonToolbarItemWithBadgeKind>): ToolbarItem[];
     // @deprecated (undocumented)
     static getIconReactNode(item: ActionButton | GroupButton): React_2.ReactNode;
 }
