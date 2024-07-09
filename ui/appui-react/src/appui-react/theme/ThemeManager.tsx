@@ -64,12 +64,7 @@ export function ThemeManager({ children, ...props }: ThemeManagerProps) {
   const theme = props.theme ?? reduxTheme ?? SYSTEM_PREFERRED_COLOR_THEME;
 
   React.useEffect(() => {
-    document.documentElement.classList.add("theme-transition");
     document.documentElement.setAttribute("data-theme", theme);
-    setTimeout(
-      () => document.documentElement.classList.remove("theme-transition"),
-      1000
-    );
   }, [theme]);
 
   const providerTheme = colorThemeToThemeTypeMap[theme];
