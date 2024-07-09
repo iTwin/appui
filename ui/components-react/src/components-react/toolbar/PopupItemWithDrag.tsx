@@ -192,7 +192,10 @@ export function PopupItemWithDrag(props: PopupItemWithDragProps) {
         {props.badge && (
           <div className="components-badge">
             {activeAction ? (
-              <Badge type={activeAction.badgeKind || activeAction.badgeType} />
+              <Badge
+                type={activeAction.badgeType}
+                kind={activeAction.badgeKind}
+              />
             ) : (
               props.badge
             )}

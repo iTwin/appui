@@ -16,6 +16,7 @@ import type { BadgeType } from "../badge/BadgeType";
 import { TildeFinder } from "./TildeFinder";
 import type { IconSpec } from "../icons/IconComponent";
 import { Icon } from "../icons/IconComponent";
+import type { BadgeProps } from "../badge/Badge";
 import { Badge } from "../badge/Badge";
 
 /** Properties for the [[ContextMenuItem]] component
@@ -40,7 +41,7 @@ export interface ContextMenuItemProps
   // eslint-disable-next-line deprecation/deprecation
   badgeType?: BadgeType;
   /** Specifies the kind of badge, if any, to be overlaid on the item. */
-  badgeKind?: "technical-preview" | "new" | "deprecated" | (string & {});
+  badgeKind?: Required<BadgeProps>["kind"];
   /** Icon to display in the right margin. */
   iconRight?: IconSpec;
   /** Hide the icon container. This can be used to eliminate space used to display an icon at the left of the menu item. */
@@ -154,7 +155,7 @@ export class ContextMenuItem extends React.PureComponent<
         )}
         {(badgeKind || badgeType) && (
           <div className="core-context-menu-badge">
-            <Badge type={badgeKind || badgeType} />
+            <Badge type={badgeType} kind={badgeKind} />
           </div>
         )}
       </div>

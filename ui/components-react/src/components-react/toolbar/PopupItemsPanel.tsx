@@ -161,7 +161,10 @@ export function PopupItemsPanel(props: PopupItemsPanelProps) {
                   label={label}
                   icon={icon}
                   badge={
-                    <Badge type={panelItem.badgeKind || panelItem.badgeType} />
+                    <Badge
+                      type={panelItem.badgeType}
+                      kind={panelItem.badgeKind}
+                    />
                   }
                   item={panelItem}
                   onClick={handleGroupItemClick}
@@ -182,7 +185,10 @@ export function PopupItemsPanel(props: PopupItemsPanelProps) {
                 onClick={handleActionItemClick}
                 onPointerUp={handleOnPointerUp}
                 badge={
-                  <Badge type={panelItem.badgeKind || panelItem.badgeType} />
+                  <Badge
+                    type={panelItem.badgeType}
+                    kind={panelItem.badgeKind}
+                  />
                 }
               />
             );

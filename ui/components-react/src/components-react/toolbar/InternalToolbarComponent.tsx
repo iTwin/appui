@@ -214,7 +214,7 @@ function CustomItem({
       title={title}
       panel={item.panelContentNode}
       hideIndicator={useDragInteraction}
-      badge={<Badge type={badgeKind || item.badgeType} />}
+      badge={<Badge type={item.badgeType} kind={badgeKind} />}
       addGroupSeparator={addGroupSeparator}
       keepContentsMounted={item.keepContentsLoaded}
     />
@@ -253,7 +253,7 @@ function GroupPopupItem({
         isDisabled={ConditionalBooleanValue.getValue(item.isDisabled)}
         title={title}
         groupItem={item}
-        badge={<Badge type={badgeKind || item.badgeType} />}
+        badge={<Badge type={item.badgeType} kind={badgeKind} />}
         addGroupSeparator={addGroupSeparator}
       />
     );
@@ -271,7 +271,7 @@ function GroupPopupItem({
       isDisabled={ConditionalBooleanValue.getValue(item.isDisabled)}
       title={title}
       panel={panel}
-      badge={<Badge type={badgeKind || item.badgeType} />}
+      badge={<Badge type={item.badgeType} kind={badgeKind} />}
       hideIndicator={useDragInteraction}
       addGroupSeparator={addGroupSeparator}
     />
@@ -310,7 +310,7 @@ function ActionItem({
       icon={IconHelper.getIconReactNode(item.icon, item.internalData)}
       isActive={item.isActive}
       onClick={onExecute}
-      badge={<Badge type={badgeKind || item.badgeType} />}
+      badge={<Badge type={item.badgeType} kind={badgeKind} />}
       addGroupSeparator={addGroupSeparator}
     />
   );

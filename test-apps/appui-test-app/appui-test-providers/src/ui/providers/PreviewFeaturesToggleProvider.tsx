@@ -97,7 +97,7 @@ function PreviewFeatureList() {
           left: 0,
         }}
       >
-        <Badge type={"technical-preview"} />
+        <Badge kind="technical-preview" />
       </div>
     </DropdownButton>
   );

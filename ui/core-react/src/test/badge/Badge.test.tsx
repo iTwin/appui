@@ -25,7 +25,7 @@ describe("Badge", () => {
   });
 
   it("should render NewBadge using badgeKind (new)", () => {
-    const component = render(<Badge type={"new"} />);
+    const component = render(<Badge kind="new" />);
     expect(
       component.container.getElementsByClassName("core-badge-newBadge")
     ).to.have.lengthOf(1);
@@ -41,7 +41,7 @@ describe("Badge", () => {
   });
 
   it("should render TechnicalPreviewBadge using badgeKind (new)", () => {
-    const component = render(<Badge type={"technical-preview"} />);
+    const component = render(<Badge kind="technical-preview" />);
     expect(
       component.container.getElementsByClassName(
         "core-badge-technicalPreviewBadge"
@@ -50,7 +50,7 @@ describe("Badge", () => {
   });
 
   it("should render DeprecatedBadge", () => {
-    const component = render(<Badge type={"deprecated"} />);
+    const component = render(<Badge kind="deprecated" />);
     expect(
       component.container.getElementsByClassName("core-badge-deprecatedBadge")
     ).to.have.lengthOf(1);
