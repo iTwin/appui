@@ -11,6 +11,7 @@ import {
 import {
   CommandItemDef,
   SyncUiEventDispatcher,
+  ToolItemDef,
   ToolbarHelper,
   ToolbarItemUtilities,
   ToolbarOrientation,
@@ -233,16 +234,19 @@ export const ItemDef: Story = {
         125,
         new CommandItemDef({
           iconSpec: <SvgActivity />,
-          label: "Item 3",
-          execute: action("Item 3"),
+          label: "Item 1",
+          execute: () => {
+            bump();
+            action("Item 1")();
+          },
         })
       ),
       ToolbarHelper.createToolbarItemFromItemDef(
         127,
         new CommandItemDef({
           iconSpec: <SvgClipboard />,
-          label: "Item 4",
-          execute: action("Item 4"),
+          label: "Item 2",
+          execute: action("Item 2"),
         }),
         {
           ...createAbstractReactIcon(),
@@ -252,8 +256,8 @@ export const ItemDef: Story = {
         130,
         new CommandItemDef({
           iconSpec: <SvgAirplane />,
-          label: "Item 5",
-          execute: action("Item 5"),
+          label: "Item 3",
+          execute: action("Item 3"),
         }),
         {
           description: "Conditional icon overrides.",
@@ -265,16 +269,27 @@ export const ItemDef: Story = {
         [
           new CommandItemDef({
             iconSpec: <SvgActivity />,
-            label: "Item 6",
-            execute: action("Item 6"),
+            label: "Item 4",
+            execute: action("Item 4"),
           }),
           new CommandItemDef({
             iconSpec: <SvgClipboard />,
-            label: "Item 7",
-            execute: action("Item 7"),
+            label: "Item 5",
+            execute: action("Item 5"),
           }),
         ],
         200
+      ),
+      ToolbarHelper.createToolbarItemFromItemDef(
+        250,
+        new ToolItemDef({
+          toolId: "item6",
+          execute: action("Item 6"),
+          iconSpec: new ConditionalIconItem(
+            () => (getVal() % 2 === 0 ? <Svg3D /> : <Svg2D />),
+            [eventId]
+          ),
+        })
       ),
     ],
   },

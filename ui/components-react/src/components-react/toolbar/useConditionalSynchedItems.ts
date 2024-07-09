@@ -30,7 +30,7 @@ function gatherSyncIds<T extends {} | { items: T[] }>(
         entry.syncEventIds.forEach((eventId: string) =>
           eventIds.add(eventId.toLowerCase())
         );
-      } else if (ConditionalIconItem.isConditionalIconItem(entry)) {
+      } else if (entry instanceof ConditionalIconItem) {
         entry.syncEventIds.forEach((eventId: string) =>
           eventIds.add(eventId.toLowerCase())
         );
@@ -73,7 +73,7 @@ function refreshItems<T extends {} | { items: T[] }>(
           ConditionalBooleanValue.refreshValue(entry, eventIds)) ||
         (entry instanceof ConditionalStringValue &&
           ConditionalStringValue.refreshValue(entry, eventIds)) ||
-        (ConditionalIconItem.isConditionalIconItem(entry) &&
+        (entry instanceof ConditionalIconItem &&
           ConditionalIconItem.refreshValue(entry, eventIds))
       ) {
         itemsUpdated = true;
