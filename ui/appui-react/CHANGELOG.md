@@ -1,6 +1,25 @@
 # Change Log - @itwin/appui-react
 
-This log was last generated on Tue, 11 Jun 2024 15:58:29 GMT and should not be manually modified.
+This log was last generated on Tue, 09 Jul 2024 09:23:12 GMT and should not be manually modified.
+
+## 4.15.1
+Tue, 09 Jul 2024 09:23:12 GMT
+
+_Version update only_
+
+## 4.15.0
+Fri, 28 Jun 2024 09:09:37 GMT
+
+### Updates
+
+- Deprecate APIs related to redux.
+- Deprecated all AppUI dialogs and switched components to use iTwinUI dialogs.
+- Fixed unexpected popout widget transition when popover is opened.
+- Deprecate APIs related to `FrontstageProvider` class.
+- Deprecate APIs related to `ItemDefBase` class.
+- Bumped `get*` methods of `UiItemsProvider` and all related types to `@public`.
+- Deprecated `provide*` methods of `UiItemsProvider`.
+- Deprecated `StandardMessageBox` component.
 
 ## 4.14.1
 Tue, 11 Jun 2024 15:58:29 GMT
