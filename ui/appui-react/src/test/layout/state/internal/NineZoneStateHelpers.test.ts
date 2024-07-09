@@ -2,12 +2,12 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import type { RectangleProps } from "@itwin/core-react";
 import produce from "immer";
 import {
   initRectangleProps,
   initSizeProps,
 } from "../../../../appui-react/layout/state/internal/NineZoneStateHelpers";
+import type { RectangleProps } from "../../../../appui-react";
 
 describe("initSizeProps", () => {
   it("should not update", () => {

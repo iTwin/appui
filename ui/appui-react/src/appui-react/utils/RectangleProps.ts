@@ -11,4 +11,5 @@ import type { RectangleProps as _RectangleProps } from "@itwin/core-react";
 /** Describes 2d bounds.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export type RectangleProps = _RectangleProps;

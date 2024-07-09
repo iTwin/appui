@@ -7,7 +7,6 @@
  */
 
 import type { Draft } from "immer";
-import type { RectangleProps } from "@itwin/core-react";
 import { Rectangle } from "@itwin/core-react";
 import type { NineZoneState } from "../NineZoneState";
 import type { FloatingWidgetState } from "../WidgetState";
@@ -16,6 +15,7 @@ import {
   updateFloatingWidgetState,
 } from "./WidgetStateHelpers";
 import type { SizeProps } from "../../../utils/SizeProps";
+import type { RectangleProps } from "../../../utils/RectangleProps";
 
 /** Same as XAndY from core-geometry, but reproduced here to avoid a breaking peer dependency change.
  * @internal

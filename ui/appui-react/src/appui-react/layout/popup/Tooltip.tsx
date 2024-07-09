@@ -9,10 +9,11 @@
 import "./Tooltip.scss";
 import classnames from "classnames";
 import * as React from "react";
-import type { CommonProps, RectangleProps } from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
 import { Point, Rectangle, Size } from "@itwin/core-react";
 import type { XAndY } from "../state/internal/NineZoneStateHelpers";
 import type { SizeProps } from "../../utils/SizeProps";
+import type { RectangleProps } from "../../utils/RectangleProps";
 
 /** Properties of [[Tooltip]] component.
  * @internal

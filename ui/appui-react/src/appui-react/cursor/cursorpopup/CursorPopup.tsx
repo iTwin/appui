@@ -8,11 +8,7 @@
 
 import { RelativePosition } from "@itwin/appui-abstract";
 import type { XAndY } from "@itwin/core-geometry";
-import type {
-  CommonDivProps,
-  CommonProps,
-  RectangleProps,
-} from "@itwin/core-react";
+import type { CommonDivProps, CommonProps } from "@itwin/core-react";
 import { Div, Size } from "@itwin/core-react";
 import classnames from "classnames";
 import * as React from "react";
@@ -23,6 +19,7 @@ import { CursorPopupManager } from "./CursorPopupManager";
 import { type Placement } from "../../utils/Placement";
 import type { RequireAtLeastOne } from "@itwin/core-bentley";
 import type { SizeProps } from "../../utils/SizeProps";
+import type { RectangleProps } from "../../utils/RectangleProps";
 
 /** Properties for the [[CursorPopup]] React component
  * @public
