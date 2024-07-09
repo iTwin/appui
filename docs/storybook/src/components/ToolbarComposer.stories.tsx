@@ -10,7 +10,6 @@ import {
 } from "@itwin/appui-abstract";
 import {
   CommandItemDef,
-  SyncUiEventDispatcher,
   ToolItemDef,
   ToolbarHelper,
   ToolbarItemUtilities,
@@ -30,6 +29,7 @@ import {
 import { StoryComponent } from "./ToolbarComposer";
 import { AppUiDecorator, InitializerDecorator } from "../Decorators";
 import { withResizer } from "../../.storybook/addons/Resizer";
+import { createBumpEvent } from "../createBumpEvent";
 
 const meta = {
   title: "Components/ToolbarComposer",
@@ -399,19 +399,5 @@ function createItems() {
     custom1,
     custom2,
     custom3,
-  };
-}
-
-function createBumpEvent() {
-  let i = 10;
-  const eventId = "bump";
-  const bump = () => {
-    i++;
-    SyncUiEventDispatcher.dispatchSyncUiEvent(eventId);
-  };
-  return {
-    getVal: () => i,
-    bump,
-    eventId,
   };
 }

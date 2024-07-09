@@ -15,6 +15,9 @@ importers:
 
   ../../docs/storybook:
     dependencies:
+      '@bentley/icons-generic':
+        specifier: ^1.0.34
+        version: 1.0.34
       '@bentley/icons-generic-webfont':
         specifier: ^1.0.34
         version: 1.0.34
