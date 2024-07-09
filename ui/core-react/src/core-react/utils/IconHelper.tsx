@@ -39,7 +39,7 @@ export class IconHelper {
   ): React.ReactNode {
     if (!icon) return null;
 
-    if (ConditionalIconItem.isConditionalIconItem(icon))
+    if (icon instanceof ConditionalIconItem)
       return <Icon iconSpec={ConditionalIconItem.getValue(icon)} />;
     if (React.isValidElement(icon)) return <Icon iconSpec={icon} />;
 
@@ -81,7 +81,7 @@ export class IconHelper {
     internalData?: Map<string, any>
   ): string | ConditionalStringValue {
     let icon;
-    if (ConditionalIconItem.isConditionalIconItem(iconSpec)) {
+    if (iconSpec instanceof ConditionalIconItem) {
       icon = IconHelper.conditionalIconItemKey;
       if (internalData)
         internalData.set(IconHelper.conditionalIconItemKey, iconSpec);
