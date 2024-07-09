@@ -18,7 +18,7 @@ export function Badge({
 }: Pick<ToolbarItem, "badge" | "badgeKind">) {
   return (
     <div className="uifw-toolbar-group-badge">
-      <CoreBadge type={badge} kind={badgeKind} />
+      <CoreBadge type={badgeKind || badge} />
     </div>
   );
 }

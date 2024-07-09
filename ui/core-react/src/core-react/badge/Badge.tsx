@@ -19,21 +19,16 @@ import { DeprecatedBadge } from "./DeprecatedBadge";
  * @internal
  */
 export interface BadgeProps {
-  type?: BadgeType;
-  kind?: BadgeKind;
+  type?: BadgeType | BadgeKind;
 }
 
 /** Badge component that renders based on a badge type.
  * @internal
  */
-export function Badge({ type, kind }: BadgeProps) {
-  const badgeType = kind || type;
-  if (
-    badgeType === BadgeType.TechnicalPreview ||
-    badgeType === "technical-preview"
-  )
+export function Badge({ type }: BadgeProps) {
+  if (type === BadgeType.TechnicalPreview || type === "technical-preview")
     return <TechnicalPreviewBadge />;
-  if (badgeType === BadgeType.New || badgeType === "new") return <NewBadge />;
-  if (badgeType === "deprecated") return <DeprecatedBadge />;
+  if (type === BadgeType.New || type === "new") return <NewBadge />;
+  if (type === "deprecated") return <DeprecatedBadge />;
   return null;
 }

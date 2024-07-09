@@ -171,7 +171,7 @@ export class ContextSubMenu extends React.Component<
           </div>
           {(badgeKind || badgeType) && (
             <div className="core-context-menu-badge">
-              <Badge type={badgeType} kind={badgeKind} />
+              <Badge type={badgeKind || badgeType} />
             </div>
           )}
         </div>
