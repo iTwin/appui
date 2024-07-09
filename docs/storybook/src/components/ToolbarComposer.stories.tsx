@@ -15,16 +15,19 @@ import {
   ToolbarItemUtilities,
   ToolbarOrientation,
   ToolbarUsage,
+  useConditionalValue,
 } from "@itwin/appui-react";
 import { BadgeType, ConditionalIconItem, IconHelper } from "@itwin/core-react";
 import {
   Svg2D,
   Svg3D,
   SvgActivity,
+  SvgAdd,
   SvgAirplane,
   SvgAndroid,
   SvgClipboard,
   SvgExport,
+  SvgRemove,
 } from "@itwin/itwinui-icons-react";
 import { StoryComponent } from "./ToolbarComposer";
 import { AppUiDecorator, InitializerDecorator } from "../Decorators";
@@ -202,9 +205,18 @@ export const Conditional: Story = {
           [eventId]
         ),
       },
+      {
+        ...items.action3,
+        icon: <ConditionalReactIcon />,
+      },
     ],
   },
 };
+
+function ConditionalReactIcon() {
+  const val = useConditionalValue(getVal, [eventId]);
+  return val % 2 === 0 ? <SvgAdd /> : <SvgRemove />;
+}
 
 export const ItemDef: Story = {
   args: {

@@ -2,15 +2,15 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+import React from "react";
 import type { Decorator, Meta, StoryObj } from "@storybook/react";
 import { AccuDrawWidget, FrameworkAccuDraw } from "@itwin/appui-react";
 import { AppUiStory } from "../AppUiStory";
 import { createFrontstage } from "../Utils";
 import { CompassMode, IModelApp } from "@itwin/core-frontend";
 import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
-import React from "react";
 
-function StoryWrapper(props: React.PropsWithChildren<{}>) {
+function StoryWrapper(props: React.PropsWithChildren) {
   React.useEffect(() => {
     IModelApp.accuDraw.setCompassMode(CompassMode.Rectangular);
     FrameworkAccuDraw.uiStateStorage = {
