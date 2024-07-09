@@ -31,7 +31,7 @@ export function Dialog(props: DialogProps) {
   const className = classnames("nz-footer-dialog-dialog", props.className);
 
   return (
-    <div className={className} style={props.style}>
+    <div className={className} style={props.style} data-testid="footer-dialog">
       <div>{props.titleBar}</div>
       <div>{props.children}</div>
     </div>
