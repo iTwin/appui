@@ -8,9 +8,10 @@ import placeholderSvg from "@bentley/icons-generic/icons/placeholder.svg";
 import { useConditionalValue } from "@itwin/appui-react/lib/esm/appui-react/hooks/useConditionalValue";
 import { ImageRenderer } from "@itwin/components-react/src/components-react/common/ImageRenderer";
 import { ConditionalIconItem, Icon } from "@itwin/core-react";
-import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
+import { SvgAdd, SvgPlaceholder, SvgRemove } from "@itwin/itwinui-icons-react";
 import { AppUiDecorator, InitializerDecorator } from "../Decorators";
 import { createBumpEvent } from "../createBumpEvent";
+import { SyncUiEventDispatcher } from "@itwin/appui-react";
 
 const meta = {
   title: "Deprecated/Icon",
@@ -77,6 +78,29 @@ export const ConditionalCSSIcon: Story = {
   render: (args) => {
     const icon = useConditionalValue(args.iconSpec);
     return <Icon iconSpec={icon} />;
+  },
+  decorators: [ToggleConditionals],
+};
+
+function useVal() {
+  const [val, setVal] = React.useState(getVal());
+  React.useEffect(() => {
+    return SyncUiEventDispatcher.onSyncUiEvent.addListener(({ eventIds }) => {
+      if (!eventIds.has(eventId)) return;
+      setVal(getVal());
+    });
+  }, []);
+  return val;
+}
+
+function ConditionalReactIcon() {
+  const val = useVal();
+  return val % 2 === 0 ? <SvgAdd /> : <SvgRemove />;
+}
+
+export const ConditionalWithReactNode: Story = {
+  render: () => {
+    return <ConditionalReactIcon />;
   },
   decorators: [ToggleConditionals],
 };
