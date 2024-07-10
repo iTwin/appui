@@ -9,8 +9,7 @@
 import { ToolbarPopupAutoHideContext } from "@itwin/components-react";
 import { assert, Logger, ProcessDetector } from "@itwin/core-bentley";
 import { IModelApp } from "@itwin/core-frontend";
-import type { UiStateStorageResult } from "@itwin/core-react";
-import { Size, UiStateStorageStatus } from "@itwin/core-react";
+import { Size } from "@itwin/core-react";
 import produce from "immer";
 import * as React from "react";
 import { unstable_batchedUpdates } from "react-dom";
@@ -63,6 +62,8 @@ import { PopoutWidgets } from "../preview/reparent-popout-widgets/PopoutWidgets"
 import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState";
 import { ConfigurableUiContext } from "../configurableui/ConfigurableUiContent";
 import { useSaveFrontstageSettings } from "./useSaveFrontstageSettings";
+import type { UiStateStorageResult } from "../uistate/UiStateStorage";
+import { UiStateStorageStatus } from "../uistate/UiStateStorage";
 
 function WidgetPanelsFrontstageComponent() {
   const activeModalFrontstageInfo = useActiveModalFrontstageInfo();
@@ -501,7 +502,7 @@ export function getPanelSectionWidgets(
 export function isFrontstageStateSettingResult(
   settingsResult: UiStateStorageResult
 ): settingsResult is {
-  status: UiStateStorageStatus.Success;
+  status: typeof UiStateStorageStatus.Success;
   setting: WidgetPanelsFrontstageState;
 } {
   if (settingsResult.status === UiStateStorageStatus.Success) return true;

@@ -18,18 +18,8 @@ import {
   ToolAssistanceImage,
   ToolAssistanceInputMethod,
 } from "@itwin/core-frontend";
-import type {
-  CommonProps,
-  UiStateStorage,
-  UiStateStorageResult,
-} from "@itwin/core-react";
-import {
-  FillCentered,
-  Icon,
-  LocalStateStorage,
-  UiStateEntry,
-  UiStateStorageStatus,
-} from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
+import { FillCentered, Icon, UiStateEntry } from "@itwin/core-react";
 import { Button, Tabs, ToggleSwitch } from "@itwin/itwinui-react";
 import classnames from "classnames";
 import * as React from "react";
@@ -64,6 +54,12 @@ import mouseWheelClickIcon from "./mouse-click-wheel.svg";
 import touchCursorDragIcon from "./touch-cursor-pan.svg";
 import touchCursorTapIcon from "./touch-cursor-point.svg";
 import { StatusBarPopover } from "../../statusbar/popup/StatusBarPopover";
+import type { UiStateStorageResult } from "../../uistate/UiStateStorage";
+import {
+  type UiStateStorage,
+  UiStateStorageStatus,
+} from "../../uistate/UiStateStorage";
+import { LocalStateStorage } from "../../uistate/LocalStateStorage";
 
 // cSpell:ignore cursorprompt
 
@@ -128,7 +124,9 @@ export class ToolAssistanceField extends React.Component<
   private static _toolAssistanceKey = "ToolAssistance";
   private static _showPromptAtCursorKey = "showPromptAtCursor";
   private static _mouseTouchTabIndexKey = "mouseTouchTabIndex";
+  // eslint-disable-next-line deprecation/deprecation
   private _showPromptAtCursorSetting: UiStateEntry<boolean>;
+  // eslint-disable-next-line deprecation/deprecation
   private _mouseTouchTabIndexSetting: UiStateEntry<number>;
   private _indicator = React.createRef<HTMLButtonElement>();
   private _cursorPrompt: CursorPrompt;
@@ -168,11 +166,13 @@ export class ToolAssistanceField extends React.Component<
       this.props.cursorPromptTimeout,
       this.props.fadeOutCursorPrompt
     );
+    // eslint-disable-next-line deprecation/deprecation
     this._showPromptAtCursorSetting = new UiStateEntry(
       ToolAssistanceField._toolAssistanceKey,
       ToolAssistanceField._showPromptAtCursorKey,
       () => this.state.showPromptAtCursor
     );
+    // eslint-disable-next-line deprecation/deprecation
     this._mouseTouchTabIndexSetting = new UiStateEntry(
       ToolAssistanceField._toolAssistanceKey,
       ToolAssistanceField._mouseTouchTabIndexKey,
