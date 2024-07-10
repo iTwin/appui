@@ -37,18 +37,20 @@ import { mapToPlacement, type Placement } from "../utils/Placement";
 import { WrapperContext } from "../configurableui/ConfigurableUiContent";
 import type { RequireAtLeastOne } from "@itwin/core-bentley";
 
-/** Props for defining a CardPopup editor
+/** Props for defining a CardPopup editor.
  * @beta */
 export type CardPopupProps = Omit<PopupPropsBase, "el"> & {
   content: PopupContentType;
   title: string | PropertyRecord | undefined;
-  items: CommonToolbarItem[] | ToolbarItem[] | undefined; // {@link @itwin/appui-abstract#CommonToolbarItem} will be deprecated in 4.11.0. Please use {@link ToolbarItem[]} instead.
+  items: CommonToolbarItem[] | ToolbarItem[] | undefined;
+  /** @deprecated in 4.16.0. Not used by the {@link CardPopup} component. */
   orientation: Orientation;
   onCancel: () => void;
   onItemExecuted: (item: any) => void;
   el?: HTMLElement;
 } & RequireAtLeastOne<{
-    relativePosition: RelativePosition; // @deprecated in 4.11.0. Please use placement instead.
+    /** @deprecated in 4.16.0. Use `placement` property instead. */
+    relativePosition: RelativePosition;
     placement: Placement;
   }>;
 
@@ -103,6 +105,7 @@ export class CardPopup extends React.PureComponent<
       point,
       this.props.offset,
       this.state.size,
+      // eslint-disable-next-line deprecation/deprecation
       this.props.placement ?? mapToPlacement(this.props.relativePosition)
     );
     point = new Point(popupRect.left, popupRect.top);
@@ -124,7 +127,6 @@ export class CardPopup extends React.PureComponent<
               content={this.props.content}
               title={this.props.title}
               items={this.props.items}
-              // toolbarItems={this.props.toolbarItems}
               onItemExecuted={this.props.onItemExecuted}
             />
           </FocusTrap>
@@ -139,7 +141,7 @@ export class CardPopup extends React.PureComponent<
 export interface CardProps {
   content: PopupContentType;
   title: string | PropertyRecord | undefined;
-  items?: CommonToolbarItem[] | ToolbarItem[] | undefined; // @deprecated in 4.11.0. Please use {@link CardProps.toolbarItems}
+  items?: CommonToolbarItem[] | ToolbarItem[] | undefined;
   onItemExecuted: (item: any) => void;
 }
 

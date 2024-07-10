@@ -51,7 +51,7 @@ export interface PopupInfo {
   id: string;
   pt: XAndY;
   component: React.ReactNode;
-  /** @deprecated in 4.x.11. Please use the optional `parent` property moving forward. */
+  /** @deprecated in 4.11.0. Please use the optional `parent` property moving forward. */
   parentDocument: Document;
   /** will become standard once `parentDocument` is removed. */
   parent?: Document;
@@ -286,7 +286,7 @@ export class PopupManager {
     return PopupManager.removePopup(PopupManager._keyPalettePopupId);
   }
 
-  // @deprecated in 4.11.0. Use {@link PopupManager.displayToolbar} instead.
+  /** @deprecated in 4.16.0. Use {@link PopupManager.displayToolbar} instead. */
   public static showToolbar(
     toolbarProps: AbstractToolbarProps,
     el: HTMLElement,
@@ -347,7 +347,7 @@ export class PopupManager {
     return PopupManager.removePopup(PopupManager._toolbarId);
   }
 
-  // @deprecated in 4.11.0. Use {@link PopupManager.showComponent} instead.
+  /** @deprecated in 4.16.0. Use {@link PopupManager.showComponent} instead. */
   public static showHTMLElement(
     displayElement: HTMLElement,
     el: HTMLElement,
@@ -382,7 +382,7 @@ export class PopupManager {
     return true;
   }
 
-  // @deprecated in 4.11.0. Use {@link PopupManager.hideComponent} instead.
+  /** @deprecated in 4.16.0. Use {@link PopupManager.hideComponent} instead. */
   public static hideHTMLElement(): boolean {
     return PopupManager.removePopup(PopupManager._htmlElementId);
   }
@@ -430,7 +430,7 @@ export class PopupManager {
     return PopupManager.removePopup(id ?? PopupManager._htmlElementId);
   }
 
-  // @deprecated in 4.11.0. Use {@link PopupManager.displayCard} instead.
+  /** @deprecated in 4.16.0. Use {@link PopupManager.displayCard} instead. */
   public static showCard(
     content: PopupContentType,
     title: string | PropertyRecord | undefined,

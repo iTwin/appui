@@ -150,6 +150,9 @@ Table of contents:
   - `badge` property in `CommonBackstageItem`, `CommonStatusBarItem`, `CommonToolbarItem`, `Widget`. Use `badgeKind` property instead.
   - `badgeType` property in `CursorMenuItemProps`, `FrameworkKeyboardShortcut`, `ItemDefBase`, `ItemProps`, `KeyboardShortcutProps`. Use `badgeKind` property instead.
   - `badgeType` getter in `WidgetDef`. Use `badgeKind` getter instead.
+- Deprecated `relativePosition` property in `ToolbarPopupProps`, `CardPopupProps` and `CursorPopupProps` in favor of `placement` property. [#907](https://github.com/iTwin/appui/pull/907)
+- Deprecated `orientation` property in `CardPopupProps`. This property is not used by the `CardPopup` component. [#907](https://github.com/iTwin/appui/pull/907)
+- Deprecated `showToolbar`, `showHTMLElement`, `hideHTMLElement` and `showCard` methods from `PopupManager`. Use `displayToolbar`, `showComponent`, `hideComponent` and `displayCard` methods of `PopupManager` instead. [#907](https://github.com/iTwin/appui/pull/907)
 
 ### Additions
 
