@@ -1464,7 +1464,7 @@ export type CursorPopupProps = {
     onSizeKnown?: (size: SizeProps) => void;
 } & CommonProps & // eslint-disable-line deprecation/deprecation
 RequireAtLeastOne<{
-    relativePosition: RelativePosition /** @deprecated in 4.11.0. Use `placement` instead. */;
+    relativePosition: RelativePosition;
     placement: Placement;
 }>;
 
@@ -3580,7 +3580,7 @@ export class PopupManager {
     static hideCard(id?: string): boolean;
     // (undocumented)
     static hideComponent(id?: string): boolean;
-    // (undocumented)
+    // @deprecated (undocumented)
     static hideHTMLElement(): boolean;
     // (undocumented)
     static hideInputEditor(): boolean;
@@ -3599,16 +3599,16 @@ export class PopupManager {
     static set popups(popups: ReadonlyArray<PopupInfo>);
     // (undocumented)
     static removePopup(id: string): boolean;
-    // (undocumented)
+    // @deprecated (undocumented)
     static showCard(content: PopupContentType, title: string | PropertyRecord | undefined, toolbarProps: AbstractToolbarProps | undefined, el: HTMLElement, pt: XAndY, offset: XAndY, onItemExecuted: (item: any) => void, onCancel: () => void, relativePosition: RelativePosition): boolean;
     static showComponent(displayElement: ReactElement, options: CommonPopupOptions): boolean;
-    // (undocumented)
+    // @deprecated (undocumented)
     static showHTMLElement(displayElement: HTMLElement, el: HTMLElement, pt: XAndY, offset: XAndY, onCancel: () => void, relativePosition: RelativePosition): boolean;
     // (undocumented)
     static showInputEditor(el: HTMLElement, pt: XAndY, value: Primitives.Value, propertyDescription: PropertyDescription, onCommit: OnValueCommitFunc, onCancel: () => void): boolean;
     // (undocumented)
     static showKeyinPalette(keyins: KeyinEntry[], el: HTMLElement, onItemExecuted?: (item: any) => void, onCancel?: () => void): boolean;
-    // (undocumented)
+    // @deprecated (undocumented)
     static showToolbar(toolbarProps: AbstractToolbarProps, el: HTMLElement, pt: XAndY, offset: XAndY, onItemExecuted: (item: any) => void, onCancel: () => void, relativePosition: RelativePosition): boolean;
 }
 

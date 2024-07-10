@@ -374,6 +374,7 @@ export class FrameworkUiAdmin extends UiAdmin {
     if (relativePosition === undefined)
       relativePosition = RelativePosition.TopRight;
 
+    // eslint-disable-next-line deprecation/deprecation
     return PopupManager.showHTMLElement(
       displayElement,
       el,
@@ -389,6 +390,7 @@ export class FrameworkUiAdmin extends UiAdmin {
    * @deprecated in 4.11.0. Use {@link UiFramework.hideComponent}
    */
   public override hideHTMLElement(): boolean {
+    // eslint-disable-next-line deprecation/deprecation
     return PopupManager.hideHTMLElement();
   }
 
