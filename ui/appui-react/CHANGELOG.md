@@ -1,6 +1,13 @@
 # Change Log - @itwin/appui-react
 
-This log was last generated on Tue, 09 Jul 2024 09:23:12 GMT and should not be manually modified.
+This log was last generated on Wed, 10 Jul 2024 11:54:56 GMT and should not be manually modified.
+
+## 4.15.2
+Wed, 10 Jul 2024 11:54:56 GMT
+
+### Updates
+
+- Fix `FrontstageDef.create()` if a non-instance `FrontstageProvider` is used.
 
 ## 4.15.1
 Tue, 09 Jul 2024 09:23:12 GMT

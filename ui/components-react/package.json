@@ -1,6 +1,6 @@
 {
   "name": "@itwin/components-react",
-  "version": "4.15.1",
+  "version": "4.15.2",
   "description": "iTwin.js UI complex components",
   "main": "lib/cjs/components-react.js",
   "module": "lib/esm/components-react.js",
@@ -43,7 +43,7 @@
   "peerDependencies": {
     "@itwin/appui-abstract": "^3.7.0 || ^4.0.0",
     "@itwin/core-bentley": "^3.7.0 || ^4.0.0",
-    "@itwin/core-react": "workspace:^4.15.1",
+    "@itwin/core-react": "workspace:^4.15.2",
     "react": "^17.0.0 || ^18.0.0",
     "react-dom": "^17.0.0 || ^18.0.0"
   },
