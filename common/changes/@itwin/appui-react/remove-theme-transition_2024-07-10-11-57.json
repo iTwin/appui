@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/appui-react",
-      "comment": "Removed transitions when toggling themes. This fixes the flying floating elements like Tooltips and ComboBox menus when the page first loads.",
+      "comment": "Removed transitions when toggling themes. This fixes the unintentional \"flying-in\" of floating elements like Tooltips and ComboBox menus when the page first loads.",
       "type": "none"
     }
   ],
