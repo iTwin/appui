@@ -51,7 +51,7 @@ export interface PopupInfo {
   id: string;
   pt: XAndY;
   component: React.ReactNode;
-  /** @deprecated in 4.x.11. Please use the optional `parent` property moving forward. */
+  /** @deprecated in 4.11.0. Please use the optional `parent` property moving forward. */
   parentDocument: Document;
   /** will become standard once `parentDocument` is removed. */
   parent?: Document;
