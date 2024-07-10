@@ -196,6 +196,38 @@ describe("FrontstageDef", () => {
     expect(spy).toHaveBeenCalledWith("t1");
   });
 
+  describe("create", () => {
+    it("should create from FrontstageProvider instance", async () => {
+      const frontstageDef = await FrontstageDef.create(
+        new (class Provider extends FrontstageProvider {
+          public override get id(): string {
+            return "provider-1";
+          }
+          public override frontstageConfig(): FrontstageConfig {
+            return {
+              id: "frontstage-1",
+              contentGroup: TestUtils.TestContentGroup1,
+              version: 123,
+            };
+          }
+        })()
+      );
+      expect(frontstageDef.version).toEqual(123);
+    });
+
+    it("should create from FrontstageProvider object", async () => {
+      const frontstageDef = await FrontstageDef.create({
+        id: "provider-1",
+        frontstageConfig: () => ({
+          id: "frontstage-1",
+          contentGroup: TestUtils.TestContentGroup1,
+          version: 123,
+        }),
+      });
+      expect(frontstageDef.version).toEqual(123);
+    });
+  });
+
   describe("onWidgetStateChangedEvent", () => {
     it("should open a hidden widget", async () => {
       const activeFrontstageDef = new FrontstageDef();
