@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Fix `FrontstageDef.create()` if a non-instance `FrontstageProvider` is used.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
