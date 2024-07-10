@@ -110,7 +110,7 @@ const initialSessionState: SessionState = {
   defaultViewId: undefined,
   defaultViewState: undefined,
   iModelConnection: undefined,
-  cursorMenuData: undefined, // @deprecated in 4.11.0. Use {@link SessionState.cursorMenuPayload} instead
+  cursorMenuData: undefined,
   cursorMenuPayload: undefined,
 };
 
