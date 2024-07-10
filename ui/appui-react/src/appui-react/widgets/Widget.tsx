@@ -50,7 +50,11 @@ export interface Widget {
   readonly defaultState?: WidgetState;
   /** Content of the Widget. */
   readonly content?: React.ReactNode;
+  /** @deprecated in 4.16.0. Use {@link Widget.iconNode} instead. */
+  // eslint-disable-next-line deprecation/deprecation
   readonly icon?: IconSpec;
+  /** Icon to use for the widget. */
+  readonly iconNode?: React.ReactNode;
   readonly label?: string | ConditionalStringValue;
   readonly priority?: number;
   readonly tooltip?: string | ConditionalStringValue;
