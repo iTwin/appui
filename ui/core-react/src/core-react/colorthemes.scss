@@ -10,11 +10,3 @@
 
 $background: var(--iui-color-background);
 $accent: var(--iui-color-background-accent);
-
-html.theme-transition,
-html.theme-transition *,
-html.theme-transition *:before,
-html.theme-transition *:after {
-  transition: all 100ms !important;
-  transition-delay: 0 !important;
-}

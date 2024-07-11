@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/core-react",
+      "comment": "Removed styling for the `theme-transition` class.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/core-react"
+}

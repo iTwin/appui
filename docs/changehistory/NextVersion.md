@@ -171,10 +171,12 @@ Table of contents:
 ### Changes
 
 - Bump `AccuDrawWidget`, `SheetNavigationAid`, `StandardRotationNavigationAid` components to `@public`. [#888](https://github.com/iTwin/appui/pull/888)
+- No more transitions when toggling themes. [#905](https://github.com/iTwin/appui/pull/905)
 
 ### Fixes
 
 - Fixed `AccuDrawInputField` to correctly specify keyboard event modifiers in `UiFramework.keyboardShortcuts.processKey()`. [#894](https://github.com/iTwin/appui/pull/894)
+- Fixes the unintentional "flying-in" of floating elements like Tooltips and ComboBox menus when the page first loads. [#905](https://github.com/iTwin/appui/pull/905)
 
 ## @itwin/components-react
 
@@ -201,3 +203,7 @@ Table of contents:
 
 - Added `badgeKind` property to `ContextMenuItemProps`. It allows specifying the badge type using string values from `BadgeKind`. [#899](https://github.com/iTwin/appui/pull/899)
 - Added `Deprecated` badge. It can only be accessed by using `badgeKind` properties in components. [#899](https://github.com/iTwin/appui/pull/899)
+
+### Changes
+
+- Removed styling for the `theme-transition` class. [#890](https://github.com/iTwin/appui/pull/890)
