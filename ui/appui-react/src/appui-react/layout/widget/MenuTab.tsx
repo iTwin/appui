@@ -23,6 +23,7 @@ import { TabIdContext } from "./ContentRenderer";
 // eslint-disable-next-line deprecation/deprecation
 export interface WidgetMenuTabProps extends CommonProps {
   badge?: React.ReactNode;
+  icon?: React.ReactNode;
 }
 
 /** @internal */
@@ -32,13 +33,10 @@ export function WidgetMenuTab(props: WidgetMenuTabProps) {
   const showWidgetIcon = React.useContext(ShowWidgetIconContext);
   assert(!!id);
 
-  const { label, iconSpec } = useLayout((state) => {
+  const label = useLayout((state) => {
     const tab = state.tabs[id];
-    return {
-      label: tab.label,
-      iconSpec: tab.iconSpec,
-    };
-  }, true);
+    return tab.label;
+  });
   assert(!!overflowContext);
   const closeOverflow = React.useCallback(() => {
     overflowContext.close();
@@ -58,11 +56,7 @@ export function WidgetMenuTab(props: WidgetMenuTabProps) {
   return (
     <div className={className} ref={ref} title={label}>
       {props.badge && <div className="nz-badge">{props.badge}</div>}
-      {showWidgetIcon && (
-        <div className="nz-icon">
-          {iconSpec && <Icon iconSpec={iconSpec} />}
-        </div>
-      )}
+      {showWidgetIcon && <div className="nz-icon">{props.icon}</div>}
       <span>{label}</span>
       <div className={classnames("nz-checkmark", !active && "nz-hidden")} />
     </div>

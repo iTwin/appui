@@ -159,6 +159,7 @@ function Initialized(props: AppUiStoryProps) {
                     : "calc(100vh - 2rem)",
               }}
               appBackstage={props.appBackstage}
+              widgetIcon={true}
             />
           )}
         </ThemeManager>

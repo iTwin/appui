@@ -6,7 +6,6 @@
  * @module Base
  */
 
-import type { IconSpec } from "@itwin/core-react";
 import type { PanelSide } from "../widget-panels/PanelTypes";
 import type { XAndY } from "./internal/NineZoneStateHelpers";
 import type { PanelWidgetRestoreState } from "./WidgetRestoreState";
@@ -18,7 +17,6 @@ import type { SizeProps } from "../../utils/SizeProps";
 export interface TabState {
   readonly id: string;
   readonly label: string;
-  readonly iconSpec?: IconSpec;
   readonly preferredFloatingWidgetSize?: SizeProps;
   readonly preferredPanelWidgetSize?: "fit-content";
   readonly allowedPanelTargets?: ReadonlyArray<PanelSide>;

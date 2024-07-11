@@ -302,7 +302,6 @@ function toTabArgs(widget: WidgetDef) {
     ),
     hideWithUiWhenFloating: !!widget.hideWithUiWhenFloating,
     canPopout: widget.canPopout,
-    iconSpec: widget.iconSpec,
     isFloatingWidgetResizable: widget.isFloatingStateWindowResizable,
     label,
     preferredFloatingWidgetSize: widget.defaultFloatingSize,
@@ -567,7 +566,7 @@ export function initializePanel(
 }
 
 /** @internal */
-export const stateVersion = 17; // this needs to be bumped when NineZoneState is changed (to recreate the layout).
+export const stateVersion = 18; // this needs to be bumped when NineZoneState is changed (to recreate the layout).
 
 /** @internal */
 export function initializeNineZoneState(frontstageDef: FrontstageDef) {
@@ -696,7 +695,6 @@ export function packNineZoneState(state: NineZoneState): NineZoneState {
   packed = produce(packed, (draft) => {
     for (const [, tab] of Object.entries(draft.tabs)) {
       tab.label = "";
-      delete tab.iconSpec;
     }
   });
   return packed;

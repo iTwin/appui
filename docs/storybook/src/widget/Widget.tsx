@@ -22,12 +22,18 @@ function createProvider(props: Widget): UiItemsProvider {
   return {
     id: "widgets",
     provideWidgets: () => {
-      const widget2: Widget = {
-        id: "w2",
-        label: "Widget 2",
-        content: <StoryWidget id="w2" />,
-      };
-      return [props, widget2];
+      return Array.from({ length: 3 }, (_, index) => {
+        if (index === 0) {
+          return props;
+        }
+
+        const id = `w${index + 1}`;
+        return {
+          id,
+          label: `Widget ${index + 1}`,
+          content: <StoryWidget id={id} />,
+        } satisfies Widget;
+      });
     },
   };
 }

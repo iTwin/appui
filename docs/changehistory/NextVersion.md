@@ -178,6 +178,7 @@ Table of contents:
 ### Fixes
 
 - Fixed `activeMatchIndex` not working correctly on adjacent matches in `HighlightedText`. [#898](https://github.com/iTwin/appui/pull/898)
+- Fixed widget tab styling to match the SVG and CSS icon size. [#901](https://github.com/iTwin/appui/pull/901)
 
 ## @itwin/core-react
 

@@ -8,7 +8,7 @@
 
 import * as React from "react";
 import { FloatingWidgetProvider } from "./FloatingWidget";
-import { FloatingTab } from "./FloatingTab";
+import { FloatingTabProvider } from "./FloatingTab";
 import { useLayout } from "../base/LayoutStore";
 
 /** This component renders all floating widgets.
@@ -21,7 +21,7 @@ export function FloatingWidgets() {
       {ids.map((id) => {
         return <FloatingWidgetProvider key={id} id={id} />;
       })}
-      <FloatingTab />
+      <FloatingTabProvider />
     </>
   );
 }

@@ -114,7 +114,7 @@ describe("WidgetTab", () => {
 
   it("should render tab with icon only", () => {
     let state = createNineZoneState();
-    state = addTab(state, "t1", { iconSpec: <>test-icon</> });
+    state = addTab(state, "t1");
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     const component = render(
       <TestNineZoneProvider defaultState={state}>

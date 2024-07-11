@@ -61,7 +61,7 @@ describe("MenuTab", () => {
 
   it("should render with badge and icon", async () => {
     let state = createNineZoneState();
-    state = addTab(state, "t1", { iconSpec: <div>icon</div> });
+    state = addTab(state, "t1");
     state = addPanelWidget(state, "top", "w1", ["t1"]);
     const { findByText } = render(
       <ShowWidgetIconContext.Provider value={true}>

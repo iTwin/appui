@@ -3,8 +3,9 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import type { Meta, StoryObj } from "@storybook/react";
-import { BadgeType } from "@itwin/core-react";
 import { WidgetState } from "@itwin/appui-react";
+import { BadgeType } from "@itwin/core-react";
+import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
 import { AppUiDecorator } from "../Decorators";
 import { Page } from "../AppUiStory";
 import { StoryWidget, WidgetStory } from "./Widget";
@@ -46,5 +47,31 @@ export const Floating: Story = {
 export const Badge: Story = {
   args: {
     badge: BadgeType.TechnicalPreview,
+  },
+};
+
+export const Icon: Story = {
+  args: {
+    iconNode: <SvgPlaceholder />,
+  },
+};
+
+export const CSSIcon: Story = {
+  args: {
+    iconNode: <i className="icon icon-placeholder" />,
+  },
+};
+
+export const IconSpec: Story = {
+  name: "Icon Spec (deprecated)",
+  args: {
+    icon: "icon-placeholder",
+  },
+};
+
+export const IconSpecNode: Story = {
+  name: "Icon Spec Node (deprecated)",
+  args: {
+    icon: <SvgPlaceholder />,
   },
 };
