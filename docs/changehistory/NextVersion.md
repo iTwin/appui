@@ -208,10 +208,62 @@ Table of contents:
     </DropdownMenu>
     ```
 
-  - `ConditionalIconItem` class
-    - TODO: should be just `React.ReactNode`
-  - `Icon` component, `IconProps`, `IconSpec` type.
-    - TODO: `IconSpec` should be `React.ReactNode`
+  - `IconSpec` type. Use `React.ReactNode` type instead. Even though the `React.ReactNode` is a subset of `IconSpec` it is recommended to deprecate all existing properties/APIs that were using the `IconSpec` type when moving to a suggested replacement. Main motivation for that is because `string` type is a subset of `React.ReactNode` and had a separate value handling i.e. rendering CSS icons instead of simply rendering a string value.
+
+    ```tsx
+    // Before
+    interface ComponentProps {
+      iconSpec?: IconSpec;
+    }
+
+    <Component iconSpec="icon-placeholder" />;
+
+    // After
+    interface ComponentProps {
+      icon?: React.ReactNode;
+    }
+
+    <Component icon={<SvgPlaceholder />} />;
+    ```
+
+  - `Icon` component and related `IconProps` type. This component was mostly used internally to render all supported types of `IconSpec`. Instead use SVG icons directly from `@itwin/itwinui-icons-react` package.
+
+    ```tsx
+    // Before
+    <Icon iconSpec={<SvgPlaceholder>} />;
+
+    // After
+    <SvgPlaceholder />;
+    ```
+
+    To continue using the outdated CSS icons package:
+
+    ```tsx
+    // Before
+    <Icon iconSpec="icon-placeholder" />
+
+    // After
+    <i className="icon icon-placeholder" />
+    ```
+
+  - `ConditionalIconItem` class. Use `React.ReactNode` type instead. Consumers should use conditional rendering to render different icons. Additionally, a newly added `useConditionalValue` hook can be used if the consumer prefers to continue using the sync UI events.
+
+    ```tsx
+    // Before
+    <Component
+      iconSpec={
+        new ConditionalIconItem(
+          () => (view.is2d ? <Svg2D /> : <Svg3D />),
+          [eventId]
+        )
+      }
+    />;
+
+    // After
+    const is2d = useConditionalValue(() => view.is2d, [eventId]);
+    <Component icon={icon2d ? <Svg2D /> : <Svg3D />} />;
+    ```
+
   - `NodeCheckboxRenderer`, `NodeCheckboxRenderProps` types. Types are inlined in the component props definition. For advanced use-cases use `React.ComponentProps` type helper instead.
   - `RenderPropsArgs` interface. Props of a deprecated component `ElementResizeObserver`.
   - `SettingsContainer` component and props type `SettingsContainerProps`. Component is used internally by `SettingsModalFrontstage`. Use [iTwinUI](https://itwinui.bentley.com) components to build a custom solution instead or file a [feature request](https://github.com/iTwin/appui/issues/new/choose).
