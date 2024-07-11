@@ -52,7 +52,7 @@ import type { WidgetConfig } from "../widgets/WidgetConfig";
 import type { WidgetControl } from "../widgets/WidgetControl";
 import { getWidgetState, WidgetDef, WidgetType } from "../widgets/WidgetDef";
 import { WidgetState } from "../widgets/WidgetState";
-import { FrontstageProvider } from "./FrontstageProvider";
+import type { FrontstageProvider } from "./FrontstageProvider";
 import { InternalFrontstageManager } from "./InternalFrontstageManager";
 import { StageUsage } from "./StageUsage";
 import type { Frontstage } from "./Frontstage";
@@ -323,8 +323,7 @@ export class FrontstageDef {
     const def = new FrontstageDef();
 
     let config;
-    // eslint-disable-next-line deprecation/deprecation
-    if (providerOrFrontstage instanceof FrontstageProvider) {
+    if ("frontstageConfig" in providerOrFrontstage) {
       def._frontstageProvider = providerOrFrontstage;
       config = providerOrFrontstage.frontstageConfig();
     } else {

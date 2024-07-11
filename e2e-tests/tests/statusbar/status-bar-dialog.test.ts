@@ -10,9 +10,6 @@ test("status bar dialog test", async ({ page, baseURL }) => {
 
   await page.getByRole("button", { name: "StatusBar", exact: true }).click();
 
-  const statusBarDialog = page
-    .locator("div")
-    .filter({ hasText: /^StatusBarDialogTitle$/ })
-    .nth(3);
+  const statusBarDialog = page.getByTestId("footer-dialog");
   await expect(statusBarDialog).toHaveScreenshot();
 });

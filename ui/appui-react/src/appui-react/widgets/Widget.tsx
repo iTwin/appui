@@ -8,7 +8,7 @@
 
 import type { ConditionalStringValue } from "@itwin/appui-abstract";
 import type { XAndY } from "@itwin/core-geometry";
-import type { BadgeType, IconSpec } from "@itwin/core-react";
+import type { BadgeKind, BadgeType, IconSpec } from "@itwin/core-react";
 import type { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import type { WidgetState } from "./WidgetState";
 import type { StagePanelSection } from "../stagepanels/StagePanelSection";
@@ -36,7 +36,13 @@ export interface Widget {
   readonly id: string;
   /** Stage panels to which this widget can be docked. All stage panels are allowed if nothing is provided. To not allow docking to any panels, provide a blank array. */
   readonly allowedPanels?: ReadonlyArray<StagePanelLocation>;
+  /** Specifies the kind of badge, if any, to be rendered.
+   * @deprecated in 4.16.0. Use `badgeKind` property instead.
+   */
+  // eslint-disable-next-line deprecation/deprecation
   readonly badge?: BadgeType;
+  /** Specifies the kind of badge, if any, to be rendered. */
+  readonly badgeKind?: BadgeKind;
   /** Describes if the widget can be popped out to a separate window. Defaults to `false`. */
   readonly canPopout?: boolean;
   /** Set to `false` to disable floating of a widget. Defaults to `true`.

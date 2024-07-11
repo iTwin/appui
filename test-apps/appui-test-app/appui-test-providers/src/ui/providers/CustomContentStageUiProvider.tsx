@@ -133,6 +133,9 @@ export class CustomContentStageUiProvider implements UiItemsProvider {
             <SampleModelessDialog opened={true} dialogId={dialogId} />,
             dialogId
           );
+        },
+        {
+          badgeKind: "deprecated",
         }
       );
 

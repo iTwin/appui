@@ -19,6 +19,7 @@ import {
 import { Badge, IconHelper, useRefState } from "@itwin/core-react";
 import type { ToolbarButtonItemProps } from "./Item";
 import { PopupItemPopup, ToolbarPopupContext } from "./PopupItem";
+import type { ActionButtonWithBadgeKind } from "./PopupItemsPanel";
 import { PopupItemsPanel } from "./PopupItemsPanel";
 import {
   ToolbarPanelAlignment,
@@ -28,8 +29,11 @@ import {
 import { useDragInteraction } from "./useDragInteraction";
 import { Direction } from "./utilities/Direction";
 
-/** Properties of [[PopupItem]] component.
+/* eslint-disable deprecation/deprecation */
+
+/** Properties of [[PopupItemWithDrag]] component.
  * @public
+ * @deprecated in 4.16.0. Props of deprecated {@link PopupItemWithDrag} component.
  */
 export interface PopupItemWithDragProps extends ToolbarButtonItemProps {
   /** Panel of the toolbar. */
@@ -79,14 +83,15 @@ function getActiveAction(item: GroupButton): ActionButton | undefined {
   return getFirstAvailableChildActionItem(item);
 }
 
-/** Expandable Group button Item
+/** Expandable group button item with drag.
  * @public
+ * @deprecated in 4.16.0. Used internally to construct toolbars.
  */
 export function PopupItemWithDrag(props: PopupItemWithDragProps) {
   const [isPanelShown, setPanelShown] = React.useState(false);
-  const [activeAction, setActiveAction] = React.useState(
-    getActiveAction(props.groupItem)
-  );
+  const [activeAction, setActiveAction] = React.useState<
+    ActionButtonWithBadgeKind | undefined
+  >(getActiveAction(props.groupItem));
   const {
     expandsTo,
     overflowExpandsTo,
@@ -131,7 +136,7 @@ export function PopupItemWithDrag(props: PopupItemWithDragProps) {
   }, [activeAction]);
 
   const icon = activeAction
-    ? IconHelper.getIconReactNode(activeAction.icon, activeAction.internalData) // eslint-disable-line deprecation/deprecation
+    ? IconHelper.getIconReactNode(activeAction.icon, activeAction.internalData)
     : props.icon;
   const title = activeAction
     ? ConditionalStringValue.getValue(activeAction.label)
@@ -187,7 +192,7 @@ export function PopupItemWithDrag(props: PopupItemWithDragProps) {
         {props.badge && (
           <div className="components-badge">
             {activeAction ? (
-              <Badge type={activeAction.badgeType} />
+              <Badge type={activeAction.badgeKind || activeAction.badgeType} />
             ) : (
               props.badge
             )}

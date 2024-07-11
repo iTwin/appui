@@ -11,7 +11,12 @@ import type {
   ConditionalBooleanValue,
   ConditionalStringValue,
 } from "../shared/ConditionalValue";
-import type { BadgeType, IconProps, IconSpec } from "@itwin/core-react";
+import type {
+  BadgeKind,
+  BadgeType,
+  IconProps,
+  IconSpec,
+} from "@itwin/core-react";
 import type { StringGetter } from "@itwin/appui-abstract";
 
 /** Properties for a Keyboard Shortcut
@@ -56,8 +61,13 @@ export interface KeyboardShortcutProps extends IconProps {
   isPressed?: boolean;
   /** can be used by application to store miscellaneous data. */
   applicationData?: any;
-  /** Badge to be overlaid on the item. */
+  /** Badge to be overlaid on the item.
+   * @deprecated in 4.16.0. Use `badgeKind` property instead.
+   */
+  // eslint-disable-next-line deprecation/deprecation
   badgeType?: BadgeType;
+  /** Specifies the kind of badge, if any, to be overlaid on the item. */
+  badgeKind?: BadgeKind;
   /** abstract icon definition, used when create itemDef from abstract item (ie. MenuItem) */
   icon?: IconSpec;
 

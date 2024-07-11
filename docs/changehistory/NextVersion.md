@@ -8,11 +8,14 @@ Table of contents:
   - [Changes](#changes)
   - [Fixes](#fixes)
 - [@itwin/components-react](#itwincomponents-react)
+  - [Deprecations](#deprecations-1)
   - [Additions](#additions-1)
   - [Changes](#changes-1)
   - [Fixes](#fixes-1)
 - [@itwin/core-react](#itwincore-react)
-  - [Deprecations](#deprecations-1)
+  - [Deprecations](#deprecations-2)
+  - [Additions](#additions-2)
+  - [Changes](#changes-2)
 
 ## @itwin/appui-react
 
@@ -145,6 +148,14 @@ Table of contents:
   - `StatusBarProps` interface of a deprecated `StatusBar` component.
   - `ViewSelector.onViewSelectorChangedEvent` property. Use `onViewSelected` prop of `ViewSelector` component instead.
 
+- Deprecated properties that have `BadgeType` as type and added replacement properties that use the new `BadgeKind` type. [#899](https://github.com/iTwin/appui/pull/899)
+  - `badge` property in `CommonBackstageItem`, `CommonStatusBarItem`, `CommonToolbarItem`, `Widget`. Use `badgeKind` property instead.
+  - `badgeType` property in `CursorMenuItemProps`, `FrameworkKeyboardShortcut`, `ItemDefBase`, `ItemProps`, `KeyboardShortcutProps`. Use `badgeKind` property instead.
+  - `badgeType` getter in `WidgetDef`. Use `badgeKind` getter instead.
+- Deprecated `relativePosition` property in `ToolbarPopupProps`, `CardPopupProps` and `CursorPopupProps` in favor of `placement` property. [#907](https://github.com/iTwin/appui/pull/907)
+- Deprecated `orientation` property in `CardPopupProps`. This property is not used by the `CardPopup` component. [#907](https://github.com/iTwin/appui/pull/907)
+- Deprecated `showToolbar`, `showHTMLElement`, `hideHTMLElement` and `showCard` methods from `PopupManager`. Use `displayToolbar`, `showComponent`, `hideComponent` and `displayCard` methods of `PopupManager` instead. [#907](https://github.com/iTwin/appui/pull/907)
+
 ### Additions
 
 - Added additional APIs to support `ConfigurableUiControl` deprecation in backwards compatible way. [#888](https://github.com/iTwin/appui/pull/888)
@@ -155,17 +166,26 @@ Table of contents:
   - `onViewSelected` to `ViewSelectorProps` to replace the static event.
   - `solarTimeline`, `analysisTimeline`, `scheduleAnimation` props to `DefaultViewOverlay` component to replace existing `applicationData.featureOptions.defaultViewOverlay` property.
   - `navigationAid` prop to `ViewToolWidgetComposer` to override the default navigation aid.
-- Added `LocalStateStorage`, `SettingsManager` classes, `UiStateStorageStatus` enum and `UiStateStorage`, `UiStateStorageResult`, `RectangleProps`, `SizeProps`, `SettingsTabEntry`, `SettingsTabsProvider` interfaces previously accessible from `@itwin/core-react` package. [#901](https://github.com/iTwin/appui/pull/901)
+  - Added replacement properties that allow specifying the badge type in components using string values from `BadgeKind`. [#899](https://github.com/iTwin/appui/pull/899)
+    - `badgeKind` property in `CommonBackstageItem`, `CommonStatusBarItem`, `CommonToolbarItem`, `Widget`, `CursorMenuItemProps`, `FrameworkKeyboardShortcut`, `ItemDefBase`, `ItemProps`, `KeyboardShortcutProps`.
+    - `badgeKind` getter in `WidgetDef`.
+  - Added `LocalStateStorage`, `SettingsManager` classes, `UiStateStorageStatus` enum and `UiStateStorage`, `UiStateStorageResult`, `RectangleProps`, `SizeProps`, `SettingsTabEntry`, `SettingsTabsProvider` interfaces previously accessible from `@itwin/core-react` package. [#901](https://github.com/iTwin/appui/pull/901)
 
 ### Changes
 
 - Bump `AccuDrawWidget`, `SheetNavigationAid`, `StandardRotationNavigationAid` components to `@public`. [#888](https://github.com/iTwin/appui/pull/888)
+- No more transitions when toggling themes. [#905](https://github.com/iTwin/appui/pull/905)
 
 ### Fixes
 
 - Fixed `AccuDrawInputField` to correctly specify keyboard event modifiers in `UiFramework.keyboardShortcuts.processKey()`. [#894](https://github.com/iTwin/appui/pull/894)
+- Fixes the unintentional "flying-in" of floating elements like Tooltips and ComboBox menus when the page first loads. [#905](https://github.com/iTwin/appui/pull/905)
 
 ## @itwin/components-react
+
+### Deprecations
+
+- Deprecated `PopupItem`, `PopupItemProps`, `PopupItemWithDrag`, `PopupItemWithDragProps`, `ToolbarPopupContext`, `ToolbarPopupContextProps`, `useToolbarPopupContext`. These components, context and hook are used internally to construct toolbars. [#899](https://github.com/iTwin/appui/pull/899)
 
 ### Additions
 
@@ -184,6 +204,8 @@ Table of contents:
 
 ### Deprecations
 
+- Deprecated `BadgeType` which is used as a type for properties and it is replaced by internal `BadgeKind` type. [#899](https://github.com/iTwin/appui/pull/899)
+- Deprecated `badgeType` property in `ContextMenuItemProps`. Use `badgeKind` property instead. [#899](https://github.com/iTwin/appui/pull/899)
 - Deprecated all remaining APIs of `@itwin/core-react` package. `@itwin/core-react` package is now considered deprecated and usage of this package should be avoided. Existing APIs will continue to work as expected as described in [API deprecation policy](https://www.itwinjs.org/learning/api-support-policies/#api-deprecation-policy). Package will be removed entirely with `AppUI 6.0` version release. [#901](https://github.com/iTwin/appui/pull/901)
 
   - `CheckBoxState`, `Orientation`, `TimeFormat` enums and `LocalizationProvider` component are now accessible from `@itwin/components-react` package.
@@ -270,3 +292,12 @@ Table of contents:
   - `UiCore` class. It is recommended for applications to continue using `UiCore` initializer until the package is removed entirely to avoid unexpected behavior in dependencies.
   - `useCrossOriginPopup` hook. Without a replacement, build a custom solution instead.
   - `useSaveBeforeActivatingNewSettingsTab`, `useSaveBeforeClosingSettingsContainer` hooks. Use `SettingsManager` APIs instead.
+
+### Additions
+
+- Added `badgeKind` property to `ContextMenuItemProps`. It allows specifying the badge type using string values from `BadgeKind`. [#899](https://github.com/iTwin/appui/pull/899)
+- Added `Deprecated` badge. It can only be accessed by using `badgeKind` properties in components. [#899](https://github.com/iTwin/appui/pull/899)
+
+### Changes
+
+- Removed styling for the `theme-transition` class. [#890](https://github.com/iTwin/appui/pull/890)

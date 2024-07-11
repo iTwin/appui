@@ -295,6 +295,7 @@ function ListPickerPopupItem(props: ListPickerProps) {
         return props.panelOnly === true ? (
           getListPanel(props)
         ) : (
+          // eslint-disable-next-line deprecation/deprecation
           <PopupItem
             hideIndicator={isEnabled}
             icon={icon}

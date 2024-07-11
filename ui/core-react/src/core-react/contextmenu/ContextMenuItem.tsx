@@ -36,8 +36,13 @@ export interface ContextMenuItemProps
   disabled?: boolean | ConditionalBooleanValue;
   /** Indicates whether the item is visible or hidden. The default is for the item to be visible. */
   hidden?: boolean | ConditionalBooleanValue;
-  /** Badge to be overlaid on the item. */
+  /** Badge to be overlaid on the item.
+   * @deprecated in 4.16.0. Use `badgeKind` property instead.
+   */
+  // eslint-disable-next-line deprecation/deprecation
   badgeType?: BadgeType;
+  /** Specifies the kind of badge, if any, to be overlaid on the item. */
+  badgeKind?: "technical-preview" | "new" | "deprecated" | (string & {});
   /** Icon to display in the right margin. */
   iconRight?: IconSpec;
   /** Hide the icon container. This can be used to eliminate space used to display an icon at the left of the menu item. */
@@ -90,7 +95,8 @@ export class ContextMenuItem extends React.PureComponent<
       isSelected,
       parentMenu,
       onHotKeyParsed,
-      badgeType,
+      badgeType, // eslint-disable-line deprecation/deprecation
+      badgeKind,
       iconRight,
       hideIconContainer,
       ...props
@@ -147,9 +153,9 @@ export class ContextMenuItem extends React.PureComponent<
             <Icon iconSpec={iconRight} />
           </div>
         )}
-        {badgeType && (
+        {(badgeKind || badgeType) && (
           <div className="core-context-menu-badge">
-            <Badge type={badgeType} />
+            <Badge type={badgeKind || badgeType} />
           </div>
         )}
       </div>

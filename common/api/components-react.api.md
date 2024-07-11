@@ -6,6 +6,7 @@
 
 import type { ActionButton } from '@itwin/appui-abstract';
 import { AlternateDateFormats } from '@itwin/appui-abstract';
+import type { BadgeKind } from '@itwin/core-react';
 import { BeEvent } from '@itwin/core-bentley';
 import { BeUiEvent } from '@itwin/core-bentley';
 import { CheckBoxState } from '@itwin/core-react';
@@ -268,6 +269,11 @@ export interface CommonPropertyGridProps extends CommonProps {
     orientation?: Orientation;
     propertyValueRendererManager?: PropertyValueRendererManager;
 }
+
+// @internal
+export type CommonToolbarItemWithBadgeKind = CommonToolbarItem & {
+    badgeKind?: BadgeKind;
+};
 
 // @public
 export interface CompletionObserver<T> {
@@ -1131,7 +1137,7 @@ NoChildrenProps {
         overflowExpandsTo?: Direction;
     };
     expandsTo?: Direction;
-    items: CommonToolbarItem[];
+    items: CommonToolbarItemWithBadgeKind[];
     onItemExecuted?: OnItemExecutedFunc;
     onKeyDown?: (e: React_3.KeyboardEvent) => void;
     panelAlignment?: ToolbarPanelAlignment;
@@ -1804,23 +1810,23 @@ export class Point3dTypeConverter extends BasePointTypeConverter {
     protected getVectorLength(point: Primitives.Point): number | undefined;
 }
 
-// @public
+// @public @deprecated
 export function PopupItem(props: PopupItemProps): React_3.JSX.Element;
 
 // @internal (undocumented)
 export function PopupItemPopup(props: PopupItemPopupProps): React_3.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface PopupItemProps extends ToolbarButtonItemProps {
     hideIndicator?: boolean;
     keepContentsMounted?: boolean;
     panel?: React_3.ReactNode;
 }
 
-// @public
+// @public @deprecated
 export function PopupItemWithDrag(props: PopupItemWithDragProps): React_3.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface PopupItemWithDragProps extends ToolbarButtonItemProps {
     groupItem: GroupButton;
 }
@@ -2975,9 +2981,10 @@ export interface ToolbarButtonItemProps extends CommonProps {
 export type ToolbarItem = ActionButton | GroupButton | CustomToolbarItem;
 
 // @internal (undocumented)
-export function ToolbarItemComponent({ item, addGroupSeparator, }: {
+export function ToolbarItemComponent({ item, addGroupSeparator, badgeKind, }: {
     item: ToolbarItem;
     addGroupSeparator: boolean;
+    badgeKind?: BadgeKind;
 }): React_3.JSX.Element | null;
 
 // @internal
@@ -3047,10 +3054,10 @@ export class ToolbarPanelAlignmentHelpers {
 // @public
 export const ToolbarPopupAutoHideContext: React_3.Context<boolean>;
 
-// @public
+// @public @deprecated
 export const ToolbarPopupContext: React_3.Context<ToolbarPopupContextProps>;
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 export interface ToolbarPopupContextProps {
     // (undocumented)
     readonly closePanel: () => void;
@@ -3622,7 +3629,7 @@ export function useRenderedStringValue(record: PropertyRecord, stringValueCalcul
 // @public
 export function useToolbarPopupAutoHideContext(): boolean;
 
-// @public
+// @public @deprecated
 export function useToolbarPopupContext(): ToolbarPopupContextProps;
 
 // @internal (undocumented)

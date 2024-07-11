@@ -11,8 +11,8 @@
 import * as abstract from "@itwin/appui-abstract";
 import type { BeUiEvent } from "@itwin/core-bentley";
 import { assert } from "@itwin/core-bentley";
-import type { IconSpec } from "@itwin/core-react";
-import { IconHelper } from "@itwin/core-react";
+import type { BadgeKind, IconSpec } from "@itwin/core-react";
+import { BadgeType, IconHelper } from "@itwin/core-react";
 import type {
   // @ts-ignore Removed in 4.0
   BackstageItem as AbstractBackstageItem,
@@ -407,6 +407,18 @@ function createAbstractToUiItemsProviderAdapter(
   };
 }
 
+// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
+function getBadgeType(badgeKind: BadgeKind | undefined) {
+  switch (badgeKind) {
+    case "new":
+      return BadgeType.New;
+    case "technical-preview":
+      return BadgeType.TechnicalPreview;
+    default:
+      return undefined;
+  }
+}
+
 function toAbstractBackstageItem(item: BackstageItem): AbstractBackstageItem {
   let abstractItem = getOriginalData<AbstractBackstageItem>(item);
   if (abstractItem) return abstractItem;
@@ -415,7 +427,7 @@ function toAbstractBackstageItem(item: BackstageItem): AbstractBackstageItem {
   const icon = IconHelper.getIconData(item.icon, internalData);
   abstractItem = {
     ...item,
-    badgeType: item.badge,
+    badgeType: getBadgeType(item.badgeKind) || item.badge,
     icon,
     internalData,
   };
@@ -430,7 +442,7 @@ function toAbstractStatusBarItem(item: StatusBarItem): AbstractStatusBarItem {
   if (isStatusBarCustomItem(item)) {
     abstractItem = {
       ...item,
-      badgeType: item.badge,
+      badgeType: getBadgeType(item.badgeKind) || item.badge,
       isCustom: true,
       reactNode: item.content,
     } as AbstractStatusBarItem;
@@ -439,7 +451,7 @@ function toAbstractStatusBarItem(item: StatusBarItem): AbstractStatusBarItem {
     const icon = IconHelper.getIconData(item.icon, internalData);
     abstractItem = {
       ...item,
-      badgeType: item.badge,
+      badgeType: getBadgeType(item.badgeKind) || item.badge,
       icon,
       internalData,
     };
@@ -457,7 +469,7 @@ function toAbstractToolbarItem(item: ToolbarItem): AbstractToolbarItem {
   if (isToolbarActionItem(item)) {
     abstractItem = {
       ...item,
-      badgeType: item.badge,
+      badgeType: getBadgeType(item.badgeKind) || item.badge,
       icon,
       internalData,
       parentToolGroupId: item.parentGroupItemId,
@@ -465,7 +477,7 @@ function toAbstractToolbarItem(item: ToolbarItem): AbstractToolbarItem {
   } else if (isToolbarGroupItem(item)) {
     abstractItem = {
       ...item,
-      badgeType: item.badge,
+      badgeType: getBadgeType(item.badgeKind) || item.badge,
       icon,
       internalData,
       parentToolGroupId: item.parentGroupItemId,
@@ -474,7 +486,7 @@ function toAbstractToolbarItem(item: ToolbarItem): AbstractToolbarItem {
   } else {
     abstractItem = {
       ...item,
-      badgeType: item.badge,
+      badgeType: getBadgeType(item.badgeKind) || item.badge,
       isCustom: true,
       icon,
       internalData,
@@ -507,7 +519,7 @@ function toAbstractWidget(widget: Widget): AbstractWidget {
     id: widget.id ?? "",
     getWidgetContent: () => widget.content,
     allowedPanelTargets,
-    badgeType: widget.badge,
+    badgeType: getBadgeType(widget.badgeKind) || widget.badge,
     defaultFloatingPosition:
       typeof widget.canFloat === "object"
         ? widget.canFloat.defaultPosition

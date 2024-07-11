@@ -114,15 +114,18 @@ export interface AutoSuggestProps extends React_2.InputHTMLAttributes<HTMLInputE
 export function Badge({ type }: BadgeProps): React_2.JSX.Element | null;
 
 // @internal
+export type BadgeKind = "technical-preview" | "new" | "deprecated" | (string & {});
+
+// @internal
 export interface BadgeProps {
     // (undocumented)
-    type?: BadgeType;
+    type?: BadgeType | BadgeKind;
 }
 
-// @public
+// @public @deprecated
 export type BadgeType = BadgeType_2;
 
-// @public
+// @public @deprecated
 export const BadgeType: typeof BadgeType_2;
 
 // @public @deprecated
@@ -307,6 +310,8 @@ export class ContextMenuItem extends React_2.PureComponent<ContextMenuItemProps,
 
 // @public @deprecated
 export interface ContextMenuItemProps extends Omit<React_2.AllHTMLAttributes<HTMLDivElement>, "disabled" | "hidden">, CommonProps {
+    badgeKind?: "technical-preview" | "new" | "deprecated" | (string & {});
+    // @deprecated
     badgeType?: BadgeType;
     disabled?: boolean | ConditionalBooleanValue;
     hidden?: boolean | ConditionalBooleanValue;

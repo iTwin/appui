@@ -36,7 +36,8 @@ export type ToolbarPopupProps = Omit<PopupPropsBase, "el"> & {
   onItemExecuted: (item: any) => void;
   el?: HTMLElement;
 } & RequireAtLeastOne<{
-    relativePosition: RelativePosition; // @deprecated in 4.11.0. Please use placement instead.
+    /** @deprecated in 4.16.0. Use `placement` property instead. */
+    relativePosition: RelativePosition;
     placement: Placement;
   }>;
 
@@ -94,6 +95,7 @@ export class ToolbarPopup extends React.PureComponent<
       point,
       this.props.offset,
       this.state.size,
+      // eslint-disable-next-line deprecation/deprecation
       this.props.placement ?? mapToPlacement(this.props.relativePosition)
     );
     point = new Point(popupRect.left, popupRect.top);

@@ -15,14 +15,4 @@ describe("ConditionalIconValue", () => {
     expect(item instanceof ConditionalIconValue).toBe(true);
     expect(value instanceof ConditionalIconValue).toBe(true);
   });
-
-  it("should return true for isConditionalIconItem check", () => {
-    const item = new ConditionalIconItem(() => "item", []);
-    const value = new ConditionalIconValue(() => "value", []);
-
-    expect(ConditionalIconItem.isConditionalIconItem(item)).toBe(true);
-    expect(ConditionalIconItem.isConditionalIconItem(value)).toBe(true);
-    expect(ConditionalIconValue.isConditionalIconItem(item)).toBe(true);
-    expect(ConditionalIconValue.isConditionalIconItem(value)).toBe(true);
-  });
 });

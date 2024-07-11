@@ -34,6 +34,7 @@ describe("WidgetDef", () => {
         isResizable: false,
       },
       badge: BadgeType.TechnicalPreview,
+      badgeKind: "deprecated",
       content: <div />,
     });
 
@@ -50,6 +51,7 @@ describe("WidgetDef", () => {
     expect(widgetDef.tooltip).toEqual("tooltip");
     expect(widgetDef.iconSpec).toEqual("icon-home");
     expect(widgetDef.badgeType).toEqual(BadgeType.TechnicalPreview);
+    expect(widgetDef.badgeKind).toEqual("deprecated");
 
     widgetDef.iconSpec = "icon-lightbulb";
     expect(widgetDef.iconSpec).toEqual("icon-lightbulb");

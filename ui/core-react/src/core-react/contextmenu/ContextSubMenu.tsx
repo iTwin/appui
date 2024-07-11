@@ -98,7 +98,8 @@ export class ContextSubMenu extends React.Component<
       children,
       onClick,
       className,
-      badgeType,
+      badgeType, // eslint-disable-line deprecation/deprecation
+      badgeKind,
       hideIconContainer,
       ...props
     } = this.props;
@@ -169,9 +170,9 @@ export class ContextSubMenu extends React.Component<
           <div className={classnames("core-context-submenu-arrow", "icon")}>
             <Icon iconSpec={<SvgCaretRightSmall />} />
           </div>
-          {badgeType && (
+          {(badgeKind || badgeType) && (
             <div className="core-context-menu-badge">
-              <Badge type={badgeType} />
+              <Badge type={badgeKind || badgeType} />
             </div>
           )}
         </div>

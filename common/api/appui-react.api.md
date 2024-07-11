@@ -13,7 +13,8 @@ import { AccuDraw } from '@itwin/core-frontend';
 import type { ActionButton } from '@itwin/appui-abstract';
 import { ActivityMessageDetails } from '@itwin/core-frontend';
 import { ActivityMessageEndReason } from '@itwin/core-frontend';
-import { BadgeType } from '@itwin/core-react';
+import type { BadgeKind } from '@itwin/core-react';
+import type { BadgeType } from '@itwin/core-react';
 import { BaseSolarDataProvider } from '@itwin/imodel-components-react';
 import { BaseTimelineDataProvider } from '@itwin/imodel-components-react';
 import type { BeButtonEvent } from '@itwin/core-frontend';
@@ -27,7 +28,7 @@ import type { CommandHandler as CommandHandler_2 } from '@itwin/appui-abstract';
 import type { CommonBackstageItem as CommonBackstageItem_2 } from '@itwin/appui-abstract';
 import type { CommonDivProps } from '@itwin/core-react';
 import type { CommonProps } from '@itwin/core-react';
-import type { CommonToolbarItem as CommonToolbarItem_2 } from '@itwin/appui-abstract';
+import type { CommonToolbarItemWithBadgeKind } from '@itwin/components-react';
 import { CompassMode } from '@itwin/core-frontend';
 import { ConditionalBooleanValue } from '@itwin/appui-abstract';
 import { ConditionalStringValue } from '@itwin/appui-abstract';
@@ -868,7 +869,9 @@ export interface CommandItemProps extends ItemProps, CommandHandler {
 
 // @public
 export interface CommonBackstageItem {
+    // @deprecated
     readonly badge?: BadgeType;
+    readonly badgeKind?: BadgeKind;
     readonly groupPriority: number;
     // @deprecated
     readonly icon?: IconSpec;
@@ -885,7 +888,9 @@ export interface CommonBackstageItem {
 
 // @public
 export interface CommonStatusBarItem {
+    // @deprecated
     readonly badge?: BadgeType;
+    readonly badgeKind?: BadgeKind;
     readonly id: string;
     readonly isDisabled?: boolean | ConditionalBooleanValue;
     readonly isHidden?: boolean | ConditionalBooleanValue;
@@ -895,7 +900,9 @@ export interface CommonStatusBarItem {
 
 // @public
 export interface CommonToolbarItem {
+    // @deprecated
     readonly badge?: BadgeType;
+    readonly badgeKind?: BadgeKind;
     readonly description?: string | ConditionalStringValue;
     readonly groupPriority?: number;
     readonly id: string;
@@ -1382,6 +1389,8 @@ export interface CursorMenuData {
 // @public
 export interface CursorMenuItemProps extends IconProps {
     applicationData?: any;
+    badgeKind?: BadgeKind;
+    // @deprecated
     badgeType?: BadgeType;
     description?: string | StringGetter | ConditionalStringValue_2;
     descriptionKey?: string;
@@ -1489,7 +1498,7 @@ export type CursorPopupProps = {
     onSizeKnown?: (size: SizeProps_2) => void;
 } & CommonProps & // eslint-disable-line deprecation/deprecation
 RequireAtLeastOne<{
-    relativePosition: RelativePosition /** @deprecated in 4.11.0. Use `placement` instead. */;
+    relativePosition: RelativePosition;
     placement: Placement;
 }>;
 
@@ -2082,7 +2091,8 @@ export interface FrameworkFrontstages {
 export interface FrameworkKeyboardShortcut {
     // (undocumented)
     applicationData?: any;
-    // (undocumented)
+    badgeKind?: BadgeKind;
+    // @deprecated (undocumented)
     badgeType?: BadgeType;
     // (undocumented)
     readonly description: string;
@@ -2470,9 +2480,6 @@ export namespace FrontstageUtilities {
 // @public @deprecated
 export type FunctionType = (...args: any[]) => any;
 
-// @internal (undocumented)
-export function getBadgeClassName(badgeType: BadgeType | undefined): "uifw-badge-new" | "uifw-badge-tp" | undefined;
-
 // @beta @deprecated
 export function getFeatureOverrideSyncEventIds(): string[];
 
@@ -2843,6 +2850,8 @@ export abstract class ItemDefBase {
     // (undocumented)
     applicationData?: any;
     // (undocumented)
+    badgeKind?: BadgeKind;
+    // @deprecated (undocumented)
     badgeType?: BadgeType;
     get description(): string;
     // (undocumented)
@@ -2901,6 +2910,8 @@ export class ItemMap extends Map<string, ItemDefBase> {
 // @public @deprecated
 export interface ItemProps extends IconProps {
     applicationData?: any;
+    badgeKind?: BadgeKind;
+    // @deprecated
     badgeType?: BadgeType;
     description?: string | StringGetter | ConditionalStringValue;
     descriptionKey?: string;
@@ -2976,6 +2987,8 @@ export interface KeyboardShortcutMenuState {
 // @public
 export interface KeyboardShortcutProps extends IconProps {
     applicationData?: any;
+    badgeKind?: BadgeKind;
+    // @deprecated
     badgeType?: BadgeType;
     description?: string | StringGetter | ConditionalStringValue_2;
     descriptionKey?: string;
@@ -3607,7 +3620,7 @@ export class PopupManager {
     static hideCard(id?: string): boolean;
     // (undocumented)
     static hideComponent(id?: string): boolean;
-    // (undocumented)
+    // @deprecated (undocumented)
     static hideHTMLElement(): boolean;
     // (undocumented)
     static hideInputEditor(): boolean;
@@ -3626,16 +3639,16 @@ export class PopupManager {
     static set popups(popups: ReadonlyArray<PopupInfo>);
     // (undocumented)
     static removePopup(id: string): boolean;
-    // (undocumented)
+    // @deprecated (undocumented)
     static showCard(content: PopupContentType, title: string | PropertyRecord | undefined, toolbarProps: AbstractToolbarProps | undefined, el: HTMLElement, pt: XAndY, offset: XAndY, onItemExecuted: (item: any) => void, onCancel: () => void, relativePosition: RelativePosition): boolean;
     static showComponent(displayElement: ReactElement, options: CommonPopupOptions): boolean;
-    // (undocumented)
+    // @deprecated (undocumented)
     static showHTMLElement(displayElement: HTMLElement, el: HTMLElement, pt: XAndY, offset: XAndY, onCancel: () => void, relativePosition: RelativePosition): boolean;
     // (undocumented)
     static showInputEditor(el: HTMLElement, pt: XAndY, value: Primitives.Value, propertyDescription: PropertyDescription, onCommit: OnValueCommitFunc, onCancel: () => void): boolean;
     // (undocumented)
     static showKeyinPalette(keyins: KeyinEntry[], el: HTMLElement, onItemExecuted?: (item: any) => void, onCancel?: () => void): boolean;
-    // (undocumented)
+    // @deprecated (undocumented)
     static showToolbar(toolbarProps: AbstractToolbarProps, el: HTMLElement, pt: XAndY, offset: XAndY, onItemExecuted: (item: any) => void, onCancel: () => void, relativePosition: RelativePosition): boolean;
 }
 
@@ -4816,11 +4829,13 @@ export class ToolbarHelper {
     // @deprecated
     static constructChildToolbarItems(itemDefs: AnyItemDef[]): Array<ToolbarActionItem | ToolbarGroupItem>;
     // @deprecated
-    static createCustomDefinitionToolbarItem(itemPriority: number, itemDef: CustomItemDef, overrides?: Partial<CustomButtonDefinition>): ToolbarCustomItem;
+    static createCustomDefinitionToolbarItem(itemPriority: number, itemDef: CustomItemDef, overrides?: Partial<CustomButtonDefinition & {
+        badgeKind?: BadgeKind;
+    }>): ToolbarCustomItem;
     // @deprecated
-    static createToolbarItemFromItemDef(itemPriority: number, itemDef: AnyItemDef, overrides?: Partial<CommonToolbarItem_2>): ToolbarItem;
+    static createToolbarItemFromItemDef(itemPriority: number, itemDef: AnyItemDef, overrides?: Partial<CommonToolbarItemWithBadgeKind>): ToolbarItem;
     // @deprecated
-    static createToolbarItemsFromItemDefs(itemDefs: AnyItemDef[], startingItemPriority?: number, overrides?: Partial<CommonToolbarItem_2>): ToolbarItem[];
+    static createToolbarItemsFromItemDefs(itemDefs: AnyItemDef[], startingItemPriority?: number, overrides?: Partial<CommonToolbarItemWithBadgeKind>): ToolbarItem[];
     // @deprecated (undocumented)
     static getIconReactNode(item: ActionButton | GroupButton): React_2.ReactNode;
 }
@@ -5634,8 +5649,9 @@ export class ViewUtilities {
 // @public
 export interface Widget {
     readonly allowedPanels?: ReadonlyArray<StagePanelLocation>;
-    // (undocumented)
+    // @deprecated
     readonly badge?: BadgeType;
+    readonly badgeKind?: BadgeKind;
     readonly canFloat?: boolean | CanFloatWidgetOptions;
     readonly canPopout?: boolean;
     readonly content?: React.ReactNode;
@@ -5698,6 +5714,8 @@ export class WidgetDef {
     // (undocumented)
     get applicationData(): any;
     // (undocumented)
+    get badgeKind(): BadgeKind | undefined;
+    // @deprecated (undocumented)
     get badgeType(): BadgeType | undefined;
     // (undocumented)
     canOpen(): boolean;

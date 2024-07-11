@@ -45,7 +45,8 @@ export const Item = React.forwardRef<HTMLButtonElement, ItemProps>(
         {...other}
       >
         <Icon iconSpec={iconSpec} />
-        <Badge badge={item.badge} />
+        {/* eslint-disable-next-line deprecation/deprecation */}
+        <Badge badge={item.badge} badgeKind={item.badgeKind} />
         {props.children}
       </IconButton>
     );

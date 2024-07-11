@@ -95,7 +95,8 @@ export function GroupMenuItem({ item, onClose }: GroupMenuItemProps) {
       }}
       isSelected={isActive}
     >
-      <Badge badge={item.badge} />
+      {/* eslint-disable-next-line deprecation/deprecation */}
+      <Badge badge={item.badge} badgeKind={item.badgeKind} />
       {label}
     </MenuItem>
   );

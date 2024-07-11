@@ -21,17 +21,15 @@ describe(`SectionsField`, () => {
       </Provider>
     );
 
-    await theUserTo.click(
-      screen.getByTitle("tools.sectionTools").firstElementChild!
-    );
+    await theUserTo.click(screen.getByTestId("sections-status-field-button"));
 
     expect(screen.getByText("tools.sectionTools", { selector: ".nz-title" })).to
       .exist;
 
-    await theUserTo.click(
-      screen.getByTitle("tools.sectionTools").firstElementChild!
-    );
+    await theUserTo.click(screen.getByTestId("sections-status-field-button"));
 
-    expect(screen.queryByText("tools.sectionTools")).toEqual(null);
+    expect(
+      screen.queryByText("tools.sectionTools", { selector: ".nz-title" })
+    ).toEqual(null);
   });
 });

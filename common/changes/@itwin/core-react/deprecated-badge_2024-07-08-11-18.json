@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/core-react",
-      "comment": "Remove `ConditionalIconItem.isConditionalIconItem()` workaround to fix an underscore prefix issue.",
+      "comment": "Added BadgeKind type as replacement for BadgeType.",
       "type": "none"
     }
   ],

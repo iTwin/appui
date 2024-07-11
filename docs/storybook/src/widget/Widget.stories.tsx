@@ -8,7 +8,7 @@ import { BadgeType } from "@itwin/core-react";
 import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
 import { AppUiDecorator } from "../Decorators";
 import { Page } from "../AppUiStory";
-import { StoryWidget, WidgetStory } from "./Widget";
+import { WidgetStory } from "./Widget";
 
 const meta = {
   title: "Widget/Widget",
@@ -21,9 +21,7 @@ const meta = {
     },
   },
   args: {
-    id: "w1",
-    label: "Widget 1",
-    content: <StoryWidget id="w1" />,
+    widgets: [{}, {}],
   },
 } satisfies Meta<typeof WidgetStory>;
 
@@ -34,44 +32,48 @@ export const Default: Story = {};
 
 export const Unloaded: Story = {
   args: {
-    defaultState: WidgetState.Unloaded,
+    widgets: [{ defaultState: WidgetState.Unloaded }, {}],
   },
 };
 
 export const Floating: Story = {
   args: {
-    defaultState: WidgetState.Floating,
+    widgets: [{ defaultState: WidgetState.Floating }, {}],
   },
 };
 
 export const Badge: Story = {
   args: {
-    badge: BadgeType.TechnicalPreview,
+    widgets: [
+      { badge: BadgeType.TechnicalPreview },
+      { badgeKind: "deprecated" },
+      {},
+    ],
   },
 };
 
 export const Icon: Story = {
   args: {
-    iconNode: <SvgPlaceholder />,
+    widgets: [{ iconNode: <SvgPlaceholder /> }, {}, {}],
   },
 };
 
 export const CSSIcon: Story = {
   args: {
-    iconNode: <i className="icon icon-placeholder" />,
+    widgets: [{ iconNode: <i className="icon icon-placeholder" /> }, {}, {}],
   },
 };
 
 export const IconSpec: Story = {
   name: "Icon Spec (deprecated)",
   args: {
-    icon: "icon-placeholder",
+    widgets: [{ icon: "icon-placeholder" }, {}, {}],
   },
 };
 
 export const IconSpecNode: Story = {
   name: "Icon Spec Node (deprecated)",
   args: {
-    icon: <SvgPlaceholder />,
+    widgets: [{ icon: <SvgPlaceholder /> }, {}, {}],
   },
 };

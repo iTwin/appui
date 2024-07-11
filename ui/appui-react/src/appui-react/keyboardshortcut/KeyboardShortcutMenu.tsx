@@ -149,6 +149,8 @@ export class KeyboardShortcutMenu extends React.PureComponent<
           icon={iconSpec}
           label={label}
           disabled={shortcut.isDisabled}
+          badgeType={shortcut.badgeType}
+          badgeKind={shortcut.badgeKind}
         >
           {items}
         </ContextSubMenu>
@@ -161,6 +163,8 @@ export class KeyboardShortcutMenu extends React.PureComponent<
           onSelect={sel}
           icon={iconSpec}
           disabled={shortcut.isDisabled}
+          badgeType={shortcut.badgeType}
+          badgeKind={shortcut.badgeKind}
         >
           {label}
         </ContextMenuItem>

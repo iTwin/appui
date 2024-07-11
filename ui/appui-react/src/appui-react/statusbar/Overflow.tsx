@@ -49,7 +49,7 @@ export function StatusBarOverflow(props: StatusBarOverflowProps) {
       <IconButton
         {...otherProps}
         ref={roRef}
-        title={translate("statusBar.overflow")}
+        label={translate("statusBar.overflow")}
         styleType="borderless"
       >
         <SvgMore />

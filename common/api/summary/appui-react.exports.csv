@@ -317,7 +317,6 @@ deprecated;FrontstageReadyEventArgs
 beta;FrontstageUtilities
 public;FunctionType = (...args: any[]) => any
 deprecated;FunctionType = (...args: any[]) => any
-internal;getBadgeClassName(badgeType: BadgeType | undefined): "uifw-badge-new" | "uifw-badge-tp" | undefined
 beta;getFeatureOverrideSyncEventIds(): string[]
 deprecated;getFeatureOverrideSyncEventIds(): string[]
 internal;getFrontstageStateSettingName(frontstageId: WidgetPanelsFrontstageState["id"]): string
