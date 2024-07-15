@@ -179,7 +179,8 @@ Table of contents:
 ### Fixes
 
 - Fixed `AccuDrawInputField` to correctly specify keyboard event modifiers in `UiFramework.keyboardShortcuts.processKey()`. [#894](https://github.com/iTwin/appui/pull/894)
-- Fixes the unintentional "flying-in" of floating elements like Tooltips and ComboBox menus when the page first loads. [#905](https://github.com/iTwin/appui/pull/905)
+- Fixed icon alignment and warning status color of notification manager in `MessageCenterField` component. [#901](https://github.com/iTwin/appui/pull/901)
+- Fixed the unintentional "flying-in" of floating elements like Tooltips and ComboBox menus when the page first loads. [#905](https://github.com/iTwin/appui/pull/905)
 
 ## @itwin/components-react
 

@@ -567,7 +567,7 @@ export class MessageManager {
   /** Extracts the message severity from the message details and returns the corresponding React icon.
    * @param details NotifyMessageDetailsType
    * @returns IconSpec
-   * @deprecated in 4.16.0. Used internally.
+   * @deprecated in 4.16.0. Use {@link https://itwinui.bentley.com/ iTwinUI icons} instead.
    */
   public static getIconSpecFromDetails(
     details: NotifyMessageDetailsType
