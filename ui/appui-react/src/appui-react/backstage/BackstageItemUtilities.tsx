@@ -89,6 +89,7 @@ export namespace BackstageItemUtilities {
         itemPriority,
         label,
         iconNode: icon,
+        icon: icon ? <>{icon}</> : undefined,
         ...other,
       };
     }

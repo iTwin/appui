@@ -334,14 +334,14 @@ export class WidgetApiStageUiItemsProvider implements UiItemsProvider {
   /** Add entry to activate this stage in the backstage. */
   public provideBackstageItems(): BackstageItem[] {
     return [
-      BackstageItemUtilities.createStageLauncher(
-        WidgetApiStage.stageId,
-        300,
-        2,
-        AppUiTestProviders.translate("backstage.widgetApiTestFrontstageLabel"),
-        undefined,
-        undefined
-      ),
+      BackstageItemUtilities.createStageLauncher({
+        stageId: WidgetApiStage.stageId,
+        groupPriority: 300,
+        itemPriority: 2,
+        label: AppUiTestProviders.translate(
+          "backstage.widgetApiTestFrontstageLabel"
+        ),
+      }),
     ];
   }
 }

@@ -71,14 +71,12 @@ function createUiItemsProvider(): UiItemsProvider {
   return {
     id,
     getBackstageItems: () => [
-      BackstageItemUtilities.createStageLauncher(
-        editorFrontstage.id,
-        400,
-        0,
-        "Editor",
-        undefined,
-        <SvgEdit />
-      ),
+      BackstageItemUtilities.createStageLauncher({
+        stageId: editorFrontstage.id,
+        groupPriority: 400,
+        label: "Editor",
+        icon: <SvgEdit />,
+      }),
     ],
     getToolbarItems: () => {
       const overrides = {

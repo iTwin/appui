@@ -362,12 +362,11 @@ export class SampleAppIModelApp {
     UiItemsManager.register({
       id: "language",
       getStatusBarItems: () => [
-        StatusBarItemUtilities.createCustomItem(
-          "language",
-          StatusBarSection.Right,
-          0,
-          <AppLanguageSelect />
-        ),
+        StatusBarItemUtilities.createCustomItem({
+          id: "language",
+          section: StatusBarSection.Right,
+          content: <AppLanguageSelect />,
+        }),
       ],
     });
     UiItemsManager.register(viewportUiItemsProvider);

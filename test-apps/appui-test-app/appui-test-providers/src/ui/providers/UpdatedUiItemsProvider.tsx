@@ -8,7 +8,6 @@ import {
   StagePanelLocation,
   StagePanelSection,
   StatusBarItemUtilities,
-  StatusBarSection,
   ToolbarItemUtilities,
   ToolbarOrientation,
   ToolbarUsage,
@@ -40,25 +39,19 @@ export const updatedUiItemsProvider: UiItemsProvider = {
   },
   getBackstageItems: () => {
     return [
-      BackstageItemUtilities.createActionItem(
-        `${id}:backstage-item`,
-        0,
-        0,
-        () => undefined,
-        "Updated backstage item"
-      ),
+      BackstageItemUtilities.createActionItem({
+        id: `${id}:backstage-item`,
+        label: "Updated backstage item",
+      }),
     ];
   },
   getStatusBarItems: () => {
     return [
-      StatusBarItemUtilities.createActionItem(
-        `${id}:statusbar-item`,
-        StatusBarSection.Center,
-        0,
-        <SvgUpgrade />,
-        "Updated status bar item",
-        () => undefined
-      ),
+      StatusBarItemUtilities.createActionItem({
+        id: `${id}:statusbar-item`,
+        icon: <SvgUpgrade />,
+        label: "Updated status bar item",
+      }),
     ];
   },
   getWidgets: () => {

@@ -65,16 +65,14 @@ export class SynchronizedFloatingViewportProvider implements UiItemsProvider {
   /** Add entry to activate this stage in the backstage. */
   public provideBackstageItems(): BackstageItem[] {
     return [
-      BackstageItemUtilities.createStageLauncher(
-        SynchronizedFloatingViewportStage.stageId,
-        300,
-        2,
-        AppUiTestProviders.translate(
+      BackstageItemUtilities.createStageLauncher({
+        stageId: SynchronizedFloatingViewportStage.stageId,
+        groupPriority: 300,
+        itemPriority: 2,
+        label: AppUiTestProviders.translate(
           "backstage.SynchronizeFloatingViewFrontstageLabel"
         ),
-        undefined,
-        undefined
-      ),
+      }),
     ];
   }
 }

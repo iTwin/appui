@@ -18,6 +18,7 @@ import {
 import { SampleAppIModelApp } from "../../index";
 import { IModelOpen } from "../imodelopen/IModelOpen";
 import { TestAppLocalization } from "../../useTranslation";
+import { SvgFolderOpened } from "@itwin/itwinui-icons-react";
 
 function IModelOpenContent() {
   let envUrlPrefix: "dev" | "qa" | "" | undefined;
@@ -87,14 +88,13 @@ class BackstageItemsProvider implements UiItemsProvider {
 
   public provideBackstageItems(): BackstageItem[] {
     return [
-      BackstageItemUtilities.createStageLauncher(
-        IModelOpenFrontstage.stageId,
-        300,
-        10,
-        TestAppLocalization.translate("backstage.imodelopen"),
-        undefined,
-        "icon-folder-opened"
-      ),
+      BackstageItemUtilities.createStageLauncher({
+        stageId: IModelOpenFrontstage.stageId,
+        groupPriority: 300,
+        itemPriority: 10,
+        label: TestAppLocalization.translate("backstage.imodelopen"),
+        icon: <SvgFolderOpened />,
+      }),
     ];
   }
 }

@@ -30,6 +30,7 @@ import {
   StandardContentLayouts,
 } from "@itwin/appui-abstract";
 import { TestAppLocalization, useTranslation } from "../../useTranslation";
+import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
 
 async function getDefaultViewId(
   iModelConnection: IModelConnection
@@ -175,16 +176,15 @@ class LocalFileOpenStageBackstageItemsProvider implements UiItemsProvider {
       [SampleAppUiActionId.setIsIModelLocal]
     );
     return [
-      BackstageItemUtilities.createActionItem(
-        LocalFileOpenFrontstage.stageId,
-        300,
-        30,
-        async () => LocalFileOpenFrontstage.open(),
-        TestAppLocalization.translate("backstage:fileSelect"),
-        undefined,
-        "icon-placeholder",
-        { isHidden: openLocalFileHidden }
-      ),
+      BackstageItemUtilities.createActionItem({
+        id: LocalFileOpenFrontstage.stageId,
+        groupPriority: 300,
+        itemPriority: 30,
+        execute: async () => LocalFileOpenFrontstage.open(),
+        label: TestAppLocalization.translate("backstage:fileSelect"),
+        icon: <SvgPlaceholder />,
+        isHidden: openLocalFileHidden,
+      }),
     ];
   }
 }

@@ -12,13 +12,14 @@ import {
 } from "@itwin/core-frontend";
 import {
   FrontstageDef,
+  RectangleProps,
   StagePanelLocation,
   StagePanelState,
   UiFramework,
   useActiveFrontstageDef,
   WidgetState,
 } from "@itwin/appui-react";
-import { NumberInput, Rectangle, RectangleProps } from "@itwin/core-react";
+import { NumberInput, Rectangle } from "@itwin/core-react";
 import { Button, Input, Select, SelectOption } from "@itwin/itwinui-react";
 import { InternalFrontstageManager } from "@itwin/appui-react/lib/esm/appui-react/frontstage/InternalFrontstageManager";
 

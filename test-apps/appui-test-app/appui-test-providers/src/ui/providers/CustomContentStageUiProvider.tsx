@@ -34,7 +34,7 @@ import { SampleModelessDialog } from "../dialogs/SampleModelessDialog";
 import { CustomContentFrontstage } from "../frontstages/CustomContent";
 import visibilitySemiTransparentSvg from "../icons/visibility-semi-transparent.svg";
 import { SelectedElementDataWidgetComponent } from "../widgets/SelectedElementDataWidget";
-import { SvgWindow, SvgWindowAdd } from "@itwin/itwinui-icons-react";
+import { SvgFlag, SvgWindow, SvgWindowAdd } from "@itwin/itwinui-icons-react";
 import { SampleNonModalDialog } from "../dialogs/SampleNonModalDialog";
 
 /**
@@ -199,14 +199,16 @@ export class CustomContentStageUiProvider implements UiItemsProvider {
   public provideBackstageItems(): BackstageItem[] {
     return [
       // use 200 to group it with secondary stages in ui-test-app
-      BackstageItemUtilities.createStageLauncher(
-        CustomContentFrontstage.stageId,
-        200,
-        2,
-        AppUiTestProviders.translate("backstage.customContentFrontstageLabel"),
-        "from provider",
-        "icon-flag-2"
-      ),
+      BackstageItemUtilities.createStageLauncher({
+        stageId: CustomContentFrontstage.stageId,
+        groupPriority: 200,
+        itemPriority: 2,
+        label: AppUiTestProviders.translate(
+          "backstage.customContentFrontstageLabel"
+        ),
+        subtitle: "from provider",
+        icon: <SvgFlag />,
+      }),
     ];
   }
 }

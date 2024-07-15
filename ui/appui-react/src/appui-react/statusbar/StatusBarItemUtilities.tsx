@@ -6,7 +6,7 @@
  * @module StatusBar
  */
 
-import type * as React from "react";
+import * as React from "react";
 import type { ConditionalStringValue } from "@itwin/appui-abstract";
 import type { IconSpec } from "@itwin/core-react";
 import type {
@@ -86,12 +86,15 @@ export namespace StatusBarItemUtilities {
         execute = () => {},
         itemPriority = 0,
         section = StatusBarSection.Center,
+        icon,
         ...other
       } = args[0];
       return {
         execute,
         itemPriority,
         section,
+        iconNode: icon,
+        icon: icon ? <>{icon}</> : undefined,
         ...other,
       };
     }
@@ -99,8 +102,10 @@ export namespace StatusBarItemUtilities {
   }
 
   interface CreateLabelItemArgs
-    extends Partial<Omit<StatusBarLabelItem, "id">>,
-      Pick<StatusBarLabelItem, "id"> {}
+    extends Partial<Omit<StatusBarLabelItem, "id" | "icon" | "iconNode">>,
+      Pick<StatusBarLabelItem, "id"> {
+    icon?: StatusBarLabelItem["iconNode"];
+  }
 
   type DeprecatedCreateLabelItemArgs = [
     id: string,
@@ -158,12 +163,15 @@ export namespace StatusBarItemUtilities {
         label = "",
         itemPriority = 0,
         section = StatusBarSection.Center,
+        icon,
         ...other
       } = args[0];
       return {
         label,
         itemPriority,
         section,
+        iconNode: icon,
+        icon: icon ? <>{icon}</> : undefined,
         ...other,
       };
     }
