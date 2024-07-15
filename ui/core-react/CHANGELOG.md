@@ -1,6 +1,13 @@
 # Change Log - @itwin/core-react
 
-This log was last generated on Wed, 10 Jul 2024 11:54:56 GMT and should not be manually modified.
+This log was last generated on Mon, 15 Jul 2024 12:12:01 GMT and should not be manually modified.
+
+## 4.15.3
+Mon, 15 Jul 2024 12:12:01 GMT
+
+### Updates
+
+- Fix `PopupContextMenu` to work in `StatusBarPopover`.
 
 ## 4.15.2
 Wed, 10 Jul 2024 11:54:56 GMT
