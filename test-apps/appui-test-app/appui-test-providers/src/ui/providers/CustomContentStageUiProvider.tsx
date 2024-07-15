@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { BadgeType, ConditionalBooleanValue } from "@itwin/appui-abstract";
+import { ConditionalBooleanValue } from "@itwin/appui-abstract";
 import {
   BackstageItem,
   BackstageItemUtilities,
@@ -34,7 +34,12 @@ import { SampleModelessDialog } from "../dialogs/SampleModelessDialog";
 import { CustomContentFrontstage } from "../frontstages/CustomContent";
 import visibilitySemiTransparentSvg from "../icons/visibility-semi-transparent.svg";
 import { SelectedElementDataWidgetComponent } from "../widgets/SelectedElementDataWidget";
-import { SvgFlag, SvgWindow, SvgWindowAdd } from "@itwin/itwinui-icons-react";
+import {
+  SvgActivity,
+  SvgFlag,
+  SvgWindow,
+  SvgWindowAdd,
+} from "@itwin/itwinui-icons-react";
 import { SampleNonModalDialog } from "../dialogs/SampleNonModalDialog";
 
 /**
@@ -74,6 +79,7 @@ export class CustomContentStageUiProvider implements UiItemsProvider {
       toolbarUsage === ToolbarUsage.ContentManipulation &&
       toolbarOrientation === ToolbarOrientation.Horizontal
     ) {
+      // eslint-disable-next-line deprecation/deprecation
       const customActionButton = ToolbarItemUtilities.createActionItem(
         "custom-action-button",
         -1,
@@ -110,54 +116,50 @@ export class CustomContentStageUiProvider implements UiItemsProvider {
         );
 
       /** The following test tool toggles the value Redux store and dispatches sync event that triggers tool refresh */
-      const toggleHiddenButton = ToolbarItemUtilities.createActionItem(
-        "custom-dialog-tool-visibility-toggle",
-        1001,
-        "icon-activity",
-        "Toggle CustomDialog Button Visibility",
-        (): void => {
+      const toggleHiddenButton = ToolbarItemUtilities.createActionItem({
+        id: "custom-dialog-tool-visibility-toggle",
+        itemPriority: 1001,
+        icon: <SvgActivity />,
+        label: "Toggle CustomDialog Button Visibility",
+        execute: () => {
           this.toggleCustomDialogTool();
-        }
-      );
+        },
+      });
 
-      const sampleModelessToolButton = ToolbarItemUtilities.createActionItem(
-        "sample-modeless-dialog",
-        17,
-        <SvgWindowAdd />,
-        IModelApp.localization.getLocalizedString(
+      const sampleModelessToolButton = ToolbarItemUtilities.createActionItem({
+        id: "sample-modeless-dialog",
+        itemPriority: 17,
+        icon: <SvgWindowAdd />,
+        label: IModelApp.localization.getLocalizedString(
           "SampleApp:buttons.sampleModelessDialog"
         ),
-        () => {
+        execute: () => {
           const dialogId = "sampleModeless";
           UiFramework.dialogs.modeless.open(
             <SampleModelessDialog opened={true} dialogId={dialogId} />,
             dialogId
           );
         },
-        {
-          badgeKind: "deprecated",
-        }
-      );
+        badgeKind: "deprecated",
+      });
 
       const sampleNonModalDialogToolButton =
-        ToolbarItemUtilities.createActionItem(
-          "sample-non-modal-dialog",
-          18,
-          <SvgWindow />,
-          IModelApp.localization.getLocalizedString(
+        ToolbarItemUtilities.createActionItem({
+          id: "sample-non-modal-dialog",
+          itemPriority: 18,
+          icon: <SvgWindow />,
+          label: IModelApp.localization.getLocalizedString(
             "SampleApp:buttons.sampleNonModalDialog"
           ),
-          () => {
+          execute: () => {
             const dialogId = "sampleNonModal";
             UiFramework.dialogs.modeless.open(
               <SampleNonModalDialog dialogId={dialogId} />,
               dialogId
             );
           },
-          {
-            badge: BadgeType.New,
-          }
-        );
+          badgeKind: "new",
+        });
 
       return [
         customActionButton,

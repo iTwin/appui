@@ -215,7 +215,7 @@ export namespace StatusBarItemUtilities {
     args: CreateCustomItemArgs
   ): StatusBarCustomItem;
   /** Creates a StatusBar item to display a custom content.
-   * @deprecated in 4.16.0. Uses a deprecated {@link @itwin/core-react#IconSpec} type. Use an overload instead.
+   * @deprecated in 4.16.0. Use an overload instead.
    */
   export function createCustomItem(
     ...args: DeprecatedCreateCustomItemArgs

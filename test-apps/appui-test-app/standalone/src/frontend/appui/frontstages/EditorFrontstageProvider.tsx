@@ -11,7 +11,6 @@ import {
   StagePanelLocation,
   StagePanelSection,
   StageUsage,
-  ToolbarActionItem,
   ToolbarItemUtilities,
   ToolbarOrientation,
   ToolbarUsage,
@@ -23,25 +22,8 @@ import {
   EditTools,
 } from "@itwin/editor-frontend";
 import { SvgDraw, SvgEdit } from "@itwin/itwinui-icons-react";
-import { IModelApp, ToolType } from "@itwin/core-frontend";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 import { ViewportContent } from "@itwin/appui-test-providers";
-
-function createToolbarItem( // TODO: add to imodel-components-react?
-  tool: ToolType,
-  overrides?: Partial<ToolbarActionItem>
-) {
-  return ToolbarItemUtilities.createActionItem(
-    tool.toolId,
-    10,
-    tool.iconSpec,
-    tool.flyover,
-    async () => {
-      await IModelApp.tools.run(tool.toolId);
-    },
-    overrides
-  );
-}
 
 export async function initializeEditor() {
   await EditTools.initialize();
@@ -79,17 +61,21 @@ function createUiItemsProvider(): UiItemsProvider {
       }),
     ],
     getToolbarItems: () => {
-      const overrides = {
-        layouts: {
-          standard: {
-            orientation: ToolbarOrientation.Horizontal,
-            usage: ToolbarUsage.ContentManipulation,
-          },
+      const layouts = {
+        standard: {
+          orientation: ToolbarOrientation.Horizontal,
+          usage: ToolbarUsage.ContentManipulation,
         },
       };
       return [
-        createToolbarItem(CreateLineStringTool, overrides),
-        createToolbarItem(CreateArcTool, overrides),
+        ToolbarItemUtilities.createForTool(CreateLineStringTool, {
+          itemPriority: 10,
+          layouts,
+        }),
+        ToolbarItemUtilities.createForTool(CreateArcTool, {
+          itemPriority: 10,
+          layouts,
+        }),
       ];
     },
     getWidgets: () => {

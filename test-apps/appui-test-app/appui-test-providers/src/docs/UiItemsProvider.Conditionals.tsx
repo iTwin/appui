@@ -4,18 +4,12 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 
-const id = "";
-const itemPriority = 0;
-const icon = "";
-const label = "";
-const onClick = () => {};
-
 // __PUBLISH_EXTRACT_START__ AppUI.UiItemsProvider.Conditionals
+import { ConditionalBooleanValue } from "@itwin/appui-abstract";
 import {
   SyncUiEventDispatcher,
   ToolbarItemUtilities,
 } from "@itwin/appui-react";
-import { ConditionalBooleanValue } from "@itwin/appui-abstract";
 
 function createBooleanStore(eventId: string, defaultValue: boolean) {
   let value = defaultValue;
@@ -41,7 +35,8 @@ const isHiddenStore = createBooleanStore(
 );
 
 // Create a toolbar item that can be hidden by an application.
-ToolbarItemUtilities.createActionItem(id, itemPriority, icon, label, onClick, {
+ToolbarItemUtilities.createActionItem({
+  id: "action-1",
   isHidden: new ConditionalBooleanValue(() => {
     // This function is called when the `example-is-hidden-changed` event is dispatched.
     return isHiddenStore.getValue();

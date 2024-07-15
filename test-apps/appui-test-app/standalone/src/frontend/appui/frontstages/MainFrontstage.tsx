@@ -114,27 +114,25 @@ export class MainFrontstage {
       {
         id: "main-stage-toolbar-items",
         getToolbarItems: () => [
-          ToolbarItemUtilities.createActionItem(
-            "toggle-view-overlay",
-            100,
-            <SvgPlaceholder />,
-            "Toggle View Overlay",
-            () => {
+          ToolbarItemUtilities.createActionItem({
+            id: "toggle-view-overlay",
+            itemPriority: 100,
+            icon: <SvgPlaceholder />,
+            label: "Toggle View Overlay",
+            execute: () => {
               // eslint-disable-next-line deprecation/deprecation
               UiFramework.setViewOverlayDisplay(
                 // eslint-disable-next-line deprecation/deprecation
                 !UiFramework.viewOverlayDisplay
               );
             },
-            {
-              layouts: {
-                standard: {
-                  orientation: ToolbarOrientation.Horizontal,
-                  usage: ToolbarUsage.ContentManipulation,
-                },
+            layouts: {
+              standard: {
+                orientation: ToolbarOrientation.Horizontal,
+                usage: ToolbarUsage.ContentManipulation,
               },
-            }
-          ),
+            },
+          }),
         ],
       },
       { stageIds: [MainFrontstage.stageId] }

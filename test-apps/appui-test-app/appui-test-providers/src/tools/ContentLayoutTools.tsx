@@ -292,11 +292,10 @@ export function createSplitSingleViewportToolbarItem(
       await UiFramework.content.layouts.setActiveContentGroup(newContentGroup);
     }
   };
-  return ToolbarItemUtilities.createActionItem(
+  return ToolbarItemUtilities.createActionItem({
     id,
-    0,
-    <SplitWindowIcon />,
+    icon: <SplitWindowIcon />,
     label,
-    execute
-  );
+    execute,
+  });
 }
