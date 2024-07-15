@@ -11,7 +11,7 @@ import {
   ConditionalStringValue,
 } from "@itwin/appui-abstract";
 import { Logger } from "@itwin/core-bentley";
-import { Badge, Icon } from "@itwin/core-react";
+import { Badge, Icon as CoreIcon } from "@itwin/core-react";
 import * as React from "react";
 import { UiFramework } from "../UiFramework";
 import { useActiveFrontstageId } from "../frontstage/FrontstageDef";
@@ -24,6 +24,7 @@ import type {
 } from "./BackstageItem";
 import { isBackstageStageLauncher } from "./BackstageItem";
 import { useBackstageManager } from "./BackstageManager";
+import { Icon } from "@itwin/itwinui-react";
 
 /** @internal */
 export interface BackstageComposerActionItemProps {
@@ -45,7 +46,11 @@ export function BackstageComposerActionItem({
       providerId={isProviderItem(item) ? item.providerId : undefined}
       itemPriority={item.itemPriority}
       groupPriority={item.groupPriority}
-      icon={<Icon iconSpec={item.icon} />}
+      icon={
+        <Icon>{item.iconNode}</Icon> ??
+        // eslint-disable-next-line deprecation/deprecation
+        (item.icon ? <CoreIcon iconSpec={item.icon} /> : <Icon />)
+      }
       isActive={ConditionalBooleanValue.getValue(item.isActive)}
       isDisabled={ConditionalBooleanValue.getValue(item.isDisabled)}
       onClick={handleClick}
@@ -87,7 +92,11 @@ export function BackstageComposerStageLauncher({
       providerId={isProviderItem(item) ? item.providerId : undefined}
       itemPriority={item.itemPriority}
       groupPriority={item.groupPriority}
-      icon={<Icon iconSpec={item.icon} />}
+      icon={
+        <Icon>{item.iconNode}</Icon> ??
+        // eslint-disable-next-line deprecation/deprecation
+        (item.icon ? <CoreIcon iconSpec={item.icon} /> : <Icon />)
+      }
       isActive={isActive}
       isDisabled={ConditionalBooleanValue.getValue(item.isDisabled)}
       onClick={handleClick}

@@ -74,6 +74,7 @@ export class AccuDrawPopupManager {
   ): boolean {
     const id = AccuDrawPopupManager._calculatorId;
     const component = (
+      // eslint-disable-next-line deprecation/deprecation
       <CalculatorPopup
         id={id}
         el={el}

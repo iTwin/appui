@@ -7,20 +7,21 @@
  */
 
 import "./InputField.scss";
-import classnames from "classnames";
 import * as React from "react";
 import { OutputMessagePriority } from "@itwin/core-frontend";
 import { RelativePosition } from "@itwin/appui-abstract";
-import { Icon, MessageRenderer, Popup } from "@itwin/core-react";
-import type { InputFieldMessageEventArgs } from "../messages/MessageManager";
-import { MessageManager } from "../messages/MessageManager";
-import type { NotifyMessageType } from "./ReactNotifyMessageDetails";
+import { Icon as CoreIcon, MessageRenderer, Popup } from "@itwin/core-react";
 import {
   SvgClose,
   SvgInfoCircularHollow,
-  SvgStatusError,
+  SvgStatusErrorHollow,
+  SvgStatusSuccess,
   SvgStatusWarning,
 } from "@itwin/itwinui-icons-react";
+import { Icon } from "@itwin/itwinui-react";
+import type { InputFieldMessageEventArgs } from "../messages/MessageManager";
+import { MessageManager } from "../messages/MessageManager";
+import type { NotifyMessageType } from "./ReactNotifyMessageDetails";
 
 /** Properties of [[InputFieldMessage]] component.
  * @public
@@ -42,7 +43,9 @@ interface InputFieldMessageState {
 }
 
 /** InputField message pops up near pointer when attempting an invalid interaction.
+ * @note Use `MessageManager.displayInputFieldMessage()` to open the message.
  * @public
+ * @deprecated in 4.16.0. Used internally.
  */
 export class InputFieldMessage extends React.PureComponent<
   InputFieldMessageProps,
@@ -69,19 +72,6 @@ export class InputFieldMessage extends React.PureComponent<
       return null;
     }
 
-    let iconComponent = <SvgInfoCircularHollow />;
-    switch (priority) {
-      case OutputMessagePriority.Warning:
-        iconComponent = <SvgStatusWarning />;
-        break;
-      case OutputMessagePriority.Error:
-        iconComponent = <SvgStatusError />;
-        break;
-      case OutputMessagePriority.Info:
-        iconComponent = <SvgInfoCircularHollow />;
-        break;
-    }
-
     return (
       // eslint-disable-next-line deprecation/deprecation
       <Popup
@@ -93,14 +83,7 @@ export class InputFieldMessage extends React.PureComponent<
         <div className="uifw-popup-message-inputField">
           <div className="uifw-popup-message-inputField-content">
             <div className="uifw-popup-message-inputField-primary">
-              {iconComponent && (
-                <span className="uifw-popup-message-icon">
-                  {" "}
-                  <i className={classnames("icon", "core-svg-icon")}>
-                    {iconComponent}
-                  </i>{" "}
-                </span>
-              )}
+              <FieldIcon priority={priority} />
               <span className="uifw-popup-message-text">
                 {/* eslint-disable-next-line deprecation/deprecation */}
                 <MessageRenderer
@@ -125,7 +108,8 @@ export class InputFieldMessage extends React.PureComponent<
               role="button"
               tabIndex={-1}
             >
-              <Icon iconSpec={<SvgClose />} />
+              {/* eslint-disable-next-line deprecation/deprecation */}
+              <CoreIcon iconSpec={<SvgClose />} />
             </div>
           )}
         </div>
@@ -170,4 +154,22 @@ export class InputFieldMessage extends React.PureComponent<
   private _handleInputFieldMessageRemovedEvent = () => {
     this.setState({ isVisible: false });
   };
+}
+
+function FieldIcon({ priority }: { priority: OutputMessagePriority }) {
+  let svg = <SvgInfoCircularHollow />;
+  switch (priority) {
+    case OutputMessagePriority.Success:
+      svg = <SvgStatusSuccess />;
+      break;
+    case OutputMessagePriority.Warning:
+      svg = <SvgStatusWarning />;
+      break;
+    case OutputMessagePriority.Fatal:
+    case OutputMessagePriority.Error:
+      svg = <SvgStatusErrorHollow />;
+      break;
+  }
+
+  return <Icon>{svg}</Icon>;
 }

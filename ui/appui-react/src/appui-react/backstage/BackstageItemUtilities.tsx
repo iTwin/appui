@@ -6,6 +6,7 @@
  * @module Backstage
  */
 
+import * as React from "react";
 import type { IconSpec } from "@itwin/core-react";
 import type {
   BackstageActionItem,
@@ -162,6 +163,7 @@ export namespace BackstageItemUtilities {
         itemPriority = 0,
         execute = () => {},
         label = "",
+        icon,
         ...other
       } = args[0];
       return {
@@ -169,6 +171,8 @@ export namespace BackstageItemUtilities {
         itemPriority,
         execute,
         label,
+        iconNode: icon,
+        icon: icon ? <>{icon}</> : undefined,
         ...other,
       };
     }

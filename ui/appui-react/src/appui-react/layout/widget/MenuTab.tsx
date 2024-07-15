@@ -11,7 +11,6 @@ import classnames from "classnames";
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
 import type { CommonProps } from "@itwin/core-react";
-import { Icon } from "@itwin/core-react";
 import { useTabInteractions } from "./Tab";
 import { useActiveTabId } from "./Widget";
 import { WidgetOverflowContext } from "./Overflow";

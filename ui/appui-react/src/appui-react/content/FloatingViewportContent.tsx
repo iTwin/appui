@@ -21,7 +21,7 @@ import { ContentOverlay } from "./ContentOverlay";
 
 /**
  * @beta
- * @deprecated in 4.16.0. Props of a deprecated component {@link FloatingViewportContent}.
+ * @deprecated in 4.16.0. Props of deprecated component {@link FloatingViewportContent}.
  */
 export interface FloatingViewportContentProps {
   /** callback used to construct context menu when user right-clicks on canvas/viewport */
@@ -49,7 +49,7 @@ export function FloatingViewportContent(props: FloatingViewportContentProps) {
 
 /**
  * @public
- * @deprecated in 4.16.0. Props of a deprecated component {@link FloatingViewportContentWrapper}.
+ * @deprecated in 4.16.0. Props of deprecated component {@link FloatingViewportContentWrapper}.
  */
 export interface FloatingViewportContentWrapperProps {
   readonly children?: React.ReactNode;

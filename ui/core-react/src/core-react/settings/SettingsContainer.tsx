@@ -67,7 +67,7 @@ export function useSaveBeforeActivatingNewSettingsTab(
 /**
  * Properties of {@link SettingsContainer} component.
  * @public
- * @deprecated in 4.16.0. Props of a deprecated {@link SettingsContainer} component.
+ * @deprecated in 4.16.0. Props of deprecated component {@link SettingsContainer}.
  */
 export interface SettingsContainerProps {
   tabs: SettingsTabEntry[];
