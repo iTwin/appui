@@ -28,6 +28,7 @@ export const Item = React.forwardRef<HTMLButtonElement, ItemProps>(
     const label = useConditionalProp(item.label);
     const isDisabled = useConditionalProp(item.isDisabled);
     const isHidden = useConditionalProp(item.isHidden);
+    // eslint-disable-next-line deprecation/deprecation
     const iconSpec = useConditionalProp(item.icon);
     const labelProps = useLabelProps();
 
@@ -44,7 +45,8 @@ export const Item = React.forwardRef<HTMLButtonElement, ItemProps>(
         ref={ref}
         {...other}
       >
-        <Icon iconSpec={iconSpec} />
+        {/* eslint-disable-next-line deprecation/deprecation */}
+        {item.iconNode ?? <Icon iconSpec={iconSpec} />}
         {/* eslint-disable-next-line deprecation/deprecation */}
         <Badge badge={item.badge} badgeKind={item.badgeKind} />
         {props.children}

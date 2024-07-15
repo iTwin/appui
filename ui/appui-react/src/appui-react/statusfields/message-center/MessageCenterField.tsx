@@ -132,6 +132,7 @@ export function MessageCenterField(props: CommonProps) {
                           message={message.briefMessage}
                           details={message.detailedMessage}
                           icon={
+                            // eslint-disable-next-line deprecation/deprecation
                             <Icon
                               iconSpec={iconSpec}
                               className={iconClassName}

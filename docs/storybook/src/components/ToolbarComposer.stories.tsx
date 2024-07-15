@@ -331,9 +331,12 @@ function createItems() {
   const action1 = ToolbarItemUtilities.createActionItem(
     "item1",
     100,
-    <Svg2D />,
+    "",
     "Item 1",
-    action("Item 1")
+    action("Item 1"),
+    {
+      iconNode: <Svg2D />,
+    }
   );
   const action2 = ToolbarItemUtilities.createActionItem(
     "item2",
@@ -360,9 +363,12 @@ function createItems() {
   const group1 = ToolbarItemUtilities.createGroupItem(
     "group1",
     100,
-    <SvgActivity />,
+    "",
     "Group 1",
-    [action1, action2]
+    [action1, action2],
+    {
+      iconNode: <SvgActivity />,
+    }
   );
 
   const group2_2 = ToolbarItemUtilities.createGroupItem(
@@ -406,9 +412,12 @@ function createItems() {
   const custom1 = ToolbarItemUtilities.createCustomItem(
     "custom1",
     100,
-    <Svg2D />,
+    "",
     "Custom 1",
-    <div>Custom panel content 1</div>
+    <div>Custom panel content 1</div>,
+    {
+      iconNode: <Svg2D />,
+    }
   );
   const custom2 = ToolbarItemUtilities.createCustomItem(
     "custom2",

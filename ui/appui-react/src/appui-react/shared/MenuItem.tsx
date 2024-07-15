@@ -15,7 +15,7 @@ import { ConditionalBooleanValue, UiError } from "@itwin/appui-abstract";
 import type {
   BadgeKind,
   BadgeType,
-  IconProps,
+  CommonProps,
   IconSpec,
 } from "@itwin/core-react";
 import { ContextMenuItem, ContextSubMenu } from "@itwin/core-react";
@@ -29,9 +29,17 @@ import type { ConditionalStringValue } from "./ConditionalValue";
 /** Properties for context menu items.
  * @public
  */
-export interface CursorMenuItemProps extends IconProps {
+// eslint-disable-next-line deprecation/deprecation
+export interface CursorMenuItemProps extends CommonProps {
   /** The id for the menu item. */
   id: string;
+  /** Icon to display. */
+  iconNode?: React.ReactNode;
+  /** Icon to display.
+   * @deprecated in 4.16.0. Use {@link CursorMenuItemProps.iconNode} instead.
+   */
+  // eslint-disable-next-line deprecation/deprecation
+  iconSpec?: IconSpec;
   /** The item to execute when this item is invoked. Either 'item' or 'submenu' must be specified.
    * @deprecated in 4.15.0. Use properties of this object instead.
    */
@@ -65,7 +73,10 @@ export interface CursorMenuItemProps extends IconProps {
   badgeType?: BadgeType;
   /** Specifies the kind of badge, if any, to be overlaid on the item. */
   badgeKind?: BadgeKind;
-  /** abstract icon definition, used when create itemDef from abstract item (ie. MenuItem) */
+  /** abstract icon definition, used when create itemDef from abstract item (ie. MenuItem).
+   * @deprecated in 4.16.0. Use {@link CursorMenuItemProps.iconNode} instead.
+   */
+  // eslint-disable-next-line deprecation/deprecation
   icon?: IconSpec;
 
   /** if set, it is used to explicitly set the label shown by a component. */

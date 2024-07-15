@@ -71,6 +71,7 @@ interface GroupMenuItemProps {
 
 /** @internal */
 export function GroupMenuItem({ item, onClose }: GroupMenuItemProps) {
+  // eslint-disable-next-line deprecation/deprecation
   const iconSpec = useConditionalProp(item.icon);
   const label = useConditionalProp(item.label);
   const isDisabled = useConditionalProp(item.isDisabled);
@@ -82,9 +83,15 @@ export function GroupMenuItem({ item, onClose }: GroupMenuItemProps) {
   }
 
   const subMenuItems = isDisabled ? undefined : toMenuItems(item, onClose);
+  const startIcon = item.iconNode ? (
+    <>{item.iconNode}</>
+  ) : (
+    // eslint-disable-next-line deprecation/deprecation
+    <Icon iconSpec={iconSpec} />
+  );
   return (
     <MenuItem
-      startIcon={<Icon iconSpec={iconSpec} />}
+      startIcon={startIcon}
       disabled={isDisabled}
       subMenuItems={subMenuItems}
       onClick={() => {

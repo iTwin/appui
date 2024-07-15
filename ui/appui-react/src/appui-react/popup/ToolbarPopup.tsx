@@ -10,8 +10,8 @@ import * as React from "react";
 import { Key } from "ts-key-enum";
 import type { RelativePosition } from "@itwin/appui-abstract";
 import type { RequireAtLeastOne } from "@itwin/core-bentley";
-import type { Orientation } from "@itwin/core-react";
 import { DivWithOutsideClick, FocusTrap, Point, Size } from "@itwin/core-react";
+import type { Orientation } from "@itwin/components-react";
 import {
   Direction,
   ToolbarOpacitySetting,
@@ -28,7 +28,8 @@ import { mapToPlacement, type Placement } from "../utils/Placement";
 import type { SizeProps } from "../utils/SizeProps";
 
 /** Props for a popup toolbar
- * @beta */
+ * @beta
+ */
 export type ToolbarPopupProps = Omit<PopupPropsBase, "el"> & {
   items: ToolbarItem[];
   orientation: Orientation;

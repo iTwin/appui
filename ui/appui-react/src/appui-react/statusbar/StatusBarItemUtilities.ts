@@ -13,26 +13,42 @@ import type {
   StatusBarActionItem,
   StatusBarCustomItem,
   StatusBarLabelItem,
-  StatusBarSection,
 } from "./StatusBarItem";
-import { StatusBarLabelSide } from "./StatusBarItem";
+import { StatusBarLabelSide, StatusBarSection } from "./StatusBarItem";
+import { isArgsUtil } from "../backstage/BackstageItemUtilities";
 
 /** Utility functions for creating and maintaining StatusBar items.
  * @public
  */
 export namespace StatusBarItemUtilities {
-  /** Creates a StatusBar item to perform an action.
-   * @beta
-   */
-  export function createActionItem(
+  interface CreateActionItemArgs
+    extends Partial<Omit<StatusBarActionItem, "icon" | "iconNode" | "id">>,
+      Pick<StatusBarActionItem, "id"> {
+    icon?: StatusBarActionItem["iconNode"];
+  }
+
+  type DeprecatedCreateActionItemArgs = [
     id: string,
     section: StatusBarSection,
     itemPriority: number,
+    // eslint-disable-next-line deprecation/deprecation
     icon: IconSpec,
     tooltip: string | ConditionalStringValue,
     execute: () => void,
     overrides?: Partial<StatusBarActionItem>
-  ): StatusBarActionItem {
+  ];
+
+  function createDeprecatedActionItem(
+    ...[
+      id,
+      section,
+      itemPriority,
+      icon,
+      tooltip,
+      execute,
+      overrides,
+    ]: DeprecatedCreateActionItemArgs
+  ) {
     return {
       id,
       section,
@@ -44,18 +60,70 @@ export namespace StatusBarItemUtilities {
     };
   }
 
-  /** Creates a StatusBar item to display a label.
+  /** Creates a StatusBar item to perform an action.
    * @beta
    */
-  export function createLabelItem(
+  export function createActionItem(
+    args: CreateActionItemArgs
+  ): StatusBarActionItem;
+  /** Creates a StatusBar item to perform an action.
+   * @beta
+   */
+  /** Creates a StatusBar item to perform an action.
+   * @deprecated in 4.16.0. Uses a deprecated {@link @itwin/core-react#IconSpec} type. Use an overload instead.
+   */
+  export function createActionItem(
+    ...args: DeprecatedCreateActionItemArgs
+  ): StatusBarActionItem;
+  /** Creates a StatusBar item to perform an action.
+   * @beta
+   */
+  export function createActionItem(
+    ...args: DeprecatedCreateActionItemArgs | [CreateActionItemArgs]
+  ): StatusBarActionItem {
+    if (isArgsUtil(args)) {
+      const {
+        execute = () => {},
+        itemPriority = 0,
+        section = StatusBarSection.Center,
+        ...other
+      } = args[0];
+      return {
+        execute,
+        itemPriority,
+        section,
+        ...other,
+      };
+    }
+    return createDeprecatedActionItem(...args);
+  }
+
+  interface CreateLabelItemArgs
+    extends Partial<Omit<StatusBarLabelItem, "id">>,
+      Pick<StatusBarLabelItem, "id"> {}
+
+  type DeprecatedCreateLabelItemArgs = [
     id: string,
     section: StatusBarSection,
     itemPriority: number,
+    // eslint-disable-next-line deprecation/deprecation
     icon: IconSpec,
     label: string | ConditionalStringValue,
-    labelSide = StatusBarLabelSide.Right,
+    labelSide?: StatusBarLabelSide,
     overrides?: Partial<StatusBarLabelItem>
-  ): StatusBarLabelItem {
+  ];
+
+  function createDeprecatedLabelItem(
+    ...[
+      id,
+      section,
+      itemPriority,
+      icon,
+      label,
+      labelSide = StatusBarLabelSide.Right,
+      overrides,
+    ]: DeprecatedCreateLabelItemArgs
+  ) {
     return {
       id,
       section,
@@ -67,16 +135,62 @@ export namespace StatusBarItemUtilities {
     };
   }
 
-  /** Creates a StatusBar item to display a custom content.
+  /** Creates a StatusBar item to display a label.
    * @beta
    */
-  export function createCustomItem(
+  export function createLabelItem(
+    args: CreateLabelItemArgs
+  ): StatusBarLabelItem;
+  /** Creates a StatusBar item to display a label.
+   * @deprecated in 4.16.0. Uses a deprecated {@link @itwin/core-react#IconSpec} type. Use an overload instead.
+   */
+  export function createLabelItem(
+    ...args: DeprecatedCreateLabelItemArgs
+  ): StatusBarLabelItem;
+  /** Creates a StatusBar item to display a label.
+   * @beta
+   */
+  export function createLabelItem(
+    ...args: DeprecatedCreateLabelItemArgs | [CreateLabelItemArgs]
+  ): StatusBarLabelItem {
+    if (isArgsUtil(args)) {
+      const {
+        label = "",
+        itemPriority = 0,
+        section = StatusBarSection.Center,
+        ...other
+      } = args[0];
+      return {
+        label,
+        itemPriority,
+        section,
+        ...other,
+      };
+    }
+    return createDeprecatedLabelItem(...args);
+  }
+
+  interface CreateCustomItemArgs
+    extends Partial<Omit<StatusBarCustomItem, "id">>,
+      Pick<StatusBarCustomItem, "id"> {}
+
+  type DeprecatedCreateCustomItemArgs = [
     id: string,
     section: StatusBarSection,
     itemPriority: number,
     content: React.ReactNode,
     overrides?: Partial<StatusBarCustomItem>
-  ): StatusBarCustomItem {
+  ];
+
+  function createDeprecatedCustomItem(
+    ...[
+      id,
+      section,
+      itemPriority,
+      content,
+      overrides,
+    ]: DeprecatedCreateCustomItemArgs
+  ) {
     return {
       id,
       section,
@@ -84,5 +198,40 @@ export namespace StatusBarItemUtilities {
       content,
       ...overrides,
     };
+  }
+
+  /** Creates a StatusBar item to display a custom content.
+   * @beta
+   */
+  export function createCustomItem(
+    args: CreateCustomItemArgs
+  ): StatusBarCustomItem;
+  /** Creates a StatusBar item to display a custom content.
+   * @deprecated in 4.16.0. Uses a deprecated {@link @itwin/core-react#IconSpec} type. Use an overload instead.
+   */
+  export function createCustomItem(
+    ...args: DeprecatedCreateCustomItemArgs
+  ): StatusBarCustomItem;
+  /** Creates a StatusBar item to display a custom content.
+   * @beta
+   */
+  export function createCustomItem(
+    ...args: DeprecatedCreateCustomItemArgs | [CreateCustomItemArgs]
+  ): StatusBarCustomItem {
+    if (isArgsUtil(args)) {
+      const {
+        content = undefined,
+        itemPriority = 0,
+        section = StatusBarSection.Center,
+        ...other
+      } = args[0];
+      return {
+        content,
+        itemPriority,
+        section,
+        ...other,
+      };
+    }
+    return createDeprecatedCustomItem(...args);
   }
 }

@@ -173,6 +173,7 @@ function StatusBarActionItemComponent(props: StatusBarActionItem) {
     <StatusBarLabelIndicator
       title={title}
       onClick={props.execute}
+      // eslint-disable-next-line deprecation/deprecation
       iconSpec={props.icon}
     />
   );

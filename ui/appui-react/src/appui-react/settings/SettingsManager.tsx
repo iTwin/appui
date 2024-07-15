@@ -15,12 +15,14 @@ import { SettingsManager as _SettingsManager } from "@itwin/core-react";
 /** Interface used to populate a tab entry in the SettingContainer control
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export type SettingsTabEntry = _SettingsTabEntry;
 
 /** Setting Provider interface. Implemented by classes that want to supply settings pages for display in the SettingContainer. The
  * classes that implement this interface need to be registered with the [[SettingsManager]].
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export type SettingsTabsProvider = _SettingsTabsProvider;
 
 /** Settings Manager class. Hold registration of settings providers and supplies events for the provided settings pages to listen.

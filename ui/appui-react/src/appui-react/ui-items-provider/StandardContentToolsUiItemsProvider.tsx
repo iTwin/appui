@@ -227,12 +227,12 @@ export class StandardContentToolsUiItemsProvider implements UiItemsProvider {
     // if the sectionGroup tools are to be shown then we want the status field added to allow clearing or manipulation the section
     if (this.defaultContextTools?.vertical?.sectionGroup) {
       statusBarItems.push(
-        StatusBarItemUtilities.createCustomItem(
-          "uifw.Sections",
-          StatusBarSection.Center,
-          20,
-          <SectionsStatusField hideWhenUnused />
-        )
+        StatusBarItemUtilities.createCustomItem({
+          id: "uifw.Sections",
+          section: StatusBarSection.Center,
+          itemPriority: 20,
+          content: <SectionsStatusField hideWhenUnused />,
+        })
       );
     }
 

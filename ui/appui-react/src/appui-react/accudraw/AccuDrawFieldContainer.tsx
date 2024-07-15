@@ -9,19 +9,19 @@
 import "./AccuDrawFieldContainer.scss";
 import classnames from "classnames";
 import * as React from "react";
+import { Orientation } from "@itwin/components-react";
 import type { ColorDef } from "@itwin/core-common";
 import type { ScreenViewport } from "@itwin/core-frontend";
 import { CompassMode, IModelApp, ItemField } from "@itwin/core-frontend";
-import type { CommonProps, UiStateStorage } from "@itwin/core-react";
-import { Orientation } from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
 import { getCSSColorFromDef } from "@itwin/imodel-components-react";
-
 import { AccuDrawInputField } from "./AccuDrawInputField";
 import { FrameworkAccuDraw } from "./FrameworkAccuDraw";
 import type { AccuDrawUiSettings } from "./AccuDrawUiSettings";
 import angleIconSvg from "./angle.svg";
 import distanceIconSvg from "./distance.svg";
 import { UiFramework } from "../UiFramework";
+import type { UiStateStorage } from "../uistate/UiStateStorage";
 
 /** Properties for [[AccuDrawFieldContainer]] component
  * @beta

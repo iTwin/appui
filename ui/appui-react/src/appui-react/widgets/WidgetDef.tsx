@@ -289,6 +289,7 @@ export class WidgetDef {
     this._widgetReactNode = config.content;
     // eslint-disable-next-line deprecation/deprecation
     this._iconSpec = config.iconNode ?? config.icon;
+    // eslint-disable-next-line deprecation/deprecation
     this._badge = config.badge;
     this._badgeKind = config.badgeKind;
 
@@ -302,6 +303,7 @@ export class WidgetDef {
 
   /** Get the label string */
   public get label(): string {
+    // eslint-disable-next-line deprecation/deprecation
     return PropsHelper.getStringFromSpec(this._label);
   }
 
@@ -314,6 +316,7 @@ export class WidgetDef {
     const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
     if (!frontstageDef) return;
 
+    // eslint-disable-next-line deprecation/deprecation
     const label = PropsHelper.getStringFromSpec(labelSpec);
     frontstageDef.dispatch({
       type: "WIDGET_TAB_SET_LABEL",
@@ -324,6 +327,7 @@ export class WidgetDef {
 
   /** Get the tooltip string */
   public get tooltip(): string {
+    // eslint-disable-next-line deprecation/deprecation
     return PropsHelper.getStringFromSpec(this._tooltip);
   }
 

@@ -16,13 +16,6 @@ import type {
  * @beta
  */
 export namespace BackstageItemUtilities {
-  /** Type-guard that returns `true` if specified array has a single object. */
-  function isArgsUtil<TTuple extends any[], TArgs>(
-    args: TTuple | [TArgs]
-  ): args is [TArgs] {
-    return args.length === 1 && typeof args[0] === "object";
-  }
-
   interface CreateStageLauncherArgs
     extends Partial<
         Omit<BackstageStageLauncher, "icon" | "iconNode" | "stageId">
@@ -182,4 +175,13 @@ export namespace BackstageItemUtilities {
 
     return createDeprecatedActionItem(...args);
   }
+}
+
+/** Type-guard that returns `true` if specified array has a single object.
+ * @internal
+ */
+export function isArgsUtil<TTuple extends any[], TArgs>(
+  args: TTuple | [TArgs]
+): args is [TArgs] {
+  return args.length === 1 && typeof args[0] === "object";
 }

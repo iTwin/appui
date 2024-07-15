@@ -54,7 +54,9 @@ export interface ListItem {
 export interface ListPickerProps {
   title: string;
   items: ListItem[];
+  /** @deprecated in 4.16.0. Use {@link ListPickerProps.icon} instead. */
   iconSpec?: string | React.ReactNode;
+  icon?: React.ReactNode;
   setEnabled: (item: ListItem, enabled: boolean) => any;
   onExpanded?: (expand: boolean) => void;
   onSizeKnown?: (size: SizeProps) => void;
@@ -161,8 +163,10 @@ export class ExpandableSection extends React.PureComponent<
     );
 
     const icon = this.state.expanded ? (
+      // eslint-disable-next-line deprecation/deprecation
       <Icon iconSpec={<SvgChevronDown />} />
     ) : (
+      // eslint-disable-next-line deprecation/deprecation
       <Icon iconSpec={<SvgChevronRight />} />
     );
 
@@ -279,15 +283,22 @@ export function getListPanel(props: ListPickerProps): React.ReactNode {
  * @beta
  */
 function ListPickerPopupItem(props: ListPickerProps) {
-  const icon = props.iconSpec ? (
-    typeof props.iconSpec === "string" ? (
-      <Icon iconSpec={props.iconSpec} />
+  const icon =
+    props.icon ??
+    // eslint-disable-next-line deprecation/deprecation
+    (props.iconSpec ? (
+      // eslint-disable-next-line deprecation/deprecation
+      typeof props.iconSpec === "string" ? (
+        // eslint-disable-next-line deprecation/deprecation
+        <Icon iconSpec={props.iconSpec} />
+      ) : (
+        // eslint-disable-next-line deprecation/deprecation
+        <i className="icon uifw-item-svg-icon">{props.iconSpec}</i>
+      )
     ) : (
-      <i className="icon uifw-item-svg-icon">{props.iconSpec}</i>
-    )
-  ) : (
-    <Icon iconSpec={<SvgList />} />
-  );
+      // eslint-disable-next-line deprecation/deprecation
+      <Icon iconSpec={<SvgList />} />
+    ));
 
   return (
     <ToolbarDragInteractionContext.Consumer>
@@ -445,7 +456,9 @@ export class ListPicker extends React.Component<ListPickerPropsExtended> {
         setEnabled={this._setEnabled}
         onExpanded={this.props.onExpanded}
         items={this.createItems(this.props.items)}
+        // eslint-disable-next-line deprecation/deprecation
         iconSpec={this.props.iconSpec}
+        icon={this.props.icon}
       />
     );
   }

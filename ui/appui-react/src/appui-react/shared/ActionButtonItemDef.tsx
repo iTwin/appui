@@ -7,7 +7,7 @@
  */
 
 import type { CommandHandler, OnItemExecutedFunc } from "@itwin/appui-abstract";
-import { Orientation } from "@itwin/core-react";
+import { Orientation } from "@itwin/components-react";
 import { ItemDefBase } from "./ItemDefBase";
 import type { ItemProps } from "./ItemProps";
 import { ToolbarItemUtilities } from "../toolbar/ToolbarItemUtilities";

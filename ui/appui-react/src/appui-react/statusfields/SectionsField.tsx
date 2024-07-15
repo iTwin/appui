@@ -125,6 +125,7 @@ export function SectionsStatusField(props: SectionsStatusFieldProps) {
             styleType="borderless"
             data-testid="sections-status-field-button"
           >
+            {/* eslint-disable-next-line deprecation/deprecation */}
             <Icon iconSpec={svgSectionTool} />
             <StatusBarPopover.ExpandIndicator />
           </IconButton>

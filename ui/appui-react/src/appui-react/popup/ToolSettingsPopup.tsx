@@ -13,7 +13,7 @@ import type {
   OnCancelFunc,
   RelativePosition,
 } from "@itwin/appui-abstract";
-import type { Orientation } from "@itwin/core-react";
+import type { Orientation } from "@itwin/components-react";
 import { DivWithOutsideClick, FocusTrap, Point, Size } from "@itwin/core-react";
 import { CursorPopup } from "../cursor/cursorpopup/CursorPopup";
 import type { PopupPropsBase } from "./PopupManager";

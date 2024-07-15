@@ -379,6 +379,7 @@ export class ToolAssistanceField extends React.Component<
 
     if (instructions) {
       prompt = instructions.mainInstruction.text;
+      // eslint-disable-next-line deprecation/deprecation
       toolIcon = <Icon iconSpec={this.state.toolIconSpec} />;
 
       let displayableSections: ToolAssistanceSection[] | undefined;
@@ -589,6 +590,7 @@ export class ToolAssistanceField extends React.Component<
         const rightImage =
           typeof instruction.image === "string" ? (
             <div className="uifw-toolassistance-icon-medium">
+              {/* eslint-disable-next-line deprecation/deprecation */}
               <Icon iconSpec={instruction.image} />
             </div>
           ) : (
@@ -621,6 +623,7 @@ export class ToolAssistanceField extends React.Component<
             : "uifw-toolassistance-icon-large";
         image = (
           <div className={className}>
+            {/* eslint-disable-next-line deprecation/deprecation */}
             <Icon iconSpec={svgSource ?? instruction.image} />
           </div>
         );
@@ -724,6 +727,7 @@ export class ToolAssistanceField extends React.Component<
 
       image = (
         <div className={className}>
+          {/* eslint-disable-next-line deprecation/deprecation */}
           {svgImage && <Icon iconSpec={svgImage} />}
         </div>
       );

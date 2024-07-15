@@ -5,7 +5,7 @@
 /** @packageDocumentation
  * @module Popup
  */
-
+import * as React from "react";
 import type {
   AbstractToolbarProps,
   DialogLayoutDataProvider,
@@ -20,12 +20,11 @@ import {
   PropertyValueFormat,
   UiEvent,
 } from "@itwin/appui-abstract";
+import { Orientation } from "@itwin/components-react";
 import { Logger } from "@itwin/core-bentley";
 import type { XAndY } from "@itwin/core-geometry";
 import type { Point } from "@itwin/core-react";
-import { Orientation, Rectangle } from "@itwin/core-react";
-import * as React from "react";
-import type { ReactElement } from "react";
+import { Rectangle } from "@itwin/core-react";
 import { offsetAndContainInContainer } from "../layout/popup/Tooltip";
 import type { KeyinEntry } from "../keyins/Keyins";
 import { UiFramework } from "../UiFramework";
@@ -394,7 +393,7 @@ export class PopupManager {
    * @param options for displaying the component.
    */
   public static showComponent(
-    displayElement: ReactElement,
+    displayElement: React.ReactElement,
     options: CommonPopupOptions
   ): boolean {
     const { onCancel, location, offset, placement, anchor, id } = options;

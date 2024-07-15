@@ -28,7 +28,6 @@ import {
   FormatSample,
   QuantityFormatPanel,
 } from "@itwin/imodel-components-react";
-import type { SettingsTabEntry } from "@itwin/core-react";
 import {
   Listbox,
   ListboxItem,
@@ -40,6 +39,7 @@ import { UnitSystemSelector } from "./UnitSystemSelector";
 import { Button, Dialog } from "@itwin/itwinui-react";
 import { SvgMeasure } from "@itwin/itwinui-icons-react";
 import { useTranslation } from "../../hooks/useTranslation";
+import type { SettingsTabEntry } from "../SettingsManager";
 
 function formatAreEqual(obj1: FormatProps, obj2: FormatProps) {
   const compare = new DeepCompare();
@@ -204,10 +204,12 @@ export function QuantityFormatSettingsPage({
     [activeFormatterSpec, activeQuantityType]
   );
 
+  // eslint-disable-next-line deprecation/deprecation
   useSaveBeforeActivatingNewSettingsTab(
     UiFramework.settingsManager,
     saveChanges
   );
+  // eslint-disable-next-line deprecation/deprecation
   useSaveBeforeClosingSettingsContainer(
     UiFramework.settingsManager,
     saveChanges

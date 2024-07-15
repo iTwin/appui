@@ -8,7 +8,7 @@
 
 import * as React from "react";
 import type { OnCancelFunc, RelativePosition } from "@itwin/appui-abstract";
-import type { Orientation } from "@itwin/core-react";
+import type { Orientation } from "@itwin/components-react";
 import {
   DivWithOutsideClick,
   MessageRenderer,

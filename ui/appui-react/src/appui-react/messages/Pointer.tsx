@@ -166,6 +166,7 @@ export class PointerMessage extends React.Component<
         <div className="uifw-pointer-message-content">
           {severity !== MessageSeverity.None && (
             <span className="uifw-pointer-message-icon">
+              {/* eslint-disable-next-line deprecation/deprecation */}
               <Icon
                 // eslint-disable-next-line deprecation/deprecation
                 className={`icon ${MessageContainer.getIconClassName(

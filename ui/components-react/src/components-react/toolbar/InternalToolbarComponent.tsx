@@ -191,6 +191,7 @@ function CustomItem({
       (item.icon &&
         // eslint-disable-next-line deprecation/deprecation
         IconHelper.getIconReactNode(item.icon, item.internalData)) || (
+        // eslint-disable-next-line deprecation/deprecation
         <Icon className="icon" iconSpec={<SvgPlaceholder />} />
       ),
     [item.icon, item.internalData]
