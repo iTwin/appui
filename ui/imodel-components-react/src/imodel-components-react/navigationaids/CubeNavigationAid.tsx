@@ -993,6 +993,7 @@ enum Pointer {
   Right,
 }
 
+// eslint-disable-next-line deprecation/deprecation
 const pointerIconSpec: { [key: number]: IconSpec } = {
   [Pointer.Up]: <SvgCaretDown />,
   [Pointer.Down]: <SvgCaretUp />,
@@ -1035,6 +1036,7 @@ class PointerButton extends React.Component<PointerProps> {
         {...props}
         onClick={this._handleClick}
       >
+        {/* eslint-disable-next-line deprecation/deprecation */}
         <Icon iconSpec={pointerIconSpec[pointerType]} />
       </div>
     );
