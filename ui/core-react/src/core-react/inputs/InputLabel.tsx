@@ -76,8 +76,7 @@ export class InputLabel extends React.PureComponent<InputLabelProps> {
             className={classnames("uicore-label", labelClassName)}
             style={labelStyle}
           >
-            {" "}
-            {label}{" "}
+            {label}
           </div>
         )}
         <div className={classnames("input", { "with-icon": !!status })}>

@@ -144,6 +144,7 @@ export class ResultSelector extends React.PureComponent<
           onClick={this._onClickPrevious}
           disabled={this.props.resultCount <= 0}
         >
+          {/* eslint-disable-next-line deprecation/deprecation */}
           <Icon iconSpec={<SvgChevronLeft />} />
         </button>
 
@@ -179,6 +180,7 @@ export class ResultSelector extends React.PureComponent<
           onClick={this._onClickNext}
           disabled={this.props.resultCount <= 0}
         >
+          {/* eslint-disable-next-line deprecation/deprecation */}
           <Icon iconSpec={<SvgChevronRight />} />
         </button>
       </span>

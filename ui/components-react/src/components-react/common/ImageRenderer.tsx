@@ -76,6 +76,7 @@ export class ImageRenderer {
 
     return (
       <div>
+        {/* eslint-disable-next-line deprecation/deprecation */}
         <Icon iconSpec={svgAsDataUri} />
       </div>
     );

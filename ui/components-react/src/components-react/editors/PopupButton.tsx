@@ -154,6 +154,7 @@ export class PopupButton extends React.PureComponent<
                 "icon"
               )}
             >
+              {/* eslint-disable-next-line deprecation/deprecation */}
               <Icon iconSpec={<SvgChevronDown />} />
             </div>
           </div>
@@ -218,6 +219,7 @@ export function PopupOkCancelButtons(props: OkCancelProps) {
         title={translate("dialog.ok")}
         onClick={props.onOk}
       >
+        {/* eslint-disable-next-line deprecation/deprecation */}
         <Icon iconSpec={<SvgCheckmark />} />
       </Button>
       <Button
@@ -229,6 +231,7 @@ export function PopupOkCancelButtons(props: OkCancelProps) {
         title={translate("dialog.cancel")}
         onClick={props.onCancel}
       >
+        {/* eslint-disable-next-line deprecation/deprecation */}
         <Icon iconSpec={<SvgRemove />} />
       </Button>
     </div>

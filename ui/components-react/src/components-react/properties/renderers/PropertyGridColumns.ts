@@ -6,7 +6,7 @@
  * @module Properties
  */
 
-import { Orientation } from "@itwin/core-react";
+import { Orientation } from "../../common/Orientation";
 
 /** @internal */
 export interface PropertyGridColumnInfo {

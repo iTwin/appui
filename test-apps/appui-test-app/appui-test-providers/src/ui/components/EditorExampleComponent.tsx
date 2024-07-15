@@ -226,7 +226,7 @@ export function EditorExampleComponent() {
               ))}
             </Flex>
             <Text variant="small" isMuted>
-              {key}{" "}
+              {key}
               {record.property.editor && (
                 <DropdownMenu
                   menuItems={(close) => [

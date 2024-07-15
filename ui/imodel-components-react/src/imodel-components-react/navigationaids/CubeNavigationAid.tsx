@@ -1035,7 +1035,7 @@ class PointerButton extends React.Component<PointerProps> {
         {...props}
         onClick={this._handleClick}
       >
-        <Icon iconSpec={pointerIconSpec[pointerType]} />{" "}
+        <Icon iconSpec={pointerIconSpec[pointerType]} />
       </div>
     );
   }
