@@ -13,5 +13,8 @@ import { CheckBoxState as _CheckBoxState } from "@itwin/core-react";
  * @public
  */
 export type CheckBoxState = _CheckBoxState;
+/** State of a checkbox.
+ * @public
+ */
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const CheckBoxState = _CheckBoxState;

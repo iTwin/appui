@@ -14,5 +14,8 @@ import { Orientation as _Orientation } from "@itwin/core-react";
  * @public
  */
 export type Orientation = _Orientation;
+/** Enumeration of orientation.
+ * @public
+ */
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const Orientation = _Orientation;
