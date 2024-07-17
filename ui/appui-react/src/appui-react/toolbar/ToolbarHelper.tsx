@@ -70,7 +70,7 @@ function constructToolbarItemArray<T extends boolean>(
  */
 export class ToolbarHelper {
   /** Construct ToolbarCustomItem definitions given a CustomItemDef.
-   * @deprecated in 4.15.0. Use {@link ToolbarItemUtilities.createCustomItem} instead.
+   * @deprecated in 4.15.0. Use {@link ToolbarItemUtilities.createCustomItem:1} instead.
    */
   public static createCustomDefinitionToolbarItem(
     itemPriority: number,

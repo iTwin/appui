@@ -43,9 +43,8 @@ interface InputFieldMessageState {
 }
 
 /** InputField message pops up near pointer when attempting an invalid interaction.
- * @note Use `MessageManager.displayInputFieldMessage()` to open the message.
  * @public
- * @deprecated in 4.16.0. Used internally.
+ * @deprecated in 4.16.0. Component is used internally. Use {@link MessageManager.displayInputFieldMessage} instead to open the message.
  */
 export class InputFieldMessage extends React.PureComponent<
   InputFieldMessageProps,

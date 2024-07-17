@@ -67,7 +67,7 @@ import type { OnCancelFunc } from '@itwin/appui-abstract';
 import type { OnItemExecutedFunc } from '@itwin/appui-abstract';
 import type { OnNumberCommitFunc } from '@itwin/appui-abstract';
 import type { OnValueCommitFunc } from '@itwin/appui-abstract';
-import { Orientation } from '@itwin/core-react';
+import { Orientation } from '@itwin/components-react';
 import { OutputMessageAlert } from '@itwin/core-frontend';
 import { OutputMessagePriority } from '@itwin/core-frontend';
 import { OutputMessageType } from '@itwin/core-frontend';
@@ -82,8 +82,7 @@ import { PropertyRecord } from '@itwin/appui-abstract';
 import type { PropertyUpdatedArgs } from '@itwin/components-react';
 import type { QuantityTypeArg } from '@itwin/core-frontend';
 import * as React_2 from 'react';
-import type { ReactElement } from 'react';
-import type { RectangleProps as RectangleProps_2 } from '@itwin/core-react';
+import { RectangleProps as RectangleProps_2 } from '@itwin/core-react';
 import { Reducer as Reducer_2 } from 'redux';
 import type { RefObject } from 'react';
 import { RelativePosition } from '@itwin/appui-abstract';
@@ -116,7 +115,7 @@ import type { UiDataProvider } from '@itwin/appui-abstract';
 import { UiEvent } from '@itwin/appui-abstract';
 import { UiLayoutDataProvider } from '@itwin/appui-abstract';
 import { UiStateEntry } from '@itwin/core-react';
-import type { UiStateStorage as UiStateStorage_2 } from '@itwin/core-react';
+import { UiStateStorage as UiStateStorage_2 } from '@itwin/core-react';
 import type { UiStateStorageResult as UiStateStorageResult_2 } from '@itwin/core-react';
 import { UiStateStorageStatus as UiStateStorageStatus_2 } from '@itwin/core-react';
 import type { UnitSystemKey } from '@itwin/core-quantity';
@@ -272,27 +271,37 @@ export interface AccuDrawSetFieldValueToUiEventArgs {
 export interface AccuDrawUiSettings {
     angleBackgroundColor?: ColorDef | string;
     angleForegroundColor?: ColorDef | string;
+    // @deprecated
     angleIcon?: IconSpec;
+    angleIconNode?: React.ReactNode;
     angleLabel?: string;
     angleStyle?: React.CSSProperties;
     distanceBackgroundColor?: ColorDef | string;
     distanceForegroundColor?: ColorDef | string;
+    // @deprecated
     distanceIcon?: IconSpec;
+    distanceIconNode?: React.ReactNode;
     distanceLabel?: string;
     distanceStyle?: React.CSSProperties;
     xBackgroundColor?: ColorDef | string;
     xForegroundColor?: ColorDef | string;
+    // @deprecated
     xIcon?: IconSpec;
+    xIconNode?: React.ReactNode;
     xLabel?: string;
     xStyle?: React.CSSProperties;
     yBackgroundColor?: ColorDef | string;
     yForegroundColor?: ColorDef | string;
+    // @deprecated
     yIcon?: IconSpec;
+    yIconNode?: React.ReactNode;
     yLabel?: string;
     yStyle?: React.CSSProperties;
     zBackgroundColor?: ColorDef | string;
     zForegroundColor?: ColorDef | string;
+    // @deprecated
     zIcon?: IconSpec;
+    zIconNode?: React.ReactNode;
     zLabel?: string;
     zStyle?: React.CSSProperties;
 }
@@ -326,9 +335,9 @@ export abstract class ActionButtonItemDef extends ItemDefBase {
     static defaultButtonSize: number;
     execute(): void;
     getDimension(orientation: Orientation): number;
-    handleSizeKnown: (size: SizeProps_2) => void;
+    handleSizeKnown: (size: SizeProps) => void;
     parameters?: any;
-    size?: SizeProps_2;
+    size?: SizeProps;
 }
 
 // @public @deprecated
@@ -470,12 +479,15 @@ export interface BackstageActionItem extends CommonBackstageItem {
 }
 
 // @public
-export function BackstageAppButton({ icon, label, execute, }: BackstageAppButtonProps): React_2.JSX.Element;
+export function BackstageAppButton({ icon, iconNode, label, execute, }: BackstageAppButtonProps): React_2.JSX.Element;
 
 // @public
 export interface BackstageAppButtonProps {
     execute?: () => void;
+    // @deprecated
     icon?: IconSpec;
+    // (undocumented)
+    iconNode?: React_2.ReactNode;
     label?: string;
 }
 
@@ -521,29 +533,37 @@ export type BackstageItem = BackstageActionItem | BackstageStageLauncher;
 
 // @beta
 export namespace BackstageItemUtilities {
-    export function createActionItem(itemId: string, groupPriority: number, itemPriority: number, execute: () => void, label: string, subtitle?: string, icon?: IconSpec, overrides?: Partial<BackstageActionItem>): BackstageActionItem;
+    export function createActionItem(args: CreateActionItemArgs): BackstageActionItem;
+    // @deprecated
+    export function createActionItem(...args: DeprecatedCreateActionItemArgs): BackstageActionItem;
+    // (undocumented)
+    export interface CreateActionItemArgs extends Partial<Omit<BackstageActionItem, "icon" | "iconNode">> {
+        // (undocumented)
+        icon?: BackstageActionItem["iconNode"];
+        // (undocumented)
+        id: BackstageActionItem["id"];
+    }
     export function createStageLauncher(args: CreateStageLauncherArgs): BackstageStageLauncher;
     // @deprecated
-    export function createStageLauncher(...args: CreateStageLauncherArgsTuple): BackstageStageLauncher;
+    export function createStageLauncher(...args: DeprecatedCreateStageLauncherArgs): BackstageStageLauncher;
     // (undocumented)
-    export interface CreateStageLauncherArgs {
+    export interface CreateStageLauncherArgs extends Partial<Omit<BackstageStageLauncher, "icon" | "iconNode" | "stageId">>, Pick<BackstageStageLauncher, "stageId"> {
         // (undocumented)
-        frontstageId: string;
-        // (undocumented)
-        groupPriority: number;
-        // (undocumented)
-        icon?: React.ReactNode;
-        // (undocumented)
-        itemPriority: number;
-        // (undocumented)
-        label: string;
-        // (undocumented)
-        overrides?: Partial<Omit<BackstageStageLauncher, "icon">>;
-        // (undocumented)
-        subtitle?: string;
+        icon?: BackstageStageLauncher["iconNode"];
     }
     // (undocumented)
-    export type CreateStageLauncherArgsTuple = [
+    export type DeprecatedCreateActionItemArgs = [
+    itemId: string,
+    groupPriority: number,
+    itemPriority: number,
+    execute: () => void,
+    label: string,
+    subtitle?: string,
+    icon?: IconSpec,
+    overrides?: Partial<BackstageActionItem>
+    ];
+    // (undocumented)
+    export type DeprecatedCreateStageLauncherArgs = [
     frontstageId: string,
     groupPriority: number,
     itemPriority: number,
@@ -575,7 +595,6 @@ export class BackstageManager {
 
 // @public
 export interface BackstageStageLauncher extends CommonBackstageItem {
-    // (undocumented)
     readonly stageId: string;
 }
 
@@ -718,7 +737,7 @@ export enum CalculatorOperator {
     Subtract = 5
 }
 
-// @alpha
+// @alpha @deprecated
 export class CalculatorPopup extends React_2.PureComponent<CalculatorPopupProps, CalculatorPopupState> {
     // @internal (undocumented)
     render(): React_2.JSX.Element;
@@ -728,7 +747,7 @@ export class CalculatorPopup extends React_2.PureComponent<CalculatorPopupProps,
     };
 }
 
-// @alpha (undocumented)
+// @alpha @deprecated (undocumented)
 export interface CalculatorPopupProps extends PopupPropsBase {
     // (undocumented)
     initialValue: number;
@@ -759,7 +778,7 @@ export interface CanFloatWidgetOptions {
     // (undocumented)
     readonly defaultPosition?: XAndY;
     // (undocumented)
-    readonly defaultSize?: SizeProps_2;
+    readonly defaultSize?: SizeProps;
     readonly hideWithUi?: boolean;
     readonly isResizable?: boolean;
 }
@@ -784,6 +803,8 @@ export interface CardContainerProps extends CommonProps {
 // @alpha
 export interface CardInfo {
     // (undocumented)
+    icon?: React_2.ReactNode;
+    // @deprecated (undocumented)
     iconSpec: IconSpec;
     // (undocumented)
     index: number;
@@ -905,6 +926,7 @@ export interface CommonToolbarItem {
     readonly badgeKind?: BadgeKind;
     readonly description?: string | ConditionalStringValue;
     readonly groupPriority?: number;
+    readonly iconNode?: React.ReactNode;
     readonly id: string;
     readonly isActive?: boolean;
     readonly isDisabled?: boolean | ConditionalBooleanValue;
@@ -1387,7 +1409,7 @@ export interface CursorMenuData {
 }
 
 // @public
-export interface CursorMenuItemProps extends IconProps {
+export interface CursorMenuItemProps extends CommonProps {
     applicationData?: any;
     badgeKind?: BadgeKind;
     // @deprecated
@@ -1395,8 +1417,12 @@ export interface CursorMenuItemProps extends IconProps {
     description?: string | StringGetter | ConditionalStringValue_2;
     descriptionKey?: string;
     execute?: () => any;
+    // @deprecated
     icon?: IconSpec;
+    iconNode?: React_2.ReactNode;
     iconRight?: string | ConditionalStringValue_2;
+    // @deprecated
+    iconSpec?: IconSpec;
     id: string;
     isActive?: boolean;
     isDisabled?: boolean | ConditionalBooleanValue;
@@ -1432,7 +1458,7 @@ export class CursorPopup extends React_2.Component<CursorPopupProps, CursorPopup
     // @internal (undocumented)
     static fadeOutTime: number;
     // @internal (undocumented)
-    static getPopupRect(pt: XAndY, offset: XAndY, popupSize: SizeProps_2 | undefined, relativePosition: RelativePosition | Placement): RectangleProps_2;
+    static getPopupRect(pt: XAndY, offset: XAndY, popupSize: SizeProps | undefined, relativePosition: RelativePosition | Placement): RectangleProps;
     // @internal (undocumented)
     render(): React_2.JSX.Element;
 }
@@ -1495,7 +1521,7 @@ export type CursorPopupProps = {
     offset: XAndY;
     title?: string;
     shadow?: boolean;
-    onSizeKnown?: (size: SizeProps_2) => void;
+    onSizeKnown?: (size: SizeProps) => void;
 } & CommonProps & // eslint-disable-line deprecation/deprecation
 RequireAtLeastOne<{
     relativePosition: RelativePosition;
@@ -1895,7 +1921,7 @@ export class FrameworkAccuDraw extends AccuDraw implements UserSettingsProvider 
     static readonly isTopRotationConditional: ConditionalBooleanValue;
     static readonly isViewRotationConditional: ConditionalBooleanValue;
     // (undocumented)
-    loadUserSettings(storage: UiStateStorage_2): Promise<void>;
+    loadUserSettings(storage: UiStateStorage): Promise<void>;
     static readonly onAccuDrawGrabInputFocusEvent: AccuDrawGrabInputFocusEvent;
     static readonly onAccuDrawSetCompassModeEvent: AccuDrawSetCompassModeEvent;
     static readonly onAccuDrawSetFieldFocusEvent: AccuDrawSetFieldFocusEvent;
@@ -2091,7 +2117,7 @@ export interface FrameworkFrontstages {
 export interface FrameworkKeyboardShortcut {
     // (undocumented)
     applicationData?: any;
-    badgeKind?: BadgeKind;
+    readonly badgeKind?: BadgeKind;
     // @deprecated (undocumented)
     badgeType?: BadgeType;
     // (undocumented)
@@ -2100,6 +2126,8 @@ export interface FrameworkKeyboardShortcut {
     // (undocumented)
     iconElement?: React.ReactNode;
     // (undocumented)
+    readonly iconNode?: React.ReactNode;
+    // @deprecated (undocumented)
     iconSpec?: IconSpec;
     readonly id: string;
     // (undocumented)
@@ -2362,7 +2390,7 @@ export class FrontstageDef {
     // (undocumented)
     get floatingContentControls(): ContentControl[] | undefined;
     // @beta
-    floatWidget(widgetId: string, position?: XAndY, size?: SizeProps_2): void;
+    floatWidget(widgetId: string, position?: XAndY, size?: SizeProps): void;
     // @deprecated (undocumented)
     get frontstageProvider(): FrontstageProvider | undefined;
     // (undocumented)
@@ -2404,7 +2432,7 @@ export class FrontstageDef {
     // @beta
     get panelDefs(): StagePanelDef[];
     // @beta
-    popoutWidget(widgetId: string, position?: XAndY, size?: SizeProps_2): void;
+    popoutWidget(widgetId: string, position?: XAndY, size?: SizeProps): void;
     // @beta
     restoreLayout(): void;
     // (undocumented)
@@ -2418,7 +2446,7 @@ export class FrontstageDef {
     setActiveViewFromViewport(viewport: ScreenViewport): boolean;
     setContentLayoutAndGroup(contentLayoutDef: ContentLayoutDef, contentGroup: ContentGroup): void;
     // (undocumented)
-    setFloatingWidgetContainerBounds(floatingWidgetId: string, bounds: RectangleProps_2): boolean;
+    setFloatingWidgetContainerBounds(floatingWidgetId: string, bounds: RectangleProps): boolean;
     // @internal (undocumented)
     setIsApplicationClosing(value: boolean): void;
     // (undocumented)
@@ -2508,7 +2536,7 @@ export function getPanelSectionWidgets(frontstageDef: FrontstageDef, location: S
 export function getPanelState(state: NineZoneState, side: PanelSide): StagePanelState.Minimized | StagePanelState.Open;
 
 // @beta
-export function getQuantityFormatsSettingsManagerEntry(itemPriority: number, opts?: Partial<QuantityFormatterSettingsOptions>): SettingsTabEntry_2;
+export function getQuantityFormatsSettingsManagerEntry(itemPriority: number, opts?: Partial<QuantityFormatterSettingsOptions>): SettingsTabEntry;
 
 // @beta @deprecated
 export function getSelectionContextSyncEventIds(): string[];
@@ -2769,7 +2797,7 @@ export interface InputEditorPopupProps extends PopupPropsBase {
     record: PropertyRecord;
 }
 
-// @public
+// @public @deprecated
 export class InputFieldMessage extends React_2.PureComponent<InputFieldMessageProps, InputFieldMessageState> {
     // (undocumented)
     componentDidMount(): void;
@@ -2805,6 +2833,9 @@ export enum InputStatus {
     Valid = 0
 }
 
+// @internal
+export function isArgsUtil<TTuple extends any[], TArgs>(args: TTuple | [TArgs]): args is [TArgs];
+
 // @public
 export function isBackstageActionItem(item: BackstageItem): item is BackstageActionItem;
 
@@ -2812,8 +2843,8 @@ export function isBackstageActionItem(item: BackstageItem): item is BackstageAct
 export function isBackstageStageLauncher(item: BackstageItem): item is BackstageStageLauncher;
 
 // @internal (undocumented)
-export function isFrontstageStateSettingResult(settingsResult: UiStateStorageResult_2): settingsResult is {
-    status: UiStateStorageStatus_2.Success;
+export function isFrontstageStateSettingResult(settingsResult: UiStateStorageResult): settingsResult is {
+    status: typeof UiStateStorageStatus.Success;
     setting: WidgetPanelsFrontstageState;
 };
 
@@ -2985,7 +3016,7 @@ export interface KeyboardShortcutMenuState {
 }
 
 // @public
-export interface KeyboardShortcutProps extends IconProps {
+export interface KeyboardShortcutProps extends CommonProps {
     applicationData?: any;
     badgeKind?: BadgeKind;
     // @deprecated
@@ -2993,7 +3024,11 @@ export interface KeyboardShortcutProps extends IconProps {
     description?: string | StringGetter | ConditionalStringValue_2;
     descriptionKey?: string;
     execute?: () => void;
+    // @deprecated
     icon?: IconSpec;
+    iconNode?: React.ReactNode;
+    // @deprecated (undocumented)
+    iconSpec?: IconSpec;
     isActive?: boolean;
     isAltKeyRequired?: boolean;
     isCtrlKeyRequired?: boolean;
@@ -3117,6 +3152,8 @@ export interface ListPickerProps {
     // (undocumented)
     expanded?: boolean;
     // (undocumented)
+    icon?: React_2.ReactNode;
+    // @deprecated (undocumented)
     iconSpec?: string | React_2.ReactNode;
     // (undocumented)
     items: ListItem[];
@@ -3125,7 +3162,7 @@ export interface ListPickerProps {
     // (undocumented)
     onSearchValueChange?: (search: string) => void;
     // (undocumented)
-    onSizeKnown?: (size: SizeProps_2) => void;
+    onSizeKnown?: (size: SizeProps) => void;
     // (undocumented)
     panelOnly?: boolean;
     // (undocumented)
@@ -3183,7 +3220,7 @@ export interface MenuButtonPopupProps extends PopupPropsBase {
 
 // @alpha (undocumented)
 export interface MenuButtonProps extends SquareButtonProps {
-    onSizeKnown?: (size: SizeProps_2) => void;
+    onSizeKnown?: (size: SizeProps) => void;
     point: XAndY;
 }
 
@@ -3238,7 +3275,9 @@ export class MessageManager {
         close: () => void;
     } | undefined;
     static endActivityMessage(isCompleted: boolean): boolean;
+    // @deprecated
     static getIconClassName(details: NotifyMessageDetailsType): string;
+    // @deprecated
     static getIconSpecFromDetails(details: NotifyMessageDetailsType): IconSpec;
     static getIconType(details: NotifyMessageDetailsType): MessageBoxIconType;
     static getSeverity(details: NotifyMessageDetailsType): MessageSeverity;
@@ -3615,7 +3654,7 @@ export class PopupManager {
         onItemExecuted: (item: any) => void;
     }): boolean;
     // (undocumented)
-    static getPopupPosition(el: HTMLElement, pt: XAndY, offset: XAndY, size: SizeProps_2): Point;
+    static getPopupPosition(el: HTMLElement, pt: XAndY, offset: XAndY, size: SizeProps): Point;
     // (undocumented)
     static hideCard(id?: string): boolean;
     // (undocumented)
@@ -3641,7 +3680,7 @@ export class PopupManager {
     static removePopup(id: string): boolean;
     // @deprecated (undocumented)
     static showCard(content: PopupContentType, title: string | PropertyRecord | undefined, toolbarProps: AbstractToolbarProps | undefined, el: HTMLElement, pt: XAndY, offset: XAndY, onItemExecuted: (item: any) => void, onCancel: () => void, relativePosition: RelativePosition): boolean;
-    static showComponent(displayElement: ReactElement, options: CommonPopupOptions): boolean;
+    static showComponent(displayElement: React_2.ReactElement, options: CommonPopupOptions): boolean;
     // @deprecated (undocumented)
     static showHTMLElement(displayElement: HTMLElement, el: HTMLElement, pt: XAndY, offset: XAndY, onCancel: () => void, relativePosition: RelativePosition): boolean;
     // (undocumented)
@@ -3703,7 +3742,7 @@ export function PositionPopupContent(props: CommonDivProps): React_2.JSX.Element
 // @beta
 export interface PositionPopupProps extends CommonProps {
     children?: React_2.ReactNode;
-    onSizeKnown?: (size: SizeProps_2) => void;
+    onSizeKnown?: (size: SizeProps) => void;
     point: XAndY;
 }
 
@@ -3732,7 +3771,7 @@ export interface PreviewFeaturesProviderProps {
     features?: PreviewFeatures;
 }
 
-// @public
+// @public @deprecated
 export class PropsHelper {
     // @deprecated (undocumented)
     static getAbstractPropsForReactIcon(iconSpec: IconSpec, internalData?: Map<string, any>): Partial<AbstractWidgetProps> | Partial<CommonBackstageItem_2>;
@@ -4081,6 +4120,8 @@ export class SheetCard extends React_2.Component<SheetCardProps, SheetCardState>
 // @alpha
 export interface SheetCardProps {
     // (undocumented)
+    icon?: React_2.ReactNode;
+    // @deprecated (undocumented)
     iconSpec: IconSpec;
     // (undocumented)
     index: number;
@@ -4472,7 +4513,7 @@ export class StateManager {
 export type StateType<R extends Reducer<any, any>> = DeepReadonly<ReturnType<R>>;
 
 // @internal (undocumented)
-export const stateVersion = 17;
+export const stateVersion = 18;
 
 // @public @deprecated
 export function StatusBar(props: StatusBarProps): React_2.JSX.Element;
@@ -4488,7 +4529,9 @@ export namespace StatusBar {
 // @public
 export interface StatusBarActionItem extends CommonStatusBarItem {
     readonly execute: () => void;
+    // @deprecated
     readonly icon?: IconSpec;
+    readonly iconNode?: React_2.ReactNode;
     readonly label?: string | ConditionalStringValue;
     readonly tooltip?: string | ConditionalStringValue;
 }
@@ -4560,11 +4603,59 @@ export interface StatusBarItemProps extends CommonProps {
 // @public
 export namespace StatusBarItemUtilities {
     // @beta
-    export function createActionItem(id: string, section: StatusBarSection, itemPriority: number, icon: IconSpec, tooltip: string | ConditionalStringValue, execute: () => void, overrides?: Partial<StatusBarActionItem>): StatusBarActionItem;
+    export function createActionItem(args: CreateActionItemArgs): StatusBarActionItem;
+    // @deprecated
+    export function createActionItem(...args: DeprecatedCreateActionItemArgs): StatusBarActionItem;
+    // (undocumented)
+    export interface CreateActionItemArgs extends Partial<Omit<StatusBarActionItem, "icon" | "iconNode" | "id">>, Pick<StatusBarActionItem, "id"> {
+        // (undocumented)
+        icon?: StatusBarActionItem["iconNode"];
+    }
     // @beta
-    export function createCustomItem(id: string, section: StatusBarSection, itemPriority: number, content: React_2.ReactNode, overrides?: Partial<StatusBarCustomItem>): StatusBarCustomItem;
+    export function createCustomItem(args: CreateCustomItemArgs): StatusBarCustomItem;
+    // @deprecated
+    export function createCustomItem(...args: DeprecatedCreateCustomItemArgs): StatusBarCustomItem;
+    // (undocumented)
+    export interface CreateCustomItemArgs extends Partial<Omit<StatusBarCustomItem, "id">>, Pick<StatusBarCustomItem, "id"> {
+    }
     // @beta
-    export function createLabelItem(id: string, section: StatusBarSection, itemPriority: number, icon: IconSpec, label: string | ConditionalStringValue, labelSide?: StatusBarLabelSide, overrides?: Partial<StatusBarLabelItem>): StatusBarLabelItem;
+    export function createLabelItem(args: CreateLabelItemArgs): StatusBarLabelItem;
+    // @deprecated
+    export function createLabelItem(...args: DeprecatedCreateLabelItemArgs): StatusBarLabelItem;
+    // (undocumented)
+    export interface CreateLabelItemArgs extends Partial<Omit<StatusBarLabelItem, "id" | "icon" | "iconNode">>, Pick<StatusBarLabelItem, "id"> {
+        // (undocumented)
+        icon?: StatusBarLabelItem["iconNode"];
+    }
+    // (undocumented)
+    export type DeprecatedCreateActionItemArgs = [
+    id: string,
+    section: StatusBarSection,
+    itemPriority: number,
+    icon: IconSpec,
+    tooltip: string | ConditionalStringValue,
+    execute: () => void,
+    overrides?: Partial<StatusBarActionItem>
+    ];
+    // (undocumented)
+    export type DeprecatedCreateCustomItemArgs = [
+    id: string,
+    section: StatusBarSection,
+    itemPriority: number,
+    content: React_2.ReactNode,
+    overrides?: Partial<StatusBarCustomItem>
+    ];
+    // (undocumented)
+    export type DeprecatedCreateLabelItemArgs = [
+    id: string,
+    section: StatusBarSection,
+    itemPriority: number,
+    icon: IconSpec,
+    label: string | ConditionalStringValue,
+    labelSide?: StatusBarLabelSide,
+    overrides?: Partial<StatusBarLabelItem>
+    ];
+        {};
 }
 
 // @beta @deprecated
@@ -4579,7 +4670,9 @@ export interface StatusBarLabelIndicatorProps extends Omit<StatusBarIndicatorPro
 
 // @public
 export interface StatusBarLabelItem extends CommonStatusBarItem {
+    // @deprecated
     readonly icon?: IconSpec;
+    readonly iconNode?: React_2.ReactNode;
     readonly label: string | ConditionalStringValue;
     readonly labelSide?: StatusBarLabelSide;
 }
@@ -4775,7 +4868,7 @@ export interface ToolAssistanceFieldProps extends CommonProps {
     defaultPromptAtCursor: boolean;
     fadeOutCursorPrompt: boolean;
     includePromptAtCursor: boolean;
-    uiStateStorage?: UiStateStorage_2;
+    uiStateStorage?: UiStateStorage;
 }
 
 // @beta
@@ -4787,6 +4880,7 @@ export const TOOLBAR_OPACITY_DEFAULT = 0.5;
 // @public
 export interface ToolbarActionItem extends CommonToolbarItem {
     readonly execute: () => void;
+    // @deprecated
     readonly icon: IconSpec;
     readonly label: string | ConditionalStringValue;
     readonly parentGroupItemId?: string;
@@ -4807,6 +4901,7 @@ export function ToolbarComposer(props: ExtensibleToolbarProps): React_2.JSX.Elem
 
 // @public
 export interface ToolbarCustomItem extends CommonToolbarItem {
+    // @deprecated
     readonly icon?: IconSpec;
     readonly label?: string | ConditionalStringValue;
     readonly panelContent?: React.ReactNode;
@@ -4817,6 +4912,7 @@ export const ToolbarDragInteractionContext: React_2.Context<boolean>;
 
 // @public
 export interface ToolbarGroupItem extends CommonToolbarItem {
+    // @deprecated
     readonly icon: IconSpec;
     readonly items: ReadonlyArray<ToolbarActionItem | ToolbarGroupItem>;
     readonly label: string | ConditionalStringValue;
@@ -4887,10 +4983,59 @@ export namespace ToolbarItems {
 
 // @beta
 export namespace ToolbarItemUtilities {
-    export function createActionItem(id: ToolbarActionItem["id"], itemPriority: ToolbarActionItem["itemPriority"], icon: ToolbarActionItem["icon"], label: ToolbarActionItem["label"], execute: ToolbarActionItem["execute"], overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
-    export function createCustomItem(id: string, itemPriority: number, icon: ToolbarCustomItem["icon"], label: ToolbarCustomItem["label"], panelContent?: ToolbarCustomItem["panelContent"], overrides?: Partial<ToolbarCustomItem>): ToolbarCustomItem;
+    export function createActionItem(args: CreateActionItemArgs): ToolbarActionItem;
+    // @deprecated
+    export function createActionItem(...args: DeprecatedActionItemArgs): ToolbarActionItem;
+    // (undocumented)
+    export interface CreateActionItemArgs extends Partial<Omit<ToolbarActionItem, "icon" | "iconNode" | "id">>, Pick<ToolbarActionItem, "id"> {
+        // (undocumented)
+        icon?: ToolbarActionItem["iconNode"];
+    }
+    export function createCustomItem(args: CreateCustomItemArgs): ToolbarCustomItem;
+    // @deprecated
+    export function createCustomItem(...args: DeprecatedCustomItemArgs): ToolbarCustomItem;
+    // (undocumented)
+    export interface CreateCustomItemArgs extends Partial<Omit<ToolbarCustomItem, "icon" | "iconNode" | "id">>, Pick<ToolbarCustomItem, "id"> {
+        // (undocumented)
+        icon?: ToolbarCustomItem["iconNode"];
+    }
     export function createForTool(toolType: ToolType, overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
-    export function createGroupItem(id: string, itemPriority: number, icon: ToolbarGroupItem["icon"], label: ToolbarGroupItem["label"], items: ToolbarGroupItem["items"], overrides?: Partial<ToolbarGroupItem>): ToolbarGroupItem;
+    export function createGroupItem(args: CreateGroupItemArgs): ToolbarGroupItem;
+    // @deprecated
+    export function createGroupItem(...args: DeprecatedGroupItemArgs): ToolbarGroupItem;
+    // (undocumented)
+    export interface CreateGroupItemArgs extends Partial<Omit<ToolbarGroupItem, "icon" | "iconNode" | "id">>, Pick<ToolbarGroupItem, "id"> {
+        // (undocumented)
+        icon?: ToolbarGroupItem["iconNode"];
+    }
+    // (undocumented)
+    export type DeprecatedActionItemArgs = [
+    id: ToolbarActionItem["id"],
+    itemPriority: ToolbarActionItem["itemPriority"],
+    icon: ToolbarActionItem["icon"],
+    label: ToolbarActionItem["label"],
+    execute: ToolbarActionItem["execute"],
+    overrides?: Partial<ToolbarActionItem>
+    ];
+    // (undocumented)
+    export type DeprecatedCustomItemArgs = [
+    id: string,
+    itemPriority: number,
+    icon: ToolbarCustomItem["icon"],
+    label: ToolbarCustomItem["label"],
+    panelContent?: ToolbarCustomItem["panelContent"],
+    overrides?: Partial<ToolbarCustomItem>
+    ];
+    // (undocumented)
+    export type DeprecatedGroupItemArgs = [
+    id: string,
+    itemPriority: number,
+    icon: ToolbarGroupItem["icon"],
+    label: ToolbarGroupItem["label"],
+    items: ToolbarGroupItem["items"],
+    overrides?: Partial<ToolbarGroupItem>
+    ];
+        {};
 }
 
 // @public
@@ -5127,7 +5272,7 @@ export class UiFramework {
     static getNumItemsSelected(): number;
     // @deprecated
     static getToolbarOpacity(): number;
-    static getUiStateStorage(): UiStateStorage_2;
+    static getUiStateStorage(): UiStateStorage;
     // @deprecated
     static getWidgetOpacity(): number;
     static hideCalculator(): boolean;
@@ -5199,7 +5344,7 @@ export class UiFramework {
     // @deprecated
     static setToolbarOpacity(opacity: number): void;
     // (undocumented)
-    static setUiStateStorage(storage: UiStateStorage_2, immediateSync?: boolean): Promise<void>;
+    static setUiStateStorage(storage: UiStateStorage, immediateSync?: boolean): Promise<void>;
     // @deprecated
     static setUseDragInteraction(useDragInteraction: boolean): void;
     // @deprecated
@@ -5372,6 +5517,9 @@ export function useAvailableUiItemsProviders(): readonly string[];
 // @public
 export const useBackstageManager: () => FrameworkBackstage;
 
+// @alpha
+export function useConditionalValue<T>(getValue: () => T, eventIds: string[]): T;
+
 // @internal
 export const useDefaultBackstageItems: (manager: BackstageItemsManager) => readonly BackstageItem[];
 
@@ -5415,7 +5563,7 @@ export function usePreviewFeatures(): PreviewFeatures;
 
 // @public
 export interface UserSettingsProvider {
-    loadUserSettings(storage: UiStateStorage_2): Promise<void>;
+    loadUserSettings(storage: UiStateStorage): Promise<void>;
     providerId: string;
 }
 
@@ -5462,7 +5610,7 @@ export const useUiItemsProviderStatusBarItems: (manager: StatusBarItemsManager) 
 export const useUiItemsProviderToolbarItems: (manager: ToolbarItemsManager, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation) => readonly ToolbarItem[];
 
 // @public (undocumented)
-export function useUiStateStorageHandler(): UiStateStorage_2;
+export function useUiStateStorageHandler(): UiStateStorage;
 
 // @internal (undocumented)
 export function useUiVisibility(): boolean;
@@ -5656,8 +5804,9 @@ export interface Widget {
     readonly canPopout?: boolean;
     readonly content?: React.ReactNode;
     readonly defaultState?: WidgetState;
-    // (undocumented)
+    // @deprecated (undocumented)
     readonly icon?: IconSpec;
+    readonly iconNode?: React.ReactNode;
     // (undocumented)
     readonly id: string;
     // (undocumented)
@@ -5729,8 +5878,8 @@ export class WidgetDef {
     get defaultFloatingPosition(): XAndY | undefined;
     set defaultFloatingPosition(position: XAndY | undefined);
     // @internal (undocumented)
-    get defaultFloatingSize(): SizeProps_2 | undefined;
-    set defaultFloatingSize(size: SizeProps_2 | undefined);
+    get defaultFloatingSize(): SizeProps | undefined;
+    set defaultFloatingSize(size: SizeProps | undefined);
     // @internal (undocumented)
     get defaultState(): WidgetState;
     expand(): void;
@@ -5743,7 +5892,7 @@ export class WidgetDef {
     set hideWithUiWhenFloating(hide: boolean | undefined);
     // (undocumented)
     get hideWithUiWhenFloating(): boolean;
-    // (undocumented)
+    // @deprecated (undocumented)
     get iconSpec(): IconSpec;
     set iconSpec(spec: IconSpec);
     // (undocumented)

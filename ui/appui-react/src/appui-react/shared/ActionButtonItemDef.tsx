@@ -17,7 +17,7 @@ import type { SizeProps } from "../utils/SizeProps";
 
 /** Abstract base class that is used by classes to execute an action when pressed.
  * @public
- * @deprecated in 4.15.0. Use type specific utilities for creating items instead, i.e. {@link ToolbarItemUtilities.createActionItem}.
+ * @deprecated in 4.15.0. Use type specific utilities for creating items instead, i.e. {@link ToolbarItemUtilities.createActionItem:1}.
  */
 export abstract class ActionButtonItemDef extends ItemDefBase {
   private _onItemExecuted?: OnItemExecutedFunc;

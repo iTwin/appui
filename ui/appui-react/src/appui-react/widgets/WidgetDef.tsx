@@ -174,9 +174,9 @@ export class WidgetDef {
       : this._iconSpec;
   }
 
-  /** @deprecated in 4.16.0. Use {@link Widget.iconNode} instead. */
   // eslint-disable-next-line deprecation/deprecation
   public set iconSpec(spec: IconSpec) {
+    // Setter is deprecated as well: ae-setter-with-docs.
     this._iconSpec = this._internalData
       ? IconHelper.getIconData(spec, this._internalData) // eslint-disable-line deprecation/deprecation
       : spec;

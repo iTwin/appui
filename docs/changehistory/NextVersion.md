@@ -149,9 +149,43 @@ Table of contents:
   - `ViewSelector.onViewSelectorChangedEvent` property. Use `onViewSelected` prop of `ViewSelector` component instead.
 
 - Deprecated properties that have `BadgeType` as type and added replacement properties that use the new `BadgeKind` type. [#899](https://github.com/iTwin/appui/pull/899)
+
   - `badge` property in `CommonBackstageItem`, `CommonStatusBarItem`, `CommonToolbarItem`, `Widget`. Use `badgeKind` property instead.
   - `badgeType` property in `CursorMenuItemProps`, `FrameworkKeyboardShortcut`, `ItemDefBase`, `ItemProps`, `KeyboardShortcutProps`. Use `badgeKind` property instead.
   - `badgeType` getter in `WidgetDef`. Use `badgeKind` getter instead.
+
+- Deprecated APIs that were using `IconSpec` type. Even though `ReactNode` is defined in an `IconSpec` union type, deprecations are needed to prevent unintentional issues when a `string` is interpreted as a dataURI or web font icon class name. [#901](https://github.com/iTwin/appui/pull/901)
+
+  - `AccuDrawUiSettings.angleIcon`, `AccuDrawUiSettings.distanceIcon`, `AccuDrawUiSettings.xIcon`, `AccuDrawUiSettings.yIcon`, `AccuDrawUiSettings.zIcon`, `Widget.icon`, `StatusBarActionItem.icon`, `StatusBarLabelItem.icon`, `ToolbarActionItem.icon`, `ToolbarCustomItem.icon`, `ToolbarGroupItem.icon` `BackstageAppButton.icon`, `CardInfo.iconSpec`, `FrameworkKeyboardShortcut.iconSpec`, `ListPickerProps.iconSpec`, `SheetCardProps.iconSpec`, `KeyboardShortcutProps.icon`, `KeyboardShortcutProps.iconSpec`, `CursorMenuItemProps.icon`, `CursorMenuItemProps.iconSpec` properties. `iconSpec` getter and setter of `WidgetDef` class. See inline documentation for suggested replacements, usually it's just a property rename in the format of `iconSpec` -> `icon` or `icon` -> `iconNode`.
+  - Functions of `BackstageItemUtilities`, `StatusBarItemUtilities`, `ToolbarItemUtilities`. Use function overloads that take a single argument object instead.
+
+  ```tsx
+  // Before
+  ToolbarItemUtilities.createActionItem(
+    "item1",
+    0,
+    <SvgPlaceholder />,
+    "Item 1",
+    () => {},
+    {
+      isHidden: new ConditionalBooleanValue(fn, [eventId]),
+    }
+  );
+
+  // After
+  ToolbarItemUtilities.createActionItem({
+    id: "item1",
+    icon: <SvgPlaceholder />,
+    label: "Item 1",
+    isHidden: new ConditionalBooleanValue(fn, [eventId]),
+  });
+  ```
+
+  - `getIconClassName`, `getIconSpecFromDetails` methods of `MessageManager` class. Use [iTwinUI icons](https://itwinui.bentley.com} instead.
+  - `PropsHelper` class that is used internally. Use your custom helper functions instead.
+
+- `CalculatorPopup` component and related props type `CalculatorPopupProps`. Use `Calculator` component with [iTwinUI Popover](https://itwinui.bentley.com/docs/popover) or `AccuDrawPopupManager.showCalculator` method instead. [#901](https://github.com/iTwin/appui/pull/901)
+- `InputFieldMessage` component. Use `MessageManager.displayInputFieldMessage` method instead. [#901](https://github.com/iTwin/appui/pull/901)
 - Deprecated `relativePosition` property in `ToolbarPopupProps`, `CardPopupProps` and `CursorPopupProps` in favor of `placement` property. [#907](https://github.com/iTwin/appui/pull/907)
 - Deprecated `orientation` property in `CardPopupProps`. This property is not used by the `CardPopup` component. [#907](https://github.com/iTwin/appui/pull/907)
 - Deprecated `showToolbar`, `showHTMLElement`, `hideHTMLElement` and `showCard` methods from `PopupManager`. Use `displayToolbar`, `showComponent`, `hideComponent` and `displayCard` methods of `PopupManager` instead. [#907](https://github.com/iTwin/appui/pull/907)
@@ -170,6 +204,12 @@ Table of contents:
     - `badgeKind` property in `CommonBackstageItem`, `CommonStatusBarItem`, `CommonToolbarItem`, `Widget`, `CursorMenuItemProps`, `FrameworkKeyboardShortcut`, `ItemDefBase`, `ItemProps`, `KeyboardShortcutProps`.
     - `badgeKind` getter in `WidgetDef`.
   - Added `LocalStateStorage`, `SettingsManager` classes, `UiStateStorageStatus` enum and `UiStateStorage`, `UiStateStorageResult`, `RectangleProps`, `SizeProps`, `SettingsTabEntry`, `SettingsTabsProvider` interfaces previously accessible from `@itwin/core-react` package. [#901](https://github.com/iTwin/appui/pull/901)
+- Added additional APIs to facilitate `IconSpec` deprecation. [#901](https://github.com/iTwin/appui/pull/901)
+  - `angleIconNode`, `distanceIconNode`, `xIconNode`, `yIconNode`, `zIconNode` properties to `AccuDrawUiSettings` interface.
+  - Function overloads to `BackstageItemUtilities`, `StatusBarItemUtilities`, `ToolbarItemUtilities`
+  - `icon` to `CardInfo`, `ListPickerProps`, `SheetCardProps` interfaces.
+  - `iconNode` to `CommonToolbarItem`, `CursorMenuItemProps`, `FrameworkKeyboardShortcut`, `KeyboardShortcutProps`, `StatusBarActionItem`, `StatusBarLabelItem`, `Widget` interfaces and `BackstageAppButton` component.
+  - `useConditionalValue` hook.
 
 ### Changes
 
@@ -269,7 +309,7 @@ Table of contents:
     <i className="icon icon-placeholder" />
     ```
 
-  - `ConditionalIconItem` class. Use `React.ReactNode` type instead. Consumers should use conditional rendering to render different icons. Additionally, a newly added `useConditionalValue` hook can be used if the consumer prefers to continue using the sync UI events.
+  - `ConditionalIconItem` class. Use `React.ReactNode` type instead. Consumers should use conditional rendering to render different icons. Additionally, a newly added `@itwin/appui-react#useConditionalValue` hook can be used if the consumer prefers to continue using the sync UI events.
 
     ```tsx
     // Before

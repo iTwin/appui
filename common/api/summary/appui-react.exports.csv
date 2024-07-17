@@ -71,7 +71,7 @@ deprecated;AppUiSettings
 beta;areNoFeatureOverridesActive(): boolean
 deprecated;areNoFeatureOverridesActive(): boolean
 public;BackstageActionItem 
-public;BackstageAppButton({ icon, label, execute, }: BackstageAppButtonProps): React_2.JSX.Element
+public;BackstageAppButton({ icon, iconNode, label, execute, }: BackstageAppButtonProps): React_2.JSX.Element
 public;BackstageAppButtonProps
 public;BackstageComposer(props: BackstageComposerProps): React_2.JSX.Element
 internal;BackstageComposerActionItem({ item, }: BackstageComposerActionItemProps): React_2.JSX.Element
@@ -100,7 +100,9 @@ internal;CalculatorEngine
 internal;CalculatorKeyType
 internal;CalculatorOperator
 alpha;CalculatorPopup 
+deprecated;CalculatorPopup 
 alpha;CalculatorPopupProps 
+deprecated;CalculatorPopupProps 
 alpha;CalculatorProps 
 internal;CalculatorPropsProps = Pick
 public;CanFloatWidgetOptions
@@ -362,6 +364,7 @@ beta;InputEditorCommitHandler
 alpha;InputEditorPopup 
 beta;InputEditorPopupProps 
 public;InputFieldMessage 
+deprecated;InputFieldMessage 
 public;InputFieldMessageAddedEvent 
 deprecated;InputFieldMessageAddedEvent 
 public;InputFieldMessageEventArgs
@@ -369,9 +372,10 @@ deprecated;InputFieldMessageEventArgs
 public;InputFieldMessageRemovedEvent 
 deprecated;InputFieldMessageRemovedEvent 
 alpha;InputStatus
+internal;isArgsUtil
 public;isBackstageActionItem(item: BackstageItem): item is BackstageActionItem
 public;isBackstageStageLauncher(item: BackstageItem): item is BackstageStageLauncher
-internal;isFrontstageStateSettingResult(settingsResult: UiStateStorageResult_2): settingsResult is
+internal;isFrontstageStateSettingResult(settingsResult: UiStateStorageResult): settingsResult is
 beta;isNoSelectionActive(): boolean
 deprecated;isNoSelectionActive(): boolean
 internal;isReactContent: (content: PopupContentType) => content is ReactContent
@@ -525,6 +529,7 @@ beta;PreviewFeatures
 beta;PreviewFeaturesProvider({ children, features, }: PreviewFeaturesProviderProps): React_2.JSX.Element
 beta;PreviewFeaturesProviderProps
 public;PropsHelper
+deprecated;PropsHelper
 public;ProviderItem
 beta;QuantityFormatSettingsPage({ initialQuantityType, availableUnitSystems, }: QuantityFormatterSettingsOptions): React_2.JSX.Element
 beta;QuantityFormatterSettingsOptions
@@ -627,7 +632,7 @@ public;StateManager
 deprecated;StateManager
 public;StateType
 deprecated;StateType
-internal;stateVersion = 17
+internal;stateVersion = 18
 public;StatusBar(props: StatusBarProps): React_2.JSX.Element
 deprecated;StatusBar(props: StatusBarProps): React_2.JSX.Element
 public;StatusBar
@@ -649,9 +654,9 @@ deprecated;StatusBarIndicatorProps
 public;StatusBarItem = StatusBarActionItem | StatusBarLabelItem | StatusBarCustomItem
 internal;StatusBarItemProps 
 public;StatusBarItemUtilities
-beta;createActionItem(id: string, section: StatusBarSection, itemPriority: number, icon: IconSpec, tooltip: string | ConditionalStringValue, execute: () => void, overrides?: Partial
-beta;createCustomItem(id: string, section: StatusBarSection, itemPriority: number, content: React_2.ReactNode, overrides?: Partial
-beta;createLabelItem(id: string, section: StatusBarSection, itemPriority: number, icon: IconSpec, label: string | ConditionalStringValue, labelSide?: StatusBarLabelSide, overrides?: Partial
+beta;createActionItem(args: CreateActionItemArgs): StatusBarActionItem
+beta;createCustomItem(args: CreateCustomItemArgs): StatusBarCustomItem
+beta;createLabelItem(args: CreateLabelItemArgs): StatusBarLabelItem
 beta;StatusBarLabelIndicator(props: StatusBarLabelIndicatorProps): React_2.JSX.Element
 deprecated;StatusBarLabelIndicator(props: StatusBarLabelIndicatorProps): React_2.JSX.Element
 beta;StatusBarLabelIndicatorProps 
@@ -773,6 +778,7 @@ public;useActiveViewport(): ScreenViewport | undefined
 public;useAnalysisAnimationDataProvider(viewport: ScreenViewport | undefined): AnalysisAnimationTimelineDataProvider | undefined
 internal;useAvailableUiItemsProviders(): readonly string[]
 public;useBackstageManager: () => FrameworkBackstage
+alpha;useConditionalValue
 internal;useDefaultBackstageItems: (manager: BackstageItemsManager) => readonly BackstageItem[]
 public;useDefaultStatusBarItems: (manager: StatusBarItemsManager) => readonly StatusBarItem[]
 public;useDefaultToolbarItems: (manager: ToolbarItemsManager) => readonly ToolbarItem[]
@@ -803,7 +809,7 @@ public;useUiItemsProviderBackstageItems: (manager: BackstageItemsManager) => rea
 public;useUiItemsProviderStatusBarItems: (manager: StatusBarItemsManager) => readonly StatusBarItem[]
 public;useUiItemsProviderToolbarItems: (manager: ToolbarItemsManager, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation) => readonly ToolbarItem[]
 deprecated;useUiItemsProviderToolbarItems: (manager: ToolbarItemsManager, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation) => readonly ToolbarItem[]
-public;useUiStateStorageHandler(): UiStateStorage_2
+public;useUiStateStorageHandler(): UiStateStorage
 internal;useUiVisibility(): boolean
 internal;useUpdateNineZoneSize(frontstageDef: FrontstageDef): void
 alpha;useWidget():

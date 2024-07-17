@@ -14,6 +14,7 @@ import { PopupManager } from "../popup/PopupManager";
 import { PositionPopup, PositionPopupContent } from "../popup/PositionPopup";
 import { Calculator } from "./Calculator";
 import type { SizeProps } from "../utils/SizeProps";
+import { AccuDrawPopupManager } from "./AccuDrawPopupManager";
 
 /**
  * @alpha
@@ -22,7 +23,6 @@ import type { SizeProps } from "../utils/SizeProps";
 export interface CalculatorPopupProps extends PopupPropsBase {
   initialValue: number;
   resultIcon: string;
-  resultIconNode?: React.ReactNode;
   onOk: OnNumberCommitFunc;
   onCancel: OnCancelFunc;
 }
@@ -33,7 +33,7 @@ interface CalculatorPopupState {
 
 /** Popup component for Calculator
  * @alpha
- * @deprecated in 4.16.0. Use {@link Calculator} component instead.
+ * @deprecated in 4.16.0. Use {@link Calculator} component with {@link https://itwinui.bentley.com/docs/popover iTwinUI Popover} or {@link AccuDrawPopupManager.showCalculator} method instead.
  */
 export class CalculatorPopup extends React.PureComponent<
   // eslint-disable-next-line deprecation/deprecation
@@ -71,10 +71,8 @@ export class CalculatorPopup extends React.PureComponent<
             <Calculator
               initialValue={this.props.initialValue}
               resultIcon={
-                this.props.resultIconNode ?? (
-                  // eslint-disable-next-line deprecation/deprecation
-                  <Icon iconSpec={this.props.resultIcon} />
-                )
+                // eslint-disable-next-line deprecation/deprecation
+                <Icon iconSpec={this.props.resultIcon} />
               }
               onOk={this.props.onOk}
               onCancel={this.props.onCancel}

@@ -8,10 +8,9 @@
 
 import * as React from "react";
 import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
-import { ConditionalIconItem } from "@itwin/core-react";
 
 /** Hook that allows to get a value that depends on some sync UI events.
- * @note This can be used as a replacement for a deprecated {@link ConditionalIconItem}.
+ * @note This can be used as a replacement for a deprecated {@link @itwin/core-react#ConditionalIconItem}.
  * @alpha
  */
 export function useConditionalValue<T>(getValue: () => T, eventIds: string[]) {
