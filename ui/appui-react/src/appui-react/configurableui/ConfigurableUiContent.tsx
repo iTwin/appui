@@ -141,9 +141,7 @@ export function ConfigurableUiContent(props: ConfigurableUiContentProps) {
           >
             {props.appBackstage}
             <WidgetPanelsFrontstage />
-            <ContentDialogRenderer />
-            <ModelessDialogRenderer />
-            <ModalDialogRenderer />
+
             <ElementTooltip />
             <PointerMessage />
             {/* eslint-disable-next-line deprecation/deprecation */}
@@ -158,7 +156,11 @@ export function ConfigurableUiContent(props: ConfigurableUiContentProps) {
         <div
           className="uifw-configurableui-portalContainer"
           ref={(instance) => setPortalContainer(instance ?? undefined)}
-        />
+        >
+          <ContentDialogRenderer />
+          <ModelessDialogRenderer />
+          <ModalDialogRenderer />
+        </div>
       </main>
     </ConfigurableUiContext.Provider>
   );

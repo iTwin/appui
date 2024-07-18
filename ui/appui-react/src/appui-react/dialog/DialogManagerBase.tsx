@@ -6,6 +6,7 @@
  * @module Dialog
  */
 
+import "./DialogManagerBase.scss";
 import * as React from "react";
 import type { BeUiEvent } from "@itwin/core-bentley";
 import { Logger } from "@itwin/core-bentley";
@@ -194,17 +195,15 @@ export class DialogRendererBase extends React.PureComponent<
 
     return (
       <div
-        className="appui-react-dialog-render-container"
+        className="uifw-dialog-dialogManagerBase_renderer"
         ref={this._handleRefSet}
       >
         {this.state.parentDocument &&
           this.props.dialogManager.dialogs
             .filter((info) => info.parentDocument === this.state.parentDocument)
-            .map((dialogInfo: DialogInfo) => {
+            .map((info) => {
               return (
-                <React.Fragment key={dialogInfo.id}>
-                  {dialogInfo.reactNode}
-                </React.Fragment>
+                <React.Fragment key={info.id}>{info.reactNode}</React.Fragment>
               );
             })}
       </div>
