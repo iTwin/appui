@@ -24,6 +24,11 @@ interface PopupPoint {
   y: number;
 }
 
+/** @internal */
+export const PopupContext = React.createContext<HTMLElement | undefined>(
+  undefined
+);
+
 /** Properties for the [[Popup]] component
  * @public
  * @deprecated in 4.15.0. Props of deprecated {@link Popup} component.
@@ -112,6 +117,10 @@ interface PopupState {
 // eslint-disable-next-line deprecation/deprecation
 export class Popup extends React.Component<PopupProps, PopupState> {
   private _popup: HTMLElement | null = null;
+  /** @internal */
+  public static override contextType = PopupContext;
+  /** @internal */
+  public declare context: React.ContextType<typeof PopupContext>;
 
   // eslint-disable-next-line deprecation/deprecation
   constructor(props: PopupProps) {
@@ -651,9 +660,10 @@ export class Popup extends React.Component<PopupProps, PopupState> {
     );
   }
 
-  private getContainer() {
+  private getContainer(): Element {
     return (
       this.props.portalTarget ??
+      this.context ??
       this.state.parentDocument.body.querySelector(
         '[data-root-container="appui-root-id"]'
       ) ??

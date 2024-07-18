@@ -87,7 +87,6 @@ export function PopupContextMenu(props: PopupContextMenuProps) {
       showArrow={false}
       moveFocus={true}
       style={{ ...style, border: "none" }}
-      portalTarget={props.target ?? undefined}
     >
       <ContextMenu
         opened={true}

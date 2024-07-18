@@ -39,7 +39,9 @@ import {
   SessionStateActionId,
   StandardContentToolsUiItemsProvider,
   StateManager,
+  StatusBarDialog,
   StatusBarItemUtilities,
+  StatusBarPopover,
   StatusBarSection,
   SyncUiEventDispatcher,
   SYSTEM_PREFERRED_COLOR_THEME,
@@ -75,7 +77,11 @@ import {
   ToolAdmin,
   ViewClipByPlaneTool,
 } from "@itwin/core-frontend";
-import { getObjectClassName } from "@itwin/core-react";
+import {
+  ContextMenuItem,
+  getObjectClassName,
+  PopupContextMenu,
+} from "@itwin/core-react";
 import { FrontendDevTools } from "@itwin/frontend-devtools";
 import { HyperModeling } from "@itwin/hypermodeling-frontend";
 import { getSupportedRpcs } from "../common/rpcs";
@@ -100,6 +106,7 @@ import {
   PopoutWindowsFrontstage,
   previewFeaturesToggleProvider,
   registerCustomFrontstage,
+  SampleModalDialog,
   SynchronizedFloatingViewportStage,
   testFrontstageProvider,
   WidgetApiStage,
@@ -117,6 +124,8 @@ import {
   registerViewportFrontstage,
   viewportUiItemsProvider,
 } from "./appui/frontstages/ViewportFrontstage";
+import { Button, IconButton, Popover } from "@itwin/itwinui-react";
+import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
 
 // Initialize my application gateway configuration for the frontend
 RpcConfiguration.developmentMode = true;
@@ -359,6 +368,7 @@ export class SampleAppIModelApp {
     );
     UiItemsManager.register(previewFeaturesToggleProvider);
     UiItemsManager.register(new CustomStageUiItemsProvider());
+
     UiItemsManager.register({
       id: "language",
       getStatusBarItems: () => [
@@ -367,6 +377,12 @@ export class SampleAppIModelApp {
           StatusBarSection.Right,
           0,
           <AppLanguageSelect />
+        ),
+        StatusBarItemUtilities.createCustomItem(
+          "custom",
+          StatusBarSection.Right,
+          0,
+          <Custom />
         ),
       ],
     });
@@ -763,3 +779,71 @@ async function main() {
 
 // Entry point - run the main function
 void main();
+
+function Custom() {
+  const [target, setTarget] = React.useState<HTMLButtonElement | undefined>(
+    undefined
+  );
+  const [open, setOpen] = React.useState(false);
+  const [visible, setVisible] = React.useState(false);
+  return (
+    <StatusBarPopover
+      content={
+        <div style={{ minHeight: 300, minWidth: 200, overflow: "hidden" }}>
+          <StatusBarDialog.TitleBar title="Custom item"></StatusBarDialog.TitleBar>
+          <Button
+            ref={(e) => setTarget(e ?? undefined)}
+            onClick={() => setOpen((p) => !p)}
+          >
+            Popup
+          </Button>
+          <PopupContextMenu
+            isOpen={open}
+            target={target}
+            onOutsideClick={() => {
+              setOpen(false);
+            }}
+          >
+            {Array.from({ length: 5 }).map((_, i) => {
+              return (
+                <ContextMenuItem
+                  key={i}
+                  onClick={() => {
+                    setOpen(false);
+                    UiFramework.dialogs.modal.open(<SampleModalDialog />, "m1");
+                  }}
+                >
+                  Item {i}
+                </ContextMenuItem>
+              );
+            })}
+          </PopupContextMenu>
+          <Popover
+            content={
+              <div
+                style={{
+                  minWidth: 200,
+                }}
+              >
+                Nested Popover
+              </div>
+            }
+            applyBackground
+          >
+            <Button>Popover</Button>
+          </Popover>
+        </div>
+      }
+      visible={visible}
+      onVisibleChange={(v) => {
+        setVisible(v);
+        setOpen(false);
+      }}
+    >
+      <IconButton styleType="borderless">
+        <SvgPlaceholder />
+        <StatusBarPopover.ExpandIndicator />
+      </IconButton>
+    </StatusBarPopover>
+  );
+}
