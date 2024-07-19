@@ -73,7 +73,7 @@ export function createElementStackingProvider() {
       ),
     ],
     getWidgets: () => {
-      // TODO: Dialog is rendered inside the floating widget (Popover creates a nested `portalContainer`).
+      // Dialog needs to be portalled.
       return Array.from({ length: 2 }).map((_, index) => ({
         id: `${id}:widget${index + 1}`,
         label: `Widget ${index + 1}`,
@@ -189,6 +189,7 @@ function StatusBarItemContent() {
 
 function ActionButtons() {
   const [dialogOpen, setDialogOpen] = React.useState(false);
+  const [portalledDialogOpen, setPortalledDialogOpen] = React.useState(false);
   const [modalOpen, setModalOpen] = React.useState(false);
   return (
     <Flex flexDirection="column" alignItems="start" style={{ padding: 5 }}>
@@ -232,6 +233,18 @@ function ActionButtons() {
         Dialog
       </Button>
       <TestDialog isOpen={dialogOpen} onClose={() => setDialogOpen(false)} />
+      <Button
+        onClick={() => {
+          setPortalledDialogOpen((prev) => !prev);
+        }}
+      >
+        Dialog (portalled)
+      </Button>
+      <TestDialog
+        isOpen={portalledDialogOpen}
+        onClose={() => setPortalledDialogOpen(false)}
+        portal={true}
+      />
       <Button
         onClick={() => {
           setModalOpen((prev) => !prev);
