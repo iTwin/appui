@@ -11,6 +11,10 @@ export interface ChildWindow extends Window {
   expectedWidth?: number;
   /** Expected height of the child window. */
   expectedHeight?: number;
+  /** Expected top value of the child window. */
+  expectedTop?: number;
+  /** Expected left value of the child window. */
+  expectedLeft?: number;
   /** Difference between expected child window width and actual value when opened. */
   deltaWidth?: number;
   /** Difference between expected child window height and actual value when opened. */
