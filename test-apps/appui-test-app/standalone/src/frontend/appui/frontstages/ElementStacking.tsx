@@ -19,7 +19,6 @@ import {
   ToolbarUsage,
   UiFramework,
   UiItemsProvider,
-  WidgetState,
 } from "@itwin/appui-react";
 import {
   SvgDeveloper,
@@ -31,6 +30,7 @@ import { ViewportContent } from "@itwin/appui-test-providers";
 import {
   Button,
   Dialog,
+  Flex,
   IconButton,
   Modal,
   ModalContent,
@@ -73,20 +73,18 @@ export function createElementStackingProvider() {
       ),
     ],
     getWidgets: () => {
-      return [
-        {
-          id: `${id}:widget1`,
-          label: "Widget 1",
-          content: <>Widget 1 content</>,
-          layouts: {
-            standard: {
-              location: StagePanelLocation.Right,
-              section: StagePanelSection.Start,
-            },
+      // TODO: Dialog is rendered inside the floating widget (Popover creates a nested `portalContainer`).
+      return Array.from({ length: 2 }).map((_, index) => ({
+        id: `${id}:widget${index + 1}`,
+        label: `Widget ${index + 1}`,
+        content: <ActionButtons />,
+        layouts: {
+          standard: {
+            location: StagePanelLocation.Right,
+            section: StagePanelSection.Start,
           },
-          defaultState: WidgetState.Floating,
         },
-      ];
+      }));
     },
     getToolbarItems: () => [
       ToolbarItemUtilities.createGroupItem(
@@ -120,6 +118,7 @@ export function createElementStackingProvider() {
         0,
         <DeprecatedTestStatusBarItem />
       ),
+      // TODO: Dialog & Modal are rendered inside the popup (Popover creates a nested `portalContainer`).
       StatusBarItemUtilities.createCustomItem(
         "custom",
         StatusBarSection.Center,
@@ -182,16 +181,27 @@ function TestStatusBarItem() {
 function StatusBarItemContent() {
   return (
     <div style={{ height: 400, width: 300, overflow: "hidden" }}>
-      <StatusBarDialog.TitleBar title="Custom item"></StatusBarDialog.TitleBar>
+      <StatusBarDialog.TitleBar title="Actions"></StatusBarDialog.TitleBar>
+      <ActionButtons />
+    </div>
+  );
+}
+
+function ActionButtons() {
+  const [dialogOpen, setDialogOpen] = React.useState(false);
+  const [modalOpen, setModalOpen] = React.useState(false);
+  return (
+    <Flex flexDirection="column" alignItems="start" style={{ padding: 5 }}>
       <TestPopupContextMenu />
       <Popover
         content={
           <div
             style={{
+              minHeight: 100,
               minWidth: 200,
             }}
           >
-            Nested Popover
+            Popover content
           </div>
         }
         applyBackground
@@ -210,7 +220,7 @@ function StatusBarItemContent() {
           );
         }}
       >
-        open Dialog
+        Open Dialog
       </Button>
       <Button
         onClick={() => {
@@ -223,9 +233,25 @@ function StatusBarItemContent() {
           );
         }}
       >
-        open Modal
+        Open Modal
       </Button>
-    </div>
+      <Button
+        onClick={() => {
+          setDialogOpen((prev) => !prev);
+        }}
+      >
+        Dialog
+      </Button>
+      <TestDialog isOpen={dialogOpen} onClose={() => setDialogOpen(false)} />
+      <Button
+        onClick={() => {
+          setModalOpen((prev) => !prev);
+        }}
+      >
+        Modal
+      </Button>
+      <TestModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
+    </Flex>
   );
 }
 
