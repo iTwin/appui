@@ -151,16 +151,16 @@ export function ConfigurableUiContent(props: ConfigurableUiContentProps) {
             <CursorPopupRenderer />
             <PopupRenderer />
             <MessageRenderer />
+            <div
+              className="uifw-configurableui-portalContainer"
+              ref={(instance) => setPortalContainer(instance ?? undefined)}
+            >
+              <ContentDialogRenderer />
+              <ModelessDialogRenderer />
+              <ModalDialogRenderer />
+            </div>
           </ThemeProvider>
         </WrapperContext.Provider>
-        <div
-          className="uifw-configurableui-portalContainer"
-          ref={(instance) => setPortalContainer(instance ?? undefined)}
-        >
-          <ContentDialogRenderer />
-          <ModelessDialogRenderer />
-          <ModalDialogRenderer />
-        </div>
       </main>
     </ConfigurableUiContext.Provider>
   );
