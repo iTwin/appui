@@ -7,5 +7,5 @@
 .uifw-dialog-dialogManagerBase_renderer {
   position: relative;
 
-  @include uicore-z-index(backstage);
+  @include uicore-z-index(dialog);
 }
