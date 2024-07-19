@@ -193,19 +193,8 @@ function ActionButtons() {
   return (
     <Flex flexDirection="column" alignItems="start" style={{ padding: 5 }}>
       <TestPopupContextMenu />
-      <Popover
-        content={
-          <div
-            style={{
-              minHeight: 100,
-              minWidth: 200,
-            }}
-          >
-            Popover content
-          </div>
-        }
-        applyBackground
-      >
+      {/* TODO: issues with nested popovers/popups. */}
+      <Popover content={<ActionButtons />} applyBackground>
         <Button>Popover</Button>
       </Popover>
       <Button
