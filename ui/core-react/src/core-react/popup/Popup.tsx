@@ -97,7 +97,9 @@ export interface PopupProps extends CommonProps {
   /** Content */
   children?: React.ReactNode;
 
-  /** Target that should be used when portaling popup. */
+  /** Target that should be used when portaling popup.
+   * @note This is needed in rare cases when {@link Popup} is nested inside the {@link https://itwinui.bentley.com/docs/popover iTwinUI Popover}.
+   */
   portalTarget?: HTMLElement;
 }
 
@@ -112,6 +114,7 @@ interface PopupState {
 }
 
 /** Popup React component displays a popup relative to an optional target element.
+ * @note Avoid nesting {@link Popup} and {@link https://itwinui.bentley.com/docs/popover iTwinUI Popover} components.
  * @public
  * @deprecated in 4.15.0. Use {@link https://itwinui.bentley.com/docs/popover iTwinUI Popover} instead.
  */
