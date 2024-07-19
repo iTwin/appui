@@ -15,6 +15,7 @@ import { RelativePosition } from "@itwin/appui-abstract";
 import { FocusTrap } from "../focustrap/FocusTrap";
 import type { CommonProps } from "../utils/Props";
 import { Rectangle } from "../utils/Rectangle";
+import { ThemeProvider } from "@itwin/itwinui-react";
 
 // cSpell:ignore focustrap focusable alertdialog
 
@@ -100,7 +101,6 @@ export interface PopupProps extends CommonProps {
   portalTarget?: HTMLElement;
 }
 
-/** @internal */
 interface PopupState {
   isOpen: boolean;
   top: number;
@@ -108,6 +108,7 @@ interface PopupState {
   position: RelativePosition;
   parentDocument: Document;
   animationEnded: boolean;
+  portalContainer?: HTMLElement;
 }
 
 /** Popup React component displays a popup relative to an optional target element.
@@ -606,6 +607,10 @@ export class Popup extends React.Component<PopupProps, PopupState> {
     }
   };
 
+  private _handleThemeProviderRef = (el: HTMLDivElement | null) => {
+    this.setState({ portalContainer: el ?? undefined });
+  };
+
   public override render() {
     const animate =
       this.props.animate !== undefined ? this.props.animate : true;
@@ -648,13 +653,18 @@ export class Popup extends React.Component<PopupProps, PopupState> {
         aria-label={this.props.ariaLabel}
         onAnimationEnd={this._handleAnimationEnd}
       >
-        <FocusTrap
-          active={!!this.props.moveFocus}
-          initialFocusElement={this.props.focusTarget}
-          returnFocusOnDeactivate={true}
+        <ThemeProvider
+          ref={this._handleThemeProviderRef}
+          portalContainer={this.state.portalContainer}
         >
-          {this.props.children}
-        </FocusTrap>
+          <FocusTrap
+            active={!!this.props.moveFocus}
+            initialFocusElement={this.props.focusTarget}
+            returnFocusOnDeactivate={true}
+          >
+            {this.props.children}
+          </FocusTrap>
+        </ThemeProvider>
       </div>,
       this.getContainer()
     );

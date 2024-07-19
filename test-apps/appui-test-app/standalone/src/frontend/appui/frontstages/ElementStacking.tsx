@@ -35,8 +35,9 @@ import {
   Modal,
   ModalContent,
   Popover,
+  Select,
 } from "@itwin/itwinui-react";
-import { ContextMenuItem, PopupContextMenu } from "@itwin/core-react";
+import { ContextMenuItem, Popup, PopupContextMenu } from "@itwin/core-react";
 
 const stageId = "element-stacking";
 export function createElementStackingFrontstage() {
@@ -194,6 +195,7 @@ function ActionButtons() {
   return (
     <Flex flexDirection="column" alignItems="start" style={{ padding: 5 }}>
       <TestPopupContextMenu />
+      <TestPopup />
       {/* TODO: issues with nested popovers/popups. */}
       <Popover content={<ActionButtons />} applyBackground>
         <Button>Popover</Button>
@@ -280,6 +282,15 @@ function TestPopupContextMenu() {
           setOpen(false);
         }}
       >
+        <ContextMenuItem>
+          <Select
+            options={Array.from({ length: 10 }).map((_, i) => ({
+              label: `Option ${i + 1}`,
+              value: i + 1,
+            }))}
+            value={1}
+          />
+        </ContextMenuItem>
         {Array.from({ length: 5 }).map((_, i) => {
           return (
             <ContextMenuItem
@@ -293,6 +304,37 @@ function TestPopupContextMenu() {
           );
         })}
       </PopupContextMenu>
+    </>
+  );
+}
+
+function TestPopup() {
+  const [open, setOpen] = React.useState(false);
+  const [target, setTarget] = React.useState<HTMLButtonElement | undefined>(
+    undefined
+  );
+  return (
+    <>
+      <Button
+        ref={(e) => setTarget(e ?? undefined)}
+        onClick={() => {
+          setOpen((prev) => !prev);
+        }}
+      >
+        Popup
+      </Button>
+      {/* eslint-disable-next-line deprecation/deprecation */}
+      <Popup
+        isOpen={open}
+        target={target}
+        onOutsideClick={(e) => {
+          if (e.target instanceof Node && target?.contains(e.target)) return;
+          setOpen(false);
+        }}
+        style={{ padding: 20 }}
+      >
+        <TestSelect />
+      </Popup>
     </>
   );
 }
@@ -314,5 +356,17 @@ function TestModal(props: Partial<React.ComponentProps<typeof Modal>>) {
     <Modal title="Modal" isOpen={true} {...props}>
       <ModalContent>Modal content</ModalContent>
     </Modal>
+  );
+}
+
+function TestSelect() {
+  return (
+    <Select
+      options={Array.from({ length: 10 }).map((_, i) => ({
+        label: `Option ${i + 1}`,
+        value: i + 1,
+      }))}
+      value={1}
+    />
   );
 }
