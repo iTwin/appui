@@ -12,7 +12,6 @@ import {
 import { action } from "@storybook/addon-actions";
 import { AppUiStory } from "../AppUiStory";
 import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
-import { Icon } from "@itwin/itwinui-react";
 
 function createOpenBackstage(itemProvider: UiItemsProvider): Decorator {
   return (Story) => {

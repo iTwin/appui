@@ -19,7 +19,8 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    engine: undefined as any, // set via defaultProps
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    engine: undefined!, // set via defaultProps
     onOk: action("onOk"),
     onCancel: action("onCancel"),
   },
