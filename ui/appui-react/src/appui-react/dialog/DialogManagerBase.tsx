@@ -6,12 +6,14 @@
  * @module Dialog
  */
 
+import "./DialogManagerBase.scss";
 import * as React from "react";
 import type { BeUiEvent } from "@itwin/core-bentley";
 import { Logger } from "@itwin/core-bentley";
 import { UiEvent } from "@itwin/appui-abstract";
 import { UiFramework } from "../UiFramework";
 import { getCssVariableAsNumber } from "@itwin/core-react";
+import { ThemeProvider } from "@itwin/itwinui-react";
 
 /** Dialog Stack Changed Event Args class.
  * @public
@@ -169,9 +171,9 @@ export interface DialogRendererProps {
   style?: React.CSSProperties;
 }
 
-/** @internal */
 interface DialogRendererState {
-  parentDocument: Document | null;
+  parentDocument: Document | undefined;
+  renderer: HTMLElement | undefined;
 }
 /** DialogRenderer React component.
  * @internal
@@ -182,11 +184,15 @@ export class DialogRendererBase extends React.PureComponent<
 > {
   /** @internal */
   public override readonly state: DialogRendererState = {
-    parentDocument: null,
+    parentDocument: undefined,
+    renderer: undefined,
   };
 
-  private _handleRefSet = (popupDiv: HTMLElement | null) => {
-    this.setState({ parentDocument: popupDiv?.ownerDocument ?? null });
+  private _handleRefSet = (el: HTMLElement | null) => {
+    this.setState({
+      parentDocument: el?.ownerDocument ?? undefined,
+      renderer: el ?? undefined,
+    });
   };
 
   public override render(): React.ReactNode {
@@ -194,19 +200,23 @@ export class DialogRendererBase extends React.PureComponent<
 
     return (
       <div
-        className="appui-react-dialog-render-container"
+        className="uifw-dialog-dialogManagerBase_renderer"
         ref={this._handleRefSet}
       >
-        {this.state.parentDocument &&
-          this.props.dialogManager.dialogs
-            .filter((info) => info.parentDocument === this.state.parentDocument)
-            .map((dialogInfo: DialogInfo) => {
-              return (
-                <React.Fragment key={dialogInfo.id}>
-                  {dialogInfo.reactNode}
-                </React.Fragment>
-              );
-            })}
+        <ThemeProvider portalContainer={this.state.renderer}>
+          {this.state.parentDocument &&
+            this.props.dialogManager.dialogs
+              .filter(
+                (info) => info.parentDocument === this.state.parentDocument
+              )
+              .map((info) => {
+                return (
+                  <React.Fragment key={info.id}>
+                    {info.reactNode}
+                  </React.Fragment>
+                );
+              })}
+        </ThemeProvider>
       </div>
     );
   }
