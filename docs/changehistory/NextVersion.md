@@ -294,6 +294,7 @@ Table of contents:
     ```tsx
     // Before
     <Icon iconSpec={<SvgPlaceholder>} />;
+    <Icon iconSpec="icon-placeholder" />;
 
     // After
     <SvgPlaceholder />;
