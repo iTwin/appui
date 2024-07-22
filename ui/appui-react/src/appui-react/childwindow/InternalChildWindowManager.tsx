@@ -192,6 +192,13 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
             childWindow.deltaHeight =
               childWindow.expectedHeight - childWindow.innerHeight;
           }
+
+          if (childWindow.expectedLeft && childWindow.expectedTop) {
+            childWindow.deltaLeft =
+              childWindow.expectedLeft - childWindow.screenLeft;
+            childWindow.deltaTop =
+              childWindow.expectedTop - childWindow.screenTop;
+          }
         });
       });
 
@@ -295,8 +302,8 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
     if (!childWindow) return false;
     childWindow.expectedHeight = location.height;
     childWindow.expectedWidth = location.width;
-    childWindow.deltaLeft = location.left - childWindow.screenLeft;
-    childWindow.deltaTop = location.top - childWindow.screenTop;
+    childWindow.expectedLeft = location.left;
+    childWindow.expectedTop = location.top;
 
     if (url.length === 0) {
       childWindow.document.write(childHtml);
