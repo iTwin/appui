@@ -44,7 +44,7 @@ _NOTE:_ widget component must be written in a way that works properly when opene
 
 ## Provide Toolbar Items
 
-Implement [UiItemsProvider.getToolbarItems]($appui-react) to provide additional toolbar items to the application. Set the [ToolbarItem]($appui-react) `layouts` property to specify the toolbar to which the [ToolbarItem]($appui-react) should be added. You can use one of [ToolbarItemUtilities]($appui-react) to create a toolbar item of specific type.
+Implement `UiItemsProvider.getToolbarItems` to provide additional toolbar items to the application. Set the [ToolbarItem]($appui-react) `layouts` property to specify the toolbar to which the [ToolbarItem]($appui-react) should be added. You can use one of [ToolbarItemUtilities]($appui-react) to create a toolbar item of specific type.
 
 ```tsx
 [[include:AppUI.UiItemsProvider.ToolbarItems]]
@@ -52,7 +52,7 @@ Implement [UiItemsProvider.getToolbarItems]($appui-react) to provide additional 
 
 ## Provide StatusBar Items
 
-Implement [UiItemsProvider.getStatusBarItems]($appui-react) to provide additional status bar items to the application. You can use [StatusBarItemUtilities]($appui-react) to create a [StatusBarItem]($appui-react) of specific type.
+Implement `UiItemsProvider.getStatusBarItems` to provide additional status bar items to the application. You can use [StatusBarItemUtilities]($appui-react) to create a [StatusBarItem]($appui-react) of specific type.
 
 ```tsx
 [[include:AppUI.UiItemsProvider.StatusBarItems]]
@@ -60,7 +60,7 @@ Implement [UiItemsProvider.getStatusBarItems]($appui-react) to provide additiona
 
 ## Provide Backstage Items
 
-Implement [UiItemsProvider.getBackstageItems]($appui-react) to provide additional backstage items to the application. You can use [BackstageItemUtilities]($appui-react) to create a [BackstageItem]($appui-react) of specific type.
+Implement `UiItemsProvider.getBackstageItems` to provide additional backstage items to the application. You can use [BackstageItemUtilities]($appui-react) to create a [BackstageItem]($appui-react) of specific type.
 
 ```tsx
 [[include:AppUI.UiItemsProvider.BackstageItems]]
