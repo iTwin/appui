@@ -181,7 +181,7 @@ function TestStatusBarItem() {
 
 function StatusBarItemContent() {
   return (
-    <div style={{ height: 400, width: 300, overflow: "hidden" }}>
+    <div style={{ minHeight: 400, minWidth: 300, overflow: "hidden" }}>
       <StatusBarDialog.TitleBar title="Actions"></StatusBarDialog.TitleBar>
       <ActionButtons />
     </div>
@@ -255,6 +255,7 @@ function ActionButtons() {
         Modal
       </Button>
       <TestModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
+      <TestSelect />
     </Flex>
   );
 }
@@ -332,6 +333,7 @@ function TestPopup() {
           setOpen(false);
         }}
         style={{ padding: 20 }}
+        closeOnNestedPopupOutsideClick={true} // Needed to close this popup when rendered in a nested popup.
       >
         <TestSelect />
       </Popup>
