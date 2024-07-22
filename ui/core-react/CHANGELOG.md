@@ -17,6 +17,11 @@ Fri, 28 Jun 2024 09:09:37 GMT
 - Added `portalTarget` to `Popup` component.
 - Deprecated components, functions, enums that are intended for internal use, are not used by AppUI or can be replaced with alternatives.
 
+## 4.14.2
+Mon, 22 Jul 2024 21:23:09 GMT
+
+_Version update only_
+
 ## 4.14.1
 Tue, 11 Jun 2024 15:58:29 GMT
 

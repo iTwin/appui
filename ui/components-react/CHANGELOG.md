@@ -15,6 +15,11 @@ Fri, 28 Jun 2024 09:09:37 GMT
 - `PropertyFilterBuilder`: Allow adding custom item for PropertyFilterBuilderActions
 - Portal editors to the same container used to portal other components.
 
+## 4.14.2
+Mon, 22 Jul 2024 21:23:09 GMT
+
+_Version update only_
+
 ## 4.14.1
 Tue, 11 Jun 2024 15:58:29 GMT
 
