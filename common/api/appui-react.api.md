@@ -26,7 +26,7 @@ import { CombinedState } from 'redux';
 import type { CommandHandler as CommandHandler_2 } from '@itwin/appui-abstract';
 import type { CommonBackstageItem as CommonBackstageItem_2 } from '@itwin/appui-abstract';
 import type { CommonDivProps } from '@itwin/core-react';
-import type { CommonProps } from '@itwin/core-react';
+import { CommonProps } from '@itwin/core-react';
 import type { CommonToolbarItem as CommonToolbarItem_2 } from '@itwin/appui-abstract';
 import { CompassMode } from '@itwin/core-frontend';
 import { ConditionalBooleanValue } from '@itwin/appui-abstract';
@@ -4509,7 +4509,7 @@ export enum StatusBarLabelSide {
 export function StatusBarLeftSection(props: CommonDivProps): React_2.JSX.Element;
 
 // @public
-export function StatusBarPopover(props: StatusBarPopoverProps): React_2.JSX.Element;
+export function StatusBarPopover({ content, ...props }: StatusBarPopoverProps): React_2.JSX.Element;
 
 // @public
 export namespace StatusBarPopover {

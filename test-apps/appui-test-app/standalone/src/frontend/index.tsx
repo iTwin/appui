@@ -37,6 +37,7 @@ import {
   SafeAreaContext,
   SafeAreaInsets,
   SessionStateActionId,
+  StageUsage,
   StandardContentToolsUiItemsProvider,
   StateManager,
   StatusBarItemUtilities,
@@ -116,6 +117,11 @@ import {
 } from "./appui/frontstages/EditorFrontstageProvider";
 import { useEditorToolSettings } from "./appui/useEditorToolSettings";
 import { AppLanguageSelect, AppLocalizationProvider } from "./Localization";
+import {
+  createElementStackingFrontstage,
+  createElementStackingProvider,
+} from "./appui/frontstages/ElementStacking";
+import { registerViewportFrontstage } from "./appui/frontstages/example-stages/ViewportFrontstage";
 
 // Initialize my application gateway configuration for the frontend
 RpcConfiguration.developmentMode = true;
@@ -373,18 +379,29 @@ export class SampleAppIModelApp {
         AppUiTestProviders.localizationNamespace
       )
     );
-    UiItemsManager.register(previewFeaturesToggleProvider);
+    UiItemsManager.register(previewFeaturesToggleProvider, {
+      stageUsages: [StageUsage.General],
+    });
+
     UiItemsManager.register(new CustomStageUiItemsProvider());
-    UiItemsManager.register({
-      id: "language",
-      getStatusBarItems: () => [
-        StatusBarItemUtilities.createCustomItem(
-          "language",
-          StatusBarSection.Right,
-          0,
-          <AppLanguageSelect />
-        ),
-      ],
+    UiItemsManager.register(
+      {
+        id: "language",
+        getStatusBarItems: () => [
+          StatusBarItemUtilities.createCustomItem(
+            "language",
+            StatusBarSection.Right,
+            0,
+            <AppLanguageSelect />
+          ),
+        ],
+      },
+      {
+        stageUsages: [StageUsage.General],
+      }
+    );
+    UiItemsManager.register(createElementStackingProvider(), {
+      stageUsages: ["development"],
     });
 
     // Register frontstages
@@ -397,6 +414,9 @@ export class SampleAppIModelApp {
       AppUiTestProviders.localizationNamespace
     );
     PopoutWindowsFrontstage.register(AppUiTestProviders.localizationNamespace);
+    MainFrontstage.register();
+    registerViewportFrontstage();
+    UiFramework.frontstages.addFrontstage(createElementStackingFrontstage());
 
     if (ProcessDetector.isElectronAppFrontend) {
       await initializeEditor();
