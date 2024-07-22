@@ -94,14 +94,6 @@ export interface PopupProps extends CommonProps {
 
   /** Content */
   children?: React.ReactNode;
-<<<<<<< HEAD
-=======
-
-  /** Target that should be used when portaling popup.
-   * @note This is needed in rare cases when {@link Popup} is nested inside the {@link https://itwinui.bentley.com/docs/popover iTwinUI Popover}.
-   */
-  portalTarget?: HTMLElement;
->>>>>>> a6c9cce62 (Fix element stacking (#917))
 }
 
 interface PopupState {
@@ -672,14 +664,11 @@ export class Popup extends React.Component<PopupProps, PopupState> {
 
   private getContainer(): Element {
     return (
-<<<<<<< HEAD
-=======
-      this.props.portalTarget ??
       this.context ??
->>>>>>> a6c9cce62 (Fix element stacking (#917))
       this.state.parentDocument.body.querySelector(
         '[data-root-container="appui-root-id"]'
-      ) ?? this.state.parentDocument.body
+      ) ??
+      this.state.parentDocument.body
     );
   }
 }

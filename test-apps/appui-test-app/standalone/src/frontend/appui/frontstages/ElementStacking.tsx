@@ -6,9 +6,10 @@ import * as React from "react";
 import {
   BackstageAppButton,
   BackstageItemUtilities,
-  FrontstageUtilities,
+  IModelViewportControl,
   StagePanelLocation,
   StagePanelSection,
+  StandardFrontstageProvider,
   StatusBar,
   StatusBarDialog,
   StatusBarItemUtilities,
@@ -26,7 +27,6 @@ import {
   SvgPlaceholder,
 } from "@itwin/itwinui-icons-react";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
-import { ViewportContent } from "@itwin/appui-test-providers";
 import {
   Button,
   Dialog,
@@ -41,7 +41,7 @@ import { ContextMenuItem, Popup, PopupContextMenu } from "@itwin/core-react";
 
 const stageId = "element-stacking";
 export function createElementStackingFrontstage() {
-  return FrontstageUtilities.createStandardFrontstage({
+  return new StandardFrontstageProvider({
     id: stageId,
     contentGroupProps: {
       id: "content-group",
@@ -49,8 +49,7 @@ export function createElementStackingFrontstage() {
       contents: [
         {
           id: "viewport",
-          classId: "",
-          content: <ViewportContent />,
+          classId: IModelViewportControl,
         },
       ],
     },

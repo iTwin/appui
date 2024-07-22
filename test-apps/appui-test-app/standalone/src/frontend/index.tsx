@@ -117,17 +117,10 @@ import {
 } from "./appui/frontstages/EditorFrontstageProvider";
 import { useEditorToolSettings } from "./appui/useEditorToolSettings";
 import { AppLanguageSelect, AppLocalizationProvider } from "./Localization";
-<<<<<<< HEAD
-=======
-import {
-  registerViewportFrontstage,
-  viewportUiItemsProvider,
-} from "./appui/frontstages/ViewportFrontstage";
 import {
   createElementStackingFrontstage,
   createElementStackingProvider,
 } from "./appui/frontstages/ElementStacking";
->>>>>>> a6c9cce62 (Fix element stacking (#917))
 
 // Initialize my application gateway configuration for the frontend
 RpcConfiguration.developmentMode = true;
@@ -370,10 +363,8 @@ export class SampleAppIModelApp {
     UiItemsManager.register(previewFeaturesToggleProvider, {
       stageUsages: [StageUsage.General],
     });
-<<<<<<< HEAD
-=======
-    UiItemsManager.register(new CustomStageUiItemsProvider());
 
+    UiItemsManager.register(new CustomStageUiItemsProvider());
     UiItemsManager.register(
       {
         id: "language",
@@ -390,11 +381,9 @@ export class SampleAppIModelApp {
         stageUsages: [StageUsage.General],
       }
     );
-    UiItemsManager.register(viewportUiItemsProvider);
     UiItemsManager.register(createElementStackingProvider(), {
       stageUsages: ["development"],
     });
->>>>>>> a6c9cce62 (Fix element stacking (#917))
 
     // Register frontstages
     CustomContentFrontstage.register(AppUiTestProviders.localizationNamespace);
@@ -406,12 +395,9 @@ export class SampleAppIModelApp {
       AppUiTestProviders.localizationNamespace
     );
     PopoutWindowsFrontstage.register(AppUiTestProviders.localizationNamespace);
-<<<<<<< HEAD
-=======
-    MainFrontstage.register();
-    registerViewportFrontstage();
-    UiFramework.frontstages.addFrontstage(createElementStackingFrontstage());
->>>>>>> a6c9cce62 (Fix element stacking (#917))
+    UiFramework.frontstages.addFrontstageProvider(
+      createElementStackingFrontstage()
+    );
 
     if (ProcessDetector.isElectronAppFrontend) {
       await initializeEditor();

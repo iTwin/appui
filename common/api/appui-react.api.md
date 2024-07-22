@@ -25,13 +25,8 @@ import { ColorDef } from '@itwin/core-common';
 import type { CommandHandler as CommandHandler_2 } from '@itwin/appui-abstract';
 import type { CommonBackstageItem as CommonBackstageItem_2 } from '@itwin/appui-abstract';
 import type { CommonDivProps } from '@itwin/core-react';
-<<<<<<< HEAD
-import type { CommonProps } from '@itwin/core-react';
-import type { CommonToolbarItem as CommonToolbarItem_2 } from '@itwin/appui-abstract';
-=======
 import { CommonProps } from '@itwin/core-react';
-import type { CommonToolbarItemWithBadgeKind } from '@itwin/components-react';
->>>>>>> a6c9cce62 (Fix element stacking (#917))
+import type { CommonToolbarItem as CommonToolbarItem_2 } from '@itwin/appui-abstract';
 import { CompassMode } from '@itwin/core-frontend';
 import { ConditionalBooleanValue } from '@itwin/appui-abstract';
 import { ConditionalStringValue } from '@itwin/appui-abstract';
