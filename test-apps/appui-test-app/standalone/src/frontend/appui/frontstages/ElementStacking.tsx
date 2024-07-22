@@ -7,6 +7,7 @@ import {
   BackstageAppButton,
   BackstageItemUtilities,
   FrontstageUtilities,
+  IModelViewportControl,
   StagePanelLocation,
   StagePanelSection,
   StatusBar,
@@ -26,7 +27,6 @@ import {
   SvgPlaceholder,
 } from "@itwin/itwinui-icons-react";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
-import { ViewportContent } from "@itwin/appui-test-providers";
 import {
   Button,
   Dialog,
@@ -49,8 +49,7 @@ export function createElementStackingFrontstage() {
       contents: [
         {
           id: "viewport",
-          classId: "",
-          content: <ViewportContent />,
+          classId: IModelViewportControl,
         },
       ],
     },
