@@ -2,6 +2,12 @@
   "name": "@itwin/core-react",
   "entries": [
     {
+      "version": "4.15.4",
+      "tag": "@itwin/core-react_v4.15.4",
+      "date": "Mon, 22 Jul 2024 21:27:52 GMT",
+      "comments": {}
+    },
+    {
       "version": "4.15.3",
       "tag": "@itwin/core-react_v4.15.3",
       "date": "Mon, 15 Jul 2024 12:12:01 GMT",

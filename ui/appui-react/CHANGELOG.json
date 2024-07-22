@@ -2,6 +2,24 @@
   "name": "@itwin/appui-react",
   "entries": [
     {
+      "version": "4.15.4",
+      "tag": "@itwin/appui-react_v4.15.4",
+      "date": "Mon, 22 Jul 2024 21:27:52 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Fix an issue where Popup is rendered outside of a StatusBarPopover."
+          },
+          {
+            "comment": "Fix an issue where widget is rendered above the dialog backdrop."
+          },
+          {
+            "comment": "Fixed popout widget changing position on a secondary montitor."
+          }
+        ]
+      }
+    },
+    {
       "version": "4.15.3",
       "tag": "@itwin/appui-react_v4.15.3",
       "date": "Mon, 15 Jul 2024 12:12:00 GMT",
