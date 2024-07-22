@@ -15,6 +15,7 @@ import { RelativePosition } from "@itwin/appui-abstract";
 import { FocusTrap } from "../focustrap/FocusTrap";
 import type { CommonProps } from "../utils/Props";
 import { Rectangle } from "../utils/Rectangle";
+import { ThemeProvider } from "@itwin/itwinui-react";
 
 // cSpell:ignore focustrap focusable alertdialog
 
@@ -23,6 +24,11 @@ interface PopupPoint {
   x: number;
   y: number;
 }
+
+/** @internal */
+export const PopupContext = React.createContext<HTMLElement | undefined>(
+  undefined
+);
 
 /** Properties for the [[Popup]] component
  * @public
@@ -88,9 +94,16 @@ export interface PopupProps extends CommonProps {
 
   /** Content */
   children?: React.ReactNode;
+<<<<<<< HEAD
+=======
+
+  /** Target that should be used when portaling popup.
+   * @note This is needed in rare cases when {@link Popup} is nested inside the {@link https://itwinui.bentley.com/docs/popover iTwinUI Popover}.
+   */
+  portalTarget?: HTMLElement;
+>>>>>>> a6c9cce62 (Fix element stacking (#917))
 }
 
-/** @internal */
 interface PopupState {
   isOpen: boolean;
   top: number;
@@ -98,13 +111,19 @@ interface PopupState {
   position: RelativePosition;
   parentDocument: Document;
   animationEnded: boolean;
+  portalContainer?: HTMLElement;
 }
 
 /** Popup React component displays a popup relative to an optional target element.
+ * @note Avoid nesting {@link Popup} and {@link https://itwinui.bentley.com/docs/popover iTwinUI Popover} components.
  * @public
  */
 export class Popup extends React.Component<PopupProps, PopupState> {
   private _popup: HTMLElement | null = null;
+  /** @internal */
+  public static override contextType = PopupContext;
+  /** @internal */
+  public declare context: React.ContextType<typeof PopupContext>;
 
   constructor(props: PopupProps) {
     super(props);
@@ -588,6 +607,10 @@ export class Popup extends React.Component<PopupProps, PopupState> {
     }
   };
 
+  private _handleThemeProviderRef = (el: HTMLDivElement | null) => {
+    this.setState({ portalContainer: el ?? undefined });
+  };
+
   public override render() {
     const animate =
       this.props.animate !== undefined ? this.props.animate : true;
@@ -630,20 +653,30 @@ export class Popup extends React.Component<PopupProps, PopupState> {
         aria-label={this.props.ariaLabel}
         onAnimationEnd={this._handleAnimationEnd}
       >
-        <FocusTrap
-          active={!!this.props.moveFocus}
-          initialFocusElement={this.props.focusTarget}
-          returnFocusOnDeactivate={true}
+        <ThemeProvider
+          ref={this._handleThemeProviderRef}
+          portalContainer={this.state.portalContainer}
         >
-          {this.props.children}
-        </FocusTrap>
+          <FocusTrap
+            active={!!this.props.moveFocus}
+            initialFocusElement={this.props.focusTarget}
+            returnFocusOnDeactivate={true}
+          >
+            {this.props.children}
+          </FocusTrap>
+        </ThemeProvider>
       </div>,
       this.getContainer()
     );
   }
 
-  private getContainer() {
+  private getContainer(): Element {
     return (
+<<<<<<< HEAD
+=======
+      this.props.portalTarget ??
+      this.context ??
+>>>>>>> a6c9cce62 (Fix element stacking (#917))
       this.state.parentDocument.body.querySelector(
         '[data-root-container="appui-root-id"]'
       ) ?? this.state.parentDocument.body

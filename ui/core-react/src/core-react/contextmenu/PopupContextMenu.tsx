@@ -6,6 +6,7 @@
  * @module ContextMenu
  */
 
+import "./PopupContextMenu.scss";
 import * as React from "react";
 import { Popup } from "../popup/Popup";
 import { ContextMenu } from "./ContextMenu";
@@ -87,6 +88,7 @@ export function PopupContextMenu(props: PopupContextMenuProps) {
       style={{ ...style, border: "none" }}
     >
       <ContextMenu
+        className="core-contextMenu-popupContextMenu_menu"
         opened={true}
         onSelect={onSelect}
         onEsc={onEsc}

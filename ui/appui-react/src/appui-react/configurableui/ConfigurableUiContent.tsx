@@ -52,12 +52,19 @@ export const WrapperContext = React.createContext<HTMLElement>(document.body);
  * @public
  */
 export function ConfigurableUiContent(props: ConfigurableUiContentProps) {
+<<<<<<< HEAD
   const [mainElement, setMainElement] = React.useState<HTMLElement | null>(
     null
   );
   const [portalContainer, setPortalContainer] = React.useState<
     HTMLElement | undefined
   >();
+=======
+  useWidgetOpacity(props.widgetOpacity);
+  useToolbarOpacity(props.toolbarOpacity);
+  const [mainElement, setMainElement] = React.useState<HTMLElement>();
+  const [portalContainer, setPortalContainer] = React.useState<HTMLElement>();
+>>>>>>> a6c9cce62 (Fix element stacking (#917))
   React.useEffect(() => {
     UiFramework.keyboardShortcuts.setFocusToHome();
   }, []);
@@ -86,6 +93,7 @@ export function ConfigurableUiContent(props: ConfigurableUiContentProps) {
       onMouseMove={handleMouseMove}
       ref={setMainElement}
     >
+<<<<<<< HEAD
       <WrapperContext.Provider value={mainElement!}>
         <ThemeProvider
           style={{ height: "100%" }}
@@ -111,5 +119,44 @@ export function ConfigurableUiContent(props: ConfigurableUiContentProps) {
         ref={(instance) => setPortalContainer(instance ?? undefined)}
       />
     </main>
+=======
+      <main
+        role="main"
+        id="uifw-configurableui-wrapper"
+        className={props.className}
+        style={props.style}
+        onMouseMove={handleMouseMove}
+        ref={(el) => setMainElement(el ?? undefined)}
+      >
+        <WrapperContext.Provider value={mainElement ?? document.body}>
+          <ThemeProvider
+            style={{ height: "100%" }}
+            portalContainer={portalContainer}
+          >
+            {props.appBackstage}
+            <WidgetPanelsFrontstage />
+
+            <ElementTooltip />
+            <PointerMessage />
+            {/* eslint-disable-next-line deprecation/deprecation */}
+            <KeyboardShortcutMenu />
+            <InputFieldMessage />
+            <CursorPopupMenu />
+            <CursorPopupRenderer />
+            <PopupRenderer />
+            <MessageRenderer />
+            <div
+              className="uifw-configurableui-portalContainer"
+              ref={(instance) => setPortalContainer(instance ?? undefined)}
+            >
+              <ContentDialogRenderer />
+              <ModelessDialogRenderer />
+              <ModalDialogRenderer />
+            </div>
+          </ThemeProvider>
+        </WrapperContext.Provider>
+      </main>
+    </ConfigurableUiContext.Provider>
+>>>>>>> a6c9cce62 (Fix element stacking (#917))
   );
 }

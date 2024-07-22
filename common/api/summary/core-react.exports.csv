@@ -196,6 +196,11 @@ public;OutsideClickEvent = PointerEvent | MouseEvent | TouchEvent
 internal;percentInRange(percent: number): number
 internal;Point 
 public;Popup 
+<<<<<<< HEAD
+=======
+deprecated;Popup 
+internal;PopupContext: React_2.Context
+>>>>>>> a6c9cce62 (Fix element stacking (#917))
 public;PopupContextMenu(props: PopupContextMenuProps): React_2.JSX.Element
 public;PopupContextMenuProps 
 public;PopupProps 

@@ -1,0 +1,8 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+.core-contextMenu-popupContextMenu_menu {
+  // Fix an issue where iTwinUI Popover i.e. <Select /> is rendered below ContextMenu.
+  z-index: initial;
+}
