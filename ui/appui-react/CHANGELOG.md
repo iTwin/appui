@@ -1,6 +1,15 @@
 # Change Log - @itwin/appui-react
 
-This log was last generated on Tue, 11 Jun 2024 15:58:29 GMT and should not be manually modified.
+This log was last generated on Mon, 22 Jul 2024 21:23:09 GMT and should not be manually modified.
+
+## 4.14.2
+Mon, 22 Jul 2024 21:23:09 GMT
+
+### Updates
+
+- Fix an issue where Popup is rendered outside of a StatusBarPopover.
+- Fix an issue where widget is rendered above the dialog backdrop.
+- Fixed popout widget changing position on a secondary montitor.
 
 ## 4.14.1
 Tue, 11 Jun 2024 15:58:29 GMT
