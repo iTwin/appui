@@ -9,7 +9,10 @@
 import "./VirtualizedPropertyGrid.scss";
 import classnames from "classnames";
 import * as React from "react";
-import type { ListChildComponentProps } from "react-window";
+import type {
+  ListChildComponentProps,
+  VariableSizeListProps,
+} from "react-window";
 import { areEqual, VariableSizeList } from "react-window";
 import type { PropertyRecord } from "@itwin/appui-abstract";
 import { assert } from "@itwin/core-bentley";
@@ -417,32 +420,18 @@ export class VirtualizedPropertyGrid extends React.Component<
 
               return (
                 <PropertyGridInternalContextProvider value={renderContext}>
-                  <div
-                    className={classnames(
-                      "components-virtualized-property-grid",
-                      "components-smallEditor-host"
-                    )}
-                  >
-                    <VariableSizeList
-                      className={classnames(
-                        "components-property-grid-wrapper",
-                        "ReactWindow__VariableSizeList",
-                        this.props.className
-                      )}
-                      width={this.props.width}
-                      height={this.props.height}
-                      itemCount={this.state.gridItems.length}
-                      itemSize={this._calculateNodeHeightByIndex}
-                      estimatedItemSize={this.calculateEstimatedHeight()}
-                      overscanCount={10}
-                      layout="vertical"
-                      style={this.props.style}
-                      itemKey={this._getNodeKey}
-                      ref={this._listRef}
-                    >
-                      {FlatGridItemNode}
-                    </VariableSizeList>
-                  </div>
+                  <VirtualizedPropertyGridInternal
+                    width={this.props.width}
+                    height={this.props.height}
+                    itemCount={this.state.gridItems.length}
+                    itemSize={this._calculateNodeHeightByIndex}
+                    estimatedItemSize={this.calculateEstimatedHeight()}
+                    overscanCount={10}
+                    layout="vertical"
+                    style={this.props.style}
+                    itemKey={this._getNodeKey}
+                    ref={this._listRef}
+                  />
                 </PropertyGridInternalContextProvider>
               );
             }}
@@ -452,6 +441,42 @@ export class VirtualizedPropertyGrid extends React.Component<
     );
   }
 }
+
+const VirtualizedPropertyGridInternal = React.forwardRef(
+  function VirtualizedPropertyGridInternal(
+    props: Omit<VariableSizeListProps, "children">,
+    ref: React.ForwardedRef<VariableSizeList>
+  ) {
+    const { gridContext } = usePropertyGridInternalContext(FlatGridItemNode);
+
+    React.useEffect(() => {
+      return gridContext.dataProvider.onDataChanged.addListener(() => {
+        gridContext.onEditCancel?.();
+      });
+    }, [gridContext]);
+
+    return (
+      <div
+        className={classnames(
+          "components-virtualized-property-grid",
+          "components-smallEditor-host"
+        )}
+      >
+        <VariableSizeList
+          {...props}
+          className={classnames(
+            "components-property-grid-wrapper",
+            "ReactWindow__VariableSizeList",
+            props.className
+          )}
+          ref={ref}
+        >
+          {FlatGridItemNode}
+        </VariableSizeList>
+      </div>
+    );
+  }
+);
 
 /**
  * Returns callbacks for persisting and restoring [[VirtualizedPropertyGrid]] layout state.
