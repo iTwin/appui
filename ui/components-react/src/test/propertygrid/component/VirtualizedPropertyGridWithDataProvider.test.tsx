@@ -1185,12 +1185,10 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
     });
 
     it("closes editor on data change", async () => {
-      const spy = vi.fn();
       const { container } = render(
         <VirtualizedPropertyGridWithDataProvider
           {...defaultProps}
           isPropertyEditingEnabled={true}
-          onPropertyUpdated={spy}
         />
       );
 

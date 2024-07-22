@@ -511,10 +511,6 @@ const FlatGridItemNode = React.memo(
       [onItemHeightChanged, index, node.key]
     );
 
-    gridContext.dataProvider.onDataChanged.addListener(() => {
-      gridContext.onEditCancel?.();
-    });
-
     const minHeight = React.useMemo(() => {
       if (node.type === FlatGridItemType.Category)
         return CATEGORY_HEADER_HEIGHT;
