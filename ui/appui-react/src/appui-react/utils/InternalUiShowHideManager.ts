@@ -131,7 +131,12 @@ export class InternalUiShowHideManager {
   }
 
   public static set autoHideUi(autoHide: boolean) {
+    if (this._autoHideUi === autoHide) return;
+
     void UiShowHideSettingsProvider.storeAutoHideUi(autoHide);
+    if (!autoHide) {
+      this.isUiVisible = true;
+    }
     this._autoHideUi = autoHide;
     SyncUiEventDispatcher.dispatchImmediateSyncUiEvent(
       SyncUiEventId.ShowHideManagerSettingChange
@@ -144,7 +149,7 @@ export class InternalUiShowHideManager {
   public static set showHidePanels(showHide: boolean) {
     InternalUiShowHideManager._showHidePanels = showHide;
     UiFramework.onUiVisibilityChanged.emit({
-      visible: UiFramework.getIsUiVisible(),
+      visible: this.isUiVisible,
     });
   }
 
@@ -155,7 +160,7 @@ export class InternalUiShowHideManager {
   public static set showHideFooter(showHide: boolean) {
     InternalUiShowHideManager._showHideFooter = showHide;
     UiFramework.onUiVisibilityChanged.emit({
-      visible: UiFramework.getIsUiVisible(),
+      visible: this.isUiVisible,
     });
   }
 
@@ -178,7 +183,7 @@ export class InternalUiShowHideManager {
       SyncUiEventId.ShowHideManagerSettingChange
     );
     UiFramework.onUiVisibilityChanged.emit({
-      visible: UiFramework.getIsUiVisible(),
+      visible: this.isUiVisible,
     });
   }
 
@@ -193,7 +198,7 @@ export class InternalUiShowHideManager {
       SyncUiEventId.ShowHideManagerSettingChange
     );
     UiFramework.onUiVisibilityChanged.emit({
-      visible: UiFramework.getIsUiVisible(),
+      visible: this.isUiVisible,
     });
   }
 
