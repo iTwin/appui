@@ -132,7 +132,7 @@ export class InternalUiShowHideManager {
 
   public static set autoHideUi(autoHide: boolean) {
     void UiShowHideSettingsProvider.storeAutoHideUi(autoHide);
-    InternalUiShowHideManager._autoHideUi = autoHide;
+    this._autoHideUi = autoHide;
     SyncUiEventDispatcher.dispatchImmediateSyncUiEvent(
       SyncUiEventId.ShowHideManagerSettingChange
     );
@@ -199,8 +199,6 @@ export class InternalUiShowHideManager {
 
   /** Handler for when a Frontstage is ready */
   public static handleFrontstageReady() {
-    if (!InternalUiShowHideManager._autoHideUi) return;
-
     InternalUiShowHideManager.showUiAndResetTimer();
   }
 
@@ -208,8 +206,6 @@ export class InternalUiShowHideManager {
   public static handleContentMouseMove(
     _event?: React.MouseEvent<HTMLElement, MouseEvent>
   ) {
-    if (!InternalUiShowHideManager._autoHideUi) return;
-
     InternalUiShowHideManager.showUiAndResetTimer();
   }
 
@@ -217,28 +213,24 @@ export class InternalUiShowHideManager {
   public static handleWidgetMouseEnter(
     _event?: React.MouseEvent<HTMLElement, MouseEvent>
   ) {
-    if (!InternalUiShowHideManager._autoHideUi) return;
-
     InternalUiShowHideManager.showUiAndCancelTimer();
   }
 
   /** Shows the Ui and resets the inactivity timer */
   public static showUiAndResetTimer() {
     this.isUiVisible = true;
-    InternalUiShowHideManager.resetTimer();
+
+    window.clearTimeout(this._timeout);
+    if (!this._autoHideUi) return;
+    this._timeout = window.setTimeout(() => {
+      this.isUiVisible = false;
+    }, this._inactivityTime);
   }
 
   /** Shows the Ui and cancels the inactivity timer */
   public static showUiAndCancelTimer() {
     this.isUiVisible = true;
     window.clearTimeout(this._timeout);
-  }
-
-  private static resetTimer() {
-    window.clearTimeout(this._timeout);
-    InternalUiShowHideManager._timeout = window.setTimeout(() => {
-      this.isUiVisible = false;
-    }, InternalUiShowHideManager._inactivityTime);
   }
 
   public static terminate() {
