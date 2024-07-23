@@ -224,38 +224,25 @@ export class InternalUiShowHideManager {
 
   /** Shows the Ui and resets the inactivity timer */
   public static showUiAndResetTimer() {
-    InternalUiShowHideManager.showUi();
+    this.isUiVisible = true;
     InternalUiShowHideManager.resetTimer();
   }
 
   /** Shows the Ui and cancels the inactivity timer */
   public static showUiAndCancelTimer() {
-    InternalUiShowHideManager.showUi();
-    InternalUiShowHideManager.cancelTimer();
-  }
-
-  private static cancelTimer() {
-    window.clearTimeout(InternalUiShowHideManager._timeout);
+    this.isUiVisible = true;
+    window.clearTimeout(this._timeout);
   }
 
   private static resetTimer() {
-    InternalUiShowHideManager.cancelTimer();
-    InternalUiShowHideManager._timeout = window.setTimeout(
-      InternalUiShowHideManager.hideUi,
-      InternalUiShowHideManager._inactivityTime
-    );
-  }
-
-  private static showUi() {
-    UiFramework.setIsUiVisible(true);
-  }
-
-  private static hideUi() {
-    UiFramework.setIsUiVisible(false);
+    window.clearTimeout(this._timeout);
+    InternalUiShowHideManager._timeout = window.setTimeout(() => {
+      this.isUiVisible = false;
+    }, InternalUiShowHideManager._inactivityTime);
   }
 
   public static terminate() {
-    this.cancelTimer();
+    window.clearTimeout(this._timeout);
     this._isUiVisible = true;
     this._autoHideUi = true;
     this._showHidePanels = false;
