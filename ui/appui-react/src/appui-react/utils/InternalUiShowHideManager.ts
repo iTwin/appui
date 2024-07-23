@@ -98,7 +98,6 @@ export class InternalUiShowHideManager {
   private static _showHideFooter: boolean = false;
   private static _inactivityTime: number = INACTIVITY_TIME_DEFAULT;
   private static _timeout: number;
-  private static _showUiTimeout: number | undefined;
   private static _useProximityOpacity: boolean = false;
   private static _snapWidgetOpacity: boolean = false;
 
@@ -225,20 +224,14 @@ export class InternalUiShowHideManager {
 
   /** Shows the Ui and resets the inactivity timer */
   public static showUiAndResetTimer() {
-    window.clearTimeout(this._showUiTimeout);
-    this._showUiTimeout = window.setTimeout(() => {
-      InternalUiShowHideManager.showUi();
-      InternalUiShowHideManager.resetTimer();
-    });
+    InternalUiShowHideManager.showUi();
+    InternalUiShowHideManager.resetTimer();
   }
 
   /** Shows the Ui and cancels the inactivity timer */
   public static showUiAndCancelTimer() {
-    window.clearTimeout(this._showUiTimeout);
-    this._showUiTimeout = window.setTimeout(() => {
-      InternalUiShowHideManager.showUi();
-      InternalUiShowHideManager.cancelTimer();
-    });
+    InternalUiShowHideManager.showUi();
+    InternalUiShowHideManager.cancelTimer();
   }
 
   private static cancelTimer() {
@@ -263,8 +256,6 @@ export class InternalUiShowHideManager {
 
   public static terminate() {
     this.cancelTimer();
-    window.clearTimeout(this._showUiTimeout);
-    this._showUiTimeout = undefined;
     this._isUiVisible = true;
     this._autoHideUi = true;
     this._showHidePanels = false;
