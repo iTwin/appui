@@ -7,6 +7,7 @@ import * as React from "react";
 import { Key } from "ts-key-enum";
 import { EditorContainer } from "../../components-react/editors/EditorContainer";
 import TestUtils, { childStructure, userEvent } from "../TestUtils";
+import type { PropertyRecord } from "@itwin/appui-abstract";
 import { StandardEditorNames } from "@itwin/appui-abstract";
 import { fireEvent, render, screen } from "@testing-library/react";
 
@@ -35,7 +36,35 @@ describe("<EditorContainer />", () => {
     );
   });
 
-  it("calls onCommit for Enter", async () => {
+  it("calls onCommit for Enter when string value changed", async () => {
+    const propertyRecord = TestUtils.createPrimitiveStringProperty(
+      "Test1",
+      "my value"
+    );
+    const spyOnCommit = vi.fn();
+    const wrapper = render(
+      <EditorContainer
+        propertyRecord={propertyRecord}
+        title="abc"
+        onCommit={spyOnCommit}
+        onCancel={() => {}}
+      />
+    );
+
+    const inputNode = wrapper.container.querySelector("input") as HTMLElement;
+    expect(inputNode).toBeTruthy();
+
+    await userEvent.type(inputNode, "Test2");
+
+    await theUserTo.type(
+      screen.getByTestId("components-text-editor"),
+      "{Enter}"
+    );
+
+    expect(spyOnCommit).toHaveBeenCalledOnce();
+  });
+
+  it("does not call onCommit for Enter when string value not changed", async () => {
     const propertyRecord = TestUtils.createPrimitiveStringProperty(
       "Test1",
       "my value"
@@ -55,7 +84,60 @@ describe("<EditorContainer />", () => {
       "{Enter}"
     );
 
+    expect(spyOnCommit).not.toHaveBeenCalled();
+  });
+
+  it("calls onCommit for Enter when numerical value changed", async () => {
+    const propertyRecord = TestUtils.createNumericProperty(
+      "Test1",
+      1,
+      "Editor"
+    );
+    const spyOnCommit = vi.fn();
+    const wrapper = render(
+      <EditorContainer
+        propertyRecord={propertyRecord}
+        title="abc"
+        onCommit={spyOnCommit}
+        onCancel={() => {}}
+      />
+    );
+
+    const inputNode = wrapper.container.querySelector("input") as HTMLElement;
+    expect(inputNode).toBeTruthy();
+
+    await userEvent.type(inputNode, "2");
+
+    await theUserTo.type(
+      screen.getByTestId("components-text-editor"),
+      "{Enter}"
+    );
+
     expect(spyOnCommit).toHaveBeenCalledOnce();
+  });
+
+  it("does not call onCommit for Enter when numerical value not changed", async () => {
+    const propertyRecord = TestUtils.createNumericProperty(
+      "Test1",
+      1,
+      "Editor"
+    );
+    const spyOnCommit = vi.fn();
+    render(
+      <EditorContainer
+        propertyRecord={propertyRecord}
+        title="abc"
+        onCommit={spyOnCommit}
+        onCancel={() => {}}
+      />
+    );
+
+    await theUserTo.type(
+      screen.getByTestId("components-text-editor"),
+      "{Enter}"
+    );
+
+    expect(spyOnCommit).not.toHaveBeenCalled();
   });
 
   it("calls onCancel for Escape", async () => {
@@ -64,11 +146,12 @@ describe("<EditorContainer />", () => {
       "my value"
     );
     const spyOnCancel = vi.fn();
+    const spyOnCommit = vi.fn();
     render(
       <EditorContainer
         propertyRecord={propertyRecord}
         title="abc"
-        onCommit={() => {}}
+        onCommit={spyOnCommit}
         onCancel={spyOnCancel}
       />
     );
@@ -79,6 +162,7 @@ describe("<EditorContainer />", () => {
     );
 
     expect(spyOnCancel).toHaveBeenCalledOnce();
+    expect(spyOnCommit).not.toHaveBeenCalled();
   });
 
   it("calls onCancel for Cancel button in popup", async () => {
@@ -110,7 +194,7 @@ describe("<EditorContainer />", () => {
       "my value"
     );
     const spyOnCommit = vi.fn();
-    render(
+    const wrapper = render(
       <EditorContainer
         propertyRecord={propertyRecord}
         title="abc"
@@ -119,6 +203,11 @@ describe("<EditorContainer />", () => {
         ignoreEditorBlur={true}
       />
     );
+
+    const inputNode = wrapper.container.querySelector("input") as HTMLElement;
+    expect(inputNode).toBeTruthy();
+
+    await userEvent.type(inputNode, "Test2");
 
     await theUserTo.type(
       screen.getByTestId("components-text-editor"),

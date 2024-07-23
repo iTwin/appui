@@ -188,6 +188,7 @@ Table of contents:
 
 - Property grid array items' description will be shown next to the index when the items are non-primitive. [#890](https://github.com/iTwin/appui/pull/890)
 - Updated `VirtualizedPropertyGrid` to automatically close property editors when data changes. [#920](https://github.com/iTwin/appui/pull/920)
+- Updated `EditorContainer` to not commit value when `Escape` is pressed or value was not changed. []()
 
 ### Fixes
 
