@@ -107,7 +107,9 @@ export class InternalUiShowHideManager {
     return InternalUiShowHideManager._isUiVisible;
   }
   public static set isUiVisible(visible: boolean) {
+    if (this._isUiVisible === visible) return;
     InternalUiShowHideManager._isUiVisible = visible;
+    UiFramework.onUiVisibilityChanged.emit({ visible });
   }
 
   public static setAutoHideUi(value: boolean) {
