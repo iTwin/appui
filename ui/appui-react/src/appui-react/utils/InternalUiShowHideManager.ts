@@ -110,17 +110,14 @@ export class InternalUiShowHideManager {
     InternalUiShowHideManager._isUiVisible = visible;
   }
 
-  /** @public */
   public static setAutoHideUi(value: boolean) {
     InternalUiShowHideManager._autoHideUi = value;
   }
 
-  /** @internal */
   public static setUseProximityOpacity(value: boolean) {
     InternalUiShowHideManager._useProximityOpacity = value;
   }
 
-  /** @internal */
   public static setSnapWidgetOpacity(value: boolean) {
     InternalUiShowHideManager._snapWidgetOpacity = value;
   }
@@ -262,7 +259,6 @@ export class InternalUiShowHideManager {
     UiFramework.setIsUiVisible(false);
   }
 
-  /** @internal */
   public static terminate() {
     this.cancelTimer();
     window.clearTimeout(this._showUiTimeout);
