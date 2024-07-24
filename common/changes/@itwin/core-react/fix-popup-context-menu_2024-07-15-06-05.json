@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/core-react",
+      "comment": "Fix `PopupContextMenu` to work in `StatusBarPopover`.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/core-react"
+}

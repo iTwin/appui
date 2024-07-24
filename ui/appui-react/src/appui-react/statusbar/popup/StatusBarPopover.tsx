@@ -9,7 +9,7 @@
 import * as React from "react";
 import { Popover } from "@itwin/itwinui-react";
 import { ButtonExpandIndicator } from "./ExpandIndicator";
-import type { CommonProps } from "@itwin/core-react";
+import { type CommonProps, PopupContext } from "@itwin/core-react";
 
 // eslint-disable-next-line deprecation/deprecation
 type StatusBarPopoverProps = CommonProps &
@@ -27,14 +27,25 @@ type StatusBarPopoverProps = CommonProps &
  * @note Add the `StatusBarPopover.ExpandIndicator` to popover trigger buttons.
  * @public
  */
-export function StatusBarPopover(props: StatusBarPopoverProps) {
+export function StatusBarPopover({ content, ...props }: StatusBarPopoverProps) {
+  const [portalTarget, setPortalTarget] = React.useState<
+    HTMLElement | undefined
+  >(undefined);
   return (
     <Popover
       {...props}
+      content={
+        <PopupContext.Provider value={portalTarget}>
+          {content}
+        </PopupContext.Provider>
+      }
       placement="top"
       applyBackground
       middleware={{
         offset: 4,
+      }}
+      ref={(el) => {
+        setPortalTarget(el ?? undefined);
       }}
     />
   );

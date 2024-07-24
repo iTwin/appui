@@ -664,7 +664,7 @@ deprecated;StatusBarLabelIndicatorProps
 public;StatusBarLabelItem 
 public;StatusBarLabelSide
 public;StatusBarLeftSection(props: CommonDivProps): React_2.JSX.Element
-public;StatusBarPopover(props: StatusBarPopoverProps): React_2.JSX.Element
+public;StatusBarPopover({ content, ...props }: StatusBarPopoverProps): React_2.JSX.Element
 public;StatusBarPopover
 public;StatusBarProps 
 deprecated;StatusBarProps 

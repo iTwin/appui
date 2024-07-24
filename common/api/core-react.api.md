@@ -1179,11 +1179,18 @@ export class Popup extends React_2.Component<PopupProps, PopupState> {
     prevState: PopupState): void;
     // (undocumented)
     componentWillUnmount(): void;
+    // @internal (undocumented)
+    context: React_2.ContextType<typeof PopupContext>;
+    // @internal (undocumented)
+    static contextType: React_2.Context<HTMLElement | undefined>;
     // (undocumented)
     static defaultProps: Partial<PopupProps>;
     // (undocumented)
     render(): React_2.ReactPortal | null;
 }
+
+// @internal (undocumented)
+export const PopupContext: React_2.Context<HTMLElement | undefined>;
 
 // @public @deprecated
 export function PopupContextMenu(props: PopupContextMenuProps): React_2.JSX.Element;

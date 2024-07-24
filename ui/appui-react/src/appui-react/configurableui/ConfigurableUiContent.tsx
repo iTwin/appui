@@ -89,12 +89,8 @@ export const WrapperContext = React.createContext<HTMLElement>(document.body);
 export function ConfigurableUiContent(props: ConfigurableUiContentProps) {
   useWidgetOpacity(props.widgetOpacity);
   useToolbarOpacity(props.toolbarOpacity);
-  const [mainElement, setMainElement] = React.useState<HTMLElement | null>(
-    null
-  );
-  const [portalContainer, setPortalContainer] = React.useState<
-    HTMLElement | undefined
-  >();
+  const [mainElement, setMainElement] = React.useState<HTMLElement>();
+  const [portalContainer, setPortalContainer] = React.useState<HTMLElement>();
   React.useEffect(() => {
     UiFramework.keyboardShortcuts.setFocusToHome();
   }, []);
@@ -132,18 +128,16 @@ export function ConfigurableUiContent(props: ConfigurableUiContentProps) {
         className={props.className}
         style={props.style}
         onMouseMove={handleMouseMove}
-        ref={setMainElement}
+        ref={(el) => setMainElement(el ?? undefined)}
       >
-        <WrapperContext.Provider value={mainElement!}>
+        <WrapperContext.Provider value={mainElement ?? document.body}>
           <ThemeProvider
             style={{ height: "100%" }}
             portalContainer={portalContainer}
           >
             {props.appBackstage}
             <WidgetPanelsFrontstage />
-            <ContentDialogRenderer />
-            <ModelessDialogRenderer />
-            <ModalDialogRenderer />
+
             <ElementTooltip />
             <PointerMessage />
             {/* eslint-disable-next-line deprecation/deprecation */}
@@ -154,12 +148,16 @@ export function ConfigurableUiContent(props: ConfigurableUiContentProps) {
             <CursorPopupRenderer />
             <PopupRenderer />
             <MessageRenderer />
+            <div
+              className="uifw-configurableui-portalContainer"
+              ref={(instance) => setPortalContainer(instance ?? undefined)}
+            >
+              <ContentDialogRenderer />
+              <ModelessDialogRenderer />
+              <ModalDialogRenderer />
+            </div>
           </ThemeProvider>
         </WrapperContext.Provider>
-        <div
-          className="uifw-configurableui-portalContainer"
-          ref={(instance) => setPortalContainer(instance ?? undefined)}
-        />
       </main>
     </ConfigurableUiContext.Provider>
   );

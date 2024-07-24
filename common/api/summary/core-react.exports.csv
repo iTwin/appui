@@ -250,6 +250,7 @@ internal;percentInRange(percent: number): number
 internal;Point 
 public;Popup 
 deprecated;Popup 
+internal;PopupContext: React_2.Context
 public;PopupContextMenu(props: PopupContextMenuProps): React_2.JSX.Element
 deprecated;PopupContextMenu(props: PopupContextMenuProps): React_2.JSX.Element
 public;PopupContextMenuProps 

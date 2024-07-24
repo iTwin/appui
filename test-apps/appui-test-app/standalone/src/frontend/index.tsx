@@ -37,6 +37,7 @@ import {
   SafeAreaContext,
   SafeAreaInsets,
   SessionStateActionId,
+  StageUsage,
   StandardContentToolsUiItemsProvider,
   StateManager,
   StatusBarItemUtilities,
@@ -117,6 +118,10 @@ import {
   registerViewportFrontstage,
   viewportUiItemsProvider,
 } from "./appui/frontstages/ViewportFrontstage";
+import {
+  createElementStackingFrontstage,
+  createElementStackingProvider,
+} from "./appui/frontstages/ElementStacking";
 
 // Initialize my application gateway configuration for the frontend
 RpcConfiguration.developmentMode = true;
@@ -357,19 +362,29 @@ export class SampleAppIModelApp {
         AppUiTestProviders.localizationNamespace
       )
     );
-    UiItemsManager.register(previewFeaturesToggleProvider);
-    UiItemsManager.register(new CustomStageUiItemsProvider());
-    UiItemsManager.register({
-      id: "language",
-      getStatusBarItems: () => [
-        StatusBarItemUtilities.createCustomItem({
-          id: "language",
-          section: StatusBarSection.Right,
-          content: <AppLanguageSelect />,
-        }),
-      ],
+    UiItemsManager.register(previewFeaturesToggleProvider, {
+      stageUsages: [StageUsage.General],
     });
+    UiItemsManager.register(new CustomStageUiItemsProvider());
+    UiItemsManager.register(
+      {
+        id: "language",
+        getStatusBarItems: () => [
+          StatusBarItemUtilities.createCustomItem({
+            id: "language",
+            section: StatusBarSection.Right,
+            content: <AppLanguageSelect />,
+          }),
+        ],
+      },
+      {
+        stageUsages: [StageUsage.General],
+      }
+    );
     UiItemsManager.register(viewportUiItemsProvider);
+    UiItemsManager.register(createElementStackingProvider(), {
+      stageUsages: ["development"],
+    });
 
     // Register frontstages
     CustomContentFrontstage.register(AppUiTestProviders.localizationNamespace);
@@ -383,6 +398,7 @@ export class SampleAppIModelApp {
     PopoutWindowsFrontstage.register(AppUiTestProviders.localizationNamespace);
     MainFrontstage.register();
     registerViewportFrontstage();
+    UiFramework.frontstages.addFrontstage(createElementStackingFrontstage());
 
     if (ProcessDetector.isElectronAppFrontend) {
       await initializeEditor();
