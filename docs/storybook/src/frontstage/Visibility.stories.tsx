@@ -5,6 +5,7 @@
 import { action } from "@storybook/addon-actions";
 import type { Decorator, Meta, StoryObj } from "@storybook/react";
 import {
+  StagePanelState,
   ToolbarItemUtilities,
   ToolbarOrientation,
   ToolbarUsage,
@@ -13,7 +14,7 @@ import {
 } from "@itwin/appui-react";
 import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
 import { AppUiStory, Page } from "../AppUiStory";
-import { createWidget } from "../Utils";
+import { createFrontstage, createWidget } from "../Utils";
 
 function Component(
   _props: Pick<typeof UiFramework.visibility, "autoHideUi" | "inactivityTime">
@@ -31,6 +32,14 @@ const StoryDecorator: Decorator<React.ComponentProps<typeof Component>> = (
         UiFramework.visibility.autoHideUi = context.args.autoHideUi;
         UiFramework.visibility.inactivityTime = context.args.inactivityTime;
       }}
+      frontstages={[
+        createFrontstage({
+          leftPanelProps: {
+            pinned: true,
+            defaultState: StagePanelState.Open,
+          },
+        }),
+      ]}
       itemProviders={[
         {
           id: "p1",
