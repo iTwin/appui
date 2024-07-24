@@ -5,6 +5,7 @@
 @import "../variables";
 
 .uifw-position-popup {
+  z-index: 15000;
   border: {
     color: $uifw-popup-border-color;
     radius: $uifw-popup-border-radius;

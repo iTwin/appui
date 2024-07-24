@@ -257,6 +257,7 @@ export class CursorPopup extends React.Component<
 
     return (
       <div
+        data-testid={`cursorpopup-${this.props.id}`}
         className={classNames}
         ref={(e) => this.setDivRef(e)}
         style={positioningStyle}

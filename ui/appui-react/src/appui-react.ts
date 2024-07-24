@@ -9,6 +9,7 @@ import "./appui-react/layers.scss";
 export * from "./appui-react/UiFramework"; // Please ensure that this line comes before all other exports.
 
 export * from "./appui-react/accudraw/AccuDrawCommandItems";
+export * from "./appui-react/accudraw/AccuDrawCursorPopup";
 export * from "./appui-react/accudraw/AccuDrawDialog";
 export * from "./appui-react/accudraw/AccuDrawKeyboardShortcuts";
 export * from "./appui-react/accudraw/AccuDrawPopupManager";

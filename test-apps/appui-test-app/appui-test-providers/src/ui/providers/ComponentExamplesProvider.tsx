@@ -11,6 +11,7 @@ import {
   ComponentExampleProps,
 } from "../frontstages/ComponentExamples";
 import {
+  AccuDrawCursorPopup,
   AccuDrawDialog,
   AccuDrawWidget,
   BackstageAppButton,
@@ -356,6 +357,22 @@ export class ComponentExamplesProvider {
             }}
           >
             Open Accudraw Dialog
+          </Button>
+        ),
+        createComponentExample(
+          "AccuDraw Cursor Popup",
+          undefined,
+          <Button
+            onClick={() => {
+              if(CursorPopupManager.popups.some(popup => (popup.id === "accudrawCursorPopup"))){
+                AccuDrawCursorPopup.deactivate();
+              }
+              else{
+                AccuDrawCursorPopup.activate();
+              }
+            }}
+          >
+            Open/Close Accudraw Cursor Popup
           </Button>
         ),
         createComponentExample(
