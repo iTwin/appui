@@ -357,7 +357,6 @@ export class SampleAppIModelApp {
     UiFramework.registerUserSettingsProvider(new AppUiSettings(defaults));
 
     UiFramework.useDefaultPopoutUrl = true;
-    UiFramework.visibility.autoHideUi = false;
 
     // initialize state from all registered UserSettingsProviders
     await UiFramework.initializeStateFromUserSettingsProviders();

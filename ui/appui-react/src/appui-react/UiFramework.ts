@@ -658,10 +658,7 @@ export class UiFramework {
   }
 
   public static setIsUiVisible(visible: boolean) {
-    if (UiFramework.visibility.isUiVisible !== visible) {
-      UiFramework.visibility.isUiVisible = visible;
-      UiFramework.onUiVisibilityChanged.emit({ visible });
-    }
+    UiFramework.visibility.isUiVisible = visible;
   }
 
   /** @deprecated in 4.13.0. Use {@link @itwin/core-bentley#ProcessDetector.isMobileBrowser} instead. */
