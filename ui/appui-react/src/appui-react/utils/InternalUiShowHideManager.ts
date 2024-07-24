@@ -93,7 +93,7 @@ export const INACTIVITY_TIME_DEFAULT = 3500; /** Wait 3.5 seconds */
  */
 export class InternalUiShowHideManager {
   private static _isUiVisible: boolean = true;
-  private static _autoHideUi: boolean = true;
+  private static _autoHideUi: boolean = false;
   private static _showHidePanels: boolean = false;
   private static _showHideFooter: boolean = false;
   private static _inactivityTime: number = INACTIVITY_TIME_DEFAULT;
@@ -123,9 +123,6 @@ export class InternalUiShowHideManager {
     InternalUiShowHideManager._snapWidgetOpacity = value;
   }
 
-  /** Determines whether the `auto-hide Ui` feature is on. Defaults to false.
-   * When true, the Ui automatically hides after a few seconds of inactivity.
-   */
   public static get autoHideUi(): boolean {
     return InternalUiShowHideManager._autoHideUi;
   }
