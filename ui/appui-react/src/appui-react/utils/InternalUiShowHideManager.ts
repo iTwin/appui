@@ -93,7 +93,7 @@ export const INACTIVITY_TIME_DEFAULT = 3500; /** Wait 3.5 seconds */
  */
 export class InternalUiShowHideManager {
   private static _isUiVisible: boolean = true;
-  private static _autoHideUi: boolean = false;
+  private static _autoHideUi: boolean = true;
   private static _showHidePanels: boolean = false;
   private static _showHideFooter: boolean = false;
   private static _inactivityTime: number = INACTIVITY_TIME_DEFAULT;

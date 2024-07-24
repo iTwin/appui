@@ -13,7 +13,7 @@ export interface FrameworkVisibility {
   /** Determines if the Ui is visible */
   isUiVisible: boolean;
 
-  /** When true, the UI automatically hides after a specified period of inactivity, defined by {@link FrameworkVisibility.inactivityTime}. Defaults to `false`. */
+  /** When true, the UI automatically hides after a specified period of inactivity, defined by {@link FrameworkVisibility.inactivityTime}. Defaults to `true`. */
   autoHideUi: boolean;
 
   /** Determines whether the widget panels are shown and hidden. Defaults to false. */
