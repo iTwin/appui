@@ -98,7 +98,6 @@ export class InternalUiShowHideManager {
   private static _showHideFooter: boolean = false;
   private static _inactivityTime: number = INACTIVITY_TIME_DEFAULT;
   private static _timeout: number;
-  private static _showUiTimeout: number | undefined;
   private static _useProximityOpacity: boolean = false;
   private static _snapWidgetOpacity: boolean = false;
 
@@ -107,34 +106,35 @@ export class InternalUiShowHideManager {
     return InternalUiShowHideManager._isUiVisible;
   }
   public static set isUiVisible(visible: boolean) {
+    if (this._isUiVisible === visible) return;
     InternalUiShowHideManager._isUiVisible = visible;
+    UiFramework.onUiVisibilityChanged.emit({ visible });
   }
 
-  /** @public */
   public static setAutoHideUi(value: boolean) {
     InternalUiShowHideManager._autoHideUi = value;
   }
 
-  /** @internal */
   public static setUseProximityOpacity(value: boolean) {
     InternalUiShowHideManager._useProximityOpacity = value;
   }
 
-  /** @internal */
   public static setSnapWidgetOpacity(value: boolean) {
     InternalUiShowHideManager._snapWidgetOpacity = value;
   }
 
-  /** Determines whether the `auto-hide Ui` feature is on. Defaults to false.
-   * When true, the Ui automatically hides after a few seconds of inactivity.
-   */
   public static get autoHideUi(): boolean {
     return InternalUiShowHideManager._autoHideUi;
   }
 
   public static set autoHideUi(autoHide: boolean) {
+    if (this._autoHideUi === autoHide) return;
+
     void UiShowHideSettingsProvider.storeAutoHideUi(autoHide);
-    InternalUiShowHideManager._autoHideUi = autoHide;
+    if (!autoHide) {
+      this.isUiVisible = true;
+    }
+    this._autoHideUi = autoHide;
     SyncUiEventDispatcher.dispatchImmediateSyncUiEvent(
       SyncUiEventId.ShowHideManagerSettingChange
     );
@@ -146,7 +146,7 @@ export class InternalUiShowHideManager {
   public static set showHidePanels(showHide: boolean) {
     InternalUiShowHideManager._showHidePanels = showHide;
     UiFramework.onUiVisibilityChanged.emit({
-      visible: UiFramework.getIsUiVisible(),
+      visible: this.isUiVisible,
     });
   }
 
@@ -157,7 +157,7 @@ export class InternalUiShowHideManager {
   public static set showHideFooter(showHide: boolean) {
     InternalUiShowHideManager._showHideFooter = showHide;
     UiFramework.onUiVisibilityChanged.emit({
-      visible: UiFramework.getIsUiVisible(),
+      visible: this.isUiVisible,
     });
   }
 
@@ -180,7 +180,7 @@ export class InternalUiShowHideManager {
       SyncUiEventId.ShowHideManagerSettingChange
     );
     UiFramework.onUiVisibilityChanged.emit({
-      visible: UiFramework.getIsUiVisible(),
+      visible: this.isUiVisible,
     });
   }
 
@@ -195,14 +195,13 @@ export class InternalUiShowHideManager {
       SyncUiEventId.ShowHideManagerSettingChange
     );
     UiFramework.onUiVisibilityChanged.emit({
-      visible: UiFramework.getIsUiVisible(),
+      visible: this.isUiVisible,
     });
   }
 
   /** Handler for when a Frontstage is ready */
   public static handleFrontstageReady() {
     if (!InternalUiShowHideManager._autoHideUi) return;
-
     InternalUiShowHideManager.showUiAndResetTimer();
   }
 
@@ -211,7 +210,6 @@ export class InternalUiShowHideManager {
     _event?: React.MouseEvent<HTMLElement, MouseEvent>
   ) {
     if (!InternalUiShowHideManager._autoHideUi) return;
-
     InternalUiShowHideManager.showUiAndResetTimer();
   }
 
@@ -220,53 +218,28 @@ export class InternalUiShowHideManager {
     _event?: React.MouseEvent<HTMLElement, MouseEvent>
   ) {
     if (!InternalUiShowHideManager._autoHideUi) return;
-
     InternalUiShowHideManager.showUiAndCancelTimer();
   }
 
   /** Shows the Ui and resets the inactivity timer */
   public static showUiAndResetTimer() {
-    window.clearTimeout(this._showUiTimeout);
-    this._showUiTimeout = window.setTimeout(() => {
-      InternalUiShowHideManager.showUi();
-      InternalUiShowHideManager.resetTimer();
-    });
+    this.isUiVisible = true;
+
+    window.clearTimeout(this._timeout);
+    if (!this._autoHideUi) return;
+    this._timeout = window.setTimeout(() => {
+      this.isUiVisible = false;
+    }, this._inactivityTime);
   }
 
   /** Shows the Ui and cancels the inactivity timer */
   public static showUiAndCancelTimer() {
-    window.clearTimeout(this._showUiTimeout);
-    this._showUiTimeout = window.setTimeout(() => {
-      InternalUiShowHideManager.showUi();
-      InternalUiShowHideManager.cancelTimer();
-    });
+    this.isUiVisible = true;
+    window.clearTimeout(this._timeout);
   }
 
-  private static cancelTimer() {
-    window.clearTimeout(InternalUiShowHideManager._timeout);
-  }
-
-  private static resetTimer() {
-    InternalUiShowHideManager.cancelTimer();
-    InternalUiShowHideManager._timeout = window.setTimeout(
-      InternalUiShowHideManager.hideUi,
-      InternalUiShowHideManager._inactivityTime
-    );
-  }
-
-  private static showUi() {
-    UiFramework.setIsUiVisible(true);
-  }
-
-  private static hideUi() {
-    UiFramework.setIsUiVisible(false);
-  }
-
-  /** @internal */
   public static terminate() {
-    this.cancelTimer();
-    window.clearTimeout(this._showUiTimeout);
-    this._showUiTimeout = undefined;
+    window.clearTimeout(this._timeout);
     this._isUiVisible = true;
     this._autoHideUi = true;
     this._showHidePanels = false;
