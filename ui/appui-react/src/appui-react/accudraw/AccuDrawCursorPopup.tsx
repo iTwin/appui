@@ -16,6 +16,7 @@ import { CurrentState, IModelApp } from "@itwin/core-frontend";
 
 /**
  * Accudraw input fields that follows the cursor.
+ * @beta
  * @example
  *  // Show the accudraw popup at cursor.
  *  AccuDrawCursorPopup.activate();

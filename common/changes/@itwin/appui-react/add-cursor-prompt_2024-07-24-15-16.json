@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Added Accudraw input fields in a cursor popup. class AccudrawCursorPopup. Fixed popups z-index. ",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}

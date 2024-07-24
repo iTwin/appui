@@ -167,6 +167,7 @@ Table of contents:
 - Added replacement properties that allow specifying the badge type in components using string values from `BadgeKind`. [#899](https://github.com/iTwin/appui/pull/899)
   - `badgeKind` property in `CommonBackstageItem`, `CommonStatusBarItem`, `CommonToolbarItem`, `Widget`, `CursorMenuItemProps`, `FrameworkKeyboardShortcut`, `ItemDefBase`, `ItemProps`, `KeyboardShortcutProps`.
   - `badgeKind` getter in `WidgetDef`.
+- `AccuDrawCursorPopup`. Added the Accudraw input fields in a popup that follows the cursor. [#931](https://github.com/iTwin/appui/pull/931)
 
 ### Changes
 
@@ -177,6 +178,7 @@ Table of contents:
 
 - Fixed `AccuDrawInputField` to correctly specify keyboard event modifiers in `UiFramework.keyboardShortcuts.processKey()`. [#894](https://github.com/iTwin/appui/pull/894)
 - Fixes the unintentional "flying-in" of floating elements like Tooltips and ComboBox menus when the page first loads. [#905](https://github.com/iTwin/appui/pull/905)
+- Fixes `CursorPopup` `PositionPopup` that appeared below other elements. z-index fixed. [#931](https://github.com/iTwin/appui/pull/931)
 
 ## @itwin/components-react
 
