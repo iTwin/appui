@@ -201,6 +201,7 @@ export class InternalUiShowHideManager {
 
   /** Handler for when a Frontstage is ready */
   public static handleFrontstageReady() {
+    if (!InternalUiShowHideManager._autoHideUi) return;
     InternalUiShowHideManager.showUiAndResetTimer();
   }
 
@@ -208,6 +209,7 @@ export class InternalUiShowHideManager {
   public static handleContentMouseMove(
     _event?: React.MouseEvent<HTMLElement, MouseEvent>
   ) {
+    if (!InternalUiShowHideManager._autoHideUi) return;
     InternalUiShowHideManager.showUiAndResetTimer();
   }
 
@@ -215,6 +217,7 @@ export class InternalUiShowHideManager {
   public static handleWidgetMouseEnter(
     _event?: React.MouseEvent<HTMLElement, MouseEvent>
   ) {
+    if (!InternalUiShowHideManager._autoHideUi) return;
     InternalUiShowHideManager.showUiAndCancelTimer();
   }
 

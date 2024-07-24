@@ -52,6 +52,12 @@ describe("UiShowHideManager localStorage Wrapper", () => {
         expect(InternalUiShowHideManager.autoHideUi).toEqual(false);
       });
 
+      it("autoHideUi should reset `isUiVisible` when disabled", () => {
+        InternalUiShowHideManager.isUiVisible = false;
+        InternalUiShowHideManager.autoHideUi = false;
+        expect(InternalUiShowHideManager.isUiVisible).toEqual(true);
+      });
+
       it("showHidePanels should return default of false", () => {
         expect(InternalUiShowHideManager.showHidePanels).toEqual(false);
       });
@@ -139,6 +145,12 @@ describe("UiShowHideManager localStorage Wrapper", () => {
         InternalUiShowHideManager.inactivityTime = testValue;
         expect(InternalUiShowHideManager.inactivityTime).toEqual(testValue);
       });
+
+      it("inactivityTime should set & return correct value", () => {
+        const testValue = 10000;
+        InternalUiShowHideManager.inactivityTime = testValue;
+        expect(InternalUiShowHideManager.inactivityTime).toEqual(testValue);
+      });
     });
 
     describe("Frontstage Activate", () => {
@@ -207,9 +219,10 @@ describe("UiShowHideManager localStorage Wrapper", () => {
         expect(InternalUiShowHideManager.isUiVisible).toEqual(false);
       });
 
-      it("Mouse move in content view should do nothing if autoHideUi is off", async () => {
-        UiFramework.setIsUiVisible(false);
+      it("Mouse move in content view should do nothing if autoHideUi is off", () => {
         InternalUiShowHideManager.autoHideUi = false;
+
+        UiFramework.setIsUiVisible(false);
         expect(InternalUiShowHideManager.isUiVisible).toEqual(false);
 
         const component = render(
@@ -226,7 +239,6 @@ describe("UiShowHideManager localStorage Wrapper", () => {
           })
         );
 
-        await TestUtils.flushAsyncOperations();
         expect(InternalUiShowHideManager.isUiVisible).toEqual(false);
       });
     });
@@ -237,30 +249,19 @@ describe("UiShowHideManager localStorage Wrapper", () => {
         InternalUiShowHideManager.autoHideUi = true;
         expect(InternalUiShowHideManager.isUiVisible).toEqual(false);
 
-        // const component = render(<ContentLayout contentGroup={myContentGroup} contentLayout={myContentLayout} />);
-        // const container = component.getByTestId("single-content-container");
-        // container.dispatchEvent(new MouseEvent("mouseenter", { bubbles: true, cancelable: true, view: window }));
-
-        // TEMP
         InternalUiShowHideManager.handleWidgetMouseEnter();
 
         await TestUtils.flushAsyncOperations();
         expect(InternalUiShowHideManager.isUiVisible).toEqual(true);
       });
 
-      it("Mouse enter in widget should do nothing if autoHideUi is off", async () => {
-        UiFramework.setIsUiVisible(false);
+      it("Mouse enter in widget should do nothing if autoHideUi is off", () => {
         InternalUiShowHideManager.autoHideUi = false;
+
+        UiFramework.setIsUiVisible(false);
         expect(InternalUiShowHideManager.isUiVisible).toEqual(false);
 
-        // const component = render(<ContentLayout contentGroup={myContentGroup} contentLayout={myContentLayout} />);
-        // const container = component.getByTestId("single-content-container");
-        // container.dispatchEvent(new MouseEvent("mouseenter", { bubbles: true, cancelable: true, view: window }));
-
-        // TEMP
         InternalUiShowHideManager.handleWidgetMouseEnter();
-
-        await TestUtils.flushAsyncOperations();
         expect(InternalUiShowHideManager.isUiVisible).toEqual(false);
       });
     });
