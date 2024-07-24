@@ -2,6 +2,18 @@
   "name": "@itwin/appui-react",
   "entries": [
     {
+      "version": "4.15.5",
+      "tag": "@itwin/appui-react_v4.15.5",
+      "date": "Wed, 24 Jul 2024 16:09:26 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Fix `UiFramework.visibility.autoHideUi` to reset UI visibility."
+          }
+        ]
+      }
+    },
+    {
       "version": "4.15.4",
       "tag": "@itwin/appui-react_v4.15.4",
       "date": "Mon, 22 Jul 2024 21:27:52 GMT",
