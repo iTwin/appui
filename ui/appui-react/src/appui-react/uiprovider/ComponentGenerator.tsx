@@ -78,11 +78,13 @@ function PropertyEditor({
   initialItem,
   isLock,
   setFocus,
+  onCancel,
 }: {
   uiDataProvider: UiLayoutDataProvider;
   initialItem: BaseDialogItem;
   isLock?: boolean;
   setFocus?: boolean;
+  onCancel?: () => void;
 }) {
   const getLatestRecordValue = React.useCallback(() => {
     let newRecord = UiLayoutDataProvider.getPropertyRecord(initialItem);
@@ -188,7 +190,7 @@ function PropertyEditor({
         propertyRecord={propertyRecord}
         setFocus={setFocus}
         onCommit={handleCommit}
-        onCancel={handleCancel}
+        onCancel={onCancel ?? handleCancel}
       />
     </div>
   );
@@ -198,7 +200,10 @@ function PropertyEditor({
  * @internal
  */
 export class ComponentGenerator {
-  constructor(private _uiDataProvider: UiLayoutDataProvider) {}
+  constructor(
+    private _uiDataProvider: UiLayoutDataProvider,
+    private _onCancel?: () => void
+  ) {}
 
   public get uiDataProvider() {
     return this._uiDataProvider;
@@ -216,6 +221,7 @@ export class ComponentGenerator {
         initialItem={item}
         isLock={isLock}
         setFocus={setFocus}
+        onCancel={this._onCancel}
       />
     );
   }

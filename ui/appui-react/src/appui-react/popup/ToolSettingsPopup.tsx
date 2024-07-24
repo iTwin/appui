@@ -66,7 +66,10 @@ export class ToolSettingsPopup extends React.PureComponent<
   };
 
   public override render() {
-    const componentGenerator = new ComponentGenerator(this.props.dataProvider);
+    const componentGenerator = new ComponentGenerator(
+      this.props.dataProvider,
+      this.props.onCancel
+    );
     let point = PopupManager.getPopupPosition(
       this.props.el,
       this.props.pt,
