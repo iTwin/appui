@@ -46,11 +46,12 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
   ];
   let dataProvider: IPropertyDataProvider;
   let defaultProps: VirtualizedPropertyGridWithDataProviderProps;
+  let onDataChangedEvent: PropertyDataChangeEvent;
 
   beforeEach(() => {
-    const evt = new PropertyDataChangeEvent();
+    onDataChangedEvent = new PropertyDataChangeEvent();
     dataProvider = {
-      onDataChanged: evt,
+      onDataChanged: onDataChangedEvent,
       getData: async (): Promise<PropertyData> => ({
         label: PropertyRecord.fromString(faker.random.word()),
         description: faker.random.words(),
@@ -1181,6 +1182,41 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         container.querySelectorAll(".components-cell-editor").length,
         "Cell editor did not disappear after pressing Escape"
       ).toEqual(0);
+    });
+
+    it("closes editor on data change", async () => {
+      const { container } = render(
+        <VirtualizedPropertyGridWithDataProvider
+          {...defaultProps}
+          isPropertyEditingEnabled={true}
+        />
+      );
+
+      await waitFor(() =>
+        expect(
+          container.querySelectorAll(".components--clickable").length
+        ).to.be.greaterThan(0)
+      );
+
+      const clickableComponents = container.querySelectorAll(
+        ".components--clickable"
+      );
+      expect(clickableComponents.length).to.be.greaterThan(0);
+
+      fireEvent.click(clickableComponents[0]);
+
+      const cellEditors = container.querySelectorAll(
+        "input.components-cell-editor"
+      );
+      expect(cellEditors.length).toEqual(1);
+
+      onDataChangedEvent.raiseEvent();
+
+      await waitFor(
+        () =>
+          expect(container.querySelectorAll("input.components-cell-editor")).to
+            .be.empty
+      );
     });
   });
 

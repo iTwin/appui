@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Fix `UiFramework.visibility.autoHideUi` to reset UI visibility.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
