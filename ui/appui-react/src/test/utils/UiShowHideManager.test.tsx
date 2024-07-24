@@ -145,12 +145,6 @@ describe("UiShowHideManager localStorage Wrapper", () => {
         InternalUiShowHideManager.inactivityTime = testValue;
         expect(InternalUiShowHideManager.inactivityTime).toEqual(testValue);
       });
-
-      it("inactivityTime should set & return correct value", () => {
-        const testValue = 10000;
-        InternalUiShowHideManager.inactivityTime = testValue;
-        expect(InternalUiShowHideManager.inactivityTime).toEqual(testValue);
-      });
     });
 
     describe("Frontstage Activate", () => {
