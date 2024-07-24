@@ -131,7 +131,7 @@ describe("WidgetTab", () => {
         </ShowWidgetIconContext.Provider>
       </TestNineZoneProvider>
     );
-    component.getByText("test-icon");
+    component.getByText("t1 icon");
   });
 
   it("should render badge", () => {

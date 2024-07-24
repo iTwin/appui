@@ -48,7 +48,7 @@ describe("FloatingTab", () => {
     const { findByText } = render(
       <TestNineZoneProvider defaultState={state}>
         <ShowWidgetIconContext.Provider value={true}>
-          <FloatingTab />
+          <FloatingTab icon="icon" />
         </ShowWidgetIconContext.Provider>
       </TestNineZoneProvider>
     );
