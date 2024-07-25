@@ -8,13 +8,7 @@
 
 import "./SettingsContainer.scss";
 import * as React from "react";
-import type {
-  ActivateSettingsTabEventArgs,
-  ProcessSettingsContainerCloseEventArgs,
-  ProcessSettingsTabActivationEventArgs,
-  SettingsManager,
-  SettingsTabEntry,
-} from "./SettingsManager";
+import type { SettingsManager, SettingsTabEntry } from "./SettingsManager";
 import { VerticalTabs } from "../tabs/VerticalTabs";
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
 
@@ -39,13 +33,10 @@ export function useSaveBeforeClosingSettingsContainer(
   saveFunction: (closeFunc: (args: any) => void, closeFuncArgs?: any) => void
 ) {
   React.useEffect(() => {
-    const handleProcessSettingsContainerClose = (
-      { closeFunc, closeFuncArgs }: ProcessSettingsContainerCloseEventArgs // eslint-disable-line deprecation/deprecation
-    ) => {
-      saveFunction(closeFunc, closeFuncArgs);
-    };
     return settingsManager.onProcessSettingsContainerClose.addListener(
-      handleProcessSettingsContainerClose
+      ({ closeFunc, closeFuncArgs }) => {
+        saveFunction(closeFunc, closeFuncArgs);
+      }
     );
   }, [saveFunction, settingsManager]);
 }
@@ -61,16 +52,10 @@ export function useSaveBeforeActivatingNewSettingsTab(
   ) => void
 ) {
   React.useEffect(() => {
-    const handleProcessSettingsTabActivation = (
-      {
-        tabSelectionFunc,
-        requestedSettingsTabId,
-      }: ProcessSettingsTabActivationEventArgs // eslint-disable-line deprecation/deprecation
-    ) => {
-      saveFunction(tabSelectionFunc, requestedSettingsTabId);
-    };
     return settingsManager.onProcessSettingsTabActivation.addListener(
-      handleProcessSettingsTabActivation
+      ({ tabSelectionFunc, requestedSettingsTabId }) => {
+        saveFunction(tabSelectionFunc, requestedSettingsTabId);
+      }
     );
   }, [saveFunction, settingsManager]);
 }
@@ -151,29 +136,25 @@ export const SettingsContainer = ({
   );
 
   React.useEffect(() => {
-    const handleActivateSettingsTab = (
-      { settingsTabId }: ActivateSettingsTabEventArgs // eslint-disable-line deprecation/deprecation
-    ) => {
-      const idToFind = settingsTabId.toLowerCase();
-      let tabToActivate = tabs.find(
-        (tab) => tab.tabId.toLowerCase() === idToFind
-      );
-      if (!tabToActivate)
-        tabToActivate = tabs.find(
-          (tab) => tab.label.toLowerCase() === idToFind
-        );
-      if (tabToActivate) {
-        if (openTab && openTab.pageWillHandleCloseRequest)
-          settingsManager.onProcessSettingsTabActivation.emit({
-            requestedSettingsTabId: tabToActivate.tabId,
-            tabSelectionFunc: processTabSelectionById,
-          });
-        else processTabSelection(tabToActivate);
-      }
-    };
-
     return settingsManager.onActivateSettingsTab.addListener(
-      handleActivateSettingsTab
+      ({ settingsTabId }) => {
+        const idToFind = settingsTabId.toLowerCase();
+        let tabToActivate = tabs.find(
+          (tab) => tab.tabId.toLowerCase() === idToFind
+        );
+        if (!tabToActivate)
+          tabToActivate = tabs.find(
+            (tab) => tab.label.toLowerCase() === idToFind
+          );
+        if (tabToActivate) {
+          if (openTab && openTab.pageWillHandleCloseRequest)
+            settingsManager.onProcessSettingsTabActivation.emit({
+              requestedSettingsTabId: tabToActivate.tabId,
+              tabSelectionFunc: processTabSelectionById,
+            });
+          else processTabSelection(tabToActivate);
+        }
+      }
     );
   }, [
     openTab,
@@ -185,18 +166,15 @@ export const SettingsContainer = ({
   ]);
 
   React.useEffect(() => {
-    const handleSettingsContainerClose = (
-      { closeFunc, closeFuncArgs }: ProcessSettingsContainerCloseEventArgs // eslint-disable-line deprecation/deprecation
-    ) => {
-      if (openTab && openTab.pageWillHandleCloseRequest)
-        settingsManager.onProcessSettingsContainerClose.emit({
-          closeFunc,
-          closeFuncArgs,
-        });
-      else closeFunc(closeFuncArgs);
-    };
     return settingsManager.onCloseSettingsContainer.addListener(
-      handleSettingsContainerClose
+      ({ closeFunc, closeFuncArgs }) => {
+        if (openTab && openTab.pageWillHandleCloseRequest)
+          settingsManager.onProcessSettingsContainerClose.emit({
+            closeFunc,
+            closeFuncArgs,
+          });
+        else closeFunc(closeFuncArgs);
+      }
     );
   }, [
     openTab,

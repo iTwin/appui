@@ -31,20 +31,6 @@ import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
 
 /* eslint-disable deprecation/deprecation */
 
-/** Ui Activity Event Args interface.
- * @internal
- */
-export interface UiActivityEventArgs {
-  event: Event;
-}
-
-/** Ui Interval Event Args interface
- * @internal
- */
-export interface UiIntervalEventArgs {
-  idleTimeout?: number;
-}
-
 /** Configurable Ui Manager maintains controls, Frontstages, Content Groups, Content Layouts, Tasks and Workflows.
  * @internal
  */
@@ -58,11 +44,13 @@ export class InternalConfigurableUiManager {
   /** @internal */
   public static readonly activityTracker = new ActivityTracker();
   /** @internal */
-  public static readonly onUiActivityEvent =
-    new BeUiEvent<UiActivityEventArgs>();
+  public static readonly onUiActivityEvent = new BeUiEvent<{
+    event: Event;
+  }>();
   /** @internal */
-  public static readonly onUiIntervalEvent =
-    new BeUiEvent<UiIntervalEventArgs>();
+  public static readonly onUiIntervalEvent = new BeUiEvent<{
+    idleTimeout?: number;
+  }>();
 
   /** Initializes the InternalConfigurableUiManager and registers core controls.
    * @internal

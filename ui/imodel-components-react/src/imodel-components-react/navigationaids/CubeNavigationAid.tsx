@@ -22,10 +22,9 @@ import {
 } from "@itwin/core-geometry";
 import type { IModelConnection, Viewport } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
-import type { CommonProps, IconSpec } from "@itwin/core-react";
+import type { CommonProps, IconSpec, ListenerType } from "@itwin/core-react";
 import { Icon } from "@itwin/core-react";
 import { UiIModelComponents } from "../UiIModelComponents";
-import type { ViewRotationChangeEventArgs } from "../viewport/ViewportComponentEvents";
 import { ViewportComponentEvents } from "../viewport/ViewportComponentEvents";
 import { Cube, Face } from "./Cube";
 import {
@@ -240,9 +239,9 @@ export class CubeNavigationAid extends React.Component<
   }
 
   // Synchronize with rotation coming from the Viewport
-  private _handleViewRotationChangeEvent = (
-    args: ViewRotationChangeEventArgs // eslint-disable-line deprecation/deprecation
-  ) => {
+  private _handleViewRotationChangeEvent: ListenerType<
+    typeof ViewportComponentEvents.onViewRotationChangeEvent
+  > = (args) => {
     const { animation, dragging, endRotMatrix } = this.state;
     if (this.props.viewport === args.viewport && animation >= 1 && !dragging) {
       const newMatrix = this.props.viewport.view.getRotation().clone();

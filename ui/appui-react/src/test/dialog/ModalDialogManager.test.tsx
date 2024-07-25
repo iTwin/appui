@@ -4,7 +4,6 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { MessageBoxIconType, MessageBoxType } from "@itwin/core-frontend";
-import type { DialogChangedEventArgs } from "../../appui-react";
 import {
   ModalDialogRenderer,
   StandardMessageBox,
@@ -15,20 +14,12 @@ import { render, screen, waitFor } from "@testing-library/react";
 describe("ModalDialogManager", () => {
   const spy = vi.fn();
 
-  function handleModalDialogChanged(_args: DialogChangedEventArgs) {
-    spy();
-  }
-
   beforeEach(() => {
-    UiFramework.dialogs.modal.onModalDialogChangedEvent.addListener(
-      handleModalDialogChanged
-    );
+    UiFramework.dialogs.modal.onModalDialogChangedEvent.addListener(spy);
   });
 
   afterEach(() => {
-    UiFramework.dialogs.modal.onModalDialogChangedEvent.removeListener(
-      handleModalDialogChanged
-    );
+    UiFramework.dialogs.modal.onModalDialogChangedEvent.removeListener(spy);
   });
 
   it("ModalDialogRenderer component", async () => {

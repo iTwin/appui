@@ -7,14 +7,9 @@
  */
 
 import { BeUiEvent, Logger } from "@itwin/core-bentley";
-import type {
-  IModelConnection,
-  SelectedViewportChangedArgs,
-  StartOrResume,
-  Tool,
-} from "@itwin/core-frontend";
+import type { IModelConnection, Tool } from "@itwin/core-frontend";
 import { IModelApp, InteractiveTool } from "@itwin/core-frontend";
-import type { Size } from "@itwin/core-react";
+import type { ListenerType, Size } from "@itwin/core-react";
 import type { ContentControlActivatedEventArgs } from "../content/ContentControl";
 import type { ContentGroup } from "../content/ContentGroup";
 import type {
@@ -54,7 +49,6 @@ import type {
   ToolActivatedEventArgs,
   ToolIconChangedEventArgs,
 } from "../framework/FrameworkFrontstages";
-import type { SyncToolSettingsPropertiesEventArgs } from "../framework/FrameworkToolSettings";
 import { UiItemsManager } from "../ui-items-provider/UiItemsManager";
 import type { Frontstage } from "./Frontstage";
 
@@ -96,22 +90,23 @@ export class InternalFrontstageManager {
       );
   }
 
-  // pass on SyncToolSettingsPropertiesEvent from ToolAdmin so they are treated as DialogItemSync events
-  private static handleSyncToolSettingsPropertiesEvent(
-    args: SyncToolSettingsPropertiesEventArgs // eslint-disable-line deprecation/deprecation
-  ): void {
+  private static _handleSyncToolSettingsPropertiesEvent: ListenerType<
+    typeof UiFramework.toolSettings.onSyncToolSettingsProperties
+  > = (args) => {
     InternalFrontstageManager.activeToolSettingsProvider &&
       InternalFrontstageManager.activeToolSettingsProvider.syncToolSettingsProperties(
         args
       );
-  }
+  };
 
   // pass on ReloadToolSettingsEvent from ToolAdmin so they are treated by UiProviders
-  private static handleReloadToolSettingsEvent(): void {
+  private static _handleReloadToolSettingsEvent: ListenerType<
+    typeof UiFramework.toolSettings.onReloadToolSettingsProperties
+  > = () => {
     if (InternalFrontstageManager.activeToolSettingsProvider) {
       InternalFrontstageManager.activeToolSettingsProvider.reloadPropertiesFromTool();
     }
-  }
+  };
 
   /** Initializes the InternalFrontstageManager
    * @internal
@@ -119,23 +114,21 @@ export class InternalFrontstageManager {
   public static initialize() {
     if (this._initialized) return;
 
-    IModelApp.toolAdmin.activeToolChanged.addListener(
-      (tool: Tool, _start: StartOrResume) => {
-        // make sure tool settings properties are cached before creating ToolInformation
-        UiFramework.toolSettings.clearToolSettingsData();
-        if (tool instanceof InteractiveTool)
-          UiFramework.toolSettings.initializeDataForTool(tool);
+    IModelApp.toolAdmin.activeToolChanged.addListener((tool) => {
+      // make sure tool settings properties are cached before creating ToolInformation
+      UiFramework.toolSettings.clearToolSettingsData();
+      if (tool instanceof InteractiveTool)
+        UiFramework.toolSettings.initializeDataForTool(tool);
 
-        // if the tool data is not already cached then see if there is data to cache
-        InternalFrontstageManager.ensureToolInformationIsSet(tool.toolId);
-        InternalFrontstageManager.setActiveTool(tool);
-      }
-    );
+      // if the tool data is not already cached then see if there is data to cache
+      InternalFrontstageManager.ensureToolInformationIsSet(tool.toolId);
+      InternalFrontstageManager.setActiveTool(tool);
+    });
     UiFramework.toolSettings.onSyncToolSettingsProperties.addListener(
-      InternalFrontstageManager.handleSyncToolSettingsPropertiesEvent
+      InternalFrontstageManager._handleSyncToolSettingsPropertiesEvent
     );
     UiFramework.toolSettings.onReloadToolSettingsProperties.addListener(
-      InternalFrontstageManager.handleReloadToolSettingsEvent
+      InternalFrontstageManager._handleReloadToolSettingsEvent
     );
     IModelApp.viewManager.onSelectedViewportChanged.addListener(
       InternalFrontstageManager._handleSelectedViewportChanged
@@ -150,9 +143,9 @@ export class InternalFrontstageManager {
   }
 
   /** Handles a Viewport change & sets the active view accordingly */
-  private static _handleSelectedViewportChanged = (
-    args: SelectedViewportChangedArgs
-  ) => {
+  private static _handleSelectedViewportChanged: ListenerType<
+    typeof IModelApp.viewManager.onSelectedViewportChanged
+  > = (args) => {
     if (
       args.current &&
       InternalFrontstageManager.activeFrontstageDef &&

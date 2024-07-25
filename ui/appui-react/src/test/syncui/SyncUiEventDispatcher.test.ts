@@ -17,7 +17,6 @@ import type {
   WidgetStateChangedEventArgs,
 } from "../../appui-react";
 import { SyncUiEventDispatcher, UiFramework } from "../../appui-react";
-import type { UiSyncEventArgs } from "../../appui-react/syncui/UiSyncEvent";
 
 const timeToWaitForUiSyncCallback = 60;
 
@@ -75,17 +74,17 @@ describe("SyncUiEventDispatcher", () => {
     let callbackCalled = false;
     let callbackHasExpectedEventId = false;
 
-    const handleSyncUiEvent = (args: UiSyncEventArgs): void => {
-      callbackCalled = true;
-      callbackHasExpectedEventId = args.eventIds.has("event1");
-    };
-
-    SyncUiEventDispatcher.onSyncUiEvent.addListener(handleSyncUiEvent);
+    const removeListener = SyncUiEventDispatcher.onSyncUiEvent.addListener(
+      (args) => {
+        callbackCalled = true;
+        callbackHasExpectedEventId = args.eventIds.has("event1");
+      }
+    );
 
     SyncUiEventDispatcher.dispatchImmediateSyncUiEvent("Event1");
     expect(callbackCalled).toEqual(true);
     expect(callbackHasExpectedEventId).toEqual(true);
-    SyncUiEventDispatcher.onSyncUiEvent.removeListener(handleSyncUiEvent);
+    removeListener();
   });
 
   it("test timed sync event", () => {
@@ -93,12 +92,12 @@ describe("SyncUiEventDispatcher", () => {
     let callback1Called = false;
     let callback1HasExpectedEventId = false;
 
-    const handleSyncUiEvent1 = (args: UiSyncEventArgs): void => {
-      callback1Called = true;
-      callback1HasExpectedEventId = args.eventIds.has("event1");
-    };
-
-    SyncUiEventDispatcher.onSyncUiEvent.addListener(handleSyncUiEvent1);
+    const removeListener = SyncUiEventDispatcher.onSyncUiEvent.addListener(
+      (args) => {
+        callback1Called = true;
+        callback1HasExpectedEventId = args.eventIds.has("event1");
+      }
+    );
     SyncUiEventDispatcher.dispatchSyncUiEvent("Event1");
     expect(callback1Called).toEqual(false);
 
@@ -106,7 +105,7 @@ describe("SyncUiEventDispatcher", () => {
 
     expect(callback1Called).toEqual(true);
     expect(callback1HasExpectedEventId).toEqual(true);
-    SyncUiEventDispatcher.onSyncUiEvent.removeListener(handleSyncUiEvent1);
+    removeListener();
   });
 
   it("test multiple event Id with a timed sync event", () => {
@@ -114,13 +113,13 @@ describe("SyncUiEventDispatcher", () => {
     let callbackCalled = false;
     let callbackHasExpectedEventIds = false;
 
-    const handleSyncUiEvent = (args: UiSyncEventArgs): void => {
-      callbackCalled = true;
-      callbackHasExpectedEventIds =
-        args.eventIds.has("event1") && args.eventIds.has("event2");
-    };
-
-    SyncUiEventDispatcher.onSyncUiEvent.addListener(handleSyncUiEvent);
+    const removeListener = SyncUiEventDispatcher.onSyncUiEvent.addListener(
+      (args) => {
+        callbackCalled = true;
+        callbackHasExpectedEventIds =
+          args.eventIds.has("event1") && args.eventIds.has("event2");
+      }
+    );
 
     SyncUiEventDispatcher.dispatchSyncUiEvents(["Event1", "Event2"]);
     expect(callbackCalled).toEqual(false);
@@ -129,7 +128,7 @@ describe("SyncUiEventDispatcher", () => {
 
     expect(callbackCalled).toEqual(true);
     expect(callbackHasExpectedEventIds).toEqual(true);
-    SyncUiEventDispatcher.onSyncUiEvent.removeListener(handleSyncUiEvent);
+    removeListener();
   });
 
   it("test multiple event Id with a multiple dispatches", () => {
@@ -137,15 +136,15 @@ describe("SyncUiEventDispatcher", () => {
     let callbackCalled = false;
     let callbackHasExpectedEventIds = false;
 
-    const handleSyncUiEvent = (args: UiSyncEventArgs): void => {
-      callbackCalled = true;
-      callbackHasExpectedEventIds =
-        args.eventIds.has("event1") &&
-        args.eventIds.has("event2") &&
-        args.eventIds.has("event3");
-    };
-
-    SyncUiEventDispatcher.onSyncUiEvent.addListener(handleSyncUiEvent);
+    const removeListener = SyncUiEventDispatcher.onSyncUiEvent.addListener(
+      (args) => {
+        callbackCalled = true;
+        callbackHasExpectedEventIds =
+          args.eventIds.has("event1") &&
+          args.eventIds.has("event2") &&
+          args.eventIds.has("event3");
+      }
+    );
 
     SyncUiEventDispatcher.dispatchSyncUiEvents(["Event1", "Event2"]);
     expect(callbackCalled).toEqual(false);
@@ -156,7 +155,7 @@ describe("SyncUiEventDispatcher", () => {
 
     expect(callbackCalled).toEqual(true);
     expect(callbackHasExpectedEventIds).toEqual(true);
-    SyncUiEventDispatcher.onSyncUiEvent.removeListener(handleSyncUiEvent);
+    removeListener();
   });
 
   it("Test event handlers", () => {

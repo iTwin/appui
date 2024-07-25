@@ -20,6 +20,7 @@ import { ListItemType, ListPicker } from "./ListPicker";
 import { debounce } from "lodash";
 import svgSavedView from "@bentley/icons-generic/icons/saved-view.svg";
 import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState";
+import type { ListenerType } from "@itwin/core-react";
 
 // cSpell:ignore Spatials
 
@@ -86,15 +87,6 @@ export type ViewSelectorDefaultProps = Pick<
   "showSpatials" | "showDrawings" | "showSheets" | "showUnknown"
 >;
 
-/** ViewSelector Show Update Event Args interface.
- */
-interface ViewSelectorShowUpdateEventArgs {
-  showSpatials: boolean;
-  showDrawings: boolean;
-  showSheets: boolean;
-  showUnknown: boolean;
-}
-
 /** View Selector React component
  * @beta
  */
@@ -102,8 +94,12 @@ export class ViewSelector extends React.Component<
   ViewSelectorProps,
   ViewSelectorState
 > {
-  private static readonly _onViewSelectorShowUpdateEvent =
-    new BeUiEvent<ViewSelectorShowUpdateEventArgs>();
+  private static readonly _onViewSelectorShowUpdateEvent = new BeUiEvent<{
+    showSpatials: boolean;
+    showDrawings: boolean;
+    showSheets: boolean;
+    showUnknown: boolean;
+  }>();
   private _removeShowUpdateListener?: () => void;
   private _isMounted = false;
   private _searchInput = "";
@@ -177,9 +173,9 @@ export class ViewSelector extends React.Component<
     if (this._removeShowUpdateListener) this._removeShowUpdateListener();
   }
 
-  private _handleViewSelectorShowUpdateEvent = (
-    args: ViewSelectorShowUpdateEventArgs
-  ): void => {
+  private _handleViewSelectorShowUpdateEvent: ListenerType<
+    typeof ViewSelector._onViewSelectorShowUpdateEvent
+  > = (args): void => {
     if (!this._isMounted) return;
 
     this.setState(args, async () => this.loadViews());

@@ -101,17 +101,16 @@ export function ContentWrapper(props: ContentWrapperProps) {
   }, [content]);
 
   React.useEffect(() => {
-    const onAvailableContentChanged = () => {
-      setHasMultipleContents(
-        (activeFrontstageDef &&
-          !!activeFrontstageDef.floatingContentControls?.length) ||
-          // eslint-disable-next-line deprecation/deprecation
-          (activeFrontstageDef?.contentGroup?.getContentControls().length ??
-            0) > 1
-      );
-    };
     return UiFramework.content.onAvailableContentChangedEvent.addListener(
-      onAvailableContentChanged
+      () => {
+        setHasMultipleContents(
+          (activeFrontstageDef &&
+            !!activeFrontstageDef.floatingContentControls?.length) ||
+            // eslint-disable-next-line deprecation/deprecation
+            (activeFrontstageDef?.contentGroup?.getContentControls().length ??
+              0) > 1
+        );
+      }
     );
   }, [activeFrontstageDef]);
 

@@ -36,7 +36,6 @@ import {
 } from "../appui-react";
 import { TestContentControl } from "./frontstage/FrontstageTestUtils";
 import userEvent from "@testing-library/user-event";
-import type { BeEvent, Listener } from "@itwin/core-bentley";
 export { userEvent };
 
 interface SampleAppState {

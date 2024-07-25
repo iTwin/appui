@@ -18,10 +18,7 @@ import {
 } from "@itwin/core-frontend";
 import { Logger } from "@itwin/core-bentley";
 import { Centered, SettingsContainer } from "@itwin/core-react";
-import type {
-  ModalFrontstageInfo,
-  ModalFrontstageRequestedCloseEventArgs,
-} from "../framework/FrameworkFrontstages";
+import type { ModalFrontstageInfo } from "../framework/FrameworkFrontstages";
 import { UiFramework } from "../UiFramework";
 import { SyncUiEventId } from "../syncui/SyncUiEventDispatcher";
 import { StageUsage } from "./StageUsage";
@@ -58,21 +55,15 @@ function ModalSettingsStage({
   }, [initialSettingsTabId, tabEntries]);
 
   React.useEffect(() => {
-    const handleFrontstageCloseRequested = (
-      {
-        modalFrontstage,
-        stageCloseFunc,
-      }: ModalFrontstageRequestedCloseEventArgs // eslint-disable-line deprecation/deprecation
-    ) => {
-      if (
-        modalFrontstage instanceof SettingsModalFrontstage &&
-        stageCloseFunc
-      ) {
-        UiFramework.settingsManager.closeSettingsContainer(stageCloseFunc);
-      }
-    };
     return UiFramework.frontstages.onCloseModalFrontstageRequestedEvent.addListener(
-      handleFrontstageCloseRequested
+      ({ modalFrontstage, stageCloseFunc }) => {
+        if (
+          modalFrontstage instanceof SettingsModalFrontstage &&
+          stageCloseFunc
+        ) {
+          UiFramework.settingsManager.closeSettingsContainer(stageCloseFunc);
+        }
+      }
     );
   }, [tabEntries]);
 

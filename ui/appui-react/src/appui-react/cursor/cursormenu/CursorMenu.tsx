@@ -7,7 +7,7 @@
  */
 
 import * as React from "react";
-import type { CommonProps } from "@itwin/core-react";
+import type { CommonProps, ListenerType } from "@itwin/core-react";
 import { GlobalContextMenu } from "@itwin/core-react"; // ContextSubMenu,
 import { SessionStateActionId } from "../../redux/SessionState";
 import type { CursorMenuItemProps } from "../../shared/MenuItem";
@@ -15,7 +15,6 @@ import { MenuItemHelpers } from "../../shared/MenuItem";
 import { SyncUiEventDispatcher } from "../../syncui/SyncUiEventDispatcher";
 import { UiFramework } from "../../UiFramework";
 import { Logger } from "@itwin/core-bentley";
-import type { UiSyncEventArgs } from "../../syncui/UiSyncEvent";
 
 /** State for [[CursorPopupMenu]] component
  * @alpha
@@ -45,8 +44,9 @@ export class CursorPopupMenu extends React.PureComponent<
     items: undefined,
   };
 
-  // eslint-disable-next-line deprecation/deprecation
-  private _handleSyncUiEvent = (args: UiSyncEventArgs): void => {
+  private _handleSyncUiEvent: ListenerType<
+    typeof SyncUiEventDispatcher.onSyncUiEvent
+  > = (args) => {
     if (!this._isMounted) return;
 
     if (

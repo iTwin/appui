@@ -7,14 +7,11 @@
  */
 
 import { Matrix3d, Point3d, Vector3d } from "@itwin/core-geometry";
-import type {
-  SelectedViewportChangedArgs,
-  StandardViewId,
-  Viewport,
-} from "@itwin/core-frontend";
+import type { StandardViewId, Viewport } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
 import { UiEvent } from "@itwin/appui-abstract";
 import { Face } from "../navigationaids/Cube";
+import type { ListenerType } from "@itwin/core-react";
 
 /** Arguments for [[DrawingViewportChangeEvent]]
  * @public
@@ -126,7 +123,7 @@ export class ViewportComponentEvents {
 
     this._removeListener =
       IModelApp.viewManager.onSelectedViewportChanged.addListener(
-        ViewportComponentEvents.handleSelectedViewportChanged
+        ViewportComponentEvents._handleSelectedViewportChanged
       );
   }
 
@@ -155,11 +152,11 @@ export class ViewportComponentEvents {
   // eslint-disable-next-line deprecation/deprecation
   public static readonly onViewIdChangedEvent = new ViewIdChangedEvent();
 
-  private static handleSelectedViewportChanged(
-    args: SelectedViewportChangedArgs
-  ): void {
+  private static _handleSelectedViewportChanged: ListenerType<
+    typeof IModelApp.viewManager.onSelectedViewportChanged
+  > = (args) => {
     if (args.current) ViewportComponentEvents.setViewMatrix(args.current);
-  }
+  };
 
   public static setCubeMatrix(
     rotMatrix: Matrix3d,

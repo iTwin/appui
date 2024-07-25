@@ -17,7 +17,6 @@ import {
 } from "../../syncui/SyncUiEventDispatcher";
 import type { SelectOption } from "@itwin/itwinui-react";
 import { Select, Slider, ToggleSwitch } from "@itwin/itwinui-react";
-import type { UiSyncEventArgs } from "../../syncui/UiSyncEvent";
 import { useTranslation } from "../../hooks/useTranslation";
 import { ColorTheme, SYSTEM_PREFERRED_COLOR_THEME } from "../../theme/ThemeId";
 import { ConfigurableUiActionId } from "../../redux/ConfigurableUiState";
@@ -83,8 +82,7 @@ export function UiSettingsPage() {
       SyncUiEventId.ShowHideManagerSettingChange,
     ];
 
-    // eslint-disable-next-line deprecation/deprecation
-    const handleSyncUiEvent = (args: UiSyncEventArgs) => {
+    return SyncUiEventDispatcher.onSyncUiEvent.addListener((args) => {
       if (
         syncIdsOfInterest.some((value: string): boolean =>
           args.eventIds.has(value)
@@ -121,8 +119,7 @@ export function UiSettingsPage() {
         if (UiFramework.getToolbarOpacity() !== toolbarOpacity)
           setToolbarOpacity(UiFramework.getToolbarOpacity());
       }
-    };
-    return SyncUiEventDispatcher.onSyncUiEvent.addListener(handleSyncUiEvent);
+    });
   }, [
     autoCollapseUnpinnedPanels,
     autoHideUi,

@@ -20,6 +20,7 @@ import {
 } from "@itwin/core-frontend";
 import type {
   CommonProps,
+  ListenerType,
   UiStateStorage,
   UiStateStorageResult,
 } from "@itwin/core-react";
@@ -35,8 +36,6 @@ import classnames from "classnames";
 import * as React from "react";
 import { UiFramework } from "../../UiFramework";
 import { CursorPrompt } from "../../cursor/cursorprompt/CursorPrompt";
-import type { ToolIconChangedEventArgs } from "../../framework/FrameworkFrontstages";
-import type { ToolAssistanceChangedEventArgs } from "../../messages/MessageManager";
 import { MessageManager } from "../../messages/MessageManager";
 import { UiStateStorageContext } from "../../uistate/useUiStateStorage";
 import "./ToolAssistanceField.scss";
@@ -235,9 +234,9 @@ export class ToolAssistanceField extends React.Component<
     }
   }
 
-  private _handleToolAssistanceChangedEvent = (
-    args: ToolAssistanceChangedEventArgs // eslint-disable-line deprecation/deprecation
-  ): void => {
+  private _handleToolAssistanceChangedEvent: ListenerType<
+    typeof MessageManager.onToolAssistanceChangedEvent
+  > = (args) => {
     let showMouseTouchTabs = false;
     let showMouseInstructions = false;
     let showTouchInstructions = false;
@@ -304,9 +303,9 @@ export class ToolAssistanceField extends React.Component<
   private _isTouchInstruction = (instruction: ToolAssistanceInstruction) =>
     instruction.inputMethod === ToolAssistanceInputMethod.Touch;
 
-  private _handleToolIconChangedEvent = (
-    args: ToolIconChangedEventArgs // eslint-disable-line deprecation/deprecation
-  ): void => {
+  private _handleToolIconChangedEvent: ListenerType<
+    typeof UiFramework.frontstages.onToolIconChangedEvent
+  > = (args) => {
     if (this._isMounted)
       this.setState({ toolIconSpec: args.iconSpec }, () => {
         this._showCursorPrompt();

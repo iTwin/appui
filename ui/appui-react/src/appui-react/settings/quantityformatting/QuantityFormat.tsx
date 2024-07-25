@@ -9,11 +9,7 @@
 import "./QuantityFormat.scss";
 import * as React from "react";
 import { DeepCompare } from "@itwin/core-geometry";
-import type {
-  QuantityFormatsChangedArgs,
-  QuantityTypeArg,
-  QuantityTypeKey,
-} from "@itwin/core-frontend";
+import type { QuantityTypeArg, QuantityTypeKey } from "@itwin/core-frontend";
 import {
   getQuantityTypeKey,
   IModelApp,
@@ -114,42 +110,12 @@ export function QuantityFormatSettingsPage({
   const newQuantityTypeRef = React.useRef<QuantityTypeKey>();
 
   React.useEffect(() => {
-    const handleUnitSystemChanged = (): void => {
-      if (
-        activeUnitSystemKey !== IModelApp.quantityFormatter.activeUnitSystem
-      ) {
-        setActiveUnitSystemKey(IModelApp.quantityFormatter.activeUnitSystem);
-        setActiveFormatterSpec(
-          IModelApp.quantityFormatter.findFormatterSpecByQuantityType(
-            activeQuantityType
-          )
-        );
-        setSaveEnabled(false);
-        setClearEnabled(
-          IModelApp.quantityFormatter.hasActiveOverride(
-            activeQuantityType,
-            true
-          )
-        );
-      }
-    };
-
-    IModelApp.quantityFormatter.onActiveFormattingUnitSystemChanged.addListener(
-      handleUnitSystemChanged
-    );
-    return () => {
-      IModelApp.quantityFormatter.onActiveFormattingUnitSystemChanged.removeListener(
-        handleUnitSystemChanged
-      );
-    };
-  }, [activeQuantityType, activeUnitSystemKey]);
-
-  React.useEffect(() => {
-    const handleFormatChanged = (args: QuantityFormatsChangedArgs): void => {
-      if (!newQuantityTypeRef.current) {
-        const quantityKey =
-          IModelApp.quantityFormatter.getQuantityTypeKey(activeQuantityType);
-        if (args.quantityType === quantityKey) {
+    return IModelApp.quantityFormatter.onActiveFormattingUnitSystemChanged.addListener(
+      () => {
+        if (
+          activeUnitSystemKey !== IModelApp.quantityFormatter.activeUnitSystem
+        ) {
+          setActiveUnitSystemKey(IModelApp.quantityFormatter.activeUnitSystem);
           setActiveFormatterSpec(
             IModelApp.quantityFormatter.findFormatterSpecByQuantityType(
               activeQuantityType
@@ -164,16 +130,33 @@ export function QuantityFormatSettingsPage({
           );
         }
       }
-      newQuantityTypeRef.current = undefined;
-    };
-    IModelApp.quantityFormatter.onQuantityFormatsChanged.addListener(
-      handleFormatChanged
     );
-    return () => {
-      IModelApp.quantityFormatter.onQuantityFormatsChanged.removeListener(
-        handleFormatChanged
-      );
-    };
+  }, [activeQuantityType, activeUnitSystemKey]);
+
+  React.useEffect(() => {
+    return IModelApp.quantityFormatter.onQuantityFormatsChanged.addListener(
+      (args) => {
+        if (!newQuantityTypeRef.current) {
+          const quantityKey =
+            IModelApp.quantityFormatter.getQuantityTypeKey(activeQuantityType);
+          if (args.quantityType === quantityKey) {
+            setActiveFormatterSpec(
+              IModelApp.quantityFormatter.findFormatterSpecByQuantityType(
+                activeQuantityType
+              )
+            );
+            setSaveEnabled(false);
+            setClearEnabled(
+              IModelApp.quantityFormatter.hasActiveOverride(
+                activeQuantityType,
+                true
+              )
+            );
+          }
+        }
+        newQuantityTypeRef.current = undefined;
+      }
+    );
   }, [activeQuantityType]);
 
   const saveChanges = React.useCallback(

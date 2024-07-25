@@ -7,7 +7,7 @@
  */
 
 import * as React from "react";
-import type { CommonProps } from "@itwin/core-react";
+import type { CommonProps, ListenerType } from "@itwin/core-react";
 import {
   ContextMenuItem,
   ContextSubMenu,
@@ -66,9 +66,9 @@ export class KeyboardShortcutMenu extends React.PureComponent<
     );
   }
 
-  private _handleKeyboardShortcutMenuEvent = (
-    state: KeyboardShortcutMenuState
-  ) => {
+  private _handleKeyboardShortcutMenuEvent: ListenerType<
+    typeof KeyboardShortcutMenu.onKeyboardShortcutMenuEvent
+  > = (state) => {
     this.setState(state);
   };
 
