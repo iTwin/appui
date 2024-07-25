@@ -11,7 +11,7 @@ The main navigation menu of the application used to switch between frontstages, 
 
 ## Content
 
-The main area of the application display. Typically, the content is a visual rendering of the iModel but it can be any React component. The content can use multiple areas organized in grid to display more than one aspect of the content at the same time.
+The main area of the application display. Typically, the content is a visual rendering of the iModel but it can be any React component. The content can use multiple areas organized in grid to display more than one aspect at the same time.
 
 ![Content visual](images/content.svg)
 
@@ -21,7 +21,7 @@ A temporary interruptive UI element that overlays the application until a requir
 
 ## Navigation&nbsp;Aid
 
-An interactive UI element that facilitates the navigation of [Viewport]($core-frontend) content. You can use [NavigationAidControl]($appui-react) to display a custom component.
+An interactive UI element that facilitates the navigation of [Viewport]($core-frontend) content. A default navigation is displayed based on the active view type. Alternatively, you can use `navigationAid` prop of a [ViewToolWidgetComposer]($appui-react) to display a custom component.
 
 ![Navigation aid visual](images/navigation-aid.svg)
 
@@ -49,17 +49,17 @@ A dedicated area within a stage panel that can contain multiple widgets.
 
 ![Stage panel section visual](images/stage-panel-section.svg)
 
-## Tool&nbsp;Settings
-
-A dedicated area in the user interface that displays properties or information related to the active tool.
-
-![Tool settings visual](images/tool-settings.svg)
-
 ## Toolbar
 
 An interactive UI element that offers quick access to tools and actions that are commonly performed within the application. You can use [ToolbarComposer]($appui-react) to display a toolbar for a specific usage and orientation.
 
 ![Toolbar visual](images/toolbar.svg)
+
+## Tool&nbsp;Settings
+
+A dedicated area in the user interface that displays properties or information related to the active tool.
+
+![Tool settings visual](images/tool-settings.svg)
 
 ## UI&nbsp;Items&nbsp;Provider
 

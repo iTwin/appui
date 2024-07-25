@@ -19,7 +19,7 @@ To create a **frontstage** extend a [FrontstageProvider]($appui-react) and imple
 [[include:AppUI.FrontstageProvider]]
 ```
 
-Learn more about [creating content controls](./define-content.md#content-control).
+Learn more about [defining content](./define-content.md#content).
 
 To register a frontstage use [FrameworkFrontstages.addFrontstageProvider]($appui-react).
 
@@ -87,7 +87,7 @@ Available user interactions:
 
 ## Toolbars
 
-A standard frontstage is divided into two sections dedicated for content manipulation and view navigation that overlay the content control. By default [ContentToolWidgetComposer]($appui-react) and [ViewToolWidgetComposer]($appui-react) are used to display up to four toolbars with a specific purpose as defined in [ToolbarUsage]($appui-react) and [ToolbarOrientation]($appui-react). Alternatively you can provide custom components for `contentManipulation` and `viewNavigation` when [Creating a Frontstage](#create-a-frontstage).
+A standard frontstage is divided into two sections dedicated for content manipulation and view navigation that overlay the content. By default [ContentToolWidgetComposer]($appui-react) and [ViewToolWidgetComposer]($appui-react) are used to display up to four toolbars with a specific purpose as defined in [ToolbarUsage]($appui-react) and [ToolbarOrientation]($appui-react). Alternatively you can provide custom components for `contentManipulation` and `viewNavigation` when [Configuring a Frontstage](#configure-frontstage).
 
 You can use [UiItemsProvider]($appui-react) to provide additional items to the toolbars. For more information, see [Provide Toolbar Items](./provide-ui-items.md#provide-toolbar-items).
 
