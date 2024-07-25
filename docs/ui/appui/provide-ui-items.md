@@ -26,7 +26,7 @@ To limit the scope of the provider to specific frontstages use an override objec
 
 ## Provide Widgets
 
-Implement [UiItemsManager.getWidgets]($appui-react) to provide additional widgets to the application. To specify the default location of the [Widget]($appui-react) set the Widget.layouts property (currently @alpha).
+Implement [UiItemsManager.getWidgets]($appui-react) to provide additional widgets to the application. To specify the default location of the [Widget]($appui-react) set the [Widget.layouts]($appui-react) property.
 
 ```tsx
 [[include:AppUI.UiItemsProvider.Widgets]]
@@ -44,7 +44,7 @@ _NOTE:_ widget component must be written in a way that works properly when opene
 
 ## Provide Toolbar Items
 
-Implement [UiItemsProvider.getToolbarItems]($appui-react) to provide additional toolbar items to the application. Set the [ToolbarItem]($appui-react) `layouts` property to specify the toolbar to which the [ToolbarItem]($appui-react) should be added. You can use one of [ToolbarItemUtilities]($appui-react) to create a toolbar item of specific type.
+Implement [UiItemsProvider.getToolbarItems]($appui-react) to provide additional toolbar items to the application. Set the [ToolbarItem.layouts]($appui-react) property to specify the toolbar to which the [ToolbarItem]($appui-react) should be added. You can use one of [ToolbarItemUtilities]($appui-react) to create a toolbar item of specific type.
 
 ```tsx
 [[include:AppUI.UiItemsProvider.ToolbarItems]]
