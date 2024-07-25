@@ -14,7 +14,7 @@ const provider: UiItemsProvider = {
       id: "example:StatusBarItem",
       itemPriority: 100,
       icon: <SvgIcon />,
-      label: "My status bar item",
+      tooltip: "My status bar item",
     }),
   ],
 };

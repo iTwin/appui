@@ -46,7 +46,7 @@ export const updatedUiItemsProvider: UiItemsProvider = {
       StatusBarItemUtilities.createActionItem({
         id: `${id}:statusbar-item`,
         icon: <SvgUpgrade />,
-        label: "Updated status bar item",
+        tooltip: "Updated status bar item",
       }),
     ];
   },
