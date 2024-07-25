@@ -92,7 +92,7 @@ interface AutoSuggestState {
 
 /** Auto Suggest React component. Uses the react-autosuggest component internally.
  * @public
- * @deprecated in 4.16.0. Use {@link https://itwinui.bentley.com iTwinUI} components instead.
+ * @deprecated in 4.16.0. Use {@link https://itwinui.bentley.com/ iTwinUI components} instead.
  */
 export class AutoSuggest extends React.PureComponent<
   AutoSuggestProps,
