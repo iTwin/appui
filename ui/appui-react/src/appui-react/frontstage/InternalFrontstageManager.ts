@@ -29,10 +29,6 @@ import type {
 } from "../widgets/WidgetDef";
 import { ToolInformation } from "../toolsettings/ToolInformation";
 import type { ToolUiProvider } from "../toolsettings/ToolUiProvider";
-import type {
-  FrontstageEventArgs,
-  FrontstageNineZoneStateChangedEventArgs,
-} from "./FrontstageDef";
 import { FrontstageDef } from "./FrontstageDef";
 import { FrontstageProvider } from "./FrontstageProvider";
 import { TimeTracker } from "../configurableui/TimeTracker";
@@ -51,6 +47,7 @@ import type {
 } from "../framework/FrameworkFrontstages";
 import { UiItemsManager } from "../ui-items-provider/UiItemsManager";
 import type { Frontstage } from "./Frontstage";
+import type { NineZoneState } from "../layout/state/NineZoneState";
 
 /** Frontstage Manager class.
  * @internal
@@ -252,17 +249,24 @@ export class InternalFrontstageManager {
   /** @internal */
   public static readonly onFrontstageNineZoneStateChangedEvent =
     // eslint-disable-next-line deprecation/deprecation
-    new BeUiEvent<FrontstageNineZoneStateChangedEventArgs>();
+    new BeUiEvent<{
+      frontstageDef: FrontstageDef;
+      state: NineZoneState | undefined;
+    }>();
 
   /** @internal */
   public static readonly onFrontstageRestoreLayoutEvent =
     // eslint-disable-next-line deprecation/deprecation
-    new BeUiEvent<FrontstageEventArgs>();
+    new BeUiEvent<{
+      frontstageDef: FrontstageDef;
+    }>();
 
   /** @internal */
   public static readonly onFrontstageWidgetsChangedEvent =
     // eslint-disable-next-line deprecation/deprecation
-    new BeUiEvent<FrontstageEventArgs>();
+    new BeUiEvent<{
+      frontstageDef: FrontstageDef;
+    }>();
 
   /** Get panel state changed event.
    * @alpha

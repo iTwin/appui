@@ -60,17 +60,6 @@ import type { Frontstage } from "./Frontstage";
 import { UiItemsProvider } from "../ui-items-provider/UiItemsProvider";
 import { FrameworkContent } from "../framework/FrameworkContent";
 
-/** @internal */
-export interface FrontstageEventArgs {
-  frontstageDef: FrontstageDef;
-}
-
-/** @internal */
-export interface FrontstageNineZoneStateChangedEventArgs
-  extends FrontstageEventArgs {
-  state: NineZoneState | undefined;
-}
-
 /** FrontstageDef class provides an API for a Frontstage.
  * @public
  */
