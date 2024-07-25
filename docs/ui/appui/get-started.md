@@ -46,34 +46,52 @@ To get full control over AppUI initialization, you can configure it manually. Th
 
 2. Initialize `UiFramework`.
 
-   `UiFramework` is the core state and main entry point of AppUI API. It is a singleton that needs to be initialized before using any of the AppUI components. If you already use a redux store for your application, you can provide it to the `UiFramework` singleton at initialization, along with a key where the state should be kept in your app store. Otherwise, `UiFramework` will create its own store by passing it `undefined`. This store can then be accessed by the `UiFramework.store` property.
+   `UiFramework` is the main entry point of AppUI APIs. It is a singleton that needs to be initialized before using any of the AppUI components.
 
    ```tsx
-   UiFramework.initialize(store, "appUIState");
-   ```
-
-   or
-
-   ```tsx
-   UiFramework.initialize(undefined);
+   UiFramework.initialize();
    ```
 
 3. Render `ConfigurableUiContent`.
 
-   `ConfigurableUiContent` is the main component of AppUI. It is responsible for rendering the UI and managing the UI state. It needs to be rendered inside a react-redux `Provider` and AppUI `ThemeManager` and `UiStateStorageHandler` components as well.
+   `ConfigurableUiContent` is the main component of AppUI. It is responsible for rendering the UI and managing the UI state. It needs to be rendered inside `ThemeManager` and `UiStateStorageHandler` components.
 
    ```tsx
-   <Provider store={UiFramework.store}>
-     <ThemeManager>
-       <UiStateStorageHandler>
-         <ConfigurableUiContent />
-       </UiStateStorageHandler>
-     </ThemeManager>
-   </Provider>
+   <ThemeManager>
+     <UiStateStorageHandler>
+       <ConfigurableUiContent />
+     </UiStateStorageHandler>
+   </ThemeManager>
    ```
 
 With these initialization steps, AppUI is ready to display frontstages.
 
+> AppUI from version `4.15.0` no longer requires redux store to be setup by the application. However, it is recommended for existing applications to continue using the redux store for backwards compatibility until all components are migrated from accessing the deprecated store directly.
+>
+> - Initialize your redux store with `FrameworkReducer` and provide it to the `UiFramework` singleton at initialization, along with a key where the state should be kept in your app store. Otherwise, `UiFramework` will create its own store by passing it `undefined`. This store can then be accessed by the `UiFramework.store` property.
+>
+>   ```tsx
+>   UiFramework.initialize(store, "appUIState");
+>   ```
+>
+>   or
+>
+>   ```tsx
+>   UiFramework.initialize(undefined);
+>   ```
+>
+> - Wrap your application with the redux `Provider` component and provide the store.
+>
+>   ```tsx
+>   <Provider store={UiFramework.store}>
+>     <ThemeManager>
+>       <UiStateStorageHandler>
+>         <ConfigurableUiContent />
+>       </UiStateStorageHandler>
+>     </ThemeManager>
+>   </Provider>
+>   ```
+
 ## Next steps
 
-Wether you use the Viewer component or configure AppUI manually, you can now create the content your application will display by following the [Define Content](./define-content.md) section.
+Whether you use the Viewer component or configure AppUI manually, you can now create the content your application will display by following the [Define Content](./define-content.md) section.
