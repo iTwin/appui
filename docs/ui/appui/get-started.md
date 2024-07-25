@@ -38,11 +38,9 @@ To get full control over AppUI initialization, you can configure it manually. Th
    | `notifications` | [AppNotificationManager]($appui-react) |
    | `uiAdmin`       | [FrameworkUiAdmin]($appui-react)       |
    | `accuDraw`      | [FrameworkAccuDraw]($appui-react)      |
+   | `toolAdmin`     | [FrameworkToolAdmin]($appui-react)     |
 
-   <!-- Here we have a problem, we don't have the type of learning document that we are currently writing that matches the level of information we give here for IModelApp setup part...
-
-   You can find more information on setting up IModelApp in the learning section .?.?.?
-    -->
+   You can find more information on setting up `IModelApp` in the [IModelApp learning](../../learning/frontend/IModelApp.md) section.
 
 2. Initialize `UiFramework`.
 
