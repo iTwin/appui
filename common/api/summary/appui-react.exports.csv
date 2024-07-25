@@ -206,13 +206,11 @@ public;CursorMenuItemProps
 public;CursorMenuPayload
 public;CursorPopup 
 public;CursorPopupContent(props: CommonDivProps): React_2.JSX.Element
-internal;CursorPopupFadeOutEventArgs
 public;CursorPopupManager
 public;CursorPopupOptions
 public;CursorPopupProps =
 public;CursorPopupRenderer 
 internal;CursorPopupShow
-internal;CursorPopupUpdatePositionEventArgs
 internal;CursorPrompt
 public;CursorUpdatedEvent 
 deprecated;CursorUpdatedEvent 
@@ -306,8 +304,6 @@ deprecated;FrontstageDeactivatedEvent
 public;FrontstageDeactivatedEventArgs
 deprecated;FrontstageDeactivatedEventArgs
 public;FrontstageDef
-internal;FrontstageEventArgs
-internal;FrontstageNineZoneStateChangedEventArgs 
 public;class FrontstageProvider
 deprecated;class FrontstageProvider
 public;FrontstageReadyEvent 
@@ -817,13 +813,11 @@ public;ViewToolWidgetComposerProps
 public;ViewUtilities
 public;Widget
 public;WIDGET_OPACITY_DEFAULT = 0.9
-internal;WidgetChangedEventArgs
 public;WidgetConfig 
 internal;WidgetContent(): React_2.JSX.Element
 public;WidgetControl 
 deprecated;WidgetControl 
 public;WidgetDef
-internal;WidgetEventArgs
 public;WidgetHost
 internal;WidgetInfo
 public;WidgetLayouts
@@ -836,7 +830,6 @@ internal;WidgetPanelsStatusBar(props: CommonProps): React_2.JSX.Element | null
 internal;WidgetPanelsTab(): React_2.JSX.Element
 internal;WidgetPanelsToolbars(): React_2.JSX.Element
 internal;WidgetPanelsToolSettings(): React_2.JSX.Element | null
-internal;WidgetsChangedEventArgs
 public;WidgetState
 public;WidgetStateChangedEvent 
 deprecated;WidgetStateChangedEvent 

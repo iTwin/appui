@@ -14,6 +14,7 @@ import { default as default_2 } from 'resize-observer-polyfill';
 import type { DialogButtonDef } from '@itwin/appui-abstract';
 import type { IDisposable } from '@itwin/core-bentley';
 import { Input } from '@itwin/itwinui-react';
+import type { Listener } from '@itwin/core-bentley';
 import type { Localization as Localization_2 } from '@itwin/core-common';
 import { MessageSeverity } from '@itwin/appui-abstract';
 import { ProgressRadial } from '@itwin/itwinui-react';
@@ -913,6 +914,13 @@ export interface ListboxProps extends React_2.DetailedHTMLProps<React_2.HTMLAttr
 
 // @alpha @deprecated
 export type ListboxValue = string;
+
+// @internal
+export type ListenerType<TEvent extends {
+    addListener(listener: Listener): () => void;
+}> = TEvent extends {
+    addListener(listener: infer TListener): () => void;
+} ? TListener : never;
 
 // @public @deprecated
 export class LoadingBar extends React_2.PureComponent<LoadingBarProps> {
