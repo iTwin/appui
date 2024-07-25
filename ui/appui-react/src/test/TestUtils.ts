@@ -412,8 +412,4 @@ export async function waitForPosition() {
   return act(async () => {});
 }
 
-/** Extracts `Listener` type from `BeEvent`. */
-export type ListenerType<TEvent extends BeEvent<Listener>> =
-  TEvent extends BeEvent<infer TListener> ? TListener : never;
-
 export default TestUtils;

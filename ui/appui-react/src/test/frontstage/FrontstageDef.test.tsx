@@ -3,6 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { act, renderHook } from "@testing-library/react";
+import type { ListenerType } from "@itwin/core-react";
 import type {
   FrontstageConfig,
   StagePanelConfig,
@@ -29,7 +30,6 @@ import {
 } from "../../appui-react";
 import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";
 import { createNineZoneState } from "../../appui-react/layout/state/NineZoneState";
-import type { ListenerType } from "../TestUtils";
 import TestUtils, { storageMock } from "../TestUtils";
 import { addTab } from "../../appui-react/layout/state/internal/TabStateHelpers";
 import {
