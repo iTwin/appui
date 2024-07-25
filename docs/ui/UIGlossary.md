@@ -55,6 +55,12 @@ A dedicated area in the user interface that displays properties or information r
 
 ![Tool settings visual](images/tool-settings.svg)
 
+## Toolbar
+
+An interactive UI element that offers quick access to tools and actions that are commonly performed within the application. You can use [ToolbarComposer]($appui-react) to display a toolbar for a specific usage and orientation.
+
+![Toolbar visual](images/toolbar.svg)
+
 ## UI&nbsp;Items&nbsp;Provider
 
 A mechanism for providing UI elements such as widgets, backstage, toolbar or status bar items to the application. You can register a [UiItemsProvider]($appui-react) to provide additional items.
