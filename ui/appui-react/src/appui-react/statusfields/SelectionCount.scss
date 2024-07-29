@@ -6,9 +6,22 @@
   gap: var(--iui-size-2xs);
   display: flex;
   align-items: center;
-  padding: 0 var(--iui-size-2xs) 0 var(--iui-size-2xs);
+  min-width: var(--iui-size-2xl);
+  padding-left: var(--iui-size-2xs);
 
   .icon {
     color: var(--iui-color-icon);
   }
+}
+
+.uifw-statusBar-right
+  .uifw-statusBar-item-container:last-child
+  .uifw-statusFields-selectionCount {
+  margin-right: var(--iui-size-m);
+}
+
+.uifw-statusBar-left
+  .uifw-statusBar-item-container:first-child
+  .uifw-statusFields-selectionCount {
+  margin-left: var(--iui-size-m);
 }
