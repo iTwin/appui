@@ -14,6 +14,7 @@ Table of contents:
 - [@itwin/core-react](#itwincore-react)
   - [Deprecations](#deprecations-2)
   - [Additions](#additions-1)
+  - [Changes](#changes-2)
 
 ## @itwin/appui-react
 
@@ -172,6 +173,7 @@ Table of contents:
 
 - Bump `AccuDrawWidget`, `SheetNavigationAid`, `StandardRotationNavigationAid` components to `@public`. [#888](https://github.com/iTwin/appui/pull/888)
 - No more transitions when toggling themes. [#905](https://github.com/iTwin/appui/pull/905)
+- Adjusted `SelectionCount` styling to improve its visuals in various scenarios. [#936](https://github.com/iTwin/appui/pull/936)
 
 ### Fixes
 
