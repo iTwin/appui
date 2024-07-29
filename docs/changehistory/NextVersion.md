@@ -203,7 +203,7 @@ Table of contents:
   - Added replacement properties that allow specifying the badge type in components using string values from `BadgeKind`. [#899](https://github.com/iTwin/appui/pull/899)
     - `badgeKind` property in `CommonBackstageItem`, `CommonStatusBarItem`, `CommonToolbarItem`, `Widget`, `CursorMenuItemProps`, `FrameworkKeyboardShortcut`, `ItemDefBase`, `ItemProps`, `KeyboardShortcutProps`.
     - `badgeKind` getter in `WidgetDef`.
-  - Added `LocalStateStorage`, `SettingsManager` classes, `UiStateStorageStatus` enum and `UiStateStorage`, `UiStateStorageResult`, `RectangleProps`, `SizeProps`, `SettingsTabEntry`, `SettingsTabsProvider` interfaces previously accessible from `@itwin/core-react` package. [#901](https://github.com/iTwin/appui/pull/901)
+- Added `LocalStateStorage`, `SettingsManager` classes, `UiStateStorageStatus` enum and `UiStateStorage`, `UiStateStorageResult`, `RectangleProps`, `SizeProps`, `SettingsTabEntry`, `SettingsTabsProvider` interfaces previously accessible from `@itwin/core-react` package. [#901](https://github.com/iTwin/appui/pull/901)
 - Added additional APIs to facilitate `IconSpec` deprecation. [#901](https://github.com/iTwin/appui/pull/901)
   - `angleIconNode`, `distanceIconNode`, `xIconNode`, `yIconNode`, `zIconNode` properties to `AccuDrawUiSettings` interface.
   - Function overloads to `BackstageItemUtilities`, `StatusBarItemUtilities`, `ToolbarItemUtilities`
