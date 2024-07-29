@@ -40,7 +40,7 @@ export interface AccuDrawInputFieldProps extends CommonProps {
    */
   // eslint-disable-next-line deprecation/deprecation
   iconSpec?: IconSpec;
-  /** Icon for the input element */
+  /** Icon for the input element. */
   icon?: React.ReactNode;
   /** Custom CSS class name for the label */
   labelClassName?: string;
