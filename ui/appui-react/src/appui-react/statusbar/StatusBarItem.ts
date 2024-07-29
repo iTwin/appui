@@ -90,7 +90,7 @@ export interface StatusBarActionItem extends CommonStatusBarItem {
  */
 export interface StatusBarLabelItem extends CommonStatusBarItem {
   /** Icon of a status bar item.
-   * @deprecated in 4.16.0. Use {@link StatusBarActionItem.iconNode} instead.
+   * @deprecated in 4.16.0. Use {@link StatusBarLabelItem.iconNode} instead.
    */
   // eslint-disable-next-line deprecation/deprecation
   readonly icon?: IconSpec;
