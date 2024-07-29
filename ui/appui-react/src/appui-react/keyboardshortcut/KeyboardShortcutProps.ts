@@ -71,7 +71,7 @@ export interface KeyboardShortcutProps extends CommonProps {
    */
   // eslint-disable-next-line deprecation/deprecation
   badgeType?: BadgeType;
-  /** Abstract icon definition, used when create itemDef from abstract item (ie. MenuItem).
+  /** Abstract icon definition, used when creating itemDef from abstract item (ie. MenuItem).
    * @deprecated in 4.16.0. Use {@link KeyboardShortcutProps.iconNode} instead.
    */
   // eslint-disable-next-line deprecation/deprecation
