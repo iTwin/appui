@@ -14,6 +14,7 @@ Table of contents:
 - [@itwin/core-react](#itwincore-react)
   - [Deprecations](#deprecations-2)
   - [Additions](#additions-1)
+  - [Changes](#changes-2)
 
 ## @itwin/appui-react
 
@@ -176,7 +177,8 @@ Table of contents:
 ### Fixes
 
 - Fixed `AccuDrawInputField` to correctly specify keyboard event modifiers in `UiFramework.keyboardShortcuts.processKey()`. [#894](https://github.com/iTwin/appui/pull/894)
-- Fixes the unintentional "flying-in" of floating elements like Tooltips and ComboBox menus when the page first loads. [#905](https://github.com/iTwin/appui/pull/905)
+- Fixed the unintentional "flying-in" of floating elements like Tooltips and ComboBox menus when the page first loads. [#905](https://github.com/iTwin/appui/pull/905)
+- Fixed `ToolAssistanceField` icon size. [#937](https://github.com/iTwin/appui/pull/937)
 
 ## @itwin/components-react
 
