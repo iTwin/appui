@@ -134,10 +134,6 @@ function ItemIcon({
     return <Icon>{iconNode}</Icon>;
   }
 
-  if (icon) {
-    // eslint-disable-next-line deprecation/deprecation
-    return <CoreIcon iconSpec={icon} />;
-  }
-
-  return <Icon />;
+  // eslint-disable-next-line deprecation/deprecation
+  return <CoreIcon iconSpec={icon} />;
 }
