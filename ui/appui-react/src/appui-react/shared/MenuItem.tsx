@@ -73,7 +73,7 @@ export interface CursorMenuItemProps extends CommonProps {
   badgeType?: BadgeType;
   /** Specifies the kind of badge, if any, to be overlaid on the item. */
   badgeKind?: BadgeKind;
-  /** abstract icon definition, used when create itemDef from abstract item (ie. MenuItem).
+  /** Abstract icon definition. Used when creating itemDef from abstract item (ie. MenuItem).
    * @deprecated in 4.16.0. Use {@link CursorMenuItemProps.iconNode} instead.
    */
   // eslint-disable-next-line deprecation/deprecation
