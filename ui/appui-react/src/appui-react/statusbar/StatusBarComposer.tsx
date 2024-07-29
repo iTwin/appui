@@ -83,7 +83,7 @@ export function DockedStatusBarItem(props: StatusBarItemProps) {
   const { onResize } = useStatusBarEntry();
   const ref = useResizeObserver<HTMLDivElement>(onResize);
   const className = classnames(
-    "uifw-statusbar-item-container",
+    "uifw-statusBar-item-container",
     props.className
   );
   return (
@@ -536,7 +536,7 @@ export function StatusBarComposer(props: StatusBarComposerProps) {
     [getOverflowItems]
   );
 
-  const containerClassName = classnames("uifw-statusbar-docked", className);
+  const containerClassName = classnames("uifw-statusBar-docked", className);
 
   return (
     <div
