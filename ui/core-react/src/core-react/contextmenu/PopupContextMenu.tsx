@@ -14,10 +14,12 @@ import { RelativePosition } from "@itwin/appui-abstract";
 import type { CommonProps } from "../utils/Props";
 import { ContextMenuDirection } from "./ContextMenuDirection";
 
+/* eslint-disable deprecation/deprecation */
+
 /** Properties for [[PopupContextMenu]] component
  * @public
+ * @deprecated in 4.16.0. Props of deprecated {@link PopupContextMenu} component.
  */
-// eslint-disable-next-line deprecation/deprecation
 export interface PopupContextMenuProps extends CommonProps {
   /** Indicates whether the popup is shown or not (defaults to false) */
   isOpen: boolean;
@@ -63,6 +65,7 @@ export interface PopupContextMenuProps extends CommonProps {
 
 /** Component that displays a ContextMenu within a Popup component, allowing the target element to be specified.
  * @public
+ * @deprecated in 4.16.0. Use {@link https://itwinui.bentley.com/docs/dropdownmenu iTwinUI DropdownMenu} component instead.
  */
 export function PopupContextMenu(props: PopupContextMenuProps) {
   const {
@@ -80,7 +83,6 @@ export function PopupContextMenu(props: PopupContextMenuProps) {
     popupProps.position
   );
   return (
-    // eslint-disable-next-line deprecation/deprecation
     <Popup
       {...popupProps}
       closeOnNestedPopupOutsideClick

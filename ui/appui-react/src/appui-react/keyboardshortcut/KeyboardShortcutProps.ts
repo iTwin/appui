@@ -14,7 +14,7 @@ import type {
 import type {
   BadgeKind,
   BadgeType,
-  IconProps,
+  CommonProps,
   IconSpec,
 } from "@itwin/core-react";
 import type { StringGetter } from "@itwin/appui-abstract";
@@ -23,7 +23,7 @@ import type { StringGetter } from "@itwin/appui-abstract";
  * @public
  */
 // eslint-disable-next-line deprecation/deprecation
-export interface KeyboardShortcutProps extends IconProps {
+export interface KeyboardShortcutProps extends CommonProps {
   /** The key that invokes the shortcut.
    * This is either an alphanumeric key, a function key or a special key.
    */
@@ -49,6 +49,11 @@ export interface KeyboardShortcutProps extends IconProps {
   /** Indicates whether the Shift key required. Default - false */
   isShiftKeyRequired?: boolean;
 
+  /** Specifies the kind of badge, if any, to be overlaid on the item. */
+  badgeKind?: BadgeKind;
+  /** Icon used for a shortcut. */
+  iconNode?: React.ReactNode;
+
   // #region "ItemProps" properties previously extended from deprecated type.
 
   /** if true component will be hidden - defaults to false */
@@ -66,9 +71,10 @@ export interface KeyboardShortcutProps extends IconProps {
    */
   // eslint-disable-next-line deprecation/deprecation
   badgeType?: BadgeType;
-  /** Specifies the kind of badge, if any, to be overlaid on the item. */
-  badgeKind?: BadgeKind;
-  /** abstract icon definition, used when create itemDef from abstract item (ie. MenuItem) */
+  /** Abstract icon definition, used when creating itemDef from abstract item (ie. MenuItem).
+   * @deprecated in 4.16.0. Use {@link KeyboardShortcutProps.iconNode} instead.
+   */
+  // eslint-disable-next-line deprecation/deprecation
   icon?: IconSpec;
 
   /** if set, it is used to explicitly set the label shown by a component. */
@@ -86,4 +92,12 @@ export interface KeyboardShortcutProps extends IconProps {
   tooltipKey?: string;
 
   // #endregion "ItemProps"
+
+  // #region "IconProps" properties previously extended from deprecated type.
+
+  /** @deprecated in 4.16.0. Use {@link KeyboardShortcutProps.iconNode} instead. */
+  // eslint-disable-next-line deprecation/deprecation
+  iconSpec?: IconSpec;
+
+  // #endregion "IconProps"
 }

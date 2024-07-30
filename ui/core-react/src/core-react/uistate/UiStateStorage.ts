@@ -6,8 +6,11 @@
  * @module UiStateStorage
  */
 
+/* eslint-disable deprecation/deprecation */
+
 /** Interface for getting, saving and deleting settings.
  * @public
+ * @deprecated in 4.16.0. Use {@link @itwin/appui-react#UiStateStorage} instead.
  */
 export interface UiStateStorage {
   getSetting(
@@ -27,6 +30,7 @@ export interface UiStateStorage {
 
 /** Enum for [[UiStateStorage]] status.
  * @public
+ * @deprecated in 4.16.0. Use {@link @itwin/appui-react#UiStateStorageStatus} instead.
  */
 export enum UiStateStorageStatus {
   Success = 0,
@@ -38,6 +42,7 @@ export enum UiStateStorageStatus {
 
 /** Interface for result of accessing UI state setting in [[UiStateStorage]].
  * @public
+ * @deprecated in 4.16.0. Use {@link @itwin/appui-react#UiStateStorageResult} instead.
  */
 export interface UiStateStorageResult {
   status: UiStateStorageStatus;

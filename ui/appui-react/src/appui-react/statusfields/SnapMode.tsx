@@ -32,6 +32,7 @@ interface SnapModeFieldEntry {
   iconName: string;
 }
 
+// eslint-disable-next-line deprecation/deprecation
 function getIconFromIconName(iconName: string): IconSpec {
   let iconSpec = snapModeKeypoint;
   switch (iconName) {
@@ -153,6 +154,7 @@ export function SnapModeField(props: SnapModeFieldProps) {
               }}
               isActive={(snapMode & item.value) === item.value}
               icon={
+                // eslint-disable-next-line deprecation/deprecation
                 <Icon
                   className={`icon`}
                   iconSpec={getIconFromIconName(item.iconName)}
@@ -168,6 +170,7 @@ export function SnapModeField(props: SnapModeFieldProps) {
       <Button
         styleType="borderless"
         title={title}
+        // eslint-disable-next-line deprecation/deprecation
         endIcon={<Icon iconSpec={getIconFromIconName(iconName)} />}
       >
         {title}

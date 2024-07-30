@@ -20,8 +20,6 @@ import type {
   PropertyRecord,
 } from "@itwin/appui-abstract";
 import { UiAdmin, UiError, UiEvent } from "@itwin/appui-abstract";
-import type { UiStateStorage } from "@itwin/core-react";
-import { LocalStateStorage, SettingsManager } from "@itwin/core-react";
 import { getObjectClassName } from "@itwin/core-react";
 import { UiIModelComponents } from "@itwin/imodel-components-react";
 import { BackstageManager } from "./backstage/BackstageManager";
@@ -91,6 +89,9 @@ import type { SelectionScopeField } from "./statusfields/SelectionScope";
 import type { SnapModeField } from "./statusfields/SnapMode";
 import type { ThemeManager } from "./theme/ThemeManager";
 import { useGlobalStore } from "./uistate/useGlobalStore";
+import type { UiStateStorage } from "./uistate/UiStateStorage";
+import { LocalStateStorage } from "./uistate/LocalStateStorage";
+import { SettingsManager } from "./settings/SettingsManager";
 
 interface ShowInputEditorOptions {
   location: XAndY;

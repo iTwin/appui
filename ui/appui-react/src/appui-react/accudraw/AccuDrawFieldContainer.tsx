@@ -9,19 +9,19 @@
 import "./AccuDrawFieldContainer.scss";
 import classnames from "classnames";
 import * as React from "react";
+import { Orientation } from "@itwin/components-react";
 import type { ColorDef } from "@itwin/core-common";
 import type { ScreenViewport } from "@itwin/core-frontend";
 import { CompassMode, IModelApp, ItemField } from "@itwin/core-frontend";
-import type { CommonProps, IconSpec, UiStateStorage } from "@itwin/core-react";
-import { Orientation } from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
 import { getCSSColorFromDef } from "@itwin/imodel-components-react";
-
 import { AccuDrawInputField } from "./AccuDrawInputField";
 import { FrameworkAccuDraw } from "./FrameworkAccuDraw";
 import type { AccuDrawUiSettings } from "./AccuDrawUiSettings";
 import angleIconSvg from "./angle.svg";
 import distanceIconSvg from "./distance.svg";
 import { UiFramework } from "../UiFramework";
+import type { UiStateStorage } from "../uistate/UiStateStorage";
 
 /** Properties for [[AccuDrawFieldContainer]] component
  * @beta
@@ -84,39 +84,17 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
     IModelApp.accuDraw.getFieldLock(ItemField.DIST_Item)
   );
   const [showZ, setShowZ] = React.useState(true);
-  const [xLabel, setXLabel] = React.useState<string | undefined>(defaultXLabel);
-  const [yLabel, setYLabel] = React.useState<string | undefined>(defaultYLabel);
-  const [zLabel, setZLabel] = React.useState<string | undefined>(defaultZLabel);
-  const [angleLabel, setAngleLabel] = React.useState<string | undefined>(
-    undefined
-  );
-  const [distanceLabel, setDistanceLabel] = React.useState<string | undefined>(
-    undefined
-  );
-  const [xIcon, setXIcon] = React.useState<IconSpec | undefined>(undefined);
-  const [yIcon, setYIcon] = React.useState<IconSpec | undefined>(undefined);
-  const [zIcon, setZIcon] = React.useState<IconSpec | undefined>(undefined);
-  const [angleIcon, setAngleIcon] = React.useState<IconSpec | undefined>(
-    angleIconSvg
-  );
-  const [distanceIcon, setDistanceIcon] = React.useState<IconSpec | undefined>(
-    distanceIconSvg
-  );
-  const [xStyle, setXStyle] = React.useState<React.CSSProperties | undefined>(
-    undefined
-  );
-  const [yStyle, setYStyle] = React.useState<React.CSSProperties | undefined>(
-    undefined
-  );
-  const [zStyle, setZStyle] = React.useState<React.CSSProperties | undefined>(
-    undefined
-  );
-  const [angleStyle, setAngleStyle] = React.useState<
-    React.CSSProperties | undefined
-  >(undefined);
-  const [distanceStyle, setDistanceStyle] = React.useState<
-    React.CSSProperties | undefined
-  >(undefined);
+
+  const [uiSettings, setUiSettings] = React.useState<
+    AccuDrawUiSettings | undefined
+  >(FrameworkAccuDraw.uiStateStorage);
+  React.useEffect(() => {
+    return FrameworkAccuDraw.onAccuDrawUiSettingsChangedEvent.addListener(
+      () => {
+        setUiSettings(FrameworkAccuDraw.uiStateStorage);
+      }
+    );
+  }, []);
 
   const getFieldInput = (field: ItemField) => {
     switch (field) {
@@ -239,137 +217,78 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
     );
   }, [showZOverride]);
 
-  React.useEffect(() => {
-    const createFieldStyle = (
-      inStyle: React.CSSProperties | undefined,
-      backgroundColor: ColorDef | string | undefined,
-      foregroundColor: ColorDef | string | undefined
-    ): React.CSSProperties | undefined => {
-      let fieldStyle: React.CSSProperties | undefined;
-      let rgbaString = "";
-      if (inStyle || backgroundColor || foregroundColor) {
-        fieldStyle = inStyle ? inStyle : {};
-        if (backgroundColor) {
-          rgbaString =
-            typeof backgroundColor === "string"
-              ? backgroundColor
-              : getCSSColorFromDef(backgroundColor);
-          fieldStyle = { ...fieldStyle, backgroundColor: rgbaString };
-        }
-        if (foregroundColor) {
-          rgbaString =
-            typeof foregroundColor === "string"
-              ? foregroundColor
-              : getCSSColorFromDef(foregroundColor);
-          fieldStyle = { ...fieldStyle, color: rgbaString };
-        }
+  const createFieldStyle = (
+    inStyle: React.CSSProperties | undefined,
+    backgroundColor: ColorDef | string | undefined,
+    foregroundColor: ColorDef | string | undefined
+  ): React.CSSProperties | undefined => {
+    let fieldStyle: React.CSSProperties | undefined;
+    let rgbaString = "";
+    if (inStyle || backgroundColor || foregroundColor) {
+      fieldStyle = inStyle ? inStyle : {};
+      if (backgroundColor) {
+        rgbaString =
+          typeof backgroundColor === "string"
+            ? backgroundColor
+            : getCSSColorFromDef(backgroundColor);
+        fieldStyle = { ...fieldStyle, backgroundColor: rgbaString };
       }
-      return fieldStyle;
-    };
-
-    const processAccuDrawUiSettings = (settings?: AccuDrawUiSettings) => {
-      setXStyle(
-        settings
-          ? createFieldStyle(
-              settings.xStyle,
-              settings.xBackgroundColor,
-              settings.xForegroundColor
-            )
-          : undefined
-      );
-      setYStyle(
-        settings
-          ? createFieldStyle(
-              settings.yStyle,
-              settings.yBackgroundColor,
-              settings.yForegroundColor
-            )
-          : undefined
-      );
-      setZStyle(
-        settings
-          ? createFieldStyle(
-              settings.zStyle,
-              settings.zBackgroundColor,
-              settings.zForegroundColor
-            )
-          : undefined
-      );
-      setAngleStyle(
-        settings
-          ? createFieldStyle(
-              settings.angleStyle,
-              settings.angleBackgroundColor,
-              settings.angleForegroundColor
-            )
-          : undefined
-      );
-      setDistanceStyle(
-        settings
-          ? createFieldStyle(
-              settings.distanceStyle,
-              settings.distanceBackgroundColor,
-              settings.distanceForegroundColor
-            )
-          : undefined
-      );
-
-      setXLabel(
-        settings && settings.xLabel !== undefined
-          ? settings.xLabel
-          : defaultXLabel
-      );
-      setYLabel(
-        settings && settings.yLabel !== undefined
-          ? settings.yLabel
-          : defaultYLabel
-      );
-      setZLabel(
-        settings && settings.zLabel !== undefined
-          ? settings.zLabel
-          : defaultZLabel
-      );
-      setAngleLabel(
-        settings && settings.angleLabel !== undefined
-          ? settings.angleLabel
-          : undefined
-      );
-      setDistanceLabel(
-        settings && settings.distanceLabel !== undefined
-          ? settings.distanceLabel
-          : undefined
-      );
-
-      setXIcon(
-        settings && settings.xIcon !== undefined ? settings.xIcon : undefined
-      );
-      setYIcon(
-        settings && settings.yIcon !== undefined ? settings.yIcon : undefined
-      );
-      setZIcon(
-        settings && settings.zIcon !== undefined ? settings.zIcon : undefined
-      );
-      setAngleIcon(
-        settings && settings.angleIcon !== undefined
-          ? settings.angleIcon
-          : angleIconSvg
-      );
-      setDistanceIcon(
-        settings && settings.distanceIcon !== undefined
-          ? settings.distanceIcon
-          : distanceIconSvg
-      );
-    };
-
-    if (FrameworkAccuDraw.uiStateStorage)
-      processAccuDrawUiSettings(FrameworkAccuDraw.uiStateStorage);
-
-    return FrameworkAccuDraw.onAccuDrawUiSettingsChangedEvent.addListener(
-      () => {
-        processAccuDrawUiSettings(FrameworkAccuDraw.uiStateStorage);
+      if (foregroundColor) {
+        rgbaString =
+          typeof foregroundColor === "string"
+            ? foregroundColor
+            : getCSSColorFromDef(foregroundColor);
+        fieldStyle = { ...fieldStyle, color: rgbaString };
       }
+    }
+    return fieldStyle;
+  };
+
+  const xStyle = React.useMemo(() => {
+    if (!uiSettings) return undefined;
+    return createFieldStyle(
+      uiSettings.xStyle,
+      uiSettings.xBackgroundColor,
+      uiSettings.xForegroundColor
     );
-  }, []);
+  }, [uiSettings]);
+  const yStyle = React.useMemo(() => {
+    if (!uiSettings) return undefined;
+    return createFieldStyle(
+      uiSettings.yStyle,
+      uiSettings.yBackgroundColor,
+      uiSettings.yForegroundColor
+    );
+  }, [uiSettings]);
+  const zStyle = React.useMemo(() => {
+    if (!uiSettings) return undefined;
+    return createFieldStyle(
+      uiSettings.zStyle,
+      uiSettings.zBackgroundColor,
+      uiSettings.zForegroundColor
+    );
+  }, [uiSettings]);
+  const angleStyle = React.useMemo(() => {
+    if (!uiSettings) return undefined;
+    return createFieldStyle(
+      uiSettings.angleStyle,
+      uiSettings.angleBackgroundColor,
+      uiSettings.angleForegroundColor
+    );
+  }, [uiSettings]);
+  const distanceStyle = React.useMemo(() => {
+    if (!uiSettings) return undefined;
+    return createFieldStyle(
+      uiSettings.distanceStyle,
+      uiSettings.distanceBackgroundColor,
+      uiSettings.distanceForegroundColor
+    );
+  }, [uiSettings]);
+  const xLabel = uiSettings?.xLabel ?? defaultXLabel;
+  const yLabel = uiSettings?.yLabel ?? defaultYLabel;
+  const zLabel = uiSettings?.zLabel ?? defaultZLabel;
+  const angleLabel = uiSettings?.angleLabel;
+  const distanceLabel = uiSettings?.distanceLabel;
 
   const classNames = classnames(
     "uifw-accudraw-field-container",
@@ -399,7 +318,9 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
             id={`uifw-accudraw-x-${containerIndex}`}
             data-testid="uifw-accudraw-x"
             label={xLabel}
-            iconSpec={xIcon}
+            // eslint-disable-next-line deprecation/deprecation
+            iconSpec={uiSettings?.xIcon}
+            icon={uiSettings?.xIconNode}
             labelCentered={labelCentered}
             valueChangedDelay={delay}
             onValueChanged={(stringValue) =>
@@ -416,7 +337,9 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
             id={`uifw-accudraw-y-${containerIndex}`}
             data-testid="uifw-accudraw-y"
             label={yLabel}
-            iconSpec={yIcon}
+            // eslint-disable-next-line deprecation/deprecation
+            iconSpec={uiSettings?.yIcon}
+            icon={uiSettings?.yIconNode}
             labelCentered={labelCentered}
             valueChangedDelay={delay}
             onValueChanged={(stringValue) =>
@@ -434,7 +357,9 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
               id={`uifw-accudraw-z-${containerIndex}`}
               data-testid="uifw-accudraw-z"
               label={zLabel}
-              iconSpec={zIcon}
+              // eslint-disable-next-line deprecation/deprecation
+              iconSpec={uiSettings?.zIcon}
+              icon={uiSettings?.zIconNode}
               labelCentered={labelCentered}
               valueChangedDelay={delay}
               onValueChanged={(stringValue) =>
@@ -456,7 +381,9 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
             id={`uifw-accudraw-distance-${containerIndex}`}
             data-testid="uifw-accudraw-distance"
             label={distanceLabel}
-            iconSpec={distanceIcon}
+            // eslint-disable-next-line deprecation/deprecation
+            iconSpec={uiSettings?.distanceIcon ?? distanceIconSvg}
+            icon={uiSettings?.distanceIconNode}
             valueChangedDelay={delay}
             onValueChanged={(stringValue) =>
               handleValueChanged(ItemField.DIST_Item, stringValue)
@@ -472,7 +399,9 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
             id={`uifw-accudraw-angle-${containerIndex}`}
             data-testid="uifw-accudraw-angle"
             label={angleLabel}
-            iconSpec={angleIcon}
+            // eslint-disable-next-line deprecation/deprecation
+            iconSpec={uiSettings?.angleIcon ?? angleIconSvg}
+            icon={uiSettings?.angleIconNode}
             valueChangedDelay={delay}
             onValueChanged={(stringValue) =>
               handleValueChanged(ItemField.ANGLE_Item, stringValue)

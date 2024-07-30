@@ -14,7 +14,6 @@ import type {
   SpatialViewState,
 } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
-import type { ModalFrontstageRequestedCloseEventArgs } from "../../appui-react";
 import {
   ConfigurableCreateInfo,
   ConfigurableUiContent,
@@ -110,16 +109,12 @@ describe("FrontstageManager", () => {
   });
 
   it("setActiveModalFrontstage from backstage item", async () => {
-    const handleFrontstageCloseRequested = ({
-      stageCloseFunc,
-    }: ModalFrontstageRequestedCloseEventArgs) => {
-      stageCloseFunc();
-    };
-
     // since we are not really displaying modal stage add listener to mimic the close processing
     const removeListener =
       InternalFrontstageManager.onCloseModalFrontstageRequestedEvent.addListener(
-        handleFrontstageCloseRequested
+        ({ stageCloseFunc }) => {
+          stageCloseFunc();
+        }
       );
 
     expect(InternalFrontstageManager.activeModalFrontstage).toEqual(undefined);

@@ -43,19 +43,14 @@ function EditorLabel({
 
   // listen for tool sync property events and update the isDisabled state
   React.useEffect(() => {
-    const handleSync = (args: SyncPropertiesChangeEventArgs) => {
+    return uiDataProvider.onSyncPropertiesChangeEvent.addListener((args) => {
       const mySyncItem = args.properties.find(
-        (syncItem: DialogPropertySyncItem) =>
-          syncItem.propertyName === item.property.name
+        (syncItem) => syncItem.propertyName === item.property.name
       );
       if (mySyncItem) {
         setIsDisabled(!!mySyncItem.isDisabled);
       }
-    };
-    uiDataProvider.onSyncPropertiesChangeEvent.addListener(handleSync);
-    return () => {
-      uiDataProvider.onSyncPropertiesChangeEvent.removeListener(handleSync);
-    };
+    });
   }, [uiDataProvider, item]);
 
   const className = classnames(

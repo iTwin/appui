@@ -6,7 +6,7 @@
  * @module Tree
  */
 
-import type { CheckBoxState } from "@itwin/core-react";
+import type { CheckBoxState } from "../../common/CheckBoxState";
 import type { TreeNodeItem } from "../TreeDataProvider";
 import type { Observable, Subscription } from "./Observable";
 

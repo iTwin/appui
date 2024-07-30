@@ -6,12 +6,12 @@ import * as React from "react";
 import { Provider } from "react-redux";
 import { fireEvent, render, screen } from "@testing-library/react";
 import { SnapMode } from "@itwin/core-frontend";
+import type { ListenerType } from "@itwin/core-react";
 import {
   SnapModeField,
   SyncUiEventDispatcher,
   UiFramework,
 } from "../../appui-react";
-import type { ListenerType } from "../TestUtils";
 import TestUtils, { userEvent } from "../TestUtils";
 
 describe("SnapModeField", () => {

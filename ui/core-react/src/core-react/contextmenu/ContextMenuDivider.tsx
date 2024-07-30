@@ -10,11 +10,12 @@ import * as React from "react";
 import classnames from "classnames";
 import type { CommonProps } from "../utils/Props";
 
-/**
- * Menu Divider for [[ContextMenu]]. Inserts a line between items, used for list item grouping.
+/* eslint-disable deprecation/deprecation */
+
+/** Menu Divider for [[ContextMenu]]. Inserts a line between items, used for list item grouping.
  * @public
+ * @deprecated in 4.16.0. Use {@link https://itwinui.bentley.com/docs/dropdownmenu#separator iTwinUI MenuDivider} component instead.
  */
-// eslint-disable-next-line deprecation/deprecation
 export class ContextMenuDivider extends React.PureComponent<CommonProps> {
   public override render(): React.ReactElement {
     const { className, ...props } = this.props;

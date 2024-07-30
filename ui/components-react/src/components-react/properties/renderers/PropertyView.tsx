@@ -8,10 +8,11 @@
 
 import "./PropertyView.scss";
 import * as React from "react";
-import { ElementSeparator, Orientation } from "@itwin/core-react";
+import { ElementSeparator } from "@itwin/core-react";
 import { ActionButtonList } from "./ActionButtonList";
 import { PropertyGridColumnStyleProvider } from "./PropertyGridColumns";
 import type { SharedRendererProps } from "./PropertyRenderer";
+import { Orientation } from "../../common/Orientation";
 
 /** Properties of [[PropertyView]] React component
  * @public

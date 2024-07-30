@@ -18,11 +18,8 @@ import type { SelectionMode } from "../../../common/selection/SelectionModes";
 import type { TreeActions } from "../TreeActions";
 import type { TreeModelNode, VisibleTreeNodes } from "../TreeModel";
 import { isTreeModelNode } from "../TreeModel";
-import {
-  isNavigationKey,
-  ItemKeyboardNavigator,
-  Orientation,
-} from "@itwin/core-react";
+import { isNavigationKey, ItemKeyboardNavigator } from "@itwin/core-react";
+import { Orientation } from "../../../common/Orientation";
 
 /** @internal */
 export interface SelectionReplacementEvent {

@@ -7,9 +7,14 @@
  */
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
-import { Icon } from "@itwin/core-react";
-import { Button, NotificationMarker, Tabs } from "@itwin/itwinui-react";
-import { SvgChat } from "@itwin/itwinui-icons-react";
+import { Button, Icon, NotificationMarker, Tabs } from "@itwin/itwinui-react";
+import {
+  SvgChat,
+  SvgInfo,
+  SvgStatusError,
+  SvgStatusSuccess,
+  SvgStatusWarning,
+} from "@itwin/itwinui-icons-react";
 import { OutputMessagePriority } from "@itwin/core-frontend";
 
 import { MessageCenterMessage } from "./MessageCenterMessage";
@@ -22,7 +27,9 @@ import { useTranslation } from "../../hooks/useTranslation";
 import { StatusBarPopover } from "../../statusbar/popup/StatusBarPopover";
 
 /** Type for Status state to satisfy NotificationMarker type checking. */
-type NotificationMarkerStatus = "primary" | "negative" | "positive";
+type NotificationMarkerStatus = Required<
+  React.ComponentProps<typeof NotificationMarker>
+>["status"];
 
 const tabs = ["all", "errors"] as const;
 
@@ -45,8 +52,7 @@ export function MessageCenterField(props: CommonProps) {
     setIsOpen(isOpenState);
   };
 
-  const isProblemStatus = (message: NotifyMessageDetailsType): boolean => {
-    // See priority values in DgnPlatform defined in NotificationManager
+  const isErrorMessage = (message: NotifyMessageDetailsType): boolean => {
     return (
       message.priority === OutputMessagePriority.Error ||
       message.priority === OutputMessagePriority.Fatal
@@ -60,27 +66,30 @@ export function MessageCenterField(props: CommonProps) {
   }, []);
 
   React.useEffect(() => {
-    const determineStatus = () => {
-      const message = [...MessageManager.messages].pop();
-
-      if (message) {
-        if (isProblemStatus(message)) {
-          return setStatus("negative");
-        } else if (message.priority === OutputMessagePriority.Success) {
-          return setStatus("positive");
-        } else {
-          return setStatus("primary");
-        }
-      }
-      return;
-    };
-
     MessageManager.registerAnimateOutToElement(indicatorRef.current);
 
     return MessageManager.onMessagesUpdatedEvent.addListener(() => {
-      MessageManager.messages.length > 0 ? setNotify(true) : setNotify(false);
-      setMessages(MessageManager.messages);
-      determineStatus();
+      const newMessages = MessageManager.messages;
+      newMessages.length > 0 ? setNotify(true) : setNotify(false);
+      setMessages(newMessages);
+
+      const lastMessage = newMessages[newMessages.length - 1];
+      if (!lastMessage) return;
+
+      switch (lastMessage.priority) {
+        case OutputMessagePriority.Success:
+          setStatus("positive");
+          break;
+        case OutputMessagePriority.Warning:
+          setStatus("warning");
+          break;
+        case OutputMessagePriority.Error:
+        case OutputMessagePriority.Fatal:
+          setStatus("negative");
+          break;
+        default:
+          setStatus("primary");
+      }
     });
   }, []);
 
@@ -107,7 +116,7 @@ export function MessageCenterField(props: CommonProps) {
               let tabMessages = [...messages].reverse();
               tabMessages =
                 tab === "errors"
-                  ? tabMessages.filter(isProblemStatus)
+                  ? tabMessages.filter(isErrorMessage)
                   : tabMessages;
               return (
                 <Tabs.Panel
@@ -121,22 +130,12 @@ export function MessageCenterField(props: CommonProps) {
                     </span>
                   ) : (
                     tabMessages.map((message, index) => {
-                      const iconClassName =
-                        MessageManager.getIconClassName(message);
-                      const iconSpec =
-                        MessageManager.getIconSpecFromDetails(message);
-
                       return (
                         <MessageCenterMessage
                           key={index}
                           message={message.briefMessage}
                           details={message.detailedMessage}
-                          icon={
-                            <Icon
-                              iconSpec={iconSpec}
-                              className={iconClassName}
-                            />
-                          }
+                          icon={<MessageIcon priority={message.priority} />}
                         />
                       );
                     })
@@ -163,5 +162,38 @@ export function MessageCenterField(props: CommonProps) {
         <StatusBarPopover.ExpandIndicator />
       </Button>
     </StatusBarPopover>
+  );
+}
+
+interface MessageIconProps {
+  priority: OutputMessagePriority;
+}
+
+function MessageIcon({ priority }: MessageIconProps) {
+  switch (priority) {
+    case OutputMessagePriority.Error:
+    case OutputMessagePriority.Fatal:
+      return (
+        <Icon fill="negative">
+          <SvgStatusError />
+        </Icon>
+      );
+    case OutputMessagePriority.Warning:
+      return (
+        <Icon fill="warning">
+          <SvgStatusWarning />
+        </Icon>
+      );
+    case OutputMessagePriority.Info:
+      return (
+        <Icon fill="informational">
+          <SvgInfo />
+        </Icon>
+      );
+  }
+  return (
+    <Icon fill="positive">
+      <SvgStatusSuccess />
+    </Icon>
   );
 }

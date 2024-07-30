@@ -12,6 +12,8 @@ import { UiCore } from "../UiCore";
 import DOMPurify, * as DOMPurifyNS from "dompurify";
 import { reuseOrCreatePromise } from "./reuseOrCreatePromise";
 
+/* eslint-disable deprecation/deprecation */
+
 /**
  * "getSvg" list
  * (if multiple icon require the same thing,
@@ -57,7 +59,6 @@ function parseSvgFromDataUri(src: string, element: any) {
   );
   const errorNode = parsedSvg.querySelector("parsererror");
   if (errorNode || "svg" !== parsedSvg.documentElement.nodeName.toLowerCase()) {
-    // eslint-disable-next-line deprecation/deprecation
     throw new UiError(UiCore.loggerCategory(element), "Unable to load icon.");
   }
 
@@ -75,12 +76,10 @@ async function fetchSvg(src: string, element: any) {
     Logger.logError(UiCore.loggerCategory(element), "Unable to load icon.");
   });
   if (!response || !response.ok) {
-    // eslint-disable-next-line deprecation/deprecation
     throw new UiError(UiCore.loggerCategory(element), "Unable to load icon.");
   }
   const str = await response.text();
   if (str === undefined) {
-    // eslint-disable-next-line deprecation/deprecation
     throw new UiError(UiCore.loggerCategory(element), "Unable to load icon.");
   }
   const data = new window.DOMParser().parseFromString(str, "text/xml");

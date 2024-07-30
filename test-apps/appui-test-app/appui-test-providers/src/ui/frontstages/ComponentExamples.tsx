@@ -41,16 +41,16 @@ export class ComponentExamplesModalFrontstage implements ModalFrontstageInfo {
     groupPriority: number,
     itemPriority: number
   ) {
-    return BackstageItemUtilities.createActionItem(
-      ComponentExamplesModalFrontstage.stageId,
+    return BackstageItemUtilities.createActionItem({
+      id: ComponentExamplesModalFrontstage.stageId,
       groupPriority,
       itemPriority,
-      () =>
+      execute: () =>
         UiFramework.frontstages.openModalFrontstage(
           new ComponentExamplesModalFrontstage()
         ),
-      "Component Examples"
-    );
+      label: "Component Examples",
+    });
   }
 }
 

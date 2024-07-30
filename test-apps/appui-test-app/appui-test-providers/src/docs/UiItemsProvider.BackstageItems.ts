@@ -8,13 +8,10 @@ import { BackstageItemUtilities, UiItemsProvider } from "@itwin/appui-react";
 const provider: UiItemsProvider = {
   id: "example:Provider",
   getBackstageItems: () => [
-    BackstageItemUtilities.createActionItem(
-      "example:BackstageItem",
-      100,
-      100,
-      () => {},
-      "My custom backstage item"
-    ),
+    BackstageItemUtilities.createActionItem({
+      id: "example:BackstageItem",
+      label: "My backstage item",
+    }),
   ],
 };
 // __PUBLISH_EXTRACT_END__

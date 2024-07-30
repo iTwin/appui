@@ -16,7 +16,6 @@ import type {
   IModelConnection,
   TentativePoint,
   ViewManager,
-  Viewport,
   ViewState,
 } from "@itwin/core-frontend";
 import {
@@ -25,13 +24,7 @@ import {
   StandardView,
   ToolSettings,
 } from "@itwin/core-frontend";
-
-import type { CommonProps } from "@itwin/core-react";
-import type {
-  CubeRotationChangeEventArgs,
-  DrawingViewportChangeEventArgs,
-  StandardRotationChangeEventArgs,
-} from "./ViewportComponentEvents";
+import type { CommonProps, ListenerType } from "@itwin/core-react";
 import { ViewportComponentEvents } from "./ViewportComponentEvents";
 
 /** Type for a ViewState prop
@@ -96,7 +89,9 @@ export function ViewportComponent(props: ViewportProps) {
   const viewClassFullName = React.useRef("");
   const viewId = React.useRef("0");
 
-  const handleViewChanged = (vp: Viewport) => {
+  const handleViewChanged: ListenerType<ScreenViewport["onViewChanged"]> = (
+    vp
+  ) => {
     if (!(vp.iModel.isOpen || vp.iModel.isBlank)) return;
     ViewportComponentEvents.setViewMatrix(vp);
     if (viewClassFullName.current !== vp.view.classFullName) {
@@ -121,9 +116,9 @@ export function ViewportComponent(props: ViewportProps) {
     }
   };
 
-  const handleStandardRotationChangeEvent = (
-    args: StandardRotationChangeEventArgs // eslint-disable-line deprecation/deprecation
-  ) => {
+  const handleStandardRotationChangeEvent: ListenerType<
+    typeof ViewportComponentEvents.onStandardRotationChangeEvent
+  > = (args) => {
     const viewManager = viewManagerRef.current;
     const currentScreenViewport = screenViewportRef.current;
     if (
@@ -137,9 +132,9 @@ export function ViewportComponent(props: ViewportProps) {
     }
   };
 
-  const handleDrawingViewportChangeEvent = (
-    args: DrawingViewportChangeEventArgs // eslint-disable-line deprecation/deprecation
-  ) => {
+  const handleDrawingViewportChangeEvent: ListenerType<
+    typeof ViewportComponentEvents.onDrawingViewportChangeEvent
+  > = (args) => {
     const viewManager = viewManagerRef.current;
     const currentScreenViewport = screenViewportRef.current;
     if (
@@ -179,8 +174,9 @@ export function ViewportComponent(props: ViewportProps) {
     return targetPoint.current ?? vp.view.getCenter();
   };
 
-  // eslint-disable-next-line deprecation/deprecation
-  const handleCubeRotationChangeEvent = (args: CubeRotationChangeEventArgs) => {
+  const handleCubeRotationChangeEvent: ListenerType<
+    typeof ViewportComponentEvents.onCubeRotationChangeEvent
+  > = (args) => {
     const viewManager = viewManagerRef.current;
     const currentScreenViewport = screenViewportRef.current;
     if (

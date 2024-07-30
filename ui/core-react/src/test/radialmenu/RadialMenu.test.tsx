@@ -260,8 +260,7 @@ describe("RadialMenu", () => {
       render(
         <RadialMenu opened={true} innerRadius={10} outerRadius={100}>
           <RadialButton key="0" icon="icon-placeholder" onSelect={spy}>
-            {" "}
-            Test{" "}
+            Test
           </RadialButton>
         </RadialMenu>
       );
@@ -281,8 +280,7 @@ describe("RadialMenu", () => {
             icon="icon-placeholder"
             onSelect={spy}
           >
-            {" "}
-            Test{" "}
+            Test
           </RadialButton>
         </svg>
       );
@@ -304,8 +302,7 @@ describe("RadialMenu", () => {
           selected={0}
         >
           <RadialButton key="0" icon="icon-placeholder" onSelect={spy}>
-            {" "}
-            Test{" "}
+            Test
           </RadialButton>
         </RadialMenu>
       );
@@ -318,8 +315,7 @@ describe("RadialMenu", () => {
       const { container } = render(
         <RadialMenu opened={true} innerRadius={10} outerRadius={100}>
           <RadialButton key="0" icon="icon-placeholder" labelRotate={true}>
-            {" "}
-            Test{" "}
+            Test
           </RadialButton>
         </RadialMenu>
       );

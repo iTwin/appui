@@ -38,7 +38,7 @@ describe("FloatingTab", () => {
 
   it("should render with icon", async () => {
     let state = createNineZoneState();
-    state = addTab(state, "t1", { label: "tab 1", iconSpec: <div>icon</div> });
+    state = addTab(state, "t1", { label: "tab 1" });
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     state = produce(state, (draft) => {
       draft.draggedTab = createDraggedTabState("t1", {
@@ -48,7 +48,7 @@ describe("FloatingTab", () => {
     const { findByText } = render(
       <TestNineZoneProvider defaultState={state}>
         <ShowWidgetIconContext.Provider value={true}>
-          <FloatingTab />
+          <FloatingTab icon="icon" />
         </ShowWidgetIconContext.Provider>
       </TestNineZoneProvider>
     );

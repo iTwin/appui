@@ -12,14 +12,15 @@ import {
   ContentGroup,
   ContentGroupProps,
   ContentProps,
+  LocalStateStorage,
   StageContentLayout,
   StageContentLayoutProps,
   SyncUiEventId,
   ToolbarItemUtilities,
   UiFramework,
+  useConditionalValue,
 } from "@itwin/appui-react";
 import { IModelConnection, ScreenViewport, Tool } from "@itwin/core-frontend";
-import { ConditionalIconItem, LocalStateStorage } from "@itwin/core-react";
 import { SvgWindow, SvgWindowSplitVertical } from "@itwin/itwinui-icons-react";
 
 import layoutRestoreIconSvg from "@bentley/icons-generic/icons/download.svg";
@@ -182,23 +183,22 @@ export class RestoreSavedContentLayoutTool extends Tool {
   }
 }
 
-const getSplitWindowCmdIcon = () => {
-  return 1 ===
-    UiFramework.frontstages.activeFrontstageDef?.contentGroup?.contentPropsList
-      .length ? (
-    <SvgWindowSplitVertical />
-  ) : (
-    <SvgWindow />
+function SplitWindowIcon() {
+  const split = useConditionalValue(
+    () =>
+      1 ===
+      UiFramework.frontstages.activeFrontstageDef?.contentGroup
+        ?.contentPropsList.length,
+    [SyncUiEventId.ActiveContentChanged]
   );
-};
+  if (split) return <SvgWindowSplitVertical />;
+  return <SvgWindow />;
+}
 
 export function createSplitSingleViewportToolbarItem(
   getViewport: (content: ContentProps) => ScreenViewport | undefined
 ) {
   const id = "splitSingleViewportCommandDef";
-  const icon = new ConditionalIconItem(getSplitWindowCmdIcon, [
-    SyncUiEventId.ActiveContentChanged,
-  ]);
   const label = new ConditionalStringValue(
     () =>
       1 ===
@@ -292,5 +292,10 @@ export function createSplitSingleViewportToolbarItem(
       await UiFramework.content.layouts.setActiveContentGroup(newContentGroup);
     }
   };
-  return ToolbarItemUtilities.createActionItem(id, 0, icon, label, execute);
+  return ToolbarItemUtilities.createActionItem({
+    id,
+    icon: <SplitWindowIcon />,
+    label,
+    execute,
+  });
 }

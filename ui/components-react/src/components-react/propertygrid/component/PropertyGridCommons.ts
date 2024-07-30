@@ -8,7 +8,6 @@
 
 import type { PropertyRecord } from "@itwin/appui-abstract";
 import type { CommonProps } from "@itwin/core-react";
-import { Orientation } from "@itwin/core-react";
 import type { HighlightingComponentProps } from "../../common/HighlightingComponentProps";
 import { matchLinks } from "../../common/Links";
 import type { PropertyUpdatedArgs } from "../../editors/EditorContainer";
@@ -16,6 +15,7 @@ import type { ActionButtonRenderer } from "../../properties/renderers/ActionButt
 import type { PropertyValueRendererManager } from "../../properties/ValueRendererManager";
 import type { FilteredType } from "../dataproviders/filterers/PropertyDataFiltererBase";
 import type { PropertyCategory } from "../PropertyDataProvider";
+import { Orientation } from "../../common/Orientation";
 
 /** Arguments for the Property Editing event callback
  * @public

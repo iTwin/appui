@@ -9,7 +9,6 @@
 import * as React from "react";
 import type { PropertyRecord } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
-import { Orientation } from "@itwin/core-react";
 import type { HighlightingComponentProps } from "../../../common/HighlightingComponentProps";
 import type { PropertyUpdatedArgs } from "../../../editors/EditorContainer";
 import { EditorContainer } from "../../../editors/EditorContainer";
@@ -20,6 +19,7 @@ import { PropertyValueRendererManager } from "../../../properties/ValueRendererM
 import type { PropertyCategory } from "../../PropertyDataProvider";
 import { FlatNonPrimitivePropertyRenderer } from "./FlatNonPrimitivePropertyRenderer";
 import { CustomizablePropertyRenderer } from "../../../properties/renderers/CustomizablePropertyRenderer";
+import { Orientation } from "../../../common/Orientation";
 
 /** Properties of [[FlatPropertyRenderer]] React component
  * @internal

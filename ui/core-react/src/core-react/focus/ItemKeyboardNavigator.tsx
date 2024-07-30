@@ -9,6 +9,8 @@
 import { Key } from "ts-key-enum";
 import { Orientation } from "../enums/Orientation";
 
+/* eslint-disable deprecation/deprecation */
+
 /** Cross-Axis Arrow Key Callback
  * @internal
  */

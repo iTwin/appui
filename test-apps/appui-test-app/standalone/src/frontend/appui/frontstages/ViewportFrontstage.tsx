@@ -58,13 +58,12 @@ export function registerViewportFrontstage(): void {
 export const viewportUiItemsProvider = {
   id: "example-stage-backstageItemProvider",
   getBackstageItems: () => [
-    BackstageItemUtilities.createStageLauncher(
-      "example:ViewportFrontstage",
-      100,
-      20,
-      "Simple viewport",
-      undefined,
-      <SvgImodel />
-    ),
+    BackstageItemUtilities.createStageLauncher({
+      stageId: "example:ViewportFrontstage",
+      groupPriority: 100,
+      itemPriority: 20,
+      label: "Simple viewport",
+      icon: <SvgImodel />,
+    }),
   ],
 } satisfies UiItemsProvider;

@@ -9,11 +9,11 @@
 import * as React from "react";
 import { Key } from "ts-key-enum";
 import type { OnCancelFunc, OnItemExecutedFunc } from "@itwin/appui-abstract";
-import type { SizeProps } from "@itwin/core-react";
 import { DivWithOutsideClick, FocusTrap, Point, Size } from "@itwin/core-react";
 import { PositionPopup } from "./PositionPopup";
 import { KeyinPalettePanel } from "./KeyinPalettePanel";
 import type { KeyinEntry } from "../keyins/Keyins";
+import type { SizeProps } from "../utils/SizeProps";
 
 /** Props defining KeyinPalettePopup component
  * @public */

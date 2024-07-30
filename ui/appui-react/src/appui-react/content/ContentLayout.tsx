@@ -11,10 +11,6 @@
 import "./ContentLayout.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { SplitPane } from "./split-pane/SplitPane";
-import type { CommonProps } from "@itwin/core-react";
-import { Orientation } from "@itwin/core-react";
-import type { ContentGroup } from "./ContentGroup";
 import type {
   ContentLayoutProps,
   LayoutFragmentProps,
@@ -23,6 +19,10 @@ import type {
   LayoutVerticalSplitProps,
 } from "@itwin/appui-abstract";
 import { UiEvent } from "@itwin/appui-abstract";
+import { Orientation } from "@itwin/components-react";
+import { SplitPane } from "./split-pane/SplitPane";
+import type { CommonProps } from "@itwin/core-react";
+import type { ContentGroup } from "./ContentGroup";
 import { useActiveFrontstageDef } from "../frontstage/FrontstageDef";
 import { UiFramework } from "../UiFramework";
 import { ContentOverlay } from "./ContentOverlay";
@@ -101,17 +101,16 @@ export function ContentWrapper(props: ContentWrapperProps) {
   }, [content]);
 
   React.useEffect(() => {
-    const onAvailableContentChanged = () => {
-      setHasMultipleContents(
-        (activeFrontstageDef &&
-          !!activeFrontstageDef.floatingContentControls?.length) ||
-          // eslint-disable-next-line deprecation/deprecation
-          (activeFrontstageDef?.contentGroup?.getContentControls().length ??
-            0) > 1
-      );
-    };
     return UiFramework.content.onAvailableContentChangedEvent.addListener(
-      onAvailableContentChanged
+      () => {
+        setHasMultipleContents(
+          (activeFrontstageDef &&
+            !!activeFrontstageDef.floatingContentControls?.length) ||
+            // eslint-disable-next-line deprecation/deprecation
+            (activeFrontstageDef?.contentGroup?.getContentControls().length ??
+              0) > 1
+        );
+      }
     );
   }, [activeFrontstageDef]);
 

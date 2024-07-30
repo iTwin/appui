@@ -33,6 +33,7 @@ export function SelectionCountField(props: SelectionCountFieldProps) {
   );
   return (
     <div className={className} style={props.style}>
+      {/* eslint-disable-next-line deprecation/deprecation */}
       <Icon iconSpec={<SvgCursor />} />
       {props.count}
     </div>

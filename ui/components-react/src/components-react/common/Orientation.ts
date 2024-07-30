@@ -3,20 +3,19 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
- * @module Notification
+ * @module Common
  */
 
-import * as React from "react";
-import type { IconProps } from "@itwin/core-react";
-import { Icon } from "@itwin/core-react";
+import { Orientation as _Orientation } from "@itwin/core-react";
 
-/** Icon for Message
- * @internal
+/* eslint-disable deprecation/deprecation */
+
+/** Enumeration of orientation.
+ * @public
  */
-export function HollowIcon(props: IconProps) {
-  return (
-    <span className="uifw-statusbar-hollow-icon">
-      <Icon {...props} />
-    </span>
-  );
-}
+export type Orientation = _Orientation;
+/** Enumeration of orientation.
+ * @public
+ */
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const Orientation = _Orientation;

@@ -35,7 +35,7 @@ const meta = {
   tags: ["autodocs"],
   decorators: [AlignComponent, InitializerDecorator, AppUiDecorator],
   args: {
-    style: { marginTop: 150 },
+    style: { marginTop: 350 },
   },
 } satisfies Meta<typeof MessageCenterField>;
 
@@ -53,56 +53,58 @@ export const Empty: Story = {
   decorators: [NoMessages],
 };
 
-const InfoMessages: Decorator = (Story) => {
-  React.useEffect(() => {
-    MessageManager.clearMessages();
-    ["1", "2", "3", "4"].forEach((num) => {
-      MessageManager.addToMessageCenter(
-        new NotifyMessageDetails(OutputMessagePriority.Info, `Message ${num}`)
-      );
-    });
-  }, []);
-  return <Story />;
+function createDecorator({
+  priority,
+  briefMessage = "Message",
+  detailedMessage,
+}: {
+  priority: OutputMessagePriority;
+  briefMessage?: string;
+  detailedMessage?: string;
+}): Decorator {
+  return (Story) => {
+    React.useEffect(() => {
+      MessageManager.clearMessages();
+      Array.from({ length: 4 }).forEach((_, index) => {
+        const id = index + 1;
+        briefMessage = briefMessage ?? "Message";
+        MessageManager.addToMessageCenter(
+          new NotifyMessageDetails(
+            priority,
+            `${briefMessage} ${id}`,
+            detailedMessage ? `${detailedMessage} ${id}` : undefined
+          )
+        );
+      });
+    }, []);
+    return <Story />;
+  };
+}
+
+export const Success: Story = {
+  decorators: [createDecorator({ priority: OutputMessagePriority.Success })],
 };
 
 export const Info: Story = {
-  decorators: [InfoMessages],
+  decorators: [createDecorator({ priority: OutputMessagePriority.Info })],
 };
 
-const ErrorMessages: Decorator = (Story) => {
-  React.useEffect(() => {
-    MessageManager.clearMessages();
-    ["1", "2", "3", "4"].forEach((num) => {
-      MessageManager.addToMessageCenter(
-        new NotifyMessageDetails(OutputMessagePriority.Error, `Error ${num}`)
-      );
-    });
-  }, []);
-  return <Story />;
+export const Warning: Story = {
+  decorators: [createDecorator({ priority: OutputMessagePriority.Warning })],
 };
 
 export const Error: Story = {
-  decorators: [ErrorMessages],
-};
-
-const DetailedMessages: Decorator = (Story) => {
-  React.useEffect(() => {
-    MessageManager.clearMessages();
-    [1, 2, 3, 4].forEach(() => {
-      MessageManager.addToMessageCenter(
-        new NotifyMessageDetails(
-          1,
-          "This is the brief message",
-          "This is the detailed message"
-        )
-      );
-    });
-  }, []);
-  return <Story />;
+  decorators: [createDecorator({ priority: OutputMessagePriority.Error })],
 };
 
 export const Detailed: Story = {
-  decorators: [DetailedMessages],
+  decorators: [
+    createDecorator({
+      priority: OutputMessagePriority.Success,
+      briefMessage: "Brief message",
+      detailedMessage: "Detailed message",
+    }),
+  ],
 };
 
 const DynamicDecorator: Decorator = (Story) => {

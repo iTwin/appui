@@ -19,12 +19,12 @@ import {
   UiItemsManager,
   UiItemsProvider,
 } from "@itwin/appui-react";
-import stageIconSvg from "./imodeljs.svg";
 import {
   ComponentExamplesModalFrontstage,
   ViewportContent,
 } from "@itwin/appui-test-providers";
 import { TestAppLocalization } from "../../useTranslation";
+import { SvgImodel } from "@itwin/itwinui-icons-react";
 
 // Sample UI items provider that dynamically adds ui items
 class MainStageBackstageItemsProvider implements UiItemsProvider {
@@ -32,14 +32,14 @@ class MainStageBackstageItemsProvider implements UiItemsProvider {
 
   public provideBackstageItems(): BackstageItem[] {
     return [
-      BackstageItemUtilities.createStageLauncher(
-        MainFrontstage.stageId,
-        100,
-        10,
-        TestAppLocalization.translate("backstage.viewIModel"),
-        TestAppLocalization.translate("backstage.iModelStage"),
-        stageIconSvg
-      ),
+      BackstageItemUtilities.createStageLauncher({
+        stageId: MainFrontstage.stageId,
+        groupPriority: 100,
+        itemPriority: 10,
+        label: TestAppLocalization.translate("backstage.viewIModel"),
+        subtitle: TestAppLocalization.translate("backstage.iModelStage"),
+        icon: <SvgImodel />,
+      }),
       SettingsModalFrontstage.getBackstageActionItem(400, 10),
       ComponentExamplesModalFrontstage.getBackstageActionItem(400, 20),
     ];

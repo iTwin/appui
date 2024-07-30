@@ -72,8 +72,13 @@ export interface CommonStatusBarItem {
 export interface StatusBarActionItem extends CommonStatusBarItem {
   /** method to execute when icon is pressed */
   readonly execute: () => void;
-  /** Icon of a status bar item. */
+  /** Icon of a status bar item.
+   * @deprecated in 4.16.0. Use {@link StatusBarActionItem.iconNode} instead.
+   */
+  // eslint-disable-next-line deprecation/deprecation
   readonly icon?: IconSpec;
+  /** Icon of a status bar item. */
+  readonly iconNode?: React.ReactNode;
   /** Label. */
   readonly label?: string | ConditionalStringValue;
   /** tooltip. */
@@ -84,8 +89,13 @@ export interface StatusBarActionItem extends CommonStatusBarItem {
  * @public
  */
 export interface StatusBarLabelItem extends CommonStatusBarItem {
-  /** Icon of a status bar item. */
+  /** Icon of a status bar item.
+   * @deprecated in 4.16.0. Use {@link StatusBarLabelItem.iconNode} instead.
+   */
+  // eslint-disable-next-line deprecation/deprecation
   readonly icon?: IconSpec;
+  /** Icon of a status bar item. */
+  readonly iconNode?: React.ReactNode;
   /** Label. */
   readonly label: string | ConditionalStringValue;
   /** Defines which side of icon to display label if icon is defined. */

@@ -337,7 +337,6 @@ describe("useTreeEventsHandler", () => {
     const factory = vi.fn().mockReturnValue(handler);
     const { result, unmount } = renderHook(
       (props: { factory: () => TreeEventHandler }) =>
-        // eslint-disable-next-line deprecation/deprecation
         useTreeEventsHandler(props.factory),
       { initialProps: { factory } }
     );
@@ -353,7 +352,6 @@ describe("useTreeEventsHandler", () => {
     const modelSourceMock = moq.Mock.ofType<TreeModelSource>();
     const { result, unmount } = renderHook(
       (props: { params: TreeEventHandlerParams }) =>
-        // eslint-disable-next-line deprecation/deprecation
         useTreeEventsHandler(props.params),
       {
         initialProps: {

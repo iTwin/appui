@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/core-react",
+      "comment": "Deprecate all remaining APIs. This package is now considered deprecated and usage should be avoided.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/core-react"
+}

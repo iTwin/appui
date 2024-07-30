@@ -3,10 +3,10 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { LocalizationProvider } from "@itwin/core-react";
-import { IModelApp } from "@itwin/core-frontend";
-import { Localization } from "@itwin/core-common";
 import { Language, LanguageSelect } from "@itwin/appui-test-providers";
+import { Localization } from "@itwin/core-common";
+import { IModelApp } from "@itwin/core-frontend";
+import { LocalizationProvider } from "@itwin/components-react";
 
 export const LanguageContext = React.createContext<
   | {

@@ -23,6 +23,6 @@ steps:
       CI: true
 
   - publish: $(System.DefaultWorkingDirectory)/e2e-tests/playwright-report
-    artifact: "playwright-report_$(Build.BuildId)"
+    artifact: "playwright-report_$(System.JobId)"
     displayName: Publish playwright report
     condition: succeededOrFailed()

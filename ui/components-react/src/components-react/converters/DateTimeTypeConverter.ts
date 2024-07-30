@@ -13,7 +13,6 @@ import {
   StandardTypeNames,
   TimeDisplay,
 } from "@itwin/appui-abstract";
-import { TimeFormat } from "@itwin/core-react";
 import { formatInputDate } from "../datepicker/DateField";
 import { adjustDateToTimezone } from "../common/DateUtils";
 import { UiComponents } from "../UiComponents";
@@ -21,6 +20,7 @@ import type { LessGreaterOperatorProcessor } from "./TypeConverter";
 import { TypeConverter } from "./TypeConverter";
 import { TypeConverterManager } from "./TypeConverterManager";
 import type { ConvertedPrimitives } from "./valuetypes/ConvertedTypes";
+import { TimeFormat } from "../common/TimeFormat";
 
 // cSpell:ignore datepicker valuetypes
 

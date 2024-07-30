@@ -8,8 +8,11 @@
 
 import type { IconSpec } from "./IconComponent";
 
+/* eslint-disable deprecation/deprecation */
+
 /** Class used to return an icon. The icon is variable and can be changed in response to subscribed event ids.
  * @public
+ * @deprecated in 4.16.0. Use {@link @itwin/appui-react#ConditionalIconValue} instead.
  */
 export class ConditionalIconItem {
   private _value?: IconSpec;

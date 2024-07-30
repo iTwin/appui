@@ -9,11 +9,11 @@
 import "./MenuButton.scss";
 import * as React from "react";
 import type { XAndY } from "@itwin/core-geometry";
-import type { SizeProps } from "@itwin/core-react";
 import { ContextMenu, Icon, Size } from "@itwin/core-react";
 import type { SquareButtonProps } from "./SquareButton";
 import { SquareButton } from "./SquareButton";
 import { SvgMore } from "@itwin/itwinui-icons-react";
+import type { SizeProps } from "../utils/SizeProps";
 
 /** @alpha */
 export interface MenuButtonProps extends SquareButtonProps {
@@ -33,6 +33,7 @@ export class MenuButton extends React.PureComponent<
   MenuButtonProps,
   MenuButtonState
 > {
+  // eslint-disable-next-line deprecation/deprecation
   private _menu: ContextMenu | null = null;
 
   constructor(props: MenuButtonProps) {
@@ -63,8 +64,10 @@ export class MenuButton extends React.PureComponent<
           style={style}
           onClick={this._handleClick}
         >
+          {/* eslint-disable-next-line deprecation/deprecation */}
           <Icon iconSpec={<SvgMore />} />
         </SquareButton>
+        {/* eslint-disable-next-line deprecation/deprecation */}
         <ContextMenu
           ref={(el) => {
             this._menu = el;

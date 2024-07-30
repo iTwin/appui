@@ -24,6 +24,7 @@ interface LocalizationProviderProps {
 
 /** Provides localization capability to the components.
  * @alpha
+ * @deprecated in 4.16.0. Use {@link @itwin/components-react#LocalizationProvider} instead.
  */
 export function LocalizationProvider(props: LocalizationProviderProps) {
   const { children, localization } = props;

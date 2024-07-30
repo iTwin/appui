@@ -69,15 +69,9 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
       );
     });
 
-    it("BackstageAppButtonProps should update with default icon", async () => {
-      const { rerender } = render(<BackstageAppButton icon={"icon-test"} />);
-      rerender(<BackstageAppButton />);
-      expect(screen.getByRole("button")).to.satisfy(
-        childStructure([
-          ".uifw-app-button-small .icon:not(.icon-home).core-svg-icon",
-          ".nz-bars .nz-bar + .nz-bar + .nz-bar",
-        ])
-      );
+    it("BackstageAppButtonProps should render specified icon", async () => {
+      render(<BackstageAppButton iconNode="icon-test" />);
+      screen.getByText("icon-test");
     });
 
     it("BackstageAppButton should execute on click", () => {

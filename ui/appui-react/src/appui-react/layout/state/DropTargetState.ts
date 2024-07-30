@@ -6,7 +6,7 @@
  * @module Base
  */
 
-import type { SizeProps } from "@itwin/core-react";
+import type { SizeProps } from "../../utils/SizeProps";
 import type { PanelSide } from "../widget-panels/PanelTypes";
 import type { FloatingWidgetState, WidgetState } from "./WidgetState";
 

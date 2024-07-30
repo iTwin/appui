@@ -9,7 +9,8 @@ import { AlternateDateFormats } from '@itwin/appui-abstract';
 import type { BadgeKind } from '@itwin/core-react';
 import { BeEvent } from '@itwin/core-bentley';
 import { BeUiEvent } from '@itwin/core-bentley';
-import { CheckBoxState } from '@itwin/core-react';
+import type { Checkbox } from '@itwin/itwinui-react';
+import { CheckBoxState as CheckBoxState_2 } from '@itwin/core-react';
 import type { CommonProps } from '@itwin/core-react';
 import type { CommonToolbarItem } from '@itwin/appui-abstract';
 import type { CSSProperties } from 'react';
@@ -25,12 +26,12 @@ import { immerable } from 'immer';
 import { JSX as JSX_2 } from 'react';
 import type { LinkElementsInfo } from '@itwin/appui-abstract';
 import type { Localization } from '@itwin/core-common';
+import { LocalizationProvider as LocalizationProvider_2 } from '@itwin/core-react';
 import type { MessageSeverity } from '@itwin/appui-abstract';
 import type { NoChildrenProps } from '@itwin/core-react';
-import type { NodeCheckboxRenderer } from '@itwin/core-react';
 import { Observable as Observable_2 } from 'rxjs';
 import type { OnItemExecutedFunc } from '@itwin/appui-abstract';
-import { Orientation } from '@itwin/core-react';
+import { Orientation as Orientation_2 } from '@itwin/core-react';
 import type { ParseResults } from '@itwin/appui-abstract';
 import type { Primitives } from '@itwin/appui-abstract';
 import type { PrimitiveValue } from '@itwin/appui-abstract';
@@ -43,7 +44,7 @@ import { ReactNode } from 'react';
 import { RelativePosition } from '@itwin/appui-abstract';
 import type { SelectOption } from '@itwin/itwinui-react';
 import { TimeDisplay } from '@itwin/appui-abstract';
-import { TimeFormat } from '@itwin/core-react';
+import { TimeFormat as TimeFormat_2 } from '@itwin/core-react';
 
 // @public
 export abstract class AbstractTreeNodeLoader implements ITreeNodeLoader {
@@ -235,6 +236,12 @@ export interface CheckBoxInfo {
     // (undocumented)
     readonly tooltip?: string;
 }
+
+// @public
+export type CheckBoxState = CheckBoxState_2;
+
+// @public
+export const CheckBoxState: typeof CheckBoxState_2;
 
 // @public
 export interface CheckboxStateChange {
@@ -1361,6 +1368,9 @@ export interface LoadedNodeHierarchyItem {
     numChildren?: number;
 }
 
+// @alpha
+export function LocalizationProvider(props: React_3.ComponentProps<typeof LocalizationProvider_2>): React_3.JSX.Element;
+
 // @public
 export const matchLinks: (text: string) => Array<{
     index: number;
@@ -1733,6 +1743,12 @@ export interface OperatorProcessor {
     isEqualTo(a: Primitives.Value, b: Primitives.Value): boolean;
     isNotEqualTo(a: Primitives.Value, b: Primitives.Value): boolean;
 }
+
+// @public
+export type Orientation = Orientation_2;
+
+// @public
+export const Orientation: typeof Orientation_2;
 
 // @alpha
 export enum OrthogonalDirection {
@@ -2907,6 +2923,12 @@ export interface TimeFieldProps {
     timeDisplay: TimeDisplay;
 }
 
+// @public
+export type TimeFormat = TimeFormat_2;
+
+// @public
+export const TimeFormat: typeof TimeFormat_2;
+
 // @internal
 export interface TimeSpec {
     // (undocumented)
@@ -3429,7 +3451,7 @@ export const TreeNodeRenderer: React_3.NamedExoticComponent<TreeNodeRendererProp
 
 // @public
 export interface TreeNodeRendererProps extends CommonProps {
-    checkboxRenderer?: NodeCheckboxRenderer;
+    checkboxRenderer?: (props: CheckboxRendererProps) => React_3.ReactNode;
     children?: React_3.ReactNode;
     descriptionEnabled?: boolean;
     imageLoader?: ITreeImageLoader;
