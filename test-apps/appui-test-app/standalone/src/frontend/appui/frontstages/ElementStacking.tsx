@@ -13,7 +13,6 @@ import {
   StatusBarDialog,
   StatusBarItemUtilities,
   StatusBarPopover,
-  StatusBarSection,
   ToolbarItemUtilities,
   ToolbarOrientation,
   ToolbarUsage,
@@ -64,14 +63,13 @@ export function createElementStackingProvider() {
   return {
     id,
     getBackstageItems: () => [
-      BackstageItemUtilities.createStageLauncher(
+      BackstageItemUtilities.createStageLauncher({
         stageId,
-        300,
-        40,
-        "Element Stacking",
-        undefined,
-        <SvgLayers />
-      ),
+        groupPriority: 300,
+        itemPriority: 40,
+        label: "Element Stacking",
+        icon: <SvgLayers />,
+      }),
     ],
     getWidgets: () => {
       // Dialog needs to be portalled.
@@ -88,44 +86,35 @@ export function createElementStackingProvider() {
       }));
     },
     getToolbarItems: () => [
-      ToolbarItemUtilities.createGroupItem(
-        "group",
-        0,
-        <SvgPlaceholder />,
-        "Group",
-        [
-          ToolbarItemUtilities.createActionItem(
-            "action",
-            0,
-            <SvgPlaceholder />,
-            "Action",
-            () => {}
-          ),
+      ToolbarItemUtilities.createGroupItem({
+        id: "group",
+        icon: <SvgPlaceholder />,
+        label: "Group",
+        items: [
+          ToolbarItemUtilities.createActionItem({
+            id: "action",
+            label: "Action",
+            icon: <SvgPlaceholder />,
+          }),
         ],
-        {
-          layouts: {
-            standard: {
-              orientation: ToolbarOrientation.Horizontal,
-              usage: ToolbarUsage.ContentManipulation,
-            },
+        layouts: {
+          standard: {
+            orientation: ToolbarOrientation.Horizontal,
+            usage: ToolbarUsage.ContentManipulation,
           },
-        }
-      ),
+        },
+      }),
     ],
     getStatusBarItems: () => [
-      StatusBarItemUtilities.createCustomItem(
-        "deprecated",
-        StatusBarSection.Center,
-        0,
-        <DeprecatedTestStatusBarItem />
-      ),
+      StatusBarItemUtilities.createCustomItem({
+        id: "deprecated",
+        content: <DeprecatedTestStatusBarItem />,
+      }),
       // TODO: Dialog & Modal are rendered inside the popup (Popover creates a nested `portalContainer`).
-      StatusBarItemUtilities.createCustomItem(
-        "custom",
-        StatusBarSection.Center,
-        0,
-        <TestStatusBarItem />
-      ),
+      StatusBarItemUtilities.createCustomItem({
+        id: "custom",
+        content: <TestStatusBarItem />,
+      }),
     ],
   } satisfies UiItemsProvider;
 }
@@ -275,6 +264,7 @@ function TestPopupContextMenu() {
       >
         PopupContextMenu
       </Button>
+      {/* eslint-disable-next-line deprecation/deprecation */}
       <PopupContextMenu
         isOpen={open}
         target={target}
@@ -283,6 +273,7 @@ function TestPopupContextMenu() {
           setOpen(false);
         }}
       >
+        {/* eslint-disable-next-line deprecation/deprecation */}
         <ContextMenuItem>
           <Select
             options={Array.from({ length: 10 }).map((_, i) => ({
@@ -294,6 +285,7 @@ function TestPopupContextMenu() {
         </ContextMenuItem>
         {Array.from({ length: 5 }).map((_, i) => {
           return (
+            // eslint-disable-next-line deprecation/deprecation
             <ContextMenuItem
               key={i}
               onClick={() => {

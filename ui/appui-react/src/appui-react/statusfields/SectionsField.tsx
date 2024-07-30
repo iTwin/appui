@@ -7,7 +7,6 @@
  */
 
 import svgSectionTool from "@bentley/icons-generic/icons/section-tool.svg";
-import type { ClipEventType, Viewport } from "@itwin/core-frontend";
 import {
   IModelApp,
   ViewClipClearTool,
@@ -46,33 +45,21 @@ export function SectionsStatusField(props: SectionsStatusFieldProps) {
   const [hasManipulatorsShown, setHasManipulatorsShown] = React.useState(false);
 
   React.useEffect(() => {
-    const onClipChanged = (
-      viewport: Viewport,
-      _eventType: ClipEventType,
-      _provider: ViewClipDecorationProvider
-    ) => {
-      if (viewport !== activeViewport) return;
-
-      setHasManipulatorsShown(!!ViewClipDecoration.get(activeViewport));
-      const isClipActive = !!activeViewport.view.getViewClip();
-      setShowIndicator(isClipActive || !props.hideWhenUnused);
-    };
-
     const clipActive = !!activeViewport && !!activeViewport.view.getViewClip();
     setShowIndicator(clipActive || !props.hideWhenUnused);
     setHasManipulatorsShown(
       clipActive && !!activeViewport && !!ViewClipDecoration.get(activeViewport)
     );
 
-    ViewClipDecorationProvider.create().onActiveClipChanged.addListener(
-      onClipChanged
+    return ViewClipDecorationProvider.create().onActiveClipChanged.addListener(
+      (viewport) => {
+        if (viewport !== activeViewport) return;
+
+        setHasManipulatorsShown(!!ViewClipDecoration.get(activeViewport));
+        const isClipActive = !!activeViewport.view.getViewClip();
+        setShowIndicator(isClipActive || !props.hideWhenUnused);
+      }
     );
-    return () => {
-      // Get or create static ViewClipDecorationProvider
-      ViewClipDecorationProvider.create().onActiveClipChanged.removeListener(
-        onClipChanged
-      );
-    };
   }, [activeViewport, props.hideWhenUnused, isPopupOpen]);
 
   const toggleManipulators = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -125,6 +112,7 @@ export function SectionsStatusField(props: SectionsStatusFieldProps) {
             styleType="borderless"
             data-testid="sections-status-field-button"
           >
+            {/* eslint-disable-next-line deprecation/deprecation */}
             <Icon iconSpec={svgSectionTool} />
             <StatusBarPopover.ExpandIndicator />
           </IconButton>

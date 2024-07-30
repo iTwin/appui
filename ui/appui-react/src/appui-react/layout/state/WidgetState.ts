@@ -6,7 +6,7 @@
  * @module Base
  */
 
-import type { RectangleProps } from "@itwin/core-react";
+import type { RectangleProps } from "../../utils/RectangleProps";
 import type { TabState } from "./TabState";
 import type {
   PanelWidgetRestoreState,

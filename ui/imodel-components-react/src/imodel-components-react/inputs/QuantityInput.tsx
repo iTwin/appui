@@ -8,10 +8,7 @@
 
 import classnames from "classnames";
 import * as React from "react";
-import type {
-  QuantityFormatsChangedArgs,
-  QuantityTypeArg,
-} from "@itwin/core-frontend";
+import type { QuantityTypeArg } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
 import { Parser } from "@itwin/core-quantity";
 import type { ParseResults } from "@itwin/appui-abstract";
@@ -96,34 +93,8 @@ export function QuantityInput({
   const classNames = classnames(className, "components-quantity-input");
 
   React.useEffect(() => {
-    const handleUnitSystemChanged = (): void => {
-      setFormatterSpec(
-        IModelApp.quantityFormatter.findFormatterSpecByQuantityType(
-          quantityType
-        )
-      );
-      setParserSpec(
-        IModelApp.quantityFormatter.findParserSpecByQuantityType(quantityType)
-      );
-    };
-
-    IModelApp.quantityFormatter.onActiveFormattingUnitSystemChanged.addListener(
-      handleUnitSystemChanged
-    );
-    return () => {
-      IModelApp.quantityFormatter.onActiveFormattingUnitSystemChanged.removeListener(
-        handleUnitSystemChanged
-      );
-    };
-  }, [quantityType]);
-
-  React.useEffect(() => {
-    const handleUnitSystemChanged = (
-      args: QuantityFormatsChangedArgs
-    ): void => {
-      const quantityKey =
-        IModelApp.quantityFormatter.getQuantityTypeKey(quantityType);
-      if (args.quantityType === quantityKey) {
+    return IModelApp.quantityFormatter.onActiveFormattingUnitSystemChanged.addListener(
+      () => {
         setFormatterSpec(
           IModelApp.quantityFormatter.findFormatterSpecByQuantityType(
             quantityType
@@ -133,16 +104,28 @@ export function QuantityInput({
           IModelApp.quantityFormatter.findParserSpecByQuantityType(quantityType)
         );
       }
-    };
-
-    IModelApp.quantityFormatter.onQuantityFormatsChanged.addListener(
-      handleUnitSystemChanged
     );
-    return () => {
-      IModelApp.quantityFormatter.onQuantityFormatsChanged.removeListener(
-        handleUnitSystemChanged
-      );
-    };
+  }, [quantityType]);
+
+  React.useEffect(() => {
+    return IModelApp.quantityFormatter.onQuantityFormatsChanged.addListener(
+      (args) => {
+        const quantityKey =
+          IModelApp.quantityFormatter.getQuantityTypeKey(quantityType);
+        if (args.quantityType === quantityKey) {
+          setFormatterSpec(
+            IModelApp.quantityFormatter.findFormatterSpecByQuantityType(
+              quantityType
+            )
+          );
+          setParserSpec(
+            IModelApp.quantityFormatter.findParserSpecByQuantityType(
+              quantityType
+            )
+          );
+        }
+      }
+    );
   }, [quantityType]);
 
   return (

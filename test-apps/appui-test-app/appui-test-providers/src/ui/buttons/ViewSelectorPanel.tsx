@@ -2,20 +2,20 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-
 import "./ViewSelectorPanel.scss";
+import * as React from "react";
 import {
   ToolbarItemUtilities,
   useActiveIModelConnection,
   useActiveViewport,
   ViewSelector,
 } from "@itwin/appui-react";
-import * as React from "react";
 
 export function getCustomViewSelectorPopupItem(
   itemPriority: number,
   groupPriority: number
 ) {
+  // eslint-disable-next-line deprecation/deprecation
   return ToolbarItemUtilities.createCustomItem(
     "appui-test-providers:viewSelector",
     itemPriority,

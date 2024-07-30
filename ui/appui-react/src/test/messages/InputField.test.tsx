@@ -13,15 +13,17 @@ import {
   MessageManager,
   UiFramework,
 } from "../../appui-react";
-import { childStructure } from "../TestUtils";
-import { render, screen, waitFor } from "@testing-library/react";
+import {
+  render,
+  screen,
+  waitForElementToBeRemoved,
+} from "@testing-library/react";
 
 describe("InputFieldMessage", () => {
   beforeEach(async () => {
     UiFramework.keyboardShortcuts.closeMenu();
   });
 
-  // TODO: These look for the webfont icon classnames. This only tests that an icon is displayed and should be replaced with visual testing
   it("outputMessage with InputField", async () => {
     let details = new NotifyMessageDetails(
       OutputMessagePriority.Error,
@@ -39,17 +41,14 @@ describe("InputFieldMessage", () => {
       details.priority
     );
 
-    expect(await screen.findByText("Input field message.")).to.exist;
-
-    expect(screen.getByRole("dialog")).to.satisfy(
-      childStructure(".uifw-popup-message-icon")
-    );
+    await vi.waitFor(() => screen.getByText("Input field message."));
+    screen.getByRole("dialog");
 
     MessageManager.hideInputFieldMessage();
 
-    await waitFor(() => {
-      expect(screen.queryByText("Input field message.")).toEqual(null);
-    });
+    await waitForElementToBeRemoved(() =>
+      screen.queryByText("Input field message.")
+    );
 
     // Warning icon
     details = new NotifyMessageDetails(
@@ -66,9 +65,7 @@ describe("InputFieldMessage", () => {
       details.priority
     );
 
-    expect(await screen.findByRole("dialog")).to.satisfy(
-      childStructure(".uifw-popup-message-icon")
-    );
+    await vi.waitFor(() => screen.getByText("Input field message."));
 
     MessageManager.hideInputFieldMessage();
 
@@ -87,11 +84,7 @@ describe("InputFieldMessage", () => {
       details.priority
     );
 
-    await waitFor(() => {
-      expect(screen.getByRole("dialog")).to.satisfy(
-        childStructure(".uifw-popup-message-icon")
-      );
-    });
+    await vi.waitFor(() => screen.getByText("Input field message."));
 
     MessageManager.hideInputFieldMessage();
 
@@ -109,8 +102,8 @@ describe("InputFieldMessage", () => {
       details.priority
     );
 
-    await waitFor(() => {
-      expect(screen.queryByText("Input field message.")).toEqual(null);
-    });
+    await waitForElementToBeRemoved(() =>
+      screen.queryByText("Input field message.")
+    );
   });
 });

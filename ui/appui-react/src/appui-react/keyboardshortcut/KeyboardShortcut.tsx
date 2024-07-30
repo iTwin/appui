@@ -6,6 +6,7 @@
  * @module KeyboardShortcut
  */
 
+import * as React from "react";
 import { UiError } from "@itwin/appui-abstract";
 import type { ActionButtonItemDef } from "../shared/ActionButtonItemDef";
 import { ItemDefBase } from "../shared/ItemDefBase";
@@ -115,6 +116,7 @@ export class KeyboardShortcut extends ItemDefBase {
       this._isCtrlKeyRequired = props.isCtrlKeyRequired;
     if (props.isShiftKeyRequired !== undefined)
       this._isShiftKeyRequired = props.isShiftKeyRequired;
+    if (props.iconNode !== undefined) this.iconSpec = <>{props.iconNode}</>;
   }
 
   /** Returns the id for this shortcut */

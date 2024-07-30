@@ -10,7 +10,7 @@ import "./Widget.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
-import type { CommonProps, SizeProps } from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
 import { Rectangle, useRefs } from "@itwin/core-react";
 import type { UseDragWidgetArgs } from "../base/DragManager";
 import { useDragWidget } from "../base/DragManager";
@@ -24,6 +24,7 @@ import { PanelSideContext } from "../widget-panels/Panel";
 import { useLayout } from "../base/LayoutStore";
 import { getWidgetState } from "../state/internal/WidgetStateHelpers";
 import { useFloatingWidgetId } from "./FloatingWidget";
+import type { SizeProps } from "../../utils/SizeProps";
 
 /** @internal */
 export interface WidgetProviderProps {

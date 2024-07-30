@@ -21,23 +21,19 @@ function useSupportsScheduleScript(viewport: Viewport | undefined) {
   }, [viewport]);
 
   React.useEffect(() => {
-    const handleViewChanged = (vp: Viewport): void => {
+    return viewport?.onChangeView.addListener((vp) => {
       const hasScheduleScript = !!vp?.view?.scheduleScript;
       if (hasScheduleScript !== supportsScheduleScript)
         setSupportsScheduleScript(hasScheduleScript);
-    };
-    return viewport?.onChangeView.addListener(handleViewChanged);
+    });
   }, [supportsScheduleScript, viewport]);
 
   React.useEffect(() => {
-    const handleDisplayStyleChange = (vp: Viewport): void => {
+    return viewport?.onDisplayStyleChanged.addListener((vp) => {
       const hasScheduleScript = !!vp?.view?.scheduleScript;
       if (hasScheduleScript !== supportsScheduleScript)
         setSupportsScheduleScript(hasScheduleScript);
-    };
-    return viewport?.onDisplayStyleChanged.addListener(
-      handleDisplayStyleChange
-    );
+    });
   }, [viewport, supportsScheduleScript]);
   return supportsScheduleScript;
 }

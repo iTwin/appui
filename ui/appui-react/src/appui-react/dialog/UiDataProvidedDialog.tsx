@@ -117,29 +117,19 @@ UiDataProvidedDialogProps) {
   );
 
   React.useEffect(() => {
-    const handleReloaded = () => {
+    return uiDataProvider.onItemsReloadedEvent.addListener(() => {
       setButtonCluster(
         generateButtonCluster(uiDataProvider.supplyButtonData())
       );
-    };
-    uiDataProvider.onItemsReloadedEvent.addListener(handleReloaded);
-    return () => {
-      uiDataProvider.onItemsReloadedEvent.removeListener(handleReloaded);
-    };
+    });
   }, [generateButtonCluster, uiDataProvider]);
 
   React.useEffect(() => {
-    const handleButtonReloaded = () => {
+    return uiDataProvider.onButtonsReloadedEvent.addListener(() => {
       setButtonCluster(
         generateButtonCluster(uiDataProvider.supplyButtonData())
       );
-    };
-    uiDataProvider.onButtonsReloadedEvent.addListener(handleButtonReloaded);
-    return () => {
-      uiDataProvider.onButtonsReloadedEvent.removeListener(
-        handleButtonReloaded
-      );
-    };
+    });
   }, [generateButtonCluster, uiDataProvider]);
 
   const handleClose = React.useCallback(() => closeDialog(), []);

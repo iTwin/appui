@@ -10,8 +10,7 @@ import "./PopoutDialog.scss";
 export function PopoutDialog() {
   return (
     <div className="test-popout-dialog">
-      {" "}
-      <ViewsTable />{" "}
+      <ViewsTable />
     </div>
   );
 }

@@ -23,8 +23,6 @@ import { Direction } from "../../components-react/toolbar/utilities/Direction";
 import { ToolbarWithOverflow } from "../../components-react/toolbar/ToolbarWithOverflow";
 import { BadgeType } from "@itwin/core-react";
 
-/* eslint-disable deprecation/deprecation */
-
 function createBubbledEvent(type: string, props = {}) {
   const event = new Event(type, { bubbles: true });
   Object.assign(event, props);

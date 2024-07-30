@@ -12,7 +12,6 @@ import {
   StageUsage,
   StatusBarItem,
   StatusBarItemUtilities,
-  StatusBarSection,
   ToolbarItem,
   ToolbarItemUtilities,
   ToolbarOrientation,
@@ -168,12 +167,11 @@ export class ContentLayoutStageUiItemsProvider implements UiItemsProvider {
     const statusBarItems: StatusBarItem[] = [];
     if (stageUsage === StageUsage.General.valueOf()) {
       statusBarItems.push(
-        StatusBarItemUtilities.createCustomItem(
-          "DisplayStyle",
-          StatusBarSection.Center,
-          400,
-          <DisplayStyleField />
-        )
+        StatusBarItemUtilities.createCustomItem({
+          id: "DisplayStyle",
+          itemPriority: 400,
+          content: <DisplayStyleField />,
+        })
       );
     }
     return statusBarItems;
@@ -181,14 +179,14 @@ export class ContentLayoutStageUiItemsProvider implements UiItemsProvider {
 
   public provideBackstageItems(): BackstageItem[] {
     return [
-      BackstageItemUtilities.createStageLauncher(
-        ContentLayoutStage.stageId,
-        300,
-        2,
-        AppUiTestProviders.translate("backstage.contentLayoutFrontstageLabel"),
-        undefined,
-        undefined
-      ),
+      BackstageItemUtilities.createStageLauncher({
+        stageId: ContentLayoutStage.stageId,
+        groupPriority: 300,
+        itemPriority: 2,
+        label: AppUiTestProviders.translate(
+          "backstage.contentLayoutFrontstageLabel"
+        ),
+      }),
     ];
   }
 }

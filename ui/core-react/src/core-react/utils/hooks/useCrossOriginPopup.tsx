@@ -11,6 +11,7 @@ import { useInterval } from "./useInterval";
 
 /** Hook that will show a popup window
  * @public
+ * @deprecated in 4.16.0. Without a replacement, use a custom solution instead.
  */
 export function useCrossOriginPopup(
   visible: boolean,

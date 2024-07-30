@@ -6,10 +6,7 @@
  * @module ConfigurableUi
  */
 
-import type {
-  UiActivityEventArgs,
-  UiIntervalEventArgs,
-} from "./InternalConfigurableUiManager";
+import type { ListenerType } from "@itwin/core-react";
 import { InternalConfigurableUiManager } from "./InternalConfigurableUiManager";
 
 /** Time Tracker utility class
@@ -77,7 +74,9 @@ export class TimeTracker {
     return this._idleTime / 1000;
   }
 
-  private _idleTimeCounter = (args: UiIntervalEventArgs): void => {
+  private _idleTimeCounter: ListenerType<
+    typeof InternalConfigurableUiManager.onUiIntervalEvent
+  > = (args): void => {
     const idleTimeout = args.idleTimeout ?? this._idleTimeout;
     if (
       this._lastActiveTimestamp > 0 &&
@@ -89,7 +88,9 @@ export class TimeTracker {
     }
   };
 
-  private _trackActivity = (_args: UiActivityEventArgs): void => {
+  private _trackActivity: ListenerType<
+    typeof InternalConfigurableUiManager.onUiActivityEvent
+  > = (): void => {
     this._lastActiveTimestamp = Date.now();
 
     if (this._idleStartTimestamp > 0) {

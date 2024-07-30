@@ -9,19 +9,35 @@
 import "./FloatingTab.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { Icon } from "@itwin/core-react";
 import type { UseDragTabArgs } from "../base/DragManager";
 import { useDragTab } from "../base/DragManager";
 import {
   NineZoneDispatchContext,
   ShowWidgetIconContext,
+  TabNodeContext,
 } from "../base/NineZone";
 import { useLayout } from "../base/LayoutStore";
+import { TabIdContext } from "./ContentRenderer";
+
+interface FloatingTabProps {
+  icon?: React.ReactNode;
+}
+
+/** @internal */
+export function FloatingTabProvider() {
+  const tabNode = React.useContext(TabNodeContext);
+  const id = useLayout((state) => {
+    const draggedTab = state.draggedTab;
+    return draggedTab?.tabId;
+  });
+  if (!id) return null;
+  return <TabIdContext.Provider value={id}>{tabNode}</TabIdContext.Provider>;
+}
 
 /** Component that displays a floating tab.
  * @internal
  */
-export function FloatingTab() {
+export function FloatingTab({ icon }: FloatingTabProps) {
   const { id, position } = useLayout((state) => {
     const draggedTab = state.draggedTab;
     return {
@@ -29,14 +45,11 @@ export function FloatingTab() {
       position: draggedTab?.position,
     };
   }, true);
-  const { iconSpec, label } = useLayout((state) => {
+  const label = useLayout((state) => {
     const tabId = state.draggedTab?.tabId;
     const tab = tabId ? state.tabs[tabId] : undefined;
-    return {
-      iconSpec: tab?.iconSpec,
-      label: tab?.label,
-    };
-  }, true);
+    return tab?.label;
+  });
 
   const dispatch = React.useContext(NineZoneDispatchContext);
   const onDrag = React.useCallback<NonNullable<UseDragTabArgs["onDrag"]>>(
@@ -75,7 +88,7 @@ export function FloatingTab() {
   );
   return (
     <div className={className} style={style}>
-      {showWidgetIcon && iconSpec && <Icon iconSpec={iconSpec} />}
+      {showWidgetIcon && icon}
       <span>{label}</span>
     </div>
   );

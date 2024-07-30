@@ -101,6 +101,7 @@ export function FormatSample(props: FormatSampleProps) {
       )}
       <span data-testid="progress-forward">
         {hideLabels && formattedValue.length > 0 && (
+          // eslint-disable-next-line deprecation/deprecation
           <Icon iconSpec={<SvgProgressForward />} />
         )}
         <span

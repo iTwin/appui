@@ -7,14 +7,13 @@
  */
 
 import * as React from "react";
-import type { UiStateStorage } from "@itwin/core-react";
-import { LocalStateStorage } from "@itwin/core-react";
 import { UiFramework } from "../UiFramework";
 import {
   SyncUiEventDispatcher,
   SyncUiEventId,
 } from "../syncui/SyncUiEventDispatcher";
-import type { UiSyncEventArgs } from "../syncui/UiSyncEvent";
+import type { UiStateStorage } from "./UiStateStorage";
+import { LocalStateStorage } from "./LocalStateStorage";
 
 /** @public */
 export function useUiStateStorageHandler(): UiStateStorage {
@@ -52,17 +51,14 @@ export function UiStateStorageHandler(props: UiSettingsProviderProps) {
   );
 
   React.useEffect(() => {
-    // eslint-disable-next-line deprecation/deprecation
-    const handleSyncUiEvent = (args: UiSyncEventArgs): void => {
+    return SyncUiEventDispatcher.onSyncUiEvent.addListener((args) => {
       if (
         SyncUiEventDispatcher.hasEventOfInterest(args.eventIds, [
           SyncUiEventId.UiStateStorageChanged,
         ])
       )
         setStateStorage(UiFramework.getUiStateStorage());
-    };
-
-    return SyncUiEventDispatcher.onSyncUiEvent.addListener(handleSyncUiEvent);
+    });
   });
 
   return (

@@ -23,8 +23,6 @@ function createDoubleProperty(value: number, displayValue?: string) {
   return property;
 }
 
-/* eslint-disable deprecation/deprecation */
-
 describe("DoublePropertyValueRenderer", () => {
   describe("render", () => {
     it("renders double property from display value", () => {

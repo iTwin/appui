@@ -14,6 +14,7 @@ import { default as default_2 } from 'resize-observer-polyfill';
 import type { DialogButtonDef } from '@itwin/appui-abstract';
 import type { IDisposable } from '@itwin/core-bentley';
 import { Input } from '@itwin/itwinui-react';
+import type { Listener } from '@itwin/core-bentley';
 import type { Localization as Localization_2 } from '@itwin/core-common';
 import { MessageSeverity } from '@itwin/appui-abstract';
 import { ProgressRadial } from '@itwin/itwinui-react';
@@ -67,10 +68,10 @@ export class Annulus {
     outer: Circle;
 }
 
-// @public
+// @public @deprecated
 export type AsyncGetAutoSuggestDataFunc = (value: string) => Promise<AutoSuggestData[]>;
 
-// @public
+// @public @deprecated
 export class AutoSuggest extends React_2.PureComponent<AutoSuggestProps, AutoSuggestState> {
     constructor(props: AutoSuggestProps);
     // @internal (undocumented)
@@ -83,13 +84,13 @@ export class AutoSuggest extends React_2.PureComponent<AutoSuggestProps, AutoSug
     render(): React_2.ReactElement;
 }
 
-// @public
+// @public @deprecated
 export interface AutoSuggestData {
     label: string;
     value: string;
 }
 
-// @public
+// @public @deprecated
 export interface AutoSuggestProps extends React_2.InputHTMLAttributes<HTMLInputElement>, CommonProps {
     // @internal (undocumented)
     alwaysRenderSuggestions?: boolean;
@@ -161,7 +162,7 @@ export interface CheckBoxInfo {
     tooltip?: string;
 }
 
-// @public
+// @public @deprecated
 export enum CheckBoxState {
     // (undocumented)
     Off = 0,
@@ -221,7 +222,7 @@ export interface CommonProps extends ClassNameProps {
     style?: React_2.CSSProperties;
 }
 
-// @public
+// @public @deprecated
 export class ConditionalIconItem {
     constructor(iconGetter: () => IconSpec, syncEventIds: string[], value?: IconSpec);
     static getValue(conditionalValue: ConditionalIconItem | string | undefined): IconSpec | undefined;
@@ -234,7 +235,7 @@ export class ConditionalIconItem {
     get value(): IconSpec;
 }
 
-// @public
+// @public @deprecated
 export class ContextMenu extends React_2.PureComponent<ContextMenuProps, ContextMenuState> {
     constructor(props: ContextMenuProps);
     // @internal (undocumented)
@@ -261,7 +262,7 @@ export class ContextMenu extends React_2.PureComponent<ContextMenuProps, Context
     readonly state: Readonly<ContextMenuState>;
 }
 
-// @public
+// @public @deprecated
 export enum ContextMenuDirection {
     // (undocumented)
     Bottom = "bottom",
@@ -285,13 +286,13 @@ export enum ContextMenuDirection {
     TopRight = "top right"
 }
 
-// @public
+// @public @deprecated
 export class ContextMenuDivider extends React_2.PureComponent<CommonProps> {
     // (undocumented)
     render(): React_2.ReactElement;
 }
 
-// @public
+// @public @deprecated
 export class ContextMenuItem extends React_2.PureComponent<ContextMenuItemProps, ContextMenuItemState> {
     constructor(props: ContextMenuItemProps);
     // (undocumented)
@@ -308,7 +309,7 @@ export class ContextMenuItem extends React_2.PureComponent<ContextMenuItemProps,
     readonly state: Readonly<ContextMenuItemState>;
 }
 
-// @public
+// @public @deprecated
 export interface ContextMenuItemProps extends Omit<React_2.AllHTMLAttributes<HTMLDivElement>, "disabled" | "hidden">, CommonProps {
     badgeKind?: "technical-preview" | "new" | "deprecated" | (string & {});
     // @deprecated
@@ -330,7 +331,7 @@ export interface ContextMenuItemProps extends Omit<React_2.AllHTMLAttributes<HTM
     parentMenu?: ContextMenu;
 }
 
-// @public
+// @public @deprecated
 export interface ContextMenuProps extends CommonProps {
     autoflip?: boolean;
     children?: React_2.ReactNode;
@@ -351,7 +352,7 @@ export interface ContextMenuProps extends CommonProps {
     selectedIndex?: number;
 }
 
-// @public
+// @public @deprecated
 export class ContextSubMenu extends React_2.Component<ContextSubMenuProps, ContextSubMenuState> {
     constructor(props: ContextSubMenuProps);
     // (undocumented)
@@ -372,7 +373,7 @@ export class ContextSubMenu extends React_2.Component<ContextSubMenuProps, Conte
     readonly state: Readonly<ContextSubMenuState>;
 }
 
-// @public
+// @public @deprecated
 export interface ContextSubMenuProps extends Omit<ContextMenuItemProps, "label">, Omit<ContextMenuProps, "label">, CommonProps {
     label: string | React_2.ReactElement;
     // @internal (undocumented)
@@ -649,7 +650,7 @@ export interface GapProps extends CommonProps {
     size?: string;
 }
 
-// @public
+// @public @deprecated
 export type GetAutoSuggestDataFunc = (value: string) => AutoSuggestData[];
 
 // @internal
@@ -685,7 +686,7 @@ export const getToolbarBoxShadow: (opacity: number) => string;
 // @internal
 export function getUserColor(email: string): string;
 
-// @public
+// @public @deprecated
 export class GlobalContextMenu extends React_2.PureComponent<GlobalContextMenuProps, GlobalContextMenuState> {
     constructor(props: GlobalContextMenuProps);
     // (undocumented)
@@ -696,7 +697,7 @@ export class GlobalContextMenu extends React_2.PureComponent<GlobalContextMenuPr
     readonly state: GlobalContextMenuState;
 }
 
-// @public
+// @public @deprecated
 export interface GlobalContextMenuProps extends ContextMenuProps {
     contextMenuComponent?: React_2.ComponentType<ContextMenuProps>;
     identifier?: string;
@@ -742,7 +743,7 @@ export enum HorizontalAlignment {
     Right = "right"
 }
 
-// @public
+// @public @deprecated
 export function Icon(props: IconProps): React_2.JSX.Element | null;
 
 // @public @deprecated
@@ -766,12 +767,12 @@ export interface IconInputProps extends Omit<InputProps, "size"> {
     size?: "small" | "large";
 }
 
-// @public
+// @public @deprecated
 export interface IconProps extends CommonProps {
     iconSpec?: IconSpec;
 }
 
-// @public
+// @public @deprecated
 export type IconSpec = string | ConditionalStringValue | React_2.ReactNode | ConditionalIconItem;
 
 // @public @deprecated
@@ -914,6 +915,13 @@ export interface ListboxProps extends React_2.DetailedHTMLProps<React_2.HTMLAttr
 // @alpha @deprecated
 export type ListboxValue = string;
 
+// @internal
+export type ListenerType<TEvent extends {
+    addListener(listener: Listener): () => void;
+}> = TEvent extends {
+    addListener(listener: infer TListener): () => void;
+} ? TListener : never;
+
 // @public @deprecated
 export class LoadingBar extends React_2.PureComponent<LoadingBarProps> {
     // (undocumented)
@@ -980,10 +988,10 @@ export interface LoadingStatusProps extends CommonProps {
     percent: number;
 }
 
-// @alpha
+// @alpha @deprecated
 export function LocalizationProvider(props: LocalizationProviderProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export class LocalStateStorage implements UiStateStorage {
     constructor(w?: Window);
     // (undocumented)
@@ -1086,10 +1094,10 @@ export interface NodeCheckboxProps {
     tooltip?: string;
 }
 
-// @public
+// @public @deprecated
 export type NodeCheckboxRenderer = (props: NodeCheckboxRenderProps) => React_2.ReactNode;
 
-// @public
+// @public @deprecated
 export type NodeCheckboxRenderProps = Omit<CheckboxProps, "onChange" | "onClick"> & {
     onChange: (checked: boolean) => void;
     onClick: (e: React_2.MouseEvent) => void;
@@ -1126,7 +1134,7 @@ export type OmitChildrenProp<T extends {
     children?: React_2.ReactNode;
 }> = Omit<T, "children">;
 
-// @public
+// @public @deprecated
 export enum Orientation {
     // (undocumented)
     Horizontal = 0,
@@ -1192,10 +1200,10 @@ export class Popup extends React_2.Component<PopupProps, PopupState> {
 // @internal (undocumented)
 export const PopupContext: React_2.Context<HTMLElement | undefined>;
 
-// @public
+// @public @deprecated
 export function PopupContextMenu(props: PopupContextMenuProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface PopupContextMenuProps extends CommonProps {
     animate?: boolean;
     ariaLabel?: string;
@@ -1401,7 +1409,7 @@ export class Rectangle implements RectangleProps {
     toProps(): RectangleProps;
 }
 
-// @public
+// @public @deprecated
 export interface RectangleProps {
     // (undocumented)
     readonly bottom: number;
@@ -1413,7 +1421,7 @@ export interface RectangleProps {
     readonly top: number;
 }
 
-// @public
+// @public @deprecated
 export interface RenderPropsArgs {
     // (undocumented)
     height?: number;
@@ -1464,10 +1472,10 @@ export interface SearchBoxProps extends CommonProps {
     valueChangedDelay?: number;
 }
 
-// @public
+// @public @deprecated
 export const SettingsContainer: ({ tabs, onSettingsTabSelected, currentSettingsTab, settingsManager, showHeader, }: SettingsContainerProps) => React_2.JSX.Element;
 
-// @public (undocumented)
+// @public @deprecated
 export interface SettingsContainerProps {
     // (undocumented)
     currentSettingsTab?: SettingsTabEntry;
@@ -1481,7 +1489,7 @@ export interface SettingsContainerProps {
     tabs: SettingsTabEntry[];
 }
 
-// @public
+// @public @deprecated
 export class SettingsManager {
     activateSettingsTab(settingsTabId: string): void;
     // (undocumented)
@@ -1512,7 +1520,7 @@ export interface SettingsProvidersChangedEventArgs {
     readonly providers: ReadonlyArray<SettingsTabsProvider>;
 }
 
-// @public
+// @public @deprecated
 export interface SettingsTabEntry {
     readonly icon?: string | React.ReactElement;
     readonly isDisabled?: boolean | ConditionalBooleanValue;
@@ -1525,7 +1533,7 @@ export interface SettingsTabEntry {
     readonly tooltip?: string | React.ReactElement;
 }
 
-// @public
+// @public @deprecated
 export interface SettingsTabsProvider {
     // (undocumented)
     getSettingEntries(stageId: string, stageUsage: string): ReadonlyArray<SettingsTabEntry> | undefined;
@@ -1550,7 +1558,7 @@ export class Size implements SizeProps {
     readonly width: number;
 }
 
-// @public
+// @public @deprecated
 export interface SizeProps {
     // (undocumented)
     readonly height: number;
@@ -1630,7 +1638,7 @@ export interface TabsProps extends React_2.AllHTMLAttributes<HTMLUListElement>, 
 export interface TextProps extends React_2.AllHTMLAttributes<HTMLSpanElement>, CommonProps {
 }
 
-// @public
+// @public @deprecated
 export enum TimeFormat {
     Long = 2,
     None = 0,
@@ -1764,7 +1772,7 @@ export interface TreeProps extends CommonProps {
     onMouseUp?: React_2.MouseEventHandler<HTMLDivElement>;
 }
 
-// @public
+// @public @deprecated
 export class UiCore {
     static initialize(localization: Localization_2): Promise<void>;
     static get initialized(): boolean;
@@ -1784,7 +1792,7 @@ export class UiGeometry {
     static hypotenuseXY(x: number, y: number): number;
 }
 
-// @public
+// @public @deprecated
 export class UiStateEntry<T> {
     constructor(settingNamespace: string, settingName: string, getValue: () => T, applyValue?: ((v: T) => void) | undefined, defaultValue?: T | undefined);
     // (undocumented)
@@ -1803,7 +1811,7 @@ export class UiStateEntry<T> {
     settingNamespace: string;
 }
 
-// @public
+// @public @deprecated
 export interface UiStateStorage {
     // (undocumented)
     deleteSetting(settingNamespace: string, settingName: string): Promise<UiStateStorageResult>;
@@ -1813,7 +1821,7 @@ export interface UiStateStorage {
     saveSetting(settingNamespace: string, settingName: string, setting: any): Promise<UiStateStorageResult>;
 }
 
-// @public
+// @public @deprecated
 export interface UiStateStorageResult {
     // (undocumented)
     setting?: any;
@@ -1821,7 +1829,7 @@ export interface UiStateStorageResult {
     status: UiStateStorageStatus;
 }
 
-// @public
+// @public @deprecated
 export enum UiStateStorageStatus {
     // (undocumented)
     AuthorizationError = 4,
@@ -1847,7 +1855,7 @@ export interface UnderlinedButtonProps {
     title?: string;
 }
 
-// @public
+// @public @deprecated
 export function useCrossOriginPopup(visible: boolean, url: string | undefined, title: string, width: number, height: number, onClose: () => void): void;
 
 // @public @deprecated
@@ -1896,10 +1904,10 @@ export function useRefState<T>(): [React_2.Ref<T>, T | undefined];
 // @internal
 export function useResizeObserver<T extends Element>(onResize?: (width: number, height: number) => void): (instance: Element | null) => void;
 
-// @public
+// @public @deprecated
 export function useSaveBeforeActivatingNewSettingsTab(settingsManager: SettingsManager, saveFunction: (tabSelectionFunc: (args: any) => void, requestedSettingsTabId?: string) => void): void;
 
-// @public
+// @public @deprecated
 export function useSaveBeforeClosingSettingsContainer(settingsManager: SettingsManager, saveFunction: (closeFunc: (args: any) => void, closeFuncArgs?: any) => void): void;
 
 // @internal

@@ -142,6 +142,7 @@ export function ConfigurableUiContent(props: ConfigurableUiContentProps) {
             <PointerMessage />
             {/* eslint-disable-next-line deprecation/deprecation */}
             <KeyboardShortcutMenu />
+            {/* eslint-disable-next-line deprecation/deprecation */}
             <InputFieldMessage />
             <CursorPopupMenu />
             <CursorPopupRenderer />

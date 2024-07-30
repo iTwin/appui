@@ -8,7 +8,6 @@
 
 import * as React from "react";
 import type { PropertyRecord } from "@itwin/appui-abstract";
-import { Orientation } from "@itwin/core-react";
 import { countMatchesInString } from "../../common/countMatchesInString";
 import { HighlightedText } from "../../common/HighlightedText";
 import type { HighlightingComponentProps } from "../../common/HighlightingComponentProps";
@@ -17,6 +16,7 @@ import {
   PropertyContainerType,
   PropertyValueRendererManager,
 } from "../ValueRendererManager";
+import { Orientation } from "../../common/Orientation";
 
 /**
  * @internal

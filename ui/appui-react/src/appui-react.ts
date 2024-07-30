@@ -87,8 +87,9 @@ export * from "./appui-react/frontstage/StandardFrontstageProvider";
 export * from "./appui-react/hooks/useActiveIModelConnection";
 export * from "./appui-react/hooks/useActiveStageId";
 export * from "./appui-react/hooks/useActiveViewport";
-export * from "./appui-react/hooks/useAvailableUiItemsProviders";
 export * from "./appui-react/hooks/useAnalysisAnimationDataProvider";
+export * from "./appui-react/hooks/useAvailableUiItemsProviders";
+export * from "./appui-react/hooks/useConditionalValue";
 export * from "./appui-react/hooks/useScheduleAnimationDataProvider";
 export * from "./appui-react/hooks/useSolarDataProvider";
 export * from "./appui-react/hooks/useUiVisibility";
@@ -142,9 +143,12 @@ export * from "./appui-react/safearea/SafeAreaInsets";
 export * from "./appui-react/selection/SelectionContextItemDef";
 export * from "./appui-react/selection/HideIsolateEmphasizeManager";
 
-export * from "./appui-react/settings/ui/UiSettingsPage";
 export * from "./appui-react/settings/quantityformatting/QuantityFormat";
 export * from "./appui-react/settings/quantityformatting/UnitSystemSelector";
+
+export * from "./appui-react/settings/ui/UiSettingsPage";
+
+export * from "./appui-react/settings/SettingsManager";
 
 export * from "./appui-react/shared/ActionButtonItemDef";
 export * from "./appui-react/shared/AnyItemDef";
@@ -234,11 +238,15 @@ export * from "./appui-react/uiadmin/FrameworkUiAdmin";
 export * from "./appui-react/uiprovider/DefaultDialogGridContainer";
 
 export * from "./appui-react/uistate/AppUiSettings";
+export * from "./appui-react/uistate/LocalStateStorage";
+export * from "./appui-react/uistate/UiStateStorage";
 export * from "./appui-react/uistate/useUiStateStorage";
 
-export * from "./appui-react/utils/ViewUtilities";
 export * from "./appui-react/utils/PropsHelper";
+export * from "./appui-react/utils/RectangleProps";
+export * from "./appui-react/utils/SizeProps";
 export * from "./appui-react/utils/ToolbarButtonHelper";
+export * from "./appui-react/utils/ViewUtilities";
 
 export * from "./appui-react/widget-panels/Content";
 export * from "./appui-react/widget-panels/Frontstage";

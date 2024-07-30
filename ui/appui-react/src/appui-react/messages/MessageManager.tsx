@@ -567,11 +567,14 @@ export class MessageManager {
   /** Extracts the message severity from the message details and returns the corresponding React icon.
    * @param details NotifyMessageDetailsType
    * @returns IconSpec
+   * @deprecated in 4.16.0. Use {@link https://itwinui.bentley.com/ iTwinUI icons} instead.
    */
   public static getIconSpecFromDetails(
     details: NotifyMessageDetailsType
+    // eslint-disable-next-line deprecation/deprecation
   ): IconSpec {
     const severity = MessageManager.getSeverity(details);
+    // eslint-disable-next-line deprecation/deprecation
     let iconSpec: IconSpec = <SvgStatusSuccess />;
     switch (severity) {
       case MessageSeverity.Error:
@@ -589,6 +592,7 @@ export class MessageManager {
   }
   /** Gets an icon CSS class name based on a given NotifyMessageDetailsType.
    * @public
+   * @deprecated in 4.16.0. Used internally.
    */
   public static getIconClassName(details: NotifyMessageDetailsType): string {
     const severity = MessageManager.getSeverity(details);

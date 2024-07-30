@@ -4,7 +4,6 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { Logger } from "@itwin/core-bentley";
-import type { DialogChangedEventArgs } from "../../appui-react";
 import {
   ModelessDialog,
   ModelessDialogRenderer,
@@ -23,19 +22,13 @@ describe("InternalModelessDialogManager", () => {
     spy.mockReset();
   });
 
-  function handleModelessDialogChanged(_args: DialogChangedEventArgs) {
-    spy();
-  }
-
   beforeEach(() => {
-    UiFramework.dialogs.modeless.onModelessDialogChangedEvent.addListener(
-      handleModelessDialogChanged
-    );
+    UiFramework.dialogs.modeless.onModelessDialogChangedEvent.addListener(spy);
   });
 
   afterEach(() => {
     InternalModelessDialogManager.onModelessDialogChangedEvent.removeListener(
-      handleModelessDialogChanged
+      spy
     );
   });
 

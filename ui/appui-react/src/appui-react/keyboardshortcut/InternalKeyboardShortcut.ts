@@ -14,8 +14,8 @@ import {
   KeyboardShortcutContainer,
 } from "./KeyboardShortcut";
 import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
-import type { UiSyncEventArgs } from "../syncui/UiSyncEvent";
 import type { KeyboardShortcutProps } from "./KeyboardShortcutProps";
+import type { ListenerType } from "@itwin/core-react";
 
 /* eslint-disable deprecation/deprecation */
 
@@ -124,7 +124,9 @@ export class InternalKeyboardShortcutManager {
     return CursorInformation.cursorY;
   }
 
-  private static _handleSyncUiEvent = (args: UiSyncEventArgs) => {
+  private static _handleSyncUiEvent: ListenerType<
+    typeof SyncUiEventDispatcher.onSyncUiEvent
+  > = (args) => {
     const updateBooleanValue = (booleanValue: ConditionalBooleanValue) => {
       if (
         SyncUiEventDispatcher.hasEventOfInterest(

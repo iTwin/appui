@@ -11,12 +11,7 @@
 import * as React from "react";
 import { Key } from "ts-key-enum";
 import "./KeyinPalettePanel.scss";
-import {
-  FilteredText,
-  Listbox,
-  ListboxItem,
-  UiStateStorageStatus,
-} from "@itwin/core-react";
+import { FilteredText, Listbox, ListboxItem } from "@itwin/core-react";
 import {
   IModelApp,
   NotifyMessageDetails,
@@ -32,6 +27,7 @@ import type { KeyinEntry } from "../keyins/Keyins";
 import { Input } from "@itwin/itwinui-react";
 import { matchesWords } from "../utils/matchesWords";
 import { useTranslation } from "../hooks/useTranslation";
+import { UiStateStorageStatus } from "../uistate/UiStateStorage";
 
 const KEYIN_PALETTE_NAMESPACE = "KeyinPalettePanel";
 const KEYIN_HISTORY_KEY = "historyArray";

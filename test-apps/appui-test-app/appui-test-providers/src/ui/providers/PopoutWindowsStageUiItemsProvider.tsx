@@ -12,7 +12,6 @@ import {
   StageUsage,
   StatusBarItem,
   StatusBarItemUtilities,
-  StatusBarSection,
   ToolbarItem,
   ToolbarOrientation,
   ToolbarUsage,
@@ -119,12 +118,11 @@ export class PopoutWindowsStageUiItemsProvider implements UiItemsProvider {
     const statusBarItems: StatusBarItem[] = [];
     if (stageUsage === StageUsage.General.valueOf()) {
       statusBarItems.push(
-        StatusBarItemUtilities.createCustomItem(
-          "DisplayStyle",
-          StatusBarSection.Center,
-          400,
-          <DisplayStyleField />
-        )
+        StatusBarItemUtilities.createCustomItem({
+          id: "DisplayStyle",
+          itemPriority: 400,
+          content: <DisplayStyleField />,
+        })
       );
     }
     return statusBarItems;
@@ -132,14 +130,14 @@ export class PopoutWindowsStageUiItemsProvider implements UiItemsProvider {
 
   public provideBackstageItems(): BackstageItem[] {
     return [
-      BackstageItemUtilities.createStageLauncher(
-        PopoutWindowsFrontstage.stageId,
-        300,
-        2,
-        AppUiTestProviders.translate("backstage.PopoutWindowsFrontstageLabel"),
-        undefined,
-        undefined
-      ),
+      BackstageItemUtilities.createStageLauncher({
+        stageId: PopoutWindowsFrontstage.stageId,
+        groupPriority: 300,
+        itemPriority: 2,
+        label: AppUiTestProviders.translate(
+          "backstage.PopoutWindowsFrontstageLabel"
+        ),
+      }),
     ];
   }
 }

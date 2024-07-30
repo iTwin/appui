@@ -14,7 +14,7 @@ import type { ScreenViewport, Viewport } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
 import { ProgressLinear } from "@itwin/itwinui-react";
 import { UiFramework } from "../../UiFramework";
-import type { CommonProps } from "@itwin/core-react";
+import type { CommonProps, ListenerType } from "@itwin/core-react";
 
 /** State for the [[TileLoadingIndicator]] component
  * @internal
@@ -76,14 +76,16 @@ export class TileLoadingIndicator extends React.PureComponent<
     });
   };
 
-  private _update = (vp: Viewport) => {
+  private _handleRender: ListenerType<ScreenViewport["onRender"]> = (vp) => {
     // set progress animation before the next repaint.
     setTimeout(() => this._refreshState(vp));
   };
 
-  private _onViewOpen = (vp: ScreenViewport) => {
+  private _onViewOpen: ListenerType<typeof IModelApp.viewManager.onViewOpen> = (
+    vp
+  ) => {
     this._removeOnRenderListener && this._removeOnRenderListener();
-    this._removeOnRenderListener = vp.onRender.addListener(this._update);
+    this._removeOnRenderListener = vp.onRender.addListener(this._handleRender);
   };
 
   public override componentDidMount() {

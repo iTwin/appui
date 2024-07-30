@@ -168,6 +168,7 @@ export class Calculator extends React.PureComponent<
             styleType="cta"
             onClick={this._handleOk}
           >
+            {/* eslint-disable-next-line deprecation/deprecation */}
             <Icon iconSpec={<SvgCheckmark />} />
           </Button>
           <Button
@@ -177,6 +178,7 @@ export class Calculator extends React.PureComponent<
             )}
             onClick={this._handleCancel}
           >
+            {/* eslint-disable-next-line deprecation/deprecation */}
             <Icon iconSpec={<SvgRemove />} />
           </Button>
         </div>
@@ -276,6 +278,7 @@ class CalculatorKeyPad extends React.PureComponent<CalculatorKeyPadProps> {
           onClick={this.props.onOperatorClick}
         >
           <div className="uifw-calculator-button-svg">
+            {/* eslint-disable-next-line deprecation/deprecation */}
             <Icon iconSpec={backspaceIcon} />
           </div>
         </OperatorButton>
