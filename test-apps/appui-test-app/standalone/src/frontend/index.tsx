@@ -122,6 +122,7 @@ import {
   createElementStackingProvider,
 } from "./appui/frontstages/ElementStacking";
 import { createTestPanelFrontstage } from "./appui/frontstages/TestPanelFrontstage";
+import { createTestPopoutFrontstage } from "./appui/frontstages/TestPopoutFrontstage";
 
 // Initialize my application gateway configuration for the frontend
 RpcConfiguration.developmentMode = true;
@@ -390,6 +391,7 @@ export class SampleAppIModelApp {
     WidgetApiStage.register(AppUiTestProviders.localizationNamespace);
     ContentLayoutStage.register(AppUiTestProviders.localizationNamespace);
     UiFramework.frontstages.addFrontstage(createTestPanelFrontstage());
+    UiFramework.frontstages.addFrontstage(createTestPopoutFrontstage());
     registerCustomFrontstage();
     SynchronizedFloatingViewportStage.register(
       AppUiTestProviders.localizationNamespace

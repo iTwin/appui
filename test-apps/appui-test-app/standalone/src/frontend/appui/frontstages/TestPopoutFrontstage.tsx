@@ -2,36 +2,30 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+import "./TestPopoutFrontstage.scss";
 import * as React from "react";
 import { Frontstage } from "@itwin/appui-react";
 import { createTestFrontstage } from "./createTestFrontstage";
 
-/** Used in e2e tests to test different panel configurations. */
-export const createTestPanelFrontstage = () => {
+export const createTestPopoutFrontstage = () => {
   {
-    const urlParams = new URLSearchParams(window.location.search);
-    const size = urlParams.get("size");
-    const defaultState = urlParams.get("defaultState");
-    const resizable = urlParams.get("resizable");
-
     const frontstage = createTestFrontstage({
-      id: "appui-test-app:TestPanel",
+      id: "appui-test-app:TestPopout",
     });
 
     return {
       ...frontstage,
       leftPanel: {
-        sizeSpec: size ? Number(size) : undefined,
-        defaultState: defaultState ? Number(defaultState) : undefined,
-        resizable: resizable ? Boolean(Number(resizable)) : undefined,
         sections: {
           start: [
             {
               id: "widget-1",
               label: "Widget 1",
+              canPopout: true,
               content: (
                 <>
-                  Frontstage provided widget: <b>widget-1</b>
+                  <div>Widget 1 content</div>
+                  <div id="border-test" />
                 </>
               ),
             },
