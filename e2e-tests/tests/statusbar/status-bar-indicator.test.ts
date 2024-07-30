@@ -4,7 +4,6 @@
  *--------------------------------------------------------------------------------------------*/
 import { expect, test } from "@playwright/test";
 import { openComponentExamples } from "../Utils";
-import { stat } from "fs";
 
 test("status bar indicator test", async ({ page, baseURL }) => {
   await openComponentExamples(page, baseURL);

@@ -8,7 +8,6 @@ import { IModelReadRpcInterface, ViewQueryParams } from "@itwin/core-common";
 import { IModelConnection, SpatialViewState } from "@itwin/core-frontend";
 
 import { ElectronApp } from "@itwin/core-electron/lib/cjs/ElectronFrontend";
-import { OpenDialogOptions } from "electron";
 
 import {
   BackstageAppButton,
@@ -231,11 +230,10 @@ function LocalFilePage(props: LocalFilePageProps) {
   );
 
   const handleElectronFileOpen = React.useCallback(async () => {
-    const opts: OpenDialogOptions = {
+    const val = await ElectronApp.dialogIpc.showOpenDialog({
       properties: ["openFile"],
       filters: [{ name: "iModels", extensions: ["ibim", "bim"] }],
-    };
-    const val = await ElectronApp.dialogIpc.showOpenDialog(opts);
+    });
     if (val.canceled) return;
 
     const filePath = val.filePaths[0];

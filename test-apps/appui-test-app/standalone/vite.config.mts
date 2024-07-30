@@ -1,9 +1,30 @@
-import { defineConfig } from "vite";
+import { createLogger, defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 
+const customLogger = createLogger();
+const warn = customLogger.warn;
+
+customLogger.warn = (msg, options) => {
+  if (
+    msg.includes(`Module "fs" has been externalized`) &&
+    msg.includes("node_modules/electron/index.js")
+  )
+    return;
+  if (
+    msg.includes(`Module "path" has been externalized`) &&
+    msg.includes("node_modules/electron/index.js")
+  )
+    return;
+  warn(msg, options);
+};
+
 // https://vitejs.dev/config/
 export default defineConfig({
+  build: {
+    chunkSizeWarningLimit: 7000,
+  },
+  customLogger,
   plugins: [
     react(),
     viteStaticCopy({

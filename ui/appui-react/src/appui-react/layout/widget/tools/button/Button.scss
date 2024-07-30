@@ -8,26 +8,23 @@
   box-sizing: border-box;
   width: $mls-button-width;
   height: $mls-button-height;
-
-  &.nz-toolbar-button-icon-small {
-    width: $mls-small-button-width;
-    height: $mls-small-button-height;
-  }
-
   cursor: pointer;
   position: relative;
   overflow: hidden;
   background: var(--iui-color-background);
   border-radius: var(--iui-border-radius-1);
-
   border: {
     width: 1px;
     color: var(--iui-color-border-foreground);
     radius: var(--iui-border-radius-1);
     style: solid;
   }
-
   pointer-events: auto;
+
+  &.nz-toolbar-button-icon-small {
+    width: $mls-small-button-width;
+    height: $mls-small-button-height;
+  }
 
   > .nz-gradient {
     background: linear-gradient(

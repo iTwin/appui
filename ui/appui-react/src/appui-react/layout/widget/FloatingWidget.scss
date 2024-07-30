@@ -15,12 +15,12 @@
     min-height: 120px;
     transition: opacity var(--iui-duration-2) ease;
 
+    @include uicore-z-index(dragged-widget);
+    @include nz-widget-opacity;
+
     &.nz-floating-toolSettings {
       min-height: 60px;
     }
-
-    @include uicore-z-index(dragged-widget);
-    @include nz-widget-opacity;
 
     &.nz-minimized {
       flex-grow: 0;

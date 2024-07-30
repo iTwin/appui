@@ -8,12 +8,6 @@
 .nz-tools-widget {
   transition: visibility var(--iui-duration-2) ease,
     opacity var(--iui-duration-2) ease;
-
-  &.nz-hidden {
-    opacity: 0;
-    visibility: hidden;
-  }
-
   display: grid;
   box-sizing: border-box;
   height: 100%;
@@ -22,6 +16,11 @@
   align-items: start;
   justify-items: start;
   grid-template-columns: auto 1fr;
+
+  &.nz-hidden {
+    opacity: 0;
+    visibility: hidden;
+  }
 
   > .nz-vertical-tool-area {
     display: inline-flex;
