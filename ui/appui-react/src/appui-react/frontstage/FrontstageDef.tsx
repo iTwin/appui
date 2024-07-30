@@ -61,17 +61,6 @@ import { FrameworkContent } from "../framework/FrameworkContent";
 import type { SizeProps } from "../utils/SizeProps";
 import type { RectangleProps } from "../utils/RectangleProps";
 
-/** @internal */
-export interface FrontstageEventArgs {
-  frontstageDef: FrontstageDef;
-}
-
-/** @internal */
-export interface FrontstageNineZoneStateChangedEventArgs
-  extends FrontstageEventArgs {
-  state: NineZoneState | undefined;
-}
-
 /** FrontstageDef class provides an API for a Frontstage.
  * @public
  */

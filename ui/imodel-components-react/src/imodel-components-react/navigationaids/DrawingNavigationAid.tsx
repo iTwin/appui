@@ -27,10 +27,9 @@ import type {
   ViewState,
 } from "@itwin/core-frontend";
 import { IModelApp, ScreenViewport } from "@itwin/core-frontend";
-import type { CommonProps } from "@itwin/core-react";
+import type { CommonProps, ListenerType } from "@itwin/core-react";
 import { Icon } from "@itwin/core-react";
 import { UiIModelComponents } from "../UiIModelComponents";
-import type { ViewRotationChangeEventArgs } from "../viewport/ViewportComponentEvents";
 import { ViewportComponentEvents } from "../viewport/ViewportComponentEvents";
 import {
   SvgAdd,
@@ -508,9 +507,9 @@ export class DrawingNavigationAid extends React.Component<
   }
 
   // Synchronize with rotation coming from the Viewport
-  private _handleViewRotationChangeEvent = (
-    args: ViewRotationChangeEventArgs // eslint-disable-line deprecation/deprecation
-  ) => {
+  private _handleViewRotationChangeEvent: ListenerType<
+    typeof ViewportComponentEvents.onViewRotationChangeEvent
+  > = (args) => {
     if (
       !this.state.isMoving &&
       !this.state.isPanning &&

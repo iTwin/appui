@@ -54,16 +54,6 @@ export interface WidgetStateChangedEventArgs {
 // eslint-disable-next-line deprecation/deprecation
 export class WidgetStateChangedEvent extends UiEvent<WidgetStateChangedEventArgs> {}
 
-/** @internal */
-export interface WidgetChangedEventArgs {
-  widgetDef: WidgetDef;
-}
-
-/** @internal */
-export interface WidgetEventArgs {
-  widgetDef: WidgetDef;
-}
-
 /** Widget type enum.
  * @public
  */

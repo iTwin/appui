@@ -11,21 +11,21 @@ In an iTwin.js application, the content area is usually a [Viewport]($core-front
 
 For a high level overview of different AppUI design concepts, see [UI Glossary](/ui/uiglossary).
 
-![AppUI](../images/AppUiDarkTheme.png)
+![AppUI](../images/dark-theme.png)
 
 ## Layout Features
 
 Dedicated **tool settings** area at the top of the application for components that change the operational settings of the currently executing [Tool](../../learning/frontend/Tools.md). For more information, see [Tool Settings](./configure-frontstage.md#tool-settings).
 
-![ToolSettings](../images/ToolSettings.png)
+![ToolSettings](../images/tool-settings.png)
 
 Dedicated **status bar** area at the bottom of the application for components that display notifications, messages, and other feedback to the user. For more information, see [Status Bar](./configure-frontstage.md#status-bar).
 
-![StatusBar](../images/StatusBar.png)
+![StatusBar](../images/status-bar.png)
 
 Interactive **widget** components that display relevant content of the application. Here a _Conversations_ widget is floating, while _Properties_, _Categories_ and other widgets are docked into the right panel. For more information, see [Widgets](./configure-frontstage.md#widgets).
 
-![Widgets](../images/AppUiLightTheme.png)
+![Widgets](../images/light-theme.png)
 
 The main content area is overlaid by **toolbar** components. The upper left corner is dedicated to the tools that manipulate the content of the application and the upper right corner is dedicated to the tools that navigate the view. For more information, see [Toolbars](./configure-frontstage.md#toolbars).
 

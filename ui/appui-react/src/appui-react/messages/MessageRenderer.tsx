@@ -112,15 +112,9 @@ function ActivityMessageContent({
   );
 
   React.useEffect(() => {
-    const handleActivityMessageUpdatedEvent = (
-      args: ActivityMessageEventArgs // eslint-disable-line deprecation/deprecation
-    ) => {
+    return MessageManager.onActivityMessageUpdatedEvent.addListener((args) => {
       setActivityMessageInfo(args);
-    };
-
-    return MessageManager.onActivityMessageUpdatedEvent.addListener(
-      handleActivityMessageUpdatedEvent
-    );
+    });
   }, []);
 
   return (

@@ -187,6 +187,7 @@ alpha;ListboxProps
 deprecated;ListboxProps 
 alpha;ListboxValue = string
 deprecated;ListboxValue = string
+internal;ListenerType
 public;LoadingBar 
 deprecated;LoadingBar 
 public;LoadingBarProps 

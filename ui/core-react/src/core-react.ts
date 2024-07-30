@@ -139,6 +139,7 @@ export * from "./core-react/utils/getUserColor";
 export * from "./core-react/utils/shallowDiffers";
 export * from "./core-react/utils/typeUtils";
 export * from "./core-react/utils/isPromiseLike";
+export * from "./core-react/utils/ListenerType";
 export * from "./core-react/utils/ScrollPositionMaintainer";
 export * from "./core-react/utils/getObjectClassName";
 

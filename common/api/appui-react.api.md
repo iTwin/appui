@@ -1466,23 +1466,21 @@ export class CursorPopup extends React_2.Component<CursorPopupProps, CursorPopup
 // @public
 export function CursorPopupContent(props: CommonDivProps): React_2.JSX.Element;
 
-// @internal
-export interface CursorPopupFadeOutEventArgs {
-    // (undocumented)
-    id: string;
-}
-
 // @public
 export class CursorPopupManager {
     // @internal (undocumented)
     static clearPopups(): void;
     static close(id: string, apply: boolean, fadeOut?: boolean): void;
     // @internal (undocumented)
-    static readonly onCursorPopupFadeOutEvent: BeUiEvent<CursorPopupFadeOutEventArgs>;
+    static readonly onCursorPopupFadeOutEvent: BeUiEvent<{
+        id: string;
+    }>;
     // @internal (undocumented)
     static readonly onCursorPopupsChangedEvent: BeUiEvent<{}>;
     // @internal (undocumented)
-    static readonly onCursorPopupUpdatePositionEvent: BeUiEvent<CursorPopupUpdatePositionEventArgs>;
+    static readonly onCursorPopupUpdatePositionEvent: BeUiEvent<{
+        pt: XAndY;
+    }>;
     static open(id: string, content: React_2.ReactNode, pt: XAndY, offset: XAndY, relativePosition: RelativePosition, priority?: number, options?: CursorPopupOptions): void;
     // (undocumented)
     static get popupCount(): number;
@@ -1545,12 +1543,6 @@ export enum CursorPopupShow {
     FadeOut = 1,
     // (undocumented)
     Open = 0
-}
-
-// @internal
-export interface CursorPopupUpdatePositionEventArgs {
-    // (undocumented)
-    pt: XAndY;
 }
 
 // @internal (undocumented)
@@ -2470,18 +2462,6 @@ export class FrontstageDef {
     get widgetDefs(): {
         [Symbol.iterator](): Iterator<WidgetDef, any, undefined>;
     };
-}
-
-// @internal (undocumented)
-export interface FrontstageEventArgs {
-    // (undocumented)
-    frontstageDef: FrontstageDef;
-}
-
-// @internal (undocumented)
-export interface FrontstageNineZoneStateChangedEventArgs extends FrontstageEventArgs {
-    // (undocumented)
-    state: NineZoneState | undefined;
 }
 
 // @public @deprecated
@@ -5821,12 +5801,6 @@ export interface Widget {
 // @public
 export const WIDGET_OPACITY_DEFAULT = 0.9;
 
-// @internal (undocumented)
-export interface WidgetChangedEventArgs {
-    // (undocumented)
-    widgetDef: WidgetDef;
-}
-
 // @public
 export interface WidgetConfig extends Widget {
     readonly labelKey?: string;
@@ -5946,12 +5920,6 @@ export class WidgetDef {
     set widgetType(type: WidgetType);
 }
 
-// @internal (undocumented)
-export interface WidgetEventArgs {
-    // (undocumented)
-    widgetDef: WidgetDef;
-}
-
 // @public
 export class WidgetHost {
     constructor();
@@ -5988,7 +5956,9 @@ export class WidgetManager {
     addWidgetDef(widgetDef: WidgetDef, stageId: string | undefined, stageUsage: string | undefined, location: StagePanelLocation, section?: StagePanelSection): boolean;
     getWidgetDefs(stageId: string, stageUsage: string, location: StagePanelLocation, section?: StagePanelSection): ReadonlyArray<WidgetDef> | undefined;
     // @internal
-    readonly onWidgetsChanged: BeUiEvent<WidgetsChangedEventArgs>;
+    readonly onWidgetsChanged: BeUiEvent<{
+        readonly items: ReadonlyArray<WidgetInfo>;
+    }>;
     removeWidgetDef(widgetId: string): boolean;
     // @internal (undocumented)
     get widgetCount(): number;
@@ -6027,12 +5997,6 @@ export function WidgetPanelsToolbars(): React_2.JSX.Element;
 
 // @internal (undocumented)
 export function WidgetPanelsToolSettings(): React_2.JSX.Element | null;
-
-// @internal
-export interface WidgetsChangedEventArgs {
-    // (undocumented)
-    readonly items: ReadonlyArray<WidgetInfo>;
-}
 
 // @public
 export enum WidgetState {

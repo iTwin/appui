@@ -11,9 +11,9 @@ import * as React from "react";
 import type { ToolAssistanceInstruction } from "@itwin/core-frontend";
 import type { XAndY } from "@itwin/core-geometry";
 import { RelativePosition } from "@itwin/appui-abstract";
+import type { ListenerType } from "@itwin/core-react";
 import { Icon, Point, Timer } from "@itwin/core-react";
 import { Text } from "@itwin/itwinui-react";
-import type { CursorUpdatedEventArgs } from "../CursorInformation";
 import { CursorInformation } from "../CursorInformation";
 import { CursorPopupManager } from "../cursorpopup/CursorPopupManager";
 
@@ -99,8 +99,9 @@ export class CursorPrompt {
     );
   };
 
-  // eslint-disable-next-line deprecation/deprecation
-  private _handleCursorUpdated = (args: CursorUpdatedEventArgs) => {
+  private _handleCursorUpdated: ListenerType<
+    typeof CursorInformation.onCursorUpdatedEvent
+  > = (args) => {
     CursorPopupManager.updatePosition(args.newPt);
   };
 }

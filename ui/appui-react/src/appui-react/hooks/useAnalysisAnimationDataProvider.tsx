@@ -20,23 +20,19 @@ function useSupportsAnalysisAnimation(viewport: Viewport | undefined) {
   }, [viewport]);
 
   React.useEffect(() => {
-    const handleViewChanged = (vp: Viewport): void => {
+    return viewport?.onChangeView.addListener((vp) => {
       const hasAnalysisData = !!vp?.view?.analysisStyle;
       if (hasAnalysisData !== supportsAnalysisAnimation)
         setSupportsAnalysisAnimation(hasAnalysisData);
-    };
-    return viewport?.onChangeView.addListener(handleViewChanged);
+    });
   }, [supportsAnalysisAnimation, viewport]);
 
   React.useEffect(() => {
-    const handleDisplayStyleChange = (vp: Viewport): void => {
+    return viewport?.onDisplayStyleChanged.addListener((vp) => {
       const hasAnalysisData = !!vp?.view?.analysisStyle;
       if (hasAnalysisData !== supportsAnalysisAnimation)
         setSupportsAnalysisAnimation(hasAnalysisData);
-    };
-    return viewport?.onDisplayStyleChanged.addListener(
-      handleDisplayStyleChange
-    );
+    });
   }, [viewport, supportsAnalysisAnimation]);
   return supportsAnalysisAnimation;
 }

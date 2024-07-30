@@ -20,7 +20,6 @@ import { useDefaultBackstageItems } from "./useDefaultBackstageItems";
 import { useUiItemsProviderBackstageItems } from "./useUiItemsProviderBackstageItems";
 
 import type { CommonProps } from "@itwin/core-react";
-import type { UiSyncEventArgs } from "../syncui/UiSyncEvent";
 import type { BackstageItem } from "./BackstageItem";
 // cSpell:ignore safearea
 
@@ -38,22 +37,18 @@ function useBackstageItemSyncEffect(
       itemsManager.refreshAffectedItems(new Set(syncIdsOfInterest));
     }
 
-    return SyncUiEventDispatcher.onSyncUiEvent.addListener(
-      (
-        args: UiSyncEventArgs // eslint-disable-line deprecation/deprecation
-      ) => {
-        if (0 === syncIdsOfInterest.length) return;
+    return SyncUiEventDispatcher.onSyncUiEvent.addListener((args) => {
+      if (0 === syncIdsOfInterest.length) return;
 
-        if (
-          syncIdsOfInterest.some((value: string): boolean =>
-            args.eventIds.has(value.toLowerCase())
-          )
-        ) {
-          // process each item that has interest
-          itemsManager.refreshAffectedItems(args.eventIds);
-        }
+      if (
+        syncIdsOfInterest.some((value: string): boolean =>
+          args.eventIds.has(value.toLowerCase())
+        )
+      ) {
+        // process each item that has interest
+        itemsManager.refreshAffectedItems(args.eventIds);
       }
-    );
+    });
   }, [itemsManager, itemsManager.items, syncIdsOfInterest]);
 }
 

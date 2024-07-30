@@ -161,18 +161,15 @@ describe("InternalToolSettingsManager", () => {
       isDisabled: false,
     };
 
-    const handleSyncToolSettingsPropertiesEvent = (
-      args: SyncToolSettingsPropertiesEventArgs
-    ): void => {
-      eventCalled = true;
-      expect(args.toolId).toEqual(testToolId);
-      expect(args.syncProperties.length).toEqual(1);
-      expect(args.syncProperties[0].propertyName).toEqual(useLengthName);
-    };
-
-    InternalToolSettingsManager.onSyncToolSettingsProperties.addListener(
-      handleSyncToolSettingsPropertiesEvent
-    );
+    const removeListener =
+      InternalToolSettingsManager.onSyncToolSettingsProperties.addListener(
+        (args) => {
+          eventCalled = true;
+          expect(args.toolId).toEqual(testToolId);
+          expect(args.syncProperties.length).toEqual(1);
+          expect(args.syncProperties[0].propertyName).toEqual(useLengthName);
+        }
+      );
     expect(eventCalled).toEqual(false);
     const syncArgs = {
       toolId: testToolId,
@@ -180,9 +177,7 @@ describe("InternalToolSettingsManager", () => {
     } as SyncToolSettingsPropertiesEventArgs;
     InternalToolSettingsManager.onSyncToolSettingsProperties.emit(syncArgs);
     expect(eventCalled).toEqual(true);
-    InternalToolSettingsManager.onSyncToolSettingsProperties.removeListener(
-      handleSyncToolSettingsPropertiesEvent
-    );
+    removeListener();
     eventCalled = false;
     InternalToolSettingsManager.onSyncToolSettingsProperties.emit(syncArgs);
     expect(eventCalled).toEqual(false);
@@ -193,19 +188,16 @@ describe("InternalToolSettingsManager", () => {
   it("handleSyncToolSettingsPropertiesEvent", () => {
     let eventCalled = false;
 
-    const handleReloadToolSettingsPropertiesEvent = (): void => {
-      eventCalled = true;
-    };
-
-    InternalToolSettingsManager.onReloadToolSettingsProperties.addListener(
-      handleReloadToolSettingsPropertiesEvent
-    );
+    const removeListener =
+      InternalToolSettingsManager.onReloadToolSettingsProperties.addListener(
+        () => {
+          eventCalled = true;
+        }
+      );
     expect(eventCalled).toEqual(false);
     InternalToolSettingsManager.onReloadToolSettingsProperties.emit();
     expect(eventCalled).toEqual(true);
-    InternalToolSettingsManager.onReloadToolSettingsProperties.removeListener(
-      handleReloadToolSettingsPropertiesEvent
-    );
+    removeListener();
     eventCalled = false;
     InternalToolSettingsManager.onReloadToolSettingsProperties.emit();
     expect(eventCalled).toEqual(false);

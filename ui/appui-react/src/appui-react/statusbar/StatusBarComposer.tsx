@@ -17,7 +17,6 @@ import * as React from "react";
 import { eqlOverflown } from "../layout/tool-settings/Docked";
 import { StatusBarLabelIndicator } from "../statusbar/LabelIndicator";
 import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
-import type { UiSyncEventArgs } from "../syncui/UiSyncEvent";
 import { isProviderItem } from "../ui-items-provider/isProviderItem";
 import { StatusBarOverflow } from "./Overflow";
 import {
@@ -138,8 +137,8 @@ function useStatusBarItemSyncEffect(
   syncIdsOfInterest: string[]
 ) {
   React.useEffect(() => {
-    // eslint-disable-next-line deprecation/deprecation
-    const handleSyncUiEvent = (args: UiSyncEventArgs) => {
+    // Note: that items with conditions have condition run when loaded into the items manager
+    return SyncUiEventDispatcher.onSyncUiEvent.addListener((args) => {
       if (0 === syncIdsOfInterest.length) return;
 
       if (
@@ -150,13 +149,7 @@ function useStatusBarItemSyncEffect(
         // process each item that has interest
         itemsManager.refreshAffectedItems(args.eventIds);
       }
-    };
-
-    // Note: that items with conditions have condition run when loaded into the items manager
-    SyncUiEventDispatcher.onSyncUiEvent.addListener(handleSyncUiEvent);
-    return () => {
-      SyncUiEventDispatcher.onSyncUiEvent.removeListener(handleSyncUiEvent);
-    };
+    });
   }, [itemsManager, itemsManager.items, syncIdsOfInterest]);
 }
 

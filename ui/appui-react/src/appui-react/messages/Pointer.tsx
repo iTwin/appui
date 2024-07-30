@@ -16,7 +16,7 @@ import {
 } from "@itwin/appui-abstract";
 import { OutputMessagePriority } from "@itwin/core-frontend";
 import type { XAndY } from "@itwin/core-geometry";
-import type { CommonProps } from "@itwin/core-react";
+import type { CommonProps, ListenerType } from "@itwin/core-react";
 import {
   Icon,
   MessageContainer,
@@ -77,14 +77,6 @@ export interface PointerMessageChangedEventArgs {
 // eslint-disable-next-line deprecation/deprecation
 export class PointerMessageChangedEvent extends UiEvent<PointerMessageChangedEventArgs> {}
 
-/** [[PointerMessagePositionChangedEvent]] arguments.
- * @internal
- */
-interface PointerMessagePositionChangedEventArgs {
-  pt: XAndY;
-  relativePosition: RelativePosition;
-}
-
 /** Pointer message pops up near pointer when attempting an invalid interaction.
  * @public
  */
@@ -95,7 +87,10 @@ export class PointerMessage extends React.Component<
   private static _pointerMessageChangedEvent =
     new BeUiEvent<PointerMessageChangedEventArgs>(); // eslint-disable-line deprecation/deprecation
   private static readonly _onPointerMessagePositionChangedEvent =
-    new BeUiEvent<PointerMessagePositionChangedEventArgs>();
+    new BeUiEvent<{
+      pt: XAndY;
+      relativePosition: RelativePosition;
+    }>();
 
   // eslint-disable-next-line deprecation/deprecation
   public static get onPointerMessageChangedEvent(): PointerMessageChangedEvent {
@@ -220,9 +215,9 @@ export class PointerMessage extends React.Component<
     this.updatePosition();
   };
 
-  private _handlePointerMessageChangedEvent = (
-    args: PointerMessageChangedEventArgs // eslint-disable-line deprecation/deprecation
-  ) => {
+  private _handlePointerMessageChangedEvent: ListenerType<
+    typeof PointerMessage.onPointerMessageChangedEvent
+  > = (args) => {
     this._relativePosition = args.relativePosition;
     this._viewport = args.viewport;
     this._position = args.pt;
@@ -235,9 +230,9 @@ export class PointerMessage extends React.Component<
     this.updatePosition();
   };
 
-  private _handlePointerMessagePositionChangedEvent = (
-    args: PointerMessagePositionChangedEventArgs
-  ) => {
+  private _handlePointerMessagePositionChangedEvent: ListenerType<
+    typeof PointerMessage._onPointerMessagePositionChangedEvent
+  > = (args) => {
     this._relativePosition = args.relativePosition;
     this._position = args.pt;
     this.updatePosition();

@@ -23,7 +23,7 @@ import {
 import { Orientation } from "@itwin/components-react";
 import { Logger } from "@itwin/core-bentley";
 import type { XAndY } from "@itwin/core-geometry";
-import type { Point } from "@itwin/core-react";
+import type { ListenerType, Point } from "@itwin/core-react";
 import { Rectangle } from "@itwin/core-react";
 import { offsetAndContainInContainer } from "../layout/popup/Tooltip";
 import type { KeyinEntry } from "../keyins/Keyins";
@@ -646,8 +646,9 @@ export class PopupRenderer extends React.Component<{}, PopupRendererState> {
     );
   }
 
-  // eslint-disable-next-line deprecation/deprecation
-  private _handlePopupsChangedEvent = (args: PopupsChangedEventArgs) => {
+  private _handlePopupsChangedEvent: ListenerType<
+    typeof PopupManager.onPopupsChangedEvent
+  > = (args) => {
     this.setState({ popups: args.popups });
   };
 }

@@ -10,6 +10,7 @@ import "./InputField.scss";
 import * as React from "react";
 import { OutputMessagePriority } from "@itwin/core-frontend";
 import { RelativePosition } from "@itwin/appui-abstract";
+import type { ListenerType } from "@itwin/core-react";
 import { Icon as CoreIcon, MessageRenderer, Popup } from "@itwin/core-react";
 import {
   SvgClose,
@@ -19,7 +20,6 @@ import {
   SvgStatusWarning,
 } from "@itwin/itwinui-icons-react";
 import { Icon } from "@itwin/itwinui-react";
-import type { InputFieldMessageEventArgs } from "../messages/MessageManager";
 import { MessageManager } from "../messages/MessageManager";
 import type { NotifyMessageType } from "./ReactNotifyMessageDetails";
 
@@ -138,9 +138,9 @@ export class InputFieldMessage extends React.PureComponent<
     this.setState({ isVisible: false });
   };
 
-  private _handleInputFieldMessageAddedEvent = (
-    args: InputFieldMessageEventArgs // eslint-disable-line deprecation/deprecation
-  ) => {
+  private _handleInputFieldMessageAddedEvent: ListenerType<
+    typeof MessageManager.onInputFieldMessageAddedEvent
+  > = (args) => {
     this.setState({
       inputFieldElement: args.target as HTMLElement,
       message: args.messageText,
@@ -150,7 +150,9 @@ export class InputFieldMessage extends React.PureComponent<
     });
   };
 
-  private _handleInputFieldMessageRemovedEvent = () => {
+  private _handleInputFieldMessageRemovedEvent: ListenerType<
+    typeof MessageManager.onInputFieldMessageRemovedEvent
+  > = () => {
     this.setState({ isVisible: false });
   };
 }

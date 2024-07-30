@@ -8,13 +8,16 @@
 
 import { RelativePosition } from "@itwin/appui-abstract";
 import type { XAndY } from "@itwin/core-geometry";
-import type { CommonDivProps, CommonProps } from "@itwin/core-react";
+import type {
+  CommonDivProps,
+  CommonProps,
+  ListenerType,
+} from "@itwin/core-react";
 import { Div, Size } from "@itwin/core-react";
 import classnames from "classnames";
 import * as React from "react";
 import { StatusBarDialog } from "../../statusbar/dialog/Dialog";
 import "./CursorPopup.scss";
-import type { CursorPopupFadeOutEventArgs } from "./CursorPopupManager";
 import { CursorPopupManager } from "./CursorPopupManager";
 import { type Placement } from "../../utils/Placement";
 import type { RequireAtLeastOne } from "@itwin/core-bentley";
@@ -92,9 +95,9 @@ export class CursorPopup extends React.Component<
     );
   }
 
-  private _handleCursorPopupFadeOutEvent = (
-    args: CursorPopupFadeOutEventArgs
-  ) => {
+  private _handleCursorPopupFadeOutEvent: ListenerType<
+    typeof CursorPopupManager.onCursorPopupFadeOutEvent
+  > = (args) => {
     if (this.props.id === args.id) {
       if (this._isMounted)
         this.setState({ showPopup: CursorPopupShow.FadeOut });

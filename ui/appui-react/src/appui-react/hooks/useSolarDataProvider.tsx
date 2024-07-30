@@ -27,13 +27,12 @@ function useSupportsShadowDisplay(viewport: ScreenViewport | undefined) {
   }, [viewport]);
 
   React.useEffect(() => {
-    const handleViewChanged = (vp: Viewport): void => {
+    return viewport?.onChangeView.addListener((vp): void => {
       setSupportsShadows(
         !!vp?.displayStyle?.wantShadows &&
           !!IModelApp.renderSystem.options.displaySolarShadows
       );
-    };
-    return viewport?.onChangeView.addListener(handleViewChanged);
+    });
   }, [viewport]);
 
   React.useEffect(() => {
@@ -47,15 +46,12 @@ function useSupportsShadowDisplay(viewport: ScreenViewport | undefined) {
   }, [viewport, supportsShadows]);
 
   React.useEffect(() => {
-    const handleDisplayStyleChange = (vp: Viewport): void => {
+    return viewport?.onDisplayStyleChanged.addListener((vp) => {
       const wantShadows =
         !!vp.displayStyle?.wantShadows &&
         !!IModelApp.renderSystem.options.displaySolarShadows;
       if (wantShadows !== supportsShadows) setSupportsShadows(wantShadows);
-    };
-    return viewport?.onDisplayStyleChanged.addListener(
-      handleDisplayStyleChange
-    );
+    });
   }, [viewport, supportsShadows]);
 
   return supportsShadows;
