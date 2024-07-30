@@ -19,8 +19,6 @@ import {
   RotationMode,
 } from "@itwin/core-frontend";
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
-import type { UiStateStorage } from "@itwin/core-react";
-import { UiStateStorageStatus } from "@itwin/core-react";
 import type { UserSettingsProvider } from "../UiFramework";
 import { UiFramework } from "../UiFramework";
 import {
@@ -28,6 +26,8 @@ import {
   SyncUiEventId,
 } from "../syncui/SyncUiEventDispatcher";
 import type { AccuDrawUiSettings } from "./AccuDrawUiSettings";
+import type { UiStateStorage } from "../uistate/UiStateStorage";
+import { UiStateStorageStatus } from "../uistate/UiStateStorage";
 
 // cspell:ignore dont
 

@@ -10,7 +10,6 @@ import { immerable } from "immer";
 import { cloneDeep } from "lodash";
 import { assert } from "@itwin/core-bentley";
 import type { PropertyRecord } from "@itwin/appui-abstract";
-import { CheckBoxState } from "@itwin/core-react";
 import type {
   DelayLoadedTreeNodeItem,
   ImmediatelyLoadedTreeNodeItem,
@@ -18,6 +17,7 @@ import type {
 } from "../TreeDataProvider";
 import type { SparseArray } from "./internal/SparseTree";
 import { SparseTree } from "./internal/SparseTree";
+import { CheckBoxState } from "../../common/CheckBoxState";
 
 /**
  * Immutable data structure that describes tree node.

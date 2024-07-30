@@ -11,13 +11,13 @@ import * as React from "react";
 import type { PropertyRecord } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
 import type { CommonProps } from "@itwin/core-react";
-import { Orientation } from "@itwin/core-react";
 import type { PropertyUpdatedArgs } from "../../editors/EditorContainer";
 import type { ActionButtonRenderer } from "../../properties/renderers/ActionButtonRenderer";
 import type { PropertyGridColumnInfo } from "../../properties/renderers/PropertyGridColumns";
 import { PropertyRenderer } from "../../properties/renderers/PropertyRenderer";
 import type { PropertyValueRendererManager } from "../../properties/ValueRendererManager";
 import type { PropertyCategory } from "../PropertyDataProvider";
+import { Orientation } from "../../common/Orientation";
 
 /** Properties of [[PropertyList]] React component
  * @public

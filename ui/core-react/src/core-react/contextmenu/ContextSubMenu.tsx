@@ -19,13 +19,15 @@ import { Icon } from "../icons/IconComponent";
 import { SvgCaretRightSmall } from "@itwin/itwinui-icons-react";
 import { Badge } from "../badge/Badge";
 
+/* eslint-disable deprecation/deprecation */
+
 /** Properties for the [[ContextSubMenu]] component
  * @public
+ * @deprecated in 4.16.0. Props of deprecated {@link ContextSubMenu} component.
  */
 export interface ContextSubMenuProps
   extends Omit<ContextMenuItemProps, "label">,
     Omit<ContextMenuProps, "label">,
-    // eslint-disable-next-line deprecation/deprecation
     CommonProps {
   /** Text/jsx to display in the list item */
   label: string | React.ReactElement;
@@ -33,16 +35,15 @@ export interface ContextSubMenuProps
   onHotKeyParsed?: (hotKey: string) => void;
 }
 
-/** @internal */
 interface ContextSubMenuState {
   opened: boolean;
   direction: ContextMenuDirection;
   hotKey?: string;
 }
 
-/**
- * Submenu wrapper class for use within a [[ContextMenu]] component.
+/** Submenu wrapper class for use within a [[ContextMenu]] component.
  * @public
+ * @deprecated in 4.16.0. Use `subMenuItems` property {@link https://itwinui.bentley.com/docs/dropdownmenu#submenu iTwinUI MenuItem} component instead.
  */
 export class ContextSubMenu extends React.Component<
   ContextSubMenuProps,

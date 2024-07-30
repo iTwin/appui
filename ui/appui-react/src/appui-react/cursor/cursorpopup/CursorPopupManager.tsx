@@ -10,10 +10,11 @@ import * as React from "react";
 import { BeUiEvent, Logger } from "@itwin/core-bentley";
 import type { XAndY } from "@itwin/core-geometry";
 import { RelativePosition } from "@itwin/appui-abstract";
-import type { RectangleProps, SizeProps } from "@itwin/core-react";
 import { Point, Size } from "@itwin/core-react";
 import { UiFramework } from "../../UiFramework";
 import { CursorPopup } from "./CursorPopup";
+import type { SizeProps } from "../../utils/SizeProps";
+import type { RectangleProps } from "../../utils/RectangleProps";
 
 /** Options for the [[CursorPopupManager]] open method
  * @public

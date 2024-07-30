@@ -11,7 +11,7 @@ import {
   ConditionalStringValue,
 } from "@itwin/appui-abstract";
 import { Logger } from "@itwin/core-bentley";
-import { Badge, Icon } from "@itwin/core-react";
+import { Badge, Icon as CoreIcon } from "@itwin/core-react";
 import * as React from "react";
 import { UiFramework } from "../UiFramework";
 import { useActiveFrontstageId } from "../frontstage/FrontstageDef";
@@ -21,9 +21,11 @@ import type {
   BackstageActionItem,
   BackstageItem,
   BackstageStageLauncher,
+  CommonBackstageItem,
 } from "./BackstageItem";
 import { isBackstageStageLauncher } from "./BackstageItem";
 import { useBackstageManager } from "./BackstageManager";
+import { Icon } from "@itwin/itwinui-react";
 
 /** @internal */
 export interface BackstageComposerActionItemProps {
@@ -45,7 +47,8 @@ export function BackstageComposerActionItem({
       providerId={isProviderItem(item) ? item.providerId : undefined}
       itemPriority={item.itemPriority}
       groupPriority={item.groupPriority}
-      icon={<Icon iconSpec={item.icon} />}
+      // eslint-disable-next-line deprecation/deprecation
+      icon={<ItemIcon iconNode={item.iconNode} icon={item.icon} />}
       isActive={ConditionalBooleanValue.getValue(item.isActive)}
       isDisabled={ConditionalBooleanValue.getValue(item.isDisabled)}
       onClick={handleClick}
@@ -87,7 +90,8 @@ export function BackstageComposerStageLauncher({
       providerId={isProviderItem(item) ? item.providerId : undefined}
       itemPriority={item.itemPriority}
       groupPriority={item.groupPriority}
-      icon={<Icon iconSpec={item.icon} />}
+      // eslint-disable-next-line deprecation/deprecation
+      icon={<ItemIcon iconNode={item.iconNode} icon={item.icon} />}
       isActive={isActive}
       isDisabled={ConditionalBooleanValue.getValue(item.isDisabled)}
       onClick={handleClick}
@@ -116,4 +120,20 @@ export function BackstageComposerItem({ item }: BackstageComposerItemProps) {
     return <BackstageComposerStageLauncher item={item} />;
   }
   return <BackstageComposerActionItem item={item} />;
+}
+
+function ItemIcon({
+  // eslint-disable-next-line deprecation/deprecation
+  icon,
+  iconNode,
+}: {
+  icon: CommonBackstageItem["icon"];
+  iconNode: CommonBackstageItem["iconNode"];
+}) {
+  if (iconNode) {
+    return <Icon>{iconNode}</Icon>;
+  }
+
+  // eslint-disable-next-line deprecation/deprecation
+  return <CoreIcon iconSpec={icon} />;
 }

@@ -221,7 +221,7 @@ describe("updateTabState", () => {
     expect(
       () =>
         updateTabState(state, "t1", (draft) => {
-          draft.iconSpec = "test";
+          draft.label = "Tab 1";
         }),
       "Tab does not exist"
     ).toThrow();

@@ -11,8 +11,11 @@ import * as ReactDOM from "react-dom";
 import type { ContextMenuProps } from "./ContextMenu";
 import { ContextMenu } from "./ContextMenu";
 
+/* eslint-disable deprecation/deprecation */
+
 /** Properties for the [[GlobalContextMenu]] component
  * @public
+ * @deprecated in 4.16.0. Props of deprecated {@link GlobalContextMenu} component.
  */
 export interface GlobalContextMenuProps extends ContextMenuProps {
   /** Unique identifier, to distinguish from other GlobalContextMenu components. Needed only if multiple GlobalContextMenus are used simultaneously. */
@@ -25,13 +28,13 @@ export interface GlobalContextMenuProps extends ContextMenuProps {
   contextMenuComponent?: React.ComponentType<ContextMenuProps>;
 }
 
-/** @internal */
 interface GlobalContextMenuState {
   parentDocument: Document | null;
 }
 
 /** GlobalContextMenu React component used to display a [[ContextMenu]] at the cursor
  * @public
+ * @deprecated in 4.16.0. Use {@link https://itwinui.bentley.com/docs/dropdownmenu iTwinUI DropdownMenu} component instead.
  */
 export class GlobalContextMenu extends React.PureComponent<
   GlobalContextMenuProps,

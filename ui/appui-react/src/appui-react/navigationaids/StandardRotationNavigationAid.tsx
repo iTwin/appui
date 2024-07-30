@@ -51,6 +51,7 @@ export class StandardRotationNavigationAidControl extends NavigationAidControl {
 
 interface RotationData {
   label: string;
+  // eslint-disable-next-line deprecation/deprecation
   iconsSpec?: IconSpec;
 }
 
@@ -128,6 +129,7 @@ export class StandardRotationNavigationAid extends React.Component<
             className={"icon-button"}
             icon={
               <span className={classnames("three-d-icon", "icon")}>
+                {/* eslint-disable-next-line deprecation/deprecation */}
                 <Icon
                   iconSpec={this.state.list[this.state.selected].iconsSpec}
                 />
@@ -184,6 +186,7 @@ export class StandardRotationNavigationAid extends React.Component<
                 <GroupTool
                   key={itemIndex.toString()}
                   label={item.label}
+                  // eslint-disable-next-line deprecation/deprecation
                   icon={<Icon iconSpec={item.iconsSpec} />}
                   isActive={this.state.selected.valueOf() === itemIndex}
                   onClick={() => this._handleListItemClicked(itemIndex)}

@@ -39,6 +39,8 @@ export enum ToolbarOrientation {
 export interface CommonToolbarItem {
   /** Require uniqueId for the item. To ensure uniqueness it is suggested that a namespace prefix of the extension name be used. */
   readonly id: string;
+  /** Icon of a toolbar item. */
+  readonly iconNode?: React.ReactNode;
   /** Describes badge. Renders no badge if not specified.
    * @deprecated in 4.16.0. Use `badgeKind` property instead.
    */
@@ -71,7 +73,10 @@ export interface CommonToolbarItem {
  * @public
  */
 export interface ToolbarActionItem extends CommonToolbarItem {
-  /** Name of icon WebFont entry or if specifying an imported SVG symbol use "webSvg:" prefix  to imported symbol Id. */
+  /** Name of icon WebFont entry or if specifying an imported SVG symbol use "webSvg:" prefix  to imported symbol Id.
+   * @deprecated in 4.16.0. Use {@link CommonToolbarItem.iconNode} instead.
+   */
+  // eslint-disable-next-line deprecation/deprecation
   readonly icon: IconSpec;
   /** label, shown as tool tip on a button or an item label in a group. */
   readonly label: string | ConditionalStringValue;
@@ -85,7 +90,10 @@ export interface ToolbarActionItem extends CommonToolbarItem {
  * @public
  */
 export interface ToolbarGroupItem extends CommonToolbarItem {
-  /** Name of icon WebFont entry or if specifying an imported SVG symbol use "webSvg:" prefix to imported symbol Id. */
+  /** Name of icon WebFont entry or if specifying an imported SVG symbol use "webSvg:" prefix to imported symbol Id.
+   * @deprecated in 4.16.0. Use {@link CommonToolbarItem.iconNode} instead.
+   */
+  // eslint-disable-next-line deprecation/deprecation
   readonly icon: IconSpec;
   /** label, shown as tool tip on group button or a group button label in a group panel. */
   readonly label: string | ConditionalStringValue;
@@ -101,7 +109,10 @@ export interface ToolbarGroupItem extends CommonToolbarItem {
  * @public
  */
 export interface ToolbarCustomItem extends CommonToolbarItem {
-  /** Name of icon WebFont entry or if specifying an imported SVG symbol use "webSvg:" prefix to imported symbol Id. */
+  /** Name of icon WebFont entry or if specifying an imported SVG symbol use "webSvg:" prefix to imported symbol Id.
+   * @deprecated in 4.16.0. Use {@link CommonToolbarItem.iconNode} instead.
+   */
+  // eslint-disable-next-line deprecation/deprecation
   readonly icon?: IconSpec;
   /** label, shown as tool tip on group button or a group button label in a group panel. */
   readonly label?: string | ConditionalStringValue;

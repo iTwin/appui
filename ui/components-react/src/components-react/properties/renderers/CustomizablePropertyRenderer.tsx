@@ -7,13 +7,13 @@
  */
 
 import * as React from "react";
-import { Orientation } from "@itwin/core-react";
 import { HighlightedText } from "../../common/HighlightedText";
 import type { HighlightingComponentProps } from "../../common/HighlightingComponentProps";
 import { CommonPropertyRenderer } from "./CommonPropertyRenderer";
 import { PrimitivePropertyLabelRenderer } from "./label/PrimitivePropertyLabelRenderer";
 import type { SharedRendererProps } from "./PropertyRenderer";
 import { PropertyView } from "./PropertyView";
+import { Orientation } from "../../common/Orientation";
 
 /** Properties of [[CustomizablePropertyRenderer]] React component
  * @public

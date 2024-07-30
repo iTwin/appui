@@ -54,14 +54,13 @@ describe("WidgetTabs", () => {
 
   it("should render tabs with icons", () => {
     let state = createNineZoneState();
-    state = addTab(state, "t1", {
-      iconSpec: <div>t1 icon</div>,
-    });
+    state = addTab(state, "t1");
     state = addTabs(state, ["t2", "t3"]);
     state = addPanelWidget(state, "left", "w1", ["t1", "t2", "t3"]);
     vi.spyOn(Element.prototype, "getBoundingClientRect").mockReturnValue(
       DOMRect.fromRect({ width: 300 })
     );
+
     const component = render(
       <TestNineZoneProvider defaultState={state}>
         <ShowWidgetIconContext.Provider value={true}>

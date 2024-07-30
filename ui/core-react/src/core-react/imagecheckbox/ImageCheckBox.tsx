@@ -12,11 +12,12 @@ import * as React from "react";
 import { Icon } from "../icons/IconComponent";
 import type { CommonProps } from "../utils/Props";
 
+/* eslint-disable deprecation/deprecation */
+
 /** Properties for the [[ImageCheckBox]] component
  * @public
  * @deprecated in 4.12.0. Props of deprecated component {@link ImageCheckBox}.
  */
-// eslint-disable-next-line deprecation/deprecation
 export interface ImageCheckBoxProps extends CommonProps {
   /** Image for the "checked" state */
   imageOn: string | React.ReactNode;
@@ -44,7 +45,6 @@ export interface ImageCheckBoxProps extends CommonProps {
  * @public
  * @deprecated in 4.12.0. Use {@link https://itwinui.bentley.com/docs/checkbox iTwinUI checkbox} instead (custom icons are not supported at the moment, but feel free to submit your use cases).
  */
-// eslint-disable-next-line deprecation/deprecation
 export class ImageCheckBox extends React.PureComponent<ImageCheckBoxProps> {
   private _onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e && e.stopPropagation) e.stopPropagation();

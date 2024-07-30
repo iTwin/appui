@@ -2,6 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+import * as React from "react";
 import {
   StageUsage,
   ToolbarItem,
@@ -19,6 +20,7 @@ import {
   OutputMessagePriority,
   OutputMessageType,
 } from "@itwin/core-frontend";
+import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
 
 /** UiItemsProvider that provides tools to test message APIs. */
 export class MessageUiItemsProvider implements UiItemsProvider {
@@ -37,18 +39,18 @@ export class MessageUiItemsProvider implements UiItemsProvider {
       orientation === ToolbarOrientation.Vertical
     ) {
       return [
-        ToolbarItemUtilities.createGroupItem(
-          `${this.id}:group`,
-          10,
-          "icon-placeholder",
-          "Messages",
-          [
-            ToolbarItemUtilities.createActionItem(
-              `${this.id}:activity`,
-              1,
-              "icon-placeholder",
-              "Activity message",
-              async () => {
+        ToolbarItemUtilities.createGroupItem({
+          id: `${this.id}:group`,
+          itemPriority: 10,
+          icon: <SvgPlaceholder />,
+          label: "Messages",
+          items: [
+            ToolbarItemUtilities.createActionItem({
+              id: `${this.id}:activity`,
+              itemPriority: 1,
+              icon: <SvgPlaceholder />,
+              label: "Activity message",
+              execute: async () => {
                 let isCancelled = false;
                 let progress = 0;
 
@@ -73,14 +75,14 @@ export class MessageUiItemsProvider implements UiItemsProvider {
                   ActivityMessageEndReason.Completed
                 );
                 details = undefined;
-              }
-            ),
-            ToolbarItemUtilities.createActionItem(
-              `${this.id}:toast`,
-              1,
-              "icon-placeholder",
-              "Toast message",
-              () => {
+              },
+            }),
+            ToolbarItemUtilities.createActionItem({
+              id: `${this.id}:toast`,
+              itemPriority: 1,
+              icon: <SvgPlaceholder />,
+              label: "Toast message",
+              execute: () => {
                 IModelApp.notifications.outputMessage(
                   new NotifyMessageDetails(
                     OutputMessagePriority.Info,
@@ -89,14 +91,14 @@ export class MessageUiItemsProvider implements UiItemsProvider {
                     OutputMessageType.Toast
                   )
                 );
-              }
-            ),
-            ToolbarItemUtilities.createActionItem(
-              `${this.id}:sticky`,
-              1,
-              "icon-placeholder",
-              "Sticky message",
-              () => {
+              },
+            }),
+            ToolbarItemUtilities.createActionItem({
+              id: `${this.id}:sticky`,
+              itemPriority: 1,
+              icon: <SvgPlaceholder />,
+              label: "Sticky message",
+              execute: () => {
                 IModelApp.notifications.outputMessage(
                   new NotifyMessageDetails(
                     OutputMessagePriority.Info,
@@ -105,14 +107,14 @@ export class MessageUiItemsProvider implements UiItemsProvider {
                     OutputMessageType.Sticky
                   )
                 );
-              }
-            ),
-            ToolbarItemUtilities.createActionItem(
-              `${this.id}:alert`,
-              1,
-              "icon-placeholder",
-              "Alert message",
-              () => {
+              },
+            }),
+            ToolbarItemUtilities.createActionItem({
+              id: `${this.id}:alert`,
+              itemPriority: 1,
+              icon: <SvgPlaceholder />,
+              label: "Alert message",
+              execute: () => {
                 IModelApp.notifications.outputMessage(
                   new NotifyMessageDetails(
                     OutputMessagePriority.Fatal,
@@ -122,10 +124,10 @@ export class MessageUiItemsProvider implements UiItemsProvider {
                   )
                 );
               },
-              { badgeKind: "new" }
-            ),
-          ]
-        ),
+              badgeKind: "new",
+            }),
+          ],
+        }),
       ];
     }
 

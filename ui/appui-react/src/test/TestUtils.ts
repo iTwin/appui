@@ -417,3 +417,10 @@ export type ListenerType<TEvent extends BeEvent<Listener>> =
   TEvent extends BeEvent<infer TListener> ? TListener : never;
 
 export default TestUtils;
+
+/**
+ *
+ */
+export type ListenerArgs<TEvent extends BeEvent<Listener>> = Parameters<
+  ListenerType<TEvent>
+>;

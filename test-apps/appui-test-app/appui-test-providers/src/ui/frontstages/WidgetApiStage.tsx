@@ -21,6 +21,7 @@ import {
   ToolbarItemUtilities,
   UiFramework,
   UiItemsManager,
+  useConditionalValue,
   WidgetState,
 } from "@itwin/appui-react";
 import { WidgetApiStageUiItemsProvider } from "../providers/WidgetApiStageUiItemsProvider";
@@ -34,6 +35,7 @@ import { IModelApp, MeasureDistanceTool } from "@itwin/core-frontend";
 import { updatedUiItemsProvider } from "../providers/UpdatedUiItemsProvider";
 import { RegisterUiProviderTool } from "../../tools/RegisterUiProviderTool";
 import { ViewportContent } from "../ViewportContent";
+import { SvgZoomIn, SvgZoomOut } from "@itwin/itwinui-icons-react";
 
 /** Tool settings widget can be configured by providing a URL param `toolSettings` with values `off` or `hidden`. */
 function createWidgetApiFrontstage(): Frontstage {
@@ -139,15 +141,16 @@ export class WidgetApiStage {
   }
 }
 
-export function createToggleCustomOverlayToolbarItem() {
-  const id = "testHideShowItems";
-  const icon = new ConditionalStringValue(
-    () =>
-      getTestProviderState().showCustomViewOverlay
-        ? "icon-zoom-out"
-        : "icon-zoom-in",
+function CustomOverlayIcon() {
+  const showCustomViewOverlay = useConditionalValue(
+    () => getTestProviderState().showCustomViewOverlay,
     [AppUiTestProviders.syncEventIdHideCustomViewOverlay]
   );
+  if (showCustomViewOverlay) return <SvgZoomOut />;
+  return <SvgZoomIn />;
+}
+
+export function createToggleCustomOverlayToolbarItem() {
   const label = new ConditionalStringValue(
     () =>
       getTestProviderState().showCustomViewOverlay
@@ -165,7 +168,12 @@ export function createToggleCustomOverlayToolbarItem() {
       AppUiTestProviders.syncEventIdHideCustomViewOverlay
     );
   };
-  return ToolbarItemUtilities.createActionItem(id, 0, icon, label, execute);
+  return ToolbarItemUtilities.createActionItem({
+    id: "testHideShowItems",
+    icon: <CustomOverlayIcon />,
+    label,
+    execute,
+  });
 }
 
 function MyCustomViewOverlay() {

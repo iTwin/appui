@@ -52,6 +52,7 @@ export class CursorPrompt {
       <div className="uifw-cursor-prompt">
         {toolIconSpec && (
           <span className="uifw-cursor-prompt-icon">
+            {/* eslint-disable-next-line deprecation/deprecation */}
             <Icon iconSpec={toolIconSpec} />
           </span>
         )}

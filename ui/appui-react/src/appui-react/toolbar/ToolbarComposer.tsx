@@ -9,11 +9,11 @@
 import * as React from "react";
 import {
   Direction,
+  Orientation,
   ToolbarOpacitySetting,
   ToolbarPanelAlignment,
 } from "@itwin/components-react";
 import { Logger, ProcessDetector } from "@itwin/core-bentley";
-import { Orientation } from "@itwin/core-react";
 import { UiFramework } from "../UiFramework";
 import { ToolbarDragInteractionContext } from "./DragInteraction";
 import type {

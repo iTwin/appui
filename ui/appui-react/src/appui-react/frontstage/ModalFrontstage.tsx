@@ -7,7 +7,6 @@
  */
 
 import type { CommonProps } from "@itwin/core-react";
-import { Icon } from "@itwin/core-react";
 import { SvgProgressBackwardCircular } from "@itwin/itwinui-icons-react";
 import { Text } from "@itwin/itwinui-react";
 import classnames from "classnames";
@@ -62,7 +61,7 @@ export class ModalFrontstage extends React.Component<ModalFrontstageProps> {
             <BackButton
               className="nz-toolbar-button-app"
               onClick={this._onGoBack}
-              icon={<Icon iconSpec={<SvgProgressBackwardCircular />} />}
+              icon={<SvgProgressBackwardCircular />}
               title={UiFramework.translate("modalFrontstage.backButtonTitle")}
             />
             <Text variant="headline" className="uifw-headline">

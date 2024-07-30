@@ -9,6 +9,7 @@ import { AppUiDecorator } from "../Decorators";
 import { Page } from "../AppUiStory";
 import { KeyboardShortcutsStory } from "./KeyboardShortcuts";
 import { BadgeType } from "@itwin/core-react";
+import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
 
 const meta = {
   title: "KeyboardShortcuts",
@@ -139,6 +140,48 @@ export const Badge: Story = {
           UiFramework.keyboardShortcuts.displayMenu();
         },
         badgeKind: "deprecated",
+      },
+    ],
+  },
+};
+
+export const Icons: Story = {
+  args: {
+    shortcutList: [
+      {
+        key: "m",
+        label: "Show shortcuts",
+        iconSpec: "icon-placeholder",
+        execute: () => {
+          UiFramework.keyboardShortcuts.displayMenu();
+        },
+      },
+      {
+        // TODO: this is called twice when `m` is pressed and menu is displayed.
+        key: "a",
+        label: "`iconSpec` property CSS icon (deprecated)",
+        iconSpec: "icon-placeholder",
+        execute: action("a"),
+      },
+      {
+        // TODO: this is called twice when `m` is pressed and menu is displayed.
+        key: "b",
+        label: "`iconSpec` property SVG (deprecated)",
+        iconSpec: <SvgPlaceholder />,
+        execute: action("b"),
+      },
+      {
+        // TODO: this is called twice when `m` is pressed and menu is displayed.
+        key: "c",
+        label: "`icon` property (deprecated)",
+        icon: "icon-placeholder",
+        execute: action("c"),
+      },
+      {
+        key: "d",
+        label: "`iconNode` property",
+        iconNode: <SvgPlaceholder />,
+        execute: action("d"),
       },
     ],
   },

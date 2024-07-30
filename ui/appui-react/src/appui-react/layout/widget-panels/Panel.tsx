@@ -8,7 +8,6 @@
 
 import "./Panel.scss";
 import { assert } from "@itwin/core-bentley";
-import type { RectangleProps } from "@itwin/core-react";
 import { useRefs } from "@itwin/core-react";
 import classnames from "classnames";
 import * as React from "react";
@@ -31,6 +30,7 @@ import type {
 } from "./PanelTypes";
 import { useAnimatePanel } from "./useAnimatePanel";
 import { useMaximizedPanel } from "../../preview/enable-maximized-widget/useMaximizedWidget";
+import type { RectangleProps } from "../../utils/RectangleProps";
 
 /** Properties of [[WidgetPanelProvider]] component.
  * @internal

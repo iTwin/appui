@@ -10,8 +10,11 @@ import { BeUiEvent, Logger } from "@itwin/core-bentley";
 import type { ConditionalBooleanValue } from "@itwin/appui-abstract";
 import { UiCore } from "../UiCore";
 
+/* eslint-disable deprecation/deprecation */
+
 /** Interface used to populate a tab entry in the SettingContainer control
  * @public
+ * @deprecated in 4.16.0. Use {@link @itwin/appui-react#SettingsTabEntry} instead.
  */
 export interface SettingsTabEntry {
   /** unique id for entry */
@@ -39,7 +42,6 @@ export interface SettingsTabEntry {
  * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
-// eslint-disable-next-line deprecation/deprecation
 export class SettingsProvidersChangedEvent extends BeUiEvent<SettingsProvidersChangedEventArgs> {}
 
 /** Arguments of [[this.onSettingsProvidersChanged]] event.
@@ -55,7 +57,6 @@ export interface SettingsProvidersChangedEventArgs {
  * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
-// eslint-disable-next-line deprecation/deprecation
 export class ProcessSettingsTabActivationEvent extends BeUiEvent<ProcessSettingsTabActivationEventArgs> {}
 
 /** Arguments of [[this.onProcessSettingsTabActivation]] event.
@@ -72,7 +73,6 @@ export interface ProcessSettingsTabActivationEventArgs {
  * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
-// eslint-disable-next-line deprecation/deprecation
 export class ProcessSettingsContainerCloseEvent extends BeUiEvent<ProcessSettingsContainerCloseEventArgs> {}
 
 /** Arguments of [[this.onProcessSettingsContainerClose]] event.
@@ -88,7 +88,6 @@ export interface ProcessSettingsContainerCloseEventArgs {
  * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
-// eslint-disable-next-line deprecation/deprecation
 export class ActivateSettingsTabEvent extends BeUiEvent<ActivateSettingsTabEventArgs> {}
 
 /** Arguments of [[this.onActivateSettingsTab]] event.
@@ -102,6 +101,7 @@ export interface ActivateSettingsTabEventArgs {
 /** Setting Provider interface. Implemented by classes that want to supply settings pages for display in the SettingContainer. The
  * classes that implement this interface need to be registered with the [[SettingsManager]].
  * @public
+ * @deprecated in 4.16.0. Use {@link @itwin/appui-react#SettingsTabsProvider} instead.
  */
 export interface SettingsTabsProvider {
   /** Id of provider, used to remove registration. */
@@ -114,6 +114,7 @@ export interface SettingsTabsProvider {
 
 /** Settings Manager class. Hold registration of settings providers and supplies events for the provided settings pages to listen.
  * @public
+ * @deprecated in 4.16.0. Use {@link @itwin/appui-react#SettingsManager} instead.
  */
 export class SettingsManager {
   private _providers: ReadonlyArray<SettingsTabsProvider> = [];
@@ -121,33 +122,32 @@ export class SettingsManager {
   /** Event raised when SettingsProviders are changed.
    */
   public readonly onSettingsProvidersChanged =
-    new SettingsProvidersChangedEvent(); // eslint-disable-line deprecation/deprecation
+    new SettingsProvidersChangedEvent();
 
   /** Event raised solely for a settings page to monitor so it can save its settings before continuing tab activation.
    * See React hook function `useSaveBeforeActivatingNewSettingsTab`.
    */
   public readonly onProcessSettingsTabActivation =
-    new ProcessSettingsTabActivationEvent(); // eslint-disable-line deprecation/deprecation
+    new ProcessSettingsTabActivationEvent();
 
   /** Event raised when the settings container will be closed. Any setting page component that is 'modal' should register to
    * listen to this event so that it can save its state before closing. See React hook function `useSaveBeforeClosingSettingsContainer`.
    */
   public readonly onProcessSettingsContainerClose =
-    new ProcessSettingsContainerCloseEvent(); // eslint-disable-line deprecation/deprecation
+    new ProcessSettingsContainerCloseEvent();
 
   /** Event raised to change the active settings tab shown in UI. Monitored by the SettingsContainer.
    * @internal
    */
   public readonly onActivateSettingsTab =
-    new BeUiEvent<ActivateSettingsTabEventArgs>(); // eslint-disable-line deprecation/deprecation
+    new BeUiEvent<ActivateSettingsTabEventArgs>();
 
   /** Event monitored by SettingsContainer to process request to close the settings container.
    * @internal
    */
   public readonly onCloseSettingsContainer =
-    new BeUiEvent<ProcessSettingsContainerCloseEventArgs>(); // eslint-disable-line deprecation/deprecation
+    new BeUiEvent<ProcessSettingsContainerCloseEventArgs>();
 
-  /** @public */
   public get providers(): ReadonlyArray<SettingsTabsProvider> {
     return this._providers;
   }

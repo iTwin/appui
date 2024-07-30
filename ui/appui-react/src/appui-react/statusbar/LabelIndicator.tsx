@@ -24,6 +24,7 @@ export interface StatusBarLabelIndicatorProps
   // eslint-disable-next-line deprecation/deprecation
   extends Omit<StatusBarIndicatorProps, "children"> {
   /** Specification of an icon. */
+  // eslint-disable-next-line deprecation/deprecation
   iconSpec?: IconSpec;
   /** Indicator label. */
   label?: string;
@@ -47,6 +48,7 @@ export function StatusBarLabelIndicator(props: StatusBarLabelIndicatorProps) {
     // eslint-disable-next-line deprecation/deprecation
     <StatusBarIndicator className={classNames} {...other}>
       {label && <Label className="uifw-label">{label}</Label>}
+      {/* eslint-disable-next-line deprecation/deprecation */}
       {iconSpec && <Icon iconSpec={iconSpec} />}
     </StatusBarIndicator>
   );

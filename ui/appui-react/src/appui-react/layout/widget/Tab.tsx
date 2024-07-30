@@ -13,7 +13,6 @@ import { Key } from "ts-key-enum";
 import { assert } from "@itwin/core-bentley";
 import type { CommonProps } from "@itwin/core-react";
 import {
-  Icon,
   Point,
   Rectangle,
   Timer,
@@ -48,6 +47,7 @@ import { useLayout, useLayoutStore } from "../base/LayoutStore";
 import { useFloatingWidgetId } from "./FloatingWidget";
 import { getWidgetState } from "../state/internal/WidgetStateHelpers";
 import { useIsMaximizedWidget } from "../../preview/enable-maximized-widget/useMaximizedWidget";
+import { FloatingTab } from "./FloatingTab";
 
 /** @internal */
 export interface WidgetTabProviderProps extends TabPositionContextArgs {
@@ -89,6 +89,7 @@ export function WidgetTabProvider({
 // eslint-disable-next-line deprecation/deprecation
 export interface WidgetTabProps extends CommonProps {
   badge?: React.ReactNode;
+  icon?: React.ReactNode;
 }
 
 /** Component that displays a tab in a side panel widget.
@@ -96,7 +97,11 @@ export interface WidgetTabProps extends CommonProps {
  */
 export function WidgetTab(props: WidgetTabProps) {
   const widgetOverflow = React.useContext(WidgetOverflowContext);
+  const tabId = React.useContext(TabIdContext);
   const overflown = !!widgetOverflow;
+  const floatingTabId = useLayout((state) => state.draggedTab?.tabId);
+
+  if (tabId === floatingTabId) return <FloatingTab {...props} />;
   if (overflown) return <WidgetMenuTab {...props} />;
   return <WidgetTabComponent {...props} />;
 }
@@ -112,7 +117,6 @@ function WidgetTabComponent(props: WidgetTabProps) {
   assert(!!id);
   assert(!!widgetId);
 
-  const iconSpec = useLayout((state) => state.tabs[id].iconSpec);
   const label = useLayout((state) => state.tabs[id].label);
   const activeTabId = useLayout(
     (state) => getWidgetState(state, widgetId).activeTabId
@@ -141,7 +145,7 @@ function WidgetTabComponent(props: WidgetTabProps) {
   );
 
   const showLabel =
-    (showIconOnly && !iconSpec) ||
+    (showIconOnly && !props.icon) ||
     (showWidgetIcon && !showIconOnly) ||
     !showWidgetIcon;
   return (
@@ -155,10 +159,10 @@ function WidgetTabComponent(props: WidgetTabProps) {
       title={label}
       tabIndex={0}
     >
-      {(showWidgetIcon || showIconOnly) && iconSpec && (
-        <Icon iconSpec={iconSpec} />
+      {(showWidgetIcon || showIconOnly) && (
+        <span className="nz-icon">{props.icon}</span>
       )}
-      {showLabel && <span>{label}</span>}
+      {showLabel && <span className="nz-label">{label}</span>}
       {props.badge && <div className="nz-badge">{props.badge}</div>}
       <TabTarget />
     </div>

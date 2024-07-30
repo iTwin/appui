@@ -9,8 +9,8 @@
 import "./AccuDrawDialog.scss";
 import classnames from "classnames";
 import * as React from "react";
+import { Orientation } from "@itwin/components-react";
 import type { CommonProps } from "@itwin/core-react";
-import { Orientation } from "@itwin/core-react";
 import { AccuDrawFieldContainer } from "./AccuDrawFieldContainer";
 import { useTranslation } from "../hooks/useTranslation";
 import { Dialog } from "@itwin/itwinui-react";

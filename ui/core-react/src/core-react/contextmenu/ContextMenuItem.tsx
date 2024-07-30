@@ -18,12 +18,14 @@ import type { IconSpec } from "../icons/IconComponent";
 import { Icon } from "../icons/IconComponent";
 import { Badge } from "../badge/Badge";
 
+/* eslint-disable deprecation/deprecation */
+
 /** Properties for the [[ContextMenuItem]] component
  * @public
+ * @deprecated in 4.16.0. Props of deprecated {@link ContextMenuItem} component.
  */
 export interface ContextMenuItemProps
   extends Omit<React.AllHTMLAttributes<HTMLDivElement>, "disabled" | "hidden">,
-    // eslint-disable-next-line deprecation/deprecation
     CommonProps {
   onSelect?: (event: any) => any;
   /** @internal */
@@ -53,14 +55,13 @@ export interface ContextMenuItemProps
   parentMenu?: ContextMenu;
 }
 
-/** @internal */
 interface ContextMenuItemState {
   hotKey?: string;
 }
 
-/**
- * Menu Item class for use within a [[ContextMenu]] component.
+/** Menu item component for use within a [[ContextMenu]] component.
  * @public
+ * @deprecated in 4.16.0. Use {@link https://itwinui.bentley.com/docs/dropdownmenu iTwinUI MenuItem} instead.
  */
 export class ContextMenuItem extends React.PureComponent<
   ContextMenuItemProps,

@@ -190,6 +190,7 @@ const ForwardRefColorPickerButton = React.forwardRef<
             data-testid={showPopup ? "caret-up" : "caret-down"}
           />
           {showCaret && (
+            // eslint-disable-next-line deprecation/deprecation
             <Icon
               className="components-caret"
               iconSpec={showPopup ? <SvgCaretUpSmall /> : <SvgCaretDownSmall />}
