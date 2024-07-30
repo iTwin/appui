@@ -221,7 +221,6 @@ export class Tabs extends React.PureComponent<MainTabsProps, TabsState> {
                 data-testid={`${tabId}`}
                 role="button"
               >
-                {" "}
                 <div
                   className={classnames(
                     "uicore-tabs-inline-label",

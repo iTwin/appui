@@ -15,6 +15,7 @@
     "test": ""
   },
   "dependencies": {
+    "@bentley/icons-generic": "^1.0.34",
     "@bentley/icons-generic-webfont": "^1.0.34",
     "@itwin/appui-abstract": "^3.7.0 || ^4.0.0",
     "@itwin/appui-react": "workspace:*",

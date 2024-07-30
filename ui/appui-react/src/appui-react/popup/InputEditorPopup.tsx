@@ -11,11 +11,11 @@ import type { Primitives, PropertyRecord } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
 import type { PropertyUpdatedArgs } from "@itwin/components-react";
 import { EditorContainer } from "@itwin/components-react";
-import type { SizeProps } from "@itwin/core-react";
 import { DivWithOutsideClick, Size } from "@itwin/core-react";
 import type { PopupPropsBase } from "./PopupManager";
 import { PopupManager } from "./PopupManager";
 import { PositionPopup, PositionPopupContent } from "./PositionPopup";
+import type { SizeProps } from "../utils/SizeProps";
 
 /** @beta */
 export class InputEditorCommitHandler {

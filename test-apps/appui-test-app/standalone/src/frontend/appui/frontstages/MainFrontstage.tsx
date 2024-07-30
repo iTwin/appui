@@ -26,8 +26,7 @@ import {
   ComponentExamplesModalFrontstage,
   ViewportContent,
 } from "@itwin/appui-test-providers";
-import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
-import stageIconSvg from "./imodeljs.svg";
+import { SvgImodel, SvgPlaceholder } from "@itwin/itwinui-icons-react";
 import { TestAppLocalization } from "../../useTranslation";
 import { RootState } from "../..";
 
@@ -37,14 +36,14 @@ class MainStageBackstageItemsProvider implements UiItemsProvider {
 
   public provideBackstageItems(): BackstageItem[] {
     return [
-      BackstageItemUtilities.createStageLauncher(
-        MainFrontstage.stageId,
-        100,
-        10,
-        TestAppLocalization.translate("backstage.viewIModel"),
-        TestAppLocalization.translate("backstage.iModelStage"),
-        stageIconSvg
-      ),
+      BackstageItemUtilities.createStageLauncher({
+        stageId: MainFrontstage.stageId,
+        groupPriority: 100,
+        itemPriority: 10,
+        label: TestAppLocalization.translate("backstage.viewIModel"),
+        subtitle: TestAppLocalization.translate("backstage.iModelStage"),
+        icon: <SvgImodel />,
+      }),
       SettingsModalFrontstage.getBackstageActionItem(400, 10),
       ComponentExamplesModalFrontstage.getBackstageActionItem(400, 20),
     ];
@@ -115,27 +114,25 @@ export class MainFrontstage {
       {
         id: "main-stage-toolbar-items",
         getToolbarItems: () => [
-          ToolbarItemUtilities.createActionItem(
-            "toggle-view-overlay",
-            100,
-            <SvgPlaceholder />,
-            "Toggle View Overlay",
-            () => {
+          ToolbarItemUtilities.createActionItem({
+            id: "toggle-view-overlay",
+            itemPriority: 100,
+            icon: <SvgPlaceholder />,
+            label: "Toggle View Overlay",
+            execute: () => {
               // eslint-disable-next-line deprecation/deprecation
               UiFramework.setViewOverlayDisplay(
                 // eslint-disable-next-line deprecation/deprecation
                 !UiFramework.viewOverlayDisplay
               );
             },
-            {
-              layouts: {
-                standard: {
-                  orientation: ToolbarOrientation.Horizontal,
-                  usage: ToolbarUsage.ContentManipulation,
-                },
+            layouts: {
+              standard: {
+                orientation: ToolbarOrientation.Horizontal,
+                usage: ToolbarUsage.ContentManipulation,
               },
-            }
-          ),
+            },
+          }),
         ],
       },
       { stageIds: [MainFrontstage.stageId] }

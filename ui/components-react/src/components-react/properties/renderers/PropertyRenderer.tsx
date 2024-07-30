@@ -9,7 +9,6 @@
 import * as React from "react";
 import type { PropertyRecord } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
-import type { Orientation } from "@itwin/core-react";
 import type { HighlightingComponentProps } from "../../common/HighlightingComponentProps";
 import type { PropertyUpdatedArgs } from "../../editors/EditorContainer";
 import { EditorContainer } from "../../editors/EditorContainer";
@@ -21,6 +20,7 @@ import { NonPrimitivePropertyRenderer } from "./NonPrimitivePropertyRenderer";
 import type { PrimitiveRendererProps } from "./PrimitivePropertyRenderer";
 import { PrimitivePropertyRenderer } from "./PrimitivePropertyRenderer";
 import type { PropertyGridColumnInfo } from "./PropertyGridColumns";
+import type { Orientation } from "../../common/Orientation";
 
 /** Properties shared by all renderers and PropertyView
  * @public

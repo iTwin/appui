@@ -57,96 +57,96 @@ export class StandardStatusbarUiItemsProvider implements UiItemsProvider {
     const statusBarItems: StatusBarItem[] = [];
     if (!this._defaultItems || this._defaultItems.messageCenter) {
       statusBarItems.push(
-        StatusBarItemUtilities.createCustomItem(
-          "uifw.MessageCenter",
-          StatusBarSection.Left,
-          10,
-          <MessageCenterField />
-        )
+        StatusBarItemUtilities.createCustomItem({
+          id: "uifw.MessageCenter",
+          section: StatusBarSection.Left,
+          itemPriority: 10,
+          content: <MessageCenterField />,
+        })
       );
     }
     if (!this._defaultItems || this._defaultItems.toolAssistance) {
       if (!this._defaultItems || this._defaultItems.preToolAssistanceSeparator)
         statusBarItems.push(
-          StatusBarItemUtilities.createCustomItem(
-            "uifw.PreToolAssistance",
-            StatusBarSection.Left,
-            15,
-            <StatusBarSeparator />
-          )
+          StatusBarItemUtilities.createCustomItem({
+            id: "uifw.PreToolAssistance",
+            section: StatusBarSection.Left,
+            itemPriority: 15,
+            content: <StatusBarSeparator />,
+          })
         );
 
       statusBarItems.push(
-        StatusBarItemUtilities.createCustomItem(
-          "uifw.ToolAssistance",
-          StatusBarSection.Left,
-          20,
-          <ToolAssistanceField />
-        )
+        StatusBarItemUtilities.createCustomItem({
+          id: "uifw.ToolAssistance",
+          section: StatusBarSection.Left,
+          itemPriority: 20,
+          content: <ToolAssistanceField />,
+        })
       );
 
       if (!this._defaultItems || this._defaultItems.postToolAssistanceSeparator)
         statusBarItems.push(
-          StatusBarItemUtilities.createCustomItem(
-            "uifw.PostToolAssistance",
-            StatusBarSection.Left,
-            25,
-            <StatusBarSeparator />
-          )
+          StatusBarItemUtilities.createCustomItem({
+            id: "uifw.PostToolAssistance",
+            section: StatusBarSection.Left,
+            itemPriority: 25,
+            content: <StatusBarSeparator />,
+          })
         );
     }
     if (this._defaultItems?.activityCenter) {
       statusBarItems.push(
-        StatusBarItemUtilities.createCustomItem(
-          "uifw.ActivityCenter",
-          StatusBarSection.Left,
-          30,
-          <ActivityCenterField />
-        )
+        StatusBarItemUtilities.createCustomItem({
+          id: "uifw.ActivityCenter",
+          section: StatusBarSection.Left,
+          itemPriority: 30,
+          content: <ActivityCenterField />,
+        })
       );
     }
     if (!this._defaultItems || this._defaultItems.accuSnapModePicker) {
       statusBarItems.push(
-        StatusBarItemUtilities.createCustomItem(
-          "uifw.SnapMode",
-          StatusBarSection.Center,
-          10,
-          <SnapModeField />
-        )
+        StatusBarItemUtilities.createCustomItem({
+          id: "uifw.SnapMode",
+          section: StatusBarSection.Center,
+          itemPriority: 10,
+          content: <SnapModeField />,
+        })
       );
     }
 
     if (!this._defaultItems || this._defaultItems.tileLoadIndicator) {
       statusBarItems.push(
-        StatusBarItemUtilities.createCustomItem(
-          "uifw.TileLoadIndicator",
-          StatusBarSection.Right,
-          10,
-          <TileLoadingIndicator />
-        )
+        StatusBarItemUtilities.createCustomItem({
+          id: "uifw.TileLoadIndicator",
+          section: StatusBarSection.Right,
+          itemPriority: 10,
+          content: <TileLoadingIndicator />,
+        })
       );
     }
 
     if (!this._defaultItems || this._defaultItems.selectionScope) {
       statusBarItems.push(
-        StatusBarItemUtilities.createCustomItem(
-          "uifw.SelectionScope",
-          StatusBarSection.Right,
-          20,
-          <SelectionScopeField />
-        )
+        StatusBarItemUtilities.createCustomItem({
+          id: "uifw.SelectionScope",
+          section: StatusBarSection.Right,
+          itemPriority: 20,
+          content: <SelectionScopeField />,
+        })
       );
     }
 
     if (!this._defaultItems || this._defaultItems.selectionInfo) {
       statusBarItems.push(
-        StatusBarItemUtilities.createCustomItem(
-          "uifw.SelectionInfo",
-          StatusBarSection.Right,
-          30,
+        StatusBarItemUtilities.createCustomItem({
+          id: "uifw.SelectionInfo",
+          section: StatusBarSection.Right,
+          itemPriority: 30,
           // eslint-disable-next-line deprecation/deprecation
-          <SelectionInfoField />
-        )
+          content: <SelectionInfoField />,
+        })
       );
     }
 

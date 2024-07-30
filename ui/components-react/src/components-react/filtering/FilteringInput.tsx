@@ -190,7 +190,8 @@ export class FilteringInput extends React.PureComponent<
                 tabIndex={-1}
                 title={searchLabel}
               >
-                <Icon iconSpec={<SvgSearch />} />{" "}
+                {/* eslint-disable-next-line deprecation/deprecation */}
+                <Icon iconSpec={<SvgSearch />} />
               </span>
             ) : undefined}
             {status === FilteringInputStatus.FilteringInProgress ? (
@@ -203,7 +204,8 @@ export class FilteringInput extends React.PureComponent<
                 tabIndex={-1}
                 title={UiComponents.translate("dialog.cancel")}
               >
-                <Icon iconSpec={<SvgClose />} />{" "}
+                {/* eslint-disable-next-line deprecation/deprecation */}
+                <Icon iconSpec={<SvgClose />} />
               </span>
             ) : undefined}
             {status === FilteringInputStatus.FilteringFinished ? (
@@ -216,7 +218,8 @@ export class FilteringInput extends React.PureComponent<
                 tabIndex={-1}
                 title={UiComponents.translate("general.clear")}
               >
-                <Icon iconSpec={<SvgClose />} />{" "}
+                {/* eslint-disable-next-line deprecation/deprecation */}
+                <Icon iconSpec={<SvgClose />} />
               </span>
             ) : undefined}
           </span>

@@ -8,6 +8,7 @@
 
 /** State of a checkbox
  * @public
+ * @deprecated in 4.16.0. Use {@link @itwin/components-react#CheckBoxState} instead.
  */
 export enum CheckBoxState {
   Off,
@@ -22,6 +23,7 @@ export enum CheckBoxState {
 export interface CheckBoxInfo {
   isVisible?: boolean;
   isDisabled?: boolean;
+  // eslint-disable-next-line deprecation/deprecation
   state?: CheckBoxState;
   tooltip?: string;
 }

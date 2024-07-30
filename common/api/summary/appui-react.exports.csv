@@ -71,7 +71,7 @@ deprecated;AppUiSettings
 beta;areNoFeatureOverridesActive(): boolean
 deprecated;areNoFeatureOverridesActive(): boolean
 public;BackstageActionItem 
-public;BackstageAppButton({ icon, label, execute, }: BackstageAppButtonProps): React_2.JSX.Element
+public;BackstageAppButton({ icon, iconNode, label, execute, }: BackstageAppButtonProps): React_2.JSX.Element
 public;BackstageAppButtonProps
 public;BackstageComposer(props: BackstageComposerProps): React_2.JSX.Element
 internal;BackstageComposerActionItem({ item, }: BackstageComposerActionItemProps): React_2.JSX.Element
@@ -100,7 +100,9 @@ internal;CalculatorEngine
 internal;CalculatorKeyType
 internal;CalculatorOperator
 alpha;CalculatorPopup 
+deprecated;CalculatorPopup 
 alpha;CalculatorPopupProps 
+deprecated;CalculatorPopupProps 
 alpha;CalculatorProps 
 internal;CalculatorPropsProps = Pick
 public;CanFloatWidgetOptions
@@ -328,7 +330,7 @@ internal;getPanelState(state: NineZoneState, side: PanelSide): StagePanelState.M
 beta;getQuantityFormatsSettingsManagerEntry(itemPriority: number, opts?: Partial
 beta;getSelectionContextSyncEventIds(): string[]
 deprecated;getSelectionContextSyncEventIds(): string[]
-beta;getUiSettingsManagerEntry(itemPriority: number): SettingsTabEntry
+beta;getUiSettingsManagerEntry(itemPriority: number): SettingsTabEntry_2
 internal;getWidgetState(widgetDef: WidgetDef, nineZone: NineZoneState): WidgetState
 internal;GroupedItems = ReadonlyArray
 public;GroupItemDef 
@@ -358,6 +360,7 @@ beta;InputEditorCommitHandler
 alpha;InputEditorPopup 
 beta;InputEditorPopupProps 
 public;InputFieldMessage 
+deprecated;InputFieldMessage 
 public;InputFieldMessageAddedEvent 
 deprecated;InputFieldMessageAddedEvent 
 public;InputFieldMessageEventArgs
@@ -365,6 +368,7 @@ deprecated;InputFieldMessageEventArgs
 public;InputFieldMessageRemovedEvent 
 deprecated;InputFieldMessageRemovedEvent 
 alpha;InputStatus
+internal;isArgsUtil
 public;isBackstageActionItem(item: BackstageItem): item is BackstageActionItem
 public;isBackstageStageLauncher(item: BackstageItem): item is BackstageStageLauncher
 internal;isFrontstageStateSettingResult(settingsResult: UiStateStorageResult): settingsResult is
@@ -412,6 +416,8 @@ beta;ListPickerItem
 beta;ListPickerItemProps 
 beta;ListPickerProps
 beta;ListPickerPropsExtended 
+public;LocalStateStorage = LocalStateStorage_2
+public;LocalStateStorage: typeof LocalStateStorage_2
 internal;mapToPlacement(input?: Placement | RelativePosition): Placement
 internal;mapToRelativePosition(input: Placement | RelativePosition): RelativePosition
 alpha;MenuButton 
@@ -519,11 +525,13 @@ beta;PreviewFeatures
 beta;PreviewFeaturesProvider({ children, features, }: PreviewFeaturesProviderProps): React_2.JSX.Element
 beta;PreviewFeaturesProviderProps
 public;PropsHelper
+deprecated;PropsHelper
 public;ProviderItem
 beta;QuantityFormatSettingsPage({ initialQuantityType, availableUnitSystems, }: QuantityFormatterSettingsOptions): React_2.JSX.Element
 beta;QuantityFormatterSettingsOptions
 public;ReactContent
 public;ReactNotifyMessageDetails
+public;RectangleProps = RectangleProps_2
 public;Reducer
 deprecated;Reducer
 public;ReducerActions
@@ -567,7 +575,11 @@ deprecated;sessionStateMapDispatchToProps:
 public;SessionStateReducer(state: SessionState | undefined, action: SessionStateActionsUnion): DeepReadonly
 deprecated;SessionStateReducer(state: SessionState | undefined, action: SessionStateActionsUnion): DeepReadonly
 internal;setPanelPinned: (nineZone: NineZoneState, side: PanelSide, pinned: boolean) => NineZoneState
+public;SettingsManager = SettingsManager_2
+public;SettingsManager: typeof SettingsManager_2
 beta;SettingsModalFrontstage 
+public;SettingsTabEntry = SettingsTabEntry_2
+public;SettingsTabsProvider = SettingsTabsProvider_2
 alpha;SheetCard 
 alpha;SheetCardProps
 alpha;SheetData
@@ -576,6 +588,7 @@ alpha;SheetNavigationAidControl
 deprecated;SheetNavigationAidControl 
 public;SheetNavigationProps 
 alpha;SheetsModalFrontstage 
+public;SizeProps = SizeProps_2
 public;SnapModeField(props: SnapModeFieldProps): React_2.JSX.Element
 alpha;SolarTimelineDataProvider 
 public;SplitPane(props: SplitPaneProps): React_2.JSX.Element
@@ -615,7 +628,7 @@ public;StateManager
 deprecated;StateManager
 public;StateType
 deprecated;StateType
-internal;stateVersion = 17
+internal;stateVersion = 18
 public;StatusBar(props: StatusBarProps): React_2.JSX.Element
 deprecated;StatusBar(props: StatusBarProps): React_2.JSX.Element
 public;StatusBar
@@ -637,9 +650,9 @@ deprecated;StatusBarIndicatorProps
 public;StatusBarItem = StatusBarActionItem | StatusBarLabelItem | StatusBarCustomItem
 internal;StatusBarItemProps 
 public;StatusBarItemUtilities
-beta;createActionItem(id: string, section: StatusBarSection, itemPriority: number, icon: IconSpec, tooltip: string | ConditionalStringValue, execute: () => void, overrides?: Partial
-beta;createCustomItem(id: string, section: StatusBarSection, itemPriority: number, content: React_2.ReactNode, overrides?: Partial
-beta;createLabelItem(id: string, section: StatusBarSection, itemPriority: number, icon: IconSpec, label: string | ConditionalStringValue, labelSide?: StatusBarLabelSide, overrides?: Partial
+beta;createActionItem(args: CreateActionItemArgs): StatusBarActionItem
+beta;createCustomItem(args: CreateCustomItemArgs): StatusBarCustomItem
+beta;createLabelItem(args: CreateLabelItemArgs): StatusBarLabelItem
 beta;StatusBarLabelIndicator(props: StatusBarLabelIndicatorProps): React_2.JSX.Element
 deprecated;StatusBarLabelIndicator(props: StatusBarLabelIndicatorProps): React_2.JSX.Element
 beta;StatusBarLabelIndicatorProps 
@@ -736,8 +749,12 @@ deprecated;UiItemsProviderRegisteredEventArgs
 beta;UiSettingsPage(): React_2.JSX.Element
 deprecated;UiSettingsPage(): React_2.JSX.Element
 public;UiSettingsProviderProps
+public;UiStateStorage = UiStateStorage_2
 internal;UiStateStorageContext: React_2.Context
 public;UiStateStorageHandler(props: UiSettingsProviderProps): React_2.JSX.Element
+public;UiStateStorageResult = UiStateStorageResult_2
+public;UiStateStorageStatus = UiStateStorageStatus_2
+public;UiStateStorageStatus: typeof UiStateStorageStatus_2
 public;UiSyncEvent 
 deprecated;UiSyncEvent 
 public;UiSyncEventArgs
@@ -757,6 +774,7 @@ public;useActiveViewport(): ScreenViewport | undefined
 public;useAnalysisAnimationDataProvider(viewport: ScreenViewport | undefined): AnalysisAnimationTimelineDataProvider | undefined
 internal;useAvailableUiItemsProviders(): readonly string[]
 public;useBackstageManager: () => FrameworkBackstage
+alpha;useConditionalValue
 internal;useDefaultBackstageItems: (manager: BackstageItemsManager) => readonly BackstageItem[]
 public;useDefaultStatusBarItems: (manager: StatusBarItemsManager) => readonly StatusBarItem[]
 public;useDefaultToolbarItems: (manager: ToolbarItemsManager) => readonly ToolbarItem[]

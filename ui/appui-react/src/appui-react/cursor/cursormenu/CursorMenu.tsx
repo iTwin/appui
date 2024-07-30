@@ -96,6 +96,7 @@ export class CursorPopupMenu extends React.PureComponent<
     return (
       <div className="uifw-cursor-menu-container-div" ref={this._handleRefSet}>
         {items && items.length > 0 && menuVisible && (
+          // eslint-disable-next-line deprecation/deprecation
           <GlobalContextMenu
             className={this.props.className}
             style={this.props.style}

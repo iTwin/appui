@@ -16,7 +16,6 @@ import type {
 import { areEqual, VariableSizeList } from "react-window";
 import type { PropertyRecord } from "@itwin/appui-abstract";
 import { assert } from "@itwin/core-bentley";
-import { Orientation } from "@itwin/core-react";
 import { createContextWithMandatoryProvider } from "../../common/UseContextWithMandatoryProvider";
 import type { PropertyUpdatedArgs } from "../../editors/EditorContainer";
 import type { ActionButtonRenderer } from "../../properties/renderers/ActionButtonRenderer";
@@ -50,6 +49,7 @@ import type {
 import { PropertyGridCommons } from "./PropertyGridCommons";
 import { PropertyGridEventsRelatedPropsSupplier } from "./PropertyGridEventsRelatedPropsSupplier";
 import { useElementsScrollStorage } from "../../common/UseElementsScrollStorage";
+import { Orientation } from "../../common/Orientation";
 
 /** Properties for [[VirtualizedPropertyGrid]] React component
  * @public

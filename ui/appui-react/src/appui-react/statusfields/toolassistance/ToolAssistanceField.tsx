@@ -18,19 +18,8 @@ import {
   ToolAssistanceImage,
   ToolAssistanceInputMethod,
 } from "@itwin/core-frontend";
-import type {
-  CommonProps,
-  ListenerType,
-  UiStateStorage,
-  UiStateStorageResult,
-} from "@itwin/core-react";
-import {
-  FillCentered,
-  Icon,
-  LocalStateStorage,
-  UiStateEntry,
-  UiStateStorageStatus,
-} from "@itwin/core-react";
+import type { CommonProps, ListenerType } from "@itwin/core-react";
+import { FillCentered, Icon, UiStateEntry } from "@itwin/core-react";
 import { Button, Tabs, ToggleSwitch } from "@itwin/itwinui-react";
 import classnames from "classnames";
 import * as React from "react";
@@ -63,6 +52,12 @@ import mouseWheelClickIcon from "./mouse-click-wheel.svg";
 import touchCursorDragIcon from "./touch-cursor-pan.svg";
 import touchCursorTapIcon from "./touch-cursor-point.svg";
 import { StatusBarPopover } from "../../statusbar/popup/StatusBarPopover";
+import type { UiStateStorageResult } from "../../uistate/UiStateStorage";
+import {
+  type UiStateStorage,
+  UiStateStorageStatus,
+} from "../../uistate/UiStateStorage";
+import { LocalStateStorage } from "../../uistate/LocalStateStorage";
 
 // cSpell:ignore cursorprompt
 
@@ -127,7 +122,9 @@ export class ToolAssistanceField extends React.Component<
   private static _toolAssistanceKey = "ToolAssistance";
   private static _showPromptAtCursorKey = "showPromptAtCursor";
   private static _mouseTouchTabIndexKey = "mouseTouchTabIndex";
+  // eslint-disable-next-line deprecation/deprecation
   private _showPromptAtCursorSetting: UiStateEntry<boolean>;
+  // eslint-disable-next-line deprecation/deprecation
   private _mouseTouchTabIndexSetting: UiStateEntry<number>;
   private _indicator = React.createRef<HTMLButtonElement>();
   private _cursorPrompt: CursorPrompt;
@@ -167,11 +164,13 @@ export class ToolAssistanceField extends React.Component<
       this.props.cursorPromptTimeout,
       this.props.fadeOutCursorPrompt
     );
+    // eslint-disable-next-line deprecation/deprecation
     this._showPromptAtCursorSetting = new UiStateEntry(
       ToolAssistanceField._toolAssistanceKey,
       ToolAssistanceField._showPromptAtCursorKey,
       () => this.state.showPromptAtCursor
     );
+    // eslint-disable-next-line deprecation/deprecation
     this._mouseTouchTabIndexSetting = new UiStateEntry(
       ToolAssistanceField._toolAssistanceKey,
       ToolAssistanceField._mouseTouchTabIndexKey,
@@ -378,6 +377,7 @@ export class ToolAssistanceField extends React.Component<
 
     if (instructions) {
       prompt = instructions.mainInstruction.text;
+      // eslint-disable-next-line deprecation/deprecation
       toolIcon = <Icon iconSpec={this.state.toolIconSpec} />;
 
       let displayableSections: ToolAssistanceSection[] | undefined;
@@ -588,6 +588,7 @@ export class ToolAssistanceField extends React.Component<
         const rightImage =
           typeof instruction.image === "string" ? (
             <div className="uifw-toolassistance-icon-medium">
+              {/* eslint-disable-next-line deprecation/deprecation */}
               <Icon iconSpec={instruction.image} />
             </div>
           ) : (
@@ -620,6 +621,7 @@ export class ToolAssistanceField extends React.Component<
             : "uifw-toolassistance-icon-large";
         image = (
           <div className={className}>
+            {/* eslint-disable-next-line deprecation/deprecation */}
             <Icon iconSpec={svgSource ?? instruction.image} />
           </div>
         );
@@ -723,6 +725,7 @@ export class ToolAssistanceField extends React.Component<
 
       image = (
         <div className={className}>
+          {/* eslint-disable-next-line deprecation/deprecation */}
           {svgImage && <Icon iconSpec={svgImage} />}
         </div>
       );

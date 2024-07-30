@@ -7,9 +7,10 @@ import * as React from "react";
 import {
   getQuantityFormatsSettingsManagerEntry,
   getUiSettingsManagerEntry,
+  SettingsTabEntry,
+  SettingsTabsProvider,
   UiFramework,
 } from "@itwin/appui-react";
-import { SettingsTabEntry, SettingsTabsProvider } from "@itwin/core-react";
 import { AccudrawSettingsPageComponent } from "../frontstages/Settings";
 
 // Sample settings provider that dynamically adds settings into the setting stage

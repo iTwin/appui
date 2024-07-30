@@ -22,16 +22,15 @@ import type {
   MessagedComponentProps,
 } from "./LabeledComponentProps";
 
+/* eslint-disable deprecation/deprecation */
+
 /** Properties for [[InputLabel]] components
  * @public
  * @deprecated in 4.12.0. Props of deprecated component {@link InputLabel}.
  */
 export interface InputLabelProps
-  // eslint-disable-next-line deprecation/deprecation
   extends LabeledComponentProps,
-    // eslint-disable-next-line deprecation/deprecation
     MessagedComponentProps,
-    // eslint-disable-next-line deprecation/deprecation
     CommonProps {
   disabled?: boolean;
   /** Labeled content */
@@ -39,11 +38,8 @@ export interface InputLabelProps
 }
 
 const inputLabelIconSpec: { [key: string]: IconSpec } = {
-  // eslint-disable-next-line deprecation/deprecation
   [InputStatus.Error]: <SvgStatusError />,
-  // eslint-disable-next-line deprecation/deprecation
   [InputStatus.Success]: <SvgStatusSuccess />,
-  // eslint-disable-next-line deprecation/deprecation
   [InputStatus.Warning]: <SvgStatusWarning />,
 };
 
@@ -51,7 +47,6 @@ const inputLabelIconSpec: { [key: string]: IconSpec } = {
  * @public
  * @deprecated in 4.12.0. Use {@link https://itwinui.bentley.com/docs/input iTwinUI input} instead.
  */
-// eslint-disable-next-line deprecation/deprecation
 export class InputLabel extends React.PureComponent<InputLabelProps> {
   public override render(): React.ReactElement {
     const {
@@ -81,8 +76,7 @@ export class InputLabel extends React.PureComponent<InputLabelProps> {
             className={classnames("uicore-label", labelClassName)}
             style={labelStyle}
           >
-            {" "}
-            {label}{" "}
+            {label}
           </div>
         )}
         <div className={classnames("input", { "with-icon": !!status })}>

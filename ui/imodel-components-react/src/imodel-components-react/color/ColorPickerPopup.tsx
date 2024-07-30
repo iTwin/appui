@@ -174,6 +174,7 @@ const ForwardRefColorPickerPopup = React.forwardRef<
             data-testid={showPopup ? "caret-up" : "caret-down"}
           />
           {props.showCaret && (
+            // eslint-disable-next-line deprecation/deprecation
             <Icon
               className="components-caret"
               iconSpec={showPopup ? <SvgCaretUpSmall /> : <SvgCaretDownSmall />}
@@ -200,6 +201,7 @@ const ForwardRefColorPickerPopup = React.forwardRef<
               data-testid="core-dialog-close"
               onClick={togglePopup}
             >
+              {/* eslint-disable-next-line deprecation/deprecation */}
               <Icon iconSpec={<SvgClose />} />
             </button>
           )}

@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import type { Orientation, SizeProps } from "@itwin/core-react";
+import type { Orientation } from "@itwin/components-react";
 import { DivWithOutsideClick, Point, Size } from "@itwin/core-react";
 import * as React from "react";
 import { CursorPopup } from "../cursor/cursorpopup/CursorPopup";
@@ -12,6 +12,7 @@ import { PositionPopup } from "./PositionPopup";
 import { useEffect, useState } from "react";
 import { WrapperContext } from "../configurableui/ConfigurableUiContent";
 import { type Placement } from "../utils/Placement";
+import type { SizeProps } from "../utils/SizeProps";
 
 // Props used for the ComponentPopup.
 interface ComponentPopupProps extends Omit<PopupPropsBase, "el"> {

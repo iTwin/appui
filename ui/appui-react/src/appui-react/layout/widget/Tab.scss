@@ -2,6 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+@use "sass:math";
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
 @import "../prefix";
 @import "variables";
@@ -19,7 +20,15 @@
   max-width: 9em;
   background: var(--iui-color-background-backdrop);
 
-  > span {
+  > .nz-icon {
+    svg {
+      width: #{math.div(14, 16)}rem;
+      height: #{math.div(14, 16)}rem;
+      fill: currentColor;
+    }
+  }
+
+  > .nz-label {
     font-size: $nz-widget-tab-font-size;
     text-overflow: ellipsis;
     overflow: hidden;

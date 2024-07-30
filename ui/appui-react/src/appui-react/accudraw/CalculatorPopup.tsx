@@ -8,14 +8,18 @@
 
 import * as React from "react";
 import type { OnCancelFunc, OnNumberCommitFunc } from "@itwin/appui-abstract";
-import type { SizeProps } from "@itwin/core-react";
 import { DivWithOutsideClick, Icon, Size } from "@itwin/core-react";
 import type { PopupPropsBase } from "../popup/PopupManager";
 import { PopupManager } from "../popup/PopupManager";
 import { PositionPopup, PositionPopupContent } from "../popup/PositionPopup";
 import { Calculator } from "./Calculator";
+import type { SizeProps } from "../utils/SizeProps";
+import { AccuDrawPopupManager } from "./AccuDrawPopupManager";
 
-/** @alpha */
+/**
+ * @alpha
+ * @deprecated in 4.16.0. Props of deprecated component {@link CalculatorPopup}.
+ */
 export interface CalculatorPopupProps extends PopupPropsBase {
   initialValue: number;
   resultIcon: string;
@@ -23,15 +27,16 @@ export interface CalculatorPopupProps extends PopupPropsBase {
   onCancel: OnCancelFunc;
 }
 
-/** @internal */
 interface CalculatorPopupState {
   size: Size;
 }
 
 /** Popup component for Calculator
  * @alpha
+ * @deprecated in 4.16.0. Use {@link Calculator} component with {@link https://itwinui.bentley.com/docs/popover iTwinUI Popover} or {@link AccuDrawPopupManager.showCalculator} method instead.
  */
 export class CalculatorPopup extends React.PureComponent<
+  // eslint-disable-next-line deprecation/deprecation
   CalculatorPopupProps,
   CalculatorPopupState
 > {
@@ -53,7 +58,6 @@ export class CalculatorPopup extends React.PureComponent<
       this.props.offset,
       this.state.size
     );
-
     return (
       <PositionPopup
         key={this.props.id}
@@ -66,7 +70,10 @@ export class CalculatorPopup extends React.PureComponent<
           <PositionPopupContent>
             <Calculator
               initialValue={this.props.initialValue}
-              resultIcon={<Icon iconSpec={this.props.resultIcon} />}
+              resultIcon={
+                // eslint-disable-next-line deprecation/deprecation
+                <Icon iconSpec={this.props.resultIcon} />
+              }
               onOk={this.props.onOk}
               onCancel={this.props.onCancel}
             />

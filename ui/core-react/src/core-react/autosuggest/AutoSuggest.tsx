@@ -15,8 +15,11 @@ import { Key } from "ts-key-enum";
 import type { CommonProps } from "../utils/Props";
 import { UiCore } from "../UiCore";
 
+/* eslint-disable deprecation/deprecation */
+
 /** Data for the [[AutoSuggest]] options
  * @public
+ * @deprecated in 4.16.0. Used in a deprecated interface {@link AutoSuggestProps}.
  */
 export interface AutoSuggestData {
   /** Value of [[AutoSuggest]] option. */
@@ -27,11 +30,13 @@ export interface AutoSuggestData {
 
 /** Prototype for function returning AutoSuggestData
  * @public
+ * @deprecated in 4.16.0. Used in a deprecated interface {@link AutoSuggestProps}.
  */
 export type GetAutoSuggestDataFunc = (value: string) => AutoSuggestData[];
 
 /** Prototype for async function returning AutoSuggestData
  * @public
+ * @deprecated in 4.16.0. Used in a deprecated interface {@link AutoSuggestProps}.
  */
 export type AsyncGetAutoSuggestDataFunc = (
   value: string
@@ -39,10 +44,10 @@ export type AsyncGetAutoSuggestDataFunc = (
 
 /** Properties for the [[AutoSuggest]] component.
  * @public
+ * @deprecated in 4.16.0. Props of deprecated {@link AutoSuggest} component.
  */
 export interface AutoSuggestProps
   extends React.InputHTMLAttributes<HTMLInputElement>,
-    // eslint-disable-next-line deprecation/deprecation
     CommonProps {
   /** Optional input value override. */
   value?: string;
@@ -80,7 +85,6 @@ export interface AutoSuggestProps
   alwaysRenderSuggestions?: boolean;
 }
 
-/** @internal */
 interface AutoSuggestState {
   inputValue: string;
   suggestions: AutoSuggestData[];
@@ -88,6 +92,7 @@ interface AutoSuggestState {
 
 /** Auto Suggest React component. Uses the react-autosuggest component internally.
  * @public
+ * @deprecated in 4.16.0. Use {@link https://itwinui.bentley.com/ iTwinUI components} instead.
  */
 export class AutoSuggest extends React.PureComponent<
   AutoSuggestProps,

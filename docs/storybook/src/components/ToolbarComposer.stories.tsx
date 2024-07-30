@@ -10,12 +10,12 @@ import {
 } from "@itwin/appui-abstract";
 import {
   CommandItemDef,
-  SyncUiEventDispatcher,
   ToolItemDef,
   ToolbarHelper,
   ToolbarItemUtilities,
   ToolbarOrientation,
   ToolbarUsage,
+  useConditionalValue,
 } from "@itwin/appui-react";
 import { BadgeType, ConditionalIconItem, IconHelper } from "@itwin/core-react";
 import {
@@ -27,10 +27,12 @@ import {
   SvgAndroid,
   SvgClipboard,
   SvgExport,
+  SvgRemove,
 } from "@itwin/itwinui-icons-react";
 import { StoryComponent } from "./ToolbarComposer";
 import { AppUiDecorator, InitializerDecorator } from "../Decorators";
 import { withResizer } from "../../.storybook/addons/Resizer";
+import { createBumpEvent } from "../createBumpEvent";
 
 const meta = {
   title: "Components/ToolbarComposer",
@@ -223,9 +225,18 @@ export const Conditional: Story = {
           [eventId]
         ),
       },
+      {
+        ...items.action3,
+        icon: <ConditionalReactIcon />,
+      },
     ],
   },
 };
+
+function ConditionalReactIcon() {
+  const val = useConditionalValue(getVal, [eventId]);
+  return val % 2 === 0 ? <SvgAdd /> : <SvgRemove />;
+}
 
 export const ItemDef: Story = {
   args: {
@@ -320,9 +331,12 @@ function createItems() {
   const action1 = ToolbarItemUtilities.createActionItem(
     "item1",
     100,
-    <Svg2D />,
+    "",
     "Item 1",
-    action("Item 1")
+    action("Item 1"),
+    {
+      iconNode: <Svg2D />,
+    }
   );
   const action2 = ToolbarItemUtilities.createActionItem(
     "item2",
@@ -349,9 +363,12 @@ function createItems() {
   const group1 = ToolbarItemUtilities.createGroupItem(
     "group1",
     100,
-    <SvgActivity />,
+    "",
     "Group 1",
-    [action1, action2]
+    [action1, action2],
+    {
+      iconNode: <SvgActivity />,
+    }
   );
 
   const group2_2 = ToolbarItemUtilities.createGroupItem(
@@ -395,9 +412,12 @@ function createItems() {
   const custom1 = ToolbarItemUtilities.createCustomItem(
     "custom1",
     100,
-    <Svg2D />,
+    "",
     "Custom 1",
-    <div>Custom panel content 1</div>
+    <div>Custom panel content 1</div>,
+    {
+      iconNode: <Svg2D />,
+    }
   );
   const custom2 = ToolbarItemUtilities.createCustomItem(
     "custom2",
@@ -428,19 +448,5 @@ function createItems() {
     custom1,
     custom2,
     custom3,
-  };
-}
-
-function createBumpEvent() {
-  let i = 10;
-  const eventId = "bump";
-  const bump = () => {
-    i++;
-    SyncUiEventDispatcher.dispatchSyncUiEvent(eventId);
-  };
-  return {
-    getVal: () => i,
-    bump,
-    eventId,
   };
 }

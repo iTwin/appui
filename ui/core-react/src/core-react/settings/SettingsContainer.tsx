@@ -12,6 +12,8 @@ import type { SettingsManager, SettingsTabEntry } from "./SettingsManager";
 import { VerticalTabs } from "../tabs/VerticalTabs";
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
 
+/* eslint-disable deprecation/deprecation */
+
 /*  ---------------------------------------------------------------------------------------------------
 // A typical implementation of a saveFunction callback
 const saveChanges = React.useCallback((afterSaveFunction: (args: any) => void, args?: any) => {
@@ -27,6 +29,7 @@ const saveChanges = React.useCallback((afterSaveFunction: (args: any) => void, a
 
 /** Hook to use within Settings Page component to allow saving the current page's data before the Setting Container is closed.
  * @public
+ * @deprecated in 4.16.0. Use {@link SettingsManager} instead.
  */
 export function useSaveBeforeClosingSettingsContainer(
   settingsManager: SettingsManager,
@@ -43,6 +46,7 @@ export function useSaveBeforeClosingSettingsContainer(
 
 /** Hook to use within Settings Page component to allow saving the current page's data before loading to the requested Setting Tab's page.
  * @public
+ * @deprecated in 4.16.0. Use {@link SettingsManager} instead.
  */
 export function useSaveBeforeActivatingNewSettingsTab(
   settingsManager: SettingsManager,
@@ -61,7 +65,9 @@ export function useSaveBeforeActivatingNewSettingsTab(
 }
 
 /**
+ * Properties of {@link SettingsContainer} component.
  * @public
+ * @deprecated in 4.16.0. Props of deprecated component {@link SettingsContainer}.
  */
 export interface SettingsContainerProps {
   tabs: SettingsTabEntry[];
@@ -75,10 +81,10 @@ export interface SettingsContainerProps {
   showHeader?: boolean;
 }
 
-/**
- * SettingsContainer component that displays Setting Tabs on Left and the P
- * Note: that SettingsContainer is not rendered if tabs array is empty
+/** Component that displays setting tabs on the left and the setting page on the right.
+ * Note: that SettingsContainer is not rendered if tabs array is empty.
  * @public
+ * @deprecated in 4.16.0. Used internally by {@link @itwin/appui-react#SettingsModalFrontstage}.
  */
 export const SettingsContainer = ({
   tabs,
@@ -198,7 +204,6 @@ export const SettingsContainer = ({
   return (
     <div className="core-settings-container">
       <div className="core-settings-container-left">
-        {/* eslint-disable-next-line deprecation/deprecation */}
         <VerticalTabs
           labels={labels}
           activeIndex={activeIndex}

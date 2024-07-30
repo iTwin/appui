@@ -21,12 +21,7 @@ import {
 import { UiFramework } from "../UiFramework";
 import { PropsHelper } from "../utils/PropsHelper";
 import type { WidgetControl } from "./WidgetControl";
-import type {
-  BadgeKind,
-  BadgeType,
-  IconSpec,
-  SizeProps,
-} from "@itwin/core-react";
+import type { BadgeKind, BadgeType, IconSpec } from "@itwin/core-react";
 import { IconHelper } from "@itwin/core-react";
 import type { WidgetConfig } from "./WidgetConfig";
 import { WidgetState } from "./WidgetState";
@@ -40,6 +35,8 @@ import {
 } from "../layout/state/TabLocation";
 import type { NineZoneState } from "../layout/state/NineZoneState";
 import { IModelApp } from "@itwin/core-frontend";
+import type { SizeProps } from "../utils/SizeProps";
+import { Widget } from "./Widget";
 
 /** Widget State Changed Event Args interface.
  * @public
@@ -86,7 +83,8 @@ export class WidgetDef {
   private _stateChanged: boolean = false;
   private _widgetType: WidgetType = WidgetType.Rectangular;
   private _applicationData?: any;
-  private _icon?: IconSpec;
+  // eslint-disable-next-line deprecation/deprecation
+  private _iconSpec?: IconSpec;
   private _internalData?: Map<string, any>;
   // eslint-disable-next-line deprecation/deprecation
   private _badge?: BadgeType;
@@ -156,14 +154,20 @@ export class WidgetDef {
   public get isFloating(): boolean {
     return this.state === WidgetState.Floating;
   }
+
+  /** @deprecated in 4.16.0. Use {@link Widget.iconNode} instead. */
+  // eslint-disable-next-line deprecation/deprecation
   public get iconSpec(): IconSpec {
     // eslint-disable-next-line deprecation/deprecation
-    return this._icon === IconHelper.reactIconKey
-      ? IconHelper.getIconReactNode(this._icon, this._internalData) // eslint-disable-line deprecation/deprecation
-      : this._icon;
+    return this._iconSpec === IconHelper.reactIconKey
+      ? IconHelper.getIconReactNode(this._iconSpec, this._internalData) // eslint-disable-line deprecation/deprecation
+      : this._iconSpec;
   }
+
+  // eslint-disable-next-line deprecation/deprecation
   public set iconSpec(spec: IconSpec) {
-    this._icon = this._internalData
+    // Setter is deprecated as well: ae-setter-with-docs.
+    this._iconSpec = this._internalData
       ? IconHelper.getIconData(spec, this._internalData) // eslint-disable-line deprecation/deprecation
       : spec;
   }
@@ -273,14 +277,11 @@ export class WidgetDef {
     }
 
     this._widgetReactNode = config.content;
-    this._icon = config.icon;
-
-    if (config.icon !== undefined && this._icon === undefined)
-      this._icon = config.icon;
-
     // eslint-disable-next-line deprecation/deprecation
-    if (config.badge !== undefined) this._badge = config.badge;
-    if (config.badgeKind !== undefined) this._badgeKind = config.badgeKind;
+    this._iconSpec = config.iconNode ?? config.icon;
+    // eslint-disable-next-line deprecation/deprecation
+    this._badge = config.badge;
+    this._badgeKind = config.badgeKind;
 
     this._preferredPanelSize = config.preferredPanelSize;
   }
@@ -292,6 +293,7 @@ export class WidgetDef {
 
   /** Get the label string */
   public get label(): string {
+    // eslint-disable-next-line deprecation/deprecation
     return PropsHelper.getStringFromSpec(this._label);
   }
 
@@ -304,6 +306,7 @@ export class WidgetDef {
     const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
     if (!frontstageDef) return;
 
+    // eslint-disable-next-line deprecation/deprecation
     const label = PropsHelper.getStringFromSpec(labelSpec);
     frontstageDef.dispatch({
       type: "WIDGET_TAB_SET_LABEL",
@@ -314,6 +317,7 @@ export class WidgetDef {
 
   /** Get the tooltip string */
   public get tooltip(): string {
+    // eslint-disable-next-line deprecation/deprecation
     return PropsHelper.getStringFromSpec(this._tooltip);
   }
 

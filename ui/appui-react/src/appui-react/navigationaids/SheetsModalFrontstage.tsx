@@ -31,7 +31,10 @@ import { BeUiEvent } from "@itwin/core-bentley";
 export interface CardInfo {
   index: number;
   label: string;
+  /** @deprecated in 4.16.0. Use {@link CardInfo.icon} instead. */
+  // eslint-disable-next-line deprecation/deprecation
   iconSpec: IconSpec;
+  icon?: React.ReactNode;
   isActive: boolean;
   viewId: any;
 }
@@ -165,7 +168,9 @@ export class CardContainer extends React.Component<CardContainerProps> {
                   key={card.label}
                   label={card.label}
                   index={card.index}
+                  // eslint-disable-next-line deprecation/deprecation
                   iconSpec={card.iconSpec}
+                  icon={card.icon}
                   isActive={card.isActive}
                   onClick={async () => this._handleCardSelected(card)}
                 />
@@ -221,7 +226,10 @@ export class CardContainer extends React.Component<CardContainerProps> {
 export interface SheetCardProps {
   label: string;
   index: number;
+  /** @deprecated in 4.16.0. Use {@link SheetCardProps.icon} instead. */
+  // eslint-disable-next-line deprecation/deprecation
   iconSpec: IconSpec;
+  icon?: React.ReactNode;
   isActive: boolean;
   onClick: () => void;
 }
@@ -264,12 +272,14 @@ export class SheetCard extends React.Component<SheetCardProps, SheetCardState> {
       this.state.isPressed && "is-pressed"
     );
 
-    const iconSpec = this.props.iconSpec ? (
-      this.props.iconSpec
-    ) : (
-      <SvgPlaceholder />
-    );
-
+    const icon =
+      // eslint-disable-next-line deprecation/deprecation
+      this.props.icon ?? this.props.iconSpec ? (
+        // eslint-disable-next-line deprecation/deprecation
+        <Icon iconSpec={this.props.iconSpec} />
+      ) : (
+        <SvgPlaceholder />
+      );
     return (
       // eslint-disable-next-line jsx-a11y/click-events-have-key-events
       <div
@@ -282,10 +292,7 @@ export class SheetCard extends React.Component<SheetCardProps, SheetCardState> {
       >
         {label}
         <div className="sheet-image-container">
-          <div className="icon">
-            {" "}
-            <Icon iconSpec={iconSpec} />
-          </div>
+          <div className="icon">{icon}</div>
         </div>
         <div className="sheet-index">{index + 1}</div>
       </div>

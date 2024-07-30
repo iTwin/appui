@@ -8,7 +8,6 @@ import {
   StagePanelLocation,
   StagePanelSection,
   StatusBarItemUtilities,
-  StatusBarSection,
   ToolbarItemUtilities,
   ToolbarOrientation,
   ToolbarUsage,
@@ -21,44 +20,34 @@ export const updatedUiItemsProvider: UiItemsProvider = {
   id,
   getToolbarItems: () => {
     return [
-      ToolbarItemUtilities.createActionItem(
-        `${id}:toolbar-item`,
-        0,
-        <SvgUpgrade />,
-        "Updated toolbar item",
-        () => undefined,
-        {
-          layouts: {
-            standard: {
-              orientation: ToolbarOrientation.Vertical,
-              usage: ToolbarUsage.ViewNavigation,
-            },
+      ToolbarItemUtilities.createActionItem({
+        id: `${id}:toolbar-item`,
+        icon: <SvgUpgrade />,
+        label: "Updated toolbar item",
+        layouts: {
+          standard: {
+            orientation: ToolbarOrientation.Vertical,
+            usage: ToolbarUsage.ViewNavigation,
           },
-        }
-      ),
+        },
+      }),
     ];
   },
   getBackstageItems: () => {
     return [
-      BackstageItemUtilities.createActionItem(
-        `${id}:backstage-item`,
-        0,
-        0,
-        () => undefined,
-        "Updated backstage item"
-      ),
+      BackstageItemUtilities.createActionItem({
+        id: `${id}:backstage-item`,
+        label: "Updated backstage item",
+      }),
     ];
   },
   getStatusBarItems: () => {
     return [
-      StatusBarItemUtilities.createActionItem(
-        `${id}:statusbar-item`,
-        StatusBarSection.Center,
-        0,
-        <SvgUpgrade />,
-        "Updated status bar item",
-        () => undefined
-      ),
+      StatusBarItemUtilities.createActionItem({
+        id: `${id}:statusbar-item`,
+        icon: <SvgUpgrade />,
+        tooltip: "Updated status bar item",
+      }),
     ];
   },
   getWidgets: () => {

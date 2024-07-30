@@ -56,6 +56,7 @@ class IconItem extends React.PureComponent<IconItemProps> {
         style={this.props.style}
         onClick={handleClick}
       >
+        {/* eslint-disable-next-line deprecation/deprecation */}
         <Icon iconSpec={icon} />
       </button>
     );
@@ -171,13 +172,14 @@ export class IconPickerButton extends React.PureComponent<
           disabled={this.props.disabled}
           ref={this._target}
         >
+          {/* eslint-disable-next-line deprecation/deprecation */}
           <Icon
             className="iconpicker-button-sprite"
             iconSpec={this.state.icon}
           />
           <span className="icon">
-            {" "}
-            <Icon iconSpec={<SvgChevronDown />} />{" "}
+            {/* eslint-disable-next-line deprecation/deprecation */}
+            <Icon iconSpec={<SvgChevronDown />} />
           </span>
         </button>
         {/* eslint-disable-next-line deprecation/deprecation */}

@@ -432,6 +432,7 @@ const ForwardRefQuantityNumberInput = React.forwardRef<
             tabIndex={-1}
             onClick={handleUpClick}
           >
+            {/* eslint-disable-next-line deprecation/deprecation */}
             <Icon iconSpec={caretUp} />
           </div>
           {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
@@ -440,6 +441,7 @@ const ForwardRefQuantityNumberInput = React.forwardRef<
             tabIndex={-1}
             onClick={handleDownClick}
           >
+            {/* eslint-disable-next-line deprecation/deprecation */}
             <Icon iconSpec={caretDown} />
           </div>
         </div>

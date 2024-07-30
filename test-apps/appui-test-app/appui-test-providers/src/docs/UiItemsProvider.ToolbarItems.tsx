@@ -15,21 +15,18 @@ import {
 const provider: UiItemsProvider = {
   id: "example:Provider",
   getToolbarItems: () => [
-    ToolbarItemUtilities.createActionItem(
-      "example:ToolbarItem",
-      100,
-      <SvgIcon />,
-      "My custom toolbar item",
-      () => {},
-      {
-        layouts: {
-          standard: {
-            orientation: ToolbarOrientation.Horizontal,
-            usage: ToolbarUsage.ContentManipulation,
-          },
+    ToolbarItemUtilities.createActionItem({
+      id: "example:ToolbarItem",
+      itemPriority: 100,
+      icon: <SvgIcon />,
+      label: "My custom toolbar item",
+      layouts: {
+        standard: {
+          orientation: ToolbarOrientation.Horizontal,
+          usage: ToolbarUsage.ContentManipulation,
         },
-      }
-    ),
+      },
+    }),
   ],
 };
 // __PUBLISH_EXTRACT_END__

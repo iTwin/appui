@@ -317,6 +317,7 @@ export class DrawingNavigationAid extends React.Component<
               onClick={this._toggleRotationMode}
               role="presentation"
             >
+              {/* eslint-disable-next-line deprecation/deprecation */}
               <Icon iconSpec={<SvgRotateLeft />} />
             </div>
           )}
@@ -342,6 +343,7 @@ export class DrawingNavigationAid extends React.Component<
                 tabIndex={-1}
               >
                 <div className="close-icon icon">
+                  {/* eslint-disable-next-line deprecation/deprecation */}
                   <Icon iconSpec={<SvgSortUp />} />
                 </div>
               </div>
@@ -353,6 +355,7 @@ export class DrawingNavigationAid extends React.Component<
                   role="button"
                   tabIndex={-1}
                 >
+                  {/* eslint-disable-next-line deprecation/deprecation */}
                   <Icon iconSpec={<SvgAdd />} />
                 </div>
                 <div
@@ -362,6 +365,7 @@ export class DrawingNavigationAid extends React.Component<
                   role="button"
                   tabIndex={-1}
                 >
+                  {/* eslint-disable-next-line deprecation/deprecation */}
                   <Icon iconSpec={<SvgRemove />} />
                 </div>
               </div>

@@ -52,6 +52,10 @@ export interface FrameworkKeyboardShortcut {
   /** Gets whether this is a Special key. */
   readonly isSpecialKey: boolean;
 
+  /** Specifies the kind of badge, if any, to be overlaid on the item. */
+  readonly badgeKind?: BadgeKind;
+  readonly iconNode?: React.ReactNode;
+
   // #region "ItemDefBase" properties previously extended from deprecated type.
 
   isPressed: boolean;
@@ -59,11 +63,11 @@ export interface FrameworkKeyboardShortcut {
   applicationData?: any;
   isHidden?: boolean | ConditionalBooleanValue;
   isDisabled?: boolean | ConditionalBooleanValue;
-  /** @deprecated in 4.16.0. Use `badgeKind` property instead. */
+  /** @deprecated in 4.16.0. Use {@link FrameworkKeyboardShortcut.badgeKind} property instead. */
   // eslint-disable-next-line deprecation/deprecation
   badgeType?: BadgeType;
-  /** Specifies the kind of badge, if any, to be overlaid on the item. */
-  badgeKind?: BadgeKind;
+  /** @deprecated in 4.16.0. Use {@link FrameworkKeyboardShortcut.iconNode} property instead. */
+  // eslint-disable-next-line deprecation/deprecation
   iconSpec?: IconSpec;
   iconElement?: React.ReactNode;
   trayId: undefined;

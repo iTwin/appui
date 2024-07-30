@@ -7,17 +7,16 @@
  */
 
 import type { CommandHandler, OnItemExecutedFunc } from "@itwin/appui-abstract";
-import type { SizeProps } from "@itwin/core-react";
-import { Orientation } from "@itwin/core-react";
+import { Orientation } from "@itwin/components-react";
 import { ItemDefBase } from "./ItemDefBase";
 import type { ItemProps } from "./ItemProps";
-import { ToolbarItemUtilities } from "../toolbar/ToolbarItemUtilities";
+import type { SizeProps } from "../utils/SizeProps";
 
 /* eslint-disable deprecation/deprecation */
 
 /** Abstract base class that is used by classes to execute an action when pressed.
  * @public
- * @deprecated in 4.15.0. Use type specific utilities for creating items instead, i.e. {@link ToolbarItemUtilities.createActionItem}.
+ * @deprecated in 4.15.0. Use type specific utilities for creating items instead, i.e. `ToolbarItemUtilities.createActionItem`.
  */
 export abstract class ActionButtonItemDef extends ItemDefBase {
   private _onItemExecuted?: OnItemExecutedFunc;
