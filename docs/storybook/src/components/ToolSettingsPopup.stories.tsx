@@ -128,7 +128,7 @@ function ToolSettingsPopupComponent({
             offset,
             onCancel,
             placement,
-            containerRef.current!
+            containerRef.current ?? undefined
           );
         }}
       />
