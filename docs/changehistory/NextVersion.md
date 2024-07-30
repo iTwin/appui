@@ -226,6 +226,7 @@ Table of contents:
 - Fixed the unintentional "flying-in" of floating elements like Tooltips and ComboBox menus when the page first loads. [#905](https://github.com/iTwin/appui/pull/905)
 - Fixed `ToolAssistanceField` icon size. [#937](https://github.com/iTwin/appui/pull/937)
 - Fixed [mixed-decls](https://sass-lang.com/documentation/breaking-changes/mixed-decls/) Sass warnings. [#939](https://github.com/iTwin/appui/pull/939)
+- Fixed standard content tools throwing uncaught exception with transient elements. [#934](https://github.com/iTwin/appui/pull/934)
 
 ## @itwin/components-react
 
