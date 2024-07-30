@@ -6,10 +6,9 @@
   "version": "0.0.0",
   "homepage": "http://localhost:3000/",
   "scripts": {
-    "build": "npm run build:backend && npm run frontend:tsc",
+    "build": "npm run build:backend && npm run build:frontend",
     "build:backend": "tsc -p tsconfig.backend.json",
     "build:frontend": "npm run copy:webfont && npm run pseudolocalize && vite build",
-    "frontend:tsc": "tsc",
     "clean": "rimraf lib build .rush/temp/package-deps*.json",
     "lint": "eslint -f visualstudio \"./src/**/*.{ts,tsx}\" 1>&2",
     "start": "run-p start:webserver start:electron",
