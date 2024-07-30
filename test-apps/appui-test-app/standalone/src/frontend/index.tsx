@@ -102,7 +102,6 @@ import {
   previewFeaturesToggleProvider,
   registerCustomFrontstage,
   SynchronizedFloatingViewportStage,
-  testFrontstageProvider,
   WidgetApiStage,
   WidgetContentProvider,
 } from "@itwin/appui-test-providers";
@@ -122,6 +121,7 @@ import {
   createElementStackingFrontstage,
   createElementStackingProvider,
 } from "./appui/frontstages/ElementStacking";
+import { createTestPanelFrontstage } from "./appui/frontstages/TestPanelFrontstage";
 
 // Initialize my application gateway configuration for the frontend
 RpcConfiguration.developmentMode = true;
@@ -389,7 +389,7 @@ export class SampleAppIModelApp {
     CustomContentFrontstage.register(AppUiTestProviders.localizationNamespace);
     WidgetApiStage.register(AppUiTestProviders.localizationNamespace);
     ContentLayoutStage.register(AppUiTestProviders.localizationNamespace);
-    UiFramework.frontstages.addFrontstage(testFrontstageProvider);
+    UiFramework.frontstages.addFrontstage(createTestPanelFrontstage());
     registerCustomFrontstage();
     SynchronizedFloatingViewportStage.register(
       AppUiTestProviders.localizationNamespace

@@ -3,13 +3,13 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { ContentGroup } from "@itwin/appui-react";
+import { ContentGroup, Frontstage } from "@itwin/appui-react";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 
-/** Used in e2e tests to test different configurations. */
-export const testFrontstageProvider = (() => {
+/** Used in e2e tests to test different panel configurations. */
+export const createTestPanelFrontstage = () => {
   {
-    const id = "appui-test-providers:TestFrontstage";
+    const id = "appui-test-app:TestPanel";
     const contentGroup = new ContentGroup({
       id: "test-group",
       layout: StandardContentLayouts.singleView,
@@ -59,6 +59,6 @@ export const testFrontstageProvider = (() => {
           ],
         },
       },
-    };
+    } satisfies Frontstage;
   }
-})();
+};
