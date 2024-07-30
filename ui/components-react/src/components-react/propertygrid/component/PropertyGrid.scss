@@ -43,14 +43,13 @@
 }
 
 .components-property-list--horizontal {
-  @include components-property-list;
-
   display: grid;
-  grid-row-gap: 1px; // A gap of 10px is too wasteful
+  grid-row-gap: 1px;
   overflow: hidden;
+
+  @include components-property-list;
 }
 
 .components-property-list--vertical {
   @include components-property-list;
-  // margin-top: -13px;
 }
