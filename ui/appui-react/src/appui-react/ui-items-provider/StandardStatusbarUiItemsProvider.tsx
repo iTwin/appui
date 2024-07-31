@@ -37,7 +37,7 @@ export interface DefaultStatusbarItems {
   selectionInfo?: boolean;
 }
 
-/** Provide standard statusbar fields.
+/** Provide standard status bar fields.
  * @beta
  */
 export class StandardStatusbarUiItemsProvider implements UiItemsProvider {
