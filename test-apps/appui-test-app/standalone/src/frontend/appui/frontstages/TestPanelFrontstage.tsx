@@ -3,44 +3,23 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { ContentGroup } from "@itwin/appui-react";
-import { StandardContentLayouts } from "@itwin/appui-abstract";
+import { Frontstage } from "@itwin/appui-react";
+import { createTestFrontstage } from "./createTestFrontstage";
 
-/** Used in e2e tests to test different configurations. */
-export const testFrontstageProvider = (() => {
+/** Used in e2e tests to test different panel configurations. */
+export const createTestPanelFrontstage = () => {
   {
-    const id = "appui-test-providers:TestFrontstage";
-    const contentGroup = new ContentGroup({
-      id: "test-group",
-      layout: StandardContentLayouts.singleView,
-      contents: [
-        {
-          id: "custom-content",
-          classId: "",
-          content: (
-            <h1
-              style={{
-                height: "100%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              Custom content!
-            </h1>
-          ),
-        },
-      ],
-    });
-
     const urlParams = new URLSearchParams(window.location.search);
     const size = urlParams.get("size");
     const defaultState = urlParams.get("defaultState");
     const resizable = urlParams.get("resizable");
+
+    const frontstage = createTestFrontstage({
+      id: "appui-test-app:TestPanel",
+    });
+
     return {
-      id,
-      version: Math.random(),
-      contentGroup,
+      ...frontstage,
       leftPanel: {
         sizeSpec: size ? Number(size) : undefined,
         defaultState: defaultState ? Number(defaultState) : undefined,
@@ -59,6 +38,6 @@ export const testFrontstageProvider = (() => {
           ],
         },
       },
-    };
+    } satisfies Frontstage;
   }
-})();
+};

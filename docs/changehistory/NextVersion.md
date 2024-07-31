@@ -226,9 +226,10 @@ Table of contents:
 - Fixed `AccuDrawInputField` to correctly specify keyboard event modifiers in `UiFramework.keyboardShortcuts.processKey()`. [#894](https://github.com/iTwin/appui/pull/894)
 - Fixed icon alignment and warning status color of notification manager in `MessageCenterField` component. [#901](https://github.com/iTwin/appui/pull/901)
 - Fixed the unintentional "flying-in" of floating elements like Tooltips and ComboBox menus when the page first loads. [#905](https://github.com/iTwin/appui/pull/905)
+- Fixed standard content tools throwing uncaught exception with transient elements. [#934](https://github.com/iTwin/appui/pull/934)
 - Fixed `ToolAssistanceField` icon size. [#937](https://github.com/iTwin/appui/pull/937)
 - Fixed [mixed-decls](https://sass-lang.com/documentation/breaking-changes/mixed-decls/) Sass warnings. [#939](https://github.com/iTwin/appui/pull/939)
-- Fixed standard content tools throwing uncaught exception with transient elements. [#934](https://github.com/iTwin/appui/pull/934)
+- Fixed an issue where styles of complex shorthand properties were not copied correctly to a popout window. [#940](https://github.com/iTwin/appui/pull/940)
 
 ## @itwin/components-react
 

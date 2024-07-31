@@ -102,7 +102,6 @@ import {
   previewFeaturesToggleProvider,
   registerCustomFrontstage,
   SynchronizedFloatingViewportStage,
-  testFrontstageProvider,
   WidgetApiStage,
   WidgetContentProvider,
 } from "@itwin/appui-test-providers";
@@ -122,6 +121,8 @@ import {
   createElementStackingFrontstage,
   createElementStackingProvider,
 } from "./appui/frontstages/ElementStacking";
+import { createTestPanelFrontstage } from "./appui/frontstages/TestPanelFrontstage";
+import { createTestPopoutFrontstage } from "./appui/frontstages/TestPopoutFrontstage";
 
 // Initialize my application gateway configuration for the frontend
 RpcConfiguration.developmentMode = true;
@@ -278,6 +279,7 @@ export class SampleAppIModelApp {
   public static async initialize() {
     // eslint-disable-next-line deprecation/deprecation
     await UiFramework.initialize(undefined, undefined);
+    UiFramework.visibility.autoHideUi = false;
 
     IModelApp.toolAdmin.defaultToolId = SelectionTool.toolId;
 
@@ -389,7 +391,8 @@ export class SampleAppIModelApp {
     CustomContentFrontstage.register(AppUiTestProviders.localizationNamespace);
     WidgetApiStage.register(AppUiTestProviders.localizationNamespace);
     ContentLayoutStage.register(AppUiTestProviders.localizationNamespace);
-    UiFramework.frontstages.addFrontstage(testFrontstageProvider);
+    UiFramework.frontstages.addFrontstage(createTestPanelFrontstage());
+    UiFramework.frontstages.addFrontstage(createTestPopoutFrontstage());
     registerCustomFrontstage();
     SynchronizedFloatingViewportStage.register(
       AppUiTestProviders.localizationNamespace
