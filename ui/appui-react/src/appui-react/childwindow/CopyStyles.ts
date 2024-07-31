@@ -2,39 +2,34 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-/**
- * Copies the source CSS into the destination
- * @param targetDoc - target document
- * @param sourceDoc - source document
+
+/** Copies the CSS style sheets from source document into the target document.
  * @internal
  */
 export function copyStyles(
   targetDoc: Document,
   sourceDoc: Document = document
 ) {
-  const stylesheets = sourceDoc.adoptedStyleSheets
-    ? Array.from([...sourceDoc.styleSheets, ...sourceDoc.adoptedStyleSheets])
-    : Array.from(sourceDoc.styleSheets);
-
-  stylesheets.forEach((stylesheet) => {
-    const css = stylesheet;
-    if (stylesheet.href) {
-      const newStyleElement = targetDoc.createElement("link");
-      newStyleElement.rel = "stylesheet";
-      newStyleElement.href = stylesheet.href;
-      targetDoc.head.appendChild(newStyleElement);
-    } else {
-      if (css && css.cssRules && css.cssRules.length > 0) {
-        const newStyleElement = targetDoc.createElement("style");
-        Array.from(css.cssRules).forEach((rule) => {
-          newStyleElement.appendChild(targetDoc.createTextNode(rule.cssText));
-        });
-        targetDoc.head.appendChild(newStyleElement);
-      }
-    }
+  const styleSheets = Array.from(sourceDoc.styleSheets);
+  styleSheets.forEach(({ ownerNode }) => {
+    // Copy `link` and `style` elements.
+    if (!ownerNode) return;
+    const clonedNode = targetDoc.importNode(ownerNode, true);
+    targetDoc.head.appendChild(clonedNode);
   });
 
-  // copy sprites
+  const adoptedStyleSheets = Array.from(sourceDoc.adoptedStyleSheets ?? []);
+  adoptedStyleSheets.forEach((styleSheet) => {
+    // Adopted stylesheet have no ownerNode and can't be shared between multiple documents.
+    if (!targetDoc.defaultView) return;
+    const newStyleSheet = new targetDoc.defaultView.CSSStyleSheet();
+    Array.from(styleSheet.cssRules).forEach((rule) => {
+      newStyleSheet.insertRule(rule.cssText);
+    });
+    targetDoc.adoptedStyleSheets.push(newStyleSheet);
+  });
+
+  // Copy sprites.
   const svgSymbolParent = sourceDoc.getElementById("__SVG_SPRITE_NODE__");
   if (svgSymbolParent) {
     targetDoc.body.appendChild(svgSymbolParent.cloneNode(true));
