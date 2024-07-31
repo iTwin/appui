@@ -21,7 +21,7 @@
   }
 }
 
-.uifw-statusbar-space-between {
+.uifw-statusBar-space-between {
   width: 100%;
   height: 100%;
   display: flex;
@@ -29,29 +29,29 @@
   justify-content: space-between;
 }
 
-.uifw-statusbar-left {
+.uifw-statusBar-left {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
 }
 
-.uifw-statusbar-center {
+.uifw-statusBar-center {
   display: flex;
   flex-direction: row;
   justify-content: center;
 }
 
-.uifw-statusbar-right {
+.uifw-statusBar-right {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
 }
 
-.uifw-statusbar-docked {
+.uifw-statusBar-docked {
   width: 100%;
   background-color: var(--iui-color-background);
 
-  .uifw-statusbar-item-container {
+  .uifw-statusBar-item-container {
     @include for-medium-desktop-up {
       padding-left: var(--iui-size-m);
     }
@@ -67,20 +67,20 @@
     &:has(.uifw-statusBar-separator) {
       padding-left: 0;
 
-      + .uifw-statusbar-item-container {
+      + .uifw-statusBar-item-container {
         padding-left: 0;
       }
     }
   }
 
-  .uifw-statusbar-left .uifw-statusbar-item-container {
+  .uifw-statusBar-left .uifw-statusBar-item-container {
     &:first-child {
       padding-left: 0;
     }
   }
 }
 
-.uifw-statusbar-item-container {
+.uifw-statusBar-item-container {
   height: 100%;
   display: flex;
   flex-direction: row;

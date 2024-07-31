@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Adjust SelectionCount padding values.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}

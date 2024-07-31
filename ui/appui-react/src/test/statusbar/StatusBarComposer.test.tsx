@@ -129,7 +129,7 @@ describe("StatusBarComposer", () => {
       render(<StatusBarComposer items={[]} />);
 
       expect(screen.getByRole("presentation")).to.satisfy(
-        childStructure(".uifw-statusbar-space-between")
+        childStructure(".uifw-statusBar-space-between")
       );
     });
 
@@ -158,13 +158,13 @@ describe("StatusBarComposer", () => {
       render(<StatusBarComposer items={items} />);
 
       expect(screen.getByTestId("item1").parentElement).to.satisfy(
-        selectorMatches(".uifw-statusbar-left .uifw-statusbar-item-container")
+        selectorMatches(".uifw-statusBar-left .uifw-statusBar-item-container")
       );
       expect(screen.getByTestId("item2").parentElement).to.satisfy(
-        selectorMatches(".uifw-statusbar-center .uifw-statusbar-item-container")
+        selectorMatches(".uifw-statusBar-center .uifw-statusBar-item-container")
       );
       expect(screen.getByTestId("item3").parentElement).to.satisfy(
-        selectorMatches(".uifw-statusbar-right .uifw-statusbar-item-container")
+        selectorMatches(".uifw-statusBar-right .uifw-statusBar-item-container")
       );
     });
 
@@ -181,7 +181,7 @@ describe("StatusBarComposer", () => {
       const { rerender } = render(<StatusBarComposer items={items} />);
 
       expect(screen.getByTestId("item1").parentElement).to.satisfy(
-        selectorMatches(".uifw-statusbar-left .uifw-statusbar-item-container")
+        selectorMatches(".uifw-statusBar-left .uifw-statusBar-item-container")
       );
 
       const items2: StatusBarItem[] = [
@@ -197,7 +197,7 @@ describe("StatusBarComposer", () => {
 
       expect(screen.queryByTestId("item1")).toEqual(null);
       expect(screen.getByTestId("item2").parentElement).to.satisfy(
-        selectorMatches(".uifw-statusbar-center .uifw-statusbar-item-container")
+        selectorMatches(".uifw-statusBar-center .uifw-statusBar-item-container")
       );
     });
 
@@ -253,7 +253,7 @@ describe("StatusBarComposer", () => {
 
       expect(screen.queryByTestId("item1")).toEqual(null);
       expect(screen.getByTestId("item2").parentElement).to.satisfy(
-        selectorMatches(".uifw-statusbar-left .uifw-statusbar-item-container")
+        selectorMatches(".uifw-statusBar-left .uifw-statusBar-item-container")
       );
     });
 
@@ -297,9 +297,9 @@ describe("StatusBarComposer", () => {
       await waitFor(() =>
         expect(screen.getByRole("presentation")).to.satisfy(
           childStructure([
-            ".uifw-statusbar-left .uifw-statusbar-item-container:only-child",
-            ".uifw-statusbar-center .icon-visibility-hide-2",
-            ".uifw-statusbar-center .icon-hand-2",
+            ".uifw-statusBar-left .uifw-statusBar-item-container:only-child",
+            ".uifw-statusBar-center .icon-visibility-hide-2",
+            ".uifw-statusBar-center .icon-hand-2",
           ])
         )
       );
@@ -308,7 +308,7 @@ describe("StatusBarComposer", () => {
 
       await waitFor(() =>
         expect(screen.getByRole("presentation")).to.satisfy(
-          childStructure(".uifw-statusbar-center:empty")
+          childStructure(".uifw-statusBar-center:empty")
         )
       );
     });
@@ -351,10 +351,10 @@ describe("StatusBarComposer", () => {
 
       expect(screen.getByRole("presentation")).to.satisfy(
         childStructure([
-          ".uifw-statusbar-left .uifw-statusbar-item-container:only-child",
-          ".uifw-statusbar-center .icon-visibility-hide-2",
-          ".uifw-statusbar-center .icon-hand-2",
-          ".uifw-statusbar-center .icon-hand-2-condition",
+          ".uifw-statusBar-left .uifw-statusBar-item-container:only-child",
+          ".uifw-statusBar-center .icon-visibility-hide-2",
+          ".uifw-statusBar-center .icon-hand-2",
+          ".uifw-statusBar-center .icon-hand-2-condition",
         ])
       );
 
@@ -362,7 +362,7 @@ describe("StatusBarComposer", () => {
 
       await waitFor(() => {
         expect(screen.getByRole("presentation")).to.not.satisfy(
-          childStructure([".uifw-statusbar-center .icon-hand-2-condition"])
+          childStructure([".uifw-statusBar-center .icon-hand-2-condition"])
         );
       });
 
@@ -370,7 +370,7 @@ describe("StatusBarComposer", () => {
 
       await waitFor(() =>
         expect(screen.getByRole("presentation")).to.satisfy(
-          childStructure(".uifw-statusbar-center:empty")
+          childStructure(".uifw-statusBar-center:empty")
         )
       );
     });
@@ -409,9 +409,9 @@ describe("StatusBarComposer", () => {
 
       expect(screen.getByRole("presentation")).to.satisfy(
         childStructure([
-          ".main-test :not(.uifw-statusbar-left).left-test > .uifw-statusbar-item-container",
-          ".main-test :not(.uifw-statusbar-center).center-test > .uifw-statusbar-item-container",
-          ".main-test :not(.uifw-statusbar-right).right-test > .uifw-statusbar-item-container",
+          ".main-test :not(.uifw-statusBar-left).left-test > .uifw-statusBar-item-container",
+          ".main-test :not(.uifw-statusBar-center).center-test > .uifw-statusBar-item-container",
+          ".main-test :not(.uifw-statusBar-right).right-test > .uifw-statusBar-item-container",
         ])
       );
     });
@@ -436,9 +436,9 @@ describe("StatusBarComposer", () => {
       // make sure we have enough size to render without overflow
       vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
         function (this: HTMLElement) {
-          if (this.classList.contains("uifw-statusbar-docked")) {
+          if (this.classList.contains("uifw-statusBar-docked")) {
             return DOMRect.fromRect({ width: 1000 });
-          } else if (this.classList.contains("uifw-statusbar-item-container")) {
+          } else if (this.classList.contains("uifw-statusBar-item-container")) {
             return DOMRect.fromRect({ width: 40 });
           } else if (this instanceof HTMLButtonElement) {
             return DOMRect.fromRect({ width: 40 });
@@ -466,7 +466,7 @@ describe("StatusBarComposer", () => {
 
       const wrapper = render(<StatusBarComposer items={items} />);
       expect(
-        wrapper.container.querySelectorAll(".uifw-statusbar-item-container")
+        wrapper.container.querySelectorAll(".uifw-statusBar-item-container")
       ).toHaveLength(1);
 
       const uiProvider = new TestUiProvider();
@@ -474,7 +474,7 @@ describe("StatusBarComposer", () => {
         UiItemsManager.register(uiProvider);
       });
       expect(
-        wrapper.container.querySelectorAll(".uifw-statusbar-item-container")
+        wrapper.container.querySelectorAll(".uifw-statusBar-item-container")
       ).toHaveLength(5);
       await wrapper.findByText("visible");
 
@@ -486,7 +486,7 @@ describe("StatusBarComposer", () => {
         UiItemsManager.unregister(uiProvider.id);
       });
       expect(
-        wrapper.container.querySelectorAll(".uifw-statusbar-item-container")
+        wrapper.container.querySelectorAll(".uifw-statusBar-item-container")
       ).toHaveLength(1);
       wrapper.unmount();
     });
@@ -509,9 +509,9 @@ describe("StatusBarComposer", () => {
       // make sure we have enough size to render without overflow
       vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
         function (this: HTMLElement) {
-          if (this.classList.contains("uifw-statusbar-docked")) {
+          if (this.classList.contains("uifw-statusBar-docked")) {
             return DOMRect.fromRect({ width: 1600 });
-          } else if (this.classList.contains("uifw-statusbar-item-container")) {
+          } else if (this.classList.contains("uifw-statusBar-item-container")) {
             return DOMRect.fromRect({ width: 40 });
           } else if (this instanceof HTMLButtonElement) {
             return DOMRect.fromRect({ width: 40 });
@@ -545,7 +545,7 @@ describe("StatusBarComposer", () => {
 
       const wrapper = render(<StatusBarComposer items={items} />);
       expect(
-        wrapper.container.querySelectorAll(".uifw-statusbar-item-container")
+        wrapper.container.querySelectorAll(".uifw-statusBar-item-container")
       ).toHaveLength(1);
 
       const uiProvider = new TestUiProvider(true);
@@ -553,14 +553,14 @@ describe("StatusBarComposer", () => {
         UiItemsManager.register(uiProvider);
       });
       expect(
-        wrapper.container.querySelectorAll(".uifw-statusbar-item-container")
+        wrapper.container.querySelectorAll(".uifw-statusBar-item-container")
       ).toHaveLength(5);
 
       act(() => {
         UiItemsManager.unregister(uiProvider.id);
       });
       expect(
-        wrapper.container.querySelectorAll(".uifw-statusbar-item-container")
+        wrapper.container.querySelectorAll(".uifw-statusBar-item-container")
       ).toHaveLength(1);
       wrapper.unmount();
     });
@@ -568,9 +568,9 @@ describe("StatusBarComposer", () => {
     it("will render 4 items without overflow", () => {
       vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
         function (this: HTMLElement) {
-          if (this.classList.contains("uifw-statusbar-docked")) {
+          if (this.classList.contains("uifw-statusBar-docked")) {
             return DOMRect.fromRect({ width: 168 }); // 4*42
-          } else if (this.classList.contains("uifw-statusbar-item-container")) {
+          } else if (this.classList.contains("uifw-statusBar-item-container")) {
             return DOMRect.fromRect({ width: 40 });
           } else if (this instanceof HTMLButtonElement) {
             return DOMRect.fromRect({ width: 40 });
@@ -620,7 +620,7 @@ describe("StatusBarComposer", () => {
       expect(renderedComponent).toBeTruthy();
       expect(
         renderedComponent.container.querySelectorAll(
-          ".uifw-statusbar-item-container"
+          ".uifw-statusBar-item-container"
         )
       ).lengthOf(4);
 
@@ -656,7 +656,7 @@ describe("StatusBarComposer", () => {
       );
       expect(
         renderedComponent.container.querySelectorAll(
-          ".uifw-statusbar-item-container"
+          ".uifw-statusBar-item-container"
         )
       ).lengthOf(3);
     });
@@ -664,9 +664,9 @@ describe("StatusBarComposer", () => {
     it("will render 1 item with overflow - 4 in overflow panel", async () => {
       vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
         function (this: HTMLElement) {
-          if (this.classList.contains("uifw-statusbar-docked")) {
+          if (this.classList.contains("uifw-statusBar-docked")) {
             return DOMRect.fromRect({ width: 84 }); // 2*42
-          } else if (this.classList.contains("uifw-statusbar-item-container")) {
+          } else if (this.classList.contains("uifw-statusBar-item-container")) {
             return DOMRect.fromRect({ width: 40 });
           } else if (this instanceof HTMLButtonElement) {
             return DOMRect.fromRect({ width: 40 });
@@ -721,7 +721,7 @@ describe("StatusBarComposer", () => {
       expect(renderedComponent).toBeTruthy();
       expect(
         renderedComponent.container.querySelectorAll(
-          ".uifw-statusbar-item-container"
+          ".uifw-statusBar-item-container"
         )
       ).lengthOf(1);
       const overflow = renderedComponent.getByRole("button");
@@ -731,12 +731,12 @@ describe("StatusBarComposer", () => {
         "uifw-statusbar-overflow-panel"
       );
       expect(
-        containerInPortal.querySelectorAll(".uifw-statusbar-item-container")
+        containerInPortal.querySelectorAll(".uifw-statusBar-item-container")
       ).lengthOf(4);
       fireEvent.click(overflow);
       expect(
         renderedComponent.container.querySelectorAll(
-          ".uifw-statusbar-item-container"
+          ".uifw-statusBar-item-container"
         )
       ).lengthOf(1);
     });

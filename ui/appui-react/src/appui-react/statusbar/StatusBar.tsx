@@ -64,7 +64,7 @@ export function StatusBarSpaceBetween(props: CommonDivProps) {
   return (
     <Div
       {...divProps}
-      mainClassName={className ? className : "uifw-statusbar-space-between"}
+      mainClassName={className ? className : "uifw-statusBar-space-between"}
     />
   );
 }
@@ -77,7 +77,7 @@ export function StatusBarLeftSection(props: CommonDivProps) {
   return (
     <Div
       {...divProps}
-      mainClassName={className ? className : "uifw-statusbar-left"}
+      mainClassName={className ? className : "uifw-statusBar-left"}
     />
   );
 }
@@ -90,7 +90,7 @@ export function StatusBarCenterSection(props: CommonDivProps) {
   return (
     <Div
       {...divProps}
-      mainClassName={className ? className : "uifw-statusbar-center"}
+      mainClassName={className ? className : "uifw-statusBar-center"}
     />
   );
 }
@@ -103,7 +103,7 @@ export function StatusBarRightSection(props: CommonDivProps) {
   return (
     <Div
       {...divProps}
-      mainClassName={className ? className : "uifw-statusbar-right"}
+      mainClassName={className ? className : "uifw-statusBar-right"}
     />
   );
 }

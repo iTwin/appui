@@ -219,6 +219,7 @@ Table of contents:
 - Bump `AccuDrawWidget`, `SheetNavigationAid`, `StandardRotationNavigationAid` components to `@public`. [#888](https://github.com/iTwin/appui/pull/888)
 - No more transitions when toggling themes. [#905](https://github.com/iTwin/appui/pull/905)
 - Updated `ToolSettingsPopup` to not rely on event propagation for cancellation. [#928](https://github.com/iTwin/appui/pull/928)
+- Adjusted `SelectionCount` styling to improve its visuals in various scenarios. [#936](https://github.com/iTwin/appui/pull/936)
 
 ### Fixes
 
