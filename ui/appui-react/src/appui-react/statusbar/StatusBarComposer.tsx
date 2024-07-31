@@ -345,6 +345,11 @@ export function StatusBarComposer(props: StatusBarComposerProps) {
     const combinedItems = combineItems(defaultItems, addonItems);
     return sortItems(combinedItems);
   }, [defaultItems, addonItems]);
+  const itemsNotInOverflow = React.useMemo(() => {
+    return statusBarItems.filter(
+      (item) => !isItemInOverflow(item.id, overflown)
+    );
+  }, [overflown, statusBarItems]);
 
   const calculateOverflow = React.useCallback(() => {
     const widths = verifiedMapEntries(entryWidths.current);
@@ -433,18 +438,31 @@ export function StatusBarComposer(props: StatusBarComposerProps) {
             providerId={providerId}
             section={getSectionName(section)}
           >
-            {isStatusBarCustomItem(item) && item.content}
-            {isStatusBarActionItem(item) && (
-              <StatusBarActionItemComponent {...item} />
-            )}
-            {isStatusBarLabelItem(item) && (
-              <StatusBarLabelItemComponent {...item} />
-            )}
+            <StatusBarCornerComponentContext.Provider
+              value={
+                key === itemsNotInOverflow[0].id
+                  ? "left-corner"
+                  : (key ===
+                      itemsNotInOverflow[itemsNotInOverflow.length - 1].id &&
+                      overflown?.length === 0) ||
+                    isItemInOverflow(key, overflown)
+                  ? "right-corner"
+                  : undefined
+              }
+            >
+              {isStatusBarCustomItem(item) && item.content}
+              {isStatusBarActionItem(item) && (
+                <StatusBarActionItemComponent {...item} />
+              )}
+              {isStatusBarLabelItem(item) && (
+                <StatusBarLabelItemComponent {...item} />
+              )}
+            </StatusBarCornerComponentContext.Provider>
           </DockedStatusBarItem>
         </DockedStatusBarEntry>
       );
     },
-    [handleEntryResize]
+    [handleEntryResize, itemsNotInOverflow, overflown]
   );
 
   const getSectionItems = React.useCallback(
@@ -542,80 +560,14 @@ export function StatusBarComposer(props: StatusBarComposerProps) {
     >
       <StatusBarSpaceBetween className={mainClassName}>
         <StatusBarLeftSection className={leftClassName}>
-          {leftItems.map((item, index) => (
-            <StatusBarCornerComponentContext.Provider
-              value={
-                index === 0
-                  ? "left-corner"
-                  : index === leftItems.length - 1 &&
-                    centerItems.length === 0 &&
-                    contextItems.length === 0 &&
-                    rightItems.length === 0 &&
-                    overflown?.length === 0
-                  ? "right-corner"
-                  : undefined
-              }
-              key={index}
-            >
-              {item}
-            </StatusBarCornerComponentContext.Provider>
-          ))}
+          {leftItems}
         </StatusBarLeftSection>
         <StatusBarCenterSection className={centerClassName}>
-          {centerItems.map((item, index) => (
-            <StatusBarCornerComponentContext.Provider
-              value={
-                index === 0 && leftItems.length === 0
-                  ? "left-corner"
-                  : index === centerItems.length - 1 &&
-                    contextItems.length === 0 &&
-                    rightItems.length === 0 &&
-                    overflown?.length === 0
-                  ? "right-corner"
-                  : undefined
-              }
-              key={index}
-            >
-              {item}
-            </StatusBarCornerComponentContext.Provider>
-          ))}
-          {contextItems.map((item, index) => (
-            <StatusBarCornerComponentContext.Provider
-              value={
-                index === 0 &&
-                leftItems.length === 0 &&
-                centerItems.length === 0
-                  ? "left-corner"
-                  : index === contextItems.length - 1 &&
-                    rightItems.length === 0 &&
-                    overflown?.length === 0
-                  ? "right-corner"
-                  : undefined
-              }
-              key={index}
-            >
-              {item}
-            </StatusBarCornerComponentContext.Provider>
-          ))}
+          {centerItems}
+          {contextItems}
         </StatusBarCenterSection>
         <StatusBarRightSection className={rightClassName}>
-          {rightItems.map((item, index) => (
-            <StatusBarCornerComponentContext.Provider
-              value={
-                index === rightItems.length - 1 && overflown?.length === 0
-                  ? "right-corner"
-                  : index === 0 &&
-                    leftItems.length === 0 &&
-                    centerItems.length === 0 &&
-                    contextItems.length === 0
-                  ? "left-corner"
-                  : undefined
-              }
-              key={index}
-            >
-              {item}
-            </StatusBarCornerComponentContext.Provider>
-          ))}
+          {rightItems}
           {(!overflown || overflown.length > 0) && (
             <StatusBarOverflow
               onResize={handleOverflowResize}

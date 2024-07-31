@@ -31,8 +31,8 @@ export function SelectionCountField(props: SelectionCountFieldProps) {
   const cornerContext = React.useContext(StatusBarCornerComponentContext);
   const className = classnames(
     "uifw-statusFields-selectionCount",
-    cornerContext === "left-corner" && "left-statusBar-corner",
-    cornerContext === "right-corner" && "right-statusBar-corner",
+    cornerContext === "left-corner" && "uifw-left-corner",
+    cornerContext === "right-corner" && "uifw-right-corner",
     props.className
   );
   return (
