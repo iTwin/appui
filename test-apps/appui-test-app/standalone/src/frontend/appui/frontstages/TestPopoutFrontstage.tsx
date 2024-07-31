@@ -38,6 +38,7 @@ export const createTestPopoutFrontstage = () => {
 
 (() => {
   const sheet = new CSSStyleSheet();
+  // Shorthand `border` property from `adoptedStyleSheets` will not be copied to a popout widget correctly.
   sheet.replaceSync(`
     #border-test {
       --border-top-color: yellow;

@@ -24,6 +24,7 @@ export function copyStyles(
     if (!targetDoc.defaultView) return;
     const newStyleSheet = new targetDoc.defaultView.CSSStyleSheet();
     Array.from(styleSheet.cssRules).forEach((rule, index) => {
+      // `cssText` might not serialize complex shorthand properties correctly: https://github.com/iTwin/appui/issues/893
       newStyleSheet.insertRule(rule.cssText, index);
     });
     targetDoc.adoptedStyleSheets.push(newStyleSheet);
