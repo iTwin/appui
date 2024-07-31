@@ -279,6 +279,7 @@ export class SampleAppIModelApp {
   public static async initialize() {
     // eslint-disable-next-line deprecation/deprecation
     await UiFramework.initialize(undefined, undefined);
+    UiFramework.visibility.autoHideUi = false;
 
     IModelApp.toolAdmin.defaultToolId = SelectionTool.toolId;
 
