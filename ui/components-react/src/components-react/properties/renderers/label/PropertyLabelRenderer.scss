@@ -50,7 +50,6 @@
 }
 
 .components-nonprimitive-property-label-renderer {
-  @include specific-property-label-renderer;
   align-items: center;
   border: none;
   background: transparent;
@@ -61,6 +60,8 @@
   width: 100%;
   transition: transform var(--iui-duration-1) ease-in-out,
     -webkit-transform var(--iui-duration-1) ease-in-out;
+
+  @include specific-property-label-renderer;
 
   > .components-property-label-renderer {
     flex: 1;

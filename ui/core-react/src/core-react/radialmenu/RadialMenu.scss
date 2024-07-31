@@ -8,13 +8,13 @@
 
 .core-radial-menu {
   visibility: hidden;
+  position: fixed;
+
+  @include uicore-z-index(dialog);
 
   &.opened {
     visibility: inherit;
   }
-
-  position: fixed;
-  @include uicore-z-index(dialog);
 
   > .core-radial-menu-container {
     margin-left: -50%;

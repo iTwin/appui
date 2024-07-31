@@ -31,15 +31,13 @@ $component-examples-rightpanel-width: 200px;
 
   .component-examples-items {
     background: $buic-background-dialog;
-
     height: 100%;
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
 
     @include uicore-touch-scrolling;
     @include uicore-scrollbar();
-
-    display: flex;
-    flex-direction: column;
 
     .component-examples-item {
       display: flex;

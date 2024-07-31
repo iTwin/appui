@@ -45,14 +45,13 @@
 
     > .components-popup-button-arrow-icon {
       transition: transform 0.2s;
+      text-align: center;
+      font-size: var(--iui-font-size-0);
+      line-height: var(--iui-size-l);
 
       &:hover {
         color: var(--iui-color-text-accent);
       }
-
-      text-align: center;
-      font-size: var(--iui-font-size-0);
-      line-height: var(--iui-size-l);
     }
   }
 

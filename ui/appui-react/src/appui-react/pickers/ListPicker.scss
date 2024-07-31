@@ -22,10 +22,11 @@ $item-height: 32px;
 }
 
 .ListPicker-column {
-  @include uicore-scrollbar();
   overflow: auto;
   height: 40vh;
   width: 30vh;
+
+  @include uicore-scrollbar();
 }
 
 .ListPickerInnerContainer {

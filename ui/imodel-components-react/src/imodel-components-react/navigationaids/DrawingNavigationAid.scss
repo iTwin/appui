@@ -88,15 +88,6 @@
       background-color: $buic-background-control;
       opacity: 0.5;
       color: var(--iui-color-text);
-
-      &.checked {
-        color: var(--iui-color-text-accent);
-      }
-
-      &:hover {
-        opacity: 1;
-      }
-
       border-radius: var(--iui-border-radius-1);
       bottom: 10px;
       left: 10px;
@@ -105,6 +96,14 @@
       font-size: 12px;
       line-height: 16px;
       text-align: center;
+
+      &.checked {
+        color: var(--iui-color-text-accent);
+      }
+
+      &:hover {
+        opacity: 1;
+      }
     }
 
     .zoom {

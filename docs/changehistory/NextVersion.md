@@ -16,6 +16,9 @@ Table of contents:
   - [Deprecations](#deprecations-2)
   - [Additions](#additions-2)
   - [Changes](#changes-2)
+  - [Fixes](#fixes-2)
+- [@itwin/imodel-components-react](#itwinimodel-components-react)
+  - [Fixes](#fixes-3)
 
 ## @itwin/appui-react
 
@@ -223,6 +226,8 @@ Table of contents:
 - Fixed icon alignment and warning status color of notification manager in `MessageCenterField` component. [#901](https://github.com/iTwin/appui/pull/901)
 - Fixed the unintentional "flying-in" of floating elements like Tooltips and ComboBox menus when the page first loads. [#905](https://github.com/iTwin/appui/pull/905)
 - Fixed `ToolAssistanceField` icon size. [#937](https://github.com/iTwin/appui/pull/937)
+- Fixed [mixed-decls](https://sass-lang.com/documentation/breaking-changes/mixed-decls/) Sass warnings. [#939](https://github.com/iTwin/appui/pull/939)
+- Fixed standard content tools throwing uncaught exception with transient elements. [#934](https://github.com/iTwin/appui/pull/934)
 
 ## @itwin/components-react
 
@@ -244,6 +249,7 @@ Table of contents:
 
 - Fixed `activeMatchIndex` not working correctly on adjacent matches in `HighlightedText`. [#898](https://github.com/iTwin/appui/pull/898)
 - Fixed widget tab styling to match the SVG and CSS icon size. [#901](https://github.com/iTwin/appui/pull/901)
+- Fixed [mixed-decls](https://sass-lang.com/documentation/breaking-changes/mixed-decls/) Sass warnings. [#939](https://github.com/iTwin/appui/pull/939)
 
 ## @itwin/core-react
 
@@ -347,3 +353,13 @@ Table of contents:
 ### Changes
 
 - Removed styling for the `theme-transition` class. [#890](https://github.com/iTwin/appui/pull/890)
+
+### Fixes
+
+- Fixed [mixed-decls](https://sass-lang.com/documentation/breaking-changes/mixed-decls/) Sass warnings. [#939](https://github.com/iTwin/appui/pull/939)
+
+## @itwin/imodel-components-react
+
+### Fixes
+
+- Fixed [mixed-decls](https://sass-lang.com/documentation/breaking-changes/mixed-decls/) Sass warnings. [#939](https://github.com/iTwin/appui/pull/939)
