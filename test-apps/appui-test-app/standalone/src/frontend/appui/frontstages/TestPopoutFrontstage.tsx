@@ -35,3 +35,15 @@ export const createTestPopoutFrontstage = () => {
     } satisfies Frontstage;
   }
 };
+
+(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync(`
+    #border-test {
+      --border-top-color: yellow;
+      border-top: 5px solid var(--border-top-color);
+      border-right: 5px solid green;
+    }
+  `);
+  document.adoptedStyleSheets.push(sheet);
+})();
