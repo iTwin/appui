@@ -222,6 +222,8 @@ Table of contents:
 - Fixed icon alignment and warning status color of notification manager in `MessageCenterField` component. [#901](https://github.com/iTwin/appui/pull/901)
 - Fixed the unintentional "flying-in" of floating elements like Tooltips and ComboBox menus when the page first loads. [#905](https://github.com/iTwin/appui/pull/905)
 - Fixed `ToolAssistanceField` icon size. [#937](https://github.com/iTwin/appui/pull/937)
+- Fixed an issue where styles of complex shorthand properties were not copied correctly to a
+  popout window. [#940](https://github.com/iTwin/appui/pull/940)
 
 ## @itwin/components-react
 
