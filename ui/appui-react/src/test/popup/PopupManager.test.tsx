@@ -27,7 +27,7 @@ import {
   PopupRenderer,
 } from "../../appui-react/popup/PopupManager";
 import type { CursorMenuItemProps } from "../../appui-react/shared/MenuItem";
-import TestUtils, { storageMock } from "../TestUtils";
+import TestUtils, { storageMock, userEvent } from "../TestUtils";
 import { act, fireEvent, render, waitFor } from "@testing-library/react";
 import { Button } from "@itwin/itwinui-react";
 import type { KeyinEntry } from "../../appui-react/keyins/Keyins";
@@ -692,6 +692,8 @@ describe("PopupManager", () => {
 
       let inputNode = wrapper.container.querySelector("input");
       expect(inputNode).toBeTruthy();
+
+      await userEvent.type(inputNode!, "test");
 
       fireEvent.keyDown(inputNode as HTMLElement, { key: "Enter" });
       await TestUtils.flushAsyncOperations();
