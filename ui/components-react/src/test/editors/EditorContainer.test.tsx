@@ -199,7 +199,6 @@ describe("<EditorContainer />", () => {
         title="abc"
         onCommit={spyOnCommit}
         onCancel={() => {}}
-        ignoreEditorBlur={true}
       />
     );
 
