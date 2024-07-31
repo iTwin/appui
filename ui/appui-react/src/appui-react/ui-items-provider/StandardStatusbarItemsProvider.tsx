@@ -12,7 +12,7 @@ import type { StatusBarItem } from "../statusbar/StatusBarItem";
 import { UiItemsManager } from "./UiItemsManager";
 import { BaseUiItemsProvider } from "./BaseUiItemsProvider";
 
-/** Provide standard statusbar fields.
+/** Provide standard status bar fields.
  * @public
  */
 export class StandardStatusbarItemsProvider extends BaseUiItemsProvider {
