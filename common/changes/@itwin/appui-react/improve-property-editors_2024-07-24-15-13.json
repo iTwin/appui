@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Updated `ToolSettingsPopup` to not rely on event propagation for cancellation.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}

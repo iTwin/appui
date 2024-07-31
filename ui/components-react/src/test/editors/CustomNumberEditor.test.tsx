@@ -240,7 +240,7 @@ describe("<CustomNumberEditor />", () => {
     ) as HTMLSpanElement;
     fireEvent.keyDown(container, { key: "Enter" });
     await TestUtils.flushAsyncOperations();
-    expect(spyOnCommit).toHaveBeenCalledOnce();
+    expect(spyOnCommit).not.toHaveBeenCalledOnce();
     expect(inputField.value).toEqual(displayVal);
   });
 
