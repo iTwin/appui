@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Fix standard content tools throwing uncaught exception with transient elements.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}

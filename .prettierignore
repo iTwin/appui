@@ -2,6 +2,7 @@
 lib
 build
 coverage
+dist
 
 # rush specific
 .rush

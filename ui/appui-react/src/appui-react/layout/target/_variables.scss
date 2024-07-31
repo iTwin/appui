@@ -23,6 +23,8 @@ $nz-widget-target-border-size: 2px;
   pointer-events: all;
   display: flex;
   box-shadow: var(--iui-shadow-3);
+  animation: nz-grow var(--iui-duration-1) ease-in-out,
+    nz-pulse 3s ease-in-out 2s infinite;
 
   @include uicore-z-index(drop-target);
 
@@ -51,9 +53,6 @@ $nz-widget-target-border-size: 2px;
       }
     }
   }
-
-  animation: nz-grow var(--iui-duration-1) ease-in-out,
-    nz-pulse 3s ease-in-out 2s infinite;
 }
 
 @mixin nz-targeted-widget-target {
