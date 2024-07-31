@@ -23,8 +23,8 @@ export function copyStyles(
     // Adopted stylesheet have no ownerNode and can't be shared between multiple documents.
     if (!targetDoc.defaultView) return;
     const newStyleSheet = new targetDoc.defaultView.CSSStyleSheet();
-    Array.from(styleSheet.cssRules).forEach((rule) => {
-      newStyleSheet.insertRule(rule.cssText);
+    Array.from(styleSheet.cssRules).forEach((rule, index) => {
+      newStyleSheet.insertRule(rule.cssText, index);
     });
     targetDoc.adoptedStyleSheets.push(newStyleSheet);
   });
