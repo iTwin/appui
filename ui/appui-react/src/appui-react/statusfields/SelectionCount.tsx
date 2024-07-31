@@ -6,12 +6,13 @@
  * @module StatusBar
  */
 
+import * as React from "react";
 import type { IModelConnection } from "@itwin/core-frontend";
 import type { CommonProps } from "@itwin/core-react";
 import { Icon } from "@itwin/core-react";
 import { SvgCursor } from "@itwin/itwinui-icons-react";
 import classnames from "classnames";
-import * as React from "react";
+import { StatusBarCornerComponentContext } from "../statusbar/StatusBarCornerComponentContext";
 import "./SelectionCount.scss";
 
 /** Properties for the [[SelectionCountField]] component.
@@ -27,8 +28,11 @@ export interface SelectionCountFieldProps extends CommonProps {
  * @beta
  */
 export function SelectionCountField(props: SelectionCountFieldProps) {
+  const cornerContext = React.useContext(StatusBarCornerComponentContext);
   const className = classnames(
     "uifw-statusFields-selectionCount",
+    cornerContext === "left-corner" && "left-statusBar-corner",
+    cornerContext === "right-corner" && "right-statusBar-corner",
     props.className
   );
   return (

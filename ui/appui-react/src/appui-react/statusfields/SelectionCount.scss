@@ -12,16 +12,12 @@
   .icon {
     color: var(--iui-color-icon);
   }
-}
 
-.uifw-statusBar-right
-  .uifw-statusBar-item-container:last-child
-  .uifw-statusFields-selectionCount {
-  margin-right: var(--iui-size-m);
-}
+  &.left-statusBar-corner {
+    margin-left: var(--iui-size-m);
+  }
 
-.uifw-statusBar-left
-  .uifw-statusBar-item-container:first-child
-  .uifw-statusFields-selectionCount {
-  margin-left: var(--iui-size-m);
+  &.right-statusBar-corner {
+    margin-right: var(--iui-size-m);
+  }
 }

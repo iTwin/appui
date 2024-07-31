@@ -39,6 +39,7 @@ import {
 import { StatusBarItemsManager } from "./StatusBarItemsManager";
 import { useDefaultStatusBarItems } from "./useDefaultStatusBarItems";
 import { useUiItemsProviderStatusBarItems } from "./useUiItemsProviderStatusBarItems";
+import { StatusBarCornerComponentContext } from "./StatusBarCornerComponentContext";
 
 /** Private  function to generate a value that will allow the proper order to be maintained when items are placed in overflow panel */
 function getCombinedSectionItemPriority(item: StatusBarItem) {
@@ -541,14 +542,80 @@ export function StatusBarComposer(props: StatusBarComposerProps) {
     >
       <StatusBarSpaceBetween className={mainClassName}>
         <StatusBarLeftSection className={leftClassName}>
-          {leftItems}
+          {leftItems.map((item, index) => (
+            <StatusBarCornerComponentContext.Provider
+              value={
+                index === 0
+                  ? "left-corner"
+                  : index === leftItems.length - 1 &&
+                    centerItems.length === 0 &&
+                    contextItems.length === 0 &&
+                    rightItems.length === 0 &&
+                    overflown?.length === 0
+                  ? "right-corner"
+                  : undefined
+              }
+              key={index}
+            >
+              {item}
+            </StatusBarCornerComponentContext.Provider>
+          ))}
         </StatusBarLeftSection>
         <StatusBarCenterSection className={centerClassName}>
-          {centerItems}
-          {contextItems}
+          {centerItems.map((item, index) => (
+            <StatusBarCornerComponentContext.Provider
+              value={
+                index === 0 && leftItems.length === 0
+                  ? "left-corner"
+                  : index === centerItems.length - 1 &&
+                    contextItems.length === 0 &&
+                    rightItems.length === 0 &&
+                    overflown?.length === 0
+                  ? "right-corner"
+                  : undefined
+              }
+              key={index}
+            >
+              {item}
+            </StatusBarCornerComponentContext.Provider>
+          ))}
+          {contextItems.map((item, index) => (
+            <StatusBarCornerComponentContext.Provider
+              value={
+                index === 0 &&
+                leftItems.length === 0 &&
+                centerItems.length === 0
+                  ? "left-corner"
+                  : index === contextItems.length - 1 &&
+                    rightItems.length === 0 &&
+                    overflown?.length === 0
+                  ? "right-corner"
+                  : undefined
+              }
+              key={index}
+            >
+              {item}
+            </StatusBarCornerComponentContext.Provider>
+          ))}
         </StatusBarCenterSection>
         <StatusBarRightSection className={rightClassName}>
-          {rightItems}
+          {rightItems.map((item, index) => (
+            <StatusBarCornerComponentContext.Provider
+              value={
+                index === rightItems.length - 1 && overflown?.length === 0
+                  ? "right-corner"
+                  : index === 0 &&
+                    leftItems.length === 0 &&
+                    centerItems.length === 0 &&
+                    contextItems.length === 0
+                  ? "left-corner"
+                  : undefined
+              }
+              key={index}
+            >
+              {item}
+            </StatusBarCornerComponentContext.Provider>
+          ))}
           {(!overflown || overflown.length > 0) && (
             <StatusBarOverflow
               onResize={handleOverflowResize}
