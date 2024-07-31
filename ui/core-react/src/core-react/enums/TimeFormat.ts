@@ -8,6 +8,7 @@
 
 /** Enumeration of time formats.
  * @public
+ * @deprecated in 4.16.0. Use {@link @itwin/components-react#TimeFormat} instead.
  */
 export enum TimeFormat {
   /** Show Date and time using toISOString */

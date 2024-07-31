@@ -48,6 +48,7 @@ export class InternalBackstageManager {
   }
 
   /** Get CommandItemDef that will toggle display of Backstage and allow iconSpec to be overridden */
+  // eslint-disable-next-line deprecation/deprecation
   public getBackstageToggleCommand(overrideIconSpec?: IconSpec) {
     // eslint-disable-next-line deprecation/deprecation
     return new CommandItemDef({

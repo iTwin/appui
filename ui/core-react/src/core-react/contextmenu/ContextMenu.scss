@@ -24,17 +24,16 @@ $uicore-menu-top-bottom-padding: calc(#{$uicore-menu-padding} * 0.6667);
 
 .core-context-menu {
   color: var(--iui-color-text);
-
-  &:hover {
-    color: var(--iui-color-text-hover);
-    cursor: auto;
-  }
-
   width: 0px;
   height: 0px;
   position: relative;
 
   @include uicore-z-index(context-menu-z);
+
+  &:hover {
+    color: var(--iui-color-text-hover);
+    cursor: auto;
+  }
 
   .core-context-menu-container {
     position: absolute;

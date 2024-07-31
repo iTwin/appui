@@ -5,9 +5,11 @@
 /** @packageDocumentation
  * @module ContextMenu
  */
+import type { ContextMenu } from "./ContextMenu";
 
 /** Enum to specify where a [[ContextMenu]] should anchor to its parent element
  * @public
+ * @deprecated in 4.16.0. Enum used in a deprecated {@link ContextMenu} component.
  */
 export enum ContextMenuDirection {
   None = "",

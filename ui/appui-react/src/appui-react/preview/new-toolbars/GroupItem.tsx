@@ -16,7 +16,7 @@ import {
   isToolbarGroupItem,
   type ToolbarGroupItem,
 } from "../../toolbar/ToolbarItem";
-import { useConditionalValue } from "../../hooks/useConditionalValue";
+import { useConditionalProp } from "../../hooks/useConditionalProp";
 import { ExpandIndicator } from "./ExpandIndicator";
 import { Item } from "./Item";
 import { Badge } from "./Badge";
@@ -71,20 +71,27 @@ interface GroupMenuItemProps {
 
 /** @internal */
 export function GroupMenuItem({ item, onClose }: GroupMenuItemProps) {
-  const iconSpec = useConditionalValue(item.icon);
-  const label = useConditionalValue(item.label);
-  const isDisabled = useConditionalValue(item.isDisabled);
-  const isHidden = useConditionalValue(item.isHidden);
-  const isActive = useConditionalValue(item.isActive);
+  // eslint-disable-next-line deprecation/deprecation
+  const iconSpec = useConditionalProp(item.icon);
+  const label = useConditionalProp(item.label);
+  const isDisabled = useConditionalProp(item.isDisabled);
+  const isHidden = useConditionalProp(item.isHidden);
+  const isActive = useConditionalProp(item.isActive);
 
   if (isHidden) {
     return null;
   }
 
   const subMenuItems = isDisabled ? undefined : toMenuItems(item, onClose);
+  const startIcon = item.iconNode ? (
+    <>{item.iconNode}</>
+  ) : (
+    // eslint-disable-next-line deprecation/deprecation
+    <Icon iconSpec={iconSpec} />
+  );
   return (
     <MenuItem
-      startIcon={<Icon iconSpec={iconSpec} />}
+      startIcon={startIcon}
       disabled={isDisabled}
       subMenuItems={subMenuItems}
       onClick={() => {

@@ -29,14 +29,12 @@ export class CustomStageUiItemsProvider implements UiItemsProvider {
 
   public provideBackstageItems(): BackstageItem[] {
     return [
-      BackstageItemUtilities.createStageLauncher(
-        "example:CustomFrontstage",
-        300,
-        2,
-        "Custom Frontstage",
-        undefined,
-        undefined
-      ),
+      BackstageItemUtilities.createStageLauncher({
+        stageId: "example:CustomFrontstage",
+        groupPriority: 300,
+        itemPriority: 2,
+        label: "Custom Frontstage",
+      }),
     ];
   }
 }

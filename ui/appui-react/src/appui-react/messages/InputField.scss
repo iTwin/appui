@@ -7,7 +7,7 @@
 
 .uifw-popup-message-inputField {
   background-color: $buic-background-control;
-  padding: 3px 3px 3px 6px;
+  padding: 6px;
   border-radius: var(--iui-border-radius-1);
   color: var(--iui-color-text);
   margin: 0px;
@@ -26,11 +26,9 @@
       align-items: center;
       display: flex;
       flex-direction: row;
+      gap: 6px;
 
       > .uifw-popup-message-icon {
-        padding-left: 3px;
-        padding-right: 3px;
-
         .icon-status-warning {
           color: var(--iui-color-text-warning);
         }
@@ -46,8 +44,6 @@
 
       .uifw-popup-message-text {
         color: var(--iui-color-text);
-        padding-left: 3px;
-        padding-right: 3px;
 
         .uifw-popup-message-brief {
           @include uicore-text(body);

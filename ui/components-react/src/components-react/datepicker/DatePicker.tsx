@@ -12,7 +12,7 @@ import { Key } from "ts-key-enum";
 import { Icon } from "@itwin/core-react";
 import { SvgChevronLeft, SvgChevronRight } from "@itwin/itwinui-icons-react";
 import "./DatePicker.scss";
-import { useTranslation } from "../useTranslation";
+import { useTranslation } from "../l10n/useTranslation";
 
 function isSameDay(a: Date, b: Date) {
   return (
@@ -232,6 +232,7 @@ export function DatePicker(props: DatePickerProps) {
           title={previousMonthLabel}
           onClick={handleMoveToPreviousMonth}
         >
+          {/* eslint-disable-next-line deprecation/deprecation */}
           <Icon iconSpec={<SvgChevronLeft />} />
         </button>
         <span className="components-month-year">
@@ -242,6 +243,7 @@ export function DatePicker(props: DatePickerProps) {
           title={nextMonthLabel}
           onClick={handleMoveToNextMonth}
         >
+          {/* eslint-disable-next-line deprecation/deprecation */}
           <Icon iconSpec={<SvgChevronRight />} />
         </button>
       </div>

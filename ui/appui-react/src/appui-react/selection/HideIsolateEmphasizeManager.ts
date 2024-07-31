@@ -6,7 +6,7 @@
  * @module Tools
  */
 
-import { BeEvent } from "@itwin/core-bentley";
+import { BeEvent, Id64 } from "@itwin/core-bentley";
 import type { GeometricElementProps } from "@itwin/core-common";
 import { FeatureAppearance } from "@itwin/core-common";
 import type {
@@ -330,8 +330,20 @@ export class HideIsolateEmphasizeManager extends HideIsolateEmphasizeActionHandl
     vp.changeCategoryDisplay(ids, true);
   }
 
+  private static async getSelectionSetElementProps(iModel: IModelConnection) {
+    const persistentElementIds = new Set<string>();
+    // Filter out transient elements because they do not exist in the iModel.
+    iModel.selectionSet.elements.forEach((elementId) => {
+      if (!Id64.isTransient(elementId)) persistentElementIds.add(elementId);
+    });
+
+    return iModel.elements.getProps(persistentElementIds);
+  }
+
   private static async getSelectionSetElementModels(iModel: IModelConnection) {
-    const props = await iModel.elements.getProps(iModel.selectionSet.elements);
+    const props = await HideIsolateEmphasizeManager.getSelectionSetElementProps(
+      iModel
+    );
     const modelIds = new Set<string>();
     for (const prop of props) if (prop.model) modelIds.add(prop.model);
     return modelIds;
@@ -340,9 +352,10 @@ export class HideIsolateEmphasizeManager extends HideIsolateEmphasizeActionHandl
   private static async getSelectionSetElementCategories(
     iModel: IModelConnection
   ) {
-    const props = (await iModel.elements.getProps(
-      iModel.selectionSet.elements
-    )) as GeometricElementProps[];
+    const props =
+      (await HideIsolateEmphasizeManager.getSelectionSetElementProps(
+        iModel
+      )) as GeometricElementProps[];
     const categoryIds = new Set<string>();
     for (const prop of props) if (prop.category) categoryIds.add(prop.category);
     return categoryIds;

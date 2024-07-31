@@ -7,19 +7,19 @@
  */
 
 import * as React from "react";
+import type { DialogButtonDef } from "@itwin/appui-abstract";
+import { DialogButtonType, MessageSeverity } from "@itwin/appui-abstract";
+import { useTranslation } from "@itwin/components-react";
 import {
   MessageBoxIconType,
   MessageBoxType,
   MessageBoxValue,
 } from "@itwin/core-frontend";
-import type { DialogButtonDef } from "@itwin/appui-abstract";
-import { DialogButtonType, MessageSeverity } from "@itwin/appui-abstract";
 import type { CommonProps } from "@itwin/core-react";
 import { MessageContainer } from "@itwin/core-react";
+import { Button, Dialog } from "@itwin/itwinui-react";
 import { DialogManagerBase } from "./DialogManagerBase";
 import { UiFramework } from "../UiFramework";
-import { Button, Dialog } from "@itwin/itwinui-react";
-import { useTranslation } from "@itwin/components-react";
 
 /** Properties for [[StandardMessageBox]] React component
  * @public

@@ -22,6 +22,8 @@ public;CategorizedPropertyItem
 public;CategorizedPropertyTypes = FlatGridItemType.Array | FlatGridItemType.Primitive | FlatGridItemType.Struct
 public;CategoryRecordsDict
 public;CheckBoxInfo
+public;CheckBoxState = CheckBoxState_2
+public;CheckBoxState: typeof CheckBoxState_2
 public;CheckboxStateChange
 internal;Columns(props: ColumnsProps): React_3.JSX.Element
 internal;ColumnsProps 
@@ -164,6 +166,7 @@ public;LoadedBinaryImage
 public;LoadedImage
 public;LoadedNodeHierarchy
 public;LoadedNodeHierarchyItem
+alpha;LocalizationProvider(props: React_3.ComponentProps
 public;MergedPropertyValueRenderer 
 internal;MultilineTextPropertyValueRenderer 
 internal;MultilineTextRenderer: React_3.FC
@@ -197,6 +200,8 @@ public;OnItemsDeselectedCallback
 public;OnItemsSelectedCallback
 public;OnSelectionChanged = (shiftDown?: boolean, ctrlDown?: boolean) => void
 public;OperatorProcessor
+public;Orientation = Orientation_2
+public;Orientation: typeof Orientation_2
 alpha;OrthogonalDirection
 internal;OrthogonalDirectionHelpers
 public;PagedTreeNodeLoader
@@ -330,6 +335,8 @@ public;TextareaPropertyEditor
 public;TextEditor 
 internal;TimeField({ time, timeDisplay, readOnly, onTimeChange, }: TimeFieldProps): React_3.JSX.Element
 internal;TimeFieldProps
+public;TimeFormat = TimeFormat_2
+public;TimeFormat: typeof TimeFormat_2
 internal;TimeSpec
 internal;Title(props: TitleProps): React_3.JSX.Element
 internal;TitleProps 

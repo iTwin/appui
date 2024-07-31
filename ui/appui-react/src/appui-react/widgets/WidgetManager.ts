@@ -25,13 +25,6 @@ export interface WidgetInfo {
   section: StagePanelSection;
 }
 
-/** Arguments of [[this.onWidgetsChanged]] event.
- * @internal
- */
-export interface WidgetsChangedEventArgs {
-  readonly items: ReadonlyArray<WidgetInfo>;
-}
-
 function getWidgetManagerStableWidgetId(
   stageUsage: string | undefined,
   location: StagePanelLocation,
@@ -52,7 +45,9 @@ export class WidgetManager {
   /** Event raised when Widgets are changed.
    * @internal
    */
-  public readonly onWidgetsChanged = new BeUiEvent<WidgetsChangedEventArgs>();
+  public readonly onWidgetsChanged = new BeUiEvent<{
+    readonly items: ReadonlyArray<WidgetInfo>;
+  }>();
 
   /** @internal */
   public get widgetCount(): number {

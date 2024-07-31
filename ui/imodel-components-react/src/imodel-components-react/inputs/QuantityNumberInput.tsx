@@ -11,10 +11,7 @@ import classnames from "classnames";
 import * as React from "react";
 import { Key } from "ts-key-enum";
 import { Icon } from "@itwin/core-react";
-import type {
-  QuantityFormatsChangedArgs,
-  QuantityTypeArg,
-} from "@itwin/core-frontend";
+import type { QuantityTypeArg } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
 import type {
   ParserSpec,
@@ -171,36 +168,8 @@ const ForwardRefQuantityNumberInput = React.forwardRef<
   );
 
   React.useEffect(() => {
-    const handleUnitSystemChanged = (): void => {
-      setFormatterSpec(
-        adjustFormatterSpec(
-          IModelApp.quantityFormatter.findFormatterSpecByQuantityType(
-            quantityType
-          )
-        )
-      );
-      setParserSpec(
-        IModelApp.quantityFormatter.findParserSpecByQuantityType(quantityType)
-      );
-    };
-
-    IModelApp.quantityFormatter.onActiveFormattingUnitSystemChanged.addListener(
-      handleUnitSystemChanged
-    );
-    return () => {
-      IModelApp.quantityFormatter.onActiveFormattingUnitSystemChanged.removeListener(
-        handleUnitSystemChanged
-      );
-    };
-  }, [quantityType]);
-
-  React.useEffect(() => {
-    const handleUnitSystemChanged = (
-      args: QuantityFormatsChangedArgs
-    ): void => {
-      const quantityKey =
-        IModelApp.quantityFormatter.getQuantityTypeKey(quantityType);
-      if (args.quantityType === quantityKey) {
+    return IModelApp.quantityFormatter.onActiveFormattingUnitSystemChanged.addListener(
+      () => {
         setFormatterSpec(
           adjustFormatterSpec(
             IModelApp.quantityFormatter.findFormatterSpecByQuantityType(
@@ -212,16 +181,30 @@ const ForwardRefQuantityNumberInput = React.forwardRef<
           IModelApp.quantityFormatter.findParserSpecByQuantityType(quantityType)
         );
       }
-    };
-
-    IModelApp.quantityFormatter.onQuantityFormatsChanged.addListener(
-      handleUnitSystemChanged
     );
-    return () => {
-      IModelApp.quantityFormatter.onQuantityFormatsChanged.removeListener(
-        handleUnitSystemChanged
-      );
-    };
+  }, [quantityType]);
+
+  React.useEffect(() => {
+    return IModelApp.quantityFormatter.onQuantityFormatsChanged.addListener(
+      (args) => {
+        const quantityKey =
+          IModelApp.quantityFormatter.getQuantityTypeKey(quantityType);
+        if (args.quantityType === quantityKey) {
+          setFormatterSpec(
+            adjustFormatterSpec(
+              IModelApp.quantityFormatter.findFormatterSpecByQuantityType(
+                quantityType
+              )
+            )
+          );
+          setParserSpec(
+            IModelApp.quantityFormatter.findParserSpecByQuantityType(
+              quantityType
+            )
+          );
+        }
+      }
+    );
   }, [quantityType]);
 
   const unitLabel = getUnitLabel(parserSpec);
@@ -449,6 +432,7 @@ const ForwardRefQuantityNumberInput = React.forwardRef<
             tabIndex={-1}
             onClick={handleUpClick}
           >
+            {/* eslint-disable-next-line deprecation/deprecation */}
             <Icon iconSpec={caretUp} />
           </div>
           {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
@@ -457,6 +441,7 @@ const ForwardRefQuantityNumberInput = React.forwardRef<
             tabIndex={-1}
             onClick={handleDownClick}
           >
+            {/* eslint-disable-next-line deprecation/deprecation */}
             <Icon iconSpec={caretDown} />
           </div>
         </div>

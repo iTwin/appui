@@ -27,10 +27,9 @@ import type {
   ViewState,
 } from "@itwin/core-frontend";
 import { IModelApp, ScreenViewport } from "@itwin/core-frontend";
-import type { CommonProps } from "@itwin/core-react";
+import type { CommonProps, ListenerType } from "@itwin/core-react";
 import { Icon } from "@itwin/core-react";
 import { UiIModelComponents } from "../UiIModelComponents";
-import type { ViewRotationChangeEventArgs } from "../viewport/ViewportComponentEvents";
 import { ViewportComponentEvents } from "../viewport/ViewportComponentEvents";
 import {
   SvgAdd,
@@ -318,6 +317,7 @@ export class DrawingNavigationAid extends React.Component<
               onClick={this._toggleRotationMode}
               role="presentation"
             >
+              {/* eslint-disable-next-line deprecation/deprecation */}
               <Icon iconSpec={<SvgRotateLeft />} />
             </div>
           )}
@@ -343,6 +343,7 @@ export class DrawingNavigationAid extends React.Component<
                 tabIndex={-1}
               >
                 <div className="close-icon icon">
+                  {/* eslint-disable-next-line deprecation/deprecation */}
                   <Icon iconSpec={<SvgSortUp />} />
                 </div>
               </div>
@@ -354,6 +355,7 @@ export class DrawingNavigationAid extends React.Component<
                   role="button"
                   tabIndex={-1}
                 >
+                  {/* eslint-disable-next-line deprecation/deprecation */}
                   <Icon iconSpec={<SvgAdd />} />
                 </div>
                 <div
@@ -363,6 +365,7 @@ export class DrawingNavigationAid extends React.Component<
                   role="button"
                   tabIndex={-1}
                 >
+                  {/* eslint-disable-next-line deprecation/deprecation */}
                   <Icon iconSpec={<SvgRemove />} />
                 </div>
               </div>
@@ -504,9 +507,9 @@ export class DrawingNavigationAid extends React.Component<
   }
 
   // Synchronize with rotation coming from the Viewport
-  private _handleViewRotationChangeEvent = (
-    args: ViewRotationChangeEventArgs // eslint-disable-line deprecation/deprecation
-  ) => {
+  private _handleViewRotationChangeEvent: ListenerType<
+    typeof ViewportComponentEvents.onViewRotationChangeEvent
+  > = (args) => {
     if (
       !this.state.isMoving &&
       !this.state.isPanning &&

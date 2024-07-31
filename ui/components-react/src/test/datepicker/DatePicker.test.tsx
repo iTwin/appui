@@ -9,8 +9,6 @@ import { Key } from "ts-key-enum";
 import { DatePicker } from "../../components-react";
 import { adjustDateToTimezone } from "../../components-react/common/DateUtils";
 
-/* eslint-disable deprecation/deprecation */
-
 describe("<DatePicker />", () => {
   const testDate = new Date("July 22, 2018 07:22:13 -0400");
 

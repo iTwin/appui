@@ -12,6 +12,7 @@ import type { BeUiEvent } from "@itwin/core-bentley";
 import { Logger } from "@itwin/core-bentley";
 import { UiEvent } from "@itwin/appui-abstract";
 import { UiFramework } from "../UiFramework";
+import type { ListenerType } from "@itwin/core-react";
 import { getCssVariableAsNumber } from "@itwin/core-react";
 import { ThemeProvider } from "@itwin/itwinui-react";
 
@@ -233,8 +234,9 @@ export class DialogRendererBase extends React.PureComponent<
     );
   }
 
-  // eslint-disable-next-line deprecation/deprecation
-  private _handleDialogChangedEvent = (_args: DialogChangedEventArgs) => {
+  private _handleDialogChangedEvent: ListenerType<
+    DialogManagerBase["onDialogChangedEvent"]
+  > = () => {
     this.forceUpdate();
   };
 }

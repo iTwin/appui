@@ -6,14 +6,14 @@
  * @module Utilities
  */
 
-import type { UiStateStorage } from "@itwin/core-react";
-import { UiStateStorageStatus } from "@itwin/core-react";
 import {
   SyncUiEventDispatcher,
   SyncUiEventId,
 } from "../syncui/SyncUiEventDispatcher";
 import type { UserSettingsProvider } from "../UiFramework";
 import { UiFramework } from "../UiFramework";
+import type { UiStateStorage } from "../uistate/UiStateStorage";
+import { UiStateStorageStatus } from "../uistate/UiStateStorage";
 
 /** Class that maintain UiShowHide user settings between sessions
  * @internal

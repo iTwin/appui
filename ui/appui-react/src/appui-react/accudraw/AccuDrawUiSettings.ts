@@ -57,14 +57,39 @@ export interface AccuDrawUiSettings {
   /** Distance field label */
   distanceLabel?: string;
 
-  /** X field icon */
+  /** X field icon.
+   * @deprecated in 4.16.0. Use {@link AccuDrawUiSettings.xIconNode} instead.
+   */
+  // eslint-disable-next-line deprecation/deprecation
   xIcon?: IconSpec;
-  /** Y field icon */
+  /** X field icon. */
+  xIconNode?: React.ReactNode;
+  /** Y field icon.
+   * @deprecated in 4.16.0. Use {@link AccuDrawUiSettings.yIconNode} instead.
+   */
+  // eslint-disable-next-line deprecation/deprecation
   yIcon?: IconSpec;
-  /** Z field icon */
+  /** Y field icon. */
+  yIconNode?: React.ReactNode;
+  /** Z field icon.
+   * @deprecated in 4.16.0. Use {@link AccuDrawUiSettings.zIconNode} instead.
+   */
+  // eslint-disable-next-line deprecation/deprecation
   zIcon?: IconSpec;
-  /** Angle field icon */
+  /** Z field icon. */
+  zIconNode?: React.ReactNode;
+  /** Angle field icon.
+   * @deprecated in 4.16.0. Use {@link AccuDrawUiSettings.angleIconNode} instead.
+   */
+  // eslint-disable-next-line deprecation/deprecation
   angleIcon?: IconSpec;
-  /** Distance field icon */
+  /** Angle field icon. */
+  angleIconNode?: React.ReactNode;
+  /** Distance field icon.
+   * @deprecated in 4.16.0. Use {@link AccuDrawUiSettings.distanceIconNode} instead.
+   */
+  // eslint-disable-next-line deprecation/deprecation
   distanceIcon?: IconSpec;
+  /** Distance field icon. */
+  distanceIconNode?: React.ReactNode;
 }

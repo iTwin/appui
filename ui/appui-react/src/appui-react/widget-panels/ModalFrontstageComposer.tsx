@@ -6,10 +6,7 @@
  * @module Frontstage
  */
 import * as React from "react";
-import type {
-  ModalFrontstageChangedEventArgs,
-  ModalFrontstageInfo,
-} from "../framework/FrameworkFrontstages";
+import type { ModalFrontstageInfo } from "../framework/FrameworkFrontstages";
 import { ModalFrontstage } from "../frontstage/ModalFrontstage";
 import { UiFramework } from "../UiFramework";
 
@@ -18,23 +15,15 @@ export function useActiveModalFrontstageInfo() {
   const [activeModalFrontstageInfo, setActiveModalFrontstageInfo] =
     React.useState(UiFramework.frontstages.activeModalFrontstage);
   React.useEffect(() => {
-    const handleModalFrontstageChangedEvent = (
-      args: ModalFrontstageChangedEventArgs // eslint-disable-line deprecation/deprecation
-    ) => {
-      setActiveModalFrontstageInfo(
-        args.modalFrontstageCount === 0
-          ? undefined
-          : UiFramework.frontstages.activeModalFrontstage
-      );
-    };
-    UiFramework.frontstages.onModalFrontstageChangedEvent.addListener(
-      handleModalFrontstageChangedEvent
+    return UiFramework.frontstages.onModalFrontstageChangedEvent.addListener(
+      (args) => {
+        setActiveModalFrontstageInfo(
+          args.modalFrontstageCount === 0
+            ? undefined
+            : UiFramework.frontstages.activeModalFrontstage
+        );
+      }
     );
-    return () => {
-      UiFramework.frontstages.onModalFrontstageChangedEvent.removeListener(
-        handleModalFrontstageChangedEvent
-      );
-    };
   }, [setActiveModalFrontstageInfo]);
   return activeModalFrontstageInfo;
 }

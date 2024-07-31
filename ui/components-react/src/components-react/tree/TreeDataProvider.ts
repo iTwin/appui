@@ -7,9 +7,9 @@
  */
 
 import type { PropertyRecord } from "@itwin/appui-abstract";
-import type { CheckBoxState } from "@itwin/core-react";
 import type { PageOptions } from "../common/PageOptions";
 import type { ItemStyle } from "../properties/ItemStyle";
+import type { CheckBoxState } from "../common/CheckBoxState";
 
 /**
  * A node item which can be displayed in a tree.

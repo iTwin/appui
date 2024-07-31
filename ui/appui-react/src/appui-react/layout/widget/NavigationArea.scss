@@ -8,12 +8,6 @@
 .nz-widget-navigationArea {
   transition: visibility var(--iui-duration-2) ease,
     opacity var(--iui-duration-2) ease;
-
-  &.nz-hidden {
-    opacity: 0;
-    visibility: hidden;
-  }
-
   display: grid;
   box-sizing: border-box;
   height: 100%;
@@ -23,11 +17,17 @@
   justify-items: end;
   grid-template-areas: "htools button" ". vtools";
 
+  &.nz-hidden {
+    opacity: 0;
+    visibility: hidden;
+  }
+
   > .nz-navigation-aid-container {
     margin-bottom: 6px;
     pointer-events: auto;
-    @include nz-widget-opacity;
     grid-area: button;
+
+    @include nz-widget-opacity;
   }
 
   > .nz-vertical-toolbar-container {
@@ -47,11 +47,11 @@
     justify-content: flex-end;
     min-width: 0;
 
+    @include nz-widget-opacity;
+
     > .components-toolbar-overflow-sizer {
       display: flex;
       justify-content: flex-end;
     }
-
-    @include nz-widget-opacity;
   }
 }

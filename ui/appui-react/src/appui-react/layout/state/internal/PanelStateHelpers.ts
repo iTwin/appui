@@ -7,7 +7,6 @@
  */
 
 import { UiError } from "@itwin/appui-abstract";
-import type { SizeProps } from "@itwin/core-react";
 import produce from "immer";
 import type { WritableDraft } from "immer/dist/types/types-external";
 import { isHorizontalPanelSide } from "../../widget-panels/Panel";
@@ -26,6 +25,7 @@ import type { WidgetState } from "../WidgetState";
 import { category } from "./NineZoneStateHelpers";
 import { addWidgetState } from "./WidgetStateHelpers";
 import type { StagePanelSizeSpec } from "../../../stagepanels/StagePanelConfig";
+import type { SizeProps } from "../../../utils/SizeProps";
 
 function createPanelState(side: PanelSide) {
   return {

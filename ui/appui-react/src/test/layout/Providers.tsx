@@ -12,6 +12,8 @@ import { createLayoutStore } from "../../appui-react/layout/base/LayoutStore";
 import type { NineZoneProviderProps } from "../../appui-react/layout/base/NineZone";
 import { NineZoneProvider } from "../../appui-react/layout/base/NineZone";
 import type { NineZoneState } from "../../appui-react/layout/state/NineZoneState";
+import { TabIdContext } from "../../appui-react/layout/widget/ContentRenderer";
+import { WidgetTab } from "../../appui-react/layout/widget/Tab";
 
 type PartialBy<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
 
@@ -33,6 +35,7 @@ export function TestNineZoneProvider(props: TestNineZoneProviderProps) {
       layout={layout}
       dispatch={dispatch}
       measure={measure}
+      tab={<TestTab />}
       {...otherProps}
     >
       <ContextConsumer
@@ -42,6 +45,11 @@ export function TestNineZoneProvider(props: TestNineZoneProviderProps) {
       {children}
     </NineZoneProvider>
   );
+}
+
+function TestTab() {
+  const tabId = React.useContext(TabIdContext);
+  return <WidgetTab icon={<>{tabId} icon</>} />;
 }
 
 /** @internal */

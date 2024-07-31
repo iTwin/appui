@@ -3,8 +3,9 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { Orientation, UiGeometry } from "@itwin/core-react";
+import { UiGeometry } from "@itwin/core-react";
 import type { PropertyListProps } from "./PropertyList";
+import { Orientation } from "../../common/Orientation";
 
 const BORDER_WIDTH = 10;
 const PROPERTY_PADDING = 16;

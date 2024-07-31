@@ -23,6 +23,7 @@ import { IModelApp } from "@itwin/core-frontend";
 
 /** A set of helper methods for various props
  * @public
+ * @deprecated in 4.16.0. Used internally.
  */
 export class PropsHelper {
   /** Get spec for returning a string. Could be a simple string of a 'StringGetter' method used to return the string. */
@@ -51,13 +52,15 @@ export class PropsHelper {
     return label;
   }
 
-  /** Get JSX element that defines an icon. If iconSpec is a string, then a web-font icon class is used otherwise a ReactNode holding an SVG icon is assumed.  */
+  /** Get JSX element that defines an icon. If iconSpec is a string, then a web-font icon class is used otherwise a ReactNode holding an SVG icon is assumed. */
   public static getIcon(
     iconSpec: string | ConditionalStringValue | React.ReactNode
   ): React.ReactElement | undefined {
     if (iconSpec instanceof ConditionalStringValue)
+      // eslint-disable-next-line deprecation/deprecation
       return <Icon iconSpec={iconSpec.value} />;
 
+    // eslint-disable-next-line deprecation/deprecation
     return iconSpec ? <Icon iconSpec={iconSpec} /> : undefined;
   }
 
@@ -71,6 +74,7 @@ export class PropsHelper {
 
   /** @deprecated in 4.0 These abstract props types are obsolete. */
   public static getAbstractPropsForReactIcon(
+    // eslint-disable-next-line deprecation/deprecation
     iconSpec: IconSpec,
     internalData?: Map<string, any>
     // eslint-disable-next-line deprecation/deprecation

@@ -8,7 +8,6 @@
 import * as React from "react";
 import { isEqual } from "lodash";
 import { BeEvent } from "@itwin/core-bentley";
-import type { SizeProps } from "@itwin/core-react";
 import { Point } from "@itwin/core-react";
 import type { PanelSide } from "../widget-panels/PanelTypes";
 import type { FloatingWidgetResizeHandle } from "../widget/FloatingWidget";
@@ -27,6 +26,7 @@ import {
   isTabDragDropTargetState,
   isWidgetDragDropTargetState,
 } from "../state/DropTargetState";
+import type { SizeProps } from "../../utils/SizeProps";
 
 /** @internal */
 export interface DragStartArgs {

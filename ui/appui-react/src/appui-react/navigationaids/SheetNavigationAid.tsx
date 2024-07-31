@@ -15,15 +15,13 @@ import type {
   SelectedViewportChangedArgs,
 } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
-import type { ViewIdChangedEventArgs } from "@itwin/imodel-components-react";
 import { ViewportComponentEvents } from "@itwin/imodel-components-react";
-import type { CommonProps } from "@itwin/core-react";
+import type { CommonProps, ListenerType } from "@itwin/core-react";
 import type { ConfigurableCreateInfo } from "../configurableui/ConfigurableUiControl";
 import type { ModalFrontstageInfo } from "../framework/FrameworkFrontstages";
 import { UiFramework } from "../UiFramework";
 import { ViewUtilities } from "../utils/ViewUtilities";
 import { NavigationAidControl } from "./NavigationAidControl";
-import type { CardSelectedEventArgs } from "./SheetsModalFrontstage";
 import { CardContainer, SheetsModalFrontstage } from "./SheetsModalFrontstage";
 import { IconButton, ProgressRadial } from "@itwin/itwinui-react";
 import { SvgChevronLeft, SvgChevronRight } from "@itwin/itwinui-icons-react";
@@ -234,8 +232,9 @@ export class SheetNavigationAid extends React.Component<
   }
 
   /** Sets index of newly selected card */
-  // eslint-disable-next-line deprecation/deprecation
-  private _handleCardSelected = (event: CardSelectedEventArgs) => {
+  private _handleCardSelected: ListenerType<
+    typeof CardContainer.onCardSelectedEvent
+  > = (event) => {
     event &&
       this.setState({
         index: event.index,
@@ -274,8 +273,9 @@ export class SheetNavigationAid extends React.Component<
     }
   };
 
-  // eslint-disable-next-line deprecation/deprecation
-  private _handleViewIdChanged = (args: ViewIdChangedEventArgs) => {
+  private _handleViewIdChanged: ListenerType<
+    typeof ViewportComponentEvents.onViewIdChangedEvent
+  > = (args) => {
     if (this._viewport === args.viewport)
       this._handleViewportChanged(args.viewport as ScreenViewport);
   };

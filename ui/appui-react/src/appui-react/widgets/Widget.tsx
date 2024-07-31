@@ -8,16 +8,12 @@
 
 import type { ConditionalStringValue } from "@itwin/appui-abstract";
 import type { XAndY } from "@itwin/core-geometry";
-import type {
-  BadgeKind,
-  BadgeType,
-  IconSpec,
-  SizeProps,
-} from "@itwin/core-react";
+import type { BadgeKind, BadgeType, IconSpec } from "@itwin/core-react";
 import type { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import type { WidgetState } from "./WidgetState";
 import type { StagePanelSection } from "../stagepanels/StagePanelSection";
 import { UiItemsProvider } from "../ui-items-provider/UiItemsProvider";
+import type { SizeProps } from "../utils/SizeProps";
 
 /** Describes options of a floating widget.
  * @public
@@ -60,7 +56,11 @@ export interface Widget {
   readonly defaultState?: WidgetState;
   /** Content of the Widget. */
   readonly content?: React.ReactNode;
+  /** @deprecated in 4.16.0. Use {@link Widget.iconNode} instead. */
+  // eslint-disable-next-line deprecation/deprecation
   readonly icon?: IconSpec;
+  /** Icon to use for the widget. */
+  readonly iconNode?: React.ReactNode;
   readonly label?: string | ConditionalStringValue;
   readonly priority?: number;
   readonly tooltip?: string | ConditionalStringValue;

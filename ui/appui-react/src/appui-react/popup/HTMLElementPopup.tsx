@@ -8,7 +8,7 @@
 
 import * as React from "react";
 import type { OnCancelFunc, RelativePosition } from "@itwin/appui-abstract";
-import type { Orientation, SizeProps } from "@itwin/core-react";
+import type { Orientation } from "@itwin/components-react";
 import {
   DivWithOutsideClick,
   MessageRenderer,
@@ -19,6 +19,7 @@ import { CursorPopup } from "../cursor/cursorpopup/CursorPopup";
 import type { PopupPropsBase } from "./PopupManager";
 import { PopupManager } from "./PopupManager";
 import { PositionPopup } from "./PositionPopup";
+import type { SizeProps } from "../utils/SizeProps";
 
 /** @alpha
  * @deprecated in 4.11.0. Please use {@link @itwin/appui-react#UiFramework.showComponent}.

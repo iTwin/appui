@@ -26,7 +26,6 @@ import {
   subscribeOn,
   toArray,
 } from "rxjs";
-import type { CheckBoxState } from "@itwin/core-react";
 import type { SelectionMode } from "../../common/selection/SelectionModes";
 import type { TreeNodeItem } from "../TreeDataProvider";
 import type {
@@ -47,6 +46,7 @@ import type {
 import { isTreeModelNode } from "./TreeModel";
 import type { ITreeNodeLoader } from "./TreeNodeLoader";
 import { toRxjsObservable } from "./Observable";
+import type { CheckBoxState } from "../../common/CheckBoxState";
 
 /**
  * Default event dispatcher that emits tree events according performed actions.

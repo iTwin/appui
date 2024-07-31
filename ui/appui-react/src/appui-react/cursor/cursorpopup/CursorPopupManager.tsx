@@ -10,10 +10,12 @@ import * as React from "react";
 import { BeUiEvent, Logger } from "@itwin/core-bentley";
 import type { XAndY } from "@itwin/core-geometry";
 import { RelativePosition } from "@itwin/appui-abstract";
-import type { RectangleProps, SizeProps } from "@itwin/core-react";
+import type { ListenerType } from "@itwin/core-react";
 import { Point, Size } from "@itwin/core-react";
 import { UiFramework } from "../../UiFramework";
 import { CursorPopup } from "./CursorPopup";
+import type { SizeProps } from "../../utils/SizeProps";
+import type { RectangleProps } from "../../utils/RectangleProps";
 
 /** Options for the [[CursorPopupManager]] open method
  * @public
@@ -27,20 +29,6 @@ export interface CursorPopupOptions {
   onApply?: () => void;
   /** Draw shadow */
   shadow?: boolean;
-}
-
-/** CursorPopup Update Position Event Args interface.
- * @internal
- */
-export interface CursorPopupUpdatePositionEventArgs {
-  pt: XAndY;
-}
-
-/** CursorPopup FadeOut Event Args interface.
- * @internal
- */
-export interface CursorPopupFadeOutEventArgs {
-  id: string;
 }
 
 /** Information maintained by CursorPopupManager about a CursorPopup
@@ -65,11 +53,13 @@ export class CursorPopupManager {
   private static _popups: CursorPopupInfo[] = new Array<CursorPopupInfo>();
 
   /** @internal */
-  public static readonly onCursorPopupUpdatePositionEvent =
-    new BeUiEvent<CursorPopupUpdatePositionEventArgs>();
+  public static readonly onCursorPopupUpdatePositionEvent = new BeUiEvent<{
+    pt: XAndY;
+  }>();
   /** @internal */
-  public static readonly onCursorPopupFadeOutEvent =
-    new BeUiEvent<CursorPopupFadeOutEventArgs>();
+  public static readonly onCursorPopupFadeOutEvent = new BeUiEvent<{
+    id: string;
+  }>();
   /** @internal */
   public static readonly onCursorPopupsChangedEvent = new BeUiEvent<{}>();
   /** @internal */
@@ -505,13 +495,15 @@ export class CursorPopupRenderer extends React.Component<
     );
   }
 
-  private _handlePopupChangedEvent = (_args: any) => {
+  private _handlePopupChangedEvent: ListenerType<
+    typeof CursorPopupManager.onCursorPopupsChangedEvent
+  > = () => {
     this.forceUpdate();
   };
 
-  private _handleCursorPopupUpdatePositionEvent = (
-    args: CursorPopupUpdatePositionEventArgs
-  ) => {
+  private _handleCursorPopupUpdatePositionEvent: ListenerType<
+    typeof CursorPopupManager.onCursorPopupUpdatePositionEvent
+  > = (args) => {
     this.setState({ pt: Point.create(args.pt) });
   };
 }

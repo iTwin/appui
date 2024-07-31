@@ -201,6 +201,7 @@ export class TextEditor
 
     let reactNode: React.ReactNode;
     if (this.state.iconSpec) {
+      // eslint-disable-next-line deprecation/deprecation
       const icon = <Icon iconSpec={this.state.iconSpec} />;
       reactNode = (
         // eslint-disable-next-line deprecation/deprecation

@@ -28,7 +28,7 @@ import { TreeNodeRenderer } from "./TreeNodeRenderer";
 import type { RenderedItemsRange, TreeRendererProps } from "./TreeRenderer";
 import { TreeRenderer } from "./TreeRenderer";
 import { useElementsScrollStorage } from "../../../common/UseElementsScrollStorage";
-import { useTranslation } from "../../../useTranslation";
+import { useTranslation } from "../../../l10n/useTranslation";
 
 /**
  * Properties for [[ControlledTree]]

@@ -9,7 +9,7 @@ import React from "react";
 import cx from "classnames";
 import { Anchor } from "@itwin/itwinui-react";
 import type { PropertyFilterRuleGroupOperator } from "./Operators";
-import { useTranslation } from "../useTranslation";
+import { useTranslation } from "../l10n/useTranslation";
 
 /**
  * Props for [[PropertyFilterBuilderLogicalOperator]] component.

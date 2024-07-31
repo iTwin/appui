@@ -19,8 +19,12 @@ import { useTranslation } from "../hooks/useTranslation";
  * @public
  */
 export interface BackstageAppButtonProps {
-  /** If specified overrides the default icon. */
+  /** If specified overrides the default icon.
+   * @deprecated in 4.16.0. Use {@link BackstageAppButtonProps.iconNode} instead.
+   */
+  // eslint-disable-next-line deprecation/deprecation
   icon?: IconSpec;
+  iconNode?: React.ReactNode;
   /** If specified overrides the default label. */
   label?: string;
   /** If specified overrides the default action that toggles the backstage. */
@@ -31,15 +35,15 @@ export interface BackstageAppButtonProps {
  * @public
  */
 export function BackstageAppButton({
+  // eslint-disable-next-line deprecation/deprecation
   icon,
+  iconNode,
   label,
   execute,
 }: BackstageAppButtonProps) {
   const { translate } = useTranslation();
   label = label ?? translate("commands.openBackstage");
-  icon = icon ?? <SvgHome />;
   const isInitialMount = React.useRef(true);
-  const divClassName = "uifw-app-button-small";
   const { onElementRef, proximityScale } = useWidgetOpacityContext();
   const ref = React.useRef<HTMLDivElement>(null);
 
@@ -69,13 +73,15 @@ export function BackstageAppButton({
     buttonProximityScale = proximityScale;
   }
 
+  // eslint-disable-next-line deprecation/deprecation
+  const specIcon = icon ? <Icon iconSpec={icon} /> : undefined;
   return (
-    <div ref={ref} className={divClassName}>
+    <div ref={ref} className="uifw-app-button-small">
       <AppButton
         small={true}
         mouseProximity={buttonProximityScale}
         onClick={handleClick}
-        icon={<Icon iconSpec={icon} />}
+        icon={iconNode ?? specIcon ?? <SvgHome />}
         title={label}
       />
     </div>

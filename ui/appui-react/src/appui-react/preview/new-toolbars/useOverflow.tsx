@@ -7,8 +7,8 @@
  */
 
 import * as React from "react";
-import type { SizeProps } from "@itwin/core-react";
 import { useResizeObserver } from "@itwin/core-react";
+import type { SizeProps } from "../../utils/SizeProps";
 
 type Orientation = "horizontal" | "vertical";
 

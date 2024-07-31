@@ -7,7 +7,6 @@
  */
 
 import { useEffect, useState } from "react";
-import type { FrontstageActivatedEventArgs } from "../framework/FrameworkFrontstages";
 import { UiFramework } from "../UiFramework";
 
 /** React hook that maintains the active stage Id.
@@ -18,20 +17,11 @@ export function useActiveStageId(): string {
     UiFramework.frontstages.activeFrontstageId
   );
   useEffect(() => {
-    const handleFrontstageActivatedEvent = (
-      args: FrontstageActivatedEventArgs // eslint-disable-line deprecation/deprecation
-    ) => {
-      setActiveStageId(args.activatedFrontstageDef.id);
-    };
-
-    UiFramework.frontstages.onFrontstageActivatedEvent.addListener(
-      handleFrontstageActivatedEvent
+    return UiFramework.frontstages.onFrontstageActivatedEvent.addListener(
+      (args) => {
+        setActiveStageId(args.activatedFrontstageDef.id);
+      }
     );
-    return () => {
-      UiFramework.frontstages.onFrontstageActivatedEvent.removeListener(
-        handleFrontstageActivatedEvent
-      );
-    };
   }, []);
   return activeStageId;
 }

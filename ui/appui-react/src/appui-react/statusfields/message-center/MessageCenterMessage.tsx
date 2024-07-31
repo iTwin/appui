@@ -10,7 +10,7 @@ import "./MessageCenterMessage.scss";
 import * as React from "react";
 import type { CommonProps, MessageType } from "@itwin/core-react";
 import { MessageRenderer } from "@itwin/core-react";
-import { Icon, Text } from "@itwin/itwinui-react";
+import { Text } from "@itwin/itwinui-react";
 
 /** Properties of [[MessageCenterMessage]] component.
  * @internal
@@ -42,7 +42,7 @@ export function MessageCenterMessage(props: MessageCenterMessageProps) {
       className={"uifw-statusFields-messageCenter-messageCenterMessage"}
       style={style}
     >
-      {icon && <Icon size="small">{icon}</Icon>}
+      {icon}
       {message && (
         <span className="uifw-content">
           {/* eslint-disable-next-line deprecation/deprecation */}

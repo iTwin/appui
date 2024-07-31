@@ -9,7 +9,6 @@
 import "./ModalSettingsStage.scss";
 import * as React from "react";
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
-import settingsIconSvg from "@bentley/icons-generic/icons/settings.svg";
 import {
   IModelApp,
   NotifyMessageDetails,
@@ -18,10 +17,8 @@ import {
 } from "@itwin/core-frontend";
 import { Logger } from "@itwin/core-bentley";
 import { Centered, SettingsContainer } from "@itwin/core-react";
-import type {
-  ModalFrontstageInfo,
-  ModalFrontstageRequestedCloseEventArgs,
-} from "../framework/FrameworkFrontstages";
+import { SvgSettings } from "@itwin/itwinui-icons-react";
+import type { ModalFrontstageInfo } from "../framework/FrameworkFrontstages";
 import { UiFramework } from "../UiFramework";
 import { SyncUiEventId } from "../syncui/SyncUiEventDispatcher";
 import { StageUsage } from "./StageUsage";
@@ -58,27 +55,22 @@ function ModalSettingsStage({
   }, [initialSettingsTabId, tabEntries]);
 
   React.useEffect(() => {
-    const handleFrontstageCloseRequested = (
-      {
-        modalFrontstage,
-        stageCloseFunc,
-      }: ModalFrontstageRequestedCloseEventArgs // eslint-disable-line deprecation/deprecation
-    ) => {
-      if (
-        modalFrontstage instanceof SettingsModalFrontstage &&
-        stageCloseFunc
-      ) {
-        UiFramework.settingsManager.closeSettingsContainer(stageCloseFunc);
-      }
-    };
     return UiFramework.frontstages.onCloseModalFrontstageRequestedEvent.addListener(
-      handleFrontstageCloseRequested
+      ({ modalFrontstage, stageCloseFunc }) => {
+        if (
+          modalFrontstage instanceof SettingsModalFrontstage &&
+          stageCloseFunc
+        ) {
+          UiFramework.settingsManager.closeSettingsContainer(stageCloseFunc);
+        }
+      }
     );
   }, [tabEntries]);
 
   return (
     <div className="uifw-settings-container">
       {tabEntries.length ? (
+        // eslint-disable-next-line deprecation/deprecation
         <SettingsContainer
           tabs={tabEntries}
           currentSettingsTab={currentSettingsTab()}
@@ -116,19 +108,18 @@ export class SettingsModalFrontstage implements ModalFrontstageInfo {
     groupPriority: number,
     itemPriority: number
   ) {
-    return BackstageItemUtilities.createActionItem(
-      SettingsModalFrontstage.id,
+    return BackstageItemUtilities.createActionItem({
+      id: SettingsModalFrontstage.id,
       groupPriority,
       itemPriority,
-      () =>
+      execute: () =>
         UiFramework.frontstages.openModalFrontstage(
           new SettingsModalFrontstage()
         ),
-      UiFramework.translate("settings.settingsStageLabel"),
-      undefined,
-      settingsIconSvg,
-      { isHidden: SettingsModalFrontstage.noSettingsAvailable() }
-    );
+      label: UiFramework.translate("settings.settingsStageLabel"),
+      icon: <SvgSettings />,
+      isHidden: SettingsModalFrontstage.noSettingsAvailable(),
+    });
   }
 
   public static showSettingsStage(initialSettingsTab?: string) {

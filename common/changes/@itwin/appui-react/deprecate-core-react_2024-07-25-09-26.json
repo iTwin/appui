@@ -1,0 +1,15 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "React to `@itwin/core-react` deprecations.",
+      "type": "none"
+    },
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Deprecate APIs that were using `IconSpec` type.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
