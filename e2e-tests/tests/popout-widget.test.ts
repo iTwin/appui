@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { test, expect, Locator, BrowserContext } from "@playwright/test";
+import { test, expect, Locator } from "@playwright/test";
 import assert from "assert";
 import {
   WidgetState,
@@ -51,7 +51,6 @@ test.describe("popout widget", () => {
   });
 
   test("should float a popout widget (after frontstage change)", async ({
-    context,
     page,
   }) => {
     const tab = tabLocator(page, "View Attributes");
@@ -164,7 +163,6 @@ test.describe("popout widget", () => {
     });
 
     const popoutPage = await popoutWidget(widget);
-    await popoutPage.waitForLoadState(); // TODO: childWindow is only added after 'load' event
     await expect.poll(async () => popoutPage.isClosed()).toBe(false);
 
     await setWidgetState(
@@ -191,6 +189,18 @@ test.describe("popout widget", () => {
     await expect.poll(async () => widgetLifecycle.mountCount).toBe(1);
     await expect.poll(async () => widgetLifecycle.unMountCount).toBe(1);
   });
+});
+
+test("should copy styles", async ({ baseURL, page }) => {
+  assert(baseURL);
+  await page.goto(`${baseURL}?frontstage=appui-test-app:TestPopout`);
+
+  const tab = tabLocator(page, "Widget 1");
+  const widget = widgetLocator({ tab });
+
+  const popoutPage = await popoutWidget(widget);
+  const borders = popoutPage.locator("#border-test");
+  await expect(borders).toHaveScreenshot();
 });
 
 async function popoutWidget(widget: Locator) {
