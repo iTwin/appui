@@ -6,9 +6,18 @@
   gap: var(--iui-size-2xs);
   display: flex;
   align-items: center;
-  padding: 0 var(--iui-size-2xs) 0 var(--iui-size-2xs);
+  min-width: var(--iui-size-2xl);
+  padding-left: var(--iui-size-2xs);
 
   .icon {
     color: var(--iui-color-icon);
+  }
+
+  &.uifw-left-corner {
+    margin-left: var(--iui-size-m);
+  }
+
+  &.uifw-right-corner {
+    margin-right: var(--iui-size-m);
   }
 }

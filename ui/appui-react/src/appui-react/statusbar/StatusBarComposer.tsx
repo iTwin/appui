@@ -39,6 +39,7 @@ import {
 import { StatusBarItemsManager } from "./StatusBarItemsManager";
 import { useDefaultStatusBarItems } from "./useDefaultStatusBarItems";
 import { useUiItemsProviderStatusBarItems } from "./useUiItemsProviderStatusBarItems";
+import { StatusBarCornerComponentContext } from "./StatusBarCornerComponentContext";
 
 /** Private  function to generate a value that will allow the proper order to be maintained when items are placed in overflow panel */
 function getCombinedSectionItemPriority(item: StatusBarItem) {
@@ -82,7 +83,7 @@ export function DockedStatusBarItem(props: StatusBarItemProps) {
   const { onResize } = useStatusBarEntry();
   const ref = useResizeObserver<HTMLDivElement>(onResize);
   const className = classnames(
-    "uifw-statusbar-item-container",
+    "uifw-statusBar-item-container",
     props.className
   );
   return (
@@ -344,6 +345,11 @@ export function StatusBarComposer(props: StatusBarComposerProps) {
     const combinedItems = combineItems(defaultItems, addonItems);
     return sortItems(combinedItems);
   }, [defaultItems, addonItems]);
+  const itemsNotInOverflow = React.useMemo(() => {
+    return statusBarItems.filter(
+      (item) => !isItemInOverflow(item.id, overflown)
+    );
+  }, [overflown, statusBarItems]);
 
   const calculateOverflow = React.useCallback(() => {
     const widths = verifiedMapEntries(entryWidths.current);
@@ -432,18 +438,31 @@ export function StatusBarComposer(props: StatusBarComposerProps) {
             providerId={providerId}
             section={getSectionName(section)}
           >
-            {isStatusBarCustomItem(item) && item.content}
-            {isStatusBarActionItem(item) && (
-              <StatusBarActionItemComponent {...item} />
-            )}
-            {isStatusBarLabelItem(item) && (
-              <StatusBarLabelItemComponent {...item} />
-            )}
+            <StatusBarCornerComponentContext.Provider
+              value={
+                key === itemsNotInOverflow[0].id
+                  ? "left-corner"
+                  : (key ===
+                      itemsNotInOverflow[itemsNotInOverflow.length - 1].id &&
+                      overflown?.length === 0) ||
+                    isItemInOverflow(key, overflown)
+                  ? "right-corner"
+                  : undefined
+              }
+            >
+              {isStatusBarCustomItem(item) && item.content}
+              {isStatusBarActionItem(item) && (
+                <StatusBarActionItemComponent {...item} />
+              )}
+              {isStatusBarLabelItem(item) && (
+                <StatusBarLabelItemComponent {...item} />
+              )}
+            </StatusBarCornerComponentContext.Provider>
           </DockedStatusBarItem>
         </DockedStatusBarEntry>
       );
     },
-    [handleEntryResize]
+    [handleEntryResize, itemsNotInOverflow, overflown]
   );
 
   const getSectionItems = React.useCallback(
@@ -530,7 +549,7 @@ export function StatusBarComposer(props: StatusBarComposerProps) {
     [getOverflowItems]
   );
 
-  const containerClassName = classnames("uifw-statusbar-docked", className);
+  const containerClassName = classnames("uifw-statusBar-docked", className);
 
   return (
     <div

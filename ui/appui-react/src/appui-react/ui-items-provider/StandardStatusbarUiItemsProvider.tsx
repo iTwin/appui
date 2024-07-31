@@ -20,9 +20,8 @@ import type { UiItemsProvider } from "./UiItemsProvider";
 import type { StatusBarItem } from "../statusbar/StatusBarItem";
 import { StatusBarSection } from "../statusbar/StatusBarItem";
 
-/**
- * Defines what items to include from the provider. If any items are
- * specified then only those items will be added to statusbar.
+/** Defines what items to include from the provider.
+ * @note When this object is used, only explicitly enabled items will be added to the status bar. I.e. `{ messageCenter: true }` will only add message center field to the statusbar.
  * @public
  */
 export interface DefaultStatusbarItems {
@@ -38,8 +37,7 @@ export interface DefaultStatusbarItems {
   selectionInfo?: boolean;
 }
 
-/**
- * Provide standard statusbar fields for the SimpleStatusbarWidget
+/** Provide standard status bar fields.
  * @beta
  */
 export class StandardStatusbarUiItemsProvider implements UiItemsProvider {
@@ -47,6 +45,7 @@ export class StandardStatusbarUiItemsProvider implements UiItemsProvider {
     return "appui-react:StandardStatusbarUiItemsProvider";
   }
 
+  /** Creates a provider. If the `defaultItems` argument is not set, all default fields are added. Otherwise, only the fields that are set to `true` are added. */
   constructor(private _defaultItems?: DefaultStatusbarItems) {}
 
   public provideStatusBarItems(

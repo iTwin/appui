@@ -65,7 +65,7 @@ describe("StatusBar", () => {
       <StatusBarSpaceBetween>Hello</StatusBarSpaceBetween>
     );
     expect(
-      container.querySelectorAll("div.uifw-statusbar-space-between").length
+      container.querySelectorAll("div.uifw-statusBar-space-between").length
     ).toEqual(1);
   });
 
@@ -74,7 +74,7 @@ describe("StatusBar", () => {
       <StatusBarLeftSection>Hello</StatusBarLeftSection>
     );
     expect(
-      container.querySelectorAll("div.uifw-statusbar-left").length
+      container.querySelectorAll("div.uifw-statusBar-left").length
     ).toEqual(1);
   });
 
@@ -83,7 +83,7 @@ describe("StatusBar", () => {
       <StatusBarCenterSection>Hello</StatusBarCenterSection>
     );
     expect(
-      container.querySelectorAll("div.uifw-statusbar-center").length
+      container.querySelectorAll("div.uifw-statusBar-center").length
     ).toEqual(1);
   });
 
@@ -92,7 +92,7 @@ describe("StatusBar", () => {
       <StatusBarRightSection>Hello</StatusBarRightSection>
     );
     expect(
-      container.querySelectorAll("div.uifw-statusbar-right").length
+      container.querySelectorAll("div.uifw-statusBar-right").length
     ).toEqual(1);
   });
 });

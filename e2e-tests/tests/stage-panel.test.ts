@@ -65,7 +65,7 @@ test.describe("WidgetApi", () => {
 
 test("should initialize defaults", async ({ baseURL, page }) => {
   assert(baseURL);
-  await page.goto(`${baseURL}?frontstage=appui-test-providers:TestFrontstage`);
+  await page.goto(`${baseURL}?frontstage=appui-test-app:TestPanel`);
 
   const panel = panelLocator({ page, side: "left" });
   await expect(panel).toBeVisible();
@@ -74,9 +74,7 @@ test("should initialize defaults", async ({ baseURL, page }) => {
 
 test("should initialize size", async ({ baseURL, page }) => {
   assert(baseURL);
-  await page.goto(
-    `${baseURL}?frontstage=appui-test-providers:TestFrontstage&size=500`
-  );
+  await page.goto(`${baseURL}?frontstage=appui-test-app:TestPanel&size=500`);
 
   const panel = panelLocator({ page, side: "left" });
   await expect(panel).toBeVisible();
@@ -86,7 +84,7 @@ test("should initialize size", async ({ baseURL, page }) => {
 test("should initialize minimized", async ({ baseURL, page }) => {
   assert(baseURL);
   await page.goto(
-    `${baseURL}?frontstage=appui-test-providers:TestFrontstage&defaultState=${StagePanelState.Minimized}`
+    `${baseURL}?frontstage=appui-test-app:TestPanel&defaultState=${StagePanelState.Minimized}`
   );
 
   const panel = panelLocator({ page, side: "left" });
@@ -97,9 +95,7 @@ test("should initialize minimized", async ({ baseURL, page }) => {
 
 test("should initialize resizable", async ({ baseURL, page }) => {
   assert(baseURL);
-  await page.goto(
-    `${baseURL}?frontstage=appui-test-providers:TestFrontstage&resizable=0`
-  );
+  await page.goto(`${baseURL}?frontstage=appui-test-app:TestPanel&resizable=0`);
 
   const panel = panelLocator({ page, side: "left" });
   const handle = handleLocator(panel);
@@ -108,7 +104,7 @@ test("should initialize resizable", async ({ baseURL, page }) => {
 
 test("should resize (single panel)", async ({ baseURL, page }) => {
   assert(baseURL);
-  await page.goto(`${baseURL}?frontstage=appui-test-providers:TestFrontstage`);
+  await page.goto(`${baseURL}?frontstage=appui-test-app:TestPanel`);
 
   const panel = panelLocator({ page, side: "left" });
   const handle = handleLocator(panel);
