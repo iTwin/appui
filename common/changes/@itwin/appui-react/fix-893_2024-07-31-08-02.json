@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Fix an issue where styles of complex shorthand properties were not copied correctly to a popout window.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
