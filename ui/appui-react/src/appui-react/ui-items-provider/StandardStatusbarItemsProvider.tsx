@@ -12,8 +12,7 @@ import type { StatusBarItem } from "../statusbar/StatusBarItem";
 import { UiItemsManager } from "./UiItemsManager";
 import { BaseUiItemsProvider } from "./BaseUiItemsProvider";
 
-/**
- * Provide standard statusbar fields for the SimpleStatusbarWidget
+/** Provide standard statusbar fields.
  * @public
  */
 export class StandardStatusbarItemsProvider extends BaseUiItemsProvider {
