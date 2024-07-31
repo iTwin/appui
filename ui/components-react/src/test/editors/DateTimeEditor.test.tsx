@@ -281,13 +281,14 @@ describe("<DateTimeEditor />", () => {
     const dataValueSelector = `li[data-value='${jan4Ticks}']`; // Jan 4 2018 (UTC-0)
     const dayEntry = portalDiv.querySelector(dataValueSelector);
     expect(dayEntry).toBeTruthy();
-    fireEvent.click(dayEntry!);
 
-    const okButton = renderedComponent.getByTestId(
-      "components-popup-ok-button"
-    );
-    fireEvent.click(okButton);
+    fireEvent.click(dayEntry!);
     await TestUtils.flushAsyncOperations();
+
+    const okButton = portalDiv.querySelector(".components-popup-ok-button");
+    fireEvent.click(okButton!);
+    await TestUtils.flushAsyncOperations();
+
     expect(spyOnCommit).toHaveBeenCalledOnce();
   });
 

@@ -188,6 +188,8 @@ describe("<NumericInputEditor />", () => {
     const inputNode = wrapper.container.querySelector("input");
     expect(inputNode).toBeTruthy();
 
+    await userEvent.type(inputNode!, "4");
+
     fireEvent.keyDown(inputNode as HTMLElement, { key: Key.Enter });
     await TestUtils.flushAsyncOperations();
     expect(spyOnCommit).toHaveBeenCalledOnce();

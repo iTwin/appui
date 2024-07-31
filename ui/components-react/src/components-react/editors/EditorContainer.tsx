@@ -9,8 +9,13 @@
 import "./EditorContainer.scss";
 import * as React from "react";
 import { Key } from "ts-key-enum";
-import type { PropertyRecord, PropertyValue } from "@itwin/appui-abstract";
-import { UiAdmin } from "@itwin/appui-abstract";
+import type {
+  Primitives,
+  PrimitiveValue,
+  PropertyRecord,
+  PropertyValue,
+} from "@itwin/appui-abstract";
+import { PropertyValueFormat, UiAdmin } from "@itwin/appui-abstract";
 import type { CommonProps } from "@itwin/core-react";
 import type {
   AsyncErrorMessage,
@@ -119,8 +124,9 @@ export function EditorContainer(props: EditorContainerProps) {
     });
   };
 
-  const onPressEscape = () => {
+  const onPressEscape = (e: React.KeyboardEvent) => {
     if (!propertyEditorRef.current?.containerHandlesEscape) return;
+    e.stopPropagation();
     onCancel();
   };
 
@@ -139,7 +145,7 @@ export function EditorContainer(props: EditorContainerProps) {
   const handleKeyDown = (e: React.KeyboardEvent) => {
     switch (e.key) {
       case Key.Escape.valueOf():
-        onPressEscape();
+        onPressEscape(e);
         break;
       case Key.Enter.valueOf():
         onPressEnter(e);
@@ -200,7 +206,13 @@ export function EditorContainer(props: EditorContainerProps) {
   };
 
   const commit = async (args: PropertyUpdatedArgs) => {
+    const oldValue = args.propertyRecord.value;
     const newValue = args.newValue;
+
+    if (!shouldCommit(oldValue, newValue)) {
+      return;
+    }
+
     const isValid = await isNewValueValid(newValue);
     if (!isValid) return;
 
@@ -262,4 +274,81 @@ export function EditorContainer(props: EditorContainerProps) {
       {clonedNode}
     </span>
   );
+}
+
+function arePrimitiveValuesEqual(
+  oldValue: Primitives.Value,
+  newValue: Primitives.Value
+): boolean {
+  if (typeof oldValue !== typeof newValue) {
+    return false;
+  }
+  // directly compare simple types
+  if (typeof newValue !== "object" || newValue instanceof Date) {
+    return newValue === oldValue;
+  }
+  // compare all members of arrays
+  if (newValue instanceof Array) {
+    if (!(oldValue instanceof Array)) {
+      return false;
+    }
+    if (newValue.length !== oldValue.length) {
+      return false;
+    }
+    for (let i = 0; i < newValue.length; i++) {
+      if (oldValue[i] !== newValue[i]) {
+        return false;
+      }
+    }
+    return true;
+  }
+  // compare `Point2d` and `Point3d` types
+  if ("x" in newValue) {
+    if (typeof oldValue !== "object" || !("x" in oldValue)) {
+      return false;
+    }
+    if ("z" in newValue) {
+      if (!("z" in oldValue)) {
+        return false;
+      }
+      return (
+        newValue.x === oldValue.x &&
+        newValue.y === oldValue.y &&
+        newValue.z === oldValue.z
+      );
+    } else if ("z" in oldValue) {
+      return false;
+    }
+    return newValue.x === oldValue.x && newValue.y === oldValue.y;
+  }
+  // compare instance keys
+  if ("className" in newValue) {
+    if (typeof oldValue !== "object" || !("className" in oldValue)) {
+      return false;
+    }
+    return (
+      oldValue.className === newValue.className && oldValue.id === newValue.id
+    );
+  }
+  return false;
+}
+
+function shouldCommit(oldValue: PropertyValue, newValue: PropertyValue) {
+  if (
+    oldValue.valueFormat !== newValue.valueFormat ||
+    newValue.valueFormat !== PropertyValueFormat.Primitive
+  ) {
+    return true;
+  }
+  const oldPrimitiveValue = oldValue as PrimitiveValue;
+  if (!oldPrimitiveValue.value && !newValue.value) {
+    return false;
+  }
+  if (
+    (!oldPrimitiveValue.value && newValue.value) ||
+    (oldPrimitiveValue.value && !newValue.value)
+  ) {
+    return true;
+  }
+  return !arePrimitiveValuesEqual(oldPrimitiveValue.value!, newValue.value!);
 }
