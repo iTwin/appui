@@ -221,6 +221,7 @@ Table of contents:
 - Removed `@internal` tags from React lifecycle methods and properties. Consumers should avoid calling class methods directly, since class components can be converted to functional components in the future. [#943](https://github.com/iTwin/appui/pull/943)
 - Removed `@internal` tags from overriden class methods. [#943](https://github.com/iTwin/appui/pull/943)
 - Bumped `FrameworkDialog`, `FrameworkDialogs.modal`, `FrameworkDialogs.modeless`, `FrameworkStackedDialog`, `FrameworkToolAdmin`, `StandardNavigationToolsUiItemsProvider`, `StatusBarItemUtilities.createActionItem`, `StatusBarItemUtilities.createCustomItem`, `StatusBarItemUtilities.createLabelItem`, `SyncUiEventDispatcher.setTimeoutPeriod` APIs to `@public`. [#944](https://github.com/iTwin/appui/pull/944)
+- Promoted AccuDraw APIs to `@public` and exported `AccuDrawFieldContainer`, `AccuDrawInputField` components from the barrel file. [#945](https://github.com/iTwin/appui/pull/945)
 
 ### Fixes
 
