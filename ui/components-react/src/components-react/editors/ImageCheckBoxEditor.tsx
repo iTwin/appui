@@ -49,7 +49,6 @@ export class ImageCheckBoxEditor
   private _isMounted = false;
   private _inputElement: React.RefObject<HTMLInputElement> = React.createRef();
 
-  /** @internal */
   public override readonly state: Readonly<ImageCheckBoxEditorState> = {
     imageOff: "",
     imageOn: "",
@@ -80,18 +79,15 @@ export class ImageCheckBoxEditor
     return document.activeElement === this._inputElement.current;
   }
 
-  /** @internal */
   public override componentDidMount() {
     this._isMounted = true;
     this.setStateFromProps();
   }
 
-  /** @internal */
   public override componentWillUnmount() {
     this._isMounted = false;
   }
 
-  /** @internal */
   public override componentDidUpdate(prevProps: PropertyEditorProps) {
     if (this.props.propertyRecord !== prevProps.propertyRecord) {
       this.setStateFromProps();

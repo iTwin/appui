@@ -31,7 +31,6 @@ interface IconItemProps
  * @internal
  */
 class IconItem extends React.PureComponent<IconItemProps> {
-  /** @internal */
   constructor(props: IconItemProps) {
     super(props);
   }
@@ -106,7 +105,6 @@ export class IconPickerButton extends React.PureComponent<
     numColumns: 4,
   };
 
-  /** @internal */
   constructor(props: IconPickerProps) {
     super(props);
 
@@ -153,7 +151,6 @@ export class IconPickerButton extends React.PureComponent<
     );
   }
 
-  /** @internal */
   public override render() {
     const buttonStyle = { ...this.props.style } as React.CSSProperties;
     const buttonClassNames = classnames(

@@ -65,7 +65,7 @@ export abstract class AbstractTreeNodeLoaderWithProvider<TDataProvider extends T
 
 // @public
 export class ActionButtonList extends React_3.PureComponent<ActionButtonListProps> {
-    // @internal (undocumented)
+    // (undocumented)
     render(): React_3.JSX.Element;
 }
 
@@ -150,11 +150,11 @@ export class BasicPropertyEditor extends PropertyEditorBase {
 
 // @public
 export class BooleanEditor extends React_3.PureComponent<PropertyEditorProps, BooleanEditorState> implements TypeEditor {
-    // @internal (undocumented)
+    // (undocumented)
     componentDidMount(): void;
-    // @internal (undocumented)
+    // (undocumented)
     componentDidUpdate(prevProps: PropertyEditorProps): void;
-    // @internal (undocumented)
+    // (undocumented)
     componentWillUnmount(): void;
     // (undocumented)
     getPropertyValue(): Promise<PropertyValue | undefined>;
@@ -162,9 +162,9 @@ export class BooleanEditor extends React_3.PureComponent<PropertyEditorProps, Bo
     get hasFocus(): boolean;
     // (undocumented)
     get htmlElement(): HTMLElement | null;
-    // @internal (undocumented)
+    // (undocumented)
     render(): React_3.JSX.Element;
-    // @internal (undocumented)
+    // (undocumented)
     readonly state: Readonly<BooleanEditorState>;
 }
 
@@ -382,11 +382,11 @@ export function CustomizablePropertyRenderer(props: CustomizablePropertyRenderer
 
 // @alpha
 export class CustomNumberEditor extends React_3.PureComponent<PropertyEditorProps, CustomNumberEditorState> implements TypeEditor {
-    // @internal (undocumented)
+    // (undocumented)
     componentDidMount(): void;
-    // @internal (undocumented)
+    // (undocumented)
     componentDidUpdate(prevProps: PropertyEditorProps): void;
-    // @internal (undocumented)
+    // (undocumented)
     componentWillUnmount(): void;
     // (undocumented)
     getPropertyValue(): Promise<PropertyValue | undefined>;
@@ -394,9 +394,9 @@ export class CustomNumberEditor extends React_3.PureComponent<PropertyEditorProp
     get hasFocus(): boolean;
     // (undocumented)
     get htmlElement(): HTMLElement | null;
-    // @internal (undocumented)
+    // (undocumented)
     render(): React_3.ReactNode;
-    // @internal (undocumented)
+    // (undocumented)
     readonly state: Readonly<CustomNumberEditorState>;
 }
 
@@ -638,9 +638,9 @@ export interface EditorContainerProps extends CommonProps {
 
 // @public
 export class EnumButtonGroupEditor extends React_3.Component<PropertyEditorProps, EnumButtonGroupEditorState> implements TypeEditor {
-    // @internal (undocumented)
+    // (undocumented)
     componentDidMount(): void;
-    // @internal (undocumented)
+    // (undocumented)
     componentDidUpdate(prevProps: PropertyEditorProps): void;
     // (undocumented)
     getPropertyValue(): Promise<PropertyValue | undefined>;
@@ -648,19 +648,19 @@ export class EnumButtonGroupEditor extends React_3.Component<PropertyEditorProps
     get hasFocus(): boolean;
     // (undocumented)
     get htmlElement(): HTMLElement | null;
-    // @internal (undocumented)
+    // (undocumented)
     render(): React_3.JSX.Element;
-    // @internal (undocumented)
+    // (undocumented)
     readonly state: Readonly<EnumButtonGroupEditorState>;
 }
 
 // @public
 export class EnumEditor extends React_3.PureComponent<PropertyEditorProps, EnumEditorState> implements TypeEditor {
-    // @internal (undocumented)
+    // (undocumented)
     componentDidMount(): void;
-    // @internal (undocumented)
+    // (undocumented)
     componentDidUpdate(prevProps: PropertyEditorProps): void;
-    // @internal (undocumented)
+    // (undocumented)
     componentWillUnmount(): void;
     // (undocumented)
     getPropertyValue(): Promise<PropertyValue | undefined>;
@@ -668,9 +668,9 @@ export class EnumEditor extends React_3.PureComponent<PropertyEditorProps, EnumE
     get hasFocus(): boolean;
     // (undocumented)
     get htmlElement(): HTMLElement | null;
-    // @internal (undocumented)
+    // (undocumented)
     render(): React_3.JSX.Element;
-    // @internal (undocumented)
+    // (undocumented)
     readonly state: Readonly<EnumEditorState>;
 }
 
@@ -749,7 +749,7 @@ export enum FilteredType {
 // @public
 export class FilteringInput extends React_3.PureComponent<FilteringInputProps, FilteringInputState> {
     constructor(props: FilteringInputProps);
-    // @internal (undocumented)
+    // (undocumented)
     componentDidUpdate(prevProps: FilteringInputProps): void;
     // (undocumented)
     render(): React_3.JSX.Element;
@@ -984,11 +984,11 @@ export class HighlightingEngine {
 // @alpha
 export class IconEditor extends React_3.PureComponent<PropertyEditorProps, IconEditorState> implements TypeEditor {
     constructor(props: PropertyEditorProps);
-    // @internal (undocumented)
+    // (undocumented)
     componentDidMount(): void;
-    // @internal (undocumented)
+    // (undocumented)
     componentDidUpdate(prevProps: PropertyEditorProps): void;
-    // @internal (undocumented)
+    // (undocumented)
     componentWillUnmount(): void;
     // (undocumented)
     getPropertyValue(): Promise<PropertyValue | undefined>;
@@ -996,7 +996,7 @@ export class IconEditor extends React_3.PureComponent<PropertyEditorProps, IconE
     get hasFocus(): boolean;
     // (undocumented)
     get htmlElement(): HTMLElement | null;
-    // @internal (undocumented)
+    // (undocumented)
     render(): React_3.JSX.Element;
 }
 
@@ -1017,11 +1017,11 @@ export { Image_2 as Image }
 
 // @public
 export class ImageCheckBoxEditor extends React_3.PureComponent<PropertyEditorProps, ImageCheckBoxEditorState> implements TypeEditor {
-    // @internal (undocumented)
+    // (undocumented)
     componentDidMount(): void;
-    // @internal (undocumented)
+    // (undocumented)
     componentDidUpdate(prevProps: PropertyEditorProps): void;
-    // @internal (undocumented)
+    // (undocumented)
     componentWillUnmount(): void;
     // (undocumented)
     getPropertyValue(): Promise<PropertyValue | undefined>;
@@ -1031,7 +1031,7 @@ export class ImageCheckBoxEditor extends React_3.PureComponent<PropertyEditorPro
     get htmlElement(): HTMLElement | null;
     // (undocumented)
     render(): React_3.JSX.Element;
-    // @internal (undocumented)
+    // (undocumented)
     readonly state: Readonly<ImageCheckBoxEditorState>;
 }
 
@@ -1661,9 +1661,9 @@ export interface NonPrimitivePropertyLabelRendererProps extends PrimitivePropert
 // @public
 export class NonPrimitivePropertyRenderer extends React_3.Component<NonPrimitivePropertyRendererProps, NonPrimitivePropertyRendererState> {
     constructor(props: NonPrimitivePropertyRendererProps);
-    // @internal (undocumented)
+    // (undocumented)
     render(): React_3.JSX.Element;
-    // @internal (undocumented)
+    // (undocumented)
     readonly state: NonPrimitivePropertyRendererState;
 }
 
@@ -1680,11 +1680,11 @@ export interface NullableOperatorProcessor {
 
 // @public
 export class NumericInputEditor extends React_3.PureComponent<PropertyEditorProps, NumericInputEditorState> implements TypeEditor {
-    // @internal (undocumented)
+    // (undocumented)
     componentDidMount(): void;
-    // @internal (undocumented)
+    // (undocumented)
     componentDidUpdate(prevProps: PropertyEditorProps): void;
-    // @internal (undocumented)
+    // (undocumented)
     componentWillUnmount(): void;
     // (undocumented)
     getPropertyValue(): Promise<PropertyValue | undefined>;
@@ -1692,9 +1692,9 @@ export class NumericInputEditor extends React_3.PureComponent<PropertyEditorProp
     hasFocus: boolean;
     // (undocumented)
     get htmlElement(): HTMLElement | null;
-    // @internal (undocumented)
+    // (undocumented)
     render(): React_3.ReactNode;
-    // @internal (undocumented)
+    // (undocumented)
     readonly state: Readonly<NumericInputEditorState>;
 }
 
@@ -1862,7 +1862,7 @@ export interface PrimitivePropertyLabelRendererProps extends PropertyLabelRender
 // @public
 export class PrimitivePropertyRenderer extends React_2.Component<PrimitiveRendererProps> {
     constructor(props: PrimitiveRendererProps);
-    // @internal (undocumented)
+    // (undocumented)
     render(): React_2.JSX.Element;
 }
 
@@ -1902,7 +1902,7 @@ export interface PropertyCategory {
 // @public
 export class PropertyCategoryBlock extends React_3.Component<PropertyCategoryBlockProps> {
     constructor(props: PropertyCategoryBlockProps);
-    // @internal (undocumented)
+    // (undocumented)
     render(): React_3.JSX.Element;
 }
 
@@ -2342,7 +2342,7 @@ export interface PropertyLabelRendererProps {
 // @public
 export class PropertyList extends React_3.Component<PropertyListProps> {
     constructor(props: PropertyListProps);
-    // @internal (undocumented)
+    // (undocumented)
     render(): React_3.JSX.Element;
 }
 
@@ -2408,15 +2408,15 @@ export abstract class PropertyRecordDataFiltererBase extends PropertyDataFiltere
 // @public
 export class PropertyRenderer extends React_3.Component<PropertyRendererProps, PropertyRendererState> {
     constructor(props: PropertyRendererProps);
-    // @internal (undocumented)
+    // (undocumented)
     componentDidMount(): void;
-    // @internal (undocumented)
+    // (undocumented)
     componentDidUpdate(prevProps: PropertyRendererProps): void;
     // (undocumented)
     static getLabelOffset(indentation?: number, orientation?: Orientation, width?: number, columnRatio?: number, minColumnLabelWidth?: number): number;
-    // @internal (undocumented)
+    // (undocumented)
     render(): React_3.JSX.Element;
-    // @internal (undocumented)
+    // (undocumented)
     readonly state: Readonly<PropertyRendererState>;
     updateDisplayValueAsEditor(props: PropertyRendererProps): void;
 }
@@ -2475,7 +2475,7 @@ export class PropertyValueRendererManager {
 // @public
 export class PropertyView extends React_3.Component<PropertyViewProps, PropertyViewState> {
     constructor(props: PropertyViewProps);
-    // @internal (undocumented)
+    // (undocumented)
     render(): React_3.JSX.Element;
 }
 
@@ -2503,13 +2503,12 @@ export const renderLinks: (text: string, links: LinkElementsInfo, highlight?: ((
 
 // @public
 export class ResultSelector extends React_3.PureComponent<ResultSelectorProps, ResultSelectorState> {
-    // @internal
     constructor(props: ResultSelectorProps);
-    // @internal (undocumented)
+    // (undocumented)
     componentDidMount(): void;
-    // @internal (undocumented)
+    // (undocumented)
     componentDidUpdate(prevProps: ResultSelectorProps): void;
-    // @internal (undocumented)
+    // (undocumented)
     render(): React_3.JSX.Element;
 }
 
@@ -2678,11 +2677,11 @@ export interface SingleSelectionHandler<TItem> {
 
 // @public
 export class SliderEditor extends React_3.PureComponent<PropertyEditorProps, SliderEditorState> implements TypeEditor {
-    // @internal (undocumented)
+    // (undocumented)
     componentDidMount(): void;
-    // @internal (undocumented)
+    // (undocumented)
     componentDidUpdate(prevProps: PropertyEditorProps): void;
-    // @internal (undocumented)
+    // (undocumented)
     componentWillUnmount(): void;
     // (undocumented)
     getPropertyValue(): Promise<PropertyValue | undefined>;
@@ -2690,9 +2689,9 @@ export class SliderEditor extends React_3.PureComponent<PropertyEditorProps, Sli
     get hasFocus(): boolean;
     // (undocumented)
     get htmlElement(): HTMLElement | null;
-    // @internal (undocumented)
+    // (undocumented)
     render(): React_3.ReactNode;
-    // @internal (undocumented)
+    // (undocumented)
     readonly state: Readonly<SliderEditorState>;
 }
 
@@ -2822,13 +2821,13 @@ export interface Subscription extends Unsubscribable {
 
 // @public
 export class TableArrayValueRenderer extends React_3.PureComponent<TableSpecificValueRendererProps> {
-    // @internal (undocumented)
+    // (undocumented)
     render(): React_3.JSX.Element;
 }
 
 // @public
 export class TableNonPrimitiveValueRenderer extends React_3.PureComponent<TableNonPrimitiveValueRendererProps> {
-    // @internal (undocumented)
+    // (undocumented)
     render(): React_3.JSX.Element;
 }
 
@@ -2852,17 +2851,17 @@ export interface TableSpecificValueRendererProps extends SharedTableNonPrimitive
 
 // @public
 export class TableStructValueRenderer extends React_3.PureComponent<TableSpecificValueRendererProps> {
-    // @internal (undocumented)
+    // (undocumented)
     render(): React_3.JSX.Element;
 }
 
 // @public
 export class TextareaEditor extends React_3.PureComponent<PropertyEditorProps, TextareaEditorState> implements TypeEditor {
-    // @internal (undocumented)
+    // (undocumented)
     componentDidMount(): void;
-    // @internal (undocumented)
+    // (undocumented)
     componentDidUpdate(prevProps: PropertyEditorProps): void;
-    // @internal (undocumented)
+    // (undocumented)
     componentWillUnmount(): void;
     // (undocumented)
     getPropertyValue(): Promise<PropertyValue | undefined>;
@@ -2870,9 +2869,9 @@ export class TextareaEditor extends React_3.PureComponent<PropertyEditorProps, T
     get hasFocus(): boolean;
     // (undocumented)
     get htmlElement(): HTMLElement | null;
-    // @internal (undocumented)
+    // (undocumented)
     render(): React_3.ReactNode;
-    // @internal (undocumented)
+    // (undocumented)
     readonly state: Readonly<TextareaEditorState>;
 }
 
@@ -2890,11 +2889,11 @@ export class TextareaPropertyEditor extends PropertyEditorBase {
 
 // @public
 export class TextEditor extends React_3.PureComponent<PropertyEditorProps, TextEditorState> implements TypeEditor {
-    // @internal (undocumented)
+    // (undocumented)
     componentDidMount(): void;
-    // @internal (undocumented)
+    // (undocumented)
     componentDidUpdate(prevProps: PropertyEditorProps): void;
-    // @internal (undocumented)
+    // (undocumented)
     componentWillUnmount(): void;
     // (undocumented)
     getPropertyValue(): Promise<PropertyValue | undefined>;
@@ -2902,9 +2901,9 @@ export class TextEditor extends React_3.PureComponent<PropertyEditorProps, TextE
     get hasFocus(): boolean;
     // (undocumented)
     get htmlElement(): HTMLElement | null;
-    // @internal (undocumented)
+    // (undocumented)
     render(): React_3.ReactNode;
-    // @internal (undocumented)
+    // (undocumented)
     readonly state: Readonly<TextEditorState>;
 }
 
@@ -2952,11 +2951,11 @@ export const toDateString: (date: Date, timeZoneOffset?: number, formatOptions?:
 
 // @public
 export class ToggleEditor extends React_3.PureComponent<PropertyEditorProps, ToggleEditorState> implements TypeEditor {
-    // @internal (undocumented)
+    // (undocumented)
     componentDidMount(): void;
-    // @internal (undocumented)
+    // (undocumented)
     componentDidUpdate(prevProps: PropertyEditorProps): void;
-    // @internal (undocumented)
+    // (undocumented)
     componentWillUnmount(): void;
     // (undocumented)
     getPropertyValue(): Promise<PropertyValue | undefined>;
@@ -2964,9 +2963,9 @@ export class ToggleEditor extends React_3.PureComponent<PropertyEditorProps, Tog
     get hasFocus(): boolean;
     // (undocumented)
     get htmlElement(): HTMLElement | null;
-    // @internal (undocumented)
+    // (undocumented)
     render(): React_3.JSX.Element;
-    // @internal (undocumented)
+    // (undocumented)
     readonly state: Readonly<ToggleEditorState>;
 }
 
@@ -3694,13 +3693,12 @@ export function useVirtualizedPropertyGridLayoutStorage<T extends Element>(): {
 
 // @public
 export class VirtualizedPropertyGrid extends React_3.Component<VirtualizedPropertyGridProps, VirtualizedPropertyGridState> {
-    // @internal
     constructor(props: VirtualizedPropertyGridProps);
-    // @internal (undocumented)
+    // (undocumented)
     componentDidUpdate(prevProps: VirtualizedPropertyGridProps): void;
     // @internal (undocumented)
     static getDerivedStateFromProps(props: VirtualizedPropertyGridProps, state: VirtualizedPropertyGridState): VirtualizedPropertyGridState | null;
-    // @internal (undocumented)
+    // (undocumented)
     render(): React_3.JSX.Element;
 }
 

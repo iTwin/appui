@@ -39,9 +39,9 @@ import type { ViewState } from '@itwin/core-frontend';
 export class AlphaSlider extends React_2.PureComponent<AlphaSliderProps> {
     // @internal
     constructor(props: AlphaSliderProps);
-    // @internal (undocumented)
+    // (undocumented)
     componentWillUnmount(): void;
-    // @internal (undocumented)
+    // (undocumented)
     render(): React_2.ReactNode;
 }
 
@@ -148,9 +148,9 @@ export class BaseTimelineDataProvider implements TimelineDataProvider {
 
 // @beta
 export class ColorEditor extends React_2.PureComponent<PropertyEditorProps, ColorEditorState> implements TypeEditor {
-    // @internal (undocumented)
+    // (undocumented)
     componentDidMount(): void;
-    // @internal (undocumented)
+    // (undocumented)
     componentDidUpdate(prevProps: PropertyEditorProps): void;
     // (undocumented)
     getPropertyValue(): Promise<PropertyValue | undefined>;
@@ -158,9 +158,9 @@ export class ColorEditor extends React_2.PureComponent<PropertyEditorProps, Colo
     get hasFocus(): boolean;
     // (undocumented)
     get htmlElement(): HTMLElement | null;
-    // @internal (undocumented)
+    // (undocumented)
     render(): React_2.JSX.Element;
-    // @internal (undocumented)
+    // (undocumented)
     readonly state: Readonly<ColorEditorState>;
 }
 
@@ -265,13 +265,13 @@ export enum CubeHover {
 
 // @public
 export class CubeNavigationAid extends React_2.Component<CubeNavigationAidProps, CubeNavigationAidState> {
-    // @internal (undocumented)
+    // (undocumented)
     componentDidMount(): void;
-    // @internal (undocumented)
+    // (undocumented)
     componentWillUnmount(): void;
     // (undocumented)
     render(): React_2.ReactNode;
-    // @internal (undocumented)
+    // (undocumented)
     readonly state: Readonly<CubeNavigationAidState>;
 }
 
@@ -359,9 +359,9 @@ export class DrawingNavigationAid extends React_2.Component<DrawingNavigationAid
     static getDefaultClosedMapSize: () => Vector3d;
     // @internal (undocumented)
     static getDefaultOpenedMapSize: (paddingX?: number, paddingY?: number) => Vector3d;
-    // @internal (undocumented)
+    // (undocumented)
     render(): React_2.ReactNode;
-    // @internal (undocumented)
+    // (undocumented)
     readonly state: Readonly<DrawingNavigationAidState>;
 }
 
@@ -596,7 +596,6 @@ export class InlineEdit extends React_2.Component<InlineEditProps, InlineEditSta
 
 // @public
 export class LineWeightSwatch extends React_2.PureComponent<LineWeightSwatchProps> {
-    // @internal
     constructor(props: LineWeightSwatchProps);
     // (undocumented)
     componentDidMount(): void;
@@ -1036,11 +1035,11 @@ export type ViewStateProp = ViewState | (() => ViewState);
 // @public
 export class WeightEditor extends React_2.PureComponent<PropertyEditorProps, WeightEditorState> implements TypeEditor {
     constructor(props: PropertyEditorProps);
-    // @internal (undocumented)
+    // (undocumented)
     componentDidMount(): void;
-    // @internal (undocumented)
+    // (undocumented)
     componentDidUpdate(prevProps: PropertyEditorProps): void;
-    // @internal (undocumented)
+    // (undocumented)
     componentWillUnmount(): void;
     // (undocumented)
     getPropertyValue(): Promise<PropertyValue | undefined>;
@@ -1048,15 +1047,14 @@ export class WeightEditor extends React_2.PureComponent<PropertyEditorProps, Wei
     get hasFocus(): boolean;
     // (undocumented)
     get htmlElement(): HTMLElement | null;
-    // @internal (undocumented)
+    // (undocumented)
     render(): React_2.JSX.Element;
-    // @internal (undocumented)
+    // (undocumented)
     readonly state: Readonly<WeightEditorState>;
 }
 
 // @public
 export class WeightPickerButton extends React_2.PureComponent<WeightPickerProps, WeightPickerState> {
-    // @internal
     constructor(props: WeightPickerProps);
     // (undocumented)
     componentDidMount(): void;
@@ -1064,7 +1062,7 @@ export class WeightPickerButton extends React_2.PureComponent<WeightPickerProps,
     static defaultProps: {
         weights: number[];
     };
-    // @internal (undocumented)
+    // (undocumented)
     render(): React_2.JSX.Element;
     // (undocumented)
     setFocus(): void;

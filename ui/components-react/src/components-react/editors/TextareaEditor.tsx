@@ -57,7 +57,6 @@ export class TextareaEditor
   private _divElement = React.createRef<HTMLDivElement>();
   private _textAreaElement = React.createRef<HTMLTextAreaElement>();
 
-  /** @internal */
   public override readonly state: Readonly<TextareaEditorState> = {
     inputValue: "",
     readonly: false,
@@ -98,18 +97,15 @@ export class TextareaEditor
       });
   };
 
-  /** @internal */
   public override componentDidMount() {
     this._isMounted = true;
     void this.setStateFromProps();
   }
 
-  /** @internal */
   public override componentWillUnmount() {
     this._isMounted = false;
   }
 
-  /** @internal */
   public override componentDidUpdate(prevProps: PropertyEditorProps) {
     if (this.props.propertyRecord !== prevProps.propertyRecord) {
       void this.setStateFromProps();
@@ -188,7 +184,6 @@ export class TextareaEditor
     }
   };
 
-  /** @internal */
   public override render(): React.ReactNode {
     const className = classnames(
       "components-cell-editor",

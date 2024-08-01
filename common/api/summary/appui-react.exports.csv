@@ -6,7 +6,7 @@ beta;AccuDrawDialog(props: AccuDrawDialogProps): React_2.JSX.Element
 beta;AccuDrawDialogProps 
 beta;AccuDrawGrabInputFocusEvent 
 deprecated;AccuDrawGrabInputFocusEvent 
-beta;AccuDrawKeyboardShortcuts
+public;AccuDrawKeyboardShortcuts
 alpha;AccuDrawPopupManager
 beta;AccuDrawSetCompassModeEvent 
 deprecated;AccuDrawSetCompassModeEvent 
@@ -82,7 +82,7 @@ public;BackstageComposerProps
 internal;BackstageComposerStageLauncher({ item, }: BackstageComposerStageLauncherProps): React_2.JSX.Element
 internal;BackstageComposerStageLauncherProps
 public;BackstageItem = BackstageActionItem | BackstageStageLauncher
-beta;BackstageItemUtilities
+public;BackstageItemUtilities
 public;BackstageManager
 deprecated;BackstageManager
 public;BackstageStageLauncher 
@@ -245,7 +245,7 @@ internal;DialogManagerBase
 internal;DialogRendererBase 
 internal;DialogRendererProps
 internal;DockedStatusBarItem(props: StatusBarItemProps): React_2.JSX.Element
-beta;DrawingNavigationAidControl 
+public;DrawingNavigationAidControl 
 deprecated;DrawingNavigationAidControl 
 public;ElementTooltipChangedEvent 
 deprecated;ElementTooltipChangedEvent 
@@ -538,7 +538,7 @@ public;ReducerActions
 deprecated;ReducerActions
 public;ReducerMapActions
 deprecated;ReducerMapActions
-beta;ReducerRegistry
+public;ReducerRegistry
 deprecated;ReducerRegistry
 beta;ReducerRegistryInstance: ReducerRegistry
 deprecated;ReducerRegistryInstance: ReducerRegistry
@@ -584,7 +584,7 @@ alpha;SheetCard
 alpha;SheetCardProps
 alpha;SheetData
 public;SheetNavigationAid 
-alpha;SheetNavigationAidControl 
+public;SheetNavigationAidControl 
 deprecated;SheetNavigationAidControl 
 public;SheetNavigationProps 
 alpha;SheetsModalFrontstage 
@@ -620,7 +620,7 @@ public;StandardMessageBoxProps
 deprecated;StandardMessageBoxProps 
 public;StandardNavigationToolsProvider 
 beta;StandardNavigationToolsUiItemsProvider 
-alpha;StandardRotationNavigationAidControl 
+public;StandardRotationNavigationAidControl 
 deprecated;StandardRotationNavigationAidControl 
 public;StandardStatusbarItemsProvider 
 beta;StandardStatusbarUiItemsProvider 
@@ -707,7 +707,7 @@ deprecated;ToolbarHelper
 public;ToolbarItem = ToolbarActionItem | ToolbarGroupItem | ToolbarCustomItem
 public;ToolbarItemLayouts
 beta;ToolbarItems
-beta;ToolbarItemUtilities
+public;ToolbarItemUtilities
 public;ToolbarOrientation
 beta;ToolbarPopup 
 beta;ToolbarPopupProps = Omit
@@ -800,7 +800,7 @@ beta;useSolarDataProvider(viewport: ScreenViewport | undefined): SolarDataProvid
 public;useSpecificWidgetDef(widgetId: string): WidgetDef | undefined
 internal;useStatusBarEntry(): DockedStatusBarEntryContextArg
 internal;useToolSettingsNode(): string | number | boolean | React_2.ReactElement
-beta;useTransientState(onSave?: () => void, onRestore?: () => void): void
+public;useTransientState(onSave?: () => void, onRestore?: () => void): void
 public;useUiItemsProviderBackstageItems: (manager: BackstageItemsManager) => readonly BackstageItem[]
 public;useUiItemsProviderStatusBarItems: (manager: StatusBarItemsManager) => readonly StatusBarItem[]
 public;useUiItemsProviderToolbarItems: (manager: ToolbarItemsManager, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation) => readonly ToolbarItem[]

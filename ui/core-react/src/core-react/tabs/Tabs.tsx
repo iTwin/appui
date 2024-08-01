@@ -101,13 +101,11 @@ export class Tabs extends React.PureComponent<MainTabsProps, TabsState> {
     return activeIndex;
   }
 
-  /** @internal */
   public override componentDidMount() {
     this._itemKeyboardNavigator.itemCount = this.props.labels.length;
     this._itemKeyboardNavigator.orientation = this.props.orientation;
   }
 
-  /** @internal */
   public override componentDidUpdate(prevProps: MainTabsProps) {
     if (prevProps.labels !== this.props.labels)
       this._itemKeyboardNavigator.itemCount = this.props.labels.length;
@@ -157,7 +155,6 @@ export class Tabs extends React.PureComponent<MainTabsProps, TabsState> {
     this.setState({ activeIndex: index });
   };
 
-  /** @internal */
   public override render(): React.ReactElement {
     const ulClassNames = classnames(
       this.props.mainClassName,

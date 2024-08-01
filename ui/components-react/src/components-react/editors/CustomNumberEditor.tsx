@@ -62,7 +62,6 @@ export class CustomNumberEditor
   private _inputElement = React.createRef<HTMLInputElement>();
   private _lastValidValue: PropertyValue | undefined;
 
-  /** @internal */
   public override readonly state: Readonly<CustomNumberEditorState> = {
     inputValue: "",
   };
@@ -170,18 +169,15 @@ export class CustomNumberEditor
     this._applyUpdatedValue(e.target.value);
   };
 
-  /** @internal */
   public override componentDidMount() {
     this._isMounted = true;
     void this.setStateFromProps();
   }
 
-  /** @internal */
   public override componentWillUnmount() {
     this._isMounted = false;
   }
 
-  /** @internal */
   public override componentDidUpdate(prevProps: PropertyEditorProps) {
     if (this.props.propertyRecord !== prevProps.propertyRecord) {
       void this.setStateFromProps();
@@ -314,7 +310,6 @@ export class CustomNumberEditor
     e.target.select();
   };
 
-  /** @internal */
   public override render(): React.ReactNode {
     const minSize = this.state.size ? this.state.size : 8;
     const minWidthStyle: React.CSSProperties = {

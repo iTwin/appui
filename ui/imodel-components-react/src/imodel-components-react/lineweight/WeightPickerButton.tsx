@@ -60,7 +60,6 @@ export class WeightPickerButton extends React.PureComponent<
   private _weightsContainer: HTMLDivElement | null = null;
   private _focusTarget = React.createRef<HTMLButtonElement>(); // weight button that should receive focus after popup is open
 
-  /** @internal */
   constructor(props: WeightPickerProps) {
     super(props);
 
@@ -201,7 +200,6 @@ export class WeightPickerButton extends React.PureComponent<
     );
   }
 
-  /** @internal */
   public override render() {
     const buttonClassNames = classnames(
       "components-weightpicker-button",

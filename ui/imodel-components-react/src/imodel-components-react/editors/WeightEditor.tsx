@@ -43,7 +43,6 @@ export class WeightEditor
   private _availableWeights: number[] = [];
   private _divElement = React.createRef<HTMLDivElement>();
 
-  /** @internal */
   public override readonly state: Readonly<WeightEditorState> = {
     weightValue: 0,
     readonly: false,
@@ -114,18 +113,15 @@ export class WeightEditor
     );
   };
 
-  /** @internal */
   public override componentDidMount() {
     this._isMounted = true;
     void this.setStateFromProps();
   }
 
-  /** @internal */
   public override componentWillUnmount() {
     this._isMounted = false;
   }
 
-  /** @internal */
   public override componentDidUpdate(prevProps: PropertyEditorProps) {
     if (this.props.propertyRecord !== prevProps.propertyRecord) {
       void this.setStateFromProps();
@@ -152,7 +148,6 @@ export class WeightEditor
       });
   }
 
-  /** @internal */
   public override render() {
     return (
       <div

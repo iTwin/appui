@@ -71,7 +71,6 @@ export class CardPopup extends React.PureComponent<
   public static override contextType = WrapperContext;
   /** @internal */
   public declare context: React.ContextType<typeof WrapperContext>;
-  /** @internal */
   public override readonly state = {
     size: new Size(-1, -1),
   };

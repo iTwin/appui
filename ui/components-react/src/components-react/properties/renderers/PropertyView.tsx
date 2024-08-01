@@ -82,7 +82,6 @@ export class PropertyView extends React.Component<
     return propertyRecordClassName;
   }
 
-  /** @internal */
   public override render() {
     const ratio = this.props.columnRatio ? this.props.columnRatio : 0.25;
     const needElementSeparator =

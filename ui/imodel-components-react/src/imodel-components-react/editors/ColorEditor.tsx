@@ -48,7 +48,6 @@ export class ColorEditor
   private _buttonElement: React.RefObject<HTMLButtonElement> =
     React.createRef();
 
-  /** @internal */
   public override readonly state: Readonly<ColorEditorState> = {
     colorValue: 0,
     readonly: false,
@@ -107,12 +106,10 @@ export class ColorEditor
     );
   };
 
-  /** @internal */
   public override componentDidMount() {
     void this.setStateFromProps();
   }
 
-  /** @internal */
   public override componentDidUpdate(prevProps: PropertyEditorProps) {
     if (this.props.propertyRecord !== prevProps.propertyRecord) {
       void this.setStateFromProps();
@@ -153,7 +150,6 @@ export class ColorEditor
     }
   }
 
-  /** @internal */
   public override render() {
     const colorDef = ColorDef.create(this.state.colorValue);
     return (

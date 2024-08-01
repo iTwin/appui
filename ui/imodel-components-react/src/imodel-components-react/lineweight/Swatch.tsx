@@ -38,7 +38,6 @@ export interface LineWeightSwatchProps
  * @public
  */
 export class LineWeightSwatch extends React.PureComponent<LineWeightSwatchProps> {
-  /** @internal */
   constructor(props: LineWeightSwatchProps) {
     super(props);
   }

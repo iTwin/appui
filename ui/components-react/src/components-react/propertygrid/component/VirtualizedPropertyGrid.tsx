@@ -167,7 +167,6 @@ export class VirtualizedPropertyGrid extends React.Component<
 > {
   private _listRef = React.createRef<VariableSizeList>();
 
-  /** @internal */
   constructor(props: VirtualizedPropertyGridProps) {
     super(props);
     this.state = {
@@ -184,7 +183,6 @@ export class VirtualizedPropertyGrid extends React.Component<
     };
   }
 
-  /** @internal */
   public override componentDidUpdate(prevProps: VirtualizedPropertyGridProps) {
     if (
       this.props.orientation !== prevProps.orientation ||
@@ -332,7 +330,6 @@ export class VirtualizedPropertyGrid extends React.Component<
     return depth + 1;
   };
 
-  /** @internal */
   public override render() {
     const defaultActionButtonWidth =
       (this.props.actionButtonRenderers?.length ?? 0) > 0

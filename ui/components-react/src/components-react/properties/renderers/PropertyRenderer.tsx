@@ -99,7 +99,6 @@ export class PropertyRenderer extends React.Component<
   PropertyRendererProps,
   PropertyRendererState
 > {
-  /** @internal */
   public override readonly state: Readonly<PropertyRendererState> = {
     displayValue: UiComponents.translate("general.loading"),
   };
@@ -161,12 +160,10 @@ export class PropertyRenderer extends React.Component<
     });
   }
 
-  /** @internal */
   public override componentDidMount() {
     this.updateDisplayValue(this.props);
   }
 
-  /** @internal */
   public override componentDidUpdate(prevProps: PropertyRendererProps) {
     if (
       prevProps.propertyRecord !== this.props.propertyRecord ||
@@ -176,7 +173,6 @@ export class PropertyRenderer extends React.Component<
       this.updateDisplayValue(this.props);
   }
 
-  /** @internal */
   public override render() {
     const {
       propertyValueRendererManager,

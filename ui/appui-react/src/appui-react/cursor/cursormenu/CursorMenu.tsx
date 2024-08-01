@@ -36,7 +36,6 @@ export class CursorPopupMenu extends React.PureComponent<
   private _isMounted = false; // used to ensure _handleSyncUiEvent callback is not processed after componentWillUnmount is called
   private _hostChildWindowId?: string;
 
-  /** @internal */
   public override readonly state: CursorPopupMenuState = {
     menuX: 0,
     menuY: 0,

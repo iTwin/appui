@@ -47,7 +47,6 @@ export class PropertyCategoryBlock extends React.Component<PropertyCategoryBlock
     this.toggleExpansion();
   };
 
-  /** @internal */
   public override render() {
     const { highlight, category, children, onExpansionToggled, ...other } =
       this.props;

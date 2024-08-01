@@ -35,7 +35,7 @@ import { NavigationAidControl } from "./NavigationAidControl";
 import "./StandardRotationNavigationAid.scss";
 
 /** A 3D Standard Rotation Navigation Aid control.
- * @alpha
+ * @public
  * @deprecated in 4.16.0. Use {@link StandardRotationNavigationAid} component instead.
  */
 // eslint-disable-next-line deprecation/deprecation
@@ -69,7 +69,6 @@ export class StandardRotationNavigationAid extends React.Component<
   CommonProps, // eslint-disable-line deprecation/deprecation
   StandardRotationNavigationAidState
 > {
-  /** @internal */
   public override readonly state: Readonly<StandardRotationNavigationAidState>;
 
   constructor(props: any) {

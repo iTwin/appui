@@ -149,7 +149,6 @@ export class CardContainer extends React.Component<CardContainerProps> {
     return CardContainer._cardSelectedEvent;
   }
 
-  /** @internal */
   public override render() {
     return (
       // eslint-disable-next-line deprecation/deprecation

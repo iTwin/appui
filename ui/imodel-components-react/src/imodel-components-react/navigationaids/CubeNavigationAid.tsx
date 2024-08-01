@@ -189,7 +189,6 @@ export class CubeNavigationAid extends React.Component<
   CubeNavigationAidState
 > {
   private _start: Vector2d = Vector2d.createZero();
-  /** @internal */
   public override readonly state: Readonly<CubeNavigationAidState> = {
     dragging: false,
     startRotMatrix: Matrix3d.createIdentity(),
@@ -211,7 +210,6 @@ export class CubeNavigationAid extends React.Component<
     [Face.Bottom]: UiIModelComponents.translate("cube.bottom"),
   };
 
-  /** @internal */
   public override componentDidMount() {
     this._mounted = true;
     ViewportComponentEvents.onViewRotationChangeEvent.addListener(
@@ -229,7 +227,6 @@ export class CubeNavigationAid extends React.Component<
     }
   }
 
-  /** @internal */
   public override componentWillUnmount() {
     ViewportComponentEvents.onViewRotationChangeEvent.removeListener(
       this._handleViewRotationChangeEvent

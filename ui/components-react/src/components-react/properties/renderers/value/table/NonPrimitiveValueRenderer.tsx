@@ -100,7 +100,6 @@ export class TableNonPrimitiveValueRenderer extends React.PureComponent<TableNon
   //     this.props.onPopupHide();
   // }
 
-  /** @internal */
   public override render() {
     return (
       // eslint-disable-next-line deprecation/deprecation

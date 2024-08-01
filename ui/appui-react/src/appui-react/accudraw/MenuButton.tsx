@@ -23,7 +23,6 @@ export interface MenuButtonProps extends SquareButtonProps {
   onSizeKnown?: (size: SizeProps) => void;
 }
 
-/** @internal */
 interface MenuButtonState {
   expanded: boolean;
 }

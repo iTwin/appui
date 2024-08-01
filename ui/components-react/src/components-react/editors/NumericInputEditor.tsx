@@ -53,7 +53,6 @@ export class NumericInputEditor
   private _inputElement: React.RefObject<HTMLInputElement> = React.createRef();
   public hasFocus = false; // hot used since containerHandlesEnter is false
 
-  /** @internal */
   public override readonly state: Readonly<NumericInputEditorState> = {
     value: 0,
     readonly: false,
@@ -107,18 +106,15 @@ export class NumericInputEditor
       );
   };
 
-  /** @internal */
   public override componentDidMount() {
     this._isMounted = true;
     void this.setStateFromProps();
   }
 
-  /** @internal */
   public override componentWillUnmount() {
     this._isMounted = false;
   }
 
-  /** @internal */
   public override componentDidUpdate(prevProps: PropertyEditorProps) {
     if (this.props.propertyRecord !== prevProps.propertyRecord) {
       void this.setStateFromProps();
@@ -185,7 +181,6 @@ export class NumericInputEditor
       });
   }
 
-  /** @internal */
   public override render(): React.ReactNode {
     const className = classnames(
       "components-cell-editor",

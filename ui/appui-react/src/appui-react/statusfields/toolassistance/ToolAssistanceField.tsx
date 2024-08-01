@@ -139,7 +139,6 @@ export class ToolAssistanceField extends React.Component<
     defaultPromptAtCursor: false,
   };
 
-  /** @internal */
   constructor(p: ToolAssistanceFieldProps) {
     super(p);
 
@@ -178,7 +177,6 @@ export class ToolAssistanceField extends React.Component<
     );
   }
 
-  /** @internal */
   public override async componentDidMount() {
     this._isMounted = true;
     MessageManager.onToolAssistanceChangedEvent.addListener(
@@ -195,7 +193,6 @@ export class ToolAssistanceField extends React.Component<
     await this.restoreSettings();
   }
 
-  /** @internal */
   public override componentWillUnmount() {
     this._isMounted = false;
     MessageManager.onToolAssistanceChangedEvent.removeListener(
@@ -362,7 +359,6 @@ export class ToolAssistanceField extends React.Component<
       );
   };
 
-  /** @internal */
   public override render(): React.ReactNode {
     const { instructions } = this.state;
     const dialogTitle = IModelApp.toolAdmin.activeTool

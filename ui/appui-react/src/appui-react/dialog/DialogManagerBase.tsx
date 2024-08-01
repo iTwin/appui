@@ -183,7 +183,6 @@ export class DialogRendererBase extends React.PureComponent<
   DialogRendererProps,
   DialogRendererState
 > {
-  /** @internal */
   public override readonly state: DialogRendererState = {
     parentDocument: undefined,
     renderer: undefined,

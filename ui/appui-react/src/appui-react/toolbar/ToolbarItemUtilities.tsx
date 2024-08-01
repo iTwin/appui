@@ -16,7 +16,7 @@ import type {
 import { isArgsUtil } from "../backstage/BackstageItemUtilities";
 
 /** Helper namespace to create toolbar items.
- * @beta
+ * @public
  */
 export namespace ToolbarItemUtilities {
   interface CreateActionItemArgs

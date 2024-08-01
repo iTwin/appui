@@ -27,7 +27,7 @@ import { IconButton, ProgressRadial } from "@itwin/itwinui-react";
 import { SvgChevronLeft, SvgChevronRight } from "@itwin/itwinui-icons-react";
 
 /** A Sheet Navigation Aid control.
- * @alpha
+ * @public
  * @deprecated in 4.16.0. Use {@link SheetNavigationAid} component instead.
  */
 // eslint-disable-next-line deprecation/deprecation
@@ -75,7 +75,6 @@ export class SheetNavigationAid extends React.Component<
 > {
   private _isMounted = false;
 
-  /** @internal */
   public override readonly state: Readonly<SheetNavigationState> = {
     index: 0,
     sheetData: [],
@@ -150,7 +149,6 @@ export class SheetNavigationAid extends React.Component<
     return stateData;
   }
 
-  /** @internal */
   public override render(): React.ReactNode {
     const name =
       this.state.sheetData.length > 0

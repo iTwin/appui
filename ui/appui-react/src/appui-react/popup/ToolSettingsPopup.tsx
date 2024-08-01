@@ -32,7 +32,6 @@ export interface ToolSettingsPopupProps extends PopupPropsBase {
   onCancel: OnCancelFunc;
 }
 
-/** @internal */
 interface ToolSettingsPopupState {
   size: Size;
 }
@@ -44,7 +43,6 @@ export class ToolSettingsPopup extends React.PureComponent<
   ToolSettingsPopupProps,
   ToolSettingsPopupState
 > {
-  /** @internal */
   public override readonly state = {
     size: new Size(-1, -1),
   };

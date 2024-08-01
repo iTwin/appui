@@ -130,7 +130,6 @@ export class DrawingNavigationAid extends React.Component<
   private _animationFrame: any;
   private _mounted: boolean = false;
 
-  /** @internal */
   public override readonly state: Readonly<DrawingNavigationAidState>;
 
   constructor(props: DrawingNavigationAidProps) {
@@ -174,7 +173,6 @@ export class DrawingNavigationAid extends React.Component<
     };
   }
 
-  /** @internal */
   public override render(): React.ReactNode {
     const {
       startOrigin,

@@ -45,7 +45,6 @@ export class HTMLElementPopup extends React.PureComponent<
   HTMLElementPopupProps,
   HTMLElementPopupState
 > {
-  /** @internal */
   public override readonly state = {
     size: new Size(-1, -1),
   };

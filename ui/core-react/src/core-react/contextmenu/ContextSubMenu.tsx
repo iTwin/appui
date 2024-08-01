@@ -65,7 +65,6 @@ export class ContextSubMenu extends React.Component<
     selectedIndex: 0,
   };
 
-  /** @internal */
   public override readonly state: Readonly<ContextSubMenuState>;
   constructor(props: ContextSubMenuProps) {
     super(props);

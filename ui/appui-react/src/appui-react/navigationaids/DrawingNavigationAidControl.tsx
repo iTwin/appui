@@ -12,7 +12,7 @@ import type { ConfigurableCreateInfo } from "../configurableui/ConfigurableUiCon
 import { NavigationAidControl } from "./NavigationAidControl";
 
 /** Navigation Aid that displays an interactive mini-map for Drawing views that synchronizes with the iModel Viewport.
- * @beta
+ * @public
  * @deprecated in 4.16.0. Use {@link @itwin/imodel-components-react#DrawingNavigationAid} component instead.
  */
 // eslint-disable-next-line deprecation/deprecation

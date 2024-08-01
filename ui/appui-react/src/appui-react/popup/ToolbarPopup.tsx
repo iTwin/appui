@@ -42,7 +42,6 @@ export type ToolbarPopupProps = Omit<PopupPropsBase, "el"> & {
     placement: Placement;
   }>;
 
-/** @internal */
 interface ToolbarPopupState {
   size: Size;
 }
@@ -59,7 +58,6 @@ export class ToolbarPopup extends React.PureComponent<
   /** @internal */
   public declare context: React.ContextType<typeof WrapperContext>;
 
-  /** @internal */
   public override readonly state = {
     size: new Size(-1, -1),
   };

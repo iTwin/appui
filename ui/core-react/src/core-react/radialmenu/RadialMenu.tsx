@@ -67,7 +67,6 @@ export class RadialMenu extends React.Component<
     selected: -1,
   };
 
-  /** @internal */
   public override readonly state: Readonly<RadialMenuState> = {
     sectors: [],
   };
@@ -239,7 +238,6 @@ export class RadialButton extends React.Component<
   RadialButtonProps,
   RadialButtonState
 > {
-  /** @internal */
   public override readonly state: Readonly<RadialButtonState> = {
     hover: this.props.selected || false,
   };

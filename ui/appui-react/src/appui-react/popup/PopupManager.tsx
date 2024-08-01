@@ -581,13 +581,12 @@ export class PopupManager {
   }
 }
 
-/** @internal */
 interface PopupRendererState {
   parentDocument: Document | null;
   popups: ReadonlyArray<PopupInfo>;
 }
 
-/**  Popup Renderer
+/** Popup Renderer.
  * @public
  */
 export class PopupRenderer extends React.Component<{}, PopupRendererState> {
