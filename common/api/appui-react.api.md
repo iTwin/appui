@@ -21,7 +21,7 @@ import type { BeButtonEvent } from '@itwin/core-frontend';
 import type { BeDuration } from '@itwin/core-bentley';
 import { BeEvent } from '@itwin/core-bentley';
 import { BeUiEvent } from '@itwin/core-bentley';
-import { Button } from '@itwin/itwinui-react';
+import type { Button } from '@itwin/itwinui-react';
 import { ColorDef } from '@itwin/core-common';
 import { CombinedState } from 'redux';
 import type { CommandHandler as CommandHandler_2 } from '@itwin/appui-abstract';
@@ -128,7 +128,7 @@ import type { ViewStateProp } from '@itwin/imodel-components-react';
 import type { ViewStateProps } from '@itwin/core-common';
 import type { XAndY } from '@itwin/core-geometry';
 
-// @beta @deprecated
+// @public @deprecated
 export class AccuDrawCommandItems {
     // (undocumented)
     static get bumpToolSetting(): ToolItemDef;
@@ -168,10 +168,10 @@ export class AccuDrawCommandItems {
     static get setOrigin(): ToolItemDef;
 }
 
-// @beta
+// @public
 export function AccuDrawDialog(props: AccuDrawDialogProps): React_2.JSX.Element;
 
-// @beta
+// @public
 export interface AccuDrawDialogProps extends CommonProps {
     // @deprecated
     dialogId?: string;
@@ -180,8 +180,41 @@ export interface AccuDrawDialogProps extends CommonProps {
     orientation?: Orientation;
 }
 
-// @beta @deprecated
+// @public
+export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps): React_2.JSX.Element;
+
+// @public
+export interface AccuDrawFieldContainerProps extends CommonProps {
+    orientation: Orientation;
+    // @internal (undocumented)
+    showZOverride?: boolean;
+    uiSettingsStorage?: UiStateStorage;
+}
+
+// @public @deprecated
 export class AccuDrawGrabInputFocusEvent extends BeUiEvent<{}> {
+}
+
+// @public
+export const AccuDrawInputField: (props: AccuDrawInputFieldProps) => React_2.ReactNode;
+
+// @public
+export interface AccuDrawInputFieldProps extends CommonProps {
+    field: ItemField;
+    icon?: React_2.ReactNode;
+    // @deprecated
+    iconSpec?: IconSpec;
+    id: string;
+    isLocked?: boolean;
+    label?: string;
+    labelCentered?: boolean;
+    labelClassName?: string;
+    labelStyle?: React_2.CSSProperties;
+    onEnterPressed?: () => void;
+    onEscPressed?: () => void;
+    onValueChanged: (stringValue: string) => void;
+    ref?: React_2.Ref<HTMLInputElement>;
+    valueChangedDelay?: number;
 }
 
 // @public
@@ -189,7 +222,7 @@ export class AccuDrawKeyboardShortcuts {
     static getDefaultShortcuts(): KeyboardShortcutProps[];
 }
 
-// @alpha
+// @public
 export class AccuDrawPopupManager {
     // (undocumented)
     static hideCalculator(): boolean;
@@ -199,7 +232,7 @@ export class AccuDrawPopupManager {
     static showAngleEditor(el: HTMLElement, pt: XAndY, value: number, onCommit: (value: number) => void, onCancel: () => void): boolean;
     // (undocumented)
     static showCalculator(el: HTMLElement, pt: XAndY, initialValue: number, resultIcon: string, onOk: (value: number) => void, onCancel: () => void): boolean;
-    // (undocumented)
+    // @internal (undocumented)
     static showDimensionEditor(dimension: "height" | "length", el: HTMLElement, pt: XAndY, value: number, onCommit: (value: number) => void, onCancel: () => void): boolean;
     // (undocumented)
     static showHeightEditor(el: HTMLElement, pt: XAndY, value: number, onCommit: (value: number) => void, onCancel: () => void): boolean;
@@ -209,31 +242,31 @@ export class AccuDrawPopupManager {
     static showMenuButton(id: string, el: HTMLElement, pt: XAndY, menuItemsProps: CursorMenuItemProps[]): boolean;
 }
 
-// @beta @deprecated
+// @public @deprecated
 export class AccuDrawSetCompassModeEvent extends BeUiEvent<AccuDrawSetCompassModeEventArgs> {
 }
 
-// @beta @deprecated
+// @public @deprecated
 export interface AccuDrawSetCompassModeEventArgs {
     // (undocumented)
     mode: CompassMode;
 }
 
-// @beta @deprecated
+// @public @deprecated
 export class AccuDrawSetFieldFocusEvent extends BeUiEvent<AccuDrawSetFieldFocusEventArgs> {
 }
 
-// @beta @deprecated
+// @public @deprecated
 export interface AccuDrawSetFieldFocusEventArgs {
     // (undocumented)
     field: ItemField;
 }
 
-// @beta @deprecated
+// @public @deprecated
 export class AccuDrawSetFieldLockEvent extends BeUiEvent<AccuDrawSetFieldLockEventArgs> {
 }
 
-// @beta @deprecated
+// @public @deprecated
 export interface AccuDrawSetFieldLockEventArgs {
     // (undocumented)
     field: ItemField;
@@ -241,11 +274,11 @@ export interface AccuDrawSetFieldLockEventArgs {
     lock: boolean;
 }
 
-// @beta @deprecated
+// @public @deprecated
 export class AccuDrawSetFieldValueFromUiEvent extends BeUiEvent<AccuDrawSetFieldValueFromUiEventArgs> {
 }
 
-// @beta @deprecated
+// @public @deprecated
 export interface AccuDrawSetFieldValueFromUiEventArgs {
     // (undocumented)
     field: ItemField;
@@ -253,11 +286,11 @@ export interface AccuDrawSetFieldValueFromUiEventArgs {
     stringValue: string;
 }
 
-// @beta @deprecated
+// @public @deprecated
 export class AccuDrawSetFieldValueToUiEvent extends BeUiEvent<AccuDrawSetFieldValueToUiEventArgs> {
 }
 
-// @beta @deprecated
+// @public @deprecated
 export interface AccuDrawSetFieldValueToUiEventArgs {
     // (undocumented)
     field: ItemField;
@@ -267,7 +300,7 @@ export interface AccuDrawSetFieldValueToUiEventArgs {
     value: number;
 }
 
-// @beta
+// @public
 export interface AccuDrawUiSettings {
     angleBackgroundColor?: ColorDef | string;
     angleForegroundColor?: ColorDef | string;
@@ -306,14 +339,14 @@ export interface AccuDrawUiSettings {
     zStyle?: React.CSSProperties;
 }
 
-// @beta @deprecated
+// @public @deprecated
 export class AccuDrawUiSettingsChangedEvent extends BeUiEvent<{}> {
 }
 
 // @public
 export function AccuDrawWidget(): React_2.JSX.Element;
 
-// @beta @deprecated
+// @public @deprecated
 export class AccuDrawWidgetControl extends WidgetControl {
     constructor(info: ConfigurableCreateInfo, options: any);
     // (undocumented)
@@ -675,13 +708,13 @@ export class BumpToolSetting extends Tool {
     static toolId: string;
 }
 
-// @alpha (undocumented)
+// @public (undocumented)
 export class Calculator extends React_2.PureComponent<CalculatorProps, CalculatorState> {
     constructor(props: CalculatorProps);
     // (undocumented)
     componentDidMount(): void;
-    // @internal (undocumented)
-    static readonly defaultProps: CalculatorPropsProps;
+    // (undocumented)
+    static readonly defaultProps: Pick<CalculatorProps, "engine">;
     // (undocumented)
     render(): React_2.JSX.Element;
 }
@@ -737,7 +770,7 @@ export enum CalculatorOperator {
     Subtract = 5
 }
 
-// @alpha @deprecated
+// @public @deprecated
 export class CalculatorPopup extends React_2.PureComponent<CalculatorPopupProps, CalculatorPopupState> {
     // (undocumented)
     render(): React_2.JSX.Element;
@@ -747,7 +780,7 @@ export class CalculatorPopup extends React_2.PureComponent<CalculatorPopupProps,
     };
 }
 
-// @alpha @deprecated (undocumented)
+// @public @deprecated (undocumented)
 export interface CalculatorPopupProps extends PopupPropsBase {
     // (undocumented)
     initialValue: number;
@@ -759,7 +792,7 @@ export interface CalculatorPopupProps extends PopupPropsBase {
     resultIcon: string;
 }
 
-// @alpha (undocumented)
+// @public (undocumented)
 export interface CalculatorProps extends CommonProps {
     // @internal
     engine: CalculatorEngine;
@@ -768,9 +801,6 @@ export interface CalculatorProps extends CommonProps {
     onOk?: OnNumberCommitFunc;
     resultIcon?: React_2.ReactNode;
 }
-
-// @internal (undocumented)
-export type CalculatorPropsProps = Pick<CalculatorProps, "engine">;
 
 // @public
 export interface CanFloatWidgetOptions {
@@ -1893,7 +1923,7 @@ export class FocusToolSettings extends Tool {
     static toolId: string;
 }
 
-// @beta
+// @public
 export class FrameworkAccuDraw extends AccuDraw implements UserSettingsProvider {
     constructor();
     static get displayNotifications(): boolean;
@@ -3171,14 +3201,14 @@ export function mapToPlacement(input?: Placement | RelativePosition): Placement;
 // @internal
 export function mapToRelativePosition(input: Placement | RelativePosition): RelativePosition;
 
-// @alpha (undocumented)
+// @public (undocumented)
 export class MenuButton extends React_2.PureComponent<MenuButtonProps, MenuButtonState> {
     constructor(props: MenuButtonProps);
     // (undocumented)
     render(): React_2.JSX.Element;
 }
 
-// @alpha
+// @public
 export class MenuButtonPopup extends React_2.PureComponent<MenuButtonPopupProps, MenuButtonPopupState> {
     // (undocumented)
     render(): React_2.JSX.Element;
@@ -3188,14 +3218,14 @@ export class MenuButtonPopup extends React_2.PureComponent<MenuButtonPopupProps,
     };
 }
 
-// @alpha (undocumented)
+// @public (undocumented)
 export interface MenuButtonPopupProps extends PopupPropsBase {
     // (undocumented)
     content: React_2.ReactNode;
 }
 
-// @alpha (undocumented)
-export interface MenuButtonProps extends SquareButtonProps {
+// @public (undocumented)
+export interface MenuButtonProps extends Omit<ButtonProps, "size" | "styleType"> {
     onSizeKnown?: (size: SizeProps) => void;
     point: XAndY;
 }
@@ -4826,16 +4856,13 @@ export class ToolAssistanceField extends React_2.Component<ToolAssistanceFieldPr
     context: React_2.ContextType<typeof UiStateStorageContext>;
     // @internal (undocumented)
     static contextType: React_2.Context<UiStateStorage_2>;
-    // @internal (undocumented)
-    static readonly defaultProps: ToolAssistanceFieldDefaultProps;
+    // (undocumented)
+    static readonly defaultProps: Pick<ToolAssistanceFieldProps, "includePromptAtCursor" | "uiStateStorage" | "cursorPromptTimeout" | "fadeOutCursorPrompt" | "defaultPromptAtCursor">;
     // @internal (undocumented)
     static getInstructionImage(instruction: ToolAssistanceInstruction): React_2.ReactNode;
     // (undocumented)
     render(): React_2.ReactNode;
 }
-
-// @internal
-export type ToolAssistanceFieldDefaultProps = Pick<ToolAssistanceFieldProps, "includePromptAtCursor" | "uiStateStorage" | "cursorPromptTimeout" | "fadeOutCursorPrompt" | "defaultPromptAtCursor">;
 
 // @public
 export interface ToolAssistanceFieldProps extends CommonProps {

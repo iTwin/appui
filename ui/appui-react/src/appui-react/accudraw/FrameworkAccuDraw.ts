@@ -46,7 +46,7 @@ const rotationModeToKeyMap = new Map<RotationMode, string>([
 ]);
 
 /** Arguments for [[AccuDrawSetFieldFocusEvent]]
- * @beta
+ * @public
  * @deprecated in 4.13.0. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface AccuDrawSetFieldFocusEventArgs {
@@ -54,14 +54,14 @@ export interface AccuDrawSetFieldFocusEventArgs {
 }
 
 /** AccuDraw Set Field Focus event
- * @beta
+ * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class AccuDrawSetFieldFocusEvent extends BeUiEvent<AccuDrawSetFieldFocusEventArgs> {}
 
 /** Arguments for [[AccuDrawSetFieldValueToUiEvent]]
- * @beta
+ * @public
  * @deprecated in 4.13.0. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface AccuDrawSetFieldValueToUiEventArgs {
@@ -71,14 +71,14 @@ export interface AccuDrawSetFieldValueToUiEventArgs {
 }
 
 /** AccuDraw Set Field Value to Ui event
- * @beta
+ * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class AccuDrawSetFieldValueToUiEvent extends BeUiEvent<AccuDrawSetFieldValueToUiEventArgs> {}
 
 /** Arguments for [[AccuDrawSetFieldValueFromUiEvent]]
- * @beta
+ * @public
  * @deprecated in 4.13.0. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface AccuDrawSetFieldValueFromUiEventArgs {
@@ -87,14 +87,14 @@ export interface AccuDrawSetFieldValueFromUiEventArgs {
 }
 
 /** AccuDraw Set Field Value from Ui event
- * @beta
+ * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class AccuDrawSetFieldValueFromUiEvent extends BeUiEvent<AccuDrawSetFieldValueFromUiEventArgs> {}
 
 /** Arguments for [[AccuDrawSetFieldLockEvent]]
- * @beta
+ * @public
  * @deprecated in 4.13.0. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface AccuDrawSetFieldLockEventArgs {
@@ -103,14 +103,14 @@ export interface AccuDrawSetFieldLockEventArgs {
 }
 
 /** AccuDraw Set Field Lock event
- * @beta
+ * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class AccuDrawSetFieldLockEvent extends BeUiEvent<AccuDrawSetFieldLockEventArgs> {}
 
 /** Arguments for [[AccuDrawSetCompassModeEvent]]
- * @beta
+ * @public
  * @deprecated in 4.13.0. Event args are inferred from a listener. If explicit type is needed use a type helper.
  */
 export interface AccuDrawSetCompassModeEventArgs {
@@ -118,20 +118,20 @@ export interface AccuDrawSetCompassModeEventArgs {
 }
 
 /** AccuDraw Set Compass Mode event
- * @beta
+ * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class AccuDrawSetCompassModeEvent extends BeUiEvent<AccuDrawSetCompassModeEventArgs> {}
 
 /** AccuDraw Grab Input Focus event
- * @beta
+ * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
 export class AccuDrawGrabInputFocusEvent extends BeUiEvent<{}> {}
 
 /** AccuDraw Ui Settings Changed event
- * @beta
+ * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
 export class AccuDrawUiSettingsChangedEvent extends BeUiEvent<{}> {}
@@ -145,7 +145,7 @@ export class AccuDrawUiSettingsChangedEvent extends BeUiEvent<{}> {}
  *   accuDraw: new FrameworkAccuDraw()
  * });
  * ```
- * @beta
+ * @public
  */
 export class FrameworkAccuDraw
   extends AccuDraw

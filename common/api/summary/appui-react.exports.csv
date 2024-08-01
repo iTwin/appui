@@ -1,38 +1,42 @@
 sep=;
 Release Tag;API Item
-beta;AccuDrawCommandItems
+public;AccuDrawCommandItems
 deprecated;AccuDrawCommandItems
-beta;AccuDrawDialog(props: AccuDrawDialogProps): React_2.JSX.Element
-beta;AccuDrawDialogProps 
-beta;AccuDrawGrabInputFocusEvent 
+public;AccuDrawDialog(props: AccuDrawDialogProps): React_2.JSX.Element
+public;AccuDrawDialogProps 
+public;AccuDrawFieldContainer(props: AccuDrawFieldContainerProps): React_2.JSX.Element
+public;AccuDrawFieldContainerProps 
+public;AccuDrawGrabInputFocusEvent 
 deprecated;AccuDrawGrabInputFocusEvent 
+public;AccuDrawInputField: (props: AccuDrawInputFieldProps) => React_2.ReactNode
+public;AccuDrawInputFieldProps 
 public;AccuDrawKeyboardShortcuts
-alpha;AccuDrawPopupManager
-beta;AccuDrawSetCompassModeEvent 
+public;AccuDrawPopupManager
+public;AccuDrawSetCompassModeEvent 
 deprecated;AccuDrawSetCompassModeEvent 
-beta;AccuDrawSetCompassModeEventArgs
+public;AccuDrawSetCompassModeEventArgs
 deprecated;AccuDrawSetCompassModeEventArgs
-beta;AccuDrawSetFieldFocusEvent 
+public;AccuDrawSetFieldFocusEvent 
 deprecated;AccuDrawSetFieldFocusEvent 
-beta;AccuDrawSetFieldFocusEventArgs
+public;AccuDrawSetFieldFocusEventArgs
 deprecated;AccuDrawSetFieldFocusEventArgs
-beta;AccuDrawSetFieldLockEvent 
+public;AccuDrawSetFieldLockEvent 
 deprecated;AccuDrawSetFieldLockEvent 
-beta;AccuDrawSetFieldLockEventArgs
+public;AccuDrawSetFieldLockEventArgs
 deprecated;AccuDrawSetFieldLockEventArgs
-beta;AccuDrawSetFieldValueFromUiEvent 
+public;AccuDrawSetFieldValueFromUiEvent 
 deprecated;AccuDrawSetFieldValueFromUiEvent 
-beta;AccuDrawSetFieldValueFromUiEventArgs
+public;AccuDrawSetFieldValueFromUiEventArgs
 deprecated;AccuDrawSetFieldValueFromUiEventArgs
-beta;AccuDrawSetFieldValueToUiEvent 
+public;AccuDrawSetFieldValueToUiEvent 
 deprecated;AccuDrawSetFieldValueToUiEvent 
-beta;AccuDrawSetFieldValueToUiEventArgs
+public;AccuDrawSetFieldValueToUiEventArgs
 deprecated;AccuDrawSetFieldValueToUiEventArgs
-beta;AccuDrawUiSettings
-beta;AccuDrawUiSettingsChangedEvent 
+public;AccuDrawUiSettings
+public;AccuDrawUiSettingsChangedEvent 
 deprecated;AccuDrawUiSettingsChangedEvent 
 public;AccuDrawWidget(): React_2.JSX.Element
-beta;AccuDrawWidgetControl 
+public;AccuDrawWidgetControl 
 deprecated;AccuDrawWidgetControl 
 public;Action
 deprecated;Action
@@ -95,16 +99,15 @@ public;BasicNavigationWidgetProps
 public;BasicToolWidget(props: BasicToolWidgetProps): React_2.JSX.Element
 public;BasicToolWidgetProps
 alpha;BumpToolSetting 
-alpha;Calculator 
+public;Calculator 
 internal;CalculatorEngine
 internal;CalculatorKeyType
 internal;CalculatorOperator
-alpha;CalculatorPopup 
+public;CalculatorPopup 
 deprecated;CalculatorPopup 
-alpha;CalculatorPopupProps 
+public;CalculatorPopupProps 
 deprecated;CalculatorPopupProps 
-alpha;CalculatorProps 
-internal;CalculatorPropsProps = Pick
+public;CalculatorProps 
 public;CanFloatWidgetOptions
 alpha;CardContainer 
 alpha;CardContainerProps 
@@ -270,7 +273,7 @@ deprecated;FloatingViewportContentWrapper({ children, }: FloatingViewportContent
 public;FloatingViewportContentWrapperProps
 deprecated;FloatingViewportContentWrapperProps
 alpha;FocusToolSettings 
-beta;FrameworkAccuDraw 
+public;FrameworkAccuDraw 
 public;FrameworkBackstage
 public;FrameworkChildWindows
 public;FrameworkContent
@@ -420,10 +423,10 @@ public;LocalStateStorage = LocalStateStorage_2
 public;LocalStateStorage: typeof LocalStateStorage_2
 internal;mapToPlacement(input?: Placement | RelativePosition): Placement
 internal;mapToRelativePosition(input: Placement | RelativePosition): RelativePosition
-alpha;MenuButton 
-alpha;MenuButtonPopup 
-alpha;MenuButtonPopupProps 
-alpha;MenuButtonProps 
+public;MenuButton 
+public;MenuButtonPopup 
+public;MenuButtonPopupProps 
+public;MenuButtonProps 
 alpha;MenuItem 
 deprecated;MenuItem 
 alpha;MenuItemHelpers
@@ -692,7 +695,6 @@ deprecated;ToolAssistanceChangedEvent
 public;ToolAssistanceChangedEventArgs
 deprecated;ToolAssistanceChangedEventArgs
 public;ToolAssistanceField 
-internal;ToolAssistanceFieldDefaultProps = Pick
 public;ToolAssistanceFieldProps 
 beta;Toolbar(props: ToolbarProps): React_2.JSX.Element
 public;TOOLBAR_OPACITY_DEFAULT = 0.5

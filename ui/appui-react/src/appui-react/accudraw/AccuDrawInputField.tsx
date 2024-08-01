@@ -23,7 +23,7 @@ function isLetter(char: string): boolean {
 }
 
 /** Properties for [[AccuDrawInputField]] component
- * @beta
+ * @public
  */
 // eslint-disable-next-line deprecation/deprecation
 export interface AccuDrawInputFieldProps extends CommonProps {
@@ -220,7 +220,7 @@ const ForwardRefAccuDrawInput = React.forwardRef<
 });
 
 /** Input field for AccuDraw UI.
- * @beta
+ * @public
  */
 export const AccuDrawInputField: (
   props: AccuDrawInputFieldProps

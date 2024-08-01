@@ -13,7 +13,7 @@ import { PopupManager } from "../popup/PopupManager";
 import { MenuButton } from "./MenuButton";
 import type { SizeProps } from "../utils/SizeProps";
 
-/** @alpha */
+/** @public */
 export interface MenuButtonPopupProps extends PopupPropsBase {
   content: React.ReactNode;
 }
@@ -23,7 +23,7 @@ interface MenuButtonPopupState {
 }
 
 /** Popup component for Menu Buttons
- * @alpha
+ * @public
  */
 export class MenuButtonPopup extends React.PureComponent<
   MenuButtonPopupProps,

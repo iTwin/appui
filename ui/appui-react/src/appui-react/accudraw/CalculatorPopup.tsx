@@ -17,7 +17,7 @@ import type { SizeProps } from "../utils/SizeProps";
 import { AccuDrawPopupManager } from "./AccuDrawPopupManager";
 
 /**
- * @alpha
+ * @public
  * @deprecated in 4.16.0. Props of deprecated component {@link CalculatorPopup}.
  */
 export interface CalculatorPopupProps extends PopupPropsBase {
@@ -32,7 +32,7 @@ interface CalculatorPopupState {
 }
 
 /** Popup component for Calculator
- * @alpha
+ * @public
  * @deprecated in 4.16.0. Use {@link Calculator} component with {@link https://itwinui.bentley.com/docs/popover iTwinUI Popover} or {@link AccuDrawPopupManager.showCalculator} method instead.
  */
 export class CalculatorPopup extends React.PureComponent<

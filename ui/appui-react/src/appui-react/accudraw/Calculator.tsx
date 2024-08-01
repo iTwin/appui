@@ -15,14 +15,13 @@ import type { CommonProps } from "@itwin/core-react";
 import { Icon, IconInput } from "@itwin/core-react";
 import { Button, Input } from "@itwin/itwinui-react";
 import { CalculatorEngine, CalculatorOperator } from "./CalculatorEngine";
-import type { SquareButtonProps } from "./SquareButton";
 import { SquareButton } from "./SquareButton";
 import { SvgCheckmark, SvgRemove } from "@itwin/itwinui-icons-react";
 import backspaceIcon from "./backspace.svg";
 
-// cSpell:ignore plusmn
+type SquareButtonProps = React.ComponentProps<typeof SquareButton>;
 
-/** @alpha */
+/** @public */
 // eslint-disable-next-line deprecation/deprecation
 export interface CalculatorProps extends CommonProps {
   /** Initial value */
@@ -34,7 +33,7 @@ export interface CalculatorProps extends CommonProps {
   /** A function to be run when the Cancel button is clicked */
   onCancel?: OnCancelFunc;
 
-  /** @internal  Calculator state machine. */
+  /** @internal Calculator state machine. */
   engine: CalculatorEngine;
 }
 
@@ -42,10 +41,7 @@ interface CalculatorState {
   displayValue: string;
 }
 
-/** @internal */
-export type CalculatorPropsProps = Pick<CalculatorProps, "engine">;
-
-/** @alpha */
+/** @public */
 export class Calculator extends React.PureComponent<
   CalculatorProps,
   CalculatorState
@@ -53,8 +49,7 @@ export class Calculator extends React.PureComponent<
   private _mainDiv = React.createRef<HTMLDivElement>();
   private _equalsClicked = false;
 
-  /** @internal */
-  public static readonly defaultProps: CalculatorPropsProps = {
+  public static readonly defaultProps: Pick<CalculatorProps, "engine"> = {
     engine: new CalculatorEngine(),
   };
 

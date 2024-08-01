@@ -100,7 +100,6 @@ export class IconPickerButton extends React.PureComponent<
 > {
   private _target = React.createRef<HTMLButtonElement>();
 
-  /** @internal */
   public static defaultProps: Partial<IconPickerProps> = {
     numColumns: 4,
   };

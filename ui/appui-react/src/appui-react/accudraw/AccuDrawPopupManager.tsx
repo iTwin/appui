@@ -22,7 +22,7 @@ import lengthIcon from "./distance.svg";
 import heightIcon from "./height-2.svg";
 
 /** AccuDraw Popup Manager class
- * @alpha
+ * @public
  */
 export class AccuDrawPopupManager {
   private static _calculatorId = "Calculator";
@@ -125,7 +125,7 @@ export class AccuDrawPopupManager {
     );
   }
 
-  // @internal
+  /** @internal */
   public static showDimensionEditor(
     dimension: "height" | "length",
     el: HTMLElement,

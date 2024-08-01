@@ -299,7 +299,7 @@ export class ContextMenuItem extends React_2.PureComponent<ContextMenuItemProps,
     componentDidMount(): void;
     // (undocumented)
     componentDidUpdate(prevProps: ContextMenuItemProps): void;
-    // @internal (undocumented)
+    // (undocumented)
     static defaultProps: Partial<ContextMenuItemProps>;
     // (undocumented)
     render(): React_2.ReactElement;

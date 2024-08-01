@@ -10,13 +10,16 @@ import "./MenuButton.scss";
 import * as React from "react";
 import type { XAndY } from "@itwin/core-geometry";
 import { ContextMenu, Icon, Size } from "@itwin/core-react";
-import type { SquareButtonProps } from "./SquareButton";
 import { SquareButton } from "./SquareButton";
 import { SvgMore } from "@itwin/itwinui-icons-react";
 import type { SizeProps } from "../utils/SizeProps";
+import type { Button } from "@itwin/itwinui-react";
 
-/** @alpha */
-export interface MenuButtonProps extends SquareButtonProps {
+type ButtonProps = React.ComponentPropsWithoutRef<typeof Button>;
+
+/** @public */
+export interface MenuButtonProps
+  extends Omit<ButtonProps, "size" | "styleType"> {
   /** Center point */
   point: XAndY;
   /** Function called when size is known. */
@@ -27,7 +30,7 @@ interface MenuButtonState {
   expanded: boolean;
 }
 
-/** @alpha */
+/** @public */
 export class MenuButton extends React.PureComponent<
   MenuButtonProps,
   MenuButtonState

@@ -32,7 +32,7 @@ import type { ToolbarItemUtilities } from "../toolbar/ToolbarItemUtilities";
 /* eslint-disable deprecation/deprecation */
 
 /** AccuDraw Command Items - useful in Keyboard Shortcuts
- * @beta
+ * @public
  * @deprecated in 4.15.0. Use {@link KeyboardShortcutUtilities} or {@link ToolbarItemUtilities} instead.
  */
 export class AccuDrawCommandItems {
