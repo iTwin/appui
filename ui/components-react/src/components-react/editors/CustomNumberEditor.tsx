@@ -314,7 +314,6 @@ export class CustomNumberEditor
     e.target.select();
   };
 
-  /** @internal */
   public override render(): React.ReactNode {
     const minSize = this.state.size ? this.state.size : 8;
     const minWidthStyle: React.CSSProperties = {

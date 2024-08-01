@@ -33,7 +33,6 @@ export class TableArrayValueRenderer extends React.PureComponent<TableSpecificVa
     );
   }
 
-  /** @internal */
   public override render() {
     const typeName = (this.props.propertyRecord.value as ArrayValue)
       .itemsTypeName;

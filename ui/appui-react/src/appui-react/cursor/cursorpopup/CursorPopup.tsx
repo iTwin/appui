@@ -232,7 +232,6 @@ export class CursorPopup extends React.Component<
     }
   }
 
-  /** @internal */
   public override render() {
     const popupRect = CursorPopup.getPopupRect(
       this.props.pt,

@@ -67,7 +67,6 @@ export class FlatNonPrimitivePropertyRenderer extends React.Component<FlatNonPri
     );
   }
 
-  /** @internal */
   public override render() {
     const { indentation, ...props } = this.props;
     return <PropertyView labelElement={this.getLabel(this.props)} {...props} />;

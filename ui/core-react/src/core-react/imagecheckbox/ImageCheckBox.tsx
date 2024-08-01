@@ -62,7 +62,6 @@ export class ImageCheckBox extends React.PureComponent<ImageCheckBoxProps> {
     if (e && e.stopPropagation) e.stopPropagation();
   };
 
-  /** @internal */
   public override render() {
     const checkBoxClass = classnames(
       "core-image-checkbox",

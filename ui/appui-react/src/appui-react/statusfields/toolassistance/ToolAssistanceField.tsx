@@ -361,7 +361,6 @@ export class ToolAssistanceField extends React.Component<
       );
   };
 
-  /** @internal */
   public override render(): React.ReactNode {
     const { instructions } = this.state;
     const dialogTitle = IModelApp.toolAdmin.activeTool

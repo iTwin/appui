@@ -130,7 +130,6 @@ export class ToggleEditor
     if (this._isMounted) this.setState({ toggleValue, isDisabled });
   }
 
-  /** @internal */
   public override render() {
     const className = classnames(
       "components-cell-editor",

@@ -62,7 +62,6 @@ export class SearchBox extends React.Component<SearchBoxProps, SearchBoxState> {
     super(props);
   }
 
-  /** @internal */
   public override render(): React.ReactNode {
     const searchClassName = classnames("core-searchbox", this.props.className);
     const emptyString = this.state.value === "";

@@ -581,7 +581,6 @@ export class PopupManager {
   }
 }
 
-/** @internal */
 interface PopupRendererState {
   parentDocument: Document | null;
   popups: ReadonlyArray<PopupInfo>;

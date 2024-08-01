@@ -33,7 +33,6 @@ export class PrimitivePropertyRenderer extends React.Component<PrimitiveRenderer
     super(props);
   }
 
-  /** @internal */
   public override render() {
     return <CustomizablePropertyRenderer {...this.props} />;
   }

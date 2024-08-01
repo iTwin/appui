@@ -152,7 +152,6 @@ export class WeightEditor
       });
   }
 
-  /** @internal */
   public override render() {
     return (
       <div

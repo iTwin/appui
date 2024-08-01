@@ -127,7 +127,6 @@ export class ResultSelector extends React.PureComponent<
     }
   }
 
-  /** @internal */
   public override render() {
     return (
       <span

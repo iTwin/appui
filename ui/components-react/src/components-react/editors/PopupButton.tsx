@@ -114,7 +114,6 @@ export class PopupButton extends React.PureComponent<
     }
   };
 
-  /** @internal */
   public override render(): React.ReactNode {
     const showArrow = this.props.showArrow ?? false;
     const showShadow = this.props.showShadow ?? false;

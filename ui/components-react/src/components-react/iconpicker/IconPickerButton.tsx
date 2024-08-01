@@ -151,7 +151,6 @@ export class IconPickerButton extends React.PureComponent<
     );
   }
 
-  /** @internal */
   public override render() {
     const buttonStyle = { ...this.props.style } as React.CSSProperties;
     const buttonClassNames = classnames(

@@ -188,7 +188,6 @@ export class TextareaEditor
     }
   };
 
-  /** @internal */
   public override render(): React.ReactNode {
     const className = classnames(
       "components-cell-editor",

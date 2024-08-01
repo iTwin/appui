@@ -209,7 +209,6 @@ export class EnumButtonGroupEditor
     );
   }
 
-  /** @internal */
   public override render() {
     return (
       <div

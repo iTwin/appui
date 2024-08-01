@@ -93,7 +93,6 @@ export class PropertyList extends React.Component<PropertyListProps> {
       this.props.onEditCommit(args, this.props.category);
   };
 
-  /** @internal */
   public override render() {
     const propertyListClassName = classnames(
       this.props.orientation === Orientation.Horizontal

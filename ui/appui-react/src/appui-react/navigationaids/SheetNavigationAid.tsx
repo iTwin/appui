@@ -150,7 +150,6 @@ export class SheetNavigationAid extends React.Component<
     return stateData;
   }
 
-  /** @internal */
   public override render(): React.ReactNode {
     const name =
       this.state.sheetData.length > 0

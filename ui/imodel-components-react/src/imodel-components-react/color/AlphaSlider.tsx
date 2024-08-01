@@ -168,7 +168,6 @@ export class AlphaSlider extends React.PureComponent<AlphaSliderProps> {
     window.removeEventListener("mouseup", this._onMouseUp);
   }
 
-  /** @internal */
   public override render(): React.ReactNode {
     const containerClasses = classnames(
       this.props.isHorizontal

@@ -331,7 +331,6 @@ export class VirtualizedPropertyGrid extends React.Component<
     return depth + 1;
   };
 
-  /** @internal */
   public override render() {
     const defaultActionButtonWidth =
       (this.props.actionButtonRenderers?.length ?? 0) > 0

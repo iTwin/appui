@@ -200,7 +200,6 @@ export class WeightPickerButton extends React.PureComponent<
     );
   }
 
-  /** @internal */
   public override render() {
     const buttonClassNames = classnames(
       "components-weightpicker-button",

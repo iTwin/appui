@@ -157,7 +157,6 @@ export class Tabs extends React.PureComponent<MainTabsProps, TabsState> {
     this.setState({ activeIndex: index });
   };
 
-  /** @internal */
   public override render(): React.ReactElement {
     const ulClassNames = classnames(
       this.props.mainClassName,

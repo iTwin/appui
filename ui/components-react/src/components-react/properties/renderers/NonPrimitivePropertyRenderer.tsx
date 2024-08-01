@@ -129,7 +129,6 @@ export class NonPrimitivePropertyRenderer extends React.Component<
     );
   };
 
-  /** @internal */
   public override render() {
     let items: PropertyRecord[] =
       this.props.propertyRecord.getChildrenRecords();

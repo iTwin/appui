@@ -172,7 +172,6 @@ export class PropertyGridEventsRelatedPropsSupplier extends React.Component<
     this.setState({ selectedPropertyKey, editingPropertyKey });
   }
 
-  /** @internal */
   public override render() {
     const renderContext: PropertyGridEventsRelatedProps = {
       isPropertyHoverEnabled: this.props.isPropertyHoverEnabled,

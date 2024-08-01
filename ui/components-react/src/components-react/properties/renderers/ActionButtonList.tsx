@@ -39,7 +39,6 @@ export class ActionButtonList extends React.PureComponent<ActionButtonListProps>
       : "components-property-action-button-list--vertical";
   }
 
-  /** @internal */
   public override render() {
     return (
       <div className={this.getClassName(this.props.orientation)}>

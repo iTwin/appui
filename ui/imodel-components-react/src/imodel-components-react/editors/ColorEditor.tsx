@@ -153,7 +153,6 @@ export class ColorEditor
     }
   }
 
-  /** @internal */
   public override render() {
     const colorDef = ColorDef.create(this.state.colorValue);
     return (

@@ -29,7 +29,6 @@ export class TableStructValueRenderer extends React.PureComponent<TableSpecificV
     );
   }
 
-  /** @internal */
   public override render() {
     return (
       <TableValueRenderer

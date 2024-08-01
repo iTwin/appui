@@ -283,7 +283,6 @@ export class DateTimeEditor
     }
   };
 
-  /** @internal */
   public override render(): React.ReactNode {
     const date = this.state.editInUtc
       ? adjustDateToTimezone(this.state.value, 0)

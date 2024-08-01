@@ -174,7 +174,6 @@ export class DrawingNavigationAid extends React.Component<
     };
   }
 
-  /** @internal */
   public override render(): React.ReactNode {
     const {
       startOrigin,

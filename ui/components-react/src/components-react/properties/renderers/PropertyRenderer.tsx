@@ -166,7 +166,6 @@ export class PropertyRenderer extends React.Component<
     this.updateDisplayValue(this.props);
   }
 
-  /** @internal */
   public override componentDidUpdate(prevProps: PropertyRendererProps) {
     if (
       prevProps.propertyRecord !== this.props.propertyRecord ||
@@ -176,7 +175,6 @@ export class PropertyRenderer extends React.Component<
       this.updateDisplayValue(this.props);
   }
 
-  /** @internal */
   public override render() {
     const {
       propertyValueRendererManager,

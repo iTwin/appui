@@ -161,7 +161,6 @@ export class EnumEditor
       });
   }
 
-  /** @internal */
   public override render() {
     const className = classnames(
       "components-cell-editor",

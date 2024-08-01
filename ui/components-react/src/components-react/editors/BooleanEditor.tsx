@@ -127,7 +127,6 @@ export class BooleanEditor
     if (this._isMounted) this.setState({ checkboxValue, isDisabled });
   }
 
-  /** @internal */
   public override render() {
     const className = classnames(
       "components-cell-editor",

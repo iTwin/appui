@@ -289,7 +289,6 @@ export class SliderEditor
     } as Partial<Omit<TooltipProps, "children">>;
   };
 
-  /** @internal */
   public override render(): React.ReactNode {
     const className = classnames(
       "components-cell-editor",

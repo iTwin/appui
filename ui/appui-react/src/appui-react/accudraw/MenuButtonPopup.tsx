@@ -40,7 +40,6 @@ export class MenuButtonPopup extends React.PureComponent<
       this.setState({ size: Size.create(newSize) });
   };
 
-  /** @internal */
   public override render() {
     const point = PopupManager.getPopupPosition(
       this.props.el,

@@ -169,7 +169,6 @@ export class IconEditor
       });
   }
 
-  /** @internal */
   public override render() {
     const { icon, icons, numColumns } = this.state;
     return (
