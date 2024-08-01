@@ -20,7 +20,7 @@ import { UiFramework } from "../UiFramework";
  *   toolAdmin: new FrameworkToolAdmin()
  * });
  * ```
- * @beta
+ * @public
  */
 export class FrameworkToolAdmin extends ToolAdmin {
   public override async processShortcutKey(

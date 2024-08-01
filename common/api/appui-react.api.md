@@ -2054,7 +2054,7 @@ export interface FrameworkControls {
     unregister(classId: string): void;
 }
 
-// @beta
+// @public
 export interface FrameworkDialog {
     readonly active: React.ReactNode | undefined;
     close(dialog?: React.ReactNode): void;
@@ -2066,11 +2066,9 @@ export interface FrameworkDialog {
 
 // @public
 export interface FrameworkDialogs {
-    // @beta
     readonly modal: FrameworkDialog & {
         readonly onModalDialogChangedEvent: ModalDialogChangedEvent;
     };
-    // @beta
     readonly modeless: FrameworkStackedDialog<ModelessDialogInfo> & {
         readonly onModelessDialogChangedEvent: ModelessDialogChangedEvent;
     };
@@ -2221,7 +2219,7 @@ export interface FrameworkRootState {
     frameworkState: FrameworkState;
 }
 
-// @beta
+// @public
 export interface FrameworkStackedDialog<DialogInfoType> extends FrameworkDialog {
     // (undocumented)
     getInfo(id: string): DialogInfoType | undefined;
@@ -2237,7 +2235,7 @@ export interface FrameworkState {
     sessionState: SessionState;
 }
 
-// @beta
+// @public
 export class FrameworkToolAdmin extends ToolAdmin {
     // (undocumented)
     processShortcutKey(e: KeyboardEvent, wentDown: boolean): Promise<boolean>;
@@ -4462,7 +4460,7 @@ export class StandardNavigationToolsProvider extends BaseUiItemsProvider {
     static register(providerId: string, defaultNavigationTools?: DefaultNavigationTools, isSupportedStage?: (stageId: string, stageUsage: string, stageAppData?: any) => boolean): StandardNavigationToolsProvider;
 }
 
-// @beta
+// @public
 export class StandardNavigationToolsUiItemsProvider implements UiItemsProvider {
     constructor(defaultNavigationTools?: DefaultNavigationTools | undefined);
     // (undocumented)
@@ -4608,7 +4606,6 @@ export interface StatusBarItemProps extends CommonProps {
 
 // @public
 export namespace StatusBarItemUtilities {
-    // @beta
     export function createActionItem(args: CreateActionItemArgs): StatusBarActionItem;
     // @deprecated
     export function createActionItem(...args: DeprecatedCreateActionItemArgs): StatusBarActionItem;
@@ -4617,14 +4614,12 @@ export namespace StatusBarItemUtilities {
         // (undocumented)
         icon?: StatusBarActionItem["iconNode"];
     }
-    // @beta
     export function createCustomItem(args: CreateCustomItemArgs): StatusBarCustomItem;
     // @deprecated
     export function createCustomItem(...args: DeprecatedCreateCustomItemArgs): StatusBarCustomItem;
     // (undocumented)
     export interface CreateCustomItemArgs extends Partial<Omit<StatusBarCustomItem, "id">>, Pick<StatusBarCustomItem, "id"> {
     }
-    // @beta
     export function createLabelItem(args: CreateLabelItemArgs): StatusBarLabelItem;
     // @deprecated
     export function createLabelItem(...args: DeprecatedCreateLabelItemArgs): StatusBarLabelItem;
@@ -4773,7 +4768,7 @@ export class SyncUiEventDispatcher {
     static initialize(): void;
     static initializeConnectionEvents(iModelConnection: IModelConnection): void;
     static get onSyncUiEvent(): UiSyncEvent;
-    // @internal
+    // (undocumented)
     static setTimeoutPeriod(period: number): void;
     static get syncEventIds(): Set<string>;
 }

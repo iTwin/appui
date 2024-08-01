@@ -33,7 +33,7 @@ export interface DefaultNavigationTools {
 
 /**
  * Provide standard tools for the ViewNavigationWidgetComposer.
- * @beta
+ * @public
  */
 export class StandardNavigationToolsUiItemsProvider implements UiItemsProvider {
   public get id(): string {

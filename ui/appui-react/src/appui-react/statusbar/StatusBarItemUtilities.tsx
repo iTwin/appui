@@ -60,24 +60,18 @@ export namespace StatusBarItemUtilities {
     };
   }
 
-  /** Creates a StatusBar item to perform an action.
-   * @beta
-   */
+  /** Creates a StatusBar item to perform an action. */
   export function createActionItem(
     args: CreateActionItemArgs
   ): StatusBarActionItem;
-  /** Creates a StatusBar item to perform an action.
-   * @beta
-   */
+  /** Creates a StatusBar item to perform an action. */
   /** Creates a StatusBar item to perform an action.
    * @deprecated in 4.16.0. Uses a deprecated {@link @itwin/core-react#IconSpec} type. Use an overload instead.
    */
   export function createActionItem(
     ...args: DeprecatedCreateActionItemArgs
   ): StatusBarActionItem;
-  /** Creates a StatusBar item to perform an action.
-   * @beta
-   */
+  /** Creates a StatusBar item to perform an action. */
   export function createActionItem(
     ...args: DeprecatedCreateActionItemArgs | [CreateActionItemArgs]
   ): StatusBarActionItem {
@@ -140,9 +134,7 @@ export namespace StatusBarItemUtilities {
     };
   }
 
-  /** Creates a StatusBar item to display a label.
-   * @beta
-   */
+  /** Creates a StatusBar item to display a label. */
   export function createLabelItem(
     args: CreateLabelItemArgs
   ): StatusBarLabelItem;
@@ -152,9 +144,7 @@ export namespace StatusBarItemUtilities {
   export function createLabelItem(
     ...args: DeprecatedCreateLabelItemArgs
   ): StatusBarLabelItem;
-  /** Creates a StatusBar item to display a label.
-   * @beta
-   */
+  /** Creates a StatusBar item to display a label. */
   export function createLabelItem(
     ...args: DeprecatedCreateLabelItemArgs | [CreateLabelItemArgs]
   ): StatusBarLabelItem {
@@ -208,9 +198,7 @@ export namespace StatusBarItemUtilities {
     };
   }
 
-  /** Creates a StatusBar item to display a custom content.
-   * @beta
-   */
+  /** Creates a StatusBar item to display a custom content. */
   export function createCustomItem(
     args: CreateCustomItemArgs
   ): StatusBarCustomItem;
@@ -220,9 +208,7 @@ export namespace StatusBarItemUtilities {
   export function createCustomItem(
     ...args: DeprecatedCreateCustomItemArgs
   ): StatusBarCustomItem;
-  /** Creates a StatusBar item to display a custom content.
-   * @beta
-   */
+  /** Creates a StatusBar item to display a custom content. */
   export function createCustomItem(
     ...args: DeprecatedCreateCustomItemArgs | [CreateCustomItemArgs]
   ): StatusBarCustomItem {
