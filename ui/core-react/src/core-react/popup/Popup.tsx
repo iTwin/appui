@@ -121,7 +121,9 @@ interface PopupState {
 // eslint-disable-next-line deprecation/deprecation
 export class Popup extends React.Component<PopupProps, PopupState> {
   private _popup: HTMLElement | null = null;
+  /** @internal */
   public static override contextType = PopupContext;
+  /** @internal */
   public declare context: React.ContextType<typeof PopupContext>;
 
   // eslint-disable-next-line deprecation/deprecation

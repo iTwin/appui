@@ -184,7 +184,7 @@ export interface AccuDrawDialogProps extends CommonProps {
 export class AccuDrawGrabInputFocusEvent extends BeUiEvent<{}> {
 }
 
-// @beta
+// @public
 export class AccuDrawKeyboardShortcuts {
     static getDefaultShortcuts(): KeyboardShortcutProps[];
 }
@@ -531,7 +531,7 @@ export interface BackstageComposerStageLauncherProps {
 // @public
 export type BackstageItem = BackstageActionItem | BackstageStageLauncher;
 
-// @beta
+// @public
 export namespace BackstageItemUtilities {
     export function createActionItem(args: CreateActionItemArgs): BackstageActionItem;
     // @deprecated
@@ -739,9 +739,9 @@ export enum CalculatorOperator {
 
 // @alpha @deprecated
 export class CalculatorPopup extends React_2.PureComponent<CalculatorPopupProps, CalculatorPopupState> {
-    // @internal (undocumented)
+    // (undocumented)
     render(): React_2.JSX.Element;
-    // @internal (undocumented)
+    // (undocumented)
     readonly state: {
         size: Size;
     };
@@ -786,7 +786,7 @@ export interface CanFloatWidgetOptions {
 // @alpha
 export class CardContainer extends React_2.Component<CardContainerProps> {
     static get onCardSelectedEvent(): CardSelectedEvent;
-    // @internal (undocumented)
+    // (undocumented)
     render(): React_2.JSX.Element;
 }
 
@@ -1449,7 +1449,6 @@ export interface CursorMenuPayload {
 
 // @public
 export class CursorPopup extends React_2.Component<CursorPopupProps, CursorPopupState> {
-    // @internal
     constructor(props: CursorPopupProps);
     // (undocumented)
     componentDidMount(): void;
@@ -1459,7 +1458,7 @@ export class CursorPopup extends React_2.Component<CursorPopupProps, CursorPopup
     static fadeOutTime: number;
     // @internal (undocumented)
     static getPopupRect(pt: XAndY, offset: XAndY, popupSize: SizeProps | undefined, relativePosition: RelativePosition | Placement): RectangleProps;
-    // @internal (undocumented)
+    // (undocumented)
     render(): React_2.JSX.Element;
 }
 
@@ -1499,7 +1498,7 @@ CursorPopupMenuState> {
     componentWillUnmount(): void;
     // (undocumented)
     render(): React_2.ReactNode;
-    // @internal (undocumented)
+    // (undocumented)
     readonly state: CursorPopupMenuState;
 }
 
@@ -1776,7 +1775,7 @@ export interface DialogRendererProps {
 // @internal
 export function DockedStatusBarItem(props: StatusBarItemProps): React_2.JSX.Element;
 
-// @beta @deprecated
+// @public @deprecated
 export class DrawingNavigationAidControl extends NavigationAidControl {
     constructor(info: ConfigurableCreateInfo, options: any);
     // (undocumented)
@@ -1900,9 +1899,7 @@ export class FrameworkAccuDraw extends AccuDraw implements UserSettingsProvider 
     static get displayNotifications(): boolean;
     static set displayNotifications(v: boolean);
     static getFieldDisplayValue(index: ItemField): string;
-    // @internal
     grabInputFocus(): void;
-    // @internal
     get hasInputFocus(): boolean;
     static readonly isACSRotationConditional: ConditionalBooleanValue;
     static readonly isContextRotationConditional: ConditionalBooleanValue;
@@ -1921,20 +1918,19 @@ export class FrameworkAccuDraw extends AccuDraw implements UserSettingsProvider 
     static readonly onAccuDrawSetFieldValueFromUiEvent: AccuDrawSetFieldValueFromUiEvent;
     static readonly onAccuDrawSetFieldValueToUiEvent: AccuDrawSetFieldValueToUiEvent;
     static readonly onAccuDrawUiSettingsChangedEvent: AccuDrawUiSettingsChangedEvent;
-    // @internal (undocumented)
+    // (undocumented)
     onCompassModeChange(): void;
-    // @internal (undocumented)
+    // (undocumented)
     onFieldLockChange(index: ItemField): void;
-    // @internal (undocumented)
+    // (undocumented)
     onFieldValueChange(index: ItemField): void;
-    // @internal
     onMotion(_ev: BeButtonEvent): void;
-    // @internal (undocumented)
+    // (undocumented)
     onRotationModeChange(): void;
     // (undocumented)
     readonly providerId = "FrameworkAccuDraw";
     static setFieldValueFromUi(field: ItemField, stringValue: string): void;
-    // @internal (undocumented)
+    // (undocumented)
     setFocusItem(index: ItemField): void;
     static get uiStateStorage(): AccuDrawUiSettings | undefined;
     static set uiStateStorage(v: AccuDrawUiSettings | undefined);
@@ -2656,7 +2652,7 @@ export class HideIsolateEmphasizeManager extends HideIsolateEmphasizeActionHandl
 export class HTMLElementPopup extends React_2.PureComponent<HTMLElementPopupProps, HTMLElementPopupState> {
     // (undocumented)
     render(): React_2.JSX.Element;
-    // @internal (undocumented)
+    // (undocumented)
     readonly state: {
         size: Size;
     };
@@ -2759,9 +2755,9 @@ export class InputEditorCommitHandler {
 
 // @alpha
 export class InputEditorPopup extends React_2.PureComponent<InputEditorPopupProps, InputEditorPopupState> {
-    // @internal (undocumented)
+    // (undocumented)
     render(): React_2.JSX.Element;
-    // @internal (undocumented)
+    // (undocumented)
     readonly state: {
         size: Size;
     };
@@ -2975,7 +2971,7 @@ export class KeyboardShortcutMenu extends React_2.PureComponent<CommonProps, Key
     static readonly onKeyboardShortcutMenuEvent: KeyboardShortcutMenuEvent;
     // (undocumented)
     render(): React_2.ReactNode;
-    // @internal (undocumented)
+    // (undocumented)
     readonly state: KeyboardShortcutMenuState;
 }
 
@@ -3184,9 +3180,9 @@ export class MenuButton extends React_2.PureComponent<MenuButtonProps, MenuButto
 
 // @alpha
 export class MenuButtonPopup extends React_2.PureComponent<MenuButtonPopupProps, MenuButtonPopupState> {
-    // @internal (undocumented)
+    // (undocumented)
     render(): React_2.JSX.Element;
-    // @internal (undocumented)
+    // (undocumented)
     readonly state: {
         size: Size;
     };
@@ -3820,7 +3816,7 @@ export type ReducerActions<R> = R extends Reducer<any, infer X> ? X extends Acti
 // @public @deprecated
 export type ReducerMapActions<R> = ReducerActions<R[keyof R]>;
 
-// @beta @deprecated
+// @public @deprecated
 export class ReducerRegistry {
     constructor();
     // @internal
@@ -4126,13 +4122,13 @@ export class SheetNavigationAid extends React_2.Component<SheetNavigationProps, 
     constructor(props: SheetNavigationProps);
     componentDidMount(): Promise<void>;
     componentWillUnmount(): void;
-    // @internal (undocumented)
+    // (undocumented)
     render(): React_2.ReactNode;
-    // @internal (undocumented)
+    // (undocumented)
     readonly state: Readonly<SheetNavigationState>;
 }
 
-// @alpha @deprecated
+// @public @deprecated
 export class SheetNavigationAidControl extends NavigationAidControl {
     constructor(info: ConfigurableCreateInfo, options: any);
     // (undocumented)
@@ -4278,7 +4274,7 @@ export class StagePanelDef extends WidgetHost {
     set size(size: number | undefined);
     get sizeSpec(): StagePanelSizeSpec | undefined;
     set sizeSpec(size: StagePanelSizeSpec | undefined);
-    // @internal (undocumented)
+    // (undocumented)
     updateDynamicWidgetDefs(stageId: string, stageUsage: string, location: StagePanelLocation, _section: StagePanelSection | undefined, allStageWidgetDefs: WidgetDef[]): void;
     get widgetDefs(): ReadonlyArray<WidgetDef>;
 }
@@ -4451,11 +4447,11 @@ StandardRotationNavigationAidState> {
     constructor(props: any);
     // (undocumented)
     render(): React_2.ReactNode;
-    // @internal (undocumented)
+    // (undocumented)
     readonly state: Readonly<StandardRotationNavigationAidState>;
 }
 
-// @alpha @deprecated
+// @public @deprecated
 export class StandardRotationNavigationAidControl extends NavigationAidControl {
     constructor(info: ConfigurableCreateInfo, options: any);
     // (undocumented)
@@ -4821,11 +4817,10 @@ export interface ToolAssistanceChangedEventArgs {
 
 // @public
 export class ToolAssistanceField extends React_2.Component<ToolAssistanceFieldProps, ToolAssistanceFieldState> {
-    // @internal
     constructor(p: ToolAssistanceFieldProps);
-    // @internal (undocumented)
+    // (undocumented)
     componentDidMount(): Promise<void>;
-    // @internal (undocumented)
+    // (undocumented)
     componentWillUnmount(): void;
     // @internal (undocumented)
     context: React_2.ContextType<typeof UiStateStorageContext>;
@@ -4835,7 +4830,7 @@ export class ToolAssistanceField extends React_2.Component<ToolAssistanceFieldPr
     static readonly defaultProps: ToolAssistanceFieldDefaultProps;
     // @internal (undocumented)
     static getInstructionImage(instruction: ToolAssistanceInstruction): React_2.ReactNode;
-    // @internal (undocumented)
+    // (undocumented)
     render(): React_2.ReactNode;
 }
 
@@ -4961,7 +4956,7 @@ export namespace ToolbarItems {
     export function createZoomView(overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
 }
 
-// @beta
+// @public
 export namespace ToolbarItemUtilities {
     export function createActionItem(args: CreateActionItemArgs): ToolbarActionItem;
     // @deprecated
@@ -5032,7 +5027,7 @@ export class ToolbarPopup extends React_2.PureComponent<ToolbarPopupProps, Toolb
     static contextType: React_2.Context<HTMLElement>;
     // (undocumented)
     render(): React_2.JSX.Element;
-    // @internal (undocumented)
+    // (undocumented)
     readonly state: {
         size: Size;
     };
@@ -5577,7 +5572,7 @@ export function useStatusBarEntry(): DockedStatusBarEntryContextArg;
 // @internal (undocumented)
 export function useToolSettingsNode(): string | number | boolean | React_2.ReactElement<any, string | React_2.JSXElementConstructor<any>> | Iterable<React_2.ReactNode> | React_2.ReactPortal | null | undefined;
 
-// @beta
+// @public
 export function useTransientState(onSave?: () => void, onRestore?: () => void): void;
 
 // @public
@@ -5614,7 +5609,7 @@ export function useWidgetDirection(): "horizontal" | "vertical";
 // @alpha
 export class ValidationTextbox extends React_2.PureComponent<ValidationTextboxProps, ValidationTextboxState> {
     constructor(props: ValidationTextboxProps);
-    // @internal (undocumented)
+    // (undocumented)
     render(): React_2.ReactNode;
 }
 

@@ -74,11 +74,11 @@ export type AsyncGetAutoSuggestDataFunc = (value: string) => Promise<AutoSuggest
 // @public @deprecated
 export class AutoSuggest extends React_2.PureComponent<AutoSuggestProps, AutoSuggestState> {
     constructor(props: AutoSuggestProps);
-    // @internal (undocumented)
+    // (undocumented)
     componentDidMount(): void;
     // (undocumented)
     componentDidUpdate(prevProps: AutoSuggestProps): void;
-    // @internal (undocumented)
+    // (undocumented)
     componentWillUnmount(): void;
     // (undocumented)
     render(): React_2.ReactElement;
@@ -242,11 +242,11 @@ export class ContextMenu extends React_2.PureComponent<ContextMenuProps, Context
     static autoFlip: (dir: ContextMenuDirection, rect: DOMRectReadOnly, windowWidth: number, windowHeight: number) => ContextMenuDirection;
     // (undocumented)
     blur: () => void;
-    // @internal (undocumented)
+    // (undocumented)
     componentDidMount(): void;
     // (undocumented)
     componentDidUpdate(prevProps: ContextMenuProps): void;
-    // @internal (undocumented)
+    // (undocumented)
     componentWillUnmount(): void;
     // (undocumented)
     static defaultProps: Partial<ContextMenuProps>;
@@ -258,7 +258,7 @@ export class ContextMenu extends React_2.PureComponent<ContextMenuProps, Context
     getRect: () => DOMRect;
     // (undocumented)
     render(): React_2.ReactElement;
-    // @internal (undocumented)
+    // (undocumented)
     readonly state: Readonly<ContextMenuState>;
 }
 
@@ -305,7 +305,7 @@ export class ContextMenuItem extends React_2.PureComponent<ContextMenuItemProps,
     render(): React_2.ReactElement;
     // (undocumented)
     select: () => void;
-    // @internal (undocumented)
+    // (undocumented)
     readonly state: Readonly<ContextMenuItemState>;
 }
 
@@ -369,7 +369,7 @@ export class ContextSubMenu extends React_2.Component<ContextSubMenuProps, Conte
     render(): React_2.ReactElement;
     // (undocumented)
     select: () => void;
-    // @internal (undocumented)
+    // (undocumented)
     readonly state: Readonly<ContextSubMenuState>;
 }
 
@@ -777,7 +777,7 @@ export type IconSpec = string | ConditionalStringValue | React_2.ReactNode | Con
 
 // @public @deprecated
 export class ImageCheckBox extends React_2.PureComponent<ImageCheckBoxProps> {
-    // @internal (undocumented)
+    // (undocumented)
     render(): React_2.JSX.Element;
 }
 
@@ -1292,7 +1292,7 @@ export class RadialButton extends React_2.Component<RadialButtonProps, RadialBut
     // (undocumented)
     render(): React_2.ReactElement;
     select: () => void;
-    // @internal (undocumented)
+    // (undocumented)
     readonly state: Readonly<RadialButtonState>;
 }
 
@@ -1321,7 +1321,7 @@ export class RadialMenu extends React_2.Component<RadialMenuProps, RadialMenuSta
     // (undocumented)
     render(): React_2.ReactElement;
     select: () => void;
-    // @internal (undocumented)
+    // (undocumented)
     readonly state: Readonly<RadialMenuState>;
 }
 
@@ -1455,9 +1455,9 @@ export class SearchBox extends React_2.Component<SearchBoxProps, SearchBoxState>
     componentWillUnmount(): void;
     // (undocumented)
     focus(): void;
-    // @internal (undocumented)
+    // (undocumented)
     render(): React_2.ReactNode;
-    // @internal (undocumented)
+    // (undocumented)
     readonly state: Readonly<SearchBoxState>;
 }
 
@@ -1618,11 +1618,11 @@ export interface TabLabel {
 // @public @deprecated
 export class Tabs extends React_2.PureComponent<MainTabsProps, TabsState> {
     constructor(props: MainTabsProps);
-    // @internal (undocumented)
+    // (undocumented)
     componentDidMount(): void;
-    // @internal (undocumented)
+    // (undocumented)
     componentDidUpdate(prevProps: MainTabsProps): void;
-    // @internal (undocumented)
+    // (undocumented)
     render(): React_2.ReactElement;
 }
 

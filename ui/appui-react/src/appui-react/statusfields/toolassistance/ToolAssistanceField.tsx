@@ -114,7 +114,9 @@ export class ToolAssistanceField extends React.Component<
   ToolAssistanceFieldProps,
   ToolAssistanceFieldState
 > {
+  /** @internal */
   public static override contextType = UiStateStorageContext;
+  /** @internal */
   public declare context: React.ContextType<typeof UiStateStorageContext>;
 
   private static _toolAssistanceKey = "ToolAssistance";
