@@ -71,12 +71,10 @@ export class PopupButton extends React.PureComponent<
 > {
   private _buttonRef = React.createRef<HTMLDivElement>();
 
-  /** @internal */
   public override readonly state: Readonly<PopupButtonState> = {
     showPopup: false,
   };
 
-  /** @internal */
   public override componentDidMount() {
     if (this.props.setFocus && this._buttonRef.current)
       this._buttonRef.current.focus();

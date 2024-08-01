@@ -115,12 +115,10 @@ export class ResultSelector extends React.PureComponent<
     if (event.key === Key.Enter.valueOf()) this._onSelectedResultConfirmed();
   };
 
-  /** @internal */
   public override componentDidMount() {
     this.props.onSelectedChanged(this.props.resultCount ? 1 : 0);
   }
 
-  /** @internal */
   public override componentDidUpdate(prevProps: ResultSelectorProps) {
     if (this.props.resultCount !== prevProps.resultCount) {
       this.props.onSelectedChanged(this.props.resultCount ? 1 : 0);

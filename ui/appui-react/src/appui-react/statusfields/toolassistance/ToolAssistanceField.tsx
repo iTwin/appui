@@ -175,7 +175,6 @@ export class ToolAssistanceField extends React.Component<
     );
   }
 
-  /** @internal */
   public override async componentDidMount() {
     this._isMounted = true;
     MessageManager.onToolAssistanceChangedEvent.addListener(
@@ -192,7 +191,6 @@ export class ToolAssistanceField extends React.Component<
     await this.restoreSettings();
   }
 
-  /** @internal */
   public override componentWillUnmount() {
     this._isMounted = false;
     MessageManager.onToolAssistanceChangedEvent.removeListener(

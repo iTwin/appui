@@ -59,7 +59,6 @@ export class DateTimeEditor
   private _enterKey = false;
   private _divElement = React.createRef<HTMLDivElement>();
 
-  /** @internal */
   public override readonly state: Readonly<DateTimeEditorState> = {
     value: new Date(),
     editInUtc: false,
@@ -133,18 +132,15 @@ export class DateTimeEditor
     }
   };
 
-  /** @internal */
   public override componentDidMount() {
     this._isMounted = true;
     void this.setStateFromProps();
   }
 
-  /** @internal */
   public override componentWillUnmount() {
     this._isMounted = false;
   }
 
-  /** @internal */
   public override componentDidUpdate(prevProps: PropertyEditorProps) {
     if (this.props.propertyRecord !== prevProps.propertyRecord) {
       void this.setStateFromProps();

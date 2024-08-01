@@ -38,7 +38,6 @@ export class InlineEdit extends React.Component<
     };
   }
 
-  /** @internal */
   public override componentDidUpdate(
     prevProps: InlineEditProps,
     _prevState: InlineEditState

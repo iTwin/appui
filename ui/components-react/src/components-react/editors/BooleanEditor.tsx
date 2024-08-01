@@ -34,7 +34,6 @@ export class BooleanEditor
   private _isMounted = false;
   private _inputElement = React.createRef<HTMLInputElement>();
 
-  /** @internal */
   public override readonly state: Readonly<BooleanEditorState> = {
     checkboxValue: false,
     isDisabled: false,
@@ -90,18 +89,15 @@ export class BooleanEditor
     }
   };
 
-  /** @internal */
   public override componentDidMount() {
     this._isMounted = true;
     this.setStateFromProps();
   }
 
-  /** @internal */
   public override componentWillUnmount() {
     this._isMounted = false;
   }
 
-  /** @internal */
   public override componentDidUpdate(prevProps: PropertyEditorProps) {
     if (this.props.propertyRecord !== prevProps.propertyRecord) {
       this.setStateFromProps();

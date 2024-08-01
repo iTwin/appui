@@ -94,7 +94,6 @@ export class ContextMenu extends React.PureComponent<
     floating: true,
   };
 
-  /** @internal */
   public override readonly state: Readonly<ContextMenuState>;
   constructor(props: ContextMenuProps) {
     super(props);
@@ -349,7 +348,6 @@ export class ContextMenu extends React.PureComponent<
     return parentDocument.defaultView ?? window;
   }
 
-  /** @internal */
   public override componentDidMount() {
     const parentWindow = this.getWindow();
     parentWindow.addEventListener("focus", this._handleFocusChange);
@@ -360,7 +358,6 @@ export class ContextMenu extends React.PureComponent<
     if (this.props.opened) this.focus();
   }
 
-  /** @internal */
   public override componentWillUnmount() {
     const parentWindow = this.getWindow();
     parentWindow.removeEventListener("focus", this._handleFocusChange);

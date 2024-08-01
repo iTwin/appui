@@ -134,7 +134,6 @@ export const withOnOutsideClick = <ComponentProps extends {}>(
         );
     }
 
-    /** @internal */
     public override componentWillUnmount() {
       const outsideClickParentDocument = this.getParentDocument();
       if (usePointerEvents) {

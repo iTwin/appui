@@ -183,7 +183,6 @@ export class VirtualizedPropertyGrid extends React.Component<
     };
   }
 
-  /** @internal */
   public override componentDidUpdate(prevProps: VirtualizedPropertyGridProps) {
     if (
       this.props.orientation !== prevProps.orientation ||

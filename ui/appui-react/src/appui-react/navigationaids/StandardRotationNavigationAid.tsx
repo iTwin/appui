@@ -69,7 +69,6 @@ export class StandardRotationNavigationAid extends React.Component<
   CommonProps, // eslint-disable-line deprecation/deprecation
   StandardRotationNavigationAidState
 > {
-  /** @internal */
   public override readonly state: Readonly<StandardRotationNavigationAidState>;
 
   constructor(props: any) {

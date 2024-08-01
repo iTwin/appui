@@ -272,7 +272,6 @@ export class FrameworkAccuDraw
     return this.processFieldInput(args.field, args.stringValue, false);
   };
 
-  /** @internal */
   public override onCompassModeChange(): void {
     FrameworkAccuDraw.onAccuDrawSetCompassModeEvent.emit({
       mode: this.compassMode,
@@ -284,7 +283,6 @@ export class FrameworkAccuDraw
     this.outputCompassModeMessage();
   }
 
-  /** @internal */
   public override onRotationModeChange(): void {
     SyncUiEventDispatcher.dispatchSyncUiEvent(
       SyncUiEventId.AccuDrawRotationChanged
@@ -293,7 +291,6 @@ export class FrameworkAccuDraw
     this.outputRotationMessage();
   }
 
-  /** @internal */
   public override onFieldLockChange(index: ItemField): void {
     FrameworkAccuDraw.onAccuDrawSetFieldLockEvent.emit({
       field: index,
@@ -301,7 +298,6 @@ export class FrameworkAccuDraw
     });
   }
 
-  /** @internal */
   public override onFieldValueChange(index: ItemField): void {
     const value = this.getValueByIndex(index);
     const formattedValue = FrameworkAccuDraw.getFieldDisplayValue(index);
@@ -320,7 +316,6 @@ export class FrameworkAccuDraw
     this.onFieldValueChange(ItemField.DIST_Item);
   }
 
-  /** @internal */
   public override setFocusItem(index: ItemField): void {
     FrameworkAccuDraw.onAccuDrawSetFieldFocusEvent.emit({ field: index });
   }
@@ -328,7 +323,6 @@ export class FrameworkAccuDraw
   /** Implemented by sub-classes to update ui fields to show current deltas or coordinates when inactive.
    * Should also choose active x or y input field in rectangular mode based on cursor position when
    * axis isn't locked to support "smart lock".
-   * @internal
    */
   public override onMotion(_ev: BeButtonEvent): void {
     if (!this.isEnabled || this.isDeactivated || UiFramework.isContextMenuOpen)
@@ -339,9 +333,7 @@ export class FrameworkAccuDraw
     if (!this.dontMoveFocus) this.setFocusItem(this.newFocus);
   }
 
-  /** Determine if the AccuDraw UI has focus
-   * @internal
-   */
+  /** Determine if the AccuDraw UI has focus. */
   public override get hasInputFocus(): boolean {
     let hasFocus = false;
     const el = document.querySelector("div.uifw-accudraw-field-container");
@@ -349,9 +341,7 @@ export class FrameworkAccuDraw
     return hasFocus;
   }
 
-  /** Implement this method to set focus to the AccuDraw UI.
-   * @internal
-   */
+  /** Implement this method to set focus to the AccuDraw UI. */
   public override grabInputFocus(): void {
     FrameworkAccuDraw.onAccuDrawGrabInputFocusEvent.emit({});
   }

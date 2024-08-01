@@ -114,12 +114,10 @@ export class AutoSuggest extends React.PureComponent<
     };
   }
 
-  /** @internal */
   public override componentDidMount() {
     this._isMounted = true;
   }
 
-  /** @internal */
   public override componentWillUnmount() {
     this._isMounted = false;
   }

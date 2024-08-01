@@ -246,7 +246,6 @@ export class StagePanelDef extends WidgetHost {
     ];
   }
 
-  /** @internal */
   public override updateDynamicWidgetDefs(
     stageId: string,
     stageUsage: string,

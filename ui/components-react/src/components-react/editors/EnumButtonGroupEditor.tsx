@@ -50,7 +50,6 @@ export class EnumButtonGroupEditor
   private _btnRefs = new Map<string | number, HTMLButtonElement>();
   private _divElement = React.createRef<HTMLDivElement>();
 
-  /** @internal */
   public override readonly state: Readonly<EnumButtonGroupEditorState> = {
     selectValue: "",
     enumIcons: [],
@@ -83,12 +82,10 @@ export class EnumButtonGroupEditor
     return containsFocus;
   }
 
-  /** @internal */
   public override componentDidMount() {
     void this.setStateFromProps();
   }
 
-  /** @internal */
   public override componentDidUpdate(prevProps: PropertyEditorProps) {
     if (this.props.propertyRecord !== prevProps.propertyRecord) {
       void this.setStateFromProps();

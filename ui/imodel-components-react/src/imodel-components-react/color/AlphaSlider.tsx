@@ -100,7 +100,6 @@ export class AlphaSlider extends React.PureComponent<AlphaSliderProps> {
     return alpha !== t ? t : undefined;
   };
 
-  /** @internal */
   public override componentWillUnmount() {
     this._unbindEventListeners();
   }

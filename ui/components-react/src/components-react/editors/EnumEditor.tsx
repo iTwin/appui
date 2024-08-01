@@ -38,7 +38,6 @@ export class EnumEditor
   private _isMounted = false;
   private _divElement = React.createRef<HTMLDivElement>();
 
-  /** @internal */
   public override readonly state: Readonly<EnumEditorState> = {
     selectValue: "",
     valueIsNumber: false,
@@ -98,18 +97,15 @@ export class EnumEditor
     }
   };
 
-  /** @internal */
   public override componentDidMount() {
     this._isMounted = true;
     void this.setStateFromProps();
   }
 
-  /** @internal */
   public override componentWillUnmount() {
     this._isMounted = false;
   }
 
-  /** @internal */
   public override componentDidUpdate(prevProps: PropertyEditorProps) {
     if (this.props.propertyRecord !== prevProps.propertyRecord) {
       void this.setStateFromProps();

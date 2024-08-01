@@ -48,7 +48,6 @@ export class TextEditor
   private _isMounted = false;
   private _inputElement = React.createRef<HTMLInputElement>();
 
-  /** @internal */
   public override readonly state: Readonly<TextEditorState> = {
     inputValue: "",
     readonly: false,
@@ -100,18 +99,15 @@ export class TextEditor
       );
   };
 
-  /** @internal */
   public override componentDidMount() {
     this._isMounted = true;
     void this.setStateFromProps();
   }
 
-  /** @internal */
   public override componentWillUnmount() {
     this._isMounted = false;
   }
 
-  /** @internal */
   public override componentDidUpdate(prevProps: PropertyEditorProps) {
     if (this.props.propertyRecord !== prevProps.propertyRecord) {
       void this.setStateFromProps();

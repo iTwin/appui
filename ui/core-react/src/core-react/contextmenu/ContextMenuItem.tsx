@@ -79,7 +79,6 @@ export class ContextMenuItem extends React.PureComponent<
   constructor(props: ContextMenuItemProps) {
     super(props);
   }
-  /** @internal */
   public override readonly state: Readonly<ContextMenuItemState> = {};
   public override render(): React.ReactElement {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars

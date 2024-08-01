@@ -75,7 +75,6 @@ export class SheetNavigationAid extends React.Component<
 > {
   private _isMounted = false;
 
-  /** @internal */
   public override readonly state: Readonly<SheetNavigationState> = {
     index: 0,
     sheetData: [],
