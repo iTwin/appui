@@ -79,18 +79,6 @@ export interface ToolAssistanceFieldProps extends CommonProps {
   defaultPromptAtCursor: boolean;
 }
 
-/** Default properties of [[ToolAssistanceField]] component.
- * @internal
- */
-export type ToolAssistanceFieldDefaultProps = Pick<
-  ToolAssistanceFieldProps,
-  | "includePromptAtCursor"
-  | "uiStateStorage"
-  | "cursorPromptTimeout"
-  | "fadeOutCursorPrompt"
-  | "defaultPromptAtCursor"
->;
-
 /** @internal */
 interface ToolAssistanceFieldState {
   instructions: ToolAssistanceInstructions | undefined;
@@ -131,8 +119,14 @@ export class ToolAssistanceField extends React.Component<
   private _isMounted = false;
   private _uiSettingsStorage: UiStateStorage;
 
-  /** @internal */
-  public static readonly defaultProps: ToolAssistanceFieldDefaultProps = {
+  public static readonly defaultProps: Pick<
+    ToolAssistanceFieldProps,
+    | "includePromptAtCursor"
+    | "uiStateStorage"
+    | "cursorPromptTimeout"
+    | "fadeOutCursorPrompt"
+    | "defaultPromptAtCursor"
+  > = {
     includePromptAtCursor: true,
     cursorPromptTimeout: 5000,
     fadeOutCursorPrompt: true,

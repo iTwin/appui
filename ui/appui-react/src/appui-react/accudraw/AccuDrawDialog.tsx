@@ -16,7 +16,8 @@ import { useTranslation } from "../hooks/useTranslation";
 import { Dialog } from "@itwin/itwinui-react";
 
 /** Properties for [[AccuDrawDialog]]
- * @beta */
+ * @public
+ */
 // eslint-disable-next-line deprecation/deprecation
 export interface AccuDrawDialogProps extends CommonProps {
   /** Indicates whether the dialog is open */
@@ -32,7 +33,8 @@ export interface AccuDrawDialogProps extends CommonProps {
 }
 
 /** Dialog displays [[AccuDrawFieldContainer]] for AccuDraw Ui
- * @beta */
+ * @public
+ */
 export function AccuDrawDialog(props: AccuDrawDialogProps) {
   const { translate } = useTranslation();
   const [opened, setOpened] = React.useState(props.opened);

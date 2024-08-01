@@ -24,7 +24,7 @@ import { UiFramework } from "../UiFramework";
 import type { UiStateStorage } from "../uistate/UiStateStorage";
 
 /** Properties for [[AccuDrawFieldContainer]] component
- * @beta
+ * @public
  */
 // eslint-disable-next-line deprecation/deprecation
 export interface AccuDrawFieldContainerProps extends CommonProps {
@@ -48,7 +48,7 @@ const defaultYLabel = "Y";
 const defaultZLabel = "Z";
 
 /** AccuDraw Ui Field Container displays [[AccuDrawInputField]] for each field
- * @beta
+ * @public
  */
 export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
   const {

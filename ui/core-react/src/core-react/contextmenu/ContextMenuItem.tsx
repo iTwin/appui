@@ -70,7 +70,6 @@ export class ContextMenuItem extends React.PureComponent<
   private _root: HTMLElement | null = null;
   private _lastChildren: React.ReactNode;
   private _parsedChildren: React.ReactNode;
-  /** @internal */
   public static defaultProps: Partial<ContextMenuItemProps> = {
     disabled: false,
     hidden: false,

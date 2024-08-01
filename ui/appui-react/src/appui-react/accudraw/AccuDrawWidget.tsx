@@ -15,7 +15,7 @@ import { WidgetControl } from "../widgets/WidgetControl";
 import { UiFramework } from "../UiFramework";
 
 /** AccuDraw Widget Control
- * @beta
+ * @public
  * @deprecated in 4.16.0. Use {@link AccuDrawWidget} component instead.
  */
 // eslint-disable-next-line deprecation/deprecation

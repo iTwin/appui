@@ -10,7 +10,7 @@ import type { ColorDef } from "@itwin/core-common";
 import type { IconSpec } from "@itwin/core-react";
 
 /** AccuDraw User Interface Settings
- * @beta
+ * @public
  */
 export interface AccuDrawUiSettings {
   /** X field style */
