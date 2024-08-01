@@ -184,7 +184,7 @@ Table of contents:
   });
   ```
 
-  - `getIconClassName`, `getIconSpecFromDetails` methods of `MessageManager` class. Use [iTwinUI icons](https://itwinui.bentley.com} instead.
+  - `getIconClassName`, `getIconSpecFromDetails` methods of `MessageManager` class. Use [iTwinUI icons](https://itwinui.bentley.com) instead.
   - `PropsHelper` class that is used internally. Use your custom helper functions instead.
 
 - `CalculatorPopup` component and related props type `CalculatorPopupProps`. Use `Calculator` component with [iTwinUI Popover](https://itwinui.bentley.com/docs/popover) or `AccuDrawPopupManager.showCalculator` method instead. [#901](https://github.com/iTwin/appui/pull/901)
@@ -252,6 +252,7 @@ Table of contents:
 - Fixed `activeMatchIndex` not working correctly on adjacent matches in `HighlightedText`. [#898](https://github.com/iTwin/appui/pull/898)
 - Fixed widget tab styling to match the SVG and CSS icon size. [#901](https://github.com/iTwin/appui/pull/901)
 - Fixed [mixed-decls](https://sass-lang.com/documentation/breaking-changes/mixed-decls/) Sass warnings. [#939](https://github.com/iTwin/appui/pull/939)
+- Fixed `EditorContainer` trying to commit updated value twice when tab is pressed. [#942](https://github.com/iTwin/appui/pull/942)
 
 ## @itwin/core-react
 

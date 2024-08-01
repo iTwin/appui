@@ -139,6 +139,7 @@ export function EditorContainer(props: EditorContainerProps) {
   const onPressTab = (e: React.KeyboardEvent) => {
     if (!propertyEditorRef.current?.containerHandlesTab) return;
     e.stopPropagation();
+    e.preventDefault();
     void handleContainerCommit();
   };
 
