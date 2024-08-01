@@ -31,7 +31,7 @@ export interface ModelessDialogInfo {
 
 /**
  * Manages dialog access
- * @beta
+ * @public
  */
 export interface FrameworkDialog {
   /** Get the array of modal dialogs */
@@ -61,7 +61,7 @@ export interface FrameworkDialog {
 
 /**
  * FrameworkDialog that manages the top most content.
- * @beta
+ * @public
  */
 export interface FrameworkStackedDialog<DialogInfoType>
   extends FrameworkDialog {
@@ -83,20 +83,14 @@ export interface FrameworkStackedDialog<DialogInfoType>
  * @public
  */
 export interface FrameworkDialogs {
-  /**
-   * Manage modal dialogs.
-   * @beta
-   */
+  /** Manage modal dialogs. */
   readonly modal: FrameworkDialog & {
     /** Modal Dialog Changed Event */
     // eslint-disable-next-line deprecation/deprecation
     readonly onModalDialogChangedEvent: ModalDialogChangedEvent;
   };
 
-  /**
-   * Manage modeless dialogs.
-   * @beta
-   */
+  /** Manage modeless dialogs. */
   readonly modeless: FrameworkStackedDialog<ModelessDialogInfo> & {
     /** Modeless Dialog Changed Event */
     // eslint-disable-next-line deprecation/deprecation

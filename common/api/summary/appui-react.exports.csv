@@ -276,7 +276,7 @@ public;FrameworkChildWindows
 public;FrameworkContent
 public;FrameworkControls
 deprecated;FrameworkControls
-beta;FrameworkDialog
+public;FrameworkDialog
 public;FrameworkDialogs
 public;FrameworkFrontstages
 public;FrameworkKeyboardShortcut
@@ -286,10 +286,10 @@ public;FrameworkReducer: Reducer_2
 deprecated;FrameworkReducer: Reducer_2
 beta;FrameworkRootState
 deprecated;FrameworkRootState
-beta;FrameworkStackedDialog
+public;FrameworkStackedDialog
 public;FrameworkState
 deprecated;FrameworkState
-beta;FrameworkToolAdmin 
+public;FrameworkToolAdmin 
 public;FrameworkToolSettings
 public;FrameworkUiAdmin 
 public;FrameworkVisibility
@@ -619,7 +619,7 @@ deprecated;StandardMessageBox(props: StandardMessageBoxProps): React_2.JSX.Eleme
 public;StandardMessageBoxProps 
 deprecated;StandardMessageBoxProps 
 public;StandardNavigationToolsProvider 
-beta;StandardNavigationToolsUiItemsProvider 
+public;StandardNavigationToolsUiItemsProvider 
 public;StandardRotationNavigationAidControl 
 deprecated;StandardRotationNavigationAidControl 
 public;StandardStatusbarItemsProvider 
@@ -650,9 +650,6 @@ deprecated;StatusBarIndicatorProps
 public;StatusBarItem = StatusBarActionItem | StatusBarLabelItem | StatusBarCustomItem
 internal;StatusBarItemProps 
 public;StatusBarItemUtilities
-beta;createActionItem(args: CreateActionItemArgs): StatusBarActionItem
-beta;createCustomItem(args: CreateCustomItemArgs): StatusBarCustomItem
-beta;createLabelItem(args: CreateLabelItemArgs): StatusBarLabelItem
 beta;StatusBarLabelIndicator(props: StatusBarLabelIndicatorProps): React_2.JSX.Element
 deprecated;StatusBarLabelIndicator(props: StatusBarLabelIndicatorProps): React_2.JSX.Element
 beta;StatusBarLabelIndicatorProps 

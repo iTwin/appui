@@ -14,13 +14,13 @@ import { Guid } from "@itwin/core-bentley";
 /* eslint-disable deprecation/deprecation */
 
 /** `Listbox` value.
- * @alpha
+ * @public
  * @deprecated in 4.12.0. Value used in a deprecated component {@link Listbox}.
  */
 export type ListboxValue = string;
 
 /** `Listbox` Props.
- * @alpha
+ * @public
  * @deprecated in 4.12.0. Props of deprecated component {@link Listbox}.
  */
 export interface ListboxProps
@@ -39,7 +39,7 @@ export interface ListboxProps
 }
 
 /** `ListboxItem` Props.
- * @alpha
+ * @public
  * @deprecated in 4.12.0. Props of deprecated component {@link ListboxItem}.
  */
 export interface ListboxItemProps
@@ -54,7 +54,7 @@ export interface ListboxItemProps
 }
 
 /** `Listbox` Context.
- * @alpha
+ * @public
  * @deprecated in 4.12.0. Props of deprecated context {@link ListboxContext}.
  */
 export interface ListboxContextProps {
@@ -69,7 +69,7 @@ export interface ListboxContextProps {
 }
 
 /** Context set up by listbox for use by `ListboxItems` .
- * @alpha
+ * @public
  * @deprecated in 4.12.0. Context of deprecated component {@link Listbox}.
  */
 export const ListboxContext = React.createContext<ListboxContextProps>({
@@ -135,7 +135,7 @@ function processKeyboardNavigation(
 }
 
 /** Single select `Listbox` component
- * @alpha
+ * @public
  * @deprecated in 4.12.0. Use {@link https://itwinui.bentley.com/docs/list iTwinUI list} instead.
  */
 export function Listbox(props: ListboxProps) {
@@ -337,7 +337,7 @@ export function Listbox(props: ListboxProps) {
 }
 
 /** `ListboxItem` component.
- * @alpha
+ * @public
  * @deprecated in 4.12.0. Use {@link https://itwinui.bentley.com/docs/list iTwinUI list} instead.
  */
 export function ListboxItem(props: ListboxItemProps) {
