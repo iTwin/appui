@@ -40,7 +40,6 @@ export class CalculatorPopup extends React.PureComponent<
   CalculatorPopupProps,
   CalculatorPopupState
 > {
-  /** @internal */
   public override readonly state = {
     size: new Size(-1, -1),
   };

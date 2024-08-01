@@ -43,7 +43,6 @@ export class KeyboardShortcutMenu extends React.PureComponent<
   CommonProps,
   KeyboardShortcutMenuState
 > {
-  /** @internal */
   public override readonly state: KeyboardShortcutMenuState = {
     menuVisible: false,
     menuX: 0,
