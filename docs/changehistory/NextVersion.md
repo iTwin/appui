@@ -220,6 +220,7 @@ Table of contents:
 - Bumped `AccuDrawKeyboardShortcuts`, `BackstageItemUtilities`, `DrawingNavigationAidControl`, `ReducerRegistry`, `SheetNavigationAidControl`, `StandardRotationNavigationAidControl`, `ToolbarItemUtilities`, `useTransientState` APIs to `@public`. [#943](https://github.com/iTwin/appui/pull/943)
 - Removed `@internal` tags from React lifecycle methods and properties. Consumers should avoid calling class methods directly, since class components can be converted to functional components in the future. [#943](https://github.com/iTwin/appui/pull/943)
 - Removed `@internal` tags from overriden class methods. [#943](https://github.com/iTwin/appui/pull/943)
+- Bumped `FrameworkDialog`, `FrameworkDialogs.modal`, `FrameworkDialogs.modeless`, `FrameworkStackedDialog`, `FrameworkToolAdmin`, `StandardNavigationToolsUiItemsProvider`, `StatusBarItemUtilities.createActionItem`, `StatusBarItemUtilities.createCustomItem`, `StatusBarItemUtilities.createLabelItem`, `SyncUiEventDispatcher.setTimeoutPeriod` APIs to `@public`. [#944](https://github.com/iTwin/appui/pull/944)
 
 ### Fixes
 
@@ -355,3 +356,4 @@ Table of contents:
 ### Changes
 
 - Removed styling for the `theme-transition` class. [#890](https://github.com/iTwin/appui/pull/890)
+- Bumped `Listbox`, `ListboxContext`, `ListboxContextProps`, `ListboxItem`, `ListboxItemProps`, `ListboxProps`, `ListboxValue` APIs to `@public`. [#944](https://github.com/iTwin/appui/pull/944)
