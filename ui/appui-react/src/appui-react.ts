@@ -10,6 +10,8 @@ export * from "./appui-react/UiFramework"; // Please ensure that this line comes
 
 export * from "./appui-react/accudraw/AccuDrawCommandItems";
 export * from "./appui-react/accudraw/AccuDrawDialog";
+export * from "./appui-react/accudraw/AccuDrawFieldContainer";
+export * from "./appui-react/accudraw/AccuDrawInputField";
 export * from "./appui-react/accudraw/AccuDrawKeyboardShortcuts";
 export * from "./appui-react/accudraw/AccuDrawPopupManager";
 export * from "./appui-react/accudraw/AccuDrawUiSettings";
