@@ -590,9 +590,7 @@ interface PopupRendererState {
  * @public
  */
 export class PopupRenderer extends React.Component<{}, PopupRendererState> {
-  /** @internal */
   public static override contextType = WrapperContext;
-  /** @internal */
   public declare context: React.ContextType<typeof WrapperContext>;
 
   public override readonly state: PopupRendererState = {
