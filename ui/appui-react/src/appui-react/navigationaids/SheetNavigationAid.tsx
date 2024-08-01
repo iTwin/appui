@@ -27,7 +27,7 @@ import { IconButton, ProgressRadial } from "@itwin/itwinui-react";
 import { SvgChevronLeft, SvgChevronRight } from "@itwin/itwinui-icons-react";
 
 /** A Sheet Navigation Aid control.
- * @alpha
+ * @public
  * @deprecated in 4.16.0. Use {@link SheetNavigationAid} component instead.
  */
 // eslint-disable-next-line deprecation/deprecation

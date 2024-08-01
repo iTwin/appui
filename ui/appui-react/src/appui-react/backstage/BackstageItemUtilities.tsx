@@ -14,7 +14,7 @@ import type {
 } from "./BackstageItem";
 
 /** Utilities for creating and maintaining backstage items
- * @beta
+ * @public
  */
 export namespace BackstageItemUtilities {
   interface CreateStageLauncherArgs

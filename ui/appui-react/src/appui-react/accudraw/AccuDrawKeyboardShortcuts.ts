@@ -37,7 +37,7 @@ import { KeyboardShortcutUtilities } from "../keyboardshortcut/KeyboardShortcutU
  *   AccuDrawKeyboardShortcuts.getDefaultShortcuts()
  * );
  * ```
- * @beta
+ * @public
  */
 export class AccuDrawKeyboardShortcuts {
   /** Get default AccuDraw Keyboard Shortcuts list.

@@ -35,7 +35,7 @@ import { NavigationAidControl } from "./NavigationAidControl";
 import "./StandardRotationNavigationAid.scss";
 
 /** A 3D Standard Rotation Navigation Aid control.
- * @alpha
+ * @public
  * @deprecated in 4.16.0. Use {@link StandardRotationNavigationAid} component instead.
  */
 // eslint-disable-next-line deprecation/deprecation

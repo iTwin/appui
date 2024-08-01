@@ -22,7 +22,7 @@ export interface NameToReducerMap {
 /** Redux Reducer Registry.
  * Follows the example at http://nicolasgallagher.com/redux-modules-and-code-splitting/
  * Allows for small modules to provide their own reducers so that the they can manage their own state
- * @beta
+ * @public
  * @deprecated in 4.15.0. Use your preferred state management library instead.
  */
 export class ReducerRegistry {
