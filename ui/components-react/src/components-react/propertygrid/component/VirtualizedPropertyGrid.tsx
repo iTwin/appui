@@ -167,7 +167,6 @@ export class VirtualizedPropertyGrid extends React.Component<
 > {
   private _listRef = React.createRef<VariableSizeList>();
 
-  /** @internal */
   constructor(props: VirtualizedPropertyGridProps) {
     super(props);
     this.state = {

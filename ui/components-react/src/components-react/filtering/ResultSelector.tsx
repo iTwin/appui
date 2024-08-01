@@ -45,7 +45,6 @@ export class ResultSelector extends React.PureComponent<
   ResultSelectorProps,
   ResultSelectorState
 > {
-  /** @internal */
   constructor(props: ResultSelectorProps) {
     super(props);
     this.state = {

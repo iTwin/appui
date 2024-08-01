@@ -74,7 +74,6 @@ export class PropertyGridEventsRelatedPropsSupplier extends React.Component<
   PropertyGridEventsRelatedPropsSupplierProps,
   PropertyGridEventsRelatedPropsSupplierState
 > {
-  /** @internal */
   constructor(props: PropertyGridEventsRelatedPropsSupplierProps) {
     super(props);
     this.state = {};

@@ -139,7 +139,6 @@ export class ToolAssistanceField extends React.Component<
     defaultPromptAtCursor: false,
   };
 
-  /** @internal */
   constructor(p: ToolAssistanceFieldProps) {
     super(p);
 

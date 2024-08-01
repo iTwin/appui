@@ -71,7 +71,6 @@ export class CursorPopup extends React.Component<
   /** @internal */
   public static fadeOutTime = 500;
 
-  /** @internal */
   constructor(props: CursorPopupProps) {
     super(props);
 
