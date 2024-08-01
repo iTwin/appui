@@ -77,8 +77,6 @@ export class SyncUiEventDispatcher {
   private static _connectionUnregisterFuncs = new Array<() => void>();
   private static _iModelConnection?: IModelConnection;
 
-  /** @internal - used for testing only */
-
   public static setTimeoutPeriod(period: number): void {
     SyncUiEventDispatcher._uiEventDispatcher.setTimeoutPeriod(period);
   }

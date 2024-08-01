@@ -869,13 +869,13 @@ export class Line {
     p2: Point;
 }
 
-// @alpha @deprecated
+// @public @deprecated
 export function Listbox(props: ListboxProps): React_2.JSX.Element;
 
-// @alpha @deprecated
+// @public @deprecated
 export const ListboxContext: React_2.Context<ListboxContextProps>;
 
-// @alpha @deprecated
+// @public @deprecated
 export interface ListboxContextProps {
     // (undocumented)
     focusValue?: ListboxValue;
@@ -889,16 +889,16 @@ export interface ListboxContextProps {
     onListboxValueChange: (newValue: ListboxValue, isControlOrCommandPressed?: boolean) => void;
 }
 
-// @alpha @deprecated
+// @public @deprecated
 export function ListboxItem(props: ListboxItemProps): React_2.JSX.Element;
 
-// @alpha @deprecated
+// @public @deprecated
 export interface ListboxItemProps extends React_2.DetailedHTMLProps<React_2.LiHTMLAttributes<HTMLLIElement>, HTMLLIElement> {
     disabled?: boolean;
     value: ListboxValue;
 }
 
-// @alpha @deprecated
+// @public @deprecated
 export interface ListboxProps extends React_2.DetailedHTMLProps<React_2.HTMLAttributes<HTMLUListElement>, HTMLUListElement> {
     // (undocumented)
     ariaLabel?: any;
@@ -912,7 +912,7 @@ export interface ListboxProps extends React_2.DetailedHTMLProps<React_2.HTMLAttr
     selectedValue?: ListboxValue;
 }
 
-// @alpha @deprecated
+// @public @deprecated
 export type ListboxValue = string;
 
 // @internal

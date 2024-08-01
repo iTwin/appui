@@ -173,19 +173,19 @@ internal;ItemKeyboardNavigator
 public;LabeledComponentProps
 deprecated;LabeledComponentProps
 internal;Line
-alpha;Listbox(props: ListboxProps): React_2.JSX.Element
+public;Listbox(props: ListboxProps): React_2.JSX.Element
 deprecated;Listbox(props: ListboxProps): React_2.JSX.Element
-alpha;ListboxContext: React_2.Context
+public;ListboxContext: React_2.Context
 deprecated;ListboxContext: React_2.Context
-alpha;ListboxContextProps
+public;ListboxContextProps
 deprecated;ListboxContextProps
-alpha;ListboxItem(props: ListboxItemProps): React_2.JSX.Element
+public;ListboxItem(props: ListboxItemProps): React_2.JSX.Element
 deprecated;ListboxItem(props: ListboxItemProps): React_2.JSX.Element
-alpha;ListboxItemProps 
+public;ListboxItemProps 
 deprecated;ListboxItemProps 
-alpha;ListboxProps 
+public;ListboxProps 
 deprecated;ListboxProps 
-alpha;ListboxValue = string
+public;ListboxValue = string
 deprecated;ListboxValue = string
 internal;ListenerType
 public;LoadingBar 

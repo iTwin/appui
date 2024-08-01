@@ -216,6 +216,10 @@ registerIconWebComponent();
  * Components for working with input controls, such as Input, IconInput and NumberInput.
  */
 /**
+ * @docs-group-description Listbox
+ * Components for working with a Listbox.
+ */
+/**
  * @docs-group-description Loading
  * Components for working with Loading spinners and progress indicators and bars.
  */
