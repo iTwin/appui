@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Update release tags of frequently used APIs.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
