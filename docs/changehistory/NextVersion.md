@@ -16,9 +16,6 @@ Table of contents:
   - [Deprecations](#deprecations-2)
   - [Additions](#additions-2)
   - [Changes](#changes-2)
-  - [Fixes](#fixes-2)
-- [@itwin/imodel-components-react](#itwinimodel-components-react)
-  - [Fixes](#fixes-3)
 
 ## @itwin/appui-react
 
@@ -220,6 +217,9 @@ Table of contents:
 - No more transitions when toggling themes. [#905](https://github.com/iTwin/appui/pull/905)
 - Updated `ToolSettingsPopup` to not rely on event propagation for cancellation. [#928](https://github.com/iTwin/appui/pull/928)
 - Adjusted `SelectionCount` styling to improve its visuals in various scenarios. [#936](https://github.com/iTwin/appui/pull/936)
+- Bumped `AccuDrawKeyboardShortcuts`, `BackstageItemUtilities`, `DrawingNavigationAidControl`, `ReducerRegistry`, `SheetNavigationAidControl`, `StandardRotationNavigationAidControl`, `ToolbarItemUtilities`, `useTransientState` APIs to `@public`. [#943](https://github.com/iTwin/appui/pull/943)
+- Removed `@internal` tags from React lifecycle methods and properties. Consumers should avoid calling class methods directly, since class components can be converted to functional components in the future. [#943](https://github.com/iTwin/appui/pull/943)
+- Removed `@internal` tags from overriden class methods. [#943](https://github.com/iTwin/appui/pull/943)
 
 ### Fixes
 
@@ -251,7 +251,6 @@ Table of contents:
 
 - Fixed `activeMatchIndex` not working correctly on adjacent matches in `HighlightedText`. [#898](https://github.com/iTwin/appui/pull/898)
 - Fixed widget tab styling to match the SVG and CSS icon size. [#901](https://github.com/iTwin/appui/pull/901)
-- Fixed [mixed-decls](https://sass-lang.com/documentation/breaking-changes/mixed-decls/) Sass warnings. [#939](https://github.com/iTwin/appui/pull/939)
 - Fixed `EditorContainer` trying to commit updated value twice when tab is pressed. [#942](https://github.com/iTwin/appui/pull/942)
 
 ## @itwin/core-react
@@ -356,13 +355,3 @@ Table of contents:
 ### Changes
 
 - Removed styling for the `theme-transition` class. [#890](https://github.com/iTwin/appui/pull/890)
-
-### Fixes
-
-- Fixed [mixed-decls](https://sass-lang.com/documentation/breaking-changes/mixed-decls/) Sass warnings. [#939](https://github.com/iTwin/appui/pull/939)
-
-## @itwin/imodel-components-react
-
-### Fixes
-
-- Fixed [mixed-decls](https://sass-lang.com/documentation/breaking-changes/mixed-decls/) Sass warnings. [#939](https://github.com/iTwin/appui/pull/939)
