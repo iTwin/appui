@@ -6,6 +6,7 @@ import "./TestPopoutFrontstage.scss";
 import * as React from "react";
 import { Frontstage } from "@itwin/appui-react";
 import { createTestFrontstage } from "./createTestFrontstage";
+import { ProgressRadial } from "@itwin/itwinui-react";
 
 export const createTestPopoutFrontstage = () => {
   {
@@ -26,6 +27,7 @@ export const createTestPopoutFrontstage = () => {
                 <>
                   <div>Widget 1 content</div>
                   <div id="border-test" />
+                  <ProgressRadial />
                 </>
               ),
             },
