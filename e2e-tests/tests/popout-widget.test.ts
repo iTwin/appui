@@ -203,6 +203,20 @@ test("should copy styles", async ({ baseURL, page }) => {
   await expect(borders).toHaveScreenshot();
 });
 
+test("should copy shadow root styles", async ({ baseURL, page }) => {
+  assert(baseURL);
+  await page.goto(
+    `${baseURL}?frontstage=appui-test-app:TestPopout&reparentPopoutWidgets=1`
+  );
+
+  const tab = tabLocator(page, "Widget 1");
+  const widget = widgetLocator({ tab });
+
+  const popoutPage = await popoutWidget(widget);
+  const borders = popoutPage.locator("#progress-radial");
+  await expect(borders).toHaveScreenshot();
+});
+
 async function popoutWidget(widget: Locator) {
   const context = widget.page().context();
   const popoutButton = popoutButtonLocator(widget);

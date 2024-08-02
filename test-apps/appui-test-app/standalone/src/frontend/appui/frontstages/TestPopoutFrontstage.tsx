@@ -27,7 +27,7 @@ export const createTestPopoutFrontstage = () => {
                 <>
                   <div>Widget 1 content</div>
                   <div id="border-test" />
-                  <ProgressRadial />
+                  <ProgressRadial id="progress-radial" />
                 </>
               ),
             },
