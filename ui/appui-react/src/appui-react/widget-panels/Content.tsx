@@ -37,15 +37,21 @@ function WidgetFallback() {
 export function WidgetContent() {
   const widget = useWidgetDef();
   const itemId = widget?.id ?? widget?.label ?? "unknown";
+  const prevDocumentRef = React.useRef<Document>(document);
   const onSave = React.useCallback(() => {
     widget?.saveTransientState();
   }, [widget]);
   const onRestore = React.useCallback(() => {
     widget?.restoreTransientState();
 
-    if (!ref.current) return;
+    const el = ref.current;
+    if (!el) return;
+    const prevDocument = prevDocumentRef.current;
+    if (prevDocument === el.ownerDocument) return;
+
     const ev = new CustomEvent("appui:reparent", { bubbles: true });
-    ref.current.dispatchEvent(ev);
+    el.dispatchEvent(ev);
+    prevDocumentRef.current = el.ownerDocument;
   }, [widget]);
   useTransientState(onSave, onRestore);
   const providerId =

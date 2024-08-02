@@ -7,6 +7,8 @@ import * as React from "react";
 import { Frontstage } from "@itwin/appui-react";
 import { createTestFrontstage } from "./createTestFrontstage";
 import { ProgressRadial } from "@itwin/itwinui-react";
+import { Logger } from "@itwin/core-bentley";
+import { SampleAppIModelApp } from "../..";
 
 export const createTestPopoutFrontstage = () => {
   {
@@ -63,6 +65,10 @@ function FixedProgressRadial(
     );
     if (!themeProvider) return;
     const listener = () => {
+      Logger.logInfo(
+        SampleAppIModelApp.loggerCategory(FixedProgressRadial),
+        "reparented"
+      );
       // For now we just force a re-mount to copy styles.
       setKey((prev) => prev + 1);
     };
