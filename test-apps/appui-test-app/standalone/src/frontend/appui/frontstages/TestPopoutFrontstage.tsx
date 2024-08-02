@@ -27,7 +27,7 @@ export const createTestPopoutFrontstage = () => {
                 <>
                   <div>Widget 1 content</div>
                   <div id="border-test" />
-                  <ProgressRadial id="progress-radial" />
+                  <FixedProgressRadial id="progress-radial" />
                 </>
               ),
             },
@@ -50,3 +50,28 @@ export const createTestPopoutFrontstage = () => {
   `);
   document.adoptedStyleSheets.push(sheet);
 })();
+
+function FixedProgressRadial(
+  props: React.ComponentProps<typeof ProgressRadial>
+) {
+  const ref = React.useRef<HTMLDivElement>(null);
+  const [key, setKey] = React.useState(0);
+  React.useEffect(() => {
+    if (!ref.current) return;
+    const themeProvider = ref.current.closest(
+      ".uifw-preview-reparentPopoutWidgets-popoutThemeProvider"
+    );
+    if (!themeProvider) return;
+    const listener = () => {
+      // For now we just force a re-mount to copy styles.
+      setKey((prev) => prev + 1);
+    };
+
+    // Event is not dispatched to every node in the widget element tree, so we need to listen on the theme provider.
+    themeProvider.addEventListener("appui:reparent", listener);
+    return () => {
+      themeProvider.removeEventListener("appui:reparent", listener);
+    };
+  }, []);
+  return <ProgressRadial key={key} ref={ref} {...props} />;
+}
