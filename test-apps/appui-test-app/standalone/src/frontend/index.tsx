@@ -105,7 +105,11 @@ import {
   WidgetApiStage,
   WidgetContentProvider,
 } from "@itwin/appui-test-providers";
-import { getUrlParam, useHandleURLParams } from "./UrlParams";
+import {
+  getUrlParam,
+  useHandleURLParams,
+  usePreviewFeatureURLParams,
+} from "./UrlParams";
 import {
   editorFrontstage,
   editorUiItemsProvider,
@@ -608,9 +612,10 @@ const SampleAppViewer = () => {
 
   useHandleURLParams();
 
+  const featureOverrides = usePreviewFeatureURLParams();
   return (
     <WidgetContentProvider>
-      <AppPreviewFeatures>
+      <AppPreviewFeatures featureOverrides={featureOverrides}>
         <AppLocalizationProvider>
           <Provider store={SampleAppIModelApp.store}>
             <ThemeManager>

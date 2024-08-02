@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { UiFramework } from "@itwin/appui-react";
+import { PreviewFeatures, UiFramework } from "@itwin/appui-react";
 
 import { openBlankConnection } from "./appui/BlankConnection";
 
@@ -26,6 +26,21 @@ export function useHandleURLParams() {
       await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
     })();
   }, [frontstageId]);
+}
+
+export function usePreviewFeatureURLParams() {
+  return React.useMemo(() => {
+    const reparentPopoutWidgets = getUrlParam("reparentPopoutWidgets");
+    const previewFeatures: PreviewFeatures = {};
+    if (reparentPopoutWidgets) {
+      previewFeatures.reparentPopoutWidgets = Array.isArray(
+        reparentPopoutWidgets
+      )
+        ? reparentPopoutWidgets
+        : reparentPopoutWidgets !== "0";
+    }
+    return previewFeatures;
+  }, []);
 }
 
 export function getUrlParam(name: string) {

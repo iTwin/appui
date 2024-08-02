@@ -75,3 +75,7 @@ _Optionally_ used to load an application in a specific configuration:
 - `mode` - specifies application mode: `portal` | `portal-overflow` | `header`. I.e. <http://localhost:3000/?mode=header>
 - `timeline` - configures the view state to display a timeline component in a default view overlay. I.e. <http://localhost:3000/?timeline=1>
 - `strict` - allows disabling of `React.StrictMode` if `0` is specified. I.e. <http://localhost:3000/?strict=0>
+
+Preview features:
+
+- `reparentPopoutWidgets` - overrides if the preview feature is enabled: `0` | `1`. I.e. <http://localhost:3000/?reparentPopoutWidgets=1>
