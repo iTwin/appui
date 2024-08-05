@@ -21,6 +21,7 @@ import { InlineEdit } from "./InlineEdit";
 import type { PlaybackSettings, TimelinePausePlayArgs } from "./interfaces";
 import { TimelinePausePlayAction } from "./interfaces";
 import { PlayButton } from "./PlayButton";
+import type { ScrubberProps } from "./Scrubber";
 import { Scrubber } from "./Scrubber";
 import { useTranslation } from "../useTranslation";
 
@@ -116,6 +117,8 @@ export interface TimelineComponentProps {
   timeFormatOptions?: DateFormatOptions;
   /** Used to control the play/pause state of the Timeline.*/
   isPlaying?: boolean;
+  /** Props for a container that holds the slider thumbs and tracks. */
+  trackContainerProps?: ScrubberProps["trackContainerProps"];
 }
 
 /** [[TimelineComponent]] is used to playback timeline data
@@ -298,6 +301,7 @@ export function TimelineComponent(props: TimelineComponentProps) {
         onUpdate={onTimelineChange}
         timeZoneOffset={props.timeZoneOffset}
         markDate={props.markDate}
+        trackContainerProps={props.trackContainerProps}
       />
       <div className="time-container">
         {hasDates && (
