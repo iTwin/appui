@@ -24,6 +24,7 @@ import type { QuantityTypeArg } from '@itwin/core-frontend';
 import * as React_2 from 'react';
 import { RelativePosition } from '@itwin/appui-abstract';
 import { ScreenViewport } from '@itwin/core-frontend';
+import { Slider } from '@itwin/itwinui-react';
 import type { StandardViewId } from '@itwin/core-frontend';
 import type { TentativePoint } from '@itwin/core-frontend';
 import type { TypeEditor } from '@itwin/components-react';
@@ -765,6 +766,8 @@ export interface ScrubberProps extends CommonProps {
     timeZoneOffset?: number;
     // (undocumented)
     totalDuration: number;
+    // (undocumented)
+    trackContainerProps?: React_2.ComponentProps<typeof Slider>["trackContainerProps"];
 }
 
 // @alpha
@@ -843,6 +846,7 @@ export interface TimelineComponentProps {
     timeFormatOptions?: DateFormatOptions;
     timeZoneOffset?: number;
     totalDuration: number;
+    trackContainerProps?: React_2.ComponentProps<typeof Slider>["trackContainerProps"];
 }
 
 // @public
