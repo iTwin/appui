@@ -202,6 +202,9 @@ export interface ScrubberProps extends CommonProps {
   onUpdate?: (values: ReadonlyArray<number>) => void;
   timeZoneOffset?: number;
   markDate?: TimelineDateMarkerProps;
+  trackContainerProps?: React.ComponentProps<
+    typeof Slider
+  >["trackContainerProps"];
 }
 
 /** Properties for marking current date in RailMarkers
@@ -226,6 +229,7 @@ export function Scrubber(props: ScrubberProps) {
     className,
     onChange,
     onUpdate,
+    trackContainerProps,
   } = props;
 
   const [sliderContainer, setSliderContainer] =
@@ -328,6 +332,7 @@ export function Scrubber(props: ScrubberProps) {
       onPointerEnter={handlePointerEnter}
       onPointerMove={handlePointerMove}
       onPointerLeave={handlePointerLeave}
+      trackContainerProps={trackContainerProps}
     />
   );
 }

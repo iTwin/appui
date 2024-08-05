@@ -11,6 +11,7 @@ import { UiAdmin } from "@itwin/appui-abstract";
 import type { DateFormatOptions } from "@itwin/components-react";
 import { toDateString, toTimeString } from "@itwin/components-react";
 import { SvgCheckmark, SvgMoreVertical } from "@itwin/itwinui-icons-react";
+import type { Slider } from "@itwin/itwinui-react";
 import {
   DropdownMenu,
   IconButton,
@@ -116,6 +117,10 @@ export interface TimelineComponentProps {
   timeFormatOptions?: DateFormatOptions;
   /** Used to control the play/pause state of the Timeline.*/
   isPlaying?: boolean;
+  /** Props for a container that holds the slider thumbs and tracks. */
+  trackContainerProps?: React.ComponentProps<
+    typeof Slider
+  >["trackContainerProps"];
 }
 
 /** [[TimelineComponent]] is used to playback timeline data
@@ -298,6 +303,7 @@ export function TimelineComponent(props: TimelineComponentProps) {
         onUpdate={onTimelineChange}
         timeZoneOffset={props.timeZoneOffset}
         markDate={props.markDate}
+        trackContainerProps={props.trackContainerProps}
       />
       <div className="time-container">
         {hasDates && (
