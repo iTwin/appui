@@ -22,7 +22,6 @@ import { InlineEdit } from "./InlineEdit";
 import type { PlaybackSettings, TimelinePausePlayArgs } from "./interfaces";
 import { TimelinePausePlayAction } from "./interfaces";
 import { PlayButton } from "./PlayButton";
-import type { ScrubberProps } from "./Scrubber";
 import { Scrubber } from "./Scrubber";
 import { useTranslation } from "../useTranslation";
 
