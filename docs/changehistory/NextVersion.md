@@ -16,6 +16,8 @@ Table of contents:
   - [Deprecations](#deprecations-2)
   - [Additions](#additions-2)
   - [Changes](#changes-2)
+- [@itwin/components-react](#itwincomponents-react-1)
+  - [Additions](#additions-3)
 
 ## @itwin/appui-react
 
@@ -358,3 +360,9 @@ Table of contents:
 
 - Removed styling for the `theme-transition` class. [#890](https://github.com/iTwin/appui/pull/890)
 - Bumped `Listbox`, `ListboxContext`, `ListboxContextProps`, `ListboxItem`, `ListboxItemProps`, `ListboxProps`, `ListboxValue` APIs to `@public`. [#944](https://github.com/iTwin/appui/pull/944)
+
+## @itwin/components-react
+
+### Additions
+
+- Added `trackContainerProps` property to `TimelineComponent`. [#948](https://github.com/iTwin/appui/pull/948)
