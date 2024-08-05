@@ -42,12 +42,6 @@ export function WidgetContent() {
   }, [widget]);
   const onRestore = React.useCallback(() => {
     widget?.restoreTransientState();
-
-    const el = ref.current;
-    if (!el) return;
-
-    const ev = new CustomEvent("appui:reparent", { bubbles: true });
-    el.dispatchEvent(ev);
   }, [widget]);
   useTransientState(onSave, onRestore);
   const providerId =
@@ -55,14 +49,9 @@ export function WidgetContent() {
       ? widget?.initialConfig.providerId
       : undefined;
 
-  const ref = React.useRef<HTMLDivElement>(null);
   return (
     <PopoutThemeProvider>
-      <ScrollableWidgetContent
-        ref={ref}
-        itemId={itemId}
-        providerId={providerId}
-      >
+      <ScrollableWidgetContent itemId={itemId} providerId={providerId}>
         <ErrorBoundary FallbackComponent={WidgetFallback}>
           {widget?.reactNode}
         </ErrorBoundary>

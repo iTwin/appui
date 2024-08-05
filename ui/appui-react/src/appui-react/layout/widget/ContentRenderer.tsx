@@ -62,18 +62,22 @@ export function WidgetContentRenderer(props: WidgetContentRendererProps) {
     if (!widgetContentManager) return;
 
     const parent = renderTo;
-    if (parent) {
-      while (parent.firstChild) {
-        parent.removeChild(parent.firstChild);
-      }
+    if (!parent) return;
 
-      parent.appendChild(container.current);
-      widgetContentManager.onRestoreTransientState.raiseEvent(props.tabId);
+    while (parent.firstChild) {
+      parent.removeChild(parent.firstChild);
     }
+
+    parent.appendChild(container.current);
+    widgetContentManager.onRestoreTransientState.raiseEvent(props.tabId);
+
+    const ev = new CustomEvent("appui:reparent", { bubbles: true });
+    container.current.dispatchEvent(ev);
+
     return () => {
       for (const child of parent?.children || []) {
         if (child === container.current) {
-          parent!.removeChild(child);
+          parent.removeChild(child);
           return;
         }
       }
