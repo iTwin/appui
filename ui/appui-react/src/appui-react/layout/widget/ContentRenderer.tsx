@@ -71,8 +71,13 @@ export function WidgetContentRenderer(props: WidgetContentRendererProps) {
     parent.appendChild(container.current);
     widgetContentManager.onRestoreTransientState.raiseEvent(props.tabId);
 
-    const ev = new CustomEvent("appui:reparent", { bubbles: true });
-    container.current.dispatchEvent(ev);
+    const ev = new CustomEvent("appui:reparent", {
+      bubbles: true,
+      detail: {
+        widget: container.current,
+      },
+    });
+    window.dispatchEvent(ev);
 
     return () => {
       for (const child of parent?.children || []) {

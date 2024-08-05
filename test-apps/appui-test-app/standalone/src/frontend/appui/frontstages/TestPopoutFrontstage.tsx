@@ -53,6 +53,16 @@ export const createTestPopoutFrontstage = () => {
   document.adoptedStyleSheets.push(sheet);
 })();
 
+type WidgetReparentEvent = CustomEvent<{
+  widget: HTMLElement;
+}>;
+
+declare global {
+  interface WindowEventMap {
+    "appui:reparent": WidgetReparentEvent;
+  }
+}
+
 function FixedProgressRadial(
   props: React.ComponentProps<typeof ProgressRadial>
 ) {
@@ -60,11 +70,11 @@ function FixedProgressRadial(
   const [key, setKey] = React.useState(0);
   React.useEffect(() => {
     if (!ref.current) return;
-    const themeProvider = ref.current.closest(
-      ".uifw-preview-reparentPopoutWidgets-popoutThemeProvider"
-    );
-    if (!themeProvider) return;
-    const listener = () => {
+
+    const listener = (e: WidgetReparentEvent) => {
+      const widget = e.detail.widget;
+      if (!widget.contains(ref.current)) return;
+
       Logger.logInfo(
         SampleAppIModelApp.loggerCategory(FixedProgressRadial),
         "reparented"
@@ -74,9 +84,9 @@ function FixedProgressRadial(
     };
 
     // Event is not dispatched to every node in the widget element tree, so we need to listen on the theme provider.
-    themeProvider.addEventListener("appui:reparent", listener);
+    window.addEventListener("appui:reparent", listener);
     return () => {
-      themeProvider.removeEventListener("appui:reparent", listener);
+      window.removeEventListener("appui:reparent", listener);
     };
   }, []);
   return <ProgressRadial key={key} ref={ref} {...props} />;
