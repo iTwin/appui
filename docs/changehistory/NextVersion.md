@@ -365,4 +365,4 @@ Table of contents:
 
 ### Additions
 
-- Added `trackContainerProps` property to `TimelineComponent`. []()
+- Added `trackContainerProps` property to `TimelineComponent`. [#948](https://github.com/iTwin/appui/pull/948)
