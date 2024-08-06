@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Emit `appui:reparent` event when the widget is reparented.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
