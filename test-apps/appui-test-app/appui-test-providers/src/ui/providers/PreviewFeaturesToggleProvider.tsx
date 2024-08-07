@@ -115,12 +115,26 @@ export const previewFeaturesToggleProvider: UiItemsProvider = {
   ],
 };
 
-export function AppPreviewFeatures(props: React.PropsWithChildren<{}>) {
+interface AppPreviewFeaturesProps {
+  children?: React.ReactNode;
+  featureOverrides?: React.ComponentProps<
+    typeof PreviewFeaturesProvider
+  >["features"];
+}
+
+/** Uses persisted preview features. */
+export function AppPreviewFeatures({
+  children,
+  featureOverrides,
+}: AppPreviewFeaturesProps) {
   const [features, setFeatures] = useSavedFeatures();
+  const finalFeatures = React.useMemo(() => {
+    return { ...features, ...featureOverrides };
+  }, [features, featureOverrides]);
   return (
-    <PreviewFeaturesContext.Provider value={[features, setFeatures]}>
-      <PreviewFeaturesProvider features={features}>
-        {props.children}
+    <PreviewFeaturesContext.Provider value={[finalFeatures, setFeatures]}>
+      <PreviewFeaturesProvider features={finalFeatures}>
+        {children}
       </PreviewFeaturesProvider>
     </PreviewFeaturesContext.Provider>
   );
@@ -129,13 +143,13 @@ export function AppPreviewFeatures(props: React.PropsWithChildren<{}>) {
 function useSavedFeatures() {
   const [features, setFeatures] = React.useState<PreviewFeatures>(() => {
     const item = window.localStorage.getItem("preview-features");
-    if (item) {
-      return JSON.parse(item);
-    }
-    return {};
+    if (!item) return {};
+
+    return JSON.parse(item);
   });
   React.useEffect(() => {
     window.localStorage.setItem("preview-features", JSON.stringify(features));
   }, [features]);
+
   return [features, setFeatures] as const;
 }

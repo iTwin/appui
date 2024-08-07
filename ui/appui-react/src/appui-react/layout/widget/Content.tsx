@@ -6,8 +6,8 @@
  * @module Widget
  */
 
-import { Point } from "@itwin/core-react";
 import * as React from "react";
+import { Point } from "@itwin/core-react";
 import { useTransientState } from "../../widget-panels/useTransientState";
 import "./Content.scss";
 
@@ -26,18 +26,17 @@ export interface ScrollableWidgetContentProps {
  */
 export function ScrollableWidgetContent(props: ScrollableWidgetContentProps) {
   const scrollPosition = React.useRef(new Point());
-  const ref = React.useRef<HTMLDivElement>(null);
+  const contentRef = React.useRef<HTMLDivElement>(null);
   const onSave = React.useCallback(() => {
-    if (!ref.current) return;
-    scrollPosition.current = new Point(
-      ref.current.scrollLeft,
-      ref.current.scrollTop
-    );
+    const content = contentRef.current;
+    if (!content) return;
+    scrollPosition.current = new Point(content.scrollLeft, content.scrollTop);
   }, []);
   const onRestore = React.useCallback(() => {
-    if (!ref.current) return;
-    ref.current.scrollLeft = scrollPosition.current.x;
-    ref.current.scrollTop = scrollPosition.current.y;
+    const content = contentRef.current;
+    if (!content) return;
+    content.scrollLeft = scrollPosition.current.x;
+    content.scrollTop = scrollPosition.current.y;
   }, []);
   useTransientState(onSave, onRestore);
   return (
@@ -46,7 +45,7 @@ export function ScrollableWidgetContent(props: ScrollableWidgetContentProps) {
       data-item-provider-id={props.providerId}
       data-item-type="widget-content"
       className="nz-widget-content"
-      ref={ref}
+      ref={contentRef}
     >
       {props.children}
     </div>
