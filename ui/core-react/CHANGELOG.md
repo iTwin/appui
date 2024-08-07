@@ -1,6 +1,28 @@
 # Change Log - @itwin/core-react
 
-This log was last generated on Tue, 09 Jul 2024 09:23:12 GMT and should not be manually modified.
+This log was last generated on Wed, 24 Jul 2024 16:09:26 GMT and should not be manually modified.
+
+## 4.15.5
+Wed, 24 Jul 2024 16:09:26 GMT
+
+_Version update only_
+
+## 4.15.4
+Mon, 22 Jul 2024 21:27:52 GMT
+
+_Version update only_
+
+## 4.15.3
+Mon, 15 Jul 2024 12:12:01 GMT
+
+### Updates
+
+- Fix `PopupContextMenu` to work in `StatusBarPopover`.
+
+## 4.15.2
+Wed, 10 Jul 2024 11:54:56 GMT
+
+_Version update only_
 
 ## 4.15.1
 Tue, 09 Jul 2024 09:23:12 GMT
@@ -16,6 +38,11 @@ Fri, 28 Jun 2024 09:09:37 GMT
 
 - Added `portalTarget` to `Popup` component.
 - Deprecated components, functions, enums that are intended for internal use, are not used by AppUI or can be replaced with alternatives.
+
+## 4.14.2
+Mon, 22 Jul 2024 21:23:09 GMT
+
+_Version update only_
 
 ## 4.14.1
 Tue, 11 Jun 2024 15:58:29 GMT
