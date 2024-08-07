@@ -1,6 +1,14 @@
 # Change Log - @itwin/imodel-components-react
 
-This log was last generated on Wed, 24 Jul 2024 16:09:26 GMT and should not be manually modified.
+This log was last generated on Wed, 07 Aug 2024 12:38:32 GMT and should not be manually modified.
+
+## 4.16.0
+Wed, 07 Aug 2024 12:38:32 GMT
+
+### Updates
+
+- Fix mixed-decls Sass warnings.
+- Added `trackContainerProps` property to `TimelineComponent`.
 
 ## 4.15.5
 Wed, 24 Jul 2024 16:09:26 GMT
@@ -29,6 +37,8 @@ _Version update only_
 
 ## 4.15.0
 Fri, 28 Jun 2024 09:09:37 GMT
+
+_Version update only_
 
 ## 4.14.2
 Mon, 22 Jul 2024 21:23:09 GMT
@@ -440,7 +450,7 @@ Fri, 20 May 2022 13:10:54 GMT
 
 ### Updates
 
-- Fix for losing viewport content after clicking PW link
+- Fix for losing viewport content after clicking PW link 
 
 ## 3.1.3
 Fri, 15 Apr 2022 13:49:25 GMT
