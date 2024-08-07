@@ -1,6 +1,7 @@
 import { createLogger, defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import { viteStaticCopy } from "vite-plugin-static-copy";
+import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
 
 const customLogger = createLogger();
 const warn = customLogger.warn;
@@ -26,6 +27,7 @@ export default defineConfig({
   },
   customLogger,
   plugins: [
+    TanStackRouterVite(),
     react(),
     viteStaticCopy({
       targets: [

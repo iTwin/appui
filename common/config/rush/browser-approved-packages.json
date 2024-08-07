@@ -231,6 +231,18 @@
       "allowedCategories": [ "internal" ]
     },
     {
+      "name": "@tanstack/react-router",
+      "allowedCategories": [ "internal" ]
+    },
+    {
+      "name": "@tanstack/router-devtools",
+      "allowedCategories": [ "internal" ]
+    },
+    {
+      "name": "@tanstack/router-plugin",
+      "allowedCategories": [ "internal" ]
+    },
+    {
       "name": "@testing-library/dom",
       "allowedCategories": [ "frontend" ]
     },
