@@ -2,6 +2,39 @@
   "name": "@itwin/components-react",
   "entries": [
     {
+      "version": "4.16.0",
+      "tag": "@itwin/components-react_v4.16.0",
+      "date": "Wed, 07 Aug 2024 12:38:32 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "React to `@itwin/core-react` deprecations."
+          },
+          {
+            "comment": "Added support for new BadgeKind type in components."
+          },
+          {
+            "comment": "Fix mixed-decls Sass warnings."
+          },
+          {
+            "comment": "Updated `EditorContainer` to not commit value when `Escape` is pressed or value was not changed."
+          },
+          {
+            "comment": "Property grid: Show array items' description next to the index when the items are non-primitive."
+          },
+          {
+            "comment": "Fixed `activeMatchIndex` not working correctly on adjacent matches in `HighlightedText`."
+          },
+          {
+            "comment": "Fixed `EditorContainer` trying to commit updated value twice when tab is pressed."
+          },
+          {
+            "comment": "Updated `VirtualizedPropertyGrid` to automatically close property editors when data changes."
+          }
+        ]
+      }
+    },
+    {
       "version": "4.15.5",
       "tag": "@itwin/components-react_v4.15.5",
       "date": "Wed, 24 Jul 2024 16:09:26 GMT",
