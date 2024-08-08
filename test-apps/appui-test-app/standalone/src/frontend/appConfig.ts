@@ -2,12 +2,11 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { createFileRoute } from "@tanstack/react-router";
+function createConfig() {
+  return {
+    snapshotPath: import.meta.env.IMJS_UITESTAPP_SNAPSHOT_FILEPATH,
+    cesiumIonKey: import.meta.env.IMJS_CESIUM_ION_KEY,
+  };
+}
 
-export const Route = createFileRoute("/local")({
-  validateSearch: (search) => {
-    return {
-      fileName: search.fileName as string | undefined,
-    };
-  },
-});
+export const appConfig = createConfig();

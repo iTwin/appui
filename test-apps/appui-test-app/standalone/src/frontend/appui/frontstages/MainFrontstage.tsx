@@ -51,7 +51,7 @@ class MainStageBackstageItemsProvider implements UiItemsProvider {
 }
 
 /** Application continues to use redux store and opts-in to respect `viewOverlayDisplay`. */
-function MainFrontstageViewport() {
+export function MainFrontstageViewport() {
   const viewOverlay = useSelector((state: RootState) => {
     // eslint-disable-next-line deprecation/deprecation
     return state.frameworkState.configurableUiState.viewOverlayDisplay;
@@ -63,29 +63,34 @@ function MainFrontstageViewport() {
   );
 }
 
+interface CreateMainFrontstageArgs {
+  contentProps: React.ComponentProps<typeof ViewportContent>;
+}
+
+export function createMainFrontstage(args?: CreateMainFrontstageArgs) {
+  return FrontstageUtilities.createStandardFrontstage({
+    id: MainFrontstage.stageId,
+    contentGroupProps: {
+      id: "content-group",
+      layout: StandardContentLayouts.singleView,
+      contents: [
+        {
+          id: "viewport",
+          classId: "",
+          content: <ViewportContent {...args?.contentProps} />,
+        },
+      ],
+    },
+    cornerButton: <BackstageAppButton />,
+    usage: StageUsage.General,
+  });
+}
+
 export class MainFrontstage {
   public static stageId = "appui-test-app:main-stage";
 
   public static register() {
-    UiFramework.frontstages.addFrontstage(
-      FrontstageUtilities.createStandardFrontstage({
-        id: MainFrontstage.stageId,
-        version: 1.1,
-        contentGroupProps: {
-          id: "content-group",
-          layout: StandardContentLayouts.singleView,
-          contents: [
-            {
-              id: "viewport",
-              classId: "",
-              content: <MainFrontstageViewport />,
-            },
-          ],
-        },
-        cornerButton: <BackstageAppButton />,
-        usage: StageUsage.General,
-      })
-    );
+    UiFramework.frontstages.addFrontstage(createMainFrontstage());
     this.registerUiItemProviders();
   }
 

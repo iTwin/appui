@@ -127,6 +127,7 @@ import {
 } from "./appui/frontstages/ElementStacking";
 import { createTestPanelFrontstage } from "./appui/frontstages/TestPanelFrontstage";
 import { createTestPopoutFrontstage } from "./appui/frontstages/TestPopoutFrontstage";
+import { ITwinLocalization } from "@itwin/core-i18n";
 
 // Initialize my application gateway configuration for the frontend
 RpcConfiguration.developmentMode = true;
@@ -371,21 +372,21 @@ export class SampleAppIModelApp {
       stageUsages: [StageUsage.General],
     });
     UiItemsManager.register(new CustomStageUiItemsProvider());
-    UiItemsManager.register(
-      {
-        id: "language",
-        getStatusBarItems: () => [
-          StatusBarItemUtilities.createCustomItem({
-            id: "language",
-            section: StatusBarSection.Right,
-            content: <AppLanguageSelect />,
-          }),
-        ],
-      },
-      {
-        stageUsages: [StageUsage.General],
-      }
-    );
+    // UiItemsManager.register(
+    //   {
+    //     id: "language",
+    //     getStatusBarItems: () => [
+    //       StatusBarItemUtilities.createCustomItem({
+    //         id: "language",
+    //         section: StatusBarSection.Right,
+    //         content: <AppLanguageSelect />,
+    //       }),
+    //     ],
+    //   },
+    //   {
+    //     stageUsages: [StageUsage.General],
+    //   }
+    // );
     UiItemsManager.register(viewportUiItemsProvider);
     UiItemsManager.register(createElementStackingProvider(), {
       stageUsages: ["development"],
@@ -531,13 +532,6 @@ export class SampleAppIModelApp {
 
   public static get isIModelLocal(): boolean {
     return SampleAppIModelApp.store.getState().sampleAppState.isIModelLocal;
-  }
-
-  public static async showFrontstage(frontstageId: string) {
-    const frontstageDef = await UiFramework.frontstages.getFrontstageDef(
-      frontstageId
-    );
-    await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
   }
 }
 
@@ -693,7 +687,7 @@ function initializeToConsole() {
 }
 
 // main entry point.
-async function main() {
+export async function main() {
   // Popout widget content is loaded by main window, avoid app-reinitialization.
   if (window.location.href.endsWith("iTwinPopup")) return;
 
@@ -766,22 +760,26 @@ async function main() {
       tileAdmin: {
         cesiumIonKey: SampleAppIModelApp.testAppConfiguration.cesiumIonKey,
       },
+      localization: new ITwinLocalization({
+        urlTemplate: `${window.location.origin}/locales/{{lng}}/{{ns}}.json`,
+      }),
+      publicPath: `${window.location.origin}/`,
     },
   });
   await SampleAppIModelApp.initialize();
 
   const root = createRoot(document.getElementById("root")!);
   const isStrict = getUrlParam("strict") !== "0";
-  root.render(
-    isStrict ? (
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
-    ) : (
-      <App />
-    )
-  );
+  // root.render(
+  //   isStrict ? (
+  //     <React.StrictMode>
+  //       <App />
+  //     </React.StrictMode>
+  //   ) : (
+  //     <App />
+  //   )
+  // );
 }
 
 // Entry point - run the main function
-void main();
+// void main();

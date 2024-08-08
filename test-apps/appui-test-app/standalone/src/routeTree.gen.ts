@@ -17,15 +17,16 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as LocalImport } from './routes/local'
+import { Route as LocalFileNameImport } from './routes/local_.$fileName'
 
 // Create Virtual Routes
 
+const LocalLazyImport = createFileRoute('/local')()
 const IndexLazyImport = createFileRoute('/')()
 
 // Create/Update Routes
 
-const LocalRoute = LocalImport.update({
+const LocalLazyRoute = LocalLazyImport.update({
   path: '/local',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/local.lazy').then((d) => d.Route))
@@ -34,6 +35,11 @@ const IndexLazyRoute = IndexLazyImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
+
+const LocalFileNameRoute = LocalFileNameImport.update({
+  path: '/local/$fileName',
+  getParentRoute: () => rootRoute,
+} as any)
 
 // Populate the FileRoutesByPath interface
 
@@ -50,7 +56,14 @@ declare module '@tanstack/react-router' {
       id: '/local'
       path: '/local'
       fullPath: '/local'
-      preLoaderRoute: typeof LocalImport
+      preLoaderRoute: typeof LocalLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/local/$fileName': {
+      id: '/local/$fileName'
+      path: '/local/$fileName'
+      fullPath: '/local/$fileName'
+      preLoaderRoute: typeof LocalFileNameImport
       parentRoute: typeof rootRoute
     }
   }
@@ -58,7 +71,11 @@ declare module '@tanstack/react-router' {
 
 // Create and export the route tree
 
-export const routeTree = rootRoute.addChildren({ IndexLazyRoute, LocalRoute })
+export const routeTree = rootRoute.addChildren({
+  IndexLazyRoute,
+  LocalLazyRoute,
+  LocalFileNameRoute,
+})
 
 /* prettier-ignore-end */
 
@@ -69,14 +86,18 @@ export const routeTree = rootRoute.addChildren({ IndexLazyRoute, LocalRoute })
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/local"
+        "/local",
+        "/local/$fileName"
       ]
     },
     "/": {
       "filePath": "index.lazy.tsx"
     },
     "/local": {
-      "filePath": "local.tsx"
+      "filePath": "local.lazy.tsx"
+    },
+    "/local/$fileName": {
+      "filePath": "local_.$fileName.tsx"
     }
   }
 }

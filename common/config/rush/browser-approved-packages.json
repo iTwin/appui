@@ -60,7 +60,7 @@
     },
     {
       "name": "@itwin/core-i18n",
-      "allowedCategories": [ "frontend" ]
+      "allowedCategories": [ "frontend", "internal" ]
     },
     {
       "name": "@itwin/core-orbitgt",

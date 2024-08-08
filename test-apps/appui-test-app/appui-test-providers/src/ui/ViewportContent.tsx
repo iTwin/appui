@@ -15,11 +15,13 @@ interface ViewportContentProps extends Partial<ViewportComponentProps> {
 }
 
 export function ViewportContent(props: ViewportContentProps) {
-  const [iModel] = React.useState(UiFramework.getIModelConnection());
+  let [iModel] = React.useState(UiFramework.getIModelConnection());
   let [viewState] = React.useState(UiFramework.getDefaultViewState());
   const [viewport, setViewport] = React.useState<ScreenViewport | undefined>(
     undefined
   );
+
+  iModel = props.imodel ?? iModel;
   viewState = props.viewState ?? viewState;
   if (!iModel) return null;
 

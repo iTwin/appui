@@ -5,7 +5,11 @@
 import * as React from "react";
 import { Id64String } from "@itwin/core-bentley";
 import { IModelReadRpcInterface, ViewQueryParams } from "@itwin/core-common";
-import { IModelConnection, SpatialViewState } from "@itwin/core-frontend";
+import {
+  IModelConnection,
+  SpatialViewState,
+  ViewCreator3d,
+} from "@itwin/core-frontend";
 
 import { ElectronApp } from "@itwin/core-electron/lib/cjs/ElectronFrontend";
 
@@ -282,4 +286,14 @@ function LocalFilePage(props: LocalFilePageProps) {
       </Flex>
     </>
   );
+}
+
+export async function createViewState(iModelConnection: IModelConnection) {
+  const viewId = await getDefaultViewId(iModelConnection);
+  if (viewId) {
+    return iModelConnection.views.load(viewId);
+  }
+
+  const viewCreator = new ViewCreator3d(iModelConnection);
+  return viewCreator.createDefaultView();
 }

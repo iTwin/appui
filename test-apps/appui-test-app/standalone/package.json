@@ -103,7 +103,8 @@
     "ts-key-enum": "~2.0.12",
     "@itwin/itwinui-layouts-react": "~0.4.1",
     "@itwin/itwinui-layouts-css": "~0.4.0",
-    "react-markdown": "~9.0.1"
+    "react-markdown": "~9.0.1",
+    "@itwin/core-i18n": "^3.7.0 || ^4.0.0"
   },
   "browserslist": [
     "last 4 chrome version",

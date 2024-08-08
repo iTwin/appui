@@ -516,6 +516,9 @@ importers:
       '@itwin/core-geometry':
         specifier: ^3.7.0 || ^4.0.0
         version: 4.4.0
+      '@itwin/core-i18n':
+        specifier: ^3.7.0 || ^4.0.0
+        version: 4.4.0(@itwin/core-bentley@4.4.0)
       '@itwin/core-orbitgt':
         specifier: ^3.7.0 || ^4.0.0
         version: 4.4.0
