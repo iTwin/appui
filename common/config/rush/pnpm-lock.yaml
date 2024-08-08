@@ -555,6 +555,12 @@ importers:
       '@itwin/itwinui-icons-react':
         specifier: ^2.8.0
         version: 2.8.0(react-dom@18.3.1)(react@18.3.1)
+      '@itwin/itwinui-layouts-css':
+        specifier: ~0.4.0
+        version: 0.4.0
+      '@itwin/itwinui-layouts-react':
+        specifier: ~0.4.1
+        version: 0.4.1(react-dom@18.3.1)(react@18.3.1)
       '@itwin/itwinui-react':
         specifier: ^3.11.2
         version: 3.11.2(@types/react@18.3.2)(react-dom@18.3.1)(react@18.3.1)
@@ -4261,6 +4267,22 @@ packages:
       react: '>=16.8.6'
       react-dom: '>=16.8.6'
     dependencies:
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+    dev: false
+
+  /@itwin/itwinui-layouts-css@0.4.0:
+    resolution: {integrity: sha512-yFbE7X5RBpa6SM2MsupUcmt16XcwyTHDG1gsuywVacoDmK2D2BKiqRw3zxx+cutOWTysokIrW2fek1Bo7EBcMA==}
+    dev: false
+
+  /@itwin/itwinui-layouts-react@0.4.1(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-zzswhMUTOaIBUf5dM59nhuwhJ3IRqAv1cTJ27GNh3NCR9lsDlOa08jAl6Df11/qZxZh+7YDfXIUWFcRm+9nIHg==}
+    peerDependencies:
+      react: '>=16.8.6'
+      react-dom: '>=16.8.6'
+    dependencies:
+      '@itwin/itwinui-layouts-css': 0.4.0
+      classnames: 2.3.1
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
     dev: false

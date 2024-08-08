@@ -159,6 +159,14 @@
       "allowedCategories": [ "frontend" ]
     },
     {
+      "name": "@itwin/itwinui-layouts-css",
+      "allowedCategories": [ "internal" ]
+    },
+    {
+      "name": "@itwin/itwinui-layouts-react",
+      "allowedCategories": [ "internal" ]
+    },
+    {
       "name": "@itwin/itwinui-react",
       "allowedCategories": [ "frontend", "internal" ]
     },
