@@ -102,7 +102,8 @@
     "redux": "^4.1.0",
     "ts-key-enum": "~2.0.12",
     "@itwin/itwinui-layouts-react": "~0.4.1",
-    "@itwin/itwinui-layouts-css": "~0.4.0"
+    "@itwin/itwinui-layouts-css": "~0.4.0",
+    "react-markdown": "~9.0.1"
   },
   "browserslist": [
     "last 4 chrome version",

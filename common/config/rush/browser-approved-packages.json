@@ -431,6 +431,10 @@
       "allowedCategories": [ "frontend" ]
     },
     {
+      "name": "react-markdown",
+      "allowedCategories": [ "internal" ]
+    },
+    {
       "name": "react-redux",
       "allowedCategories": [ "frontend", "internal" ]
     },

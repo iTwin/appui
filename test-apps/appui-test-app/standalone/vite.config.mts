@@ -43,6 +43,15 @@ export default defineConfig({
         },
       ],
     }),
+    {
+      name: "markdown-loader",
+      transform(code, id) {
+        if (!id.endsWith(".md")) return;
+
+        // For .md files, get the raw content
+        return `export default ${JSON.stringify(code)};`;
+      },
+    },
   ],
   resolve: {
     alias: [

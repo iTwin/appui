@@ -77,9 +77,7 @@ function Component() {
             expanderPlacement="bottom"
           />
         </PageLayout.SideNavigation>
-        <PageLayout.Content>
-          <Outlet />
-        </PageLayout.Content>
+        <Outlet />
       </PageLayout>
     </ThemeProvider>
   );
