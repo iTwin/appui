@@ -10,7 +10,6 @@ interface CreateTestFrontstageArgs {
   id: string;
 }
 
-/** Used in e2e tests to test different configurations. */
 export const createTestFrontstage = ({ id }: CreateTestFrontstageArgs) => {
   {
     const contentGroup = new ContentGroup({
@@ -40,18 +39,6 @@ export const createTestFrontstage = ({ id }: CreateTestFrontstageArgs) => {
       id,
       version: Math.random(),
       contentGroup,
-      leftPanel: {
-        sections: {
-          start: [
-            {
-              id: "widget-1",
-              label: "Widget 1",
-              canPopout: true,
-              content: <>Widget 1 content</>,
-            },
-          ],
-        },
-      },
     } satisfies Frontstage;
   }
 };

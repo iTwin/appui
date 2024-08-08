@@ -11,7 +11,7 @@ import {
   SettingsTabsProvider,
   UiFramework,
 } from "@itwin/appui-react";
-import { AccudrawSettingsPageComponent } from "../frontstages/Settings";
+import { AccudrawSettingsPageComponent } from "./Settings";
 
 // Sample settings provider that dynamically adds settings into the setting stage
 export class AppSettingsTabsProvider implements SettingsTabsProvider {

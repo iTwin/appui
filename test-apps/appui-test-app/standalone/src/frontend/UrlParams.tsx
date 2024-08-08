@@ -3,30 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { PreviewFeatures, UiFramework } from "@itwin/appui-react";
-
-import { openBlankConnection } from "./appui/BlankConnection";
-
-export function useHandleURLParams() {
-  const [frontstageId, setFrontstageId] = React.useState<string | undefined>(
-    undefined
-  );
-  React.useEffect(() => {
-    setFrontstageId(getUrlParam("frontstage"));
-  }, []);
-  React.useEffect(() => {
-    if (!frontstageId) return;
-
-    void (async function () {
-      const frontstageDef = await UiFramework.frontstages.getFrontstageDef(
-        frontstageId
-      );
-      if (!frontstageDef) return;
-      await openBlankConnection();
-      await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
-    })();
-  }, [frontstageId]);
-}
+import { PreviewFeatures } from "@itwin/appui-react";
 
 export function usePreviewFeatureURLParams() {
   return React.useMemo(() => {

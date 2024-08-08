@@ -38,10 +38,9 @@ import {
 } from "@itwin/itwinui-react";
 import { ContextMenuItem, Popup, PopupContextMenu } from "@itwin/core-react";
 
-const stageId = "element-stacking";
 export function createElementStackingFrontstage() {
   return FrontstageUtilities.createStandardFrontstage({
-    id: stageId,
+    id: createElementStackingFrontstage.stageId,
     contentGroupProps: {
       id: "content-group",
       layout: StandardContentLayouts.singleView,
@@ -57,6 +56,7 @@ export function createElementStackingFrontstage() {
     cornerButton: <BackstageAppButton />,
   });
 }
+createElementStackingFrontstage.stageId = "element-stacking";
 
 export function createElementStackingProvider() {
   const id = "element-stacking-provider";
@@ -64,7 +64,7 @@ export function createElementStackingProvider() {
     id,
     getBackstageItems: () => [
       BackstageItemUtilities.createStageLauncher({
-        stageId,
+        stageId: createElementStackingFrontstage.stageId,
         groupPriority: 300,
         itemPriority: 40,
         label: "Element Stacking",

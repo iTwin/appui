@@ -42,7 +42,6 @@ function setDefaultModelAsActive(view: ViewState, iModel: BriefcaseConnection) {
   }
 }
 
-/** @internal */
 export function useEditorToolSettings() {
   React.useEffect(() => {
     return IModelApp.viewManager.onSelectedViewportChanged.addListener(

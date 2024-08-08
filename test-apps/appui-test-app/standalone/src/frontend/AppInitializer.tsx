@@ -2,14 +2,22 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { UiFramework } from "@itwin/appui-react";
-import { BeEvent } from "@itwin/core-bentley";
-import { BentleyCloudRpcManager } from "@itwin/core-common";
-import { IModelApp } from "@itwin/core-frontend";
+import {
+  AppNotificationManager,
+  FrameworkAccuDraw,
+  FrameworkToolAdmin,
+  FrameworkUiAdmin,
+  UiFramework,
+} from "@itwin/appui-react";
+import { BeEvent, UnexpectedErrors } from "@itwin/core-bentley";
+import { BentleyCloudRpcManager, RpcConfiguration } from "@itwin/core-common";
+import { IModelApp, ToolAdmin } from "@itwin/core-frontend";
 import { ITwinLocalization } from "@itwin/core-i18n";
 import { getSupportedRpcs } from "../common/rpcs";
 import { appConfig } from "./appConfig";
 import { initializeLogger } from "./logger";
+import { SampleAppAccuSnap } from ".";
+import { RealityDataAccessClient } from "@itwin/reality-data-client";
 
 function createInitializer() {
   let ready = false;
@@ -17,6 +25,9 @@ function createInitializer() {
   let initializing: Promise<void> | undefined;
   async function initialize() {
     initializeLogger();
+
+    // Initialize my application gateway configuration for the frontend
+    RpcConfiguration.developmentMode = true;
 
     const rpcInterfaces = getSupportedRpcs();
     BentleyCloudRpcManager.initializeClient(
@@ -29,15 +40,42 @@ function createInitializer() {
 
     const origin = window.location.origin;
     await IModelApp.startup({
-      tileAdmin: {
-        cesiumIonKey: appConfig.cesiumIonKey,
+      accuSnap: new SampleAppAccuSnap(),
+      notifications: new AppNotificationManager(),
+      uiAdmin: new FrameworkUiAdmin(),
+      accuDraw: new FrameworkAccuDraw(),
+      realityDataAccess: new RealityDataAccessClient({
+        baseUrl: `https://${appConfig.urlPrefix}api.bentley.com/realitydata`,
+      }),
+      rpcInterfaces: getSupportedRpcs(),
+      mapLayerOptions: {
+        BingMaps: appConfig.bingMapsKey
+          ? {
+              key: "key",
+              value: appConfig.bingMapsKey,
+            }
+          : undefined,
+        MapboxImagery: appConfig.mapBoxKey
+          ? {
+              key: "access_token",
+              value: appConfig.mapBoxKey,
+            }
+          : undefined,
       },
       localization: new ITwinLocalization({
         urlTemplate: `${origin}/locales/{{lng}}/{{ns}}.json`,
       }),
       publicPath: `${origin}/`,
+      tileAdmin: {
+        cesiumIonKey: appConfig.cesiumIonKey,
+      },
+      toolAdmin: new FrameworkToolAdmin(),
     });
+    ToolAdmin.exceptionHandler = async (err) =>
+      Promise.resolve(UnexpectedErrors.handle(err));
+
     await UiFramework.initialize();
+    UiFramework.visibility.autoHideUi = false;
 
     ready = true;
     onReady.raiseEvent();

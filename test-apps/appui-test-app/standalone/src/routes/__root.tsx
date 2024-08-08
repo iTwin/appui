@@ -4,6 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import "@itwin/itwinui-layouts-css/styles.css";
 import "@itwin/itwinui-react/styles.css";
+import "../../lib/webfont/bentley-icons-generic-webfont.css";
 import React from "react";
 import {
   SvgDeveloper,

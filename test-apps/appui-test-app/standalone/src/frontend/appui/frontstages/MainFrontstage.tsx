@@ -3,65 +3,16 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { useSelector } from "react-redux";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 import {
   BackstageAppButton,
-  BackstageItem,
   BackstageItemUtilities,
   FrontstageUtilities,
-  SettingsModalFrontstage,
   StageUsage,
-  StandardContentToolsUiItemsProvider,
-  StandardNavigationToolsUiItemsProvider,
-  StandardStatusbarUiItemsProvider,
-  ToolbarItemUtilities,
-  ToolbarOrientation,
-  ToolbarUsage,
-  UiFramework,
-  UiItemsManager,
-  UiItemsProvider,
 } from "@itwin/appui-react";
-import {
-  ComponentExamplesModalFrontstage,
-  ViewportContent,
-} from "@itwin/appui-test-providers";
-import { SvgImodel, SvgPlaceholder } from "@itwin/itwinui-icons-react";
+import { ViewportContent } from "@itwin/appui-test-providers";
+import { SvgImodel } from "@itwin/itwinui-icons-react";
 import { TestAppLocalization } from "../../useTranslation";
-import { RootState } from "../..";
-
-// Sample UI items provider that dynamically adds ui items
-class MainStageBackstageItemsProvider implements UiItemsProvider {
-  public readonly id = "main-stage-backstageItemProvider";
-
-  public provideBackstageItems(): BackstageItem[] {
-    return [
-      BackstageItemUtilities.createStageLauncher({
-        stageId: MainFrontstage.stageId,
-        groupPriority: 100,
-        itemPriority: 10,
-        label: TestAppLocalization.translate("backstage.viewIModel"),
-        subtitle: TestAppLocalization.translate("backstage.iModelStage"),
-        icon: <SvgImodel />,
-      }),
-      SettingsModalFrontstage.getBackstageActionItem(400, 10),
-      ComponentExamplesModalFrontstage.getBackstageActionItem(400, 20),
-    ];
-  }
-}
-
-/** Application continues to use redux store and opts-in to respect `viewOverlayDisplay`. */
-export function MainFrontstageViewport() {
-  const viewOverlay = useSelector((state: RootState) => {
-    // eslint-disable-next-line deprecation/deprecation
-    return state.frameworkState.configurableUiState.viewOverlayDisplay;
-  });
-  return (
-    <ViewportContent
-      renderViewOverlay={viewOverlay ? undefined : () => undefined}
-    />
-  );
-}
 
 interface CreateMainFrontstageArgs {
   contentProps: React.ComponentProps<typeof ViewportContent>;
@@ -69,7 +20,7 @@ interface CreateMainFrontstageArgs {
 
 export function createMainFrontstage(args?: CreateMainFrontstageArgs) {
   return FrontstageUtilities.createStandardFrontstage({
-    id: MainFrontstage.stageId,
+    id: createMainFrontstage.stageId,
     contentGroupProps: {
       id: "content-group",
       layout: StandardContentLayouts.singleView,
@@ -85,62 +36,15 @@ export function createMainFrontstage(args?: CreateMainFrontstageArgs) {
     usage: StageUsage.General,
   });
 }
+createMainFrontstage.stageId = "appui-test-app:main-stage";
 
-export class MainFrontstage {
-  public static stageId = "appui-test-app:main-stage";
-
-  public static register() {
-    UiFramework.frontstages.addFrontstage(createMainFrontstage());
-    this.registerUiItemProviders();
-  }
-
-  private static registerUiItemProviders() {
-    UiItemsManager.register(new MainStageBackstageItemsProvider());
-
-    // Provides standard tools for ToolWidget - limit to showing only in this stage
-    UiItemsManager.register(new StandardContentToolsUiItemsProvider(), {
-      providerId: "main-stage-standardContentTools",
-      stageIds: [MainFrontstage.stageId],
-    });
-
-    // Provides standard tools for NavigationWidget - limit to showing only in this stage
-    UiItemsManager.register(new StandardNavigationToolsUiItemsProvider(), {
-      providerId: "main-stage-standardNavigationTools",
-      stageIds: [MainFrontstage.stageId],
-    });
-
-    // Provides standard status fields - limit to showing only in this stage
-    UiItemsManager.register(new StandardStatusbarUiItemsProvider(), {
-      providerId: "main-stage-standardStatusItems",
-      stageIds: [MainFrontstage.stageId],
-    });
-
-    UiItemsManager.register(
-      {
-        id: "main-stage-toolbar-items",
-        getToolbarItems: () => [
-          ToolbarItemUtilities.createActionItem({
-            id: "toggle-view-overlay",
-            itemPriority: 100,
-            icon: <SvgPlaceholder />,
-            label: "Toggle View Overlay",
-            execute: () => {
-              // eslint-disable-next-line deprecation/deprecation
-              UiFramework.setViewOverlayDisplay(
-                // eslint-disable-next-line deprecation/deprecation
-                !UiFramework.viewOverlayDisplay
-              );
-            },
-            layouts: {
-              standard: {
-                orientation: ToolbarOrientation.Horizontal,
-                usage: ToolbarUsage.ContentManipulation,
-              },
-            },
-          }),
-        ],
-      },
-      { stageIds: [MainFrontstage.stageId] }
-    );
-  }
+export function createMainFrontstageLauncher() {
+  return BackstageItemUtilities.createStageLauncher({
+    stageId: createMainFrontstage.stageId,
+    groupPriority: 100,
+    itemPriority: 10,
+    label: TestAppLocalization.translate("backstage.viewIModel"),
+    subtitle: TestAppLocalization.translate("backstage.iModelStage"),
+    icon: <SvgImodel />,
+  });
 }

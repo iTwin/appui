@@ -4,89 +4,54 @@
  *--------------------------------------------------------------------------------------------*/
 import "../../lib/webfont/bentley-icons-generic-webfont.css";
 import "@itwin/itwinui-react/styles.css";
-import "./index.scss";
 import * as React from "react";
-import { createRoot } from "react-dom/client";
-import classnames from "classnames";
-import { connect, Provider } from "react-redux";
+import { Provider } from "react-redux";
 import { Store } from "redux";
 import { Key } from "ts-key-enum";
 import {
-  RealityDataAccessClient,
-  RealityDataClientOptions,
-} from "@itwin/reality-data-client";
-import {
   ActionsUnion,
-  AppNotificationManager,
   AppUiSettings,
-  BackstageComposer,
-  ConfigurableUiContent,
   createAction,
   DeepReadonly,
-  FrameworkAccuDraw,
   FrameworkReducer,
   FrameworkRootState,
-  FrameworkToolAdmin,
-  FrameworkUiAdmin,
-  FrontstageDeactivatedEventArgs,
   getKeyinsFromToolList,
   IModelViewportControl,
   InitialAppUiSettings,
-  ModalFrontstageClosedEventArgs,
   PresentationSelectionScope,
   SafeAreaContext,
   SafeAreaInsets,
   SessionStateActionId,
   StageUsage,
-  StandardContentToolsUiItemsProvider,
   StateManager,
   StatusBarItemUtilities,
   StatusBarSection,
   SyncUiEventDispatcher,
   SYSTEM_PREFERRED_COLOR_THEME,
   ThemeManager,
-  ToolbarDragInteractionContext,
   UiFramework,
   UiItemsManager,
   UiStateStorageHandler,
 } from "@itwin/appui-react";
-import {
-  Id64String,
-  Logger,
-  LoggingMetaData,
-  LogLevel,
-  ProcessDetector,
-  UnexpectedErrors,
-} from "@itwin/core-bentley";
+import { ProcessDetector } from "@itwin/core-bentley";
 import {
   BentleyCloudRpcManager,
   BentleyCloudRpcParams,
-  RpcConfiguration,
 } from "@itwin/core-common";
 import { ElectronApp } from "@itwin/core-electron/lib/cjs/ElectronFrontend";
 import {
   AccuSnap,
   IModelApp,
-  IModelConnection,
   LocalUnitFormatProvider,
   NativeAppLogger,
   NativeAppOpts,
-  SelectionTool,
   SnapMode,
-  ToolAdmin,
   ViewClipByPlaneTool,
 } from "@itwin/core-frontend";
 import { getObjectClassName } from "@itwin/core-react";
 import { FrontendDevTools } from "@itwin/frontend-devtools";
 import { HyperModeling } from "@itwin/hypermodeling-frontend";
-import { getSupportedRpcs } from "../common/rpcs";
-import {
-  loggerCategory,
-  TestAppConfiguration,
-} from "../common/TestAppConfiguration";
-import { AppUi } from "./appui/AppUi";
-import { LocalFileOpenFrontstage } from "./appui/frontstages/LocalFileStage";
-import { MainFrontstage } from "./appui/frontstages/MainFrontstage";
+import { TestAppConfiguration } from "../common/TestAppConfiguration";
 import { AppSettingsTabsProvider } from "./appui/settingsproviders/AppSettingsTabsProvider";
 import {
   AbstractUiItemsProvider,
@@ -94,43 +59,21 @@ import {
   AppUiTestProviders,
   ContentLayoutStage,
   CustomContentFrontstage,
-  CustomStageUiItemsProvider,
-  FloatingWidgetsUiItemsProvider,
   InspectUiItemInfoToolProvider,
   MessageUiItemsProvider,
   PopoutWindowsFrontstage,
   previewFeaturesToggleProvider,
   registerCustomFrontstage,
   SynchronizedFloatingViewportStage,
-  WidgetApiStage,
   WidgetContentProvider,
 } from "@itwin/appui-test-providers";
-import {
-  getUrlParam,
-  useHandleURLParams,
-  usePreviewFeatureURLParams,
-} from "./UrlParams";
-import {
-  editorFrontstage,
-  editorUiItemsProvider,
-  initializeEditor,
-} from "./appui/frontstages/EditorFrontstageProvider";
-import { useEditorToolSettings } from "./appui/useEditorToolSettings";
+import { getUrlParam, usePreviewFeatureURLParams } from "./UrlParams";
 import { AppLanguageSelect, AppLocalizationProvider } from "./Localization";
 import {
   registerViewportFrontstage,
   viewportUiItemsProvider,
 } from "./appui/frontstages/ViewportFrontstage";
-import {
-  createElementStackingFrontstage,
-  createElementStackingProvider,
-} from "./appui/frontstages/ElementStacking";
-import { createTestPanelFrontstage } from "./appui/frontstages/TestPanelFrontstage";
-import { createTestPopoutFrontstage } from "./appui/frontstages/TestPopoutFrontstage";
-import { ITwinLocalization } from "@itwin/core-i18n";
-
-// Initialize my application gateway configuration for the frontend
-RpcConfiguration.developmentMode = true;
+import { createElementStackingProvider } from "./appui/frontstages/ElementStacking";
 
 /** Action Ids used by redux and to send sync UI components. Typically used to refresh visibility or enable state of control.
  * Use lower case strings to be compatible with SyncUi processing.
@@ -166,7 +109,7 @@ export const SampleAppActions = {
     createAction(SampleAppUiActionId.setIsIModelLocal, isIModelLocal),
 };
 
-class SampleAppAccuSnap extends AccuSnap {
+export class SampleAppAccuSnap extends AccuSnap {
   public override getActiveSnapModes(): SnapMode[] {
     const snaps: SnapMode[] = [];
     if (SampleAppIModelApp.store.getState().frameworkState) {
@@ -284,9 +227,6 @@ export class SampleAppIModelApp {
   public static async initialize() {
     // eslint-disable-next-line deprecation/deprecation
     await UiFramework.initialize(undefined, undefined);
-    UiFramework.visibility.autoHideUi = false;
-
-    IModelApp.toolAdmin.defaultToolId = SelectionTool.toolId;
 
     // No longer necessary, but useful to test legacy behavior until uiAdmin is completely removed:
     // IModelApp.uiAdmin.updateFeatureFlags({ allowKeyinPalette: true });
@@ -359,10 +299,6 @@ export class SampleAppIModelApp {
       new AbstractUiItemsProvider(AppUiTestProviders.localizationNamespace)
     );
     UiItemsManager.register(new MessageUiItemsProvider());
-    UiItemsManager.register(new FloatingWidgetsUiItemsProvider(), {
-      providerId: "widget-api-stage-floating-widget",
-      stageIds: [WidgetApiStage.stageId],
-    });
     UiItemsManager.register(
       new InspectUiItemInfoToolProvider(
         AppUiTestProviders.localizationNamespace
@@ -371,22 +307,21 @@ export class SampleAppIModelApp {
     UiItemsManager.register(previewFeaturesToggleProvider, {
       stageUsages: [StageUsage.General],
     });
-    UiItemsManager.register(new CustomStageUiItemsProvider());
-    // UiItemsManager.register(
-    //   {
-    //     id: "language",
-    //     getStatusBarItems: () => [
-    //       StatusBarItemUtilities.createCustomItem({
-    //         id: "language",
-    //         section: StatusBarSection.Right,
-    //         content: <AppLanguageSelect />,
-    //       }),
-    //     ],
-    //   },
-    //   {
-    //     stageUsages: [StageUsage.General],
-    //   }
-    // );
+    UiItemsManager.register(
+      {
+        id: "language",
+        getStatusBarItems: () => [
+          StatusBarItemUtilities.createCustomItem({
+            id: "language",
+            section: StatusBarSection.Right,
+            content: <AppLanguageSelect />,
+          }),
+        ],
+      },
+      {
+        stageUsages: [StageUsage.General],
+      }
+    );
     UiItemsManager.register(viewportUiItemsProvider);
     UiItemsManager.register(createElementStackingProvider(), {
       stageUsages: ["development"],
@@ -394,29 +329,13 @@ export class SampleAppIModelApp {
 
     // Register frontstages
     CustomContentFrontstage.register(AppUiTestProviders.localizationNamespace);
-    WidgetApiStage.register(AppUiTestProviders.localizationNamespace);
     ContentLayoutStage.register(AppUiTestProviders.localizationNamespace);
-    UiFramework.frontstages.addFrontstage(createTestPanelFrontstage());
-    UiFramework.frontstages.addFrontstage(createTestPopoutFrontstage());
     registerCustomFrontstage();
     SynchronizedFloatingViewportStage.register(
       AppUiTestProviders.localizationNamespace
     );
     PopoutWindowsFrontstage.register(AppUiTestProviders.localizationNamespace);
-    MainFrontstage.register();
     registerViewportFrontstage();
-    UiFramework.frontstages.addFrontstage(createElementStackingFrontstage());
-
-    if (ProcessDetector.isElectronAppFrontend) {
-      await initializeEditor();
-      UiFramework.frontstages.addFrontstage(editorFrontstage);
-      UiItemsManager.register(editorUiItemsProvider, {
-        stageIds: [editorFrontstage.id],
-      });
-      UiItemsManager.register(new StandardContentToolsUiItemsProvider(), {
-        stageIds: [editorFrontstage.id],
-      });
-    }
 
     // TODO: should not be required. Start event loop to open key-in palette.
     IModelApp.startEventLoop();
@@ -438,41 +357,6 @@ export class SampleAppIModelApp {
         SampleAppIModelApp.setIsIModelLocal(true, true);
       }
     }
-  }
-
-  public static async setViewIdAndOpenMainStage(
-    iModelConnection: IModelConnection,
-    viewIdsSelected: Id64String[]
-  ) {
-    const stageId = SampleAppIModelApp.testAppConfiguration?.readWrite
-      ? editorFrontstage.id
-      : MainFrontstage.stageId;
-
-    // store the IModelConnection in the sample app store - this may trigger redux connected components
-    UiFramework.setIModelConnection(iModelConnection, true);
-    if (viewIdsSelected.length > 0) {
-      const defaultViewId = viewIdsSelected[0];
-      const viewState = await iModelConnection.views.load(defaultViewId);
-      UiFramework.setDefaultViewState(viewState);
-    }
-
-    const frontstageDef = await UiFramework.frontstages.getFrontstageDef(
-      stageId
-    );
-    if (!frontstageDef) {
-      throw new Error(`Frontstage with id "${stageId}" does not exist`);
-    }
-
-    await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
-    Logger.logInfo(
-      SampleAppIModelApp.loggerCategory(this),
-      `Frontstage & ScreenViewports are ready`
-    );
-  }
-
-  public static async showLocalFileStage() {
-    // open to the Local File frontstage
-    await LocalFileOpenFrontstage.open();
   }
 
   public static isEnvVarOn(envVar: string): boolean {
@@ -535,77 +419,7 @@ export class SampleAppIModelApp {
   }
 }
 
-function AppDragInteractionComponent(props: {
-  dragInteraction: boolean;
-  children: React.ReactNode;
-}) {
-  return (
-    <ToolbarDragInteractionContext.Provider value={props.dragInteraction}>
-      {props.children}
-    </ToolbarDragInteractionContext.Provider>
-  );
-}
-
-function mapDragInteractionStateToProps(state: RootState) {
-  return {
-    dragInteraction:
-      // eslint-disable-next-line deprecation/deprecation
-      state.frameworkState.configurableUiState.useDragInteraction,
-  };
-}
-
-const AppDragInteraction = connect(mapDragInteractionStateToProps)(
-  AppDragInteractionComponent
-);
-
 const SampleAppViewer = () => {
-  useEditorToolSettings();
-
-  React.useEffect(() => {
-    AppUi.initialize();
-  }, []);
-
-  React.useEffect(() => {
-    void SampleAppIModelApp.showLocalFileStage();
-  }, []);
-
-  const _handleFrontstageDeactivatedEvent = (
-    args: FrontstageDeactivatedEventArgs // eslint-disable-line deprecation/deprecation
-  ): void => {
-    Logger.logInfo(
-      SampleAppIModelApp.loggerCategory(this),
-      `Frontstage exit: id=${args.deactivatedFrontstageDef.id} totalTime=${args.totalTime} engagementTime=${args.engagementTime} idleTime=${args.idleTime}`
-    );
-  };
-
-  const _handleModalFrontstageClosedEvent = (
-    args: ModalFrontstageClosedEventArgs // eslint-disable-line deprecation/deprecation
-  ): void => {
-    Logger.logInfo(
-      SampleAppIModelApp.loggerCategory(this),
-      `Modal Frontstage close: title=${args.modalFrontstage.title} totalTime=${args.totalTime} engagementTime=${args.engagementTime} idleTime=${args.idleTime}`
-    );
-  };
-
-  React.useEffect(() => {
-    UiFramework.frontstages.onFrontstageDeactivatedEvent.addListener(
-      _handleFrontstageDeactivatedEvent
-    );
-    UiFramework.frontstages.onModalFrontstageClosedEvent.addListener(
-      _handleModalFrontstageClosedEvent
-    );
-    return () => {
-      UiFramework.frontstages.onFrontstageDeactivatedEvent.removeListener(
-        _handleFrontstageDeactivatedEvent
-      );
-      UiFramework.frontstages.onModalFrontstageClosedEvent.removeListener(
-        _handleModalFrontstageClosedEvent
-      );
-    };
-  }, []);
-
-  useHandleURLParams();
-
   const featureOverrides = usePreviewFeatureURLParams();
   return (
     <WidgetContentProvider>
@@ -614,11 +428,7 @@ const SampleAppViewer = () => {
           <Provider store={SampleAppIModelApp.store}>
             <ThemeManager>
               <SafeAreaContext.Provider value={SafeAreaInsets.All}>
-                <AppDragInteraction>
-                  <UiStateStorageHandler>
-                    <AppViewerContent />
-                  </UiStateStorageHandler>
-                </AppDragInteraction>
+                <UiStateStorageHandler />
               </SafeAreaContext.Provider>
             </ThemeManager>
           </Provider>
@@ -628,158 +438,13 @@ const SampleAppViewer = () => {
   );
 };
 
-function AppViewerContent() {
-  const mode = getUrlParam("mode");
-  return (
-    <div
-      style={{
-        display: "grid",
-        height: "100%",
-        gridAutoRows: mode === "header" ? "80px 1fr" : "0 1fr",
-      }}
-    >
-      <h2>App Header</h2>
-      <ConfigurableUiContent appBackstage={<BackstageComposer />} />
-    </div>
-  );
-}
-
-function App() {
-  const mode = getUrlParam("mode");
-  if (mode === "portal" || mode === "portal-overflow") {
-    return (
-      <div
-        className={classnames(
-          "app-portal",
-          mode === "portal-overflow" && "app-overflow"
-        )}
-      >
-        <div className="app-header">Header</div>
-        <div className="app-viewer">
-          <SampleAppViewer />
-        </div>
-      </div>
-    );
-  }
-  return <SampleAppViewer />;
-}
-
 // If we are using a browser, close the current iModel before leaving
 window.addEventListener("beforeunload", async () => {
   await SampleAppIModelApp.closeCurrentIModel();
 });
 
-// Similar to `Logger.initializeToConsole`, but doesn't stringify meta-data.
-function initializeToConsole() {
-  const logConsole =
-    (level: string) =>
-    (category: string, message: string, metaData: LoggingMetaData) => {
-      const metaObj = Logger.getMetaData(metaData);
-      console.log(`${level} | ${category} | ${message}`, metaObj); // eslint-disable-line no-console
-    };
-
-  Logger.initialize(
-    logConsole("Error"),
-    logConsole("Warning"),
-    logConsole("Info"),
-    logConsole("Trace")
-  );
-}
-
 // main entry point.
 export async function main() {
   // Popout widget content is loaded by main window, avoid app-reinitialization.
   if (window.location.href.endsWith("iTwinPopup")) return;
-
-  // initialize logging
-  initializeToConsole();
-  Logger.setLevelDefault(LogLevel.Warning);
-  Logger.setLevel(loggerCategory, LogLevel.Info);
-  Logger.setLevel("ViewportComponent", LogLevel.Info);
-
-  ToolAdmin.exceptionHandler = async (err: any) =>
-    Promise.resolve(UnexpectedErrors.handle(err));
-
-  // retrieve, set, and output the global configuration variable
-  SampleAppIModelApp.testAppConfiguration = {};
-  SampleAppIModelApp.testAppConfiguration.fullSnapshotPath =
-    import.meta.env.IMJS_UITESTAPP_SNAPSHOT_FULLPATH;
-  SampleAppIModelApp.testAppConfiguration.snapshotPath =
-    SampleAppIModelApp.getSnapshotPath();
-  SampleAppIModelApp.testAppConfiguration.bingMapsKey =
-    import.meta.env.IMJS_BING_MAPS_KEY;
-  SampleAppIModelApp.testAppConfiguration.mapBoxKey =
-    import.meta.env.IMJS_MAPBOX_KEY;
-  SampleAppIModelApp.testAppConfiguration.cesiumIonKey =
-    import.meta.env.IMJS_CESIUM_ION_KEY;
-  if (ProcessDetector.isElectronAppFrontend) {
-    SampleAppIModelApp.testAppConfiguration.readWrite =
-      SampleAppIModelApp.isEnvVarOn("IMJS_READ_WRITE");
-  }
-  Logger.logInfo(
-    "Configuration",
-    JSON.stringify(SampleAppIModelApp.testAppConfiguration)
-  );
-
-  const mapLayerOpts = {
-    BingMaps: SampleAppIModelApp.testAppConfiguration.bingMapsKey
-      ? {
-          key: "key",
-          value: SampleAppIModelApp.testAppConfiguration.bingMapsKey,
-        }
-      : undefined,
-    MapboxImagery: SampleAppIModelApp.testAppConfiguration.mapBoxKey
-      ? {
-          key: "access_token",
-          value: SampleAppIModelApp.testAppConfiguration.mapBoxKey,
-        }
-      : undefined,
-  };
-
-  const realityDataClientOptions: RealityDataClientOptions = {
-    /** API Version. v1 by default */
-    // version?: ApiVersion;
-    /** API Url. Used to select environment. Defaults to "https://api.bentley.com/realitydata" */
-    baseUrl: `https://${
-      import.meta.env.IMJS_URL_PREFIX
-    }api.bentley.com/realitydata`,
-  };
-  // Start the app.
-  await SampleAppIModelApp.startup({
-    iModelApp: {
-      accuSnap: new SampleAppAccuSnap(),
-      toolAdmin: new FrameworkToolAdmin(),
-      notifications: new AppNotificationManager(),
-      // eslint-disable-next-line deprecation/deprecation
-      uiAdmin: new FrameworkUiAdmin(),
-      accuDraw: new FrameworkAccuDraw(),
-      realityDataAccess: new RealityDataAccessClient(realityDataClientOptions),
-      renderSys: { displaySolarShadows: true },
-      rpcInterfaces: getSupportedRpcs(),
-      mapLayerOptions: mapLayerOpts,
-      tileAdmin: {
-        cesiumIonKey: SampleAppIModelApp.testAppConfiguration.cesiumIonKey,
-      },
-      localization: new ITwinLocalization({
-        urlTemplate: `${window.location.origin}/locales/{{lng}}/{{ns}}.json`,
-      }),
-      publicPath: `${window.location.origin}/`,
-    },
-  });
-  await SampleAppIModelApp.initialize();
-
-  const root = createRoot(document.getElementById("root")!);
-  const isStrict = getUrlParam("strict") !== "0";
-  // root.render(
-  //   isStrict ? (
-  //     <React.StrictMode>
-  //       <App />
-  //     </React.StrictMode>
-  //   ) : (
-  //     <App />
-  //   )
-  // );
 }
-
-// Entry point - run the main function
-// void main();

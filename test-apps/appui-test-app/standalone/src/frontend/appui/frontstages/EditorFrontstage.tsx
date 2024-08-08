@@ -16,45 +16,38 @@ import {
   ToolbarUsage,
   UiItemsProvider,
 } from "@itwin/appui-react";
-import {
-  CreateArcTool,
-  CreateLineStringTool,
-  EditTools,
-} from "@itwin/editor-frontend";
+import { CreateArcTool, CreateLineStringTool } from "@itwin/editor-frontend";
 import { SvgDraw, SvgEdit } from "@itwin/itwinui-icons-react";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 import { ViewportContent } from "@itwin/appui-test-providers";
 
-export async function initializeEditor() {
-  await EditTools.initialize();
+export function createEditorFrontstage() {
+  return FrontstageUtilities.createStandardFrontstage({
+    id: createEditorFrontstage.stageId,
+    contentGroupProps: {
+      id: "content-group",
+      layout: StandardContentLayouts.singleView,
+      contents: [
+        {
+          id: "viewport",
+          classId: "",
+          content: <ViewportContent />,
+        },
+      ],
+    },
+    usage: StageUsage.General,
+    cornerButton: <BackstageAppButton />,
+  });
 }
+createEditorFrontstage.stageId = "appui-test-app:editor-frontstage";
 
-export const editorFrontstage = FrontstageUtilities.createStandardFrontstage({
-  id: "standalone:editor-frontstage",
-  contentGroupProps: {
-    id: "content-group",
-    layout: StandardContentLayouts.singleView,
-    contents: [
-      {
-        id: "viewport",
-        classId: "",
-        content: <ViewportContent />,
-      },
-    ],
-  },
-  usage: StageUsage.General,
-  cornerButton: <BackstageAppButton />,
-});
-
-export const editorUiItemsProvider = createUiItemsProvider();
-
-function createUiItemsProvider(): UiItemsProvider {
-  const id = "standalone:editor-items";
+export function createEditorFrontstageProvider(): UiItemsProvider {
+  const id = "appui-test-app:editor-items";
   return {
     id,
     getBackstageItems: () => [
       BackstageItemUtilities.createStageLauncher({
-        stageId: editorFrontstage.id,
+        stageId: createEditorFrontstage.stageId,
         groupPriority: 400,
         label: "Editor",
         icon: <SvgEdit />,
