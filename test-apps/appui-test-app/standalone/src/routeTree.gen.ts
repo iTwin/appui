@@ -17,15 +17,15 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as LocalImport } from './routes/local'
 
 // Create Virtual Routes
 
-const LocalLazyImport = createFileRoute('/local')()
 const IndexLazyImport = createFileRoute('/')()
 
 // Create/Update Routes
 
-const LocalLazyRoute = LocalLazyImport.update({
+const LocalRoute = LocalImport.update({
   path: '/local',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/local.lazy').then((d) => d.Route))
@@ -50,7 +50,7 @@ declare module '@tanstack/react-router' {
       id: '/local'
       path: '/local'
       fullPath: '/local'
-      preLoaderRoute: typeof LocalLazyImport
+      preLoaderRoute: typeof LocalImport
       parentRoute: typeof rootRoute
     }
   }
@@ -58,10 +58,7 @@ declare module '@tanstack/react-router' {
 
 // Create and export the route tree
 
-export const routeTree = rootRoute.addChildren({
-  IndexLazyRoute,
-  LocalLazyRoute,
-})
+export const routeTree = rootRoute.addChildren({ IndexLazyRoute, LocalRoute })
 
 /* prettier-ignore-end */
 
@@ -79,7 +76,7 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "index.lazy.tsx"
     },
     "/local": {
-      "filePath": "local.lazy.tsx"
+      "filePath": "local.tsx"
     }
   }
 }

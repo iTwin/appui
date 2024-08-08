@@ -2,12 +2,12 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-declare module "*.md";
+import { createFileRoute } from "@tanstack/react-router";
 
-declare global {
-  interface Window {
-    __BIM_FILES__: string[];
-  }
-}
-
-export {};
+export const Route = createFileRoute("/local")({
+  validateSearch: (search) => {
+    return {
+      fileName: search.fileName as string | undefined,
+    };
+  },
+});

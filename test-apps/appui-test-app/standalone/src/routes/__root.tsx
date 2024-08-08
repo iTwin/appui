@@ -27,10 +27,10 @@ import { createRootRoute, Outlet, useNavigate } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/router-devtools";
 
 export const Route = createRootRoute({
-  component: () => <Component />,
+  component: Root,
 });
 
-function Component() {
+function Root() {
   const navigate = useNavigate();
   return (
     <ThemeProvider>
