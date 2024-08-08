@@ -1,0 +1,3217 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+.components-activehighlight {
+  background-color: orange;
+}/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Backgrounds and strokes */
+/** Text and icons */
+/** Themed colors */
+/** Static colors */
+/** Widget Opacity */
+/** Toolbar Opacity */
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Backgrounds and strokes */
+/** Text and icons */
+/** Themed colors */
+/** Static colors */
+/** Widget Opacity */
+/** Toolbar Opacity */
+.components-date-input {
+  width: auto;
+  padding: var(--iui-size-3xs) var(--iui-size-xs);
+}
+.components-date-input.components-date-has-error {
+  color: var(--iui-color-text-negative);
+}
+.components-date-input[disabled] {
+  color: var(--buic-foreground-body);
+  opacity: 0.65;
+}/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Backgrounds and strokes */
+/** Text and icons */
+/** Themed colors */
+/** Static colors */
+/** Widget Opacity */
+/** Toolbar Opacity */
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+.components-date-picker-calendar {
+  border-radius: var(--iui-border-radius-1) var(--iui-border-radius-1) 0 0;
+  background-color: var(--buic-background-control);
+  color: var(--iui-color-text);
+  font-size: 14px;
+}
+.components-date-picker-calendar * {
+  box-sizing: border-box;
+}
+.components-date-picker-calendar .components-date-picker-calendar-header-months {
+  display: inline-flex;
+  width: calc(100% - 12px);
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px;
+}
+.components-date-picker-calendar .components-date-picker-calendar-header-months button.components-previous-month,
+.components-date-picker-calendar .components-date-picker-calendar-header-months button.components-next-month {
+  background-color: var(--buic-background-control);
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  font-size: var(--iui-font-size-2);
+  user-select: none;
+  color: rgba(var(--buic-foreground-body), var(--iui-opacity-2));
+}
+.components-date-picker-calendar .components-date-picker-calendar-header-months button.components-previous-month:focus,
+.components-date-picker-calendar .components-date-picker-calendar-header-months button.components-next-month:focus {
+  outline: 0px;
+}
+.components-date-picker-calendar .components-date-picker-calendar-header-months button.components-previous-month:focus.showFocusOutline,
+.components-date-picker-calendar .components-date-picker-calendar-header-months button.components-next-month:focus.showFocusOutline {
+  outline: 0px;
+  border: 0px solid var(--iui-color-border-foreground);
+  border-radius: var(--iui-border-radius-1);
+  border-color: var(--buic-foreground-focus-border);
+  box-shadow: var(--buic-focus-boxshadow-gradient1) 0px 1px 1px, var(--buic-focus-boxshadow-gradient2) 0px 0px 0px 2px;
+}
+.components-date-picker-calendar .components-date-picker-calendar-header-months button.components-previous-month:hover,
+.components-date-picker-calendar .components-date-picker-calendar-header-months button.components-next-month:hover {
+  color: var(--iui-color-text-accent);
+}
+.components-date-picker-calendar .components-date-picker-calendar-header-months .components-next-month {
+  text-align: right;
+}
+.components-date-picker-calendar .components-date-picker-calendar-header-months .components-month-year {
+  flex: 2;
+  font-weight: var(--iui-font-weight-bold);
+  text-align: center;
+}
+.components-date-picker-calendar .components-date-picker-calendar-header-weekdays {
+  display: grid;
+  background-color: var(--buic-background-2);
+  padding-inline-start: 8px;
+  padding-inline-end: 8px;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  align-items: center;
+}
+.components-date-picker-calendar .components-date-picker-calendar-header-weekdays .components-date-picker-calendar-header-day-short {
+  text-align: center;
+  text-decoration: none;
+  font-weight: var(--iui-font-weight-bold);
+  height: 32px;
+  width: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.components-date-picker-calendar ul.components-date-picker-calendar-month {
+  margin: 1px;
+  padding: 4px 5px;
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  text-align: center;
+  align-items: center;
+  align-self: center;
+}
+.components-date-picker-calendar ul.components-date-picker-calendar-month:focus {
+  outline: 0px;
+}
+.components-date-picker-calendar ul.components-date-picker-calendar-month:focus.showFocusOutline {
+  border: 0px solid var(--iui-color-border-foreground);
+  border-radius: var(--iui-border-radius-1);
+  border-color: var(--buic-foreground-focus-border);
+  box-shadow: var(--buic-focus-boxshadow-gradient1) 0px 1px 1px, var(--buic-focus-boxshadow-gradient2) 0px 0px 0px 2px;
+}
+.components-date-picker-calendar ul.components-date-picker-calendar-month:focus.showFocusOutline .components-date-picker-calendar-day.focused {
+  outline: 0px;
+  border: 1px solid var(--iui-color-border-foreground);
+  border-radius: var(--iui-border-radius-1);
+  border-color: var(--buic-foreground-focus-border);
+  box-shadow: var(--buic-focus-boxshadow-gradient1) 0px 1px 1px, var(--buic-focus-boxshadow-gradient2) 0px 0px 0px 2px;
+  z-index: 1;
+}
+.components-date-picker-calendar ul.components-date-picker-calendar-month .components-date-picker-calendar-day {
+  box-sizing: border-box;
+  text-align: center;
+  white-space: nowrap;
+  cursor: pointer;
+  height: 32px;
+  width: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.components-date-picker-calendar ul.components-date-picker-calendar-month .components-date-picker-calendar-day:focus {
+  outline: 0px;
+}
+.components-date-picker-calendar ul.components-date-picker-calendar-month .components-date-picker-calendar-day:hover:not(.selected) {
+  background-color: var(--buic-row-hover);
+  border-radius: var(--iui-border-radius-1);
+  font-weight: var(--iui-font-weight-semibold);
+}
+.components-date-picker-calendar ul.components-date-picker-calendar-month .components-date-picker-calendar-day.selected {
+  background-color: var(--buic-background-primary);
+  color: var(--iui-color-white);
+  font-weight: var(--iui-font-weight-semibold);
+  border-radius: var(--iui-border-radius-1);
+}
+.components-date-picker-calendar ul.components-date-picker-calendar-month .components-date-picker-calendar-day.selected:hover {
+  background-color: var(--buic-row-hover);
+  color: var(--iui-color-text);
+}
+.components-date-picker-calendar ul.components-date-picker-calendar-month .components-date-picker-calendar-day.today {
+  background-color: rgba(var(--buic-foreground-body), var(--iui-opacity-6));
+  font-weight: var(--iui-font-weight-semibold);
+  border-radius: 50%;
+}
+.components-date-picker-calendar ul.components-date-picker-calendar-month .components-date-picker-calendar-day.notCurrentMonth:not(.selected) {
+  color: var(--iui-color-text-disabled);
+  font-weight: var(--iui-font-weight-light);
+}/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Backgrounds and strokes */
+/** Text and icons */
+/** Themed colors */
+/** Static colors */
+/** Widget Opacity */
+/** Toolbar Opacity */
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Backgrounds and strokes */
+/** Text and icons */
+/** Themed colors */
+/** Static colors */
+/** Widget Opacity */
+/** Toolbar Opacity */
+.components-time {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: var(--buic-background-control);
+  border: 1px solid var(--iui-color-border-foreground);
+  border-radius: var(--iui-border-radius-1);
+  box-shadow: var(--buic-inputs-boxshadow) 0px 1px 1px inset;
+  box-sizing: border-box;
+}
+.components-time.has-error {
+  color: var(--iui-color-text-negative);
+}
+.components-time .components-time-input {
+  box-sizing: border-box;
+  width: 2.5em;
+  text-align: center;
+  border: none;
+  box-shadow: none;
+  margin: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+.components-time .components-time-input:focus {
+  outline: 0px;
+  border: 1px solid var(--iui-color-border-foreground);
+  border-radius: var(--iui-border-radius-1);
+  border-color: var(--buic-foreground-focus-border);
+  box-shadow: var(--buic-focus-boxshadow-gradient1) 0px 1px 1px, var(--buic-focus-boxshadow-gradient2) 0px 0px 0px 2px;
+  z-index: 1;
+  /* bump z-index so drop shadow in not cut off by AM/PM */
+}
+.components-time .components-time-period-input {
+  box-sizing: border-box;
+  width: 3em;
+  text-align: center;
+  border: none;
+  padding-left: 0;
+  padding-right: 0;
+  box-shadow: none;
+  margin: 0;
+}
+.components-time .components-time-period-input:focus {
+  outline: 0px;
+  border: 1px solid var(--iui-color-border-foreground);
+  border-radius: var(--iui-border-radius-1);
+  border-color: var(--buic-foreground-focus-border);
+  box-shadow: var(--buic-focus-boxshadow-gradient1) 0px 1px 1px, var(--buic-focus-boxshadow-gradient2) 0px 0px 0px 2px;
+}
+.components-time .component-time-separator {
+  margin: 0;
+  padding: 0 1px;
+}
+.components-time .components-input {
+  padding: var(--iui-size-3xs) var(--iui-size-xs);
+}/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Breakpoints */
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Backgrounds and strokes */
+/** Text and icons */
+/** Themed colors */
+/** Static colors */
+/** Widget Opacity */
+/** Toolbar Opacity */
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Backgrounds and strokes */
+/** Text and icons */
+/** Themed colors */
+/** Static colors */
+/** Widget Opacity */
+/** Toolbar Opacity */
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*
+  $counter: 0;
+  @function step($step) {
+    $counter: $counter + $step !global;
+    @return $counter;
+  }
+  uicore-map-from-array($array, step, 1000);
+*/
+/*
+  @function step($counter) {
+    @return $counter + 1000;
+  }
+  uicore-map-from-array-with-result-arg($array, step, 0);
+*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Backgrounds and strokes */
+/** Text and icons */
+/** Themed colors */
+/** Static colors */
+/** Widget Opacity */
+/** Toolbar Opacity */
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Breakpoints */
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Backgrounds and strokes */
+/** Text and icons */
+/** Themed colors */
+/** Static colors */
+/** Widget Opacity */
+/** Toolbar Opacity */
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Backgrounds and strokes */
+/** Text and icons */
+/** Themed colors */
+/** Static colors */
+/** Widget Opacity */
+/** Toolbar Opacity */
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Breakpoints */
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Backgrounds and strokes */
+/** Text and icons */
+/** Themed colors */
+/** Static colors */
+/** Widget Opacity */
+/** Toolbar Opacity */
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Backgrounds and strokes */
+/** Text and icons */
+/** Themed colors */
+/** Static colors */
+/** Widget Opacity */
+/** Toolbar Opacity */
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Breakpoints */
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Backgrounds and strokes */
+/** Text and icons */
+/** Themed colors */
+/** Static colors */
+/** Widget Opacity */
+/** Toolbar Opacity */
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Breakpoints */
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Backgrounds and strokes */
+/** Text and icons */
+/** Themed colors */
+/** Static colors */
+/** Widget Opacity */
+/** Toolbar Opacity */
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Breakpoints */
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Backgrounds and strokes */
+/** Text and icons */
+/** Themed colors */
+/** Static colors */
+/** Widget Opacity */
+/** Toolbar Opacity */
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Breakpoints */
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Backgrounds and strokes */
+/** Text and icons */
+/** Themed colors */
+/** Static colors */
+/** Widget Opacity */
+/** Toolbar Opacity */
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Backgrounds and strokes */
+/** Text and icons */
+/** Themed colors */
+/** Static colors */
+/** Widget Opacity */
+/** Toolbar Opacity */
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Backgrounds and strokes */
+/** Text and icons */
+/** Themed colors */
+/** Static colors */
+/** Widget Opacity */
+/** Toolbar Opacity */
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Backgrounds and strokes */
+/** Text and icons */
+/** Themed colors */
+/** Static colors */
+/** Widget Opacity */
+/** Toolbar Opacity */
+.components-date-picker-calendar-popup-button {
+  color: var(--iui-color-text);
+  font-size: var(--iui-font-size-1);
+  background-color: transparent;
+  height: 2.2em;
+  border: none;
+  margin-right: 2px;
+}
+.components-date-picker-calendar-popup-button .datepicker-button {
+  width: 16px;
+  height: 16px;
+}
+.components-date-picker-calendar-popup-button svg {
+  fill: var(--iui-color-icon);
+}
+.components-date-picker-calendar-popup-button:hover {
+  color: var(--iui-color-text-accent-hover);
+  cursor: auto;
+}
+.components-date-picker-calendar-popup-button:hover svg {
+  fill: var(--buic-foreground-primary-tone);
+}
+.components-date-picker-calendar-popup-button:focus {
+  box-shadow: var(--buic-focus-boxshadow) 0px 0px 0px 2px;
+  outline: none;
+}
+.components-date-picker-calendar-popup-panel {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--buic-background-control);
+}
+.components-date-picker-calendar-popup-panel .time-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border-top: 2px solid var(--iui-color-border-foreground);
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+.components-date-picker-calendar-popup-panel .time-container .time-label {
+  margin-right: 4px;
+}/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+.components-boolean-editor {
+  height: calc(var(--iui-font-size-1) * 1.2);
+  width: calc(var(--iui-font-size-1) * 1.2);
+  margin-left: 0px;
+}
+.components-boolean-editor.components-cell-editor {
+  border: none;
+}
+
+.components-property-list--horizontal .components-boolean-editor {
+  margin-left: var(--iui-size-xs);
+}/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Backgrounds and strokes */
+/** Text and icons */
+/** Themed colors */
+/** Static colors */
+/** Widget Opacity */
+/** Toolbar Opacity */
+.components-text-editor {
+  min-width: 100%;
+  height: 100%;
+  margin: 0;
+}
+.components-smallEditor-host .components-text-editor {
+  min-height: 24px !important;
+  padding-top: 1px !important;
+  padding-bottom: 1px !important;
+}/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Backgrounds and strokes */
+/** Text and icons */
+/** Themed colors */
+/** Static colors */
+/** Widget Opacity */
+/** Toolbar Opacity */
+.components-customnumber-editor {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+.components-smallEditor-host .components-customnumber-editor {
+  min-height: 24px !important;
+  padding-top: 1px !important;
+  padding-bottom: 1px !important;
+}/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+.components-datetime-editor {
+  min-width: 100%;
+}/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Backgrounds and strokes */
+/** Text and icons */
+/** Themed colors */
+/** Static colors */
+/** Widget Opacity */
+/** Toolbar Opacity */
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Backgrounds and strokes */
+/** Text and icons */
+/** Themed colors */
+/** Static colors */
+/** Widget Opacity */
+/** Toolbar Opacity */
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Backgrounds and strokes */
+/** Text and icons */
+/** Themed colors */
+/** Static colors */
+/** Widget Opacity */
+/** Toolbar Opacity */
+.components-popup-button {
+  min-width: 100%;
+  min-height: 28px;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: var(--buic-background-control);
+  border: 1px solid var(--iui-color-border-foreground);
+  border-radius: var(--iui-border-radius-1);
+  box-shadow: var(--buic-inputs-boxshadow) 0px 1px 1px inset;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: flex;
+  flex-shrink: 1;
+  align-items: center;
+  font-weight: normal;
+}
+.components-popup-button > .components-popup-button-value {
+  flex-grow: 1;
+  max-width: calc(100% - var(--iui-size-l));
+  overflow-x: hidden;
+  padding: 0 3px;
+}
+.components-popup-button > .components-popup-button-value.components-popup-button-placeholder {
+  color: var(--iui-color-text-disabled);
+}
+.components-popup-button > .components-popup-button-arrow {
+  background-color: var(--buic-background-control);
+  width: var(--iui-size-l);
+  height: var(--iui-size-l);
+}
+.components-popup-button > .components-popup-button-arrow > .components-popup-button-arrow-icon {
+  transition: transform 0.2s;
+  text-align: center;
+  font-size: var(--iui-font-size-0);
+  line-height: var(--iui-size-l);
+}
+.components-popup-button > .components-popup-button-arrow > .components-popup-button-arrow-icon:hover {
+  color: var(--iui-color-text-accent);
+}
+.components-popup-button:focus, .components-popup-button.components-popup-expanded {
+  border-color: var(--buic-foreground-focus);
+  outline: 0px;
+  box-shadow: var(--buic-focus-boxshadow) 0px 0px 0px 2px;
+}
+.components-popup-button:focus > .components-popup-button-arrow, .components-popup-button.components-popup-expanded > .components-popup-button-arrow {
+  border: none;
+  box-shadow: none;
+  outline: 0px;
+}
+.components-popup-button:focus > .components-popup-button-arrow > .components-popup-button-arrow-icon, .components-popup-button.components-popup-expanded > .components-popup-button-arrow > .components-popup-button-arrow-icon {
+  color: var(--iui-color-text-accent);
+}
+.components-smallEditor-host .components-popup-button {
+  min-height: 24px !important;
+}
+.components-popup-button-popup {
+  background-color: var(--iui-color-background);
+}
+.components-editor-popup-content {
+  padding: 4px 8px;
+}
+.components-popup-bottom-buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 4px;
+}
+.components-popup-bottom-buttons > .components-popup-large-button {
+  width: 70px;
+  font-size: 20px;
+  margin-left: 6px;
+}
+.components-popup-bottom-buttons > .components-popup-cancel-button, .components-popup-bottom-buttons > .components-popup-cancel-button:active, .components-popup-bottom-buttons > .components-popup-cancel-button:focus {
+  border: none;
+  background-color: var(--iui-color-background-negative);
+  color: var(--iui-color-white);
+}
+.components-popup-bottom-buttons > .components-popup-cancel-button:hover {
+  background-color: var(--iui-color-background-negative-hover);
+  color: var(--iui-color-white);
+}/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+.components-editor-container {
+  width: 100%;
+}/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+.components-enumbuttongroup-editor {
+  font-family: var(--iui-font-sans);
+  font-size: var(--iui-font-size-1);
+  background: var(--iui-color-background);
+  width: fit-content;
+  border-color: var(--iui-color-border-foreground);
+  border-width: 1px;
+  border-radius: var(--iui-border-radius-1);
+  border-style: solid;
+  overflow: hidden;
+  display: flex;
+  vertical-align: bottom;
+  box-sizing: border-box;
+  height: 32px;
+}
+.components-enumbuttongroup-editor > * {
+  display: inline-block;
+  height: 100%;
+  width: 32px;
+}
+.components-enumbuttongroup-editor > *:not(:first-child) {
+  margin-left: 1px;
+}
+.components-enumbuttongroup-editor > *:not(:first-child):before {
+  content: "";
+  background-color: var(--iui-color-border-foreground);
+  display: block;
+  position: absolute;
+  pointer-events: none;
+  width: 1px;
+  height: 100%;
+  left: -1px;
+  top: 0;
+}
+
+.components-enumbuttongroup-button {
+  border-width: 0;
+  background-color: var(--iui-color-background);
+  background-origin: border-box;
+  border-color: var(--iui-color-border);
+  border-style: solid;
+  cursor: pointer;
+  transition-property: background-color, color;
+  transition-duration: 500ms;
+  transition-timing-function: ease;
+  position: relative;
+  height: 32px;
+  width: 32px;
+}
+.components-enumbuttongroup-button > i {
+  font-size: 16px;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  align-content: center;
+  justify-content: center;
+  margin: 0;
+  color: var(--iui-color-icon);
+  transition: all 500ms ease;
+}
+.components-enumbuttongroup-button > i img {
+  width: 100%;
+  height: 100%;
+}
+.components-enumbuttongroup-button:hover > i {
+  color: var(--iui-color-text-accent-hover);
+  transition-duration: 150ms;
+}
+.components-enumbuttongroup-button.nz-is-active {
+  background: var(--iui-color-background);
+}
+.components-enumbuttongroup-button.nz-is-active:not(.nz-is-disabled) {
+  transition-duration: 0s;
+}
+.components-enumbuttongroup-button.nz-is-active:not(.nz-is-disabled) > i {
+  color: var(--iui-color-icon-accent);
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(1, 0.1, 1, 0.5);
+}
+.components-enumbuttongroup-button.nz-is-active:not(.nz-is-disabled):after {
+  content: "";
+  display: block;
+  position: absolute;
+  background: var(--iui-color-border-accent);
+  left: 3px;
+  top: 5px;
+  border-radius: 2px;
+  width: 2px;
+  height: 22px;
+}
+.components-enumbuttongroup-button.nz-is-disabled {
+  pointer-events: none;
+  background-color: var(--iui-color-background-disabled);
+  border-color: var(--iui-color-border-disabled);
+  cursor: not-allowed;
+}
+.components-enumbuttongroup-button.nz-is-disabled > i {
+  color: var(--iui-color-icon-disabled);
+}
+.components-enumbuttongroup-button.nz-is-disabled:hover {
+  cursor: auto;
+}
+.components-enumbuttongroup-button.nz-is-disabled:active {
+  pointer-events: none;
+}/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Backgrounds and strokes */
+/** Text and icons */
+/** Themed colors */
+/** Static colors */
+/** Widget Opacity */
+/** Toolbar Opacity */
+.components-enum-editor {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+.components-smallEditor-host .components-enum-editor > .components-button {
+  min-height: 24px !important;
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+}/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Backgrounds and strokes */
+/** Text and icons */
+/** Themed colors */
+/** Static colors */
+/** Widget Opacity */
+/** Toolbar Opacity */
+.components-icon-editor {
+  font-family: var(--iui-font-sans);
+  font-size: var(--iui-font-size-1);
+  color: var(--iui-color-text);
+  border: none;
+  box-sizing: border-box;
+  height: 100%;
+}/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Backgrounds and strokes */
+/** Text and icons */
+/** Themed colors */
+/** Static colors */
+/** Widget Opacity */
+/** Toolbar Opacity */
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*
+  $counter: 0;
+  @function step($step) {
+    $counter: $counter + $step !global;
+    @return $counter;
+  }
+  uicore-map-from-array($array, step, 1000);
+*/
+/*
+  @function step($counter) {
+    @return $counter + 1000;
+  }
+  uicore-map-from-array-with-result-arg($array, step, 0);
+*/
+.components-iconpicker-button {
+  color: var(--iui-color-text);
+  background: var(--buic-background-control);
+  box-sizing: border-box;
+  border: 1px solid var(--iui-color-border-foreground);
+  border-radius: var(--iui-border-radius-1);
+  display: flex;
+  align-items: center;
+  width: fit-content;
+}
+.components-iconpicker-button .iconpicker-button-sprite {
+  width: 18px;
+  height: 18px;
+  margin: 4px;
+}
+.components-iconpicker-button .icon {
+  margin-left: 4px;
+  font-size: 10px;
+  transition: color 0.1s ease;
+}
+.components-iconpicker-button:not(.readonly) {
+  cursor: pointer;
+}
+.components-iconpicker-button:hover .icon {
+  color: var(--iui-color-text-accent);
+}
+.components-iconpicker-popup {
+  border: 1px solid var(--iui-color-border-foreground);
+  z-index: 16000;
+}
+.components-iconpicker-popup .components-iconpicker-popup-container {
+  color: var(--iui-color-text);
+  background: var(--buic-background-control);
+}
+.components-iconpicker-popup .components-iconpicker-popup-container .components-iconpicker-popup-icons {
+  display: grid;
+  grid-gap: 8px;
+  padding: 8px;
+}
+.components-iconpicker-popup .components-iconpicker-popup-container .components-iconpicker-popup-icons .components-icon-swatch {
+  width: 34px;
+  height: 34px;
+  padding: 4px;
+  border-width: 1px;
+  border-radius: var(--iui-border-radius-1);
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.2);
+  background: var(--buic-background-control);
+  transition: scale 0.2s ease;
+  cursor: pointer;
+  outline: none;
+}
+.components-iconpicker-popup .components-iconpicker-popup-container .components-iconpicker-popup-icons .components-icon-swatch:hover {
+  transform: scale(1.15);
+}
+.components-iconpicker-popup .components-iconpicker-popup-container .components-iconpicker-popup-icons .components-icon-swatch[disabled] {
+  opacity: 0.2;
+}/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+.components-image-checkbox-editor {
+  height: 32px;
+  width: 32px;
+  margin-left: 0px;
+}
+.components-image-checkbox-editor.components-cell-editor {
+  border: none;
+}
+
+.components-property-list--horizontal .components-image-checkbox-editor {
+  margin-left: var(--iui-font-size-1);
+}/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Backgrounds and strokes */
+/** Text and icons */
+/** Themed colors */
+/** Static colors */
+/** Widget Opacity */
+/** Toolbar Opacity */
+.components-smallEditor-host .components-numeric-input-editor {
+  min-height: 24px !important;
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+}/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Backgrounds and strokes */
+/** Text and icons */
+/** Themed colors */
+/** Static colors */
+/** Widget Opacity */
+/** Toolbar Opacity */
+.components-slider-editor {
+  min-width: 100%;
+}
+.components-slider-editor-slider {
+  min-width: 100px;
+  min-height: 24px;
+}/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+.components-textarea-editor {
+  min-width: 100%;
+  margin: 0;
+}
+.components-textarea-editor-textarea {
+  min-width: 150px;
+  margin: 0;
+}/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+.components-property-list--horizontal .components-toggle-editor {
+  margin-left: var(--iui-size-2xs);
+  padding: 1px 0;
+}
+
+.components-property-list--vertical .components-toggle-editor {
+  margin-left: var(--iui-size-3xs);
+  padding: 1px 0;
+}/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+.components-nonprimitive-property {
+  padding: 10px;
+  display: grid;
+  grid-row-gap: 10px;
+  border-radius: var(--iui-border-radius-1);
+  border: solid 1px #c7ccd1;
+  background-color: #ffffff;
+}/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Backgrounds and strokes */
+/** Text and icons */
+/** Themed colors */
+/** Static colors */
+/** Widget Opacity */
+/** Toolbar Opacity */
+.components-property-label-renderer {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  margin-block: auto;
+}
+.components-property-label-renderer-colon::after {
+  content: ":";
+  margin-inline-end: var(--iui-size-2xs);
+}
+.components-primitive-property-label-renderer {
+  position: relative;
+  display: flex;
+}
+.components-primitive-property-label-renderer .components-label-popup {
+  background: var(--buic-background-window);
+  width: max-content;
+  padding: 5px;
+}
+.components-property-record--vertical .components-nonprimitive-property-label-renderer {
+  margin-bottom: 4px;
+}
+.components-nonprimitive-property-label-renderer {
+  align-items: center;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: var(--iui-color-text);
+  font-size: 14px;
+  height: 100%;
+  width: 100%;
+  transition: transform var(--iui-duration-1) ease-in-out, -webkit-transform var(--iui-duration-1) ease-in-out;
+  position: relative;
+  display: flex;
+}
+.components-nonprimitive-property-label-renderer .components-label-popup {
+  background: var(--buic-background-window);
+  width: max-content;
+  padding: 5px;
+}
+.components-nonprimitive-property-label-renderer > .components-property-label-renderer {
+  flex: 1;
+  padding-left: var(--iui-size-2xs);
+}
+.components-nonprimitive-property-label-renderer > div {
+  -webkit-transition: -webkit-transform var(--iui-duration-1) ease-in-out;
+  -ms-transition: -ms-transform var(--iui-duration-1) ease-in-out;
+  transition: transform var(--iui-duration-1) ease-in-out;
+}
+.components-nonprimitive-property-label-renderer > div svg {
+  width: var(--iui-size-s);
+  height: var(--iui-size-s);
+  fill: var(--iui-color-icon);
+  display: block;
+}
+.components-nonprimitive-property-label-renderer > div.components-expanded {
+  -webkit-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+.components-nonprimitive-property-label-renderer:hover {
+  color: var(--iui-color-text-hover);
+}/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Backgrounds and strokes */
+/** Text and icons */
+/** Themed colors */
+/** Static colors */
+/** Widget Opacity */
+/** Toolbar Opacity */
+.components-property-record--horizontal {
+  height: 100%;
+  display: grid;
+  padding: 0 8px;
+}
+.components-property-record--horizontal .components-property-record-label {
+  font-size: var(--iui-font-size-0);
+  color: var(--iui-color-text-muted);
+}
+.components-property-record--horizontal .components-property-record-value {
+  min-height: 24px;
+  font-size: var(--iui-font-size-1);
+  color: var(--iui-color-text);
+  padding: 0px 5px;
+}
+.components-property-record--vertical {
+  height: 100%;
+  padding: 0 8px;
+  display: grid;
+  align-content: center;
+}
+.components-property-record--vertical .components-property-record-label {
+  font-size: var(--iui-font-size-0);
+  color: var(--iui-color-text-muted);
+}
+.components-property-record--vertical .components-property-record-value {
+  min-height: 22px;
+  font-size: var(--iui-font-size-1);
+  color: var(--iui-color-text);
+}
+.components-property-record-label {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+.components-property-record-value {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+.components-property-record-value > span {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 100%;
+  overflow: hidden;
+}
+.components-property-record-value .core-underlined-button {
+  margin-top: 2px;
+}
+.components-property-record-value .multiline {
+  display: flex;
+  align-items: baseline;
+}
+.components-property-record-value .multiline .content {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.components-property-record-value .expanded {
+  white-space: pre-wrap;
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+.components-property-record-value .expanded .expand-toggle {
+  float: right;
+  margin-top: 2px;
+}
+.components-property-record-value .expand-toggle {
+  padding: 0;
+  white-space: nowrap;
+  border: none;
+  background: none;
+  color: var(--buic-foreground-primary);
+  font-size: 12px;
+  cursor: pointer;
+}
+.components-property-record-value .expand-toggle:hover {
+  text-decoration: underline;
+}
+.components-property-record-value .expand-toggle:active {
+  outline: none;
+}/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+.components-property-action-button-list--horizontal {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  grid-column: 4;
+}
+
+.components-property-action-button-list--vertical {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  grid-column: 2;
+  grid-row-start: 1;
+  grid-row-end: 3;
+}
+
+.components-action-button-container {
+  margin: 0 5px 0 5px;
+}/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Backgrounds and strokes */
+/** Text and icons */
+/** Themed colors */
+/** Static colors */
+/** Widget Opacity */
+/** Toolbar Opacity */
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Backgrounds and strokes */
+/** Text and icons */
+/** Themed colors */
+/** Static colors */
+/** Widget Opacity */
+/** Toolbar Opacity */
+.components-filtering-input {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 5px;
+}
+.components-filtering-input-input {
+  position: relative;
+  flex: 1;
+}
+.components-filtering-input-input input {
+  min-height: 28px;
+  padding: var(--iui-size-3xs) var(--iui-size-xs);
+  box-sizing: border-box;
+}
+.components-filtering-input-input input::-ms-clear {
+  display: none;
+}
+.components-filtering-input-input-components {
+  display: flex;
+  position: absolute;
+  right: 8px;
+  top: 1px;
+  bottom: 0px;
+}
+.components-filtering-input-input-components > .icon {
+  align-self: center;
+  border: none;
+  outline: none;
+}
+.components-filtering-input-clear {
+  margin-left: 6px;
+  color: var(--iui-color-text-muted);
+  font-size: "12px";
+}
+.components-filtering-input-loader {
+  margin-bottom: auto;
+  margin-top: auto;
+}/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Backgrounds and strokes */
+/** Text and icons */
+/** Themed colors */
+/** Static colors */
+/** Widget Opacity */
+/** Toolbar Opacity */
+.components-result-selector {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  font-family: var(--iui-font-sans);
+  color: var(--iui-color-text);
+}
+.components-result-selector-current-result {
+  margin: 0 2px;
+  padding-top: 2px;
+}
+.components-result-selector-current-result input[type=number]::-webkit-outer-spin-button,
+.components-result-selector-current-result input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.components-result-selector-current-result input[type=number] {
+  -moz-appearance: textfield;
+  display: inline-block;
+  text-align: center;
+  font-size: 12px;
+  padding: 0px;
+  min-width: 2em;
+}
+.components-result-selector-current-result:hover {
+  cursor: pointer;
+}
+.components-result-selector-button {
+  font-size: 12px;
+  height: 20px;
+  width: 20px;
+  border-style: none;
+  color: var(--iui-color-text-muted);
+  margin: 0 4px;
+}
+.components-result-selector-button:hover {
+  background-color: var(--buic-row-hover);
+  border-radius: 2px;
+}
+/* Overriding iTwinUI button defaults */
+.components-result-selector-button,
+.components-result-selector-button:active,
+.components-result-selector-button:focus,
+.components-result-selector-button:disabled,
+.components-result-selector-button[disabled]:hover {
+  border-style: none;
+  padding: 0px;
+}
+.components-result-selector-button:disabled,
+.components-result-selector-button[disabled]:hover {
+  background-color: var(--buic-background-control-disabled);
+  cursor: default;
+}/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Backgrounds and strokes */
+/** Text and icons */
+/** Themed colors */
+/** Static colors */
+/** Widget Opacity */
+/** Toolbar Opacity */
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Backgrounds and strokes */
+/** Text and icons */
+/** Themed colors */
+/** Static colors */
+/** Widget Opacity */
+/** Toolbar Opacity */
+.components-parsed-input {
+  width: auto;
+  padding: var(--iui-size-3xs) var(--iui-size-xs);
+}
+.components-parsed-input.components-parsed-input-has-error {
+  color: var(--iui-color-text-negative);
+  font-weight: bold;
+}
+.components-parsed-input.components-parsed-input[disabled] {
+  color: var(--iui-color-text);
+  opacity: 0.65;
+}/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+.fb-group {
+  --border-color: var(--iui-color-border);
+  --fb-operator-width: 110px;
+  --divider-width: var(--iui-size-2xs);
+  --divider-background-color: var(--iui-color-border-subtle);
+}
+.fb-group .fb-wrapper {
+  width: 100%;
+}
+.fb-group .fb-logical-operator {
+  width: var(--fb-operator-width);
+  height: 100%;
+  text-align: center;
+  background-color: var(--iui-color-background-hover);
+  user-select: none;
+  display: grid;
+  place-items: center;
+  box-sizing: border-box;
+  font-size: var(--iui-font-size-2);
+  font-weight: var(--iui-font-weight-semibold);
+  padding-block: var(--iui-size-s);
+}
+.fb-group .fb-group-operator {
+  border-style: solid;
+  border-color: var(--border-color);
+  border-width: 1px 0 1px 1px;
+}/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+.fb-row {
+  --background-color: var(--iui-color-background);
+  --border-color: var(--iui-color-border);
+  --operator-width: 5rem;
+  --property-name-width: 25%;
+  --condition-width: 10rem;
+  --toolbar-width: 6.25rem;
+  border: 1px solid var(--iui-color-border);
+  display: block;
+  position: relative;
+}
+.fb-row:not(:last-child) .fb-add-rule-button:first-child {
+  visibility: hidden;
+}
+.fb-row:not(:first-child) {
+  border-top: none;
+}
+.fb-row > div {
+  background: var(--background-color);
+  align-items: stretch;
+  overflow: hidden;
+}
+.fb-row .fb-row-container {
+  padding-block: var(--iui-size-s);
+  padding-inline: var(--iui-size-m);
+  flex: 1;
+}
+.fb-row .fb-row-condition {
+  width: var(--condition-width);
+}
+.fb-row .fb-property-value {
+  flex: 1;
+  width: 15rem;
+  display: flex;
+  flex-direction: column;
+}
+.fb-row .fb-row-toolbar {
+  width: var(--toolbar-width);
+  margin-left: auto;
+}/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Backgrounds and strokes */
+/** Text and icons */
+/** Themed colors */
+/** Static colors */
+/** Widget Opacity */
+/** Toolbar Opacity */
+.components-virtualized-property-grid-loader {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+@supports (-webkit-overflow-scrolling: touch) {
+  .components-property-grid-wrapper {
+    overflow-y: scroll; /* overflow-y has to be scroll, not auto */
+    -webkit-overflow-scrolling: touch;
+  }
+}
+.components-property-grid-wrapper::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+.components-property-grid-wrapper::-webkit-scrollbar-thumb {
+  border-radius: 12px;
+  background-color: var(--buic-background-scrollbar);
+  background-clip: content-box;
+  border-style: solid;
+  border-color: transparent;
+  border-width: 2px;
+}
+.components-property-grid-wrapper::-webkit-scrollbar-thumb:hover {
+  background-color: var(--buic-background-scrollbar-hover);
+}
+.components-property-grid-wrapper::-webkit-scrollbar-corner {
+  background-color: transparent;
+}
+.components-property-grid-wrapper::-webkit-scrollbar-track-piece:corner-present {
+  margin-bottom: -4px;
+  margin-right: -4px;
+}
+.virtualized-grid-node > :not(.virtualized-grid-node-category) {
+  background: var(--iui-color-background);
+}
+.virtualized-grid-node .nested-border-middle {
+  height: 100%;
+  padding: 0 4px;
+  box-sizing: border-box;
+  border-left: 1px solid var(--iui-color-border);
+  border-right: 1px solid var(--iui-color-border);
+}
+.virtualized-grid-node .nested-border-bottom {
+  border-bottom: 1px solid var(--iui-color-border);
+  padding-bottom: 4px;
+}
+.virtualized-grid-node .components--clickable {
+  cursor: pointer;
+  box-sizing: border-box;
+}
+.virtualized-grid-node .components--clickable:not(.components--selected):hover {
+  margin: 0 -4px;
+  padding: 0 12px;
+  background: var(--iui-color-background-hover);
+}
+.virtualized-grid-node .components--selected {
+  margin: 0 -4px;
+  padding: 0px 11px;
+  background-color: var(--iui-color-background-accent-muted);
+  border: 1px solid var(--iui-color-border-accent);
+}
+.virtualized-grid-node .components--hoverable:hover {
+  background: var(--iui-color-background-hover);
+}
+.virtualized-grid-node .components--hoverable:hover:not(.components--selected) {
+  margin: 0 -4px;
+  padding: 0 12px;
+}
+.virtualized-grid-node-category {
+  padding-top: 4px;
+}
+.virtualized-grid-node-category .components-expandable-content {
+  display: none;
+}
+.virtualized-grid-node-custom-category {
+  padding-top: 4px;
+}
+.virtualized-grid-node-custom-category .components-expandable-content > div {
+  padding: 0 4px 4px 4px;
+}
+.virtualized-grid-node-content {
+  height: 100%;
+}
+.virtualized-grid-node-content-wrapper-item {
+  overflow: hidden;
+}/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Backgrounds and strokes */
+/** Text and icons */
+/** Themed colors */
+/** Static colors */
+/** Widget Opacity */
+/** Toolbar Opacity */
+.components-property-grid-loader {
+  position: relative;
+  display: block;
+  left: calc(50% - 24px);
+  top: calc(50% - 24px);
+}
+.components-property-grid-wrapper {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+}
+@supports (-webkit-overflow-scrolling: touch) {
+  .components-property-grid-wrapper {
+    overflow-y: scroll; /* overflow-y has to be scroll, not auto */
+    -webkit-overflow-scrolling: touch;
+  }
+}
+.components-property-grid-wrapper::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+.components-property-grid-wrapper::-webkit-scrollbar-thumb {
+  border-radius: 12px;
+  background-color: var(--buic-background-scrollbar);
+  background-clip: content-box;
+  border-style: solid;
+  border-color: transparent;
+  border-width: 2px;
+}
+.components-property-grid-wrapper::-webkit-scrollbar-thumb:hover {
+  background-color: var(--buic-background-scrollbar-hover);
+}
+.components-property-grid-wrapper::-webkit-scrollbar-corner {
+  background-color: transparent;
+}
+.components-property-grid-wrapper::-webkit-scrollbar-track-piece:corner-present {
+  margin-bottom: -4px;
+  margin-right: -4px;
+}
+.components-property-list--horizontal {
+  display: grid;
+  grid-row-gap: 1px;
+  overflow: hidden;
+  width: 100%;
+}
+.components-property-list--horizontal .components--selected,
+.components-property-list--horizontal .components--selected:hover {
+  background-color: var(--iui-color-background-accent-muted);
+  outline: 1px solid var(--iui-color-border-accent);
+}
+.components-property-list--horizontal .components--clickable:where(:not(.components--selected)) {
+  cursor: pointer;
+}
+.components-property-list--horizontal .components--clickable:where(:not(.components--selected)):hover {
+  background: var(--iui-color-background-hover);
+}
+.components-property-list--horizontal .components--hoverable:hover {
+  background-color: var(--iui-color-background-hover);
+}
+.components-property-list--vertical {
+  width: 100%;
+}
+.components-property-list--vertical .components--selected,
+.components-property-list--vertical .components--selected:hover {
+  background-color: var(--iui-color-background-accent-muted);
+  outline: 1px solid var(--iui-color-border-accent);
+}
+.components-property-list--vertical .components--clickable:where(:not(.components--selected)) {
+  cursor: pointer;
+}
+.components-property-list--vertical .components--clickable:where(:not(.components--selected)):hover {
+  background: var(--iui-color-background-hover);
+}
+.components-property-list--vertical .components--hoverable:hover {
+  background-color: var(--iui-color-background-hover);
+}/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+.components-selectable-content {
+  display: flex;
+  flex-direction: column;
+}
+.components-selectable-content .components-selectable-content-header .components-selectable-content-selector {
+  width: 100%;
+}
+.components-selectable-content .components-selectable-content-wrapper {
+  flex-grow: 1;
+  overflow: hidden;
+}/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Backgrounds and strokes */
+/** Text and icons */
+/** Themed colors */
+/** Static colors */
+/** Widget Opacity */
+/** Toolbar Opacity */
+.components-toolbar-item-expandable-group-tool-item {
+  white-space: nowrap;
+  height: 32px;
+  color: var(--iui-color-text);
+  cursor: pointer;
+  border-radius: var(--iui-border-radius-1);
+  display: flex;
+  align-items: center;
+  font-weight: var(--iui-font-weight-normal);
+  font-size: var(--iui-font-size-1);
+}
+.components-toolbar-item-expandable-group-tool-item > .components-icon {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  margin-right: 16px;
+  margin-left: 8px;
+  position: relative;
+}
+.components-toolbar-item-expandable-group-tool-item > .components-icon > .components-badge {
+  position: absolute;
+  top: -8px;
+  left: -8px;
+}
+.components-toolbar-item-expandable-group-tool-item > .components-label {
+  display: inline-block;
+  margin-right: 16px;
+  line-height: 32px;
+}
+.components-toolbar-item-expandable-group-tool-item > .components-label:after {
+  display: block;
+  content: attr(title);
+  font-weight: bold;
+  height: 1px;
+  color: transparent;
+  overflow: hidden;
+  visibility: hidden;
+}
+.components-toolbar-item-expandable-group-tool-item:hover:not(.components-disabled), .components-toolbar-item-expandable-group-tool-item.components-targeted:not(.components-disabled) {
+  color: var(--iui-color-text-hover);
+  font-weight: var(--iui-font-weight-normal);
+  font-size: var(--iui-font-size-1);
+}
+.components-toolbar-item-expandable-group-tool-item:active:not(.components-disabled) {
+  background: var(--iui-color-background-hover);
+  color: var(--iui-color-text-accent-hover);
+}
+.components-toolbar-item-expandable-group-tool-item:focus {
+  outline: none;
+}
+.components-toolbar-item-expandable-group-tool-item.components-pointer-up:hover:not(.components-disabled), .components-toolbar-item-expandable-group-tool-item.components-pointer-up.components-targeted:not(.components-disabled) {
+  background: var(--iui-color-background-hover);
+  color: var(--iui-color-text-accent-hover);
+}
+.components-toolbar-item-expandable-group-tool-item.components-focused:not(.components-disabled) {
+  color: var(--iui-color-text-accent);
+  border-color: var(--iui-color-border-accent);
+  border-width: 2px;
+  border-style: solid;
+  font-weight: var(--iui-font-weight-normal);
+  font-size: var(--iui-font-size-1);
+}
+.components-toolbar-item-expandable-group-tool-item.components-active:not(.components-disabled) {
+  color: var(--iui-color-text-accent);
+  font-weight: var(--iui-font-weight-normal);
+  font-size: var(--iui-font-size-1);
+}
+.components-toolbar-item-expandable-group-tool-item.components-active:not(.components-disabled)::before {
+  content: "";
+  background-color: var(--iui-color-border-accent);
+  display: block;
+  position: relative;
+  top: 0;
+  left: 3px;
+  width: 2px;
+  height: 22px;
+  border-radius: 2px;
+}
+.components-toolbar-item-expandable-group-tool-item.components-disabled {
+  color: var(--iui-color-text-disabled);
+}/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+.components-toolbar-item-expandable-group-column > *:not(:last-child) {
+  margin-bottom: 9px;
+}/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+.components-toolbar-item-expandable-group-columns {
+  display: grid;
+  grid-auto-columns: 1fr;
+  grid-gap: 12px;
+  grid-auto-flow: column;
+}/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Backgrounds and strokes */
+/** Text and icons */
+/** Themed colors */
+/** Static colors */
+/** Widget Opacity */
+/** Toolbar Opacity */
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Breakpoints */
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Backgrounds and strokes */
+/** Text and icons */
+/** Themed colors */
+/** Static colors */
+/** Widget Opacity */
+/** Toolbar Opacity */
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+.components-toolbar-item-expandable-group-panel {
+  line-height: normal;
+  background: var(--iui-color-background);
+  padding: 8px;
+  border-radius: var(--iui-border-radius-1);
+  pointer-events: auto;
+  border: 1px solid var(--iui-color-border);
+  font-size: var(--iui-font-size-1);
+}/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Backgrounds and strokes */
+/** Text and icons */
+/** Themed colors */
+/** Static colors */
+/** Widget Opacity */
+/** Toolbar Opacity */
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Breakpoints */
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Backgrounds and strokes */
+/** Text and icons */
+/** Themed colors */
+/** Static colors */
+/** Widget Opacity */
+/** Toolbar Opacity */
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+.components-toolbar-item-expandable-group-title {
+  white-space: nowrap;
+  text-align: center;
+  color: var(--iui-color-text);
+  margin-bottom: 9px;
+  margin-left: 20px;
+  margin-right: 20px;
+  font-weight: var(--iui-font-weight-normal);
+  font-size: var(--iui-font-size-2);
+}
+.components-toolbar-item-expandable-group-nested {
+  position: relative;
+}
+.components-toolbar-item-expandable-group-nested .components-back {
+  position: absolute;
+  left: 10px;
+  top: 8px;
+}
+.components-toolbar-item-expandable-group-nested > .components-toolbar-item-expandable-group-title {
+  /* Contributes to space available for back arrow */
+  min-height: 14px;
+  margin-left: 28px;
+  margin-right: 28px;
+}/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*
+  $counter: 0;
+  @function step($step) {
+    $counter: $counter + $step !global;
+    @return $counter;
+  }
+  uicore-map-from-array($array, step, 1000);
+*/
+/*
+  @function step($counter) {
+    @return $counter + 1000;
+  }
+  uicore-map-from-array-with-result-arg($array, step, 0);
+*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Breakpoints */
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Backgrounds and strokes */
+/** Text and icons */
+/** Themed colors */
+/** Static colors */
+/** Widget Opacity */
+/** Toolbar Opacity */
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+.components-toolbar-overflow-sizer {
+  display: inline-block;
+  position: relative;
+}
+.components-toolbar-overflow-sizer.components-horizontal {
+  width: 100%;
+}
+.components-toolbar-overflow-sizer.components-vertical {
+  height: 100%;
+}/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Breakpoints */
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Backgrounds and strokes */
+/** Text and icons */
+/** Themed colors */
+/** Static colors */
+/** Widget Opacity */
+/** Toolbar Opacity */
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+.components-toolbar-button-item {
+  box-sizing: border-box;
+  background-origin: border-box;
+  border-color: transparent;
+  border-style: solid;
+  border-radius: var(--iui-border-radius-1);
+  cursor: pointer;
+  transition: background-color var(--iui-duration-1) ease;
+  position: relative;
+  background: transparent;
+  height: 100%;
+  width: 100%;
+  outline-style: solid;
+  outline-width: 0;
+}
+.components-toolbar-button-item > .components-icon {
+  font-size: 16px;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  align-content: center;
+  justify-content: center;
+  color: var(--iui-color-icon);
+  transition: color var(--iui-duration-1) ease;
+}
+.components-toolbar-button-item > .components-icon img {
+  width: 16px;
+  height: 16px;
+}
+.components-toolbar-button-item:not(.components-disabled) > .components-icon {
+  filter: drop-shadow(0 1px 0 var(--buic-foreground-body-reverse));
+}
+.components-toolbar-button-item:focus-visible:not(.components-disabled):not(.components-active), .components-toolbar-button-item:hover:not(.components-disabled):not(.components-active), .components-toolbar-button-item:active:not(.components-disabled):not(.components-active) {
+  color: var(--iui-color-icon-hover);
+  background-color: var(--iui-color-background-transparent-hover);
+}
+.components-toolbar-button-item.components-active {
+  color: var(--iui-color-icon-accent);
+  background-color: var(--iui-color-background-accent-muted);
+  border: solid 2px var(--iui-color-border-accent);
+}
+.components-toolbar-button-item.components-active:not(:active):not(.components-disabled) {
+  transition-duration: 0s;
+}
+.components-toolbar-button-item.components-active:not(:active):not(.components-disabled) > .components-icon {
+  color: var(--iui-color-icon-accent);
+  transition-duration: var(--iui-duration-1);
+  transition-timing-function: cubic-bezier(1, 0.1, 1, 0.5);
+}
+.components-toolbar-button-item.components-disabled {
+  cursor: not-allowed;
+}
+.components-toolbar-button-item.components-disabled > .components-icon {
+  color: var(--iui-color-icon-disabled);
+}
+.components-toolbar-button-item.components-disabled:hover {
+  cursor: auto;
+}
+.components-toolbar-button-item.components-disabled:active {
+  pointer-events: none;
+}
+.components-toolbar-button-item > .components-badge {
+  display: none;
+}
+div.components-toolbar-items-container.components-toolbar-show-decorators .components-toolbar-button-item > .components-badge {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+}/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Breakpoints */
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Backgrounds and strokes */
+/** Text and icons */
+/** Themed colors */
+/** Static colors */
+/** Widget Opacity */
+/** Toolbar Opacity */
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+.components-toolbar-items-container {
+  border-radius: var(--iui-border-radius-1);
+  display: inline-block;
+  vertical-align: bottom;
+  box-sizing: border-box;
+  box-shadow: var(--iui-shadow-1);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  pointer-events: auto;
+}
+.components-toolbar-items-container.components-vertical {
+  width: 40px;
+}
+.components-toolbar-items-container.components-vertical > * {
+  height: 40px;
+}
+.components-toolbar-items-container.components-vertical > *:not(:first-child) {
+  margin-top: 1px;
+}
+.components-toolbar-items-container.components-vertical > *:not(:first-child):before {
+  content: "";
+  display: block;
+  position: absolute;
+  pointer-events: none;
+  height: 1px;
+  width: 100%;
+  left: 0;
+  top: -1px;
+}
+.components-toolbar-items-container.components-horizontal {
+  height: 40px;
+}
+.components-toolbar-items-container.components-horizontal > * {
+  display: inline-block;
+  height: 100%;
+  width: 40px;
+}
+.components-toolbar-items-container.components-horizontal > *:not(:first-child) {
+  margin-left: 1px;
+}
+.components-toolbar-items-container.components-horizontal > *:not(:first-child):before {
+  content: "";
+  display: block;
+  position: absolute;
+  pointer-events: none;
+  width: 1px;
+  height: 100%;
+  left: -1px;
+  top: 0;
+}
+.components-toolbar-items-container > * {
+  vertical-align: bottom;
+}
+/* modifications to the style to support the appearance of a tool button separator  */
+.components-toolbar-item-container.components-horizontal.components-toolbar-button-add-gap-before {
+  margin-left: 5px;
+}
+div.components-toolbar-items-container.components-toolbar-show-decorators .components-toolbar-item-container.components-horizontal.components-toolbar-button-add-gap-before::before {
+  width: 1px;
+  background-color: var(--iui-color-border-subtle);
+  left: -3px;
+}
+.components-toolbar-item-container.components-vertical.components-toolbar-button-add-gap-before {
+  margin-top: 5px;
+}
+div.components-toolbar-items-container.components-toolbar-show-decorators .components-toolbar-item-container.components-vertical.components-toolbar-button-add-gap-before::before {
+  height: 1px;
+  background-color: var(--iui-color-border-subtle);
+  top: -3px;
+}/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+.components-toolbar-item-container {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*
+  $counter: 0;
+  @function step($step) {
+    $counter: $counter + $step !global;
+    @return $counter;
+  }
+  uicore-map-from-array($array, step, 1000);
+*/
+/*
+  @function step($counter) {
+    @return $counter + 1000;
+  }
+  uicore-map-from-array-with-result-arg($array, step, 0);
+*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Breakpoints */
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Backgrounds and strokes */
+/** Text and icons */
+/** Themed colors */
+/** Static colors */
+/** Widget Opacity */
+/** Toolbar Opacity */
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+.components-toolbar-button-item.components-ellipsis-icon {
+  position: relative;
+}
+.components-toolbar-button-item.components-ellipsis-icon > .components-icon .components-ellipsis {
+  position: relative;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: currentColor;
+}
+.components-toolbar-button-item.components-ellipsis-icon > .components-icon .components-ellipsis:before {
+  content: "";
+  position: absolute;
+  left: -8px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: currentColor;
+}
+.components-toolbar-button-item.components-ellipsis-icon > .components-icon .components-ellipsis:after {
+  content: "";
+  position: absolute;
+  left: 8px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: currentColor;
+}
+.components-toolbar-overflow_popup {
+  border: none;
+  background: none;
+  z-index: 9000;
+  transition: visibility var(--iui-duration-2) ease, opacity var(--iui-duration-2) ease;
+}
+.components-toolbar-overflow_popup.nz-hidden {
+  opacity: 0;
+  visibility: hidden;
+}/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Breakpoints */
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Backgrounds and strokes */
+/** Text and icons */
+/** Themed colors */
+/** Static colors */
+/** Widget Opacity */
+/** Toolbar Opacity */
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+.components-toolbar-overflow-panel {
+  background: var(--buic-background-1);
+  border-radius: var(--iui-border-radius-1);
+  display: flex;
+  height: unset;
+  width: fit-content;
+  padding: unset;
+}
+.components-toolbar-overflow-panel.components-vertical-components-direction-bottom {
+  right: -1px;
+  flex-direction: column;
+  top: 100%;
+}
+.components-toolbar-overflow-panel.components-vertical-components-direction-top {
+  right: -1px;
+  flex-direction: column;
+  bottom: 100%;
+}
+.components-toolbar-overflow-panel.components-horizontal-components-direction-right {
+  left: 100%;
+  bottom: -1px;
+  flex-direction: row;
+}
+.components-toolbar-overflow-panel.components-horizontal-components-direction-left {
+  right: 100%;
+  bottom: -1px;
+  flex-direction: row;
+}/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*
+  $counter: 0;
+  @function step($step) {
+    $counter: $counter + $step !global;
+    @return $counter;
+  }
+  uicore-map-from-array($array, step, 1000);
+*/
+/*
+  @function step($counter) {
+    @return $counter + 1000;
+  }
+  uicore-map-from-array-with-result-arg($array, step, 0);
+*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Breakpoints */
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Backgrounds and strokes */
+/** Text and icons */
+/** Themed colors */
+/** Static colors */
+/** Widget Opacity */
+/** Toolbar Opacity */
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+.components-toolbar-expandable-button {
+  position: relative;
+}
+.components-toolbar-expandable-button > .components-triangle {
+  border-radius: 0;
+  position: absolute;
+  right: 3px;
+  bottom: 3px;
+  filter: drop-shadow(0 1px 0 var(--buic-foreground-body-reverse));
+  pointer-events: none;
+  border-width: 0 0 4px 4px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-color: transparent transparent var(--buic-foreground-body) transparent;
+}
+.components-toolbar-expandable-button:active > .components-triangle {
+  filter: drop-shadow(0 0 0 transparent);
+  border-color: transparent transparent var(--buic-foreground-activehover) transparent;
+}
+.components-toolbar-expandable-button.components-active:not(:active):not(.components-disabled) > .components-triangle {
+  filter: drop-shadow(0 0 0 transparent);
+  border-color: transparent transparent var(--iui-color-icon-accent) transparent;
+}
+.components-toolbar-expandable-button.components-disabled > .components-triangle {
+  border-color: transparent transparent var(--iui-color-icon-disabled) transparent;
+}
+.components-toolbar-expandable-button.components-disabled-drag > .components-icon {
+  color: var(--iui-color-icon-disabled);
+}
+.components-toolbar-expandable-button.components-disabled-drag > .components-triangle {
+  border-color: transparent transparent var(--iui-color-icon-disabled) transparent;
+}
+.components-toolbar-popupItem_popupItemPopup {
+  z-index: 9000;
+  width: fit-content;
+  background: var(--buic-background-1);
+  border-color: var(--buic-background-5);
+  border-width: 1px;
+  border-style: solid;
+  border-radius: var(--iui-border-radius-1);
+  transition: visibility var(--iui-duration-2) ease, opacity var(--iui-duration-2) ease;
+}
+.components-toolbar-popupItem_popupItemPopup.nz-hidden {
+  opacity: 0;
+  visibility: hidden;
+}/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Backgrounds and strokes */
+/** Text and icons */
+/** Themed colors */
+/** Static colors */
+/** Widget Opacity */
+/** Toolbar Opacity */
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Breakpoints */
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Backgrounds and strokes */
+/** Text and icons */
+/** Themed colors */
+/** Static colors */
+/** Widget Opacity */
+/** Toolbar Opacity */
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+.components-toolbar-item-expandable-group-backArrow {
+  width: 15px;
+  height: 20px;
+}
+.components-toolbar-item-expandable-group-backArrow:hover, .components-toolbar-item-expandable-group-backArrow.components-targeted {
+  cursor: pointer;
+}
+.components-toolbar-item-expandable-group-backArrow:hover:after, .components-toolbar-item-expandable-group-backArrow.components-targeted:after {
+  color: var(--iui-color-text-accent);
+}
+.components-toolbar-item-expandable-group-backArrow:after {
+  content: "";
+  display: block;
+  position: relative;
+  left: 3px;
+  top: 3px;
+  color: var(--iui-color-text);
+  width: 8.4852813742px;
+  height: 8.4852813742px;
+  border-top: solid 2px currentColor;
+  border-left: solid 2px currentColor;
+  margin-left: 2px;
+  margin-top: 2px;
+  box-sizing: border-box;
+  transform: rotate(-45deg);
+}
+.components-toolbar-item-expandable-group-backArrow:focus {
+  outline: none;
+}/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Backgrounds and strokes */
+/** Text and icons */
+/** Themed colors */
+/** Static colors */
+/** Widget Opacity */
+/** Toolbar Opacity */
+.components-toolbar-item-expandable-group-tool-expander > .components-expansion-indicator {
+  width: 8.4852813742px;
+  height: 8.4852813742px;
+  border-top: solid 2px currentColor;
+  border-left: solid 2px currentColor;
+  margin-left: 2px;
+  margin-top: 2px;
+  margin-right: 10px;
+  box-sizing: border-box;
+  transform: rotate(135deg);
+}
+.components-toolbar-item-expandable-group-tool-expander:active:not(.components-disabled) > .components-expansion-indicator {
+  filter: none;
+}/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+.components-controlledTree-node-description {
+  color: var(--iui-color-text-muted);
+  font-size: var(--iui-font-size-0);
+  margin-top: 4px;
+}
+.components-controlledTree-node-description.with-editor {
+  margin: 0;
+  padding-top: 1px;
+}
+
+.components-controlledTree-node-content {
+  height: 24px;
+  line-height: var(--iui-font-size-0);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.components-controlledTree-node-content.with-description {
+  height: 43px;
+}/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Backgrounds and strokes */
+/** Text and icons */
+/** Themed colors */
+/** Static colors */
+/** Widget Opacity */
+/** Toolbar Opacity */
+.components-controlledTree-loader {
+  position: relative;
+  display: block;
+  left: calc(50% - 24px);
+  top: calc(50% - 24px);
+  height: 48px;
+  width: 48px;
+}
+.components-controlledTree-errorMessage {
+  font-style: italic;
+  color: var(--iui-color-text-muted);
+  margin: 0 20%;
+  text-align: center;
+}
+.components-controlledTree {
+  color: var(--iui-color-text);
+  background-color: var(--iui-color-background);
+  /**
+   * Workaround for horizontal scroll issue.
+   * based on https://github.com/bvaughn/react-window/issues/681
+   */
+}
+.components-controlledTree .ReactVirtualized__Grid,
+.components-controlledTree .ReactWindow__VariableSizeList {
+  overflow: scroll !important;
+  background-color: inherit;
+}
+.components-controlledTree .ReactVirtualized__Grid::-webkit-scrollbar,
+.components-controlledTree .ReactWindow__VariableSizeList::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+.components-controlledTree .ReactVirtualized__Grid::-webkit-scrollbar-thumb,
+.components-controlledTree .ReactWindow__VariableSizeList::-webkit-scrollbar-thumb {
+  border-radius: 12px;
+  background-color: var(--buic-background-scrollbar);
+  background-clip: content-box;
+  border-style: solid;
+  border-color: transparent;
+  border-width: 2px;
+}
+.components-controlledTree .ReactVirtualized__Grid::-webkit-scrollbar-thumb:hover,
+.components-controlledTree .ReactWindow__VariableSizeList::-webkit-scrollbar-thumb:hover {
+  background-color: var(--buic-background-scrollbar-hover);
+}
+.components-controlledTree .ReactVirtualized__Grid::-webkit-scrollbar-corner,
+.components-controlledTree .ReactWindow__VariableSizeList::-webkit-scrollbar-corner {
+  background-color: transparent;
+}
+.components-controlledTree .ReactVirtualized__Grid::-webkit-scrollbar-track-piece:corner-present,
+.components-controlledTree .ReactWindow__VariableSizeList::-webkit-scrollbar-track-piece:corner-present {
+  margin-bottom: -4px;
+  margin-right: -4px;
+}
+.components-controlledTree .ReactVirtualized__Grid:focus,
+.components-controlledTree .ReactWindow__VariableSizeList:focus {
+  outline: none;
+}
+.components-controlledTree .ReactVirtualized__Grid > div,
+.components-controlledTree .ReactWindow__VariableSizeList > div {
+  overflow: visible !important;
+  max-width: none !important;
+}
+.components-controlledTree .node-wrapper {
+  position: relative !important;
+  height: 0 !important;
+  width: fit-content !important;
+  min-width: 100% !important;
+  overflow: visible !important;
+}
+.components-controlledTree .node-wrapper.is-selected {
+  z-index: 1;
+}
+.components-controlledTree .node-wrapper .core-tree-node.is-focused, .components-controlledTree .node-wrapper .core-tree-node:focus {
+  outline: none;
+}
+.components-controlledTree .node-wrapper.is-selected .core-tree-node {
+  background: var(--iui-color-background-accent-muted);
+  border-left: 1px solid var(--iui-color-icon-accent);
+  padding-left: 0;
+  border-right: 1px solid var(--iui-color-icon-accent);
+  padding-right: 0;
+}
+.components-controlledTree .node-wrapper.is-selected:first-child .core-tree-node,
+.components-controlledTree .node-wrapper:not(.is-selected) + .node-wrapper.is-selected .core-tree-node {
+  border-top: 1px solid var(--iui-color-icon-accent);
+  padding-top: 0;
+}
+.components-controlledTree .node-wrapper.is-selected + .node-wrapper:not(.is-selected) .core-tree-node {
+  border-top: 1px solid var(--iui-color-icon-accent);
+  padding-top: 0;
+}
+.components-controlledTree .node-wrapper.is-selected:last-child .core-tree-node {
+  border-bottom: 1px solid var(--iui-color-icon-accent);
+  padding-bottom: 0;
+}
