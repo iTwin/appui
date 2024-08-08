@@ -27,7 +27,6 @@ import {
   SvgUsers,
 } from "@itwin/itwinui-icons-react";
 import {
-  AppUiTestProviders,
   FloatingLayoutInfo,
   ITwinUIv2Widget,
   LayoutControls,
@@ -137,9 +136,7 @@ export function createWidgetApiStageProvider() {
         stageId: createWidgetApiFrontstage.stageId,
         groupPriority: 300,
         itemPriority: 2,
-        label: AppUiTestProviders.translate(
-          "backstage.widgetApiTestFrontstageLabel"
-        ),
+        label: "Exercise Widget Api",
       }),
     ],
   } satisfies UiItemsProvider;

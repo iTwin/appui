@@ -36,10 +36,8 @@
   },
   "backstage": {
     "command": "Command",
-    "viewIModel": "View iModel",
     "editIModel": "Edit iModel",
     "quantityFormat": "Quantity Formats",
-    "iModelStage": "Review iModel",
     "editStage": "Edit and Modify iModel",
     "exit": "Exit",
     "imodelopen": "IModel Open",

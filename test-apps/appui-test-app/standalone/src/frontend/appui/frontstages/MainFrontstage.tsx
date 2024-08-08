@@ -12,7 +12,6 @@ import {
 } from "@itwin/appui-react";
 import { ViewportContent } from "@itwin/appui-test-providers";
 import { SvgImodel } from "@itwin/itwinui-icons-react";
-import { TestAppLocalization } from "../../useTranslation";
 
 interface CreateMainFrontstageArgs {
   contentProps: React.ComponentProps<typeof ViewportContent>;
@@ -43,8 +42,8 @@ export function createMainFrontstageLauncher() {
     stageId: createMainFrontstage.stageId,
     groupPriority: 100,
     itemPriority: 10,
-    label: TestAppLocalization.translate("backstage.viewIModel"),
-    subtitle: TestAppLocalization.translate("backstage.iModelStage"),
+    label: "View iModel",
+    subtitle: "Review iModel",
     icon: <SvgImodel />,
   });
 }
