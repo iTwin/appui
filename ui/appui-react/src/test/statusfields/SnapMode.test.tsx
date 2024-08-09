@@ -96,7 +96,7 @@ describe("SnapModeField", () => {
     ); // Expect it to be still active.
   });
 
-  it("Status Bar with filtered SnapModes Field should render", () => {
+  it("Status Bar only display the chosen SnapModes.", () => {
     const { container } = render(
       <Provider store={TestUtils.store}>
         <SnapModeField
@@ -115,7 +115,7 @@ describe("SnapModeField", () => {
     fireEvent.click(button!);
 
     // Bisector snap mode should not be present.
-    expect(screen.getByText("snapModeField.bisector")).toBeFalsy();
+    expect(screen.queryByText("snapModeField.bisector")).toBeFalsy();
 
     const iconContainer = container.querySelector(".icon");
     expect(iconContainer).toBeTruthy();
