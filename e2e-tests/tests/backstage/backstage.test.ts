@@ -6,7 +6,7 @@ import { expect, test } from "@playwright/test";
 
 test("backstage test with snapshotPath", async ({ page, baseURL }) => {
   await page.goto(
-    `${baseURL}?frontstage=appui-test-providers:WidgetApi&snapshotPath=D:/model`
+    `${baseURL}/blank?frontstageId=widget-api&snapshotPath=D:/model`
   );
   await page.locator(".nz-toolbar-button-button").click();
   await page.getByRole("menuitem", { name: "Component Examples" }).click();
@@ -22,9 +22,7 @@ test("backstage test with snapshotPath", async ({ page, baseURL }) => {
 });
 
 test("backstage test without snapshotPath", async ({ page, baseURL }) => {
-  await page.goto(
-    `${baseURL}?frontstage=appui-test-providers:WidgetApi&snapshotPath=`
-  );
+  await page.goto(`${baseURL}/blank?frontstageId=widget-api&snapshotPath=`);
   await page.locator(".nz-toolbar-button-button").click();
   await page.getByRole("menuitem", { name: "Component Examples" }).click();
 

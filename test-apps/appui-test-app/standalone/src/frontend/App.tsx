@@ -43,9 +43,10 @@ import { useEngagementTime } from "./appui/useEngagementTime";
 interface AppProps {
   iModelConnection?: IModelConnection;
   viewState?: ViewState;
+  frontstageId?: string;
 }
 
-export function App({ iModelConnection, viewState }: AppProps) {
+export function App({ iModelConnection, viewState, frontstageId }: AppProps) {
   React.useEffect(() => {
     const mainFrontstage = createMainFrontstage({
       contentProps: {
@@ -109,12 +110,12 @@ export function App({ iModelConnection, viewState }: AppProps) {
     }
 
     void UiFramework.frontstages.setActiveFrontstage(
-      createMainFrontstage.stageId
+      frontstageId ?? createMainFrontstage.stageId
     );
     return () => {
       UiFramework.frontstages.clearFrontstageDefs();
     };
-  }, [iModelConnection, viewState]);
+  }, [iModelConnection, viewState, frontstageId]);
   useEngagementTime();
   return (
     <ThemeManager>

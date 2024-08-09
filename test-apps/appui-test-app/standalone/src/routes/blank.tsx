@@ -25,13 +25,24 @@ export const Route = createFileRoute("/blank")({
       viewState,
     };
   },
+  validateSearch: (search) => {
+    if (!search) return {};
+    return {
+      frontstageId: search.frontstageId as string | undefined,
+    };
+  },
 });
 
 function Blank() {
   const { iModelConnection, viewState } = Route.useLoaderData();
+  const { frontstageId } = Route.useSearch();
   return (
     <PageLayout.Content>
-      <App iModelConnection={iModelConnection} viewState={viewState} />
+      <App
+        iModelConnection={iModelConnection}
+        viewState={viewState}
+        frontstageId={frontstageId}
+      />
     </PageLayout.Content>
   );
 }

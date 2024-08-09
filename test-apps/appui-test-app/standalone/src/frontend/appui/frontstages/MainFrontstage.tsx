@@ -35,7 +35,7 @@ export function createMainFrontstage(args?: CreateMainFrontstageArgs) {
     usage: StageUsage.General,
   });
 }
-createMainFrontstage.stageId = "appui-test-app:main-stage";
+createMainFrontstage.stageId = "main";
 
 export function createMainFrontstageLauncher() {
   return BackstageItemUtilities.createStageLauncher({

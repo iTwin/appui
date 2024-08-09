@@ -4,6 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 export * from "./tools/ContentLayoutTools";
 export * from "./tools/RegisterUiProviderTool";
+export * from "./tools/UiLayoutTools";
 
 export * from "./ui/components/LanguageSelect";
 

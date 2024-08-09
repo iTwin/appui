@@ -20,7 +20,7 @@ import {
 test.describe("popout widget", () => {
   test.beforeEach(async ({ page, baseURL }) => {
     assert(baseURL);
-    await page.goto(`${baseURL}?frontstage=appui-test-providers:WidgetApi`);
+    await page.goto(`${baseURL}/blank?frontstageId=widget-api`);
   });
 
   test("should popout a widget", async ({ page }) => {
@@ -59,10 +59,10 @@ test.describe("popout widget", () => {
     const popoutPage = await popoutWidget(widget);
     await expect.poll(async () => popoutPage.isClosed()).toBe(false);
 
-    await openFrontstage(page, "appui-test-app:main-stage");
+    await openFrontstage(page, "main");
     await expect.poll(async () => popoutPage.isClosed()).toBe(true);
 
-    await openFrontstage(page, "appui-test-providers:WidgetApi");
+    await openFrontstage(page, "widget-api");
     await expect.poll(async () => popoutPage.isClosed()).toBe(true);
 
     const floatingWidget = floatingWidgetLocator({ tab });
@@ -79,10 +79,10 @@ test.describe("popout widget", () => {
     const popoutPage = await popoutWidget(widget);
     await expect.poll(async () => popoutPage.isClosed()).toBe(false);
 
-    await openFrontstage(page, "appui-test-app:main-stage");
+    await openFrontstage(page, "main");
     await expect.poll(async () => popoutPage.isClosed()).toBe(true);
 
-    await openFrontstage(page, "appui-test-providers:WidgetApi");
+    await openFrontstage(page, "widget-api");
     await expect.poll(async () => popoutPage.isClosed()).toBe(true);
 
     const locator = panelSectionLocator(page, "top", 1, { has: tab });

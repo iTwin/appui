@@ -92,7 +92,7 @@ export function createWidgetApiFrontstage(): Frontstage {
     toolSettings,
   };
 }
-createWidgetApiFrontstage.stageId = "appui-test-app:WidgetApi";
+createWidgetApiFrontstage.stageId = "widget-api";
 
 function MyCustomViewOverlay() {
   const showOverlay = false;

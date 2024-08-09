@@ -228,16 +228,6 @@ export class SampleAppIModelApp {
     // eslint-disable-next-line deprecation/deprecation
     await UiFramework.initialize(undefined, undefined);
 
-    // No longer necessary, but useful to test legacy behavior until uiAdmin is completely removed:
-    // IModelApp.uiAdmin.updateFeatureFlags({ allowKeyinPalette: true });
-    // The updated way of doing things would be something like this:
-    const keyins = getKeyinsFromToolList(IModelApp.tools.getToolList());
-    document.addEventListener("keydown", (event) => {
-      if (event.ctrlKey && event.key === Key.F2.valueOf()) {
-        UiFramework.showKeyinPalette(keyins);
-      }
-    });
-
     // store name of this registered control in Redux store so it can be access by extensions
     // eslint-disable-next-line deprecation/deprecation
     UiFramework.setDefaultIModelViewportControlId(IModelViewportControl.id);

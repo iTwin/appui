@@ -21,7 +21,7 @@ import {
 test.describe("floating widget", () => {
   test.beforeEach(async ({ page, baseURL }) => {
     assert(baseURL);
-    await page.goto(`${baseURL}?frontstage=appui-test-providers:WidgetApi`);
+    await page.goto(`${baseURL}/blank?frontstageId=widget-api`);
   });
 
   test("should float a panel section", async ({ page }) => {
@@ -120,9 +120,7 @@ test.describe("floating widget", () => {
     baseURL,
   }) => {
     assert(baseURL);
-    await page.goto(
-      `${baseURL}?frontstage=appui-test-providers:WidgetApi&mode=header`
-    );
+    await page.goto(`${baseURL}/blank?frontstageId=widget-api&mode=header`);
 
     const tab = tabLocator(page, "FW-1");
     const widget = widgetLocator({ tab });
@@ -211,7 +209,7 @@ test.describe("floating widget", () => {
 test.describe("floating widget send back outline", () => {
   test.beforeEach(async ({ page, baseURL }) => {
     assert(baseURL);
-    await page.goto(`${baseURL}?frontstage=appui-test-providers:WidgetApi`);
+    await page.goto(`${baseURL}/blank?frontstageId=widget-api`);
   });
 
   test("should show a widget (with tab) outline", async ({ page }) => {

@@ -7,6 +7,7 @@ import {
   FrameworkAccuDraw,
   FrameworkToolAdmin,
   FrameworkUiAdmin,
+  getKeyinsFromToolList,
   UiFramework,
 } from "@itwin/appui-react";
 import {
@@ -14,6 +15,8 @@ import {
   ProcessDetector,
   UnexpectedErrors,
 } from "@itwin/core-bentley";
+import * as appUiTestProvidersModule from "@itwin/appui-test-providers";
+import { AppUiTestProviders } from "@itwin/appui-test-providers";
 import { BentleyCloudRpcManager, RpcConfiguration } from "@itwin/core-common";
 import { IModelApp, ToolAdmin } from "@itwin/core-frontend";
 import { ITwinLocalization } from "@itwin/core-i18n";
@@ -23,6 +26,7 @@ import { initializeLogger } from "./logger";
 import { SampleAppAccuSnap } from ".";
 import { RealityDataAccessClient } from "@itwin/reality-data-client";
 import { EditTools } from "@itwin/editor-frontend";
+import { Key } from "ts-key-enum";
 
 function createInitializer() {
   let ready = false;
@@ -78,13 +82,27 @@ function createInitializer() {
     });
     ToolAdmin.exceptionHandler = async (err) =>
       Promise.resolve(UnexpectedErrors.handle(err));
+    await IModelApp.localization.registerNamespace(
+      AppUiTestProviders.localizationNamespace
+    );
 
     await UiFramework.initialize();
     UiFramework.visibility.autoHideUi = false;
 
+    IModelApp.tools.registerModule(
+      appUiTestProvidersModule,
+      AppUiTestProviders.localizationNamespace
+    );
     if (ProcessDetector.isElectronAppFrontend) {
       await EditTools.initialize();
     }
+
+    const keyins = getKeyinsFromToolList(IModelApp.tools.getToolList());
+    document.addEventListener("keydown", (event) => {
+      if (event.ctrlKey && event.key === Key.F2.valueOf()) {
+        UiFramework.showKeyinPalette(keyins);
+      }
+    });
 
     ready = true;
     onReady.raiseEvent();
