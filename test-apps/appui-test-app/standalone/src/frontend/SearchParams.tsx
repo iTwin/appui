@@ -5,6 +5,7 @@
 import React from "react";
 import { UiFramework } from "@itwin/appui-react";
 import { useNavigate, useSearch } from "@tanstack/react-router";
+import { createMainFrontstage } from "./appui/frontstages/MainFrontstage";
 
 export interface AppParams extends PreviewFeatureParams {
   frontstageId?: string;
@@ -18,6 +19,11 @@ export function useSyncFrontstageParam() {
   const { frontstageId } = useSearch({ strict: false });
   const navigate = useNavigate();
   React.useEffect(() => {
+    void UiFramework.frontstages.setActiveFrontstage(
+      frontstageId ?? createMainFrontstage.stageId
+    );
+  }, [frontstageId]);
+  React.useEffect(() => {
     return UiFramework.frontstages.onFrontstageActivatedEvent.addListener(
       (args) => {
         if (frontstageId === args.activatedFrontstageDef.id) return;
@@ -27,7 +33,6 @@ export function useSyncFrontstageParam() {
       }
     );
   }, [navigate, frontstageId]);
-  return frontstageId;
 }
 
 export function useFeatureOverrideParams() {

@@ -17,6 +17,7 @@ import {
   useFeatureOverrideParams,
   useSyncFrontstageParam,
 } from "../frontend/SearchParams";
+import { registerFrontstages } from "../frontend/registerFrontstages";
 
 export const Route = createFileRoute("/blank")({
   component: Blank,
@@ -26,30 +27,25 @@ export const Route = createFileRoute("/blank")({
     const iModelConnection = createBlankConnection();
     const viewState = createBlankViewState(iModelConnection);
 
+    registerFrontstages({ iModelConnection, viewState });
     UiFramework.setIModelConnection(iModelConnection);
     UiFramework.setDefaultViewState(viewState);
-    return {
-      iModelConnection,
-      viewState,
-    };
   },
   validateSearch: (search: AppParams) => {
     return search;
   },
+  shouldReload: (ctx) => {
+    return ctx.cause === "enter";
+  },
+  gcTime: 0,
 });
 
 function Blank() {
-  const { iModelConnection, viewState } = Route.useLoaderData();
-  const frontstageId = useSyncFrontstageParam();
+  useSyncFrontstageParam();
   const featureOverrides = useFeatureOverrideParams();
   return (
     <PageLayout.Content>
-      <App
-        iModelConnection={iModelConnection}
-        viewState={viewState}
-        frontstageId={frontstageId}
-        featureOverrides={featureOverrides}
-      />
+      <App featureOverrides={featureOverrides} />
     </PageLayout.Content>
   );
 }

@@ -18,6 +18,7 @@ import {
   useFeatureOverrideParams,
   useSyncFrontstageParam,
 } from "../frontend/SearchParams";
+import { registerFrontstages } from "../frontend/registerFrontstages";
 
 export const Route = createFileRoute("/local/$fileName")({
   component: Local,
@@ -30,8 +31,11 @@ export const Route = createFileRoute("/local/$fileName")({
     const filePath = `${appConfig.snapshotPath}/${ctx.params.fileName}`;
     const iModelConnection = await SnapshotConnection.openFile(filePath);
     const viewState = await createViewState(iModelConnection);
+
+    registerFrontstages({ iModelConnection, viewState });
     UiFramework.setIModelConnection(iModelConnection);
     UiFramework.setDefaultViewState(viewState);
+
     return {
       iModelConnection,
       viewState,
@@ -40,20 +44,18 @@ export const Route = createFileRoute("/local/$fileName")({
   validateSearch: (search: AppParams) => {
     return search;
   },
+  shouldReload: (ctx) => {
+    return ctx.cause === "enter";
+  },
+  gcTime: 0,
 });
 
 function Local() {
-  const { iModelConnection, viewState } = Route.useLoaderData();
-  const frontstageId = useSyncFrontstageParam();
+  useSyncFrontstageParam();
   const featureOverrides = useFeatureOverrideParams();
   return (
     <PageLayout.Content>
-      <App
-        iModelConnection={iModelConnection}
-        viewState={viewState}
-        frontstageId={frontstageId}
-        featureOverrides={featureOverrides}
-      />
+      <App featureOverrides={featureOverrides} />
     </PageLayout.Content>
   );
 }
