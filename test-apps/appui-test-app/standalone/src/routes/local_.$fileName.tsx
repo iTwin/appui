@@ -12,19 +12,21 @@ import { appInitializer } from "../frontend/AppInitializer";
 import { ProcessDetector } from "@itwin/core-bentley";
 import { EditTools } from "@itwin/editor-frontend";
 import { App } from "../frontend/App";
+import { UiFramework } from "@itwin/appui-react";
 
 export const Route = createFileRoute("/local/$fileName")({
   component: Local,
   loader: async (ctx) => {
     await appInitializer.initialize();
+    if (ProcessDetector.isElectronAppFrontend) {
+      await EditTools.initialize();
+    }
 
     const filePath = `${appConfig.snapshotPath}/${ctx.params.fileName}`;
     const iModelConnection = await SnapshotConnection.openFile(filePath);
     const viewState = await createViewState(iModelConnection);
-
-    if (ProcessDetector.isElectronAppFrontend) {
-      await EditTools.initialize();
-    }
+    UiFramework.setIModelConnection(iModelConnection);
+    UiFramework.setDefaultViewState(viewState);
     return {
       iModelConnection,
       viewState,

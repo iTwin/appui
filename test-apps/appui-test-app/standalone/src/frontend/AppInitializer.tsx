@@ -16,7 +16,12 @@ import {
   UnexpectedErrors,
 } from "@itwin/core-bentley";
 import * as appUiTestProvidersModule from "@itwin/appui-test-providers";
-import { AppUiTestProviders } from "@itwin/appui-test-providers";
+import {
+  AppUiTestProviders,
+  createUpdatedUiItemsProvider,
+  createW1Provider,
+  RegisterUiProviderTool,
+} from "@itwin/appui-test-providers";
 import { BentleyCloudRpcManager, RpcConfiguration } from "@itwin/core-common";
 import { IModelApp, ToolAdmin } from "@itwin/core-frontend";
 import { ITwinLocalization } from "@itwin/core-i18n";
@@ -93,6 +98,9 @@ function createInitializer() {
       appUiTestProvidersModule,
       AppUiTestProviders.localizationNamespace
     );
+    RegisterUiProviderTool.providers.push(createW1Provider());
+    RegisterUiProviderTool.providers.push(createUpdatedUiItemsProvider());
+
     if (ProcessDetector.isElectronAppFrontend) {
       await EditTools.initialize();
     }

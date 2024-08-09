@@ -24,6 +24,8 @@ import {
   createElementStackingProvider,
 } from "./appui/frontstages/ElementStacking";
 import {
+  AbstractUiItemsProvider,
+  AppUiTestProviders,
   ComponentExamplesModalFrontstage,
   FloatingWidgetsUiItemsProvider,
 } from "@itwin/appui-test-providers";
@@ -101,6 +103,9 @@ export function App({ iModelConnection, viewState, frontstageId }: AppProps) {
     UiItemsManager.register(createWidgetApiStageProvider(), {
       stageIds: [createWidgetApiFrontstage.stageId],
     });
+    UiItemsManager.register(
+      new AbstractUiItemsProvider(AppUiTestProviders.localizationNamespace)
+    );
 
     if (ProcessDetector.isElectronAppFrontend) {
       UiFramework.frontstages.addFrontstage(createEditorFrontstage());

@@ -11,6 +11,7 @@ import {
   createBlankViewState,
 } from "@itwin/appui-test-providers";
 import { App } from "../frontend/App";
+import { UiFramework } from "@itwin/appui-react";
 
 export const Route = createFileRoute("/blank")({
   component: Blank,
@@ -20,6 +21,8 @@ export const Route = createFileRoute("/blank")({
     const iModelConnection = createBlankConnection();
     const viewState = createBlankViewState(iModelConnection);
 
+    UiFramework.setIModelConnection(iModelConnection);
+    UiFramework.setDefaultViewState(viewState);
     return {
       iModelConnection,
       viewState,

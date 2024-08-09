@@ -71,10 +71,9 @@ To set the environment variables, either set them directly within the terminal y
 
 _Optionally_ used to load an application in a specific configuration:
 
+- `strict` - allows disabling of `React.StrictMode` if `0` is specified. I.e. <http://localhost:3000/?strict=0>
+- `menu` - allows disabling the rendering of menus if `0` is specified. I.e. <http://localhost:3000/?menu=0>
 - `frontstageId` - opens a frontstage by specified frontstage id, uses a blank connection. I.e. <http://localhost:3000/blank?frontstageId=widget-api>
-- `mode` - specifies application mode: `portal` | `portal-overflow` | `header`. I.e. <http://localhost:3000/?mode=header>
-- `timeline` - configures the view state to display a timeline component in a default view overlay. I.e. <http://localhost:3000/?timeline=1>
-- `strict` - allows disabling of `React.StrictMode` if `0` is specified. I.e. <http://localhost:3000/blank?strict=0>
 
 Preview features:
 

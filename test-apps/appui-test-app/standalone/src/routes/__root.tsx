@@ -37,14 +37,14 @@ import { TanStackRouterDevtoolsPanel } from "@tanstack/router-devtools";
 
 export const Route = createRootRoute({
   component: Root,
-  validateSearch: (search: { strict?: "0" } & SearchSchemaInput) => {
+  validateSearch: (search: { strict?: 0; menu?: 0 } & SearchSchemaInput) => {
     return search;
   },
 });
 
 function ConditionalStrictMode({ children }: { children: React.ReactNode }) {
   const { strict } = Route.useSearch();
-  if (!strict) {
+  if (strict === 0) {
     return <>{children}</>;
   }
   return <StrictMode>{children}</StrictMode>;
@@ -55,62 +55,68 @@ function Root() {
   const matchRoute = useMatchRoute();
   const localMatch = matchRoute({ to: "/local", fuzzy: true });
   const blankMatch = matchRoute({ to: "/blank", fuzzy: true });
+  const search = Route.useSearch();
+  const menu = search.menu !== 0;
   return (
     <ConditionalStrictMode>
       <ThemeProvider>
         <PageLayout>
-          <PageLayout.Header>
-            <Header
-              appLogo={
-                <HeaderLogo
-                  logo={<SvgImodelHollow />}
-                  onClick={() => {
-                    void navigate({ to: "/" });
-                  }}
-                >
-                  AppUI Test App
-                </HeaderLogo>
-              }
-              breadcrumbs={<AppBreadcrumbs />}
-            />
-          </PageLayout.Header>
-          <PageLayout.SideNavigation>
-            <SideNavigation
-              items={[
-                <SidenavButton disabled startIcon={<SvgImodel />}>
-                  iTwin Hub
-                </SidenavButton>,
-                <SidenavButton
-                  startIcon={<SvgFolderBrowse />}
-                  onClick={() => {
-                    void navigate({ to: "/local" });
-                  }}
-                  isActive={!!localMatch}
-                >
-                  Local
-                </SidenavButton>,
-                <SidenavButton
-                  startIcon={<SvgModel />}
-                  onClick={() => {
-                    void navigate({
-                      to: "/blank",
-                    });
-                  }}
-                  isActive={!!blankMatch}
-                >
-                  Blank
-                </SidenavButton>,
-              ]}
-              secondaryItems={[
-                <RouterDevToolsButton />,
+          {menu && (
+            <PageLayout.Header>
+              <Header
+                appLogo={
+                  <HeaderLogo
+                    logo={<SvgImodelHollow />}
+                    onClick={() => {
+                      void navigate({ to: "/" });
+                    }}
+                  >
+                    AppUI Test App
+                  </HeaderLogo>
+                }
+                breadcrumbs={<AppBreadcrumbs />}
+              />
+            </PageLayout.Header>
+          )}
+          {menu && (
+            <PageLayout.SideNavigation>
+              <SideNavigation
+                items={[
+                  <SidenavButton disabled startIcon={<SvgImodel />}>
+                    iTwin Hub
+                  </SidenavButton>,
+                  <SidenavButton
+                    startIcon={<SvgFolderBrowse />}
+                    onClick={() => {
+                      void navigate({ to: "/local" });
+                    }}
+                    isActive={!!localMatch}
+                  >
+                    Local
+                  </SidenavButton>,
+                  <SidenavButton
+                    startIcon={<SvgModel />}
+                    onClick={() => {
+                      void navigate({
+                        to: "/blank",
+                      });
+                    }}
+                    isActive={!!blankMatch}
+                  >
+                    Blank
+                  </SidenavButton>,
+                ]}
+                secondaryItems={[
+                  <RouterDevToolsButton />,
 
-                <SidenavButton disabled startIcon={<SvgSettings />}>
-                  Settings
-                </SidenavButton>,
-              ]}
-              expanderPlacement="bottom"
-            />
-          </PageLayout.SideNavigation>
+                  <SidenavButton disabled startIcon={<SvgSettings />}>
+                    Settings
+                  </SidenavButton>,
+                ]}
+                expanderPlacement="bottom"
+              />
+            </PageLayout.SideNavigation>
+          )}
           <Outlet />
         </PageLayout>
       </ThemeProvider>
