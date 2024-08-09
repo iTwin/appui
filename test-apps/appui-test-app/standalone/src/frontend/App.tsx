@@ -5,10 +5,9 @@
 import {
   BackstageComposer,
   ConfigurableUiContent,
-  SettingsModalFrontstage,
+  StageUsage,
   StandardContentToolsUiItemsProvider,
   StandardNavigationToolsUiItemsProvider,
-  StandardStatusbarUiItemsProvider,
   ThemeManager,
   UiFramework,
   UiItemsManager,
@@ -17,7 +16,7 @@ import { IModelConnection, ViewState } from "@itwin/core-frontend";
 import React from "react";
 import {
   createMainFrontstage,
-  createMainFrontstageLauncher,
+  createMainFrontstageProvider,
 } from "./appui/frontstages/MainFrontstage";
 import {
   createElementStackingFrontstage,
@@ -26,8 +25,14 @@ import {
 import {
   AbstractUiItemsProvider,
   AppUiTestProviders,
-  ComponentExamplesModalFrontstage,
+  ContentLayoutStageUiItemsProvider,
+  createContentLayoutFrontstage,
+  createCustomContentFrontstage,
+  createPreviewFeaturesProvider,
+  CustomContentStageUiProvider,
   FloatingWidgetsUiItemsProvider,
+  InspectUiItemInfoToolProvider,
+  MessageUiItemsProvider,
 } from "@itwin/appui-test-providers";
 import { ProcessDetector } from "@itwin/core-bentley";
 import {
@@ -41,6 +46,11 @@ import {
   createWidgetApiStageProvider,
 } from "./appui/frontstages/WidgetApiFrontstage";
 import { useEngagementTime } from "./appui/useEngagementTime";
+import {
+  AppLocalizationProvider,
+  createLanguageProvider,
+} from "./Localization";
+import { createStatusBarUiItemsProvider } from "./appui/providers/StatusbarUiItemsProvider";
 
 interface AppProps {
   iModelConnection?: IModelConnection;
@@ -50,6 +60,7 @@ interface AppProps {
 
 export function App({ iModelConnection, viewState, frontstageId }: AppProps) {
   React.useEffect(() => {
+    // TODO: registration of frontstages and providers should go into initializer.
     const mainFrontstage = createMainFrontstage({
       contentProps: {
         imodel: iModelConnection,
@@ -62,10 +73,16 @@ export function App({ iModelConnection, viewState, frontstageId }: AppProps) {
       createTestPanelFrontstage(),
       createTestPopoutFrontstage(),
       createWidgetApiFrontstage(),
+      createCustomContentFrontstage(),
+      createContentLayoutFrontstage(),
     ];
     frontstages.forEach((frontstage) => {
       UiFramework.frontstages.addFrontstage(frontstage);
     });
+    // SynchronizedFloatingViewportStage.register(
+    //   AppUiTestProviders.localizationNamespace
+    // );
+    // PopoutWindowsFrontstage.register(AppUiTestProviders.localizationNamespace);
 
     UiItemsManager.register(new StandardContentToolsUiItemsProvider(), {
       stageIds: [
@@ -80,20 +97,13 @@ export function App({ iModelConnection, viewState, frontstageId }: AppProps) {
         createWidgetApiFrontstage.stageId,
       ],
     });
-    UiItemsManager.register(new StandardStatusbarUiItemsProvider(), {
+    UiItemsManager.register(createStatusBarUiItemsProvider(), {
       stageIds: [
         createMainFrontstage.stageId,
         createWidgetApiFrontstage.stageId,
       ],
     });
-    UiItemsManager.register({
-      id: "appui-test-app:backstageItemsProvider",
-      getBackstageItems: () => [
-        createMainFrontstageLauncher(),
-        SettingsModalFrontstage.getBackstageActionItem(400, 10),
-        ComponentExamplesModalFrontstage.getBackstageActionItem(400, 20),
-      ],
-    });
+    UiItemsManager.register(createMainFrontstageProvider());
     UiItemsManager.register(createElementStackingProvider(), {
       stageIds: [createElementStackingFrontstage.stageId],
     });
@@ -105,6 +115,37 @@ export function App({ iModelConnection, viewState, frontstageId }: AppProps) {
     });
     UiItemsManager.register(
       new AbstractUiItemsProvider(AppUiTestProviders.localizationNamespace)
+    );
+    UiItemsManager.register(new MessageUiItemsProvider());
+    UiItemsManager.register(
+      new InspectUiItemInfoToolProvider(
+        AppUiTestProviders.localizationNamespace
+      )
+    );
+    UiItemsManager.register(createPreviewFeaturesProvider(), {
+      stageUsages: [StageUsage.General],
+    });
+    UiItemsManager.register(createLanguageProvider(), {
+      stageUsages: [StageUsage.General],
+    });
+    UiItemsManager.register(createElementStackingProvider(), {
+      stageUsages: ["development"],
+    });
+    UiItemsManager.register(
+      new CustomContentStageUiProvider(
+        AppUiTestProviders.localizationNamespace
+      ),
+      {
+        stageIds: [createCustomContentFrontstage.stageId],
+      }
+    );
+    UiItemsManager.register(
+      new ContentLayoutStageUiItemsProvider(
+        AppUiTestProviders.localizationNamespace
+      ),
+      {
+        stageIds: [createContentLayoutFrontstage.stageId],
+      }
     );
 
     if (ProcessDetector.isElectronAppFrontend) {
@@ -124,7 +165,9 @@ export function App({ iModelConnection, viewState, frontstageId }: AppProps) {
   useEngagementTime();
   return (
     <ThemeManager>
-      <ConfigurableUiContent appBackstage={<BackstageComposer />} />
+      <AppLocalizationProvider>
+        <ConfigurableUiContent appBackstage={<BackstageComposer />} />
+      </AppLocalizationProvider>
     </ThemeManager>
   );
 }

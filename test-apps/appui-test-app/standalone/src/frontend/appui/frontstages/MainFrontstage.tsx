@@ -8,9 +8,14 @@ import {
   BackstageAppButton,
   BackstageItemUtilities,
   FrontstageUtilities,
+  SettingsModalFrontstage,
   StageUsage,
+  UiItemsProvider,
 } from "@itwin/appui-react";
-import { ViewportContent } from "@itwin/appui-test-providers";
+import {
+  ComponentExamplesModalFrontstage,
+  ViewportContent,
+} from "@itwin/appui-test-providers";
 import { SvgImodel } from "@itwin/itwinui-icons-react";
 
 interface CreateMainFrontstageArgs {
@@ -37,13 +42,20 @@ export function createMainFrontstage(args?: CreateMainFrontstageArgs) {
 }
 createMainFrontstage.stageId = "main";
 
-export function createMainFrontstageLauncher() {
-  return BackstageItemUtilities.createStageLauncher({
-    stageId: createMainFrontstage.stageId,
-    groupPriority: 100,
-    itemPriority: 10,
-    label: "View iModel",
-    subtitle: "Review iModel",
-    icon: <SvgImodel />,
-  });
+export function createMainFrontstageProvider() {
+  return {
+    id: "appui-test-app:backstageItemsProvider",
+    getBackstageItems: () => [
+      BackstageItemUtilities.createStageLauncher({
+        stageId: createMainFrontstage.stageId,
+        groupPriority: 100,
+        itemPriority: 10,
+        label: "View iModel",
+        subtitle: "Review iModel",
+        icon: <SvgImodel />,
+      }),
+      SettingsModalFrontstage.getBackstageActionItem(400, 10),
+      ComponentExamplesModalFrontstage.getBackstageActionItem(400, 20),
+    ],
+  } satisfies UiItemsProvider;
 }

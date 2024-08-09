@@ -18,7 +18,7 @@ export function LanguageSelect({
 }) {
   const { translate } = useTranslation();
   return (
-    <LabeledSelect<Language>
+    <LabeledSelect
       options={[
         {
           label: "US",
@@ -35,6 +35,7 @@ export function LanguageSelect({
       label={`${translate("statusFields.languageSelect.label")}:`}
       labelProps={{ className: "uifw-statusFields-languageSelect-label" }}
       displayStyle="inline"
+      popoverProps={{ placement: "top" }}
     />
   );
 }

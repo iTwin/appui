@@ -4,10 +4,12 @@
  *--------------------------------------------------------------------------------------------*/
 import {
   AppNotificationManager,
+  AppUiSettings,
   FrameworkAccuDraw,
   FrameworkToolAdmin,
   FrameworkUiAdmin,
   getKeyinsFromToolList,
+  SYSTEM_PREFERRED_COLOR_THEME,
   UiFramework,
 } from "@itwin/appui-react";
 import {
@@ -32,12 +34,15 @@ import { SampleAppAccuSnap } from ".";
 import { RealityDataAccessClient } from "@itwin/reality-data-client";
 import { EditTools } from "@itwin/editor-frontend";
 import { Key } from "ts-key-enum";
+import { FrontendDevTools } from "@itwin/frontend-devtools";
+import { HyperModeling } from "@itwin/hypermodeling-frontend";
+import { AppSettingsTabsProvider } from "./appui/settingsproviders/AppSettingsTabsProvider";
 
 function createInitializer() {
   let ready = false;
   const onReady = new BeEvent();
   let initializing: Promise<void> | undefined;
-  async function initialize() {
+  async function initializer() {
     initializeLogger();
 
     // Initialize my application gateway configuration for the frontend
@@ -105,6 +110,30 @@ function createInitializer() {
       await EditTools.initialize();
     }
 
+    await FrontendDevTools.initialize();
+    await HyperModeling.initialize();
+
+    UiFramework.settingsManager.addSettingsProvider(
+      new AppSettingsTabsProvider()
+    );
+    const lastTheme =
+      (window.localStorage &&
+        window.localStorage.getItem("uifw:defaultTheme")) ??
+      SYSTEM_PREFERRED_COLOR_THEME;
+    UiFramework.registerUserSettingsProvider(
+      // eslint-disable-next-line deprecation/deprecation
+      new AppUiSettings({
+        colorTheme: lastTheme ?? SYSTEM_PREFERRED_COLOR_THEME,
+        dragInteraction: false,
+        widgetOpacity: 0.8,
+        showWidgetIcon: true,
+        autoCollapseUnpinnedPanels: false,
+        toolbarOpacity: 0.5,
+      })
+    );
+    UiFramework.useDefaultPopoutUrl = true;
+    await UiFramework.initializeStateFromUserSettingsProviders();
+
     const keyins = getKeyinsFromToolList(IModelApp.tools.getToolList());
     document.addEventListener("keydown", (event) => {
       if (event.ctrlKey && event.key === Key.F2.valueOf()) {
@@ -112,8 +141,8 @@ function createInitializer() {
       }
     });
 
-    ready = true;
-    onReady.raiseEvent();
+    // TODO: should not be required. Start event loop to open key-in palette.
+    IModelApp.startEventLoop();
   }
   return {
     ready,
@@ -121,7 +150,11 @@ function createInitializer() {
     initialize: async () => {
       if (initializing) return initializing;
 
-      initializing = initialize();
+      initializing = (async () => {
+        await initializer();
+        ready = true;
+        onReady.raiseEvent();
+      })();
       return initializing;
     },
   };

@@ -7,7 +7,6 @@ import {
   PreviewFeatures,
   PreviewFeaturesProvider,
   StatusBarSection,
-  UiItemsProvider,
 } from "@itwin/appui-react";
 import { Badge } from "@itwin/core-react";
 import { Checkbox, DropdownButton, MenuItem } from "@itwin/itwinui-react";
@@ -103,17 +102,20 @@ function PreviewFeatureList() {
   );
 }
 
-export const previewFeaturesToggleProvider: UiItemsProvider = {
-  id: "appui-test-providers:PreviewFeaturesToggleProvider",
-  getStatusBarItems: () => [
-    {
-      content: <PreviewFeatureList />,
-      section: StatusBarSection.Right,
-      id: `${previewFeaturesToggleProvider.id}:StatusBarItem`,
-      itemPriority: Infinity,
-    },
-  ],
-};
+export function createPreviewFeaturesProvider() {
+  const id = "appui-test-providers:PreviewFeaturesToggleProvider";
+  return {
+    id,
+    getStatusBarItems: () => [
+      {
+        content: <PreviewFeatureList />,
+        section: StatusBarSection.Right,
+        id: `${id}:StatusBarItem`,
+        itemPriority: Infinity,
+      },
+    ],
+  };
+}
 
 interface AppPreviewFeaturesProps {
   children?: React.ReactNode;

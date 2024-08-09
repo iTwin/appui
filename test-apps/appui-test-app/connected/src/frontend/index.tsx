@@ -102,7 +102,6 @@ import {
   CustomContentFrontstage,
   InspectUiItemInfoToolProvider,
   PopoutWindowsFrontstage,
-  previewFeaturesToggleProvider,
   SynchronizedFloatingViewportStage,
 } from "@itwin/appui-test-providers";
 
@@ -361,8 +360,9 @@ export class SampleAppIModelApp {
     // initialize state from all registered UserSettingsProviders
     await UiFramework.initializeStateFromUserSettingsProviders();
 
-    // register the localized strings for the package and set up that contains the sample UiItems providers
-    await AppUiTestProviders.initializeLocalizationAndState();
+    await IModelApp.localization.registerNamespace(
+      AppUiTestProviders.localizationNamespace
+    );
 
     // initialize UI Item providers
     UiItemsManager.register(
@@ -373,7 +373,6 @@ export class SampleAppIModelApp {
         AppUiTestProviders.localizationNamespace
       )
     );
-    UiItemsManager.register(previewFeaturesToggleProvider);
     CustomContentFrontstage.register(AppUiTestProviders.localizationNamespace); // Frontstage and item providers
     ContentLayoutStage.register(AppUiTestProviders.localizationNamespace); // Frontstage and item providers
     SynchronizedFloatingViewportStage.register(

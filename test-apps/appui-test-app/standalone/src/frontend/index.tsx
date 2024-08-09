@@ -7,30 +7,18 @@ import "@itwin/itwinui-react/styles.css";
 import * as React from "react";
 import { Provider } from "react-redux";
 import { Store } from "redux";
-import { Key } from "ts-key-enum";
 import {
   ActionsUnion,
-  AppUiSettings,
   createAction,
   DeepReadonly,
   FrameworkReducer,
   FrameworkRootState,
-  getKeyinsFromToolList,
-  IModelViewportControl,
-  InitialAppUiSettings,
-  PresentationSelectionScope,
   SafeAreaContext,
   SafeAreaInsets,
-  SessionStateActionId,
-  StageUsage,
   StateManager,
-  StatusBarItemUtilities,
-  StatusBarSection,
   SyncUiEventDispatcher,
-  SYSTEM_PREFERRED_COLOR_THEME,
   ThemeManager,
   UiFramework,
-  UiItemsManager,
   UiStateStorageHandler,
 } from "@itwin/appui-react";
 import { ProcessDetector } from "@itwin/core-bentley";
@@ -42,38 +30,19 @@ import { ElectronApp } from "@itwin/core-electron/lib/cjs/ElectronFrontend";
 import {
   AccuSnap,
   IModelApp,
-  LocalUnitFormatProvider,
   NativeAppLogger,
   NativeAppOpts,
   SnapMode,
   ViewClipByPlaneTool,
 } from "@itwin/core-frontend";
 import { getObjectClassName } from "@itwin/core-react";
-import { FrontendDevTools } from "@itwin/frontend-devtools";
-import { HyperModeling } from "@itwin/hypermodeling-frontend";
 import { TestAppConfiguration } from "../common/TestAppConfiguration";
-import { AppSettingsTabsProvider } from "./appui/settingsproviders/AppSettingsTabsProvider";
 import {
-  AbstractUiItemsProvider,
   AppPreviewFeatures,
-  AppUiTestProviders,
-  ContentLayoutStage,
-  CustomContentFrontstage,
-  InspectUiItemInfoToolProvider,
-  MessageUiItemsProvider,
-  PopoutWindowsFrontstage,
-  previewFeaturesToggleProvider,
-  registerCustomFrontstage,
-  SynchronizedFloatingViewportStage,
   WidgetContentProvider,
 } from "@itwin/appui-test-providers";
 import { getUrlParam, usePreviewFeatureURLParams } from "./UrlParams";
-import { AppLanguageSelect, AppLocalizationProvider } from "./Localization";
-import {
-  registerViewportFrontstage,
-  viewportUiItemsProvider,
-} from "./appui/frontstages/ViewportFrontstage";
-import { createElementStackingProvider } from "./appui/frontstages/ElementStacking";
+import { AppLocalizationProvider } from "./Localization";
 
 /** Action Ids used by redux and to send sync UI components. Typically used to refresh visibility or enable state of control.
  * Use lower case strings to be compatible with SyncUi processing.
@@ -222,113 +191,6 @@ export class SampleAppIModelApp {
 
     // register core commands not automatically registered
     ViewClipByPlaneTool.register();
-  }
-
-  public static async initialize() {
-    // eslint-disable-next-line deprecation/deprecation
-    await UiFramework.initialize(undefined, undefined);
-
-    // store name of this registered control in Redux store so it can be access by extensions
-    // eslint-disable-next-line deprecation/deprecation
-    UiFramework.setDefaultIModelViewportControlId(IModelViewportControl.id);
-
-    // default to showing imperial formatted units
-    await IModelApp.quantityFormatter.setActiveUnitSystem("imperial");
-    await IModelApp.quantityFormatter.setUnitFormattingSettingsProvider(
-      new LocalUnitFormatProvider(IModelApp.quantityFormatter, true)
-    ); // pass true to save per imodel
-
-    // eslint-disable-next-line deprecation/deprecation
-    const availableScopes: PresentationSelectionScope[] = [
-      { id: "element", label: "Element" },
-      { id: "assembly", label: "Assembly" },
-      { id: "top-assembly", label: "Top Assembly" },
-    ];
-    // eslint-disable-next-line deprecation/deprecation
-    UiFramework.dispatchActionToStore(
-      // eslint-disable-next-line deprecation/deprecation
-      SessionStateActionId.SetAvailableSelectionScopes,
-      availableScopes
-    );
-
-    await FrontendDevTools.initialize();
-    await HyperModeling.initialize();
-    // await MapLayersUI.initialize({ featureInfoOpts: { onMapHit: DefaultMapFeatureInfoTool.onMapHit } });
-
-    AppSettingsTabsProvider.initializeAppSettingProvider();
-
-    // Create and register the AppUiSettings instance to provide default for ui settings in Redux store
-    const lastTheme =
-      (window.localStorage &&
-        window.localStorage.getItem("uifw:defaultTheme")) ??
-      SYSTEM_PREFERRED_COLOR_THEME;
-    // eslint-disable-next-line deprecation/deprecation
-    const defaults: InitialAppUiSettings = {
-      colorTheme: lastTheme ?? SYSTEM_PREFERRED_COLOR_THEME,
-      dragInteraction: false,
-      widgetOpacity: 0.8,
-      showWidgetIcon: true,
-      autoCollapseUnpinnedPanels: false,
-      toolbarOpacity: 0.5,
-    };
-
-    // initialize any settings providers that may need to have defaults set by iModelApp
-    // eslint-disable-next-line deprecation/deprecation
-    UiFramework.registerUserSettingsProvider(new AppUiSettings(defaults));
-
-    UiFramework.useDefaultPopoutUrl = true;
-
-    // initialize state from all registered UserSettingsProviders
-    await UiFramework.initializeStateFromUserSettingsProviders();
-
-    // register the localized strings for the package and set up that contains the sample UiItems providers
-    await AppUiTestProviders.initializeLocalizationAndState();
-
-    // Register item providers
-    UiItemsManager.register(
-      new AbstractUiItemsProvider(AppUiTestProviders.localizationNamespace)
-    );
-    UiItemsManager.register(new MessageUiItemsProvider());
-    UiItemsManager.register(
-      new InspectUiItemInfoToolProvider(
-        AppUiTestProviders.localizationNamespace
-      )
-    );
-    UiItemsManager.register(previewFeaturesToggleProvider, {
-      stageUsages: [StageUsage.General],
-    });
-    UiItemsManager.register(
-      {
-        id: "language",
-        getStatusBarItems: () => [
-          StatusBarItemUtilities.createCustomItem({
-            id: "language",
-            section: StatusBarSection.Right,
-            content: <AppLanguageSelect />,
-          }),
-        ],
-      },
-      {
-        stageUsages: [StageUsage.General],
-      }
-    );
-    UiItemsManager.register(viewportUiItemsProvider);
-    UiItemsManager.register(createElementStackingProvider(), {
-      stageUsages: ["development"],
-    });
-
-    // Register frontstages
-    CustomContentFrontstage.register(AppUiTestProviders.localizationNamespace);
-    ContentLayoutStage.register(AppUiTestProviders.localizationNamespace);
-    registerCustomFrontstage();
-    SynchronizedFloatingViewportStage.register(
-      AppUiTestProviders.localizationNamespace
-    );
-    PopoutWindowsFrontstage.register(AppUiTestProviders.localizationNamespace);
-    registerViewportFrontstage();
-
-    // TODO: should not be required. Start event loop to open key-in palette.
-    IModelApp.startEventLoop();
   }
 
   public static loggerCategory(obj: any): string {

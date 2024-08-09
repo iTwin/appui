@@ -9,15 +9,10 @@ import {
   FrontstageUtilities,
   IModelViewportControl,
   StageUsage,
-  StandardContentToolsUiItemsProvider,
-  StandardNavigationToolsUiItemsProvider,
-  StandardStatusbarUiItemsProvider,
   UiFramework,
-  UiItemsManager,
   ViewToolWidgetComposer,
 } from "@itwin/appui-react";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
-import { CustomContentStageUiProvider } from "../providers/CustomContentStageUiProvider";
 import { SampleContentControl } from "../content/SampleContentControl";
 
 function useActiveContentId() {
@@ -41,9 +36,9 @@ function CustomViewToolWidgetComposer() {
   return <ViewToolWidgetComposer hideNavigationAid={hideNavigationAid} />;
 }
 
-function createFrontstage(): Frontstage {
+export function createCustomContentFrontstage(): Frontstage {
   const frontstage = FrontstageUtilities.createStandardFrontstage({
-    id: CustomContentFrontstage.stageId,
+    id: createCustomContentFrontstage.stageId,
     usage: StageUsage.General,
     contentGroupProps: {
       id: "appui-test-providers:custom-stage-content",
@@ -88,61 +83,4 @@ function createFrontstage(): Frontstage {
     },
   };
 }
-
-/**
- * This class is used to register a new frontstage that is called 'Custom' which provides custom content along with imodel content.
- * Providers are used to provide some tools from standard providers along with a stage-specific provider that
- * defines a couple test tool buttons to demonstrate how to use Redux from a package like the one that includes this
- * frontstage definition.
- */
-export class CustomContentFrontstage {
-  public static stageId = "appui-test-providers:CustomContent";
-
-  public static register(localizationNamespace: string) {
-    CustomContentFrontstage.registerToolProviders(localizationNamespace);
-    UiFramework.frontstages.addFrontstage(createFrontstage());
-  }
-
-  private static registerToolProviders(localizationNamespace: string) {
-    // Provides standard tools for ToolWidget
-    UiItemsManager.register(
-      new StandardContentToolsUiItemsProvider({
-        horizontal: {
-          clearSelection: true,
-          clearDisplayOverrides: true,
-          hide: "group",
-          isolate: "group",
-          emphasize: "element",
-        },
-        vertical: {
-          selectElement: true,
-        },
-      }),
-      {
-        providerId: "customContentTools",
-        stageIds: [CustomContentFrontstage.stageId],
-      }
-    );
-
-    /** Provides standard tools for NavigationWidget */
-    UiItemsManager.register(new StandardNavigationToolsUiItemsProvider(), {
-      providerId: "customNavigationTools",
-      stageIds: [CustomContentFrontstage.stageId],
-    });
-
-    /** Provides standard status fields */
-    UiItemsManager.register(new StandardStatusbarUiItemsProvider(), {
-      providerId: "customStatusFields",
-      stageIds: [CustomContentFrontstage.stageId],
-    });
-
-    // register stage specific items provider
-    UiItemsManager.register(
-      new CustomContentStageUiProvider(localizationNamespace),
-      {
-        providerId: "customStageTools",
-        stageIds: [CustomContentFrontstage.stageId],
-      }
-    );
-  }
-}
+createCustomContentFrontstage.stageId = "appui-test-providers:CustomContent";

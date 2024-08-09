@@ -7,6 +7,7 @@ import { Language, LanguageSelect } from "@itwin/appui-test-providers";
 import { Localization } from "@itwin/core-common";
 import { IModelApp } from "@itwin/core-frontend";
 import { LocalizationProvider } from "@itwin/components-react";
+import { StatusBarItemUtilities, StatusBarSection } from "@itwin/appui-react";
 
 export const LanguageContext = React.createContext<
   | {
@@ -57,4 +58,17 @@ export function AppLocalizationProvider({
 export function AppLanguageSelect() {
   const { language, onChange } = React.useContext(LanguageContext)!;
   return <LanguageSelect language={language} onChange={onChange} />;
+}
+
+export function createLanguageProvider() {
+  return {
+    id: "language",
+    getStatusBarItems: () => [
+      StatusBarItemUtilities.createCustomItem({
+        id: "language-select",
+        section: StatusBarSection.Right,
+        content: <AppLanguageSelect />,
+      }),
+    ],
+  };
 }

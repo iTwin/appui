@@ -31,7 +31,6 @@ import { AppUiTestProviders } from "../../AppUiTestProviders";
 import { getTestProviderState, setHideCustomDialogButton } from "../../store";
 import { OpenCustomDialogTool } from "../../tools/OpenCustomDialogTool";
 import { SampleModelessDialog } from "../dialogs/SampleModelessDialog";
-import { CustomContentFrontstage } from "../frontstages/CustomContent";
 import visibilitySemiTransparentSvg from "../icons/visibility-semi-transparent.svg";
 import { SelectedElementDataWidgetComponent } from "../widgets/SelectedElementDataWidget";
 import {
@@ -41,6 +40,7 @@ import {
   SvgWindowAdd,
 } from "@itwin/itwinui-icons-react";
 import { SampleNonModalDialog } from "../dialogs/SampleNonModalDialog";
+import { createCustomContentFrontstage } from "../frontstages/CustomContentFrontstage";
 
 /**
  * Test UiItemsProvider that provide buttons, and backstage item to stage.
@@ -75,7 +75,7 @@ export class CustomContentStageUiProvider implements UiItemsProvider {
     toolbarOrientation: ToolbarOrientation
   ): ToolbarItem[] {
     if (
-      stageId === CustomContentFrontstage.stageId &&
+      stageId === createCustomContentFrontstage.stageId &&
       toolbarUsage === ToolbarUsage.ContentManipulation &&
       toolbarOrientation === ToolbarOrientation.Horizontal
     ) {
@@ -202,7 +202,7 @@ export class CustomContentStageUiProvider implements UiItemsProvider {
     return [
       // use 200 to group it with secondary stages in ui-test-app
       BackstageItemUtilities.createStageLauncher({
-        stageId: CustomContentFrontstage.stageId,
+        stageId: createCustomContentFrontstage.stageId,
         groupPriority: 200,
         itemPriority: 2,
         label: AppUiTestProviders.translate(

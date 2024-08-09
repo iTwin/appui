@@ -16,8 +16,8 @@ import {
   ToolbarItemUtilities,
   ToolbarOrientation,
   ToolbarUsage,
-  UiItemsManager,
   UiItemsProvider,
+  useActiveViewport,
   Widget,
   WidgetState,
 } from "@itwin/appui-react";
@@ -28,12 +28,12 @@ import {
 } from "../../tools/ContentLayoutTools";
 import { AppUiTestProviders } from "../../AppUiTestProviders";
 import { getCustomViewSelectorPopupItem } from "../buttons/ViewSelectorPanel";
-import { ContentLayoutStage } from "../frontstages/ContentLayout";
 import { DisplayStyleField } from "../statusfields/DisplayStyleField";
 import { IModelApp } from "@itwin/core-frontend";
 import { ControlViewportWidget } from "../widgets/ControlViewportWidget";
 import { ViewportWidget as ViewportWidgetBase } from "../widgets/ViewportWidget";
 import { WidgetContentContext } from "./WidgetContentProvider";
+import { createContentLayoutFrontstage } from "../frontstages/ContentLayoutFrontstage";
 
 /**
  * The ContentLayoutStageUiItemsProvider provides additional items only to the `ContentLayoutStage` frontstage.
@@ -58,24 +58,13 @@ export class ContentLayoutStageUiItemsProvider implements UiItemsProvider {
     SaveContentLayoutTool.register(localizationNamespace);
   }
 
-  public static register(localizationNamespace: string) {
-    UiItemsManager.register(
-      new ContentLayoutStageUiItemsProvider(localizationNamespace),
-      { stageIds: [ContentLayoutStage.stageId] }
-    );
-  }
-
-  public static unregister() {
-    UiItemsManager.unregister(ContentLayoutStageUiItemsProvider.providerId);
-  }
-
   public provideToolbarItems(
     stageId: string,
     _stageUsage: string,
     toolbarUsage: ToolbarUsage,
     toolbarOrientation: ToolbarOrientation
   ): ToolbarItem[] {
-    const allowedStages = [ContentLayoutStage.stageId];
+    const allowedStages = [createContentLayoutFrontstage.stageId];
     if (allowedStages.includes(stageId)) {
       if (
         toolbarUsage === ToolbarUsage.ContentManipulation &&
@@ -157,6 +146,16 @@ export class ContentLayoutStageUiItemsProvider implements UiItemsProvider {
         content: <ViewportWidget contentId="viewport-widget2" />,
       });
     }
+    if (
+      location === StagePanelLocation.Right &&
+      section === StagePanelSection.End
+    ) {
+      widgets.push({
+        id: "active-view",
+        label: "Active view",
+        content: <ActiveView />,
+      });
+    }
     return widgets;
   }
 
@@ -180,7 +179,7 @@ export class ContentLayoutStageUiItemsProvider implements UiItemsProvider {
   public provideBackstageItems(): BackstageItem[] {
     return [
       BackstageItemUtilities.createStageLauncher({
-        stageId: ContentLayoutStage.stageId,
+        stageId: createContentLayoutFrontstage.stageId,
         groupPriority: 300,
         itemPriority: 2,
         label: AppUiTestProviders.translate(
@@ -205,5 +204,17 @@ function ViewportWidget({ contentId }: ViewportWidgetProps) {
         context.setActiveId(contentId);
       }}
     />
+  );
+}
+
+function ActiveView() {
+  const viewport = useActiveViewport();
+  if (!viewport) return <span>No active viewport</span>;
+  return (
+    <span>
+      <b>id:</b> {viewport.view.id}
+      <br />
+      <b>description:</b> {viewport.view.description}
+    </span>
   );
 }

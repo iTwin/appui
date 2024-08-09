@@ -3,13 +3,11 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-
 import {
   getQuantityFormatsSettingsManagerEntry,
   getUiSettingsManagerEntry,
   SettingsTabEntry,
   SettingsTabsProvider,
-  UiFramework,
 } from "@itwin/appui-react";
 import { AccudrawSettingsPageComponent } from "./Settings";
 
@@ -36,11 +34,5 @@ export class AppSettingsTabsProvider implements SettingsTabsProvider {
       },
       getUiSettingsManagerEntry(30),
     ];
-  }
-
-  public static initializeAppSettingProvider() {
-    UiFramework.settingsManager.addSettingsProvider(
-      new AppSettingsTabsProvider()
-    );
   }
 }

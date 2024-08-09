@@ -48,6 +48,11 @@ export class StandardStatusbarUiItemsProvider implements UiItemsProvider {
   /** Creates a provider. If the `defaultItems` argument is not set, all default fields are added. Otherwise, only the fields that are set to `true` are added. */
   constructor(private _defaultItems?: DefaultStatusbarItems) {}
 
+  public getStatusBarItems() {
+    // eslint-disable-next-line deprecation/deprecation
+    return this.provideStatusBarItems("", "");
+  }
+
   public provideStatusBarItems(
     _stageId: string,
     _stageUsage: string,

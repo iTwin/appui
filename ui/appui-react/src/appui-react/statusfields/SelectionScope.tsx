@@ -83,6 +83,7 @@ export function SelectionScopeField(props: SelectionScopeFieldProps) {
         className="uifw-statusFields-selectionScope-selector"
         label={`${translate("selectionScopeField.label")}:`}
         labelProps={{ className: "uifw-statusFields-selectionScope-label" }}
+        popoverProps={{ placement: "top" }}
         displayStyle="inline"
         value={activeSelectionScope}
         options={options}
