@@ -5,26 +5,21 @@
 import React from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { PageLayout } from "@itwin/itwinui-layouts-react";
-import { appConfig } from "../frontend/appConfig";
-import { SnapshotConnection } from "@itwin/core-frontend";
-import { createViewState } from "../frontend/createViewState";
 import { appInitializer } from "../frontend/AppInitializer";
-import { ProcessDetector } from "@itwin/core-bentley";
-import { EditTools } from "@itwin/editor-frontend";
+import {
+  createBlankConnection,
+  createBlankViewState,
+} from "@itwin/appui-test-providers";
 import { App } from "../frontend/App";
 
-export const Route = createFileRoute("/local/$fileName")({
-  component: Local,
-  loader: async (ctx) => {
+export const Route = createFileRoute("/blank")({
+  component: Blank,
+  loader: async () => {
     await appInitializer.initialize();
 
-    const filePath = `${appConfig.snapshotPath}/${ctx.params.fileName}`;
-    const iModelConnection = await SnapshotConnection.openFile(filePath);
-    const viewState = await createViewState(iModelConnection);
+    const iModelConnection = createBlankConnection();
+    const viewState = createBlankViewState(iModelConnection);
 
-    if (ProcessDetector.isElectronAppFrontend) {
-      await EditTools.initialize();
-    }
     return {
       iModelConnection,
       viewState,
@@ -32,7 +27,7 @@ export const Route = createFileRoute("/local/$fileName")({
   },
 });
 
-function Local() {
+function Blank() {
   const { iModelConnection, viewState } = Route.useLoaderData();
   return (
     <PageLayout.Content>

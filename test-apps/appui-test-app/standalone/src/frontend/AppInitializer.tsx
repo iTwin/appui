@@ -9,7 +9,11 @@ import {
   FrameworkUiAdmin,
   UiFramework,
 } from "@itwin/appui-react";
-import { BeEvent, UnexpectedErrors } from "@itwin/core-bentley";
+import {
+  BeEvent,
+  ProcessDetector,
+  UnexpectedErrors,
+} from "@itwin/core-bentley";
 import { BentleyCloudRpcManager, RpcConfiguration } from "@itwin/core-common";
 import { IModelApp, ToolAdmin } from "@itwin/core-frontend";
 import { ITwinLocalization } from "@itwin/core-i18n";
@@ -18,6 +22,7 @@ import { appConfig } from "./appConfig";
 import { initializeLogger } from "./logger";
 import { SampleAppAccuSnap } from ".";
 import { RealityDataAccessClient } from "@itwin/reality-data-client";
+import { EditTools } from "@itwin/editor-frontend";
 
 function createInitializer() {
   let ready = false;
@@ -76,6 +81,10 @@ function createInitializer() {
 
     await UiFramework.initialize();
     UiFramework.visibility.autoHideUi = false;
+
+    if (ProcessDetector.isElectronAppFrontend) {
+      await EditTools.initialize();
+    }
 
     ready = true;
     onReady.raiseEvent();

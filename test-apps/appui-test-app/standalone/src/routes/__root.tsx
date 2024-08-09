@@ -42,6 +42,7 @@ function Root() {
   const navigate = useNavigate();
   const matchRoute = useMatchRoute();
   const localMatch = matchRoute({ to: "/local", fuzzy: true });
+  const blankMatch = matchRoute({ to: "/blank", fuzzy: true });
   return (
     <ThemeProvider>
       <PageLayout>
@@ -75,7 +76,13 @@ function Root() {
               >
                 Local
               </SidenavButton>,
-              <SidenavButton disabled startIcon={<SvgModel />}>
+              <SidenavButton
+                startIcon={<SvgModel />}
+                onClick={() => {
+                  void navigate({ to: "/blank" });
+                }}
+                isActive={!!blankMatch}
+              >
                 Blank
               </SidenavButton>,
             ]}
