@@ -98,8 +98,6 @@ import {
   AbstractUiItemsProvider,
   AppPreviewFeatures,
   AppUiTestProviders,
-  ContentLayoutStage,
-  CustomContentFrontstage,
   InspectUiItemInfoToolProvider,
   PopoutWindowsFrontstage,
   SynchronizedFloatingViewportStage,
@@ -373,8 +371,6 @@ export class SampleAppIModelApp {
         AppUiTestProviders.localizationNamespace
       )
     );
-    CustomContentFrontstage.register(AppUiTestProviders.localizationNamespace); // Frontstage and item providers
-    ContentLayoutStage.register(AppUiTestProviders.localizationNamespace); // Frontstage and item providers
     SynchronizedFloatingViewportStage.register(
       AppUiTestProviders.localizationNamespace
     ); // Frontstage and item providers

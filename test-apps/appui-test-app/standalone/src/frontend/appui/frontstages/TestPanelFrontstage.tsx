@@ -15,7 +15,7 @@ export const createTestPanelFrontstage = () => {
     const resizable = urlParams.get("resizable");
 
     const frontstage = createTestFrontstage({
-      id: "appui-test-app:TestPanel",
+      id: "test-panel",
     });
 
     return {

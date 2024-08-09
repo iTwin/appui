@@ -8,12 +8,12 @@ import { Frontstage } from "@itwin/appui-react";
 import { createTestFrontstage } from "./createTestFrontstage";
 import { ProgressRadial } from "@itwin/itwinui-react";
 import { Logger } from "@itwin/core-bentley";
-import { SampleAppIModelApp } from "../..";
+import { loggerCategory } from "../../logger";
 
 export const createTestPopoutFrontstage = () => {
   {
     const frontstage = createTestFrontstage({
-      id: "appui-test-app:TestPopout",
+      id: "test-popout",
     });
 
     return {
@@ -75,10 +75,7 @@ function FixedProgressRadial(
       const widget = e.detail.widget;
       if (!widget.contains(ref.current)) return;
 
-      Logger.logInfo(
-        SampleAppIModelApp.loggerCategory(FixedProgressRadial),
-        "reparented"
-      );
+      Logger.logInfo(loggerCategory, "reparented");
       // For now we just force a re-mount to copy styles.
       setKey((prev) => prev + 1);
     };

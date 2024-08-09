@@ -5,6 +5,8 @@
 import {
   BackstageComposer,
   ConfigurableUiContent,
+  SafeAreaContext,
+  SafeAreaInsets,
   StageUsage,
   StandardContentToolsUiItemsProvider,
   StandardNavigationToolsUiItemsProvider,
@@ -24,6 +26,7 @@ import {
 } from "./appui/frontstages/ElementStacking";
 import {
   AbstractUiItemsProvider,
+  AppPreviewFeatures,
   AppUiTestProviders,
   ContentLayoutStageUiItemsProvider,
   createContentLayoutFrontstage,
@@ -33,6 +36,7 @@ import {
   FloatingWidgetsUiItemsProvider,
   InspectUiItemInfoToolProvider,
   MessageUiItemsProvider,
+  WidgetContentProvider,
 } from "@itwin/appui-test-providers";
 import { ProcessDetector } from "@itwin/core-bentley";
 import {
@@ -56,9 +60,17 @@ interface AppProps {
   iModelConnection?: IModelConnection;
   viewState?: ViewState;
   frontstageId?: string;
+  featureOverrides?: React.ComponentProps<
+    typeof AppPreviewFeatures
+  >["featureOverrides"];
 }
 
-export function App({ iModelConnection, viewState, frontstageId }: AppProps) {
+export function App({
+  iModelConnection,
+  viewState,
+  frontstageId,
+  featureOverrides,
+}: AppProps) {
   React.useEffect(() => {
     // TODO: registration of frontstages and providers should go into initializer.
     const mainFrontstage = createMainFrontstage({
@@ -165,9 +177,15 @@ export function App({ iModelConnection, viewState, frontstageId }: AppProps) {
   useEngagementTime();
   return (
     <ThemeManager>
-      <AppLocalizationProvider>
-        <ConfigurableUiContent appBackstage={<BackstageComposer />} />
-      </AppLocalizationProvider>
+      <SafeAreaContext.Provider value={SafeAreaInsets.All}>
+        <WidgetContentProvider>
+          <AppPreviewFeatures featureOverrides={featureOverrides}>
+            <AppLocalizationProvider>
+              <ConfigurableUiContent appBackstage={<BackstageComposer />} />
+            </AppLocalizationProvider>
+          </AppPreviewFeatures>
+        </WidgetContentProvider>
+      </SafeAreaContext.Provider>
     </ThemeManager>
   );
 }

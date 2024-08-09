@@ -12,6 +12,7 @@ import {
 } from "@itwin/appui-test-providers";
 import { App } from "../frontend/App";
 import { UiFramework } from "@itwin/appui-react";
+import { AppParams } from "../frontend/SearchParams";
 
 export const Route = createFileRoute("/blank")({
   component: Blank,
@@ -28,23 +29,25 @@ export const Route = createFileRoute("/blank")({
       viewState,
     };
   },
-  validateSearch: (search) => {
-    if (!search) return {};
-    return {
-      frontstageId: search.frontstageId as string | undefined,
-    };
+  validateSearch: (search: AppParams) => {
+    return search;
   },
 });
 
 function Blank() {
   const { iModelConnection, viewState } = Route.useLoaderData();
-  const { frontstageId } = Route.useSearch();
+  const { frontstageId, reparentPopoutWidgets } = Route.useSearch();
   return (
     <PageLayout.Content>
       <App
         iModelConnection={iModelConnection}
         viewState={viewState}
         frontstageId={frontstageId}
+        featureOverrides={{
+          ...(reparentPopoutWidgets !== undefined && {
+            reparentPopoutWidgets: !!reparentPopoutWidgets,
+          }),
+        }}
       />
     </PageLayout.Content>
   );

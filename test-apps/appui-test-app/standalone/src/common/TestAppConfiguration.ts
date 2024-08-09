@@ -11,5 +11,3 @@ export interface TestAppConfiguration {
   cesiumIonKey?: string;
   readWrite?: boolean;
 }
-
-export const loggerCategory = "appui-test-app";

@@ -3,7 +3,10 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { StandardContentLayouts } from "@itwin/appui-abstract";
+import {
+  ConditionalStringValue,
+  StandardContentLayouts,
+} from "@itwin/appui-abstract";
 import {
   BackstageAppButton,
   BackstageItemUtilities,
@@ -13,11 +16,15 @@ import {
   StagePanelSection,
   StagePanelState,
   StageUsage,
+  ToolbarItemUtilities,
+  ToolbarOrientation,
+  ToolbarUsage,
   UiItemsProvider,
+  useConditionalValue,
   Widget,
   WidgetState,
 } from "@itwin/appui-react";
-import { MeasureDistanceTool } from "@itwin/core-frontend";
+import { IModelApp, MeasureDistanceTool } from "@itwin/core-frontend";
 import {
   SvgTextAlignCenter,
   SvgTextAlignJustify,
@@ -25,13 +32,17 @@ import {
   SvgTextAlignRight,
   SvgUser,
   SvgUsers,
+  SvgZoomIn,
+  SvgZoomOut,
 } from "@itwin/itwinui-icons-react";
 import {
+  AppUiTestProviders,
   FloatingLayoutInfo,
   ITwinUIv2Widget,
   LayoutControls,
   LayoutInfo,
   LogLifecycleWidget,
+  store,
   UseWidgetHookWidget,
   ViewportContent,
 } from "@itwin/appui-test-providers";
@@ -138,6 +149,19 @@ export function createWidgetApiStageProvider() {
         itemPriority: 2,
         label: "Exercise Widget Api",
       }),
+    ],
+    getToolbarItems: () => [
+      {
+        ...createToggleCustomOverlayToolbarItem(),
+        itemPriority: 17,
+        groupPriority: 3000,
+        layouts: {
+          standard: {
+            orientation: ToolbarOrientation.Horizontal,
+            usage: ToolbarUsage.ContentManipulation,
+          },
+        },
+      },
     ],
   } satisfies UiItemsProvider;
 }
@@ -392,4 +416,33 @@ function createBottomPanelWidgets(): Widget[] {
       layouts: endLayout,
     },
   ];
+}
+
+function CustomOverlayIcon() {
+  const showCustomViewOverlay = useConditionalValue(
+    () => store.state.showCustomViewOverlay,
+    [AppUiTestProviders.syncEventIdHideCustomViewOverlay]
+  );
+  if (showCustomViewOverlay) return <SvgZoomOut />;
+  return <SvgZoomIn />;
+}
+
+function createToggleCustomOverlayToolbarItem() {
+  const label = new ConditionalStringValue(
+    () => (store.state.showCustomViewOverlay ? "Hide overlay" : "Show overlay"),
+    [AppUiTestProviders.syncEventIdHideCustomViewOverlay]
+  );
+  const execute = () => {
+    const showCustomViewOverlay = store.state.showCustomViewOverlay;
+    store.setShowCustomViewOverlay(!showCustomViewOverlay);
+    IModelApp.toolAdmin.dispatchUiSyncEvent(
+      AppUiTestProviders.syncEventIdHideCustomViewOverlay
+    );
+  };
+  return ToolbarItemUtilities.createActionItem({
+    id: "testHideShowItems",
+    icon: <CustomOverlayIcon />,
+    label,
+    execute,
+  });
 }

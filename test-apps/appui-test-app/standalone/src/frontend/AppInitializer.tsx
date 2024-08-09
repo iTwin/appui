@@ -3,6 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import {
+  AccuDrawKeyboardShortcuts,
   AppNotificationManager,
   AppUiSettings,
   FrameworkAccuDraw,
@@ -30,13 +31,15 @@ import { ITwinLocalization } from "@itwin/core-i18n";
 import { getSupportedRpcs } from "../common/rpcs";
 import { appConfig } from "./appConfig";
 import { initializeLogger } from "./logger";
-import { SampleAppAccuSnap } from ".";
+import { AppAccuSnap } from "./appui/AppAccuSnap";
 import { RealityDataAccessClient } from "@itwin/reality-data-client";
 import { EditTools } from "@itwin/editor-frontend";
 import { Key } from "ts-key-enum";
 import { FrontendDevTools } from "@itwin/frontend-devtools";
 import { HyperModeling } from "@itwin/hypermodeling-frontend";
 import { AppSettingsTabsProvider } from "./appui/settingsproviders/AppSettingsTabsProvider";
+import { createKeyboardShortcuts } from "./appui/KeyboardShortcuts";
+import { TestAppLocalization } from "./useTranslation";
 
 function createInitializer() {
   let ready = false;
@@ -59,7 +62,7 @@ function createInitializer() {
 
     const origin = window.location.origin;
     await IModelApp.startup({
-      accuSnap: new SampleAppAccuSnap(),
+      accuSnap: new AppAccuSnap(),
       notifications: new AppNotificationManager(),
       uiAdmin: new FrameworkUiAdmin(),
       accuDraw: new FrameworkAccuDraw(),
@@ -94,6 +97,9 @@ function createInitializer() {
       Promise.resolve(UnexpectedErrors.handle(err));
     await IModelApp.localization.registerNamespace(
       AppUiTestProviders.localizationNamespace
+    );
+    await IModelApp.localization.registerNamespace(
+      TestAppLocalization.namespace
     );
 
     await UiFramework.initialize();
@@ -133,6 +139,11 @@ function createInitializer() {
     );
     UiFramework.useDefaultPopoutUrl = true;
     await UiFramework.initializeStateFromUserSettingsProviders();
+
+    UiFramework.keyboardShortcuts.loadShortcuts(createKeyboardShortcuts());
+    UiFramework.keyboardShortcuts.loadShortcuts(
+      AccuDrawKeyboardShortcuts.getDefaultShortcuts()
+    );
 
     const keyins = getKeyinsFromToolList(IModelApp.tools.getToolList());
     document.addEventListener("keydown", (event) => {

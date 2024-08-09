@@ -46,3 +46,4 @@ export * from "./ui/ViewportContent";
 
 export * from "./AppUiTestProviders";
 export * from "./createBlankConnection";
+export * from "./store";

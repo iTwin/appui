@@ -193,7 +193,7 @@ test.describe("popout widget", () => {
 
 test("should copy styles", async ({ baseURL, page }) => {
   assert(baseURL);
-  await page.goto(`${baseURL}?frontstage=appui-test-app:TestPopout`);
+  await page.goto(`${baseURL}/blank?frontstageId=test-popout`);
 
   const tab = tabLocator(page, "Widget 1");
   const widget = widgetLocator({ tab });
@@ -206,7 +206,7 @@ test("should copy styles", async ({ baseURL, page }) => {
 test("should copy shadow root styles", async ({ baseURL, page }) => {
   assert(baseURL);
   await page.goto(
-    `${baseURL}?frontstage=appui-test-app:TestPopout&reparentPopoutWidgets=1`
+    `${baseURL}/blank?frontstageId=test-popout&reparentPopoutWidgets=1`
   );
 
   const tab = tabLocator(page, "Widget 1");

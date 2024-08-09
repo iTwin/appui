@@ -25,12 +25,12 @@ export function useTranslation(): UseTranslationResult {
  * @internal
  */
 export class TestAppLocalization {
-  public static readonly localizationNamespace = "SampleApp";
+  public static readonly namespace = "SampleApp";
 
   /** convenience method for getting localized strings from keys */
   public static translate(key: string) {
     return IModelApp.localization.getLocalizedString(
-      `${TestAppLocalization.localizationNamespace}:${key}`
+      `${TestAppLocalization.namespace}:${key}`
     );
   }
 }
