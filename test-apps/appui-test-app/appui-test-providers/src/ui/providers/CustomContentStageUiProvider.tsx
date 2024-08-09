@@ -10,7 +10,6 @@ import {
   StagePanelLocation,
   StagePanelSection,
   StageUsage,
-  StateManager,
   SyncUiEventDispatcher,
   ToolbarItem,
   ToolbarItemUtilities,
@@ -28,7 +27,6 @@ import {
   OutputMessageType,
 } from "@itwin/core-frontend";
 import { AppUiTestProviders } from "../../AppUiTestProviders";
-import { getTestProviderState, setHideCustomDialogButton } from "../../store";
 import { OpenCustomDialogTool } from "../../tools/OpenCustomDialogTool";
 import { SampleModelessDialog } from "../dialogs/SampleModelessDialog";
 import visibilitySemiTransparentSvg from "../icons/visibility-semi-transparent.svg";
@@ -41,6 +39,7 @@ import {
 } from "@itwin/itwinui-icons-react";
 import { SampleNonModalDialog } from "../dialogs/SampleNonModalDialog";
 import { createCustomContentFrontstage } from "../frontstages/CustomContentFrontstage";
+import { store } from "../../store";
 
 /**
  * Test UiItemsProvider that provide buttons, and backstage item to stage.
@@ -52,10 +51,7 @@ export class CustomContentStageUiProvider implements UiItemsProvider {
 
   /** method that updates the value in redux store and dispatches a sync event so items are refreshed. */
   public toggleCustomDialogTool = () => {
-    // eslint-disable-next-line deprecation/deprecation
-    StateManager.store.dispatch(
-      setHideCustomDialogButton(!getTestProviderState().hideCustomDialogButton)
-    );
+    store.setHideCustomDialogButton(!store.state.hideCustomDialogButton);
 
     // tell the toolbar to reevaluate state of any item with this event Id
     SyncUiEventDispatcher.dispatchImmediateSyncUiEvent(
@@ -100,13 +96,10 @@ export class CustomContentStageUiProvider implements UiItemsProvider {
       /** The following ConditionalBooleanValue is used to determine the display state of the OpenCustomDialog button
        * provided by this UiItemsProvider.
        */
-      const customDialogActionHiddenCondition = new ConditionalBooleanValue(
-        (): boolean => {
-          return getTestProviderState().hideCustomDialogButton;
-        },
-        [AppUiTestProviders.syncEventIdHideCustomDialogButton],
-        getTestProviderState().hideCustomDialogButton
-      );
+      const customDialogActionHiddenCondition =
+        new ConditionalBooleanValue((): boolean => {
+          return store.state.hideCustomDialogButton;
+        }, [AppUiTestProviders.syncEventIdHideCustomDialogButton]);
 
       const openCustomDialogActionButton =
         OpenCustomDialogTool.getActionButtonDef(
