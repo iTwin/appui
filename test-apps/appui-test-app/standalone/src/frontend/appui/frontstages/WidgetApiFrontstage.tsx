@@ -106,9 +106,15 @@ export function createWidgetApiFrontstage(): Frontstage {
 createWidgetApiFrontstage.stageId = "widget-api";
 
 function MyCustomViewOverlay() {
-  const showOverlay = false;
-
-  return showOverlay ? (
+  const [visible, setVisible] = React.useState(
+    store.state.showCustomViewOverlay
+  );
+  React.useEffect(() => {
+    return store.onChanged.addListener(() => {
+      setVisible(store.state.showCustomViewOverlay);
+    });
+  }, []);
+  return visible ? (
     <div className="uifw-view-overlay">
       <div
         className="my-custom-control"
