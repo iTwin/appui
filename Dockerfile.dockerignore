@@ -36,3 +36,6 @@
 # Environment variables
 **/.env
 **/.env.*
+
+# Include specific files
+!test-apps/appui-test-app/standalone/README.md

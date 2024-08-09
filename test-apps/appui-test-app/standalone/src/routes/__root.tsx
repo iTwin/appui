@@ -17,6 +17,8 @@ import {
 import { PageLayout } from "@itwin/itwinui-layouts-react";
 import {
   Header,
+  HeaderBreadcrumbs,
+  HeaderButton,
   HeaderLogo,
   Modal,
   ModalContent,
@@ -24,7 +26,12 @@ import {
   SideNavigation,
   ThemeProvider,
 } from "@itwin/itwinui-react";
-import { createRootRoute, Outlet, useNavigate } from "@tanstack/react-router";
+import {
+  createRootRoute,
+  Outlet,
+  useMatchRoute,
+  useNavigate,
+} from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/router-devtools";
 
 export const Route = createRootRoute({
@@ -33,6 +40,8 @@ export const Route = createRootRoute({
 
 function Root() {
   const navigate = useNavigate();
+  const matchRoute = useMatchRoute();
+  const localMatch = matchRoute({ to: "/local", fuzzy: true });
   return (
     <ThemeProvider>
       <PageLayout>
@@ -48,6 +57,7 @@ function Root() {
                 AppUI Test App
               </HeaderLogo>
             }
+            breadcrumbs={<AppBreadcrumbs />}
           />
         </PageLayout.Header>
         <PageLayout.SideNavigation>
@@ -61,6 +71,7 @@ function Root() {
                 onClick={() => {
                   void navigate({ to: "/local" });
                 }}
+                isActive={!!localMatch}
               >
                 Local
               </SidenavButton>,
@@ -109,4 +120,21 @@ function RouterDevToolsButton() {
       </Modal>
     </>
   );
+}
+
+function AppBreadcrumbs() {
+  const matchRoute = useMatchRoute();
+  const localBim = matchRoute({ to: "/local/$fileName" });
+  const items = [];
+  if (localBim) {
+    items.push(
+      <HeaderButton
+        key="localBim"
+        name={localBim.fileName}
+        startIcon={<SvgImodel />}
+      />
+    );
+  }
+
+  return <HeaderBreadcrumbs items={items} />;
 }

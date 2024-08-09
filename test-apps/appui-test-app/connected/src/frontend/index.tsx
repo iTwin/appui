@@ -100,12 +100,10 @@ import {
   AppUiTestProviders,
   ContentLayoutStage,
   CustomContentFrontstage,
-  FloatingWidgetsUiItemsProvider,
   InspectUiItemInfoToolProvider,
   PopoutWindowsFrontstage,
   previewFeaturesToggleProvider,
   SynchronizedFloatingViewportStage,
-  WidgetApiStage,
 } from "@itwin/appui-test-providers";
 
 /* eslint-disable deprecation/deprecation */
@@ -370,10 +368,6 @@ export class SampleAppIModelApp {
     UiItemsManager.register(
       new AbstractUiItemsProvider(AppUiTestProviders.localizationNamespace)
     );
-    UiItemsManager.register(new FloatingWidgetsUiItemsProvider(), {
-      providerId: "widget-api-stage-floating-widget",
-      stageIds: [WidgetApiStage.stageId],
-    });
     UiItemsManager.register(
       new InspectUiItemInfoToolProvider(
         AppUiTestProviders.localizationNamespace
@@ -381,7 +375,6 @@ export class SampleAppIModelApp {
     );
     UiItemsManager.register(previewFeaturesToggleProvider);
     CustomContentFrontstage.register(AppUiTestProviders.localizationNamespace); // Frontstage and item providers
-    WidgetApiStage.register(AppUiTestProviders.localizationNamespace); // Frontstage and item providers
     ContentLayoutStage.register(AppUiTestProviders.localizationNamespace); // Frontstage and item providers
     SynchronizedFloatingViewportStage.register(
       AppUiTestProviders.localizationNamespace

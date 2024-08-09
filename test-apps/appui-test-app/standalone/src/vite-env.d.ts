@@ -4,10 +4,4 @@
  *--------------------------------------------------------------------------------------------*/
 /// <reference types="vite/client" />
 
-declare global {
-  interface Window {
-    __BIM_FILES__: string[];
-  }
-}
-
-export {};
+declare module "*.md";
