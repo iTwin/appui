@@ -12,7 +12,11 @@ import {
 } from "@itwin/appui-test-providers";
 import { App } from "../frontend/App";
 import { UiFramework } from "@itwin/appui-react";
-import { AppParams } from "../frontend/SearchParams";
+import {
+  AppParams,
+  useFeatureOverrideParams,
+  useSyncFrontstageParam,
+} from "../frontend/SearchParams";
 
 export const Route = createFileRoute("/blank")({
   component: Blank,
@@ -36,18 +40,15 @@ export const Route = createFileRoute("/blank")({
 
 function Blank() {
   const { iModelConnection, viewState } = Route.useLoaderData();
-  const { frontstageId, reparentPopoutWidgets } = Route.useSearch();
+  const frontstageId = useSyncFrontstageParam();
+  const featureOverrides = useFeatureOverrideParams();
   return (
     <PageLayout.Content>
       <App
         iModelConnection={iModelConnection}
         viewState={viewState}
         frontstageId={frontstageId}
-        featureOverrides={{
-          ...(reparentPopoutWidgets !== undefined && {
-            reparentPopoutWidgets: !!reparentPopoutWidgets,
-          }),
-        }}
+        featureOverrides={featureOverrides}
       />
     </PageLayout.Content>
   );

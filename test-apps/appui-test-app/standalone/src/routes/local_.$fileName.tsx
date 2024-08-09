@@ -13,6 +13,11 @@ import { ProcessDetector } from "@itwin/core-bentley";
 import { EditTools } from "@itwin/editor-frontend";
 import { App } from "../frontend/App";
 import { UiFramework } from "@itwin/appui-react";
+import {
+  AppParams,
+  useFeatureOverrideParams,
+  useSyncFrontstageParam,
+} from "../frontend/SearchParams";
 
 export const Route = createFileRoute("/local/$fileName")({
   component: Local,
@@ -32,13 +37,23 @@ export const Route = createFileRoute("/local/$fileName")({
       viewState,
     };
   },
+  validateSearch: (search: AppParams) => {
+    return search;
+  },
 });
 
 function Local() {
   const { iModelConnection, viewState } = Route.useLoaderData();
+  const frontstageId = useSyncFrontstageParam();
+  const featureOverrides = useFeatureOverrideParams();
   return (
     <PageLayout.Content>
-      <App iModelConnection={iModelConnection} viewState={viewState} />
+      <App
+        iModelConnection={iModelConnection}
+        viewState={viewState}
+        frontstageId={frontstageId}
+        featureOverrides={featureOverrides}
+      />
     </PageLayout.Content>
   );
 }

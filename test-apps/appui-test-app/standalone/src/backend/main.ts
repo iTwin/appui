@@ -5,9 +5,8 @@
 import * as fs from "fs";
 import * as path from "path";
 import { Logger, ProcessDetector } from "@itwin/core-bentley";
-import { loggerCategory } from "../common/TestAppConfiguration";
 import { initializeElectron } from "./electron/ElectronMain";
-import { initializeLogging } from "./logging";
+import { initializeLogging, loggerCategory } from "./logging";
 import { initializeWeb } from "./web/BackendServer";
 import { RpcManager } from "@itwin/core-common";
 import { ECSchemaRpcInterface } from "@itwin/ecschema-rpcinterface-common";

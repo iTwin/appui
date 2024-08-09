@@ -7,8 +7,7 @@ import { IModelJsExpressServer } from "@itwin/express-server";
 import { IModelHost, IModelHostOptions } from "@itwin/core-backend";
 import { BentleyCloudRpcManager } from "@itwin/core-common";
 import { getSupportedRpcs } from "../../common/rpcs";
-
-const loggerCategory = "appui-test-app:backend";
+import { loggerCategory } from "../logging";
 
 /**
  * Initializes Web Server backend
