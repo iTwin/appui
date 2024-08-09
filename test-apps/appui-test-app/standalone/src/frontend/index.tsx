@@ -37,6 +37,7 @@ import {
   SafeAreaContext,
   SafeAreaInsets,
   SessionStateActionId,
+  SnapModeField,
   StageUsage,
   StandardContentToolsUiItemsProvider,
   StateManager,
@@ -379,6 +380,25 @@ export class SampleAppIModelApp {
             id: "language",
             section: StatusBarSection.Right,
             content: <AppLanguageSelect />,
+          }),
+          StatusBarItemUtilities.createCustomItem({
+            id: "booster.SnapMode2",
+            section: StatusBarSection.Center,
+            content: (
+              <SnapModeField
+                snapMode={SnapMode.NearestKeypoint}
+                snapModes={
+                  Object.values(SnapMode).filter(
+                    (snapMode) => snapMode !== SnapMode.Bisector
+                  ) as SnapMode[]
+                }
+              />
+            ),
+          }),
+          StatusBarItemUtilities.createCustomItem({
+            id: "booster.SnapMode3",
+            section: StatusBarSection.Center,
+            content: <SnapModeField snapModes={[SnapMode.Bisector]} />,
           }),
         ],
       },

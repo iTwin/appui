@@ -61,6 +61,19 @@ function getIconFromIconName(iconName: string): IconSpec {
   return iconSpec;
 }
 
+/**
+ * Return the number of snap active in the bitmask.
+ */
+function getSnapCount(snapMode: SnapMode): number {
+  return Object.values(SnapMode).reduce<number>((count, snap) => {
+    if (typeof snap === "number" && snap & snapMode) {
+      // Check if the snap is present in the bitmask.
+      count++;
+    }
+    return count;
+  }, 0);
+}
+
 /** Return icon class name for a specific snapMode. */
 const getSnapModeIconNameFromMode = (
   modeEntries: SnapModeFieldEntry[],
@@ -78,6 +91,9 @@ const getSnapModeIconNameFromMode = (
 /** Defines properties supported by the SnapMode Field Component. */
 // eslint-disable-next-line deprecation/deprecation
 interface SnapModeFieldProps extends CommonProps {
+  /** The list of snap supported by the app. Default to all the modes.
+   */
+  snapModes?: SnapMode[];
   /** Uses redux store as a fallback. Defaults to {@link SnapMode.NearestKeypoint}.
    * @note Enum flags are supported.
    */
@@ -95,9 +111,11 @@ export function SnapModeField(props: SnapModeFieldProps) {
     // eslint-disable-next-line deprecation/deprecation
     (state) => state?.configurableUiState.snapMode
   );
-  const snapMode = props.snapMode ?? reduxSnapMode ?? SnapMode.NearestKeypoint;
 
-  const snapModes: SnapModeFieldEntry[] = [
+  const snapModeChoices = props.snapModes ?? [];
+  let snapMode = props.snapMode ?? reduxSnapMode ?? SnapMode.NearestKeypoint;
+
+  let snapModes: SnapModeFieldEntry[] = [
     {
       label: translate("snapModeField.keypoint"),
       value: SnapMode.NearestKeypoint as number,
@@ -134,6 +152,21 @@ export function SnapModeField(props: SnapModeFieldProps) {
       iconName: "snaps-bisector",
     },
   ];
+
+  if (snapModeChoices.length > 0) {
+    // Remove all snap mode not present in snapModeChoices.
+    snapModes = snapModes.filter((snapModeFieldEntry) =>
+      snapModeChoices.includes(snapModeFieldEntry.value)
+    );
+    if (
+      (!props.snapMode || !snapModeChoices.includes(props.snapMode)) &&
+      !snapModeChoices.includes(SnapMode.NearestKeypoint)
+    ) {
+      // The default snap mode have been filtered out. Default to the first one.
+      snapMode = snapModeChoices[0];
+    }
+  }
+
   const iconName = getSnapModeIconNameFromMode(snapModes, snapMode);
 
   const title = translate("snapModeField.snapMode");
@@ -149,8 +182,13 @@ export function SnapModeField(props: SnapModeFieldProps) {
                   props.onChange(item.value);
                   return;
                 }
-                // eslint-disable-next-line deprecation/deprecation
-                UiFramework.setAccudrawSnapMode(item.value);
+                // Bitwise XOR. Toggles the value in the bitmask. Allows multiple snap modes to be active at the same time.
+                const snapModeMask = snapMode ^ item.value;
+                // Checking for zero ensures that at least one mode remain active at all times.
+                if (snapModeMask !== 0) {
+                  // eslint-disable-next-line deprecation/deprecation
+                  UiFramework.setAccudrawSnapMode(snapModeMask);
+                }
               }}
               isActive={(snapMode & item.value) === item.value}
               icon={
@@ -170,8 +208,15 @@ export function SnapModeField(props: SnapModeFieldProps) {
       <Button
         styleType="borderless"
         title={title}
-        // eslint-disable-next-line deprecation/deprecation
-        endIcon={<Icon iconSpec={getIconFromIconName(iconName)} />}
+        endIcon={
+          getSnapCount(snapMode) > 1 ? (
+            // eslint-disable-next-line deprecation/deprecation
+            <Icon iconSpec={snapModeKeypoint} />
+          ) : (
+            // eslint-disable-next-line deprecation/deprecation
+            <Icon iconSpec={getIconFromIconName(iconName)} />
+          )
+        }
       >
         {title}
         <StatusBarPopover.ExpandIndicator />
