@@ -10,7 +10,10 @@ import {
 } from "@tanstack/react-router";
 import { FluidGrid, PageLayout } from "@itwin/itwinui-layouts-react";
 import { SvgImodelHollow } from "@itwin/itwinui-icons-react";
-import { Tile } from "@itwin/itwinui-react";
+import { Button, Tile } from "@itwin/itwinui-react";
+import { ProcessDetector } from "@itwin/core-bentley";
+import { ElectronApp } from "@itwin/core-electron/lib/cjs/ElectronFrontend";
+import { appConfig } from "../frontend/appConfig";
 
 export const Route = createLazyFileRoute("/local")({
   component: Local,
@@ -28,6 +31,14 @@ function Local() {
             name={fileName}
             thumbnail={<SvgImodelHollow />}
             onClick={() => {
+              if (ProcessDetector.isElectronAppFrontend) {
+                const filePath = `${appConfig.snapshotPath}/${fileName}`;
+                void navigate({
+                  to: "/briefcase",
+                  search: { filePath },
+                });
+                return;
+              }
               void navigate({
                 to: "/local/$fileName",
                 params: { fileName },
@@ -36,6 +47,30 @@ function Local() {
           />
         ))}
       </FluidGrid>
+      {ProcessDetector.isElectronAppFrontend && (
+        <Button
+          onClick={async () => {
+            const val = await ElectronApp.dialogIpc.showOpenDialog({
+              properties: ["openFile"],
+              filters: [{ name: "iModels", extensions: ["ibim", "bim"] }],
+            });
+            if (val.canceled) return;
+
+            const filePath = val.filePaths[0];
+            if (!filePath) return;
+
+            void navigate({
+              to: "/briefcase",
+              search: { filePath },
+            });
+          }}
+          style={{ marginTop: "var(--iui-size-l)" }}
+          stretched
+          size="large"
+        >
+          Select an iModel from disk
+        </Button>
+      )}
       <Outlet />
     </PageLayout.Content>
   );

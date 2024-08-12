@@ -30,6 +30,7 @@ import {
   createRootRoute,
   Outlet,
   SearchSchemaInput,
+  useMatch,
   useMatchRoute,
   useNavigate,
 } from "@tanstack/react-router";
@@ -54,6 +55,7 @@ function Root() {
   const navigate = useNavigate();
   const matchRoute = useMatchRoute();
   const localMatch = matchRoute({ to: "/local", fuzzy: true });
+  const briefcaseMatch = matchRoute({ to: "/briefcase", fuzzy: true });
   const blankMatch = matchRoute({ to: "/blank", fuzzy: true });
   const search = Route.useSearch();
   const menu = search.menu !== 0;
@@ -90,7 +92,7 @@ function Root() {
                     onClick={() => {
                       void navigate({ to: "/local" });
                     }}
-                    isActive={!!localMatch}
+                    isActive={!!localMatch || !!briefcaseMatch}
                   >
                     Local
                   </SidenavButton>,
@@ -153,6 +155,7 @@ function RouterDevToolsButton() {
 
 function AppBreadcrumbs() {
   const matchRoute = useMatchRoute();
+  const briefcaseMatch = useMatch({ from: "/briefcase", shouldThrow: false });
   const localBim = matchRoute({ to: "/local/$fileName" });
   const items = [];
   if (localBim) {
@@ -162,6 +165,12 @@ function AppBreadcrumbs() {
         name={localBim.fileName}
         startIcon={<SvgImodel />}
       />
+    );
+  }
+  if (briefcaseMatch) {
+    const filename = briefcaseMatch.search.filePath.replace(/^.*[\\/]/, "");
+    items.push(
+      <HeaderButton key="briefcase" name={filename} startIcon={<SvgImodel />} />
     );
   }
 

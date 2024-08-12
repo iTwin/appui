@@ -5,8 +5,7 @@
 import React from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { PageLayout } from "@itwin/itwinui-layouts-react";
-import { appConfig } from "../frontend/appConfig";
-import { SnapshotConnection } from "@itwin/core-frontend";
+import { BriefcaseConnection } from "@itwin/core-frontend";
 import { createViewState } from "../frontend/createViewState";
 import { appInitializer } from "../frontend/AppInitializer";
 import { App } from "../frontend/App";
@@ -18,13 +17,15 @@ import {
 } from "../frontend/SearchParams";
 import { registerFrontstages } from "../frontend/registerFrontstages";
 
-export const Route = createFileRoute("/local/$fileName")({
+export const Route = createFileRoute("/briefcase")({
   component: Local,
+  loaderDeps: ({ search: { filePath } }) => ({ filePath }),
   loader: async (ctx) => {
     await appInitializer.initialize();
 
-    const filePath = `${appConfig.snapshotPath}/${ctx.params.fileName}`;
-    const iModelConnection = await SnapshotConnection.openFile(filePath);
+    const iModelConnection = await BriefcaseConnection.openFile({
+      fileName: ctx.deps.filePath,
+    });
     const viewState = await createViewState(iModelConnection);
 
     registerFrontstages({ iModelConnection, viewState });
@@ -36,7 +37,7 @@ export const Route = createFileRoute("/local/$fileName")({
       viewState,
     };
   },
-  validateSearch: (search: AppParams) => {
+  validateSearch: (search: AppParams & { filePath: string }) => {
     return search;
   },
   shouldReload: (ctx) => {

@@ -26,7 +26,7 @@ import {
   RegisterUiProviderTool,
 } from "@itwin/appui-test-providers";
 import { BentleyCloudRpcManager, RpcConfiguration } from "@itwin/core-common";
-import { IModelApp, ToolAdmin } from "@itwin/core-frontend";
+import { IModelApp, IModelAppOptions, ToolAdmin } from "@itwin/core-frontend";
 import { ITwinLocalization } from "@itwin/core-i18n";
 import { getSupportedRpcs } from "../common/rpcs";
 import { appConfig } from "./appConfig";
@@ -40,6 +40,7 @@ import { HyperModeling } from "@itwin/hypermodeling-frontend";
 import { AppSettingsTabsProvider } from "./appui/settingsproviders/AppSettingsTabsProvider";
 import { createKeyboardShortcuts } from "./appui/KeyboardShortcuts";
 import { TestAppLocalization } from "./useTranslation";
+import { ElectronApp } from "@itwin/core-electron/lib/cjs/ElectronFrontend";
 
 function createInitializer() {
   let ready = false;
@@ -61,7 +62,8 @@ function createInitializer() {
     );
 
     const origin = window.location.origin;
-    await IModelApp.startup({
+
+    const options: IModelAppOptions = {
       accuSnap: new AppAccuSnap(),
       notifications: new AppNotificationManager(),
       uiAdmin: new FrameworkUiAdmin(),
@@ -92,7 +94,15 @@ function createInitializer() {
         cesiumIonKey: appConfig.cesiumIonKey,
       },
       toolAdmin: new FrameworkToolAdmin(),
-    });
+    };
+    if (ProcessDetector.isElectronAppFrontend) {
+      await ElectronApp.startup({
+        iModelApp: options,
+      });
+    } else {
+      await IModelApp.startup(options);
+    }
+
     ToolAdmin.exceptionHandler = async (err) =>
       Promise.resolve(UnexpectedErrors.handle(err));
     await IModelApp.localization.registerNamespace(

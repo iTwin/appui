@@ -13,20 +13,26 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as LocalImport } from './routes/local'
+import { Route as BriefcaseImport } from './routes/briefcase'
 import { Route as BlankImport } from './routes/blank'
 import { Route as LocalFileNameImport } from './routes/local_.$fileName'
 
 // Create Virtual Routes
 
-const LocalLazyImport = createFileRoute('/local')()
 const IndexLazyImport = createFileRoute('/')()
 
 // Create/Update Routes
 
-const LocalLazyRoute = LocalLazyImport.update({
+const LocalRoute = LocalImport.update({
   path: '/local',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/local.lazy').then((d) => d.Route))
+
+const BriefcaseRoute = BriefcaseImport.update({
+  path: '/briefcase',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const BlankRoute = BlankImport.update({
   path: '/blank',
@@ -61,11 +67,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlankImport
       parentRoute: typeof rootRoute
     }
+    '/briefcase': {
+      id: '/briefcase'
+      path: '/briefcase'
+      fullPath: '/briefcase'
+      preLoaderRoute: typeof BriefcaseImport
+      parentRoute: typeof rootRoute
+    }
     '/local': {
       id: '/local'
       path: '/local'
       fullPath: '/local'
-      preLoaderRoute: typeof LocalLazyImport
+      preLoaderRoute: typeof LocalImport
       parentRoute: typeof rootRoute
     }
     '/local/$fileName': {
@@ -83,7 +96,8 @@ declare module '@tanstack/react-router' {
 export const routeTree = rootRoute.addChildren({
   IndexLazyRoute,
   BlankRoute,
-  LocalLazyRoute,
+  BriefcaseRoute,
+  LocalRoute,
   LocalFileNameRoute,
 })
 
@@ -97,6 +111,7 @@ export const routeTree = rootRoute.addChildren({
       "children": [
         "/",
         "/blank",
+        "/briefcase",
         "/local",
         "/local/$fileName"
       ]
@@ -107,8 +122,11 @@ export const routeTree = rootRoute.addChildren({
     "/blank": {
       "filePath": "blank.tsx"
     },
+    "/briefcase": {
+      "filePath": "briefcase.tsx"
+    },
     "/local": {
-      "filePath": "local.lazy.tsx"
+      "filePath": "local.tsx"
     },
     "/local/$fileName": {
       "filePath": "local_.$fileName.tsx"
