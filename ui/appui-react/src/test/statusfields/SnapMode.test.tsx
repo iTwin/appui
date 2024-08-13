@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { Provider } from "react-redux";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { SnapMode } from "@itwin/core-frontend";
 import type { ListenerType } from "@itwin/core-react";
 import {
@@ -20,16 +20,15 @@ describe("SnapModeField", () => {
     theUserTo = userEvent.setup();
   });
 
-  it("Status Bar with SnapModes Field should render", () => {
+  it("Status Bar with SnapModes Field should render", async () => {
     const { container } = render(
       <Provider store={TestUtils.store}>
         <SnapModeField />
       </Provider>
     );
 
-    const button = container.querySelector("button");
-    expect(button).toBeTruthy();
-    fireEvent.click(button!);
+    const snapModeButton = screen.getByText("snapModeField.snapMode");
+    await theUserTo.click(snapModeButton);
 
     const iconContainer = container.querySelector(".icon");
     expect(iconContainer).toBeTruthy();
@@ -39,7 +38,7 @@ describe("SnapModeField", () => {
     );
     expect(snaps.length).to.eql(7);
 
-    fireEvent.click(button!); // Closes popup
+    await theUserTo.click(snapModeButton);
   });
 
   it("Validate multiple snaps mode", () => {
@@ -70,7 +69,7 @@ describe("SnapModeField", () => {
       </Provider>
     );
     const previousMode = UiFramework.getAccudrawSnapMode();
-    await theUserTo.click(screen.getByRole("button"));
+    await theUserTo.click(screen.getByText("snapModeField.snapMode"));
     await theUserTo.click(screen.getByText("snapModeField.bisector"));
 
     expect(UiFramework.getAccudrawSnapMode()).to.equal(
@@ -89,42 +88,34 @@ describe("SnapModeField", () => {
     );
     const previousMode = UiFramework.getAccudrawSnapMode();
     expect(previousMode).toEqual(SnapMode.NearestKeypoint); // Make sure that only one mode is active.
-    await theUserTo.click(screen.getByRole("button"));
+    await theUserTo.click(screen.getByText("snapModeField.snapMode"));
     await theUserTo.click(screen.getByText("snapModeField.keypoint")); // Click to deactivate the mode.
     expect(UiFramework.getAccudrawSnapMode()).to.equal(
       SnapMode.NearestKeypoint
     ); // Expect it to be still active.
   });
 
-  it("Status Bar only display the chosen SnapModes.", () => {
+  it("Status Bar only display the chosen SnapModes.", async () => {
     const { container } = render(
       <Provider store={TestUtils.store}>
         <SnapModeField
-          snapModes={
+          availableSnapModes={
             // Filter out the Bisector snap mode.
             Object.values(SnapMode).filter(
-              (snapMode) => snapMode !== SnapMode.Bisector
+              (snapMode) => typeof snapMode === "number" && snapMode !== SnapMode.Bisector
             ) as SnapMode[]
           }
         />
       </Provider>
     );
 
-    const button = container.querySelector("button");
-    expect(button).toBeTruthy();
-    fireEvent.click(button!);
-
+    await theUserTo.click(screen.getByText("snapModeField.snapMode"));
     // Bisector snap mode should not be present.
     expect(screen.queryByText("snapModeField.bisector")).toBeFalsy();
-
-    const iconContainer = container.querySelector(".icon");
-    expect(iconContainer).toBeTruthy();
 
     const snaps = container.parentElement!.querySelectorAll(
       ".nz-footer-snapMode-snap"
     );
     expect(snaps.length).to.eql(6); // 7 modes total, minus Bisector = 6 modes
-
-    fireEvent.click(button!); // Closes popup
   });
 });

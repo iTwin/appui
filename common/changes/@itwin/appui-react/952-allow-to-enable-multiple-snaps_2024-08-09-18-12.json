@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/appui-react",
-      "comment": "We are now able to activate multiple snap modes at once. We can also choose what snap modes are available in the app via SnapModeField  snapModes props. ",
+      "comment": "Multiple snap modes can be activated when using SnapModeField component. Allowing to filter available Snap Modes in SnapModeField.",
       "type": "none"
     }
   ],
