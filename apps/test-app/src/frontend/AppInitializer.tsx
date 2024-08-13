@@ -51,7 +51,7 @@ function createInitializer() {
     const rpcInterfaces = getSupportedRpcs();
     BentleyCloudRpcManager.initializeClient(
       {
-        info: { title: "appui-test-app", version: "v1.0" },
+        info: { title: "test-app", version: "v1.0" },
         uriPrefix: "http://localhost:3001",
       },
       rpcInterfaces // eslint-disable-line deprecation/deprecation

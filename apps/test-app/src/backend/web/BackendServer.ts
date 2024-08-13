@@ -15,7 +15,7 @@ import { loggerCategory } from "../logging";
 export async function initializeWeb(opts?: IModelHostOptions) {
   // tell BentleyCloudRpcManager which RPC interfaces to handle
   const rpcConfig = BentleyCloudRpcManager.initializeImpl(
-    { info: { title: "appui-test-app", version: "v1.0" } },
+    { info: { title: "test-app", version: "v1.0" } },
     getSupportedRpcs()
   );
 
@@ -25,7 +25,7 @@ export async function initializeWeb(opts?: IModelHostOptions) {
   await server.initialize(port);
   Logger.logInfo(
     loggerCategory,
-    `Web backend for appui-test-app listening on port ${port}`
+    `Web backend for test-app listening on port ${port}`
   );
   await IModelHost.startup(opts);
 }

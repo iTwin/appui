@@ -5,11 +5,8 @@
 import React, { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 import { createRouter, RouterProvider } from "@tanstack/react-router";
-
-// Import the generated route tree
-import { routeTree } from "./routeTree.gen";
 import { AuthProvider, useAuth } from "./frontend/Auth";
-import { getUrlParam } from "./frontend/SearchParams";
+import { routeTree } from "./routeTree.gen";
 
 // Create a new router instance
 const router = createRouter({
@@ -38,9 +35,15 @@ function InnerApp() {
   return <RouterProvider router={router} context={{ auth }} />;
 }
 
-function ConditionallyStrictApp({ children }: { children: React.ReactNode }) {
-  const strictParam = getUrlParam("strict");
-  if (strictParam === "0") {
+function ConditionalStrictMode({ children }: { children: React.ReactNode }) {
+  const [strict, setStrict] = React.useState(true);
+  React.useEffect(() => {
+    return router.subscribe("onLoad", (ctx) => {
+      const appParams = ctx.toLocation.search as { strict: 0 };
+      setStrict(appParams.strict !== 0);
+    });
+  }, []);
+  if (!strict) {
     return <>{children}</>;
   }
   return <StrictMode>{children}</StrictMode>;
@@ -48,10 +51,10 @@ function ConditionallyStrictApp({ children }: { children: React.ReactNode }) {
 
 function App() {
   return (
-    <ConditionallyStrictApp>
+    <ConditionalStrictMode>
       <AuthProvider>
         <InnerApp />
       </AuthProvider>
-    </ConditionallyStrictApp>
+    </ConditionalStrictMode>
   );
 }

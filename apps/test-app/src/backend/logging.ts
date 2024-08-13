@@ -8,7 +8,7 @@ import {
   NativeLoggerCategory,
 } from "@itwin/core-backend";
 
-export const loggerCategory = "appui-test-app:backend";
+export const loggerCategory = "test-app:backend";
 
 /** Initializes logging based on the configuration json file */
 export function initializeLogging() {

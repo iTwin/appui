@@ -8,6 +8,7 @@ import { IModelGrid } from "@itwin/imodel-browser-react";
 import { Button } from "@itwin/itwinui-react";
 import { config } from "../frontend/config";
 import { useAuth } from "../frontend/Auth";
+import { PageLayout } from "@itwin/itwinui-layouts-react";
 
 export const Route = createFileRoute("/iTwin/$iTwinId")({
   component: ITwin,
@@ -24,17 +25,20 @@ function ITwin() {
   const navigate = useNavigate();
   if (!accessToken) return <Login />;
   return (
-    <IModelGrid
-      onThumbnailClick={(iModel) => {
-        void navigate({
-          to: "/iTwin/$iTwinId/iModel/$iModelId",
-          params: { iTwinId, iModelId: iModel.id },
-        });
-      }}
-      iTwinId={iTwinId}
-      accessToken={accessToken}
-      apiOverrides={apiOverrides}
-    />
+    <PageLayout.Content padded={true}>
+      <IModelGrid
+        onThumbnailClick={(iModel) => {
+          void navigate({
+            to: "/iTwin/$iTwinId/iModel/$iModelId",
+            params: { iTwinId, iModelId: iModel.id },
+          });
+        }}
+        iTwinId={iTwinId}
+        accessToken={accessToken}
+        apiOverrides={apiOverrides}
+        searchText=""
+      />
+    </PageLayout.Content>
   );
 }
 
