@@ -30,9 +30,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [accessToken, setAccessToken] = React.useState<string>("");
   const [authClient] = React.useState(() => {
     return new BrowserAuthorizationClient({
-      clientId: config.clientId,
-      redirectUri: config.redirectUri,
-      scope: config.testScopes,
+      clientId: config.appClientId,
+      redirectUri: config.appRedirectUri,
+      scope: config.appScope,
       responseType: "code",
       authority: `https://${config.urlPrefix}ims.bentley.com`,
       noSilentSignInOnAppStartup: true,

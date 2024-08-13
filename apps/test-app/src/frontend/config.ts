@@ -6,15 +6,15 @@ function createConfig() {
   const urlPrefix = import.meta.env.IMJS_URL_PREFIX as string;
   const serverEnvironmentPrefix = toServerEnvironmentPrefix(urlPrefix);
   return {
-    cesiumIonKey: import.meta.env.IMJS_CESIUM_ION_KEY as string,
+    appClientId: import.meta.env.IMJS_APP_CLIENT_ID as string,
+    appRedirectUri: import.meta.env.IMJS_APP_REDIRECT_URI as string,
+    appScope: import.meta.env.IMJS_APP_SCOPE as string,
     bimDir: import.meta.env.IMJS_BIM_DIR as string,
-    urlPrefix,
-    serverEnvironmentPrefix,
     bingMapsKey: import.meta.env.IMJS_BING_MAPS_KEY as string,
+    cesiumIonKey: import.meta.env.IMJS_CESIUM_ION_KEY as string,
     mapBoxKey: import.meta.env.IMJS_MAPBOX_KEY as string,
-    redirectUri: import.meta.env.IMJS_OIDC_BROWSER_TEST_REDIRECT_URI as string,
-    clientId: import.meta.env.IMJS_OIDC_BROWSER_TEST_CLIENT_ID as string,
-    testScopes: import.meta.env.IMJS_OIDC_BROWSER_TEST_SCOPES as string,
+    serverEnvironmentPrefix,
+    urlPrefix,
   } as const;
 }
 
