@@ -27,7 +27,8 @@ export function createStatusBarUiItemsProvider() {
     id: "statusbar",
     getStatusBarItems: () => {
       return [
-        ...standardProvider.getStatusBarItems(),
+        // eslint-disable-next-line deprecation/deprecation
+        ...standardProvider.provideStatusBarItems("", ""),
         StatusBarItemUtilities.createCustomItem({
           id: "selection-scope",
           section: StatusBarSection.Right,
