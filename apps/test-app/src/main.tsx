@@ -47,7 +47,6 @@ function ConditionallyStrictApp({ children }: { children: React.ReactNode }) {
 }
 
 function App() {
-  // TODO: react signal is aborted without reason in `@itwin/imodel-browser-react#IModelGrid`
   return (
     <ConditionallyStrictApp>
       <AuthProvider>

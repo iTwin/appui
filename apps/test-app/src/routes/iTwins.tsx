@@ -25,6 +25,10 @@ function ITwins() {
         void navigate({
           to: "/iTwin/$iTwinId",
           params: { iTwinId: iTwin.id },
+          // TODO: react signal is aborted without reason in `@itwin/imodel-browser-react#IModelGrid` when in `StrictMode`
+          search: {
+            strict: 0,
+          },
         });
       }}
       accessToken={accessToken}

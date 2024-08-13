@@ -91,8 +91,8 @@ importers:
         specifier: ^3.7.0 || ^4.0.0
         version: 4.4.0(@itwin/core-bentley@4.4.0)(@itwin/core-common@4.4.0)(@itwin/core-frontend@4.4.0)(@itwin/core-geometry@4.4.0)
       '@itwin/imodel-browser-react':
-        specifier: ^1.2.2
-        version: 1.2.2(react-dom@18.3.1)(react@18.3.1)
+        specifier: ^1.3.1
+        version: 1.3.1(react-dom@18.3.1)(react@18.3.1)
       '@itwin/imodel-components-react':
         specifier: workspace:*
         version: link:../../ui/imodel-components-react
@@ -3988,8 +3988,8 @@ packages:
       '@itwin/core-geometry': 4.4.0
     dev: false
 
-  /@itwin/imodel-browser-react@1.2.2(react-dom@18.3.1)(react@18.3.1):
-    resolution: {integrity: sha512-seNRdo5zG2BWn9vIVVp/gl+iJRUtisVahsGHFNZX5c/sFepVTUywsfFqTsRn7ogohKDdHJsEMkff93fEQIXaFA==}
+  /@itwin/imodel-browser-react@1.3.1(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-Y3732bsj5gJnQm/ZAToCx1WF1HWW+ihvvQRuneJUzaJ6nuSR1QHdpXgScPxYXXZRGQ6PyzVPpPSrZ3Eh4nQ7dw==}
     peerDependencies:
       react: ^16.13.0 || ^17.0.2
       react-dom: ^16.13.0 || ^17.0.2

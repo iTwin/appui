@@ -89,7 +89,7 @@
     "@itwin/express-server": "^3.7.0 || ^4.0.0",
     "@itwin/frontend-devtools": "^3.7.0 || ^4.0.0",
     "@itwin/hypermodeling-frontend": "^3.7.0 || ^4.0.0",
-    "@itwin/imodel-browser-react": "^1.2.2",
+    "@itwin/imodel-browser-react": "^1.3.1",
     "@itwin/imodel-components-react": "workspace:*",
     "@itwin/imodels-access-backend": "^3.0.0",
     "@itwin/imodels-access-frontend": "^3.0.0",
