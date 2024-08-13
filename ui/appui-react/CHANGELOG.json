@@ -2,6 +2,54 @@
   "name": "@itwin/appui-react",
   "entries": [
     {
+      "version": "4.16.0",
+      "tag": "@itwin/appui-react_v4.16.0",
+      "date": "Wed, 07 Aug 2024 12:38:32 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Adjust SelectionCount padding values."
+          },
+          {
+            "comment": "Deprecate APIs associated with `ConfigurableUiControl` class."
+          },
+          {
+            "comment": "Added support for new BadgeKind type in components."
+          },
+          {
+            "comment": "Fix an issue where styles of complex shorthand properties were not copied correctly to a popout window."
+          },
+          {
+            "comment": "Fix standard content tools throwing uncaught exception with transient elements."
+          },
+          {
+            "comment": "Fix mixed-decls Sass warnings."
+          },
+          {
+            "comment": "Deprecate RelativePosition props and replaced PopupManager methods."
+          },
+          {
+            "comment": "Fix `ToolAssistanceField` icon size."
+          },
+          {
+            "comment": "Updated `ToolSettingsPopup` to not rely on event propagation for cancellation."
+          },
+          {
+            "comment": "Fixed `AccuDrawInputField` to correctly specify keyboard event modifiers."
+          },
+          {
+            "comment": "Update release tags of frequently used APIs."
+          },
+          {
+            "comment": "Emit `appui:reparent` event when the widget is reparented."
+          },
+          {
+            "comment": "Removed transitions when toggling themes. This fixes the unintentional \"flying-in\" of floating elements like Tooltips and ComboBox menus when the page first loads."
+          }
+        ]
+      }
+    },
+    {
       "version": "4.15.5",
       "tag": "@itwin/appui-react_v4.15.5",
       "date": "Wed, 24 Jul 2024 16:09:26 GMT",

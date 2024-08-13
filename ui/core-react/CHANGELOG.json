@@ -2,6 +2,27 @@
   "name": "@itwin/core-react",
   "entries": [
     {
+      "version": "4.16.0",
+      "tag": "@itwin/core-react_v4.16.0",
+      "date": "Wed, 07 Aug 2024 12:38:32 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Deprecate all remaining APIs. This package is now considered deprecated and usage should be avoided."
+          },
+          {
+            "comment": "Added BadgeKind type as replacement for BadgeType."
+          },
+          {
+            "comment": "Fix mixed-decls Sass warnings."
+          },
+          {
+            "comment": "Removed styling for the `theme-transition` class."
+          }
+        ]
+      }
+    },
+    {
       "version": "4.15.5",
       "tag": "@itwin/core-react_v4.15.5",
       "date": "Wed, 24 Jul 2024 16:09:26 GMT",
