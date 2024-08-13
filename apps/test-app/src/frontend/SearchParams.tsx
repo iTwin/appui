@@ -47,10 +47,3 @@ export function useFeatureOverrideParams() {
     }),
   };
 }
-
-export function getUrlParam(name: string) {
-  const url = new URL(window.location.href);
-  const params = new URLSearchParams(url.search);
-  const param = params.get(name);
-  return param === null ? undefined : param;
-}
