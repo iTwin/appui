@@ -5,10 +5,10 @@
 import React from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { IModelGrid } from "@itwin/imodel-browser-react";
-import { Button } from "@itwin/itwinui-react";
 import { config } from "../frontend/config";
 import { useAuth } from "../frontend/Auth";
 import { PageLayout } from "@itwin/itwinui-layouts-react";
+import { SignInPage } from "../frontend/SignInPage";
 
 export const Route = createFileRoute("/iTwin/$iTwinId")({
   component: ITwin,
@@ -23,7 +23,7 @@ function ITwin() {
   const { accessToken } = useAuth();
   const { iTwinId } = Route.useParams();
   const navigate = useNavigate();
-  if (!accessToken) return <Login />;
+  if (!accessToken) return <SignInPage />;
   return (
     <PageLayout.Content padded={true}>
       <IModelGrid
@@ -39,20 +39,5 @@ function ITwin() {
         searchText=""
       />
     </PageLayout.Content>
-  );
-}
-
-function Login() {
-  const { signIn } = useAuth();
-  return (
-    <div>
-      <Button
-        onClick={() => {
-          void signIn();
-        }}
-      >
-        SignIn
-      </Button>
-    </div>
   );
 }

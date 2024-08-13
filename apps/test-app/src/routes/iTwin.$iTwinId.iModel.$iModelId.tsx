@@ -4,8 +4,6 @@
  *--------------------------------------------------------------------------------------------*/
 import React from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { Button } from "@itwin/itwinui-react";
-import { useAuth } from "../frontend/Auth";
 import { appInitializer } from "../frontend/AppInitializer";
 import { App } from "../frontend/App";
 import { CheckpointConnection, IModelApp } from "@itwin/core-frontend";
@@ -17,6 +15,7 @@ import {
   useFeatureOverrideParams,
   useSyncFrontstageParam,
 } from "../frontend/SearchParams";
+import { SignInPage } from "../frontend/SignInPage";
 
 export const Route = createFileRoute("/iTwin/$iTwinId/iModel/$iModelId")({
   loader: async (ctx) => {
@@ -51,7 +50,7 @@ export const Route = createFileRoute("/iTwin/$iTwinId/iModel/$iModelId")({
 
 function IModel() {
   const { accessToken } = Route.useLoaderData();
-  if (!accessToken) return <Login />;
+  if (!accessToken) return <SignInPage />;
   return <InitializedApp />;
 }
 
@@ -59,19 +58,4 @@ function InitializedApp() {
   useSyncFrontstageParam();
   const featureOverrides = useFeatureOverrideParams();
   return <App featureOverrides={featureOverrides} />;
-}
-
-function Login() {
-  const { signIn } = useAuth();
-  return (
-    <div>
-      <Button
-        onClick={() => {
-          void signIn();
-        }}
-      >
-        SignIn
-      </Button>
-    </div>
-  );
 }
