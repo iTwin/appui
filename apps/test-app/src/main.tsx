@@ -9,6 +9,7 @@ import { createRouter, RouterProvider } from "@tanstack/react-router";
 // Import the generated route tree
 import { routeTree } from "./routeTree.gen";
 import { AuthProvider, useAuth } from "./frontend/Auth";
+import { getUrlParam } from "./frontend/SearchParams";
 
 // Create a new router instance
 const router = createRouter({
@@ -37,13 +38,21 @@ function InnerApp() {
   return <RouterProvider router={router} context={{ auth }} />;
 }
 
+function ConditionallyStrictApp({ children }: { children: React.ReactNode }) {
+  const strictParam = getUrlParam("strict");
+  if (strictParam === "0") {
+    return <>{children}</>;
+  }
+  return <StrictMode>{children}</StrictMode>;
+}
+
 function App() {
+  // TODO: react signal is aborted without reason in `@itwin/imodel-browser-react#IModelGrid`
   return (
-    // TODO: react signal is aborted without reason in `@itwin/imodel-browser-react#IModelGrid`
-    // <StrictMode>
-    <AuthProvider>
-      <InnerApp />
-    </AuthProvider>
-    // </StrictMode>
+    <ConditionallyStrictApp>
+      <AuthProvider>
+        <InnerApp />
+      </AuthProvider>
+    </ConditionallyStrictApp>
   );
 }
