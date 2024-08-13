@@ -44,12 +44,7 @@ export class PopoutWindowsFrontstage {
             },
           ],
         },
-        cornerButton: (
-          <BackstageAppButton
-            key="appui-test-providers-popout-windows-backstage"
-            icon="icon-bentley-systems"
-          />
-        ),
+        cornerButton: <BackstageAppButton icon="icon-bentley-systems" />,
       })
     );
     this.registerToolProviders(localizationNamespace);

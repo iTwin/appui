@@ -23,7 +23,7 @@ export const Route = createFileRoute("/local/$fileName")({
   loader: async (ctx) => {
     await appInitializer.initialize();
 
-    const filePath = `${config.snapshotPath}/${ctx.params.fileName}`;
+    const filePath = `${config.bimDir}/${ctx.params.fileName}`;
     const iModelConnection = await SnapshotConnection.openFile(filePath);
     const viewState = await createViewState(iModelConnection);
 

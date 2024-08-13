@@ -21,7 +21,7 @@ export function useTranslation(): UseTranslationResult {
   return { translate };
 }
 
-/** Provides static localization for standalone test-app.
+/** Provides static localization for the test-app.
  * @internal
  */
 export class TestAppLocalization {

@@ -287,10 +287,6 @@
       "allowedCategories": [ "frontend" ]
     },
     {
-      "name": "appui-standalone-app",
-      "allowedCategories": [ "internal" ]
-    },
-    {
       "name": "classnames",
       "allowedCategories": [ "frontend", "internal" ]
     },
@@ -472,6 +468,14 @@
     },
     {
       "name": "storybook",
+      "allowedCategories": [ "internal" ]
+    },
+    {
+      "name": "test-app",
+      "allowedCategories": [ "internal" ]
+    },
+    {
+      "name": "test-providers",
       "allowedCategories": [ "internal" ]
     },
     {

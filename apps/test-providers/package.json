@@ -70,6 +70,6 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/iTwin/appui.git",
-    "directory": "test-apps/appui-test-app/appui-test-providers"
+    "directory": "apps/test-providers"
   }
 }

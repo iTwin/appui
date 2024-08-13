@@ -24,8 +24,8 @@ customLogger.warn = (msg, options) => {
 // https://vitejs.dev/config/
 export default defineConfig((_command, mode) => {
   const env = loadEnv(mode, process.cwd(), "");
-  const snapshotDir = env.IMJS_UITESTAPP_SNAPSHOT_FILEPATH;
-  const files = snapshotDir ? fs.readdirSync(snapshotDir) : [];
+  const bimDir = env.IMJS_BIM_DIR;
+  const files = bimDir ? fs.readdirSync(bimDir) : [];
   const bimFiles = files.filter(
     (file) => file.endsWith(".bim") || file.endsWith(".ibim")
   );

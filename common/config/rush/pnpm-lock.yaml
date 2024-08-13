@@ -13,6 +13,326 @@ importers:
 
   .: {}
 
+  ../../apps/test-app:
+    dependencies:
+      '@bentley/icons-generic':
+        specifier: ^1.0.34
+        version: 1.0.34
+      '@bentley/icons-generic-webfont':
+        specifier: ^1.0.34
+        version: 1.0.34
+      '@itwin/appui-abstract':
+        specifier: ^3.7.0 || ^4.0.0
+        version: 4.4.0(@itwin/core-bentley@4.4.0)
+      '@itwin/appui-react':
+        specifier: workspace:*
+        version: link:../../ui/appui-react
+      '@itwin/appui-test-providers':
+        specifier: workspace:*
+        version: link:../test-providers
+      '@itwin/browser-authorization':
+        specifier: ^1.1.2
+        version: 1.1.2(@itwin/core-bentley@4.4.0)(@itwin/core-geometry@4.4.0)
+      '@itwin/components-react':
+        specifier: workspace:*
+        version: link:../../ui/components-react
+      '@itwin/core-backend':
+        specifier: ^3.7.0 || ^4.0.0
+        version: 4.4.0(@itwin/core-bentley@4.4.0)(@itwin/core-common@4.4.0)(@itwin/core-geometry@4.4.0)
+      '@itwin/core-bentley':
+        specifier: ^3.7.0 || ^4.0.0
+        version: 4.4.0
+      '@itwin/core-common':
+        specifier: ^3.7.0 || ^4.0.0
+        version: 4.4.0(@itwin/core-bentley@4.4.0)(@itwin/core-geometry@4.4.0)
+      '@itwin/core-electron':
+        specifier: ^3.7.0 || ^4.0.0
+        version: 4.4.0(@itwin/core-backend@4.4.0)(@itwin/core-bentley@4.4.0)(@itwin/core-common@4.4.0)(@itwin/core-frontend@4.4.0)(electron@22.3.27)
+      '@itwin/core-frontend':
+        specifier: ^3.7.0 || ^4.0.0
+        version: 4.4.0(@itwin/appui-abstract@4.4.0)(@itwin/core-bentley@4.4.0)(@itwin/core-common@4.4.0)(@itwin/core-geometry@4.4.0)(@itwin/core-orbitgt@4.4.0)(@itwin/core-quantity@4.4.0)
+      '@itwin/core-geometry':
+        specifier: ^3.7.0 || ^4.0.0
+        version: 4.4.0
+      '@itwin/core-i18n':
+        specifier: ^3.7.0 || ^4.0.0
+        version: 4.4.0(@itwin/core-bentley@4.4.0)
+      '@itwin/core-orbitgt':
+        specifier: ^3.7.0 || ^4.0.0
+        version: 4.4.0
+      '@itwin/core-quantity':
+        specifier: ^3.7.0 || ^4.0.0
+        version: 4.4.0(@itwin/core-bentley@4.4.0)
+      '@itwin/core-react':
+        specifier: workspace:*
+        version: link:../../ui/core-react
+      '@itwin/ecschema-rpcinterface-common':
+        specifier: ^3.7.0 || ^4.0.0
+        version: 4.4.0(@itwin/core-bentley@4.4.0)(@itwin/core-common@4.4.0)(@itwin/core-geometry@4.4.0)
+      '@itwin/ecschema-rpcinterface-impl':
+        specifier: ^3.7.0 || ^4.0.0
+        version: 4.4.0(@itwin/core-backend@4.4.0)(@itwin/core-bentley@4.4.0)(@itwin/core-common@4.4.0)(@itwin/core-geometry@4.4.0)(@itwin/ecschema-rpcinterface-common@4.4.0)
+      '@itwin/editor-backend':
+        specifier: ^3.7.0 || ^4.0.0
+        version: 4.4.0(@itwin/core-backend@4.4.0)(@itwin/core-bentley@4.4.0)(@itwin/core-common@4.4.0)(@itwin/core-geometry@4.4.0)
+      '@itwin/editor-common':
+        specifier: ^3.7.0 || ^4.0.0
+        version: 4.4.3(@itwin/core-bentley@4.4.0)(@itwin/core-common@4.4.0)(@itwin/core-geometry@4.4.0)
+      '@itwin/editor-frontend':
+        specifier: ^3.7.0 || ^4.0.0
+        version: 4.4.3(@itwin/appui-abstract@4.4.0)(@itwin/core-bentley@4.4.0)(@itwin/core-common@4.4.0)(@itwin/core-frontend@4.4.0)(@itwin/core-geometry@4.4.0)
+      '@itwin/express-server':
+        specifier: ^3.7.0 || ^4.0.0
+        version: 4.4.0(@itwin/core-backend@4.4.0)
+      '@itwin/frontend-devtools':
+        specifier: ^3.7.0 || ^4.0.0
+        version: 4.4.0(@itwin/appui-abstract@4.4.0)(@itwin/core-orbitgt@4.4.0)(@itwin/core-quantity@4.4.0)
+      '@itwin/hypermodeling-frontend':
+        specifier: ^3.7.0 || ^4.0.0
+        version: 4.4.0(@itwin/core-bentley@4.4.0)(@itwin/core-common@4.4.0)(@itwin/core-frontend@4.4.0)(@itwin/core-geometry@4.4.0)
+      '@itwin/imodel-browser-react':
+        specifier: ^1.2.2
+        version: 1.2.2(react-dom@18.3.1)(react@18.3.1)
+      '@itwin/imodel-components-react':
+        specifier: workspace:*
+        version: link:../../ui/imodel-components-react
+      '@itwin/imodels-access-backend':
+        specifier: ^3.0.0
+        version: 3.1.1(@itwin/core-backend@4.4.0)(@itwin/core-bentley@4.4.0)(@itwin/core-common@4.4.0)
+      '@itwin/imodels-access-frontend':
+        specifier: ^3.0.0
+        version: 3.1.1(@itwin/core-bentley@4.4.0)(@itwin/core-common@4.4.0)(@itwin/core-frontend@4.4.0)
+      '@itwin/imodels-client-authoring':
+        specifier: ^3.0.0
+        version: 3.1.0
+      '@itwin/imodels-client-management':
+        specifier: ^3.0.0
+        version: 3.1.0
+      '@itwin/itwinui-icons-react':
+        specifier: ^2.8.0
+        version: 2.8.0(react-dom@18.3.1)(react@18.3.1)
+      '@itwin/itwinui-layouts-css':
+        specifier: ~0.4.0
+        version: 0.4.0
+      '@itwin/itwinui-layouts-react':
+        specifier: ~0.4.1
+        version: 0.4.1(react-dom@18.3.1)(react@18.3.1)
+      '@itwin/itwinui-react':
+        specifier: ^3.11.2
+        version: 3.11.2(@types/react@18.3.2)(react-dom@18.3.1)(react@18.3.1)
+      '@itwin/itwinui-variables':
+        specifier: ^3.0.0
+        version: 3.1.0
+      '@itwin/presentation-common':
+        specifier: ^3.7.0 || ^4.0.0
+        version: 4.4.0(@itwin/core-bentley@4.4.0)(@itwin/core-common@4.4.0)(@itwin/core-quantity@4.4.0)
+      '@itwin/reality-data-client':
+        specifier: 0.9.0
+        version: 0.9.0(@itwin/core-bentley@4.4.0)
+      '@itwin/webgl-compatibility':
+        specifier: ^3.7.0 || ^4.0.0
+        version: 4.4.0
+      '@tanstack/react-router':
+        specifier: ~1.46.8
+        version: 1.46.8(react-dom@18.3.1)(react@18.3.1)
+      classnames:
+        specifier: 2.3.1
+        version: 2.3.1
+      react:
+        specifier: ^18.3.1
+        version: 18.3.1
+      react-dom:
+        specifier: ^18.3.1
+        version: 18.3.1(react@18.3.1)
+      react-markdown:
+        specifier: ~9.0.1
+        version: 9.0.1(@types/react@18.3.2)(react@18.3.1)
+      react-redux:
+        specifier: ^7.2.2
+        version: 7.2.9(react-dom@18.3.1)(react@18.3.1)
+      redux:
+        specifier: ^4.1.0
+        version: 4.2.1
+      ts-key-enum:
+        specifier: ~2.0.12
+        version: 2.0.12
+    devDependencies:
+      '@itwin/build-tools':
+        specifier: ^3.7.0 || ^4.6.0-dev.27
+        version: 4.6.0-dev.27(@types/node@18.11.5)
+      '@itwin/eslint-plugin':
+        specifier: ^4.0.0-dev.52
+        version: 4.0.0-dev.52(eslint@8.56.0)(typescript@5.3.3)
+      '@tanstack/router-devtools':
+        specifier: ~1.46.8
+        version: 1.46.8(@tanstack/react-router@1.46.8)(react-dom@18.3.1)(react@18.3.1)
+      '@tanstack/router-plugin':
+        specifier: ~1.46.6
+        version: 1.46.6(vite@5.2.6)
+      '@types/node':
+        specifier: 18.11.5
+        version: 18.11.5
+      '@types/react':
+        specifier: ^18.3.2
+        version: 18.3.2
+      '@types/react-dom':
+        specifier: ^18.3.0
+        version: 18.3.0
+      '@types/react-redux':
+        specifier: ^7.1.18
+        version: 7.1.33
+      '@typescript-eslint/parser':
+        specifier: ^6.1.0
+        version: 6.19.1(eslint@8.56.0)(typescript@5.3.3)
+      '@vitejs/plugin-react-swc':
+        specifier: ^3.5.0
+        version: 3.6.0(vite@5.2.6)
+      copyfiles:
+        specifier: ^2.4.1
+        version: 2.4.1
+      cross-env:
+        specifier: ^5.1.4
+        version: 5.2.1
+      dotenv:
+        specifier: ^10.0.0
+        version: 10.0.0
+      dotenv-expand:
+        specifier: ^5.1.0
+        version: 5.1.0
+      electron:
+        specifier: ^22.0.0
+        version: 22.3.27
+      eslint:
+        specifier: ^8.44.0
+        version: 8.56.0
+      eslint-config-prettier:
+        specifier: ~8.8.0
+        version: 8.8.0(eslint@8.56.0)
+      npm-run-all:
+        specifier: ^4.1.5
+        version: 4.1.5
+      null-loader:
+        specifier: ^4.0.1
+        version: 4.0.1
+      rimraf:
+        specifier: ^3.0.2
+        version: 3.0.2
+      sass:
+        specifier: ^1.77.7
+        version: 1.77.8
+      typescript:
+        specifier: ~5.3.3
+        version: 5.3.3
+      vite:
+        specifier: ^5.2.0
+        version: 5.2.6(@types/node@18.11.5)(sass@1.77.8)
+      vite-plugin-static-copy:
+        specifier: ^1.0.1
+        version: 1.0.1(vite@5.2.6)
+
+  ../../apps/test-providers:
+    dependencies:
+      '@bentley/icons-generic':
+        specifier: ^1.0.34
+        version: 1.0.34
+      '@itwin/appui-abstract':
+        specifier: ^3.7.0 || ^4.0.0
+        version: 4.4.0(@itwin/core-bentley@4.4.0)
+      '@itwin/appui-react':
+        specifier: workspace:*
+        version: link:../../ui/appui-react
+      '@itwin/components-react':
+        specifier: workspace:*
+        version: link:../../ui/components-react
+      '@itwin/core-bentley':
+        specifier: ^3.7.0 || ^4.0.0
+        version: 4.4.0
+      '@itwin/core-common':
+        specifier: ^3.7.0 || ^4.0.0
+        version: 4.4.0(@itwin/core-bentley@4.4.0)(@itwin/core-geometry@4.4.0)
+      '@itwin/core-frontend':
+        specifier: ^3.7.0 || ^4.0.0
+        version: 4.4.0(@itwin/appui-abstract@4.4.0)(@itwin/core-bentley@4.4.0)(@itwin/core-common@4.4.0)(@itwin/core-geometry@4.4.0)(@itwin/core-orbitgt@4.4.0)(@itwin/core-quantity@4.4.0)
+      '@itwin/core-geometry':
+        specifier: ^3.7.0 || ^4.0.0
+        version: 4.4.0
+      '@itwin/core-orbitgt':
+        specifier: ^3.7.0 || ^4.0.0
+        version: 4.4.0
+      '@itwin/core-quantity':
+        specifier: ^3.7.0 || ^4.0.0
+        version: 4.4.0(@itwin/core-bentley@4.4.0)
+      '@itwin/core-react':
+        specifier: workspace:*
+        version: link:../../ui/core-react
+      '@itwin/imodel-components-react':
+        specifier: workspace:*
+        version: link:../../ui/imodel-components-react
+      '@itwin/itwinui-icons-react':
+        specifier: ^2.8.0
+        version: 2.8.0(react-dom@18.3.1)(react@18.3.1)
+      '@itwin/itwinui-react':
+        specifier: ^3.11.2
+        version: 3.11.2(@types/react@18.3.2)(react-dom@18.3.1)(react@18.3.1)
+      '@itwin/itwinui-react-v2':
+        specifier: npm:@itwin/itwinui-react@^2.11.11
+        version: /@itwin/itwinui-react@2.12.20(react-dom@18.3.1)(react@18.3.1)
+      '@itwin/itwinui-variables':
+        specifier: ^3.0.0
+        version: 3.1.0
+      '@itwin/webgl-compatibility':
+        specifier: ^3.7.0 || ^4.0.0
+        version: 4.4.0
+      '@reduxjs/toolkit':
+        specifier: ^1.5.0
+        version: 1.9.7(react-redux@7.2.9)(react@18.3.1)
+      classnames:
+        specifier: 2.3.1
+        version: 2.3.1
+      react:
+        specifier: ^18.3.1
+        version: 18.3.1
+      react-dom:
+        specifier: ^18.3.1
+        version: 18.3.1(react@18.3.1)
+      react-redux:
+        specifier: ^7.2.2
+        version: 7.2.9(react-dom@18.3.1)(react@18.3.1)
+      ts-key-enum:
+        specifier: ~2.0.12
+        version: 2.0.12
+    devDependencies:
+      '@itwin/build-tools':
+        specifier: ^3.7.0 || ^4.6.0-dev.27
+        version: 4.6.0-dev.27(@types/node@18.11.5)
+      '@itwin/eslint-plugin':
+        specifier: ^4.0.0-dev.52
+        version: 4.0.0-dev.52(eslint@8.56.0)(typescript@5.3.3)
+      '@types/react':
+        specifier: ^18.3.2
+        version: 18.3.2
+      '@types/react-redux':
+        specifier: ^7.1.18
+        version: 7.1.33
+      cpx2:
+        specifier: ^3.0.0
+        version: 3.0.2
+      eslint:
+        specifier: ^8.44.0
+        version: 8.56.0
+      eslint-config-prettier:
+        specifier: ~8.8.0
+        version: 8.8.0(eslint@8.56.0)
+      npm-run-all:
+        specifier: ^4.1.5
+        version: 4.1.5
+      rimraf:
+        specifier: ^3.0.2
+        version: 3.0.2
+      typescript:
+        specifier: ~5.3.3
+        version: 5.3.3
+
   ../../docs/storybook:
     dependencies:
       '@bentley/icons-generic':
@@ -29,7 +349,7 @@ importers:
         version: link:../../ui/appui-react
       '@itwin/appui-test-providers':
         specifier: workspace:*
-        version: link:../../test-apps/appui-test-app/appui-test-providers
+        version: link:../../apps/test-providers
       '@itwin/components-react':
         specifier: workspace:*
         version: link:../../ui/components-react
@@ -172,528 +492,12 @@ importers:
       '@playwright/test':
         specifier: ^1.36.2
         version: 1.41.1
-      appui-standalone-app:
+      test-app:
         specifier: workspace:*
-        version: link:../test-apps/appui-test-app/standalone
+        version: link:../apps/test-app
       tsx:
         specifier: ^4.7.1
         version: 4.7.1
-
-  ../../test-apps/appui-test-app/appui-test-providers:
-    dependencies:
-      '@bentley/icons-generic':
-        specifier: ^1.0.34
-        version: 1.0.34
-      '@itwin/appui-abstract':
-        specifier: ^3.7.0 || ^4.0.0
-        version: 4.4.0(@itwin/core-bentley@4.4.0)
-      '@itwin/appui-react':
-        specifier: workspace:*
-        version: link:../../../ui/appui-react
-      '@itwin/components-react':
-        specifier: workspace:*
-        version: link:../../../ui/components-react
-      '@itwin/core-bentley':
-        specifier: ^3.7.0 || ^4.0.0
-        version: 4.4.0
-      '@itwin/core-common':
-        specifier: ^3.7.0 || ^4.0.0
-        version: 4.4.0(@itwin/core-bentley@4.4.0)(@itwin/core-geometry@4.4.0)
-      '@itwin/core-frontend':
-        specifier: ^3.7.0 || ^4.0.0
-        version: 4.4.0(@itwin/appui-abstract@4.4.0)(@itwin/core-bentley@4.4.0)(@itwin/core-common@4.4.0)(@itwin/core-geometry@4.4.0)(@itwin/core-orbitgt@4.4.0)(@itwin/core-quantity@4.4.0)
-      '@itwin/core-geometry':
-        specifier: ^3.7.0 || ^4.0.0
-        version: 4.4.0
-      '@itwin/core-orbitgt':
-        specifier: ^3.7.0 || ^4.0.0
-        version: 4.4.0
-      '@itwin/core-quantity':
-        specifier: ^3.7.0 || ^4.0.0
-        version: 4.4.0(@itwin/core-bentley@4.4.0)
-      '@itwin/core-react':
-        specifier: workspace:*
-        version: link:../../../ui/core-react
-      '@itwin/imodel-components-react':
-        specifier: workspace:*
-        version: link:../../../ui/imodel-components-react
-      '@itwin/itwinui-icons-react':
-        specifier: ^2.8.0
-        version: 2.8.0(react-dom@18.3.1)(react@18.3.1)
-      '@itwin/itwinui-react':
-        specifier: ^3.11.2
-        version: 3.11.2(@types/react@18.3.2)(react-dom@18.3.1)(react@18.3.1)
-      '@itwin/itwinui-react-v2':
-        specifier: npm:@itwin/itwinui-react@^2.11.11
-        version: /@itwin/itwinui-react@2.12.20(react-dom@18.3.1)(react@18.3.1)
-      '@itwin/itwinui-variables':
-        specifier: ^3.0.0
-        version: 3.1.0
-      '@itwin/webgl-compatibility':
-        specifier: ^3.7.0 || ^4.0.0
-        version: 4.4.0
-      '@reduxjs/toolkit':
-        specifier: ^1.5.0
-        version: 1.9.7(react-redux@7.2.9)(react@18.3.1)
-      classnames:
-        specifier: 2.3.1
-        version: 2.3.1
-      react:
-        specifier: ^18.3.1
-        version: 18.3.1
-      react-dom:
-        specifier: ^18.3.1
-        version: 18.3.1(react@18.3.1)
-      react-redux:
-        specifier: ^7.2.2
-        version: 7.2.9(react-dom@18.3.1)(react@18.3.1)
-      ts-key-enum:
-        specifier: ~2.0.12
-        version: 2.0.12
-    devDependencies:
-      '@itwin/build-tools':
-        specifier: ^3.7.0 || ^4.6.0-dev.27
-        version: 4.6.0-dev.27(@types/node@18.11.5)
-      '@itwin/eslint-plugin':
-        specifier: ^4.0.0-dev.52
-        version: 4.0.0-dev.52(eslint@8.56.0)(typescript@5.3.3)
-      '@types/react':
-        specifier: ^18.3.2
-        version: 18.3.2
-      '@types/react-redux':
-        specifier: ^7.1.18
-        version: 7.1.33
-      cpx2:
-        specifier: ^3.0.0
-        version: 3.0.2
-      eslint:
-        specifier: ^8.44.0
-        version: 8.56.0
-      eslint-config-prettier:
-        specifier: ~8.8.0
-        version: 8.8.0(eslint@8.56.0)
-      npm-run-all:
-        specifier: ^4.1.5
-        version: 4.1.5
-      rimraf:
-        specifier: ^3.0.2
-        version: 3.0.2
-      typescript:
-        specifier: ~5.3.3
-        version: 5.3.3
-
-  ../../test-apps/appui-test-app/connected:
-    dependencies:
-      '@bentley/icons-generic':
-        specifier: ^1.0.34
-        version: 1.0.34
-      '@bentley/icons-generic-webfont':
-        specifier: ^1.0.34
-        version: 1.0.34
-      '@itwin/appui-abstract':
-        specifier: ^3.7.0 || ^4.0.0
-        version: 4.4.0(@itwin/core-bentley@4.4.0)
-      '@itwin/appui-react':
-        specifier: workspace:*
-        version: link:../../../ui/appui-react
-      '@itwin/appui-test-providers':
-        specifier: workspace:*
-        version: link:../appui-test-providers
-      '@itwin/browser-authorization':
-        specifier: ^1.1.2
-        version: 1.1.2(@itwin/core-bentley@4.4.0)(@itwin/core-geometry@4.4.0)
-      '@itwin/components-react':
-        specifier: workspace:*
-        version: link:../../../ui/components-react
-      '@itwin/core-backend':
-        specifier: ^3.7.0 || ^4.0.0
-        version: 4.4.0(@itwin/core-bentley@4.4.0)(@itwin/core-common@4.4.0)(@itwin/core-geometry@4.4.0)
-      '@itwin/core-bentley':
-        specifier: ^3.7.0 || ^4.0.0
-        version: 4.4.0
-      '@itwin/core-common':
-        specifier: ^3.7.0 || ^4.0.0
-        version: 4.4.0(@itwin/core-bentley@4.4.0)(@itwin/core-geometry@4.4.0)
-      '@itwin/core-electron':
-        specifier: ^3.7.0 || ^4.0.0
-        version: 4.4.0(@itwin/core-backend@4.4.0)(@itwin/core-bentley@4.4.0)(@itwin/core-common@4.4.0)(@itwin/core-frontend@4.4.0)(electron@22.3.27)
-      '@itwin/core-frontend':
-        specifier: ^3.7.0 || ^4.0.0
-        version: 4.4.0(@itwin/appui-abstract@4.4.0)(@itwin/core-bentley@4.4.0)(@itwin/core-common@4.4.0)(@itwin/core-geometry@4.4.0)(@itwin/core-orbitgt@4.4.0)(@itwin/core-quantity@4.4.0)
-      '@itwin/core-geometry':
-        specifier: ^3.7.0 || ^4.0.0
-        version: 4.4.0
-      '@itwin/core-orbitgt':
-        specifier: ^3.7.0 || ^4.0.0
-        version: 4.4.0
-      '@itwin/core-quantity':
-        specifier: ^3.7.0 || ^4.0.0
-        version: 4.4.0(@itwin/core-bentley@4.4.0)
-      '@itwin/core-react':
-        specifier: workspace:*
-        version: link:../../../ui/core-react
-      '@itwin/ecschema-rpcinterface-common':
-        specifier: ^3.7.0 || ^4.0.0
-        version: 4.4.0(@itwin/core-bentley@4.4.0)(@itwin/core-common@4.4.0)(@itwin/core-geometry@4.4.0)
-      '@itwin/ecschema-rpcinterface-impl':
-        specifier: ^3.7.0 || ^4.0.0
-        version: 4.4.0(@itwin/core-backend@4.4.0)(@itwin/core-bentley@4.4.0)(@itwin/core-common@4.4.0)(@itwin/core-geometry@4.4.0)(@itwin/ecschema-rpcinterface-common@4.4.0)
-      '@itwin/editor-backend':
-        specifier: ^3.7.0 || ^4.0.0
-        version: 4.4.0(@itwin/core-backend@4.4.0)(@itwin/core-bentley@4.4.0)(@itwin/core-common@4.4.0)(@itwin/core-geometry@4.4.0)
-      '@itwin/electron-authorization':
-        specifier: ^0.11.0
-        version: 0.11.0(@itwin/core-bentley@4.4.0)(electron@22.3.27)
-      '@itwin/express-server':
-        specifier: ^3.7.0 || ^4.0.0
-        version: 4.4.0(@itwin/core-backend@4.4.0)
-      '@itwin/frontend-devtools':
-        specifier: ^3.7.0 || ^4.0.0
-        version: 4.4.0(@itwin/appui-abstract@4.4.0)(@itwin/core-orbitgt@4.4.0)(@itwin/core-quantity@4.4.0)
-      '@itwin/hypermodeling-frontend':
-        specifier: ^3.7.0 || ^4.0.0
-        version: 4.4.0(@itwin/core-bentley@4.4.0)(@itwin/core-common@4.4.0)(@itwin/core-frontend@4.4.0)(@itwin/core-geometry@4.4.0)
-      '@itwin/imodel-browser-react':
-        specifier: ^1.2.2
-        version: 1.2.2(react-dom@18.3.1)(react@18.3.1)
-      '@itwin/imodel-components-react':
-        specifier: workspace:*
-        version: link:../../../ui/imodel-components-react
-      '@itwin/imodels-access-backend':
-        specifier: ^3.0.0
-        version: 3.1.1(@itwin/core-backend@4.4.0)(@itwin/core-bentley@4.4.0)(@itwin/core-common@4.4.0)
-      '@itwin/imodels-access-frontend':
-        specifier: ^3.0.0
-        version: 3.1.1(@itwin/core-bentley@4.4.0)(@itwin/core-common@4.4.0)(@itwin/core-frontend@4.4.0)
-      '@itwin/imodels-client-authoring':
-        specifier: ^3.0.0
-        version: 3.1.0
-      '@itwin/imodels-client-management':
-        specifier: ^3.0.0
-        version: 3.1.0
-      '@itwin/itwinui-icons-react':
-        specifier: ^2.8.0
-        version: 2.8.0(react-dom@18.3.1)(react@18.3.1)
-      '@itwin/itwinui-react':
-        specifier: ^3.11.2
-        version: 3.11.2(@types/react@18.3.2)(react-dom@18.3.1)(react@18.3.1)
-      '@itwin/itwinui-variables':
-        specifier: ^3.0.0
-        version: 3.1.0
-      '@itwin/presentation-common':
-        specifier: ^3.7.0 || ^4.0.0
-        version: 4.4.0(@itwin/core-bentley@4.4.0)(@itwin/core-common@4.4.0)(@itwin/core-quantity@4.4.0)
-      '@itwin/reality-data-client':
-        specifier: 0.9.0
-        version: 0.9.0(@itwin/core-bentley@4.4.0)
-      '@itwin/webgl-compatibility':
-        specifier: ^3.7.0 || ^4.0.0
-        version: 4.4.0
-      classnames:
-        specifier: 2.3.1
-        version: 2.3.1
-      react:
-        specifier: ^18.3.1
-        version: 18.3.1
-      react-dom:
-        specifier: ^18.3.1
-        version: 18.3.1(react@18.3.1)
-      react-redux:
-        specifier: ^7.2.2
-        version: 7.2.9(react-dom@18.3.1)(react@18.3.1)
-      redux:
-        specifier: ^4.1.0
-        version: 4.2.1
-      ts-key-enum:
-        specifier: ~2.0.12
-        version: 2.0.12
-    devDependencies:
-      '@itwin/build-tools':
-        specifier: ^3.7.0 || ^4.6.0-dev.27
-        version: 4.6.0-dev.27(@types/node@18.11.5)
-      '@itwin/eslint-plugin':
-        specifier: ^4.0.0-dev.52
-        version: 4.0.0-dev.52(eslint@8.56.0)(typescript@5.3.3)
-      '@itwin/itwins-client':
-        specifier: ^1.2.0
-        version: 1.2.1
-      '@types/node':
-        specifier: 18.11.5
-        version: 18.11.5
-      '@types/react':
-        specifier: ^18.3.2
-        version: 18.3.2
-      '@types/react-dom':
-        specifier: ^18.3.0
-        version: 18.3.0
-      '@types/react-redux':
-        specifier: ^7.1.18
-        version: 7.1.33
-      '@typescript-eslint/parser':
-        specifier: ^6.1.0
-        version: 6.19.1(eslint@8.56.0)(typescript@5.3.3)
-      '@vitejs/plugin-react-swc':
-        specifier: ^3.5.0
-        version: 3.6.0(vite@5.2.6)
-      copyfiles:
-        specifier: ^2.4.1
-        version: 2.4.1
-      cross-env:
-        specifier: ^5.1.4
-        version: 5.2.1
-      dotenv:
-        specifier: ^10.0.0
-        version: 10.0.0
-      dotenv-expand:
-        specifier: ^5.1.0
-        version: 5.1.0
-      electron:
-        specifier: ^22.0.0
-        version: 22.3.27
-      eslint:
-        specifier: ^8.44.0
-        version: 8.56.0
-      eslint-config-prettier:
-        specifier: ~8.8.0
-        version: 8.8.0(eslint@8.56.0)
-      npm-run-all:
-        specifier: ^4.1.5
-        version: 4.1.5
-      null-loader:
-        specifier: ^4.0.1
-        version: 4.0.1
-      rimraf:
-        specifier: ^3.0.2
-        version: 3.0.2
-      sass:
-        specifier: ^1.77.7
-        version: 1.77.8
-      typescript:
-        specifier: ~5.3.3
-        version: 5.3.3
-      vite:
-        specifier: ^5.2.0
-        version: 5.2.6(@types/node@18.11.5)(sass@1.77.8)
-      vite-plugin-static-copy:
-        specifier: ^1.0.1
-        version: 1.0.1(vite@5.2.6)
-
-  ../../test-apps/appui-test-app/standalone:
-    dependencies:
-      '@bentley/icons-generic':
-        specifier: ^1.0.34
-        version: 1.0.34
-      '@bentley/icons-generic-webfont':
-        specifier: ^1.0.34
-        version: 1.0.34
-      '@itwin/appui-abstract':
-        specifier: ^3.7.0 || ^4.0.0
-        version: 4.4.0(@itwin/core-bentley@4.4.0)
-      '@itwin/appui-react':
-        specifier: workspace:*
-        version: link:../../../ui/appui-react
-      '@itwin/appui-test-providers':
-        specifier: workspace:*
-        version: link:../appui-test-providers
-      '@itwin/browser-authorization':
-        specifier: ^1.1.2
-        version: 1.1.2(@itwin/core-bentley@4.4.0)(@itwin/core-geometry@4.4.0)
-      '@itwin/components-react':
-        specifier: workspace:*
-        version: link:../../../ui/components-react
-      '@itwin/core-backend':
-        specifier: ^3.7.0 || ^4.0.0
-        version: 4.4.0(@itwin/core-bentley@4.4.0)(@itwin/core-common@4.4.0)(@itwin/core-geometry@4.4.0)
-      '@itwin/core-bentley':
-        specifier: ^3.7.0 || ^4.0.0
-        version: 4.4.0
-      '@itwin/core-common':
-        specifier: ^3.7.0 || ^4.0.0
-        version: 4.4.0(@itwin/core-bentley@4.4.0)(@itwin/core-geometry@4.4.0)
-      '@itwin/core-electron':
-        specifier: ^3.7.0 || ^4.0.0
-        version: 4.4.0(@itwin/core-backend@4.4.0)(@itwin/core-bentley@4.4.0)(@itwin/core-common@4.4.0)(@itwin/core-frontend@4.4.0)(electron@22.3.27)
-      '@itwin/core-frontend':
-        specifier: ^3.7.0 || ^4.0.0
-        version: 4.4.0(@itwin/appui-abstract@4.4.0)(@itwin/core-bentley@4.4.0)(@itwin/core-common@4.4.0)(@itwin/core-geometry@4.4.0)(@itwin/core-orbitgt@4.4.0)(@itwin/core-quantity@4.4.0)
-      '@itwin/core-geometry':
-        specifier: ^3.7.0 || ^4.0.0
-        version: 4.4.0
-      '@itwin/core-i18n':
-        specifier: ^3.7.0 || ^4.0.0
-        version: 4.4.0(@itwin/core-bentley@4.4.0)
-      '@itwin/core-orbitgt':
-        specifier: ^3.7.0 || ^4.0.0
-        version: 4.4.0
-      '@itwin/core-quantity':
-        specifier: ^3.7.0 || ^4.0.0
-        version: 4.4.0(@itwin/core-bentley@4.4.0)
-      '@itwin/core-react':
-        specifier: workspace:*
-        version: link:../../../ui/core-react
-      '@itwin/ecschema-rpcinterface-common':
-        specifier: ^3.7.0 || ^4.0.0
-        version: 4.4.0(@itwin/core-bentley@4.4.0)(@itwin/core-common@4.4.0)(@itwin/core-geometry@4.4.0)
-      '@itwin/ecschema-rpcinterface-impl':
-        specifier: ^3.7.0 || ^4.0.0
-        version: 4.4.0(@itwin/core-backend@4.4.0)(@itwin/core-bentley@4.4.0)(@itwin/core-common@4.4.0)(@itwin/core-geometry@4.4.0)(@itwin/ecschema-rpcinterface-common@4.4.0)
-      '@itwin/editor-backend':
-        specifier: ^3.7.0 || ^4.0.0
-        version: 4.4.0(@itwin/core-backend@4.4.0)(@itwin/core-bentley@4.4.0)(@itwin/core-common@4.4.0)(@itwin/core-geometry@4.4.0)
-      '@itwin/editor-common':
-        specifier: ^3.7.0 || ^4.0.0
-        version: 4.4.0(@itwin/core-bentley@4.4.0)(@itwin/core-common@4.4.0)(@itwin/core-geometry@4.4.0)
-      '@itwin/editor-frontend':
-        specifier: ^3.7.0 || ^4.0.0
-        version: 4.4.3(@itwin/appui-abstract@4.4.0)(@itwin/core-bentley@4.4.0)(@itwin/core-common@4.4.0)(@itwin/core-frontend@4.4.0)(@itwin/core-geometry@4.4.0)
-      '@itwin/express-server':
-        specifier: ^3.7.0 || ^4.0.0
-        version: 4.4.0(@itwin/core-backend@4.4.0)
-      '@itwin/frontend-devtools':
-        specifier: ^3.7.0 || ^4.0.0
-        version: 4.4.0(@itwin/appui-abstract@4.4.0)(@itwin/core-orbitgt@4.4.0)(@itwin/core-quantity@4.4.0)
-      '@itwin/hypermodeling-frontend':
-        specifier: ^3.7.0 || ^4.0.0
-        version: 4.4.0(@itwin/core-bentley@4.4.0)(@itwin/core-common@4.4.0)(@itwin/core-frontend@4.4.0)(@itwin/core-geometry@4.4.0)
-      '@itwin/imodel-browser-react':
-        specifier: ^1.2.2
-        version: 1.2.2(react-dom@18.3.1)(react@18.3.1)
-      '@itwin/imodel-components-react':
-        specifier: workspace:*
-        version: link:../../../ui/imodel-components-react
-      '@itwin/imodels-access-backend':
-        specifier: ^3.0.0
-        version: 3.1.1(@itwin/core-backend@4.4.0)(@itwin/core-bentley@4.4.0)(@itwin/core-common@4.4.0)
-      '@itwin/imodels-access-frontend':
-        specifier: ^3.0.0
-        version: 3.1.1(@itwin/core-bentley@4.4.0)(@itwin/core-common@4.4.0)(@itwin/core-frontend@4.4.0)
-      '@itwin/imodels-client-authoring':
-        specifier: ^3.0.0
-        version: 3.1.0
-      '@itwin/imodels-client-management':
-        specifier: ^3.0.0
-        version: 3.1.0
-      '@itwin/itwinui-icons-react':
-        specifier: ^2.8.0
-        version: 2.8.0(react-dom@18.3.1)(react@18.3.1)
-      '@itwin/itwinui-layouts-css':
-        specifier: ~0.4.0
-        version: 0.4.0
-      '@itwin/itwinui-layouts-react':
-        specifier: ~0.4.1
-        version: 0.4.1(react-dom@18.3.1)(react@18.3.1)
-      '@itwin/itwinui-react':
-        specifier: ^3.11.2
-        version: 3.11.2(@types/react@18.3.2)(react-dom@18.3.1)(react@18.3.1)
-      '@itwin/itwinui-variables':
-        specifier: ^3.0.0
-        version: 3.1.0
-      '@itwin/presentation-common':
-        specifier: ^3.7.0 || ^4.0.0
-        version: 4.4.0(@itwin/core-bentley@4.4.0)(@itwin/core-common@4.4.0)(@itwin/core-quantity@4.4.0)
-      '@itwin/reality-data-client':
-        specifier: 0.9.0
-        version: 0.9.0(@itwin/core-bentley@4.4.0)
-      '@itwin/webgl-compatibility':
-        specifier: ^3.7.0 || ^4.0.0
-        version: 4.4.0
-      '@tanstack/react-router':
-        specifier: ~1.46.8
-        version: 1.46.8(react-dom@18.3.1)(react@18.3.1)
-      classnames:
-        specifier: 2.3.1
-        version: 2.3.1
-      react:
-        specifier: ^18.3.1
-        version: 18.3.1
-      react-dom:
-        specifier: ^18.3.1
-        version: 18.3.1(react@18.3.1)
-      react-markdown:
-        specifier: ~9.0.1
-        version: 9.0.1(@types/react@18.3.2)(react@18.3.1)
-      react-redux:
-        specifier: ^7.2.2
-        version: 7.2.9(react-dom@18.3.1)(react@18.3.1)
-      redux:
-        specifier: ^4.1.0
-        version: 4.2.1
-      ts-key-enum:
-        specifier: ~2.0.12
-        version: 2.0.12
-    devDependencies:
-      '@itwin/build-tools':
-        specifier: ^3.7.0 || ^4.6.0-dev.27
-        version: 4.6.0-dev.27(@types/node@18.11.5)
-      '@itwin/eslint-plugin':
-        specifier: ^4.0.0-dev.52
-        version: 4.0.0-dev.52(eslint@8.56.0)(typescript@5.3.3)
-      '@tanstack/router-devtools':
-        specifier: ~1.46.8
-        version: 1.46.8(@tanstack/react-router@1.46.8)(react-dom@18.3.1)(react@18.3.1)
-      '@tanstack/router-plugin':
-        specifier: ~1.46.6
-        version: 1.46.6(vite@5.2.6)
-      '@types/node':
-        specifier: 18.11.5
-        version: 18.11.5
-      '@types/react':
-        specifier: ^18.3.2
-        version: 18.3.2
-      '@types/react-dom':
-        specifier: ^18.3.0
-        version: 18.3.0
-      '@types/react-redux':
-        specifier: ^7.1.18
-        version: 7.1.33
-      '@typescript-eslint/parser':
-        specifier: ^6.1.0
-        version: 6.19.1(eslint@8.56.0)(typescript@5.3.3)
-      '@vitejs/plugin-react-swc':
-        specifier: ^3.5.0
-        version: 3.6.0(vite@5.2.6)
-      copyfiles:
-        specifier: ^2.4.1
-        version: 2.4.1
-      cross-env:
-        specifier: ^5.1.4
-        version: 5.2.1
-      dotenv:
-        specifier: ^10.0.0
-        version: 10.0.0
-      dotenv-expand:
-        specifier: ^5.1.0
-        version: 5.1.0
-      electron:
-        specifier: ^22.0.0
-        version: 22.3.27
-      eslint:
-        specifier: ^8.44.0
-        version: 8.56.0
-      eslint-config-prettier:
-        specifier: ~8.8.0
-        version: 8.8.0(eslint@8.56.0)
-      npm-run-all:
-        specifier: ^4.1.5
-        version: 4.1.5
-      null-loader:
-        specifier: ^4.0.1
-        version: 4.0.1
-      rimraf:
-        specifier: ^3.0.2
-        version: 3.0.2
-      sass:
-        specifier: ^1.77.7
-        version: 1.77.8
-      typescript:
-        specifier: ~5.3.3
-        version: 5.3.3
-      vite:
-        specifier: ^5.2.0
-        version: 5.2.6(@types/node@18.11.5)(sass@1.77.8)
-      vite-plugin-static-copy:
-        specifier: ^1.0.1
-        version: 1.0.1(vite@5.2.6)
 
   ../../tools/codemod:
     dependencies:
@@ -1496,7 +1300,7 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       '@babel/highlight': 7.24.7
-      picocolors: 1.0.0
+      picocolors: 1.0.1
     dev: true
 
   /@babel/compat-data@7.23.5:
@@ -1867,7 +1671,7 @@ packages:
       '@babel/helper-validator-identifier': 7.24.7
       chalk: 2.4.2
       js-tokens: 4.0.0
-      picocolors: 1.0.0
+      picocolors: 1.0.1
     dev: true
 
   /@babel/parser@7.23.6:
@@ -3890,7 +3694,7 @@ packages:
       json5: 2.2.3
       multiparty: 4.2.3
       reflect-metadata: 0.1.14
-      semver: 7.5.4
+      semver: 7.6.0
       touch: 3.1.0
       ws: 7.5.10
     transitivePeerDependencies:
@@ -4112,22 +3916,6 @@ packages:
       '@itwin/editor-common': 4.4.3(@itwin/core-bentley@4.4.0)(@itwin/core-common@4.4.0)(@itwin/core-geometry@4.4.0)
     dev: false
 
-  /@itwin/electron-authorization@0.11.0(@itwin/core-bentley@4.4.0)(electron@22.3.27):
-    resolution: {integrity: sha512-DmYM0AkEqmcPnEus8A4apBkm1+BMy1jc16cmzxS/Z3MjzvS4DmploRjC0NuyjqEgtI5acsKDXn2yBk80LixA0w==}
-    peerDependencies:
-      '@itwin/core-bentley': ^3.3.0
-      electron: ^23.0.0
-    dependencies:
-      '@itwin/core-bentley': 4.4.0
-      '@openid/appauth': 1.3.1
-      electron: 22.3.27
-      keytar: 7.9.0
-      open: 8.4.2
-      username: 5.1.0
-    transitivePeerDependencies:
-      - debug
-    dev: false
-
   /@itwin/eslint-plugin@4.0.0-dev.52(eslint@8.56.0)(typescript@5.3.3):
     resolution: {integrity: sha512-y1X/+dRCxBJTZgJjQbKap/l7cAXx5MaRt1FWAsEzzJ48hEvUDBjLQfdtFXbjXRZWPyc1WQ2OyLnD4NnppsABOg==}
     engines: {node: ^18.18.0 || >=20.0.0}
@@ -4266,14 +4054,6 @@ packages:
     transitivePeerDependencies:
       - debug
     dev: false
-
-  /@itwin/itwins-client@1.2.1:
-    resolution: {integrity: sha512-vPlvNjd9Bq/Jhpa+uZC0VLOEXhcg4k4schjMegj2FG9Wr+82gucYIQC60vi5FBNWMShCm3ZKz+KryqpAuJ/Zfg==}
-    dependencies:
-      axios: 1.6.5
-    transitivePeerDependencies:
-      - debug
-    dev: true
 
   /@itwin/itwinui-icons-react@2.8.0(react-dom@18.3.1)(react@18.3.1):
     resolution: {integrity: sha512-FMXUrDFC7U827/QJNE603+FL6OvIngFss5B9YTSCXcrWuwVLAzJ+sFb+RQ/I1sc19qujYBkZ9asNqlHXM2O4Cg==}
@@ -4425,6 +4205,9 @@ packages:
 
   /@itwin/reality-data-client@0.9.0(@itwin/core-bentley@4.4.0):
     resolution: {integrity: sha512-vypWdeeKwHd/Yj8ffychypVDQ+LZfwaeAzT7tQhAk/F50Hn6Z/0aWibBMusUycVc1O9CC1lT3d4yYBPjVsFstQ==}
+    deprecated: |-
+      Reality Data API is deprecated. Update to version 1.1.0 or greater to use Reality Management API. More information here:
+      https://developer.bentley.com/apis/reality-data/
     peerDependencies:
       '@itwin/core-bentley': ^3.0.0
     dependencies:
@@ -6876,7 +6659,7 @@ packages:
   /@types/hast@3.0.4:
     resolution: {integrity: sha512-WPs+bbQw5aCj+x6laNGWLH3wviHtoCv/P3+otBhbOhJgG8qtpdAMlTCxLtsTWA7LH1Oh/bFCHsBn0TPS5m30EQ==}
     dependencies:
-      '@types/unist': 2.0.10
+      '@types/unist': 3.0.2
     dev: false
 
   /@types/hoist-non-react-statics@3.3.5:
@@ -6952,7 +6735,7 @@ packages:
   /@types/mdast@4.0.4:
     resolution: {integrity: sha512-kGaNbPh1k7AFzgpud/gMdvIm5xuECykRR+JnWKQno9TAXVa6WIVCGTPvYGekIDL4uwCZQSYbUxNBSb1aUo79oA==}
     dependencies:
-      '@types/unist': 2.0.10
+      '@types/unist': 3.0.2
     dev: false
 
   /@types/mdx@2.0.10:
@@ -8086,10 +7869,10 @@ packages:
     resolution: {integrity: sha512-ESAc/RJvGTFEzRwOTT4+lNDk/GNHMkKbNzsvT0qKRfDyyYTskxB5rnU2njIDYVxXCBHHEI1c0YwHob3WaYujOg==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     dependencies:
-      '@babel/template': 7.22.15
-      '@babel/types': 7.23.6
+      '@babel/template': 7.25.0
+      '@babel/types': 7.25.2
       '@types/babel__core': 7.20.5
-      '@types/babel__traverse': 7.20.5
+      '@types/babel__traverse': 7.20.6
     dev: true
 
   /babel-plugin-polyfill-corejs2@0.4.8(@babel/core@7.23.7):
@@ -8196,6 +7979,7 @@ packages:
       buffer: 5.7.1
       inherits: 2.0.4
       readable-stream: 3.6.2
+    dev: true
 
   /body-parser@1.20.1:
     resolution: {integrity: sha512-jWi7abTbYwajOytWCQc37VulmWiRae5RyTpaCyDcS5/lMdtwSz5lOpDE67srw/HYe35f1z3fDQw+3txg7gNtWw==}
@@ -8302,6 +8086,7 @@ packages:
     dependencies:
       base64-js: 1.5.1
       ieee754: 1.2.1
+    dev: true
 
   /builtin-modules@3.3.0:
     resolution: {integrity: sha512-zhaCDicdLuWN5UbN5IMnFqNMhNfo919sH85y2/ea+5Yg9TsTkeZxpL+JLbp6cgYFS4sRLp3YV4S6yDuqVWHYOw==}
@@ -8470,6 +8255,7 @@ packages:
 
   /chownr@1.1.4:
     resolution: {integrity: sha512-jJ0bqzaylmJtVnNgzTeSOs8DPavpbYgEr/b0YL8/2GO3xJEhInFmhKMUnEJQjZumK7KXGFhUy89PrsJWlakBVg==}
+    dev: true
 
   /chownr@2.0.0:
     resolution: {integrity: sha512-bIomtDF5KGpdogkLd9VspvFzk9KfpyyGlS8YFVZl7TGPBHL5snIOnxeshwVgPteQ9b4Eydl+pVbIyE1DcvCWgQ==}
@@ -8910,11 +8696,6 @@ packages:
       which-typed-array: 1.1.13
     dev: true
 
-  /deep-extend@0.6.0:
-    resolution: {integrity: sha512-LOHxIOaPYdHlJRtCQfDIVZtfw/ufM8+rVj649RIHzcm/vGwQRXFt6OPqIFWsm2XEMrNIEtWR64sY1LEKD2vAOA==}
-    engines: {node: '>=4.0.0'}
-    dev: false
-
   /deep-is@0.1.4:
     resolution: {integrity: sha512-oIPzksmTg4/MriiaYGO+okXDT7ztn/w3Eptv/+gSIdMdKsJo0u4CfYNFJPy+4SKMuCqGw2wxnA+URMg3t8a/bQ==}
     dev: true
@@ -8953,6 +8734,7 @@ packages:
   /define-lazy-prop@2.0.0:
     resolution: {integrity: sha512-Ds09qNh8yw3khSjiJjiUInaGX9xlqZDY7JVryGxdxV7NPeuqQfplOpQ66yJFZut3jLa5zOwkXw1g9EI2uKh4Og==}
     engines: {node: '>=8'}
+    dev: true
 
   /define-properties@1.2.1:
     resolution: {integrity: sha512-8QmQKqEASLd5nx0U1B1okLElbUuuttJ/AnYmRXbbbGDWh6uS208EjD4Xqq/I9wK7u0v6O08XhTWnt5XtEbR6Dg==}
@@ -9005,11 +8787,6 @@ packages:
     resolution: {integrity: sha512-reYkTUJAZb9gUuZ2RvVCNhVHdg62RHnJ7WJl8ftMi4diZ6NWlciOzQN88pUhSELEwflJht4oQDv0F0BMlwaYtA==}
     engines: {node: '>=8'}
     dev: true
-
-  /detect-libc@2.0.2:
-    resolution: {integrity: sha512-UX6sGumvvqSaXgdKGUsgZWqcUyIXZ/vZTrlRT/iobiKhGL0zL4d3osHj3uqllWJK+i+sixDS/3COVEOFbupFyw==}
-    engines: {node: '>=8'}
-    dev: false
 
   /detect-newline@3.1.0:
     resolution: {integrity: sha512-TLz+x/vEXm/Y7P7wn1EJFNLxYpUD4TgMosxY6fAVJUnJMbupHBOncxyWUG9OpTaH9EBD7uFI5LfEgmMOc54DsA==}
@@ -10053,11 +9830,6 @@ packages:
     engines: {node: '>= 0.8.0'}
     dev: true
 
-  /expand-template@2.0.3:
-    resolution: {integrity: sha512-XYfuKMvj4O35f/pOXLObndIRvyQ+/+6AhODh+OKWj9S9498pHHn/IMszH+gt0fBCRWMNfk1ZSp5x3AifmnI2vg==}
-    engines: {node: '>=6'}
-    dev: false
-
   /expect@29.7.0:
     resolution: {integrity: sha512-2Zks0hf1VLFYI1kbh0I5jP3KHHyCHpkfyHBzsSXRFgl/Bg9mWYfMW8oD+PdMPlEwy5HNsR9JutYy6pMeOh61nw==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
@@ -10351,6 +10123,7 @@ packages:
 
   /fs-constants@1.0.0:
     resolution: {integrity: sha512-y6OAwoSIf7FyjMIv94u+b5rdheZEjzR63GTyZJm5qh4Bi+2YgwLCcI/fPFZkL5PSixOt6ZNKm+w+Hfp/Bciwow==}
+    dev: true
 
   /fs-extra@10.1.0:
     resolution: {integrity: sha512-oRXApq54ETRj4eMiFzGnHWGy+zo5raudjuxN0b8H7s/RU2oW0Wvsx9O0ACRN/kRq9E8Vu/ReskGB5o3ji+FzHQ==}
@@ -10547,10 +10320,6 @@ packages:
       git-up: 7.0.0
     dev: true
 
-  /github-from-package@0.0.0:
-    resolution: {integrity: sha512-SyHy3T1v2NUXn29OsWdxmK6RwHD+vkj3v8en8AOBZ1wBQ/hCAQ5bAQTD02kW4W9tUp/3Qh6J8r9EvntiyCmOOw==}
-    dev: false
-
   /github-slugger@1.5.0:
     resolution: {integrity: sha512-wIh+gKBI9Nshz2o46B0B3f5k/W+WI9ZAv6y5Dn5WJ5SK1t0TnDimB4WE5rmTD05ZAIn8HALCZVmCsvj0w0v0lw==}
     dev: true
@@ -10615,6 +10384,7 @@ packages:
 
   /glob@7.2.0:
     resolution: {integrity: sha512-lmLf6gtyrPq8tTjSmrO94wBeQbFR3HbLHbuyD69wuyQkImp2hWqMGB47OX65FBkPffO641IP9jWa1z4ivqG26Q==}
+    deprecated: Glob versions prior to v9 are no longer supported
     dependencies:
       fs.realpath: 1.0.0
       inflight: 1.0.6
@@ -10643,7 +10413,7 @@ packages:
       es6-error: 4.1.1
       matcher: 3.0.0
       roarr: 2.15.4
-      semver: 7.5.4
+      semver: 7.6.0
       serialize-error: 7.0.1
     optional: true
 
@@ -10943,6 +10713,7 @@ packages:
 
   /ieee754@1.2.1:
     resolution: {integrity: sha512-dcyqhDvX1C46lXZcVqCpK+FtMRQVdIMN6/Df5js2zouUsqG7I6sFxitIC+7KYK29KdXOLHdu9zL4sFnoVQnqaA==}
+    dev: true
 
   /ignore-styles@5.0.1:
     resolution: {integrity: sha512-gQQmIznCETPLEzfg1UH4Cs2oRq+HBPl8quroEUNXT8oybEG7/0lqI3dGgDSRry6B9HcCXw3PVkFFS0FF3CMddg==}
@@ -11004,10 +10775,6 @@ packages:
 
   /inherits@2.0.4:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
-
-  /ini@1.3.8:
-    resolution: {integrity: sha512-JV/yugV2uzW5iMRSiZAyDtQd+nxtUnjeLt0acNdw98kKLrvuRVyB80tsREOE7yvGVgalhZ6RNXCmEHkUKBKxew==}
-    dev: false
 
   /inline-style-parser@0.2.3:
     resolution: {integrity: sha512-qlD8YNDqyTKTyuITrDOffsl6Tdhv+UC4hcdAVuQsK4IMQ99nSgd1MIA/Q+jQYoh9r3hVUXhYh7urSRmXPkW04g==}
@@ -11389,8 +11156,8 @@ packages:
     resolution: {integrity: sha512-EAMEJBsYuyyztxMxW3g7ugGPkrZsV57v0Hmv3mm1uQsmB+QnZuepg731CRaIgeUVSdmsTngOkSnauNF8p7FIhA==}
     engines: {node: '>=10'}
     dependencies:
-      '@babel/core': 7.23.7
-      '@babel/parser': 7.23.6
+      '@babel/core': 7.25.2
+      '@babel/parser': 7.25.3
       '@istanbuljs/schema': 0.1.3
       istanbul-lib-coverage: 3.2.2
       semver: 7.5.4
@@ -12121,14 +11888,6 @@ packages:
     resolution: {integrity: sha512-UfpWE/VZn0iP50d8cz9NrZLM9lSWhcJ+0Gt/nm4by88UL+J1SiKN8/5dkjMmbEzwL2CAe+67GsegCbIKtbp75A==}
     dev: false
 
-  /keytar@7.9.0:
-    resolution: {integrity: sha512-VPD8mtVtm5JNtA2AErl6Chp06JBfy7diFQ7TQQhdpWOl6MrCRB+eRbvAZUsbGQS9kiMq0coJsy0W0vHpDCkWsQ==}
-    requiresBuild: true
-    dependencies:
-      node-addon-api: 4.3.0
-      prebuild-install: 7.1.1
-    dev: false
-
   /keyv@4.5.4:
     resolution: {integrity: sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==}
     dependencies:
@@ -12851,6 +12610,7 @@ packages:
 
   /mkdirp-classic@0.5.3:
     resolution: {integrity: sha512-gKLcREMhtuZRwRAfqP3RFW+TK4JqApVBtOIftVgjuABpAtpxhPGaDcfvbhNvD0B8iD1oUr/txX35NjcaY6Ns/A==}
+    dev: true
 
   /mkdirp@0.5.6:
     resolution: {integrity: sha512-FP+p8RB8OWpF3YZBCrP5gtADmtXApB5AMLn+vdyA+PyxCjrCs00mjyUozssO33cwDeT3wNGdLxJ5M//YqtHAJw==}
@@ -12952,10 +12712,6 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
-  /napi-build-utils@1.0.2:
-    resolution: {integrity: sha512-ONmRUqK7zj7DWX0D9ADe03wbwOBZxNAfF20PlGfCWQcD3+/MakShIHrMqx9YwPTfxDdF1zLeL+RGZiR9kGMLdg==}
-    dev: false
-
   /natural-compare-lite@1.4.0:
     resolution: {integrity: sha512-Tj+HTDSJJKaZnfiuw+iaF9skdPpTo2GtEly5JHnWV/hfv2Qj/9RKsGISQtLh2ox3l5EAGw487hnBee0sIJ6v2g==}
     dev: true
@@ -12973,17 +12729,6 @@ packages:
 
   /nice-try@1.0.5:
     resolution: {integrity: sha512-1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ==}
-
-  /node-abi@3.54.0:
-    resolution: {integrity: sha512-p7eGEiQil0YUV3ItH4/tBb781L5impVmmx2E9FRKF7d18XXzp4PGT2tdYMFY6wQqgxD0IwNZOiSJ0/K0fSi/OA==}
-    engines: {node: '>=10'}
-    dependencies:
-      semver: 7.5.4
-    dev: false
-
-  /node-addon-api@4.3.0:
-    resolution: {integrity: sha512-73sE9+3UaLYYFmDsFZnqCInzPyh3MqIwZO9cw58yIqAZhONrrabrYyYe3TuIqtIiOuTXVhsGau8hcrhhwSsDIQ==}
-    dev: false
 
   /node-dir@0.1.17:
     resolution: {integrity: sha512-tmPX422rYgofd4epzrNoOXiE8XFZYOcCq1vD7MAXCDO+O+zndlA2ztdKKMa+EeuBG5tHETpr4ml4RGgpqDCCAg==}
@@ -13256,6 +13001,7 @@ packages:
       define-lazy-prop: 2.0.0
       is-docker: 2.2.1
       is-wsl: 2.2.0
+    dev: true
 
   /opener@1.5.2:
     resolution: {integrity: sha512-ur5UIdyw5Y7yEj9wLzhqXiy6GZ3Mwx0yGI+5sMn2r0N0v3cKJvUmFH5yPP+WXh9e0xfyzyJX95D8l088DNFj7A==}
@@ -13624,25 +13370,6 @@ packages:
     hasBin: true
     dev: true
 
-  /prebuild-install@7.1.1:
-    resolution: {integrity: sha512-jAXscXWMcCK8GgCoHOfIr0ODh5ai8mj63L2nWrjuAgXE6tDyYGnx4/8o/rCgU+B4JSyZBKbeZqzhtwtC3ovxjw==}
-    engines: {node: '>=10'}
-    hasBin: true
-    dependencies:
-      detect-libc: 2.0.2
-      expand-template: 2.0.3
-      github-from-package: 0.0.0
-      minimist: 1.2.8
-      mkdirp-classic: 0.5.3
-      napi-build-utils: 1.0.2
-      node-abi: 3.54.0
-      pump: 3.0.0
-      rc: 1.2.8
-      simple-get: 4.0.1
-      tar-fs: 2.1.1
-      tunnel-agent: 0.6.0
-    dev: false
-
   /prelude-ls@1.2.1:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
@@ -13835,16 +13562,6 @@ packages:
       http-errors: 2.0.0
       iconv-lite: 0.4.24
       unpipe: 1.0.0
-
-  /rc@1.2.8:
-    resolution: {integrity: sha512-y3bGgqKj3QBdxLbLkomlohkvsA8gdAiUQlSBJnBhfn+BPxg4bc62d8TcBW15wavDfgexCgccckhcZvywyQYPOw==}
-    hasBin: true
-    dependencies:
-      deep-extend: 0.6.0
-      ini: 1.3.8
-      minimist: 1.2.8
-      strip-json-comments: 2.0.1
-    dev: false
 
   /react-autosuggest@10.1.0(react@18.3.1):
     resolution: {integrity: sha512-/azBHmc6z/31s/lBf6irxPf/7eejQdR0IqnZUzjdSibtlS8+Rw/R79pgDAo6Ft5QqCUTyEQ+f0FhL+1olDQ8OA==}
@@ -14151,6 +13868,7 @@ packages:
       inherits: 2.0.4
       string_decoder: 1.3.0
       util-deprecate: 1.0.2
+    dev: true
 
   /readdirp@3.6.0:
     resolution: {integrity: sha512-hOS089on8RduqdbhvQ5Z37A0ESjsqz6qnRcffsMU3495FuTdqSm+7bhJ29JvIOsBDEEnan5DPu9t3To9VRlMzA==}
@@ -14408,12 +14126,14 @@ packages:
 
   /rimraf@2.6.3:
     resolution: {integrity: sha512-mwqeW5XsA2qAejG46gYdENaxXjx9onRNCfn7L0duuP4hCuTIi/QO7PDK07KJfp1d+izWPrzEJDcSqBa0OZQriA==}
+    deprecated: Rimraf versions prior to v4 are no longer supported
     hasBin: true
     dependencies:
       glob: 7.2.3
 
   /rimraf@2.7.1:
     resolution: {integrity: sha512-uWjbaKIK3T1OSVptzX7Nl6PvQ3qAGtKEtVRjRuazjfL3Bx5eI409VZSqgND+4UNnmzLVdPj9FqFJNPqBZFve4w==}
+    deprecated: Rimraf versions prior to v4 are no longer supported
     hasBin: true
     dependencies:
       glob: 7.2.3
@@ -14520,7 +14240,7 @@ packages:
     engines: {node: '>=14.0.0'}
     hasBin: true
     dependencies:
-      chokidar: 3.5.3
+      chokidar: 3.6.0
       immutable: 4.3.5
       source-map-js: 1.2.0
     dev: true
@@ -14573,6 +14293,7 @@ packages:
     hasBin: true
     dependencies:
       lru-cache: 6.0.0
+    dev: true
 
   /semver@7.6.0:
     resolution: {integrity: sha512-EnwXhrlwXMk9gKu5/flx5sv/an57AkRplG3hTK68W7FRDN+k+OWBj65M7719OkA82XLBxrcX0KSHj+X5COhOVg==}
@@ -14580,7 +14301,6 @@ packages:
     hasBin: true
     dependencies:
       lru-cache: 6.0.0
-    dev: true
 
   /send@0.18.0:
     resolution: {integrity: sha512-qqWzuOjSFOuqPjFe4NOsMLafToQQwBSOEpS+FwEt3A2V3vKubTquT3vmLTQpFgMXp8AlFWFuP1qKaJZOtPpVXg==}
@@ -14705,18 +14425,6 @@ packages:
   /signal-exit@4.1.0:
     resolution: {integrity: sha512-bzyZ1e88w9O1iNJbKnOlvYTrWPDl46O1bG0D3XInv+9tkPrxrN8jUUTiFlDkkmKWgn1M6CfIA13SuGqOa9Korw==}
     engines: {node: '>=14'}
-
-  /simple-concat@1.0.1:
-    resolution: {integrity: sha512-cSFtAPtRhljv69IK0hTVZQ+OfE9nePi/rtJmw5UjHeVyVroEqJXP1sFztKUy1qU+xvz3u/sfYJLa947b7nAN2Q==}
-    dev: false
-
-  /simple-get@4.0.1:
-    resolution: {integrity: sha512-brv7p5WgH0jmQJr1ZDDfKDOSeWWg+OVypG99A/5vYGPqJ6pxiaHLy8nxtFjBA7oMa01ebA9gfh1uMCFqOuXxvA==}
-    dependencies:
-      decompress-response: 6.0.0
-      once: 1.4.0
-      simple-concat: 1.0.1
-    dev: false
 
   /sisteransi@1.0.5:
     resolution: {integrity: sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg==}
@@ -14942,6 +14650,7 @@ packages:
     resolution: {integrity: sha512-hkRX8U1WjJFd8LsDJ2yQ/wWWxaopEsABU1XfkM8A+j0+85JAGppt16cr1Whg6KIbb4okU6Mql6BOj+uup/wKeA==}
     dependencies:
       safe-buffer: 5.2.1
+    dev: true
 
   /stringify-entities@4.0.4:
     resolution: {integrity: sha512-IwfBptatlO+QCJUo19AqvrPNqlVMpW9YEL2LIVY+Rpv2qsjCGxaDLNRgeGsQWJhfItebuJhsGSLjaBbNSQ+ieg==}
@@ -14993,11 +14702,6 @@ packages:
     dependencies:
       min-indent: 1.0.1
     dev: true
-
-  /strip-json-comments@2.0.1:
-    resolution: {integrity: sha512-4gB8na07fecVVkOI6Rs4e7T6NOTki5EmL7TUduTs6bu3EdnSycntVJ4re8kgZA+wx9IueI2Y11bfbgwtzuE0KQ==}
-    engines: {node: '>=0.10.0'}
-    dev: false
 
   /strip-json-comments@3.1.1:
     resolution: {integrity: sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==}
@@ -15072,6 +14776,7 @@ packages:
       mkdirp-classic: 0.5.3
       pump: 3.0.0
       tar-stream: 2.2.0
+    dev: true
 
   /tar-stream@2.2.0:
     resolution: {integrity: sha512-ujeqbceABgwMZxEJnk2HDY2DlnUZ+9oEcb1KzTVfYHio0UE6dG71n60d8D2I4qNvleWrrXpmjpt7vZeF1LnMZQ==}
@@ -15082,6 +14787,7 @@ packages:
       fs-constants: 1.0.0
       inherits: 2.0.4
       readable-stream: 3.6.2
+    dev: true
 
   /tar@6.2.0:
     resolution: {integrity: sha512-/Wo7DcT0u5HUV486xg675HtjNd3BXZ6xDbzsCUZPt5iw8bTQ63bP0Raut3mvro9u+CUyq7YQd8Cx55fsZXxqLQ==}
@@ -15351,12 +15057,6 @@ packages:
     optionalDependencies:
       fsevents: 2.3.3
     dev: true
-
-  /tunnel-agent@0.6.0:
-    resolution: {integrity: sha512-McnNiV1l8RYeY8tBgEpuodCC1mLUdbSN+CYBL7kJsJNInOP8UjDDEwdk6Mw60vdLLrr5NHKZhMAOSrR2NZuQ+w==}
-    dependencies:
-      safe-buffer: 5.2.1
-    dev: false
 
   /tunnel@0.0.6:
     resolution: {integrity: sha512-1h/Lnq9yajKY2PEbBadPXj3VxsDDu844OnaAo52UVmIzIvwwtBPIuNvkjuzBlTWpfJyUbG3ez0KSBibQkj4ojg==}
@@ -15661,7 +15361,7 @@ packages:
     resolution: {integrity: sha512-BfJEpWBu3aE/AyHx8VaNE/WgouoQxgH9baAiH82JjX8cqVyi3uJQstqwD5J+SZxIK326SZIhsSZlALXVBCknTQ==}
     dependencies:
       acorn: 8.11.3
-      chokidar: 3.5.3
+      chokidar: 3.6.0
       webpack-sources: 3.2.3
       webpack-virtual-modules: 0.6.1
     dev: true
@@ -15776,6 +15476,7 @@ packages:
 
   /util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
+    dev: true
 
   /util@0.12.5:
     resolution: {integrity: sha512-kZf/K6hEIrWHI6XqOFUiiMa+79wE/D8Q+NCNAWclkyg3b4d2k7s0QGepNjiABc+aR3N1PAyHL7p6UcLY6LmrnA==}
@@ -16285,7 +15986,7 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       cliui: 7.0.4
-      escalade: 3.1.1
+      escalade: 3.1.2
       get-caller-file: 2.0.5
       require-directory: 2.1.1
       string-width: 4.2.3

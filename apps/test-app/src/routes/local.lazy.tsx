@@ -32,7 +32,7 @@ function Local() {
             thumbnail={<SvgImodelHollow />}
             onClick={() => {
               if (ProcessDetector.isElectronAppFrontend) {
-                const filePath = `${config.snapshotPath}/${fileName}`;
+                const filePath = `${config.bimDir}/${fileName}`;
                 void navigate({
                   to: "/briefcase",
                   search: { filePath },

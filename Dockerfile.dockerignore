@@ -9,7 +9,7 @@
 !e2e-tests/tests
 !e2e-tests/playwright.config.ts
 !e2e-tests/package.json
-!test-apps
+!apps
 !ui
 !tools
 !rush.json
@@ -38,4 +38,4 @@
 **/.env.*
 
 # Include specific files
-!test-apps/appui-test-app/standalone/README.md
+!apps/test-app/README.md

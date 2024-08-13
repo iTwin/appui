@@ -7,7 +7,7 @@ function createConfig() {
   const serverEnvironmentPrefix = toServerEnvironmentPrefix(urlPrefix);
   return {
     cesiumIonKey: import.meta.env.IMJS_CESIUM_ION_KEY as string,
-    snapshotPath: import.meta.env.IMJS_UITESTAPP_SNAPSHOT_FILEPATH as string,
+    bimDir: import.meta.env.IMJS_BIM_DIR as string,
     urlPrefix,
     serverEnvironmentPrefix,
     bingMapsKey: import.meta.env.IMJS_BING_MAPS_KEY as string,

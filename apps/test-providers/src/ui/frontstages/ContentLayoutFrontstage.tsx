@@ -85,12 +85,7 @@ export function createContentLayoutFrontstage() {
   return FrontstageUtilities.createStandardFrontstage({
     id: createContentLayoutFrontstage.stageId,
     contentGroupProps: contentGroupProvider,
-    cornerButton: (
-      <BackstageAppButton
-        key="appui-test-providers-ContentLayoutExample-backstage"
-        icon="icon-bentley-systems"
-      />
-    ),
+    cornerButton: <BackstageAppButton icon="icon-bentley-systems" />,
     usage: StageUsage.General,
   });
 }

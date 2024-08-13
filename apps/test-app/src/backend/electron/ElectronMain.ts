@@ -68,6 +68,6 @@ export async function initializeElectron(opts?: IModelHostOptions) {
     ElectronHost.mainWindow.show();
   }
 
-  if (undefined === process.env.IMJS_NO_DEV_TOOLS)
+  if (undefined === process.env.IMJS_ELECTRON_NO_DEV_TOOLS)
     ElectronHost.mainWindow.webContents.toggleDevTools();
 }

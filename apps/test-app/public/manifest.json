@@ -1,6 +1,6 @@
 {
   "short_name": "SampleApp",
-  "name": "AppUI Standalone Test App",
+  "name": "AppUI Test App",
   "icons": [
     {
       "src": "favicon.ico",
