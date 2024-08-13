@@ -100,8 +100,8 @@ $border-color: #e7e9ec;
   }
 
   .idp-scrolling-content {
-    @include uicore-scrollbar();
     overflow: auto;
     flex-basis: 100%;
+    @include uicore-scrollbar();
   }
 }

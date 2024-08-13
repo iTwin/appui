@@ -300,8 +300,8 @@ importers:
         specifier: workspace:*
         version: link:../appui-test-providers
       '@itwin/browser-authorization':
-        specifier: ^1.1.0
-        version: 1.1.0(@itwin/core-bentley@4.4.0)(@itwin/core-geometry@4.4.0)
+        specifier: ^1.1.2
+        version: 1.1.2(@itwin/core-bentley@4.4.0)(@itwin/core-geometry@4.4.0)
       '@itwin/components-react':
         specifier: workspace:*
         version: link:../../../ui/components-react
@@ -495,6 +495,9 @@ importers:
       '@itwin/appui-test-providers':
         specifier: workspace:*
         version: link:../appui-test-providers
+      '@itwin/browser-authorization':
+        specifier: ^1.1.2
+        version: 1.1.2(@itwin/core-bentley@4.4.0)(@itwin/core-geometry@4.4.0)
       '@itwin/components-react':
         specifier: workspace:*
         version: link:../../../ui/components-react
@@ -552,9 +555,24 @@ importers:
       '@itwin/hypermodeling-frontend':
         specifier: ^3.7.0 || ^4.0.0
         version: 4.4.0(@itwin/core-bentley@4.4.0)(@itwin/core-common@4.4.0)(@itwin/core-frontend@4.4.0)(@itwin/core-geometry@4.4.0)
+      '@itwin/imodel-browser-react':
+        specifier: ^1.2.2
+        version: 1.2.2(react-dom@18.3.1)(react@18.3.1)
       '@itwin/imodel-components-react':
         specifier: workspace:*
         version: link:../../../ui/imodel-components-react
+      '@itwin/imodels-access-backend':
+        specifier: ^3.0.0
+        version: 3.1.1(@itwin/core-backend@4.4.0)(@itwin/core-bentley@4.4.0)(@itwin/core-common@4.4.0)
+      '@itwin/imodels-access-frontend':
+        specifier: ^3.0.0
+        version: 3.1.1(@itwin/core-bentley@4.4.0)(@itwin/core-common@4.4.0)(@itwin/core-frontend@4.4.0)
+      '@itwin/imodels-client-authoring':
+        specifier: ^3.0.0
+        version: 3.1.0
+      '@itwin/imodels-client-management':
+        specifier: ^3.0.0
+        version: 3.1.0
       '@itwin/itwinui-icons-react':
         specifier: ^2.8.0
         version: 2.8.0(react-dom@18.3.1)(react@18.3.1)
@@ -3792,8 +3810,8 @@ packages:
     dependencies:
       '@itwin/core-bentley': 4.4.0
 
-  /@itwin/browser-authorization@1.1.0(@itwin/core-bentley@4.4.0)(@itwin/core-geometry@4.4.0):
-    resolution: {integrity: sha512-6OcNS8BAFYLjqD8GIwf9/V/0NGognS3EIEI4ki4ktq7ufgVzWMnLE9xK7EO5KusMI+iaH60MS2XZ9/jVecatFQ==}
+  /@itwin/browser-authorization@1.1.2(@itwin/core-bentley@4.4.0)(@itwin/core-geometry@4.4.0):
+    resolution: {integrity: sha512-OP27aV5nCYX3t+ux7E2Kzs/YDeMBMLWJFsa/m/u0gStaa+ywccIPCy6yVXMT9S2iB9kaRPrkdtLE2SkrjHndBg==}
     peerDependencies:
       '@itwin/core-bentley': ^3.3.0 || ^4.0.0
     dependencies:

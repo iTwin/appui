@@ -13,11 +13,7 @@ import {
   SYSTEM_PREFERRED_COLOR_THEME,
   UiFramework,
 } from "@itwin/appui-react";
-import {
-  BeEvent,
-  ProcessDetector,
-  UnexpectedErrors,
-} from "@itwin/core-bentley";
+import { ProcessDetector, UnexpectedErrors } from "@itwin/core-bentley";
 import * as appUiTestProvidersModule from "@itwin/appui-test-providers";
 import {
   AppUiTestProviders,
@@ -29,7 +25,7 @@ import { BentleyCloudRpcManager, RpcConfiguration } from "@itwin/core-common";
 import { IModelApp, IModelAppOptions, ToolAdmin } from "@itwin/core-frontend";
 import { ITwinLocalization } from "@itwin/core-i18n";
 import { getSupportedRpcs } from "../common/rpcs";
-import { appConfig } from "./appConfig";
+import { config } from "./config";
 import { initializeLogger } from "./logger";
 import { AppAccuSnap } from "./appui/AppAccuSnap";
 import { RealityDataAccessClient } from "@itwin/reality-data-client";
@@ -41,10 +37,10 @@ import { AppSettingsTabsProvider } from "./appui/settingsproviders/AppSettingsTa
 import { createKeyboardShortcuts } from "./appui/KeyboardShortcuts";
 import { TestAppLocalization } from "./useTranslation";
 import { ElectronApp } from "@itwin/core-electron/lib/cjs/ElectronFrontend";
+import { FrontendIModelsAccess } from "@itwin/imodels-access-frontend";
+import { IModelsClient } from "@itwin/imodels-client-management";
 
 function createInitializer() {
-  let ready = false;
-  const onReady = new BeEvent();
   let initializing: Promise<void> | undefined;
   async function initializer() {
     initializeLogger();
@@ -63,26 +59,32 @@ function createInitializer() {
 
     const origin = window.location.origin;
 
+    const iModelClient = new IModelsClient({
+      api: {
+        baseUrl: `https://${config.urlPrefix}api.bentley.com/imodels`,
+      },
+    });
     const options: IModelAppOptions = {
+      accuDraw: new FrameworkAccuDraw(),
       accuSnap: new AppAccuSnap(),
+      hubAccess: new FrontendIModelsAccess(iModelClient),
       notifications: new AppNotificationManager(),
       uiAdmin: new FrameworkUiAdmin(),
-      accuDraw: new FrameworkAccuDraw(),
       realityDataAccess: new RealityDataAccessClient({
-        baseUrl: `https://${appConfig.urlPrefix}api.bentley.com/realitydata`,
+        baseUrl: `https://${config.urlPrefix}api.bentley.com/realitydata`,
       }),
       rpcInterfaces: getSupportedRpcs(),
       mapLayerOptions: {
-        BingMaps: appConfig.bingMapsKey
+        BingMaps: config.bingMapsKey
           ? {
               key: "key",
-              value: appConfig.bingMapsKey,
+              value: config.bingMapsKey,
             }
           : undefined,
-        MapboxImagery: appConfig.mapBoxKey
+        MapboxImagery: config.mapBoxKey
           ? {
               key: "access_token",
-              value: appConfig.mapBoxKey,
+              value: config.mapBoxKey,
             }
           : undefined,
       },
@@ -91,11 +93,12 @@ function createInitializer() {
       }),
       publicPath: `${origin}/`,
       tileAdmin: {
-        cesiumIonKey: appConfig.cesiumIonKey,
+        cesiumIonKey: config.cesiumIonKey,
       },
       toolAdmin: new FrameworkToolAdmin(),
     };
     if (ProcessDetector.isElectronAppFrontend) {
+      // TODO: const authClient =new ElectronRendererAuthorization();
       await ElectronApp.startup({
         iModelApp: options,
       });
@@ -165,20 +168,19 @@ function createInitializer() {
     // TODO: should not be required. Start event loop to open key-in palette.
     IModelApp.startEventLoop();
   }
-  return {
-    ready,
-    onReady,
+  const x = {
     initialize: async () => {
       if (initializing) return initializing;
 
       initializing = (async () => {
         await initializer();
-        ready = true;
-        onReady.raiseEvent();
+        x.initialized = true;
       })();
       return initializing;
     },
+    initialized: false,
   };
+  return x;
 }
 
 export const appInitializer = createInitializer();

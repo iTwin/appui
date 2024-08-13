@@ -13,7 +13,7 @@ import { SvgImodelHollow } from "@itwin/itwinui-icons-react";
 import { Button, Tile } from "@itwin/itwinui-react";
 import { ProcessDetector } from "@itwin/core-bentley";
 import { ElectronApp } from "@itwin/core-electron/lib/cjs/ElectronFrontend";
-import { appConfig } from "../frontend/appConfig";
+import { config } from "../frontend/config";
 
 export const Route = createLazyFileRoute("/local")({
   component: Local,
@@ -32,7 +32,7 @@ function Local() {
             thumbnail={<SvgImodelHollow />}
             onClick={() => {
               if (ProcessDetector.isElectronAppFrontend) {
-                const filePath = `${appConfig.snapshotPath}/${fileName}`;
+                const filePath = `${config.snapshotPath}/${fileName}`;
                 void navigate({
                   to: "/briefcase",
                   search: { filePath },

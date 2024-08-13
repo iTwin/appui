@@ -11,6 +11,8 @@ import { initializeWeb } from "./web/BackendServer";
 import { RpcManager } from "@itwin/core-common";
 import { ECSchemaRpcInterface } from "@itwin/ecschema-rpcinterface-common";
 import { ECSchemaRpcImpl } from "@itwin/ecschema-rpcinterface-impl";
+import { BackendIModelsAccess } from "@itwin/imodels-access-backend";
+import { IModelsClient } from "@itwin/imodels-client-authoring";
 
 void (async () => {
   try {
@@ -27,11 +29,20 @@ void (async () => {
     // ECSchemaRpcInterface allows schema retrieval for the UnitProvider implementation.
     RpcManager.registerImpl(ECSchemaRpcInterface, ECSchemaRpcImpl);
 
+    const iModelClient = new IModelsClient({
+      api: {
+        baseUrl: `https://${
+          process.env.IMJS_URL_PREFIX ?? ""
+        }api.bentley.com/imodels`,
+      },
+    });
+    const opts = { hubAccess: new BackendIModelsAccess(iModelClient) };
+
     // invoke platform-specific initialization
     if (ProcessDetector.isElectronAppBackend) {
-      await initializeElectron();
+      await initializeElectron(opts);
     } else {
-      await initializeWeb();
+      await initializeWeb(opts);
     }
   } catch (error: any) {
     Logger.logError(loggerCategory, error);
