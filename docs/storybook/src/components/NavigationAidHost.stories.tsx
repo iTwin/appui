@@ -5,7 +5,6 @@
 import type { Decorator, Meta, StoryObj } from "@storybook/react";
 import {
   ConfigurableCreateInfo,
-  ContentControl,
   ContentProps,
   IModelViewportControl,
   NavigationAidControl,
@@ -91,7 +90,7 @@ export const EmptyControl: Story = {
 class CustomNavigationControl extends NavigationAidControl {
   public static navigationAidId = "CustomNavigationControl";
 
-  constructor(info: ConfigurableCreateInfo, options: any) {
+  constructor(info: ConfigurableCreateInfo, options: unknown) {
     super(info, options);
     this.reactNode = <Button>Custom</Button>;
   }
