@@ -173,7 +173,9 @@ export function NavigationAidHost(props: NavigationAidHostProps) {
     divStyle.opacity = `${navigationAidOpacity}`;
   }
 
-  const navigationAid = navigationAidControl?.reactNode ?? (
+  const navigationAid = activeContentControl ? (
+    navigationAidControl?.reactNode
+  ) : (
     <DefaultNavigationAid />
   );
   return (
@@ -253,8 +255,7 @@ export function NavigationWidgetComposer(props: NavigationWidgetComposerProps) {
 
   const navigationAid = hideNavigationAid
     ? undefined
-    : // eslint-disable-next-line deprecation/deprecation
-      navigationAidHost ?? <NavigationAidHost />;
+    : navigationAidHost ?? <NavigationAidHost />;
 
   return (
     <WidgetOpacityContext.Provider
