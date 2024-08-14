@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Fix `useActiveViewport` to correctly return the active viewport.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
