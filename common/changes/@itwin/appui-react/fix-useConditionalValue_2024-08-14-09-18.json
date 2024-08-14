@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Fix `useConditionalValue` to handle event ids as case insensitive.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
