@@ -416,7 +416,7 @@ importers:
         version: 4.0.0-dev.52(eslint@8.56.0)(typescript@5.3.3)
       '@itwin/itwins-client':
         specifier: ^1.2.0
-        version: 1.2.1
+        version: 1.5.0
       '@types/node':
         specifier: 18.11.5
         version: 18.11.5
@@ -1319,6 +1319,13 @@ packages:
       tslib: 2.6.2
     dev: false
 
+  /@azure/abort-controller@2.1.2:
+    resolution: {integrity: sha512-nBrLsEWm4J2u5LpAPjxADTlq3trDgVZZXHNKabeXZtpq3d3AbN/KGO82R87rdDz5/lYB024rtEf10/q0urNgsA==}
+    engines: {node: '>=18.0.0'}
+    dependencies:
+      tslib: 2.6.2
+    dev: false
+
   /@azure/core-auth@1.5.0:
     resolution: {integrity: sha512-udzoBuYG1VBoHVohDTrvKjyzel34zt77Bhp7dQntVGGD0ehVq48owENbBG8fIgkHRNUBQH5k1r0hpoMu5L8+kw==}
     engines: {node: '>=14.0.0'}
@@ -1326,6 +1333,32 @@ packages:
       '@azure/abort-controller': 1.1.0
       '@azure/core-util': 1.6.1
       tslib: 2.6.2
+    dev: false
+
+  /@azure/core-client@1.9.2:
+    resolution: {integrity: sha512-kRdry/rav3fUKHl/aDLd/pDLcB+4pOFwPPTVEExuMyaI5r+JBbMWqRbCY1pn5BniDaU3lRxO9eaQ1AmSMehl/w==}
+    engines: {node: '>=18.0.0'}
+    dependencies:
+      '@azure/abort-controller': 2.1.2
+      '@azure/core-auth': 1.5.0
+      '@azure/core-rest-pipeline': 1.16.3
+      '@azure/core-tracing': 1.1.2
+      '@azure/core-util': 1.6.1
+      '@azure/logger': 1.0.4
+      tslib: 2.6.2
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
+  /@azure/core-http-compat@2.1.2:
+    resolution: {integrity: sha512-5MnV1yqzZwgNLLjlizsU3QqOeQChkIXw781Fwh1xdAqJR5AA32IUaq6xv1BICJvfbHoa+JYcaij2HFkhLbNTJQ==}
+    engines: {node: '>=18.0.0'}
+    dependencies:
+      '@azure/abort-controller': 2.1.2
+      '@azure/core-client': 1.9.2
+      '@azure/core-rest-pipeline': 1.16.3
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   /@azure/core-http@2.3.2:
@@ -1390,6 +1423,22 @@ packages:
       tslib: 2.6.2
     dev: false
 
+  /@azure/core-rest-pipeline@1.16.3:
+    resolution: {integrity: sha512-VxLk4AHLyqcHsfKe4MZ6IQ+D+ShuByy+RfStKfSjxJoL3WBWq17VNmrz8aT8etKzqc2nAeIyLxScjpzsS4fz8w==}
+    engines: {node: '>=18.0.0'}
+    dependencies:
+      '@azure/abort-controller': 2.1.2
+      '@azure/core-auth': 1.5.0
+      '@azure/core-tracing': 1.1.2
+      '@azure/core-util': 1.9.2
+      '@azure/logger': 1.0.4
+      http-proxy-agent: 7.0.2
+      https-proxy-agent: 7.0.4
+      tslib: 2.6.2
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
   /@azure/core-tracing@1.0.0-preview.13:
     resolution: {integrity: sha512-KxDlhXyMlh2Jhj2ykX6vNEU0Vou4nHr025KoSEiz7cS3BNiHNaZcdECk/DmLkEB0as5T7b/TpRcehJ5yV6NeXQ==}
     engines: {node: '>=12.0.0'}
@@ -1398,11 +1447,34 @@ packages:
       tslib: 2.6.2
     dev: false
 
+  /@azure/core-tracing@1.1.2:
+    resolution: {integrity: sha512-dawW9ifvWAWmUm9/h+/UQ2jrdvjCJ7VJEuCJ6XVNudzcOwm53BFZH4Q845vjfgoUAM8ZxokvVNxNxAITc502YA==}
+    engines: {node: '>=18.0.0'}
+    dependencies:
+      tslib: 2.6.2
+    dev: false
+
   /@azure/core-util@1.6.1:
     resolution: {integrity: sha512-h5taHeySlsV9qxuK64KZxy4iln1BtMYlNt5jbuEFN3UFSAd1EwKg/Gjl5a6tZ/W8t6li3xPnutOx7zbDyXnPmQ==}
     engines: {node: '>=16.0.0'}
     dependencies:
       '@azure/abort-controller': 1.1.0
+      tslib: 2.6.2
+    dev: false
+
+  /@azure/core-util@1.9.2:
+    resolution: {integrity: sha512-l1Qrqhi4x1aekkV+OlcqsJa4AnAkj5p0JV8omgwjaV9OAbP41lvrMvs+CptfetKkeEaGRGSzby7sjPZEX7+kkQ==}
+    engines: {node: '>=18.0.0'}
+    dependencies:
+      '@azure/abort-controller': 2.1.2
+      tslib: 2.6.2
+    dev: false
+
+  /@azure/core-xml@1.4.3:
+    resolution: {integrity: sha512-D6G7FEmDiTctPKuWegX2WTrS1enKZwqYwdKTO6ZN6JMigcCehlT0/CYl+zWpI9vQ9frwwp7GQT3/owaEXgnOsA==}
+    engines: {node: '>=18.0.0'}
+    dependencies:
+      fast-xml-parser: 4.4.1
       tslib: 2.6.2
     dev: false
 
@@ -1427,6 +1499,27 @@ packages:
       tslib: 2.6.2
     transitivePeerDependencies:
       - encoding
+    dev: false
+
+  /@azure/storage-blob@12.24.0:
+    resolution: {integrity: sha512-l8cmWM4C7RoNCBOImoFMxhTXe1Lr+8uQ/IgnhRNMpfoA9bAFWoLG4XrWm6O5rKXortreVQuD+fc1hbzWklOZbw==}
+    engines: {node: '>=18.0.0'}
+    dependencies:
+      '@azure/abort-controller': 1.1.0
+      '@azure/core-auth': 1.5.0
+      '@azure/core-client': 1.9.2
+      '@azure/core-http-compat': 2.1.2
+      '@azure/core-lro': 2.5.4
+      '@azure/core-paging': 1.5.0
+      '@azure/core-rest-pipeline': 1.16.3
+      '@azure/core-tracing': 1.1.2
+      '@azure/core-util': 1.6.1
+      '@azure/core-xml': 1.4.3
+      '@azure/logger': 1.0.4
+      events: 3.3.0
+      tslib: 2.6.2
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   /@azure/storage-blob@12.7.0:
@@ -3634,6 +3727,15 @@ packages:
       inversify: 6.0.2
       reflect-metadata: 0.1.14
 
+  /@itwin/cloud-agnostic-core@2.2.5(inversify@6.0.2)(reflect-metadata@0.1.14):
+    resolution: {integrity: sha512-pLEWIjQ4Z1kos7z6RWu/kG2lTEyojr906WVGAXKouxA/BobWuUlb1HG1/Zw8+SovA284wauKhHJsydRhYeddIQ==}
+    peerDependencies:
+      inversify: ^6.0.1
+      reflect-metadata: ^0.1.13
+    dependencies:
+      inversify: 6.0.2
+      reflect-metadata: 0.1.14
+
   /@itwin/core-backend@4.4.0(@itwin/core-bentley@4.4.0)(@itwin/core-common@4.4.0)(@itwin/core-geometry@4.4.0):
     resolution: {integrity: sha512-Mhytjjr5n5vDsjrz+8wpJz/tk76d4fqEaCGmmxwxvNmKFS1Mjy7aVOhMIdSabOnKUBYPWn+bZvBxWcv/3SJANw==}
     engines: {node: ^18.0.0 || ^20.0.0}
@@ -3652,8 +3754,8 @@ packages:
       '@itwin/core-common': 4.4.0(@itwin/core-bentley@4.4.0)(@itwin/core-geometry@4.4.0)
       '@itwin/core-geometry': 4.4.0
       '@itwin/core-telemetry': 4.4.0(@itwin/core-geometry@4.4.0)
-      '@itwin/object-storage-azure': 2.2.2(inversify@6.0.2)(reflect-metadata@0.1.14)
-      '@itwin/object-storage-core': 2.2.2(inversify@6.0.2)(reflect-metadata@0.1.14)
+      '@itwin/object-storage-azure': 2.2.5(inversify@6.0.2)(reflect-metadata@0.1.14)
+      '@itwin/object-storage-core': 2.2.5(inversify@6.0.2)(reflect-metadata@0.1.14)
       form-data: 2.5.1
       fs-extra: 8.1.0
       inversify: 6.0.2
@@ -3666,7 +3768,7 @@ packages:
     transitivePeerDependencies:
       - bufferutil
       - debug
-      - encoding
+      - supports-color
       - utf-8-validate
     dev: false
 
@@ -3729,7 +3831,7 @@ packages:
       '@itwin/core-orbitgt': 4.4.0
       '@itwin/core-quantity': 4.4.0(@itwin/core-bentley@4.4.0)
       '@itwin/core-telemetry': 4.4.0(@itwin/core-geometry@4.4.0)
-      '@itwin/object-storage-core': 2.2.2(inversify@6.0.2)(reflect-metadata@0.1.14)
+      '@itwin/object-storage-core': 2.2.5(inversify@6.0.2)(reflect-metadata@0.1.14)
       '@itwin/webgl-compatibility': 4.4.0
       '@loaders.gl/core': 3.4.14
       '@loaders.gl/draco': 3.4.14
@@ -4037,10 +4139,10 @@ packages:
       - debug
     dev: false
 
-  /@itwin/itwins-client@1.2.1:
-    resolution: {integrity: sha512-vPlvNjd9Bq/Jhpa+uZC0VLOEXhcg4k4schjMegj2FG9Wr+82gucYIQC60vi5FBNWMShCm3ZKz+KryqpAuJ/Zfg==}
+  /@itwin/itwins-client@1.5.0:
+    resolution: {integrity: sha512-lnbMYqpTMpdnvMcsisKrNCcN1lWjMG4tkISS3NNRLTbzdIpy8pote9Qikkbs7E7/oI0NsRjO6/be8KdG/eyGIA==}
     dependencies:
-      axios: 1.6.5
+      axios: 1.7.4
     transitivePeerDependencies:
       - debug
     dev: true
@@ -4120,22 +4222,21 @@ packages:
       - encoding
     dev: false
 
-  /@itwin/object-storage-azure@2.2.2(inversify@6.0.2)(reflect-metadata@0.1.14):
-    resolution: {integrity: sha512-bRnRmOX4DK5BAvzii4rsVRuzV5LruBq1MP823sbHnOrop7BKNTkTup5qWHOXOmY71fJ/t26JukBwEIx9eMuOsA==}
-    engines: {node: '>=12.20 <19.0.0'}
+  /@itwin/object-storage-azure@2.2.5(inversify@6.0.2)(reflect-metadata@0.1.14):
+    resolution: {integrity: sha512-LvnQupvyK28UhIimnEnZqKoBRSMwl3cw8wJ30mYu0UD5c+xuKAaphFCy79QXF2mENqC68uh0JKrFbaSAphwDHQ==}
     peerDependencies:
       inversify: ^6.0.1
       reflect-metadata: ^0.1.13
     dependencies:
       '@azure/core-paging': 1.5.0
-      '@azure/storage-blob': 12.13.0
-      '@itwin/cloud-agnostic-core': 2.2.2(inversify@6.0.2)(reflect-metadata@0.1.14)
-      '@itwin/object-storage-core': 2.2.2(inversify@6.0.2)(reflect-metadata@0.1.14)
+      '@azure/storage-blob': 12.24.0
+      '@itwin/cloud-agnostic-core': 2.2.5(inversify@6.0.2)(reflect-metadata@0.1.14)
+      '@itwin/object-storage-core': 2.2.5(inversify@6.0.2)(reflect-metadata@0.1.14)
       inversify: 6.0.2
       reflect-metadata: 0.1.14
     transitivePeerDependencies:
       - debug
-      - encoding
+      - supports-color
     dev: false
 
   /@itwin/object-storage-core@1.6.0:
@@ -4150,15 +4251,14 @@ packages:
       - debug
     dev: false
 
-  /@itwin/object-storage-core@2.2.2(inversify@6.0.2)(reflect-metadata@0.1.14):
-    resolution: {integrity: sha512-yaMAWmDvBRWtH/CFkG02y5B+JaA7W8j0Vquk1dAkoxTxCTTQ54w77wJjpGGLGmNs9qO09K3FsXQnrYMRx/ZzzQ==}
-    engines: {node: '>=12.20 <19.0.0'}
+  /@itwin/object-storage-core@2.2.5(inversify@6.0.2)(reflect-metadata@0.1.14):
+    resolution: {integrity: sha512-IaGryht2Sg2piCVyrnzfTnxSClhi2k8Xv+OxFD2ARvd+J2o3XFgo5EJBezNe1gVz60+9tuqlczIU6blxfbX05g==}
     peerDependencies:
       inversify: ^6.0.1
       reflect-metadata: ^0.1.13
     dependencies:
-      '@itwin/cloud-agnostic-core': 2.2.2(inversify@6.0.2)(reflect-metadata@0.1.14)
-      axios: 1.6.5
+      '@itwin/cloud-agnostic-core': 2.2.5(inversify@6.0.2)(reflect-metadata@0.1.14)
+      axios: 1.7.4
       inversify: 6.0.2
       reflect-metadata: 0.1.14
     transitivePeerDependencies:
@@ -7327,7 +7427,6 @@ packages:
       debug: 4.3.4(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
-    dev: true
 
   /aggregate-error@3.1.0:
     resolution: {integrity: sha512-4I7Td01quW/RpocfNayFdFVk1qSuoh0E7JrbRJ16nH01HhKFQ88INq9Sd+nd72zqRySlr9BmDA8xlEJ6vJMrYA==}
@@ -7623,10 +7722,10 @@ packages:
       - debug
     dev: false
 
-  /axios@1.6.5:
-    resolution: {integrity: sha512-Ii012v05KEVuUoFWmMW/UQv9aRIc3ZwkWDcM+h5Il8izZCtRVpDUfwpoFf7eOtajT3QiGR4yDUx7lPqHJULgbg==}
+  /axios@1.7.4:
+    resolution: {integrity: sha512-DukmaFRnY6AzAALSH4J2M3k6PkaC+MfaAGdEERRWcC9q3/TWQwLpHR8ZRLKTdQ3aBDL64EdluRDjJqKw+BPZEw==}
     dependencies:
-      follow-redirects: 1.15.5
+      follow-redirects: 1.15.6
       form-data: 4.0.0
       proxy-from-env: 1.1.0
     transitivePeerDependencies:
@@ -9679,6 +9778,13 @@ packages:
     resolution: {integrity: sha512-DCXu6Ifhqcks7TZKY3Hxp3y6qphY5SJZmrWMDrKcERSOXWQdMhU9Ig/PYrzyw/ul9jOIyh0N4M0tbC5hodg8dw==}
     dev: true
 
+  /fast-xml-parser@4.4.1:
+    resolution: {integrity: sha512-xkjOecfnKGkSsOwtZ5Pz7Us/T6mrbPQrq0nh+aCO5V9nk5NLWmasAHumTKjiPJPWANe+kAZ84Jc8ooJkzZ88Sw==}
+    hasBin: true
+    dependencies:
+      strnum: 1.0.5
+    dev: false
+
   /fastq@1.16.0:
     resolution: {integrity: sha512-ifCoaXsDrsdkWTtiNJX5uzHDsrck5TzfKKDcuFFTIrrc/BS076qgEIfoIy1VeZqViznfKiysPYTh/QeHtnIsYA==}
     dependencies:
@@ -9812,6 +9918,16 @@ packages:
 
   /follow-redirects@1.15.5:
     resolution: {integrity: sha512-vSFWUON1B+yAw1VN4xMfxgn5fTUiaOzAJCKBwIIgT/+7CuGy9+r+5gITvP62j3RmaD5Ph65UaERdOSRGUzZtgw==}
+    engines: {node: '>=4.0'}
+    peerDependencies:
+      debug: '*'
+    peerDependenciesMeta:
+      debug:
+        optional: true
+    dev: false
+
+  /follow-redirects@1.15.6:
+    resolution: {integrity: sha512-wWN62YITEaOpSK584EZXJafH1AGpO8RVgElfkuXbTOrPX4fIfOyEpW/CsiNd8JdYrAoOvafRTOEnvsO++qCqFA==}
     engines: {node: '>=4.0'}
     peerDependencies:
       debug: '*'
@@ -10342,7 +10458,6 @@ packages:
       debug: 4.3.4(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
-    dev: true
 
   /http2-wrapper@1.0.3:
     resolution: {integrity: sha512-V+23sDMr12Wnz7iTcDeJr3O6AIxlnvT/bmaAAAP/Xda35C90p9599p0F1eHR/N1KILWSoWVAiOMFjBBXaXSMxg==}
@@ -10369,7 +10484,6 @@ packages:
       debug: 4.3.4(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
-    dev: true
 
   /human-signals@2.1.0:
     resolution: {integrity: sha512-B4FFZ6q/T2jhhksgkbEW3HBvWIfDW85snkQgawt07S7J5QXTk6BkNV+0yAeZrM5QpMAdYlocGoljn0sJ/WQkFw==}
@@ -14082,6 +14196,10 @@ packages:
     dependencies:
       js-tokens: 9.0.0
     dev: true
+
+  /strnum@1.0.5:
+    resolution: {integrity: sha512-J8bbNyKKXl5qYcR36TIO8W3mVGVHrmmxsd5PAItGkmyzwJvybiw2IVq5nqd0i4LSNSkB/sx9VHllbfFdr9k1JA==}
+    dev: false
 
   /subarg@1.0.0:
     resolution: {integrity: sha512-RIrIdRY0X1xojthNcVtgT9sjpOGagEUKpZdgBUi054OEPFo282yg+zE+t1Rj3+RqKq2xStL7uUHhY+AjbC4BXg==}
