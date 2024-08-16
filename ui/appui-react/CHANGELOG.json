@@ -2,6 +2,24 @@
   "name": "@itwin/appui-react",
   "entries": [
     {
+      "version": "4.16.1",
+      "tag": "@itwin/appui-react_v4.16.1",
+      "date": "Fri, 16 Aug 2024 08:18:13 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Render default navigation aid only if content control is not used."
+          },
+          {
+            "comment": "Fix `useConditionalValue` to handle event ids as case insensitive."
+          },
+          {
+            "comment": "Fix `useActiveViewport` to correctly return the active viewport."
+          }
+        ]
+      }
+    },
+    {
       "version": "4.16.0",
       "tag": "@itwin/appui-react_v4.16.0",
       "date": "Wed, 07 Aug 2024 12:38:32 GMT",
