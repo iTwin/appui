@@ -1,6 +1,15 @@
 # Change Log - @itwin/appui-react
 
-This log was last generated on Wed, 07 Aug 2024 12:38:32 GMT and should not be manually modified.
+This log was last generated on Fri, 16 Aug 2024 08:18:13 GMT and should not be manually modified.
+
+## 4.16.1
+Fri, 16 Aug 2024 08:18:13 GMT
+
+### Updates
+
+- Render default navigation aid only if content control is not used.
+- Fix `useConditionalValue` to handle event ids as case insensitive.
+- Fix `useActiveViewport` to correctly return the active viewport.
 
 ## 4.16.0
 Wed, 07 Aug 2024 12:38:32 GMT
