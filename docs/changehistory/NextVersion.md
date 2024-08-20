@@ -9,4 +9,4 @@ Table of contents:
 
 ### Changes
 
-- Increased margins of `SelectionCountField` component. [#]()
+- Increased margins of `SelectionCountField` component. [#979](https://github.com/iTwin/appui/pull/979)
