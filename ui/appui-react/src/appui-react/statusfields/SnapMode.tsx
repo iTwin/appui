@@ -27,7 +27,7 @@ import { StatusBarPopover } from "../statusbar/popup/StatusBarPopover";
 
 /** Define the properties that will be used to represent the available snap modes. */
 interface SnapModeFieldEntry {
-  label: string;
+  labelKey: string;
   value: number;
   iconSpec: string;
 }
@@ -35,37 +35,37 @@ interface SnapModeFieldEntry {
 // Field entry of all possible snap modes.
 const allSnapModeFieldEntries: SnapModeFieldEntry[] = [
   {
-    label: "snapModeField.keypoint",
+    labelKey: "snapModeField.keypoint",
     value: SnapMode.NearestKeypoint as number,
     iconSpec: snapModeKeypoint,
   },
   {
-    label: "snapModeField.intersection",
+    labelKey: "snapModeField.intersection",
     value: SnapMode.Intersection as number,
     iconSpec: snapModeIntersection,
   },
   {
-    label: "snapModeField.center",
+    labelKey: "snapModeField.center",
     value: SnapMode.Center as number,
     iconSpec: snapModeCenter,
   },
   {
-    label: "snapModeField.nearest",
+    labelKey: "snapModeField.nearest",
     value: SnapMode.Nearest as number,
     iconSpec: snapModeNearest,
   },
   {
-    label: "snapModeField.origin",
+    labelKey: "snapModeField.origin",
     value: SnapMode.Origin as number,
     iconSpec: snapModeOrigin,
   },
   {
-    label: "snapModeField.midpoint",
+    labelKey: "snapModeField.midpoint",
     value: SnapMode.MidPoint as number,
     iconSpec: snapModeMidpoint,
   },
   {
-    label: "snapModeField.bisector",
+    labelKey: "snapModeField.bisector",
     value: SnapMode.Bisector as number,
     iconSpec: snapModeBisector,
   },
@@ -95,7 +95,7 @@ interface SnapModeFieldProps extends CommonProps {
    * @note Enum flags are supported.
    */
   snapMode?: SnapMode;
-  /** The list of snap modes displayed in the status bar. Defaults to all the modes.*/
+  /** The list of snap modes available for selection. Defaults to all the modes.*/
   availableSnapModes?: SnapMode[];
   onChange?: (newSnapMode: SnapMode) => void;
 }
@@ -106,16 +106,11 @@ interface SnapModeFieldProps extends CommonProps {
  */
 export function SnapModeField(props: SnapModeFieldProps) {
   const { translate } = useTranslation();
-  // The snap modes displayed in the menu. Filtering out the snap modes that are not available.
-  const snapModeEntries: SnapModeFieldEntry[] = allSnapModeFieldEntries.filter(
+  const snapModeEntries: SnapModeFieldEntry[] = props.availableSnapModes ? allSnapModeFieldEntries.filter(
     (entry) => {
-      return props.availableSnapModes
-        ? props.availableSnapModes.some(
-            (availableSnap) => availableSnap === (entry.value as SnapMode)
-          )
-        : true;
+      return props.availableSnapModes && props.availableSnapModes.some((availableSnap) => availableSnap === (entry.value as SnapMode));
     }
-  );
+  ) : allSnapModeFieldEntries;
 
   const reduxSnapMode = useReduxFrameworkState(
     // eslint-disable-next-line deprecation/deprecation
@@ -145,7 +140,7 @@ export function SnapModeField(props: SnapModeFieldProps) {
                 <Icon className={`icon`} iconSpec={entry.iconSpec} />
               }
             >
-              {translate(entry.label)}
+              {translate(entry.labelKey)}
             </Snap>
           ))}
         </SnapModePanel>

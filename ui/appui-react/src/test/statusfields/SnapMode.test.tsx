@@ -87,7 +87,7 @@ describe("SnapModeField", () => {
     await theUserTo.click(screen.getByText("snapModeField.snapMode"));
     // Bisector snap mode should not be present.
     expect(screen.queryByText("snapModeField.bisector")).toBeFalsy();
-    // Center snap mode be present.
+    // Center snap mode should be present.
     expect(screen.queryByText("snapModeField.center")).toBeTruthy();
 
     const snaps = container.parentElement!.querySelectorAll(
