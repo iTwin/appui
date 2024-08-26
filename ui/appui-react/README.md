@@ -16,6 +16,29 @@ actions using reducers.
 There are a number of sub-frameworks, each which has a set of components, actions, and reducers, and contributes to the overall State. Each such
 sub-framework is contained in a separate folder.
 
-## Documentation
+## Usage
 
-See the [iTwin.js](https://www.itwinjs.org/learning/ui/appui-react/) documentation for more information.
+To get started with React components from the `@itwin/appui-react` package, simply import the necessary components and utilities:
+
+```tsx
+import {
+  MessageCenterField,
+  StatusBarItemUtilities,
+  StatusBarSection,
+} from "@itwin/appui-react";
+
+function createItem() {
+  const custom = StatusBarItemUtilities.createCustomItem(
+    "item1",
+    StatusBarSection.Left,
+    10,
+    <MessageCenterField />
+  );
+
+  return {
+    custom1
+  };
+}
+```
+
+For more details, check out the [@itwin/appui-react documentation](https://www.itwinjs.org/reference/appui-react/).

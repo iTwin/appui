@@ -1,7 +1,7 @@
 {
   "name": "@itwin/appui-react",
   "version": "4.17.0-dev.0",
-  "description": "UI framework",
+  "description": "A react component library for AppUI framework",
   "main": "lib/cjs/appui-react.js",
   "module": "lib/esm/appui-react.js",
   "typings": "lib/cjs/appui-react",

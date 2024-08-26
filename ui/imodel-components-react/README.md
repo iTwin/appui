@@ -6,6 +6,19 @@ Copyright © Bentley Systems, Incorporated. All rights reserved. See LICENSE.md 
 
 The **@itwin/imodel-components-react** package contains React components that depend on the @itwin/core-frontend, @itwin/core-common or @itwin/core-quantity packages.
 
-## Documentation
+## Usage
 
-See the [iTwin.js](https://www.itwinjs.org/learning/ui/imodel-components/) documentation for more information.
+To get started with React components from the `@itwin/imodel-components-react` package, simply import the necessary components and utilities:
+
+```tsx
+import { BaseSolarDataProvider } from "@itwin/imodel-components-react";
+
+export const Basic: Story = {
+  args: {
+    dataProvider: new BaseSolarDataProvider(),
+  },
+};
+```
+
+For more details, check out the [@itwin/imodel-components-react](https://www.itwinjs.org/reference/imodel-components-react/).
+
