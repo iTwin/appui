@@ -81,36 +81,38 @@ function PropertyEditor({
   setFocus?: boolean;
   onCancel?: () => void;
 }) {
-  const getLatestRecordValue = React.useCallback(() => {
-    let newRecord = UiLayoutDataProvider.getPropertyRecord(initialItem);
+  const getLatestRecordValue = React.useCallback(
+    (initial: BaseDialogItem) => {
+      let newRecord = UiLayoutDataProvider.getPropertyRecord(initial);
 
-    const foundItem = isLock
-      ? uiDataProvider.items.find(
-          (item) =>
-            item.lockProperty?.property.name === initialItem.property.name
-        )
-      : uiDataProvider.items.find(
-          (item) => item.property.name === initialItem.property.name
-        );
-    if (foundItem) {
-      if (isLock) {
-        newRecord = newRecord.copyWithNewValue({
-          value: foundItem.lockProperty!.value.value,
-          valueFormat: PropertyValueFormat.Primitive,
-        });
-        newRecord.isDisabled = foundItem.lockProperty!.isDisabled;
-      } else {
-        newRecord = newRecord.copyWithNewValue({
-          value: foundItem.value.value,
-          valueFormat: PropertyValueFormat.Primitive,
-        });
-        newRecord.isDisabled = foundItem.isDisabled;
+      const foundItem = isLock
+        ? uiDataProvider.items.find(
+            (item) => item.lockProperty?.property.name === initial.property.name
+          )
+        : uiDataProvider.items.find(
+            (item) => item.property.name === initial.property.name
+          );
+      if (foundItem) {
+        if (isLock) {
+          newRecord = newRecord.copyWithNewValue({
+            value: foundItem.lockProperty!.value.value,
+            valueFormat: PropertyValueFormat.Primitive,
+          });
+          newRecord.isDisabled = foundItem.lockProperty!.isDisabled;
+        } else {
+          newRecord = newRecord.copyWithNewValue({
+            value: foundItem.value.value,
+            valueFormat: PropertyValueFormat.Primitive,
+          });
+          newRecord.isDisabled = foundItem.isDisabled;
+        }
       }
-    }
-    return newRecord;
-  }, [initialItem, isLock, uiDataProvider.items]);
+      return newRecord;
+    },
+    [isLock, uiDataProvider.items]
+  );
 
-  const currentRecord = getLatestRecordValue();
+  const currentRecord = getLatestRecordValue(initialItem);
   const [propertyRecord, setPropertyRecord] = React.useState(currentRecord);
 
   // monitor tool for sync UI events
@@ -151,6 +153,18 @@ function PropertyEditor({
       uiDataProvider.onSyncPropertiesChangeEvent.removeListener(handleSync);
     };
   }, [uiDataProvider, propertyRecord, initialItem.property.name]);
+
+  React.useEffect(() => {
+    const updateItem = () => {
+      const newItem = uiDataProvider.items.find(
+        (item) => item.property.name === initialItem.property.name
+      );
+      if (!newItem) return;
+      setPropertyRecord(getLatestRecordValue(newItem));
+    };
+
+    return uiDataProvider.onItemsReloadedEvent.addListener(updateItem);
+  }, [uiDataProvider, initialItem.property.name, getLatestRecordValue]);
 
   const className = React.useMemo(
     () => (isLock ? "uifw-default-property-lock" : "uifw-default-editor"),
