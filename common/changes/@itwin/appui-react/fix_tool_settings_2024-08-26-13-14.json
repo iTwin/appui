@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Fixed tool setting editor not updating after value change.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
