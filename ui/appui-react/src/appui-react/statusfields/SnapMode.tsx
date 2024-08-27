@@ -80,11 +80,11 @@ const getSnapModeIcon = (snapMode: number) => {
     }
   );
 
-  // eslint-disable-next-line deprecation/deprecation
-  return modes.length === 1 ? (
-    <Icon iconSpec={modes[0].iconSpec} />
-  ) : (
-    <Icon iconSpec={snapModeKeypoint} />
+  return (
+    // eslint-disable-next-line deprecation/deprecation
+    <Icon
+      iconSpec={modes.length === 1 ? modes[0].iconSpec : snapModeKeypoint}
+    />
   );
 };
 
@@ -106,11 +106,16 @@ interface SnapModeFieldProps extends CommonProps {
  */
 export function SnapModeField(props: SnapModeFieldProps) {
   const { translate } = useTranslation();
-  const snapModeEntries: SnapModeFieldEntry[] = props.availableSnapModes ? allSnapModeFieldEntries.filter(
-    (entry) => {
-      return props.availableSnapModes && props.availableSnapModes.some((availableSnap) => availableSnap === (entry.value as SnapMode));
-    }
-  ) : allSnapModeFieldEntries;
+  const snapModeEntries: SnapModeFieldEntry[] = props.availableSnapModes
+    ? allSnapModeFieldEntries.filter((entry) => {
+        return (
+          props.availableSnapModes &&
+          props.availableSnapModes.some(
+            (availableSnap) => availableSnap === (entry.value as SnapMode)
+          )
+        );
+      })
+    : allSnapModeFieldEntries;
 
   const reduxSnapMode = useReduxFrameworkState(
     // eslint-disable-next-line deprecation/deprecation
