@@ -6,8 +6,8 @@
   gap: var(--iui-size-2xs);
   display: flex;
   align-items: center;
-  min-width: var(--iui-size-2xl);
-  padding-left: var(--iui-size-2xs);
+  min-width: 3.75rem;
+  margin: 0 var(--iui-size-xs);
 
   .icon {
     color: var(--iui-color-icon);
