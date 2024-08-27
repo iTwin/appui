@@ -3,10 +3,10 @@
 Table of contents:
 
 - [@itwin/appui-react](#itwinappui-react)
-  - [Fixes](#fixes)
+  - [Changes](#changes)
 
 ## @itwin/appui-react
 
-### Fixes
+### Changes
 
-- Fixed new toolbars to handle event ids as case insensitive. [#980](https://github.com/iTwin/appui/pull/980)
+- Allow to set the available snap modes in `SnapModeField` component. [#974](https://github.com/iTwin/appui/pull/974)
