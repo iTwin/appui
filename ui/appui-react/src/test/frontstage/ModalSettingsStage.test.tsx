@@ -174,28 +174,32 @@ describe("ModalSettingsStage", () => {
     SettingsModalFrontstage.showSettingsStage(); // set the stage using static
 
     const wrapper = render(renderModalFrontstage(true));
-    await TestUtils.flushAsyncOperations();
 
-    expect(
-      wrapper.container.querySelectorAll("div.uifw-modal-frontstage").length
-    ).toEqual(1);
-    const liPage1 = wrapper.container.querySelector(
-      `li[data-for='page1']`
-    ) as HTMLLIElement;
-    expect(liPage1.classList.contains("core-active")).toEqual(true);
+    await waitFor(() => {
+      expect(
+        wrapper.container.querySelectorAll("div.uifw-modal-frontstage").length
+      ).toEqual(1);
+    });
+    await waitFor(() => {
+      const liPage1 = wrapper.container.querySelector(
+        `li[data-for='page1']`
+      ) as HTMLLIElement;
+      expect(liPage1.classList.contains("core-active")).toEqual(true);
+    });
 
     SettingsModalFrontstage.showSettingsStage("page2");
-    await TestUtils.flushAsyncOperations();
-    const liPage2 = wrapper.container.querySelector(
-      `li[data-for='page-2']`
-    ) as HTMLLIElement;
-    expect(liPage2.classList.contains("core-active")).toEqual(true);
+    await waitFor(() => {
+      const liPage2 = wrapper.container.querySelector(
+        `li[data-for='page-2']`
+      ) as HTMLLIElement;
+      expect(liPage2.classList.contains("core-active")).toEqual(true);
+    });
 
     SettingsModalFrontstage.showSettingsStage("page-3");
-    const liPage3 = wrapper.container.querySelector(
-      `li[data-for='page-3']`
-    ) as HTMLLIElement;
     await waitFor(() => {
+      const liPage3 = wrapper.container.querySelector(
+        `li[data-for='page-3']`
+      ) as HTMLLIElement;
       expect(liPage3.classList.contains("core-active")).toEqual(true);
     });
 

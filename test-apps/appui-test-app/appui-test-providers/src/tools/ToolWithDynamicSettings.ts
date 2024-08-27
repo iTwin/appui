@@ -206,7 +206,6 @@ export class ToolWithDynamicSettings extends PrimitiveTool {
       editorPosition: { rowPriority: 1, columnIndex: 1 },
     });
     if (this.state.valueOf() > 0 && this.state.valueOf() < cities.length) {
-      this.city = cities[this.state].cities[0];
       toolSettings.push({
         value: this._cityValue,
         property: ToolWithDynamicSettings.getCityDescription(this.state),
@@ -226,8 +225,18 @@ export class ToolWithDynamicSettings extends PrimitiveTool {
       const newStateValue = updatedValue.value.value as number;
       if (this.state.valueOf() !== newStateValue) {
         this.state = newStateValue;
+        this.city = cities[this.state].cities[0];
         // update the UI to show/remove city option any time state value changes.
         this.reloadToolSettingsProperties();
+      }
+    }
+
+    if (
+      updatedValue.propertyName === ToolWithDynamicSettings._cityPropertyName
+    ) {
+      const newCityValue = updatedValue.value.value as string;
+      if (this.city.valueOf() !== newCityValue) {
+        this.city = newCityValue;
       }
     }
 

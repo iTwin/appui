@@ -150,19 +150,19 @@ export class SampleTool extends PrimitiveTool {
   private _colorValue: DialogItemValue = { value: ColorByName.blue };
 
   public get colorValue(): number {
-    return this._optionsValue.value as number;
+    return this._colorValue.value as number;
   }
 
   public set colorValue(colorVal: number) {
-    this._optionsValue.value = colorVal;
+    this._colorValue.value = colorVal;
   }
 
   public get colorDef(): ColorDef {
-    return ColorDef.create(this._optionsValue.value as number);
+    return ColorDef.create(this._colorValue.value as number);
   }
 
   public set colorDef(colorVal: ColorDef) {
-    this._optionsValue.value = colorVal.tbgr;
+    this._colorValue.value = colorVal.tbgr;
   }
 
   // ------------- Weight ---------------
