@@ -40,7 +40,12 @@ export function useConditionalProp<T>(conditionalProp: ConditionalProp<T>) {
       if (isConditionalValue(conditionalProp)) {
         return SyncUiEventDispatcher.onSyncUiEvent.addListener(
           ({ eventIds }) => {
-            if (!conditionalProp.syncEventIds.some((id) => eventIds.has(id)))
+            if (
+              !SyncUiEventDispatcher.hasEventOfInterest(
+                eventIds,
+                conditionalProp.syncEventIds
+              )
+            )
               return;
             if (!conditionalProp.refresh()) return;
 
