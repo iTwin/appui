@@ -1,6 +1,15 @@
 # Change Log - @itwin/appui-react
 
-This log was last generated on Fri, 16 Aug 2024 08:18:13 GMT and should not be manually modified.
+This log was last generated on Wed, 28 Aug 2024 06:32:12 GMT and should not be manually modified.
+
+## 4.16.2
+Wed, 28 Aug 2024 06:32:12 GMT
+
+### Updates
+
+- Fix new toolbars to handle event ids as case insensitive.
+- Fixed tool setting editor not updating after value change.
+- Increased margins of `SelectionCountField` component.
 
 ## 4.16.1
 Fri, 16 Aug 2024 08:18:13 GMT
