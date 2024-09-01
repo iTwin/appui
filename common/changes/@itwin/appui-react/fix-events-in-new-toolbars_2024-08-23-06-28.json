@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Fix new toolbars to handle event ids as case insensitive.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
