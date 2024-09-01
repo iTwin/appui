@@ -50,6 +50,9 @@ const availableFeatures: AvailableFeatures = {
   controlWidgetVisibility: {
     label: "Control widget visibility",
   },
+  newDragging: {
+    label: "Enable new dragging logic",
+  },
 };
 
 function PreviewFeatureList() {

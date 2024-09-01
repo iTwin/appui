@@ -6,6 +6,7 @@
  * @module Base
  */
 
+import type { XAndY } from "@itwin/core-geometry";
 import type { SizeProps } from "../../utils/SizeProps";
 import type { PanelSide } from "../widget-panels/PanelTypes";
 import type { FloatingWidgetState, WidgetState } from "./WidgetState";
@@ -43,6 +44,7 @@ export interface FloatingWidgetDropTargetState {
   readonly type: "floatingWidget";
   readonly newFloatingWidgetId: FloatingWidgetState["id"];
   readonly size: SizeProps;
+  readonly position?: XAndY;
 }
 
 /** Drop target of a tab drag action.
@@ -126,4 +128,11 @@ export function isTabDragDropTargetState(
 ): state is TabDragDropTargetState {
   if (state.type === "window") return false;
   return true;
+}
+
+/** @internal */
+export function isFloatingWidgetDragDropTargetState(
+  state: DropTargetState
+): state is FloatingWidgetDropTargetState {
+  return state.type === "floatingWidget";
 }

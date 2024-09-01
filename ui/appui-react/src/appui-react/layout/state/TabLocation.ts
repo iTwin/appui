@@ -19,6 +19,7 @@ import {
   isFloatingWidgetLocation,
   isPopoutWidgetLocation,
 } from "./WidgetLocation";
+import { getWidgetState } from "./internal/WidgetStateHelpers";
 
 /** @internal */
 export interface PanelTabLocation {
@@ -97,4 +98,23 @@ export function getTabLocation(
     side: location.side,
     widgetId,
   };
+}
+
+/** Checks if the given tab is the only one in the widget.
+ * @internal
+ */
+export function isWidgetOnlyOneTab(
+  state: NineZoneState,
+  tabId: TabState["id"],
+  targetWidgetId: WidgetState["id"]
+): boolean {
+  const location = getTabLocation(state, tabId);
+  if (!location) return false;
+
+  const widgetId = location.widgetId;
+  if (widgetId !== targetWidgetId) return false;
+  const widget = getWidgetState(state, widgetId);
+  const tabs = widget.tabs;
+
+  return tabs.length === 1 && tabs[0] === tabId;
 }

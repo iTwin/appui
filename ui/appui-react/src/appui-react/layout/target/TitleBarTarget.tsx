@@ -11,7 +11,7 @@ import classnames from "classnames";
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
 import { DraggedWidgetIdContext, useTarget } from "../base/DragManager";
-import { CursorTypeContext } from "../base/NineZone";
+import { CursorTypeContext, NineZoneDispatchContext } from "../base/NineZone";
 import { getCursorClassName } from "../widget-panels/CursorOverlay";
 import type { WidgetState } from "../state/WidgetState";
 import { WidgetIdContext } from "../widget/Widget";
@@ -20,12 +20,17 @@ import { useAllowedWidgetTarget } from "./useAllowedWidgetTarget";
 import type { WidgetDropTargetState } from "../state/DropTargetState";
 import { useLayout } from "../base/LayoutStore";
 import { useSendBackHomeState } from "../widget/SendBack";
+import { WidgetDraggedOverContext } from "../widget/WidgetDraggedOverContext";
+import { IsTabDraggedContext } from "../widget/IsTabDraggedContext";
 
 /** @internal */
 export function TitleBarTarget() {
   const cursorType = React.useContext(CursorTypeContext);
   const draggedWidgetId = React.useContext(DraggedWidgetIdContext);
   const widgetId = React.useContext(WidgetIdContext);
+  const dispatch = React.useContext(NineZoneDispatchContext);
+  const draggedOver = React.useContext(WidgetDraggedOverContext);
+  const isTabDragged = React.useContext(IsTabDraggedContext);
   const activeHomeState = useSendBackHomeState();
   assert(!!widgetId);
   const draggedTab = useLayout((state) => !!state.draggedTab);
@@ -33,16 +38,39 @@ export function TitleBarTarget() {
   const allowedTarget = useAllowedWidgetTarget(widgetId);
 
   const hidden =
-    !allowedTarget ||
-    (((!draggedTab && !draggedWidgetId) || draggedWidgetId === widgetId) &&
-      !(activeHomeState?.widgetId === widgetId));
+    !isTabDragged?.isDragged &&
+    (!allowedTarget ||
+      (((!draggedTab && !draggedWidgetId) || draggedWidgetId === widgetId) &&
+        !(activeHomeState?.widgetId === widgetId)));
   const className = classnames(
     "nz-target-titleBarTarget",
     hidden && "nz-hidden",
     cursorType && getCursorClassName(cursorType)
   );
   return (
-    <div className={className} ref={ref}>
+    <div
+      className={className}
+      ref={ref}
+      onDragOver={(e) => {
+        e.preventDefault();
+        draggedOver?.setTarget("widget");
+      }}
+      onDragLeave={(e) => {
+        e.preventDefault();
+        draggedOver?.setTarget(undefined);
+      }}
+      onDrop={(e) => {
+        e.preventDefault();
+        isTabDragged?.setIsDragged(false);
+        draggedOver?.setTarget(undefined);
+        const id = e.dataTransfer.getData("text/plain");
+        dispatch({
+          type: "WIDGET_TAB_DRAG_END_NEW",
+          id,
+          target: { widgetId, type: "widget" },
+        });
+      }}
+    >
       <TabOutline />
     </div>
   );

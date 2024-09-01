@@ -13,6 +13,7 @@ import type { TabState } from "./TabState";
 import { getWidgetLocation, isPanelWidgetLocation } from "./WidgetLocation";
 import type { NineZoneAction } from "./NineZoneAction";
 import {
+  isFloatingWidgetDragDropTargetState,
   isPanelDropTargetState,
   isSectionDropTargetState,
   isTabDropTargetState,
@@ -69,6 +70,7 @@ import {
   isFloatingTabLocation,
   isPanelTabLocation,
   isPopoutTabLocation,
+  isWidgetOnlyOneTab,
 } from "./TabLocation";
 import { getUniqueId } from "../base/NineZone";
 import {
@@ -602,6 +604,64 @@ export function NineZoneStateReducer(
           {
             bounds: containedBounds,
             home: state.draggedTab.home,
+            userSized,
+          }
+        );
+      }
+      return produce(state, (draft) => {
+        draft.draggedTab = undefined;
+      });
+    }
+    case "WIDGET_TAB_DRAG_END_NEW": {
+      const target = action.target;
+      if (
+        (isTabDropTargetState(target) || isWidgetDropTargetState(target)) &&
+        isWidgetOnlyOneTab(state, action.id, target.widgetId)
+      )
+        return state;
+
+      state = removeTabFromWidget(state, action.id);
+      if (state.floatingWidgets.byId[action.id] !== undefined)
+        state = removeFloatingWidget(state, action.id);
+      if (isTabDropTargetState(target)) {
+        const targetWidget = getWidgetState(state, target.widgetId);
+        const tabIndex = target.tabIndex;
+        const tabs = [...targetWidget.tabs];
+        tabs.splice(tabIndex, 0, action.id);
+        state = updateWidgetState(state, targetWidget.id, {
+          tabs,
+        });
+      } else if (isWidgetDropTargetState(target)) {
+        const widget = getWidgetLocation(state, target.widgetId);
+        if (widget && isPanelWidgetLocation(widget)) {
+          state = updatePanelState(state, widget.side, (draft) => {
+            draft.collapsed = false;
+          });
+        }
+        const targetWidget = getWidgetState(state, target.widgetId);
+        const tabIndex = targetWidget.tabs.length;
+        const tabs = [...targetWidget.tabs];
+        tabs.splice(tabIndex, 0, action.id);
+        state = updateWidgetState(state, targetWidget.id, {
+          tabs,
+        });
+      } else if (isFloatingWidgetDragDropTargetState(target)) {
+        assert(!!target.position);
+        const tab = state.tabs[action.id];
+        const nzBounds = Rectangle.createFromSize(state.size);
+        const bounds = Rectangle.createFromSize(
+          tab.preferredFloatingWidgetSize || target.size
+        ).offset(target.position);
+        const containedBounds = bounds.containIn(nzBounds);
+        const userSized =
+          tab.userSized ||
+          (tab.isFloatingWidgetResizable && !!tab.preferredFloatingWidgetSize);
+        state = addFloatingWidget(
+          state,
+          target.newFloatingWidgetId,
+          [action.id],
+          {
+            bounds: containedBounds,
             userSized,
           }
         );
