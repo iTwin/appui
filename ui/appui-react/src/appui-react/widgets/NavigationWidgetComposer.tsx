@@ -64,6 +64,7 @@ function createNavigationAidControl(
 
 /** Properties for the [[NavigationAidHost]] React component
  * @public
+ * @deprecated in 4.17.0. Use `React.ComponentProps<typeof NavigationAidHost>`
  */
 export interface NavigationAidHostProps {
   /** Navigation Aid Host minimum width. Defaults to "64px". */
@@ -215,6 +216,7 @@ function DefaultNavigationAid() {
 
 /** Properties for the [[NavigationWidgetComposer]] React components
  * @public
+ * @deprecated in 4.17.0. Use `React.ComponentProps<typeof NavigationWidgetComposer>`
  */
 // eslint-disable-next-line deprecation/deprecation
 export interface NavigationWidgetComposerProps extends CommonProps {

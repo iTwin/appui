@@ -15,6 +15,7 @@ import { Orientation } from "../common/Orientation";
 
 /** Properties for [[FavoritePropertyList]] React component
  * @alpha
+ * @deprecated in 4.17.0. Use `React.ComponentProps<typeof FavoritePropertyList>`
  */
 export interface FavoritePropertyListProps {
   propertyData: PropertyData;

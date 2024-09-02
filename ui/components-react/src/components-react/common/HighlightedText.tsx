@@ -12,6 +12,7 @@ import { HighlightingEngine } from "../tree/HighlightingEngine";
 /**
  * Properties of [[HighlightedText]]
  * @public
+ * @deprecated in 4.17.0. Use `React.ComponentProps<typeof HighlightedText>`
  */
 export interface HighlightedTextProps {
   /* Filter text which we want to highlight */

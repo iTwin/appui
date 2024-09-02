@@ -142,6 +142,7 @@ export const TreeNodeRenderer = React.memo(function TreeNodeRenderer(
 /**
  * Props for [[TreeNodeIcon]] component.
  * @public
+ * @deprecated in 4.17.0. Use `React.ComponentProps<typeof TreeNodeIcon>`
  */
 export interface TreeNodeIconProps {
   /** Tree node to render icon for. */

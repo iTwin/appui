@@ -282,6 +282,7 @@ function isItemInOverflow(
 
 /** Properties for the [[StatusBarComposer]] React components
  * @public
+ * @deprecated in 4.17.0. Use `React.ComponentProps<typeof StatusBarComposer>`
  */
 // eslint-disable-next-line deprecation/deprecation
 export interface StatusBarComposerProps extends CommonProps {

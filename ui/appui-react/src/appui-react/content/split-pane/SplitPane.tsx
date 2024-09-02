@@ -14,6 +14,7 @@ import { Resizer } from "./Resizer";
 /**
  * Props for [[SplitPane]] component
  * @public
+ * @deprecated in 4.17.0. Use `React.ComponentProps<typeof SplitPane>`
  */
 export interface SplitPaneProps {
   /** Pass false to disable resizing */

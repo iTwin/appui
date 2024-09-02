@@ -19,6 +19,7 @@ import { useTranslation } from "../useTranslation";
 
 /** Properties of [[FormatUnits]] component.
  * @alpha
+ * @deprecated in 4.17.0. Use `React.ComponentProps<typeof FormatUnits>`
  */
 // eslint-disable-next-line deprecation/deprecation
 export interface FormatUnitsProps extends CommonProps {

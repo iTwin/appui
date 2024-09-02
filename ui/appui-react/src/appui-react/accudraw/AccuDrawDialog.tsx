@@ -17,6 +17,7 @@ import { Dialog } from "@itwin/itwinui-react";
 
 /** Properties for [[AccuDrawDialog]]
  * @public
+ * @deprecated in 4.17.0. Use `React.ComponentProps<typeof AccuDrawDialog>`
  */
 // eslint-disable-next-line deprecation/deprecation
 export interface AccuDrawDialogProps extends CommonProps {

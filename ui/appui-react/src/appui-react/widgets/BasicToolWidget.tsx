@@ -18,6 +18,7 @@ import { ToolbarItems } from "../tools/ToolbarItems";
 
 /** Properties that can be used to append items to the default set of toolbar items.
  * @public
+ * @deprecated in 4.17.0. Use `React.ComponentProps<typeof BasicToolWidget>`
  */
 export interface BasicToolWidgetProps {
   /** if true include hide/isolate Models and Categories */

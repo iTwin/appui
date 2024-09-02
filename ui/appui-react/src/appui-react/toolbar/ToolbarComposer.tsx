@@ -184,6 +184,7 @@ const useSnapWidgetOpacitySetting = () => {
 
 /** Properties for the [[ToolbarComposer]] React components
  * @public
+ * @deprecated in 4.17.0. Use `React.ComponentProps<typeof ToolbarComposer>`
  */
 export interface ExtensibleToolbarProps {
   /** Toolbar items. */

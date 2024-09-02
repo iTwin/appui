@@ -16,6 +16,7 @@ import { ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
 /**
  * Props for [[ViewToolWidgetComposer]].
  * @public
+ * @deprecated in 4.17.0. Use `React.ComponentProps<typeof ViewToolWidgetComposer>`
  */
 export interface ViewToolWidgetComposerProps {
   /** If true no navigation aid will be shown. Defaults to `false`. */

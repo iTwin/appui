@@ -24,6 +24,7 @@ import { ProgressRadial } from "@itwin/itwinui-react";
 
 /** Properties for [[VirtualizedPropertyGridWithDataProvider]] React component
  * @public
+ * @deprecated in 4.17.0. Use `React.ComponentProps<typeof VirtualizedPropertyGridWithDataProvider>`
  */
 export interface VirtualizedPropertyGridWithDataProviderProps
   extends CommonPropertyGridProps {

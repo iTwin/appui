@@ -16,8 +16,9 @@ import * as React from "react";
 import { ToolsArea } from "../layout/widget/ToolsArea";
 import { UiFramework } from "../UiFramework";
 
-/** Properties for the [[ToolbarComposer]] React components
+/** Properties for the [[ToolWidgetComposer]] React components
  * @public
+ * @deprecated in 4.17.0. Use `React.ComponentProps<typeof ToolWidgetComposer>`
  */
 // eslint-disable-next-line deprecation/deprecation
 export interface ToolWidgetComposerProps extends CommonProps {

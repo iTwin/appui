@@ -16,6 +16,7 @@ import { ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
 /**
  * Props for [[ContentToolWidgetComposer]].
  * @public
+ * @deprecated in 4.17.0. Use `React.ComponentProps<typeof ContentToolWidgetComposer>`
  */
 export interface ContentToolWidgetComposerProps {
   /** If default backstage button is desired use <BackstageAppButton />. */

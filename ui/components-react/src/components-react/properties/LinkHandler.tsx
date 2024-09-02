@@ -127,6 +127,7 @@ export const withLinks = (
 /**
  * Properties for [[LinksRenderer]] component.
  * @public
+ * @deprecated in 4.17.0. Use `React.ComponentProps<typeof LinksRenderer>`
  */
 export interface LinksRendererProps {
   value: string;

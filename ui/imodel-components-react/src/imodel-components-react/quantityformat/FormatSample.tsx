@@ -17,6 +17,7 @@ import { useTranslation } from "../useTranslation";
 
 /** Properties of [[FormatSample]] component.
  * @alpha
+ * @deprecated in 4.17.0. Use `React.ComponentProps<typeof FormatSample>`
  */
 // eslint-disable-next-line deprecation/deprecation
 export interface FormatSampleProps extends CommonProps {

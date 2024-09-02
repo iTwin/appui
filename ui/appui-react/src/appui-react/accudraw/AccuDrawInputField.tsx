@@ -24,6 +24,7 @@ function isLetter(char: string): boolean {
 
 /** Properties for [[AccuDrawInputField]] component
  * @public
+ * @deprecated in 4.17.0. Use `React.ComponentProps<typeof AccuDrawInputField>`
  */
 // eslint-disable-next-line deprecation/deprecation
 export interface AccuDrawInputFieldProps extends CommonProps {

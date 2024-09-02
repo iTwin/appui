@@ -16,6 +16,7 @@ import "./ParsedInput.scss";
 
 /** Props for [[ParsedInput]] control
  * @public
+ * @deprecated in 4.17.0. Use `React.ComponentProps<typeof ParsedInput>`
  */
 // eslint-disable-next-line deprecation/deprecation
 export interface ParsedInputProps extends CommonProps {

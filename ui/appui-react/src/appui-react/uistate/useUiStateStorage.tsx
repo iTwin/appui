@@ -28,6 +28,7 @@ UiStateStorageContext.displayName = "uifw:UiStateStorageContext";
 
 /** Properties for the [[UiStateStorageHandler]] component.
  * @public
+ * @deprecated in 4.17.0. Use `React.ComponentProps<typeof UiStateStorageHandler>`
  */
 export interface UiSettingsProviderProps {
   children?: React.ReactNode;

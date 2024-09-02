@@ -25,6 +25,7 @@ import type { UiStateStorage } from "../uistate/UiStateStorage";
 
 /** Properties for [[AccuDrawFieldContainer]] component
  * @public
+ * @deprecated in 4.17.0. Use `React.ComponentProps<typeof AccuDrawFieldContainer>`
  */
 // eslint-disable-next-line deprecation/deprecation
 export interface AccuDrawFieldContainerProps extends CommonProps {

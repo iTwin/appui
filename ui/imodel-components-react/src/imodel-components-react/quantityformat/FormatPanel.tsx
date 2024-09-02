@@ -24,6 +24,7 @@ import { MiscFormatOptions } from "./MiscFormatOptions";
 
 /** Properties of [[FormatPanel]] component.
  * @alpha
+ * @deprecated in 4.17.0. Use `React.ComponentProps<typeof FormatPanel>`
  */
 // eslint-disable-next-line deprecation/deprecation
 export interface FormatPanelProps extends CommonProps {

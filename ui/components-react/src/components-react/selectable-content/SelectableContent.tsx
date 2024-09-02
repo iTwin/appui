@@ -25,6 +25,7 @@ export interface SelectableContentDefinition {
 /**
  * [[ControlledSelectableContent]] component properties
  * @public
+ * @deprecated in 4.17.0. Use `React.ComponentProps<typeof ControlledSelectableContent>`
  */
 export interface ControlledSelectableContentProps {
   selectedContentId: string;
@@ -88,6 +89,7 @@ export function ControlledSelectableContent(
 /**
  * [[SelectableContent]] component properties
  * @public
+ * @deprecated in 4.17.0. Use `React.ComponentProps<typeof SelectableContent>`
  */
 export interface SelectableContentProps {
   defaultSelectedContentId: string;

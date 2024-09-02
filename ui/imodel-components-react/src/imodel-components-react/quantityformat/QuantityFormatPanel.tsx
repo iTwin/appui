@@ -120,6 +120,7 @@ function formatAreEqual(obj1: FormatProps, obj2: FormatProps) {
 
 /** Properties of [[QuantityFormatPanel]] component.
  * @alpha
+ * @deprecated in 4.17.0. Use `React.ComponentProps<typeof QuantityFormatPanel>`
  */
 // eslint-disable-next-line deprecation/deprecation
 export interface QuantityFormatPanelProps extends CommonProps {

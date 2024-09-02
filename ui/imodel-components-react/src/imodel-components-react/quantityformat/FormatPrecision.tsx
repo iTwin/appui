@@ -16,6 +16,7 @@ import { useTranslation } from "../useTranslation";
 
 /** Properties of [[FormatPrecision]] component.
  * @alpha
+ * @deprecated in 4.17.0. Use `React.ComponentProps<typeof FormatPrecision>`
  */
 // eslint-disable-next-line deprecation/deprecation
 export interface FormatPrecisionProps extends CommonProps {
