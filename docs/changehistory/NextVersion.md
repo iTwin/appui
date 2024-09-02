@@ -11,6 +11,7 @@ Table of contents:
 ### Deprecations
 
 - Deprecated `FrameworkFrontstages.clearFrontstageProviders`, use `FrameworkFrontstages.clearFrontstageDefs` instead.
+- Deprecated `UiFramework.setIsUiVisible` and `UiFramework.getIsUiVisible`.
 
 ### Changes
 
