@@ -3,9 +3,14 @@
 Table of contents:
 
 - [@itwin/appui-react](#itwinappui-react)
+  - [Deprecations](#deprecations)
   - [Changes](#changes)
 
 ## @itwin/appui-react
+
+### Deprecations
+
+- Deprecated `FrameworkFrontstages.clearFrontstageProviders`, use `FrameworkFrontstages.clearFrontstageDefs` instead.
 
 ### Changes
 

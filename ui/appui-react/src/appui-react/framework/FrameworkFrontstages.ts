@@ -270,7 +270,9 @@ export interface FrameworkFrontstages {
   clearFrontstageDefs(): void;
 
   /** Clears the Frontstage Providers and the defs that may have been created from them.
+   * @deprecated in 5.0.0. Use {@link FrameworkFrontstages.clearFrontstageDefs} instead.
    */
+  // eslint-disable-next-line deprecation/deprecation
   clearFrontstageProviders(): void;
 
   /** Adds a frontstage provider.
