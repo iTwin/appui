@@ -49,4 +49,4 @@ Table of contents:
 
 ### Changes
 
-- Allow to set the available snap modes in `SnapModeField` component. [#991](https://github.com/iTwin/appui/pull/991)
+- Allow to set the available snap modes in `SnapModeField` component. [#974](https://github.com/iTwin/appui/pull/974)
