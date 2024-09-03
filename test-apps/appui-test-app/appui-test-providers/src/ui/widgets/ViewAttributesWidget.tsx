@@ -15,7 +15,9 @@ export function useWidgetDef(id: string) {
 
 export function ToggleCameraItem() {
   const activeViewport = useActiveViewport();
-  const [cameraOn, setCameraOn] = React.useState(activeViewport?.isCameraOn);
+  const [cameraOn, setCameraOn] = React.useState(
+    activeViewport ? activeViewport.isCameraOn : true
+  );
 
   React.useEffect(() => {
     return activeViewport?.onChangeView.addListener((vp) => {

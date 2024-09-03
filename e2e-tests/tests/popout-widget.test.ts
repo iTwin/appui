@@ -182,7 +182,8 @@ test.describe("popout widget", () => {
     await expect(widget).toBeVisible();
     const logs = trackConsole(page);
     const popoutPage = await popoutWidget(widget);
-    await expect.poll(async () => popoutPage.isClosed()).toBe(false);
+    const text = popoutPage.getByText(id);
+    await expect(text).toBeVisible();
 
     await popoutPage.close();
 
