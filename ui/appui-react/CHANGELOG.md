@@ -1,6 +1,13 @@
 # Change Log - @itwin/appui-react
 
-This log was last generated on Wed, 28 Aug 2024 06:32:12 GMT and should not be manually modified.
+This log was last generated on Tue, 03 Sep 2024 14:32:22 GMT and should not be manually modified.
+
+## 4.16.3
+Tue, 03 Sep 2024 14:32:22 GMT
+
+### Updates
+
+- Render `MenuItem` without `item` or `submenu` props.
 
 ## 4.16.2
 Wed, 28 Aug 2024 06:32:12 GMT
