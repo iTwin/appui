@@ -4,25 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import { expect, test } from "@playwright/test";
 
-test("backstage test with snapshotPath", async ({ page, baseURL }) => {
-  await page.goto(
-    `${baseURL}/blank?frontstageId=widget-api&snapshotPath=D:/model`
-  );
-  await page.locator(".nz-toolbar-button-button").click();
-  await page.getByRole("menuitem", { name: "Component Examples" }).click();
-
-  await page.getByRole("button", { name: "Backstage", exact: true }).click();
-
-  await page.getByRole("button", { name: "Open Backstage" }).click();
-
-  const backstage = page.getByRole("menu").filter({
-    hasText: "View iModelReview iModel",
-  });
-  await expect(backstage).toHaveScreenshot();
-});
-
-test("backstage test without snapshotPath", async ({ page, baseURL }) => {
-  await page.goto(`${baseURL}/blank?frontstageId=widget-api&snapshotPath=`);
+test("backstage test", async ({ page, baseURL }) => {
+  await page.goto(`${baseURL}/blank?frontstageId=widget-api`);
   await page.locator(".nz-toolbar-button-button").click();
   await page.getByRole("menuitem", { name: "Component Examples" }).click();
 
