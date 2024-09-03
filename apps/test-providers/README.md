@@ -8,7 +8,7 @@ This is an example of a package that can be added to provide tools and augment t
 
 1. The `apps/test-app` serves as the iTwin.js host application and is already set up to take a dependency on this package.
 
-2. Start the either `apps/test-app` to see the items and stages provided by this package.
+2. Start the `apps/test-app` to see the items and stages provided by this package.
 
 ## Contributing
 
