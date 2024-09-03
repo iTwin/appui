@@ -108,9 +108,6 @@ export function registerFrontstages({
     ],
   });
   UiItemsManager.register(createMainFrontstageProvider());
-  UiItemsManager.register(createElementStackingProvider(), {
-    stageIds: [createElementStackingFrontstage.stageId],
-  });
   UiItemsManager.register(new FloatingWidgetsUiItemsProvider(), {
     stageIds: [createWidgetApiFrontstage.stageId],
   });
