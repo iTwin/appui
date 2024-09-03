@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Fix link style load timing issue in window popups.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
