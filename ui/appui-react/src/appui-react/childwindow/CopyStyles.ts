@@ -40,10 +40,9 @@ export async function copyStyles(
     // Adopted stylesheet have no ownerNode and can't be shared between multiple documents.
     if (!targetDoc.defaultView) return;
     const newStyleSheet = new targetDoc.defaultView.CSSStyleSheet();
-    Array.from(styleSheet.cssRules).forEach((rule, index) => {
-      // `cssText` might not serialize complex shorthand properties correctly: https://github.com/iTwin/appui/issues/893
-      newStyleSheet.insertRule(rule.cssText, index);
-    });
+    promises.push(
+      newStyleSheet.replace(stringifyStyleSheet(styleSheet)).then(() => {})
+    );
     targetDoc.adoptedStyleSheets.push(newStyleSheet);
   });
 
@@ -54,4 +53,10 @@ export async function copyStyles(
   }
 
   return Promise.all(promises);
+}
+
+function stringifyStyleSheet(stylesheet: CSSStyleSheet) {
+  return Array.from(stylesheet.cssRules)
+    .map((rule) => rule.cssText)
+    .join("\n");
 }
