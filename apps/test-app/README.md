@@ -2,11 +2,11 @@
 
 ## About this Application
 
-The application contained within this directory provides a test environment for developers working on react based AppUI functionality of iTwin.js and only allow access to local files. It is **not** intended to serve as an example or template for the design of "real" iTwin.js applications.
+The application contained within this directory provides a test environment for developers working on a react based AppUI functionality of iTwin.js and allow to access both local `.bim` files and remote iModels from the iTwin Hub. It is **not** intended to serve as an example or template for the design of "real" iTwin.js applications.
 
 ## Getting Started
 
-The application may be run as an Electron app, Mobile app or within a browser. The following steps outline the procedure for successfully building the application as part of a larger monorepo, and then starting the application via npm scripts.
+The application may be run as an Electron app or within a browser. The following steps outline the procedure for successfully building the application as part of a larger monorepo, and then starting the application via npm scripts.
 
 1. To get started, follow the instructions to setup the entire repository, located [here](../../../README.md#build-instructions).
 2. Optionally, set other environment variables to configure the application prior to startup. The full list of supported variable are [below](#environment-variables).
