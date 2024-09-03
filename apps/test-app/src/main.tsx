@@ -36,7 +36,9 @@ function InnerApp() {
 }
 
 function ConditionalStrictMode({ children }: { children: React.ReactNode }) {
-  const [strict, setStrict] = React.useState(true);
+  const [strict, setStrict] = React.useState(() => {
+    return router.parseLocation().search.strict !== 0;
+  });
   React.useEffect(() => {
     return router.subscribe("onLoad", (ctx) => {
       const appParams = ctx.toLocation.search as { strict: 0 };
