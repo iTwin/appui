@@ -28,7 +28,13 @@ export function useConditionalValue<T>(getValue: () => T, eventIds: string[]) {
 
   React.useEffect(() => {
     return SyncUiEventDispatcher.onSyncUiEvent.addListener((args) => {
-      if (!eventIdsRef.current.some((id) => args.eventIds.has(id))) return;
+      if (
+        !SyncUiEventDispatcher.hasEventOfInterest(
+          args.eventIds,
+          eventIdsRef.current
+        )
+      )
+        return;
       setValue(getValueRef.current());
     });
   }, []);

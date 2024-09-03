@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { render, screen } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import { BadgeType } from "@itwin/core-react";
 import type { CursorMenuItemProps } from "../../appui-react/shared/MenuItem";
 import { MenuItem, MenuItemHelpers } from "../../appui-react/shared/MenuItem";
@@ -82,11 +82,11 @@ describe("MenuItem", () => {
       new MenuItem({
         id: "test",
       });
-    }).to.throw(Error);
+    }).toThrow(Error);
   });
 
   it("createMenuItems should create a valid MenuItem", () => {
-    const CursorMenuItemProps: CursorMenuItemProps[] = [
+    const cursorMenuItemProps: CursorMenuItemProps[] = [
       {
         id: "test",
         item: {
@@ -97,7 +97,7 @@ describe("MenuItem", () => {
       },
     ];
 
-    const menuItems = MenuItemHelpers.createMenuItems(CursorMenuItemProps);
+    const menuItems = MenuItemHelpers.createMenuItems(cursorMenuItemProps);
 
     expect(menuItems.length).toEqual(1);
 
@@ -110,7 +110,7 @@ describe("MenuItem", () => {
   });
 
   it("createMenuItems should create a valid submenu", () => {
-    const CursorMenuItemProps: CursorMenuItemProps[] = [
+    const cursorMenuItemProps: CursorMenuItemProps[] = [
       {
         id: "test",
         label: "test label",
@@ -136,7 +136,7 @@ describe("MenuItem", () => {
       },
     ];
 
-    const menuItems = MenuItemHelpers.createMenuItems(CursorMenuItemProps);
+    const menuItems = MenuItemHelpers.createMenuItems(cursorMenuItemProps);
 
     expect(menuItems.length).toEqual(1);
 
@@ -148,7 +148,7 @@ describe("MenuItem", () => {
   });
 
   it("createMenuItemNodes should create a valid MenuItem", () => {
-    const CursorMenuItemProps: CursorMenuItemProps[] = [
+    const cursorMenuItemProps: CursorMenuItemProps[] = [
       {
         id: "test",
         badgeType: BadgeType.New,
@@ -162,15 +162,15 @@ describe("MenuItem", () => {
       },
     ];
 
-    const menuItems = MenuItemHelpers.createMenuItems(CursorMenuItemProps);
+    const menuItems = MenuItemHelpers.createMenuItems(cursorMenuItemProps);
     expect(menuItems.length).toEqual(1);
 
     const menuItemNodes = MenuItemHelpers.createMenuItemNodes(menuItems);
     expect(menuItemNodes.length).toEqual(1);
 
-    render(<div>{menuItemNodes}</div>);
+    const component = render(<div>{menuItemNodes}</div>);
 
-    expect(screen.getByRole("menuitem"))
+    expect(component.getByRole("menuitem"))
       .satisfy(
         selectorMatches(".core-context-menu-item.core-context-menu-disabled")
       )
@@ -183,8 +183,42 @@ describe("MenuItem", () => {
       );
   });
 
+  it("createMenuItemNodes should create a valid MenuItem without item prop", () => {
+    const cursorMenuItemProps: CursorMenuItemProps[] = [
+      {
+        id: "test",
+        badgeKind: "technical-preview",
+        isDisabled: true,
+        label: "test label",
+        icon: "icon-placeholder",
+        execute: () => {},
+        iconRight: "icon-checkmark",
+      },
+    ];
+
+    const menuItems = MenuItemHelpers.createMenuItems(cursorMenuItemProps);
+    expect(menuItems.length).toEqual(1);
+
+    const menuItemNodes = MenuItemHelpers.createMenuItemNodes(menuItems);
+    expect(menuItemNodes.length).toEqual(1);
+
+    const component = render(<div>{menuItemNodes}</div>);
+
+    expect(component.getByRole("menuitem"))
+      .satisfy(
+        selectorMatches(".core-context-menu-item.core-context-menu-disabled")
+      )
+      .satisfy(
+        childStructure([
+          ".core-context-menu-icon-right > .icon.icon-checkmark",
+          ".core-context-menu-item > .core-context-menu-icon > .icon.icon-placeholder",
+          ".core-context-menu-badge .core-badge-technicalPreviewBadge",
+        ])
+      );
+  });
+
   it("createMenuItemNodes abstract disabled item should create a disabled MenuItem", () => {
-    const CursorMenuItemProps: CursorMenuItemProps[] = [
+    const cursorMenuItemProps: CursorMenuItemProps[] = [
       {
         id: "test",
         badgeType: BadgeType.New,
@@ -198,15 +232,15 @@ describe("MenuItem", () => {
       },
     ];
 
-    const menuItems = MenuItemHelpers.createMenuItems(CursorMenuItemProps);
+    const menuItems = MenuItemHelpers.createMenuItems(cursorMenuItemProps);
     expect(menuItems.length).toEqual(1);
 
     const menuItemNodes = MenuItemHelpers.createMenuItemNodes(menuItems);
     expect(menuItemNodes.length).toEqual(1);
 
-    render(<div>{menuItemNodes}</div>);
+    const component = render(<div>{menuItemNodes}</div>);
 
-    expect(screen.getByRole("menuitem")).satisfy(
+    expect(component.getByRole("menuitem")).satisfy(
       selectorMatches(".core-context-menu-item.core-context-menu-disabled")
     );
   });
@@ -215,7 +249,7 @@ describe("MenuItem", () => {
     const handleSelect = vi.fn();
     const handleSelect2 = vi.fn();
 
-    const CursorMenuItemProps: CursorMenuItemProps[] = [
+    const cursorMenuItemProps: CursorMenuItemProps[] = [
       {
         id: "test",
         item: {
@@ -228,7 +262,7 @@ describe("MenuItem", () => {
     ];
 
     const menuItems = MenuItemHelpers.createMenuItems(
-      CursorMenuItemProps,
+      cursorMenuItemProps,
       handleSelect2
     );
     expect(menuItems.length).toEqual(1);
@@ -249,7 +283,7 @@ describe("MenuItem", () => {
   });
 
   it("createMenuItemNodes should create a valid submenu", () => {
-    const CursorMenuItemProps: CursorMenuItemProps[] = [
+    const cursorMenuItemProps: CursorMenuItemProps[] = [
       {
         id: "test",
         label: "test label",
@@ -275,15 +309,15 @@ describe("MenuItem", () => {
       },
     ];
 
-    const menuItems = MenuItemHelpers.createMenuItems(CursorMenuItemProps);
+    const menuItems = MenuItemHelpers.createMenuItems(cursorMenuItemProps);
     expect(menuItems.length).toEqual(1);
 
     const menuItemNodes = MenuItemHelpers.createMenuItemNodes(menuItems);
     expect(menuItemNodes.length).toEqual(1);
 
-    render(<div>{menuItemNodes}</div>);
+    const component = render(<div>{menuItemNodes}</div>);
 
-    expect(screen.getByText("Mode 2")).to.satisfy(
+    expect(component.getByText("Mode 2")).toSatisfy(
       selectorMatches(
         ".core-context-submenu .core-context-submenu-popup .core-context-menu-container .core-context-menu-content"
       )

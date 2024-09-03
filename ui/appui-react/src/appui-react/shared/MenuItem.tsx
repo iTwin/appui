@@ -40,14 +40,14 @@ export interface CursorMenuItemProps extends CommonProps {
    */
   // eslint-disable-next-line deprecation/deprecation
   iconSpec?: IconSpec;
-  /** The item to execute when this item is invoked. Either 'item' or 'submenu' must be specified.
+  /** The item to execute when this item is invoked. Either 'item', 'submenu' or `execute` must be specified.
    * @deprecated in 4.15.0. Use properties of this object instead.
    */
   // eslint-disable-next-line deprecation/deprecation
   item?: CommandItemProps;
   /** Function to execute. */
   execute?: () => any;
-  /** Nested array of item props. Either 'item' or 'submenu' must be specified. */
+  /** Nested array of item props. Either 'item', 'submenu' or 'execute' must be specified. */
   submenu?: CursorMenuItemProps[];
   /** Icon to display on right side of the menu item.
    * Name of icon WebFont entry or if specifying an imported SVG symbol use "webSvg:" prefix  to imported symbol Id.
@@ -205,7 +205,6 @@ export class MenuItemHelpers {
     item: MenuItem,
     index: number
   ): React.ReactNode {
-    let node: React.ReactNode = null;
     const label = item.label;
     const iconSpec = item.iconSpec;
     const iconRightSpec = item.iconRightSpec;
@@ -215,40 +214,35 @@ export class MenuItemHelpers {
       item.isDisabled
     );
 
-    if (item.actionItem) {
-      const sel = () => item.itemPicked();
-      node = (
-        <ContextMenuItem
+    if (item.submenu && item.submenu.length > 0) {
+      const items = this.createMenuItemNodes(item.submenu);
+
+      return (
+        <ContextSubMenu
           key={index}
-          onSelect={sel}
           icon={iconSpec}
-          iconRight={iconRightSpec}
+          label={label}
           badgeType={badgeType}
           badgeKind={badgeKind}
           disabled={isDisabled}
         >
-          {label}
-        </ContextMenuItem>
+          {items}
+        </ContextSubMenu>
       );
-    } else {
-      if (item.submenu && item.submenu.length > 0) {
-        const items = this.createMenuItemNodes(item.submenu);
-
-        node = (
-          <ContextSubMenu
-            key={index}
-            icon={iconSpec}
-            label={label}
-            badgeType={badgeType}
-            badgeKind={badgeKind}
-            disabled={isDisabled}
-          >
-            {items}
-          </ContextSubMenu>
-        );
-      }
     }
 
-    return node;
+    return (
+      <ContextMenuItem
+        key={index}
+        onSelect={() => item.itemPicked()}
+        icon={iconSpec}
+        iconRight={iconRightSpec}
+        badgeType={badgeType}
+        badgeKind={badgeKind}
+        disabled={isDisabled}
+      >
+        {label}
+      </ContextMenuItem>
+    );
   }
 }
