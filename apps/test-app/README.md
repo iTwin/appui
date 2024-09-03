@@ -12,18 +12,18 @@ The application may be run as an Electron app or within a browser. The following
 2. Optionally, set other environment variables to configure the application prior to startup. The full list of supported variables is [below](#environment-variables).
 3. There are two ways to start the application:
 
-- In Electron:
-
-  ```cmd
-  cd apps/test-app
-  npm run start
-  ```
-
 - In a browser:
 
   ```cmd
   cd apps/test-app
-  npm run start:servers
+  npm start
+  ```
+
+- In Electron:
+
+  ```cmd
+  cd apps/test-app
+  npm run electron
   ```
 
 ## Environment Variables
