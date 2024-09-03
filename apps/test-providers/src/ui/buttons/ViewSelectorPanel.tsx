@@ -5,6 +5,7 @@
 import "./ViewSelectorPanel.scss";
 import * as React from "react";
 import {
+  ToolbarCustomItem,
   ToolbarItemUtilities,
   useActiveIModelConnection,
   useActiveViewport,
@@ -12,20 +13,18 @@ import {
 } from "@itwin/appui-react";
 
 export function getCustomViewSelectorPopupItem(
-  itemPriority: number,
-  groupPriority: number
-) {
   // eslint-disable-next-line deprecation/deprecation
-  return ToolbarItemUtilities.createCustomItem(
-    "appui-test-providers:viewSelector",
-    itemPriority,
-    "icon-saved-view",
-    "Load selected view into active content view",
-    <ViewSelectorPanel />,
-    {
-      groupPriority,
-    }
-  );
+  overrides?: Omit<Partial<ToolbarCustomItem>, "icon">
+) {
+  return ToolbarItemUtilities.createCustomItem({
+    id: "appui-test-providers:viewSelector",
+    icon: <i className="icon icon-saved-view" />,
+    label: "Load selected view into active content view",
+    panelContent: <ViewSelectorPanel />,
+    itemPriority: 20,
+    groupPriority: 3000,
+    ...overrides,
+  });
 }
 
 function ViewSelectorPanel() {

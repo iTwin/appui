@@ -25,7 +25,9 @@ export * from "./ui/providers/CustomContentStageUiProvider";
 export * from "./ui/providers/FloatingWidgetsUiItemsProvider";
 export * from "./ui/providers/InspectUiItemInfoToolProvider";
 export * from "./ui/providers/MessageUiItemsProvider";
+export * from "./ui/providers/PopoutWindowsProvider";
 export * from "./ui/providers/PreviewFeaturesToggleProvider";
+export * from "./ui/providers/SynchronizedViewportProvider";
 export * from "./ui/providers/UpdatedUiItemsProvider";
 export * from "./ui/providers/WidgetContentProvider";
 
@@ -35,7 +37,7 @@ export * from "./ui/frontstages/CustomContentFrontstage";
 export * from "./ui/frontstages/CustomFrontstageProvider";
 export * from "./ui/frontstages/PopoutWindowsFrontstage";
 export * from "./ui/frontstages/registerCustomFrontstage";
-export * from "./ui/frontstages/SynchronizedFloatingViewport";
+export * from "./ui/frontstages/SynchronizedViewportFrontstage";
 
 export * from "./ui/widgets/ITwinUIv2Widget";
 export * from "./ui/widgets/LayoutWidget";

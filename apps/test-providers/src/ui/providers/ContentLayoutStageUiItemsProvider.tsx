@@ -92,7 +92,7 @@ export class ContentLayoutStageUiItemsProvider implements UiItemsProvider {
             itemPriority: 15,
             groupPriority: 3000,
           }),
-          getCustomViewSelectorPopupItem(20, 3000),
+          getCustomViewSelectorPopupItem(),
         ];
       }
     }

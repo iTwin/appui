@@ -24,10 +24,14 @@ import {
   createContentLayoutFrontstage,
   createCustomContentFrontstage,
   createPreviewFeaturesProvider,
+  createSynchronizedViewportFrontstage,
+  createSynchronizedViewportProvider,
   CustomContentStageUiProvider,
   FloatingWidgetsUiItemsProvider,
   InspectUiItemInfoToolProvider,
   MessageUiItemsProvider,
+  PopoutWindowsFrontstage,
+  PopoutWindowsProvider,
 } from "@itwin/appui-test-providers";
 import { ProcessDetector } from "@itwin/core-bentley";
 import {
@@ -71,13 +75,11 @@ export function registerFrontstages({
     createWidgetApiFrontstage(),
     createCustomContentFrontstage(),
     createContentLayoutFrontstage(),
+    createSynchronizedViewportFrontstage(),
   ];
   frontstages.forEach((frontstage) => {
     UiFramework.frontstages.addFrontstage(frontstage);
   });
-  // SynchronizedFloatingViewportStage.register(
-  //   AppUiTestProviders.localizationNamespace
-  // );
   // PopoutWindowsFrontstage.register(AppUiTestProviders.localizationNamespace);
 
   UiItemsManager.register(new StandardContentToolsUiItemsProvider(), {
@@ -85,13 +87,22 @@ export function registerFrontstages({
       createMainFrontstage.stageId,
       createEditorFrontstage.stageId,
       createWidgetApiFrontstage.stageId,
+      createSynchronizedViewportFrontstage.stageId,
     ],
   });
   UiItemsManager.register(new StandardNavigationToolsUiItemsProvider(), {
-    stageIds: [createMainFrontstage.stageId, createWidgetApiFrontstage.stageId],
+    stageIds: [
+      createMainFrontstage.stageId,
+      createWidgetApiFrontstage.stageId,
+      createSynchronizedViewportFrontstage.stageId,
+    ],
   });
   UiItemsManager.register(createStatusBarUiItemsProvider(), {
-    stageIds: [createMainFrontstage.stageId, createWidgetApiFrontstage.stageId],
+    stageIds: [
+      createMainFrontstage.stageId,
+      createWidgetApiFrontstage.stageId,
+      createSynchronizedViewportFrontstage.stageId,
+    ],
   });
   UiItemsManager.register(createMainFrontstageProvider());
   UiItemsManager.register(createElementStackingProvider(), {
@@ -133,6 +144,9 @@ export function registerFrontstages({
       stageIds: [createContentLayoutFrontstage.stageId],
     }
   );
+  UiItemsManager.register(createSynchronizedViewportProvider(), {
+    stageIds: [createSynchronizedViewportFrontstage.stageId],
+  });
 
   if (ProcessDetector.isElectronAppFrontend) {
     UiFramework.frontstages.addFrontstage(createEditorFrontstage());

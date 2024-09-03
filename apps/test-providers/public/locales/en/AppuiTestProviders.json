@@ -7,7 +7,7 @@
   "backstage": {
     "customContentFrontstageLabel": "Custom Content",
     "contentLayoutFrontstageLabel": "Content Layout",
-    "SynchronizeFloatingViewFrontstageLabel": "Synchronized Floating View",
+    "SynchronizedViewportFrontstage": "Synchronized Viewport",
     "PopoutWindowsFrontstageLabel": "Popout Windows"
   },
   "StatusBar": {
