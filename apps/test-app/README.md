@@ -34,10 +34,10 @@ You can set environment variables to alter the default behavior of various aspec
 
 _Optionally_ used to load an application in a specific configuration:
 
-- `strict` - allows disabling of `React.StrictMode` if `0` is specified. I.e. <http://localhost:3000/?strict=0>
-- `menu` - allows disabling the rendering of menus if `0` is specified. I.e. <http://localhost:3000/?menu=0>
-- `frontstageId` - opens a frontstage by specified frontstage id, uses a blank connection. I.e. <http://localhost:3000/blank?frontstageId=widget-api>
+- `strict` - allows disabling of `React.StrictMode` if `0` is specified, i.e. <http://localhost:3000/?strict=0>.
+- `menu` - allows disabling the rendering of menus if `0` is specified, i.e. <http://localhost:3000/?menu=0>.
+- `frontstageId` - opens a frontstage by specified frontstage id, uses a blank connection, i.e. <http://localhost:3000/blank?frontstageId=widget-api>.
 
 Preview features:
 
-- `reparentPopoutWidgets` - overrides if the preview feature is enabled: `0` | `1`. I.e. <http://localhost:3000/?reparentPopoutWidgets=1>
+- `reparentPopoutWidgets` - overrides if the preview feature is enabled: `0` | `1`, i.e. <http://localhost:3000/?reparentPopoutWidgets=1>.
