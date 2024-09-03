@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { test, expect, Locator } from "@playwright/test";
+import { test, Locator, expect } from "@playwright/test";
 import assert from "assert";
 import {
   WidgetState,
@@ -13,7 +13,7 @@ import {
   popoutButtonLocator,
   setWidgetState,
   tabLocator,
-  trackWidgetLifecycle,
+  trackConsole,
   widgetLocator,
 } from "./Utils";
 
@@ -180,14 +180,14 @@ test.describe("popout widget", () => {
       id,
     });
     await expect(widget).toBeVisible();
-    const widgetLifecycle = trackWidgetLifecycle(page, id);
+    const logs = trackConsole(page);
     const popoutPage = await popoutWidget(widget);
     await expect.poll(async () => popoutPage.isClosed()).toBe(false);
 
     await popoutPage.close();
 
-    await expect.poll(async () => widgetLifecycle.mountCount).toBe(1);
-    await expect.poll(async () => widgetLifecycle.unMountCount).toBe(1);
+    await expect.poll(() => logs).toContain(`Widget ${id} mount`);
+    await expect.poll(() => logs).toContain(`Widget ${id} unmount`);
   });
 });
 
@@ -215,6 +215,38 @@ test("should copy shadow root styles", async ({ baseURL, page }) => {
   const popoutPage = await popoutWidget(widget);
   const borders = popoutPage.locator("#progress-radial");
   await expect(borders).toHaveScreenshot();
+});
+
+test("should render after link styles are loaded", async ({
+  context,
+  page,
+}) => {
+  context.route("**", (route) => route.continue());
+  await page.goto(`?frontstage=appui-test-app:TestPopout`);
+
+  const tab = tabLocator(page, "Widget 1");
+  const widget = widgetLocator({ tab });
+  await expect(widget).toBeVisible();
+
+  const logs = trackConsole<{
+    clientWidth: number;
+    clientHeight: number;
+  }>(page, async (msg) => {
+    if (msg.text().includes("LinkTest")) {
+      const val = await msg.args()[1].jsonValue();
+      return val;
+    }
+  });
+
+  await popoutWidget(widget);
+
+  await expect.poll(() => logs[0]).toBeTruthy();
+  expect(logs[0]).toEqual(
+    expect.objectContaining({
+      clientWidth: 10,
+      clientHeight: 15,
+    })
+  );
 });
 
 async function popoutWidget(widget: Locator) {
