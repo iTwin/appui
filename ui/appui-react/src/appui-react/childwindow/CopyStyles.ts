@@ -6,15 +6,32 @@
 /** Copies the CSS style sheets from source document into the target document.
  * @internal
  */
-export function copyStyles(
+export async function copyStyles(
   targetDoc: Document,
   sourceDoc: Document = document
 ) {
+  const promises: Array<Promise<void>> = [];
   const styleSheets = Array.from(sourceDoc.styleSheets);
   styleSheets.forEach(({ ownerNode }) => {
     // Copy `link` and `style` elements.
     if (!ownerNode) return;
     const clonedNode = targetDoc.importNode(ownerNode, true);
+    if (
+      clonedNode instanceof
+        (targetDoc.defaultView?.HTMLLinkElement ?? HTMLLinkElement) &&
+      clonedNode.href
+    ) {
+      promises.push(
+        new Promise((resolve, reject) => {
+          clonedNode.onload = () => {
+            resolve();
+          };
+          clonedNode.onerror = (error) => {
+            reject(error);
+          };
+        })
+      );
+    }
     targetDoc.head.appendChild(clonedNode);
   });
 
@@ -35,4 +52,6 @@ export function copyStyles(
   if (svgSymbolParent) {
     targetDoc.body.appendChild(svgSymbolParent.cloneNode(true));
   }
+
+  return Promise.all(promises);
 }
