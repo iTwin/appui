@@ -199,7 +199,7 @@ export class CustomContentStageUiProvider implements UiItemsProvider {
         groupPriority: 200,
         itemPriority: 2,
         label: AppUiTestProviders.translate(
-          "backstage.customContentFrontstageLabel"
+          "backstage.CustomContentFrontstage"
         ),
         subtitle: "from provider",
         icon: <SvgFlag />,

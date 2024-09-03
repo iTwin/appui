@@ -5,10 +5,10 @@
     }
   },
   "backstage": {
-    "customContentFrontstageLabel": "Custom Content",
-    "contentLayoutFrontstageLabel": "Content Layout",
+    "CustomContentFrontstage": "Custom Content",
+    "ContentLayoutFrontstage": "Content Layout",
     "SynchronizedViewportFrontstage": "Synchronized Viewport",
-    "PopoutWindowsFrontstageLabel": "Popout Windows"
+    "PopoutWindowsFrontstage": "Popout Windows"
   },
   "StatusBar": {
     "Units": "Units",

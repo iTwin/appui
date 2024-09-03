@@ -23,6 +23,8 @@ import {
   ContentLayoutStageUiItemsProvider,
   createContentLayoutFrontstage,
   createCustomContentFrontstage,
+  createPopoutWindowsFrontstage,
+  createPopoutWindowsProvider,
   createPreviewFeaturesProvider,
   createSynchronizedViewportFrontstage,
   createSynchronizedViewportProvider,
@@ -30,8 +32,6 @@ import {
   FloatingWidgetsUiItemsProvider,
   InspectUiItemInfoToolProvider,
   MessageUiItemsProvider,
-  PopoutWindowsFrontstage,
-  PopoutWindowsProvider,
 } from "@itwin/appui-test-providers";
 import { ProcessDetector } from "@itwin/core-bentley";
 import {
@@ -76,11 +76,11 @@ export function registerFrontstages({
     createCustomContentFrontstage(),
     createContentLayoutFrontstage(),
     createSynchronizedViewportFrontstage(),
+    createPopoutWindowsFrontstage(),
   ];
   frontstages.forEach((frontstage) => {
     UiFramework.frontstages.addFrontstage(frontstage);
   });
-  // PopoutWindowsFrontstage.register(AppUiTestProviders.localizationNamespace);
 
   UiItemsManager.register(new StandardContentToolsUiItemsProvider(), {
     stageIds: [
@@ -88,6 +88,7 @@ export function registerFrontstages({
       createEditorFrontstage.stageId,
       createWidgetApiFrontstage.stageId,
       createSynchronizedViewportFrontstage.stageId,
+      createPopoutWindowsFrontstage.stageId,
     ],
   });
   UiItemsManager.register(new StandardNavigationToolsUiItemsProvider(), {
@@ -95,6 +96,7 @@ export function registerFrontstages({
       createMainFrontstage.stageId,
       createWidgetApiFrontstage.stageId,
       createSynchronizedViewportFrontstage.stageId,
+      createPopoutWindowsFrontstage.stageId,
     ],
   });
   UiItemsManager.register(createStatusBarUiItemsProvider(), {
@@ -102,6 +104,7 @@ export function registerFrontstages({
       createMainFrontstage.stageId,
       createWidgetApiFrontstage.stageId,
       createSynchronizedViewportFrontstage.stageId,
+      createPopoutWindowsFrontstage.stageId,
     ],
   });
   UiItemsManager.register(createMainFrontstageProvider());
@@ -146,6 +149,9 @@ export function registerFrontstages({
   );
   UiItemsManager.register(createSynchronizedViewportProvider(), {
     stageIds: [createSynchronizedViewportFrontstage.stageId],
+  });
+  UiItemsManager.register(createPopoutWindowsProvider(), {
+    stageIds: [createPopoutWindowsFrontstage.stageId],
   });
 
   if (ProcessDetector.isElectronAppFrontend) {

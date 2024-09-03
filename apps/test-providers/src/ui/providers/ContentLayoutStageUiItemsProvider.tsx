@@ -183,7 +183,7 @@ export class ContentLayoutStageUiItemsProvider implements UiItemsProvider {
         groupPriority: 300,
         itemPriority: 2,
         label: AppUiTestProviders.translate(
-          "backstage.contentLayoutFrontstageLabel"
+          "backstage.ContentLayoutFrontstage"
         ),
       }),
     ];
