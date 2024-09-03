@@ -25,7 +25,8 @@ import {
   ContentLayout,
   ContentLayoutDef,
   CursorInformation,
-  CursorMenuData,
+  CursorMenuItemProps,
+  CursorMenuPayload,
   CursorPopupContent,
   CursorPopupManager,
   CustomItemDef,
@@ -40,7 +41,6 @@ import {
   ListPicker,
   ListPickerItem,
   MenuButton,
-  MenuItemProps,
   MessageCenterField,
   MessageManager,
   ModelessDialog,
@@ -525,18 +525,18 @@ export class ComponentExamplesProvider {
       CursorInformation.getRelativePositionFromCursorDirection(
         CursorInformation.cursorDirection
       );
-    const menuItems: MenuItemProps[] = [
-      { id: "menuItem1", item: { label: "Menu Item 1" } },
+    const menuItems: CursorMenuItemProps[] = [
+      { id: "menuItem1", label: "Menu Item 1", execute: () => {} },
       {
         id: "menuItem2",
         label: "Menu Item 2",
         submenu: [
-          { id: "submenuItem1", item: { label: "Submenu Item 1" } },
-          { id: "submenuItem2", item: { label: "Submenu Item 2" } },
+          { id: "submenuItem1", label: "Submenu Item 1", execute: () => {} },
+          { id: "submenuItem2", label: "Submenu Item 2", execute: () => {} },
         ],
       },
     ];
-    let menuData: CursorMenuData;
+    let menuPayload: CursorMenuPayload;
 
     // TODO: Figure out a way to change zIndex of cursor popup without changing styling in package. Without zIndex being set to at least 14000, CursorPopup, appears behind Component Examples frontstage modal
     function openCursorPopup() {
@@ -576,13 +576,13 @@ export class ComponentExamplesProvider {
           undefined,
           <Button
             onMouseDown={(e) => {
-              menuData = {
+              menuPayload = {
                 items: menuItems,
                 position: { x: e.clientX, y: e.clientY },
               };
             }}
             onClick={() => {
-              UiFramework.openCursorMenu(menuData);
+              UiFramework.openCursorMenu(menuPayload);
             }}
           >
             Open Cursor Popup Menu
