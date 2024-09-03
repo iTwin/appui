@@ -126,7 +126,7 @@ The repository is set up to allow 2 different ways of testing changes with manua
 
 ### Test app
 
-In the `apps/test-app` directory there is test app that can be used to test changes to the packages in this repository. The `test-app` is an iTwin.js application that allows you to both open local `.bim` files and remote iModels from the iTwin Hub. [See README.md for more info](./apps/test-app/README.md)
+In the `apps/test-app` directory there is a test app that can be used to test changes to the packages in this repository. The `test-app` is an iTwin.js application that allows you to open both local `.bim` files and remote iModels from the iTwin Hub. [See README.md for more info](./apps/test-app/README.md)
 
 The `apps/test-providers` package currently used by the `test-app` should eventually be merged into the `test-app`.
 
