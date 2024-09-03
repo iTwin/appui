@@ -28,7 +28,7 @@ The application may be run as an Electron app or within a browser. The following
 
 ## Environment Variables
 
-You can set environment variables to alter the default behavior of various aspects of the application. To set the environment variables create a `.env` file in the `apps/test-app` directory. For a full list of variables see the [.env.template](.env.template) section below.
+You can set environment variables to alter the default behavior of various aspects of the application. To set the environment variables create a `.env` file in the `apps/test-app` directory. For a full list of variables see the [.env.template](.env.template) file.
 
 ### URL parameters
 
