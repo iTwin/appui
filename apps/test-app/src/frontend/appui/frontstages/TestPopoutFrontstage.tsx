@@ -30,6 +30,7 @@ export const createTestPopoutFrontstage = () => {
                   <div>Widget 1 content</div>
                   <div id="border-test" />
                   <FixedProgressRadial id="progress-radial" />
+                  <LinkTest />
                 </>
               ),
             },
@@ -87,4 +88,19 @@ function FixedProgressRadial(
     };
   }, []);
   return <ProgressRadial key={key} ref={ref} {...props} />;
+}
+
+function LinkTest() {
+  const ref = React.useRef<HTMLDivElement>(null);
+  React.useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const clientWidth = el.clientWidth;
+    const clientHeight = el.clientHeight;
+    Logger.logInfo(loggerCategory, "LinkTest", {
+      clientWidth,
+      clientHeight,
+    });
+  }, []);
+  return <div ref={ref} id="link-test" style={{ background: "red" }} />;
 }

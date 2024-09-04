@@ -20,7 +20,7 @@
     "playwright": "playwright"
   },
   "devDependencies": {
-    "@playwright/test": "^1.36.2",
+    "@playwright/test": "^1.46.1",
     "test-app": "workspace:*",
     "tsx": "^4.7.1"
   },

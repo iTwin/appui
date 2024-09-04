@@ -2,7 +2,7 @@
 # Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 # Licensed under the MIT License. See LICENSE.md in the project root for license terms.
 #----------------------------------------------------------------------------------------------
-FROM mcr.microsoft.com/playwright:v1.41.2-jammy
+FROM mcr.microsoft.com/playwright:v1.46.1-jammy
 
 # Install rush
 RUN npm install -g @microsoft/rush
