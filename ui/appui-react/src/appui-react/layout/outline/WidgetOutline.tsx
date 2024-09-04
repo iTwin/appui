@@ -16,6 +16,7 @@ import {
   isWidgetDropTargetState,
 } from "../state/DropTargetState";
 import { useSendBackHomeState } from "../widget/SendBack";
+import { WidgetDraggedOverContext } from "../widget/WidgetDraggedOverContext";
 
 /** @internal */
 export function WidgetOutline() {
@@ -32,8 +33,10 @@ function useHidden() {
   const widgetId = React.useContext(WidgetIdContext);
   const targeted = useTargeted();
   const activeHomeState = useSendBackHomeState();
+  const draggedOver = React.useContext(WidgetDraggedOverContext);
 
   return React.useMemo(() => {
+    if (draggedOver?.target !== undefined) return false;
     if (activeHomeState?.widgetId === widgetId) return false;
 
     if (!targeted) return true;
@@ -45,5 +48,5 @@ function useHidden() {
       return false;
 
     return true;
-  }, [targeted, widgetId, activeHomeState]);
+  }, [targeted, widgetId, activeHomeState, draggedOver]);
 }

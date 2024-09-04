@@ -224,6 +224,13 @@ export interface WidgetTabDragEndAction {
 }
 
 /** @internal */
+export interface WidgetTabDragEndNewAction {
+  readonly type: "WIDGET_TAB_DRAG_END_NEW";
+  readonly id: TabState["id"];
+  readonly target: TabDragDropTargetState;
+}
+
+/** @internal */
 export interface WidgetTabCloseAction {
   readonly type: "WIDGET_TAB_CLOSE";
   readonly id: TabState["id"];
@@ -368,6 +375,7 @@ export type NineZoneAction =
   | WidgetTabDragStartAction
   | WidgetTabDragAction
   | WidgetTabDragEndAction
+  | WidgetTabDragEndNewAction
   | WidgetTabExpandAction
   | WidgetTabFloatAction
   | WidgetTabHideAction

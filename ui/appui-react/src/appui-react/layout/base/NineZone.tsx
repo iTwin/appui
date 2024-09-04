@@ -24,6 +24,7 @@ import { WidgetTab } from "../widget/Tab";
 import type { NineZoneAction } from "../state/NineZoneAction";
 import type { LayoutStore } from "./LayoutStore";
 import { LayoutStoreContext, useLayout } from "./LayoutStore";
+import { IsTabDraggedContext } from "../widget/IsTabDraggedContext";
 
 /** @internal */
 export type NineZoneDispatch = (action: NineZoneAction) => void;
@@ -83,6 +84,8 @@ const floatingWidget = <FloatingWidget />;
 
 /** @internal */
 export function NineZoneProvider(props: NineZoneProviderProps) {
+  const [isTabDragged, setIsTabDragged] = React.useState(false);
+
   return (
     <LayoutStoreContext.Provider value={props.layout}>
       <NineZoneDispatchContext.Provider value={props.dispatch}>
@@ -107,7 +110,14 @@ export function NineZoneProvider(props: NineZoneProviderProps) {
                             <CursorTypeProvider>
                               <WidgetContentManager>
                                 <MeasureContext.Provider value={props.measure}>
-                                  {props.children}
+                                  <IsTabDraggedContext.Provider
+                                    value={{
+                                      isDragged: isTabDragged,
+                                      setIsDragged: setIsTabDragged,
+                                    }}
+                                  >
+                                    {props.children}
+                                  </IsTabDraggedContext.Provider>
                                 </MeasureContext.Provider>
                               </WidgetContentManager>
                             </CursorTypeProvider>

@@ -25,6 +25,8 @@ import { useLayout } from "../base/LayoutStore";
 import { getWidgetState } from "../state/internal/WidgetStateHelpers";
 import { useFloatingWidgetId } from "./FloatingWidget";
 import type { SizeProps } from "../../utils/SizeProps";
+import type { DraggedOverTargets } from "./WidgetDraggedOverContext";
+import { WidgetDraggedOverContext } from "./WidgetDraggedOverContext";
 
 /** @internal */
 export interface WidgetProviderProps {
@@ -157,22 +159,29 @@ export const Widget = React.forwardRef<HTMLDivElement, WidgetProps>(
       }),
       [measure]
     );
+    const [draggedOverTarget, setDraggedOverTarget] = React.useState<
+      DraggedOverTargets | undefined
+    >(undefined);
 
     const ref = useRefs(forwardedRef, elementRef);
     const className = classnames("nz-widget-widget", props.className);
     return (
       <WidgetContext.Provider value={widgetContextValue}>
-        <div
-          className={className}
-          onMouseEnter={props.onMouseEnter}
-          onMouseLeave={props.onMouseLeave}
-          onTransitionEnd={props.onTransitionEnd}
-          ref={ref}
-          style={props.style}
-          data-widget-id={props.widgetId}
+        <WidgetDraggedOverContext.Provider
+          value={{ target: draggedOverTarget, setTarget: setDraggedOverTarget }}
         >
-          {props.children}
-        </div>
+          <div
+            className={className}
+            onMouseEnter={props.onMouseEnter}
+            onMouseLeave={props.onMouseLeave}
+            onTransitionEnd={props.onTransitionEnd}
+            ref={ref}
+            style={props.style}
+            data-widget-id={props.widgetId}
+          >
+            {props.children}
+          </div>
+        </WidgetDraggedOverContext.Provider>
       </WidgetContext.Provider>
     );
   }

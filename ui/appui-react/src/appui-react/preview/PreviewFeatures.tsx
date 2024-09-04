@@ -67,6 +67,9 @@ interface KnownPreviewFeatures {
    * Discuss or upvote this feature: https://github.com/iTwin/appui/discussions/859
    */
   controlWidgetVisibility: boolean | WidgetDef["id"][];
+  /** If `true`, tab dragging is handled by the Drag and Drop API.
+   */
+  newDragging: boolean;
 }
 
 /** Object used trim to only known features at runtime.
@@ -82,6 +85,7 @@ const knownFeaturesObject: Record<keyof KnownPreviewFeatures, undefined> = {
   newToolbars: undefined,
   reparentPopoutWidgets: undefined,
   controlWidgetVisibility: undefined,
+  newDragging: undefined,
 };
 
 /** List of preview features that can be enabled/disabled.

@@ -48,6 +48,9 @@ import { useFloatingWidgetId } from "./FloatingWidget";
 import { getWidgetState } from "../state/internal/WidgetStateHelpers";
 import { useIsMaximizedWidget } from "../../preview/enable-maximized-widget/useMaximizedWidget";
 import { FloatingTab } from "./FloatingTab";
+import { IsTabDraggedContext } from "./IsTabDraggedContext";
+import { usePreviewFeatures } from "../../preview/PreviewFeatures";
+import { isWindowDraggedOver } from "../base/GlobalWindowDraggedOverTracker";
 
 /** @internal */
 export interface WidgetTabProviderProps extends TabPositionContextArgs {
@@ -107,6 +110,7 @@ export function WidgetTab(props: WidgetTabProps) {
 }
 
 function WidgetTabComponent(props: WidgetTabProps) {
+  const { newDragging } = usePreviewFeatures();
   const id = React.useContext(TabIdContext);
   const { first, firstInactive, last } = React.useContext(TabPositionContext);
   const widgetTabsEntryContext = React.useContext(WidgetTabsEntryContext);
@@ -114,6 +118,8 @@ function WidgetTabComponent(props: WidgetTabProps) {
   const widgetId = React.useContext(WidgetIdContext);
   const showIconOnly = React.useContext(IconOnlyOnWidgetTabContext);
   const showWidgetIcon = React.useContext(ShowWidgetIconContext);
+  const isTabDragged = React.useContext(IsTabDraggedContext);
+  const dispatch = React.useContext(NineZoneDispatchContext);
   assert(!!id);
   assert(!!widgetId);
 
@@ -125,13 +131,20 @@ function WidgetTabComponent(props: WidgetTabProps) {
     (state) => getWidgetState(state, widgetId).minimized
   );
 
+  const [dragOffset, setDragOffset] = React.useState(new Point(0, 0));
+  const widgetSize = useWidgetSize();
   const maximizedWidget = useIsMaximizedWidget();
 
   const resizeObserverRef = useResizeObserver<HTMLDivElement>(
     widgetTabsEntryContext?.onResize
   );
   const pointerCaptorRef = useTabInteractions({ clickOnly: maximizedWidget });
-  const refs = useRefs<HTMLDivElement>(resizeObserverRef, pointerCaptorRef);
+  const tabRef = React.useRef<HTMLDivElement>(null);
+  const refs = useRefs<HTMLDivElement>(
+    resizeObserverRef,
+    pointerCaptorRef,
+    tabRef
+  );
 
   const active = activeTabId === id;
   const className = classnames(
@@ -148,12 +161,53 @@ function WidgetTabComponent(props: WidgetTabProps) {
     (showIconOnly && !props.icon) ||
     (showWidgetIcon && !showIconOnly) ||
     !showWidgetIcon;
+
   return (
     <div
       data-item-id={id}
       data-item-type="widget-tab"
       className={className}
       ref={refs}
+      draggable={newDragging}
+      onDragStart={(e) => {
+        isTabDragged?.setIsDragged(true);
+        e.dataTransfer.setData("text/plain", id);
+        if (tabRef.current) {
+          const tabPosition = tabRef.current.getBoundingClientRect();
+          const tabPositionPoint = new Point(tabPosition.x, tabPosition.y);
+          setDragOffset(
+            tabPositionPoint.getOffsetTo(new Point(e.clientX, e.clientY))
+          );
+        }
+      }}
+      onDragEnd={(e) => {
+        // Check if drop was already handled.
+        if (!isTabDragged?.isDragged) return;
+
+        isTabDragged?.setIsDragged(false);
+        if (!isWindowDraggedOver())
+          dispatch({
+            id,
+            type: "WIDGET_TAB_POPOUT",
+            position: { x: e.clientX, y: e.clientY },
+          });
+        else {
+          // This dispatch could be moved somewhere else and called in onDrop event.
+          dispatch({
+            type: "WIDGET_TAB_DRAG_END_NEW",
+            id,
+            target: {
+              type: "floatingWidget",
+              newFloatingWidgetId: id,
+              size: widgetSize,
+              position: {
+                x: e.clientX - dragOffset.x,
+                y: e.clientY - dragOffset.y,
+              },
+            },
+          });
+        }
+      }}
       role="tab"
       style={props.style}
       title={label}
@@ -184,6 +238,7 @@ export function useTabInteractions<T extends HTMLElement>({
   onDragStart,
   clickOnly,
 }: UseTabInteractionsArgs) {
+  const { newDragging } = usePreviewFeatures();
   const id = React.useContext(TabIdContext);
   const widgetContext = React.useContext(WidgetContext);
   const measure = React.useContext(MeasureContext);
@@ -326,9 +381,9 @@ export function useTabInteractions<T extends HTMLElement>({
       const distance =
         initialPointerPosition.current.getDistanceTo(pointerPosition);
       if (distance < 10) return;
-      handleDragStart(pointerPosition);
+      if (!newDragging) handleDragStart(pointerPosition);
     },
-    [handleDragStart]
+    [handleDragStart, newDragging]
   );
   const handlePointerUp = React.useCallback(() => {
     clickCount.current++;
@@ -382,3 +437,19 @@ TabPositionContext.displayName = "nz:TabPositionContext";
 /** @internal */
 export const IconOnlyOnWidgetTabContext = React.createContext<boolean>(false);
 IconOnlyOnWidgetTabContext.displayName = "nz:IconOnlyOnWidgetTabContext";
+
+function useWidgetSize() {
+  const widgetContext = React.useContext(WidgetContext);
+  const measure = React.useContext(MeasureContext);
+
+  const widgetSize = React.useMemo(() => {
+    const widgetBounds = widgetContext.measure();
+    const nzBounds = measure();
+    return restrainInitialWidgetSize(
+      widgetBounds.getSize(),
+      nzBounds.getSize()
+    );
+  }, [measure, widgetContext]);
+
+  return widgetSize;
+}

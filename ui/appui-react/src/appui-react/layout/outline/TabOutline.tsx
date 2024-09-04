@@ -13,6 +13,7 @@ import { useTargeted } from "../base/DragManager";
 import { WidgetIdContext } from "../widget/Widget";
 import { isWidgetDropTargetState } from "../state/DropTargetState";
 import { useSendBackHomeState } from "../widget/SendBack";
+import { WidgetDraggedOverContext } from "../widget/WidgetDraggedOverContext";
 
 /** @internal */
 export function TabOutline() {
@@ -25,8 +26,10 @@ function useHidden() {
   const widgetId = React.useContext(WidgetIdContext);
   const targeted = useTargeted();
   const activeHomeState = useSendBackHomeState();
+  const draggedOver = React.useContext(WidgetDraggedOverContext);
 
   return React.useMemo(() => {
+    if (draggedOver?.target === "widget") return false;
     if (activeHomeState?.widgetId === widgetId) return false;
 
     if (!targeted) return true;
@@ -36,5 +39,5 @@ function useHidden() {
     if (targeted.widgetId !== widgetId) return true;
 
     return false;
-  }, [targeted, widgetId, activeHomeState]);
+  }, [targeted, widgetId, activeHomeState, draggedOver]);
 }
