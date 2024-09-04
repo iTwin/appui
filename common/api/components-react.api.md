@@ -23,7 +23,6 @@ import type { IconDefinition } from '@itwin/appui-abstract';
 import type { Id64String } from '@itwin/core-bentley';
 import type { IDisposable } from '@itwin/core-bentley';
 import { immerable } from 'immer';
-import { JSX as JSX_2 } from 'react';
 import type { LinkElementsInfo } from '@itwin/appui-abstract';
 import type { Localization } from '@itwin/core-common';
 import { LocalizationProvider as LocalizationProvider_2 } from '@itwin/core-react';
@@ -40,7 +39,6 @@ import { PropertyRecord } from '@itwin/appui-abstract';
 import type { PropertyValue } from '@itwin/appui-abstract';
 import { default as React_2 } from 'react';
 import * as React_3 from 'react';
-import { ReactNode } from 'react';
 import { RelativePosition } from '@itwin/appui-abstract';
 import type { SelectOption } from '@itwin/itwinui-react';
 import { TimeDisplay } from '@itwin/appui-abstract';
@@ -845,9 +843,6 @@ export function formatInputDate(inputDate: Date, timeDisplay?: TimeDisplay, cust
 export function from<T>(iterable: Iterable<T> | PromiseLike<T>): Observable<T>;
 
 // @beta
-export function getPropertyFilterBuilderOperatorLabel(operator: PropertyFilterBuilderRuleOperator): string;
-
-// @beta
 export function getPropertyFilterBuilderOperators(property: PropertyDescription): PropertyFilterBuilderRuleOperator[];
 
 // @internal
@@ -1382,7 +1377,7 @@ export const matchLinks: (text: string) => Array<{
 // @public
 export class MergedPropertyValueRenderer implements IPropertyValueRenderer {
     canRender(record: PropertyRecord): boolean;
-    render(_record: PropertyRecord, context?: PropertyValueRendererContext): string | number | boolean | Iterable<ReactNode> | JSX_2.Element | null | undefined;
+    render(_record: PropertyRecord, context?: PropertyValueRendererContext): string | number | boolean | Iterable<React_3.ReactNode> | React_3.JSX.Element | null | undefined;
 }
 
 // @internal (undocumented)

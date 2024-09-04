@@ -26,8 +26,8 @@ import type {
   PropertyFilterRuleGroup,
 } from "./Types";
 import { isPropertyFilterRuleGroup } from "./Types";
-import { UiComponents } from "../UiComponents";
 import { PropertyFilterBuilderRuleRangeValue } from "./FilterBuilderRangeValue";
+import { useTranslation } from "../l10n/useTranslation";
 
 /**
  * Data structure that describes [[PropertyFilterBuilder]] component state.
@@ -327,9 +327,15 @@ export function usePropertyFilterBuilder(
     () => new PropertyFilterBuilderActions(setState)
   );
 
+  const { translate } = useTranslation();
+
   const buildFilter = React.useCallback(
     (options?: BuildFilterOptions) => {
-      const ruleErrors = validateRules(state.rootGroup, ruleValidator);
+      const ruleErrors = validateRules(
+        state.rootGroup,
+        translate,
+        ruleValidator
+      );
       if (!options?.ignoreErrors) {
         actions.setRuleErrorMessages(ruleErrors);
       }
@@ -338,13 +344,14 @@ export function usePropertyFilterBuilder(
         ? buildPropertyFilter(state.rootGroup)
         : undefined;
     },
-    [state.rootGroup, actions, ruleValidator]
+    [state.rootGroup, actions, ruleValidator, translate]
   );
   return { rootGroup: state.rootGroup, actions, buildFilter };
 }
 
 function validateRules(
   rule: PropertyFilterBuilderRuleGroupItem,
+  translate: (key: string) => string,
   ruleValidator?: (item: PropertyFilterBuilderRule) => string | undefined
 ) {
   const ruleIdsAndErrorMessages = new Map<string, string>();
@@ -358,7 +365,13 @@ function validateRules(
       const errorMessage = ruleValidator
         ? ruleValidator(item)
         : defaultPropertyFilterBuilderRuleValidator(item);
-      if (errorMessage) ruleIdsAndErrorMessages.set(item.id, errorMessage);
+      if (errorMessage)
+        ruleIdsAndErrorMessages.set(
+          item.id,
+          errorMessage.startsWith("filterBuilder.errorMessages")
+            ? translate(errorMessage)
+            : errorMessage
+        );
     }
   };
 
@@ -385,7 +398,7 @@ export function defaultPropertyFilterBuilderRuleValidator(
     return rangeRuleValidator(item.value);
   }
   if (isEmptyValue(item.value)) {
-    return UiComponents.translate("filterBuilder.errorMessages.emptyValue");
+    return "filterBuilder.errorMessages.emptyValue";
   }
   return undefined;
 }
@@ -393,10 +406,10 @@ export function defaultPropertyFilterBuilderRuleValidator(
 function rangeRuleValidator(value?: PropertyValue) {
   const range = PropertyFilterBuilderRuleRangeValue.parse(value);
   if (isEmptyValue(range.from) || isEmptyValue(range.to)) {
-    return UiComponents.translate("filterBuilder.errorMessages.emptyValue");
+    return "filterBuilder.errorMessages.emptyValue";
   }
   if (!PropertyFilterBuilderRuleRangeValue.isRangeValid(range)) {
-    return UiComponents.translate("filterBuilder.errorMessages.invalidRange");
+    return "filterBuilder.errorMessages.invalidRange";
   }
   return undefined;
 }

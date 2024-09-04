@@ -94,7 +94,6 @@ public;FlatGridItemType
 public;FloatTypeConverter 
 internal;formatInputDate(inputDate: Date, timeDisplay?: TimeDisplay, customFormatter?: DateFormatter, alternateDateFormat?: AlternateDateFormats): string | undefined
 public;from
-beta;getPropertyFilterBuilderOperatorLabel(operator: PropertyFilterBuilderRuleOperator): string
 beta;getPropertyFilterBuilderOperators(property: PropertyDescription): PropertyFilterBuilderRuleOperator[]
 internal;getPropertyKey(propertyCategory: PropertyCategory, propertyRecord: PropertyRecord): string
 internal;getToolbarDirection: (expandsTo: Direction) => OrthogonalDirection
