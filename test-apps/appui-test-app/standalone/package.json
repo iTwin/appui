@@ -9,6 +9,7 @@
     "build": "npm run build:backend && npm run build:frontend",
     "build:backend": "tsc -p tsconfig.backend.json",
     "build:frontend": "npm run copy:webfont && npm run pseudolocalize && vite build",
+    "preview": "vite preview --port 3000",
     "clean": "rimraf lib build .rush/temp/package-deps*.json",
     "lint": "eslint -f visualstudio \"./src/**/*.{ts,tsx}\" 1>&2",
     "start": "run-p start:webserver start:electron",

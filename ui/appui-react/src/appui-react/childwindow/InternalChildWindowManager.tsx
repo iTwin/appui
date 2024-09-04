@@ -7,6 +7,7 @@
  * @module ChildWindowManager
  */
 
+import "./InternalChildWindowManager.scss";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { Provider } from "react-redux";
@@ -25,7 +26,6 @@ import { ThemeManager } from "../theme/ThemeManager";
 import { UiStateStorageHandler } from "../uistate/useUiStateStorage";
 import type { ChildWindow } from "./ChildWindowConfig";
 import { copyStyles } from "./CopyStyles";
-import "./InternalChildWindowManager.scss";
 import { usePopoutsStore } from "../preview/reparent-popout-widgets/usePopoutsStore";
 import type { WidgetDef } from "../widgets/WidgetDef";
 
@@ -181,8 +181,8 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
         </Provider>
       );
 
-      setTimeout(() => {
-        copyStyles(childWindow.document);
+      setTimeout(async () => {
+        await copyStyles(childWindow.document);
         setTimeout(() => {
           this.render(element, reactConnectionDiv);
 

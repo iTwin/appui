@@ -2,7 +2,13 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { BrowserContext, expect, Locator, Page } from "@playwright/test";
+import {
+  BrowserContext,
+  ConsoleMessage,
+  expect,
+  Locator,
+  Page,
+} from "@playwright/test";
 import { PanelSide } from "../../ui/appui-react/src/appui-react/layout/widget-panels/PanelTypes";
 import { WidgetState } from "../../ui/appui-react/src/appui-react/widgets/WidgetState";
 import { StagePanelState } from "../../ui/appui-react/src/appui-react/stagepanels/StagePanelState";
@@ -248,14 +254,19 @@ export async function openComponentExamples(
   await page.getByRole("menuitem", { name: "Component Examples" }).click();
 }
 
-export function trackWidgetLifecycle(page: Page, widgetId: string) {
-  const lifecycle = {
-    mountCount: 0,
-    unMountCount: 0,
-  };
-  page.on("console", (msg) => {
-    if (msg.text() === `Widget ${widgetId} mount`) lifecycle.mountCount++;
-    if (msg.text() === `Widget ${widgetId} unmount`) lifecycle.unMountCount++;
+export function trackConsole<T = string>(
+  page: Page,
+  select?: (msg: ConsoleMessage) => Promise<T>
+) {
+  const messages: T[] = [];
+  page.on("console", async (message) => {
+    if (select === undefined) {
+      messages.push(message.text() as T);
+      return;
+    }
+    const selected = await select(message);
+    if (selected === undefined) return;
+    messages.push(selected);
   });
-  return lifecycle;
+  return messages as ReadonlyArray<T>;
 }
