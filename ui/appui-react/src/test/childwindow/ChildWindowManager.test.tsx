@@ -106,10 +106,10 @@ describe("ChildWindowManager", () => {
   </body>
   `;
 
-  it("will copy __SVG_SPRITE_NODE__", () => {
+  it("will copy __SVG_SPRITE_NODE__", async () => {
     const mainDoc = new DOMParser().parseFromString(mainHtml, "text/html");
     const childDoc = new DOMParser().parseFromString(childHtml, "text/html");
-    copyStyles(childDoc, mainDoc);
+    await copyStyles(childDoc, mainDoc);
     expect(childDoc.getElementById("__SVG_SPRITE_NODE__")).toBeTruthy();
   });
 
