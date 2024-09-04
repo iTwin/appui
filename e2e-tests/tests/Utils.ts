@@ -249,7 +249,7 @@ export async function openComponentExamples(
   page: Page,
   baseURL: string | undefined
 ) {
-  await page.goto(`${baseURL}?frontstage=appui-test-providers:WidgetApi`);
+  await page.goto(`${baseURL}/blank?frontstageId=widget-api&menu=0`);
   await page.locator(".nz-toolbar-button-button").click();
   await page.getByRole("menuitem", { name: "Component Examples" }).click();
 }

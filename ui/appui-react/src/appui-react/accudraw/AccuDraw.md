@@ -92,20 +92,14 @@ Here are more details about these implementations:
 
 ### FrameworkAccuDraw Setup in IModelApp
 
-An AccuDraw class or subclass instance is setup in the IModelApp instance using `IModelApp.startup` options containing the `iModelApp.accuDraw` member. See example in `test-apps/ui-test-app/src/frontend/index.tsx`.
+An AccuDraw class or subclass instance is setup in the IModelApp instance using `IModelApp.startup` options containing the `iModelApp.accuDraw` member.
 
 ```ts
 import { FrameworkAccuDraw } from "@itwin/appui-react";
-. . .
-  const opts: NativeAppOpts = {
-    iModelApp: {
-      . . .
-      accuDraw: new FrameworkAccuDraw(),
-      . . .
-    },
-  . . .
-  // Start the app.
-  await SampleAppIModelApp.startup(opts);
+
+await IModelApp.startup({
+  accuDraw: new FrameworkAccuDraw(),
+});
 ```
 
 ### AccuDrawFieldContainer React Component

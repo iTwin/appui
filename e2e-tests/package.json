@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.46.1",
-    "appui-standalone-app": "workspace:*",
+    "test-app": "workspace:*",
     "tsx": "^4.7.1"
   },
   "repository": {
