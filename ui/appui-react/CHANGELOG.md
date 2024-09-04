@@ -1,6 +1,13 @@
 # Change Log - @itwin/appui-react
 
-This log was last generated on Tue, 03 Sep 2024 14:32:22 GMT and should not be manually modified.
+This log was last generated on Wed, 04 Sep 2024 08:10:19 GMT and should not be manually modified.
+
+## 4.16.4
+Wed, 04 Sep 2024 08:10:19 GMT
+
+### Updates
+
+- Fix link style load timing issue in window popups.
 
 ## 4.16.3
 Tue, 03 Sep 2024 14:32:22 GMT
