@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { test, expect } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 import assert from "assert";
 import {
   activeTabLocator,
@@ -14,7 +14,7 @@ import {
   panelLocator,
   setWidgetState,
   tabLocator,
-  trackWidgetLifecycle,
+  trackConsole,
   widgetLocator,
   WidgetState,
 } from "./Utils";
@@ -291,12 +291,13 @@ test.describe("widget state", () => {
   });
 
   test("should not mount unloaded widget", async ({ page }) => {
-    const widgetLifecycle = trackWidgetLifecycle(page, "WL-B");
+    const logs = trackConsole(page);
+
     const tab = tabLocator(page, "WL-B");
     await expect(tab).toBeHidden();
 
-    expect(widgetLifecycle.mountCount).toBe(0);
-    expect(widgetLifecycle.unMountCount).toBe(0);
+    expect(logs).not.toContain("Widget WL-B mount");
+    expect(logs).not.toContain("Widget WL-B unmount");
   });
 });
 
@@ -309,49 +310,48 @@ test.describe("widget lifecycle", () => {
   });
 
   test("should mount unloaded widget on open", async ({ page }) => {
-    const widgetLifecycle = trackWidgetLifecycle(page, "WL-B");
+    const logs = trackConsole(page);
     await setWidgetState(page, "WL-B", WidgetState.Open);
 
-    expect(widgetLifecycle.mountCount).toBe(1);
-    expect(widgetLifecycle.unMountCount).toBe(0);
+    expect(logs).toContain("Widget WL-B mount");
+    expect(logs).not.toContain("Widget WL-B unmount");
   });
 
   test("should mount unloaded widget on close", async ({ page }) => {
-    const widgetLifecycle = trackWidgetLifecycle(page, "WL-B");
+    const logs = trackConsole(page);
     await setWidgetState(page, "WL-B", WidgetState.Closed);
 
-    expect(widgetLifecycle.mountCount).toBe(1);
-    expect(widgetLifecycle.unMountCount).toBe(0);
+    expect(logs).toContain("Widget WL-B mount");
+    expect(logs).not.toContain("Widget WL-B unmount");
   });
 
   test("should mount unloaded widget on float", async ({ page }) => {
-    const widgetLifecycle = trackWidgetLifecycle(page, "WL-B");
+    const logs = trackConsole(page);
     await setWidgetState(page, "WL-B", WidgetState.Floating);
 
-    expect(widgetLifecycle.mountCount).toBe(1);
-    expect(widgetLifecycle.unMountCount).toBe(0);
+    expect(logs).toContain("Widget WL-B mount");
+    expect(logs).not.toContain("Widget WL-B unmount");
   });
 
   test("should unmount and hide widget when unloading", async ({ page }) => {
     const tab = tabLocator(page, "WL-A");
     await expect(tab).toBeVisible({ timeout: 10000 });
-    const widgetLifecycle = trackWidgetLifecycle(page, "WL-A");
-    expect(widgetLifecycle.mountCount).toBe(0);
-    expect(widgetLifecycle.unMountCount).toBe(0);
 
+    const logs = trackConsole(page);
     await setWidgetState(page, "WL-A", WidgetState.Unloaded);
     await expect(tab).not.toBeVisible();
-    expect(widgetLifecycle.mountCount).toBe(0);
-    expect(widgetLifecycle.unMountCount).toBe(1);
+
+    expect(logs).not.toContain("Widget WL-A mount");
+    expect(logs).toContain("Widget WL-A unmount");
   });
 
   test("should mount and unmount unloaded widget", async ({ page }) => {
-    const widgetLifecycle = trackWidgetLifecycle(page, "WL-B");
+    const logs = trackConsole(page);
     const tab = tabLocator(page, "WL-B");
     await setWidgetState(page, "WL-B", WidgetState.Open);
     await setWidgetState(page, "WL-B", WidgetState.Unloaded);
     await expect(tab).toBeHidden();
-    expect(widgetLifecycle.mountCount).toBe(1);
-    expect(widgetLifecycle.unMountCount).toBe(1);
+    expect(logs).toContain("Widget WL-B mount");
+    expect(logs).toContain("Widget WL-B unmount");
   });
 });
