@@ -32,20 +32,14 @@
       "shouldPublish": false
     },
     {
-      "packageName": "appui-connected-app",
-      "projectFolder": "test-apps/appui-test-app/connected",
-      "reviewCategory": "internal",
-      "shouldPublish": false
-    },
-    {
-      "packageName": "appui-standalone-app",
-      "projectFolder": "test-apps/appui-test-app/standalone",
+      "packageName": "test-app",
+      "projectFolder": "apps/test-app",
       "reviewCategory": "internal",
       "shouldPublish": false
     },
     {
       "packageName": "@itwin/appui-test-providers",
-      "projectFolder": "test-apps/appui-test-app/appui-test-providers",
+      "projectFolder": "apps/test-providers",
       "reviewCategory": "internal",
       "shouldPublish": false
     },

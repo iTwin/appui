@@ -60,7 +60,7 @@
     },
     {
       "name": "@itwin/core-i18n",
-      "allowedCategories": [ "frontend" ]
+      "allowedCategories": [ "frontend", "internal" ]
     },
     {
       "name": "@itwin/core-orbitgt",
@@ -159,6 +159,14 @@
       "allowedCategories": [ "frontend" ]
     },
     {
+      "name": "@itwin/itwinui-layouts-css",
+      "allowedCategories": [ "internal" ]
+    },
+    {
+      "name": "@itwin/itwinui-layouts-react",
+      "allowedCategories": [ "internal" ]
+    },
+    {
       "name": "@itwin/itwinui-react",
       "allowedCategories": [ "frontend", "internal" ]
     },
@@ -231,6 +239,18 @@
       "allowedCategories": [ "internal" ]
     },
     {
+      "name": "@tanstack/react-router",
+      "allowedCategories": [ "internal" ]
+    },
+    {
+      "name": "@tanstack/router-devtools",
+      "allowedCategories": [ "internal" ]
+    },
+    {
+      "name": "@tanstack/router-plugin",
+      "allowedCategories": [ "internal" ]
+    },
+    {
       "name": "@testing-library/dom",
       "allowedCategories": [ "frontend" ]
     },
@@ -265,10 +285,6 @@
     {
       "name": "@vitest/coverage-v8",
       "allowedCategories": [ "frontend" ]
-    },
-    {
-      "name": "appui-standalone-app",
-      "allowedCategories": [ "internal" ]
     },
     {
       "name": "classnames",
@@ -411,6 +427,10 @@
       "allowedCategories": [ "frontend" ]
     },
     {
+      "name": "react-markdown",
+      "allowedCategories": [ "internal" ]
+    },
+    {
       "name": "react-redux",
       "allowedCategories": [ "frontend", "internal" ]
     },
@@ -448,6 +468,14 @@
     },
     {
       "name": "storybook",
+      "allowedCategories": [ "internal" ]
+    },
+    {
+      "name": "test-app",
+      "allowedCategories": [ "internal" ]
+    },
+    {
+      "name": "test-providers",
       "allowedCategories": [ "internal" ]
     },
     {

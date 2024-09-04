@@ -15,7 +15,7 @@ import {
 test.describe("tool settings", () => {
   test.beforeEach(async ({ page, baseURL }) => {
     assert(baseURL);
-    await page.goto(`${baseURL}?frontstage=appui-test-providers:WidgetApi`);
+    await page.goto(`${baseURL}/blank?frontstageId=widget-api`);
   });
 
   test("should render tool settings", async ({ page }) => {
@@ -27,7 +27,7 @@ test.describe("tool settings", () => {
     baseURL,
   }) => {
     await page.goto(
-      `${baseURL}?frontstage=appui-test-providers:WidgetApi&toolSettings=off`
+      `${baseURL}/blank?frontstageId=widget-api&toolSettings=off`
     );
     await expect(
       page.getByText("does not have tool settings.")
@@ -39,7 +39,7 @@ test.describe("tool settings", () => {
     baseURL,
   }) => {
     await page.goto(
-      `${baseURL}?frontstage=appui-test-providers:WidgetApi&toolSettings=hidden`
+      `${baseURL}/blank?frontstageId=widget-api&toolSettings=hidden`
     );
     await expect(
       page.getByText("does not have tool settings.")
@@ -58,7 +58,7 @@ test.describe("tool settings", () => {
 
   test("should show/hide (hidden tool settings)", async ({ page, baseURL }) => {
     await page.goto(
-      `${baseURL}?frontstage=appui-test-providers:WidgetApi&toolSettings=hidden`
+      `${baseURL}/blank?frontstageId=widget-api&toolSettings=hidden`
     );
     await expect(
       page.getByText("does not have tool settings.")

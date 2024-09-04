@@ -34,10 +34,10 @@ npx playwright install
 
 The tests are running against a test application which needs to be started before running the tests.
 
-1. Start a web server of a standalone appui-test-app:
+1. Start the web server of a `apps/test-app`:
 
 ```sh
-cd .\test-apps\appui-test-app\standalone\
+cd .\apps\test-app\
 npm run start:webserver
 ```
 

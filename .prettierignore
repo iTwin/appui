@@ -25,3 +25,9 @@ __testfixtures__
 
 # storybook specific
 storybook-static
+
+# playwright specific
+playwright-report
+
+# test-app specific
+routeTree.gen.ts
