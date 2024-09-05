@@ -2401,20 +2401,10 @@ export abstract class PropertyRecordDataFiltererBase extends PropertyDataFiltere
 }
 
 // @public
-export class PropertyRenderer extends React_3.Component<PropertyRendererProps, PropertyRendererState> {
-    constructor(props: PropertyRendererProps);
-    // (undocumented)
-    componentDidMount(): void;
-    // (undocumented)
-    componentDidUpdate(prevProps: PropertyRendererProps): void;
-    // (undocumented)
-    static getLabelOffset(indentation?: number, orientation?: Orientation, width?: number, columnRatio?: number, minColumnLabelWidth?: number): number;
-    // (undocumented)
-    render(): React_3.JSX.Element;
-    // (undocumented)
-    readonly state: Readonly<PropertyRendererState>;
-    updateDisplayValueAsEditor(props: PropertyRendererProps): void;
-}
+export const PropertyRenderer: {
+    (props: PropertyRendererProps): React_3.JSX.Element;
+    getLabelOffset(indentation?: number, orientation?: Orientation, width?: number, columnRatio?: number, minColumnLabelWidth?: number): number;
+};
 
 // @public
 export interface PropertyRendererProps extends SharedRendererProps {

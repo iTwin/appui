@@ -289,7 +289,7 @@ public;PropertyList
 public;PropertyListProps 
 public;PropertyPopupState
 public;class PropertyRecordDataFiltererBase 
-public;PropertyRenderer 
+public;PropertyRenderer:
 public;PropertyRendererProps 
 public;PropertyUpdatedArgs
 public;PropertyValueRendererContext
