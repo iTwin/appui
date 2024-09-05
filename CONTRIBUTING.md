@@ -67,8 +67,8 @@ You can read more about [Contributor License Agreements](https://en.wikipedia.or
 
 1. Install dependencies using `rush install`.
 2. Run build using `rush rebuild`.
-3. While in the desired packages' folder, run `npm start` to enter build in watch mode for easy validation along the `test-apps` or `storybook` (see [Testing options](#testing-options)).
-4. In a new terminal, `cd` into `test-apps/appui-test-app/standalone` and run `npm run start:webserver`.
+3. While in the desired packages' folder, run `npm start` to enter build in watch mode for easy validation along the `test-app` or `storybook` (see [Testing options](#testing-options)).
+4. In a new terminal, `cd` into `apps/test-app` and run `npm run start:webserver`.
 
 ## Commands
 
@@ -107,7 +107,7 @@ If any differences are in packages not modified on this branch, revert the chang
 
 `rush change`
 
-Follow prompts to enter a change description or press ENTER if the change does not warrant a changelog entry. If multiple packages have changed, multiple sets of prompts will be presented. If the changes are only to non-published packages (like the **test-apps**), then `rush change` will indicate that a changelog entry is not needed.
+Follow prompts to enter a change description or press ENTER if the change does not warrant a changelog entry. If multiple packages have changed, multiple sets of prompts will be presented. If the changes are only to non-published packages (like the **test-app**), then `rush change` will indicate that a changelog entry is not needed.
 
 Completing the `rush change` prompts will cause new changelog entry JSON files to be created.
 
@@ -124,19 +124,13 @@ Here is a sample [changelog](https://github.com/microsoft/rushstack/blob/master/
 
 The repository is set up to allow 2 different ways of testing changes with manual interactions.
 
-### Test apps
+### Test app
 
-In the `test-apps` folder there are 2 apps that can be used to test changes to the packages in this repository. Each app can be run with `npm start` from the app's folder.
+In the `apps/test-app` directory there is a test app that can be used to test changes to the packages in this repository. The `test-app` is an iTwin.js application that allows you to open both local `.bim` files and remote iModels from the iTwin Hub. [See README.md for more info](./apps/test-app/README.md)
 
-Most of the features should be the same in both apps as they are both being configured by the `appui-test-providers` package. New features should be added through this package.
+The `apps/test-providers` package currently used by the `test-app` should eventually be merged into the `test-app`.
 
-The apps are:
-
-- `standalone` is an iTwin.js application that is using IPC and is useful for testing with local `.bim` files that are on your machine. [See Readme for more info](./test-apps/appui-test-app/standalone/README.md)
-
-- `connected` is an iTwin.js application that is using RPC and is useful for testing with iModels that are on the iTwin Hub. This application requires a log in. [See Readme for more info](./test-apps/appui-test-app/connected/README.md)
-
-> Note: `standalone` is used by the [end-to-end tests](./e2e-tests/README.md).
+> Note: `test-app` is used by the [end-to-end tests](./e2e-tests/README.md).
 
 ### Storybook
 

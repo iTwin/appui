@@ -9,7 +9,7 @@ import { tabLocator, widgetLocator } from "./Utils";
 test.describe("error boundary", () => {
   test.beforeEach(async ({ page, baseURL }) => {
     assert(baseURL);
-    await page.goto(`${baseURL}?frontstage=appui-test-providers:WidgetApi`);
+    await page.goto(`${baseURL}/blank?frontstageId=widget-api`);
   });
 
   test("should catch an error", async ({ page }) => {

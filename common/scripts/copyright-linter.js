@@ -38,6 +38,8 @@ const oldCopyrightBanner = RegExp(
 
 if (filePaths) {
   filePaths.forEach((filePath) => {
+    if (filePath.endsWith("routeTree.gen.ts")) return;
+
     let fileContent = fs.readFileSync(filePath, { encoding: "utf8" });
     const lastNewlineIdx = fileContent.lastIndexOf("\n");
     const copyrightBanner = getCopyrightBanner(

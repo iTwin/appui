@@ -72,24 +72,22 @@
     },
     // TEST APPS
     {
-      /* PARTIAL */ "name": "[BACKEND] appui-test-app/standalone (chrome)",
+      /* PARTIAL */ "name": "[BACKEND] test-app (chrome)",
       "presentation": {
         "hidden": true
       },
-      "cwd": "${workspaceFolder}/test-apps/appui-test-app/standalone",
+      "cwd": "${workspaceFolder}/apps/test-app",
       "type": "node",
       "request": "launch",
-      "program": "${workspaceFolder}/test-apps/appui-test-app/standalone/lib/backend/main.js",
+      "program": "${workspaceFolder}/apps/test-app/lib/backend/main.js",
       "outFiles": [
-        "${workspaceFolder}/test-apps/appui-test-app/standalone/lib/**/*.js",
+        "${workspaceFolder}/apps/test-app/lib/**/*.js",
         "${workspaceFolder}/{core,clients,editor,presentation}/*/lib/**/*.js"
       ],
-      "cascadeTerminateToConfigurations": [
-        "[FRONTEND] appui-test-app/standalone (chrome)"
-      ]
+      "cascadeTerminateToConfigurations": ["[FRONTEND] test-app (chrome)"]
     },
     {
-      /* PARTIAL */ "name": "[FRONTEND] appui-test-app/standalone (chrome)",
+      /* PARTIAL */ "name": "[FRONTEND] test-app (chrome)",
       "presentation": {
         "hidden": true
       },
@@ -97,41 +95,37 @@
       "request": "launch",
       "url": "http://localhost:3000/",
       "outFiles": [
-        "${workspaceFolder}/test-apps/appui-test-app/standalone/lib/**/*.js",
+        "${workspaceFolder}/apps/test-app/lib/**/*.js",
         "${workspaceFolder}/{core,clients,editor,ui,presentation}/*/lib/**/*.js"
       ],
-      "cascadeTerminateToConfigurations": [
-        "[BACKEND] appui-test-app/standalone (chrome)"
-      ]
+      "cascadeTerminateToConfigurations": ["[BACKEND] test-app (chrome)"]
     },
     {
-      /* PARTIAL */ "name": "[BACKEND] appui-test-app/standalone (electron)",
+      /* PARTIAL */ "name": "[BACKEND] test-app (electron)",
       "presentation": {
         "hidden": true
       },
-      "cwd": "${workspaceFolder}/test-apps/appui-test-app/standalone",
+      "cwd": "${workspaceFolder}/apps/test-app",
       "type": "node",
       "request": "launch",
-      "runtimeExecutable": "${workspaceFolder}/test-apps/appui-test-app/standalone/node_modules/.bin/electron",
+      "runtimeExecutable": "${workspaceFolder}/apps/test-app/node_modules/.bin/electron",
       "runtimeArgs": [
-        "${workspaceFolder}/test-apps/appui-test-app/standalone/lib/backend/main.js",
+        "${workspaceFolder}/apps/test-app/lib/backend/main.js",
         "--remote-debugging-port=9223"
       ],
       "env": {
         "IMJS_LOG_LEVEL": "TRACE",
-        "IMJS_NO_DEV_TOOLS": "1",
+        "IMJS_ELECTRON_NO_DEV_TOOLS": "1",
         "NODE_ENV": "development"
       },
       "outFiles": [
-        "${workspaceFolder}/test-apps/appui-test-app/standalone/lib/**/*.js",
+        "${workspaceFolder}/apps/test-app/lib/**/*.js",
         "${workspaceFolder}/{core,clients,editor,presentation}/*/lib/**/*.js"
       ],
-      "cascadeTerminateToConfigurations": [
-        "[FRONTEND] appui-test-app/standalone (electron)"
-      ]
+      "cascadeTerminateToConfigurations": ["[FRONTEND] test-app (electron)"]
     },
     {
-      /* PARTIAL */ "name": "[FRONTEND] appui-test-app/standalone (electron)",
+      /* PARTIAL */ "name": "[FRONTEND] test-app (electron)",
       "presentation": {
         "hidden": true
       },
@@ -139,79 +133,33 @@
       "request": "attach",
       "port": 9223,
       "outFiles": [
-        "${workspaceFolder}/test-apps/appui-test-app/standalone/lib/**/*.js",
+        "${workspaceFolder}/apps/test-app/lib/**/*.js",
         "${workspaceFolder}/{core,clients,editor,ui,presentation}/*/lib/**/*.js"
       ],
-      "cascadeTerminateToConfigurations": [
-        "[BACKEND] appui-test-app/standalone (electron)"
-      ]
-    },
-    {
-      /* PARTIAL */ "name": "[BACKEND] appui-test-app/connected (chrome)",
-      "presentation": {
-        "hidden": true
-      },
-      "cwd": "${workspaceFolder}/test-apps/appui-test-app/connected",
-      "type": "node",
-      "request": "launch",
-      "program": "${workspaceFolder}/test-apps/appui-test-app/connected/lib/backend/main.js",
-      "outFiles": [
-        "${workspaceFolder}/test-apps/appui-test-app/connected/lib/**/*.js",
-        "${workspaceFolder}/{core,clients,editor,presentation}/*/lib/**/*.js"
-      ],
-      "cascadeTerminateToConfigurations": [
-        "[FRONTEND] appui-test-app/connected (chrome)"
-      ]
-    },
-    {
-      /* PARTIAL */ "name": "[FRONTEND] appui-test-app/connected (chrome)",
-      "presentation": {
-        "hidden": true
-      },
-      "type": "chrome",
-      "request": "launch",
-      "url": "http://localhost:3000/",
-      "outFiles": [
-        "${workspaceFolder}/test-apps/appui-test-app/connected/lib/**/*.js",
-        "${workspaceFolder}/{core,clients,editor,ui,presentation}/*/lib/**/*.js"
-      ],
-      "cascadeTerminateToConfigurations": [
-        "[BACKEND] appui-test-app/connected (chrome)"
-      ]
+      "cascadeTerminateToConfigurations": ["[BACKEND] test-app (electron)"]
     }
   ],
   "compounds": [
     {
-      "name": "appui-test-app/connected (chrome)",
+      "name": "test-app (chrome)",
       "presentation": {
         "group": "1_TestApps",
         "order": 1
       },
       "configurations": [
-        "[BACKEND] appui-test-app/connected (chrome)",
-        "[FRONTEND] appui-test-app/connected (chrome)"
+        "[BACKEND] test-app (chrome)",
+        "[FRONTEND] test-app (chrome)"
       ]
     },
     {
-      "name": "appui-test-app/standalone (chrome)",
+      "name": "test-app (electron)",
       "presentation": {
         "group": "1_TestApps",
         "order": 1
       },
       "configurations": [
-        "[BACKEND] appui-test-app/standalone (chrome)",
-        "[FRONTEND] appui-test-app/standalone (chrome)"
-      ]
-    },
-    {
-      "name": "appui-test-app/standalone (electron)",
-      "presentation": {
-        "group": "1_TestApps",
-        "order": 1
-      },
-      "configurations": [
-        "[BACKEND] appui-test-app/standalone (electron)",
-        "[FRONTEND] appui-test-app/standalone (electron)"
+        "[BACKEND] test-app (electron)",
+        "[FRONTEND] test-app (electron)"
       ]
     }
   ]
