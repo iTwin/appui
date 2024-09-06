@@ -327,15 +327,10 @@ export function usePropertyFilterBuilder(
     () => new PropertyFilterBuilderActions(setState)
   );
 
-  const { translate } = useTranslation();
-
+  const validateRules = useRulesValidation(ruleValidator);
   const buildFilter = React.useCallback(
     (options?: BuildFilterOptions) => {
-      const ruleErrors = validateRules(
-        state.rootGroup,
-        translate,
-        ruleValidator
-      );
+      const ruleErrors = validateRules(state.rootGroup);
       if (!options?.ignoreErrors) {
         actions.setRuleErrorMessages(ruleErrors);
       }
@@ -344,45 +339,65 @@ export function usePropertyFilterBuilder(
         ? buildPropertyFilter(state.rootGroup)
         : undefined;
     },
-    [state.rootGroup, actions, ruleValidator, translate]
+    [state.rootGroup, actions, validateRules]
   );
   return { rootGroup: state.rootGroup, actions, buildFilter };
 }
 
-function validateRules(
-  rule: PropertyFilterBuilderRuleGroupItem,
-  translate: (key: string) => string,
+function useRulesValidation(
   ruleValidator?: (item: PropertyFilterBuilderRule) => string | undefined
 ) {
-  const ruleIdsAndErrorMessages = new Map<string, string>();
+  const defaultValidator = useDefaultPropertyFilterBuilderRuleValidator();
+  const { translate } = useTranslation();
+  return React.useCallback(
+    (rootRule: PropertyFilterBuilderRuleGroupItem) => {
+      const ruleIdsAndErrorMessages = new Map<string, string>();
+      const validateRulesInner = (item: PropertyFilterBuilderRuleGroupItem) => {
+        if (isPropertyFilterBuilderRuleGroup(item)) {
+          item.items.forEach((itm) => {
+            validateRulesInner(itm);
+          });
+        } else {
+          const errorMessage = ruleValidator
+            ? ruleValidator(item)
+            : defaultValidator(item);
+          if (errorMessage)
+            ruleIdsAndErrorMessages.set(
+              item.id,
+              // need to check if error message is a key for translation in case `ruleValidator` is using `defaultPropertyFilterBuilderRuleValidator` internally
+              errorMessage.startsWith("filterBuilder.errorMessages")
+                ? translate(errorMessage)
+                : errorMessage
+            );
+        }
+      };
+      validateRulesInner(rootRule);
+      return ruleIdsAndErrorMessages;
+    },
+    [ruleValidator, defaultValidator, translate]
+  );
+}
 
-  const validateRulesInner = (item: PropertyFilterBuilderRuleGroupItem) => {
-    if (isPropertyFilterBuilderRuleGroup(item)) {
-      item.items.forEach((itm) => {
-        validateRulesInner(itm);
-      });
-    } else {
-      const errorMessage = ruleValidator
-        ? ruleValidator(item)
-        : defaultPropertyFilterBuilderRuleValidator(item);
-      if (errorMessage)
-        ruleIdsAndErrorMessages.set(
-          item.id,
-          errorMessage.startsWith("filterBuilder.errorMessages")
-            ? translate(errorMessage)
-            : errorMessage
-        );
-    }
-  };
-
-  validateRulesInner(rule);
-
-  return ruleIdsAndErrorMessages;
+/**
+ * Creates default rule validator.
+ * @beta
+ */
+export function useDefaultPropertyFilterBuilderRuleValidator() {
+  const { translate } = useTranslation();
+  return React.useCallback(
+    (item: PropertyFilterBuilderRule) => {
+      // eslint-disable-next-line deprecation/deprecation
+      const errorMessage = defaultPropertyFilterBuilderRuleValidator(item);
+      return errorMessage ? translate(errorMessage) : undefined;
+    },
+    [translate]
+  );
 }
 
 /**
  * Default rule validator.
  * @beta
+ * @deprecated in 4.17.0. Use `useDefaultPropertyFilterBuilderRuleValidator` instead.
  */
 export function defaultPropertyFilterBuilderRuleValidator(
   item: PropertyFilterBuilderRule

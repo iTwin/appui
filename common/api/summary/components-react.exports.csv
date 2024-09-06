@@ -63,6 +63,7 @@ public;DateTimeTypeConverter
 public;class DateTimeTypeConverterBase 
 public;DEFAULT_LINKS_HANDLER: LinkElementsInfo
 beta;defaultPropertyFilterBuilderRuleValidator(item: PropertyFilterBuilderRule): string | undefined
+deprecated;defaultPropertyFilterBuilderRuleValidator(item: PropertyFilterBuilderRule): string | undefined
 public;DelayLoadedTreeNodeItem 
 public;Direction
 internal;DirectionHelpers
@@ -422,6 +423,7 @@ public;useAsyncValue
 public;useControlledTreeEventsHandler
 public;useControlledTreeLayoutStorage
 beta;useDebouncedAsyncValue
+beta;useDefaultPropertyFilterBuilderRuleValidator(): (item: PropertyFilterBuilderRule) => string | undefined
 public;usePagedTreeNodeLoader
 public;usePropertyData(props:
 beta;usePropertyFilterBuilder(props?: UsePropertyFilterBuilderProps): UsePropertyFilterBuilderResult

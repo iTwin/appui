@@ -551,7 +551,7 @@ export abstract class DateTimeTypeConverterBase extends TypeConverter implements
 // @public
 export const DEFAULT_LINKS_HANDLER: LinkElementsInfo;
 
-// @beta
+// @beta @deprecated
 export function defaultPropertyFilterBuilderRuleValidator(item: PropertyFilterBuilderRule): string | undefined;
 
 // @public
@@ -3583,6 +3583,9 @@ export function useDebouncedAsyncValue<TReturn>(valueToBeResolved: undefined | (
     value: TReturn | undefined;
     inProgress: boolean;
 };
+
+// @beta
+export function useDefaultPropertyFilterBuilderRuleValidator(): (item: PropertyFilterBuilderRule) => string | undefined;
 
 // @public
 export function usePagedTreeNodeLoader<TDataProvider extends TreeDataProvider>(dataProvider: TDataProvider, pageSize: number, modelSource: TreeModelSource): PagedTreeNodeLoader<TDataProvider>;
