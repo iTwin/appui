@@ -2,6 +2,8 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+import { Logger } from "@itwin/core-bentley";
+import { UiFramework } from "../UiFramework";
 
 /** Copies the CSS style sheets from source document into the target document.
  * @internal
@@ -22,12 +24,19 @@ export async function copyStyles(
       clonedNode.href
     ) {
       promises.push(
-        new Promise((resolve, reject) => {
+        new Promise((resolve) => {
           clonedNode.onload = () => {
             resolve();
           };
-          clonedNode.onerror = (error) => {
-            reject(error);
+          clonedNode.onerror = () => {
+            Logger.logWarning(
+              UiFramework.loggerCategory(copyStyles),
+              `Failed to load external resource`,
+              {
+                href: clonedNode.href,
+              }
+            );
+            resolve();
           };
         })
       );
