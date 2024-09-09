@@ -163,6 +163,24 @@ describe("<Toolbar />", () => {
         childStructure(".components-badge .core-badge-deprecatedBadge")
       );
     });
+
+    it("should prefer `iconNode` property over `icon`", () => {
+      const toolbarItems = [
+        ToolbarItemUtilities.createActionItem(
+          "item1",
+          0,
+          <>test-icon</>,
+          "",
+          () => {},
+          {
+            iconNode: <>test-icon-node</>,
+          }
+        ),
+      ];
+
+      const { getByRole } = render(<Toolbar items={toolbarItems} />);
+      getByRole("button", { name: "test-icon-node" });
+    });
   });
 
   describe('New toolbars ("newToolbars" preview feature on)', () => {
@@ -339,6 +357,28 @@ describe("<Toolbar />", () => {
       expect(screen.getByRole("menuitem", { name: "Item 2" })).to.satisfy(
         childStructure(".uifw-toolbar-group-badge .core-badge-deprecatedBadge")
       );
+    });
+
+    it("should prefer `iconNode` property over `icon`", () => {
+      const toolbarItems = [
+        ToolbarItemUtilities.createActionItem(
+          "item1",
+          0,
+          <>test-icon</>,
+          "",
+          () => {},
+          {
+            iconNode: <>test-icon-node</>,
+          }
+        ),
+      ];
+
+      const { getByText } = render(
+        <PreviewFeaturesProvider features={{ newToolbars: true }}>
+          <Toolbar items={toolbarItems} />
+        </PreviewFeaturesProvider>
+      );
+      getByText("test-icon-node");
     });
   });
 });
