@@ -135,7 +135,11 @@ export class CoreTools {
       iconSpec: new ConditionalStringValue(() => {
         const activeContentControl =
           UiFramework.content.getActiveContentControl();
-        if (activeContentControl?.viewport?.view.is2d()) return svgRotateLeft;
+        const viewport = activeContentControl
+          ? activeContentControl.viewport
+          : IModelApp.viewManager.selectedView;
+
+        if (viewport?.view.is2d()) return svgRotateLeft;
         return svgGyroscope;
       }, [
         SyncUiEventId.ActiveContentChanged,
@@ -161,7 +165,10 @@ export class CoreTools {
       isHidden: new ConditionalBooleanValue(() => {
         const activeContentControl =
           UiFramework.content.getActiveContentControl();
-        return !!activeContentControl?.viewport?.view.is2d();
+        const viewport = activeContentControl
+          ? activeContentControl.viewport
+          : IModelApp.viewManager.selectedView;
+        return !!viewport?.view.is2d();
       }, [
         SyncUiEventId.ActiveContentChanged,
         SyncUiEventId.ActiveViewportChanged,
@@ -201,12 +208,13 @@ export class CoreTools {
       iconSpec: new ConditionalIconItem(() => {
         const activeContentControl =
           UiFramework.content.getActiveContentControl();
-        if (
-          activeContentControl?.viewport?.view.is3d() &&
-          activeContentControl?.viewport?.isCameraOn
-        ) {
+        const viewport = activeContentControl
+          ? activeContentControl.viewport
+          : IModelApp.viewManager.selectedView;
+        if (viewport?.view.is3d() && viewport?.isCameraOn) {
           return <SvgCameraAnimation />;
         }
+
         return <SvgCameraAnimationDisabled />;
       }, [
         SyncUiEventId.ActiveContentChanged,
@@ -216,10 +224,10 @@ export class CoreTools {
       label: new ConditionalStringValue(() => {
         const activeContentControl =
           UiFramework.content.getActiveContentControl();
-        if (
-          activeContentControl?.viewport?.view.is3d() &&
-          activeContentControl?.viewport?.isCameraOn
-        ) {
+        const viewport = activeContentControl
+          ? activeContentControl.viewport
+          : IModelApp.viewManager.selectedView;
+        if (viewport?.view.is3d() && viewport?.isCameraOn) {
           return UiFramework.translate(
             "tools.View.ToggleCamera.turnOffFlyover"
           );
@@ -234,10 +242,10 @@ export class CoreTools {
       isHidden: new ConditionalBooleanValue(() => {
         const activeContentControl =
           UiFramework.content.getActiveContentControl();
-        return !(
-          activeContentControl?.viewport?.view.is3d() &&
-          activeContentControl?.viewport?.view.supportsCamera()
-        );
+        const viewport = activeContentControl
+          ? activeContentControl.viewport
+          : IModelApp.viewManager.selectedView;
+        return !(viewport?.view.is3d() && viewport?.view.supportsCamera());
       }, [
         SyncUiEventId.ActiveContentChanged,
         SyncUiEventId.ActiveViewportChanged,
@@ -273,9 +281,11 @@ export class CoreTools {
       isDisabled: new ConditionalBooleanValue(() => {
         const activeContentControl =
           UiFramework.content.getActiveContentControl();
-        if (activeContentControl && activeContentControl.viewport)
-          return !activeContentControl.viewport.isUndoPossible;
-        return false;
+        const viewport = activeContentControl
+          ? activeContentControl.viewport
+          : IModelApp.viewManager.selectedView;
+        if (!viewport) return false;
+        return !viewport.isUndoPossible;
       }, [
         SyncUiEventId.ActiveContentChanged,
         SyncUiEventId.ActiveViewportChanged,
@@ -306,9 +316,11 @@ export class CoreTools {
       isDisabled: new ConditionalBooleanValue(() => {
         const activeContentControl =
           UiFramework.content.getActiveContentControl();
-        if (activeContentControl && activeContentControl.viewport)
-          return !activeContentControl.viewport.isRedoPossible;
-        return false;
+        const viewport = activeContentControl
+          ? activeContentControl.viewport
+          : IModelApp.viewManager.selectedView;
+        if (!viewport) return false;
+        return !viewport.isRedoPossible;
       }, [
         SyncUiEventId.ActiveContentChanged,
         SyncUiEventId.ActiveViewportChanged,
@@ -406,7 +418,10 @@ export class CoreTools {
       isHidden: new ConditionalBooleanValue(() => {
         const activeContentControl =
           UiFramework.content.getActiveContentControl();
-        return !!activeContentControl?.viewport?.view.is2d();
+        const viewport = activeContentControl
+          ? activeContentControl.viewport
+          : IModelApp.viewManager.selectedView;
+        return !!viewport?.view.is2d();
       }, [
         SyncUiEventId.ActiveContentChanged,
         SyncUiEventId.ActiveViewportChanged,
@@ -436,7 +451,10 @@ export class CoreTools {
       isHidden: new ConditionalBooleanValue(() => {
         const activeContentControl =
           UiFramework.content.getActiveContentControl();
-        return !!activeContentControl?.viewport?.view.is2d();
+        const viewport = activeContentControl
+          ? activeContentControl.viewport
+          : IModelApp.viewManager.selectedView;
+        return !!viewport?.view.is2d();
       }, [
         SyncUiEventId.ActiveContentChanged,
         SyncUiEventId.ActiveViewportChanged,

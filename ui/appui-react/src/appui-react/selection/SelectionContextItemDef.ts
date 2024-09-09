@@ -63,13 +63,12 @@ export function getSelectionContextSyncEventIds(): string[] {
  */
 export function isNoSelectionActive(): boolean {
   const activeContentControl = UiFramework.content.getActiveContentControl();
-  if (activeContentControl && !activeContentControl.viewport) {
+  const viewport = activeContentControl
+    ? activeContentControl.viewport
+    : IModelApp.viewManager.selectedView;
+  if (!viewport) {
     return true;
   }
-
-  const viewport =
-    activeContentControl?.viewport ?? IModelApp.viewManager.selectedView;
-  if (!viewport) return true;
 
   const hiddenElementsSet = viewport.neverDrawn;
   const selectedElementsSet = viewport.view.iModel.selectionSet.elements;
@@ -90,12 +89,9 @@ export function isNoSelectionActive(): boolean {
  */
 export function areNoFeatureOverridesActive(): boolean {
   const activeContentControl = UiFramework.content.getActiveContentControl();
-  if (activeContentControl && !activeContentControl.viewport) {
-    return true;
-  }
-
-  const viewport =
-    activeContentControl?.viewport ?? IModelApp.viewManager.selectedView;
+  const viewport = activeContentControl
+    ? activeContentControl.viewport
+    : IModelApp.viewManager.selectedView;
   if (!viewport) {
     return true;
   }
@@ -135,12 +131,9 @@ export function featureOverridesActiveStateFunc(
   state: Readonly<BaseItemState>
 ): BaseItemState {
   const activeContentControl = UiFramework.content.getActiveContentControl();
-  if (activeContentControl && !activeContentControl.viewport) {
-    return { ...state, isVisible: false };
-  }
-
-  const viewport =
-    activeContentControl?.viewport ?? IModelApp.viewManager.selectedView;
+  const viewport = activeContentControl
+    ? activeContentControl.viewport
+    : IModelApp.viewManager.selectedView;
   if (!viewport) {
     return { ...state, isVisible: false };
   }
@@ -160,12 +153,9 @@ export function selectionContextStateFunc(
   state: Readonly<BaseItemState>
 ): BaseItemState {
   const activeContentControl = UiFramework.content.getActiveContentControl();
-  if (activeContentControl && !activeContentControl.viewport) {
-    return { ...state, isVisible: false };
-  }
-
-  const viewport =
-    activeContentControl?.viewport ?? IModelApp.viewManager.selectedView;
+  const viewport = activeContentControl
+    ? activeContentControl.viewport
+    : IModelApp.viewManager.selectedView;
   if (!viewport) {
     return { ...state, isVisible: false };
   }
