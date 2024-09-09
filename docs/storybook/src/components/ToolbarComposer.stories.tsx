@@ -54,6 +54,12 @@ type Story = StoryObj<typeof meta>;
 
 const items = createItems();
 
+export const Empty: Story = {
+  args: {
+    items: [],
+  },
+};
+
 export const ActionItem: Story = {
   args: {
     items: [items.action1, items.action2, items.action3],
