@@ -7,6 +7,7 @@
  */
 
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
+import { IModelApp } from "@itwin/core-frontend";
 import { SessionStateActionId } from "../redux/SessionState";
 import { CommandItemDef } from "../shared/CommandItemDef";
 import type { BaseItemState } from "../shared/ItemDefBase";
@@ -62,19 +63,24 @@ export function getSelectionContextSyncEventIds(): string[] {
  */
 export function isNoSelectionActive(): boolean {
   const activeContentControl = UiFramework.content.getActiveContentControl();
-  const selectionCount = UiFramework.getNumItemsSelected();
-
-  if (activeContentControl?.viewport) {
-    const hiddenElementsSet = activeContentControl.viewport.neverDrawn;
-    const selectedElementsSet =
-      activeContentControl.viewport.view.iModel.selectionSet.elements;
-    // TODO: add check for categories, subcategories and models
-    if (
-      selectionCount > 0 ||
-      ![...selectedElementsSet].every((value) => hiddenElementsSet?.has(value))
-    )
-      return false;
+  if (activeContentControl && !activeContentControl.viewport) {
+    return true;
   }
+
+  const viewport =
+    activeContentControl?.viewport ?? IModelApp.viewManager.selectedView;
+  if (!viewport) return true;
+
+  const hiddenElementsSet = viewport.neverDrawn;
+  const selectedElementsSet = viewport.view.iModel.selectionSet.elements;
+
+  const selectionCount = UiFramework.getNumItemsSelected();
+  if (selectionCount > 0) return false;
+
+  // TODO: add check for categories, subcategories and models
+  if (![...selectedElementsSet].every((value) => hiddenElementsSet?.has(value)))
+    return false;
+
   return true;
 }
 
@@ -84,12 +90,19 @@ export function isNoSelectionActive(): boolean {
  */
 export function areNoFeatureOverridesActive(): boolean {
   const activeContentControl = UiFramework.content.getActiveContentControl();
-  if (activeContentControl && activeContentControl.viewport)
-    return !UiFramework.hideIsolateEmphasizeActionHandler.areFeatureOverridesActive(
-      activeContentControl.viewport
-    );
+  if (activeContentControl && !activeContentControl.viewport) {
+    return true;
+  }
 
-  return true;
+  const viewport =
+    activeContentControl?.viewport ?? IModelApp.viewManager.selectedView;
+  if (!viewport) {
+    return true;
+  }
+
+  return !UiFramework.hideIsolateEmphasizeActionHandler.areFeatureOverridesActive(
+    viewport
+  );
 }
 
 /** Return ConditionalBooleanValue object used to show item if feature overrides are active.
@@ -122,14 +135,20 @@ export function featureOverridesActiveStateFunc(
   state: Readonly<BaseItemState>
 ): BaseItemState {
   const activeContentControl = UiFramework.content.getActiveContentControl();
-  let isVisible = false;
+  if (activeContentControl && !activeContentControl.viewport) {
+    return { ...state, isVisible: false };
+  }
 
-  if (activeContentControl && activeContentControl.viewport)
-    isVisible =
-      UiFramework.hideIsolateEmphasizeActionHandler.areFeatureOverridesActive(
-        activeContentControl.viewport
-      );
+  const viewport =
+    activeContentControl?.viewport ?? IModelApp.viewManager.selectedView;
+  if (!viewport) {
+    return { ...state, isVisible: false };
+  }
 
+  const isVisible =
+    UiFramework.hideIsolateEmphasizeActionHandler.areFeatureOverridesActive(
+      viewport
+    );
   return { ...state, isVisible };
 }
 
@@ -141,16 +160,19 @@ export function selectionContextStateFunc(
   state: Readonly<BaseItemState>
 ): BaseItemState {
   const activeContentControl = UiFramework.content.getActiveContentControl();
-  let isVisible = false;
+  if (activeContentControl && !activeContentControl.viewport) {
+    return { ...state, isVisible: false };
+  }
+
+  const viewport =
+    activeContentControl?.viewport ?? IModelApp.viewManager.selectedView;
+  if (!viewport) {
+    return { ...state, isVisible: false };
+  }
 
   const selectionCount = UiFramework.getNumItemsSelected();
-  if (
-    activeContentControl &&
-    activeContentControl.viewport &&
-    (activeContentControl.viewport.view.iModel.selectionSet.size > 0 ||
-      selectionCount > 0)
-  )
-    isVisible = true;
+  const isVisible =
+    viewport.view.iModel.selectionSet.size > 0 || selectionCount > 0;
   return { ...state, isVisible };
 }
 
