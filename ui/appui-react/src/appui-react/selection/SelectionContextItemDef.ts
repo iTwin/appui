@@ -67,13 +67,12 @@ export function isNoSelectionActive(): boolean {
     return true;
   }
 
-  const hiddenElementsSet = viewport.neverDrawn;
-  const selectedElementsSet = viewport.view.iModel.selectionSet.elements;
-
   const selectionCount = UiFramework.getNumItemsSelected();
   if (selectionCount > 0) return false;
 
   // TODO: add check for categories, subcategories and models
+  const hiddenElementsSet = viewport.neverDrawn;
+  const selectedElementsSet = viewport.view.iModel.selectionSet.elements;
   if (![...selectedElementsSet].every((value) => hiddenElementsSet?.has(value)))
     return false;
 
