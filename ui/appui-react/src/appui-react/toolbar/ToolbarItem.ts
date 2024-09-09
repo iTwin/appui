@@ -74,7 +74,7 @@ export interface CommonToolbarItem {
  */
 export interface ToolbarActionItem extends CommonToolbarItem {
   /** Name of icon WebFont entry or if specifying an imported SVG symbol use "webSvg:" prefix  to imported symbol Id.
-   * @deprecated in 4.16.0. Use {@link CommonToolbarItem.iconNode} instead.
+   * @deprecated in 4.16.0. Use {@link CommonToolbarItem.iconNode} instead and specify `undefined` for this property. This will be made optional in 5.0.0.
    */
   // eslint-disable-next-line deprecation/deprecation
   readonly icon: IconSpec;
