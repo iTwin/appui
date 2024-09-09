@@ -7,7 +7,6 @@
  */
 
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
-import { IModelApp } from "@itwin/core-frontend";
 import { SessionStateActionId } from "../redux/SessionState";
 import { CommandItemDef } from "../shared/CommandItemDef";
 import type { BaseItemState } from "../shared/ItemDefBase";
@@ -25,6 +24,7 @@ import svgVisibilitySemiTransparent from "@bentley/icons-generic/icons/visibilit
 import svgVisibilityHide from "@bentley/icons-generic/icons/visibility-hide_2.svg";
 import svgVisibility from "@bentley/icons-generic/icons/visibility.svg";
 import type { ToolbarItems } from "../tools/ToolbarItems";
+import { getActiveViewport } from "../utils/getActiveViewport";
 
 /* eslint-disable deprecation/deprecation */
 
@@ -62,10 +62,7 @@ export function getSelectionContextSyncEventIds(): string[] {
  * @deprecated in 4.15.0. Use {@link ToolbarItems} or a custom conditional value instead.
  */
 export function isNoSelectionActive(): boolean {
-  const activeContentControl = UiFramework.content.getActiveContentControl();
-  const viewport = activeContentControl
-    ? activeContentControl.viewport
-    : IModelApp.viewManager.selectedView;
+  const viewport = getActiveViewport();
   if (!viewport) {
     return true;
   }
@@ -88,10 +85,7 @@ export function isNoSelectionActive(): boolean {
  * @deprecated in 4.15.0. Use {@link ToolbarItems} or a custom conditional value instead.
  */
 export function areNoFeatureOverridesActive(): boolean {
-  const activeContentControl = UiFramework.content.getActiveContentControl();
-  const viewport = activeContentControl
-    ? activeContentControl.viewport
-    : IModelApp.viewManager.selectedView;
+  const viewport = getActiveViewport();
   if (!viewport) {
     return true;
   }
@@ -130,10 +124,7 @@ export function getIsHiddenIfSelectionNotActive(): ConditionalBooleanValue {
 export function featureOverridesActiveStateFunc(
   state: Readonly<BaseItemState>
 ): BaseItemState {
-  const activeContentControl = UiFramework.content.getActiveContentControl();
-  const viewport = activeContentControl
-    ? activeContentControl.viewport
-    : IModelApp.viewManager.selectedView;
+  const viewport = getActiveViewport();
   if (!viewport) {
     return { ...state, isVisible: false };
   }
@@ -152,10 +143,7 @@ export function featureOverridesActiveStateFunc(
 export function selectionContextStateFunc(
   state: Readonly<BaseItemState>
 ): BaseItemState {
-  const activeContentControl = UiFramework.content.getActiveContentControl();
-  const viewport = activeContentControl
-    ? activeContentControl.viewport
-    : IModelApp.viewManager.selectedView;
+  const viewport = getActiveViewport();
   if (!viewport) {
     return { ...state, isVisible: false };
   }
