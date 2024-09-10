@@ -67,14 +67,7 @@ export function createPopoutWindowsProvider() {
           },
         },
       }),
-      getCustomViewSelectorPopupItem({
-        layouts: {
-          standard: {
-            orientation: ToolbarOrientation.Vertical,
-            usage: ToolbarUsage.ViewNavigation,
-          },
-        },
-      }),
+      getCustomViewSelectorPopupItem(),
     ],
     getStatusBarItems: () => [
       StatusBarItemUtilities.createCustomItem({

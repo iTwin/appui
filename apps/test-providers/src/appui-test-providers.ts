@@ -15,9 +15,19 @@ export * from "./tools/SampleTool";
 export * from "./tools/ToolWithDynamicSettings";
 export * from "./tools/UiLayoutTools";
 
+export * from "./ui/buttons/ViewSelectorPanel";
+
 export * from "./ui/components/LanguageSelect";
 
 export * from "./ui/dialogs/SampleModalDialog";
+
+export * from "./ui/frontstages/ComponentExamples";
+export * from "./ui/frontstages/ContentLayoutFrontstage";
+export * from "./ui/frontstages/CustomContentFrontstage";
+export * from "./ui/frontstages/CustomFrontstageProvider";
+export * from "./ui/frontstages/PopoutWindowsFrontstage";
+export * from "./ui/frontstages/registerCustomFrontstage";
+export * from "./ui/frontstages/SynchronizedViewportFrontstage";
 
 export * from "./ui/providers/AbstractUiItemsProvider";
 export * from "./ui/providers/ContentLayoutStageUiItemsProvider";
@@ -30,14 +40,6 @@ export * from "./ui/providers/PreviewFeaturesToggleProvider";
 export * from "./ui/providers/SynchronizedViewportProvider";
 export * from "./ui/providers/UpdatedUiItemsProvider";
 export * from "./ui/providers/WidgetContentProvider";
-
-export * from "./ui/frontstages/ComponentExamples";
-export * from "./ui/frontstages/ContentLayoutFrontstage";
-export * from "./ui/frontstages/CustomContentFrontstage";
-export * from "./ui/frontstages/CustomFrontstageProvider";
-export * from "./ui/frontstages/PopoutWindowsFrontstage";
-export * from "./ui/frontstages/registerCustomFrontstage";
-export * from "./ui/frontstages/SynchronizedViewportFrontstage";
 
 export * from "./ui/widgets/ITwinUIv2Widget";
 export * from "./ui/widgets/LayoutWidget";
