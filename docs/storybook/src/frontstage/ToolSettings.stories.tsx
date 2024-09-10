@@ -11,6 +11,7 @@ import { Page } from "../AppUiStory";
 import { createFrontstage, removeProperty } from "../Utils";
 import { ToolSettingsStory } from "./ToolSettings";
 import { CustomTool } from "../tools/CustomTool";
+import { LockPropertyTool } from "../tools/LockPropertyTool";
 
 const meta = {
   title: "Frontstage/ToolSettings",
@@ -54,6 +55,18 @@ export const Default: Story = {
     onFrontstageActivated: async () => {
       IModelApp.tools.register(CustomTool, UiFramework.localizationNamespace);
       IModelApp.tools.run(CustomTool.toolId);
+    },
+  },
+};
+
+export const LockProperty: Story = {
+  args: {
+    onFrontstageActivated: async () => {
+      IModelApp.tools.register(
+        LockPropertyTool,
+        UiFramework.localizationNamespace
+      );
+      IModelApp.tools.run(LockPropertyTool.toolId);
     },
   },
 };
