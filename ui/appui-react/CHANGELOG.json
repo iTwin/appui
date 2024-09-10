@@ -2,6 +2,30 @@
   "name": "@itwin/appui-react",
   "entries": [
     {
+      "version": "4.16.5",
+      "tag": "@itwin/appui-react_v4.16.5",
+      "date": "Tue, 10 Sep 2024 16:40:45 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Fix copyStyles to ignore errors on external resource links."
+          },
+          {
+            "comment": "Fix tool conditionals that depend on active viewport when content control APIs are not used."
+          },
+          {
+            "comment": "Fix `Toolbar` to avoid rendering of borders artifact"
+          },
+          {
+            "comment": "Fix synchronization of lock properties by properly invoking applyToolSettingPropertyChange."
+          },
+          {
+            "comment": "Fix `undefined` property access within `StatusBarComposer` component."
+          }
+        ]
+      }
+    },
+    {
       "version": "4.16.4",
       "tag": "@itwin/appui-react_v4.16.4",
       "date": "Wed, 04 Sep 2024 08:10:19 GMT",
