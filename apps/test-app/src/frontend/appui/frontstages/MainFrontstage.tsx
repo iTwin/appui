@@ -14,6 +14,7 @@ import {
 } from "@itwin/appui-react";
 import {
   ComponentExamplesModalFrontstage,
+  getCustomViewSelectorPopupItem,
   ViewportContent,
 } from "@itwin/appui-test-providers";
 import { SvgImodel } from "@itwin/itwinui-icons-react";
@@ -45,6 +46,7 @@ createMainFrontstage.stageId = "main";
 export function createMainFrontstageProvider() {
   return {
     id: "appui-test-app:backstageItemsProvider",
+    getToolbarItems: () => [getCustomViewSelectorPopupItem()],
     getBackstageItems: () => [
       BackstageItemUtilities.createStageLauncher({
         stageId: createMainFrontstage.stageId,

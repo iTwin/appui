@@ -115,11 +115,22 @@ export function registerFrontstages({
     stageIds: [createWidgetApiFrontstage.stageId],
   });
   UiItemsManager.register(
-    new AbstractUiItemsProvider(AppUiTestProviders.localizationNamespace)
+    new AbstractUiItemsProvider(AppUiTestProviders.localizationNamespace),
+    {
+      stageIds: [
+        createMainFrontstage.stageId,
+        createWidgetApiFrontstage.stageId,
+      ],
+    }
   );
-  UiItemsManager.register(new MessageUiItemsProvider());
+  UiItemsManager.register(new MessageUiItemsProvider(), {
+    stageIds: [createMainFrontstage.stageId, createWidgetApiFrontstage.stageId],
+  });
   UiItemsManager.register(
-    new InspectUiItemInfoToolProvider(AppUiTestProviders.localizationNamespace)
+    new InspectUiItemInfoToolProvider(AppUiTestProviders.localizationNamespace),
+    {
+      stageIds: [createWidgetApiFrontstage.stageId],
+    }
   );
   UiItemsManager.register(createPreviewFeaturesProvider(), {
     stageUsages: [StageUsage.General],

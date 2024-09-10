@@ -7,6 +7,8 @@ import * as React from "react";
 import {
   ToolbarCustomItem,
   ToolbarItemUtilities,
+  ToolbarOrientation,
+  ToolbarUsage,
   useActiveIModelConnection,
   useActiveViewport,
   ViewSelector,
@@ -23,6 +25,12 @@ export function getCustomViewSelectorPopupItem(
     panelContent: <ViewSelectorPanel />,
     itemPriority: 20,
     groupPriority: 3000,
+    layouts: {
+      standard: {
+        orientation: ToolbarOrientation.Vertical,
+        usage: ToolbarUsage.ViewNavigation,
+      },
+    },
     ...overrides,
   });
 }
