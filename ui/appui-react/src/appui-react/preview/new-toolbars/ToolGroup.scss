@@ -40,4 +40,8 @@
   &:focus-within {
     border-color: var(--iui-color-border-foreground-hover);
   }
+
+  &:empty {
+    display: none;
+  }
 }
