@@ -174,7 +174,7 @@ export class ContentGroup {
             `toJSON: ContentControl at index ${index} is NOT registered with a string id`
           );
 
-        if (contentCallback) contentCallback(content);
+        if (typeof contentCallback === "function") contentCallback(content);
       }
     });
 
