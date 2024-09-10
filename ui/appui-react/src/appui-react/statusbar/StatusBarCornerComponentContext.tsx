@@ -12,3 +12,5 @@ import * as React from "react";
 export const StatusBarCornerComponentContext = React.createContext<
   "right-corner" | "left-corner" | undefined
 >(undefined);
+StatusBarCornerComponentContext.displayName =
+  "uifw:StatusBarCornerComponentContext";
