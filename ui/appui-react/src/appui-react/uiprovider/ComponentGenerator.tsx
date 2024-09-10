@@ -15,7 +15,6 @@ import type {
   DialogItemValue,
   DialogPropertySyncItem,
   DialogRow,
-  SyncPropertiesChangeEventArgs,
 } from "@itwin/appui-abstract";
 import {
   PropertyValueFormat,
@@ -117,7 +116,7 @@ function PropertyEditor({
 
   // monitor tool for sync UI events
   React.useEffect(() => {
-    const handleSync = (args: SyncPropertiesChangeEventArgs) => {
+    return uiDataProvider.onSyncPropertiesChangeEvent.addListener((args) => {
       const mySyncItem = args.properties.find(
         (syncItem: DialogPropertySyncItem) =>
           syncItem.propertyName === initialItem.property.name
@@ -147,15 +146,11 @@ function PropertyEditor({
           setPropertyRecord(newPropertyValue);
         }
       }
-    };
-    uiDataProvider.onSyncPropertiesChangeEvent.addListener(handleSync);
-    return () => {
-      uiDataProvider.onSyncPropertiesChangeEvent.removeListener(handleSync);
-    };
+    });
   }, [uiDataProvider, propertyRecord, initialItem.property.name]);
 
   React.useEffect(() => {
-    const updateItem = () => {
+    return uiDataProvider.onItemsReloadedEvent.addListener(() => {
       const newItem = findDialogItem(
         uiDataProvider,
         initialItem.property.name,
@@ -163,9 +158,7 @@ function PropertyEditor({
       );
       if (!newItem) return;
       setPropertyRecord(getLatestRecordValue(newItem));
-    };
-
-    return uiDataProvider.onItemsReloadedEvent.addListener(updateItem);
+    });
   }, [uiDataProvider, initialItem.property.name, getLatestRecordValue, isLock]);
 
   const className = React.useMemo(
