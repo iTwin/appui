@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Fix tool conditionals that depend on active viewport when content control APIs are not used.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
