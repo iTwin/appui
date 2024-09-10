@@ -345,10 +345,10 @@ export function StatusBarComposer(props: StatusBarComposerProps) {
     const combinedItems = combineItems(defaultItems, addonItems);
     return sortItems(combinedItems);
   }, [defaultItems, addonItems]);
-  const itemsNotInOverflow = React.useMemo(() => {
-    return statusBarItems.filter(
-      (item) => !isItemInOverflow(item.id, overflown)
-    );
+  const notOverflown = React.useMemo(() => {
+    return statusBarItems
+      .filter((item) => !isItemInOverflow(item.id, overflown))
+      .map((item) => item.id);
   }, [overflown, statusBarItems]);
 
   const calculateOverflow = React.useCallback(() => {
@@ -440,10 +440,9 @@ export function StatusBarComposer(props: StatusBarComposerProps) {
           >
             <StatusBarCornerComponentContext.Provider
               value={
-                key === itemsNotInOverflow[0].id
+                key === notOverflown[0]
                   ? "left-corner"
-                  : (key ===
-                      itemsNotInOverflow[itemsNotInOverflow.length - 1].id &&
+                  : (key === notOverflown[notOverflown.length - 1] &&
                       overflown?.length === 0) ||
                     isItemInOverflow(key, overflown)
                   ? "right-corner"
@@ -462,7 +461,7 @@ export function StatusBarComposer(props: StatusBarComposerProps) {
         </DockedStatusBarEntry>
       );
     },
-    [handleEntryResize, itemsNotInOverflow, overflown]
+    [handleEntryResize, notOverflown, overflown]
   );
 
   const getSectionItems = React.useCallback(
