@@ -15,7 +15,6 @@ import type {
   DialogItemValue,
   DialogPropertySyncItem,
   DialogRow,
-  SyncPropertiesChangeEventArgs,
 } from "@itwin/appui-abstract";
 import {
   PropertyValueFormat,
@@ -71,7 +70,7 @@ function EditorLabel({
 function PropertyEditor({
   uiDataProvider,
   initialItem,
-  isLock,
+  isLock = false,
   setFocus,
   onCancel,
 }: {
@@ -117,7 +116,7 @@ function PropertyEditor({
 
   // monitor tool for sync UI events
   React.useEffect(() => {
-    const handleSync = (args: SyncPropertiesChangeEventArgs) => {
+    return uiDataProvider.onSyncPropertiesChangeEvent.addListener((args) => {
       const mySyncItem = args.properties.find(
         (syncItem: DialogPropertySyncItem) =>
           syncItem.propertyName === initialItem.property.name
@@ -147,24 +146,20 @@ function PropertyEditor({
           setPropertyRecord(newPropertyValue);
         }
       }
-    };
-    uiDataProvider.onSyncPropertiesChangeEvent.addListener(handleSync);
-    return () => {
-      uiDataProvider.onSyncPropertiesChangeEvent.removeListener(handleSync);
-    };
+    });
   }, [uiDataProvider, propertyRecord, initialItem.property.name]);
 
   React.useEffect(() => {
-    const updateItem = () => {
-      const newItem = uiDataProvider.items.find(
-        (item) => item.property.name === initialItem.property.name
+    return uiDataProvider.onItemsReloadedEvent.addListener(() => {
+      const newItem = findDialogItem(
+        uiDataProvider,
+        initialItem.property.name,
+        isLock
       );
       if (!newItem) return;
       setPropertyRecord(getLatestRecordValue(newItem));
-    };
-
-    return uiDataProvider.onItemsReloadedEvent.addListener(updateItem);
-  }, [uiDataProvider, initialItem.property.name, getLatestRecordValue]);
+    });
+  }, [uiDataProvider, initialItem.property.name, getLatestRecordValue, isLock]);
 
   const className = React.useMemo(
     () => (isLock ? "uifw-default-property-lock" : "uifw-default-editor"),
@@ -396,4 +391,18 @@ export class ComponentGenerator {
       this.getToolSettingsEntry(row, index)
     );
   }
+}
+
+function findDialogItem(
+  uiDataProvider: UiLayoutDataProvider,
+  propertyName: string,
+  isLock: boolean
+) {
+  const dialogItem = uiDataProvider.items.find((item) => {
+    if (isLock) {
+      return item.lockProperty?.property.name === propertyName;
+    }
+    return item.property.name === propertyName;
+  });
+  return isLock ? dialogItem?.lockProperty : dialogItem;
 }
