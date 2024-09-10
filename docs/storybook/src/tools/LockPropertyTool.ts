@@ -13,6 +13,9 @@ import { PrimitiveTool } from "@itwin/core-frontend";
 export class LockPropertyTool extends PrimitiveTool {
   public static override toolId = "LockPropertyTool";
 
+  private _myPropertyValue = false;
+  private _myLockPropertyValue = true;
+
   public override requireWriteableTarget() {
     return false;
   }
@@ -24,20 +27,21 @@ export class LockPropertyTool extends PrimitiveTool {
   public override supplyToolSettingsProperties(): DialogItem[] | undefined {
     return [
       {
-        property: PropertyDescriptionHelper.buildTextEditorDescription(
+        property: PropertyDescriptionHelper.buildCheckboxDescription(
           "myProperty",
           "My Property"
         ),
         value: {
-          displayValue: "My Value",
+          value: this._myPropertyValue,
         },
         editorPosition: {
           columnIndex: 0,
           rowPriority: 0,
         },
+        isDisabled: !this._myLockPropertyValue,
         lockProperty: {
           value: {
-            value: false,
+            value: this._myLockPropertyValue,
           },
           property:
             PropertyDescriptionHelper.buildLockPropertyDescription(
@@ -52,6 +56,17 @@ export class LockPropertyTool extends PrimitiveTool {
     updatedValue: DialogPropertySyncItem
   ): Promise<boolean> {
     action("applyToolSettingPropertyChange")(updatedValue);
-    return true;
+    switch (updatedValue.propertyName) {
+      case "myProperty": {
+        this._myPropertyValue = updatedValue.value.value as boolean;
+        return true;
+      }
+      case "myLockProperty": {
+        this._myLockPropertyValue = updatedValue.value.value as boolean;
+        return true;
+      }
+    }
+
+    return false;
   }
 }

@@ -71,7 +71,7 @@ function EditorLabel({
 function PropertyEditor({
   uiDataProvider,
   initialItem,
-  isLock,
+  isLock = false,
   setFocus,
   onCancel,
 }: {
@@ -156,15 +156,17 @@ function PropertyEditor({
 
   React.useEffect(() => {
     const updateItem = () => {
-      const newItem = uiDataProvider.items.find(
-        (item) => item.property.name === initialItem.property.name
+      const newItem = findDialogItem(
+        uiDataProvider,
+        initialItem.property.name,
+        isLock
       );
       if (!newItem) return;
       setPropertyRecord(getLatestRecordValue(newItem));
     };
 
     return uiDataProvider.onItemsReloadedEvent.addListener(updateItem);
-  }, [uiDataProvider, initialItem.property.name, getLatestRecordValue]);
+  }, [uiDataProvider, initialItem.property.name, getLatestRecordValue, isLock]);
 
   const className = React.useMemo(
     () => (isLock ? "uifw-default-property-lock" : "uifw-default-editor"),
@@ -396,4 +398,18 @@ export class ComponentGenerator {
       this.getToolSettingsEntry(row, index)
     );
   }
+}
+
+function findDialogItem(
+  uiDataProvider: UiLayoutDataProvider,
+  propertyName: string,
+  isLock: boolean
+) {
+  const dialogItem = uiDataProvider.items.find((item) => {
+    if (isLock) {
+      return item.lockProperty?.property.name === propertyName;
+    }
+    return item.property.name === propertyName;
+  });
+  return isLock ? dialogItem?.lockProperty : dialogItem;
 }
