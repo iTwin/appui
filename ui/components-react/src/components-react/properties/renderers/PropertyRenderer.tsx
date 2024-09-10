@@ -12,7 +12,6 @@ import { PropertyValueFormat } from "@itwin/appui-abstract";
 import type { HighlightingComponentProps } from "../../common/HighlightingComponentProps";
 import type { PropertyUpdatedArgs } from "../../editors/EditorContainer";
 import { EditorContainer } from "../../editors/EditorContainer";
-import { UiComponents } from "../../UiComponents";
 import type { PropertyValueRendererManager } from "../ValueRendererManager";
 import type { ActionButtonRenderer } from "./ActionButtonRenderer";
 import { CommonPropertyRenderer } from "./CommonPropertyRenderer";
@@ -21,6 +20,7 @@ import type { PrimitiveRendererProps } from "./PrimitivePropertyRenderer";
 import { PrimitivePropertyRenderer } from "./PrimitivePropertyRenderer";
 import type { PropertyGridColumnInfo } from "./PropertyGridColumns";
 import type { Orientation } from "../../common/Orientation";
+import { useTranslation } from "../../l10n/useTranslation";
 
 /** Properties shared by all renderers and PropertyView
  * @public
@@ -84,128 +84,109 @@ export interface PropertyRendererProps extends SharedRendererProps {
   highlight?: HighlightingComponentProps;
 }
 
-/** State of [[PropertyRenderer]] React component
- * @internal
- */
-interface PropertyRendererState {
-  /** Currently loaded property value */
-  displayValue?: React.ReactNode;
-}
-
 /**  A React component that renders properties
  * @public
  */
-export class PropertyRenderer extends React.Component<
-  PropertyRendererProps,
-  PropertyRendererState
-> {
-  public override readonly state: Readonly<PropertyRendererState> = {
-    displayValue: UiComponents.translate("general.loading"),
-  };
+export const PropertyRenderer = (props: PropertyRendererProps) => {
+  const { translate } = useTranslation();
+  const [displayValue, setDisplayValue] = React.useState<React.ReactNode>(() =>
+    translate("general.loading")
+  );
 
-  constructor(props: PropertyRendererProps) {
-    super(props);
-  }
+  const {
+    isEditing,
+    orientation,
+    propertyRecord,
+    indentation,
+    propertyValueRendererManager,
+    onEditCommit,
+    onEditCancel,
+    ...restProps
+  } = props;
 
-  public static getLabelOffset(
-    indentation?: number,
-    orientation?: Orientation,
-    width?: number,
-    columnRatio?: number,
-    minColumnLabelWidth?: number
-  ): number {
-    return CommonPropertyRenderer.getLabelOffset(
-      indentation,
-      orientation,
-      width,
-      columnRatio,
-      minColumnLabelWidth
-    );
-  }
+  const onCommit = React.useCallback(
+    (args: PropertyUpdatedArgs) => {
+      if (onEditCommit) onEditCommit(args);
+    },
+    [onEditCommit]
+  );
 
-  private updateDisplayValue(props: PropertyRendererProps) {
-    if (props.isEditing) {
-      this.updateDisplayValueAsEditor(props);
+  const onCancel = React.useCallback(() => {
+    if (onEditCancel) onEditCancel();
+  }, [onEditCancel]);
+
+  React.useEffect(() => {
+    if (isEditing) {
+      setDisplayValue(
+        <EditorContainer
+          propertyRecord={propertyRecord}
+          onCommit={onCommit}
+          onCancel={onCancel}
+          setFocus={true}
+        />
+      );
       return;
     }
 
-    const displayValue = CommonPropertyRenderer.createNewDisplayValue(
-      props.orientation,
-      props.propertyRecord,
-      props.indentation,
-      props.propertyValueRendererManager
+    setDisplayValue(
+      CommonPropertyRenderer.createNewDisplayValue(
+        orientation,
+        propertyRecord,
+        indentation,
+        propertyValueRendererManager
+      )
     );
-    this.setState({ displayValue });
-  }
+  }, [
+    orientation,
+    propertyRecord,
+    indentation,
+    propertyValueRendererManager,
+    onCommit,
+    onCancel,
+    isEditing,
+  ]);
 
-  private _onEditCommit = (args: PropertyUpdatedArgs) => {
-    if (this.props.onEditCommit) this.props.onEditCommit(args);
+  const primitiveRendererProps: PrimitiveRendererProps = {
+    ...restProps,
+    propertyRecord,
+    orientation,
+    indentation,
+    valueElement: displayValue,
   };
 
-  private _onEditCancel = () => {
-    if (this.props.onEditCancel) this.props.onEditCancel();
-  };
-
-  /** Display property record value in an editor */
-  public updateDisplayValueAsEditor(props: PropertyRendererProps) {
-    this.setState({
-      displayValue: (
-        <EditorContainer
-          propertyRecord={props.propertyRecord}
-          onCommit={this._onEditCommit}
-          onCancel={this._onEditCancel}
-          setFocus={true}
-        />
-      ),
-    });
-  }
-
-  public override componentDidMount() {
-    this.updateDisplayValue(this.props);
-  }
-
-  public override componentDidUpdate(prevProps: PropertyRendererProps) {
-    if (
-      prevProps.propertyRecord !== this.props.propertyRecord ||
-      prevProps.isEditing !== this.props.isEditing ||
-      prevProps.orientation !== this.props.orientation
-    )
-      this.updateDisplayValue(this.props);
-  }
-
-  public override render() {
-    const {
-      propertyValueRendererManager,
-      isEditing,
-      onEditCommit,
-      onEditCancel,
-      ...props
-    } = this.props;
-    const primitiveRendererProps: PrimitiveRendererProps = {
-      ...props,
-      valueElement: this.state.displayValue,
-      indentation: this.props.indentation,
-    };
-
-    switch (this.props.propertyRecord.value.valueFormat) {
-      case PropertyValueFormat.Primitive:
+  switch (props.propertyRecord.value.valueFormat) {
+    case PropertyValueFormat.Primitive:
+      return <PrimitivePropertyRenderer {...primitiveRendererProps} />;
+    case PropertyValueFormat.Array:
+      // If array is empty, render it as a primitive property
+      if (
+        props.propertyRecord.value.valueFormat === PropertyValueFormat.Array &&
+        props.propertyRecord.value.items.length === 0
+      )
         return <PrimitivePropertyRenderer {...primitiveRendererProps} />;
-      case PropertyValueFormat.Array:
-        // If array is empty, render it as a primitive property
-        if (
-          this.props.propertyRecord.value.valueFormat ===
-            PropertyValueFormat.Array &&
-          this.props.propertyRecord.value.items.length === 0
-        )
-          return <PrimitivePropertyRenderer {...primitiveRendererProps} />;
-      // eslint-disable-next-line no-fallthrough
-      case PropertyValueFormat.Struct:
-        return (
-          <NonPrimitivePropertyRenderer
-            isCollapsible={true}
-            {...primitiveRendererProps}
-          />
-        );
-    }
+    // eslint-disable-next-line no-fallthrough
+    case PropertyValueFormat.Struct:
+      return (
+        <NonPrimitivePropertyRenderer
+          isCollapsible={true}
+          {...primitiveRendererProps}
+        />
+      );
   }
-}
+};
+
+PropertyRenderer.getLabelOffset = (
+  indentation?: number,
+  orientation?: Orientation,
+  width?: number,
+  columnRatio?: number,
+  minColumnLabelWidth?: number
+) => {
+  return CommonPropertyRenderer.getLabelOffset(
+    indentation,
+    orientation,
+    width,
+    columnRatio,
+    minColumnLabelWidth
+  );
+};

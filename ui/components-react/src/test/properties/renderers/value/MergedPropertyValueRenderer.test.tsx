@@ -2,8 +2,8 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+import { render, waitFor } from "@testing-library/react";
 import { MergedPropertyValueRenderer } from "../../../../components-react/properties/renderers/value/MergedPropertyValueRenderer";
-import { UiComponents } from "../../../../components-react/UiComponents";
 import TestUtils from "../../../TestUtils";
 
 describe("MergedPropertyValueRenderer", () => {
@@ -12,8 +12,8 @@ describe("MergedPropertyValueRenderer", () => {
       const renderer = new MergedPropertyValueRenderer();
       const property = TestUtils.createPrimitiveStringProperty("a", "b");
       property.isMerged = true;
-      const element = renderer.render(property);
-      expect(element).toEqual(UiComponents.translate("property.varies"));
+      const { getByText } = render(renderer.render(property));
+      await waitFor(() => getByText("property.varies"));
     });
   });
 
