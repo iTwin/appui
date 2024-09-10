@@ -116,7 +116,12 @@ export function registerFrontstages({
   });
   UiItemsManager.register(
     new AbstractUiItemsProvider(AppUiTestProviders.localizationNamespace),
-    { stageIds: [createMainFrontstage.stageId] }
+    {
+      stageIds: [
+        createMainFrontstage.stageId,
+        createWidgetApiFrontstage.stageId,
+      ],
+    }
   );
   UiItemsManager.register(new MessageUiItemsProvider(), {
     stageIds: [createMainFrontstage.stageId, createWidgetApiFrontstage.stageId],
