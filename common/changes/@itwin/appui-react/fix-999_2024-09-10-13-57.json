@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Fix `undefined` property access within `StatusBarComposer` component.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
