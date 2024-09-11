@@ -36,6 +36,7 @@ import type { ContentProps } from "../content/ContentGroup";
 /** @internal */
 export const ConfigurableUiContext = React.createContext<
   Pick<
+  /* eslint-disable-next-line deprecation/deprecation */
     ConfigurableUiContentProps,
     | "viewOverlay"
     | "widgetOpacity"
@@ -87,6 +88,7 @@ export const WrapperContext = React.createContext<HTMLElement>(document.body);
 /** The ConfigurableUiContent component is the component the pages specified using ConfigurableUi
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export function ConfigurableUiContent(props: ConfigurableUiContentProps) {
   useWidgetOpacity(props.widgetOpacity);
   useToolbarOpacity(props.toolbarOpacity);
@@ -165,6 +167,7 @@ export function ConfigurableUiContent(props: ConfigurableUiContentProps) {
 }
 
 function useWidgetOpacity(
+  /* eslint-disable-next-line deprecation/deprecation */
   widgetOpacity: ConfigurableUiContentProps["widgetOpacity"]
 ) {
   const reduxWidgetOpacity = useReduxFrameworkState((state) => {
@@ -188,6 +191,7 @@ function useWidgetOpacity(
 }
 
 function useToolbarOpacity(
+  /* eslint-disable-next-line deprecation/deprecation */
   toolbarOpacity: ConfigurableUiContentProps["toolbarOpacity"]
 ) {
   const reduxToolbarOpacity = useReduxFrameworkState((state) => {

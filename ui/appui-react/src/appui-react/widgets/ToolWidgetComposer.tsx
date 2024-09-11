@@ -36,6 +36,7 @@ export interface ToolWidgetComposerProps extends CommonProps {
  * selected items. The vertical toolbar typically contains a more fixed list of tools.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export function ToolWidgetComposer(props: ToolWidgetComposerProps) {
   const { cornerItem, horizontalToolbar, verticalToolbar, ...otherProps } =
     props;

@@ -42,6 +42,7 @@ export interface ControlledSelectableContentProps {
  * @public
  */
 export function ControlledSelectableContent(
+  /* eslint-disable-next-line deprecation/deprecation */
   props: ControlledSelectableContentProps
 ) {
   const { onSelectedContentIdChanged, disabled } = props;
@@ -104,6 +105,7 @@ export interface SelectableContentProps {
  * should be rendered at the bottom.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export function SelectableContent(props: SelectableContentProps) {
   const [selectedContentId, setSelectedContentId] = React.useState(
     props.defaultSelectedContentId

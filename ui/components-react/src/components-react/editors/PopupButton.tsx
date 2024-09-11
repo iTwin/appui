@@ -203,6 +203,7 @@ export interface OkCancelProps {
 /** OK/Cancel Buttons
  * @alpha
  */
+// eslint-disable-next-line deprecation/deprecation
 export function PopupOkCancelButtons(props: OkCancelProps) {
   const { translate } = useTranslation();
   return (

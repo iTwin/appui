@@ -155,6 +155,7 @@ export interface TreeNodeIconProps {
  * React component that renders icon for [[TreeNode]].
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export function TreeNodeIcon(props: TreeNodeIconProps) {
   const { imageLoader, node } = props;
   const image = imageLoader.load(node.item);

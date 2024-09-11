@@ -49,6 +49,7 @@ export interface MiscFormatOptionsProps extends CommonProps {
 /** Component use to set miscellaneous properties is a Formatted Quantity.
  * @alpha
  */
+// eslint-disable-next-line deprecation/deprecation
 export function MiscFormatOptions(props: MiscFormatOptionsProps) {
   const {
     formatProps,

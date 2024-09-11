@@ -45,6 +45,7 @@ export interface TreeNodeContentProps extends CommonProps {
  * React component for displaying [[TreeNode]] label
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export function TreeNodeContent(props: TreeNodeContentProps) {
   const { node, onLabelRendered, highlightProps } = props;
   const label = React.useMemo(

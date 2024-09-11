@@ -51,6 +51,7 @@ const defaultZLabel = "Z";
 /** AccuDraw Ui Field Container displays [[AccuDrawInputField]] for each field
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
   const {
     className,

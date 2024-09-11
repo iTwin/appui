@@ -75,6 +75,7 @@ export interface FormatUnitLabelProps extends CommonProps {
 /** Component to set the label separator definition in a Quantity Format and if it the label is to be displayed.
  * @alpha
  */
+// eslint-disable-next-line deprecation/deprecation
 export function FormatUnitLabel(props: FormatUnitLabelProps) {
   const { formatProps, onUnitLabelChange } = props;
   const { translate } = useTranslation();

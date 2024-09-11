@@ -31,6 +31,7 @@ export interface HighlightedTextProps {
  * Also actively highlights one matched part which is selected with 'activeMatchIndex'
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export function HighlightedText(props: HighlightedTextProps) {
   const { searchText, activeMatchIndex, text, caseSensitive } = props;
   const chunks = useMemo(

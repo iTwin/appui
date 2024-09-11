@@ -72,6 +72,7 @@ async function generateFormatSpec(
 /** Component to show/edit Quantity Format.
  * @alpha
  */
+// eslint-disable-next-line deprecation/deprecation
 export function FormatPanel(props: FormatPanelProps) {
   const [formatSpec, setFormatSpec] = React.useState<FormatterSpec>();
   const {

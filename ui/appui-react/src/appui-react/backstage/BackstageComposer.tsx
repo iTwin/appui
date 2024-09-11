@@ -142,6 +142,7 @@ export interface BackstageComposerProps extends CommonProps {
 /** Backstage component composed from [[UiFramework.backstage]] items.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export function BackstageComposer(props: BackstageComposerProps) {
   const [defaultItemsManager, setDefaultItemsManager] = React.useState(
     new BackstageItemsManager(props.items)

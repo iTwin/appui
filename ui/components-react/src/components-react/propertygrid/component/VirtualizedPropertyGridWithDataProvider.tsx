@@ -46,6 +46,7 @@ export interface VirtualizedPropertyGridWithDataProviderProps
  * @public
  */
 export function VirtualizedPropertyGridWithDataProvider(
+  /* eslint-disable-next-line deprecation/deprecation */
   props: VirtualizedPropertyGridWithDataProviderProps
 ) {
   const { modelSource, inProgress } = useTrackedPropertyGridModelSource({

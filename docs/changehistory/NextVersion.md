@@ -10,7 +10,6 @@ Table of contents:
 
 ### Deprecations
 
-- Deprecated `SignInProps` instead use `React.ComponentProps<typeof SignIn>`. [#991](https://github.com/iTwin/appui/pull/991)
 - Deprecated `AccuDrawDialogProps` instead use `React.ComponentProps<typeof AccuDrawDialog>`. [#991](https://github.com/iTwin/appui/pull/991)
 - Deprecated `AccuDrawFieldContainerProps` instead use `React.ComponentProps<typeof AccuDrawFieldContainer>`. [#991](https://github.com/iTwin/appui/pull/991)
 - Deprecated `AccuDrawInputFieldProps` instead use `React.ComponentProps<typeof AccuDrawInputField>`. [#991](https://github.com/iTwin/appui/pull/991)

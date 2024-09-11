@@ -63,7 +63,9 @@ export interface AccuDrawInputFieldProps extends CommonProps {
 
 const ForwardRefAccuDrawInput = React.forwardRef<
   HTMLInputElement,
+  /* eslint-disable-next-line deprecation/deprecation */
   AccuDrawInputFieldProps
+  /* eslint-disable-next-line deprecation/deprecation */
 >(function ForwardRefAccuDrawInputField(props: AccuDrawInputFieldProps, ref) {
   const {
     className,
@@ -224,5 +226,6 @@ const ForwardRefAccuDrawInput = React.forwardRef<
  * @public
  */
 export const AccuDrawInputField: (
+  /* eslint-disable-next-line deprecation/deprecation */
   props: AccuDrawInputFieldProps
 ) => React.ReactNode = ForwardRefAccuDrawInput;

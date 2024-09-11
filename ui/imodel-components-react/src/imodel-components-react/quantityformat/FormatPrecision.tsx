@@ -27,6 +27,7 @@ export interface FormatPrecisionProps extends CommonProps {
 /** Component to show/edit Quantity Format Precision.
  * @alpha
  */
+// eslint-disable-next-line deprecation/deprecation
 export function FormatPrecision(props: FormatPrecisionProps) {
   const { formatProps, onChange } = props;
   const { translate } = useTranslation();

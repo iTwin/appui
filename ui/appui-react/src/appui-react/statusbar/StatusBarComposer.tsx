@@ -302,6 +302,7 @@ export interface StatusBarComposerProps extends CommonProps {
 /** Component to load components into the [[StatusBar]].
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export function StatusBarComposer(props: StatusBarComposerProps) {
   const {
     className,

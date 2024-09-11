@@ -200,6 +200,7 @@ export interface ExtensibleToolbarProps {
  * @note Overrides `isActive` property based on the active tool id.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export function ToolbarComposer(props: ExtensibleToolbarProps) {
   const { usage, orientation } = props;
 

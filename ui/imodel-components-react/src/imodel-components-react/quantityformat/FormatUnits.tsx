@@ -32,6 +32,7 @@ export interface FormatUnitsProps extends CommonProps {
 /** Component to show/edit Units used for Quantity Formatting.
  * @alpha
  */
+// eslint-disable-next-line deprecation/deprecation
 export function FormatUnits(props: FormatUnitsProps) {
   const { initialFormat, persistenceUnit, unitsProvider, onUnitsChange } =
     props;

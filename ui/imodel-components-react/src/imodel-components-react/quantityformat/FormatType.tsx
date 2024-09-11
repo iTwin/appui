@@ -87,6 +87,7 @@ export interface FormatTypeOptionProps extends CommonProps {
 /** Component to set the Quantity Format type.
  * @alpha
  */
+// eslint-disable-next-line deprecation/deprecation
 export function FormatTypeOption(props: FormatTypeOptionProps) {
   const { formatProps, onChange } = props;
   const { translate } = useTranslation();

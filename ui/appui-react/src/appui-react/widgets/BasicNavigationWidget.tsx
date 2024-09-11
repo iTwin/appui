@@ -30,6 +30,7 @@ export interface BasicNavigationWidgetProps {
  * Supports the specification of additional horizontal and vertical toolbar items through props.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export function BasicNavigationWidget(props: BasicNavigationWidgetProps) {
   const getHorizontalToolbarItems = React.useCallback((): ToolbarItem[] => {
     const items: ToolbarItem[] = [

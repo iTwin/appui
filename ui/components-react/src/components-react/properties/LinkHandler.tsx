@@ -139,6 +139,7 @@ export interface LinksRendererProps {
  * React component for rendering string with links.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export function LinksRenderer(props: LinksRendererProps) {
   return <>{withLinks(props.value, props.links, props.highlighter)}</>;
 }

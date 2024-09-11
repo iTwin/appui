@@ -26,6 +26,7 @@ export interface FavoritePropertyListProps {
 /** Favorite Property List React component
  * @alpha
  */
+// eslint-disable-next-line deprecation/deprecation
 export function FavoritePropertyList(props: FavoritePropertyListProps) {
   const [listWidth, setListWidth] = React.useState<number | undefined>();
   const onListResize = React.useCallback(setListWidth, [setListWidth]);

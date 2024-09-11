@@ -36,6 +36,7 @@ export interface AccuDrawDialogProps extends CommonProps {
 /** Dialog displays [[AccuDrawFieldContainer]] for AccuDraw Ui
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export function AccuDrawDialog(props: AccuDrawDialogProps) {
   const { translate } = useTranslation();
   const [opened, setOpened] = React.useState(props.opened);

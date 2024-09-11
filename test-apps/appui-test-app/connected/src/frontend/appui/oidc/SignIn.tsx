@@ -19,7 +19,6 @@ import { TestAppLocalization } from "../../useTranslation";
 
 /** Properties for the [[SignIn]] component
  * @public
- * @deprecated in 4.17.0. Use `React.ComponentProps<typeof SignIn>`
  */
 // eslint-disable-next-line deprecation/deprecation
 export interface SignInProps extends CommonProps {

@@ -29,6 +29,7 @@ export interface FormatSampleProps extends CommonProps {
 /** Component to show the persistence value and formatted value given a FormatterSpec.
  * @alpha
  */
+// eslint-disable-next-line deprecation/deprecation
 export function FormatSample(props: FormatSampleProps) {
   const { initialMagnitude, formatSpec, hideLabels } = props;
   const { translate } = useTranslation();

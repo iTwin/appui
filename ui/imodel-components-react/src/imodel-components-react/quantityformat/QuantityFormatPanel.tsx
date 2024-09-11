@@ -135,6 +135,7 @@ export interface QuantityFormatPanelProps extends CommonProps {
 /** Component to set properties that control Quantity Formatting.
  * @alpha
  */
+// eslint-disable-next-line deprecation/deprecation
 export function QuantityFormatPanel(props: QuantityFormatPanelProps) {
   const { quantityType, onFormatChange, ...otherProps } = props;
   const [formatProps, setFormatProps] = React.useState<FormatProps>();

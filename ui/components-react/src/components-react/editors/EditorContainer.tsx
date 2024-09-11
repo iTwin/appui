@@ -97,6 +97,7 @@ export interface TypeEditor {
 /** EditorContainer React component used by the Tree and PropertyGrid for cell editing.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export function EditorContainer(props: EditorContainerProps) {
   const {
     ignoreEditorBlur,
