@@ -72,7 +72,8 @@ Table of contents:
   type FormatUnitsProps = React.ComponentProps<typeof FormatUnits>;
 
   function UseFormatUnits(props: FormatUnitsProps) {
-    const { initialFormat, persistenceUnit, unitsProvider, onUnitsChange } = props;
+    const { initialFormat, persistenceUnit, unitsProvider, onUnitsChange } =
+      props;
     // ...
   }
   ```
