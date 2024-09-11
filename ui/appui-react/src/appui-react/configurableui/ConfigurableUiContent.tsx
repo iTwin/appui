@@ -36,7 +36,7 @@ import type { ContentProps } from "../content/ContentGroup";
 /** @internal */
 export const ConfigurableUiContext = React.createContext<
   Pick<
-  /* eslint-disable-next-line deprecation/deprecation */
+    /* eslint-disable-next-line deprecation/deprecation */
     ConfigurableUiContentProps,
     | "viewOverlay"
     | "widgetOpacity"
