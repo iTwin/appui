@@ -86,46 +86,39 @@ export class AbstractUiItemsProvider implements UiItemsProvider {
     return [];
   }
 
-  public provideStatusBarItems(
-    _stageId: string,
-    stageUsage: string
-  ): StatusBarItem[] {
-    const statusBarItems: StatusBarItem[] = [];
-    if (stageUsage === StageUsage.General.valueOf()) {
-      statusBarItems.push(
-        /** Add a status bar item that will open a dialog allow the user to set the active unit system used to display quantity values.  */
-        StatusBarItemUtilities.createCustomItem({
-          id: "AppUiTestProviders:UnitsStatusBarItem",
-          section:
-            this.props?.unitsStatusBarItem?.section ?? StatusBarSection.Center,
-          itemPriority: this.props?.unitsStatusBarItem?.itemPriority ?? 100,
-          content: (
-            <UnitsField
-              label={AppUiTestProviders.translate("StatusBar.UnitsFlyover")}
-              title={AppUiTestProviders.translate("StatusBar.Units")}
-              options={[
-                {
-                  label: AppUiTestProviders.translate("StatusBar.Metric"),
-                  value: "metric",
-                },
-                {
-                  label: AppUiTestProviders.translate("StatusBar.Imperial"),
-                  value: "imperial",
-                },
-                {
-                  label: AppUiTestProviders.translate("StatusBar.UsSurvey"),
-                  value: "usSurvey",
-                },
-                {
-                  label: AppUiTestProviders.translate("StatusBar.UsCustomary"),
-                  value: "usCustomary",
-                },
-              ]}
-            />
-          ),
-        })
-      );
-    }
-    return statusBarItems;
+  public getStatusBarItems(): StatusBarItem[] {
+    return [
+      /** Add a status bar item that will open a dialog allowing the user to set the active unit system used to display quantity values. */
+      StatusBarItemUtilities.createCustomItem({
+        id: "AppUiTestProviders:UnitsStatusBarItem",
+        section:
+          this.props?.unitsStatusBarItem?.section ?? StatusBarSection.Center,
+        itemPriority: this.props?.unitsStatusBarItem?.itemPriority ?? 100,
+        content: (
+          <UnitsField
+            label={AppUiTestProviders.translate("StatusBar.UnitsFlyover")}
+            title={AppUiTestProviders.translate("StatusBar.Units")}
+            options={[
+              {
+                label: AppUiTestProviders.translate("StatusBar.Metric"),
+                value: "metric",
+              },
+              {
+                label: AppUiTestProviders.translate("StatusBar.Imperial"),
+                value: "imperial",
+              },
+              {
+                label: AppUiTestProviders.translate("StatusBar.UsSurvey"),
+                value: "usSurvey",
+              },
+              {
+                label: AppUiTestProviders.translate("StatusBar.UsCustomary"),
+                value: "usCustomary",
+              },
+            ]}
+          />
+        ),
+      }),
+    ];
   }
 }

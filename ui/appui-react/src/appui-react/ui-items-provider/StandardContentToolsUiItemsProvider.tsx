@@ -49,9 +49,7 @@ function getGroupPriority(potentialId: any, defaultValue: number) {
   return defaultValue;
 }
 
-/**
- * @beta
- */
+/** @beta */
 export class StandardContentToolsUiItemsProvider implements UiItemsProvider {
   public get id(): string {
     return "appui-react:StandardContentToolsUiItemsProvider";
@@ -217,11 +215,16 @@ export class StandardContentToolsUiItemsProvider implements UiItemsProvider {
     return items;
   }
 
+  /** @deprecated in 4.17.0. Property of a deprecated interface {@link UiItemsProvider.provideStatusBarItems}. */
   public provideStatusBarItems(
     _stageId: string,
     _stageUsage: string,
     _stageAppData?: any
   ): StatusBarItem[] {
+    return this.getStatusBarItems() as StatusBarItem[];
+  }
+
+  public getStatusBarItems(): readonly StatusBarItem[] {
     const statusBarItems: StatusBarItem[] = [];
 
     // if the sectionGroup tools are to be shown then we want the status field added to allow clearing or manipulation the section

@@ -167,21 +167,14 @@ export class ContentLayoutStageUiItemsProvider implements UiItemsProvider {
     ];
   }
 
-  public provideStatusBarItems(
-    _stageId: string,
-    stageUsage: string
-  ): StatusBarItem[] {
-    const statusBarItems: StatusBarItem[] = [];
-    if (stageUsage === StageUsage.General.valueOf()) {
-      statusBarItems.push(
-        StatusBarItemUtilities.createCustomItem({
-          id: "DisplayStyle",
-          itemPriority: 400,
-          content: <DisplayStyleField />,
-        })
-      );
-    }
-    return statusBarItems;
+  public getStatusBarItems(): StatusBarItem[] {
+    return [
+      StatusBarItemUtilities.createCustomItem({
+        id: "DisplayStyle",
+        itemPriority: 400,
+        content: <DisplayStyleField />,
+      }),
+    ];
   }
 
   public getBackstageItems(): BackstageItem[] {
