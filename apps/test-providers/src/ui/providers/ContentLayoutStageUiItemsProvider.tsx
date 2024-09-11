@@ -176,7 +176,7 @@ export class ContentLayoutStageUiItemsProvider implements UiItemsProvider {
     return statusBarItems;
   }
 
-  public provideBackstageItems(): BackstageItem[] {
+  public getBackstageItems(): BackstageItem[] {
     return [
       BackstageItemUtilities.createStageLauncher({
         stageId: createContentLayoutFrontstage.stageId,

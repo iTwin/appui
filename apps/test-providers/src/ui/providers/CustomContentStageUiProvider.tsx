@@ -49,16 +49,6 @@ export class CustomContentStageUiProvider implements UiItemsProvider {
     "appui-test-providers:CustomContentStageUiProvider";
   public readonly id = CustomContentStageUiProvider.providerId;
 
-  /** method that updates the value in redux store and dispatches a sync event so items are refreshed. */
-  public toggleCustomDialogTool = () => {
-    store.setHideCustomDialogButton(!store.state.hideCustomDialogButton);
-
-    // tell the toolbar to reevaluate state of any item with this event Id
-    SyncUiEventDispatcher.dispatchImmediateSyncUiEvent(
-      AppUiTestProviders.syncEventIdHideCustomDialogButton
-    );
-  };
-
   constructor(localizationNamespace: string) {
     // register tools that will be returned via this provider
     OpenCustomDialogTool.register(localizationNamespace);
@@ -81,7 +71,7 @@ export class CustomContentStageUiProvider implements UiItemsProvider {
         -1,
         visibilitySemiTransparentSvg,
         "Custom Action Button",
-        (): void => {
+        () => {
           IModelApp.notifications.outputMessage(
             new NotifyMessageDetails(
               OutputMessagePriority.Info,
@@ -115,7 +105,12 @@ export class CustomContentStageUiProvider implements UiItemsProvider {
         icon: <SvgActivity />,
         label: "Toggle CustomDialog Button Visibility",
         execute: () => {
-          this.toggleCustomDialogTool();
+          store.setHideCustomDialogButton(!store.state.hideCustomDialogButton);
+
+          // tell the toolbar to reevaluate state of any item with this event Id
+          SyncUiEventDispatcher.dispatchImmediateSyncUiEvent(
+            AppUiTestProviders.syncEventIdHideCustomDialogButton
+          );
         },
       });
 
@@ -191,9 +186,8 @@ export class CustomContentStageUiProvider implements UiItemsProvider {
     return widgets;
   }
 
-  public provideBackstageItems(): BackstageItem[] {
+  public getBackstageItems(): BackstageItem[] {
     return [
-      // use 200 to group it with secondary stages in ui-test-app
       BackstageItemUtilities.createStageLauncher({
         stageId: createCustomContentFrontstage.stageId,
         groupPriority: 200,
