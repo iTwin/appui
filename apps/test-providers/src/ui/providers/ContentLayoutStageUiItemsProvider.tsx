@@ -99,19 +99,9 @@ export class ContentLayoutStageUiItemsProvider implements UiItemsProvider {
     return [];
   }
 
-  public provideWidgets(
-    _stageId: string,
-    stageUsage: string,
-    location: StagePanelLocation,
-    section?: StagePanelSection
-  ): ReadonlyArray<Widget> {
-    const widgets: Widget[] = [];
-    if (
-      stageUsage === StageUsage.General.valueOf() &&
-      location === StagePanelLocation.Bottom &&
-      section === StagePanelSection.Start
-    ) {
-      widgets.push({
+  public getWidgets(): ReadonlyArray<Widget> {
+    return [
+      {
         id: "appui-test-providers:viewport-old",
         label: "Viewport (old)",
         icon: "icon-bentley-systems",
@@ -121,8 +111,14 @@ export class ContentLayoutStageUiItemsProvider implements UiItemsProvider {
         },
         canPopout: true,
         content: <ControlViewportWidget />,
-      });
-      widgets.push({
+        layouts: {
+          standard: {
+            location: StagePanelLocation.Bottom,
+            section: StagePanelSection.Start,
+          },
+        },
+      },
+      {
         id: "appui-test-providers:viewport-widget1",
         label: "Viewport 1",
         icon: "icon-bentley-systems",
@@ -132,8 +128,14 @@ export class ContentLayoutStageUiItemsProvider implements UiItemsProvider {
         },
         canPopout: true,
         content: <ViewportWidget contentId="viewport-widget1" />,
-      });
-      widgets.push({
+        layouts: {
+          standard: {
+            location: StagePanelLocation.Bottom,
+            section: StagePanelSection.Start,
+          },
+        },
+      },
+      {
         id: "appui-test-providers:viewport-widget2",
         label: "Viewport 2",
         icon: "icon-bentley-systems",
@@ -144,19 +146,25 @@ export class ContentLayoutStageUiItemsProvider implements UiItemsProvider {
         },
         canPopout: true,
         content: <ViewportWidget contentId="viewport-widget2" />,
-      });
-    }
-    if (
-      location === StagePanelLocation.Right &&
-      section === StagePanelSection.End
-    ) {
-      widgets.push({
+        layouts: {
+          standard: {
+            location: StagePanelLocation.Bottom,
+            section: StagePanelSection.Start,
+          },
+        },
+      },
+      {
         id: "active-view",
         label: "Active view",
         content: <ActiveView />,
-      });
-    }
-    return widgets;
+        layouts: {
+          standard: {
+            location: StagePanelLocation.Right,
+            section: StagePanelSection.End,
+          },
+        },
+      },
+    ];
   }
 
   public provideStatusBarItems(

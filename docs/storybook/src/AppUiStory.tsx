@@ -170,7 +170,7 @@ function Initialized(props: AppUiStoryProps) {
 function Initializer() {
   return (
     <ThemeProvider>
-      <ProgressLinear indeterminate labels={["Getting things ready!"]} />;
+      <ProgressLinear indeterminate labels={["Getting things ready!"]} />
     </ThemeProvider>
   );
 }

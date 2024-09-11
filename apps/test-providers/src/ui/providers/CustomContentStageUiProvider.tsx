@@ -9,7 +9,6 @@ import {
   BackstageItemUtilities,
   StagePanelLocation,
   StagePanelSection,
-  StageUsage,
   SyncUiEventDispatcher,
   ToolbarItem,
   ToolbarItemUtilities,
@@ -41,16 +40,12 @@ import { SampleNonModalDialog } from "../dialogs/SampleNonModalDialog";
 import { createCustomContentFrontstage } from "../frontstages/CustomContentFrontstage";
 import { store } from "../../store";
 
-/**
- * Test UiItemsProvider that provide buttons, and backstage item to stage.
- */
 export class CustomContentStageUiProvider implements UiItemsProvider {
   public static providerId =
     "appui-test-providers:CustomContentStageUiProvider";
   public readonly id = CustomContentStageUiProvider.providerId;
 
   constructor(localizationNamespace: string) {
-    // register tools that will be returned via this provider
     OpenCustomDialogTool.register(localizationNamespace);
   }
 
@@ -160,19 +155,9 @@ export class CustomContentStageUiProvider implements UiItemsProvider {
     return [];
   }
 
-  public provideWidgets(
-    _stageId: string,
-    stageUsage: string,
-    location: StagePanelLocation,
-    section?: StagePanelSection
-  ): ReadonlyArray<Widget> {
-    const widgets: Widget[] = [];
-    if (
-      stageUsage === StageUsage.General.valueOf() &&
-      location === StagePanelLocation.Right &&
-      section === StagePanelSection.Start
-    ) {
-      widgets.push({
+  public getWidgets(): ReadonlyArray<Widget> {
+    return [
+      {
         id: "appui-test-providers:elementDataListWidget",
         label: "Data",
         icon: "icon-flag-2",
@@ -181,9 +166,14 @@ export class CustomContentStageUiProvider implements UiItemsProvider {
           containerId: "ui-item-provider-test:ViewAttributesWidget",
         },
         content: <SelectedElementDataWidgetComponent />,
-      });
-    }
-    return widgets;
+        layouts: {
+          standard: {
+            location: StagePanelLocation.Right,
+            section: StagePanelSection.Start,
+          },
+        },
+      },
+    ];
   }
 
   public getBackstageItems(): BackstageItem[] {

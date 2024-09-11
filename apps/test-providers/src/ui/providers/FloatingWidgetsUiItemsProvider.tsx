@@ -7,7 +7,6 @@ import { ViewAttributesWidgetComponent } from "../widgets/ViewAttributesWidget";
 import {
   StagePanelLocation,
   StagePanelSection,
-  StageUsage,
   UiItemsProvider,
   Widget,
   WidgetState,
@@ -19,19 +18,15 @@ export class FloatingWidgetsUiItemsProvider implements UiItemsProvider {
   public static providerId = "appui-test-providers:FloatingWidgetsUiProvider";
   public readonly id = FloatingWidgetsUiItemsProvider.providerId;
 
-  public provideWidgets(
-    _stageId: string,
-    stageUsage: string,
-    location: StagePanelLocation,
-    section?: StagePanelSection
-  ): ReadonlyArray<Widget> {
-    const widgets: Widget[] = [];
-    if (
-      stageUsage === StageUsage.General.valueOf() &&
-      location === StagePanelLocation.Left &&
-      section === StagePanelSection.Start
-    ) {
-      widgets.push({
+  public getWidgets(): ReadonlyArray<Widget> {
+    const layouts = {
+      standard: {
+        location: StagePanelLocation.Left,
+        section: StagePanelSection.Start,
+      },
+    };
+    return [
+      {
         id: "appui-test-providers:ViewAttributesWidget",
         label: "View Attributes",
         icon: "icon-window-settings",
@@ -42,9 +37,9 @@ export class FloatingWidgetsUiItemsProvider implements UiItemsProvider {
         content: <ViewAttributesWidgetComponent />,
         canPopout: true,
         allowedPanels: [StagePanelLocation.Left, StagePanelLocation.Right],
-      });
-
-      widgets.push({
+        layouts,
+      },
+      {
         id: "FW-1",
         label: "FW-1",
         icon: "icon-app-1",
@@ -54,8 +49,9 @@ export class FloatingWidgetsUiItemsProvider implements UiItemsProvider {
           defaultPosition: { x: 600, y: 385 },
         },
         content: <div>Floating widget 1</div>,
-      });
-      widgets.push({
+        layouts,
+      },
+      {
         id: "FW-2",
         label: "FW-2",
         icon: "icon-app-2",
@@ -65,8 +61,9 @@ export class FloatingWidgetsUiItemsProvider implements UiItemsProvider {
         },
         content: <div>Floating widget 2</div>,
         allowedPanels: [],
-      });
-      widgets.push({
+        layouts,
+      },
+      {
         id: "FW-3",
         label: "FW-3",
         icon: "icon-app-1",
@@ -75,9 +72,9 @@ export class FloatingWidgetsUiItemsProvider implements UiItemsProvider {
           containerId: "appui-test-providers:floating-widget",
         },
         content: <div>Floating widget 3</div>,
-      });
-
-      widgets.push({
+        layouts,
+      },
+      {
         id: "FW-H1",
         label: "FW-H1",
         icon: "icon-visibility-hide",
@@ -86,8 +83,9 @@ export class FloatingWidgetsUiItemsProvider implements UiItemsProvider {
           containerId: "appui-test-providers:hidden-floating-widget",
         },
         content: <div>Hidden floating widget 1</div>,
-      });
-      widgets.push({
+        layouts,
+      },
+      {
         id: "appui-test-providers:PopoutMountUnmountWidget",
         label: "Mount/Unmount",
         icon: "icon-window-settings",
@@ -101,8 +99,8 @@ export class FloatingWidgetsUiItemsProvider implements UiItemsProvider {
         ),
         canPopout: true,
         allowedPanels: [StagePanelLocation.Left],
-      });
-    }
-    return widgets;
+        layouts,
+      },
+    ];
   }
 }
