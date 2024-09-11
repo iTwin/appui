@@ -4,15 +4,20 @@ Table of contents:
 
 - [@itwin/appui-react](#itwinappui-react)
   - [Changes](#changes)
+  - [Deprecations](#deprecations)
 - [@itwin/components-react](#itwincomponents-react)
   - [Additions](#additions)
-  - [Deprecations](#deprecations)
+  - [Deprecations](#deprecations-1)
 
 ## @itwin/appui-react
 
 ### Changes
 
 - Allow to set the available snap modes in `SnapModeField` component. [#974](https://github.com/iTwin/appui/pull/974)
+
+### Deprecations
+
+- Deprecated `UiFramework.setIsUiVisible` and `UiFramework.getIsUiVisible`. [#1023](https://github.com/iTwin/appui/pull/1023)
 
 ## @itwin/components-react
 
