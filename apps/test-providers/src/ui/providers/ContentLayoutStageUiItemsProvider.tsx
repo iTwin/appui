@@ -2,14 +2,12 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-
 import * as React from "react";
 import {
   BackstageItem,
   BackstageItemUtilities,
   StagePanelLocation,
   StagePanelSection,
-  StageUsage,
   StatusBarItem,
   StatusBarItemUtilities,
   ToolbarItem,
@@ -35,8 +33,7 @@ import { ViewportWidget as ViewportWidgetBase } from "../widgets/ViewportWidget"
 import { WidgetContentContext } from "./WidgetContentProvider";
 import { createContentLayoutFrontstage } from "../frontstages/ContentLayoutFrontstage";
 
-/**
- * The ContentLayoutStageUiItemsProvider provides additional items only to the `ContentLayoutStage` frontstage.
+/** The ContentLayoutStageUiItemsProvider provides additional items only to the `ContentLayoutStage` frontstage.
  * This provider provides four tool buttons to:
  *  - toggle between a single view and two side-by-side views.
  *  - activate a tool to save the current view layout and viewstate shown in each view.
@@ -58,48 +55,44 @@ export class ContentLayoutStageUiItemsProvider implements UiItemsProvider {
     SaveContentLayoutTool.register(localizationNamespace);
   }
 
-  public provideToolbarItems(
-    stageId: string,
-    _stageUsage: string,
-    toolbarUsage: ToolbarUsage,
-    toolbarOrientation: ToolbarOrientation
-  ): ToolbarItem[] {
-    const allowedStages = [createContentLayoutFrontstage.stageId];
-    if (allowedStages.includes(stageId)) {
-      if (
-        toolbarUsage === ToolbarUsage.ContentManipulation &&
-        toolbarOrientation === ToolbarOrientation.Horizontal
-      ) {
-        return [
-          {
-            ...createSplitSingleViewportToolbarItem(() => {
-              return IModelApp.viewManager.selectedView;
-            }),
-            itemPriority: 15,
-            groupPriority: 3000,
+  public getToolbarItems(): readonly ToolbarItem[] {
+    const layouts = {
+      standard: {
+        usage: ToolbarUsage.ViewNavigation,
+        orientation: ToolbarOrientation.Vertical,
+      },
+    };
+    return [
+      createSplitSingleViewportToolbarItem(
+        () => {
+          return IModelApp.viewManager.selectedView;
+        },
+        {
+          itemPriority: 15,
+          groupPriority: 3000,
+          layouts: {
+            standard: {
+              usage: ToolbarUsage.ContentManipulation,
+              orientation: ToolbarOrientation.Horizontal,
+            },
           },
-        ];
-      } else if (
-        toolbarUsage === ToolbarUsage.ViewNavigation &&
-        toolbarOrientation === ToolbarOrientation.Vertical
-      ) {
-        return [
-          ToolbarItemUtilities.createForTool(SaveContentLayoutTool, {
-            itemPriority: 10,
-            groupPriority: 3000,
-          }),
-          ToolbarItemUtilities.createForTool(RestoreSavedContentLayoutTool, {
-            itemPriority: 15,
-            groupPriority: 3000,
-          }),
-          getCustomViewSelectorPopupItem(),
-        ];
-      }
-    }
-    return [];
+        }
+      ),
+      ToolbarItemUtilities.createForTool(SaveContentLayoutTool, {
+        itemPriority: 10,
+        groupPriority: 3000,
+        layouts,
+      }),
+      ToolbarItemUtilities.createForTool(RestoreSavedContentLayoutTool, {
+        itemPriority: 15,
+        groupPriority: 3000,
+        layouts,
+      }),
+      getCustomViewSelectorPopupItem({ layouts }),
+    ];
   }
 
-  public getWidgets(): ReadonlyArray<Widget> {
+  public getWidgets(): readonly Widget[] {
     return [
       {
         id: "appui-test-providers:viewport-old",
@@ -167,7 +160,7 @@ export class ContentLayoutStageUiItemsProvider implements UiItemsProvider {
     ];
   }
 
-  public getStatusBarItems(): StatusBarItem[] {
+  public getStatusBarItems(): readonly StatusBarItem[] {
     return [
       StatusBarItemUtilities.createCustomItem({
         id: "DisplayStyle",
@@ -177,7 +170,7 @@ export class ContentLayoutStageUiItemsProvider implements UiItemsProvider {
     ];
   }
 
-  public getBackstageItems(): BackstageItem[] {
+  public getBackstageItems(): readonly BackstageItem[] {
     return [
       BackstageItemUtilities.createStageLauncher({
         stageId: createContentLayoutFrontstage.stageId,

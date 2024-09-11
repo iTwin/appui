@@ -57,6 +57,7 @@ export class StandardContentToolsUiItemsProvider implements UiItemsProvider {
 
   constructor(private defaultContextTools?: DefaultContentTools) {}
 
+  /** @deprecated in 4.17.0. Property of a deprecated interface {@link UiItemsProvider.provideToolbarItems}. */
   public provideToolbarItems(
     _stageId: string,
     _stageUsage: string,
@@ -64,155 +65,16 @@ export class StandardContentToolsUiItemsProvider implements UiItemsProvider {
     toolbarOrientation: ToolbarOrientation,
     stageAppData?: any
   ): ToolbarItem[] {
-    const items: ToolbarItem[] = [];
+    const allItems = getAllToolbarItems(this.defaultContextTools, stageAppData);
+    return allItems.filter(
+      (item) =>
+        item.layouts?.standard?.usage === toolbarUsage &&
+        item.layouts?.standard?.orientation === toolbarOrientation
+    );
+  }
 
-    if (
-      toolbarUsage === ToolbarUsage.ContentManipulation &&
-      toolbarOrientation === ToolbarOrientation.Horizontal
-    ) {
-      const clearSelectionGroupPriority = getGroupPriority(
-        stageAppData?.defaultContentTools?.horizontal
-          ?.clearSelectionGroupPriority,
-        10
-      );
-      const overridesGroupPriority = getGroupPriority(
-        stageAppData?.defaultContentTools?.horizontal?.overridesGroupPriority,
-        20
-      );
-
-      if (
-        !this.defaultContextTools ||
-        !this.defaultContextTools.horizontal ||
-        this.defaultContextTools.horizontal.clearSelection
-      )
-        items.push(
-          ToolbarItems.createClearSelection({
-            itemPriority: 10,
-            groupPriority: clearSelectionGroupPriority,
-          })
-        );
-
-      if (
-        !this.defaultContextTools ||
-        !this.defaultContextTools.horizontal ||
-        this.defaultContextTools.horizontal.clearDisplayOverrides
-      )
-        items.push(
-          ToolbarItems.createClearHideIsolateEmphasizeElements({
-            itemPriority: 20,
-            groupPriority: overridesGroupPriority,
-          })
-        );
-
-      if (
-        !this.defaultContextTools ||
-        !this.defaultContextTools.horizontal ||
-        this.defaultContextTools.horizontal.hide
-      ) {
-        if (this.defaultContextTools?.horizontal?.hide === "group")
-          items.push(
-            ToolbarItems.createHideSectionGroup({
-              itemPriority: 30,
-              groupPriority: overridesGroupPriority,
-            })
-          );
-        else
-          items.push(
-            ToolbarItems.createHideElements({
-              itemPriority: 30,
-              groupPriority: overridesGroupPriority,
-            })
-          );
-      }
-
-      if (
-        !this.defaultContextTools ||
-        !this.defaultContextTools.horizontal ||
-        this.defaultContextTools.horizontal.isolate
-      ) {
-        if (this.defaultContextTools?.horizontal?.isolate === "group")
-          items.push(
-            ToolbarItems.createIsolateSelectionGroup({
-              itemPriority: 40,
-              groupPriority: overridesGroupPriority,
-            })
-          );
-        else
-          items.push(
-            ToolbarItems.createIsolateElements({
-              itemPriority: 40,
-              groupPriority: overridesGroupPriority,
-            })
-          );
-      }
-
-      if (
-        !this.defaultContextTools ||
-        !this.defaultContextTools.horizontal ||
-        this.defaultContextTools.horizontal.emphasize
-      ) {
-        items.push(
-          ToolbarItems.createEmphasizeElements({
-            itemPriority: 50,
-            groupPriority: overridesGroupPriority,
-          })
-        );
-      }
-    } else if (
-      toolbarUsage === ToolbarUsage.ContentManipulation &&
-      toolbarOrientation === ToolbarOrientation.Vertical
-    ) {
-      const selectElementGroupPriority = getGroupPriority(
-        stageAppData?.defaultContentTools?.vertical?.selectElementGroupPriority,
-        10
-      );
-      const measureGroupPriority = getGroupPriority(
-        stageAppData?.defaultContentTools?.vertical?.measureGroupPriority,
-        10
-      );
-      const selectionGroupPriority = getGroupPriority(
-        stageAppData?.defaultContentTools?.vertical?.selectionGroupPriority,
-        10
-      );
-
-      if (
-        !this.defaultContextTools ||
-        !this.defaultContextTools.vertical ||
-        this.defaultContextTools.vertical.selectElement
-      )
-        items.push(
-          ToolbarItems.createSelectElement({
-            itemPriority: 10,
-            groupPriority: selectElementGroupPriority,
-          })
-        );
-
-      if (
-        !this.defaultContextTools ||
-        !this.defaultContextTools.vertical ||
-        this.defaultContextTools.vertical.measureGroup
-      )
-        items.push(
-          ToolbarItems.createMeasureGroup({
-            itemPriority: 20,
-            groupPriority: measureGroupPriority,
-          })
-        );
-
-      if (
-        !this.defaultContextTools ||
-        !this.defaultContextTools.vertical ||
-        this.defaultContextTools.vertical.sectionGroup
-      ) {
-        items.push(
-          ToolbarItems.createSectionGroup({
-            itemPriority: 30,
-            groupPriority: selectionGroupPriority,
-          })
-        );
-      }
-    }
-    return items;
+  public getToolbarItems(): readonly ToolbarItem[] {
+    return getAllToolbarItems(this.defaultContextTools, undefined);
   }
 
   /** @deprecated in 4.17.0. Property of a deprecated interface {@link UiItemsProvider.provideStatusBarItems}. */
@@ -241,4 +103,172 @@ export class StandardContentToolsUiItemsProvider implements UiItemsProvider {
 
     return statusBarItems;
   }
+}
+
+// Extracted due to discontinued `stageAppData` usage, until `provideToolbarItems` is removed.
+function getAllToolbarItems(
+  defaultContextTools?: DefaultContentTools,
+  stageAppData?: any
+): ToolbarItem[] {
+  const items: ToolbarItem[] = [];
+  const clearSelectionGroupPriority = getGroupPriority(
+    stageAppData?.defaultContentTools?.horizontal?.clearSelectionGroupPriority,
+    10
+  );
+  const overridesGroupPriority = getGroupPriority(
+    stageAppData?.defaultContentTools?.horizontal?.overridesGroupPriority,
+    20
+  );
+
+  const horizontal = {
+    standard: {
+      usage: ToolbarUsage.ContentManipulation,
+      orientation: ToolbarOrientation.Horizontal,
+    },
+  };
+  if (
+    !defaultContextTools ||
+    !defaultContextTools.horizontal ||
+    defaultContextTools.horizontal.clearSelection
+  )
+    items.push(
+      ToolbarItems.createClearSelection({
+        itemPriority: 10,
+        groupPriority: clearSelectionGroupPriority,
+        layouts: horizontal,
+      })
+    );
+
+  if (
+    !defaultContextTools ||
+    !defaultContextTools.horizontal ||
+    defaultContextTools.horizontal.clearDisplayOverrides
+  )
+    items.push(
+      ToolbarItems.createClearHideIsolateEmphasizeElements({
+        itemPriority: 20,
+        groupPriority: overridesGroupPriority,
+        layouts: horizontal,
+      })
+    );
+
+  if (
+    !defaultContextTools ||
+    !defaultContextTools.horizontal ||
+    defaultContextTools.horizontal.hide
+  ) {
+    if (defaultContextTools?.horizontal?.hide === "group")
+      items.push(
+        ToolbarItems.createHideSectionGroup({
+          itemPriority: 30,
+          groupPriority: overridesGroupPriority,
+          layouts: horizontal,
+        })
+      );
+    else
+      items.push(
+        ToolbarItems.createHideElements({
+          itemPriority: 30,
+          groupPriority: overridesGroupPriority,
+          layouts: horizontal,
+        })
+      );
+  }
+
+  if (
+    !defaultContextTools ||
+    !defaultContextTools.horizontal ||
+    defaultContextTools.horizontal.isolate
+  ) {
+    if (defaultContextTools?.horizontal?.isolate === "group")
+      items.push(
+        ToolbarItems.createIsolateSelectionGroup({
+          itemPriority: 40,
+          groupPriority: overridesGroupPriority,
+          layouts: horizontal,
+        })
+      );
+    else
+      items.push(
+        ToolbarItems.createIsolateElements({
+          itemPriority: 40,
+          groupPriority: overridesGroupPriority,
+          layouts: horizontal,
+        })
+      );
+  }
+
+  if (
+    !defaultContextTools ||
+    !defaultContextTools.horizontal ||
+    defaultContextTools.horizontal.emphasize
+  ) {
+    items.push(
+      ToolbarItems.createEmphasizeElements({
+        itemPriority: 50,
+        groupPriority: overridesGroupPriority,
+        layouts: horizontal,
+      })
+    );
+  }
+
+  const vertical = {
+    standard: {
+      usage: ToolbarUsage.ContentManipulation,
+      orientation: ToolbarOrientation.Vertical,
+    },
+  };
+  const selectElementGroupPriority = getGroupPriority(
+    stageAppData?.defaultContentTools?.vertical?.selectElementGroupPriority,
+    10
+  );
+  const measureGroupPriority = getGroupPriority(
+    stageAppData?.defaultContentTools?.vertical?.measureGroupPriority,
+    10
+  );
+  const selectionGroupPriority = getGroupPriority(
+    stageAppData?.defaultContentTools?.vertical?.selectionGroupPriority,
+    10
+  );
+
+  if (
+    !defaultContextTools ||
+    !defaultContextTools.vertical ||
+    defaultContextTools.vertical.selectElement
+  )
+    items.push(
+      ToolbarItems.createSelectElement({
+        itemPriority: 10,
+        groupPriority: selectElementGroupPriority,
+        layouts: vertical,
+      })
+    );
+
+  if (
+    !defaultContextTools ||
+    !defaultContextTools.vertical ||
+    defaultContextTools.vertical.measureGroup
+  )
+    items.push(
+      ToolbarItems.createMeasureGroup({
+        itemPriority: 20,
+        groupPriority: measureGroupPriority,
+        layouts: vertical,
+      })
+    );
+
+  if (
+    !defaultContextTools ||
+    !defaultContextTools.vertical ||
+    defaultContextTools.vertical.sectionGroup
+  ) {
+    items.push(
+      ToolbarItems.createSectionGroup({
+        itemPriority: 30,
+        groupPriority: selectionGroupPriority,
+        layouts: vertical,
+      })
+    );
+  }
+  return items;
 }

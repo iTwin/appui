@@ -14,8 +14,6 @@ import {
   IModelApp,
   PrimitiveTool,
 } from "@itwin/core-frontend";
-
-import { ToolbarItemUtilities } from "@itwin/appui-abstract";
 import inspectIconSvg from "@bentley/icons-generic/icons/search.svg";
 
 export class InspectUiItemInfoTool extends PrimitiveTool {
@@ -155,24 +153,5 @@ export class InspectUiItemInfoTool extends PrimitiveTool {
 
   protected setupAndPromptForNextAction(): void {
     IModelApp.notifications.outputPrompt("click over UI item");
-  }
-
-  public static getActionButtonDef(
-    itemPriority: number,
-    groupPriority?: number
-  ) {
-    const overrides = {
-      groupPriority,
-    };
-    return ToolbarItemUtilities.createActionButton(
-      InspectUiItemInfoTool.toolId,
-      itemPriority,
-      InspectUiItemInfoTool.iconSpec,
-      InspectUiItemInfoTool.flyover,
-      async () => {
-        await IModelApp.tools.run(InspectUiItemInfoTool.toolId);
-      },
-      overrides
-    );
   }
 }

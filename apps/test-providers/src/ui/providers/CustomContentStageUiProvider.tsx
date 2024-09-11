@@ -49,113 +49,116 @@ export class CustomContentStageUiProvider implements UiItemsProvider {
     OpenCustomDialogTool.register(localizationNamespace);
   }
 
-  public provideToolbarItems(
-    stageId: string,
-    _stageUsage: string, // don't need to check usage since this provider is for specific stage.
-    toolbarUsage: ToolbarUsage,
-    toolbarOrientation: ToolbarOrientation
-  ): ToolbarItem[] {
-    if (
-      stageId === createCustomContentFrontstage.stageId &&
-      toolbarUsage === ToolbarUsage.ContentManipulation &&
-      toolbarOrientation === ToolbarOrientation.Horizontal
-    ) {
-      // eslint-disable-next-line deprecation/deprecation
-      const customActionButton = ToolbarItemUtilities.createActionItem(
-        "custom-action-button",
-        -1,
-        visibilitySemiTransparentSvg,
-        "Custom Action Button",
-        () => {
-          IModelApp.notifications.outputMessage(
-            new NotifyMessageDetails(
-              OutputMessagePriority.Info,
-              "Custom Action Button activated",
-              undefined,
-              OutputMessageType.Toast
-            )
-          );
-        }
-      );
+  public getToolbarItems(): readonly ToolbarItem[] {
+    const layouts = {
+      standard: {
+        usage: ToolbarUsage.ContentManipulation,
+        orientation: ToolbarOrientation.Horizontal,
+      },
+    };
 
-      /** The following ConditionalBooleanValue is used to determine the display state of the OpenCustomDialog button
-       * provided by this UiItemsProvider.
-       */
-      const customDialogActionHiddenCondition =
-        new ConditionalBooleanValue((): boolean => {
-          return store.state.hideCustomDialogButton;
-        }, [AppUiTestProviders.syncEventIdHideCustomDialogButton]);
-
-      const openCustomDialogActionButton =
-        OpenCustomDialogTool.getActionButtonDef(
-          1000,
-          undefined,
-          customDialogActionHiddenCondition
+    // eslint-disable-next-line deprecation/deprecation
+    const customActionButton = ToolbarItemUtilities.createActionItem(
+      "custom-action-button",
+      -1,
+      visibilitySemiTransparentSvg,
+      "Custom Action Button",
+      () => {
+        IModelApp.notifications.outputMessage(
+          new NotifyMessageDetails(
+            OutputMessagePriority.Info,
+            "Custom Action Button activated",
+            undefined,
+            OutputMessageType.Toast
+          )
         );
+      },
+      {
+        layouts,
+      }
+    );
 
-      /** The following test tool toggles the value Redux store and dispatches sync event that triggers tool refresh */
-      const toggleHiddenButton = ToolbarItemUtilities.createActionItem({
-        id: "custom-dialog-tool-visibility-toggle",
-        itemPriority: 1001,
-        icon: <SvgActivity />,
-        label: "Toggle CustomDialog Button Visibility",
-        execute: () => {
-          store.setHideCustomDialogButton(!store.state.hideCustomDialogButton);
+    /** The following ConditionalBooleanValue is used to determine the display state of the OpenCustomDialog button
+     * provided by this UiItemsProvider.
+     */
+    const customDialogActionHiddenCondition =
+      new ConditionalBooleanValue((): boolean => {
+        return store.state.hideCustomDialogButton;
+      }, [AppUiTestProviders.syncEventIdHideCustomDialogButton]);
 
-          // tell the toolbar to reevaluate state of any item with this event Id
-          SyncUiEventDispatcher.dispatchImmediateSyncUiEvent(
-            AppUiTestProviders.syncEventIdHideCustomDialogButton
-          );
-        },
-      });
+    const openCustomDialogActionButton = ToolbarItemUtilities.createForTool(
+      OpenCustomDialogTool,
+      {
+        itemPriority: 1000,
+        isHidden: customDialogActionHiddenCondition,
+        layouts,
+      }
+    );
 
-      const sampleModelessToolButton = ToolbarItemUtilities.createActionItem({
-        id: "sample-modeless-dialog",
-        itemPriority: 17,
-        icon: <SvgWindowAdd />,
+    /** The following test tool toggles the value Redux store and dispatches sync event that triggers tool refresh */
+    const toggleHiddenButton = ToolbarItemUtilities.createActionItem({
+      id: "custom-dialog-tool-visibility-toggle",
+      itemPriority: 1001,
+      icon: <SvgActivity />,
+      label: "Toggle CustomDialog Button Visibility",
+      execute: () => {
+        store.setHideCustomDialogButton(!store.state.hideCustomDialogButton);
+
+        // tell the toolbar to reevaluate state of any item with this event Id
+        SyncUiEventDispatcher.dispatchImmediateSyncUiEvent(
+          AppUiTestProviders.syncEventIdHideCustomDialogButton
+        );
+      },
+      layouts,
+    });
+
+    const sampleModelessToolButton = ToolbarItemUtilities.createActionItem({
+      id: "sample-modeless-dialog",
+      itemPriority: 17,
+      icon: <SvgWindowAdd />,
+      label: IModelApp.localization.getLocalizedString(
+        "SampleApp:buttons.sampleModelessDialog"
+      ),
+      execute: () => {
+        const dialogId = "sampleModeless";
+        UiFramework.dialogs.modeless.open(
+          <SampleModelessDialog opened={true} dialogId={dialogId} />,
+          dialogId
+        );
+      },
+      badgeKind: "deprecated",
+      layouts,
+    });
+
+    const sampleNonModalDialogToolButton =
+      ToolbarItemUtilities.createActionItem({
+        id: "sample-non-modal-dialog",
+        itemPriority: 18,
+        icon: <SvgWindow />,
         label: IModelApp.localization.getLocalizedString(
-          "SampleApp:buttons.sampleModelessDialog"
+          "SampleApp:buttons.sampleNonModalDialog"
         ),
         execute: () => {
-          const dialogId = "sampleModeless";
+          const dialogId = "sampleNonModal";
           UiFramework.dialogs.modeless.open(
-            <SampleModelessDialog opened={true} dialogId={dialogId} />,
+            <SampleNonModalDialog dialogId={dialogId} />,
             dialogId
           );
         },
-        badgeKind: "deprecated",
+        badgeKind: "new",
+        layouts,
       });
 
-      const sampleNonModalDialogToolButton =
-        ToolbarItemUtilities.createActionItem({
-          id: "sample-non-modal-dialog",
-          itemPriority: 18,
-          icon: <SvgWindow />,
-          label: IModelApp.localization.getLocalizedString(
-            "SampleApp:buttons.sampleNonModalDialog"
-          ),
-          execute: () => {
-            const dialogId = "sampleNonModal";
-            UiFramework.dialogs.modeless.open(
-              <SampleNonModalDialog dialogId={dialogId} />,
-              dialogId
-            );
-          },
-          badgeKind: "new",
-        });
-
-      return [
-        customActionButton,
-        openCustomDialogActionButton,
-        toggleHiddenButton,
-        sampleModelessToolButton,
-        sampleNonModalDialogToolButton,
-      ];
-    }
-    return [];
+    return [
+      customActionButton,
+      openCustomDialogActionButton,
+      toggleHiddenButton,
+      sampleModelessToolButton,
+      sampleNonModalDialogToolButton,
+    ];
   }
 
-  public getWidgets(): ReadonlyArray<Widget> {
+  public getWidgets(): readonly Widget[] {
     return [
       {
         id: "appui-test-providers:elementDataListWidget",
@@ -176,7 +179,7 @@ export class CustomContentStageUiProvider implements UiItemsProvider {
     ];
   }
 
-  public getBackstageItems(): BackstageItem[] {
+  public getBackstageItems(): readonly BackstageItem[] {
     return [
       BackstageItemUtilities.createStageLauncher({
         stageId: createCustomContentFrontstage.stageId,

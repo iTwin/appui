@@ -41,6 +41,7 @@ import type { StatusBarItem } from "../statusbar/StatusBarItem";
  *
  * ```
  * @public
+ * @deprecated in 4.17.0. Application data is not supported in frontstages. Instead configure the {@link UiItemsProvider} before registering for a specific frontstage.
  */
 export interface DefaultContentToolsAppData {
   defaultContentTools?: {
