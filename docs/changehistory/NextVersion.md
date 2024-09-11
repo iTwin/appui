@@ -23,11 +23,6 @@ Table of contents:
   import { AccuDrawDialog } from "@itwin/appui-react";
 
   type AccuDrawDialogProps = React.ComponentProps<typeof AccuDrawDialog>;
-
-  function UsingAccuDrawDialog(props: AccuDrawDialogProps) {
-    const [opened, setOpened] = React.useState(props.opened);
-    // ...
-  }
   ```
 
 ### Changes
@@ -51,11 +46,6 @@ Table of contents:
   import { HighlightedText } from "@itwin/components-react";
 
   type HighlightedTextProps = React.ComponentProps<typeof HighlightedText>;
-
-  function UseHighlightedText(props: HighlightedTextProps) {
-    const { searchText, activeMatchIndex, text, caseSensitive } = props;
-    // ...
-  }
   ```
 
 ## @itwin/imodel-components-react
@@ -70,10 +60,4 @@ Table of contents:
   import { FormatUnits } from "@itwin/imodel-components-react";
 
   type FormatUnitsProps = React.ComponentProps<typeof FormatUnits>;
-
-  function UseFormatUnits(props: FormatUnitsProps) {
-    const { initialFormat, persistenceUnit, unitsProvider, onUnitsChange } =
-      props;
-    // ...
-  }
   ```
