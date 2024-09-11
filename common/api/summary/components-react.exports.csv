@@ -64,6 +64,7 @@ public;DateTimeTypeConverter
 public;class DateTimeTypeConverterBase 
 public;DEFAULT_LINKS_HANDLER: LinkElementsInfo
 beta;defaultPropertyFilterBuilderRuleValidator(item: PropertyFilterBuilderRule): string | undefined
+deprecated;defaultPropertyFilterBuilderRuleValidator(item: PropertyFilterBuilderRule): string | undefined
 public;DelayLoadedTreeNodeItem 
 public;Direction
 internal;DirectionHelpers
@@ -97,7 +98,6 @@ public;FlatGridItemType
 public;FloatTypeConverter 
 internal;formatInputDate(inputDate: Date, timeDisplay?: TimeDisplay, customFormatter?: DateFormatter, alternateDateFormat?: AlternateDateFormats): string | undefined
 public;from
-beta;getPropertyFilterBuilderOperatorLabel(operator: PropertyFilterBuilderRuleOperator): string
 beta;getPropertyFilterBuilderOperators(property: PropertyDescription): PropertyFilterBuilderRuleOperator[]
 internal;getPropertyKey(propertyCategory: PropertyCategory, propertyRecord: PropertyRecord): string
 internal;getToolbarDirection: (expandsTo: Direction) => OrthogonalDirection
@@ -296,7 +296,7 @@ public;PropertyList
 public;PropertyListProps 
 public;PropertyPopupState
 public;class PropertyRecordDataFiltererBase 
-public;PropertyRenderer 
+public;PropertyRenderer:
 public;PropertyRendererProps 
 public;PropertyUpdatedArgs
 public;PropertyValueRendererContext
@@ -432,6 +432,7 @@ public;useAsyncValue
 public;useControlledTreeEventsHandler
 public;useControlledTreeLayoutStorage
 beta;useDebouncedAsyncValue
+beta;useDefaultPropertyFilterBuilderRuleValidator(): (item: PropertyFilterBuilderRule) => string | undefined
 public;usePagedTreeNodeLoader
 public;usePropertyData(props:
 beta;usePropertyFilterBuilder(props?: UsePropertyFilterBuilderProps): UsePropertyFilterBuilderResult

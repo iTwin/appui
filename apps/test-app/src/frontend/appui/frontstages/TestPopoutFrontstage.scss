@@ -1,0 +1,18 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+#border-test {
+  --border-color: red;
+  border: 5px solid var(--border-color);
+  border-bottom: 5px solid blue;
+  height: 20px;
+  width: 100px;
+}
+
+#link-test {
+  width: 10px;
+  min-width: 10px;
+  height: 15px;
+  background: var(--iui-color-background-backdrop);
+}

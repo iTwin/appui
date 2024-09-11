@@ -6,6 +6,7 @@ Table of contents:
   - [Deprecations](#deprecations)
   - [Changes](#changes)
 - [@itwin/components-react](#itwincomponents-react)
+  - [Additions](#additions)
   - [Deprecations](#deprecations-1)
 - [@itwin/imodel-components-react](#itwinimodel-components-react)
   - [Deprecations](#deprecations-2)
@@ -35,8 +36,13 @@ Table of contents:
 
 ## @itwin/components-react
 
+### Additions
+
+- Added `useDefaultPropertyFilterBuilderRuleValidator` hook to get default validator for rules in `PropertyFilterBuilder` component. [#1000](https://github.com/iTwin/appui/pull/1000)
+
 ### Deprecations
 
+- Deprecated `defaultPropertyFilterBuilderRuleValidator`. Newly added `useDefaultPropertyFilterBuilderRuleValidator` should be used instead. [#1000](https://github.com/iTwin/appui/pull/1000)
 - Deprecated `HighlightedTextProps`, `EditorContainerProps`, `OkCancelProps`, `FavoritePropertyListProps`, `ParsedInputProps`, `LinksRendererProps`, `VirtualizedPropertyGridWithDataProviderProps`, `ControlledSelectableContentProps`, `SelectableContentProps`, `TreeNodeContentProps`, `TreeNodeIconProps` in favor of `React.ComponentProps<typeof ...>`. [#991](https://github.com/iTwin/appui/pull/991)
 
   Usage example:

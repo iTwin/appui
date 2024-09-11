@@ -23,7 +23,6 @@ import type { IconDefinition } from '@itwin/appui-abstract';
 import type { Id64String } from '@itwin/core-bentley';
 import type { IDisposable } from '@itwin/core-bentley';
 import { immerable } from 'immer';
-import { JSX as JSX_2 } from 'react';
 import type { LinkElementsInfo } from '@itwin/appui-abstract';
 import type { Localization } from '@itwin/core-common';
 import { LocalizationProvider as LocalizationProvider_2 } from '@itwin/core-react';
@@ -40,7 +39,6 @@ import { PropertyRecord } from '@itwin/appui-abstract';
 import type { PropertyValue } from '@itwin/appui-abstract';
 import { default as React_2 } from 'react';
 import * as React_3 from 'react';
-import { ReactNode } from 'react';
 import { RelativePosition } from '@itwin/appui-abstract';
 import type { SelectOption } from '@itwin/itwinui-react';
 import { TimeDisplay } from '@itwin/appui-abstract';
@@ -553,7 +551,7 @@ export abstract class DateTimeTypeConverterBase extends TypeConverter implements
 // @public
 export const DEFAULT_LINKS_HANDLER: LinkElementsInfo;
 
-// @beta
+// @beta @deprecated
 export function defaultPropertyFilterBuilderRuleValidator(item: PropertyFilterBuilderRule): string | undefined;
 
 // @public
@@ -843,9 +841,6 @@ export function formatInputDate(inputDate: Date, timeDisplay?: TimeDisplay, cust
 
 // @public
 export function from<T>(iterable: Iterable<T> | PromiseLike<T>): Observable<T>;
-
-// @beta
-export function getPropertyFilterBuilderOperatorLabel(operator: PropertyFilterBuilderRuleOperator): string;
 
 // @beta
 export function getPropertyFilterBuilderOperators(property: PropertyDescription): PropertyFilterBuilderRuleOperator[];
@@ -1382,7 +1377,7 @@ export const matchLinks: (text: string) => Array<{
 // @public
 export class MergedPropertyValueRenderer implements IPropertyValueRenderer {
     canRender(record: PropertyRecord): boolean;
-    render(_record: PropertyRecord, context?: PropertyValueRendererContext): string | number | boolean | Iterable<ReactNode> | JSX_2.Element | null | undefined;
+    render(_record: PropertyRecord, context?: PropertyValueRendererContext): string | number | boolean | Iterable<React_3.ReactNode> | React_3.JSX.Element | null | undefined;
 }
 
 // @internal (undocumented)
@@ -2406,20 +2401,10 @@ export abstract class PropertyRecordDataFiltererBase extends PropertyDataFiltere
 }
 
 // @public
-export class PropertyRenderer extends React_3.Component<PropertyRendererProps, PropertyRendererState> {
-    constructor(props: PropertyRendererProps);
-    // (undocumented)
-    componentDidMount(): void;
-    // (undocumented)
-    componentDidUpdate(prevProps: PropertyRendererProps): void;
-    // (undocumented)
-    static getLabelOffset(indentation?: number, orientation?: Orientation, width?: number, columnRatio?: number, minColumnLabelWidth?: number): number;
-    // (undocumented)
-    render(): React_3.JSX.Element;
-    // (undocumented)
-    readonly state: Readonly<PropertyRendererState>;
-    updateDisplayValueAsEditor(props: PropertyRendererProps): void;
-}
+export const PropertyRenderer: {
+    (props: PropertyRendererProps): React_3.JSX.Element;
+    getLabelOffset(indentation?: number, orientation?: Orientation, width?: number, columnRatio?: number, minColumnLabelWidth?: number): number;
+};
 
 // @public
 export interface PropertyRendererProps extends SharedRendererProps {
@@ -3598,6 +3583,9 @@ export function useDebouncedAsyncValue<TReturn>(valueToBeResolved: undefined | (
     value: TReturn | undefined;
     inProgress: boolean;
 };
+
+// @beta
+export function useDefaultPropertyFilterBuilderRuleValidator(): (item: PropertyFilterBuilderRule) => string | undefined;
 
 // @public
 export function usePagedTreeNodeLoader<TDataProvider extends TreeDataProvider>(dataProvider: TDataProvider, pageSize: number, modelSource: TreeModelSource): PagedTreeNodeLoader<TDataProvider>;

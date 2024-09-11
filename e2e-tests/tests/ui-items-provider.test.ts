@@ -17,7 +17,7 @@ import {
 test.describe("UiItemsProvider", () => {
   test.beforeEach(async ({ page, baseURL }) => {
     assert(baseURL);
-    await page.goto(`${baseURL}?frontstage=appui-test-providers:WidgetApi`);
+    await page.goto(`${baseURL}/blank?frontstageId=widget-api`);
   });
 
   test("should provide widgets", async ({ page }) => {
@@ -48,7 +48,7 @@ test.describe("UiItemsProvider", () => {
 test.describe("UiItemsProvider v2", () => {
   test.beforeEach(async ({ page, baseURL }) => {
     assert(baseURL);
-    await page.goto(`${baseURL}?frontstage=appui-test-providers:WidgetApi`);
+    await page.goto(`${baseURL}/blank?frontstageId=widget-api`);
   });
 
   const providerId = "appui-test-providers:updated";

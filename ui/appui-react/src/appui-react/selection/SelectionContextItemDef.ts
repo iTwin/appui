@@ -24,6 +24,7 @@ import svgVisibilitySemiTransparent from "@bentley/icons-generic/icons/visibilit
 import svgVisibilityHide from "@bentley/icons-generic/icons/visibility-hide_2.svg";
 import svgVisibility from "@bentley/icons-generic/icons/visibility.svg";
 import type { ToolbarItems } from "../tools/ToolbarItems";
+import { getActiveViewport } from "../utils/getActiveViewport";
 
 /* eslint-disable deprecation/deprecation */
 
@@ -61,20 +62,20 @@ export function getSelectionContextSyncEventIds(): string[] {
  * @deprecated in 4.15.0. Use {@link ToolbarItems} or a custom conditional value instead.
  */
 export function isNoSelectionActive(): boolean {
-  const activeContentControl = UiFramework.content.getActiveContentControl();
-  const selectionCount = UiFramework.getNumItemsSelected();
-
-  if (activeContentControl?.viewport) {
-    const hiddenElementsSet = activeContentControl.viewport.neverDrawn;
-    const selectedElementsSet =
-      activeContentControl.viewport.view.iModel.selectionSet.elements;
-    // TODO: add check for categories, subcategories and models
-    if (
-      selectionCount > 0 ||
-      ![...selectedElementsSet].every((value) => hiddenElementsSet?.has(value))
-    )
-      return false;
+  const viewport = getActiveViewport();
+  if (!viewport) {
+    return true;
   }
+
+  const selectionCount = UiFramework.getNumItemsSelected();
+  if (selectionCount > 0) return false;
+
+  // TODO: add check for categories, subcategories and models
+  const hiddenElementsSet = viewport.neverDrawn;
+  const selectedElementsSet = viewport.view.iModel.selectionSet.elements;
+  if (![...selectedElementsSet].every((value) => hiddenElementsSet?.has(value)))
+    return false;
+
   return true;
 }
 
@@ -83,13 +84,14 @@ export function isNoSelectionActive(): boolean {
  * @deprecated in 4.15.0. Use {@link ToolbarItems} or a custom conditional value instead.
  */
 export function areNoFeatureOverridesActive(): boolean {
-  const activeContentControl = UiFramework.content.getActiveContentControl();
-  if (activeContentControl && activeContentControl.viewport)
-    return !UiFramework.hideIsolateEmphasizeActionHandler.areFeatureOverridesActive(
-      activeContentControl.viewport
-    );
+  const viewport = getActiveViewport();
+  if (!viewport) {
+    return true;
+  }
 
-  return true;
+  return !UiFramework.hideIsolateEmphasizeActionHandler.areFeatureOverridesActive(
+    viewport
+  );
 }
 
 /** Return ConditionalBooleanValue object used to show item if feature overrides are active.
@@ -121,15 +123,15 @@ export function getIsHiddenIfSelectionNotActive(): ConditionalBooleanValue {
 export function featureOverridesActiveStateFunc(
   state: Readonly<BaseItemState>
 ): BaseItemState {
-  const activeContentControl = UiFramework.content.getActiveContentControl();
-  let isVisible = false;
+  const viewport = getActiveViewport();
+  if (!viewport) {
+    return { ...state, isVisible: false };
+  }
 
-  if (activeContentControl && activeContentControl.viewport)
-    isVisible =
-      UiFramework.hideIsolateEmphasizeActionHandler.areFeatureOverridesActive(
-        activeContentControl.viewport
-      );
-
+  const isVisible =
+    UiFramework.hideIsolateEmphasizeActionHandler.areFeatureOverridesActive(
+      viewport
+    );
   return { ...state, isVisible };
 }
 
@@ -140,17 +142,14 @@ export function featureOverridesActiveStateFunc(
 export function selectionContextStateFunc(
   state: Readonly<BaseItemState>
 ): BaseItemState {
-  const activeContentControl = UiFramework.content.getActiveContentControl();
-  let isVisible = false;
+  const viewport = getActiveViewport();
+  if (!viewport) {
+    return { ...state, isVisible: false };
+  }
 
   const selectionCount = UiFramework.getNumItemsSelected();
-  if (
-    activeContentControl &&
-    activeContentControl.viewport &&
-    (activeContentControl.viewport.view.iModel.selectionSet.size > 0 ||
-      selectionCount > 0)
-  )
-    isVisible = true;
+  const isVisible =
+    viewport.view.iModel.selectionSet.size > 0 || selectionCount > 0;
   return { ...state, isVisible };
 }
 

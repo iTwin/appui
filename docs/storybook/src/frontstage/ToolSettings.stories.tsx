@@ -10,7 +10,8 @@ import { AppUiDecorator } from "../Decorators";
 import { Page } from "../AppUiStory";
 import { createFrontstage, removeProperty } from "../Utils";
 import { ToolSettingsStory } from "./ToolSettings";
-import { CustomTool } from "../tools/ToolSettingsProperties";
+import { CustomTool } from "../tools/CustomTool";
+import { LockPropertyTool } from "../tools/LockPropertyTool";
 
 const meta = {
   title: "Frontstage/ToolSettings",
@@ -23,16 +24,6 @@ const meta = {
     },
     layout: "fullscreen",
   },
-  argTypes: {
-    frontstages: removeProperty(),
-    onFrontstageActivated: removeProperty(),
-  },
-} satisfies Meta<typeof ToolSettingsStory>;
-
-export default meta;
-type Story = StoryObj<typeof meta>;
-
-export const Default: Story = {
   args: {
     frontstages: [
       createFrontstage({
@@ -49,9 +40,33 @@ export const Default: Story = {
         hideToolSettings: false,
       }),
     ],
+  },
+  argTypes: {
+    frontstages: removeProperty(),
+    onFrontstageActivated: removeProperty(),
+  },
+} satisfies Meta<typeof ToolSettingsStory>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  args: {
     onFrontstageActivated: async () => {
       IModelApp.tools.register(CustomTool, UiFramework.localizationNamespace);
       IModelApp.tools.run(CustomTool.toolId);
+    },
+  },
+};
+
+export const LockProperty: Story = {
+  args: {
+    onFrontstageActivated: async () => {
+      IModelApp.tools.register(
+        LockPropertyTool,
+        UiFramework.localizationNamespace
+      );
+      IModelApp.tools.run(LockPropertyTool.toolId);
     },
   },
 };

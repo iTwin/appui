@@ -20,8 +20,8 @@
     "playwright": "playwright"
   },
   "devDependencies": {
-    "@playwright/test": "^1.36.2",
-    "appui-standalone-app": "workspace:*",
+    "@playwright/test": "^1.46.1",
+    "test-app": "workspace:*",
     "tsx": "^4.7.1"
   },
   "repository": {
