@@ -270,6 +270,7 @@ export interface FrameworkFrontstages {
   clearFrontstageDefs(): void;
 
   /** Clears the Frontstage Providers and the defs that may have been created from them.
+   * @deprecated in 4.17.0. Use {@link FrameworkFrontstages.clearFrontstageDefs} instead.
    */
   clearFrontstageProviders(): void;
 
