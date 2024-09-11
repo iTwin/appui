@@ -31,7 +31,7 @@ export interface DefaultNavigationTools {
   };
 }
 
-/** Provide standard tools for the ViewNavigationWidgetComposer.
+/** Provide standard view navigation items.
  * @public
  */
 export class StandardNavigationToolsUiItemsProvider implements UiItemsProvider {

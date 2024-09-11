@@ -49,7 +49,9 @@ function getGroupPriority(potentialId: any, defaultValue: number) {
   return defaultValue;
 }
 
-/** @beta */
+/** Provides standard content manipulation items.
+ * @public
+ */
 export class StandardContentToolsUiItemsProvider implements UiItemsProvider {
   public get id(): string {
     return "appui-react:StandardContentToolsUiItemsProvider";
