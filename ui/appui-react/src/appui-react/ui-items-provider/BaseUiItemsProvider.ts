@@ -16,12 +16,13 @@ import type {
   ToolbarUsage,
 } from "../toolbar/ToolbarItem";
 import type { Widget } from "../widgets/Widget";
-import { UiItemsManager } from "./UiItemsManager";
+import { UiItemsManager, UiItemsProviderOverrides } from "./UiItemsManager";
 import type { UiItemsProvider } from "./UiItemsProvider";
 
 /** Base implementation of a UiItemsProvider. The base class allows the user to pass in a function that is used to determine if the
  * active stage should be provided items. Derived provider classes should override the `xxxInternal` methods to provide items.
  * @public
+ * @deprecated in 4.17.0. Use {@link UiItemsProviderOverrides} to specify supported frontstages when {@link UiItemsManager.register registering} the provider.
  */
 export class BaseUiItemsProvider implements UiItemsProvider {
   /*

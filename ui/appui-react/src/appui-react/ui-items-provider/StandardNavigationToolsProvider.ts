@@ -16,10 +16,11 @@ import type { DefaultNavigationTools } from "./StandardNavigationToolsUiItemsPro
 import { StandardNavigationToolsUiItemsProvider } from "./StandardNavigationToolsUiItemsProvider";
 import { UiItemsManager } from "./UiItemsManager";
 
-/**
- * Provide standard tools for the ViewNavigationWidgetComposer.
+/** Provide standard tools for the ViewNavigationWidgetComposer.
  * @public
+ * @deprecated in 4.17.0. Use {@link StandardNavigationToolsUiItemsProvider} instead. Supported frontstages can be specified when registering the provider.
  */
+// eslint-disable-next-line deprecation/deprecation
 export class StandardNavigationToolsProvider extends BaseUiItemsProvider {
   private uiItemsProvider: StandardNavigationToolsUiItemsProvider;
   /**
@@ -40,6 +41,7 @@ export class StandardNavigationToolsProvider extends BaseUiItemsProvider {
       stageAppData?: any
     ) => boolean
   ) {
+    // eslint-disable-next-line deprecation/deprecation
     const provider = new StandardNavigationToolsProvider(
       providerId,
       defaultNavigationTools,
