@@ -3,16 +3,24 @@
 Table of contents:
 
 - [@itwin/appui-react](#itwinappui-react)
+  - [Deprecations](#deprecations)
   - [Changes](#changes)
 - [@itwin/components-react](#itwincomponents-react)
   - [Additions](#additions)
-  - [Deprecations](#deprecations)
+  - [Deprecations](#deprecations-1)
 
 ## @itwin/appui-react
+
+### Deprecations
+
+- Deprecated `BaseUiItemsProvider`, `StandardContentToolsProvider`, `StandardNavigationToolsProvider`, `StandardStatusbarItemsProvider` classes. Use `UiItemsProviderOverrides` to specify supported frontstages when registering the provider.
+- Deprecated `DefaultContentToolsAppData` interface that is a remnant of discontinued frontstage APIs.
+- Deprecated `StandardContentToolsUiItemsProvider.provideStatusBarItems`, `StandardContentToolsUiItemsProvider.provideToolbarItems`, `StandardNavigationToolsUiItemsProvider.provideToolbarItems`, `StandardStatusbarUiItemsProvider.provideStatusBarItems` methods. Use `get*` variants instead.
 
 ### Changes
 
 - Allow to set the available snap modes in `SnapModeField` component. [#974](https://github.com/iTwin/appui/pull/974)
+- Bump `StandardContentToolsUiItemsProvider`, `StandardStatusbarUiItemsProvider` classes to `@public`.
 
 ## @itwin/components-react
 
