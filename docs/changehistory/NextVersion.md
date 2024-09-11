@@ -23,3 +23,4 @@ Table of contents:
 ### Deprecations
 
 - Deprecated `defaultPropertyFilterBuilderRuleValidator`. Newly added `useDefaultPropertyFilterBuilderRuleValidator` should be used instead. [#1000](https://github.com/iTwin/appui/pull/1000)
+- Deprecated `FrameworkFrontstages.clearFrontstageProviders`, use `FrameworkFrontstages.clearFrontstageDefs` instead. [#1022](https://github.com/iTwin/appui/pull/1022)
