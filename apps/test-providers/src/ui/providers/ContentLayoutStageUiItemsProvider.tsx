@@ -14,6 +14,7 @@ import {
   ToolbarItemUtilities,
   ToolbarOrientation,
   ToolbarUsage,
+  UiFramework,
   UiItemsProvider,
   useActiveViewport,
   Widget,
@@ -193,12 +194,21 @@ interface ViewportWidgetProps {
 function ViewportWidget({ contentId }: ViewportWidgetProps) {
   // We could have used `IModelApp.viewManager` instead to track active viewport.
   const context = React.useContext(WidgetContentContext);
+  const [viewState] = React.useState(() => {
+    const initialViewState = UiFramework.getDefaultViewState()?.clone();
+    if (initialViewState) {
+      initialViewState.description = contentId;
+    }
+
+    return initialViewState;
+  });
   return (
     <ViewportWidgetBase
       active={contentId === context.activeId}
       onActivate={() => {
         context.setActiveId(contentId);
       }}
+      viewState={viewState}
     />
   );
 }
