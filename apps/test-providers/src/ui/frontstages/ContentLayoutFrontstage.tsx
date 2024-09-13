@@ -28,6 +28,10 @@ class ContentLayoutStageContentGroupProvider extends ContentGroupProvider {
   public override async contentGroup(
     config: Frontstage
   ): Promise<ContentGroup> {
+    const primaryViewState = UiFramework.getDefaultViewState()?.clone();
+    if (primaryViewState) {
+      primaryViewState.description = "imodel-view-primary";
+    }
     const defaultContent = new ContentGroup({
       id: "content-layout-stage-frontstage-main-content-group",
       layout: StandardContentLayouts.singleView,
@@ -35,7 +39,12 @@ class ContentLayoutStageContentGroupProvider extends ContentGroupProvider {
         {
           id: "primaryContent",
           classId: "",
-          content: <ViewportContent renderViewOverlay={() => undefined} />,
+          content: (
+            <ViewportContent
+              renderViewOverlay={() => undefined}
+              viewState={primaryViewState}
+            />
+          ),
         },
       ],
     });
