@@ -6,7 +6,7 @@ import React from "react";
 import { action } from "@storybook/addon-actions";
 import { StagePanelState, UiItemsProvider, Widget } from "@itwin/appui-react";
 import { AppUiStory } from "../AppUiStory";
-import { createFrontstage } from "../Utils";
+import { createFrontstage, createWidget } from "../Utils";
 
 export function StoryWidget({ id }: { id: string }) {
   React.useEffect(() => {
@@ -21,16 +21,14 @@ export function StoryWidget({ id }: { id: string }) {
 function createProvider(widgets: WidgetStoryProps["widgets"]): UiItemsProvider {
   return {
     id: "widgets",
-    provideWidgets: () => {
+    getWidgets: () => {
       return Array.from({ length: widgets.length }, (_, index) => {
         const widget = widgets[index];
-        const id = `w${index + 1}`;
-        return {
-          id,
-          label: `Widget ${index + 1}`,
-          content: <StoryWidget id={id} />,
+        const id = index + 1;
+        return createWidget(id, {
+          content: <StoryWidget id={`${id}`} />,
           ...widget,
-        } satisfies Widget;
+        });
       });
     },
   };

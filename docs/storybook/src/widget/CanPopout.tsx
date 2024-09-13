@@ -4,17 +4,15 @@
  *--------------------------------------------------------------------------------------------*/
 import { StagePanelState, UiItemsProvider, Widget } from "@itwin/appui-react";
 import { AppUiStory } from "../AppUiStory";
+import { createWidget } from "../Utils";
 
 function createProvider(props: CanPopoutStoryProps): UiItemsProvider {
   return {
     id: "widgets",
-    provideWidgets: () => [
-      {
-        id: "w1",
-        label: "Widget 1",
-        content: <>Widget 1 content</>,
+    getWidgets: () => [
+      createWidget(1, {
         canPopout: props.canPopout,
-      },
+      }),
     ],
   };
 }
