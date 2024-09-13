@@ -19,6 +19,7 @@ import {
   Widget,
   WidgetState,
 } from "@itwin/appui-react";
+import { Table } from "@itwin/itwinui-react";
 import {
   createSplitSingleViewportToolbarItem,
   RestoreSavedContentLayoutTool,
@@ -32,6 +33,7 @@ import { ControlViewportWidget } from "../widgets/ControlViewportWidget";
 import { ViewportWidget as ViewportWidgetBase } from "../widgets/ViewportWidget";
 import { WidgetContentContext } from "./WidgetContentProvider";
 import { createContentLayoutFrontstage } from "../frontstages/ContentLayoutFrontstage";
+import { useActiveContentId } from "../useActiveContentId";
 
 /** The ContentLayoutStageUiItemsProvider provides additional items only to the `ContentLayoutStage` frontstage.
  * This provider provides four tool buttons to:
@@ -147,9 +149,9 @@ export class ContentLayoutStageUiItemsProvider implements UiItemsProvider {
         },
       },
       {
-        id: "active-view",
-        label: "Active view",
-        content: <ActiveView />,
+        id: "content-info",
+        label: "Content info",
+        content: <ContentInfo />,
         layouts: {
           standard: {
             location: StagePanelLocation.Right,
@@ -201,14 +203,38 @@ function ViewportWidget({ contentId }: ViewportWidgetProps) {
   );
 }
 
-function ActiveView() {
-  const viewport = useActiveViewport();
-  if (!viewport) return <span>No active viewport</span>;
+function ContentInfo() {
+  const activeViewport = useActiveViewport();
+  const contentId = useActiveContentId();
   return (
-    <span>
-      <b>id:</b> {viewport.view.id}
-      <br />
-      <b>description:</b> {viewport.view.description}
-    </span>
+    <Table
+      columns={[
+        {
+          id: "name",
+          Header: "Name",
+          accessor: "name",
+        },
+        {
+          id: "value",
+          Header: "Value",
+          accessor: "value",
+        },
+      ]}
+      data={[
+        {
+          name: "View id",
+          value: activeViewport?.view.id,
+        },
+        {
+          name: "View description",
+          value: activeViewport?.view.description,
+        },
+        {
+          name: "Content id",
+          value: contentId,
+        },
+      ]}
+      emptyTableContent=""
+    />
   );
 }
