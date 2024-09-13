@@ -59,6 +59,7 @@ export function ContentWrapper(props: ContentWrapperProps) {
   const [hasMultipleContents, setHasMultipleContents] = React.useState(
     () =>
       (activeFrontstageDef &&
+        // eslint-disable-next-line deprecation/deprecation
         !!activeFrontstageDef.floatingContentControls?.length) ||
       // eslint-disable-next-line deprecation/deprecation
       (activeFrontstageDef?.contentGroup?.getContentControls().length ?? 0) > 1
@@ -85,8 +86,8 @@ export function ContentWrapper(props: ContentWrapperProps) {
 
         setHasMultipleContents(
           (activeFrontstageDef &&
-            !!activeFrontstageDef.floatingContentControls?.length) ||
             // eslint-disable-next-line deprecation/deprecation
+            !!activeFrontstageDef.floatingContentControls?.length) ||
             (activeFrontstageDef?.contentGroup?.contentPropsList.length ?? 0) >
               1
         );
@@ -105,6 +106,7 @@ export function ContentWrapper(props: ContentWrapperProps) {
       () => {
         setHasMultipleContents(
           (activeFrontstageDef &&
+            // eslint-disable-next-line deprecation/deprecation
             !!activeFrontstageDef.floatingContentControls?.length) ||
             // eslint-disable-next-line deprecation/deprecation
             (activeFrontstageDef?.contentGroup?.getContentControls().length ??

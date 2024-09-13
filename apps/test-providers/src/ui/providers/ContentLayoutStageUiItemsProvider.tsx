@@ -216,35 +216,47 @@ function ViewportWidget({ contentId }: ViewportWidgetProps) {
 function ContentInfo() {
   const activeViewport = useActiveViewport();
   const contentId = useActiveContentId();
+  const columns = React.useMemo(
+    () => [
+      {
+        id: "name",
+        Header: "Name",
+        accessor: "name" as const,
+      },
+      {
+        id: "value",
+        Header: "Value",
+        accessor: "value" as const,
+      },
+    ],
+    []
+  );
+
+  const viewId = activeViewport?.view.id;
+  const description = activeViewport?.view.description;
+  const data = React.useMemo(
+    () => [
+      {
+        name: "View id",
+        value: viewId,
+      },
+      {
+        name: "View description",
+        value: description,
+      },
+      {
+        name: "Content id",
+        value: contentId,
+      },
+    ],
+    [viewId, description, contentId]
+  );
   return (
     <Table
-      columns={[
-        {
-          id: "name",
-          Header: "Name",
-          accessor: "name",
-        },
-        {
-          id: "value",
-          Header: "Value",
-          accessor: "value",
-        },
-      ]}
-      data={[
-        {
-          name: "View id",
-          value: activeViewport?.view.id,
-        },
-        {
-          name: "View description",
-          value: activeViewport?.view.description,
-        },
-        {
-          name: "Content id",
-          value: contentId,
-        },
-      ]}
+      columns={columns}
+      data={data}
       emptyTableContent=""
+      autoResetPage={false}
     />
   );
 }
