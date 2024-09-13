@@ -89,5 +89,4 @@ export function createContentLayoutFrontstage() {
     usage: StageUsage.General,
   });
 }
-createContentLayoutFrontstage.stageId =
-  "appui-test-providers:ContentLayoutExample";
+createContentLayoutFrontstage.stageId = "content-layout";
