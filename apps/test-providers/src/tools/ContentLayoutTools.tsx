@@ -268,12 +268,14 @@ export function createSplitSingleViewportToolbarItem(
       await UiFramework.content.layouts.setActiveContentGroup(newContentGroup);
     } else if (2 === contentGroup.contentPropsList.length) {
       const contentPropsArray: ContentProps[] = [];
+      const viewState = viewport.view.clone();
+      viewState.description = "imodel-view-0";
       contentPropsArray.push({
         id: "imodel-view-0",
         classId: "",
         content: (
           <ViewportContent
-            viewState={viewport.view.clone()}
+            viewState={viewState}
             imodel={viewport.view.iModel}
             renderViewOverlay={() => undefined}
           />
