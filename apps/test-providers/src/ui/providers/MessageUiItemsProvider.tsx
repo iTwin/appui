@@ -119,7 +119,7 @@ export class MessageUiItemsProvider implements UiItemsProvider {
         layouts: {
           standard: {
             usage: ToolbarUsage.ContentManipulation,
-            orientation: ToolbarOrientation.Horizontal,
+            orientation: ToolbarOrientation.Vertical,
           },
         },
       }),
