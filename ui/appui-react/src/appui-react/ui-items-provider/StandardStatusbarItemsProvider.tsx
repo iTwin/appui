@@ -14,7 +14,9 @@ import { BaseUiItemsProvider } from "./BaseUiItemsProvider";
 
 /** Provide standard status bar fields.
  * @public
+ * @deprecated in 4.17.0. Use {@link StandardStatusbarUiItemsProvider} instead. Supported frontstages can be specified when registering the provider.
  */
+// eslint-disable-next-line deprecation/deprecation
 export class StandardStatusbarItemsProvider extends BaseUiItemsProvider {
   private uiItemsProvider: StandardStatusbarUiItemsProvider;
   constructor(
@@ -48,6 +50,7 @@ export class StandardStatusbarItemsProvider extends BaseUiItemsProvider {
       stageAppData?: any
     ) => boolean
   ) {
+    // eslint-disable-next-line deprecation/deprecation
     const provider = new StandardStatusbarItemsProvider(
       providerId,
       defaultItems,

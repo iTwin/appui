@@ -7,12 +7,8 @@
  */
 
 import * as React from "react";
-import { IModelApp, Tool } from "@itwin/core-frontend";
+import { Tool } from "@itwin/core-frontend";
 import { SampleModalDialog } from "../ui/dialogs/SampleModalDialog";
-import {
-  ConditionalBooleanValue,
-  ToolbarItemUtilities,
-} from "@itwin/appui-abstract";
 import { AppUiTestProviders } from "../AppUiTestProviders";
 import connectedQuerySvg from "../ui/icons/connected-query.svg";
 import { UiFramework } from "@itwin/appui-react";
@@ -49,27 +45,5 @@ export class OpenCustomDialogTool extends Tool {
 
   public static override get englishKeyin(): string {
     return "open custom dialog";
-  }
-
-  public static getActionButtonDef(
-    itemPriority: number,
-    groupPriority?: number,
-    isHidden?: ConditionalBooleanValue
-  ) {
-    const overrides = {
-      groupPriority,
-      isHidden,
-    };
-
-    return ToolbarItemUtilities.createActionButton(
-      OpenCustomDialogTool.toolId,
-      itemPriority,
-      this.iconSpec,
-      OpenCustomDialogTool.flyover,
-      async () => {
-        await IModelApp.tools.run(OpenCustomDialogTool.toolId);
-      },
-      overrides
-    );
   }
 }

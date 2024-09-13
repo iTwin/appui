@@ -16,6 +16,7 @@ import {
   StageContentLayout,
   StageContentLayoutProps,
   SyncUiEventId,
+  ToolbarActionItem,
   ToolbarItemUtilities,
   UiFramework,
   useConditionalValue,
@@ -196,7 +197,9 @@ function SplitWindowIcon() {
 }
 
 export function createSplitSingleViewportToolbarItem(
-  getViewport: (content: ContentProps) => ScreenViewport | undefined
+  getViewport: (content: ContentProps) => ScreenViewport | undefined,
+  // eslint-disable-next-line deprecation/deprecation
+  overrides?: Omit<Partial<ToolbarActionItem>, "icon">
 ) {
   const id = "splitSingleViewportCommandDef";
   const label = new ConditionalStringValue(
@@ -297,5 +300,6 @@ export function createSplitSingleViewportToolbarItem(
     icon: <SplitWindowIcon />,
     label,
     execute,
+    ...overrides,
   });
 }

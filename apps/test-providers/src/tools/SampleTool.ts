@@ -28,7 +28,6 @@ import {
   PropertyEditorParamTypes,
   StandardEditorNames,
   SuppressLabelEditorParams,
-  ToolbarItemUtilities,
 } from "@itwin/appui-abstract";
 
 import { Logger } from "@itwin/core-bentley";
@@ -716,23 +715,5 @@ export class SampleTool extends PrimitiveTool {
 
     // return true is change is valid
     return true;
-  }
-
-  public static getActionButtonDef(
-    itemPriority: number,
-    groupPriority?: number
-  ) {
-    const overrides = undefined !== groupPriority ? { groupPriority } : {};
-
-    return ToolbarItemUtilities.createActionButton(
-      SampleTool.toolId,
-      itemPriority,
-      this.iconSpec,
-      SampleTool.flyover,
-      async () => {
-        await IModelApp.tools.run(SampleTool.toolId);
-      },
-      overrides
-    );
   }
 }
