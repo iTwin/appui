@@ -233,6 +233,7 @@ export function createSplitSingleViewportToolbarItem(
         classId: "",
         content: (
           <ViewportContent
+            contentId="imodel-view-0"
             viewState={viewState1}
             imodel={viewport.view.iModel}
           />
@@ -246,6 +247,7 @@ export function createSplitSingleViewportToolbarItem(
         classId: "",
         content: (
           <ViewportContent
+            contentId="imodel-view-1"
             viewState={viewState2}
             imodel={viewport.view.iModel}
           />
@@ -275,6 +277,7 @@ export function createSplitSingleViewportToolbarItem(
         classId: "",
         content: (
           <ViewportContent
+            contentId="imodel-view-0"
             viewState={viewState}
             imodel={viewport.view.iModel}
             renderViewOverlay={() => undefined}
