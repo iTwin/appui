@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Deprecate `CSS` and `SCSS` variables.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
