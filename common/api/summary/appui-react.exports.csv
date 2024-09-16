@@ -336,7 +336,7 @@ beta;getQuantityFormatsSettingsManagerEntry(itemPriority: number, opts?: Partial
 beta;getSelectionContextSyncEventIds(): string[]
 deprecated;getSelectionContextSyncEventIds(): string[]
 beta;getUiSettingsManagerEntry(itemPriority: number): SettingsTabEntry_2
-internal;getWidgetState(widgetDef: WidgetDef, nineZone: NineZoneState): WidgetState
+internal;getWidgetState(widgetId: WidgetDef["id"], nineZone: NineZoneState): WidgetState
 internal;GroupedItems = ReadonlyArray
 public;GroupItemDef 
 deprecated;GroupItemDef 
@@ -779,6 +779,7 @@ public;useAnalysisAnimationDataProvider(viewport: ScreenViewport | undefined): A
 internal;useAvailableUiItemsProviders(): readonly string[]
 public;useBackstageManager: () => FrameworkBackstage
 alpha;useConditionalValue
+internal;useContentOverlayStore: UseBoundStore
 internal;useDefaultBackstageItems: (manager: BackstageItemsManager) => readonly BackstageItem[]
 public;useDefaultStatusBarItems: (manager: StatusBarItemsManager) => readonly StatusBarItem[]
 public;useDefaultToolbarItems: (manager: ToolbarItemsManager) => readonly ToolbarItem[]
