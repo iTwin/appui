@@ -26,12 +26,3 @@ export const ConditionalBooleanValue = _ConditionalBooleanValue;
 export type ConditionalStringValue = _ConditionalStringValue;
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const ConditionalStringValue = _ConditionalStringValue;
-
-/** Class used to return an icon value. The value is refreshed by using the specified function. The `syncEventIds` define
- * events that would require the `iconGetter` function to be rerun.
- * @public
- */
-// eslint-disable-next-line deprecation/deprecation
-export type ConditionalIconValue = _ConditionalIconItem;
-// eslint-disable-next-line @typescript-eslint/no-redeclare, deprecation/deprecation
-export const ConditionalIconValue = _ConditionalIconItem;

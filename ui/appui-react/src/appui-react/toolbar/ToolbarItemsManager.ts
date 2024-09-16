@@ -11,13 +11,13 @@ import {
   ConditionalStringValue,
 } from "@itwin/appui-abstract";
 import { BeEvent } from "@itwin/core-bentley";
+import { ConditionalIconItem } from "@itwin/core-react";
 import type {
   ToolbarActionItem,
   ToolbarGroupItem,
   ToolbarItem,
 } from "./ToolbarItem";
 import { isToolbarGroupItem } from "./ToolbarItem";
-import { ConditionalIconValue } from "../shared/ConditionalValue";
 
 function isInstance<T>(args: T | ReadonlyArray<T>): args is T {
   return !Array.isArray(args);
@@ -136,7 +136,8 @@ export class ToolbarItemsManager {
           entry.syncEventIds.forEach((eventId: string) =>
             eventIds.add(eventId.toLowerCase())
           );
-        } else if (entry instanceof ConditionalIconValue) {
+          // eslint-disable-next-line deprecation/deprecation
+        } else if (entry instanceof ConditionalIconItem) {
           entry.syncEventIds.forEach((eventId: string) =>
             eventIds.add(eventId.toLowerCase())
           );
@@ -187,8 +188,10 @@ export class ToolbarItemsManager {
         } else if (entry instanceof ConditionalStringValue) {
           if (ConditionalStringValue.refreshValue(entry, eventIds))
             itemsUpdated = true;
-        } else if (entry instanceof ConditionalIconValue) {
-          if (ConditionalIconValue.refreshValue(entry, eventIds))
+          // eslint-disable-next-line deprecation/deprecation
+        } else if (entry instanceof ConditionalIconItem) {
+          // eslint-disable-next-line deprecation/deprecation
+          if (ConditionalIconItem.refreshValue(entry, eventIds))
             itemsUpdated = true;
         }
       }
@@ -229,8 +232,10 @@ export class ToolbarItemsManager {
         } else if (entry instanceof ConditionalStringValue) {
           if (ConditionalStringValue.refreshValue(entry, eventIds))
             updateRequired = true;
-        } else if (entry instanceof ConditionalIconValue) {
-          if (ConditionalIconValue.refreshValue(entry, eventIds))
+          // eslint-disable-next-line deprecation/deprecation
+        } else if (entry instanceof ConditionalIconItem) {
+          // eslint-disable-next-line deprecation/deprecation
+          if (ConditionalIconItem.refreshValue(entry, eventIds))
             updateRequired = true;
         }
       }
