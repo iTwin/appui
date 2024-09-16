@@ -10,7 +10,7 @@ import "./ContentOverlay.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { create } from "zustand";
-import { useLayout } from "../layout/base/LayoutStore";
+import { useLayout, useOptionalLayout } from "../layout/base/LayoutStore";
 import { getWidgetState } from "../widgets/WidgetDef";
 import { TabIdContext } from "../layout/widget/ContentRenderer";
 import { WidgetState } from "../widgets/WidgetState";
@@ -53,7 +53,8 @@ export function ContentOverlay({
 
 function useTrackContentOverlay() {
   const tabId = React.useContext(TabIdContext);
-  const visible = useLayout((state) => {
+  const visible = useOptionalLayout((state) => {
+    if (!state) return true;
     if (!tabId) return true;
 
     const widgetState = getWidgetState(tabId, state);
