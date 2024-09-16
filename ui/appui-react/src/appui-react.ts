@@ -37,12 +37,12 @@ export * from "./appui-react/configurableui/ConfigurableUiControl";
 export * from "./appui-react/content/ContentControl";
 export * from "./appui-react/content/ContentGroup";
 export * from "./appui-react/content/ContentLayout";
-export * from "./appui-react/content/ContentLayoutProps"
+export * from "./appui-react/content/ContentLayoutProps";
 export * from "./appui-react/content/ContentOverlay";
 export * from "./appui-react/content/FloatingViewportContent";
 export * from "./appui-react/content/ViewStateHelper";
 export * from "./appui-react/content/StageContentLayout";
-export * from "./appui-react/content/StandardContentLayouts"
+export * from "./appui-react/content/StandardContentLayouts";
 export * from "./appui-react/content/ViewportContentControl";
 export * from "./appui-react/content/IModelViewport";
 export * from "./appui-react/content/DefaultViewOverlay";
