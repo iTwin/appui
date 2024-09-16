@@ -16,6 +16,7 @@ import { ConditionalIconItem as _ConditionalIconItem } from "@itwin/core-react";
  * @public
  */
 export type ConditionalBooleanValue = _ConditionalBooleanValue;
+/** @public */
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const ConditionalBooleanValue = _ConditionalBooleanValue;
 
@@ -24,5 +25,6 @@ export const ConditionalBooleanValue = _ConditionalBooleanValue;
  * @public
  */
 export type ConditionalStringValue = _ConditionalStringValue;
+/** @public */
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const ConditionalStringValue = _ConditionalStringValue;
