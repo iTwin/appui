@@ -101,6 +101,8 @@ export interface PropertyFilterBuilderRendererProps {
   isDisabled?: boolean;
   /** Controls whether the group operator is toggle-able. */
   isGroupOperatorDisabled?: boolean;
+  /** Controls whether the last rule remaining in a group is deletable  */
+  allowLastRuleDelete?: boolean;
 }
 
 const ROOT_GROUP_PATH: string[] = [];
@@ -122,6 +124,7 @@ export function PropertyFilterBuilderRenderer(
     propertyRenderer,
     isDisabled,
     isGroupOperatorDisabled,
+    allowLastRuleDelete,
   } = props;
 
   const contextValue = React.useMemo<PropertyFilterBuilderContextProps>(
@@ -151,6 +154,7 @@ export function PropertyFilterBuilderRenderer(
           path={ROOT_GROUP_PATH}
           group={rootGroup}
           isGroupOperatorDisabled={isGroupOperatorDisabled}
+          allowLastRuleDelete={allowLastRuleDelete}
         />
       </PropertyFilterBuilderContext.Provider>
     </PropertyFilterBuilderRuleRenderingContext.Provider>
