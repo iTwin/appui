@@ -10,7 +10,7 @@ import "./ContentOverlay.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { create } from "zustand";
-import { useLayout, useOptionalLayout } from "../layout/base/LayoutStore";
+import { useOptionalLayout } from "../layout/base/LayoutStore";
 import { getWidgetState } from "../widgets/WidgetDef";
 import { TabIdContext } from "../layout/widget/ContentRenderer";
 import { WidgetState } from "../widgets/WidgetState";
