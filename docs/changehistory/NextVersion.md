@@ -14,6 +14,10 @@ Table of contents:
 
 - Allow to set the available snap modes in `SnapModeField` component. [#974](https://github.com/iTwin/appui/pull/974)
 
+### Additions
+
+- Added `UiFramework.onIModelConnectionChanged` event to get notified whenever the imodel targeted by `getIModelConnection` changes. This is a replacement for listening to the deprecated `SessionStateActionId.SetIModelConnection`.
+
 ## @itwin/components-react
 
 ### Additions

@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Add an event (onImodelConnectionChanged) to get notified whenever the target imodelconnection changes.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
