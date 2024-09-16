@@ -9,8 +9,11 @@
 import "./ContentOverlay.scss";
 import classnames from "classnames";
 import * as React from "react";
+import { create } from "zustand";
 
-// eslint-disable-next-line deprecation/deprecation
+/** @internal */
+export const useContentOverlayStore = create<number>(() => 0);
+
 interface ContentOverlayProps extends React.ComponentProps<"div"> {
   /** Describes if the content is active. */
   active?: boolean;
@@ -25,6 +28,12 @@ export function ContentOverlay({
   active,
   ...other
 }: ContentOverlayProps) {
+  React.useEffect(() => {
+    useContentOverlayStore.setState((prev) => prev + 1);
+    return () => {
+      useContentOverlayStore.setState((prev) => prev - 1);
+    };
+  }, []);
   return (
     <div
       className={classnames("uifw-content-contentOverlay", className)}

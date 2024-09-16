@@ -25,7 +25,7 @@ import type { CommonProps } from "@itwin/core-react";
 import type { ContentGroup } from "./ContentGroup";
 import { useActiveFrontstageDef } from "../frontstage/FrontstageDef";
 import { UiFramework } from "../UiFramework";
-import { ContentOverlay } from "./ContentOverlay";
+import { ContentOverlay, useContentOverlayStore } from "./ContentOverlay";
 
 /** Properties for [[ContentWrapper]] */
 // eslint-disable-next-line deprecation/deprecation
@@ -116,7 +116,8 @@ export function ContentWrapper(props: ContentWrapperProps) {
     );
   }, [activeFrontstageDef]);
 
-  const active = isActive && hasMultipleContents;
+  const contentOverlays = useContentOverlayStore();
+  const active = isActive && (hasMultipleContents || contentOverlays > 1);
   return (
     <ContentOverlay
       className={classnames("uifw-contentlayout-wrapper", props.className)}
