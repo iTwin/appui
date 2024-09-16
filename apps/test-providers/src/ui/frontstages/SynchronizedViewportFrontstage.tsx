@@ -7,8 +7,8 @@ import {
   BackstageAppButton,
   Frontstage,
   FrontstageUtilities,
-  StandardContentLayouts,
   StageUsage,
+  StandardContentLayouts,
 } from "@itwin/appui-react";
 import { ViewportContent } from "../ViewportContent";
 

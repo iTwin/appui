@@ -8,8 +8,8 @@ import {
   Frontstage,
   FrontstageUtilities,
   IModelViewportControl,
-  StandardContentLayouts,
   StageUsage,
+  StandardContentLayouts,
   UiFramework,
   ViewToolWidgetComposer,
 } from "@itwin/appui-react";

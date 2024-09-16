@@ -6,8 +6,8 @@ import * as React from "react";
 // __PUBLISH_EXTRACT_START__ AppUI.StandardFrontstageProvider.Imports
 import {
   FrontstageUtilities,
-  StandardContentLayouts,
   StageUsage,
+  StandardContentLayouts,
   UiFramework,
 } from "@itwin/appui-react";
 // __PUBLISH_EXTRACT_END__

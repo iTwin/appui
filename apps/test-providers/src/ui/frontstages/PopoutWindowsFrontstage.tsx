@@ -6,8 +6,8 @@ import * as React from "react";
 import {
   BackstageAppButton,
   FrontstageUtilities,
-  StandardContentLayouts,
   StageUsage,
+  StandardContentLayouts,
 } from "@itwin/appui-react";
 import { ViewportContent } from "../ViewportContent";
 

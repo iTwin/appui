@@ -8,8 +8,8 @@ import {
   BackstageItemUtilities,
   FrontstageUtilities,
   SettingsModalFrontstage,
-  StandardContentLayouts,
   StageUsage,
+  StandardContentLayouts,
   UiItemsProvider,
 } from "@itwin/appui-react";
 import {
