@@ -193,6 +193,7 @@ public;ContentLayoutActivatedEventArgs
 deprecated;ContentLayoutActivatedEventArgs
 public;ContentLayoutComponentProps 
 public;ContentLayoutDef
+public;ContentLayoutProps 
 beta;ContentOverlay({ className, children, active, ...other }: ContentOverlayProps): React_2.JSX.Element
 public;ContentProps
 public;ContentToolWidgetComposer(props: ContentToolWidgetComposerProps): React_2.JSX.Element
@@ -418,6 +419,10 @@ public;KeyinFieldLocalization
 internal;KeyinPalettePanel({ keyins, onKeyinExecuted, historyLength: allowedHistoryLength, }: KeyinPalettePanelProps): React_2.JSX.Element
 public;KeyinPalettePopup({ el, id, keyins, onCancel, onItemExecuted, anchorEl, }: KeyinPalettePopupProps): React_2.JSX.Element
 public;KeyinPalettePopupProps
+public;LayoutFragmentProps
+public;LayoutHorizontalSplitProps 
+public;LayoutSplitPropsBase
+public;LayoutVerticalSplitProps 
 beta;ListItem
 beta;ListItemType
 beta;ListPicker 
@@ -616,6 +621,7 @@ public;StagePanelSectionsConfig
 public;StagePanelSizeSpec = number |
 public;StagePanelState
 public;StageUsage
+public;StandardContentLayouts
 public;StandardContentToolsProvider 
 deprecated;StandardContentToolsProvider 
 public;StandardContentToolsUiItemsProvider 
