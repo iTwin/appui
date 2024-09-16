@@ -107,11 +107,14 @@ Table of contents:
 - Deprecated `BaseUiItemsProvider`, `StandardContentToolsProvider`, `StandardNavigationToolsProvider`, `StandardStatusbarItemsProvider` classes. Use `UiItemsProviderOverrides` to specify supported frontstages when registering the provider. [#1024](https://github.com/iTwin/appui/pull/1024)
 - Deprecated `DefaultContentToolsAppData` interface that is a remnant of discontinued frontstage APIs. [#1024](https://github.com/iTwin/appui/pull/1024)
 - Deprecated `StandardContentToolsUiItemsProvider.provideStatusBarItems`, `StandardContentToolsUiItemsProvider.provideToolbarItems`, `StandardNavigationToolsUiItemsProvider.provideToolbarItems`, `StandardStatusbarUiItemsProvider.provideStatusBarItems` methods. Use `get*` variants instead. [#1024](https://github.com/iTwin/appui/pull/1024)
+- Deprecated `floatingContentControls` getter of `FrontstageDef` class that used a deprecated `ContentControl` class. Use floating widgets instead.
 
 ### Changes
 
 - Allow to set the available snap modes in `SnapModeField` component. [#974](https://github.com/iTwin/appui/pull/974)
 - Bump `StandardContentToolsUiItemsProvider`, `StandardStatusbarUiItemsProvider` classes to `@public`. [#1024](https://github.com/iTwin/appui/pull/1024)
+- Bump `content` property of `ContentProps` interface to `@public`.
+- Content layout will now track `ContentOverlay` components to determine if the active strip should be rendered for the active content.
 
 ## @itwin/components-react
 
