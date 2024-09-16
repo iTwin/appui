@@ -10,8 +10,14 @@ import "./ContentOverlay.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { create } from "zustand";
+import { useLayout } from "../layout/base/LayoutStore";
+import { getWidgetState } from "../widgets/WidgetDef";
+import { TabIdContext } from "../layout/widget/ContentRenderer";
+import { WidgetState } from "../widgets/WidgetState";
 
-/** @internal */
+/** Returns the number of content overlays.
+ * @internal
+ */
 export const useContentOverlayStore = create<number>(() => 0);
 
 interface ContentOverlayProps extends React.ComponentProps<"div"> {
@@ -28,12 +34,7 @@ export function ContentOverlay({
   active,
   ...other
 }: ContentOverlayProps) {
-  React.useEffect(() => {
-    useContentOverlayStore.setState((prev) => prev + 1);
-    return () => {
-      useContentOverlayStore.setState((prev) => prev - 1);
-    };
-  }, []);
+  useTrackContentOverlay();
   return (
     <div
       className={classnames("uifw-content-contentOverlay", className)}
@@ -48,4 +49,24 @@ export function ContentOverlay({
       />
     </div>
   );
+}
+
+function useTrackContentOverlay() {
+  const tabId = React.useContext(TabIdContext);
+  const visible = useLayout((state) => {
+    if (!tabId) return true;
+
+    const widgetState = getWidgetState(tabId, state);
+    // Do not track content overlays in hidden widgets.
+    if (widgetState === WidgetState.Hidden) return false;
+
+    return true;
+  });
+  React.useEffect(() => {
+    if (!visible) return;
+    useContentOverlayStore.setState((prev) => prev + 1);
+    return () => {
+      useContentOverlayStore.setState((prev) => prev - 1);
+    };
+  }, [visible]);
 }

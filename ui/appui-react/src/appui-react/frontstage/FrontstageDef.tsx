@@ -172,7 +172,7 @@ export class FrontstageDef {
     }
 
     for (const widgetDef of this.widgetDefs) {
-      const widgetState = getWidgetState(widgetDef, nineZone);
+      const widgetState = getWidgetState(widgetDef.id, nineZone);
       widgetMap.set(widgetDef, widgetState);
     }
     return { panelMap, widgetMap };
