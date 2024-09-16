@@ -3,15 +3,13 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import {
-  ConditionalStringValue,
-  StandardContentLayouts,
-} from "@itwin/appui-abstract";
+import { ConditionalStringValue} from "@itwin/appui-abstract";
 import {
   BackstageAppButton,
   BackstageItemUtilities,
   Frontstage,
   FrontstageUtilities,
+  StandardContentLayouts,
   StagePanelLocation,
   StagePanelSection,
   StagePanelState,

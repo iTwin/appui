@@ -3,10 +3,9 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import type { ContentLayoutProps } from "@itwin/appui-abstract";
-import { StandardContentLayouts } from "@itwin/appui-abstract";
 import type {
   ConfigurableCreateInfo,
+  ContentLayoutProps,
   FrontstageConfig,
 } from "../../appui-react";
 import {
@@ -20,6 +19,7 @@ import {
 } from "../../appui-react";
 import { childStructure, selectorMatches, userEvent } from "../TestUtils";
 import { render, screen, waitFor } from "@testing-library/react";
+import { StandardContentLayouts } from "../../appui-react/content/StandardContentLayouts";
 
 describe("ContentLayout", () => {
   class TestContentControl extends ContentControl {

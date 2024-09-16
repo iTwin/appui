@@ -6,7 +6,6 @@
  * @module ContentView
  */
 
-import type { ContentLayoutProps } from "@itwin/appui-abstract";
 import { UiEvent } from "@itwin/appui-abstract";
 import type { ContentControl } from "../content/ContentControl";
 import type {
@@ -19,6 +18,7 @@ import { DialogChangedEvent } from "../dialog/DialogManagerBase";
 import type { FrameworkStackedDialog } from "./FrameworkDialogs";
 import type { UiItemsProvider } from "../ui-items-provider/UiItemsProvider";
 import type { UiFramework } from "../UiFramework";
+import type { ContentLayoutProps } from "../content/ContentLayoutProps";
 
 /** [[MouseDownChangedEvent]] Args interface.
  * @public

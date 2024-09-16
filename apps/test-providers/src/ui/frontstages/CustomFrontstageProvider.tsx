@@ -4,8 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 // __PUBLISH_EXTRACT_START__ AppUI.FrontstageProvider.Imports
-import { StandardContentLayouts } from "@itwin/appui-abstract";
-import { ContentGroup } from "@itwin/appui-react";
+import { ContentGroup, StandardContentLayouts } from "@itwin/appui-react";
 // __PUBLISH_EXTRACT_END__
 
 // __PUBLISH_EXTRACT_START__ AppUI.FrontstageProvider

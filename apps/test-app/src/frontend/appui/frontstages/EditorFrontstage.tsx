@@ -8,6 +8,7 @@ import {
   BackstageAppButton,
   BackstageItemUtilities,
   FrontstageUtilities,
+  StandardContentLayouts,
   StagePanelLocation,
   StagePanelSection,
   StageUsage,
@@ -18,7 +19,6 @@ import {
 } from "@itwin/appui-react";
 import { CreateArcTool, CreateLineStringTool } from "@itwin/editor-frontend";
 import { SvgDraw, SvgEdit } from "@itwin/itwinui-icons-react";
-import { StandardContentLayouts } from "@itwin/appui-abstract";
 import { ViewportContent } from "@itwin/appui-test-providers";
 
 export function createEditorFrontstage() {

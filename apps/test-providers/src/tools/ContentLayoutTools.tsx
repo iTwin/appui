@@ -4,15 +4,13 @@
  *--------------------------------------------------------------------------------------------*/
 
 import * as React from "react";
-import {
-  ConditionalStringValue,
-  StandardContentLayouts,
-} from "@itwin/appui-abstract";
+import { ConditionalStringValue } from "@itwin/appui-abstract";
 import {
   ContentGroup,
   ContentGroupProps,
   ContentProps,
   LocalStateStorage,
+  StandardContentLayouts,
   StageContentLayout,
   StageContentLayoutProps,
   SyncUiEventId,
