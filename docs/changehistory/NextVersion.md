@@ -111,7 +111,7 @@ Table of contents:
 
 ### Additions
 
-- Added `ConditionalBooleanValue` and `ConditionalStringValue` class re-exports from `@itwin/appui-abstract` package.
+- Added `ConditionalBooleanValue` and `ConditionalStringValue` class re-exports from `@itwin/appui-abstract` package. [#1031](https://github.com/iTwin/appui/pull/1031)
 
 ### Changes
 
