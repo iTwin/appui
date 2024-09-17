@@ -15,6 +15,7 @@ import { Orientation } from "../common/Orientation";
 
 /** Properties for [[FavoritePropertyList]] React component
  * @alpha
+ * @deprecated in 4.17.0. Use `React.ComponentProps<typeof FavoritePropertyList>`
  */
 export interface FavoritePropertyListProps {
   propertyData: PropertyData;
@@ -25,6 +26,7 @@ export interface FavoritePropertyListProps {
 /** Favorite Property List React component
  * @alpha
  */
+// eslint-disable-next-line deprecation/deprecation
 export function FavoritePropertyList(props: FavoritePropertyListProps) {
   const [listWidth, setListWidth] = React.useState<number | undefined>();
   const onListResize = React.useCallback(setListWidth, [setListWidth]);

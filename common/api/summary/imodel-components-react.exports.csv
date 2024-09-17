@@ -53,16 +53,22 @@ internal;FaceCell
 internal;FaceCellProps 
 alpha;FormatPanel(props: FormatPanelProps): React_2.JSX.Element
 alpha;FormatPanelProps 
+deprecated;FormatPanelProps 
 alpha;FormatPrecision(props: FormatPrecisionProps): React_2.JSX.Element
 alpha;FormatPrecisionProps 
+deprecated;FormatPrecisionProps 
 alpha;FormatSample(props: FormatSampleProps): React_2.JSX.Element
 alpha;FormatSampleProps 
+deprecated;FormatSampleProps 
 alpha;FormatTypeOption(props: FormatTypeOptionProps): React_2.JSX.Element
 alpha;FormatTypeOptionProps 
+deprecated;FormatTypeOptionProps 
 alpha;FormatUnitLabel(props: FormatUnitLabelProps): React_2.JSX.Element
 alpha;FormatUnitLabelProps 
+deprecated;FormatUnitLabelProps 
 alpha;FormatUnits(props: FormatUnitsProps): React_2.JSX.Element
 alpha;FormatUnitsProps 
+deprecated;FormatUnitsProps 
 internal;getCSSColorFromDef(colorDef: ColorDef): string
 internal;getPercentageOfRectangle(rect: DOMRect, pointer: number): number
 beta;HueSlider({ isHorizontal, onHueChange, hsv, className, style, }: HueSliderProps): React_2.JSX.Element
@@ -75,12 +81,14 @@ public;LineWeightSwatchProps
 internal;MapMode
 alpha;MiscFormatOptions(props: MiscFormatOptionsProps): React_2.JSX.Element
 alpha;MiscFormatOptionsProps 
+deprecated;MiscFormatOptionsProps 
 internal;NavCubeFace 
 internal;NavCubeFaceProps 
 public;PlaybackSettings
 public;PlaybackSettingsChangeHandler = (settingsChange: PlaybackSettings) => void
 alpha;QuantityFormatPanel(props: QuantityFormatPanelProps): React_2.JSX.Element
 alpha;QuantityFormatPanelProps 
+deprecated;QuantityFormatPanelProps 
 beta;QuantityInput({ initialValue, quantityType, readonly, className, style, onQuantityChange, ref, }: QuantityProps): React_2.JSX.Element
 beta;QuantityNumberInput: (props: QuantityNumberInputProps) => React_2.ReactNode
 beta;QuantityNumberInputProps 

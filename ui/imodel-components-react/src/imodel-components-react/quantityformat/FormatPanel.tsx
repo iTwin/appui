@@ -24,6 +24,7 @@ import { MiscFormatOptions } from "./MiscFormatOptions";
 
 /** Properties of [[FormatPanel]] component.
  * @alpha
+ * @deprecated in 4.17.0. Use `React.ComponentProps<typeof FormatPanel>`
  */
 // eslint-disable-next-line deprecation/deprecation
 export interface FormatPanelProps extends CommonProps {
@@ -71,6 +72,7 @@ async function generateFormatSpec(
 /** Component to show/edit Quantity Format.
  * @alpha
  */
+// eslint-disable-next-line deprecation/deprecation
 export function FormatPanel(props: FormatPanelProps) {
   const [formatSpec, setFormatSpec] = React.useState<FormatterSpec>();
   const {

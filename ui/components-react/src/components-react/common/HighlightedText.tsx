@@ -12,6 +12,7 @@ import { HighlightingEngine } from "../tree/HighlightingEngine";
 /**
  * Properties of [[HighlightedText]]
  * @public
+ * @deprecated in 4.17.0. Use `React.ComponentProps<typeof HighlightedText>`
  */
 export interface HighlightedTextProps {
   /* Filter text which we want to highlight */
@@ -30,6 +31,7 @@ export interface HighlightedTextProps {
  * Also actively highlights one matched part which is selected with 'activeMatchIndex'
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export function HighlightedText(props: HighlightedTextProps) {
   const { searchText, activeMatchIndex, text, caseSensitive } = props;
   const chunks = useMemo(

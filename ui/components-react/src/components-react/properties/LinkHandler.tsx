@@ -127,6 +127,7 @@ export const withLinks = (
 /**
  * Properties for [[LinksRenderer]] component.
  * @public
+ * @deprecated in 4.17.0. Use `React.ComponentProps<typeof LinksRenderer>`
  */
 export interface LinksRendererProps {
   value: string;
@@ -138,6 +139,7 @@ export interface LinksRendererProps {
  * React component for rendering string with links.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export function LinksRenderer(props: LinksRendererProps) {
   return <>{withLinks(props.value, props.links, props.highlighter)}</>;
 }
