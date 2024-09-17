@@ -24,5 +24,4 @@ export function initializeLogger() {
 
   Logger.setLevelDefault(LogLevel.Warning);
   Logger.setLevel(loggerCategory, LogLevel.Info);
-  Logger.setLevel("ViewportComponent", LogLevel.Info);
 }

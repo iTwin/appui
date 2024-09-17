@@ -28,14 +28,25 @@ class ContentLayoutStageContentGroupProvider extends ContentGroupProvider {
   public override async contentGroup(
     config: Frontstage
   ): Promise<ContentGroup> {
+    const primaryViewState = UiFramework.getDefaultViewState()?.clone();
+    if (primaryViewState) {
+      primaryViewState.description = "imodel-view-primary";
+    }
+    const id = "primaryContent";
     const defaultContent = new ContentGroup({
       id: "content-layout-stage-frontstage-main-content-group",
       layout: StandardContentLayouts.singleView,
       contents: [
         {
-          id: "primaryContent",
+          id,
           classId: "",
-          content: <ViewportContent renderViewOverlay={() => undefined} />,
+          content: (
+            <ViewportContent
+              contentId={id}
+              renderViewOverlay={() => undefined}
+              viewState={primaryViewState}
+            />
+          ),
         },
       ],
     });
@@ -89,5 +100,4 @@ export function createContentLayoutFrontstage() {
     usage: StageUsage.General,
   });
 }
-createContentLayoutFrontstage.stageId =
-  "appui-test-providers:ContentLayoutExample";
+createContentLayoutFrontstage.stageId = "content-layout";
