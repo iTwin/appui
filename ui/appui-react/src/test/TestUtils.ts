@@ -7,7 +7,6 @@ import { createStore } from "redux";
 import { act, prettyDOM } from "@testing-library/react";
 
 import type {
-  ContentLayoutProps,
   PrimitiveValue,
   PropertyDescription,
   PropertyEditorInfo,
@@ -15,7 +14,6 @@ import type {
 import {
   PropertyRecord,
   PropertyValueFormat,
-  StandardContentLayouts,
   StandardTypeNames,
 } from "@itwin/appui-abstract";
 import type { UiStateStorage, UiStateStorageResult } from "@itwin/core-react";
@@ -31,11 +29,13 @@ import {
   ContentGroup,
   createAction,
   FrameworkReducer,
+  StandardContentLayouts,
   SyncUiEventDispatcher,
   UiFramework,
 } from "../appui-react";
 import { TestContentControl } from "./frontstage/FrontstageTestUtils";
 import userEvent from "@testing-library/user-event";
+import type { ContentLayoutProps } from "../appui-react/content/ContentLayoutProps";
 export { userEvent };
 
 interface SampleAppState {

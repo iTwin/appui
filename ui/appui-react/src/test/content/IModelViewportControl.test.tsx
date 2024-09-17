@@ -11,6 +11,7 @@ import {
   ContentGroup,
   FrontstageProvider,
   IModelViewportControl,
+  StandardContentLayouts,
   UiFramework,
 } from "../../appui-react";
 import type {
@@ -20,7 +21,6 @@ import type {
   SupportsViewSelectorChange,
 } from "../../appui-react";
 import { storageMock } from "../TestUtils";
-import { StandardContentLayouts } from "@itwin/appui-abstract";
 import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";
 
 const mySessionStorage = storageMock();

@@ -8,8 +8,8 @@ import {
   Frontstage,
   FrontstageUtilities,
   StageUsage,
+  StandardContentLayouts,
 } from "@itwin/appui-react";
-import { StandardContentLayouts } from "@itwin/appui-abstract";
 import { ViewportContent } from "../ViewportContent";
 
 export function createSynchronizedViewportFrontstage(): Frontstage {

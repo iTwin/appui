@@ -3,13 +3,13 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { StandardContentLayouts } from "@itwin/appui-abstract";
 import {
   BackstageAppButton,
   BackstageItemUtilities,
   FrontstageUtilities,
   SettingsModalFrontstage,
   StageUsage,
+  StandardContentLayouts,
   UiItemsProvider,
 } from "@itwin/appui-react";
 import {

@@ -32,7 +32,6 @@ import type { CommonToolbarItemWithBadgeKind } from '@itwin/components-react';
 import { CompassMode } from '@itwin/core-frontend';
 import { ConditionalBooleanValue as ConditionalBooleanValue_2 } from '@itwin/appui-abstract';
 import { ConditionalStringValue as ConditionalStringValue_2 } from '@itwin/appui-abstract';
-import type { ContentLayoutProps } from '@itwin/appui-abstract';
 import type { CustomButtonDefinition } from '@itwin/appui-abstract';
 import type { DialogItem } from '@itwin/appui-abstract';
 import type { DialogLayoutDataProvider } from '@itwin/appui-abstract';
@@ -52,7 +51,6 @@ import { InferableComponentEnhancerWithProps } from 'react-redux';
 import type { InteractiveTool } from '@itwin/core-frontend';
 import { ItemField } from '@itwin/core-frontend';
 import type { Key } from 'ts-key-enum';
-import type { LayoutFragmentProps } from '@itwin/appui-abstract';
 import { LocalStateStorage as LocalStateStorage_2 } from '@itwin/core-react';
 import type { MarkRequired } from '@itwin/core-bentley';
 import { MessageBoxIconType } from '@itwin/core-frontend';
@@ -1296,6 +1294,12 @@ export class ContentLayoutDef {
     // @deprecated (undocumented)
     get rootSplit(): LayoutSplit | undefined;
     toJSON(): ContentLayoutProps;
+}
+
+// @public
+export interface ContentLayoutProps extends LayoutFragmentProps {
+    description?: string;
+    id: string;
 }
 
 // @beta
@@ -3103,6 +3107,35 @@ export interface KeyinPalettePopupProps {
     onItemExecuted?: OnItemExecutedFunc;
 }
 
+// @public
+export interface LayoutFragmentProps {
+    horizontalSplit?: LayoutHorizontalSplitProps;
+    verticalSplit?: LayoutVerticalSplitProps;
+}
+
+// @public
+export interface LayoutHorizontalSplitProps extends LayoutSplitPropsBase {
+    bottom: LayoutFragmentProps | number;
+    minSizeBottom?: number;
+    minSizeTop?: number;
+    top: LayoutFragmentProps | number;
+}
+
+// @public
+export interface LayoutSplitPropsBase {
+    id: string;
+    lock?: boolean;
+    percentage: number;
+}
+
+// @public
+export interface LayoutVerticalSplitProps extends LayoutSplitPropsBase {
+    left: LayoutFragmentProps | number;
+    minSizeLeft?: number;
+    minSizeRight?: number;
+    right: LayoutFragmentProps | number;
+}
+
 // @beta
 export interface ListItem {
     // (undocumented)
@@ -4390,6 +4423,28 @@ export enum StageUsage {
     Settings = "Settings",
     // (undocumented)
     ViewOnly = "ViewOnly"
+}
+
+// @public
+export class StandardContentLayouts {
+    // (undocumented)
+    static readonly availableLayouts: ContentLayoutProps[];
+    // (undocumented)
+    static readonly fourQuadrants: ContentLayoutProps;
+    // (undocumented)
+    static readonly singleView: ContentLayoutProps;
+    // (undocumented)
+    static readonly threeViewsTwoOnBottom: ContentLayoutProps;
+    // (undocumented)
+    static readonly threeViewsTwoOnLeft: ContentLayoutProps;
+    // (undocumented)
+    static readonly threeViewsTwoOnRight: ContentLayoutProps;
+    // (undocumented)
+    static readonly threeViewsTwoOnTop: ContentLayoutProps;
+    // (undocumented)
+    static readonly twoHorizontalSplit: ContentLayoutProps;
+    // (undocumented)
+    static readonly twoVerticalSplit: ContentLayoutProps;
 }
 
 // @public @deprecated
