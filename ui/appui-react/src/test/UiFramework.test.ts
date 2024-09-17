@@ -667,8 +667,14 @@ describe("UiFramework localStorage Wrapper", () => {
     });
 
     it("SessionState setIModelConnection", async () => {
+      const countHolder = { count: 0 };
+      UiFramework.onIModelConnectionChanged.addListener((_imodel) => {
+        countHolder.count += 1;
+      });
+
       UiFramework.setIModelConnection(imodelMock.object);
       expect(UiFramework.getIModelConnection()).toEqual(imodelMock.object);
+      expect(countHolder.count).toStrictEqual(1);
     });
   });
 });

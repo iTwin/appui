@@ -36,7 +36,7 @@ export interface ContentProps {
    */
   applicationData?: any;
   /** Content to be displayed in the content view.
-   * @beta
+   * @public
    */
   content?: React.ReactNode;
 }

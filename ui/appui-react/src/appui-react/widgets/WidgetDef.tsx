@@ -106,7 +106,7 @@ export class WidgetDef {
     const nineZone = frontstageDef?.nineZoneState;
     if (!nineZone) return this.defaultState;
     if (!frontstageDef.findWidgetDef(this.id)) return this.defaultState;
-    return getWidgetState(this, nineZone);
+    return getWidgetState(this.id, nineZone);
   }
 
   public get id(): string {
@@ -602,25 +602,28 @@ export class WidgetDef {
 }
 
 /** @internal */
-export function getWidgetState(widgetDef: WidgetDef, nineZone: NineZoneState) {
-  const tab = nineZone.tabs[widgetDef.id];
+export function getWidgetState(
+  widgetId: WidgetDef["id"],
+  nineZone: NineZoneState
+) {
+  const tab = nineZone.tabs[widgetId];
   if (tab && tab.unloaded) {
     return WidgetState.Unloaded;
   }
 
-  if (nineZone.draggedTab?.tabId === widgetDef.id) {
+  if (nineZone.draggedTab?.tabId === widgetId) {
     return WidgetState.Closed;
   }
 
   const toolSettingsTabId = nineZone.toolSettings?.tabId;
   if (
-    toolSettingsTabId === widgetDef.id &&
+    toolSettingsTabId === widgetId &&
     nineZone.toolSettings?.type === "docked"
   ) {
     return nineZone.toolSettings.hidden ? WidgetState.Hidden : WidgetState.Open;
   }
 
-  const location = getTabLocation(nineZone, widgetDef.id);
+  const location = getTabLocation(nineZone, widgetId);
   if (!location) {
     return WidgetState.Hidden;
   }
@@ -636,7 +639,7 @@ export function getWidgetState(widgetDef: WidgetDef, nineZone: NineZoneState) {
   }
 
   const widget = nineZone.widgets[location.widgetId];
-  if (widget.minimized || widgetDef.id !== widget.activeTabId)
+  if (widget.minimized || widgetId !== widget.activeTabId)
     return WidgetState.Closed;
 
   return WidgetState.Open;

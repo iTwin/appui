@@ -14,20 +14,7 @@ import {
   ViewToolWidgetComposer,
 } from "@itwin/appui-react";
 import { SampleContentControl } from "../content/SampleContentControl";
-
-function useActiveContentId() {
-  const [activeId, setActiveId] = React.useState(
-    UiFramework.content.getActiveId()
-  );
-  React.useEffect(() => {
-    return UiFramework.content.onActiveContentChangedEvent.addListener(
-      (args) => {
-        setActiveId(args.id);
-      }
-    );
-  }, []);
-  return activeId;
-}
+import { useActiveContentId } from "../useActiveContentId";
 
 function CustomViewToolWidgetComposer() {
   const activeId = useActiveContentId();
