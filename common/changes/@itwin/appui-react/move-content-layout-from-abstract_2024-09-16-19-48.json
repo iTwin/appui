@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/appui-react",
-      "comment": "move StandardContentLayouts and ContentLayoutProps from @itwin/appui-abstract",
+      "comment": "Move `StandardContentLayouts` and `ContentLayoutProps` from @itwin/appui-abstract",
       "type": "none"
     }
   ],
