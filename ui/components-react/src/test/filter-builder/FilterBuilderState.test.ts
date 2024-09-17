@@ -278,6 +278,21 @@ describe("usePropertyFilterBuilder", () => {
     });
   });
 
+  it("removes last rule from group if allowLastRuleDelete prop is set to true", () => {
+    const { result } = renderHook(() => usePropertyFilterBuilder());
+    const { actions } = result.current;
+
+    let { rootGroup } = result.current;
+    expect(rootGroup.items).to.have.lengthOf(1);
+
+    act(() => {
+      actions.removeItem([rootGroup.items[0].id], true);
+    });
+
+    rootGroup = result.current.rootGroup;
+    expect(result.current.rootGroup.items).to.have.lengthOf(0);
+  });
+
   it("does not change state if parent group is not found when removing item", () => {
     const { result } = renderHook(() => usePropertyFilterBuilder());
     const { actions, rootGroup } = result.current;

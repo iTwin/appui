@@ -310,7 +310,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
     const button = container.querySelector(".fb-toolbar")?.childNodes[1];
     expect(button).toBeTruthy();
     fireEvent.click(button!);
-    expect(removeItemSpy).toHaveBeenCalledWith(defaultProps.path);
+    expect(removeItemSpy).toHaveBeenCalledWith(defaultProps.path, undefined);
   });
 
   it("dispatches operator change when operator is changed", () => {
