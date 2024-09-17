@@ -232,7 +232,7 @@ describe("getWidgetState", () => {
     vi.spyOn(frontstageDef, "getStagePanelDef").mockReturnValue(leftPanel);
     vi.spyOn(frontstageDef, "findWidgetDef").mockReturnValue(widgetDef);
 
-    expect(getWidgetState(widgetDef, frontstageDef.nineZoneState)).to.be.eql(
+    expect(getWidgetState(widgetDef.id, frontstageDef.nineZoneState)).to.be.eql(
       WidgetState.Closed
     );
   });
@@ -274,7 +274,7 @@ describe("getWidgetState", () => {
     vi.spyOn(frontstageDef, "getStagePanelDef").mockReturnValue(leftPanel);
     vi.spyOn(frontstageDef, "findWidgetDef").mockReturnValue(widgetDef);
 
-    expect(getWidgetState(widgetDef, frontstageDef.nineZoneState)).to.be.eql(
+    expect(getWidgetState(widgetDef.id, frontstageDef.nineZoneState)).to.be.eql(
       WidgetState.Closed
     );
   });
@@ -303,7 +303,7 @@ describe("getWidgetState", () => {
     });
 
     vi.spyOn(frontstageDef, "findWidgetDef").mockReturnValue(widgetDef);
-    expect(getWidgetState(widgetDef, frontstageDef.nineZoneState)).to.be.eql(
+    expect(getWidgetState(widgetDef.id, frontstageDef.nineZoneState)).to.be.eql(
       WidgetState.Closed
     );
   });
@@ -320,7 +320,7 @@ describe("getWidgetState", () => {
     });
 
     vi.spyOn(frontstageDef, "findWidgetDef").mockReturnValue(widgetDef);
-    expect(getWidgetState(widgetDef, frontstageDef.nineZoneState)).to.be.eql(
+    expect(getWidgetState(widgetDef.id, frontstageDef.nineZoneState)).to.be.eql(
       WidgetState.Unloaded
     );
   });

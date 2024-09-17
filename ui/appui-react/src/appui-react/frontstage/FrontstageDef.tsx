@@ -105,6 +105,7 @@ export class FrontstageDef {
   public get contentGroupProvider(): ContentGroupProvider | undefined {
     return this._contentGroupProvider;
   }
+  /** @deprecated in 4.17.0. Returns instances of a deprecated {@link ContentControl} type. */
   public get floatingContentControls() {
     return this._floatingContentControls;
   }
@@ -171,7 +172,7 @@ export class FrontstageDef {
     }
 
     for (const widgetDef of this.widgetDefs) {
-      const widgetState = getWidgetState(widgetDef, nineZone);
+      const widgetState = getWidgetState(widgetDef.id, nineZone);
       widgetMap.set(widgetDef, widgetState);
     }
     return { panelMap, widgetMap };

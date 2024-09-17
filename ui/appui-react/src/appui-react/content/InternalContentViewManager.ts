@@ -117,6 +117,7 @@ export class InternalContentViewManager {
       activeContentControl = this.getControlFromElement(
         this._activeContent,
         activeContentGroup,
+        // eslint-disable-next-line deprecation/deprecation
         activeFrontstageDef.floatingContentControls
       );
     }
@@ -170,11 +171,13 @@ export class InternalContentViewManager {
       const oldContentControl = this.getControlFromElement(
         oldContent,
         contentGroup,
+        // eslint-disable-next-line deprecation/deprecation
         frontstageDef.floatingContentControls
       );
       const activeContentControl = this.getControlFromElement(
         activeContent,
         contentGroup,
+        // eslint-disable-next-line deprecation/deprecation
         frontstageDef.floatingContentControls,
         true
       );

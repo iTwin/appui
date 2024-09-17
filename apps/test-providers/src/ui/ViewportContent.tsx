@@ -4,25 +4,47 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { DefaultViewOverlay, UiFramework } from "@itwin/appui-react";
-import { ScreenViewport, ViewState } from "@itwin/core-frontend";
+import { IModelApp, ScreenViewport, ViewState } from "@itwin/core-frontend";
 import { ViewportComponent } from "@itwin/imodel-components-react";
 
 type ViewportComponentProps = React.ComponentProps<typeof ViewportComponent>;
 
 interface ViewportContentProps extends Partial<ViewportComponentProps> {
+  contentId?: string;
   viewState?: ViewState;
   renderViewOverlay?: (viewport: ScreenViewport) => React.ReactNode;
 }
 
-export function ViewportContent(props: ViewportContentProps) {
+export function ViewportContent({
+  contentId,
+  imodel,
+  viewState,
+  renderViewOverlay,
+}: ViewportContentProps) {
   let [iModel] = React.useState(UiFramework.getIModelConnection());
-  let [viewState] = React.useState(UiFramework.getDefaultViewState());
+  const [defaultViewState] = React.useState(UiFramework.getDefaultViewState());
   const [viewport, setViewport] = React.useState<ScreenViewport | undefined>(
     undefined
   );
+  const viewportRef = React.useRef<ScreenViewport>();
 
-  iModel = props.imodel ?? iModel;
-  viewState = props.viewState ?? viewState;
+  React.useEffect(() => {
+    // Maintain the selected view if the content is active.
+    return IModelApp.viewManager.onSelectedViewportChanged.addListener(
+      (selectedViewport) => {
+        if (!viewportRef.current) return;
+        if (selectedViewport.current === viewportRef.current) return;
+
+        const activeContentId = UiFramework.content.getActiveId();
+        if (activeContentId !== contentId) return;
+
+        void IModelApp.viewManager.setSelectedView(viewportRef.current);
+      }
+    );
+  }, [contentId, viewport]);
+
+  iModel = imodel ?? iModel;
+  viewState = viewState ?? defaultViewState;
   if (!iModel) return null;
 
   return (
@@ -30,11 +52,14 @@ export function ViewportContent(props: ViewportContentProps) {
       <ViewportComponent
         viewState={viewState}
         imodel={iModel}
-        viewportRef={(v) => setViewport(v)}
+        viewportRef={(v) => {
+          viewportRef.current = v;
+          setViewport(v);
+        }}
       />
       <ViewOverlayRenderer
         viewport={viewport}
-        renderViewOverlay={props.renderViewOverlay}
+        renderViewOverlay={renderViewOverlay}
       />
     </>
   );

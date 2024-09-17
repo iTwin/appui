@@ -46,6 +46,7 @@ export * from "./ui/widgets/LayoutWidget";
 export * from "./ui/widgets/LogLifecycleWidget";
 export * from "./ui/widgets/UseWidgetHookWidget";
 
+export * from "./ui/useActiveContentId";
 export * from "./ui/ViewportContent";
 
 export * from "./AppUiTestProviders";

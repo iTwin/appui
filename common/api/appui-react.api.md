@@ -97,7 +97,7 @@ import { SnapMode } from '@itwin/core-frontend';
 import type { SolarDataProvider } from '@itwin/imodel-components-react';
 import { StandardViewId } from '@itwin/core-frontend';
 import type { Store } from 'redux';
-import type { StoreApi } from 'zustand';
+import { StoreApi } from 'zustand';
 import type { StringGetter } from '@itwin/appui-abstract';
 import { ToasterSettings } from '@itwin/itwinui-react/cjs/core/Toast/Toaster';
 import { Tool } from '@itwin/core-frontend';
@@ -119,6 +119,7 @@ import { UiStateStorage as UiStateStorage_2 } from '@itwin/core-react';
 import type { UiStateStorageResult as UiStateStorageResult_2 } from '@itwin/core-react';
 import { UiStateStorageStatus as UiStateStorageStatus_2 } from '@itwin/core-react';
 import type { UnitSystemKey } from '@itwin/core-quantity';
+import { UseBoundStore } from 'zustand';
 import type { useToaster } from '@itwin/itwinui-react';
 import type { ViewFlagProps } from '@itwin/core-common';
 import type { Viewport } from '@itwin/core-frontend';
@@ -1306,7 +1307,6 @@ export interface ContentProps {
     applicationData?: any;
     // @deprecated
     classId: string | ConfigurableUiControlConstructor;
-    // @beta
     content?: React_2.ReactNode;
     id: string;
 }
@@ -2415,7 +2415,7 @@ export class FrontstageDef {
     // @deprecated (undocumented)
     dropFloatingContentControl(contentControl?: ContentControl): void;
     findWidgetDef(id: string): WidgetDef | undefined;
-    // (undocumented)
+    // @deprecated (undocumented)
     get floatingContentControls(): ContentControl[] | undefined;
     // @beta
     floatWidget(widgetId: string, position?: XAndY, size?: SizeProps): void;
@@ -2561,7 +2561,7 @@ export function getSelectionContextSyncEventIds(): string[];
 export function getUiSettingsManagerEntry(itemPriority: number): SettingsTabEntry_2;
 
 // @internal (undocumented)
-export function getWidgetState(widgetDef: WidgetDef, nineZone: NineZoneState): WidgetState;
+export function getWidgetState(widgetId: WidgetDef["id"], nineZone: NineZoneState): WidgetState;
 
 // @internal (undocumented)
 export type GroupedItems = ReadonlyArray<ReadonlyArray<BackstageItem>>;
@@ -5536,6 +5536,9 @@ export const useBackstageManager: () => FrameworkBackstage;
 
 // @alpha
 export function useConditionalValue<T>(getValue: () => T, eventIds: string[]): T;
+
+// @internal
+export const useContentOverlayStore: UseBoundStore<StoreApi<number>>;
 
 // @internal
 export const useDefaultBackstageItems: (manager: BackstageItemsManager) => readonly BackstageItem[];
