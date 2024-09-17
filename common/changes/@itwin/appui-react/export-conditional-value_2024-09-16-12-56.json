@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Add `ConditionalBooleanValue` and `ConditionalStringValue` class re-exports.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}

@@ -94,6 +94,7 @@ public;BackstageToggledArgs
 public;BaseItemState
 deprecated;BaseItemState
 public;BaseUiItemsProvider 
+deprecated;BaseUiItemsProvider 
 public;BasicNavigationWidget(props: BasicNavigationWidgetProps): React_2.JSX.Element
 public;BasicNavigationWidgetProps
 public;BasicToolWidget(props: BasicToolWidgetProps): React_2.JSX.Element
@@ -134,6 +135,10 @@ deprecated;CommandItemProps
 public;CommonBackstageItem
 public;CommonStatusBarItem
 public;CommonToolbarItem
+public;ConditionalBooleanValue = ConditionalBooleanValue_2
+public;ConditionalBooleanValue: typeof ConditionalBooleanValue_2
+public;ConditionalStringValue = ConditionalStringValue_2
+public;ConditionalStringValue: typeof ConditionalStringValue_2
 public;ConfigurableBase 
 deprecated;ConfigurableBase 
 public;ConfigurableCreateInfo
@@ -233,6 +238,7 @@ public;DeepReadonlyObject
 deprecated;DeepReadonlyObject
 public;DefaultContentTools
 public;DefaultContentToolsAppData
+deprecated;DefaultContentToolsAppData
 public;DefaultDialogGridContainer({ componentGenerator, isToolSettings, }:
 public;DefaultNavigationTools
 public;DefaultStatusbarItems
@@ -321,10 +327,10 @@ deprecated;FunctionType = (...args: any[]) => any
 beta;getFeatureOverrideSyncEventIds(): string[]
 deprecated;getFeatureOverrideSyncEventIds(): string[]
 internal;getFrontstageStateSettingName(frontstageId: WidgetPanelsFrontstageState["id"]): string
-beta;getIsHiddenIfFeatureOverridesActive(): ConditionalBooleanValue
-deprecated;getIsHiddenIfFeatureOverridesActive(): ConditionalBooleanValue
-beta;getIsHiddenIfSelectionNotActive(): ConditionalBooleanValue
-deprecated;getIsHiddenIfSelectionNotActive(): ConditionalBooleanValue
+beta;getIsHiddenIfFeatureOverridesActive(): ConditionalBooleanValue_2
+deprecated;getIsHiddenIfFeatureOverridesActive(): ConditionalBooleanValue_2
+beta;getIsHiddenIfSelectionNotActive(): ConditionalBooleanValue_2
+deprecated;getIsHiddenIfSelectionNotActive(): ConditionalBooleanValue_2
 internal;getKeyinsFromToolList(toolList: ToolList, localizedKeyinPreference?: KeyinFieldLocalization): KeyinEntry[]
 beta;getListPanel(props: ListPickerProps): React_2.ReactNode
 internal;getPanelSectionId(location: StagePanelLocation, section: StagePanelSection): PanelSectionId
@@ -334,7 +340,7 @@ beta;getQuantityFormatsSettingsManagerEntry(itemPriority: number, opts?: Partial
 beta;getSelectionContextSyncEventIds(): string[]
 deprecated;getSelectionContextSyncEventIds(): string[]
 beta;getUiSettingsManagerEntry(itemPriority: number): SettingsTabEntry_2
-internal;getWidgetState(widgetDef: WidgetDef, nineZone: NineZoneState): WidgetState
+internal;getWidgetState(widgetId: WidgetDef["id"], nineZone: NineZoneState): WidgetState
 internal;GroupedItems = ReadonlyArray
 public;GroupItemDef 
 deprecated;GroupItemDef 
@@ -611,7 +617,8 @@ public;StagePanelSizeSpec = number |
 public;StagePanelState
 public;StageUsage
 public;StandardContentToolsProvider 
-beta;StandardContentToolsUiItemsProvider 
+deprecated;StandardContentToolsProvider 
+public;StandardContentToolsUiItemsProvider 
 public;StandardFrontstageProps
 public;StandardFrontstageProvider 
 deprecated;StandardFrontstageProvider 
@@ -622,11 +629,13 @@ deprecated;StandardMessageBox(props: StandardMessageBoxProps): React_2.JSX.Eleme
 public;StandardMessageBoxProps 
 deprecated;StandardMessageBoxProps 
 public;StandardNavigationToolsProvider 
+deprecated;StandardNavigationToolsProvider 
 public;StandardNavigationToolsUiItemsProvider 
 public;StandardRotationNavigationAidControl 
 deprecated;StandardRotationNavigationAidControl 
 public;StandardStatusbarItemsProvider 
-beta;StandardStatusbarUiItemsProvider 
+deprecated;StandardStatusbarItemsProvider 
+public;StandardStatusbarUiItemsProvider 
 public;StateManager
 deprecated;StateManager
 public;StateType
@@ -774,6 +783,7 @@ public;useAnalysisAnimationDataProvider(viewport: ScreenViewport | undefined): A
 internal;useAvailableUiItemsProviders(): readonly string[]
 public;useBackstageManager: () => FrameworkBackstage
 alpha;useConditionalValue
+internal;useContentOverlayStore: UseBoundStore
 internal;useDefaultBackstageItems: (manager: BackstageItemsManager) => readonly BackstageItem[]
 public;useDefaultStatusBarItems: (manager: StatusBarItemsManager) => readonly StatusBarItem[]
 public;useDefaultToolbarItems: (manager: ToolbarItemsManager) => readonly ToolbarItem[]
