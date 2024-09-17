@@ -98,6 +98,7 @@ public;BackstageToggledArgs
 public;BaseItemState
 deprecated;BaseItemState
 public;BaseUiItemsProvider 
+deprecated;BaseUiItemsProvider 
 public;BasicNavigationWidget(props: BasicNavigationWidgetProps): React_2.JSX.Element
 public;BasicNavigationWidgetProps
 deprecated;BasicNavigationWidgetProps
@@ -241,6 +242,7 @@ public;DeepReadonlyObject
 deprecated;DeepReadonlyObject
 public;DefaultContentTools
 public;DefaultContentToolsAppData
+deprecated;DefaultContentToolsAppData
 public;DefaultDialogGridContainer({ componentGenerator, isToolSettings, }:
 public;DefaultNavigationTools
 public;DefaultStatusbarItems
@@ -623,7 +625,8 @@ public;StagePanelSizeSpec = number |
 public;StagePanelState
 public;StageUsage
 public;StandardContentToolsProvider 
-beta;StandardContentToolsUiItemsProvider 
+deprecated;StandardContentToolsProvider 
+public;StandardContentToolsUiItemsProvider 
 public;StandardFrontstageProps
 public;StandardFrontstageProvider 
 deprecated;StandardFrontstageProvider 
@@ -634,11 +637,13 @@ deprecated;StandardMessageBox(props: StandardMessageBoxProps): React_2.JSX.Eleme
 public;StandardMessageBoxProps 
 deprecated;StandardMessageBoxProps 
 public;StandardNavigationToolsProvider 
+deprecated;StandardNavigationToolsProvider 
 public;StandardNavigationToolsUiItemsProvider 
 public;StandardRotationNavigationAidControl 
 deprecated;StandardRotationNavigationAidControl 
 public;StandardStatusbarItemsProvider 
-beta;StandardStatusbarUiItemsProvider 
+deprecated;StandardStatusbarItemsProvider 
+public;StandardStatusbarUiItemsProvider 
 public;StateManager
 deprecated;StateManager
 public;StateType

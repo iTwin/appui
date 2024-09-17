@@ -649,7 +649,7 @@ export interface BaseItemState {
     isVisible?: boolean;
 }
 
-// @public
+// @public @deprecated
 export class BaseUiItemsProvider implements UiItemsProvider {
     constructor(_providerId: string, isSupportedStage?: ((stageId: string, stageUsage: string, stageAppData?: any, provider?: UiItemsProvider) => boolean) | undefined);
     // (undocumented)
@@ -1646,7 +1646,7 @@ export interface DefaultContentTools {
     };
 }
 
-// @public
+// @public @deprecated
 export interface DefaultContentToolsAppData {
     // (undocumented)
     defaultContentTools?: {
@@ -4380,7 +4380,7 @@ export enum StageUsage {
     ViewOnly = "ViewOnly"
 }
 
-// @public
+// @public @deprecated
 export class StandardContentToolsProvider extends BaseUiItemsProvider {
     constructor(providerId: string, defaultContentTools?: DefaultContentTools | undefined, isSupportedStage?: (stageId: string, stageUsage: string, stageAppData?: any) => boolean);
     // (undocumented)
@@ -4390,14 +4390,18 @@ export class StandardContentToolsProvider extends BaseUiItemsProvider {
     static register(providerId: string, defaultContentTools?: DefaultContentTools, isSupportedStage?: (stageId: string, stageUsage: string, stageAppData?: any) => boolean): StandardContentToolsProvider;
 }
 
-// @beta (undocumented)
+// @public
 export class StandardContentToolsUiItemsProvider implements UiItemsProvider {
     constructor(defaultContextTools?: DefaultContentTools | undefined);
     // (undocumented)
+    getStatusBarItems(): readonly StatusBarItem[];
+    // (undocumented)
+    getToolbarItems(): readonly ToolbarItem[];
+    // (undocumented)
     get id(): string;
-    // (undocumented)
+    // @deprecated (undocumented)
     provideStatusBarItems(_stageId: string, _stageUsage: string, _stageAppData?: any): StatusBarItem[];
-    // (undocumented)
+    // @deprecated (undocumented)
     provideToolbarItems(_stageId: string, _stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation, stageAppData?: any): ToolbarItem[];
 }
 
@@ -4452,7 +4456,7 @@ export interface StandardMessageBoxProps extends CommonProps {
     title: string;
 }
 
-// @public
+// @public @deprecated
 export class StandardNavigationToolsProvider extends BaseUiItemsProvider {
     constructor(providerId: string, defaultNavigationTools?: DefaultNavigationTools | undefined, isSupportedStage?: (stageId: string, stageUsage: string, stageAppData?: any) => boolean);
     // (undocumented)
@@ -4464,8 +4468,10 @@ export class StandardNavigationToolsProvider extends BaseUiItemsProvider {
 export class StandardNavigationToolsUiItemsProvider implements UiItemsProvider {
     constructor(defaultNavigationTools?: DefaultNavigationTools | undefined);
     // (undocumented)
-    get id(): string;
+    getToolbarItems(): readonly ToolbarItem[];
     // (undocumented)
+    get id(): string;
+    // @deprecated (undocumented)
     provideToolbarItems(_stageId: string, _stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation, _stageAppData?: any): ToolbarItem[];
 }
 
@@ -4486,7 +4492,7 @@ export class StandardRotationNavigationAidControl extends NavigationAidControl {
     static navigationAidId: string;
 }
 
-// @public
+// @public @deprecated
 export class StandardStatusbarItemsProvider extends BaseUiItemsProvider {
     constructor(providerId: string, _defaultItems?: DefaultStatusbarItems | undefined, isSupportedStage?: (stageId: string, stageUsage: string, stageAppData?: any) => boolean);
     // (undocumented)
@@ -4494,12 +4500,14 @@ export class StandardStatusbarItemsProvider extends BaseUiItemsProvider {
     static register(providerId: string, defaultItems?: DefaultStatusbarItems, isSupportedStage?: (stageId: string, stageUsage: string, stageAppData?: any) => boolean): StandardStatusbarItemsProvider;
 }
 
-// @beta
+// @public
 export class StandardStatusbarUiItemsProvider implements UiItemsProvider {
     constructor(_defaultItems?: DefaultStatusbarItems | undefined);
     // (undocumented)
-    get id(): string;
+    getStatusBarItems(): readonly StatusBarItem[];
     // (undocumented)
+    get id(): string;
+    // @deprecated (undocumented)
     provideStatusBarItems(_stageId: string, _stageUsage: string, _stageAppData?: any): StatusBarItem[];
 }
 
