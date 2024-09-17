@@ -17,6 +17,7 @@ import { Dialog } from "@itwin/itwinui-react";
 
 /** Properties for [[AccuDrawDialog]]
  * @public
+ * @deprecated in 4.17.0. Use `React.ComponentProps<typeof AccuDrawDialog>`
  */
 // eslint-disable-next-line deprecation/deprecation
 export interface AccuDrawDialogProps extends CommonProps {
@@ -35,6 +36,7 @@ export interface AccuDrawDialogProps extends CommonProps {
 /** Dialog displays [[AccuDrawFieldContainer]] for AccuDraw Ui
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export function AccuDrawDialog(props: AccuDrawDialogProps) {
   const { translate } = useTranslation();
   const [opened, setOpened] = React.useState(props.opened);

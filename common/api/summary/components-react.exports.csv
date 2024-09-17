@@ -36,6 +36,7 @@ public;CompositeTypeConverter
 public;computeVisibleNodes(model: TreeModel): VisibleTreeNodes
 public;ControlledSelectableContent(props: ControlledSelectableContentProps): React_3.JSX.Element
 public;ControlledSelectableContentProps
+deprecated;ControlledSelectableContentProps
 public;ControlledTree(props: ControlledTreeProps): React_3.JSX.Element
 public;ControlledTreeProps 
 public;ConvertedPrimitives
@@ -74,6 +75,7 @@ internal;DragAction
 public;EditableTreeDataProvider 
 public;EditorContainer(props: EditorContainerProps): React_3.JSX.Element
 public;EditorContainerProps 
+deprecated;EditorContainerProps 
 public;EnumButtonGroupEditor 
 public;EnumEditor 
 public;EnumPropertyButtonGroupEditor 
@@ -83,6 +85,7 @@ public;ErrorObserver
 public;FavoritePropertiesRenderer
 alpha;FavoritePropertyList(props: FavoritePropertyListProps): React_3.JSX.Element | null
 alpha;FavoritePropertyListProps
+deprecated;FavoritePropertyListProps
 public;FilteredPropertyData 
 public;FilteredType
 public;FilteringInput 
@@ -112,6 +115,7 @@ public;HighlightableTreeNodeProps
 public;HighlightableTreeProps
 public;HighlightedText(props: HighlightedTextProps): React_2.JSX.Element
 public;HighlightedTextProps
+deprecated;HighlightedTextProps
 public;HighlightInfo
 public;HighlightingComponentProps
 public;HighlightingEngine
@@ -162,6 +166,7 @@ public;LabelPropertyDataFilterer
 public;LessGreaterOperatorProcessor
 public;LinksRenderer(props: LinksRendererProps): React_3.JSX.Element
 public;LinksRendererProps
+deprecated;LinksRendererProps
 public;LoadedBinaryImage 
 public;LoadedImage
 public;LoadedNodeHierarchy
@@ -210,6 +215,7 @@ internal;Panel(props: PanelProps): React_3.JSX.Element
 internal;PanelProps 
 public;ParsedInput: (props: ParsedInputProps) => React_3.ReactNode
 public;ParsedInputProps 
+deprecated;ParsedInputProps 
 public;Point2dTypeConverter 
 public;Point3dTypeConverter 
 public;PopupItem(props: PopupItemProps): React_3.JSX.Element
@@ -304,6 +310,7 @@ public;ResultSelectorProps
 public;SelectableContent(props: SelectableContentProps): React_3.JSX.Element
 public;SelectableContentDefinition
 public;SelectableContentProps
+deprecated;SelectableContentProps
 internal;SelectionHandler
 public;SelectionModeFlags
 public;SharedRendererProps
@@ -395,12 +402,14 @@ public;TreeModelRootNode
 public;TreeModelSource
 public;TreeNodeContent(props: TreeNodeContentProps): React_3.JSX.Element
 public;TreeNodeContentProps 
+deprecated;TreeNodeContentProps 
 public;TreeNodeEditor(props: TreeNodeEditorProps): React_3.JSX.Element
 public;TreeNodeEditorProps
 public;TreeNodeEditorRenderer = (props: TreeNodeEditorProps) => React_3.ReactNode
 public;TreeNodeEventArgs
 public;TreeNodeIcon(props: TreeNodeIconProps): React_3.JSX.Element | null
 public;TreeNodeIconProps
+deprecated;TreeNodeIconProps
 public;TreeNodeItem
 public;TreeNodeItemData = ImmediatelyLoadedTreeNodeItem & DelayLoadedTreeNodeItem
 public;TreeNodeLoader
@@ -452,6 +461,7 @@ public;VirtualizedPropertyGridContext
 public;VirtualizedPropertyGridProps 
 public;VirtualizedPropertyGridWithDataProvider(props: VirtualizedPropertyGridWithDataProviderProps): React_2.JSX.Element
 public;VirtualizedPropertyGridWithDataProviderProps 
+deprecated;VirtualizedPropertyGridWithDataProviderProps 
 public;VisibleTreeNodes 
 public;withContextStyle: (node: React_3.ReactNode, context?: PropertyValueRendererContext) => string | number | boolean | Iterable
 public;withLinks: (stringValue: string, links?: LinkElementsInfo, highlight?: ((text: string) => React_3.ReactNode) | undefined) => React_3.ReactNode

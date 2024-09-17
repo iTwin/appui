@@ -17,6 +17,7 @@ import { useTranslation } from "../useTranslation";
 
 /** Properties of [[FormatSample]] component.
  * @alpha
+ * @deprecated in 4.17.0. Use `React.ComponentProps<typeof FormatSample>`
  */
 // eslint-disable-next-line deprecation/deprecation
 export interface FormatSampleProps extends CommonProps {
@@ -28,6 +29,7 @@ export interface FormatSampleProps extends CommonProps {
 /** Component to show the persistence value and formatted value given a FormatterSpec.
  * @alpha
  */
+// eslint-disable-next-line deprecation/deprecation
 export function FormatSample(props: FormatSampleProps) {
   const { initialMagnitude, formatSpec, hideLabels } = props;
   const { translate } = useTranslation();

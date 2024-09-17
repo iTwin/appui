@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/components-react",
+      "comment": "Deprecated component props in favor of type helper",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/components-react"
+}

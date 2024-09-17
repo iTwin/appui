@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/appui-react",
-      "comment": "Move `StandardContentLayouts` and `ContentLayoutProps` from @itwin/appui-abstract",
+      "comment": "Deprecated component props in favor of type helper",
       "type": "none"
     }
   ],

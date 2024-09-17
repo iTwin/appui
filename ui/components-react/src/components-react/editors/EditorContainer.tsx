@@ -57,6 +57,7 @@ export interface PropertyEditorProps extends CommonProps {
 
 /** [[EditorContainer]] React component properties
  * @public
+ * @deprecated in 4.17.0. Use `React.ComponentProps<typeof EditorContainer>`
  */
 // eslint-disable-next-line deprecation/deprecation
 export interface EditorContainerProps extends CommonProps {
@@ -96,6 +97,7 @@ export interface TypeEditor {
 /** EditorContainer React component used by the Tree and PropertyGrid for cell editing.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export function EditorContainer(props: EditorContainerProps) {
   const {
     ignoreEditorBlur,

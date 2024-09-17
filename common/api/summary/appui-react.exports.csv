@@ -4,12 +4,15 @@ public;AccuDrawCommandItems
 deprecated;AccuDrawCommandItems
 public;AccuDrawDialog(props: AccuDrawDialogProps): React_2.JSX.Element
 public;AccuDrawDialogProps 
+deprecated;AccuDrawDialogProps 
 public;AccuDrawFieldContainer(props: AccuDrawFieldContainerProps): React_2.JSX.Element
 public;AccuDrawFieldContainerProps 
+deprecated;AccuDrawFieldContainerProps 
 public;AccuDrawGrabInputFocusEvent 
 deprecated;AccuDrawGrabInputFocusEvent 
 public;AccuDrawInputField: (props: AccuDrawInputFieldProps) => React_2.ReactNode
 public;AccuDrawInputFieldProps 
+deprecated;AccuDrawInputFieldProps 
 public;AccuDrawKeyboardShortcuts
 public;AccuDrawPopupManager
 public;AccuDrawSetCompassModeEvent 
@@ -83,6 +86,7 @@ internal;BackstageComposerActionItemProps
 internal;BackstageComposerItem({ item }: BackstageComposerItemProps): React_2.JSX.Element
 internal;BackstageComposerItemProps
 public;BackstageComposerProps 
+deprecated;BackstageComposerProps 
 internal;BackstageComposerStageLauncher({ item, }: BackstageComposerStageLauncherProps): React_2.JSX.Element
 internal;BackstageComposerStageLauncherProps
 public;BackstageItem = BackstageActionItem | BackstageStageLauncher
@@ -97,8 +101,10 @@ public;BaseUiItemsProvider
 deprecated;BaseUiItemsProvider 
 public;BasicNavigationWidget(props: BasicNavigationWidgetProps): React_2.JSX.Element
 public;BasicNavigationWidgetProps
+deprecated;BasicNavigationWidgetProps
 public;BasicToolWidget(props: BasicToolWidgetProps): React_2.JSX.Element
 public;BasicToolWidgetProps
+deprecated;BasicToolWidgetProps
 alpha;BumpToolSetting 
 public;Calculator 
 internal;CalculatorEngine
@@ -151,6 +157,7 @@ public;ConfigurableUiActionsUnion = ActionsUnion
 deprecated;ConfigurableUiActionsUnion = ActionsUnion
 public;ConfigurableUiContent(props: ConfigurableUiContentProps): React_2.JSX.Element
 public;ConfigurableUiContentProps 
+deprecated;ConfigurableUiContentProps 
 internal;ConfigurableUiContext: React_2.Context
 public;class ConfigurableUiControl 
 deprecated;class ConfigurableUiControl 
@@ -198,6 +205,7 @@ beta;ContentOverlay({ className, children, active, ...other }: ContentOverlayPro
 public;ContentProps
 public;ContentToolWidgetComposer(props: ContentToolWidgetComposerProps): React_2.JSX.Element
 public;ContentToolWidgetComposerProps
+deprecated;ContentToolWidgetComposerProps
 internal;ContentWrapper(props: ContentWrapperProps): React_2.JSX.Element
 public;CoreTools
 deprecated;CoreTools
@@ -265,6 +273,7 @@ public;EmphasizeElementsChangedArgs
 beta;ExpandableSection 
 beta;ExpandableSectionProps 
 public;ExtensibleToolbarProps
+deprecated;ExtensibleToolbarProps
 beta;featureOverridesActiveStateFunc(state: Readonly
 deprecated;featureOverridesActiveStateFunc(state: Readonly
 beta;FloatingContentControl 
@@ -494,8 +503,10 @@ public;NavigationAidControl
 deprecated;NavigationAidControl 
 public;NavigationAidHost(props: NavigationAidHostProps): React_2.JSX.Element
 public;NavigationAidHostProps
+deprecated;NavigationAidHostProps
 public;NavigationWidgetComposer(props: NavigationWidgetComposerProps): React_2.JSX.Element
 public;NavigationWidgetComposerProps 
+deprecated;NavigationWidgetComposerProps 
 public;NestedFrontstage
 deprecated;NestedFrontstage
 public;NestedFrontstageAppButton({ icon, label, onClick, }: NestedFrontstageAppButtonProps): React_2.JSX.Element
@@ -607,6 +618,7 @@ public;SnapModeField(props: SnapModeFieldProps): React_2.JSX.Element
 alpha;SolarTimelineDataProvider 
 public;SplitPane(props: SplitPaneProps): React_2.JSX.Element
 public;SplitPaneProps
+deprecated;SplitPaneProps
 public;StageContentLayout
 public;StageContentLayoutProps
 public;StagePanelConfig
@@ -655,6 +667,7 @@ public;StatusBarActionItem
 public;StatusBarCenterSection(props: CommonDivProps): React_2.JSX.Element
 public;StatusBarComposer(props: StatusBarComposerProps): React_2.JSX.Element
 public;StatusBarComposerProps 
+deprecated;StatusBarComposerProps 
 public;StatusBarCustomItem 
 beta;StatusBarDialog(props: StatusBarDialogProps): React_2.JSX.Element
 beta;StatusBarDialog
@@ -748,6 +761,7 @@ public;ToolUiProvider
 deprecated;ToolUiProvider 
 public;ToolWidgetComposer(props: ToolWidgetComposerProps): React_2.JSX.Element
 public;ToolWidgetComposerProps 
+deprecated;ToolWidgetComposerProps 
 internal;toPanelSide(location: StagePanelLocation): PanelSide
 internal;TrackingTime
 public;UiDataProvidedDialog({ uiDataProvider, id, isModal, title, movable, resizable, minWidth, minHeight, maxWidth, maxHeight, width, height, style, }: UiDataProvidedDialogProps): React_2.JSX.Element
@@ -763,6 +777,7 @@ deprecated;UiItemsProviderRegisteredEventArgs
 beta;UiSettingsPage(): React_2.JSX.Element
 deprecated;UiSettingsPage(): React_2.JSX.Element
 public;UiSettingsProviderProps
+deprecated;UiSettingsProviderProps
 public;UiStateStorage = UiStateStorage_2
 internal;UiStateStorageContext: React_2.Context
 public;UiStateStorageHandler(props: UiSettingsProviderProps): React_2.JSX.Element
@@ -843,6 +858,7 @@ public;ViewStateHelper
 public;ViewStateHelperProps 
 public;ViewToolWidgetComposer(props: ViewToolWidgetComposerProps): React_2.JSX.Element
 public;ViewToolWidgetComposerProps
+deprecated;ViewToolWidgetComposerProps
 public;ViewUtilities
 public;Widget
 public;WIDGET_OPACITY_DEFAULT = 0.9

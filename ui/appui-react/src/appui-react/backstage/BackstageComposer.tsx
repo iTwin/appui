@@ -125,6 +125,7 @@ export const useGroupedItems = (
 
 /** Props of [[BackstageComposer]] component.
  * @public
+ * @deprecated in 4.17.0. Use `React.ComponentProps<typeof BackstageComposer>`
  */
 // eslint-disable-next-line deprecation/deprecation
 export interface BackstageComposerProps extends CommonProps {
@@ -141,6 +142,7 @@ export interface BackstageComposerProps extends CommonProps {
 /** Backstage component composed from [[UiFramework.backstage]] items.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export function BackstageComposer(props: BackstageComposerProps) {
   const [defaultItemsManager, setDefaultItemsManager] = React.useState(
     new BackstageItemsManager(props.items)
