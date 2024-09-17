@@ -25,6 +25,7 @@ import { TreeNodeEditor } from "./TreeNodeEditor";
 /**
  * Properties for [[TreeNodeContent]] component
  * @public
+ * @deprecated in 4.17.0. Use `React.ComponentProps<typeof TreeNodeContent>`
  */
 // eslint-disable-next-line deprecation/deprecation
 export interface TreeNodeContentProps extends CommonProps {
@@ -44,6 +45,7 @@ export interface TreeNodeContentProps extends CommonProps {
  * React component for displaying [[TreeNode]] label
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export function TreeNodeContent(props: TreeNodeContentProps) {
   const { node, onLabelRendered, highlightProps } = props;
   const label = React.useMemo(

@@ -24,6 +24,7 @@ function isLetter(char: string): boolean {
 
 /** Properties for [[AccuDrawInputField]] component
  * @public
+ * @deprecated in 4.17.0. Use `React.ComponentProps<typeof AccuDrawInputField>`
  */
 // eslint-disable-next-line deprecation/deprecation
 export interface AccuDrawInputFieldProps extends CommonProps {
@@ -62,7 +63,9 @@ export interface AccuDrawInputFieldProps extends CommonProps {
 
 const ForwardRefAccuDrawInput = React.forwardRef<
   HTMLInputElement,
+  /* eslint-disable-next-line deprecation/deprecation */
   AccuDrawInputFieldProps
+  /* eslint-disable-next-line deprecation/deprecation */
 >(function ForwardRefAccuDrawInputField(props: AccuDrawInputFieldProps, ref) {
   const {
     className,
@@ -223,5 +226,6 @@ const ForwardRefAccuDrawInput = React.forwardRef<
  * @public
  */
 export const AccuDrawInputField: (
+  /* eslint-disable-next-line deprecation/deprecation */
   props: AccuDrawInputFieldProps
 ) => React.ReactNode = ForwardRefAccuDrawInput;

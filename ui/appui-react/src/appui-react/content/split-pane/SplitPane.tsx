@@ -14,6 +14,7 @@ import { Resizer } from "./Resizer";
 /**
  * Props for [[SplitPane]] component
  * @public
+ * @deprecated in 4.17.0. Use `React.ComponentProps<typeof SplitPane>`
  */
 export interface SplitPaneProps {
   /** Pass false to disable resizing */
@@ -113,6 +114,7 @@ function removeNullChildren(children: React.ReactNode[]) {
  * See https://github.com/tomkp/react-split-pane/blob/master/LICENSE.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export function SplitPane(props: SplitPaneProps) {
   const {
     style,

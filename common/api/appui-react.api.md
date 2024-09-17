@@ -172,7 +172,7 @@ export class AccuDrawCommandItems {
 // @public
 export function AccuDrawDialog(props: AccuDrawDialogProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface AccuDrawDialogProps extends CommonProps {
     // @deprecated
     dialogId?: string;
@@ -184,7 +184,7 @@ export interface AccuDrawDialogProps extends CommonProps {
 // @public
 export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface AccuDrawFieldContainerProps extends CommonProps {
     orientation: Orientation;
     // @internal (undocumented)
@@ -199,7 +199,7 @@ export class AccuDrawGrabInputFocusEvent extends BeUiEvent<{}> {
 // @public
 export const AccuDrawInputField: (props: AccuDrawInputFieldProps) => React_2.ReactNode;
 
-// @public
+// @public @deprecated
 export interface AccuDrawInputFieldProps extends CommonProps {
     field: ItemField;
     icon?: React_2.ReactNode;
@@ -545,7 +545,7 @@ export interface BackstageComposerItemProps {
     readonly item: BackstageItem;
 }
 
-// @public
+// @public @deprecated
 export interface BackstageComposerProps extends CommonProps {
     readonly header?: React_2.ReactNode;
     readonly hideSoloStageEntry?: boolean;
@@ -680,7 +680,7 @@ export class BaseUiItemsProvider implements UiItemsProvider {
 // @public
 export function BasicNavigationWidget(props: BasicNavigationWidgetProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface BasicNavigationWidgetProps {
     additionalHorizontalItems?: ToolbarItem[];
     additionalVerticalItems?: ToolbarItem[];
@@ -689,7 +689,7 @@ export interface BasicNavigationWidgetProps {
 // @public
 export function BasicToolWidget(props: BasicToolWidgetProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface BasicToolWidgetProps {
     additionalHorizontalItems?: ToolbarItem[];
     additionalVerticalItems?: ToolbarItem[];
@@ -1048,7 +1048,7 @@ export type ConfigurableUiActionsUnion = ActionsUnion<typeof ConfigurableUiActio
 // @public
 export function ConfigurableUiContent(props: ConfigurableUiContentProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface ConfigurableUiContentProps extends CommonProps {
     animateToolSettings?: boolean;
     appBackstage?: React_2.ReactNode;
@@ -1314,7 +1314,7 @@ export interface ContentProps {
 // @public
 export function ContentToolWidgetComposer(props: ContentToolWidgetComposerProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface ContentToolWidgetComposerProps {
     cornerButton?: React_2.ReactNode;
 }
@@ -1885,7 +1885,7 @@ export interface ExpandableSectionProps extends CommonProps {
     title?: string;
 }
 
-// @public
+// @public @deprecated
 export interface ExtensibleToolbarProps {
     items: ToolbarItem[];
     orientation: ToolbarOrientation;
@@ -3500,7 +3500,7 @@ export class NavigationAidControl extends ConfigurableUiControl {
 // @public
 export function NavigationAidHost(props: NavigationAidHostProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface NavigationAidHostProps {
     minHeight?: string;
     minWidth?: string;
@@ -3509,7 +3509,7 @@ export interface NavigationAidHostProps {
 // @public
 export function NavigationWidgetComposer(props: NavigationWidgetComposerProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface NavigationWidgetComposerProps extends CommonProps {
     hideNavigationAid?: boolean;
     horizontalToolbar?: React_2.ReactNode;
@@ -4217,7 +4217,7 @@ export class SolarTimelineDataProvider extends BaseSolarDataProvider {
 // @public
 export function SplitPane(props: SplitPaneProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface SplitPaneProps {
     allowResize?: boolean;
     children: React_2.ReactNode[];
@@ -4566,7 +4566,7 @@ export function StatusBarCenterSection(props: CommonDivProps): React_2.JSX.Eleme
 // @public
 export function StatusBarComposer(props: StatusBarComposerProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface StatusBarComposerProps extends CommonProps {
     centerClassName?: string;
     items: StatusBarItem[];
@@ -5200,7 +5200,7 @@ export class ToolUiProvider extends ConfigurableUiControl {
 // @public
 export function ToolWidgetComposer(props: ToolWidgetComposerProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface ToolWidgetComposerProps extends CommonProps {
     cornerItem?: React_2.ReactNode;
     horizontalToolbar?: React_2.ReactNode;
@@ -5451,7 +5451,7 @@ export interface UiItemsProviderRegisteredEventArgs {
 // @beta @deprecated
 export function UiSettingsPage(): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface UiSettingsProviderProps {
     // (undocumented)
     children?: React_2.ReactNode;
@@ -5794,7 +5794,7 @@ export interface ViewStateHelperProps extends ViewStateProps {
 // @public
 export function ViewToolWidgetComposer(props: ViewToolWidgetComposerProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface ViewToolWidgetComposerProps {
     hideNavigationAid?: boolean;
     navigationAid?: React_2.ReactNode;
