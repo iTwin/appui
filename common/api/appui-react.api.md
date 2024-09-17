@@ -5296,6 +5296,7 @@ export class UiFramework {
     static get localizationNamespace(): string;
     // @internal (undocumented)
     static loggerCategory(obj: any): string;
+    static readonly onIModelConnectionChanged: BeUiEvent<IModelConnection | undefined>;
     static readonly onUiVisibilityChanged: UiVisibilityChangedEvent;
     static openContextMenu(items: CursorMenuItemProps[], location: XAndY, anchorElement?: HTMLElement): boolean;
     // (undocumented)
