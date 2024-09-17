@@ -14,11 +14,13 @@ import {
   ToolbarItemUtilities,
   ToolbarOrientation,
   ToolbarUsage,
+  UiFramework,
   UiItemsProvider,
   useActiveViewport,
   Widget,
   WidgetState,
 } from "@itwin/appui-react";
+import { Table } from "@itwin/itwinui-react";
 import {
   createSplitSingleViewportToolbarItem,
   RestoreSavedContentLayoutTool,
@@ -32,6 +34,7 @@ import { ControlViewportWidget } from "../widgets/ControlViewportWidget";
 import { ViewportWidget as ViewportWidgetBase } from "../widgets/ViewportWidget";
 import { WidgetContentContext } from "./WidgetContentProvider";
 import { createContentLayoutFrontstage } from "../frontstages/ContentLayoutFrontstage";
+import { useActiveContentId } from "../useActiveContentId";
 
 /** The ContentLayoutStageUiItemsProvider provides additional items only to the `ContentLayoutStage` frontstage.
  * This provider provides four tool buttons to:
@@ -147,9 +150,9 @@ export class ContentLayoutStageUiItemsProvider implements UiItemsProvider {
         },
       },
       {
-        id: "active-view",
-        label: "Active view",
-        content: <ActiveView />,
+        id: "content-info",
+        label: "Content info",
+        content: <ContentInfo />,
         layouts: {
           standard: {
             location: StagePanelLocation.Right,
@@ -191,24 +194,69 @@ interface ViewportWidgetProps {
 function ViewportWidget({ contentId }: ViewportWidgetProps) {
   // We could have used `IModelApp.viewManager` instead to track active viewport.
   const context = React.useContext(WidgetContentContext);
+  const [viewState] = React.useState(() => {
+    const initialViewState = UiFramework.getDefaultViewState()?.clone();
+    if (initialViewState) {
+      initialViewState.description = contentId;
+    }
+
+    return initialViewState;
+  });
   return (
     <ViewportWidgetBase
       active={contentId === context.activeId}
       onActivate={() => {
         context.setActiveId(contentId);
       }}
+      viewState={viewState}
     />
   );
 }
 
-function ActiveView() {
-  const viewport = useActiveViewport();
-  if (!viewport) return <span>No active viewport</span>;
+function ContentInfo() {
+  const activeViewport = useActiveViewport();
+  const contentId = useActiveContentId();
+  const columns = React.useMemo(
+    () => [
+      {
+        id: "name",
+        Header: "Name",
+        accessor: "name" as const,
+      },
+      {
+        id: "value",
+        Header: "Value",
+        accessor: "value" as const,
+      },
+    ],
+    []
+  );
+
+  const viewId = activeViewport?.view.id;
+  const description = activeViewport?.view.description;
+  const data = React.useMemo(
+    () => [
+      {
+        name: "View id",
+        value: viewId,
+      },
+      {
+        name: "View description",
+        value: description,
+      },
+      {
+        name: "Content id",
+        value: contentId,
+      },
+    ],
+    [viewId, description, contentId]
+  );
   return (
-    <span>
-      <b>id:</b> {viewport.view.id}
-      <br />
-      <b>description:</b> {viewport.view.description}
-    </span>
+    <Table
+      columns={columns}
+      data={data}
+      emptyTableContent=""
+      autoResetPage={false}
+    />
   );
 }

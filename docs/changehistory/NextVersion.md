@@ -6,10 +6,11 @@ Table of contents:
   - [Deprecations](#deprecations)
 - [@itwin/appui-react](#itwinappui-react)
   - [Deprecations](#deprecations-1)
+  - [Additions](#additions)
   - [Changes](#changes)
 - [@itwin/components-react](#itwincomponents-react)
   - [Deprecations](#deprecations-2)
-  - [Additions](#additions)
+  - [Additions](#additions-1)
 - [@itwin/imodel-components-react](#itwinimodel-components-react)
   - [Deprecations](#deprecations-3)
 
@@ -110,7 +111,6 @@ Table of contents:
 - Deprecated `DefaultContentToolsAppData` interface that is a remnant of discontinued frontstage APIs. [#1024](https://github.com/iTwin/appui/pull/1024)
 - Deprecated `StandardContentToolsUiItemsProvider.provideStatusBarItems`, `StandardContentToolsUiItemsProvider.provideToolbarItems`, `StandardNavigationToolsUiItemsProvider.provideToolbarItems`, `StandardStatusbarUiItemsProvider.provideStatusBarItems` methods. Use `get*` variants instead. [#1024](https://github.com/iTwin/appui/pull/1024)
 - Deprecated `AccuDrawDialogProps`, `AccuDrawFieldContainerProps`, `AccuDrawInputFieldProps`, `BackstageComposerProps`, `ConfigurableUiContentProps`, `SplitPaneProps`, `StatusBarComposerProps`, `ExtensibleToolbarProps`, `UiSettingsProviderProps`, `BasicNavigationWidgetProps`, `BasicToolWidgetProps`, `ContentToolWidgetComposerProps`, `NavigationAidHostProps`, `NavigationWidgetComposerProps`, `ToolWidgetComposerProps`, `ViewToolWidgetComposerProps` in favor of `React.ComponentProps<typeof ...>`. [#991](https://github.com/iTwin/appui/pull/991)
-
   Usage example:
 
   ```tsx
@@ -119,10 +119,18 @@ Table of contents:
   type AccuDrawDialogProps = React.ComponentProps<typeof AccuDrawDialog>;
   ```
 
+- Deprecated `floatingContentControls` getter of `FrontstageDef` class that used a deprecated `ContentControl` class. Use floating widgets instead. [#1030](https://github.com/iTwin/appui/pull/1030)
+
+### Additions
+
+- Added `ConditionalBooleanValue` and `ConditionalStringValue` class re-exports from `@itwin/appui-abstract` package. [#1031](https://github.com/iTwin/appui/pull/1031)
+
 ### Changes
 
 - Allow to set the available snap modes in `SnapModeField` component. [#974](https://github.com/iTwin/appui/pull/974)
 - Bump `StandardContentToolsUiItemsProvider`, `StandardStatusbarUiItemsProvider` classes to `@public`. [#1024](https://github.com/iTwin/appui/pull/1024)
+- Bump `content` property of `ContentProps` interface to `@public`. [#1030](https://github.com/iTwin/appui/pull/1030)
+- Content layout will now track `ContentOverlay` components to determine if the active strip should be rendered for the active content. [#1030](https://github.com/iTwin/appui/pull/1030)
 
 ## @itwin/components-react
 

@@ -2,17 +2,20 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { ConditionalIconItem } from "@itwin/core-react";
-import { ConditionalIconValue } from "../../appui-react/shared/ConditionalValue";
+import { ConditionalStringValue as AbstractConditionalStringValue } from "@itwin/appui-abstract";
+import { ConditionalStringValue } from "../../appui-react/shared/ConditionalValue";
 
-describe("ConditionalIconValue", () => {
+describe("ConditionalStringValue", () => {
   it("should use the same type for instanceof check", () => {
-    const item = new ConditionalIconItem(() => "item", []);
-    const value = new ConditionalIconValue(() => "value", []);
+    const abstractValue = new AbstractConditionalStringValue(
+      () => "abstractValue",
+      []
+    );
+    const value = new ConditionalStringValue(() => "value", []);
 
-    expect(item instanceof ConditionalIconItem).toBe(true);
-    expect(value instanceof ConditionalIconItem).toBe(true);
-    expect(item instanceof ConditionalIconValue).toBe(true);
-    expect(value instanceof ConditionalIconValue).toBe(true);
+    expect(abstractValue instanceof AbstractConditionalStringValue).toBe(true);
+    expect(value instanceof AbstractConditionalStringValue).toBe(true);
+    expect(value instanceof ConditionalStringValue).toBe(true);
+    expect(value instanceof ConditionalStringValue).toBe(true);
   });
 });

@@ -156,6 +156,7 @@ export * from "./appui-react/shared/ActionButtonItemDef";
 export * from "./appui-react/shared/AnyItemDef";
 export * from "./appui-react/shared/AnyToolbarItemDef";
 export * from "./appui-react/shared/CommandItemDef";
+export * from "./appui-react/shared/ConditionalValue";
 export * from "./appui-react/shared/CustomItemDef";
 export * from "./appui-react/shared/CustomItemProps";
 export * from "./appui-react/shared/GroupItemProps";
