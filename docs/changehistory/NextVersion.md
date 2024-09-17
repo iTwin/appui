@@ -17,7 +17,7 @@ Table of contents:
 
 ### Deprecations
 
-- Deprecated `UiFramework.setIsUiVisible` and `UiFramework.getIsUiVisible`. [#1023](https://github.com/iTwin/appui/pull/1023)
+- Deprecated `UiFramework.setIsUiVisible` and `UiFramework.getIsUiVisible`. Use `UiFramework.visibility.isUiVisible` instead. [#1023](https://github.com/iTwin/appui/pull/1023)
 
 ## @itwin/components-react
 
