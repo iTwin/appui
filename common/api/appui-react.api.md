@@ -32,7 +32,6 @@ import type { CommonToolbarItemWithBadgeKind } from '@itwin/components-react';
 import { CompassMode } from '@itwin/core-frontend';
 import { ConditionalBooleanValue as ConditionalBooleanValue_2 } from '@itwin/appui-abstract';
 import { ConditionalStringValue as ConditionalStringValue_2 } from '@itwin/appui-abstract';
-import type { ContentLayoutProps } from '@itwin/appui-abstract';
 import type { CustomButtonDefinition } from '@itwin/appui-abstract';
 import type { DialogItem } from '@itwin/appui-abstract';
 import type { DialogLayoutDataProvider } from '@itwin/appui-abstract';
@@ -52,7 +51,6 @@ import { InferableComponentEnhancerWithProps } from 'react-redux';
 import type { InteractiveTool } from '@itwin/core-frontend';
 import { ItemField } from '@itwin/core-frontend';
 import type { Key } from 'ts-key-enum';
-import type { LayoutFragmentProps } from '@itwin/appui-abstract';
 import { LocalStateStorage as LocalStateStorage_2 } from '@itwin/core-react';
 import type { MarkRequired } from '@itwin/core-bentley';
 import { MessageBoxIconType } from '@itwin/core-frontend';
@@ -97,7 +95,7 @@ import { SnapMode } from '@itwin/core-frontend';
 import type { SolarDataProvider } from '@itwin/imodel-components-react';
 import { StandardViewId } from '@itwin/core-frontend';
 import type { Store } from 'redux';
-import type { StoreApi } from 'zustand';
+import { StoreApi } from 'zustand';
 import type { StringGetter } from '@itwin/appui-abstract';
 import { ToasterSettings } from '@itwin/itwinui-react/cjs/core/Toast/Toaster';
 import { Tool } from '@itwin/core-frontend';
@@ -119,6 +117,7 @@ import { UiStateStorage as UiStateStorage_2 } from '@itwin/core-react';
 import type { UiStateStorageResult as UiStateStorageResult_2 } from '@itwin/core-react';
 import { UiStateStorageStatus as UiStateStorageStatus_2 } from '@itwin/core-react';
 import type { UnitSystemKey } from '@itwin/core-quantity';
+import { UseBoundStore } from 'zustand';
 import type { useToaster } from '@itwin/itwinui-react';
 import type { ViewFlagProps } from '@itwin/core-common';
 import type { Viewport } from '@itwin/core-frontend';
@@ -171,7 +170,7 @@ export class AccuDrawCommandItems {
 // @public
 export function AccuDrawDialog(props: AccuDrawDialogProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface AccuDrawDialogProps extends CommonProps {
     // @deprecated
     dialogId?: string;
@@ -183,7 +182,7 @@ export interface AccuDrawDialogProps extends CommonProps {
 // @public
 export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface AccuDrawFieldContainerProps extends CommonProps {
     orientation: Orientation;
     // @internal (undocumented)
@@ -198,7 +197,7 @@ export class AccuDrawGrabInputFocusEvent extends BeUiEvent<{}> {
 // @public
 export const AccuDrawInputField: (props: AccuDrawInputFieldProps) => React_2.ReactNode;
 
-// @public
+// @public @deprecated
 export interface AccuDrawInputFieldProps extends CommonProps {
     field: ItemField;
     icon?: React_2.ReactNode;
@@ -544,7 +543,7 @@ export interface BackstageComposerItemProps {
     readonly item: BackstageItem;
 }
 
-// @public
+// @public @deprecated
 export interface BackstageComposerProps extends CommonProps {
     readonly header?: React_2.ReactNode;
     readonly hideSoloStageEntry?: boolean;
@@ -679,7 +678,7 @@ export class BaseUiItemsProvider implements UiItemsProvider {
 // @public
 export function BasicNavigationWidget(props: BasicNavigationWidgetProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface BasicNavigationWidgetProps {
     additionalHorizontalItems?: ToolbarItem[];
     additionalVerticalItems?: ToolbarItem[];
@@ -688,7 +687,7 @@ export interface BasicNavigationWidgetProps {
 // @public
 export function BasicToolWidget(props: BasicToolWidgetProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface BasicToolWidgetProps {
     additionalHorizontalItems?: ToolbarItem[];
     additionalVerticalItems?: ToolbarItem[];
@@ -1047,7 +1046,7 @@ export type ConfigurableUiActionsUnion = ActionsUnion<typeof ConfigurableUiActio
 // @public
 export function ConfigurableUiContent(props: ConfigurableUiContentProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface ConfigurableUiContentProps extends CommonProps {
     animateToolSettings?: boolean;
     appBackstage?: React_2.ReactNode;
@@ -1297,6 +1296,12 @@ export class ContentLayoutDef {
     toJSON(): ContentLayoutProps;
 }
 
+// @public
+export interface ContentLayoutProps extends LayoutFragmentProps {
+    description?: string;
+    id: string;
+}
+
 // @beta
 export function ContentOverlay({ className, children, active, ...other }: ContentOverlayProps): React_2.JSX.Element;
 
@@ -1306,7 +1311,6 @@ export interface ContentProps {
     applicationData?: any;
     // @deprecated
     classId: string | ConfigurableUiControlConstructor;
-    // @beta
     content?: React_2.ReactNode;
     id: string;
 }
@@ -1314,7 +1318,7 @@ export interface ContentProps {
 // @public
 export function ContentToolWidgetComposer(props: ContentToolWidgetComposerProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface ContentToolWidgetComposerProps {
     cornerButton?: React_2.ReactNode;
 }
@@ -1885,7 +1889,7 @@ export interface ExpandableSectionProps extends CommonProps {
     title?: string;
 }
 
-// @public
+// @public @deprecated
 export interface ExtensibleToolbarProps {
     items: ToolbarItem[];
     orientation: ToolbarOrientation;
@@ -2415,7 +2419,7 @@ export class FrontstageDef {
     // @deprecated (undocumented)
     dropFloatingContentControl(contentControl?: ContentControl): void;
     findWidgetDef(id: string): WidgetDef | undefined;
-    // (undocumented)
+    // @deprecated (undocumented)
     get floatingContentControls(): ContentControl[] | undefined;
     // @beta
     floatWidget(widgetId: string, position?: XAndY, size?: SizeProps): void;
@@ -2561,7 +2565,7 @@ export function getSelectionContextSyncEventIds(): string[];
 export function getUiSettingsManagerEntry(itemPriority: number): SettingsTabEntry_2;
 
 // @internal (undocumented)
-export function getWidgetState(widgetDef: WidgetDef, nineZone: NineZoneState): WidgetState;
+export function getWidgetState(widgetId: WidgetDef["id"], nineZone: NineZoneState): WidgetState;
 
 // @internal (undocumented)
 export type GroupedItems = ReadonlyArray<ReadonlyArray<BackstageItem>>;
@@ -3103,6 +3107,35 @@ export interface KeyinPalettePopupProps {
     onItemExecuted?: OnItemExecutedFunc;
 }
 
+// @public
+export interface LayoutFragmentProps {
+    horizontalSplit?: LayoutHorizontalSplitProps;
+    verticalSplit?: LayoutVerticalSplitProps;
+}
+
+// @public
+export interface LayoutHorizontalSplitProps extends LayoutSplitPropsBase {
+    bottom: LayoutFragmentProps | number;
+    minSizeBottom?: number;
+    minSizeTop?: number;
+    top: LayoutFragmentProps | number;
+}
+
+// @public
+export interface LayoutSplitPropsBase {
+    id: string;
+    lock?: boolean;
+    percentage: number;
+}
+
+// @public
+export interface LayoutVerticalSplitProps extends LayoutSplitPropsBase {
+    left: LayoutFragmentProps | number;
+    minSizeLeft?: number;
+    minSizeRight?: number;
+    right: LayoutFragmentProps | number;
+}
+
 // @beta
 export interface ListItem {
     // (undocumented)
@@ -3500,7 +3533,7 @@ export class NavigationAidControl extends ConfigurableUiControl {
 // @public
 export function NavigationAidHost(props: NavigationAidHostProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface NavigationAidHostProps {
     minHeight?: string;
     minWidth?: string;
@@ -3509,7 +3542,7 @@ export interface NavigationAidHostProps {
 // @public
 export function NavigationWidgetComposer(props: NavigationWidgetComposerProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface NavigationWidgetComposerProps extends CommonProps {
     hideNavigationAid?: boolean;
     horizontalToolbar?: React_2.ReactNode;
@@ -4217,7 +4250,7 @@ export class SolarTimelineDataProvider extends BaseSolarDataProvider {
 // @public
 export function SplitPane(props: SplitPaneProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface SplitPaneProps {
     allowResize?: boolean;
     children: React_2.ReactNode[];
@@ -4390,6 +4423,28 @@ export enum StageUsage {
     Settings = "Settings",
     // (undocumented)
     ViewOnly = "ViewOnly"
+}
+
+// @public
+export class StandardContentLayouts {
+    // (undocumented)
+    static readonly availableLayouts: ContentLayoutProps[];
+    // (undocumented)
+    static readonly fourQuadrants: ContentLayoutProps;
+    // (undocumented)
+    static readonly singleView: ContentLayoutProps;
+    // (undocumented)
+    static readonly threeViewsTwoOnBottom: ContentLayoutProps;
+    // (undocumented)
+    static readonly threeViewsTwoOnLeft: ContentLayoutProps;
+    // (undocumented)
+    static readonly threeViewsTwoOnRight: ContentLayoutProps;
+    // (undocumented)
+    static readonly threeViewsTwoOnTop: ContentLayoutProps;
+    // (undocumented)
+    static readonly twoHorizontalSplit: ContentLayoutProps;
+    // (undocumented)
+    static readonly twoVerticalSplit: ContentLayoutProps;
 }
 
 // @public @deprecated
@@ -4566,7 +4621,7 @@ export function StatusBarCenterSection(props: CommonDivProps): React_2.JSX.Eleme
 // @public
 export function StatusBarComposer(props: StatusBarComposerProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface StatusBarComposerProps extends CommonProps {
     centerClassName?: string;
     items: StatusBarItem[];
@@ -5200,7 +5255,7 @@ export class ToolUiProvider extends ConfigurableUiControl {
 // @public
 export function ToolWidgetComposer(props: ToolWidgetComposerProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface ToolWidgetComposerProps extends CommonProps {
     cornerItem?: React_2.ReactNode;
     horizontalToolbar?: React_2.ReactNode;
@@ -5316,6 +5371,7 @@ export class UiFramework {
     static get localizationNamespace(): string;
     // @internal (undocumented)
     static loggerCategory(obj: any): string;
+    static readonly onIModelConnectionChanged: BeUiEvent<IModelConnection | undefined>;
     static readonly onUiVisibilityChanged: UiVisibilityChangedEvent;
     static openContextMenu(items: CursorMenuItemProps[], location: XAndY, anchorElement?: HTMLElement): boolean;
     // (undocumented)
@@ -5450,7 +5506,7 @@ export interface UiItemsProviderRegisteredEventArgs {
 // @beta @deprecated
 export function UiSettingsPage(): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface UiSettingsProviderProps {
     // (undocumented)
     children?: React_2.ReactNode;
@@ -5536,6 +5592,9 @@ export const useBackstageManager: () => FrameworkBackstage;
 
 // @alpha
 export function useConditionalValue<T>(getValue: () => T, eventIds: string[]): T;
+
+// @internal
+export const useContentOverlayStore: UseBoundStore<StoreApi<number>>;
 
 // @internal
 export const useDefaultBackstageItems: (manager: BackstageItemsManager) => readonly BackstageItem[];
@@ -5790,7 +5849,7 @@ export interface ViewStateHelperProps extends ViewStateProps {
 // @public
 export function ViewToolWidgetComposer(props: ViewToolWidgetComposerProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface ViewToolWidgetComposerProps {
     hideNavigationAid?: boolean;
     navigationAid?: React_2.ReactNode;

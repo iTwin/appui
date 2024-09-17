@@ -19,7 +19,7 @@ import { createNineZoneState } from "../state/NineZoneState";
 export type LayoutState = NineZoneState;
 
 /** @internal */
-export type LayoutStore = StoreApi<NineZoneState>;
+export type LayoutStore = StoreApi<LayoutState>;
 
 /** @internal */
 export const LayoutStoreContext = React.createContext<LayoutStore | undefined>(
@@ -50,4 +50,22 @@ export function useLayout<SelectorOutput>(
     selector,
     multipleSlices ? shallow : undefined
   );
+}
+
+const optionalLayoutStore = createStore<LayoutState | undefined>(
+  () => undefined
+);
+
+/** @internal */
+export function useOptionalLayout<SelectorOutput>(
+  selector: (state: LayoutState | undefined) => SelectorOutput,
+  multipleSlices = false
+) {
+  const store = React.useContext(LayoutStoreContext);
+  const slice = useStoreWithEqualityFn(
+    store ?? optionalLayoutStore,
+    selector,
+    multipleSlices ? shallow : undefined
+  );
+  return slice;
 }

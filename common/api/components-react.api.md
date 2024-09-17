@@ -325,7 +325,7 @@ export function computeVisibleNodes(model: TreeModel): VisibleTreeNodes;
 // @public
 export function ControlledSelectableContent(props: ControlledSelectableContentProps): React_3.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface ControlledSelectableContentProps {
     // (undocumented)
     children: SelectableContentDefinition[];
@@ -621,7 +621,7 @@ export interface EditableTreeDataProvider extends ITreeDataProvider {
 // @public
 export function EditorContainer(props: EditorContainerProps): React_3.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface EditorContainerProps extends CommonProps {
     // @internal (undocumented)
     ignoreEditorBlur?: boolean;
@@ -717,7 +717,7 @@ export class FavoritePropertiesRenderer {
 // @alpha
 export function FavoritePropertyList(props: FavoritePropertyListProps): React_3.JSX.Element | null;
 
-// @alpha
+// @alpha @deprecated
 export interface FavoritePropertyListProps {
     // (undocumented)
     orientation?: Orientation;
@@ -928,7 +928,7 @@ export interface HighlightableTreeProps {
 // @public
 export function HighlightedText(props: HighlightedTextProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface HighlightedTextProps {
     // (undocumented)
     activeMatchIndex?: number;
@@ -1324,7 +1324,7 @@ export interface LessGreaterOperatorProcessor {
 // @public
 export function LinksRenderer(props: LinksRendererProps): React_3.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface LinksRendererProps {
     // (undocumented)
     highlighter?: (text: string) => React_3.ReactNode;
@@ -1793,7 +1793,7 @@ export interface PanelProps extends CommonProps {
 // @public
 export const ParsedInput: (props: ParsedInputProps) => React_3.ReactNode;
 
-// @public
+// @public @deprecated
 export interface ParsedInputProps extends CommonProps {
     formatValue: (value: number) => string;
     initialValue: number;
@@ -2517,7 +2517,7 @@ export interface SelectableContentDefinition {
     render: () => React_3.ReactNode;
 }
 
-// @public
+// @public @deprecated
 export interface SelectableContentProps {
     // (undocumented)
     children: SelectableContentDefinition[];
@@ -3344,7 +3344,7 @@ export class TreeModelSource {
 // @public
 export function TreeNodeContent(props: TreeNodeContentProps): React_3.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface TreeNodeContentProps extends CommonProps {
     highlightProps?: HighlightableTreeNodeProps;
     node: TreeModelNode;
@@ -3377,7 +3377,7 @@ export interface TreeNodeEventArgs {
 // @public
 export function TreeNodeIcon(props: TreeNodeIconProps): React_3.JSX.Element | null;
 
-// @public
+// @public @deprecated
 export interface TreeNodeIconProps {
     imageLoader: ITreeImageLoader;
     node: TreeModelNode;
@@ -3759,7 +3759,7 @@ export interface VirtualizedPropertyGridProps extends CommonPropertyGridProps {
 // @public
 export function VirtualizedPropertyGridWithDataProvider(props: VirtualizedPropertyGridWithDataProviderProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface VirtualizedPropertyGridWithDataProviderProps extends CommonPropertyGridProps {
     dataProvider: IPropertyDataProvider;
     height: number;

@@ -18,6 +18,7 @@ import { ToolbarItems } from "../tools/ToolbarItems";
 
 /** Properties that can be used to append items to the default set of toolbar items.
  * @public
+ * @deprecated in 4.17.0. Use `React.ComponentProps<typeof BasicToolWidget>`
  */
 export interface BasicToolWidgetProps {
   /** if true include hide/isolate Models and Categories */
@@ -34,6 +35,7 @@ export interface BasicToolWidgetProps {
  * This definition will also show a overflow button if there is not enough room to display all the toolbar buttons.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export function BasicToolWidget(props: BasicToolWidgetProps) {
   const getHorizontalToolbarItems = React.useCallback(
     (useCategoryAndModelsContextTools: boolean): ToolbarItem[] => {

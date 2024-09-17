@@ -8,7 +8,6 @@
 
 import type * as React from "react";
 import type { ScreenViewport } from "@itwin/core-frontend";
-import type { ContentLayoutProps } from "@itwin/appui-abstract";
 import { UiError } from "@itwin/appui-abstract";
 import type { ConfigurableUiControlConstructor } from "../configurableui/ConfigurableUiControl";
 import {
@@ -19,6 +18,7 @@ import { UiFramework } from "../UiFramework";
 import type { ContentControl } from "./ContentControl";
 import { InternalConfigurableUiManager } from "../configurableui/InternalConfigurableUiManager";
 import type { Frontstage } from "../frontstage/Frontstage";
+import type { ContentLayoutProps } from "./ContentLayoutProps";
 
 /** Properties for content displayed in a content view
  * @public
@@ -36,7 +36,7 @@ export interface ContentProps {
    */
   applicationData?: any;
   /** Content to be displayed in the content view.
-   * @beta
+   * @public
    */
   content?: React.ReactNode;
 }
