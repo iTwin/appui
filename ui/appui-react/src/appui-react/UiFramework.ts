@@ -7,7 +7,7 @@
  */
 
 import type { Store } from "redux";
-import { Logger, ProcessDetector } from "@itwin/core-bentley";
+import { BeUiEvent, Logger, ProcessDetector } from "@itwin/core-bentley";
 import type { TranslationOptions } from "@itwin/core-common";
 import type { IModelConnection, ViewState } from "@itwin/core-frontend";
 import { SnapMode } from "@itwin/core-frontend";
@@ -231,6 +231,11 @@ export class UiFramework {
   private static _childWindowManager = new InternalChildWindowManager();
   public static useDefaultPopoutUrl = false;
   private static readonly CONTEXT_MENU_OFFSET = -8;
+
+  /** Event raised within UiFramework.setIModelConnection */
+  public static readonly onIModelConnectionChanged = new BeUiEvent<
+    IModelConnection | undefined
+  >();
 
   /** Registers class that will be informed when the UserSettingsStorage location has been set or changed. This allows
    * classes to load any previously saved settings from the new storage location. Common storage locations are the browser's
@@ -550,6 +555,7 @@ export class UiFramework {
     UiFramework.setNumItemsSelected(itemsSelected);
     // eslint-disable-next-line deprecation/deprecation
     UiFramework.setActiveIModelId(iModelConnection?.iModelId ?? "");
+    UiFramework.onIModelConnectionChanged.emit(iModelConnection);
   }
 
   public static getIModelConnection(): IModelConnection | undefined {
