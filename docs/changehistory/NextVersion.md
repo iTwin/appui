@@ -16,7 +16,7 @@ Table of contents:
 
 ### Additions
 
-- Added `UiFramework.onIModelConnectionChanged` event to get notified whenever the imodel targeted by `getIModelConnection` changes. This is a replacement for listening to the deprecated `SessionStateActionId.SetIModelConnection`.
+- Added `UiFramework.onIModelConnectionChanged` event to get notified whenever the iModel targeted by `UiFramework.getIModelConnection()` changes. This is a replacement for listening to the deprecated `SessionStateActionId.SetIModelConnection`.
 
 ## @itwin/components-react
 
