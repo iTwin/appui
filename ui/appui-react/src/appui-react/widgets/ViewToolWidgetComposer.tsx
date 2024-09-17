@@ -16,6 +16,7 @@ import { ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
 /**
  * Props for [[ViewToolWidgetComposer]].
  * @public
+ * @deprecated in 4.17.0. Use `React.ComponentProps<typeof ViewToolWidgetComposer>`
  */
 export interface ViewToolWidgetComposerProps {
   /** If true no navigation aid will be shown. Defaults to `false`. */
@@ -37,6 +38,7 @@ export interface ViewToolWidgetComposerProps {
  * ```
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export function ViewToolWidgetComposer(props: ViewToolWidgetComposerProps) {
   const uiIsVisible = useUiVisibility();
   const className = classnames(!uiIsVisible && "nz-hidden");

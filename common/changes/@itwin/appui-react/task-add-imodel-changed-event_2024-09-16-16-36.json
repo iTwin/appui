@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Added `UiFramework.onIModelConnectionChanged` event to get notified whenever the iModel connection returned by `UiFramework.getIModelConnection()` is changed.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}

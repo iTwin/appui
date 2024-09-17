@@ -16,7 +16,7 @@ import { createFrontstage, createWidget } from "../Utils";
 function createProvider(): UiItemsProvider {
   return {
     id: "widgets",
-    provideWidgets: () => {
+    getWidgets: () => {
       return [
         createWidget(1, {
           content: (

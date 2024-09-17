@@ -5,16 +5,24 @@
 import * as React from "react";
 import { ContentOverlay, UiFramework } from "@itwin/appui-react";
 import { ViewportComponent } from "@itwin/imodel-components-react";
+import { ViewState } from "@itwin/core-frontend";
 
 interface ViewportWidgetProps {
   active: boolean;
   onActivate?: () => void;
+  viewState?: ViewState;
 }
 
-export function ViewportWidget({ active, onActivate }: ViewportWidgetProps) {
-  const [viewState] = React.useState(() => {
+export function ViewportWidget({
+  active,
+  onActivate,
+  viewState,
+}: ViewportWidgetProps) {
+  const [defaultViewState] = React.useState(() => {
     return UiFramework.getDefaultViewState();
   });
+  viewState = viewState ?? defaultViewState;
+
   if (!viewState) return null;
   return (
     <ContentOverlay

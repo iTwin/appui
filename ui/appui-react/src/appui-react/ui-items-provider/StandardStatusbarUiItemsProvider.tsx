@@ -37,8 +37,8 @@ export interface DefaultStatusbarItems {
   selectionInfo?: boolean;
 }
 
-/** Provide standard status bar fields.
- * @beta
+/** Provides standard status bar items.
+ * @public
  */
 export class StandardStatusbarUiItemsProvider implements UiItemsProvider {
   public get id(): string {
@@ -48,11 +48,16 @@ export class StandardStatusbarUiItemsProvider implements UiItemsProvider {
   /** Creates a provider. If the `defaultItems` argument is not set, all default fields are added. Otherwise, only the fields that are set to `true` are added. */
   constructor(private _defaultItems?: DefaultStatusbarItems) {}
 
+  /** @deprecated in 4.17.0. Property of a deprecated interface {@link UiItemsProvider.provideStatusBarItems}. */
   public provideStatusBarItems(
     _stageId: string,
     _stageUsage: string,
     _stageAppData?: any
   ): StatusBarItem[] {
+    return this.getStatusBarItems() as StatusBarItem[];
+  }
+
+  public getStatusBarItems(): readonly StatusBarItem[] {
     const statusBarItems: StatusBarItem[] = [];
     if (!this._defaultItems || this._defaultItems.messageCenter) {
       statusBarItems.push(

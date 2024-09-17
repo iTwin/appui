@@ -5,34 +5,29 @@
 import {
   CanFloatWidgetOptions,
   UiItemsProvider,
-  Widget,
   WidgetState,
 } from "@itwin/appui-react";
 import { AppUiStory } from "../AppUiStory";
+import { createWidget } from "../Utils";
 
 function createProvider(props: CanFloatWidgetOptions): UiItemsProvider {
   return {
     id: "widgets",
-    provideWidgets: () => {
-      const widget1: Widget = {
-        id: "w1",
-        label: "Widget 1",
-        content: <>Widget 1 content</>,
-        defaultState: WidgetState.Floating,
-        canFloat: props,
-      };
-      const widget2: Widget = {
-        id: "w2",
-        label: "Widget 2",
-        content: <>Widget 2 content </>,
-        defaultState: props.containerId ? WidgetState.Floating : undefined,
-        canFloat: props.containerId
-          ? {
-              containerId: props.containerId,
-            }
-          : undefined,
-      };
-      return [widget1, widget2];
+    getWidgets: () => {
+      return [
+        createWidget(1, {
+          defaultState: WidgetState.Floating,
+          canFloat: props,
+        }),
+        createWidget(2, {
+          defaultState: props.containerId ? WidgetState.Floating : undefined,
+          canFloat: props.containerId
+            ? {
+                containerId: props.containerId,
+              }
+            : undefined,
+        }),
+      ];
     },
   };
 }

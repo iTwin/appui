@@ -6,9 +6,8 @@
  * @module Tools
  */
 
-import { IModelApp, Tool } from "@itwin/core-frontend";
+import { Tool } from "@itwin/core-frontend";
 import { AbstractDialogDataProvider } from "../ui/dialogs/TestUiProviderDialog";
-import { ToolbarItemUtilities } from "@itwin/appui-abstract";
 import { AppUiTestProviders } from "../AppUiTestProviders";
 import { UiFramework } from "@itwin/appui-react";
 
@@ -55,25 +54,5 @@ export class OpenAbstractDialogTool extends Tool {
 
   public static override get englishKeyin(): string {
     return "open abstract dialog";
-  }
-
-  public static getActionButtonDef(
-    itemPriority: number,
-    groupPriority?: number
-  ) {
-    const overrides = {
-      groupPriority,
-    };
-
-    return ToolbarItemUtilities.createActionButton(
-      OpenAbstractDialogTool.toolId,
-      itemPriority,
-      OpenAbstractDialogTool.iconSpec,
-      OpenAbstractDialogTool.flyover,
-      async () => {
-        await IModelApp.tools.run(OpenAbstractDialogTool.toolId);
-      },
-      overrides
-    );
   }
 }

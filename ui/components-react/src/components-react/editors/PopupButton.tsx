@@ -193,6 +193,7 @@ export function PopupContent(props: CommonDivProps) {
 
 /** Properties for [[PopupOkCancelButtons]] component
  * @alpha
+ * @deprecated in 4.17.0. Use `React.ComponentProps<typeof PopupOkCancelButtons>`
  */
 export interface OkCancelProps {
   onOk: (event: React.MouseEvent) => void;
@@ -202,6 +203,7 @@ export interface OkCancelProps {
 /** OK/Cancel Buttons
  * @alpha
  */
+// eslint-disable-next-line deprecation/deprecation
 export function PopupOkCancelButtons(props: OkCancelProps) {
   const { translate } = useTranslation();
   return (

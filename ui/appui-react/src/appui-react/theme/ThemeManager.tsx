@@ -38,16 +38,15 @@ interface ThemeManagerProps {
   theme?: ThemeId;
 }
 
-/** ThemeManager handles setting color themes and element opacity management. Note that this component will
- * affect the entire application by setting the data-theme attribute to the html element.
- * It also sets an iTwinUI `ThemeProvider` element locally, so all elements
- * within the AppUI tree will have the same theme, and should be using iTwinUI 2.x or later.
- * A `ColorTheme` enum values will configure iTwinUI `ThemeProvider` accordingly.
- * Any other string will only apply the `data-theme` attribute to the `html` element
+/** `ThemeManager` handles setting color themes. Note that this component will
+ * affect the entire application by setting the internal `data-theme` attribute.
+ * Component children are wrapped with `v2` and `v3` iTwinUI `ThemeProvider` components, so all nodes within the tree will have the same theme, and should be using iTwinUI 2.x or later.
+ * Specified `ThemeId` will be mapped to iTwinUI `theme` accordingly.
+ * Any other string will only apply the `data-theme` attribute to the underlying `html` element
  * and `ThemeProvider` theme will be set to `inherit`, in this case the application is
- * responsible for setting the theme by overriding iTwinUI css variables.
+ * responsible for setting the theme, i.e. by using iTwinUI css variables.
  *
- * This React component should wrap {@link ConfigurableUiContent}.
+ * This component should wrap {@link ConfigurableUiContent}.
  *
  * ```tsx
  * <ThemeManager>

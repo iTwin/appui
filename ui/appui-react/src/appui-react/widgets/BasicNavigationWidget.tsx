@@ -17,6 +17,7 @@ import { ToolbarItems } from "../tools/ToolbarItems";
 
 /** Properties that can be used to append items to the default set of toolbar items.
  * @public
+ * @deprecated in 4.17.0. Use `React.ComponentProps<typeof BasicNavigationWidget>`
  */
 export interface BasicNavigationWidgetProps {
   /** optional set of additional items to include in horizontal toolbar */
@@ -29,6 +30,7 @@ export interface BasicNavigationWidgetProps {
  * Supports the specification of additional horizontal and vertical toolbar items through props.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export function BasicNavigationWidget(props: BasicNavigationWidgetProps) {
   const getHorizontalToolbarItems = React.useCallback((): ToolbarItem[] => {
     const items: ToolbarItem[] = [

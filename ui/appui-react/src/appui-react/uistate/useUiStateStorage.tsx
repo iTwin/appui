@@ -28,6 +28,7 @@ UiStateStorageContext.displayName = "uifw:UiStateStorageContext";
 
 /** Properties for the [[UiStateStorageHandler]] component.
  * @public
+ * @deprecated in 4.17.0. Use `React.ComponentProps<typeof UiStateStorageHandler>`
  */
 export interface UiSettingsProviderProps {
   children?: React.ReactNode;
@@ -45,6 +46,7 @@ export interface UiSettingsProviderProps {
  * ```
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export function UiStateStorageHandler(props: UiSettingsProviderProps) {
   const [stateStorage, setStateStorage] = React.useState(
     UiFramework.getUiStateStorage()
