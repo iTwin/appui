@@ -8,7 +8,6 @@
 
 import type * as React from "react";
 import type { ScreenViewport } from "@itwin/core-frontend";
-import type { ContentLayoutProps } from "@itwin/appui-abstract";
 import { UiError } from "@itwin/appui-abstract";
 import type { ConfigurableUiControlConstructor } from "../configurableui/ConfigurableUiControl";
 import {
@@ -19,6 +18,11 @@ import { UiFramework } from "../UiFramework";
 import type { ContentControl } from "./ContentControl";
 import type { FrontstageConfig } from "../frontstage/FrontstageConfig";
 import { InternalConfigurableUiManager } from "../configurableui/InternalConfigurableUiManager";
+<<<<<<< HEAD
+=======
+import type { Frontstage } from "../frontstage/Frontstage";
+import type { ContentLayoutProps } from "./ContentLayoutProps";
+>>>>>>> 79f71b01f (Move /content apis from appui-abstract into appui-react (#1033))
 
 /** Properties for content displayed in a content view
  * @public

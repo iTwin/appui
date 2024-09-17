@@ -4,12 +4,16 @@
  *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
+<<<<<<< HEAD
 import * as sinon from "sinon";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import type { ContentLayoutProps } from "@itwin/appui-abstract";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
+=======
+>>>>>>> 79f71b01f (Move /content apis from appui-abstract into appui-react (#1033))
 import type {
   ConfigurableCreateInfo,
+  ContentLayoutProps,
   FrontstageConfig,
 } from "../../appui-react";
 import {
@@ -27,6 +31,7 @@ import TestUtils, {
   userEvent,
 } from "../TestUtils";
 import { render, screen, waitFor } from "@testing-library/react";
+import { StandardContentLayouts } from "../../appui-react/content/StandardContentLayouts";
 
 describe("ContentLayout", () => {
   class TestContentControl extends ContentControl {

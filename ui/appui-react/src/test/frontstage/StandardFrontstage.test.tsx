@@ -4,15 +4,19 @@
  *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
+<<<<<<< HEAD
 import * as sinon from "sinon";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
+=======
+>>>>>>> 79f71b01f (Move /content apis from appui-abstract into appui-react (#1033))
 import type { ContentGroupProps, ContentProps } from "../../appui-react";
 import {
   BackstageAppButton,
   ContentGroup,
   ContentGroupProvider,
   StageUsage,
+  StandardContentLayouts,
   UiFramework,
 } from "../../appui-react";
 import TestUtils from "../TestUtils";

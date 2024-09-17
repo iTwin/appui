@@ -4,10 +4,13 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 // __PUBLISH_EXTRACT_START__ AppUI.StandardFrontstageProvider.Imports
-import { StandardContentLayouts } from "@itwin/appui-abstract";
 import {
   StageUsage,
+<<<<<<< HEAD:test-apps/appui-test-app/appui-test-providers/src/ui/frontstages/registerStandardFrontstage.tsx
   StandardFrontstageProvider,
+=======
+  StandardContentLayouts,
+>>>>>>> 79f71b01f (Move /content apis from appui-abstract into appui-react (#1033)):apps/test-providers/src/ui/frontstages/registerStandardFrontstage.tsx
   UiFramework,
 } from "@itwin/appui-react";
 // __PUBLISH_EXTRACT_END__

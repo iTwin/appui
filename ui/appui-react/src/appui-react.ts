@@ -35,9 +35,15 @@ export * from "./appui-react/configurableui/state";
 export * from "./appui-react/content/ContentControl";
 export * from "./appui-react/content/ContentGroup";
 export * from "./appui-react/content/ContentLayout";
+<<<<<<< HEAD
+=======
+export * from "./appui-react/content/ContentLayoutProps";
+export * from "./appui-react/content/ContentOverlay";
+>>>>>>> 79f71b01f (Move /content apis from appui-abstract into appui-react (#1033))
 export * from "./appui-react/content/FloatingViewportContent";
 export * from "./appui-react/content/ViewStateHelper";
 export * from "./appui-react/content/StageContentLayout";
+export * from "./appui-react/content/StandardContentLayouts";
 export * from "./appui-react/content/ViewportContentControl";
 export * from "./appui-react/content/IModelViewport";
 export * from "./appui-react/content/DefaultViewOverlay";

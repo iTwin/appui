@@ -12,12 +12,12 @@ import {
   ContentGroup,
   ContentLayout,
   ContentLayoutDef,
+  StandardContentLayouts,
   UiFramework,
 } from "../../appui-react";
 import { TestFrontstage } from "../frontstage/FrontstageTestUtils";
 import TestUtils, { storageMock } from "../TestUtils";
 import { LocalStateStorage } from "@itwin/core-react";
-import { StandardContentLayouts } from "@itwin/appui-abstract";
 import {
   INACTIVITY_TIME_DEFAULT,
   InternalUiShowHideManager,

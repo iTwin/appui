@@ -28,10 +28,15 @@ import type { CommonDivProps } from '@itwin/core-react';
 import type { CommonProps } from '@itwin/core-react';
 import type { CommonToolbarItem as CommonToolbarItem_2 } from '@itwin/appui-abstract';
 import { CompassMode } from '@itwin/core-frontend';
+<<<<<<< HEAD
 import { ConditionalBooleanValue } from '@itwin/appui-abstract';
 import { ConditionalStringValue } from '@itwin/appui-abstract';
 import { ConnectedComponent } from 'react-redux';
 import type { ContentLayoutProps } from '@itwin/appui-abstract';
+=======
+import { ConditionalBooleanValue as ConditionalBooleanValue_2 } from '@itwin/appui-abstract';
+import { ConditionalStringValue as ConditionalStringValue_2 } from '@itwin/appui-abstract';
+>>>>>>> 79f71b01f (Move /content apis from appui-abstract into appui-react (#1033))
 import type { CustomButtonDefinition } from '@itwin/appui-abstract';
 import type { DialogItem } from '@itwin/appui-abstract';
 import type { DialogLayoutDataProvider } from '@itwin/appui-abstract';
@@ -51,8 +56,12 @@ import { InferableComponentEnhancerWithProps } from 'react-redux';
 import type { InteractiveTool } from '@itwin/core-frontend';
 import { ItemField } from '@itwin/core-frontend';
 import type { Key } from 'ts-key-enum';
+<<<<<<< HEAD
 import type { LayoutFragmentProps } from '@itwin/appui-abstract';
 import type { Localization } from '@itwin/core-common';
+=======
+import { LocalStateStorage as LocalStateStorage_2 } from '@itwin/core-react';
+>>>>>>> 79f71b01f (Move /content apis from appui-abstract into appui-react (#1033))
 import type { MarkRequired } from '@itwin/core-bentley';
 import { MessageBoxIconType } from '@itwin/core-frontend';
 import { MessageBoxType } from '@itwin/core-frontend';
@@ -1167,6 +1176,18 @@ export class ContentLayoutDef {
     toJSON(): ContentLayoutProps;
 }
 
+<<<<<<< HEAD
+=======
+// @public
+export interface ContentLayoutProps extends LayoutFragmentProps {
+    description?: string;
+    id: string;
+}
+
+// @beta
+export function ContentOverlay({ className, children, active, ...other }: ContentOverlayProps): React_2.JSX.Element;
+
+>>>>>>> 79f71b01f (Move /content apis from appui-abstract into appui-react (#1033))
 // @public
 export interface ContentProps {
     applicationData?: any;
@@ -2852,6 +2873,35 @@ export interface KeyinPalettePopupProps {
     onItemExecuted?: OnItemExecutedFunc;
 }
 
+// @public
+export interface LayoutFragmentProps {
+    horizontalSplit?: LayoutHorizontalSplitProps;
+    verticalSplit?: LayoutVerticalSplitProps;
+}
+
+// @public
+export interface LayoutHorizontalSplitProps extends LayoutSplitPropsBase {
+    bottom: LayoutFragmentProps | number;
+    minSizeBottom?: number;
+    minSizeTop?: number;
+    top: LayoutFragmentProps | number;
+}
+
+// @public
+export interface LayoutSplitPropsBase {
+    id: string;
+    lock?: boolean;
+    percentage: number;
+}
+
+// @public
+export interface LayoutVerticalSplitProps extends LayoutSplitPropsBase {
+    left: LayoutFragmentProps | number;
+    minSizeLeft?: number;
+    minSizeRight?: number;
+    right: LayoutFragmentProps | number;
+}
+
 // @beta
 export interface ListItem {
     // (undocumented)
@@ -4081,6 +4131,31 @@ export enum StageUsage {
 }
 
 // @public
+<<<<<<< HEAD
+=======
+export class StandardContentLayouts {
+    // (undocumented)
+    static readonly availableLayouts: ContentLayoutProps[];
+    // (undocumented)
+    static readonly fourQuadrants: ContentLayoutProps;
+    // (undocumented)
+    static readonly singleView: ContentLayoutProps;
+    // (undocumented)
+    static readonly threeViewsTwoOnBottom: ContentLayoutProps;
+    // (undocumented)
+    static readonly threeViewsTwoOnLeft: ContentLayoutProps;
+    // (undocumented)
+    static readonly threeViewsTwoOnRight: ContentLayoutProps;
+    // (undocumented)
+    static readonly threeViewsTwoOnTop: ContentLayoutProps;
+    // (undocumented)
+    static readonly twoHorizontalSplit: ContentLayoutProps;
+    // (undocumented)
+    static readonly twoVerticalSplit: ContentLayoutProps;
+}
+
+// @public @deprecated
+>>>>>>> 79f71b01f (Move /content apis from appui-abstract into appui-react (#1033))
 export class StandardContentToolsProvider extends BaseUiItemsProvider {
     constructor(providerId: string, defaultContentTools?: DefaultContentTools | undefined, isSupportedStage?: (stageId: string, stageUsage: string, stageAppData?: any) => boolean);
     // (undocumented)

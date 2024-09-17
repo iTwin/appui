@@ -6,11 +6,11 @@
  * @module ContentView
  */
 
-import type { ContentLayoutProps } from "@itwin/appui-abstract";
 import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager";
 import { UiFramework } from "../UiFramework";
 import type { ContentGroup, ContentGroupProps } from "./ContentGroup";
 import { ContentLayoutDef } from "./ContentLayout";
+import type { ContentLayoutProps } from "./ContentLayoutProps";
 
 /** ContentLayout Manager class.
  * @internal

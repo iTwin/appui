@@ -6,13 +6,18 @@
  * @module ContentView
  */
 
-import type { ContentLayoutProps } from "@itwin/appui-abstract";
 import { UiEvent } from "@itwin/appui-abstract";
 import type { ContentControl } from "../content/ContentControl";
 import type { ContentGroup, ContentGroupProps } from "../content/ContentGroup";
 import type { ContentLayoutDef } from "../content/ContentLayout";
 import { DialogChangedEvent } from "../dialog/DialogManagerBase";
 import type { FrameworkStackedDialog } from "./FrameworkDialogs";
+<<<<<<< HEAD
+=======
+import type { UiItemsProvider } from "../ui-items-provider/UiItemsProvider";
+import type { UiFramework } from "../UiFramework";
+import type { ContentLayoutProps } from "../content/ContentLayoutProps";
+>>>>>>> 79f71b01f (Move /content apis from appui-abstract into appui-react (#1033))
 
 /** [[MouseDownChangedEvent]] Args interface.
  * @public

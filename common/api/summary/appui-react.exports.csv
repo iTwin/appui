@@ -122,6 +122,11 @@ public;ContentLayoutActivatedEvent
 public;ContentLayoutActivatedEventArgs
 public;ContentLayoutComponentProps 
 public;ContentLayoutDef
+<<<<<<< HEAD
+=======
+public;ContentLayoutProps 
+beta;ContentOverlay({ className, children, active, ...other }: ContentOverlayProps): React_2.JSX.Element
+>>>>>>> 79f71b01f (Move /content apis from appui-abstract into appui-react (#1033))
 public;ContentProps
 public;ContentToolWidgetComposer(props: ContentToolWidgetComposerProps): React_2.JSX.Element
 public;ContentToolWidgetComposerProps
@@ -280,6 +285,10 @@ public;KeyinFieldLocalization
 internal;KeyinPalettePanel({ keyins, onKeyinExecuted, historyLength: allowedHistoryLength, }: KeyinPalettePanelProps): React_2.JSX.Element
 public;KeyinPalettePopup({ el, id, keyins, onCancel, onItemExecuted, }: KeyinPalettePopupProps): React_2.JSX.Element
 public;KeyinPalettePopupProps
+public;LayoutFragmentProps
+public;LayoutHorizontalSplitProps 
+public;LayoutSplitPropsBase
+public;LayoutVerticalSplitProps 
 beta;ListItem
 beta;ListItemType
 beta;ListPicker 
@@ -416,6 +425,7 @@ internal;StagePanelSectionDef
 public;StagePanelSectionsConfig
 public;StagePanelState
 public;StageUsage
+public;StandardContentLayouts
 public;StandardContentToolsProvider 
 beta;StandardContentToolsUiItemsProvider 
 public;StandardFrontstageProps

@@ -2,8 +2,11 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+<<<<<<< HEAD
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 import { expect } from "chai";
+=======
+>>>>>>> 79f71b01f (Move /content apis from appui-abstract into appui-react (#1033))
 import * as React from "react";
 import * as sinon from "sinon";
 import type { FrontstageConfig } from "../../appui-react";
@@ -12,6 +15,7 @@ import {
   FrontstageDef,
   FrontstageProvider,
   NestedFrontstage,
+  StandardContentLayouts,
   ToolItemDef,
   UiFramework,
 } from "../../appui-react";

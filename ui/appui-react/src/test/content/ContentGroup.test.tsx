@@ -13,10 +13,14 @@ import {
   ContentControl,
   ContentGroup,
   NavigationAidControl,
+  StandardContentLayouts,
   UiFramework,
 } from "../../appui-react";
+<<<<<<< HEAD
 import TestUtils from "../TestUtils";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
+=======
+>>>>>>> 79f71b01f (Move /content apis from appui-abstract into appui-react (#1033))
 
 describe("ContentGroup", () => {
   class TestContentControl extends ContentControl {
