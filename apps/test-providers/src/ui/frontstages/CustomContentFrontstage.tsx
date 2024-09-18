@@ -57,6 +57,7 @@ export function createCustomContentFrontstage(): Frontstage {
         {
           id: "sample-content",
           classId: SampleContentControl,
+          renderActiveStrip: false,
         },
       ],
     },
