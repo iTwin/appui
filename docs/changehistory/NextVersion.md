@@ -113,7 +113,7 @@ Table of contents:
 ### Additions
 
 - Added `ConditionalBooleanValue` and `ConditionalStringValue` class re-exports from `@itwin/appui-abstract` package. [#1031](https://github.com/iTwin/appui/pull/1031)
-- Added a generic `ConditionalValue<T>` interface to track the conditional value of any type. This interface can be used as a replacement for existing `ConditionalBooleanValue` and `ConditionalStringValue` classes.
+- Added a generic `ConditionalValue<T>` interface to track the conditional value of any type. This interface can be used as a replacement for existing `ConditionalBooleanValue` and `ConditionalStringValue` classes. [#1036](https://github.com/iTwin/appui/pull/1036)
 
 ```tsx
 // Before
@@ -154,7 +154,7 @@ function Component({ isSelected }: Props) {
 }
 ```
 
-- Added `renderActiveStrip` property to `ContentProps` interface to control rendering of the active strip.
+- Added `renderActiveStrip` property to `ContentProps` interface to control rendering of the active strip. [#1036](https://github.com/iTwin/appui/pull/1036)
 
 ```tsx
 const content: ContentProps = {
@@ -190,7 +190,7 @@ const content: ContentProps = {
 - Bump `StandardContentToolsUiItemsProvider`, `StandardStatusbarUiItemsProvider` classes to `@public`. [#1024](https://github.com/iTwin/appui/pull/1024)
 - Bump `content` property of `ContentProps` interface to `@public`. [#1030](https://github.com/iTwin/appui/pull/1030)
 - Content layout will now track `ContentOverlay` components to determine if the active strip should be rendered for the active content. [#1030](https://github.com/iTwin/appui/pull/1030)
-- Bump `useConditionalValue` hook to `@public`.
+- Bump `useConditionalValue` hook to `@public`. [#1036](https://github.com/iTwin/appui/pull/1036)
 
 ## @itwin/components-react
 
