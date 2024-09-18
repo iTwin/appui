@@ -19,6 +19,7 @@ import type { ContentControl } from "./ContentControl";
 import { InternalConfigurableUiManager } from "../configurableui/InternalConfigurableUiManager";
 import type { Frontstage } from "../frontstage/Frontstage";
 import type { ContentLayoutProps } from "./ContentLayoutProps";
+import type { ConditionalValue } from "../shared/ConditionalValue";
 
 /** Properties for content displayed in a content view
  * @public
@@ -35,10 +36,13 @@ export interface ContentProps {
    * @deprecated in 4.16.0. Use {@link ContentProps.content} instead.
    */
   applicationData?: any;
-  /** Content to be displayed in the content view.
-   * @public
-   */
+  /** Content to be displayed in the content view. */
   content?: React.ReactNode;
+  /** Describes if the content should display the active strip.
+   * If `undefined` the strip will be displayed only if this content is active and multiple contents are available.
+   * Floating content controls (deprecated API) and `ContentOverlay` components are considered as content nodes.
+   */
+  renderActiveStrip?: boolean | ConditionalValue<boolean | undefined>;
 }
 
 /** Properties for a [[ContentGroup]]

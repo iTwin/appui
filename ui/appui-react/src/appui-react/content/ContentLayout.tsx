@@ -26,18 +26,20 @@ import type {
 import { useActiveFrontstageDef } from "../frontstage/FrontstageDef";
 import { UiFramework } from "../UiFramework";
 import { ContentOverlay, useContentOverlayStore } from "./ContentOverlay";
+import { useConditionalValue } from "../hooks/useConditionalValue";
 
 /** Properties for [[ContentWrapper]] */
 // eslint-disable-next-line deprecation/deprecation
 interface ContentWrapperProps extends CommonProps {
   content: React.ReactNode;
+  contentIndex: number | undefined;
 }
 
 /** ContentWrapper React component.
  * @internal
  */
 export function ContentWrapper(props: ContentWrapperProps) {
-  const { content } = props;
+  const { content, contentIndex } = props;
   const activeFrontstageDef = useActiveFrontstageDef();
   const [isActive, setIsActive] = React.useState(() => {
     // eslint-disable-next-line deprecation/deprecation
@@ -116,8 +118,13 @@ export function ContentWrapper(props: ContentWrapperProps) {
     );
   }, [activeFrontstageDef]);
 
+  const renderActiveStrip = useRenderActiveStrip(contentIndex);
   const contentOverlays = useContentOverlayStore();
-  const active = isActive && (hasMultipleContents || contentOverlays > 1);
+
+  const active =
+    renderActiveStrip !== undefined
+      ? renderActiveStrip
+      : isActive && (hasMultipleContents || contentOverlays > 1);
   return (
     <ContentOverlay
       className={classnames("uifw-contentlayout-wrapper", props.className)}
@@ -130,6 +137,26 @@ export function ContentWrapper(props: ContentWrapperProps) {
       {content}
     </ContentOverlay>
   );
+}
+
+function useRenderActiveStrip(contentIndex: number | undefined) {
+  const contentGroup = React.useContext(ContentLayoutContext);
+  const contentProps =
+    contentIndex === undefined
+      ? undefined
+      : contentGroup?.contentPropsList[contentIndex];
+  const renderActiveStrip = contentProps?.renderActiveStrip;
+  const getValue = React.useCallback(() => {
+    if (renderActiveStrip === undefined) return undefined;
+    if (typeof renderActiveStrip === "boolean") return renderActiveStrip;
+    return renderActiveStrip.getValue();
+  }, [renderActiveStrip]);
+  const eventIds = React.useMemo(() => {
+    if (renderActiveStrip === undefined) return [];
+    if (typeof renderActiveStrip === "boolean") return [];
+    return renderActiveStrip.eventIds;
+  }, [renderActiveStrip]);
+  return useConditionalValue(getValue, eventIds);
 }
 
 /** Properties for the [[SplitContainer]] component */
@@ -210,8 +237,10 @@ class SplitContainer extends React.Component<SplitContainerProps> {
 
 /** Properties for [[SingleContentContainer]] component
  */
-// eslint-disable-next-line deprecation/deprecation
-interface SingleContentProps extends CommonProps {
+interface SingleContentProps
+  // eslint-disable-next-line deprecation/deprecation
+  extends CommonProps,
+    Pick<ContentWrapperProps, "contentIndex"> {
   content: React.ReactNode;
 }
 
@@ -231,6 +260,7 @@ class SingleContentContainer extends React.Component<SingleContentProps> {
         <ContentWrapper
           content={this.props.content}
           style={{ height: "100%", position: "relative" }}
+          contentIndex={this.props.contentIndex}
         />
       </div>
     );
@@ -311,12 +341,18 @@ class HorizontalSplit extends BaseSplit implements LayoutSplit {
     if (this.isLocked) resizable = false;
 
     const topContent = !this._topSplit ? (
-      <ContentWrapper content={contentNodes[this._topIndex]} />
+      <ContentWrapper
+        content={contentNodes[this._topIndex]}
+        contentIndex={this._topIndex}
+      />
     ) : (
       this._topSplit.createContentContainer(contentNodes, resizable)
     );
     const bottomContent = !this._bottomSplit ? (
-      <ContentWrapper content={contentNodes[this._bottomIndex]} />
+      <ContentWrapper
+        content={contentNodes[this._bottomIndex]}
+        contentIndex={this._bottomIndex}
+      />
     ) : (
       this._bottomSplit.createContentContainer(contentNodes, resizable)
     );
@@ -383,12 +419,18 @@ class VerticalSplit extends BaseSplit implements LayoutSplit {
     if (this.isLocked) resizable = false;
 
     const leftContent = !this._leftSplit ? (
-      <ContentWrapper content={contentNodes[this._leftIndex]} />
+      <ContentWrapper
+        content={contentNodes[this._leftIndex]}
+        contentIndex={this._leftIndex}
+      />
     ) : (
       this._leftSplit.createContentContainer(contentNodes, resizable)
     );
     const rightContent = !this._rightSplit ? (
-      <ContentWrapper content={contentNodes[this._rightIndex]} />
+      <ContentWrapper
+        content={contentNodes[this._rightIndex]}
+        contentIndex={this._rightIndex}
+      />
     ) : (
       this._rightSplit.createContentContainer(contentNodes, resizable)
     );
@@ -455,7 +497,9 @@ export class ContentLayoutDef {
     }
 
     if (contentNodes.length > 0)
-      return <SingleContentContainer content={contentNodes[0]} />;
+      return (
+        <SingleContentContainer content={contentNodes[0]} contentIndex={0} />
+      );
 
     return undefined;
   }
@@ -591,6 +635,9 @@ export function ContentLayout(props: ContentLayoutComponentProps) {
   const [contentGroupId, setContentGroupId] = React.useState<
     ContentGroup["id"]
   >(props.contentGroup.groupId);
+  const [contentGroup, setContentGroup] = React.useState<ContentGroup>(
+    props.contentGroup
+  );
   const [contentNodes, setContentNodes] = React.useState<React.ReactNode[]>(
     () => {
       // eslint-disable-next-line deprecation/deprecation
@@ -603,6 +650,7 @@ export function ContentLayout(props: ContentLayoutComponentProps) {
       (args) => {
         setContentLayoutDef(args.contentLayout);
         setContentGroupId(args.contentGroup.groupId);
+        setContentGroup(args.contentGroup);
         // eslint-disable-next-line deprecation/deprecation
         setContentNodes(args.contentGroup.getContentNodes());
       }
@@ -629,10 +677,17 @@ export function ContentLayout(props: ContentLayoutComponentProps) {
         }}
         role="presentation"
       >
-        {contentContainer}
+        <ContentLayoutContext.Provider value={contentGroup}>
+          {contentContainer}
+        </ContentLayoutContext.Provider>
       </div>
     );
   }
 
   return null;
 }
+
+const ContentLayoutContext = React.createContext<ContentGroup | undefined>(
+  undefined
+);
+ContentLayoutContext.displayName = "uifw:ContentLayoutContext";
