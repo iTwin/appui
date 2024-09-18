@@ -274,8 +274,7 @@ export interface FrameworkFrontstages {
    */
   clearFrontstageProviders(): void;
 
-  /** Clears the Frontstages.
-   */
+  /** Clears the Frontstages. */
   clearFrontstages(): void;
 
   /** Adds a frontstage provider.

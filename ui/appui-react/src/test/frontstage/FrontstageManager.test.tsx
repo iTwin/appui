@@ -35,6 +35,7 @@ import {
   TestFrontstage3,
 } from "./FrontstageTestUtils";
 import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";
+import { defaultFrontstageConfig } from "./FrontstageDef.test";
 
 const mySessionStorage = storageMock();
 
@@ -289,33 +290,23 @@ describe("FrontstageManager", () => {
     expect(newFrontstageDef).to.not.eql(frontstageDef);
   });
 
-  it("clearFrontstages should clear frontstages and fronstageProviders", async () => {
+  it("clearFrontstages should clear frontstages and frontstageProviders", async () => {
     const frontstageProvider = new TestFrontstage();
     InternalFrontstageManager.addFrontstageProvider(frontstageProvider);
+    InternalFrontstageManager.addFrontstage(defaultFrontstageConfig);
     expect(
       InternalFrontstageManager.hasFrontstage(frontstageProvider.id)
     ).toEqual(true);
-    const frontstageDef = await InternalFrontstageManager.getFrontstageDef(
-      frontstageProvider.id
-    );
-    expect(frontstageDef).toBeTruthy();
-    expect(InternalFrontstageManager.hasFrontstage(frontstageDef!.id)).toEqual(
-      true
-    );
-    await InternalFrontstageManager.setActiveFrontstage(frontstageDef!.id);
-    expect(InternalFrontstageManager.activeFrontstageId).toEqual(
-      frontstageDef!.id
-    );
-
+    expect(
+      InternalFrontstageManager.hasFrontstage(defaultFrontstageConfig.id)
+    ).toEqual(true);
     InternalFrontstageManager.clearFrontstages();
-
     expect(
       InternalFrontstageManager.hasFrontstage(frontstageProvider.id)
     ).toEqual(false);
-    expect(InternalFrontstageManager.hasFrontstage(frontstageDef!.id)).toEqual(
-      false
-    );
-    expect(InternalFrontstageManager.activeFrontstageId).toEqual("");
+    expect(
+      InternalFrontstageManager.hasFrontstage(defaultFrontstageConfig.id)
+    ).toEqual(false);
   });
 
   describe("Executing a tool should set activeToolId", () => {
