@@ -122,6 +122,7 @@ Table of contents:
 
 - Deprecated `floatingContentControls` getter of `FrontstageDef` class that used a deprecated `ContentControl` class. Use floating widgets instead. [#1030](https://github.com/iTwin/appui/pull/1030)
 - Deprecated `UiFramework.setIsUiVisible` and `UiFramework.getIsUiVisible`. Use `UiFramework.visibility.isUiVisible` instead. [#1023](https://github.com/iTwin/appui/pull/1023)
+- Deprecated `FrameworkFrontstages.clearFrontstageProviders`, use `FrameworkFrontstages.clearFrontstages` instead. [#1022](https://github.com/iTwin/appui/pull/1022)
 
 ### Additions
 
@@ -197,7 +198,8 @@ const content: ContentProps = {
 };
 ```
 
-- Added `StandardContentLayouts`, `ContentLayoutProps`, `LayoutFragmentProps`, `LayoutHorizontalSplitProps`, `LayoutSplitPropsBase`, and `LayoutVerticalSplitProps` interfaces from `@itwin/appui-abstract` package. [#1033]
+- Added `StandardContentLayouts`, `ContentLayoutProps`, `LayoutFragmentProps`, `LayoutHorizontalSplitProps`, `LayoutSplitPropsBase`, and `LayoutVerticalSplitProps` interfaces from `@itwin/appui-abstract` package. [#1033](https://github.com/iTwin/appui/pull/1033)
+- Added `UiFramework.onIModelConnectionChanged` event to get notified whenever the iModel targeted by `UiFramework.getIModelConnection()` changes. This is a replacement for listening to the deprecated `SessionStateActionId.SetIModelConnection`. [#1027](https://github.com/iTwin/appui/pull/1027)
 
 ### Changes
 
@@ -206,10 +208,6 @@ const content: ContentProps = {
 - Bump `content` property of `ContentProps` interface to `@public`. [#1030](https://github.com/iTwin/appui/pull/1030)
 - Content layout will now track `ContentOverlay` components to determine if the active strip should be rendered for the active content. [#1030](https://github.com/iTwin/appui/pull/1030)
 - Bump `useConditionalValue` hook to `@public`. [#1036](https://github.com/iTwin/appui/pull/1036)
-
-### Additions
-
-- Added `UiFramework.onIModelConnectionChanged` event to get notified whenever the iModel targeted by `UiFramework.getIModelConnection()` changes. This is a replacement for listening to the deprecated `SessionStateActionId.SetIModelConnection`.
 
 ## @itwin/components-react
 

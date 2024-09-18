@@ -299,6 +299,12 @@ export class InternalFrontstageManager {
     InternalFrontstageManager.clearFrontstageDefs();
   }
 
+  /** Clears the Frontstages, Frontstage Providers and the defs that may have been created from them. */
+  public static clearFrontstages(): void {
+    InternalFrontstageManager._frontstages.clear();
+    InternalFrontstageManager.clearFrontstageProviders();
+  }
+
   private static getFrontstageKey(frontstageId: string) {
     return frontstageId;
   }
