@@ -19,7 +19,6 @@ import {
   DialogPropertySyncItem,
   EnumerationChoice,
   PropertyDescription,
-  ToolbarItemUtilities,
 } from "@itwin/appui-abstract";
 import dynamicToolSvg from "./DynamicTool.svg";
 import { AppUiTestProviders } from "../AppUiTestProviders";
@@ -242,23 +241,5 @@ export class ToolWithDynamicSettings extends PrimitiveTool {
 
     // return true is change is valid
     return true;
-  }
-
-  public static getActionButtonDef(
-    itemPriority: number,
-    groupPriority?: number
-  ) {
-    const overrides = undefined !== groupPriority ? { groupPriority } : {};
-
-    return ToolbarItemUtilities.createActionButton(
-      ToolWithDynamicSettings.toolId,
-      itemPriority,
-      this.iconSpec,
-      ToolWithDynamicSettings.flyover,
-      async () => {
-        await IModelApp.tools.run(ToolWithDynamicSettings.toolId);
-      },
-      overrides
-    );
   }
 }

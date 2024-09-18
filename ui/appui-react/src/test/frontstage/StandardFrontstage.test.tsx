@@ -3,13 +3,13 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { StandardContentLayouts } from "@itwin/appui-abstract";
 import type { ContentGroupProps, ContentProps } from "../../appui-react";
 import {
   BackstageAppButton,
   ContentGroup,
   ContentGroupProvider,
   StageUsage,
+  StandardContentLayouts,
   UiFramework,
 } from "../../appui-react";
 import TestUtils from "../TestUtils";

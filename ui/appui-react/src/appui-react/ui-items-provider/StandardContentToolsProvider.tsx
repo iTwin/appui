@@ -17,6 +17,7 @@ import type {
   ToolbarUsage,
 } from "../toolbar/ToolbarItem";
 import type { StatusBarItem } from "../statusbar/StatusBarItem";
+import { UiItemsProvider } from "./UiItemsProvider";
 
 /**
  * Defines options that may be set in frontstage app data to control what group priorities
@@ -41,6 +42,7 @@ import type { StatusBarItem } from "../statusbar/StatusBarItem";
  *
  * ```
  * @public
+ * @deprecated in 4.17.0. Application data is not supported in frontstages. Instead configure the {@link UiItemsProvider} before registering for a specific frontstage.
  */
 export interface DefaultContentToolsAppData {
   defaultContentTools?: {
@@ -56,10 +58,11 @@ export interface DefaultContentToolsAppData {
   };
 }
 
-/**
- * Provide standard tools for the ContentManipulationWidgetComposer.
+/** Provide standard tools for the ContentManipulationWidgetComposer.
  * @public
+ * @deprecated in 4.17.0. Use {@link StandardContentToolsUiItemsProvider} instead. Supported frontstages can be specified when registering the provider.
  */
+// eslint-disable-next-line deprecation/deprecation
 export class StandardContentToolsProvider extends BaseUiItemsProvider {
   private uiItemsProvider: StandardContentToolsUiItemsProvider;
   /**
@@ -80,6 +83,7 @@ export class StandardContentToolsProvider extends BaseUiItemsProvider {
       stageAppData?: any
     ) => boolean
   ) {
+    // eslint-disable-next-line deprecation/deprecation
     const provider = new StandardContentToolsProvider(
       providerId,
       defaultContentTools,

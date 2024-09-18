@@ -34,6 +34,7 @@ import { useTranslation } from "../useTranslation";
 
 /** Properties of [[MiscFormatOptions]] component.
  * @alpha
+ * @deprecated in 4.17.0. Use `React.ComponentProps<typeof MiscFormatOptions>`
  */
 // eslint-disable-next-line deprecation/deprecation
 export interface MiscFormatOptionsProps extends CommonProps {
@@ -48,6 +49,7 @@ export interface MiscFormatOptionsProps extends CommonProps {
 /** Component use to set miscellaneous properties is a Formatted Quantity.
  * @alpha
  */
+// eslint-disable-next-line deprecation/deprecation
 export function MiscFormatOptions(props: MiscFormatOptionsProps) {
   const {
     formatProps,

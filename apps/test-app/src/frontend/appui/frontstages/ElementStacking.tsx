@@ -9,6 +9,7 @@ import {
   FrontstageUtilities,
   StagePanelLocation,
   StagePanelSection,
+  StandardContentLayouts,
   StatusBar,
   StatusBarDialog,
   StatusBarItemUtilities,
@@ -24,7 +25,6 @@ import {
   SvgLayers,
   SvgPlaceholder,
 } from "@itwin/itwinui-icons-react";
-import { StandardContentLayouts } from "@itwin/appui-abstract";
 import { ViewportContent } from "@itwin/appui-test-providers";
 import {
   Button,

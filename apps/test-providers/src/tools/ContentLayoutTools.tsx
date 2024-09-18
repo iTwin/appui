@@ -4,10 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 import * as React from "react";
-import {
-  ConditionalStringValue,
-  StandardContentLayouts,
-} from "@itwin/appui-abstract";
+import { ConditionalStringValue } from "@itwin/appui-abstract";
 import {
   ContentGroup,
   ContentGroupProps,
@@ -15,7 +12,9 @@ import {
   LocalStateStorage,
   StageContentLayout,
   StageContentLayoutProps,
+  StandardContentLayouts,
   SyncUiEventId,
+  ToolbarActionItem,
   ToolbarItemUtilities,
   UiFramework,
   useConditionalValue,
@@ -196,7 +195,9 @@ function SplitWindowIcon() {
 }
 
 export function createSplitSingleViewportToolbarItem(
-  getViewport: (content: ContentProps) => ScreenViewport | undefined
+  getViewport: (content: ContentProps) => ScreenViewport | undefined,
+  // eslint-disable-next-line deprecation/deprecation
+  overrides?: Omit<Partial<ToolbarActionItem>, "icon">
 ) {
   const id = "splitSingleViewportCommandDef";
   const label = new ConditionalStringValue(
@@ -230,6 +231,7 @@ export function createSplitSingleViewportToolbarItem(
         classId: "",
         content: (
           <ViewportContent
+            contentId="imodel-view-0"
             viewState={viewState1}
             imodel={viewport.view.iModel}
           />
@@ -243,6 +245,7 @@ export function createSplitSingleViewportToolbarItem(
         classId: "",
         content: (
           <ViewportContent
+            contentId="imodel-view-1"
             viewState={viewState2}
             imodel={viewport.view.iModel}
           />
@@ -265,12 +268,15 @@ export function createSplitSingleViewportToolbarItem(
       await UiFramework.content.layouts.setActiveContentGroup(newContentGroup);
     } else if (2 === contentGroup.contentPropsList.length) {
       const contentPropsArray: ContentProps[] = [];
+      const viewState = viewport.view.clone();
+      viewState.description = "imodel-view-0";
       contentPropsArray.push({
         id: "imodel-view-0",
         classId: "",
         content: (
           <ViewportContent
-            viewState={viewport.view.clone()}
+            contentId="imodel-view-0"
+            viewState={viewState}
             imodel={viewport.view.iModel}
             renderViewOverlay={() => undefined}
           />
@@ -297,5 +303,6 @@ export function createSplitSingleViewportToolbarItem(
     icon: <SplitWindowIcon />,
     label,
     execute,
+    ...overrides,
   });
 }

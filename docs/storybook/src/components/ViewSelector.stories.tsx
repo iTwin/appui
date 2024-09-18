@@ -3,10 +3,10 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import type { Decorator, Meta, StoryObj } from "@storybook/react";
-import { StandardContentLayouts } from "@itwin/appui-abstract";
 import {
   IModelConnectedViewSelector,
   IModelViewportControl,
+  StandardContentLayouts,
   UiFramework,
 } from "@itwin/appui-react";
 import { AppUiStory, Page } from "../AppUiStory";
