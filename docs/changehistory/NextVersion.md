@@ -113,6 +113,76 @@ Table of contents:
 ### Additions
 
 - Added `ConditionalBooleanValue` and `ConditionalStringValue` class re-exports from `@itwin/appui-abstract` package. [#1031](https://github.com/iTwin/appui/pull/1031)
+- Added a generic `ConditionalValue<T>` interface to track the conditional value of any type. This interface can be used as a replacement for existing `ConditionalBooleanValue` and `ConditionalStringValue` classes.
+
+```tsx
+// Before
+interface Item {
+  isSelected: ConditionalBooleanValue;
+}
+const item: Item = {
+  isSelected: new ConditionalBooleanValue(() => false, ["ev-1"]),
+};
+
+// After
+interface Item {
+  isSelected: ConditionalValue<boolean>;
+}
+const item: Item = {
+  isSelected: {
+    getValue: () => false,
+    eventIds: ["ev-1"],
+  },
+};
+```
+
+Additionally, any type can be used for the value.
+
+```tsx
+interface Props {
+  isSelected: ConditionalValue<"yes" | "no">;
+}
+
+// Usage from the component
+function Component({ isSelected }: Props) {
+  const selected = useConditionalValue(
+    isSelected.getValue,
+    isSelected.eventIds
+  ); // "yes" | "no"
+  if (selected === "yes") return <div>Selected</div>;
+  return <div>Not selected</div>;
+}
+```
+
+- Added `renderActiveStrip` property to `ContentProps` interface to control rendering of the active strip.
+
+```tsx
+const content: ContentProps = {
+  id: "test-content",
+  classId: "",
+  content: <>Content</>,
+  // Active strip will never be rendered for this content.
+  renderActiveStrip: false,
+};
+```
+
+Alternatively, a conditional value can be used to control the rendering of the active strip.
+
+```tsx
+const content: ContentProps = {
+  // ...
+  renderActiveStrip: {
+    getValue: () => {
+      // Return `true` to render the strip.
+      // Return `false` to hide the strip.
+      // Return `undefined` to use the default behavior: the strip is rendered if the content is active and multiple contents are available.
+      return false;
+    },
+    // `getValue()` must be called to sync the value when `ev-1` event is fired via `SyncUiEventDispatcher`.
+    eventIds: ["ev-1"],
+  },
+};
+```
 
 ### Changes
 
@@ -120,6 +190,7 @@ Table of contents:
 - Bump `StandardContentToolsUiItemsProvider`, `StandardStatusbarUiItemsProvider` classes to `@public`. [#1024](https://github.com/iTwin/appui/pull/1024)
 - Bump `content` property of `ContentProps` interface to `@public`. [#1030](https://github.com/iTwin/appui/pull/1030)
 - Content layout will now track `ContentOverlay` components to determine if the active strip should be rendered for the active content. [#1030](https://github.com/iTwin/appui/pull/1030)
+- Bump `useConditionalValue` hook to `@public`.
 
 ## @itwin/components-react
 

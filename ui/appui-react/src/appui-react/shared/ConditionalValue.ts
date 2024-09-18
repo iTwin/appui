@@ -11,7 +11,7 @@ import {
 } from "@itwin/appui-abstract";
 import { ConditionalIconItem as _ConditionalIconItem } from "@itwin/core-react";
 
-/** Conditional value interface that holds the value of a generic type `T`. The `getValue` function should be called when sync event is emitted that matches one of specified `eventIds` values.
+/** Interface used to track the conditional value of a generic type `T`. The `getValue` function should be called when sync event is emitted that matches one of specified `eventIds` values.
  * @note Use {@link useConditionalValue} hook to get the value.
  * @public
  */
