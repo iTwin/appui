@@ -36,9 +36,7 @@ export interface ContentProps {
    * @deprecated in 4.16.0. Use {@link ContentProps.content} instead.
    */
   applicationData?: any;
-  /** Content to be displayed in the content view.
-   * @public
-   */
+  /** Content to be displayed in the content view. */
   content?: React.ReactNode;
   /** Describes if the content should display the active strip.
    * If `undefined` the strip will be displayed only if this content is active and multiple contents are available.
