@@ -3,6 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
+import { act, render, screen, waitFor } from "@testing-library/react";
 import type {
   ConfigurableCreateInfo,
   ContentLayoutProps,
@@ -14,11 +15,13 @@ import {
   ContentLayout,
   ContentLayoutDef,
   FloatingContentControl,
+  FrontstageDef,
   FrontstageProvider,
+  SyncUiEventDispatcher,
   UiFramework,
 } from "../../appui-react";
 import { childStructure, selectorMatches, userEvent } from "../TestUtils";
-import { render, screen, waitFor } from "@testing-library/react";
+import { defaultFrontstageConfig } from "../frontstage/FrontstageDef.test";
 import { StandardContentLayouts } from "../../appui-react/content/StandardContentLayouts";
 
 describe("ContentLayout", () => {
@@ -89,11 +92,8 @@ describe("ContentLayout", () => {
   }
 
   let theUserTo: ReturnType<typeof userEvent.setup>;
-  beforeEach(() => {
-    theUserTo = userEvent.setup();
-  });
-
   beforeEach(async () => {
+    theUserTo = userEvent.setup();
     const frontstageProvider = new TestFrontstage2();
     UiFramework.frontstages.addFrontstageProvider(frontstageProvider);
     const frontstageDef = await UiFramework.frontstages.getFrontstageDef(
@@ -647,5 +647,147 @@ describe("SingleContentLayout", () => {
     });
 
     UiFramework.content.dropFloatingContentControl(floatingControl);
+  });
+});
+
+describe("active strip", () => {
+  async function createFrontstage(contentGroup: ContentGroup) {
+    const frontstageDef = new FrontstageDef();
+    await frontstageDef.initializeFromConfig({
+      ...defaultFrontstageConfig,
+      contentGroup,
+    });
+    await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
+    return frontstageDef;
+  }
+
+  const isRendered = childStructure(
+    ".uifw-content-contentOverlay_activeStrip.uifw-active"
+  );
+  const isNotRendered = childStructure(
+    ".uifw-content-contentOverlay_activeStrip:not(.uifw-active)"
+  );
+
+  it("should not render for a single content", async () => {
+    const contentLayout = new ContentLayoutDef(
+      StandardContentLayouts.singleView
+    );
+    const contentGroup = new ContentGroup({
+      id: "test-group",
+      layout: contentLayout,
+      contents: [
+        {
+          id: "content1",
+          classId: "",
+          content: <>Test</>,
+        },
+      ],
+    });
+    await createFrontstage(contentGroup);
+    render(
+      <ContentLayout
+        contentLayout={contentLayout}
+        contentGroup={contentGroup}
+      />
+    );
+    expect(screen.getByText("Test")).to.satisfy(isNotRendered);
+  });
+
+  it("should render active strip w/ multiple contents", async () => {
+    const contentLayout = new ContentLayoutDef(
+      StandardContentLayouts.twoHorizontalSplit
+    );
+    const contentGroup = new ContentGroup({
+      id: "test-group",
+      layout: contentLayout,
+      contents: [
+        {
+          id: "content1",
+          classId: "",
+          content: <>Test1</>,
+        },
+        {
+          id: "content2",
+          classId: "",
+          content: <>Test2</>,
+        },
+      ],
+    });
+    await createFrontstage(contentGroup);
+    render(
+      <ContentLayout
+        contentLayout={contentLayout}
+        contentGroup={contentGroup}
+      />
+    );
+    expect(screen.getByText("Test1")).to.satisfy(isRendered);
+  });
+
+  it("should use `renderActiveStrip`", async () => {
+    const contentLayout = new ContentLayoutDef(
+      StandardContentLayouts.singleView
+    );
+    const contentGroup = new ContentGroup({
+      id: "test-group",
+      layout: contentLayout,
+      contents: [
+        {
+          id: "content1",
+          classId: "",
+          content: <>Test</>,
+          renderActiveStrip: true,
+        },
+      ],
+    });
+    await createFrontstage(contentGroup);
+    render(
+      <ContentLayout
+        contentLayout={contentLayout}
+        contentGroup={contentGroup}
+      />
+    );
+    expect(screen.getByText("Test")).to.satisfy(isRendered);
+  });
+
+  it("should use `renderActiveStrip` as conditional value", async () => {
+    let renderActiveStrip: boolean | undefined = true;
+    const contentLayout = new ContentLayoutDef(
+      StandardContentLayouts.singleView
+    );
+    const contentGroup = new ContentGroup({
+      id: "test-group",
+      layout: contentLayout,
+      contents: [
+        {
+          id: "content1",
+          classId: "",
+          content: <>Test</>,
+          renderActiveStrip: {
+            getValue: () => renderActiveStrip,
+            eventIds: ["ev-1"],
+          },
+        },
+      ],
+    });
+    await createFrontstage(contentGroup);
+    render(
+      <ContentLayout
+        contentLayout={contentLayout}
+        contentGroup={contentGroup}
+      />
+    );
+    expect(screen.getByText("Test")).to.satisfy(isRendered);
+
+    act(() => {
+      renderActiveStrip = false;
+      SyncUiEventDispatcher.dispatchImmediateSyncUiEvent("ev-1");
+    });
+    expect(screen.getByText("Test")).to.satisfy(isNotRendered);
+
+    act(() => {
+      renderActiveStrip = undefined;
+      SyncUiEventDispatcher.dispatchImmediateSyncUiEvent("ev-1");
+    });
+    expect(screen.getByText("Test")).to.satisfy(isNotRendered);
   });
 });
