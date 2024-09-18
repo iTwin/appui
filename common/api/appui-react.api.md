@@ -978,6 +978,14 @@ export type ConditionalStringValue = ConditionalStringValue_2;
 // @public (undocumented)
 export const ConditionalStringValue: typeof ConditionalStringValue_2;
 
+// @public
+export interface ConditionalValue<T> {
+    // (undocumented)
+    eventIds: string[];
+    // (undocumented)
+    getValue: () => T;
+}
+
 // @public @deprecated
 export class ConfigurableBase implements ConfigurableUiElement {
     constructor(info: ConfigurableCreateInfo, options: any);
@@ -1309,6 +1317,7 @@ export interface ContentProps {
     classId: string | ConfigurableUiControlConstructor;
     content?: React_2.ReactNode;
     id: string;
+    renderActiveStrip?: boolean | ConditionalValue<boolean | undefined>;
 }
 
 // @public
@@ -5534,7 +5543,7 @@ export function useAvailableUiItemsProviders(): readonly string[];
 // @public
 export const useBackstageManager: () => FrameworkBackstage;
 
-// @alpha
+// @public
 export function useConditionalValue<T>(getValue: () => T, eventIds: string[]): T;
 
 // @internal

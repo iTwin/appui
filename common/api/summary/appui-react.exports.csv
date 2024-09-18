@@ -139,6 +139,7 @@ public;ConditionalBooleanValue = ConditionalBooleanValue_2
 public;ConditionalBooleanValue: typeof ConditionalBooleanValue_2
 public;ConditionalStringValue = ConditionalStringValue_2
 public;ConditionalStringValue: typeof ConditionalStringValue_2
+public;ConditionalValue
 public;ConfigurableBase 
 deprecated;ConfigurableBase 
 public;ConfigurableCreateInfo
@@ -782,7 +783,7 @@ public;useActiveViewport(): ScreenViewport | undefined
 public;useAnalysisAnimationDataProvider(viewport: ScreenViewport | undefined): AnalysisAnimationTimelineDataProvider | undefined
 internal;useAvailableUiItemsProviders(): readonly string[]
 public;useBackstageManager: () => FrameworkBackstage
-alpha;useConditionalValue
+public;useConditionalValue
 internal;useContentOverlayStore: UseBoundStore
 internal;useDefaultBackstageItems: (manager: BackstageItemsManager) => readonly BackstageItem[]
 public;useDefaultStatusBarItems: (manager: StatusBarItemsManager) => readonly StatusBarItem[]
