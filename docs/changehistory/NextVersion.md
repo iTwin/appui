@@ -121,7 +121,7 @@ Table of contents:
 
 - Deprecated `floatingContentControls` getter of `FrontstageDef` class that used a deprecated `ContentControl` class. Use floating widgets instead. [#1030](https://github.com/iTwin/appui/pull/1030)
 - Deprecated `UiFramework.setIsUiVisible` and `UiFramework.getIsUiVisible`. Use `UiFramework.visibility.isUiVisible` instead. [#1023](https://github.com/iTwin/appui/pull/1023)
-- Deprecated `FrameworkFrontstages.clearFrontstageProviders`, use `FrameworkFrontstages.clearFrontstageDefs` instead. [#1022](https://github.com/iTwin/appui/pull/1022)
+- Deprecated `FrameworkFrontstages.clearFrontstageProviders`, use `FrameworkFrontstages.clearFrontstages` instead. [#1022](https://github.com/iTwin/appui/pull/1022)
 
 ### Additions
 
