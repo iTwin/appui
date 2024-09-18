@@ -41,8 +41,7 @@ import { createCustomContentFrontstage } from "../frontstages/CustomContentFront
 import { store } from "../../store";
 
 export class CustomContentStageUiProvider implements UiItemsProvider {
-  public static providerId =
-    "appui-test-providers:CustomContentStageUiProvider";
+  public static providerId = "appui-test-providers:custom-content-provider";
   public readonly id = CustomContentStageUiProvider.providerId;
 
   constructor(localizationNamespace: string) {

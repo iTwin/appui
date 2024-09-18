@@ -19,7 +19,7 @@ import { useActiveContentId } from "../useActiveContentId";
 function CustomViewToolWidgetComposer() {
   const activeId = useActiveContentId();
 
-  const hideNavigationAid = activeId === "ui-test:customContent";
+  const hideNavigationAid = activeId === "sample-content";
   return <ViewToolWidgetComposer hideNavigationAid={hideNavigationAid} />;
 }
 
@@ -28,7 +28,7 @@ export function createCustomContentFrontstage(): Frontstage {
     id: createCustomContentFrontstage.stageId,
     usage: StageUsage.General,
     contentGroupProps: {
-      id: "appui-test-providers:custom-stage-content",
+      id: "content-group",
       layout: {
         ...StandardContentLayouts.twoHorizontalSplit,
         horizontalSplit: {
@@ -39,7 +39,7 @@ export function createCustomContentFrontstage(): Frontstage {
       },
       contents: [
         {
-          id: "primaryContent",
+          id: "primary-content",
           // eslint-disable-next-line deprecation/deprecation
           classId: IModelViewportControl,
           applicationData: {
@@ -55,7 +55,7 @@ export function createCustomContentFrontstage(): Frontstage {
           },
         },
         {
-          id: "ui-test:customContent",
+          id: "sample-content",
           classId: SampleContentControl,
         },
       ],
@@ -70,4 +70,4 @@ export function createCustomContentFrontstage(): Frontstage {
     },
   };
 }
-createCustomContentFrontstage.stageId = "appui-test-providers:CustomContent";
+createCustomContentFrontstage.stageId = "custom-content";
