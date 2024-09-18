@@ -127,7 +127,7 @@ Table of contents:
 
 - Added `ConditionalBooleanValue` and `ConditionalStringValue` class re-exports from `@itwin/appui-abstract` package. [#1031](https://github.com/iTwin/appui/pull/1031)
 
-- Added `StandardContentLayouts`, `ContentLayoutProps`, `LayoutFragmentProps`, `LayoutHorizontalSplitProps`, `LayoutSplitPropsBase`, and `LayoutVerticalSplitProps` interfaces from `@itwin/appui-abstract` package. [#1033]
+- Added `StandardContentLayouts`, `ContentLayoutProps`, `LayoutFragmentProps`, `LayoutHorizontalSplitProps`, `LayoutSplitPropsBase`, and `LayoutVerticalSplitProps` interfaces from `@itwin/appui-abstract` package. [#1033](https://github.com/iTwin/appui/pull/1033)
 - Added `UiFramework.onIModelConnectionChanged` event to get notified whenever the iModel targeted by `UiFramework.getIModelConnection()` changes. This is a replacement for listening to the deprecated `SessionStateActionId.SetIModelConnection`.
 
 ### Changes
