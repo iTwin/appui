@@ -3,7 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { StandardContentLayouts } from "@itwin/appui-abstract";
 import type {
   ConfigurableCreateInfo,
   FrontstageConfig,
@@ -13,6 +12,7 @@ import {
   ContentGroup,
   FrontstageProvider,
   MessageCenterField,
+  StandardContentLayouts,
   StatusBarWidgetControl,
   WidgetState,
 } from "../../appui-react";

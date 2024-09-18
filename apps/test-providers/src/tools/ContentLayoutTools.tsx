@@ -4,10 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 import * as React from "react";
-import {
-  ConditionalStringValue,
-  StandardContentLayouts,
-} from "@itwin/appui-abstract";
+import { ConditionalStringValue } from "@itwin/appui-abstract";
 import {
   ContentGroup,
   ContentGroupProps,
@@ -15,6 +12,7 @@ import {
   LocalStateStorage,
   StageContentLayout,
   StageContentLayoutProps,
+  StandardContentLayouts,
   SyncUiEventId,
   ToolbarActionItem,
   ToolbarItemUtilities,

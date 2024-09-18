@@ -4,7 +4,6 @@
  *--------------------------------------------------------------------------------------------*/
 
 import * as React from "react";
-import { StandardContentLayouts } from "@itwin/appui-abstract";
 import type {
   ConfigurableCreateInfo,
   ContentGroupProps,
@@ -14,6 +13,7 @@ import {
   ContentGroup,
   MessageManager,
   PopupManager,
+  StandardContentLayouts,
   UiFramework,
   WidgetControl,
 } from "../../appui-react";
