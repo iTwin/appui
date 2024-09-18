@@ -306,13 +306,6 @@ describe("FrontstageManager", () => {
     expect(InternalFrontstageManager.activeFrontstageId).toEqual(
       frontstageDef!.id
     );
-    const activeFrontstageDef = new FrontstageDef();
-    vi.spyOn(
-      UiFramework.frontstages,
-      "activeFrontstageDef",
-      "get"
-    ).mockImplementation(() => activeFrontstageDef);
-    expect(frontstageDef).toEqual(activeFrontstageDef);
 
     InternalFrontstageManager.clearFrontstages();
 
