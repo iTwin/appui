@@ -663,10 +663,12 @@ export class UiFramework {
     return useGlobalStore.getState().viewState;
   }
 
+  /** @deprecated in 4.17.0. Use {@link @itwin/UiFramework.visibility.isUiVisible} instead. */
   public static getIsUiVisible() {
     return UiFramework.visibility.isUiVisible;
   }
 
+  /** @deprecated in 4.17.0. Use {@link @itwin/UiFramework.visibility.isUiVisible} instead. */
   public static setIsUiVisible(visible: boolean) {
     UiFramework.visibility.isUiVisible = visible;
   }

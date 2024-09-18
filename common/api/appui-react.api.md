@@ -5338,7 +5338,7 @@ export class UiFramework {
     static getDefaultViewState(): ViewState | undefined;
     // (undocumented)
     static getIModelConnection(): IModelConnection | undefined;
-    // (undocumented)
+    // @deprecated (undocumented)
     static getIsUiVisible(): boolean;
     // (undocumented)
     static getNumItemsSelected(): number;
@@ -5407,7 +5407,7 @@ export class UiFramework {
     static setHideIsolateEmphasizeActionHandler(handler: HideIsolateEmphasizeActionHandler | undefined): void;
     // (undocumented)
     static setIModelConnection(iModelConnection: IModelConnection | undefined, immediateSync?: boolean): void;
-    // (undocumented)
+    // @deprecated (undocumented)
     static setIsUiVisible(visible: boolean): void;
     // (undocumented)
     static setNumItemsSelected(numSelected: number): void;

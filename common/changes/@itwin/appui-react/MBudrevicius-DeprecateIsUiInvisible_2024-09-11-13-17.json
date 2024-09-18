@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Deprecated visibility methods of UiFramework",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
