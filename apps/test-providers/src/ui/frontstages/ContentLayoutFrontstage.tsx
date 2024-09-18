@@ -11,9 +11,9 @@ import {
   FrontstageUtilities,
   StageContentLayout,
   StageUsage,
+  StandardContentLayouts,
   UiFramework,
 } from "@itwin/appui-react";
-import { StandardContentLayouts } from "@itwin/appui-abstract";
 import { getSavedViewLayoutProps } from "../../tools/ContentLayoutTools";
 import { ViewportContent } from "../ViewportContent";
 

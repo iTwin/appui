@@ -16,11 +16,11 @@ import {
   FloatingContentControl,
   FloatingViewportContentControl,
   FrontstageProvider,
+  StandardContentLayouts,
   UiFramework,
   ViewportContentControl,
 } from "../../appui-react";
 import TestUtils, { storageMock } from "../TestUtils";
-import { StandardContentLayouts } from "@itwin/appui-abstract";
 import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";
 
 const mySessionStorage = storageMock();

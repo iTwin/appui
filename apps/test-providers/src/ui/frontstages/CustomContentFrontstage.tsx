@@ -9,10 +9,10 @@ import {
   FrontstageUtilities,
   IModelViewportControl,
   StageUsage,
+  StandardContentLayouts,
   UiFramework,
   ViewToolWidgetComposer,
 } from "@itwin/appui-react";
-import { StandardContentLayouts } from "@itwin/appui-abstract";
 import { SampleContentControl } from "../content/SampleContentControl";
 import { useActiveContentId } from "../useActiveContentId";
 

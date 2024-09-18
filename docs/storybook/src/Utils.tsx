@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { StandardContentLayouts } from "@itwin/appui-abstract";
 import {
   ContentProps,
   Frontstage,
@@ -10,6 +9,7 @@ import {
   StagePanelLocation,
   StagePanelSection,
   StageUsage,
+  StandardContentLayouts,
   StandardFrontstageProps,
   Widget,
 } from "@itwin/appui-react";
