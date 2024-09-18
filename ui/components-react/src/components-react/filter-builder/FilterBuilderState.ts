@@ -145,7 +145,7 @@ export class PropertyFilterBuilderActions {
   }
 
   /** Removes item specified by path. */
-  public removeItem(path: string[]) {
+  public removeItem(path: string[], allowLastRuleDelete: boolean = false) {
     function removeItemFromGroup(
       state: Draft<PropertyFilterBuilderState>,
       pathToItem: string[]
@@ -163,7 +163,7 @@ export class PropertyFilterBuilderActions {
       if (itemIndex === -1) {
         return;
       }
-      if (parentGroup.items.length === 1) {
+      if (parentGroup.items.length === 1 && !allowLastRuleDelete) {
         parentGroup.items[0] = createEmptyRule(parentGroup.id);
         return;
       }
