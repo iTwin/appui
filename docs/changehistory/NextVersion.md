@@ -8,7 +8,6 @@ Table of contents:
   - [Deprecations](#deprecations-1)
   - [Additions](#additions)
   - [Changes](#changes)
-  - [Deprecations](#deprecations)
 - [@itwin/components-react](#itwincomponents-react)
   - [Deprecations](#deprecations-2)
   - [Additions](#additions-1)
@@ -129,6 +128,7 @@ Table of contents:
 - Added `ConditionalBooleanValue` and `ConditionalStringValue` class re-exports from `@itwin/appui-abstract` package. [#1031](https://github.com/iTwin/appui/pull/1031)
 
 - Added `StandardContentLayouts`, `ContentLayoutProps`, `LayoutFragmentProps`, `LayoutHorizontalSplitProps`, `LayoutSplitPropsBase`, and `LayoutVerticalSplitProps` interfaces from `@itwin/appui-abstract` package. [#1033]
+- Added `UiFramework.onIModelConnectionChanged` event to get notified whenever the iModel targeted by `UiFramework.getIModelConnection()` changes. This is a replacement for listening to the deprecated `SessionStateActionId.SetIModelConnection`.
 
 ### Changes
 
@@ -136,10 +136,6 @@ Table of contents:
 - Bump `StandardContentToolsUiItemsProvider`, `StandardStatusbarUiItemsProvider` classes to `@public`. [#1024](https://github.com/iTwin/appui/pull/1024)
 - Bump `content` property of `ContentProps` interface to `@public`. [#1030](https://github.com/iTwin/appui/pull/1030)
 - Content layout will now track `ContentOverlay` components to determine if the active strip should be rendered for the active content. [#1030](https://github.com/iTwin/appui/pull/1030)
-
-### Additions
-
-- Added `UiFramework.onIModelConnectionChanged` event to get notified whenever the iModel targeted by `UiFramework.getIModelConnection()` changes. This is a replacement for listening to the deprecated `SessionStateActionId.SetIModelConnection`.
 
 ## @itwin/components-react
 
