@@ -3,11 +3,11 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { Meta, StoryObj } from "@storybook/react";
-import { StandardContentLayouts } from "@itwin/appui-abstract";
 import {
   BackstageAppButton,
   BackstageComposer,
   IModelViewportControl,
+  StandardContentLayouts,
   UiFramework,
   useBackstageManager,
   useIsBackstageOpen,

@@ -11,6 +11,8 @@ Table of contents:
 - [@itwin/components-react](#itwincomponents-react)
   - [Deprecations](#deprecations-2)
   - [Additions](#additions-1)
+- [@itwin/imodel-components-react](#itwinimodel-components-react)
+  - [Deprecations](#deprecations-3)
 
 ## @itwin/core-react
 
@@ -108,7 +110,17 @@ Table of contents:
 - Deprecated `BaseUiItemsProvider`, `StandardContentToolsProvider`, `StandardNavigationToolsProvider`, `StandardStatusbarItemsProvider` classes. Use `UiItemsProviderOverrides` to specify supported frontstages when registering the provider. [#1024](https://github.com/iTwin/appui/pull/1024)
 - Deprecated `DefaultContentToolsAppData` interface that is a remnant of discontinued frontstage APIs. [#1024](https://github.com/iTwin/appui/pull/1024)
 - Deprecated `StandardContentToolsUiItemsProvider.provideStatusBarItems`, `StandardContentToolsUiItemsProvider.provideToolbarItems`, `StandardNavigationToolsUiItemsProvider.provideToolbarItems`, `StandardStatusbarUiItemsProvider.provideStatusBarItems` methods. Use `get*` variants instead. [#1024](https://github.com/iTwin/appui/pull/1024)
+- Deprecated `AccuDrawDialogProps`, `AccuDrawFieldContainerProps`, `AccuDrawInputFieldProps`, `BackstageComposerProps`, `ConfigurableUiContentProps`, `SplitPaneProps`, `StatusBarComposerProps`, `ExtensibleToolbarProps`, `UiSettingsProviderProps`, `BasicNavigationWidgetProps`, `BasicToolWidgetProps`, `ContentToolWidgetComposerProps`, `NavigationAidHostProps`, `NavigationWidgetComposerProps`, `ToolWidgetComposerProps`, `ViewToolWidgetComposerProps` in favor of `React.ComponentProps<typeof ...>`. [#991](https://github.com/iTwin/appui/pull/991)
+  Usage example:
+
+  ```tsx
+  import { AccuDrawDialog } from "@itwin/appui-react";
+
+  type AccuDrawDialogProps = React.ComponentProps<typeof AccuDrawDialog>;
+  ```
+
 - Deprecated `floatingContentControls` getter of `FrontstageDef` class that used a deprecated `ContentControl` class. Use floating widgets instead. [#1030](https://github.com/iTwin/appui/pull/1030)
+- Deprecated `UiFramework.setIsUiVisible` and `UiFramework.getIsUiVisible`. Use `UiFramework.visibility.isUiVisible` instead. [#1023](https://github.com/iTwin/appui/pull/1023)
 
 ### Additions
 
@@ -184,6 +196,8 @@ const content: ContentProps = {
 };
 ```
 
+- Added `StandardContentLayouts`, `ContentLayoutProps`, `LayoutFragmentProps`, `LayoutHorizontalSplitProps`, `LayoutSplitPropsBase`, and `LayoutVerticalSplitProps` interfaces from `@itwin/appui-abstract` package. [#1033]
+
 ### Changes
 
 - Allow to set the available snap modes in `SnapModeField` component. [#974](https://github.com/iTwin/appui/pull/974)
@@ -192,12 +206,39 @@ const content: ContentProps = {
 - Content layout will now track `ContentOverlay` components to determine if the active strip should be rendered for the active content. [#1030](https://github.com/iTwin/appui/pull/1030)
 - Bump `useConditionalValue` hook to `@public`. [#1036](https://github.com/iTwin/appui/pull/1036)
 
+### Additions
+
+- Added `UiFramework.onIModelConnectionChanged` event to get notified whenever the iModel targeted by `UiFramework.getIModelConnection()` changes. This is a replacement for listening to the deprecated `SessionStateActionId.SetIModelConnection`.
+
 ## @itwin/components-react
 
 ### Deprecations
 
 - Deprecated `defaultPropertyFilterBuilderRuleValidator`. Newly added `useDefaultPropertyFilterBuilderRuleValidator` should be used instead. [#1000](https://github.com/iTwin/appui/pull/1000)
+- Deprecated `HighlightedTextProps`, `EditorContainerProps`, `OkCancelProps`, `FavoritePropertyListProps`, `ParsedInputProps`, `LinksRendererProps`, `VirtualizedPropertyGridWithDataProviderProps`, `ControlledSelectableContentProps`, `SelectableContentProps`, `TreeNodeContentProps`, `TreeNodeIconProps` in favor of `React.ComponentProps<typeof ...>`. [#991](https://github.com/iTwin/appui/pull/991)
+
+  Usage example:
+
+  ```tsx
+  import { HighlightedText } from "@itwin/components-react";
+
+  type HighlightedTextProps = React.ComponentProps<typeof HighlightedText>;
+  ```
 
 ### Additions
 
 - Added `useDefaultPropertyFilterBuilderRuleValidator` hook to get default validator for rules in `PropertyFilterBuilder` component. [#1000](https://github.com/iTwin/appui/pull/1000)
+
+## @itwin/imodel-components-react
+
+### Deprecations
+
+- Deprecated `FormatPanelProps`, `FormatPrecisionProps`, `FormatSampleProps`, `FormatTypeOptionProps`, `FormatUnitLabelProps`, `FormatUnitsProps`, `MiscFormatOptionsProps`, `QuantityFormatPanelProps` in favor of `React.ComponentProps<typeof ...>`. [#991](https://github.com/iTwin/appui/pull/991)
+
+  Usage example:
+
+  ```tsx
+  import { FormatUnits } from "@itwin/imodel-components-react";
+
+  type FormatUnitsProps = React.ComponentProps<typeof FormatUnits>;
+  ```

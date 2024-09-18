@@ -27,7 +27,6 @@ import {
   SpatialViewState,
   SubCategoriesCache,
 } from "@itwin/core-frontend";
-import { StandardContentLayouts } from "@itwin/appui-abstract";
 import * as React from "react";
 import * as moq from "typemoq";
 import type {
@@ -41,6 +40,7 @@ import {
   ContentLayoutDef,
   FrontstageProvider,
   StageContentLayout,
+  StandardContentLayouts,
   UiFramework,
   ViewportContentControl,
 } from "../../appui-react";

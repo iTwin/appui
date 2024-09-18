@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { StandardContentLayouts } from "@itwin/appui-abstract";
 import { UiFramework } from "../../appui-react";
 import type {
   ContentGroupProps,
@@ -12,6 +11,7 @@ import { ContentGroup } from "../../appui-react/content/ContentGroup";
 import { InternalContentLayoutManager } from "../../appui-react/content/InternalContentLayoutManager";
 import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";
 import { getUniqueId } from "../../appui-react/layout/base/NineZone";
+import { StandardContentLayouts } from "../../appui-react/content/StandardContentLayouts";
 
 describe("ContentLayoutManager", () => {
   beforeEach(async () => {

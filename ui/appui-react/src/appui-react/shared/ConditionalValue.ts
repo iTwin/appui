@@ -10,6 +10,7 @@ import {
   ConditionalStringValue as _ConditionalStringValue,
 } from "@itwin/appui-abstract";
 import { ConditionalIconItem as _ConditionalIconItem } from "@itwin/core-react";
+import type { useConditionalValue } from "../hooks/useConditionalValue";
 
 /** Interface used to track the conditional value of a generic type `T`. The `getValue` function should be called when sync event is emitted that matches one of specified `eventIds` values.
  * @note Use {@link useConditionalValue} hook to get the value.
