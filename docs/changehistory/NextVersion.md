@@ -107,9 +107,6 @@ Table of contents:
 
 ### Deprecations
 
-- Deprecated `BaseUiItemsProvider`, `StandardContentToolsProvider`, `StandardNavigationToolsProvider`, `StandardStatusbarItemsProvider` classes. Use `UiItemsProviderOverrides` to specify supported frontstages when registering the provider. [#1024](https://github.com/iTwin/appui/pull/1024)
-- Deprecated `DefaultContentToolsAppData` interface that is a remnant of discontinued frontstage APIs. [#1024](https://github.com/iTwin/appui/pull/1024)
-- Deprecated `StandardContentToolsUiItemsProvider.provideStatusBarItems`, `StandardContentToolsUiItemsProvider.provideToolbarItems`, `StandardNavigationToolsUiItemsProvider.provideToolbarItems`, `StandardStatusbarUiItemsProvider.provideStatusBarItems` methods. Use `get*` variants instead. [#1024](https://github.com/iTwin/appui/pull/1024)
 - Deprecated `AccuDrawDialogProps`, `AccuDrawFieldContainerProps`, `AccuDrawInputFieldProps`, `BackstageComposerProps`, `ConfigurableUiContentProps`, `SplitPaneProps`, `StatusBarComposerProps`, `ExtensibleToolbarProps`, `UiSettingsProviderProps`, `BasicNavigationWidgetProps`, `BasicToolWidgetProps`, `ContentToolWidgetComposerProps`, `NavigationAidHostProps`, `NavigationWidgetComposerProps`, `ToolWidgetComposerProps`, `ViewToolWidgetComposerProps` in favor of `React.ComponentProps<typeof ...>`. [#991](https://github.com/iTwin/appui/pull/991)
   Usage example:
 
@@ -119,13 +116,18 @@ Table of contents:
   type AccuDrawDialogProps = React.ComponentProps<typeof AccuDrawDialog>;
   ```
 
-- Deprecated `floatingContentControls` getter of `FrontstageDef` class that used a deprecated `ContentControl` class. Use floating widgets instead. [#1030](https://github.com/iTwin/appui/pull/1030)
-- Deprecated `UiFramework.setIsUiVisible` and `UiFramework.getIsUiVisible`. Use `UiFramework.visibility.isUiVisible` instead. [#1023](https://github.com/iTwin/appui/pull/1023)
 - Deprecated `FrameworkFrontstages.clearFrontstageProviders`, use `FrameworkFrontstages.clearFrontstages` instead. [#1022](https://github.com/iTwin/appui/pull/1022)
+- Deprecated `UiFramework.setIsUiVisible` and `UiFramework.getIsUiVisible`. Use `UiFramework.visibility.isUiVisible` instead. [#1023](https://github.com/iTwin/appui/pull/1023)
+- Deprecated `BaseUiItemsProvider`, `StandardContentToolsProvider`, `StandardNavigationToolsProvider`, `StandardStatusbarItemsProvider` classes. Use `UiItemsProviderOverrides` to specify supported frontstages when registering the provider. [#1024](https://github.com/iTwin/appui/pull/1024)
+- Deprecated `DefaultContentToolsAppData` interface that is a remnant of discontinued frontstage APIs. [#1024](https://github.com/iTwin/appui/pull/1024)
+- Deprecated `StandardContentToolsUiItemsProvider.provideStatusBarItems`, `StandardContentToolsUiItemsProvider.provideToolbarItems`, `StandardNavigationToolsUiItemsProvider.provideToolbarItems`, `StandardStatusbarUiItemsProvider.provideStatusBarItems` methods. Use `get*` variants instead. [#1024](https://github.com/iTwin/appui/pull/1024)
+- Deprecated `floatingContentControls` getter of `FrontstageDef` class that used a deprecated `ContentControl` class. Use floating widgets instead. [#1030](https://github.com/iTwin/appui/pull/1030)
 
 ### Additions
 
+- Added `UiFramework.onIModelConnectionChanged` event to get notified whenever the iModel targeted by `UiFramework.getIModelConnection()` changes. This is a replacement for listening to the deprecated `SessionStateActionId.SetIModelConnection`. [#1027](https://github.com/iTwin/appui/pull/1027)
 - Added `ConditionalBooleanValue` and `ConditionalStringValue` class re-exports from `@itwin/appui-abstract` package. [#1031](https://github.com/iTwin/appui/pull/1031)
+- Added `StandardContentLayouts`, `ContentLayoutProps`, `LayoutFragmentProps`, `LayoutHorizontalSplitProps`, `LayoutSplitPropsBase`, and `LayoutVerticalSplitProps` interfaces from `@itwin/appui-abstract` package. [#1033](https://github.com/iTwin/appui/pull/1033)
 - Added a generic `ConditionalValue<T>` interface to track the conditional value of any type. This interface can be used as a replacement for existing `ConditionalBooleanValue` and `ConditionalStringValue` classes. [#1036](https://github.com/iTwin/appui/pull/1036)
 
 ```tsx
@@ -197,9 +199,6 @@ const content: ContentProps = {
 };
 ```
 
-- Added `StandardContentLayouts`, `ContentLayoutProps`, `LayoutFragmentProps`, `LayoutHorizontalSplitProps`, `LayoutSplitPropsBase`, and `LayoutVerticalSplitProps` interfaces from `@itwin/appui-abstract` package. [#1033](https://github.com/iTwin/appui/pull/1033)
-- Added `UiFramework.onIModelConnectionChanged` event to get notified whenever the iModel targeted by `UiFramework.getIModelConnection()` changes. This is a replacement for listening to the deprecated `SessionStateActionId.SetIModelConnection`. [#1027](https://github.com/iTwin/appui/pull/1027)
-
 ### Changes
 
 - Allow to set the available snap modes in `SnapModeField` component. [#974](https://github.com/iTwin/appui/pull/974)
@@ -212,7 +211,6 @@ const content: ContentProps = {
 
 ### Deprecations
 
-- Deprecated `defaultPropertyFilterBuilderRuleValidator`. Newly added `useDefaultPropertyFilterBuilderRuleValidator` should be used instead. [#1000](https://github.com/iTwin/appui/pull/1000)
 - Deprecated `HighlightedTextProps`, `EditorContainerProps`, `OkCancelProps`, `FavoritePropertyListProps`, `ParsedInputProps`, `LinksRendererProps`, `VirtualizedPropertyGridWithDataProviderProps`, `ControlledSelectableContentProps`, `SelectableContentProps`, `TreeNodeContentProps`, `TreeNodeIconProps` in favor of `React.ComponentProps<typeof ...>`. [#991](https://github.com/iTwin/appui/pull/991)
 
   Usage example:
@@ -222,6 +220,8 @@ const content: ContentProps = {
 
   type HighlightedTextProps = React.ComponentProps<typeof HighlightedText>;
   ```
+
+- Deprecated `defaultPropertyFilterBuilderRuleValidator`. Newly added `useDefaultPropertyFilterBuilderRuleValidator` should be used instead. [#1000](https://github.com/iTwin/appui/pull/1000)
 
 ### Additions
 
