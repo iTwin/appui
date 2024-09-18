@@ -122,8 +122,8 @@ Table of contents:
 - Deprecated `DefaultContentToolsAppData` interface that is a remnant of discontinued frontstage APIs. [#1024](https://github.com/iTwin/appui/pull/1024)
 - Deprecated `StandardContentToolsUiItemsProvider.provideStatusBarItems`, `StandardContentToolsUiItemsProvider.provideToolbarItems`, `StandardNavigationToolsUiItemsProvider.provideToolbarItems`, `StandardStatusbarUiItemsProvider.provideStatusBarItems` methods. Use `get*` variants instead. [#1024](https://github.com/iTwin/appui/pull/1024)
 - Deprecated `floatingContentControls` getter of `FrontstageDef` class that used a deprecated `ContentControl` class. Use floating widgets instead. [#1030](https://github.com/iTwin/appui/pull/1030)
-- Deprecated `useDefaultStatusBarItems` and `useUiItemsProviderStatusBarItems` hooks, which require an internal class as a parameter. Use `StatusBarComposer` component instead.
-- Deprecated `useUiItemsProviderBackstageItems` hook, which requires an internal class as a parameter. Use `BackstageComposer` component instead.
+- Deprecated `useDefaultStatusBarItems` and `useUiItemsProviderStatusBarItems` hooks, which require an internal class as a parameter. Use `StatusBarComposer` component instead. [#1037](https://github.com/iTwin/appui/pull/1037)
+- Deprecated `useUiItemsProviderBackstageItems` hook, which requires an internal class as a parameter. Use `BackstageComposer` component instead. [#1037](https://github.com/iTwin/appui/pull/1037)
 
 ### Additions
 
