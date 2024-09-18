@@ -10,20 +10,20 @@ import * as React from "react";
 import { useSyncExternalStore } from "use-sync-external-store/shim";
 import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
 
-/** Define a common interface for conditionals. */
-interface ConditionalValue<T> {
+/** Defines a common interface for existing conditional value classes: `ConditionalBooleanValue`, `ConditionalStringValue`, `ConditionalIconItem`. */
+interface CommonConditionalValue<T> {
   syncEventIds: string[];
   refresh: () => boolean;
   value: T;
 }
 
 /** Type that is usually used in a conditional prop. */
-type ConditionalProp<T> = ConditionalValue<T> | T | undefined;
+type ConditionalProp<T> = CommonConditionalValue<T> | T | undefined;
 
 /** Duck type the conditional. */
 function isConditionalValue<T>(
   conditionalProp: ConditionalProp<T>
-): conditionalProp is ConditionalValue<T> {
+): conditionalProp is CommonConditionalValue<T> {
   return (
     typeof conditionalProp === "object" &&
     conditionalProp &&
