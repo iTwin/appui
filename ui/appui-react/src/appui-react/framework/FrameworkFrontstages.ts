@@ -270,9 +270,13 @@ export interface FrameworkFrontstages {
   clearFrontstageDefs(): void;
 
   /** Clears the Frontstage Providers and the defs that may have been created from them.
-   * @deprecated in 4.17.0. Use {@link FrameworkFrontstages.clearFrontstageDefs} instead.
+   * @deprecated in 4.17.0. Use {@link FrameworkFrontstages.clearFrontstages} instead.
    */
   clearFrontstageProviders(): void;
+
+  /** Clears the Frontstages.
+   */
+  clearFrontstages(): void;
 
   /** Adds a frontstage provider.
    * @param frontstageProvider  FrontstageProvider representing the Frontstage to add

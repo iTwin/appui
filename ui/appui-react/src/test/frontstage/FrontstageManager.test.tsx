@@ -50,7 +50,7 @@ describe("FrontstageManager", () => {
     });
 
     InternalFrontstageManager.initialize();
-    InternalFrontstageManager.clearFrontstageProviders();
+    InternalFrontstageManager.clearFrontstages();
   });
 
   afterEach(async () => {
@@ -287,6 +287,42 @@ describe("FrontstageManager", () => {
       frontstageProvider.id
     );
     expect(newFrontstageDef).to.not.eql(frontstageDef);
+  });
+
+  it("clearFrontstages should clear frontstages and fronstageProviders", async () => {
+    const frontstageProvider = new TestFrontstage();
+    InternalFrontstageManager.addFrontstageProvider(frontstageProvider);
+    expect(
+      InternalFrontstageManager.hasFrontstage(frontstageProvider.id)
+    ).toEqual(true);
+    const frontstageDef = await InternalFrontstageManager.getFrontstageDef(
+      frontstageProvider.id
+    );
+    expect(frontstageDef).toBeTruthy();
+    expect(InternalFrontstageManager.hasFrontstage(frontstageDef!.id)).toEqual(
+      true
+    );
+    await InternalFrontstageManager.setActiveFrontstage(frontstageDef!.id);
+    expect(InternalFrontstageManager.activeFrontstageId).toEqual(
+      frontstageDef!.id
+    );
+    const activeFrontstageDef = new FrontstageDef();
+    vi.spyOn(
+      UiFramework.frontstages,
+      "activeFrontstageDef",
+      "get"
+    ).mockImplementation(() => activeFrontstageDef);
+    expect(frontstageDef).toEqual(activeFrontstageDef);
+
+    InternalFrontstageManager.clearFrontstages();
+
+    expect(
+      InternalFrontstageManager.hasFrontstage(frontstageProvider.id)
+    ).toEqual(false);
+    expect(InternalFrontstageManager.hasFrontstage(frontstageDef!.id)).toEqual(
+      false
+    );
+    expect(InternalFrontstageManager.activeFrontstageId).toEqual("");
   });
 
   describe("Executing a tool should set activeToolId", () => {

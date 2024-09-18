@@ -2090,6 +2090,7 @@ export interface FrameworkFrontstages {
     clearFrontstageDefs(): void;
     // @deprecated
     clearFrontstageProviders(): void;
+    clearFrontstages(): void;
     closeModalFrontstage(): void;
     closeNestedFrontstage(): Promise<void>;
     deactivateFrontstageDef(): Promise<void>;
