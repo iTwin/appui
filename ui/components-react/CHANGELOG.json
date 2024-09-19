@@ -2,6 +2,21 @@
   "name": "@itwin/components-react",
   "entries": [
     {
+      "version": "4.17.0",
+      "tag": "@itwin/components-react_v4.17.0",
+      "date": "Thu, 19 Sep 2024 12:50:53 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Deprecated component props in favor of type helper"
+          },
+          {
+            "comment": "Add support for allowing last rule to be deleted in FilterBuilder"
+          }
+        ]
+      }
+    },
+    {
       "version": "4.16.5",
       "tag": "@itwin/components-react_v4.16.5",
       "date": "Tue, 10 Sep 2024 16:40:46 GMT",
