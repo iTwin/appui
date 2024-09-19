@@ -376,6 +376,9 @@ export namespace ConvertedPrimitives {
 }
 
 // @public
+export function createMergedPropertyDataProvider(providers: IPropertyDataProvider[]): MergingPropertyDataProvider;
+
+// @public
 export function CustomizablePropertyRenderer(props: CustomizablePropertyRendererProps): React_3.JSX.Element;
 
 // @alpha
@@ -1378,6 +1381,14 @@ export const matchLinks: (text: string) => Array<{
 export class MergedPropertyValueRenderer implements IPropertyValueRenderer {
     canRender(record: PropertyRecord): boolean;
     render(_record: PropertyRecord, context?: PropertyValueRendererContext): string | number | boolean | Iterable<React_3.ReactNode> | React_3.JSX.Element | null | undefined;
+}
+
+// @public
+export class MergingPropertyDataProvider implements IPropertyDataProvider {
+    constructor(providers: IPropertyDataProvider[]);
+    getData(): Promise<PropertyData>;
+    getSourceProviderFromPropertyRecord(record: PropertyRecord): IPropertyDataProvider | undefined;
+    onDataChanged: PropertyDataChangeEvent;
 }
 
 // @internal (undocumented)
