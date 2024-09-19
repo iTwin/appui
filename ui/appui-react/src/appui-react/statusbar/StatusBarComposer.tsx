@@ -325,6 +325,7 @@ export function StatusBarComposer(props: StatusBarComposerProps) {
       setDefaultItemsManager(new StatusBarItemsManager(items));
     }
   }, [items]);
+  // eslint-disable-next-line deprecation/deprecation
   const defaultItems = useDefaultStatusBarItems(defaultItemsManager);
   const syncIdsOfInterest = React.useMemo(
     () => StatusBarItemsManager.getSyncIdsOfInterest(defaultItems),
@@ -333,6 +334,7 @@ export function StatusBarComposer(props: StatusBarComposerProps) {
   useStatusBarItemSyncEffect(defaultItemsManager, syncIdsOfInterest);
 
   const [addonItemsManager] = React.useState(() => new StatusBarItemsManager());
+  // eslint-disable-next-line deprecation/deprecation
   const addonItems = useUiItemsProviderStatusBarItems(addonItemsManager);
   const addonSyncIdsOfInterest = React.useMemo(
     () => StatusBarItemsManager.getSyncIdsOfInterest(addonItems),

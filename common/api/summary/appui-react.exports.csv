@@ -808,6 +808,7 @@ public;useConditionalValue
 internal;useContentOverlayStore: UseBoundStore
 internal;useDefaultBackstageItems: (manager: BackstageItemsManager) => readonly BackstageItem[]
 public;useDefaultStatusBarItems: (manager: StatusBarItemsManager) => readonly StatusBarItem[]
+deprecated;useDefaultStatusBarItems: (manager: StatusBarItemsManager) => readonly StatusBarItem[]
 public;useDefaultToolbarItems: (manager: ToolbarItemsManager) => readonly ToolbarItem[]
 deprecated;useDefaultToolbarItems: (manager: ToolbarItemsManager) => readonly ToolbarItem[]
 alpha;useFloatingViewport(args: FloatingViewportContentProps):
@@ -833,7 +834,9 @@ internal;useStatusBarEntry(): DockedStatusBarEntryContextArg
 internal;useToolSettingsNode(): string | number | boolean | React_2.ReactElement
 public;useTransientState(onSave?: () => void, onRestore?: () => void): void
 public;useUiItemsProviderBackstageItems: (manager: BackstageItemsManager) => readonly BackstageItem[]
+deprecated;useUiItemsProviderBackstageItems: (manager: BackstageItemsManager) => readonly BackstageItem[]
 public;useUiItemsProviderStatusBarItems: (manager: StatusBarItemsManager) => readonly StatusBarItem[]
+deprecated;useUiItemsProviderStatusBarItems: (manager: StatusBarItemsManager) => readonly StatusBarItem[]
 public;useUiItemsProviderToolbarItems: (manager: ToolbarItemsManager, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation) => readonly ToolbarItem[]
 deprecated;useUiItemsProviderToolbarItems: (manager: ToolbarItemsManager, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation) => readonly ToolbarItem[]
 public;useUiStateStorageHandler(): UiStateStorage

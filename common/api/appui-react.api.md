@@ -5610,7 +5610,7 @@ export const useContentOverlayStore: UseBoundStore<StoreApi<number>>;
 // @internal
 export const useDefaultBackstageItems: (manager: BackstageItemsManager) => readonly BackstageItem[];
 
-// @public
+// @public @deprecated
 export const useDefaultStatusBarItems: (manager: StatusBarItemsManager) => readonly StatusBarItem[];
 
 // @public @deprecated
@@ -5687,10 +5687,10 @@ export function useToolSettingsNode(): string | number | boolean | React_2.React
 // @public
 export function useTransientState(onSave?: () => void, onRestore?: () => void): void;
 
-// @public
+// @public @deprecated
 export const useUiItemsProviderBackstageItems: (manager: BackstageItemsManager) => readonly BackstageItem[];
 
-// @public
+// @public @deprecated
 export const useUiItemsProviderStatusBarItems: (manager: StatusBarItemsManager) => readonly StatusBarItem[];
 
 // @public @deprecated
