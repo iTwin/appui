@@ -2,6 +2,90 @@
   "name": "@itwin/appui-react",
   "entries": [
     {
+      "version": "4.16.5",
+      "tag": "@itwin/appui-react_v4.16.5",
+      "date": "Tue, 10 Sep 2024 16:40:45 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Fix copyStyles to ignore errors on external resource links."
+          },
+          {
+            "comment": "Fix tool conditionals that depend on active viewport when content control APIs are not used."
+          },
+          {
+            "comment": "Fix `Toolbar` to avoid rendering of borders artifact"
+          },
+          {
+            "comment": "Fix synchronization of lock properties by properly invoking applyToolSettingPropertyChange."
+          },
+          {
+            "comment": "Fix `undefined` property access within `StatusBarComposer` component."
+          }
+        ]
+      }
+    },
+    {
+      "version": "4.16.4",
+      "tag": "@itwin/appui-react_v4.16.4",
+      "date": "Wed, 04 Sep 2024 08:10:19 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Fix link style load timing issue in window popups."
+          }
+        ]
+      }
+    },
+    {
+      "version": "4.16.3",
+      "tag": "@itwin/appui-react_v4.16.3",
+      "date": "Tue, 03 Sep 2024 14:32:22 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Render `MenuItem` without `item` or `submenu` props."
+          }
+        ]
+      }
+    },
+    {
+      "version": "4.16.2",
+      "tag": "@itwin/appui-react_v4.16.2",
+      "date": "Wed, 28 Aug 2024 06:32:12 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Fix new toolbars to handle event ids as case insensitive."
+          },
+          {
+            "comment": "Fixed tool setting editor not updating after value change."
+          },
+          {
+            "comment": "Increased margins of `SelectionCountField` component."
+          }
+        ]
+      }
+    },
+    {
+      "version": "4.16.1",
+      "tag": "@itwin/appui-react_v4.16.1",
+      "date": "Fri, 16 Aug 2024 08:18:13 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Render default navigation aid only if content control is not used."
+          },
+          {
+            "comment": "Fix `useConditionalValue` to handle event ids as case insensitive."
+          },
+          {
+            "comment": "Fix `useActiveViewport` to correctly return the active viewport."
+          }
+        ]
+      }
+    },
+    {
       "version": "4.16.0",
       "tag": "@itwin/appui-react_v4.16.0",
       "date": "Wed, 07 Aug 2024 12:38:32 GMT",

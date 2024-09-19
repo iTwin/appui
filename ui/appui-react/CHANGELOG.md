@@ -1,6 +1,49 @@
 # Change Log - @itwin/appui-react
 
-This log was last generated on Wed, 07 Aug 2024 12:38:32 GMT and should not be manually modified.
+This log was last generated on Tue, 10 Sep 2024 16:40:45 GMT and should not be manually modified.
+
+## 4.16.5
+Tue, 10 Sep 2024 16:40:45 GMT
+
+### Updates
+
+- Fix copyStyles to ignore errors on external resource links.
+- Fix tool conditionals that depend on active viewport when content control APIs are not used.
+- Fix `Toolbar` to avoid rendering of borders artifact
+- Fix synchronization of lock properties by properly invoking applyToolSettingPropertyChange.
+- Fix `undefined` property access within `StatusBarComposer` component.
+
+## 4.16.4
+Wed, 04 Sep 2024 08:10:19 GMT
+
+### Updates
+
+- Fix link style load timing issue in window popups.
+
+## 4.16.3
+Tue, 03 Sep 2024 14:32:22 GMT
+
+### Updates
+
+- Render `MenuItem` without `item` or `submenu` props.
+
+## 4.16.2
+Wed, 28 Aug 2024 06:32:12 GMT
+
+### Updates
+
+- Fix new toolbars to handle event ids as case insensitive.
+- Fixed tool setting editor not updating after value change.
+- Increased margins of `SelectionCountField` component.
+
+## 4.16.1
+Fri, 16 Aug 2024 08:18:13 GMT
+
+### Updates
+
+- Render default navigation aid only if content control is not used.
+- Fix `useConditionalValue` to handle event ids as case insensitive.
+- Fix `useActiveViewport` to correctly return the active viewport.
 
 ## 4.16.0
 Wed, 07 Aug 2024 12:38:32 GMT
