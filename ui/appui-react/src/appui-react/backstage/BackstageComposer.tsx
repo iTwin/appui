@@ -171,6 +171,7 @@ export function BackstageComposer(props: BackstageComposerProps) {
   useBackstageItemSyncEffect(defaultItemsManager, syncIdsOfInterest);
 
   const [addonItemsManager] = React.useState(new BackstageItemsManager());
+  // eslint-disable-next-line deprecation/deprecation
   const addonItems = useUiItemsProviderBackstageItems(addonItemsManager);
   const addonSyncIdsOfInterest = React.useMemo(
     () => BackstageItemsManager.getSyncIdsOfInterest(addonItems),
