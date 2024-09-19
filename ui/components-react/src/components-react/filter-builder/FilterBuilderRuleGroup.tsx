@@ -30,6 +30,8 @@ export interface PropertyFilterBuilderRuleGroupRendererProps {
   group: PropertyFilterBuilderRuleGroup;
   /** Controls whether the group operator is toggle-able. */
   isGroupOperatorDisabled?: boolean;
+  /** Controls whether the last rule remaining in a group is deletable */
+  allowLastRuleDelete?: boolean;
 }
 
 /**
@@ -39,7 +41,7 @@ export interface PropertyFilterBuilderRuleGroupRendererProps {
 export function PropertyFilterBuilderRuleGroupRenderer(
   props: PropertyFilterBuilderRuleGroupRendererProps
 ) {
-  const { path, group, isGroupOperatorDisabled } = props;
+  const { path, group, isGroupOperatorDisabled, allowLastRuleDelete } = props;
   const { actions } = React.useContext(PropertyFilterBuilderContext);
   const { onRuleAdded, groupRef } = useRulePropertyFocus(group.items.length);
 
@@ -73,6 +75,7 @@ export function PropertyFilterBuilderRuleGroupRenderer(
               path={path}
               item={item}
               onRuleAdded={onRuleAdded}
+              allowLastRuleDelete={allowLastRuleDelete}
             />
           </div>
         ))}
@@ -118,6 +121,7 @@ interface PropertyFilterBuilderGroupOrRuleProps {
   path: string[];
   item: PropertyFilterBuilderRuleGroupItem;
   onRuleAdded: () => void;
+  allowLastRuleDelete?: boolean;
 }
 
 const PropertyFilterBuilderGroupOrRule = React.memo(
@@ -125,6 +129,7 @@ const PropertyFilterBuilderGroupOrRule = React.memo(
     path,
     item,
     onRuleAdded,
+    allowLastRuleDelete,
   }: PropertyFilterBuilderGroupOrRuleProps) {
     const itemPath = [...path, item.id];
 
@@ -137,6 +142,7 @@ const PropertyFilterBuilderGroupOrRule = React.memo(
         path={itemPath}
         rule={item}
         onRuleAdded={onRuleAdded}
+        allowLastRuleDelete={allowLastRuleDelete}
       />
     );
   }

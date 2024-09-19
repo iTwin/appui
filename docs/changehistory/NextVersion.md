@@ -11,6 +11,7 @@ Table of contents:
 - [@itwin/components-react](#itwincomponents-react)
   - [Deprecations](#deprecations-2)
   - [Additions](#additions-1)
+  - [Changes](#changes-1)
 - [@itwin/imodel-components-react](#itwinimodel-components-react)
   - [Deprecations](#deprecations-3)
 
@@ -228,6 +229,10 @@ const content: ContentProps = {
 ### Additions
 
 - Added `useDefaultPropertyFilterBuilderRuleValidator` hook to get default validator for rules in `PropertyFilterBuilder` component. [#1000](https://github.com/iTwin/appui/pull/1000)
+
+### Changes
+
+- Allow last rule in rule group to be deleted by setting allowLastRuleDelete param in removeItem action in `PropertyFilterBuilder` component. [#1034](https://github.com/iTwin/appui/pull/1034)
 
 ## @itwin/imodel-components-react
 

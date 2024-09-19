@@ -2074,7 +2074,7 @@ export class PropertyFilterBuilderActions {
     constructor(setState: (setter: (prevState: PropertyFilterBuilderState) => PropertyFilterBuilderState) => void);
     addItem(path: string[], item: "RULE_GROUP" | "RULE" | PropertyFilterRule | PropertyFilterRuleGroup): void;
     removeAllItems(): void;
-    removeItem(path: string[]): void;
+    removeItem(path: string[], allowLastRuleDelete?: boolean): void;
     setRuleErrorMessages(ruleIdsAndErrorMessages: Map<string, string>): void;
     setRuleGroupOperator(path: string[], operator: `${PropertyFilterRuleGroupOperator}`): void;
     setRuleOperator(path: string[], operator: PropertyFilterBuilderRuleOperator): void;
@@ -2104,6 +2104,7 @@ export function PropertyFilterBuilderRenderer(props: PropertyFilterBuilderRender
 // @beta
 export interface PropertyFilterBuilderRendererProps {
     actions: PropertyFilterBuilderActions;
+    allowLastRuleDelete?: boolean;
     isDisabled?: boolean;
     isGroupOperatorDisabled?: boolean;
     onRulePropertySelected?: (property: PropertyDescription) => void;
