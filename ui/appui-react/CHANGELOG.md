@@ -1,6 +1,26 @@
 # Change Log - @itwin/appui-react
 
-This log was last generated on Tue, 10 Sep 2024 16:40:45 GMT and should not be manually modified.
+This log was last generated on Thu, 19 Sep 2024 12:50:53 GMT and should not be manually modified.
+
+## 4.17.0
+Thu, 19 Sep 2024 12:50:53 GMT
+
+### Updates
+
+- Deprecated FrameworkFrontstages.clearFrontstageProviders
+- Deprecated visibility methods of UiFramework
+- Deprecated component props in favor of type helper
+- Track `ContentOverlay` components to determine if the active strip should be rendered by the content layout.
+- Allow to set the available snap modes in SnapModeField.
+- Add a generic `ConditionalValue` interface.
+- Add `ContentProps.renderActiveStrip` property to control rendering of the active strip.
+- Deprecate `useDefaultStatusBarItems`, `useUiItemsProviderStatusBarItems` and `useUiItemsProviderBackstageItems` hooks.
+- Deprecate `CSS` and `SCSS` variables.
+- Deprecate remnant APIs related to `provide*` variants of `UiItemsProvider`.
+- Deprecate APIs related to `BaseUiItemsProvider`.
+- Add `ConditionalBooleanValue` and `ConditionalStringValue` class re-exports.
+- Move `StandardContentLayouts` and `ContentLayoutProps` from @itwin/appui-abstract
+- Added `UiFramework.onIModelConnectionChanged` event to get notified whenever the iModel connection returned by `UiFramework.getIModelConnection()` is changed.
 
 ## 4.16.5
 Tue, 10 Sep 2024 16:40:45 GMT

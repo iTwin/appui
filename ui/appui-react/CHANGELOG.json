@@ -2,6 +2,57 @@
   "name": "@itwin/appui-react",
   "entries": [
     {
+      "version": "4.17.0",
+      "tag": "@itwin/appui-react_v4.17.0",
+      "date": "Thu, 19 Sep 2024 12:50:53 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Deprecated FrameworkFrontstages.clearFrontstageProviders"
+          },
+          {
+            "comment": "Deprecated visibility methods of UiFramework"
+          },
+          {
+            "comment": "Deprecated component props in favor of type helper"
+          },
+          {
+            "comment": "Track `ContentOverlay` components to determine if the active strip should be rendered by the content layout."
+          },
+          {
+            "comment": "Allow to set the available snap modes in SnapModeField."
+          },
+          {
+            "comment": "Add a generic `ConditionalValue` interface."
+          },
+          {
+            "comment": "Add `ContentProps.renderActiveStrip` property to control rendering of the active strip."
+          },
+          {
+            "comment": "Deprecate `useDefaultStatusBarItems`, `useUiItemsProviderStatusBarItems` and `useUiItemsProviderBackstageItems` hooks."
+          },
+          {
+            "comment": "Deprecate `CSS` and `SCSS` variables."
+          },
+          {
+            "comment": "Deprecate remnant APIs related to `provide*` variants of `UiItemsProvider`."
+          },
+          {
+            "comment": "Deprecate APIs related to `BaseUiItemsProvider`."
+          },
+          {
+            "comment": "Add `ConditionalBooleanValue` and `ConditionalStringValue` class re-exports."
+          },
+          {
+            "comment": "Move `StandardContentLayouts` and `ContentLayoutProps` from @itwin/appui-abstract"
+          },
+          {
+            "comment": "Added `UiFramework.onIModelConnectionChanged` event to get notified whenever the iModel connection returned by `UiFramework.getIModelConnection()` is changed."
+          }
+        ]
+      }
+    },
+    {
       "version": "4.16.5",
       "tag": "@itwin/appui-react_v4.16.5",
       "date": "Tue, 10 Sep 2024 16:40:45 GMT",
