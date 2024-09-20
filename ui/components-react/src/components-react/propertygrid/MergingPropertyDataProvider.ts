@@ -149,10 +149,7 @@ class MergingPropertyDataProviderImpl implements IMergingPropertyDataProvider {
       return lhs;
     }
 
-    const mergedCategories = new Array<PropertyCategory>();
-    for (const lhsCategory of lhs) {
-      mergedCategories.push(lhsCategory);
-    }
+    const mergedCategories = [...lhs];
 
     for (const rhsCategory of rhs) {
       const childCategoryIndex = mergedCategories.findIndex(
