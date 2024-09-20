@@ -55,10 +55,10 @@ export class MergingPropertyDataProvider implements IPropertyDataProvider {
         continue;
       }
 
-      providerData.records[categoryName].forEach((categoryRecord, index) => {
-        providerData.records[categoryName][index].extendedData = {
+      providerData.records[categoryName].forEach((categoryRecord) => {
+        categoryRecord.extendedData = {
           ...categoryRecord.extendedData,
-          ...{ [this._sourceProviderExtendedDataKey]: provider },
+          [this._sourceProviderExtendedDataKey]: provider,
         };
       });
     }
