@@ -15,7 +15,7 @@ import type {
 import { PropertyDataChangeEvent } from "./PropertyDataProvider";
 
 /**
- * Implementation of [IPropertyDataProvider]. This provider merges any number of [IPropertyDataProviders] into a single one.
+ * Implementation of [IPropertyDataProvider]. This provider merges any number of [IPropertyDataProvider] instances into a single one.
  * @public
  */
 export class MergingPropertyDataProvider implements IPropertyDataProvider {
