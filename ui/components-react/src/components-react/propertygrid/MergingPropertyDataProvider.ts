@@ -110,31 +110,19 @@ class MergingPropertyDataProviderImpl implements IMergingPropertyDataProvider {
   }
 
   private mergeCategories(dataArray: PropertyData[]): PropertyCategory[] {
-    const mergedCategories = new Array<PropertyCategory>();
-    dataArray.forEach((data) => {
-      for (const category of data.categories) {
-        const mergedCategoryIndex = mergedCategories.findIndex(
-          (mergedCat) => mergedCat.name === category.name
-        );
-        if (mergedCategoryIndex === -1) {
-          mergedCategories.push(category);
-          continue;
-        }
+    let mergedCategories: PropertyCategory[] | undefined;
+    if (dataArray.length > 0) {
+      mergedCategories = [...dataArray[0].categories];
+    }
 
-        const newChildCategories = this.mergeChildCategories(
-          mergedCategories[mergedCategoryIndex].childCategories,
-          category.childCategories
-        );
-        mergedCategories[mergedCategoryIndex] = {
-          ...mergedCategories[mergedCategoryIndex],
-          ...(newChildCategories
-            ? { childCategories: [...newChildCategories] }
-            : {}),
-        };
-      }
-    });
+    for (let i = 1; i < dataArray.length; ++i) {
+      mergedCategories = this.mergeChildCategories(
+        mergedCategories,
+        dataArray[i].categories
+      );
+    }
 
-    return [...mergedCategories];
+    return mergedCategories ?? [];
   }
 
   private mergeChildCategories(
@@ -166,12 +154,10 @@ class MergingPropertyDataProviderImpl implements IMergingPropertyDataProvider {
       );
       mergedCategories[childCategoryIndex] = {
         ...mergedCategories[childCategoryIndex],
-        ...(newChildCategories
-          ? { childCategories: newChildCategories }
-          : {}),
+        ...(newChildCategories ? { childCategories: newChildCategories } : {}),
       };
     }
-    return [...mergedCategories];
+    return mergedCategories;
   }
 
   private mergeRecords(dataArray: PropertyData[]): {
