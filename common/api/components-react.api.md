@@ -376,7 +376,7 @@ export namespace ConvertedPrimitives {
 }
 
 // @public
-export function createMergedPropertyDataProvider(providers: IPropertyDataProvider[]): MergingPropertyDataProvider;
+export function createMergedPropertyDataProvider(providers: IPropertyDataProvider[]): IMergingPropertyDataProvider;
 
 // @public
 export function CustomizablePropertyRenderer(props: CustomizablePropertyRendererProps): React_3.JSX.Element;
@@ -1046,6 +1046,13 @@ export type ImageFileFormat = "png" | "jpg" | "jpge";
 export type ImageSourceType = "svg" | "url" | "binary" | "core-icon" | "webfont-icon";
 
 // @public
+export interface IMergingPropertyDataProvider {
+    getData(): Promise<PropertyData>;
+    getSourceProviderFromPropertyRecord(record: PropertyRecord): IPropertyDataProvider | undefined;
+    onDataChanged: PropertyDataChangeEvent;
+}
+
+// @public
 export interface ImmediatelyLoadedTreeNodeItem extends TreeNodeItem {
     // (undocumented)
     children?: TreeNodeItem[];
@@ -1381,14 +1388,6 @@ export const matchLinks: (text: string) => Array<{
 export class MergedPropertyValueRenderer implements IPropertyValueRenderer {
     canRender(record: PropertyRecord): boolean;
     render(_record: PropertyRecord, context?: PropertyValueRendererContext): string | number | boolean | Iterable<React_3.ReactNode> | React_3.JSX.Element | null | undefined;
-}
-
-// @public
-export class MergingPropertyDataProvider implements IPropertyDataProvider {
-    constructor(providers: IPropertyDataProvider[]);
-    getData(): Promise<PropertyData>;
-    getSourceProviderFromPropertyRecord(record: PropertyRecord): IPropertyDataProvider | undefined;
-    onDataChanged: PropertyDataChangeEvent;
 }
 
 // @internal (undocumented)

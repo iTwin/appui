@@ -19,11 +19,6 @@ describe("MergingPropertyDataProvider", () => {
     label: "provider2 category label",
     expand: true,
   };
-  const provider3Category: PropertyCategory = {
-    name: "provider3 Category name",
-    label: "provider3 category label",
-    expand: false,
-  };
 
   const provider1Property: PropertyRecord =
     TestUtils.createPrimitiveStringProperty(
@@ -35,15 +30,9 @@ describe("MergingPropertyDataProvider", () => {
       "provider2 Property",
       "provider2 Property raw"
     );
-  const provider3Property: PropertyRecord =
-    TestUtils.createPrimitiveStringProperty(
-      "provider3 Property",
-      "provider3 Property raw"
-    );
 
   let dataProvider1: SimplePropertyDataProvider;
   let dataProvider2: SimplePropertyDataProvider;
-  let dataProvider3: SimplePropertyDataProvider;
 
   beforeEach(() => {
     dataProvider1 = new SimplePropertyDataProvider();
@@ -53,28 +42,21 @@ describe("MergingPropertyDataProvider", () => {
     dataProvider2 = new SimplePropertyDataProvider();
     dataProvider2.addCategory(provider2Category);
     dataProvider2.addProperty(provider2Property, 0);
-
-    dataProvider3 = new SimplePropertyDataProvider();
-    dataProvider3.addCategory(provider3Category);
-    dataProvider3.addProperty(provider3Property, 0);
   });
 
   it("getData should return proper data", async () => {
     const mergingProvider = createMergedPropertyDataProvider([
       dataProvider1,
       dataProvider2,
-      dataProvider3,
     ]);
     const mergingProviderPropertyData = await mergingProvider.getData();
     const dataProvider1PropertyData = await dataProvider1.getData();
     const dataProvider2PropertyData = await dataProvider2.getData();
-    const dataProvider3PropertyData = await dataProvider3.getData();
 
     // Check if providers have expected number of categories
-    expect(mergingProviderPropertyData.categories).to.have.length(3);
+    expect(mergingProviderPropertyData.categories).to.have.length(2);
     expect(dataProvider1PropertyData.categories).to.have.length(1);
     expect(dataProvider2PropertyData.categories).to.have.length(1);
-    expect(dataProvider3PropertyData.categories).to.have.length(1);
 
     // Check if mergingProvider has all categories from other providers
     const mergingProviderPropertyCategory1 =
@@ -105,20 +87,6 @@ describe("MergingPropertyDataProvider", () => {
       dataProvider2PropertyCategory.expand
     );
 
-    const mergingProviderPropertyCategory3 =
-      mergingProviderPropertyData.categories[2];
-    const dataProvider3PropertyCategory =
-      dataProvider3PropertyData.categories[0];
-    expect(mergingProviderPropertyCategory3.name).to.equal(
-      dataProvider3PropertyCategory.name
-    );
-    expect(mergingProviderPropertyCategory3.label).to.equal(
-      dataProvider3PropertyCategory.label
-    );
-    expect(mergingProviderPropertyCategory3.expand).to.be.equal(
-      dataProvider3PropertyCategory.expand
-    );
-
     // Check if mergingProvider has all records from other providers
     const recordsForMergingProviderCategory1 =
       mergingProviderPropertyData.records[
@@ -128,31 +96,21 @@ describe("MergingPropertyDataProvider", () => {
       mergingProviderPropertyData.records[
         mergingProviderPropertyCategory2.name
       ];
-    const recordsForMergingProviderCategory3 =
-      mergingProviderPropertyData.records[
-        mergingProviderPropertyCategory3.name
-      ];
 
     const recordsForDataProvider1Category =
       dataProvider1PropertyData.records[dataProvider1PropertyCategory.name];
     const recordsForDataProvider2Category =
       dataProvider2PropertyData.records[dataProvider2PropertyCategory.name];
-    const recordsForDataProvider3Category =
-      dataProvider3PropertyData.records[dataProvider3PropertyCategory.name];
 
     expect(recordsForMergingProviderCategory1).to.have.length(1);
     expect(recordsForMergingProviderCategory2).to.have.length(1);
-    expect(recordsForMergingProviderCategory3).to.have.length(1);
     expect(recordsForDataProvider1Category).to.have.length(1);
     expect(recordsForDataProvider2Category).to.have.length(1);
-    expect(recordsForDataProvider3Category).to.have.length(1);
 
     const mergingProviderRecord1 = recordsForMergingProviderCategory1[0];
     const mergingProviderRecord2 = recordsForMergingProviderCategory2[0];
-    const mergingProviderRecord3 = recordsForMergingProviderCategory3[0];
     const dataProvider1Record = recordsForDataProvider1Category[0];
     const dataProvider2Record = recordsForDataProvider2Category[0];
-    const dataProvider3Record = recordsForDataProvider3Category[0];
 
     expect(mergingProviderRecord1.property.displayLabel).to.equal(
       dataProvider1Record.property.displayLabel
@@ -160,28 +118,21 @@ describe("MergingPropertyDataProvider", () => {
     expect(mergingProviderRecord2.property.displayLabel).to.equal(
       dataProvider2Record.property.displayLabel
     );
-    expect(mergingProviderRecord3.property.displayLabel).to.equal(
-      dataProvider3Record.property.displayLabel
-    );
+
     const mergingProviderValue1 =
       mergingProviderRecord1.value as PrimitiveValue;
     const mergingProviderValue2 =
       mergingProviderRecord2.value as PrimitiveValue;
-    const mergingProviderValue3 =
-      mergingProviderRecord3.value as PrimitiveValue;
     const dataProvider1Value = dataProvider1Record.value as PrimitiveValue;
     const dataProvider2Value = dataProvider2Record.value as PrimitiveValue;
-    const dataProvider3Value = dataProvider3Record.value as PrimitiveValue;
     expect(mergingProviderValue1).to.equal(dataProvider1Value);
     expect(mergingProviderValue2).to.equal(dataProvider2Value);
-    expect(mergingProviderValue3).to.equal(dataProvider3Value);
   });
 
   it("getData should return same PropertyData when no data changes", async () => {
     const mergingProvider = createMergedPropertyDataProvider([
       dataProvider1,
       dataProvider2,
-      dataProvider3,
     ]);
     const first = await mergingProvider.getData();
     const second = await mergingProvider.getData();
@@ -192,10 +143,9 @@ describe("MergingPropertyDataProvider", () => {
     const mergingProvider = createMergedPropertyDataProvider([
       dataProvider1,
       dataProvider2,
-      dataProvider3,
     ]);
     const initial = await mergingProvider.getData();
-    expect(initial.categories.length).to.equal(3);
+    expect(initial.categories.length).to.equal(2);
     dataProvider1.addCategory({
       name: "Name1",
       label: "Label1",
@@ -203,8 +153,8 @@ describe("MergingPropertyDataProvider", () => {
     });
 
     const categoryAdded = await mergingProvider.getData();
-    expect(categoryAdded.categories.length).to.equal(4);
-    // MergingProvider has 3 providers and 2nd and 3rd provider have 1 category, and 1st provider has 2 categories.
+    expect(categoryAdded.categories.length).to.equal(3);
+    // MergingProvider has 2 providers, 2nd provider has 1 category, and 1st provider has 2 categories.
     // MergingProvider joins all categories into a single array, since 1st provider's categories are added first, newly created
     // category will be in the position 1.
     expect(categoryAdded.categories[1].name).to.equal("Name1");
@@ -223,44 +173,40 @@ describe("MergingPropertyDataProvider", () => {
         .displayValue
     ).to.equal("string1");
 
-    expect(propertyAdded.records[provider3Category.name].length).to.equal(1);
-    dataProvider3.removeProperty(provider3Property, 0);
+    dataProvider2.removeProperty(provider2Property, 0);
     const propertyRemoved = await mergingProvider.getData();
-    expect(propertyRemoved.records[provider3Category.name].length).to.equal(0);
+    expect(propertyRemoved.records[provider2Category.name].length).to.equal(1);
   });
 
   it("onDataChanged should be called when any of the source providers call onDataChanged", async () => {
     const mergingProvider = createMergedPropertyDataProvider([
       dataProvider1,
       dataProvider2,
-      dataProvider3,
     ]);
-    let onDataChangedCalls = 0;
-
+    const spy = vi.fn();
     mergingProvider.onDataChanged.addListener(() => {
-      ++onDataChangedCalls;
+      spy();
     });
-    expect(onDataChangedCalls).to.be.equal(0);
+    expect(spy).toHaveBeenCalledTimes(0);
 
     dataProvider1.addCategory({
       name: "Name1",
       label: "Label1",
       expand: false,
     });
-    expect(onDataChangedCalls).to.be.equal(1);
+    expect(spy).toHaveBeenCalledTimes(1);
 
     dataProvider2.addProperty(
       TestUtils.createPrimitiveStringProperty("String1", "string1"),
       0
     );
-    expect(onDataChangedCalls).to.be.equal(2);
+    expect(spy).toHaveBeenCalledTimes(2);
   });
 
   it("getSourceProviderFromPropertyRecord returns correct provider", async () => {
     const mergingProvider = createMergedPropertyDataProvider([
       dataProvider1,
       dataProvider2,
-      dataProvider3,
     ]);
     const data = await mergingProvider.getData();
 
@@ -274,11 +220,6 @@ describe("MergingPropertyDataProvider", () => {
     );
     expect(dataProvider2).to.equal(sourceProvider2);
 
-    const sourceProvider3 = mergingProvider.getSourceProviderFromPropertyRecord(
-      data.records[provider3Category.name][0]
-    );
-    expect(dataProvider3).to.equal(sourceProvider3);
-
     const testPropertyRecord: PropertyRecord =
       TestUtils.createPrimitiveStringProperty(
         "testProperty",
@@ -287,5 +228,65 @@ describe("MergingPropertyDataProvider", () => {
     const sourceProviderUndefined =
       mergingProvider.getSourceProviderFromPropertyRecord(testPropertyRecord);
     expect(sourceProviderUndefined).to.equal(undefined);
+  });
+
+  it("getData filters out duplicate categories", async () => {
+    const mergingProvider = createMergedPropertyDataProvider([
+      dataProvider1,
+      dataProvider2,
+    ]);
+    const category1: PropertyCategory = {
+      name: "test1 name",
+      label: "test1 label",
+      expand: true,
+    };
+    const category2 = {
+      name: "same name",
+      label: "same label",
+      expand: true,
+      childCategories: [
+        {
+          name: "test2 child name",
+          label: "test2 child label",
+          expand: false,
+        },
+      ],
+    };
+
+    const category3 = {
+      name: "same name",
+      label: "same label",
+      expand: true,
+      childCategories: [
+        {
+          name: "test3 child name",
+          label: "test3 child label",
+          expand: false,
+        },
+      ],
+    };
+    dataProvider1.addCategory(category1);
+    dataProvider2.addCategory(category1);
+    dataProvider1.addCategory(category2);
+    dataProvider2.addCategory(category3);
+
+    const mergingProviderData = await mergingProvider.getData();
+    // Check if providers have expected number of categories
+    expect(mergingProviderData.categories).to.have.length(4);
+
+    // Check if mergingProvider has all categories from other providers
+    expect(mergingProviderData.categories[0]).to.deep.equal(provider1Category);
+    expect(mergingProviderData.categories[1]).to.deep.equal(category1);
+    expect(mergingProviderData.categories[2].name).to.equal(category2.name);
+    expect(mergingProviderData.categories[2].label).to.equal(category2.label);
+    expect(mergingProviderData.categories[2].expand).to.equal(category2.expand);
+    expect(mergingProviderData.categories[2].childCategories?.length).to.equal(
+      2
+    );
+    expect(mergingProviderData.categories[2].childCategories).to.deep.equal([
+      ...category2.childCategories,
+      ...category3.childCategories,
+    ]);
+    expect(mergingProviderData.categories[3]).to.deep.equal(provider2Category);
   });
 });
