@@ -1,6 +1,13 @@
 # Change Log - @itwin/imodel-components-react
 
-This log was last generated on Tue, 10 Sep 2024 16:40:46 GMT and should not be manually modified.
+This log was last generated on Thu, 19 Sep 2024 12:50:53 GMT and should not be manually modified.
+
+## 4.17.0
+Thu, 19 Sep 2024 12:50:53 GMT
+
+### Updates
+
+- Deprecated component props in favor of type helper
 
 ## 4.16.5
 Tue, 10 Sep 2024 16:40:46 GMT
