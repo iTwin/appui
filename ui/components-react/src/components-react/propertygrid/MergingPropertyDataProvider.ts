@@ -116,7 +116,7 @@ export class MergingPropertyDataProvider implements IPropertyDataProvider {
           continue;
         }
 
-        mergedRecords[categoryName] = data.records[categoryName];
+        mergedRecords[categoryName] = [...data.records[categoryName]];
       }
     });
 
