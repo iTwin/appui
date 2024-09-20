@@ -167,7 +167,7 @@ class MergingPropertyDataProviderImpl implements IMergingPropertyDataProvider {
       mergedCategories[childCategoryIndex] = {
         ...mergedCategories[childCategoryIndex],
         ...(newChildCategories
-          ? { childCategories: [...newChildCategories] }
+          ? { childCategories: newChildCategories }
           : {}),
       };
     }
