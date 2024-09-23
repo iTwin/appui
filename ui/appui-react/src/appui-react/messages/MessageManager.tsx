@@ -365,19 +365,23 @@ export class MessageManager {
   }
 
   /** Output a message and/or alert to the user.
-   * @param  message  Details about the message to output.
+   * @param message Details about the message to output.
    */
   public static addMessage(message: NotifyMessageDetailsType): void {
+    const activeMessage = this.activeMessageManager.messages.find((m) =>
+      isEqual(message, m.messageDetails)
+    );
+    if (activeMessage) return;
+
+    this.activeMessageManager.add(message);
+    this.refreshToastMessages();
+    this.onMessageAddedEvent.emit({ message });
+
     if (!isEqual(message, this._lastMessage)) {
+      // Add message to message center if it is not the same as the last message.
       this.addToMessageCenter(message);
       this._lastMessage = message;
     }
-
-    this._activeMessageManager.add(message);
-
-    this.refreshToastMessages();
-
-    this.onMessageAddedEvent.emit({ message });
   }
 
   /**
