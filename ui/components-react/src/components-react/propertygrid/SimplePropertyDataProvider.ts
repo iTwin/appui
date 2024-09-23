@@ -15,7 +15,7 @@ import type {
 import { PropertyDataChangeEvent } from "./PropertyDataProvider";
 
 /**
- * Implementation of [IPropertyDataProvider] that uses an associative array.
+ * Implementation of [[IPropertyDataProvider]] that uses an associative array.
  * @public
  */
 export class SimplePropertyDataProvider
