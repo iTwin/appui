@@ -376,6 +376,9 @@ export namespace ConvertedPrimitives {
 }
 
 // @public
+export function createMergedPropertyDataProvider(providers: IPropertyDataProvider[]): IMergingPropertyDataProvider;
+
+// @public
 export function CustomizablePropertyRenderer(props: CustomizablePropertyRendererProps): React_3.JSX.Element;
 
 // @alpha
@@ -1041,6 +1044,13 @@ export type ImageFileFormat = "png" | "jpg" | "jpge";
 
 // @public
 export type ImageSourceType = "svg" | "url" | "binary" | "core-icon" | "webfont-icon";
+
+// @public
+export interface IMergingPropertyDataProvider {
+    getData(): Promise<PropertyData>;
+    getSourceProviderFromPropertyRecord(record: PropertyRecord): IPropertyDataProvider | undefined;
+    onDataChanged: PropertyDataChangeEvent;
+}
 
 // @public
 export interface ImmediatelyLoadedTreeNodeItem extends TreeNodeItem {

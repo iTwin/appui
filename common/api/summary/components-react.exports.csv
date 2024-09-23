@@ -40,6 +40,7 @@ deprecated;ControlledSelectableContentProps
 public;ControlledTree(props: ControlledTreeProps): React_3.JSX.Element
 public;ControlledTreeProps 
 public;ConvertedPrimitives
+public;createMergedPropertyDataProvider(providers: IPropertyDataProvider[]): IMergingPropertyDataProvider
 public;CustomizablePropertyRenderer(props: CustomizablePropertyRendererProps): React_3.JSX.Element
 alpha;CustomNumberEditor 
 alpha;CustomNumberPropertyEditor 
@@ -126,6 +127,7 @@ public;ImageCheckBoxEditor
 public;ImageCheckBoxPropertyEditor 
 public;ImageFileFormat = "png" | "jpg" | "jpge"
 public;ImageSourceType = "svg" | "url" | "binary" | "core-icon" | "webfont-icon"
+public;IMergingPropertyDataProvider
 public;ImmediatelyLoadedTreeNodeItem 
 public;IMutableCategorizedPropertyItem 
 public;IMutableFlatGridItem = IMutableCategorizedPropertyItem | IMutableGridCategoryItem
