@@ -192,6 +192,51 @@ describe("MessageManager", () => {
     expect(MessageManager.messages.length).toEqual(1);
   });
 
+  it("should activate the same message once", async () => {
+    function getActiveMessages() {
+      return MessageManager.activeMessageManager.messages.map(({ id }) => id);
+    }
+    function getMessages() {
+      return MessageManager.messages.map(({ briefMessage }) =>
+        typeof briefMessage === "string" ? briefMessage : "Brief message"
+      );
+    }
+
+    MessageManager.addMessage(
+      new NotifyMessageDetails(OutputMessagePriority.Debug, "Message 1")
+    );
+    expect(getActiveMessages()).toEqual(["0"]);
+    MessageManager.addMessage(
+      new NotifyMessageDetails(OutputMessagePriority.Debug, "Message 2")
+    );
+    expect(getActiveMessages()).toEqual(["1", "0"]);
+    MessageManager.addMessage(
+      new NotifyMessageDetails(OutputMessagePriority.Debug, "Message 1")
+    );
+    expect(getActiveMessages(), "Message 1 is already active").toEqual([
+      "1",
+      "0",
+    ]);
+
+    // `Message 1` is removed when i.e. toast is closed
+    MessageManager.activeMessageManager.remove("0");
+
+    MessageManager.addMessage(
+      new NotifyMessageDetails(OutputMessagePriority.Debug, "Message 1")
+    );
+    expect(getActiveMessages()).toEqual(["2", "1"]);
+
+    MessageManager.addMessage(
+      new NotifyMessageDetails(OutputMessagePriority.Debug, "Message 2")
+    );
+    expect(getActiveMessages(), "Message 2 is still active").toEqual([
+      "2",
+      "1",
+    ]);
+
+    expect(getMessages()).toEqual(["Message 1", "Message 2", "Message 1"]);
+  });
+
   it("React based message should be supported", () => {
     MessageManager.clearMessages();
     expect(MessageManager.messages.length).toEqual(0);
