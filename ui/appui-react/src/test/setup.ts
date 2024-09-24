@@ -15,6 +15,12 @@ global.DOMMatrix = class DOMMatrix {
   constructor() {}
 } as unknown as typeof DOMMatrix;
 
+global.ResizeObserver = class ResizeObserver {
+  public observe() {}
+  public unobserve() {}
+  public disconnect() {}
+};
+
 document.elementFromPoint = () => null;
 
 beforeEach(async () => {
