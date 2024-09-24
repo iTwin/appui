@@ -6,7 +6,7 @@
   "type": "module",
   "main": "lib/cjs/appui-test-providers.js",
   "module": "lib/esm/appui-test-providers.js",
-  "typings": "lib/cjs/appui-test-providers",
+  "types": "lib/cjs/appui-test-providers",
   "scripts": {
     "start": "run-p -l \"build:** -- -w\" \"copy:** -- -w\"",
     "build": "run-p -l \"build:**\" \"copy:**\"",

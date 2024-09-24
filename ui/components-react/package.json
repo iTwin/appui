@@ -5,7 +5,7 @@
   "type": "module",
   "main": "lib/cjs/components-react.js",
   "module": "lib/esm/components-react.js",
-  "typings": "lib/cjs/components-react",
+  "types": "lib/cjs/components-react",
   "license": "MIT",
   "repository": {
     "type": "git",

@@ -5,7 +5,7 @@
   "type": "module",
   "main": "lib/cjs/core-react.js",
   "module": "lib/esm/core-react.js",
-  "typings": "lib/cjs/core-react",
+  "types": "lib/cjs/core-react",
   "license": "MIT",
   "repository": {
     "type": "git",

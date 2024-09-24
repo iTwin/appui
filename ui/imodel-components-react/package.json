@@ -5,7 +5,7 @@
   "type": "module",
   "main": "lib/cjs/imodel-components-react.js",
   "module": "lib/esm/imodel-components-react.js",
-  "typings": "lib/cjs/imodel-components-react",
+  "types": "lib/cjs/imodel-components-react",
   "license": "MIT",
   "repository": {
     "type": "git",
