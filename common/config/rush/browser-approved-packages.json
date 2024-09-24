@@ -235,10 +235,6 @@
       "allowedCategories": [ "internal" ]
     },
     {
-      "name": "@storybook/testing-library",
-      "allowedCategories": [ "internal" ]
-    },
-    {
       "name": "@storybook/theming",
       "allowedCategories": [ "internal" ]
     },
