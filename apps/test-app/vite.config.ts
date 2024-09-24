@@ -1,3 +1,7 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import fs from "fs";
 import { createLogger, defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react-swc";
