@@ -146,7 +146,6 @@ export * from "./core-react/utils/getObjectClassName";
 export * from "./core-react/utils/hooks/useDisposable";
 export * from "./core-react/utils/hooks/useEffectSkipFirst";
 export * from "./core-react/utils/hooks/useEventListener";
-export * from "./core-react/utils/hooks/ResizeObserverPolyfill";
 export * from "./core-react/utils/hooks/useOnOutsideClick";
 export * from "./core-react/utils/hooks/useProximityToMouse";
 export * from "./core-react/utils/hooks/useRefEffect";
