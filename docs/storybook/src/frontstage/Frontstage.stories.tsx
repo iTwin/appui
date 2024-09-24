@@ -3,14 +3,13 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import type { Meta, StoryObj } from "@storybook/react";
-import { fireEvent, within } from "@storybook/testing-library";
+import { fireEvent, within } from "@storybook/test";
 import {
   StagePanelLocation,
   StagePanelSection,
   StagePanelState,
   WidgetState,
 } from "@itwin/appui-react";
-import { AppUiDecorator } from "../Decorators";
 import { Page } from "../AppUiStory";
 import { FrontstageStory } from "./Frontstage";
 import { createWidget, removeProperty } from "../Utils";
@@ -20,7 +19,6 @@ const meta = {
   title: "Frontstage/FrontstageProvider",
   component: FrontstageStory,
   tags: ["autodocs"],
-  decorators: [AppUiDecorator],
   parameters: {
     docs: {
       page: () => <Page />,
