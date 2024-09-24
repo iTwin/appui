@@ -6,6 +6,8 @@ Table of contents:
   - [Changes](#changes)
 - [@itwin/components-react](#itwincomponents-react)
   - [Additions](#additions)
+- [@itwin/core-react](#itwincore-react)
+  - [Changes](#changes-1)
 
 ## @itwin/appui-react
 
@@ -18,3 +20,9 @@ Table of contents:
 ### Additions
 
 - Added `IMergingPropertyDataProvider` interface which combines any number of `IPropertyDataProvider` instances and added `createMergedPropertyDataProvider` factory function that creates `IMergingPropertyDataProvider` instance. [#1040](https://github.com/iTwin/appui/pull/1040)
+
+## @itwin/core-react
+
+### Changes
+
+- Removed the `resize-observer-polyfill` dependency because `ResizeObserver` is well supported by modern browsers, eliminating the need for a polyfill. [#1045](https://github.com/iTwin/appui/pull/1045)

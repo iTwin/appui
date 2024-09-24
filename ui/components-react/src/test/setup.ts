@@ -6,6 +6,12 @@ import TestUtils from "./TestUtils";
 
 window.HTMLElement.prototype.scrollIntoView = () => {};
 
+global.ResizeObserver = class ResizeObserver {
+  public observe() {}
+  public unobserve() {}
+  public disconnect() {}
+};
+
 beforeEach(async () => {
   vi.stubGlobal("fetch", async () => Promise.resolve(new Response()));
 

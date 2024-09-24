@@ -6,7 +6,6 @@
  * @module Utilities
  */
 import * as React from "react";
-import { getResizeObserver } from "./ResizeObserverPolyfill";
 import { useRefEffect } from "./useRefEffect";
 import { useRefs } from "./useRefs";
 
@@ -95,8 +94,7 @@ export function useResizeObserver<T extends Element>(
 
   const observerRef = useRefEffect(
     (instance: T | null) => {
-      const RO = getResizeObserver();
-      resizeObserver.current = new RO(handleResize);
+      resizeObserver.current = new ResizeObserver(handleResize);
       if (instance) {
         resizeObserver.current.observe(instance);
         const newBounds = instance.getBoundingClientRect();
@@ -233,8 +231,7 @@ export function useLayoutResizeObserver(
     if (!watchedElement) {
       return;
     }
-    const RO = getResizeObserver();
-    resizeObserver.current = new RO(handleResize);
+    resizeObserver.current = new ResizeObserver(handleResize);
     resizeObserver.current.observe(watchedElement);
     return () => {
       resizeObserver.current?.disconnect();

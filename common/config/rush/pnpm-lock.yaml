@@ -903,9 +903,6 @@ importers:
       react-autosuggest:
         specifier: ^10.1.0
         version: 10.1.0(react@18.3.1)
-      resize-observer-polyfill:
-        specifier: 1.5.1
-        version: 1.5.1
       ts-key-enum:
         specifier: ~2.0.12
         version: 2.0.12
@@ -11728,10 +11725,6 @@ packages:
 
   /reselect@4.1.8:
     resolution: {integrity: sha512-ab9EmR80F/zQTMNeneUr4cv+jSwPJgIlvEmVwLerwrWVbpLlBuls9XHzIeTFy4cegU2NHBp3va0LKOzU5qFEYQ==}
-    dev: false
-
-  /resize-observer-polyfill@1.5.1:
-    resolution: {integrity: sha512-LwZrotdHOo12nQuZlHEmtuXdqGoOD0OhaxopaNFxWzInpEgaLWoVuAMbTzixuosCx2nEG58ngzW3vxdWoxIgdg==}
     dev: false
 
   /resolve-alpn@1.2.1:
