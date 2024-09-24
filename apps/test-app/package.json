@@ -11,7 +11,7 @@
     "build:backend": "tsc -p tsconfig.backend.json",
     "build:frontend": "npm run copy:webfont && npm run pseudolocalize && vite build",
     "preview": "vite preview --port 3000",
-    "clean": "rimraf lib build .rush/temp/package-deps*.json",
+    "clean": "rimraf lib build dist .rush/temp/package-deps*.json",
     "electron": "run-p start:webserver start:electron",
     "lint": "eslint -f visualstudio \"./src/**/*.{ts,tsx}\" 1>&2",
     "start": "run-p start:webserver start:backend",
