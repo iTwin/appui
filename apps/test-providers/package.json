@@ -2,6 +2,7 @@
   "name": "@itwin/appui-test-providers",
   "version": "2.5.0-dev.2",
   "description": "Package used to exercise adding UI components and stages",
+  "type": "module",
   "main": "lib/cjs/appui-test-providers.js",
   "module": "lib/esm/appui-test-providers.js",
   "typings": "lib/cjs/appui-test-providers",

@@ -1,5 +1,6 @@
 {
   "name": "e2e-tests",
+  "type": "module",
   "version": "0.0.0",
   "description": "AppUI end-to-end tests",
   "license": "MIT",

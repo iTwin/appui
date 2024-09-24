@@ -2,6 +2,7 @@
   "name": "@itwin/components-react",
   "version": "5.0.0-dev.0",
   "description": "iTwin.js UI complex components",
+  "type": "module",
   "main": "lib/cjs/components-react.js",
   "module": "lib/esm/components-react.js",
   "typings": "lib/cjs/components-react",

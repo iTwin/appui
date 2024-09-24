@@ -1,5 +1,6 @@
 {
   "name": "test-app",
+  "type": "module",
   "description": "AppUI Test Application",
   "private": true,
   "license": "MIT",

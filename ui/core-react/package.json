@@ -2,6 +2,7 @@
   "name": "@itwin/core-react",
   "version": "5.0.0-dev.0",
   "description": "iTwin.js UI core components",
+  "type": "module",
   "main": "lib/cjs/core-react.js",
   "module": "lib/esm/core-react.js",
   "typings": "lib/cjs/core-react",

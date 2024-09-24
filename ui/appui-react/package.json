@@ -2,6 +2,7 @@
   "name": "@itwin/appui-react",
   "version": "5.0.0-dev.0",
   "description": "UI framework",
+  "type": "module",
   "main": "lib/cjs/appui-react.js",
   "module": "lib/esm/appui-react.js",
   "typings": "lib/cjs/appui-react",
