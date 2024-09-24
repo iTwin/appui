@@ -125,7 +125,6 @@ public;getCssVariableAsNumber(variableName: string, htmlElement?: HTMLElement): 
 deprecated;getCssVariableAsNumber(variableName: string, htmlElement?: HTMLElement): number
 internal;getDisplayName: (component: React_2.ComponentType
 internal;getObjectClassName: (obj: any) => string
-internal;getResizeObserver():
 internal;getToolbarBackdropFilter: (filterBlur: number) => string
 internal;getToolbarBackgroundColor: (opacity: number) => string
 internal;getToolbarBoxShadow: (opacity: number) => string
@@ -288,7 +287,6 @@ public;RenderPropsArgs
 deprecated;RenderPropsArgs
 public;ResizableContainerObserver({ onResize, children, }:
 deprecated;ResizableContainerObserver({ onResize, children, }:
-internal;ResizeObserverType = default_2
 public;ScrollPositionMaintainer 
 deprecated;ScrollPositionMaintainer 
 public;ScrollView(props: CommonDivProps): React_2.JSX.Element
