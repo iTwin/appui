@@ -10,7 +10,6 @@ import {
   StagePanelState,
   WidgetState,
 } from "@itwin/appui-react";
-import { AppUiDecorator } from "../Decorators";
 import { Page } from "../AppUiStory";
 import { FrontstageStory } from "./Frontstage";
 import { createWidget, removeProperty } from "../Utils";
@@ -20,7 +19,6 @@ const meta = {
   title: "Frontstage/FrontstageProvider",
   component: FrontstageStory,
   tags: ["autodocs"],
-  decorators: [AppUiDecorator],
   parameters: {
     docs: {
       page: () => <Page />,

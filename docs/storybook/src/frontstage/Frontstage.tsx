@@ -15,6 +15,9 @@ type FrontstageStoryProps = Pick<AppUiStoryProps, "itemProviders"> &
 export function FrontstageStory(props: FrontstageStoryProps) {
   const frontstage = createFrontstage({
     ...props.frontstage,
+    rightPanelProps: {
+      sizeSpec: 250,
+    },
     hideStatusBar: props.hideStatusBar,
     hideToolSettings: props.hideToolSettings,
   });
