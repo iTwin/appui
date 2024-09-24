@@ -6,6 +6,18 @@
   "main": "lib/cjs/components-react.js",
   "module": "lib/esm/components-react.js",
   "types": "lib/cjs/components-react",
+  "exports": {
+    ".": {
+      "import": "./lib/esm/components-react.js",
+      "require": "./lib/cjs/components-react.js"
+    },
+    "./*": {
+      "sass": "./*.scss"
+    },
+    "./cjs": "./lib/cjs/components-react.js",
+    "./esm": "./lib/esm/components-react.js",
+    "./package.json": "./package.json"
+  },
   "license": "MIT",
   "repository": {
     "type": "git",

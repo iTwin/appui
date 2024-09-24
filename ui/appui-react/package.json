@@ -6,6 +6,18 @@
   "main": "lib/cjs/appui-react.js",
   "module": "lib/esm/appui-react.js",
   "types": "lib/cjs/appui-react",
+  "exports": {
+    ".": {
+      "import": "./lib/esm/appui-react.js",
+      "require": "./lib/cjs/appui-react.js"
+    },
+    "./*": {
+      "sass": "./*.scss"
+    },
+    "./cjs": "./lib/cjs/appui-react.js",
+    "./esm": "./lib/esm/appui-react.js",
+    "./package.json": "./package.json"
+  },
   "license": "MIT",
   "repository": {
     "type": "git",
