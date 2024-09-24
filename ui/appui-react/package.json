@@ -91,7 +91,7 @@
     "@types/use-sync-external-store": "^0.0.6",
     "@vitest/coverage-v8": "^1.4.0",
     "cpx2": "^3.0.0",
-    "eslint": "^8.44.0",
+    "eslint": "^8.57.1",
     "eslint-config-prettier": "~8.8.0",
     "faker": "^4.1.0",
     "ignore-styles": "^5.0.1",
