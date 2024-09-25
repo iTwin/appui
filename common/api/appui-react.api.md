@@ -965,6 +965,18 @@ export interface CommonToolbarItem {
 }
 
 // @public
+export class ComponentGenerator {
+    constructor(_uiDataProvider: UiLayoutDataProvider, _onCancel?: (() => void) | undefined);
+    // (undocumented)
+    getRow(row: DialogRow, rowIndex: number): React_2.ReactNode;
+    getToolSettingsEntries(): ToolSettingsEntry[];
+    // (undocumented)
+    getToolSettingsEntry(row: DialogRow, rowIndex: number): ToolSettingsEntry;
+    // (undocumented)
+    get uiDataProvider(): UiLayoutDataProvider;
+}
+
+// @public
 export type ConditionalBooleanValue = ConditionalBooleanValue_2;
 
 // @public (undocumented)
@@ -5600,6 +5612,9 @@ export function useAvailableUiItemsProviders(): readonly string[];
 
 // @public
 export const useBackstageManager: () => FrameworkBackstage;
+
+// @internal (undocumented)
+export function useConditionalProp<T>(conditionalProp: ConditionalProp<T>): T | undefined;
 
 // @public
 export function useConditionalValue<T>(getValue: () => T, eventIds: string[]): T;

@@ -141,6 +141,7 @@ deprecated;CommandItemProps
 public;CommonBackstageItem
 public;CommonStatusBarItem
 public;CommonToolbarItem
+public;ComponentGenerator
 public;ConditionalBooleanValue = ConditionalBooleanValue_2
 public;ConditionalBooleanValue: typeof ConditionalBooleanValue_2
 public;ConditionalStringValue = ConditionalStringValue_2
@@ -804,6 +805,7 @@ public;useActiveViewport(): ScreenViewport | undefined
 public;useAnalysisAnimationDataProvider(viewport: ScreenViewport | undefined): AnalysisAnimationTimelineDataProvider | undefined
 internal;useAvailableUiItemsProviders(): readonly string[]
 public;useBackstageManager: () => FrameworkBackstage
+internal;useConditionalProp
 public;useConditionalValue
 internal;useContentOverlayStore: UseBoundStore
 internal;useDefaultBackstageItems: (manager: BackstageItemsManager) => readonly BackstageItem[]
