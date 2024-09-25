@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import type { Decorator, Meta, StoryObj } from "@storybook/react";
 import { AppUiDecorator, InitializerDecorator } from "../Decorators";
-import { SolarTimeline } from "@itwin/imodel-components-react/src/imodel-components-react/timeline/SolarTimeline";
+import { SolarTimeline } from "@itwin/imodel-components-react-internal/src/imodel-components-react/timeline/SolarTimeline";
 import { BaseSolarDataProvider } from "@itwin/imodel-components-react";
 
 const AlignComponent: Decorator = (Story) => {

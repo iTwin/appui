@@ -15,6 +15,7 @@ export * from "./components-react/common/DateUtils";
 export * from "./components-react/common/HighlightedText";
 export * from "./components-react/common/HighlightingComponentProps";
 export * from "./components-react/common/IImageLoader";
+export * from "./components-react/common/ImageRenderer";
 export * from "./components-react/common/Links";
 export * from "./components-react/common/Orientation";
 export * from "./components-react/common/PageOptions";

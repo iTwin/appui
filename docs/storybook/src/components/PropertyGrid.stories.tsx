@@ -16,7 +16,7 @@ import {
   PropertyDataChangeEvent,
   PropertyValueRendererManager,
   VirtualizedPropertyGridWithDataProvider,
-} from "@itwin/components-react/src/components-react";
+} from "@itwin/components-react-internal/src/components-react";
 import { AppUiDecorator } from "../Decorators";
 import { Orientation } from "@itwin/core-react";
 

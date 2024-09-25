@@ -6,7 +6,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import {
   Listbox,
   ListboxItem,
-} from "@itwin/core-react/src/core-react/listbox/Listbox";
+} from "@itwin/core-react-internal/src/core-react/listbox/Listbox";
 import { AppUiDecorator } from "../Decorators";
 
 const meta = {

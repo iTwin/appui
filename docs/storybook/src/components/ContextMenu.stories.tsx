@@ -8,7 +8,7 @@ import {
   ContextMenuItem,
   ContextSubMenu,
 } from "@itwin/core-react";
-import { ContextMenu } from "@itwin/core-react/src/core-react/contextmenu/ContextMenu";
+import { ContextMenu } from "@itwin/core-react-internal/src/core-react/contextmenu/ContextMenu";
 import { AppUiDecorator } from "../Decorators";
 import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
 

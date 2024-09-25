@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import type { Meta, StoryObj } from "@storybook/react";
 import { AppUiDecorator } from "../Decorators";
-import { VerticalTabs } from "@itwin/core-react/src/core-react/tabs/VerticalTabs";
+import { VerticalTabs } from "@itwin/core-react-internal/src/core-react/tabs/VerticalTabs";
 import { Svg2D } from "@itwin/itwinui-icons-react";
 
 const meta = {

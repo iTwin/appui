@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import type { Meta, StoryObj } from "@storybook/react";
 import { AppUiDecorator } from "../Decorators";
-import { BlockText } from "@itwin/core-react/src/core-react/text/BlockText";
+import { BlockText } from "@itwin/core-react-internal/src/core-react/text/BlockText";
 
 const meta = {
   title: "Deprecated/BlockText",
