@@ -10,7 +10,6 @@ import { Button } from '@itwin/itwinui-react';
 import { Checkbox } from '@itwin/itwinui-react';
 import { ConditionalBooleanValue } from '@itwin/appui-abstract';
 import { ConditionalStringValue } from '@itwin/appui-abstract';
-import { default as default_2 } from 'resize-observer-polyfill';
 import type { DialogButtonDef } from '@itwin/appui-abstract';
 import type { IDisposable } from '@itwin/core-bentley';
 import { Input } from '@itwin/itwinui-react';
@@ -667,12 +666,6 @@ export const getDisplayName: (component: React_2.ComponentType<any>) => string;
 
 // @internal
 export const getObjectClassName: (obj: any) => string;
-
-// @internal (undocumented)
-export function getResizeObserver(): {
-    new (callback: ResizeObserverCallback): ResizeObserver;
-    prototype: ResizeObserver;
-};
 
 // @internal
 export const getToolbarBackdropFilter: (filterBlur: number) => string;
@@ -1434,9 +1427,6 @@ export function ResizableContainerObserver({ onResize, children, }: {
     onResize: (width: number, height: number) => void;
     children?: React_2.ReactNode;
 }): React_2.JSX.Element;
-
-// @internal (undocumented)
-export type ResizeObserverType = default_2;
 
 // @public @deprecated
 export class ScrollPositionMaintainer implements IDisposable {
