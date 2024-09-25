@@ -18,6 +18,7 @@ Table of contents:
 
 - Updated `MessageManager.addMessage` and `MessageManager.outputMessage` to ignore already active messages displayed to the user. This API is used by various tools indirectly via `IModelApp.notifications.outputMessage` when `AppNotificationManager` is set up. This change should prevent the same message from being displayed multiple times unnecessarily. [#1042](https://github.com/iTwin/appui/pull/1042)
 - Added `exports` field to `package.json` to prevent importing of `@internal` APIs [^1]. [#1048](https://github.com/iTwin/appui/pull/1048)
+- Popout widgets are now displayed in flow layout to match the layout of floating, stage panel and popout widgets when `reparentPopoutWidgets` is enabled.
 
 ## @itwin/components-react
 
