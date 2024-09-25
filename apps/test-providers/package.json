@@ -7,6 +7,10 @@
   "main": "lib/cjs/appui-test-providers.js",
   "module": "lib/esm/appui-test-providers.js",
   "types": "lib/cjs/appui-test-providers",
+  "exports": {
+    "import": "./lib/esm/appui-test-providers.js",
+    "require": "./lib/cjs/appui-test-providers.js"
+  },
   "scripts": {
     "start": "run-p -l \"build:** -- -w\" \"copy:** -- -w\"",
     "build": "run-p -l \"build:**\" \"copy:**\"",

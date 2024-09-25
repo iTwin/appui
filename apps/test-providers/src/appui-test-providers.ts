@@ -17,6 +17,7 @@ export * from "./tools/UiLayoutTools";
 
 export * from "./ui/buttons/ViewSelectorPanel";
 
+export * from "./ui/components/EditorExampleComponent";
 export * from "./ui/components/LanguageSelect";
 
 export * from "./ui/dialogs/SampleModalDialog";
