@@ -5613,9 +5613,6 @@ export function useAvailableUiItemsProviders(): readonly string[];
 // @public
 export const useBackstageManager: () => FrameworkBackstage;
 
-// @internal (undocumented)
-export function useConditionalProp<T>(conditionalProp: ConditionalProp<T>): T | undefined;
-
 // @public
 export function useConditionalValue<T>(getValue: () => T, eventIds: string[]): T;
 

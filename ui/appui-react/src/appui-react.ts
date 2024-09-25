@@ -93,7 +93,6 @@ export * from "./appui-react/hooks/useActiveStageId";
 export * from "./appui-react/hooks/useActiveViewport";
 export * from "./appui-react/hooks/useAnalysisAnimationDataProvider";
 export * from "./appui-react/hooks/useAvailableUiItemsProviders";
-export * from "./appui-react/hooks/useConditionalProp";
 export * from "./appui-react/hooks/useConditionalValue";
 export * from "./appui-react/hooks/useScheduleAnimationDataProvider";
 export * from "./appui-react/hooks/useSolarDataProvider";

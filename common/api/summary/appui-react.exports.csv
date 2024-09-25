@@ -805,7 +805,6 @@ public;useActiveViewport(): ScreenViewport | undefined
 public;useAnalysisAnimationDataProvider(viewport: ScreenViewport | undefined): AnalysisAnimationTimelineDataProvider | undefined
 internal;useAvailableUiItemsProviders(): readonly string[]
 public;useBackstageManager: () => FrameworkBackstage
-internal;useConditionalProp
 public;useConditionalValue
 internal;useContentOverlayStore: UseBoundStore
 internal;useDefaultBackstageItems: (manager: BackstageItemsManager) => readonly BackstageItem[]
