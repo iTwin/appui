@@ -76,7 +76,7 @@
   ],
   "devDependencies": {
     "@itwin/appui-abstract": "^4.0.0",
-    "@itwin/build-tools": "^3.7.0 || ^4.6.0-dev.27",
+    "@itwin/build-tools": "^4.9.0",
     "@itwin/components-react": "workspace:*",
     "@itwin/core-bentley": "^4.0.0",
     "@itwin/core-common": "^4.0.0",
