@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { TimelineComponent } from "@itwin/imodel-components-react/src/imodel-components-react/timeline/TimelineComponent";
+import { TimelineComponent } from "@itwin/imodel-components-react-internal/src/imodel-components-react/timeline/TimelineComponent";
 import { action } from "@storybook/addon-actions";
 import type { Decorator, Meta, StoryObj } from "@storybook/react";
 import { AppUiDecorator, InitializerDecorator } from "../Decorators";

@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import type { Meta, StoryObj } from "@storybook/react";
-import { EditorExampleComponent } from "@itwin/appui-test-providers/lib/esm/ui/components/EditorExampleComponent";
+import { EditorExampleComponent } from "@itwin/appui-test-providers";
 import { AppUiStory } from "../AppUiStory";
 
 const meta = {

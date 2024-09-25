@@ -201,7 +201,7 @@ function PropertyEditor({
 }
 
 /** Utility methods to generate react ui from DialogRow specs
- * @internal
+ * @public
  */
 export class ComponentGenerator {
   constructor(

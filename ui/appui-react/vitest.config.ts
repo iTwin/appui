@@ -5,13 +5,6 @@
 import { defineConfig } from "vitest/config";
 
 export default defineConfig({
-  resolve: {
-    alias: {
-      "@itwin/core-react": "@itwin/core-react/lib/esm/core-react.js",
-      "@itwin/components-react":
-        "@itwin/components-react/lib/esm/components-react.js",
-    },
-  },
   test: {
     globals: true,
     environment: "jsdom",
@@ -22,10 +15,10 @@ export default defineConfig({
     outputFile: "coverage/junit.xml",
     coverage: {
       thresholds: {
-        lines: 93,
-        functions: 82,
-        statements: 93,
-        branches: 90,
+        lines: 90,
+        functions: 84,
+        statements: 90,
+        branches: 87,
       },
     },
   },

@@ -10,12 +10,12 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "Bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
     "lib": ["dom", "dom.iterable", "esnext"]
   },
-  "include": ["./src/**/*.ts", "./src/**/*.tsx", "vite.config.mts"],
+  "include": ["**/*.ts", "**/*.tsx"],
   "exclude": ["./src/backend/**/*.ts"]
 }

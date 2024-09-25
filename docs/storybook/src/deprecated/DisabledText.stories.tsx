@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import type { Meta, StoryObj } from "@storybook/react";
 import { AppUiDecorator } from "../Decorators";
-import { DisabledText } from "@itwin/core-react/src/core-react/text/DisabledText";
+import { DisabledText } from "@itwin/core-react-internal/src/core-react/text/DisabledText";
 
 const meta = {
   title: "Deprecated/DisabledText",

@@ -9,7 +9,7 @@ import { Provider } from "react-redux";
 import type { Decorator } from "@storybook/react";
 import { StateManager, ThemeManager, UiFramework } from "@itwin/appui-react";
 import { IModelApp } from "@itwin/core-frontend";
-import { UiIModelComponents } from "@itwin/imodel-components-react/src/imodel-components-react/UiIModelComponents";
+import { UiIModelComponents } from "@itwin/imodel-components-react-internal/src/imodel-components-react/UiIModelComponents";
 
 export const AppUiDecorator: Decorator = (Story) => {
   new StateManager();

@@ -141,6 +141,7 @@ deprecated;CommandItemProps
 public;CommonBackstageItem
 public;CommonStatusBarItem
 public;CommonToolbarItem
+public;ComponentGenerator
 public;ConditionalBooleanValue = ConditionalBooleanValue_2
 public;ConditionalBooleanValue: typeof ConditionalBooleanValue_2
 public;ConditionalStringValue = ConditionalStringValue_2

@@ -2,9 +2,22 @@
   "name": "@itwin/core-react",
   "version": "5.0.0-dev.0",
   "description": "iTwin.js UI core components",
+  "type": "module",
   "main": "lib/cjs/core-react.js",
   "module": "lib/esm/core-react.js",
-  "typings": "lib/cjs/core-react",
+  "types": "lib/cjs/core-react",
+  "exports": {
+    ".": {
+      "import": "./lib/esm/core-react.js",
+      "require": "./lib/cjs/core-react.js"
+    },
+    "./*": {
+      "sass": "./*.scss"
+    },
+    "./cjs": "./lib/cjs/core-react.js",
+    "./esm": "./lib/esm/core-react.js",
+    "./package.json": "./package.json"
+  },
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -14,7 +27,8 @@
   "scripts": {
     "start": "run-p -l \"build:** -- -w\" \"copy:** -- -w\"",
     "build": "npm run -s copy:locale && npm run -s build:cjs && npm run -s build:esm",
-    "build:cjs": "npm run -s copy:cjs && tsc 1>&2 --outDir lib/cjs",
+    "build:cjs": "npm run -s copy:cjs && tsc 1>&2 --outDir lib/cjs && npm run -s build:cjs:post",
+    "build:cjs:post": "node ../../common/scripts/cjs-package.mjs ./lib/cjs",
     "build:esm": "npm run -s copy:esm && tsc 1>&2 --module ES2020 --outDir lib/esm",
     "copy:cjs": "cpx \"./src/**/*.{*css,svg}\" ./lib/cjs",
     "copy:esm": "cpx \"./src/**/*.{*css,svg}\" ./lib/esm",
@@ -69,7 +83,7 @@
     "@types/react-dom": "^18.3.0",
     "@vitest/coverage-v8": "^1.4.0",
     "cpx2": "^3.0.0",
-    "eslint": "^8.44.0",
+    "eslint": "^8.57.1",
     "eslint-config-prettier": "~8.8.0",
     "ignore-styles": "^5.0.1",
     "jsdom": "^24.0.0",

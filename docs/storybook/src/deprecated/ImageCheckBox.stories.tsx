@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import type { Meta, StoryObj } from "@storybook/react";
 import { AppUiDecorator } from "../Decorators";
-import { ImageCheckBox } from "@itwin/core-react/src/core-react/imagecheckbox/ImageCheckBox";
+import { ImageCheckBox } from "@itwin/core-react-internal/src/core-react/imagecheckbox/ImageCheckBox";
 import { Svg2D, Svg3D } from "@itwin/itwinui-icons-react";
 
 const meta = {

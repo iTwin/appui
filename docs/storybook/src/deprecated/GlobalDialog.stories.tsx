@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import type { Decorator, Meta, StoryObj } from "@storybook/react";
-import { GlobalDialog } from "@itwin/core-react/src/core-react/dialog/GlobalDialog";
+import { GlobalDialog } from "@itwin/core-react-internal/src/core-react/dialog/GlobalDialog";
 import { DialogButtonType } from "@itwin/appui-abstract";
 import { ThemeProvider } from "@itwin/itwinui-react";
 

@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import type { Meta, StoryObj } from "@storybook/react";
-import { Dialog } from "@itwin/core-react/src/core-react/dialog/Dialog";
+import { Dialog } from "@itwin/core-react-internal/src/core-react/dialog/Dialog";
 import { AppUiDecorator } from "../Decorators";
 import { DialogButtonType } from "@itwin/appui-abstract";
 

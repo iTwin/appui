@@ -2,9 +2,22 @@
   "name": "@itwin/appui-react",
   "version": "5.0.0-dev.0",
   "description": "UI framework",
+  "type": "module",
   "main": "lib/cjs/appui-react.js",
   "module": "lib/esm/appui-react.js",
-  "typings": "lib/cjs/appui-react",
+  "types": "lib/cjs/appui-react",
+  "exports": {
+    ".": {
+      "import": "./lib/esm/appui-react.js",
+      "require": "./lib/cjs/appui-react.js"
+    },
+    "./*": {
+      "sass": "./*.scss"
+    },
+    "./cjs": "./lib/cjs/appui-react.js",
+    "./esm": "./lib/esm/appui-react.js",
+    "./package.json": "./package.json"
+  },
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -14,7 +27,8 @@
   "scripts": {
     "start": "run-p -l \"build:** -- -w\" \"copy:** -- -w\"",
     "build": "npm run -s copy:locale && npm run -s build:cjs && npm run -s build:esm",
-    "build:cjs": "npm run -s copy:cjs && tsc -p tsconfig.cjs.json",
+    "build:cjs": "npm run -s copy:cjs && tsc -p tsconfig.cjs.json && npm run -s build:cjs:post",
+    "build:cjs:post": "node ../../common/scripts/cjs-package.mjs ./lib/cjs",
     "build:esm": "npm run -s copy:esm && tsc -p tsconfig.esm.json",
     "copy:cjs": "cpx \"./src/**/*.{*css,json,svg}\" \"./lib/cjs\"",
     "copy:esm": "cpx \"./src/**/*.{*css,json,svg}\" \"./lib/esm\"",
@@ -90,7 +104,7 @@
     "@types/use-sync-external-store": "^0.0.6",
     "@vitest/coverage-v8": "^1.4.0",
     "cpx2": "^3.0.0",
-    "eslint": "^8.44.0",
+    "eslint": "^8.57.1",
     "eslint-config-prettier": "~8.8.0",
     "faker": "^4.1.0",
     "ignore-styles": "^5.0.1",

@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import type { Meta, StoryObj } from "@storybook/react";
 import { AppUiDecorator } from "../Decorators";
-import { ElementSeparator } from "@itwin/core-react/src/core-react/elementseparator/ElementSeparator";
+import { ElementSeparator } from "@itwin/core-react-internal/src/core-react/elementseparator/ElementSeparator";
 
 const meta = {
   title: "Deprecated/ElementSeparator",

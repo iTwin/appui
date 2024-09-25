@@ -515,6 +515,10 @@
       "allowedCategories": [ "internal" ]
     },
     {
+      "name": "vite-tsconfig-paths",
+      "allowedCategories": [ "internal" ]
+    },
+    {
       "name": "vitest",
       "allowedCategories": [ "frontend" ]
     },

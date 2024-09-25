@@ -240,6 +240,7 @@ export * from "./appui-react/ui-items-provider/UiItemsProvider";
 
 export * from "./appui-react/uiadmin/FrameworkUiAdmin";
 
+export * from "./appui-react/uiprovider/ComponentGenerator";
 export * from "./appui-react/uiprovider/DefaultDialogGridContainer";
 
 export * from "./appui-react/uistate/AppUiSettings";

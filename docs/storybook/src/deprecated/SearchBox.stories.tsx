@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import type { Meta, StoryObj } from "@storybook/react";
 import { AppUiDecorator } from "../Decorators";
-import { SearchBox } from "@itwin/core-react/src/core-react/searchbox/SearchBox";
+import { SearchBox } from "@itwin/core-react-internal/src/core-react/searchbox/SearchBox";
 import { action } from "@storybook/addon-actions";
 
 const meta = {

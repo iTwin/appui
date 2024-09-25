@@ -965,6 +965,18 @@ export interface CommonToolbarItem {
 }
 
 // @public
+export class ComponentGenerator {
+    constructor(_uiDataProvider: UiLayoutDataProvider, _onCancel?: (() => void) | undefined);
+    // (undocumented)
+    getRow(row: DialogRow, rowIndex: number): React_2.ReactNode;
+    getToolSettingsEntries(): ToolSettingsEntry[];
+    // (undocumented)
+    getToolSettingsEntry(row: DialogRow, rowIndex: number): ToolSettingsEntry;
+    // (undocumented)
+    get uiDataProvider(): UiLayoutDataProvider;
+}
+
+// @public
 export type ConditionalBooleanValue = ConditionalBooleanValue_2;
 
 // @public (undocumented)

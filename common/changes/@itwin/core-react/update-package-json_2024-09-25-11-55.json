@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/core-react",
+      "comment": "Add `exports` field to `package.json`.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/core-react"
+}
