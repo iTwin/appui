@@ -12,6 +12,7 @@ import {
 } from "@itwin/core-frontend";
 import {
   FrontstageDef,
+  PanelSizeChangedEventArgs,
   RectangleProps,
   StagePanelLocation,
   StagePanelState,
@@ -21,7 +22,16 @@ import {
 } from "@itwin/appui-react";
 import { NumberInput, Rectangle } from "@itwin/core-react";
 import { Button, Input, Select, SelectOption } from "@itwin/itwinui-react";
-import { InternalFrontstageManager } from "@itwin/appui-react/lib/esm/appui-react/frontstage/InternalFrontstageManager";
+import { BeUiEvent } from "@itwin/core-bentley";
+
+const InternalFrontstageManager =
+  UiFramework.frontstages as unknown as typeof UiFramework.frontstages & {
+    onPanelSizeChangedEvent: BeUiEvent<PanelSizeChangedEventArgs>;
+    onFrontstageNineZoneStateChangedEvent: BeUiEvent<{
+      frontstageDef: FrontstageDef;
+      state: unknown;
+    }>;
+  };
 
 function usePanelDef(location: StagePanelLocation) {
   const frontstageDef = useActiveFrontstageDef();
@@ -238,7 +248,7 @@ function WidgetInfo({ id }: { id: string }) {
 
     return InternalFrontstageManager.onFrontstageNineZoneStateChangedEvent.addListener(
       (e) => {
-        if (e.frontstageDef !== (frontstageDef as any)) return;
+        if (e.frontstageDef !== frontstageDef) return;
         setIsFloating(
           frontstageDef ? frontstageDef.isFloatingWidget(id) : false
         );
@@ -661,7 +671,7 @@ export function FloatingLayoutInfo() {
   React.useEffect(() => {
     return InternalFrontstageManager.onFrontstageNineZoneStateChangedEvent.addListener(
       (e) => {
-        if (e.frontstageDef !== (frontstageDef as any)) return;
+        if (e.frontstageDef !== frontstageDef) return;
 
         const allIds = frontstageDef
           ? frontstageDef.getFloatingWidgetContainerIds()

@@ -17,6 +17,7 @@ import {
   BasicNavigationWidget,
   Calculator,
   CommandItemDef,
+  ComponentGenerator,
   ConfigurableCreateInfo,
   ConfigurableUiContent,
   ContentControl,
@@ -101,7 +102,6 @@ import {
   StandardContentLayouts,
   StandardTypeNames,
 } from "@itwin/appui-abstract";
-import { ComponentGenerator } from "@itwin/appui-react/lib/esm/appui-react/uiprovider/ComponentGenerator";
 import { UnitSystemKey } from "@itwin/core-quantity";
 import { Button, DropdownMenu, MenuItem } from "@itwin/itwinui-react";
 import { TreeWidgetComponent } from "../widgets/TreeWidget";
