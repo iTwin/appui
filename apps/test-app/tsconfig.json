@@ -16,6 +16,6 @@
     "noEmit": true,
     "lib": ["dom", "dom.iterable", "esnext"]
   },
-  "include": ["./src/**/*.ts", "./src/**/*.tsx", "./vite.config.ts"],
+  "include": ["**/*.ts", "**/*.tsx"],
   "exclude": ["./src/backend/**/*.ts"]
 }
