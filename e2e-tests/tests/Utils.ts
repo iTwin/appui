@@ -9,7 +9,7 @@ import {
   Locator,
   Page,
 } from "@playwright/test";
-import { PanelSide } from "../../ui/appui-react/src/appui-react/layout/widget-panels/PanelTypes";
+import type { PanelSide } from "../../ui/appui-react/src/appui-react/layout/widget-panels/PanelTypes";
 import { WidgetState } from "../../ui/appui-react/src/appui-react/widgets/WidgetState";
 import { StagePanelState } from "../../ui/appui-react/src/appui-react/stagepanels/StagePanelState";
 
