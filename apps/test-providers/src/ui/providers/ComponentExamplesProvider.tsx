@@ -1452,7 +1452,7 @@ export class ComponentExamplesProvider {
 
   private static get uiProviderSample(): ComponentExampleCategory {
     const testUiLayoutDataProvider = new TestUiDataProvider();
-    const componentGenerator = new ComponentGenerator(testUiLayoutDataProvider); // TODO: internal types should not be used in public types
+    const componentGenerator = new ComponentGenerator(testUiLayoutDataProvider);
 
     return {
       title: "UiProvider",
@@ -1460,9 +1460,7 @@ export class ComponentExamplesProvider {
         createComponentExample(
           "Tool Settings Grid Container",
           undefined,
-          <ToolSettingsGridContainer
-            componentGenerator={componentGenerator as any}
-          />
+          <ToolSettingsGridContainer componentGenerator={componentGenerator} />
         ),
       ],
     };
