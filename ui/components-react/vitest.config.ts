@@ -5,11 +5,6 @@
 import { defineConfig } from "vitest/config";
 
 export default defineConfig({
-  resolve: {
-    alias: {
-      "@itwin/core-react": "@itwin/core-react/lib/esm/core-react.js",
-    },
-  },
   test: {
     globals: true,
     environment: "jsdom",
