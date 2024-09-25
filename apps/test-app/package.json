@@ -8,7 +8,8 @@
   "homepage": "http://localhost:3000/",
   "scripts": {
     "build": "npm run build:backend && npm run build:frontend",
-    "build:backend": "tsc -p tsconfig.backend.json && node ./scripts/postBuild.js",
+    "build:backend": "tsc -p tsconfig.backend.json && npm run build:backend:post",
+    "build:backend:post": "node ../../common/scripts/cjs-package.mjs ./lib",
     "build:frontend": "npm run copy:webfont && npm run pseudolocalize && vite build",
     "preview": "vite preview --port 3000",
     "clean": "rimraf lib build dist .rush/temp/package-deps*.json",
