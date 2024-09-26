@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/components-react",
+      "comment": "Drop support for iTwin.js 3.x.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/components-react"
+}

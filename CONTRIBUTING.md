@@ -158,10 +158,6 @@ Use these instructions to update dependencies and devDependencies on external pa
 
 ---
 
-## iTwin.js core 3.x compatibility
-
-AppUI 4.0 version must keep compatibility with iTwin.js core version ^3.7.0 to facilitate migration.
-
 ### Other NPM scripts
 
 1. Build TypeDoc documentation for all packages: `rush docs`
