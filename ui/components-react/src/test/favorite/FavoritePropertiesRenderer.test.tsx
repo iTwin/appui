@@ -43,15 +43,6 @@ describe("FavoritePropertiesRenderer", () => {
       const tooltip = renderer.renderFavorites(propertyData);
       expect(tooltip).toBeTruthy();
     });
-
-    it("should support `createRoot` parameter", async () => {
-      const fakeRender = vi.fn();
-      const fakeRoot = vi.fn().mockReturnValue({ render: fakeRender });
-      const propertyData = await dataProvider.getData();
-      const div = renderer.renderFavorites(propertyData, undefined, fakeRoot);
-      expect(fakeRoot).toHaveBeenCalledWith(div);
-      expect(fakeRender).toHaveBeenCalledOnce();
-    });
   });
 
   describe("hasFavorites", () => {
