@@ -6,9 +6,9 @@
  * @module Hooks
  */
 
+import { useSyncExternalStore } from "react";
 import type { ScreenViewport } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
-import { useSyncExternalStore } from "use-sync-external-store/shim";
 
 const subscribe = (onStoreChange: () => void) => {
   return IModelApp.viewManager.onSelectedViewportChanged.addListener(

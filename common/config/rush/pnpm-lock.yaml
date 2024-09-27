@@ -592,9 +592,6 @@ importers:
       ts-key-enum:
         specifier: ~2.0.12
         version: 2.0.12
-      use-sync-external-store:
-        specifier: ^1.2.0
-        version: 1.2.0(react@18.3.1)
       zustand:
         specifier: ^4.4.1
         version: 4.5.0(@types/react@18.3.2)(immer@9.0.6)(react@18.3.1)
@@ -677,9 +674,6 @@ importers:
       '@types/rimraf':
         specifier: ^2.0.2
         version: 2.0.5
-      '@types/use-sync-external-store':
-        specifier: ^0.0.6
-        version: 0.0.6
       '@vitest/coverage-v8':
         specifier: ^1.4.0
         version: 1.4.0(vitest@1.6.0)
@@ -5299,10 +5293,6 @@ packages:
 
   /@types/unist@3.0.3:
     resolution: {integrity: sha512-ko/gIFJRv177XgZsZcBwnqJN5x/Gien8qNOn0D5bQU/zAzVf9Zt3BlcUiLqhV9y4ARk0GbT3tnUiPNgnTXzc/Q==}
-
-  /@types/use-sync-external-store@0.0.6:
-    resolution: {integrity: sha512-zFDAD+tlpf2r4asuHEj0XH6pY6i0g5NeAHPn+15wk3BV6JA69eERFXC1gyGThDkVa1zCyKr5jox1+2LbV/AMLg==}
-    dev: true
 
   /@types/uuid@9.0.7:
     resolution: {integrity: sha512-WUtIVRUZ9i5dYXefDEAI7sh9/O7jGvHg7Df/5O/gtH3Yabe5odI3UWopVR1qbPXQtvOxWu3mM4XxlYeZtMWF4g==}
