@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Drop support for React 17.x.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}

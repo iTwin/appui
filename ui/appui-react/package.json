@@ -65,8 +65,8 @@
     "@itwin/core-react": "workspace:^5.0.0-dev.0",
     "@itwin/core-telemetry": "^4.0.0",
     "@itwin/imodel-components-react": "workspace:^5.0.0-dev.0",
-    "react": "^17.0.0 || ^18.0.0",
-    "react-dom": "^17.0.0 || ^18.0.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
     "react-redux": "^7.2.2",
     "redux": "^4.1.0"
   },
@@ -101,7 +101,6 @@
     "@types/react-redux": "^7.1.18",
     "@types/react-transition-group": "^4.4.4",
     "@types/rimraf": "^2.0.2",
-    "@types/use-sync-external-store": "^0.0.6",
     "@vitest/coverage-v8": "^1.4.0",
     "cpx2": "^3.0.0",
     "eslint": "^8.57.1",
@@ -140,7 +139,6 @@
     "react-transition-group": "^4.4.2",
     "rxjs": "^7.8.1",
     "ts-key-enum": "~2.0.12",
-    "use-sync-external-store": "^1.2.0",
     "zustand": "^4.4.1"
   }
 }

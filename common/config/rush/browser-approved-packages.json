@@ -503,10 +503,6 @@
       "allowedCategories": [ "frontend" ]
     },
     {
-      "name": "use-sync-external-store",
-      "allowedCategories": [ "frontend" ]
-    },
-    {
       "name": "vite",
       "allowedCategories": [ "internal" ]
     },

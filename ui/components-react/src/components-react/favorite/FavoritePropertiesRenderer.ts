@@ -7,7 +7,7 @@
  */
 
 import * as React from "react";
-import * as ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import type { PropertyData } from "../propertygrid/PropertyDataProvider";
 import { FavoritePropertyList } from "./FavoritePropertyList";
 import type { Orientation } from "../common/Orientation";
@@ -32,21 +32,33 @@ export class FavoritePropertiesRenderer {
     return propertyData.records.Favorite !== undefined;
   }
 
-  /**
-   * Allow creating an HTMLElement containing the `<FavoritePropertyList />` component so it can be added outside of a React component (`showCard` is the main expected use)
-   *
-   * Note: When using React18, in order to remove the `ReactDOM.render` warning you will need to provide the `createRoot` function to this function,
-   * the parameter type is intentionally simplified to not depend on React18 type.
-   *
+  /** Allow creating an HTMLElement containing the `<FavoritePropertyList />` component so it can be added outside of a React component (`showCard` is the main expected use)
    * @param propertyData PropertyData containing Favorite records to display.
    * @param orientation Orientation of the items
-   * @param createRoot `createRoot` function imported from `import { createRoot } from "react-dom/client";`
    * @returns a `div` HTMLElement with the `<FavoritePropertyList />` rendered within it.
    */
   public renderFavorites(
     propertyData: PropertyData,
+    orientation?: Orientation
+  ): HTMLElement | string;
+  /** Allow creating an HTMLElement containing the `<FavoritePropertyList />` component so it can be added outside of a React component (`showCard` is the main expected use)
+   * @note Previously when using React18, in order to remove the `ReactDOM.render` warning you needed to provide the `createRoot` function. This function is no longer used.
+   * @param propertyData PropertyData containing Favorite records to display.
+   * @param orientation Orientation of the items
+   * @param createRoot `createRoot` function imported from `import { createRoot } from "react-dom/client";`
+   * @returns a `div` HTMLElement with the `<FavoritePropertyList />` rendered within it.
+   * @deprecated in 5.0.0. Use the overload without `createRoot` parameter instead.
+   */
+  public renderFavorites(
+    propertyData: PropertyData,
     orientation?: Orientation,
-    createRoot?: CreateRoot
+    // eslint-disable-next-line @typescript-eslint/unified-signatures
+    _createRoot?: CreateRoot
+  ): HTMLElement | string;
+  public renderFavorites(
+    propertyData: PropertyData,
+    orientation?: Orientation,
+    _createRoot?: CreateRoot
   ): HTMLElement | string {
     const div = document.createElement("div");
     const element = React.createElement(
@@ -54,12 +66,8 @@ export class FavoritePropertiesRenderer {
       { propertyData, orientation },
       null
     );
-    if (createRoot) {
-      createRoot(div).render(element);
-    } else {
-      // eslint-disable-next-line react/no-deprecated, deprecation/deprecation
-      ReactDOM.render(element, div);
-    }
+    const root = createRoot(div);
+    root.render(element);
     return div;
   }
 }

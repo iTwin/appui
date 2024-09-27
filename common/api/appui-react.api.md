@@ -2022,8 +2022,6 @@ export interface FrameworkChildWindows {
     findId(contentWindow: Window | undefined | null): string | undefined;
     open(childWindowId: string, title: string, content: React.ReactNode, location: ChildWindowLocationProps, useDefaultPopoutUrl?: boolean): boolean;
     readonly openChildWindows: OpenChildWindowInfo[];
-    // @beta
-    useCreateRoot(createRootFn: CreateRoot): void;
 }
 
 // @public

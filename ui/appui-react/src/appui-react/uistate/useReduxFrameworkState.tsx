@@ -6,8 +6,7 @@
  * @module State
  */
 
-import * as React from "react";
-import { useSyncExternalStore } from "use-sync-external-store/shim";
+import { useCallback, useSyncExternalStore } from "react";
 import { UiFramework } from "../UiFramework";
 import type { FrameworkState as ReduxFrameworkState } from "../redux/FrameworkState";
 
@@ -17,13 +16,13 @@ import type { FrameworkState as ReduxFrameworkState } from "../redux/FrameworkSt
 export function useReduxFrameworkState<T>(
   selector: (state: ReduxFrameworkState | undefined) => T
 ): T {
-  const subscribe = React.useCallback((onStoreChange: () => void) => {
+  const subscribe = useCallback((onStoreChange: () => void) => {
     const reduxStore = UiFramework.reduxStore;
     if (!reduxStore) return () => {};
 
     return reduxStore.subscribe(onStoreChange);
   }, []);
-  const getSnapshot = React.useCallback((): T => {
+  const getSnapshot = useCallback((): T => {
     const reduxStore = UiFramework.reduxStore;
     const state = reduxStore?.getState();
     const frameworkState = state?.[UiFramework.frameworkStateKey] as

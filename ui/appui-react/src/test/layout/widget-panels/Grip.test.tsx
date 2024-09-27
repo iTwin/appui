@@ -25,7 +25,6 @@ import {
   PanelSideContext,
   WidgetPanelContext,
 } from "../../../appui-react/layout/widget-panels/Panel";
-import { withWrapperAndProps } from "../Utils";
 
 describe("WidgetPanelGrip", () => {
   const wrapper = (props: any) => (
@@ -196,15 +195,14 @@ describe("useResizeGrip", () => {
       draft.panels.top.size = 200;
     });
     const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
-    const initialProps: WrapperProps = {
+    const wrapperProps: WrapperProps = {
       dispatch,
       defaultState,
       side: "top",
     };
-    const { result } = renderHook(
-      () => useResizeGrip(),
-      withWrapperAndProps(Wrapper, initialProps)
-    );
+    const { result } = renderHook(() => useResizeGrip(), {
+      wrapper: (props: any) => <Wrapper {...wrapperProps} {...props} />,
+    });
     const element = document.createElement("div");
     result.current[0](element);
     fireEvent.mouseDown(element);
@@ -221,15 +219,14 @@ describe("useResizeGrip", () => {
       draft.panels.bottom.size = 200;
     });
     const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
-    const initialProps: WrapperProps = {
+    const wrapperProps: WrapperProps = {
       dispatch,
       defaultState,
       side: "bottom",
     };
-    const { result } = renderHook(
-      () => useResizeGrip(),
-      withWrapperAndProps(Wrapper, initialProps)
-    );
+    const { result } = renderHook(() => useResizeGrip(), {
+      wrapper: (props: any) => <Wrapper {...wrapperProps} {...props} />,
+    });
     const element = document.createElement("div");
     result.current[0](element);
     fireEvent.mouseDown(element);
@@ -244,15 +241,14 @@ describe("useResizeGrip", () => {
   it("should not invoke onResize if ref is unset", () => {
     const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
     const dragManagerRef = React.createRef<DragManager>();
-    const initialProps: WrapperProps = {
+    const wrapperProps: WrapperProps = {
       dragManagerRef,
       dispatch,
       side: "bottom",
     };
-    renderHook(
-      () => useResizeGrip(),
-      withWrapperAndProps(Wrapper, initialProps)
-    );
+    renderHook(() => useResizeGrip(), {
+      wrapper: (props: any) => <Wrapper {...wrapperProps} {...props} />,
+    });
     dragManagerRef.current?.handleDragStart({
       info: createDragInfo(),
       item: {
@@ -294,14 +290,13 @@ describe("useResizeGrip", () => {
 
   it("should not resize if panel size is not set", () => {
     const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
-    const initialProps: WrapperProps = {
+    const wrapperProps: WrapperProps = {
       dispatch,
       side: "left",
     };
-    const { result } = renderHook(
-      () => useResizeGrip(),
-      withWrapperAndProps(Wrapper, initialProps)
-    );
+    const { result } = renderHook(() => useResizeGrip(), {
+      wrapper: (props: any) => <Wrapper {...wrapperProps} {...props} />,
+    });
     const element = document.createElement("div");
     result.current[0](element);
     fireEvent.mouseDown(element);
@@ -315,15 +310,14 @@ describe("useResizeGrip", () => {
       draft.panels.left.collapsed = true;
     });
     const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
-    const initialProps: WrapperProps = {
+    const wrapperProps: WrapperProps = {
       dispatch,
       side: "left",
       defaultState,
     };
-    const { result } = renderHook(
-      () => useResizeGrip(),
-      withWrapperAndProps(Wrapper, initialProps)
-    );
+    const { result } = renderHook(() => useResizeGrip(), {
+      wrapper: (props: any) => <Wrapper {...wrapperProps} {...props} />,
+    });
     const element = document.createElement("div");
     result.current[0](element);
     fireEvent.mouseDown(element);
@@ -341,15 +335,14 @@ describe("useResizeGrip", () => {
       draft.panels.left.collapsed = true;
     });
     const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
-    const initialProps: WrapperProps = {
+    const wrapperProps: WrapperProps = {
       dispatch,
       side: "left",
       defaultState,
     };
-    const { result } = renderHook(
-      () => useResizeGrip(),
-      withWrapperAndProps(Wrapper, initialProps)
-    );
+    const { result } = renderHook(() => useResizeGrip(), {
+      wrapper: (props: any) => <Wrapper {...wrapperProps} {...props} />,
+    });
     const element = document.createElement("div");
     result.current[0](element);
     fireEvent.mouseDown(element);
@@ -362,15 +355,14 @@ describe("useResizeGrip", () => {
       draft.panels.left.size = 200;
     });
     const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
-    const initialProps: WrapperProps = {
+    const wrapperProps: WrapperProps = {
       dispatch,
       side: "left",
       defaultState,
     };
-    const { result } = renderHook(
-      () => useResizeGrip(),
-      withWrapperAndProps(Wrapper, initialProps)
-    );
+    const { result } = renderHook(() => useResizeGrip(), {
+      wrapper: (props: any) => <Wrapper {...wrapperProps} {...props} />,
+    });
     const element = document.createElement("div");
     result.current[0](element);
     act(() => {
@@ -395,15 +387,14 @@ describe("useResizeGrip", () => {
       draft.panels.left.size = 300;
     });
     const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
-    const initialProps: WrapperProps = {
+    const wrapperProps: WrapperProps = {
       dispatch,
       side: "left",
       defaultState,
     };
-    const { result } = renderHook(
-      () => useResizeGrip(),
-      withWrapperAndProps(Wrapper, initialProps)
-    );
+    const { result } = renderHook(() => useResizeGrip(), {
+      wrapper: (props: any) => <Wrapper {...wrapperProps} {...props} />,
+    });
     const element = document.createElement("div");
     result.current[0](element);
     act(() => {
