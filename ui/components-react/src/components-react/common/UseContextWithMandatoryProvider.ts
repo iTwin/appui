@@ -2,11 +2,9 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-
-import { UiError } from "@itwin/appui-abstract";
-import { getObjectClassName } from "@itwin/core-react";
-import { UiComponents } from "../UiComponents.js";
 import React from "react";
+import { UiError } from "@itwin/appui-abstract";
+import { UiComponents } from "../UiComponents.js";
 
 /** @internal */
 export function createContextWithMandatoryProvider<T>(
@@ -24,10 +22,8 @@ export function createContextWithMandatoryProvider<T>(
     if (value === undefined) {
       // eslint-disable-next-line deprecation/deprecation
       throw new UiError(
-        UiComponents.loggerCategory(ConsumingComponent),
-        `'${getObjectClassName(
-          ConsumingComponent
-        )}' expects to be wrapped by a '${contextName}' provider.`
+        UiComponents.loggerCategory("createContextWithMandatoryProvider"),
+        `'${ConsumingComponent.displayName}' expects to be wrapped by a '${contextName}' provider.`
       );
     }
     return value;

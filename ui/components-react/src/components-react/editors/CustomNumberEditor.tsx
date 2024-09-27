@@ -211,7 +211,7 @@ export class CustomNumberEditor
     const record = this.props.propertyRecord;
     if (!record || !record.property) {
       Logger.logError(
-        UiComponents.loggerCategory(this),
+        UiComponents.loggerCategory("CustomNumberEditor"),
         "PropertyRecord must be defined to use CustomNumberPropertyEditor"
       );
       return;
@@ -230,7 +230,7 @@ export class CustomNumberEditor
 
     if (!this._formatParams) {
       Logger.logError(
-        UiComponents.loggerCategory(this),
+        UiComponents.loggerCategory("CustomNumberEditor"),
         `CustomFormattedNumberParams must be defined for property ${record.property.name}`
       );
       return;

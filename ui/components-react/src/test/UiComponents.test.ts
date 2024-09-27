@@ -38,9 +38,4 @@ describe("UiComponents", () => {
     await UiComponents.initialize(TestUtils.i18n);
     expect(spyLogger).toHaveBeenCalledOnce();
   });
-
-  it("calling loggerCategory without an obj should return packageName", () => {
-    const category = UiComponents.loggerCategory(undefined);
-    expect(category).toEqual(UiComponents.packageName);
-  });
 });

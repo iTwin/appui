@@ -91,7 +91,7 @@ export abstract class DateTimeTypeConverterBase
         if ("timeDisplay" in options) {
           if (alternateDateFormat) {
             Logger.logInfo(
-              UiComponents.loggerCategory(this),
+              UiComponents.loggerCategory("DateTimeTypeConverterBase"),
               `Invalid specification of timeDisplay with alternateDateFormat specification`
             );
           } else {

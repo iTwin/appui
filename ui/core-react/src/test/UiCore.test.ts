@@ -34,10 +34,6 @@ describe("UiCore", () => {
     expect(spyLogger).toHaveBeenCalledOnce();
   });
 
-  it("loggerCategory passed null should return 'core-react'", () => {
-    expect(UiCore.loggerCategory(null)).toEqual("core-react");
-  });
-
   it("calling initialize twice should log", async () => {
     const spyLogger = vi.spyOn(Logger, "logInfo");
     expect(UiCore.initialized).toEqual(false);

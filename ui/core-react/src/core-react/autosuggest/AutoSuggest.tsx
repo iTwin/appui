@@ -184,7 +184,7 @@ export class AutoSuggest extends React.PureComponent<
 
     if (this.props.options === undefined) {
       Logger.logError(
-        UiCore.loggerCategory(this),
+        UiCore.loggerCategory("AutoSuggest"),
         `props.options or props.getSuggestions should be provided`
       );
       return Promise.resolve([]);
@@ -226,7 +226,7 @@ export class AutoSuggest extends React.PureComponent<
       if (entry) label = entry.label;
     } else {
       Logger.logError(
-        UiCore.loggerCategory(this),
+        UiCore.loggerCategory("AutoSuggest"),
         `props.getLabel should be provided when props.options is a function`
       );
     }

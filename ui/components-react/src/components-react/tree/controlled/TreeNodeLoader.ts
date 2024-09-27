@@ -591,7 +591,7 @@ export class TreeDataSource {
     }
     // eslint-disable-next-line deprecation/deprecation
     throw new UiError(
-      UiComponents.loggerCategory(this),
+      UiComponents.loggerCategory("TreeDataSource"),
       "Unsupported TreeDataProvider."
     );
   }

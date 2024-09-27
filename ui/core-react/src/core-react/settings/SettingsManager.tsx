@@ -182,7 +182,7 @@ export class SettingsManager {
       this.providers = updatedProviders;
     } else {
       Logger.logInfo(
-        UiCore.loggerCategory(this),
+        UiCore.loggerCategory("SettingsManager"),
         `Settings Provider with id of ${settingsProvider.id} has already been registered`
       );
     }
