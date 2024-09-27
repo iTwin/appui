@@ -20,6 +20,7 @@ Table of contents:
 - Added `exports` field to `package.json` to prevent importing of `@internal` APIs [^1]. [#1048](https://github.com/iTwin/appui/pull/1048)
 - Popout widgets are now displayed in flow layout to match the layout of floating, stage panel and popout widgets when `reparentPopoutWidgets` is enabled. [#1049](https://github.com/iTwin/appui/pull/1049)
 - Drop support for [iTwin.js 3.x](https://www.itwinjs.org/v3/) [^2]. [#1050](https://github.com/iTwin/appui/pull/1050)
+- Drop support for [React 17.x](https://react.dev/versions#react-17) [^3]. [#1054](https://github.com/iTwin/appui/pull/1054)
 
 ## @itwin/components-react
 
@@ -31,6 +32,7 @@ Table of contents:
 
 - Added `exports` field to `package.json` to prevent importing of `@internal` APIs [^1]. [#1048](https://github.com/iTwin/appui/pull/1048)
 - Drop support for [iTwin.js 3.x](https://www.itwinjs.org/v3/) [^2]. [#1050](https://github.com/iTwin/appui/pull/1050)
+- Drop support for [React 17.x](https://react.dev/versions#react-17) [^3]. [#1054](https://github.com/iTwin/appui/pull/1054)
 
 ## @itwin/core-react
 
@@ -39,6 +41,7 @@ Table of contents:
 - Removed the `resize-observer-polyfill` dependency because `ResizeObserver` is well supported by modern browsers, eliminating the need for a polyfill. [#1045](https://github.com/iTwin/appui/pull/1045)
 - Added `exports` field to `package.json` to prevent importing of `@internal` APIs [^1]. [#1048](https://github.com/iTwin/appui/pull/1048)
 - Drop support for [iTwin.js 3.x](https://www.itwinjs.org/v3/) [^2]. [#1050](https://github.com/iTwin/appui/pull/1050)
+- Drop support for [React 17.x](https://react.dev/versions#react-17) [^3]. [#1054](https://github.com/iTwin/appui/pull/1054)
 
 ## @itwin/imodel-components-react
 
@@ -46,6 +49,8 @@ Table of contents:
 
 - Added `exports` field to `package.json` to prevent importing of `@internal` APIs [^1]. [#1048](https://github.com/iTwin/appui/pull/1048)
 - Drop support for [iTwin.js 3.x](https://www.itwinjs.org/v3/) [^2]. [#1050](https://github.com/iTwin/appui/pull/1050)
+- Drop support for [React 17.x](https://react.dev/versions#react-17) [^3]. [#1054](https://github.com/iTwin/appui/pull/1054)
 
 [^1]: This change might break consumers that rely on importing `@internal` APIs directly from unsupported submodules i.e. `@itwin/appui-react/lib/esm/appui-react`. Currently supported export paths: main entry point (i.e. `@itwin/appui-react`), `package.json` subpath (i.e. `@itwin/appui-react/package.json`). Additional export paths are available until next major version to facilitate the **AppUI 5.0** adoption: ESM submodule (i.e. `@itwin/appui-react/esm`), CJS submodule (i.e. `@itwin/appui-react/cjs`), all SCSS files are exported by using `sass` custom condition (i.e. `@itwin/core-react/lib/cjs/core-react/typography`).
 [^2]: **iTwin.js 3.x** is in end-of-life phase as described in [version support status](https://www.itwinjs.org/learning/api-support-policies/#version-support-status). Consumers of **AppUI 5.0** should upgrade to latest **iTwin.js 4.x** version. Support for newer versions of **iTwin.js** will be added in future AppUI releases.
+[^3]: Consumers should upgrade to latest [React 18.x](https://react.dev/blog/2022/03/08/react-18-upgrade-guide) version. Support for newer versions of **React** will be added in future AppUI releases.
