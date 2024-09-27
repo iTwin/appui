@@ -45,19 +45,9 @@ export function useScheduleAnimationDataProvider(
   viewport: ScreenViewport | undefined
 ) {
   const supportsScheduleScript = useSupportsScheduleScript(viewport);
-  const [
-    scheduleAnimationTimelineDataProvider,
-    setScheduleAnimationTimelineDataProvider,
-  ] = React.useState<ScheduleAnimationTimelineDataProvider | undefined>();
-  const isMountedRef = React.useRef(false);
-
-  React.useEffect(() => {
-    isMountedRef.current = true;
-    return () => {
-      isMountedRef.current = false;
-    };
-  }, []);
-
+  const [dataProvider, setDataProvider] = React.useState<
+    ScheduleAnimationTimelineDataProvider | undefined
+  >();
   React.useEffect(() => {
     async function fetchNewDataProvider(vp: ScreenViewport) {
       let newProvider: ScheduleAnimationTimelineDataProvider | undefined =
@@ -66,14 +56,11 @@ export function useScheduleAnimationDataProvider(
         const dataLoaded = await newProvider.loadTimelineData();
         if (!dataLoaded) newProvider = undefined;
       }
-      isMountedRef.current &&
-        setScheduleAnimationTimelineDataProvider(newProvider);
+      setDataProvider(newProvider);
     }
     if (supportsScheduleScript && viewport) void fetchNewDataProvider(viewport);
-    else
-      isMountedRef.current &&
-        setScheduleAnimationTimelineDataProvider(undefined);
+    else setDataProvider(undefined);
   }, [supportsScheduleScript, viewport]);
 
-  return scheduleAnimationTimelineDataProvider;
+  return dataProvider;
 }

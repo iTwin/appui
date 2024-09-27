@@ -447,17 +447,9 @@ export function InternalToolbarComponent(props: InternalToolbarComponentProps) {
   const { translate } = useTranslation();
   const [isOverflowPanelOpen, setIsOverflowPanelOpen] = React.useState(false);
   const [popupPanelCount, setPopupPanelCount] = React.useState(0);
-  const isMounted = React.useRef(false);
-  React.useEffect(() => {
-    isMounted.current = true;
-    return () => {
-      isMounted.current = false;
-    };
-  });
   const handlePopupPanelOpenClose = React.useCallback((isOpening: boolean) => {
     // use setTimeout to avoid warning about setting state in ToolbarWithOverflow from render method of PopupItem/PopupItemWithDrag
     setTimeout(() => {
-      if (!isMounted.current) return;
       setPopupPanelCount((prev) => {
         const nextCount = isOpening ? prev + 1 : prev - 1;
         return nextCount < 0 ? 0 : nextCount;
