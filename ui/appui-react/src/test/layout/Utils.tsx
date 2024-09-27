@@ -5,7 +5,6 @@
 import { BentleyError } from "@itwin/core-bentley";
 import { prettyDOM } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import * as React from "react";
 import type { NineZoneState } from "../../appui-react/layout/state/NineZoneState";
 import type { TabState } from "../../appui-react/layout/state/TabState";
 import { addTab } from "../../appui-react/layout/state/internal/TabStateHelpers";
@@ -169,24 +168,5 @@ export function styleMatch(style: Matchable<Partial<CSSStyleDeclaration>>) {
       }
     }
     return true;
-  };
-}
-
-/**
- * Creates an option object that works with both React17 and React18 version of renderHooks.
- * @param Wrapper Component that should wrap the provided hook call.
- * @param props Needed props for the component.
- * @returns renderHook option object
- */
-export function withWrapperAndProps<P>(
-  Wrapper: React.FunctionComponent<P> | React.ComponentClass<P> | string,
-  props: P
-) {
-  return {
-    wrapper: function ChildrenWrapper(
-      childrenOnly: React.PropsWithChildren<{}>
-    ) {
-      return <Wrapper {...props} {...childrenOnly} />;
-    },
   };
 }

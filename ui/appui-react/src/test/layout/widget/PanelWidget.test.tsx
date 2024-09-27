@@ -27,7 +27,7 @@ import {
 } from "../../../appui-react/layout/widget/PanelWidget";
 import type { TestNineZoneProviderProps } from "../Providers";
 import { TestNineZoneProvider } from "../Providers";
-import { addTabs, withWrapperAndProps } from "../Utils";
+import { addTabs } from "../Utils";
 
 interface ProviderProps extends TestNineZoneProviderProps {
   side?: PanelSide;
@@ -274,13 +274,13 @@ describe("useBorders", () => {
       state = addTabs(state, ["t1", "ts"]);
       state = addDockedToolSettings(state, "ts");
       state = addPanelWidget(state, "top", "w1", ["t1"]);
-      const { result } = renderHook(
-        () => useBorders("w1"),
-        withWrapperAndProps(Wrapper, {
+      const { result } = renderHook(() => useBorders("w1"), {
+        wrapper: Wrapper,
+        initialProps: {
           defaultState: state,
           side,
-        })
-      );
+        },
+      });
       expect(result.current["nz-border-top"]).toEqual(false);
     });
   });
@@ -291,13 +291,13 @@ describe("useBorders", () => {
       let state = createNineZoneState();
       state = addTab(state, "t1");
       state = addPanelWidget(state, "bottom", "w1", ["t1"]);
-      const { result } = renderHook(
-        () => useBorders("w1"),
-        withWrapperAndProps(Wrapper, {
+      const { result } = renderHook(() => useBorders("w1"), {
+        wrapper: Wrapper,
+        initialProps: {
           defaultState: state,
           side,
-        })
-      );
+        },
+      });
       expect(result.current["nz-border-bottom"]).toEqual(false);
     });
   });
@@ -309,13 +309,13 @@ describe("useBorders", () => {
         state = addTabs(state, ["t1", "t2"]);
         state = addPanelWidget(state, side, "w1", ["t1"]);
         state = addPanelWidget(state, side, "w2", ["t2"]);
-        const { result } = renderHook(
-          () => useBorders("w2"),
-          withWrapperAndProps(Wrapper, {
+        const { result } = renderHook(() => useBorders("w2"), {
+          wrapper: Wrapper,
+          initialProps: {
             defaultState: state,
             side,
-          })
-        );
+          },
+        });
         expect(result.current["nz-border-left"]).toEqual(false);
       });
 
@@ -327,13 +327,13 @@ describe("useBorders", () => {
         state = addTabs(state, ["t1", "t2"]);
         state = addPanelWidget(state, side, "w1", ["t1"]);
         state = addPanelWidget(state, "left", "w2", ["t2"]);
-        const { result } = renderHook(
-          () => useBorders("w1"),
-          withWrapperAndProps(Wrapper, {
+        const { result } = renderHook(() => useBorders("w1"), {
+          wrapper: Wrapper,
+          initialProps: {
             defaultState: state,
             side,
-          })
-        );
+          },
+        });
         expect(result.current["nz-border-left"]).toEqual(false);
       });
 
@@ -345,13 +345,13 @@ describe("useBorders", () => {
         state = addTabs(state, ["t1", "t2"]);
         state = addPanelWidget(state, side, "w1", ["t1"]);
         state = addPanelWidget(state, "right", "w2", ["t2"]);
-        const { result } = renderHook(
-          () => useBorders("w1"),
-          withWrapperAndProps(Wrapper, {
+        const { result } = renderHook(() => useBorders("w1"), {
+          wrapper: Wrapper,
+          initialProps: {
             defaultState: state,
             side,
-          })
-        );
+          },
+        });
         expect(result.current["nz-border-right"]).toEqual(false);
       });
     });
@@ -364,13 +364,13 @@ describe("useBorders", () => {
         state = addTabs(state, ["t1", "t2"]);
         state = addPanelWidget(state, side, "w1", ["t1"]);
         state = addPanelWidget(state, "top", "w2", ["t2"]);
-        const { result } = renderHook(
-          () => useBorders("w1"),
-          withWrapperAndProps(Wrapper, {
+        const { result } = renderHook(() => useBorders("w1"), {
+          wrapper: Wrapper,
+          initialProps: {
             defaultState: state,
             side,
-          })
-        );
+          },
+        });
         expect(result.current["nz-border-top"]).toEqual(false);
       });
     });

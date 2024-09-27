@@ -7,7 +7,6 @@ import type { NineZoneDispatch } from "../../../appui-react/layout/base/NineZone
 import { updatePanelState } from "../../../appui-react/layout/state/internal/PanelStateHelpers";
 import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState";
 import { setRefValue, TestNineZoneProvider } from "../Providers";
-import { withWrapperAndProps } from "../Utils";
 import { usePanelsAutoCollapse } from "../../../appui-react/layout/widget-panels/usePanelsAutoCollapse";
 
 describe("usePanelsAutoCollapse", () => {
@@ -17,13 +16,13 @@ describe("usePanelsAutoCollapse", () => {
     state = updatePanelState(state, "right", (draft) => {
       draft.pinned = false;
     });
-    const { result } = renderHook(
-      () => usePanelsAutoCollapse(),
-      withWrapperAndProps(TestNineZoneProvider, {
+    const { result } = renderHook(() => usePanelsAutoCollapse(), {
+      wrapper: TestNineZoneProvider,
+      initialProps: {
         dispatch,
         defaultState: state,
-      })
-    );
+      },
+    });
     const element = document.createElement("div");
     setRefValue(result.current, element);
 
@@ -42,14 +41,14 @@ describe("usePanelsAutoCollapse", () => {
     state = updatePanelState(state, "left", (draft) => {
       draft.pinned = false;
     });
-    const { result } = renderHook(
-      () => usePanelsAutoCollapse(),
-      withWrapperAndProps(TestNineZoneProvider, {
+    const { result } = renderHook(() => usePanelsAutoCollapse(), {
+      wrapper: TestNineZoneProvider,
+      initialProps: {
         dispatch,
         defaultState: state,
         autoCollapseUnpinnedPanels: true,
-      })
-    );
+      },
+    });
     const element = document.createElement("div");
     setRefValue(result.current, element);
 
@@ -64,13 +63,13 @@ describe("usePanelsAutoCollapse", () => {
 
   it("should remove event listeners", () => {
     const state = createNineZoneState();
-    const { result } = renderHook(
-      () => usePanelsAutoCollapse(),
-      withWrapperAndProps(TestNineZoneProvider, {
+    const { result } = renderHook(() => usePanelsAutoCollapse(), {
+      wrapper: TestNineZoneProvider,
+      initialProps: {
         defaultState: state,
         autoCollapseUnpinnedPanels: true,
-      })
-    );
+      },
+    });
     const element = document.createElement("div");
     const spy = vi.spyOn(element, "removeEventListener");
     setRefValue(result.current, element);
