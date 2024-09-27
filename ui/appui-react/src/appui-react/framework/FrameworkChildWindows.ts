@@ -22,13 +22,6 @@ export interface ChildWindowLocationProps {
 }
 
 /**
- * Basic recreation of the `createRoot` function type, intentionally not exported.
- */
-type CreateRoot = (container: Element | DocumentFragment) => {
-  render(children: React.ReactNode): void;
-};
-
-/**
  * [[UiFramework.childWindows]] interface.
  * @public
  */
