@@ -4,11 +4,11 @@
  *--------------------------------------------------------------------------------------------*/
 import * as moq from "typemoq";
 import { Key } from "ts-key-enum";
+import { Orientation } from "../../core-react.js";
 import {
   isNavigationKey,
   ItemKeyboardNavigator,
-  Orientation,
-} from "../../core-react.js";
+} from "../../core-react/focus/ItemKeyboardNavigator.js";
 
 describe("ItemKeyboardNavigator", () => {
   describe("properties", () => {

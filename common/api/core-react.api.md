@@ -13,8 +13,7 @@ import { ConditionalStringValue } from '@itwin/appui-abstract';
 import type { DialogButtonDef } from '@itwin/appui-abstract';
 import type { IDisposable } from '@itwin/core-bentley';
 import { Input } from '@itwin/itwinui-react';
-import type { Listener } from '@itwin/core-bentley';
-import type { Localization as Localization_2 } from '@itwin/core-common';
+import type { Localization } from '@itwin/core-common';
 import { MessageSeverity } from '@itwin/appui-abstract';
 import { ProgressRadial } from '@itwin/itwinui-react';
 import * as React_2 from 'react';
@@ -30,42 +29,6 @@ export class ActivateSettingsTabEvent extends BeUiEvent<ActivateSettingsTabEvent
 export interface ActivateSettingsTabEventArgs {
     // (undocumented)
     readonly settingsTabId: string;
-}
-
-// @internal
-export class AnnularSector {
-    constructor(parent: Annulus, startAngle: number, endAngle: number);
-    // (undocumented)
-    end: Line;
-    // (undocumented)
-    endAngle: number;
-    // (undocumented)
-    innerEnd: Point;
-    // (undocumented)
-    innerStart: Point;
-    // (undocumented)
-    outerEnd: Point;
-    // (undocumented)
-    outerStart: Point;
-    // (undocumented)
-    parent: Annulus;
-    // (undocumented)
-    path: string;
-    // (undocumented)
-    start: Line;
-    // (undocumented)
-    startAngle: number;
-}
-
-// @internal
-export class Annulus {
-    constructor(center?: Point, innerRadius?: number, outerRadius?: number);
-    // (undocumented)
-    center: Point;
-    // (undocumented)
-    inner: Circle;
-    // (undocumented)
-    outer: Circle;
 }
 
 // @public @deprecated
@@ -111,18 +74,6 @@ export interface AutoSuggestProps extends React_2.InputHTMLAttributes<HTMLInputE
     value?: string;
 }
 
-// @internal
-export function Badge({ type }: BadgeProps): React_2.JSX.Element | null;
-
-// @internal
-export type BadgeKind = "technical-preview" | "new" | "deprecated" | (string & {});
-
-// @internal
-export interface BadgeProps {
-    // (undocumented)
-    type?: BadgeType | BadgeKind;
-}
-
 // @public @deprecated
 export type BadgeType = BadgeType_2;
 
@@ -134,18 +85,6 @@ export function BlockText(props: TextProps): React_2.JSX.Element;
 
 // @public @deprecated
 export function BodyText(props: TextProps): React_2.JSX.Element;
-
-// @internal
-export const calculateBackdropFilterBlur: (proximityScale: number) => number;
-
-// @internal
-export const calculateBoxShadowOpacity: (proximityScale: number) => number;
-
-// @internal
-export const calculateProximityScale: (proximity: number, snap?: boolean, threshold?: number) => number;
-
-// @internal
-export const calculateToolbarOpacity: (proximityScale: number) => number;
 
 // @public @deprecated
 export function Centered(props: CommonDivProps): React_2.JSX.Element;
@@ -197,15 +136,6 @@ export interface CheckListBoxItemProps extends CommonProps {
 
 // @public @deprecated
 export function CheckListBoxSeparator(): React_2.JSX.Element;
-
-// @internal
-export class Circle {
-    constructor(center?: Point, radius?: number);
-    // (undocumented)
-    center: Point;
-    // (undocumented)
-    radius: number;
-}
 
 // @public @deprecated
 export interface ClassNameProps {
@@ -379,21 +309,6 @@ export interface ContextSubMenuProps extends Omit<ContextMenuItemProps, "label">
     // @internal (undocumented)
     onHotKeyParsed?: (hotKey: string) => void;
 }
-
-// @internal
-export enum Corner {
-    // (undocumented)
-    BottomLeft = 3,
-    // (undocumented)
-    BottomRight = 2,
-    // (undocumented)
-    TopLeft = 0,
-    // (undocumented)
-    TopRight = 1
-}
-
-// @internal
-export type CrossAxisArrowKeyFunc = (forward: boolean) => void;
 
 // @public @deprecated
 export class Dialog extends React_2.Component<DialogProps> {
@@ -621,25 +536,8 @@ export interface FilteredTextProps extends CommonProps {
     value: string;
 }
 
-// @internal
-export const flattenChildren: (children: React_2.ReactNode) => React_2.ReactNode;
-
 // @public @deprecated
 export function FlexWrapContainer(props: CommonDivProps): React_2.JSX.Element;
-
-// @internal
-export function focusIntoContainer(focusContainer: HTMLDivElement, initialFocusElement?: React_2.RefObject<HTMLElement> | string): boolean;
-
-// @internal
-export function FocusTrap(props: FocusTrapProps): React_2.JSX.Element | null;
-
-// @internal
-export interface FocusTrapProps extends React_2.AllHTMLAttributes<any> {
-    active?: boolean;
-    children: React_2.ReactNode;
-    initialFocusElement?: React_2.RefObject<HTMLElement> | string;
-    returnFocusOnDeactivate: boolean;
-}
 
 // @public @deprecated
 export function Gap(props: GapProps): React_2.JSX.Element;
@@ -653,32 +551,11 @@ export interface GapProps extends CommonProps {
 // @public @deprecated
 export type GetAutoSuggestDataFunc = (value: string) => AutoSuggestData[];
 
-// @internal
-export function getBestBWContrastColor(hexColor: string): "black" | "white";
-
 // @public @deprecated
 export function getCssVariable(variableName: string, htmlElement?: HTMLElement): string;
 
 // @public @deprecated
 export function getCssVariableAsNumber(variableName: string, htmlElement?: HTMLElement): number;
-
-// @internal
-export const getDisplayName: (component: React_2.ComponentType<any>) => string;
-
-// @internal
-export const getObjectClassName: (obj: any) => string;
-
-// @internal
-export const getToolbarBackdropFilter: (filterBlur: number) => string;
-
-// @internal
-export const getToolbarBackgroundColor: (opacity: number) => string;
-
-// @internal
-export const getToolbarBoxShadow: (opacity: number) => string;
-
-// @internal
-export function getUserColor(email: string): string;
 
 // @public @deprecated
 export class GlobalContextMenu extends React_2.PureComponent<GlobalContextMenuProps, GlobalContextMenuState> {
@@ -721,9 +598,6 @@ export interface GlobalDialogState {
     // (undocumented)
     parentDocument: Document | null;
 }
-
-// @internal
-export function hasPointerEventsSupport(): boolean;
 
 // @public @deprecated
 export enum HorizontalAlignment {
@@ -812,37 +686,6 @@ export enum InputStatus {
     Warning = "warning"
 }
 
-// @internal
-export const isHTMLElement: (message: MessageType) => message is HTMLElement;
-
-// @internal
-export function isNavigationKey(key: string): boolean;
-
-// @internal
-export function isPromiseLike(obj: unknown): obj is PromiseLike<unknown>;
-
-// @internal
-export const isReactMessage: (message: MessageType) => message is ReactMessage;
-
-// @internal
-export class ItemKeyboardNavigator {
-    constructor(onFocusItem: (index: number) => void, onActivateItem: (index: number) => void);
-    get allowWrap(): boolean;
-    set allowWrap(v: boolean);
-    get crossAxisArrowKeyHandler(): CrossAxisArrowKeyFunc | undefined;
-    set crossAxisArrowKeyHandler(v: CrossAxisArrowKeyFunc | undefined);
-    handleKeyDownEvent(event: React.KeyboardEvent, index: number): void;
-    handleKeyUpEvent(event: React.KeyboardEvent, index: number): void;
-    get itemCount(): number;
-    set itemCount(count: number);
-    // (undocumented)
-    onActivateItem: (index: number) => void;
-    // (undocumented)
-    onFocusItem: (index: number) => void;
-    get orientation(): Orientation;
-    set orientation(orientation: Orientation);
-}
-
 // @public @deprecated
 export interface LabeledComponentProps {
     inputClassName?: string;
@@ -851,16 +694,6 @@ export interface LabeledComponentProps {
     labelClassName?: string;
     labelStyle?: React_2.CSSProperties;
     status?: InputStatus;
-}
-
-// @internal
-export class Line {
-    constructor(p1?: Point, p2?: Point);
-    equals: (line: Line) => boolean;
-    // (undocumented)
-    p1: Point;
-    // (undocumented)
-    p2: Point;
 }
 
 // @public @deprecated
@@ -908,13 +741,6 @@ export interface ListboxProps extends React_2.DetailedHTMLProps<React_2.HTMLAttr
 
 // @public @deprecated
 export type ListboxValue = string;
-
-// @internal
-export type ListenerType<TEvent extends {
-    addListener(listener: Listener): () => void;
-}> = TEvent extends {
-    addListener(listener: infer TListener): () => void;
-} ? TListener : never;
 
 // @public @deprecated
 export class LoadingBar extends React_2.PureComponent<LoadingBarProps> {
@@ -1005,9 +831,6 @@ export interface MainTabsProps extends TabsProps {
     mainClassName: string;
     orientation: Orientation;
 }
-
-// @internal
-export function mergeRefs<T>(...refs: ReadonlyArray<React_2.Ref<T>>): (instance: T | null) => void;
 
 // @public @deprecated
 export class MessageBox extends React_2.PureComponent<MessageBoxProps> {
@@ -1139,38 +962,6 @@ export enum Orientation {
 // @public @deprecated (undocumented)
 export type OutsideClickEvent = PointerEvent | MouseEvent | TouchEvent;
 
-// @internal
-export function percentInRange(percent: number): number;
-
-// @internal
-export class Point implements PointProps {
-    constructor(x?: number, y?: number);
-    static create(pointProps: PointProps): Point;
-    // (undocumented)
-    equals(other: PointProps): boolean;
-    getDistanceTo(other: PointProps): number;
-    getManhattanDistanceTo(other: PointProps): number;
-    getOffsetTo(other: PointProps): Point;
-    // (undocumented)
-    multiply(factor: number): Point;
-    // (undocumented)
-    offset(offset: PointProps): Point;
-    // (undocumented)
-    offsetX(offset: number): Point;
-    // (undocumented)
-    offsetY(offset: number): Point;
-    // (undocumented)
-    setX(x: number): Point;
-    // (undocumented)
-    setY(y: number): Point;
-    // (undocumented)
-    toProps(): PointProps;
-    // (undocumented)
-    readonly x: number;
-    // (undocumented)
-    readonly y: number;
-}
-
 // @public @deprecated
 export class Popup extends React_2.Component<PopupProps, PopupState> {
     constructor(props: PopupProps);
@@ -1190,9 +981,6 @@ export class Popup extends React_2.Component<PopupProps, PopupState> {
     // (undocumented)
     render(): React_2.ReactPortal | null;
 }
-
-// @internal (undocumented)
-export const PopupContext: React_2.Context<HTMLElement | undefined>;
 
 // @public @deprecated
 export function PopupContextMenu(props: PopupContextMenuProps): React_2.JSX.Element;
@@ -1277,9 +1065,6 @@ export interface ProcessSettingsTabActivationEventArgs {
     readonly tabSelectionFunc: (tabId: string) => void;
 }
 
-// @internal
-export const PROXIMITY_THRESHOLD_DEFAULT = 100;
-
 // @public @deprecated
 export class RadialButton extends React_2.Component<RadialButtonProps, RadialButtonState> {
     constructor(props: RadialButtonProps);
@@ -1346,61 +1131,6 @@ export interface RatioChangeResult {
 export interface ReactMessage {
     // (undocumented)
     reactNode: React_2.ReactNode;
-}
-
-// @internal
-export class Rectangle implements RectangleProps {
-    constructor(left?: number, top?: number, right?: number, bottom?: number);
-    // (undocumented)
-    readonly bottom: number;
-    // (undocumented)
-    center(): Point;
-    // (undocumented)
-    containHorizontallyIn(other: RectangleProps): Rectangle;
-    // (undocumented)
-    containIn(other: RectangleProps): Rectangle;
-    // (undocumented)
-    contains(other: RectangleProps): boolean;
-    containsPoint(point: PointProps): boolean;
-    containsXY(x: number, y: number): boolean;
-    // (undocumented)
-    containVerticallyIn(other: RectangleProps): Rectangle;
-    static create(props: RectangleProps): Rectangle;
-    static createFromSize(size: SizeProps): Rectangle;
-    static createXYXY(xA: number, yA: number, xB: number, yB: number): Rectangle;
-    equals(other: RectangleProps): boolean;
-    // (undocumented)
-    getCorner(corner: Corner): Point;
-    // (undocumented)
-    getHeight(): number;
-    getHorizontalSegmentBounds(segmentId: number, numberOfSegments: number): Rectangle;
-    getShortestDistanceToPoint(point: PointProps): number;
-    // (undocumented)
-    getSize(): Size;
-    getVerticalSegmentBounds(segmentId: number, numberOfSegments: number): Rectangle;
-    // (undocumented)
-    getWidth(): number;
-    inset(left: number, top: number, right: number, bottom: number): Rectangle;
-    // (undocumented)
-    intersects(other: RectangleProps): boolean;
-    // (undocumented)
-    readonly left: number;
-    offset(offset: PointProps): Rectangle;
-    offsetX(offset: number): Rectangle;
-    offsetY(offset: number): Rectangle;
-    outerMergeWith(other: RectangleProps): Rectangle;
-    // (undocumented)
-    readonly right: number;
-    setHeight(height: number): Rectangle;
-    setPosition(position: PointProps): Rectangle;
-    setSize(size: SizeProps): Rectangle;
-    setWidth(width: number): Rectangle;
-    // (undocumented)
-    readonly top: number;
-    // (undocumented)
-    topLeft(): Point;
-    // (undocumented)
-    toProps(): RectangleProps;
 }
 
 // @public @deprecated
@@ -1531,24 +1261,6 @@ export interface SettingsTabsProvider {
     readonly id: string;
 }
 
-// @internal
-export const shallowDiffers: (a: {
-    [key: string]: any;
-} | undefined, b: {
-    [key: string]: any;
-} | undefined) => boolean;
-
-// @internal
-export class Size implements SizeProps {
-    constructor(width?: number, height?: number);
-    static create(size: SizeProps): Size;
-    equals(other: SizeProps): boolean;
-    // (undocumented)
-    readonly height: number;
-    // (undocumented)
-    readonly width: number;
-}
-
 // @public @deprecated
 export interface SizeProps {
     // (undocumented)
@@ -1646,15 +1358,6 @@ export class Timer {
     start(): void;
     stop(): void;
 }
-
-// @internal
-export const TOOLBAR_BACKDROP_FILTER_BLUR_DEFAULT = 10;
-
-// @internal
-export const TOOLBAR_BOX_SHADOW_OPACITY_DEFAULT = 0.35;
-
-// @internal
-export const TOOLBAR_OPACITY_DEFAULT = 0.5;
 
 // @public @deprecated
 export class Tree extends React_2.PureComponent<TreeProps> {
@@ -1765,7 +1468,7 @@ export interface TreeProps extends CommonProps {
 
 // @public @deprecated
 export class UiCore {
-    static initialize(localization: Localization_2): Promise<void>;
+    static initialize(localization: Localization): Promise<void>;
     static get initialized(): boolean;
     static get localizationNamespace(): string;
     // @internal (undocumented)
@@ -1775,12 +1478,6 @@ export class UiCore {
     static terminate(): void;
     // @internal @deprecated
     static translate(key: string | string[]): string;
-}
-
-// @internal
-export class UiGeometry {
-    static clamp(value: number, min: number, max: number): number;
-    static hypotenuseXY(x: number, y: number): number;
 }
 
 // @public @deprecated
@@ -1855,14 +1552,8 @@ export function useDisposable<TDisposable extends IDisposable>(createDisposable:
 // @public @deprecated
 export function useEffectSkipFirst(callback: () => (void | (() => void | undefined)) | void, deps?: any[]): void;
 
-// @internal
-export function useEventListener(eventName: string, handler: (event: Event) => void, element: HTMLElement | Document | undefined): void;
-
 // @beta @deprecated
 export function useInterval(callback: (...args: any[]) => void, delay: number | undefined): void;
-
-// @internal
-export function useLayoutResizeObserver(inElement: HTMLElement | null, onResize?: (width?: number, height?: number) => void): (number | undefined)[];
 
 // @public @deprecated
 export function useOnOutsideClick<T extends Element>(onOutsideClick?: () => void,
@@ -1871,41 +1562,11 @@ outsideEventPredicate?: (e: OutsideClickEvent) => boolean): React_2.RefObject<T>
 // @public @deprecated
 export function useOptionalDisposable<TDisposable extends IDisposable>(createDisposable: () => TDisposable | undefined): TDisposable | undefined;
 
-// @internal
-export function usePackageTranslation({ namespace, fallback, defaults, }: {
-    namespace: string;
-    fallback: (key: string) => string | undefined;
-    defaults: object;
-}): {
-    translate: (key: string) => string;
-};
-
-// @internal
-export const useProximityToMouse: (elementSet: WidgetElementSet, snap?: boolean, threshold?: number) => number;
-
-// @internal
-export function useRefEffect<T>(callback: (instance: T | null) => void | (() => void), deps: ReadonlyArray<any>): (instance: T | null) => void;
-
-// @internal
-export function useRefs<T>(...refs: ReadonlyArray<React_2.Ref<T> | undefined>): (instance: T | null) => void;
-
-// @internal
-export function useRefState<T>(): [React_2.Ref<T>, T | undefined];
-
-// @internal
-export function useResizeObserver<T extends Element>(onResize?: (width: number, height: number) => void): (instance: Element | null) => void;
-
 // @public @deprecated
 export function useSaveBeforeActivatingNewSettingsTab(settingsManager: SettingsManager, saveFunction: (tabSelectionFunc: (args: any) => void, requestedSettingsTabId?: string) => void): void;
 
 // @public @deprecated
 export function useSaveBeforeClosingSettingsContainer(settingsManager: SettingsManager, saveFunction: (closeFunc: (args: any) => void, closeFuncArgs?: any) => void): void;
-
-// @internal
-export const useTargeted: (ref: React_2.RefObject<Element>) => boolean;
-
-// @internal
-export function useWidgetOpacityContext(): WidgetOpacityContextProps;
 
 // @public @deprecated
 export enum VerticalAlignment {
@@ -1930,21 +1591,6 @@ export interface WebFontIconProps extends CommonProps {
     iconSize?: "x-small" | "small" | "medium" | "large" | "x-large";
     onClick?: React_2.MouseEventHandler<HTMLSpanElement>;
     title?: string;
-}
-
-// @internal (undocumented)
-export class WidgetElementSet extends Set<React_2.RefObject<Element>> {
-}
-
-// @internal
-export const WidgetOpacityContext: React_2.Context<WidgetOpacityContextProps>;
-
-// @internal
-export interface WidgetOpacityContextProps {
-    // (undocumented)
-    readonly onElementRef: (elementRef: React_2.RefObject<Element>) => void;
-    // (undocumented)
-    readonly proximityScale: number;
 }
 
 // @public @deprecated
