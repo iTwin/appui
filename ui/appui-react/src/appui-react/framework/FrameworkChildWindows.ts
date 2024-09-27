@@ -39,17 +39,6 @@ export interface FrameworkChildWindows {
   readonly openChildWindows: OpenChildWindowInfo[];
 
   /**
-   * When using React18, the `createRoot` function must be provided in order to render Popout content with React18.
-   * Do not call if using React 17 or before.
-   *
-   * Note: The type of the function is intentionally simplified here.
-   *
-   * @param createRootFn Function imported from `import { createRoot } from "react-dom/client";`
-   * @beta Will be removed once the transition to react 18 is complete.
-   */
-  useCreateRoot(createRootFn: CreateRoot): void;
-
-  /**
    * Returns the OpenChildWindowInfo for the related id.
    * @param childWindowId Id of the window to retrieve.
    * @returns undefined if not found.
