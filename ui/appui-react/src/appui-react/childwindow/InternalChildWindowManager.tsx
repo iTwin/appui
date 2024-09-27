@@ -60,7 +60,7 @@ const childHtml = `<!DOCTYPE html>
  * */
 export class InternalChildWindowManager implements FrameworkChildWindows {
   private _openChildWindows: OpenChildWindowInfo[] = [];
-  private _roots: { [childwindowId: string]: Root } = {};
+  private _roots = new Map<string, Root>();
 
   public get openChildWindows() {
     return this._openChildWindows;
@@ -80,7 +80,7 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
     if (!childWindowId) return;
 
     const root = createRoot(container);
-    this._roots[childWindowId] = root;
+    this._roots.set(childWindowId, root);
     root.render(element);
   }
 
@@ -185,9 +185,9 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
         // Trigger first so popout can be converted back to main window widget
         this.close(childWindowId, false);
 
-        const root = this._roots[childWindowId];
+        const root = this._roots.get(childWindowId);
         if (!root) return;
-        delete this._roots[childWindowId];
+        this._roots.delete(childWindowId);
         root.unmount();
       });
     }
