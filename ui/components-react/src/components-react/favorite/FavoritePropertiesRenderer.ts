@@ -47,7 +47,7 @@ export class FavoritePropertiesRenderer {
    * @param orientation Orientation of the items
    * @param createRoot `createRoot` function imported from `import { createRoot } from "react-dom/client";`
    * @returns a `div` HTMLElement with the `<FavoritePropertyList />` rendered within it.
-   * @deprecated in 5.0.0. Use the overload without `createRoot` argument instead.
+   * @deprecated in 5.0.0. Use the overload without `createRoot` parameter instead.
    */
   public renderFavorites(
     propertyData: PropertyData,
