@@ -3,8 +3,10 @@
 Table of contents:
 
 - [@itwin/appui-react](#itwinappui-react)
+  - [Removals](#removals)
   - [Changes](#changes)
 - [@itwin/components-react](#itwincomponents-react)
+  - [Deprecations](#deprecations)
   - [Additions](#additions)
   - [Changes](#changes-1)
 - [@itwin/core-react](#itwincore-react)
@@ -13,6 +15,10 @@ Table of contents:
   - [Changes](#changes-3)
 
 ## @itwin/appui-react
+
+### Removals
+
+- Removed `FrameworkChildWindows.useCreateRoot` method which existed solely to prevent runtime warnings when using `React 18.x`. [#1054](https://github.com/iTwin/appui/pull/1054)
 
 ### Changes
 
@@ -23,6 +29,10 @@ Table of contents:
 - Drop support for [React 17.x](https://react.dev/versions#react-17) [^3]. [#1054](https://github.com/iTwin/appui/pull/1054)
 
 ## @itwin/components-react
+
+### Deprecations
+
+- Deprecated `FavoritePropertiesRenderer.renderFavorites` method in favor of an overload that doesn't take the `createRoot` function as an argument. [#1054](https://github.com/iTwin/appui/pull/1054)
 
 ### Additions
 

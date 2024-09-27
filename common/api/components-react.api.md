@@ -714,7 +714,9 @@ export interface ErrorObserver<T> {
 // @public
 export class FavoritePropertiesRenderer {
     hasFavorites(propertyData: PropertyData): boolean;
-    renderFavorites(propertyData: PropertyData, orientation?: Orientation, createRoot?: CreateRoot): HTMLElement | string;
+    renderFavorites(propertyData: PropertyData, orientation?: Orientation): HTMLElement | string;
+    // @deprecated
+    renderFavorites(propertyData: PropertyData, orientation?: Orientation, _createRoot?: CreateRoot): HTMLElement | string;
 }
 
 // @alpha
