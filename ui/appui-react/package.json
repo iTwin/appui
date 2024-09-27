@@ -27,9 +27,9 @@
   "scripts": {
     "start": "run-p -l \"build:** -- -w\" \"copy:** -- -w\"",
     "build": "npm run -s copy:locale && npm run -s build:cjs && npm run -s build:esm",
-    "build:cjs": "npm run -s copy:cjs && tsc -p tsconfig.cjs.json && npm run -s build:cjs:post",
-    "build:cjs:post": "node ../../common/scripts/cjs-package.mjs ./lib/cjs",
+    "build:cjs": "npm run -s copy:cjs && npm run -s package:cjs && tsc -p tsconfig.cjs.json",
     "build:esm": "npm run -s copy:esm && tsc -p tsconfig.esm.json",
+    "package:cjs": "node ../../common/scripts/package-cjs.mjs ./lib/cjs",
     "copy:cjs": "cpx \"./src/**/*.{*css,json,svg}\" \"./lib/cjs\"",
     "copy:esm": "cpx \"./src/**/*.{*css,json,svg}\" \"./lib/esm\"",
     "copy:locale": "cpx ./src/appui-react/UiFramework.json ./lib/public/locales/en",
