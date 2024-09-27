@@ -8,10 +8,10 @@
 
 import type { Primitives } from "@itwin/appui-abstract";
 import { StandardTypeNames } from "@itwin/appui-abstract";
-import { isPromiseLike } from "@itwin/core-react";
 import { TypeConverter } from "./TypeConverter.js";
 import { TypeConverterManager } from "./TypeConverterManager.js";
 import type { ConvertedPrimitives } from "./valuetypes/ConvertedTypes.js";
+import { isPromiseLike } from "../common/UseAsyncValue.js";
 
 // cSpell:ignore valuetypes
 
