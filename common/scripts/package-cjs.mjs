@@ -10,7 +10,7 @@ const packageDir = path.join(process.cwd(), relativeDir);
 const filePath = path.join(packageDir, "package.json");
 
 try {
-  fs.writeFileSync(filePath, '{ "type": "commonjs" }');
+  fs.writeFileSync(filePath, '{ "type": "commonjs" }', {});
 } catch (e) {
   console.error("Cannot create package.json", e);
 }
