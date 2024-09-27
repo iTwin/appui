@@ -187,6 +187,7 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
 
         const root = this._roots[childWindowId];
         if (!root) return;
+        delete this._roots[childWindowId];
         root.unmount();
       });
     }
