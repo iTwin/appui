@@ -292,11 +292,9 @@ describe("useBorders", () => {
       state = addTab(state, "t1");
       state = addPanelWidget(state, "bottom", "w1", ["t1"]);
       const { result } = renderHook(() => useBorders("w1"), {
-        wrapper: Wrapper,
-        initialProps: {
-          defaultState: state,
-          side,
-        },
+        wrapper: (props: any) => (
+          <Wrapper defaultState={state} side={side} {...props} />
+        ),
       });
       expect(result.current["nz-border-bottom"]).toEqual(false);
     });
@@ -310,11 +308,9 @@ describe("useBorders", () => {
         state = addPanelWidget(state, side, "w1", ["t1"]);
         state = addPanelWidget(state, side, "w2", ["t2"]);
         const { result } = renderHook(() => useBorders("w2"), {
-          wrapper: Wrapper,
-          initialProps: {
-            defaultState: state,
-            side,
-          },
+          wrapper: (props: any) => (
+            <Wrapper defaultState={state} side={side} {...props} />
+          ),
         });
         expect(result.current["nz-border-left"]).toEqual(false);
       });
@@ -328,11 +324,9 @@ describe("useBorders", () => {
         state = addPanelWidget(state, side, "w1", ["t1"]);
         state = addPanelWidget(state, "left", "w2", ["t2"]);
         const { result } = renderHook(() => useBorders("w1"), {
-          wrapper: Wrapper,
-          initialProps: {
-            defaultState: state,
-            side,
-          },
+          wrapper: (props: any) => (
+            <Wrapper defaultState={state} side={side} {...props} />
+          ),
         });
         expect(result.current["nz-border-left"]).toEqual(false);
       });
@@ -346,11 +340,9 @@ describe("useBorders", () => {
         state = addPanelWidget(state, side, "w1", ["t1"]);
         state = addPanelWidget(state, "right", "w2", ["t2"]);
         const { result } = renderHook(() => useBorders("w1"), {
-          wrapper: Wrapper,
-          initialProps: {
-            defaultState: state,
-            side,
-          },
+          wrapper: (props: any) => (
+            <Wrapper defaultState={state} side={side} {...props} />
+          ),
         });
         expect(result.current["nz-border-right"]).toEqual(false);
       });
@@ -365,11 +357,9 @@ describe("useBorders", () => {
         state = addPanelWidget(state, side, "w1", ["t1"]);
         state = addPanelWidget(state, "top", "w2", ["t2"]);
         const { result } = renderHook(() => useBorders("w1"), {
-          wrapper: Wrapper,
-          initialProps: {
-            defaultState: state,
-            side,
-          },
+          wrapper: (props: any) => (
+            <Wrapper defaultState={state} side={side} {...props} />
+          ),
         });
         expect(result.current["nz-border-top"]).toEqual(false);
       });
