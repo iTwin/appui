@@ -11,13 +11,13 @@ import classnames from "classnames";
 import * as React from "react";
 import { Key } from "ts-key-enum";
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
-import type { CommonProps } from "../utils/Props";
-import { DivWithOutsideClick } from "../base/DivWithOutsideClick";
-import { ContextMenuDirection } from "./ContextMenuDirection";
-import type { ContextMenuItemProps } from "./ContextMenuItem";
-import { ContextMenuItem } from "./ContextMenuItem";
-import type { ContextSubMenuProps } from "./ContextSubMenu";
-import { ContextSubMenu } from "./ContextSubMenu";
+import type { CommonProps } from "../utils/Props.js";
+import { DivWithOutsideClick } from "../base/DivWithOutsideClick.js";
+import { ContextMenuDirection } from "./ContextMenuDirection.js";
+import type { ContextMenuItemProps } from "./ContextMenuItem.js";
+import { ContextMenuItem } from "./ContextMenuItem.js";
+import type { ContextSubMenuProps } from "./ContextSubMenu.js";
+import { ContextSubMenu } from "./ContextSubMenu.js";
 
 /* eslint-disable deprecation/deprecation */
 

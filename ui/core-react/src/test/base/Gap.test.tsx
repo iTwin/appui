@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
 import * as React from "react";
-import { Gap } from "../../core-react";
+import { Gap } from "../../core-react.js";
 
 describe("<Gap />", () => {
   it("renders correctly", () => {

@@ -9,7 +9,7 @@ import {
   useWidgetOpacityContext,
   WidgetElementSet,
   WidgetOpacityContext,
-} from "../../../core-react";
+} from "../../../core-react.js";
 
 function WidgetOpacityChild() {
   const isInitialMount = React.useRef(true);

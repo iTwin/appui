@@ -9,7 +9,7 @@
 import "./SvgPath.scss";
 import classnames from "classnames";
 import * as React from "react";
-import type { CommonProps } from "../utils/Props";
+import type { CommonProps } from "../utils/Props.js";
 
 /** Properties of [[SvgPath]] component.
  * @public

@@ -10,9 +10,9 @@ import "./Node.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { Checkbox, ProgressRadial } from "@itwin/itwinui-react";
-import { CheckBoxState } from "../enums/CheckBoxState";
-import type { CommonProps } from "../utils/Props";
-import { ExpansionToggle } from "./ExpansionToggle";
+import { CheckBoxState } from "../enums/CheckBoxState.js";
+import type { CommonProps } from "../utils/Props.js";
+import { ExpansionToggle } from "./ExpansionToggle.js";
 
 /* eslint-disable deprecation/deprecation */
 

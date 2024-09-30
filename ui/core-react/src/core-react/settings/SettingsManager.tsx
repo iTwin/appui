@@ -8,7 +8,7 @@
 
 import { BeUiEvent, Logger } from "@itwin/core-bentley";
 import type { ConditionalBooleanValue } from "@itwin/appui-abstract";
-import { UiCore } from "../UiCore";
+import { UiCore } from "../UiCore.js";
 
 /* eslint-disable deprecation/deprecation */
 

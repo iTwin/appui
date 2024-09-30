@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { Badge, BadgeType } from "../../core-react";
+import { Badge, BadgeType } from "../../core-react.js";
 import { render } from "@testing-library/react";
 
 describe("Badge", () => {

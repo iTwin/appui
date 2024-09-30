@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { render, screen } from "@testing-library/react";
-import { WebFontIcon } from "../../core-react/icons/WebFontIcon";
-import { classesFromElement } from "../TestUtils";
+import { WebFontIcon } from "../../core-react/icons/WebFontIcon.js";
+import { classesFromElement } from "../TestUtils.js";
 
 describe("WebFontIcon", () => {
   it("renders with custom font class", () => {

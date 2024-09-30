@@ -9,12 +9,12 @@ import {
   SettingsContainer,
   useSaveBeforeActivatingNewSettingsTab,
   useSaveBeforeClosingSettingsContainer,
-} from "../../core-react/settings/SettingsContainer";
+} from "../../core-react/settings/SettingsContainer.js";
 import type {
   SettingsTabEntry,
   SettingsTabsProvider,
-} from "../../core-react/settings/SettingsManager";
-import { SettingsManager } from "../../core-react/settings/SettingsManager";
+} from "../../core-react/settings/SettingsManager.js";
+import { SettingsManager } from "../../core-react/settings/SettingsManager.js";
 
 function TestModalSettingsPage({
   settingsManager,

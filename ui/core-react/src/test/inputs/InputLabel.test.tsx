@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
 import * as React from "react";
-import { InputLabel, InputStatus } from "../../core-react";
-import { classesFromElement } from "../TestUtils";
+import { InputLabel, InputStatus } from "../../core-react.js";
+import { classesFromElement } from "../TestUtils.js";
 
 describe("<InputLabel />", () => {
   it("renders correctly", () => {

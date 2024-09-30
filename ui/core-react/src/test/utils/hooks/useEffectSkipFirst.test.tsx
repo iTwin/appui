@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { renderHook } from "@testing-library/react";
-import { useEffectSkipFirst } from "../../../core-react/utils/hooks/useEffectSkipFirst";
+import { useEffectSkipFirst } from "../../../core-react/utils/hooks/useEffectSkipFirst.js";
 
 describe("useEffectSkipFirst", () => {
   it("does not invoke callback on first effect", () => {

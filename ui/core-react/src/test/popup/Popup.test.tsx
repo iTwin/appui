@@ -6,9 +6,9 @@ import * as React from "react";
 import { RelativePosition } from "@itwin/appui-abstract";
 import type { RenderResult } from "@testing-library/react";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import { Popup } from "../../core-react";
-import { classesFromElement } from "../TestUtils";
-import userEvent from "@testing-library/user-event";
+import { Popup } from "../../core-react.js";
+import { classesFromElement } from "../TestUtils.js";
+import { userEvent } from "@testing-library/user-event";
 
 function NestedPopup() {
   const [showPopup, setShowPopup] = React.useState(false);

@@ -8,7 +8,7 @@ import {
   isNavigationKey,
   ItemKeyboardNavigator,
   Orientation,
-} from "../../core-react";
+} from "../../core-react.js";
 
 describe("ItemKeyboardNavigator", () => {
   describe("properties", () => {

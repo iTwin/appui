@@ -10,13 +10,13 @@ import * as React from "react";
 import classnames from "classnames";
 import { Key } from "ts-key-enum";
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
-import type { CommonProps } from "../utils/Props";
-import type { ContextMenu } from "./ContextMenu";
-import type { BadgeType } from "../badge/BadgeType";
-import { TildeFinder } from "./TildeFinder";
-import type { IconSpec } from "../icons/IconComponent";
-import { Icon } from "../icons/IconComponent";
-import { Badge } from "../badge/Badge";
+import type { CommonProps } from "../utils/Props.js";
+import type { ContextMenu } from "./ContextMenu.js";
+import type { BadgeType } from "../badge/BadgeType.js";
+import { TildeFinder } from "./TildeFinder.js";
+import type { IconSpec } from "../icons/IconComponent.js";
+import { Icon } from "../icons/IconComponent.js";
+import { Badge } from "../badge/Badge.js";
 
 /* eslint-disable deprecation/deprecation */
 

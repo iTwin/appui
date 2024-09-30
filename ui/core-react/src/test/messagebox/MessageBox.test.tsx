@@ -9,8 +9,8 @@ import {
 } from "@itwin/appui-abstract";
 import { render, screen } from "@testing-library/react";
 import * as React from "react";
-import { MessageBox, MessageContainer } from "../../core-react";
-import TestUtils from "../TestUtils";
+import { MessageBox, MessageContainer } from "../../core-react.js";
+import TestUtils from "../TestUtils.js";
 
 describe("MessageBox", () => {
   beforeEach(async () => {

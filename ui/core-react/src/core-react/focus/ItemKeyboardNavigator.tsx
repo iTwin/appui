@@ -7,7 +7,7 @@
  */
 
 import { Key } from "ts-key-enum";
-import { Orientation } from "../enums/Orientation";
+import { Orientation } from "../enums/Orientation.js";
 
 /* eslint-disable deprecation/deprecation */
 

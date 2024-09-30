@@ -3,9 +3,9 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { SearchBox } from "../../core-react";
+import { SearchBox } from "../../core-react.js";
 import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { userEvent } from "@testing-library/user-event";
 
 describe("SearchBox", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;

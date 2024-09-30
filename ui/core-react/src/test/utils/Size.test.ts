@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { Size } from "../../core-react";
+import { Size } from "../../core-react.js";
 
 describe("Size", () => {
   it("unspecified size should be 0", () => {

@@ -7,11 +7,11 @@
  */
 
 import * as React from "react";
-import type { BadgeKind } from "./BadgeType";
-import { BadgeType } from "./BadgeType";
-import { TechnicalPreviewBadge } from "./TechnicalPreviewBadge";
-import { NewBadge } from "./NewBadge";
-import { DeprecatedBadge } from "./DeprecatedBadge";
+import type { BadgeKind } from "./BadgeType.js";
+import { BadgeType } from "./BadgeType.js";
+import { TechnicalPreviewBadge } from "./TechnicalPreviewBadge.js";
+import { NewBadge } from "./NewBadge.js";
+import { DeprecatedBadge } from "./DeprecatedBadge.js";
 
 /* eslint-disable deprecation/deprecation */
 

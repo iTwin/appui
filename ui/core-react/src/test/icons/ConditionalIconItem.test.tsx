@@ -3,8 +3,8 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { ConditionalIconItem } from "../../core-react/icons/ConditionalIconItem";
-import type { IconSpec } from "../../core-react/icons/IconComponent";
+import { ConditionalIconItem } from "../../core-react/icons/ConditionalIconItem.js";
+import type { IconSpec } from "../../core-react/icons/IconComponent.js";
 
 const iconSpec1: IconSpec = "icon1.svg";
 const iconSpec2: IconSpec = "icon2.svg";

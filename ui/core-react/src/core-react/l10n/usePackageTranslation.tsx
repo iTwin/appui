@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { useLocalization } from "./LocalizationProvider";
+import { useLocalization } from "./LocalizationProvider.js";
 
 /** Used by AppUI packages internally to define package specific `useTranslation` hook.
  * Uses a localization provider to translate the provided key with a specified namespace. Multiple fallback layers are used to resolve the translation:

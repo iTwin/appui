@@ -14,7 +14,7 @@ import "./classes.scss";
 
 import { Logger } from "@itwin/core-bentley";
 import type { Localization } from "@itwin/core-common";
-import { getObjectClassName } from "./utils/getObjectClassName";
+import { getObjectClassName } from "./utils/getObjectClassName.js";
 
 /* eslint-disable deprecation/deprecation */
 

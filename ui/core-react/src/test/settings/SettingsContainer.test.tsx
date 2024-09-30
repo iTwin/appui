@@ -9,10 +9,10 @@ import {
   SettingsContainer,
   useSaveBeforeActivatingNewSettingsTab,
   useSaveBeforeClosingSettingsContainer,
-} from "../../core-react/settings/SettingsContainer";
-import type { SettingsTabEntry } from "../../core-react/settings/SettingsManager";
-import { SettingsManager } from "../../core-react/settings/SettingsManager";
-import TestUtils from "../TestUtils";
+} from "../../core-react/settings/SettingsContainer.js";
+import type { SettingsTabEntry } from "../../core-react/settings/SettingsManager.js";
+import { SettingsManager } from "../../core-react/settings/SettingsManager.js";
+import TestUtils from "../TestUtils.js";
 
 // cSpell:ignore sublabel
 function TestModalSettingsPage({

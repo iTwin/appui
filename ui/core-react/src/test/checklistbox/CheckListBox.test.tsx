@@ -4,13 +4,13 @@
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
 import * as React from "react";
-import userEvent from "@testing-library/user-event";
+import { userEvent } from "@testing-library/user-event";
 import {
   CheckListBox,
   CheckListBoxItem,
   CheckListBoxSeparator,
-} from "../../core-react";
-import { classesFromElement } from "../TestUtils";
+} from "../../core-react.js";
+import { classesFromElement } from "../TestUtils.js";
 
 describe("<CheckListBox />", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;

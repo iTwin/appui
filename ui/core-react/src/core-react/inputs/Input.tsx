@@ -9,8 +9,8 @@
 import classnames from "classnames";
 import * as React from "react";
 import { Input as ITwinUI_Input } from "@itwin/itwinui-react";
-import { useRefs } from "../utils/hooks/useRefs";
-import type { CommonProps } from "../utils/Props";
+import { useRefs } from "../utils/hooks/useRefs.js";
+import type { CommonProps } from "../utils/Props.js";
 
 /** Properties for the [[Input]] component
  * @internal

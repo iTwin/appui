@@ -4,9 +4,9 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { render, screen } from "@testing-library/react";
-import { UnderlinedButton } from "../../core-react/button/UnderlinedButton";
-import userEvent from "@testing-library/user-event";
-import { classesFromElement } from "../TestUtils";
+import { UnderlinedButton } from "../../core-react/button/UnderlinedButton.js";
+import { userEvent } from "@testing-library/user-event";
+import { classesFromElement } from "../TestUtils.js";
 
 describe("<UnderlinedButton />", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;

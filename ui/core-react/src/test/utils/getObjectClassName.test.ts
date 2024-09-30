@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { getObjectClassName } from "../../core-react/utils/getObjectClassName";
+import { getObjectClassName } from "../../core-react/utils/getObjectClassName.js";
 
 describe("getObjectClassName", () => {
   class NamedClass {

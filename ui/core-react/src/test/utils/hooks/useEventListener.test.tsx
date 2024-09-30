@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { renderHook } from "@testing-library/react";
-import { useEventListener } from "../../../core-react/utils/hooks/useEventListener";
+import { useEventListener } from "../../../core-react/utils/hooks/useEventListener.js";
 
 describe("useEventListener", () => {
   it("should handle event on Window", () => {
