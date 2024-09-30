@@ -8,13 +8,10 @@ The **@itwin/components-react** package contains React components that are data-
 
 ## Usage
 
-To get started with React components from the `@itwin/components-react` package, simply import the necessary components and utilities:
+To get started with the `@itwin/components-react` package, simply import the necessary components and utilities:
 
 ```tsx
-import {
-  PropertyDescription,
-  StandardTypeNames,
-} from "@itwin/appui-abstract";
+import { PropertyDescription, StandardTypeNames } from "@itwin/appui-abstract";
 import {
   PropertyFilterRuleGroupOperator,
   PropertyFilter,

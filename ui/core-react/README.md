@@ -8,7 +8,7 @@ The **@itwin/core-react** package contains general purpose React components, suc
 
 ## Usage
 
-To get started with React components from the `@itwin/core-react` package, simply import the necessary components and utilities:
+To get started with the `@itwin/core-react` package, simply import the necessary components and utilities:
 
 ```tsx
 import {
@@ -28,7 +28,6 @@ export const Basic: Story = {
     );
   },
 };
-
 ```
 
 For more details, check out the [@itwin/core-react documentation](https://www.itwinjs.org/reference/core-react/).

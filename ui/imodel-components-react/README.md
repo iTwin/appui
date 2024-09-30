@@ -8,7 +8,7 @@ The **@itwin/imodel-components-react** package contains React components that de
 
 ## Usage
 
-To get started with React components from the `@itwin/imodel-components-react` package, simply import the necessary components and utilities:
+To get started with the `@itwin/imodel-components-react` package, simply import the necessary components and utilities:
 
 ```tsx
 import { BaseSolarDataProvider } from "@itwin/imodel-components-react";
@@ -20,5 +20,4 @@ export const Basic: Story = {
 };
 ```
 
-For more details, check out the [@itwin/imodel-components-react](https://www.itwinjs.org/reference/imodel-components-react/).
-
+For more details, check out the [@itwin/imodel-components-react documentation](https://www.itwinjs.org/reference/imodel-components-react/).

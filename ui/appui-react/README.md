@@ -18,7 +18,7 @@ sub-framework is contained in a separate folder.
 
 ## Usage
 
-To get started with React components from the `@itwin/appui-react` package, simply import the necessary components and utilities:
+To get started with the `@itwin/appui-react` package, simply import the necessary components and utilities:
 
 ```tsx
 import {
@@ -36,9 +36,9 @@ function createItem() {
   );
 
   return {
-    custom1
+    custom1,
   };
 }
 ```
 
-For more details, check out the [@itwin/appui-react documentation](https://www.itwinjs.org/reference/appui-react/).
+For more details, check out [Get Started](https://www.itwinjs.org/ui/appui/get-started/) guide or [@itwin/appui-react documentation](https://www.itwinjs.org/reference/appui-react/).
