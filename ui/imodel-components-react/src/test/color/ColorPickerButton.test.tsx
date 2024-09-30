@@ -6,7 +6,7 @@
 import React from "react";
 import { ColorByName, ColorDef } from "@itwin/core-common";
 import { fireEvent, render } from "@testing-library/react";
-import { ColorPickerButton } from "../../imodel-components-react/color/ColorPickerButton";
+import { ColorPickerButton } from "../../imodel-components-react/color/ColorPickerButton.js";
 
 /* eslint-disable deprecation/deprecation */
 

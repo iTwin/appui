@@ -37,10 +37,10 @@ import {
   SvgSettings,
   SvgSun,
 } from "@itwin/itwinui-icons-react";
-import type { SolarDataProvider } from "./interfaces";
-import { UiIModelComponents } from "../UiIModelComponents";
-import { PlayButton } from "./PlayButton";
-import { useTranslation } from "../useTranslation";
+import type { SolarDataProvider } from "./interfaces.js";
+import { UiIModelComponents } from "../UiIModelComponents.js";
+import { PlayButton } from "./PlayButton.js";
+import { useTranslation } from "../useTranslation.js";
 
 const msPerMinute = 1000 * 60;
 const msPerHour = msPerMinute * 60;

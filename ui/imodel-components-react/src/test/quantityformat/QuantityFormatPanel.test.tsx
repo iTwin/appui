@@ -15,9 +15,9 @@ import { userEvent } from "@testing-library/user-event";
 import { Key } from "ts-key-enum";
 import { IModelApp, NoRenderApp, QuantityType } from "@itwin/core-frontend";
 import type { FormatProps } from "@itwin/core-quantity";
-import { BearingQuantityType } from "./BearingQuantityType";
-import { TestUtils, waitForPosition } from "../TestUtils";
-import { QuantityFormatPanel } from "../../imodel-components-react/quantityformat/QuantityFormatPanel";
+import { BearingQuantityType } from "./BearingQuantityType.js";
+import { TestUtils, waitForPosition } from "../TestUtils.js";
+import { QuantityFormatPanel } from "../../imodel-components-react/quantityformat/QuantityFormatPanel.js";
 
 describe("QuantityInput", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;

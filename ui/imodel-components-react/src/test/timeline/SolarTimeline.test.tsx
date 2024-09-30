@@ -5,10 +5,10 @@
 import React from "react";
 import { fireEvent, render, waitFor } from "@testing-library/react";
 import { NoRenderApp, type ScreenViewport } from "@itwin/core-frontend";
-import { BaseSolarDataProvider } from "../../imodel-components-react/timeline/BaseSolarDataProvider";
-import { TestUtils } from "../TestUtils";
-import { SpeedTimeline } from "../../imodel-components-react/timeline/SpeedTimeline";
-import { SolarTimeline } from "../../imodel-components-react/timeline/SolarTimeline";
+import { BaseSolarDataProvider } from "../../imodel-components-react/timeline/BaseSolarDataProvider.js";
+import { TestUtils } from "../TestUtils.js";
+import { SpeedTimeline } from "../../imodel-components-react/timeline/SpeedTimeline.js";
+import { SolarTimeline } from "../../imodel-components-react/timeline/SolarTimeline.js";
 
 class TestSolarDataProvider extends BaseSolarDataProvider {
   public playing = false;

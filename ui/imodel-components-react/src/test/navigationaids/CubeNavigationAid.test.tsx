@@ -13,7 +13,7 @@ import type {
 } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
 import { fireEvent, render, waitFor } from "@testing-library/react";
-import { TestUtils } from "../TestUtils";
+import { TestUtils } from "../TestUtils.js";
 import {
   CubeHover,
   CubeNavigationAid,
@@ -22,9 +22,9 @@ import {
   CubeNavigationHitBoxZ,
   FaceCell,
   NavCubeFace,
-} from "../../imodel-components-react/navigationaids/CubeNavigationAid";
-import { ViewportComponentEvents } from "../../imodel-components-react/viewport/ViewportComponentEvents";
-import { Face } from "../../imodel-components-react/navigationaids/Cube";
+} from "../../imodel-components-react/navigationaids/CubeNavigationAid.js";
+import { ViewportComponentEvents } from "../../imodel-components-react/viewport/ViewportComponentEvents.js";
+import { Face } from "../../imodel-components-react/navigationaids/Cube.js";
 import { userEvent } from "@testing-library/user-event";
 import type { Mock } from "vitest";
 

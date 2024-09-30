@@ -5,8 +5,8 @@
 import React from "react";
 import { HSVColor } from "@itwin/core-common";
 import { fireEvent, render } from "@testing-library/react";
-import { TestUtils } from "../TestUtils";
-import { HueSlider } from "../../imodel-components-react/color/HueSlider";
+import { TestUtils } from "../TestUtils.js";
+import { HueSlider } from "../../imodel-components-react/color/HueSlider.js";
 
 /* eslint-disable deprecation/deprecation */
 

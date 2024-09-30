@@ -10,9 +10,9 @@ import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
 import type { FormatProps } from "@itwin/core-quantity";
 import { FormatType, parseFormatType } from "@itwin/core-quantity";
-import { DecimalPrecisionSelector } from "./misc/DecimalPrecision";
-import { FractionPrecisionSelector } from "./misc/FractionPrecision";
-import { useTranslation } from "../useTranslation";
+import { DecimalPrecisionSelector } from "./misc/DecimalPrecision.js";
+import { FractionPrecisionSelector } from "./misc/FractionPrecision.js";
+import { useTranslation } from "../useTranslation.js";
 
 /** Properties of [[FormatPrecision]] component.
  * @alpha

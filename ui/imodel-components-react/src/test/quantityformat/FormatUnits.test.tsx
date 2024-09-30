@@ -6,10 +6,10 @@ import * as React from "react";
 import { fireEvent, render, within } from "@testing-library/react";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import type { FormatProps } from "@itwin/core-quantity";
-import type { ComponentSpy } from "../TestUtils";
-import { TestUtils, waitForPosition } from "../TestUtils";
-import { stubScrollIntoView } from "../test-helpers/misc";
-import { FormatUnits } from "../../imodel-components-react/quantityformat/FormatUnits";
+import type { ComponentSpy } from "../TestUtils.js";
+import { TestUtils, waitForPosition } from "../TestUtils.js";
+import { stubScrollIntoView } from "../test-helpers/misc.js";
+import { FormatUnits } from "../../imodel-components-react/quantityformat/FormatUnits.js";
 
 describe("FormatUnits", () => {
   const rnaDescriptorToRestore = Object.getOwnPropertyDescriptor(

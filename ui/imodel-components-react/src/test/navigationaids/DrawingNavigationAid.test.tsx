@@ -21,13 +21,13 @@ import type {
 } from "@itwin/core-frontend";
 import { ScreenViewport } from "@itwin/core-frontend";
 import { fireEvent, render, waitFor } from "@testing-library/react";
-import { TestUtils } from "../TestUtils";
+import { TestUtils } from "../TestUtils.js";
 import {
   DrawingNavigationAid,
   DrawingNavigationCanvas,
   MapMode,
-} from "../../imodel-components-react/navigationaids/DrawingNavigationAid";
-import { ViewportComponentEvents } from "../../imodel-components-react/viewport/ViewportComponentEvents";
+} from "../../imodel-components-react/navigationaids/DrawingNavigationAid.js";
+import { ViewportComponentEvents } from "../../imodel-components-react/viewport/ViewportComponentEvents.js";
 import { userEvent } from "@testing-library/user-event";
 import type { Mock } from "vitest";
 

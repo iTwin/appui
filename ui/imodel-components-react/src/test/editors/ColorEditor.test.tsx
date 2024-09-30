@@ -14,8 +14,8 @@ import {
   EditorContainer,
   PropertyEditorManager,
 } from "@itwin/components-react";
-import { ColorEditor } from "../../imodel-components-react/editors/ColorEditor";
-import { MineDataController, TestUtils } from "../TestUtils";
+import { ColorEditor } from "../../imodel-components-react/editors/ColorEditor.js";
+import { MineDataController, TestUtils } from "../TestUtils.js";
 
 // cspell:ignore colorpicker
 

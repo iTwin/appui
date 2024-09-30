@@ -8,9 +8,9 @@ import {
   Cube,
   CubeFace,
   Face,
-} from "../../imodel-components-react/navigationaids/Cube";
+} from "../../imodel-components-react/navigationaids/Cube.js";
 import { render, screen } from "@testing-library/react";
-import { selectorMatches, styleMatch } from "../TestUtils";
+import { selectorMatches, styleMatch } from "../TestUtils.js";
 
 describe("Cube", () => {
   describe("<Cube />", () => {

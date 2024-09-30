@@ -12,8 +12,8 @@ import type { CommonProps } from "@itwin/core-react";
 import type { FormatProps } from "@itwin/core-quantity";
 import { Format, FormatTraits, getTraitString } from "@itwin/core-quantity";
 import { Checkbox } from "@itwin/itwinui-react";
-import { ThousandsSelector } from "./ThousandsSelector";
-import { useTranslation } from "../../useTranslation";
+import { ThousandsSelector } from "./ThousandsSelector.js";
+import { useTranslation } from "../../useTranslation.js";
 
 /** Properties of [[ThousandsSeparator]] component.
  * @internal

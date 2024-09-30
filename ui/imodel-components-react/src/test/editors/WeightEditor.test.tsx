@@ -12,8 +12,8 @@ import {
   PropertyEditorManager,
 } from "@itwin/components-react";
 import { fireEvent, render, waitFor } from "@testing-library/react";
-import { WeightEditor } from "../../imodel-components-react/editors/WeightEditor";
-import { MineDataController, TestUtils } from "../TestUtils";
+import { WeightEditor } from "../../imodel-components-react/editors/WeightEditor.js";
+import { MineDataController, TestUtils } from "../TestUtils.js";
 
 describe("<WeightEditor />", () => {
   it("should render", () => {

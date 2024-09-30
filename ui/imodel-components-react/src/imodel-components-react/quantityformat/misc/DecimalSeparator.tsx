@@ -10,7 +10,7 @@ import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
 import type { SelectOption } from "@itwin/itwinui-react";
 import { Select } from "@itwin/itwinui-react";
-import { useTranslation } from "../../useTranslation";
+import { useTranslation } from "../../useTranslation.js";
 
 /** Properties of [[DecimalSeparatorSelector]] component.
  * @internal

@@ -14,7 +14,7 @@ import type { ColorDef } from "@itwin/core-common";
 import { RelativePosition } from "@itwin/appui-abstract";
 import type { CommonProps } from "@itwin/core-react";
 import { ElementResizeObserver, Popup } from "@itwin/core-react";
-import { LineWeightSwatch } from "./Swatch";
+import { LineWeightSwatch } from "./Swatch.js";
 
 // cSpell:ignore weightpicker lineweight
 

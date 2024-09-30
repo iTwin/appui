@@ -12,7 +12,7 @@ import * as React from "react";
 import { Key } from "ts-key-enum";
 import type { HSVColor } from "@itwin/core-common";
 import type { CommonProps } from "@itwin/core-react";
-import { useTranslation } from "../useTranslation";
+import { useTranslation } from "../useTranslation.js";
 
 // hue is a value from 0 to 360
 function calculateHue(currentPos: number, high: number, isVertical: boolean) {

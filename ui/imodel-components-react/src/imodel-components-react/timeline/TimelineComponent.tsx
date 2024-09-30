@@ -18,12 +18,12 @@ import {
   MenuDivider,
   MenuItem,
 } from "@itwin/itwinui-react";
-import { InlineEdit } from "./InlineEdit";
-import type { PlaybackSettings, TimelinePausePlayArgs } from "./interfaces";
-import { TimelinePausePlayAction } from "./interfaces";
-import { PlayButton } from "./PlayButton";
-import { Scrubber } from "./Scrubber";
-import { useTranslation } from "../useTranslation";
+import { InlineEdit } from "./InlineEdit.js";
+import type { PlaybackSettings, TimelinePausePlayArgs } from "./interfaces.js";
+import { TimelinePausePlayAction } from "./interfaces.js";
+import { PlayButton } from "./PlayButton.js";
+import { Scrubber } from "./Scrubber.js";
+import { useTranslation } from "../useTranslation.js";
 
 const slowSpeed = 60 * 1000;
 const mediumSpeed = 20 * 1000;

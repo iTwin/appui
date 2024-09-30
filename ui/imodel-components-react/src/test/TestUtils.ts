@@ -29,7 +29,7 @@ import {
 } from "@itwin/appui-abstract";
 import type { AsyncValueProcessingResult } from "@itwin/components-react";
 import { DataControllerBase } from "@itwin/components-react";
-import { UiIModelComponents } from "../imodel-components-react/UiIModelComponents";
+import { UiIModelComponents } from "../imodel-components-react/UiIModelComponents.js";
 import { act, prettyDOM } from "@testing-library/react";
 import type { Mock } from "vitest";
 
