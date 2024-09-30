@@ -15,19 +15,19 @@ import { Guid } from "@itwin/core-bentley";
 import type {
   PropertyFilterBuilderRuleOperator,
   PropertyFilterRuleGroupOperator,
-} from "./Operators";
+} from "./Operators.js";
 import {
   isUnaryPropertyFilterBuilderOperator,
   isUnaryPropertyFilterOperator,
-} from "./Operators";
+} from "./Operators.js";
 import type {
   PropertyFilter,
   PropertyFilterRule,
   PropertyFilterRuleGroup,
-} from "./Types";
-import { isPropertyFilterRuleGroup } from "./Types";
-import { PropertyFilterBuilderRuleRangeValue } from "./FilterBuilderRangeValue";
-import { useTranslation } from "../l10n/useTranslation";
+} from "./Types.js";
+import { isPropertyFilterRuleGroup } from "./Types.js";
+import { PropertyFilterBuilderRuleRangeValue } from "./FilterBuilderRangeValue.js";
+import { useTranslation } from "../l10n/useTranslation.js";
 
 /**
  * Data structure that describes [[PropertyFilterBuilder]] component state.

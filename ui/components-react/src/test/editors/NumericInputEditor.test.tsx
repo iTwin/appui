@@ -15,15 +15,15 @@ import {
   PropertyEditorParamTypes,
   StandardEditorNames,
 } from "@itwin/appui-abstract";
-import { NumericInputEditor } from "../../components-react/editors/NumericInputEditor";
+import { NumericInputEditor } from "../../components-react/editors/NumericInputEditor.js";
 import TestUtils, {
   MineDataController,
   styleMatch,
   userEvent,
-} from "../TestUtils";
-import type { PropertyUpdatedArgs } from "../../components-react/editors/EditorContainer";
-import { EditorContainer } from "../../components-react/editors/EditorContainer";
-import { PropertyEditorManager } from "../../components-react/editors/PropertyEditorManager";
+} from "../TestUtils.js";
+import type { PropertyUpdatedArgs } from "../../components-react/editors/EditorContainer.js";
+import { EditorContainer } from "../../components-react/editors/EditorContainer.js";
+import { PropertyEditorManager } from "../../components-react/editors/PropertyEditorManager.js";
 
 describe("<NumericInputEditor />", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;

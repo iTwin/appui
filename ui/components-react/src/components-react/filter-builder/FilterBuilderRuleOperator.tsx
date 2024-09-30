@@ -9,9 +9,9 @@
 import * as React from "react";
 import { type PropertyDescription } from "@itwin/appui-abstract";
 import { Select } from "@itwin/itwinui-react";
-import type { PropertyFilterBuilderRuleOperator } from "./Operators";
-import { getPropertyFilterBuilderOperators } from "./Operators";
-import { useTranslation } from "../l10n/useTranslation";
+import type { PropertyFilterBuilderRuleOperator } from "./Operators.js";
+import { getPropertyFilterBuilderOperators } from "./Operators.js";
+import { useTranslation } from "../l10n/useTranslation.js";
 
 /**
  * Props for [[PropertyFilterBuilderRuleOperator]] component.

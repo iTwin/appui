@@ -6,13 +6,13 @@
  * @module PropertyGrid
  */
 
-import { countMatchesInString } from "../../../common/countMatchesInString";
-import type { PropertyCategory } from "../../PropertyDataProvider";
-import type { PropertyDataFilterResult } from "./PropertyDataFiltererBase";
+import { countMatchesInString } from "../../../common/countMatchesInString.js";
+import type { PropertyCategory } from "../../PropertyDataProvider.js";
+import type { PropertyDataFilterResult } from "./PropertyDataFiltererBase.js";
 import {
   FilteredType,
   PropertyCategoryDataFiltererBase,
-} from "./PropertyDataFiltererBase";
+} from "./PropertyDataFiltererBase.js";
 
 /**
  * PropertyData filterer which matches on PropertyCategory's label.

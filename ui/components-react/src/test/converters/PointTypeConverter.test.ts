@@ -4,13 +4,13 @@
  *--------------------------------------------------------------------------------------------*/
 import type { Primitives } from "@itwin/appui-abstract";
 import { isPromiseLike } from "@itwin/core-react";
-import type { ConvertedPrimitives } from "../../components-react";
+import type { ConvertedPrimitives } from "../../components-react.js";
 import {
   Point2dTypeConverter,
   Point3dTypeConverter,
-} from "../../components-react";
-import { TypeConverter } from "../../components-react/converters/TypeConverter";
-import { TypeConverterManager } from "../../components-react/converters/TypeConverterManager";
+} from "../../components-react.js";
+import { TypeConverter } from "../../components-react/converters/TypeConverter.js";
+import { TypeConverterManager } from "../../components-react/converters/TypeConverterManager.js";
 
 describe("Point2dTypeConverter", () => {
   let converter: Point2dTypeConverter;

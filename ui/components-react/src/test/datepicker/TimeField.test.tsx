@@ -6,8 +6,8 @@
 import React from "react";
 import { fireEvent, render, waitFor } from "@testing-library/react";
 import { Key } from "ts-key-enum";
-import type { TimeSpec } from "../../components-react/datepicker/TimeField";
-import { TimeField } from "../../components-react/datepicker/TimeField";
+import type { TimeSpec } from "../../components-react/datepicker/TimeField.js";
+import { TimeField } from "../../components-react/datepicker/TimeField.js";
 import { TimeDisplay } from "@itwin/appui-abstract";
 
 describe("<TimeField />", () => {

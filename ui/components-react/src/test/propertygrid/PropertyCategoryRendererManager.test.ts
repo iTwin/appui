@@ -3,9 +3,9 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import type * as React from "react";
-import type { MutableGridCategory } from "../../components-react/propertygrid/internal/flat-items/MutableGridCategory";
-import { PropertyCategoryRendererManager } from "../../components-react/propertygrid/PropertyCategoryRendererManager";
-import { FlatGridTestUtils } from "./component/internal/flat-items/FlatGridTestUtils";
+import type { MutableGridCategory } from "../../components-react/propertygrid/internal/flat-items/MutableGridCategory.js";
+import { PropertyCategoryRendererManager } from "../../components-react/propertygrid/PropertyCategoryRendererManager.js";
+import { FlatGridTestUtils } from "./component/internal/flat-items/FlatGridTestUtils.js";
 
 describe("PropertyCategoryRendererManager", () => {
   const TestComponent: React.FC = () => null;

@@ -9,8 +9,8 @@
 import * as React from "react";
 import type { PropertyRecord } from "@itwin/appui-abstract";
 import { UnderlinedButton } from "@itwin/core-react";
-import type { PropertyDialogState } from "../../../ValueRendererManager";
-import type { Orientation } from "../../../../common/Orientation";
+import type { PropertyDialogState } from "../../../ValueRendererManager.js";
+import type { Orientation } from "../../../../common/Orientation.js";
 
 /** Properties for [[TableArrayValueRenderer]] and [[TableStructValueRenderer]] React component
  * @public

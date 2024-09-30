@@ -23,12 +23,16 @@ import {
 import { Icon } from "@itwin/core-react";
 import type { Tooltip } from "@itwin/itwinui-react";
 import { Slider } from "@itwin/itwinui-react";
-import type { PropertyEditorProps, TypeEditor } from "./EditorContainer";
+import type { PropertyEditorProps, TypeEditor } from "./EditorContainer.js";
 import {
   PropertyEditorBase,
   PropertyEditorManager,
-} from "./PropertyEditorManager";
-import { PopupButton, PopupContent, PopupOkCancelButtons } from "./PopupButton";
+} from "./PropertyEditorManager.js";
+import {
+  PopupButton,
+  PopupContent,
+  PopupOkCancelButtons,
+} from "./PopupButton.js";
 
 type TooltipProps = React.ComponentPropsWithoutRef<typeof Tooltip>;
 

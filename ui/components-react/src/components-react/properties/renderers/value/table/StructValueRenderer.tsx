@@ -7,9 +7,9 @@
  */
 
 import * as React from "react";
-import { NonPrimitivePropertyRenderer } from "../../NonPrimitivePropertyRenderer";
-import type { TableSpecificValueRendererProps } from "./NonPrimitiveValueRenderer";
-import { TableNonPrimitiveValueRenderer as TableValueRenderer } from "./NonPrimitiveValueRenderer";
+import { NonPrimitivePropertyRenderer } from "../../NonPrimitivePropertyRenderer.js";
+import type { TableSpecificValueRendererProps } from "./NonPrimitiveValueRenderer.js";
+import { TableNonPrimitiveValueRenderer as TableValueRenderer } from "./NonPrimitiveValueRenderer.js";
 
 /** A react component which renders struct property value as a button with text
  * @public

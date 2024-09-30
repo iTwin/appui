@@ -7,8 +7,8 @@
  */
 
 import { StandardTypeNames } from "@itwin/appui-abstract";
-import type { TypeConverter } from "./TypeConverter";
-import { StringTypeConverter } from "./StringTypeConverter";
+import type { TypeConverter } from "./TypeConverter.js";
+import { StringTypeConverter } from "./StringTypeConverter.js";
 
 /**
  * Manages Type Converters. Type Converters are registered with and obtained from the manager.

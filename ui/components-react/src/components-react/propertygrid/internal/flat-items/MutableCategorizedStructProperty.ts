@@ -10,12 +10,12 @@ import type { PropertyRecord } from "@itwin/appui-abstract";
 import type {
   IMutableCategorizedPropertyItem,
   IMutableFlatGridItem,
-} from "./MutableFlatGridItem";
+} from "./MutableFlatGridItem.js";
 import {
   FlatGridItemType,
   MutableCategorizedProperty,
-} from "./MutableFlatGridItem";
-import type { IMutableGridItemFactory } from "./MutableGridItemFactory";
+} from "./MutableFlatGridItem.js";
+import type { IMutableGridItemFactory } from "./MutableGridItemFactory.js";
 
 /**
  * Mutable wrapper object for PropertyRecord with struct valueFormat which provides methods for working with and managing record children hierarchies.

@@ -8,9 +8,9 @@
 
 import type { Primitives } from "@itwin/appui-abstract";
 import { StandardTypeNames } from "@itwin/appui-abstract";
-import { UiComponents } from "../UiComponents";
-import { TypeConverter } from "./TypeConverter";
-import { TypeConverterManager } from "./TypeConverterManager";
+import { UiComponents } from "../UiComponents.js";
+import { TypeConverter } from "./TypeConverter.js";
+import { TypeConverterManager } from "./TypeConverterManager.js";
 
 /** Boolean Type Converter.
  * @public

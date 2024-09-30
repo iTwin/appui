@@ -14,11 +14,11 @@ import { useResizeObserver } from "@itwin/core-react";
 import {
   useToolbarWithOverflowDirectionContext,
   useToolItemEntryContext,
-} from "./InternalToolbarComponent";
+} from "./InternalToolbarComponent.js";
 import {
   DirectionHelpers,
   OrthogonalDirectionHelpers,
-} from "./utilities/Direction";
+} from "./utilities/Direction.js";
 
 /** Properties of [[ItemWrapper]] component.
  * @internal future

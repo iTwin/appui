@@ -4,13 +4,13 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { Orientation } from "@itwin/core-react";
-import { PropertyRenderer } from "../../../components-react/properties/renderers/PropertyRenderer";
-import { PropertyValueRendererManager } from "../../../components-react/properties/ValueRendererManager";
+import { PropertyRenderer } from "../../../components-react/properties/renderers/PropertyRenderer.js";
+import { PropertyValueRendererManager } from "../../../components-react/properties/ValueRendererManager.js";
 import TestUtils, {
   selectorMatches,
   styleMatch,
   userEvent,
-} from "../../TestUtils";
+} from "../../TestUtils.js";
 import { fireEvent, render, screen } from "@testing-library/react";
 import type { PropertyRecord } from "@itwin/appui-abstract";
 

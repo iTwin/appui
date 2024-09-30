@@ -3,8 +3,8 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { renderHook } from "@testing-library/react";
-import { useTranslation } from "../components-react";
-import TestUtils from "./TestUtils";
+import { useTranslation } from "../components-react.js";
+import TestUtils from "./TestUtils.js";
 
 describe("useTranslation", () => {
   it("should fallback to default value", () => {

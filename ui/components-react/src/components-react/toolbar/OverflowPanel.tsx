@@ -26,11 +26,11 @@ import {
 import {
   ToolbarOpacitySetting,
   useToolbarWithOverflowDirectionContext,
-} from "./InternalToolbarComponent";
+} from "./InternalToolbarComponent.js";
 import {
   DirectionHelpers,
   OrthogonalDirectionHelpers,
-} from "./utilities/Direction";
+} from "./utilities/Direction.js";
 
 /** Properties of [[ToolbarOverflowPanel]] component.
  * @internal

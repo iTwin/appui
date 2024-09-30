@@ -3,16 +3,16 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { PropertyRecord } from "@itwin/appui-abstract";
-import type { IMutableGridItemFactory } from "../../../../components-react/propertygrid/internal/flat-items/MutableGridItemFactory";
-import { MutableGridItemFactory } from "../../../../components-react/propertygrid/internal/flat-items/MutableGridItemFactory";
-import { MutablePropertyGridModel } from "../../../../components-react/propertygrid/internal/PropertyGridModel";
-import TestUtils from "../../../TestUtils";
+import type { IMutableGridItemFactory } from "../../../../components-react/propertygrid/internal/flat-items/MutableGridItemFactory.js";
+import { MutableGridItemFactory } from "../../../../components-react/propertygrid/internal/flat-items/MutableGridItemFactory.js";
+import { MutablePropertyGridModel } from "../../../../components-react/propertygrid/internal/PropertyGridModel.js";
+import TestUtils from "../../../TestUtils.js";
 import type {
   FlattenedProperty,
   GridModelLastItemData,
   PropertyGridModelTestData,
-} from "./flat-items/FlatGridTestUtils";
-import { FlatGridTestUtils as GridUtils } from "./flat-items/FlatGridTestUtils";
+} from "./flat-items/FlatGridTestUtils.js";
+import { FlatGridTestUtils as GridUtils } from "./flat-items/FlatGridTestUtils.js";
 
 describe("MutablePropertyGridModel", () => {
   const testCases: Array<

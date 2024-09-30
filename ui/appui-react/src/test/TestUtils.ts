@@ -34,7 +34,7 @@ import {
   UiFramework,
 } from "../appui-react";
 import { TestContentControl } from "./frontstage/FrontstageTestUtils";
-import userEvent from "@testing-library/user-event";
+import { userEvent } from "@testing-library/user-event";
 import type { ContentLayoutProps } from "../appui-react/content/ContentLayoutProps";
 export { userEvent };
 

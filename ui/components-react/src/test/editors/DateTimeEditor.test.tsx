@@ -20,11 +20,11 @@ import {
 import { fireEvent, render, waitFor } from "@testing-library/react";
 import {
   EditorContainer /* PropertyUpdatedArgs */,
-} from "../../components-react/editors/EditorContainer";
-import { DateTimeEditor } from "../../components-react/editors/DateTimeEditor";
-import TestUtils, { MineDataController } from "../TestUtils";
-import { PropertyEditorManager } from "../../components-react/editors/PropertyEditorManager";
-import { findInstance } from "../ReactInstance";
+} from "../../components-react/editors/EditorContainer.js";
+import { DateTimeEditor } from "../../components-react/editors/DateTimeEditor.js";
+import TestUtils, { MineDataController } from "../TestUtils.js";
+import { PropertyEditorManager } from "../../components-react/editors/PropertyEditorManager.js";
+import { findInstance } from "../ReactInstance.js";
 
 function createDateProperty(propertyName: string, value: Date, option: number) {
   const v: PropertyValue = {

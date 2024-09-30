@@ -11,16 +11,16 @@ import classnames from "classnames";
 import * as React from "react";
 import type { ActionButton, RelativePosition } from "@itwin/appui-abstract";
 import { Popup, useRefState } from "@itwin/core-react";
-import type { ToolbarButtonItemProps } from "./Item";
+import type { ToolbarButtonItemProps } from "./Item.js";
 import {
   useToolbarPopupAutoHideContext,
   useToolbarWithOverflowDirectionContext,
   useToolItemEntryContext,
-} from "./InternalToolbarComponent";
+} from "./InternalToolbarComponent.js";
 import {
   PopupItemWithDrag,
   toToolbarPopupRelativePosition,
-} from "./PopupItemWithDrag";
+} from "./PopupItemWithDrag.js";
 
 /* eslint-disable deprecation/deprecation */
 

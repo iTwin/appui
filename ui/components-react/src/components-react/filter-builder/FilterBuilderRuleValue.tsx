@@ -9,12 +9,12 @@
 import * as React from "react";
 import type { PropertyDescription, PropertyValue } from "@itwin/appui-abstract";
 import { PropertyRecord, PropertyValueFormat } from "@itwin/appui-abstract";
-import type { PropertyUpdatedArgs } from "../editors/EditorContainer";
-import { EditorContainer } from "../editors/EditorContainer";
+import type { PropertyUpdatedArgs } from "../editors/EditorContainer.js";
+import { EditorContainer } from "../editors/EditorContainer.js";
 import { Flex, Text } from "@itwin/itwinui-react";
-import { PropertyFilterBuilderRuleRangeValue } from "./FilterBuilderRangeValue";
-import type { PropertyFilterBuilderRuleOperator } from "./Operators";
-import { useTranslation } from "../l10n/useTranslation";
+import { PropertyFilterBuilderRuleRangeValue } from "./FilterBuilderRangeValue.js";
+import type { PropertyFilterBuilderRuleOperator } from "./Operators.js";
+import { useTranslation } from "../l10n/useTranslation.js";
 
 /**
  * Props for [[PropertyFilterBuilderRuleValue]] component.

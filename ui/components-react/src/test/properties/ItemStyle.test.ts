@@ -5,11 +5,11 @@
 import type {
   ItemColorOverrides,
   ItemStyle,
-} from "../../components-react/properties/ItemStyle";
+} from "../../components-react/properties/ItemStyle.js";
 import {
   ItemStyleProvider,
   TableRowStyleProvider,
-} from "../../components-react/properties/ItemStyle";
+} from "../../components-react/properties/ItemStyle.js";
 
 describe("ItemStyleProvider", () => {
   describe("createStyle", () => {

@@ -5,9 +5,9 @@
 import * as faker from "faker";
 import type { PrimitiveValue, PropertyRecord } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
-import { DisplayValuePropertyDataFilterer } from "../../../../components-react/propertygrid/dataproviders/filterers/DisplayValuePropertyDataFilterer";
-import { FilteredType } from "../../../../components-react/propertygrid/dataproviders/filterers/PropertyDataFiltererBase";
-import { TestUtils } from "../../../TestUtils";
+import { DisplayValuePropertyDataFilterer } from "../../../../components-react/propertygrid/dataproviders/filterers/DisplayValuePropertyDataFilterer.js";
+import { FilteredType } from "../../../../components-react/propertygrid/dataproviders/filterers/PropertyDataFiltererBase.js";
+import { TestUtils } from "../../../TestUtils.js";
 
 describe("DisplayValuePropertyDataFilterer", () => {
   describe("When filter text not set", () => {

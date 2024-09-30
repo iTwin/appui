@@ -16,7 +16,7 @@ import type { TimelineMenuItemProps } from "../../imodel-components-react/timeli
 import { TimelineComponent } from "../../imodel-components-react/timeline/TimelineComponent";
 import { TestUtils } from "../TestUtils";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
-import userEvent from "@testing-library/user-event";
+import { userEvent } from "@testing-library/user-event";
 
 class TestTimelineDataProvider extends BaseTimelineDataProvider {
   public playing = false;

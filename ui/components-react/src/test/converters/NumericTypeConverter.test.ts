@@ -2,7 +2,10 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { FloatTypeConverter, IntTypeConverter } from "../../components-react";
+import {
+  FloatTypeConverter,
+  IntTypeConverter,
+} from "../../components-react.js";
 
 describe("IntTypeConverter", () => {
   let converter: IntTypeConverter;

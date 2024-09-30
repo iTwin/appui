@@ -3,9 +3,9 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as faker from "faker";
-import { PropertyCategoryLabelFilterer } from "../../../../components-react/propertygrid/dataproviders/filterers/PropertyCategoryLabelFilterer";
-import { FilteredType } from "../../../../components-react/propertygrid/dataproviders/filterers/PropertyDataFiltererBase";
-import type { PropertyCategory } from "../../../../components-react/propertygrid/PropertyDataProvider";
+import { PropertyCategoryLabelFilterer } from "../../../../components-react/propertygrid/dataproviders/filterers/PropertyCategoryLabelFilterer.js";
+import { FilteredType } from "../../../../components-react/propertygrid/dataproviders/filterers/PropertyDataFiltererBase.js";
+import type { PropertyCategory } from "../../../../components-react/propertygrid/PropertyDataProvider.js";
 
 describe("PropertyCategoryLabelFilterer", () => {
   describe("When filter text not set", () => {

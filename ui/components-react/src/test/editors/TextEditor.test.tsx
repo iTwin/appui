@@ -20,24 +20,24 @@ import {
   MessageSeverity,
   PropertyEditorParamTypes,
 } from "@itwin/appui-abstract";
-import { TextEditor } from "../../components-react/editors/TextEditor";
+import { TextEditor } from "../../components-react/editors/TextEditor.js";
 import TestUtils, {
   childStructure,
   MineDataController,
   styleMatch,
   userEvent,
-} from "../TestUtils";
-import type { PropertyUpdatedArgs } from "../../components-react/editors/EditorContainer";
-import { EditorContainer } from "../../components-react/editors/EditorContainer";
-import type { AsyncValueProcessingResult } from "../../components-react/editors/PropertyEditorManager";
+} from "../TestUtils.js";
+import type { PropertyUpdatedArgs } from "../../components-react/editors/EditorContainer.js";
+import { EditorContainer } from "../../components-react/editors/EditorContainer.js";
+import type { AsyncValueProcessingResult } from "../../components-react/editors/PropertyEditorManager.js";
 import {
   DataControllerBase,
   PropertyEditorManager,
-} from "../../components-react/editors/PropertyEditorManager";
+} from "../../components-react/editors/PropertyEditorManager.js";
 import {
   StringTypeConverter,
   TypeConverterManager,
-} from "../../components-react";
+} from "../../components-react.js";
 
 describe("<TextEditor />", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;

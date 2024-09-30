@@ -7,13 +7,13 @@
  */
 
 import * as React from "react";
-import { HighlightedText } from "../../common/HighlightedText";
-import type { HighlightingComponentProps } from "../../common/HighlightingComponentProps";
-import { CommonPropertyRenderer } from "./CommonPropertyRenderer";
-import { PrimitivePropertyLabelRenderer } from "./label/PrimitivePropertyLabelRenderer";
-import type { SharedRendererProps } from "./PropertyRenderer";
-import { PropertyView } from "./PropertyView";
-import { Orientation } from "../../common/Orientation";
+import { HighlightedText } from "../../common/HighlightedText.js";
+import type { HighlightingComponentProps } from "../../common/HighlightingComponentProps.js";
+import { CommonPropertyRenderer } from "./CommonPropertyRenderer.js";
+import { PrimitivePropertyLabelRenderer } from "./label/PrimitivePropertyLabelRenderer.js";
+import type { SharedRendererProps } from "./PropertyRenderer.js";
+import { PropertyView } from "./PropertyView.js";
+import { Orientation } from "../../common/Orientation.js";
 
 /** Properties of [[CustomizablePropertyRenderer]] React component
  * @public

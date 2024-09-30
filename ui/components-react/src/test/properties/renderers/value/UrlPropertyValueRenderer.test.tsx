@@ -5,9 +5,9 @@
 import * as React from "react";
 import { Id64 } from "@itwin/core-bentley";
 import { fireEvent, render } from "@testing-library/react";
-import type { PropertyValueRendererContext } from "../../../../components-react/properties/ValueRendererManager";
-import TestUtils from "../../../TestUtils";
-import { UrlPropertyValueRenderer } from "../../../../components-react/properties/renderers/value/UrlPropertyValueRenderer";
+import type { PropertyValueRendererContext } from "../../../../components-react/properties/ValueRendererManager.js";
+import TestUtils from "../../../TestUtils.js";
+import { UrlPropertyValueRenderer } from "../../../../components-react/properties/renderers/value/UrlPropertyValueRenderer.js";
 import type { PropertyRecord } from "@itwin/appui-abstract";
 import * as moq from "typemoq";
 

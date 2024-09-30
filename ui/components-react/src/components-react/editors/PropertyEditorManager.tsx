@@ -7,7 +7,7 @@
  */
 
 import * as React from "react";
-import { TextEditor } from "./TextEditor";
+import { TextEditor } from "./TextEditor.js";
 import type {
   DisplayMessageType,
   MessageSeverity,

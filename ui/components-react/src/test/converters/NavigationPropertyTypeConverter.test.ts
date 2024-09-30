@@ -3,8 +3,8 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import type { PrimitiveValue } from "@itwin/appui-abstract";
-import { NavigationPropertyTypeConverter } from "../../components-react/converters/NavigationPropertyTypeConverter";
-import { TestUtils } from "../TestUtils";
+import { NavigationPropertyTypeConverter } from "../../components-react/converters/NavigationPropertyTypeConverter.js";
+import { TestUtils } from "../TestUtils.js";
 
 describe("NavigationPropertyTypeConverter", () => {
   const converter = new NavigationPropertyTypeConverter();

@@ -9,25 +9,25 @@ import type {
   IMutableCategorizedPropertyItem,
   IMutableFlatGridItem,
   IMutableGridCategoryItem,
-} from "../../../../../components-react/propertygrid/internal/flat-items/MutableFlatGridItem";
-import { FlatGridItemType } from "../../../../../components-react/propertygrid/internal/flat-items/MutableFlatGridItem";
-import type { CategoryRecordsDict } from "../../../../../components-react/propertygrid/internal/flat-items/MutableGridCategory";
-import type { MutableGridCategory } from "../../../../../components-react/propertygrid/internal/flat-items/MutableGridCategory";
-import type { MutableCategorizedPrimitiveProperty } from "../../../../../components-react/propertygrid/internal/flat-items/MutableCategorizedPrimitiveProperty";
-import type { MutableCategorizedArrayProperty } from "../../../../../components-react/propertygrid/internal/flat-items/MutableCategorizedArrayProperty";
-import type { MutableCategorizedStructProperty } from "../../../../../components-react/propertygrid/internal/flat-items/MutableCategorizedStructProperty";
-import type { MutableGridItemFactory } from "../../../../../components-react/propertygrid/internal/flat-items/MutableGridItemFactory";
+} from "../../../../../components-react/propertygrid/internal/flat-items/MutableFlatGridItem.js";
+import { FlatGridItemType } from "../../../../../components-react/propertygrid/internal/flat-items/MutableFlatGridItem.js";
+import type { CategoryRecordsDict } from "../../../../../components-react/propertygrid/internal/flat-items/MutableGridCategory.js";
+import type { MutableGridCategory } from "../../../../../components-react/propertygrid/internal/flat-items/MutableGridCategory.js";
+import type { MutableCategorizedPrimitiveProperty } from "../../../../../components-react/propertygrid/internal/flat-items/MutableCategorizedPrimitiveProperty.js";
+import type { MutableCategorizedArrayProperty } from "../../../../../components-react/propertygrid/internal/flat-items/MutableCategorizedArrayProperty.js";
+import type { MutableCategorizedStructProperty } from "../../../../../components-react/propertygrid/internal/flat-items/MutableCategorizedStructProperty.js";
+import type { MutableGridItemFactory } from "../../../../../components-react/propertygrid/internal/flat-items/MutableGridItemFactory.js";
 import type {
   CategorizedPropertyItem,
   FlatGridItem,
   GridCategoryItem,
-} from "../../../../../components-react/propertygrid/internal/flat-items/FlatGridItem";
+} from "../../../../../components-react/propertygrid/internal/flat-items/FlatGridItem.js";
 import type {
   PropertyCategory,
   PropertyData,
-} from "../../../../../components-react/propertygrid/PropertyDataProvider";
+} from "../../../../../components-react/propertygrid/PropertyDataProvider.js";
 import * as faker from "faker";
-import type { IPropertyGridModel } from "../../../../../components-react/propertygrid/internal/PropertyGridModel";
+import type { IPropertyGridModel } from "../../../../../components-react/propertygrid/internal/PropertyGridModel.js";
 
 /** @internal */
 export interface GridModelLastItemData {

@@ -8,8 +8,8 @@ import type {
   PropertyConverterInfo,
   PropertyDescription,
 } from "@itwin/appui-abstract";
-import { TypeConverter } from "../../components-react";
-import TestUtils from "../TestUtils";
+import { TypeConverter } from "../../components-react.js";
+import TestUtils from "../TestUtils.js";
 
 describe("TypeConverter", () => {
   class TestTypeConverter extends TypeConverter {

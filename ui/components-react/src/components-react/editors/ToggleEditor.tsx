@@ -15,11 +15,11 @@ import {
   StandardEditorNames,
   StandardTypeNames,
 } from "@itwin/appui-abstract";
-import type { PropertyEditorProps, TypeEditor } from "./EditorContainer";
+import type { PropertyEditorProps, TypeEditor } from "./EditorContainer.js";
 import {
   PropertyEditorBase,
   PropertyEditorManager,
-} from "./PropertyEditorManager";
+} from "./PropertyEditorManager.js";
 import { ToggleSwitch } from "@itwin/itwinui-react";
 
 /** @internal */

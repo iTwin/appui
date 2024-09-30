@@ -14,10 +14,10 @@ import type {
   DelayLoadedTreeNodeItem,
   ImmediatelyLoadedTreeNodeItem,
   TreeNodeItem,
-} from "../TreeDataProvider";
-import type { SparseArray } from "./internal/SparseTree";
-import { SparseTree } from "./internal/SparseTree";
-import { CheckBoxState } from "../../common/CheckBoxState";
+} from "../TreeDataProvider.js";
+import type { SparseArray } from "./internal/SparseTree.js";
+import { SparseTree } from "./internal/SparseTree.js";
+import { CheckBoxState } from "../../common/CheckBoxState.js";
 
 /**
  * Immutable data structure that describes tree node.

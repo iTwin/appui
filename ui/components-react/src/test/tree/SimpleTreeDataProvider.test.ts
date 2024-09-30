@@ -3,9 +3,9 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { PropertyRecord } from "@itwin/appui-abstract";
-import type { SimpleTreeDataProviderHierarchy } from "../../components-react/tree/SimpleTreeDataProvider";
-import { SimpleTreeDataProvider } from "../../components-react/tree/SimpleTreeDataProvider";
-import type { DelayLoadedTreeNodeItem } from "../../components-react/tree/TreeDataProvider";
+import type { SimpleTreeDataProviderHierarchy } from "../../components-react/tree/SimpleTreeDataProvider.js";
+import { SimpleTreeDataProvider } from "../../components-react/tree/SimpleTreeDataProvider.js";
+import type { DelayLoadedTreeNodeItem } from "../../components-react/tree/TreeDataProvider.js";
 
 describe("SimpleTreeDataProvider", () => {
   const createTreeNodeItem = (

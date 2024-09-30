@@ -10,7 +10,7 @@ import { Key } from "ts-key-enum";
 import TestUtils from "../TestUtils";
 import { ConfigurableUiContent } from "../../appui-react/configurableui/ConfigurableUiContent";
 import { FrameworkToolAdmin } from "../../appui-react/tools/FrameworkToolAdmin";
-import userEvent from "@testing-library/user-event";
+import { userEvent } from "@testing-library/user-event";
 import {
   CursorInformation,
   ThemeManager,

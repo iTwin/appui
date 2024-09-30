@@ -12,11 +12,11 @@ import { PropertyValueFormat } from "@itwin/appui-abstract";
 import type {
   IPropertyValueRenderer,
   PropertyValueRendererContext,
-} from "../../ValueRendererManager";
-import { PropertyContainerType } from "../../ValueRendererManager";
-import { TableArrayValueRenderer } from "./table/ArrayValueRenderer";
-import { withContextStyle } from "./WithContextStyle";
-import { Orientation } from "../../../common/Orientation";
+} from "../../ValueRendererManager.js";
+import { PropertyContainerType } from "../../ValueRendererManager.js";
+import { TableArrayValueRenderer } from "./table/ArrayValueRenderer.js";
+import { withContextStyle } from "./WithContextStyle.js";
+import { Orientation } from "../../../common/Orientation.js";
 
 /** Default Array Property Renderer
  * @public

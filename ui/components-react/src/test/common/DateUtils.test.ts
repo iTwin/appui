@@ -6,7 +6,7 @@
 import {
   toDateString,
   toTimeString,
-} from "../../components-react/common/DateUtils";
+} from "../../components-react/common/DateUtils.js";
 
 describe("DateUtils", () => {
   it("toDateString", () => {

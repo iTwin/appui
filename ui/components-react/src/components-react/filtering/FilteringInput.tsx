@@ -13,9 +13,9 @@ import { Key } from "ts-key-enum";
 import type { CommonProps } from "@itwin/core-react";
 import { Icon } from "@itwin/core-react";
 import { Input } from "@itwin/itwinui-react";
-import { UiComponents } from "../UiComponents";
-import type { ResultSelectorProps } from "./ResultSelector";
-import { ResultSelector } from "./ResultSelector";
+import { UiComponents } from "../UiComponents.js";
+import type { ResultSelectorProps } from "./ResultSelector.js";
+import { ResultSelector } from "./ResultSelector.js";
 import { SvgClose, SvgSearch } from "@itwin/itwinui-icons-react";
 
 /** [[FilteringInput]] React Component state

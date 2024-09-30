@@ -6,7 +6,7 @@
  * @module Properties
  */
 
-import { Orientation } from "../../common/Orientation";
+import { Orientation } from "../../common/Orientation.js";
 
 /** @internal */
 export interface PropertyGridColumnInfo {

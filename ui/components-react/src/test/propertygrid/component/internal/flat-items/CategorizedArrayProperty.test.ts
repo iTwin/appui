@@ -3,11 +3,11 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import type { PropertyRecord } from "@itwin/appui-abstract";
-import { MutableCategorizedArrayProperty } from "../../../../../components-react/propertygrid/internal/flat-items/MutableCategorizedArrayProperty";
-import { FlatGridItemType } from "../../../../../components-react/propertygrid/internal/flat-items/MutableFlatGridItem";
-import type { MutableGridItemFactory } from "../../../../../components-react/propertygrid/internal/flat-items/MutableGridItemFactory";
-import TestUtils from "../../../../TestUtils";
-import { FlatGridTestUtils as GridUtils } from "./FlatGridTestUtils";
+import { MutableCategorizedArrayProperty } from "../../../../../components-react/propertygrid/internal/flat-items/MutableCategorizedArrayProperty.js";
+import { FlatGridItemType } from "../../../../../components-react/propertygrid/internal/flat-items/MutableFlatGridItem.js";
+import type { MutableGridItemFactory } from "../../../../../components-react/propertygrid/internal/flat-items/MutableGridItemFactory.js";
+import TestUtils from "../../../../TestUtils.js";
+import { FlatGridTestUtils as GridUtils } from "./FlatGridTestUtils.js";
 import type { Mock } from "vitest";
 
 describe("CategorizedArrayProperty", () => {

@@ -3,10 +3,10 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { PropertyCategoryBlock } from "../../../components-react/propertygrid/component/PropertyCategoryBlock";
-import type { PropertyCategory } from "../../../components-react/propertygrid/PropertyDataProvider";
+import { PropertyCategoryBlock } from "../../../components-react/propertygrid/component/PropertyCategoryBlock.js";
+import type { PropertyCategory } from "../../../components-react/propertygrid/PropertyDataProvider.js";
 import { render, screen } from "@testing-library/react";
-import { userEvent } from "../../TestUtils";
+import { userEvent } from "../../TestUtils.js";
 
 describe("PropertyCategoryBlock", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;

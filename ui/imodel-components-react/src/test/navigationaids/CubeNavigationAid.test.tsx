@@ -25,7 +25,7 @@ import {
 } from "../../imodel-components-react/navigationaids/CubeNavigationAid";
 import { ViewportComponentEvents } from "../../imodel-components-react/viewport/ViewportComponentEvents";
 import { Face } from "../../imodel-components-react/navigationaids/Cube";
-import userEvent from "@testing-library/user-event";
+import { userEvent } from "@testing-library/user-event";
 import type { Mock } from "vitest";
 
 describe("CubeNavigationAid", () => {

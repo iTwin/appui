@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import { render } from "@testing-library/react";
 import * as React from "react";
-import { HighlightingEngine } from "../../components-react/tree/HighlightingEngine";
-import { selectorMatches } from "../TestUtils";
+import { HighlightingEngine } from "../../components-react/tree/HighlightingEngine.js";
+import { selectorMatches } from "../TestUtils.js";
 
 const simulateNode = (id: string): { id: string; text: string } => {
   return { id, text: id } as any;

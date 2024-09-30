@@ -8,11 +8,11 @@ import { PropertyRecord } from "@itwin/appui-abstract";
 import type {
   PropertyCategory,
   PropertyData,
-} from "../../components-react/propertygrid/PropertyDataProvider";
-import { FavoritePropertyList } from "../../components-react/favorite/FavoritePropertyList";
-import TestUtils, { childStructure } from "../TestUtils";
+} from "../../components-react/propertygrid/PropertyDataProvider.js";
+import { FavoritePropertyList } from "../../components-react/favorite/FavoritePropertyList.js";
+import TestUtils, { childStructure } from "../TestUtils.js";
 import { Orientation } from "@itwin/core-react";
-import { PropertyValueRendererManager } from "../../components-react/properties/ValueRendererManager";
+import { PropertyValueRendererManager } from "../../components-react/properties/ValueRendererManager.js";
 import { render, screen } from "@testing-library/react";
 
 describe("FavoritePropertyList", () => {

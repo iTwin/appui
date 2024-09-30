@@ -22,31 +22,31 @@ import { UiError } from "@itwin/appui-abstract";
 import {
   scheduleSubscription,
   SubscriptionScheduler,
-} from "../../common/SubscriptionScheduler";
-import { UiComponents } from "../../UiComponents";
+} from "../../common/SubscriptionScheduler.js";
+import { UiComponents } from "../../UiComponents.js";
 import type {
   ImmediatelyLoadedTreeNodeItem,
   TreeDataProvider,
   TreeDataProviderRaw,
   TreeNodeItem,
-} from "../TreeDataProvider";
+} from "../TreeDataProvider.js";
 import {
   isTreeDataProviderInterface,
   isTreeDataProviderMethod,
   isTreeDataProviderPromise,
   isTreeDataProviderRaw,
-} from "../TreeDataProvider";
-import type { Observable } from "./Observable";
-import { toRxjsObservable } from "./Observable";
+} from "../TreeDataProvider.js";
+import type { Observable } from "./Observable.js";
+import { toRxjsObservable } from "./Observable.js";
 import type {
   MutableTreeModel,
   TreeModelNode,
   TreeModelNodeInput,
   TreeModelRootNode,
   TreeNodeItemData,
-} from "./TreeModel";
-import { isTreeModelNode } from "./TreeModel";
-import type { TreeModelSource } from "./TreeModelSource";
+} from "./TreeModel.js";
+import { isTreeModelNode } from "./TreeModel.js";
+import type { TreeModelSource } from "./TreeModelSource.js";
 
 /**
  * Data structure that describes node load result

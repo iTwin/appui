@@ -3,8 +3,8 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { render, waitFor } from "@testing-library/react";
-import { MergedPropertyValueRenderer } from "../../../../components-react/properties/renderers/value/MergedPropertyValueRenderer";
-import TestUtils from "../../../TestUtils";
+import { MergedPropertyValueRenderer } from "../../../../components-react/properties/renderers/value/MergedPropertyValueRenderer.js";
+import TestUtils from "../../../TestUtils.js";
 
 describe("MergedPropertyValueRenderer", () => {
   describe("render", () => {

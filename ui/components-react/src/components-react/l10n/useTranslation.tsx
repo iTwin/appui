@@ -5,7 +5,7 @@
 import * as defaults from "../UiComponents.json";
 import * as React from "react";
 import { usePackageTranslation } from "@itwin/core-react";
-import { UiComponents } from "../UiComponents";
+import { UiComponents } from "../UiComponents.js";
 
 /** Returns a translation function.
  * @internal

@@ -20,8 +20,8 @@ import type { CommonProps } from "@itwin/core-react";
 import type {
   AsyncErrorMessage,
   PropertyEditorBase,
-} from "./PropertyEditorManager";
-import { PropertyEditorManager } from "./PropertyEditorManager";
+} from "./PropertyEditorManager.js";
+import { PropertyEditorManager } from "./PropertyEditorManager.js";
 
 /** Arguments for the Property Updated event callback
  * @public

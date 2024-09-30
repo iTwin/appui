@@ -23,14 +23,18 @@ import {
   StandardTypeNames,
 } from "@itwin/appui-abstract";
 import { Textarea } from "@itwin/itwinui-react";
-import { TypeConverterManager } from "../converters/TypeConverterManager";
-import type { PropertyEditorProps, TypeEditor } from "./EditorContainer";
+import { TypeConverterManager } from "../converters/TypeConverterManager.js";
+import type { PropertyEditorProps, TypeEditor } from "./EditorContainer.js";
 import {
   PropertyEditorBase,
   PropertyEditorManager,
-} from "./PropertyEditorManager";
-import { PopupButton, PopupContent, PopupOkCancelButtons } from "./PopupButton";
-import { UiComponents } from "../UiComponents";
+} from "./PropertyEditorManager.js";
+import {
+  PopupButton,
+  PopupContent,
+  PopupOkCancelButtons,
+} from "./PopupButton.js";
+import { UiComponents } from "../UiComponents.js";
 
 type TextareaProps = React.ComponentPropsWithoutRef<typeof Textarea>;
 

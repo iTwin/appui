@@ -12,9 +12,9 @@ import type {
   PropertyDescription,
 } from "@itwin/appui-abstract";
 import { PropertyRecord } from "@itwin/appui-abstract";
-import type { PropertyUpdatedArgs } from "../../../editors/EditorContainer";
-import { EditorContainer } from "../../../editors/EditorContainer";
-import type { TreeModelNode } from "../TreeModel";
+import type { PropertyUpdatedArgs } from "../../../editors/EditorContainer.js";
+import { EditorContainer } from "../../../editors/EditorContainer.js";
+import type { TreeModelNode } from "../TreeModel.js";
 
 /**
  * Properties for [[TreeNodeEditor]] component.

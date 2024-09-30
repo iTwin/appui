@@ -10,7 +10,7 @@ import * as React from "react";
 import type { PropertyDescription } from "@itwin/appui-abstract";
 import type { SelectOption } from "@itwin/itwinui-react";
 import { ComboBox, MenuItem } from "@itwin/itwinui-react";
-import { useTranslation } from "../l10n/useTranslation";
+import { useTranslation } from "../l10n/useTranslation.js";
 
 type ComboBoxProps<T> = React.ComponentPropsWithoutRef<typeof ComboBox<T>>;
 

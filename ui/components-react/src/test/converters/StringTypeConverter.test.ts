@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { StringTypeConverter } from "../../components-react";
+import { StringTypeConverter } from "../../components-react.js";
 
 describe("StringTypeConverter", () => {
   let converter: StringTypeConverter;

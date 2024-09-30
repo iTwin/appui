@@ -9,8 +9,8 @@
 import { Id64 } from "@itwin/core-bentley";
 import type { Primitives } from "@itwin/appui-abstract";
 import { StandardTypeNames } from "@itwin/appui-abstract";
-import { TypeConverter } from "./TypeConverter";
-import { TypeConverterManager } from "./TypeConverterManager";
+import { TypeConverter } from "./TypeConverter.js";
+import { TypeConverterManager } from "./TypeConverterManager.js";
 
 /** Hexadecimal Type Converter.
  * @public

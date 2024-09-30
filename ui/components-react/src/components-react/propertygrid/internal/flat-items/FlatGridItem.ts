@@ -9,9 +9,9 @@
 import type {
   CategorizedPropertyTypes,
   FlatGridItemType,
-} from "./MutableFlatGridItem";
+} from "./MutableFlatGridItem.js";
 import type { PropertyRecord } from "@itwin/appui-abstract";
-import type { PropertyCategory } from "../../PropertyDataProvider";
+import type { PropertyCategory } from "../../PropertyDataProvider.js";
 
 /**
  * Base immutable data structure defining common methods and properties for categories and categorized properties

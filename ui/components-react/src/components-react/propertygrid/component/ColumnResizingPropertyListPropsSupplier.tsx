@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { UiGeometry } from "@itwin/core-react";
-import type { PropertyListProps } from "./PropertyList";
-import { Orientation } from "../../common/Orientation";
+import type { PropertyListProps } from "./PropertyList.js";
+import { Orientation } from "../../common/Orientation.js";
 
 const BORDER_WIDTH = 10;
 const PROPERTY_PADDING = 16;

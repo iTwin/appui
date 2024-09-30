@@ -5,7 +5,7 @@
 import * as React from "react";
 import { render, screen } from "@testing-library/react";
 import { StatusBarPopover } from "../../appui-react/statusbar/popup/StatusBarPopover";
-import userEvent from "@testing-library/user-event";
+import { userEvent } from "@testing-library/user-event";
 import { Button } from "@itwin/itwinui-react";
 
 describe("<StatusBarPopover />", () => {

@@ -11,7 +11,7 @@ import {
   waitFor,
   within,
 } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { userEvent } from "@testing-library/user-event";
 import { Key } from "ts-key-enum";
 import { IModelApp, NoRenderApp, QuantityType } from "@itwin/core-frontend";
 import type { FormatProps } from "@itwin/core-quantity";

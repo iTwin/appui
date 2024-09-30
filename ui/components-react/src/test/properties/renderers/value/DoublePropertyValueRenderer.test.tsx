@@ -8,9 +8,9 @@ import type {
   PropertyConverterInfo,
 } from "@itwin/appui-abstract";
 import { render } from "@testing-library/react";
-import { DoublePropertyValueRenderer } from "../../../../components-react/properties/renderers/value/DoublePropertyValueRenderer";
-import type { PropertyValueRendererContext } from "../../../../components-react/properties/ValueRendererManager";
-import TestUtils from "../../../TestUtils";
+import { DoublePropertyValueRenderer } from "../../../../components-react/properties/renderers/value/DoublePropertyValueRenderer.js";
+import type { PropertyValueRendererContext } from "../../../../components-react/properties/ValueRendererManager.js";
+import TestUtils from "../../../TestUtils.js";
 
 function createDoubleProperty(value: number, displayValue?: string) {
   const property = TestUtils.createPrimitiveStringProperty(

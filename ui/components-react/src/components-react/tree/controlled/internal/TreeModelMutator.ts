@@ -7,12 +7,12 @@
  */
 
 import { EMPTY } from "rxjs";
-import type { TreeNodeItem } from "../../TreeDataProvider";
-import type { Observable } from "../Observable";
-import type { CheckboxStateChange } from "../TreeEvents";
-import type { TreeModelNode, TreeModelNodeEditingInfo } from "../TreeModel";
-import type { TreeModelSource } from "../TreeModelSource";
-import type { ITreeNodeLoader, TreeNodeLoadResult } from "../TreeNodeLoader";
+import type { TreeNodeItem } from "../../TreeDataProvider.js";
+import type { Observable } from "../Observable.js";
+import type { CheckboxStateChange } from "../TreeEvents.js";
+import type { TreeModelNode, TreeModelNodeEditingInfo } from "../TreeModel.js";
+import type { TreeModelSource } from "../TreeModelSource.js";
+import type { ITreeNodeLoader, TreeNodeLoadResult } from "../TreeNodeLoader.js";
 
 /**
  * Provides basic tree manipulation implementation for various cases like

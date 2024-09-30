@@ -6,8 +6,8 @@ import * as React from "react";
 import type { ArrayValue } from "@itwin/appui-abstract";
 import { Orientation } from "@itwin/core-react";
 import { render } from "@testing-library/react";
-import { TableArrayValueRenderer } from "../../../../../components-react/properties/renderers/value/table/ArrayValueRenderer";
-import TestUtils from "../../../../TestUtils";
+import { TableArrayValueRenderer } from "../../../../../components-react/properties/renderers/value/table/ArrayValueRenderer.js";
+import TestUtils from "../../../../TestUtils.js";
 
 describe("ArrayValueRenderer", () => {
   it("renders correctly", () => {

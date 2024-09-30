@@ -5,7 +5,7 @@
 import {
   getPropertyFilterBuilderOperators,
   isUnaryPropertyFilterOperator,
-} from "../../components-react/filter-builder/Operators";
+} from "../../components-react/filter-builder/Operators.js";
 
 describe("getPropertyFilterBuilderOperators", () => {
   it("returns operators by type", () => {

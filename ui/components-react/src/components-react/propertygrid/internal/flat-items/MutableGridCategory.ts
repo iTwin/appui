@@ -7,16 +7,16 @@
  * @module PropertyGrid
  */
 import type { PropertyRecord } from "@itwin/appui-abstract";
-import type { PropertyCategory } from "../../PropertyDataProvider";
+import type { PropertyCategory } from "../../PropertyDataProvider.js";
 import type {
   IMutableFlatGridItem,
   IMutableGridCategoryItem,
-} from "./MutableFlatGridItem";
+} from "./MutableFlatGridItem.js";
 import {
   FlatGridItemType,
   MutableFlatPropertyGridItem,
-} from "./MutableFlatGridItem";
-import type { IMutableGridItemFactory } from "./MutableGridItemFactory";
+} from "./MutableFlatGridItem.js";
+import type { IMutableGridItemFactory } from "./MutableGridItemFactory.js";
 
 /**
  * Category name to PropertyRecord[] key pair interface used to describe which records belong to which category.

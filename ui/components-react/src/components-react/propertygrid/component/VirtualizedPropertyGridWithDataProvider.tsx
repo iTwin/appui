@@ -12,14 +12,14 @@ import {
   usePropertyGridEventHandler,
   usePropertyGridModel,
   useTrackedPropertyGridModelSource,
-} from "../internal/PropertyGridHooks";
-import type { PropertyCategoryRendererManager } from "../PropertyCategoryRendererManager";
-import type { IPropertyDataProvider } from "../PropertyDataProvider";
+} from "../internal/PropertyGridHooks.js";
+import type { PropertyCategoryRendererManager } from "../PropertyCategoryRendererManager.js";
+import type { IPropertyDataProvider } from "../PropertyDataProvider.js";
 import type {
   CommonPropertyGridProps,
   PropertyGridContentHighlightProps,
-} from "./PropertyGridCommons";
-import { VirtualizedPropertyGrid } from "./VirtualizedPropertyGrid";
+} from "./PropertyGridCommons.js";
+import { VirtualizedPropertyGrid } from "./VirtualizedPropertyGrid.js";
 import { ProgressRadial } from "@itwin/itwinui-react";
 
 /** Properties for [[VirtualizedPropertyGridWithDataProvider]] React component

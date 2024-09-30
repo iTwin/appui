@@ -7,9 +7,9 @@ import * as React from "react";
 import type { PropertyDescription } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
 import { render, screen, waitFor } from "@testing-library/react";
-import { PropertyFilterBuilderRuleValue } from "../../components-react/filter-builder/FilterBuilderRuleValue";
-import { userEvent } from "../TestUtils";
-import { PropertyFilterBuilderRuleRangeValue } from "../../components-react";
+import { PropertyFilterBuilderRuleValue } from "../../components-react/filter-builder/FilterBuilderRuleValue.js";
+import { userEvent } from "../TestUtils.js";
+import { PropertyFilterBuilderRuleRangeValue } from "../../components-react.js";
 
 describe("PropertyFilterBuilderRuleValue", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;

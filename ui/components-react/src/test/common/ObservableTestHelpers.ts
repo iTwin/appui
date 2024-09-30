@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import type { Observable, Subscription } from "rxjs";
-import { ResolvablePromise } from "../test-helpers/misc";
+import { ResolvablePromise } from "../test-helpers/misc.js";
 
 /** Expects observable to emit nodes in a specific order. The order is defined by the sequence of groups of emitted node ids, e.g. `[[0], [1, 2]]`. */
 export async function extractSequence<T>(

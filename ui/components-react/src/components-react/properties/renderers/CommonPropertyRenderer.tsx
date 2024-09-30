@@ -8,15 +8,15 @@
 
 import * as React from "react";
 import type { PropertyRecord } from "@itwin/appui-abstract";
-import { countMatchesInString } from "../../common/countMatchesInString";
-import { HighlightedText } from "../../common/HighlightedText";
-import type { HighlightingComponentProps } from "../../common/HighlightingComponentProps";
-import type { PropertyValueRendererContext } from "../ValueRendererManager";
+import { countMatchesInString } from "../../common/countMatchesInString.js";
+import { HighlightedText } from "../../common/HighlightedText.js";
+import type { HighlightingComponentProps } from "../../common/HighlightingComponentProps.js";
+import type { PropertyValueRendererContext } from "../ValueRendererManager.js";
 import {
   PropertyContainerType,
   PropertyValueRendererManager,
-} from "../ValueRendererManager";
-import { Orientation } from "../../common/Orientation";
+} from "../ValueRendererManager.js";
+import { Orientation } from "../../common/Orientation.js";
 
 /**
  * @internal

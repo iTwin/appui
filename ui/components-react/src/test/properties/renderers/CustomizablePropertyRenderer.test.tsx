@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { Orientation } from "@itwin/core-react";
-import { CustomizablePropertyRenderer } from "../../../components-react/properties/renderers/CustomizablePropertyRenderer";
-import TestUtils, { selectorMatches, styleMatch } from "../../TestUtils";
+import { CustomizablePropertyRenderer } from "../../../components-react/properties/renderers/CustomizablePropertyRenderer.js";
+import TestUtils, { selectorMatches, styleMatch } from "../../TestUtils.js";
 import { render, screen } from "@testing-library/react";
 
 describe("CustomizablePropertyRenderer", () => {

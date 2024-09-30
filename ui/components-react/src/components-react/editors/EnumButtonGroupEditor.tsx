@@ -24,11 +24,11 @@ import {
   StandardTypeNames,
 } from "@itwin/appui-abstract";
 import { Icon } from "@itwin/core-react";
-import type { PropertyEditorProps, TypeEditor } from "./EditorContainer";
+import type { PropertyEditorProps, TypeEditor } from "./EditorContainer.js";
 import {
   PropertyEditorBase,
   PropertyEditorManager,
-} from "./PropertyEditorManager";
+} from "./PropertyEditorManager.js";
 import svgPlaceholder from "@bentley/icons-generic/icons/placeholder.svg";
 
 // cspell:ignore buttongroup enumbuttongroup

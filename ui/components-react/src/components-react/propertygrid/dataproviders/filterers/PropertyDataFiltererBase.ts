@@ -8,7 +8,7 @@
 
 import type { PropertyRecord } from "@itwin/appui-abstract";
 import { BeEvent } from "@itwin/core-bentley";
-import type { PropertyCategory } from "../../PropertyDataProvider";
+import type { PropertyCategory } from "../../PropertyDataProvider.js";
 
 /**
  * Enumeration of possible component filtered types

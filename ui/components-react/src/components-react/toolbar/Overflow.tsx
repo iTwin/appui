@@ -14,9 +14,9 @@ import { Popup, useRefState } from "@itwin/core-react";
 import {
   useToolbarPopupAutoHideContext,
   useToolItemEntryContext,
-} from "./InternalToolbarComponent";
-import { useResizeObserverSingleDimension } from "./ItemWrapper";
-import { Direction } from "./utilities/Direction";
+} from "./InternalToolbarComponent.js";
+import { useResizeObserverSingleDimension } from "./ItemWrapper.js";
+import { Direction } from "./utilities/Direction.js";
 import { RelativePosition } from "@itwin/appui-abstract";
 
 /** Properties of [[ToolbarOverflowButton]] component.

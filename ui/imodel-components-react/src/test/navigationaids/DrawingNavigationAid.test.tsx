@@ -28,7 +28,7 @@ import {
   MapMode,
 } from "../../imodel-components-react/navigationaids/DrawingNavigationAid";
 import { ViewportComponentEvents } from "../../imodel-components-react/viewport/ViewportComponentEvents";
-import userEvent from "@testing-library/user-event";
+import { userEvent } from "@testing-library/user-event";
 import type { Mock } from "vitest";
 
 // cspell:ignore unrotate
