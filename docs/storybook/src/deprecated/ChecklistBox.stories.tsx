@@ -8,7 +8,7 @@ import {
   CheckListBox,
   CheckListBoxItem,
   CheckListBoxSeparator,
-} from "@itwin/core-react/src/core-react/checklistbox/CheckListBox";
+} from "@itwin/core-react-internal/src/core-react/checklistbox/CheckListBox";
 
 const meta = {
   title: "Deprecated/CheckListBox",

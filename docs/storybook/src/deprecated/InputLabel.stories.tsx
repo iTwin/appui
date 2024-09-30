@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import type { Meta, StoryObj } from "@storybook/react";
-import { InputLabel } from "@itwin/core-react/src/core-react/inputs/InputLabel";
+import { InputLabel } from "@itwin/core-react-internal/src/core-react/inputs/InputLabel";
 import { Input } from "@itwin/itwinui-react";
 import { AppUiDecorator } from "../Decorators";
 import { InputStatus } from "@itwin/core-react";

@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { Provider } from "react-redux";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { SnapMode } from "@itwin/core-frontend";
 import type { ListenerType } from "@itwin/core-react";
 import {
@@ -20,16 +20,15 @@ describe("SnapModeField", () => {
     theUserTo = userEvent.setup();
   });
 
-  it("Status Bar with SnapModes Field should render", () => {
+  it("Status Bar with SnapModes Field should render", async () => {
     const { container } = render(
       <Provider store={TestUtils.store}>
         <SnapModeField />
       </Provider>
     );
 
-    const button = container.querySelector("button");
-    expect(button).toBeTruthy();
-    fireEvent.click(button!);
+    const snapModeButton = screen.getByText("snapModeField.snapMode");
+    await theUserTo.click(snapModeButton);
 
     const iconContainer = container.querySelector(".icon");
     expect(iconContainer).toBeTruthy();
@@ -39,7 +38,7 @@ describe("SnapModeField", () => {
     );
     expect(snaps.length).to.eql(7);
 
-    fireEvent.click(button!); // Closes popup
+    await theUserTo.click(snapModeButton); // Closes popup
   });
 
   it("Validate multiple snaps mode", () => {
@@ -69,12 +68,31 @@ describe("SnapModeField", () => {
         <SnapModeField />
       </Provider>
     );
-    await theUserTo.click(screen.getByRole("button"));
+    await theUserTo.click(screen.getByText("snapModeField.snapMode"));
     await theUserTo.click(screen.getByText("snapModeField.bisector"));
 
     expect(UiFramework.getAccudrawSnapMode()).to.equal(SnapMode.Bisector);
     expect(spy.mock.calls[0][0].eventIds.values()).toContain(
       "configurableui:set_snapmode"
     );
+  });
+
+  it("Display only the available SnapMode(s).", async () => {
+    const { container } = render(
+      <Provider store={TestUtils.store}>
+        <SnapModeField availableSnapModes={[SnapMode.Center]} />
+      </Provider>
+    );
+
+    await theUserTo.click(screen.getByText("snapModeField.snapMode"));
+    // Bisector snap mode should not be present.
+    expect(screen.queryByText("snapModeField.bisector")).toBeFalsy();
+    // Center snap mode should be present.
+    expect(screen.queryByText("snapModeField.center")).toBeTruthy();
+
+    const snaps = container.parentElement!.querySelectorAll(
+      ".nz-footer-snapMode-snap"
+    );
+    expect(snaps.length).to.eql(1); // Only the center snap mode is displayed.
   });
 });

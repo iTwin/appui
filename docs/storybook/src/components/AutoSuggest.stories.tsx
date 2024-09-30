@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import type { Meta, StoryObj } from "@storybook/react";
 import { AppUiDecorator } from "../Decorators";
-import { AutoSuggest } from "@itwin/core-react/src/core-react/autosuggest/AutoSuggest";
+import { AutoSuggest } from "@itwin/core-react-internal/src/core-react/autosuggest/AutoSuggest";
 
 const meta = {
   title: "Components/AutoSuggest",

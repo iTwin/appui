@@ -2,19 +2,45 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+import { Logger } from "@itwin/core-bentley";
+import { UiFramework } from "../UiFramework";
 
 /** Copies the CSS style sheets from source document into the target document.
  * @internal
  */
-export function copyStyles(
+export async function copyStyles(
   targetDoc: Document,
   sourceDoc: Document = document
 ) {
+  const promises: Array<Promise<void>> = [];
   const styleSheets = Array.from(sourceDoc.styleSheets);
   styleSheets.forEach(({ ownerNode }) => {
     // Copy `link` and `style` elements.
     if (!ownerNode) return;
     const clonedNode = targetDoc.importNode(ownerNode, true);
+    if (
+      clonedNode instanceof
+        (targetDoc.defaultView?.HTMLLinkElement ?? HTMLLinkElement) &&
+      clonedNode.href
+    ) {
+      promises.push(
+        new Promise((resolve) => {
+          clonedNode.onload = () => {
+            resolve();
+          };
+          clonedNode.onerror = () => {
+            Logger.logError(
+              UiFramework.loggerCategory(copyStyles),
+              `Failed to load external resource`,
+              {
+                href: clonedNode.href,
+              }
+            );
+            resolve();
+          };
+        })
+      );
+    }
     targetDoc.head.appendChild(clonedNode);
   });
 
@@ -23,10 +49,9 @@ export function copyStyles(
     // Adopted stylesheet have no ownerNode and can't be shared between multiple documents.
     if (!targetDoc.defaultView) return;
     const newStyleSheet = new targetDoc.defaultView.CSSStyleSheet();
-    Array.from(styleSheet.cssRules).forEach((rule, index) => {
-      // `cssText` might not serialize complex shorthand properties correctly: https://github.com/iTwin/appui/issues/893
-      newStyleSheet.insertRule(rule.cssText, index);
-    });
+    promises.push(
+      newStyleSheet.replace(stringifyStyleSheet(styleSheet)).then(() => {})
+    );
     targetDoc.adoptedStyleSheets.push(newStyleSheet);
   });
 
@@ -35,4 +60,12 @@ export function copyStyles(
   if (svgSymbolParent) {
     targetDoc.body.appendChild(svgSymbolParent.cloneNode(true));
   }
+
+  return Promise.all(promises);
+}
+
+function stringifyStyleSheet(stylesheet: CSSStyleSheet) {
+  return Array.from(stylesheet.cssRules)
+    .map((rule) => rule.cssText)
+    .join("\n");
 }

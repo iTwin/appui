@@ -6,14 +6,15 @@
  * @module Properties
  */
 
+import * as React from "react";
 import type { PropertyRecord } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
-import { UiComponents } from "../../../UiComponents";
 import type {
   IPropertyValueRenderer,
   PropertyValueRendererContext,
 } from "../../ValueRendererManager";
 import { withContextStyle } from "./WithContextStyle";
+import { useTranslation } from "../../../l10n/useTranslation";
 
 /** Default Merged Property Renderer
  * @public
@@ -32,6 +33,11 @@ export class MergedPropertyValueRenderer implements IPropertyValueRenderer {
     _record: PropertyRecord,
     context?: PropertyValueRendererContext
   ) {
-    return withContextStyle(UiComponents.translate("property.varies"), context);
+    return withContextStyle(<VariesRenderer />, context);
   }
+}
+
+function VariesRenderer() {
+  const { translate } = useTranslation();
+  return <>{translate("property.varies")}</>;
 }

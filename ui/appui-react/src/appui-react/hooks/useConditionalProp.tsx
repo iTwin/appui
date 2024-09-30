@@ -6,24 +6,23 @@
  * @module Utilities
  */
 
-import * as React from "react";
-import { useSyncExternalStore } from "use-sync-external-store/shim";
+import { useCallback, useSyncExternalStore } from "react";
 import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
 
-/** Define a common interface for conditionals. */
-interface ConditionalValue<T> {
+/** Defines a common interface for existing conditional value classes: `ConditionalBooleanValue`, `ConditionalStringValue`, `ConditionalIconItem`. */
+interface CommonConditionalValue<T> {
   syncEventIds: string[];
   refresh: () => boolean;
   value: T;
 }
 
 /** Type that is usually used in a conditional prop. */
-type ConditionalProp<T> = ConditionalValue<T> | T | undefined;
+type ConditionalProp<T> = CommonConditionalValue<T> | T | undefined;
 
 /** Duck type the conditional. */
 function isConditionalValue<T>(
   conditionalProp: ConditionalProp<T>
-): conditionalProp is ConditionalValue<T> {
+): conditionalProp is CommonConditionalValue<T> {
   return (
     typeof conditionalProp === "object" &&
     conditionalProp &&
@@ -35,12 +34,17 @@ function isConditionalValue<T>(
 
 /** @internal */
 export function useConditionalProp<T>(conditionalProp: ConditionalProp<T>) {
-  const subscribe = React.useCallback(
+  const subscribe = useCallback(
     (onStoreChange: () => void) => {
       if (isConditionalValue(conditionalProp)) {
         return SyncUiEventDispatcher.onSyncUiEvent.addListener(
           ({ eventIds }) => {
-            if (!conditionalProp.syncEventIds.some((id) => eventIds.has(id)))
+            if (
+              !SyncUiEventDispatcher.hasEventOfInterest(
+                eventIds,
+                conditionalProp.syncEventIds
+              )
+            )
               return;
             if (!conditionalProp.refresh()) return;
 
@@ -52,7 +56,7 @@ export function useConditionalProp<T>(conditionalProp: ConditionalProp<T>) {
     },
     [conditionalProp]
   );
-  const getSnapshot = React.useCallback(() => {
+  const getSnapshot = useCallback(() => {
     if (isConditionalValue(conditionalProp)) return conditionalProp.value;
     return conditionalProp;
   }, [conditionalProp]);

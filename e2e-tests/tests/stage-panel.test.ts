@@ -14,7 +14,7 @@ import {
 test.describe("WidgetApi", () => {
   test.beforeEach(async ({ page, baseURL }) => {
     assert(baseURL);
-    await page.goto(`${baseURL}?frontstage=appui-test-providers:WidgetApi`);
+    await page.goto(`${baseURL}/blank?frontstageId=widget-api`);
   });
 
   test("should toggle pin state", async ({ page }) => {
@@ -65,7 +65,7 @@ test.describe("WidgetApi", () => {
 
 test("should initialize defaults", async ({ baseURL, page }) => {
   assert(baseURL);
-  await page.goto(`${baseURL}?frontstage=appui-test-app:TestPanel`);
+  await page.goto(`${baseURL}/blank?frontstageId=test-panel`);
 
   const panel = panelLocator({ page, side: "left" });
   await expect(panel).toBeVisible();
@@ -74,7 +74,7 @@ test("should initialize defaults", async ({ baseURL, page }) => {
 
 test("should initialize size", async ({ baseURL, page }) => {
   assert(baseURL);
-  await page.goto(`${baseURL}?frontstage=appui-test-app:TestPanel&size=500`);
+  await page.goto(`${baseURL}/blank?frontstageId=test-panel&size=500`);
 
   const panel = panelLocator({ page, side: "left" });
   await expect(panel).toBeVisible();
@@ -84,7 +84,7 @@ test("should initialize size", async ({ baseURL, page }) => {
 test("should initialize minimized", async ({ baseURL, page }) => {
   assert(baseURL);
   await page.goto(
-    `${baseURL}?frontstage=appui-test-app:TestPanel&defaultState=${StagePanelState.Minimized}`
+    `${baseURL}/blank?frontstageId=test-panel&defaultState=${StagePanelState.Minimized}`
   );
 
   const panel = panelLocator({ page, side: "left" });
@@ -95,7 +95,7 @@ test("should initialize minimized", async ({ baseURL, page }) => {
 
 test("should initialize resizable", async ({ baseURL, page }) => {
   assert(baseURL);
-  await page.goto(`${baseURL}?frontstage=appui-test-app:TestPanel&resizable=0`);
+  await page.goto(`${baseURL}/blank?frontstageId=test-panel&resizable=0`);
 
   const panel = panelLocator({ page, side: "left" });
   const handle = handleLocator(panel);
@@ -104,7 +104,7 @@ test("should initialize resizable", async ({ baseURL, page }) => {
 
 test("should resize (single panel)", async ({ baseURL, page }) => {
   assert(baseURL);
-  await page.goto(`${baseURL}?frontstage=appui-test-app:TestPanel`);
+  await page.goto(`${baseURL}/blank?frontstageId=test-panel&menu=0`);
 
   const panel = panelLocator({ page, side: "left" });
   const handle = handleLocator(panel);

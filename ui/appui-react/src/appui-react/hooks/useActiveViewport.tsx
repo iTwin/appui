@@ -6,24 +6,24 @@
  * @module Hooks
  */
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import type { ScreenViewport } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
+
+const subscribe = (onStoreChange: () => void) => {
+  return IModelApp.viewManager.onSelectedViewportChanged.addListener(
+    onStoreChange
+  );
+};
+
+const getSnapshot = () => {
+  return IModelApp.viewManager.selectedView;
+};
 
 /** React hook that maintains the active viewport.
  * @public
  */
 export function useActiveViewport(): ScreenViewport | undefined {
-  const [activeViewport, setActiveViewport] = useState(
-    IModelApp.viewManager.selectedView
-  );
-  useEffect(() => {
-    return IModelApp.viewManager.onSelectedViewportChanged.addListener(
-      (args) => {
-        setActiveViewport(args.current);
-      }
-    );
-  }, []);
-
+  const activeViewport = useSyncExternalStore(subscribe, getSnapshot);
   return activeViewport;
 }

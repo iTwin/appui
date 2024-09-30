@@ -109,6 +109,7 @@ export * from "./components-react/properties/ItemStyle";
 export * from "./components-react/propertygrid/PropertyCategoryRendererManager";
 export * from "./components-react/propertygrid/PropertyDataProvider";
 export * from "./components-react/propertygrid/SimplePropertyDataProvider";
+export * from "./components-react/propertygrid/MergingPropertyDataProvider";
 export * from "./components-react/propertygrid/component/VirtualizedPropertyGrid";
 export * from "./components-react/propertygrid/component/VirtualizedPropertyGridWithDataProvider";
 export * from "./components-react/propertygrid/component/PropertyCategoryBlock";

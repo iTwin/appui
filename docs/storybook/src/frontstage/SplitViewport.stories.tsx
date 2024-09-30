@@ -13,6 +13,8 @@ import {
   IModelViewportControl,
   SyncUiEventId,
   ToolbarItemUtilities,
+  ToolbarOrientation,
+  ToolbarUsage,
   UiFramework,
 } from "@itwin/appui-react";
 import { ConditionalIconItem } from "@itwin/core-react";
@@ -88,57 +90,85 @@ export const Default: Story = {
     itemProviders: [
       {
         id: "toolbar",
-        provideToolbarItems: () => [
-          ToolbarItemUtilities.createActionItem(
-            `Test1and2`,
-            0,
-            new ConditionalIconItem(testIcon1, [
-              SyncUiEventId.ActiveContentChanged,
-            ]),
-            new ConditionalStringValue(
-              () => (leftViewportActive ? "Test 1" : "Test 2"),
-              [SyncUiEventId.ActiveContentChanged]
+        getToolbarItems: () => {
+          return [
+            ...getToolbarItems(
+              ToolbarUsage.ContentManipulation,
+              ToolbarOrientation.Horizontal
             ),
-            () => undefined
-          ),
-          ToolbarItemUtilities.createActionItem(
-            `Test3and4`,
-            1,
-            new ConditionalIconItem(testIcon2, [
-              SyncUiEventId.ActiveContentChanged,
-            ]),
-            new ConditionalStringValue(
-              () => (leftViewportActive ? "Test 3" : "Test 4"),
-              [SyncUiEventId.ActiveContentChanged]
+            ...getToolbarItems(
+              ToolbarUsage.ContentManipulation,
+              ToolbarOrientation.Vertical
             ),
-            () => undefined,
-            {
-              isDisabled: new ConditionalBooleanValue(
-                () => (leftViewportActive ? true : false),
-                [SyncUiEventId.ActiveContentChanged]
-              ),
-            }
-          ),
-          ToolbarItemUtilities.createActionItem(
-            `Test5and6`,
-            2,
-            new ConditionalIconItem(testIcon3, [
-              SyncUiEventId.ActiveContentChanged,
-            ]),
-            new ConditionalStringValue(
-              () => (leftViewportActive ? "Test 5" : "Test 6"),
-              [SyncUiEventId.ActiveContentChanged]
+            ...getToolbarItems(
+              ToolbarUsage.ViewNavigation,
+              ToolbarOrientation.Horizontal
             ),
-            () => undefined,
-            {
-              isHidden: new ConditionalBooleanValue(
-                () => (leftViewportActive ? true : false),
-                [SyncUiEventId.ActiveContentChanged]
-              ),
-            }
-          ),
-        ],
+            ...getToolbarItems(
+              ToolbarUsage.ViewNavigation,
+              ToolbarOrientation.Vertical
+            ),
+          ];
+        },
       },
     ],
   },
 };
+
+function getToolbarItems(usage: ToolbarUsage, orientation: ToolbarOrientation) {
+  const layouts = {
+    standard: {
+      usage,
+      orientation,
+    },
+  };
+  return [
+    ToolbarItemUtilities.createActionItem(
+      `Test1and2`,
+      0,
+      new ConditionalIconItem(testIcon1, [SyncUiEventId.ActiveContentChanged]),
+      new ConditionalStringValue(
+        () => (leftViewportActive ? "Test 1" : "Test 2"),
+        [SyncUiEventId.ActiveContentChanged]
+      ),
+      () => undefined,
+      {
+        layouts,
+      }
+    ),
+    ToolbarItemUtilities.createActionItem(
+      `Test3and4`,
+      1,
+      new ConditionalIconItem(testIcon2, [SyncUiEventId.ActiveContentChanged]),
+      new ConditionalStringValue(
+        () => (leftViewportActive ? "Test 3" : "Test 4"),
+        [SyncUiEventId.ActiveContentChanged]
+      ),
+      () => undefined,
+      {
+        isDisabled: new ConditionalBooleanValue(
+          () => (leftViewportActive ? true : false),
+          [SyncUiEventId.ActiveContentChanged]
+        ),
+        layouts,
+      }
+    ),
+    ToolbarItemUtilities.createActionItem(
+      `Test5and6`,
+      2,
+      new ConditionalIconItem(testIcon3, [SyncUiEventId.ActiveContentChanged]),
+      new ConditionalStringValue(
+        () => (leftViewportActive ? "Test 5" : "Test 6"),
+        [SyncUiEventId.ActiveContentChanged]
+      ),
+      () => undefined,
+      {
+        isHidden: new ConditionalBooleanValue(
+          () => (leftViewportActive ? true : false),
+          [SyncUiEventId.ActiveContentChanged]
+        ),
+        layouts,
+      }
+    ),
+  ];
+}

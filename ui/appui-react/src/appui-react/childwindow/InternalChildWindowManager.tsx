@@ -7,8 +7,10 @@
  * @module ChildWindowManager
  */
 
+import "./InternalChildWindowManager.scss";
 import * as React from "react";
-import * as ReactDOM from "react-dom";
+import type { Root } from "react-dom/client";
+import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
 import { UiFramework } from "../UiFramework";
 import { CursorPopupMenu } from "../cursor/cursormenu/CursorMenu";
@@ -25,7 +27,6 @@ import { ThemeManager } from "../theme/ThemeManager";
 import { UiStateStorageHandler } from "../uistate/useUiStateStorage";
 import type { ChildWindow } from "./ChildWindowConfig";
 import { copyStyles } from "./CopyStyles";
-import "./InternalChildWindowManager.scss";
 import { usePopoutsStore } from "../preview/reparent-popout-widgets/usePopoutsStore";
 import type { WidgetDef } from "../widgets/WidgetDef";
 
@@ -52,13 +53,6 @@ const childHtml = `<!DOCTYPE html>
 </body>
 </html>`;
 
-/**
- * Simplification of non exported CreateRoot parameter, only to be used
- * in InternalChildWindowManager and ChildWindowManager
- * @internal
- */
-export type CreateRoot = Parameters<FrameworkChildWindows["useCreateRoot"]>[0];
-
 /** Supports opening a child browser window from the main application window. The child window is managed by the main application
  * and is running in the same security context. The application must deliver the html file iTwinPopup.html along side its index.html.
  * See also: [Child Window Manager]($docs/learning/ui/appui-react/ChildWindows.md)
@@ -66,28 +60,13 @@ export type CreateRoot = Parameters<FrameworkChildWindows["useCreateRoot"]>[0];
  * */
 export class InternalChildWindowManager implements FrameworkChildWindows {
   private _openChildWindows: OpenChildWindowInfo[] = [];
-  private _createRoot?: CreateRoot;
-  private _roots: { [childwindowId: string]: any } = {};
+  private _roots = new Map<string, Root>();
 
   public get openChildWindows() {
     return this._openChildWindows;
   }
 
-  /**
-   * When using React 18, the `createRoot` function must be provided in order to render Popout content with React 18.
-   * Do not call if using React 17 or before.
-   *
-   * Note: The type of the function is intentionally simplified here.
-   *
-   * @param createRootFn Function imported from `import { createRoot } from "react-dom/client";`
-   * @beta Will be removed once the transition to React 18 is complete.
-   */
-  public useCreateRoot(createRootFn: CreateRoot): void {
-    this._createRoot = createRootFn;
-  }
-
-  /**
-   * Abstracts ReactDOM.render to use either the _createRoot method or the default ReactDOM.render.
+  /** Creates a new element tree to render specified element.
    * @param element Element to render.
    * @param container Container to render to.
    */
@@ -95,21 +74,14 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
     element: React.FunctionComponentElement<any>,
     container: Element | DocumentFragment
   ) {
-    // If createRoot is passed in for React 18 we have to render differently
-    // than without it. React 17 vs React 18. We need to save the root to
-    // unmount it.
-    if (this._createRoot) {
-      const childWindowId = UiFramework.childWindows.findId(
-        container.ownerDocument.defaultView
-      );
-      if (childWindowId) {
-        this._roots[childWindowId] = this._createRoot(container);
-        this._roots[childWindowId].render(element);
-      }
-    } else {
-      // eslint-disable-next-line react/no-deprecated, deprecation/deprecation
-      ReactDOM.render(element, container);
-    }
+    const childWindowId = UiFramework.childWindows.findId(
+      container.ownerDocument.defaultView
+    );
+    if (!childWindowId) return;
+
+    const root = createRoot(container);
+    this._roots.set(childWindowId, root);
+    root.render(element);
   }
 
   /**
@@ -181,8 +153,8 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
         </Provider>
       );
 
-      setTimeout(() => {
-        copyStyles(childWindow.document);
+      setTimeout(async () => {
+        await copyStyles(childWindow.document);
         setTimeout(() => {
           this.render(element, reactConnectionDiv);
 
@@ -213,13 +185,10 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
         // Trigger first so popout can be converted back to main window widget
         this.close(childWindowId, false);
 
-        // UnmountComponentAtNode is deprecated in React 18, so if they are
-        // using React 18 and passing in a createRoot function, unmount()
-        // will be used
-        if (this._roots[childWindowId]) {
-          this._roots[childWindowId].unmount();
-          // eslint-disable-next-line react/no-deprecated, deprecation/deprecation
-        } else ReactDOM.unmountComponentAtNode(reactConnectionDiv);
+        const root = this._roots.get(childWindowId);
+        if (!root) return;
+        this._roots.delete(childWindowId);
+        root.unmount();
       });
     }
   }

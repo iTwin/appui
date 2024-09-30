@@ -26,8 +26,8 @@ import type {
   PropertyFilterRuleGroup,
 } from "./Types";
 import { isPropertyFilterRuleGroup } from "./Types";
-import { UiComponents } from "../UiComponents";
 import { PropertyFilterBuilderRuleRangeValue } from "./FilterBuilderRangeValue";
+import { useTranslation } from "../l10n/useTranslation";
 
 /**
  * Data structure that describes [[PropertyFilterBuilder]] component state.
@@ -145,7 +145,7 @@ export class PropertyFilterBuilderActions {
   }
 
   /** Removes item specified by path. */
-  public removeItem(path: string[]) {
+  public removeItem(path: string[], allowLastRuleDelete: boolean = false) {
     function removeItemFromGroup(
       state: Draft<PropertyFilterBuilderState>,
       pathToItem: string[]
@@ -163,7 +163,7 @@ export class PropertyFilterBuilderActions {
       if (itemIndex === -1) {
         return;
       }
-      if (parentGroup.items.length === 1) {
+      if (parentGroup.items.length === 1 && !allowLastRuleDelete) {
         parentGroup.items[0] = createEmptyRule(parentGroup.id);
         return;
       }
@@ -327,9 +327,10 @@ export function usePropertyFilterBuilder(
     () => new PropertyFilterBuilderActions(setState)
   );
 
+  const validateRules = useRulesValidation(ruleValidator);
   const buildFilter = React.useCallback(
     (options?: BuildFilterOptions) => {
-      const ruleErrors = validateRules(state.rootGroup, ruleValidator);
+      const ruleErrors = validateRules(state.rootGroup);
       if (!options?.ignoreErrors) {
         actions.setRuleErrorMessages(ruleErrors);
       }
@@ -338,38 +339,65 @@ export function usePropertyFilterBuilder(
         ? buildPropertyFilter(state.rootGroup)
         : undefined;
     },
-    [state.rootGroup, actions, ruleValidator]
+    [state.rootGroup, actions, validateRules]
   );
   return { rootGroup: state.rootGroup, actions, buildFilter };
 }
 
-function validateRules(
-  rule: PropertyFilterBuilderRuleGroupItem,
+function useRulesValidation(
   ruleValidator?: (item: PropertyFilterBuilderRule) => string | undefined
 ) {
-  const ruleIdsAndErrorMessages = new Map<string, string>();
+  const defaultValidator = useDefaultPropertyFilterBuilderRuleValidator();
+  const { translate } = useTranslation();
+  return React.useCallback(
+    (rootRule: PropertyFilterBuilderRuleGroupItem) => {
+      const ruleIdsAndErrorMessages = new Map<string, string>();
+      const validateRulesInner = (item: PropertyFilterBuilderRuleGroupItem) => {
+        if (isPropertyFilterBuilderRuleGroup(item)) {
+          item.items.forEach((itm) => {
+            validateRulesInner(itm);
+          });
+        } else {
+          const errorMessage = ruleValidator
+            ? ruleValidator(item)
+            : defaultValidator(item);
+          if (errorMessage)
+            ruleIdsAndErrorMessages.set(
+              item.id,
+              // need to check if error message is a key for translation in case `ruleValidator` is using `defaultPropertyFilterBuilderRuleValidator` internally
+              errorMessage.startsWith("filterBuilder.errorMessages")
+                ? translate(errorMessage)
+                : errorMessage
+            );
+        }
+      };
+      validateRulesInner(rootRule);
+      return ruleIdsAndErrorMessages;
+    },
+    [ruleValidator, defaultValidator, translate]
+  );
+}
 
-  const validateRulesInner = (item: PropertyFilterBuilderRuleGroupItem) => {
-    if (isPropertyFilterBuilderRuleGroup(item)) {
-      item.items.forEach((itm) => {
-        validateRulesInner(itm);
-      });
-    } else {
-      const errorMessage = ruleValidator
-        ? ruleValidator(item)
-        : defaultPropertyFilterBuilderRuleValidator(item);
-      if (errorMessage) ruleIdsAndErrorMessages.set(item.id, errorMessage);
-    }
-  };
-
-  validateRulesInner(rule);
-
-  return ruleIdsAndErrorMessages;
+/**
+ * Creates default rule validator.
+ * @beta
+ */
+export function useDefaultPropertyFilterBuilderRuleValidator() {
+  const { translate } = useTranslation();
+  return React.useCallback(
+    (item: PropertyFilterBuilderRule) => {
+      // eslint-disable-next-line deprecation/deprecation
+      const errorMessage = defaultPropertyFilterBuilderRuleValidator(item);
+      return errorMessage ? translate(errorMessage) : undefined;
+    },
+    [translate]
+  );
 }
 
 /**
  * Default rule validator.
  * @beta
+ * @deprecated in 4.17.0. Use `useDefaultPropertyFilterBuilderRuleValidator` instead.
  */
 export function defaultPropertyFilterBuilderRuleValidator(
   item: PropertyFilterBuilderRule
@@ -385,7 +413,7 @@ export function defaultPropertyFilterBuilderRuleValidator(
     return rangeRuleValidator(item.value);
   }
   if (isEmptyValue(item.value)) {
-    return UiComponents.translate("filterBuilder.errorMessages.emptyValue");
+    return "filterBuilder.errorMessages.emptyValue";
   }
   return undefined;
 }
@@ -393,10 +421,10 @@ export function defaultPropertyFilterBuilderRuleValidator(
 function rangeRuleValidator(value?: PropertyValue) {
   const range = PropertyFilterBuilderRuleRangeValue.parse(value);
   if (isEmptyValue(range.from) || isEmptyValue(range.to)) {
-    return UiComponents.translate("filterBuilder.errorMessages.emptyValue");
+    return "filterBuilder.errorMessages.emptyValue";
   }
   if (!PropertyFilterBuilderRuleRangeValue.isRangeValid(range)) {
-    return UiComponents.translate("filterBuilder.errorMessages.invalidRange");
+    return "filterBuilder.errorMessages.invalidRange";
   }
   return undefined;
 }

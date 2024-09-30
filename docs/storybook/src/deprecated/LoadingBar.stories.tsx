@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import type { Meta, StoryObj } from "@storybook/react";
-import { LoadingBar } from "@itwin/core-react/src/core-react/loading/LoadingBar";
+import { LoadingBar } from "@itwin/core-react-internal/src/core-react/loading/LoadingBar";
 import { AppUiDecorator } from "../Decorators";
 
 const meta = {

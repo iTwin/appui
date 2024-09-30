@@ -71,6 +71,7 @@ export function FloatingViewportContentWrapper({
       <ContentWrapper
         content={children}
         style={{ height: "100%", position: "relative" }}
+        contentIndex={undefined}
       />
     </div>
   );

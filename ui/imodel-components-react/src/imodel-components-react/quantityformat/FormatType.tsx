@@ -74,8 +74,9 @@ function FormatTypeSelector(props: FormatTypeSelectorProps) {
   );
 }
 
-/** Properties of [[FormatTypeOptionProps]] component.
+/** Properties of [[FormatTypeOption]] component.
  * @alpha
+ * @deprecated in 4.17.0. Use `React.ComponentProps<typeof FormatTypeOption>`
  */
 // eslint-disable-next-line deprecation/deprecation
 export interface FormatTypeOptionProps extends CommonProps {
@@ -86,6 +87,7 @@ export interface FormatTypeOptionProps extends CommonProps {
 /** Component to set the Quantity Format type.
  * @alpha
  */
+// eslint-disable-next-line deprecation/deprecation
 export function FormatTypeOption(props: FormatTypeOptionProps) {
   const { formatProps, onChange } = props;
   const { translate } = useTranslation();

@@ -11,8 +11,10 @@ import { useAvailableUiItemsProviders } from "../hooks/useAvailableUiItemsProvid
 import type { BackstageItem } from "./BackstageItem";
 import { UiItemsManager } from "../ui-items-provider/UiItemsManager";
 import type { BackstageItemsManager } from "./BackstageItemsManager";
+import type { BackstageComposer } from "./BackstageComposer";
 
-/** Hook that returns items from [[BackstageItemsManager]].
+/** Hook that returns backstage items from {@link UiItemsManager}.
+ * @deprecated in 4.17.0. Uses an internal `BackstageItemsManager` API. Use {@link BackstageComposer} instead.
  * @public
  */
 export const useUiItemsProviderBackstageItems = (

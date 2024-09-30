@@ -23,7 +23,6 @@ import type { IconDefinition } from '@itwin/appui-abstract';
 import type { Id64String } from '@itwin/core-bentley';
 import type { IDisposable } from '@itwin/core-bentley';
 import { immerable } from 'immer';
-import { JSX as JSX_2 } from 'react';
 import type { LinkElementsInfo } from '@itwin/appui-abstract';
 import type { Localization } from '@itwin/core-common';
 import { LocalizationProvider as LocalizationProvider_2 } from '@itwin/core-react';
@@ -40,7 +39,6 @@ import { PropertyRecord } from '@itwin/appui-abstract';
 import type { PropertyValue } from '@itwin/appui-abstract';
 import { default as React_2 } from 'react';
 import * as React_3 from 'react';
-import { ReactNode } from 'react';
 import { RelativePosition } from '@itwin/appui-abstract';
 import type { SelectOption } from '@itwin/itwinui-react';
 import { TimeDisplay } from '@itwin/appui-abstract';
@@ -327,7 +325,7 @@ export function computeVisibleNodes(model: TreeModel): VisibleTreeNodes;
 // @public
 export function ControlledSelectableContent(props: ControlledSelectableContentProps): React_3.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface ControlledSelectableContentProps {
     // (undocumented)
     children: SelectableContentDefinition[];
@@ -376,6 +374,9 @@ export namespace ConvertedPrimitives {
     }
     export type Value = boolean | number | string | Date | Point | Id64String;
 }
+
+// @public
+export function createMergedPropertyDataProvider(providers: IPropertyDataProvider[]): IMergingPropertyDataProvider;
 
 // @public
 export function CustomizablePropertyRenderer(props: CustomizablePropertyRendererProps): React_3.JSX.Element;
@@ -553,7 +554,7 @@ export abstract class DateTimeTypeConverterBase extends TypeConverter implements
 // @public
 export const DEFAULT_LINKS_HANDLER: LinkElementsInfo;
 
-// @beta
+// @beta @deprecated
 export function defaultPropertyFilterBuilderRuleValidator(item: PropertyFilterBuilderRule): string | undefined;
 
 // @public
@@ -623,7 +624,7 @@ export interface EditableTreeDataProvider extends ITreeDataProvider {
 // @public
 export function EditorContainer(props: EditorContainerProps): React_3.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface EditorContainerProps extends CommonProps {
     // @internal (undocumented)
     ignoreEditorBlur?: boolean;
@@ -713,13 +714,15 @@ export interface ErrorObserver<T> {
 // @public
 export class FavoritePropertiesRenderer {
     hasFavorites(propertyData: PropertyData): boolean;
-    renderFavorites(propertyData: PropertyData, orientation?: Orientation, createRoot?: CreateRoot): HTMLElement | string;
+    renderFavorites(propertyData: PropertyData, orientation?: Orientation): HTMLElement | string;
+    // @deprecated
+    renderFavorites(propertyData: PropertyData, orientation?: Orientation, _createRoot?: CreateRoot): HTMLElement | string;
 }
 
 // @alpha
 export function FavoritePropertyList(props: FavoritePropertyListProps): React_3.JSX.Element | null;
 
-// @alpha
+// @alpha @deprecated
 export interface FavoritePropertyListProps {
     // (undocumented)
     orientation?: Orientation;
@@ -845,9 +848,6 @@ export function formatInputDate(inputDate: Date, timeDisplay?: TimeDisplay, cust
 export function from<T>(iterable: Iterable<T> | PromiseLike<T>): Observable<T>;
 
 // @beta
-export function getPropertyFilterBuilderOperatorLabel(operator: PropertyFilterBuilderRuleOperator): string;
-
-// @beta
 export function getPropertyFilterBuilderOperators(property: PropertyDescription): PropertyFilterBuilderRuleOperator[];
 
 // @internal
@@ -933,7 +933,7 @@ export interface HighlightableTreeProps {
 // @public
 export function HighlightedText(props: HighlightedTextProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface HighlightedTextProps {
     // (undocumented)
     activeMatchIndex?: number;
@@ -1046,6 +1046,13 @@ export type ImageFileFormat = "png" | "jpg" | "jpge";
 
 // @public
 export type ImageSourceType = "svg" | "url" | "binary" | "core-icon" | "webfont-icon";
+
+// @public
+export interface IMergingPropertyDataProvider {
+    getData(): Promise<PropertyData>;
+    getSourceProviderFromPropertyRecord(record: PropertyRecord): IPropertyDataProvider | undefined;
+    onDataChanged: PropertyDataChangeEvent;
+}
 
 // @public
 export interface ImmediatelyLoadedTreeNodeItem extends TreeNodeItem {
@@ -1329,7 +1336,7 @@ export interface LessGreaterOperatorProcessor {
 // @public
 export function LinksRenderer(props: LinksRendererProps): React_3.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface LinksRendererProps {
     // (undocumented)
     highlighter?: (text: string) => React_3.ReactNode;
@@ -1382,7 +1389,7 @@ export const matchLinks: (text: string) => Array<{
 // @public
 export class MergedPropertyValueRenderer implements IPropertyValueRenderer {
     canRender(record: PropertyRecord): boolean;
-    render(_record: PropertyRecord, context?: PropertyValueRendererContext): string | number | boolean | Iterable<ReactNode> | JSX_2.Element | null | undefined;
+    render(_record: PropertyRecord, context?: PropertyValueRendererContext): string | number | boolean | Iterable<React_3.ReactNode> | React_3.JSX.Element | null | undefined;
 }
 
 // @internal (undocumented)
@@ -1798,7 +1805,7 @@ export interface PanelProps extends CommonProps {
 // @public
 export const ParsedInput: (props: ParsedInputProps) => React_3.ReactNode;
 
-// @public
+// @public @deprecated
 export interface ParsedInputProps extends CommonProps {
     formatValue: (value: number) => string;
     initialValue: number;
@@ -2079,7 +2086,7 @@ export class PropertyFilterBuilderActions {
     constructor(setState: (setter: (prevState: PropertyFilterBuilderState) => PropertyFilterBuilderState) => void);
     addItem(path: string[], item: "RULE_GROUP" | "RULE" | PropertyFilterRule | PropertyFilterRuleGroup): void;
     removeAllItems(): void;
-    removeItem(path: string[]): void;
+    removeItem(path: string[], allowLastRuleDelete?: boolean): void;
     setRuleErrorMessages(ruleIdsAndErrorMessages: Map<string, string>): void;
     setRuleGroupOperator(path: string[], operator: `${PropertyFilterRuleGroupOperator}`): void;
     setRuleOperator(path: string[], operator: PropertyFilterBuilderRuleOperator): void;
@@ -2109,6 +2116,7 @@ export function PropertyFilterBuilderRenderer(props: PropertyFilterBuilderRender
 // @beta
 export interface PropertyFilterBuilderRendererProps {
     actions: PropertyFilterBuilderActions;
+    allowLastRuleDelete?: boolean;
     isDisabled?: boolean;
     isGroupOperatorDisabled?: boolean;
     onRulePropertySelected?: (property: PropertyDescription) => void;
@@ -2406,20 +2414,10 @@ export abstract class PropertyRecordDataFiltererBase extends PropertyDataFiltere
 }
 
 // @public
-export class PropertyRenderer extends React_3.Component<PropertyRendererProps, PropertyRendererState> {
-    constructor(props: PropertyRendererProps);
-    // (undocumented)
-    componentDidMount(): void;
-    // (undocumented)
-    componentDidUpdate(prevProps: PropertyRendererProps): void;
-    // (undocumented)
-    static getLabelOffset(indentation?: number, orientation?: Orientation, width?: number, columnRatio?: number, minColumnLabelWidth?: number): number;
-    // (undocumented)
-    render(): React_3.JSX.Element;
-    // (undocumented)
-    readonly state: Readonly<PropertyRendererState>;
-    updateDisplayValueAsEditor(props: PropertyRendererProps): void;
-}
+export const PropertyRenderer: {
+    (props: PropertyRendererProps): React_3.JSX.Element;
+    getLabelOffset(indentation?: number, orientation?: Orientation, width?: number, columnRatio?: number, minColumnLabelWidth?: number): number;
+};
 
 // @public
 export interface PropertyRendererProps extends SharedRendererProps {
@@ -2531,7 +2529,7 @@ export interface SelectableContentDefinition {
     render: () => React_3.ReactNode;
 }
 
-// @public
+// @public @deprecated
 export interface SelectableContentProps {
     // (undocumented)
     children: SelectableContentDefinition[];
@@ -3358,7 +3356,7 @@ export class TreeModelSource {
 // @public
 export function TreeNodeContent(props: TreeNodeContentProps): React_3.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface TreeNodeContentProps extends CommonProps {
     highlightProps?: HighlightableTreeNodeProps;
     node: TreeModelNode;
@@ -3391,7 +3389,7 @@ export interface TreeNodeEventArgs {
 // @public
 export function TreeNodeIcon(props: TreeNodeIconProps): React_3.JSX.Element | null;
 
-// @public
+// @public @deprecated
 export interface TreeNodeIconProps {
     imageLoader: ITreeImageLoader;
     node: TreeModelNode;
@@ -3599,6 +3597,9 @@ export function useDebouncedAsyncValue<TReturn>(valueToBeResolved: undefined | (
     inProgress: boolean;
 };
 
+// @beta
+export function useDefaultPropertyFilterBuilderRuleValidator(): (item: PropertyFilterBuilderRule) => string | undefined;
+
 // @public
 export function usePagedTreeNodeLoader<TDataProvider extends TreeDataProvider>(dataProvider: TDataProvider, pageSize: number, modelSource: TreeModelSource): PagedTreeNodeLoader<TDataProvider>;
 
@@ -3770,7 +3771,7 @@ export interface VirtualizedPropertyGridProps extends CommonPropertyGridProps {
 // @public
 export function VirtualizedPropertyGridWithDataProvider(props: VirtualizedPropertyGridWithDataProviderProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface VirtualizedPropertyGridWithDataProviderProps extends CommonPropertyGridProps {
     dataProvider: IPropertyDataProvider;
     height: number;

@@ -44,19 +44,9 @@ export function useAnalysisAnimationDataProvider(
   viewport: ScreenViewport | undefined
 ) {
   const supportsAnalysisAnimation = useSupportsAnalysisAnimation(viewport);
-  const [
-    analysisAnimationTimelineDataProvider,
-    setAnalysisAnimationTimelineDataProvider,
-  ] = React.useState<AnalysisAnimationTimelineDataProvider | undefined>();
-  const isMountedRef = React.useRef(false);
-
-  React.useEffect(() => {
-    isMountedRef.current = true;
-    return () => {
-      isMountedRef.current = false;
-    };
-  }, []);
-
+  const [dataProvider, setDataProvider] = React.useState<
+    AnalysisAnimationTimelineDataProvider | undefined
+  >();
   React.useEffect(() => {
     async function fetchNewDataProvider(vp: ScreenViewport) {
       let newProvider: AnalysisAnimationTimelineDataProvider | undefined =
@@ -65,15 +55,12 @@ export function useAnalysisAnimationDataProvider(
         const dataLoaded = await newProvider.loadTimelineData();
         if (!dataLoaded) newProvider = undefined;
       }
-      isMountedRef.current &&
-        setAnalysisAnimationTimelineDataProvider(newProvider);
+      setDataProvider(newProvider);
     }
-    if (supportsAnalysisAnimation && viewport)
+    if (supportsAnalysisAnimation && viewport) {
       void fetchNewDataProvider(viewport);
-    else
-      isMountedRef.current &&
-        setAnalysisAnimationTimelineDataProvider(undefined);
+    } else setDataProvider(undefined);
   }, [supportsAnalysisAnimation, viewport]);
 
-  return analysisAnimationTimelineDataProvider;
+  return dataProvider;
 }

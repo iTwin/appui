@@ -36,6 +36,8 @@ export interface PropertyFilterBuilderRuleRendererProps {
   rule: PropertyFilterBuilderRule;
   /** Function to add rule to group */
   onRuleAdded: () => void;
+  /** Boolean to allow last rule to be removed */
+  allowLastRuleDelete?: boolean;
 }
 
 /**
@@ -45,7 +47,7 @@ export interface PropertyFilterBuilderRuleRendererProps {
 export function PropertyFilterBuilderRuleRenderer(
   props: PropertyFilterBuilderRuleRendererProps
 ) {
-  const { path, rule, onRuleAdded } = props;
+  const { path, rule, onRuleAdded, allowLastRuleDelete } = props;
   const { properties, actions, onRulePropertySelected } = React.useContext(
     PropertyFilterBuilderContext
   );
@@ -82,7 +84,7 @@ export function PropertyFilterBuilderRuleRenderer(
     [path, actions]
   );
 
-  const removeRule = () => actions.removeItem(path);
+  const removeRule = () => actions.removeItem(path, allowLastRuleDelete);
   const handleRuleAdded = () => {
     actions.addItem([], "RULE");
     onRuleAdded();

@@ -11,7 +11,7 @@ import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
 
 /** Hook that allows to get a value that depends on some sync UI events.
  * @note This can be used as a replacement for a deprecated {@link @itwin/core-react#ConditionalIconItem}.
- * @alpha
+ * @public
  */
 export function useConditionalValue<T>(getValue: () => T, eventIds: string[]) {
   const [value, setValue] = React.useState(() => getValue());
@@ -28,7 +28,13 @@ export function useConditionalValue<T>(getValue: () => T, eventIds: string[]) {
 
   React.useEffect(() => {
     return SyncUiEventDispatcher.onSyncUiEvent.addListener((args) => {
-      if (!eventIdsRef.current.some((id) => args.eventIds.has(id))) return;
+      if (
+        !SyncUiEventDispatcher.hasEventOfInterest(
+          args.eventIds,
+          eventIdsRef.current
+        )
+      )
+        return;
       setValue(getValueRef.current());
     });
   }, []);

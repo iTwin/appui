@@ -13,6 +13,17 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "@itwin/appui-react-internal/*": ["./node_modules/@itwin/appui-react/*"],
+      "@itwin/components-react-internal/*": [
+        "./node_modules/@itwin/components-react/*"
+      ],
+      "@itwin/core-react-internal/*": ["./node_modules/@itwin/core-react/*"],
+      "@itwin/imodel-components-react-internal/*": [
+        "./node_modules/@itwin/imodel-components-react/*"
+      ]
+    },
 
     /* Linting */
     "strict": true,

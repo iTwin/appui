@@ -60,7 +60,7 @@
     },
     {
       "name": "@itwin/core-i18n",
-      "allowedCategories": [ "frontend" ]
+      "allowedCategories": [ "frontend", "internal" ]
     },
     {
       "name": "@itwin/core-orbitgt",
@@ -159,6 +159,14 @@
       "allowedCategories": [ "frontend" ]
     },
     {
+      "name": "@itwin/itwinui-layouts-css",
+      "allowedCategories": [ "internal" ]
+    },
+    {
+      "name": "@itwin/itwinui-layouts-react",
+      "allowedCategories": [ "internal" ]
+    },
+    {
       "name": "@itwin/itwinui-react",
       "allowedCategories": [ "frontend", "internal" ]
     },
@@ -223,11 +231,23 @@
       "allowedCategories": [ "internal" ]
     },
     {
-      "name": "@storybook/testing-library",
+      "name": "@storybook/test",
       "allowedCategories": [ "internal" ]
     },
     {
       "name": "@storybook/theming",
+      "allowedCategories": [ "internal" ]
+    },
+    {
+      "name": "@tanstack/react-router",
+      "allowedCategories": [ "internal" ]
+    },
+    {
+      "name": "@tanstack/router-devtools",
+      "allowedCategories": [ "internal" ]
+    },
+    {
+      "name": "@tanstack/router-plugin",
       "allowedCategories": [ "internal" ]
     },
     {
@@ -265,10 +285,6 @@
     {
       "name": "@vitest/coverage-v8",
       "allowedCategories": [ "frontend" ]
-    },
-    {
-      "name": "appui-standalone-app",
-      "allowedCategories": [ "internal" ]
     },
     {
       "name": "classnames",
@@ -411,6 +427,10 @@
       "allowedCategories": [ "frontend" ]
     },
     {
+      "name": "react-markdown",
+      "allowedCategories": [ "internal" ]
+    },
+    {
       "name": "react-redux",
       "allowedCategories": [ "frontend", "internal" ]
     },
@@ -425,10 +445,6 @@
     {
       "name": "redux",
       "allowedCategories": [ "frontend", "internal" ]
-    },
-    {
-      "name": "resize-observer-polyfill",
-      "allowedCategories": [ "frontend" ]
     },
     {
       "name": "rimraf",
@@ -448,6 +464,14 @@
     },
     {
       "name": "storybook",
+      "allowedCategories": [ "internal" ]
+    },
+    {
+      "name": "test-app",
+      "allowedCategories": [ "internal" ]
+    },
+    {
+      "name": "test-providers",
       "allowedCategories": [ "internal" ]
     },
     {
@@ -479,15 +503,15 @@
       "allowedCategories": [ "frontend" ]
     },
     {
-      "name": "use-sync-external-store",
-      "allowedCategories": [ "frontend" ]
-    },
-    {
       "name": "vite",
       "allowedCategories": [ "internal" ]
     },
     {
       "name": "vite-plugin-static-copy",
+      "allowedCategories": [ "internal" ]
+    },
+    {
+      "name": "vite-tsconfig-paths",
       "allowedCategories": [ "internal" ]
     },
     {

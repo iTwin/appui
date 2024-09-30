@@ -11,7 +11,7 @@ import {
 } from "@itwin/appui-react";
 import { Button } from "@itwin/itwinui-react";
 import { AppUiStory } from "../AppUiStory";
-import { createFrontstage } from "../Utils";
+import { createFrontstage, createWidget } from "../Utils";
 
 interface EmptyStateStoryProps {
   /** Toggle this on to hide the widget when there is no data to display. */
@@ -26,12 +26,10 @@ interface EmptyStateStoryProps {
 export function EmptyStateStory(props: EmptyStateStoryProps) {
   const provider = {
     id: "widgets",
-    provideWidgets: () => [
-      {
-        id: "w1",
-        label: "Widget 1",
+    getWidgets: () => [
+      createWidget(1, {
         content: <Widget hideOnEmptyState={props.hideOnEmptyState} />,
-      },
+      }),
     ],
   } satisfies UiItemsProvider;
   return (

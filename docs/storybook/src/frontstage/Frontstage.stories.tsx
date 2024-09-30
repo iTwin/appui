@@ -3,24 +3,22 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import type { Meta, StoryObj } from "@storybook/react";
-import { fireEvent, within } from "@storybook/testing-library";
+import { fireEvent, within } from "@storybook/test";
 import {
   StagePanelLocation,
   StagePanelSection,
   StagePanelState,
   WidgetState,
 } from "@itwin/appui-react";
-import { AppUiDecorator } from "../Decorators";
 import { Page } from "../AppUiStory";
 import { FrontstageStory } from "./Frontstage";
-import { removeProperty } from "../Utils";
+import { createWidget, removeProperty } from "../Utils";
 import { VirtualCursorElement, createCursorEvents } from "../VirtualCursor";
 
 const meta = {
   title: "Frontstage/FrontstageProvider",
   component: FrontstageStory,
   tags: ["autodocs"],
-  decorators: [AppUiDecorator],
   parameters: {
     docs: {
       page: () => <Page />,
@@ -45,26 +43,26 @@ export const Overview: Story = {
     itemProviders: [
       {
         id: "widgets",
-        provideWidgets: (_stageId, _stageUsage, location) => {
-          if (location === StagePanelLocation.Right)
-            return [
-              {
-                id: "w2",
-                label: "Widget 2",
-                content: <>Widget content</>,
+        getWidgets: () => {
+          const layouts = {
+            standard: {
+              location: StagePanelLocation.Right,
+              section: StagePanelSection.Start,
+            },
+          };
+          return [
+            createWidget(1, {
+              defaultState: WidgetState.Floating,
+              canFloat: {
+                defaultPosition: { x: 20, y: 50 },
+                isResizable: true,
               },
-              {
-                id: "w1",
-                label: "Widget 1",
-                content: <>Widget content</>,
-                defaultState: WidgetState.Floating,
-                canFloat: {
-                  defaultPosition: { x: 20, y: 50 },
-                  isResizable: true,
-                },
-              },
-            ];
-          return [];
+              layouts,
+            }),
+            createWidget(2, {
+              layouts,
+            }),
+          ];
         },
       },
     ],
@@ -98,41 +96,44 @@ export const Panels: Story = {
     itemProviders: [
       {
         id: "widgets",
-        provideWidgets: (_stageId, _stageUsage, location) => {
-          if (location === StagePanelLocation.Top)
-            return [
-              {
-                id: "w1",
-                label: "Widget 1",
-                content: <b>Top panel</b>,
+        getWidgets: () => [
+          createWidget(1, {
+            content: <b>Top panel</b>,
+            layouts: {
+              standard: {
+                location: StagePanelLocation.Top,
+                section: StagePanelSection.Start,
               },
-            ];
-          if (location === StagePanelLocation.Left)
-            return [
-              {
-                id: "w2",
-                label: "Widget 2",
-                content: <b>Left panel</b>,
+            },
+          }),
+          createWidget(2, {
+            content: <b>Left panel</b>,
+            layouts: {
+              standard: {
+                location: StagePanelLocation.Left,
+                section: StagePanelSection.Start,
               },
-            ];
-          if (location === StagePanelLocation.Bottom)
-            return [
-              {
-                id: "w3",
-                label: "Widget 3",
-                content: <b>Bottom panel</b>,
+            },
+          }),
+          createWidget(3, {
+            content: <b>Bottom panel</b>,
+            layouts: {
+              standard: {
+                location: StagePanelLocation.Bottom,
+                section: StagePanelSection.Start,
               },
-            ];
-          if (location === StagePanelLocation.Right)
-            return [
-              {
-                id: "w4",
-                label: "Widget 4",
-                content: <b>Right panel</b>,
+            },
+          }),
+          createWidget(4, {
+            content: <b>Right panel</b>,
+            layouts: {
+              standard: {
+                location: StagePanelLocation.Right,
+                section: StagePanelSection.Start,
               },
-            ];
-          return [];
-        },
+            },
+          }),
+        ],
       },
     ],
   },
@@ -153,53 +154,44 @@ export const PanelSections: Story = {
     itemProviders: [
       {
         id: "widgets",
-        provideWidgets: (_stageId, _stageUsage, location, section) => {
-          if (
-            location === StagePanelLocation.Right &&
-            section === StagePanelSection.Start
-          )
-            return [
-              {
-                id: "w3",
-                label: "Widget 3",
-                content: <b>Start section</b>,
+        getWidgets: () => [
+          createWidget(1, {
+            content: <b>Start section</b>,
+            layouts: {
+              standard: {
+                location: StagePanelLocation.Bottom,
+                section: StagePanelSection.Start,
               },
-            ];
-          if (
-            location === StagePanelLocation.Right &&
-            section === StagePanelSection.End
-          )
-            return [
-              {
-                id: "w4",
-                label: "Widget 4",
-                content: <b>End section</b>,
+            },
+          }),
+          createWidget(2, {
+            content: <b>End section</b>,
+            layouts: {
+              standard: {
+                location: StagePanelLocation.Bottom,
+                section: StagePanelSection.End,
               },
-            ];
-          if (
-            location === StagePanelLocation.Bottom &&
-            section === StagePanelSection.Start
-          )
-            return [
-              {
-                id: "w1",
-                label: "Widget 1",
-                content: <b>Start section</b>,
+            },
+          }),
+          createWidget(3, {
+            content: <b>Start section</b>,
+            layouts: {
+              standard: {
+                location: StagePanelLocation.Right,
+                section: StagePanelSection.Start,
               },
-            ];
-          if (
-            location === StagePanelLocation.Bottom &&
-            section === StagePanelSection.End
-          )
-            return [
-              {
-                id: "w2",
-                label: "Widget 2",
-                content: <b>End section</b>,
+            },
+          }),
+          createWidget(4, {
+            content: <b>End section</b>,
+            layouts: {
+              standard: {
+                location: StagePanelLocation.Right,
+                section: StagePanelSection.End,
               },
-            ];
-          return [];
-        },
+            },
+          }),
+        ],
       },
     ],
   },
@@ -210,34 +202,28 @@ export const FloatingWidgets: Story = {
     itemProviders: [
       {
         id: "widgets",
-        provideWidgets: () => {
-          return [
-            {
-              id: "w1",
-              label: "Widget 1",
-              content: <b>Floating widget</b>,
-              defaultState: WidgetState.Floating,
-              canFloat: {
-                defaultPosition: {
-                  x: 20,
-                  y: 20,
-                },
+        getWidgets: () => [
+          createWidget(1, {
+            content: <b>Floating widget</b>,
+            defaultState: WidgetState.Floating,
+            canFloat: {
+              defaultPosition: {
+                x: 20,
+                y: 20,
               },
             },
-            {
-              id: "w2",
-              label: "Widget 2",
-              content: <b>Floating widget</b>,
-              defaultState: WidgetState.Floating,
-              canFloat: {
-                defaultPosition: {
-                  x: 20,
-                  y: 200,
-                },
+          }),
+          createWidget(2, {
+            content: <b>Floating widget</b>,
+            defaultState: WidgetState.Floating,
+            canFloat: {
+              defaultPosition: {
+                x: 20,
+                y: 200,
               },
             },
-          ];
-        },
+          }),
+        ],
       },
     ],
   },
@@ -253,13 +239,15 @@ export const WidgetContainer: Story = {
     itemProviders: [
       {
         id: "widgets",
-        provideWidgets: (_stageId, _stageUsage, location) => {
-          if (location !== StagePanelLocation.Right) return [];
+        getWidgets: () => {
+          const layouts = {
+            standard: {
+              location: StagePanelLocation.Right,
+              section: StagePanelSection.Start,
+            },
+          };
           return [
-            {
-              id: "w1",
-              label: "Widget 1",
-              content: <b>Widget content</b>,
+            createWidget(1, {
               defaultState: WidgetState.Floating,
               canFloat: {
                 defaultPosition: {
@@ -268,40 +256,33 @@ export const WidgetContainer: Story = {
                 },
                 containerId: "fw1",
               },
-            },
-            {
-              id: "w2",
-              label: "Widget 2",
-              content: <b>Widget content</b>,
+              layouts,
+            }),
+            createWidget(2, {
               defaultState: WidgetState.Floating,
               canFloat: {
                 containerId: "fw1",
               },
-            },
-            {
-              id: "w3",
-              label: "Widget 3",
-              content: <b>Widget content</b>,
+              layouts,
+            }),
+            createWidget(3, {
               canFloat: {
                 containerId: "fw1",
               },
-            },
-            {
-              id: "w4",
-              label: "Widget 4",
-              content: <b>Widget content</b>,
+              layouts,
+            }),
+            createWidget(4, {
               canFloat: {
                 containerId: "fw1",
               },
-            },
-            {
-              id: "w5",
-              label: "Widget 5",
-              content: <b>Widget content</b>,
+              layouts,
+            }),
+            createWidget(5, {
               canFloat: {
                 containerId: "fw1",
               },
-            },
+              layouts,
+            }),
           ];
         },
       },
@@ -314,21 +295,14 @@ export const Interaction: Story = {
     itemProviders: [
       {
         id: "widgets",
-        provideWidgets: (_stageId, _stageUsage, location) => {
-          if (location === StagePanelLocation.Right)
-            return [
-              {
-                id: "w1",
-                label: "Widget 1",
-                content: <>Widget content</>,
-              },
-              {
-                id: "w2",
-                label: "Widget 2",
-                content: <>Widget content</>,
-              },
-            ];
-          return [];
+        getWidgets: () => {
+          const layouts = {
+            standard: {
+              location: StagePanelLocation.Right,
+              section: StagePanelSection.Start,
+            },
+          };
+          return [createWidget(1, { layouts }), createWidget(2, { layouts })];
         },
       },
     ],

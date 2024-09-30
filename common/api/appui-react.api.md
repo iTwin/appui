@@ -30,9 +30,8 @@ import type { CommonDivProps } from '@itwin/core-react';
 import { CommonProps } from '@itwin/core-react';
 import type { CommonToolbarItemWithBadgeKind } from '@itwin/components-react';
 import { CompassMode } from '@itwin/core-frontend';
-import { ConditionalBooleanValue } from '@itwin/appui-abstract';
-import { ConditionalStringValue } from '@itwin/appui-abstract';
-import type { ContentLayoutProps } from '@itwin/appui-abstract';
+import { ConditionalBooleanValue as ConditionalBooleanValue_2 } from '@itwin/appui-abstract';
+import { ConditionalStringValue as ConditionalStringValue_2 } from '@itwin/appui-abstract';
 import type { CustomButtonDefinition } from '@itwin/appui-abstract';
 import type { DialogItem } from '@itwin/appui-abstract';
 import type { DialogLayoutDataProvider } from '@itwin/appui-abstract';
@@ -52,7 +51,6 @@ import { InferableComponentEnhancerWithProps } from 'react-redux';
 import type { InteractiveTool } from '@itwin/core-frontend';
 import { ItemField } from '@itwin/core-frontend';
 import type { Key } from 'ts-key-enum';
-import type { LayoutFragmentProps } from '@itwin/appui-abstract';
 import { LocalStateStorage as LocalStateStorage_2 } from '@itwin/core-react';
 import type { MarkRequired } from '@itwin/core-bentley';
 import { MessageBoxIconType } from '@itwin/core-frontend';
@@ -97,7 +95,7 @@ import { SnapMode } from '@itwin/core-frontend';
 import type { SolarDataProvider } from '@itwin/imodel-components-react';
 import { StandardViewId } from '@itwin/core-frontend';
 import type { Store } from 'redux';
-import type { StoreApi } from 'zustand';
+import { StoreApi } from 'zustand';
 import type { StringGetter } from '@itwin/appui-abstract';
 import { ToasterSettings } from '@itwin/itwinui-react/cjs/core/Toast/Toaster';
 import { Tool } from '@itwin/core-frontend';
@@ -119,6 +117,7 @@ import { UiStateStorage as UiStateStorage_2 } from '@itwin/core-react';
 import type { UiStateStorageResult as UiStateStorageResult_2 } from '@itwin/core-react';
 import { UiStateStorageStatus as UiStateStorageStatus_2 } from '@itwin/core-react';
 import type { UnitSystemKey } from '@itwin/core-quantity';
+import { UseBoundStore } from 'zustand';
 import type { useToaster } from '@itwin/itwinui-react';
 import type { ViewFlagProps } from '@itwin/core-common';
 import type { Viewport } from '@itwin/core-frontend';
@@ -171,7 +170,7 @@ export class AccuDrawCommandItems {
 // @public
 export function AccuDrawDialog(props: AccuDrawDialogProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface AccuDrawDialogProps extends CommonProps {
     // @deprecated
     dialogId?: string;
@@ -183,7 +182,7 @@ export interface AccuDrawDialogProps extends CommonProps {
 // @public
 export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface AccuDrawFieldContainerProps extends CommonProps {
     orientation: Orientation;
     // @internal (undocumented)
@@ -198,7 +197,7 @@ export class AccuDrawGrabInputFocusEvent extends BeUiEvent<{}> {
 // @public
 export const AccuDrawInputField: (props: AccuDrawInputFieldProps) => React_2.ReactNode;
 
-// @public
+// @public @deprecated
 export interface AccuDrawInputFieldProps extends CommonProps {
     field: ItemField;
     icon?: React_2.ReactNode;
@@ -544,7 +543,7 @@ export interface BackstageComposerItemProps {
     readonly item: BackstageItem;
 }
 
-// @public
+// @public @deprecated
 export interface BackstageComposerProps extends CommonProps {
     readonly header?: React_2.ReactNode;
     readonly hideSoloStageEntry?: boolean;
@@ -649,7 +648,7 @@ export interface BaseItemState {
     isVisible?: boolean;
 }
 
-// @public
+// @public @deprecated
 export class BaseUiItemsProvider implements UiItemsProvider {
     constructor(_providerId: string, isSupportedStage?: ((stageId: string, stageUsage: string, stageAppData?: any, provider?: UiItemsProvider) => boolean) | undefined);
     // (undocumented)
@@ -679,7 +678,7 @@ export class BaseUiItemsProvider implements UiItemsProvider {
 // @public
 export function BasicNavigationWidget(props: BasicNavigationWidgetProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface BasicNavigationWidgetProps {
     additionalHorizontalItems?: ToolbarItem[];
     additionalVerticalItems?: ToolbarItem[];
@@ -688,7 +687,7 @@ export interface BasicNavigationWidgetProps {
 // @public
 export function BasicToolWidget(props: BasicToolWidgetProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface BasicToolWidgetProps {
     additionalHorizontalItems?: ToolbarItem[];
     additionalVerticalItems?: ToolbarItem[];
@@ -928,13 +927,13 @@ export interface CommonBackstageItem {
     readonly icon?: IconSpec;
     readonly iconNode?: React.ReactNode;
     readonly id: string;
-    readonly isActive?: boolean | ConditionalBooleanValue;
-    readonly isDisabled?: boolean | ConditionalBooleanValue;
-    readonly isHidden?: boolean | ConditionalBooleanValue;
+    readonly isActive?: boolean | ConditionalBooleanValue_2;
+    readonly isDisabled?: boolean | ConditionalBooleanValue_2;
+    readonly isHidden?: boolean | ConditionalBooleanValue_2;
     readonly itemPriority: number;
-    readonly label: string | ConditionalStringValue;
-    readonly subtitle?: string | ConditionalStringValue;
-    readonly tooltip?: string | ConditionalStringValue;
+    readonly label: string | ConditionalStringValue_2;
+    readonly subtitle?: string | ConditionalStringValue_2;
+    readonly tooltip?: string | ConditionalStringValue_2;
 }
 
 // @public
@@ -943,8 +942,8 @@ export interface CommonStatusBarItem {
     readonly badge?: BadgeType;
     readonly badgeKind?: BadgeKind;
     readonly id: string;
-    readonly isDisabled?: boolean | ConditionalBooleanValue;
-    readonly isHidden?: boolean | ConditionalBooleanValue;
+    readonly isDisabled?: boolean | ConditionalBooleanValue_2;
+    readonly isHidden?: boolean | ConditionalBooleanValue_2;
     readonly itemPriority: number;
     readonly section: StatusBarSection;
 }
@@ -954,15 +953,47 @@ export interface CommonToolbarItem {
     // @deprecated
     readonly badge?: BadgeType;
     readonly badgeKind?: BadgeKind;
-    readonly description?: string | ConditionalStringValue;
+    readonly description?: string | ConditionalStringValue_2;
     readonly groupPriority?: number;
     readonly iconNode?: React.ReactNode;
     readonly id: string;
     readonly isActive?: boolean;
-    readonly isDisabled?: boolean | ConditionalBooleanValue;
-    readonly isHidden?: boolean | ConditionalBooleanValue;
+    readonly isDisabled?: boolean | ConditionalBooleanValue_2;
+    readonly isHidden?: boolean | ConditionalBooleanValue_2;
     readonly itemPriority: number;
     readonly layouts?: ToolbarItemLayouts;
+}
+
+// @public
+export class ComponentGenerator {
+    constructor(_uiDataProvider: UiLayoutDataProvider, _onCancel?: (() => void) | undefined);
+    // (undocumented)
+    getRow(row: DialogRow, rowIndex: number): React_2.ReactNode;
+    getToolSettingsEntries(): ToolSettingsEntry[];
+    // (undocumented)
+    getToolSettingsEntry(row: DialogRow, rowIndex: number): ToolSettingsEntry;
+    // (undocumented)
+    get uiDataProvider(): UiLayoutDataProvider;
+}
+
+// @public
+export type ConditionalBooleanValue = ConditionalBooleanValue_2;
+
+// @public (undocumented)
+export const ConditionalBooleanValue: typeof ConditionalBooleanValue_2;
+
+// @public
+export type ConditionalStringValue = ConditionalStringValue_2;
+
+// @public (undocumented)
+export const ConditionalStringValue: typeof ConditionalStringValue_2;
+
+// @public
+export interface ConditionalValue<T> {
+    // (undocumented)
+    eventIds: string[];
+    // (undocumented)
+    getValue: () => T;
 }
 
 // @public @deprecated
@@ -1035,7 +1066,7 @@ export type ConfigurableUiActionsUnion = ActionsUnion<typeof ConfigurableUiActio
 // @public
 export function ConfigurableUiContent(props: ConfigurableUiContentProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface ConfigurableUiContentProps extends CommonProps {
     animateToolSettings?: boolean;
     appBackstage?: React_2.ReactNode;
@@ -1285,6 +1316,12 @@ export class ContentLayoutDef {
     toJSON(): ContentLayoutProps;
 }
 
+// @public
+export interface ContentLayoutProps extends LayoutFragmentProps {
+    description?: string;
+    id: string;
+}
+
 // @beta
 export function ContentOverlay({ className, children, active, ...other }: ContentOverlayProps): React_2.JSX.Element;
 
@@ -1294,15 +1331,15 @@ export interface ContentProps {
     applicationData?: any;
     // @deprecated
     classId: string | ConfigurableUiControlConstructor;
-    // @beta
     content?: React_2.ReactNode;
     id: string;
+    renderActiveStrip?: boolean | ConditionalValue<boolean | undefined>;
 }
 
 // @public
 export function ContentToolWidgetComposer(props: ContentToolWidgetComposerProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface ContentToolWidgetComposerProps {
     cornerButton?: React_2.ReactNode;
 }
@@ -1444,26 +1481,26 @@ export interface CursorMenuItemProps extends CommonProps {
     badgeKind?: BadgeKind;
     // @deprecated
     badgeType?: BadgeType;
-    description?: string | StringGetter | ConditionalStringValue_2;
+    description?: string | StringGetter | ConditionalStringValue;
     descriptionKey?: string;
     execute?: () => any;
     // @deprecated
     icon?: IconSpec;
     iconNode?: React_2.ReactNode;
-    iconRight?: string | ConditionalStringValue_2;
+    iconRight?: string | ConditionalStringValue;
     // @deprecated
     iconSpec?: IconSpec;
     id: string;
     isActive?: boolean;
-    isDisabled?: boolean | ConditionalBooleanValue;
-    isHidden?: boolean | ConditionalBooleanValue;
+    isDisabled?: boolean | ConditionalBooleanValue_2;
+    isHidden?: boolean | ConditionalBooleanValue_2;
     isPressed?: boolean;
     // @deprecated
     item?: CommandItemProps;
-    label?: string | StringGetter | ConditionalStringValue_2;
+    label?: string | StringGetter | ConditionalStringValue;
     labelKey?: string;
     submenu?: CursorMenuItemProps[];
-    tooltip?: string | StringGetter | ConditionalStringValue_2;
+    tooltip?: string | StringGetter | ConditionalStringValue;
     tooltipKey?: string;
 }
 
@@ -1646,7 +1683,7 @@ export interface DefaultContentTools {
     };
 }
 
-// @public
+// @public @deprecated
 export interface DefaultContentToolsAppData {
     // (undocumented)
     defaultContentTools?: {
@@ -1873,7 +1910,7 @@ export interface ExpandableSectionProps extends CommonProps {
     title?: string;
 }
 
-// @public
+// @public @deprecated
 export interface ExtensibleToolbarProps {
     items: ToolbarItem[];
     orientation: ToolbarOrientation;
@@ -1931,14 +1968,14 @@ export class FrameworkAccuDraw extends AccuDraw implements UserSettingsProvider 
     static getFieldDisplayValue(index: ItemField): string;
     grabInputFocus(): void;
     get hasInputFocus(): boolean;
-    static readonly isACSRotationConditional: ConditionalBooleanValue;
-    static readonly isContextRotationConditional: ConditionalBooleanValue;
-    static readonly isFrontRotationConditional: ConditionalBooleanValue;
-    static readonly isPolarModeConditional: ConditionalBooleanValue;
-    static readonly isRectangularModeConditional: ConditionalBooleanValue;
-    static readonly isSideRotationConditional: ConditionalBooleanValue;
-    static readonly isTopRotationConditional: ConditionalBooleanValue;
-    static readonly isViewRotationConditional: ConditionalBooleanValue;
+    static readonly isACSRotationConditional: ConditionalBooleanValue_2;
+    static readonly isContextRotationConditional: ConditionalBooleanValue_2;
+    static readonly isFrontRotationConditional: ConditionalBooleanValue_2;
+    static readonly isPolarModeConditional: ConditionalBooleanValue_2;
+    static readonly isRectangularModeConditional: ConditionalBooleanValue_2;
+    static readonly isSideRotationConditional: ConditionalBooleanValue_2;
+    static readonly isTopRotationConditional: ConditionalBooleanValue_2;
+    static readonly isViewRotationConditional: ConditionalBooleanValue_2;
     // (undocumented)
     loadUserSettings(storage: UiStateStorage): Promise<void>;
     static readonly onAccuDrawGrabInputFocusEvent: AccuDrawGrabInputFocusEvent;
@@ -1985,8 +2022,6 @@ export interface FrameworkChildWindows {
     findId(contentWindow: Window | undefined | null): string | undefined;
     open(childWindowId: string, title: string, content: React.ReactNode, location: ChildWindowLocationProps, useDefaultPopoutUrl?: boolean): boolean;
     readonly openChildWindows: OpenChildWindowInfo[];
-    // @beta
-    useCreateRoot(createRootFn: CreateRoot): void;
 }
 
 // @public
@@ -2088,7 +2123,9 @@ export interface FrameworkFrontstages {
     // @deprecated
     addFrontstageProvider(frontstageProvider: FrontstageProvider): void;
     clearFrontstageDefs(): void;
+    // @deprecated
     clearFrontstageProviders(): void;
+    clearFrontstages(): void;
     closeModalFrontstage(): void;
     closeNestedFrontstage(): Promise<void>;
     deactivateFrontstageDef(): Promise<void>;
@@ -2151,10 +2188,10 @@ export interface FrameworkKeyboardShortcut {
     readonly isAltKeyRequired: boolean;
     readonly isCtrlKeyRequired: boolean;
     // (undocumented)
-    isDisabled?: boolean | ConditionalBooleanValue_2;
+    isDisabled?: boolean | ConditionalBooleanValue;
     readonly isFunctionKey: boolean;
     // (undocumented)
-    isHidden?: boolean | ConditionalBooleanValue_2;
+    isHidden?: boolean | ConditionalBooleanValue;
     // (undocumented)
     isPressed: boolean;
     readonly isShiftKeyRequired: boolean;
@@ -2167,13 +2204,13 @@ export interface FrameworkKeyboardShortcut {
     // (undocumented)
     readonly label: string;
     // (undocumented)
-    readonly rawLabel: string | StringGetter | ConditionalStringValue_2;
+    readonly rawLabel: string | StringGetter | ConditionalStringValue;
     // (undocumented)
-    setDescription(v: string | StringGetter | ConditionalStringValue_2): void;
+    setDescription(v: string | StringGetter | ConditionalStringValue): void;
     // (undocumented)
-    setLabel(v: string | StringGetter | ConditionalStringValue_2): void;
+    setLabel(v: string | StringGetter | ConditionalStringValue): void;
     // (undocumented)
-    setTooltip(v: string | StringGetter | ConditionalStringValue_2): void;
+    setTooltip(v: string | StringGetter | ConditionalStringValue): void;
     readonly shortcutContainer: FrameworkKeyboardShortcutContainer;
     // (undocumented)
     readonly tooltip: string;
@@ -2403,7 +2440,7 @@ export class FrontstageDef {
     // @deprecated (undocumented)
     dropFloatingContentControl(contentControl?: ContentControl): void;
     findWidgetDef(id: string): WidgetDef | undefined;
-    // (undocumented)
+    // @deprecated (undocumented)
     get floatingContentControls(): ContentControl[] | undefined;
     // @beta
     floatWidget(widgetId: string, position?: XAndY, size?: SizeProps): void;
@@ -2519,10 +2556,10 @@ export function getFeatureOverrideSyncEventIds(): string[];
 export function getFrontstageStateSettingName(frontstageId: WidgetPanelsFrontstageState["id"]): string;
 
 // @beta @deprecated
-export function getIsHiddenIfFeatureOverridesActive(): ConditionalBooleanValue;
+export function getIsHiddenIfFeatureOverridesActive(): ConditionalBooleanValue_2;
 
 // @beta @deprecated
-export function getIsHiddenIfSelectionNotActive(): ConditionalBooleanValue;
+export function getIsHiddenIfSelectionNotActive(): ConditionalBooleanValue_2;
 
 // @internal
 export function getKeyinsFromToolList(toolList: ToolList, localizedKeyinPreference?: KeyinFieldLocalization): KeyinEntry[];
@@ -2549,7 +2586,7 @@ export function getSelectionContextSyncEventIds(): string[];
 export function getUiSettingsManagerEntry(itemPriority: number): SettingsTabEntry_2;
 
 // @internal (undocumented)
-export function getWidgetState(widgetDef: WidgetDef, nineZone: NineZoneState): WidgetState;
+export function getWidgetState(widgetId: WidgetDef["id"], nineZone: NineZoneState): WidgetState;
 
 // @internal (undocumented)
 export type GroupedItems = ReadonlyArray<ReadonlyArray<BackstageItem>>;
@@ -2582,7 +2619,7 @@ export class GroupItemDef extends ActionButtonItemDef {
     get panelLabel(): string;
     // (undocumented)
     resolveItems(force?: boolean): void;
-    setPanelLabel(v: string | StringGetter | ConditionalStringValue): void;
+    setPanelLabel(v: string | StringGetter | ConditionalStringValue_2): void;
 }
 
 // @public @deprecated
@@ -2901,16 +2938,16 @@ export abstract class ItemDefBase {
     get isActive(): boolean;
     set isActive(v: boolean);
     // (undocumented)
-    isDisabled?: boolean | ConditionalBooleanValue;
+    isDisabled?: boolean | ConditionalBooleanValue_2;
     // (undocumented)
-    isHidden?: boolean | ConditionalBooleanValue;
+    isHidden?: boolean | ConditionalBooleanValue_2;
     // (undocumented)
     isPressed: boolean;
     get label(): string;
-    get rawLabel(): string | StringGetter | ConditionalStringValue;
-    setDescription(v: string | StringGetter | ConditionalStringValue): void;
-    setLabel(v: string | StringGetter | ConditionalStringValue): void;
-    setTooltip(v: string | StringGetter | ConditionalStringValue): void;
+    get rawLabel(): string | StringGetter | ConditionalStringValue_2;
+    setDescription(v: string | StringGetter | ConditionalStringValue_2): void;
+    setLabel(v: string | StringGetter | ConditionalStringValue_2): void;
+    setTooltip(v: string | StringGetter | ConditionalStringValue_2): void;
     get tooltip(): string;
     // (undocumented)
     get trayId(): undefined;
@@ -2948,16 +2985,16 @@ export interface ItemProps extends IconProps {
     badgeKind?: BadgeKind;
     // @deprecated
     badgeType?: BadgeType;
-    description?: string | StringGetter | ConditionalStringValue;
+    description?: string | StringGetter | ConditionalStringValue_2;
     descriptionKey?: string;
     icon?: IconSpec;
     isActive?: boolean;
-    isDisabled?: boolean | ConditionalBooleanValue;
-    isHidden?: boolean | ConditionalBooleanValue;
+    isDisabled?: boolean | ConditionalBooleanValue_2;
+    isHidden?: boolean | ConditionalBooleanValue_2;
     isPressed?: boolean;
-    label?: string | StringGetter | ConditionalStringValue;
+    label?: string | StringGetter | ConditionalStringValue_2;
     labelKey?: string;
-    tooltip?: string | StringGetter | ConditionalStringValue;
+    tooltip?: string | StringGetter | ConditionalStringValue_2;
     tooltipKey?: string;
 }
 
@@ -3025,7 +3062,7 @@ export interface KeyboardShortcutProps extends CommonProps {
     badgeKind?: BadgeKind;
     // @deprecated
     badgeType?: BadgeType;
-    description?: string | StringGetter | ConditionalStringValue_2;
+    description?: string | StringGetter | ConditionalStringValue;
     descriptionKey?: string;
     execute?: () => void;
     // @deprecated
@@ -3036,17 +3073,17 @@ export interface KeyboardShortcutProps extends CommonProps {
     isActive?: boolean;
     isAltKeyRequired?: boolean;
     isCtrlKeyRequired?: boolean;
-    isDisabled?: boolean | ConditionalBooleanValue_2;
-    isHidden?: boolean | ConditionalBooleanValue_2;
+    isDisabled?: boolean | ConditionalBooleanValue;
+    isHidden?: boolean | ConditionalBooleanValue;
     isPressed?: boolean;
     isShiftKeyRequired?: boolean;
     // @deprecated
     item?: ActionButtonItemDef;
     key: string | Key;
-    label?: string | StringGetter | ConditionalStringValue_2;
+    label?: string | StringGetter | ConditionalStringValue;
     labelKey?: string;
     shortcuts?: KeyboardShortcutProps[];
-    tooltip?: string | StringGetter | ConditionalStringValue_2;
+    tooltip?: string | StringGetter | ConditionalStringValue;
     tooltipKey?: string;
 }
 
@@ -3089,6 +3126,35 @@ export interface KeyinPalettePopupProps {
     onCancel?: OnCancelFunc;
     // (undocumented)
     onItemExecuted?: OnItemExecutedFunc;
+}
+
+// @public
+export interface LayoutFragmentProps {
+    horizontalSplit?: LayoutHorizontalSplitProps;
+    verticalSplit?: LayoutVerticalSplitProps;
+}
+
+// @public
+export interface LayoutHorizontalSplitProps extends LayoutSplitPropsBase {
+    bottom: LayoutFragmentProps | number;
+    minSizeBottom?: number;
+    minSizeTop?: number;
+    top: LayoutFragmentProps | number;
+}
+
+// @public
+export interface LayoutSplitPropsBase {
+    id: string;
+    lock?: boolean;
+    percentage: number;
+}
+
+// @public
+export interface LayoutVerticalSplitProps extends LayoutSplitPropsBase {
+    left: LayoutFragmentProps | number;
+    minSizeLeft?: number;
+    minSizeRight?: number;
+    right: LayoutFragmentProps | number;
 }
 
 // @beta
@@ -3488,7 +3554,7 @@ export class NavigationAidControl extends ConfigurableUiControl {
 // @public
 export function NavigationAidHost(props: NavigationAidHostProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface NavigationAidHostProps {
     minHeight?: string;
     minWidth?: string;
@@ -3497,7 +3563,7 @@ export interface NavigationAidHostProps {
 // @public
 export function NavigationWidgetComposer(props: NavigationWidgetComposerProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface NavigationWidgetComposerProps extends CommonProps {
     hideNavigationAid?: boolean;
     horizontalToolbar?: React_2.ReactNode;
@@ -3779,9 +3845,9 @@ export interface PreviewFeaturesProviderProps {
 export class PropsHelper {
     // @deprecated (undocumented)
     static getAbstractPropsForReactIcon(iconSpec: IconSpec, internalData?: Map<string, any>): Partial<AbstractWidgetProps> | Partial<CommonBackstageItem_2>;
-    static getIcon(iconSpec: string | ConditionalStringValue | React_2.ReactNode): React_2.ReactElement | undefined;
-    static getStringFromSpec(spec: string | StringGetter | ConditionalStringValue): string;
-    static getStringSpec(explicitValue: string | StringGetter | ConditionalStringValue | undefined, stringKey?: string): string | StringGetter | ConditionalStringValue;
+    static getIcon(iconSpec: string | ConditionalStringValue_2 | React_2.ReactNode): React_2.ReactElement | undefined;
+    static getStringFromSpec(spec: string | StringGetter | ConditionalStringValue_2): string;
+    static getStringSpec(explicitValue: string | StringGetter | ConditionalStringValue_2 | undefined, stringKey?: string): string | StringGetter | ConditionalStringValue_2;
     static isShallowEqual(newObj: any, prevObj: any): boolean;
 }
 
@@ -4205,7 +4271,7 @@ export class SolarTimelineDataProvider extends BaseSolarDataProvider {
 // @public
 export function SplitPane(props: SplitPaneProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface SplitPaneProps {
     allowResize?: boolean;
     children: React_2.ReactNode[];
@@ -4381,6 +4447,28 @@ export enum StageUsage {
 }
 
 // @public
+export class StandardContentLayouts {
+    // (undocumented)
+    static readonly availableLayouts: ContentLayoutProps[];
+    // (undocumented)
+    static readonly fourQuadrants: ContentLayoutProps;
+    // (undocumented)
+    static readonly singleView: ContentLayoutProps;
+    // (undocumented)
+    static readonly threeViewsTwoOnBottom: ContentLayoutProps;
+    // (undocumented)
+    static readonly threeViewsTwoOnLeft: ContentLayoutProps;
+    // (undocumented)
+    static readonly threeViewsTwoOnRight: ContentLayoutProps;
+    // (undocumented)
+    static readonly threeViewsTwoOnTop: ContentLayoutProps;
+    // (undocumented)
+    static readonly twoHorizontalSplit: ContentLayoutProps;
+    // (undocumented)
+    static readonly twoVerticalSplit: ContentLayoutProps;
+}
+
+// @public @deprecated
 export class StandardContentToolsProvider extends BaseUiItemsProvider {
     constructor(providerId: string, defaultContentTools?: DefaultContentTools | undefined, isSupportedStage?: (stageId: string, stageUsage: string, stageAppData?: any) => boolean);
     // (undocumented)
@@ -4390,14 +4478,18 @@ export class StandardContentToolsProvider extends BaseUiItemsProvider {
     static register(providerId: string, defaultContentTools?: DefaultContentTools, isSupportedStage?: (stageId: string, stageUsage: string, stageAppData?: any) => boolean): StandardContentToolsProvider;
 }
 
-// @beta (undocumented)
+// @public
 export class StandardContentToolsUiItemsProvider implements UiItemsProvider {
     constructor(defaultContextTools?: DefaultContentTools | undefined);
     // (undocumented)
+    getStatusBarItems(): readonly StatusBarItem[];
+    // (undocumented)
+    getToolbarItems(): readonly ToolbarItem[];
+    // (undocumented)
     get id(): string;
-    // (undocumented)
+    // @deprecated (undocumented)
     provideStatusBarItems(_stageId: string, _stageUsage: string, _stageAppData?: any): StatusBarItem[];
-    // (undocumented)
+    // @deprecated (undocumented)
     provideToolbarItems(_stageId: string, _stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation, stageAppData?: any): ToolbarItem[];
 }
 
@@ -4452,7 +4544,7 @@ export interface StandardMessageBoxProps extends CommonProps {
     title: string;
 }
 
-// @public
+// @public @deprecated
 export class StandardNavigationToolsProvider extends BaseUiItemsProvider {
     constructor(providerId: string, defaultNavigationTools?: DefaultNavigationTools | undefined, isSupportedStage?: (stageId: string, stageUsage: string, stageAppData?: any) => boolean);
     // (undocumented)
@@ -4464,8 +4556,10 @@ export class StandardNavigationToolsProvider extends BaseUiItemsProvider {
 export class StandardNavigationToolsUiItemsProvider implements UiItemsProvider {
     constructor(defaultNavigationTools?: DefaultNavigationTools | undefined);
     // (undocumented)
-    get id(): string;
+    getToolbarItems(): readonly ToolbarItem[];
     // (undocumented)
+    get id(): string;
+    // @deprecated (undocumented)
     provideToolbarItems(_stageId: string, _stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation, _stageAppData?: any): ToolbarItem[];
 }
 
@@ -4486,7 +4580,7 @@ export class StandardRotationNavigationAidControl extends NavigationAidControl {
     static navigationAidId: string;
 }
 
-// @public
+// @public @deprecated
 export class StandardStatusbarItemsProvider extends BaseUiItemsProvider {
     constructor(providerId: string, _defaultItems?: DefaultStatusbarItems | undefined, isSupportedStage?: (stageId: string, stageUsage: string, stageAppData?: any) => boolean);
     // (undocumented)
@@ -4494,12 +4588,14 @@ export class StandardStatusbarItemsProvider extends BaseUiItemsProvider {
     static register(providerId: string, defaultItems?: DefaultStatusbarItems, isSupportedStage?: (stageId: string, stageUsage: string, stageAppData?: any) => boolean): StandardStatusbarItemsProvider;
 }
 
-// @beta
+// @public
 export class StandardStatusbarUiItemsProvider implements UiItemsProvider {
     constructor(_defaultItems?: DefaultStatusbarItems | undefined);
     // (undocumented)
-    get id(): string;
+    getStatusBarItems(): readonly StatusBarItem[];
     // (undocumented)
+    get id(): string;
+    // @deprecated (undocumented)
     provideStatusBarItems(_stageId: string, _stageUsage: string, _stageAppData?: any): StatusBarItem[];
 }
 
@@ -4536,8 +4632,8 @@ export interface StatusBarActionItem extends CommonStatusBarItem {
     // @deprecated
     readonly icon?: IconSpec;
     readonly iconNode?: React_2.ReactNode;
-    readonly label?: string | ConditionalStringValue;
-    readonly tooltip?: string | ConditionalStringValue;
+    readonly label?: string | ConditionalStringValue_2;
+    readonly tooltip?: string | ConditionalStringValue_2;
 }
 
 // @public
@@ -4546,7 +4642,7 @@ export function StatusBarCenterSection(props: CommonDivProps): React_2.JSX.Eleme
 // @public
 export function StatusBarComposer(props: StatusBarComposerProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface StatusBarComposerProps extends CommonProps {
     centerClassName?: string;
     items: StatusBarItem[];
@@ -4634,7 +4730,7 @@ export namespace StatusBarItemUtilities {
     section: StatusBarSection,
     itemPriority: number,
     icon: IconSpec,
-    tooltip: string | ConditionalStringValue,
+    tooltip: string | ConditionalStringValue_2,
     execute: () => void,
     overrides?: Partial<StatusBarActionItem>
     ];
@@ -4652,7 +4748,7 @@ export namespace StatusBarItemUtilities {
     section: StatusBarSection,
     itemPriority: number,
     icon: IconSpec,
-    label: string | ConditionalStringValue,
+    label: string | ConditionalStringValue_2,
     labelSide?: StatusBarLabelSide,
     overrides?: Partial<StatusBarLabelItem>
     ];
@@ -4674,7 +4770,7 @@ export interface StatusBarLabelItem extends CommonStatusBarItem {
     // @deprecated
     readonly icon?: IconSpec;
     readonly iconNode?: React_2.ReactNode;
-    readonly label: string | ConditionalStringValue;
+    readonly label: string | ConditionalStringValue_2;
     readonly labelSide?: StatusBarLabelSide;
 }
 
@@ -4879,7 +4975,7 @@ export interface ToolbarActionItem extends CommonToolbarItem {
     readonly execute: () => void;
     // @deprecated
     readonly icon: IconSpec;
-    readonly label: string | ConditionalStringValue;
+    readonly label: string | ConditionalStringValue_2;
     readonly parentGroupItemId?: string;
 }
 
@@ -4900,7 +4996,7 @@ export function ToolbarComposer(props: ExtensibleToolbarProps): React_2.JSX.Elem
 export interface ToolbarCustomItem extends CommonToolbarItem {
     // @deprecated
     readonly icon?: IconSpec;
-    readonly label?: string | ConditionalStringValue;
+    readonly label?: string | ConditionalStringValue_2;
     readonly panelContent?: React.ReactNode;
 }
 
@@ -4912,8 +5008,8 @@ export interface ToolbarGroupItem extends CommonToolbarItem {
     // @deprecated
     readonly icon: IconSpec;
     readonly items: ReadonlyArray<ToolbarActionItem | ToolbarGroupItem>;
-    readonly label: string | ConditionalStringValue;
-    readonly panelLabel?: string | ConditionalStringValue;
+    readonly label: string | ConditionalStringValue_2;
+    readonly panelLabel?: string | ConditionalStringValue_2;
     readonly parentGroupItemId?: string;
 }
 
@@ -5180,7 +5276,7 @@ export class ToolUiProvider extends ConfigurableUiControl {
 // @public
 export function ToolWidgetComposer(props: ToolWidgetComposerProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface ToolWidgetComposerProps extends CommonProps {
     cornerItem?: React_2.ReactNode;
     horizontalToolbar?: React_2.ReactNode;
@@ -5263,7 +5359,7 @@ export class UiFramework {
     static getDefaultViewState(): ViewState | undefined;
     // (undocumented)
     static getIModelConnection(): IModelConnection | undefined;
-    // (undocumented)
+    // @deprecated (undocumented)
     static getIsUiVisible(): boolean;
     // (undocumented)
     static getNumItemsSelected(): number;
@@ -5296,6 +5392,7 @@ export class UiFramework {
     static get localizationNamespace(): string;
     // @internal (undocumented)
     static loggerCategory(obj: any): string;
+    static readonly onIModelConnectionChanged: BeUiEvent<IModelConnection | undefined>;
     static readonly onUiVisibilityChanged: UiVisibilityChangedEvent;
     static openContextMenu(items: CursorMenuItemProps[], location: XAndY, anchorElement?: HTMLElement): boolean;
     // (undocumented)
@@ -5331,7 +5428,7 @@ export class UiFramework {
     static setHideIsolateEmphasizeActionHandler(handler: HideIsolateEmphasizeActionHandler | undefined): void;
     // (undocumented)
     static setIModelConnection(iModelConnection: IModelConnection | undefined, immediateSync?: boolean): void;
-    // (undocumented)
+    // @deprecated (undocumented)
     static setIsUiVisible(visible: boolean): void;
     // (undocumented)
     static setNumItemsSelected(numSelected: number): void;
@@ -5430,7 +5527,7 @@ export interface UiItemsProviderRegisteredEventArgs {
 // @beta @deprecated
 export function UiSettingsPage(): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface UiSettingsProviderProps {
     // (undocumented)
     children?: React_2.ReactNode;
@@ -5514,13 +5611,16 @@ export function useAvailableUiItemsProviders(): readonly string[];
 // @public
 export const useBackstageManager: () => FrameworkBackstage;
 
-// @alpha
+// @public
 export function useConditionalValue<T>(getValue: () => T, eventIds: string[]): T;
+
+// @internal
+export const useContentOverlayStore: UseBoundStore<StoreApi<number>>;
 
 // @internal
 export const useDefaultBackstageItems: (manager: BackstageItemsManager) => readonly BackstageItem[];
 
-// @public
+// @public @deprecated
 export const useDefaultStatusBarItems: (manager: StatusBarItemsManager) => readonly StatusBarItem[];
 
 // @public @deprecated
@@ -5597,10 +5697,10 @@ export function useToolSettingsNode(): string | number | boolean | React_2.React
 // @public
 export function useTransientState(onSave?: () => void, onRestore?: () => void): void;
 
-// @public
+// @public @deprecated
 export const useUiItemsProviderBackstageItems: (manager: BackstageItemsManager) => readonly BackstageItem[];
 
-// @public
+// @public @deprecated
 export const useUiItemsProviderStatusBarItems: (manager: StatusBarItemsManager) => readonly StatusBarItem[];
 
 // @public @deprecated
@@ -5770,7 +5870,7 @@ export interface ViewStateHelperProps extends ViewStateProps {
 // @public
 export function ViewToolWidgetComposer(props: ViewToolWidgetComposerProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface ViewToolWidgetComposerProps {
     hideNavigationAid?: boolean;
     navigationAid?: React_2.ReactNode;
@@ -5807,12 +5907,12 @@ export interface Widget {
     // (undocumented)
     readonly id: string;
     // (undocumented)
-    readonly label?: string | ConditionalStringValue;
+    readonly label?: string | ConditionalStringValue_2;
     readonly layouts?: WidgetLayouts;
     // (undocumented)
     readonly priority?: number;
     // (undocumented)
-    readonly tooltip?: string | ConditionalStringValue;
+    readonly tooltip?: string | ConditionalStringValue_2;
 }
 
 // @public
@@ -5920,8 +6020,8 @@ export class WidgetDef {
     setCanPopout(value: boolean | undefined): void;
     // (undocumented)
     setFloatingContainerId(value: string | undefined): void;
-    setLabel(labelSpec: string | ConditionalStringValue | StringGetter): void;
-    setTooltip(v: string | ConditionalStringValue | StringGetter): void;
+    setLabel(labelSpec: string | ConditionalStringValue_2 | StringGetter): void;
+    setTooltip(v: string | ConditionalStringValue_2 | StringGetter): void;
     // (undocumented)
     setWidgetState(newState: WidgetState): void;
     show(): void;

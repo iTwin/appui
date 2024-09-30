@@ -25,6 +25,7 @@ import {
 } from "@itwin/itwinui-icons-react";
 import { withResizer } from "../../.storybook/addons/Resizer";
 import { StatusBarComposerStory } from "./StatusBarComposer";
+import { SnapMode } from "@itwin/core-frontend";
 
 const PageLayout: Decorator = (Story) => {
   return (
@@ -79,7 +80,7 @@ export const LabelItem: Story = {
 
 export const CustomItem: Story = {
   args: {
-    items: [items.custom1, items.custom2, items.custom3],
+    items: [items.custom1, items.custom2, items.custom4],
   },
 };
 
@@ -194,6 +195,18 @@ function createItems() {
     <SnapModeField />
   );
 
+  const availableSnapModes = [
+    SnapMode.NearestKeypoint,
+    SnapMode.Center,
+    SnapMode.Nearest,
+  ];
+  const custom4 = StatusBarItemUtilities.createCustomItem(
+    "item10",
+    StatusBarSection.Right,
+    10,
+    <SnapModeField availableSnapModes={availableSnapModes} />
+  );
+
   return {
     action1,
     action2,
@@ -204,6 +217,7 @@ function createItems() {
     custom1,
     custom2,
     custom3,
+    custom4,
   };
 }
 

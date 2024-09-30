@@ -10,6 +10,7 @@ import {
 } from "@originjs/vite-plugin-commonjs";
 import react from "@vitejs/plugin-react";
 import { viteStaticCopy } from "vite-plugin-static-copy";
+import tsconfigPaths from "vite-tsconfig-paths";
 
 // Fixes: ReferenceError: require is not defined
 function fixedViteCommonjs(options: Options) {
@@ -45,6 +46,7 @@ export default defineConfig({
         })),
       ],
     }),
+    tsconfigPaths(),
   ],
   resolve: {
     alias: [

@@ -2,21 +2,22 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { StandardContentLayouts } from "@itwin/appui-abstract";
 import {
+  ContentProps,
   Frontstage,
   FrontstageUtilities,
   StagePanelLocation,
   StagePanelSection,
   StageUsage,
+  StandardContentLayouts,
   StandardFrontstageProps,
   Widget,
 } from "@itwin/appui-react";
-import { createContentControl } from "./createContentControl";
 
 export function createFrontstage(
   overrides?: Partial<StandardFrontstageProps> & {
     content?: React.ReactNode;
+    contentProps?: Partial<ContentProps>;
     contentManipulation?: Frontstage["contentManipulation"];
   }
 ): Frontstage {
@@ -30,20 +31,20 @@ export function createFrontstage(
       contents: [
         {
           id: "Content",
-          classId: createContentControl(
-            overrides?.content ?? (
-              <h1
-                style={{
-                  display: "flex",
-                  height: "100%",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                Content
-              </h1>
-            )
+          classId: "",
+          content: overrides?.content ?? (
+            <h1
+              style={{
+                display: "flex",
+                height: "100%",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              Content
+            </h1>
           ),
+          ...overrides?.contentProps,
         },
       ],
     },

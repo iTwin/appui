@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Update `MessageManager.addMessage` to ignore messages that are already active.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}

@@ -9,8 +9,10 @@
 import * as React from "react";
 import type { StatusBarItem } from "./StatusBarItem";
 import type { StatusBarItemsManager } from "./StatusBarItemsManager";
+import type { StatusBarComposer } from "./StatusBarComposer";
 
 /** Hook that returns items from [[StatusBarItemsManager]].
+ * @deprecated in 4.17.0. Uses an internal `StatusBarItemsManager` API. Use {@link StatusBarComposer} instead.
  * @public
  */
 export const useDefaultStatusBarItems = (

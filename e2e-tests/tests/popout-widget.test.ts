@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { test, expect, Locator } from "@playwright/test";
+import { test, Locator, expect } from "@playwright/test";
 import assert from "assert";
 import {
   WidgetState,
@@ -13,14 +13,14 @@ import {
   popoutButtonLocator,
   setWidgetState,
   tabLocator,
-  trackWidgetLifecycle,
+  trackConsole,
   widgetLocator,
 } from "./Utils";
 
 test.describe("popout widget", () => {
   test.beforeEach(async ({ page, baseURL }) => {
     assert(baseURL);
-    await page.goto(`${baseURL}?frontstage=appui-test-providers:WidgetApi`);
+    await page.goto(`${baseURL}/blank?frontstageId=widget-api`);
   });
 
   test("should popout a widget", async ({ page }) => {
@@ -59,10 +59,10 @@ test.describe("popout widget", () => {
     const popoutPage = await popoutWidget(widget);
     await expect.poll(async () => popoutPage.isClosed()).toBe(false);
 
-    await openFrontstage(page, "appui-test-app:main-stage");
+    await openFrontstage(page, "main");
     await expect.poll(async () => popoutPage.isClosed()).toBe(true);
 
-    await openFrontstage(page, "appui-test-providers:WidgetApi");
+    await openFrontstage(page, "widget-api");
     await expect.poll(async () => popoutPage.isClosed()).toBe(true);
 
     const floatingWidget = floatingWidgetLocator({ tab });
@@ -79,10 +79,10 @@ test.describe("popout widget", () => {
     const popoutPage = await popoutWidget(widget);
     await expect.poll(async () => popoutPage.isClosed()).toBe(false);
 
-    await openFrontstage(page, "appui-test-app:main-stage");
+    await openFrontstage(page, "main");
     await expect.poll(async () => popoutPage.isClosed()).toBe(true);
 
-    await openFrontstage(page, "appui-test-providers:WidgetApi");
+    await openFrontstage(page, "widget-api");
     await expect.poll(async () => popoutPage.isClosed()).toBe(true);
 
     const locator = panelSectionLocator(page, "top", 1, { has: tab });
@@ -180,20 +180,21 @@ test.describe("popout widget", () => {
       id,
     });
     await expect(widget).toBeVisible();
-    const widgetLifecycle = trackWidgetLifecycle(page, id);
+    const logs = trackConsole(page);
     const popoutPage = await popoutWidget(widget);
-    await expect.poll(async () => popoutPage.isClosed()).toBe(false);
+    const text = popoutPage.getByText(id);
+    await expect(text).toBeVisible();
 
     await popoutPage.close();
 
-    await expect.poll(async () => widgetLifecycle.mountCount).toBe(1);
-    await expect.poll(async () => widgetLifecycle.unMountCount).toBe(1);
+    await expect.poll(() => logs).toContain(`Widget ${id} mount`);
+    await expect.poll(() => logs).toContain(`Widget ${id} unmount`);
   });
 });
 
 test("should copy styles", async ({ baseURL, page }) => {
   assert(baseURL);
-  await page.goto(`${baseURL}?frontstage=appui-test-app:TestPopout`);
+  await page.goto(`${baseURL}/blank?frontstageId=test-popout`);
 
   const tab = tabLocator(page, "Widget 1");
   const widget = widgetLocator({ tab });
@@ -206,7 +207,7 @@ test("should copy styles", async ({ baseURL, page }) => {
 test("should copy shadow root styles", async ({ baseURL, page }) => {
   assert(baseURL);
   await page.goto(
-    `${baseURL}?frontstage=appui-test-app:TestPopout&reparentPopoutWidgets=1`
+    `${baseURL}/blank?frontstageId=test-popout&reparentPopoutWidgets=1`
   );
 
   const tab = tabLocator(page, "Widget 1");
@@ -215,6 +216,38 @@ test("should copy shadow root styles", async ({ baseURL, page }) => {
   const popoutPage = await popoutWidget(widget);
   const borders = popoutPage.locator("#progress-radial");
   await expect(borders).toHaveScreenshot();
+});
+
+test("should render after link styles are loaded", async ({
+  context,
+  page,
+}) => {
+  context.route("**", (route) => route.continue());
+  await page.goto(`/blank?frontstageId=test-popout`);
+
+  const tab = tabLocator(page, "Widget 1");
+  const widget = widgetLocator({ tab });
+  await expect(widget).toBeVisible();
+
+  const logs = trackConsole<{
+    clientWidth: number;
+    clientHeight: number;
+  }>(page, async (msg) => {
+    if (msg.text().includes("LinkTest")) {
+      const val = await msg.args()[1].jsonValue();
+      return val;
+    }
+  });
+
+  await popoutWidget(widget);
+
+  await expect.poll(() => logs[0]).toBeTruthy();
+  expect(logs[0]).toEqual(
+    expect.objectContaining({
+      clientWidth: 10,
+      clientHeight: 15,
+    })
+  );
 });
 
 async function popoutWidget(widget: Locator) {

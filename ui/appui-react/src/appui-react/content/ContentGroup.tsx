@@ -8,7 +8,6 @@
 
 import type * as React from "react";
 import type { ScreenViewport } from "@itwin/core-frontend";
-import type { ContentLayoutProps } from "@itwin/appui-abstract";
 import { UiError } from "@itwin/appui-abstract";
 import type { ConfigurableUiControlConstructor } from "../configurableui/ConfigurableUiControl";
 import {
@@ -19,6 +18,8 @@ import { UiFramework } from "../UiFramework";
 import type { ContentControl } from "./ContentControl";
 import { InternalConfigurableUiManager } from "../configurableui/InternalConfigurableUiManager";
 import type { Frontstage } from "../frontstage/Frontstage";
+import type { ContentLayoutProps } from "./ContentLayoutProps";
+import type { ConditionalValue } from "../shared/ConditionalValue";
 
 /** Properties for content displayed in a content view
  * @public
@@ -35,10 +36,13 @@ export interface ContentProps {
    * @deprecated in 4.16.0. Use {@link ContentProps.content} instead.
    */
   applicationData?: any;
-  /** Content to be displayed in the content view.
-   * @beta
-   */
+  /** Content to be displayed in the content view. */
   content?: React.ReactNode;
+  /** Describes if the content should display the active strip.
+   * If `undefined` the strip will be displayed only if this content is active and multiple contents are available.
+   * Floating content controls (deprecated API) and `ContentOverlay` components are considered as content nodes.
+   */
+  renderActiveStrip?: boolean | ConditionalValue<boolean | undefined>;
 }
 
 /** Properties for a [[ContentGroup]]
@@ -174,7 +178,7 @@ export class ContentGroup {
             `toJSON: ContentControl at index ${index} is NOT registered with a string id`
           );
 
-        if (contentCallback) contentCallback(content);
+        if (typeof contentCallback === "function") contentCallback(content);
       }
     });
 

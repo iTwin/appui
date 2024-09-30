@@ -64,6 +64,7 @@ function createNavigationAidControl(
 
 /** Properties for the [[NavigationAidHost]] React component
  * @public
+ * @deprecated in 4.17.0. Use `React.ComponentProps<typeof NavigationAidHost>`
  */
 export interface NavigationAidHostProps {
   /** Navigation Aid Host minimum width. Defaults to "64px". */
@@ -77,6 +78,7 @@ export interface NavigationAidHostProps {
  * If an active content is defined without a content control (`classId` is set to an empty string) renders a default navigation aid based on an active viewport view state.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export function NavigationAidHost(props: NavigationAidHostProps) {
   const [activeContentControl, setActiveContentControl] = React.useState(() =>
     // eslint-disable-next-line deprecation/deprecation
@@ -173,7 +175,9 @@ export function NavigationAidHost(props: NavigationAidHostProps) {
     divStyle.opacity = `${navigationAidOpacity}`;
   }
 
-  const navigationAid = navigationAidControl?.reactNode ?? (
+  const navigationAid = activeContentControl ? (
+    navigationAidControl?.reactNode
+  ) : (
     <DefaultNavigationAid />
   );
   return (
@@ -213,6 +217,7 @@ function DefaultNavigationAid() {
 
 /** Properties for the [[NavigationWidgetComposer]] React components
  * @public
+ * @deprecated in 4.17.0. Use `React.ComponentProps<typeof NavigationWidgetComposer>`
  */
 // eslint-disable-next-line deprecation/deprecation
 export interface NavigationWidgetComposerProps extends CommonProps {
@@ -231,6 +236,7 @@ export interface NavigationWidgetComposerProps extends CommonProps {
  * and typically holds tools to visually navigate, orient, and zoom to specific content.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export function NavigationWidgetComposer(props: NavigationWidgetComposerProps) {
   const {
     navigationAidHost,
@@ -253,8 +259,7 @@ export function NavigationWidgetComposer(props: NavigationWidgetComposerProps) {
 
   const navigationAid = hideNavigationAid
     ? undefined
-    : // eslint-disable-next-line deprecation/deprecation
-      navigationAidHost ?? <NavigationAidHost />;
+    : navigationAidHost ?? <NavigationAidHost />;
 
   return (
     <WidgetOpacityContext.Provider

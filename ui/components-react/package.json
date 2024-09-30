@@ -1,10 +1,23 @@
 {
   "name": "@itwin/components-react",
-  "version": "4.17.0-dev.0",
-  "description": "A react component library for iTwin.js UI data-oriented components",
+  "version": "5.0.0-dev.0",
+  "description": "A react component library of iTwin.js UI data-oriented components",
+  "type": "module",
   "main": "lib/cjs/components-react.js",
   "module": "lib/esm/components-react.js",
-  "typings": "lib/cjs/components-react",
+  "types": "lib/cjs/components-react",
+  "exports": {
+    ".": {
+      "import": "./lib/esm/components-react.js",
+      "require": "./lib/cjs/components-react.js"
+    },
+    "./*": {
+      "sass": "./*.scss"
+    },
+    "./cjs": "./lib/cjs/components-react.js",
+    "./esm": "./lib/esm/components-react.js",
+    "./package.json": "./package.json"
+  },
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -14,8 +27,9 @@
   "scripts": {
     "start": "run-p -l \"build:** -- -w\" \"copy:** -- -w\"",
     "build": "npm run -s copy:locale && npm run -s build:cjs && npm run -s build:esm",
-    "build:cjs": "npm run -s copy:cjs && tsc 1>&2 --outDir lib/cjs",
+    "build:cjs": "npm run -s copy:cjs && npm run -s package:cjs && tsc 1>&2 --outDir lib/cjs",
     "build:esm": "npm run -s copy:esm && tsc 1>&2 --module ES2020 --outDir lib/esm",
+    "package:cjs": "node ../../common/scripts/package-cjs.mjs ./lib/cjs",
     "copy:cjs": "cpx \"./src/**/*.*css\" ./lib/cjs",
     "copy:esm": "cpx \"./src/**/*.*css\" ./lib/esm",
     "copy:locale": "cpx ./src/components-react/UiComponents.json ./lib/public/locales/en",
@@ -41,25 +55,25 @@
     "url": "http://www.bentley.com"
   },
   "peerDependencies": {
-    "@itwin/appui-abstract": "^3.7.0 || ^4.0.0",
-    "@itwin/core-bentley": "^3.7.0 || ^4.0.0",
-    "@itwin/core-react": "workspace:^4.17.0-dev.0",
-    "react": "^17.0.0 || ^18.0.0",
-    "react-dom": "^17.0.0 || ^18.0.0"
+    "@itwin/appui-abstract": "^4.0.0",
+    "@itwin/core-bentley": "^4.0.0",
+    "@itwin/core-react": "workspace:^5.0.0-dev.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
   },
   "//devDependencies": [
     "NOTE: All peerDependencies should also be listed as devDependencies since peerDependencies are not considered by npm install",
     "NOTE: All tools used by scripts in this package must be listed as devDependencies"
   ],
   "devDependencies": {
-    "@itwin/appui-abstract": "^3.7.0 || ^4.0.0",
-    "@itwin/build-tools": "^3.7.0 || ^4.6.0-dev.27",
-    "@itwin/core-bentley": "^3.7.0 || ^4.0.0",
-    "@itwin/core-common": "^3.7.0 || ^4.0.0",
-    "@itwin/core-geometry": "^3.7.0 || ^4.0.0",
-    "@itwin/core-i18n": "^3.7.0 || ^4.0.0",
+    "@itwin/appui-abstract": "^4.0.0",
+    "@itwin/build-tools": "^4.9.0",
+    "@itwin/core-bentley": "^4.0.0",
+    "@itwin/core-common": "^4.0.0",
+    "@itwin/core-geometry": "^4.0.0",
+    "@itwin/core-i18n": "^4.0.0",
     "@itwin/core-react": "workspace:*",
-    "@itwin/eslint-plugin": "^4.0.0-dev.52",
+    "@itwin/eslint-plugin": "^4.1.1",
     "@testing-library/dom": "^10.1.0",
     "@testing-library/react": "^15.0.7",
     "@testing-library/user-event": "^14.5.2",
@@ -72,7 +86,7 @@
     "@types/react-window": "^1.8.2",
     "@vitest/coverage-v8": "^1.4.0",
     "cpx2": "^3.0.0",
-    "eslint": "^8.44.0",
+    "eslint": "^8.57.1",
     "eslint-config-prettier": "~8.8.0",
     "faker": "^4.1.0",
     "ignore-styles": "^5.0.1",

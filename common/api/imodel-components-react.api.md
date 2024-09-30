@@ -485,7 +485,7 @@ export interface FaceCellProps extends React_2.AllHTMLAttributes<HTMLDivElement>
 // @alpha
 export function FormatPanel(props: FormatPanelProps): React_2.JSX.Element;
 
-// @alpha
+// @alpha @deprecated
 export interface FormatPanelProps extends CommonProps {
     // (undocumented)
     enableMinimumProperties?: boolean;
@@ -512,7 +512,7 @@ export interface FormatPanelProps extends CommonProps {
 // @alpha
 export function FormatPrecision(props: FormatPrecisionProps): React_2.JSX.Element;
 
-// @alpha
+// @alpha @deprecated
 export interface FormatPrecisionProps extends CommonProps {
     // (undocumented)
     formatProps: FormatProps;
@@ -523,7 +523,7 @@ export interface FormatPrecisionProps extends CommonProps {
 // @alpha
 export function FormatSample(props: FormatSampleProps): React_2.JSX.Element;
 
-// @alpha
+// @alpha @deprecated
 export interface FormatSampleProps extends CommonProps {
     // (undocumented)
     formatSpec?: FormatterSpec;
@@ -536,7 +536,7 @@ export interface FormatSampleProps extends CommonProps {
 // @alpha
 export function FormatTypeOption(props: FormatTypeOptionProps): React_2.JSX.Element;
 
-// @alpha
+// @alpha @deprecated
 export interface FormatTypeOptionProps extends CommonProps {
     // (undocumented)
     formatProps: FormatProps;
@@ -547,7 +547,7 @@ export interface FormatTypeOptionProps extends CommonProps {
 // @alpha
 export function FormatUnitLabel(props: FormatUnitLabelProps): React_2.JSX.Element;
 
-// @alpha
+// @alpha @deprecated
 export interface FormatUnitLabelProps extends CommonProps {
     // (undocumented)
     formatProps: FormatProps;
@@ -558,7 +558,7 @@ export interface FormatUnitLabelProps extends CommonProps {
 // @alpha
 export function FormatUnits(props: FormatUnitsProps): React_2.JSX.Element;
 
-// @alpha
+// @alpha @deprecated
 export interface FormatUnitsProps extends CommonProps {
     // (undocumented)
     initialFormat: FormatProps;
@@ -625,7 +625,7 @@ export enum MapMode {
 // @alpha
 export function MiscFormatOptions(props: MiscFormatOptionsProps): React_2.JSX.Element;
 
-// @alpha
+// @alpha @deprecated
 export interface MiscFormatOptionsProps extends CommonProps {
     // (undocumented)
     children?: React_2.ReactNode;
@@ -682,7 +682,7 @@ export type PlaybackSettingsChangeHandler = (settingsChange: PlaybackSettings) =
 // @alpha
 export function QuantityFormatPanel(props: QuantityFormatPanelProps): React_2.JSX.Element;
 
-// @alpha
+// @alpha @deprecated
 export interface QuantityFormatPanelProps extends CommonProps {
     // (undocumented)
     enableMinimumProperties?: boolean;

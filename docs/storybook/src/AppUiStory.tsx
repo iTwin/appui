@@ -32,7 +32,7 @@ import {
 import { IModelApp } from "@itwin/core-frontend";
 import { FrontendIModelsAccess } from "@itwin/imodels-access-frontend";
 import { IModelsClient } from "@itwin/imodels-client-authoring";
-import { ProgressLinear } from "@itwin/itwinui-react";
+import { ProgressLinear, ThemeProvider } from "@itwin/itwinui-react";
 import { createFrontstage } from "./Utils";
 import { DemoIModel, useDemoIModel } from "../.storybook/addons/DemoIModel";
 import { openDemoIModel } from "./openDemoIModel";
@@ -124,8 +124,7 @@ export function AppUiStory(props: AppUiStoryProps) {
       cleanup();
     };
   }, [props, demoIModel]);
-  if (!initialized)
-    return <ProgressLinear indeterminate labels={["Getting things ready!"]} />;
+  if (!initialized) return <Initializer />;
   return <Initialized {...props} />;
 }
 
@@ -165,6 +164,14 @@ function Initialized(props: AppUiStoryProps) {
         </ThemeManager>
       </Provider>
     </>
+  );
+}
+
+function Initializer() {
+  return (
+    <ThemeProvider>
+      <ProgressLinear indeterminate labels={["Getting things ready!"]} />
+    </ThemeProvider>
   );
 }
 

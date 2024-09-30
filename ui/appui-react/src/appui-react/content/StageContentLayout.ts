@@ -15,7 +15,7 @@ import type {
 import type { ContentLayoutDef } from "./ContentLayout";
 import type { ViewStateHelperProps } from "./ViewStateHelper";
 import { ViewStateHelper } from "./ViewStateHelper";
-import type { ContentLayoutProps } from "@itwin/appui-abstract";
+import type { ContentLayoutProps } from "./ContentLayoutProps";
 
 /** StageContentLayoutProps interface for sharing view layout information.
  * @public
