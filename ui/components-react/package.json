@@ -111,7 +111,7 @@
     "@itwin/itwinui-variables": "^3.0.0",
     "@itwin/itwinui-icons-react": "^2.8.0",
     "@itwin/itwinui-react": "^3.11.2",
-    "classnames": "2.3.1",
+    "classnames": "2.5.1",
     "immer": "9.0.6",
     "linkify-it": "~2.2.0",
     "lodash": "^4.17.10",

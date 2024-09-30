@@ -136,8 +136,8 @@ importers:
         specifier: ~1.46.8
         version: 1.46.8(react-dom@18.3.1)(react@18.3.1)
       classnames:
-        specifier: 2.3.1
-        version: 2.3.1
+        specifier: 2.5.1
+        version: 2.5.1
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -287,8 +287,8 @@ importers:
         specifier: ^1.5.0
         version: 1.9.7(react-redux@7.2.9)(react@18.3.1)
       classnames:
-        specifier: 2.3.1
-        version: 2.3.1
+        specifier: 2.5.1
+        version: 2.5.1
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -572,8 +572,8 @@ importers:
         specifier: ^3.0.0
         version: 3.1.0
       classnames:
-        specifier: 2.3.1
-        version: 2.3.1
+        specifier: 2.5.1
+        version: 2.5.1
       immer:
         specifier: 9.0.6
         version: 9.0.6
@@ -747,8 +747,8 @@ importers:
         specifier: ^3.0.0
         version: 3.1.0
       classnames:
-        specifier: 2.3.1
-        version: 2.3.1
+        specifier: 2.5.1
+        version: 2.5.1
       immer:
         specifier: 9.0.6
         version: 9.0.6
@@ -889,8 +889,8 @@ importers:
         specifier: ^3.0.0
         version: 3.1.0
       classnames:
-        specifier: 2.3.1
-        version: 2.3.1
+        specifier: 2.5.1
+        version: 2.5.1
       dompurify:
         specifier: ^2.5.6
         version: 2.5.6
@@ -1013,8 +1013,8 @@ importers:
         specifier: ^3.0.0
         version: 3.1.0
       classnames:
-        specifier: 2.3.1
-        version: 2.3.1
+        specifier: 2.5.1
+        version: 2.5.1
       ts-key-enum:
         specifier: ~2.0.12
         version: 2.0.12
@@ -3264,7 +3264,7 @@ packages:
     dependencies:
       '@itwin/itwinui-icons-react': 2.8.0(react-dom@18.3.1)(react@18.3.1)
       '@itwin/itwinui-react': 2.12.20(react-dom@18.3.1)(react@18.3.1)
-      classnames: 2.3.1
+      classnames: 2.5.1
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       react-intersection-observer: 8.34.0(react@18.3.1)
@@ -3354,7 +3354,7 @@ packages:
       react-dom: '>=16.8.6'
     dependencies:
       '@itwin/itwinui-layouts-css': 0.4.0
-      classnames: 2.3.1
+      classnames: 2.5.1
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
     dev: false
@@ -3368,7 +3368,7 @@ packages:
       '@itwin/itwinui-illustrations-react': 2.1.0(react-dom@18.3.1)(react@18.3.1)
       '@tippyjs/react': 4.2.6(react-dom@18.3.1)(react@18.3.1)
       '@types/react-table': 7.7.19
-      classnames: 2.3.1
+      classnames: 2.5.1
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       react-table: 7.8.0(react@18.3.1)
@@ -6598,10 +6598,6 @@ packages:
   /cjs-module-lexer@1.2.3:
     resolution: {integrity: sha512-0TNiGstbQmCFwt4akjjBg5pLRTSyj/PkWQ1ZoO2zntmg9yLqSRxwEa4iCfQLGjqhiqBfOJa7W/E8wfGrTDmlZQ==}
     dev: true
-
-  /classnames@2.3.1:
-    resolution: {integrity: sha512-OlQdbZ7gLfGarSqxesMesDa5uz7KFbID8Kpq/SxIoNGDqY8lSYs0D+hhtBXhcdB3rcbXArFr7vlHheLk1voeNA==}
-    dev: false
 
   /classnames@2.5.1:
     resolution: {integrity: sha512-saHYOzhIQs6wy2sVxTM6bUDsQO4F50V9RQ22qBpEdCW+I+/Wmke2HOl6lS6dTpdxVhb88/I6+Hs+438c3lfUow==}
