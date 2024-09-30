@@ -22,22 +22,17 @@ To get started with the `@itwin/appui-react` package, simply import the necessar
 
 ```tsx
 import {
-  MessageCenterField,
-  StatusBarItemUtilities,
-  StatusBarSection,
+  BackstageComposer,
+  ConfigurableUiContent,
+  ThemeManager,
 } from "@itwin/appui-react";
 
-function createItem() {
-  const custom = StatusBarItemUtilities.createCustomItem(
-    "item1",
-    StatusBarSection.Left,
-    10,
-    <MessageCenterField />
+export function App() {
+  return (
+    <ThemeManager>
+      <ConfigurableUiContent appBackstage={<BackstageComposer />} />
+    </ThemeManager>
   );
-
-  return {
-    custom1,
-  };
 }
 ```
 

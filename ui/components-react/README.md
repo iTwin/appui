@@ -11,31 +11,15 @@ The **@itwin/components-react** package contains React components that are data-
 To get started with the `@itwin/components-react` package, simply import the necessary components and utilities:
 
 ```tsx
-import { PropertyDescription, StandardTypeNames } from "@itwin/appui-abstract";
-import {
-  PropertyFilterRuleGroupOperator,
-  PropertyFilter,
-} from "@itwin/components-react";
+import * as React from "react";
+import { Panel, Title } from "@itwin/components-react";
 
-function createProperties(): PropertyDescription {
-  return new PropertyDescription({
-    name: "string-prop",
-    displayLabel: "String Property",
-    typename: StandardTypeNames.String,
-  });
-}
-
-function createInitialFilter(): PropertyFilter {
-  const property = createProperty();
-  return {
-    operator: PropertyFilterRuleGroupOperator.Or,
-    rules: [
-      {
-        property: property,
-        operator: "like",
-      },
-    ],
-  };
+function getListPanel(): React.ReactNode {
+  return (
+    <Panel>
+      <Title>Panel title</Title>
+    </Panel>
+  );
 }
 ```
 

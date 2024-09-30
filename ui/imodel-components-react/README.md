@@ -11,13 +11,17 @@ The **@itwin/imodel-components-react** package contains React components that de
 To get started with the `@itwin/imodel-components-react` package, simply import the necessary components and utilities:
 
 ```tsx
-import { BaseSolarDataProvider } from "@itwin/imodel-components-react";
+import * as React from "react";
+import { TimelineComponent } from "@itwin/imodel-components-react";
 
-export const Basic: Story = {
-  args: {
-    dataProvider: new BaseSolarDataProvider(),
-  },
-};
+export function GetTimelineComponent() {
+  return (
+    <TimelineComponent
+      startDate={new Date(1, 1, 1)}
+      endDate={new Date(2, 2, 2)}
+    />
+  );
+}
 ```
 
 For more details, check out the [@itwin/imodel-components-react documentation](https://www.itwinjs.org/reference/imodel-components-react/).
