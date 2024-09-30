@@ -575,8 +575,8 @@ importers:
         specifier: 2.5.1
         version: 2.5.1
       immer:
-        specifier: 9.0.6
-        version: 9.0.6
+        specifier: ^10.1.1
+        version: 10.1.1
       lodash:
         specifier: ^4.17.10
         version: 4.17.21
@@ -594,7 +594,7 @@ importers:
         version: 2.0.12
       zustand:
         specifier: ^4.4.1
-        version: 4.5.0(@types/react@18.3.2)(immer@9.0.6)(react@18.3.1)
+        version: 4.5.0(@types/react@18.3.2)(immer@10.1.1)(react@18.3.1)
     devDependencies:
       '@itwin/appui-abstract':
         specifier: ^4.0.0
@@ -750,8 +750,8 @@ importers:
         specifier: 2.5.1
         version: 2.5.1
       immer:
-        specifier: 9.0.6
-        version: 9.0.6
+        specifier: ^10.1.1
+        version: 10.1.1
       linkify-it:
         specifier: ~2.2.0
         version: 2.2.0
@@ -8785,12 +8785,12 @@ packages:
     engines: {node: '>= 4'}
     dev: true
 
-  /immer@9.0.21:
-    resolution: {integrity: sha512-bc4NBHqOqSfRW7POMkHd51LvClaeMXpm8dx0e8oE2GORbq5aRK7Bxl4FyzVLdGtLmvLKL7BTDBG5ACQm4HWjTA==}
+  /immer@10.1.1:
+    resolution: {integrity: sha512-s2MPrmjovJcoMaHtx6K11Ra7oD05NT97w1IC5zpMkT6Atjr7H8LjaDd81iIxUYpMKSRRNMJE703M1Fhr/TctHw==}
     dev: false
 
-  /immer@9.0.6:
-    resolution: {integrity: sha512-G95ivKpy+EvVAnAab4fVa4YGYn24J1SpEktnJX7JJ45Bd7xqME/SCplFzYFmTbrkwZbQ4xJK1xMTUYBkN6pWsQ==}
+  /immer@9.0.21:
+    resolution: {integrity: sha512-bc4NBHqOqSfRW7POMkHd51LvClaeMXpm8dx0e8oE2GORbq5aRK7Bxl4FyzVLdGtLmvLKL7BTDBG5ACQm4HWjTA==}
     dev: false
 
   /immutable@4.3.5:
@@ -13570,7 +13570,7 @@ packages:
     resolution: {integrity: sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==}
     dev: true
 
-  /zustand@4.5.0(@types/react@18.3.2)(immer@9.0.6)(react@18.3.1):
+  /zustand@4.5.0(@types/react@18.3.2)(immer@10.1.1)(react@18.3.1):
     resolution: {integrity: sha512-zlVFqS5TQ21nwijjhJlx4f9iGrXSL0o/+Dpy4txAP22miJ8Ti6c1Ol1RLNN98BMib83lmDH/2KmLwaNXpjrO1A==}
     engines: {node: '>=12.7.0'}
     peerDependencies:
@@ -13586,7 +13586,7 @@ packages:
         optional: true
     dependencies:
       '@types/react': 18.3.2
-      immer: 9.0.6
+      immer: 10.1.1
       react: 18.3.1
       use-sync-external-store: 1.2.0(react@18.3.1)
     dev: false
