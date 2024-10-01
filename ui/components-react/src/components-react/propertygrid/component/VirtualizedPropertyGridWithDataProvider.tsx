@@ -42,7 +42,7 @@ export interface VirtualizedPropertyGridWithDataProviderProps
 
 /**
  * [[VirtualizedPropertyGrid]] React Component which takes a data provider and
- * sets up default implementations for [[IPropertyGridModelSource]] and [[IPropertyGridEventHandler]]
+ * sets up default implementations for `IPropertyGridModelSource` and `IPropertyGridEventHandler`
  * @public
  */
 export function VirtualizedPropertyGridWithDataProvider(
