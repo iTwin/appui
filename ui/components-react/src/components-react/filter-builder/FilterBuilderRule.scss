@@ -9,31 +9,12 @@
   --property-name-width: 25%;
   --condition-width: 10rem;
   --toolbar-width: 6.25rem;
-  border: 1px solid var(--iui-color-border);
   display: block;
   position: relative;
 
-  &:not(:last-child) {
-    //only show buttons on last row to prevent visual clutter
-    .fb-add-rule-button:first-child {
-      visibility: hidden;
-    }
-  }
-
-  &:not(:first-child) {
-    border-top: none;
-  }
-
-  > div {
-    background: var(--background-color);
-    align-items: stretch;
-    overflow: hidden;
-  }
-
   .fb-row-container {
-    padding-block: var(--iui-size-s);
-    padding-inline: var(--iui-size-m);
-    flex: 1;
+    align-items: flex-start;
+    gap: var(--iui-size-s);
   }
 
   .fb-row-condition {
@@ -50,5 +31,6 @@
   .fb-row-toolbar {
     width: var(--toolbar-width);
     margin-left: auto;
+    justify-content: space-between;
   }
 }
