@@ -14,7 +14,7 @@ import {
   screen,
   waitFor,
 } from "@testing-library/react";
-import type { StatusBarItem, UiItemsProvider } from "../../appui-react";
+import type { StatusBarItem, UiItemsProvider } from "../../appui-react.js";
 import {
   FrontstageDef,
   StageUsage,
@@ -25,8 +25,8 @@ import {
   SyncUiEventDispatcher,
   UiFramework,
   UiItemsManager,
-} from "../../appui-react";
-import TestUtils, { childStructure, selectorMatches } from "../TestUtils";
+} from "../../appui-react.js";
+import TestUtils, { childStructure, selectorMatches } from "../TestUtils.js";
 
 describe("StatusBarComposer", () => {
   class TestUiProvider implements UiItemsProvider {

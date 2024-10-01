@@ -10,9 +10,9 @@ import "./MenuButton.scss";
 import * as React from "react";
 import type { XAndY } from "@itwin/core-geometry";
 import { ContextMenu, Icon, Size } from "@itwin/core-react";
-import { SquareButton } from "./SquareButton";
+import { SquareButton } from "./SquareButton.js";
 import { SvgMore } from "@itwin/itwinui-icons-react";
-import type { SizeProps } from "../utils/SizeProps";
+import type { SizeProps } from "../utils/SizeProps.js";
 import type { Button } from "@itwin/itwinui-react";
 
 type ButtonProps = React.ComponentPropsWithoutRef<typeof Button>;

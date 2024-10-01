@@ -7,9 +7,9 @@
  */
 
 import type { StringGetter } from "@itwin/appui-abstract";
-import type { AnyItemDef } from "./AnyItemDef";
-import type { ItemProps } from "./ItemProps";
-import type { ToolbarGroupItem } from "../toolbar/ToolbarItem";
+import type { AnyItemDef } from "./AnyItemDef.js";
+import type { ItemProps } from "./ItemProps.js";
+import type { ToolbarGroupItem } from "../toolbar/ToolbarItem.js";
 
 /* eslint-disable deprecation/deprecation */
 

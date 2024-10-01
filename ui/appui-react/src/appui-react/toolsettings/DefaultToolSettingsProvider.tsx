@@ -10,12 +10,12 @@ import * as React from "react";
 import { IModelApp } from "@itwin/core-frontend";
 import type { DialogItem, DialogPropertySyncItem } from "@itwin/appui-abstract";
 import { UiLayoutDataProvider } from "@itwin/appui-abstract";
-import type { ConfigurableCreateInfo } from "../configurableui/ConfigurableUiControl";
-import { ComponentGenerator } from "../uiprovider/ComponentGenerator";
-import { DefaultDialogGridContainer } from "../uiprovider/DefaultDialogGridContainer";
-import type { SyncToolSettingsPropertiesEventArgs } from "../framework/FrameworkToolSettings";
-import { ToolUiProvider } from "./ToolUiProvider";
-import { UiFramework } from "../UiFramework";
+import type { ConfigurableCreateInfo } from "../configurableui/ConfigurableUiControl.js";
+import { ComponentGenerator } from "../uiprovider/ComponentGenerator.js";
+import { DefaultDialogGridContainer } from "../uiprovider/DefaultDialogGridContainer.js";
+import type { SyncToolSettingsPropertiesEventArgs } from "../framework/FrameworkToolSettings.js";
+import { ToolUiProvider } from "./ToolUiProvider.js";
+import { UiFramework } from "../UiFramework.js";
 import { UnexpectedErrors } from "@itwin/core-bentley";
 
 /** @internal */

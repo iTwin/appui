@@ -6,7 +6,7 @@ import * as React from "react";
 import type {
   ConfigurableCreateInfo,
   FrontstageConfig,
-} from "../../appui-react";
+} from "../../appui-react.js";
 import {
   ContentControl,
   ContentGroup,
@@ -15,7 +15,7 @@ import {
   StandardContentLayouts,
   StatusBarWidgetControl,
   WidgetState,
-} from "../../appui-react";
+} from "../../appui-react.js";
 import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
 
 /** @internal */

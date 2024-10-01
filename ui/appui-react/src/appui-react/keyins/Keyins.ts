@@ -7,7 +7,7 @@
  */
 
 import type { ToolList } from "@itwin/core-frontend";
-import type { IMatch } from "../utils/matchesWords";
+import type { IMatch } from "../utils/matchesWords.js";
 /**
  * Defines a keyin entry to show/filter in UI
  * @public

@@ -17,14 +17,14 @@ import {
 } from "@itwin/itwinui-icons-react";
 import { OutputMessagePriority } from "@itwin/core-frontend";
 
-import { MessageCenterMessage } from "./MessageCenterMessage";
-import { MessageManager } from "../../messages/MessageManager";
-import { TitleBar } from "../../layout/footer/dialog/TitleBar";
+import { MessageCenterMessage } from "./MessageCenterMessage.js";
+import { MessageManager } from "../../messages/MessageManager.js";
+import { TitleBar } from "../../layout/footer/dialog/TitleBar.js";
 
-import type { NotifyMessageDetailsType } from "../../messages/ReactNotifyMessageDetails";
+import type { NotifyMessageDetailsType } from "../../messages/ReactNotifyMessageDetails.js";
 import "./MessageCenterField.scss";
-import { useTranslation } from "../../hooks/useTranslation";
-import { StatusBarPopover } from "../../statusbar/popup/StatusBarPopover";
+import { useTranslation } from "../../hooks/useTranslation.js";
+import { StatusBarPopover } from "../../statusbar/popup/StatusBarPopover.js";
 
 /** Type for Status state to satisfy NotificationMarker type checking. */
 type NotificationMarkerStatus = Required<

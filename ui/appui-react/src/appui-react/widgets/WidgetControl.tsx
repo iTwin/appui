@@ -7,13 +7,13 @@
  */
 
 import type * as React from "react";
-import type { ConfigurableCreateInfo } from "../configurableui/ConfigurableUiControl";
+import type { ConfigurableCreateInfo } from "../configurableui/ConfigurableUiControl.js";
 import {
   ConfigurableUiControl,
   ConfigurableUiControlType,
-} from "../configurableui/ConfigurableUiControl";
-import type { WidgetDef } from "./WidgetDef";
-import type { WidgetState } from "./WidgetState";
+} from "../configurableui/ConfigurableUiControl.js";
+import type { WidgetDef } from "./WidgetDef.js";
+import type { WidgetState } from "./WidgetState.js";
 
 /* eslint-disable deprecation/deprecation */
 

@@ -5,9 +5,12 @@
 import * as React from "react";
 import { render } from "@testing-library/react";
 import { BadgeType } from "@itwin/core-react";
-import type { CursorMenuItemProps } from "../../appui-react/shared/MenuItem";
-import { MenuItem, MenuItemHelpers } from "../../appui-react/shared/MenuItem";
-import TestUtils, { childStructure, selectorMatches } from "../TestUtils";
+import type { CursorMenuItemProps } from "../../appui-react/shared/MenuItem.js";
+import {
+  MenuItem,
+  MenuItemHelpers,
+} from "../../appui-react/shared/MenuItem.js";
+import TestUtils, { childStructure, selectorMatches } from "../TestUtils.js";
 
 describe("MenuItem", () => {
   const createBubbledEvent = (type: string, props = {}) => {

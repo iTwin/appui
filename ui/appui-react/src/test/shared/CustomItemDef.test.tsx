@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { CustomItemDef } from "../../appui-react/shared/CustomItemDef";
+import { CustomItemDef } from "../../appui-react/shared/CustomItemDef.js";
 
 describe("CustomItemDef", () => {
   it("CustomItemDef with no commandId should get generated id", () => {

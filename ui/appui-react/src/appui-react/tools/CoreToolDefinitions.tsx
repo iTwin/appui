@@ -37,21 +37,21 @@ import {
   SvgCameraAnimation,
   SvgCameraAnimationDisabled,
 } from "@itwin/itwinui-icons-react";
-import { getIsHiddenIfSelectionNotActive } from "../selection/SelectionContextItemDef";
-import { CommandItemDef } from "../shared/CommandItemDef";
-import { ToolItemDef } from "../shared/ToolItemDef";
-import { SyncUiEventId } from "../syncui/SyncUiEventDispatcher";
-import { GroupItemDef } from "../toolbar/GroupItem";
-import { RestoreFrontstageLayoutTool } from "./RestoreLayoutTool";
-import { UiFramework } from "../UiFramework";
+import { getIsHiddenIfSelectionNotActive } from "../selection/SelectionContextItemDef.js";
+import { CommandItemDef } from "../shared/CommandItemDef.js";
+import { ToolItemDef } from "../shared/ToolItemDef.js";
+import { SyncUiEventId } from "../syncui/SyncUiEventDispatcher.js";
+import { GroupItemDef } from "../toolbar/GroupItem.js";
+import { RestoreFrontstageLayoutTool } from "./RestoreLayoutTool.js";
+import { UiFramework } from "../UiFramework.js";
 import svgGyroscope from "@bentley/icons-generic/icons/gyroscope.svg";
 import svgRotateLeft from "@bentley/icons-generic/icons/rotate-left.svg";
 import svgSectionTool from "@bentley/icons-generic/icons/section-tool.svg";
 import svgSelectionClear from "@bentley/icons-generic/icons/selection-clear.svg";
 import { SvgMeasure, SvgProcess } from "@itwin/itwinui-icons-react";
 import { ConditionalIconItem } from "@itwin/core-react";
-import type { ToolbarItems } from "./ToolbarItems";
-import { getActiveViewport } from "../utils/getActiveViewport";
+import type { ToolbarItems } from "./ToolbarItems.js";
+import { getActiveViewport } from "../utils/getActiveViewport.js";
 
 /* eslint-disable deprecation/deprecation */
 

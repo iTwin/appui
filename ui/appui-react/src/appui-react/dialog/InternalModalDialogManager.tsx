@@ -7,8 +7,8 @@
  */
 
 import type * as React from "react";
-import type { DialogChangedEventArgs } from "./DialogManagerBase";
-import { DialogManagerBase } from "./DialogManagerBase";
+import type { DialogChangedEventArgs } from "./DialogManagerBase.js";
+import { DialogManagerBase } from "./DialogManagerBase.js";
 import { BeUiEvent } from "@itwin/core-bentley";
 
 /** Modal Dialog Manager class displays and manages multiple modal dialogs

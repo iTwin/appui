@@ -8,10 +8,10 @@
 
 import * as React from "react";
 import { SvgCloseSmall } from "@itwin/itwinui-icons-react";
-import { ActionButton } from "../widget-action-dropdown/Button";
-import { usePreviewFeatures } from "../PreviewFeatures";
-import { useActiveTabId } from "../../layout/widget/Widget";
-import { NineZoneDispatchContext } from "../../layout/base/NineZone";
+import { ActionButton } from "../widget-action-dropdown/Button.js";
+import { usePreviewFeatures } from "../PreviewFeatures.js";
+import { useActiveTabId } from "../../layout/widget/Widget.js";
+import { NineZoneDispatchContext } from "../../layout/base/NineZone.js";
 
 /** @internal */
 export function CloseWidgetButton() {

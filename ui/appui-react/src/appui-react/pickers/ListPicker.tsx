@@ -18,14 +18,14 @@ import {
 } from "@itwin/components-react";
 import type { CommonProps } from "@itwin/core-react";
 import { Icon, SearchBox } from "@itwin/core-react";
-import { ToolbarDragInteractionContext } from "../toolbar/DragInteraction";
-import { UiFramework } from "../UiFramework";
+import { ToolbarDragInteractionContext } from "../toolbar/DragInteraction.js";
+import { UiFramework } from "../UiFramework.js";
 import {
   SvgChevronDown,
   SvgChevronRight,
   SvgList,
 } from "@itwin/itwinui-icons-react";
-import type { SizeProps } from "../utils/SizeProps";
+import type { SizeProps } from "../utils/SizeProps.js";
 
 /** Enum for the list picker item type
  * @beta

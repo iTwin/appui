@@ -9,14 +9,14 @@ import type {
   OrthographicViewState,
   ScreenViewport,
 } from "@itwin/core-frontend";
-import type { ViewportContentControl } from "../../appui-react";
+import type { ViewportContentControl } from "../../appui-react.js";
 import {
   BasicNavigationWidget,
   CommandItemDef,
   ToolbarHelper,
   UiFramework,
-} from "../../appui-react";
-import { childStructure } from "../TestUtils";
+} from "../../appui-react.js";
+import { childStructure } from "../TestUtils.js";
 import { render } from "@testing-library/react";
 
 describe("BasicNavigationWidget", () => {

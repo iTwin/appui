@@ -9,11 +9,11 @@
 import type * as React from "react";
 import type { IModelConnection } from "@itwin/core-frontend";
 import { UiEvent } from "@itwin/appui-abstract";
-import type { ConfigurableCreateInfo } from "../configurableui/ConfigurableUiControl";
+import type { ConfigurableCreateInfo } from "../configurableui/ConfigurableUiControl.js";
 import {
   ConfigurableUiControl,
   ConfigurableUiControlType,
-} from "../configurableui/ConfigurableUiControl";
+} from "../configurableui/ConfigurableUiControl.js";
 
 /* eslint-disable deprecation/deprecation */
 

@@ -5,14 +5,14 @@
 import type { Orientation } from "@itwin/components-react";
 import { DivWithOutsideClick, Point, Size } from "@itwin/core-react";
 import * as React from "react";
-import { CursorPopup } from "../cursor/cursorpopup/CursorPopup";
-import type { PopupPropsBase } from "./PopupManager";
-import { PopupManager } from "./PopupManager";
-import { PositionPopup } from "./PositionPopup";
+import { CursorPopup } from "../cursor/cursorpopup/CursorPopup.js";
+import type { PopupPropsBase } from "./PopupManager.js";
+import { PopupManager } from "./PopupManager.js";
+import { PositionPopup } from "./PositionPopup.js";
 import { useEffect, useState } from "react";
-import { WrapperContext } from "../configurableui/ConfigurableUiContent";
-import { type Placement } from "../utils/Placement";
-import type { SizeProps } from "../utils/SizeProps";
+import { WrapperContext } from "../configurableui/ConfigurableUiContent.js";
+import { type Placement } from "../utils/Placement.js";
+import type { SizeProps } from "../utils/SizeProps.js";
 
 // Props used for the ComponentPopup.
 interface ComponentPopupProps extends Omit<PopupPropsBase, "el"> {

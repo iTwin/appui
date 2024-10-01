@@ -8,10 +8,10 @@
 
 import "./SectionTargets.scss";
 import * as React from "react";
-import { TargetContainer } from "./TargetContainer";
-import { SectionTarget, useTargetDirection } from "./SectionTarget";
-import type { WidgetState } from "../state/WidgetState";
-import { MergeTarget } from "./MergeTarget";
+import { TargetContainer } from "./TargetContainer.js";
+import { SectionTarget, useTargetDirection } from "./SectionTarget.js";
+import type { WidgetState } from "../state/WidgetState.js";
+import { MergeTarget } from "./MergeTarget.js";
 
 /** @internal */
 export interface SectionTargetsProps {

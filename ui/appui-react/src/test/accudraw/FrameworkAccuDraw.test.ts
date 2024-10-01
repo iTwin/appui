@@ -10,10 +10,10 @@ import {
   ItemField,
   RotationMode,
 } from "@itwin/core-frontend";
-import TestUtils, { storageMock } from "../TestUtils";
-import { FrameworkAccuDraw } from "../../appui-react/accudraw/FrameworkAccuDraw";
+import TestUtils, { storageMock } from "../TestUtils.js";
+import { FrameworkAccuDraw } from "../../appui-react/accudraw/FrameworkAccuDraw.js";
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
-import { UiFramework } from "../../appui-react/UiFramework";
+import { UiFramework } from "../../appui-react/UiFramework.js";
 
 describe("FrameworkAccuDraw localStorage Wrapper", () => {
   const localStorageToRestore = Object.getOwnPropertyDescriptor(

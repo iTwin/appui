@@ -11,8 +11,8 @@ import classnames from "classnames";
 import * as React from "react";
 import { Orientation } from "@itwin/components-react";
 import type { CommonProps } from "@itwin/core-react";
-import { AccuDrawFieldContainer } from "./AccuDrawFieldContainer";
-import { useTranslation } from "../hooks/useTranslation";
+import { AccuDrawFieldContainer } from "./AccuDrawFieldContainer.js";
+import { useTranslation } from "../hooks/useTranslation.js";
 import { Dialog } from "@itwin/itwinui-react";
 
 /** Properties for [[AccuDrawDialog]]

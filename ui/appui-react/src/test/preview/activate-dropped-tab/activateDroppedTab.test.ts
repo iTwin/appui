@@ -4,17 +4,17 @@
  *--------------------------------------------------------------------------------------------*/
 import { Point, Rectangle } from "@itwin/core-react";
 import { produce } from "immer";
-import type { NineZoneAction } from "../../../appui-react/layout/state/NineZoneAction";
-import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState";
-import { NineZoneStateReducer } from "../../../appui-react/layout/state/NineZoneStateReducer";
-import { activateDroppedTab } from "../../../appui-react/preview/activate-dropped-tab/activateDroppedTab";
-import { addPanelWidget } from "../../../appui-react/layout/state/internal/PanelStateHelpers";
+import type { NineZoneAction } from "../../../appui-react/layout/state/NineZoneAction.js";
+import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState.js";
+import { NineZoneStateReducer } from "../../../appui-react/layout/state/NineZoneStateReducer.js";
+import { activateDroppedTab } from "../../../appui-react/preview/activate-dropped-tab/activateDroppedTab.js";
+import { addPanelWidget } from "../../../appui-react/layout/state/internal/PanelStateHelpers.js";
 import {
   addTab,
   createDraggedTabState,
-} from "../../../appui-react/layout/state/internal/TabStateHelpers";
-import { addFloatingWidget } from "../../../appui-react/layout/state/internal/WidgetStateHelpers";
-import { addTabs } from "../../layout/Utils";
+} from "../../../appui-react/layout/state/internal/TabStateHelpers.js";
+import { addFloatingWidget } from "../../../appui-react/layout/state/internal/WidgetStateHelpers.js";
+import { addTabs } from "../../layout/Utils.js";
 
 describe("activateDroppedTab", () => {
   describe("WIDGET_DRAG_END", () => {

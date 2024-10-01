@@ -5,18 +5,18 @@
 
 import { assert } from "@itwin/core-bentley";
 import * as React from "react";
-import type { FrontstageDef } from "../frontstage/FrontstageDef";
-import { useActiveFrontstageDef } from "../frontstage/FrontstageDef";
-import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager";
+import type { FrontstageDef } from "../frontstage/FrontstageDef.js";
+import { useActiveFrontstageDef } from "../frontstage/FrontstageDef.js";
+import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager.js";
 import {
   getTabLocation,
   isFloatingTabLocation,
   isPanelTabLocation,
   isPopoutTabLocation,
-} from "../layout/state/TabLocation";
-import { TabIdContext } from "../layout/widget/ContentRenderer";
-import { useWidgetDef } from "../widget-panels/Content";
-import type { WidgetState } from "./WidgetState";
+} from "../layout/state/TabLocation.js";
+import { TabIdContext } from "../layout/widget/ContentRenderer.js";
+import { useWidgetDef } from "../widget-panels/Content.js";
+import type { WidgetState } from "./WidgetState.js";
 
 /** Hook that returns information about the Widget in the current context.
  * @returns object that contains the WidgetLocation, WidgetState, and

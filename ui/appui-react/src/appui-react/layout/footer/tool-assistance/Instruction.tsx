@@ -10,8 +10,8 @@ import "./Instruction.scss";
 import classnames from "classnames";
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
-import { ToolAssistanceItem } from "./Item";
-import { NewDot } from "./NewDot";
+import { ToolAssistanceItem } from "./Item.js";
+import { NewDot } from "./NewDot.js";
 
 /** Properties of [[ToolAssistanceInstruction]] component.
  * @internal

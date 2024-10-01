@@ -14,22 +14,22 @@ import {
   ToolbarPanelAlignment,
 } from "@itwin/components-react";
 import { Logger, ProcessDetector } from "@itwin/core-bentley";
-import { UiFramework } from "../UiFramework";
-import { ToolbarDragInteractionContext } from "./DragInteraction";
+import { UiFramework } from "../UiFramework.js";
+import { ToolbarDragInteractionContext } from "./DragInteraction.js";
 import type {
   ToolbarActionItem,
   ToolbarGroupItem,
   ToolbarItem,
-} from "./ToolbarItem";
+} from "./ToolbarItem.js";
 import {
   isToolbarActionItem,
   isToolbarGroupItem,
   ToolbarOrientation,
   ToolbarUsage,
-} from "./ToolbarItem";
-import { Toolbar } from "./Toolbar";
-import { useActiveToolIdSynchedItems } from "./useActiveToolIdSynchedItems";
-import { useActiveStageProvidedToolbarItems } from "./useActiveStageProvidedToolbarItems";
+} from "./ToolbarItem.js";
+import { Toolbar } from "./Toolbar.js";
+import { useActiveToolIdSynchedItems } from "./useActiveToolIdSynchedItems.js";
+import { useActiveStageProvidedToolbarItems } from "./useActiveStageProvidedToolbarItems.js";
 
 function addItemToSpecifiedParentGroup<T extends ToolbarItem>(
   items: readonly T[],

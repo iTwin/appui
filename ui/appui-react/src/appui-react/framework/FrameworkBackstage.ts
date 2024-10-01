@@ -8,8 +8,8 @@
 
 import type { BeEvent } from "@itwin/core-bentley";
 import type { IconSpec } from "@itwin/core-react";
-import type { CommandItemDef } from "../shared/CommandItemDef";
-import type { BackstageAppButton } from "../widgets/BackstageAppButton";
+import type { CommandItemDef } from "../shared/CommandItemDef.js";
+import type { BackstageAppButton } from "../widgets/BackstageAppButton.js";
 
 /** Arguments of [[Backstage.onToggled]].
  * @public

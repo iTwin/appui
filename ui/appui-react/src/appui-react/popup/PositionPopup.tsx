@@ -12,7 +12,7 @@ import * as React from "react";
 import type { XAndY } from "@itwin/core-geometry";
 import type { CommonDivProps, CommonProps } from "@itwin/core-react";
 import { Div, Size } from "@itwin/core-react";
-import type { SizeProps } from "../utils/SizeProps";
+import type { SizeProps } from "../utils/SizeProps.js";
 
 /** Props for popup at screen position
  * @beta */

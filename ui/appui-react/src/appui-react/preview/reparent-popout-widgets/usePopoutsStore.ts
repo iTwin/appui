@@ -6,9 +6,9 @@
  * @module Widget
  */
 
-import produce, { castDraft } from "immer";
+import { castDraft, produce } from "immer";
 import { create } from "zustand";
-import type { WidgetState } from "../../layout/state/WidgetState";
+import type { WidgetState } from "../../layout/state/WidgetState.js";
 import { BeEvent } from "@itwin/core-bentley";
 
 interface PopoutWidgetsStore {

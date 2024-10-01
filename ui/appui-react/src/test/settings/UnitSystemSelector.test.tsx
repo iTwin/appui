@@ -5,8 +5,8 @@
 import * as React from "react";
 import { fireEvent, render, within } from "@testing-library/react";
 import type { UnitSystemKey } from "@itwin/core-quantity";
-import { UnitSystemSelector } from "../../appui-react/settings/quantityformatting/UnitSystemSelector";
-import { waitForPosition } from "../TestUtils";
+import { UnitSystemSelector } from "../../appui-react/settings/quantityformatting/UnitSystemSelector.js";
+import { waitForPosition } from "../TestUtils.js";
 
 describe("UnitSystemSelector", () => {
   it("will render four systems", async () => {

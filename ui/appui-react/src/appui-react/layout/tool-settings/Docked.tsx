@@ -17,10 +17,10 @@ import {
 import classnames from "classnames";
 import * as React from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import { AnimateDockedToolSettingsContext } from "../base/NineZone";
-import { DockedToolSettingsHandle } from "./Handle";
-import { DockedToolSettingsOverflow } from "./Overflow";
-import { ToolSettingsOverflowPanel } from "./Panel";
+import { AnimateDockedToolSettingsContext } from "../base/NineZone.js";
+import { DockedToolSettingsHandle } from "./Handle.js";
+import { DockedToolSettingsOverflow } from "./Overflow.js";
+import { ToolSettingsOverflowPanel } from "./Panel.js";
 
 /** @internal */
 export function onOverflowLabelAndEditorResize() {}

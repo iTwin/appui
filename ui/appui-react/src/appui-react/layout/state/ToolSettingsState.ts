@@ -6,7 +6,7 @@
  * @module Base
  */
 
-import type { TabState } from "./TabState";
+import type { TabState } from "./TabState.js";
 
 /** @internal */
 export interface DockedToolSettingsState {

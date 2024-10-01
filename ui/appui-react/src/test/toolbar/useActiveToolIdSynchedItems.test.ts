@@ -3,8 +3,8 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { act, renderHook } from "@testing-library/react";
-import type { ToolActivatedEventArgs } from "../../appui-react";
-import { useActiveToolIdSynchedItems } from "../../appui-react/toolbar/useActiveToolIdSynchedItems";
+import type { ToolActivatedEventArgs } from "../../appui-react.js";
+import { useActiveToolIdSynchedItems } from "../../appui-react/toolbar/useActiveToolIdSynchedItems.js";
 import { BeUiEvent } from "@itwin/core-bentley";
 
 describe("useActiveToolIdSynchedItems", () => {

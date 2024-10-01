@@ -9,11 +9,11 @@
 import * as React from "react";
 import type { CommonProps, ListenerType } from "@itwin/core-react";
 import { GlobalContextMenu } from "@itwin/core-react"; // ContextSubMenu,
-import { SessionStateActionId } from "../../redux/SessionState";
-import type { CursorMenuItemProps } from "../../shared/MenuItem";
-import { MenuItemHelpers } from "../../shared/MenuItem";
-import { SyncUiEventDispatcher } from "../../syncui/SyncUiEventDispatcher";
-import { UiFramework } from "../../UiFramework";
+import { SessionStateActionId } from "../../redux/SessionState.js";
+import type { CursorMenuItemProps } from "../../shared/MenuItem.js";
+import { MenuItemHelpers } from "../../shared/MenuItem.js";
+import { SyncUiEventDispatcher } from "../../syncui/SyncUiEventDispatcher.js";
+import { UiFramework } from "../../UiFramework.js";
 import { Logger } from "@itwin/core-bentley";
 
 /** State for [[CursorPopupMenu]] component

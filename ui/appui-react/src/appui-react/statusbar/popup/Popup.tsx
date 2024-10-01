@@ -12,7 +12,7 @@ import classnames from "classnames";
 import type { PopupProps } from "@itwin/core-react";
 import { Popup } from "@itwin/core-react";
 import { RelativePosition } from "@itwin/appui-abstract";
-import { StatusBarPopover } from "./StatusBarPopover";
+import { StatusBarPopover } from "./StatusBarPopover.js";
 
 /** Popup component used in [[StatusBar]] component.
  * @beta

@@ -22,14 +22,14 @@ import {
 import {
   ConfigurableCreateInfo,
   ConfigurableUiControlType,
-} from "../configurableui/ConfigurableUiControl";
-import { CubeNavigationAidControl } from "../navigationaids/CubeNavigationAidControl";
-import { DrawingNavigationAidControl } from "../navigationaids/DrawingNavigationAidControl";
-import { SheetNavigationAidControl } from "../navigationaids/SheetNavigationAid";
-import { UiFramework } from "../UiFramework";
-import { ViewUtilities } from "../utils/ViewUtilities";
-import type { SupportsViewSelectorChange } from "./ContentControl";
-import { ContentControl } from "./ContentControl";
+} from "../configurableui/ConfigurableUiControl.js";
+import { CubeNavigationAidControl } from "../navigationaids/CubeNavigationAidControl.js";
+import { DrawingNavigationAidControl } from "../navigationaids/DrawingNavigationAidControl.js";
+import { SheetNavigationAidControl } from "../navigationaids/SheetNavigationAid.js";
+import { UiFramework } from "../UiFramework.js";
+import { ViewUtilities } from "../utils/ViewUtilities.js";
+import type { SupportsViewSelectorChange } from "./ContentControl.js";
+import { ContentControl } from "./ContentControl.js";
 
 /* eslint-disable deprecation/deprecation */
 

@@ -7,13 +7,13 @@
  */
 
 import * as React from "react";
-import { UiFramework } from "../UiFramework";
+import { UiFramework } from "../UiFramework.js";
 import {
   SyncUiEventDispatcher,
   SyncUiEventId,
-} from "../syncui/SyncUiEventDispatcher";
-import type { UiStateStorage } from "./UiStateStorage";
-import { LocalStateStorage } from "./LocalStateStorage";
+} from "../syncui/SyncUiEventDispatcher.js";
+import type { UiStateStorage } from "./UiStateStorage.js";
+import { LocalStateStorage } from "./LocalStateStorage.js";
 
 /** @public */
 export function useUiStateStorageHandler(): UiStateStorage {

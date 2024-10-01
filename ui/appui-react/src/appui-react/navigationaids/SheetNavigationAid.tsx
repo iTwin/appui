@@ -17,12 +17,15 @@ import type {
 import { IModelApp } from "@itwin/core-frontend";
 import { ViewportComponentEvents } from "@itwin/imodel-components-react";
 import type { CommonProps, ListenerType } from "@itwin/core-react";
-import type { ConfigurableCreateInfo } from "../configurableui/ConfigurableUiControl";
-import type { ModalFrontstageInfo } from "../framework/FrameworkFrontstages";
-import { UiFramework } from "../UiFramework";
-import { ViewUtilities } from "../utils/ViewUtilities";
-import { NavigationAidControl } from "./NavigationAidControl";
-import { CardContainer, SheetsModalFrontstage } from "./SheetsModalFrontstage";
+import type { ConfigurableCreateInfo } from "../configurableui/ConfigurableUiControl.js";
+import type { ModalFrontstageInfo } from "../framework/FrameworkFrontstages.js";
+import { UiFramework } from "../UiFramework.js";
+import { ViewUtilities } from "../utils/ViewUtilities.js";
+import { NavigationAidControl } from "./NavigationAidControl.js";
+import {
+  CardContainer,
+  SheetsModalFrontstage,
+} from "./SheetsModalFrontstage.js";
 import { IconButton, ProgressRadial } from "@itwin/itwinui-react";
 import { SvgChevronLeft, SvgChevronRight } from "@itwin/itwinui-icons-react";
 

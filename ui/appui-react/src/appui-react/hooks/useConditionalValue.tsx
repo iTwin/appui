@@ -7,7 +7,7 @@
  */
 
 import * as React from "react";
-import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
+import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher.js";
 
 /** Hook that allows to get a value that depends on some sync UI events.
  * @note This can be used as a replacement for a deprecated {@link @itwin/core-react#ConditionalIconItem}.

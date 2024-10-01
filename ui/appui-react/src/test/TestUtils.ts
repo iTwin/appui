@@ -23,7 +23,7 @@ import type {
   ActionsUnion,
   DeepReadonly,
   FrameworkState,
-} from "../appui-react";
+} from "../appui-react.js";
 import {
   combineReducers,
   ContentGroup,
@@ -32,10 +32,10 @@ import {
   StandardContentLayouts,
   SyncUiEventDispatcher,
   UiFramework,
-} from "../appui-react";
-import { TestContentControl } from "./frontstage/FrontstageTestUtils";
+} from "../appui-react.js";
+import { TestContentControl } from "./frontstage/FrontstageTestUtils.js";
 import { userEvent } from "@testing-library/user-event";
-import type { ContentLayoutProps } from "../appui-react/content/ContentLayoutProps";
+import type { ContentLayoutProps } from "../appui-react/content/ContentLayoutProps.js";
 export { userEvent };
 
 interface SampleAppState {

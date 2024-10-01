@@ -15,11 +15,11 @@ import {
   Point,
   Size,
 } from "@itwin/core-react";
-import { CursorPopup } from "../cursor/cursorpopup/CursorPopup";
-import type { PopupPropsBase } from "./PopupManager";
-import { PopupManager } from "./PopupManager";
-import { PositionPopup } from "./PositionPopup";
-import type { SizeProps } from "../utils/SizeProps";
+import { CursorPopup } from "../cursor/cursorpopup/CursorPopup.js";
+import type { PopupPropsBase } from "./PopupManager.js";
+import { PopupManager } from "./PopupManager.js";
+import { PositionPopup } from "./PositionPopup.js";
+import type { SizeProps } from "../utils/SizeProps.js";
 
 /** @alpha
  * @deprecated in 4.11.0. Please use {@link @itwin/appui-react#UiFramework.showComponent}.

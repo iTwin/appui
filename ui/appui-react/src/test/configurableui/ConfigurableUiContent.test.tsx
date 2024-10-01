@@ -7,15 +7,15 @@ import * as React from "react";
 import { Provider } from "react-redux";
 import { render, screen, waitFor } from "@testing-library/react";
 import { Key } from "ts-key-enum";
-import TestUtils from "../TestUtils";
-import { ConfigurableUiContent } from "../../appui-react/configurableui/ConfigurableUiContent";
-import { FrameworkToolAdmin } from "../../appui-react/tools/FrameworkToolAdmin";
+import TestUtils from "../TestUtils.js";
+import { ConfigurableUiContent } from "../../appui-react/configurableui/ConfigurableUiContent.js";
+import { FrameworkToolAdmin } from "../../appui-react/tools/FrameworkToolAdmin.js";
 import { userEvent } from "@testing-library/user-event";
 import {
   CursorInformation,
   ThemeManager,
   UiFramework,
-} from "../../appui-react";
+} from "../../appui-react.js";
 
 describe("ConfigurableUiContent", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;

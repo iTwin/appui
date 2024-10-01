@@ -5,7 +5,7 @@
 import * as defaults from "../UiFramework.json";
 import * as React from "react";
 import { usePackageTranslation } from "@itwin/core-react";
-import { UiFramework } from "../UiFramework";
+import { UiFramework } from "../UiFramework.js";
 
 /** Returns a translation function.
  * @internal

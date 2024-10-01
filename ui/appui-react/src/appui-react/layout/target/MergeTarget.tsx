@@ -9,13 +9,13 @@
 import "./MergeTarget.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { DraggedWidgetIdContext, useTarget } from "../base/DragManager";
-import { CursorTypeContext } from "../base/NineZone";
-import { getCursorClassName } from "../widget-panels/CursorOverlay";
-import type { WidgetState } from "../state/WidgetState";
-import type { WidgetDropTargetState } from "../state/DropTargetState";
-import { useAllowedWidgetTarget } from "./useAllowedWidgetTarget";
-import { useLayout } from "../base/LayoutStore";
+import { DraggedWidgetIdContext, useTarget } from "../base/DragManager.js";
+import { CursorTypeContext } from "../base/NineZone.js";
+import { getCursorClassName } from "../widget-panels/CursorOverlay.js";
+import type { WidgetState } from "../state/WidgetState.js";
+import type { WidgetDropTargetState } from "../state/DropTargetState.js";
+import { useAllowedWidgetTarget } from "./useAllowedWidgetTarget.js";
+import { useLayout } from "../base/LayoutStore.js";
 
 /** @internal */
 export interface MergeTargetProps {

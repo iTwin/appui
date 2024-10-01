@@ -17,7 +17,7 @@ import type {
   ViewState,
 } from "@itwin/core-frontend";
 import { EmphasizeElements } from "@itwin/core-frontend";
-import { ViewUtilities } from "../utils/ViewUtilities";
+import { ViewUtilities } from "../utils/ViewUtilities.js";
 
 /** SavedViewProps interface for sharing ViewState and EmphasizeElements information.
  * @public

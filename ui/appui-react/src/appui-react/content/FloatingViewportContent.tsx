@@ -11,11 +11,11 @@ import type { ScreenViewport } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
 import type { ViewStateProp } from "@itwin/imodel-components-react";
 import { ViewportComponent } from "@itwin/imodel-components-react";
-import { FloatingViewportContentControl } from "./ViewportContentControl";
-import { ContentWrapper } from "./ContentLayout";
-import { UiFramework } from "../UiFramework";
+import { FloatingViewportContentControl } from "./ViewportContentControl.js";
+import { ContentWrapper } from "./ContentLayout.js";
+import { UiFramework } from "../UiFramework.js";
 import { useRefs } from "@itwin/core-react";
-import { ContentOverlay } from "./ContentOverlay";
+import { ContentOverlay } from "./ContentOverlay.js";
 
 /* eslint-disable deprecation/deprecation */
 

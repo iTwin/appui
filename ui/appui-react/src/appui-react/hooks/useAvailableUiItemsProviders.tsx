@@ -7,7 +7,7 @@
  */
 
 import { useEffect, useState } from "react";
-import { UiItemsManager } from "../ui-items-provider/UiItemsManager";
+import { UiItemsManager } from "../ui-items-provider/UiItemsManager.js";
 
 /** React hook that maintains the number of available UiItemsProviders. This allows components to use it to refresh when a
  * UiItemsProviders is added or removed allowing the ui component to be re-rendered.

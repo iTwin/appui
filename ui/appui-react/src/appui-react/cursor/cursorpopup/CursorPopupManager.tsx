@@ -12,10 +12,10 @@ import type { XAndY } from "@itwin/core-geometry";
 import { RelativePosition } from "@itwin/appui-abstract";
 import type { ListenerType } from "@itwin/core-react";
 import { Point, Size } from "@itwin/core-react";
-import { UiFramework } from "../../UiFramework";
-import { CursorPopup } from "./CursorPopup";
-import type { SizeProps } from "../../utils/SizeProps";
-import type { RectangleProps } from "../../utils/RectangleProps";
+import { UiFramework } from "../../UiFramework.js";
+import { CursorPopup } from "./CursorPopup.js";
+import type { SizeProps } from "../../utils/SizeProps.js";
+import type { RectangleProps } from "../../utils/RectangleProps.js";
 
 /** Options for the [[CursorPopupManager]] open method
  * @public

@@ -34,7 +34,7 @@ import type {
   ContentProps,
   FrontstageConfig,
   StageContentLayoutProps,
-} from "../../appui-react";
+} from "../../appui-react.js";
 import {
   ContentGroup,
   ContentLayoutDef,
@@ -43,8 +43,8 @@ import {
   StandardContentLayouts,
   UiFramework,
   ViewportContentControl,
-} from "../../appui-react";
-import { ViewUtilities } from "../../appui-react/utils/ViewUtilities";
+} from "../../appui-react.js";
+import { ViewUtilities } from "../../appui-react/utils/ViewUtilities.js";
 
 describe("StageContentLayout", () => {
   const extents = Vector3d.create(400, 400);

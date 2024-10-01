@@ -5,11 +5,11 @@
 import { BentleyError } from "@itwin/core-bentley";
 import { prettyDOM } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
-import type { NineZoneState } from "../../appui-react/layout/state/NineZoneState";
-import type { TabState } from "../../appui-react/layout/state/TabState";
-import { addTab } from "../../appui-react/layout/state/internal/TabStateHelpers";
-import { useContainersStore } from "../../appui-react/layout/widget/ContentManager";
-import { useActiveSendBackWidgetIdStore } from "../../appui-react/layout/widget/SendBack";
+import type { NineZoneState } from "../../appui-react/layout/state/NineZoneState.js";
+import type { TabState } from "../../appui-react/layout/state/TabState.js";
+import { addTab } from "../../appui-react/layout/state/internal/TabStateHelpers.js";
+import { useContainersStore } from "../../appui-react/layout/widget/ContentManager.js";
+import { useActiveSendBackWidgetIdStore } from "../../appui-react/layout/widget/SendBack.js";
 
 export { userEvent };
 

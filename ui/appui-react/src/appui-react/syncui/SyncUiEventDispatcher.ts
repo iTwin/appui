@@ -9,9 +9,9 @@
 import { Logger } from "@itwin/core-bentley";
 import type { IModelConnection } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
-import { UiFramework } from "../UiFramework";
-import type { UiSyncEvent } from "./UiSyncEvent";
-import { InternalSyncUiEventDispatcher } from "./InternalSyncUiEventDispatcher";
+import { UiFramework } from "../UiFramework.js";
+import type { UiSyncEvent } from "./UiSyncEvent.js";
+import { InternalSyncUiEventDispatcher } from "./InternalSyncUiEventDispatcher.js";
 
 // cSpell:ignore activecontentchanged backstageevent contentlayoutactivated contentcontrolactivated
 // cSpell:ignore frontstageactivated modalfrontstagechanged modaldialogchanged

@@ -6,19 +6,19 @@
  * @module Base
  */
 
-import type { PanelSide } from "../widget-panels/PanelTypes";
-import type { TabState } from "./TabState";
-import type { NineZoneState } from "./NineZoneState";
+import type { PanelSide } from "../widget-panels/PanelTypes.js";
+import type { TabState } from "./TabState.js";
+import type { NineZoneState } from "./NineZoneState.js";
 import type {
   FloatingWidgetState,
   PopoutWidgetState,
   WidgetState,
-} from "./WidgetState";
+} from "./WidgetState.js";
 import {
   getWidgetLocation,
   isFloatingWidgetLocation,
   isPopoutWidgetLocation,
-} from "./WidgetLocation";
+} from "./WidgetLocation.js";
 
 /** @internal */
 export interface PanelTabLocation {

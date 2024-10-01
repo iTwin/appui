@@ -6,12 +6,12 @@
  * @module KeyboardShortcut
  */
 import type { BadgeKind, BadgeType, IconSpec } from "@itwin/core-react";
-import type { KeyboardShortcutProps } from "../keyboardshortcut/KeyboardShortcutProps";
-import type { ActionButtonItemDef } from "../shared/ActionButtonItemDef";
+import type { KeyboardShortcutProps } from "../keyboardshortcut/KeyboardShortcutProps.js";
+import type { ActionButtonItemDef } from "../shared/ActionButtonItemDef.js";
 import type {
   ConditionalBooleanValue,
   ConditionalStringValue,
-} from "../shared/ConditionalValue";
+} from "../shared/ConditionalValue.js";
 import type { StringGetter } from "@itwin/appui-abstract";
 
 /** Keyboard Shortcut used to execute an action

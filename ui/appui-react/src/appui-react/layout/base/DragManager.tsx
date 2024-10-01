@@ -9,24 +9,24 @@ import * as React from "react";
 import { isEqual } from "lodash";
 import { BeEvent } from "@itwin/core-bentley";
 import { Point } from "@itwin/core-react";
-import type { PanelSide } from "../widget-panels/PanelTypes";
-import type { FloatingWidgetResizeHandle } from "../widget/FloatingWidget";
-import type { WidgetState } from "../state/WidgetState";
-import type { TabState } from "../state/TabState";
-import { getUniqueId } from "./NineZone";
-import type { XAndY } from "../state/internal/NineZoneStateHelpers";
+import type { PanelSide } from "../widget-panels/PanelTypes.js";
+import type { FloatingWidgetResizeHandle } from "../widget/FloatingWidget.js";
+import type { WidgetState } from "../state/WidgetState.js";
+import type { TabState } from "../state/TabState.js";
+import { getUniqueId } from "./NineZone.js";
+import type { XAndY } from "../state/internal/NineZoneStateHelpers.js";
 import type {
   DropTargetState,
   PanelDropTargetState,
   TabDragDropTargetState,
   TabDropTargetState,
   WidgetDragDropTargetState,
-} from "../state/DropTargetState";
+} from "../state/DropTargetState.js";
 import {
   isTabDragDropTargetState,
   isWidgetDragDropTargetState,
-} from "../state/DropTargetState";
-import type { SizeProps } from "../../utils/SizeProps";
+} from "../state/DropTargetState.js";
+import type { SizeProps } from "../../utils/SizeProps.js";
 
 /** @internal */
 export interface DragStartArgs {

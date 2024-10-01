@@ -7,9 +7,9 @@
  */
 
 import { UiError } from "@itwin/appui-abstract";
-import { ConfigurableUiControlType } from "../configurableui/ConfigurableUiControl";
-import { UiFramework } from "../UiFramework";
-import type { ToolUiProvider } from "./ToolUiProvider";
+import { ConfigurableUiControlType } from "../configurableui/ConfigurableUiControl.js";
+import { UiFramework } from "../UiFramework.js";
+import type { ToolUiProvider } from "./ToolUiProvider.js";
 
 /* eslint-disable deprecation/deprecation */
 

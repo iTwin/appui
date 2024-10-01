@@ -2,13 +2,13 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { createNineZoneState } from "../../../../appui-react/layout/state/NineZoneState";
+import { createNineZoneState } from "../../../../appui-react/layout/state/NineZoneState.js";
 import {
   getPanelPixelSizeFromSpec,
   getPanelSize,
   insertPanelWidget,
-} from "../../../../appui-react/layout/state/internal/PanelStateHelpers";
-import { addTabs, handleMetaData } from "../../Utils";
+} from "../../../../appui-react/layout/state/internal/PanelStateHelpers.js";
+import { addTabs, handleMetaData } from "../../Utils.js";
 
 describe("getPanelPixelSizeFromSpec", () => {
   it("should return pixel value", () => {

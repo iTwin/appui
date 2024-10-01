@@ -17,10 +17,10 @@ import type {
   DefaultToolSettingsProvider,
   FrontstageConfig,
   SyncToolSettingsPropertiesEventArgs,
-} from "../../appui-react";
-import { FrontstageProvider, UiFramework } from "../../appui-react";
-import TestUtils from "../TestUtils";
-import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";
+} from "../../appui-react.js";
+import { FrontstageProvider, UiFramework } from "../../appui-react.js";
+import TestUtils from "../TestUtils.js";
+import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager.js";
 
 describe("DefaultToolUiSettingsProvider", () => {
   const firstToolId = "DefaultToolUiSettingsProvider-FirstTestTool";

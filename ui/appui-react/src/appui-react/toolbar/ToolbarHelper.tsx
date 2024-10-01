@@ -16,19 +16,19 @@ import { ConditionalStringValue } from "@itwin/appui-abstract";
 import { assert } from "@itwin/core-bentley";
 import type { BadgeKind } from "@itwin/core-react";
 import { IconHelper } from "@itwin/core-react";
-import type { AnyItemDef } from "../shared/AnyItemDef";
-import { CommandItemDef } from "../shared/CommandItemDef";
-import { CustomItemDef } from "../shared/CustomItemDef";
-import { ToolItemDef } from "../shared/ToolItemDef";
-import { GroupItemDef } from "./GroupItem";
+import type { AnyItemDef } from "../shared/AnyItemDef.js";
+import { CommandItemDef } from "../shared/CommandItemDef.js";
+import { CustomItemDef } from "../shared/CustomItemDef.js";
+import { ToolItemDef } from "../shared/ToolItemDef.js";
+import { GroupItemDef } from "./GroupItem.js";
 import type {
   ToolbarActionItem,
   ToolbarCustomItem,
   ToolbarGroupItem,
   ToolbarItem,
-} from "./ToolbarItem";
-import { isToolbarActionItem, isToolbarGroupItem } from "./ToolbarItem";
-import type { ToolbarItemUtilities } from "./ToolbarItemUtilities";
+} from "./ToolbarItem.js";
+import { isToolbarActionItem, isToolbarGroupItem } from "./ToolbarItem.js";
+import type { ToolbarItemUtilities } from "./ToolbarItemUtilities.js";
 import type { CommonToolbarItemWithBadgeKind } from "@itwin/components-react";
 
 /* eslint-disable deprecation/deprecation */

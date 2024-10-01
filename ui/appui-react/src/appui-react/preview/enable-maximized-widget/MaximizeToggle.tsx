@@ -11,12 +11,12 @@ import {
   SvgWindowMaximize,
   SvgWindowMinimize,
 } from "@itwin/itwinui-icons-react";
-import { ActionButton } from "../widget-action-dropdown/Button";
-import { WidgetIdContext } from "../../layout/widget/Widget";
-import { MaximizedWidgetContext } from "./MaximizedWidget";
-import { usePreviewFeatures } from "../PreviewFeatures";
-import { useFloatingWidgetId } from "../../layout/widget/FloatingWidget";
-import { usePanelWidgetId } from "../../layout/widget/usePanelWidgetId";
+import { ActionButton } from "../widget-action-dropdown/Button.js";
+import { WidgetIdContext } from "../../layout/widget/Widget.js";
+import { MaximizedWidgetContext } from "./MaximizedWidget.js";
+import { usePreviewFeatures } from "../PreviewFeatures.js";
+import { useFloatingWidgetId } from "../../layout/widget/FloatingWidget.js";
+import { usePanelWidgetId } from "../../layout/widget/usePanelWidgetId.js";
 
 /** @internal */
 export function MaximizeToggle() {

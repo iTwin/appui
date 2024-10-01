@@ -6,9 +6,9 @@
  * @module Base
  */
 
-import type { SizeProps } from "../../utils/SizeProps";
-import type { PanelSide } from "../widget-panels/PanelTypes";
-import type { FloatingWidgetState, WidgetState } from "./WidgetState";
+import type { SizeProps } from "../../utils/SizeProps.js";
+import type { PanelSide } from "../widget-panels/PanelTypes.js";
+import type { FloatingWidgetState, WidgetState } from "./WidgetState.js";
 
 /** @internal */
 export interface TabDropTargetState {

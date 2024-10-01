@@ -8,21 +8,21 @@
 
 import { UiEvent } from "@itwin/appui-abstract";
 import type { Draft } from "immer";
-import produce from "immer";
-import { UiFramework } from "../UiFramework";
-import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager";
-import type { NineZoneState } from "../layout/state/NineZoneState";
-import type { PanelSide } from "../layout/widget-panels/PanelTypes";
-import { WidgetDef } from "../widgets/WidgetDef";
-import { WidgetHost } from "../widgets/WidgetHost";
+import { produce } from "immer";
+import { UiFramework } from "../UiFramework.js";
+import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager.js";
+import type { NineZoneState } from "../layout/state/NineZoneState.js";
+import type { PanelSide } from "../layout/widget-panels/PanelTypes.js";
+import { WidgetDef } from "../widgets/WidgetDef.js";
+import { WidgetHost } from "../widgets/WidgetHost.js";
 import type {
   StagePanelConfig,
   StagePanelSectionConfig,
   StagePanelSizeSpec,
-} from "./StagePanelConfig";
-import { StagePanelLocation } from "./StagePanelLocation";
-import { StagePanelSection } from "./StagePanelSection";
-import { StagePanelState } from "./StagePanelState";
+} from "./StagePanelConfig.js";
+import { StagePanelLocation } from "./StagePanelLocation.js";
+import { StagePanelSection } from "./StagePanelSection.js";
+import { StagePanelState } from "./StagePanelState.js";
 
 /** Panel state changed event args interface.
  * @public

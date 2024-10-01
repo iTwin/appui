@@ -6,11 +6,11 @@
 import * as React from "react";
 import { Provider } from "react-redux";
 import { fireEvent, render } from "@testing-library/react";
-import { connectIModelConnection } from "../../appui-react/redux/connectIModel";
-import type { SessionStateActionsProps } from "../../appui-react/redux/SessionState";
-import { sessionStateMapDispatchToProps } from "../../appui-react/redux/SessionState";
-import { UiFramework } from "../../appui-react/UiFramework";
-import TestUtils from "../TestUtils";
+import { connectIModelConnection } from "../../appui-react/redux/connectIModel.js";
+import type { SessionStateActionsProps } from "../../appui-react/redux/SessionState.js";
+import { sessionStateMapDispatchToProps } from "../../appui-react/redux/SessionState.js";
+import { UiFramework } from "../../appui-react/UiFramework.js";
+import TestUtils from "../TestUtils.js";
 
 describe("ConnectedContent", () => {
   beforeEach(async () => {

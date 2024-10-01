@@ -8,10 +8,10 @@ import {
   ContentDialog,
   ContentDialogRenderer,
   UiFramework,
-} from "../../appui-react";
-import { userEvent } from "../TestUtils";
+} from "../../appui-react.js";
+import { userEvent } from "../TestUtils.js";
 import { render, screen, waitFor } from "@testing-library/react";
-import { InternalContentDialogManager } from "../../appui-react/dialog/InternalContentDialogManager";
+import { InternalContentDialogManager } from "../../appui-react/dialog/InternalContentDialogManager.js";
 
 describe("ContentDialogManager", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;

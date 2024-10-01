@@ -9,7 +9,7 @@ import { RelativePosition } from "@itwin/appui-abstract";
 import {
   isReactNotifyMessageDetails,
   ReactNotifyMessageDetails,
-} from "../../appui-react";
+} from "../../appui-react.js";
 import { isReactMessage } from "@itwin/core-react";
 
 describe("ReactNotifyMessageDetails", () => {

@@ -6,24 +6,24 @@ import { Rectangle } from "@itwin/core-react";
 import { act, fireEvent, render, waitFor } from "@testing-library/react";
 import * as React from "react";
 import { Key } from "ts-key-enum";
-import type { NineZoneDispatch } from "../../../appui-react/layout/base/NineZone";
-import { ShowWidgetIconContext } from "../../../appui-react/layout/base/NineZone";
-import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState";
-import { addPanelWidget } from "../../../appui-react/layout/state/internal/PanelStateHelpers";
-import { addTab } from "../../../appui-react/layout/state/internal/TabStateHelpers";
-import { addFloatingWidget } from "../../../appui-react/layout/state/internal/WidgetStateHelpers";
-import { PanelSideContext } from "../../../appui-react/layout/widget-panels/Panel";
-import { WidgetOverflowContext } from "../../../appui-react/layout/widget/Overflow";
+import type { NineZoneDispatch } from "../../../appui-react/layout/base/NineZone.js";
+import { ShowWidgetIconContext } from "../../../appui-react/layout/base/NineZone.js";
+import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState.js";
+import { addPanelWidget } from "../../../appui-react/layout/state/internal/PanelStateHelpers.js";
+import { addTab } from "../../../appui-react/layout/state/internal/TabStateHelpers.js";
+import { addFloatingWidget } from "../../../appui-react/layout/state/internal/WidgetStateHelpers.js";
+import { PanelSideContext } from "../../../appui-react/layout/widget-panels/Panel.js";
+import { WidgetOverflowContext } from "../../../appui-react/layout/widget/Overflow.js";
 import {
   WidgetTab,
   WidgetTabProvider,
-} from "../../../appui-react/layout/widget/Tab";
-import { WidgetTabsEntryContext } from "../../../appui-react/layout/widget/Tabs";
+} from "../../../appui-react/layout/widget/Tab.js";
+import { WidgetTabsEntryContext } from "../../../appui-react/layout/widget/Tabs.js";
 import {
   WidgetContext,
   WidgetIdContext,
-} from "../../../appui-react/layout/widget/Widget";
-import { TestNineZoneProvider } from "../Providers";
+} from "../../../appui-react/layout/widget/Widget.js";
+import { TestNineZoneProvider } from "../Providers.js";
 
 describe("WidgetTab", () => {
   it("should render active", () => {

@@ -9,12 +9,12 @@
 import * as React from "react";
 import type { OnCancelFunc, OnNumberCommitFunc } from "@itwin/appui-abstract";
 import { DivWithOutsideClick, Icon, Size } from "@itwin/core-react";
-import type { PopupPropsBase } from "../popup/PopupManager";
-import { PopupManager } from "../popup/PopupManager";
-import { PositionPopup, PositionPopupContent } from "../popup/PositionPopup";
-import { Calculator } from "./Calculator";
-import type { SizeProps } from "../utils/SizeProps";
-import { AccuDrawPopupManager } from "./AccuDrawPopupManager";
+import type { PopupPropsBase } from "../popup/PopupManager.js";
+import { PopupManager } from "../popup/PopupManager.js";
+import { PositionPopup, PositionPopupContent } from "../popup/PositionPopup.js";
+import { Calculator } from "./Calculator.js";
+import type { SizeProps } from "../utils/SizeProps.js";
+import { AccuDrawPopupManager } from "./AccuDrawPopupManager.js";
 
 /**
  * @public

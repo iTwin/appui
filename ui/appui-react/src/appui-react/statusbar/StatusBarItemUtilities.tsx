@@ -13,9 +13,9 @@ import type {
   StatusBarActionItem,
   StatusBarCustomItem,
   StatusBarLabelItem,
-} from "./StatusBarItem";
-import { StatusBarLabelSide, StatusBarSection } from "./StatusBarItem";
-import { isArgsUtil } from "../backstage/BackstageItemUtilities";
+} from "./StatusBarItem.js";
+import { StatusBarLabelSide, StatusBarSection } from "./StatusBarItem.js";
+import { isArgsUtil } from "../backstage/BackstageItemUtilities.js";
 
 /** Utility functions for creating and maintaining StatusBar items.
  * @public

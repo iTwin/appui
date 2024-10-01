@@ -9,13 +9,13 @@
 import "./PopoutThemeProvider.scss";
 import * as React from "react";
 import { ThemeProvider } from "@itwin/itwinui-react";
-import { TabIdContext } from "../../layout/widget/ContentRenderer";
-import { useLayoutStore } from "../../layout/base/LayoutStore";
+import { TabIdContext } from "../../layout/widget/ContentRenderer.js";
+import { useLayoutStore } from "../../layout/base/LayoutStore.js";
 import {
   getTabLocation,
   isPopoutTabLocation,
-} from "../../layout/state/TabLocation";
-import { usePopoutsStore } from "./usePopoutsStore";
+} from "../../layout/state/TabLocation.js";
+import { usePopoutsStore } from "./usePopoutsStore.js";
 
 /** Theme provider is required to open floating/popover elements in a popout widget window (instead of a main window).
  * @note iTwinUI v2 `ThemeProvider` is not used because of https://github.com/iTwin/appui/issues/612

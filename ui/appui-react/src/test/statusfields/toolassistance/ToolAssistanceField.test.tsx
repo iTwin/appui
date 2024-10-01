@@ -16,8 +16,8 @@ import {
   CursorPopupManager,
   ToolAssistanceField,
   UiFramework,
-} from "../../../appui-react";
-import { selectorMatches, storageMock, userEvent } from "../../TestUtils";
+} from "../../../appui-react.js";
+import { selectorMatches, storageMock, userEvent } from "../../TestUtils.js";
 
 describe(`ToolAssistanceField`, () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;

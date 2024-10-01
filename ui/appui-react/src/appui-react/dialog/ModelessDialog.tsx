@@ -9,7 +9,7 @@
 import * as React from "react";
 import type { DialogProps } from "@itwin/core-react";
 import { Dialog } from "@itwin/core-react";
-import { UiFramework } from "../UiFramework";
+import { UiFramework } from "../UiFramework.js";
 
 /* eslint-disable deprecation/deprecation */
 

@@ -9,26 +9,26 @@
 import { produce } from "immer";
 import { Point, Rectangle } from "@itwin/core-react";
 import { assert } from "@itwin/core-bentley";
-import type { TabState } from "./TabState";
-import { getWidgetLocation, isPanelWidgetLocation } from "./WidgetLocation";
-import type { NineZoneAction } from "./NineZoneAction";
+import type { TabState } from "./TabState.js";
+import { getWidgetLocation, isPanelWidgetLocation } from "./WidgetLocation.js";
+import type { NineZoneAction } from "./NineZoneAction.js";
 import {
   isPanelDropTargetState,
   isSectionDropTargetState,
   isTabDropTargetState,
   isWidgetDropTargetState,
   isWindowDropTargetState,
-} from "./DropTargetState";
-import { getWidgetPanelSectionId } from "./PanelState";
-import type { NineZoneState } from "./NineZoneState";
-import type { PopoutWidgetState, WidgetState } from "./WidgetState";
+} from "./DropTargetState.js";
+import { getWidgetPanelSectionId } from "./PanelState.js";
+import type { NineZoneState } from "./NineZoneState.js";
+import type { PopoutWidgetState, WidgetState } from "./WidgetState.js";
 import {
   addPanelWidget,
   getPanelPixelSizeFromSpec,
   getPanelSize,
   insertPanelWidget,
   updatePanelState,
-} from "./internal/PanelStateHelpers";
+} from "./internal/PanelStateHelpers.js";
 import {
   addRemovedTab,
   addTab,
@@ -38,7 +38,7 @@ import {
   removeTabFromWidget,
   updateSavedTabState,
   updateTabState,
-} from "./internal/TabStateHelpers";
+} from "./internal/TabStateHelpers.js";
 import {
   initRectangleProps,
   initSizeProps,
@@ -46,7 +46,7 @@ import {
   setPointProps,
   setSizeProps,
   updateHomeOfToolSettingsWidget,
-} from "./internal/NineZoneStateHelpers";
+} from "./internal/NineZoneStateHelpers.js";
 import {
   addFloatingWidget,
   addPopoutWidget,
@@ -60,22 +60,22 @@ import {
   setWidgetActiveTabId,
   updateFloatingWidgetState,
   updateWidgetState,
-} from "./internal/WidgetStateHelpers";
-import { getSendBackHomeState } from "../widget/SendBack";
-import { panelSides } from "../widget-panels/Panel";
-import type { TabLocation } from "./TabLocation";
+} from "./internal/WidgetStateHelpers.js";
+import { getSendBackHomeState } from "../widget/SendBack.js";
+import { panelSides } from "../widget-panels/Panel.js";
+import type { TabLocation } from "./TabLocation.js";
 import {
   getTabLocation,
   isFloatingTabLocation,
   isPanelTabLocation,
   isPopoutTabLocation,
-} from "./TabLocation";
-import { getUniqueId } from "../base/NineZone";
+} from "./TabLocation.js";
+import { getUniqueId } from "../base/NineZone.js";
 import {
   isPanelWidgetRestoreState,
   type PanelWidgetRestoreState,
-} from "./WidgetRestoreState";
-import { addDockedToolSettings } from "./internal/ToolSettingsStateHelpers";
+} from "./WidgetRestoreState.js";
+import { addDockedToolSettings } from "./internal/ToolSettingsStateHelpers.js";
 
 /** @internal */
 export function NineZoneStateReducer(

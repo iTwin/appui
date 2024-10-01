@@ -4,32 +4,32 @@
  *--------------------------------------------------------------------------------------------*/
 import { produce } from "immer";
 import { Point, Rectangle } from "@itwin/core-react";
-import { addTabs } from "../Utils";
-import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState";
-import { NineZoneStateReducer } from "../../../appui-react/layout/state/NineZoneStateReducer";
+import { addTabs } from "../Utils.js";
+import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState.js";
+import { NineZoneStateReducer } from "../../../appui-react/layout/state/NineZoneStateReducer.js";
 import type {
   NineZoneAction,
   WidgetDefAddAction,
-} from "../../../appui-react/layout/state/NineZoneAction";
+} from "../../../appui-react/layout/state/NineZoneAction.js";
 import {
   addFloatingWidget,
   addPopoutWidget,
   createFloatingWidgetState,
-} from "../../../appui-react/layout/state/internal/WidgetStateHelpers";
+} from "../../../appui-react/layout/state/internal/WidgetStateHelpers.js";
 import {
   addPanelWidget,
   updatePanelState,
-} from "../../../appui-react/layout/state/internal/PanelStateHelpers";
+} from "../../../appui-react/layout/state/internal/PanelStateHelpers.js";
 import {
   addDockedToolSettings,
   addWidgetToolSettings,
-} from "../../../appui-react/layout/state/internal/ToolSettingsStateHelpers";
+} from "../../../appui-react/layout/state/internal/ToolSettingsStateHelpers.js";
 import {
   addTab,
   createDraggedTabState,
   updateSavedTabState,
-} from "../../../appui-react/layout/state/internal/TabStateHelpers";
-import { getUniqueId } from "../../../appui-react/layout/base/NineZone";
+} from "../../../appui-react/layout/state/internal/TabStateHelpers.js";
+import { getUniqueId } from "../../../appui-react/layout/base/NineZone.js";
 
 describe("NineZoneStateReducer", () => {
   it("should not update for unhandled action", () => {

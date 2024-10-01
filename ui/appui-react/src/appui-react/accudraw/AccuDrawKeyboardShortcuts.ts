@@ -23,10 +23,10 @@ import {
   AccuDrawSetLockZTool,
   AccuDrawSetOriginTool,
 } from "@itwin/core-frontend";
-import { FrameworkAccuDraw } from "./FrameworkAccuDraw";
-import { BumpToolSetting } from "../tools/ToolSettingsTools";
-import type { KeyboardShortcutProps } from "../keyboardshortcut/KeyboardShortcutProps";
-import { KeyboardShortcutUtilities } from "../keyboardshortcut/KeyboardShortcutUtilities";
+import { FrameworkAccuDraw } from "./FrameworkAccuDraw.js";
+import { BumpToolSetting } from "../tools/ToolSettingsTools.js";
+import type { KeyboardShortcutProps } from "../keyboardshortcut/KeyboardShortcutProps.js";
+import { KeyboardShortcutUtilities } from "../keyboardshortcut/KeyboardShortcutUtilities.js";
 
 /** Default AccuDraw Keyboard Shortcuts
  *

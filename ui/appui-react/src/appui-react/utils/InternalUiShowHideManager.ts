@@ -9,11 +9,11 @@
 import {
   SyncUiEventDispatcher,
   SyncUiEventId,
-} from "../syncui/SyncUiEventDispatcher";
-import type { UserSettingsProvider } from "../UiFramework";
-import { UiFramework } from "../UiFramework";
-import type { UiStateStorage } from "../uistate/UiStateStorage";
-import { UiStateStorageStatus } from "../uistate/UiStateStorage";
+} from "../syncui/SyncUiEventDispatcher.js";
+import type { UserSettingsProvider } from "../UiFramework.js";
+import { UiFramework } from "../UiFramework.js";
+import type { UiStateStorage } from "../uistate/UiStateStorage.js";
+import { UiStateStorageStatus } from "../uistate/UiStateStorage.js";
 
 /** Class that maintain UiShowHide user settings between sessions
  * @internal

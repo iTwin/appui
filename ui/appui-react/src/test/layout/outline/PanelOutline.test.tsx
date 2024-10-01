@@ -4,19 +4,19 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { act, render, renderHook } from "@testing-library/react";
-import type { DragManager } from "../../../appui-react/layout/base/DragManager";
+import type { DragManager } from "../../../appui-react/layout/base/DragManager.js";
 import {
   PanelOutline,
   useHidden,
-} from "../../../appui-react/layout/outline/PanelOutline";
-import { addTab } from "../../../appui-react/layout/state/internal/TabStateHelpers";
-import { addFloatingWidget } from "../../../appui-react/layout/state/internal/WidgetStateHelpers";
-import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState";
-import type { PanelSide } from "../../../appui-react/layout/widget-panels/PanelTypes";
-import { PanelSideContext } from "../../../appui-react/layout/widget-panels/Panel";
-import { useActiveSendBackWidgetIdStore } from "../../../appui-react/layout/widget/SendBack";
-import type { TestNineZoneProviderProps } from "../Providers";
-import { createDragStartArgs, TestNineZoneProvider } from "../Providers";
+} from "../../../appui-react/layout/outline/PanelOutline.js";
+import { addTab } from "../../../appui-react/layout/state/internal/TabStateHelpers.js";
+import { addFloatingWidget } from "../../../appui-react/layout/state/internal/WidgetStateHelpers.js";
+import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState.js";
+import type { PanelSide } from "../../../appui-react/layout/widget-panels/PanelTypes.js";
+import { PanelSideContext } from "../../../appui-react/layout/widget-panels/Panel.js";
+import { useActiveSendBackWidgetIdStore } from "../../../appui-react/layout/widget/SendBack.js";
+import type { TestNineZoneProviderProps } from "../Providers.js";
+import { createDragStartArgs, TestNineZoneProvider } from "../Providers.js";
 
 describe("PanelOutline", () => {
   interface WrapperProps extends TestNineZoneProviderProps {

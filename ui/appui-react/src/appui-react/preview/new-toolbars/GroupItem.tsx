@@ -9,19 +9,19 @@
 import * as React from "react";
 import { Icon } from "@itwin/core-react";
 import { DropdownMenu, MenuExtraContent, MenuItem } from "@itwin/itwinui-react";
-import type { ToolbarItem } from "../../toolbar/ToolbarItem";
+import type { ToolbarItem } from "../../toolbar/ToolbarItem.js";
 import {
   isToolbarActionItem,
   isToolbarCustomItem,
   isToolbarGroupItem,
   type ToolbarGroupItem,
-} from "../../toolbar/ToolbarItem";
-import { useConditionalProp } from "../../hooks/useConditionalProp";
-import { ExpandIndicator } from "./ExpandIndicator";
-import { Item } from "./Item";
-import { Badge } from "./Badge";
-import { ToolGroupOverflowContext } from "./OverflowButton";
-import { ToolbarContext } from "./Toolbar";
+} from "../../toolbar/ToolbarItem.js";
+import { useConditionalProp } from "../../hooks/useConditionalProp.js";
+import { ExpandIndicator } from "./ExpandIndicator.js";
+import { Item } from "./Item.js";
+import { Badge } from "./Badge.js";
+import { ToolGroupOverflowContext } from "./OverflowButton.js";
+import { ToolbarContext } from "./Toolbar.js";
 
 /** @internal */
 export interface GroupItemProps {

@@ -10,12 +10,12 @@ import type { CommonProps } from "@itwin/core-react";
 import type {
   ContentGroup,
   ContentGroupProvider,
-} from "../content/ContentGroup";
-import type { StagePanelConfig } from "../stagepanels/StagePanelConfig";
-import type { WidgetConfig } from "../widgets/WidgetConfig";
-import type { Frontstage } from "./Frontstage";
-import type { UiItemsProvider } from "../ui-items-provider/UiItemsProvider";
-import type { StageUsage } from "./StageUsage";
+} from "../content/ContentGroup.js";
+import type { StagePanelConfig } from "../stagepanels/StagePanelConfig.js";
+import type { WidgetConfig } from "../widgets/WidgetConfig.js";
+import type { Frontstage } from "./Frontstage.js";
+import type { UiItemsProvider } from "../ui-items-provider/UiItemsProvider.js";
+import type { StageUsage } from "./StageUsage.js";
 
 /** Configuration from which a frontstage is created.
  * @public

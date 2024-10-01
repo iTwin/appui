@@ -6,7 +6,7 @@
  * @module Tools
  */
 import { Tool } from "@itwin/core-frontend";
-import { SettingsModalFrontstage } from "../frontstage/ModalSettingsStage";
+import { SettingsModalFrontstage } from "../frontstage/ModalSettingsStage.js";
 import svgSettings from "@bentley/icons-generic/icons/settings.svg";
 
 /**

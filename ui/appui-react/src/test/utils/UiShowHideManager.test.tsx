@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { render } from "@testing-library/react";
-import type { ConfigurableCreateInfo } from "../../appui-react";
+import type { ConfigurableCreateInfo } from "../../appui-react.js";
 import {
   ContentControl,
   ContentGroup,
@@ -12,15 +12,15 @@ import {
   ContentLayoutDef,
   StandardContentLayouts,
   UiFramework,
-} from "../../appui-react";
-import { TestFrontstage } from "../frontstage/FrontstageTestUtils";
-import TestUtils, { storageMock } from "../TestUtils";
+} from "../../appui-react.js";
+import { TestFrontstage } from "../frontstage/FrontstageTestUtils.js";
+import TestUtils, { storageMock } from "../TestUtils.js";
 import { LocalStateStorage } from "@itwin/core-react";
 import {
   INACTIVITY_TIME_DEFAULT,
   InternalUiShowHideManager,
   UiShowHideSettingsProvider,
-} from "../../appui-react/utils/InternalUiShowHideManager";
+} from "../../appui-react/utils/InternalUiShowHideManager.js";
 
 describe("UiShowHideManager localStorage Wrapper", () => {
   const localStorageToRestore = Object.getOwnPropertyDescriptor(

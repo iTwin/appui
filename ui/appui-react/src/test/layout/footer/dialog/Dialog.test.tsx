@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import { render } from "@testing-library/react";
 import * as React from "react";
-import { Dialog } from "../../../../appui-react/layout/footer/dialog/Dialog";
-import { selectorMatches } from "../../Utils";
+import { Dialog } from "../../../../appui-react/layout/footer/dialog/Dialog.js";
+import { selectorMatches } from "../../Utils.js";
 
 describe("<Dialog />", () => {
   it("renders correctly", () => {

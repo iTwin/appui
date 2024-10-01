@@ -8,7 +8,7 @@
 
 import type { IModelConnection, ViewState } from "@itwin/core-frontend";
 import { createStore } from "zustand";
-import type { CursorMenuPayload } from "../redux/SessionState";
+import type { CursorMenuPayload } from "../redux/SessionState.js";
 
 interface GlobalState {
   numItemsSelected: number;

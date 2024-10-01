@@ -13,7 +13,7 @@ import { Logger } from "@itwin/core-bentley";
 import type { ScreenViewport, Viewport } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
 import { ProgressLinear } from "@itwin/itwinui-react";
-import { UiFramework } from "../../UiFramework";
+import { UiFramework } from "../../UiFramework.js";
 import type { CommonProps, ListenerType } from "@itwin/core-react";
 
 /** State for the [[TileLoadingIndicator]] component

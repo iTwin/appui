@@ -10,10 +10,10 @@ import "./ContentOverlay.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { create } from "zustand";
-import { useOptionalLayout } from "../layout/base/LayoutStore";
-import { getWidgetState } from "../widgets/WidgetDef";
-import { TabIdContext } from "../layout/widget/ContentRenderer";
-import { WidgetState } from "../widgets/WidgetState";
+import { useOptionalLayout } from "../layout/base/LayoutStore.js";
+import { getWidgetState } from "../widgets/WidgetDef.js";
+import { TabIdContext } from "../layout/widget/ContentRenderer.js";
+import { WidgetState } from "../widgets/WidgetState.js";
 
 /** Returns the number of content overlays.
  * @internal

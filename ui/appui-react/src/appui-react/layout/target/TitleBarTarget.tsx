@@ -10,16 +10,16 @@ import "./TitleBarTarget.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
-import { DraggedWidgetIdContext, useTarget } from "../base/DragManager";
-import { CursorTypeContext } from "../base/NineZone";
-import { getCursorClassName } from "../widget-panels/CursorOverlay";
-import type { WidgetState } from "../state/WidgetState";
-import { WidgetIdContext } from "../widget/Widget";
-import { TabOutline } from "../outline/TabOutline";
-import { useAllowedWidgetTarget } from "./useAllowedWidgetTarget";
-import type { WidgetDropTargetState } from "../state/DropTargetState";
-import { useLayout } from "../base/LayoutStore";
-import { useSendBackHomeState } from "../widget/SendBack";
+import { DraggedWidgetIdContext, useTarget } from "../base/DragManager.js";
+import { CursorTypeContext } from "../base/NineZone.js";
+import { getCursorClassName } from "../widget-panels/CursorOverlay.js";
+import type { WidgetState } from "../state/WidgetState.js";
+import { WidgetIdContext } from "../widget/Widget.js";
+import { TabOutline } from "../outline/TabOutline.js";
+import { useAllowedWidgetTarget } from "./useAllowedWidgetTarget.js";
+import type { WidgetDropTargetState } from "../state/DropTargetState.js";
+import { useLayout } from "../base/LayoutStore.js";
+import { useSendBackHomeState } from "../widget/SendBack.js";
 
 /** @internal */
 export function TitleBarTarget() {

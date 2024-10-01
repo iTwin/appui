@@ -10,8 +10,8 @@ import type { InteractiveTool } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
 import type { DialogItem, DialogPropertySyncItem } from "@itwin/appui-abstract";
 import { focusIntoContainer } from "@itwin/core-react";
-import type { SyncToolSettingsPropertiesEventArgs } from "../framework/FrameworkToolSettings";
-import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
+import type { SyncToolSettingsPropertiesEventArgs } from "../framework/FrameworkToolSettings.js";
+import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher.js";
 import { BeUiEvent } from "@itwin/core-bentley";
 
 /** Tool Settings Manager class. Used to generate UI components for Tool Settings.

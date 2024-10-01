@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import { render } from "@testing-library/react";
 import * as React from "react";
-import { ToolAssistanceSeparator } from "../../../../appui-react/layout/footer/tool-assistance/Separator";
-import { selectorMatches } from "../../Utils";
+import { ToolAssistanceSeparator } from "../../../../appui-react/layout/footer/tool-assistance/Separator.js";
+import { selectorMatches } from "../../Utils.js";
 
 describe("<ToolAssistanceSeparator />", () => {
   it("renders correctly", () => {

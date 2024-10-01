@@ -7,9 +7,9 @@
  */
 
 import * as React from "react";
-import { FloatingWidgetProvider } from "./FloatingWidget";
-import { FloatingTabProvider } from "./FloatingTab";
-import { useLayout } from "../base/LayoutStore";
+import { FloatingWidgetProvider } from "./FloatingWidget.js";
+import { FloatingTabProvider } from "./FloatingTab.js";
+import { useLayout } from "../base/LayoutStore.js";
 
 /** This component renders all floating widgets.
  * @internal

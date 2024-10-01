@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
 import * as React from "react";
-import { SquareButton } from "../../appui-react/accudraw/SquareButton";
+import { SquareButton } from "../../appui-react/accudraw/SquareButton.js";
 
 describe("SquareButton", () => {
   it("renders correctly", () => {

@@ -8,7 +8,7 @@
 
 import * as React from "react";
 import { Point } from "@itwin/core-react";
-import { useTransientState } from "../../widget-panels/useTransientState";
+import { useTransientState } from "../../widget-panels/useTransientState.js";
 import "./Content.scss";
 
 /** Properties of [[ScrollableWidgetContent]] component.

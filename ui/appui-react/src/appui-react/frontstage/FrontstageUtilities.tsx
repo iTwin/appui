@@ -7,14 +7,14 @@
  */
 
 import * as React from "react";
-import { ContentGroup, ContentGroupProvider } from "../content/ContentGroup";
-import { ContentToolWidgetComposer } from "../widgets/ContentToolWidgetComposer";
-import { ViewToolWidgetComposer } from "../widgets/ViewToolWidgetComposer";
-import { StatusBarComposer } from "../statusbar/StatusBarComposer";
-import { StagePanelState } from "../stagepanels/StagePanelState";
-import type { Frontstage } from "./Frontstage";
-import type { UiItemsProvider } from "../ui-items-provider/UiItemsProvider";
-import type { StandardFrontstageProps } from "./StandardFrontstageProvider";
+import { ContentGroup, ContentGroupProvider } from "../content/ContentGroup.js";
+import { ContentToolWidgetComposer } from "../widgets/ContentToolWidgetComposer.js";
+import { ViewToolWidgetComposer } from "../widgets/ViewToolWidgetComposer.js";
+import { StatusBarComposer } from "../statusbar/StatusBarComposer.js";
+import { StagePanelState } from "../stagepanels/StagePanelState.js";
+import type { Frontstage } from "./Frontstage.js";
+import type { UiItemsProvider } from "../ui-items-provider/UiItemsProvider.js";
+import type { StandardFrontstageProps } from "./StandardFrontstageProvider.js";
 
 /** Helper namespace to create frontstages.
  * @beta

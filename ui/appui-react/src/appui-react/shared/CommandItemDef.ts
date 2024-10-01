@@ -7,9 +7,9 @@
  */
 
 import type { OnItemExecutedFunc } from "@itwin/appui-abstract";
-import { ActionButtonItemDef } from "./ActionButtonItemDef";
-import type { CommandItemProps } from "./ItemProps";
-import type { ToolbarActionItem } from "../toolbar/ToolbarItem";
+import { ActionButtonItemDef } from "./ActionButtonItemDef.js";
+import type { CommandItemProps } from "./ItemProps.js";
+import type { ToolbarActionItem } from "../toolbar/ToolbarItem.js";
 
 /* eslint-disable deprecation/deprecation */
 

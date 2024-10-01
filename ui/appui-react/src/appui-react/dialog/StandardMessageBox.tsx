@@ -18,8 +18,8 @@ import {
 import type { CommonProps } from "@itwin/core-react";
 import { MessageContainer } from "@itwin/core-react";
 import { Button, Dialog } from "@itwin/itwinui-react";
-import { DialogManagerBase } from "./DialogManagerBase";
-import { UiFramework } from "../UiFramework";
+import { DialogManagerBase } from "./DialogManagerBase.js";
+import { UiFramework } from "../UiFramework.js";
 
 /** Properties for [[StandardMessageBox]] React component
  * @public

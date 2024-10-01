@@ -5,7 +5,7 @@
 import {
   type IMatch,
   matchesWords,
-} from "../../appui-react/utils/matchesWords";
+} from "../../appui-react/utils/matchesWords.js";
 type IFilter = (word: string, wordToMatchAgainst: string) => IMatch[] | null;
 
 function filterNotOk(

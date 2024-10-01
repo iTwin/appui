@@ -7,18 +7,18 @@
  */
 
 import type * as React from "react";
-import { ViewUtilities } from "../utils/ViewUtilities";
-import type { ContentControl } from "./ContentControl";
-import { InternalContentLayoutManager } from "./InternalContentLayoutManager";
+import { ViewUtilities } from "../utils/ViewUtilities.js";
+import type { ContentControl } from "./ContentControl.js";
+import { InternalContentLayoutManager } from "./InternalContentLayoutManager.js";
 import { IModelApp } from "@itwin/core-frontend";
-import type { ContentGroup } from "./ContentGroup";
+import type { ContentGroup } from "./ContentGroup.js";
 import { BeUiEvent, Logger } from "@itwin/core-bentley";
-import { UiFramework } from "../UiFramework";
+import { UiFramework } from "../UiFramework.js";
 import type {
   ActiveContentChangedEventArgs,
   MouseDownChangedEventArgs,
-} from "../framework/FrameworkContent";
-import { InternalContentDialogManager } from "../dialog/InternalContentDialogManager";
+} from "../framework/FrameworkContent.js";
+import { InternalContentDialogManager } from "../dialog/InternalContentDialogManager.js";
 
 /** Content View Manager class.
  * @internal

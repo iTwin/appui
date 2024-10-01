@@ -6,15 +6,15 @@ import * as React from "react";
 import { Logger } from "@itwin/core-bentley";
 import { RelativePosition } from "@itwin/appui-abstract";
 import { Point } from "@itwin/core-react";
-import type { CursorPopupOptions, Placement } from "../../../appui-react";
+import type { CursorPopupOptions, Placement } from "../../../appui-react.js";
 import {
   CursorInformation,
   CursorPopup,
   CursorPopupContent,
   CursorPopupManager,
   CursorPopupRenderer,
-} from "../../../appui-react";
-import TestUtils, { selectorMatches } from "../../TestUtils";
+} from "../../../appui-react.js";
+import TestUtils, { selectorMatches } from "../../TestUtils.js";
 import { render, screen, waitFor } from "@testing-library/react";
 import type { XAndY } from "@itwin/core-geometry";
 

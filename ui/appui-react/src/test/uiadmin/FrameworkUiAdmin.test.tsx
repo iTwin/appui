@@ -27,9 +27,9 @@ import {
   CursorInformation,
   FrameworkUiAdmin,
   KeyinFieldLocalization,
-} from "../../appui-react";
-import { ClearKeyinPaletteHistoryTool } from "../../appui-react/tools/KeyinPaletteTools";
-import * as keyinExports from "../../appui-react/popup/KeyinPalettePanel";
+} from "../../appui-react.js";
+import { ClearKeyinPaletteHistoryTool } from "../../appui-react/tools/KeyinPaletteTools.js";
+import * as keyinExports from "../../appui-react/popup/KeyinPalettePanel.js";
 import { Tool } from "@itwin/core-frontend";
 import { Button } from "@itwin/itwinui-react";
 

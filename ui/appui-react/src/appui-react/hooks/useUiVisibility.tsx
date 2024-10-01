@@ -7,7 +7,7 @@
  */
 
 import { useEffect, useState } from "react";
-import { UiFramework } from "../UiFramework";
+import { UiFramework } from "../UiFramework.js";
 
 /** @internal */
 export function useUiVisibility() {

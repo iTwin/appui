@@ -4,9 +4,9 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { render, screen } from "@testing-library/react";
-import { Calculator } from "../../appui-react/accudraw/Calculator";
-import { CalculatorEngine } from "../../appui-react/accudraw/CalculatorEngine";
-import { selectorMatches, userEvent } from "../TestUtils";
+import { Calculator } from "../../appui-react/accudraw/Calculator.js";
+import { CalculatorEngine } from "../../appui-react/accudraw/CalculatorEngine.js";
+import { selectorMatches, userEvent } from "../TestUtils.js";
 
 describe("Calculator", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;

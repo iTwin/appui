@@ -9,10 +9,10 @@
 import * as React from "react";
 import { Orientation } from "@itwin/components-react";
 import { useResizeObserver } from "@itwin/core-react";
-import { AccuDrawFieldContainer } from "./AccuDrawFieldContainer";
-import type { ConfigurableCreateInfo } from "../configurableui/ConfigurableUiControl";
-import { WidgetControl } from "../widgets/WidgetControl";
-import { UiFramework } from "../UiFramework";
+import { AccuDrawFieldContainer } from "./AccuDrawFieldContainer.js";
+import type { ConfigurableCreateInfo } from "../configurableui/ConfigurableUiControl.js";
+import { WidgetControl } from "../widgets/WidgetControl.js";
+import { UiFramework } from "../UiFramework.js";
 
 /** AccuDraw Widget Control
  * @public

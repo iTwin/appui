@@ -8,9 +8,9 @@
 
 import type { CommandHandler, OnItemExecutedFunc } from "@itwin/appui-abstract";
 import { Orientation } from "@itwin/components-react";
-import { ItemDefBase } from "./ItemDefBase";
-import type { ItemProps } from "./ItemProps";
-import type { SizeProps } from "../utils/SizeProps";
+import { ItemDefBase } from "./ItemDefBase.js";
+import type { ItemProps } from "./ItemProps.js";
+import type { SizeProps } from "../utils/SizeProps.js";
 
 /* eslint-disable deprecation/deprecation */
 

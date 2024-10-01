@@ -7,7 +7,7 @@
  */
 
 import { BeUiEvent } from "@itwin/core-bentley";
-import type { UiSyncEventArgs } from "./UiSyncEvent";
+import type { UiSyncEventArgs } from "./UiSyncEvent.js";
 
 /** This class is used to send eventIds to interested UI components so the component can determine if it needs
  * to refresh its display by calling setState on itself.

@@ -17,13 +17,13 @@ import { SnapMode } from "@itwin/core-frontend";
 import { Icon } from "@itwin/core-react";
 import type { CommonProps } from "@itwin/core-react";
 import * as React from "react";
-import { UiFramework } from "../UiFramework";
-import { SnapModePanel } from "../layout/footer/snap-mode/Panel";
-import { Snap } from "../layout/footer/snap-mode/Snap";
-import { useTranslation } from "../hooks/useTranslation";
-import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState";
+import { UiFramework } from "../UiFramework.js";
+import { SnapModePanel } from "../layout/footer/snap-mode/Panel.js";
+import { Snap } from "../layout/footer/snap-mode/Snap.js";
+import { useTranslation } from "../hooks/useTranslation.js";
+import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState.js";
 import { Button } from "@itwin/itwinui-react";
-import { StatusBarPopover } from "../statusbar/popup/StatusBarPopover";
+import { StatusBarPopover } from "../statusbar/popup/StatusBarPopover.js";
 
 /** Define the properties that will be used to represent the available snap modes. */
 interface SnapModeFieldEntry {

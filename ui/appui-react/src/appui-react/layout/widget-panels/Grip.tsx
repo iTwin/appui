@@ -12,18 +12,18 @@ import * as React from "react";
 import { assert } from "@itwin/core-bentley";
 import type { CommonProps } from "@itwin/core-react";
 import { Point, Rectangle, Timer } from "@itwin/core-react";
-import type { UseDragPanelGripArgs } from "../base/DragManager";
-import { useDragPanelGrip } from "../base/DragManager";
-import { NineZoneDispatchContext, useLabel } from "../base/NineZone";
+import type { UseDragPanelGripArgs } from "../base/DragManager.js";
+import { useDragPanelGrip } from "../base/DragManager.js";
+import { NineZoneDispatchContext, useLabel } from "../base/NineZone.js";
 import {
   isHorizontalPanelSide,
   PanelSideContext,
   WidgetPanelContext,
-} from "./Panel";
-import type { PointerCaptorArgs } from "../base/usePointerCaptor";
-import { usePointerCaptor } from "../base/usePointerCaptor";
-import { useLayout, useLayoutStore } from "../base/LayoutStore";
-import { useMaximizedPanel } from "../../preview/enable-maximized-widget/useMaximizedWidget";
+} from "./Panel.js";
+import type { PointerCaptorArgs } from "../base/usePointerCaptor.js";
+import { usePointerCaptor } from "../base/usePointerCaptor.js";
+import { useLayout, useLayoutStore } from "../base/LayoutStore.js";
+import { useMaximizedPanel } from "../../preview/enable-maximized-widget/useMaximizedWidget.js";
 
 /** Resize grip of [[WidgetPanel]] component.
  * @internal

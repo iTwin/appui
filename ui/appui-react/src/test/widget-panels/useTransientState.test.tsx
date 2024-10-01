@@ -5,11 +5,11 @@
 import * as React from "react";
 import { act, renderHook } from "@testing-library/react";
 import { BeEvent } from "@itwin/core-bentley";
-import { useTransientState } from "../../appui-react";
-import type { TabState } from "../../appui-react/layout/state/TabState";
-import type { WidgetContentManagerContextArgs } from "../../appui-react/layout/widget/ContentManager";
-import { WidgetContentManagerContext } from "../../appui-react/layout/widget/ContentManager";
-import { TabIdContext } from "../../appui-react/layout/widget/ContentRenderer";
+import { useTransientState } from "../../appui-react.js";
+import type { TabState } from "../../appui-react/layout/state/TabState.js";
+import type { WidgetContentManagerContextArgs } from "../../appui-react/layout/widget/ContentManager.js";
+import { WidgetContentManagerContext } from "../../appui-react/layout/widget/ContentManager.js";
+import { TabIdContext } from "../../appui-react/layout/widget/ContentRenderer.js";
 
 describe("useTransientState", () => {
   it("should invoke onSave", () => {

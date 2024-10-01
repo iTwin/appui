@@ -8,15 +8,15 @@
 
 import * as React from "react";
 import { UiError } from "@itwin/appui-abstract";
-import type { ActionButtonItemDef } from "../shared/ActionButtonItemDef";
-import { ItemDefBase } from "../shared/ItemDefBase";
-import { UiFramework } from "../UiFramework";
-import { KeyboardShortcutMenu } from "./KeyboardShortcutMenu";
-import type { KeyboardShortcutProps } from "./KeyboardShortcutProps";
+import type { ActionButtonItemDef } from "../shared/ActionButtonItemDef.js";
+import { ItemDefBase } from "../shared/ItemDefBase.js";
+import { UiFramework } from "../UiFramework.js";
+import { KeyboardShortcutMenu } from "./KeyboardShortcutMenu.js";
+import type { KeyboardShortcutProps } from "./KeyboardShortcutProps.js";
 import type {
   FrameworkKeyboardShortcut,
   FrameworkKeyboardShortcutContainer,
-} from "../framework/FrameworkKeyboardShortcuts";
+} from "../framework/FrameworkKeyboardShortcuts.js";
 
 /* eslint-disable deprecation/deprecation */
 

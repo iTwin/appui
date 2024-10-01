@@ -8,8 +8,8 @@
 
 import "./useHorizontalPanelAlignment.scss";
 import * as React from "react";
-import { HorizontalPanelAlignContext } from "./PreviewHorizontalPanelAlign";
-import type { PanelSide } from "../../layout/widget-panels/PanelTypes";
+import { HorizontalPanelAlignContext } from "./PreviewHorizontalPanelAlign.js";
+import type { PanelSide } from "../../layout/widget-panels/PanelTypes.js";
 
 /** @internal */
 export function useHorizontalPanelAlignment(side: PanelSide) {

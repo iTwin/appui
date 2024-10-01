@@ -8,8 +8,8 @@
 
 import { Badge, Icon } from "@itwin/core-react";
 import * as React from "react";
-import { WidgetTab } from "../layout/widget/Tab";
-import { useWidgetDef } from "./Content";
+import { WidgetTab } from "../layout/widget/Tab.js";
+import { useWidgetDef } from "./Content.js";
 
 /** @internal */
 export function WidgetPanelsTab() {

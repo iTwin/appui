@@ -6,7 +6,7 @@
  * @module KeyboardShortcut
  */
 
-import type { KeyboardShortcutProps } from "./KeyboardShortcutProps";
+import type { KeyboardShortcutProps } from "./KeyboardShortcutProps.js";
 import { IModelApp, type ToolType } from "@itwin/core-frontend";
 
 /** Helper class to create keyboard shortcuts.

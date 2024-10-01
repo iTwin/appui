@@ -19,15 +19,15 @@ import {
   OutputMessageType,
   ParseAndRunResult,
 } from "@itwin/core-frontend";
-import { UiFramework } from "../UiFramework";
+import { UiFramework } from "../UiFramework.js";
 import type { OnItemExecutedFunc } from "@itwin/appui-abstract";
-import { ClearKeyinPaletteHistoryTool } from "../tools/KeyinPaletteTools";
-import { useUiStateStorageHandler } from "../uistate/useUiStateStorage";
-import type { KeyinEntry } from "../keyins/Keyins";
+import { ClearKeyinPaletteHistoryTool } from "../tools/KeyinPaletteTools.js";
+import { useUiStateStorageHandler } from "../uistate/useUiStateStorage.js";
+import type { KeyinEntry } from "../keyins/Keyins.js";
 import { Input } from "@itwin/itwinui-react";
-import { matchesWords } from "../utils/matchesWords";
-import { useTranslation } from "../hooks/useTranslation";
-import { UiStateStorageStatus } from "../uistate/UiStateStorage";
+import { matchesWords } from "../utils/matchesWords.js";
+import { useTranslation } from "../hooks/useTranslation.js";
+import { UiStateStorageStatus } from "../uistate/UiStateStorage.js";
 
 const KEYIN_PALETTE_NAMESPACE = "KeyinPalettePanel";
 const KEYIN_HISTORY_KEY = "historyArray";

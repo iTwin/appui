@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import type { ScreenViewport, Viewport } from "@itwin/core-frontend";
 import * as moq from "typemoq";
-import { HideIsolateEmphasizeActionHandler } from "../../appui-react/selection/HideIsolateEmphasizeManager";
-import { UiFramework } from "../../appui-react/UiFramework";
+import { HideIsolateEmphasizeActionHandler } from "../../appui-react/selection/HideIsolateEmphasizeManager.js";
+import { UiFramework } from "../../appui-react/UiFramework.js";
 
 class TestHideIsolateEmphasizeManager extends HideIsolateEmphasizeActionHandler {
   public featureOverridesActive = false;

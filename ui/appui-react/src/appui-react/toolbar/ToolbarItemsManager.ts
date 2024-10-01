@@ -16,8 +16,8 @@ import type {
   ToolbarActionItem,
   ToolbarGroupItem,
   ToolbarItem,
-} from "./ToolbarItem";
-import { isToolbarGroupItem } from "./ToolbarItem";
+} from "./ToolbarItem.js";
+import { isToolbarGroupItem } from "./ToolbarItem.js";
 
 function isInstance<T>(args: T | ReadonlyArray<T>): args is T {
   return !Array.isArray(args);

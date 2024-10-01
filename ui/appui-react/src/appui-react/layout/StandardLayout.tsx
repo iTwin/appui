@@ -10,12 +10,12 @@ import "./StandardLayout.scss";
 import classnames from "classnames";
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
-import { useLayout } from "./base/LayoutStore";
-import { useContentAlwaysMaxSize } from "../preview/content-always-max-size/useContentAlwaysMaxSize";
-import { useMaximizedPanelLayout } from "../preview/enable-maximized-widget/useMaximizedWidget";
-import { useHorizontalPanelAlignment } from "../preview/horizontal-panel-alignment/useHorizontalPanelAlignment";
-import { usePanelsAutoCollapse } from "./widget-panels/usePanelsAutoCollapse";
-import type { PanelSide } from "./widget-panels/PanelTypes";
+import { useLayout } from "./base/LayoutStore.js";
+import { useContentAlwaysMaxSize } from "../preview/content-always-max-size/useContentAlwaysMaxSize.js";
+import { useMaximizedPanelLayout } from "../preview/enable-maximized-widget/useMaximizedWidget.js";
+import { useHorizontalPanelAlignment } from "../preview/horizontal-panel-alignment/useHorizontalPanelAlignment.js";
+import { usePanelsAutoCollapse } from "./widget-panels/usePanelsAutoCollapse.js";
+import type { PanelSide } from "./widget-panels/PanelTypes.js";
 
 // eslint-disable-next-line deprecation/deprecation
 interface StandardLayoutProps extends CommonProps {

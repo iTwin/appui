@@ -9,7 +9,7 @@
 import "./Badge.scss";
 import * as React from "react";
 import { Badge as CoreBadge } from "@itwin/core-react";
-import type { ToolbarItem } from "../../toolbar/ToolbarItem";
+import type { ToolbarItem } from "../../toolbar/ToolbarItem.js";
 
 /** @internal */
 export function Badge({

@@ -9,8 +9,8 @@ import {
   UiFramework,
   WidgetDef,
   WidgetPanelsStatusBar,
-} from "../../appui-react";
-import { childStructure } from "../TestUtils";
+} from "../../appui-react.js";
+import { childStructure } from "../TestUtils.js";
 
 describe("WidgetPanelsStatusBar", () => {
   it("should not render widget control", () => {

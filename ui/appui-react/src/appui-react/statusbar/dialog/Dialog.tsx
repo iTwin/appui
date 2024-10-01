@@ -8,9 +8,9 @@
 
 import type { CommonProps } from "@itwin/core-react";
 import * as React from "react";
-import { Dialog } from "../../layout/footer/dialog/Dialog";
-import { StatusBarDialogTitleBarButton } from "./Button";
-import { StatusBarDialogTitleBar } from "./TitleBar";
+import { Dialog } from "../../layout/footer/dialog/Dialog.js";
+import { StatusBarDialogTitleBarButton } from "./Button.js";
+import { StatusBarDialogTitleBar } from "./TitleBar.js";
 
 /** Properties of [[StatusBarDialog]] component.
  * @beta

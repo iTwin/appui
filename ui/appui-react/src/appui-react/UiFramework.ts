@@ -22,76 +22,76 @@ import type {
 import { UiAdmin, UiError, UiEvent } from "@itwin/appui-abstract";
 import { getObjectClassName } from "@itwin/core-react";
 import { UiIModelComponents } from "@itwin/imodel-components-react";
-import { BackstageManager } from "./backstage/BackstageManager";
-import { InternalChildWindowManager } from "./childwindow/InternalChildWindowManager";
-import { InternalConfigurableUiManager } from "./configurableui/InternalConfigurableUiManager";
-import type { FrameworkState as ReduxFrameworkState } from "./redux/FrameworkState";
+import { BackstageManager } from "./backstage/BackstageManager.js";
+import { InternalChildWindowManager } from "./childwindow/InternalChildWindowManager.js";
+import { InternalConfigurableUiManager } from "./configurableui/InternalConfigurableUiManager.js";
+import type { FrameworkState as ReduxFrameworkState } from "./redux/FrameworkState.js";
 import type {
   CursorMenuData,
   CursorMenuPayload,
   PresentationSelectionScope,
-} from "./redux/SessionState";
-import { SessionStateActionId } from "./redux/SessionState";
-import { StateManager } from "./redux/StateManager";
-import type { HideIsolateEmphasizeActionHandler } from "./selection/HideIsolateEmphasizeManager";
-import { HideIsolateEmphasizeManager } from "./selection/HideIsolateEmphasizeManager";
-import * as keyinPaletteTools from "./tools/KeyinPaletteTools";
-import * as openSettingTools from "./tools/OpenSettingsTool";
-import * as restoreLayoutTools from "./tools/RestoreLayoutTool";
-import * as toolSettingTools from "./tools/ToolSettingsTools";
+} from "./redux/SessionState.js";
+import { SessionStateActionId } from "./redux/SessionState.js";
+import { StateManager } from "./redux/StateManager.js";
+import type { HideIsolateEmphasizeActionHandler } from "./selection/HideIsolateEmphasizeManager.js";
+import { HideIsolateEmphasizeManager } from "./selection/HideIsolateEmphasizeManager.js";
+import * as keyinPaletteTools from "./tools/KeyinPaletteTools.js";
+import * as openSettingTools from "./tools/OpenSettingsTool.js";
+import * as restoreLayoutTools from "./tools/RestoreLayoutTool.js";
+import * as toolSettingTools from "./tools/ToolSettingsTools.js";
 import {
   InternalUiShowHideManager,
   UiShowHideSettingsProvider,
-} from "./utils/InternalUiShowHideManager";
-import { WidgetManager } from "./widgets/WidgetManager";
-import { InternalFrontstageManager } from "./frontstage/InternalFrontstageManager";
-import { InternalContentViewManager } from "./content/InternalContentViewManager";
-import { InternalModalDialogManager } from "./dialog/InternalModalDialogManager";
-import { InternalModelessDialogManager } from "./dialog/InternalModelessDialogManager";
-import { InternalKeyboardShortcutManager } from "./keyboardshortcut/InternalKeyboardShortcut";
-import { InternalToolSettingsManager } from "./toolsettings/InternalToolSettingsManager";
-import type { FrameworkBackstage } from "./framework/FrameworkBackstage";
-import type { FrameworkChildWindows } from "./framework/FrameworkChildWindows";
-import type { FrameworkControls } from "./framework/FrameworkControls";
-import type { FrameworkFrontstages } from "./framework/FrameworkFrontstages";
-import type { FrameworkToolSettings } from "./framework/FrameworkToolSettings";
-import type { FrameworkContent } from "./framework/FrameworkContent";
-import type { FrameworkDialogs } from "./framework/FrameworkDialogs";
-import type { FrameworkKeyboardShortcuts } from "./framework/FrameworkKeyboardShortcuts";
-import type { FrameworkVisibility } from "./framework/FrameworkVisibility";
+} from "./utils/InternalUiShowHideManager.js";
+import { WidgetManager } from "./widgets/WidgetManager.js";
+import { InternalFrontstageManager } from "./frontstage/InternalFrontstageManager.js";
+import { InternalContentViewManager } from "./content/InternalContentViewManager.js";
+import { InternalModalDialogManager } from "./dialog/InternalModalDialogManager.js";
+import { InternalModelessDialogManager } from "./dialog/InternalModelessDialogManager.js";
+import { InternalKeyboardShortcutManager } from "./keyboardshortcut/InternalKeyboardShortcut.js";
+import { InternalToolSettingsManager } from "./toolsettings/InternalToolSettingsManager.js";
+import type { FrameworkBackstage } from "./framework/FrameworkBackstage.js";
+import type { FrameworkChildWindows } from "./framework/FrameworkChildWindows.js";
+import type { FrameworkControls } from "./framework/FrameworkControls.js";
+import type { FrameworkFrontstages } from "./framework/FrameworkFrontstages.js";
+import type { FrameworkToolSettings } from "./framework/FrameworkToolSettings.js";
+import type { FrameworkContent } from "./framework/FrameworkContent.js";
+import type { FrameworkDialogs } from "./framework/FrameworkDialogs.js";
+import type { FrameworkKeyboardShortcuts } from "./framework/FrameworkKeyboardShortcuts.js";
+import type { FrameworkVisibility } from "./framework/FrameworkVisibility.js";
 import {
   SyncUiEventDispatcher,
   SyncUiEventId,
-} from "./syncui/SyncUiEventDispatcher";
+} from "./syncui/SyncUiEventDispatcher.js";
 import type { XAndY } from "@itwin/core-geometry";
-import { PopupManager } from "./popup/PopupManager";
-import { AccuDrawPopupManager } from "./accudraw/AccuDrawPopupManager";
-import { UiDataProvidedDialog } from "./dialog/UiDataProvidedDialog";
+import { PopupManager } from "./popup/PopupManager.js";
+import { AccuDrawPopupManager } from "./accudraw/AccuDrawPopupManager.js";
+import { UiDataProvidedDialog } from "./dialog/UiDataProvidedDialog.js";
 import type { RefObject } from "react";
 import { createElement } from "react";
-import type { DialogInfo } from "./dialog/DialogManagerBase";
-import type { KeyinEntry } from "./keyins/Keyins";
-import { mapToRelativePosition, type Placement } from "./utils/Placement";
-import type { Toolbar, ToolbarProps } from "./toolbar/Toolbar";
-import type { CursorMenuItemProps } from "./shared/MenuItem";
+import type { DialogInfo } from "./dialog/DialogManagerBase.js";
+import type { KeyinEntry } from "./keyins/Keyins.js";
+import { mapToRelativePosition, type Placement } from "./utils/Placement.js";
+import type { Toolbar, ToolbarProps } from "./toolbar/Toolbar.js";
+import type { CursorMenuItemProps } from "./shared/MenuItem.js";
 import {
   SYSTEM_PREFERRED_COLOR_THEME,
   type ThemeId,
   TOOLBAR_OPACITY_DEFAULT,
   WIDGET_OPACITY_DEFAULT,
-} from "./theme/ThemeId";
-import { ConfigurableUiActionId } from "./redux/ConfigurableUiState";
+} from "./theme/ThemeId.js";
+import { ConfigurableUiActionId } from "./redux/ConfigurableUiState.js";
 import type {
   ConfigurableUiContent,
   ConfigurableUiContentProps,
-} from "./configurableui/ConfigurableUiContent";
-import type { SelectionScopeField } from "./statusfields/SelectionScope";
-import type { SnapModeField } from "./statusfields/SnapMode";
-import type { ThemeManager } from "./theme/ThemeManager";
-import { useGlobalStore } from "./uistate/useGlobalStore";
-import type { UiStateStorage } from "./uistate/UiStateStorage";
-import { LocalStateStorage } from "./uistate/LocalStateStorage";
-import { SettingsManager } from "./settings/SettingsManager";
+} from "./configurableui/ConfigurableUiContent.js";
+import type { SelectionScopeField } from "./statusfields/SelectionScope.js";
+import type { SnapModeField } from "./statusfields/SnapMode.js";
+import type { ThemeManager } from "./theme/ThemeManager.js";
+import { useGlobalStore } from "./uistate/useGlobalStore.js";
+import type { UiStateStorage } from "./uistate/UiStateStorage.js";
+import { LocalStateStorage } from "./uistate/LocalStateStorage.js";
+import { SettingsManager } from "./settings/SettingsManager.js";
 
 interface ShowInputEditorOptions {
   location: XAndY;

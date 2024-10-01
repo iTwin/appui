@@ -14,32 +14,32 @@ import type { CommonProps } from "@itwin/core-react";
 import { useRefs, useResizeObserver } from "@itwin/core-react";
 import classnames from "classnames";
 import * as React from "react";
-import { eqlOverflown } from "../layout/tool-settings/Docked";
-import { StatusBarLabelIndicator } from "../statusbar/LabelIndicator";
-import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
-import { isProviderItem } from "../ui-items-provider/isProviderItem";
-import { StatusBarOverflow } from "./Overflow";
+import { eqlOverflown } from "../layout/tool-settings/Docked.js";
+import { StatusBarLabelIndicator } from "../statusbar/LabelIndicator.js";
+import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher.js";
+import { isProviderItem } from "../ui-items-provider/isProviderItem.js";
+import { StatusBarOverflow } from "./Overflow.js";
 import {
   StatusBarCenterSection,
   StatusBarLeftSection,
   StatusBarRightSection,
   StatusBarSpaceBetween,
-} from "./StatusBar";
+} from "./StatusBar.js";
 import type {
   StatusBarActionItem,
   StatusBarItem,
   StatusBarLabelItem,
-} from "./StatusBarItem";
+} from "./StatusBarItem.js";
 import {
   isStatusBarActionItem,
   isStatusBarCustomItem,
   isStatusBarLabelItem,
   StatusBarSection,
-} from "./StatusBarItem";
-import { StatusBarItemsManager } from "./StatusBarItemsManager";
-import { useDefaultStatusBarItems } from "./useDefaultStatusBarItems";
-import { useUiItemsProviderStatusBarItems } from "./useUiItemsProviderStatusBarItems";
-import { StatusBarCornerComponentContext } from "./StatusBarCornerComponentContext";
+} from "./StatusBarItem.js";
+import { StatusBarItemsManager } from "./StatusBarItemsManager.js";
+import { useDefaultStatusBarItems } from "./useDefaultStatusBarItems.js";
+import { useUiItemsProviderStatusBarItems } from "./useUiItemsProviderStatusBarItems.js";
+import { StatusBarCornerComponentContext } from "./StatusBarCornerComponentContext.js";
 
 /** Private  function to generate a value that will allow the proper order to be maintained when items are placed in overflow panel */
 function getCombinedSectionItemPriority(item: StatusBarItem) {

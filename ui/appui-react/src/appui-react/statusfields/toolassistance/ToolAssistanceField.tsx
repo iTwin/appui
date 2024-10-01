@@ -23,18 +23,18 @@ import { FillCentered, Icon, UiStateEntry } from "@itwin/core-react";
 import { Button, Tabs, ToggleSwitch } from "@itwin/itwinui-react";
 import classnames from "classnames";
 import * as React from "react";
-import { UiFramework } from "../../UiFramework";
-import { CursorPrompt } from "../../cursor/cursorprompt/CursorPrompt";
-import { MessageManager } from "../../messages/MessageManager";
-import { UiStateStorageContext } from "../../uistate/useUiStateStorage";
+import { UiFramework } from "../../UiFramework.js";
+import { CursorPrompt } from "../../cursor/cursorprompt/CursorPrompt.js";
+import { MessageManager } from "../../messages/MessageManager.js";
+import { UiStateStorageContext } from "../../uistate/useUiStateStorage.js";
 import "./ToolAssistanceField.scss";
 
 import { SvgClose, SvgPin } from "@itwin/itwinui-icons-react";
-import { ToolAssistanceDialog } from "../../layout/footer/tool-assistance/Dialog";
-import { ToolAssistanceInstruction as NZ_ToolAssistanceInstruction } from "../../layout/footer/tool-assistance/Instruction";
-import { ToolAssistanceItem } from "../../layout/footer/tool-assistance/Item";
-import { ToolAssistanceSeparator } from "../../layout/footer/tool-assistance/Separator";
-import { StatusBarDialog } from "../../statusbar/dialog/Dialog";
+import { ToolAssistanceDialog } from "../../layout/footer/tool-assistance/Dialog.js";
+import { ToolAssistanceInstruction as NZ_ToolAssistanceInstruction } from "../../layout/footer/tool-assistance/Instruction.js";
+import { ToolAssistanceItem } from "../../layout/footer/tool-assistance/Item.js";
+import { ToolAssistanceSeparator } from "../../layout/footer/tool-assistance/Separator.js";
+import { StatusBarDialog } from "../../statusbar/dialog/Dialog.js";
 import acceptPointIcon from "./accept-point.svg";
 import cursorClickIcon from "./cursor-click.svg";
 import oneTouchDragIcon from "./gesture-one-finger-drag.svg";
@@ -51,13 +51,13 @@ import clickMouseWheelDragIcon from "./mouse-click-wheel-drag.svg";
 import mouseWheelClickIcon from "./mouse-click-wheel.svg";
 import touchCursorDragIcon from "./touch-cursor-pan.svg";
 import touchCursorTapIcon from "./touch-cursor-point.svg";
-import { StatusBarPopover } from "../../statusbar/popup/StatusBarPopover";
-import type { UiStateStorageResult } from "../../uistate/UiStateStorage";
+import { StatusBarPopover } from "../../statusbar/popup/StatusBarPopover.js";
+import type { UiStateStorageResult } from "../../uistate/UiStateStorage.js";
 import {
   type UiStateStorage,
   UiStateStorageStatus,
-} from "../../uistate/UiStateStorage";
-import { LocalStateStorage } from "../../uistate/LocalStateStorage";
+} from "../../uistate/UiStateStorage.js";
+import { LocalStateStorage } from "../../uistate/LocalStateStorage.js";
 
 // cSpell:ignore cursorprompt
 

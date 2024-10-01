@@ -7,23 +7,23 @@ import type {
   FrontstageConfig,
   SyncToolSettingsPropertiesEventArgs,
   ToolSettingsEntry,
-} from "../../appui-react";
+} from "../../appui-react.js";
 import {
   ConfigurableCreateInfo,
   ContentControl,
   FrontstageProvider,
   ToolUiProvider,
   UiFramework,
-} from "../../appui-react";
-import { ToolInformation } from "../../appui-react/toolsettings/ToolInformation";
-import TestUtils from "../TestUtils";
+} from "../../appui-react.js";
+import { ToolInformation } from "../../appui-react/toolsettings/ToolInformation.js";
+import TestUtils from "../TestUtils.js";
 import type {
   DialogItemValue,
   DialogPropertySyncItem,
 } from "@itwin/appui-abstract";
 import { UiLayoutDataProvider } from "@itwin/appui-abstract";
 import { Input, Slider } from "@itwin/itwinui-react";
-import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";
+import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager.js";
 
 describe("ToolUiProvider", () => {
   function FancySlider() {

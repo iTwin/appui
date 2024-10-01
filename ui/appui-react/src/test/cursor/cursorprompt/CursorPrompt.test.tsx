@@ -6,14 +6,14 @@ import * as React from "react";
 import { ToolAssistance } from "@itwin/core-frontend";
 import { RelativePosition } from "@itwin/appui-abstract";
 import { Point } from "@itwin/core-react";
-import { CursorInformation } from "../../../appui-react/cursor/CursorInformation";
-import { CursorPopup } from "../../../appui-react/cursor/cursorpopup/CursorPopup";
+import { CursorInformation } from "../../../appui-react/cursor/CursorInformation.js";
+import { CursorPopup } from "../../../appui-react/cursor/cursorpopup/CursorPopup.js";
 import {
   CursorPopupManager,
   CursorPopupRenderer,
-} from "../../../appui-react/cursor/cursorpopup/CursorPopupManager";
-import { CursorPrompt } from "../../../appui-react/cursor/cursorprompt/CursorPrompt";
-import { selectorMatches } from "../../TestUtils";
+} from "../../../appui-react/cursor/cursorpopup/CursorPopupManager.js";
+import { CursorPrompt } from "../../../appui-react/cursor/cursorprompt/CursorPrompt.js";
+import { selectorMatches } from "../../TestUtils.js";
 import { render, screen, waitFor } from "@testing-library/react";
 
 describe("CursorPrompt", () => {

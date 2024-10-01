@@ -27,15 +27,15 @@ import {
   ToolUiProvider,
   UiFramework,
   WidgetState,
-} from "../../appui-react";
-import TestUtils, { storageMock } from "../TestUtils";
+} from "../../appui-react.js";
+import TestUtils, { storageMock } from "../TestUtils.js";
 import {
   TestFrontstage,
   TestFrontstage2,
   TestFrontstage3,
-} from "./FrontstageTestUtils";
-import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";
-import { defaultFrontstageConfig } from "./FrontstageDef.test";
+} from "./FrontstageTestUtils.js";
+import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager.js";
+import { defaultFrontstageConfig } from "./FrontstageDef.test.js";
 
 const mySessionStorage = storageMock();
 

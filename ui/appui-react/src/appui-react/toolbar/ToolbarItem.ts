@@ -11,7 +11,7 @@ import type {
   ConditionalStringValue,
 } from "@itwin/appui-abstract";
 import type { BadgeKind, BadgeType, IconSpec } from "@itwin/core-react";
-import { UiItemsProvider } from "../ui-items-provider/UiItemsProvider";
+import { UiItemsProvider } from "../ui-items-provider/UiItemsProvider.js";
 
 /** Used to specify the usage of the toolbar which determine the toolbar position.
  * @public

@@ -10,12 +10,12 @@ import * as React from "react";
 import type { XAndY } from "@itwin/core-geometry";
 import { AngleDescription, LengthDescription } from "@itwin/core-frontend";
 import type { OnValueCommitFunc } from "@itwin/appui-abstract";
-import type { PopupInfo } from "../popup/PopupManager";
-import { PopupManager } from "../popup/PopupManager";
-import type { CursorMenuItemProps } from "../shared/MenuItem";
-import { MenuItemHelpers } from "../shared/MenuItem";
-import { CalculatorPopup } from "./CalculatorPopup";
-import { MenuButtonPopup } from "./MenuButtonPopup";
+import type { PopupInfo } from "../popup/PopupManager.js";
+import { PopupManager } from "../popup/PopupManager.js";
+import type { CursorMenuItemProps } from "../shared/MenuItem.js";
+import { MenuItemHelpers } from "../shared/MenuItem.js";
+import { CalculatorPopup } from "./CalculatorPopup.js";
+import { MenuButtonPopup } from "./MenuButtonPopup.js";
 
 import angleIcon from "./angle.svg";
 import lengthIcon from "./distance.svg";

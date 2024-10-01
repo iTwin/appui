@@ -3,13 +3,13 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { assert } from "@itwin/core-bentley";
-import type { NineZoneState } from "../../layout/state/NineZoneState";
-import type { NineZoneStateReducer } from "../../layout/state/NineZoneStateReducer";
-import { getTabLocation } from "../../layout/state/TabLocation";
+import type { NineZoneState } from "../../layout/state/NineZoneState.js";
+import type { NineZoneStateReducer } from "../../layout/state/NineZoneStateReducer.js";
+import { getTabLocation } from "../../layout/state/TabLocation.js";
 import {
   getWidgetState,
   setWidgetActiveTabId,
-} from "../../layout/state/internal/WidgetStateHelpers";
+} from "../../layout/state/internal/WidgetStateHelpers.js";
 
 /** Reducer factory to activate tab of a dragged widget when dropped in a container.
  * @internal

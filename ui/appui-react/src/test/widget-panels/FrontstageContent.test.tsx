@@ -8,7 +8,7 @@ import {
   FrontstageDef,
   UiFramework,
   WidgetPanelsFrontstageContent,
-} from "../../appui-react";
+} from "../../appui-react.js";
 
 describe("WidgetPanelsFrontstageContent", () => {
   it("should render", () => {

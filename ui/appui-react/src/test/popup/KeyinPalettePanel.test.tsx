@@ -6,13 +6,13 @@ import * as React from "react";
 import { Key } from "ts-key-enum";
 import { IModelApp, Tool } from "@itwin/core-frontend";
 import { fireEvent, render, waitFor } from "@testing-library/react";
-import type { KeyinEntry } from "../../appui-react/keyins/Keyins";
+import type { KeyinEntry } from "../../appui-react/keyins/Keyins.js";
 import {
   clearKeyinPaletteHistory,
   KeyinPalettePanel,
   UiFramework,
-} from "../../appui-react";
-import TestUtils, { storageMock } from "../TestUtils";
+} from "../../appui-react.js";
+import TestUtils, { storageMock } from "../TestUtils.js";
 import { UiStateStorageStatus } from "@itwin/core-react";
 
 const myLocalStorage = storageMock();

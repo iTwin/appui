@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
-import { StatusBarItemUtilities, StatusBarSection } from "../../appui-react";
+import { StatusBarItemUtilities, StatusBarSection } from "../../appui-react.js";
 
 describe("StatusBarItemUtilities", () => {
   describe("createCustomItem", () => {

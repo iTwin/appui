@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
 import * as React from "react";
-import { ToolAssistanceInstruction } from "../../../../appui-react/layout/footer/tool-assistance/Instruction";
-import { childStructure, selectorMatches } from "../../Utils";
+import { ToolAssistanceInstruction } from "../../../../appui-react/layout/footer/tool-assistance/Instruction.js";
+import { childStructure, selectorMatches } from "../../Utils.js";
 
 describe("<ToolAssistanceInstruction />", () => {
   it("renders correctly", () => {

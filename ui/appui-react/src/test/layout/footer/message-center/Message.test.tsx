@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
 import * as React from "react";
-import { MessageCenterMessage } from "../../../../appui-react/statusfields/message-center/MessageCenterMessage";
-import { selectorMatches } from "../../Utils";
+import { MessageCenterMessage } from "../../../../appui-react/statusfields/message-center/MessageCenterMessage.js";
+import { selectorMatches } from "../../Utils.js";
 
 describe("<MessageCenterMessage />", () => {
   it("renders correctly", () => {

@@ -11,8 +11,8 @@ import {
   SnapModeField,
   SyncUiEventDispatcher,
   UiFramework,
-} from "../../appui-react";
-import TestUtils, { userEvent } from "../TestUtils";
+} from "../../appui-react.js";
+import TestUtils, { userEvent } from "../TestUtils.js";
 
 describe("SnapModeField", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;

@@ -11,9 +11,9 @@ import { useRefEffect, useRefs } from "@itwin/core-react";
 import {
   AutoCollapseUnpinnedPanelsContext,
   NineZoneDispatchContext,
-} from "../base/NineZone";
-import { panelSides } from "./Panel";
-import { useLayoutStore } from "../base/LayoutStore";
+} from "../base/NineZone.js";
+import { panelSides } from "./Panel.js";
+import { useLayoutStore } from "../base/LayoutStore.js";
 
 /** @internal */
 export function usePanelsAutoCollapse<T extends Element>(): React.Ref<T> {

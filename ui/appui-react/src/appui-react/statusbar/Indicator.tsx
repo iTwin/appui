@@ -8,9 +8,9 @@
 
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
-import { StatusBarPopup } from "./popup/Popup";
-import { StatusBarField } from "./Field";
-import { StatusBarPopover } from "./popup/StatusBarPopover";
+import { StatusBarPopup } from "./popup/Popup.js";
+import { StatusBarField } from "./Field.js";
+import { StatusBarPopover } from "./popup/StatusBarPopover.js";
 
 /** Properties of [[StatusBarIndicator]] component.
  * @beta

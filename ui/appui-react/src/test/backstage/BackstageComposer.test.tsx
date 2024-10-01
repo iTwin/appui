@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import type { BackstageItem, UiItemsProvider } from "../../appui-react";
+import type { BackstageItem, UiItemsProvider } from "../../appui-react.js";
 import {
   BackstageComposer,
   BackstageItemUtilities,
@@ -11,12 +11,12 @@ import {
   UiFramework,
   UiItemsManager,
   useGroupedItems,
-} from "../../appui-react";
-import { selectorMatches, userEvent } from "../TestUtils";
+} from "../../appui-react.js";
+import { selectorMatches, userEvent } from "../TestUtils.js";
 import {
   getActionItem,
   getStageLauncherItem,
-} from "./BackstageComposerItem.test";
+} from "./BackstageComposerItem.test.js";
 import { act, render, renderHook, screen } from "@testing-library/react";
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
 

@@ -14,8 +14,8 @@ import type {
   ToolbarOpacitySetting,
   ToolbarPanelAlignment,
 } from "@itwin/components-react";
-import type { ToolbarItem } from "./ToolbarItem";
-import { Toolbar } from "./Toolbar";
+import type { ToolbarItem } from "./ToolbarItem.js";
+import { Toolbar } from "./Toolbar.js";
 
 /** Component that displays toolbar items.
  * @beta

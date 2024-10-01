@@ -7,11 +7,11 @@
  */
 
 import * as React from "react";
-import { useAvailableUiItemsProviders } from "../hooks/useAvailableUiItemsProviders";
-import type { BackstageItem } from "./BackstageItem";
-import { UiItemsManager } from "../ui-items-provider/UiItemsManager";
-import type { BackstageItemsManager } from "./BackstageItemsManager";
-import type { BackstageComposer } from "./BackstageComposer";
+import { useAvailableUiItemsProviders } from "../hooks/useAvailableUiItemsProviders.js";
+import type { BackstageItem } from "./BackstageItem.js";
+import { UiItemsManager } from "../ui-items-provider/UiItemsManager.js";
+import type { BackstageItemsManager } from "./BackstageItemsManager.js";
+import type { BackstageComposer } from "./BackstageComposer.js";
 
 /** Hook that returns backstage items from {@link UiItemsManager}.
  * @deprecated in 4.17.0. Uses an internal `BackstageItemsManager` API. Use {@link BackstageComposer} instead.

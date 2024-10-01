@@ -8,8 +8,8 @@
 
 import * as React from "react";
 import { MenuItem } from "@itwin/itwinui-react";
-import { WidgetActionDropdownContext } from "./MoreButton";
-import { TabBarButton } from "../../layout/widget/Button";
+import { WidgetActionDropdownContext } from "./MoreButton.js";
+import { TabBarButton } from "../../layout/widget/Button.js";
 
 interface ActionButtonProps {
   label?: string;

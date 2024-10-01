@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { render, renderHook } from "@testing-library/react";
-import { PreviewFeaturesProvider } from "../../appui-react";
-import { usePreviewFeatures } from "../../appui-react/preview/PreviewFeatures";
+import { PreviewFeaturesProvider } from "../../appui-react.js";
+import { usePreviewFeatures } from "../../appui-react/preview/PreviewFeatures.js";
 
 const knownTestFeatures = {
   contentAlwaysMaxSize: true,

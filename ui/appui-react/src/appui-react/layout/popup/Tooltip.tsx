@@ -11,9 +11,9 @@ import classnames from "classnames";
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
 import { Point, Rectangle, Size } from "@itwin/core-react";
-import type { XAndY } from "../state/internal/NineZoneStateHelpers";
-import type { SizeProps } from "../../utils/SizeProps";
-import type { RectangleProps } from "../../utils/RectangleProps";
+import type { XAndY } from "../state/internal/NineZoneStateHelpers.js";
+import type { SizeProps } from "../../utils/SizeProps.js";
+import type { RectangleProps } from "../../utils/RectangleProps.js";
 
 /** Properties of [[Tooltip]] component.
  * @internal

@@ -8,16 +8,16 @@
 
 import type * as React from "react";
 import { BeUiEvent, Logger } from "@itwin/core-bentley";
-import { UiFramework } from "../UiFramework";
-import type { DialogChangedEventArgs } from "./DialogManagerBase";
-import { DialogManagerBase } from "./DialogManagerBase";
+import { UiFramework } from "../UiFramework.js";
+import type { DialogChangedEventArgs } from "./DialogManagerBase.js";
+import { DialogManagerBase } from "./DialogManagerBase.js";
 import {
   IModelApp,
   NotifyMessageDetails,
   OutputMessagePriority,
   OutputMessageType,
 } from "@itwin/core-frontend";
-import type { ModelessDialogInfo } from "../framework/FrameworkDialogs";
+import type { ModelessDialogInfo } from "../framework/FrameworkDialogs.js";
 
 // cSpell:ignore ZINDEX modeless
 

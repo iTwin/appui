@@ -20,14 +20,14 @@ import type {
 import { ViewportComponent } from "@itwin/imodel-components-react";
 import { FillCentered } from "@itwin/core-react";
 
-import type { ConfigurableCreateInfo } from "../configurableui/ConfigurableUiControl";
-import { UiFramework } from "../UiFramework";
-import { DefaultViewOverlay } from "./DefaultViewOverlay";
-import { ViewportContentControl } from "./ViewportContentControl";
-import { StandardRotationNavigationAidControl } from "../navigationaids/StandardRotationNavigationAid";
+import type { ConfigurableCreateInfo } from "../configurableui/ConfigurableUiControl.js";
+import { UiFramework } from "../UiFramework.js";
+import { DefaultViewOverlay } from "./DefaultViewOverlay.js";
+import { ViewportContentControl } from "./ViewportContentControl.js";
+import { StandardRotationNavigationAidControl } from "../navigationaids/StandardRotationNavigationAid.js";
 import { UiError } from "@itwin/appui-abstract";
-import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState";
-import { ConfigurableUiContext } from "../configurableui/ConfigurableUiContent";
+import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState.js";
+import { ConfigurableUiContext } from "../configurableui/ConfigurableUiContent.js";
 
 /* eslint-disable deprecation/deprecation */
 
