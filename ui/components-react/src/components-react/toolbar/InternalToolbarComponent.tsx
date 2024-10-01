@@ -21,12 +21,10 @@ import {
   ConditionalStringValue,
   ToolbarItemUtilities,
 } from "@itwin/appui-abstract";
-import type {
-  BadgeKind,
-  CommonProps,
-  NoChildrenProps,
-} from "@itwin/core-react";
-import { Badge, Icon, IconHelper } from "@itwin/core-react";
+import type { CommonProps, NoChildrenProps } from "@itwin/core-react";
+import { Icon, IconHelper } from "@itwin/core-react";
+import type { BadgeKind } from "@itwin/core-react/internal";
+import { Badge } from "@itwin/core-react/internal";
 import { ToolbarButtonItem } from "./Item.js";
 import { ToolbarItems } from "./Items.js";
 import {

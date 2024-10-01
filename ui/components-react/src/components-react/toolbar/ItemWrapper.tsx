@@ -10,7 +10,7 @@ import "./ItemWrapper.scss";
 import classnames from "classnames";
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
-import { useResizeObserver } from "@itwin/core-react";
+import { useResizeObserver } from "@itwin/core-react/internal";
 import {
   useToolbarWithOverflowDirectionContext,
   useToolItemEntryContext,

@@ -9,6 +9,10 @@
 import type { Observable } from "rxjs";
 import { Subject } from "rxjs";
 import { BeUiEvent } from "@itwin/core-bentley";
+import {
+  isNavigationKey,
+  ItemKeyboardNavigator,
+} from "@itwin/core-react/internal";
 import type {
   MultiSelectionHandler,
   SingleSelectionHandler,
@@ -18,7 +22,6 @@ import type { SelectionMode } from "../../../common/selection/SelectionModes.js"
 import type { TreeActions } from "../TreeActions.js";
 import type { TreeModelNode, VisibleTreeNodes } from "../TreeModel.js";
 import { isTreeModelNode } from "../TreeModel.js";
-import { isNavigationKey, ItemKeyboardNavigator } from "@itwin/core-react";
 import { Orientation } from "../../../common/Orientation.js";
 
 /** @internal */

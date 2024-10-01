@@ -14,8 +14,9 @@ import {
   ConditionalStringValue,
   ToolbarItemUtilities,
 } from "@itwin/appui-abstract";
-import type { BadgeKind } from "@itwin/core-react";
-import { Badge, IconHelper } from "@itwin/core-react";
+import { IconHelper } from "@itwin/core-react";
+import type { BadgeKind } from "@itwin/core-react/internal";
+import { Badge } from "@itwin/core-react/internal";
 import { BackArrow } from "./groupPanel/BackArrow.js";
 import { GroupColumn } from "./groupPanel/Column.js";
 import { Columns } from "./groupPanel/Columns.js";

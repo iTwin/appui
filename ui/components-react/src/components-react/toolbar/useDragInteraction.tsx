@@ -7,12 +7,8 @@
  */
 
 import * as React from "react";
-import { Point, Timer } from "@itwin/core-react";
-
-/** @internal */
-const getDragDistance = (from: Point, to: Point) => {
-  return from.getDistanceTo(to);
-};
+import { Timer } from "@itwin/core-react";
+import { Point } from "@itwin/core-react/internal";
 
 interface UseDragArgs {
   readonly initialPosition: React.MutableRefObject<Point | undefined>;
@@ -25,10 +21,7 @@ function useDrag(args: UseDragArgs) {
     (e: PointerEvent) => {
       if (!initialPosition.current) return;
       const newPosition = new Point(e.clientX, e.clientY);
-      const dragDistance = getDragDistance(
-        initialPosition.current,
-        newPosition
-      );
+      const dragDistance = initialPosition.current.getDistanceTo(newPosition);
       if (dragDistance < 20) return;
       onDrag();
     },

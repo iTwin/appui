@@ -28,11 +28,6 @@ describe("Point", () => {
     expect(sut).toBeCloseTo(4.472, 0.001);
   });
 
-  it("should get Manhattan distance to other point", () => {
-    const sut = new Point(1, 2).getManhattanDistanceTo({ x: -1, y: -2 });
-    expect(sut).toEqual(6);
-  });
-
   it("should get offset to other point", () => {
     const sut = new Point(1, 2).getOffsetTo({ x: 5, y: 10 });
     expect(sut.x).toEqual(4);

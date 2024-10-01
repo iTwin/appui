@@ -10,7 +10,8 @@ import "./PopupItem.scss";
 import classnames from "classnames";
 import * as React from "react";
 import type { ActionButton, RelativePosition } from "@itwin/appui-abstract";
-import { Popup, useRefState } from "@itwin/core-react";
+import { Popup } from "@itwin/core-react";
+import { useRefState } from "@itwin/core-react/internal";
 import type { ToolbarButtonItemProps } from "./Item.js";
 import {
   useToolbarPopupAutoHideContext,
