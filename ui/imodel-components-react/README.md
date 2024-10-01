@@ -16,10 +16,7 @@ import { TimelineComponent } from "@itwin/imodel-components-react";
 
 export function GetTimelineComponent() {
   return (
-    <TimelineComponent
-      startDate={new Date(1, 1, 1)}
-      endDate={new Date(2, 2, 2)}
-    />
+    <TimelineComponent startDate={new Date(2024, 8, 30)} endDate={new Date()} />
   );
 }
 ```

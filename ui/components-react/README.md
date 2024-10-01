@@ -11,10 +11,9 @@ The **@itwin/components-react** package contains React components that are data-
 To get started with the `@itwin/components-react` package, simply import the necessary components and utilities:
 
 ```tsx
-import * as React from "react";
 import { Panel, Title } from "@itwin/components-react";
 
-function getListPanel(): React.ReactNode {
+function ListPanel() {
   return (
     <Panel>
       <Title>Panel title</Title>
