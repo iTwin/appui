@@ -120,6 +120,9 @@ importers:
       '@itwin/itwinui-react':
         specifier: ^3.11.2
         version: 3.11.2(@types/react@18.3.2)(react-dom@18.3.1)(react@18.3.1)
+      '@itwin/itwinui-react-v2':
+        specifier: npm:@itwin/itwinui-react@^2.11.11
+        version: /@itwin/itwinui-react@2.12.20(react-dom@18.3.1)(react@18.3.1)
       '@itwin/itwinui-variables':
         specifier: ^3.0.0
         version: 3.1.0
@@ -274,9 +277,6 @@ importers:
       '@itwin/itwinui-react':
         specifier: ^3.11.2
         version: 3.11.2(@types/react@18.3.2)(react-dom@18.3.1)(react@18.3.1)
-      '@itwin/itwinui-react-v2':
-        specifier: npm:@itwin/itwinui-react@^2.11.11
-        version: /@itwin/itwinui-react@2.12.20(react-dom@18.3.1)(react@18.3.1)
       '@itwin/itwinui-variables':
         specifier: ^3.0.0
         version: 3.1.0
@@ -565,9 +565,6 @@ importers:
       '@itwin/itwinui-react':
         specifier: ^3.11.2
         version: 3.11.2(@types/react@18.3.2)(react-dom@18.3.1)(react@18.3.1)
-      '@itwin/itwinui-react-v2':
-        specifier: npm:@itwin/itwinui-react@^2.11.11
-        version: /@itwin/itwinui-react@2.12.20(react-dom@18.3.1)(react@18.3.1)
       '@itwin/itwinui-variables':
         specifier: ^3.0.0
         version: 3.1.0
