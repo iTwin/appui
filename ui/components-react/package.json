@@ -25,7 +25,7 @@
     "directory": "ui/components-react"
   },
   "scripts": {
-    "start": "run-p -l \"build:** -- -w\" \"copy:** -- -w\"",
+    "start": "run-p -l \"build:esm -- -w\" \"copy:** -- -w\"",
     "build": "npm run -s copy:locale && npm run -s build:cjs && npm run -s build:esm",
     "build:cjs": "npm run -s copy:cjs && npm run -s package:cjs && node ../../common/scripts/build-cjs.mjs 1>&2 --outDir lib/cjs",
     "build:esm": "npm run -s copy:esm && tsc 1>&2 --outDir lib/esm",
