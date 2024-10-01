@@ -21,6 +21,8 @@ import type {
 } from "./PropertyGridCommons.js";
 import { VirtualizedPropertyGrid } from "./VirtualizedPropertyGrid.js";
 import { ProgressRadial } from "@itwin/itwinui-react";
+import type { IPropertyGridEventHandler } from "../internal/PropertyGridEventHandler.js";
+import type { IPropertyGridModelSource } from "../internal/PropertyGridModelSource.js";
 
 /** Properties for [[VirtualizedPropertyGridWithDataProvider]] React component
  * @public
@@ -42,7 +44,7 @@ export interface VirtualizedPropertyGridWithDataProviderProps
 
 /**
  * [[VirtualizedPropertyGrid]] React Component which takes a data provider and
- * sets up default implementations for [[IPropertyGridModelSource]] and [[IPropertyGridEventHandler]]
+ * sets up default implementations for {@link IPropertyGridModelSource} and {@link IPropertyGridEventHandler}
  * @public
  */
 export function VirtualizedPropertyGridWithDataProvider(
