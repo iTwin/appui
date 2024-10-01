@@ -24,7 +24,7 @@ import { SvgWindow, SvgWindowSplitVertical } from "@itwin/itwinui-icons-react";
 
 import layoutRestoreIconSvg from "@bentley/icons-generic/icons/download.svg";
 import layoutSaveIconSvg from "@bentley/icons-generic/icons/upload.svg";
-import { ViewportContent } from "../ui/ViewportContent";
+import { ViewportContent } from "../ui/ViewportContent.js";
 
 function getIModelSpecificKey(
   inKey: string,

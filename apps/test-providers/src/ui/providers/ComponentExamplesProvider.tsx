@@ -9,7 +9,7 @@ import { Point } from "@itwin/core-react";
 import {
   ComponentExampleCategory,
   ComponentExampleProps,
-} from "../frontstages/ComponentExamples";
+} from "../frontstages/ComponentExamples.js";
 import {
   AccuDrawDialog,
   AccuDrawWidget,
@@ -104,9 +104,9 @@ import {
 } from "@itwin/appui-abstract";
 import { UnitSystemKey } from "@itwin/core-quantity";
 import { Button, DropdownMenu, MenuItem } from "@itwin/itwinui-react";
-import { TreeWidgetComponent } from "../widgets/TreeWidget";
+import { TreeWidgetComponent } from "../widgets/TreeWidget.js";
 import { TimelineComponent } from "@itwin/imodel-components-react";
-import { EditorExampleComponent } from "../components/EditorExampleComponent";
+import { EditorExampleComponent } from "../components/EditorExampleComponent.js";
 
 class TestContentControl extends ContentControl {
   constructor(info: ConfigurableCreateInfo, options: any) {

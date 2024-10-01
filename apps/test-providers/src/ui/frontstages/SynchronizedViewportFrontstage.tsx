@@ -10,7 +10,7 @@ import {
   StageUsage,
   StandardContentLayouts,
 } from "@itwin/appui-react";
-import { ViewportContent } from "../ViewportContent";
+import { ViewportContent } from "../ViewportContent.js";
 
 export function createSynchronizedViewportFrontstage(): Frontstage {
   return FrontstageUtilities.createStandardFrontstage({

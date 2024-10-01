@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 import * as React from "react";
-import { ViewsTable } from "../components/ViewsTable";
+import { ViewsTable } from "../components/ViewsTable.js";
 import "./PopoutDialog.scss";
 
 export function PopoutDialog() {
