@@ -17,15 +17,15 @@ import {
   ToolbarOpacitySetting,
   ToolbarPanelAlignment,
 } from "@itwin/components-react";
-import { CursorPopup } from "../cursor/cursorpopup/CursorPopup";
-import type { PopupPropsBase } from "./PopupManager";
-import { PopupManager } from "./PopupManager";
-import { PositionPopup } from "./PositionPopup";
-import type { ToolbarItem } from "../toolbar/ToolbarItem";
-import { Toolbar } from "../toolbar/Toolbar";
-import { WrapperContext } from "../configurableui/ConfigurableUiContent";
-import { mapToPlacement, type Placement } from "../utils/Placement";
-import type { SizeProps } from "../utils/SizeProps";
+import { CursorPopup } from "../cursor/cursorpopup/CursorPopup.js";
+import type { PopupPropsBase } from "./PopupManager.js";
+import { PopupManager } from "./PopupManager.js";
+import { PositionPopup } from "./PositionPopup.js";
+import type { ToolbarItem } from "../toolbar/ToolbarItem.js";
+import { Toolbar } from "../toolbar/Toolbar.js";
+import { WrapperContext } from "../configurableui/ConfigurableUiContent.js";
+import { mapToPlacement, type Placement } from "../utils/Placement.js";
+import type { SizeProps } from "../utils/SizeProps.js";
 
 /** Props for a popup toolbar
  * @beta

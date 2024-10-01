@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { PropertyRecord } from "@itwin/appui-abstract";
-import { TreeImageLoader } from "../../components-react/tree/ImageLoader";
+import { TreeImageLoader } from "../../components-react/tree/ImageLoader.js";
 
 describe("TreeImageLoader", () => {
   const imageLoader = new TreeImageLoader();

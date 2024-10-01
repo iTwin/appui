@@ -2,12 +2,12 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { MutableCustomGridCategory } from "../../../../../components-react/propertygrid/internal/flat-items/MutableCustomGridCategory";
-import { FlatGridItemType } from "../../../../../components-react/propertygrid/internal/flat-items/MutableFlatGridItem";
-import { MutableGridItemFactory } from "../../../../../components-react/propertygrid/internal/flat-items/MutableGridItemFactory";
-import type { PropertyCategory } from "../../../../../components-react/propertygrid/PropertyDataProvider";
-import TestUtils from "../../../../TestUtils";
-import { FlatGridTestUtils } from "./FlatGridTestUtils";
+import { MutableCustomGridCategory } from "../../../../../components-react/propertygrid/internal/flat-items/MutableCustomGridCategory.js";
+import { FlatGridItemType } from "../../../../../components-react/propertygrid/internal/flat-items/MutableFlatGridItem.js";
+import { MutableGridItemFactory } from "../../../../../components-react/propertygrid/internal/flat-items/MutableGridItemFactory.js";
+import type { PropertyCategory } from "../../../../../components-react/propertygrid/PropertyDataProvider.js";
+import TestUtils from "../../../../TestUtils.js";
+import { FlatGridTestUtils } from "./FlatGridTestUtils.js";
 
 describe("FlatGridItemFactory", () => {
   describe("gridItemToModelGridItem", () => {

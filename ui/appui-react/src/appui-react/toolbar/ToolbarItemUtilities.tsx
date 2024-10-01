@@ -12,8 +12,8 @@ import type {
   ToolbarActionItem,
   ToolbarCustomItem,
   ToolbarGroupItem,
-} from "./ToolbarItem";
-import { isArgsUtil } from "../backstage/BackstageItemUtilities";
+} from "./ToolbarItem.js";
+import { isArgsUtil } from "../backstage/BackstageItemUtilities.js";
 
 /** Helper namespace to create toolbar items.
  * @public

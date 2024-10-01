@@ -8,7 +8,7 @@
 import type {
   ConfigurableUiControlConstructor,
   ConfigurableUiElement,
-} from "../configurableui/ConfigurableUiControl";
+} from "../configurableui/ConfigurableUiControl.js";
 
 /* eslint-disable deprecation/deprecation */
 

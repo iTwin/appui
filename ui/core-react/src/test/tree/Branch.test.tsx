@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
 import * as React from "react";
-import { TreeBranch as Branch } from "../../core-react";
-import { classesFromElement } from "../TestUtils";
+import { TreeBranch as Branch } from "../../core-react.js";
+import { classesFromElement } from "../TestUtils.js";
 
 describe("<Branch />", () => {
   it("renders correctly", () => {

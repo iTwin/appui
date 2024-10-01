@@ -11,7 +11,7 @@ import {
   ConditionalStringValue,
 } from "@itwin/appui-abstract";
 import { BeEvent } from "@itwin/core-bentley";
-import type { StatusBarItem } from "./StatusBarItem";
+import type { StatusBarItem } from "./StatusBarItem.js";
 
 type InstanceOrArray<T> = T | ReadonlyArray<T>;
 

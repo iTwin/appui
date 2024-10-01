@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import { render } from "@testing-library/react";
 import * as React from "react";
-import { VerticalTabs } from "../../core-react";
-import { classesFromElement } from "../TestUtils";
+import { VerticalTabs } from "../../core-react.js";
+import { classesFromElement } from "../TestUtils.js";
 
 describe("<VerticalTabs />", () => {
   it("should render", () => {

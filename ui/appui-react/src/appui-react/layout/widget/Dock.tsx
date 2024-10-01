@@ -8,10 +8,10 @@
 
 import * as React from "react";
 import { SvgDockTop } from "@itwin/itwinui-icons-react";
-import { NineZoneDispatchContext, useLabel } from "../base/NineZone";
-import { ActionButton } from "../../preview/widget-action-dropdown/Button";
-import { useIsToolSettingsTab } from "./useIsToolSettingsTab";
-import { useIsMaximizedWidget } from "../../preview/enable-maximized-widget/useMaximizedWidget";
+import { NineZoneDispatchContext, useLabel } from "../base/NineZone.js";
+import { ActionButton } from "../../preview/widget-action-dropdown/Button.js";
+import { useIsToolSettingsTab } from "./useIsToolSettingsTab.js";
+import { useIsMaximizedWidget } from "../../preview/enable-maximized-widget/useMaximizedWidget.js";
 
 /** @internal */
 export function Dock() {

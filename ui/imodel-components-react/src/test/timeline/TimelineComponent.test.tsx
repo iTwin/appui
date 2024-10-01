@@ -6,17 +6,17 @@
 import React from "react";
 import { act, fireEvent, render } from "@testing-library/react";
 import { UiAdmin } from "@itwin/appui-abstract";
-import { BaseTimelineDataProvider } from "../../imodel-components-react/timeline/BaseTimelineDataProvider";
+import { BaseTimelineDataProvider } from "../../imodel-components-react/timeline/BaseTimelineDataProvider.js";
 import type {
   PlaybackSettings,
   TimelinePausePlayArgs,
-} from "../../imodel-components-react/timeline/interfaces";
-import { TimelinePausePlayAction } from "../../imodel-components-react/timeline/interfaces";
-import type { TimelineMenuItemProps } from "../../imodel-components-react/timeline/TimelineComponent";
-import { TimelineComponent } from "../../imodel-components-react/timeline/TimelineComponent";
-import { TestUtils } from "../TestUtils";
+} from "../../imodel-components-react/timeline/interfaces.js";
+import { TimelinePausePlayAction } from "../../imodel-components-react/timeline/interfaces.js";
+import type { TimelineMenuItemProps } from "../../imodel-components-react/timeline/TimelineComponent.js";
+import { TimelineComponent } from "../../imodel-components-react/timeline/TimelineComponent.js";
+import { TestUtils } from "../TestUtils.js";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
-import userEvent from "@testing-library/user-event";
+import { userEvent } from "@testing-library/user-event";
 
 class TestTimelineDataProvider extends BaseTimelineDataProvider {
   public playing = false;

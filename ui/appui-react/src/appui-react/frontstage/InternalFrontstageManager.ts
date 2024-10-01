@@ -10,29 +10,29 @@ import { BeUiEvent, Logger } from "@itwin/core-bentley";
 import type { IModelConnection, Tool } from "@itwin/core-frontend";
 import { IModelApp, InteractiveTool } from "@itwin/core-frontend";
 import type { ListenerType, Size } from "@itwin/core-react";
-import type { ContentControlActivatedEventArgs } from "../content/ContentControl";
-import type { ContentGroup } from "../content/ContentGroup";
+import type { ContentControlActivatedEventArgs } from "../content/ContentControl.js";
+import type { ContentGroup } from "../content/ContentGroup.js";
 import type {
   ContentLayoutActivatedEventArgs,
   ContentLayoutDef,
-} from "../content/ContentLayout";
-import type { NavigationAidActivatedEventArgs } from "../navigationaids/NavigationAidControl";
+} from "../content/ContentLayout.js";
+import type { NavigationAidActivatedEventArgs } from "../navigationaids/NavigationAidControl.js";
 import type {
   PanelPinnedChangedEventArgs,
   PanelSizeChangedEventArgs,
   PanelStateChangedEventArgs,
-} from "../stagepanels/StagePanelDef";
-import { UiFramework } from "../UiFramework";
+} from "../stagepanels/StagePanelDef.js";
+import { UiFramework } from "../UiFramework.js";
 import type {
   WidgetDef,
   WidgetStateChangedEventArgs,
-} from "../widgets/WidgetDef";
-import { ToolInformation } from "../toolsettings/ToolInformation";
-import type { ToolUiProvider } from "../toolsettings/ToolUiProvider";
-import { FrontstageDef } from "./FrontstageDef";
-import { FrontstageProvider } from "./FrontstageProvider";
-import { TimeTracker } from "../configurableui/TimeTracker";
-import type { WidgetState } from "../widgets/WidgetState";
+} from "../widgets/WidgetDef.js";
+import { ToolInformation } from "../toolsettings/ToolInformation.js";
+import type { ToolUiProvider } from "../toolsettings/ToolUiProvider.js";
+import { FrontstageDef } from "./FrontstageDef.js";
+import { FrontstageProvider } from "./FrontstageProvider.js";
+import { TimeTracker } from "../configurableui/TimeTracker.js";
+import type { WidgetState } from "../widgets/WidgetState.js";
 import type {
   FrontstageActivatedEventArgs,
   FrontstageDeactivatedEventArgs,
@@ -44,10 +44,10 @@ import type {
   ModalFrontstageRequestedCloseEventArgs,
   ToolActivatedEventArgs,
   ToolIconChangedEventArgs,
-} from "../framework/FrameworkFrontstages";
-import { UiItemsManager } from "../ui-items-provider/UiItemsManager";
-import type { Frontstage } from "./Frontstage";
-import type { NineZoneState } from "../layout/state/NineZoneState";
+} from "../framework/FrameworkFrontstages.js";
+import { UiItemsManager } from "../ui-items-provider/UiItemsManager.js";
+import type { Frontstage } from "./Frontstage.js";
+import type { NineZoneState } from "../layout/state/NineZoneState.js";
 
 /** Frontstage Manager class.
  * @internal

@@ -11,9 +11,9 @@ import classnames from "classnames";
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
 import { LabeledSelect } from "@itwin/itwinui-react";
-import { UiFramework } from "../UiFramework";
-import { useTranslation } from "../hooks/useTranslation";
-import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState";
+import { UiFramework } from "../UiFramework.js";
+import { useTranslation } from "../hooks/useTranslation.js";
+import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState.js";
 
 // eslint-disable-next-line deprecation/deprecation
 interface SelectionScopeFieldProps extends CommonProps {

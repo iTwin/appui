@@ -4,10 +4,10 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { ExpandableBlock } from "@itwin/itwinui-react";
-import { ExpandableList } from "../../core-react";
-import TestUtils from "../TestUtils";
+import { ExpandableList } from "../../core-react.js";
+import TestUtils from "../TestUtils.js";
 import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { userEvent } from "@testing-library/user-event";
 
 describe("ExpandableList", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;

@@ -9,16 +9,16 @@
 import type * as React from "react";
 import { BeUiEvent, Logger } from "@itwin/core-bentley";
 import { getCssVariableAsNumber } from "@itwin/core-react";
-import { UiFramework } from "../UiFramework";
-import type { DialogChangedEventArgs } from "./DialogManagerBase";
-import { DialogManagerBase } from "./DialogManagerBase";
+import { UiFramework } from "../UiFramework.js";
+import type { DialogChangedEventArgs } from "./DialogManagerBase.js";
+import { DialogManagerBase } from "./DialogManagerBase.js";
 import {
   IModelApp,
   NotifyMessageDetails,
   OutputMessagePriority,
   OutputMessageType,
 } from "@itwin/core-frontend";
-import type { ContentDialogInfo } from "../framework/FrameworkContent";
+import type { ContentDialogInfo } from "../framework/FrameworkContent.js";
 
 // cSpell:ignore ZINDEX modeless
 

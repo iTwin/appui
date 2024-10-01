@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
 import * as React from "react";
-import { LoadingStatus } from "../../core-react";
-import { classesFromElement } from "../TestUtils";
+import { LoadingStatus } from "../../core-react.js";
+import { classesFromElement } from "../TestUtils.js";
 
 describe("<LoadingStatus />", () => {
   it("renders with message correctly", () => {

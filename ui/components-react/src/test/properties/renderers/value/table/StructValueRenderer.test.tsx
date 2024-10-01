@@ -5,8 +5,8 @@
 import * as React from "react";
 import { Orientation } from "@itwin/core-react";
 import { render } from "@testing-library/react";
-import { TableStructValueRenderer } from "../../../../../components-react/properties/renderers/value/table/StructValueRenderer";
-import TestUtils from "../../../../TestUtils";
+import { TableStructValueRenderer } from "../../../../../components-react/properties/renderers/value/table/StructValueRenderer.js";
+import TestUtils from "../../../../TestUtils.js";
 
 describe("StructValueRenderer", () => {
   it("renders correctly", () => {

@@ -12,10 +12,10 @@ import { Key } from "ts-key-enum";
 import type { DialogButtonDef } from "@itwin/appui-abstract";
 import { DialogButtonType } from "@itwin/appui-abstract";
 import { Dialog as BaseDialog, Button } from "@itwin/itwinui-react";
-import { DivWithOutsideClick } from "../base/DivWithOutsideClick";
-import type { CommonProps } from "../utils/Props";
+import { DivWithOutsideClick } from "../base/DivWithOutsideClick.js";
+import type { CommonProps } from "../utils/Props.js";
 import "./Dialog.scss";
-import { useTranslation } from "../l10n/useTranslation";
+import { useTranslation } from "../l10n/useTranslation.js";
 
 type ButtonProps = React.ComponentPropsWithoutRef<typeof Button>;
 

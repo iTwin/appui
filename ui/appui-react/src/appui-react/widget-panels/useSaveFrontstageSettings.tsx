@@ -7,17 +7,17 @@
  */
 
 import * as React from "react";
-import type { FrontstageDef } from "../frontstage/FrontstageDef";
-import type { LayoutStore } from "../layout/base/LayoutStore";
-import type { NineZoneState } from "../layout/state/NineZoneState";
-import { useUiStateStorageHandler } from "../uistate/useUiStateStorage";
-import type { WidgetPanelsFrontstageState } from "./Frontstage";
+import type { FrontstageDef } from "../frontstage/FrontstageDef.js";
+import type { LayoutStore } from "../layout/base/LayoutStore.js";
+import type { NineZoneState } from "../layout/state/NineZoneState.js";
+import { useUiStateStorageHandler } from "../uistate/useUiStateStorage.js";
+import type { WidgetPanelsFrontstageState } from "./Frontstage.js";
 import {
   FRONTSTAGE_SETTINGS_NAMESPACE,
   getFrontstageStateSettingName,
   packNineZoneState,
   stateVersion,
-} from "./Frontstage";
+} from "./Frontstage.js";
 import type { DebouncedFunc } from "lodash";
 import { debounce } from "lodash";
 

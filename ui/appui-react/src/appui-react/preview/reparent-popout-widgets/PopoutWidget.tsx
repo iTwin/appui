@@ -8,9 +8,9 @@
 
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { WidgetIdContext } from "../../layout/widget/Widget";
-import { WidgetContentContainer } from "../../layout/widget/ContentContainer";
-import { usePopoutsStore } from "./usePopoutsStore";
+import { WidgetIdContext } from "../../layout/widget/Widget.js";
+import { WidgetContentContainer } from "../../layout/widget/ContentContainer.js";
+import { usePopoutsStore } from "./usePopoutsStore.js";
 
 /** @internal */
 export function PopoutWidget() {

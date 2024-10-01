@@ -10,13 +10,13 @@ import type * as React from "react";
 import type {
   ContentGroupProps,
   ContentGroupProvider,
-} from "../content/ContentGroup";
-import { FrontstageProvider } from "./FrontstageProvider";
-import type { StagePanelConfig } from "../stagepanels/StagePanelConfig";
-import type { StageUsage } from "./StageUsage";
-import type { Frontstage } from "./Frontstage";
-import { FrontstageUtilities } from "./FrontstageUtilities";
-import type { BackstageAppButton } from "../widgets/BackstageAppButton";
+} from "../content/ContentGroup.js";
+import { FrontstageProvider } from "./FrontstageProvider.js";
+import type { StagePanelConfig } from "../stagepanels/StagePanelConfig.js";
+import type { StageUsage } from "./StageUsage.js";
+import type { Frontstage } from "./Frontstage.js";
+import { FrontstageUtilities } from "./FrontstageUtilities.js";
+import type { BackstageAppButton } from "../widgets/BackstageAppButton.js";
 
 /** Widget panel properties used in a {@link StandardFrontstageProps}.
  * @public

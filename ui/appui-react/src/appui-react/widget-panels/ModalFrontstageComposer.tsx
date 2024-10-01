@@ -6,9 +6,9 @@
  * @module Frontstage
  */
 import * as React from "react";
-import type { ModalFrontstageInfo } from "../framework/FrameworkFrontstages";
-import { ModalFrontstage } from "../frontstage/ModalFrontstage";
-import { UiFramework } from "../UiFramework";
+import type { ModalFrontstageInfo } from "../framework/FrameworkFrontstages.js";
+import { ModalFrontstage } from "../frontstage/ModalFrontstage.js";
+import { UiFramework } from "../UiFramework.js";
 
 /** @internal */
 export function useActiveModalFrontstageInfo() {

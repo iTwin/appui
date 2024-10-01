@@ -10,7 +10,7 @@ import * as React from "react";
 import type { UnitSystemKey } from "@itwin/core-quantity";
 import type { SelectOption } from "@itwin/itwinui-react";
 import { Select } from "@itwin/itwinui-react";
-import { useTranslation } from "../../hooks/useTranslation";
+import { useTranslation } from "../../hooks/useTranslation.js";
 
 /** Props for [[UnitSystemSelector]]
  * @beta

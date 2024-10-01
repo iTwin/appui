@@ -8,8 +8,8 @@
 
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
-import { DialogRendererBase } from "./DialogManagerBase";
-import { InternalModelessDialogManager as internal } from "./InternalModelessDialogManager";
+import { DialogRendererBase } from "./DialogManagerBase.js";
+import { InternalModelessDialogManager as internal } from "./InternalModelessDialogManager.js";
 
 // cSpell:ignore ZINDEX modeless
 

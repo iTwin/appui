@@ -28,15 +28,15 @@ import {
   Size,
 } from "@itwin/core-react";
 import { Text } from "@itwin/itwinui-react";
-import { CursorPopup } from "../cursor/cursorpopup/CursorPopup";
-import type { PopupContentType, PopupPropsBase } from "./PopupManager";
-import { isReactContent, PopupManager } from "./PopupManager";
-import { PositionPopup } from "./PositionPopup";
-import { ToolbarWithOverflow } from "../toolbar/ToolbarWithOverflow";
-import type { ToolbarItem } from "../toolbar/ToolbarItem";
-import { mapToPlacement, type Placement } from "../utils/Placement";
-import { WrapperContext } from "../configurableui/ConfigurableUiContent";
-import type { SizeProps } from "../utils/SizeProps";
+import { CursorPopup } from "../cursor/cursorpopup/CursorPopup.js";
+import type { PopupContentType, PopupPropsBase } from "./PopupManager.js";
+import { isReactContent, PopupManager } from "./PopupManager.js";
+import { PositionPopup } from "./PositionPopup.js";
+import { ToolbarWithOverflow } from "../toolbar/ToolbarWithOverflow.js";
+import type { ToolbarItem } from "../toolbar/ToolbarItem.js";
+import { mapToPlacement, type Placement } from "../utils/Placement.js";
+import { WrapperContext } from "../configurableui/ConfigurableUiContent.js";
+import type { SizeProps } from "../utils/SizeProps.js";
 
 /** Props for defining a CardPopup editor.
  * @beta */

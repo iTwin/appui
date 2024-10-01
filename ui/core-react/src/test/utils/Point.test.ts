@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { Point } from "../../core-react";
+import { Point } from "../../core-react.js";
 
 describe("Point", () => {
   it("unspecified coordinates should be 0", () => {

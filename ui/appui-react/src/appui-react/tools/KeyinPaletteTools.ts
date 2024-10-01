@@ -6,7 +6,7 @@
  * @module Tools
  */
 
-import { clearKeyinPaletteHistory } from "../popup/KeyinPalettePanel";
+import { clearKeyinPaletteHistory } from "../popup/KeyinPalettePanel.js";
 import { Tool } from "@itwin/core-frontend";
 import svgRemove from "@bentley/icons-generic/icons/remove.svg";
 

@@ -7,13 +7,13 @@ import * as React from "react";
 import {
   NonPrimitivePropertyLabelRenderer,
   PrimitivePropertyLabelRenderer,
-} from "../../../../components-react";
+} from "../../../../components-react.js";
 import {
   childStructure,
   selectorMatches,
   styleMatch,
   userEvent,
-} from "../../../TestUtils";
+} from "../../../TestUtils.js";
 
 describe("PrimitivePropertyLabelRenderer ", () => {
   it("renders correctly when offset is not provided", () => {

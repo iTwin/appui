@@ -35,12 +35,12 @@ import { Input } from "@itwin/itwinui-react";
 
 type InputProps = React.ComponentPropsWithoutRef<typeof Input>;
 
-import { UiComponents } from "../UiComponents";
-import type { PropertyEditorProps, TypeEditor } from "./EditorContainer";
+import { UiComponents } from "../UiComponents.js";
+import type { PropertyEditorProps, TypeEditor } from "./EditorContainer.js";
 import {
   PropertyEditorBase,
   PropertyEditorManager,
-} from "./PropertyEditorManager";
+} from "./PropertyEditorManager.js";
 
 /** @internal */
 interface CustomNumberEditorState {

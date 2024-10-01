@@ -7,7 +7,7 @@
  */
 
 import { LocalStateStorage as _LocalStateStorage } from "@itwin/core-react";
-import { UiStateStorage } from "./UiStateStorage";
+import { UiStateStorage } from "./UiStateStorage.js";
 
 /**
  * Implementation of {@link UiStateStorage} using `Window.localStorage`.

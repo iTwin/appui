@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import type { Primitives } from "@itwin/appui-abstract";
-import { CompositeTypeConverter } from "../../components-react/converters/CompositeTypeConverter";
+import { CompositeTypeConverter } from "../../components-react/converters/CompositeTypeConverter.js";
 
 describe("CompositeTypeConverter", () => {
   let converter: CompositeTypeConverter;

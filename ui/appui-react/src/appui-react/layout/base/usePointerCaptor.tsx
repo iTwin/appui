@@ -8,7 +8,7 @@
 
 import * as React from "react";
 import { useRefEffect } from "@itwin/core-react";
-import { DragManagerContext } from "./DragManager";
+import { DragManagerContext } from "./DragManager.js";
 
 /** @internal */
 export interface PointerCaptorArgs {

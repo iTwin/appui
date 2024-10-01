@@ -8,9 +8,9 @@
 
 import type { Primitives } from "@itwin/appui-abstract";
 import { StandardTypeNames } from "@itwin/appui-abstract";
-import type { LessGreaterOperatorProcessor } from "./TypeConverter";
-import { TypeConverter } from "./TypeConverter";
-import { TypeConverterManager } from "./TypeConverterManager";
+import type { LessGreaterOperatorProcessor } from "./TypeConverter.js";
+import { TypeConverter } from "./TypeConverter.js";
+import { TypeConverterManager } from "./TypeConverterManager.js";
 
 /**
  * Base Numeric Type Converter.

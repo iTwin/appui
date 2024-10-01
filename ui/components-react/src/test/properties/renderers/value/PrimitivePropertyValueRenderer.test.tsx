@@ -5,11 +5,11 @@
 import * as React from "react";
 import type { Primitives, PropertyConverterInfo } from "@itwin/appui-abstract";
 import { render, waitFor } from "@testing-library/react";
-import { PrimitivePropertyValueRenderer } from "../../../../components-react";
-import { TypeConverter } from "../../../../components-react/converters/TypeConverter";
-import { TypeConverterManager } from "../../../../components-react/converters/TypeConverterManager";
-import type { PropertyValueRendererContext } from "../../../../components-react/properties/ValueRendererManager";
-import TestUtils from "../../../TestUtils";
+import { PrimitivePropertyValueRenderer } from "../../../../components-react.js";
+import { TypeConverter } from "../../../../components-react/converters/TypeConverter.js";
+import { TypeConverterManager } from "../../../../components-react/converters/TypeConverterManager.js";
+import type { PropertyValueRendererContext } from "../../../../components-react/properties/ValueRendererManager.js";
+import TestUtils from "../../../TestUtils.js";
 
 class AsyncValuesTypeConverter extends TypeConverter {
   public sortCompare(

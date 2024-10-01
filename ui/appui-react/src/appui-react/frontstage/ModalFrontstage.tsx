@@ -11,8 +11,8 @@ import { SvgProgressBackwardCircular } from "@itwin/itwinui-icons-react";
 import { Text } from "@itwin/itwinui-react";
 import classnames from "classnames";
 import * as React from "react";
-import { UiFramework } from "../UiFramework";
-import { BackButton } from "../layout/widget/tools/button/Back";
+import { UiFramework } from "../UiFramework.js";
+import { BackButton } from "../layout/widget/tools/button/Back.js";
 import "./ModalFrontstage.scss";
 
 /** Properties for the [[ModalFrontstage]] React component

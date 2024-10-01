@@ -21,16 +21,16 @@ import {
   StandardTypeNames,
 } from "@itwin/appui-abstract";
 import { BadgeType, Point } from "@itwin/core-react";
-import { AccuDrawPopupManager } from "../../appui-react/accudraw/AccuDrawPopupManager";
+import { AccuDrawPopupManager } from "../../appui-react/accudraw/AccuDrawPopupManager.js";
 import {
   PopupManager,
   PopupRenderer,
-} from "../../appui-react/popup/PopupManager";
-import type { CursorMenuItemProps } from "../../appui-react/shared/MenuItem";
-import TestUtils, { storageMock, userEvent } from "../TestUtils";
+} from "../../appui-react/popup/PopupManager.js";
+import type { CursorMenuItemProps } from "../../appui-react/shared/MenuItem.js";
+import TestUtils, { storageMock, userEvent } from "../TestUtils.js";
 import { act, fireEvent, render, waitFor } from "@testing-library/react";
 import { Button } from "@itwin/itwinui-react";
-import type { KeyinEntry } from "../../appui-react/keyins/Keyins";
+import type { KeyinEntry } from "../../appui-react/keyins/Keyins.js";
 const myLocalStorage = storageMock();
 function requestNextAnimation() {}
 

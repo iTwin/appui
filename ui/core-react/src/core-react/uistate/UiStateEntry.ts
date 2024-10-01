@@ -6,8 +6,8 @@
  * @module UiStateStorage
  */
 
-import type { UiStateStorage, UiStateStorageResult } from "./UiStateStorage";
-import { UiStateStorageStatus } from "./UiStateStorage";
+import type { UiStateStorage, UiStateStorageResult } from "./UiStateStorage.js";
+import { UiStateStorageStatus } from "./UiStateStorage.js";
 
 /* eslint-disable deprecation/deprecation */
 

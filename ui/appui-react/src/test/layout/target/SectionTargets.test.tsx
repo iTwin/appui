@@ -4,13 +4,13 @@
  *--------------------------------------------------------------------------------------------*/
 import { render } from "@testing-library/react";
 import * as React from "react";
-import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState";
-import { addPanelWidget } from "../../../appui-react/layout/state/internal/PanelStateHelpers";
-import { addTab } from "../../../appui-react/layout/state/internal/TabStateHelpers";
-import { SectionTargets } from "../../../appui-react/layout/target/SectionTargets";
-import { PanelSideContext } from "../../../appui-react/layout/widget-panels/Panel";
-import type { TestNineZoneProviderProps } from "../Providers";
-import { TestNineZoneProvider } from "../Providers";
+import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState.js";
+import { addPanelWidget } from "../../../appui-react/layout/state/internal/PanelStateHelpers.js";
+import { addTab } from "../../../appui-react/layout/state/internal/TabStateHelpers.js";
+import { SectionTargets } from "../../../appui-react/layout/target/SectionTargets.js";
+import { PanelSideContext } from "../../../appui-react/layout/widget-panels/Panel.js";
+import type { TestNineZoneProviderProps } from "../Providers.js";
+import { TestNineZoneProvider } from "../Providers.js";
 
 function Wrapper({
   children,

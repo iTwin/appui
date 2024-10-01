@@ -8,7 +8,7 @@ import type {
   ConfigurableCreateInfo,
   ContentLayoutProps,
   FrontstageConfig,
-} from "../../appui-react";
+} from "../../appui-react.js";
 import {
   ContentControl,
   ContentGroup,
@@ -19,10 +19,10 @@ import {
   FrontstageProvider,
   SyncUiEventDispatcher,
   UiFramework,
-} from "../../appui-react";
-import { childStructure, selectorMatches, userEvent } from "../TestUtils";
-import { defaultFrontstageConfig } from "../frontstage/FrontstageDef.test";
-import { StandardContentLayouts } from "../../appui-react/content/StandardContentLayouts";
+} from "../../appui-react.js";
+import { childStructure, selectorMatches, userEvent } from "../TestUtils.js";
+import { defaultFrontstageConfig } from "../frontstage/FrontstageDef.test.js";
+import { StandardContentLayouts } from "../../appui-react/content/StandardContentLayouts.js";
 
 describe("ContentLayout", () => {
   class TestContentControl extends ContentControl {

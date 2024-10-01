@@ -5,7 +5,7 @@
 import * as moq from "typemoq";
 import type { AnalysisStyle } from "@itwin/core-common";
 import type { ScreenViewport, ViewState3d } from "@itwin/core-frontend";
-import { AnalysisAnimationTimelineDataProvider } from "../../appui-react/timeline/AnalysisAnimationProvider";
+import { AnalysisAnimationTimelineDataProvider } from "../../appui-react/timeline/AnalysisAnimationProvider.js";
 
 describe("AnalysisAnimationTimelineDataProvider", () => {
   const viewportMock = moq.Mock.ofType<ScreenViewport>();

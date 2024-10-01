@@ -14,8 +14,8 @@ import { RelativePosition } from "@itwin/appui-abstract";
 import type { ListenerType } from "@itwin/core-react";
 import { Icon, Point, Timer } from "@itwin/core-react";
 import { Text } from "@itwin/itwinui-react";
-import { CursorInformation } from "../CursorInformation";
-import { CursorPopupManager } from "../cursorpopup/CursorPopupManager";
+import { CursorInformation } from "../CursorInformation.js";
+import { CursorPopupManager } from "../cursorpopup/CursorPopupManager.js";
 
 /** @internal */
 export class CursorPrompt {

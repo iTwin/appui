@@ -15,13 +15,13 @@ import type {
 } from "@itwin/appui-abstract";
 import type { Orientation } from "@itwin/components-react";
 import { DivWithOutsideClick, FocusTrap, Point, Size } from "@itwin/core-react";
-import { CursorPopup } from "../cursor/cursorpopup/CursorPopup";
-import type { PopupPropsBase } from "./PopupManager";
-import { PopupManager } from "./PopupManager";
-import { PositionPopup, PositionPopupContent } from "./PositionPopup";
-import { ComponentGenerator } from "../uiprovider/ComponentGenerator";
-import { DialogGridContainer } from "../uiprovider/DefaultDialogGridContainer";
-import type { SizeProps } from "../utils/SizeProps";
+import { CursorPopup } from "../cursor/cursorpopup/CursorPopup.js";
+import type { PopupPropsBase } from "./PopupManager.js";
+import { PopupManager } from "./PopupManager.js";
+import { PositionPopup, PositionPopupContent } from "./PositionPopup.js";
+import { ComponentGenerator } from "../uiprovider/ComponentGenerator.js";
+import { DialogGridContainer } from "../uiprovider/DefaultDialogGridContainer.js";
+import type { SizeProps } from "../utils/SizeProps.js";
 
 /** Props for defining a popup tool settings component
  * @beta */

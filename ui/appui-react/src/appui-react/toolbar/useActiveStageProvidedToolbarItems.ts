@@ -7,15 +7,15 @@
  */
 
 import * as React from "react";
-import { useActiveStageId } from "../hooks/useActiveStageId";
-import { useAvailableUiItemsProviders } from "../hooks/useAvailableUiItemsProviders";
-import { UiFramework } from "../UiFramework";
+import { useActiveStageId } from "../hooks/useActiveStageId.js";
+import { useAvailableUiItemsProviders } from "../hooks/useAvailableUiItemsProviders.js";
+import { UiFramework } from "../UiFramework.js";
 import type {
   ToolbarItem,
   ToolbarOrientation,
   ToolbarUsage,
-} from "./ToolbarItem";
-import { UiItemsManager } from "../ui-items-provider/UiItemsManager";
+} from "./ToolbarItem.js";
+import { UiItemsManager } from "../ui-items-provider/UiItemsManager.js";
 
 /**
  * Collects the currently registered items providers toolbar item

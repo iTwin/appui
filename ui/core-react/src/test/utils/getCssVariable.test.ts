@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { getCssVariable, getCssVariableAsNumber } from "../../core-react";
+import { getCssVariable, getCssVariableAsNumber } from "../../core-react.js";
 
 const VARIABLE_NAME = "--test-variable";
 function fakeGetComputedStyle(value: string | null) {

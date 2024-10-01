@@ -5,7 +5,7 @@
 import { Rectangle } from "@itwin/core-react";
 import { act, render, renderHook } from "@testing-library/react";
 import * as React from "react";
-import type { ToolSettingsEntry } from "../../appui-react";
+import type { ToolSettingsEntry } from "../../appui-react.js";
 import {
   ConfigurableCreateInfo,
   FrontstageDef,
@@ -17,21 +17,21 @@ import {
   useToolSettingsNode,
   WidgetDef,
   WidgetPanelsToolSettings,
-} from "../../appui-react";
-import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";
+} from "../../appui-react.js";
+import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager.js";
 import {
   DragManager,
   DragManagerContext,
-} from "../../appui-react/layout/base/DragManager";
-import { createLayoutStore } from "../../appui-react/layout/base/LayoutStore";
-import { NineZoneProvider } from "../../appui-react/layout/base/NineZone";
-import { createNineZoneState } from "../../appui-react/layout/state/NineZoneState";
-import { addTab } from "../../appui-react/layout/state/internal/TabStateHelpers";
+} from "../../appui-react/layout/base/DragManager.js";
+import { createLayoutStore } from "../../appui-react/layout/base/LayoutStore.js";
+import { NineZoneProvider } from "../../appui-react/layout/base/NineZone.js";
+import { createNineZoneState } from "../../appui-react/layout/state/NineZoneState.js";
+import { addTab } from "../../appui-react/layout/state/internal/TabStateHelpers.js";
 import {
   addDockedToolSettings,
   addWidgetToolSettings,
-} from "../../appui-react/layout/state/internal/ToolSettingsStateHelpers";
-import { addFloatingWidget } from "../../appui-react/layout/state/internal/WidgetStateHelpers";
+} from "../../appui-react/layout/state/internal/ToolSettingsStateHelpers.js";
+import { addFloatingWidget } from "../../appui-react/layout/state/internal/WidgetStateHelpers.js";
 
 describe("WidgetPanelsToolSettings", () => {
   it("should not render w/o tool settings top center zone", () => {

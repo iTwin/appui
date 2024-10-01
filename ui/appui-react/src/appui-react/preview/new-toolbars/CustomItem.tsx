@@ -8,12 +8,12 @@
 
 import * as React from "react";
 import { DropdownMenu, MenuExtraContent } from "@itwin/itwinui-react";
-import type { ToolbarCustomItem } from "../../toolbar/ToolbarItem";
-import { ExpandIndicator } from "./ExpandIndicator";
-import { Item } from "./Item";
-import { GroupMenuItem, usePopoverPlacement } from "./GroupItem";
-import { ToolGroupOverflowContext } from "./OverflowButton";
-import { ToolbarContext } from "./Toolbar";
+import type { ToolbarCustomItem } from "../../toolbar/ToolbarItem.js";
+import { ExpandIndicator } from "./ExpandIndicator.js";
+import { Item } from "./Item.js";
+import { GroupMenuItem, usePopoverPlacement } from "./GroupItem.js";
+import { ToolGroupOverflowContext } from "./OverflowButton.js";
+import { ToolbarContext } from "./Toolbar.js";
 
 /** @internal */
 export interface CustomItemProps {

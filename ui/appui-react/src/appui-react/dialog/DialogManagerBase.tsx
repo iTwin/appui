@@ -11,7 +11,7 @@ import * as React from "react";
 import type { BeUiEvent } from "@itwin/core-bentley";
 import { Logger } from "@itwin/core-bentley";
 import { UiEvent } from "@itwin/appui-abstract";
-import { UiFramework } from "../UiFramework";
+import { UiFramework } from "../UiFramework.js";
 import type { ListenerType } from "@itwin/core-react";
 import { getCssVariableAsNumber } from "@itwin/core-react";
 import { ThemeProvider } from "@itwin/itwinui-react";

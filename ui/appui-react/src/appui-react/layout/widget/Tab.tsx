@@ -19,35 +19,35 @@ import {
   useRefs,
   useResizeObserver,
 } from "@itwin/core-react";
-import { useDragTab } from "../base/DragManager";
+import { useDragTab } from "../base/DragManager.js";
 import {
   MeasureContext,
   NineZoneDispatchContext,
   ShowWidgetIconContext,
   TabNodeContext,
-} from "../base/NineZone";
-import type { TabState } from "../state/TabState";
+} from "../base/NineZone.js";
+import type { TabState } from "../state/TabState.js";
 import type {
   PointerCaptorArgs,
   PointerCaptorEvent,
-} from "../base/usePointerCaptor";
-import { usePointerCaptor } from "../base/usePointerCaptor";
-import { PanelSideContext } from "../widget-panels/Panel";
-import { WidgetTabsEntryContext } from "./Tabs";
+} from "../base/usePointerCaptor.js";
+import { usePointerCaptor } from "../base/usePointerCaptor.js";
+import { PanelSideContext } from "../widget-panels/Panel.js";
+import { WidgetTabsEntryContext } from "./Tabs.js";
 import {
   restrainInitialWidgetSize,
   WidgetContext,
   WidgetIdContext,
-} from "./Widget";
-import { TabIdContext } from "./ContentRenderer";
-import { TabTarget } from "../target/TabTarget";
-import { WidgetMenuTab } from "./MenuTab";
-import { WidgetOverflowContext } from "./Overflow";
-import { useLayout, useLayoutStore } from "../base/LayoutStore";
-import { useFloatingWidgetId } from "./FloatingWidget";
-import { getWidgetState } from "../state/internal/WidgetStateHelpers";
-import { useIsMaximizedWidget } from "../../preview/enable-maximized-widget/useMaximizedWidget";
-import { FloatingTab } from "./FloatingTab";
+} from "./Widget.js";
+import { TabIdContext } from "./ContentRenderer.js";
+import { TabTarget } from "../target/TabTarget.js";
+import { WidgetMenuTab } from "./MenuTab.js";
+import { WidgetOverflowContext } from "./Overflow.js";
+import { useLayout, useLayoutStore } from "../base/LayoutStore.js";
+import { useFloatingWidgetId } from "./FloatingWidget.js";
+import { getWidgetState } from "../state/internal/WidgetStateHelpers.js";
+import { useIsMaximizedWidget } from "../../preview/enable-maximized-widget/useMaximizedWidget.js";
+import { FloatingTab } from "./FloatingTab.js";
 
 /** @internal */
 export interface WidgetTabProviderProps extends TabPositionContextArgs {

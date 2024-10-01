@@ -7,7 +7,7 @@
  */
 
 import type { ListenerType } from "@itwin/core-react";
-import { InternalConfigurableUiManager } from "./InternalConfigurableUiManager";
+import { InternalConfigurableUiManager } from "./InternalConfigurableUiManager.js";
 
 /** Time Tracker utility class
  * @internal

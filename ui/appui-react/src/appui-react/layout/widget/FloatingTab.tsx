@@ -9,15 +9,15 @@
 import "./FloatingTab.scss";
 import classnames from "classnames";
 import * as React from "react";
-import type { UseDragTabArgs } from "../base/DragManager";
-import { useDragTab } from "../base/DragManager";
+import type { UseDragTabArgs } from "../base/DragManager.js";
+import { useDragTab } from "../base/DragManager.js";
 import {
   NineZoneDispatchContext,
   ShowWidgetIconContext,
   TabNodeContext,
-} from "../base/NineZone";
-import { useLayout } from "../base/LayoutStore";
-import { TabIdContext } from "./ContentRenderer";
+} from "../base/NineZone.js";
+import { useLayout } from "../base/LayoutStore.js";
+import { TabIdContext } from "./ContentRenderer.js";
 
 interface FloatingTabProps {
   icon?: React.ReactNode;

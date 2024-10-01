@@ -14,11 +14,11 @@ import { Key } from "ts-key-enum";
 import { ColorByName, ColorDef } from "@itwin/core-common";
 import { CompassMode, IModelApp, ItemField } from "@itwin/core-frontend";
 import { Orientation } from "@itwin/core-react";
-import TestUtils, { selectAllBeforeType, userEvent } from "../TestUtils";
-import { FrameworkAccuDraw } from "../../appui-react/accudraw/FrameworkAccuDraw";
-import { AccuDrawFieldContainer } from "../../appui-react/accudraw/AccuDrawFieldContainer";
-import type { AccuDrawUiSettings } from "../../appui-react/accudraw/AccuDrawUiSettings";
-import { UiFramework } from "../../appui-react";
+import TestUtils, { selectAllBeforeType, userEvent } from "../TestUtils.js";
+import { FrameworkAccuDraw } from "../../appui-react/accudraw/FrameworkAccuDraw.js";
+import { AccuDrawFieldContainer } from "../../appui-react/accudraw/AccuDrawFieldContainer.js";
+import type { AccuDrawUiSettings } from "../../appui-react/accudraw/AccuDrawUiSettings.js";
+import { UiFramework } from "../../appui-react.js";
 
 describe("AccuDrawFieldContainer", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;

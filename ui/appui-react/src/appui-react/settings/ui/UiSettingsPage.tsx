@@ -10,16 +10,19 @@ import widowSettingsIconSvg from "@bentley/icons-generic/icons/window-settings.s
 import "./UiSettingsPage.scss";
 import * as React from "react";
 import type { SettingsTabEntry } from "@itwin/core-react";
-import { UiFramework } from "../../UiFramework";
+import { UiFramework } from "../../UiFramework.js";
 import {
   SyncUiEventDispatcher,
   SyncUiEventId,
-} from "../../syncui/SyncUiEventDispatcher";
+} from "../../syncui/SyncUiEventDispatcher.js";
 import type { SelectOption } from "@itwin/itwinui-react";
 import { Select, Slider, ToggleSwitch } from "@itwin/itwinui-react";
-import { useTranslation } from "../../hooks/useTranslation";
-import { ColorTheme, SYSTEM_PREFERRED_COLOR_THEME } from "../../theme/ThemeId";
-import { ConfigurableUiActionId } from "../../redux/ConfigurableUiState";
+import { useTranslation } from "../../hooks/useTranslation.js";
+import {
+  ColorTheme,
+  SYSTEM_PREFERRED_COLOR_THEME,
+} from "../../theme/ThemeId.js";
+import { ConfigurableUiActionId } from "../../redux/ConfigurableUiState.js";
 
 /* eslint-disable deprecation/deprecation */
 

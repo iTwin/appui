@@ -8,9 +8,9 @@
 
 import * as React from "react";
 import type { IconSpec } from "@itwin/core-react";
-import { UiFramework } from "../UiFramework";
-import type { FrameworkBackstage } from "../framework/FrameworkBackstage";
-import { InternalBackstageManager } from "./InternalBackstageManager";
+import { UiFramework } from "../UiFramework.js";
+import type { FrameworkBackstage } from "../framework/FrameworkBackstage.js";
+import { InternalBackstageManager } from "./InternalBackstageManager.js";
 
 /** Controls backstage.
  * @public

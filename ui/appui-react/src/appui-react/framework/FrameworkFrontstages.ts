@@ -7,21 +7,24 @@
  */
 import { UiEvent } from "@itwin/appui-abstract";
 import type { IModelConnection, Tool } from "@itwin/core-frontend";
-import type { ToolInformation } from "../toolsettings/ToolInformation";
-import type { TimeTracker } from "../configurableui/TimeTracker";
-import { type ContentControlActivatedEvent } from "../content/ContentControl";
-import type { ContentLayoutActivatedEvent } from "../content/ContentLayout";
-import type { FrontstageDef } from "../frontstage/FrontstageDef";
-import type { FrontstageProvider } from "../frontstage/FrontstageProvider";
-import type { NavigationAidActivatedEvent } from "../navigationaids/NavigationAidControl";
+import type { ToolInformation } from "../toolsettings/ToolInformation.js";
+import type { TimeTracker } from "../configurableui/TimeTracker.js";
+import { type ContentControlActivatedEvent } from "../content/ContentControl.js";
+import type { ContentLayoutActivatedEvent } from "../content/ContentLayout.js";
+import type { FrontstageDef } from "../frontstage/FrontstageDef.js";
+import type { FrontstageProvider } from "../frontstage/FrontstageProvider.js";
+import type { NavigationAidActivatedEvent } from "../navigationaids/NavigationAidControl.js";
 import type {
   PanelPinnedChangedEventArgs,
   PanelStateChangedEvent,
-} from "../stagepanels/StagePanelDef";
-import type { WidgetDef, WidgetStateChangedEvent } from "../widgets/WidgetDef";
-import type { WidgetState } from "../widgets/WidgetState";
-import type { Frontstage } from "../frontstage/Frontstage";
-import { FrameworkContent } from "./FrameworkContent";
+} from "../stagepanels/StagePanelDef.js";
+import type {
+  WidgetDef,
+  WidgetStateChangedEvent,
+} from "../widgets/WidgetDef.js";
+import type { WidgetState } from "../widgets/WidgetState.js";
+import type { Frontstage } from "../frontstage/Frontstage.js";
+import { FrameworkContent } from "./FrameworkContent.js";
 
 /** Frontstage Activated Event Args interface.
  * @public

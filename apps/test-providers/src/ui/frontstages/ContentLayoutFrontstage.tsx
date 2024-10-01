@@ -14,8 +14,8 @@ import {
   StandardContentLayouts,
   UiFramework,
 } from "@itwin/appui-react";
-import { getSavedViewLayoutProps } from "../../tools/ContentLayoutTools";
-import { ViewportContent } from "../ViewportContent";
+import { getSavedViewLayoutProps } from "../../tools/ContentLayoutTools.js";
+import { ViewportContent } from "../ViewportContent.js";
 
 /** The ContentLayoutStageContentGroupProvider provides a class with the primary method `provideContentGroup` to provide a ContentGroup
  * to a stage when the stage is activated. This provider will look to see if the user saved out a ContentGroup to use when a stage and

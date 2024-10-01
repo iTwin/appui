@@ -10,7 +10,7 @@ import "./Panel.scss";
 import classnames from "classnames";
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
-import { TitleBar } from "../dialog/TitleBar";
+import { TitleBar } from "../dialog/TitleBar.js";
 
 /** Properties of [[SnapModePanel]] component.
  * @internal

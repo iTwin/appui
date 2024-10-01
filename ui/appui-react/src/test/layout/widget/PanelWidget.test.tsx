@@ -4,30 +4,30 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { act, fireEvent, render, renderHook } from "@testing-library/react";
-import type { NineZoneDispatch } from "../../../appui-react/layout/base/NineZone";
-import * as NineZoneModule from "../../../appui-react/layout/base/NineZone";
-import type { PanelWidgetDragStartAction } from "../../../appui-react/layout/state/NineZoneAction";
-import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState";
+import type { NineZoneDispatch } from "../../../appui-react/layout/base/NineZone.js";
+import * as NineZoneModule from "../../../appui-react/layout/base/NineZone.js";
+import type { PanelWidgetDragStartAction } from "../../../appui-react/layout/state/NineZoneAction.js";
+import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState.js";
 import {
   addPanelWidget,
   updatePanelState,
-} from "../../../appui-react/layout/state/internal/PanelStateHelpers";
-import { addTab } from "../../../appui-react/layout/state/internal/TabStateHelpers";
-import { addDockedToolSettings } from "../../../appui-react/layout/state/internal/ToolSettingsStateHelpers";
+} from "../../../appui-react/layout/state/internal/PanelStateHelpers.js";
+import { addTab } from "../../../appui-react/layout/state/internal/TabStateHelpers.js";
+import { addDockedToolSettings } from "../../../appui-react/layout/state/internal/ToolSettingsStateHelpers.js";
 import type {
   HorizontalPanelSide,
   PanelSide,
   VerticalPanelSide,
-} from "../../../appui-react/layout/widget-panels/PanelTypes";
-import { PanelSideContext } from "../../../appui-react/layout/widget-panels/Panel";
+} from "../../../appui-react/layout/widget-panels/PanelTypes.js";
+import { PanelSideContext } from "../../../appui-react/layout/widget-panels/Panel.js";
 import {
   PanelWidget,
   useBorders,
   useMode,
-} from "../../../appui-react/layout/widget/PanelWidget";
-import type { TestNineZoneProviderProps } from "../Providers";
-import { TestNineZoneProvider } from "../Providers";
-import { addTabs } from "../Utils";
+} from "../../../appui-react/layout/widget/PanelWidget.js";
+import type { TestNineZoneProviderProps } from "../Providers.js";
+import { TestNineZoneProvider } from "../Providers.js";
+import { addTabs } from "../Utils.js";
 
 interface ProviderProps extends TestNineZoneProviderProps {
   side?: PanelSide;

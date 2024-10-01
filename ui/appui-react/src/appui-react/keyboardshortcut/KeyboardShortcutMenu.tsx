@@ -13,7 +13,7 @@ import {
   ContextSubMenu,
   GlobalContextMenu,
 } from "@itwin/core-react";
-import type { KeyboardShortcut } from "./KeyboardShortcut";
+import type { KeyboardShortcut } from "./KeyboardShortcut.js";
 import { ConditionalBooleanValue, UiEvent } from "@itwin/appui-abstract";
 
 /* eslint-disable deprecation/deprecation */

@@ -27,7 +27,7 @@ import {
   PropertyEditorBase,
   PropertyEditorManager,
 } from "@itwin/components-react";
-import { ColorPickerButton } from "../color/ColorPickerButton";
+import { ColorPickerButton } from "../color/ColorPickerButton.js";
 
 /** @internal */
 interface ColorEditorState {

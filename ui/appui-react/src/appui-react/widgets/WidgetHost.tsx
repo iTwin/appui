@@ -6,10 +6,10 @@
  * @module Widget
  */
 
-import type { StagePanelLocation } from "../stagepanels/StagePanelLocation";
-import type { StagePanelSection } from "../stagepanels/StagePanelSection";
-import { UiFramework } from "../UiFramework";
-import type { WidgetDef } from "./WidgetDef";
+import type { StagePanelLocation } from "../stagepanels/StagePanelLocation.js";
+import type { StagePanelSection } from "../stagepanels/StagePanelSection.js";
+import { UiFramework } from "../UiFramework.js";
+import type { WidgetDef } from "./WidgetDef.js";
 
 /**
  * A WidgetHost represents a definition that hosts one or most Widgets in a Frontstage.

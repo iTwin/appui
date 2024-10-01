@@ -4,12 +4,12 @@
  *--------------------------------------------------------------------------------------------*/
 import { IModelApp, SelectionTool, Tool } from "@itwin/core-frontend";
 import { Orientation, Size } from "@itwin/core-react";
-import type { ItemProps } from "../../appui-react";
+import type { ItemProps } from "../../appui-react.js";
 import {
   ActionButtonItemDef,
   CommandItemDef,
   ToolItemDef,
-} from "../../appui-react";
+} from "../../appui-react.js";
 
 describe("Item", () => {
   it("CommandItemDef with no commandId should get generated id", () => {

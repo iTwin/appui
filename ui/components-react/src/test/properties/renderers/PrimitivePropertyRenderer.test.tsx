@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { Orientation } from "@itwin/core-react";
-import { PrimitivePropertyRenderer } from "../../../components-react/properties/renderers/PrimitivePropertyRenderer";
-import TestUtils, { selectorMatches, styleMatch } from "../../TestUtils";
+import { PrimitivePropertyRenderer } from "../../../components-react/properties/renderers/PrimitivePropertyRenderer.js";
+import TestUtils, { selectorMatches, styleMatch } from "../../TestUtils.js";
 import { render, screen } from "@testing-library/react";
 
 describe("PrimitivePropertyRenderer", () => {

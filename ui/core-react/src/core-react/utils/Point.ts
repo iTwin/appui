@@ -6,7 +6,7 @@
  * @module Utilities
  */
 
-import type { PointProps } from "./PointProps";
+import type { PointProps } from "./PointProps.js";
 
 /** Describes and provides methods to work with 2d points.
  * @internal

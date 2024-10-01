@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { ITwinLocalization } from "@itwin/core-i18n";
-import { UiCore } from "../core-react/UiCore";
+import { UiCore } from "../core-react/UiCore.js";
 
 /** @internal */
 export class TestUtils {

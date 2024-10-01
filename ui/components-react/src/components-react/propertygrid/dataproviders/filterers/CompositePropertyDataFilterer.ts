@@ -7,13 +7,13 @@
  */
 
 import type { PropertyRecord } from "@itwin/appui-abstract";
-import type { PropertyCategory } from "../../PropertyDataProvider";
+import type { PropertyCategory } from "../../PropertyDataProvider.js";
 import type {
   FilteredType,
   IPropertyDataFilterer,
   PropertyDataFilterResult,
-} from "./PropertyDataFiltererBase";
-import { PropertyDataFiltererBase } from "./PropertyDataFiltererBase";
+} from "./PropertyDataFiltererBase.js";
+import { PropertyDataFiltererBase } from "./PropertyDataFiltererBase.js";
 
 /**
  * Logical operator for composite filterer.

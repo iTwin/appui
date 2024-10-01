@@ -9,10 +9,10 @@
 import "./PropertyView.scss";
 import * as React from "react";
 import { ElementSeparator } from "@itwin/core-react";
-import { ActionButtonList } from "./ActionButtonList";
-import { PropertyGridColumnStyleProvider } from "./PropertyGridColumns";
-import type { SharedRendererProps } from "./PropertyRenderer";
-import { Orientation } from "../../common/Orientation";
+import { ActionButtonList } from "./ActionButtonList.js";
+import { PropertyGridColumnStyleProvider } from "./PropertyGridColumns.js";
+import type { SharedRendererProps } from "./PropertyRenderer.js";
+import { Orientation } from "../../common/Orientation.js";
 
 /** Properties of [[PropertyView]] React component
  * @public

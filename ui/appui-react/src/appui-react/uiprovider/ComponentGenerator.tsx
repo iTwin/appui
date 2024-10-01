@@ -22,7 +22,7 @@ import {
 } from "@itwin/appui-abstract";
 import type { PropertyUpdatedArgs } from "@itwin/components-react";
 import { EditorContainer } from "@itwin/components-react";
-import type { ToolSettingsEntry } from "../widget-panels/ToolSettings";
+import type { ToolSettingsEntry } from "../widget-panels/ToolSettings.js";
 import { assert, Logger } from "@itwin/core-bentley";
 import { Label } from "@itwin/itwinui-react";
 

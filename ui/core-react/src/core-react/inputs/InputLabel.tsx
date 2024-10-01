@@ -13,14 +13,14 @@ import {
 } from "@itwin/itwinui-icons-react";
 import classnames from "classnames";
 import * as React from "react";
-import type { IconSpec } from "../icons/IconComponent";
-import { Icon } from "../icons/IconComponent";
-import type { CommonProps } from "../utils/Props";
-import { InputStatus } from "./InputStatus";
+import type { IconSpec } from "../icons/IconComponent.js";
+import { Icon } from "../icons/IconComponent.js";
+import type { CommonProps } from "../utils/Props.js";
+import { InputStatus } from "./InputStatus.js";
 import type {
   LabeledComponentProps,
   MessagedComponentProps,
-} from "./LabeledComponentProps";
+} from "./LabeledComponentProps.js";
 
 /* eslint-disable deprecation/deprecation */
 

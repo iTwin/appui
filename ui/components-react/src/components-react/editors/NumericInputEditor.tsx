@@ -22,11 +22,11 @@ import {
   StandardTypeNames,
 } from "@itwin/appui-abstract";
 import { NumberInput } from "@itwin/core-react";
-import type { PropertyEditorProps, TypeEditor } from "./EditorContainer";
+import type { PropertyEditorProps, TypeEditor } from "./EditorContainer.js";
 import {
   PropertyEditorBase,
   PropertyEditorManager,
-} from "./PropertyEditorManager";
+} from "./PropertyEditorManager.js";
 
 /** @internal */
 interface NumericInputEditorState {

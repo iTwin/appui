@@ -16,7 +16,7 @@ import type {
   PropertyValue,
 } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
-import type { ConvertedPrimitives } from "./valuetypes/ConvertedTypes";
+import type { ConvertedPrimitives } from "./valuetypes/ConvertedTypes.js";
 
 /** Sort compare method for types that support sorting
  * @public

@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { reuseOrCreatePromise } from "../../core-react/utils/reuseOrCreatePromise";
+import { reuseOrCreatePromise } from "../../core-react/utils/reuseOrCreatePromise.js";
 
 async function getString(str: string) {
   return str;

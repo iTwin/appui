@@ -3,8 +3,8 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { act, fireEvent, renderHook } from "@testing-library/react";
-import type { OutsideClickEvent } from "../../../core-react";
-import { useOnOutsideClick } from "../../../core-react";
+import type { OutsideClickEvent } from "../../../core-react.js";
+import { useOnOutsideClick } from "../../../core-react.js";
 
 function setRefValue<T>(ref: React.Ref<T>, value: T) {
   if (typeof ref === "function") {

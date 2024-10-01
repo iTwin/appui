@@ -20,7 +20,7 @@ import {
   PropertyEditorBase,
   PropertyEditorManager,
 } from "@itwin/components-react";
-import { WeightPickerButton } from "../lineweight/WeightPickerButton";
+import { WeightPickerButton } from "../lineweight/WeightPickerButton.js";
 
 // cspell:ignore lineweight
 

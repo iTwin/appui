@@ -6,12 +6,12 @@
  * @module Base
  */
 
-import produce from "immer";
+import { produce } from "immer";
 import { UiError } from "@itwin/appui-abstract";
-import type { NineZoneState } from "../NineZoneState";
-import { category } from "./NineZoneStateHelpers";
-import { getTabLocation } from "../TabLocation";
-import type { TabState } from "../TabState";
+import type { NineZoneState } from "../NineZoneState.js";
+import { category } from "./NineZoneStateHelpers.js";
+import { getTabLocation } from "../TabLocation.js";
+import type { TabState } from "../TabState.js";
 
 /** Adds a docked tool settings.
  * @internal

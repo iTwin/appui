@@ -6,7 +6,7 @@
  * @module Icon
  */
 
-import type { IconSpec } from "./IconComponent";
+import type { IconSpec } from "./IconComponent.js";
 
 /* eslint-disable deprecation/deprecation */
 

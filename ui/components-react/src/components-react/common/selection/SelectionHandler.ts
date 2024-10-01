@@ -11,7 +11,7 @@ import {
   hasSelectionModeFlag,
   SelectionMode,
   SelectionModeFlags,
-} from "./SelectionModes";
+} from "./SelectionModes.js";
 
 /** Prototype for a Selection Changed handler
  * @public

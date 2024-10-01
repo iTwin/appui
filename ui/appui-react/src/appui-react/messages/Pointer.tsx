@@ -24,14 +24,17 @@ import {
   Point,
   Rectangle,
 } from "@itwin/core-react";
-import { offsetAndContainInContainer, Tooltip } from "../layout/popup/Tooltip";
-import { MessageManager } from "./MessageManager";
+import {
+  offsetAndContainInContainer,
+  Tooltip,
+} from "../layout/popup/Tooltip.js";
+import { MessageManager } from "./MessageManager.js";
 import type {
   NotifyMessageDetailsType,
   NotifyMessageType,
-} from "./ReactNotifyMessageDetails";
+} from "./ReactNotifyMessageDetails.js";
 import { BeUiEvent } from "@itwin/core-bentley";
-import type { SizeProps } from "../utils/SizeProps";
+import type { SizeProps } from "../utils/SizeProps.js";
 
 // cSpell:ignore noicon
 

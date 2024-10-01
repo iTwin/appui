@@ -7,12 +7,12 @@
  */
 
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
-import { SessionStateActionId } from "../redux/SessionState";
-import { CommandItemDef } from "../shared/CommandItemDef";
-import type { BaseItemState } from "../shared/ItemDefBase";
-import { SyncUiEventId } from "../syncui/SyncUiEventDispatcher";
-import { GroupItemDef } from "../toolbar/GroupItem";
-import { UiFramework } from "../UiFramework";
+import { SessionStateActionId } from "../redux/SessionState.js";
+import { CommandItemDef } from "../shared/CommandItemDef.js";
+import type { BaseItemState } from "../shared/ItemDefBase.js";
+import { SyncUiEventId } from "../syncui/SyncUiEventDispatcher.js";
+import { GroupItemDef } from "../toolbar/GroupItem.js";
+import { UiFramework } from "../UiFramework.js";
 import svgModelIsolate from "@bentley/icons-generic/icons/model-isolate.svg";
 import svgLayersIsolate from "@bentley/icons-generic/icons/layers-isolate.svg";
 import svgAssetIsolate from "@bentley/icons-generic/icons/asset-isolate.svg";
@@ -23,8 +23,8 @@ import svgAssetClassificationHide from "@bentley/icons-generic/icons/asset-class
 import svgVisibilitySemiTransparent from "@bentley/icons-generic/icons/visibility-semi-transparent.svg";
 import svgVisibilityHide from "@bentley/icons-generic/icons/visibility-hide_2.svg";
 import svgVisibility from "@bentley/icons-generic/icons/visibility.svg";
-import type { ToolbarItems } from "../tools/ToolbarItems";
-import { getActiveViewport } from "../utils/getActiveViewport";
+import type { ToolbarItems } from "../tools/ToolbarItems.js";
+import { getActiveViewport } from "../utils/getActiveViewport.js";
 
 /* eslint-disable deprecation/deprecation */
 

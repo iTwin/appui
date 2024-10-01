@@ -6,8 +6,8 @@
 import React from "react";
 import { ColorDef } from "@itwin/core-common";
 import { fireEvent, render } from "@testing-library/react"; // , waitForElement
-import { LineWeightSwatch } from "../../imodel-components-react/lineweight/Swatch";
-import { TestUtils } from "../TestUtils";
+import { LineWeightSwatch } from "../../imodel-components-react/lineweight/Swatch.js";
+import { TestUtils } from "../TestUtils.js";
 
 describe("<LineWeightSwatch />", () => {
   const colorDef = ColorDef.from(255, 0, 0, 255);

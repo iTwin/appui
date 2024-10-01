@@ -13,14 +13,14 @@ import {
   StandardTypeNames,
   TimeDisplay,
 } from "@itwin/appui-abstract";
-import { formatInputDate } from "../datepicker/DateField";
-import { adjustDateToTimezone } from "../common/DateUtils";
-import { UiComponents } from "../UiComponents";
-import type { LessGreaterOperatorProcessor } from "./TypeConverter";
-import { TypeConverter } from "./TypeConverter";
-import { TypeConverterManager } from "./TypeConverterManager";
-import type { ConvertedPrimitives } from "./valuetypes/ConvertedTypes";
-import { TimeFormat } from "../common/TimeFormat";
+import { formatInputDate } from "../datepicker/DateField.js";
+import { adjustDateToTimezone } from "../common/DateUtils.js";
+import { UiComponents } from "../UiComponents.js";
+import type { LessGreaterOperatorProcessor } from "./TypeConverter.js";
+import { TypeConverter } from "./TypeConverter.js";
+import { TypeConverterManager } from "./TypeConverterManager.js";
+import type { ConvertedPrimitives } from "./valuetypes/ConvertedTypes.js";
+import { TimeFormat } from "../common/TimeFormat.js";
 
 // cSpell:ignore datepicker valuetypes
 

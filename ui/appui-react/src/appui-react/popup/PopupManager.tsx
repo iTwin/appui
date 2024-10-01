@@ -25,22 +25,25 @@ import { Logger } from "@itwin/core-bentley";
 import type { XAndY } from "@itwin/core-geometry";
 import type { ListenerType, Point } from "@itwin/core-react";
 import { Rectangle } from "@itwin/core-react";
-import { offsetAndContainInContainer } from "../layout/popup/Tooltip";
-import type { KeyinEntry } from "../keyins/Keyins";
-import { UiFramework } from "../UiFramework";
-import { CardPopup } from "./CardPopup";
-import { HTMLElementPopup } from "./HTMLElementPopup";
-import { InputEditorCommitHandler, InputEditorPopup } from "./InputEditorPopup";
-import { KeyinPalettePopup } from "./KeyinPalettePopup";
-import { ToolbarPopup } from "./ToolbarPopup";
-import { ToolSettingsPopup } from "./ToolSettingsPopup";
-import { ComponentPopup } from "./ComponentPopup";
-import { WrapperContext } from "../configurableui/ConfigurableUiContent";
-import { mapToPlacement, type Placement } from "../utils/Placement";
-import type { ToolbarItem } from "../toolbar/ToolbarItem";
-import type { ToolbarProps } from "../toolbar/Toolbar";
-import { InternalConfigurableUiManager } from "../configurableui/InternalConfigurableUiManager";
-import type { SizeProps } from "../utils/SizeProps";
+import { offsetAndContainInContainer } from "../layout/popup/Tooltip.js";
+import type { KeyinEntry } from "../keyins/Keyins.js";
+import { UiFramework } from "../UiFramework.js";
+import { CardPopup } from "./CardPopup.js";
+import { HTMLElementPopup } from "./HTMLElementPopup.js";
+import {
+  InputEditorCommitHandler,
+  InputEditorPopup,
+} from "./InputEditorPopup.js";
+import { KeyinPalettePopup } from "./KeyinPalettePopup.js";
+import { ToolbarPopup } from "./ToolbarPopup.js";
+import { ToolSettingsPopup } from "./ToolSettingsPopup.js";
+import { ComponentPopup } from "./ComponentPopup.js";
+import { WrapperContext } from "../configurableui/ConfigurableUiContent.js";
+import { mapToPlacement, type Placement } from "../utils/Placement.js";
+import type { ToolbarItem } from "../toolbar/ToolbarItem.js";
+import type { ToolbarProps } from "../toolbar/Toolbar.js";
+import { InternalConfigurableUiManager } from "../configurableui/InternalConfigurableUiManager.js";
+import type { SizeProps } from "../utils/SizeProps.js";
 
 // cSpell:ignore uiadmin
 

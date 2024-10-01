@@ -9,7 +9,7 @@ import type {
   StagePanelConfig,
   UiItemsProvider,
   Widget,
-} from "../../appui-react";
+} from "../../appui-react.js";
 import {
   ContentGroup,
   ContentGroupProvider,
@@ -27,16 +27,16 @@ import {
   useSpecificWidgetDef,
   WidgetDef,
   WidgetState,
-} from "../../appui-react";
-import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";
-import { createNineZoneState } from "../../appui-react/layout/state/NineZoneState";
-import TestUtils, { storageMock } from "../TestUtils";
-import { addTab } from "../../appui-react/layout/state/internal/TabStateHelpers";
+} from "../../appui-react.js";
+import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager.js";
+import { createNineZoneState } from "../../appui-react/layout/state/NineZoneState.js";
+import TestUtils, { storageMock } from "../TestUtils.js";
+import { addTab } from "../../appui-react/layout/state/internal/TabStateHelpers.js";
 import {
   addFloatingWidget,
   addPopoutWidget,
-} from "../../appui-react/layout/state/internal/WidgetStateHelpers";
-import { addPanelWidget } from "../../appui-react/layout/state/internal/PanelStateHelpers";
+} from "../../appui-react/layout/state/internal/WidgetStateHelpers.js";
+import { addPanelWidget } from "../../appui-react/layout/state/internal/PanelStateHelpers.js";
 
 class BadLayoutFrontstage extends FrontstageProvider {
   public static stageId = "BadLayout";

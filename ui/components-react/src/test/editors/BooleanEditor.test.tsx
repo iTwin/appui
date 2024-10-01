@@ -5,10 +5,10 @@
 
 import { render, screen } from "@testing-library/react";
 import * as React from "react";
-import { BooleanEditor } from "../../components-react/editors/BooleanEditor";
-import { EditorContainer } from "../../components-react/editors/EditorContainer";
-import TestUtils, { MineDataController, userEvent } from "../TestUtils";
-import { PropertyEditorManager } from "../../components-react/editors/PropertyEditorManager";
+import { BooleanEditor } from "../../components-react/editors/BooleanEditor.js";
+import { EditorContainer } from "../../components-react/editors/EditorContainer.js";
+import TestUtils, { MineDataController, userEvent } from "../TestUtils.js";
+import { PropertyEditorManager } from "../../components-react/editors/PropertyEditorManager.js";
 import type { PrimitiveValue } from "@itwin/appui-abstract";
 
 const testId = "components-checkbox-editor";

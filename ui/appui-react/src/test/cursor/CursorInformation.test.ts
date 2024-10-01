@@ -7,7 +7,7 @@ import { Point } from "@itwin/core-react";
 import {
   CursorDirection,
   CursorInformation,
-} from "../../appui-react/cursor/CursorInformation";
+} from "../../appui-react/cursor/CursorInformation.js";
 
 describe("CursorInformation", () => {
   describe("getRelativePositionFromCursorDirection", () => {

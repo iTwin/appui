@@ -24,10 +24,13 @@ import {
   AccuDrawSetOriginTool,
   DefineACSByPointsTool,
 } from "@itwin/core-frontend";
-import { ToolItemDef } from "../shared/ToolItemDef";
-import { BumpToolSetting, FocusToolSettings } from "../tools/ToolSettingsTools";
-import type { KeyboardShortcutUtilities } from "../keyboardshortcut/KeyboardShortcutUtilities";
-import type { ToolbarItemUtilities } from "../toolbar/ToolbarItemUtilities";
+import { ToolItemDef } from "../shared/ToolItemDef.js";
+import {
+  BumpToolSetting,
+  FocusToolSettings,
+} from "../tools/ToolSettingsTools.js";
+import type { KeyboardShortcutUtilities } from "../keyboardshortcut/KeyboardShortcutUtilities.js";
+import type { ToolbarItemUtilities } from "../toolbar/ToolbarItemUtilities.js";
 
 /* eslint-disable deprecation/deprecation */
 

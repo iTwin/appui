@@ -22,9 +22,9 @@ import {
 } from "@itwin/appui-abstract";
 import { Icon, IconInput } from "@itwin/core-react";
 import { Input } from "@itwin/itwinui-react";
-import { TypeConverterManager } from "../converters/TypeConverterManager";
-import type { PropertyEditorProps, TypeEditor } from "./EditorContainer";
-import { UiComponents } from "../UiComponents";
+import { TypeConverterManager } from "../converters/TypeConverterManager.js";
+import type { PropertyEditorProps, TypeEditor } from "./EditorContainer.js";
+import { UiComponents } from "../UiComponents.js";
 
 type InputProps = React.ComponentPropsWithoutRef<typeof Input>;
 

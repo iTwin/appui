@@ -5,7 +5,7 @@
 
 import React from "react";
 import { render } from "@testing-library/react";
-import { InlineEdit } from "../../imodel-components-react/timeline/InlineEdit";
+import { InlineEdit } from "../../imodel-components-react/timeline/InlineEdit.js";
 
 describe("<InlineEdit />", () => {
   afterEach(() => {});

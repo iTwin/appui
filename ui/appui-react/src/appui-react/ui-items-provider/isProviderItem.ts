@@ -6,7 +6,7 @@
  * @module UiProvider
  */
 
-import type { ProviderItem } from "./ProviderItem";
+import type { ProviderItem } from "./ProviderItem.js";
 
 /** @internal */
 export function isProviderItem<T extends object>(

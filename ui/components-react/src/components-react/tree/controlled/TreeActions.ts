@@ -6,7 +6,7 @@
  * @module Tree
  */
 
-import type { CheckBoxState } from "../../common/CheckBoxState";
+import type { CheckBoxState } from "../../common/CheckBoxState.js";
 
 /**
  * Tree actions that can be performed on tree.

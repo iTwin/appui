@@ -6,8 +6,8 @@ import {
   LocalStateStorage,
   UiStateEntry,
   UiStateStorageStatus,
-} from "../../core-react";
-import { storageMock } from "../TestUtils";
+} from "../../core-react.js";
+import { storageMock } from "../TestUtils.js";
 
 function getBoolean(): boolean {
   return true;

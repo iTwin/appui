@@ -4,12 +4,12 @@
  *--------------------------------------------------------------------------------------------*/
 import { fireEvent, render } from "@testing-library/react";
 import * as React from "react";
-import type { NineZoneDispatch } from "../../../appui-react/layout/base/NineZone";
-import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState";
-import { updatePanelState } from "../../../appui-react/layout/state/internal/PanelStateHelpers";
-import { PanelSideContext } from "../../../appui-react/layout/widget-panels/Panel";
-import { PinToggle } from "../../../appui-react/layout/widget/PinToggle";
-import { TestNineZoneProvider } from "../Providers";
+import type { NineZoneDispatch } from "../../../appui-react/layout/base/NineZone.js";
+import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState.js";
+import { updatePanelState } from "../../../appui-react/layout/state/internal/PanelStateHelpers.js";
+import { PanelSideContext } from "../../../appui-react/layout/widget-panels/Panel.js";
+import { PinToggle } from "../../../appui-react/layout/widget/PinToggle.js";
+import { TestNineZoneProvider } from "../Providers.js";
 
 describe("PinToggle", () => {
   it("should render in pinned panel", () => {

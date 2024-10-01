@@ -16,40 +16,40 @@ import type {
 import { areEqual, VariableSizeList } from "react-window";
 import type { PropertyRecord } from "@itwin/appui-abstract";
 import { assert } from "@itwin/core-bentley";
-import { createContextWithMandatoryProvider } from "../../common/UseContextWithMandatoryProvider";
-import type { PropertyUpdatedArgs } from "../../editors/EditorContainer";
-import type { ActionButtonRenderer } from "../../properties/renderers/ActionButtonRenderer";
-import type { PropertyGridColumnInfo } from "../../properties/renderers/PropertyGridColumns";
-import type { PropertyValueRendererManager } from "../../properties/ValueRendererManager";
-import { FilteredType } from "../dataproviders/filterers/PropertyDataFiltererBase";
+import { createContextWithMandatoryProvider } from "../../common/UseContextWithMandatoryProvider.js";
+import type { PropertyUpdatedArgs } from "../../editors/EditorContainer.js";
+import type { ActionButtonRenderer } from "../../properties/renderers/ActionButtonRenderer.js";
+import type { PropertyGridColumnInfo } from "../../properties/renderers/PropertyGridColumns.js";
+import type { PropertyValueRendererManager } from "../../properties/ValueRendererManager.js";
+import { FilteredType } from "../dataproviders/filterers/PropertyDataFiltererBase.js";
 import type {
   FlatGridItem,
   GridCategoryItem,
-} from "../internal/flat-items/FlatGridItem";
-import { MutableCategorizedPrimitiveProperty } from "../internal/flat-items/MutableCategorizedPrimitiveProperty";
-import { MutableCustomGridCategory } from "../internal/flat-items/MutableCustomGridCategory";
-import { FlatGridItemType } from "../internal/flat-items/MutableFlatGridItem";
-import { MutableGridCategory } from "../internal/flat-items/MutableGridCategory";
-import { FlatPropertyRenderer } from "../internal/flat-properties/FlatPropertyRenderer";
-import type { IPropertyGridEventHandler } from "../internal/PropertyGridEventHandler";
-import type { IPropertyGridModel } from "../internal/PropertyGridModel";
-import type { PropertyCategoryRendererProps } from "../PropertyCategoryRendererManager";
-import { PropertyCategoryRendererManager } from "../PropertyCategoryRendererManager";
+} from "../internal/flat-items/FlatGridItem.js";
+import { MutableCategorizedPrimitiveProperty } from "../internal/flat-items/MutableCategorizedPrimitiveProperty.js";
+import { MutableCustomGridCategory } from "../internal/flat-items/MutableCustomGridCategory.js";
+import { FlatGridItemType } from "../internal/flat-items/MutableFlatGridItem.js";
+import { MutableGridCategory } from "../internal/flat-items/MutableGridCategory.js";
+import { FlatPropertyRenderer } from "../internal/flat-properties/FlatPropertyRenderer.js";
+import type { IPropertyGridEventHandler } from "../internal/PropertyGridEventHandler.js";
+import type { IPropertyGridModel } from "../internal/PropertyGridModel.js";
+import type { PropertyCategoryRendererProps } from "../PropertyCategoryRendererManager.js";
+import { PropertyCategoryRendererManager } from "../PropertyCategoryRendererManager.js";
 import type {
   IPropertyDataProvider,
   PropertyCategory,
-} from "../PropertyDataProvider";
-import { ColumnResizingPropertyListPropsSupplier } from "./ColumnResizingPropertyListPropsSupplier";
-import { FlatItemNestedBorderWrapper } from "./FlatItemNestedBorderWrapper";
-import { PropertyCategoryBlock } from "./PropertyCategoryBlock";
+} from "../PropertyDataProvider.js";
+import { ColumnResizingPropertyListPropsSupplier } from "./ColumnResizingPropertyListPropsSupplier.js";
+import { FlatItemNestedBorderWrapper } from "./FlatItemNestedBorderWrapper.js";
+import { PropertyCategoryBlock } from "./PropertyCategoryBlock.js";
 import type {
   CommonPropertyGridProps,
   PropertyGridContentHighlightProps,
-} from "./PropertyGridCommons";
-import { PropertyGridCommons } from "./PropertyGridCommons";
-import { PropertyGridEventsRelatedPropsSupplier } from "./PropertyGridEventsRelatedPropsSupplier";
-import { useElementsScrollStorage } from "../../common/UseElementsScrollStorage";
-import { Orientation } from "../../common/Orientation";
+} from "./PropertyGridCommons.js";
+import { PropertyGridCommons } from "./PropertyGridCommons.js";
+import { PropertyGridEventsRelatedPropsSupplier } from "./PropertyGridEventsRelatedPropsSupplier.js";
+import { useElementsScrollStorage } from "../../common/UseElementsScrollStorage.js";
+import { Orientation } from "../../common/Orientation.js";
 
 /** Properties for [[VirtualizedPropertyGrid]] React component
  * @public

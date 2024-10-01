@@ -3,11 +3,11 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { isHorizontalPanelState } from "../../../appui-react/layout/state/PanelState";
+import { isHorizontalPanelState } from "../../../appui-react/layout/state/PanelState.js";
 import {
   createHorizontalPanelState,
   createVerticalPanelState,
-} from "../../../appui-react/layout/state/internal/PanelStateHelpers";
+} from "../../../appui-react/layout/state/internal/PanelStateHelpers.js";
 
 describe("isHorizontalPanelState", () => {
   it("returns true based on side property", () => {

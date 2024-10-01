@@ -3,15 +3,15 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { act, render } from "@testing-library/react";
-import produce from "immer";
+import { produce } from "immer";
 import * as React from "react";
-import { createLayoutStore } from "../../../appui-react/layout/base/LayoutStore";
-import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState";
-import { addTab } from "../../../appui-react/layout/state/internal/TabStateHelpers";
-import { addFloatingWidget } from "../../../appui-react/layout/state/internal/WidgetStateHelpers";
-import { useContainersStore } from "../../../appui-react/layout/widget/ContentManager";
-import { WidgetContentRenderer } from "../../../appui-react/layout/widget/ContentRenderer";
-import { TestNineZoneProvider } from "../Providers";
+import { createLayoutStore } from "../../../appui-react/layout/base/LayoutStore.js";
+import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState.js";
+import { addTab } from "../../../appui-react/layout/state/internal/TabStateHelpers.js";
+import { addFloatingWidget } from "../../../appui-react/layout/state/internal/WidgetStateHelpers.js";
+import { useContainersStore } from "../../../appui-react/layout/widget/ContentManager.js";
+import { WidgetContentRenderer } from "../../../appui-react/layout/widget/ContentRenderer.js";
+import { TestNineZoneProvider } from "../Providers.js";
 
 describe("WidgetContentRenderer", () => {
   const wrapper = (props: React.PropsWithChildren<{}>) => (

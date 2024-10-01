@@ -10,10 +10,10 @@ import classnames from "classnames";
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
 import { Centered } from "@itwin/core-react";
-import { MessageManager } from "../messages/MessageManager";
-import type { NotifyMessageType } from "../messages/ReactNotifyMessageDetails";
+import { MessageManager } from "../messages/MessageManager.js";
+import type { NotifyMessageType } from "../messages/ReactNotifyMessageDetails.js";
 import { ProgressLinear, Text } from "@itwin/itwinui-react";
-import { useTranslation } from "../hooks/useTranslation";
+import { useTranslation } from "../hooks/useTranslation.js";
 
 /** Activity Center Field React component.
  * @public

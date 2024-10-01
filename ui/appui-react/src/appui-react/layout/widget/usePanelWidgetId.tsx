@@ -7,12 +7,12 @@
  */
 
 import * as React from "react";
-import { useLayout } from "../base/LayoutStore";
+import { useLayout } from "../base/LayoutStore.js";
 import {
   isHorizontalPanelSide,
   PanelSideContext,
-} from "../widget-panels/Panel";
-import { WidgetIdContext } from "./Widget";
+} from "../widget-panels/Panel.js";
+import { WidgetIdContext } from "./Widget.js";
 
 /** @internal */
 export function usePanelWidgetId() {

@@ -10,21 +10,21 @@ import "./PanelWidget.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
-import type { WidgetState } from "../state/WidgetState";
-import type { PanelSide } from "../widget-panels/PanelTypes";
+import type { WidgetState } from "../state/WidgetState.js";
+import type { PanelSide } from "../widget-panels/PanelTypes.js";
 import {
   isHorizontalPanelSide,
   PanelSideContext,
-} from "../widget-panels/Panel";
-import { WidgetContentContainer } from "./ContentContainer";
-import { WidgetTabBar } from "./TabBar";
-import { Widget, WidgetProvider } from "./Widget";
-import { WidgetOutline } from "../outline/WidgetOutline";
-import { WidgetTarget } from "../target/WidgetTarget";
-import { isHorizontalPanelState } from "../state/PanelState";
-import { useLayout } from "../base/LayoutStore";
-import { getWidgetState } from "../state/internal/WidgetStateHelpers";
-import type { NineZoneState } from "../state/NineZoneState";
+} from "../widget-panels/Panel.js";
+import { WidgetContentContainer } from "./ContentContainer.js";
+import { WidgetTabBar } from "./TabBar.js";
+import { Widget, WidgetProvider } from "./Widget.js";
+import { WidgetOutline } from "../outline/WidgetOutline.js";
+import { WidgetTarget } from "../target/WidgetTarget.js";
+import { isHorizontalPanelState } from "../state/PanelState.js";
+import { useLayout } from "../base/LayoutStore.js";
+import { getWidgetState } from "../state/internal/WidgetStateHelpers.js";
+import type { NineZoneState } from "../state/NineZoneState.js";
 
 /** @internal */
 export interface PanelWidgetProps {

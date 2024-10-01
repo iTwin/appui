@@ -7,13 +7,13 @@
  */
 
 import { useCallback, useEffect, useMemo, useReducer, useState } from "react";
-import { useDebouncedAsyncValue } from "../../common/UseDebouncedAsyncValue";
-import type { IPropertyDataProvider } from "../PropertyDataProvider";
-import { MutableGridItemFactory } from "./flat-items/MutableGridItemFactory";
-import { PropertyGridEventHandler } from "./PropertyGridEventHandler";
-import type { IPropertyGridModel } from "./PropertyGridModel";
-import type { IPropertyGridModelSource } from "./PropertyGridModelSource";
-import { PropertyGridModelSource } from "./PropertyGridModelSource";
+import { useDebouncedAsyncValue } from "../../common/UseDebouncedAsyncValue.js";
+import type { IPropertyDataProvider } from "../PropertyDataProvider.js";
+import { MutableGridItemFactory } from "./flat-items/MutableGridItemFactory.js";
+import { PropertyGridEventHandler } from "./PropertyGridEventHandler.js";
+import type { IPropertyGridModel } from "./PropertyGridModel.js";
+import type { IPropertyGridModelSource } from "./PropertyGridModelSource.js";
+import { PropertyGridModelSource } from "./PropertyGridModelSource.js";
 
 /**
  * Custom hook that gets [[PropertyData]] from given [[IPropertyDataProvider]] and subscribes to further data changes.

@@ -13,8 +13,8 @@ import {
   WidgetOpacityContext,
 } from "@itwin/core-react";
 import * as React from "react";
-import { ToolsArea } from "../layout/widget/ToolsArea";
-import { UiFramework } from "../UiFramework";
+import { ToolsArea } from "../layout/widget/ToolsArea.js";
+import { UiFramework } from "../UiFramework.js";
 
 /** Properties for the [[ToolWidgetComposer]] React components
  * @public

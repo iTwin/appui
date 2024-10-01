@@ -5,7 +5,7 @@
 
 import * as React from "react";
 import { render, waitFor } from "@testing-library/react";
-import { DelayedSpinner } from "../../components-react/common/DelayedSpinner";
+import { DelayedSpinner } from "../../components-react/common/DelayedSpinner.js";
 
 describe("<DelayedSpinner />", () => {
   it("renders spinner without delay", () => {

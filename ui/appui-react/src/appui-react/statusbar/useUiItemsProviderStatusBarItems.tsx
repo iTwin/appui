@@ -7,13 +7,13 @@
  */
 
 import * as React from "react";
-import { useActiveStageId } from "../hooks/useActiveStageId";
-import { useAvailableUiItemsProviders } from "../hooks/useAvailableUiItemsProviders";
-import { UiFramework } from "../UiFramework";
-import { UiItemsManager } from "../ui-items-provider/UiItemsManager";
-import type { StatusBarItem } from "./StatusBarItem";
-import type { StatusBarItemsManager } from "./StatusBarItemsManager";
-import type { StatusBarComposer } from "./StatusBarComposer";
+import { useActiveStageId } from "../hooks/useActiveStageId.js";
+import { useAvailableUiItemsProviders } from "../hooks/useAvailableUiItemsProviders.js";
+import { UiFramework } from "../UiFramework.js";
+import { UiItemsManager } from "../ui-items-provider/UiItemsManager.js";
+import type { StatusBarItem } from "./StatusBarItem.js";
+import type { StatusBarItemsManager } from "./StatusBarItemsManager.js";
+import type { StatusBarComposer } from "./StatusBarComposer.js";
 
 /** Hook that returns items from [[StatusBarItemsManager]].
  * @deprecated in 4.17.0. Uses an internal `StatusBarItemsManager` API. Use {@link StatusBarComposer} instead.

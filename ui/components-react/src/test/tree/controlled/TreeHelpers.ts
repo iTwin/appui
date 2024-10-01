@@ -9,8 +9,8 @@ import type {
   MutableTreeModelNode,
   TreeModelNodeInput,
   TreeNodeItemData,
-} from "../../../components-react";
-import type { TreeNodeItem } from "../../../components-react/tree/TreeDataProvider";
+} from "../../../components-react.js";
+import type { TreeNodeItem } from "../../../components-react/tree/TreeDataProvider.js";
 
 /** @internal */
 export function createTreeNodeInput(

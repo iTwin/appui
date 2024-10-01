@@ -10,15 +10,15 @@ import { SvgError } from "@itwin/itwinui-illustrations-react";
 import { NonIdealState } from "@itwin/itwinui-react";
 import * as React from "react";
 import { ErrorBoundary } from "react-error-boundary";
-import { useActiveFrontstageDef } from "../frontstage/FrontstageDef";
-import { ScrollableWidgetContent } from "../layout/widget/Content";
-import { TabIdContext } from "../layout/widget/ContentRenderer";
-import { UiItemsManager } from "../ui-items-provider/UiItemsManager";
-import { isProviderItem } from "../ui-items-provider/isProviderItem";
-import type { WidgetDef } from "../widgets/WidgetDef";
-import { useTransientState } from "./useTransientState";
-import { useTranslation } from "../hooks/useTranslation";
-import { PopoutThemeProvider } from "../preview/reparent-popout-widgets/PopoutThemeProvider";
+import { useActiveFrontstageDef } from "../frontstage/FrontstageDef.js";
+import { ScrollableWidgetContent } from "../layout/widget/Content.js";
+import { TabIdContext } from "../layout/widget/ContentRenderer.js";
+import { UiItemsManager } from "../ui-items-provider/UiItemsManager.js";
+import { isProviderItem } from "../ui-items-provider/isProviderItem.js";
+import type { WidgetDef } from "../widgets/WidgetDef.js";
+import { useTransientState } from "./useTransientState.js";
+import { useTranslation } from "../hooks/useTranslation.js";
+import { PopoutThemeProvider } from "../preview/reparent-popout-widgets/PopoutThemeProvider.js";
 
 function WidgetFallback() {
   const { translate } = useTranslation();

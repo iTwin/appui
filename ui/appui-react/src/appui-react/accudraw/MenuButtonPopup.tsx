@@ -8,10 +8,10 @@
 
 import * as React from "react";
 import { Size } from "@itwin/core-react";
-import type { PopupPropsBase } from "../popup/PopupManager";
-import { PopupManager } from "../popup/PopupManager";
-import { MenuButton } from "./MenuButton";
-import type { SizeProps } from "../utils/SizeProps";
+import type { PopupPropsBase } from "../popup/PopupManager.js";
+import { PopupManager } from "../popup/PopupManager.js";
+import { MenuButton } from "./MenuButton.js";
+import type { SizeProps } from "../utils/SizeProps.js";
 
 /** @public */
 export interface MenuButtonPopupProps extends PopupPropsBase {

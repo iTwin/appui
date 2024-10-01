@@ -19,7 +19,7 @@ import {
 import { Point3d } from "@itwin/core-geometry";
 import { UiFramework } from "@itwin/appui-react";
 import { ToolbarItemUtilities } from "@itwin/appui-abstract";
-import { AppUiTestProviders } from "../AppUiTestProviders";
+import { AppUiTestProviders } from "../AppUiTestProviders.js";
 import genericToolSvg from "./generic-tool.svg";
 
 /** Sample Primitive tool where user selects an element for processing */

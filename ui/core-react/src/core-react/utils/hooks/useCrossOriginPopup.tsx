@@ -7,7 +7,7 @@
  */
 
 import * as React from "react";
-import { useInterval } from "./useInterval";
+import { useInterval } from "./useInterval.js";
 
 /** Hook that will show a popup window
  * @public

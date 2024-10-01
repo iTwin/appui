@@ -9,8 +9,8 @@ import {
   UiFramework,
   WidgetDef,
   WidgetPanelsToolbars,
-} from "../../appui-react";
-import { TestNineZoneProvider } from "../layout/Providers";
+} from "../../appui-react.js";
+import { TestNineZoneProvider } from "../layout/Providers.js";
 
 describe("WidgetPanelsToolbars", () => {
   it("should render toolbars", () => {

@@ -13,15 +13,15 @@ import {
   IModelViewportControl,
   StandardContentLayouts,
   UiFramework,
-} from "../../appui-react";
+} from "../../appui-react.js";
 import type {
   ConfigurableCreateInfo,
   FrontstageConfig,
   IModelViewportControlOptions,
   SupportsViewSelectorChange,
-} from "../../appui-react";
-import { storageMock } from "../TestUtils";
-import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";
+} from "../../appui-react.js";
+import { storageMock } from "../TestUtils.js";
+import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager.js";
 
 const mySessionStorage = storageMock();
 const propertyDescriptorToRestore = Object.getOwnPropertyDescriptor(

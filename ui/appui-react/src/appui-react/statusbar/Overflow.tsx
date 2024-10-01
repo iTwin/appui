@@ -9,10 +9,10 @@
 import type { CommonProps } from "@itwin/core-react";
 import { useResizeObserver } from "@itwin/core-react";
 import * as React from "react";
-import { useTranslation } from "../hooks/useTranslation";
+import { useTranslation } from "../hooks/useTranslation.js";
 import { IconButton } from "@itwin/itwinui-react";
 import { SvgMore } from "@itwin/itwinui-icons-react";
-import { StatusBarPopover } from "./popup/StatusBarPopover";
+import { StatusBarPopover } from "./popup/StatusBarPopover.js";
 import "./Overflow.scss";
 
 /** Properties of [[StatusBarOverflow]] component.

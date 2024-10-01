@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import { render } from "@testing-library/react";
 import * as React from "react";
-import { SvgPath } from "../../core-react";
-import { classesFromElement } from "../TestUtils";
+import { SvgPath } from "../../core-react.js";
+import { classesFromElement } from "../TestUtils.js";
 
 describe("<SvgPath />", () => {
   it("should render with proper class", () => {

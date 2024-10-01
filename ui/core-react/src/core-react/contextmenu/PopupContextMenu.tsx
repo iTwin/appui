@@ -8,11 +8,11 @@
 
 import "./PopupContextMenu.scss";
 import * as React from "react";
-import { Popup } from "../popup/Popup";
-import { ContextMenu } from "./ContextMenu";
+import { Popup } from "../popup/Popup.js";
+import { ContextMenu } from "./ContextMenu.js";
 import { RelativePosition } from "@itwin/appui-abstract";
-import type { CommonProps } from "../utils/Props";
-import { ContextMenuDirection } from "./ContextMenuDirection";
+import type { CommonProps } from "../utils/Props.js";
+import { ContextMenuDirection } from "./ContextMenuDirection.js";
 
 /* eslint-disable deprecation/deprecation */
 

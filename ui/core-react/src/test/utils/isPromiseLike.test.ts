@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { isPromiseLike } from "../../core-react";
+import { isPromiseLike } from "../../core-react.js";
 
 describe("isPromiseLike", () => {
   it("returns false for `undefined`", () => {

@@ -6,11 +6,11 @@ import * as React from "react";
 import { PropertyRecord } from "@itwin/appui-abstract";
 import { CheckBoxState } from "@itwin/core-react";
 import { render } from "@testing-library/react";
-import { TreeNodeContent } from "../../../../components-react/tree/controlled/component/NodeContent";
-import type { MutableTreeModelNode } from "../../../../components-react/tree/controlled/TreeModel";
-import type { HighlightableTreeNodeProps } from "../../../../components-react/tree/HighlightingEngine";
-import { HighlightingEngine } from "../../../../components-react/tree/HighlightingEngine";
-import { styleMatch } from "../../../TestUtils";
+import { TreeNodeContent } from "../../../../components-react/tree/controlled/component/NodeContent.js";
+import type { MutableTreeModelNode } from "../../../../components-react/tree/controlled/TreeModel.js";
+import type { HighlightableTreeNodeProps } from "../../../../components-react/tree/HighlightingEngine.js";
+import { HighlightingEngine } from "../../../../components-react/tree/HighlightingEngine.js";
+import { styleMatch } from "../../../TestUtils.js";
 
 describe("NodeContent", () => {
   let node: MutableTreeModelNode;

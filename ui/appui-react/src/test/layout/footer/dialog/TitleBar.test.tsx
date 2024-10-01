@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
 import * as React from "react";
-import { TitleBar } from "../../../../appui-react/layout/footer/dialog/TitleBar";
-import { selectorMatches } from "../../Utils";
+import { TitleBar } from "../../../../appui-react/layout/footer/dialog/TitleBar.js";
+import { selectorMatches } from "../../Utils.js";
 
 describe("<TitleBar />", () => {
   it("renders correctly", () => {

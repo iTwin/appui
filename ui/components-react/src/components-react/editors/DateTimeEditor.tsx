@@ -16,20 +16,24 @@ import {
   StandardTypeNames,
   TimeDisplay,
 } from "@itwin/appui-abstract";
-import type { PropertyEditorProps, TypeEditor } from "./EditorContainer";
+import type { PropertyEditorProps, TypeEditor } from "./EditorContainer.js";
 import {
   PropertyEditorBase,
   PropertyEditorManager,
-} from "./PropertyEditorManager";
-import { PopupButton, PopupContent, PopupOkCancelButtons } from "./PopupButton";
-import type { TimeSpec } from "../datepicker/TimeField";
-import { TimeField } from "../datepicker/TimeField";
-import type { TypeConverter } from "../converters/TypeConverter";
-import { DatePicker } from "../datepicker/DatePicker";
-import { TypeConverterManager } from "../converters/TypeConverterManager";
-import { DateTimeTypeConverterBase } from "../converters/DateTimeTypeConverter";
+} from "./PropertyEditorManager.js";
+import {
+  PopupButton,
+  PopupContent,
+  PopupOkCancelButtons,
+} from "./PopupButton.js";
+import type { TimeSpec } from "../datepicker/TimeField.js";
+import { TimeField } from "../datepicker/TimeField.js";
+import type { TypeConverter } from "../converters/TypeConverter.js";
+import { DatePicker } from "../datepicker/DatePicker.js";
+import { TypeConverterManager } from "../converters/TypeConverterManager.js";
+import { DateTimeTypeConverterBase } from "../converters/DateTimeTypeConverter.js";
 import { Text } from "@itwin/itwinui-react";
-import { adjustDateToTimezone } from "../common/DateUtils";
+import { adjustDateToTimezone } from "../common/DateUtils.js";
 
 // cSpell:ignore datepicker
 

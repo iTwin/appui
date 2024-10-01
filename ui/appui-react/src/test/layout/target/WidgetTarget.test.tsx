@@ -4,14 +4,14 @@
  *--------------------------------------------------------------------------------------------*/
 import { render } from "@testing-library/react";
 import * as React from "react";
-import type { NineZoneState } from "../../../appui-react/layout/state/NineZoneState";
-import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState";
-import type { WidgetState } from "../../../appui-react/layout/state/WidgetState";
-import { addTab } from "../../../appui-react/layout/state/internal/TabStateHelpers";
-import { addFloatingWidget } from "../../../appui-react/layout/state/internal/WidgetStateHelpers";
-import { WidgetTarget } from "../../../appui-react/layout/target/WidgetTarget";
-import { WidgetIdContext } from "../../../appui-react/layout/widget/Widget";
-import { TestNineZoneProvider } from "../Providers";
+import type { NineZoneState } from "../../../appui-react/layout/state/NineZoneState.js";
+import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState.js";
+import type { WidgetState } from "../../../appui-react/layout/state/WidgetState.js";
+import { addTab } from "../../../appui-react/layout/state/internal/TabStateHelpers.js";
+import { addFloatingWidget } from "../../../appui-react/layout/state/internal/WidgetStateHelpers.js";
+import { WidgetTarget } from "../../../appui-react/layout/target/WidgetTarget.js";
+import { WidgetIdContext } from "../../../appui-react/layout/widget/Widget.js";
+import { TestNineZoneProvider } from "../Providers.js";
 
 interface WrapperProps {
   defaultState: NineZoneState;

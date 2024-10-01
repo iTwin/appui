@@ -9,8 +9,8 @@ import {
   OutputMessageType,
 } from "@itwin/core-frontend";
 import { RelativePosition } from "@itwin/appui-abstract";
-import { AppNotificationManager, PointerMessage } from "../../appui-react";
-import { selectorMatches } from "../TestUtils";
+import { AppNotificationManager, PointerMessage } from "../../appui-react.js";
+import { selectorMatches } from "../TestUtils.js";
 import { render, screen } from "@testing-library/react";
 
 describe("PointerMessage", () => {

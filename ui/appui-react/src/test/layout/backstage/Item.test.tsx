@@ -4,9 +4,9 @@
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
 import * as React from "react";
-import { BackstageItem } from "../../../appui-react/layout/backstage/Item";
-import { childStructure, selectorMatches, styleMatch } from "../Utils";
-import { SafeAreaInsets } from "../../../appui-react";
+import { BackstageItem } from "../../../appui-react/layout/backstage/Item.js";
+import { childStructure, selectorMatches, styleMatch } from "../Utils.js";
+import { SafeAreaInsets } from "../../../appui-react.js";
 
 describe("<Item />", () => {
   it("renders correctly", () => {

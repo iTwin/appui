@@ -17,23 +17,23 @@ import {
   waitFor,
   within,
 } from "@testing-library/react";
-import type { HighlightingComponentProps } from "../../../components-react/common/HighlightingComponentProps";
-import type { VirtualizedPropertyGridWithDataProviderProps } from "../../../components-react/propertygrid/component/VirtualizedPropertyGridWithDataProvider";
-import { VirtualizedPropertyGridWithDataProvider } from "../../../components-react/propertygrid/component/VirtualizedPropertyGridWithDataProvider";
-import { FilteredType } from "../../../components-react/propertygrid/dataproviders/filterers/PropertyDataFiltererBase";
-import * as FlatPropertyRendererExports from "../../../components-react/propertygrid/internal/flat-properties/FlatPropertyRenderer";
-import { PropertyCategoryRendererManager } from "../../../components-react/propertygrid/PropertyCategoryRendererManager";
+import type { HighlightingComponentProps } from "../../../components-react/common/HighlightingComponentProps.js";
+import type { VirtualizedPropertyGridWithDataProviderProps } from "../../../components-react/propertygrid/component/VirtualizedPropertyGridWithDataProvider.js";
+import { VirtualizedPropertyGridWithDataProvider } from "../../../components-react/propertygrid/component/VirtualizedPropertyGridWithDataProvider.js";
+import { FilteredType } from "../../../components-react/propertygrid/dataproviders/filterers/PropertyDataFiltererBase.js";
+import * as FlatPropertyRendererExports from "../../../components-react/propertygrid/internal/flat-properties/FlatPropertyRenderer.js";
+import { PropertyCategoryRendererManager } from "../../../components-react/propertygrid/PropertyCategoryRendererManager.js";
 import type {
   IPropertyDataProvider,
   PropertyCategory,
   PropertyData,
-} from "../../../components-react/propertygrid/PropertyDataProvider";
-import { PropertyDataChangeEvent } from "../../../components-react/propertygrid/PropertyDataProvider";
-import { SimplePropertyDataProvider } from "../../../components-react/propertygrid/SimplePropertyDataProvider";
-import { ResolvablePromise } from "../../test-helpers/misc";
-import TestUtils from "../../TestUtils";
-import { useVirtualizedPropertyGridLayoutStorage } from "../../../components-react/propertygrid/component/VirtualizedPropertyGrid";
-import * as useElementsScrollStorageModule from "../../../components-react/common/UseElementsScrollStorage";
+} from "../../../components-react/propertygrid/PropertyDataProvider.js";
+import { PropertyDataChangeEvent } from "../../../components-react/propertygrid/PropertyDataProvider.js";
+import { SimplePropertyDataProvider } from "../../../components-react/propertygrid/SimplePropertyDataProvider.js";
+import { ResolvablePromise } from "../../test-helpers/misc.js";
+import TestUtils from "../../TestUtils.js";
+import { useVirtualizedPropertyGridLayoutStorage } from "../../../components-react/propertygrid/component/VirtualizedPropertyGrid.js";
+import * as useElementsScrollStorageModule from "../../../components-react/common/UseElementsScrollStorage.js";
 
 describe("VirtualizedPropertyGridWithDataProvider", () => {
   const categories: PropertyCategory[] = [

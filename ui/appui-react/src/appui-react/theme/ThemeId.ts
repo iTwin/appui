@@ -6,7 +6,7 @@
  * @module State
  */
 
-import type { ThemeManager } from "./ThemeManager";
+import type { ThemeManager } from "./ThemeManager.js";
 
 /** System preferred color theme.
  * @public

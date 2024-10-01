@@ -8,7 +8,7 @@ import { Slider } from "@itwin/itwinui-react";
 import type { CommonProps } from "@itwin/core-react";
 import { useEventListener } from "@itwin/core-react";
 import { toDateString, toTimeString } from "@itwin/components-react";
-import type { TimelineDateMarkerProps } from "./TimelineComponent";
+import type { TimelineDateMarkerProps } from "./TimelineComponent.js";
 
 /**
  * @internal

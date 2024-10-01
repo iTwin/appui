@@ -7,17 +7,17 @@
  */
 import type { PropertyRecord } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
-import type { PropertyCategory } from "../../PropertyDataProvider";
-import { MutableCategorizedArrayProperty } from "./MutableCategorizedArrayProperty";
-import { MutableCategorizedPrimitiveProperty } from "./MutableCategorizedPrimitiveProperty";
-import { MutableCategorizedStructProperty } from "./MutableCategorizedStructProperty";
-import { MutableCustomGridCategory } from "./MutableCustomGridCategory";
+import type { PropertyCategory } from "../../PropertyDataProvider.js";
+import { MutableCategorizedArrayProperty } from "./MutableCategorizedArrayProperty.js";
+import { MutableCategorizedPrimitiveProperty } from "./MutableCategorizedPrimitiveProperty.js";
+import { MutableCategorizedStructProperty } from "./MutableCategorizedStructProperty.js";
+import { MutableCustomGridCategory } from "./MutableCustomGridCategory.js";
 import type {
   IMutableCategorizedPropertyItem,
   IMutableGridCategoryItem,
-} from "./MutableFlatGridItem";
-import type { CategoryRecordsDict } from "./MutableGridCategory";
-import { MutableGridCategory } from "./MutableGridCategory";
+} from "./MutableFlatGridItem.js";
+import type { CategoryRecordsDict } from "./MutableGridCategory.js";
+import { MutableGridCategory } from "./MutableGridCategory.js";
 
 /**
  * IMutableGridItemFactory interface for creating MutableGridItem objects

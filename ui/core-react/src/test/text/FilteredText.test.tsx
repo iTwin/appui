@@ -5,7 +5,7 @@
 
 import * as React from "react";
 import { render } from "@testing-library/react";
-import { FilteredText } from "../../core-react";
+import { FilteredText } from "../../core-react.js";
 
 const value =
   "That he's mad, tis true, tis true tis pity, And pity tis, tis true";

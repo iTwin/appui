@@ -16,13 +16,13 @@ import type {
 import { Div, Size } from "@itwin/core-react";
 import classnames from "classnames";
 import * as React from "react";
-import { StatusBarDialog } from "../../statusbar/dialog/Dialog";
+import { StatusBarDialog } from "../../statusbar/dialog/Dialog.js";
 import "./CursorPopup.scss";
-import { CursorPopupManager } from "./CursorPopupManager";
-import { type Placement } from "../../utils/Placement";
+import { CursorPopupManager } from "./CursorPopupManager.js";
+import { type Placement } from "../../utils/Placement.js";
 import type { RequireAtLeastOne } from "@itwin/core-bentley";
-import type { SizeProps } from "../../utils/SizeProps";
-import type { RectangleProps } from "../../utils/RectangleProps";
+import type { SizeProps } from "../../utils/SizeProps.js";
+import type { RectangleProps } from "../../utils/RectangleProps.js";
 
 /** Properties for the [[CursorPopup]] React component
  * @public

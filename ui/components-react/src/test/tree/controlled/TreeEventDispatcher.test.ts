@@ -2,35 +2,35 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { SelectionMode } from "../../../components-react/common/selection/SelectionModes";
-import { toRxjsObservable } from "../../../components-react/tree/controlled/Observable";
-import { TreeEventDispatcher } from "../../../components-react/tree/controlled/TreeEventDispatcher";
+import { SelectionMode } from "../../../components-react/common/selection/SelectionModes.js";
+import { toRxjsObservable } from "../../../components-react/tree/controlled/Observable.js";
+import { TreeEventDispatcher } from "../../../components-react/tree/controlled/TreeEventDispatcher.js";
 import type {
   TreeEvents,
   TreeSelectionModificationEventArgs,
-} from "../../../components-react/tree/controlled/TreeEvents";
+} from "../../../components-react/tree/controlled/TreeEvents.js";
 import type {
   TreeModelNode,
   TreeModelRootNode,
-} from "../../../components-react/tree/controlled/TreeModel";
+} from "../../../components-react/tree/controlled/TreeModel.js";
 import {
   computeVisibleNodes,
   isTreeModelNode,
   MutableTreeModel,
-} from "../../../components-react/tree/controlled/TreeModel";
+} from "../../../components-react/tree/controlled/TreeModel.js";
 import type {
   ITreeNodeLoader,
   TreeNodeLoadResult,
-} from "../../../components-react/tree/controlled/TreeNodeLoader";
+} from "../../../components-react/tree/controlled/TreeNodeLoader.js";
 import {
   extractSequence,
   startExtractingSequence,
-} from "../../common/ObservableTestHelpers";
-import { createTreeNodeInput } from "./TreeHelpers";
+} from "../../common/ObservableTestHelpers.js";
+import { createTreeNodeInput } from "./TreeHelpers.js";
 import { fireEvent, waitFor } from "@testing-library/react";
 import { asyncScheduler, from, of, scheduled, Subject } from "rxjs";
 import { CheckBoxState } from "@itwin/core-react";
-import type { TreeSelectionManager } from "../../../components-react/tree/controlled/internal/TreeSelectionManager";
+import type { TreeSelectionManager } from "../../../components-react/tree/controlled/internal/TreeSelectionManager.js";
 
 describe("TreeEventDispatcher", () => {
   const treeEvents = {

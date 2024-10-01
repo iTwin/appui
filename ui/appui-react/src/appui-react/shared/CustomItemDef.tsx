@@ -7,8 +7,8 @@
  */
 
 import type * as React from "react";
-import { ActionButtonItemDef } from "./ActionButtonItemDef";
-import type { CustomItemProps } from "./CustomItemProps";
+import { ActionButtonItemDef } from "./ActionButtonItemDef.js";
+import type { CustomItemProps } from "./CustomItemProps.js";
 
 /* eslint-disable deprecation/deprecation */
 

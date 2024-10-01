@@ -12,15 +12,15 @@ import type {
   PrimitiveValue,
 } from "@itwin/appui-abstract";
 import { PropertyEditorParamTypes } from "@itwin/appui-abstract";
-import { CustomNumberEditor } from "../../components-react/editors/CustomNumberEditor";
-import type { PropertyUpdatedArgs } from "../../components-react/editors/EditorContainer";
-import { EditorContainer } from "../../components-react/editors/EditorContainer";
+import { CustomNumberEditor } from "../../components-react/editors/CustomNumberEditor.js";
+import type { PropertyUpdatedArgs } from "../../components-react/editors/EditorContainer.js";
+import { EditorContainer } from "../../components-react/editors/EditorContainer.js";
 import TestUtils, {
   childStructure,
   MineDataController,
   styleMatch,
-} from "../TestUtils";
-import { PropertyEditorManager } from "../../components-react/editors/PropertyEditorManager";
+} from "../TestUtils.js";
+import { PropertyEditorManager } from "../../components-react/editors/PropertyEditorManager.js";
 
 // cSpell:ignore customnumber
 

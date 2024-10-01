@@ -10,9 +10,9 @@ import type { ReducersMapObject, Store } from "redux";
 import { combineReducers, createStore } from "redux";
 import { Logger } from "@itwin/core-bentley";
 import { UiError } from "@itwin/appui-abstract";
-import { FrameworkReducer, type FrameworkState } from "./FrameworkState";
-import type { NameToReducerMap } from "./ReducerRegistry";
-import { ReducerRegistryInstance } from "./ReducerRegistry";
+import { FrameworkReducer, type FrameworkState } from "./FrameworkState.js";
+import type { NameToReducerMap } from "./ReducerRegistry.js";
+import { ReducerRegistryInstance } from "./ReducerRegistry.js";
 
 /* eslint-disable deprecation/deprecation */
 

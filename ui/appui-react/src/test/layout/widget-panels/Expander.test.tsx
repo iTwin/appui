@@ -4,14 +4,14 @@
  *--------------------------------------------------------------------------------------------*/
 import { fireEvent, render, waitFor } from "@testing-library/react";
 import * as React from "react";
-import type { NineZoneDispatch } from "../../../appui-react/layout/base/NineZone";
-import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState";
-import { updatePanelState } from "../../../appui-react/layout/state/internal/PanelStateHelpers";
+import type { NineZoneDispatch } from "../../../appui-react/layout/base/NineZone.js";
+import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState.js";
+import { updatePanelState } from "../../../appui-react/layout/state/internal/PanelStateHelpers.js";
 import {
   WidgetPanelExpander,
   WidgetPanelExpanders,
-} from "../../../appui-react/layout/widget-panels/Expander";
-import { TestNineZoneProvider } from "../Providers";
+} from "../../../appui-react/layout/widget-panels/Expander.js";
+import { TestNineZoneProvider } from "../Providers.js";
 
 describe("WidgetPanelExpanders", () => {
   it("should render", () => {

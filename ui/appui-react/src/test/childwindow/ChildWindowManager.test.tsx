@@ -2,10 +2,10 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import type { OpenChildWindowInfo } from "../../appui-react";
-import { FrontstageDef, UiFramework } from "../../appui-react";
-import { copyStyles } from "../../appui-react/childwindow/CopyStyles";
-import { InternalChildWindowManager } from "../../appui-react/childwindow/InternalChildWindowManager";
+import type { OpenChildWindowInfo } from "../../appui-react.js";
+import { FrontstageDef, UiFramework } from "../../appui-react.js";
+import { copyStyles } from "../../appui-react/childwindow/CopyStyles.js";
+import { InternalChildWindowManager } from "../../appui-react/childwindow/InternalChildWindowManager.js";
 
 describe("ChildWindowManager", () => {
   it("will construct", () => {

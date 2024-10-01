@@ -16,15 +16,15 @@ import {
 } from "@itwin/appui-abstract";
 import type { BadgeKind } from "@itwin/core-react";
 import { Badge, IconHelper } from "@itwin/core-react";
-import { BackArrow } from "./groupPanel/BackArrow";
-import { GroupColumn } from "./groupPanel/Column";
-import { Columns } from "./groupPanel/Columns";
-import { Panel } from "./groupPanel/Panel";
-import { Title } from "./groupPanel/Title";
-import { GroupToolExpander } from "./groupPanel/tool/Expander";
-import { GroupTool } from "./groupPanel/tool/Tool";
-import { useToolbarPopupContext } from "./PopupItem";
-import { useToolbarWithOverflowDirectionContext } from "./InternalToolbarComponent";
+import { BackArrow } from "./groupPanel/BackArrow.js";
+import { GroupColumn } from "./groupPanel/Column.js";
+import { Columns } from "./groupPanel/Columns.js";
+import { Panel } from "./groupPanel/Panel.js";
+import { Title } from "./groupPanel/Title.js";
+import { GroupToolExpander } from "./groupPanel/tool/Expander.js";
+import { GroupTool } from "./groupPanel/tool/Tool.js";
+import { useToolbarPopupContext } from "./PopupItem.js";
+import { useToolbarWithOverflowDirectionContext } from "./InternalToolbarComponent.js";
 
 function getNumItemsInColumn(numTotalItems: number): number {
   if (numTotalItems <= 6) return numTotalItems;

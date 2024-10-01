@@ -20,13 +20,13 @@ import {
   ColorValue,
 } from "@itwin/itwinui-react";
 import "./ColorPickerPopup.scss";
-import { getCSSColorFromDef } from "./getCSSColorFromDef";
+import { getCSSColorFromDef } from "./getCSSColorFromDef.js";
 import {
   SvgCaretDownSmall,
   SvgCaretUpSmall,
   SvgClose,
 } from "@itwin/itwinui-icons-react";
-import { useTranslation } from "../useTranslation";
+import { useTranslation } from "../useTranslation.js";
 
 /** Properties for the [[ColorPickerPopup]] React component
  * @public

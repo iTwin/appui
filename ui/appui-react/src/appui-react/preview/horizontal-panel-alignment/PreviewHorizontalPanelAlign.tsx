@@ -13,15 +13,15 @@ import { DropdownMenu, MenuItem } from "@itwin/itwinui-react";
 import {
   isHorizontalPanelSide,
   PanelSideContext,
-} from "../../layout/widget-panels/Panel";
+} from "../../layout/widget-panels/Panel.js";
 import type {
   HorizontalPanelSide,
   PanelSide,
-} from "../../layout/widget-panels/PanelTypes";
-import { WidgetActionDropdownContext } from "../widget-action-dropdown/MoreButton";
-import { TabBarButton } from "../../layout/widget/Button";
-import { useMainPanelWidgetId } from "../../layout/widget/usePanelWidgetId";
-import { useIsMaximizedWidget } from "../enable-maximized-widget/useMaximizedWidget";
+} from "../../layout/widget-panels/PanelTypes.js";
+import { WidgetActionDropdownContext } from "../widget-action-dropdown/MoreButton.js";
+import { TabBarButton } from "../../layout/widget/Button.js";
+import { useMainPanelWidgetId } from "../../layout/widget/usePanelWidgetId.js";
+import { useIsMaximizedWidget } from "../enable-maximized-widget/useMaximizedWidget.js";
 
 /** Default value used when not provided or disabled. */
 const defaultAlignments = {

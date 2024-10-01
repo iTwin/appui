@@ -13,8 +13,8 @@ import {
   UiFramework,
   ViewToolWidgetComposer,
 } from "@itwin/appui-react";
-import { SampleContentControl } from "../content/SampleContentControl";
-import { useActiveContentId } from "../useActiveContentId";
+import { SampleContentControl } from "../content/SampleContentControl.js";
+import { useActiveContentId } from "../useActiveContentId.js";
 
 function CustomViewToolWidgetComposer() {
   const activeId = useActiveContentId();

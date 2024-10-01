@@ -27,8 +27,8 @@
   "scripts": {
     "start": "run-p -l \"build:** -- -w\" \"copy:** -- -w\"",
     "build": "npm run -s copy:locale && npm run -s build:cjs && npm run -s build:esm",
-    "build:cjs": "npm run -s copy:cjs && npm run -s package:cjs && tsc 1>&2 --outDir lib/cjs",
-    "build:esm": "npm run -s copy:esm && tsc 1>&2 --module ES2020 --outDir lib/esm",
+    "build:cjs": "npm run -s copy:cjs && npm run -s package:cjs && tsc --module CommonJS --moduleResolution Node 1>&2 --outDir lib/cjs",
+    "build:esm": "npm run -s copy:esm && tsc 1>&2 --outDir lib/esm",
     "package:cjs": "node ../../common/scripts/package-cjs.mjs ./lib/cjs",
     "copy:cjs": "cpx \"./src/**/*.*css\" ./lib/cjs",
     "copy:esm": "cpx \"./src/**/*.*css\" ./lib/esm",
@@ -116,7 +116,7 @@
     "@itwin/itwinui-react": "^3.11.2",
     "@itwin/itwinui-variables": "^3.0.0",
     "@itwin/itwinui-icons-react": "^2.8.0",
-    "classnames": "2.3.1",
+    "classnames": "2.5.1",
     "ts-key-enum": "~2.0.12"
   }
 }

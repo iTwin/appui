@@ -6,8 +6,8 @@ import { fireEvent, render } from "@testing-library/react";
 import * as React from "react";
 import { CompassMode, IModelApp } from "@itwin/core-frontend";
 import { Orientation } from "@itwin/core-react";
-import { FrameworkAccuDraw } from "../../appui-react/accudraw/FrameworkAccuDraw";
-import { AccuDrawDialog } from "../../appui-react/accudraw/AccuDrawDialog";
+import { FrameworkAccuDraw } from "../../appui-react/accudraw/FrameworkAccuDraw.js";
+import { AccuDrawDialog } from "../../appui-react/accudraw/AccuDrawDialog.js";
 
 describe("AccuDrawDialog", () => {
   beforeEach(() => {

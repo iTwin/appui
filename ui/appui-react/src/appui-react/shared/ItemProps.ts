@@ -17,7 +17,7 @@ import type {
   IconProps,
   IconSpec,
 } from "@itwin/core-react";
-import type { ToolbarActionItem } from "../toolbar/ToolbarItem";
+import type { ToolbarActionItem } from "../toolbar/ToolbarItem.js";
 
 /* eslint-disable deprecation/deprecation */
 

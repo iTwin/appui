@@ -7,13 +7,13 @@ import * as React from "react";
 import {
   DragManager,
   DragManagerContext,
-} from "../../appui-react/layout/base/DragManager";
-import { createLayoutStore } from "../../appui-react/layout/base/LayoutStore";
-import type { NineZoneProviderProps } from "../../appui-react/layout/base/NineZone";
-import { NineZoneProvider } from "../../appui-react/layout/base/NineZone";
-import type { NineZoneState } from "../../appui-react/layout/state/NineZoneState";
-import { TabIdContext } from "../../appui-react/layout/widget/ContentRenderer";
-import { WidgetTab } from "../../appui-react/layout/widget/Tab";
+} from "../../appui-react/layout/base/DragManager.js";
+import { createLayoutStore } from "../../appui-react/layout/base/LayoutStore.js";
+import type { NineZoneProviderProps } from "../../appui-react/layout/base/NineZone.js";
+import { NineZoneProvider } from "../../appui-react/layout/base/NineZone.js";
+import type { NineZoneState } from "../../appui-react/layout/state/NineZoneState.js";
+import { TabIdContext } from "../../appui-react/layout/widget/ContentRenderer.js";
+import { WidgetTab } from "../../appui-react/layout/widget/Tab.js";
 
 type PartialBy<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
 

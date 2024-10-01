@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { CommandItemDef, GroupItemDef } from "../../appui-react";
+import { CommandItemDef, GroupItemDef } from "../../appui-react.js";
 import { BadgeType } from "@itwin/core-react";
 
 const tool1 = new CommandItemDef({

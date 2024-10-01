@@ -26,13 +26,13 @@ import {
   DrawingNavigationAid,
   ViewportComponentEvents,
 } from "@itwin/imodel-components-react";
-import type { ContentControl } from "../content/ContentControl";
-import { NavigationArea } from "../layout/widget/NavigationArea";
-import type { NavigationAidControl } from "../navigationaids/NavigationAidControl";
-import { UiFramework } from "../UiFramework";
-import { useActiveViewport } from "../hooks/useActiveViewport";
-import { ViewUtilities } from "../utils/ViewUtilities";
-import { SheetNavigationAid } from "../navigationaids/SheetNavigationAid";
+import type { ContentControl } from "../content/ContentControl.js";
+import { NavigationArea } from "../layout/widget/NavigationArea.js";
+import type { NavigationAidControl } from "../navigationaids/NavigationAidControl.js";
+import { UiFramework } from "../UiFramework.js";
+import { useActiveViewport } from "../hooks/useActiveViewport.js";
+import { ViewUtilities } from "../utils/ViewUtilities.js";
+import { SheetNavigationAid } from "../navigationaids/SheetNavigationAid.js";
 
 function createNavigationAidControl(
   // eslint-disable-next-line deprecation/deprecation

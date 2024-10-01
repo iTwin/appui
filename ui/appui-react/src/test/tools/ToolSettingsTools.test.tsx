@@ -7,7 +7,7 @@ import { render } from "@testing-library/react";
 import {
   BumpToolSetting,
   FocusToolSettings,
-} from "../../appui-react/tools/ToolSettingsTools";
+} from "../../appui-react/tools/ToolSettingsTools.js";
 
 describe("ToolSettingsTools", () => {
   describe("FocusToolSettings", () => {

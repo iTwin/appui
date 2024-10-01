@@ -6,9 +6,9 @@ import * as React from "react";
 import type { PropertyRecord } from "@itwin/appui-abstract";
 import { Orientation } from "@itwin/core-react";
 import { fireEvent, render, screen } from "@testing-library/react";
-import { PropertyValueRendererManager } from "../../../../components-react/properties/ValueRendererManager";
-import { FlatPropertyRenderer } from "../../../../components-react/propertygrid/internal/flat-properties/FlatPropertyRenderer";
-import TestUtils, { selectorMatches, userEvent } from "../../../TestUtils";
+import { PropertyValueRendererManager } from "../../../../components-react/properties/ValueRendererManager.js";
+import { FlatPropertyRenderer } from "../../../../components-react/propertygrid/internal/flat-properties/FlatPropertyRenderer.js";
+import TestUtils, { selectorMatches, userEvent } from "../../../TestUtils.js";
 
 describe("FlatPropertyRenderer", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;

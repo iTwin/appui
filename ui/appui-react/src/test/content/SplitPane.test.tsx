@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { fireEvent, render } from "@testing-library/react";
-import { SplitPane } from "../../appui-react";
+import { SplitPane } from "../../appui-react.js";
 
 describe("SplitPane", () => {
   it("should render with defaults", async () => {

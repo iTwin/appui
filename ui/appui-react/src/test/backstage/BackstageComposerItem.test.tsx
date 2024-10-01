@@ -7,14 +7,14 @@ import { BadgeType } from "@itwin/core-react";
 import type {
   BackstageActionItem,
   BackstageStageLauncher,
-} from "../../appui-react";
+} from "../../appui-react.js";
 import {
   BackstageComposerActionItem,
   BackstageComposerItem,
   BackstageComposerStageLauncher,
   UiFramework,
-} from "../../appui-react";
-import { childStructure, selectorMatches, userEvent } from "../TestUtils";
+} from "../../appui-react.js";
+import { childStructure, selectorMatches, userEvent } from "../TestUtils.js";
 import { render, screen } from "@testing-library/react";
 
 /** @internal */

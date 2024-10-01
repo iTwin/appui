@@ -9,21 +9,21 @@
 import * as React from "react";
 import { assert, Guid } from "@itwin/core-bentley";
 import { Rectangle, useRefs, useResizeObserver } from "@itwin/core-react";
-import type { CursorType } from "../widget-panels/CursorOverlay";
-import type { PanelSide } from "../widget-panels/PanelTypes";
-import { WidgetContentManager } from "../widget/ContentManager";
-import type { FloatingWidgetResizeHandle } from "../widget/FloatingWidget";
-import { FloatingWidget } from "../widget/FloatingWidget";
+import type { CursorType } from "../widget-panels/CursorOverlay.js";
+import type { PanelSide } from "../widget-panels/PanelTypes.js";
+import { WidgetContentManager } from "../widget/ContentManager.js";
+import type { FloatingWidgetResizeHandle } from "../widget/FloatingWidget.js";
+import { FloatingWidget } from "../widget/FloatingWidget.js";
 import {
   DraggedPanelSideContext,
   DraggedResizeHandleContext,
   DraggedWidgetIdContext,
   DragProvider,
-} from "./DragManager";
-import { WidgetTab } from "../widget/Tab";
-import type { NineZoneAction } from "../state/NineZoneAction";
-import type { LayoutStore } from "./LayoutStore";
-import { LayoutStoreContext, useLayout } from "./LayoutStore";
+} from "./DragManager.js";
+import { WidgetTab } from "../widget/Tab.js";
+import type { NineZoneAction } from "../state/NineZoneAction.js";
+import type { LayoutStore } from "./LayoutStore.js";
+import { LayoutStoreContext, useLayout } from "./LayoutStore.js";
 
 /** @internal */
 export type NineZoneDispatch = (action: NineZoneAction) => void;

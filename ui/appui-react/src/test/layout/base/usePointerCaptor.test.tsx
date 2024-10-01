@@ -3,8 +3,8 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { act, fireEvent, renderHook } from "@testing-library/react";
-import { usePointerCaptor } from "../../../appui-react/layout/base/usePointerCaptor";
-import { DragManagerProvider } from "../Providers";
+import { usePointerCaptor } from "../../../appui-react/layout/base/usePointerCaptor.js";
+import { DragManagerProvider } from "../Providers.js";
 
 describe("usePointerCaptor", () => {
   const wrapper = DragManagerProvider;

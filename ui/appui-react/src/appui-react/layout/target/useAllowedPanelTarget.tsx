@@ -7,8 +7,8 @@
  */
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
-import { PanelSideContext } from "../widget-panels/Panel";
-import { useAllowedSideTarget } from "./useAllowedSideTarget";
+import { PanelSideContext } from "../widget-panels/Panel.js";
+import { useAllowedSideTarget } from "./useAllowedSideTarget.js";
 
 /** Check the docking side against allowed regions
  * @internal

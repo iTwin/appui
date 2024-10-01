@@ -11,10 +11,10 @@ import * as React from "react";
 import type { ThemeType } from "@itwin/itwinui-react";
 import { ThemeProvider } from "@itwin/itwinui-react";
 import { ThemeProvider as ThemeProviderV2 } from "@itwin/itwinui-react-v2";
-import type { ThemeId } from "./ThemeId";
-import { ColorTheme, SYSTEM_PREFERRED_COLOR_THEME } from "./ThemeId";
-import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState";
-import type { ConfigurableUiContent } from "../configurableui/ConfigurableUiContent";
+import type { ThemeId } from "./ThemeId.js";
+import { ColorTheme, SYSTEM_PREFERRED_COLOR_THEME } from "./ThemeId.js";
+import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState.js";
+import type { ConfigurableUiContent } from "../configurableui/ConfigurableUiContent.js";
 
 /** Map of ColorTheme to ThemeType. */
 const colorThemeToThemeTypeMap: { [x: string]: ThemeType } = {

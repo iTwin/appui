@@ -8,20 +8,23 @@
 
 import type { MarkRequired } from "@itwin/core-bentley";
 import { BeUiEvent, Logger } from "@itwin/core-bentley";
-import type { BackstageItem } from "../backstage/BackstageItem";
-import type { StagePanelLocation } from "../stagepanels/StagePanelLocation";
-import type { StagePanelSection } from "../stagepanels/StagePanelSection";
-import type { StatusBarItem } from "../statusbar/StatusBarItem";
-import type { ToolbarItem } from "../toolbar/ToolbarItem";
-import type { ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
-import { UiFramework } from "../UiFramework";
-import type { Widget } from "../widgets/Widget";
-import type { ProviderItem } from "./ProviderItem";
-import type { UiItemsProvider } from "./UiItemsProvider";
+import type { BackstageItem } from "../backstage/BackstageItem.js";
+import type { StagePanelLocation } from "../stagepanels/StagePanelLocation.js";
+import type { StagePanelSection } from "../stagepanels/StagePanelSection.js";
+import type { StatusBarItem } from "../statusbar/StatusBarItem.js";
+import type { ToolbarItem } from "../toolbar/ToolbarItem.js";
+import type {
+  ToolbarOrientation,
+  ToolbarUsage,
+} from "../toolbar/ToolbarItem.js";
+import { UiFramework } from "../UiFramework.js";
+import type { Widget } from "../widgets/Widget.js";
+import type { ProviderItem } from "./ProviderItem.js";
+import type { UiItemsProvider } from "./UiItemsProvider.js";
 import {
   createAbstractUiItemsManagerAdapter,
   createGetPropertyAdapter,
-} from "./AbstractUiItemsManager";
+} from "./AbstractUiItemsManager.js";
 
 /** UiItemsProvider register event args.
  * @public

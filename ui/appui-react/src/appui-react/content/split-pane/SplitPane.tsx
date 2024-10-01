@@ -8,8 +8,8 @@
 
 import * as React from "react";
 import classnames from "classnames";
-import { Pane } from "./Pane";
-import { Resizer } from "./Resizer";
+import { Pane } from "./Pane.js";
+import { Resizer } from "./Resizer.js";
 
 /**
  * Props for [[SplitPane]] component

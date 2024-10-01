@@ -5,22 +5,22 @@
 import type { Subject } from "rxjs";
 import * as moq from "typemoq";
 import { CheckBoxState } from "@itwin/core-react";
-import type { TreeModelMutator } from "../../../components-react/tree/controlled/internal/TreeModelMutator";
-import { from } from "../../../components-react/tree/controlled/Observable";
-import type { TreeEventHandlerParams } from "../../../components-react/tree/controlled/TreeEventHandler";
-import { TreeEventHandler } from "../../../components-react/tree/controlled/TreeEventHandler";
+import type { TreeModelMutator } from "../../../components-react/tree/controlled/internal/TreeModelMutator.js";
+import { from } from "../../../components-react/tree/controlled/Observable.js";
+import type { TreeEventHandlerParams } from "../../../components-react/tree/controlled/TreeEventHandler.js";
+import { TreeEventHandler } from "../../../components-react/tree/controlled/TreeEventHandler.js";
 import type {
   CheckboxStateChange,
   TreeEvents,
   TreeSelectionChange,
-} from "../../../components-react/tree/controlled/TreeEvents";
+} from "../../../components-react/tree/controlled/TreeEvents.js";
 import type {
   MutableTreeModelNode,
   TreeModel,
-} from "../../../components-react/tree/controlled/TreeModel";
-import type { TreeModelSource } from "../../../components-react/tree/controlled/TreeModelSource";
-import type { ITreeNodeLoader } from "../../../components-react/tree/controlled/TreeNodeLoader";
-import { createRandomMutableTreeModelNode } from "./TreeHelpers";
+} from "../../../components-react/tree/controlled/TreeModel.js";
+import type { TreeModelSource } from "../../../components-react/tree/controlled/TreeModelSource.js";
+import type { ITreeNodeLoader } from "../../../components-react/tree/controlled/TreeNodeLoader.js";
+import { createRandomMutableTreeModelNode } from "./TreeHelpers.js";
 
 describe("TreeEventHandler", () => {
   let eventHandler: TreeEventHandler;

@@ -7,8 +7,8 @@
  */
 
 import * as React from "react";
-import { UiFramework } from "../UiFramework";
-import { FloatingWidget as FloatingWidgetComponent } from "../layout/widget/FloatingWidget";
+import { UiFramework } from "../UiFramework.js";
+import { FloatingWidget as FloatingWidgetComponent } from "../layout/widget/FloatingWidget.js";
 
 /** @internal */
 export function FloatingWidget() {

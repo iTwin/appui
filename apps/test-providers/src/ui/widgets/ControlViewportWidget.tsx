@@ -12,7 +12,7 @@ import {
 } from "@itwin/appui-react";
 import { Id64, Id64String } from "@itwin/core-bentley";
 import { useRefState } from "@itwin/core-react";
-import ViewDefinitionSelector from "../components/ViewDefinitionSelector";
+import ViewDefinitionSelector from "../components/ViewDefinitionSelector.js";
 
 /** Uses deprecated content control APIs. */
 export function ControlViewportWidget() {

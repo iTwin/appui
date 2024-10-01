@@ -7,12 +7,12 @@ import * as React from "react";
 import type { PropertyDescription, PropertyValue } from "@itwin/appui-abstract";
 import { PropertyValueFormat, StandardTypeNames } from "@itwin/appui-abstract";
 import { fireEvent } from "@testing-library/react";
-import type { PropertyFilterBuilderRuleRendererProps } from "../../components-react/filter-builder/FilterBuilderRule";
-import { PropertyFilterBuilderRuleRenderer } from "../../components-react/filter-builder/FilterBuilderRule";
-import type { PropertyFilterBuilderRuleOperatorProps } from "../../components-react/filter-builder/FilterBuilderRuleOperator";
-import type { PropertyFilterBuilderRuleValueProps } from "../../components-react/filter-builder/FilterBuilderRuleValue";
-import { PropertyFilterBuilderActions } from "../../components-react/filter-builder/FilterBuilderState";
-import { renderWithContext } from "./Common";
+import type { PropertyFilterBuilderRuleRendererProps } from "../../components-react/filter-builder/FilterBuilderRule.js";
+import { PropertyFilterBuilderRuleRenderer } from "../../components-react/filter-builder/FilterBuilderRule.js";
+import type { PropertyFilterBuilderRuleOperatorProps } from "../../components-react/filter-builder/FilterBuilderRuleOperator.js";
+import type { PropertyFilterBuilderRuleValueProps } from "../../components-react/filter-builder/FilterBuilderRuleValue.js";
+import { PropertyFilterBuilderActions } from "../../components-react/filter-builder/FilterBuilderState.js";
+import { renderWithContext } from "./Common.js";
 
 describe("PropertyFilterBuilderRuleRenderer", () => {
   const defaultProps: PropertyFilterBuilderRuleRendererProps = {

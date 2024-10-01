@@ -21,12 +21,12 @@ import {
   StandardEditorNames,
   StandardTypeNames,
 } from "@itwin/appui-abstract";
-import { IconPickerButton } from "../iconpicker/IconPickerButton";
-import type { PropertyEditorProps, TypeEditor } from "./EditorContainer";
+import { IconPickerButton } from "../iconpicker/IconPickerButton.js";
+import type { PropertyEditorProps, TypeEditor } from "./EditorContainer.js";
 import {
   PropertyEditorBase,
   PropertyEditorManager,
-} from "./PropertyEditorManager";
+} from "./PropertyEditorManager.js";
 
 // cspell:ignore iconpicker
 

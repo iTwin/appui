@@ -2,11 +2,11 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { FlatGridTestUtils } from "./flat-items/FlatGridTestUtils";
-import type { MutablePropertyGridModel } from "../../../../components-react/propertygrid/internal/PropertyGridModel";
-import { PropertyGridEventHandler } from "../../../../components-react/propertygrid/internal/PropertyGridEventHandler";
-import type { PropertyGridModelSource } from "../../../../components-react/propertygrid/internal/PropertyGridModelSource";
-import { PropertyGridModelChangeEvent } from "../../../../components-react";
+import { FlatGridTestUtils } from "./flat-items/FlatGridTestUtils.js";
+import type { MutablePropertyGridModel } from "../../../../components-react/propertygrid/internal/PropertyGridModel.js";
+import { PropertyGridEventHandler } from "../../../../components-react/propertygrid/internal/PropertyGridEventHandler.js";
+import type { PropertyGridModelSource } from "../../../../components-react/propertygrid/internal/PropertyGridModelSource.js";
+import { PropertyGridModelChangeEvent } from "../../../../components-react.js";
 
 describe("PropertyGridEventHandler", () => {
   describe("onExpansionToggledFactory", () => {

@@ -6,8 +6,8 @@
  * @module Text
  */
 import * as React from "react";
-import { StyledText } from "./StyledText";
-import type { TextProps } from "./TextProps";
+import { StyledText } from "./StyledText.js";
+import type { TextProps } from "./TextProps.js";
 
 /* eslint-disable deprecation/deprecation */
 

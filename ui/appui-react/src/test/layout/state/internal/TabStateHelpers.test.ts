@@ -2,8 +2,8 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { createNineZoneState } from "../../../../appui-react/layout/state/NineZoneState";
-import { addPanelWidget } from "../../../../appui-react/layout/state/internal/PanelStateHelpers";
+import { createNineZoneState } from "../../../../appui-react/layout/state/NineZoneState.js";
+import { addPanelWidget } from "../../../../appui-react/layout/state/internal/PanelStateHelpers.js";
 import {
   addRemovedTab,
   addTab,
@@ -13,17 +13,17 @@ import {
   removeTabFromWidget,
   updateSavedTabState,
   updateTabState,
-} from "../../../../appui-react/layout/state/internal/TabStateHelpers";
+} from "../../../../appui-react/layout/state/internal/TabStateHelpers.js";
 import {
   addDockedToolSettings,
   addWidgetToolSettings,
-} from "../../../../appui-react/layout/state/internal/ToolSettingsStateHelpers";
+} from "../../../../appui-react/layout/state/internal/ToolSettingsStateHelpers.js";
 import {
   addFloatingWidget,
   addPopoutWidget,
   createFloatingWidgetState,
-} from "../../../../appui-react/layout/state/internal/WidgetStateHelpers";
-import { addTabs, handleMetaData } from "../../Utils";
+} from "../../../../appui-react/layout/state/internal/WidgetStateHelpers.js";
+import { addTabs, handleMetaData } from "../../Utils.js";
 
 describe("addTab", () => {
   it("should add a tab", () => {

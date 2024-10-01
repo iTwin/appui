@@ -3,8 +3,8 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { withOnOutsideClick } from "../../core-react";
-import userEvent from "@testing-library/user-event";
+import { withOnOutsideClick } from "../../core-react.js";
+import { userEvent } from "@testing-library/user-event";
 import { render, screen } from "@testing-library/react";
 
 describe("WithOnOutsideClick", async () => {

@@ -11,7 +11,7 @@ import type { IconSpec } from "@itwin/core-react";
 import type {
   BackstageActionItem,
   BackstageStageLauncher,
-} from "./BackstageItem";
+} from "./BackstageItem.js";
 
 /** Utilities for creating and maintaining backstage items
  * @public

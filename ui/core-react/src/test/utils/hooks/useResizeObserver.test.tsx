@@ -7,9 +7,9 @@ import {
   ElementResizeObserver,
   ResizableContainerObserver,
   useResizeObserver,
-} from "../../../core-react/utils/hooks/useResizeObserver";
-import type { ResizeObserverMock } from "../../TestUtils";
-import TestUtils, { createResizeObserverMock } from "../../TestUtils";
+} from "../../../core-react/utils/hooks/useResizeObserver.js";
+import type { ResizeObserverMock } from "../../TestUtils.js";
+import TestUtils, { createResizeObserverMock } from "../../TestUtils.js";
 import { act, render, renderHook, waitFor } from "@testing-library/react";
 
 /** Stubs requestAnimationFrame. */

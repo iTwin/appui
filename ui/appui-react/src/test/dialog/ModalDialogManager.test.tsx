@@ -8,7 +8,7 @@ import {
   ModalDialogRenderer,
   StandardMessageBox,
   UiFramework,
-} from "../../appui-react";
+} from "../../appui-react.js";
 import { render, screen, waitFor } from "@testing-library/react";
 
 describe("ModalDialogManager", () => {

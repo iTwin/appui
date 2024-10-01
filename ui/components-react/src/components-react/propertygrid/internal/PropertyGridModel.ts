@@ -6,13 +6,19 @@
  * @module PropertyGrid
  */
 import { immerable } from "immer";
-import type { PropertyCategory, PropertyData } from "../PropertyDataProvider";
-import type { FlatGridItem, GridCategoryItem } from "./flat-items/FlatGridItem";
+import type {
+  PropertyCategory,
+  PropertyData,
+} from "../PropertyDataProvider.js";
+import type {
+  FlatGridItem,
+  GridCategoryItem,
+} from "./flat-items/FlatGridItem.js";
 import type {
   IMutableFlatGridItem,
   IMutableGridCategoryItem,
-} from "./flat-items/MutableFlatGridItem";
-import type { IMutableGridItemFactory } from "./flat-items/MutableGridItemFactory";
+} from "./flat-items/MutableFlatGridItem.js";
+import type { IMutableGridItemFactory } from "./flat-items/MutableGridItemFactory.js";
 
 /**
  * PropertyGridModel interface for working with immutable FlatGridItems

@@ -12,8 +12,8 @@ import { Logger } from "@itwin/core-bentley";
 import { Input } from "@itwin/itwinui-react";
 import ReactAutosuggest from "react-autosuggest";
 import { Key } from "ts-key-enum";
-import type { CommonProps } from "../utils/Props";
-import { UiCore } from "../UiCore";
+import type { CommonProps } from "../utils/Props.js";
+import { UiCore } from "../UiCore.js";
 
 /* eslint-disable deprecation/deprecation */
 

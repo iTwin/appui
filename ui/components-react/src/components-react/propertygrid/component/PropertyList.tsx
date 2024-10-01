@@ -11,13 +11,13 @@ import * as React from "react";
 import type { PropertyRecord } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
 import type { CommonProps } from "@itwin/core-react";
-import type { PropertyUpdatedArgs } from "../../editors/EditorContainer";
-import type { ActionButtonRenderer } from "../../properties/renderers/ActionButtonRenderer";
-import type { PropertyGridColumnInfo } from "../../properties/renderers/PropertyGridColumns";
-import { PropertyRenderer } from "../../properties/renderers/PropertyRenderer";
-import type { PropertyValueRendererManager } from "../../properties/ValueRendererManager";
-import type { PropertyCategory } from "../PropertyDataProvider";
-import { Orientation } from "../../common/Orientation";
+import type { PropertyUpdatedArgs } from "../../editors/EditorContainer.js";
+import type { ActionButtonRenderer } from "../../properties/renderers/ActionButtonRenderer.js";
+import type { PropertyGridColumnInfo } from "../../properties/renderers/PropertyGridColumns.js";
+import { PropertyRenderer } from "../../properties/renderers/PropertyRenderer.js";
+import type { PropertyValueRendererManager } from "../../properties/ValueRendererManager.js";
+import type { PropertyCategory } from "../PropertyDataProvider.js";
+import { Orientation } from "../../common/Orientation.js";
 
 /** Properties of [[PropertyList]] React component
  * @public

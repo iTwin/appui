@@ -6,16 +6,16 @@
  * @module Tools
  */
 
-import { SelectionContextToolDefinitions } from "../selection/SelectionContextItemDef";
+import { SelectionContextToolDefinitions } from "../selection/SelectionContextItemDef.js";
 import {
   itemDefToToolbarActionItem,
   itemDefToToolbarGroupItem,
-} from "../toolbar/ToolbarHelper";
+} from "../toolbar/ToolbarHelper.js";
 import type {
   ToolbarActionItem,
   ToolbarGroupItem,
-} from "../toolbar/ToolbarItem";
-import { CoreTools } from "./CoreToolDefinitions";
+} from "../toolbar/ToolbarItem.js";
+import { CoreTools } from "./CoreToolDefinitions.js";
 
 /* eslint-disable deprecation/deprecation */
 

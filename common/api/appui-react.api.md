@@ -11,8 +11,11 @@ import type { AbstractToolbarProps } from '@itwin/appui-abstract';
 import type { AbstractWidgetProps } from '@itwin/appui-abstract';
 import { AccuDraw } from '@itwin/core-frontend';
 import type { ActionButton } from '@itwin/appui-abstract';
+import { ActionWithPayload as ActionWithPayload_2 } from './redux-ts.js';
 import { ActivityMessageDetails } from '@itwin/core-frontend';
 import { ActivityMessageEndReason } from '@itwin/core-frontend';
+import { BackstageActionItem as BackstageActionItem_2 } from '../backstage/BackstageItem';
+import { BackstageToggledArgs as BackstageToggledArgs_2 } from '../framework/FrameworkBackstage.js';
 import type { BadgeKind } from '@itwin/core-react';
 import type { BadgeType } from '@itwin/core-react';
 import { BaseSolarDataProvider } from '@itwin/imodel-components-react';
@@ -25,6 +28,7 @@ import type { Button } from '@itwin/itwinui-react';
 import { ColorDef } from '@itwin/core-common';
 import { CombinedState } from 'redux';
 import type { CommandHandler as CommandHandler_2 } from '@itwin/appui-abstract';
+import { CommandItemDef as CommandItemDef_2 } from '../shared/CommandItemDef.js';
 import type { CommonBackstageItem as CommonBackstageItem_2 } from '@itwin/appui-abstract';
 import type { CommonDivProps } from '@itwin/core-react';
 import { CommonProps } from '@itwin/core-react';
@@ -32,7 +36,10 @@ import type { CommonToolbarItemWithBadgeKind } from '@itwin/components-react';
 import { CompassMode } from '@itwin/core-frontend';
 import { ConditionalBooleanValue as ConditionalBooleanValue_2 } from '@itwin/appui-abstract';
 import { ConditionalStringValue as ConditionalStringValue_2 } from '@itwin/appui-abstract';
+import { ConfigurableUiActionsUnion as ConfigurableUiActionsUnion_2 } from './ConfigurableUiState.js';
 import type { CustomButtonDefinition } from '@itwin/appui-abstract';
+import { DeepReadonlyArray as DeepReadonlyArray_2 } from './redux-ts.js';
+import { DeepReadonlyObject as DeepReadonlyObject_2 } from './redux-ts.js';
 import type { DialogItem } from '@itwin/appui-abstract';
 import type { DialogLayoutDataProvider } from '@itwin/appui-abstract';
 import type { DialogPropertySyncItem } from '@itwin/appui-abstract';
@@ -51,6 +58,7 @@ import { InferableComponentEnhancerWithProps } from 'react-redux';
 import type { InteractiveTool } from '@itwin/core-frontend';
 import { ItemField } from '@itwin/core-frontend';
 import type { Key } from 'ts-key-enum';
+import { LayoutStore } from '../layout/base/LayoutStore.js';
 import { LocalStateStorage as LocalStateStorage_2 } from '@itwin/core-react';
 import type { MarkRequired } from '@itwin/core-bentley';
 import { MessageBoxIconType } from '@itwin/core-frontend';
@@ -86,6 +94,7 @@ import type { RefObject } from 'react';
 import { RelativePosition } from '@itwin/appui-abstract';
 import type { RequireAtLeastOne } from '@itwin/core-bentley';
 import type { ScreenViewport } from '@itwin/core-frontend';
+import { SessionStateActionsUnion as SessionStateActionsUnion_2 } from './SessionState.js';
 import { SettingsManager as SettingsManager_2 } from '@itwin/core-react';
 import type { SettingsTabEntry as SettingsTabEntry_2 } from '@itwin/core-react';
 import type { SettingsTabsProvider as SettingsTabsProvider_2 } from '@itwin/core-react';
@@ -94,10 +103,10 @@ import type { SizeProps as SizeProps_2 } from '@itwin/core-react';
 import { SnapMode } from '@itwin/core-frontend';
 import type { SolarDataProvider } from '@itwin/imodel-components-react';
 import { StandardViewId } from '@itwin/core-frontend';
+import { StatusBarFieldProps } from './Field.js';
 import type { Store } from 'redux';
 import { StoreApi } from 'zustand';
 import type { StringGetter } from '@itwin/appui-abstract';
-import { ToasterSettings } from '@itwin/itwinui-react/cjs/core/Toast/Toaster';
 import { Tool } from '@itwin/core-frontend';
 import { ToolAdmin } from '@itwin/core-frontend';
 import type { ToolAssistanceInstruction } from '@itwin/core-frontend';
@@ -612,13 +621,13 @@ export class BackstageManager {
     // (undocumented)
     close(): void;
     // (undocumented)
-    getBackstageToggleCommand(overrideIconSpec?: IconSpec): CommandItemDef;
-    static getBackstageToggleCommand(overrideIconSpec?: IconSpec): CommandItemDef;
+    getBackstageToggleCommand(overrideIconSpec?: IconSpec): CommandItemDef_2;
+    static getBackstageToggleCommand(overrideIconSpec?: IconSpec): CommandItemDef_2;
     // (undocumented)
     get isOpen(): boolean;
     // @internal
     mockInternal(internal: InternalBackstageManager): void;
-    get onToggled(): BeEvent<(args: BackstageToggledArgs) => void>;
+    get onToggled(): BeEvent<(args: BackstageToggledArgs_2) => void>;
     // (undocumented)
     open(): void;
     // (undocumented)
@@ -1047,17 +1056,17 @@ export enum ConfigurableUiActionId {
 
 // @public @deprecated
 export const ConfigurableUiActions: {
-    setSnapMode: (snapMode: number) => ActionWithPayload<ConfigurableUiActionId.SetSnapMode, number>;
-    setTheme: (theme: string) => ActionWithPayload<ConfigurableUiActionId.SetTheme, string>;
-    setToolPrompt: (toolPrompt: string) => ActionWithPayload<ConfigurableUiActionId.SetToolPrompt, string>;
-    setWidgetOpacity: (opacity: number) => ActionWithPayload<ConfigurableUiActionId.SetWidgetOpacity, number>;
-    setDragInteraction: (dragInteraction: boolean) => ActionWithPayload<ConfigurableUiActionId.SetDragInteraction, boolean>;
-    setShowWidgetIcon: (showWidgetIcon: boolean) => ActionWithPayload<ConfigurableUiActionId.SetShowWidgetIcon, boolean>;
-    setAutoCollapseUnpinnedPanels: (autoCollapse: boolean) => ActionWithPayload<ConfigurableUiActionId.AutoCollapseUnpinnedPanels, boolean>;
-    setViewOverlayDisplay: (displayViewOverlay: boolean) => ActionWithPayload<ConfigurableUiActionId.SetViewOverlayDisplay, boolean>;
-    setAnimateToolSettings: (animateToolSettings: boolean) => ActionWithPayload<ConfigurableUiActionId.AnimateToolSettings, boolean>;
-    setUseToolAsToolSettingsLabel: (useToolAsToolSettingsLabel: boolean) => ActionWithPayload<ConfigurableUiActionId.UseToolAsToolSettingsLabel, boolean>;
-    setToolbarOpacity: (opacity: number) => ActionWithPayload<ConfigurableUiActionId.SetToolbarOpacity, number>;
+    setSnapMode: (snapMode: number) => ActionWithPayload_2<ConfigurableUiActionId.SetSnapMode, number>;
+    setTheme: (theme: string) => ActionWithPayload_2<ConfigurableUiActionId.SetTheme, string>;
+    setToolPrompt: (toolPrompt: string) => ActionWithPayload_2<ConfigurableUiActionId.SetToolPrompt, string>;
+    setWidgetOpacity: (opacity: number) => ActionWithPayload_2<ConfigurableUiActionId.SetWidgetOpacity, number>;
+    setDragInteraction: (dragInteraction: boolean) => ActionWithPayload_2<ConfigurableUiActionId.SetDragInteraction, boolean>;
+    setShowWidgetIcon: (showWidgetIcon: boolean) => ActionWithPayload_2<ConfigurableUiActionId.SetShowWidgetIcon, boolean>;
+    setAutoCollapseUnpinnedPanels: (autoCollapse: boolean) => ActionWithPayload_2<ConfigurableUiActionId.AutoCollapseUnpinnedPanels, boolean>;
+    setViewOverlayDisplay: (displayViewOverlay: boolean) => ActionWithPayload_2<ConfigurableUiActionId.SetViewOverlayDisplay, boolean>;
+    setAnimateToolSettings: (animateToolSettings: boolean) => ActionWithPayload_2<ConfigurableUiActionId.AnimateToolSettings, boolean>;
+    setUseToolAsToolSettingsLabel: (useToolAsToolSettingsLabel: boolean) => ActionWithPayload_2<ConfigurableUiActionId.UseToolAsToolSettingsLabel, boolean>;
+    setToolbarOpacity: (opacity: number) => ActionWithPayload_2<ConfigurableUiActionId.SetToolbarOpacity, number>;
 };
 
 // @public @deprecated
@@ -2248,7 +2257,7 @@ export interface FrameworkKeyboardShortcuts {
 export const FrameworkReducer: Reducer_2<CombinedState<    {
 configurableUiState: ConfigurableUiState;
 sessionState: never;
-}>, ConfigurableUiActionsUnion | SessionStateActionsUnion>;
+}>, ConfigurableUiActionsUnion_2 | SessionStateActionsUnion_2>;
 
 // @beta @deprecated
 export interface FrameworkRootState {
@@ -3341,7 +3350,7 @@ export class MessageManager {
     // @internal (undocumented)
     static closeAllMessages(): void;
     static displayInputFieldMessage(target: HTMLElement, messageText: NotifyMessageType, detailedMessage?: NotifyMessageType, priority?: OutputMessagePriority): void;
-    static displayMessage(message: NotifyMessageDetailsType, options?: ToastOptions, settings?: ToasterSettings_2): {
+    static displayMessage(message: NotifyMessageDetailsType, options?: ToastOptions, settings?: ToasterSettings): {
         close: () => void;
     } | undefined;
     static endActivityMessage(isCompleted: boolean): boolean;
@@ -3361,9 +3370,9 @@ export class MessageManager {
     static readonly onDisplayMessage: BeUiEvent<{
         message: NotifyMessageDetailsType;
         options?: ToastOptions;
-        settings?: [settings: Partial<ToasterSettings>] | undefined;
-        animateOutToElement?: HTMLElement | undefined;
-        close?: (() => void) | undefined;
+        settings?: ToasterSettings;
+        animateOutToElement?: HTMLElement;
+        close?: () => void;
     }>;
     // (undocumented)
     static readonly onInputFieldMessageAddedEvent: InputFieldMessageAddedEvent;
@@ -4094,15 +4103,15 @@ export enum SessionStateActionId {
 
 // @public @deprecated
 export const SessionStateActions: {
-    setActiveIModelId: (iModelId: string) => ActionWithPayload<SessionStateActionId.SetActiveIModelId, string>;
-    setAvailableSelectionScopes: (availableSelectionScopes: PresentationSelectionScope[]) => ActionWithPayload<SessionStateActionId.SetAvailableSelectionScopes, DeepReadonlyArray<PresentationSelectionScope>>;
-    setDefaultIModelViewportControlId: (iModelViewportControlId: string) => ActionWithPayload<SessionStateActionId.SetDefaultIModelViewportControlId, string>;
-    setDefaultViewId: (viewId: string) => ActionWithPayload<SessionStateActionId.SetDefaultViewId, string>;
-    setDefaultViewState: (viewState: any) => ActionWithPayload<SessionStateActionId.SetDefaultViewState, any>;
-    setNumItemsSelected: (numSelected: number) => ActionWithPayload<SessionStateActionId.SetNumItemsSelected, number>;
-    setIModelConnection: (iModelConnection: any) => ActionWithPayload<SessionStateActionId.SetIModelConnection, any>;
-    setSelectionScope: (activeSelectionScope: string) => ActionWithPayload<SessionStateActionId.SetSelectionScope, string>;
-    updateCursorMenu: (cursorMenuData: CursorMenuData | CursorMenuPayload) => ActionWithPayload<SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject<CursorMenuData> | DeepReadonlyObject<CursorMenuPayload>>;
+    setActiveIModelId: (iModelId: string) => ActionWithPayload_2<SessionStateActionId.SetActiveIModelId, string>;
+    setAvailableSelectionScopes: (availableSelectionScopes: PresentationSelectionScope[]) => ActionWithPayload_2<SessionStateActionId.SetAvailableSelectionScopes, DeepReadonlyArray_2<PresentationSelectionScope>>;
+    setDefaultIModelViewportControlId: (iModelViewportControlId: string) => ActionWithPayload_2<SessionStateActionId.SetDefaultIModelViewportControlId, string>;
+    setDefaultViewId: (viewId: string) => ActionWithPayload_2<SessionStateActionId.SetDefaultViewId, string>;
+    setDefaultViewState: (viewState: any) => ActionWithPayload_2<SessionStateActionId.SetDefaultViewState, any>;
+    setNumItemsSelected: (numSelected: number) => ActionWithPayload_2<SessionStateActionId.SetNumItemsSelected, number>;
+    setIModelConnection: (iModelConnection: any) => ActionWithPayload_2<SessionStateActionId.SetIModelConnection, any>;
+    setSelectionScope: (activeSelectionScope: string) => ActionWithPayload_2<SessionStateActionId.SetSelectionScope, string>;
+    updateCursorMenu: (cursorMenuData: CursorMenuData | CursorMenuPayload) => ActionWithPayload_2<SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject_2<CursorMenuData> | DeepReadonlyObject_2<CursorMenuPayload>>;
 };
 
 // @beta @deprecated
@@ -4132,15 +4141,15 @@ export type SessionStateActionsUnion = ActionsUnion<typeof SessionStateActions>;
 
 // @beta @deprecated
 export const sessionStateMapDispatchToProps: {
-    setActiveIModelId: (iModelId: string) => ActionWithPayload<SessionStateActionId.SetActiveIModelId, string>;
-    setAvailableSelectionScopes: (availableSelectionScopes: PresentationSelectionScope[]) => ActionWithPayload<SessionStateActionId.SetAvailableSelectionScopes, DeepReadonlyArray<PresentationSelectionScope>>;
-    setDefaultIModelViewportControlId: (iModelViewportControlId: string) => ActionWithPayload<SessionStateActionId.SetDefaultIModelViewportControlId, string>;
-    setDefaultViewId: (viewId: string) => ActionWithPayload<SessionStateActionId.SetDefaultViewId, string>;
-    setDefaultViewState: (viewState: any) => ActionWithPayload<SessionStateActionId.SetDefaultViewState, any>;
-    setNumItemsSelected: (numSelected: number) => ActionWithPayload<SessionStateActionId.SetNumItemsSelected, number>;
-    setIModelConnection: (iModelConnection: any) => ActionWithPayload<SessionStateActionId.SetIModelConnection, any>;
-    setSelectionScope: (activeSelectionScope: string) => ActionWithPayload<SessionStateActionId.SetSelectionScope, string>;
-    updateCursorMenu: (cursorMenuData: CursorMenuData | CursorMenuPayload) => ActionWithPayload<SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject<CursorMenuData> | DeepReadonlyObject<CursorMenuPayload>>;
+    setActiveIModelId: (iModelId: string) => ActionWithPayload_2<SessionStateActionId.SetActiveIModelId, string>;
+    setAvailableSelectionScopes: (availableSelectionScopes: PresentationSelectionScope[]) => ActionWithPayload_2<SessionStateActionId.SetAvailableSelectionScopes, DeepReadonlyArray_2<PresentationSelectionScope>>;
+    setDefaultIModelViewportControlId: (iModelViewportControlId: string) => ActionWithPayload_2<SessionStateActionId.SetDefaultIModelViewportControlId, string>;
+    setDefaultViewId: (viewId: string) => ActionWithPayload_2<SessionStateActionId.SetDefaultViewId, string>;
+    setDefaultViewState: (viewState: any) => ActionWithPayload_2<SessionStateActionId.SetDefaultViewState, any>;
+    setNumItemsSelected: (numSelected: number) => ActionWithPayload_2<SessionStateActionId.SetNumItemsSelected, number>;
+    setIModelConnection: (iModelConnection: any) => ActionWithPayload_2<SessionStateActionId.SetIModelConnection, any>;
+    setSelectionScope: (activeSelectionScope: string) => ActionWithPayload_2<SessionStateActionId.SetSelectionScope, string>;
+    updateCursorMenu: (cursorMenuData: CursorMenuData | CursorMenuPayload) => ActionWithPayload_2<SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject_2<CursorMenuData> | DeepReadonlyObject_2<CursorMenuPayload>>;
 };
 
 // @public @deprecated
@@ -4161,7 +4170,7 @@ export class SettingsModalFrontstage implements ModalFrontstageInfo {
     // (undocumented)
     get content(): React_2.ReactNode;
     // (undocumented)
-    static getBackstageActionItem(groupPriority: number, itemPriority: number): BackstageActionItem;
+    static getBackstageActionItem(groupPriority: number, itemPriority: number): BackstageActionItem_2;
     // (undocumented)
     static id: string;
     // (undocumented)

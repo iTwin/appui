@@ -7,9 +7,9 @@
  */
 
 import * as React from "react";
-import { useLayout } from "../../layout/base/LayoutStore";
-import { WidgetProvider } from "../../layout/widget/Widget";
-import { PopoutWidget } from "./PopoutWidget";
+import { useLayout } from "../../layout/base/LayoutStore.js";
+import { WidgetProvider } from "../../layout/widget/Widget.js";
+import { PopoutWidget } from "./PopoutWidget.js";
 
 /** This component renders all popout widgets.
  * @internal

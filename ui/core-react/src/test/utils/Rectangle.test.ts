@@ -2,8 +2,8 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import type { RectangleProps } from "../../core-react";
-import { Corner, Point, Rectangle } from "../../core-react";
+import type { RectangleProps } from "../../core-react.js";
+import { Corner, Point, Rectangle } from "../../core-react.js";
 
 describe("Rectangle", () => {
   it("unspecified bounds should be 0", () => {

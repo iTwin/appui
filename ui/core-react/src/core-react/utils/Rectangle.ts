@@ -6,11 +6,11 @@
  * @module Utilities
  */
 
-import { Point } from "./Point";
-import type { PointProps } from "./PointProps";
-import type { SizeProps } from "./Size";
-import { Size } from "./Size";
-import { UiGeometry } from "./UiGeometry";
+import { Point } from "./Point.js";
+import type { PointProps } from "./PointProps.js";
+import type { SizeProps } from "./Size.js";
+import { Size } from "./Size.js";
+import { UiGeometry } from "./UiGeometry.js";
 
 /* eslint-disable deprecation/deprecation */
 

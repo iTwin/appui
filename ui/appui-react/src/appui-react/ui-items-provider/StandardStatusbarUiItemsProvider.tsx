@@ -7,18 +7,18 @@
  */
 
 import * as React from "react";
-import { StatusBarItemUtilities } from "../statusbar/StatusBarItemUtilities";
-import { ToolAssistanceField } from "../statusfields/toolassistance/ToolAssistanceField";
-import { MessageCenterField } from "../statusfields/message-center/MessageCenterField";
-import { ActivityCenterField } from "../statusfields/ActivityCenter";
-import { SnapModeField } from "../statusfields/SnapMode";
-import { SelectionInfoField } from "../statusfields/SelectionInfo";
-import { TileLoadingIndicator } from "../statusfields/tileloading/TileLoadingIndicator";
-import { SelectionScopeField } from "../statusfields/SelectionScope";
-import { StatusBarSeparator } from "../statusbar/Separator";
-import type { UiItemsProvider } from "./UiItemsProvider";
-import type { StatusBarItem } from "../statusbar/StatusBarItem";
-import { StatusBarSection } from "../statusbar/StatusBarItem";
+import { StatusBarItemUtilities } from "../statusbar/StatusBarItemUtilities.js";
+import { ToolAssistanceField } from "../statusfields/toolassistance/ToolAssistanceField.js";
+import { MessageCenterField } from "../statusfields/message-center/MessageCenterField.js";
+import { ActivityCenterField } from "../statusfields/ActivityCenter.js";
+import { SnapModeField } from "../statusfields/SnapMode.js";
+import { SelectionInfoField } from "../statusfields/SelectionInfo.js";
+import { TileLoadingIndicator } from "../statusfields/tileloading/TileLoadingIndicator.js";
+import { SelectionScopeField } from "../statusfields/SelectionScope.js";
+import { StatusBarSeparator } from "../statusbar/Separator.js";
+import type { UiItemsProvider } from "./UiItemsProvider.js";
+import type { StatusBarItem } from "../statusbar/StatusBarItem.js";
+import { StatusBarSection } from "../statusbar/StatusBarItem.js";
 
 /** Defines what items to include from the provider.
  * @note When this object is used, only explicitly enabled items will be added to the status bar. I.e. `{ messageCenter: true }` will only add message center field to the statusbar.

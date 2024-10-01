@@ -12,13 +12,13 @@ import type {
 } from "@itwin/appui-abstract";
 import { DialogButtonType } from "@itwin/appui-abstract";
 import * as React from "react";
-import { UiFramework } from "../UiFramework";
-import { getUniqueId } from "../layout/base/NineZone";
-import { ComponentGenerator } from "../uiprovider/ComponentGenerator";
-import { DefaultDialogGridContainer } from "../uiprovider/DefaultDialogGridContainer";
+import { UiFramework } from "../UiFramework.js";
+import { getUniqueId } from "../layout/base/NineZone.js";
+import { ComponentGenerator } from "../uiprovider/ComponentGenerator.js";
+import { DefaultDialogGridContainer } from "../uiprovider/DefaultDialogGridContainer.js";
 import { Button, Dialog } from "@itwin/itwinui-react";
 import classnames from "classnames";
-import { useTranslation } from "../hooks/useTranslation";
+import { useTranslation } from "../hooks/useTranslation.js";
 
 /** Props for [[UiDataProvidedDialog]] component.
  * @public

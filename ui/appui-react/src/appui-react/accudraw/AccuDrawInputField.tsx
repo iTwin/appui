@@ -14,8 +14,8 @@ import type { ItemField } from "@itwin/core-frontend";
 import type { CommonProps, IconSpec } from "@itwin/core-react";
 import { Icon, useRefs } from "@itwin/core-react";
 import { Input } from "@itwin/itwinui-react";
-import { FrameworkAccuDraw } from "./FrameworkAccuDraw";
-import { UiFramework } from "../UiFramework";
+import { FrameworkAccuDraw } from "./FrameworkAccuDraw.js";
+import { UiFramework } from "../UiFramework.js";
 import { SvgLock } from "@itwin/itwinui-icons-react";
 
 function isLetter(char: string): boolean {

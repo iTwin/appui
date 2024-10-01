@@ -5,7 +5,7 @@
 
 import { UiError } from "@itwin/appui-abstract";
 import { getObjectClassName } from "@itwin/core-react";
-import { UiComponents } from "../UiComponents";
+import { UiComponents } from "../UiComponents.js";
 import React from "react";
 
 /** @internal */

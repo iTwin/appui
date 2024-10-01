@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { countMatchesInString } from "../../components-react/common/countMatchesInString";
+import { countMatchesInString } from "../../components-react/common/countMatchesInString.js";
 
 describe("countMatchesInString", () => {
   it("returns 1 when there's one match", () => {

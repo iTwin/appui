@@ -6,10 +6,10 @@
  * @module Widget
  */
 import * as React from "react";
-import { DraggedWidgetIdContext } from "../base/DragManager";
-import { useLayout } from "../base/LayoutStore";
-import type { NineZoneState } from "../state/NineZoneState";
-import type { PanelSide } from "../widget-panels/PanelTypes";
+import { DraggedWidgetIdContext } from "../base/DragManager.js";
+import { useLayout } from "../base/LayoutStore.js";
+import type { NineZoneState } from "../state/NineZoneState.js";
+import type { PanelSide } from "../widget-panels/PanelTypes.js";
 
 /** Check the docking side against allowed regions
  * @internal

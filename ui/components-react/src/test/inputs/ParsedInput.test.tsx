@@ -5,7 +5,7 @@
 import * as React from "react";
 import { fireEvent, render } from "@testing-library/react";
 import { Key } from "ts-key-enum";
-import { ParsedInput } from "../../components-react/inputs/ParsedInput";
+import { ParsedInput } from "../../components-react/inputs/ParsedInput.js";
 import type { ParseResults } from "@itwin/appui-abstract";
 
 function fahrenheitToCelsius(f: number) {

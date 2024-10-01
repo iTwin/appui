@@ -4,9 +4,9 @@
  *--------------------------------------------------------------------------------------------*/
 import { act, fireEvent, render } from "@testing-library/react";
 import * as React from "react";
-import { WidgetOverflow } from "../../../appui-react/layout/widget/Overflow";
-import { WidgetTabsEntryContext } from "../../../appui-react/layout/widget/Tabs";
-import { TestNineZoneProvider } from "../Providers";
+import { WidgetOverflow } from "../../../appui-react/layout/widget/Overflow.js";
+import { WidgetTabsEntryContext } from "../../../appui-react/layout/widget/Tabs.js";
+import { TestNineZoneProvider } from "../Providers.js";
 
 describe("WidgetOverflow", () => {
   it("should render", async () => {

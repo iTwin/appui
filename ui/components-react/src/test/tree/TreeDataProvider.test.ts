@@ -8,14 +8,14 @@ import type {
   TreeDataProviderMethod,
   TreeDataProviderPromise,
   TreeDataProviderRaw,
-} from "../../components-react/tree/TreeDataProvider";
+} from "../../components-react/tree/TreeDataProvider.js";
 import {
   hasChildren,
   isTreeDataProviderInterface,
   isTreeDataProviderMethod,
   isTreeDataProviderPromise,
   isTreeDataProviderRaw,
-} from "../../components-react/tree/TreeDataProvider";
+} from "../../components-react/tree/TreeDataProvider.js";
 
 describe("TreeDataProvider", () => {
   const emptyRawProvider: TreeDataProviderRaw = [];

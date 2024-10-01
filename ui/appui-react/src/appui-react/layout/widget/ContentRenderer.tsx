@@ -12,13 +12,13 @@ import * as ReactDOM from "react-dom";
 import {
   ToolSettingsNodeContext,
   WidgetContentNodeContext,
-} from "../base/NineZone";
-import type { TabState } from "../state/TabState";
+} from "../base/NineZone.js";
+import type { TabState } from "../state/TabState.js";
 import {
   useContainersStore,
   WidgetContentManagerContext,
-} from "./ContentManager";
-import { useLayout } from "../base/LayoutStore";
+} from "./ContentManager.js";
+import { useLayout } from "../base/LayoutStore.js";
 
 /** @internal */
 export function WidgetContentRenderers() {

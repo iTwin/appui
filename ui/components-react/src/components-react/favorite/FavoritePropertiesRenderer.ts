@@ -8,9 +8,9 @@
 
 import * as React from "react";
 import { createRoot } from "react-dom/client";
-import type { PropertyData } from "../propertygrid/PropertyDataProvider";
-import { FavoritePropertyList } from "./FavoritePropertyList";
-import type { Orientation } from "../common/Orientation";
+import type { PropertyData } from "../propertygrid/PropertyDataProvider.js";
+import { FavoritePropertyList } from "./FavoritePropertyList.js";
+import type { Orientation } from "../common/Orientation.js";
 
 /**
  * Basic recreation of the `createRoot` function type, intentionally not exported.

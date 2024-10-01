@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import { render } from "@testing-library/react";
 import * as React from "react";
-import { StatusBarPopup } from "../../appui-react/statusbar/popup/Popup";
+import { StatusBarPopup } from "../../appui-react/statusbar/popup/Popup.js";
 
 describe("<StatusBarPopup />", () => {
   it("renders correctly", () => {

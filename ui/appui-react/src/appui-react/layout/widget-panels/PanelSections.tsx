@@ -10,15 +10,15 @@ import "./PanelSections.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
-import { NineZoneDispatchContext } from "../base/NineZone";
-import { PanelWidget } from "../widget/PanelWidget";
-import { useLayout } from "../base/LayoutStore";
-import { isHorizontalPanelSide, PanelSideContext } from "./Panel";
-import type { WidgetState } from "../state/WidgetState";
+import { NineZoneDispatchContext } from "../base/NineZone.js";
+import { PanelWidget } from "../widget/PanelWidget.js";
+import { useLayout } from "../base/LayoutStore.js";
+import { isHorizontalPanelSide, PanelSideContext } from "./Panel.js";
+import type { WidgetState } from "../state/WidgetState.js";
 import {
   useMaximizedPanel,
   useMaximizedSection,
-} from "../../preview/enable-maximized-widget/useMaximizedWidget";
+} from "../../preview/enable-maximized-widget/useMaximizedWidget.js";
 
 function PanelSplitter() {
   const dispatch = React.useContext(NineZoneDispatchContext);

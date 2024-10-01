@@ -17,10 +17,10 @@ import {
   useState,
 } from "react";
 import classnames from "classnames";
-import { Orientation } from "../enums/Orientation";
-import type { CommonProps } from "../utils/Props";
-import { useThrottledFn } from "../utils/hooks/useThrottledFn";
-import { useTranslation } from "../l10n/useTranslation";
+import { Orientation } from "../enums/Orientation.js";
+import type { CommonProps } from "../utils/Props.js";
+import { useThrottledFn } from "../utils/hooks/useThrottledFn.js";
+import { useTranslation } from "../l10n/useTranslation.js";
 
 /* eslint-disable deprecation/deprecation */
 

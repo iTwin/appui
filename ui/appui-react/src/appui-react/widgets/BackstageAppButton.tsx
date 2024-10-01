@@ -11,9 +11,9 @@ import { ProcessDetector } from "@itwin/core-bentley";
 import type { IconSpec } from "@itwin/core-react";
 import { Icon, useWidgetOpacityContext } from "@itwin/core-react";
 import { SvgHome } from "@itwin/itwinui-icons-react";
-import { UiFramework } from "../UiFramework";
-import { AppButton } from "../layout/widget/tools/button/App";
-import { useTranslation } from "../hooks/useTranslation";
+import { UiFramework } from "../UiFramework.js";
+import { AppButton } from "../layout/widget/tools/button/App.js";
+import { useTranslation } from "../hooks/useTranslation.js";
 
 /** Properties of {@link BackstageAppButton} component.
  * @public

@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
 import * as React from "react";
-import { FlexWrapContainer } from "../../core-react";
-import { classesFromElement } from "../TestUtils";
+import { FlexWrapContainer } from "../../core-react.js";
+import { classesFromElement } from "../TestUtils.js";
 
 describe("<FlexWrapContainer />", () => {
   it("content renders correctly", () => {

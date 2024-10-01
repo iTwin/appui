@@ -10,7 +10,7 @@ import "./ToolsArea.scss";
 import classnames from "classnames";
 import * as React from "react";
 import type { CommonProps, NoChildrenProps } from "@itwin/core-react";
-import type { ToolbarButtonProps } from "./tools/button/Button";
+import type { ToolbarButtonProps } from "./tools/button/Button.js";
 
 /** Properties of [[ToolsArea]] component.
  * @internal

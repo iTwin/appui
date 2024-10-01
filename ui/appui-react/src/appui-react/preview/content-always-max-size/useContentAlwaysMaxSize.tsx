@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import "./useContentAlwaysMaxSize.scss";
-import { usePreviewFeatures } from "../PreviewFeatures";
+import { usePreviewFeatures } from "../PreviewFeatures.js";
 
 /** @internal */
 export function useContentAlwaysMaxSize() {

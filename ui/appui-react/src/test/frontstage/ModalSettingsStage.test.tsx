@@ -4,14 +4,14 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { render, waitFor } from "@testing-library/react";
-import type { ModalFrontstageInfo } from "../../appui-react";
+import type { ModalFrontstageInfo } from "../../appui-react.js";
 import {
   FrontstageDef,
   ModalFrontstage,
   SettingsModalFrontstage,
-} from "../../appui-react";
-import TestUtils from "../TestUtils";
-import { UiFramework } from "../../appui-react/UiFramework";
+} from "../../appui-react.js";
+import TestUtils from "../TestUtils.js";
+import { UiFramework } from "../../appui-react/UiFramework.js";
 import type {
   SettingsManager,
   SettingsTabEntry,

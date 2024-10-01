@@ -11,7 +11,7 @@ import classnames from "classnames";
 import * as React from "react";
 import type { DialogButtonDef } from "@itwin/appui-abstract";
 import { MessageSeverity } from "@itwin/appui-abstract";
-import type { CommonProps } from "../utils/Props";
+import type { CommonProps } from "../utils/Props.js";
 import {
   SvgHelpCircular,
   SvgHelpCircularHollow,
@@ -25,9 +25,9 @@ import {
   SvgStatusSuccessHollow,
   SvgStatusWarning,
 } from "@itwin/itwinui-icons-react";
-import type { IconSpec } from "../icons/IconComponent";
-import { Icon } from "../icons/IconComponent";
-import { Dialog } from "../dialog/Dialog";
+import type { IconSpec } from "../icons/IconComponent.js";
+import { Icon } from "../icons/IconComponent.js";
+import { Dialog } from "../dialog/Dialog.js";
 
 /* eslint-disable deprecation/deprecation */
 

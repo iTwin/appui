@@ -4,11 +4,11 @@
  *--------------------------------------------------------------------------------------------*/
 import { fireEvent, render, screen } from "@testing-library/react";
 import * as React from "react";
-import userEvent from "@testing-library/user-event";
-import type { RatioChangeResult } from "../../core-react/elementseparator/ElementSeparator";
-import { ElementSeparator } from "../../core-react/elementseparator/ElementSeparator";
-import { Orientation } from "../../core-react/enums/Orientation";
-import { classesFromElement } from "../TestUtils";
+import { userEvent } from "@testing-library/user-event";
+import type { RatioChangeResult } from "../../core-react/elementseparator/ElementSeparator.js";
+import { ElementSeparator } from "../../core-react/elementseparator/ElementSeparator.js";
+import { Orientation } from "../../core-react/enums/Orientation.js";
+import { classesFromElement } from "../TestUtils.js";
 import type { Mock } from "vitest";
 
 describe("ElementSeparator", () => {

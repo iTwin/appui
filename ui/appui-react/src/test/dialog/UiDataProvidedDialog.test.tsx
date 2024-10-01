@@ -19,7 +19,7 @@ import {
   PropertyChangeStatus,
   StandardTypeNames,
 } from "@itwin/appui-abstract";
-import { UiDataProvidedDialog } from "../../appui-react";
+import { UiDataProvidedDialog } from "../../appui-react.js";
 
 const spyCancel = vi.fn();
 const spyOK = vi.fn();

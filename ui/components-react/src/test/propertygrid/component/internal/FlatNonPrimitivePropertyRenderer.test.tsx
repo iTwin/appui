@@ -4,13 +4,13 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { Orientation } from "@itwin/core-react";
-import { FlatNonPrimitivePropertyRenderer } from "../../../../components-react/propertygrid/internal/flat-properties/FlatNonPrimitivePropertyRenderer";
+import { FlatNonPrimitivePropertyRenderer } from "../../../../components-react/propertygrid/internal/flat-properties/FlatNonPrimitivePropertyRenderer.js";
 import {
   childStructure,
   selectorMatches,
   TestUtils,
   userEvent,
-} from "../../../TestUtils";
+} from "../../../TestUtils.js";
 import { render, screen } from "@testing-library/react";
 
 describe("FlatNonPrimitivePropertyRenderer", () => {

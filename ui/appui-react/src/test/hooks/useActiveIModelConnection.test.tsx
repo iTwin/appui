@@ -14,8 +14,8 @@ import {
   SyncUiEventDispatcher,
   UiFramework,
   useActiveIModelConnection,
-} from "../../appui-react";
-import TestUtils from "../TestUtils";
+} from "../../appui-react.js";
+import TestUtils from "../TestUtils.js";
 
 describe("useActiveIModelConnection", () => {
   describe("useActiveIModelConnection Hook", () => {

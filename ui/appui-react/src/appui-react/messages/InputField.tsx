@@ -20,8 +20,8 @@ import {
   SvgStatusWarning,
 } from "@itwin/itwinui-icons-react";
 import { Icon } from "@itwin/itwinui-react";
-import { MessageManager } from "../messages/MessageManager";
-import type { NotifyMessageType } from "./ReactNotifyMessageDetails";
+import { MessageManager } from "../messages/MessageManager.js";
+import type { NotifyMessageType } from "./ReactNotifyMessageDetails.js";
 
 /** Properties of [[InputFieldMessage]] component.
  * @public

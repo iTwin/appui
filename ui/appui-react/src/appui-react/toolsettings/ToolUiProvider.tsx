@@ -8,13 +8,13 @@
 
 import type * as React from "react";
 import type { UiDataProvider } from "@itwin/appui-abstract";
-import type { ConfigurableCreateInfo } from "../configurableui/ConfigurableUiControl";
+import type { ConfigurableCreateInfo } from "../configurableui/ConfigurableUiControl.js";
 import {
   ConfigurableUiControl,
   ConfigurableUiControlType,
-} from "../configurableui/ConfigurableUiControl";
-import type { ToolSettingsEntry } from "../widget-panels/ToolSettings";
-import type { SyncToolSettingsPropertiesEventArgs } from "../framework/FrameworkToolSettings";
+} from "../configurableui/ConfigurableUiControl.js";
+import type { ToolSettingsEntry } from "../widget-panels/ToolSettings.js";
+import type { SyncToolSettingsPropertiesEventArgs } from "../framework/FrameworkToolSettings.js";
 
 /* eslint-disable deprecation/deprecation */
 

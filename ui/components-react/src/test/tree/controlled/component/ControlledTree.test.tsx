@@ -7,24 +7,24 @@ import * as moq from "typemoq";
 import { PropertyRecord } from "@itwin/appui-abstract";
 import { CheckBoxState } from "@itwin/core-react";
 import { render, renderHook } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import { SelectionMode } from "../../../../components-react/common/selection/SelectionModes";
-import type { ControlledTreeProps } from "../../../../components-react/tree/controlled/component/ControlledTree";
+import { userEvent } from "@testing-library/user-event";
+import { SelectionMode } from "../../../../components-react/common/selection/SelectionModes.js";
+import type { ControlledTreeProps } from "../../../../components-react/tree/controlled/component/ControlledTree.js";
 import {
   ControlledTree,
   useControlledTreeLayoutStorage,
-} from "../../../../components-react/tree/controlled/component/ControlledTree";
-import { from } from "../../../../components-react/tree/controlled/Observable";
-import type { TreeEvents } from "../../../../components-react/tree/controlled/TreeEvents";
+} from "../../../../components-react/tree/controlled/component/ControlledTree.js";
+import { from } from "../../../../components-react/tree/controlled/Observable.js";
+import type { TreeEvents } from "../../../../components-react/tree/controlled/TreeEvents.js";
 import type {
   MutableTreeModelNode,
   TreeModel,
-} from "../../../../components-react/tree/controlled/TreeModel";
-import type { ITreeNodeLoader } from "../../../../components-react/tree/controlled/TreeNodeLoader";
-import type { HighlightableTreeProps } from "../../../../components-react/tree/HighlightingEngine";
-import { HighlightingEngine } from "../../../../components-react/tree/HighlightingEngine";
-import { SparseArray } from "../../../../components-react/tree/controlled/internal/SparseTree";
-import * as useElementsScrollStorageModule from "../../../../components-react/common/UseElementsScrollStorage";
+} from "../../../../components-react/tree/controlled/TreeModel.js";
+import type { ITreeNodeLoader } from "../../../../components-react/tree/controlled/TreeNodeLoader.js";
+import type { HighlightableTreeProps } from "../../../../components-react/tree/HighlightingEngine.js";
+import { HighlightingEngine } from "../../../../components-react/tree/HighlightingEngine.js";
+import { SparseArray } from "../../../../components-react/tree/controlled/internal/SparseTree.js";
+import * as useElementsScrollStorageModule from "../../../../components-react/common/UseElementsScrollStorage.js";
 
 describe("ControlledTree", () => {
   const nodeLoaderMock = moq.Mock.ofType<ITreeNodeLoader>();

@@ -10,20 +10,20 @@ import {
   renderHook,
   waitFor,
 } from "@testing-library/react";
-import type { NineZoneDispatch } from "../../../appui-react/layout/base/NineZone";
-import * as NineZoneModule from "../../../appui-react/layout/base/NineZone";
-import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState";
-import { addPanelWidget } from "../../../appui-react/layout/state/internal/PanelStateHelpers";
-import { addTab } from "../../../appui-react/layout/state/internal/TabStateHelpers";
-import { addFloatingWidget } from "../../../appui-react/layout/state/internal/WidgetStateHelpers";
-import { PanelTarget } from "../../../appui-react/layout/target/PanelTarget";
-import { TabTarget } from "../../../appui-react/layout/target/TabTarget";
-import { TabIdContext } from "../../../appui-react/layout/widget/ContentRenderer";
-import { FloatingWidgetProvider } from "../../../appui-react/layout/widget/FloatingWidget";
-import { useDrag } from "../../../appui-react/layout/widget/TabBar";
-import { WidgetIdContext } from "../../../appui-react/layout/widget/Widget";
-import { TestNineZoneProvider } from "../Providers";
-import { addTabs } from "../Utils";
+import type { NineZoneDispatch } from "../../../appui-react/layout/base/NineZone.js";
+import * as NineZoneModule from "../../../appui-react/layout/base/NineZone.js";
+import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState.js";
+import { addPanelWidget } from "../../../appui-react/layout/state/internal/PanelStateHelpers.js";
+import { addTab } from "../../../appui-react/layout/state/internal/TabStateHelpers.js";
+import { addFloatingWidget } from "../../../appui-react/layout/state/internal/WidgetStateHelpers.js";
+import { PanelTarget } from "../../../appui-react/layout/target/PanelTarget.js";
+import { TabTarget } from "../../../appui-react/layout/target/TabTarget.js";
+import { TabIdContext } from "../../../appui-react/layout/widget/ContentRenderer.js";
+import { FloatingWidgetProvider } from "../../../appui-react/layout/widget/FloatingWidget.js";
+import { useDrag } from "../../../appui-react/layout/widget/TabBar.js";
+import { WidgetIdContext } from "../../../appui-react/layout/widget/Widget.js";
+import { TestNineZoneProvider } from "../Providers.js";
+import { addTabs } from "../Utils.js";
 
 describe("WidgetTitleBar", () => {
   it("should dispatch WIDGET_DRAG_END", () => {

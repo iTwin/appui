@@ -10,8 +10,8 @@ import "./Dialog.scss";
 import classnames from "classnames";
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
-import { Dialog } from "../dialog/Dialog";
-import { TitleBar } from "../dialog/TitleBar";
+import { Dialog } from "../dialog/Dialog.js";
+import { TitleBar } from "../dialog/TitleBar.js";
 
 /** Properties of [[ToolAssistanceDialog]] component.
  * @internal

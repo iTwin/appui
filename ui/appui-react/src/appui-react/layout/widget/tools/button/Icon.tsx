@@ -9,8 +9,8 @@
 import "./Icon.scss";
 import classnames from "classnames";
 import * as React from "react";
-import type { ToolbarButtonProps } from "./Button";
-import { ToolbarButton } from "./Button";
+import type { ToolbarButtonProps } from "./Button.js";
+import { ToolbarButton } from "./Button.js";
 
 /** Properties of [[ToolbarButton]] component.
  * @internal

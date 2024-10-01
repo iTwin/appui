@@ -7,7 +7,7 @@
  */
 
 import type { Primitives } from "@itwin/appui-abstract";
-import { TypeConverter } from "./TypeConverter";
+import { TypeConverter } from "./TypeConverter.js";
 
 /** Operators for string types
  * @public

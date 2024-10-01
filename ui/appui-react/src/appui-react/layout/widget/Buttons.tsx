@@ -8,30 +8,30 @@
 
 import "./Buttons.scss";
 import * as React from "react";
-import { Dock, useDock } from "./Dock";
-import { PinToggle, usePinToggle } from "./PinToggle";
-import { PopoutToggle, usePopoutToggle } from "./PopoutToggle";
+import { Dock, useDock } from "./Dock.js";
+import { PinToggle, usePinToggle } from "./PinToggle.js";
+import { PopoutToggle, usePopoutToggle } from "./PopoutToggle.js";
 import {
   PreviewHorizontalPanelAlignButton,
   useHorizontalPanelAlignButton,
-} from "../../preview/horizontal-panel-alignment/PreviewHorizontalPanelAlign";
-import { SendBack, useSendBack } from "./SendBack";
+} from "../../preview/horizontal-panel-alignment/PreviewHorizontalPanelAlign.js";
+import { SendBack, useSendBack } from "./SendBack.js";
 import {
   MoreButton,
   useDropdownFeatures,
-} from "../../preview/widget-action-dropdown/MoreButton";
+} from "../../preview/widget-action-dropdown/MoreButton.js";
 import {
   MaximizeToggle,
   useMaximizeToggle,
-} from "../../preview/enable-maximized-widget/MaximizeToggle";
+} from "../../preview/enable-maximized-widget/MaximizeToggle.js";
 import {
   CloseWidgetButton,
   useCloseTab,
-} from "../../preview/control-widget-visibility/CloseWidgetButton";
+} from "../../preview/control-widget-visibility/CloseWidgetButton.js";
 import {
   AddWidgetButton,
   useAddTab,
-} from "../../preview/control-widget-visibility/AddWidgetButton";
+} from "../../preview/control-widget-visibility/AddWidgetButton.js";
 
 /** @internal */
 export type WidgetFeature =

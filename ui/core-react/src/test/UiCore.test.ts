@@ -3,8 +3,8 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { Logger } from "@itwin/core-bentley";
-import { UiCore } from "../core-react/UiCore";
-import TestUtils from "./TestUtils";
+import { UiCore } from "../core-react/UiCore.js";
+import TestUtils from "./TestUtils.js";
 
 describe("UiCore", () => {
   beforeEach(() => {

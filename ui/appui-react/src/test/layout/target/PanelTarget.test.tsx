@@ -4,16 +4,16 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { renderHook } from "@testing-library/react";
-import { DraggedWidgetIdContext } from "../../../appui-react/layout/base/DragManager";
-import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState";
-import { addPanelWidget } from "../../../appui-react/layout/state/internal/PanelStateHelpers";
+import { DraggedWidgetIdContext } from "../../../appui-react/layout/base/DragManager.js";
+import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState.js";
+import { addPanelWidget } from "../../../appui-react/layout/state/internal/PanelStateHelpers.js";
 import {
   addTab,
   createDraggedTabState,
-} from "../../../appui-react/layout/state/internal/TabStateHelpers";
-import { useAllowedPanelTarget } from "../../../appui-react/layout/target/useAllowedPanelTarget";
-import { PanelSideContext } from "../../../appui-react/layout/widget-panels/Panel";
-import { TestNineZoneProvider } from "../Providers";
+} from "../../../appui-react/layout/state/internal/TabStateHelpers.js";
+import { useAllowedPanelTarget } from "../../../appui-react/layout/target/useAllowedPanelTarget.js";
+import { PanelSideContext } from "../../../appui-react/layout/widget-panels/Panel.js";
+import { TestNineZoneProvider } from "../Providers.js";
 
 describe("useAllowedPanelTarget", () => {
   it("should return `true`", () => {

@@ -8,9 +8,9 @@
 
 import * as React from "react";
 import DOMPurify, * as DOMPurifyNS from "dompurify";
-import type { MessageType } from "./MessageType";
-import { isHTMLElement, isReactMessage } from "./MessageType";
-import type { ClassNameProps } from "../utils/Props";
+import type { MessageType } from "./MessageType.js";
+import { isHTMLElement, isReactMessage } from "./MessageType.js";
+import type { ClassNameProps } from "../utils/Props.js";
 
 // cSpell:ignore dompurify
 

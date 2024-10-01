@@ -6,11 +6,11 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import * as React from "react";
 import { Key } from "ts-key-enum";
-import { EditorContainer } from "../../components-react/editors/EditorContainer";
-import { ImageCheckBoxEditor } from "../../components-react/editors/ImageCheckBoxEditor";
-import { userEvent } from "../TestUtils";
-import TestUtils, { MineDataController } from "../TestUtils";
-import { PropertyEditorManager } from "../../components-react/editors/PropertyEditorManager";
+import { EditorContainer } from "../../components-react/editors/EditorContainer.js";
+import { ImageCheckBoxEditor } from "../../components-react/editors/ImageCheckBoxEditor.js";
+import { userEvent } from "../TestUtils.js";
+import TestUtils, { MineDataController } from "../TestUtils.js";
+import { PropertyEditorManager } from "../../components-react/editors/PropertyEditorManager.js";
 
 describe("<ImageCheckBoxEditor />", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;

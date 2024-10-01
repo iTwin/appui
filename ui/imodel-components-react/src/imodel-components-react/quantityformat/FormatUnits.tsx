@@ -14,8 +14,8 @@ import type {
   UnitsProvider,
 } from "@itwin/core-quantity";
 import { Input } from "@itwin/itwinui-react";
-import { UnitDescr } from "./misc/UnitDescr";
-import { useTranslation } from "../useTranslation";
+import { UnitDescr } from "./misc/UnitDescr.js";
+import { useTranslation } from "../useTranslation.js";
 
 /** Properties of [[FormatUnits]] component.
  * @alpha

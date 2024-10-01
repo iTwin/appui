@@ -5,21 +5,21 @@
 import { Rectangle } from "@itwin/core-react";
 import { act, fireEvent, render, waitFor } from "@testing-library/react";
 import * as React from "react";
-import { ShowWidgetIconContext } from "../../../appui-react/layout/base/NineZone";
-import type { NineZoneState } from "../../../appui-react/layout/state/NineZoneState";
-import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState";
-import type { TabState } from "../../../appui-react/layout/state/TabState";
-import type { WidgetState } from "../../../appui-react/layout/state/WidgetState";
-import { addPanelWidget } from "../../../appui-react/layout/state/internal/PanelStateHelpers";
-import { addTab } from "../../../appui-react/layout/state/internal/TabStateHelpers";
-import { TabIdContext } from "../../../appui-react/layout/widget/ContentRenderer";
-import { WidgetMenuTab } from "../../../appui-react/layout/widget/MenuTab";
-import { WidgetOverflowContext } from "../../../appui-react/layout/widget/Overflow";
+import { ShowWidgetIconContext } from "../../../appui-react/layout/base/NineZone.js";
+import type { NineZoneState } from "../../../appui-react/layout/state/NineZoneState.js";
+import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState.js";
+import type { TabState } from "../../../appui-react/layout/state/TabState.js";
+import type { WidgetState } from "../../../appui-react/layout/state/WidgetState.js";
+import { addPanelWidget } from "../../../appui-react/layout/state/internal/PanelStateHelpers.js";
+import { addTab } from "../../../appui-react/layout/state/internal/TabStateHelpers.js";
+import { TabIdContext } from "../../../appui-react/layout/widget/ContentRenderer.js";
+import { WidgetMenuTab } from "../../../appui-react/layout/widget/MenuTab.js";
+import { WidgetOverflowContext } from "../../../appui-react/layout/widget/Overflow.js";
 import {
   WidgetContext,
   WidgetIdContext,
-} from "../../../appui-react/layout/widget/Widget";
-import { TestNineZoneProvider } from "../Providers";
+} from "../../../appui-react/layout/widget/Widget.js";
+import { TestNineZoneProvider } from "../Providers.js";
 
 describe("MenuTab", () => {
   interface WrapperProps {

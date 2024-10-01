@@ -10,7 +10,7 @@ import type {
   ToolbarActionItem,
   UiItemsProvider,
   Widget,
-} from "../../appui-react";
+} from "../../appui-react.js";
 import {
   BackstageItemUtilities,
   StagePanelLocation,
@@ -22,7 +22,7 @@ import {
   ToolbarOrientation,
   ToolbarUsage,
   UiItemsManager,
-} from "../../appui-react";
+} from "../../appui-react.js";
 
 // @ts-ignore Removed in 4.0
 const AbstractUiItemsManager = abstract.UiItemsManager;

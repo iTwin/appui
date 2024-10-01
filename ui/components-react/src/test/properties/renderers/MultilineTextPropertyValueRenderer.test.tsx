@@ -7,8 +7,8 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import {
   MultilineTextPropertyValueRenderer,
   MultilineTextRenderer,
-} from "../../../components-react/properties/renderers/value/MultilineTextPropertyValueRenderer";
-import TestUtils, { styleMatch } from "../../TestUtils";
+} from "../../../components-react/properties/renderers/value/MultilineTextPropertyValueRenderer.js";
+import TestUtils, { styleMatch } from "../../TestUtils.js";
 import { Id64 } from "@itwin/core-bentley";
 
 describe("MultilineTextPropertyValueRenderer", () => {

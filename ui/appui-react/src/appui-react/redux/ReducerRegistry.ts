@@ -7,7 +7,7 @@
  */
 
 import { UiError } from "@itwin/appui-abstract";
-import { UiFramework } from "../UiFramework";
+import { UiFramework } from "../UiFramework.js";
 
 /* eslint-disable deprecation/deprecation */
 

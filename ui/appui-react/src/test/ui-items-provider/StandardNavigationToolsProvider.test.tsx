@@ -2,14 +2,14 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import type { DefaultNavigationTools } from "../../appui-react";
+import type { DefaultNavigationTools } from "../../appui-react.js";
 import {
   StageUsage,
   StandardNavigationToolsProvider,
   ToolbarOrientation,
   ToolbarUsage,
   UiItemsManager,
-} from "../../appui-react";
+} from "../../appui-react.js";
 
 const testToolsArray: DefaultNavigationTools[] = [
   {},

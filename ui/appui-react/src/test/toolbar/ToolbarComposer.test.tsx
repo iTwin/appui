@@ -10,7 +10,7 @@ import type {
   FrontstageConfig,
   ToolbarItem,
   UiItemsProvider,
-} from "../../appui-react";
+} from "../../appui-react.js";
 import {
   CommandItemDef,
   CustomItemDef,
@@ -24,8 +24,8 @@ import {
   ToolItemDef,
   UiFramework,
   UiItemsManager,
-} from "../../appui-react";
-import TestUtils from "../TestUtils";
+} from "../../appui-react.js";
+import TestUtils from "../TestUtils.js";
 
 describe("<ToolbarComposer  />", async () => {
   const testItemEventId = "test-event";

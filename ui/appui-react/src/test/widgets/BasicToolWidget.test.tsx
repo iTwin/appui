@@ -4,10 +4,10 @@
  *--------------------------------------------------------------------------------------------*/
 import { render } from "@testing-library/react";
 import * as React from "react";
-import { ToolbarHelper, UiFramework } from "../../appui-react";
-import { CommandItemDef } from "../../appui-react/shared/CommandItemDef";
-import { BasicToolWidget } from "../../appui-react/widgets/BasicToolWidget";
-import { childStructure } from "../TestUtils";
+import { ToolbarHelper, UiFramework } from "../../appui-react.js";
+import { CommandItemDef } from "../../appui-react/shared/CommandItemDef.js";
+import { BasicToolWidget } from "../../appui-react/widgets/BasicToolWidget.js";
+import { childStructure } from "../TestUtils.js";
 
 describe("BasicToolWidget", () => {
   beforeEach(() => {

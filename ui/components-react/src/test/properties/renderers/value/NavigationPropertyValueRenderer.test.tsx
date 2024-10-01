@@ -5,9 +5,9 @@
 import * as React from "react";
 import { Id64 } from "@itwin/core-bentley";
 import { render } from "@testing-library/react";
-import { NavigationPropertyValueRenderer } from "../../../../components-react/properties/renderers/value/NavigationPropertyValueRenderer";
-import type { PropertyValueRendererContext } from "../../../../components-react/properties/ValueRendererManager";
-import TestUtils from "../../../TestUtils";
+import { NavigationPropertyValueRenderer } from "../../../../components-react/properties/renderers/value/NavigationPropertyValueRenderer.js";
+import type { PropertyValueRendererContext } from "../../../../components-react/properties/ValueRendererManager.js";
+import TestUtils from "../../../TestUtils.js";
 import type { PropertyConverterInfo } from "@itwin/appui-abstract";
 
 describe("NavigationPropertyValueRenderer", () => {

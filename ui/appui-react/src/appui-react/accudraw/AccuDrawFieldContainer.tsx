@@ -15,13 +15,13 @@ import type { ScreenViewport } from "@itwin/core-frontend";
 import { CompassMode, IModelApp, ItemField } from "@itwin/core-frontend";
 import type { CommonProps } from "@itwin/core-react";
 import { getCSSColorFromDef } from "@itwin/imodel-components-react";
-import { AccuDrawInputField } from "./AccuDrawInputField";
-import { FrameworkAccuDraw } from "./FrameworkAccuDraw";
-import type { AccuDrawUiSettings } from "./AccuDrawUiSettings";
+import { AccuDrawInputField } from "./AccuDrawInputField.js";
+import { FrameworkAccuDraw } from "./FrameworkAccuDraw.js";
+import type { AccuDrawUiSettings } from "./AccuDrawUiSettings.js";
 import angleIconSvg from "./angle.svg";
 import distanceIconSvg from "./distance.svg";
-import { UiFramework } from "../UiFramework";
-import type { UiStateStorage } from "../uistate/UiStateStorage";
+import { UiFramework } from "../UiFramework.js";
+import type { UiStateStorage } from "../uistate/UiStateStorage.js";
 
 /** Properties for [[AccuDrawFieldContainer]] component
  * @public

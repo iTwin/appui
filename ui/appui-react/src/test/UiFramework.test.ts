@@ -10,22 +10,25 @@ import type { Id64String } from "@itwin/core-bentley";
 import { Logger } from "@itwin/core-bentley";
 import type { IModelConnection, ViewState } from "@itwin/core-frontend";
 import { SelectionSet } from "@itwin/core-frontend";
-import type { CursorMenuPayload, UserSettingsProvider } from "../appui-react";
+import type {
+  CursorMenuPayload,
+  UserSettingsProvider,
+} from "../appui-react.js";
 import {
   AccuDrawPopupManager,
   SettingsModalFrontstage,
   UiFramework,
-} from "../appui-react";
+} from "../appui-react.js";
 import type { UiStateStorage } from "@itwin/core-react";
 import { LocalStateStorage } from "@itwin/core-react";
-import TestUtils, { storageMock } from "./TestUtils";
-import { OpenSettingsTool } from "../appui-react/tools/OpenSettingsTool";
-import { PopupManager } from "../appui-react";
+import TestUtils, { storageMock } from "./TestUtils.js";
+import { OpenSettingsTool } from "../appui-react/tools/OpenSettingsTool.js";
+import { PopupManager } from "../appui-react.js";
 import { createElement } from "react";
 import type { DialogLayoutDataProvider } from "@itwin/appui-abstract";
-import { InternalModalDialogManager } from "../appui-react/dialog/InternalModalDialogManager";
-import { InternalModelessDialogManager } from "../appui-react/dialog/InternalModelessDialogManager";
-import { ColorTheme } from "../appui-react/theme/ThemeId";
+import { InternalModalDialogManager } from "../appui-react/dialog/InternalModalDialogManager.js";
+import { InternalModelessDialogManager } from "../appui-react/dialog/InternalModelessDialogManager.js";
+import { ColorTheme } from "../appui-react/theme/ThemeId.js";
 
 describe("UiFramework localStorage Wrapper", () => {
   const localStorageToRestore = Object.getOwnPropertyDescriptor(

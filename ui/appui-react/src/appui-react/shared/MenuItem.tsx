@@ -19,12 +19,12 @@ import type {
   IconSpec,
 } from "@itwin/core-react";
 import { ContextMenuItem, ContextSubMenu } from "@itwin/core-react";
-import { UiFramework } from "../UiFramework";
-import type { ActionButtonItemDef } from "./ActionButtonItemDef";
-import { CommandItemDef } from "./CommandItemDef";
-import { ItemDefBase } from "./ItemDefBase";
-import type { CommandItemProps } from "./ItemProps";
-import type { ConditionalStringValue } from "./ConditionalValue";
+import { UiFramework } from "../UiFramework.js";
+import type { ActionButtonItemDef } from "./ActionButtonItemDef.js";
+import { CommandItemDef } from "./CommandItemDef.js";
+import { ItemDefBase } from "./ItemDefBase.js";
+import type { CommandItemProps } from "./ItemProps.js";
+import type { ConditionalStringValue } from "./ConditionalValue.js";
 
 /** Properties for context menu items.
  * @public

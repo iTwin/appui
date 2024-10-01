@@ -9,8 +9,8 @@ import {
   SelectionScopeField,
   SessionStateActionId,
   UiFramework,
-} from "../../appui-react";
-import TestUtils, { waitForPosition } from "../TestUtils";
+} from "../../appui-react.js";
+import TestUtils, { waitForPosition } from "../TestUtils.js";
 
 describe(`SelectionScopeField`, () => {
   describe("Bare tests", () => {

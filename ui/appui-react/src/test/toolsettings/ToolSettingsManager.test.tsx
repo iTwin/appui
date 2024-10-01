@@ -13,9 +13,9 @@ import type {
   SuppressLabelEditorParams,
 } from "@itwin/appui-abstract";
 import { PropertyEditorParamTypes } from "@itwin/appui-abstract";
-import type { SyncToolSettingsPropertiesEventArgs } from "../../appui-react";
-import { SyncUiEventDispatcher } from "../../appui-react";
-import { InternalToolSettingsManager } from "../../appui-react/toolsettings/InternalToolSettingsManager";
+import type { SyncToolSettingsPropertiesEventArgs } from "../../appui-react.js";
+import { SyncUiEventDispatcher } from "../../appui-react.js";
+import { InternalToolSettingsManager } from "../../appui-react/toolsettings/InternalToolSettingsManager.js";
 
 // cSpell:Ignore USELENGTH
 

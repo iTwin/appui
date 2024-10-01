@@ -6,11 +6,11 @@
  * @module KeyboardShortcut
  */
 import type { Key } from "ts-key-enum";
-import type { ActionButtonItemDef } from "../shared/ActionButtonItemDef";
+import type { ActionButtonItemDef } from "../shared/ActionButtonItemDef.js";
 import type {
   ConditionalBooleanValue,
   ConditionalStringValue,
-} from "../shared/ConditionalValue";
+} from "../shared/ConditionalValue.js";
 import type {
   BadgeKind,
   BadgeType,

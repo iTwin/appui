@@ -6,8 +6,8 @@
  * @module Utilities
  */
 import * as React from "react";
-import { useRefEffect } from "./useRefEffect";
-import { useRefs } from "./useRefs";
+import { useRefEffect } from "./useRefEffect.js";
+import { useRefs } from "./useRefs.js";
 
 /* eslint-disable deprecation/deprecation */
 

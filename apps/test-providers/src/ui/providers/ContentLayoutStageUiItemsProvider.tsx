@@ -25,16 +25,16 @@ import {
   createSplitSingleViewportToolbarItem,
   RestoreSavedContentLayoutTool,
   SaveContentLayoutTool,
-} from "../../tools/ContentLayoutTools";
-import { AppUiTestProviders } from "../../AppUiTestProviders";
-import { getCustomViewSelectorPopupItem } from "../buttons/ViewSelectorPanel";
-import { DisplayStyleField } from "../statusfields/DisplayStyleField";
+} from "../../tools/ContentLayoutTools.js";
+import { AppUiTestProviders } from "../../AppUiTestProviders.js";
+import { getCustomViewSelectorPopupItem } from "../buttons/ViewSelectorPanel.js";
+import { DisplayStyleField } from "../statusfields/DisplayStyleField.js";
 import { IModelApp } from "@itwin/core-frontend";
-import { ControlViewportWidget } from "../widgets/ControlViewportWidget";
-import { ViewportWidget as ViewportWidgetBase } from "../widgets/ViewportWidget";
-import { WidgetContentContext } from "./WidgetContentProvider";
-import { createContentLayoutFrontstage } from "../frontstages/ContentLayoutFrontstage";
-import { useActiveContentId } from "../useActiveContentId";
+import { ControlViewportWidget } from "../widgets/ControlViewportWidget.js";
+import { ViewportWidget as ViewportWidgetBase } from "../widgets/ViewportWidget.js";
+import { WidgetContentContext } from "./WidgetContentProvider.js";
+import { createContentLayoutFrontstage } from "../frontstages/ContentLayoutFrontstage.js";
+import { useActiveContentId } from "../useActiveContentId.js";
 
 /** The ContentLayoutStageUiItemsProvider provides additional items only to the `ContentLayoutStage` frontstage.
  * This provider provides four tool buttons to:

@@ -9,12 +9,12 @@
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
 import { SvgPin, SvgPinHollow } from "@itwin/itwinui-icons-react";
-import { NineZoneDispatchContext, useLabel } from "../base/NineZone";
-import { PanelSideContext } from "../widget-panels/Panel";
-import { useLayout } from "../base/LayoutStore";
-import { ActionButton } from "../../preview/widget-action-dropdown/Button";
-import { useMainPanelWidgetId } from "./usePanelWidgetId";
-import { useIsMaximizedWidget } from "../../preview/enable-maximized-widget/useMaximizedWidget";
+import { NineZoneDispatchContext, useLabel } from "../base/NineZone.js";
+import { PanelSideContext } from "../widget-panels/Panel.js";
+import { useLayout } from "../base/LayoutStore.js";
+import { ActionButton } from "../../preview/widget-action-dropdown/Button.js";
+import { useMainPanelWidgetId } from "./usePanelWidgetId.js";
+import { useIsMaximizedWidget } from "../../preview/enable-maximized-widget/useMaximizedWidget.js";
 
 /** @internal */
 export function PinToggle() {

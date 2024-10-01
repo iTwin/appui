@@ -27,7 +27,7 @@ import {
   Parser,
   ParserSpec,
 } from "@itwin/core-quantity";
-import { UiIModelComponents } from "../../imodel-components-react";
+import { UiIModelComponents } from "../../imodel-components-react.js";
 
 /* Interface that defines custom properties used to format and parse Bearing values. */
 interface BearingFormatProps extends CustomFormatProps {

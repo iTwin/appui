@@ -9,8 +9,8 @@
 import "./ReparentedPopoutWidget.scss";
 import * as React from "react";
 import { useRefs } from "@itwin/core-react";
-import { usePopoutsStore } from "./usePopoutsStore";
-import type { WidgetState } from "../../layout/state/WidgetState";
+import { usePopoutsStore } from "./usePopoutsStore.js";
+import type { WidgetState } from "../../layout/state/WidgetState.js";
 
 interface ReparentedPopoutWidgetProps {
   widgetId: WidgetState["id"];

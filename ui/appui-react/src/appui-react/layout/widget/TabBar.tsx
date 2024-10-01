@@ -11,20 +11,20 @@ import classnames from "classnames";
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
 import { Point, Timer } from "@itwin/core-react";
-import type { UseDragWidgetArgs } from "../base/DragManager";
-import { useDragWidget } from "../base/DragManager";
-import { NineZoneDispatchContext } from "../base/NineZone";
+import type { UseDragWidgetArgs } from "../base/DragManager.js";
+import { useDragWidget } from "../base/DragManager.js";
+import { NineZoneDispatchContext } from "../base/NineZone.js";
 import type {
   PointerCaptorArgs,
   PointerCaptorEvent,
-} from "../base/usePointerCaptor";
-import { usePointerCaptor } from "../base/usePointerCaptor";
-import { TabBarButtons } from "./Buttons";
-import { WidgetTabs } from "./Tabs";
-import { WidgetIdContext } from "./Widget";
-import { useDoubleClick } from "../widget-panels/Grip";
-import { useFloatingWidgetId } from "./FloatingWidget";
-import { useMaximizedWidgetTabBarHandle } from "../../preview/enable-maximized-widget/useMaximizedWidget";
+} from "../base/usePointerCaptor.js";
+import { usePointerCaptor } from "../base/usePointerCaptor.js";
+import { TabBarButtons } from "./Buttons.js";
+import { WidgetTabs } from "./Tabs.js";
+import { WidgetIdContext } from "./Widget.js";
+import { useDoubleClick } from "../widget-panels/Grip.js";
+import { useFloatingWidgetId } from "./FloatingWidget.js";
+import { useMaximizedWidgetTabBarHandle } from "../../preview/enable-maximized-widget/useMaximizedWidget.js";
 
 /** @internal */
 export interface WidgetTabBarProps {

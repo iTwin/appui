@@ -10,10 +10,10 @@ import * as React from "react";
 import { Key } from "ts-key-enum";
 import type { OnCancelFunc, OnItemExecutedFunc } from "@itwin/appui-abstract";
 import { DivWithOutsideClick, FocusTrap, Point, Size } from "@itwin/core-react";
-import { PositionPopup } from "./PositionPopup";
-import { KeyinPalettePanel } from "./KeyinPalettePanel";
-import type { KeyinEntry } from "../keyins/Keyins";
-import type { SizeProps } from "../utils/SizeProps";
+import { PositionPopup } from "./PositionPopup.js";
+import { KeyinPalettePanel } from "./KeyinPalettePanel.js";
+import type { KeyinEntry } from "../keyins/Keyins.js";
+import type { SizeProps } from "../utils/SizeProps.js";
 
 /** Props defining KeyinPalettePopup component
  * @public */

@@ -5,8 +5,8 @@
 /** @packageDocumentation
  * @module Item
  */
-import type { ToolbarCustomItem } from "../toolbar/ToolbarItem";
-import type { ItemProps } from "./ItemProps";
+import type { ToolbarCustomItem } from "../toolbar/ToolbarItem.js";
+import type { ItemProps } from "./ItemProps.js";
 
 /** Definition for a Custom item that renders a React component.
  * @public

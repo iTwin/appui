@@ -22,10 +22,10 @@ import {
   ToolAssistance,
 } from "@itwin/core-frontend";
 import type { RelativePosition } from "@itwin/appui-abstract";
-import { ElementTooltip } from "../feedback/ElementTooltip";
-import { UiFramework } from "../UiFramework";
-import { MessageManager } from "./MessageManager";
-import { PointerMessage } from "./Pointer";
+import { ElementTooltip } from "../feedback/ElementTooltip.js";
+import { UiFramework } from "../UiFramework.js";
+import { MessageManager } from "./MessageManager.js";
+import { PointerMessage } from "./Pointer.js";
 
 /** Subclass of `NotificationManager` in `@itwin/core-frontend` to be used to initialize `IModelApp`.
  *

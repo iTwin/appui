@@ -9,17 +9,17 @@ import type { ActionButton, CommonToolbarItem } from "@itwin/appui-abstract";
 import { ToolbarItemUtilities } from "@itwin/appui-abstract";
 import { BadgeType } from "@itwin/core-react";
 import { act, fireEvent, render, renderHook } from "@testing-library/react";
-import type { CustomToolbarItem } from "../../components-react/toolbar/InternalToolbarComponent";
+import type { CustomToolbarItem } from "../../components-react/toolbar/InternalToolbarComponent.js";
 import {
   ToolbarOpacitySetting,
   ToolbarPanelAlignment,
   ToolbarPanelAlignmentHelpers,
   useToolItemEntryContext,
-} from "../../components-react/toolbar/InternalToolbarComponent";
-import { Toolbar } from "../../components-react/toolbar/Toolbar";
-import { Direction } from "../../components-react/toolbar/utilities/Direction";
-import { BackArrow } from "../../components-react/toolbar/groupPanel/BackArrow";
-import { GroupTool } from "../../components-react/toolbar/groupPanel/tool/Tool";
+} from "../../components-react/toolbar/InternalToolbarComponent.js";
+import { Toolbar } from "../../components-react/toolbar/Toolbar.js";
+import { Direction } from "../../components-react/toolbar/utilities/Direction.js";
+import { BackArrow } from "../../components-react/toolbar/groupPanel/BackArrow.js";
+import { GroupTool } from "../../components-react/toolbar/groupPanel/tool/Tool.js";
 
 function createBubbledEvent(type: string, props = {}) {
   const event = new Event(type, { bubbles: true });
