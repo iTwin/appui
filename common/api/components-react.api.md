@@ -3128,7 +3128,7 @@ export class UiComponents {
     static get initialized(): boolean;
     static get localizationNamespace(): string;
     // @internal (undocumented)
-    static loggerCategory(obj: any): string;
+    static loggerCategory(name: string): string;
     // @internal (undocumented)
     static get packageName(): string;
     static terminate(): void;
@@ -3168,7 +3168,7 @@ export function useDebouncedAsyncValue<TReturn>(valueToBeResolved: undefined | (
 };
 
 // @beta
-export function useDefaultPropertyFilterBuilderRuleValidator(): (item: PropertyFilterBuilderRule) => any;
+export function useDefaultPropertyFilterBuilderRuleValidator(): (item: PropertyFilterBuilderRule) => string | undefined;
 
 // @public
 export function usePagedTreeNodeLoader<TDataProvider extends TreeDataProvider>(dataProvider: TDataProvider, pageSize: number, modelSource: TreeModelSource): PagedTreeNodeLoader<TDataProvider>;
