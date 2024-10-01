@@ -1,7 +1,7 @@
 {
   "name": "@itwin/components-react",
   "version": "5.0.0-dev.0",
-  "description": "iTwin.js UI complex components",
+  "description": "A react component library of iTwin.js UI data-oriented components",
   "type": "module",
   "main": "lib/cjs/components-react.js",
   "module": "lib/esm/components-react.js",
