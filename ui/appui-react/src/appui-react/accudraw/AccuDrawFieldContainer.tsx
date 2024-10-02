@@ -14,7 +14,7 @@ import type { ColorDef } from "@itwin/core-common";
 import type { ScreenViewport } from "@itwin/core-frontend";
 import { CompassMode, IModelApp, ItemField } from "@itwin/core-frontend";
 import type { CommonProps } from "@itwin/core-react";
-import { getCSSColorFromDef } from "@itwin/imodel-components-react";
+import { getCSSColorFromDef } from "@itwin/imodel-components-react/internal";
 import { AccuDrawInputField } from "./AccuDrawInputField.js";
 import { FrameworkAccuDraw } from "./FrameworkAccuDraw.js";
 import type { AccuDrawUiSettings } from "./AccuDrawUiSettings.js";

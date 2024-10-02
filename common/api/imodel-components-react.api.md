@@ -24,7 +24,7 @@ import type { QuantityTypeArg } from '@itwin/core-frontend';
 import * as React_2 from 'react';
 import { RelativePosition } from '@itwin/appui-abstract';
 import { ScreenViewport } from '@itwin/core-frontend';
-import { Slider } from '@itwin/itwinui-react';
+import type { Slider } from '@itwin/itwinui-react';
 import type { StandardViewId } from '@itwin/core-frontend';
 import type { TentativePoint } from '@itwin/core-frontend';
 import type { TypeEditor } from '@itwin/components-react';
@@ -240,30 +240,6 @@ export class Cube extends React_2.PureComponent<CubeProps> {
     render(): React_2.ReactNode;
 }
 
-// @internal (undocumented)
-export class CubeFace extends React_2.Component<CubeFaceProps> {
-    // (undocumented)
-    render(): React_2.ReactNode;
-}
-
-// @internal (undocumented)
-export interface CubeFaceProps extends React_2.AllHTMLAttributes<HTMLDivElement> {
-    // (undocumented)
-    face: Face;
-    // (undocumented)
-    rotMatrix: Matrix3d;
-}
-
-// @internal (undocumented)
-export enum CubeHover {
-    // (undocumented)
-    Active = 2,
-    // (undocumented)
-    Hover = 1,
-    // (undocumented)
-    None = 0
-}
-
 // @public
 export class CubeNavigationAid extends React_2.Component<CubeNavigationAidProps, CubeNavigationAidState> {
     // (undocumented)
@@ -344,9 +320,6 @@ export interface CubeRotationChangeEventArgs {
     rotMatrix: Matrix3d;
 }
 
-// @internal
-export function CustomThumb(): React_2.JSX.Element;
-
 // @public
 export class DrawingNavigationAid extends React_2.Component<DrawingNavigationAidProps, DrawingNavigationAidState> {
     constructor(props: DrawingNavigationAidProps);
@@ -392,40 +365,6 @@ export interface DrawingNavigationAidProps extends CommonProps {
     viewport?: Viewport;
 }
 
-// @internal (undocumented)
-export class DrawingNavigationCanvas extends React_2.Component<DrawingNavigationCanvasProps> {
-    // (undocumented)
-    componentDidMount(): void;
-    // (undocumented)
-    componentDidUpdate(oldProps: DrawingNavigationCanvasProps): void;
-    // (undocumented)
-    componentWillUnmount(): void;
-    // (undocumented)
-    render(): React_2.ReactNode;
-}
-
-// @internal (undocumented)
-export interface DrawingNavigationCanvasProps {
-    // (undocumented)
-    canvasSizeOverride?: boolean;
-    // (undocumented)
-    extents: Vector3d;
-    // (undocumented)
-    origin: Point3d;
-    // (undocumented)
-    rotation: Matrix3d;
-    // (undocumented)
-    screenViewportOverride?: typeof ScreenViewport;
-    // (undocumented)
-    view: ViewState | undefined;
-    // (undocumented)
-    viewId?: string;
-    // (undocumented)
-    viewManagerOverride?: ViewManager;
-    // (undocumented)
-    zoom: number;
-}
-
 // @public @deprecated
 export class DrawingViewportChangeEvent extends UiEvent<DrawingViewportChangeEventArgs> {
 }
@@ -456,30 +395,6 @@ export enum Face {
     Right = "right",
     // (undocumented)
     Top = "top"
-}
-
-// @internal (undocumented)
-export class FaceCell extends React_2.Component<FaceCellProps> {
-    // (undocumented)
-    render(): React_2.ReactNode;
-}
-
-// @internal (undocumented)
-export interface FaceCellProps extends React_2.AllHTMLAttributes<HTMLDivElement> {
-    // (undocumented)
-    center?: boolean;
-    // (undocumented)
-    face: Face;
-    // (undocumented)
-    hoverMap?: {
-        [key: string]: CubeHover;
-    };
-    // (undocumented)
-    onFaceCellClick?: (vector: Vector3d, face: Face) => void;
-    // (undocumented)
-    onFaceCellHoverChange?: (vector: Vector3d, state: CubeHover) => void;
-    // (undocumented)
-    vector: Vector3d;
 }
 
 // @alpha
@@ -570,12 +485,6 @@ export interface FormatUnitsProps extends CommonProps {
     unitsProvider: UnitsProvider;
 }
 
-// @internal (undocumented)
-export function getCSSColorFromDef(colorDef: ColorDef): string;
-
-// @internal (undocumented)
-export function getPercentageOfRectangle(rect: DOMRect, pointer: number): number;
-
 // @beta @deprecated
 export function HueSlider({ isHorizontal, onHueChange, hsv, className, style, }: HueSliderProps): React_2.JSX.Element;
 
@@ -584,15 +493,6 @@ export interface HueSliderProps extends React_2.HTMLAttributes<HTMLDivElement>, 
     hsv: HSVColor;
     isHorizontal?: boolean;
     onHueChange?: ((hue: HSVColor) => void) | undefined;
-}
-
-// @internal
-export class InlineEdit extends React_2.Component<InlineEditProps, InlineEditState> {
-    constructor(props: InlineEditProps);
-    // (undocumented)
-    componentDidUpdate(prevProps: InlineEditProps, _prevState: InlineEditState): void;
-    // (undocumented)
-    render(): React_2.JSX.Element;
 }
 
 // @public
@@ -614,14 +514,6 @@ export interface LineWeightSwatchProps extends React_2.ButtonHTMLAttributes<HTML
     weight: number;
 }
 
-// @internal
-export enum MapMode {
-    // (undocumented)
-    Closed = "map-closed",
-    // (undocumented)
-    Opened = "map-opened"
-}
-
 // @alpha
 export function MiscFormatOptions(props: MiscFormatOptionsProps): React_2.JSX.Element;
 
@@ -639,30 +531,6 @@ export interface MiscFormatOptionsProps extends CommonProps {
     onShowHideOptions: (show: boolean) => void;
     // (undocumented)
     showOptions: boolean;
-}
-
-// @internal (undocumented)
-export class NavCubeFace extends React_2.Component<NavCubeFaceProps> {
-    // (undocumented)
-    static faceCellToPos: (face: Face, x: number, y: number) => Vector3d;
-    // (undocumented)
-    render(): React_2.ReactNode;
-}
-
-// @internal (undocumented)
-export interface NavCubeFaceProps extends React_2.AllHTMLAttributes<HTMLDivElement> {
-    // (undocumented)
-    face: Face;
-    // (undocumented)
-    hoverMap: {
-        [key: string]: CubeHover;
-    };
-    // (undocumented)
-    label: string;
-    // (undocumented)
-    onFaceCellClick: (vector: Vector3d, face: Face) => void;
-    // (undocumented)
-    onFaceCellHoverChange: (vector: Vector3d, state: CubeHover) => void;
 }
 
 // @public
@@ -724,14 +592,6 @@ export interface QuantityProps extends CommonProps {
     ref?: React_2.Ref<HTMLInputElement>;
 }
 
-// @internal (undocumented)
-export function RailMarkers({ showToolTip, percent, tooltipText, markDate, }: {
-    showToolTip: boolean;
-    percent: number;
-    tooltipText: string;
-    markDate?: DateMarkerProps;
-}): React_2.JSX.Element;
-
 // @beta @deprecated
 export function SaturationPicker({ onSaturationChange, hsv, className, style, }: SaturationPickerProps): React_2.JSX.Element;
 
@@ -739,35 +599,6 @@ export function SaturationPicker({ onSaturationChange, hsv, className, style, }:
 export interface SaturationPickerProps extends React_2.HTMLAttributes<HTMLDivElement>, CommonProps {
     hsv: HSVColor;
     onSaturationChange?: ((saturation: HSVColor) => void) | undefined;
-}
-
-// @internal
-export function Scrubber(props: ScrubberProps): React_2.JSX.Element;
-
-// @internal
-export interface ScrubberProps extends CommonProps {
-    // (undocumented)
-    currentDuration: number;
-    // (undocumented)
-    endDate?: Date;
-    // (undocumented)
-    isPlaying: boolean;
-    // (undocumented)
-    markDate?: TimelineDateMarkerProps;
-    // (undocumented)
-    onChange?: (values: ReadonlyArray<number>) => void;
-    // (undocumented)
-    onUpdate?: (values: ReadonlyArray<number>) => void;
-    // (undocumented)
-    showTime?: boolean;
-    // (undocumented)
-    startDate?: Date;
-    // (undocumented)
-    timeZoneOffset?: number;
-    // (undocumented)
-    totalDuration: number;
-    // (undocumented)
-    trackContainerProps?: React_2.ComponentProps<typeof Slider>["trackContainerProps"];
 }
 
 // @alpha
@@ -923,16 +754,13 @@ export class UiIModelComponents {
     static get initialized(): boolean;
     static get localizationNamespace(): string;
     // @internal (undocumented)
-    static loggerCategory(obj: any): string;
+    static loggerCategory(name: string): string;
     // @internal (undocumented)
     static get packageName(): string;
     static terminate(): void;
     // @internal
     static translate(key: string | string[]): string;
 }
-
-// @internal (undocumented)
-export function useFocusedThumb(sliderContainer: HTMLDivElement | undefined): boolean;
 
 // @public @deprecated
 export class ViewClassFullNameChangedEvent extends UiEvent<ViewClassFullNameChangedEventArgs> {
