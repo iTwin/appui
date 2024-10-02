@@ -35,7 +35,6 @@ import {
   ExpandableSection,
   GroupItemDef,
   IModelConnectedViewSelector,
-  KeyinEntry,
   KeyinPalettePopup,
   ListItem,
   ListItemType,
@@ -286,7 +285,7 @@ function UnitSystemSelectorFunction() {
   );
 }
 
-function PositionPopupFunction() {
+function PositionPopupExample() {
   const [isOpen, setIsOpen] = React.useState<Boolean>(false);
 
   return (
@@ -308,6 +307,30 @@ function PositionPopupFunction() {
         >
           <PositionPopupContent>Position Popup Content</PositionPopupContent>
         </PositionPopup>
+      )}
+    </>
+  );
+}
+
+function KeyinPaletteExample() {
+  const [el, setEl] = React.useState<HTMLDivElement | undefined>();
+  return (
+    <>
+      <div
+        ref={(instance) => setEl(instance ?? undefined)}
+        style={{ width: "100%" }}
+      />
+      {el && (
+        <KeyinPalettePopup
+          id="example"
+          keyins={[
+            { value: "test a" },
+            { value: "test b" },
+            { value: "keyin one" },
+            { value: "keyin two" },
+          ]}
+          el={el}
+        />
       )}
     </>
   );
@@ -1094,29 +1117,18 @@ export class ComponentExamplesProvider {
   }
 
   private static get popupSample(): ComponentExampleCategory {
-    const keyins: KeyinEntry[] = [
-      { value: "test a" },
-      { value: "test b" },
-      { value: "keyin one" },
-      { value: "keyin two" },
-    ];
-
     return {
       title: "Popup",
       examples: [
         createComponentExample(
           "Position Popup",
           undefined,
-          <PositionPopupFunction />
+          <PositionPopupExample />
         ),
         createComponentExample(
           "Keyin Palette Panel",
           undefined,
-          <KeyinPalettePopup
-            id="x"
-            keyins={keyins}
-            el={document.createElement("div")}
-          />
+          <KeyinPaletteExample />
         ),
       ],
     };
