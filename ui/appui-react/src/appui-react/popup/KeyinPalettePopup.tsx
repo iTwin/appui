@@ -17,7 +17,8 @@ import type { KeyinEntry } from "../keyins/Keyins.js";
 import type { SizeProps } from "../utils/SizeProps.js";
 
 /** Props defining KeyinPalettePopup component
- * @public */
+ * @public
+ */
 export interface KeyinPalettePopupProps {
   id: string;
   /** @deprecated in 4.11.0. Please use the optional `anchorEl` property moving forward. */

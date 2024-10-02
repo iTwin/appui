@@ -36,7 +36,7 @@ import {
   GroupItemDef,
   IModelConnectedViewSelector,
   KeyinEntry,
-  KeyinPalettePanel,
+  KeyinPalettePopup,
   ListItem,
   ListItemType,
   ListPicker,
@@ -1112,7 +1112,11 @@ export class ComponentExamplesProvider {
         createComponentExample(
           "Keyin Palette Panel",
           undefined,
-          <KeyinPalettePanel keyins={keyins} />
+          <KeyinPalettePopup
+            id="x"
+            keyins={keyins}
+            el={document.createElement("div")}
+          />
         ),
       ],
     };
