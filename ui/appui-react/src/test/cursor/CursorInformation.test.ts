@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { RelativePosition } from "@itwin/appui-abstract";
-import { Point } from "@itwin/core-react";
+import { Point } from "@itwin/core-react/internal";
 import {
   CursorDirection,
   CursorInformation,

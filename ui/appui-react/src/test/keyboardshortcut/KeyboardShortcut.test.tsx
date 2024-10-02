@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { Point } from "@itwin/core-react";
+import { Point } from "@itwin/core-react/internal";
 import { Key } from "ts-key-enum";
 import type { KeyboardShortcutProps } from "../../appui-react.js";
 import {

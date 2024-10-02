@@ -20,7 +20,7 @@ import { ListItemType, ListPicker } from "./ListPicker.js";
 import { debounce } from "lodash";
 import svgSavedView from "@bentley/icons-generic/icons/saved-view.svg";
 import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState.js";
-import type { ListenerType } from "@itwin/core-react";
+import type { ListenerType } from "@itwin/core-react/internal";
 
 // cSpell:ignore Spatials
 
@@ -371,7 +371,7 @@ export class ViewSelector extends React.Component<
         !activeContentControl.supportsViewSelectorChange)
     ) {
       Logger.logError(
-        UiFramework.loggerCategory(this),
+        UiFramework.loggerCategory("ViewSelector"),
         `No active ContentControl for ViewSelector change`
       );
       return;

@@ -105,7 +105,7 @@ export class KeyboardShortcut extends ItemDefBase {
       });
     } else {
       throw new UiError(
-        UiFramework.loggerCategory(this),
+        UiFramework.loggerCategory("KeyboardShortcut"),
         `Either 'item', 'execute' or 'shortcuts' must be specified for '${props.key}' key.`
       );
     }

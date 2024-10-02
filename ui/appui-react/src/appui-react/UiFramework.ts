@@ -20,7 +20,6 @@ import type {
   PropertyRecord,
 } from "@itwin/appui-abstract";
 import { UiAdmin, UiError, UiEvent } from "@itwin/appui-abstract";
-import { getObjectClassName } from "@itwin/core-react";
 import { UiIModelComponents } from "@itwin/imodel-components-react";
 import { BackstageManager } from "./backstage/BackstageManager.js";
 import { InternalChildWindowManager } from "./childwindow/InternalChildWindowManager.js";
@@ -155,7 +154,7 @@ export class UiFramework {
     if (!UiFramework._backstageManager)
       // eslint-disable-next-line deprecation/deprecation
       throw new UiError(
-        UiFramework.loggerCategory(this),
+        UiFramework.loggerCategory("UiFramework"),
         UiFramework._complaint
       );
     return UiFramework._backstageManager;
@@ -271,7 +270,7 @@ export class UiFramework {
     // TODO: check `arguments` to determine between redux & no-redux initializers.
     if (UiFramework._initialized) {
       Logger.logInfo(
-        UiFramework.loggerCategory(UiFramework),
+        UiFramework.loggerCategory("UiFramework"),
         `UiFramework.initialize already called`
       );
       return;
@@ -370,7 +369,7 @@ export class UiFramework {
     if (!UiFramework._hideIsolateEmphasizeActionHandler)
       // eslint-disable-next-line deprecation/deprecation
       throw new UiError(
-        UiFramework.loggerCategory(this),
+        UiFramework.loggerCategory("UiFramework"),
         UiFramework._complaint
       );
     return UiFramework._hideIsolateEmphasizeActionHandler;
@@ -390,7 +389,7 @@ export class UiFramework {
     if (!UiFramework._widgetManager)
       // eslint-disable-next-line deprecation/deprecation
       throw new UiError(
-        UiFramework.loggerCategory(this),
+        UiFramework.loggerCategory("UiFramework"),
         UiFramework._complaint
       );
     return UiFramework._widgetManager;
@@ -415,11 +414,8 @@ export class UiFramework {
   }
 
   /** @internal */
-  public static loggerCategory(obj: any): string {
-    const className = getObjectClassName(obj);
-    const category =
-      UiFramework.packageName + (className ? `.${className}` : "");
-    return category;
+  public static loggerCategory(name: string): string {
+    return `${UiFramework.packageName}.${name}`;
   }
 
   /** Show a context menu at a particular location.
@@ -1102,7 +1098,7 @@ export class UiFramework {
     const reduxStore = this.reduxStore;
     if (!reduxStore) {
       throw new UiError(
-        UiFramework.loggerCategory(this),
+        UiFramework.loggerCategory("UiFramework"),
         `Error trying to access redux store before either store or StateManager has been initialized.`
       );
     }

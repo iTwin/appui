@@ -7,7 +7,7 @@
  */
 
 import * as React from "react";
-import { useRefEffect, useRefs } from "@itwin/core-react";
+import { useRefEffect, useRefs } from "@itwin/core-react/internal";
 import {
   AutoCollapseUnpinnedPanelsContext,
   NineZoneDispatchContext,

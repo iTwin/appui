@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { produce } from "immer";
-import { Point, Rectangle } from "@itwin/core-react";
+import { Point, Rectangle } from "@itwin/core-react/internal";
 import { addTabs } from "../Utils.js";
 import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState.js";
 import { NineZoneStateReducer } from "../../../appui-react/layout/state/NineZoneStateReducer.js";

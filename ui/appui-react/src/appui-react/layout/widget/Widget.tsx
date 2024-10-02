@@ -11,7 +11,7 @@ import classnames from "classnames";
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
 import type { CommonProps } from "@itwin/core-react";
-import { Rectangle, useRefs } from "@itwin/core-react";
+import { Rectangle, useRefs } from "@itwin/core-react/internal";
 import type { UseDragWidgetArgs } from "../base/DragManager.js";
 import { useDragWidget } from "../base/DragManager.js";
 import {

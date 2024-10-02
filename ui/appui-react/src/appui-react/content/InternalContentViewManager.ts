@@ -98,7 +98,7 @@ export class InternalContentViewManager {
 
     if (logIfNotFound)
       Logger.logError(
-        UiFramework.loggerCategory(this),
+        UiFramework.loggerCategory("InternalContentViewManager"),
         `getControlFromElement: no control found for element`
       );
 

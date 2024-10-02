@@ -12,12 +12,8 @@ import type {
   StringGetter,
 } from "@itwin/appui-abstract";
 import { ConditionalBooleanValue, UiError } from "@itwin/appui-abstract";
-import type {
-  BadgeKind,
-  BadgeType,
-  CommonProps,
-  IconSpec,
-} from "@itwin/core-react";
+import type { BadgeType, CommonProps, IconSpec } from "@itwin/core-react";
+import type { BadgeKind } from "@itwin/core-react/internal";
 import { ContextMenuItem, ContextSubMenu } from "@itwin/core-react";
 import { UiFramework } from "../UiFramework.js";
 import type { ActionButtonItemDef } from "./ActionButtonItemDef.js";
@@ -142,7 +138,7 @@ export class MenuItem extends ItemDefBase {
     } else {
       // eslint-disable-next-line deprecation/deprecation
       throw new UiError(
-        UiFramework.loggerCategory(this),
+        UiFramework.loggerCategory("MenuItem"),
         `Either 'item', 'execute' or 'submenu' must be specified for '${props.id}'.`
       );
     }

@@ -20,7 +20,7 @@ import {
   GroupColumn,
   GroupTool,
   Panel,
-} from "@itwin/components-react";
+} from "@itwin/components-react/internal";
 import { StandardViewId } from "@itwin/core-frontend";
 import type { CommonProps, IconSpec } from "@itwin/core-react";
 import { Icon, Popup } from "@itwin/core-react";

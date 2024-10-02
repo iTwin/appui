@@ -7,7 +7,6 @@
  */
 
 import * as React from "react";
-import { Size } from "@itwin/core-react";
 import type { PopupPropsBase } from "../popup/PopupManager.js";
 import { PopupManager } from "../popup/PopupManager.js";
 import { MenuButton } from "./MenuButton.js";
@@ -19,7 +18,7 @@ export interface MenuButtonPopupProps extends PopupPropsBase {
 }
 
 interface MenuButtonPopupState {
-  size: Size;
+  size: SizeProps;
 }
 
 /** Popup component for Menu Buttons
@@ -30,12 +29,16 @@ export class MenuButtonPopup extends React.PureComponent<
   MenuButtonPopupState
 > {
   public override readonly state = {
-    size: new Size(-1, -1),
+    size: { width: -1, height: -1 },
   };
 
   private _onSizeKnown = (newSize: SizeProps) => {
-    if (!this.state.size.equals(newSize))
-      this.setState({ size: Size.create(newSize) });
+    if (
+      newSize.height === this.state.size.height &&
+      newSize.width === this.state.size.width
+    )
+      return;
+    this.setState({ size: newSize });
   };
 
   public override render() {

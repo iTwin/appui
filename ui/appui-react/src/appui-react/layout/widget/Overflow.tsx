@@ -9,7 +9,11 @@
 import "./Overflow.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { useRefs, useRefState, useResizeObserver } from "@itwin/core-react";
+import {
+  useRefs,
+  useRefState,
+  useResizeObserver,
+} from "@itwin/core-react/internal";
 import { WidgetMenu } from "./Menu.js";
 import { useLabel } from "../base/NineZone.js";
 import { PanelSideContext } from "../widget-panels/Panel.js";

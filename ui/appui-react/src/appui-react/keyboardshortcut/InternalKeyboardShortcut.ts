@@ -15,7 +15,7 @@ import {
 } from "./KeyboardShortcut.js";
 import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher.js";
 import type { KeyboardShortcutProps } from "./KeyboardShortcutProps.js";
-import type { ListenerType } from "@itwin/core-react";
+import type { ListenerType } from "@itwin/core-react/internal";
 
 /* eslint-disable deprecation/deprecation */
 

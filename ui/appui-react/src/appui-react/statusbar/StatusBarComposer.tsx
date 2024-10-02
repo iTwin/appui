@@ -11,7 +11,7 @@ import {
   ConditionalStringValue,
 } from "@itwin/appui-abstract";
 import type { CommonProps } from "@itwin/core-react";
-import { useRefs, useResizeObserver } from "@itwin/core-react";
+import { useRefs, useResizeObserver } from "@itwin/core-react/internal";
 import classnames from "classnames";
 import * as React from "react";
 import { eqlOverflown } from "../layout/tool-settings/Docked.js";

@@ -17,7 +17,7 @@ import {
   ConfigurableUiReducer,
 } from "../../appui-react/redux/ConfigurableUiState.js";
 import { SnapMode } from "@itwin/core-frontend";
-import { TOOLBAR_OPACITY_DEFAULT } from "@itwin/core-react";
+import { TOOLBAR_OPACITY_DEFAULT } from "@itwin/core-react/internal";
 import {
   SYSTEM_PREFERRED_COLOR_THEME,
   WIDGET_OPACITY_DEFAULT,

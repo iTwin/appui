@@ -9,11 +9,8 @@
 import "./Docked.scss";
 import { assert } from "@itwin/core-bentley";
 import type { CommonProps } from "@itwin/core-react";
-import {
-  getCssVariableAsNumber,
-  useRefs,
-  useResizeObserver,
-} from "@itwin/core-react";
+import { getCssVariableAsNumber } from "@itwin/core-react";
+import { useRefs, useResizeObserver } from "@itwin/core-react/internal";
 import classnames from "classnames";
 import * as React from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";

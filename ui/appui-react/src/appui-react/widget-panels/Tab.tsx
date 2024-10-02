@@ -6,7 +6,8 @@
  * @module Widget
  */
 
-import { Badge, Icon } from "@itwin/core-react";
+import { Icon } from "@itwin/core-react";
+import { Badge } from "@itwin/core-react/internal";
 import * as React from "react";
 import { WidgetTab } from "../layout/widget/Tab.js";
 import { useWidgetDef } from "./Content.js";

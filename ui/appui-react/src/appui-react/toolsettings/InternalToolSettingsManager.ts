@@ -9,7 +9,7 @@
 import type { InteractiveTool } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
 import type { DialogItem, DialogPropertySyncItem } from "@itwin/appui-abstract";
-import { focusIntoContainer } from "@itwin/core-react";
+import { focusIntoContainer } from "@itwin/core-react/internal";
 import type { SyncToolSettingsPropertiesEventArgs } from "../framework/FrameworkToolSettings.js";
 import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher.js";
 import { BeUiEvent } from "@itwin/core-bentley";

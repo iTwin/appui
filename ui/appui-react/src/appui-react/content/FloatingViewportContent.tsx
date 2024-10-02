@@ -14,7 +14,7 @@ import { ViewportComponent } from "@itwin/imodel-components-react";
 import { FloatingViewportContentControl } from "./ViewportContentControl.js";
 import { ContentWrapper } from "./ContentLayout.js";
 import { UiFramework } from "../UiFramework.js";
-import { useRefs } from "@itwin/core-react";
+import { useRefs } from "@itwin/core-react/internal";
 import { ContentOverlay } from "./ContentOverlay.js";
 
 /* eslint-disable deprecation/deprecation */

@@ -6,7 +6,7 @@
  * @module ConfigurableUi
  */
 
-import type { ListenerType } from "@itwin/core-react";
+import type { ListenerType } from "@itwin/core-react/internal";
 import { InternalConfigurableUiManager } from "./InternalConfigurableUiManager.js";
 
 /** Time Tracker utility class

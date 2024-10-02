@@ -16,14 +16,10 @@ import {
 } from "@itwin/appui-abstract";
 import { OutputMessagePriority } from "@itwin/core-frontend";
 import type { XAndY } from "@itwin/core-geometry";
-import type { CommonProps, ListenerType } from "@itwin/core-react";
-import {
-  Icon,
-  MessageContainer,
-  MessageRenderer,
-  Point,
-  Rectangle,
-} from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
+import type { ListenerType } from "@itwin/core-react/internal";
+import { Icon, MessageContainer, MessageRenderer } from "@itwin/core-react";
+import { Point, Rectangle } from "@itwin/core-react/internal";
 import {
   offsetAndContainInContainer,
   Tooltip,

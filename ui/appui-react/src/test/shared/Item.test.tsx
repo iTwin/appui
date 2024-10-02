@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { IModelApp, SelectionTool, Tool } from "@itwin/core-frontend";
-import { Orientation, Size } from "@itwin/core-react";
+import { Orientation } from "@itwin/core-react";
 import type { ItemProps } from "../../appui-react.js";
 import {
   ActionButtonItemDef,
@@ -157,7 +157,7 @@ describe("Item", () => {
     const testItem = new TestItemDef({
       iconSpec: "icon-placeholder",
     });
-    testItem.handleSizeKnown(new Size(200, 100));
+    testItem.handleSizeKnown({ width: 200, height: 100 });
     expect(testItem.getDimension(Orientation.Horizontal)).toEqual(200);
     expect(testItem.getDimension(Orientation.Vertical)).toEqual(100);
   });

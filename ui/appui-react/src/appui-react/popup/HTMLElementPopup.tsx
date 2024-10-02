@@ -9,12 +9,8 @@
 import * as React from "react";
 import type { OnCancelFunc, RelativePosition } from "@itwin/appui-abstract";
 import type { Orientation } from "@itwin/components-react";
-import {
-  DivWithOutsideClick,
-  MessageRenderer,
-  Point,
-  Size,
-} from "@itwin/core-react";
+import { DivWithOutsideClick, MessageRenderer } from "@itwin/core-react";
+import { Point } from "@itwin/core-react/internal";
 import { CursorPopup } from "../cursor/cursorpopup/CursorPopup.js";
 import type { PopupPropsBase } from "./PopupManager.js";
 import { PopupManager } from "./PopupManager.js";
@@ -33,7 +29,7 @@ export interface HTMLElementPopupProps extends PopupPropsBase {
 
 /** @internal */
 interface HTMLElementPopupState {
-  size: Size;
+  size: SizeProps;
 }
 
 /** Popup component for HTMLElement
@@ -46,12 +42,16 @@ export class HTMLElementPopup extends React.PureComponent<
   HTMLElementPopupState
 > {
   public override readonly state = {
-    size: new Size(-1, -1),
+    size: { width: -1, height: -1 },
   };
 
   private _onSizeKnown = (newSize: SizeProps) => {
-    if (!this.state.size.equals(newSize))
-      this.setState({ size: Size.create(newSize) });
+    if (
+      newSize.height === this.state.size.height &&
+      newSize.width === this.state.size.width
+    )
+      return;
+    this.setState({ size: newSize });
   };
 
   public override render() {

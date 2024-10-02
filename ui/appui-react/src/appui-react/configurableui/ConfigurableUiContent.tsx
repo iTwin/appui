@@ -9,7 +9,7 @@
 import "./ConfigurableUiContent.scss";
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
-import { Point } from "@itwin/core-react";
+import { Point } from "@itwin/core-react/internal";
 import { ThemeProvider } from "@itwin/itwinui-react";
 import { CursorInformation } from "../cursor/CursorInformation.js";
 import { CursorPopupMenu } from "../cursor/cursormenu/CursorMenu.js";

@@ -24,7 +24,7 @@ import {
 } from "./WidgetStateHelpers.js";
 import type { WidgetState } from "../WidgetState.js";
 import { isFloatingWidgetRestoreState } from "../WidgetRestoreState.js";
-import { Rectangle } from "@itwin/core-react";
+import { Rectangle } from "@itwin/core-react/internal";
 import { getUniqueId } from "../../base/NineZone.js";
 import { insertPanelWidget } from "./PanelStateHelpers.js";
 

@@ -8,7 +8,7 @@
 import * as React from "react";
 import { isEqual } from "lodash";
 import { BeEvent } from "@itwin/core-bentley";
-import { Point } from "@itwin/core-react";
+import { Point } from "@itwin/core-react/internal";
 import type { PanelSide } from "../widget-panels/PanelTypes.js";
 import type { FloatingWidgetResizeHandle } from "../widget/FloatingWidget.js";
 import type { WidgetState } from "../state/WidgetState.js";

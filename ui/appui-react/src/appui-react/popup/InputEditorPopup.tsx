@@ -11,7 +11,7 @@ import type { Primitives, PropertyRecord } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
 import type { PropertyUpdatedArgs } from "@itwin/components-react";
 import { EditorContainer } from "@itwin/components-react";
-import { DivWithOutsideClick, Size } from "@itwin/core-react";
+import { DivWithOutsideClick } from "@itwin/core-react";
 import type { PopupPropsBase } from "./PopupManager.js";
 import { PopupManager } from "./PopupManager.js";
 import { PositionPopup, PositionPopupContent } from "./PositionPopup.js";
@@ -42,7 +42,7 @@ export interface InputEditorPopupProps extends PopupPropsBase {
 }
 
 interface InputEditorPopupState {
-  size: Size;
+  size: SizeProps;
 }
 
 /** Popup component for Input Editor
@@ -53,12 +53,16 @@ export class InputEditorPopup extends React.PureComponent<
   InputEditorPopupState
 > {
   public override readonly state = {
-    size: new Size(-1, -1),
+    size: { width: -1, height: -1 },
   };
 
   private _onSizeKnown = (newSize: SizeProps) => {
-    if (!this.state.size.equals(newSize))
-      this.setState({ size: Size.create(newSize) });
+    if (
+      newSize.height === this.state.size.height &&
+      newSize.width === this.state.size.width
+    )
+      return;
+    this.setState({ size: newSize });
   };
 
   public override render() {

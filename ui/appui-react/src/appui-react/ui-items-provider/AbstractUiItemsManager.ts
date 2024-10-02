@@ -11,7 +11,8 @@
 import * as abstract from "@itwin/appui-abstract";
 import type { BeUiEvent } from "@itwin/core-bentley";
 import { assert } from "@itwin/core-bentley";
-import type { BadgeKind, IconSpec } from "@itwin/core-react";
+import type { IconSpec } from "@itwin/core-react";
+import type { BadgeKind } from "@itwin/core-react/internal";
 import { BadgeType, IconHelper } from "@itwin/core-react";
 import type {
   // @ts-ignore Removed in 4.0

@@ -7,7 +7,8 @@
  */
 
 import * as React from "react";
-import type { CommonProps, ListenerType } from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
+import type { ListenerType } from "@itwin/core-react/internal";
 import { GlobalContextMenu } from "@itwin/core-react"; // ContextSubMenu,
 import { SessionStateActionId } from "../../redux/SessionState.js";
 import type { CursorMenuItemProps } from "../../shared/MenuItem.js";
@@ -83,7 +84,7 @@ export class CursorPopupMenu extends React.PureComponent<
     // if the window is not a pop out set to undefined
     this._hostChildWindowId = UiFramework.childWindows.findId(parentWindow);
     Logger.logInfo(
-      UiFramework.loggerCategory(UiFramework),
+      UiFramework.loggerCategory("UiFramework"),
       `Cursor Menu for ${this._hostChildWindowId ?? "main"} window`
     );
   };

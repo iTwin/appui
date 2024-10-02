@@ -9,7 +9,6 @@
 import { Point } from "./Point.js";
 import type { PointProps } from "./PointProps.js";
 import type { SizeProps } from "./Size.js";
-import { Size } from "./Size.js";
 
 /* eslint-disable deprecation/deprecation */
 
@@ -72,10 +71,10 @@ export class Rectangle implements RectangleProps {
   ) {}
 
   /** @returns Size of this rectangle. */
-  public getSize(): Size {
+  public getSize(): SizeProps {
     const width = this.getWidth();
     const height = this.getHeight();
-    return new Size(width, height);
+    return { width, height };
   }
 
   /** @returns Width of this rectangle. */

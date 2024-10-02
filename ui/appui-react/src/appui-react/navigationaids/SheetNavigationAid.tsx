@@ -16,7 +16,8 @@ import type {
 } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
 import { ViewportComponentEvents } from "@itwin/imodel-components-react";
-import type { CommonProps, ListenerType } from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
+import type { ListenerType } from "@itwin/core-react/internal";
 import type { ConfigurableCreateInfo } from "../configurableui/ConfigurableUiControl.js";
 import type { ModalFrontstageInfo } from "../framework/FrameworkFrontstages.js";
 import { UiFramework } from "../UiFramework.js";

@@ -11,6 +11,10 @@
       "import": "./lib/esm/components-react.js",
       "require": "./lib/cjs/components-react.js"
     },
+    "./internal": {
+      "import": "./lib/esm/internal.js",
+      "require": "./lib/cjs/internal.js"
+    },
     "./*": {
       "sass": "./*.scss"
     },

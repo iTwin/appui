@@ -5,7 +5,7 @@
 /* eslint-disable deprecation/deprecation */
 
 import * as React from "react";
-import { Point } from "@itwin/core-react";
+import { Point } from "@itwin/core-react/internal";
 import {
   ComponentExampleCategory,
   ComponentExampleProps,

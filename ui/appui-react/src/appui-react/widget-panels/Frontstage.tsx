@@ -9,7 +9,6 @@
 import { ToolbarPopupAutoHideContext } from "@itwin/components-react";
 import { assert, Logger, ProcessDetector } from "@itwin/core-bentley";
 import { IModelApp } from "@itwin/core-frontend";
-import { Size } from "@itwin/core-react";
 import { produce } from "immer";
 import * as React from "react";
 import { unstable_batchedUpdates } from "react-dom";
@@ -176,7 +175,10 @@ export function useNineZoneDispatch(frontstageDef: FrontstageDef) {
   return React.useCallback<NineZoneDispatch>(
     (action) => {
       if (action.type === "RESIZE") {
-        InternalFrontstageManager.nineZoneSize = Size.create(action.size);
+        InternalFrontstageManager.nineZoneSize = {
+          width: action.size.width,
+          height: action.size.height,
+        };
       }
 
       const state = frontstageDef.nineZoneState;
@@ -611,7 +613,7 @@ export function restoreNineZoneState(
       const widgetDef = frontstageDef.findWidgetDef(tab.id);
       if (!widgetDef) {
         Logger.logInfo(
-          UiFramework.loggerCategory(restoreNineZoneState),
+          UiFramework.loggerCategory("restoreNineZoneState"),
           "WidgetDef is not found for saved tab.",
           {
             frontstageId: frontstageDef.id,

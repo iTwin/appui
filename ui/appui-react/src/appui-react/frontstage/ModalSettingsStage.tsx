@@ -149,7 +149,10 @@ export class SettingsModalFrontstage implements ModalFrontstageInfo {
         OutputMessageType.Toast
       );
       IModelApp.notifications.outputMessage(info);
-      Logger.logInfo(UiFramework.loggerCategory(this), detailedMessage);
+      Logger.logInfo(
+        UiFramework.loggerCategory("SettingsModalFrontstage"),
+        detailedMessage
+      );
     }
   }
 }

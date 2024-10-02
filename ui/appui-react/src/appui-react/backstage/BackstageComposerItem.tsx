@@ -11,7 +11,8 @@ import {
   ConditionalStringValue,
 } from "@itwin/appui-abstract";
 import { Logger } from "@itwin/core-bentley";
-import { Badge, Icon as CoreIcon } from "@itwin/core-react";
+import { Icon as CoreIcon } from "@itwin/core-react";
+import { Badge } from "@itwin/core-react/internal";
 import * as React from "react";
 import { UiFramework } from "../UiFramework.js";
 import { useActiveFrontstageId } from "../frontstage/FrontstageDef.js";

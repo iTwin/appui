@@ -7,7 +7,7 @@
  */
 
 import type { Draft } from "immer";
-import { Rectangle } from "@itwin/core-react";
+import { Rectangle } from "@itwin/core-react/internal";
 import type { NineZoneState } from "../NineZoneState.js";
 import type { FloatingWidgetState } from "../WidgetState.js";
 import {

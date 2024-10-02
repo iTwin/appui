@@ -18,7 +18,8 @@ import {
   ToolAssistanceImage,
   ToolAssistanceInputMethod,
 } from "@itwin/core-frontend";
-import type { CommonProps, ListenerType } from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
+import type { ListenerType } from "@itwin/core-react/internal";
 import { FillCentered, Icon, UiStateEntry } from "@itwin/core-react";
 import { Button, Tabs, ToggleSwitch } from "@itwin/itwinui-react";
 import classnames from "classnames";
@@ -598,7 +599,7 @@ export class ToolAssistanceField extends React.Component<
         );
       } else {
         Logger.logError(
-          UiFramework.loggerCategory(this),
+          UiFramework.loggerCategory("ToolAssistanceField"),
           `getInstructionImage: Invalid keyboardInfo provided with image`
         );
       }
@@ -623,7 +624,7 @@ export class ToolAssistanceField extends React.Component<
         );
       } else {
         Logger.logError(
-          UiFramework.loggerCategory(this),
+          UiFramework.loggerCategory("ToolAssistanceField"),
           `getInstructionImage: ToolAssistanceImage.Keyboard specified but no keyboardInfo provided`
         );
       }
@@ -774,7 +775,7 @@ export class ToolAssistanceField extends React.Component<
       else image = ToolAssistanceField.getKeyNode(keyboardInfo.keys[0], 0);
     } else {
       Logger.logError(
-        UiFramework.loggerCategory(this),
+        UiFramework.loggerCategory("ToolAssistanceField"),
         `ToolAssistanceImage.Keyboard specified but ToolAssistanceKeyboardInfo not valid`
       );
     }

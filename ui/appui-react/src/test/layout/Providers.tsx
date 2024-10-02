@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { Point, Rectangle, Size } from "@itwin/core-react";
+import { Point, Rectangle } from "@itwin/core-react/internal";
 import * as React from "react";
 import {
   DragManager,
@@ -70,7 +70,7 @@ export function createDragInfo(args?: Partial<DragInfo>): DragInfo {
     initialPointerPosition: new Point(),
     lastPointerPosition: new Point(),
     pointerPosition: new Point(),
-    widgetSize: new Size(),
+    widgetSize: { height: 0, width: 0 },
     ...args,
   };
 }

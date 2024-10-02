@@ -45,7 +45,7 @@ export class ToolInformation {
       if (provider) {
         if (provider.getType() !== ConfigurableUiControlType.ToolUiProvider) {
           throw new UiError(
-            UiFramework.loggerCategory(this),
+            UiFramework.loggerCategory("ToolInformation"),
             `toolUiProvider: toolId '${this.toolId}' is registered to a control that is NOT a ToolUiProvider`
           );
         }

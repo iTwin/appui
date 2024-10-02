@@ -103,7 +103,7 @@ export class SyncUiEventDispatcher {
   public static dispatchSyncUiEvent(eventId: string): void {
     if (0 === SyncUiEventDispatcher._uiEventDispatcher.timeoutPeriod) {
       Logger.logInfo(
-        UiFramework.loggerCategory(this),
+        UiFramework.loggerCategory("SyncUiEventDispatcher"),
         `[dispatchSyncUiEvent] not processed because timeoutPeriod=0`
       );
       return;
@@ -115,7 +115,7 @@ export class SyncUiEventDispatcher {
   public static dispatchSyncUiEvents(eventIds: string[]): void {
     if (0 === SyncUiEventDispatcher._uiEventDispatcher.timeoutPeriod) {
       Logger.logInfo(
-        UiFramework.loggerCategory(this),
+        UiFramework.loggerCategory("SyncUiEventDispatcher"),
         `[dispatchSyncUiEvents] not processed because _timeoutPeriod=0`
       );
     }

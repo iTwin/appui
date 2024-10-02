@@ -7,7 +7,7 @@
  */
 
 import * as React from "react";
-import { Point } from "@itwin/core-react";
+import { Point } from "@itwin/core-react/internal";
 import { useTransientState } from "../../widget-panels/useTransientState.js";
 import "./Content.scss";
 

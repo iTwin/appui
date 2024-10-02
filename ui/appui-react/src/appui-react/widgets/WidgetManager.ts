@@ -77,7 +77,7 @@ export class WidgetManager {
   ): boolean {
     if (stageId === undefined && stageUsage === undefined) {
       Logger.logError(
-        UiFramework.loggerCategory(this),
+        UiFramework.loggerCategory("WidgetManager"),
         `addWidgetDef: stageId or stageUsage param must be specified`
       );
       return false;

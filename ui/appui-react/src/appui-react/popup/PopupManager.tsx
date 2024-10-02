@@ -23,8 +23,8 @@ import {
 import { Orientation } from "@itwin/components-react";
 import { Logger } from "@itwin/core-bentley";
 import type { XAndY } from "@itwin/core-geometry";
-import type { ListenerType, Point } from "@itwin/core-react";
-import { Rectangle } from "@itwin/core-react";
+import type { ListenerType, Point } from "@itwin/core-react/internal";
+import { Rectangle } from "@itwin/core-react/internal";
 import { offsetAndContainInContainer } from "../layout/popup/Tooltip.js";
 import type { KeyinEntry } from "../keyins/Keyins.js";
 import { UiFramework } from "../UiFramework.js";
@@ -194,7 +194,7 @@ export class PopupManager {
       this.popups = popups;
     } else {
       Logger.logError(
-        UiFramework.loggerCategory(this),
+        UiFramework.loggerCategory("PopupManager"),
         `removePopup: Could not find popup with id of '${id}'`
       );
       result = false;

@@ -14,7 +14,7 @@ import type {
 } from "@itwin/appui-abstract";
 import { ConditionalStringValue } from "@itwin/appui-abstract";
 import { assert } from "@itwin/core-bentley";
-import type { BadgeKind } from "@itwin/core-react";
+import type { BadgeKind } from "@itwin/core-react/internal";
 import { IconHelper } from "@itwin/core-react";
 import type { AnyItemDef } from "../shared/AnyItemDef.js";
 import { CommandItemDef } from "../shared/CommandItemDef.js";
@@ -29,7 +29,7 @@ import type {
 } from "./ToolbarItem.js";
 import { isToolbarActionItem, isToolbarGroupItem } from "./ToolbarItem.js";
 import type { ToolbarItemUtilities } from "./ToolbarItemUtilities.js";
-import type { CommonToolbarItemWithBadgeKind } from "@itwin/components-react";
+import type { CommonToolbarItemWithBadgeKind } from "@itwin/components-react/internal";
 
 /* eslint-disable deprecation/deprecation */
 

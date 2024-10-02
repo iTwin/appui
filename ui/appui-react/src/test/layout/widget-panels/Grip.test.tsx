@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { Rectangle } from "@itwin/core-react";
+import { Rectangle } from "@itwin/core-react/internal";
 import { act, fireEvent, render, renderHook } from "@testing-library/react";
 import type { TestNineZoneProviderProps } from "../Providers.js";
 import { createDragInfo, TestNineZoneProvider } from "../Providers.js";

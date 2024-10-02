@@ -20,7 +20,8 @@ import {
   RelativePosition,
   StandardTypeNames,
 } from "@itwin/appui-abstract";
-import { BadgeType, Point } from "@itwin/core-react";
+import { BadgeType } from "@itwin/core-react";
+import { Point } from "@itwin/core-react/internal";
 import { AccuDrawPopupManager } from "../../appui-react/accudraw/AccuDrawPopupManager.js";
 import {
   PopupManager,

@@ -44,7 +44,7 @@ export class ReducerRegistry {
     if (this._reducers[name]) {
       // eslint-disable-next-line deprecation/deprecation
       throw new UiError(
-        UiFramework.loggerCategory(this),
+        UiFramework.loggerCategory("ReducerRegistry"),
         `Redux Reducer with matching name of '${name}' is already registered`
       );
     }

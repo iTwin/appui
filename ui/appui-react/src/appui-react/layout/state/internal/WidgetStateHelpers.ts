@@ -9,7 +9,7 @@
 import { castDraft, produce } from "immer";
 import { UiError } from "@itwin/appui-abstract";
 import { assert } from "@itwin/core-bentley";
-import { Point, Rectangle } from "@itwin/core-react";
+import { Point, Rectangle } from "@itwin/core-react/internal";
 import type { NineZoneState } from "../NineZoneState.js";
 import type {
   FloatingWidgetState,

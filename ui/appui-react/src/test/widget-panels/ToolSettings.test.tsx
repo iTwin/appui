@@ -2,9 +2,9 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { Rectangle } from "@itwin/core-react";
-import { act, render, renderHook } from "@testing-library/react";
 import * as React from "react";
+import { Rectangle } from "@itwin/core-react/internal";
+import { act, render, renderHook } from "@testing-library/react";
 import type { ToolSettingsEntry } from "../../appui-react.js";
 import {
   ConfigurableCreateInfo,

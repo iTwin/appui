@@ -10,7 +10,6 @@ import {
   isReactNotifyMessageDetails,
   ReactNotifyMessageDetails,
 } from "../../appui-react.js";
-import { isReactMessage } from "@itwin/core-react";
 
 describe("ReactNotifyMessageDetails", () => {
   it("should support React node & create NotifyMessageDetails", () => {
@@ -21,7 +20,7 @@ describe("ReactNotifyMessageDetails", () => {
       reactMessage
     );
     expect(details.messageDetails).toBeTruthy();
-    expect(isReactMessage(details.briefMessage)).toEqual(true);
+    expect(details.briefMessage).toHaveProperty("reactNode");
     expect(isReactNotifyMessageDetails(details)).toEqual(true);
   });
 
