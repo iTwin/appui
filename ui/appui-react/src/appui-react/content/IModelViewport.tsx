@@ -267,5 +267,3 @@ export class IModelViewportControl extends ViewportContentControl {
     else return StandardRotationNavigationAidControl.navigationAidId;
   }
 }
-
-UiFramework.controls.register(IModelViewportControl.id, IModelViewportControl);

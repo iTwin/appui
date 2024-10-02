@@ -5,6 +5,7 @@
 /* eslint-disable deprecation/deprecation */
 
 import "./appui-react/layers.scss";
+
 export {
   UiVisibilityChangedEvent,
   UiVisibilityEventArgs,
@@ -839,6 +840,20 @@ export { useWidget } from "./appui-react/widgets/useWidget.js";
 
 export { ToolInformation } from "./appui-react/toolsettings/ToolInformation.js";
 export { ToolUiProvider } from "./appui-react/toolsettings/ToolUiProvider.js";
+
+// #region "SideEffects"
+
+import { UiFramework } from "./appui-react/UiFramework.js";
+import { DefaultToolSettingsProvider } from "./appui-react/toolsettings/DefaultToolSettingsProvider.js";
+import { IModelViewportControl } from "./appui-react/content/IModelViewport.js";
+
+UiFramework.controls.register(
+  "DefaultToolSettings",
+  DefaultToolSettingsProvider
+);
+UiFramework.controls.register(IModelViewportControl.id, IModelViewportControl);
+
+// #endregion "SideEffects"
 
 /** @docs-package-description
  * The ui-framework package contains classes and components for specifying the application UI consisting of the
