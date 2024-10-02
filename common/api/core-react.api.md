@@ -1472,7 +1472,7 @@ export class UiCore {
     static get initialized(): boolean;
     static get localizationNamespace(): string;
     // @internal (undocumented)
-    static loggerCategory(obj: any): string;
+    static loggerCategory(name: string): string;
     // @internal (undocumented)
     static get packageName(): string;
     static terminate(): void;
