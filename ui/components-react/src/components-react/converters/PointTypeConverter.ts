@@ -119,11 +119,6 @@ export class Point2dTypeConverter extends BasePointTypeConverter {
   }
 }
 
-TypeConverterManager.registerConverter(
-  StandardTypeNames.Point2d,
-  Point2dTypeConverter
-);
-
 /**
  * Point3d type converter.
  * @public
@@ -162,8 +157,3 @@ export class Point3dTypeConverter extends BasePointTypeConverter {
     return { ...values, z: z ? z : 0 };
   }
 }
-
-TypeConverterManager.registerConverter(
-  StandardTypeNames.Point3d,
-  Point3dTypeConverter
-);

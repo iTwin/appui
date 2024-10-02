@@ -38,8 +38,3 @@ export class NavigationPropertyTypeConverter extends TypeConverter {
     );
   }
 }
-
-TypeConverterManager.registerConverter(
-  StandardTypeNames.Navigation,
-  NavigationPropertyTypeConverter
-);

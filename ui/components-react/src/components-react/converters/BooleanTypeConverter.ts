@@ -7,10 +7,8 @@
  */
 
 import type { Primitives } from "@itwin/appui-abstract";
-import { StandardTypeNames } from "@itwin/appui-abstract";
 import { UiComponents } from "../UiComponents.js";
 import { TypeConverter } from "./TypeConverter.js";
-import { TypeConverterManager } from "./TypeConverterManager.js";
 
 /** Boolean Type Converter.
  * @public
@@ -70,12 +68,3 @@ export class BooleanTypeConverter extends TypeConverter {
     return true;
   }
 }
-
-TypeConverterManager.registerConverter(
-  StandardTypeNames.Boolean,
-  BooleanTypeConverter
-);
-TypeConverterManager.registerConverter(
-  StandardTypeNames.Bool,
-  BooleanTypeConverter
-);

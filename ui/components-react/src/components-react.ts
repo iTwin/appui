@@ -585,8 +585,10 @@ export {
 // #region "SideEffects"
 
 import { registerEditors } from "./components-react/editors/registerEditors.js";
+import { registerConverters } from "./components-react/converters/registerConverters.js";
 
 registerEditors();
+registerConverters();
 
 // #endregion "SideEffects"
 
