@@ -13,14 +13,10 @@ import type { PropertyValue } from "@itwin/appui-abstract";
 import {
   AlternateDateFormats,
   PropertyValueFormat,
-  StandardTypeNames,
   TimeDisplay,
 } from "@itwin/appui-abstract";
 import type { PropertyEditorProps, TypeEditor } from "./EditorContainer.js";
-import {
-  PropertyEditorBase,
-  PropertyEditorManager,
-} from "./PropertyEditorManager.js";
+import { PropertyEditorBase } from "./PropertyEditorManager.js";
 import {
   PopupButton,
   PopupContent,
@@ -368,12 +364,3 @@ export class DateTimePropertyEditor extends PropertyEditorBase {
     return false;
   }
 }
-
-PropertyEditorManager.registerEditor(
-  StandardTypeNames.ShortDate,
-  ShortDateTimePropertyEditor
-);
-PropertyEditorManager.registerEditor(
-  StandardTypeNames.DateTime,
-  DateTimePropertyEditor
-);

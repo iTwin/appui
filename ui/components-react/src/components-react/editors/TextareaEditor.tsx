@@ -19,16 +19,11 @@ import type {
 import {
   PropertyEditorParamTypes,
   PropertyValueFormat,
-  StandardEditorNames,
-  StandardTypeNames,
 } from "@itwin/appui-abstract";
 import { Textarea } from "@itwin/itwinui-react";
 import { TypeConverterManager } from "../converters/TypeConverterManager.js";
 import type { PropertyEditorProps, TypeEditor } from "./EditorContainer.js";
-import {
-  PropertyEditorBase,
-  PropertyEditorManager,
-} from "./PropertyEditorManager.js";
+import { PropertyEditorBase } from "./PropertyEditorManager.js";
 import {
   PopupButton,
   PopupContent,
@@ -257,14 +252,3 @@ export class TextareaPropertyEditor extends PropertyEditorBase {
     return <TextareaEditor />;
   }
 }
-
-PropertyEditorManager.registerEditor(
-  StandardTypeNames.Text,
-  TextareaPropertyEditor,
-  StandardEditorNames.MultiLine
-);
-PropertyEditorManager.registerEditor(
-  StandardTypeNames.String,
-  TextareaPropertyEditor,
-  StandardEditorNames.MultiLine
-);

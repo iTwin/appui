@@ -157,6 +157,26 @@ export {
   ViewRotationChangeEventArgs,
 } from "./imodel-components-react/viewport/ViewportComponentEvents.js";
 
+// #region "SideEffects"
+
+import { StandardEditorNames, StandardTypeNames } from "@itwin/appui-abstract";
+import { PropertyEditorManager } from "@itwin/components-react";
+import { ColorPropertyEditor } from "./imodel-components-react/editors/ColorEditor.js";
+import { WeightPropertyEditor } from "./imodel-components-react/editors/WeightEditor.js";
+
+PropertyEditorManager.registerEditor(
+  StandardTypeNames.Number,
+  ColorPropertyEditor,
+  StandardEditorNames.ColorPicker
+);
+PropertyEditorManager.registerEditor(
+  StandardTypeNames.Number,
+  WeightPropertyEditor,
+  StandardEditorNames.WeightPicker
+);
+
+// #endregion "SideEffects"
+
 /** @docs-package-description
  * The imodel-components-react package contains React components that depend on the core-frontend, core-common or core-quantity packages.
  * The components pertain to Color, Cube, LineWeight, Navigation Aids, Quantity Inputs, Timeline and Viewport.

@@ -17,17 +17,12 @@ import type {
 import {
   PropertyEditorParamTypes,
   PropertyValueFormat,
-  StandardEditorNames,
-  StandardTypeNames,
 } from "@itwin/appui-abstract";
 import { Icon } from "@itwin/core-react";
 import type { Tooltip } from "@itwin/itwinui-react";
 import { Slider } from "@itwin/itwinui-react";
 import type { PropertyEditorProps, TypeEditor } from "./EditorContainer.js";
-import {
-  PropertyEditorBase,
-  PropertyEditorManager,
-} from "./PropertyEditorManager.js";
+import { PropertyEditorBase } from "./PropertyEditorManager.js";
 import {
   PopupButton,
   PopupContent,
@@ -354,24 +349,3 @@ export class SliderPropertyEditor extends PropertyEditorBase {
     return <SliderEditor />;
   }
 }
-
-PropertyEditorManager.registerEditor(
-  StandardTypeNames.Number,
-  SliderPropertyEditor,
-  StandardEditorNames.Slider
-);
-PropertyEditorManager.registerEditor(
-  StandardTypeNames.Int,
-  SliderPropertyEditor,
-  StandardEditorNames.Slider
-);
-PropertyEditorManager.registerEditor(
-  StandardTypeNames.Float,
-  SliderPropertyEditor,
-  StandardEditorNames.Slider
-);
-PropertyEditorManager.registerEditor(
-  StandardTypeNames.Double,
-  SliderPropertyEditor,
-  StandardEditorNames.Slider
-);

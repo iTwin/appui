@@ -582,6 +582,14 @@ export {
   SparseArray,
 } from "./components-react/tree/controlled/internal/SparseTree.js";
 
+// #region "SideEffects"
+
+import { registerEditors } from "./components-react/editors/registerEditors.js";
+
+registerEditors();
+
+// #endregion "SideEffects"
+
 /** @docs-package-description
  * The components-react package contains React components that are data-oriented, such as PropertyGrid, Table and Tree.
  */

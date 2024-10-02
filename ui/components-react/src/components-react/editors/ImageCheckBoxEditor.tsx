@@ -17,14 +17,9 @@ import type {
 import {
   PropertyEditorParamTypes,
   PropertyValueFormat,
-  StandardEditorNames,
-  StandardTypeNames,
 } from "@itwin/appui-abstract";
 import type { PropertyEditorProps, TypeEditor } from "./EditorContainer.js";
-import {
-  PropertyEditorBase,
-  PropertyEditorManager,
-} from "./PropertyEditorManager.js";
+import { PropertyEditorBase } from "./PropertyEditorManager.js";
 import { ImageCheckBox } from "@itwin/core-react";
 
 // cSpell:ignore imagecheckbox
@@ -185,14 +180,3 @@ export class ImageCheckBoxPropertyEditor extends PropertyEditorBase {
     return <ImageCheckBoxEditor />;
   }
 }
-
-PropertyEditorManager.registerEditor(
-  StandardTypeNames.Boolean,
-  ImageCheckBoxPropertyEditor,
-  StandardEditorNames.ImageCheckBox
-);
-PropertyEditorManager.registerEditor(
-  StandardTypeNames.Bool,
-  ImageCheckBoxPropertyEditor,
-  StandardEditorNames.ImageCheckBox
-);
