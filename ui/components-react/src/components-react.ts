@@ -586,9 +586,20 @@ export {
 
 import { registerEditors } from "./components-react/editors/registerEditors.js";
 import { registerConverters } from "./components-react/converters/registerConverters.js";
+import { PropertyValueRendererManager } from "./components-react/properties/ValueRendererManager.js";
+import { UrlPropertyValueRenderer } from "./components-react/properties/renderers/value/UrlPropertyValueRenderer.js";
+import { MultilineTextPropertyValueRenderer } from "./components-react/properties/renderers/value/MultilineTextPropertyValueRenderer.js";
 
 registerEditors();
 registerConverters();
+PropertyValueRendererManager.defaultManager.registerRenderer(
+  "url",
+  new UrlPropertyValueRenderer()
+);
+PropertyValueRendererManager.defaultManager.registerRenderer(
+  "multiline",
+  new MultilineTextPropertyValueRenderer()
+);
 
 // #endregion "SideEffects"
 
