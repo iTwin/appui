@@ -6,13 +6,10 @@ import "./Scrubber.scss";
 import * as React from "react";
 import { Slider } from "@itwin/itwinui-react";
 import type { CommonProps } from "@itwin/core-react";
-import { useEventListener } from "@itwin/core-react";
 import { toDateString, toTimeString } from "@itwin/components-react";
 import type { TimelineDateMarkerProps } from "./TimelineComponent.js";
 
-/**
- * @internal
- */
+/** @internal */
 export function getPercentageOfRectangle(rect: DOMRect, pointer: number) {
   const position = Math.min(rect.right, Math.max(rect.left, pointer));
   return (position - rect.left) / rect.width;
@@ -174,16 +171,24 @@ export function useFocusedThumb(sliderContainer: HTMLDivElement | undefined) {
 
   const [thumbHasFocus, setThumbHasFocus] = React.useState(false);
 
-  const handleThumbFocus = React.useCallback(() => {
-    setThumbHasFocus(true);
-  }, []);
-
-  const handleThumbBlur = React.useCallback(() => {
-    setThumbHasFocus(false);
-  }, []);
-
-  useEventListener("focus", handleThumbFocus, thumbElement);
-  useEventListener("blur", handleThumbBlur, thumbElement);
+  React.useEffect(() => {
+    const listener = () => {
+      setThumbHasFocus(true);
+    };
+    thumbElement?.addEventListener("focus", listener);
+    return () => {
+      thumbElement?.removeEventListener("focus", listener);
+    };
+  }, [thumbElement]);
+  React.useEffect(() => {
+    const listener = () => {
+      setThumbHasFocus(false);
+    };
+    thumbElement?.addEventListener("blur", listener);
+    return () => {
+      thumbElement?.removeEventListener("blur", listener);
+    };
+  }, [thumbElement]);
   return thumbHasFocus;
 }
 

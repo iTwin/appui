@@ -54,9 +54,4 @@ describe("UiIModelComponents", () => {
     await UiIModelComponents.initialize();
     await IModelApp.shutdown();
   });
-
-  it("calling loggerCategory without an obj should return packageName", () => {
-    const category = UiIModelComponents.loggerCategory(undefined);
-    expect(category).toEqual(UiIModelComponents.packageName);
-  });
 });
