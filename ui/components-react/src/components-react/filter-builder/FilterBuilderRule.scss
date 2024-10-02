@@ -26,11 +26,22 @@
     width: 15rem;
     display: flex;
     flex-direction: column;
+
+    >span {
+      .components-text-editor {
+        height: unset;
+      }
+    }
   }
 
   .fb-row-toolbar {
     width: var(--toolbar-width);
     margin-left: auto;
     justify-content: space-between;
+    height: 26px;
+
+    >button {
+      height: 100%;
+    }
   }
 }
