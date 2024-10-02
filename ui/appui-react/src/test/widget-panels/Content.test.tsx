@@ -5,12 +5,7 @@
 import { Rectangle } from "@itwin/core-react/internal";
 import { render } from "@testing-library/react";
 import * as React from "react";
-import {
-  FrontstageDef,
-  UiFramework,
-  WidgetContent,
-  WidgetDef,
-} from "../../appui-react.js";
+import { FrontstageDef, UiFramework, WidgetDef } from "../../appui-react.js";
 import { createLayoutStore } from "../../appui-react/layout/base/LayoutStore.js";
 import { NineZoneProvider } from "../../appui-react/layout/base/NineZone.js";
 import { createNineZoneState } from "../../appui-react/layout/state/NineZoneState.js";
@@ -18,6 +13,7 @@ import { addPanelWidget } from "../../appui-react/layout/state/internal/PanelSta
 import { addTab } from "../../appui-react/layout/state/internal/TabStateHelpers.js";
 import { WidgetIdContext } from "../../appui-react/layout/widget/Widget.js";
 import { TabIdContext } from "../../appui-react/layout/widget/ContentRenderer.js";
+import { WidgetContent } from "../../appui-react/widget-panels/Content.js";
 
 describe("WidgetContent", () => {
   it("should render", () => {

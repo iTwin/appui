@@ -15,7 +15,6 @@ import {
   ContentGroupProvider,
   FrontstageDef,
   FrontstageProvider,
-  initializeNineZoneState,
   StagePanelDef,
   StagePanelLocation,
   StagePanelSection,
@@ -37,6 +36,7 @@ import {
   addPopoutWidget,
 } from "../../appui-react/layout/state/internal/WidgetStateHelpers.js";
 import { addPanelWidget } from "../../appui-react/layout/state/internal/PanelStateHelpers.js";
+import { initializeNineZoneState } from "../../appui-react/widget-panels/Frontstage.js";
 
 class BadLayoutFrontstage extends FrontstageProvider {
   public static stageId = "BadLayout";

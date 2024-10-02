@@ -6,10 +6,8 @@ import * as React from "react";
 import { BeDuration } from "@itwin/core-bentley";
 import { OutputMessagePriority } from "@itwin/core-frontend";
 import { RelativePosition } from "@itwin/appui-abstract";
-import {
-  isReactNotifyMessageDetails,
-  ReactNotifyMessageDetails,
-} from "../../appui-react.js";
+import { ReactNotifyMessageDetails } from "../../appui-react.js";
+import { isReactNotifyMessageDetails } from "../../appui-react/messages/ReactNotifyMessageDetails.js";
 
 describe("ReactNotifyMessageDetails", () => {
   it("should support React node & create NotifyMessageDetails", () => {

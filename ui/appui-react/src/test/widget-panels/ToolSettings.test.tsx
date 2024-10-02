@@ -9,14 +9,9 @@ import type { ToolSettingsEntry } from "../../appui-react.js";
 import {
   ConfigurableCreateInfo,
   FrontstageDef,
-  ToolSettingsContent,
-  ToolSettingsDockedContent,
   ToolUiProvider,
   UiFramework,
-  useHorizontalToolSettingEntries,
-  useToolSettingsNode,
   WidgetDef,
-  WidgetPanelsToolSettings,
 } from "../../appui-react.js";
 import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager.js";
 import {
@@ -32,6 +27,13 @@ import {
   addWidgetToolSettings,
 } from "../../appui-react/layout/state/internal/ToolSettingsStateHelpers.js";
 import { addFloatingWidget } from "../../appui-react/layout/state/internal/WidgetStateHelpers.js";
+import {
+  ToolSettingsContent,
+  ToolSettingsDockedContent,
+  useHorizontalToolSettingEntries,
+  useToolSettingsNode,
+  WidgetPanelsToolSettings,
+} from "../../appui-react/widget-panels/ToolSettings.js";
 
 describe("WidgetPanelsToolSettings", () => {
   it("should not render w/o tool settings top center zone", () => {

@@ -8,12 +8,12 @@ import {
   StagePanelDef,
   StagePanelLocation,
   StagePanelState,
-  toPanelSide,
   UiFramework,
   WidgetDef,
 } from "../../appui-react.js";
 import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager.js";
 import { createNineZoneState } from "../../appui-react/layout/state/NineZoneState.js";
+import { toPanelSide } from "../../appui-react/stagepanels/StagePanelDef.js";
 
 describe("StagePanelDef", () => {
   it("Defaults, widgetDefs & widgetCount", () => {

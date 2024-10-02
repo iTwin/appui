@@ -14,13 +14,13 @@ import type {
 import { PropertyEditorParamTypes } from "@itwin/appui-abstract";
 import { render } from "@testing-library/react";
 import type {
-  DefaultToolSettingsProvider,
   FrontstageConfig,
   SyncToolSettingsPropertiesEventArgs,
 } from "../../appui-react.js";
 import { FrontstageProvider, UiFramework } from "../../appui-react.js";
 import TestUtils from "../TestUtils.js";
 import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager.js";
+import type { DefaultToolSettingsProvider } from "../../appui-react/toolsettings/DefaultToolSettingsProvider.js";
 
 describe("DefaultToolUiSettingsProvider", () => {
   const firstToolId = "DefaultToolUiSettingsProvider-FirstTestTool";

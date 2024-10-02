@@ -15,36 +15,17 @@ import type {
   FrontstageConfig,
   UiItemsProvider,
   Widget,
-  WidgetPanelsFrontstageState,
 } from "../../appui-react.js";
 import {
-  ActiveFrontstageDefProvider,
-  addFrontstageWidgetDefs,
-  addPanelSectionWidgetDefs,
   FrontstageDef,
   FrontstageProvider,
-  getPanelSectionId,
-  initializeNineZoneState,
-  initializePanel,
-  isFrontstageStateSettingResult,
-  ModalFrontstageComposer,
-  packNineZoneState,
-  restoreNineZoneState,
   StagePanelDef,
   StagePanelLocation,
   StagePanelSection,
-  stateVersion,
   UiFramework,
   UiItemsManager,
   UiStateStorageHandler,
-  useActiveModalFrontstageInfo,
-  useFrontstageManager,
-  useLayoutStore,
-  useNineZoneDispatch,
-  useSavedFrontstageState,
-  useUpdateNineZoneSize,
   WidgetDef,
-  WidgetPanelsFrontstage,
   WidgetState,
 } from "../../appui-react.js";
 import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager.js";
@@ -61,6 +42,29 @@ import TestUtils, {
   UiStateStorageStub,
 } from "../TestUtils.js";
 import { defaultFrontstageConfig } from "../frontstage/FrontstageDef.test.js";
+import type { WidgetPanelsFrontstageState } from "../../appui-react/widget-panels/Frontstage.js";
+import {
+  ActiveFrontstageDefProvider,
+  addFrontstageWidgetDefs,
+  addPanelSectionWidgetDefs,
+  getPanelSectionId,
+  initializeNineZoneState,
+  initializePanel,
+  isFrontstageStateSettingResult,
+  packNineZoneState,
+  restoreNineZoneState,
+  stateVersion,
+  useFrontstageManager,
+  useLayoutStore,
+  useNineZoneDispatch,
+  useSavedFrontstageState,
+  useUpdateNineZoneSize,
+  WidgetPanelsFrontstage,
+} from "../../appui-react/widget-panels/Frontstage.js";
+import {
+  ModalFrontstageComposer,
+  useActiveModalFrontstageInfo,
+} from "../../appui-react/widget-panels/ModalFrontstageComposer.js";
 
 function createFrontstageState(
   nineZone = createNineZoneState()
