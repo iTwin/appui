@@ -12,6 +12,7 @@ import {
   PropertyEditorManager,
 } from "@itwin/components-react";
 import { fireEvent, render, waitFor } from "@testing-library/react";
+import "../../imodel-components-react.js";
 import { WeightEditor } from "../../imodel-components-react/editors/WeightEditor.js";
 import { MineDataController, TestUtils } from "../TestUtils.js";
 
