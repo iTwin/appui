@@ -8,8 +8,6 @@ import { BadgeType } from "@itwin/core-react";
 import { SvgList } from "@itwin/itwinui-icons-react";
 import {
   FrontstageDef,
-  getWidgetState,
-  initializeNineZoneState,
   StagePanelDef,
   StagePanelLocation,
   UiFramework,
@@ -20,6 +18,8 @@ import { defaultFrontstageConfig } from "../frontstage/FrontstageDef.test.js";
 import { createNineZoneState } from "../../appui-react/layout/state/NineZoneState.js";
 import { addTab } from "../../appui-react/layout/state/internal/TabStateHelpers.js";
 import { addPanelWidget } from "../../appui-react/layout/state/internal/PanelStateHelpers.js";
+import { initializeNineZoneState } from "../../appui-react/widget-panels/Frontstage.js";
+import { getWidgetState } from "../../appui-react/widgets/WidgetDef.js";
 
 describe("WidgetDef", () => {
   it("optional properties", () => {

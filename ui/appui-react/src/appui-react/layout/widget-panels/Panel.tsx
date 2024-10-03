@@ -8,7 +8,7 @@
 
 import "./Panel.scss";
 import { assert } from "@itwin/core-bentley";
-import { useRefs } from "@itwin/core-react";
+import { useRefs } from "@itwin/core-react/internal";
 import classnames from "classnames";
 import * as React from "react";
 import { DraggedPanelSideContext } from "../base/DragManager.js";

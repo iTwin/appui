@@ -8,14 +8,14 @@ import type {
   BackstageActionItem,
   BackstageStageLauncher,
 } from "../../appui-react.js";
+import { UiFramework } from "../../appui-react.js";
+import { childStructure, selectorMatches, userEvent } from "../TestUtils.js";
+import { render, screen } from "@testing-library/react";
 import {
   BackstageComposerActionItem,
   BackstageComposerItem,
   BackstageComposerStageLauncher,
-  UiFramework,
-} from "../../appui-react.js";
-import { childStructure, selectorMatches, userEvent } from "../TestUtils.js";
-import { render, screen } from "@testing-library/react";
+} from "../../appui-react/backstage/BackstageComposerItem.js";
 
 /** @internal */
 export const getActionItem = (

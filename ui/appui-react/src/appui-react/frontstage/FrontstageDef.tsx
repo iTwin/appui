@@ -16,7 +16,7 @@ import {
   OutputMessageType,
 } from "@itwin/core-frontend";
 import type { XAndY } from "@itwin/core-geometry";
-import { Rectangle } from "@itwin/core-react";
+import { Rectangle } from "@itwin/core-react/internal";
 import * as React from "react";
 import { UiFramework } from "../UiFramework.js";
 import type { ChildWindow } from "../childwindow/ChildWindowConfig.js";
@@ -339,7 +339,7 @@ export class FrontstageDef {
     if (!this._contentGroup)
       // eslint-disable-next-line deprecation/deprecation
       throw new UiError(
-        UiFramework.loggerCategory(this),
+        UiFramework.loggerCategory("FrontstageDef"),
         `onActivated: Content Group not defined`
       );
 

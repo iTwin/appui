@@ -9,7 +9,7 @@
 import "./Tabs.scss";
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
-import { useResizeObserver } from "@itwin/core-react";
+import { useResizeObserver } from "@itwin/core-react/internal";
 import { ShowWidgetIconContext } from "../base/NineZone.js";
 import { getChildKey, useOverflow } from "../tool-settings/Docked.js";
 import {

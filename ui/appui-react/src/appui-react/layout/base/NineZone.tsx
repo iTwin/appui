@@ -8,7 +8,11 @@
 
 import * as React from "react";
 import { assert, Guid } from "@itwin/core-bentley";
-import { Rectangle, useRefs, useResizeObserver } from "@itwin/core-react";
+import {
+  Rectangle,
+  useRefs,
+  useResizeObserver,
+} from "@itwin/core-react/internal";
 import type { CursorType } from "../widget-panels/CursorOverlay.js";
 import type { PanelSide } from "../widget-panels/PanelTypes.js";
 import { WidgetContentManager } from "../widget/ContentManager.js";

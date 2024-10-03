@@ -11,7 +11,8 @@ import type {
   ConditionalBooleanValue,
   ConditionalStringValue,
 } from "@itwin/appui-abstract";
-import type { BadgeKind, BadgeType, IconSpec } from "@itwin/core-react";
+import type { BadgeType, IconSpec } from "@itwin/core-react";
+import type { BadgeKind } from "@itwin/core-react/internal";
 
 /** Status bar Groups/Sections from Left to Right
  * @public

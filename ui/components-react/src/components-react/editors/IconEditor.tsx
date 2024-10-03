@@ -18,15 +18,10 @@ import type {
 import {
   PropertyEditorParamTypes,
   PropertyValueFormat,
-  StandardEditorNames,
-  StandardTypeNames,
 } from "@itwin/appui-abstract";
 import { IconPickerButton } from "../iconpicker/IconPickerButton.js";
 import type { PropertyEditorProps, TypeEditor } from "./EditorContainer.js";
-import {
-  PropertyEditorBase,
-  PropertyEditorManager,
-} from "./PropertyEditorManager.js";
+import { PropertyEditorBase } from "./PropertyEditorManager.js";
 
 // cspell:ignore iconpicker
 
@@ -198,14 +193,3 @@ export class IconPropertyEditor extends PropertyEditorBase {
     return <IconEditor />;
   }
 }
-
-PropertyEditorManager.registerEditor(
-  StandardTypeNames.Text,
-  IconPropertyEditor,
-  StandardEditorNames.IconPicker
-);
-PropertyEditorManager.registerEditor(
-  StandardTypeNames.String,
-  IconPropertyEditor,
-  StandardEditorNames.IconPicker
-);

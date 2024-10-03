@@ -10,14 +10,11 @@ import "./EnumEditor.scss";
 import classnames from "classnames";
 import * as React from "react";
 import type { EnumerationChoice, PropertyValue } from "@itwin/appui-abstract";
-import { PropertyValueFormat, StandardTypeNames } from "@itwin/appui-abstract";
+import { PropertyValueFormat } from "@itwin/appui-abstract";
 import type { SelectOption } from "@itwin/itwinui-react";
 import { Select } from "@itwin/itwinui-react";
 import type { PropertyEditorProps, TypeEditor } from "./EditorContainer.js";
-import {
-  PropertyEditorBase,
-  PropertyEditorManager,
-} from "./PropertyEditorManager.js";
+import { PropertyEditorBase } from "./PropertyEditorManager.js";
 import { UiComponents } from "../UiComponents.js";
 
 /** @internal */
@@ -215,8 +212,3 @@ export class EnumPropertyEditor extends PropertyEditorBase {
     return <EnumEditor />;
   }
 }
-
-PropertyEditorManager.registerEditor(
-  StandardTypeNames.Enum,
-  EnumPropertyEditor
-);

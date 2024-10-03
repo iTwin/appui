@@ -156,7 +156,7 @@ export class UiItemsManager {
 
     if (UiItemsManager.getUiItemsProvider(providerId)) {
       Logger.logInfo(
-        UiFramework.loggerCategory(this),
+        UiFramework.loggerCategory("UiItemsManager"),
         `UiItemsProvider (${providerId}) is already loaded`
       );
     } else {
@@ -165,7 +165,7 @@ export class UiItemsManager {
         overrides,
       });
       Logger.logInfo(
-        UiFramework.loggerCategory(this),
+        UiFramework.loggerCategory("UiItemsManager"),
         `UiItemsProvider ${uiProvider.id} registered as ${providerId} `
       );
 
@@ -185,7 +185,7 @@ export class UiItemsManager {
 
     UiItemsManager._registeredUiItemsProviders.delete(providerId);
     Logger.logInfo(
-      UiFramework.loggerCategory(this),
+      UiFramework.loggerCategory("UiItemsManager"),
       `UiItemsProvider (${providerId}) unloaded`
     );
 

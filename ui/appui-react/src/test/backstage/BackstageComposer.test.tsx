@@ -10,7 +10,6 @@ import {
   SyncUiEventDispatcher,
   UiFramework,
   UiItemsManager,
-  useGroupedItems,
 } from "../../appui-react.js";
 import { selectorMatches, userEvent } from "../TestUtils.js";
 import {
@@ -19,6 +18,7 @@ import {
 } from "./BackstageComposerItem.test.js";
 import { act, render, renderHook, screen } from "@testing-library/react";
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
+import { useGroupedItems } from "../../appui-react/backstage/BackstageComposer.js";
 
 const uiSyncEventId = "appuiprovider:backstage-item-visibility-changed";
 

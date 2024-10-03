@@ -10,16 +10,9 @@ import "./ToggleEditor.scss";
 import classnames from "classnames";
 import * as React from "react";
 import type { PropertyValue } from "@itwin/appui-abstract";
-import {
-  PropertyValueFormat,
-  StandardEditorNames,
-  StandardTypeNames,
-} from "@itwin/appui-abstract";
+import { PropertyValueFormat } from "@itwin/appui-abstract";
 import type { PropertyEditorProps, TypeEditor } from "./EditorContainer.js";
-import {
-  PropertyEditorBase,
-  PropertyEditorManager,
-} from "./PropertyEditorManager.js";
+import { PropertyEditorBase } from "./PropertyEditorManager.js";
 import { ToggleSwitch } from "@itwin/itwinui-react";
 
 /** @internal */
@@ -164,14 +157,3 @@ export class TogglePropertyEditor extends PropertyEditorBase {
     return <ToggleEditor />;
   }
 }
-
-PropertyEditorManager.registerEditor(
-  StandardTypeNames.Bool,
-  TogglePropertyEditor,
-  StandardEditorNames.Toggle
-);
-PropertyEditorManager.registerEditor(
-  StandardTypeNames.Boolean,
-  TogglePropertyEditor,
-  StandardEditorNames.Toggle
-);

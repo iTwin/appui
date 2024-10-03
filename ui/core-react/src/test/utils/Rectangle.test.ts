@@ -3,7 +3,8 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import type { RectangleProps } from "../../core-react.js";
-import { Corner, Point, Rectangle } from "../../core-react.js";
+import { Point } from "../../core-react/utils/Point.js";
+import { Corner, Rectangle } from "../../core-react/utils/Rectangle.js";
 
 describe("Rectangle", () => {
   it("unspecified bounds should be 0", () => {

@@ -15,7 +15,6 @@ import type {
   PropertyRecord,
   PropertyValue,
 } from "@itwin/appui-abstract";
-import { StandardTypeNames } from "@itwin/appui-abstract";
 
 /** Asynchronous Error Message returned as part of [[AsyncValueProcessingResult]]
  * @public
@@ -229,12 +228,3 @@ export class BasicPropertyEditor extends PropertyEditorBase {
     return <TextEditor />;
   }
 }
-
-PropertyEditorManager.registerEditor(
-  StandardTypeNames.Text,
-  BasicPropertyEditor
-);
-PropertyEditorManager.registerEditor(
-  StandardTypeNames.String,
-  BasicPropertyEditor
-);

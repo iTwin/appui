@@ -12,7 +12,8 @@ import * as React from "react";
 import type { PanelSide } from "./PanelTypes.js";
 import { panelSides } from "./Panel.js";
 import { NineZoneDispatchContext } from "../base/NineZone.js";
-import { Point, Timer } from "@itwin/core-react";
+import { Timer } from "@itwin/core-react";
+import { Point } from "@itwin/core-react/internal";
 import { useLayout } from "../base/LayoutStore.js";
 
 /** @internal */

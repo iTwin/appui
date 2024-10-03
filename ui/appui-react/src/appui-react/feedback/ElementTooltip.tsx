@@ -15,7 +15,8 @@ import { BeUiEvent } from "@itwin/core-bentley";
 import type { ToolTipOptions } from "@itwin/core-frontend";
 import type { XAndY } from "@itwin/core-geometry";
 import type { CommonProps } from "@itwin/core-react";
-import { MessageRenderer, Rectangle } from "@itwin/core-react";
+import { MessageRenderer } from "@itwin/core-react";
+import { Rectangle } from "@itwin/core-react/internal";
 import type { NotifyMessageType } from "../messages/ReactNotifyMessageDetails.js";
 import {
   offsetAndContainInContainer,

@@ -7,7 +7,8 @@
  */
 
 import * as React from "react";
-import type { CommonProps, ListenerType } from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
+import type { ListenerType } from "@itwin/core-react/internal";
 import {
   ContextMenuItem,
   ContextSubMenu,

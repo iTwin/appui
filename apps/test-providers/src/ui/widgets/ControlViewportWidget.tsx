@@ -11,7 +11,6 @@ import {
   WidgetState,
 } from "@itwin/appui-react";
 import { Id64, Id64String } from "@itwin/core-bentley";
-import { useRefState } from "@itwin/core-react";
 import ViewDefinitionSelector from "../components/ViewDefinitionSelector.js";
 
 /** Uses deprecated content control APIs. */
@@ -20,7 +19,6 @@ export function ControlViewportWidget() {
   const [viewState, setViewState] = React.useState(
     UiFramework.getDefaultViewState()
   );
-  const [divRef] = useRefState<HTMLDivElement>();
   const [isLoaded, setIsLoaded] = React.useState(false);
   const [contentId, setContentId] = React.useState(
     "appui-test-provider:viewport-widget-content"
@@ -80,7 +78,6 @@ export function ControlViewportWidget() {
 
   return (
     <div
-      ref={divRef}
       style={{
         display: "grid",
         gridTemplateRows: "auto 1fr",

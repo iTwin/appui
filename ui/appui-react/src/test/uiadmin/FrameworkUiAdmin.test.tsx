@@ -22,7 +22,7 @@ import {
   RelativePosition,
   StandardTypeNames,
 } from "@itwin/appui-abstract";
-import { Point } from "@itwin/core-react";
+import { Point } from "@itwin/core-react/internal";
 import {
   CursorInformation,
   FrameworkUiAdmin,

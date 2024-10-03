@@ -3,7 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import type { Primitives } from "@itwin/appui-abstract";
-import { isPromiseLike } from "@itwin/core-react";
 import type { ConvertedPrimitives } from "../../components-react.js";
 import {
   Point2dTypeConverter,
@@ -11,6 +10,7 @@ import {
 } from "../../components-react.js";
 import { TypeConverter } from "../../components-react/converters/TypeConverter.js";
 import { TypeConverterManager } from "../../components-react/converters/TypeConverterManager.js";
+import { isPromiseLike } from "../../components-react/common/UseAsyncValue.js";
 
 describe("Point2dTypeConverter", () => {
   let converter: Point2dTypeConverter;

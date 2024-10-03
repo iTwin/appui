@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import type { Rectangle } from "@itwin/core-react";
+import type { Rectangle } from "@itwin/core-react/internal";
 import { render, renderHook } from "@testing-library/react";
 import * as React from "react";
 import { createLayoutStore } from "../../../appui-react/layout/base/LayoutStore.js";

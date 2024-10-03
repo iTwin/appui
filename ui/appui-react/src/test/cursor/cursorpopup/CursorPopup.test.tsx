@@ -5,7 +5,7 @@
 import * as React from "react";
 import { Logger } from "@itwin/core-bentley";
 import { RelativePosition } from "@itwin/appui-abstract";
-import { Point } from "@itwin/core-react";
+import { Point } from "@itwin/core-react/internal";
 import type { CursorPopupOptions, Placement } from "../../../appui-react.js";
 import {
   CursorInformation,

@@ -9,7 +9,8 @@
 import * as React from "react";
 import { ProcessDetector } from "@itwin/core-bentley";
 import type { IconSpec } from "@itwin/core-react";
-import { Icon, useWidgetOpacityContext } from "@itwin/core-react";
+import { Icon } from "@itwin/core-react";
+import { useWidgetOpacityContext } from "@itwin/core-react/internal";
 import { SvgHome } from "@itwin/itwinui-icons-react";
 import { UiFramework } from "../UiFramework.js";
 import { AppButton } from "../layout/widget/tools/button/App.js";

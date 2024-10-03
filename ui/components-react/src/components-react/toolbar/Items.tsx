@@ -20,7 +20,7 @@ import {
   TOOLBAR_BACKDROP_FILTER_BLUR_DEFAULT,
   TOOLBAR_BOX_SHADOW_OPACITY_DEFAULT,
   useWidgetOpacityContext,
-} from "@itwin/core-react";
+} from "@itwin/core-react/internal";
 import {
   ToolbarOpacitySetting,
   useToolbarWithOverflowDirectionContext,

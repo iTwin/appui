@@ -26,8 +26,6 @@ import {
   MessageSeverity,
   PropertyEditorParamTypes,
   PropertyValueFormat,
-  StandardEditorNames,
-  StandardTypeNames,
   UiAdmin,
 } from "@itwin/appui-abstract";
 import { Icon, IconInput } from "@itwin/core-react";
@@ -37,10 +35,7 @@ type InputProps = React.ComponentPropsWithoutRef<typeof Input>;
 
 import { UiComponents } from "../UiComponents.js";
 import type { PropertyEditorProps, TypeEditor } from "./EditorContainer.js";
-import {
-  PropertyEditorBase,
-  PropertyEditorManager,
-} from "./PropertyEditorManager.js";
+import { PropertyEditorBase } from "./PropertyEditorManager.js";
 
 /** @internal */
 interface CustomNumberEditorState {
@@ -211,7 +206,7 @@ export class CustomNumberEditor
     const record = this.props.propertyRecord;
     if (!record || !record.property) {
       Logger.logError(
-        UiComponents.loggerCategory(this),
+        UiComponents.loggerCategory("CustomNumberEditor"),
         "PropertyRecord must be defined to use CustomNumberPropertyEditor"
       );
       return;
@@ -230,7 +225,7 @@ export class CustomNumberEditor
 
     if (!this._formatParams) {
       Logger.logError(
-        UiComponents.loggerCategory(this),
+        UiComponents.loggerCategory("CustomNumberEditor"),
         `CustomFormattedNumberParams must be defined for property ${record.property.name}`
       );
       return;
@@ -382,8 +377,3 @@ export class CustomNumberPropertyEditor extends PropertyEditorBase {
     return false;
   }
 }
-PropertyEditorManager.registerEditor(
-  StandardTypeNames.Number,
-  CustomNumberPropertyEditor,
-  StandardEditorNames.NumberCustom
-);

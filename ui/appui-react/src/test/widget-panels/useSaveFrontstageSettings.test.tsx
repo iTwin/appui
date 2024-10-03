@@ -5,7 +5,6 @@
 import { UiStateStorageStatus } from "@itwin/core-react";
 import { renderHook } from "@testing-library/react";
 import * as React from "react";
-import type { WidgetPanelsFrontstageState } from "../../appui-react.js";
 import {
   FrontstageDef,
   UiFramework,
@@ -20,6 +19,7 @@ import {
 } from "../../appui-react/layout/state/internal/TabStateHelpers.js";
 import { useSaveFrontstageSettings } from "../../appui-react/widget-panels/useSaveFrontstageSettings.js";
 import { produce } from "immer";
+import type { WidgetPanelsFrontstageState } from "../../appui-react/widget-panels/Frontstage.js";
 
 describe("useSaveFrontstageSettings", () => {
   it("should save frontstage settings", async () => {

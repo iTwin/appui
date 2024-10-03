@@ -11,12 +11,8 @@ import type {
   ConditionalBooleanValue,
   ConditionalStringValue,
 } from "../shared/ConditionalValue.js";
-import type {
-  BadgeKind,
-  BadgeType,
-  CommonProps,
-  IconSpec,
-} from "@itwin/core-react";
+import type { BadgeType, CommonProps, IconSpec } from "@itwin/core-react";
+import type { BadgeKind } from "@itwin/core-react/internal";
 import type { StringGetter } from "@itwin/appui-abstract";
 
 /** Properties for a Keyboard Shortcut

@@ -19,7 +19,7 @@ import {
   getToolbarBoxShadow,
   TOOLBAR_BACKDROP_FILTER_BLUR_DEFAULT,
   TOOLBAR_BOX_SHADOW_OPACITY_DEFAULT,
-} from "@itwin/core-react";
+} from "@itwin/core-react/internal";
 
 /** Properties of [[ToolbarButton]] component.
  * @internal

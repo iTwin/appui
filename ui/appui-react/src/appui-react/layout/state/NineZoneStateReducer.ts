@@ -7,7 +7,7 @@
  */
 
 import { produce } from "immer";
-import { Point, Rectangle } from "@itwin/core-react";
+import { Point, Rectangle } from "@itwin/core-react/internal";
 import { assert } from "@itwin/core-bentley";
 import type { TabState } from "./TabState.js";
 import { getWidgetLocation, isPanelWidgetLocation } from "./WidgetLocation.js";

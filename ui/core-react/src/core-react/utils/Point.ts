@@ -26,11 +26,6 @@ export class Point implements PointProps {
     return Math.sqrt(Math.pow(offset.x, 2) + Math.pow(offset.y, 2));
   }
 
-  /** Calculates grid-like distance to other point. */
-  public getManhattanDistanceTo(other: PointProps): number {
-    return Math.abs(this.x - other.x) + Math.abs(this.y - other.y);
-  }
-
   /** Gets offset to other point. */
   public getOffsetTo(other: PointProps) {
     return new Point(other.x - this.x, other.y - this.y);

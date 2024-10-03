@@ -90,9 +90,3 @@ export class DefaultToolSettingsProvider extends ToolUiProvider {
     this.uiDataProvider.fireSyncPropertiesEvent(args.syncProperties);
   }
 }
-
-// eslint-disable-next-line deprecation/deprecation
-UiFramework.controls.register(
-  "DefaultToolSettings",
-  DefaultToolSettingsProvider
-);

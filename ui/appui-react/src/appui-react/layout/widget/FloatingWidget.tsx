@@ -15,7 +15,7 @@ import {
   Rectangle,
   useRefs,
   useResizeObserver,
-} from "@itwin/core-react";
+} from "@itwin/core-react/internal";
 import type { UseDragResizeHandleArgs } from "../base/DragManager.js";
 import {
   DragManagerContext,

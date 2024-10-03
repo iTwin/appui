@@ -12,13 +12,13 @@ import * as React from "react";
 import { Key } from "ts-key-enum";
 import { assert } from "@itwin/core-bentley";
 import type { CommonProps } from "@itwin/core-react";
+import { Timer } from "@itwin/core-react";
 import {
   Point,
   Rectangle,
-  Timer,
   useRefs,
   useResizeObserver,
-} from "@itwin/core-react";
+} from "@itwin/core-react/internal";
 import { useDragTab } from "../base/DragManager.js";
 import {
   MeasureContext,

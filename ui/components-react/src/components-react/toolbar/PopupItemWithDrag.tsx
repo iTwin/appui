@@ -16,7 +16,8 @@ import {
   RelativePosition,
   ToolbarItemUtilities,
 } from "@itwin/appui-abstract";
-import { Badge, IconHelper, useRefState } from "@itwin/core-react";
+import { IconHelper } from "@itwin/core-react";
+import { Badge, useRefState } from "@itwin/core-react/internal";
 import type { ToolbarButtonItemProps } from "./Item.js";
 import { PopupItemPopup, ToolbarPopupContext } from "./PopupItem.js";
 import type { ActionButtonWithBadgeKind } from "./PopupItemsPanel.js";

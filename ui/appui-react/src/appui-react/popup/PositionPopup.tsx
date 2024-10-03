@@ -11,7 +11,7 @@ import classnames from "classnames";
 import * as React from "react";
 import type { XAndY } from "@itwin/core-geometry";
 import type { CommonDivProps, CommonProps } from "@itwin/core-react";
-import { Div, Size } from "@itwin/core-react";
+import { Div } from "@itwin/core-react";
 import type { SizeProps } from "../utils/SizeProps.js";
 
 /** Props for popup at screen position
@@ -57,9 +57,10 @@ export class PositionPopup extends React.PureComponent<PositionPopupProps> {
   private setDivRef(div: HTMLDivElement | null) {
     if (div) {
       const rect = div.getBoundingClientRect();
-      const size = new Size(rect.width, rect.height);
-
-      if (this.props.onSizeKnown) this.props.onSizeKnown(size);
+      this.props.onSizeKnown?.({
+        width: rect.width,
+        height: rect.height,
+      });
     }
   }
 }

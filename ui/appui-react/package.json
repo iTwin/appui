@@ -25,9 +25,9 @@
     "directory": "ui/appui-react"
   },
   "scripts": {
-    "start": "run-p -l \"build:** -- -w\" \"copy:** -- -w\"",
+    "start": "run-p -l \"build:esm -- -w\" \"copy:** -- -w\"",
     "build": "npm run -s copy:locale && npm run -s build:cjs && npm run -s build:esm",
-    "build:cjs": "npm run -s copy:cjs && npm run -s package:cjs && tsc --module CommonJS --moduleResolution Node 1>&2 --outDir lib/cjs",
+    "build:cjs": "npm run -s copy:cjs && npm run -s package:cjs && node ../../common/scripts/build-cjs.mjs 1>&2 --outDir lib/cjs",
     "build:esm": "npm run -s copy:esm && tsc 1>&2 --outDir lib/esm",
     "package:cjs": "node ../../common/scripts/package-cjs.mjs ./lib/cjs",
     "copy:cjs": "cpx \"./src/**/*.{*css,json,svg}\" \"./lib/cjs\"",

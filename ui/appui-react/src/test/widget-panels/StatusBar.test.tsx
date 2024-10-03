@@ -4,13 +4,9 @@
  *--------------------------------------------------------------------------------------------*/
 import { render } from "@testing-library/react";
 import * as React from "react";
-import {
-  FrontstageDef,
-  UiFramework,
-  WidgetDef,
-  WidgetPanelsStatusBar,
-} from "../../appui-react.js";
+import { FrontstageDef, UiFramework, WidgetDef } from "../../appui-react.js";
 import { childStructure } from "../TestUtils.js";
+import { WidgetPanelsStatusBar } from "../../appui-react/widget-panels/StatusBar.js";
 
 describe("WidgetPanelsStatusBar", () => {
   it("should not render widget control", () => {

@@ -6,7 +6,7 @@
  * @module Toolbar
  */
 
-import type { CommonToolbarItemWithBadgeKind as UIACommonToolbarItemWithBadgeKind } from "@itwin/components-react";
+import type { CommonToolbarItemWithBadgeKind as UIACommonToolbarItemWithBadgeKind } from "@itwin/components-react/internal";
 import type { ToolbarItem } from "./ToolbarItem.js";
 import { isToolbarCustomItem, isToolbarGroupItem } from "./ToolbarItem.js";
 

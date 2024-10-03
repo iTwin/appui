@@ -8,7 +8,7 @@
 
 import * as React from "react";
 import { Orientation } from "@itwin/components-react";
-import { useResizeObserver } from "@itwin/core-react";
+import { useResizeObserver } from "@itwin/core-react/internal";
 import { AccuDrawFieldContainer } from "./AccuDrawFieldContainer.js";
 import type { ConfigurableCreateInfo } from "../configurableui/ConfigurableUiControl.js";
 import { WidgetControl } from "../widgets/WidgetControl.js";

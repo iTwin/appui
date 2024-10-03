@@ -114,7 +114,7 @@ export class InternalConfigurableUiManager {
   ): void {
     if (this._registeredControls.get(classId) !== undefined) {
       throw new UiError(
-        UiFramework.loggerCategory(this),
+        UiFramework.loggerCategory("InternalConfigurableUiManager"),
         `registerControl: classId '${classId}' already registered`
       );
     }
@@ -173,7 +173,7 @@ export class InternalConfigurableUiManager {
     const constructor = this._registeredControls.get(info.classId);
     if (!constructor) {
       throw new UiError(
-        UiFramework.loggerCategory(this),
+        UiFramework.loggerCategory("InternalConfigurableUiManager"),
         `createControl: classId '${classId}' not registered`
       );
     }

@@ -9,7 +9,7 @@
 import { BeUiEvent, Logger } from "@itwin/core-bentley";
 import type { IModelConnection, Tool } from "@itwin/core-frontend";
 import { IModelApp, InteractiveTool } from "@itwin/core-frontend";
-import type { ListenerType, Size } from "@itwin/core-react";
+import type { ListenerType } from "@itwin/core-react/internal";
 import type { ContentControlActivatedEventArgs } from "../content/ContentControl.js";
 import type { ContentGroup } from "../content/ContentGroup.js";
 import type {
@@ -48,6 +48,7 @@ import type {
 import { UiItemsManager } from "../ui-items-provider/UiItemsManager.js";
 import type { Frontstage } from "./Frontstage.js";
 import type { NineZoneState } from "../layout/state/NineZoneState.js";
+import type { SizeProps } from "../utils/SizeProps.js";
 
 /** Frontstage Manager class.
  * @internal
@@ -63,7 +64,7 @@ export class InternalFrontstageManager {
   // eslint-disable-next-line deprecation/deprecation
   private static _frontstageProviders = new Map<string, FrontstageProvider>();
   private static _frontstages = new Map<string, Frontstage>();
-  private static _nineZoneSize: Size | undefined = undefined;
+  private static _nineZoneSize: SizeProps | undefined = undefined;
 
   private static _nestedFrontstages: FrontstageDef[] =
     new Array<FrontstageDef>();
@@ -448,7 +449,7 @@ export class InternalFrontstageManager {
     );
     if (!frontstageDef) {
       Logger.logError(
-        UiFramework.loggerCategory(this),
+        UiFramework.loggerCategory("InternalFrontstageManager"),
         `setActiveFrontstage: Could not load a FrontstageDef with id of '${frontstageId}'`
       );
       return;
@@ -717,7 +718,7 @@ export class InternalFrontstageManager {
       return true;
     } else {
       Logger.logError(
-        UiFramework.loggerCategory(this),
+        UiFramework.loggerCategory("InternalFrontstageManager"),
         `setWidgetState: Could not find Widget with id of '${widgetId}'`
       );
     }

@@ -7,7 +7,7 @@
  */
 
 import type { CommonProps } from "@itwin/core-react";
-import { useResizeObserver } from "@itwin/core-react";
+import { useResizeObserver } from "@itwin/core-react/internal";
 import * as React from "react";
 import { useTranslation } from "../hooks/useTranslation.js";
 import { IconButton } from "@itwin/itwinui-react";

@@ -12,7 +12,6 @@ import type {
   Primitives,
   PropertyDescription,
 } from "@itwin/appui-abstract";
-import { StandardTypeNames } from "@itwin/appui-abstract";
 import { TypeConverter } from "./TypeConverter.js";
 import { TypeConverterManager } from "./TypeConverterManager.js";
 
@@ -78,8 +77,3 @@ export class EnumTypeConverter extends TypeConverter {
     return +a - +b;
   }
 }
-
-TypeConverterManager.registerConverter(
-  StandardTypeNames.Enum,
-  EnumTypeConverter
-);

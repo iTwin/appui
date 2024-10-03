@@ -108,13 +108,6 @@ describe("UiFramework localStorage Wrapper", () => {
       );
     });
 
-    it("loggerCategory should correctly handle null or undefined object", () => {
-      expect(UiFramework.loggerCategory(null)).toEqual(UiFramework.packageName);
-      expect(UiFramework.loggerCategory(undefined)).toEqual(
-        UiFramework.packageName
-      );
-    });
-
     it("calling initialize twice should log", async () => {
       TestUtils.terminateUiFramework();
       const spyLogger = vi.spyOn(Logger, "logInfo");

@@ -11,7 +11,7 @@ import {
   useProximityToMouse,
   WidgetElementSet,
   WidgetOpacityContext,
-} from "@itwin/core-react";
+} from "@itwin/core-react/internal";
 import * as React from "react";
 import { ToolsArea } from "../layout/widget/ToolsArea.js";
 import { UiFramework } from "../UiFramework.js";

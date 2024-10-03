@@ -24,7 +24,8 @@ import {
   StandardView,
   ToolSettings,
 } from "@itwin/core-frontend";
-import type { CommonProps, ListenerType } from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
+import type { ListenerType } from "@itwin/core-react/internal";
 import { ViewportComponentEvents } from "./ViewportComponentEvents.js";
 
 /** Type for a ViewState prop

@@ -4,102 +4,232 @@
  *--------------------------------------------------------------------------------------------*/
 /* eslint-disable deprecation/deprecation */
 
-export * from "./core-react/UiCore.js";
+export { UiCore } from "./core-react/UiCore.js";
 
-export * from "./core-react/badge/Badge.js";
-export * from "./core-react/badge/BadgeType.js";
+export { BadgeType } from "./core-react/badge/BadgeType.js";
 
-export * from "./core-react/base/Div.js";
-export * from "./core-react/base/DivWithOutsideClick.js";
-export * from "./core-react/base/Centered.js";
-export * from "./core-react/base/FillCentered.js";
-export * from "./core-react/base/FlexWrapContainer.js";
-export * from "./core-react/base/Gap.js";
-export * from "./core-react/base/PointerEvents.js";
-export * from "./core-react/base/ScrollView.js";
+export { Div, DivProps } from "./core-react/base/Div.js";
+export { DivWithOutsideClick } from "./core-react/base/DivWithOutsideClick.js";
+export { Centered } from "./core-react/base/Centered.js";
+export { FillCentered } from "./core-react/base/FillCentered.js";
+export { FlexWrapContainer } from "./core-react/base/FlexWrapContainer.js";
+export { Gap, GapProps } from "./core-react/base/Gap.js";
+export { ScrollView } from "./core-react/base/ScrollView.js";
 
-export * from "./core-react/button/UnderlinedButton.js";
+export {
+  UnderlinedButton,
+  UnderlinedButtonProps,
+} from "./core-react/button/UnderlinedButton.js";
 
-export * from "./core-react/checklistbox/CheckListBox.js";
+export {
+  CheckListBox,
+  CheckListBoxItem,
+  CheckListBoxItemProps,
+  CheckListBoxSeparator,
+} from "./core-react/checklistbox/CheckListBox.js";
 
-export * from "./core-react/contextmenu/ContextMenu.js";
-export * from "./core-react/contextmenu/ContextMenuDirection.js";
-export * from "./core-react/contextmenu/ContextMenuDivider.js";
-export * from "./core-react/contextmenu/ContextMenuItem.js";
-export * from "./core-react/contextmenu/ContextSubMenu.js";
-export * from "./core-react/contextmenu/GlobalContextMenu.js";
-export * from "./core-react/contextmenu/PopupContextMenu.js";
+export {
+  ContextMenu,
+  ContextMenuProps,
+} from "./core-react/contextmenu/ContextMenu.js";
+export { ContextMenuDirection } from "./core-react/contextmenu/ContextMenuDirection.js";
+export { ContextMenuDivider } from "./core-react/contextmenu/ContextMenuDivider.js";
+export {
+  ContextMenuItem,
+  ContextMenuItemProps,
+} from "./core-react/contextmenu/ContextMenuItem.js";
+export {
+  ContextSubMenu,
+  ContextSubMenuProps,
+} from "./core-react/contextmenu/ContextSubMenu.js";
+export {
+  GlobalContextMenu,
+  GlobalContextMenuProps,
+} from "./core-react/contextmenu/GlobalContextMenu.js";
+export {
+  PopupContextMenu,
+  PopupContextMenuProps,
+} from "./core-react/contextmenu/PopupContextMenu.js";
 
-export * from "./core-react/dialog/Dialog.js";
-export * from "./core-react/dialog/GlobalDialog.js";
+export {
+  Dialog,
+  DialogAlignment,
+  DialogProps,
+} from "./core-react/dialog/Dialog.js";
+export {
+  GlobalDialog,
+  GlobalDialogProps,
+  GlobalDialogState,
+} from "./core-react/dialog/GlobalDialog.js";
 
-export * from "./core-react/elementseparator/ElementSeparator.js";
+export {
+  ElementSeparator,
+  ElementSeparatorProps,
+  RatioChangeResult,
+} from "./core-react/elementseparator/ElementSeparator.js";
 
-export * from "./core-react/enums/Alignment.js";
-export * from "./core-react/enums/CheckBoxState.js";
-export * from "./core-react/enums/Orientation.js";
-export * from "./core-react/enums/SortDirection.js";
-export * from "./core-react/enums/TimeFormat.js";
+export {
+  HorizontalAlignment,
+  VerticalAlignment,
+} from "./core-react/enums/Alignment.js";
+export {
+  CheckBoxInfo,
+  CheckBoxState,
+} from "./core-react/enums/CheckBoxState.js";
+export { Orientation } from "./core-react/enums/Orientation.js";
+export { SortDirection } from "./core-react/enums/SortDirection.js";
+export { TimeFormat } from "./core-react/enums/TimeFormat.js";
 
-export * from "./core-react/expandable/ExpandableList.js";
+export {
+  ExpandableList,
+  ExpandableListProps,
+} from "./core-react/expandable/ExpandableList.js";
 
-export * from "./core-react/focus/ItemKeyboardNavigator.js";
-export * from "./core-react/focustrap/FocusTrap.js";
-
-export * from "./core-react/hocs/withIsPressed.js";
-export * from "./core-react/hocs/withOnOutsideClick.js";
-export * from "./core-react/hocs/withTimeout.js";
+export {
+  withIsPressed,
+  WithIsPressedProps,
+} from "./core-react/hocs/withIsPressed.js";
+export {
+  withOnOutsideClick,
+  WithOnOutsideClickProps,
+} from "./core-react/hocs/withOnOutsideClick.js";
+export {
+  withTimeout,
+  WithTimeoutProps,
+} from "./core-react/hocs/withTimeout.js";
 
 export { LocalizationProvider } from "./core-react/l10n/LocalizationProvider.js";
-export { usePackageTranslation } from "./core-react/l10n/usePackageTranslation.js";
 
-export * from "./core-react/icons/ConditionalIconItem.js";
-export * from "./core-react/icons/IconComponent.js";
-export * from "./core-react/icons/SvgPath.js";
-export * from "./core-react/icons/WebFontIcon.js";
+export { ConditionalIconItem } from "./core-react/icons/ConditionalIconItem.js";
+export { Icon, IconProps, IconSpec } from "./core-react/icons/IconComponent.js";
+export { SvgPath, SvgPathProps } from "./core-react/icons/SvgPath.js";
+export {
+  WebFontIcon,
+  WebFontIconProps,
+} from "./core-react/icons/WebFontIcon.js";
 
-export * from "./core-react/autosuggest/AutoSuggest.js";
+export {
+  AsyncGetAutoSuggestDataFunc,
+  AutoSuggest,
+  AutoSuggestData,
+  AutoSuggestProps,
+  GetAutoSuggestDataFunc,
+} from "./core-react/autosuggest/AutoSuggest.js";
 
-export * from "./core-react/imagecheckbox/ImageCheckBox.js";
+export {
+  ImageCheckBox,
+  ImageCheckBoxProps,
+} from "./core-react/imagecheckbox/ImageCheckBox.js";
 
-export * from "./core-react/inputs/InputLabel.js";
-export * from "./core-react/inputs/InputStatus.js";
-export * from "./core-react/inputs/iconinput/IconInput.js";
-export * from "./core-react/inputs/LabeledComponentProps.js";
-export * from "./core-react/inputs/numberinput/NumberInput.js";
+export { InputLabel, InputLabelProps } from "./core-react/inputs/InputLabel.js";
+export { InputStatus } from "./core-react/inputs/InputStatus.js";
+export {
+  IconInput,
+  IconInputProps,
+} from "./core-react/inputs/iconinput/IconInput.js";
+export {
+  LabeledComponentProps,
+  MessagedComponentProps,
+} from "./core-react/inputs/LabeledComponentProps.js";
+export {
+  NumberInput,
+  NumberInputProps,
+  StepFunctionProp,
+} from "./core-react/inputs/numberinput/NumberInput.js";
 
-export * from "./core-react/listbox/Listbox.js";
+export {
+  Listbox,
+  ListboxContext,
+  ListboxContextProps,
+  ListboxItem,
+  ListboxItemProps,
+  ListboxProps,
+  ListboxValue,
+} from "./core-react/listbox/Listbox.js";
 
-export * from "./core-react/loading/LoadingBar.js";
-export * from "./core-react/loading/LoadingPrompt.js";
-export * from "./core-react/loading/LoadingSpinner.js";
-export * from "./core-react/loading/LoadingStatus.js";
+export {
+  LoadingBar,
+  LoadingBarProps,
+} from "./core-react/loading/LoadingBar.js";
+export {
+  LoadingPrompt,
+  LoadingPromptProps,
+} from "./core-react/loading/LoadingPrompt.js";
+export {
+  LoadingSpinner,
+  LoadingSpinnerProps,
+  RadialSizeType,
+} from "./core-react/loading/LoadingSpinner.js";
+export {
+  LoadingStatus,
+  LoadingStatusProps,
+} from "./core-react/loading/LoadingStatus.js";
 
-export * from "./core-react/messagebox/MessageBox.js";
+export {
+  MessageBox,
+  MessageBoxProps,
+  MessageContainer,
+  MessageContainerProps,
+} from "./core-react/messagebox/MessageBox.js";
 
-export * from "./core-react/notification/MessageRenderer.js";
-export * from "./core-react/notification/MessageType.js";
+export {
+  MessageRenderer,
+  MessageRendererProps,
+} from "./core-react/notification/MessageRenderer.js";
+export {
+  MessageType,
+  ReactMessage,
+} from "./core-react/notification/MessageType.js";
 
-export * from "./core-react/popup/Popup.js";
+export { Popup, PopupProps } from "./core-react/popup/Popup.js";
 
-export * from "./core-react/radialmenu/RadialMenu.js";
-export * from "./core-react/radialmenu/Annulus.js";
+export {
+  RadialButton,
+  RadialButtonProps,
+  RadialMenu,
+  RadialMenuProps,
+} from "./core-react/radialmenu/RadialMenu.js";
 
-export * from "./core-react/searchbox/SearchBox.js";
+export { SearchBox, SearchBoxProps } from "./core-react/searchbox/SearchBox.js";
 
-export * from "./core-react/settings/SettingsManager.js";
-export * from "./core-react/settings/SettingsContainer.js";
+export {
+  ActivateSettingsTabEvent,
+  ActivateSettingsTabEventArgs,
+  ProcessSettingsContainerCloseEvent,
+  ProcessSettingsContainerCloseEventArgs,
+  ProcessSettingsTabActivationEvent,
+  ProcessSettingsTabActivationEventArgs,
+  SettingsManager,
+  SettingsProvidersChangedEvent,
+  SettingsProvidersChangedEventArgs,
+  SettingsTabEntry,
+  SettingsTabsProvider,
+} from "./core-react/settings/SettingsManager.js";
+export {
+  SettingsContainer,
+  SettingsContainerProps,
+  useSaveBeforeActivatingNewSettingsTab,
+  useSaveBeforeClosingSettingsContainer,
+} from "./core-react/settings/SettingsContainer.js";
 
-export * from "./core-react/tabs/VerticalTabs.js";
-export * from "./core-react/tabs/Tabs.js";
+export { VerticalTabs } from "./core-react/tabs/VerticalTabs.js";
+export {
+  MainTabsProps,
+  TabLabel,
+  Tabs,
+  TabsProps,
+} from "./core-react/tabs/Tabs.js";
 
-export * from "./core-react/text/BodyText.js";
-export * from "./core-react/text/BlockText.js";
-export * from "./core-react/text/DisabledText.js";
-export * from "./core-react/text/FilteredText.js";
-export * from "./core-react/text/MutedText.js";
-export * from "./core-react/text/StyledText.js";
-export * from "./core-react/text/TextProps.js";
+export { BodyText } from "./core-react/text/BodyText.js";
+export { BlockText } from "./core-react/text/BlockText.js";
+export { DisabledText } from "./core-react/text/DisabledText.js";
+export {
+  FilteredText,
+  FilteredTextProps,
+} from "./core-react/text/FilteredText.js";
+export { MutedText } from "./core-react/text/MutedText.js";
+export { StyledText, StyledTextProps } from "./core-react/text/StyledText.js";
+export { TextProps } from "./core-react/text/TextProps.js";
 
 export {
   ExpansionToggle,
@@ -119,43 +249,50 @@ export {
   TreeNodePlaceholderProps,
 } from "./core-react/tree/Placeholder.js";
 
-export * from "./core-react/uistate/UiStateEntry.js";
-export * from "./core-react/uistate/UiStateStorage.js";
-export * from "./core-react/uistate/LocalStateStorage.js";
+export { UiStateEntry } from "./core-react/uistate/UiStateEntry.js";
+export {
+  UiStateStorage,
+  UiStateStorageResult,
+  UiStateStorageStatus,
+} from "./core-react/uistate/UiStateStorage.js";
+export { LocalStateStorage } from "./core-react/uistate/LocalStateStorage.js";
 
-export * from "./core-react/utils/IconHelper.js";
+export { IconHelper } from "./core-react/utils/IconHelper.js";
+export {
+  ClassNameProps,
+  CommonDivProps,
+  CommonProps,
+  NoChildrenProps,
+  OmitChildrenProp,
+} from "./core-react/utils/Props.js";
+export { RectangleProps } from "./core-react/utils/Rectangle.js";
+export { SizeProps } from "./core-react/utils/Size.js";
+export { ExecuteHandler, Timer } from "./core-react/utils/Timer.js";
+export {
+  getCssVariable,
+  getCssVariableAsNumber,
+} from "./core-react/utils/getCssVariable.js";
+export { Omit } from "./core-react/utils/typeUtils.js";
+export { ScrollPositionMaintainer } from "./core-react/utils/ScrollPositionMaintainer.js";
+
+export {
+  useDisposable,
+  useOptionalDisposable,
+} from "./core-react/utils/hooks/useDisposable.js";
+export { useEffectSkipFirst } from "./core-react/utils/hooks/useEffectSkipFirst.js";
+export {
+  OutsideClickEvent,
+  useOnOutsideClick,
+} from "./core-react/utils/hooks/useOnOutsideClick.js";
+export {
+  ElementResizeObserver,
+  RenderPropsArgs,
+  ResizableContainerObserver,
+} from "./core-react/utils/hooks/useResizeObserver.js";
+export { useInterval } from "./core-react/utils/hooks/useInterval.js";
+export { useCrossOriginPopup } from "./core-react/utils/hooks/useCrossOriginPopup.js";
+
 import { registerIconWebComponent } from "./core-react/utils/IconWebComponent.js";
-export * from "./core-react/utils/Point.js";
-export * from "./core-react/utils/Props.js";
-export * from "./core-react/utils/Rectangle.js";
-export * from "./core-react/utils/Size.js";
-export * from "./core-react/utils/Timer.js";
-export * from "./core-react/utils/UiGeometry.js";
-export * from "./core-react/utils/flattenChildren.js";
-export * from "./core-react/utils/getBestBWContrastColor.js";
-export * from "./core-react/utils/getCssVariable.js";
-export * from "./core-react/utils/getDisplayName.js";
-export * from "./core-react/utils/getUserColor.js";
-export * from "./core-react/utils/shallowDiffers.js";
-export * from "./core-react/utils/typeUtils.js";
-export * from "./core-react/utils/isPromiseLike.js";
-export * from "./core-react/utils/ListenerType.js";
-export * from "./core-react/utils/ScrollPositionMaintainer.js";
-export * from "./core-react/utils/getObjectClassName.js";
-
-export * from "./core-react/utils/hooks/useDisposable.js";
-export * from "./core-react/utils/hooks/useEffectSkipFirst.js";
-export * from "./core-react/utils/hooks/useEventListener.js";
-export * from "./core-react/utils/hooks/useOnOutsideClick.js";
-export * from "./core-react/utils/hooks/useProximityToMouse.js";
-export * from "./core-react/utils/hooks/useRefEffect.js";
-export * from "./core-react/utils/hooks/useRefs.js";
-export * from "./core-react/utils/hooks/useRefState.js";
-export * from "./core-react/utils/hooks/useResizeObserver.js";
-export * from "./core-react/utils/hooks/useTargeted.js";
-export * from "./core-react/utils/hooks/useWidgetOpacityContext.js";
-export * from "./core-react/utils/hooks/useInterval.js";
-export * from "./core-react/utils/hooks/useCrossOriginPopup.js";
 
 registerIconWebComponent();
 

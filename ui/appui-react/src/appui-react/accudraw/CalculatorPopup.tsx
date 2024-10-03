@@ -8,7 +8,7 @@
 
 import * as React from "react";
 import type { OnCancelFunc, OnNumberCommitFunc } from "@itwin/appui-abstract";
-import { DivWithOutsideClick, Icon, Size } from "@itwin/core-react";
+import { DivWithOutsideClick, Icon } from "@itwin/core-react";
 import type { PopupPropsBase } from "../popup/PopupManager.js";
 import { PopupManager } from "../popup/PopupManager.js";
 import { PositionPopup, PositionPopupContent } from "../popup/PositionPopup.js";
@@ -28,7 +28,7 @@ export interface CalculatorPopupProps extends PopupPropsBase {
 }
 
 interface CalculatorPopupState {
-  size: Size;
+  size: SizeProps;
 }
 
 /** Popup component for Calculator
@@ -41,12 +41,16 @@ export class CalculatorPopup extends React.PureComponent<
   CalculatorPopupState
 > {
   public override readonly state = {
-    size: new Size(-1, -1),
+    size: { width: -1, height: -1 },
   };
 
   private _onSizeKnown = (newSize: SizeProps) => {
-    if (!this.state.size.equals(newSize))
-      this.setState({ size: Size.create(newSize) });
+    if (
+      newSize.height === this.state.size.height &&
+      newSize.width === this.state.size.width
+    )
+      return;
+    this.setState({ size: newSize });
   };
 
   public override render() {

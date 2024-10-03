@@ -8,9 +8,7 @@
 
 import { Id64 } from "@itwin/core-bentley";
 import type { Primitives } from "@itwin/appui-abstract";
-import { StandardTypeNames } from "@itwin/appui-abstract";
 import { TypeConverter } from "./TypeConverter.js";
-import { TypeConverterManager } from "./TypeConverterManager.js";
 
 /** Hexadecimal Type Converter.
  * @public
@@ -46,12 +44,3 @@ export class HexadecimalTypeConverter extends TypeConverter {
     return -1;
   }
 }
-
-TypeConverterManager.registerConverter(
-  StandardTypeNames.Hex,
-  HexadecimalTypeConverter
-);
-TypeConverterManager.registerConverter(
-  StandardTypeNames.Hexadecimal,
-  HexadecimalTypeConverter
-);

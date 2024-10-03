@@ -10,16 +10,9 @@ import "./WeightEditor.scss";
 import classnames from "classnames";
 import * as React from "react";
 import type { PropertyRecord, PropertyValue } from "@itwin/appui-abstract";
-import {
-  PropertyValueFormat,
-  StandardEditorNames,
-  StandardTypeNames,
-} from "@itwin/appui-abstract";
+import { PropertyValueFormat } from "@itwin/appui-abstract";
 import type { PropertyEditorProps, TypeEditor } from "@itwin/components-react";
-import {
-  PropertyEditorBase,
-  PropertyEditorManager,
-} from "@itwin/components-react";
+import { PropertyEditorBase } from "@itwin/components-react";
 import { WeightPickerButton } from "../lineweight/WeightPickerButton.js";
 
 // cspell:ignore lineweight
@@ -182,9 +175,3 @@ export class WeightPropertyEditor extends PropertyEditorBase {
     return <WeightEditor />;
   }
 }
-
-PropertyEditorManager.registerEditor(
-  StandardTypeNames.Number,
-  WeightPropertyEditor,
-  StandardEditorNames.WeightPicker
-);

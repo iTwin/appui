@@ -8,7 +8,7 @@
 
 import "./ReparentedPopoutWidget.scss";
 import * as React from "react";
-import { useRefs } from "@itwin/core-react";
+import { useRefs } from "@itwin/core-react/internal";
 import { usePopoutsStore } from "./usePopoutsStore.js";
 import type { WidgetState } from "../../layout/state/WidgetState.js";
 

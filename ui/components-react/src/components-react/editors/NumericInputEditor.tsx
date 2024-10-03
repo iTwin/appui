@@ -18,15 +18,10 @@ import type {
 import {
   PropertyEditorParamTypes,
   PropertyValueFormat,
-  StandardEditorNames,
-  StandardTypeNames,
 } from "@itwin/appui-abstract";
 import { NumberInput } from "@itwin/core-react";
 import type { PropertyEditorProps, TypeEditor } from "./EditorContainer.js";
-import {
-  PropertyEditorBase,
-  PropertyEditorManager,
-} from "./PropertyEditorManager.js";
+import { PropertyEditorBase } from "./PropertyEditorManager.js";
 
 /** @internal */
 interface NumericInputEditorState {
@@ -228,24 +223,3 @@ export class NumericInputPropertyEditor extends PropertyEditorBase {
     return false;
   }
 }
-
-PropertyEditorManager.registerEditor(
-  StandardTypeNames.Number,
-  NumericInputPropertyEditor,
-  StandardEditorNames.NumericInput
-);
-PropertyEditorManager.registerEditor(
-  StandardTypeNames.Int,
-  NumericInputPropertyEditor,
-  StandardEditorNames.NumericInput
-);
-PropertyEditorManager.registerEditor(
-  StandardTypeNames.Float,
-  NumericInputPropertyEditor,
-  StandardEditorNames.NumericInput
-);
-PropertyEditorManager.registerEditor(
-  StandardTypeNames.Double,
-  NumericInputPropertyEditor,
-  StandardEditorNames.NumericInput
-);

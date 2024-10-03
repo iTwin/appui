@@ -181,7 +181,7 @@ export class IModelViewportControl extends ViewportContentControl {
       else viewState = this._viewState;
     } else
       throw new UiError(
-        UiFramework.loggerCategory(this),
+        UiFramework.loggerCategory("IModelViewport"),
         "No ViewState could be determined"
       );
 
@@ -267,5 +267,3 @@ export class IModelViewportControl extends ViewportContentControl {
     else return StandardRotationNavigationAidControl.navigationAidId;
   }
 }
-
-UiFramework.controls.register(IModelViewportControl.id, IModelViewportControl);

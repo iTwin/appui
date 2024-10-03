@@ -6,10 +6,12 @@ import { render } from "@testing-library/react";
 import * as React from "react";
 import {
   useProximityToMouse,
-  useWidgetOpacityContext,
   WidgetElementSet,
+} from "../../../core-react/utils/hooks/useProximityToMouse.js";
+import {
+  useWidgetOpacityContext,
   WidgetOpacityContext,
-} from "../../../core-react.js";
+} from "../../../core-react/utils/hooks/useWidgetOpacityContext.js";
 
 function WidgetOpacityChild() {
   const isInitialMount = React.useRef(true);

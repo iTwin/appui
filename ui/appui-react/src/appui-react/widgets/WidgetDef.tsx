@@ -21,7 +21,8 @@ import {
 import { UiFramework } from "../UiFramework.js";
 import { PropsHelper } from "../utils/PropsHelper.js";
 import type { WidgetControl } from "./WidgetControl.js";
-import type { BadgeKind, BadgeType, IconSpec } from "@itwin/core-react";
+import type { BadgeType, IconSpec } from "@itwin/core-react";
+import type { BadgeKind } from "@itwin/core-react/internal";
 import { IconHelper } from "@itwin/core-react";
 import type { WidgetConfig } from "./WidgetConfig.js";
 import { WidgetState } from "./WidgetState.js";
@@ -574,7 +575,7 @@ export class WidgetDef {
         if (this._widgetControl.getType() !== type) {
           // eslint-disable-next-line deprecation/deprecation
           throw new UiError(
-            UiFramework.loggerCategory(this),
+            UiFramework.loggerCategory("WidgetDef"),
             `getWidgetControl: '${usedClassId}' is NOT a ${type}; it is a ${this._widgetControl.getType()}`
           );
         }

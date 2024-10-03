@@ -11,7 +11,7 @@ import type { StandardViewId, Viewport } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
 import { UiEvent } from "@itwin/appui-abstract";
 import { Face } from "../navigationaids/Cube.js";
-import type { ListenerType } from "@itwin/core-react";
+import type { ListenerType } from "@itwin/core-react/internal";
 
 /** Arguments for [[DrawingViewportChangeEvent]]
  * @public

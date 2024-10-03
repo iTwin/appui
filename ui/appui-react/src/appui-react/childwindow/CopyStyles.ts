@@ -30,7 +30,7 @@ export async function copyStyles(
           };
           clonedNode.onerror = () => {
             Logger.logError(
-              UiFramework.loggerCategory(copyStyles),
+              UiFramework.loggerCategory("copyStyles"),
               `Failed to load external resource`,
               {
                 href: clonedNode.href,

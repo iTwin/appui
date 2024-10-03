@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { getUserColor } from "../../core-react.js";
+import { getUserColor } from "../../core-react/utils/getUserColor.js";
 
 describe("getUserColor", () => {
   it("should return correct color 1", () => {

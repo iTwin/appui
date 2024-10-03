@@ -63,7 +63,7 @@ export class InternalModelessDialogManager {
     if (dialogInfo) {
       const message = `Dialog with id of '${id}' already opened`;
       Logger.logInfo(
-        UiFramework.loggerCategory(this),
+        UiFramework.loggerCategory("InternalModelessDialogManager"),
         `openDialog: ${message}`
       );
       IModelApp.notifications.outputMessage(
@@ -109,7 +109,7 @@ export class InternalModelessDialogManager {
       this.update();
     } else {
       Logger.logError(
-        UiFramework.loggerCategory(this),
+        UiFramework.loggerCategory("InternalModelessDialogManager"),
         `closeDialog: Could not find dialog with id of '${id}'`
       );
     }

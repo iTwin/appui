@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { Point, Rectangle } from "@itwin/core-react";
+import { Point, Rectangle } from "@itwin/core-react/internal";
 import { produce } from "immer";
 import type { NineZoneAction } from "../../../appui-react/layout/state/NineZoneAction.js";
 import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState.js";

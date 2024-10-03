@@ -10,7 +10,8 @@ import "./Overflow.scss";
 import classnames from "classnames";
 import * as React from "react";
 import type { CommonProps, NoChildrenProps } from "@itwin/core-react";
-import { Popup, useRefState } from "@itwin/core-react";
+import { Popup } from "@itwin/core-react";
+import { useRefState } from "@itwin/core-react/internal";
 import {
   useToolbarPopupAutoHideContext,
   useToolItemEntryContext,

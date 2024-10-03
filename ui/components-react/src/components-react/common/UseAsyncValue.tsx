@@ -8,7 +8,6 @@
 
 import * as React from "react";
 import { from } from "rxjs";
-import { isPromiseLike } from "@itwin/core-react";
 
 /**
  * Custom hook for working with possibly async values.
@@ -35,4 +34,13 @@ export function useAsyncValue<T>(value: T | PromiseLike<T>): T | undefined {
   }, [value]);
 
   return result;
+}
+
+/** Checks if the specified argument is a promise
+ * @internal
+ */
+export function isPromiseLike<T>(
+  obj: T | PromiseLike<T>
+): obj is PromiseLike<T> {
+  return typeof obj === "object" && typeof (obj as any).then === "function";
 }

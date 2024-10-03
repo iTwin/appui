@@ -20,7 +20,7 @@ import {
   useWidgetOpacityContext,
   WidgetElementSet,
   WidgetOpacityContext,
-} from "@itwin/core-react";
+} from "@itwin/core-react/internal";
 import {
   CubeNavigationAid,
   DrawingNavigationAid,

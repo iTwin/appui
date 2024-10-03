@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { act, renderHook } from "@testing-library/react";
-import type { ListenerType } from "@itwin/core-react";
+import type { ListenerType } from "@itwin/core-react/internal";
 import type {
   FrontstageConfig,
   StagePanelConfig,
@@ -15,7 +15,6 @@ import {
   ContentGroupProvider,
   FrontstageDef,
   FrontstageProvider,
-  initializeNineZoneState,
   StagePanelDef,
   StagePanelLocation,
   StagePanelSection,
@@ -37,6 +36,7 @@ import {
   addPopoutWidget,
 } from "../../appui-react/layout/state/internal/WidgetStateHelpers.js";
 import { addPanelWidget } from "../../appui-react/layout/state/internal/PanelStateHelpers.js";
+import { initializeNineZoneState } from "../../appui-react/widget-panels/Frontstage.js";
 
 class BadLayoutFrontstage extends FrontstageProvider {
   public static stageId = "BadLayout";

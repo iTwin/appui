@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import { renderHook, waitFor } from "@testing-library/react";
 import { getActionItem } from "./BackstageComposerItem.test.js";
-import { useDefaultBackstageItems } from "../../appui-react.js";
 import { BackstageItemsManager } from "../../appui-react/backstage/BackstageItemsManager.js";
+import { useDefaultBackstageItems } from "../../appui-react/backstage/useDefaultBackstageItems.js";
 
 describe("useDefaultBackstageItems", () => {
   it("should return backstage items", () => {

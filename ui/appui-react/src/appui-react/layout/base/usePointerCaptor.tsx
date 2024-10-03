@@ -7,7 +7,7 @@
  */
 
 import * as React from "react";
-import { useRefEffect } from "@itwin/core-react";
+import { useRefEffect } from "@itwin/core-react/internal";
 import { DragManagerContext } from "./DragManager.js";
 
 /** @internal */

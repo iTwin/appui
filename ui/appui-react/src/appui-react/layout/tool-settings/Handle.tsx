@@ -9,8 +9,9 @@
 import "./Handle.scss";
 import classnames from "classnames";
 import * as React from "react";
-import type { CommonProps, Point } from "@itwin/core-react";
-import { useRefs, useResizeObserver } from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
+import type { Point } from "@itwin/core-react/internal";
+import { useRefs, useResizeObserver } from "@itwin/core-react/internal";
 import { useDragToolSettings } from "../base/DragManager.js";
 import {
   getUniqueId,

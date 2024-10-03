@@ -7,7 +7,6 @@ import * as moq from "typemoq";
 import { Provider } from "react-redux";
 import { render } from "@testing-library/react";
 import { Logger } from "@itwin/core-bentley";
-import { Size } from "@itwin/core-react";
 import type {
   IModelConnection,
   ScreenViewport,
@@ -442,7 +441,7 @@ describe("FrontstageManager", () => {
     });
 
     it("should set nineZoneSize", () => {
-      InternalFrontstageManager.nineZoneSize = new Size(10, 20);
+      InternalFrontstageManager.nineZoneSize = { width: 10, height: 20 };
       expect(InternalFrontstageManager.nineZoneSize.width).toEqual(10);
       expect(InternalFrontstageManager.nineZoneSize.height).toEqual(20);
     });

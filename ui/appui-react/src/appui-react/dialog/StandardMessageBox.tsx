@@ -9,7 +9,7 @@
 import * as React from "react";
 import type { DialogButtonDef } from "@itwin/appui-abstract";
 import { DialogButtonType, MessageSeverity } from "@itwin/appui-abstract";
-import { useTranslation } from "@itwin/components-react";
+import { useTranslation } from "@itwin/components-react/internal";
 import {
   MessageBoxIconType,
   MessageBoxType,

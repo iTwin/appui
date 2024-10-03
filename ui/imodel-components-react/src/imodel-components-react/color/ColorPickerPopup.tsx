@@ -11,7 +11,8 @@ import classnames from "classnames";
 import { ColorByName, ColorDef } from "@itwin/core-common";
 import { RelativePosition } from "@itwin/appui-abstract";
 import type { CommonProps } from "@itwin/core-react";
-import { Icon, Popup, useRefs } from "@itwin/core-react";
+import { Icon, Popup } from "@itwin/core-react";
+import { useRefs } from "@itwin/core-react/internal";
 import {
   ColorBuilder,
   ColorInputPanel,

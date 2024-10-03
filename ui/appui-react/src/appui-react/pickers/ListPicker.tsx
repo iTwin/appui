@@ -9,13 +9,13 @@
 import "./ListPicker.scss";
 import classnames from "classnames";
 import * as React from "react";
+import { PopupItem } from "@itwin/components-react";
 import {
   Columns,
   GroupColumn,
   Panel,
-  PopupItem,
   Title,
-} from "@itwin/components-react";
+} from "@itwin/components-react/internal";
 import type { CommonProps } from "@itwin/core-react";
 import { Icon, SearchBox } from "@itwin/core-react";
 import { ToolbarDragInteractionContext } from "../toolbar/DragInteraction.js";

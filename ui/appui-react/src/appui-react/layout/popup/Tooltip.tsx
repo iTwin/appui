@@ -10,7 +10,7 @@ import "./Tooltip.scss";
 import classnames from "classnames";
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
-import { Point, Rectangle, Size } from "@itwin/core-react";
+import { Point, Rectangle } from "@itwin/core-react/internal";
 import type { XAndY } from "../state/internal/NineZoneStateHelpers.js";
 import type { SizeProps } from "../../utils/SizeProps.js";
 import type { RectangleProps } from "../../utils/RectangleProps.js";
@@ -46,7 +46,7 @@ export class Tooltip extends React.PureComponent<TooltipProps> {
     },
   };
 
-  private _lastSize = new Size();
+  private _lastSize = { width: 0, height: 0 };
   private _tooltip = React.createRef<HTMLDivElement>();
 
   public override render() {
@@ -85,9 +85,13 @@ export class Tooltip extends React.PureComponent<TooltipProps> {
       width: rect.width,
     };
 
-    if (this._lastSize.equals(size)) return;
+    if (
+      this._lastSize.width === size.width &&
+      this._lastSize.height === size.height
+    )
+      return;
 
-    this._lastSize = Size.create(size);
+    this._lastSize = size;
     this.props.onSizeChanged && this.props.onSizeChanged(size);
   }
 }

@@ -12,21 +12,24 @@ import {
 } from "@itwin/core-frontend";
 import {
   FrontstageDef,
-  PanelSizeChangedEventArgs,
   RectangleProps,
+  StagePanelDef,
   StagePanelLocation,
   StagePanelState,
   UiFramework,
   useActiveFrontstageDef,
   WidgetState,
 } from "@itwin/appui-react";
-import { NumberInput, Rectangle } from "@itwin/core-react";
+import { NumberInput } from "@itwin/core-react";
 import { Button, Input, Select, SelectOption } from "@itwin/itwinui-react";
 import { BeUiEvent } from "@itwin/core-bentley";
 
 const InternalFrontstageManager =
   UiFramework.frontstages as unknown as typeof UiFramework.frontstages & {
-    onPanelSizeChangedEvent: BeUiEvent<PanelSizeChangedEventArgs>;
+    onPanelSizeChangedEvent: BeUiEvent<{
+      panelDef: StagePanelDef;
+      size: number | undefined;
+    }>;
     onFrontstageNineZoneStateChangedEvent: BeUiEvent<{
       frontstageDef: FrontstageDef;
       state: unknown;
@@ -689,7 +692,13 @@ export function FloatingLayoutInfo() {
               frontstageDef,
               widgetId
             );
-            if (Rectangle.create(newBounds).equals(prev)) return prev;
+            if (
+              newBounds.top === prev.top &&
+              newBounds.bottom === prev.bottom &&
+              newBounds.left === prev.left &&
+              newBounds.right === prev.right
+            )
+              return prev;
             return newBounds;
           });
         });
