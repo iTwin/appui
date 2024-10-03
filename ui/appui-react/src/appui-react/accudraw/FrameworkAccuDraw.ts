@@ -128,13 +128,13 @@ export class AccuDrawSetCompassModeEvent extends BeUiEvent<AccuDrawSetCompassMod
  * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
-export class AccuDrawGrabInputFocusEvent extends BeUiEvent<{}> {}
+export class AccuDrawGrabInputFocusEvent extends BeUiEvent<object> {}
 
 /** AccuDraw Ui Settings Changed event
  * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
-export class AccuDrawUiSettingsChangedEvent extends BeUiEvent<{}> {}
+export class AccuDrawUiSettingsChangedEvent extends BeUiEvent<object> {}
 
 /** Subclass of `AccuDraw` in `@itwin/core-frontend` to be used to initialize `IModelApp`.
  *

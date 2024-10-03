@@ -814,7 +814,7 @@ describe("TreeDataSource", () => {
     });
 
     describe("using Unknown tree data provider", () => {
-      const waitForCompleteOrError = async <T extends {}>(
+      const waitForCompleteOrError = async <T extends object>(
         observable: RxjsObservable<T>
       ) => {
         return new Promise<void>((resolve, reject) => {

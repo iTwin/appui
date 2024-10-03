@@ -286,7 +286,7 @@ function UnitSystemSelectorFunction() {
 }
 
 function PositionPopupExample() {
-  const [isOpen, setIsOpen] = React.useState<Boolean>(false);
+  const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
   return (
     <>
