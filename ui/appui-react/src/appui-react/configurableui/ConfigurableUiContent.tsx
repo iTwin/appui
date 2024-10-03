@@ -23,7 +23,7 @@ import { PointerMessage } from "../messages/Pointer.js";
 import { PopupRenderer } from "../popup/PopupManager.js";
 import { WidgetPanelsFrontstage } from "../widget-panels/Frontstage.js";
 import { ContentDialogRenderer } from "../dialog/ContentDialogManager.js";
-import { UiFramework } from "../UiFramework.js";
+import { appUi, UiFramework } from "../UiFramework.js";
 import { InternalConfigurableUiManager } from "./InternalConfigurableUiManager.js";
 import { MessageRenderer } from "../messages/MessageRenderer.js";
 import {
@@ -32,6 +32,7 @@ import {
 } from "../theme/ThemeId.js";
 import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState.js";
 import type { ContentProps } from "../content/ContentGroup.js";
+import { ChildWindowRenderer } from "../childwindow/ChildWindowRenderer.js";
 
 /** @internal */
 export const ConfigurableUiContext = React.createContext<
@@ -151,6 +152,7 @@ export function ConfigurableUiContent(props: ConfigurableUiContentProps) {
             <CursorPopupRenderer />
             <PopupRenderer />
             <MessageRenderer />
+            <ChildWindowRenderer windowManager={appUi.windowManager} />
             <div
               className="uifw-configurableui-portalContainer"
               ref={(instance) => setPortalContainer(instance ?? undefined)}

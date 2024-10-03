@@ -9,26 +9,17 @@
 
 import "./InternalChildWindowManager.scss";
 import * as React from "react";
-import type { Root } from "react-dom/client";
-import { createRoot } from "react-dom/client";
-import { Provider } from "react-redux";
+import { BeEvent } from "@itwin/core-bentley";
 import { UiFramework } from "../UiFramework.js";
-import { CursorPopupMenu } from "../cursor/cursormenu/CursorMenu.js";
-import { ModalDialogRenderer } from "../dialog/ModalDialogManager.js";
-import { ModelessDialogRenderer } from "../dialog/ModelessDialogManager.js";
 import type {
   ChildWindowLocationProps,
   FrameworkChildWindows,
   OpenChildWindowInfo,
 } from "../framework/FrameworkChildWindows.js";
-import { TabIdContext } from "../layout/widget/ContentRenderer.js";
-import { PopupRenderer } from "../popup/PopupManager.js";
-import { ThemeManager } from "../theme/ThemeManager.js";
-import { UiStateStorageHandler } from "../uistate/useUiStateStorage.js";
 import type { ChildWindow } from "./ChildWindowConfig.js";
 import { copyStyles } from "./CopyStyles.js";
 import { usePopoutsStore } from "../preview/reparent-popout-widgets/usePopoutsStore.js";
-import type { WidgetDef } from "../widgets/WidgetDef.js";
+import type { TabState } from "../layout/state/TabState.js";
 
 const childHtml = `<!DOCTYPE html>
 <html>
@@ -53,35 +44,28 @@ const childHtml = `<!DOCTYPE html>
 </body>
 </html>`;
 
+/** @internal */
+export interface InternalOpenChildWindowInfo extends OpenChildWindowInfo {
+  content?: React.ReactNode;
+  render?: boolean;
+  tabId?: TabState["id"];
+}
+
 /** Supports opening a child browser window from the main application window. The child window is managed by the main application
  * and is running in the same security context. The application must deliver the html file iTwinPopup.html along side its index.html.
  * See also: [Child Window Manager]($docs/learning/ui/appui-react/ChildWindows.md)
  * @internal
- * */
+ */
 export class InternalChildWindowManager implements FrameworkChildWindows {
-  private _openChildWindows: OpenChildWindowInfo[] = [];
-  private _roots = new Map<string, Root>();
+  private _openChildWindows: InternalOpenChildWindowInfo[] = [];
+
+  public readonly onChildWindowsChanged = new BeEvent<() => void>();
+  public readonly onChildWindowChanged = new BeEvent<
+    (info: InternalOpenChildWindowInfo) => void
+  >();
 
   public get openChildWindows() {
     return this._openChildWindows;
-  }
-
-  /** Creates a new element tree to render specified element.
-   * @param element Element to render.
-   * @param container Container to render to.
-   */
-  private render(
-    element: React.FunctionComponentElement<any>,
-    container: Element | DocumentFragment
-  ) {
-    const childWindowId = UiFramework.childWindows.findId(
-      container.ownerDocument.defaultView
-    );
-    if (!childWindowId) return;
-
-    const root = createRoot(container);
-    this._roots.set(childWindowId, root);
-    root.render(element);
   }
 
   /**
@@ -117,46 +101,31 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
     childWindow: ChildWindow,
     childWindowId: string,
     content: React.ReactNode,
-    title: string
+    title: string,
+    tabId?: TabState["id"]
   ) {
     childWindow.document.title = title;
 
     const reactConnectionDiv = childWindow.document.getElementById("root");
     if (reactConnectionDiv && content && React.isValidElement(content)) {
       // set openChildWindows now so components can use it when they mount
-      this._openChildWindows.push({
+      const info: InternalOpenChildWindowInfo = {
         childWindowId,
         window: childWindow,
         parentWindow: window,
-      });
-      const widgetDef = content.props.widgetDef as WidgetDef | undefined;
-      const tabId = widgetDef?.id;
-      const element = (
-        // eslint-disable-next-line deprecation/deprecation
-        <Provider store={UiFramework.store}>
-          <TabIdContext.Provider value={tabId}>
-            <UiStateStorageHandler>
-              <ThemeManager>
-                <div className="uifw-child-window-container-host">
-                  <PopupRenderer />
-                  <ModalDialogRenderer />
-                  <ModelessDialogRenderer />
-                  <CursorPopupMenu />
-                  <div className="uifw-child-window-container nz-widget-widget">
-                    {content}
-                  </div>
-                </div>
-                <div className="uifw-childwindow-internalChildWindowManager_portalContainer" />
-              </ThemeManager>
-            </UiStateStorageHandler>
-          </TabIdContext.Provider>
-        </Provider>
-      );
+        content,
+        tabId,
+      };
+      this._openChildWindows.push(info);
+      this.onChildWindowsChanged.raiseEvent();
 
       setTimeout(async () => {
+        // TODO: copyStyles can be moved to renderer.
         await copyStyles(childWindow.document);
         setTimeout(() => {
-          this.render(element, reactConnectionDiv);
+          // TODO: workaround until setTimeout calls are refactored
+          info.render = true;
+          this.onChildWindowChanged.raiseEvent(info);
 
           if (childWindow.expectedHeight && childWindow.expectedWidth) {
             childWindow.deltaWidth =
@@ -184,11 +153,6 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
 
         // Trigger first so popout can be converted back to main window widget
         this.close(childWindowId, false);
-
-        const root = this._roots.get(childWindowId);
-        if (!root) return;
-        this._roots.delete(childWindowId);
-        root.unmount();
       });
     }
   }
@@ -199,6 +163,7 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
       openChildWindow.window.close()
     );
     this._openChildWindows = [];
+    this.onChildWindowsChanged.raiseEvent();
   }
 
   /**
@@ -216,7 +181,8 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
     onClosePopoutWidget.raiseEvent({ windowId: childWindowId });
 
     const childWindow = this.openChildWindows[windowIndex];
-    this.openChildWindows.splice(windowIndex, 1);
+    this._openChildWindows.splice(windowIndex, 1);
+    this.onChildWindowsChanged.raiseEvent();
     if (processWindowClose) {
       childWindow.window.close();
     } else {
@@ -251,7 +217,8 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
     title: string,
     content: React.ReactNode,
     location: ChildWindowLocationProps,
-    useDefaultPopoutUrl?: boolean
+    useDefaultPopoutUrl?: boolean,
+    tabId?: TabState["id"]
   ) {
     if (
       this.openChildWindows.some(
@@ -280,7 +247,8 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
         childWindow,
         childWindowId,
         content,
-        title
+        title,
+        tabId
       );
     } else {
       childWindow.addEventListener(
@@ -290,7 +258,8 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
             childWindow,
             childWindowId,
             content,
-            title
+            title,
+            tabId
           );
         },
         false

@@ -18,7 +18,7 @@ import {
 import type { XAndY } from "@itwin/core-geometry";
 import { Rectangle } from "@itwin/core-react/internal";
 import * as React from "react";
-import { UiFramework } from "../UiFramework.js";
+import { appUi, UiFramework } from "../UiFramework.js";
 import type { ChildWindow } from "../childwindow/ChildWindowConfig.js";
 import { ChildWindowWidget } from "../childwindow/ChildWindowWidget.js";
 import { TimeTracker } from "../configurableui/TimeTracker.js";
@@ -730,12 +730,13 @@ export class FrontstageDef {
       top: bounds.top,
     };
 
-    const result = UiFramework.childWindows.open(
+    const result = appUi.windowManager.open(
       widgetContainerId,
       widgetDef.label,
       popoutContent,
       position,
-      UiFramework.useDefaultPopoutUrl
+      UiFramework.useDefaultPopoutUrl,
+      tabId
     );
 
     if (!result && oldState) {
