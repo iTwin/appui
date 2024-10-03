@@ -9,14 +9,17 @@
 import "./ChildWindowWidget.scss";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import type { InternalChildWindowManager } from "./InternalChildWindowManager.js";
+import type {
+  InternalChildWindowManager,
+  InternalOpenChildWindowInfo,
+} from "./InternalChildWindowManager.js";
 import { TabIdContext } from "../layout/widget/ContentRenderer.js";
 import { ThemeManager } from "../theme/ThemeManager.js";
 import { PopupRenderer } from "../popup/PopupManager.js";
 import { ModalDialogRenderer } from "../dialog/ModalDialogManager.js";
 import { ModelessDialogRenderer } from "../dialog/ModelessDialogManager.js";
-import type { OpenChildWindowInfo } from "../../appui-react.js";
 import { CursorPopupMenu } from "../../appui-react.js";
+import { copyStyles } from "./CopyStyles.js";
 
 interface ChildWindowRendererProps {
   windowManager: InternalChildWindowManager;
@@ -40,8 +43,9 @@ export function ChildWindowRenderer({
         return (
           <ChildWindow
             key={childWindow.childWindowId}
-            windowManager={windowManager}
-            windowId={childWindow.childWindowId}
+            content={childWindow.content}
+            tabId={childWindow.tabId}
+            window={childWindow.window}
           />
         );
       })}
@@ -49,32 +53,28 @@ export function ChildWindowRenderer({
   );
 }
 
-interface ChildWindowProps {
-  windowManager: InternalChildWindowManager;
-  windowId: OpenChildWindowInfo["childWindowId"];
-}
+type ChildWindowProps = Pick<
+  InternalOpenChildWindowInfo,
+  "content" | "tabId" | "window"
+>;
 
-function ChildWindow({ windowManager, windowId }: ChildWindowProps) {
-  const [info, setInfo] = React.useState(
-    windowManager.openChildWindows.find((w) => w.childWindowId === windowId)
-  );
-  React.useEffect(() => {
-    return windowManager.onChildWindowChanged.addListener((newInfo) => {
-      if (newInfo.childWindowId !== windowId) return;
-      setInfo({ ...newInfo });
-    });
-  }, [windowManager, windowId]);
-
+function ChildWindow({ content, tabId, window }: ChildWindowProps) {
   const container = React.useMemo(() => {
-    return info?.window.document.getElementById("root");
-  }, [info]);
+    return window.document.getElementById("root");
+  }, [window]);
+  const [styled, setStyled] = React.useState(false);
+  React.useEffect(() => {
+    void (async () => {
+      await stylesUtils.copyStyles(window);
+      setStyled(true);
+    })();
+  }, [window]);
 
-  if (!info) return null;
-  if (!info.render) return null;
   if (!container) return null;
+  if (!styled) return null;
 
   return ReactDOM.createPortal(
-    <TabIdContext.Provider value={info.tabId}>
+    <TabIdContext.Provider value={tabId}>
       <ThemeManager>
         <div className="uifw-child-window-container-host">
           <PopupRenderer />
@@ -82,7 +82,7 @@ function ChildWindow({ windowManager, windowId }: ChildWindowProps) {
           <ModelessDialogRenderer />
           <CursorPopupMenu />
           <div className="uifw-child-window-container nz-widget-widget">
-            {info.content}
+            {content}
           </div>
         </div>
         <div className="uifw-childwindow-internalChildWindowManager_portalContainer" />
@@ -91,3 +91,21 @@ function ChildWindow({ windowManager, windowId }: ChildWindowProps) {
     container
   );
 }
+
+const stylesUtils = (() => {
+  const hasStyles = (window: Window) => {
+    const w = window as any;
+    return w.__appui_has_styles ?? false;
+  };
+  const setHasStyles = (window: Window, val: boolean) => {
+    const w = window as any;
+    w.__appui_has_styles = val;
+  };
+  return {
+    copyStyles: async (window: Window) => {
+      if (hasStyles(window)) return;
+      setHasStyles(window, true);
+      return copyStyles(window.document);
+    },
+  };
+})();

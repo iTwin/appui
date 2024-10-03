@@ -19,7 +19,6 @@ import type { XAndY } from "@itwin/core-geometry";
 import { Rectangle } from "@itwin/core-react/internal";
 import * as React from "react";
 import { appUi, UiFramework } from "../UiFramework.js";
-import type { ChildWindow } from "../childwindow/ChildWindowConfig.js";
 import { ChildWindowWidget } from "../childwindow/ChildWindowWidget.js";
 import { TimeTracker } from "../configurableui/TimeTracker.js";
 import type { ContentControl } from "../content/ContentControl.js";
@@ -783,7 +782,7 @@ export class FrontstageDef {
   /** @internal */
   public saveChildWindowSizeAndPosition(
     childWindowId: string,
-    childWindow: ChildWindow
+    childWindow: Window
   ) {
     const state = this.nineZoneState;
     if (!state) return;
@@ -796,23 +795,10 @@ export class FrontstageDef {
     const widgetDef = this.findWidgetDef(tabId);
     if (!widgetDef) return;
 
-    let height = childWindow.innerHeight;
-    if (childWindow.deltaHeight) {
-      height += childWindow.deltaHeight;
-      if (height < 1) height = 100;
-    }
-
-    let width = childWindow.innerWidth;
-    if (childWindow.deltaWidth) {
-      width += childWindow.deltaWidth;
-      if (width < 1) width = 100;
-    }
-
-    let left = childWindow.screenLeft;
-    if (childWindow.deltaLeft) left += childWindow.deltaLeft;
-
-    let top = childWindow.screenTop;
-    if (childWindow.deltaTop) top += childWindow.deltaTop;
+    const height = childWindow.innerHeight;
+    const width = childWindow.innerWidth;
+    const left = childWindow.screenLeft;
+    const top = childWindow.screenTop;
 
     const bounds = Rectangle.createFromSize({ width, height }).offset({
       x: left,

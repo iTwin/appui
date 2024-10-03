@@ -8,7 +8,7 @@
  */
 
 import "./InternalChildWindowManager.scss";
-import * as React from "react";
+import type * as React from "react";
 import { BeEvent } from "@itwin/core-bentley";
 import { UiFramework } from "../UiFramework.js";
 import type {
@@ -16,8 +16,6 @@ import type {
   FrameworkChildWindows,
   OpenChildWindowInfo,
 } from "../framework/FrameworkChildWindows.js";
-import type { ChildWindow } from "./ChildWindowConfig.js";
-import { copyStyles } from "./CopyStyles.js";
 import { usePopoutsStore } from "../preview/reparent-popout-widgets/usePopoutsStore.js";
 import type { TabState } from "../layout/state/TabState.js";
 
@@ -47,7 +45,6 @@ const childHtml = `<!DOCTYPE html>
 /** @internal */
 export interface InternalOpenChildWindowInfo extends OpenChildWindowInfo {
   content?: React.ReactNode;
-  render?: boolean;
   tabId?: TabState["id"];
 }
 
@@ -60,9 +57,6 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
   private _openChildWindows: InternalOpenChildWindowInfo[] = [];
 
   public readonly onChildWindowsChanged = new BeEvent<() => void>();
-  public readonly onChildWindowChanged = new BeEvent<
-    (info: InternalOpenChildWindowInfo) => void
-  >();
 
   public get openChildWindows() {
     return this._openChildWindows;
@@ -98,7 +92,7 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
   }
 
   private renderChildWindowContents(
-    childWindow: ChildWindow,
+    childWindow: Window,
     childWindowId: string,
     content: React.ReactNode,
     title: string,
@@ -106,55 +100,14 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
   ) {
     childWindow.document.title = title;
 
-    const reactConnectionDiv = childWindow.document.getElementById("root");
-    if (reactConnectionDiv && content && React.isValidElement(content)) {
-      // set openChildWindows now so components can use it when they mount
-      const info: InternalOpenChildWindowInfo = {
-        childWindowId,
-        window: childWindow,
-        parentWindow: window,
-        content,
-        tabId,
-      };
-      this._openChildWindows.push(info);
-      this.onChildWindowsChanged.raiseEvent();
-
-      setTimeout(async () => {
-        // TODO: copyStyles can be moved to renderer.
-        await copyStyles(childWindow.document);
-        setTimeout(() => {
-          // TODO: workaround until setTimeout calls are refactored
-          info.render = true;
-          this.onChildWindowChanged.raiseEvent(info);
-
-          if (childWindow.expectedHeight && childWindow.expectedWidth) {
-            childWindow.deltaWidth =
-              childWindow.expectedWidth - childWindow.innerWidth;
-            childWindow.deltaHeight =
-              childWindow.expectedHeight - childWindow.innerHeight;
-          }
-
-          if (childWindow.expectedLeft && childWindow.expectedTop) {
-            childWindow.deltaLeft =
-              childWindow.expectedLeft - childWindow.screenLeft;
-            childWindow.deltaTop =
-              childWindow.expectedTop - childWindow.screenTop;
-          }
-        });
-      });
-
-      childWindow.addEventListener("pagehide", () => {
-        const frontStageDef = UiFramework.frontstages.activeFrontstageDef;
-        if (!frontStageDef) return;
-        frontStageDef.saveChildWindowSizeAndPosition(
-          childWindowId,
-          childWindow
-        );
-
-        // Trigger first so popout can be converted back to main window widget
-        this.close(childWindowId, false);
-      });
-    }
+    this._openChildWindows.push({
+      childWindowId,
+      window: childWindow,
+      parentWindow: window,
+      content,
+      tabId,
+    });
+    this.onChildWindowsChanged.raiseEvent();
   }
 
   /** Close all child/pop-out windows. This typically is called when the frontstage is changed. */
@@ -230,16 +183,21 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
 
     this.adjustWindowLocation(location);
     const url = useDefaultPopoutUrl ? "/iTwinPopup.html" : "";
-    const childWindow: ChildWindow | null = window.open(
+    const childWindow = window.open(
       url,
       "",
       `width=${location.width},height=${location.height},left=${location.left},top=${location.top},menubar=no,resizable=yes,scrollbars=no,status=no,location=no`
     );
     if (!childWindow) return false;
-    childWindow.expectedHeight = location.height;
-    childWindow.expectedWidth = location.width;
-    childWindow.expectedLeft = location.left;
-    childWindow.expectedTop = location.top;
+
+    childWindow.addEventListener("pagehide", () => {
+      const frontStageDef = UiFramework.frontstages.activeFrontstageDef;
+      if (!frontStageDef) return;
+      frontStageDef.saveChildWindowSizeAndPosition(childWindowId, childWindow);
+
+      // Trigger first so popout can be converted back to main window widget
+      this.close(childWindowId, false);
+    });
 
     if (url.length === 0) {
       childWindow.document.write(childHtml);
