@@ -7,7 +7,6 @@
  * @module ChildWindowManager
  */
 
-import "./InternalChildWindowManager.scss";
 import type * as React from "react";
 import { BeEvent } from "@itwin/core-bentley";
 import { UiFramework } from "../UiFramework.js";

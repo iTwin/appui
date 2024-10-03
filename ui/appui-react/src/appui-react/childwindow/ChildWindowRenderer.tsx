@@ -6,7 +6,7 @@
  * @module ChildWindowManager
  */
 
-import "./ChildWindowWidget.scss";
+import "./ChildWindowRenderer.scss";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import type {
@@ -18,7 +18,7 @@ import { ThemeManager } from "../theme/ThemeManager.js";
 import { PopupRenderer } from "../popup/PopupManager.js";
 import { ModalDialogRenderer } from "../dialog/ModalDialogManager.js";
 import { ModelessDialogRenderer } from "../dialog/ModelessDialogManager.js";
-import { CursorPopupMenu } from "../../appui-react.js";
+import { CursorPopupMenu } from "../cursor/cursormenu/CursorMenu.js";
 import { copyStyles } from "./CopyStyles.js";
 
 interface ChildWindowRendererProps {
