@@ -43,6 +43,7 @@ Table of contents:
 - Added `exports` field to `package.json` to prevent importing of `@internal` APIs [^1]. [#1048](https://github.com/iTwin/appui/pull/1048)
 - Drop support for [iTwin.js 3.x](https://www.itwinjs.org/v3/) [^2]. [#1050](https://github.com/iTwin/appui/pull/1050)
 - Drop support for [React 17.x](https://react.dev/versions#react-17) [^3]. [#1054](https://github.com/iTwin/appui/pull/1054)
+- Update `FilterBuilder` UI according to UX team's new specification. [#1059] (https://github.com/iTwin/appui/pull/1059)
 
 ## @itwin/core-react
 
