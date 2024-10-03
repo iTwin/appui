@@ -73,7 +73,6 @@ function ChildWindow({ windowManager, windowId }: ChildWindowProps) {
   if (!info.render) return null;
   if (!container) return null;
 
-  console.log("TAB", info.tabId);
   return ReactDOM.createPortal(
     <TabIdContext.Provider value={info.tabId}>
       <ThemeManager>
