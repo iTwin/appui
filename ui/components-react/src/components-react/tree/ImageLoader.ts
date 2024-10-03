@@ -6,8 +6,8 @@
  * @module Tree
  */
 
-import type { IImageLoader, LoadedImage } from "../common/IImageLoader";
-import type { TreeNodeItem } from "./TreeDataProvider";
+import type { IImageLoader, LoadedImage } from "../common/IImageLoader.js";
+import type { TreeNodeItem } from "./TreeDataProvider.js";
 
 /** Interface for a tree image loader
  * @public

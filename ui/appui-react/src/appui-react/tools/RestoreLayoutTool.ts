@@ -11,9 +11,9 @@ import {
   OutputMessagePriority,
   Tool,
 } from "@itwin/core-frontend";
-import type { FrontstageDef } from "../frontstage/FrontstageDef";
-import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager";
-import { UiFramework } from "../UiFramework";
+import type { FrontstageDef } from "../frontstage/FrontstageDef.js";
+import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager.js";
+import { UiFramework } from "../UiFramework.js";
 import svgViewLayouts from "@bentley/icons-generic/icons/view-layouts.svg";
 
 /**

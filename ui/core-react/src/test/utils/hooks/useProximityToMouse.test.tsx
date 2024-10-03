@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
 import * as React from "react";
-import userEvent from "@testing-library/user-event";
+import { userEvent } from "@testing-library/user-event";
 import {
   calculateBackdropFilterBlur,
   calculateBoxShadowOpacity,
@@ -18,7 +18,7 @@ import {
   TOOLBAR_OPACITY_DEFAULT,
   useProximityToMouse,
   WidgetElementSet,
-} from "../../../core-react/utils/hooks/useProximityToMouse";
+} from "../../../core-react/utils/hooks/useProximityToMouse.js";
 
 const ProximityToMouse = () => {
   const ref = React.useRef<HTMLDivElement>(null);

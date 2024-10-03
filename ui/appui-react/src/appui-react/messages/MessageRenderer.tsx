@@ -10,10 +10,10 @@ import * as React from "react";
 import type { ReactMessage } from "@itwin/core-react";
 import { MessageRenderer as CoreMessageRenderer } from "@itwin/core-react";
 import { ProgressLinear, Text, useToaster } from "@itwin/itwinui-react";
-import type { ActivityMessageEventArgs } from "../messages/MessageManager";
-import { MessageManager } from "../messages/MessageManager";
+import type { ActivityMessageEventArgs } from "../messages/MessageManager.js";
+import { MessageManager } from "../messages/MessageManager.js";
 import { OutputMessagePriority, OutputMessageType } from "@itwin/core-frontend";
-import { useTranslation } from "../hooks/useTranslation";
+import { useTranslation } from "../hooks/useTranslation.js";
 
 interface UseActivityMessageProps {
   cancelActivityMessage?: () => void;

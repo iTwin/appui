@@ -4,20 +4,20 @@
  *--------------------------------------------------------------------------------------------*/
 import { act, fireEvent, render, renderHook } from "@testing-library/react";
 import * as React from "react";
-import { createLayoutStore } from "../../../appui-react/layout/base/LayoutStore";
-import type { NineZoneDispatch } from "../../../appui-react/layout/base/NineZone";
-import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState";
-import { addTab } from "../../../appui-react/layout/state/internal/TabStateHelpers";
-import { addWidgetToolSettings } from "../../../appui-react/layout/state/internal/ToolSettingsStateHelpers";
-import { addFloatingWidget } from "../../../appui-react/layout/state/internal/WidgetStateHelpers";
+import { createLayoutStore } from "../../../appui-react/layout/base/LayoutStore.js";
+import type { NineZoneDispatch } from "../../../appui-react/layout/base/NineZone.js";
+import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState.js";
+import { addTab } from "../../../appui-react/layout/state/internal/TabStateHelpers.js";
+import { addWidgetToolSettings } from "../../../appui-react/layout/state/internal/ToolSettingsStateHelpers.js";
+import { addFloatingWidget } from "../../../appui-react/layout/state/internal/WidgetStateHelpers.js";
 import {
   FloatingWidgetProvider,
   getResizeBy,
   useFloatingWidgetId,
   useWidgetAllowedToDock,
-} from "../../../appui-react/layout/widget/FloatingWidget";
-import { WidgetIdContext } from "../../../appui-react/layout/widget/Widget";
-import { TestNineZoneProvider } from "../Providers";
+} from "../../../appui-react/layout/widget/FloatingWidget.js";
+import { WidgetIdContext } from "../../../appui-react/layout/widget/Widget.js";
+import { TestNineZoneProvider } from "../Providers.js";
 
 describe("FloatingWidget", () => {
   it("should render", () => {

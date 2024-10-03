@@ -6,14 +6,14 @@
  * @module Base
  */
 
-import produce, { castDraft } from "immer";
+import type { Draft } from "immer";
+import { castDraft, produce } from "immer";
 import { UiError } from "@itwin/appui-abstract";
-import type { NineZoneState } from "../NineZoneState";
-import type { DraggedTabState, TabState } from "../TabState";
-import { category } from "./NineZoneStateHelpers";
-import type { SavedTabState, TabHomeState } from "../SavedTabState";
-import type { WritableDraft } from "immer/dist/internal";
-import { getTabLocation } from "../TabLocation";
+import type { NineZoneState } from "../NineZoneState.js";
+import type { DraggedTabState, TabState } from "../TabState.js";
+import { category } from "./NineZoneStateHelpers.js";
+import type { SavedTabState, TabHomeState } from "../SavedTabState.js";
+import { getTabLocation } from "../TabLocation.js";
 import {
   addFloatingWidget,
   assertWidgetState,
@@ -21,12 +21,12 @@ import {
   removeWidget,
   setWidgetActiveTabId,
   updateWidgetState,
-} from "./WidgetStateHelpers";
-import type { WidgetState } from "../WidgetState";
-import { isFloatingWidgetRestoreState } from "../WidgetRestoreState";
-import { Rectangle } from "@itwin/core-react";
-import { getUniqueId } from "../../base/NineZone";
-import { insertPanelWidget } from "./PanelStateHelpers";
+} from "./WidgetStateHelpers.js";
+import type { WidgetState } from "../WidgetState.js";
+import { isFloatingWidgetRestoreState } from "../WidgetRestoreState.js";
+import { Rectangle } from "@itwin/core-react/internal";
+import { getUniqueId } from "../../base/NineZone.js";
+import { insertPanelWidget } from "./PanelStateHelpers.js";
 
 /** @internal */
 export function createTabState(
@@ -62,7 +62,7 @@ export function createDraggedTabState(
 export function updateTabState(
   state: NineZoneState,
   id: TabState["id"],
-  update: (draft: WritableDraft<TabState>) => void
+  update: (draft: Draft<TabState>) => void
 ) {
   // eslint-disable-next-line deprecation/deprecation
   if (!(id in state.tabs)) throw new UiError(category, "Tab does not exist");
@@ -77,7 +77,7 @@ export function updateTabState(
 export function updateSavedTabState(
   state: NineZoneState,
   id: TabState["id"],
-  update: (draft: WritableDraft<SavedTabState>) => void
+  update: (draft: Draft<SavedTabState>) => void
 ) {
   return produce(state, (draft) => {
     const allIds = draft.savedTabs.allIds;

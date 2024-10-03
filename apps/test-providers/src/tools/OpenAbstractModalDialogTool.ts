@@ -7,8 +7,8 @@
  */
 
 import { Tool } from "@itwin/core-frontend";
-import { AbstractDialogDataProvider } from "../ui/dialogs/TestUiProviderDialog";
-import { AppUiTestProviders } from "../AppUiTestProviders";
+import { AbstractDialogDataProvider } from "../ui/dialogs/TestUiProviderDialog.js";
+import { AppUiTestProviders } from "../AppUiTestProviders.js";
 import { UiFramework } from "@itwin/appui-react";
 
 /**

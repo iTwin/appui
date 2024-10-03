@@ -5,9 +5,9 @@
 
 import type { PrimitiveValue, PropertyRecord } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
-import type { PropertyCategory } from "../../components-react";
-import { SimplePropertyDataProvider } from "../../components-react";
-import TestUtils from "../TestUtils";
+import type { PropertyCategory } from "../../components-react.js";
+import { SimplePropertyDataProvider } from "../../components-react.js";
+import TestUtils from "../TestUtils.js";
 
 class SamplePropertyDataProvider extends SimplePropertyDataProvider {
   public category2: PropertyCategory;

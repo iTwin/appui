@@ -7,8 +7,8 @@
  */
 
 import type * as React from "react";
-import type { InputLabel } from "./InputLabel";
-import type { InputStatus } from "./InputStatus";
+import type { InputLabel } from "./InputLabel.js";
+import type { InputStatus } from "./InputStatus.js";
 
 /** Properties for labeled components
  * @public

@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
 import * as React from "react";
-import { AppButton } from "../../../../appui-react/layout/widget/tools/button/App";
-import { childStructure, selectorMatches } from "../../Utils";
+import { AppButton } from "../../../../appui-react/layout/widget/tools/button/App.js";
+import { childStructure, selectorMatches } from "../../Utils.js";
 
 describe("<AppButton  />", () => {
   it("renders correctly", () => {

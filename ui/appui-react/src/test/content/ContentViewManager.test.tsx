@@ -12,8 +12,8 @@ import type {
   SheetViewState,
   SpatialViewState,
 } from "@itwin/core-frontend";
-import type { ViewportContentControl } from "../../appui-react";
-import { InternalContentViewManager } from "../../appui-react/content/InternalContentViewManager";
+import type { ViewportContentControl } from "../../appui-react.js";
+import { InternalContentViewManager } from "../../appui-react/content/InternalContentViewManager.js";
 
 describe("ContentViewManager", () => {
   const viewportMock = moq.Mock.ofType<ScreenViewport>();

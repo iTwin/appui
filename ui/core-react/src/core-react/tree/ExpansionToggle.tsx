@@ -9,10 +9,10 @@
 import "./ExpansionToggle.scss";
 import classnames from "classnames";
 import * as React from "react";
-import type { CommonProps } from "../utils/Props";
-import { Icon } from "../icons/IconComponent";
+import type { CommonProps } from "../utils/Props.js";
+import { Icon } from "../icons/IconComponent.js";
 import { SvgChevronRight } from "@itwin/itwinui-icons-react";
-import { useTranslation } from "../l10n/useTranslation";
+import { useTranslation } from "../l10n/useTranslation.js";
 
 /* eslint-disable deprecation/deprecation */
 

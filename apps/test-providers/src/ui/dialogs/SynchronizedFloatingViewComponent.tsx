@@ -11,7 +11,7 @@ import {
 } from "@itwin/appui-react";
 import { ScreenViewport, Viewport, ViewState } from "@itwin/core-frontend";
 import { ViewportComponentEvents } from "@itwin/imodel-components-react";
-import { getViewDefinitions } from "../components/ViewDefinitionSelector";
+import { getViewDefinitions } from "../components/ViewDefinitionSelector.js";
 
 interface SynchronizedViewDefInterfaceLocal {
   id: string;

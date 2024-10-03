@@ -10,7 +10,7 @@ import type {
   ScreenViewport,
   ViewState3d,
 } from "@itwin/core-frontend";
-import { SolarTimelineDataProvider } from "../../appui-react/timeline/SolarTimelineDataProvider";
+import { SolarTimelineDataProvider } from "../../appui-react/timeline/SolarTimelineDataProvider.js";
 
 describe("SolarTimelineDataProvider", () => {
   const viewportMock = moq.Mock.ofType<ScreenViewport>();

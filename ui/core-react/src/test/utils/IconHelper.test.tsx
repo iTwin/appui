@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { ConditionalStringValue } from "@itwin/appui-abstract";
-import { IconHelper } from "../../core-react/utils/IconHelper";
-import { ConditionalIconItem } from "../../core-react";
+import { IconHelper } from "../../core-react/utils/IconHelper.js";
+import { ConditionalIconItem } from "../../core-react.js";
 
 describe("IconHelper", () => {
   it("should get string icon data", () => {

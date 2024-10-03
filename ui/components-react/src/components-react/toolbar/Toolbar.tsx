@@ -13,12 +13,12 @@ import type {
   OnItemExecutedFunc,
 } from "@itwin/appui-abstract";
 import type { CommonProps, NoChildrenProps } from "@itwin/core-react";
-import type { Direction } from "./utilities/Direction";
+import type { Direction } from "./utilities/Direction.js";
 import type {
   ToolbarOpacitySetting,
   ToolbarPanelAlignment,
-} from "./InternalToolbarComponent";
-import { InternalToolbarComponent } from "./InternalToolbarComponent";
+} from "./InternalToolbarComponent.js";
+import { InternalToolbarComponent } from "./InternalToolbarComponent.js";
 
 /** Properties of [[Toolbar]] component.
  * @public

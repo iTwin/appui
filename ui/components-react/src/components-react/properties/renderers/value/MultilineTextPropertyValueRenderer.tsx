@@ -15,11 +15,11 @@ import { PropertyValueFormat } from "@itwin/appui-abstract";
 import type {
   IPropertyValueRenderer,
   PropertyValueRendererContext,
-} from "../../ValueRendererManager";
-import { useRenderedStringValue } from "./PrimitivePropertyValueRenderer";
+} from "../../ValueRendererManager.js";
+import { useRenderedStringValue } from "./PrimitivePropertyValueRenderer.js";
 import classnames from "classnames";
-import { convertRecordToString } from "./Common";
-import { useTranslation } from "../../../l10n/useTranslation";
+import { convertRecordToString } from "./Common.js";
+import { useTranslation } from "../../../l10n/useTranslation.js";
 
 /** @internal */
 export class MultilineTextPropertyValueRenderer

@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { getBestBWContrastColor } from "../../core-react";
+import { getBestBWContrastColor } from "../../core-react/utils/getBestBWContrastColor.js";
 
 const COLORS = [
   "#6ab9ec",

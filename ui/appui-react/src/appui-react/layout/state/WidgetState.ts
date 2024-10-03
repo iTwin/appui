@@ -6,12 +6,12 @@
  * @module Base
  */
 
-import type { RectangleProps } from "../../utils/RectangleProps";
-import type { TabState } from "./TabState";
+import type { RectangleProps } from "../../utils/RectangleProps.js";
+import type { TabState } from "./TabState.js";
 import type {
   PanelWidgetRestoreState,
   WidgetRestoreState,
-} from "./WidgetRestoreState";
+} from "./WidgetRestoreState.js";
 
 /** State of a stacked widget, which can contain multiple tabs. I.e. in a panel section or a floating widget.
  * @internal

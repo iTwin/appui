@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { Logger } from "@itwin/core-bentley";
-import type { UiItemsProvider, Widget } from "../../appui-react";
+import type { UiItemsProvider, Widget } from "../../appui-react.js";
 import {
   StagePanelLocation,
   StagePanelSection,
@@ -12,8 +12,8 @@ import {
   WidgetDef,
   WidgetManager,
   WidgetState,
-} from "../../appui-react";
-import { TestUtils } from "../TestUtils";
+} from "../../appui-react.js";
+import { TestUtils } from "../TestUtils.js";
 
 class TestUiProvider implements UiItemsProvider {
   public readonly id = "TestUiProvider-Widget";

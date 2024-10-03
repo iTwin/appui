@@ -5,7 +5,7 @@
 import { fireEvent, render } from "@testing-library/react";
 import * as React from "react";
 import { Key } from "ts-key-enum";
-import { NumberInput } from "../../../core-react/inputs/numberinput/NumberInput";
+import { NumberInput } from "../../../core-react/inputs/numberinput/NumberInput.js";
 
 function parseDollar(stringValue: string) {
   const noDollarSign = stringValue.replace(/^\$/, "");

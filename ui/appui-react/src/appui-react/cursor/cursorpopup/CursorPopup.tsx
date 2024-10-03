@@ -8,21 +8,18 @@
 
 import { RelativePosition } from "@itwin/appui-abstract";
 import type { XAndY } from "@itwin/core-geometry";
-import type {
-  CommonDivProps,
-  CommonProps,
-  ListenerType,
-} from "@itwin/core-react";
-import { Div, Size } from "@itwin/core-react";
+import type { CommonDivProps, CommonProps } from "@itwin/core-react";
+import type { ListenerType } from "@itwin/core-react/internal";
+import { Div } from "@itwin/core-react";
 import classnames from "classnames";
 import * as React from "react";
-import { StatusBarDialog } from "../../statusbar/dialog/Dialog";
+import { StatusBarDialog } from "../../statusbar/dialog/Dialog.js";
 import "./CursorPopup.scss";
-import { CursorPopupManager } from "./CursorPopupManager";
-import { type Placement } from "../../utils/Placement";
+import { CursorPopupManager } from "./CursorPopupManager.js";
+import { type Placement } from "../../utils/Placement.js";
 import type { RequireAtLeastOne } from "@itwin/core-bentley";
-import type { SizeProps } from "../../utils/SizeProps";
-import type { RectangleProps } from "../../utils/RectangleProps";
+import type { SizeProps } from "../../utils/SizeProps.js";
+import type { RectangleProps } from "../../utils/RectangleProps.js";
 
 /** Properties for the [[CursorPopup]] React component
  * @public
@@ -56,7 +53,7 @@ export enum CursorPopupShow {
  */
 interface CursorPopupState {
   showPopup: CursorPopupShow;
-  size: Size;
+  size: SizeProps;
 }
 
 /** CursorPopup React component
@@ -76,7 +73,7 @@ export class CursorPopup extends React.Component<
 
     this.state = {
       showPopup: CursorPopupShow.Open,
-      size: new Size(-1, -1),
+      size: { width: -1, height: -1 },
     };
   }
 
@@ -222,13 +219,15 @@ export class CursorPopup extends React.Component<
   private setDivRef(div: HTMLDivElement | null) {
     if (div) {
       const rect = div.getBoundingClientRect();
-      const newSize = new Size(rect.width, rect.height);
+      const newSize = { width: rect.width, height: rect.height };
+      if (
+        newSize.height === this.state.size.height &&
+        newSize.width === this.state.size.width
+      )
+        return;
 
-      if (!this.state.size.equals(newSize)) {
-        if (this.props.onSizeKnown) this.props.onSizeKnown(newSize);
-
-        if (this._isMounted) this.setState({ size: newSize });
-      }
+      this.props.onSizeKnown?.(newSize);
+      if (this._isMounted) this.setState({ size: newSize });
     }
   }
 

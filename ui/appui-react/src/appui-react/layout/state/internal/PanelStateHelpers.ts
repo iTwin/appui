@@ -7,25 +7,25 @@
  */
 
 import { UiError } from "@itwin/appui-abstract";
-import produce from "immer";
-import type { WritableDraft } from "immer/dist/types/types-external";
-import { isHorizontalPanelSide } from "../../widget-panels/Panel";
+import type { Draft } from "immer";
+import { produce } from "immer";
+import { isHorizontalPanelSide } from "../../widget-panels/Panel.js";
 import type {
   HorizontalPanelSide,
   PanelSide,
   VerticalPanelSide,
-} from "../../widget-panels/PanelTypes";
-import type { NineZoneState } from "../NineZoneState";
+} from "../../widget-panels/PanelTypes.js";
+import type { NineZoneState } from "../NineZoneState.js";
 import type {
   HorizontalPanelState,
   PanelsState,
   VerticalPanelState,
-} from "../PanelState";
-import type { WidgetState } from "../WidgetState";
-import { category } from "./NineZoneStateHelpers";
-import { addWidgetState } from "./WidgetStateHelpers";
-import type { StagePanelSizeSpec } from "../../../stagepanels/StagePanelConfig";
-import type { SizeProps } from "../../../utils/SizeProps";
+} from "../PanelState.js";
+import type { WidgetState } from "../WidgetState.js";
+import { category } from "./NineZoneStateHelpers.js";
+import { addWidgetState } from "./WidgetStateHelpers.js";
+import type { StagePanelSizeSpec } from "../../../stagepanels/StagePanelConfig.js";
+import type { SizeProps } from "../../../utils/SizeProps.js";
 
 function createPanelState(side: PanelSide) {
   return {
@@ -84,7 +84,7 @@ export function createPanelsState(args?: Partial<PanelsState>): PanelsState {
 export function updatePanelState<K extends keyof PanelsState>(
   state: NineZoneState,
   side: K,
-  update: (draft: WritableDraft<PanelsState>[K]) => void
+  update: (draft: Draft<PanelsState>[K]) => void
 ) {
   return produce(state, (draft) => {
     const panel = draft.panels[side];

@@ -9,14 +9,14 @@
 import * as React from "react";
 import type { LinkElementsInfo, PropertyRecord } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
-import { useAsyncValue } from "../../../common/UseAsyncValue";
-import { PropertyGridCommons } from "../../../propertygrid/component/PropertyGridCommons";
-import { LinksRenderer } from "../../LinkHandler";
+import { useAsyncValue } from "../../../common/UseAsyncValue.js";
+import { PropertyGridCommons } from "../../../propertygrid/component/PropertyGridCommons.js";
+import { LinksRenderer } from "../../LinkHandler.js";
 import type {
   IPropertyValueRenderer,
   PropertyValueRendererContext,
-} from "../../ValueRendererManager";
-import { convertRecordToString } from "./Common";
+} from "../../ValueRendererManager.js";
+import { convertRecordToString } from "./Common.js";
 
 /** Default Primitive Property Renderer
  * @public

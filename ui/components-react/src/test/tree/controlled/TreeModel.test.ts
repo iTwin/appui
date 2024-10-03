@@ -6,8 +6,8 @@ import * as faker from "faker";
 import * as moq from "typemoq";
 import { PropertyRecord } from "@itwin/appui-abstract";
 import { CheckBoxState } from "@itwin/core-react";
-import type { SparseTree } from "../../../components-react/tree/controlled/internal/SparseTree";
-import { SparseArray } from "../../../components-react/tree/controlled/internal/SparseTree";
+import type { SparseTree } from "../../../components-react/tree/controlled/internal/SparseTree.js";
+import { SparseArray } from "../../../components-react/tree/controlled/internal/SparseTree.js";
 import type {
   MutableTreeModelNode,
   TreeModel,
@@ -15,15 +15,15 @@ import type {
   TreeModelNodeInput,
   TreeModelNodePlaceholder,
   TreeModelRootNode,
-} from "../../../components-react/tree/controlled/TreeModel";
+} from "../../../components-react/tree/controlled/TreeModel.js";
 import {
   computeVisibleNodes,
   isTreeModelNode,
   isTreeModelNodePlaceholder,
   isTreeModelRootNode,
   MutableTreeModel,
-} from "../../../components-react/tree/controlled/TreeModel";
-import { createRandomMutableTreeModelNode } from "./TreeHelpers";
+} from "../../../components-react/tree/controlled/TreeModel.js";
+import { createRandomMutableTreeModelNode } from "./TreeHelpers.js";
 
 const createTreeModelNode = (
   parentNode: TreeModelNode | TreeModelRootNode,

@@ -7,8 +7,8 @@ import { IModelApp, NoRenderApp, QuantityType } from "@itwin/core-frontend";
 import { act, fireEvent, render } from "@testing-library/react";
 import { Key } from "ts-key-enum";
 import * as React from "react";
-import { QuantityNumberInput } from "../../imodel-components-react/inputs/QuantityNumberInput";
-import TestUtils from "../TestUtils";
+import { QuantityNumberInput } from "../../imodel-components-react/inputs/QuantityNumberInput.js";
+import TestUtils from "../TestUtils.js";
 
 // cSpell:ignore decrementor QuantityNumberInput
 

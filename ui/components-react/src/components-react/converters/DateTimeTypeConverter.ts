@@ -8,19 +8,14 @@
 
 import { Logger } from "@itwin/core-bentley";
 import type { Primitives } from "@itwin/appui-abstract";
-import {
-  AlternateDateFormats,
-  StandardTypeNames,
-  TimeDisplay,
-} from "@itwin/appui-abstract";
-import { formatInputDate } from "../datepicker/DateField";
-import { adjustDateToTimezone } from "../common/DateUtils";
-import { UiComponents } from "../UiComponents";
-import type { LessGreaterOperatorProcessor } from "./TypeConverter";
-import { TypeConverter } from "./TypeConverter";
-import { TypeConverterManager } from "./TypeConverterManager";
-import type { ConvertedPrimitives } from "./valuetypes/ConvertedTypes";
-import { TimeFormat } from "../common/TimeFormat";
+import { AlternateDateFormats, TimeDisplay } from "@itwin/appui-abstract";
+import { formatInputDate } from "../datepicker/DateField.js";
+import { adjustDateToTimezone } from "../common/DateUtils.js";
+import { UiComponents } from "../UiComponents.js";
+import type { LessGreaterOperatorProcessor } from "./TypeConverter.js";
+import { TypeConverter } from "./TypeConverter.js";
+import type { ConvertedPrimitives } from "./valuetypes/ConvertedTypes.js";
+import { TimeFormat } from "../common/TimeFormat.js";
 
 // cSpell:ignore datepicker valuetypes
 
@@ -91,7 +86,7 @@ export abstract class DateTimeTypeConverterBase
         if ("timeDisplay" in options) {
           if (alternateDateFormat) {
             Logger.logInfo(
-              UiComponents.loggerCategory(this),
+              UiComponents.loggerCategory("DateTimeTypeConverterBase"),
               `Invalid specification of timeDisplay with alternateDateFormat specification`
             );
           } else {
@@ -237,10 +232,6 @@ export class ShortDateTypeConverter extends DateTimeTypeConverterBase {
     return TimeFormat.Short;
   }
 }
-TypeConverterManager.registerConverter(
-  StandardTypeNames.ShortDate,
-  ShortDateTypeConverter
-);
 
 /**
  * Date Time Type Converter.
@@ -251,7 +242,3 @@ export class DateTimeTypeConverter extends DateTimeTypeConverterBase {
     return TimeFormat.Long;
   }
 }
-TypeConverterManager.registerConverter(
-  StandardTypeNames.DateTime,
-  DateTimeTypeConverter
-);

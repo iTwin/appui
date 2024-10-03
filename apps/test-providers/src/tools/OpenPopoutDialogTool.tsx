@@ -10,7 +10,7 @@ import {
 } from "@itwin/appui-abstract";
 import windowAddSvg from "@bentley/icons-generic/icons/window-add.svg";
 import { ChildWindowLocationProps, UiFramework } from "@itwin/appui-react";
-import { PopoutDialog } from "../ui/dialogs/PopoutDialog";
+import { PopoutDialog } from "../ui/dialogs/PopoutDialog.js";
 
 /**
  * Immediate tool that will open an example popout dialog.The tool is created and register to allow the user

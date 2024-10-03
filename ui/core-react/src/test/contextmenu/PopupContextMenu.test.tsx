@@ -5,7 +5,7 @@
 import * as React from "react";
 import { render } from "@testing-library/react";
 import { RelativePosition } from "@itwin/appui-abstract";
-import { PopupContextMenu } from "../../core-react";
+import { PopupContextMenu } from "../../core-react.js";
 
 describe("PopupContextMenu", () => {
   it("renders correctly", () => {

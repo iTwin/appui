@@ -12,9 +12,9 @@ import { PropertyValueFormat } from "@itwin/appui-abstract";
 import type {
   IPropertyValueRenderer,
   PropertyValueRendererContext,
-} from "../../ValueRendererManager";
-import { withContextStyle } from "./WithContextStyle";
-import { useTranslation } from "../../../l10n/useTranslation";
+} from "../../ValueRendererManager.js";
+import { withContextStyle } from "./WithContextStyle.js";
+import { useTranslation } from "../../../l10n/useTranslation.js";
 
 /** Default Merged Property Renderer
  * @public

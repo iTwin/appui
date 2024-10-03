@@ -12,11 +12,11 @@ import { PropertyValueFormat } from "@itwin/appui-abstract";
 import type {
   IPropertyValueRenderer,
   PropertyValueRendererContext,
-} from "../../ValueRendererManager";
-import { PropertyContainerType } from "../../ValueRendererManager";
-import { TableStructValueRenderer } from "./table/StructValueRenderer";
-import { withContextStyle } from "./WithContextStyle";
-import { Orientation } from "../../../common/Orientation";
+} from "../../ValueRendererManager.js";
+import { PropertyContainerType } from "../../ValueRendererManager.js";
+import { TableStructValueRenderer } from "./table/StructValueRenderer.js";
+import { withContextStyle } from "./WithContextStyle.js";
+import { Orientation } from "../../../common/Orientation.js";
 
 /** Default Struct Property Renderer
  * @public

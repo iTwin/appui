@@ -8,12 +8,12 @@ import { render } from "@testing-library/react";
 import type {
   PropertyFilterBuilderContextProps,
   PropertyFilterBuilderRuleRenderingContextProps,
-} from "../../components-react/filter-builder/FilterBuilderContext";
+} from "../../components-react/filter-builder/FilterBuilderContext.js";
 import {
   PropertyFilterBuilderContext,
   PropertyFilterBuilderRuleRenderingContext,
-} from "../../components-react/filter-builder/FilterBuilderContext";
-import { PropertyFilterBuilderActions } from "../../components-react/filter-builder/FilterBuilderState";
+} from "../../components-react/filter-builder/FilterBuilderContext.js";
+import { PropertyFilterBuilderActions } from "../../components-react/filter-builder/FilterBuilderState.js";
 
 /** @internal */
 export function renderWithContext(

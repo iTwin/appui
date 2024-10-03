@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
 import * as React from "react";
-import { DisabledText } from "../../core-react";
+import { DisabledText } from "../../core-react.js";
 
 describe("<DisabledText />", () => {
   it("renders correctly", () => {

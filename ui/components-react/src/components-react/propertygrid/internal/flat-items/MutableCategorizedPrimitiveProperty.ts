@@ -7,11 +7,11 @@
  * @module PropertyGrid
  */
 import type { PropertyRecord } from "@itwin/appui-abstract";
-import type { IMutableCategorizedPropertyItem } from "./MutableFlatGridItem";
+import type { IMutableCategorizedPropertyItem } from "./MutableFlatGridItem.js";
 import {
   FlatGridItemType,
   MutableCategorizedProperty,
-} from "./MutableFlatGridItem";
+} from "./MutableFlatGridItem.js";
 
 /**
  * Mutable wrapper object for PropertyRecord with primitive valueFormat.

@@ -6,9 +6,9 @@
  * @module Tree
  */
 
-import type { CheckBoxState } from "../../common/CheckBoxState";
-import type { TreeNodeItem } from "../TreeDataProvider";
-import type { Observable, Subscription } from "./Observable";
+import type { CheckBoxState } from "../../common/CheckBoxState.js";
+import type { TreeNodeItem } from "../TreeDataProvider.js";
+import type { Observable, Subscription } from "./Observable.js";
 
 /**
  * Tree events that can occur while interacting with tree.

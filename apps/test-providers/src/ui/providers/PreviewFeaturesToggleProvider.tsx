@@ -8,8 +8,8 @@ import {
   PreviewFeaturesProvider,
   StatusBarSection,
 } from "@itwin/appui-react";
-import { Badge } from "@itwin/core-react";
 import { Checkbox, DropdownButton, MenuItem } from "@itwin/itwinui-react";
+import { SvgTechnicalPreviewBadgeBw } from "@itwin/itwinui-icons-react";
 
 const PreviewFeaturesContext = React.createContext<
   | [PreviewFeatures, React.Dispatch<React.SetStateAction<PreviewFeatures>>]
@@ -93,10 +93,10 @@ function PreviewFeatureList() {
         style={{
           position: "absolute",
           top: 0,
-          left: 0,
+          right: 0,
         }}
       >
-        <Badge type={"technical-preview"} />
+        <SvgTechnicalPreviewBadgeBw />
       </div>
     </DropdownButton>
   );

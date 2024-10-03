@@ -11,13 +11,9 @@ import type {
   ConditionalStringValue,
   StringGetter,
 } from "@itwin/appui-abstract";
-import type {
-  BadgeKind,
-  BadgeType,
-  IconProps,
-  IconSpec,
-} from "@itwin/core-react";
-import type { ToolbarActionItem } from "../toolbar/ToolbarItem";
+import type { BadgeType, IconProps, IconSpec } from "@itwin/core-react";
+import type { BadgeKind } from "@itwin/core-react/internal";
+import type { ToolbarActionItem } from "../toolbar/ToolbarItem.js";
 
 /* eslint-disable deprecation/deprecation */
 

@@ -8,11 +8,11 @@
 
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
-import { DraggedPanelSideContext } from "../base/DragManager";
-import { NineZoneDispatchContext } from "../base/NineZone";
-import { useLayout } from "../base/LayoutStore";
-import { isHorizontalPanelSide, PanelSideContext } from "./Panel";
-import type { SizeProps } from "../../utils/SizeProps";
+import { DraggedPanelSideContext } from "../base/DragManager.js";
+import { NineZoneDispatchContext } from "../base/NineZone.js";
+import { useLayout } from "../base/LayoutStore.js";
+import { isHorizontalPanelSide, PanelSideContext } from "./Panel.js";
+import type { SizeProps } from "../../utils/SizeProps.js";
 
 /** @internal */
 export function useAnimatePanel() {

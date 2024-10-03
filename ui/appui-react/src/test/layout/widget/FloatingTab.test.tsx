@@ -2,21 +2,21 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { Point } from "@itwin/core-react";
+import { Point } from "@itwin/core-react/internal";
 import { act, fireEvent, render } from "@testing-library/react";
-import produce from "immer";
+import { produce } from "immer";
 import * as React from "react";
-import type { DragManager } from "../../../appui-react/layout/base/DragManager";
-import type { NineZoneDispatch } from "../../../appui-react/layout/base/NineZone";
-import { ShowWidgetIconContext } from "../../../appui-react/layout/base/NineZone";
-import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState";
-import { addPanelWidget } from "../../../appui-react/layout/state/internal/PanelStateHelpers";
+import type { DragManager } from "../../../appui-react/layout/base/DragManager.js";
+import type { NineZoneDispatch } from "../../../appui-react/layout/base/NineZone.js";
+import { ShowWidgetIconContext } from "../../../appui-react/layout/base/NineZone.js";
+import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState.js";
+import { addPanelWidget } from "../../../appui-react/layout/state/internal/PanelStateHelpers.js";
 import {
   addTab,
   createDraggedTabState,
-} from "../../../appui-react/layout/state/internal/TabStateHelpers";
-import { FloatingTab } from "../../../appui-react/layout/widget/FloatingTab";
-import { createDragInfo, TestNineZoneProvider } from "../Providers";
+} from "../../../appui-react/layout/state/internal/TabStateHelpers.js";
+import { FloatingTab } from "../../../appui-react/layout/widget/FloatingTab.js";
+import { createDragInfo, TestNineZoneProvider } from "../Providers.js";
 
 describe("FloatingTab", () => {
   it("should render", async () => {

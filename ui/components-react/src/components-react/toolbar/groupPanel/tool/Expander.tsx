@@ -10,8 +10,8 @@ import "./Expander.scss";
 import classnames from "classnames";
 import * as React from "react";
 import type { NoChildrenProps } from "@itwin/core-react";
-import type { GroupToolProps } from "./Tool";
-import { GroupTool } from "./Tool";
+import type { GroupToolProps } from "./Tool.js";
+import { GroupTool } from "./Tool.js";
 
 /** Properties of [[GroupToolExpander]] component.
  * @internal

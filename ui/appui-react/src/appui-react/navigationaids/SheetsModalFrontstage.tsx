@@ -19,9 +19,9 @@ import {
   ScrollView,
   SearchBox,
 } from "@itwin/core-react";
-import type { ModalFrontstageInfo } from "../framework/FrameworkFrontstages";
-import { UiFramework } from "../UiFramework";
-import type { SheetData } from "./SheetNavigationAid";
+import type { ModalFrontstageInfo } from "../framework/FrameworkFrontstages.js";
+import { UiFramework } from "../UiFramework.js";
+import type { SheetData } from "./SheetNavigationAid.js";
 import { SvgDocument, SvgPlaceholder } from "@itwin/itwinui-icons-react";
 import { BeUiEvent } from "@itwin/core-bentley";
 

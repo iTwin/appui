@@ -10,15 +10,15 @@ import type { CommonDivProps, CommonProps } from "@itwin/core-react";
 import { Div } from "@itwin/core-react";
 import * as React from "react";
 import classnames from "classnames";
-import { UiFramework } from "../UiFramework";
-import { SafeAreaContext } from "../safearea/SafeAreaContext";
-import { StatusBarField } from "./Field";
-import { StatusBarPopup } from "./popup/Popup";
+import { UiFramework } from "../UiFramework.js";
+import { SafeAreaContext } from "../safearea/SafeAreaContext.js";
+import { StatusBarField } from "./Field.js";
+import { StatusBarPopup } from "./popup/Popup.js";
 import "./StatusBar.scss";
-import type { StatusBarWidgetControl } from "./StatusBarWidgetControl";
-import { SafeAreaInsetsHelpers } from "../layout/base/SafeAreaInsets";
-import { DockedBar } from "../widget-panels/DockedBar";
-import { StatusBarComposer } from "./StatusBarComposer";
+import type { StatusBarWidgetControl } from "./StatusBarWidgetControl.js";
+import { SafeAreaInsetsHelpers } from "../layout/base/SafeAreaInsets.js";
+import { DockedBar } from "../widget-panels/DockedBar.js";
+import { StatusBarComposer } from "./StatusBarComposer.js";
 
 /* eslint-disable deprecation/deprecation */
 

@@ -12,11 +12,11 @@ import type { ViewFlagProps } from "@itwin/core-common";
 import { ViewFlags } from "@itwin/core-common";
 import { IModelApp } from "@itwin/core-frontend";
 import { Checkbox, IconButton } from "@itwin/itwinui-react";
-import { UiFramework } from "../UiFramework";
+import { UiFramework } from "../UiFramework.js";
 import type { CommonProps } from "@itwin/core-react";
-import { StatusBarDialog } from "../statusbar/dialog/Dialog";
+import { StatusBarDialog } from "../statusbar/dialog/Dialog.js";
 import { SvgWindowSettings } from "@itwin/itwinui-icons-react";
-import { StatusBarPopover } from "../statusbar/popup/StatusBarPopover";
+import { StatusBarPopover } from "../statusbar/popup/StatusBarPopover.js";
 
 interface ViewAttributesStatusFieldState {
   viewFlags: ViewFlagProps;

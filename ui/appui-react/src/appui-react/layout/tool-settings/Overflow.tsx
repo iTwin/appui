@@ -10,10 +10,10 @@ import "./Overflow.scss";
 import classnames from "classnames";
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
-import { useRefs, useResizeObserver } from "@itwin/core-react";
+import { useRefs, useResizeObserver } from "@itwin/core-react/internal";
 import { IconButton } from "@itwin/itwinui-react";
 import { SvgMore } from "@itwin/itwinui-icons-react";
-import { useLabel } from "../base/NineZone";
+import { useLabel } from "../base/NineZone.js";
 
 /** Properties of [[ToolSettingsOverflow]] component.
  * @internal

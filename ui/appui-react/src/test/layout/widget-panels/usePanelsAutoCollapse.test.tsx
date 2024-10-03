@@ -4,11 +4,11 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { fireEvent, renderHook } from "@testing-library/react";
-import type { NineZoneDispatch } from "../../../appui-react/layout/base/NineZone";
-import { updatePanelState } from "../../../appui-react/layout/state/internal/PanelStateHelpers";
-import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState";
-import { setRefValue, TestNineZoneProvider } from "../Providers";
-import { usePanelsAutoCollapse } from "../../../appui-react/layout/widget-panels/usePanelsAutoCollapse";
+import type { NineZoneDispatch } from "../../../appui-react/layout/base/NineZone.js";
+import { updatePanelState } from "../../../appui-react/layout/state/internal/PanelStateHelpers.js";
+import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState.js";
+import { setRefValue, TestNineZoneProvider } from "../Providers.js";
+import { usePanelsAutoCollapse } from "../../../appui-react/layout/widget-panels/usePanelsAutoCollapse.js";
 
 describe("usePanelsAutoCollapse", () => {
   it("should collapse unpinned panels", () => {

@@ -1,7 +1,7 @@
 {
   "name": "@itwin/components-react",
   "version": "5.0.0-dev.0",
-  "description": "iTwin.js UI complex components",
+  "description": "A react component library of iTwin.js UI data-oriented components",
   "type": "module",
   "main": "lib/cjs/components-react.js",
   "module": "lib/esm/components-react.js",
@@ -10,6 +10,10 @@
     ".": {
       "import": "./lib/esm/components-react.js",
       "require": "./lib/cjs/components-react.js"
+    },
+    "./internal": {
+      "import": "./lib/esm/internal.js",
+      "require": "./lib/cjs/internal.js"
     },
     "./*": {
       "sass": "./*.scss"
@@ -25,10 +29,10 @@
     "directory": "ui/components-react"
   },
   "scripts": {
-    "start": "run-p -l \"build:** -- -w\" \"copy:** -- -w\"",
+    "start": "run-p -l \"build:esm -- -w\" \"copy:** -- -w\"",
     "build": "npm run -s copy:locale && npm run -s build:cjs && npm run -s build:esm",
-    "build:cjs": "npm run -s copy:cjs && npm run -s package:cjs && tsc 1>&2 --outDir lib/cjs",
-    "build:esm": "npm run -s copy:esm && tsc 1>&2 --module ES2020 --outDir lib/esm",
+    "build:cjs": "npm run -s copy:cjs && npm run -s package:cjs && node ../../common/scripts/build-cjs.mjs 1>&2 --outDir lib/cjs",
+    "build:esm": "npm run -s copy:esm && tsc 1>&2 --outDir lib/esm",
     "package:cjs": "node ../../common/scripts/package-cjs.mjs ./lib/cjs",
     "copy:cjs": "cpx \"./src/**/*.*css\" ./lib/cjs",
     "copy:esm": "cpx \"./src/**/*.*css\" ./lib/esm",
@@ -111,8 +115,8 @@
     "@itwin/itwinui-variables": "^3.0.0",
     "@itwin/itwinui-icons-react": "^2.8.0",
     "@itwin/itwinui-react": "^3.11.2",
-    "classnames": "2.3.1",
-    "immer": "9.0.6",
+    "classnames": "2.5.1",
+    "immer": "^10.1.1",
     "linkify-it": "~2.2.0",
     "lodash": "^4.17.10",
     "react-window": "^1.8.9",

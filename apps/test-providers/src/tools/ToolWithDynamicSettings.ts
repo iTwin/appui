@@ -21,7 +21,7 @@ import {
   PropertyDescription,
 } from "@itwin/appui-abstract";
 import dynamicToolSvg from "./DynamicTool.svg";
-import { AppUiTestProviders } from "../AppUiTestProviders";
+import { AppUiTestProviders } from "../AppUiTestProviders.js";
 
 interface MajorCities {
   state: number;

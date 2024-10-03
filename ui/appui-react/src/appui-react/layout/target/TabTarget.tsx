@@ -10,16 +10,16 @@ import "./TabTarget.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
-import { DraggedWidgetIdContext, useTarget } from "../base/DragManager";
-import { CursorTypeContext } from "../base/NineZone";
-import { getCursorClassName } from "../widget-panels/CursorOverlay";
-import type { WidgetState } from "../state/WidgetState";
-import { WidgetIdContext } from "../widget/Widget";
-import { TabIdContext } from "../widget/ContentRenderer";
-import { useAllowedWidgetTarget } from "./useAllowedWidgetTarget";
-import type { TabDropTargetState } from "../state/DropTargetState";
-import { useLayout } from "../base/LayoutStore";
-import { getWidgetState } from "../state/internal/WidgetStateHelpers";
+import { DraggedWidgetIdContext, useTarget } from "../base/DragManager.js";
+import { CursorTypeContext } from "../base/NineZone.js";
+import { getCursorClassName } from "../widget-panels/CursorOverlay.js";
+import type { WidgetState } from "../state/WidgetState.js";
+import { WidgetIdContext } from "../widget/Widget.js";
+import { TabIdContext } from "../widget/ContentRenderer.js";
+import { useAllowedWidgetTarget } from "./useAllowedWidgetTarget.js";
+import type { TabDropTargetState } from "../state/DropTargetState.js";
+import { useLayout } from "../base/LayoutStore.js";
+import { getWidgetState } from "../state/internal/WidgetStateHelpers.js";
 
 /** @internal */
 export function TabTarget() {

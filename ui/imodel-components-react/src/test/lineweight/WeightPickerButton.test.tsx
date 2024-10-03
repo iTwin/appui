@@ -6,7 +6,7 @@
 import React from "react";
 import { ColorByName, ColorDef } from "@itwin/core-common";
 import { fireEvent, render } from "@testing-library/react";
-import { WeightPickerButton } from "../../imodel-components-react/lineweight/WeightPickerButton";
+import { WeightPickerButton } from "../../imodel-components-react/lineweight/WeightPickerButton.js";
 
 describe("<WeightPickerButton/>", () => {
   const colorDef = ColorDef.create(ColorByName.blue);

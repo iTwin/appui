@@ -6,6 +6,20 @@ Copyright © Bentley Systems, Incorporated. All rights reserved. See LICENSE.md 
 
 The **@itwin/components-react** package contains React components that are data-oriented, such as PropertyGrid and Tree.
 
-## Documentation
+## Usage
 
-See the [iTwin.js](https://www.itwinjs.org/learning/ui/components/) documentation for more information.
+To get started with the `@itwin/components-react` package, simply import the necessary components and utilities:
+
+```tsx
+import { Panel, Title } from "@itwin/components-react";
+
+function ListPanel() {
+  return (
+    <Panel>
+      <Title>Panel title</Title>
+    </Panel>
+  );
+}
+```
+
+For more details, check out the [@itwin/components-react documentation](https://www.itwinjs.org/reference/components-react/).

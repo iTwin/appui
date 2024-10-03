@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { AccuDrawWidget } from "../../appui-react/accudraw/AccuDrawWidget";
+import { AccuDrawWidget } from "../../appui-react/accudraw/AccuDrawWidget.js";
 import { render, screen } from "@testing-library/react";
 
 describe("AccuDrawWidget", () => {

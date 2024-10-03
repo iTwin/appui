@@ -10,11 +10,11 @@ import * as React from "react";
 import { assert } from "@itwin/core-bentley";
 import { SvgMoreVertical } from "@itwin/itwinui-icons-react";
 import { DropdownMenu } from "@itwin/itwinui-react";
-import { TabBarButton } from "../../layout/widget/Button";
-import { usePreviewFeatures } from "../PreviewFeatures";
-import { useLayout } from "../../layout/base/LayoutStore";
-import { PanelSideContext } from "../../layout/widget-panels/Panel";
-import type { WidgetFeature } from "../../layout/widget/Buttons";
+import { TabBarButton } from "../../layout/widget/Button.js";
+import { usePreviewFeatures } from "../PreviewFeatures.js";
+import { useLayout } from "../../layout/base/LayoutStore.js";
+import { PanelSideContext } from "../../layout/widget-panels/Panel.js";
+import type { WidgetFeature } from "../../layout/widget/Buttons.js";
 
 /** @internal */
 export function MoreButton(props: React.PropsWithChildren<{}>) {

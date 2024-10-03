@@ -8,7 +8,7 @@
 
 import type { CommonProps } from "@itwin/core-react";
 import * as React from "react";
-import { TitleBar } from "../../layout/footer/dialog/TitleBar";
+import { TitleBar } from "../../layout/footer/dialog/TitleBar.js";
 
 /** Properties of [[StatusBarDialogTitleBar]] component.
  * @beta

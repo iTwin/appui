@@ -5,7 +5,7 @@
 
 import React from "react";
 import { fireEvent, render } from "@testing-library/react";
-import { DatePickerPopupButton } from "../../components-react/datepicker/DatePickerPopupButton";
+import { DatePickerPopupButton } from "../../components-react/datepicker/DatePickerPopupButton.js";
 import { TimeDisplay } from "@itwin/appui-abstract";
 import { Key } from "ts-key-enum";
 

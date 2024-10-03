@@ -14,16 +14,16 @@ import { Flex, Text } from "@itwin/itwinui-react";
 import {
   PropertyFilterBuilderContext,
   PropertyFilterBuilderRuleRenderingContext,
-} from "./FilterBuilderContext";
-import { PropertyFilterBuilderRuleOperatorRenderer } from "./FilterBuilderRuleOperator";
-import { PropertyFilterBuilderRuleProperty } from "./FilterBuilderRuleProperty";
-import { PropertyFilterBuilderRuleValue } from "./FilterBuilderRuleValue";
-import type { PropertyFilterBuilderRule } from "./FilterBuilderState";
+} from "./FilterBuilderContext.js";
+import { PropertyFilterBuilderRuleOperatorRenderer } from "./FilterBuilderRuleOperator.js";
+import { PropertyFilterBuilderRuleProperty } from "./FilterBuilderRuleProperty.js";
+import { PropertyFilterBuilderRuleValue } from "./FilterBuilderRuleValue.js";
+import type { PropertyFilterBuilderRule } from "./FilterBuilderState.js";
 import {
   isUnaryPropertyFilterBuilderOperator,
   type PropertyFilterBuilderRuleOperator,
-} from "./Operators";
-import { PropertyFilterBuilderToolbar } from "./FilterBuilderToolbar";
+} from "./Operators.js";
+import { PropertyFilterBuilderToolbar } from "./FilterBuilderToolbar.js";
 
 /**
  * Props for [[PropertyFilterBuilderRuleRenderer]] component.

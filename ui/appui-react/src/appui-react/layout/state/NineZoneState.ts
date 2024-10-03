@@ -10,13 +10,13 @@ import type {
   FloatingWidgetsState,
   PopoutWidgetsState,
   WidgetsState,
-} from "./WidgetState";
-import type { PanelsState } from "./PanelState";
-import type { ToolSettingsState } from "./ToolSettingsState";
-import { createPanelsState } from "./internal/PanelStateHelpers";
-import type { DraggedTabState, TabsState } from "./TabState";
-import type { SavedTabsState } from "./SavedTabState";
-import type { SizeProps } from "../../utils/SizeProps";
+} from "./WidgetState.js";
+import type { PanelsState } from "./PanelState.js";
+import type { ToolSettingsState } from "./ToolSettingsState.js";
+import { createPanelsState } from "./internal/PanelStateHelpers.js";
+import type { DraggedTabState, TabsState } from "./TabState.js";
+import type { SavedTabsState } from "./SavedTabState.js";
+import type { SizeProps } from "../../utils/SizeProps.js";
 
 /** @internal */
 export interface NineZoneState {

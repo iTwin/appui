@@ -14,11 +14,11 @@ import {
   ToolbarUsage,
   UiItemsProvider,
 } from "@itwin/appui-react";
-import { SampleTool } from "../../tools/SampleTool";
-import { AppUiTestProviders } from "../../AppUiTestProviders";
-import { OpenAbstractDialogTool } from "../../tools/OpenAbstractModalDialogTool";
-import { ToolWithDynamicSettings } from "../../tools/ToolWithDynamicSettings";
-import { UnitsField } from "../statusfields/unitsfield/UnitsField";
+import { SampleTool } from "../../tools/SampleTool.js";
+import { AppUiTestProviders } from "../../AppUiTestProviders.js";
+import { OpenAbstractDialogTool } from "../../tools/OpenAbstractModalDialogTool.js";
+import { ToolWithDynamicSettings } from "../../tools/ToolWithDynamicSettings.js";
+import { UnitsField } from "../statusfields/unitsfield/UnitsField.js";
 
 /** The AbstractUiItemsProvider provides additional items to any frontstage that has a usage value of StageUsage.General.
  * The unique thing about the items provided with this provider is that the toolbar and and statusbar items provider simply

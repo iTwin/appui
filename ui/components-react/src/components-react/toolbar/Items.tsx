@@ -20,13 +20,13 @@ import {
   TOOLBAR_BACKDROP_FILTER_BLUR_DEFAULT,
   TOOLBAR_BOX_SHADOW_OPACITY_DEFAULT,
   useWidgetOpacityContext,
-} from "@itwin/core-react";
+} from "@itwin/core-react/internal";
 import {
   ToolbarOpacitySetting,
   useToolbarWithOverflowDirectionContext,
-} from "./InternalToolbarComponent";
-import type { OrthogonalDirection } from "./utilities/Direction";
-import { OrthogonalDirectionHelpers } from "./utilities/Direction";
+} from "./InternalToolbarComponent.js";
+import type { OrthogonalDirection } from "./utilities/Direction.js";
+import { OrthogonalDirectionHelpers } from "./utilities/Direction.js";
 
 /** Properties of [[ToolbarItems]] component.
  * @internal

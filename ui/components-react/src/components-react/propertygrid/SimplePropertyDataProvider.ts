@@ -11,8 +11,8 @@ import type {
   IPropertyDataProvider,
   PropertyCategory,
   PropertyData,
-} from "./PropertyDataProvider";
-import { PropertyDataChangeEvent } from "./PropertyDataProvider";
+} from "./PropertyDataProvider.js";
+import { PropertyDataChangeEvent } from "./PropertyDataProvider.js";
 
 /**
  * Implementation of [[IPropertyDataProvider]] that uses an associative array.

@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { fireEvent, render } from "@testing-library/react";
-import { Input } from "../../core-react/inputs/Input";
+import { Input } from "../../core-react/inputs/Input.js";
 
 describe("<Input />", () => {
   it("renders", () => {

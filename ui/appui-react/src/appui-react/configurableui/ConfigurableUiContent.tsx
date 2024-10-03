@@ -9,29 +9,29 @@
 import "./ConfigurableUiContent.scss";
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
-import { Point } from "@itwin/core-react";
+import { Point } from "@itwin/core-react/internal";
 import { ThemeProvider } from "@itwin/itwinui-react";
-import { CursorInformation } from "../cursor/CursorInformation";
-import { CursorPopupMenu } from "../cursor/cursormenu/CursorMenu";
-import { CursorPopupRenderer } from "../cursor/cursorpopup/CursorPopupManager";
-import { ModalDialogRenderer } from "../dialog/ModalDialogManager";
-import { ModelessDialogRenderer } from "../dialog/ModelessDialogManager";
-import { ElementTooltip } from "../feedback/ElementTooltip";
-import { KeyboardShortcutMenu } from "../keyboardshortcut/KeyboardShortcutMenu";
-import { InputFieldMessage } from "../messages/InputField";
-import { PointerMessage } from "../messages/Pointer";
-import { PopupRenderer } from "../popup/PopupManager";
-import { WidgetPanelsFrontstage } from "../widget-panels/Frontstage";
-import { ContentDialogRenderer } from "../dialog/ContentDialogManager";
-import { UiFramework } from "../UiFramework";
-import { InternalConfigurableUiManager } from "./InternalConfigurableUiManager";
-import { MessageRenderer } from "../messages/MessageRenderer";
+import { CursorInformation } from "../cursor/CursorInformation.js";
+import { CursorPopupMenu } from "../cursor/cursormenu/CursorMenu.js";
+import { CursorPopupRenderer } from "../cursor/cursorpopup/CursorPopupManager.js";
+import { ModalDialogRenderer } from "../dialog/ModalDialogManager.js";
+import { ModelessDialogRenderer } from "../dialog/ModelessDialogManager.js";
+import { ElementTooltip } from "../feedback/ElementTooltip.js";
+import { KeyboardShortcutMenu } from "../keyboardshortcut/KeyboardShortcutMenu.js";
+import { InputFieldMessage } from "../messages/InputField.js";
+import { PointerMessage } from "../messages/Pointer.js";
+import { PopupRenderer } from "../popup/PopupManager.js";
+import { WidgetPanelsFrontstage } from "../widget-panels/Frontstage.js";
+import { ContentDialogRenderer } from "../dialog/ContentDialogManager.js";
+import { UiFramework } from "../UiFramework.js";
+import { InternalConfigurableUiManager } from "./InternalConfigurableUiManager.js";
+import { MessageRenderer } from "../messages/MessageRenderer.js";
 import {
   TOOLBAR_OPACITY_DEFAULT,
   WIDGET_OPACITY_DEFAULT,
-} from "../theme/ThemeId";
-import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState";
-import type { ContentProps } from "../content/ContentGroup";
+} from "../theme/ThemeId.js";
+import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState.js";
+import type { ContentProps } from "../content/ContentGroup.js";
 
 /** @internal */
 export const ConfigurableUiContext = React.createContext<

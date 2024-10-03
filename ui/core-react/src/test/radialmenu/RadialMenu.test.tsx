@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { render, screen } from "@testing-library/react";
-import { RadialButton, RadialMenu } from "../../core-react";
-import userEvent from "@testing-library/user-event";
+import { RadialButton, RadialMenu } from "../../core-react.js";
+import { userEvent } from "@testing-library/user-event";
 
 describe("RadialMenu", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;

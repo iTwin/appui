@@ -7,7 +7,7 @@
  */
 
 import { useCallback, useSyncExternalStore } from "react";
-import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
+import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher.js";
 
 /** Defines a common interface for existing conditional value classes: `ConditionalBooleanValue`, `ConditionalStringValue`, `ConditionalIconItem`. */
 interface CommonConditionalValue<T> {

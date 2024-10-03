@@ -10,13 +10,13 @@ import "./PanelTargets.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
-import { TargetContainer } from "./TargetContainer";
-import { PanelTarget } from "./PanelTarget";
-import { SectionTarget, useTargetDirection } from "./SectionTarget";
-import { MergeTarget } from "./MergeTarget";
-import { isHorizontalPanelState } from "../state/PanelState";
-import { PanelSideContext } from "../widget-panels/Panel";
-import { useLayout } from "../base/LayoutStore";
+import { TargetContainer } from "./TargetContainer.js";
+import { PanelTarget } from "./PanelTarget.js";
+import { SectionTarget, useTargetDirection } from "./SectionTarget.js";
+import { MergeTarget } from "./MergeTarget.js";
+import { isHorizontalPanelState } from "../state/PanelState.js";
+import { PanelSideContext } from "../widget-panels/Panel.js";
+import { useLayout } from "../base/LayoutStore.js";
 
 /** @internal */
 export function PanelTargets() {

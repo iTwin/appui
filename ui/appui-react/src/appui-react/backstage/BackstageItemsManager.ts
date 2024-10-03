@@ -11,7 +11,7 @@ import {
   ConditionalStringValue,
 } from "@itwin/appui-abstract";
 import { BeEvent } from "@itwin/core-bentley";
-import type { BackstageItem } from "./BackstageItem";
+import type { BackstageItem } from "./BackstageItem.js";
 
 /** Arguments of [[BackstageItemsManager.onChanged]] event.
  * @internal

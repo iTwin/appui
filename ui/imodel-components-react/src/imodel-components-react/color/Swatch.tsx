@@ -11,7 +11,7 @@ import classnames from "classnames";
 import * as React from "react";
 import type { ColorDef } from "@itwin/core-common";
 import type { CommonProps } from "@itwin/core-react";
-import { getCSSColorFromDef } from "./getCSSColorFromDef";
+import { getCSSColorFromDef } from "./getCSSColorFromDef.js";
 
 /** Properties for the [[ColorSwatch]] React component
  * @beta

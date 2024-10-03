@@ -8,26 +8,26 @@ import { Observable } from "rxjs";
 import * as moq from "typemoq";
 import type { PrimitiveValue } from "@itwin/appui-abstract";
 import { fireEvent, render } from "@testing-library/react";
-import type { TreeNodeRendererProps } from "../../../../components-react/tree/controlled/component/TreeNodeRenderer";
-import type { TreeRendererProps } from "../../../../components-react/tree/controlled/component/TreeRenderer";
-import { TreeRenderer } from "../../../../components-react/tree/controlled/component/TreeRenderer";
-import { from } from "../../../../components-react/tree/controlled/Observable";
-import type { TreeActions } from "../../../../components-react/tree/controlled/TreeActions";
+import type { TreeNodeRendererProps } from "../../../../components-react/tree/controlled/component/TreeNodeRenderer.js";
+import type { TreeRendererProps } from "../../../../components-react/tree/controlled/component/TreeRenderer.js";
+import { TreeRenderer } from "../../../../components-react/tree/controlled/component/TreeRenderer.js";
+import { from } from "../../../../components-react/tree/controlled/Observable.js";
+import type { TreeActions } from "../../../../components-react/tree/controlled/TreeActions.js";
 import type {
   TreeModel,
   TreeModelNode,
   TreeModelNodePlaceholder,
   TreeModelRootNode,
   VisibleTreeNodes,
-} from "../../../../components-react/tree/controlled/TreeModel";
+} from "../../../../components-react/tree/controlled/TreeModel.js";
 import {
   computeVisibleNodes,
   MutableTreeModel,
-} from "../../../../components-react/tree/controlled/TreeModel";
-import type { ITreeNodeLoader } from "../../../../components-react/tree/controlled/TreeNodeLoader";
-import type { HighlightableTreeProps } from "../../../../components-react/tree/HighlightingEngine";
-import { HighlightingEngine } from "../../../../components-react/tree/HighlightingEngine";
-import { createRandomMutableTreeModelNode } from "../TreeHelpers";
+} from "../../../../components-react/tree/controlled/TreeModel.js";
+import type { ITreeNodeLoader } from "../../../../components-react/tree/controlled/TreeNodeLoader.js";
+import type { HighlightableTreeProps } from "../../../../components-react/tree/HighlightingEngine.js";
+import { HighlightingEngine } from "../../../../components-react/tree/HighlightingEngine.js";
+import { createRandomMutableTreeModelNode } from "../TreeHelpers.js";
 
 describe("TreeRenderer", () => {
   const visibleNodesMock = moq.Mock.ofType<VisibleTreeNodes>();

@@ -21,8 +21,8 @@ import {
   MessageManager,
   ModalDialogRenderer,
   UiFramework,
-} from "../../appui-react";
-import { userEvent, waitForPosition } from "../TestUtils";
+} from "../../appui-react.js";
+import { userEvent, waitForPosition } from "../TestUtils.js";
 import { render, screen } from "@testing-library/react";
 
 describe("AppNotificationManager", () => {

@@ -4,11 +4,11 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { Orientation } from "@itwin/core-react";
-import TestUtils from "../../TestUtils";
+import TestUtils from "../../TestUtils.js";
 import {
   getPropertyKey,
   PropertyList,
-} from "../../../components-react/propertygrid/component/PropertyList";
+} from "../../../components-react/propertygrid/component/PropertyList.js";
 import { fireEvent, render } from "@testing-library/react";
 
 describe("PropertyList", () => {

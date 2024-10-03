@@ -7,8 +7,8 @@ import * as React from "react";
 import {
   FilteringInput,
   FilteringInputStatus,
-} from "../../components-react/filtering/FilteringInput";
-import { selectorMatches, userEvent } from "../TestUtils";
+} from "../../components-react/filtering/FilteringInput.js";
+import { selectorMatches, userEvent } from "../TestUtils.js";
 
 describe("FilteringInput", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;

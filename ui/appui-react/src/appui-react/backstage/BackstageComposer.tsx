@@ -8,19 +8,19 @@
 
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
 import * as React from "react";
-import { Backstage as NZ_Backstage } from "../layout/backstage/Backstage";
-import { BackstageSeparator } from "../layout/backstage/Separator";
-import { SafeAreaContext } from "../safearea/SafeAreaContext";
-import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
-import { BackstageComposerItem } from "./BackstageComposerItem";
-import { isBackstageStageLauncher } from "./BackstageItem";
-import { BackstageItemsManager } from "./BackstageItemsManager";
-import { useBackstageManager, useIsBackstageOpen } from "./BackstageManager";
-import { useDefaultBackstageItems } from "./useDefaultBackstageItems";
-import { useUiItemsProviderBackstageItems } from "./useUiItemsProviderBackstageItems";
+import { Backstage as NZ_Backstage } from "../layout/backstage/Backstage.js";
+import { BackstageSeparator } from "../layout/backstage/Separator.js";
+import { SafeAreaContext } from "../safearea/SafeAreaContext.js";
+import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher.js";
+import { BackstageComposerItem } from "./BackstageComposerItem.js";
+import { isBackstageStageLauncher } from "./BackstageItem.js";
+import { BackstageItemsManager } from "./BackstageItemsManager.js";
+import { useBackstageManager, useIsBackstageOpen } from "./BackstageManager.js";
+import { useDefaultBackstageItems } from "./useDefaultBackstageItems.js";
+import { useUiItemsProviderBackstageItems } from "./useUiItemsProviderBackstageItems.js";
 
 import type { CommonProps } from "@itwin/core-react";
-import type { BackstageItem } from "./BackstageItem";
+import type { BackstageItem } from "./BackstageItem.js";
 // cSpell:ignore safearea
 
 /** Private function to set up sync event monitoring of backstage items */

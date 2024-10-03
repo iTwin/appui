@@ -7,10 +7,10 @@ import * as React from "react";
 import {
   DragManager,
   DragManagerContext,
-} from "../../../appui-react/layout/base/DragManager";
-import type { NineZoneDispatch } from "../../../appui-react/layout/base/NineZone";
-import { NineZoneDispatchContext } from "../../../appui-react/layout/base/NineZone";
-import { DockedToolSettingsHandle } from "../../../appui-react/layout/tool-settings/Handle";
+} from "../../../appui-react/layout/base/DragManager.js";
+import type { NineZoneDispatch } from "../../../appui-react/layout/base/NineZone.js";
+import { NineZoneDispatchContext } from "../../../appui-react/layout/base/NineZone.js";
+import { DockedToolSettingsHandle } from "../../../appui-react/layout/tool-settings/Handle.js";
 
 describe("DockedToolSettingsHandle", () => {
   it("should dispatch TOOL_SETTINGS_DRAG_START", () => {

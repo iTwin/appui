@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import { render } from "@testing-library/react";
 import * as React from "react";
-import { WidgetOutline } from "../../../appui-react/layout/outline/WidgetOutline";
-import { TestNineZoneProvider } from "../Providers";
+import { WidgetOutline } from "../../../appui-react/layout/outline/WidgetOutline.js";
+import { TestNineZoneProvider } from "../Providers.js";
 
 const wrapper = TestNineZoneProvider;
 

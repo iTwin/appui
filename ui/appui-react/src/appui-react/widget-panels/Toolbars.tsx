@@ -8,8 +8,8 @@
 
 import "./Toolbars.scss";
 import * as React from "react";
-import { useActiveFrontstageDef } from "../frontstage/FrontstageDef";
-import { NavigationWidget } from "../preview/control-widget-visibility/NavigationWidget";
+import { useActiveFrontstageDef } from "../frontstage/FrontstageDef.js";
+import { NavigationWidget } from "../preview/control-widget-visibility/NavigationWidget.js";
 
 /** @internal */
 export function WidgetPanelsToolbars() {

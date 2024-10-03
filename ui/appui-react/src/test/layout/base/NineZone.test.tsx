@@ -2,14 +2,14 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import type { Rectangle } from "@itwin/core-react";
+import type { Rectangle } from "@itwin/core-react/internal";
 import { render, renderHook } from "@testing-library/react";
 import * as React from "react";
-import { createLayoutStore } from "../../../appui-react/layout/base/LayoutStore";
+import { createLayoutStore } from "../../../appui-react/layout/base/LayoutStore.js";
 import type {
   NineZoneDispatch,
   NineZoneLabels,
-} from "../../../appui-react/layout/base/NineZone";
+} from "../../../appui-react/layout/base/NineZone.js";
 import {
   handleToCursorType,
   MeasureContext,
@@ -17,12 +17,12 @@ import {
   NineZoneLabelsContext,
   sideToCursorType,
   useLabel,
-} from "../../../appui-react/layout/base/NineZone";
+} from "../../../appui-react/layout/base/NineZone.js";
 import {
   createRect,
   createResizeObserverMock,
   flushAsyncOperations,
-} from "../Utils";
+} from "../Utils.js";
 
 describe("<NineZone />", () => {
   it("renders correctly", () => {

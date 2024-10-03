@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
 import * as React from "react";
-import { ToolbarIcon } from "../../../../appui-react/layout/widget/tools/button/Icon";
-import { selectorMatches } from "../../Utils";
+import { ToolbarIcon } from "../../../../appui-react/layout/widget/tools/button/Icon.js";
+import { selectorMatches } from "../../Utils.js";
 
 describe("<ToolbarIcon  />", () => {
   it("renders correctly", () => {

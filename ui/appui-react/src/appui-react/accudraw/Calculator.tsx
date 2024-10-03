@@ -14,8 +14,8 @@ import type { OnCancelFunc, OnNumberCommitFunc } from "@itwin/appui-abstract";
 import type { CommonProps } from "@itwin/core-react";
 import { Icon, IconInput } from "@itwin/core-react";
 import { Button, Input } from "@itwin/itwinui-react";
-import { CalculatorEngine, CalculatorOperator } from "./CalculatorEngine";
-import { SquareButton } from "./SquareButton";
+import { CalculatorEngine, CalculatorOperator } from "./CalculatorEngine.js";
+import { SquareButton } from "./SquareButton.js";
 import { SvgCheckmark, SvgRemove } from "@itwin/itwinui-icons-react";
 import backspaceIcon from "./backspace.svg";
 

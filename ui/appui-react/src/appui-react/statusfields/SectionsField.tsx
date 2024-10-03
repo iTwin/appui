@@ -18,11 +18,11 @@ import { Icon } from "@itwin/core-react";
 import { Button, IconButton, ToggleSwitch } from "@itwin/itwinui-react";
 import classnames from "classnames";
 import * as React from "react";
-import { useActiveViewport } from "../hooks/useActiveViewport";
-import { StatusBarDialog } from "../statusbar/dialog/Dialog";
+import { useActiveViewport } from "../hooks/useActiveViewport.js";
+import { StatusBarDialog } from "../statusbar/dialog/Dialog.js";
 import "./SectionsField.scss";
-import { useTranslation } from "../hooks/useTranslation";
-import { StatusBarPopover } from "../statusbar/popup/StatusBarPopover";
+import { useTranslation } from "../hooks/useTranslation.js";
+import { StatusBarPopover } from "../statusbar/popup/StatusBarPopover.js";
 
 /** Sections Status Field Props
  * @beta

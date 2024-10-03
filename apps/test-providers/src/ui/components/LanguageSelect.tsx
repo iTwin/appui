@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { LabeledSelect } from "@itwin/itwinui-react";
-import { useTranslation } from "../../useTranslation";
+import { useTranslation } from "../../useTranslation.js";
 import "./LanguageSelect.scss";
 
 export type Language = "en-US" | "en-PSEUDO";

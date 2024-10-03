@@ -11,11 +11,11 @@ import type {
   ContentCallback,
   ContentGroup,
   ContentGroupProps,
-} from "./ContentGroup";
-import type { ContentLayoutDef } from "./ContentLayout";
-import type { ViewStateHelperProps } from "./ViewStateHelper";
-import { ViewStateHelper } from "./ViewStateHelper";
-import type { ContentLayoutProps } from "./ContentLayoutProps";
+} from "./ContentGroup.js";
+import type { ContentLayoutDef } from "./ContentLayout.js";
+import type { ViewStateHelperProps } from "./ViewStateHelper.js";
+import { ViewStateHelper } from "./ViewStateHelper.js";
+import type { ContentLayoutProps } from "./ContentLayoutProps.js";
 
 /** StageContentLayoutProps interface for sharing view layout information.
  * @public

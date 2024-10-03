@@ -4,7 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { renderHook } from "@testing-library/react";
-import { LocalizationProvider, usePackageTranslation } from "../../core-react";
+import { LocalizationProvider } from "../../core-react.js";
+import { usePackageTranslation } from "../../core-react/l10n/usePackageTranslation.js";
 
 type Localization = React.ComponentProps<
   typeof LocalizationProvider

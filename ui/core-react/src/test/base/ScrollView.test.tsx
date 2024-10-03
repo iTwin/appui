@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
 import * as React from "react";
-import { ScrollView } from "../../core-react";
-import { classesFromElement } from "../TestUtils";
+import { ScrollView } from "../../core-react.js";
+import { classesFromElement } from "../TestUtils.js";
 
 describe("<ScrollView />", () => {
   it("content renders correctly", () => {

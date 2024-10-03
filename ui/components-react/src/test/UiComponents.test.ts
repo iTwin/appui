@@ -3,8 +3,8 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { Logger } from "@itwin/core-bentley";
-import { UiComponents } from "../components-react";
-import TestUtils from "./TestUtils";
+import { UiComponents } from "../components-react.js";
+import TestUtils from "./TestUtils.js";
 
 describe("UiComponents", () => {
   beforeEach(() => {
@@ -37,10 +37,5 @@ describe("UiComponents", () => {
     expect(UiComponents.initialized).toEqual(true);
     await UiComponents.initialize(TestUtils.i18n);
     expect(spyLogger).toHaveBeenCalledOnce();
-  });
-
-  it("calling loggerCategory without an obj should return packageName", () => {
-    const category = UiComponents.loggerCategory(undefined);
-    expect(category).toEqual(UiComponents.packageName);
   });
 });

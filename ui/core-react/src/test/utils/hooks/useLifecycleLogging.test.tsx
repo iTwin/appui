@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { renderHook } from "@testing-library/react";
-import { useLifecycleLogging } from "../../../core-react/utils/hooks/useLifecycleLogging";
+import { useLifecycleLogging } from "../../../core-react/utils/hooks/useLifecycleLogging.js";
 
 describe("useLifecycleLogging", () => {
   interface HookProps {

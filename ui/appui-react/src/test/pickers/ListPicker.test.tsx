@@ -3,18 +3,18 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import type { ListItem } from "../../appui-react";
+import type { ListItem } from "../../appui-react.js";
 import {
   ExpandableSection,
   ListItemType,
   ListPicker,
   ListPickerItem,
-} from "../../appui-react";
+} from "../../appui-react.js";
 import TestUtils, {
   childStructure,
   selectorMatches,
   userEvent,
-} from "../TestUtils";
+} from "../TestUtils.js";
 import { Provider } from "react-redux";
 import { render, screen } from "@testing-library/react";
 

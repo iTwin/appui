@@ -25,20 +25,20 @@ import {
   OutputMessagePriority,
   OutputMessageType,
 } from "@itwin/core-frontend";
-import { AppUiTestProviders } from "../../AppUiTestProviders";
-import { OpenCustomDialogTool } from "../../tools/OpenCustomDialogTool";
-import { SampleModelessDialog } from "../dialogs/SampleModelessDialog";
+import { AppUiTestProviders } from "../../AppUiTestProviders.js";
+import { OpenCustomDialogTool } from "../../tools/OpenCustomDialogTool.js";
+import { SampleModelessDialog } from "../dialogs/SampleModelessDialog.js";
 import visibilitySemiTransparentSvg from "../icons/visibility-semi-transparent.svg";
-import { SelectedElementDataWidgetComponent } from "../widgets/SelectedElementDataWidget";
+import { SelectedElementDataWidgetComponent } from "../widgets/SelectedElementDataWidget.js";
 import {
   SvgActivity,
   SvgFlag,
   SvgWindow,
   SvgWindowAdd,
 } from "@itwin/itwinui-icons-react";
-import { SampleNonModalDialog } from "../dialogs/SampleNonModalDialog";
-import { createCustomContentFrontstage } from "../frontstages/CustomContentFrontstage";
-import { store } from "../../store";
+import { SampleNonModalDialog } from "../dialogs/SampleNonModalDialog.js";
+import { createCustomContentFrontstage } from "../frontstages/CustomContentFrontstage.js";
+import { store } from "../../store.js";
 
 export class CustomContentStageUiProvider implements UiItemsProvider {
   public static providerId = "appui-test-providers:custom-content-provider";

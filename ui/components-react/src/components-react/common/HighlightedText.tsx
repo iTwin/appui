@@ -7,7 +7,7 @@
  */
 
 import React, { useMemo } from "react";
-import { HighlightingEngine } from "../tree/HighlightingEngine";
+import { HighlightingEngine } from "../tree/HighlightingEngine.js";
 
 /**
  * Properties of [[HighlightedText]]

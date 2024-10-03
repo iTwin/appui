@@ -8,14 +8,14 @@
 
 import type { PropertyRecord } from "@itwin/appui-abstract";
 import type { CommonProps } from "@itwin/core-react";
-import type { HighlightingComponentProps } from "../../common/HighlightingComponentProps";
-import { matchLinks } from "../../common/Links";
-import type { PropertyUpdatedArgs } from "../../editors/EditorContainer";
-import type { ActionButtonRenderer } from "../../properties/renderers/ActionButtonRenderer";
-import type { PropertyValueRendererManager } from "../../properties/ValueRendererManager";
-import type { FilteredType } from "../dataproviders/filterers/PropertyDataFiltererBase";
-import type { PropertyCategory } from "../PropertyDataProvider";
-import { Orientation } from "../../common/Orientation";
+import type { HighlightingComponentProps } from "../../common/HighlightingComponentProps.js";
+import { matchLinks } from "../../common/Links.js";
+import type { PropertyUpdatedArgs } from "../../editors/EditorContainer.js";
+import type { ActionButtonRenderer } from "../../properties/renderers/ActionButtonRenderer.js";
+import type { PropertyValueRendererManager } from "../../properties/ValueRendererManager.js";
+import type { FilteredType } from "../dataproviders/filterers/PropertyDataFiltererBase.js";
+import type { PropertyCategory } from "../PropertyDataProvider.js";
+import { Orientation } from "../../common/Orientation.js";
 
 /** Arguments for the Property Editing event callback
  * @public

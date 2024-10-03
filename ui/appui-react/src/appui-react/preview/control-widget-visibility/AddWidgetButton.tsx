@@ -7,15 +7,15 @@
  */
 
 import * as React from "react";
-import { usePreviewFeatures } from "../PreviewFeatures";
+import { usePreviewFeatures } from "../PreviewFeatures.js";
 import { DropdownMenu, MenuItem } from "@itwin/itwinui-react";
-import { TabBarButton } from "../../layout/widget/Button";
-import { useLayout } from "../../layout/base/LayoutStore";
-import { getTabLocation } from "../../layout/state/TabLocation";
+import { TabBarButton } from "../../layout/widget/Button.js";
+import { useLayout } from "../../layout/base/LayoutStore.js";
+import { getTabLocation } from "../../layout/state/TabLocation.js";
 import { SvgAdd } from "@itwin/itwinui-icons-react";
-import { NineZoneDispatchContext } from "../../layout/base/NineZone";
-import { WidgetIdContext } from "../../layout/widget/Widget";
-import { WidgetActionDropdownContext } from "../widget-action-dropdown/MoreButton";
+import { NineZoneDispatchContext } from "../../layout/base/NineZone.js";
+import { WidgetIdContext } from "../../layout/widget/Widget.js";
+import { WidgetActionDropdownContext } from "../widget-action-dropdown/MoreButton.js";
 
 /** @internal */
 export const label = "Add widget";

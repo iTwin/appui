@@ -9,18 +9,15 @@
 import "./Docked.scss";
 import { assert } from "@itwin/core-bentley";
 import type { CommonProps } from "@itwin/core-react";
-import {
-  getCssVariableAsNumber,
-  useRefs,
-  useResizeObserver,
-} from "@itwin/core-react";
+import { getCssVariableAsNumber } from "@itwin/core-react";
+import { useRefs, useResizeObserver } from "@itwin/core-react/internal";
 import classnames from "classnames";
 import * as React from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import { AnimateDockedToolSettingsContext } from "../base/NineZone";
-import { DockedToolSettingsHandle } from "./Handle";
-import { DockedToolSettingsOverflow } from "./Overflow";
-import { ToolSettingsOverflowPanel } from "./Panel";
+import { AnimateDockedToolSettingsContext } from "../base/NineZone.js";
+import { DockedToolSettingsHandle } from "./Handle.js";
+import { DockedToolSettingsOverflow } from "./Overflow.js";
+import { ToolSettingsOverflowPanel } from "./Panel.js";
 
 /** @internal */
 export function onOverflowLabelAndEditorResize() {}

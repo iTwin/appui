@@ -4,9 +4,9 @@
  *--------------------------------------------------------------------------------------------*/
 import React from "react";
 import { render, renderHook, waitFor } from "@testing-library/react";
-import { useDebouncedAsyncValue } from "../../components-react/common/UseDebouncedAsyncValue";
-import { ResolvablePromise } from "../test-helpers/misc";
-import { TestErrorBoundary } from "../TestUtils";
+import { useDebouncedAsyncValue } from "../../components-react/common/UseDebouncedAsyncValue.js";
+import { ResolvablePromise } from "../test-helpers/misc.js";
+import { TestErrorBoundary } from "../TestUtils.js";
 
 describe("useDebouncedAsyncValue", () => {
   it("returns immediately when given `undefined`", async () => {

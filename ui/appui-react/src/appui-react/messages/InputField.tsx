@@ -10,7 +10,7 @@ import "./InputField.scss";
 import * as React from "react";
 import { OutputMessagePriority } from "@itwin/core-frontend";
 import { RelativePosition } from "@itwin/appui-abstract";
-import type { ListenerType } from "@itwin/core-react";
+import type { ListenerType } from "@itwin/core-react/internal";
 import { Icon as CoreIcon, MessageRenderer, Popup } from "@itwin/core-react";
 import {
   SvgClose,
@@ -20,8 +20,8 @@ import {
   SvgStatusWarning,
 } from "@itwin/itwinui-icons-react";
 import { Icon } from "@itwin/itwinui-react";
-import { MessageManager } from "../messages/MessageManager";
-import type { NotifyMessageType } from "./ReactNotifyMessageDetails";
+import { MessageManager } from "../messages/MessageManager.js";
+import type { NotifyMessageType } from "./ReactNotifyMessageDetails.js";
 
 /** Properties of [[InputFieldMessage]] component.
  * @public

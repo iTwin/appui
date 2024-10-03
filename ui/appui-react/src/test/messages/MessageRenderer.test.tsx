@@ -17,8 +17,8 @@ import {
   OutputMessagePriority,
   OutputMessageType,
 } from "@itwin/core-frontend";
-import { AppNotificationManager, MessageManager } from "../../appui-react";
-import { MessageRenderer } from "../../appui-react/messages/MessageRenderer";
+import { AppNotificationManager, MessageManager } from "../../appui-react.js";
+import { MessageRenderer } from "../../appui-react/messages/MessageRenderer.js";
 import { ThemeProvider } from "@itwin/itwinui-react";
 
 describe("MessageRenderer", () => {

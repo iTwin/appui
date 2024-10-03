@@ -6,7 +6,7 @@
 import {
   isTabDragDropTargetState,
   isWidgetDragDropTargetState,
-} from "../../../appui-react/layout/state/DropTargetState";
+} from "../../../appui-react/layout/state/DropTargetState.js";
 
 describe("isWidgetDragDropTargetState", () => {
   it("returns `true`", () => {

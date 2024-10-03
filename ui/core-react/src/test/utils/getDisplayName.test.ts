@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { getDisplayName } from "../../core-react";
+import { getDisplayName } from "../../core-react/utils/getDisplayName.js";
 
 describe("getDisplayName", () => {
   class DisplayNameComponentDisplayName extends React.Component {

@@ -2,9 +2,9 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { createNineZoneState } from "../../../../appui-react/layout/state/NineZoneState";
-import { addPanelWidget } from "../../../../appui-react/layout/state/internal/PanelStateHelpers";
-import { addTab } from "../../../../appui-react/layout/state/internal/TabStateHelpers";
+import { createNineZoneState } from "../../../../appui-react/layout/state/NineZoneState.js";
+import { addPanelWidget } from "../../../../appui-react/layout/state/internal/PanelStateHelpers.js";
+import { addTab } from "../../../../appui-react/layout/state/internal/TabStateHelpers.js";
 import {
   addFloatingWidget,
   addPopoutWidget,
@@ -19,8 +19,8 @@ import {
   setWidgetActiveTabId,
   updateFloatingWidgetState,
   updateWidgetState,
-} from "../../../../appui-react/layout/state/internal/WidgetStateHelpers";
-import { addTabs, handleMetaData } from "../../Utils";
+} from "../../../../appui-react/layout/state/internal/WidgetStateHelpers.js";
+import { addTabs, handleMetaData } from "../../Utils.js";
 
 describe("createWidgetState", () => {
   it("should throw w/o tabs", () => {

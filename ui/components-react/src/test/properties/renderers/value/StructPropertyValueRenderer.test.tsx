@@ -4,9 +4,9 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { Orientation } from "@itwin/core-react";
-import { StructPropertyValueRenderer } from "../../../../components-react/properties/renderers/value/StructPropertyValueRenderer";
-import { PropertyContainerType } from "../../../../components-react/properties/ValueRendererManager";
-import TestUtils, { userEvent } from "../../../TestUtils";
+import { StructPropertyValueRenderer } from "../../../../components-react/properties/renderers/value/StructPropertyValueRenderer.js";
+import { PropertyContainerType } from "../../../../components-react/properties/ValueRendererManager.js";
+import TestUtils, { userEvent } from "../../../TestUtils.js";
 import { render, screen } from "@testing-library/react";
 
 describe("StructPropertyValueRenderer", () => {

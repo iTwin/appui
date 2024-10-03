@@ -20,18 +20,18 @@ import {
   GroupColumn,
   GroupTool,
   Panel,
-} from "@itwin/components-react";
+} from "@itwin/components-react/internal";
 import { StandardViewId } from "@itwin/core-frontend";
 import type { CommonProps, IconSpec } from "@itwin/core-react";
 import { Icon, Popup } from "@itwin/core-react";
 import { ViewportComponentEvents } from "@itwin/imodel-components-react";
 import classnames from "classnames";
 import * as React from "react";
-import { UiFramework } from "../UiFramework";
-import type { ConfigurableCreateInfo } from "../configurableui/ConfigurableUiControl";
-import { ExpandableButton as NZ_Expandable } from "../layout/widget/tools/button/Expandable";
-import { ToolbarIcon as NZ_Icon } from "../layout/widget/tools/button/Icon";
-import { NavigationAidControl } from "./NavigationAidControl";
+import { UiFramework } from "../UiFramework.js";
+import type { ConfigurableCreateInfo } from "../configurableui/ConfigurableUiControl.js";
+import { ExpandableButton as NZ_Expandable } from "../layout/widget/tools/button/Expandable.js";
+import { ToolbarIcon as NZ_Icon } from "../layout/widget/tools/button/Icon.js";
+import { NavigationAidControl } from "./NavigationAidControl.js";
 import "./StandardRotationNavigationAid.scss";
 
 /** A 3D Standard Rotation Navigation Aid control.

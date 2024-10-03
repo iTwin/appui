@@ -10,12 +10,12 @@ import * as React from "react";
 import { BeUiEvent, Logger } from "@itwin/core-bentley";
 import type { XAndY } from "@itwin/core-geometry";
 import { RelativePosition } from "@itwin/appui-abstract";
-import type { ListenerType } from "@itwin/core-react";
-import { Point, Size } from "@itwin/core-react";
-import { UiFramework } from "../../UiFramework";
-import { CursorPopup } from "./CursorPopup";
-import type { SizeProps } from "../../utils/SizeProps";
-import type { RectangleProps } from "../../utils/RectangleProps";
+import type { ListenerType } from "@itwin/core-react/internal";
+import { Point } from "@itwin/core-react/internal";
+import { UiFramework } from "../../UiFramework.js";
+import { CursorPopup } from "./CursorPopup.js";
+import type { SizeProps } from "../../utils/SizeProps.js";
+import type { RectangleProps } from "../../utils/RectangleProps.js";
 
 /** Options for the [[CursorPopupManager]] open method
  * @public
@@ -31,9 +31,7 @@ export interface CursorPopupOptions {
   shadow?: boolean;
 }
 
-/** Information maintained by CursorPopupManager about a CursorPopup
- * @internal
- */
+/** Information maintained by CursorPopupManager about a CursorPopup. */
 interface CursorPopupInfo {
   id: string;
   content: React.ReactNode;
@@ -43,7 +41,7 @@ interface CursorPopupInfo {
   options?: CursorPopupOptions;
 
   renderRelativePosition: RelativePosition;
-  popupSize?: Size;
+  popupSize?: SizeProps;
 }
 
 /** CursorPopup component
@@ -143,7 +141,7 @@ export class CursorPopupManager {
       popupInfo.priority = priority;
     } else {
       Logger.logError(
-        UiFramework.loggerCategory(this),
+        UiFramework.loggerCategory("CursorPopupManager"),
         `update: Could not find popup with id of '${id}'`
       );
     }
@@ -182,7 +180,7 @@ export class CursorPopupManager {
       }
     } else {
       Logger.logError(
-        UiFramework.loggerCategory(this),
+        UiFramework.loggerCategory("CursorPopupManager"),
         `close: Could not find popup with id of '${id}'`
       );
     }
@@ -344,7 +342,7 @@ export class CursorPopupRenderer extends React.Component<
   }
 
   private _handleSizeKnown(popupInfo: CursorPopupInfo, size: SizeProps) {
-    popupInfo.popupSize = Size.create(size);
+    popupInfo.popupSize = size;
   }
 
   private renderPositions(): React.ReactNode[] {
@@ -429,7 +427,7 @@ export class CursorPopupRenderer extends React.Component<
   }
 
   private getDimension(
-    popupSize: Size,
+    popupSize: SizeProps,
     relativePosition: RelativePosition
   ): number {
     let dimension = 0;

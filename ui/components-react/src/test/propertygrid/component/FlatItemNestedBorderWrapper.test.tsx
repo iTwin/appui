@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { render } from "@testing-library/react";
-import { FlatItemNestedBorderWrapper } from "../../../components-react/propertygrid/component/FlatItemNestedBorderWrapper";
+import { FlatItemNestedBorderWrapper } from "../../../components-react/propertygrid/component/FlatItemNestedBorderWrapper.js";
 
 describe("FlatItemNestedBorderWrapper", () => {
   /**

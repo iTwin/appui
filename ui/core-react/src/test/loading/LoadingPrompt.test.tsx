@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
 import * as React from "react";
-import { LoadingPrompt } from "../../core-react";
+import { LoadingPrompt } from "../../core-react.js";
 
 describe("<LoadingPrompt />", () => {
   it("renders with text correctly", () => {

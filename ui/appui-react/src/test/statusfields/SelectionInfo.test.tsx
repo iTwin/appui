@@ -9,8 +9,8 @@ import {
   SelectionInfoField,
   SessionStateActionId,
   UiFramework,
-} from "../../appui-react";
-import TestUtils from "../TestUtils";
+} from "../../appui-react.js";
+import TestUtils from "../TestUtils.js";
 
 /* eslint-disable deprecation/deprecation */
 

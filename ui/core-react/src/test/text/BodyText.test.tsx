@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
 import * as React from "react";
-import { BodyText } from "../../core-react";
+import { BodyText } from "../../core-react.js";
 
 describe("<BodyText />", () => {
   it("renders correctly", () => {

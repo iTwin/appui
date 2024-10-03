@@ -16,50 +16,50 @@ import {
   OutputMessageType,
 } from "@itwin/core-frontend";
 import type { XAndY } from "@itwin/core-geometry";
-import { Rectangle } from "@itwin/core-react";
+import { Rectangle } from "@itwin/core-react/internal";
 import * as React from "react";
-import { UiFramework } from "../UiFramework";
-import type { ChildWindow } from "../childwindow/ChildWindowConfig";
-import { ChildWindowWidget } from "../childwindow/ChildWindowWidget";
-import { TimeTracker } from "../configurableui/TimeTracker";
-import type { ContentControl } from "../content/ContentControl";
-import type { ContentGroup } from "../content/ContentGroup";
-import { ContentGroupProvider } from "../content/ContentGroup";
-import type { ContentLayoutDef } from "../content/ContentLayout";
-import { InternalContentDialogManager } from "../dialog/InternalContentDialogManager";
-import type { ChildWindowLocationProps } from "../framework/FrameworkChildWindows";
-import type { NineZoneDispatch } from "../layout/base/NineZone";
-import type { NineZoneState } from "../layout/state/NineZoneState";
-import { NineZoneStateReducer } from "../layout/state/NineZoneStateReducer";
+import { UiFramework } from "../UiFramework.js";
+import type { ChildWindow } from "../childwindow/ChildWindowConfig.js";
+import { ChildWindowWidget } from "../childwindow/ChildWindowWidget.js";
+import { TimeTracker } from "../configurableui/TimeTracker.js";
+import type { ContentControl } from "../content/ContentControl.js";
+import type { ContentGroup } from "../content/ContentGroup.js";
+import { ContentGroupProvider } from "../content/ContentGroup.js";
+import type { ContentLayoutDef } from "../content/ContentLayout.js";
+import { InternalContentDialogManager } from "../dialog/InternalContentDialogManager.js";
+import type { ChildWindowLocationProps } from "../framework/FrameworkChildWindows.js";
+import type { NineZoneDispatch } from "../layout/base/NineZone.js";
+import type { NineZoneState } from "../layout/state/NineZoneState.js";
+import { NineZoneStateReducer } from "../layout/state/NineZoneStateReducer.js";
 import {
   getTabLocation,
   isFloatingTabLocation,
   isPanelTabLocation,
   isPopoutTabLocation,
-} from "../layout/state/TabLocation";
+} from "../layout/state/TabLocation.js";
 import {
   getWidgetLocation,
   isFloatingWidgetLocation,
   isPopoutWidgetLocation,
-} from "../layout/state/WidgetLocation";
-import type { PanelSide } from "../layout/widget-panels/PanelTypes";
-import { panelSides } from "../layout/widget-panels/Panel";
-import type { StagePanelConfig } from "../stagepanels/StagePanelConfig";
-import { StagePanelDef } from "../stagepanels/StagePanelDef";
-import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
-import { StagePanelState } from "../stagepanels/StagePanelState";
-import type { WidgetConfig } from "../widgets/WidgetConfig";
-import type { WidgetControl } from "../widgets/WidgetControl";
-import { getWidgetState, WidgetDef, WidgetType } from "../widgets/WidgetDef";
-import { WidgetState } from "../widgets/WidgetState";
-import type { FrontstageProvider } from "./FrontstageProvider";
-import { InternalFrontstageManager } from "./InternalFrontstageManager";
-import { StageUsage } from "./StageUsage";
-import type { Frontstage } from "./Frontstage";
-import { UiItemsProvider } from "../ui-items-provider/UiItemsProvider";
-import { FrameworkContent } from "../framework/FrameworkContent";
-import type { SizeProps } from "../utils/SizeProps";
-import type { RectangleProps } from "../utils/RectangleProps";
+} from "../layout/state/WidgetLocation.js";
+import type { PanelSide } from "../layout/widget-panels/PanelTypes.js";
+import { panelSides } from "../layout/widget-panels/Panel.js";
+import type { StagePanelConfig } from "../stagepanels/StagePanelConfig.js";
+import { StagePanelDef } from "../stagepanels/StagePanelDef.js";
+import { StagePanelLocation } from "../stagepanels/StagePanelLocation.js";
+import { StagePanelState } from "../stagepanels/StagePanelState.js";
+import type { WidgetConfig } from "../widgets/WidgetConfig.js";
+import type { WidgetControl } from "../widgets/WidgetControl.js";
+import { getWidgetState, WidgetDef, WidgetType } from "../widgets/WidgetDef.js";
+import { WidgetState } from "../widgets/WidgetState.js";
+import type { FrontstageProvider } from "./FrontstageProvider.js";
+import { InternalFrontstageManager } from "./InternalFrontstageManager.js";
+import { StageUsage } from "./StageUsage.js";
+import type { Frontstage } from "./Frontstage.js";
+import { UiItemsProvider } from "../ui-items-provider/UiItemsProvider.js";
+import { FrameworkContent } from "../framework/FrameworkContent.js";
+import type { SizeProps } from "../utils/SizeProps.js";
+import type { RectangleProps } from "../utils/RectangleProps.js";
 
 /** FrontstageDef class provides an API for a Frontstage.
  * @public
@@ -339,7 +339,7 @@ export class FrontstageDef {
     if (!this._contentGroup)
       // eslint-disable-next-line deprecation/deprecation
       throw new UiError(
-        UiFramework.loggerCategory(this),
+        UiFramework.loggerCategory("FrontstageDef"),
         `onActivated: Content Group not defined`
       );
 

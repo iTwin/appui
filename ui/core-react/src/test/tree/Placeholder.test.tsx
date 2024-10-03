@@ -3,8 +3,8 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { LEVEL_OFFSET } from "../../core-react/tree/Node";
-import { TreeNodePlaceholder } from "../../core-react";
+import { LEVEL_OFFSET } from "../../core-react/tree/Node.js";
+import { TreeNodePlaceholder } from "../../core-react.js";
 import { render, screen } from "@testing-library/react";
 
 describe("<Placeholder />", () => {

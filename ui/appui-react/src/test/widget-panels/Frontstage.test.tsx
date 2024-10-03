@@ -5,62 +5,66 @@
 import { Logger } from "@itwin/core-bentley";
 import { IModelApp } from "@itwin/core-frontend";
 import type { UiStateStorageResult } from "@itwin/core-react";
-import { Size, UiStateStorageStatus } from "@itwin/core-react";
+import { UiStateStorageStatus } from "@itwin/core-react";
 import { act, render, renderHook, screen } from "@testing-library/react";
-import produce from "immer";
 import * as React from "react";
+import { produce } from "immer";
 import { Provider } from "react-redux";
 import * as moq from "typemoq";
 import type {
   FrontstageConfig,
   UiItemsProvider,
   Widget,
-  WidgetPanelsFrontstageState,
-} from "../../appui-react";
+} from "../../appui-react.js";
 import {
-  ActiveFrontstageDefProvider,
-  addFrontstageWidgetDefs,
-  addPanelSectionWidgetDefs,
   FrontstageDef,
   FrontstageProvider,
-  getPanelSectionId,
-  initializeNineZoneState,
-  initializePanel,
-  isFrontstageStateSettingResult,
-  ModalFrontstageComposer,
-  packNineZoneState,
-  restoreNineZoneState,
   StagePanelDef,
   StagePanelLocation,
   StagePanelSection,
-  stateVersion,
   UiFramework,
   UiItemsManager,
   UiStateStorageHandler,
-  useActiveModalFrontstageInfo,
-  useFrontstageManager,
-  useLayoutStore,
-  useNineZoneDispatch,
-  useSavedFrontstageState,
-  useUpdateNineZoneSize,
   WidgetDef,
-  WidgetPanelsFrontstage,
   WidgetState,
-} from "../../appui-react";
-import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";
-import { getUniqueId } from "../../appui-react/layout/base/NineZone";
-import { createNineZoneState } from "../../appui-react/layout/state/NineZoneState";
-import { addPanelWidget } from "../../appui-react/layout/state/internal/PanelStateHelpers";
-import { addTab } from "../../appui-react/layout/state/internal/TabStateHelpers";
-import { addWidgetToolSettings } from "../../appui-react/layout/state/internal/ToolSettingsStateHelpers";
-import { addFloatingWidget } from "../../appui-react/layout/state/internal/WidgetStateHelpers";
+} from "../../appui-react.js";
+import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager.js";
+import { getUniqueId } from "../../appui-react/layout/base/NineZone.js";
+import { createNineZoneState } from "../../appui-react/layout/state/NineZoneState.js";
+import { addPanelWidget } from "../../appui-react/layout/state/internal/PanelStateHelpers.js";
+import { addTab } from "../../appui-react/layout/state/internal/TabStateHelpers.js";
+import { addWidgetToolSettings } from "../../appui-react/layout/state/internal/ToolSettingsStateHelpers.js";
+import { addFloatingWidget } from "../../appui-react/layout/state/internal/WidgetStateHelpers.js";
 import TestUtils, {
   storageMock,
   stubRaf,
   styleMatch,
   UiStateStorageStub,
-} from "../TestUtils";
-import { defaultFrontstageConfig } from "../frontstage/FrontstageDef.test";
+} from "../TestUtils.js";
+import { defaultFrontstageConfig } from "../frontstage/FrontstageDef.test.js";
+import type { WidgetPanelsFrontstageState } from "../../appui-react/widget-panels/Frontstage.js";
+import {
+  ActiveFrontstageDefProvider,
+  addFrontstageWidgetDefs,
+  addPanelSectionWidgetDefs,
+  getPanelSectionId,
+  initializeNineZoneState,
+  initializePanel,
+  isFrontstageStateSettingResult,
+  packNineZoneState,
+  restoreNineZoneState,
+  stateVersion,
+  useFrontstageManager,
+  useLayoutStore,
+  useNineZoneDispatch,
+  useSavedFrontstageState,
+  useUpdateNineZoneSize,
+  WidgetPanelsFrontstage,
+} from "../../appui-react/widget-panels/Frontstage.js";
+import {
+  ModalFrontstageComposer,
+  useActiveModalFrontstageInfo,
+} from "../../appui-react/widget-panels/ModalFrontstageComposer.js";
 
 function createFrontstageState(
   nineZone = createNineZoneState()
@@ -783,7 +787,7 @@ describe("Frontstage local storage wrapper", () => {
           InternalFrontstageManager,
           "nineZoneSize",
           "get"
-        ).mockImplementation(() => new Size(10, 20));
+        ).mockImplementation(() => ({ width: 10, height: 20 }));
         const frontstageDef = new FrontstageDef();
         initializeNineZoneState(frontstageDef);
 
@@ -1202,7 +1206,7 @@ describe("Frontstage local storage wrapper", () => {
           InternalFrontstageManager,
           "nineZoneSize",
           "get"
-        ).mockImplementation(() => new Size(10, 20));
+        ).mockImplementation(() => ({ width: 10, height: 20 }));
         const frontstageDef = new FrontstageDef();
         let state = createNineZoneState({
           size: {
@@ -1269,7 +1273,7 @@ describe("Frontstage local storage wrapper", () => {
           InternalFrontstageManager,
           "nineZoneSize",
           "get"
-        ).mockImplementation(() => new Size(10, 20));
+        ).mockImplementation(() => ({ width: 10, height: 20 }));
         rerender(newFrontstageDef);
 
         expect(newFrontstageDef.nineZoneState?.size).toEqual({

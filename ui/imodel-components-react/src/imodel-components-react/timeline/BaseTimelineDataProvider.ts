@@ -7,7 +7,7 @@
  */
 
 import type { ScreenViewport } from "@itwin/core-frontend";
-import type { PlaybackSettings, TimelineDataProvider } from "./interfaces";
+import type { PlaybackSettings, TimelineDataProvider } from "./interfaces.js";
 
 /** Base Timeline Data Provider
  * @alpha

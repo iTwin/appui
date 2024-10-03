@@ -2,16 +2,16 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { UiFramework } from "../../appui-react";
+import { UiFramework } from "../../appui-react.js";
 import type {
   ContentGroupProps,
   ContentProps,
-} from "../../appui-react/content/ContentGroup";
-import { ContentGroup } from "../../appui-react/content/ContentGroup";
-import { InternalContentLayoutManager } from "../../appui-react/content/InternalContentLayoutManager";
-import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";
-import { getUniqueId } from "../../appui-react/layout/base/NineZone";
-import { StandardContentLayouts } from "../../appui-react/content/StandardContentLayouts";
+} from "../../appui-react/content/ContentGroup.js";
+import { ContentGroup } from "../../appui-react/content/ContentGroup.js";
+import { InternalContentLayoutManager } from "../../appui-react/content/InternalContentLayoutManager.js";
+import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager.js";
+import { getUniqueId } from "../../appui-react/layout/base/NineZone.js";
+import { StandardContentLayouts } from "../../appui-react/content/StandardContentLayouts.js";
 
 describe("ContentLayoutManager", () => {
   beforeEach(async () => {

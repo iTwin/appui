@@ -8,8 +8,8 @@
 
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
-import { DialogRendererBase } from "./DialogManagerBase";
-import { InternalModalDialogManager as internal } from "./InternalModalDialogManager";
+import { DialogRendererBase } from "./DialogManagerBase.js";
+import { InternalModalDialogManager as internal } from "./InternalModalDialogManager.js";
 
 /** ModalDialogRenderer React component renders modal dialogs
  * @public

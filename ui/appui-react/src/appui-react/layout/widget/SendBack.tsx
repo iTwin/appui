@@ -15,15 +15,18 @@ import {
   SvgDockRight,
   SvgDockTop,
 } from "@itwin/itwinui-icons-react";
-import { NineZoneDispatchContext, useLabel } from "../base/NineZone";
-import { useLayout } from "../base/LayoutStore";
-import { useFloatingWidgetId, useWidgetAllowedToDock } from "./FloatingWidget";
-import type { WidgetState } from "../state/WidgetState";
-import { getWidgetPanelSectionId } from "../state/PanelState";
-import type { NineZoneState } from "../state/NineZoneState";
-import { useIsToolSettingsTab } from "./useIsToolSettingsTab";
-import { ActionButton } from "../../preview/widget-action-dropdown/Button";
-import { useIsMaximizedWidget } from "../../preview/enable-maximized-widget/useMaximizedWidget";
+import { NineZoneDispatchContext, useLabel } from "../base/NineZone.js";
+import { useLayout } from "../base/LayoutStore.js";
+import {
+  useFloatingWidgetId,
+  useWidgetAllowedToDock,
+} from "./FloatingWidget.js";
+import type { WidgetState } from "../state/WidgetState.js";
+import { getWidgetPanelSectionId } from "../state/PanelState.js";
+import type { NineZoneState } from "../state/NineZoneState.js";
+import { useIsToolSettingsTab } from "./useIsToolSettingsTab.js";
+import { ActionButton } from "../../preview/widget-action-dropdown/Button.js";
+import { useIsMaximizedWidget } from "../../preview/enable-maximized-widget/useMaximizedWidget.js";
 
 /** @internal */
 export const useActiveSendBackWidgetIdStore = create<

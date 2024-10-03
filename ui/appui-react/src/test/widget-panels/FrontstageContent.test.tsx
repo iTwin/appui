@@ -4,11 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
 import * as React from "react";
-import {
-  FrontstageDef,
-  UiFramework,
-  WidgetPanelsFrontstageContent,
-} from "../../appui-react";
+import { FrontstageDef, UiFramework } from "../../appui-react.js";
+import { WidgetPanelsFrontstageContent } from "../../appui-react/widget-panels/FrontstageContent.js";
 
 describe("WidgetPanelsFrontstageContent", () => {
   it("should render", () => {

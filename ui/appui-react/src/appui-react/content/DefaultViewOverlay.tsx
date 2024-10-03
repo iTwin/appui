@@ -13,10 +13,10 @@ import {
   SolarTimeline,
   TimelineComponent,
 } from "@itwin/imodel-components-react";
-import { useScheduleAnimationDataProvider } from "../hooks/useScheduleAnimationDataProvider";
-import { useActiveViewport } from "../hooks/useActiveViewport";
-import { useSolarDataProvider } from "../hooks/useSolarDataProvider";
-import { useAnalysisAnimationDataProvider } from "../hooks/useAnalysisAnimationDataProvider";
+import { useScheduleAnimationDataProvider } from "../hooks/useScheduleAnimationDataProvider.js";
+import { useActiveViewport } from "../hooks/useActiveViewport.js";
+import { useSolarDataProvider } from "../hooks/useSolarDataProvider.js";
+import { useAnalysisAnimationDataProvider } from "../hooks/useAnalysisAnimationDataProvider.js";
 
 /** Props of Viewport Overlay Control that show timelines
  * @public

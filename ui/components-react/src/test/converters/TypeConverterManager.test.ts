@@ -6,7 +6,7 @@ import {
   StringTypeConverter,
   TypeConverter,
   TypeConverterManager,
-} from "../../components-react";
+} from "../../components-react.js";
 
 describe("TypeConverterManager", () => {
   class TestTypeConverter extends TypeConverter {

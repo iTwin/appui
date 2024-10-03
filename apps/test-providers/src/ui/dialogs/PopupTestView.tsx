@@ -5,6 +5,7 @@
 
 import * as React from "react";
 import {
+  CursorMenuItemProps,
   FloatingViewportContent,
   UiFramework,
   useActiveIModelConnection,
@@ -13,9 +14,8 @@ import {
 import "./PopupTestView.scss";
 import ViewDefinitionSelector, {
   getViewDefinitions,
-} from "../components/ViewDefinitionSelector";
+} from "../components/ViewDefinitionSelector.js";
 import { Id64String } from "@itwin/core-bentley";
-import { CursorMenuItemProps } from "@itwin/appui-react/lib/cjs/appui-react/shared/MenuItem";
 import { Button } from "@itwin/itwinui-react";
 import { ScreenViewport } from "@itwin/core-frontend";
 

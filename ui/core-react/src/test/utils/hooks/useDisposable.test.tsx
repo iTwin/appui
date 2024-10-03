@@ -8,7 +8,7 @@ import { renderHook } from "@testing-library/react";
 import {
   useDisposable,
   useOptionalDisposable,
-} from "../../../core-react/utils/hooks/useDisposable";
+} from "../../../core-react/utils/hooks/useDisposable.js";
 
 describe("useDisposable", () => {
   let disposeSpy: Mock;

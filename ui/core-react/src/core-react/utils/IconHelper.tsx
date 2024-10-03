@@ -10,9 +10,9 @@
 
 import * as React from "react";
 import { ConditionalStringValue } from "@itwin/appui-abstract";
-import type { IconSpec } from "../icons/IconComponent";
-import { Icon } from "../icons/IconComponent";
-import { ConditionalIconItem } from "../icons/ConditionalIconItem";
+import type { IconSpec } from "../icons/IconComponent.js";
+import { Icon } from "../icons/IconComponent.js";
+import { ConditionalIconItem } from "../icons/ConditionalIconItem.js";
 
 /** Icon Helper Class used to store the data needed to generate an <Icon> for use in any control that shows an icon.
  * @public

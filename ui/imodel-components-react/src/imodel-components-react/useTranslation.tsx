@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import * as defaults from "./UiIModelComponents.json";
 import * as React from "react";
-import { usePackageTranslation } from "@itwin/core-react";
-import { UiIModelComponents } from "./UiIModelComponents";
+import { usePackageTranslation } from "@itwin/core-react/internal";
+import { UiIModelComponents } from "./UiIModelComponents.js";
 
 /** Returns a translation function.
  * @internal

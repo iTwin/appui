@@ -9,13 +9,11 @@
 import type * as React from "react";
 import type { PropertyRecord } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
-import { ArrayPropertyValueRenderer } from "./renderers/value/ArrayPropertyValueRenderer";
-import { MergedPropertyValueRenderer } from "./renderers/value/MergedPropertyValueRenderer";
-import { MultilineTextPropertyValueRenderer } from "./renderers/value/MultilineTextPropertyValueRenderer";
-import { PrimitivePropertyValueRenderer } from "./renderers/value/PrimitivePropertyValueRenderer";
-import { StructPropertyValueRenderer } from "./renderers/value/StructPropertyValueRenderer";
-import { UrlPropertyValueRenderer } from "./renderers/value/UrlPropertyValueRenderer";
-import type { Orientation } from "../common/Orientation";
+import { ArrayPropertyValueRenderer } from "./renderers/value/ArrayPropertyValueRenderer.js";
+import { MergedPropertyValueRenderer } from "./renderers/value/MergedPropertyValueRenderer.js";
+import { PrimitivePropertyValueRenderer } from "./renderers/value/PrimitivePropertyValueRenderer.js";
+import { StructPropertyValueRenderer } from "./renderers/value/StructPropertyValueRenderer.js";
+import type { Orientation } from "../common/Orientation.js";
 
 /** Types of property containers
  * @public
@@ -190,12 +188,3 @@ export class PropertyValueRendererManager {
     return this._defaultRendererManager;
   }
 }
-
-PropertyValueRendererManager.defaultManager.registerRenderer(
-  "url",
-  new UrlPropertyValueRenderer()
-);
-PropertyValueRendererManager.defaultManager.registerRenderer(
-  "multiline",
-  new MultilineTextPropertyValueRenderer()
-);

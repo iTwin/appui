@@ -5,10 +5,10 @@
 import * as React from "react";
 import type * as ReactAutosuggest from "react-autosuggest";
 import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { userEvent } from "@testing-library/user-event";
 import { Logger } from "@itwin/core-bentley";
-import type { AutoSuggestData } from "../../core-react";
-import { AutoSuggest } from "../../core-react";
+import type { AutoSuggestData } from "../../core-react.js";
+import { AutoSuggest } from "../../core-react.js";
 
 describe("AutoSuggest", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;

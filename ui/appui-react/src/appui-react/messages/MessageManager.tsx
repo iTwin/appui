@@ -27,15 +27,15 @@ import {
 import { MessageSeverity, UiEvent } from "@itwin/appui-abstract";
 import type { IconSpec } from "@itwin/core-react";
 import { MessageContainer, MessageRenderer } from "@itwin/core-react";
-import { StandardMessageBox } from "../dialog/StandardMessageBox";
-import { ElementTooltip } from "../feedback/ElementTooltip";
-import { UiFramework } from "../UiFramework";
-import { PointerMessage } from "./Pointer";
+import { StandardMessageBox } from "../dialog/StandardMessageBox.js";
+import { ElementTooltip } from "../feedback/ElementTooltip.js";
+import { UiFramework } from "../UiFramework.js";
+import { PointerMessage } from "./Pointer.js";
 import type {
   NotifyMessageDetailsType,
   NotifyMessageType,
-} from "./ReactNotifyMessageDetails";
-import { StatusMessageManager } from "./StatusMessageManager";
+} from "./ReactNotifyMessageDetails.js";
+import { StatusMessageManager } from "./StatusMessageManager.js";
 import {
   SvgInfo,
   SvgStatusError,
@@ -44,7 +44,7 @@ import {
 } from "@itwin/itwinui-icons-react";
 import type { useToaster } from "@itwin/itwinui-react";
 import { BeUiEvent } from "@itwin/core-bentley";
-import { ConfigurableUiActionId } from "../redux/ConfigurableUiState";
+import { ConfigurableUiActionId } from "../redux/ConfigurableUiState.js";
 
 type Toaster = ReturnType<typeof useToaster>;
 type ToasterSettings = Parameters<Toaster["setSettings"]>;
@@ -227,14 +227,14 @@ export class MessageManager {
     new OpenMessageCenterEvent(); // eslint-disable-line deprecation/deprecation
 
   /** @internal */
-  public static readonly onDisplayMessage = new BeUiEvent<{
+  public static readonly onDisplayMessage: BeUiEvent<{
     message: NotifyMessageDetailsType;
     options?: ToastOptions;
     settings?: ToasterSettings;
     animateOutToElement?: HTMLElement;
     // This is set by toast renderer to expose close function.
     close?: () => void;
-  }>();
+  }> = new BeUiEvent();
 
   /** The ToolAssistanceChangedEvent is fired when a tool calls IModelApp.notifications.setToolAssistance().
    * @public

@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { render } from "@testing-library/react";
-import { HighlightedText } from "../../components-react/common/HighlightedText";
+import { HighlightedText } from "../../components-react/common/HighlightedText.js";
 
 describe("<HighlightedText />", () => {
   it("renders string with highlights", () => {

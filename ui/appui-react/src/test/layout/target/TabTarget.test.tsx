@@ -4,19 +4,19 @@
  *--------------------------------------------------------------------------------------------*/
 import { render, renderHook } from "@testing-library/react";
 import * as React from "react";
-import { DraggedWidgetIdContext } from "../../../appui-react/layout/base/DragManager";
-import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState";
-import type { WidgetState } from "../../../appui-react/layout/state/WidgetState";
-import { addPanelWidget } from "../../../appui-react/layout/state/internal/PanelStateHelpers";
+import { DraggedWidgetIdContext } from "../../../appui-react/layout/base/DragManager.js";
+import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState.js";
+import type { WidgetState } from "../../../appui-react/layout/state/WidgetState.js";
+import { addPanelWidget } from "../../../appui-react/layout/state/internal/PanelStateHelpers.js";
 import {
   addTab,
   createDraggedTabState,
-} from "../../../appui-react/layout/state/internal/TabStateHelpers";
-import { TabTarget } from "../../../appui-react/layout/target/TabTarget";
-import { useAllowedWidgetTarget } from "../../../appui-react/layout/target/useAllowedWidgetTarget";
-import { WidgetIdContext } from "../../../appui-react/layout/widget/Widget";
-import type { TestNineZoneProviderProps } from "../Providers";
-import { TestNineZoneProvider } from "../Providers";
+} from "../../../appui-react/layout/state/internal/TabStateHelpers.js";
+import { TabTarget } from "../../../appui-react/layout/target/TabTarget.js";
+import { useAllowedWidgetTarget } from "../../../appui-react/layout/target/useAllowedWidgetTarget.js";
+import { WidgetIdContext } from "../../../appui-react/layout/widget/Widget.js";
+import type { TestNineZoneProviderProps } from "../Providers.js";
+import { TestNineZoneProvider } from "../Providers.js";
 
 interface WrapperProps extends TestNineZoneProviderProps {
   widgetId: WidgetState["id"];

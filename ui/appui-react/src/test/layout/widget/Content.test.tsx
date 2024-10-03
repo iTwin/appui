@@ -5,10 +5,10 @@
 import { BeEvent } from "@itwin/core-bentley";
 import { act, render } from "@testing-library/react";
 import * as React from "react";
-import type { TabState } from "../../../appui-react/layout/state/TabState";
-import { ScrollableWidgetContent } from "../../../appui-react/layout/widget/Content";
-import { WidgetContentManagerContext } from "../../../appui-react/layout/widget/ContentManager";
-import { TabIdContext } from "../../../appui-react/layout/widget/ContentRenderer";
+import type { TabState } from "../../../appui-react/layout/state/TabState.js";
+import { ScrollableWidgetContent } from "../../../appui-react/layout/widget/Content.js";
+import { WidgetContentManagerContext } from "../../../appui-react/layout/widget/ContentManager.js";
+import { TabIdContext } from "../../../appui-react/layout/widget/ContentRenderer.js";
 
 describe("ScrollableWidgetContent", () => {
   it("should save and restore scroll position", () => {

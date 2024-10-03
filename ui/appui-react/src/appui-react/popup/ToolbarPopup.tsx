@@ -10,22 +10,23 @@ import * as React from "react";
 import { Key } from "ts-key-enum";
 import type { RelativePosition } from "@itwin/appui-abstract";
 import type { RequireAtLeastOne } from "@itwin/core-bentley";
-import { DivWithOutsideClick, FocusTrap, Point, Size } from "@itwin/core-react";
+import { DivWithOutsideClick } from "@itwin/core-react";
+import { FocusTrap, Point } from "@itwin/core-react/internal";
 import type { Orientation } from "@itwin/components-react";
 import {
   Direction,
   ToolbarOpacitySetting,
   ToolbarPanelAlignment,
 } from "@itwin/components-react";
-import { CursorPopup } from "../cursor/cursorpopup/CursorPopup";
-import type { PopupPropsBase } from "./PopupManager";
-import { PopupManager } from "./PopupManager";
-import { PositionPopup } from "./PositionPopup";
-import type { ToolbarItem } from "../toolbar/ToolbarItem";
-import { Toolbar } from "../toolbar/Toolbar";
-import { WrapperContext } from "../configurableui/ConfigurableUiContent";
-import { mapToPlacement, type Placement } from "../utils/Placement";
-import type { SizeProps } from "../utils/SizeProps";
+import { CursorPopup } from "../cursor/cursorpopup/CursorPopup.js";
+import type { PopupPropsBase } from "./PopupManager.js";
+import { PopupManager } from "./PopupManager.js";
+import { PositionPopup } from "./PositionPopup.js";
+import type { ToolbarItem } from "../toolbar/ToolbarItem.js";
+import { Toolbar } from "../toolbar/Toolbar.js";
+import { WrapperContext } from "../configurableui/ConfigurableUiContent.js";
+import { mapToPlacement, type Placement } from "../utils/Placement.js";
+import type { SizeProps } from "../utils/SizeProps.js";
 
 /** Props for a popup toolbar
  * @beta
@@ -43,7 +44,7 @@ export type ToolbarPopupProps = Omit<PopupPropsBase, "el"> & {
   }>;
 
 interface ToolbarPopupState {
-  size: Size;
+  size: SizeProps;
 }
 
 /** Popup component for Toolbar
@@ -59,12 +60,16 @@ export class ToolbarPopup extends React.PureComponent<
   public declare context: React.ContextType<typeof WrapperContext>;
 
   public override readonly state = {
-    size: new Size(-1, -1),
+    size: { width: -1, height: -1 },
   };
 
   private _onSizeKnown = (newSize: SizeProps) => {
-    if (!this.state.size.equals(newSize))
-      this.setState({ size: Size.create(newSize) });
+    if (
+      this.state.size.width === newSize.width &&
+      this.state.size.height === newSize.height
+    )
+      return;
+    this.setState({ size: newSize });
   };
 
   private _handleKeyDown = (

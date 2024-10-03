@@ -8,12 +8,12 @@
 
 import type { PropertyRecord } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
-import { countMatchesInString } from "../../../common/countMatchesInString";
-import type { PropertyDataFilterResult } from "./PropertyDataFiltererBase";
+import { countMatchesInString } from "../../../common/countMatchesInString.js";
+import type { PropertyDataFilterResult } from "./PropertyDataFiltererBase.js";
 import {
   FilteredType,
   PropertyRecordDataFiltererBase,
-} from "./PropertyDataFiltererBase";
+} from "./PropertyDataFiltererBase.js";
 
 /**
  * Property data filterer which matches on Primitive Property Record display value text.

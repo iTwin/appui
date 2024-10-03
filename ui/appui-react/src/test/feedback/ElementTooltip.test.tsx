@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
 import * as React from "react";
-import { ElementTooltip } from "../../appui-react";
+import { ElementTooltip } from "../../appui-react.js";
 
 describe("ElementTooltip", () => {
   it("showTooltip & hideTooltip set isTooltipVisible appropriately", () => {

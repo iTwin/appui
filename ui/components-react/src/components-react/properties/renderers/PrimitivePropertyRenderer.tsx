@@ -6,9 +6,9 @@
  * @module Properties
  */
 
-import type { HighlightingComponentProps } from "../../common/HighlightingComponentProps";
-import type { SharedRendererProps } from "./PropertyRenderer";
-import { CustomizablePropertyRenderer } from "./CustomizablePropertyRenderer";
+import type { HighlightingComponentProps } from "../../common/HighlightingComponentProps.js";
+import type { SharedRendererProps } from "./PropertyRenderer.js";
+import { CustomizablePropertyRenderer } from "./CustomizablePropertyRenderer.js";
 import React from "react";
 
 /** Properties of [[PrimitivePropertyRenderer]] React component

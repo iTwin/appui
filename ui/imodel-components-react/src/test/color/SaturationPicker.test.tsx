@@ -6,8 +6,8 @@
 import React from "react";
 import { HSVColor } from "@itwin/core-common";
 import { fireEvent, render } from "@testing-library/react";
-import { TestUtils } from "../TestUtils";
-import { SaturationPicker } from "../../imodel-components-react/color/SaturationPicker";
+import { TestUtils } from "../TestUtils.js";
+import { SaturationPicker } from "../../imodel-components-react/color/SaturationPicker.js";
 
 /* eslint-disable deprecation/deprecation */
 

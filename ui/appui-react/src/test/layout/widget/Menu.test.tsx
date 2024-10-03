@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import { render } from "@testing-library/react";
 import * as React from "react";
-import { WidgetMenu } from "../../../appui-react/layout/widget/Menu";
+import { WidgetMenu } from "../../../appui-react/layout/widget/Menu.js";
 
 describe("WidgetMenu ", () => {
   it("should render", async () => {

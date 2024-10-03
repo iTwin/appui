@@ -9,15 +9,15 @@
 import * as React from "react";
 import classnames from "classnames";
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
-import type { ContextMenuItemProps } from "./ContextMenuItem";
-import type { ContextMenuProps } from "./ContextMenu";
-import { ContextMenu } from "./ContextMenu";
-import type { CommonProps } from "../utils/Props";
-import { ContextMenuDirection } from "./ContextMenuDirection";
-import { TildeFinder } from "./TildeFinder";
-import { Icon } from "../icons/IconComponent";
+import type { ContextMenuItemProps } from "./ContextMenuItem.js";
+import type { ContextMenuProps } from "./ContextMenu.js";
+import { ContextMenu } from "./ContextMenu.js";
+import type { CommonProps } from "../utils/Props.js";
+import { ContextMenuDirection } from "./ContextMenuDirection.js";
+import { TildeFinder } from "./TildeFinder.js";
+import { Icon } from "../icons/IconComponent.js";
 import { SvgCaretRightSmall } from "@itwin/itwinui-icons-react";
-import { Badge } from "../badge/Badge";
+import { Badge } from "../badge/Badge.js";
 
 /* eslint-disable deprecation/deprecation */
 

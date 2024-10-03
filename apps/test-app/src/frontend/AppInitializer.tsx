@@ -9,7 +9,7 @@ import {
   FrameworkAccuDraw,
   FrameworkToolAdmin,
   FrameworkUiAdmin,
-  getKeyinsFromToolList,
+  KeyinEntry,
   SYSTEM_PREFERRED_COLOR_THEME,
   UiFramework,
 } from "@itwin/appui-react";
@@ -158,7 +158,7 @@ function createInitializer() {
       AccuDrawKeyboardShortcuts.getDefaultShortcuts()
     );
 
-    const keyins = getKeyinsFromToolList(IModelApp.tools.getToolList());
+    const keyins = getKeyins();
     document.addEventListener("keydown", (event) => {
       if (event.ctrlKey && event.key === Key.F2.valueOf()) {
         UiFramework.showKeyinPalette(keyins);
@@ -184,3 +184,14 @@ function createInitializer() {
 }
 
 export const appInitializer = createInitializer();
+
+function getKeyins() {
+  const toolList = IModelApp.tools.getToolList();
+  const toolKeyins: KeyinEntry[] = [];
+  for (const tool of toolList) {
+    const keyin = tool.keyin;
+    toolKeyins.push({ value: keyin });
+  }
+
+  return toolKeyins;
+}

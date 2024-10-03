@@ -3,10 +3,10 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { MutableCustomGridCategory } from "../../../../../components-react/propertygrid/internal/flat-items/MutableCustomGridCategory";
-import type { MutableGridItemFactory } from "../../../../../components-react/propertygrid/internal/flat-items/MutableGridItemFactory";
-import type { PropertyCategory } from "../../../../../components-react/propertygrid/PropertyDataProvider";
-import { FlatGridTestUtils } from "./FlatGridTestUtils";
+import { MutableCustomGridCategory } from "../../../../../components-react/propertygrid/internal/flat-items/MutableCustomGridCategory.js";
+import type { MutableGridItemFactory } from "../../../../../components-react/propertygrid/internal/flat-items/MutableGridItemFactory.js";
+import type { PropertyCategory } from "../../../../../components-react/propertygrid/PropertyDataProvider.js";
+import { FlatGridTestUtils } from "./FlatGridTestUtils.js";
 
 describe("MutableCustomGridCategory", () => {
   function createCategory(

@@ -8,8 +8,8 @@
 
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import type { ContextMenuProps } from "./ContextMenu";
-import { ContextMenu } from "./ContextMenu";
+import type { ContextMenuProps } from "./ContextMenu.js";
+import { ContextMenu } from "./ContextMenu.js";
 
 /* eslint-disable deprecation/deprecation */
 

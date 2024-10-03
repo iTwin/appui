@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import { render } from "@testing-library/react";
 import * as React from "react";
-import { NewDot } from "../../../../appui-react/layout/footer/tool-assistance/NewDot";
-import { selectorMatches } from "../../Utils";
+import { NewDot } from "../../../../appui-react/layout/footer/tool-assistance/NewDot.js";
+import { selectorMatches } from "../../Utils.js";
 
 describe("<NewDot />", () => {
   it("renders correctly", () => {

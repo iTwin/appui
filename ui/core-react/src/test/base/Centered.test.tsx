@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
 import * as React from "react";
-import { Centered } from "../../core-react";
-import { classesFromElement } from "../TestUtils";
+import { Centered } from "../../core-react.js";
+import { classesFromElement } from "../TestUtils.js";
 
 describe("<Centered />", () => {
   it("content renders correctly", () => {

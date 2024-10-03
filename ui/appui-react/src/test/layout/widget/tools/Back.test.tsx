@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
 import * as React from "react";
-import { BackButton } from "../../../../appui-react/layout/widget/tools/button/Back";
-import { selectorMatches } from "../../Utils";
+import { BackButton } from "../../../../appui-react/layout/widget/tools/button/Back.js";
+import { selectorMatches } from "../../Utils.js";
 
 describe("<BackButton  />", () => {
   it("renders correctly", () => {

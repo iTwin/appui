@@ -6,17 +6,17 @@
  * @module UiProvider
  */
 
-import type { BackstageItem } from "../backstage/BackstageItem";
-import type { StagePanelLocation } from "../stagepanels/StagePanelLocation";
-import type { StagePanelSection } from "../stagepanels/StagePanelSection";
-import type { StatusBarItem } from "../statusbar/StatusBarItem";
+import type { BackstageItem } from "../backstage/BackstageItem.js";
+import type { StagePanelLocation } from "../stagepanels/StagePanelLocation.js";
+import type { StagePanelSection } from "../stagepanels/StagePanelSection.js";
+import type { StatusBarItem } from "../statusbar/StatusBarItem.js";
 import type {
   CommonToolbarItem,
   ToolbarItem,
   ToolbarOrientation,
   ToolbarUsage,
-} from "../toolbar/ToolbarItem";
-import type { Widget } from "../widgets/Widget";
+} from "../toolbar/ToolbarItem.js";
+import type { Widget } from "../widgets/Widget.js";
 
 /** Describes interface of objects that want to provide UI component to the running IModelApp.
  * @public

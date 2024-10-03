@@ -3,16 +3,17 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import type { Orientation } from "@itwin/components-react";
-import { DivWithOutsideClick, Point, Size } from "@itwin/core-react";
+import { DivWithOutsideClick } from "@itwin/core-react";
+import { Point } from "@itwin/core-react/internal";
 import * as React from "react";
-import { CursorPopup } from "../cursor/cursorpopup/CursorPopup";
-import type { PopupPropsBase } from "./PopupManager";
-import { PopupManager } from "./PopupManager";
-import { PositionPopup } from "./PositionPopup";
-import { useEffect, useState } from "react";
-import { WrapperContext } from "../configurableui/ConfigurableUiContent";
-import { type Placement } from "../utils/Placement";
-import type { SizeProps } from "../utils/SizeProps";
+import { CursorPopup } from "../cursor/cursorpopup/CursorPopup.js";
+import type { PopupPropsBase } from "./PopupManager.js";
+import { PopupManager } from "./PopupManager.js";
+import { PositionPopup } from "./PositionPopup.js";
+import { useState } from "react";
+import { WrapperContext } from "../configurableui/ConfigurableUiContent.js";
+import { type Placement } from "../utils/Placement.js";
+import type { SizeProps } from "../utils/SizeProps.js";
 
 // Props used for the ComponentPopup.
 interface ComponentPopupProps extends Omit<PopupPropsBase, "el"> {
@@ -37,14 +38,7 @@ export const ComponentPopup: React.FC<ComponentPopupProps> = ({
   anchor,
 }) => {
   const wrapper = React.useContext(WrapperContext);
-  const [size, setSize] = useState<Size>(new Size(-1, -1));
-
-  useEffect(() => {
-    const newSize = Size.create(size);
-    if (!size.equals(newSize)) {
-      setSize(newSize);
-    }
-  }, [size]);
+  const [size, setSize] = useState<SizeProps>({ width: -1, height: -1 });
 
   let point = PopupManager.getPopupPosition(
     anchor ?? wrapper,
@@ -57,7 +51,8 @@ export const ComponentPopup: React.FC<ComponentPopupProps> = ({
   point = new Point(popupRect.left, popupRect.top);
 
   const handleSizeKnown = (newSize: SizeProps) => {
-    if (!size.equals(newSize)) setSize(Size.create(newSize));
+    if (newSize.height === size.height && newSize.width === size.width) return;
+    setSize(newSize);
   };
 
   return (

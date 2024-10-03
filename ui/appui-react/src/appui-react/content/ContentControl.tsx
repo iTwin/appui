@@ -18,10 +18,10 @@ import {
   ConfigurableCreateInfo,
   ConfigurableUiControl,
   ConfigurableUiControlType,
-} from "../configurableui/ConfigurableUiControl";
-import { Widget } from "../widgets/Widget";
-import { UiItemsProvider } from "../ui-items-provider/UiItemsProvider";
-import { ContentOverlay } from "./ContentOverlay";
+} from "../configurableui/ConfigurableUiControl.js";
+import { Widget } from "../widgets/Widget.js";
+import { UiItemsProvider } from "../ui-items-provider/UiItemsProvider.js";
+import { ContentOverlay } from "./ContentOverlay.js";
 
 /* eslint-disable deprecation/deprecation */
 

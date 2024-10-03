@@ -9,8 +9,8 @@ import { fireEvent, render } from "@testing-library/react";
 import { RelativePosition } from "@itwin/appui-abstract";
 import { ColorByName, ColorDef } from "@itwin/core-common";
 import { ColorValue } from "@itwin/itwinui-react";
-import { TestUtils } from "../TestUtils";
-import { ColorPickerPopup } from "../../imodel-components-react/color/ColorPickerPopup";
+import { TestUtils } from "../TestUtils.js";
+import { ColorPickerPopup } from "../../imodel-components-react/color/ColorPickerPopup.js";
 
 /* eslint-disable deprecation/deprecation */
 

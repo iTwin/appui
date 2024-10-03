@@ -9,14 +9,16 @@
 import * as React from "react";
 import { Key } from "ts-key-enum";
 import type { OnCancelFunc, OnItemExecutedFunc } from "@itwin/appui-abstract";
-import { DivWithOutsideClick, FocusTrap, Point, Size } from "@itwin/core-react";
-import { PositionPopup } from "./PositionPopup";
-import { KeyinPalettePanel } from "./KeyinPalettePanel";
-import type { KeyinEntry } from "../keyins/Keyins";
-import type { SizeProps } from "../utils/SizeProps";
+import { DivWithOutsideClick } from "@itwin/core-react";
+import { FocusTrap, Point } from "@itwin/core-react/internal";
+import { PositionPopup } from "./PositionPopup.js";
+import { KeyinPalettePanel } from "./KeyinPalettePanel.js";
+import type { KeyinEntry } from "../keyins/Keyins.js";
+import type { SizeProps } from "../utils/SizeProps.js";
 
 /** Props defining KeyinPalettePopup component
- * @public */
+ * @public
+ */
 export interface KeyinPalettePopupProps {
   id: string;
   /** @deprecated in 4.11.0. Please use the optional `anchorEl` property moving forward. */
@@ -45,11 +47,16 @@ export function KeyinPalettePopup({
 
   const _el = anchorEl ?? el;
 
-  const [popupSize, setPopupSize] = React.useState(new Size(-1, -1));
+  const [popupSize, setPopupSize] = React.useState({ width: -1, height: -1 });
 
   const onSizeKnown = React.useCallback(
     (newSize: SizeProps) => {
-      if (!popupSize.equals(newSize)) setPopupSize(Size.create(newSize));
+      if (
+        newSize.height === popupSize.height &&
+        newSize.width === popupSize.width
+      )
+        return;
+      setPopupSize(newSize);
     },
     [popupSize]
   );

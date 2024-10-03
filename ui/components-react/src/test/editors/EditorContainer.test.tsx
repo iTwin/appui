@@ -5,8 +5,8 @@
 
 import * as React from "react";
 import { Key } from "ts-key-enum";
-import { EditorContainer } from "../../components-react/editors/EditorContainer";
-import TestUtils, { childStructure, userEvent } from "../TestUtils";
+import { EditorContainer } from "../../components-react/editors/EditorContainer.js";
+import TestUtils, { childStructure, userEvent } from "../TestUtils.js";
 import { StandardEditorNames } from "@itwin/appui-abstract";
 import { fireEvent, render, screen } from "@testing-library/react";
 

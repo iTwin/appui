@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
 import * as React from "react";
-import { ToolbarButton } from "../../../../appui-react/layout/widget/tools/button/Button";
-import { childStructure, selectorMatches, styleMatch } from "../../Utils";
+import { ToolbarButton } from "../../../../appui-react/layout/widget/tools/button/Button.js";
+import { childStructure, selectorMatches, styleMatch } from "../../Utils.js";
 
 describe("<ToolbarButton  />", () => {
   it("renders correctly", () => {

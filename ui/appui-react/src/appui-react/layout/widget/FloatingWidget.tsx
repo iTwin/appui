@@ -15,34 +15,34 @@ import {
   Rectangle,
   useRefs,
   useResizeObserver,
-} from "@itwin/core-react";
-import type { UseDragResizeHandleArgs } from "../base/DragManager";
+} from "@itwin/core-react/internal";
+import type { UseDragResizeHandleArgs } from "../base/DragManager.js";
 import {
   DragManagerContext,
   useDragResizeHandle,
   useIsDraggedItem,
-} from "../base/DragManager";
+} from "../base/DragManager.js";
 import {
   FloatingWidgetNodeContext,
   MeasureContext,
   NineZoneDispatchContext,
   UiIsVisibleContext,
-} from "../base/NineZone";
-import type { FloatingWidgetState } from "../state/WidgetState";
-import { WidgetContentContainer } from "./ContentContainer";
-import { WidgetTabBar } from "./TabBar";
-import { Widget, WidgetIdContext, WidgetProvider } from "./Widget";
-import type { PointerCaptorArgs } from "../base/usePointerCaptor";
-import { usePointerCaptor } from "../base/usePointerCaptor";
-import { WidgetTarget } from "../target/WidgetTarget";
-import { WidgetOutline } from "../outline/WidgetOutline";
-import { useLayout } from "../base/LayoutStore";
-import { getWidgetState } from "../state/internal/WidgetStateHelpers";
-import type { XAndY } from "../state/internal/NineZoneStateHelpers";
+} from "../base/NineZone.js";
+import type { FloatingWidgetState } from "../state/WidgetState.js";
+import { WidgetContentContainer } from "./ContentContainer.js";
+import { WidgetTabBar } from "./TabBar.js";
+import { Widget, WidgetIdContext, WidgetProvider } from "./Widget.js";
+import type { PointerCaptorArgs } from "../base/usePointerCaptor.js";
+import { usePointerCaptor } from "../base/usePointerCaptor.js";
+import { WidgetTarget } from "../target/WidgetTarget.js";
+import { WidgetOutline } from "../outline/WidgetOutline.js";
+import { useLayout } from "../base/LayoutStore.js";
+import { getWidgetState } from "../state/internal/WidgetStateHelpers.js";
+import type { XAndY } from "../state/internal/NineZoneStateHelpers.js";
 import {
   useIsMaximizedWidget,
   useMaximizedFloatingWidget,
-} from "../../preview/enable-maximized-widget/useMaximizedWidget";
+} from "../../preview/enable-maximized-widget/useMaximizedWidget.js";
 
 type FloatingWidgetEdgeHandle = "left" | "right" | "top" | "bottom";
 type FloatingWidgetCornerHandle =

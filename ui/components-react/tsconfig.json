@@ -5,6 +5,8 @@
     "esModuleInterop": true,
     "jsx": "react",
     "resolveJsonModule": true,
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "types": ["vitest/globals"]
   },
   "include": ["./src/**/*.ts*"]

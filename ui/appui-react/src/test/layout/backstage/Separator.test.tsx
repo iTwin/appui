@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
 import * as React from "react";
-import { BackstageSeparator } from "../../../appui-react/layout/backstage/Separator";
-import { selectorMatches } from "../Utils";
+import { BackstageSeparator } from "../../../appui-react/layout/backstage/Separator.js";
+import { selectorMatches } from "../Utils.js";
 
 describe("<BackstageSeparator />", () => {
   it("renders correctly", () => {

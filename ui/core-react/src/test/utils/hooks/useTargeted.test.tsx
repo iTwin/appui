@@ -3,9 +3,9 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { userEvent } from "@testing-library/user-event";
 import * as React from "react";
-import { useTargeted } from "../../../core-react/utils/hooks/useTargeted";
+import { useTargeted } from "../../../core-react/utils/hooks/useTargeted.js";
 
 const Targeted = () => {
   const ref = React.useRef<HTMLButtonElement>(null);

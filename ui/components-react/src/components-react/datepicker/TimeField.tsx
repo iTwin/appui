@@ -12,7 +12,7 @@ import { Key } from "ts-key-enum";
 import { Input } from "@itwin/itwinui-react";
 import type { TimeDisplay } from "@itwin/appui-abstract";
 import "./TimeField.scss";
-import { useTranslation } from "../l10n/useTranslation";
+import { useTranslation } from "../l10n/useTranslation.js";
 
 /** Interface used to hold 24 hour time in
  * hours, minutes, and seconds.

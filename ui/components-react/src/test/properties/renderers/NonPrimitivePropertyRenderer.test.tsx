@@ -4,12 +4,12 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { Orientation } from "@itwin/core-react";
-import { NonPrimitivePropertyRenderer } from "../../../components-react/properties/renderers/NonPrimitivePropertyRenderer";
+import { NonPrimitivePropertyRenderer } from "../../../components-react/properties/renderers/NonPrimitivePropertyRenderer.js";
 import TestUtils, {
   selectorMatches,
   styleMatch,
   userEvent,
-} from "../../TestUtils";
+} from "../../TestUtils.js";
 import { render, screen } from "@testing-library/react";
 
 describe("NonPrimitivePropertyRenderer", () => {

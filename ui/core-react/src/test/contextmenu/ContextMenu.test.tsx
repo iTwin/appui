@@ -13,10 +13,10 @@ import {
   ContextMenuItem,
   ContextSubMenu,
   GlobalContextMenu,
-} from "../../core-react";
-import { TildeFinder } from "../../core-react/contextmenu/TildeFinder";
-import { classesFromElement } from "../TestUtils";
-import userEvent from "@testing-library/user-event";
+} from "../../core-react.js";
+import { TildeFinder } from "../../core-react/contextmenu/TildeFinder.js";
+import { classesFromElement } from "../TestUtils.js";
+import { userEvent } from "@testing-library/user-event";
 
 describe("ContextMenu", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;

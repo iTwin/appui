@@ -10,9 +10,9 @@ import "./IconComponent.scss";
 import * as React from "react";
 import classnames from "classnames";
 import { ConditionalStringValue } from "@itwin/appui-abstract";
-import type { CommonProps } from "../utils/Props";
+import type { CommonProps } from "../utils/Props.js";
 import DOMPurify, * as DOMPurifyNS from "dompurify";
-import { ConditionalIconItem } from "./ConditionalIconItem";
+import { ConditionalIconItem } from "./ConditionalIconItem.js";
 
 /* eslint-disable deprecation/deprecation */
 

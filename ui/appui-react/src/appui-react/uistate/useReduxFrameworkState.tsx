@@ -7,8 +7,8 @@
  */
 
 import { useCallback, useSyncExternalStore } from "react";
-import { UiFramework } from "../UiFramework";
-import type { FrameworkState as ReduxFrameworkState } from "../redux/FrameworkState";
+import { UiFramework } from "../UiFramework.js";
+import type { FrameworkState as ReduxFrameworkState } from "../redux/FrameworkState.js";
 
 /* eslint-disable deprecation/deprecation */
 

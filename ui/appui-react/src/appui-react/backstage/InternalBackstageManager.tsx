@@ -8,9 +8,9 @@
 
 import { BeEvent } from "@itwin/core-bentley";
 import type { IconSpec } from "@itwin/core-react";
-import { CommandItemDef } from "../shared/CommandItemDef";
-import { UiFramework } from "../UiFramework";
-import type { BackstageToggledArgs } from "../framework/FrameworkBackstage";
+import { CommandItemDef } from "../shared/CommandItemDef.js";
+import { UiFramework } from "../UiFramework.js";
+import type { BackstageToggledArgs } from "../framework/FrameworkBackstage.js";
 
 /** Controls backstage.
  * @internal

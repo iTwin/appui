@@ -6,9 +6,9 @@
  * @module Base
  */
 
-import type { RectangleProps } from "../../utils/RectangleProps";
-import type { TabState } from "./TabState";
-import type { WidgetRestoreState } from "./WidgetRestoreState";
+import type { RectangleProps } from "../../utils/RectangleProps.js";
+import type { TabState } from "./TabState.js";
+import type { WidgetRestoreState } from "./WidgetRestoreState.js";
 
 /** @internal */
 export type TabHomeState = WidgetRestoreState & {

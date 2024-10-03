@@ -6,10 +6,10 @@
  * @module Base
  */
 
-import type { PanelSide } from "../widget-panels/PanelTypes";
-import type { XAndY } from "./internal/NineZoneStateHelpers";
-import type { PanelWidgetRestoreState } from "./WidgetRestoreState";
-import type { SizeProps } from "../../utils/SizeProps";
+import type { PanelSide } from "../widget-panels/PanelTypes.js";
+import type { XAndY } from "./internal/NineZoneStateHelpers.js";
+import type { PanelWidgetRestoreState } from "./WidgetRestoreState.js";
+import type { SizeProps } from "../../utils/SizeProps.js";
 
 /** `WidgetDef` is equivalent structure in `appui-react`.
  * @internal

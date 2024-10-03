@@ -9,8 +9,8 @@
 import "./PropertyLabelRenderer.scss";
 import * as React from "react";
 import { SvgChevronRight } from "@itwin/itwinui-icons-react";
-import type { PrimitivePropertyLabelRendererProps } from "./PrimitivePropertyLabelRenderer";
-import { PropertyLabelRenderer } from "./PropertyLabelRenderer";
+import type { PrimitivePropertyLabelRendererProps } from "./PrimitivePropertyLabelRenderer.js";
+import { PropertyLabelRenderer } from "./PropertyLabelRenderer.js";
 
 /** Properties for the [[NonPrimitivePropertyLabelRenderer]] React component
  * @public

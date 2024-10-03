@@ -9,7 +9,7 @@ import {
 import { BeUiEvent } from "@itwin/core-bentley";
 import { ConditionalIconItem } from "@itwin/core-react";
 import { act, renderHook } from "@testing-library/react";
-import { useConditionalSynchedItems } from "../../components-react/toolbar/useConditionalSynchedItems";
+import { useConditionalSynchedItems } from "../../components-react/toolbar/useConditionalSynchedItems.js";
 
 interface BeUiEventProps {
   eventIds: Set<string>;

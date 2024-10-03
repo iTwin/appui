@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
 import * as React from "react";
-import { NavigationArea } from "../../../appui-react/layout/widget/NavigationArea";
-import { childStructure, selectorMatches } from "../Utils";
+import { NavigationArea } from "../../../appui-react/layout/widget/NavigationArea.js";
+import { childStructure, selectorMatches } from "../Utils.js";
 
 describe("<NavigationArea />", () => {
   it("renders correctly without app button", () => {

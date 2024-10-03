@@ -5,13 +5,13 @@
 import * as React from "react";
 import type { PropertyRecord } from "@itwin/appui-abstract";
 import { Orientation } from "@itwin/core-react";
-import { PropertyView } from "../../../components-react";
+import { PropertyView } from "../../../components-react.js";
 import TestUtils, {
   childStructure,
   selectorMatches,
   styleMatch,
   userEvent,
-} from "../../TestUtils";
+} from "../../TestUtils.js";
 import { render, screen } from "@testing-library/react";
 
 describe("PropertyView", () => {

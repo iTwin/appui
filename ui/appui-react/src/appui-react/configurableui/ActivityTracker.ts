@@ -7,7 +7,7 @@
  */
 // cspell:ignore visibilitychange
 
-import { InternalConfigurableUiManager } from "./InternalConfigurableUiManager";
+import { InternalConfigurableUiManager } from "./InternalConfigurableUiManager.js";
 
 /** Properties for [[ActivityTracker]]
  * @internal

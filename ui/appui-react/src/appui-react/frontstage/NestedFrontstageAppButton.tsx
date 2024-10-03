@@ -8,9 +8,9 @@
 
 import * as React from "react";
 import { SvgProgressBackwardCircular } from "@itwin/itwinui-icons-react";
-import { useTranslation } from "../hooks/useTranslation";
-import { UiFramework } from "../UiFramework";
-import { BackstageAppButton } from "../widgets/BackstageAppButton";
+import { useTranslation } from "../hooks/useTranslation.js";
+import { UiFramework } from "../UiFramework.js";
+import { BackstageAppButton } from "../widgets/BackstageAppButton.js";
 
 /** Properties of {@link NestedFrontstageAppButton} component. */
 interface NestedFrontstageAppButtonProps {

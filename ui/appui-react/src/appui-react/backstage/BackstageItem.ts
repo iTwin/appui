@@ -10,7 +10,8 @@ import type {
   ConditionalBooleanValue,
   ConditionalStringValue,
 } from "@itwin/appui-abstract";
-import type { BadgeKind, BadgeType, IconSpec } from "@itwin/core-react";
+import type { BadgeType, IconSpec } from "@itwin/core-react";
+import type { BadgeKind } from "@itwin/core-react/internal";
 
 /** Describes the data needed to insert a button into the backstage menu.
  * @public

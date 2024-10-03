@@ -11,7 +11,7 @@ import * as React from "react";
 import {
   TabIdContext,
   useTabTransientState,
-} from "../layout/widget/ContentRenderer";
+} from "../layout/widget/ContentRenderer.js";
 
 /** Hook that allows to save and restore transient DOM state (i.e. scroll offset) of a widget.
  * @public

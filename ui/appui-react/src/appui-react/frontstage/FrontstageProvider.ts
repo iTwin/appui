@@ -6,7 +6,7 @@
  * @module Frontstage
  */
 
-import type { Frontstage } from "./Frontstage";
+import type { Frontstage } from "./Frontstage.js";
 
 /** Provides a definition required to create a Frontstage.
  * @public

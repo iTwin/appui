@@ -6,7 +6,7 @@ import {
   DateTimeTypeConverter,
   DateTimeTypeConverterBase,
   ShortDateTypeConverter,
-} from "../../components-react";
+} from "../../components-react.js";
 import { TimeFormat } from "@itwin/core-react";
 import { AlternateDateFormats, TimeDisplay } from "@itwin/appui-abstract";
 

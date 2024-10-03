@@ -6,14 +6,14 @@
  * @module Base
  */
 
-import type { PanelSide } from "../widget-panels/PanelTypes";
-import { panelSides } from "../widget-panels/Panel";
-import type { NineZoneState } from "./NineZoneState";
+import type { PanelSide } from "../widget-panels/PanelTypes.js";
+import { panelSides } from "../widget-panels/Panel.js";
+import type { NineZoneState } from "./NineZoneState.js";
 import type {
   FloatingWidgetState,
   PopoutWidgetState,
   WidgetState,
-} from "./WidgetState";
+} from "./WidgetState.js";
 
 /** @internal */
 export interface PanelWidgetLocation {

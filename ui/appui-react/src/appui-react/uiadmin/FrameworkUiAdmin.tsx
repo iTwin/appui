@@ -24,18 +24,18 @@ import type {
   PropertyRecord,
 } from "@itwin/appui-abstract";
 import { RelativePosition, UiAdmin } from "@itwin/appui-abstract";
-import { CursorInformation } from "../cursor/CursorInformation";
-import { PopupManager } from "../popup/PopupManager";
-import { UiFramework } from "../UiFramework";
-import type { KeyinEntry } from "../keyins/Keyins";
+import { CursorInformation } from "../cursor/CursorInformation.js";
+import { PopupManager } from "../popup/PopupManager.js";
+import { UiFramework } from "../UiFramework.js";
+import type { KeyinEntry } from "../keyins/Keyins.js";
 import {
   getKeyinsFromToolList,
   KeyinFieldLocalization,
-} from "../keyins/Keyins";
-import { mapToPlacement } from "../utils/Placement";
-import type { ToolbarProps } from "../toolbar/Toolbar";
-import type { ToolbarItem } from "../toolbar/ToolbarItem";
-import type { CursorMenuItemProps } from "../shared/MenuItem";
+} from "../keyins/Keyins.js";
+import { mapToPlacement } from "../utils/Placement.js";
+import type { ToolbarProps } from "../toolbar/Toolbar.js";
+import type { ToolbarItem } from "../toolbar/ToolbarItem.js";
+import type { CursorMenuItemProps } from "../shared/MenuItem.js";
 
 /** Subclass of `UiAdmin` in `@itwin/core-frontend` to be used to initialize `IModelApp`.
  *

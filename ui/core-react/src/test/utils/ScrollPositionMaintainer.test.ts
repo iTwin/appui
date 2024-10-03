@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { using } from "@itwin/core-bentley";
-import { ScrollPositionMaintainer } from "../../core-react";
+import { ScrollPositionMaintainer } from "../../core-react.js";
 
 describe("ScrollPositionMaintainer", () => {
   it("should restore scroll positions when disposed", () => {

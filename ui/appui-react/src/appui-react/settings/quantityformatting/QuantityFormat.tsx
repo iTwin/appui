@@ -30,12 +30,12 @@ import {
   useSaveBeforeActivatingNewSettingsTab,
   useSaveBeforeClosingSettingsContainer,
 } from "@itwin/core-react";
-import { UiFramework } from "../../UiFramework";
-import { UnitSystemSelector } from "./UnitSystemSelector";
+import { UiFramework } from "../../UiFramework.js";
+import { UnitSystemSelector } from "./UnitSystemSelector.js";
 import { Button, Dialog } from "@itwin/itwinui-react";
 import { SvgMeasure } from "@itwin/itwinui-icons-react";
-import { useTranslation } from "../../hooks/useTranslation";
-import type { SettingsTabEntry } from "../SettingsManager";
+import { useTranslation } from "../../hooks/useTranslation.js";
+import type { SettingsTabEntry } from "../SettingsManager.js";
 
 function formatAreEqual(obj1: FormatProps, obj2: FormatProps) {
   const compare = new DeepCompare();

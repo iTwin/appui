@@ -12,7 +12,7 @@ import * as React from "react";
 import { Key } from "ts-key-enum";
 import { ColorDef, HSVColor } from "@itwin/core-common";
 import type { CommonProps } from "@itwin/core-react";
-import { useTranslation } from "../useTranslation";
+import { useTranslation } from "../useTranslation.js";
 
 function calculateChange(
   e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>,

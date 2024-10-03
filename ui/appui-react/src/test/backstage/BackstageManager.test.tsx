@@ -3,13 +3,13 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { renderHook, waitFor } from "@testing-library/react";
-import { UiFramework } from "../../appui-react";
+import { UiFramework } from "../../appui-react.js";
 import {
   BackstageManager,
   useBackstageManager,
   useIsBackstageOpen,
-} from "../../appui-react/backstage/BackstageManager";
-import { InternalBackstageManager } from "../../appui-react/backstage/InternalBackstageManager";
+} from "../../appui-react/backstage/BackstageManager.js";
+import { InternalBackstageManager } from "../../appui-react/backstage/InternalBackstageManager.js";
 
 describe("BackstageManager", () => {
   it("should open backstage", () => {

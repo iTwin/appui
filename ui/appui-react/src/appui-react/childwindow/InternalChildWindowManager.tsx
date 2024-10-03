@@ -12,23 +12,23 @@ import * as React from "react";
 import type { Root } from "react-dom/client";
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
-import { UiFramework } from "../UiFramework";
-import { CursorPopupMenu } from "../cursor/cursormenu/CursorMenu";
-import { ModalDialogRenderer } from "../dialog/ModalDialogManager";
-import { ModelessDialogRenderer } from "../dialog/ModelessDialogManager";
+import { UiFramework } from "../UiFramework.js";
+import { CursorPopupMenu } from "../cursor/cursormenu/CursorMenu.js";
+import { ModalDialogRenderer } from "../dialog/ModalDialogManager.js";
+import { ModelessDialogRenderer } from "../dialog/ModelessDialogManager.js";
 import type {
   ChildWindowLocationProps,
   FrameworkChildWindows,
   OpenChildWindowInfo,
-} from "../framework/FrameworkChildWindows";
-import { TabIdContext } from "../layout/widget/ContentRenderer";
-import { PopupRenderer } from "../popup/PopupManager";
-import { ThemeManager } from "../theme/ThemeManager";
-import { UiStateStorageHandler } from "../uistate/useUiStateStorage";
-import type { ChildWindow } from "./ChildWindowConfig";
-import { copyStyles } from "./CopyStyles";
-import { usePopoutsStore } from "../preview/reparent-popout-widgets/usePopoutsStore";
-import type { WidgetDef } from "../widgets/WidgetDef";
+} from "../framework/FrameworkChildWindows.js";
+import { TabIdContext } from "../layout/widget/ContentRenderer.js";
+import { PopupRenderer } from "../popup/PopupManager.js";
+import { ThemeManager } from "../theme/ThemeManager.js";
+import { UiStateStorageHandler } from "../uistate/useUiStateStorage.js";
+import type { ChildWindow } from "./ChildWindowConfig.js";
+import { copyStyles } from "./CopyStyles.js";
+import { usePopoutsStore } from "../preview/reparent-popout-widgets/usePopoutsStore.js";
+import type { WidgetDef } from "../widgets/WidgetDef.js";
 
 const childHtml = `<!DOCTYPE html>
 <html>

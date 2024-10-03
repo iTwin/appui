@@ -7,10 +7,10 @@ import { act, fireEvent, render, within } from "@testing-library/react";
 import {
   getUiSettingsManagerEntry,
   UiSettingsPage,
-} from "../../appui-react/settings/ui/UiSettingsPage";
-import TestUtils, { storageMock, waitForPosition } from "../TestUtils";
-import { UiFramework } from "../../appui-react/UiFramework";
-import { ColorTheme } from "../../appui-react/theme/ThemeId";
+} from "../../appui-react/settings/ui/UiSettingsPage.js";
+import TestUtils, { storageMock, waitForPosition } from "../TestUtils.js";
+import { UiFramework } from "../../appui-react/UiFramework.js";
+import { ColorTheme } from "../../appui-react/theme/ThemeId.js";
 
 describe("UiSettingsPage", () => {
   const localStorageToRestore = Object.getOwnPropertyDescriptor(

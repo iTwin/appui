@@ -8,7 +8,7 @@
 
 import { Key } from "ts-key-enum";
 import { ToolAdmin } from "@itwin/core-frontend";
-import { UiFramework } from "../UiFramework";
+import { UiFramework } from "../UiFramework.js";
 
 /** Subclass of `ToolAdmin` in `@itwin/core-frontend` to be used to initialize `IModelApp`.
  *

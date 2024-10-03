@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import type { PrimitiveValue, PropertyRecord } from "@itwin/appui-abstract";
-import { TypeConverterManager } from "../../../converters/TypeConverterManager";
+import { TypeConverterManager } from "../../../converters/TypeConverterManager.js";
 
 /** @internal */
 export function convertRecordToString(

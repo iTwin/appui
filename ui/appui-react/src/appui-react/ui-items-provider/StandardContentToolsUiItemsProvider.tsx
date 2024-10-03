@@ -7,14 +7,14 @@
  */
 
 import * as React from "react";
-import type { StatusBarItem } from "../statusbar/StatusBarItem";
-import { StatusBarSection } from "../statusbar/StatusBarItem";
-import { StatusBarItemUtilities } from "../statusbar/StatusBarItemUtilities";
-import { SectionsStatusField } from "../statusfields/SectionsField";
-import type { ToolbarItem } from "../toolbar/ToolbarItem";
-import { ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
-import type { UiItemsProvider } from "./UiItemsProvider";
-import { ToolbarItems } from "../tools/ToolbarItems";
+import type { StatusBarItem } from "../statusbar/StatusBarItem.js";
+import { StatusBarSection } from "../statusbar/StatusBarItem.js";
+import { StatusBarItemUtilities } from "../statusbar/StatusBarItemUtilities.js";
+import { SectionsStatusField } from "../statusfields/SectionsField.js";
+import type { ToolbarItem } from "../toolbar/ToolbarItem.js";
+import { ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem.js";
+import type { UiItemsProvider } from "./UiItemsProvider.js";
+import { ToolbarItems } from "../tools/ToolbarItems.js";
 
 /**
  * Defines what tools to include from the provider. If any tools in the horizontal or vertical group are

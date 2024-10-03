@@ -5,14 +5,14 @@
 import type {
   DefaultContentTools,
   DefaultContentToolsAppData,
-} from "../../appui-react";
+} from "../../appui-react.js";
 import {
   StageUsage,
   StandardContentToolsUiItemsProvider,
   ToolbarOrientation,
   ToolbarUsage,
   UiItemsManager,
-} from "../../appui-react";
+} from "../../appui-react.js";
 
 const testAppDataPropsArray: DefaultContentToolsAppData[] = [
   {

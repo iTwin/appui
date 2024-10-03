@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { Point } from "../../core-react";
+import { Point } from "../../core-react/utils/Point.js";
 
 describe("Point", () => {
   it("unspecified coordinates should be 0", () => {
@@ -26,11 +26,6 @@ describe("Point", () => {
   it("should get Euclidean distance to other point", () => {
     const sut = new Point(1, 2).getDistanceTo({ x: -1, y: -2 });
     expect(sut).toBeCloseTo(4.472, 0.001);
-  });
-
-  it("should get Manhattan distance to other point", () => {
-    const sut = new Point(1, 2).getManhattanDistanceTo({ x: -1, y: -2 });
-    expect(sut).toEqual(6);
   });
 
   it("should get offset to other point", () => {

@@ -6,8 +6,8 @@
 import React from "react";
 import { fireEvent, render } from "@testing-library/react";
 import { Key } from "ts-key-enum";
-import { DatePicker } from "../../components-react";
-import { adjustDateToTimezone } from "../../components-react/common/DateUtils";
+import { DatePicker } from "../../components-react.js";
+import { adjustDateToTimezone } from "../../components-react/common/DateUtils.js";
 
 describe("<DatePicker />", () => {
   const testDate = new Date("July 22, 2018 07:22:13 -0400");

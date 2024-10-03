@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
 import * as React from "react";
-import { IconInput } from "../../../core-react";
-import { classesFromElement } from "../../TestUtils";
+import { IconInput } from "../../../core-react.js";
+import { classesFromElement } from "../../TestUtils.js";
 
 describe("IconInput", () => {
   it("renders correctly", () => {

@@ -10,7 +10,7 @@ import { Logger } from "@itwin/core-bentley";
 import { IModelApp } from "@itwin/core-frontend";
 import { UiComponents } from "@itwin/components-react";
 import { EmptyLocalization } from "@itwin/core-common";
-import { getObjectClassName } from "@itwin/core-react";
+
 /**
  * Manages the localization service for the imodel-components-react package.
  * @public
@@ -24,7 +24,7 @@ export class UiIModelComponents {
   public static async initialize(): Promise<void> {
     if (UiIModelComponents._initialized) {
       Logger.logInfo(
-        UiIModelComponents.loggerCategory(UiIModelComponents),
+        UiIModelComponents.loggerCategory("UiIModelComponents"),
         `UiIModelComponents.initialize already called`
       );
       return;
@@ -76,7 +76,7 @@ export class UiIModelComponents {
   public static translate(key: string | string[]): string {
     if (!UiIModelComponents.initialized || !IModelApp.localization) {
       Logger.logError(
-        UiIModelComponents.loggerCategory(this),
+        UiIModelComponents.loggerCategory("UiIModelComponents"),
         `translate: IModelApp.localization has not been setup. Returning blank string.`
       );
       return "";
@@ -87,10 +87,7 @@ export class UiIModelComponents {
   }
 
   /** @internal */
-  public static loggerCategory(obj: any): string {
-    const className = getObjectClassName(obj);
-    const category =
-      UiIModelComponents.packageName + (className ? `.${className}` : "");
-    return category;
+  public static loggerCategory(name: string): string {
+    return `${UiIModelComponents.packageName}.${name}`;
   }
 }

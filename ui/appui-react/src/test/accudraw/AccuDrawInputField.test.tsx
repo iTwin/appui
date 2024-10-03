@@ -5,10 +5,10 @@
 import { act, fireEvent, render, waitFor } from "@testing-library/react";
 import * as React from "react";
 import { Key } from "ts-key-enum";
-import { AccuDrawInputField } from "../../appui-react/accudraw/AccuDrawInputField";
+import { AccuDrawInputField } from "../../appui-react/accudraw/AccuDrawInputField.js";
 import { IModelApp, ItemField } from "@itwin/core-frontend";
-import { FrameworkAccuDraw } from "../../appui-react/accudraw/FrameworkAccuDraw";
-import { UiFramework } from "../../appui-react";
+import { FrameworkAccuDraw } from "../../appui-react/accudraw/FrameworkAccuDraw.js";
+import { UiFramework } from "../../appui-react.js";
 
 describe("AccuDrawInputField", () => {
   beforeEach(async () => {

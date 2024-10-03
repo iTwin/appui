@@ -8,9 +8,9 @@
 
 import * as React from "react";
 import { SvgProgressBackwardCircular } from "@itwin/itwinui-icons-react";
-import { CommandItemDef } from "../shared/CommandItemDef";
-import { UiFramework } from "../UiFramework";
-import type { NestedFrontstageAppButton } from "./NestedFrontstageAppButton";
+import { CommandItemDef } from "../shared/CommandItemDef.js";
+import { UiFramework } from "../UiFramework.js";
+import type { NestedFrontstageAppButton } from "./NestedFrontstageAppButton.js";
 
 /** Nested Frontstage related classes and commands
  * @public

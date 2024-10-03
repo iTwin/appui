@@ -6,10 +6,10 @@
  * @module StandardUiItemsProvider
  */
 
-import type { ToolbarItem } from "../toolbar/ToolbarItem";
-import { ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
-import { ToolbarItems } from "../tools/ToolbarItems";
-import type { UiItemsProvider } from "./UiItemsProvider";
+import type { ToolbarItem } from "../toolbar/ToolbarItem.js";
+import { ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem.js";
+import { ToolbarItems } from "../tools/ToolbarItems.js";
+import type { UiItemsProvider } from "./UiItemsProvider.js";
 
 /**
  * Defines what tools to include from the provider. If any tools in the horizontal or vertical group are

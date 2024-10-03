@@ -6,11 +6,8 @@ import * as React from "react";
 import { BeDuration } from "@itwin/core-bentley";
 import { OutputMessagePriority } from "@itwin/core-frontend";
 import { RelativePosition } from "@itwin/appui-abstract";
-import {
-  isReactNotifyMessageDetails,
-  ReactNotifyMessageDetails,
-} from "../../appui-react";
-import { isReactMessage } from "@itwin/core-react";
+import { ReactNotifyMessageDetails } from "../../appui-react.js";
+import { isReactNotifyMessageDetails } from "../../appui-react/messages/ReactNotifyMessageDetails.js";
 
 describe("ReactNotifyMessageDetails", () => {
   it("should support React node & create NotifyMessageDetails", () => {
@@ -21,7 +18,7 @@ describe("ReactNotifyMessageDetails", () => {
       reactMessage
     );
     expect(details.messageDetails).toBeTruthy();
-    expect(isReactMessage(details.briefMessage)).toEqual(true);
+    expect(details.briefMessage).toHaveProperty("reactNode");
     expect(isReactNotifyMessageDetails(details)).toEqual(true);
   });
 

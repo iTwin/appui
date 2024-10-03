@@ -11,13 +11,13 @@ import type {
   OnItemExecutedFunc,
   StringGetter,
 } from "@itwin/appui-abstract";
-import { ActionButtonItemDef } from "../shared/ActionButtonItemDef";
-import type { AnyItemDef } from "../shared/AnyItemDef";
-import type { GroupItemProps } from "../shared/GroupItemProps";
-import type { ItemDefBase } from "../shared/ItemDefBase";
-import { ItemList, ItemMap } from "../shared/ItemMap";
-import { PropsHelper } from "../utils/PropsHelper";
-import type { ToolbarGroupItem } from "./ToolbarItem";
+import { ActionButtonItemDef } from "../shared/ActionButtonItemDef.js";
+import type { AnyItemDef } from "../shared/AnyItemDef.js";
+import type { GroupItemProps } from "../shared/GroupItemProps.js";
+import type { ItemDefBase } from "../shared/ItemDefBase.js";
+import { ItemList, ItemMap } from "../shared/ItemMap.js";
+import { PropsHelper } from "../utils/PropsHelper.js";
+import type { ToolbarGroupItem } from "./ToolbarItem.js";
 
 /* eslint-disable deprecation/deprecation */
 

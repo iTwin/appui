@@ -7,13 +7,14 @@
  */
 
 import * as React from "react";
-import type { CommonProps, ListenerType } from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
+import type { ListenerType } from "@itwin/core-react/internal";
 import {
   ContextMenuItem,
   ContextSubMenu,
   GlobalContextMenu,
 } from "@itwin/core-react";
-import type { KeyboardShortcut } from "./KeyboardShortcut";
+import type { KeyboardShortcut } from "./KeyboardShortcut.js";
 import { ConditionalBooleanValue, UiEvent } from "@itwin/appui-abstract";
 
 /* eslint-disable deprecation/deprecation */

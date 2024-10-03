@@ -12,7 +12,7 @@ import * as React from "react";
 import { Key } from "ts-key-enum";
 import type { CommonProps } from "@itwin/core-react";
 import { Icon } from "@itwin/core-react";
-import { UiComponents } from "../UiComponents";
+import { UiComponents } from "../UiComponents.js";
 import { SvgChevronLeft, SvgChevronRight } from "@itwin/itwinui-icons-react";
 
 /** [[ResultSelector]] React Component state

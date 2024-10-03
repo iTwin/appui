@@ -5,8 +5,8 @@
 import * as React from "react";
 import { fireEvent, render } from "@testing-library/react";
 import { ColorByName, ColorDef } from "@itwin/core-common";
-import { TestUtils } from "../TestUtils";
-import { ColorPickerDialog } from "../../imodel-components-react/color/ColorPickerDialog";
+import { TestUtils } from "../TestUtils.js";
+import { ColorPickerDialog } from "../../imodel-components-react/color/ColorPickerDialog.js";
 import { ColorValue } from "@itwin/itwinui-react";
 
 /* eslint-disable deprecation/deprecation */

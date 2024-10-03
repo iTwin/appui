@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { ConditionalStringValue } from "@itwin/appui-abstract";
-import { PropsHelper } from "../../appui-react";
+import { PropsHelper } from "../../appui-react.js";
 import { SvgCut } from "@itwin/itwinui-icons-react";
 
 describe("PropsHelper", () => {

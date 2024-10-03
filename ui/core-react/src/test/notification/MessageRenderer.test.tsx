@@ -3,8 +3,8 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { MessageRenderer } from "../../core-react/notification/MessageRenderer";
-import { UnderlinedButton } from "../../core-react/button/UnderlinedButton";
+import { MessageRenderer } from "../../core-react/notification/MessageRenderer.js";
+import { UnderlinedButton } from "../../core-react/button/UnderlinedButton.js";
 import { render, screen } from "@testing-library/react";
 
 describe("MessageRenderer", () => {

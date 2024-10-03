@@ -13,8 +13,9 @@ import { Logger } from "@itwin/core-bentley";
 import type { ScreenViewport, Viewport } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
 import { ProgressLinear } from "@itwin/itwinui-react";
-import { UiFramework } from "../../UiFramework";
-import type { CommonProps, ListenerType } from "@itwin/core-react";
+import { UiFramework } from "../../UiFramework.js";
+import type { CommonProps } from "@itwin/core-react";
+import type { ListenerType } from "@itwin/core-react/internal";
 
 /** State for the [[TileLoadingIndicator]] component
  * @internal
@@ -57,11 +58,11 @@ export class TileLoadingIndicator extends React.PureComponent<
     if (pctComplete === 100 && !finished) {
       finished = true;
       Logger.logTrace(
-        UiFramework.loggerCategory(this),
+        UiFramework.loggerCategory("TileLoadingIndicator"),
         `Tiles Finished Loading`
       );
       Logger.logTrace(
-        UiFramework.loggerCategory(this),
+        UiFramework.loggerCategory("TileLoadingIndicator"),
         `Tiles Load Report (tiles finished / tiles requested):  ${ready} / ${total}`
       );
     }

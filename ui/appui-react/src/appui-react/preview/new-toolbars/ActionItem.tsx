@@ -7,10 +7,10 @@
  */
 
 import * as React from "react";
-import type { ToolbarActionItem } from "../../toolbar/ToolbarItem";
-import { ToolGroupOverflowContext } from "./OverflowButton";
-import { Item } from "./Item";
-import { GroupMenuItem } from "./GroupItem";
+import type { ToolbarActionItem } from "../../toolbar/ToolbarItem.js";
+import { ToolGroupOverflowContext } from "./OverflowButton.js";
+import { Item } from "./Item.js";
+import { GroupMenuItem } from "./GroupItem.js";
 
 /** @internal */
 export interface ActionItemProps {

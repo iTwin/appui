@@ -5,14 +5,14 @@
 
 import * as React from "react";
 import type { PropertyDescription } from "@itwin/appui-abstract";
-import type { PropertyFilterBuilderRuleGroupRendererProps } from "../../components-react/filter-builder/FilterBuilderRuleGroup";
-import { PropertyFilterBuilderRuleGroupRenderer } from "../../components-react/filter-builder/FilterBuilderRuleGroup";
+import type { PropertyFilterBuilderRuleGroupRendererProps } from "../../components-react/filter-builder/FilterBuilderRuleGroup.js";
+import { PropertyFilterBuilderRuleGroupRenderer } from "../../components-react/filter-builder/FilterBuilderRuleGroup.js";
 import {
   PropertyFilterBuilderActions,
   type PropertyFilterBuilderRuleGroup,
-} from "../../components-react/filter-builder/FilterBuilderState";
-import TestUtils from "../TestUtils";
-import { renderWithContext } from "./Common";
+} from "../../components-react/filter-builder/FilterBuilderState.js";
+import TestUtils from "../TestUtils.js";
+import { renderWithContext } from "./Common.js";
 
 describe("PropertyFilterBuilderRuleGroupRenderer", () => {
   const rootGroup: PropertyFilterBuilderRuleGroup = {

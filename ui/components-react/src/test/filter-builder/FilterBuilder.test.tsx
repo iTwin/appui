@@ -6,14 +6,14 @@ import * as React from "react";
 import type { PropertyDescription } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
 import { render, waitFor } from "@testing-library/react";
-import { PropertyFilterBuilder } from "../../components-react/filter-builder/FilterBuilder";
+import { PropertyFilterBuilder } from "../../components-react/filter-builder/FilterBuilder.js";
 import type {
   PropertyFilterBuilderRule,
   PropertyFilterBuilderRuleGroup,
-} from "../../components-react/filter-builder/FilterBuilderState";
-import { buildPropertyFilter } from "../../components-react/filter-builder/FilterBuilderState";
-import TestUtils, { userEvent } from "../TestUtils";
-import type { PropertyFilter } from "../../components-react/filter-builder/Types";
+} from "../../components-react/filter-builder/FilterBuilderState.js";
+import { buildPropertyFilter } from "../../components-react/filter-builder/FilterBuilderState.js";
+import TestUtils, { userEvent } from "../TestUtils.js";
+import type { PropertyFilter } from "../../components-react/filter-builder/Types.js";
 
 describe("PropertyFilterBuilder", () => {
   const property1: PropertyDescription = {

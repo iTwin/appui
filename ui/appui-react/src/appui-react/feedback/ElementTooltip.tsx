@@ -15,10 +15,14 @@ import { BeUiEvent } from "@itwin/core-bentley";
 import type { ToolTipOptions } from "@itwin/core-frontend";
 import type { XAndY } from "@itwin/core-geometry";
 import type { CommonProps } from "@itwin/core-react";
-import { MessageRenderer, Rectangle } from "@itwin/core-react";
-import type { NotifyMessageType } from "../messages/ReactNotifyMessageDetails";
-import { offsetAndContainInContainer, Tooltip } from "../layout/popup/Tooltip";
-import type { SizeProps } from "../utils/SizeProps";
+import { MessageRenderer } from "@itwin/core-react";
+import { Rectangle } from "@itwin/core-react/internal";
+import type { NotifyMessageType } from "../messages/ReactNotifyMessageDetails.js";
+import {
+  offsetAndContainInContainer,
+  Tooltip,
+} from "../layout/popup/Tooltip.js";
+import type { SizeProps } from "../utils/SizeProps.js";
 
 /* eslint-disable deprecation/deprecation */
 

@@ -6,8 +6,8 @@
  * @module Base
  */
 
-import type { PanelSide } from "../widget-panels/PanelTypes";
-import type { FloatingWidgetState, WidgetState } from "./WidgetState";
+import type { PanelSide } from "../widget-panels/PanelTypes.js";
+import type { FloatingWidgetState, WidgetState } from "./WidgetState.js";
 
 /** @internal */
 export interface FloatingWidgetRestoreState {

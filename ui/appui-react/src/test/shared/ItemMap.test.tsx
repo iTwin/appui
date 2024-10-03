@@ -2,8 +2,8 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { CoreTools } from "../../appui-react/tools/CoreToolDefinitions";
-import { ItemList, ItemMap } from "../../appui-react/shared/ItemMap";
+import { CoreTools } from "../../appui-react/tools/CoreToolDefinitions.js";
+import { ItemList, ItemMap } from "../../appui-react/shared/ItemMap.js";
 
 describe("ItemMap & ItemList", () => {
   describe("ItemMap", () => {

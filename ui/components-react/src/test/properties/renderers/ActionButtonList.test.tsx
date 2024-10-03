@@ -6,9 +6,9 @@ import * as React from "react";
 import type { PropertyRecord } from "@itwin/appui-abstract";
 import { Orientation } from "@itwin/core-react";
 import { render } from "@testing-library/react";
-import type { ActionButtonRendererProps } from "../../../components-react";
-import { ActionButtonList } from "../../../components-react";
-import TestUtils from "../../TestUtils";
+import type { ActionButtonRendererProps } from "../../../components-react.js";
+import { ActionButtonList } from "../../../components-react.js";
+import TestUtils from "../../TestUtils.js";
 
 describe("ActionButtonList", () => {
   let propertyRecord: PropertyRecord;

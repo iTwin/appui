@@ -2,9 +2,9 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { MutableCategorizedPrimitiveProperty } from "../../../../../components-react/propertygrid/internal/flat-items/MutableCategorizedPrimitiveProperty";
-import TestUtils from "../../../../TestUtils";
-import { FlatGridTestUtils as GridUtils } from "./FlatGridTestUtils";
+import { MutableCategorizedPrimitiveProperty } from "../../../../../components-react/propertygrid/internal/flat-items/MutableCategorizedPrimitiveProperty.js";
+import TestUtils from "../../../../TestUtils.js";
+import { FlatGridTestUtils as GridUtils } from "./FlatGridTestUtils.js";
 
 describe("CategorizedPrimitiveProperty", () => {
   describe("Should correctly initialize categorized primitive property", () => {

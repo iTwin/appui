@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
 import * as React from "react";
-import { Tree } from "../../core-react";
-import { classesFromElement } from "../TestUtils";
+import { Tree } from "../../core-react.js";
+import { classesFromElement } from "../TestUtils.js";
 import type { MockInstance } from "vitest";
 
 describe("<Tree />", () => {

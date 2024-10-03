@@ -7,12 +7,12 @@
  */
 
 import { BeUiEvent, Logger } from "@itwin/core-bentley";
-import { UiFramework } from "../UiFramework";
-import { WidgetDef } from "./WidgetDef";
-import { createStableWidgetDef } from "./StableWidgetDef";
-import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
-import { StagePanelSection } from "../stagepanels/StagePanelSection";
-import { UiItemsManager } from "../ui-items-provider/UiItemsManager";
+import { UiFramework } from "../UiFramework.js";
+import { WidgetDef } from "./WidgetDef.js";
+import { createStableWidgetDef } from "./StableWidgetDef.js";
+import { StagePanelLocation } from "../stagepanels/StagePanelLocation.js";
+import { StagePanelSection } from "../stagepanels/StagePanelSection.js";
+import { UiItemsManager } from "../ui-items-provider/UiItemsManager.js";
 
 /** Information about WidgetDefs in the WidgetManager
  * @internal
@@ -77,7 +77,7 @@ export class WidgetManager {
   ): boolean {
     if (stageId === undefined && stageUsage === undefined) {
       Logger.logError(
-        UiFramework.loggerCategory(this),
+        UiFramework.loggerCategory("WidgetManager"),
         `addWidgetDef: stageId or stageUsage param must be specified`
       );
       return false;

@@ -5,8 +5,8 @@
 import * as React from "react";
 import { MessageBoxIconType, MessageBoxType } from "@itwin/core-frontend";
 import { fireEvent, render, screen } from "@testing-library/react";
-import { StandardMessageBox } from "../../appui-react";
-import { childStructure, userEvent } from "../TestUtils";
+import { StandardMessageBox } from "../../appui-react.js";
+import { childStructure, userEvent } from "../TestUtils.js";
 
 /* eslint-disable deprecation/deprecation */
 

@@ -21,16 +21,16 @@ import {
   TOOLBAR_BOX_SHADOW_OPACITY_DEFAULT,
   TOOLBAR_OPACITY_DEFAULT,
   useWidgetOpacityContext,
-} from "@itwin/core-react";
+} from "@itwin/core-react/internal";
 
 import {
   ToolbarOpacitySetting,
   useToolbarWithOverflowDirectionContext,
-} from "./InternalToolbarComponent";
+} from "./InternalToolbarComponent.js";
 import {
   DirectionHelpers,
   OrthogonalDirectionHelpers,
-} from "./utilities/Direction";
+} from "./utilities/Direction.js";
 
 /** Properties of [[ToolbarOverflowPanel]] component.
  * @internal

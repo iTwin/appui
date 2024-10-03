@@ -6,8 +6,8 @@ import * as React from "react";
 import * as moq from "typemoq";
 import type { IModelConnection } from "@itwin/core-frontend";
 import { render } from "@testing-library/react";
-import { SheetNavigationAid } from "../../appui-react";
-import { childStructure } from "../TestUtils";
+import { SheetNavigationAid } from "../../appui-react.js";
+import { childStructure } from "../TestUtils.js";
 
 describe("SheetNavigationAid", () => {
   const connection = moq.Mock.ofType<IModelConnection>();

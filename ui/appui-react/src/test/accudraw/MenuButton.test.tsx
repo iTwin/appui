@@ -3,8 +3,8 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { MenuButton } from "../../appui-react/accudraw/MenuButton";
-import { selectorMatches, userEvent } from "../TestUtils";
+import { MenuButton } from "../../appui-react/accudraw/MenuButton.js";
+import { selectorMatches, userEvent } from "../TestUtils.js";
 import { fireEvent, render, screen } from "@testing-library/react";
 
 describe("MenuButton", () => {

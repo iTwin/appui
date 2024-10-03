@@ -3,7 +3,11 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { createDragInfo, createDragStartArgs, setRefValue } from "../Providers";
+import {
+  createDragInfo,
+  createDragStartArgs,
+  setRefValue,
+} from "../Providers.js";
 import { act, renderHook, waitFor } from "@testing-library/react";
 import {
   DragManager,
@@ -14,7 +18,7 @@ import {
   useTabTarget,
   useTarget,
   useTargeted,
-} from "../../../appui-react/layout/base/DragManager";
+} from "../../../appui-react/layout/base/DragManager.js";
 
 describe("DragManager", () => {
   describe("handleTargetChanged", () => {

@@ -14,14 +14,15 @@ import type {
   RelativePosition,
 } from "@itwin/appui-abstract";
 import type { Orientation } from "@itwin/components-react";
-import { DivWithOutsideClick, FocusTrap, Point, Size } from "@itwin/core-react";
-import { CursorPopup } from "../cursor/cursorpopup/CursorPopup";
-import type { PopupPropsBase } from "./PopupManager";
-import { PopupManager } from "./PopupManager";
-import { PositionPopup, PositionPopupContent } from "./PositionPopup";
-import { ComponentGenerator } from "../uiprovider/ComponentGenerator";
-import { DialogGridContainer } from "../uiprovider/DefaultDialogGridContainer";
-import type { SizeProps } from "../utils/SizeProps";
+import { DivWithOutsideClick } from "@itwin/core-react";
+import { FocusTrap, Point } from "@itwin/core-react/internal";
+import { CursorPopup } from "../cursor/cursorpopup/CursorPopup.js";
+import type { PopupPropsBase } from "./PopupManager.js";
+import { PopupManager } from "./PopupManager.js";
+import { PositionPopup, PositionPopupContent } from "./PositionPopup.js";
+import { ComponentGenerator } from "../uiprovider/ComponentGenerator.js";
+import { DialogGridContainer } from "../uiprovider/DefaultDialogGridContainer.js";
+import type { SizeProps } from "../utils/SizeProps.js";
 
 /** Props for defining a popup tool settings component
  * @beta */
@@ -33,7 +34,7 @@ export interface ToolSettingsPopupProps extends PopupPropsBase {
 }
 
 interface ToolSettingsPopupState {
-  size: Size;
+  size: SizeProps;
 }
 
 /** Popup component for Tool Settings
@@ -44,7 +45,7 @@ export class ToolSettingsPopup extends React.PureComponent<
   ToolSettingsPopupState
 > {
   public override readonly state = {
-    size: new Size(-1, -1),
+    size: { width: -1, height: -1 },
   };
 
   constructor(props: ToolSettingsPopupProps) {
@@ -52,8 +53,12 @@ export class ToolSettingsPopup extends React.PureComponent<
   }
 
   private _onSizeKnown = (newSize: SizeProps) => {
-    if (!this.state.size.equals(newSize))
-      this.setState({ size: Size.create(newSize) });
+    if (
+      newSize.height === this.state.size.height &&
+      newSize.width === this.state.size.width
+    )
+      return;
+    this.setState({ size: newSize });
   };
 
   private _handleKeyDown = (e: React.KeyboardEvent) => {

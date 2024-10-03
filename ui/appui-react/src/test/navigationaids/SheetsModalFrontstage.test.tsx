@@ -6,14 +6,14 @@ import * as React from "react";
 import * as moq from "typemoq";
 import { fireEvent, render, screen } from "@testing-library/react";
 import type { IModelConnection } from "@itwin/core-frontend";
-import type { CardInfo, SheetData } from "../../appui-react";
+import type { CardInfo, SheetData } from "../../appui-react.js";
 import {
   CardContainer,
   SheetCard,
   SheetsModalFrontstage,
   UiFramework,
-} from "../../appui-react";
-import { selectorMatches, userEvent } from "../TestUtils";
+} from "../../appui-react.js";
+import { selectorMatches, userEvent } from "../TestUtils.js";
 
 describe("SheetsModalFrontstage", () => {
   let modal: SheetsModalFrontstage;

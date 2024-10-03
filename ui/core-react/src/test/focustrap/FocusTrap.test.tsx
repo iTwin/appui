@@ -9,7 +9,7 @@ import { Logger } from "@itwin/core-bentley";
 import {
   focusIntoContainer,
   FocusTrap,
-} from "../../core-react/focustrap/FocusTrap";
+} from "../../core-react/focustrap/FocusTrap.js";
 
 describe("<FocusTrap />", () => {
   it("renders correctly", () => {

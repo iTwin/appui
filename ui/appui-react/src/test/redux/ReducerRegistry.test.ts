@@ -8,8 +8,8 @@ import type {
   ActionCreatorsObject,
   ActionsUnion,
   NameToReducerMap,
-} from "../../appui-react";
-import { createAction, ReducerRegistryInstance } from "../../appui-react";
+} from "../../appui-react.js";
+import { createAction, ReducerRegistryInstance } from "../../appui-react.js";
 
 // Manages the state for extension
 interface ExtensionState {

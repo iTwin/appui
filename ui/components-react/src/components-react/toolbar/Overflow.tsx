@@ -10,13 +10,14 @@ import "./Overflow.scss";
 import classnames from "classnames";
 import * as React from "react";
 import type { CommonProps, NoChildrenProps } from "@itwin/core-react";
-import { Popup, useRefState } from "@itwin/core-react";
+import { Popup } from "@itwin/core-react";
+import { useRefState } from "@itwin/core-react/internal";
 import {
   useToolbarPopupAutoHideContext,
   useToolItemEntryContext,
-} from "./InternalToolbarComponent";
-import { useResizeObserverSingleDimension } from "./ItemWrapper";
-import { Direction } from "./utilities/Direction";
+} from "./InternalToolbarComponent.js";
+import { useResizeObserverSingleDimension } from "./ItemWrapper.js";
+import { Direction } from "./utilities/Direction.js";
 import { RelativePosition } from "@itwin/appui-abstract";
 
 /** Properties of [[ToolbarOverflowButton]] component.

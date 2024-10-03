@@ -8,10 +8,10 @@
 
 import classnames from "classnames";
 import * as React from "react";
-import type { CommonProps } from "../utils/Props";
-import { Orientation } from "../enums/Orientation";
-import { ItemKeyboardNavigator } from "../focus/ItemKeyboardNavigator";
-import { IconHelper } from "../utils/IconHelper";
+import type { CommonProps } from "../utils/Props.js";
+import { Orientation } from "../enums/Orientation.js";
+import { ItemKeyboardNavigator } from "../focus/ItemKeyboardNavigator.js";
+import { IconHelper } from "../utils/IconHelper.js";
 
 /* eslint-disable deprecation/deprecation */
 

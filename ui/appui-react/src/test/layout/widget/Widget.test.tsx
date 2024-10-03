@@ -4,15 +4,15 @@
  *--------------------------------------------------------------------------------------------*/
 import { fireEvent, render } from "@testing-library/react";
 import * as React from "react";
-import type { NineZoneDispatch } from "../../../appui-react/layout/base/NineZone";
-import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState";
-import { addTab } from "../../../appui-react/layout/state/internal/TabStateHelpers";
-import { addFloatingWidget } from "../../../appui-react/layout/state/internal/WidgetStateHelpers";
+import type { NineZoneDispatch } from "../../../appui-react/layout/base/NineZone.js";
+import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState.js";
+import { addTab } from "../../../appui-react/layout/state/internal/TabStateHelpers.js";
+import { addFloatingWidget } from "../../../appui-react/layout/state/internal/WidgetStateHelpers.js";
 import {
   Widget,
   WidgetIdContext,
-} from "../../../appui-react/layout/widget/Widget";
-import { TestNineZoneProvider } from "../Providers";
+} from "../../../appui-react/layout/widget/Widget.js";
+import { TestNineZoneProvider } from "../Providers.js";
 
 describe("Widget", () => {
   it("should dispatch FLOATING_WIDGET_BRING_TO_FRONT", () => {

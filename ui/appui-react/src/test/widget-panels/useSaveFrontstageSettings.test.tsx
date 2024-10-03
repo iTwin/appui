@@ -5,21 +5,21 @@
 import { UiStateStorageStatus } from "@itwin/core-react";
 import { renderHook } from "@testing-library/react";
 import * as React from "react";
-import type { WidgetPanelsFrontstageState } from "../../appui-react";
 import {
   FrontstageDef,
   UiFramework,
   UiStateStorageHandler,
-} from "../../appui-react";
-import { createLayoutStore } from "../../appui-react/layout/base/LayoutStore";
-import { createNineZoneState } from "../../appui-react/layout/state/NineZoneState";
-import { UiStateStorageStub } from "../TestUtils";
+} from "../../appui-react.js";
+import { createLayoutStore } from "../../appui-react/layout/base/LayoutStore.js";
+import { createNineZoneState } from "../../appui-react/layout/state/NineZoneState.js";
+import { UiStateStorageStub } from "../TestUtils.js";
 import {
   addTab,
   createDraggedTabState,
-} from "../../appui-react/layout/state/internal/TabStateHelpers";
-import { useSaveFrontstageSettings } from "../../appui-react/widget-panels/useSaveFrontstageSettings";
-import produce from "immer";
+} from "../../appui-react/layout/state/internal/TabStateHelpers.js";
+import { useSaveFrontstageSettings } from "../../appui-react/widget-panels/useSaveFrontstageSettings.js";
+import { produce } from "immer";
+import type { WidgetPanelsFrontstageState } from "../../appui-react/widget-panels/Frontstage.js";
 
 describe("useSaveFrontstageSettings", () => {
   it("should save frontstage settings", async () => {

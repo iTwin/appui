@@ -5,11 +5,11 @@
 /* eslint-disable deprecation/deprecation */
 
 import * as React from "react";
-import { Point } from "@itwin/core-react";
+import { Point } from "@itwin/core-react/internal";
 import {
   ComponentExampleCategory,
   ComponentExampleProps,
-} from "../frontstages/ComponentExamples";
+} from "../frontstages/ComponentExamples.js";
 import {
   AccuDrawDialog,
   AccuDrawWidget,
@@ -35,8 +35,7 @@ import {
   ExpandableSection,
   GroupItemDef,
   IModelConnectedViewSelector,
-  KeyinEntry,
-  KeyinPalettePanel,
+  KeyinPalettePopup,
   ListItem,
   ListItemType,
   ListPicker,
@@ -104,9 +103,9 @@ import {
 } from "@itwin/appui-abstract";
 import { UnitSystemKey } from "@itwin/core-quantity";
 import { Button, DropdownMenu, MenuItem } from "@itwin/itwinui-react";
-import { TreeWidgetComponent } from "../widgets/TreeWidget";
+import { TreeWidgetComponent } from "../widgets/TreeWidget.js";
 import { TimelineComponent } from "@itwin/imodel-components-react";
-import { EditorExampleComponent } from "../components/EditorExampleComponent";
+import { EditorExampleComponent } from "../components/EditorExampleComponent.js";
 
 class TestContentControl extends ContentControl {
   constructor(info: ConfigurableCreateInfo, options: any) {
@@ -286,7 +285,7 @@ function UnitSystemSelectorFunction() {
   );
 }
 
-function PositionPopupFunction() {
+function PositionPopupExample() {
   const [isOpen, setIsOpen] = React.useState<Boolean>(false);
 
   return (
@@ -308,6 +307,30 @@ function PositionPopupFunction() {
         >
           <PositionPopupContent>Position Popup Content</PositionPopupContent>
         </PositionPopup>
+      )}
+    </>
+  );
+}
+
+function KeyinPaletteExample() {
+  const [el, setEl] = React.useState<HTMLDivElement | undefined>();
+  return (
+    <>
+      <div
+        ref={(instance) => setEl(instance ?? undefined)}
+        style={{ width: "100%" }}
+      />
+      {el && (
+        <KeyinPalettePopup
+          id="example"
+          keyins={[
+            { value: "test a" },
+            { value: "test b" },
+            { value: "keyin one" },
+            { value: "keyin two" },
+          ]}
+          el={el}
+        />
       )}
     </>
   );
@@ -1094,25 +1117,18 @@ export class ComponentExamplesProvider {
   }
 
   private static get popupSample(): ComponentExampleCategory {
-    const keyins: KeyinEntry[] = [
-      { value: "test a" },
-      { value: "test b" },
-      { value: "keyin one" },
-      { value: "keyin two" },
-    ];
-
     return {
       title: "Popup",
       examples: [
         createComponentExample(
           "Position Popup",
           undefined,
-          <PositionPopupFunction />
+          <PositionPopupExample />
         ),
         createComponentExample(
           "Keyin Palette Panel",
           undefined,
-          <KeyinPalettePanel keyins={keyins} />
+          <KeyinPaletteExample />
         ),
       ],
     };

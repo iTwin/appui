@@ -6,13 +6,13 @@ import * as React from "react";
 import * as moq from "typemoq";
 import { CheckBoxState } from "@itwin/core-react";
 import { fireEvent, render } from "@testing-library/react";
-import userEvents from "@testing-library/user-event";
-import { TreeNodeRenderer } from "../../../../components-react/tree/controlled/component/TreeNodeRenderer";
-import { createRandomMutableTreeModelNode } from "../TreeHelpers";
+import { userEvent } from "@testing-library/user-event";
+import { TreeNodeRenderer } from "../../../../components-react/tree/controlled/component/TreeNodeRenderer.js";
+import { createRandomMutableTreeModelNode } from "../TreeHelpers.js";
 
-import type { TreeActions } from "../../../../components-react/tree/controlled/TreeActions";
-import type { MutableTreeModelNode } from "../../../../components-react/tree/controlled/TreeModel";
-import type { ITreeImageLoader } from "../../../../components-react/tree/ImageLoader";
+import type { TreeActions } from "../../../../components-react/tree/controlled/TreeActions.js";
+import type { MutableTreeModelNode } from "../../../../components-react/tree/controlled/TreeModel.js";
+import type { ITreeImageLoader } from "../../../../components-react/tree/ImageLoader.js";
 
 describe("TreeNodeRenderer", () => {
   const treeActionsMock = moq.Mock.ofType<TreeActions>();
@@ -89,7 +89,7 @@ describe("TreeNodeRenderer", () => {
     );
 
     const nodeElement = getByText(nodeLabel);
-    await userEvents.pointer({ keys: "[MouseRight>]", target: nodeElement });
+    await userEvent.pointer({ keys: "[MouseRight>]", target: nodeElement });
 
     expect(spy).toHaveBeenCalledOnce();
   });

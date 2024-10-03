@@ -3,9 +3,9 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { UiGeometry } from "@itwin/core-react";
-import type { PropertyListProps } from "./PropertyList";
-import { Orientation } from "../../common/Orientation";
+import { Geometry } from "@itwin/core-geometry";
+import type { PropertyListProps } from "./PropertyList.js";
+import { Orientation } from "../../common/Orientation.js";
 
 const BORDER_WIDTH = 10;
 const PROPERTY_PADDING = 16;
@@ -79,7 +79,7 @@ export class ColumnResizingPropertyListPropsSupplier extends React.Component<
     };
 
   private _onColumnRatioChanged = (ratio: number) => {
-    ratio = UiGeometry.clamp(ratio, this._minRatio, this._maxRatio);
+    ratio = Geometry.clamp(ratio, this._minRatio, this._maxRatio);
     if (this.state.columnRatio === ratio) return { ratio };
 
     this.setState({ columnRatio: ratio });
@@ -140,7 +140,7 @@ export class ColumnResizingPropertyListPropsSupplier extends React.Component<
   }
 
   private getValidColumnRatio(): number {
-    return UiGeometry.clamp(
+    return Geometry.clamp(
       this.state.columnRatio,
       this._minRatio,
       this._maxRatio

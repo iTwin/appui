@@ -4,9 +4,9 @@
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
 import * as React from "react";
-import { Backstage } from "../../../appui-react/layout/backstage/Backstage";
-import { selectorMatches, userEvent } from "../Utils";
-import { SafeAreaInsets } from "../../../appui-react";
+import { Backstage } from "../../../appui-react/layout/backstage/Backstage.js";
+import { selectorMatches, userEvent } from "../Utils.js";
+import { SafeAreaInsets } from "../../../appui-react.js";
 
 describe("<Backstage />", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;

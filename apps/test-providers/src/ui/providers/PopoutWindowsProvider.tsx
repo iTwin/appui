@@ -15,13 +15,13 @@ import {
   UiItemsProvider,
   WidgetState,
 } from "@itwin/appui-react";
-import { AppUiTestProviders } from "../../AppUiTestProviders";
-import { getCustomViewSelectorPopupItem } from "../buttons/ViewSelectorPanel";
-import { createPopoutWindowsFrontstage } from "../frontstages/PopoutWindowsFrontstage";
-import { DisplayStyleField } from "../statusfields/DisplayStyleField";
-import { OpenPopoutViewTool } from "../../tools/OpenPopoutViewTool";
-import { OpenPopoutDialogTool } from "../../tools/OpenPopoutDialogTool";
-import { ViewAttributesWidgetComponent } from "../widgets/ViewAttributesWidget";
+import { AppUiTestProviders } from "../../AppUiTestProviders.js";
+import { getCustomViewSelectorPopupItem } from "../buttons/ViewSelectorPanel.js";
+import { createPopoutWindowsFrontstage } from "../frontstages/PopoutWindowsFrontstage.js";
+import { DisplayStyleField } from "../statusfields/DisplayStyleField.js";
+import { OpenPopoutViewTool } from "../../tools/OpenPopoutViewTool.js";
+import { OpenPopoutDialogTool } from "../../tools/OpenPopoutDialogTool.js";
+import { ViewAttributesWidgetComponent } from "../widgets/ViewAttributesWidget.js";
 
 export function createPopoutWindowsProvider() {
   return {

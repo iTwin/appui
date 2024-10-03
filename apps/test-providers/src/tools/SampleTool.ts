@@ -39,7 +39,7 @@ import {
   CursorMenuItemProps,
   UiFramework,
 } from "@itwin/appui-react";
-import { AppUiTestProviders } from "../AppUiTestProviders";
+import { AppUiTestProviders } from "../AppUiTestProviders.js";
 import sampleToolSvg from "./SampleTool.svg";
 
 enum ToolOptions {

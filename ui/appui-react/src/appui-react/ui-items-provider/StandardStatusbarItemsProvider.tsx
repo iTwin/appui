@@ -6,11 +6,11 @@
  * @module StandardUiItemsProvider
  */
 
-import type { DefaultStatusbarItems } from "./StandardStatusbarUiItemsProvider";
-import { StandardStatusbarUiItemsProvider } from "./StandardStatusbarUiItemsProvider";
-import type { StatusBarItem } from "../statusbar/StatusBarItem";
-import { UiItemsManager } from "./UiItemsManager";
-import { BaseUiItemsProvider } from "./BaseUiItemsProvider";
+import type { DefaultStatusbarItems } from "./StandardStatusbarUiItemsProvider.js";
+import { StandardStatusbarUiItemsProvider } from "./StandardStatusbarUiItemsProvider.js";
+import type { StatusBarItem } from "../statusbar/StatusBarItem.js";
+import { UiItemsManager } from "./UiItemsManager.js";
+import { BaseUiItemsProvider } from "./BaseUiItemsProvider.js";
 
 /** Provide standard status bar fields.
  * @public

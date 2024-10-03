@@ -5,7 +5,7 @@
 import {
   CalculatorEngine,
   CalculatorOperator,
-} from "../../appui-react/accudraw/CalculatorEngine";
+} from "../../appui-react/accudraw/CalculatorEngine.js";
 
 describe("CalculatorEngine", () => {
   let engine: CalculatorEngine;

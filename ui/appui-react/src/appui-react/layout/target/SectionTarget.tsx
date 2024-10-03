@@ -10,16 +10,16 @@ import "./SectionTarget.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
-import { DraggedWidgetIdContext, useTarget } from "../base/DragManager";
-import { CursorTypeContext, getUniqueId } from "../base/NineZone";
-import { getCursorClassName } from "../widget-panels/CursorOverlay";
+import { DraggedWidgetIdContext, useTarget } from "../base/DragManager.js";
+import { CursorTypeContext, getUniqueId } from "../base/NineZone.js";
+import { getCursorClassName } from "../widget-panels/CursorOverlay.js";
 import {
   isHorizontalPanelSide,
   PanelSideContext,
-} from "../widget-panels/Panel";
-import { useAllowedPanelTarget } from "./useAllowedPanelTarget";
-import type { SectionDropTargetState } from "../state/DropTargetState";
-import { useLayout } from "../base/LayoutStore";
+} from "../widget-panels/Panel.js";
+import { useAllowedPanelTarget } from "./useAllowedPanelTarget.js";
+import type { SectionDropTargetState } from "../state/DropTargetState.js";
+import { useLayout } from "../base/LayoutStore.js";
 
 /** @internal */
 export interface SectionTargetProps {

@@ -10,10 +10,10 @@ import type {
   HorizontalPanelSide,
   PanelSide,
   VerticalPanelSide,
-} from "../widget-panels/PanelTypes";
-import { isHorizontalPanelSide } from "../widget-panels/Panel";
-import type { WidgetState } from "./WidgetState";
-import type { StagePanelSizeSpec } from "../../stagepanels/StagePanelConfig";
+} from "../widget-panels/PanelTypes.js";
+import { isHorizontalPanelSide } from "../widget-panels/Panel.js";
+import type { WidgetState } from "./WidgetState.js";
+import type { StagePanelSizeSpec } from "../../stagepanels/StagePanelConfig.js";
 
 /** @internal */
 export interface PanelState {

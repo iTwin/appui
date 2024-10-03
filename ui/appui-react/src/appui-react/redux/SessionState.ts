@@ -7,12 +7,12 @@
  */
 
 import type { XAndY } from "@itwin/core-geometry";
-import type { CursorMenuItemProps, MenuItemProps } from "../shared/MenuItem";
-import type { ActionsUnion, DeepReadonly } from "./redux-ts";
-import type { UiFramework } from "../UiFramework";
-import { createAction } from "./redux-ts";
-import type { useActiveIModelConnection } from "../hooks/useActiveIModelConnection";
-import { SelectionScopeField } from "../statusfields/SelectionScope";
+import type { CursorMenuItemProps, MenuItemProps } from "../shared/MenuItem.js";
+import type { ActionsUnion, DeepReadonly } from "./redux-ts.js";
+import type { UiFramework } from "../UiFramework.js";
+import { createAction } from "./redux-ts.js";
+import type { useActiveIModelConnection } from "../hooks/useActiveIModelConnection.js";
+import { SelectionScopeField } from "../statusfields/SelectionScope.js";
 
 /** Definition of a cursor menu. If menuItems are empty the menu control is not displayed.
  * @public

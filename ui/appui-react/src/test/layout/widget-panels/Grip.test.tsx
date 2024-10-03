@@ -2,29 +2,29 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { Rectangle } from "@itwin/core-react";
+import { Rectangle } from "@itwin/core-react/internal";
 import { act, fireEvent, render, renderHook } from "@testing-library/react";
-import type { TestNineZoneProviderProps } from "../Providers";
-import { createDragInfo, TestNineZoneProvider } from "../Providers";
-import produce from "immer";
+import type { TestNineZoneProviderProps } from "../Providers.js";
+import { createDragInfo, TestNineZoneProvider } from "../Providers.js";
+import { produce } from "immer";
 import * as React from "react";
-import type { DragManager } from "../../../appui-react/layout/base/DragManager";
-import type { NineZoneDispatch } from "../../../appui-react/layout/base/NineZone";
-import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState";
+import type { DragManager } from "../../../appui-react/layout/base/DragManager.js";
+import type { NineZoneDispatch } from "../../../appui-react/layout/base/NineZone.js";
+import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState.js";
 import {
   addPanelWidget,
   updatePanelState,
-} from "../../../appui-react/layout/state/internal/PanelStateHelpers";
-import { addTab } from "../../../appui-react/layout/state/internal/TabStateHelpers";
+} from "../../../appui-react/layout/state/internal/PanelStateHelpers.js";
+import { addTab } from "../../../appui-react/layout/state/internal/TabStateHelpers.js";
 import {
   useResizeGrip,
   WidgetPanelGrip,
-} from "../../../appui-react/layout/widget-panels/Grip";
-import type { PanelSide } from "../../../appui-react/layout/widget-panels/PanelTypes";
+} from "../../../appui-react/layout/widget-panels/Grip.js";
+import type { PanelSide } from "../../../appui-react/layout/widget-panels/PanelTypes.js";
 import {
   PanelSideContext,
   WidgetPanelContext,
-} from "../../../appui-react/layout/widget-panels/Panel";
+} from "../../../appui-react/layout/widget-panels/Panel.js";
 
 describe("WidgetPanelGrip", () => {
   const wrapper = (props: any) => (

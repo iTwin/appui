@@ -9,7 +9,7 @@ import { immerable } from "immer";
 import type { PropertyDescription } from "@itwin/appui-abstract";
 import { PropertyRecord, PropertyValueFormat } from "@itwin/appui-abstract";
 import { Guid } from "@itwin/core-bentley";
-import type { PropertyCategory } from "../../PropertyDataProvider";
+import type { PropertyCategory } from "../../PropertyDataProvider.js";
 
 /**
  * Types of FlatGridItems for differentiating what property FlatGridItem is wrapping.

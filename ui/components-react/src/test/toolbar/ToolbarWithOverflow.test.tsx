@@ -12,15 +12,15 @@ import type {
 } from "@itwin/appui-abstract";
 import { ToolbarItemUtilities } from "@itwin/appui-abstract";
 import { fireEvent, render } from "@testing-library/react";
-import type { CustomToolbarItem } from "../../components-react/toolbar/InternalToolbarComponent";
+import type { CustomToolbarItem } from "../../components-react/toolbar/InternalToolbarComponent.js";
 import {
   ToolbarOpacitySetting,
   ToolbarPanelAlignment,
   ToolbarPanelAlignmentHelpers,
   ToolbarPopupAutoHideContext,
-} from "../../components-react/toolbar/InternalToolbarComponent";
-import { Direction } from "../../components-react/toolbar/utilities/Direction";
-import { ToolbarWithOverflow } from "../../components-react/toolbar/ToolbarWithOverflow";
+} from "../../components-react/toolbar/InternalToolbarComponent.js";
+import { Direction } from "../../components-react/toolbar/utilities/Direction.js";
+import { ToolbarWithOverflow } from "../../components-react/toolbar/ToolbarWithOverflow.js";
 import { BadgeType } from "@itwin/core-react";
 
 function createBubbledEvent(type: string, props = {}) {

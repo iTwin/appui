@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { render, screen } from "@testing-library/react";
-import { MessageCenterField, MessageManager } from "../../appui-react";
-import { userEvent, waitForPosition } from "../TestUtils";
+import { MessageCenterField, MessageManager } from "../../appui-react.js";
+import { userEvent, waitForPosition } from "../TestUtils.js";
 
 describe(`MessageCenter`, () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;

@@ -6,14 +6,14 @@ import * as React from "react";
 import type {
   ConfigurableCreateInfo,
   FrontstageConfig,
-} from "../../appui-react";
+} from "../../appui-react.js";
 import {
   ContentControl,
   ContentGroup,
   FrontstageProvider,
   StandardContentLayouts,
   UiFramework,
-} from "../../appui-react";
+} from "../../appui-react.js";
 
 describe("ContentControl", () => {
   class TestContentControl extends ContentControl {

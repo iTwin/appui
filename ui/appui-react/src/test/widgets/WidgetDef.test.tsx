@@ -2,24 +2,24 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import produce from "immer";
+import { produce } from "immer";
 import * as React from "react";
 import { BadgeType } from "@itwin/core-react";
 import { SvgList } from "@itwin/itwinui-icons-react";
 import {
   FrontstageDef,
-  getWidgetState,
-  initializeNineZoneState,
   StagePanelDef,
   StagePanelLocation,
   UiFramework,
   WidgetDef,
   WidgetState,
-} from "../../appui-react";
-import { defaultFrontstageConfig } from "../frontstage/FrontstageDef.test";
-import { createNineZoneState } from "../../appui-react/layout/state/NineZoneState";
-import { addTab } from "../../appui-react/layout/state/internal/TabStateHelpers";
-import { addPanelWidget } from "../../appui-react/layout/state/internal/PanelStateHelpers";
+} from "../../appui-react.js";
+import { defaultFrontstageConfig } from "../frontstage/FrontstageDef.test.js";
+import { createNineZoneState } from "../../appui-react/layout/state/NineZoneState.js";
+import { addTab } from "../../appui-react/layout/state/internal/TabStateHelpers.js";
+import { addPanelWidget } from "../../appui-react/layout/state/internal/PanelStateHelpers.js";
+import { initializeNineZoneState } from "../../appui-react/widget-panels/Frontstage.js";
+import { getWidgetState } from "../../appui-react/widgets/WidgetDef.js";
 
 describe("WidgetDef", () => {
   it("optional properties", () => {

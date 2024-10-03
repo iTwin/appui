@@ -5,7 +5,7 @@
 /** @packageDocumentation
  * @module ContextMenu
  */
-import type { ContextMenu } from "./ContextMenu";
+import type { ContextMenu } from "./ContextMenu.js";
 
 /** Enum to specify where a [[ContextMenu]] should anchor to its parent element
  * @public

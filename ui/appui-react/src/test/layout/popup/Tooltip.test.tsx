@@ -8,8 +8,8 @@ import * as React from "react";
 import {
   offsetAndContainInContainer,
   Tooltip,
-} from "../../../appui-react/layout/popup/Tooltip";
-import { createRect, selectorMatches, styleMatch } from "../Utils";
+} from "../../../appui-react/layout/popup/Tooltip.js";
+import { createRect, selectorMatches, styleMatch } from "../Utils.js";
 
 describe("<Tooltip />", () => {
   it("renders correctly", () => {

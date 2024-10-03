@@ -16,18 +16,19 @@ import {
   RelativePosition,
   ToolbarItemUtilities,
 } from "@itwin/appui-abstract";
-import { Badge, IconHelper, useRefState } from "@itwin/core-react";
-import type { ToolbarButtonItemProps } from "./Item";
-import { PopupItemPopup, ToolbarPopupContext } from "./PopupItem";
-import type { ActionButtonWithBadgeKind } from "./PopupItemsPanel";
-import { PopupItemsPanel } from "./PopupItemsPanel";
+import { IconHelper } from "@itwin/core-react";
+import { Badge, useRefState } from "@itwin/core-react/internal";
+import type { ToolbarButtonItemProps } from "./Item.js";
+import { PopupItemPopup, ToolbarPopupContext } from "./PopupItem.js";
+import type { ActionButtonWithBadgeKind } from "./PopupItemsPanel.js";
+import { PopupItemsPanel } from "./PopupItemsPanel.js";
 import {
   ToolbarPanelAlignment,
   useToolbarWithOverflowDirectionContext,
   useToolItemEntryContext,
-} from "./InternalToolbarComponent";
-import { useDragInteraction } from "./useDragInteraction";
-import { Direction } from "./utilities/Direction";
+} from "./InternalToolbarComponent.js";
+import { useDragInteraction } from "./useDragInteraction.js";
+import { Direction } from "./utilities/Direction.js";
 
 /* eslint-disable deprecation/deprecation */
 

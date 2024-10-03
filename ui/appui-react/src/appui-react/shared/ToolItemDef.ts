@@ -9,9 +9,9 @@
 import type { Tool } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
 import type { OnItemExecutedFunc } from "@itwin/appui-abstract";
-import { ActionButtonItemDef } from "./ActionButtonItemDef";
-import type { ToolItemProps } from "./ItemProps";
-import type { ToolbarItemUtilities } from "../toolbar/ToolbarItemUtilities";
+import { ActionButtonItemDef } from "./ActionButtonItemDef.js";
+import type { ToolItemProps } from "./ItemProps.js";
+import type { ToolbarItemUtilities } from "../toolbar/ToolbarItemUtilities.js";
 
 /* eslint-disable deprecation/deprecation */
 

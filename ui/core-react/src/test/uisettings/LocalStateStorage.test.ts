@@ -3,9 +3,9 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { LocalStateStorage, UiStateStorageStatus } from "../../core-react";
+import { LocalStateStorage, UiStateStorageStatus } from "../../core-react.js";
 
-import { storageMock } from "../TestUtils";
+import { storageMock } from "../TestUtils.js";
 
 describe("LocalStateStorage", () => {
   it("default LocalStateStorage constructor executes successfully", () => {

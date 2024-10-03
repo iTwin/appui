@@ -19,15 +19,10 @@ import type {
 import {
   PropertyEditorParamTypes,
   PropertyValueFormat,
-  StandardEditorNames,
-  StandardTypeNames,
 } from "@itwin/appui-abstract";
 import type { PropertyEditorProps, TypeEditor } from "@itwin/components-react";
-import {
-  PropertyEditorBase,
-  PropertyEditorManager,
-} from "@itwin/components-react";
-import { ColorPickerButton } from "../color/ColorPickerButton";
+import { PropertyEditorBase } from "@itwin/components-react";
+import { ColorPickerButton } from "../color/ColorPickerButton.js";
 
 /** @internal */
 interface ColorEditorState {
@@ -185,9 +180,3 @@ export class ColorPropertyEditor extends PropertyEditorBase {
     return <ColorEditor />;
   }
 }
-
-PropertyEditorManager.registerEditor(
-  StandardTypeNames.Number,
-  ColorPropertyEditor,
-  StandardEditorNames.ColorPicker
-);

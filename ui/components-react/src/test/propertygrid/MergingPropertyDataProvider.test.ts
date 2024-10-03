@@ -3,10 +3,10 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import type { PrimitiveValue, PropertyRecord } from "@itwin/appui-abstract";
-import type { PropertyCategory } from "../../components-react";
-import { SimplePropertyDataProvider } from "../../components-react";
-import TestUtils from "../TestUtils";
-import { createMergedPropertyDataProvider } from "../../components-react/propertygrid/MergingPropertyDataProvider";
+import type { PropertyCategory } from "../../components-react.js";
+import { SimplePropertyDataProvider } from "../../components-react.js";
+import TestUtils from "../TestUtils.js";
+import { createMergedPropertyDataProvider } from "../../components-react/propertygrid/MergingPropertyDataProvider.js";
 
 describe("MergingPropertyDataProvider", () => {
   const provider1Category: PropertyCategory = {

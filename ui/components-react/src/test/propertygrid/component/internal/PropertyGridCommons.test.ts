@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import { Orientation } from "@itwin/core-react";
 import * as moq from "typemoq";
-import { PropertyGridCommons } from "../../../../components-react/propertygrid/component/PropertyGridCommons";
+import { PropertyGridCommons } from "../../../../components-react/propertygrid/component/PropertyGridCommons.js";
 
 describe("PropertyGrid Commons", () => {
   describe("getLinks", () => {

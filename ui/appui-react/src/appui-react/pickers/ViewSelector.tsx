@@ -12,15 +12,15 @@ import type { Id64String } from "@itwin/core-bentley";
 import { assert, BeUiEvent, Logger } from "@itwin/core-bentley";
 import type { IModelConnection, ViewState } from "@itwin/core-frontend";
 import { FuzzySearch, IModelApp } from "@itwin/core-frontend";
-import type { SupportsViewSelectorChange } from "../content/ContentControl";
-import { UiFramework } from "../UiFramework";
-import { ViewUtilities } from "../utils/ViewUtilities";
-import type { ListItem } from "./ListPicker";
-import { ListItemType, ListPicker } from "./ListPicker";
+import type { SupportsViewSelectorChange } from "../content/ContentControl.js";
+import { UiFramework } from "../UiFramework.js";
+import { ViewUtilities } from "../utils/ViewUtilities.js";
+import type { ListItem } from "./ListPicker.js";
+import { ListItemType, ListPicker } from "./ListPicker.js";
 import { debounce } from "lodash";
 import svgSavedView from "@bentley/icons-generic/icons/saved-view.svg";
-import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState";
-import type { ListenerType } from "@itwin/core-react";
+import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState.js";
+import type { ListenerType } from "@itwin/core-react/internal";
 
 // cSpell:ignore Spatials
 
@@ -371,7 +371,7 @@ export class ViewSelector extends React.Component<
         !activeContentControl.supportsViewSelectorChange)
     ) {
       Logger.logError(
-        UiFramework.loggerCategory(this),
+        UiFramework.loggerCategory("ViewSelector"),
         `No active ContentControl for ViewSelector change`
       );
       return;

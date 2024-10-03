@@ -7,27 +7,27 @@
  */
 
 import { UiError } from "@itwin/appui-abstract";
-import { CubeNavigationAidControl } from "../navigationaids/CubeNavigationAidControl";
-import { DrawingNavigationAidControl } from "../navigationaids/DrawingNavigationAidControl";
-import { SheetNavigationAidControl } from "../navigationaids/SheetNavigationAid";
-import { StandardRotationNavigationAidControl } from "../navigationaids/StandardRotationNavigationAid";
-import { UiFramework } from "../UiFramework";
+import { CubeNavigationAidControl } from "../navigationaids/CubeNavigationAidControl.js";
+import { DrawingNavigationAidControl } from "../navigationaids/DrawingNavigationAidControl.js";
+import { SheetNavigationAidControl } from "../navigationaids/SheetNavigationAid.js";
+import { StandardRotationNavigationAidControl } from "../navigationaids/StandardRotationNavigationAid.js";
+import { UiFramework } from "../UiFramework.js";
 import type {
   ConfigurableUiControlConstructor,
   ConfigurableUiElement,
-} from "./ConfigurableUiControl";
-import { ConfigurableCreateInfo } from "./ConfigurableUiControl";
-import { MessageManager } from "../messages/MessageManager";
-import { PopupManager } from "../popup/PopupManager";
-import { ActivityTracker } from "./ActivityTracker";
+} from "./ConfigurableUiControl.js";
+import { ConfigurableCreateInfo } from "./ConfigurableUiControl.js";
+import { MessageManager } from "../messages/MessageManager.js";
+import { PopupManager } from "../popup/PopupManager.js";
+import { ActivityTracker } from "./ActivityTracker.js";
 import { BeUiEvent } from "@itwin/core-bentley";
-import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager";
-import { InternalToolSettingsManager } from "../toolsettings/InternalToolSettingsManager";
-import { InternalModelessDialogManager } from "../dialog/InternalModelessDialogManager";
-import { InternalContentDialogManager } from "../dialog/InternalContentDialogManager";
-import { InternalKeyboardShortcutManager } from "../keyboardshortcut/InternalKeyboardShortcut";
-import { InternalModalDialogManager } from "../dialog/InternalModalDialogManager";
-import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
+import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager.js";
+import { InternalToolSettingsManager } from "../toolsettings/InternalToolSettingsManager.js";
+import { InternalModelessDialogManager } from "../dialog/InternalModelessDialogManager.js";
+import { InternalContentDialogManager } from "../dialog/InternalContentDialogManager.js";
+import { InternalKeyboardShortcutManager } from "../keyboardshortcut/InternalKeyboardShortcut.js";
+import { InternalModalDialogManager } from "../dialog/InternalModalDialogManager.js";
+import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher.js";
 
 /* eslint-disable deprecation/deprecation */
 
@@ -114,7 +114,7 @@ export class InternalConfigurableUiManager {
   ): void {
     if (this._registeredControls.get(classId) !== undefined) {
       throw new UiError(
-        UiFramework.loggerCategory(this),
+        UiFramework.loggerCategory("InternalConfigurableUiManager"),
         `registerControl: classId '${classId}' already registered`
       );
     }
@@ -173,7 +173,7 @@ export class InternalConfigurableUiManager {
     const constructor = this._registeredControls.get(info.classId);
     if (!constructor) {
       throw new UiError(
-        UiFramework.loggerCategory(this),
+        UiFramework.loggerCategory("InternalConfigurableUiManager"),
         `createControl: classId '${classId}' not registered`
       );
     }

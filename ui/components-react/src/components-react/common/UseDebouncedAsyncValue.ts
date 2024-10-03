@@ -11,7 +11,7 @@ import { defer, share } from "rxjs";
 import {
   scheduleSubscription,
   SubscriptionScheduler,
-} from "./SubscriptionScheduler";
+} from "./SubscriptionScheduler.js";
 
 /**
  * Custom hook for working with promise values.

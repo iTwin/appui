@@ -6,7 +6,7 @@
  * @module Tools
  */
 import { IModelApp, Tool } from "@itwin/core-frontend";
-import { UiFramework } from "../UiFramework";
+import { UiFramework } from "../UiFramework.js";
 
 /**
  * Immediate tool that will focus into the Tool Settings widget.

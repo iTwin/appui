@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { AppUiTestProviders } from "./AppUiTestProviders";
+import { AppUiTestProviders } from "./AppUiTestProviders.js";
 
 interface UseTranslationResult {
   translate: (key: string) => string;

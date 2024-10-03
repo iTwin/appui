@@ -12,12 +12,12 @@ import { RelativePosition } from "@itwin/appui-abstract";
 import type { CommonProps } from "@itwin/core-react";
 import { Popup } from "@itwin/core-react";
 import { Text } from "@itwin/itwinui-react";
-import { DatePicker } from "./DatePicker";
-import { DateField } from "./DateField";
-import type { TimeSpec } from "./TimeField";
-import { TimeField } from "./TimeField";
+import { DatePicker } from "./DatePicker.js";
+import { DateField } from "./DateField.js";
+import type { TimeSpec } from "./TimeField.js";
+import { TimeField } from "./TimeField.js";
 import "./DatePickerPopupButton.scss";
-import { useTranslation } from "../l10n/useTranslation";
+import { useTranslation } from "../l10n/useTranslation.js";
 
 /** Props used by [[DatePickerPopupButton]] component.
  * @alpha

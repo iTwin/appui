@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
 import * as React from "react";
-import { ToolsArea } from "../../../appui-react/layout/widget/ToolsArea";
-import { childStructure, selectorMatches } from "../Utils";
+import { ToolsArea } from "../../../appui-react/layout/widget/ToolsArea.js";
+import { childStructure, selectorMatches } from "../Utils.js";
 
 const SizableButton = (props: { small?: boolean }) => (
   <button>{`${props.small}`}</button>

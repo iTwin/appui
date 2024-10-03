@@ -6,11 +6,11 @@
  * @module Item
  */
 
-import type { GroupItemDef } from "../toolbar/GroupItem";
-import type { ToolbarItem } from "../toolbar/ToolbarItem";
-import type { ActionButtonItemDef } from "./ActionButtonItemDef";
-import type { CommandItemDef } from "./CommandItemDef";
-import type { ToolItemDef } from "./ToolItemDef";
+import type { GroupItemDef } from "../toolbar/GroupItem.js";
+import type { ToolbarItem } from "../toolbar/ToolbarItem.js";
+import type { ActionButtonItemDef } from "./ActionButtonItemDef.js";
+import type { CommandItemDef } from "./CommandItemDef.js";
+import type { ToolItemDef } from "./ToolItemDef.js";
 
 /* eslint-disable deprecation/deprecation */
 

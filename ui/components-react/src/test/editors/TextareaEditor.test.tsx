@@ -15,9 +15,9 @@ import {
   PropertyEditorParamTypes,
   StandardEditorNames,
 } from "@itwin/appui-abstract";
-import { TextareaEditor } from "../../components-react/editors/TextareaEditor";
-import { EditorContainer } from "../../components-react/editors/EditorContainer";
-import TestUtils, { styleMatch, userEvent } from "../TestUtils";
+import { TextareaEditor } from "../../components-react/editors/TextareaEditor.js";
+import { EditorContainer } from "../../components-react/editors/EditorContainer.js";
+import TestUtils, { styleMatch, userEvent } from "../TestUtils.js";
 
 describe("<TextareaEditor />", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;

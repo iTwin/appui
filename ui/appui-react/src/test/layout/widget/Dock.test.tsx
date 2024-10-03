@@ -4,12 +4,12 @@
  *--------------------------------------------------------------------------------------------*/
 import { fireEvent, render } from "@testing-library/react";
 import * as React from "react";
-import type { NineZoneDispatch } from "../../../appui-react/layout/base/NineZone";
+import type { NineZoneDispatch } from "../../../appui-react/layout/base/NineZone.js";
 import {
   NineZoneDispatchContext,
   NineZoneLabelsContext,
-} from "../../../appui-react/layout/base/NineZone";
-import { Dock } from "../../../appui-react/layout/widget/Dock";
+} from "../../../appui-react/layout/base/NineZone.js";
+import { Dock } from "../../../appui-react/layout/widget/Dock.js";
 
 describe("Dock", () => {
   it("should dispatch TOOL_SETTINGS_DOCK", () => {

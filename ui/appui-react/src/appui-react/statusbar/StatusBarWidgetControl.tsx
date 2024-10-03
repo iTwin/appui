@@ -6,9 +6,9 @@
  * @module StatusBar
  */
 
-import type { ConfigurableCreateInfo } from "../configurableui/ConfigurableUiControl";
-import { ConfigurableUiControlType } from "../configurableui/ConfigurableUiControl";
-import { WidgetControl } from "../widgets/WidgetControl";
+import type { ConfigurableCreateInfo } from "../configurableui/ConfigurableUiControl.js";
+import { ConfigurableUiControlType } from "../configurableui/ConfigurableUiControl.js";
+import { WidgetControl } from "../widgets/WidgetControl.js";
 
 /* eslint-disable deprecation/deprecation */
 

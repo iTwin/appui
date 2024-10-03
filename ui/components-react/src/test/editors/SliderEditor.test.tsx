@@ -14,11 +14,11 @@ import {
   PropertyEditorParamTypes,
   StandardEditorNames,
 } from "@itwin/appui-abstract";
-import { SliderEditor } from "../../components-react/editors/SliderEditor";
-import TestUtils, { MineDataController, userEvent } from "../TestUtils";
-import { EditorContainer } from "../../components-react/editors/EditorContainer";
-import { PropertyEditorManager } from "../../components-react/editors/PropertyEditorManager";
-import { findInstance } from "../ReactInstance";
+import { SliderEditor } from "../../components-react/editors/SliderEditor.js";
+import TestUtils, { MineDataController, userEvent } from "../TestUtils.js";
+import { EditorContainer } from "../../components-react/editors/EditorContainer.js";
+import { PropertyEditorManager } from "../../components-react/editors/PropertyEditorManager.js";
+import { findInstance } from "../ReactInstance.js";
 
 describe("<SliderEditor />", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;

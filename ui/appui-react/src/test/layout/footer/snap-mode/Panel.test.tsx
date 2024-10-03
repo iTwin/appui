@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import { render } from "@testing-library/react";
 import * as React from "react";
-import { SnapModePanel } from "../../../../appui-react/layout/footer/snap-mode/Panel";
-import { childStructure } from "../../Utils";
+import { SnapModePanel } from "../../../../appui-react/layout/footer/snap-mode/Panel.js";
+import { childStructure } from "../../Utils.js";
 
 describe("<SnapModePanel />", () => {
   it("renders correctly", () => {

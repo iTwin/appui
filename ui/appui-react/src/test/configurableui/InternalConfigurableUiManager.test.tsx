@@ -7,7 +7,7 @@ import * as React from "react";
 import type {
   ConfigurableCreateInfo,
   ContentGroupProps,
-} from "../../appui-react";
+} from "../../appui-react.js";
 import {
   ContentControl,
   ContentGroup,
@@ -16,8 +16,8 @@ import {
   StandardContentLayouts,
   UiFramework,
   WidgetControl,
-} from "../../appui-react";
-import { InternalConfigurableUiManager } from "../../appui-react/configurableui/InternalConfigurableUiManager";
+} from "../../appui-react.js";
+import { InternalConfigurableUiManager } from "../../appui-react/configurableui/InternalConfigurableUiManager.js";
 
 class TableExampleContentControl extends ContentControl {
   constructor(info: ConfigurableCreateInfo, options: any) {

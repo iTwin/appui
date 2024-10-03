@@ -8,13 +8,13 @@
 
 import classnames from "classnames";
 import * as React from "react";
-import { ToolbarComposer } from "../toolbar/ToolbarComposer";
-import { ToolWidgetComposer } from "./ToolWidgetComposer";
-import { BackstageAppButton } from "./BackstageAppButton";
-import { useUiVisibility } from "../hooks/useUiVisibility";
-import type { ToolbarItem } from "../toolbar/ToolbarItem";
-import { ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
-import { ToolbarItems } from "../tools/ToolbarItems";
+import { ToolbarComposer } from "../toolbar/ToolbarComposer.js";
+import { ToolWidgetComposer } from "./ToolWidgetComposer.js";
+import { BackstageAppButton } from "./BackstageAppButton.js";
+import { useUiVisibility } from "../hooks/useUiVisibility.js";
+import type { ToolbarItem } from "../toolbar/ToolbarItem.js";
+import { ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem.js";
+import { ToolbarItems } from "../tools/ToolbarItems.js";
 
 /** Properties that can be used to append items to the default set of toolbar items.
  * @public
