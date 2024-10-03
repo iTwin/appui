@@ -819,7 +819,7 @@ describe("TreeDataSource", () => {
       ) => {
         return new Promise<void>((resolve, reject) => {
           observable.subscribe({
-            error: (err) => reject(err),
+            error: (err: Error) => reject(err),
             complete: () => resolve(),
           });
         });
