@@ -82,7 +82,7 @@ function unFocus(ownerDoc: Document | undefined) {
     try {
       const winSelection = ownerDoc.defaultView?.getSelection();
       winSelection?.removeAllRanges();
-    } catch (_e) {}
+    } catch {}
   }
 }
 

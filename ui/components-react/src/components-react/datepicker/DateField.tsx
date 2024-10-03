@@ -151,7 +151,7 @@ export function DateField({
 
         const newDateValue = Date.parse(dateString);
         if (newDateValue) return new Date(newDateValue);
-      } catch (_error) {
+      } catch {
         Logger.logInfo(
           "DateField",
           `Encountered error parsing input value '${dateString}' as a date.`
@@ -174,7 +174,7 @@ export function DateField({
         } else {
           setHasBadInput(true);
         }
-      } catch (_error) {
+      } catch {
         setHasBadInput(true);
       }
     },

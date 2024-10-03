@@ -122,7 +122,7 @@ function attemptFocus(element: HTMLElement, preventScroll: boolean): boolean {
       element.focus({
         preventScroll: preventScroll ? true : false,
       });
-  } catch (e) {
+  } catch {
     return false;
   }
   return document.activeElement === element;

@@ -299,7 +299,7 @@ export function ViewportComponent(props: ViewportProps) {
           if (!currentViewState) {
             Logger.logError("ViewportComponent", `Viewstate failed to load`);
           }
-        } catch (_e) {
+        } catch {
           Logger.logError("ViewportComponent", `Viewstate failed to load`);
         }
       } else {
