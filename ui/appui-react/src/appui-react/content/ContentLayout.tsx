@@ -29,7 +29,7 @@ import { ContentOverlay, useContentOverlayStore } from "./ContentOverlay.js";
 import { useConditionalValue } from "../hooks/useConditionalValue.js";
 
 /** Properties for [[ContentWrapper]] */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 interface ContentWrapperProps extends CommonProps {
   content: React.ReactNode;
   contentIndex: number | undefined;
@@ -42,7 +42,7 @@ export function ContentWrapper(props: ContentWrapperProps) {
   const { content, contentIndex } = props;
   const activeFrontstageDef = useActiveFrontstageDef();
   const [isActive, setIsActive] = React.useState(() => {
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     return content === UiFramework.content.getActive();
   });
 
@@ -61,34 +61,34 @@ export function ContentWrapper(props: ContentWrapperProps) {
   const [hasMultipleContents, setHasMultipleContents] = React.useState(
     () =>
       (activeFrontstageDef &&
-        // eslint-disable-next-line deprecation/deprecation
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         !!activeFrontstageDef.floatingContentControls?.length) ||
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       (activeFrontstageDef?.contentGroup?.getContentControls().length ?? 0) > 1
   );
 
   React.useEffect(() => {
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     setIsActive(content === UiFramework.content.getActive());
   }, [content]);
 
   React.useEffect(() => {
     return UiFramework.content.onActiveContentChangedEvent.addListener(
       (args) => {
-        // eslint-disable-next-line deprecation/deprecation
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         const contentIsIdentical = content === args.activeContent;
         if (contentIsIdentical) {
           setIsActive(contentIsIdentical);
         } else {
           const contentId = contentControlKey(content);
-          // eslint-disable-next-line deprecation/deprecation
+          // eslint-disable-next-line @typescript-eslint/no-deprecated
           const activeContentId = contentControlKey(args.activeContent);
           setIsActive(!!contentId && contentId === activeContentId);
         }
 
         setHasMultipleContents(
           (activeFrontstageDef &&
-            // eslint-disable-next-line deprecation/deprecation
+            // eslint-disable-next-line @typescript-eslint/no-deprecated
             !!activeFrontstageDef.floatingContentControls?.length) ||
             (activeFrontstageDef?.contentGroup?.contentPropsList.length ?? 0) >
               1
@@ -98,7 +98,7 @@ export function ContentWrapper(props: ContentWrapperProps) {
   }, [activeFrontstageDef, content]);
 
   const handleMouseDown = React.useCallback(() => {
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     UiFramework.content.setActive(content);
     setIsActive(true);
   }, [content]);
@@ -108,9 +108,9 @@ export function ContentWrapper(props: ContentWrapperProps) {
       () => {
         setHasMultipleContents(
           (activeFrontstageDef &&
-            // eslint-disable-next-line deprecation/deprecation
+            // eslint-disable-next-line @typescript-eslint/no-deprecated
             !!activeFrontstageDef.floatingContentControls?.length) ||
-            // eslint-disable-next-line deprecation/deprecation
+            // eslint-disable-next-line @typescript-eslint/no-deprecated
             (activeFrontstageDef?.contentGroup?.getContentControls().length ??
               0) > 1
         );
@@ -160,7 +160,7 @@ function useRenderActiveStrip(contentIndex: number | undefined) {
 }
 
 /** Properties for the [[SplitContainer]] component */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 interface SplitContainerProps extends CommonProps {
   contentA: React.ReactNode;
   contentB: React.ReactNode;
@@ -238,7 +238,7 @@ class SplitContainer extends React.Component<SplitContainerProps> {
 /** Properties for [[SingleContentContainer]] component
  */
 interface SingleContentProps
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   extends CommonProps,
     Pick<ContentWrapperProps, "contentIndex"> {
   content: React.ReactNode;
@@ -490,9 +490,9 @@ export class ContentLayoutDef {
   ): React.ReactNode | undefined {
     this._rootSplit = ContentLayoutDef.createSplit(this._layoutProps);
 
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     if (this.rootSplit) {
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       return this.rootSplit.createContentContainer(contentNodes, resizable);
     }
 
@@ -614,13 +614,13 @@ export interface ContentLayoutActivatedEventArgs {
  * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class ContentLayoutActivatedEvent extends UiEvent<ContentLayoutActivatedEventArgs> {}
 
 /** Properties for the [[ContentLayout]] React component.
  * @public
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface ContentLayoutComponentProps extends CommonProps {
   contentLayout: ContentLayoutDef;
   contentGroup: ContentGroup;
@@ -640,7 +640,7 @@ export function ContentLayout(props: ContentLayoutComponentProps) {
   );
   const [contentNodes, setContentNodes] = React.useState<React.ReactNode[]>(
     () => {
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       return props.contentGroup.getContentNodes();
     }
   );
@@ -651,13 +651,13 @@ export function ContentLayout(props: ContentLayoutComponentProps) {
         setContentLayoutDef(args.contentLayout);
         setContentGroupId(args.contentGroup.groupId);
         setContentGroup(args.contentGroup);
-        // eslint-disable-next-line deprecation/deprecation
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         setContentNodes(args.contentGroup.getContentNodes());
       }
     );
   }, []);
 
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   const contentContainer = contentLayoutDef.fillLayoutContainer(
     contentNodes,
     true

@@ -27,7 +27,7 @@ import type { UiStateStorage } from "../uistate/UiStateStorage.js";
  * @public
  * @deprecated in 4.17.0. Use `React.ComponentProps<typeof AccuDrawFieldContainer>`
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface AccuDrawFieldContainerProps extends CommonProps {
   /** Orientation of the fields */
   orientation: Orientation;
@@ -51,7 +51,7 @@ const defaultZLabel = "Z";
 /** AccuDraw Ui Field Container displays [[AccuDrawInputField]] for each field
  * @public
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
   const {
     className,
@@ -320,7 +320,7 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
             id={`uifw-accudraw-x-${containerIndex}`}
             data-testid="uifw-accudraw-x"
             label={xLabel}
-            // eslint-disable-next-line deprecation/deprecation
+            // eslint-disable-next-line @typescript-eslint/no-deprecated
             iconSpec={uiSettings?.xIcon}
             icon={uiSettings?.xIconNode}
             labelCentered={labelCentered}
@@ -339,7 +339,7 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
             id={`uifw-accudraw-y-${containerIndex}`}
             data-testid="uifw-accudraw-y"
             label={yLabel}
-            // eslint-disable-next-line deprecation/deprecation
+            // eslint-disable-next-line @typescript-eslint/no-deprecated
             iconSpec={uiSettings?.yIcon}
             icon={uiSettings?.yIconNode}
             labelCentered={labelCentered}
@@ -359,7 +359,7 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
               id={`uifw-accudraw-z-${containerIndex}`}
               data-testid="uifw-accudraw-z"
               label={zLabel}
-              // eslint-disable-next-line deprecation/deprecation
+              // eslint-disable-next-line @typescript-eslint/no-deprecated
               iconSpec={uiSettings?.zIcon}
               icon={uiSettings?.zIconNode}
               labelCentered={labelCentered}
@@ -383,7 +383,7 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
             id={`uifw-accudraw-distance-${containerIndex}`}
             data-testid="uifw-accudraw-distance"
             label={distanceLabel}
-            // eslint-disable-next-line deprecation/deprecation
+            // eslint-disable-next-line @typescript-eslint/no-deprecated
             iconSpec={uiSettings?.distanceIcon ?? distanceIconSvg}
             icon={uiSettings?.distanceIconNode}
             valueChangedDelay={delay}
@@ -401,7 +401,7 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
             id={`uifw-accudraw-angle-${containerIndex}`}
             data-testid="uifw-accudraw-angle"
             label={angleLabel}
-            // eslint-disable-next-line deprecation/deprecation
+            // eslint-disable-next-line @typescript-eslint/no-deprecated
             iconSpec={uiSettings?.angleIcon ?? angleIconSvg}
             icon={uiSettings?.angleIconNode}
             valueChangedDelay={delay}

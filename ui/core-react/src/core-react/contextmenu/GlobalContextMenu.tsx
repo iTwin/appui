@@ -11,7 +11,7 @@ import * as ReactDOM from "react-dom";
 import type { ContextMenuProps } from "./ContextMenu.js";
 import { ContextMenu } from "./ContextMenu.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** Properties for the [[GlobalContextMenu]] component
  * @public

@@ -24,11 +24,11 @@ export class ScrollPositionMaintainer implements IDisposable {
   private _storage: Map<Element, number>;
   public constructor(el: Element) {
     this._storage = new Map();
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     ScrollPositionMaintainer.saveScrollPositions([el], this._storage);
   }
   public dispose() {
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     ScrollPositionMaintainer.restoreScrollPositions(this._storage);
   }
   private static saveScrollPositions(

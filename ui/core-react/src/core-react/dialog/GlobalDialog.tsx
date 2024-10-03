@@ -15,7 +15,7 @@ import { Dialog } from "./Dialog.js";
  * @public
  * @deprecated in 4.12.0. Props of deprecated component {@link GlobalDialog}.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface GlobalDialogProps extends DialogProps {
   identifier?: string;
 }
@@ -33,19 +33,19 @@ export interface GlobalDialogState {
  * @deprecated in 4.12.0. Use {@link https://itwinui.bentley.com/docs/dialog iTwinUI dialog} instead.
  */
 export class GlobalDialog extends React.Component<
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   GlobalDialogProps,
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   GlobalDialogState
 > {
   private _container?: HTMLDivElement;
 
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   public override readonly state: GlobalDialogState = {
     parentDocument: null,
   };
 
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   constructor(props: GlobalDialogProps) {
     super(props);
   }
@@ -86,7 +86,7 @@ export class GlobalDialog extends React.Component<
       <div ref={this._handleRefSet}>
         {this.state.parentDocument &&
           ReactDOM.createPortal(
-            // eslint-disable-next-line deprecation/deprecation
+            // eslint-disable-next-line @typescript-eslint/no-deprecated
             <Dialog {...props} />,
             this.state.parentDocument.body
           )}

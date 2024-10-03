@@ -71,7 +71,7 @@ export function UiDataProvidedDialog({
   width,
   height,
   style,
-}: // eslint-disable-next-line deprecation/deprecation
+}: // eslint-disable-next-line @typescript-eslint/no-deprecated
 UiDataProvidedDialogProps) {
   const dialogId = React.useRef(id ? id : getUniqueId());
   const dialogIsModal = React.useRef(isModal);

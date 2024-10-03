@@ -15,7 +15,7 @@ import type { useOnOutsideClick } from "../utils/hooks/useOnOutsideClick.js";
  * @public
  * @deprecated in 4.12.0. Use props of a basic component, like {@link https://itwinui.bentley.com/docs/popover iTwinUI popover `closeOnOutsideClick`} or {@link useOnOutsideClick} hook.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export const DivWithOutsideClick = withOnOutsideClick(
-  (props: CommonDivProps) => <div {...props} /> // eslint-disable-line deprecation/deprecation
+  (props: CommonDivProps) => <div {...props} /> // eslint-disable-line @typescript-eslint/no-deprecated
 );

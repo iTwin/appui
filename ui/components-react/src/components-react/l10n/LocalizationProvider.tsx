@@ -12,9 +12,9 @@ import { LocalizationProvider as _LocalizationProvider } from "@itwin/core-react
  * @alpha
  */
 export function LocalizationProvider(
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   props: React.ComponentProps<typeof _LocalizationProvider>
 ) {
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   return <_LocalizationProvider {...props} />;
 }

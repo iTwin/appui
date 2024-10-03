@@ -46,7 +46,7 @@ export interface UiSettingsProviderProps {
  * ```
  * @public
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export function UiStateStorageHandler(props: UiSettingsProviderProps) {
   const [stateStorage, setStateStorage] = React.useState(
     UiFramework.getUiStateStorage()

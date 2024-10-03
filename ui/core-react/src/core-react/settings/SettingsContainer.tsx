@@ -12,7 +12,7 @@ import type { SettingsManager, SettingsTabEntry } from "./SettingsManager.js";
 import { VerticalTabs } from "../tabs/VerticalTabs.js";
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /*  ---------------------------------------------------------------------------------------------------
 // A typical implementation of a saveFunction callback

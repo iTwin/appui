@@ -17,7 +17,7 @@ import type {
 } from "../toolbar/ToolbarItem.js";
 import { CoreTools } from "./CoreToolDefinitions.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** Helper namespace to create commonly used toolbar items.
  * @beta

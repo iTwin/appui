@@ -10,7 +10,7 @@ import * as React from "react";
 import { Logger } from "@itwin/core-bentley";
 import { UiCore } from "../UiCore.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 function isFocusable(element: HTMLElement): boolean {
   if (!element || element.tabIndex < 0) return false;

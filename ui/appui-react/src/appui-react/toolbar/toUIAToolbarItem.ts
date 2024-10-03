@@ -17,10 +17,10 @@ export function toUIAToolbarItem(
   if (isToolbarCustomItem(item)) {
     return {
       ...item,
-      badgeType: item.badge, // eslint-disable-line deprecation/deprecation
+      badgeType: item.badge, // eslint-disable-line @typescript-eslint/no-deprecated
       badgeKind: item.badgeKind,
       isCustom: true,
-      icon: item.iconNode ?? (item.icon as string), // eslint-disable-line deprecation/deprecation
+      icon: item.iconNode ?? (item.icon as string), // eslint-disable-line @typescript-eslint/no-deprecated
       panelContentNode: item.panelContent,
     } as UIACommonToolbarItemWithBadgeKind;
   }
@@ -28,15 +28,15 @@ export function toUIAToolbarItem(
     return {
       ...item,
       items: item.items.map(toUIAToolbarItem),
-      badgeType: item.badge, // eslint-disable-line deprecation/deprecation
+      badgeType: item.badge, // eslint-disable-line @typescript-eslint/no-deprecated
       badgeKind: item.badgeKind,
-      icon: item.iconNode ?? item.icon, // eslint-disable-line deprecation/deprecation
+      icon: item.iconNode ?? item.icon, // eslint-disable-line @typescript-eslint/no-deprecated
     } as UIACommonToolbarItemWithBadgeKind;
   }
   return {
     ...item,
-    badgeType: item.badge, // eslint-disable-line deprecation/deprecation
+    badgeType: item.badge, // eslint-disable-line @typescript-eslint/no-deprecated
     badgeKind: item.badgeKind,
-    icon: item.iconNode ?? item.icon, // eslint-disable-line deprecation/deprecation
+    icon: item.iconNode ?? item.icon, // eslint-disable-line @typescript-eslint/no-deprecated
   } as UIACommonToolbarItemWithBadgeKind;
 }

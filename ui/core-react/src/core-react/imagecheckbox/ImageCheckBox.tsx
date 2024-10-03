@@ -12,7 +12,7 @@ import * as React from "react";
 import { Icon } from "../icons/IconComponent.js";
 import type { CommonProps } from "../utils/Props.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** Properties for the [[ImageCheckBox]] component
  * @public

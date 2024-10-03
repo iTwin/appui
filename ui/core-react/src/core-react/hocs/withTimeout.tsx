@@ -28,9 +28,9 @@ export const withTimeout = <ComponentProps extends {}>(
   Component: React.ComponentType<ComponentProps>
 ) => {
   return class WithTimeout extends React.PureComponent<
-    ComponentProps & WithTimeoutProps // eslint-disable-line deprecation/deprecation
+    ComponentProps & WithTimeoutProps // eslint-disable-line @typescript-eslint/no-deprecated
   > {
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     public timer: Timer = new Timer(0);
 
     public override componentDidMount(): void {
@@ -41,7 +41,7 @@ export const withTimeout = <ComponentProps extends {}>(
     }
 
     public override componentDidUpdate(
-      _prevProps: Readonly<ComponentProps & WithTimeoutProps> // eslint-disable-line deprecation/deprecation
+      _prevProps: Readonly<ComponentProps & WithTimeoutProps> // eslint-disable-line @typescript-eslint/no-deprecated
     ): void {
       this.startTimer(this.props.timeout);
     }

@@ -32,7 +32,7 @@ export interface UnderlinedButtonProps {
  * @public
  * @deprecated in 4.13.0. Use {@link https://itwinui.bentley.com/docs/anchor iTwinUI anchor} or {@link https://itwinui.bentley.com/docs/button button} instead.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export function UnderlinedButton(props: UnderlinedButtonProps) {
   const handleKeyUp = React.useCallback(
     (event: React.KeyboardEvent) => {

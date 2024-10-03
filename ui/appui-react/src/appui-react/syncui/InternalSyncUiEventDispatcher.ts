@@ -17,7 +17,7 @@ export class InternalSyncUiEventDispatcher {
   private _syncEventTimerId: number | undefined;
   private _eventIds: Set<string>;
   private _eventIdAdded;
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   private _uiSyncEvent: BeUiEvent<UiSyncEventArgs>;
   private _timeoutPeriod;
   private _secondaryTimeoutPeriod;
@@ -25,7 +25,7 @@ export class InternalSyncUiEventDispatcher {
   constructor() {
     this._eventIds = new Set<string>();
     this._eventIdAdded = false;
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     this._uiSyncEvent = new BeUiEvent<UiSyncEventArgs>();
     this._timeoutPeriod = 100;
     this._secondaryTimeoutPeriod = this._timeoutPeriod / 2;
@@ -56,7 +56,7 @@ export class InternalSyncUiEventDispatcher {
   }
 
   /** Return UiSyncEvent so callers can register an event callback. */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   public get onSyncUiEvent(): BeUiEvent<UiSyncEventArgs> {
     return this._uiSyncEvent;
   }

@@ -40,7 +40,7 @@ export interface Widget {
   /** Specifies the kind of badge, if any, to be rendered.
    * @deprecated in 4.16.0. Use `badgeKind` property instead.
    */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   readonly badge?: BadgeType;
   /** Specifies the kind of badge, if any, to be rendered. */
   readonly badgeKind?: BadgeKind;
@@ -58,7 +58,7 @@ export interface Widget {
   /** Content of the Widget. */
   readonly content?: React.ReactNode;
   /** @deprecated in 4.16.0. Use {@link Widget.iconNode} instead. */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   readonly icon?: IconSpec;
   /** Icon to use for the widget. */
   readonly iconNode?: React.ReactNode;

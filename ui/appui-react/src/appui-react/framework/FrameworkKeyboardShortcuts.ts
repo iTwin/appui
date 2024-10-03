@@ -34,7 +34,7 @@ export interface FrameworkKeyboardShortcut {
   /** Returns the [[ActionButtonItemDef]] associated with this shortcut.
    * @deprecated in 4.15.0. Use properties of this object instead.
    */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   readonly item: ActionButtonItemDef | undefined;
 
   /** Called when the [[ActionButtonItemDef]] associated with this shortcut is invoked */
@@ -65,10 +65,10 @@ export interface FrameworkKeyboardShortcut {
   isHidden?: boolean | ConditionalBooleanValue;
   isDisabled?: boolean | ConditionalBooleanValue;
   /** @deprecated in 4.16.0. Use {@link FrameworkKeyboardShortcut.badgeKind} property instead. */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   badgeType?: BadgeType;
   /** @deprecated in 4.16.0. Use {@link FrameworkKeyboardShortcut.iconNode} property instead. */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   iconSpec?: IconSpec;
   iconElement?: React.ReactNode;
   trayId: undefined;

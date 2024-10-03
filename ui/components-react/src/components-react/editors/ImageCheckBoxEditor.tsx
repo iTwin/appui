@@ -154,7 +154,7 @@ export class ImageCheckBoxEditor
     const isDisabled = !!this.state.isDisabled;
 
     return (
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       <ImageCheckBox
         inputRef={this._inputElement}
         imageOff={this.state.imageOff}

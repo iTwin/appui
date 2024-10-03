@@ -1466,7 +1466,7 @@ export class CursorPopupManager {
 }
 
 // @alpha
-export class CursorPopupMenu extends React_2.PureComponent<CommonProps, // eslint-disable-line deprecation/deprecation
+export class CursorPopupMenu extends React_2.PureComponent<CommonProps, // eslint-disable-line @typescript-eslint/no-deprecated
 CursorPopupMenuState> {
     // (undocumented)
     componentDidMount(): void;
@@ -1495,7 +1495,7 @@ export type CursorPopupProps = {
     title?: string;
     shadow?: boolean;
     onSizeKnown?: (size: SizeProps) => void;
-} & CommonProps & // eslint-disable-line deprecation/deprecation
+} & CommonProps & // eslint-disable-line @typescript-eslint/no-deprecated
 RequireAtLeastOne<{
     relativePosition: RelativePosition;
     placement: Placement;
@@ -1672,7 +1672,7 @@ export class DrawingNavigationAidControl extends NavigationAidControl {
 }
 
 // @public
-export class ElementTooltip extends React_2.Component<CommonProps, // eslint-disable-line deprecation/deprecation
+export class ElementTooltip extends React_2.Component<CommonProps, // eslint-disable-line @typescript-eslint/no-deprecated
 ElementTooltipState> {
     // (undocumented)
     static hideTooltip(): void;
@@ -4294,7 +4294,7 @@ export class StandardNavigationToolsUiItemsProvider implements UiItemsProvider {
 }
 
 // @public
-export class StandardRotationNavigationAid extends React_2.Component<CommonProps, // eslint-disable-line deprecation/deprecation
+export class StandardRotationNavigationAid extends React_2.Component<CommonProps, // eslint-disable-line @typescript-eslint/no-deprecated
 StandardRotationNavigationAidState> {
     constructor(props: any);
     // (undocumented)
@@ -4623,7 +4623,7 @@ export type ThemeId = `${ColorTheme}` | (string & {});
 export function ThemeManager({ children, ...props }: ThemeManagerProps): React_2.JSX.Element;
 
 // @public
-export class TileLoadingIndicator extends React_2.PureComponent<CommonProps, // eslint-disable-line deprecation/deprecation
+export class TileLoadingIndicator extends React_2.PureComponent<CommonProps, // eslint-disable-line @typescript-eslint/no-deprecated
 TileLoadingIndicatorState> {
     constructor(props: CommonProps);
     // (undocumented)
@@ -5048,7 +5048,7 @@ export class UiFramework {
     static getAvailableSelectionScopes(): PresentationSelectionScope[];
     // @deprecated
     static getColorTheme(): ThemeId;
-    static getCursorMenuData(): // eslint-disable-next-line deprecation/deprecation
+    static getCursorMenuData(): // eslint-disable-next-line @typescript-eslint/no-deprecated
     CursorMenuData | CursorMenuPayload | undefined;
     // @deprecated
     static getDefaultIModelViewportControlId(): string | undefined;
@@ -5375,7 +5375,7 @@ export class ValidationTextbox extends React_2.PureComponent<ValidationTextboxPr
 }
 
 // @beta
-export class ViewAttributesStatusField extends React_2.Component<CommonProps, // eslint-disable-line deprecation/deprecation
+export class ViewAttributesStatusField extends React_2.Component<CommonProps, // eslint-disable-line @typescript-eslint/no-deprecated
 ViewAttributesStatusFieldState> {
     constructor(props: CommonProps);
     // (undocumented)

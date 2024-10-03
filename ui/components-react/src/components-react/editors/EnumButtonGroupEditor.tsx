@@ -195,7 +195,7 @@ export class EnumButtonGroupEditor
         key={choice.label}
         onClick={() => this._handleButtonClick(index)}
       >
-        {/* eslint-disable-next-line deprecation/deprecation */}
+        {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
         <Icon iconSpec={this.state.enumIcons[index].iconSpec} />
       </button>
     );

@@ -18,7 +18,7 @@ import type { IconSpec } from "../icons/IconComponent.js";
 import { Icon } from "../icons/IconComponent.js";
 import { Badge } from "../badge/Badge.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** Properties for the [[ContextMenuItem]] component
  * @public
@@ -39,7 +39,7 @@ export interface ContextMenuItemProps
   /** Badge to be overlaid on the item.
    * @deprecated in 4.16.0. Use `badgeKind` property instead.
    */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   badgeType?: BadgeType;
   /** Specifies the kind of badge, if any, to be overlaid on the item. */
   badgeKind?: "technical-preview" | "new" | "deprecated" | (string & {});
@@ -93,7 +93,7 @@ export class ContextMenuItem extends React.PureComponent<
       isSelected,
       parentMenu,
       onHotKeyParsed,
-      badgeType, // eslint-disable-line deprecation/deprecation
+      badgeType, // eslint-disable-line @typescript-eslint/no-deprecated
       badgeKind,
       iconRight,
       hideIconContainer,

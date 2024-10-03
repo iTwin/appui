@@ -19,7 +19,7 @@ import type { NestedFrontstageAppButton } from "./NestedFrontstageAppButton.js";
 export class NestedFrontstage {
   /** Command that returns to the previous Frontstage */
   public static get backToPreviousFrontstageCommand() {
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     return new CommandItemDef({
       commandId: "backToPreviousFrontstage",
       iconSpec: <SvgProgressBackwardCircular />,

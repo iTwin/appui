@@ -25,19 +25,19 @@ import { useIsMaximizedWidget } from "../enable-maximized-widget/useMaximizedWid
 
 /** Default value used when not provided or disabled. */
 const defaultAlignments = {
-  top: HorizontalAlignment.Justify, // eslint-disable-line deprecation/deprecation
-  bottom: HorizontalAlignment.Justify, // eslint-disable-line deprecation/deprecation
+  top: HorizontalAlignment.Justify, // eslint-disable-line @typescript-eslint/no-deprecated
+  bottom: HorizontalAlignment.Justify, // eslint-disable-line @typescript-eslint/no-deprecated
 };
 
 /** @internal */
 export const HorizontalPanelAlignContext = React.createContext<{
   enabled: boolean;
   alignments: {
-    [side in HorizontalPanelSide]: HorizontalAlignment; // eslint-disable-line deprecation/deprecation
+    [side in HorizontalPanelSide]: HorizontalAlignment; // eslint-disable-line @typescript-eslint/no-deprecated
   };
   setAlignment: (
     panel: PanelSide | undefined,
-    alignment: HorizontalAlignment // eslint-disable-line deprecation/deprecation
+    alignment: HorizontalAlignment // eslint-disable-line @typescript-eslint/no-deprecated
   ) => void;
 }>({
   enabled: false,
@@ -56,13 +56,13 @@ export function PreviewHorizontalPanelAlignFeatureProvider({
   children?: React.ReactNode;
 }) {
   const [alignments, setAlignments] = React.useState<{
-    [x in HorizontalPanelSide]: HorizontalAlignment; // eslint-disable-line deprecation/deprecation
+    [x in HorizontalPanelSide]: HorizontalAlignment; // eslint-disable-line @typescript-eslint/no-deprecated
   }>({
-    top: HorizontalAlignment.Justify, // eslint-disable-line deprecation/deprecation
-    bottom: HorizontalAlignment.Justify, // eslint-disable-line deprecation/deprecation
+    top: HorizontalAlignment.Justify, // eslint-disable-line @typescript-eslint/no-deprecated
+    bottom: HorizontalAlignment.Justify, // eslint-disable-line @typescript-eslint/no-deprecated
   });
   const setAlignment = React.useCallback(
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     (panel: PanelSide | undefined, alignment: HorizontalAlignment) => {
       if (!panel || !isHorizontalPanelSide(panel)) return;
       setAlignments((prev) => ({
@@ -130,16 +130,16 @@ function SvgCenter(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 function getIcon(side: HorizontalPanelSide, alignment: HorizontalAlignment) {
   const scaleY = side === "top" ? "-1" : "1";
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   if (alignment === HorizontalAlignment.Justify)
     return <SvgJustify transform={`scale(1, ${scaleY})`} />;
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   if (alignment === HorizontalAlignment.Center)
     return <SvgCenter transform={`scale(1, ${scaleY})`} />;
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   const scaleX = alignment === HorizontalAlignment.Left ? "1" : "-1";
   return <SvgSide transform={`scale(${scaleX}, ${scaleY})`} />;
 }
@@ -160,10 +160,10 @@ export function PreviewHorizontalPanelAlignButton() {
 
   const getMenuItems = (onClose?: () => void) =>
     [
-      HorizontalAlignment.Justify, // eslint-disable-line deprecation/deprecation
-      HorizontalAlignment.Center, // eslint-disable-line deprecation/deprecation
-      HorizontalAlignment.Left, // eslint-disable-line deprecation/deprecation
-      HorizontalAlignment.Right, // eslint-disable-line deprecation/deprecation
+      HorizontalAlignment.Justify, // eslint-disable-line @typescript-eslint/no-deprecated
+      HorizontalAlignment.Center, // eslint-disable-line @typescript-eslint/no-deprecated
+      HorizontalAlignment.Left, // eslint-disable-line @typescript-eslint/no-deprecated
+      HorizontalAlignment.Right, // eslint-disable-line @typescript-eslint/no-deprecated
     ].map((align) => {
       return (
         <MenuItem

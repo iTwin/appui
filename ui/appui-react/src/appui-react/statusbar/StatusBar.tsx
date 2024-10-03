@@ -20,7 +20,7 @@ import { SafeAreaInsetsHelpers } from "../layout/base/SafeAreaInsets.js";
 import { DockedBar } from "../widget-panels/DockedBar.js";
 import { StatusBarComposer } from "./StatusBarComposer.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** Properties for the [[StatusBar]] React component
  * @public

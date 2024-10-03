@@ -114,7 +114,7 @@ function removeNullChildren(children: React.ReactNode[]) {
  * See https://github.com/tomkp/react-split-pane/blob/master/LICENSE.
  * @public
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export function SplitPane(props: SplitPaneProps) {
   const {
     style,

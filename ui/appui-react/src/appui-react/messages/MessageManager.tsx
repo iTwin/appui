@@ -113,56 +113,56 @@ export interface ToolAssistanceChangedEventArgs {
  * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class MessageAddedEvent extends UiEvent<MessageAddedEventArgs> {}
 
 /** Messages Updated Event class.
  * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class MessagesUpdatedEvent extends UiEvent<{}> {}
 
 /** Activity Message Added Event class.
  * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class ActivityMessageUpdatedEvent extends UiEvent<ActivityMessageEventArgs> {}
 
 /** Activity Message Cancelled Event class.
  * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class ActivityMessageCancelledEvent extends UiEvent<{}> {}
 
 /** Input Field Message Added Event class
  * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class InputFieldMessageAddedEvent extends UiEvent<InputFieldMessageEventArgs> {}
 
 /** Input Field Message Removed Event class.
  * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class InputFieldMessageRemovedEvent extends UiEvent<{}> {}
 
 /** Open Message Center Event class.
  * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class OpenMessageCenterEvent extends UiEvent<{}> {}
 
 /** Tool Assistance Changed event class
  * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class ToolAssistanceChangedEvent extends UiEvent<ToolAssistanceChangedEventArgs> {}
 
 /**
@@ -200,31 +200,31 @@ export class MessageManager {
   }[] = [];
 
   /** The MessageAddedEvent is fired when a message is added via outputMessage(). */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   public static readonly onMessageAddedEvent = new MessageAddedEvent();
 
   /** The MessagesUpdatedEvent is fired when a message is added or the messages are cleared. */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   public static readonly onMessagesUpdatedEvent = new MessagesUpdatedEvent();
 
   /** The ActivityMessageUpdatedEvent is fired when an Activity message updates via outputActivityMessage(). */
   public static readonly onActivityMessageUpdatedEvent =
-    new ActivityMessageUpdatedEvent(); // eslint-disable-line deprecation/deprecation
+    new ActivityMessageUpdatedEvent(); // eslint-disable-line @typescript-eslint/no-deprecated
 
   /** The ActivityMessageCancelledEvent is fired when an Activity message is cancelled via
    * endActivityMessage(ActivityMessageEndReason.Cancelled) or
    * by the user clicking the 'Cancel' link.
    */
   public static readonly onActivityMessageCancelledEvent =
-    new ActivityMessageCancelledEvent(); // eslint-disable-line deprecation/deprecation
+    new ActivityMessageCancelledEvent(); // eslint-disable-line @typescript-eslint/no-deprecated
 
   public static readonly onInputFieldMessageAddedEvent =
-    new InputFieldMessageAddedEvent(); // eslint-disable-line deprecation/deprecation
+    new InputFieldMessageAddedEvent(); // eslint-disable-line @typescript-eslint/no-deprecated
   public static readonly onInputFieldMessageRemovedEvent =
-    new InputFieldMessageRemovedEvent(); // eslint-disable-line deprecation/deprecation
+    new InputFieldMessageRemovedEvent(); // eslint-disable-line @typescript-eslint/no-deprecated
 
   public static readonly onOpenMessageCenterEvent =
-    new OpenMessageCenterEvent(); // eslint-disable-line deprecation/deprecation
+    new OpenMessageCenterEvent(); // eslint-disable-line @typescript-eslint/no-deprecated
 
   /** @internal */
   public static readonly onDisplayMessage: BeUiEvent<{
@@ -240,7 +240,7 @@ export class MessageManager {
    * @public
    */
   public static readonly onToolAssistanceChangedEvent =
-    new ToolAssistanceChangedEvent(); // eslint-disable-line deprecation/deprecation
+    new ToolAssistanceChangedEvent(); // eslint-disable-line @typescript-eslint/no-deprecated
 
   /** List of messages as NotifyMessageDetailsType. */
   public static get messages(): Readonly<NotifyMessageDetailsType[]> {
@@ -555,11 +555,11 @@ export class MessageManager {
 
   /** Output a prompt to the user. A 'prompt' indicates an action the user should take to proceed. */
   public static outputPrompt(prompt: string): void {
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     if (UiFramework.frameworkState) {
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       UiFramework.dispatchActionToStore(
-        // eslint-disable-next-line deprecation/deprecation
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         ConfigurableUiActionId.SetToolPrompt,
         prompt,
         true
@@ -575,10 +575,10 @@ export class MessageManager {
    */
   public static getIconSpecFromDetails(
     details: NotifyMessageDetailsType
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
   ): IconSpec {
     const severity = MessageManager.getSeverity(details);
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     let iconSpec: IconSpec = <SvgStatusSuccess />;
     switch (severity) {
       case MessageSeverity.Error:
@@ -600,7 +600,7 @@ export class MessageManager {
    */
   public static getIconClassName(details: NotifyMessageDetailsType): string {
     const severity = MessageManager.getSeverity(details);
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     const className = MessageContainer.getIconClassName(severity);
     const iconClassName = classnames("icon", "notifymessage-icon", className);
 
@@ -687,7 +687,7 @@ export class MessageManager {
           onFulfilled,
           onRejected
         );
-        // eslint-disable-next-line deprecation/deprecation
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         const messageElement = <MessageRenderer message={message} useSpan />;
         UiFramework.dialogs.modal.open(
           this.standardMessageBox(
@@ -709,11 +709,11 @@ export class MessageManager {
     const iconType = this.getIconType(messageDetails);
     const content = (
       <>
-        {/* eslint-disable-next-line deprecation/deprecation */}
+        {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
         <MessageRenderer message={messageDetails.briefMessage} useSpan />
         {messageDetails.detailedMessage && (
           <p>
-            {/* eslint-disable-next-line deprecation/deprecation */}
+            {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
             <MessageRenderer message={messageDetails.detailedMessage} useSpan />
           </p>
         )}
@@ -739,7 +739,7 @@ export class MessageManager {
     const onResult =
       callbacks !== undefined ? callbacks.handleMessageBoxResult : undefined;
     return (
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       <StandardMessageBox
         opened={true}
         messageBoxType={mbType}

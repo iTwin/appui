@@ -30,7 +30,7 @@ export const withOnOutsideClick = <ComponentProps extends {}>(
   usePointerEvents: boolean = true
 ) => {
   return class WithOnOutsideClick extends React.PureComponent<
-    ComponentProps & WithOnOutsideClickProps // eslint-disable-line deprecation/deprecation
+    ComponentProps & WithOnOutsideClickProps // eslint-disable-line @typescript-eslint/no-deprecated
   > {
     /** @internal */
     public outsideClickContainerDiv?: HTMLDivElement | null = null;

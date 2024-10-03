@@ -27,7 +27,7 @@ export const withIsPressed = <ComponentProps extends {}>(
   Component: React.ComponentType<ComponentProps>
 ) => {
   return class WithIsPressed extends React.PureComponent<
-    ComponentProps & WithIsPressedProps // eslint-disable-line deprecation/deprecation
+    ComponentProps & WithIsPressedProps // eslint-disable-line @typescript-eslint/no-deprecated
   > {
     public handleOnPointerDown = () => {
       this.changeIsPressed(true);

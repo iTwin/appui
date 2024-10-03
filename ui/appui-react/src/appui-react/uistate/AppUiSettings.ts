@@ -15,7 +15,7 @@ import type { UiSyncEventArgs } from "../syncui/UiSyncEvent.js";
 import type { ThemeId } from "../theme/ThemeId.js";
 import { ConfigurableUiActionId } from "../redux/ConfigurableUiState.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** Default values that may be specified for [[AppUiSettings]].
  * @public
@@ -144,7 +144,7 @@ export class AppUiSettings implements UserSettingsProvider {
     SyncUiEventDispatcher.onSyncUiEvent.addListener(this.handleSyncUiEvent);
   }
 
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   private handleSyncUiEvent = async (args: UiSyncEventArgs) => {
     if (this._applyingLocalSettings) return;
 

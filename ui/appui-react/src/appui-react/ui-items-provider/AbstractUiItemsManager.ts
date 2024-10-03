@@ -6,7 +6,7 @@
  * @module UiProvider
  */
 
-/* eslint-disable deprecation/deprecation, @typescript-eslint/ban-ts-comment */
+/* eslint-disable @typescript-eslint/no-deprecated, @typescript-eslint/ban-ts-comment */
 
 import * as abstract from "@itwin/appui-abstract";
 import type { BeUiEvent } from "@itwin/core-bentley";

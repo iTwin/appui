@@ -123,7 +123,7 @@ export interface UiVisibilityEventArgs {
  * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class UiVisibilityChangedEvent extends UiEvent<UiVisibilityEventArgs> {}
 
 /** TrackingTime time argument used by our feature tracking manager as an option argument to the TelemetryClient
@@ -152,7 +152,7 @@ export class UiFramework {
   /** Operation on the backstage component. */
   public static get backstage(): FrameworkBackstage {
     if (!UiFramework._backstageManager)
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       throw new UiError(
         UiFramework.loggerCategory("UiFramework"),
         UiFramework._complaint
@@ -168,7 +168,7 @@ export class UiFramework {
   /** Manage registered controls.
    * @deprecated in 4.16.0. Uses a deprecated interface {@link FrameworkControls}.
    */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   public static get controls(): FrameworkControls {
     return InternalConfigurableUiManager;
   }
@@ -216,7 +216,7 @@ export class UiFramework {
   private static _store?: Store<any>;
   private static _complaint = "UiFramework not initialized";
   private static _frameworkStateKeyInStore: string = "frameworkState"; // default name
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   private static _backstageManager?: BackstageManager;
   private static _widgetManager?: WidgetManager;
   private static _hideIsolateEmphasizeActionHandler?: HideIsolateEmphasizeActionHandler;
@@ -248,7 +248,7 @@ export class UiFramework {
   }
 
   /** Get Show Ui event. */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   public static readonly onUiVisibilityChanged = new UiVisibilityChangedEvent();
 
   /** Called by the application to initialize the UiFramework. Also initializes UIIModelComponents, UiComponents, UiCore. */
@@ -278,9 +278,9 @@ export class UiFramework {
 
     /* if store is undefined then the StateManager class should have been initialized by parent app and the apps default set of reducers registered with it.
       If the app has no reducers to add and does not initialize a StateManager then just initialize the StateManager with the default framework reducer now */
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     if (undefined === store && !StateManager.isInitialized(true))
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       new StateManager();
 
     UiFramework._store = store;
@@ -302,7 +302,7 @@ export class UiFramework {
       IModelApp.tools.registerModule(tool, this.localizationNamespace)
     );
 
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     UiFramework._backstageManager = new BackstageManager();
     UiFramework._hideIsolateEmphasizeActionHandler =
       new HideIsolateEmphasizeManager(); // this allows user to override the default HideIsolateEmphasizeManager implementation.
@@ -333,7 +333,7 @@ export class UiFramework {
     InternalKeyboardShortcutManager.shortcutContainer.emptyData();
     UiFramework._store = undefined;
     UiFramework._frameworkStateKeyInStore = "frameworkState";
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     if (StateManager.isInitialized(true)) StateManager.clearStore();
     IModelApp.localization?.unregisterNamespace(
       UiFramework.localizationNamespace
@@ -367,7 +367,7 @@ export class UiFramework {
 
   public static get hideIsolateEmphasizeActionHandler(): HideIsolateEmphasizeActionHandler {
     if (!UiFramework._hideIsolateEmphasizeActionHandler)
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       throw new UiError(
         UiFramework.loggerCategory("UiFramework"),
         UiFramework._complaint
@@ -387,7 +387,7 @@ export class UiFramework {
   /** @alpha */
   public static get widgetManager(): WidgetManager {
     if (!UiFramework._widgetManager)
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       throw new UiError(
         UiFramework.loggerCategory("UiFramework"),
         UiFramework._complaint
@@ -461,14 +461,14 @@ export class UiFramework {
   }
 
   public static openCursorMenu(
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     menuData: CursorMenuData | CursorMenuPayload | undefined
   ): void {
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     if (this.frameworkState) {
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       UiFramework.dispatchActionToStore(
-        // eslint-disable-next-line deprecation/deprecation
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         SessionStateActionId.UpdateCursorMenu,
         menuData
       );
@@ -476,16 +476,16 @@ export class UiFramework {
     }
 
     useGlobalStore.setState({ cursorMenuPayload: menuData });
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     dispatchSyncUiEvent(SessionStateActionId.UpdateCursorMenu);
   }
 
   public static closeCursorMenu(): void {
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     if (UiFramework.frameworkState) {
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       UiFramework.dispatchActionToStore(
-        // eslint-disable-next-line deprecation/deprecation
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         SessionStateActionId.UpdateCursorMenu,
         undefined
       );
@@ -493,20 +493,20 @@ export class UiFramework {
     }
 
     useGlobalStore.setState({ cursorMenuPayload: undefined });
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     dispatchSyncUiEvent(SessionStateActionId.UpdateCursorMenu);
   }
 
   /** @note Returned value is immutable.  */
-  public static getCursorMenuData(): // eslint-disable-next-line deprecation/deprecation
+  public static getCursorMenuData(): // eslint-disable-next-line @typescript-eslint/no-deprecated
   CursorMenuData | CursorMenuPayload | undefined {
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     const state = this.frameworkState;
     if (state) {
       return (
-        // eslint-disable-next-line deprecation/deprecation
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         state.sessionState.cursorMenuPayload ??
-        // eslint-disable-next-line deprecation/deprecation
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         state.sessionState.cursorMenuData
       );
     }
@@ -529,18 +529,18 @@ export class UiFramework {
     iModelConnection &&
       SyncUiEventDispatcher.initializeConnectionEvents(iModelConnection);
 
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     if (UiFramework.frameworkState) {
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       UiFramework.dispatchActionToStore(
-        // eslint-disable-next-line deprecation/deprecation
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         SessionStateActionId.SetIModelConnection,
         iModelConnection,
         immediateSync
       );
     } else {
       useGlobalStore.setState({ iModelConnection });
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       dispatchSyncUiEvent(SessionStateActionId.SetIModelConnection);
     }
 
@@ -549,27 +549,27 @@ export class UiFramework {
       : 0;
 
     UiFramework.setNumItemsSelected(itemsSelected);
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     UiFramework.setActiveIModelId(iModelConnection?.iModelId ?? "");
     UiFramework.onIModelConnectionChanged.emit(iModelConnection);
   }
 
   public static getIModelConnection(): IModelConnection | undefined {
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     const frameworkState = UiFramework.frameworkState;
     if (frameworkState) {
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       return frameworkState.sessionState.iModelConnection;
     }
     return useGlobalStore.getState().iModelConnection;
   }
 
   public static setNumItemsSelected(numSelected: number) {
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     if (UiFramework.frameworkState) {
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       UiFramework.dispatchActionToStore(
-        // eslint-disable-next-line deprecation/deprecation
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         SessionStateActionId.SetNumItemsSelected,
         numSelected
       );
@@ -577,15 +577,15 @@ export class UiFramework {
     }
 
     useGlobalStore.setState({ numItemsSelected: numSelected });
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     dispatchSyncUiEvent(SessionStateActionId.SetNumItemsSelected);
   }
 
   public static getNumItemsSelected() {
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     const state = this.frameworkState;
     if (state) {
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       return state.sessionState.numItemsSelected;
     }
 
@@ -629,11 +629,11 @@ export class UiFramework {
     viewState: ViewState,
     immediateSync = false
   ) {
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     if (UiFramework.frameworkState) {
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       UiFramework.dispatchActionToStore(
-        // eslint-disable-next-line deprecation/deprecation
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         SessionStateActionId.SetDefaultViewState,
         viewState,
         immediateSync
@@ -643,17 +643,17 @@ export class UiFramework {
 
     useGlobalStore.setState({ viewState });
     dispatchSyncUiEvent(
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       SessionStateActionId.SetDefaultViewState,
       immediateSync
     );
   }
 
   public static getDefaultViewState(): ViewState | undefined {
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     const frameworkState = UiFramework.frameworkState;
     if (frameworkState) {
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       return frameworkState.sessionState.defaultViewState;
     }
     return useGlobalStore.getState().viewState;
@@ -1009,7 +1009,7 @@ export class UiFramework {
     id: string,
     optionalProps?: DialogProps
   ): boolean {
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     const dialog = createElement(UiDataProvidedDialog, {
       uiDataProvider,
       title,
@@ -1062,12 +1062,12 @@ export class UiFramework {
   }
 
   private static resolveHtmlElement(htmlElement?: HTMLElement): HTMLElement {
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     const el = htmlElement ?? UiFramework.controls.getWrapperElement();
     return el;
   }
 
-  /* eslint-disable deprecation/deprecation */
+  /* eslint-disable @typescript-eslint/no-deprecated */
 
   /** @deprecated in 4.15.0. Use your preferred state management library instead and {@link SyncUiEventDispatcher} to dispatch sync UI events. */
   public static dispatchActionToStore(
@@ -1490,7 +1490,7 @@ export class UiFramework {
     );
   }
 
-  /* eslint-enable deprecation/deprecation */
+  /* eslint-enable @typescript-eslint/no-deprecated */
 }
 
 function dispatchSyncUiEvent(eventId: string, immediateSync = false) {

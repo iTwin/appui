@@ -88,7 +88,7 @@ export interface PopupsChangedEventArgs {
  * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class PopupsChangedEvent extends UiEvent<PopupsChangedEventArgs> {}
 
 /** Props for each popup managed by the PopupManager
@@ -136,7 +136,7 @@ export class PopupManager {
 
   private static _defaultOffset = { x: 8, y: 8 };
 
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   public static readonly onPopupsChangedEvent = new PopupsChangedEvent();
 
   public static get popupCount() {
@@ -361,7 +361,7 @@ export class PopupManager {
   ): boolean {
     const id = PopupManager._htmlElementId;
     const component = (
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       <HTMLElementPopup
         id={id}
         el={el}
@@ -633,7 +633,7 @@ export class PopupRenderer extends React.Component<{}, PopupRendererState> {
             .filter(
               (info) =>
                 (info.parent ??
-                  // eslint-disable-next-line deprecation/deprecation
+                  // eslint-disable-next-line @typescript-eslint/no-deprecated
                   info.parentDocument ??
                   this.context.ownerDocument) === this.state.parentDocument
             )

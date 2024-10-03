@@ -18,7 +18,7 @@ import type { BadgeType, IconSpec } from "@itwin/core-react";
 import type { BadgeKind } from "@itwin/core-react/internal";
 import type { ToolbarItem } from "../toolbar/ToolbarItem.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** Base state for any 'stateful' React component.
  * @public

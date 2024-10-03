@@ -57,7 +57,7 @@ interface ThemeManagerProps {
  */
 export function ThemeManager({ children, ...props }: ThemeManagerProps) {
   const reduxTheme = useReduxFrameworkState((state) => {
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     return state?.configurableUiState.theme;
   });
   const theme = props.theme ?? reduxTheme ?? SYSTEM_PREFERRED_COLOR_THEME;

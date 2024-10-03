@@ -94,7 +94,7 @@ export class ToolSettingsPopup extends React.PureComponent<
         point={point}
         onSizeKnown={this._onSizeKnown}
       >
-        {/* eslint-disable-next-line deprecation/deprecation */}
+        {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
         <DivWithOutsideClick
           onOutsideClick={this.props.onCancel}
           onKeyDown={this._handleKeyDown}
