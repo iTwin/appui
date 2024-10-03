@@ -23,7 +23,7 @@ export interface WithOnOutsideClickProps {
  * @public
  * @deprecated in 4.15.0. Used internally.
  */
-export const withOnOutsideClick = <ComponentProps extends {}>(
+export const withOnOutsideClick = <ComponentProps extends object>(
   Component: React.ComponentType<ComponentProps>,
   defaultOnOutsideClick?: (event: MouseEvent) => any,
   useCapture: boolean = true,

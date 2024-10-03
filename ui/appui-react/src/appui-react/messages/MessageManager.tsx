@@ -121,7 +121,7 @@ export class MessageAddedEvent extends UiEvent<MessageAddedEventArgs> {}
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line @typescript-eslint/no-deprecated
-export class MessagesUpdatedEvent extends UiEvent<{}> {}
+export class MessagesUpdatedEvent extends UiEvent<object> {}
 
 /** Activity Message Added Event class.
  * @public
@@ -135,7 +135,7 @@ export class ActivityMessageUpdatedEvent extends UiEvent<ActivityMessageEventArg
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line @typescript-eslint/no-deprecated
-export class ActivityMessageCancelledEvent extends UiEvent<{}> {}
+export class ActivityMessageCancelledEvent extends UiEvent<object> {}
 
 /** Input Field Message Added Event class
  * @public
@@ -149,14 +149,14 @@ export class InputFieldMessageAddedEvent extends UiEvent<InputFieldMessageEventA
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line @typescript-eslint/no-deprecated
-export class InputFieldMessageRemovedEvent extends UiEvent<{}> {}
+export class InputFieldMessageRemovedEvent extends UiEvent<object> {}
 
 /** Open Message Center Event class.
  * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
 // eslint-disable-next-line @typescript-eslint/no-deprecated
-export class OpenMessageCenterEvent extends UiEvent<{}> {}
+export class OpenMessageCenterEvent extends UiEvent<object> {}
 
 /** Tool Assistance Changed event class
  * @public

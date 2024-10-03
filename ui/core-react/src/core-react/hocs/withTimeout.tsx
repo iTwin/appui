@@ -24,7 +24,7 @@ export interface WithTimeoutProps {
  * @public
  * @deprecated in 4.15.0. Not used by AppUI.
  */
-export const withTimeout = <ComponentProps extends {}>(
+export const withTimeout = <ComponentProps extends object>(
   Component: React.ComponentType<ComponentProps>
 ) => {
   return class WithTimeout extends React.PureComponent<

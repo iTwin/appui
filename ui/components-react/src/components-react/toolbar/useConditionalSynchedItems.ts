@@ -16,7 +16,7 @@ import * as React from "react";
  * @param eventIds Set to fill with syncIds
  * @param items ToolbarItems list to search through
  */
-function gatherSyncIds<T extends {} | { items: T[] }>(
+function gatherSyncIds<T extends object | { items: T[] }>(
   eventIds: Set<string>,
   items: readonly T[]
 ) {
@@ -49,7 +49,7 @@ function gatherSyncIds<T extends {} | { items: T[] }>(
  * @param eventIds Set of triggered eventIds.
  * @returns null if no updates occurred, or the provided items with updated values if ANY were updated.
  */
-function refreshItems<T extends {} | { items: T[] }>(
+function refreshItems<T extends object | { items: T[] }>(
   items: readonly T[],
   eventIds: Set<string>
 ): T[] | null {
@@ -94,7 +94,7 @@ function refreshItems<T extends {} | { items: T[] }>(
  * @returns Synched items
  * @internal
  */
-export function useConditionalSynchedItems<T extends {} | { items: T[] }>(
+export function useConditionalSynchedItems<T extends object | { items: T[] }>(
   items: readonly T[],
   syncUiEvent: undefined | BeEvent<(args: { eventIds: Set<string> }) => void>
 ) {
