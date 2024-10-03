@@ -27,10 +27,8 @@
     display: flex;
     flex-direction: column;
 
-    >span {
-      .components-text-editor {
-        height: unset;
-      }
+    .components-text-editor {
+      height: unset;
     }
   }
 
