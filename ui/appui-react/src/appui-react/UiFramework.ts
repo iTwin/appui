@@ -598,7 +598,7 @@ export class UiFramework {
   ) {
     // let any registered providers to load values from the new storage location
     const providerKeys = [...this._uiSettingsProviderRegistry.keys()];
-    for await (const key of providerKeys) {
+    for (const key of providerKeys) {
       await this._uiSettingsProviderRegistry
         .get(key)!
         .loadUserSettings(UiFramework._uiStateStorage);

@@ -187,7 +187,7 @@ export class AppUiSettings implements UserSettingsProvider {
 
   public async apply(storage: UiStateStorage): Promise<void> {
     this._applyingLocalSettings = true;
-    for await (const setting of this._settings) {
+    for (const setting of this._settings) {
       await setting.getSettingAndApplyValue(storage);
     }
     this._applyingLocalSettings = false;
