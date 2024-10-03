@@ -72,6 +72,8 @@ export interface ConfigurableUiContentProps extends CommonProps {
   toolAsToolSettingsLabel?: boolean;
   /** Describes the opacity of toolbars. Uses redux store as a fallback. Defaults to {@link TOOLBAR_OPACITY_DEFAULT}. */
   toolbarOpacity?: number;
+  /** Component to wrap all popout widgets and other window popups opened via {@link UiFramework.childWindows}. */
+  childWindow?: React.ComponentType;
 
   /** @internal */
   idleTimeout?: number;
