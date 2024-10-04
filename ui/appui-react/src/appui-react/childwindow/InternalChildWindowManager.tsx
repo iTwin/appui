@@ -47,6 +47,15 @@ export interface InternalOpenChildWindowInfo extends OpenChildWindowInfo {
   tabId?: TabState["id"];
 }
 
+interface OpenWindowArgs {
+  childWindowId: string;
+  title: string;
+  content: React.ReactNode;
+  location: ChildWindowLocationProps;
+  useDefaultPopoutUrl: boolean;
+  tabId?: TabState["id"];
+}
+
 /** Supports opening a child browser window from the main application window. The child window is managed by the main application
  * and is running in the same security context. The application must deliver the html file iTwinPopup.html along side its index.html.
  * See also: [Child Window Manager]($docs/learning/ui/appui-react/ChildWindows.md)
@@ -169,16 +178,28 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
     title: string,
     content: React.ReactNode,
     location: ChildWindowLocationProps,
-    useDefaultPopoutUrl?: boolean,
-    tabId?: TabState["id"]
+    useDefaultPopoutUrl?: boolean
   ) {
-    if (
-      this.openChildWindows.some(
-        (openWindow) => openWindow.childWindowId === childWindowId
-      )
-    ) {
-      return false;
-    }
+    const childWindow = this.openWindow({
+      childWindowId,
+      title,
+      content,
+      location,
+      useDefaultPopoutUrl: useDefaultPopoutUrl ?? false,
+    });
+    return !!childWindow;
+  }
+
+  /** Used internally to open child windows and popout widgets. */
+  public openWindow({
+    childWindowId,
+    location,
+    useDefaultPopoutUrl,
+    content,
+    title,
+    tabId,
+  }: OpenWindowArgs) {
+    if (this.find(childWindowId)) return undefined;
 
     this.adjustWindowLocation(location);
     const url = useDefaultPopoutUrl ? "/iTwinPopup.html" : "";
@@ -187,9 +208,9 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
       "",
       `width=${location.width},height=${location.height},left=${location.left},top=${location.top},menubar=no,resizable=yes,scrollbars=no,status=no,location=no`
     );
-    if (!childWindow) return false;
+    if (!childWindow) return undefined;
 
-    // Window is opened using inner size which is affected by browser zoom.
+    // Use outer size if available to avoid inner size + browser zoom issues: https://github.com/iTwin/appui/issues/563
     const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
     if (frontstageDef && tabId) {
       const savedTab = frontstageDef.nineZoneState?.savedTabs.byId[tabId];
@@ -246,6 +267,6 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
       false
     );
 
-    return true;
+    return childWindow;
   }
 }

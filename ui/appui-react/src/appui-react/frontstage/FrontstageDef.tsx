@@ -729,14 +729,13 @@ export class FrontstageDef {
       top: bounds.top,
     };
 
-    const result = appUi.windowManager.open(
-      widgetContainerId,
-      widgetDef.label,
-      popoutContent,
-      position,
-      UiFramework.useDefaultPopoutUrl,
-      tabId
-    );
+    const result = appUi.windowManager.openWindow({
+      childWindowId: widgetContainerId,
+      title: widgetDef.label,
+      content: popoutContent,
+      location: position,
+      useDefaultPopoutUrl: UiFramework.useDefaultPopoutUrl,
+    });
 
     if (!result && oldState) {
       this.nineZoneState = oldState;
