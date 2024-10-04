@@ -30,16 +30,11 @@ export const PropertyFilterBuilderToolbar = (
   const { translate } = useTranslation();
 
   return (
-    <Flex
-      className={"fb-toolbar fb-row-toolbar"}
-      gap="0"
-      justifyContent="flex-end"
-    >
+    <Flex className={"fb-toolbar fb-row-toolbar"}>
       <IconButton
         size={"small"}
         className="fb-add-rule-button"
         label={translate("filterBuilder.add")}
-        styleType="borderless"
         onClick={onAddChild}
       >
         <SvgAdd />
