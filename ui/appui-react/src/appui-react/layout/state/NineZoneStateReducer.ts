@@ -626,6 +626,7 @@ export function NineZoneStateReducer(
         contentWidth = tab.preferredFloatingWidgetSize.width;
         contentHeight = tab.preferredFloatingWidgetSize.height;
       } else {
+        // TODO: reducers should be pure
         const popoutContentContainer = document.getElementById(
           `content-container:${id}`
         );
