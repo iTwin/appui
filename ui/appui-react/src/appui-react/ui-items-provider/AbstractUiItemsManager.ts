@@ -6,7 +6,7 @@
  * @module UiProvider
  */
 
-/* eslint-disable deprecation/deprecation, @typescript-eslint/ban-ts-comment */
+/* eslint-disable @typescript-eslint/no-deprecated, @typescript-eslint/ban-ts-comment */
 
 import * as abstract from "@itwin/appui-abstract";
 import type { BeUiEvent } from "@itwin/core-bentley";
@@ -728,13 +728,13 @@ function fromAbstractIcon(
   return iconString;
 }
 
-function getOriginalData<TData>(obj: Object): TData | undefined {
+function getOriginalData<TData>(obj: object): TData | undefined {
   const originalData = (obj as any)[originalDataSymbol];
   if (!originalData) return undefined;
   return originalData;
 }
 
-function setOriginalData<TData>(obj: Object, data: TData) {
+function setOriginalData<TData>(obj: object, data: TData) {
   (obj as any)[originalDataSymbol] = data;
 }
 

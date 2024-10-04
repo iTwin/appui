@@ -15,7 +15,7 @@ import { UiFramework } from "../UiFramework.js";
 import { useTranslation } from "../hooks/useTranslation.js";
 import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState.js";
 
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 interface SelectionScopeFieldProps extends CommonProps {
   /** Describes which selection scope is active. Uses redux store as a fallback. Defaults to `""`. */
   activeScope?: string;
@@ -35,11 +35,11 @@ interface SelectionScopeFieldProps extends CommonProps {
 export function SelectionScopeField(props: SelectionScopeFieldProps) {
   const { translate } = useTranslation();
   const reduxActiveSelectionScope = useReduxFrameworkState(
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     (state) => state?.sessionState.activeSelectionScope
   );
   const reduxAvailableSelectionScopes = useReduxFrameworkState(
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     (state) => state?.sessionState.availableSelectionScopes
   );
 
@@ -67,7 +67,7 @@ export function SelectionScopeField(props: SelectionScopeFieldProps) {
       return;
     }
 
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     UiFramework.setActiveSelectionScope(newValue);
   };
 

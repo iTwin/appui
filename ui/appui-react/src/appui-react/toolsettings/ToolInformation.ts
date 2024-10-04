@@ -11,7 +11,7 @@ import { ConfigurableUiControlType } from "../configurableui/ConfigurableUiContr
 import { UiFramework } from "../UiFramework.js";
 import type { ToolUiProvider } from "./ToolUiProvider.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** Provides information about a tool with a given id, including the ToolUiProvider.
  * @public

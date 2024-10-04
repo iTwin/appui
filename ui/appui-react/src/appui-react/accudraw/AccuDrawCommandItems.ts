@@ -32,7 +32,7 @@ import {
 import type { KeyboardShortcutUtilities } from "../keyboardshortcut/KeyboardShortcutUtilities.js";
 import type { ToolbarItemUtilities } from "../toolbar/ToolbarItemUtilities.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** AccuDraw Command Items - useful in Keyboard Shortcuts
  * @public

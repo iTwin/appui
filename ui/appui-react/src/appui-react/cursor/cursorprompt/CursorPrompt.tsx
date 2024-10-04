@@ -22,7 +22,7 @@ import { CursorPopupManager } from "../cursorpopup/CursorPopupManager.js";
 export class CursorPrompt {
   private _timeOut: number;
   private _fadeOut: boolean;
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   private _timer: Timer;
   private _relativePosition = RelativePosition.BottomRight;
   private _offset: Point = new Point(20, 20);
@@ -31,7 +31,7 @@ export class CursorPrompt {
   constructor(timeOut: number, fadeOut: boolean) {
     this._timeOut = timeOut;
     this._fadeOut = fadeOut;
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     this._timer = new Timer(timeOut);
   }
 
@@ -53,7 +53,7 @@ export class CursorPrompt {
       <div className="uifw-cursor-prompt">
         {toolIconSpec && (
           <span className="uifw-cursor-prompt-icon">
-            {/* eslint-disable-next-line deprecation/deprecation */}
+            {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
             <Icon iconSpec={toolIconSpec} />
           </span>
         )}

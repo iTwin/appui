@@ -30,7 +30,7 @@ interface ResultSelectorState {
 /** [[ResultSelector]] React Component properties
  * @public
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface ResultSelectorProps extends CommonProps {
   /** Total number of results/entries */
   resultCount: number;
@@ -140,7 +140,7 @@ export class ResultSelector extends React.PureComponent<
           onClick={this._onClickPrevious}
           disabled={this.props.resultCount <= 0}
         >
-          {/* eslint-disable-next-line deprecation/deprecation */}
+          {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
           <Icon iconSpec={<SvgChevronLeft />} />
         </button>
 
@@ -176,7 +176,7 @@ export class ResultSelector extends React.PureComponent<
           onClick={this._onClickNext}
           disabled={this.props.resultCount <= 0}
         >
-          {/* eslint-disable-next-line deprecation/deprecation */}
+          {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
           <Icon iconSpec={<SvgChevronRight />} />
         </button>
       </span>

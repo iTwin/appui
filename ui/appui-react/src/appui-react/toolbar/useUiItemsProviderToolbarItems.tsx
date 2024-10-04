@@ -20,7 +20,7 @@ import { useActiveStageProvidedToolbarItems } from "./useActiveStageProvidedTool
  * @deprecated in 4.4.0. This uses ToolbarItemsManager which is internal, directly use [[ToolbarComposer]] instead.
  */
 export const useUiItemsProviderToolbarItems = (
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   manager: ToolbarItemsManager,
   toolbarUsage: ToolbarUsage,
   toolbarOrientation: ToolbarOrientation

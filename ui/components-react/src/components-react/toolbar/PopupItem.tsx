@@ -23,7 +23,7 @@ import {
   toToolbarPopupRelativePosition,
 } from "./PopupItemWithDrag.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /**
  * @public

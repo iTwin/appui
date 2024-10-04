@@ -9,7 +9,7 @@
 import { connect } from "react-redux";
 import { UiFramework } from "../UiFramework.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** Private function that will map store's iModelConnection to the 'iModelConnection', 'iModel', and 'imodel' properties of props. This
  * is not ideal but it is a result of not having standard prop name for an iModelConnection.

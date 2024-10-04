@@ -42,7 +42,7 @@ export interface DatePickerProps {
  * @alpha
  * @deprecated in 4.11.0. Use {@link https://itwinui.bentley.com/docs/datepicker iTwinUI date picker} instead.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export function DatePicker(props: DatePickerProps) {
   const { translate } = useTranslation();
   const previousMonthLabel = translate("datepicker.previousMonth");
@@ -232,7 +232,7 @@ export function DatePicker(props: DatePickerProps) {
           title={previousMonthLabel}
           onClick={handleMoveToPreviousMonth}
         >
-          {/* eslint-disable-next-line deprecation/deprecation */}
+          {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
           <Icon iconSpec={<SvgChevronLeft />} />
         </button>
         <span className="components-month-year">
@@ -243,7 +243,7 @@ export function DatePicker(props: DatePickerProps) {
           title={nextMonthLabel}
           onClick={handleMoveToNextMonth}
         >
-          {/* eslint-disable-next-line deprecation/deprecation */}
+          {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
           <Icon iconSpec={<SvgChevronRight />} />
         </button>
       </div>

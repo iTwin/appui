@@ -16,7 +16,7 @@ import { useToolSettingsEntry } from "./Docked.js";
 /** Properties of [[ToolSetting]] component.
  * @internal
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface ToolSettingProps extends CommonProps {
   /** Tool setting content. */
   children?: React.ReactNode;

@@ -27,7 +27,7 @@ import { StatusBarPopover } from "../statusbar/popup/StatusBarPopover.js";
 /** Sections Status Field Props
  * @beta
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface SectionsStatusFieldProps extends CommonProps {
   hideWhenUnused?: boolean;
 }
@@ -112,7 +112,7 @@ export function SectionsStatusField(props: SectionsStatusFieldProps) {
             styleType="borderless"
             data-testid="sections-status-field-button"
           >
-            {/* eslint-disable-next-line deprecation/deprecation */}
+            {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
             <Icon iconSpec={svgSectionTool} />
             <StatusBarPopover.ExpandIndicator />
           </IconButton>

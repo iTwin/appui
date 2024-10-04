@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 import * as React from "react";
 import { Point } from "@itwin/core-react/internal";
@@ -286,7 +286,7 @@ function UnitSystemSelectorFunction() {
 }
 
 function PositionPopupExample() {
-  const [isOpen, setIsOpen] = React.useState<Boolean>(false);
+  const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
   return (
     <>

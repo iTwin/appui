@@ -17,7 +17,7 @@ import { BeUiEvent } from "@itwin/core-bentley";
 export class InternalModalDialogManager {
   /** Modal Dialog Changed Event */
   public static readonly onModalDialogChangedEvent =
-    new BeUiEvent<DialogChangedEventArgs>(); // eslint-disable-line deprecation/deprecation
+    new BeUiEvent<DialogChangedEventArgs>(); // eslint-disable-line @typescript-eslint/no-deprecated
 
   /** @internal */
   public static readonly dialogManager: DialogManagerBase =

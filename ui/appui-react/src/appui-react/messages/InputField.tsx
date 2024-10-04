@@ -72,7 +72,7 @@ export class InputFieldMessage extends React.PureComponent<
     }
 
     return (
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       <Popup
         isOpen={isVisible}
         position={RelativePosition.BottomLeft}
@@ -84,13 +84,13 @@ export class InputFieldMessage extends React.PureComponent<
             <div className="uifw-popup-message-inputField-primary">
               <FieldIcon priority={priority} />
               <span className="uifw-popup-message-text">
-                {/* eslint-disable-next-line deprecation/deprecation */}
+                {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
                 <MessageRenderer
                   className="uifw-popup-message-brief"
                   message={message}
                 />
                 {detailedMessage && (
-                  // eslint-disable-next-line deprecation/deprecation
+                  // eslint-disable-next-line @typescript-eslint/no-deprecated
                   <MessageRenderer
                     className="uifw-popup-message-detailed"
                     message={detailedMessage}
@@ -107,7 +107,7 @@ export class InputFieldMessage extends React.PureComponent<
               role="button"
               tabIndex={-1}
             >
-              {/* eslint-disable-next-line deprecation/deprecation */}
+              {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
               <CoreIcon iconSpec={<SvgClose />} />
             </div>
           )}

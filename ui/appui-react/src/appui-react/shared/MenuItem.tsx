@@ -25,7 +25,7 @@ import type { ConditionalStringValue } from "./ConditionalValue.js";
 /** Properties for context menu items.
  * @public
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface CursorMenuItemProps extends CommonProps {
   /** The id for the menu item. */
   id: string;
@@ -34,12 +34,12 @@ export interface CursorMenuItemProps extends CommonProps {
   /** Icon to display.
    * @deprecated in 4.16.0. Use {@link CursorMenuItemProps.iconNode} instead.
    */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   iconSpec?: IconSpec;
   /** The item to execute when this item is invoked. Either 'item', 'submenu' or `execute` must be specified.
    * @deprecated in 4.15.0. Use properties of this object instead.
    */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   item?: CommandItemProps;
   /** Function to execute. */
   execute?: () => any;
@@ -65,14 +65,14 @@ export interface CursorMenuItemProps extends CommonProps {
   /** Badge to be overlaid on the item.
    * @deprecated in 4.16.0. Use `badgeKind` property instead.
    */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   badgeType?: BadgeType;
   /** Specifies the kind of badge, if any, to be overlaid on the item. */
   badgeKind?: BadgeKind;
   /** Abstract icon definition. Used when creating itemDef from abstract item (ie. MenuItem).
    * @deprecated in 4.16.0. Use {@link CursorMenuItemProps.iconNode} instead.
    */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   icon?: IconSpec;
 
   /** if set, it is used to explicitly set the label shown by a component. */
@@ -92,7 +92,7 @@ export interface CursorMenuItemProps extends CommonProps {
   // #endregion "ItemProps"
 }
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** Menu Item Properties
  * @public
@@ -136,7 +136,7 @@ export class MenuItem extends ItemDefBase {
         this._submenu.push(childItem);
       });
     } else {
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       throw new UiError(
         UiFramework.loggerCategory("MenuItem"),
         `Either 'item', 'execute' or 'submenu' must be specified for '${props.id}'.`

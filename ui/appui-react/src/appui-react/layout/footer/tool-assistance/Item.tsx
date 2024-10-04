@@ -14,7 +14,7 @@ import type { CommonProps } from "@itwin/core-react";
 /** Properties of [[ToolAssistanceItem]] component.
  * @internal
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface ToolAssistanceItemProps extends CommonProps {
   /** Assistance instructions or components */
   children?: React.ReactNode;

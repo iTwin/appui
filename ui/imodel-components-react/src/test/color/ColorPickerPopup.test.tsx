@@ -12,7 +12,7 @@ import { ColorValue } from "@itwin/itwinui-react";
 import { TestUtils } from "../TestUtils.js";
 import { ColorPickerPopup } from "../../imodel-components-react/color/ColorPickerPopup.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 describe("<ColorPickerPopup/>", () => {
   const colorDef = ColorDef.create(ColorByName.blue);

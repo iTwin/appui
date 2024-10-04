@@ -21,7 +21,7 @@ import type { StageUsage } from "./StageUsage.js";
  * @public
  * @deprecated in 4.15.0. Use {@link Frontstage} instead.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface FrontstageConfig extends CommonProps {
   /** Id of the frontstage. To ensure uniqueness it is common practice to format id like `appName:stageId` */
   readonly id: string;

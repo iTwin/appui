@@ -74,7 +74,7 @@ export class UiItemsManager {
   private static _registeredUiItemsProviders: Map<string, UiItemProviderEntry> =
     new Map<string, UiItemProviderEntry>();
   private static _onUiProviderRegisteredEvent =
-    new BeUiEvent<UiItemsProviderRegisteredEventArgs>(); // eslint-disable-line deprecation/deprecation
+    new BeUiEvent<UiItemsProviderRegisteredEventArgs>(); // eslint-disable-line @typescript-eslint/no-deprecated
   private static _abstractAdapter = createAbstractUiItemsManagerAdapter();
 
   /** For use in unit testing
@@ -97,7 +97,7 @@ export class UiItemsManager {
   }
 
   /** Event raised any time a UiProvider is registered or unregistered. */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   public static get onUiProviderRegisteredEvent(): BeUiEvent<UiItemsProviderRegisteredEventArgs> {
     if (this._abstractAdapter)
       return this._abstractAdapter.onUiProviderRegisteredEvent;
@@ -135,7 +135,7 @@ export class UiItemsManager {
     return UiItemsManager._registeredUiItemsProviders.get(providerId)?.provider;
   }
 
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   private static sendRegisteredEvent(args: UiItemsProviderRegisteredEventArgs) {
     UiItemsManager.onUiProviderRegisteredEvent.raiseEvent(args);
   }

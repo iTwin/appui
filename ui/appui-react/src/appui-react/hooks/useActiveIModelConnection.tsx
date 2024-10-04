@@ -23,7 +23,7 @@ export function useActiveIModelConnection(): IModelConnection | undefined {
   );
   useEffect(() => {
     return SyncUiEventDispatcher.onSyncUiEvent.addListener((args) => {
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       const eventIds = [SessionStateActionId.SetIModelConnection];
       if (
         eventIds.some((value: string): boolean =>

@@ -14,7 +14,7 @@ import { FrameworkReducer, type FrameworkState } from "./FrameworkState.js";
 import type { NameToReducerMap } from "./ReducerRegistry.js";
 import { ReducerRegistryInstance } from "./ReducerRegistry.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** Generic 'root' state for the appui-react package. Since this state contains common values needed by many applications
  * it is automatically added to the Redux store when using [[StateManager]].
@@ -63,7 +63,7 @@ export class StateManager {
     );
 
     // create the Redux Store.
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     this._store = createStore(
       allReducers,
       (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
@@ -102,7 +102,7 @@ export class StateManager {
     if (StateManager.isInitialized()) {
       return StateManager._singletonStore!;
     } else {
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       throw new UiError(
         StateManager._LOG_CATEGORY,
         `Redux Store has not been initialized`

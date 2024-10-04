@@ -20,7 +20,7 @@ import { UiItemsManager } from "./UiItemsManager.js";
  * @public
  * @deprecated in 4.17.0. Use {@link StandardNavigationToolsUiItemsProvider} instead. Supported frontstages can be specified when registering the provider.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class StandardNavigationToolsProvider extends BaseUiItemsProvider {
   private uiItemsProvider: StandardNavigationToolsUiItemsProvider;
   /**
@@ -41,7 +41,7 @@ export class StandardNavigationToolsProvider extends BaseUiItemsProvider {
       stageAppData?: any
     ) => boolean
   ) {
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     const provider = new StandardNavigationToolsProvider(
       providerId,
       defaultNavigationTools,
@@ -73,7 +73,7 @@ export class StandardNavigationToolsProvider extends BaseUiItemsProvider {
     toolbarOrientation: ToolbarOrientation,
     _stageAppData?: any
   ): ToolbarItem[] {
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     return this.uiItemsProvider.provideToolbarItems(
       _stageId,
       _stageUsage,

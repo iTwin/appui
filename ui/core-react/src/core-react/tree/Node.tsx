@@ -14,7 +14,7 @@ import { CheckBoxState } from "../enums/CheckBoxState.js";
 import type { CommonProps } from "../utils/Props.js";
 import { ExpansionToggle } from "./ExpansionToggle.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 type CheckboxProps = React.ComponentPropsWithoutRef<typeof Checkbox>;
 

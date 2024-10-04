@@ -35,7 +35,7 @@ export interface BasicToolWidgetProps {
  * This definition will also show a overflow button if there is not enough room to display all the toolbar buttons.
  * @public
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export function BasicToolWidget(props: BasicToolWidgetProps) {
   const getHorizontalToolbarItems = React.useCallback(
     (useCategoryAndModelsContextTools: boolean): ToolbarItem[] => {

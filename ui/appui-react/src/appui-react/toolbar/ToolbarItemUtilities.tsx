@@ -221,7 +221,7 @@ export namespace ToolbarItemUtilities {
     toolType: ToolType,
     overrides?: Partial<ToolbarActionItem>
   ): ToolbarActionItem {
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     return ToolbarItemUtilities.createActionItem(
       toolType.toolId,
       0,

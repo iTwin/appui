@@ -18,7 +18,7 @@ import { useTranslation } from "../hooks/useTranslation.js";
 interface UseActivityMessageProps {
   cancelActivityMessage?: () => void;
   dismissActivityMessage?: () => void;
-  activityMessageInfo?: ActivityMessageEventArgs; // eslint-disable-line deprecation/deprecation
+  activityMessageInfo?: ActivityMessageEventArgs; // eslint-disable-line @typescript-eslint/no-deprecated
 }
 
 /** Hook to render an Activity message.
@@ -73,7 +73,7 @@ function useActivityMessage({
  */
 export function MessageRenderer() {
   const [activityMessageInfo, setActivityMessageInfo] = React.useState<
-    ActivityMessageEventArgs | undefined // eslint-disable-line deprecation/deprecation
+    ActivityMessageEventArgs | undefined // eslint-disable-line @typescript-eslint/no-deprecated
   >();
   React.useEffect(() => {
     return MessageManager.onActivityMessageUpdatedEvent.addListener((args) => {
@@ -102,7 +102,7 @@ export function MessageRenderer() {
 function ActivityMessageContent({
   initialActivityMessageInfo,
 }: {
-  initialActivityMessageInfo: ActivityMessageEventArgs; // eslint-disable-line deprecation/deprecation
+  initialActivityMessageInfo: ActivityMessageEventArgs; // eslint-disable-line @typescript-eslint/no-deprecated
 }) {
   const { translate } = useTranslation();
 
@@ -122,7 +122,7 @@ function ActivityMessageContent({
       {activityMessageInfo.message && (
         <Text>
           <>
-            {/* eslint-disable-next-line deprecation/deprecation */}
+            {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
             {(activityMessageInfo.message as ReactMessage).reactNode ||
               activityMessageInfo.message}
           </>
@@ -160,11 +160,11 @@ function useDisplayMessage() {
       });
       const content = (
         <>
-          {/* eslint-disable-next-line deprecation/deprecation */}
+          {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
           <CoreMessageRenderer message={message.briefMessage} />
           {message.detailedMessage && (
             <Text variant="small">
-              {/* eslint-disable-next-line deprecation/deprecation */}
+              {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
               <CoreMessageRenderer message={message.detailedMessage} />
             </Text>
           )}

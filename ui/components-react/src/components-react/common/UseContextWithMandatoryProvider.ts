@@ -20,7 +20,7 @@ export function createContextWithMandatoryProvider<T>(
   ) {
     const value = React.useContext(context);
     if (value === undefined) {
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       throw new UiError(
         UiComponents.loggerCategory("createContextWithMandatoryProvider"),
         `'${ConsumingComponent.displayName}' expects to be wrapped by a '${contextName}' provider.`

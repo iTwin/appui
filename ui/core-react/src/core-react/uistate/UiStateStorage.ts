@@ -6,7 +6,7 @@
  * @module UiStateStorage
  */
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** Interface for getting, saving and deleting settings.
  * @public

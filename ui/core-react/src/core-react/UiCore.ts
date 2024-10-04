@@ -15,7 +15,7 @@ import "./classes.scss";
 import { Logger } from "@itwin/core-bentley";
 import type { Localization } from "@itwin/core-common";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** Manages the Localization service for the core-react package.
  * @public

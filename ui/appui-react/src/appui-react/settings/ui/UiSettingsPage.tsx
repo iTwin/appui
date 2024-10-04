@@ -24,7 +24,7 @@ import {
 } from "../../theme/ThemeId.js";
 import { ConfigurableUiActionId } from "../../redux/ConfigurableUiState.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** UiSettingsPage displaying the active UI settings. This page lets users set the following settings.
  *
@@ -62,7 +62,7 @@ export function UiSettingsPage() {
     () => UiFramework.visibility.autoHideUi
   );
   const [useProximityOpacity, setUseProximityOpacity] = React.useState(
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     () => UiFramework.visibility.useProximityOpacity
   );
   const [snapWidgetOpacity, setSnapWidgetOpacity] = React.useState(
@@ -107,9 +107,9 @@ export function UiSettingsPage() {
           setWidgetOpacity(UiFramework.getWidgetOpacity());
         if (UiFramework.visibility.autoHideUi !== autoHideUi)
           setAutoHideUi(UiFramework.visibility.autoHideUi);
-        // eslint-disable-next-line deprecation/deprecation
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         if (UiFramework.visibility.useProximityOpacity !== useProximityOpacity)
-          // eslint-disable-next-line deprecation/deprecation
+          // eslint-disable-next-line @typescript-eslint/no-deprecated
           setUseProximityOpacity(UiFramework.visibility.useProximityOpacity);
         if (UiFramework.visibility.snapWidgetOpacity !== snapWidgetOpacity)
           setSnapWidgetOpacity(UiFramework.visibility.snapWidgetOpacity);
@@ -174,7 +174,7 @@ export function UiSettingsPage() {
   }, [autoHideUi]);
 
   const onUseProximityOpacityChange = React.useCallback(async () => {
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     UiFramework.visibility.useProximityOpacity = !useProximityOpacity;
   }, [useProximityOpacity]);
 

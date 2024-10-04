@@ -12,7 +12,7 @@ import { ConfigurableUiReducer } from "./ConfigurableUiState.js";
 import type { SessionState } from "./SessionState.js";
 import { SessionStateReducer } from "./SessionState.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** Interface combining all the Framework state interfaces.
  * @public

@@ -12,7 +12,7 @@ import {
 } from "../../appui-react.js";
 import TestUtils from "../TestUtils.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 describe("SelectionInfoField", () => {
   it("SelectionInfoField should render with 0", () => {

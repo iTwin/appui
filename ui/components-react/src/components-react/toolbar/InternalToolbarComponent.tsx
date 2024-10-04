@@ -77,17 +77,17 @@ export function useToolbarPopupAutoHideContext() {
  * @public
  * @deprecated in 4.0.0. Use [ToolbarItem]($appui-react) instead.
  */
-export type ToolbarItem = ActionButton | GroupButton | CustomToolbarItem; // eslint-disable-line deprecation/deprecation
+export type ToolbarItem = ActionButton | GroupButton | CustomToolbarItem; // eslint-disable-line @typescript-eslint/no-deprecated
 
 /** CustomToolbarItem type guard.
  * @internal
  */
 export function isCustomToolbarItem(
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   item: ToolbarItem
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
 ): item is CustomToolbarItem {
-  return !!(item as CustomToolbarItem).isCustom && "panelContentNode" in item; // eslint-disable-line deprecation/deprecation
+  return !!(item as CustomToolbarItem).isCustom && "panelContentNode" in item; // eslint-disable-line @typescript-eslint/no-deprecated
 }
 
 /** @internal */
@@ -181,7 +181,7 @@ function CustomItem({
   addGroupSeparator,
   badgeKind,
 }: {
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   item: CustomToolbarItem;
   addGroupSeparator: boolean;
   badgeKind?: BadgeKind;
@@ -190,9 +190,9 @@ function CustomItem({
   const icon = React.useMemo(
     () =>
       (item.icon &&
-        // eslint-disable-next-line deprecation/deprecation
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         IconHelper.getIconReactNode(item.icon, item.internalData)) || (
-        // eslint-disable-next-line deprecation/deprecation
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         <Icon className="icon" iconSpec={<SvgPlaceholder />} />
       ),
     [item.icon, item.internalData]
@@ -207,7 +207,7 @@ function CustomItem({
   );
 
   return (
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     <PopupItem
       key={item.id}
       itemId={item.id}
@@ -243,14 +243,14 @@ function GroupPopupItem({
     "providerId" in item ? (item.providerId as string) : undefined;
   if (useDragInteraction) {
     return (
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       <PopupItemWithDrag
         key={item.id}
         itemId={item.id}
         providerId={providerId}
         itemPriority={item.itemPriority}
         groupPriority={item.groupPriority}
-        // eslint-disable-next-line deprecation/deprecation
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         icon={IconHelper.getIconReactNode(item.icon, item.internalData)}
         isDisabled={ConditionalBooleanValue.getValue(item.isDisabled)}
         title={title}
@@ -261,14 +261,14 @@ function GroupPopupItem({
     );
   }
   return (
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     <PopupItem
       key={item.id}
       itemId={item.id}
       providerId={providerId}
       itemPriority={item.itemPriority}
       groupPriority={item.groupPriority}
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       icon={IconHelper.getIconReactNode(item.icon, item.internalData)}
       isDisabled={ConditionalBooleanValue.getValue(item.isDisabled)}
       title={title}
@@ -308,7 +308,7 @@ function ActionItem({
       key={item.id}
       isDisabled={ConditionalBooleanValue.getValue(item.isDisabled)}
       title={title}
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       icon={IconHelper.getIconReactNode(item.icon, item.internalData)}
       isActive={item.isActive}
       onClick={onExecute}
@@ -324,7 +324,7 @@ export function ToolbarItemComponent({
   addGroupSeparator,
   badgeKind,
 }: {
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   item: ToolbarItem;
   addGroupSeparator: boolean;
   badgeKind?: BadgeKind;
@@ -406,8 +406,8 @@ export type CommonToolbarItemWithBadgeKind = CommonToolbarItem & {
  * @internal
  */
 export interface InternalToolbarComponentProps
-  extends CommonProps, // eslint-disable-line deprecation/deprecation
-    // eslint-disable-next-line deprecation/deprecation
+  extends CommonProps, // eslint-disable-line @typescript-eslint/no-deprecated
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     NoChildrenProps {
   /** Describes to which direction the popup panels are expanded. Defaults to: [[Direction.Bottom]] */
   expandsTo?: Direction;

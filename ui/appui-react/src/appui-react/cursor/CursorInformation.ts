@@ -49,7 +49,7 @@ export interface CursorUpdatedEventArgs {
  * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class CursorUpdatedEvent extends UiEvent<CursorUpdatedEventArgs> {}
 
 /** Cursor Information class
@@ -85,7 +85,7 @@ export class CursorInformation {
   }
 
   /** Gets the [[CursorUpdatedEvent]]. */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   public static readonly onCursorUpdatedEvent = new CursorUpdatedEvent();
 
   /** Handles the mouse movement.  Sets the cursor position and direction and emits onCursorUpdatedEvent. */

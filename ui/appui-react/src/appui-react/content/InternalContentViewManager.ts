@@ -29,7 +29,7 @@ export class InternalContentViewManager {
 
   /** Gets the [[MouseDownChangedEvent]] */
   public static readonly onMouseDownChangedEvent =
-    new BeUiEvent<MouseDownChangedEventArgs>(); // eslint-disable-line deprecation/deprecation
+    new BeUiEvent<MouseDownChangedEventArgs>(); // eslint-disable-line @typescript-eslint/no-deprecated
 
   /** Determines if the mouse is down in a content view */
   public static get isMouseDown(): boolean {
@@ -44,11 +44,11 @@ export class InternalContentViewManager {
 
   /** Gets the [[ActiveContentChangedEvent]] */
   public static readonly onActiveContentChangedEvent =
-    new BeUiEvent<ActiveContentChangedEventArgs>(); // eslint-disable-line deprecation/deprecation
+    new BeUiEvent<ActiveContentChangedEventArgs>(); // eslint-disable-line @typescript-eslint/no-deprecated
 
   /** Fires when floating contents are added or removed */
 
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   public static readonly onAvailableContentChangedEvent = new BeUiEvent<{
     contentId: string;
   }>();
@@ -61,7 +61,7 @@ export class InternalContentViewManager {
   private static getControlFromElement(
     content: React.ReactNode,
     activeContentGroup: ContentGroup | undefined,
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     floatingControls: ContentControl[] | undefined,
     logIfNotFound = false
   ) {
@@ -91,7 +91,7 @@ export class InternalContentViewManager {
     // if it's not a floating control, look through the content area views
     if (activeContentGroup) {
       const activeContentControl =
-        // eslint-disable-next-line deprecation/deprecation
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         activeContentGroup.getControlFromElement(content);
       if (activeContentControl) return activeContentControl;
     }
@@ -106,9 +106,9 @@ export class InternalContentViewManager {
   }
 
   /** Return the active ContentControl. */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   public static getActiveContentControl(): ContentControl | undefined {
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     let activeContentControl: ContentControl | undefined;
     const activeFrontstageDef = UiFramework.frontstages.activeFrontstageDef;
 
@@ -117,7 +117,7 @@ export class InternalContentViewManager {
       activeContentControl = this.getControlFromElement(
         this._activeContent,
         activeContentGroup,
-        // eslint-disable-next-line deprecation/deprecation
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         activeFrontstageDef.floatingContentControls
       );
     }
@@ -125,20 +125,20 @@ export class InternalContentViewManager {
     return activeContentControl;
   }
 
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   public static addFloatingContentControl(contentControl?: ContentControl) {
     const activeFrontstageDef = UiFramework.frontstages.activeFrontstageDef;
     if (activeFrontstageDef && contentControl) {
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       activeFrontstageDef.addFloatingContentControl(contentControl);
     }
   }
 
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   public static dropFloatingContentControl(contentControl?: ContentControl) {
     const activeFrontstageDef = UiFramework.frontstages.activeFrontstageDef;
     if (activeFrontstageDef && contentControl)
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       activeFrontstageDef.dropFloatingContentControl(contentControl);
   }
 
@@ -171,13 +171,13 @@ export class InternalContentViewManager {
       const oldContentControl = this.getControlFromElement(
         oldContent,
         contentGroup,
-        // eslint-disable-next-line deprecation/deprecation
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         frontstageDef.floatingContentControls
       );
       const activeContentControl = this.getControlFromElement(
         activeContent,
         contentGroup,
-        // eslint-disable-next-line deprecation/deprecation
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         frontstageDef.floatingContentControls,
         true
       );
@@ -197,7 +197,7 @@ export class InternalContentViewManager {
         (oldContentControl && !oldContentControl.viewport);
 
       if (doSetActiveView) {
-        // eslint-disable-next-line deprecation/deprecation
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         frontstageDef.setActiveView(activeContentControl, oldContentControl);
         this.onActiveContentChangedEvent.emit({
           id: activeContentControl.controlId,
@@ -219,7 +219,7 @@ export class InternalContentViewManager {
 
   public static setActiveId(contentId?: string) {
     if (!contentId) {
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       this.setActive(contentId);
       return;
     }
@@ -237,16 +237,16 @@ export class InternalContentViewManager {
 
     const contentProps = contentGroup.contentPropsList[contentIndex];
     if (contentProps.content) {
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       this.setActive(contentProps.content);
       return;
     }
 
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     const control = contentGroup.getContentControl(contentProps, contentIndex);
     if (!control) return;
 
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     this.setActive(control.reactNode);
   }
 
@@ -269,7 +269,7 @@ export class InternalContentViewManager {
   /** Refreshes the active [[ContentControl]]. */
   public static refreshActive(activeContent: React.ReactNode) {
     this.layouts.refreshActive();
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     this.setActive(activeContent, true);
   }
 
@@ -278,7 +278,7 @@ export class InternalContentViewManager {
    * @param content ContentControl to check
    */
   public static isContentSheetView(
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     content: ContentControl | undefined
   ): boolean {
     if (!content || !content.viewport) return false;
@@ -290,7 +290,7 @@ export class InternalContentViewManager {
    * @param content ContentControl to check
    */
   public static isContentDrawingView(
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     content: ContentControl | undefined
   ): boolean {
     if (!content || !content.viewport) return false;
@@ -302,7 +302,7 @@ export class InternalContentViewManager {
    * @param content ContentControl to check
    */
   public static isContentSpatialView(
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     content: ContentControl | undefined
   ): boolean {
     if (!content || !content.viewport) return false;
@@ -314,7 +314,7 @@ export class InternalContentViewManager {
    * @param content ContentControl to check
    */
   public static isContentOrthographicView(
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     content: ContentControl | undefined
   ): boolean {
     if (!content || !content.viewport) return false;
@@ -325,7 +325,7 @@ export class InternalContentViewManager {
    * Determines if content displays a 3d view.
    * @param content ContentControl to check
    */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   public static isContent3dView(content: ContentControl | undefined): boolean {
     if (!content || !content.viewport) return false;
     return ViewUtilities.is3dView(content.viewport);
@@ -336,7 +336,7 @@ export class InternalContentViewManager {
    * @param content ContentControl to check
    */
   public static contentSupportsCamera(
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     content: ContentControl | undefined
   ): boolean {
     if (!content || !content.viewport) return false;

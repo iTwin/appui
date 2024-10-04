@@ -30,7 +30,7 @@ import {
 import { useDragInteraction } from "./useDragInteraction.js";
 import { Direction } from "./utilities/Direction.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** Properties of [[PopupItemWithDrag]] component.
  * @public

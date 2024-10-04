@@ -18,7 +18,7 @@ import "./ParsedInput.scss";
  * @public
  * @deprecated in 4.17.0. Use `React.ComponentProps<typeof ParsedInput>`
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface ParsedInputProps extends CommonProps {
   /** InitialValue which is used to restore input field if ESC is pressed */
   initialValue: number;
@@ -36,7 +36,7 @@ export interface ParsedInputProps extends CommonProps {
 
 const ForwardRefParsedInput = React.forwardRef<
   HTMLInputElement,
-  /* eslint-disable-next-line deprecation/deprecation */
+  /* eslint-disable-next-line @typescript-eslint/no-deprecated */
   ParsedInputProps
 >(function ForwardRefParsedInput(
   {
@@ -158,6 +158,6 @@ const ForwardRefParsedInput = React.forwardRef<
 /** Generic Input component that requires formatting and parsing functions to be passed in as props.
  * @public
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export const ParsedInput: (props: ParsedInputProps) => React.ReactNode =
   ForwardRefParsedInput;

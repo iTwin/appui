@@ -18,7 +18,7 @@ import "./Overflow.scss";
 /** Properties of [[StatusBarOverflow]] component.
  * @internal
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface StatusBarOverflowProps extends CommonProps {
   /** Function called when button is resized. */
   onResize: (w: number) => void;

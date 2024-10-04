@@ -27,7 +27,7 @@ import type { ModelessDialogInfo } from "../framework/FrameworkDialogs.js";
 export class InternalModelessDialogManager {
   /** Modeless Dialog Changed Event */
   public static readonly onModelessDialogChangedEvent =
-    new BeUiEvent<DialogChangedEventArgs>(); // eslint-disable-line deprecation/deprecation
+    new BeUiEvent<DialogChangedEventArgs>(); // eslint-disable-line @typescript-eslint/no-deprecated
 
   /** @internal */
   public static readonly dialogManager: DialogManagerBase =

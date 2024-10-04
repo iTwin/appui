@@ -148,7 +148,7 @@ export class StandardStatusbarUiItemsProvider implements UiItemsProvider {
           id: "uifw.SelectionInfo",
           section: StatusBarSection.Right,
           itemPriority: 30,
-          // eslint-disable-next-line deprecation/deprecation
+          // eslint-disable-next-line @typescript-eslint/no-deprecated
           content: <SelectionInfoField />,
         })
       );

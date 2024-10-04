@@ -19,7 +19,7 @@ import { ContextMenuItem } from "./ContextMenuItem.js";
 import type { ContextSubMenuProps } from "./ContextSubMenu.js";
 import { ContextSubMenu } from "./ContextSubMenu.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** Properties for the [[ContextMenu]] component
  * @public

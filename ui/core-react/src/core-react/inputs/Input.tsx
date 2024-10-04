@@ -17,7 +17,7 @@ import type { CommonProps } from "../utils/Props.js";
  */
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement>,
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     CommonProps {
   /** Indicates whether to set focus to the input element */
   setFocus?: boolean;

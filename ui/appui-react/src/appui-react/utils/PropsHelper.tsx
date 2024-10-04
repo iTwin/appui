@@ -57,10 +57,10 @@ export class PropsHelper {
     iconSpec: string | ConditionalStringValue | React.ReactNode
   ): React.ReactElement | undefined {
     if (iconSpec instanceof ConditionalStringValue)
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       return <Icon iconSpec={iconSpec.value} />;
 
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     return iconSpec ? <Icon iconSpec={iconSpec} /> : undefined;
   }
 
@@ -74,16 +74,16 @@ export class PropsHelper {
 
   /** @deprecated in 4.0 These abstract props types are obsolete. */
   public static getAbstractPropsForReactIcon(
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     iconSpec: IconSpec,
     internalData?: Map<string, any>
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
   ): Partial<UIA_AbstractWidgetProps> | Partial<UIA_CommonBackstageItem> {
     if (!iconSpec || !React.isValidElement(iconSpec)) return {};
 
     if (!internalData) internalData = new Map<string, any>();
 
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     const icon = IconHelper.getIconData(iconSpec, internalData);
 
     return icon === "" ? { icon } : { icon, internalData };

@@ -95,7 +95,7 @@ export function useTreeEventsHandler<TEventsHandler extends TreeEventHandler>(
     if (typeof factoryOrParams === "function") return factoryOrParams();
     return new TreeEventHandler(factoryOrParams);
   }, [factoryOrParams]);
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   return useDisposable(factory);
 }
 
@@ -116,6 +116,6 @@ export function useControlledTreeEventsHandler<
     if (typeof factoryOrParams === "function") return factoryOrParams();
     return new TreeEventHandler(factoryOrParams);
   }, [factoryOrParams]);
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   return useOptionalDisposable(factory);
 }

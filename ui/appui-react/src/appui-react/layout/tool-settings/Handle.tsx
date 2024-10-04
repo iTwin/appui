@@ -25,7 +25,7 @@ import { Icon } from "@itwin/itwinui-react";
 /** Properties of [[DockedToolSettingsHandle]] component.
  * @internal
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface DockedToolSettingsHandleProps extends CommonProps {
   onResize?: (w: number) => void;
 }

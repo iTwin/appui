@@ -14,7 +14,7 @@ import { RelativePosition } from "@itwin/appui-abstract";
 import type { CommonProps } from "../utils/Props.js";
 import { ContextMenuDirection } from "./ContextMenuDirection.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** Properties for [[PopupContextMenu]] component
  * @public

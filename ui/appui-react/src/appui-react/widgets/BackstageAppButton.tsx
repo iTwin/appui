@@ -23,7 +23,7 @@ export interface BackstageAppButtonProps {
   /** If specified overrides the default icon.
    * @deprecated in 4.16.0. Use {@link BackstageAppButtonProps.iconNode} instead.
    */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   icon?: IconSpec;
   iconNode?: React.ReactNode;
   /** If specified overrides the default label. */
@@ -36,7 +36,7 @@ export interface BackstageAppButtonProps {
  * @public
  */
 export function BackstageAppButton({
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   icon,
   iconNode,
   label,
@@ -67,14 +67,14 @@ export function BackstageAppButton({
   let buttonProximityScale: number | undefined;
 
   if (
-    (UiFramework.visibility.useProximityOpacity || // eslint-disable-line deprecation/deprecation
+    (UiFramework.visibility.useProximityOpacity || // eslint-disable-line @typescript-eslint/no-deprecated
       UiFramework.visibility.snapWidgetOpacity) &&
     !ProcessDetector.isMobileBrowser
   ) {
     buttonProximityScale = proximityScale;
   }
 
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   const specIcon = icon ? <Icon iconSpec={icon} /> : undefined;
   return (
     <div ref={ref} className="uifw-app-button-small">

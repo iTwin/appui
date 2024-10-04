@@ -9,7 +9,7 @@ import { TestUtils } from "../TestUtils.js";
 import { ColorPickerDialog } from "../../imodel-components-react/color/ColorPickerDialog.js";
 import { ColorValue } from "@itwin/itwinui-react";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 describe("ColorPickerDialog", () => {
   beforeEach(async () => {

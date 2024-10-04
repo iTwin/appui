@@ -968,7 +968,7 @@ export class Popup extends React_2.Component<PopupProps, PopupState> {
     // (undocumented)
     componentDidMount(): void;
     // (undocumented)
-    componentDidUpdate(previousProps: PopupProps, // eslint-disable-line deprecation/deprecation
+    componentDidUpdate(previousProps: PopupProps, // eslint-disable-line @typescript-eslint/no-deprecated
     prevState: PopupState): void;
     // (undocumented)
     componentWillUnmount(): void;

@@ -104,7 +104,7 @@ export function ToolSettingsDockedContent() {
 /** @internal */
 export function useHorizontalToolSettingEntries() {
   React.useEffect(() => {
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     UiFramework.frontstages.activeToolInformation?.toolUiProvider?.reloadPropertiesFromTool();
   }, []);
   const [settings, setSettings] = React.useState(
@@ -135,7 +135,7 @@ export function useHorizontalToolSettingEntries() {
 /** @internal */
 export function useToolSettingsNode() {
   React.useEffect(() => {
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     UiFramework.frontstages.activeToolInformation?.toolUiProvider?.reloadPropertiesFromTool();
   }, []);
   const [settings, setSettings] = React.useState(

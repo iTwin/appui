@@ -15,7 +15,7 @@ import { UiFramework } from "../UiFramework.js";
  * @internal
  */
 export function getActiveViewport() {
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   const activeContentControl = UiFramework.content.getActiveContentControl();
   return activeContentControl
     ? activeContentControl.viewport

@@ -70,14 +70,14 @@ function ModalSettingsStage({
   return (
     <div className="uifw-settings-container">
       {tabEntries.length ? (
-        // eslint-disable-next-line deprecation/deprecation
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         <SettingsContainer
           tabs={tabEntries}
           currentSettingsTab={currentSettingsTab()}
           settingsManager={UiFramework.settingsManager}
         />
       ) : (
-        // eslint-disable-next-line deprecation/deprecation
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         <Centered>{translate("settings.noSettingsAvailable")}</Centered>
       )}
     </div>

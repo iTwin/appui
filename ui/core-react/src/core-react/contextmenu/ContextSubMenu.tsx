@@ -19,7 +19,7 @@ import { Icon } from "../icons/IconComponent.js";
 import { SvgCaretRightSmall } from "@itwin/itwinui-icons-react";
 import { Badge } from "../badge/Badge.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** Properties for the [[ContextSubMenu]] component
  * @public
@@ -97,7 +97,7 @@ export class ContextSubMenu extends React.Component<
       children,
       onClick,
       className,
-      badgeType, // eslint-disable-line deprecation/deprecation
+      badgeType, // eslint-disable-line @typescript-eslint/no-deprecated
       badgeKind,
       hideIconContainer,
       ...props

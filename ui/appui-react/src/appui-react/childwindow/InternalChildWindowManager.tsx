@@ -132,7 +132,7 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
       const widgetDef = content.props.widgetDef as WidgetDef | undefined;
       const tabId = widgetDef?.id;
       const element = (
-        // eslint-disable-next-line deprecation/deprecation
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         <Provider store={UiFramework.store}>
           <TabIdContext.Provider value={tabId}>
             <UiStateStorageHandler>

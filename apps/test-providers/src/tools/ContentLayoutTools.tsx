@@ -196,7 +196,7 @@ function SplitWindowIcon() {
 
 export function createSplitSingleViewportToolbarItem(
   getViewport: (content: ContentProps) => ScreenViewport | undefined,
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   overrides?: Omit<Partial<ToolbarActionItem>, "icon">
 ) {
   const id = "splitSingleViewportCommandDef";

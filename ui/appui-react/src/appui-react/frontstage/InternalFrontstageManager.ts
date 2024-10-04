@@ -61,7 +61,7 @@ export class InternalFrontstageManager {
   private static _frontstageDefs = new Map<string, FrontstageDef>();
   private static _modalFrontstages: ModalFrontstageItem[] =
     new Array<ModalFrontstageItem>();
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   private static _frontstageProviders = new Map<string, FrontstageProvider>();
   private static _frontstages = new Map<string, Frontstage>();
   private static _nineZoneSize: SizeProps | undefined = undefined;
@@ -69,10 +69,10 @@ export class InternalFrontstageManager {
   private static _nestedFrontstages: FrontstageDef[] =
     new Array<FrontstageDef>();
   private static _activePrimaryFrontstageDef: FrontstageDef | undefined;
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   private static _toolInformationMap: Map<string, ToolInformation> = new Map<
     string,
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     ToolInformation
   >();
 
@@ -83,7 +83,7 @@ export class InternalFrontstageManager {
     if (!InternalFrontstageManager._toolInformationMap.get(toolId))
       InternalFrontstageManager._toolInformationMap.set(
         toolId,
-        // eslint-disable-next-line deprecation/deprecation
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         new ToolInformation(toolId)
       );
   }
@@ -149,7 +149,7 @@ export class InternalFrontstageManager {
       InternalFrontstageManager.activeFrontstageDef &&
       !InternalFrontstageManager.isLoading
     ) {
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       InternalFrontstageManager.activeFrontstageDef.setActiveViewFromViewport(
         args.current
       );
@@ -185,71 +185,71 @@ export class InternalFrontstageManager {
 
   /** Get Frontstage Deactivated event. */
   public static readonly onFrontstageDeactivatedEvent =
-    new BeUiEvent<FrontstageDeactivatedEventArgs>(); // eslint-disable-line deprecation/deprecation
+    new BeUiEvent<FrontstageDeactivatedEventArgs>(); // eslint-disable-line @typescript-eslint/no-deprecated
 
   /** Get Frontstage Activated event. */
   public static readonly onFrontstageActivatedEvent =
-    new BeUiEvent<FrontstageActivatedEventArgs>(); // eslint-disable-line deprecation/deprecation
+    new BeUiEvent<FrontstageActivatedEventArgs>(); // eslint-disable-line @typescript-eslint/no-deprecated
 
   /** Get Frontstage Activated event. */
   public static readonly onFrontstageReadyEvent =
-    new BeUiEvent<FrontstageReadyEventArgs>(); // eslint-disable-line deprecation/deprecation
+    new BeUiEvent<FrontstageReadyEventArgs>(); // eslint-disable-line @typescript-eslint/no-deprecated
 
   /** Get Modal Frontstage Changed event. */
   public static readonly onModalFrontstageChangedEvent =
-    new BeUiEvent<ModalFrontstageChangedEventArgs>(); // eslint-disable-line deprecation/deprecation
+    new BeUiEvent<ModalFrontstageChangedEventArgs>(); // eslint-disable-line @typescript-eslint/no-deprecated
 
   /** Get Modal Frontstage Closed event. */
   public static readonly onModalFrontstageClosedEvent =
-    new BeUiEvent<ModalFrontstageClosedEventArgs>(); // eslint-disable-line deprecation/deprecation
+    new BeUiEvent<ModalFrontstageClosedEventArgs>(); // eslint-disable-line @typescript-eslint/no-deprecated
 
   /** Get Modal Frontstage Requested Closed event.
    * @alpha
    */
   public static readonly onCloseModalFrontstageRequestedEvent =
-    new BeUiEvent<ModalFrontstageRequestedCloseEventArgs>(); // eslint-disable-line deprecation/deprecation
+    new BeUiEvent<ModalFrontstageRequestedCloseEventArgs>(); // eslint-disable-line @typescript-eslint/no-deprecated
 
   /** Get Tool Activated event. */
   public static readonly onToolActivatedEvent =
-    new BeUiEvent<ToolActivatedEventArgs>(); // eslint-disable-line deprecation/deprecation
+    new BeUiEvent<ToolActivatedEventArgs>(); // eslint-disable-line @typescript-eslint/no-deprecated
 
   /** Get ToolSetting Reload event. */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   public static readonly onToolSettingsReloadEvent = new BeUiEvent<void>();
 
   /** Get Tool Panel Opened event.
    * @internal
    */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   public static readonly onToolPanelOpenedEvent = new BeUiEvent<void>();
 
   /** Get Tool Icon Changed event. */
   public static readonly onToolIconChangedEvent =
-    new BeUiEvent<ToolIconChangedEventArgs>(); // eslint-disable-line deprecation/deprecation
+    new BeUiEvent<ToolIconChangedEventArgs>(); // eslint-disable-line @typescript-eslint/no-deprecated
 
   /** Get Content Layout Activated event. */
   public static readonly onContentLayoutActivatedEvent =
-    new BeUiEvent<ContentLayoutActivatedEventArgs>(); // eslint-disable-line deprecation/deprecation
+    new BeUiEvent<ContentLayoutActivatedEventArgs>(); // eslint-disable-line @typescript-eslint/no-deprecated
 
   /** Get Content Control Activated event. */
   public static readonly onContentControlActivatedEvent =
-    new BeUiEvent<ContentControlActivatedEventArgs>(); // eslint-disable-line deprecation/deprecation
+    new BeUiEvent<ContentControlActivatedEventArgs>(); // eslint-disable-line @typescript-eslint/no-deprecated
 
   /** Get Navigation Aid Activated event. */
   public static readonly onNavigationAidActivatedEvent =
-    new BeUiEvent<NavigationAidActivatedEventArgs>(); // eslint-disable-line deprecation/deprecation
+    new BeUiEvent<NavigationAidActivatedEventArgs>(); // eslint-disable-line @typescript-eslint/no-deprecated
 
   /** Get Widget State Changed event. */
   public static readonly onWidgetStateChangedEvent =
-    new BeUiEvent<WidgetStateChangedEventArgs>(); // eslint-disable-line deprecation/deprecation
+    new BeUiEvent<WidgetStateChangedEventArgs>(); // eslint-disable-line @typescript-eslint/no-deprecated
 
   /** @internal */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   public static readonly onWidgetDefsUpdatedEvent = new BeUiEvent<void>();
 
   /** @internal */
   public static readonly onFrontstageNineZoneStateChangedEvent =
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     new BeUiEvent<{
       frontstageDef: FrontstageDef;
       state: NineZoneState | undefined;
@@ -257,14 +257,14 @@ export class InternalFrontstageManager {
 
   /** @internal */
   public static readonly onFrontstageRestoreLayoutEvent =
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     new BeUiEvent<{
       frontstageDef: FrontstageDef;
     }>();
 
   /** @internal */
   public static readonly onFrontstageWidgetsChangedEvent =
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     new BeUiEvent<{
       frontstageDef: FrontstageDef;
     }>();
@@ -273,13 +273,13 @@ export class InternalFrontstageManager {
    * @alpha
    */
   public static readonly onPanelStateChangedEvent =
-    new BeUiEvent<PanelStateChangedEventArgs>(); // eslint-disable-line deprecation/deprecation
+    new BeUiEvent<PanelStateChangedEventArgs>(); // eslint-disable-line @typescript-eslint/no-deprecated
 
   /** Get panel pinned changed event.
    * @alpha
    */
   public static readonly onPanelPinnedChangedEvent =
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     new BeUiEvent<PanelPinnedChangedEventArgs>();
 
   /** @internal */
@@ -325,7 +325,7 @@ export class InternalFrontstageManager {
   }
 
   public static addFrontstageProvider(
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     frontstageProvider: FrontstageProvider
   ): void {
     const key = InternalFrontstageManager.getFrontstageKey(
@@ -359,7 +359,7 @@ export class InternalFrontstageManager {
 
   private static findFrontstageProvider(
     id?: string
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
   ): FrontstageProvider | undefined {
     if (!id) {
       return undefined;
@@ -372,7 +372,7 @@ export class InternalFrontstageManager {
 
     const frontstage = InternalFrontstageManager._frontstages.get(id);
     if (frontstage) {
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       return new (class extends FrontstageProvider {
         public get id() {
           return frontstage?.id ?? "";
@@ -539,7 +539,7 @@ export class InternalFrontstageManager {
   }
 
   /** Gets the active tool's [[ToolInformation]] */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   public static get activeToolInformation(): ToolInformation | undefined {
     return InternalFrontstageManager._toolInformationMap.get(
       InternalFrontstageManager.activeToolId
@@ -550,7 +550,7 @@ export class InternalFrontstageManager {
    * @return  Tool Setting React node of the active tool, or undefined if there is no active tool or Tool Settings for the active tool.
    * @internal
    */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   public static get activeToolSettingsProvider(): ToolUiProvider | undefined {
     const activeToolInformation =
       InternalFrontstageManager.activeToolInformation;

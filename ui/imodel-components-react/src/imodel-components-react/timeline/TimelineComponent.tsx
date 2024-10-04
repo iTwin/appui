@@ -215,13 +215,13 @@ export function TimelineComponent(props: TimelineComponentProps) {
   }
 
   React.useEffect(() => {
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     if (!props.componentId) return;
     return UiAdmin.onGenericUiEvent.addListener((args) => {
       const timelineArgs = args as TimelinePausePlayArgs;
       if (
         !timelineArgs ||
-        // eslint-disable-next-line deprecation/deprecation
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         props.componentId !== timelineArgs.uiComponentId ||
         timelineArgs.timelineAction === undefined
       )
@@ -243,7 +243,7 @@ export function TimelineComponent(props: TimelineComponentProps) {
           break;
       }
     });
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
   }, [isPlaying, pause, playOrReplay, props.componentId]);
   useAnimation(({ delta }) => {
     const duration = currentDuration + delta;

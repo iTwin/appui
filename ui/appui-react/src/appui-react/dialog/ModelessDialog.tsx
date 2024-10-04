@@ -11,7 +11,7 @@ import type { DialogProps } from "@itwin/core-react";
 import { Dialog } from "@itwin/core-react";
 import { UiFramework } from "../UiFramework.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** Properties for the [[ModelessDialog]] component
  * @public
@@ -43,7 +43,7 @@ export class ModelessDialog extends React.Component<ModelessDialogProps> {
     } = this.props;
 
     return (
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       <Dialog
         {...props}
         modal={false}

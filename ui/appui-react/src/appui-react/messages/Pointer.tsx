@@ -37,7 +37,7 @@ import type { SizeProps } from "../utils/SizeProps.js";
 /** Properties of [[PointerMessage]] component.
  * @public
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface PointerMessageProps extends CommonProps {
   /** Text to display */
   message?: string;
@@ -73,7 +73,7 @@ export interface PointerMessageChangedEventArgs {
  * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class PointerMessageChangedEvent extends UiEvent<PointerMessageChangedEventArgs> {}
 
 /** Pointer message pops up near pointer when attempting an invalid interaction.
@@ -84,14 +84,14 @@ export class PointerMessage extends React.Component<
   PointerMessageState
 > {
   private static _pointerMessageChangedEvent =
-    new BeUiEvent<PointerMessageChangedEventArgs>(); // eslint-disable-line deprecation/deprecation
+    new BeUiEvent<PointerMessageChangedEventArgs>(); // eslint-disable-line @typescript-eslint/no-deprecated
   private static readonly _onPointerMessagePositionChangedEvent =
     new BeUiEvent<{
       pt: XAndY;
       relativePosition: RelativePosition;
     }>();
 
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   public static get onPointerMessageChangedEvent(): PointerMessageChangedEvent {
     return PointerMessage._pointerMessageChangedEvent;
   }
@@ -160,26 +160,26 @@ export class PointerMessage extends React.Component<
         <div className="uifw-pointer-message-content">
           {severity !== MessageSeverity.None && (
             <span className="uifw-pointer-message-icon">
-              {/* eslint-disable-next-line deprecation/deprecation */}
+              {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
               <Icon
-                // eslint-disable-next-line deprecation/deprecation
+                // eslint-disable-next-line @typescript-eslint/no-deprecated
                 className={`icon ${MessageContainer.getIconClassName(
                   severity
                 )}`}
-                // eslint-disable-next-line deprecation/deprecation
+                // eslint-disable-next-line @typescript-eslint/no-deprecated
                 iconSpec={`${MessageContainer.getIcon(severity, false)}`}
               />
             </span>
           )}
           <span className="uifw-pointer-message-text">
-            {/* eslint-disable-next-line deprecation/deprecation */}
+            {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
             <MessageRenderer
               className="uifw-pointer-message-brief"
               message={this.state.message}
               useSpan
             />
             {this.state.detailedMessage && (
-              // eslint-disable-next-line deprecation/deprecation
+              // eslint-disable-next-line @typescript-eslint/no-deprecated
               <MessageRenderer
                 className="uifw-pointer-message-detailed"
                 message={this.state.detailedMessage}

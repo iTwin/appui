@@ -332,7 +332,7 @@ export function KeyinPalettePanel({
         size="small"
       />
       {filteredKeyins.length > 0 && (
-        // eslint-disable-next-line deprecation/deprecation
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         <Listbox
           id="uifw-command-sources"
           className="map-manager-source-list"
@@ -347,13 +347,13 @@ export function KeyinPalettePanel({
               index === lastHistoryIndex ? " uifw-history-bottom-border" : ""
             }`;
             return (
-              // eslint-disable-next-line deprecation/deprecation
+              // eslint-disable-next-line @typescript-eslint/no-deprecated
               <ListboxItem
                 key={`${entry.value}-${index}`}
                 className={itemClass}
                 value={value}
               >
-                {/* eslint-disable-next-line deprecation/deprecation */}
+                {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
                 <FilteredText value={entry.value} matches={entry.matches} />
               </ListboxItem>
             );

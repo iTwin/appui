@@ -51,7 +51,7 @@ interface DefaultViewOverlayProps extends ViewOverlayProps {
 export function DefaultViewOverlay({
   viewport,
   onPlayPause,
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   featureOptions,
   ...props
 }: DefaultViewOverlayProps) {

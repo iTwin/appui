@@ -45,7 +45,7 @@ export function ColorPickerDialog({
   onCancelResult,
   colorPresets,
   colorInputType,
-}: // eslint-disable-next-line deprecation/deprecation
+}: // eslint-disable-next-line @typescript-eslint/no-deprecated
 ColorPickerDialogProps) {
   const [activeColor, setActiveColor] = React.useState(color);
   const dialogContainer = React.useRef<HTMLDivElement>(null);
@@ -79,7 +79,7 @@ ColorPickerDialogProps) {
 
   return (
     <div ref={dialogContainer}>
-      {/* eslint-disable-next-line deprecation/deprecation */}
+      {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
       <Dialog
         title={dialogTitle}
         opened={true}

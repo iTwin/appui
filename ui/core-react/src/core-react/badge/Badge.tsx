@@ -13,7 +13,7 @@ import { TechnicalPreviewBadge } from "./TechnicalPreviewBadge.js";
 import { NewBadge } from "./NewBadge.js";
 import { DeprecatedBadge } from "./DeprecatedBadge.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** Properties for the {@link Badge} component.
  * @internal

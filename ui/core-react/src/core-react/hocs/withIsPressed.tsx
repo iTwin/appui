@@ -23,11 +23,11 @@ export interface WithIsPressedProps {
  * @public
  * @deprecated in 4.15.0. Not used by AppUI.
  */
-export const withIsPressed = <ComponentProps extends {}>(
+export const withIsPressed = <ComponentProps extends object>(
   Component: React.ComponentType<ComponentProps>
 ) => {
   return class WithIsPressed extends React.PureComponent<
-    ComponentProps & WithIsPressedProps // eslint-disable-line deprecation/deprecation
+    ComponentProps & WithIsPressedProps // eslint-disable-line @typescript-eslint/no-deprecated
   > {
     public handleOnPointerDown = () => {
       this.changeIsPressed(true);

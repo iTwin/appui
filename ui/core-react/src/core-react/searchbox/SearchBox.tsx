@@ -17,7 +17,7 @@ import { Icon } from "../icons/IconComponent.js";
 import { SvgClose, SvgSearch } from "@itwin/itwinui-icons-react";
 import { useTranslation } from "../l10n/useTranslation.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** Properties for [[SearchBox]] component
  * @public

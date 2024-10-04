@@ -23,7 +23,7 @@ import { useTranslation } from "../l10n/useTranslation.js";
  * @alpha
  * @deprecated in 4.11.0. Props of deprecated component {@link DatePickerPopupButton}.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface DatePickerPopupButtonProps extends CommonProps {
   /** Date to be shown as the selected date. */
   selected: Date;
@@ -58,7 +58,7 @@ export function DatePickerPopupButton({
   fieldStyle,
   fieldClassName,
   style,
-}: // eslint-disable-next-line deprecation/deprecation
+}: // eslint-disable-next-line @typescript-eslint/no-deprecated
 DatePickerPopupButtonProps) {
   const { translate } = useTranslation();
   const [workingDate, setWorkingDate] = React.useState(
@@ -140,7 +140,7 @@ DatePickerPopupButtonProps) {
           </svg>
         </div>
       </button>
-      {/* eslint-disable-next-line deprecation/deprecation */}
+      {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
       <Popup
         isOpen={isSettingsOpen}
         position={RelativePosition.BottomLeft}
@@ -154,7 +154,7 @@ DatePickerPopupButtonProps) {
           className="components-date-picker-calendar-popup-panel"
           data-testid="components-date-picker-calendar-popup-panel"
         >
-          <DatePicker // eslint-disable-line deprecation/deprecation
+          <DatePicker // eslint-disable-line @typescript-eslint/no-deprecated
             selected={workingDate}
             onDateChange={handleOnDateChanged}
             showFocusOutline={showFocusOutline}

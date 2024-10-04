@@ -87,7 +87,7 @@ export class SyncUiEventDispatcher {
   }
 
   /** Return SyncUiEvent so callers can register an event callback. */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   public static get onSyncUiEvent(): UiSyncEvent {
     return SyncUiEventDispatcher._uiEventDispatcher.onSyncUiEvent;
   }
@@ -158,10 +158,10 @@ export class SyncUiEventDispatcher {
     this._unregisterFuncs = [];
 
     this._unregisterFuncs.push(
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       UiFramework.frontstages.onContentControlActivatedEvent.addListener(() => {
         SyncUiEventDispatcher.dispatchSyncUiEvent(
-          // eslint-disable-next-line deprecation/deprecation
+          // eslint-disable-next-line @typescript-eslint/no-deprecated
           SyncUiEventId.ContentControlActivated
         );
       }),

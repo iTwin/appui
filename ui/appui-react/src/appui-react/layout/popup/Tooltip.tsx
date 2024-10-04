@@ -18,7 +18,7 @@ import type { RectangleProps } from "../../utils/RectangleProps.js";
 /** Properties of [[Tooltip]] component.
  * @internal
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface TooltipProps extends CommonProps {
   /** Tooltip content. */
   children?: React.ReactNode;

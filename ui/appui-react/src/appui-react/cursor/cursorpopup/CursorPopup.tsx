@@ -33,7 +33,7 @@ export type CursorPopupProps = {
   shadow?: boolean;
   /** Function called when size is known. */
   onSizeKnown?: (size: SizeProps) => void;
-} & CommonProps & // eslint-disable-line deprecation/deprecation
+} & CommonProps & // eslint-disable-line @typescript-eslint/no-deprecated
   RequireAtLeastOne<{
     /** @deprecated in 4.16.0. Use `placement` property instead. */
     relativePosition: RelativePosition;
@@ -236,7 +236,7 @@ export class CursorPopup extends React.Component<
       this.props.pt,
       this.props.offset,
       this.state.size,
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       this.props.placement || this.props.relativePosition
     );
 
@@ -273,8 +273,8 @@ export class CursorPopup extends React.Component<
 /** CursorPopup content with padding
  * @public
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export function CursorPopupContent(props: CommonDivProps) {
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   return <Div {...props} mainClassName="uifw-cursorpopup-content" />;
 }

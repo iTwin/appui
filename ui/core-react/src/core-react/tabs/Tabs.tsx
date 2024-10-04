@@ -13,7 +13,7 @@ import { Orientation } from "../enums/Orientation.js";
 import { ItemKeyboardNavigator } from "../focus/ItemKeyboardNavigator.js";
 import { IconHelper } from "../utils/IconHelper.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** TabLabel provides ability to define label, icon, and tooltip for a tab entry. The tooltip can be defined as JSX|Element
  *  to support react-tooltip component or a string that will be use to set the title property.

@@ -31,7 +31,7 @@ import { OrthogonalDirectionHelpers } from "./utilities/Direction.js";
 /** Properties of [[ToolbarItems]] component.
  * @internal
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface ToolbarItemsProps extends CommonProps {
   /** Toolbar items. */
   children?: React.ReactNode;

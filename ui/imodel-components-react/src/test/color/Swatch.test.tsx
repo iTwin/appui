@@ -9,7 +9,7 @@ import { fireEvent, render } from "@testing-library/react";
 import { ColorSwatch } from "../../imodel-components-react/color/Swatch.js";
 import { TestUtils } from "../TestUtils.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 describe("<ColorSwatch />", () => {
   const colorDef = ColorDef.from(255, 0, 0, 255);

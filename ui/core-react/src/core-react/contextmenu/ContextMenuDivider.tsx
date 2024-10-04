@@ -10,7 +10,7 @@ import * as React from "react";
 import classnames from "classnames";
 import type { CommonProps } from "../utils/Props.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** Menu Divider for [[ContextMenu]]. Inserts a line between items, used for list item grouping.
  * @public

@@ -29,7 +29,7 @@ import { UiError } from "@itwin/appui-abstract";
 import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState.js";
 import { ConfigurableUiContext } from "../configurableui/ConfigurableUiContent.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** Viewport that is connected to the IModelConnection property in the Redux store. The application must set up the Redux store and include the FrameworkReducer.
  * @note Requires redux provider.

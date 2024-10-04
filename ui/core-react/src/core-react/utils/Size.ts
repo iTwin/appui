@@ -6,7 +6,7 @@
  * @module Utilities
  */
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** Describes 2d dimensions.
  * @public

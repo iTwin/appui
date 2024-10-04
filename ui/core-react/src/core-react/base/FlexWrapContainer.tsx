@@ -16,8 +16,8 @@ import { Div } from "./Div.js";
  * @public
  * @deprecated in 4.12.0. Use {@link https://itwinui.bentley.com/docs/flex iTwinUI Flex} instead.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export function FlexWrapContainer(props: CommonDivProps) {
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   return <Div {...props} mainClassName="uicore-flex-wrap-container" />;
 }

@@ -65,7 +65,7 @@ import { LocalStateStorage } from "../../uistate/LocalStateStorage.js";
 /** Properties of [[ToolAssistanceField]] component.
  * @public
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface ToolAssistanceFieldProps extends CommonProps {
   /** Indicates whether to include promptAtCursor Checkbox. Defaults to true. */
   includePromptAtCursor: boolean;
@@ -111,9 +111,9 @@ export class ToolAssistanceField extends React.Component<
   private static _toolAssistanceKey = "ToolAssistance";
   private static _showPromptAtCursorKey = "showPromptAtCursor";
   private static _mouseTouchTabIndexKey = "mouseTouchTabIndex";
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   private _showPromptAtCursorSetting: UiStateEntry<boolean>;
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   private _mouseTouchTabIndexSetting: UiStateEntry<number>;
   private _indicator = React.createRef<HTMLButtonElement>();
   private _cursorPrompt: CursorPrompt;
@@ -158,13 +158,13 @@ export class ToolAssistanceField extends React.Component<
       this.props.cursorPromptTimeout,
       this.props.fadeOutCursorPrompt
     );
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     this._showPromptAtCursorSetting = new UiStateEntry(
       ToolAssistanceField._toolAssistanceKey,
       ToolAssistanceField._showPromptAtCursorKey,
       () => this.state.showPromptAtCursor
     );
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     this._mouseTouchTabIndexSetting = new UiStateEntry(
       ToolAssistanceField._toolAssistanceKey,
       ToolAssistanceField._mouseTouchTabIndexKey,
@@ -368,7 +368,7 @@ export class ToolAssistanceField extends React.Component<
 
     if (instructions) {
       prompt = instructions.mainInstruction.text;
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       toolIcon = <Icon iconSpec={this.state.toolIconSpec} />;
 
       let displayableSections: ToolAssistanceSection[] | undefined;
@@ -579,7 +579,7 @@ export class ToolAssistanceField extends React.Component<
         const rightImage =
           typeof instruction.image === "string" ? (
             <div className="uifw-toolassistance-icon-medium">
-              {/* eslint-disable-next-line deprecation/deprecation */}
+              {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
               <Icon iconSpec={instruction.image} />
             </div>
           ) : (
@@ -587,7 +587,7 @@ export class ToolAssistanceField extends React.Component<
           );
 
         image = (
-          // eslint-disable-next-line deprecation/deprecation
+          // eslint-disable-next-line @typescript-eslint/no-deprecated
           <FillCentered>
             {ToolAssistanceField.getKeyNode(
               key,
@@ -612,7 +612,7 @@ export class ToolAssistanceField extends React.Component<
             : "uifw-toolassistance-icon-large";
         image = (
           <div className={className}>
-            {/* eslint-disable-next-line deprecation/deprecation */}
+            {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
             <Icon iconSpec={svgSource ?? instruction.image} />
           </div>
         );
@@ -716,7 +716,7 @@ export class ToolAssistanceField extends React.Component<
 
       image = (
         <div className={className}>
-          {/* eslint-disable-next-line deprecation/deprecation */}
+          {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
           {svgImage && <Icon iconSpec={svgImage} />}
         </div>
       );
@@ -756,7 +756,7 @@ export class ToolAssistanceField extends React.Component<
       );
     } else if (keyboardInfo.keys.length === 2) {
       image = (
-        // eslint-disable-next-line deprecation/deprecation
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         <FillCentered>
           {keyboardInfo.keys.map((key: string, index3: number) => {
             let className = "uifw-toolassistance-key-medium";
@@ -793,7 +793,7 @@ export class ToolAssistanceField extends React.Component<
         key={index.toString()}
         className={classnames("uifw-toolassistance-key", className)}
       >
-        {/* eslint-disable-next-line deprecation/deprecation */}
+        {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
         <FillCentered>{key}</FillCentered>
       </div>
     );

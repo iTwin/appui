@@ -12,14 +12,14 @@ import { DialogChangedEvent } from "../dialog/DialogManagerBase.js";
  * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class ModalDialogChangedEvent extends DialogChangedEvent {}
 
 /** Modeless Dialog Changed Event class.
  * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class ModelessDialogChangedEvent extends DialogChangedEvent {}
 
 /** @public */
@@ -86,14 +86,14 @@ export interface FrameworkDialogs {
   /** Manage modal dialogs. */
   readonly modal: FrameworkDialog & {
     /** Modal Dialog Changed Event */
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     readonly onModalDialogChangedEvent: ModalDialogChangedEvent;
   };
 
   /** Manage modeless dialogs. */
   readonly modeless: FrameworkStackedDialog<ModelessDialogInfo> & {
     /** Modeless Dialog Changed Event */
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     readonly onModelessDialogChangedEvent: ModelessDialogChangedEvent;
   };
 }

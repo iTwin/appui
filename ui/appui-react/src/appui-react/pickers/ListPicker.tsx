@@ -69,7 +69,7 @@ export interface ListPickerProps {
 /** Properties for the [[ListPickerItem]] component
  * @beta
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface ListPickerItemProps extends CommonProps {
   key: any;
   isActive?: boolean;
@@ -115,7 +115,7 @@ export class ListPickerItem extends React.PureComponent<ListPickerItemProps> {
 /** Properties for the [[ExpandableSection]] component
  * @beta
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface ExpandableSectionProps extends CommonProps {
   title?: string;
   expanded?: boolean;
@@ -163,10 +163,10 @@ export class ExpandableSection extends React.PureComponent<
     );
 
     const icon = this.state.expanded ? (
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       <Icon iconSpec={<SvgChevronDown />} />
     ) : (
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       <Icon iconSpec={<SvgChevronRight />} />
     );
 
@@ -262,7 +262,7 @@ export function getListPanel(props: ListPickerProps): React.ReactNode {
     <Panel className="ListPickerContainer">
       <Title>{props.title}</Title>
       {props.searchBox && props.onSearchValueChange && (
-        // eslint-disable-next-line deprecation/deprecation
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         <SearchBox
           className="ListPickerSearchBox"
           onValueChanged={props.onSearchValueChange}
@@ -285,18 +285,18 @@ export function getListPanel(props: ListPickerProps): React.ReactNode {
 function ListPickerPopupItem(props: ListPickerProps) {
   const icon =
     props.icon ??
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     (props.iconSpec ? (
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       typeof props.iconSpec === "string" ? (
-        // eslint-disable-next-line deprecation/deprecation
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         <Icon iconSpec={props.iconSpec} />
       ) : (
-        // eslint-disable-next-line deprecation/deprecation
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         <i className="icon uifw-item-svg-icon">{props.iconSpec}</i>
       )
     ) : (
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       <Icon iconSpec={<SvgList />} />
     ));
 
@@ -306,7 +306,7 @@ function ListPickerPopupItem(props: ListPickerProps) {
         return props.panelOnly === true ? (
           getListPanel(props)
         ) : (
-          // eslint-disable-next-line deprecation/deprecation
+          // eslint-disable-next-line @typescript-eslint/no-deprecated
           <PopupItem
             hideIndicator={isEnabled}
             icon={icon}
@@ -456,7 +456,7 @@ export class ListPicker extends React.Component<ListPickerPropsExtended> {
         setEnabled={this._setEnabled}
         onExpanded={this.props.onExpanded}
         items={this.createItems(this.props.items)}
-        // eslint-disable-next-line deprecation/deprecation
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         iconSpec={this.props.iconSpec}
         icon={this.props.icon}
       />

@@ -35,7 +35,7 @@ export class MenuButton extends React.PureComponent<
   MenuButtonProps,
   MenuButtonState
 > {
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   private _menu: ContextMenu | null = null;
 
   constructor(props: MenuButtonProps) {
@@ -66,10 +66,10 @@ export class MenuButton extends React.PureComponent<
           style={style}
           onClick={this._handleClick}
         >
-          {/* eslint-disable-next-line deprecation/deprecation */}
+          {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
           <Icon iconSpec={<SvgMore />} />
         </SquareButton>
-        {/* eslint-disable-next-line deprecation/deprecation */}
+        {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
         <ContextMenu
           ref={(el) => {
             this._menu = el;

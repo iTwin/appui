@@ -81,7 +81,7 @@ const getSnapModeIcon = (snapMode: number) => {
   );
 
   return (
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     <Icon
       iconSpec={modes.length === 1 ? modes[0].iconSpec : snapModeKeypoint}
     />
@@ -89,7 +89,7 @@ const getSnapModeIcon = (snapMode: number) => {
 };
 
 /** Defines properties supported by the SnapMode Field Component. */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 interface SnapModeFieldProps extends CommonProps {
   /** Uses redux store as a fallback. Defaults to {@link SnapMode.NearestKeypoint}.
    * @note Enum flags are supported.
@@ -118,7 +118,7 @@ export function SnapModeField(props: SnapModeFieldProps) {
     : allSnapModeFieldEntries;
 
   const reduxSnapMode = useReduxFrameworkState(
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     (state) => state?.configurableUiState.snapMode
   );
   const snapMode = props.snapMode ?? reduxSnapMode ?? SnapMode.NearestKeypoint;
@@ -136,12 +136,12 @@ export function SnapModeField(props: SnapModeFieldProps) {
                   props.onChange(entry.value);
                   return;
                 }
-                // eslint-disable-next-line deprecation/deprecation
+                // eslint-disable-next-line @typescript-eslint/no-deprecated
                 UiFramework.setAccudrawSnapMode(entry.value);
               }}
               isActive={(snapMode & entry.value) === entry.value}
               icon={
-                // eslint-disable-next-line deprecation/deprecation
+                // eslint-disable-next-line @typescript-eslint/no-deprecated
                 <Icon className={`icon`} iconSpec={entry.iconSpec} />
               }
             >

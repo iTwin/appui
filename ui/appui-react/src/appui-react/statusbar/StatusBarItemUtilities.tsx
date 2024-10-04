@@ -31,7 +31,7 @@ export namespace StatusBarItemUtilities {
     id: string,
     section: StatusBarSection,
     itemPriority: number,
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     icon: IconSpec,
     tooltip: string | ConditionalStringValue,
     execute: () => void,
@@ -105,7 +105,7 @@ export namespace StatusBarItemUtilities {
     id: string,
     section: StatusBarSection,
     itemPriority: number,
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     icon: IconSpec,
     label: string | ConditionalStringValue,
     labelSide?: StatusBarLabelSide,

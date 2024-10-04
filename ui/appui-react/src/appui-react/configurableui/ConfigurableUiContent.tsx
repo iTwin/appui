@@ -36,7 +36,7 @@ import type { ContentProps } from "../content/ContentGroup.js";
 /** @internal */
 export const ConfigurableUiContext = React.createContext<
   Pick<
-    /* eslint-disable-next-line deprecation/deprecation */
+    /* eslint-disable-next-line @typescript-eslint/no-deprecated */
     ConfigurableUiContentProps,
     | "viewOverlay"
     | "widgetOpacity"
@@ -51,7 +51,7 @@ export const ConfigurableUiContext = React.createContext<
  * @public
  * @deprecated in 4.17.0. Use `React.ComponentProps<typeof ConfigurableUiContent>`
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface ConfigurableUiContentProps extends CommonProps {
   /** React node of the Backstage */
   appBackstage?: React.ReactNode;
@@ -88,7 +88,7 @@ export const WrapperContext = React.createContext<HTMLElement>(document.body);
 /** The ConfigurableUiContent component is the component the pages specified using ConfigurableUi
  * @public
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export function ConfigurableUiContent(props: ConfigurableUiContentProps) {
   useWidgetOpacity(props.widgetOpacity);
   useToolbarOpacity(props.toolbarOpacity);
@@ -116,7 +116,7 @@ export function ConfigurableUiContent(props: ConfigurableUiContentProps) {
   return (
     <ConfigurableUiContext.Provider
       value={{
-        // eslint-disable-next-line deprecation/deprecation
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         viewOverlay: props.viewOverlay,
         widgetOpacity: props.widgetOpacity,
         widgetIcon: props.widgetIcon,
@@ -143,9 +143,9 @@ export function ConfigurableUiContent(props: ConfigurableUiContentProps) {
 
             <ElementTooltip />
             <PointerMessage />
-            {/* eslint-disable-next-line deprecation/deprecation */}
+            {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
             <KeyboardShortcutMenu />
-            {/* eslint-disable-next-line deprecation/deprecation */}
+            {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
             <InputFieldMessage />
             <CursorPopupMenu />
             <CursorPopupRenderer />
@@ -167,11 +167,11 @@ export function ConfigurableUiContent(props: ConfigurableUiContentProps) {
 }
 
 function useWidgetOpacity(
-  /* eslint-disable-next-line deprecation/deprecation */
+  /* eslint-disable-next-line @typescript-eslint/no-deprecated */
   widgetOpacity: ConfigurableUiContentProps["widgetOpacity"]
 ) {
   const reduxWidgetOpacity = useReduxFrameworkState((state) => {
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     return state?.configurableUiState.widgetOpacity;
   });
   const opacity = widgetOpacity ?? reduxWidgetOpacity ?? WIDGET_OPACITY_DEFAULT;
@@ -191,11 +191,11 @@ function useWidgetOpacity(
 }
 
 function useToolbarOpacity(
-  /* eslint-disable-next-line deprecation/deprecation */
+  /* eslint-disable-next-line @typescript-eslint/no-deprecated */
   toolbarOpacity: ConfigurableUiContentProps["toolbarOpacity"]
 ) {
   const reduxToolbarOpacity = useReduxFrameworkState((state) => {
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     return state?.configurableUiState.toolbarOpacity;
   });
 

@@ -37,7 +37,7 @@ interface FilteringInputState {
  * [[FilteringInput]] React Component properties
  * @public
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface FilteringInputProps extends CommonProps {
   /** Filtering should start */
   onFilterStart: (searchText: string) => void;
@@ -189,7 +189,7 @@ export class FilteringInput extends React.PureComponent<
                 tabIndex={-1}
                 title={searchLabel}
               >
-                {/* eslint-disable-next-line deprecation/deprecation */}
+                {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
                 <Icon iconSpec={<SvgSearch />} />
               </span>
             ) : undefined}
@@ -203,7 +203,7 @@ export class FilteringInput extends React.PureComponent<
                 tabIndex={-1}
                 title={UiComponents.translate("dialog.cancel")}
               >
-                {/* eslint-disable-next-line deprecation/deprecation */}
+                {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
                 <Icon iconSpec={<SvgClose />} />
               </span>
             ) : undefined}
@@ -217,7 +217,7 @@ export class FilteringInput extends React.PureComponent<
                 tabIndex={-1}
                 title={UiComponents.translate("general.clear")}
               >
-                {/* eslint-disable-next-line deprecation/deprecation */}
+                {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
                 <Icon iconSpec={<SvgClose />} />
               </span>
             ) : undefined}

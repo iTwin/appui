@@ -19,7 +19,7 @@ import { ItemList, ItemMap } from "../shared/ItemMap.js";
 import { PropsHelper } from "../utils/PropsHelper.js";
 import type { ToolbarGroupItem } from "./ToolbarItem.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** An Item that opens a group of items.
  * @public

@@ -24,7 +24,7 @@ import {
 /** Properties of [[ToolbarButton]] component.
  * @internal
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface ToolbarButtonProps extends CommonProps {
   /** Button content. */
   children?: React.ReactNode;

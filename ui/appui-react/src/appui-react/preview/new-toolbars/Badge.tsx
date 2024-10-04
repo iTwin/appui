@@ -13,7 +13,7 @@ import type { ToolbarItem } from "../../toolbar/ToolbarItem.js";
 
 /** @internal */
 export function Badge({
-  badge, // eslint-disable-line deprecation/deprecation
+  badge, // eslint-disable-line @typescript-eslint/no-deprecated
   badgeKind,
 }: Pick<ToolbarItem, "badge" | "badgeKind">) {
   return (

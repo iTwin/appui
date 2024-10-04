@@ -59,7 +59,7 @@ export class CursorPopupManager {
     id: string;
   }>();
   /** @internal */
-  public static readonly onCursorPopupsChangedEvent = new BeUiEvent<{}>();
+  public static readonly onCursorPopupsChangedEvent = new BeUiEvent<object>();
   /** @internal */
   public static clearPopups() {
     this._popups.length = 0;

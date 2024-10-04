@@ -178,13 +178,13 @@ export class SliderEditor
         minLabel = !sliderParams.showMinMax ? (
           ""
         ) : sliderParams.minIconSpec ? (
-          // eslint-disable-next-line deprecation/deprecation
+          // eslint-disable-next-line @typescript-eslint/no-deprecated
           <Icon iconSpec={sliderParams.minIconSpec} />
         ) : undefined;
         maxLabel = !sliderParams.showMinMax ? (
           ""
         ) : sliderParams.maxIconSpec ? (
-          // eslint-disable-next-line deprecation/deprecation
+          // eslint-disable-next-line @typescript-eslint/no-deprecated
           <Icon iconSpec={sliderParams.maxIconSpec} />
         ) : undefined;
 

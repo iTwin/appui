@@ -22,7 +22,7 @@ import backspaceIcon from "./backspace.svg";
 type SquareButtonProps = React.ComponentProps<typeof SquareButton>;
 
 /** @public */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface CalculatorProps extends CommonProps {
   /** Initial value */
   initialValue?: number;
@@ -128,7 +128,7 @@ export class Calculator extends React.PureComponent<
     const classNames = classnames("uifw-calculator", className);
 
     const topSection = resultIcon ? (
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       <IconInput
         containerClassName="uifw-calculator-top-input"
         value={this.state.displayValue}
@@ -163,7 +163,7 @@ export class Calculator extends React.PureComponent<
             styleType="cta"
             onClick={this._handleOk}
           >
-            {/* eslint-disable-next-line deprecation/deprecation */}
+            {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
             <Icon iconSpec={<SvgCheckmark />} />
           </Button>
           <Button
@@ -173,7 +173,7 @@ export class Calculator extends React.PureComponent<
             )}
             onClick={this._handleCancel}
           >
-            {/* eslint-disable-next-line deprecation/deprecation */}
+            {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
             <Icon iconSpec={<SvgRemove />} />
           </Button>
         </div>
@@ -244,7 +244,7 @@ export class Calculator extends React.PureComponent<
   };
 }
 
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 interface CalculatorKeyPadProps extends CommonProps {
   /** A function to be run when a value is clicked */
   onValueClick: (key: string) => void;
@@ -273,7 +273,7 @@ class CalculatorKeyPad extends React.PureComponent<CalculatorKeyPadProps> {
           onClick={this.props.onOperatorClick}
         >
           <div className="uifw-calculator-button-svg">
-            {/* eslint-disable-next-line deprecation/deprecation */}
+            {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
             <Icon iconSpec={backspaceIcon} />
           </div>
         </OperatorButton>

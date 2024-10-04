@@ -13,7 +13,7 @@ import { ActionButtonItemDef } from "./ActionButtonItemDef.js";
 import type { ToolItemProps } from "./ItemProps.js";
 import type { ToolbarItemUtilities } from "../toolbar/ToolbarItemUtilities.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** An Item that starts the execution of a Tool.
  * @public

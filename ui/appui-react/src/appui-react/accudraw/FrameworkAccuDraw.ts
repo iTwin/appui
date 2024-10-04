@@ -57,7 +57,7 @@ export interface AccuDrawSetFieldFocusEventArgs {
  * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class AccuDrawSetFieldFocusEvent extends BeUiEvent<AccuDrawSetFieldFocusEventArgs> {}
 
 /** Arguments for [[AccuDrawSetFieldValueToUiEvent]]
@@ -74,7 +74,7 @@ export interface AccuDrawSetFieldValueToUiEventArgs {
  * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class AccuDrawSetFieldValueToUiEvent extends BeUiEvent<AccuDrawSetFieldValueToUiEventArgs> {}
 
 /** Arguments for [[AccuDrawSetFieldValueFromUiEvent]]
@@ -90,7 +90,7 @@ export interface AccuDrawSetFieldValueFromUiEventArgs {
  * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class AccuDrawSetFieldValueFromUiEvent extends BeUiEvent<AccuDrawSetFieldValueFromUiEventArgs> {}
 
 /** Arguments for [[AccuDrawSetFieldLockEvent]]
@@ -106,7 +106,7 @@ export interface AccuDrawSetFieldLockEventArgs {
  * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class AccuDrawSetFieldLockEvent extends BeUiEvent<AccuDrawSetFieldLockEventArgs> {}
 
 /** Arguments for [[AccuDrawSetCompassModeEvent]]
@@ -121,20 +121,20 @@ export interface AccuDrawSetCompassModeEventArgs {
  * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class AccuDrawSetCompassModeEvent extends BeUiEvent<AccuDrawSetCompassModeEventArgs> {}
 
 /** AccuDraw Grab Input Focus event
  * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
-export class AccuDrawGrabInputFocusEvent extends BeUiEvent<{}> {}
+export class AccuDrawGrabInputFocusEvent extends BeUiEvent<object> {}
 
 /** AccuDraw Ui Settings Changed event
  * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
-export class AccuDrawUiSettingsChangedEvent extends BeUiEvent<{}> {}
+export class AccuDrawUiSettingsChangedEvent extends BeUiEvent<object> {}
 
 /** Subclass of `AccuDraw` in `@itwin/core-frontend` to be used to initialize `IModelApp`.
  *
@@ -159,22 +159,22 @@ export class FrameworkAccuDraw
 
   /** AccuDraw Set Field Focus event. */
   public static readonly onAccuDrawSetFieldFocusEvent =
-    new AccuDrawSetFieldFocusEvent(); // eslint-disable-line deprecation/deprecation
+    new AccuDrawSetFieldFocusEvent(); // eslint-disable-line @typescript-eslint/no-deprecated
   /** AccuDraw Set Field Value to Ui event. */
   public static readonly onAccuDrawSetFieldValueToUiEvent =
-    new AccuDrawSetFieldValueToUiEvent(); // eslint-disable-line deprecation/deprecation
+    new AccuDrawSetFieldValueToUiEvent(); // eslint-disable-line @typescript-eslint/no-deprecated
   /** AccuDraw Set Field Value from Ui event. */
   public static readonly onAccuDrawSetFieldValueFromUiEvent =
-    new AccuDrawSetFieldValueFromUiEvent(); // eslint-disable-line deprecation/deprecation
+    new AccuDrawSetFieldValueFromUiEvent(); // eslint-disable-line @typescript-eslint/no-deprecated
   /** AccuDraw Set Field Lock event. */
   public static readonly onAccuDrawSetFieldLockEvent =
-    new AccuDrawSetFieldLockEvent(); // eslint-disable-line deprecation/deprecation
+    new AccuDrawSetFieldLockEvent(); // eslint-disable-line @typescript-eslint/no-deprecated
   /** AccuDraw Set Mode event. */
   public static readonly onAccuDrawSetCompassModeEvent =
-    new AccuDrawSetCompassModeEvent(); // eslint-disable-line deprecation/deprecation
+    new AccuDrawSetCompassModeEvent(); // eslint-disable-line @typescript-eslint/no-deprecated
   /** AccuDraw Grab Input Focus event. */
   public static readonly onAccuDrawGrabInputFocusEvent =
-    new AccuDrawGrabInputFocusEvent(); // eslint-disable-line deprecation/deprecation
+    new AccuDrawGrabInputFocusEvent(); // eslint-disable-line @typescript-eslint/no-deprecated
 
   /** Determines if AccuDraw.rotationMode === RotationMode.Top */
   public static readonly isTopRotationConditional = new ConditionalBooleanValue(
@@ -224,7 +224,7 @@ export class FrameworkAccuDraw
 
   /** AccuDraw Grab Input Focus event. */
   public static readonly onAccuDrawUiSettingsChangedEvent =
-    new AccuDrawUiSettingsChangedEvent(); // eslint-disable-line deprecation/deprecation
+    new AccuDrawUiSettingsChangedEvent(); // eslint-disable-line @typescript-eslint/no-deprecated
 
   /** Determines if notifications should be displayed for AccuDraw changes */
   public static get displayNotifications(): boolean {
@@ -267,7 +267,7 @@ export class FrameworkAccuDraw
   }
 
   private handleSetFieldValueFromUiEvent = async (
-    args: AccuDrawSetFieldValueFromUiEventArgs // eslint-disable-line deprecation/deprecation
+    args: AccuDrawSetFieldValueFromUiEventArgs // eslint-disable-line @typescript-eslint/no-deprecated
   ) => {
     return this.processFieldInput(args.field, args.stringValue, false);
   };

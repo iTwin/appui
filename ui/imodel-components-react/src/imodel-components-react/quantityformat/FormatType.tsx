@@ -25,7 +25,7 @@ import { useTranslation } from "../useTranslation.js";
 /** Properties of [[FormatTypeSelector]] component.
  * @alpha
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 interface FormatTypeSelectorProps extends CommonProps {
   type: FormatType;
   onChange: (value: FormatType) => void;
@@ -78,7 +78,7 @@ function FormatTypeSelector(props: FormatTypeSelectorProps) {
  * @alpha
  * @deprecated in 4.17.0. Use `React.ComponentProps<typeof FormatTypeOption>`
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface FormatTypeOptionProps extends CommonProps {
   formatProps: FormatProps;
   onChange?: (format: FormatProps) => void;
@@ -87,7 +87,7 @@ export interface FormatTypeOptionProps extends CommonProps {
 /** Component to set the Quantity Format type.
  * @alpha
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export function FormatTypeOption(props: FormatTypeOptionProps) {
   const { formatProps, onChange } = props;
   const { translate } = useTranslation();

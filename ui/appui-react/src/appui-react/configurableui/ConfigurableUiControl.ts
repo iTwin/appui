@@ -6,7 +6,7 @@
  * @module ConfigurableUi
  */
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** Interface for a ConfigurableUi element
  * @public

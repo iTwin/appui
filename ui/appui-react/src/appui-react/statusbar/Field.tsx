@@ -15,7 +15,7 @@ import "./Field.scss";
  * @beta
  * @deprecated in 4.13.0. Props of deprecated component {@link StatusBarField}.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface StatusBarFieldProps extends CommonProps {
   /** Field content. */
   children?: React.ReactNode;
@@ -31,7 +31,7 @@ export interface StatusBarFieldProps extends CommonProps {
  */
 export const StatusBarField = React.forwardRef<
   HTMLDivElement,
-  StatusBarFieldProps // eslint-disable-line deprecation/deprecation
+  StatusBarFieldProps // eslint-disable-line @typescript-eslint/no-deprecated
 >(function StatusBarField(props, ref) {
   const hasClickAction = !!props.onClick;
   const classNames = classnames(

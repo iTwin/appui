@@ -11,7 +11,7 @@ import { ActionButtonItemDef } from "./ActionButtonItemDef.js";
 import type { CommandItemProps } from "./ItemProps.js";
 import type { ToolbarActionItem } from "../toolbar/ToolbarItem.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** An Item that executes a Command.
  * @public

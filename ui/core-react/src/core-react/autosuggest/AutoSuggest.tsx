@@ -15,7 +15,7 @@ import { Key } from "ts-key-enum";
 import type { CommonProps } from "../utils/Props.js";
 import { UiCore } from "../UiCore.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** Data for the [[AutoSuggest]] options
  * @public

@@ -9,7 +9,7 @@
 import { Key } from "ts-key-enum";
 import { Orientation } from "../enums/Orientation.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** Cross-Axis Arrow Key Callback
  * @internal

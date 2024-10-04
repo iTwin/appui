@@ -53,7 +53,7 @@ export interface CommonStatusBarItem {
   /** Describes badge. Renders no badge if not specified.
    * @deprecated in 4.16.0. Use `badgeKind` property instead.
    */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   readonly badge?: BadgeType;
   /** Specifies the kind of badge, if any, to be rendered. */
   readonly badgeKind?: BadgeKind;
@@ -76,7 +76,7 @@ export interface StatusBarActionItem extends CommonStatusBarItem {
   /** Icon of a status bar item.
    * @deprecated in 4.16.0. Use {@link StatusBarActionItem.iconNode} instead.
    */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   readonly icon?: IconSpec;
   /** Icon of a status bar item. */
   readonly iconNode?: React.ReactNode;
@@ -93,7 +93,7 @@ export interface StatusBarLabelItem extends CommonStatusBarItem {
   /** Icon of a status bar item.
    * @deprecated in 4.16.0. Use {@link StatusBarLabelItem.iconNode} instead.
    */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   readonly icon?: IconSpec;
   /** Icon of a status bar item. */
   readonly iconNode?: React.ReactNode;

@@ -103,7 +103,7 @@ export class CardPopup extends React.PureComponent<
       point,
       this.props.offset,
       this.state.size,
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       this.props.placement ?? mapToPlacement(this.props.relativePosition)
     );
     point = new Point(popupRect.left, popupRect.top);
@@ -115,7 +115,7 @@ export class CardPopup extends React.PureComponent<
         point={point}
         onSizeKnown={this._onSizeKnown}
       >
-        {/* eslint-disable-next-line deprecation/deprecation */}
+        {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
         <DivWithOutsideClick
           onOutsideClick={this.props.onCancel}
           onKeyDown={this._handleKeyDown}
@@ -161,7 +161,7 @@ export function Card(props: CardProps) {
   const content = isReactContent(props.content) ? (
     props.content.reactNode
   ) : (
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     <MessageRenderer message={props.content} />
   );
 

@@ -15,4 +15,4 @@ import type { CommonProps } from "../utils/Props.js";
  */
 export interface TextProps
   extends React.AllHTMLAttributes<HTMLSpanElement>,
-    CommonProps {} // eslint-disable-line deprecation/deprecation
+    CommonProps {} // eslint-disable-line @typescript-eslint/no-deprecated

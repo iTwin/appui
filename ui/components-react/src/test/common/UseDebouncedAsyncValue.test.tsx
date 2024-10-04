@@ -73,7 +73,7 @@ describe("useDebouncedAsyncValue", () => {
     });
 
     it("throws generic `Error` when promise rejects with `undefined`", async () => {
-      const promise = Promise.reject(undefined);
+      const promise = Promise.reject(undefined); // eslint-disable-line @typescript-eslint/prefer-promise-reject-errors
       const asyncValue = async () => promise;
       function TestComponent() {
         useDebouncedAsyncValue(asyncValue);

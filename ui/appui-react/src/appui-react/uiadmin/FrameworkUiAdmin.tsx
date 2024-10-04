@@ -368,13 +368,13 @@ export class FrameworkUiAdmin extends UiAdmin {
     relativePosition?: RelativePosition,
     anchorElement?: HTMLElement
   ): boolean {
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     const el = anchorElement ?? UiFramework.controls.getWrapperElement();
 
     if (relativePosition === undefined)
       relativePosition = RelativePosition.TopRight;
 
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     return PopupManager.showHTMLElement(
       displayElement,
       el,
@@ -390,7 +390,7 @@ export class FrameworkUiAdmin extends UiAdmin {
    * @deprecated in 4.11.0. Use {@link UiFramework.hideComponent}
    */
   public override hideHTMLElement(): boolean {
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     return PopupManager.hideHTMLElement();
   }
 

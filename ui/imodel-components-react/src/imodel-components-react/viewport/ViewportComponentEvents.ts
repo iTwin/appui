@@ -27,7 +27,7 @@ export interface DrawingViewportChangeEventArgs {
  * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class DrawingViewportChangeEvent extends UiEvent<DrawingViewportChangeEventArgs> {}
 
 /** Arguments for [[CubeRotationChangeEvent]]
@@ -44,7 +44,7 @@ export interface CubeRotationChangeEventArgs {
  * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class CubeRotationChangeEvent extends UiEvent<CubeRotationChangeEventArgs> {}
 
 /** Arguments for [[StandardRotationChangeEvent]]
@@ -59,7 +59,7 @@ export interface StandardRotationChangeEventArgs {
  * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class StandardRotationChangeEvent extends UiEvent<StandardRotationChangeEventArgs> {}
 
 /** Arguments for [[ViewRotationChangeEvent]]
@@ -75,7 +75,7 @@ export interface ViewRotationChangeEventArgs {
  * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class ViewRotationChangeEvent extends UiEvent<ViewRotationChangeEventArgs> {}
 
 /** Arguments for [[ViewClassFullNameChangedEvent]]
@@ -92,7 +92,7 @@ export interface ViewClassFullNameChangedEventArgs {
  * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class ViewClassFullNameChangedEvent extends UiEvent<ViewClassFullNameChangedEventArgs> {}
 
 /** Arguments for [[ViewIdChangedEvent]]
@@ -109,7 +109,7 @@ export interface ViewIdChangedEventArgs {
  * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class ViewIdChangedEvent extends UiEvent<ViewIdChangedEventArgs> {}
 
 /** Viewport Rotation events and methods
@@ -140,16 +140,16 @@ export class ViewportComponentEvents {
   public static readonly extents = Vector3d.createZero();
   public static readonly rotationMatrix = Matrix3d.createIdentity();
   public static readonly onDrawingViewportChangeEvent =
-    new DrawingViewportChangeEvent(); // eslint-disable-line deprecation/deprecation
+    new DrawingViewportChangeEvent(); // eslint-disable-line @typescript-eslint/no-deprecated
   public static readonly onCubeRotationChangeEvent =
-    new CubeRotationChangeEvent(); // eslint-disable-line deprecation/deprecation
+    new CubeRotationChangeEvent(); // eslint-disable-line @typescript-eslint/no-deprecated
   public static readonly onStandardRotationChangeEvent =
-    new StandardRotationChangeEvent(); // eslint-disable-line deprecation/deprecation
+    new StandardRotationChangeEvent(); // eslint-disable-line @typescript-eslint/no-deprecated
   public static readonly onViewRotationChangeEvent =
-    new ViewRotationChangeEvent(); // eslint-disable-line deprecation/deprecation
+    new ViewRotationChangeEvent(); // eslint-disable-line @typescript-eslint/no-deprecated
   public static readonly onViewClassFullNameChangedEvent =
-    new ViewClassFullNameChangedEvent(); // eslint-disable-line deprecation/deprecation
-  // eslint-disable-next-line deprecation/deprecation
+    new ViewClassFullNameChangedEvent(); // eslint-disable-line @typescript-eslint/no-deprecated
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   public static readonly onViewIdChangedEvent = new ViewIdChangedEvent();
 
   private static _handleSelectedViewportChanged: ListenerType<

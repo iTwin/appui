@@ -16,7 +16,7 @@ import { TitleBar } from "../dialog/TitleBar.js";
 /** Properties of [[ToolAssistanceDialog]] component.
  * @internal
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface ToolAssistanceDialogProps extends CommonProps {
   /** Items and separators of tool assistance. I.e. [[ToolAssistanceItem]], [[ToolAssistanceSeparator]] */
   children?: React.ReactNode;

@@ -17,10 +17,10 @@ import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState.js";
  * @public
  * @deprecated in 4.15.0. Use {@link SelectionCountField} instead.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export function SelectionInfoField(props: CommonProps) {
   const numItemsSelected = useReduxFrameworkState(
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     (state) => state?.sessionState.numItemsSelected ?? 0
   );
   return (

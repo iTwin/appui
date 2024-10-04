@@ -76,7 +76,7 @@ export class ImageRenderer {
 
     return (
       <div>
-        {/* eslint-disable-next-line deprecation/deprecation */}
+        {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
         <Icon iconSpec={svgAsDataUri} />
       </div>
     );
@@ -89,7 +89,7 @@ export class ImageRenderer {
 
   /** Render image as core-react icon */
   private renderCoreIcon(iconName: string) {
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     return <WebFontIcon iconName={iconName} />;
   }
 
@@ -104,7 +104,7 @@ export class ImageRenderer {
    */
   private extractIconClassAndName(
     iconName: string
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
   ): Pick<WebFontIconProps, "iconClassName" | "iconName"> {
     const matches = iconName.match(/(\\.|[^:])+/g);
     if (!matches || matches.length !== 2)
@@ -125,7 +125,7 @@ export class ImageRenderer {
    */
   private renderWebfontIcon(iconName: string) {
     const iconInfo = this.extractIconClassAndName(iconName);
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     return <WebFontIcon {...iconInfo} />;
   }
 
@@ -150,7 +150,7 @@ export class ImageRenderer {
 
       default:
         const unhandledSourceType: never = loadedImage.sourceType; // Compile time check that all cases are handled
-        // eslint-disable-next-line deprecation/deprecation
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         throw new UiError(
           UiComponents.loggerCategory("ImageRenderer"),
           `Can't handle sourceType: "${unhandledSourceType}"`

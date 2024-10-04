@@ -11,7 +11,7 @@ import { StatusBarComposer } from "../statusbar/StatusBarComposer.js";
 import { StatusBarWidgetControl } from "../statusbar/StatusBarWidgetControl.js";
 import { UiFramework } from "../UiFramework.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** StatusBarWidgetComposerControl provides status bar to specified Frontstage that allows status bar items to be populated
  * via UiItemsProviders. See [[StandardStatusbarItemsProvider]] that can be used to populate this status bar with a common

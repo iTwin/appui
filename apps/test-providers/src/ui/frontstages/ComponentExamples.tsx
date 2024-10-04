@@ -68,13 +68,13 @@ export const ComponentExamplesPage: React.FC<ComponentExamplesPageProps> = (
   const showThemeOption = !!!props.hideThemeOption;
   const [activeIndex, setActiveIndex] = React.useState(0);
   const [colorTheme, setColorTheme] = React.useState(() =>
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     UiFramework.getColorTheme()
   );
 
   const onThemeChange = () => {
     const theme = isLightTheme() ? ColorTheme.Dark : ColorTheme.Light;
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     UiFramework.setColorTheme(theme);
     setColorTheme(theme);
   };
@@ -107,7 +107,7 @@ export const ComponentExamplesPage: React.FC<ComponentExamplesPageProps> = (
   return (
     <div className="component-examples">
       <div className="component-examples-categories">
-        {/* eslint-disable-next-line deprecation/deprecation */}
+        {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
         <VerticalTabs
           labels={props.categories.map(
             (category: ComponentExampleCategory) => category.title
@@ -150,13 +150,13 @@ export const ComponentExamplesPage: React.FC<ComponentExamplesPageProps> = (
           }
         )}
       </div>
-      {/* eslint-disable-next-line deprecation/deprecation */}
+      {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
     </div>
   );
 };
 
 /** Properties for the Component Example component */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface ComponentExampleProps extends CommonProps {
   title: string;
   description?: string;

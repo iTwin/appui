@@ -38,7 +38,7 @@ export class UiComponents {
       UiComponents.localizationNamespace
     );
 
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     await UiCore.initialize(UiComponents._localization);
     UiComponents._initialized = true;
   }
@@ -51,7 +51,7 @@ export class UiComponents {
       );
     UiComponents._localization = undefined;
 
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     UiCore.terminate();
     UiComponents._initialized = false;
   }

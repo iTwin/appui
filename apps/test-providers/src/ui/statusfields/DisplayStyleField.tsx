@@ -24,7 +24,7 @@ import { useTranslation } from "../../useTranslation.js";
 /** This component is designed to be specified in a status bar definition to select the display style in the active IModel view.
  * It is used to enable/disable display of shadows.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export function DisplayStyleField(props: CommonProps) {
   const { translate } = useTranslation();
   const [viewport, setViewport] = React.useState<ScreenViewport | undefined>();

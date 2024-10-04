@@ -15,17 +15,17 @@ import { useWidgetDef } from "./Content.js";
 /** @internal */
 export function WidgetPanelsTab() {
   const widgetDef = useWidgetDef();
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   const iconSpec = widgetDef?.initialConfig?.icon;
   const icon =
     widgetDef?.initialConfig?.iconNode ??
     (iconSpec ? (
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       <Icon iconSpec={iconSpec} />
     ) : undefined);
   return (
     <WidgetTab
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       badge={<Badge type={widgetDef?.badgeKind || widgetDef?.badgeType} />}
       icon={icon}
     />

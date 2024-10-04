@@ -27,7 +27,7 @@ import { TreeNodeEditor } from "./TreeNodeEditor.js";
  * @public
  * @deprecated in 4.17.0. Use `React.ComponentProps<typeof TreeNodeContent>`
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface TreeNodeContentProps extends CommonProps {
   /** Tree node to render label for. */
   node: TreeModelNode;
@@ -45,7 +45,7 @@ export interface TreeNodeContentProps extends CommonProps {
  * React component for displaying [[TreeNode]] label
  * @public
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export function TreeNodeContent(props: TreeNodeContentProps) {
   const { node, onLabelRendered, highlightProps } = props;
   const label = React.useMemo(
@@ -118,7 +118,7 @@ function getLabel(
     style: getStyle(node.item.style, node.isSelected),
     textHighlighter: highlightCallback,
     defaultValue: (
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       <TreeNodePlaceholder level={0} data-testid={"node-label-placeholder"} />
     ),
   };

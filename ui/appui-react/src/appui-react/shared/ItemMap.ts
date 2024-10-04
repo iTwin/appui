@@ -8,7 +8,7 @@
 
 import type { ItemDefBase } from "./ItemDefBase.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** Contains a map of Items.
  * @public

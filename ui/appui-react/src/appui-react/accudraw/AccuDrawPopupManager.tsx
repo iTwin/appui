@@ -33,9 +33,9 @@ export class AccuDrawPopupManager {
     pt: XAndY,
     menuItemsProps: CursorMenuItemProps[]
   ): boolean {
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     const menuItems = MenuItemHelpers.createMenuItems(menuItemsProps);
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     const menuContent = MenuItemHelpers.createMenuItemNodes(menuItems);
 
     const component = (
@@ -74,7 +74,7 @@ export class AccuDrawPopupManager {
   ): boolean {
     const id = AccuDrawPopupManager._calculatorId;
     const component = (
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       <CalculatorPopup
         id={id}
         el={el}

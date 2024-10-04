@@ -24,7 +24,7 @@ import { useTranslation } from "../l10n/useTranslation.js";
 /** Properties for [[PopupButton]] component
  * @alpha
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface PopupButtonProps extends CommonProps {
   /** Label to display in click area. */
   label?: string | React.ReactNode;
@@ -151,12 +151,12 @@ export class PopupButton extends React.PureComponent<
                 "icon"
               )}
             >
-              {/* eslint-disable-next-line deprecation/deprecation */}
+              {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
               <Icon iconSpec={<SvgChevronDown />} />
             </div>
           </div>
         </div>
-        {/* eslint-disable-next-line deprecation/deprecation */}
+        {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
         <Popup
           className="components-popup-button-popup"
           isOpen={this.state.showPopup}
@@ -185,9 +185,9 @@ export class PopupButton extends React.PureComponent<
 /** Popup content with padding
  * @alpha
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export function PopupContent(props: CommonDivProps) {
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   return <Div {...props} mainClassName="components-editor-popup-content" />;
 }
 
@@ -203,7 +203,7 @@ export interface OkCancelProps {
 /** OK/Cancel Buttons
  * @alpha
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export function PopupOkCancelButtons(props: OkCancelProps) {
   const { translate } = useTranslation();
   return (
@@ -218,7 +218,7 @@ export function PopupOkCancelButtons(props: OkCancelProps) {
         title={translate("dialog.ok")}
         onClick={props.onOk}
       >
-        {/* eslint-disable-next-line deprecation/deprecation */}
+        {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
         <Icon iconSpec={<SvgCheckmark />} />
       </Button>
       <Button
@@ -230,7 +230,7 @@ export function PopupOkCancelButtons(props: OkCancelProps) {
         title={translate("dialog.cancel")}
         onClick={props.onCancel}
       >
-        {/* eslint-disable-next-line deprecation/deprecation */}
+        {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
         <Icon iconSpec={<SvgRemove />} />
       </Button>
     </div>

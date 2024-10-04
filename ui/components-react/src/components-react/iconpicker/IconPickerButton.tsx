@@ -19,7 +19,7 @@ import { SvgChevronDown } from "@itwin/itwinui-icons-react";
  */
 interface IconItemProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     CommonProps {
   /** icon specification */
   icon: string;
@@ -55,7 +55,7 @@ class IconItem extends React.PureComponent<IconItemProps> {
         style={this.props.style}
         onClick={handleClick}
       >
-        {/* eslint-disable-next-line deprecation/deprecation */}
+        {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
         <Icon iconSpec={icon} />
       </button>
     );
@@ -67,7 +67,7 @@ class IconItem extends React.PureComponent<IconItemProps> {
  */
 export interface IconPickerProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     CommonProps {
   /** active string */
   icon: string;
@@ -168,17 +168,17 @@ export class IconPickerButton extends React.PureComponent<
           disabled={this.props.disabled}
           ref={this._target}
         >
-          {/* eslint-disable-next-line deprecation/deprecation */}
+          {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
           <Icon
             className="iconpicker-button-sprite"
             iconSpec={this.state.icon}
           />
           <span className="icon">
-            {/* eslint-disable-next-line deprecation/deprecation */}
+            {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
             <Icon iconSpec={<SvgChevronDown />} />
           </span>
         </button>
-        {/* eslint-disable-next-line deprecation/deprecation */}
+        {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
         <Popup
           className="components-iconpicker-popup"
           isOpen={this.state.showPopup}

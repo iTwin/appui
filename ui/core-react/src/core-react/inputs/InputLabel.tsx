@@ -22,7 +22,7 @@ import type {
   MessagedComponentProps,
 } from "./LabeledComponentProps.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** Properties for [[InputLabel]] components
  * @public

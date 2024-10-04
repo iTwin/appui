@@ -12,7 +12,7 @@ import type { ItemProps } from "./ItemProps.js";
  * @public
  * @deprecated in 4.15.0. Use specific item types instead, i.e. {@link ToolbarCustomItem}.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface CustomItemProps extends ItemProps {
   customId?: string;
   popupPanelNode?: React.ReactNode;

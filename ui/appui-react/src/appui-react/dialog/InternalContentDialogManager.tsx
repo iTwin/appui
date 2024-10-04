@@ -31,7 +31,7 @@ const CONTENT_DIALOG_ZINDEX_DEFAULT = 2000;
 export class InternalContentDialogManager {
   /** Content Dialog Changed Event */
   public static readonly onContentDialogChangedEvent =
-    new BeUiEvent<DialogChangedEventArgs>(); // eslint-disable-line deprecation/deprecation
+    new BeUiEvent<DialogChangedEventArgs>(); // eslint-disable-line @typescript-eslint/no-deprecated
 
   /** @internal */
   public static readonly dialogManager: DialogManagerBase =
@@ -59,7 +59,7 @@ export class InternalContentDialogManager {
 
   private static getDialogZIndexDefault(): number {
     const variable = "--uicore-z-index-view-content-dialog";
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     const value = getCssVariableAsNumber(variable);
 
     if (!isNaN(value)) return value;

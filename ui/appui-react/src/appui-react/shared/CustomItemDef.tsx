@@ -10,7 +10,7 @@ import type * as React from "react";
 import { ActionButtonItemDef } from "./ActionButtonItemDef.js";
 import type { CustomItemProps } from "./CustomItemProps.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** An Item that renders a React component.
  * @public

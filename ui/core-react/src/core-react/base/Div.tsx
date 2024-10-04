@@ -14,7 +14,7 @@ import type { CommonDivProps } from "../utils/Props.js";
  * @public
  * @deprecated in 4.12.0. Props of deprecated component {@link Div}.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface DivProps extends CommonDivProps {
   /** Main CSS class name */
   mainClassName: string;
@@ -24,7 +24,7 @@ export interface DivProps extends CommonDivProps {
  * @public
  * @deprecated in 4.12.0. Use HTMLDivElement instead i.e. `<div />`.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export function Div(props: DivProps) {
   const { mainClassName, className, style, children, ...divProps } = props;
 

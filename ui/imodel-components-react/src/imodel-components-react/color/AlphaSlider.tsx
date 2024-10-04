@@ -19,7 +19,7 @@ import { UiIModelComponents } from "../UiIModelComponents.js";
  */
 export interface AlphaSliderProps
   extends React.HTMLAttributes<HTMLDivElement>,
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     CommonProps {
   /** true if slider is oriented horizontal, else vertical orientation is assumed */
   isHorizontal?: boolean;
@@ -33,12 +33,12 @@ export interface AlphaSliderProps
  * @public
  * @deprecated in 4.11.0. Use {@link https://itwinui.bentley.com/docs/colorpicker iTwinUI color picker} instead.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class AlphaSlider extends React.PureComponent<AlphaSliderProps> {
   private _container: HTMLDivElement | null = null;
 
   /** @internal */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   constructor(props: AlphaSliderProps) {
     super(props);
   }

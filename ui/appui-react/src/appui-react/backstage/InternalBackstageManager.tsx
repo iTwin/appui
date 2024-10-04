@@ -48,9 +48,9 @@ export class InternalBackstageManager {
   }
 
   /** Get CommandItemDef that will toggle display of Backstage and allow iconSpec to be overridden */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   public getBackstageToggleCommand(overrideIconSpec?: IconSpec) {
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     return new CommandItemDef({
       commandId: "UiFramework.openBackstage",
       iconSpec: overrideIconSpec ? overrideIconSpec : "icon-home",

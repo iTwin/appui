@@ -36,7 +36,7 @@ interface CalculatorPopupState {
  * @deprecated in 4.16.0. Use {@link Calculator} component with {@link https://itwinui.bentley.com/docs/popover iTwinUI Popover} or {@link AccuDrawPopupManager.showCalculator} method instead.
  */
 export class CalculatorPopup extends React.PureComponent<
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   CalculatorPopupProps,
   CalculatorPopupState
 > {
@@ -67,13 +67,13 @@ export class CalculatorPopup extends React.PureComponent<
         className="uifw-calculator-host"
         onSizeKnown={this._onSizeKnown}
       >
-        {/* eslint-disable-next-line deprecation/deprecation */}
+        {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
         <DivWithOutsideClick onOutsideClick={this.props.onCancel}>
           <PositionPopupContent>
             <Calculator
               initialValue={this.props.initialValue}
               resultIcon={
-                // eslint-disable-next-line deprecation/deprecation
+                // eslint-disable-next-line @typescript-eslint/no-deprecated
                 <Icon iconSpec={this.props.resultIcon} />
               }
               onOk={this.props.onOk}

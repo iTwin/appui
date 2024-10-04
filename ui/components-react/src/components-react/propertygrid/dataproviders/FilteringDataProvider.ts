@@ -63,8 +63,8 @@ export class FilteringPropertyDataProvider
   public onDataChanged = new PropertyDataChangeEvent();
   private _filteredPropertyData: Promise<FilteredPropertyData> | undefined =
     undefined;
-  private _disposeFilterChangedListener: Function;
-  private _disposeDataChangedListener: Function;
+  private _disposeFilterChangedListener: (...args: any[]) => any;
+  private _disposeDataChangedListener: (...args: any[]) => any;
 
   public constructor(
     private _dataProvider: IPropertyDataProvider,

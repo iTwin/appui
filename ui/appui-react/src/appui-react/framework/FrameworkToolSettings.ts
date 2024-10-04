@@ -22,7 +22,7 @@ export interface SyncToolSettingsPropertiesEventArgs {
  * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class SyncToolSettingsPropertiesEvent extends UiEvent<SyncToolSettingsPropertiesEventArgs> {}
 
 /**
@@ -60,9 +60,9 @@ export interface FrameworkToolSettings {
   readonly activeToolDescription: string;
 
   /** Get ToolSettings Properties sync event. */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   readonly onSyncToolSettingsProperties: SyncToolSettingsPropertiesEvent;
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   readonly onReloadToolSettingsProperties: UiEvent<void>;
 
   /** Gets the Id of the active tool. If a tool is not active, blank is returned.

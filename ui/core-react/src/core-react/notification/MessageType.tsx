@@ -8,7 +8,7 @@
 
 import type * as React from "react";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** Describes a React based message
  * @public

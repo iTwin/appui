@@ -15,7 +15,7 @@ import { useTranslation } from "../../useTranslation.js";
 /** Properties of [[DecimalPrecisionSelector]] component.
  * @internal
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface DecimalPrecisionSelectorProps extends CommonProps {
   precision: number;
   onChange: (value: number) => void;

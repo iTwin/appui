@@ -20,7 +20,7 @@ import { UiFramework } from "../UiFramework.js";
  * @public
  * @deprecated in 4.17.0. Use `React.ComponentProps<typeof ToolWidgetComposer>`
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface ToolWidgetComposerProps extends CommonProps {
   /** Optional Corner Item which for most stages is the [[BackstageAppButton]] used to toggle the display of the backstage menu. */
   cornerItem?: React.ReactNode;
@@ -36,7 +36,7 @@ export interface ToolWidgetComposerProps extends CommonProps {
  * selected items. The vertical toolbar typically contains a more fixed list of tools.
  * @public
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export function ToolWidgetComposer(props: ToolWidgetComposerProps) {
   const { cornerItem, horizontalToolbar, verticalToolbar, ...otherProps } =
     props;

@@ -187,12 +187,12 @@ export function QuantityFormatSettingsPage({
     [activeFormatterSpec, activeQuantityType]
   );
 
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   useSaveBeforeActivatingNewSettingsTab(
     UiFramework.settingsManager,
     saveChanges
   );
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   useSaveBeforeClosingSettingsContainer(
     UiFramework.settingsManager,
     saveChanges
@@ -306,7 +306,7 @@ export function QuantityFormatSettingsPage({
       </span>
       <div className="uifw-quantity-types-container">
         <div className="left-panel">
-          {/* eslint-disable-next-line deprecation/deprecation */}
+          {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
           <Listbox
             id="uifw-quantity-types-list"
             className="uifw-quantity-types"
@@ -320,7 +320,7 @@ export function QuantityFormatSettingsPage({
                 const description = entry.description;
                 const label = entry.label;
                 return (
-                  // eslint-disable-next-line deprecation/deprecation
+                  // eslint-disable-next-line @typescript-eslint/no-deprecated
                   <ListboxItem
                     key={entry.key}
                     className="quantity-type-list-entry"

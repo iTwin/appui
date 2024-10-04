@@ -23,7 +23,7 @@ export enum CheckBoxState {
 export interface CheckBoxInfo {
   isVisible?: boolean;
   isDisabled?: boolean;
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   state?: CheckBoxState;
   tooltip?: string;
 }

@@ -27,7 +27,7 @@ type LocalizationProviderProps = React.ComponentProps<
 
 export function AppLocalizationProvider({
   children,
-}: React.PropsWithChildren<{}>) {
+}: React.PropsWithChildren<object>) {
   const [language, setLanguage] = React.useState<Language>("en-US");
   const [localization, setLocalization] = React.useState<
     LocalizationProviderProps["localization"]

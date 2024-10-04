@@ -9,7 +9,7 @@ import * as React from "react";
 import { StyledText } from "./StyledText.js";
 import type { TextProps } from "./TextProps.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** Styled disabled text React functional component
  * @public

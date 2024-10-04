@@ -24,8 +24,8 @@ import { RelativePosition } from "@itwin/appui-abstract";
  * @internal
  */
 export interface ToolbarOverflowButtonProps
-  extends CommonProps, // eslint-disable-line deprecation/deprecation
-    // eslint-disable-next-line deprecation/deprecation
+  extends CommonProps, // eslint-disable-line @typescript-eslint/no-deprecated
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     NoChildrenProps {
   /** Function called when button is clicked. */
   onClick?: () => void;
@@ -79,7 +79,7 @@ export function ToolbarOverflowButton(props: ToolbarOverflowButtonProps) {
           <div className="components-ellipsis" />
         </div>
       </button>
-      {/* eslint-disable-next-line deprecation/deprecation */}
+      {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
       <Popup
         className={popupClassName}
         offset={0}

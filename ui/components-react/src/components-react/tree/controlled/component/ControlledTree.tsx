@@ -34,7 +34,7 @@ import { useTranslation } from "../../../l10n/useTranslation.js";
  * Properties for [[ControlledTree]]
  * @public
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface ControlledTreeProps extends CommonProps {
   /** Model of the tree to display. */
   model: TreeModel;
@@ -188,7 +188,7 @@ function Loader(props: LoaderProps) {
     return props.noDataRenderer ? (
       props.noDataRenderer()
     ) : (
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       <FillCentered>
         <p className="components-controlledTree-errorMessage">
           {translate("general.noData")}

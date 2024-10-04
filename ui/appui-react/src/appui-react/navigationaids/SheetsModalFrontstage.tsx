@@ -32,7 +32,7 @@ export interface CardInfo {
   index: number;
   label: string;
   /** @deprecated in 4.16.0. Use {@link CardInfo.icon} instead. */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   iconSpec: IconSpec;
   icon?: React.ReactNode;
   isActive: boolean;
@@ -52,7 +52,7 @@ export interface CardSelectedEventArgs {
  * @alpha
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class CardSelectedEvent extends UiEvent<CardSelectedEventArgs> {}
 
 /** Modal frontstage displaying sheet information in cards.
@@ -110,7 +110,7 @@ export class SheetsModalFrontstage implements ModalFrontstageInfo {
   /** Gets components to be placed in the app bar */
   public get appBarRight(): React.ReactNode {
     return (
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       <SearchBox
         placeholder={UiFramework.translate("general.search")}
         onValueChanged={this._handleSearchValueChanged}
@@ -129,7 +129,7 @@ export class SheetsModalFrontstage implements ModalFrontstageInfo {
 /** Properties for [[CardContainer]]
  * @alpha
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface CardContainerProps extends CommonProps {
   cards: CardInfo[];
   searchValue: string;
@@ -140,20 +140,20 @@ export interface CardContainerProps extends CommonProps {
  * @alpha
  */
 export class CardContainer extends React.Component<CardContainerProps> {
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   private static _cardSelectedEvent = new BeUiEvent<CardSelectedEventArgs>();
 
   /** Get CardSelectedEvent event */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   public static get onCardSelectedEvent(): CardSelectedEvent {
     return CardContainer._cardSelectedEvent;
   }
 
   public override render() {
     return (
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       <ScrollView className={this.props.className} style={this.props.style}>
-        {/* eslint-disable-next-line deprecation/deprecation */}
+        {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
         <FlexWrapContainer>
           {this.props.cards.map((card: CardInfo, _index: number) => {
             let includeCard = true;
@@ -167,7 +167,7 @@ export class CardContainer extends React.Component<CardContainerProps> {
                   key={card.label}
                   label={card.label}
                   index={card.index}
-                  // eslint-disable-next-line deprecation/deprecation
+                  // eslint-disable-next-line @typescript-eslint/no-deprecated
                   iconSpec={card.iconSpec}
                   icon={card.icon}
                   isActive={card.isActive}
@@ -226,7 +226,7 @@ export interface SheetCardProps {
   label: string;
   index: number;
   /** @deprecated in 4.16.0. Use {@link SheetCardProps.icon} instead. */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   iconSpec: IconSpec;
   icon?: React.ReactNode;
   isActive: boolean;
@@ -272,9 +272,9 @@ export class SheetCard extends React.Component<SheetCardProps, SheetCardState> {
     );
 
     const icon =
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       this.props.icon ?? this.props.iconSpec ? (
-        // eslint-disable-next-line deprecation/deprecation
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         <Icon iconSpec={this.props.iconSpec} />
       ) : (
         <SvgPlaceholder />

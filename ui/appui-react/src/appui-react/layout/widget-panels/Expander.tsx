@@ -25,7 +25,7 @@ export interface WidgetPanelExpanderProps {
  * @internal
  */
 export function WidgetPanelExpander({ side }: WidgetPanelExpanderProps) {
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   const timer = React.useRef(new Timer(200));
   const lastPosition = React.useRef(new Point());
   const dispatch = React.useContext(NineZoneDispatchContext);

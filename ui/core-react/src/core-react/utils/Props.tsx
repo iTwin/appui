@@ -21,7 +21,7 @@ export interface ClassNameProps {
  * @public
  * @deprecated in 4.15.0. Used internally.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface CommonProps extends ClassNameProps {
   /** Custom CSS style properties */
   style?: React.CSSProperties;
@@ -35,7 +35,7 @@ export interface CommonProps extends ClassNameProps {
  */
 export interface CommonDivProps
   extends React.AllHTMLAttributes<HTMLDivElement>,
-    CommonProps {} // eslint-disable-line deprecation/deprecation
+    CommonProps {} // eslint-disable-line @typescript-eslint/no-deprecated
 
 /** Props used by components that do not expect children to be passed in.
  * @public

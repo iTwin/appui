@@ -22,7 +22,7 @@ import type { CommonProps } from "../utils/Props.js";
 import { useThrottledFn } from "../utils/hooks/useThrottledFn.js";
 import { useTranslation } from "../l10n/useTranslation.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** Results returned by onRatioChanged callback for determining new ratio and whether the ratio was updated.
  * @public

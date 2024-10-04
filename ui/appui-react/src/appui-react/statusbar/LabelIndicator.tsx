@@ -21,10 +21,10 @@ import { Label } from "@itwin/itwinui-react";
  * @deprecated in 4.14.0. Props of deprecated component {@link StatusBarLabelIndicator}.
  */
 export interface StatusBarLabelIndicatorProps
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   extends Omit<StatusBarIndicatorProps, "children"> {
   /** Specification of an icon. */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   iconSpec?: IconSpec;
   /** Indicator label. */
   label?: string;
@@ -36,7 +36,7 @@ export interface StatusBarLabelIndicatorProps
  * @beta
  * @deprecated in 4.14.0. Use [iTwinUI Label](https://itwinui.bentley.com/docs/typography#label) and {@link Icon AppUI Icon} instead.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export function StatusBarLabelIndicator(props: StatusBarLabelIndicatorProps) {
   const { className, iconSpec, label, labelSide, ...other } = props;
   const classNames = classnames(
@@ -45,10 +45,10 @@ export function StatusBarLabelIndicator(props: StatusBarLabelIndicatorProps) {
     className
   );
   return (
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     <StatusBarIndicator className={classNames} {...other}>
       {label && <Label className="uifw-label">{label}</Label>}
-      {/* eslint-disable-next-line deprecation/deprecation */}
+      {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
       {iconSpec && <Icon iconSpec={iconSpec} />}
     </StatusBarIndicator>
   );

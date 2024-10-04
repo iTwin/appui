@@ -15,7 +15,7 @@ import {
 import type { WidgetDef } from "./WidgetDef.js";
 import type { WidgetState } from "./WidgetState.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** The base class for Widget controls.
  * @public

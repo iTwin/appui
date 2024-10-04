@@ -15,7 +15,7 @@ import type { SelectOption } from "@itwin/itwinui-react";
 import { Checkbox, Select } from "@itwin/itwinui-react";
 import { useTranslation } from "../useTranslation.js";
 
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 interface UomSeparatorSelectorProps extends CommonProps {
   separator: string;
   disabled?: boolean;
@@ -66,7 +66,7 @@ function UomSeparatorSelector(props: UomSeparatorSelectorProps) {
  * @alpha
  * @deprecated in 4.17.0. Use `React.ComponentProps<typeof FormatUnitLabel>`
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface FormatUnitLabelProps extends CommonProps {
   formatProps: FormatProps;
   onUnitLabelChange?: (format: FormatProps) => void;
@@ -75,7 +75,7 @@ export interface FormatUnitLabelProps extends CommonProps {
 /** Component to set the label separator definition in a Quantity Format and if it the label is to be displayed.
  * @alpha
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export function FormatUnitLabel(props: FormatUnitLabelProps) {
   const { formatProps, onUnitLabelChange } = props;
   const { translate } = useTranslation();

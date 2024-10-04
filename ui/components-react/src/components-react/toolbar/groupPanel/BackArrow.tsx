@@ -15,7 +15,7 @@ import { useTargeted } from "@itwin/core-react/internal";
 /** Properties of [[BackArrow]] component.
  * @internal
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface BackArrowProps extends CommonProps, NoChildrenProps {
   /** Function called when arrow is clicked. */
   onClick?: () => void;

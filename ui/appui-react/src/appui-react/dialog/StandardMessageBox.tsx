@@ -25,7 +25,7 @@ import { UiFramework } from "../UiFramework.js";
  * @public
  * @deprecated in 4.15.0. Props of deprecated {@link StandardMessageBox} component.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface StandardMessageBoxProps extends CommonProps {
   /** Indicates whether the message box is open. */
   opened: boolean;
@@ -45,7 +45,7 @@ export interface StandardMessageBoxProps extends CommonProps {
  * @public
  * @deprecated in 4.15.0. Use {@link https://itwinui.bentley.com/docs/dialog iTwinUI Dialog} instead.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export function StandardMessageBox(props: StandardMessageBoxProps) {
   const [isOpen, setIsOpen] = React.useState(props.opened);
 
@@ -106,7 +106,7 @@ export function StandardMessageBox(props: StandardMessageBoxProps) {
       >
         <Dialog.TitleBar titleText={props.title} />
         <Dialog.Content>
-          {/* eslint-disable-next-line deprecation/deprecation */}
+          {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
           <MessageContainer severity={severity}>
             {props.children}
           </MessageContainer>

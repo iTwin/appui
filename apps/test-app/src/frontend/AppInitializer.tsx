@@ -54,7 +54,7 @@ function createInitializer() {
         info: { title: "test-app", version: "v1.0" },
         uriPrefix: "http://localhost:3001",
       },
-      rpcInterfaces // eslint-disable-line deprecation/deprecation
+      rpcInterfaces // eslint-disable-line @typescript-eslint/no-deprecated
     );
 
     const origin = window.location.origin;
@@ -140,7 +140,7 @@ function createInitializer() {
         window.localStorage.getItem("uifw:defaultTheme")) ??
       SYSTEM_PREFERRED_COLOR_THEME;
     UiFramework.registerUserSettingsProvider(
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       new AppUiSettings({
         colorTheme: lastTheme ?? SYSTEM_PREFERRED_COLOR_THEME,
         dragInteraction: false,

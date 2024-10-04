@@ -15,11 +15,11 @@ import { NavigationAidControl } from "./NavigationAidControl.js";
  * @public
  * @deprecated in 4.16.0. Use {@link @itwin/imodel-components-react#DrawingNavigationAid} component instead.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class DrawingNavigationAidControl extends NavigationAidControl {
   public static navigationAidId = "DrawingNavigationAid";
 
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   constructor(info: ConfigurableCreateInfo, options: any) {
     super(info, options);
     this.reactNode = (

@@ -24,7 +24,7 @@ describe("StatusBar", () => {
   });
 
   it("StatusBar should render children correctly", () => {
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     render(<StatusBar>Hello</StatusBar>);
 
     expect(screen.getByText("Hello")).toBeTruthy();
@@ -32,7 +32,7 @@ describe("StatusBar", () => {
 
   it("StatusBar should render widgetControl correctly", () => {
     render(
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       <StatusBar
         widgetControl={
           new (class extends StatusBarWidgetControl {
@@ -50,7 +50,7 @@ describe("StatusBar", () => {
   it("StatusBar should render safe area correctly", () => {
     const { container } = render(
       <SafeAreaContext.Provider value={SafeAreaInsets.Left}>
-        {/* eslint-disable-next-line deprecation/deprecation */}
+        {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
         <StatusBar />
       </SafeAreaContext.Provider>
     );

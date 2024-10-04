@@ -19,7 +19,7 @@ import { useTranslation } from "../useTranslation.js";
 /** Props for [[QuantityInput]] control
  * @beta
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface QuantityProps extends CommonProps {
   /** Initial magnitude in 'persistence' units. See `getPersistenceUnitByQuantityType` in [QuantityFormatter]($core-frontend) */
   initialValue: number;

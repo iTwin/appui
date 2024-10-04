@@ -120,7 +120,7 @@ describe("StatusBarComposer", () => {
     }
   }
 
-  function AppStatusBarComponent(props: {}) {
+  function AppStatusBarComponent(props: object) {
     return <div className="status-bar-component" {...props} />;
   }
 

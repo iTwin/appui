@@ -18,7 +18,7 @@ import "./SelectionCount.scss";
 /** Properties for the [[SelectionCountField]] component.
  * @beta
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface SelectionCountFieldProps extends CommonProps {
   count: number;
 }
@@ -37,7 +37,7 @@ export function SelectionCountField(props: SelectionCountFieldProps) {
   );
   return (
     <div className={className} style={props.style}>
-      {/* eslint-disable-next-line deprecation/deprecation */}
+      {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
       <Icon iconSpec={<SvgCursor />} />
       {props.count}
     </div>

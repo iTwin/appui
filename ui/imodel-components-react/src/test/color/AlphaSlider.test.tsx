@@ -7,7 +7,7 @@ import React from "react";
 import { fireEvent, render } from "@testing-library/react";
 import { AlphaSlider } from "../../imodel-components-react/color/AlphaSlider.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 describe("<AlphaSlider />", () => {
   const alpha = 0.5;

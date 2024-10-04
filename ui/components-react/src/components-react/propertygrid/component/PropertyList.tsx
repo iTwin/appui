@@ -22,7 +22,7 @@ import { Orientation } from "../../common/Orientation.js";
 /** Properties of [[PropertyList]] React component
  * @public
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface PropertyListProps extends CommonProps {
   orientation: Orientation;
   width: number;

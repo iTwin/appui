@@ -29,7 +29,7 @@ export interface DialogChangedEventArgs {
  * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class DialogChangedEvent extends UiEvent<DialogChangedEventArgs> {}
 
 /** Information maintained by a Dialog Manager about a dialog
@@ -50,11 +50,11 @@ const ZINDEX_DEFAULT = 12000;
 export class DialogManagerBase {
   private static _sId = 0;
   private _dialogs: DialogInfo[] = new Array<DialogInfo>();
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   private _onDialogChangedEvent: BeUiEvent<DialogChangedEventArgs>;
   private static _topZIndex = ZINDEX_DEFAULT;
 
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   constructor(onDialogChangedEvent: BeUiEvent<DialogChangedEventArgs>) {
     this._onDialogChangedEvent = onDialogChangedEvent;
   }
@@ -75,14 +75,14 @@ export class DialogManagerBase {
     return this._dialogs;
   }
 
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   public get onDialogChangedEvent(): BeUiEvent<DialogChangedEventArgs> {
     return this._onDialogChangedEvent;
   }
 
   public static getDialogZIndexDefault(): number {
     const variable = "--uicore-z-index-dialog";
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     const value = getCssVariableAsNumber(variable);
 
     if (!isNaN(value)) return value;

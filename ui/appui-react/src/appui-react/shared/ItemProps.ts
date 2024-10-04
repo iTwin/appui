@@ -15,7 +15,7 @@ import type { BadgeType, IconProps, IconSpec } from "@itwin/core-react";
 import type { BadgeKind } from "@itwin/core-react/internal";
 import type { ToolbarActionItem } from "../toolbar/ToolbarItem.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** Definition that specifies properties shared between many ConfigurableUi components.
  * @public

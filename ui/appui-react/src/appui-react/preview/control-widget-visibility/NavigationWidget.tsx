@@ -18,7 +18,7 @@ import { panelSides } from "../../layout/widget-panels/Panel.js";
 /** Displays a dropdown button to un-hide widgets in the bottom-right corner of the navigation widget area.
  * @internal
  */
-export function NavigationWidget({ children }: React.PropsWithChildren<{}>) {
+export function NavigationWidget({ children }: React.PropsWithChildren<object>) {
   const dispatch = React.useContext(NineZoneDispatchContext);
   const tabs = useUserControlledHiddenTabs();
   const hasWidgets = useHasWidgets();

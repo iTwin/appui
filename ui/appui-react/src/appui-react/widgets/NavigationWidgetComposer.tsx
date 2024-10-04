@@ -35,11 +35,11 @@ import { ViewUtilities } from "../utils/ViewUtilities.js";
 import { SheetNavigationAid } from "../navigationaids/SheetNavigationAid.js";
 
 function createNavigationAidControl(
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   activeContentControl: ContentControl | undefined,
   navigationAidId: string,
   activeViewport: ScreenViewport | undefined
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
 ): NavigationAidControl | undefined {
   if (
     !activeContentControl ||
@@ -50,12 +50,12 @@ function createNavigationAidControl(
 
   const viewport = activeContentControl.viewport;
   const imodel = viewport ? viewport.iModel : UiFramework.getIModelConnection();
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   const navigationAidControl = UiFramework.controls.create(
     navigationAidId,
     navigationAidId,
     { imodel, viewport }
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
   ) as NavigationAidControl;
 
   navigationAidControl.initialize();
@@ -78,10 +78,10 @@ export interface NavigationAidHostProps {
  * If an active content is defined without a content control (`classId` is set to an empty string) renders a default navigation aid based on an active viewport view state.
  * @public
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export function NavigationAidHost(props: NavigationAidHostProps) {
   const [activeContentControl, setActiveContentControl] = React.useState(() =>
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     UiFramework.content.getActiveContentControl()
   );
   const [activeContentViewport, setActiveContentViewport] = React.useState(
@@ -92,7 +92,7 @@ export function NavigationAidHost(props: NavigationAidHostProps) {
   );
 
   React.useEffect(() => {
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     return UiFramework.frontstages.onContentControlActivatedEvent.addListener(
       (args) => {
         setActiveContentControl(args.activeContentControl);
@@ -125,7 +125,7 @@ export function NavigationAidHost(props: NavigationAidHostProps) {
   }, []);
 
   const [activeViewClass, setActiveViewClass] = React.useState(() => {
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     const content = UiFramework.content.getActiveContentControl();
     if (content && content.viewport) return content.viewport.view.classFullName;
     return "";
@@ -167,7 +167,7 @@ export function NavigationAidHost(props: NavigationAidHostProps) {
   };
 
   if (
-    (UiFramework.visibility.useProximityOpacity || // eslint-disable-line deprecation/deprecation
+    (UiFramework.visibility.useProximityOpacity || // eslint-disable-line @typescript-eslint/no-deprecated
       UiFramework.visibility.snapWidgetOpacity) &&
     !ProcessDetector.isMobileBrowser
   ) {
@@ -219,7 +219,7 @@ function DefaultNavigationAid() {
  * @public
  * @deprecated in 4.17.0. Use `React.ComponentProps<typeof NavigationWidgetComposer>`
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface NavigationWidgetComposerProps extends CommonProps {
   /** Optional horizontal toolbar */
   horizontalToolbar?: React.ReactNode;
@@ -236,7 +236,7 @@ export interface NavigationWidgetComposerProps extends CommonProps {
  * and typically holds tools to visually navigate, orient, and zoom to specific content.
  * @public
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export function NavigationWidgetComposer(props: NavigationWidgetComposerProps) {
   const {
     navigationAidHost,

@@ -114,7 +114,7 @@ export class PropertyView extends React.Component<
           {this.props.labelElement}
         </div>
         {needElementSeparator ? (
-          // eslint-disable-next-line deprecation/deprecation
+          // eslint-disable-next-line @typescript-eslint/no-deprecated
           <ElementSeparator
             style={{ margin: 0 }}
             movableArea={this.props.width}

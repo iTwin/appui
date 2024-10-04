@@ -156,12 +156,12 @@ function combineItems(
 
 const useProximityOpacitySetting = () => {
   const [proximityOpacity, setProximityOpacity] = React.useState(
-    UiFramework.visibility.useProximityOpacity // eslint-disable-line deprecation/deprecation
+    UiFramework.visibility.useProximityOpacity // eslint-disable-line @typescript-eslint/no-deprecated
   );
 
   React.useEffect(() => {
     UiFramework.onUiVisibilityChanged.addListener(
-      () => setProximityOpacity(UiFramework.visibility.useProximityOpacity) // eslint-disable-line deprecation/deprecation
+      () => setProximityOpacity(UiFramework.visibility.useProximityOpacity) // eslint-disable-line @typescript-eslint/no-deprecated
     );
   }, []);
 
@@ -200,7 +200,7 @@ export interface ExtensibleToolbarProps {
  * @note Overrides `isActive` property based on the active tool id.
  * @public
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export function ToolbarComposer(props: ExtensibleToolbarProps) {
   const { usage, orientation } = props;
 

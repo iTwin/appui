@@ -14,7 +14,7 @@ function renderModalFrontstage(isOpen: boolean): React.ReactElement<any> {
   const activeModalFrontstage: ModalFrontstageInfo | undefined =
     UiFramework.frontstages.activeModalFrontstage;
   if (!activeModalFrontstage) {
-    throw Error;
+    throw new Error();
   }
 
   const { title, content, appBarRight } = activeModalFrontstage;

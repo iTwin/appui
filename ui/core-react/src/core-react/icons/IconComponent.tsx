@@ -14,7 +14,7 @@ import type { CommonProps } from "../utils/Props.js";
 import DOMPurify, * as DOMPurifyNS from "dompurify";
 import { ConditionalIconItem } from "./ConditionalIconItem.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** Prototype for an IconSpec which can be a string, ReactNode or ConditionalStringValue.
  * Strings are expected to be one of the following:

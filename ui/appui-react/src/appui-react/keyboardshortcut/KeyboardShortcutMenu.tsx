@@ -17,7 +17,7 @@ import {
 import type { KeyboardShortcut } from "./KeyboardShortcut.js";
 import { ConditionalBooleanValue, UiEvent } from "@itwin/appui-abstract";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** State of a [[KeyboardShortcutMenuEvent]] and [[KeyboardShortcutMenu]] component
  * @public

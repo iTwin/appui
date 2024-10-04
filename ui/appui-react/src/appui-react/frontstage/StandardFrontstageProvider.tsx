@@ -71,7 +71,7 @@ export interface StandardFrontstageProps {
  * @public
  * @deprecated in 4.15.0. Use {@link FrontstageUtilities.createStandardFrontstage} instead.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class StandardFrontstageProvider extends FrontstageProvider {
   constructor(private props: StandardFrontstageProps) {
     super();

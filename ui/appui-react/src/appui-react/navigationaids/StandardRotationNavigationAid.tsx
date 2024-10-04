@@ -38,11 +38,11 @@ import "./StandardRotationNavigationAid.scss";
  * @public
  * @deprecated in 4.16.0. Use {@link StandardRotationNavigationAid} component instead.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class StandardRotationNavigationAidControl extends NavigationAidControl {
   public static navigationAidId = "StandardRotationNavigationAid";
 
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   constructor(info: ConfigurableCreateInfo, options: any) {
     super(info, options);
     this.reactNode = <StandardRotationNavigationAid />;
@@ -51,7 +51,7 @@ export class StandardRotationNavigationAidControl extends NavigationAidControl {
 
 interface RotationData {
   label: string;
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   iconsSpec?: IconSpec;
 }
 
@@ -66,7 +66,7 @@ interface StandardRotationNavigationAidState {
  * @public
  */
 export class StandardRotationNavigationAid extends React.Component<
-  CommonProps, // eslint-disable-line deprecation/deprecation
+  CommonProps, // eslint-disable-line @typescript-eslint/no-deprecated
   StandardRotationNavigationAidState
 > {
   public override readonly state: Readonly<StandardRotationNavigationAidState>;
@@ -128,7 +128,7 @@ export class StandardRotationNavigationAid extends React.Component<
             className={"icon-button"}
             icon={
               <span className={classnames("three-d-icon", "icon")}>
-                {/* eslint-disable-next-line deprecation/deprecation */}
+                {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
                 <Icon
                   iconSpec={this.state.list[this.state.selected].iconsSpec}
                 />
@@ -138,7 +138,7 @@ export class StandardRotationNavigationAid extends React.Component<
             title={UiFramework.translate("standardRotationNavigationAid.title")}
           ></NZ_Icon>
         </NZ_Expandable>
-        {/* eslint-disable-next-line deprecation/deprecation */}
+        {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
         <Popup
           isOpen={this.state.isExpanded}
           offset={0}
@@ -185,7 +185,7 @@ export class StandardRotationNavigationAid extends React.Component<
                 <GroupTool
                   key={itemIndex.toString()}
                   label={item.label}
-                  // eslint-disable-next-line deprecation/deprecation
+                  // eslint-disable-next-line @typescript-eslint/no-deprecated
                   icon={<Icon iconSpec={item.iconsSpec} />}
                   isActive={this.state.selected.valueOf() === itemIndex}
                   onClick={() => this._handleListItemClicked(itemIndex)}

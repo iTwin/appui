@@ -22,7 +22,7 @@ export interface CommonBackstageItem {
   /** Describes badge. Renders no badge if not specified.
    * @deprecated in 4.16.0. Use `badgeKind` property instead.
    */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   readonly badge?: BadgeType;
   /** Specifies the kind of badge, if any, to be rendered. */
   readonly badgeKind?: BadgeKind;
@@ -34,7 +34,7 @@ export interface CommonBackstageItem {
   /** Name of icon WebFont entry or if specifying an imported SVG symbol use "webSvg:" prefix to imported symbol Id.
    * @deprecated in 4.16.0. Use {@link CommonBackstageItem.iconNode} instead.
    */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   readonly icon?: IconSpec;
   /** Icon of the backstage item. */
   readonly iconNode?: React.ReactNode;

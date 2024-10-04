@@ -48,15 +48,15 @@ export class BackstageManager {
     return this.internal.toggle();
   }
 
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   public getBackstageToggleCommand(overrideIconSpec?: IconSpec) {
     return this.internal.getBackstageToggleCommand(overrideIconSpec);
   }
 
   /** Get CommandItemDef that will toggle display of Backstage and allow iconSpec to be overridden. */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   public static getBackstageToggleCommand(overrideIconSpec?: IconSpec) {
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     return UiFramework.backstage.getBackstageToggleCommand(overrideIconSpec);
   }
 }

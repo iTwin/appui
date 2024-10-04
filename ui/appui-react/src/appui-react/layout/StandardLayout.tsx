@@ -17,7 +17,7 @@ import { useHorizontalPanelAlignment } from "../preview/horizontal-panel-alignme
 import { usePanelsAutoCollapse } from "./widget-panels/usePanelsAutoCollapse.js";
 import type { PanelSide } from "./widget-panels/PanelTypes.js";
 
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 interface StandardLayoutProps extends CommonProps {
   /** Main content area of the application (i.e. viewport) that will change bounds based on panel pinned state. */
   children?: React.ReactNode;

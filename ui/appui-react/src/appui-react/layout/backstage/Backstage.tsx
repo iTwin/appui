@@ -17,7 +17,7 @@ import "./Backstage.scss";
 /** Properties of [[Backstage]] component.
  * @internal
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface BackstageProps extends CommonProps {
   /** Backstage items and separators. I.e. [[BackstageItem]], [[BackstageSeparator]] */
   children?: React.ReactNode;

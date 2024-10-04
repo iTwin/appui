@@ -48,7 +48,7 @@ export interface ContentToolWidgetComposerProps {
  * @public
  */
 export function ContentToolWidgetComposer(
-  /* eslint-disable-next-line deprecation/deprecation */
+  /* eslint-disable-next-line @typescript-eslint/no-deprecated */
   props: ContentToolWidgetComposerProps
 ) {
   const { cornerButton } = props;

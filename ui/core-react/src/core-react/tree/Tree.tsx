@@ -16,7 +16,7 @@ import { Rectangle } from "../utils/Rectangle.js";
  * @public
  * @deprecated in 4.15.0. Props of deprecated {@link Tree} component.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface TreeProps extends CommonProps {
   children?: React.ReactNode;
   onMouseDown?: React.MouseEventHandler<HTMLDivElement>;
@@ -30,7 +30,7 @@ export interface TreeProps extends CommonProps {
  * @public
  * @deprecated in 4.15.0. Use {@link https://itwinui.bentley.com/docs/tree iTwinUI Tree} instead.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class Tree extends React.PureComponent<TreeProps> {
   private _treeElement: React.RefObject<HTMLDivElement> = React.createRef();
 

@@ -56,7 +56,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if (accessToken) return;
     try {
       await authClient.signInSilent();
-    } catch (err) {}
+    } catch {}
   }, [accessToken, authClient]);
 
   React.useEffect(() => {

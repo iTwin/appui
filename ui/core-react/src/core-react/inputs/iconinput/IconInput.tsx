@@ -30,7 +30,7 @@ export interface IconInputProps extends Omit<InputProps, "size"> {
 /** Input component with icon to the left of the input field
  * @public
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 const ForwardRefIconInput = React.forwardRef<HTMLInputElement, IconInputProps>(
   function ForwardRefIconInput(props, ref) {
     const { className, icon, containerClassName, size, ...otherProps } = props;
@@ -55,6 +55,6 @@ const ForwardRefIconInput = React.forwardRef<HTMLInputElement, IconInputProps>(
  * @public
  * @deprecated in 4.12.0. Use {@link https://itwinui.bentley.com/docs/inputwithdecorations iTwinUI input decorations} instead.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export const IconInput: (props: IconInputProps) => React.ReactNode =
   ForwardRefIconInput;

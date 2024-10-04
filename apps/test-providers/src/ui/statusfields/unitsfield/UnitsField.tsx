@@ -19,7 +19,7 @@ import { StatusBarDialog, StatusBarPopover } from "@itwin/appui-react";
 /** Props for [[UnitsField]].
  * @internal
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 interface UnitsFieldProps extends CommonProps {
   label?: string;
   title: string;

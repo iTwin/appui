@@ -39,9 +39,9 @@ class ToolSettingsUiDataProvider extends UiLayoutDataProvider {
 /** ToolUiProvider class that informs ConfigurableUi that Tool Settings are provided for the specified tool.
  * @internal
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class DefaultToolSettingsProvider extends ToolUiProvider {
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   constructor(info: ConfigurableCreateInfo, options: any) {
     super(info, options);
     this._dataProvider = new ToolSettingsUiDataProvider();
@@ -85,7 +85,7 @@ export class DefaultToolSettingsProvider extends ToolUiProvider {
 
   // called to process UiFramework.toolSettings.onSyncToolSettingsProperties event
   public override syncToolSettingsProperties(
-    args: SyncToolSettingsPropertiesEventArgs // eslint-disable-line deprecation/deprecation
+    args: SyncToolSettingsPropertiesEventArgs // eslint-disable-line @typescript-eslint/no-deprecated
   ): void {
     this.uiDataProvider.fireSyncPropertiesEvent(args.syncProperties);
   }

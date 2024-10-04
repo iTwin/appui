@@ -71,7 +71,7 @@ interface GroupMenuItemProps {
 
 /** @internal */
 export function GroupMenuItem({ item, onClose }: GroupMenuItemProps) {
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   const iconSpec = useConditionalProp(item.icon);
   const label = useConditionalProp(item.label);
   const isDisabled = useConditionalProp(item.isDisabled);
@@ -86,7 +86,7 @@ export function GroupMenuItem({ item, onClose }: GroupMenuItemProps) {
   const startIcon = item.iconNode ? (
     <>{item.iconNode}</>
   ) : (
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     <Icon iconSpec={iconSpec} />
   );
   return (
@@ -102,7 +102,7 @@ export function GroupMenuItem({ item, onClose }: GroupMenuItemProps) {
       }}
       isSelected={isActive}
     >
-      {/* eslint-disable-next-line deprecation/deprecation */}
+      {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
       <Badge badge={item.badge} badgeKind={item.badgeKind} />
       {label}
     </MenuItem>

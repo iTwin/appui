@@ -45,7 +45,7 @@ export interface CommonToolbarItem {
   /** Describes badge. Renders no badge if not specified.
    * @deprecated in 4.16.0. Use `badgeKind` property instead.
    */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   readonly badge?: BadgeType;
   /** Specifies the kind of badge, if any, to be rendered. */
   readonly badgeKind?: BadgeKind;
@@ -77,7 +77,7 @@ export interface ToolbarActionItem extends CommonToolbarItem {
   /** Name of icon WebFont entry or if specifying an imported SVG symbol use "webSvg:" prefix  to imported symbol Id.
    * @deprecated in 4.16.0. Use {@link CommonToolbarItem.iconNode} instead and specify `undefined` for this property. This will be made optional in 5.0.0.
    */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   readonly icon: IconSpec;
   /** label, shown as tool tip on a button or an item label in a group. */
   readonly label: string | ConditionalStringValue;
@@ -94,7 +94,7 @@ export interface ToolbarGroupItem extends CommonToolbarItem {
   /** Name of icon WebFont entry or if specifying an imported SVG symbol use "webSvg:" prefix to imported symbol Id.
    * @deprecated in 4.16.0. Use {@link CommonToolbarItem.iconNode} instead.
    */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   readonly icon: IconSpec;
   /** label, shown as tool tip on group button or a group button label in a group panel. */
   readonly label: string | ConditionalStringValue;
@@ -113,7 +113,7 @@ export interface ToolbarCustomItem extends CommonToolbarItem {
   /** Name of icon WebFont entry or if specifying an imported SVG symbol use "webSvg:" prefix to imported symbol Id.
    * @deprecated in 4.16.0. Use {@link CommonToolbarItem.iconNode} instead.
    */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   readonly icon?: IconSpec;
   /** label, shown as tool tip on group button or a group button label in a group panel. */
   readonly label?: string | ConditionalStringValue;

@@ -10,7 +10,7 @@ import * as React from "react";
 import { hasPointerEventsSupport } from "../../base/PointerEvents.js";
 import { Timer } from "../Timer.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /**
  * @public

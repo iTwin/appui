@@ -14,9 +14,9 @@ import { InternalContentDialogManager as internal } from "./InternalContentDialo
 /** ContentDialogRenderer React component renders modeless dialogs.
  * @public
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class ContentDialogRenderer extends React.PureComponent<CommonProps> {
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   constructor(props: CommonProps) {
     super(props);
   }

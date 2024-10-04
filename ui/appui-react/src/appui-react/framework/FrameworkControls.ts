@@ -10,7 +10,7 @@ import type {
   ConfigurableUiElement,
 } from "../configurableui/ConfigurableUiControl.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** [[UiFramework.controls]] interface
  * @public

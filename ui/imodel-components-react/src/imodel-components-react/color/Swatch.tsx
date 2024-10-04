@@ -19,7 +19,7 @@ import { getCSSColorFromDef } from "./getCSSColorFromDef.js";
  */
 export interface ColorSwatchProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     CommonProps {
   /** color specification */
   colorDef: ColorDef;
@@ -33,7 +33,7 @@ export interface ColorSwatchProps
  * @beta
  * @deprecated in 4.11.0. Use {@link https://itwinui.bentley.com/docs/colorpicker iTwinUI color picker} instead.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export function ColorSwatch(props: ColorSwatchProps) {
   const rgbaString = getCSSColorFromDef(props.colorDef);
   const colorStyle: React.CSSProperties = {

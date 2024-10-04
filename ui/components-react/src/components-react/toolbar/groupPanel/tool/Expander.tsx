@@ -18,7 +18,7 @@ import { GroupTool } from "./Tool.js";
  */
 export interface GroupToolExpanderProps
   extends Omit<GroupToolProps, "isActive" | "children">,
-    NoChildrenProps {} // eslint-disable-line deprecation/deprecation
+    NoChildrenProps {} // eslint-disable-line @typescript-eslint/no-deprecated
 
 /** Expandable entry of tool group panel. Used in [[GroupColumn]] to select nested Groups.
  * @internal
