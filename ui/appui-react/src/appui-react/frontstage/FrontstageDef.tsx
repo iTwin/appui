@@ -795,20 +795,21 @@ export class FrontstageDef {
     const widgetDef = this.findWidgetDef(tabId);
     if (!widgetDef) return;
 
-    const height = childWindow.innerHeight;
-    const width = childWindow.innerWidth;
-    const left = childWindow.screenLeft;
-    const top = childWindow.screenTop;
-
-    const bounds = Rectangle.createFromSize({ width, height }).offset({
-      x: left,
-      y: top,
-    });
-
     this.dispatch({
       type: "WIDGET_TAB_SET_POPOUT_BOUNDS",
       id: tabId,
-      bounds,
+      position: {
+        x: childWindow.screenLeft,
+        y: childWindow.screenTop,
+      },
+      size: {
+        height: childWindow.outerHeight,
+        width: childWindow.outerWidth,
+      },
+      contentSize: {
+        height: childWindow.innerHeight,
+        width: childWindow.innerWidth,
+      },
     });
   }
 

@@ -635,12 +635,15 @@ export function NineZoneStateReducer(
         }
       }
 
-      let preferredBounds = savedTab?.popoutBounds
-        ? Rectangle.create(savedTab.popoutBounds)
-        : Rectangle.createFromSize({
-            height: contentHeight,
-            width: contentWidth,
-          });
+      let preferredBounds = Rectangle.createFromSize({
+        height: contentHeight,
+        width: contentWidth,
+      });
+      if (savedTab?.popout) {
+        preferredBounds = Rectangle.createFromSize(savedTab.popout.contentSize);
+        preferredBounds = preferredBounds.offset(savedTab.popout.position);
+      }
+
       if (size) preferredBounds = preferredBounds.setSize(size);
       if (position) preferredBounds = preferredBounds.setPosition(position);
 
@@ -780,7 +783,13 @@ export function NineZoneStateReducer(
     }
     case "WIDGET_TAB_SET_POPOUT_BOUNDS": {
       return updateSavedTabState(state, action.id, (draft) => {
-        initRectangleProps(draft, "popoutBounds", action.bounds);
+        draft.popout = {
+          position: action.position,
+          contentSize: action.contentSize,
+        };
+        if (action.size) {
+          draft.popout.size = action.size;
+        }
       });
     }
     case "WIDGET_TAB_SHOW": {
