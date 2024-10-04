@@ -729,7 +729,7 @@ export class FrontstageDef {
       top: bounds.top,
     };
 
-    const result = appUi.windowManager.openWindow({
+    const childWindow = appUi.windowManager.openWindow({
       childWindowId: widgetContainerId,
       title: widgetDef.label,
       content: popoutContent,
@@ -737,7 +737,16 @@ export class FrontstageDef {
       useDefaultPopoutUrl: UiFramework.useDefaultPopoutUrl,
     });
 
-    if (!result && oldState) {
+    // Use outer size if available to avoid inner size + browser zoom issues: https://github.com/iTwin/appui/issues/563
+    const savedTab = state.savedTabs.byId[tabId];
+    if (childWindow && savedTab?.popout?.size) {
+      childWindow.resizeTo(
+        savedTab.popout.size.width,
+        savedTab.popout.size.height
+      );
+    }
+
+    if (!childWindow && oldState) {
       this.nineZoneState = oldState;
       return false;
     }

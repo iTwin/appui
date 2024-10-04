@@ -210,18 +210,6 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
     );
     if (!childWindow) return undefined;
 
-    // Use outer size if available to avoid inner size + browser zoom issues: https://github.com/iTwin/appui/issues/563
-    const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
-    if (frontstageDef && tabId) {
-      const savedTab = frontstageDef.nineZoneState?.savedTabs.byId[tabId];
-      if (savedTab?.popout?.size) {
-        childWindow.resizeTo(
-          savedTab?.popout?.size.width,
-          savedTab?.popout?.size.height
-        );
-      }
-    }
-
     childWindow.addEventListener("pagehide", () => {
       const frontStageDef = UiFramework.frontstages.activeFrontstageDef;
       if (!frontStageDef) return;
