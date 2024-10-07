@@ -2012,7 +2012,7 @@ describe("NineZoneStateReducer", () => {
   });
 
   describe("WIDGET_TAB_SET_POPOUT_BOUNDS", () => {
-    it.only("should update bounds", () => {
+    it("should update bounds", () => {
       let state = createNineZoneState();
       state = addTab(state, "t1");
 
