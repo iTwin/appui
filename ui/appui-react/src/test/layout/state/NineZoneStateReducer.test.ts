@@ -2037,6 +2037,7 @@ describe("NineZoneStateReducer", () => {
           width: 290,
           height: 380,
         },
+        size: undefined,
       });
     });
   });

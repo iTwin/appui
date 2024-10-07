@@ -40,7 +40,6 @@ import {
   updateTabState,
 } from "./internal/TabStateHelpers.js";
 import {
-  initRectangleProps,
   initSizeProps,
   isToolSettingsFloatingWidget,
   setPointProps,
@@ -787,10 +786,8 @@ export function NineZoneStateReducer(
         draft.popout = {
           position: action.position,
           contentSize: action.contentSize,
+          size: action.size,
         };
-        if (action.size) {
-          draft.popout.size = action.size;
-        }
       });
     }
     case "WIDGET_TAB_SHOW": {
