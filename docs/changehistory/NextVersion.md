@@ -27,6 +27,7 @@ Table of contents:
 - Popout widgets are now displayed in flow layout to match the layout of floating, stage panel and popout widgets when `reparentPopoutWidgets` is enabled. [#1049](https://github.com/iTwin/appui/pull/1049)
 - Drop support for [iTwin.js 3.x](https://www.itwinjs.org/v3/) [^2]. [#1050](https://github.com/iTwin/appui/pull/1050)
 - Drop support for [React 17.x](https://react.dev/versions#react-17) [^3]. [#1054](https://github.com/iTwin/appui/pull/1054)
+- Removed usage of `IModelApp.renderSystem.options.displaySolarShadows` check from 'useSolarDataProvider'. [#1066](https://github.com/iTwin/appui/pull/1066)
 
 ## @itwin/components-react
 
