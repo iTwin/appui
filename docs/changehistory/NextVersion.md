@@ -4,10 +4,11 @@ Table of contents:
 
 - [@itwin/appui-react](#itwinappui-react)
   - [Removals](#removals)
+  - [Additions](#additions)
   - [Changes](#changes)
 - [@itwin/components-react](#itwincomponents-react)
   - [Deprecations](#deprecations)
-  - [Additions](#additions)
+  - [Additions](#additions-1)
   - [Changes](#changes-1)
 - [@itwin/core-react](#itwincore-react)
   - [Changes](#changes-2)
@@ -19,6 +20,23 @@ Table of contents:
 ### Removals
 
 - Removed `FrameworkChildWindows.useCreateRoot` method which existed solely to prevent runtime warnings when using `React 18.x`. [#1054](https://github.com/iTwin/appui/pull/1054)
+
+### Additions
+
+- Added `childWindow` prop to `ConfigurableUiContent` component which allows consumers to provide a wrapper component for child windows and popout widgets. [#1058](https://github.com/iTwin/appui/pull/1058)
+
+  ```tsx
+  import { ThemeProvider } from "@itwin/itwinui-react-v2";
+
+  function ChildWindow(props: React.PropsWithChildren<{}>) {
+    // Wrap content of child windows with `ThemeProvider` from iTwinUI 2.x
+    return <ThemeProvider>{props.children}</ThemeProvider>;
+  }
+
+  function App() {
+    return <ConfigurableUiContent childWindow={ChildWindow} />;
+  }
+  ```
 
 ### Changes
 
