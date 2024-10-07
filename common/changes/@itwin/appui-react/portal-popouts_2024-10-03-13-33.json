@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Use React portal instead of creating a separate root for each child window.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}

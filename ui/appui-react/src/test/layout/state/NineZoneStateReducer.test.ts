@@ -1592,11 +1592,15 @@ describe("NineZoneStateReducer", () => {
           byId: {
             t1: {
               id: "t1",
-              popoutBounds: {
-                top: 10,
-                left: 20,
-                right: 300,
-                bottom: 400,
+              popout: {
+                position: {
+                  x: 20,
+                  y: 10,
+                },
+                contentSize: {
+                  height: 390,
+                  width: 280,
+                },
               },
             },
           },
@@ -2015,18 +2019,25 @@ describe("NineZoneStateReducer", () => {
       const newState = NineZoneStateReducer(state, {
         type: "WIDGET_TAB_SET_POPOUT_BOUNDS",
         id: "t1",
-        bounds: {
-          left: 10,
-          top: 20,
-          right: 300,
-          bottom: 400,
+        position: {
+          x: 10,
+          y: 20,
+        },
+        contentSize: {
+          width: 290,
+          height: 380,
         },
       });
-      expect(newState.savedTabs.byId.t1?.popoutBounds).to.eql({
-        left: 10,
-        top: 20,
-        right: 300,
-        bottom: 400,
+      expect(newState.savedTabs.byId.t1?.popout).to.eql({
+        position: {
+          x: 10,
+          y: 20,
+        },
+        contentSize: {
+          width: 290,
+          height: 380,
+        },
+        size: undefined,
       });
     });
   });
