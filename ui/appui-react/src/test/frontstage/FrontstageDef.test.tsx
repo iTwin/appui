@@ -662,6 +662,7 @@ describe("FrontstageDef", () => {
 
       const spy = vi.spyOn(window, "open").mockReturnValue({
         addEventListener: () => {},
+        removeEventListener: () => {},
       } as unknown as Window);
       frontstageDef.popoutWidget("t1");
 
