@@ -50,7 +50,7 @@ import { IModelConnection, ViewState } from "@itwin/core-frontend";
 import {
   createITwinUIV2Frontstage,
   createITwinUIV2FrontstageProvider,
-} from "./appui/frontstages/iTwinUIv2Frontstage";
+} from "./appui/frontstages/iTwinUIV2Frontstage";
 
 interface RegisterFrontstagesArgs {
   iModelConnection?: IModelConnection;
