@@ -1585,7 +1585,7 @@ describe("NineZoneStateReducer", () => {
       expect(newState).toEqual(state);
     });
 
-    it.only("should use saved bounds", () => {
+    it("should use saved bounds", () => {
       let state = createNineZoneState({
         savedTabs: {
           allIds: ["t1"],
