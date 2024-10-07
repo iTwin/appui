@@ -45,6 +45,7 @@ export const ConfigurableUiContext = React.createContext<
     | "collapsePanels"
     | "animateToolSettings"
     | "toolAsToolSettingsLabel"
+    | "childWindow"
   >
 >({});
 
@@ -73,7 +74,7 @@ export interface ConfigurableUiContentProps extends CommonProps {
   toolAsToolSettingsLabel?: boolean;
   /** Describes the opacity of toolbars. Uses redux store as a fallback. Defaults to {@link TOOLBAR_OPACITY_DEFAULT}. */
   toolbarOpacity?: number;
-  /** Component to wrap all popout widgets and other window popups opened via {@link UiFramework.childWindows}. */
+  /** Component to wrap all popout widgets and other child windows opened via {@link UiFramework.childWindows}. */
   childWindow?: React.ComponentType;
 
   /** @internal */
@@ -126,6 +127,7 @@ export function ConfigurableUiContent(props: ConfigurableUiContentProps) {
         collapsePanels: props.collapsePanels,
         animateToolSettings: props.animateToolSettings,
         toolAsToolSettingsLabel: props.toolAsToolSettingsLabel,
+        childWindow: props.childWindow,
       }}
     >
       <main

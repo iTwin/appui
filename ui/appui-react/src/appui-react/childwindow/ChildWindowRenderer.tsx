@@ -20,6 +20,7 @@ import { ModalDialogRenderer } from "../dialog/ModalDialogManager.js";
 import { ModelessDialogRenderer } from "../dialog/ModelessDialogManager.js";
 import { CursorPopupMenu } from "../cursor/cursormenu/CursorMenu.js";
 import { copyStyles } from "./CopyStyles.js";
+import { ConfigurableUiContext } from "../configurableui/ConfigurableUiContent.js";
 
 interface ChildWindowRendererProps {
   windowManager: InternalChildWindowManager;
@@ -59,6 +60,7 @@ type ChildWindowProps = Pick<
 >;
 
 function ChildWindow({ content, tabId, window }: ChildWindowProps) {
+  const { childWindow } = React.useContext(ConfigurableUiContext);
   const container = React.useMemo(() => {
     return window.document.getElementById("root");
   }, [window]);
@@ -73,19 +75,22 @@ function ChildWindow({ content, tabId, window }: ChildWindowProps) {
   if (!container) return null;
   if (!styled) return null;
 
+  const ChildWindowWrapper = childWindow ?? DefaultChildWindowWrapper;
   return ReactDOM.createPortal(
     <TabIdContext.Provider value={tabId}>
       <ThemeManager>
-        <div className="uifw-child-window-container-host">
-          <PopupRenderer />
-          <ModalDialogRenderer />
-          <ModelessDialogRenderer />
-          <CursorPopupMenu />
-          <div className="uifw-child-window-container nz-widget-widget">
-            {content}
+        <ChildWindowWrapper>
+          <div className="uifw-child-window-container-host">
+            <PopupRenderer />
+            <ModalDialogRenderer />
+            <ModelessDialogRenderer />
+            <CursorPopupMenu />
+            <div className="uifw-child-window-container nz-widget-widget">
+              {content}
+            </div>
           </div>
-        </div>
-        <div className="uifw-childwindow-internalChildWindowManager_portalContainer" />
+          <div className="uifw-childwindow-internalChildWindowManager_portalContainer" />
+        </ChildWindowWrapper>
       </ThemeManager>
     </TabIdContext.Provider>,
     container
@@ -110,3 +115,7 @@ const stylesUtils = (() => {
     },
   };
 })();
+
+function DefaultChildWindowWrapper(props: React.PropsWithChildren) {
+  return <>{props.children}</>;
+}
