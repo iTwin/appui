@@ -132,7 +132,7 @@ export function PropertyFilterBuilderRuleRenderer(
 
   return (
     <div className="fb-component-row">
-      <Flex className="fb-row-container" gap="s" alignItems="flex-start">
+      <Flex className="fb-row-container">
         <PropertyFilterBuilderRuleProperty
           properties={properties}
           selectedProperty={rule.property}

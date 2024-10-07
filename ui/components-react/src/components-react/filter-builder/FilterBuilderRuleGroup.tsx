@@ -52,8 +52,6 @@ export function PropertyFilterBuilderRuleGroupRenderer(
     [path, actions]
   );
 
-  const showOperator = group.items.length > 1;
-
   return (
     <Flex
       ref={groupRef}
@@ -61,13 +59,11 @@ export function PropertyFilterBuilderRuleGroupRenderer(
       className="fb-group"
       gap="0px"
     >
-      {showOperator ? (
-        <PropertyFilterBuilderRuleGroupOperator
-          operator={group.operator}
-          onChange={onOperatorChange}
-          isGroupOperatorDisabled={isGroupOperatorDisabled}
-        />
-      ) : null}
+      <PropertyFilterBuilderRuleGroupOperator
+        operator={group.operator}
+        onChange={onOperatorChange}
+        isGroupOperatorDisabled={isGroupOperatorDisabled}
+      />
       <div className="fb-wrapper">
         {group.items.map((item) => (
           <div className="fb-row" key={item.id}>
