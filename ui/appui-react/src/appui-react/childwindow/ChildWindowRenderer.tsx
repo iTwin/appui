@@ -93,19 +93,20 @@ function ChildWindow({ content, tabId, window }: ChildWindowProps) {
 }
 
 const stylesUtils = (() => {
-  const hasStyles = (window: Window) => {
+  // eslint-disable-next-line @typescript-eslint/promise-function-async
+  const getCopyStylesPromise = (window: Window) => {
     const w = window as any;
-    return w.__appui_has_styles ?? false;
-  };
-  const setHasStyles = (window: Window, val: boolean) => {
-    const w = window as any;
-    w.__appui_has_styles = val;
+    return w.__appui_copy_styles as Promise<void> | undefined;
   };
   return {
     copyStyles: async (window: Window) => {
-      if (hasStyles(window)) return;
-      setHasStyles(window, true);
-      return copyStyles(window.document);
+      let copyStylesPromise = getCopyStylesPromise(window);
+      if (copyStylesPromise === undefined) {
+        copyStylesPromise = copyStyles(window.document);
+        const w = window as any;
+        w.__appui_copy_styles = copyStylesPromise;
+      }
+      return copyStylesPromise;
     },
   };
 })();
