@@ -268,22 +268,30 @@ describe("updateSavedTabState", () => {
   it("should update existing saved tab state", () => {
     let state = createNineZoneState();
     state = updateSavedTabState(state, "t1", () => {});
-    expect(state.savedTabs.byId.t1?.popoutBounds).toEqual(undefined);
+    expect(state.savedTabs.byId.t1?.popout).toEqual(undefined);
 
     state = updateSavedTabState(state, "t1", (draft) => {
-      draft.popoutBounds = {
-        left: 1,
-        top: 2,
-        right: 30,
-        bottom: 40,
+      draft.popout = {
+        position: {
+          x: 1,
+          y: 2,
+        },
+        contentSize: {
+          height: 38,
+          width: 29,
+        },
       };
     });
     expect(state.savedTabs.allIds).to.eql(["t1"]);
-    expect(state.savedTabs.byId.t1?.popoutBounds).to.eql({
-      left: 1,
-      top: 2,
-      right: 30,
-      bottom: 40,
+    expect(state.savedTabs.byId.t1?.popout).to.eql({
+      position: {
+        x: 1,
+        y: 2,
+      },
+      contentSize: {
+        height: 38,
+        width: 29,
+      },
     });
   });
 });

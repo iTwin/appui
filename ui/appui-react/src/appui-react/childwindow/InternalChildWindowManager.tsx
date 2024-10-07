@@ -47,6 +47,15 @@ export interface InternalOpenChildWindowInfo extends OpenChildWindowInfo {
   tabId?: TabState["id"];
 }
 
+interface OpenWindowArgs {
+  childWindowId: string;
+  title: string;
+  content: React.ReactNode;
+  location: ChildWindowLocationProps;
+  useDefaultPopoutUrl: boolean;
+  tabId?: TabState["id"];
+}
+
 /** Supports opening a child browser window from the main application window. The child window is managed by the main application
  * and is running in the same security context. The application must deliver the html file iTwinPopup.html along side its index.html.
  * See also: [Child Window Manager]($docs/learning/ui/appui-react/ChildWindows.md)
@@ -54,6 +63,10 @@ export interface InternalOpenChildWindowInfo extends OpenChildWindowInfo {
  */
 export class InternalChildWindowManager implements FrameworkChildWindows {
   private _openChildWindows: InternalOpenChildWindowInfo[] = [];
+  private _childWindowToUnregister = new Map<
+    InternalOpenChildWindowInfo["childWindowId"],
+    () => void
+  >();
 
   public readonly onChildWindowsChanged = new BeEvent<() => void>();
 
@@ -114,6 +127,8 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
     this.openChildWindows.forEach((openChildWindow) =>
       openChildWindow.window.close()
     );
+    this._childWindowToUnregister.forEach((unregister) => unregister());
+    this._childWindowToUnregister.clear();
     this._openChildWindows = [];
     this.onChildWindowsChanged.raiseEvent();
   }
@@ -134,6 +149,9 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
 
     const childWindow = this.openChildWindows[windowIndex];
     this._openChildWindows.splice(windowIndex, 1);
+    this._childWindowToUnregister.get(childWindowId)?.();
+    this._childWindowToUnregister.delete(childWindowId);
+
     this.onChildWindowsChanged.raiseEvent();
     if (processWindowClose) {
       childWindow.window.close();
@@ -169,16 +187,28 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
     title: string,
     content: React.ReactNode,
     location: ChildWindowLocationProps,
-    useDefaultPopoutUrl?: boolean,
-    tabId?: TabState["id"]
+    useDefaultPopoutUrl?: boolean
   ) {
-    if (
-      this.openChildWindows.some(
-        (openWindow) => openWindow.childWindowId === childWindowId
-      )
-    ) {
-      return false;
-    }
+    const childWindow = this.openWindow({
+      childWindowId,
+      title,
+      content,
+      location,
+      useDefaultPopoutUrl: useDefaultPopoutUrl ?? false,
+    });
+    return !!childWindow;
+  }
+
+  /** Used internally to open child windows and popout widgets. */
+  public openWindow({
+    childWindowId,
+    location,
+    useDefaultPopoutUrl,
+    content,
+    title,
+    tabId,
+  }: OpenWindowArgs) {
+    if (this.find(childWindowId)) return undefined;
 
     this.adjustWindowLocation(location);
     const url = useDefaultPopoutUrl ? "/iTwinPopup.html" : "";
@@ -187,19 +217,19 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
       "",
       `width=${location.width},height=${location.height},left=${location.left},top=${location.top},menubar=no,resizable=yes,scrollbars=no,status=no,location=no`
     );
-    if (!childWindow) return false;
+    if (!childWindow) return undefined;
 
-    childWindow.addEventListener("pagehide", () => {
+    const onPageHide = () => {
       const frontStageDef = UiFramework.frontstages.activeFrontstageDef;
       if (!frontStageDef) return;
       frontStageDef.saveChildWindowSizeAndPosition(childWindowId, childWindow);
 
       // Trigger first so popout can be converted back to main window widget
       this.close(childWindowId, false);
-    });
+    };
+    childWindow.addEventListener("pagehide", onPageHide);
 
-    if (url.length === 0) {
-      childWindow.document.write(childHtml);
+    const onDOMContentLoaded = () => {
       this.renderChildWindowContents(
         childWindow,
         childWindowId,
@@ -207,33 +237,28 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
         title,
         tabId
       );
+    };
+    if (url.length === 0) {
+      childWindow.document.write(childHtml);
+      onDOMContentLoaded();
     } else {
-      childWindow.addEventListener(
-        "DOMContentLoaded",
-        () => {
-          this.renderChildWindowContents(
-            childWindow,
-            childWindowId,
-            content,
-            title,
-            tabId
-          );
-        },
-        false
-      );
+      childWindow.addEventListener("DOMContentLoaded", onDOMContentLoaded);
     }
 
-    window.addEventListener(
-      "unload",
-      () => {
-        const frontStageDef = UiFramework.frontstages.activeFrontstageDef;
-        if (frontStageDef) {
-          this.close(childWindowId, true);
-        }
-      },
-      false
-    );
+    const onUnload = () => {
+      const frontStageDef = UiFramework.frontstages.activeFrontstageDef;
+      if (frontStageDef) {
+        this.close(childWindowId, true);
+      }
+    };
+    window.addEventListener("unload", onUnload);
 
-    return true;
+    this._childWindowToUnregister.set(childWindowId, () => {
+      childWindow.removeEventListener("pagehide", onPageHide);
+      childWindow.removeEventListener("DOMContentLoaded", onDOMContentLoaded);
+      window.removeEventListener("unload", onUnload);
+    });
+
+    return childWindow;
   }
 }

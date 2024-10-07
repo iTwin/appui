@@ -729,16 +729,24 @@ export class FrontstageDef {
       top: bounds.top,
     };
 
-    const result = appUi.windowManager.open(
-      widgetContainerId,
-      widgetDef.label,
-      popoutContent,
-      position,
-      UiFramework.useDefaultPopoutUrl,
-      tabId
-    );
+    const childWindow = appUi.windowManager.openWindow({
+      childWindowId: widgetContainerId,
+      title: widgetDef.label,
+      content: popoutContent,
+      location: position,
+      useDefaultPopoutUrl: UiFramework.useDefaultPopoutUrl,
+    });
 
-    if (!result && oldState) {
+    // Use outer size if available to avoid inner size + browser zoom issues: https://github.com/iTwin/appui/issues/563
+    const savedTab = state.savedTabs.byId[tabId];
+    if (childWindow && savedTab?.popout?.size) {
+      childWindow.resizeTo(
+        savedTab.popout.size.width,
+        savedTab.popout.size.height
+      );
+    }
+
+    if (!childWindow && oldState) {
       this.nineZoneState = oldState;
       return false;
     }
@@ -795,20 +803,21 @@ export class FrontstageDef {
     const widgetDef = this.findWidgetDef(tabId);
     if (!widgetDef) return;
 
-    const height = childWindow.innerHeight;
-    const width = childWindow.innerWidth;
-    const left = childWindow.screenLeft;
-    const top = childWindow.screenTop;
-
-    const bounds = Rectangle.createFromSize({ width, height }).offset({
-      x: left,
-      y: top,
-    });
-
     this.dispatch({
       type: "WIDGET_TAB_SET_POPOUT_BOUNDS",
       id: tabId,
-      bounds,
+      position: {
+        x: childWindow.screenLeft,
+        y: childWindow.screenTop,
+      },
+      size: {
+        height: childWindow.outerHeight,
+        width: childWindow.outerWidth,
+      },
+      contentSize: {
+        height: childWindow.innerHeight,
+        width: childWindow.innerWidth,
+      },
     });
   }
 
