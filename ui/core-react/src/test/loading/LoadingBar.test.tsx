@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
 import * as React from "react";
-import { LoadingBar } from "../../core-react";
-import { classesFromElement } from "../TestUtils";
+import { LoadingBar } from "../../core-react.js";
+import { classesFromElement } from "../TestUtils.js";
 
 describe("<LoadingBar />", () => {
   it("renders correctly", () => {

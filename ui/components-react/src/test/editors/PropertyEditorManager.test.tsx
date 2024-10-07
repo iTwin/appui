@@ -15,14 +15,14 @@ import {
   PropertyRecord,
   PropertyValueFormat,
 } from "@itwin/appui-abstract";
-import type { AsyncValueProcessingResult } from "../../components-react/editors/PropertyEditorManager";
+import type { AsyncValueProcessingResult } from "../../components-react/editors/PropertyEditorManager.js";
 import {
   BasicPropertyEditor,
   DataControllerBase,
   PropertyEditorBase,
   PropertyEditorManager,
-} from "../../components-react/editors/PropertyEditorManager";
-import { TextEditor } from "../../components-react/editors/TextEditor";
+} from "../../components-react/editors/PropertyEditorManager.js";
+import { TextEditor } from "../../components-react/editors/TextEditor.js";
 
 // cspell:ignore badeditor newvalue
 

@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
 import * as React from "react";
-import { Snap } from "../../../../appui-react/layout/footer/snap-mode/Snap";
-import { selectorMatches } from "../../Utils";
+import { Snap } from "../../../../appui-react/layout/footer/snap-mode/Snap.js";
+import { selectorMatches } from "../../Utils.js";
 
 describe("<Snap />", () => {
   it("renders correctly", () => {

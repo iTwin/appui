@@ -13,30 +13,31 @@ import type {
 } from "@itwin/appui-abstract";
 import { UiError, UiEvent } from "@itwin/appui-abstract";
 import type { XAndY } from "@itwin/core-geometry";
-import type { ConfigurableUiControlConstructor } from "../configurableui/ConfigurableUiControl";
+import type { ConfigurableUiControlConstructor } from "../configurableui/ConfigurableUiControl.js";
 import {
   ConfigurableCreateInfo,
   ConfigurableUiControlType,
-} from "../configurableui/ConfigurableUiControl";
-import { UiFramework } from "../UiFramework";
-import { PropsHelper } from "../utils/PropsHelper";
-import type { WidgetControl } from "./WidgetControl";
-import type { BadgeKind, BadgeType, IconSpec } from "@itwin/core-react";
+} from "../configurableui/ConfigurableUiControl.js";
+import { UiFramework } from "../UiFramework.js";
+import { PropsHelper } from "../utils/PropsHelper.js";
+import type { WidgetControl } from "./WidgetControl.js";
+import type { BadgeType, IconSpec } from "@itwin/core-react";
+import type { BadgeKind } from "@itwin/core-react/internal";
 import { IconHelper } from "@itwin/core-react";
-import type { WidgetConfig } from "./WidgetConfig";
-import { WidgetState } from "./WidgetState";
-import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
-import { StatusBarWidgetComposerControl } from "./StatusBarWidgetComposerControl";
+import type { WidgetConfig } from "./WidgetConfig.js";
+import { WidgetState } from "./WidgetState.js";
+import { StagePanelLocation } from "../stagepanels/StagePanelLocation.js";
+import { StatusBarWidgetComposerControl } from "./StatusBarWidgetComposerControl.js";
 import {
   getTabLocation,
   isFloatingTabLocation,
   isPanelTabLocation,
   isPopoutTabLocation,
-} from "../layout/state/TabLocation";
-import type { NineZoneState } from "../layout/state/NineZoneState";
+} from "../layout/state/TabLocation.js";
+import type { NineZoneState } from "../layout/state/NineZoneState.js";
 import { IModelApp } from "@itwin/core-frontend";
-import type { SizeProps } from "../utils/SizeProps";
-import { Widget } from "./Widget";
+import type { SizeProps } from "../utils/SizeProps.js";
+import { Widget } from "./Widget.js";
 
 /** Widget State Changed Event Args interface.
  * @public
@@ -574,7 +575,7 @@ export class WidgetDef {
         if (this._widgetControl.getType() !== type) {
           // eslint-disable-next-line deprecation/deprecation
           throw new UiError(
-            UiFramework.loggerCategory(this),
+            UiFramework.loggerCategory("WidgetDef"),
             `getWidgetControl: '${usedClassId}' is NOT a ${type}; it is a ${this._widgetControl.getType()}`
           );
         }

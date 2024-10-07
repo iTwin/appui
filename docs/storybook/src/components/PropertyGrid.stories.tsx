@@ -12,11 +12,12 @@ import {
   StructValue,
 } from "@itwin/appui-abstract";
 import {
-  MultilineTextPropertyValueRenderer,
   PropertyDataChangeEvent,
   PropertyValueRendererManager,
   VirtualizedPropertyGridWithDataProvider,
 } from "@itwin/components-react-internal/src/components-react";
+import { MultilineTextPropertyValueRenderer } from "@itwin/components-react-internal/src/components-react/properties/renderers/value/MultilineTextPropertyValueRenderer";
+
 import { AppUiDecorator } from "../Decorators";
 import { Orientation } from "@itwin/core-react";
 

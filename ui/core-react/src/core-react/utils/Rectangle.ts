@@ -6,11 +6,9 @@
  * @module Utilities
  */
 
-import { Point } from "./Point";
-import type { PointProps } from "./PointProps";
-import type { SizeProps } from "./Size";
-import { Size } from "./Size";
-import { UiGeometry } from "./UiGeometry";
+import { Point } from "./Point.js";
+import type { PointProps } from "./PointProps.js";
+import type { SizeProps } from "./Size.js";
 
 /* eslint-disable deprecation/deprecation */
 
@@ -73,10 +71,10 @@ export class Rectangle implements RectangleProps {
   ) {}
 
   /** @returns Size of this rectangle. */
-  public getSize(): Size {
+  public getSize(): SizeProps {
     const width = this.getWidth();
     const height = this.getHeight();
-    return new Size(width, height);
+    return { width, height };
   }
 
   /** @returns Width of this rectangle. */
@@ -347,13 +345,13 @@ export class Rectangle implements RectangleProps {
 
     if (point.x < this.left) {
       if (point.y < this.top)
-        shortestDistance = UiGeometry.hypotenuseXY(
+        shortestDistance = hypotenuseXY(
           this.left - point.x,
           this.top - point.y
         );
       else if (point.y <= this.bottom) shortestDistance = this.left - point.x;
       else
-        shortestDistance = UiGeometry.hypotenuseXY(
+        shortestDistance = hypotenuseXY(
           this.left - point.x,
           this.bottom - point.y
         );
@@ -363,13 +361,13 @@ export class Rectangle implements RectangleProps {
       else shortestDistance = point.y - this.bottom;
     } else {
       if (point.y < this.top)
-        shortestDistance = UiGeometry.hypotenuseXY(
+        shortestDistance = hypotenuseXY(
           this.right - point.x,
           this.top - point.y
         );
       else if (point.y <= this.bottom) shortestDistance = point.x - this.right;
       else
-        shortestDistance = UiGeometry.hypotenuseXY(
+        shortestDistance = hypotenuseXY(
           this.right - point.x,
           this.bottom - point.y
         );
@@ -387,4 +385,8 @@ export class Rectangle implements RectangleProps {
       top: this.top,
     };
   }
+}
+
+function hypotenuseXY(x: number, y: number): number {
+  return Math.sqrt(x * x + y * y);
 }

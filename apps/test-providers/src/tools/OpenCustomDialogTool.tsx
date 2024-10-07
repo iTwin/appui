@@ -8,8 +8,8 @@
 
 import * as React from "react";
 import { Tool } from "@itwin/core-frontend";
-import { SampleModalDialog } from "../ui/dialogs/SampleModalDialog";
-import { AppUiTestProviders } from "../AppUiTestProviders";
+import { SampleModalDialog } from "../ui/dialogs/SampleModalDialog.js";
+import { AppUiTestProviders } from "../AppUiTestProviders.js";
 import connectedQuerySvg from "../ui/icons/connected-query.svg";
 import { UiFramework } from "@itwin/appui-react";
 

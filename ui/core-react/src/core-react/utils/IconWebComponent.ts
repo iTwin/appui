@@ -8,9 +8,9 @@
 
 import { UiError } from "@itwin/appui-abstract";
 import { Logger } from "@itwin/core-bentley";
-import { UiCore } from "../UiCore";
+import { UiCore } from "../UiCore.js";
 import DOMPurify, * as DOMPurifyNS from "dompurify";
-import { reuseOrCreatePromise } from "./reuseOrCreatePromise";
+import { reuseOrCreatePromise } from "./reuseOrCreatePromise.js";
 
 /* eslint-disable deprecation/deprecation */
 
@@ -103,7 +103,7 @@ async function getSvg(src: string, element: any) {
  * @internal
  */
 export class IconWebComponent extends HTMLElement {
-  private async connectedCallback() {
+  public async connectedCallback() {
     await this.loadSvg();
     this.dispatchEvent(new CustomEvent("load"));
   }

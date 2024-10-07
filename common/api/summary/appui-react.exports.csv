@@ -1,893 +1,809 @@
 sep=;
-Release Tag;API Item
-public;AccuDrawCommandItems
-deprecated;AccuDrawCommandItems
-public;AccuDrawDialog(props: AccuDrawDialogProps): React_2.JSX.Element
-public;AccuDrawDialogProps 
-deprecated;AccuDrawDialogProps 
-public;AccuDrawFieldContainer(props: AccuDrawFieldContainerProps): React_2.JSX.Element
-public;AccuDrawFieldContainerProps 
-deprecated;AccuDrawFieldContainerProps 
-public;AccuDrawGrabInputFocusEvent 
-deprecated;AccuDrawGrabInputFocusEvent 
-public;AccuDrawInputField: (props: AccuDrawInputFieldProps) => React_2.ReactNode
-public;AccuDrawInputFieldProps 
-deprecated;AccuDrawInputFieldProps 
-public;AccuDrawKeyboardShortcuts
-public;AccuDrawPopupManager
-public;AccuDrawSetCompassModeEvent 
-deprecated;AccuDrawSetCompassModeEvent 
-public;AccuDrawSetCompassModeEventArgs
-deprecated;AccuDrawSetCompassModeEventArgs
-public;AccuDrawSetFieldFocusEvent 
-deprecated;AccuDrawSetFieldFocusEvent 
-public;AccuDrawSetFieldFocusEventArgs
-deprecated;AccuDrawSetFieldFocusEventArgs
-public;AccuDrawSetFieldLockEvent 
-deprecated;AccuDrawSetFieldLockEvent 
-public;AccuDrawSetFieldLockEventArgs
-deprecated;AccuDrawSetFieldLockEventArgs
-public;AccuDrawSetFieldValueFromUiEvent 
-deprecated;AccuDrawSetFieldValueFromUiEvent 
-public;AccuDrawSetFieldValueFromUiEventArgs
-deprecated;AccuDrawSetFieldValueFromUiEventArgs
-public;AccuDrawSetFieldValueToUiEvent 
-deprecated;AccuDrawSetFieldValueToUiEvent 
-public;AccuDrawSetFieldValueToUiEventArgs
-deprecated;AccuDrawSetFieldValueToUiEventArgs
-public;AccuDrawUiSettings
-public;AccuDrawUiSettingsChangedEvent 
-deprecated;AccuDrawUiSettingsChangedEvent 
-public;AccuDrawWidget(): React_2.JSX.Element
-public;AccuDrawWidgetControl 
-deprecated;AccuDrawWidgetControl 
-public;Action
-deprecated;Action
-public;class ActionButtonItemDef 
-deprecated;class ActionButtonItemDef 
-public;ActionCreatorsObject
-deprecated;ActionCreatorsObject
-public;ActionsUnion
-deprecated;ActionsUnion
-public;ActionTypes
-deprecated;ActionTypes
-public;ActionWithPayload
-deprecated;ActionWithPayload
-public;ActiveContentChangedEvent 
-deprecated;ActiveContentChangedEvent 
-public;ActiveContentChangedEventArgs
-deprecated;ActiveContentChangedEventArgs
-internal;ActiveFrontstageDefProvider({ frontstageDef, }: ActiveFrontstageDefProviderProps): React_2.JSX.Element
-public;ActivityCenterField(props: CommonProps): React_2.JSX.Element | null
-public;ActivityMessageCancelledEvent 
-deprecated;ActivityMessageCancelledEvent 
-public;ActivityMessageEventArgs
-deprecated;ActivityMessageEventArgs
-public;ActivityMessageUpdatedEvent 
-deprecated;ActivityMessageUpdatedEvent 
-internal;addFrontstageWidgetDefs(frontstageDef: FrontstageDef): void
-internal;addPanelSectionWidgetDefs(frontstageDef: FrontstageDef, location: StagePanelLocation, section: StagePanelSection): void
-public;AllowedUiItemsProviderOverrides
-public;AnalysisAnimationTimelineDataProvider 
-public;AnyItemDef = GroupItemDef | CommandItemDef | ToolItemDef | ActionButtonItemDef
-deprecated;AnyItemDef = GroupItemDef | CommandItemDef | ToolItemDef | ActionButtonItemDef
-public;AnyToolbarItemDef = AnyItemDef | CustomItemDef
-public;AppNotificationManager 
-public;AppUiSettings 
-deprecated;AppUiSettings 
-beta;areNoFeatureOverridesActive(): boolean
-deprecated;areNoFeatureOverridesActive(): boolean
-public;BackstageActionItem 
-public;BackstageAppButton({ icon, iconNode, label, execute, }: BackstageAppButtonProps): React_2.JSX.Element
-public;BackstageAppButtonProps
-public;BackstageComposer(props: BackstageComposerProps): React_2.JSX.Element
-internal;BackstageComposerActionItem({ item, }: BackstageComposerActionItemProps): React_2.JSX.Element
-internal;BackstageComposerActionItemProps
-internal;BackstageComposerItem({ item }: BackstageComposerItemProps): React_2.JSX.Element
-internal;BackstageComposerItemProps
-public;BackstageComposerProps 
-deprecated;BackstageComposerProps 
-internal;BackstageComposerStageLauncher({ item, }: BackstageComposerStageLauncherProps): React_2.JSX.Element
-internal;BackstageComposerStageLauncherProps
-public;BackstageItem = BackstageActionItem | BackstageStageLauncher
-public;BackstageItemUtilities
-public;BackstageManager
-deprecated;BackstageManager
-public;BackstageStageLauncher 
-public;BackstageToggledArgs
-public;BaseItemState
-deprecated;BaseItemState
-public;BaseUiItemsProvider 
-deprecated;BaseUiItemsProvider 
-public;BasicNavigationWidget(props: BasicNavigationWidgetProps): React_2.JSX.Element
-public;BasicNavigationWidgetProps
-deprecated;BasicNavigationWidgetProps
-public;BasicToolWidget(props: BasicToolWidgetProps): React_2.JSX.Element
-public;BasicToolWidgetProps
-deprecated;BasicToolWidgetProps
-alpha;BumpToolSetting 
-public;Calculator 
-internal;CalculatorEngine
-internal;CalculatorKeyType
-internal;CalculatorOperator
-public;CalculatorPopup 
-deprecated;CalculatorPopup 
-public;CalculatorPopupProps 
-deprecated;CalculatorPopupProps 
-public;CalculatorProps 
-public;CanFloatWidgetOptions
-alpha;CardContainer 
-alpha;CardContainerProps 
-alpha;CardInfo
-alpha;CardSelectedEvent 
-deprecated;CardSelectedEvent 
-alpha;CardSelectedEventArgs
-deprecated;CardSelectedEventArgs
-public;ChildWindowLocationProps
-internal;clearKeyinPaletteHistory(): void
-public;ColorTheme
-public;CombinedReducerState
-deprecated;CombinedReducerState
-public;combineReducers: CombineReducersFunction
-deprecated;combineReducers: CombineReducersFunction
-public;CombineReducersFunction = 
-deprecated;CombineReducersFunction = 
-public;CommandHandler
-deprecated;CommandHandler
-public;CommandItemDef 
-deprecated;CommandItemDef 
-public;CommandItemProps 
-deprecated;CommandItemProps 
-public;CommonBackstageItem
-public;CommonStatusBarItem
-public;CommonToolbarItem
-public;ComponentGenerator
-public;ConditionalBooleanValue = ConditionalBooleanValue_2
-public;ConditionalBooleanValue: typeof ConditionalBooleanValue_2
-public;ConditionalStringValue = ConditionalStringValue_2
-public;ConditionalStringValue: typeof ConditionalStringValue_2
-public;ConditionalValue
-public;ConfigurableBase 
-deprecated;ConfigurableBase 
-public;ConfigurableCreateInfo
-deprecated;ConfigurableCreateInfo
-public;ConfigurableUiActionId
-deprecated;ConfigurableUiActionId
-public;ConfigurableUiActions:
-deprecated;ConfigurableUiActions:
-public;ConfigurableUiActionsUnion = ActionsUnion
-deprecated;ConfigurableUiActionsUnion = ActionsUnion
-public;ConfigurableUiContent(props: ConfigurableUiContentProps): React_2.JSX.Element
-public;ConfigurableUiContentProps 
-deprecated;ConfigurableUiContentProps 
-internal;ConfigurableUiContext: React_2.Context
-public;class ConfigurableUiControl 
-deprecated;class ConfigurableUiControl 
-public;ConfigurableUiControlConstructor = new (info: ConfigurableCreateInfo, options: any) => ConfigurableUiElement
-deprecated;ConfigurableUiControlConstructor = new (info: ConfigurableCreateInfo, options: any) => ConfigurableUiElement
-public;ConfigurableUiControlType
-deprecated;ConfigurableUiControlType
-public;ConfigurableUiElement
-deprecated;ConfigurableUiElement
-public;ConfigurableUiReducer(state: ConfigurableUiState | undefined, action: ConfigurableUiActionsUnion): ConfigurableUiState
-deprecated;ConfigurableUiReducer(state: ConfigurableUiState | undefined, action: ConfigurableUiActionsUnion): ConfigurableUiState
-public;ConfigurableUiState
-deprecated;ConfigurableUiState
-public;connectIModelConnection: (mapStateToProps?: any, mapDispatchToProps?: any) => InferableComponentEnhancerWithProps
-deprecated;connectIModelConnection: (mapStateToProps?: any, mapDispatchToProps?: any) => InferableComponentEnhancerWithProps
-beta;connectIModelConnectionAndViewState: (mapStateToProps?: any, mapDispatchToProps?: any) => InferableComponentEnhancerWithProps
-deprecated;connectIModelConnectionAndViewState: (mapStateToProps?: any, mapDispatchToProps?: any) => InferableComponentEnhancerWithProps
-public;ContentCallback = (content: ContentProps) => void
-public;ContentControl 
-deprecated;ContentControl 
-public;ContentControlActivatedEvent 
-deprecated;ContentControlActivatedEvent 
-public;ContentControlActivatedEventArgs
-deprecated;ContentControlActivatedEventArgs
-public;ContentDialog(props: ContentDialogProps): React_2.JSX.Element
-deprecated;ContentDialog(props: ContentDialogProps): React_2.JSX.Element
-public;ContentDialogChangedEvent 
-deprecated;ContentDialogChangedEvent 
-public;ContentDialogInfo
-public;ContentDialogProps 
-deprecated;ContentDialogProps 
-public;ContentDialogRenderer 
-public;ContentGroup
-public;ContentGroupProps
-public;class ContentGroupProvider
-public;ContentLayout(props: ContentLayoutComponentProps): React_2.JSX.Element | null
-public;ContentLayoutActivatedEvent 
-deprecated;ContentLayoutActivatedEvent 
-public;ContentLayoutActivatedEventArgs
-deprecated;ContentLayoutActivatedEventArgs
-public;ContentLayoutComponentProps 
-public;ContentLayoutDef
-public;ContentLayoutProps 
-beta;ContentOverlay({ className, children, active, ...other }: ContentOverlayProps): React_2.JSX.Element
-public;ContentProps
-public;ContentToolWidgetComposer(props: ContentToolWidgetComposerProps): React_2.JSX.Element
-public;ContentToolWidgetComposerProps
-deprecated;ContentToolWidgetComposerProps
-internal;ContentWrapper(props: ContentWrapperProps): React_2.JSX.Element
-public;CoreTools
-deprecated;CoreTools
-public;createAction
-deprecated;createAction
-public;createAction
-deprecated;createAction
-internal;createStableWidgetDef(widgetDef: WidgetDef, stableId: string): WidgetDef
-public;CubeNavigationAidControl 
-deprecated;CubeNavigationAidControl 
-public;CursorDirection
-public;CursorDirectionParts
-public;CursorInformation
-public;CursorMenuData
-deprecated;CursorMenuData
-public;CursorMenuItemProps 
-public;CursorMenuPayload
-public;CursorPopup 
-public;CursorPopupContent(props: CommonDivProps): React_2.JSX.Element
-public;CursorPopupManager
-public;CursorPopupOptions
-public;CursorPopupProps =
-public;CursorPopupRenderer 
-internal;CursorPopupShow
-internal;CursorPrompt
-public;CursorUpdatedEvent 
-deprecated;CursorUpdatedEvent 
-public;CursorUpdatedEventArgs
-deprecated;CursorUpdatedEventArgs
-public;CustomItemDef 
-deprecated;CustomItemDef 
-public;CustomItemProps 
-deprecated;CustomItemProps 
-public;DeepReadonly
-deprecated;DeepReadonly
-public;DeepReadonlyArray
-deprecated;DeepReadonlyArray
-public;DeepReadonlyObject
-deprecated;DeepReadonlyObject
-public;DefaultContentTools
-public;DefaultContentToolsAppData
-deprecated;DefaultContentToolsAppData
-public;DefaultDialogGridContainer({ componentGenerator, isToolSettings, }:
-public;DefaultNavigationTools
-public;DefaultStatusbarItems
-internal;DefaultToolSettingsProvider 
-public;DefaultViewOverlay({ viewport, onPlayPause, featureOptions, ...props }: DefaultViewOverlayProps): React_2.JSX.Element | null
-public;DialogChangedEvent 
-deprecated;DialogChangedEvent 
-public;DialogChangedEventArgs
-deprecated;DialogChangedEventArgs
-internal;DialogGridContainer({ componentGenerator, containerClassName, }: DialogGridContainerProps): React_2.JSX.Element
-public;DialogInfo
-internal;DialogManagerBase
-internal;DialogRendererBase 
-internal;DialogRendererProps
-internal;DockedStatusBarItem(props: StatusBarItemProps): React_2.JSX.Element
-public;DrawingNavigationAidControl 
-deprecated;DrawingNavigationAidControl 
-public;ElementTooltipChangedEvent 
-deprecated;ElementTooltipChangedEvent 
-public;ElementTooltipChangedEventArgs
-deprecated;ElementTooltipChangedEventArgs
-public;EmphasizeElementsChangedArgs
-beta;ExpandableSection 
-beta;ExpandableSectionProps 
-public;ExtensibleToolbarProps
-deprecated;ExtensibleToolbarProps
-beta;featureOverridesActiveStateFunc(state: Readonly
-deprecated;featureOverridesActiveStateFunc(state: Readonly
-beta;FloatingContentControl 
-deprecated;FloatingContentControl 
-beta;FloatingViewportContent(props: FloatingViewportContentProps): React_2.JSX.Element
-deprecated;FloatingViewportContent(props: FloatingViewportContentProps): React_2.JSX.Element
-beta;FloatingViewportContentControl 
-deprecated;FloatingViewportContentControl 
-beta;FloatingViewportContentProps
-deprecated;FloatingViewportContentProps
-public;FloatingViewportContentWrapper({ children, }: FloatingViewportContentWrapperProps): React_2.JSX.Element
-deprecated;FloatingViewportContentWrapper({ children, }: FloatingViewportContentWrapperProps): React_2.JSX.Element
-public;FloatingViewportContentWrapperProps
-deprecated;FloatingViewportContentWrapperProps
-alpha;FocusToolSettings 
-public;FrameworkAccuDraw 
-public;FrameworkBackstage
-public;FrameworkChildWindows
-public;FrameworkContent
-public;FrameworkControls
-deprecated;FrameworkControls
-public;FrameworkDialog
-public;FrameworkDialogs
-public;FrameworkFrontstages
-public;FrameworkKeyboardShortcut
-public;FrameworkKeyboardShortcutContainer
-public;FrameworkKeyboardShortcuts
-public;FrameworkReducer: Reducer_2
-deprecated;FrameworkReducer: Reducer_2
-beta;FrameworkRootState
-deprecated;FrameworkRootState
-public;FrameworkStackedDialog
-public;FrameworkState
-deprecated;FrameworkState
-public;FrameworkToolAdmin 
-public;FrameworkToolSettings
-public;FrameworkUiAdmin 
-public;FrameworkVisibility
-public;Frontstage = FrontstageConfig
-internal;FRONTSTAGE_SETTINGS_NAMESPACE = "uifw-frontstageSettings"
-public;FrontstageActivatedEvent 
-deprecated;FrontstageActivatedEvent 
-public;FrontstageActivatedEventArgs
-deprecated;FrontstageActivatedEventArgs
-public;FrontstageConfig 
-deprecated;FrontstageConfig 
-public;FrontstageDeactivatedEvent 
-deprecated;FrontstageDeactivatedEvent 
-public;FrontstageDeactivatedEventArgs
-deprecated;FrontstageDeactivatedEventArgs
-public;FrontstageDef
-public;class FrontstageProvider
-deprecated;class FrontstageProvider
-public;FrontstageReadyEvent 
-deprecated;FrontstageReadyEvent 
-public;FrontstageReadyEventArgs
-deprecated;FrontstageReadyEventArgs
-beta;FrontstageUtilities
-public;FunctionType = (...args: any[]) => any
-deprecated;FunctionType = (...args: any[]) => any
-beta;getFeatureOverrideSyncEventIds(): string[]
-deprecated;getFeatureOverrideSyncEventIds(): string[]
-internal;getFrontstageStateSettingName(frontstageId: WidgetPanelsFrontstageState["id"]): string
-beta;getIsHiddenIfFeatureOverridesActive(): ConditionalBooleanValue_2
-deprecated;getIsHiddenIfFeatureOverridesActive(): ConditionalBooleanValue_2
-beta;getIsHiddenIfSelectionNotActive(): ConditionalBooleanValue_2
-deprecated;getIsHiddenIfSelectionNotActive(): ConditionalBooleanValue_2
-internal;getKeyinsFromToolList(toolList: ToolList, localizedKeyinPreference?: KeyinFieldLocalization): KeyinEntry[]
-beta;getListPanel(props: ListPickerProps): React_2.ReactNode
-internal;getPanelSectionId(location: StagePanelLocation, section: StagePanelSection): PanelSectionId
-internal;getPanelSectionWidgets(frontstageDef: FrontstageDef, location: StagePanelLocation, section: StagePanelSection): ReadonlyArray
-internal;getPanelState(state: NineZoneState, side: PanelSide): StagePanelState.Minimized | StagePanelState.Open
-beta;getQuantityFormatsSettingsManagerEntry(itemPriority: number, opts?: Partial
-beta;getSelectionContextSyncEventIds(): string[]
-deprecated;getSelectionContextSyncEventIds(): string[]
-beta;getUiSettingsManagerEntry(itemPriority: number): SettingsTabEntry_2
-internal;getWidgetState(widgetId: WidgetDef["id"], nineZone: NineZoneState): WidgetState
-internal;GroupedItems = ReadonlyArray
-public;GroupItemDef 
-deprecated;GroupItemDef 
-public;GroupItemProps 
-deprecated;GroupItemProps 
-public;HideIsolateEmphasizeAction
-public;class HideIsolateEmphasizeActionHandler
-public;HideIsolateEmphasizeManager 
-alpha;HTMLElementPopup 
-deprecated;HTMLElementPopup 
-alpha;HTMLElementPopupProps 
-deprecated;HTMLElementPopupProps 
-public;IModelConnectedViewport(props: Omit
-deprecated;IModelConnectedViewport(props: Omit
-beta;IModelConnectedViewSelector(props: IModelConnectedViewSelectorProps): React_2.JSX.Element
-deprecated;IModelConnectedViewSelector(props: IModelConnectedViewSelectorProps): React_2.JSX.Element
-public;IModelViewportControl 
-deprecated;IModelViewportControl 
-public;IModelViewportControlOptions
-deprecated;IModelViewportControlOptions
-public;InitialAppUiSettings
-deprecated;InitialAppUiSettings
-internal;initializeNineZoneState(frontstageDef: FrontstageDef): void
-internal;initializePanel(frontstageDef: FrontstageDef, location: StagePanelLocation): void
-beta;InputEditorCommitHandler
-alpha;InputEditorPopup 
-beta;InputEditorPopupProps 
-public;InputFieldMessage 
-deprecated;InputFieldMessage 
-public;InputFieldMessageAddedEvent 
-deprecated;InputFieldMessageAddedEvent 
-public;InputFieldMessageEventArgs
-deprecated;InputFieldMessageEventArgs
-public;InputFieldMessageRemovedEvent 
-deprecated;InputFieldMessageRemovedEvent 
-alpha;InputStatus
-internal;isArgsUtil
-public;isBackstageActionItem(item: BackstageItem): item is BackstageActionItem
-public;isBackstageStageLauncher(item: BackstageItem): item is BackstageStageLauncher
-internal;isFrontstageStateSettingResult(settingsResult: UiStateStorageResult): settingsResult is
-beta;isNoSelectionActive(): boolean
-deprecated;isNoSelectionActive(): boolean
-internal;isReactContent: (content: PopupContentType) => content is ReactContent
-internal;isReactNotifyMessageDetails: (details: any) => details is ReactNotifyMessageDetails
-public;isStatusBarActionItem(item: StatusBarItem): item is StatusBarActionItem
-public;isStatusBarCustomItem(item: StatusBarItem): item is StatusBarCustomItem
-public;isStatusBarLabelItem(item: StatusBarItem): item is StatusBarLabelItem
-public;isToolbarActionItem(item: ToolbarItem): item is ToolbarActionItem
-public;isToolbarCustomItem(item: ToolbarItem): item is ToolbarCustomItem
-public;isToolbarGroupItem(item: ToolbarItem): item is ToolbarGroupItem
-public;class ItemDefBase
-deprecated;class ItemDefBase
-internal;itemDefToToolbarActionItem(itemDef: ToolItemDef | CommandItemDef, overrides?: Partial
-internal;itemDefToToolbarGroupItem(itemDef: GroupItemDef, overrides?: Partial
-public;ItemList 
-deprecated;ItemList 
-public;ItemMap 
-deprecated;ItemMap 
-public;ItemProps 
-deprecated;ItemProps 
-public;KeyboardShortcut 
-deprecated;KeyboardShortcut 
-public;KeyboardShortcutContainer
-deprecated;KeyboardShortcutContainer
-public;KeyboardShortcutMenu 
-deprecated;KeyboardShortcutMenu 
-public;KeyboardShortcutMenuEvent 
-deprecated;KeyboardShortcutMenuEvent 
-public;KeyboardShortcutMenuState
-deprecated;KeyboardShortcutMenuState
-public;KeyboardShortcutProps 
-beta;KeyboardShortcutUtilities
-public;KeyinEntry
-public;KeyinFieldLocalization
-internal;KeyinPalettePanel({ keyins, onKeyinExecuted, historyLength: allowedHistoryLength, }: KeyinPalettePanelProps): React_2.JSX.Element
-public;KeyinPalettePopup({ el, id, keyins, onCancel, onItemExecuted, anchorEl, }: KeyinPalettePopupProps): React_2.JSX.Element
-public;KeyinPalettePopupProps
-public;LayoutFragmentProps
-public;LayoutHorizontalSplitProps 
-public;LayoutSplitPropsBase
-public;LayoutVerticalSplitProps 
-beta;ListItem
-beta;ListItemType
-beta;ListPicker 
-beta;ListPickerItem 
-beta;ListPickerItemProps 
-beta;ListPickerProps
-beta;ListPickerPropsExtended 
-public;LocalStateStorage = LocalStateStorage_2
-public;LocalStateStorage: typeof LocalStateStorage_2
-internal;mapToPlacement(input?: Placement | RelativePosition): Placement
-internal;mapToRelativePosition(input: Placement | RelativePosition): RelativePosition
-public;MenuButton 
-public;MenuButtonPopup 
-public;MenuButtonPopupProps 
-public;MenuButtonProps 
-alpha;MenuItem 
-deprecated;MenuItem 
-alpha;MenuItemHelpers
-deprecated;MenuItemHelpers
-public;MenuItemProps = AbstractMenuItemProps
-deprecated;MenuItemProps = AbstractMenuItemProps
-public;MessageAddedEvent 
-deprecated;MessageAddedEvent 
-public;MessageAddedEventArgs
-deprecated;MessageAddedEventArgs
-public;MessageCenterField(props: CommonProps): React_2.JSX.Element
-public;MessageManager
-public;MessagesUpdatedEvent 
-deprecated;MessagesUpdatedEvent 
-public;ModalDialogChangedEvent 
-deprecated;ModalDialogChangedEvent 
-public;ModalDialogRenderer 
-public;ModalFrontstage 
-public;ModalFrontstageChangedEvent 
-deprecated;ModalFrontstageChangedEvent 
-public;ModalFrontstageChangedEventArgs
-deprecated;ModalFrontstageChangedEventArgs
-public;ModalFrontstageClosedEvent 
-deprecated;ModalFrontstageClosedEvent 
-public;ModalFrontstageClosedEventArgs
-deprecated;ModalFrontstageClosedEventArgs
-internal;ModalFrontstageComposer({ stageInfo, }:
-public;ModalFrontstageInfo
-internal;ModalFrontstageItem
-public;ModalFrontstageProps 
-alpha;ModalFrontstageRequestedCloseEvent 
-deprecated;ModalFrontstageRequestedCloseEvent 
-alpha;ModalFrontstageRequestedCloseEventArgs
-deprecated;ModalFrontstageRequestedCloseEventArgs
-public;ModelessDialog 
-deprecated;ModelessDialog 
-public;ModelessDialogChangedEvent 
-deprecated;ModelessDialogChangedEvent 
-public;ModelessDialogInfo
-public;ModelessDialogProps 
-deprecated;ModelessDialogProps 
-public;ModelessDialogRenderer 
-public;MouseDownChangedEvent 
-deprecated;MouseDownChangedEvent 
-public;MouseDownChangedEventArgs
-deprecated;MouseDownChangedEventArgs
-public;NameToReducerMap
-deprecated;NameToReducerMap
-public;NavigationAidActivatedEvent 
-deprecated;NavigationAidActivatedEvent 
-public;NavigationAidActivatedEventArgs
-deprecated;NavigationAidActivatedEventArgs
-public;NavigationAidControl 
-deprecated;NavigationAidControl 
-public;NavigationAidHost(props: NavigationAidHostProps): React_2.JSX.Element
-public;NavigationAidHostProps
-deprecated;NavigationAidHostProps
-public;NavigationWidgetComposer(props: NavigationWidgetComposerProps): React_2.JSX.Element
-public;NavigationWidgetComposerProps 
-deprecated;NavigationWidgetComposerProps 
-public;NestedFrontstage
-deprecated;NestedFrontstage
-public;NestedFrontstageAppButton({ icon, label, onClick, }: NestedFrontstageAppButtonProps): React_2.JSX.Element
-public;NotifyMessageDetailsType = NotifyMessageDetails | ReactNotifyMessageDetails
-public;NotifyMessageType = MessageType
-public;OpenChildWindowInfo
-public;OpenMessageCenterEvent 
-deprecated;OpenMessageCenterEvent 
-public;OverflowToolbarOptions
-internal;packNineZoneState(state: NineZoneState): NineZoneState
-public;PanelPinnedChangedEventArgs
-deprecated;PanelPinnedChangedEventArgs
-internal;PanelSizeChangedEventArgs
-beta;PanelStateChangedEvent 
-deprecated;PanelStateChangedEvent 
-public;PanelStateChangedEventArgs
-deprecated;PanelStateChangedEventArgs
-public;Placement = Side | `${Side}-${Alignment}`
-internal;PlacementOrRelativePosition = Placement | RelativePosition
-public;PointerMessage 
-public;PointerMessageChangedEvent 
-deprecated;PointerMessageChangedEvent 
-public;PointerMessageChangedEventArgs
-deprecated;PointerMessageChangedEventArgs
-public;PointerMessageProps 
-public;PopupContentType = HTMLElement | ReactContent
-public;PopupInfo
-public;PopupManager
-public;PopupPropsBase
-public;PopupRenderer 
-public;PopupsChangedEvent 
-deprecated;PopupsChangedEvent 
-public;PopupsChangedEventArgs
-deprecated;PopupsChangedEventArgs
-beta;PositionPopup 
-beta;PositionPopupContent(props: CommonDivProps): React_2.JSX.Element
-beta;PositionPopupProps 
-public;PresentationSelectionScope
-deprecated;PresentationSelectionScope
-beta;PreviewFeatures 
-beta;PreviewFeaturesProvider({ children, features, }: PreviewFeaturesProviderProps): React_2.JSX.Element
-beta;PreviewFeaturesProviderProps
-public;PropsHelper
-deprecated;PropsHelper
-public;ProviderItem
-beta;QuantityFormatSettingsPage({ initialQuantityType, availableUnitSystems, }: QuantityFormatterSettingsOptions): React_2.JSX.Element
-beta;QuantityFormatterSettingsOptions
-public;ReactContent
-public;ReactNotifyMessageDetails
-public;RectangleProps = RectangleProps_2
-public;Reducer
-deprecated;Reducer
-public;ReducerActions
-deprecated;ReducerActions
-public;ReducerMapActions
-deprecated;ReducerMapActions
-public;ReducerRegistry
-deprecated;ReducerRegistry
-beta;ReducerRegistryInstance: ReducerRegistry
-deprecated;ReducerRegistryInstance: ReducerRegistry
-public;RestoreAllFrontstagesTool 
-public;RestoreFrontstageLayoutTool 
-internal;restoreNineZoneState(frontstageDef: FrontstageDef, packed: NineZoneState): void
-public;SafeAreaContext: React_2.Context
-public;SafeAreaInsets
-public;ScheduleAnimationTimelineDataProvider 
-beta;SectionsStatusField(props: SectionsStatusFieldProps): React_2.JSX.Element
-beta;SectionsStatusFieldProps 
-beta;selectionContextStateFunc(state: Readonly
-deprecated;selectionContextStateFunc(state: Readonly
-public;SelectionContextToolDefinitions
-deprecated;SelectionContextToolDefinitions
-beta;SelectionCountField(props: SelectionCountFieldProps): React_2.JSX.Element
-beta;SelectionCountFieldProps 
-public;SelectionInfoField(props: CommonProps): React_2.JSX.Element
-deprecated;SelectionInfoField(props: CommonProps): React_2.JSX.Element
-public;SelectionScope
-public;SelectionScopeField(props: SelectionScopeFieldProps): React_2.JSX.Element
-public;SessionState
-deprecated;SessionState
-public;SessionStateActionId
-deprecated;SessionStateActionId
-public;SessionStateActions:
-deprecated;SessionStateActions:
-beta;SessionStateActionsProps
-deprecated;SessionStateActionsProps
-public;SessionStateActionsUnion = ActionsUnion
-deprecated;SessionStateActionsUnion = ActionsUnion
-beta;sessionStateMapDispatchToProps:
-deprecated;sessionStateMapDispatchToProps:
-public;SessionStateReducer(state: SessionState | undefined, action: SessionStateActionsUnion): DeepReadonly
-deprecated;SessionStateReducer(state: SessionState | undefined, action: SessionStateActionsUnion): DeepReadonly
-internal;setPanelPinned: (nineZone: NineZoneState, side: PanelSide, pinned: boolean) => NineZoneState
-public;SettingsManager = SettingsManager_2
-public;SettingsManager: typeof SettingsManager_2
-beta;SettingsModalFrontstage 
-public;SettingsTabEntry = SettingsTabEntry_2
-public;SettingsTabsProvider = SettingsTabsProvider_2
-alpha;SheetCard 
-alpha;SheetCardProps
-alpha;SheetData
-public;SheetNavigationAid 
-public;SheetNavigationAidControl 
-deprecated;SheetNavigationAidControl 
-public;SheetNavigationProps 
-alpha;SheetsModalFrontstage 
-public;SizeProps = SizeProps_2
-public;SnapModeField(props: SnapModeFieldProps): React_2.JSX.Element
-alpha;SolarTimelineDataProvider 
-public;SplitPane(props: SplitPaneProps): React_2.JSX.Element
-public;SplitPaneProps
-deprecated;SplitPaneProps
-public;StageContentLayout
-public;StageContentLayoutProps
-public;StagePanelConfig
-public;StagePanelDef 
-public;StagePanelLocation
-public;StagePanelMaxSizeSpec = number |
-deprecated;StagePanelMaxSizeSpec = number |
-public;StagePanelSection
-public;StagePanelSectionConfig = ReadonlyArray
-internal;StagePanelSectionDef 
-public;StagePanelSectionsConfig
-public;StagePanelSizeSpec = number |
-public;StagePanelState
-public;StageUsage
-public;StandardContentLayouts
-public;StandardContentToolsProvider 
-deprecated;StandardContentToolsProvider 
-public;StandardContentToolsUiItemsProvider 
-public;StandardFrontstageProps
-public;StandardFrontstageProvider 
-deprecated;StandardFrontstageProvider 
-public;StandardLayoutToolbarItem
-public;StandardLayoutWidget
-public;StandardMessageBox(props: StandardMessageBoxProps): React_2.JSX.Element
-deprecated;StandardMessageBox(props: StandardMessageBoxProps): React_2.JSX.Element
-public;StandardMessageBoxProps 
-deprecated;StandardMessageBoxProps 
-public;StandardNavigationToolsProvider 
-deprecated;StandardNavigationToolsProvider 
-public;StandardNavigationToolsUiItemsProvider 
-public;StandardRotationNavigationAidControl 
-deprecated;StandardRotationNavigationAidControl 
-public;StandardStatusbarItemsProvider 
-deprecated;StandardStatusbarItemsProvider 
-public;StandardStatusbarUiItemsProvider 
-public;StateManager
-deprecated;StateManager
-public;StateType
-deprecated;StateType
-internal;stateVersion = 18
-public;StatusBar(props: StatusBarProps): React_2.JSX.Element
-deprecated;StatusBar(props: StatusBarProps): React_2.JSX.Element
-public;StatusBar
-deprecated;StatusBar
-public;StatusBarActionItem 
-public;StatusBarCenterSection(props: CommonDivProps): React_2.JSX.Element
-public;StatusBarComposer(props: StatusBarComposerProps): React_2.JSX.Element
-public;StatusBarComposerProps 
-deprecated;StatusBarComposerProps 
-public;StatusBarCustomItem 
-beta;StatusBarDialog(props: StatusBarDialogProps): React_2.JSX.Element
-beta;StatusBarDialog
-beta;StatusBarDialogProps 
-public;StatusBarFieldId = string | null
-deprecated;StatusBarFieldId = string | null
-beta;StatusBarIndicator(props: StatusBarIndicatorProps): React_2.JSX.Element
-deprecated;StatusBarIndicator(props: StatusBarIndicatorProps): React_2.JSX.Element
-beta;StatusBarIndicatorProps 
-deprecated;StatusBarIndicatorProps 
-public;StatusBarItem = StatusBarActionItem | StatusBarLabelItem | StatusBarCustomItem
-internal;StatusBarItemProps 
-public;StatusBarItemUtilities
-beta;StatusBarLabelIndicator(props: StatusBarLabelIndicatorProps): React_2.JSX.Element
-deprecated;StatusBarLabelIndicator(props: StatusBarLabelIndicatorProps): React_2.JSX.Element
-beta;StatusBarLabelIndicatorProps 
-deprecated;StatusBarLabelIndicatorProps 
-public;StatusBarLabelItem 
-public;StatusBarLabelSide
-public;StatusBarLeftSection(props: CommonDivProps): React_2.JSX.Element
-public;StatusBarPopover({ content, ...props }: StatusBarPopoverProps): React_2.JSX.Element
-public;StatusBarPopover
-public;StatusBarProps 
-deprecated;StatusBarProps 
-public;StatusBarRightSection(props: CommonDivProps): React_2.JSX.Element
-public;StatusBarSection
-public;StatusBarSeparator(props: CommonProps): React_2.JSX.Element
-public;StatusBarSpaceBetween(props: CommonDivProps): React_2.JSX.Element
-public;StatusBarWidgetComposerControl 
-deprecated;StatusBarWidgetComposerControl 
-public;class StatusBarWidgetControl 
-deprecated;class StatusBarWidgetControl 
-public;SupportsViewSelectorChange
-deprecated;SupportsViewSelectorChange
-public;SyncToolSettingsPropertiesEvent 
-deprecated;SyncToolSettingsPropertiesEvent 
-public;SyncToolSettingsPropertiesEventArgs
-deprecated;SyncToolSettingsPropertiesEventArgs
-public;SyncUiEventDispatcher
-public;SyncUiEventId
-public;SYSTEM_PREFERRED_COLOR_THEME = "SYSTEM_PREFERRED"
-public;ThemeId = `${ColorTheme}` | (string & {})
-public;ThemeManager({ children, ...props }: ThemeManagerProps): React_2.JSX.Element
-public;ToolActivatedEvent 
-deprecated;ToolActivatedEvent 
-public;ToolActivatedEventArgs
-deprecated;ToolActivatedEventArgs
-public;ToolAssistanceChangedEvent 
-deprecated;ToolAssistanceChangedEvent 
-public;ToolAssistanceChangedEventArgs
-deprecated;ToolAssistanceChangedEventArgs
-public;ToolAssistanceField 
-public;ToolAssistanceFieldProps 
-beta;Toolbar(props: ToolbarProps): React_2.JSX.Element
-public;TOOLBAR_OPACITY_DEFAULT = 0.5
-public;ToolbarActionItem 
-public;ToolbarButtonHelper
-public;ToolbarComposer(props: ExtensibleToolbarProps): React_2.JSX.Element
-public;ToolbarCustomItem 
-beta;ToolbarDragInteractionContext: React_2.Context
-public;ToolbarGroupItem 
-public;ToolbarHelper
-deprecated;ToolbarHelper
-public;ToolbarItem = ToolbarActionItem | ToolbarGroupItem | ToolbarCustomItem
-public;ToolbarItemLayouts
-beta;ToolbarItems
-public;ToolbarItemUtilities
-public;ToolbarOrientation
-beta;ToolbarPopup 
-beta;ToolbarPopupProps = Omit
-public;ToolbarProps 
-public;ToolbarUsage
-beta;ToolbarWithOverflow(props: ToolbarWithOverflowProps): React_2.JSX.Element
-beta;ToolbarWithOverflowProps 
-public;ToolIconChangedEvent 
-deprecated;ToolIconChangedEvent 
-public;ToolIconChangedEventArgs
-deprecated;ToolIconChangedEventArgs
-public;ToolInformation
-deprecated;ToolInformation
-public;ToolItemDef 
-deprecated;ToolItemDef 
-public;ToolItemProps 
-deprecated;ToolItemProps 
-internal;ToolSettingsContent(): React_2.JSX.Element | null
-internal;ToolSettingsDockedContent(): React_2.JSX.Element
-public;ToolSettingsEntry
-public;ToolSettingsGridContainer({ componentGenerator, }:
-internal;ToolSettingsWidgetContent(): React_2.JSX.Element
-public;ToolUiProvider 
-deprecated;ToolUiProvider 
-public;ToolWidgetComposer(props: ToolWidgetComposerProps): React_2.JSX.Element
-public;ToolWidgetComposerProps 
-deprecated;ToolWidgetComposerProps 
-internal;toPanelSide(location: StagePanelLocation): PanelSide
-internal;TrackingTime
-public;UiDataProvidedDialog({ uiDataProvider, id, isModal, title, movable, resizable, minWidth, minHeight, maxWidth, maxHeight, width, height, style, }: UiDataProvidedDialogProps): React_2.JSX.Element
-deprecated;UiDataProvidedDialog({ uiDataProvider, id, isModal, title, movable, resizable, minWidth, minHeight, maxWidth, maxHeight, width, height, style, }: UiDataProvidedDialogProps): React_2.JSX.Element
-public;UiDataProvidedDialogProps
-deprecated;UiDataProvidedDialogProps
-public;UiFramework
-public;UiItemsManager
-public;UiItemsProvider
-public;UiItemsProviderOverrides = MarkRequired
-public;UiItemsProviderRegisteredEventArgs
-deprecated;UiItemsProviderRegisteredEventArgs
-beta;UiSettingsPage(): React_2.JSX.Element
-deprecated;UiSettingsPage(): React_2.JSX.Element
-public;UiSettingsProviderProps
-deprecated;UiSettingsProviderProps
-public;UiStateStorage = UiStateStorage_2
-internal;UiStateStorageContext: React_2.Context
-public;UiStateStorageHandler(props: UiSettingsProviderProps): React_2.JSX.Element
-public;UiStateStorageResult = UiStateStorageResult_2
-public;UiStateStorageStatus = UiStateStorageStatus_2
-public;UiStateStorageStatus: typeof UiStateStorageStatus_2
-public;UiSyncEvent 
-deprecated;UiSyncEvent 
-public;UiSyncEventArgs
-deprecated;UiSyncEventArgs
-public;UiVisibilityChangedEvent 
-deprecated;UiVisibilityChangedEvent 
-public;UiVisibilityEventArgs
-deprecated;UiVisibilityEventArgs
-alpha;UnitSystemSelector(props: UnitSystemSelectorProps): React_2.JSX.Element
-beta;UnitSystemSelectorProps
-public;useActiveFrontstageDef(): FrontstageDef | undefined
-public;useActiveFrontstageId: () => string
-public;useActiveIModelConnection(): IModelConnection | undefined
-internal;useActiveModalFrontstageInfo(): ModalFrontstageInfo | undefined
-public;useActiveStageId(): string
-public;useActiveViewport(): ScreenViewport | undefined
-public;useAnalysisAnimationDataProvider(viewport: ScreenViewport | undefined): AnalysisAnimationTimelineDataProvider | undefined
-internal;useAvailableUiItemsProviders(): readonly string[]
-public;useBackstageManager: () => FrameworkBackstage
-public;useConditionalValue
-internal;useContentOverlayStore: UseBoundStore
-internal;useDefaultBackstageItems: (manager: BackstageItemsManager) => readonly BackstageItem[]
-public;useDefaultStatusBarItems: (manager: StatusBarItemsManager) => readonly StatusBarItem[]
-deprecated;useDefaultStatusBarItems: (manager: StatusBarItemsManager) => readonly StatusBarItem[]
-public;useDefaultToolbarItems: (manager: ToolbarItemsManager) => readonly ToolbarItem[]
-deprecated;useDefaultToolbarItems: (manager: ToolbarItemsManager) => readonly ToolbarItem[]
-alpha;useFloatingViewport(args: FloatingViewportContentProps):
-deprecated;useFloatingViewport(args: FloatingViewportContentProps):
-internal;useFrontstageManager(frontstageDef: FrontstageDef, useToolAsToolSettingsLabel?: boolean): void
-internal;useGroupedItems: (items: ReadonlyArray
-internal;useHorizontalToolSettingEntries(): ToolSettingsEntry[] | undefined
-public;useIsBackstageOpen: (manager: FrameworkBackstage) => boolean
-internal;useItemsManager(frontstageDef: FrontstageDef): void
-internal;useLabels(): NineZoneLabels
-internal;useLayoutStore(frontstageDef: FrontstageDef | undefined): LayoutStore
-internal;useNineZoneDispatch(frontstageDef: FrontstageDef): NineZoneDispatch
-internal;usePreviewFeatures(): PreviewFeatures
-public;UserSettingsProvider
-internal;useSavedFrontstageState(frontstageDef: FrontstageDef): void
-public;useScheduleAnimationDataProvider(viewport: ScreenViewport | undefined): ScheduleAnimationTimelineDataProvider | undefined
-beta;useSelectionSetSize(args: UseSelectionSetSizeArgs): number
-beta;UseSelectionSetSizeArgs
-internal;useShouldRenderDockedToolSettings(): boolean
-beta;useSolarDataProvider(viewport: ScreenViewport | undefined): SolarDataProvider | undefined
-public;useSpecificWidgetDef(widgetId: string): WidgetDef | undefined
-internal;useStatusBarEntry(): DockedStatusBarEntryContextArg
-internal;useToolSettingsNode(): string | number | boolean | React_2.ReactElement
-public;useTransientState(onSave?: () => void, onRestore?: () => void): void
-public;useUiItemsProviderBackstageItems: (manager: BackstageItemsManager) => readonly BackstageItem[]
-deprecated;useUiItemsProviderBackstageItems: (manager: BackstageItemsManager) => readonly BackstageItem[]
-public;useUiItemsProviderStatusBarItems: (manager: StatusBarItemsManager) => readonly StatusBarItem[]
-deprecated;useUiItemsProviderStatusBarItems: (manager: StatusBarItemsManager) => readonly StatusBarItem[]
-public;useUiItemsProviderToolbarItems: (manager: ToolbarItemsManager, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation) => readonly ToolbarItem[]
-deprecated;useUiItemsProviderToolbarItems: (manager: ToolbarItemsManager, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation) => readonly ToolbarItem[]
-public;useUiStateStorageHandler(): UiStateStorage
-internal;useUiVisibility(): boolean
-internal;useUpdateNineZoneSize(frontstageDef: FrontstageDef): void
-alpha;useWidget():
-internal;useWidgetDef(): WidgetDef | undefined
-alpha;useWidgetDirection(): "horizontal" | "vertical"
-alpha;ValidationTextbox 
-public;ViewLayout
-internal;ViewOverlayHost({ viewport, featureOptions, userSuppliedOverlay, }: ViewOverlayHostProps): React_2.JSX.Element | null
-public;ViewOverlayProps
-public;ViewportContentControl 
-deprecated;ViewportContentControl 
-beta;ViewSelector 
-beta;ViewSelectorChangedEvent 
-deprecated;ViewSelectorChangedEvent 
-beta;ViewSelectorChangedEventArgs
-deprecated;ViewSelectorChangedEventArgs
-beta;ViewSelectorDefaultProps = Pick
-beta;ViewSelectorProps
-public;ViewStateHelper
-public;ViewStateHelperProps 
-public;ViewToolWidgetComposer(props: ViewToolWidgetComposerProps): React_2.JSX.Element
-public;ViewToolWidgetComposerProps
-deprecated;ViewToolWidgetComposerProps
-public;ViewUtilities
-public;Widget
-public;WIDGET_OPACITY_DEFAULT = 0.9
-public;WidgetConfig 
-internal;WidgetContent(): React_2.JSX.Element
-public;WidgetControl 
-deprecated;WidgetControl 
-public;WidgetDef
-public;WidgetHost
-internal;WidgetInfo
-public;WidgetLayouts
-beta;WidgetManager
-public;WidgetPanelProps = Omit
-internal;WidgetPanelsFrontstage(): React_2.JSX.Element | null
-internal;WidgetPanelsFrontstageContent(): React_2.JSX.Element | null
-internal;WidgetPanelsFrontstageState
-internal;WidgetPanelsStatusBar(props: CommonProps): React_2.JSX.Element | null
-internal;WidgetPanelsTab(): React_2.JSX.Element
-internal;WidgetPanelsToolbars(): React_2.JSX.Element
-internal;WidgetPanelsToolSettings(): React_2.JSX.Element | null
-public;WidgetState
-public;WidgetStateChangedEvent 
-deprecated;WidgetStateChangedEvent 
-public;WidgetStateChangedEventArgs
-deprecated;WidgetStateChangedEventArgs
-public;WidgetType
-internal;WrapperContext: React_2.Context
+Release Tag;API Item Type;API Item Name
+public;class;AccuDrawCommandItems
+deprecated;class;AccuDrawCommandItems
+public;function;AccuDrawDialog
+public;interface;AccuDrawDialogProps
+deprecated;interface;AccuDrawDialogProps
+public;function;AccuDrawFieldContainer
+public;interface;AccuDrawFieldContainerProps
+deprecated;interface;AccuDrawFieldContainerProps
+public;class;AccuDrawGrabInputFocusEvent
+deprecated;class;AccuDrawGrabInputFocusEvent
+public;const;AccuDrawInputField
+public;interface;AccuDrawInputFieldProps
+deprecated;interface;AccuDrawInputFieldProps
+public;class;AccuDrawKeyboardShortcuts
+public;class;AccuDrawPopupManager
+public;class;AccuDrawSetCompassModeEvent
+deprecated;class;AccuDrawSetCompassModeEvent
+public;interface;AccuDrawSetCompassModeEventArgs
+deprecated;interface;AccuDrawSetCompassModeEventArgs
+public;class;AccuDrawSetFieldFocusEvent
+deprecated;class;AccuDrawSetFieldFocusEvent
+public;interface;AccuDrawSetFieldFocusEventArgs
+deprecated;interface;AccuDrawSetFieldFocusEventArgs
+public;class;AccuDrawSetFieldLockEvent
+deprecated;class;AccuDrawSetFieldLockEvent
+public;interface;AccuDrawSetFieldLockEventArgs
+deprecated;interface;AccuDrawSetFieldLockEventArgs
+public;class;AccuDrawSetFieldValueFromUiEvent
+deprecated;class;AccuDrawSetFieldValueFromUiEvent
+public;interface;AccuDrawSetFieldValueFromUiEventArgs
+deprecated;interface;AccuDrawSetFieldValueFromUiEventArgs
+public;class;AccuDrawSetFieldValueToUiEvent
+deprecated;class;AccuDrawSetFieldValueToUiEvent
+public;interface;AccuDrawSetFieldValueToUiEventArgs
+deprecated;interface;AccuDrawSetFieldValueToUiEventArgs
+public;interface;AccuDrawUiSettings
+public;class;AccuDrawUiSettingsChangedEvent
+deprecated;class;AccuDrawUiSettingsChangedEvent
+public;function;AccuDrawWidget
+public;class;AccuDrawWidgetControl
+deprecated;class;AccuDrawWidgetControl
+public;interface;Action
+deprecated;interface;Action
+public;class;ActionButtonItemDef
+deprecated;class;ActionButtonItemDef
+public;interface;ActionCreatorsObject
+deprecated;interface;ActionCreatorsObject
+public;type;ActionsUnion
+deprecated;type;ActionsUnion
+public;type;ActionTypes
+deprecated;type;ActionTypes
+public;interface;ActionWithPayload
+deprecated;interface;ActionWithPayload
+public;class;ActiveContentChangedEvent
+deprecated;class;ActiveContentChangedEvent
+public;interface;ActiveContentChangedEventArgs
+deprecated;interface;ActiveContentChangedEventArgs
+public;function;ActivityCenterField
+public;class;ActivityMessageCancelledEvent
+deprecated;class;ActivityMessageCancelledEvent
+public;interface;ActivityMessageEventArgs
+deprecated;interface;ActivityMessageEventArgs
+public;class;ActivityMessageUpdatedEvent
+deprecated;class;ActivityMessageUpdatedEvent
+public;interface;AllowedUiItemsProviderOverrides
+public;class;AnalysisAnimationTimelineDataProvider
+public;type;AnyItemDef
+deprecated;type;AnyItemDef
+public;type;AnyToolbarItemDef
+public;class;AppNotificationManager
+public;class;AppUiSettings
+deprecated;class;AppUiSettings
+beta;function;areNoFeatureOverridesActive
+deprecated;function;areNoFeatureOverridesActive
+public;interface;BackstageActionItem
+public;function;BackstageAppButton
+public;interface;BackstageAppButtonProps
+public;function;BackstageComposer
+public;interface;BackstageComposerProps
+deprecated;interface;BackstageComposerProps
+public;type;BackstageItem
+public;namespace;BackstageItemUtilities
+public;class;BackstageManager
+deprecated;class;BackstageManager
+public;interface;BackstageStageLauncher
+public;interface;BackstageToggledArgs
+public;interface;BaseItemState
+deprecated;interface;BaseItemState
+public;class;BaseUiItemsProvider
+deprecated;class;BaseUiItemsProvider
+public;function;BasicNavigationWidget
+public;interface;BasicNavigationWidgetProps
+deprecated;interface;BasicNavigationWidgetProps
+public;function;BasicToolWidget
+public;interface;BasicToolWidgetProps
+deprecated;interface;BasicToolWidgetProps
+alpha;class;BumpToolSetting
+public;class;Calculator
+public;class;CalculatorPopup
+deprecated;class;CalculatorPopup
+public;interface;CalculatorPopupProps
+deprecated;interface;CalculatorPopupProps
+public;interface;CalculatorProps
+public;interface;CanFloatWidgetOptions
+alpha;class;CardContainer
+alpha;interface;CardContainerProps
+alpha;interface;CardInfo
+alpha;class;CardSelectedEvent
+deprecated;class;CardSelectedEvent
+alpha;interface;CardSelectedEventArgs
+deprecated;interface;CardSelectedEventArgs
+public;interface;ChildWindowLocationProps
+public;enum;ColorTheme
+public;type;CombinedReducerState
+deprecated;type;CombinedReducerState
+public;const;combineReducers
+deprecated;const;combineReducers
+public;type;CombineReducersFunction
+deprecated;type;CombineReducersFunction
+public;interface;CommandHandler
+deprecated;interface;CommandHandler
+public;class;CommandItemDef
+deprecated;class;CommandItemDef
+public;interface;CommandItemProps
+deprecated;interface;CommandItemProps
+public;interface;CommonBackstageItem
+public;interface;CommonStatusBarItem
+public;interface;CommonToolbarItem
+public;class;ComponentGenerator
+public;type;ConditionalBooleanValue
+public;const;ConditionalBooleanValue
+public;type;ConditionalStringValue
+public;const;ConditionalStringValue
+public;interface;ConditionalValue
+public;class;ConfigurableBase
+deprecated;class;ConfigurableBase
+public;class;ConfigurableCreateInfo
+deprecated;class;ConfigurableCreateInfo
+public;enum;ConfigurableUiActionId
+deprecated;enum;ConfigurableUiActionId
+public;const;ConfigurableUiActions
+deprecated;const;ConfigurableUiActions
+public;type;ConfigurableUiActionsUnion
+deprecated;type;ConfigurableUiActionsUnion
+public;function;ConfigurableUiContent
+public;interface;ConfigurableUiContentProps
+deprecated;interface;ConfigurableUiContentProps
+public;class;ConfigurableUiControl
+deprecated;class;ConfigurableUiControl
+public;type;ConfigurableUiControlConstructor
+deprecated;type;ConfigurableUiControlConstructor
+public;enum;ConfigurableUiControlType
+deprecated;enum;ConfigurableUiControlType
+public;interface;ConfigurableUiElement
+deprecated;interface;ConfigurableUiElement
+public;function;ConfigurableUiReducer
+deprecated;function;ConfigurableUiReducer
+public;interface;ConfigurableUiState
+deprecated;interface;ConfigurableUiState
+public;const;connectIModelConnection
+deprecated;const;connectIModelConnection
+beta;const;connectIModelConnectionAndViewState
+deprecated;const;connectIModelConnectionAndViewState
+public;type;ContentCallback
+public;class;ContentControl
+deprecated;class;ContentControl
+public;class;ContentControlActivatedEvent
+deprecated;class;ContentControlActivatedEvent
+public;interface;ContentControlActivatedEventArgs
+deprecated;interface;ContentControlActivatedEventArgs
+public;function;ContentDialog
+deprecated;function;ContentDialog
+public;class;ContentDialogChangedEvent
+deprecated;class;ContentDialogChangedEvent
+public;interface;ContentDialogInfo
+public;interface;ContentDialogProps
+deprecated;interface;ContentDialogProps
+public;class;ContentDialogRenderer
+public;class;ContentGroup
+public;interface;ContentGroupProps
+public;class;ContentGroupProvider
+public;function;ContentLayout
+public;class;ContentLayoutActivatedEvent
+deprecated;class;ContentLayoutActivatedEvent
+public;interface;ContentLayoutActivatedEventArgs
+deprecated;interface;ContentLayoutActivatedEventArgs
+public;interface;ContentLayoutComponentProps
+public;class;ContentLayoutDef
+public;interface;ContentLayoutProps
+beta;function;ContentOverlay
+public;interface;ContentProps
+public;function;ContentToolWidgetComposer
+public;interface;ContentToolWidgetComposerProps
+deprecated;interface;ContentToolWidgetComposerProps
+public;class;CoreTools
+deprecated;class;CoreTools
+public;function;createAction
+deprecated;function;createAction
+public;function;createAction
+deprecated;function;createAction
+public;class;CubeNavigationAidControl
+deprecated;class;CubeNavigationAidControl
+public;enum;CursorDirection
+public;enum;CursorDirectionParts
+public;class;CursorInformation
+public;interface;CursorMenuData
+deprecated;interface;CursorMenuData
+public;interface;CursorMenuItemProps
+public;interface;CursorMenuPayload
+public;class;CursorPopup
+public;function;CursorPopupContent
+public;class;CursorPopupManager
+alpha;class;CursorPopupMenu
+public;interface;CursorPopupOptions
+public;type;CursorPopupProps
+public;class;CursorPopupRenderer
+public;class;CursorUpdatedEvent
+deprecated;class;CursorUpdatedEvent
+public;interface;CursorUpdatedEventArgs
+deprecated;interface;CursorUpdatedEventArgs
+public;class;CustomItemDef
+deprecated;class;CustomItemDef
+public;interface;CustomItemProps
+deprecated;interface;CustomItemProps
+public;type;DeepReadonly
+deprecated;type;DeepReadonly
+public;type;DeepReadonlyArray
+deprecated;type;DeepReadonlyArray
+public;type;DeepReadonlyObject
+deprecated;type;DeepReadonlyObject
+public;interface;DefaultContentTools
+public;interface;DefaultContentToolsAppData
+deprecated;interface;DefaultContentToolsAppData
+public;function;DefaultDialogGridContainer
+public;interface;DefaultNavigationTools
+public;interface;DefaultStatusbarItems
+public;function;DefaultViewOverlay
+public;class;DialogChangedEvent
+deprecated;class;DialogChangedEvent
+public;interface;DialogChangedEventArgs
+deprecated;interface;DialogChangedEventArgs
+public;interface;DialogInfo
+public;class;DrawingNavigationAidControl
+deprecated;class;DrawingNavigationAidControl
+public;class;ElementTooltip
+public;class;ElementTooltipChangedEvent
+deprecated;class;ElementTooltipChangedEvent
+public;interface;ElementTooltipChangedEventArgs
+deprecated;interface;ElementTooltipChangedEventArgs
+public;interface;EmphasizeElementsChangedArgs
+beta;class;ExpandableSection
+beta;interface;ExpandableSectionProps
+public;interface;ExtensibleToolbarProps
+deprecated;interface;ExtensibleToolbarProps
+beta;function;featureOverridesActiveStateFunc
+deprecated;function;featureOverridesActiveStateFunc
+beta;class;FloatingContentControl
+deprecated;class;FloatingContentControl
+beta;function;FloatingViewportContent
+deprecated;function;FloatingViewportContent
+beta;class;FloatingViewportContentControl
+deprecated;class;FloatingViewportContentControl
+beta;interface;FloatingViewportContentProps
+deprecated;interface;FloatingViewportContentProps
+public;function;FloatingViewportContentWrapper
+deprecated;function;FloatingViewportContentWrapper
+public;interface;FloatingViewportContentWrapperProps
+deprecated;interface;FloatingViewportContentWrapperProps
+alpha;class;FocusToolSettings
+public;class;FrameworkAccuDraw
+public;interface;FrameworkBackstage
+public;interface;FrameworkChildWindows
+public;interface;FrameworkContent
+public;interface;FrameworkControls
+deprecated;interface;FrameworkControls
+public;interface;FrameworkDialog
+public;interface;FrameworkDialogs
+public;interface;FrameworkFrontstages
+public;interface;FrameworkKeyboardShortcut
+public;interface;FrameworkKeyboardShortcutContainer
+public;interface;FrameworkKeyboardShortcuts
+public;const;FrameworkReducer
+deprecated;const;FrameworkReducer
+beta;interface;FrameworkRootState
+deprecated;interface;FrameworkRootState
+public;interface;FrameworkStackedDialog
+public;interface;FrameworkState
+deprecated;interface;FrameworkState
+public;class;FrameworkToolAdmin
+public;interface;FrameworkToolSettings
+public;class;FrameworkUiAdmin
+public;interface;FrameworkVisibility
+public;type;Frontstage
+public;class;FrontstageActivatedEvent
+deprecated;class;FrontstageActivatedEvent
+public;interface;FrontstageActivatedEventArgs
+deprecated;interface;FrontstageActivatedEventArgs
+public;interface;FrontstageConfig
+deprecated;interface;FrontstageConfig
+public;class;FrontstageDeactivatedEvent
+deprecated;class;FrontstageDeactivatedEvent
+public;interface;FrontstageDeactivatedEventArgs
+deprecated;interface;FrontstageDeactivatedEventArgs
+public;class;FrontstageDef
+public;class;FrontstageProvider
+deprecated;class;FrontstageProvider
+public;class;FrontstageReadyEvent
+deprecated;class;FrontstageReadyEvent
+public;interface;FrontstageReadyEventArgs
+deprecated;interface;FrontstageReadyEventArgs
+beta;namespace;FrontstageUtilities
+public;type;FunctionType
+deprecated;type;FunctionType
+beta;function;getFeatureOverrideSyncEventIds
+deprecated;function;getFeatureOverrideSyncEventIds
+beta;function;getIsHiddenIfFeatureOverridesActive
+deprecated;function;getIsHiddenIfFeatureOverridesActive
+beta;function;getIsHiddenIfSelectionNotActive
+deprecated;function;getIsHiddenIfSelectionNotActive
+beta;function;getListPanel
+beta;function;getQuantityFormatsSettingsManagerEntry
+beta;function;getSelectionContextSyncEventIds
+deprecated;function;getSelectionContextSyncEventIds
+beta;function;getUiSettingsManagerEntry
+public;class;GroupItemDef
+deprecated;class;GroupItemDef
+public;interface;GroupItemProps
+deprecated;interface;GroupItemProps
+public;enum;HideIsolateEmphasizeAction
+public;class;HideIsolateEmphasizeActionHandler
+public;class;HideIsolateEmphasizeManager
+alpha;class;HTMLElementPopup
+deprecated;class;HTMLElementPopup
+alpha;interface;HTMLElementPopupProps
+deprecated;interface;HTMLElementPopupProps
+public;function;IModelConnectedViewport
+deprecated;function;IModelConnectedViewport
+beta;function;IModelConnectedViewSelector
+deprecated;function;IModelConnectedViewSelector
+public;class;IModelViewportControl
+deprecated;class;IModelViewportControl
+public;interface;IModelViewportControlOptions
+deprecated;interface;IModelViewportControlOptions
+public;interface;InitialAppUiSettings
+deprecated;interface;InitialAppUiSettings
+beta;class;InputEditorCommitHandler
+alpha;class;InputEditorPopup
+beta;interface;InputEditorPopupProps
+public;class;InputFieldMessage
+deprecated;class;InputFieldMessage
+public;class;InputFieldMessageAddedEvent
+deprecated;class;InputFieldMessageAddedEvent
+public;interface;InputFieldMessageEventArgs
+deprecated;interface;InputFieldMessageEventArgs
+public;class;InputFieldMessageRemovedEvent
+deprecated;class;InputFieldMessageRemovedEvent
+alpha;enum;InputStatus
+public;function;isBackstageActionItem
+public;function;isBackstageStageLauncher
+beta;function;isNoSelectionActive
+deprecated;function;isNoSelectionActive
+public;function;isStatusBarActionItem
+public;function;isStatusBarCustomItem
+public;function;isStatusBarLabelItem
+public;function;isToolbarActionItem
+public;function;isToolbarCustomItem
+public;function;isToolbarGroupItem
+public;class;ItemDefBase
+deprecated;class;ItemDefBase
+public;class;ItemList
+deprecated;class;ItemList
+public;class;ItemMap
+deprecated;class;ItemMap
+public;interface;ItemProps
+deprecated;interface;ItemProps
+public;class;KeyboardShortcut
+deprecated;class;KeyboardShortcut
+public;class;KeyboardShortcutContainer
+deprecated;class;KeyboardShortcutContainer
+public;class;KeyboardShortcutMenu
+deprecated;class;KeyboardShortcutMenu
+public;class;KeyboardShortcutMenuEvent
+deprecated;class;KeyboardShortcutMenuEvent
+public;interface;KeyboardShortcutMenuState
+deprecated;interface;KeyboardShortcutMenuState
+public;interface;KeyboardShortcutProps
+beta;namespace;KeyboardShortcutUtilities
+public;interface;KeyinEntry
+public;enum;KeyinFieldLocalization
+public;function;KeyinPalettePopup
+public;interface;KeyinPalettePopupProps
+public;interface;LayoutFragmentProps
+public;interface;LayoutHorizontalSplitProps
+public;interface;LayoutSplitPropsBase
+public;interface;LayoutVerticalSplitProps
+beta;interface;ListItem
+beta;enum;ListItemType
+beta;class;ListPicker
+beta;class;ListPickerItem
+beta;interface;ListPickerItemProps
+beta;interface;ListPickerProps
+beta;interface;ListPickerPropsExtended
+public;type;LocalStateStorage
+public;const;LocalStateStorage
+public;class;MenuButton
+public;class;MenuButtonPopup
+public;interface;MenuButtonPopupProps
+public;interface;MenuButtonProps
+alpha;class;MenuItem
+deprecated;class;MenuItem
+alpha;class;MenuItemHelpers
+deprecated;class;MenuItemHelpers
+public;type;MenuItemProps
+deprecated;type;MenuItemProps
+public;class;MessageAddedEvent
+deprecated;class;MessageAddedEvent
+public;interface;MessageAddedEventArgs
+deprecated;interface;MessageAddedEventArgs
+public;function;MessageCenterField
+public;class;MessageManager
+public;class;MessagesUpdatedEvent
+deprecated;class;MessagesUpdatedEvent
+public;class;ModalDialogChangedEvent
+deprecated;class;ModalDialogChangedEvent
+public;class;ModalDialogRenderer
+public;class;ModalFrontstage
+public;class;ModalFrontstageChangedEvent
+deprecated;class;ModalFrontstageChangedEvent
+public;interface;ModalFrontstageChangedEventArgs
+deprecated;interface;ModalFrontstageChangedEventArgs
+public;class;ModalFrontstageClosedEvent
+deprecated;class;ModalFrontstageClosedEvent
+public;interface;ModalFrontstageClosedEventArgs
+deprecated;interface;ModalFrontstageClosedEventArgs
+public;interface;ModalFrontstageInfo
+public;interface;ModalFrontstageProps
+alpha;class;ModalFrontstageRequestedCloseEvent
+deprecated;class;ModalFrontstageRequestedCloseEvent
+alpha;interface;ModalFrontstageRequestedCloseEventArgs
+deprecated;interface;ModalFrontstageRequestedCloseEventArgs
+public;class;ModelessDialog
+deprecated;class;ModelessDialog
+public;class;ModelessDialogChangedEvent
+deprecated;class;ModelessDialogChangedEvent
+public;interface;ModelessDialogInfo
+public;interface;ModelessDialogProps
+deprecated;interface;ModelessDialogProps
+public;class;ModelessDialogRenderer
+public;class;MouseDownChangedEvent
+deprecated;class;MouseDownChangedEvent
+public;interface;MouseDownChangedEventArgs
+deprecated;interface;MouseDownChangedEventArgs
+public;interface;NameToReducerMap
+deprecated;interface;NameToReducerMap
+public;class;NavigationAidActivatedEvent
+deprecated;class;NavigationAidActivatedEvent
+public;interface;NavigationAidActivatedEventArgs
+deprecated;interface;NavigationAidActivatedEventArgs
+public;class;NavigationAidControl
+deprecated;class;NavigationAidControl
+public;function;NavigationAidHost
+public;interface;NavigationAidHostProps
+deprecated;interface;NavigationAidHostProps
+public;function;NavigationWidgetComposer
+public;interface;NavigationWidgetComposerProps
+deprecated;interface;NavigationWidgetComposerProps
+public;class;NestedFrontstage
+deprecated;class;NestedFrontstage
+public;function;NestedFrontstageAppButton
+public;type;NotifyMessageDetailsType
+public;type;NotifyMessageType
+public;interface;OpenChildWindowInfo
+public;class;OpenMessageCenterEvent
+deprecated;class;OpenMessageCenterEvent
+public;interface;OverflowToolbarOptions
+public;interface;PanelPinnedChangedEventArgs
+deprecated;interface;PanelPinnedChangedEventArgs
+beta;class;PanelStateChangedEvent
+deprecated;class;PanelStateChangedEvent
+public;interface;PanelStateChangedEventArgs
+deprecated;interface;PanelStateChangedEventArgs
+public;type;Placement
+public;class;PointerMessage
+public;class;PointerMessageChangedEvent
+deprecated;class;PointerMessageChangedEvent
+public;interface;PointerMessageChangedEventArgs
+deprecated;interface;PointerMessageChangedEventArgs
+public;interface;PointerMessageProps
+public;type;PopupContentType
+public;interface;PopupInfo
+public;class;PopupManager
+public;interface;PopupPropsBase
+public;class;PopupRenderer
+public;class;PopupsChangedEvent
+deprecated;class;PopupsChangedEvent
+public;interface;PopupsChangedEventArgs
+deprecated;interface;PopupsChangedEventArgs
+beta;class;PositionPopup
+beta;function;PositionPopupContent
+beta;interface;PositionPopupProps
+public;interface;PresentationSelectionScope
+deprecated;interface;PresentationSelectionScope
+beta;interface;PreviewFeatures
+beta;function;PreviewFeaturesProvider
+beta;interface;PreviewFeaturesProviderProps
+public;class;PropsHelper
+deprecated;class;PropsHelper
+public;type;ProviderItem
+beta;function;QuantityFormatSettingsPage
+beta;interface;QuantityFormatterSettingsOptions
+public;interface;ReactContent
+public;class;ReactNotifyMessageDetails
+public;type;RectangleProps
+public;type;Reducer
+deprecated;type;Reducer
+public;type;ReducerActions
+deprecated;type;ReducerActions
+public;type;ReducerMapActions
+deprecated;type;ReducerMapActions
+public;class;ReducerRegistry
+deprecated;class;ReducerRegistry
+beta;const;ReducerRegistryInstance
+deprecated;const;ReducerRegistryInstance
+public;class;RestoreAllFrontstagesTool
+public;class;RestoreFrontstageLayoutTool
+public;const;SafeAreaContext
+public;enum;SafeAreaInsets
+public;class;ScheduleAnimationTimelineDataProvider
+beta;function;SectionsStatusField
+beta;interface;SectionsStatusFieldProps
+beta;function;selectionContextStateFunc
+deprecated;function;selectionContextStateFunc
+public;class;SelectionContextToolDefinitions
+deprecated;class;SelectionContextToolDefinitions
+beta;function;SelectionCountField
+beta;interface;SelectionCountFieldProps
+public;function;SelectionInfoField
+deprecated;function;SelectionInfoField
+public;enum;SelectionScope
+public;function;SelectionScopeField
+public;interface;SessionState
+deprecated;interface;SessionState
+public;enum;SessionStateActionId
+deprecated;enum;SessionStateActionId
+public;const;SessionStateActions
+deprecated;const;SessionStateActions
+beta;interface;SessionStateActionsProps
+deprecated;interface;SessionStateActionsProps
+public;type;SessionStateActionsUnion
+deprecated;type;SessionStateActionsUnion
+beta;const;sessionStateMapDispatchToProps
+deprecated;const;sessionStateMapDispatchToProps
+public;function;SessionStateReducer
+deprecated;function;SessionStateReducer
+public;type;SettingsManager
+public;const;SettingsManager
+beta;class;SettingsModalFrontstage
+public;type;SettingsTabEntry
+public;type;SettingsTabsProvider
+alpha;class;SheetCard
+alpha;interface;SheetCardProps
+alpha;interface;SheetData
+public;class;SheetNavigationAid
+public;class;SheetNavigationAidControl
+deprecated;class;SheetNavigationAidControl
+public;interface;SheetNavigationProps
+alpha;class;SheetsModalFrontstage
+public;type;SizeProps
+public;function;SnapModeField
+alpha;class;SolarTimelineDataProvider
+public;function;SplitPane
+public;interface;SplitPaneProps
+deprecated;interface;SplitPaneProps
+public;class;StageContentLayout
+public;interface;StageContentLayoutProps
+public;interface;StagePanelConfig
+public;class;StagePanelDef
+public;enum;StagePanelLocation
+public;type;StagePanelMaxSizeSpec
+deprecated;type;StagePanelMaxSizeSpec
+public;enum;StagePanelSection
+public;type;StagePanelSectionConfig
+public;interface;StagePanelSectionsConfig
+public;type;StagePanelSizeSpec
+public;enum;StagePanelState
+public;enum;StageUsage
+public;class;StandardContentLayouts
+public;class;StandardContentToolsProvider
+deprecated;class;StandardContentToolsProvider
+public;class;StandardContentToolsUiItemsProvider
+public;interface;StandardFrontstageProps
+public;class;StandardFrontstageProvider
+deprecated;class;StandardFrontstageProvider
+public;interface;StandardLayoutToolbarItem
+public;interface;StandardLayoutWidget
+public;function;StandardMessageBox
+deprecated;function;StandardMessageBox
+public;interface;StandardMessageBoxProps
+deprecated;interface;StandardMessageBoxProps
+public;class;StandardNavigationToolsProvider
+deprecated;class;StandardNavigationToolsProvider
+public;class;StandardNavigationToolsUiItemsProvider
+public;class;StandardRotationNavigationAid
+public;class;StandardRotationNavigationAidControl
+deprecated;class;StandardRotationNavigationAidControl
+public;class;StandardStatusbarItemsProvider
+deprecated;class;StandardStatusbarItemsProvider
+public;class;StandardStatusbarUiItemsProvider
+public;class;StateManager
+deprecated;class;StateManager
+public;type;StateType
+deprecated;type;StateType
+public;function;StatusBar
+deprecated;function;StatusBar
+public;namespace;StatusBar
+deprecated;namespace;StatusBar
+public;interface;StatusBarActionItem
+public;function;StatusBarCenterSection
+public;function;StatusBarComposer
+public;interface;StatusBarComposerProps
+deprecated;interface;StatusBarComposerProps
+public;interface;StatusBarCustomItem
+beta;function;StatusBarDialog
+beta;namespace;StatusBarDialog
+beta;interface;StatusBarDialogProps
+public;type;StatusBarFieldId
+deprecated;type;StatusBarFieldId
+beta;function;StatusBarIndicator
+deprecated;function;StatusBarIndicator
+beta;interface;StatusBarIndicatorProps
+deprecated;interface;StatusBarIndicatorProps
+public;type;StatusBarItem
+public;namespace;StatusBarItemUtilities
+beta;function;StatusBarLabelIndicator
+deprecated;function;StatusBarLabelIndicator
+beta;interface;StatusBarLabelIndicatorProps
+deprecated;interface;StatusBarLabelIndicatorProps
+public;interface;StatusBarLabelItem
+public;enum;StatusBarLabelSide
+public;function;StatusBarLeftSection
+public;function;StatusBarPopover
+public;namespace;StatusBarPopover
+public;interface;StatusBarProps
+deprecated;interface;StatusBarProps
+public;function;StatusBarRightSection
+public;enum;StatusBarSection
+public;function;StatusBarSeparator
+public;function;StatusBarSpaceBetween
+public;class;StatusBarWidgetComposerControl
+deprecated;class;StatusBarWidgetComposerControl
+public;class;StatusBarWidgetControl
+deprecated;class;StatusBarWidgetControl
+public;interface;SupportsViewSelectorChange
+deprecated;interface;SupportsViewSelectorChange
+public;class;SyncToolSettingsPropertiesEvent
+deprecated;class;SyncToolSettingsPropertiesEvent
+public;interface;SyncToolSettingsPropertiesEventArgs
+deprecated;interface;SyncToolSettingsPropertiesEventArgs
+public;class;SyncUiEventDispatcher
+public;enum;SyncUiEventId
+public;const;SYSTEM_PREFERRED_COLOR_THEME
+public;type;ThemeId
+public;function;ThemeManager
+public;class;TileLoadingIndicator
+public;class;ToolActivatedEvent
+deprecated;class;ToolActivatedEvent
+public;interface;ToolActivatedEventArgs
+deprecated;interface;ToolActivatedEventArgs
+public;class;ToolAssistanceChangedEvent
+deprecated;class;ToolAssistanceChangedEvent
+public;interface;ToolAssistanceChangedEventArgs
+deprecated;interface;ToolAssistanceChangedEventArgs
+public;class;ToolAssistanceField
+public;interface;ToolAssistanceFieldProps
+beta;function;Toolbar
+public;const;TOOLBAR_OPACITY_DEFAULT
+public;interface;ToolbarActionItem
+public;class;ToolbarButtonHelper
+public;function;ToolbarComposer
+public;interface;ToolbarCustomItem
+beta;const;ToolbarDragInteractionContext
+public;interface;ToolbarGroupItem
+public;class;ToolbarHelper
+deprecated;class;ToolbarHelper
+public;type;ToolbarItem
+public;interface;ToolbarItemLayouts
+beta;namespace;ToolbarItems
+public;namespace;ToolbarItemUtilities
+public;enum;ToolbarOrientation
+beta;class;ToolbarPopup
+beta;type;ToolbarPopupProps
+public;interface;ToolbarProps
+public;enum;ToolbarUsage
+beta;function;ToolbarWithOverflow
+beta;interface;ToolbarWithOverflowProps
+public;class;ToolIconChangedEvent
+deprecated;class;ToolIconChangedEvent
+public;interface;ToolIconChangedEventArgs
+deprecated;interface;ToolIconChangedEventArgs
+public;class;ToolInformation
+deprecated;class;ToolInformation
+public;class;ToolItemDef
+deprecated;class;ToolItemDef
+public;interface;ToolItemProps
+deprecated;interface;ToolItemProps
+public;interface;ToolSettingsEntry
+public;function;ToolSettingsGridContainer
+public;class;ToolUiProvider
+deprecated;class;ToolUiProvider
+public;function;ToolWidgetComposer
+public;interface;ToolWidgetComposerProps
+deprecated;interface;ToolWidgetComposerProps
+public;function;UiDataProvidedDialog
+deprecated;function;UiDataProvidedDialog
+public;interface;UiDataProvidedDialogProps
+deprecated;interface;UiDataProvidedDialogProps
+public;class;UiFramework
+public;class;UiItemsManager
+public;interface;UiItemsProvider
+public;type;UiItemsProviderOverrides
+public;interface;UiItemsProviderRegisteredEventArgs
+deprecated;interface;UiItemsProviderRegisteredEventArgs
+beta;function;UiSettingsPage
+deprecated;function;UiSettingsPage
+public;interface;UiSettingsProviderProps
+deprecated;interface;UiSettingsProviderProps
+public;type;UiStateStorage
+public;function;UiStateStorageHandler
+public;type;UiStateStorageResult
+public;type;UiStateStorageStatus
+public;const;UiStateStorageStatus
+public;class;UiSyncEvent
+deprecated;class;UiSyncEvent
+public;interface;UiSyncEventArgs
+deprecated;interface;UiSyncEventArgs
+public;class;UiVisibilityChangedEvent
+deprecated;class;UiVisibilityChangedEvent
+public;interface;UiVisibilityEventArgs
+deprecated;interface;UiVisibilityEventArgs
+alpha;function;UnitSystemSelector
+beta;interface;UnitSystemSelectorProps
+public;function;useActiveFrontstageDef
+public;const;useActiveFrontstageId
+public;function;useActiveIModelConnection
+public;function;useActiveStageId
+public;function;useActiveViewport
+public;function;useAnalysisAnimationDataProvider
+public;const;useBackstageManager
+public;function;useConditionalValue
+public;const;useDefaultStatusBarItems
+deprecated;const;useDefaultStatusBarItems
+public;const;useDefaultToolbarItems
+deprecated;const;useDefaultToolbarItems
+alpha;function;useFloatingViewport
+deprecated;function;useFloatingViewport
+public;const;useIsBackstageOpen
+public;interface;UserSettingsProvider
+public;function;useScheduleAnimationDataProvider
+beta;function;useSelectionSetSize
+beta;interface;UseSelectionSetSizeArgs
+beta;function;useSolarDataProvider
+public;function;useSpecificWidgetDef
+public;function;useTransientState
+public;const;useUiItemsProviderBackstageItems
+deprecated;const;useUiItemsProviderBackstageItems
+public;const;useUiItemsProviderStatusBarItems
+deprecated;const;useUiItemsProviderStatusBarItems
+public;const;useUiItemsProviderToolbarItems
+deprecated;const;useUiItemsProviderToolbarItems
+public;function;useUiStateStorageHandler
+alpha;function;useWidget
+alpha;function;useWidgetDirection
+alpha;class;ValidationTextbox
+beta;class;ViewAttributesStatusField
+public;interface;ViewLayout
+public;interface;ViewOverlayProps
+public;class;ViewportContentControl
+deprecated;class;ViewportContentControl
+beta;class;ViewSelector
+beta;class;ViewSelectorChangedEvent
+deprecated;class;ViewSelectorChangedEvent
+beta;interface;ViewSelectorChangedEventArgs
+deprecated;interface;ViewSelectorChangedEventArgs
+beta;type;ViewSelectorDefaultProps
+beta;interface;ViewSelectorProps
+public;class;ViewStateHelper
+public;interface;ViewStateHelperProps
+public;function;ViewToolWidgetComposer
+public;interface;ViewToolWidgetComposerProps
+deprecated;interface;ViewToolWidgetComposerProps
+public;class;ViewUtilities
+public;interface;Widget
+public;const;WIDGET_OPACITY_DEFAULT
+public;interface;WidgetConfig
+public;class;WidgetControl
+deprecated;class;WidgetControl
+public;class;WidgetDef
+public;class;WidgetHost
+public;interface;WidgetLayouts
+beta;class;WidgetManager
+public;type;WidgetPanelProps
+public;enum;WidgetState
+public;class;WidgetStateChangedEvent
+deprecated;class;WidgetStateChangedEvent
+public;interface;WidgetStateChangedEventArgs
+deprecated;interface;WidgetStateChangedEventArgs
+public;enum;WidgetType

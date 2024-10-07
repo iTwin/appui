@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { Logger } from "@itwin/core-bentley";
-import { UiFramework } from "../UiFramework";
+import { UiFramework } from "../UiFramework.js";
 
 /** Copies the CSS style sheets from source document into the target document.
  * @internal
@@ -30,7 +30,7 @@ export async function copyStyles(
           };
           clonedNode.onerror = () => {
             Logger.logError(
-              UiFramework.loggerCategory(copyStyles),
+              UiFramework.loggerCategory("copyStyles"),
               `Failed to load external resource`,
               {
                 href: clonedNode.href,
@@ -61,7 +61,7 @@ export async function copyStyles(
     targetDoc.body.appendChild(svgSymbolParent.cloneNode(true));
   }
 
-  return Promise.all(promises);
+  return Promise.all(promises).then(() => {});
 }
 
 function stringifyStyleSheet(stylesheet: CSSStyleSheet) {

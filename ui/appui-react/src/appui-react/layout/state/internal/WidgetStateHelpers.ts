@@ -9,30 +9,30 @@
 import { castDraft, produce } from "immer";
 import { UiError } from "@itwin/appui-abstract";
 import { assert } from "@itwin/core-bentley";
-import { Point, Rectangle } from "@itwin/core-react";
-import type { NineZoneState } from "../NineZoneState";
+import { Point, Rectangle } from "@itwin/core-react/internal";
+import type { NineZoneState } from "../NineZoneState.js";
 import type {
   FloatingWidgetState,
   PopoutWidgetState,
   WidgetState,
-} from "../WidgetState";
-import { getTabLocation } from "../TabLocation";
-import type { PanelWidgetLocation } from "../WidgetLocation";
+} from "../WidgetState.js";
+import { getTabLocation } from "../TabLocation.js";
+import type { PanelWidgetLocation } from "../WidgetLocation.js";
 import {
   getWidgetLocation,
   isFloatingWidgetLocation,
   isPanelWidgetLocation,
   isPopoutWidgetLocation,
-} from "../WidgetLocation";
+} from "../WidgetLocation.js";
 import {
   category,
   initSizeProps,
   setRectangleProps,
   toRectangleProps,
-} from "./NineZoneStateHelpers";
-import { updatePanelState } from "./PanelStateHelpers";
-import { updateTabState } from "./TabStateHelpers";
-import type { RectangleProps } from "../../../utils/RectangleProps";
+} from "./NineZoneStateHelpers.js";
+import { updatePanelState } from "./PanelStateHelpers.js";
+import { updateTabState } from "./TabStateHelpers.js";
+import type { RectangleProps } from "../../../utils/RectangleProps.js";
 
 /** @internal */
 export function createWidgetState(

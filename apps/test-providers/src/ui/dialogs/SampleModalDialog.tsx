@@ -5,7 +5,7 @@
 import * as React from "react";
 
 import { UiFramework } from "@itwin/appui-react";
-import { useTranslation } from "../../useTranslation";
+import { useTranslation } from "../../useTranslation.js";
 import { Button, Dialog } from "@itwin/itwinui-react";
 
 /**

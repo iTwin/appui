@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
 import * as React from "react";
-import { FillCentered } from "../../core-react";
-import { classesFromElement } from "../TestUtils";
+import { FillCentered } from "../../core-react.js";
+import { classesFromElement } from "../TestUtils.js";
 
 describe("<FillCentered />", () => {
   it("has correct text", () => {

@@ -11,7 +11,7 @@ import classnames from "classnames";
 import * as React from "react";
 import type { ColorDef } from "@itwin/core-common";
 import type { CommonProps } from "@itwin/core-react";
-import { getCSSColorFromDef } from "../color/getCSSColorFromDef";
+import { getCSSColorFromDef } from "../color/getCSSColorFromDef.js";
 
 /** Properties for the [[LineWeightSwatch]] React component
  * @public

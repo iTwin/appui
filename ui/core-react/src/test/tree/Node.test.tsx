@@ -4,10 +4,10 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { fireEvent, render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import { TreeNode as Node } from "../../core-react";
-import { CheckBoxState } from "../../core-react/enums/CheckBoxState";
-import { classesFromElement } from "../TestUtils";
+import { userEvent } from "@testing-library/user-event";
+import { TreeNode as Node } from "../../core-react.js";
+import { CheckBoxState } from "../../core-react/enums/CheckBoxState.js";
+import { classesFromElement } from "../TestUtils.js";
 
 describe("<Node />", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;

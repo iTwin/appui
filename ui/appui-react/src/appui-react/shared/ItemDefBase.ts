@@ -12,10 +12,11 @@ import type {
   ConditionalStringValue,
   StringGetter,
 } from "@itwin/appui-abstract";
-import { PropsHelper } from "../utils/PropsHelper";
-import type { ItemProps } from "./ItemProps";
-import type { BadgeKind, BadgeType, IconSpec } from "@itwin/core-react";
-import type { ToolbarItem } from "../toolbar/ToolbarItem";
+import { PropsHelper } from "../utils/PropsHelper.js";
+import type { ItemProps } from "./ItemProps.js";
+import type { BadgeType, IconSpec } from "@itwin/core-react";
+import type { BadgeKind } from "@itwin/core-react/internal";
+import type { ToolbarItem } from "../toolbar/ToolbarItem.js";
 
 /* eslint-disable deprecation/deprecation */
 

@@ -6,7 +6,7 @@
  * @module Inputs
  */
 
-import type { InputLabel } from "./InputLabel";
+import type { InputLabel } from "./InputLabel.js";
 
 /** Enum for Input status
  * @public

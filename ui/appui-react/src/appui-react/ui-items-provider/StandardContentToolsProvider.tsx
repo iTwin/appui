@@ -7,17 +7,17 @@
  */
 
 import { ViewClipByPlaneTool } from "@itwin/core-frontend";
-import type { DefaultContentTools } from "./StandardContentToolsUiItemsProvider";
-import { StandardContentToolsUiItemsProvider } from "./StandardContentToolsUiItemsProvider";
-import { UiItemsManager } from "./UiItemsManager";
-import { BaseUiItemsProvider } from "./BaseUiItemsProvider";
+import type { DefaultContentTools } from "./StandardContentToolsUiItemsProvider.js";
+import { StandardContentToolsUiItemsProvider } from "./StandardContentToolsUiItemsProvider.js";
+import { UiItemsManager } from "./UiItemsManager.js";
+import { BaseUiItemsProvider } from "./BaseUiItemsProvider.js";
 import type {
   ToolbarItem,
   ToolbarOrientation,
   ToolbarUsage,
-} from "../toolbar/ToolbarItem";
-import type { StatusBarItem } from "../statusbar/StatusBarItem";
-import { UiItemsProvider } from "./UiItemsProvider";
+} from "../toolbar/ToolbarItem.js";
+import type { StatusBarItem } from "../statusbar/StatusBarItem.js";
+import { UiItemsProvider } from "./UiItemsProvider.js";
 
 /**
  * Defines options that may be set in frontstage app data to control what group priorities

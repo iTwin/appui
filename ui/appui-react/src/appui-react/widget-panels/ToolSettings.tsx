@@ -8,17 +8,17 @@
 
 import { IModelApp } from "@itwin/core-frontend";
 import * as React from "react";
-import { UiFramework } from "../UiFramework";
-import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager";
-import { useLayout } from "../layout/base/LayoutStore";
-import { DockedToolSettings } from "../layout/tool-settings/Docked";
-import { DockedToolSetting } from "../layout/tool-settings/Setting";
-import { ScrollableWidgetContent } from "../layout/widget/Content";
+import { UiFramework } from "../UiFramework.js";
+import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager.js";
+import { useLayout } from "../layout/base/LayoutStore.js";
+import { DockedToolSettings } from "../layout/tool-settings/Docked.js";
+import { DockedToolSetting } from "../layout/tool-settings/Setting.js";
+import { ScrollableWidgetContent } from "../layout/widget/Content.js";
 import "./ToolSettings.scss";
-import { useActiveToolId } from "../hooks/useActiveToolId";
-import { useTranslation } from "../hooks/useTranslation";
+import { useActiveToolId } from "../hooks/useActiveToolId.js";
+import { useTranslation } from "../hooks/useTranslation.js";
 import { Text } from "@itwin/itwinui-react";
-import { DockedBar } from "./DockedBar";
+import { DockedBar } from "./DockedBar.js";
 
 /** Defines a ToolSettings property entry.
  * @public

@@ -12,9 +12,9 @@ import { PropertyValueFormat, StandardTypeNames } from "@itwin/appui-abstract";
 import type {
   IPropertyValueRenderer,
   PropertyValueRendererContext,
-} from "../../ValueRendererManager";
-import { PrimitivePropertyValueRendererImpl } from "./PrimitivePropertyValueRenderer";
-import { convertRecordToString } from "./Common";
+} from "../../ValueRendererManager.js";
+import { PrimitivePropertyValueRendererImpl } from "./PrimitivePropertyValueRenderer.js";
+import { convertRecordToString } from "./Common.js";
 
 /** Default Double Property Renderer
  * @public

@@ -4,13 +4,9 @@
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
 import * as React from "react";
-import {
-  FrontstageDef,
-  UiFramework,
-  WidgetDef,
-  WidgetPanelsToolbars,
-} from "../../appui-react";
-import { TestNineZoneProvider } from "../layout/Providers";
+import { FrontstageDef, UiFramework, WidgetDef } from "../../appui-react.js";
+import { TestNineZoneProvider } from "../layout/Providers.js";
+import { WidgetPanelsToolbars } from "../../appui-react/widget-panels/Toolbars.js";
 
 describe("WidgetPanelsToolbars", () => {
   it("should render toolbars", () => {

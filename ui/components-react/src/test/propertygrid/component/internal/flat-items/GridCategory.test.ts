@@ -2,19 +2,19 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import TestUtils from "../../../../TestUtils";
+import TestUtils from "../../../../TestUtils.js";
 import type {
   IMutableCategorizedPropertyItem,
   IMutableFlatGridItem,
   IMutableGridCategoryItem,
-} from "../../../../../components-react/propertygrid/internal/flat-items/MutableFlatGridItem";
-import { FlatGridItemType } from "../../../../../components-react/propertygrid/internal/flat-items/MutableFlatGridItem";
-import { FlatGridTestUtils as GridUtils } from "./FlatGridTestUtils";
+} from "../../../../../components-react/propertygrid/internal/flat-items/MutableFlatGridItem.js";
+import { FlatGridItemType } from "../../../../../components-react/propertygrid/internal/flat-items/MutableFlatGridItem.js";
+import { FlatGridTestUtils as GridUtils } from "./FlatGridTestUtils.js";
 import { PropertyRecord } from "@itwin/appui-abstract";
-import { MutableGridItemFactory } from "../../../../../components-react/propertygrid/internal/flat-items/MutableGridItemFactory";
-import { MutableGridCategory } from "../../../../../components-react/propertygrid/internal/flat-items/MutableGridCategory";
-import type { PropertyCategory } from "../../../../../components-react/propertygrid/PropertyDataProvider";
-import type { GridCategoryItem } from "../../../../../components-react/propertygrid/internal/flat-items/FlatGridItem";
+import { MutableGridItemFactory } from "../../../../../components-react/propertygrid/internal/flat-items/MutableGridItemFactory.js";
+import { MutableGridCategory } from "../../../../../components-react/propertygrid/internal/flat-items/MutableGridCategory.js";
+import type { PropertyCategory } from "../../../../../components-react/propertygrid/PropertyDataProvider.js";
+import type { GridCategoryItem } from "../../../../../components-react/propertygrid/internal/flat-items/FlatGridItem.js";
 
 describe("GridCategory", () => {
   describe("GridCategory Mocked", () => {

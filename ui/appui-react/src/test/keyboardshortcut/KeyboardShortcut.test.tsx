@@ -2,9 +2,9 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { Point } from "@itwin/core-react";
+import { Point } from "@itwin/core-react/internal";
 import { Key } from "ts-key-enum";
-import type { KeyboardShortcutProps } from "../../appui-react";
+import type { KeyboardShortcutProps } from "../../appui-react.js";
 import {
   AccuDrawKeyboardShortcuts,
   CommandItemDef,
@@ -12,12 +12,12 @@ import {
   KeyboardShortcutContainer,
   SyncUiEventDispatcher,
   UiFramework,
-} from "../../appui-react";
-import { CursorInformation } from "../../appui-react/cursor/CursorInformation";
-import { KeyboardShortcutMenu } from "../../appui-react/keyboardshortcut/KeyboardShortcutMenu";
-import TestUtils from "../TestUtils";
+} from "../../appui-react.js";
+import { CursorInformation } from "../../appui-react/cursor/CursorInformation.js";
+import { KeyboardShortcutMenu } from "../../appui-react/keyboardshortcut/KeyboardShortcutMenu.js";
+import TestUtils from "../TestUtils.js";
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
-import { InternalKeyboardShortcutManager } from "../../appui-react/keyboardshortcut/InternalKeyboardShortcut";
+import { InternalKeyboardShortcutManager } from "../../appui-react/keyboardshortcut/InternalKeyboardShortcut.js";
 
 describe("KeyboardShortcut", () => {
   const testspy = vi.fn();

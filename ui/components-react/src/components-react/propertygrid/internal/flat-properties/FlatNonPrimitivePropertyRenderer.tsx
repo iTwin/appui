@@ -8,10 +8,10 @@
 import "../../../properties/renderers/NonPrimitivePropertyRenderer.scss";
 import * as React from "react";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
-import { CommonPropertyRenderer } from "../../../properties/renderers/CommonPropertyRenderer";
-import type { PrimitiveRendererProps } from "../../../properties/renderers/PrimitivePropertyRenderer";
-import { NonPrimitivePropertyLabelRenderer } from "../../../properties/renderers/label/NonPrimitivePropertyLabelRenderer";
-import { PropertyView } from "../../../properties/renderers/PropertyView";
+import { CommonPropertyRenderer } from "../../../properties/renderers/CommonPropertyRenderer.js";
+import type { PrimitiveRendererProps } from "../../../properties/renderers/PrimitivePropertyRenderer.js";
+import { NonPrimitivePropertyLabelRenderer } from "../../../properties/renderers/label/NonPrimitivePropertyLabelRenderer.js";
+import { PropertyView } from "../../../properties/renderers/PropertyView.js";
 
 /** Properties of [[FlatNonPrimitivePropertyRenderer]] React component
  * @internal

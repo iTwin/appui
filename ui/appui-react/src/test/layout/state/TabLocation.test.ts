@@ -2,16 +2,16 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState";
-import { getTabLocation } from "../../../appui-react/layout/state/TabLocation";
-import { addPanelWidget } from "../../../appui-react/layout/state/internal/PanelStateHelpers";
-import { removeTabFromWidget } from "../../../appui-react/layout/state/internal/TabStateHelpers";
+import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState.js";
+import { getTabLocation } from "../../../appui-react/layout/state/TabLocation.js";
+import { addPanelWidget } from "../../../appui-react/layout/state/internal/PanelStateHelpers.js";
+import { removeTabFromWidget } from "../../../appui-react/layout/state/internal/TabStateHelpers.js";
 import {
   addFloatingWidget,
   addPopoutWidget,
   addWidgetState,
-} from "../../../appui-react/layout/state/internal/WidgetStateHelpers";
-import { addTabs } from "../Utils";
+} from "../../../appui-react/layout/state/internal/WidgetStateHelpers.js";
+import { addTabs } from "../Utils.js";
 
 describe("getTabLocation", () => {
   it("should return floating tab location", () => {

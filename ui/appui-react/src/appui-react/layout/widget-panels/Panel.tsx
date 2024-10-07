@@ -8,18 +8,18 @@
 
 import "./Panel.scss";
 import { assert } from "@itwin/core-bentley";
-import { useRefs } from "@itwin/core-react";
+import { useRefs } from "@itwin/core-react/internal";
 import classnames from "classnames";
 import * as React from "react";
-import { DraggedPanelSideContext } from "../base/DragManager";
-import { useLayout } from "../base/LayoutStore";
-import { PanelOutline } from "../outline/PanelOutline";
-import { SectionOutline } from "../outline/SectionOutline";
-import { isHorizontalPanelState } from "../state/PanelState";
-import { PanelTargets } from "../target/PanelTargets";
-import { SectionTargets } from "../target/SectionTargets";
-import { WidgetPanelGrip } from "./Grip";
-import { PanelSections } from "./PanelSections";
+import { DraggedPanelSideContext } from "../base/DragManager.js";
+import { useLayout } from "../base/LayoutStore.js";
+import { PanelOutline } from "../outline/PanelOutline.js";
+import { SectionOutline } from "../outline/SectionOutline.js";
+import { isHorizontalPanelState } from "../state/PanelState.js";
+import { PanelTargets } from "../target/PanelTargets.js";
+import { SectionTargets } from "../target/SectionTargets.js";
+import { WidgetPanelGrip } from "./Grip.js";
+import { PanelSections } from "./PanelSections.js";
 import type {
   BottomPanelSide,
   HorizontalPanelSide,
@@ -27,10 +27,10 @@ import type {
   PanelSide,
   RightPanelSide,
   TopPanelSide,
-} from "./PanelTypes";
-import { useAnimatePanel } from "./useAnimatePanel";
-import { useMaximizedPanel } from "../../preview/enable-maximized-widget/useMaximizedWidget";
-import type { RectangleProps } from "../../utils/RectangleProps";
+} from "./PanelTypes.js";
+import { useAnimatePanel } from "./useAnimatePanel.js";
+import { useMaximizedPanel } from "../../preview/enable-maximized-widget/useMaximizedWidget.js";
+import type { RectangleProps } from "../../utils/RectangleProps.js";
 
 /** Properties of [[WidgetPanelProvider]] component.
  * @internal

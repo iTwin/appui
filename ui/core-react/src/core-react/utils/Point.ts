@@ -6,7 +6,7 @@
  * @module Utilities
  */
 
-import type { PointProps } from "./PointProps";
+import type { PointProps } from "./PointProps.js";
 
 /** Describes and provides methods to work with 2d points.
  * @internal
@@ -24,11 +24,6 @@ export class Point implements PointProps {
   public getDistanceTo(other: PointProps): number {
     const offset = this.getOffsetTo(other);
     return Math.sqrt(Math.pow(offset.x, 2) + Math.pow(offset.y, 2));
-  }
-
-  /** Calculates grid-like distance to other point. */
-  public getManhattanDistanceTo(other: PointProps): number {
-    return Math.abs(this.x - other.x) + Math.abs(this.y - other.y);
   }
 
   /** Gets offset to other point. */

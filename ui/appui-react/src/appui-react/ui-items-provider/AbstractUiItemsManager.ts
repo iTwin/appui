@@ -11,7 +11,8 @@
 import * as abstract from "@itwin/appui-abstract";
 import type { BeUiEvent } from "@itwin/core-bentley";
 import { assert } from "@itwin/core-bentley";
-import type { BadgeKind, IconSpec } from "@itwin/core-react";
+import type { IconSpec } from "@itwin/core-react";
+import type { BadgeKind } from "@itwin/core-react/internal";
 import { BadgeType, IconHelper } from "@itwin/core-react";
 import type {
   // @ts-ignore Removed in 4.0
@@ -30,24 +31,24 @@ import type {
   UiItemsManager,
   UiItemsProviderOverrides,
   UiItemsProviderRegisteredEventArgs,
-} from "./UiItemsManager";
-import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
-import { StagePanelSection } from "../stagepanels/StagePanelSection";
-import type { Widget } from "../widgets/Widget";
-import type { ProviderItem } from "./ProviderItem";
-import type { UiItemsProvider } from "./UiItemsProvider";
+} from "./UiItemsManager.js";
+import { StagePanelLocation } from "../stagepanels/StagePanelLocation.js";
+import { StagePanelSection } from "../stagepanels/StagePanelSection.js";
+import type { Widget } from "../widgets/Widget.js";
+import type { ProviderItem } from "./ProviderItem.js";
+import type { UiItemsProvider } from "./UiItemsProvider.js";
 import type {
   ToolbarItem,
   ToolbarOrientation,
   ToolbarUsage,
-} from "../toolbar/ToolbarItem";
+} from "../toolbar/ToolbarItem.js";
 import {
   isToolbarActionItem,
   isToolbarGroupItem,
-} from "../toolbar/ToolbarItem";
-import type { BackstageItem } from "../backstage/BackstageItem";
-import type { StatusBarItem } from "../statusbar/StatusBarItem";
-import { isStatusBarCustomItem } from "../statusbar/StatusBarItem";
+} from "../toolbar/ToolbarItem.js";
+import type { BackstageItem } from "../backstage/BackstageItem.js";
+import type { StatusBarItem } from "../statusbar/StatusBarItem.js";
+import { isStatusBarCustomItem } from "../statusbar/StatusBarItem.js";
 
 const _abstract = abstract;
 

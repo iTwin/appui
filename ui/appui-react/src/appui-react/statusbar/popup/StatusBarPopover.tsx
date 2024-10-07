@@ -8,8 +8,9 @@
 
 import * as React from "react";
 import { Popover } from "@itwin/itwinui-react";
-import { ButtonExpandIndicator } from "./ExpandIndicator";
-import { type CommonProps, PopupContext } from "@itwin/core-react";
+import { ButtonExpandIndicator } from "./ExpandIndicator.js";
+import type { CommonProps } from "@itwin/core-react";
+import { PopupContext } from "@itwin/core-react/internal";
 
 // eslint-disable-next-line deprecation/deprecation
 type StatusBarPopoverProps = CommonProps &

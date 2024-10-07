@@ -2,8 +2,8 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { createNineZoneState } from "../../../../appui-react/layout/state/NineZoneState";
-import { addPanelWidget } from "../../../../appui-react/layout/state/internal/PanelStateHelpers";
+import { createNineZoneState } from "../../../../appui-react/layout/state/NineZoneState.js";
+import { addPanelWidget } from "../../../../appui-react/layout/state/internal/PanelStateHelpers.js";
 import {
   addRemovedTab,
   addTab,
@@ -13,17 +13,17 @@ import {
   removeTabFromWidget,
   updateSavedTabState,
   updateTabState,
-} from "../../../../appui-react/layout/state/internal/TabStateHelpers";
+} from "../../../../appui-react/layout/state/internal/TabStateHelpers.js";
 import {
   addDockedToolSettings,
   addWidgetToolSettings,
-} from "../../../../appui-react/layout/state/internal/ToolSettingsStateHelpers";
+} from "../../../../appui-react/layout/state/internal/ToolSettingsStateHelpers.js";
 import {
   addFloatingWidget,
   addPopoutWidget,
   createFloatingWidgetState,
-} from "../../../../appui-react/layout/state/internal/WidgetStateHelpers";
-import { addTabs, handleMetaData } from "../../Utils";
+} from "../../../../appui-react/layout/state/internal/WidgetStateHelpers.js";
+import { addTabs, handleMetaData } from "../../Utils.js";
 
 describe("addTab", () => {
   it("should add a tab", () => {
@@ -268,22 +268,30 @@ describe("updateSavedTabState", () => {
   it("should update existing saved tab state", () => {
     let state = createNineZoneState();
     state = updateSavedTabState(state, "t1", () => {});
-    expect(state.savedTabs.byId.t1?.popoutBounds).toEqual(undefined);
+    expect(state.savedTabs.byId.t1?.popout).toEqual(undefined);
 
     state = updateSavedTabState(state, "t1", (draft) => {
-      draft.popoutBounds = {
-        left: 1,
-        top: 2,
-        right: 30,
-        bottom: 40,
+      draft.popout = {
+        position: {
+          x: 1,
+          y: 2,
+        },
+        contentSize: {
+          height: 38,
+          width: 29,
+        },
       };
     });
     expect(state.savedTabs.allIds).to.eql(["t1"]);
-    expect(state.savedTabs.byId.t1?.popoutBounds).to.eql({
-      left: 1,
-      top: 2,
-      right: 30,
-      bottom: 40,
+    expect(state.savedTabs.byId.t1?.popout).to.eql({
+      position: {
+        x: 1,
+        y: 2,
+      },
+      contentSize: {
+        height: 38,
+        width: 29,
+      },
     });
   });
 });

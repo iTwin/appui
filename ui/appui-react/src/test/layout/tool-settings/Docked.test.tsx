@@ -9,10 +9,10 @@ import {
   eqlOverflown,
   getOverflown,
   onOverflowLabelAndEditorResize,
-} from "../../../appui-react/layout/tool-settings/Docked";
-import { DockedToolSetting } from "../../../appui-react/layout/tool-settings/Setting";
-import { DragManagerProvider, TestNineZoneProvider } from "../Providers";
-import { createResizeObserverMock, flushAsyncOperations } from "../Utils";
+} from "../../../appui-react/layout/tool-settings/Docked.js";
+import { DockedToolSetting } from "../../../appui-react/layout/tool-settings/Setting.js";
+import { DragManagerProvider, TestNineZoneProvider } from "../Providers.js";
+import { createResizeObserverMock, flushAsyncOperations } from "../Utils.js";
 
 describe("DockedToolSettings", () => {
   it("should render w/o entries", () => {

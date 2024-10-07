@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { ConditionalStringValue as AbstractConditionalStringValue } from "@itwin/appui-abstract";
-import { ConditionalStringValue } from "../../appui-react/shared/ConditionalValue";
+import { ConditionalStringValue } from "../../appui-react/shared/ConditionalValue.js";
 
 describe("ConditionalStringValue", () => {
   it("should use the same type for instanceof check", () => {

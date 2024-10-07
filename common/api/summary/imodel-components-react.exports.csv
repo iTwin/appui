@@ -1,142 +1,124 @@
 sep=;
-Release Tag;API Item
-public;AlphaSlider 
-deprecated;AlphaSlider 
-public;AlphaSliderProps 
-deprecated;AlphaSliderProps 
-public;AnimationFractionChangeHandler = (animationFraction: number) => void
-alpha;BaseSolarDataProvider 
-alpha;BaseTimelineDataProvider 
-beta;ColorEditor 
-beta;ColorPickerButton: (props: ColorPickerProps) => React_2.ReactNode
-deprecated;ColorPickerButton: (props: ColorPickerProps) => React_2.ReactNode
-beta;ColorPickerDialog({ dialogTitle, color, onOkResult, onCancelResult, colorPresets, colorInputType, }: ColorPickerDialogProps): React_2.JSX.Element
-deprecated;ColorPickerDialog({ dialogTitle, color, onOkResult, onCancelResult, colorPresets, colorInputType, }: ColorPickerDialogProps): React_2.JSX.Element
-beta;ColorPickerDialogProps
-deprecated;ColorPickerDialogProps
-public;ColorPickerPopup: (props: ColorPickerPopupProps) => React_2.ReactNode
-deprecated;ColorPickerPopup: (props: ColorPickerPopupProps) => React_2.ReactNode
-public;ColorPickerPopupProps 
-deprecated;ColorPickerPopupProps 
-beta;ColorPickerProps 
-deprecated;ColorPickerProps 
-beta;ColorPropertyEditor 
-beta;ColorSwatch(props: ColorSwatchProps): React_2.JSX.Element
-deprecated;ColorSwatch(props: ColorSwatchProps): React_2.JSX.Element
-beta;ColorSwatchProps 
-deprecated;ColorSwatchProps 
-public;Cube 
-internal;CubeFace 
-internal;CubeFaceProps 
-internal;CubeHover
-public;CubeNavigationAid 
-public;CubeNavigationAidProps 
-public;CubeNavigationHitBoxX
-public;CubeNavigationHitBoxY
-public;CubeNavigationHitBoxZ
-public;CubeProps 
-public;CubeRotationChangeEvent 
-deprecated;CubeRotationChangeEvent 
-public;CubeRotationChangeEventArgs
-deprecated;CubeRotationChangeEventArgs
-internal;CustomThumb(): React_2.JSX.Element
-public;DrawingNavigationAid 
-public;DrawingNavigationAidProps 
-internal;DrawingNavigationCanvas 
-internal;DrawingNavigationCanvasProps
-public;DrawingViewportChangeEvent 
-deprecated;DrawingViewportChangeEvent 
-public;DrawingViewportChangeEventArgs
-deprecated;DrawingViewportChangeEventArgs
-public;Face
-internal;FaceCell 
-internal;FaceCellProps 
-alpha;FormatPanel(props: FormatPanelProps): React_2.JSX.Element
-alpha;FormatPanelProps 
-deprecated;FormatPanelProps 
-alpha;FormatPrecision(props: FormatPrecisionProps): React_2.JSX.Element
-alpha;FormatPrecisionProps 
-deprecated;FormatPrecisionProps 
-alpha;FormatSample(props: FormatSampleProps): React_2.JSX.Element
-alpha;FormatSampleProps 
-deprecated;FormatSampleProps 
-alpha;FormatTypeOption(props: FormatTypeOptionProps): React_2.JSX.Element
-alpha;FormatTypeOptionProps 
-deprecated;FormatTypeOptionProps 
-alpha;FormatUnitLabel(props: FormatUnitLabelProps): React_2.JSX.Element
-alpha;FormatUnitLabelProps 
-deprecated;FormatUnitLabelProps 
-alpha;FormatUnits(props: FormatUnitsProps): React_2.JSX.Element
-alpha;FormatUnitsProps 
-deprecated;FormatUnitsProps 
-internal;getCSSColorFromDef(colorDef: ColorDef): string
-internal;getPercentageOfRectangle(rect: DOMRect, pointer: number): number
-beta;HueSlider({ isHorizontal, onHueChange, hsv, className, style, }: HueSliderProps): React_2.JSX.Element
-deprecated;HueSlider({ isHorizontal, onHueChange, hsv, className, style, }: HueSliderProps): React_2.JSX.Element
-beta;HueSliderProps 
-deprecated;HueSliderProps 
-internal;InlineEdit 
-public;LineWeightSwatch 
-public;LineWeightSwatchProps 
-internal;MapMode
-alpha;MiscFormatOptions(props: MiscFormatOptionsProps): React_2.JSX.Element
-alpha;MiscFormatOptionsProps 
-deprecated;MiscFormatOptionsProps 
-internal;NavCubeFace 
-internal;NavCubeFaceProps 
-public;PlaybackSettings
-public;PlaybackSettingsChangeHandler = (settingsChange: PlaybackSettings) => void
-alpha;QuantityFormatPanel(props: QuantityFormatPanelProps): React_2.JSX.Element
-alpha;QuantityFormatPanelProps 
-deprecated;QuantityFormatPanelProps 
-beta;QuantityInput({ initialValue, quantityType, readonly, className, style, onQuantityChange, ref, }: QuantityProps): React_2.JSX.Element
-beta;QuantityNumberInput: (props: QuantityNumberInputProps) => React_2.ReactNode
-beta;QuantityNumberInputProps 
-beta;QuantityProps 
-internal;RailMarkers({ showToolTip, percent, tooltipText, markDate, }:
-beta;SaturationPicker({ onSaturationChange, hsv, className, style, }: SaturationPickerProps): React_2.JSX.Element
-deprecated;SaturationPicker({ onSaturationChange, hsv, className, style, }: SaturationPickerProps): React_2.JSX.Element
-beta;SaturationPickerProps 
-deprecated;SaturationPickerProps 
-internal;Scrubber(props: ScrubberProps): React_2.JSX.Element
-internal;ScrubberProps 
-alpha;SolarDataProvider
-alpha;SolarPlaybackProgressHandler = (time: Date) => void
-alpha;SolarTimeline 
-public;StandardRotationChangeEvent 
-deprecated;StandardRotationChangeEvent 
-public;StandardRotationChangeEventArgs
-deprecated;StandardRotationChangeEventArgs
-beta;StepFunctionProp = number | ((direction: string) => number | undefined)
-public;TimelineComponent(props: TimelineComponentProps): React_2.JSX.Element
-public;TimelineComponentProps
-public;TimelineDataProvider
-public;TimelineDateDisplay
-public;TimelineDateMarkerProps
-public;TimelineMenuItemOption = "replace" | "append" | "prefix"
-public;TimelineMenuItemProps
-public;TimelinePausePlayAction
-public;TimelinePausePlayArgs
-public;TimelineScale
-public;UiIModelComponents
-internal;useFocusedThumb(sliderContainer: HTMLDivElement | undefined): boolean
-public;ViewClassFullNameChangedEvent 
-deprecated;ViewClassFullNameChangedEvent 
-public;ViewClassFullNameChangedEventArgs
-deprecated;ViewClassFullNameChangedEventArgs
-public;ViewIdChangedEvent 
-deprecated;ViewIdChangedEvent 
-public;ViewIdChangedEventArgs
-deprecated;ViewIdChangedEventArgs
-public;ViewportComponent(props: ViewportProps): React_2.JSX.Element
-public;ViewportComponentEvents
-public;ViewportProps 
-public;ViewRotationChangeEvent 
-deprecated;ViewRotationChangeEvent 
-public;ViewRotationChangeEventArgs
-deprecated;ViewRotationChangeEventArgs
-public;ViewStateProp = ViewState | (() => ViewState)
-public;WeightEditor 
-public;WeightPickerButton 
-public;WeightPickerProps 
-public;WeightPropertyEditor 
+Release Tag;API Item Type;API Item Name
+public;class;AlphaSlider
+deprecated;class;AlphaSlider
+public;interface;AlphaSliderProps
+deprecated;interface;AlphaSliderProps
+public;type;AnimationFractionChangeHandler
+alpha;class;BaseSolarDataProvider
+alpha;class;BaseTimelineDataProvider
+beta;class;ColorEditor
+beta;const;ColorPickerButton
+deprecated;const;ColorPickerButton
+beta;function;ColorPickerDialog
+deprecated;function;ColorPickerDialog
+beta;interface;ColorPickerDialogProps
+deprecated;interface;ColorPickerDialogProps
+public;const;ColorPickerPopup
+deprecated;const;ColorPickerPopup
+public;interface;ColorPickerPopupProps
+deprecated;interface;ColorPickerPopupProps
+beta;interface;ColorPickerProps
+deprecated;interface;ColorPickerProps
+beta;class;ColorPropertyEditor
+beta;function;ColorSwatch
+deprecated;function;ColorSwatch
+beta;interface;ColorSwatchProps
+deprecated;interface;ColorSwatchProps
+public;class;Cube
+public;class;CubeNavigationAid
+public;interface;CubeNavigationAidProps
+public;enum;CubeNavigationHitBoxX
+public;enum;CubeNavigationHitBoxY
+public;enum;CubeNavigationHitBoxZ
+public;interface;CubeProps
+public;class;CubeRotationChangeEvent
+deprecated;class;CubeRotationChangeEvent
+public;interface;CubeRotationChangeEventArgs
+deprecated;interface;CubeRotationChangeEventArgs
+public;class;DrawingNavigationAid
+public;interface;DrawingNavigationAidProps
+public;class;DrawingViewportChangeEvent
+deprecated;class;DrawingViewportChangeEvent
+public;interface;DrawingViewportChangeEventArgs
+deprecated;interface;DrawingViewportChangeEventArgs
+public;enum;Face
+alpha;function;FormatPanel
+alpha;interface;FormatPanelProps
+deprecated;interface;FormatPanelProps
+alpha;function;FormatPrecision
+alpha;interface;FormatPrecisionProps
+deprecated;interface;FormatPrecisionProps
+alpha;function;FormatSample
+alpha;interface;FormatSampleProps
+deprecated;interface;FormatSampleProps
+alpha;function;FormatTypeOption
+alpha;interface;FormatTypeOptionProps
+deprecated;interface;FormatTypeOptionProps
+alpha;function;FormatUnitLabel
+alpha;interface;FormatUnitLabelProps
+deprecated;interface;FormatUnitLabelProps
+alpha;function;FormatUnits
+alpha;interface;FormatUnitsProps
+deprecated;interface;FormatUnitsProps
+beta;function;HueSlider
+deprecated;function;HueSlider
+beta;interface;HueSliderProps
+deprecated;interface;HueSliderProps
+public;class;LineWeightSwatch
+public;interface;LineWeightSwatchProps
+alpha;function;MiscFormatOptions
+alpha;interface;MiscFormatOptionsProps
+deprecated;interface;MiscFormatOptionsProps
+public;interface;PlaybackSettings
+public;type;PlaybackSettingsChangeHandler
+alpha;function;QuantityFormatPanel
+alpha;interface;QuantityFormatPanelProps
+deprecated;interface;QuantityFormatPanelProps
+beta;function;QuantityInput
+beta;const;QuantityNumberInput
+beta;interface;QuantityNumberInputProps
+beta;interface;QuantityProps
+beta;function;SaturationPicker
+deprecated;function;SaturationPicker
+beta;interface;SaturationPickerProps
+deprecated;interface;SaturationPickerProps
+alpha;interface;SolarDataProvider
+alpha;type;SolarPlaybackProgressHandler
+alpha;class;SolarTimeline
+public;class;StandardRotationChangeEvent
+deprecated;class;StandardRotationChangeEvent
+public;interface;StandardRotationChangeEventArgs
+deprecated;interface;StandardRotationChangeEventArgs
+beta;type;StepFunctionProp
+public;function;TimelineComponent
+public;interface;TimelineComponentProps
+public;interface;TimelineDataProvider
+public;enum;TimelineDateDisplay
+public;interface;TimelineDateMarkerProps
+public;type;TimelineMenuItemOption
+public;interface;TimelineMenuItemProps
+public;enum;TimelinePausePlayAction
+public;interface;TimelinePausePlayArgs
+public;enum;TimelineScale
+public;class;UiIModelComponents
+public;class;ViewClassFullNameChangedEvent
+deprecated;class;ViewClassFullNameChangedEvent
+public;interface;ViewClassFullNameChangedEventArgs
+deprecated;interface;ViewClassFullNameChangedEventArgs
+public;class;ViewIdChangedEvent
+deprecated;class;ViewIdChangedEvent
+public;interface;ViewIdChangedEventArgs
+deprecated;interface;ViewIdChangedEventArgs
+public;function;ViewportComponent
+public;class;ViewportComponentEvents
+public;interface;ViewportProps
+public;class;ViewRotationChangeEvent
+deprecated;class;ViewRotationChangeEvent
+public;interface;ViewRotationChangeEventArgs
+deprecated;interface;ViewRotationChangeEventArgs
+public;type;ViewStateProp
+public;class;WeightEditor
+public;class;WeightPickerButton
+public;interface;WeightPickerProps
+public;class;WeightPropertyEditor

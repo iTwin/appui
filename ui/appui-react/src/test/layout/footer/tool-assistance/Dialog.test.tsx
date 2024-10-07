@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import { render } from "@testing-library/react";
 import * as React from "react";
-import { ToolAssistanceDialog } from "../../../../appui-react/layout/footer/tool-assistance/Dialog";
-import { childStructure } from "../../Utils";
+import { ToolAssistanceDialog } from "../../../../appui-react/layout/footer/tool-assistance/Dialog.js";
+import { childStructure } from "../../Utils.js";
 
 describe("<ToolAssistanceDialog />", () => {
   it("renders correctly", () => {

@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { flattenChildren } from "../../core-react/utils/flattenChildren";
+import { flattenChildren } from "../../core-react/utils/flattenChildren.js";
 
 describe("flattenChildren", () => {
   const checkFlattened = (flattened: React.ReactNode) => {

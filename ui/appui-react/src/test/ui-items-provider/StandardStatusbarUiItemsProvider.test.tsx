@@ -2,12 +2,12 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import type { DefaultStatusbarItems } from "../../appui-react";
+import type { DefaultStatusbarItems } from "../../appui-react.js";
 import {
   StageUsage,
   StandardStatusbarUiItemsProvider,
   UiItemsManager,
-} from "../../appui-react";
+} from "../../appui-react.js";
 
 const testArray: DefaultStatusbarItems[] = [
   {},

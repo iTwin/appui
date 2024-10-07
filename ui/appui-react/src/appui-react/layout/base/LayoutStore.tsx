@@ -12,8 +12,8 @@ import { createStore } from "zustand";
 import { useStoreWithEqualityFn } from "zustand/traditional";
 import { shallow } from "zustand/shallow";
 import { assert } from "@itwin/core-bentley";
-import type { NineZoneState } from "../state/NineZoneState";
-import { createNineZoneState } from "../state/NineZoneState";
+import type { NineZoneState } from "../state/NineZoneState.js";
+import { createNineZoneState } from "../state/NineZoneState.js";
 
 /** @internal */
 export type LayoutState = NineZoneState;

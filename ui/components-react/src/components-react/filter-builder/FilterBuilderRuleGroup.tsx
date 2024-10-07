@@ -9,15 +9,15 @@
 import "./FilterBuilderRuleGroup.scss";
 import * as React from "react";
 import { Flex } from "@itwin/itwinui-react";
-import { PropertyFilterBuilderContext } from "./FilterBuilderContext";
-import { PropertyFilterBuilderRuleRenderer } from "./FilterBuilderRule";
+import { PropertyFilterBuilderContext } from "./FilterBuilderContext.js";
+import { PropertyFilterBuilderRuleRenderer } from "./FilterBuilderRule.js";
 import type {
   PropertyFilterBuilderRuleGroup,
   PropertyFilterBuilderRuleGroupItem,
-} from "./FilterBuilderState";
-import { isPropertyFilterBuilderRuleGroup } from "./FilterBuilderState";
-import type { PropertyFilterRuleGroupOperator } from "./Operators";
-import { PropertyFilterBuilderLogicalOperator } from "./FilterBuilderLogicalOperator";
+} from "./FilterBuilderState.js";
+import { isPropertyFilterBuilderRuleGroup } from "./FilterBuilderState.js";
+import type { PropertyFilterRuleGroupOperator } from "./Operators.js";
+import { PropertyFilterBuilderLogicalOperator } from "./FilterBuilderLogicalOperator.js";
 
 /**
  * Props for [[PropertyFilterBuilderRuleGroupRenderer]] component.
@@ -52,8 +52,6 @@ export function PropertyFilterBuilderRuleGroupRenderer(
     [path, actions]
   );
 
-  const showOperator = group.items.length > 1;
-
   return (
     <Flex
       ref={groupRef}
@@ -61,13 +59,11 @@ export function PropertyFilterBuilderRuleGroupRenderer(
       className="fb-group"
       gap="0px"
     >
-      {showOperator ? (
-        <PropertyFilterBuilderRuleGroupOperator
-          operator={group.operator}
-          onChange={onOperatorChange}
-          isGroupOperatorDisabled={isGroupOperatorDisabled}
-        />
-      ) : null}
+      <PropertyFilterBuilderRuleGroupOperator
+        operator={group.operator}
+        onChange={onOperatorChange}
+        isGroupOperatorDisabled={isGroupOperatorDisabled}
+      />
       <div className="fb-wrapper">
         {group.items.map((item) => (
           <div className="fb-row" key={item.id}>

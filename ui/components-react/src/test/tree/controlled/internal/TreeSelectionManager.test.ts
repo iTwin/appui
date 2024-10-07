@@ -5,25 +5,25 @@
 import * as faker from "faker";
 import * as moq from "typemoq";
 import { Key } from "ts-key-enum";
-import type { SelectionHandler } from "../../../../components-react/common/selection/SelectionHandler";
-import { SelectionMode } from "../../../../components-react/common/selection/SelectionModes";
+import type { SelectionHandler } from "../../../../components-react/common/selection/SelectionHandler.js";
+import { SelectionMode } from "../../../../components-react/common/selection/SelectionModes.js";
 import type {
   IndividualSelection,
   RangeSelection,
-} from "../../../../components-react/tree/controlled/internal/TreeSelectionManager";
+} from "../../../../components-react/tree/controlled/internal/TreeSelectionManager.js";
 import {
   isRangeSelection,
   TreeSelectionManager,
-} from "../../../../components-react/tree/controlled/internal/TreeSelectionManager";
-import type { TreeActions } from "../../../../components-react/tree/controlled/TreeActions";
+} from "../../../../components-react/tree/controlled/internal/TreeSelectionManager.js";
+import type { TreeActions } from "../../../../components-react/tree/controlled/TreeActions.js";
 import type {
   TreeModel,
   TreeModelNode,
   TreeModelNodePlaceholder,
   VisibleTreeNodes,
-} from "../../../../components-react/tree/controlled/TreeModel";
-import { isTreeModelNode } from "../../../../components-react/tree/controlled/TreeModel";
-import { createRandomMutableTreeModelNode } from "../TreeHelpers";
+} from "../../../../components-react/tree/controlled/TreeModel.js";
+import { isTreeModelNode } from "../../../../components-react/tree/controlled/TreeModel.js";
+import { createRandomMutableTreeModelNode } from "../TreeHelpers.js";
 
 type Selection = string | RangeSelection;
 

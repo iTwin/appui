@@ -9,7 +9,7 @@ import {
   LinksRenderer,
   renderLinks,
   withLinks,
-} from "../../components-react/properties/LinkHandler";
+} from "../../components-react/properties/LinkHandler.js";
 
 describe("LinkHandler", () => {
   const onClickSpy = vi.fn();

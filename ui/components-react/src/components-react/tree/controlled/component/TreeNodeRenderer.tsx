@@ -10,14 +10,14 @@ import * as React from "react";
 import type { CommonProps, NodeCheckboxProps } from "@itwin/core-react";
 import { TreeNode } from "@itwin/core-react";
 import type { Checkbox } from "@itwin/itwinui-react";
-import { ImageRenderer } from "../../../common/ImageRenderer";
-import type { HighlightableTreeNodeProps } from "../../HighlightingEngine";
-import type { ITreeImageLoader } from "../../ImageLoader";
-import { TreeComponentTestId } from "../../TreeComponentTestId";
-import type { TreeActions } from "../TreeActions";
-import type { CheckBoxInfo, TreeModelNode } from "../TreeModel";
-import { TreeNodeContent } from "./NodeContent";
-import type { TreeNodeEditorRenderer } from "./TreeNodeEditor";
+import { ImageRenderer } from "../../../common/ImageRenderer.js";
+import type { HighlightableTreeNodeProps } from "../../HighlightingEngine.js";
+import type { ITreeImageLoader } from "../../ImageLoader.js";
+import { TreeComponentTestId } from "../../TreeComponentTestId.js";
+import type { TreeActions } from "../TreeActions.js";
+import type { CheckBoxInfo, TreeModelNode } from "../TreeModel.js";
+import { TreeNodeContent } from "./NodeContent.js";
+import type { TreeNodeEditorRenderer } from "./TreeNodeEditor.js";
 
 type CheckboxProps = React.ComponentPropsWithoutRef<typeof Checkbox>;
 

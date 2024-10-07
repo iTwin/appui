@@ -8,10 +8,10 @@
 
 import * as React from "react";
 import { SvgWindowPopout } from "@itwin/itwinui-icons-react";
-import { NineZoneDispatchContext, useLabel } from "../base/NineZone";
-import { useActiveTabId } from "./Widget";
-import { useLayout } from "../base/LayoutStore";
-import { ActionButton } from "../../preview/widget-action-dropdown/Button";
+import { NineZoneDispatchContext, useLabel } from "../base/NineZone.js";
+import { useActiveTabId } from "./Widget.js";
+import { useLayout } from "../base/LayoutStore.js";
+import { ActionButton } from "../../preview/widget-action-dropdown/Button.js";
 
 /** @internal */
 export function PopoutToggle() {

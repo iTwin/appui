@@ -12,9 +12,9 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { Key } from "ts-key-enum";
 import { RelativePosition } from "@itwin/appui-abstract";
-import { FocusTrap } from "../focustrap/FocusTrap";
-import type { CommonProps } from "../utils/Props";
-import { Rectangle } from "../utils/Rectangle";
+import { FocusTrap } from "../focustrap/FocusTrap.js";
+import type { CommonProps } from "../utils/Props.js";
+import { Rectangle } from "../utils/Rectangle.js";
 import { ThemeProvider } from "@itwin/itwinui-react";
 
 // cSpell:ignore focustrap focusable alertdialog

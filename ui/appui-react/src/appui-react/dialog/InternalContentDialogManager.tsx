@@ -9,16 +9,16 @@
 import type * as React from "react";
 import { BeUiEvent, Logger } from "@itwin/core-bentley";
 import { getCssVariableAsNumber } from "@itwin/core-react";
-import { UiFramework } from "../UiFramework";
-import type { DialogChangedEventArgs } from "./DialogManagerBase";
-import { DialogManagerBase } from "./DialogManagerBase";
+import { UiFramework } from "../UiFramework.js";
+import type { DialogChangedEventArgs } from "./DialogManagerBase.js";
+import { DialogManagerBase } from "./DialogManagerBase.js";
 import {
   IModelApp,
   NotifyMessageDetails,
   OutputMessagePriority,
   OutputMessageType,
 } from "@itwin/core-frontend";
-import type { ContentDialogInfo } from "../framework/FrameworkContent";
+import type { ContentDialogInfo } from "../framework/FrameworkContent.js";
 
 // cSpell:ignore ZINDEX modeless
 
@@ -65,7 +65,7 @@ export class InternalContentDialogManager {
     if (!isNaN(value)) return value;
 
     Logger.logError(
-      UiFramework.loggerCategory(this),
+      UiFramework.loggerCategory("InternalContentDialogManager"),
       `'${variable}' CSS variable not found`
     );
     return CONTENT_DIALOG_ZINDEX_DEFAULT;
@@ -84,7 +84,7 @@ export class InternalContentDialogManager {
     if (dialogInfo) {
       const message = `Dialog with id of '${id}' already opened`;
       Logger.logInfo(
-        UiFramework.loggerCategory(this),
+        UiFramework.loggerCategory("InternalContentDialogManager"),
         `openDialog: ${message}`
       );
       IModelApp.notifications.outputMessage(
@@ -130,7 +130,7 @@ export class InternalContentDialogManager {
       this.update();
     } else {
       Logger.logError(
-        UiFramework.loggerCategory(this),
+        UiFramework.loggerCategory("InternalContentDialogManager"),
         `closeDialog: Could not find dialog with id of '${id}'`
       );
     }

@@ -10,16 +10,13 @@ import * as React from "react";
 import type { OnItemExecutedFunc } from "@itwin/appui-abstract";
 import type { CommonProps, NoChildrenProps } from "@itwin/core-react";
 import type { ToolbarOpacitySetting } from "@itwin/components-react";
-import {
-  InternalToolbarComponent as CR_Toolbar,
-  Direction,
-  ToolbarPanelAlignment,
-} from "@itwin/components-react";
-import type { ToolbarItem } from "./ToolbarItem";
-import { toUIAToolbarItem } from "./toUIAToolbarItem";
-import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
-import { usePreviewFeatures } from "../preview/PreviewFeatures";
-import { Toolbar as ToolGroupToolbar } from "../preview/new-toolbars/Toolbar";
+import { Direction, ToolbarPanelAlignment } from "@itwin/components-react";
+import { InternalToolbarComponent as CR_Toolbar } from "@itwin/components-react/internal";
+import type { ToolbarItem } from "./ToolbarItem.js";
+import { toUIAToolbarItem } from "./toUIAToolbarItem.js";
+import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher.js";
+import { usePreviewFeatures } from "../preview/PreviewFeatures.js";
+import { Toolbar as ToolGroupToolbar } from "../preview/new-toolbars/Toolbar.js";
 
 /**
  * Properties of [[Toolbar.enableOverflow]] component.

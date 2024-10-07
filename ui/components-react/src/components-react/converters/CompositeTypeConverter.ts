@@ -7,9 +7,8 @@
  */
 
 import type { Primitives } from "@itwin/appui-abstract";
-import { StandardTypeNames } from "@itwin/appui-abstract";
-import { TypeConverter } from "./TypeConverter";
-import { TypeConverterManager } from "./TypeConverterManager";
+import { TypeConverter } from "./TypeConverter.js";
+import { TypeConverterManager } from "./TypeConverterManager.js";
 
 /**
  * Composite type converter
@@ -56,11 +55,6 @@ export class CompositeTypeConverter extends TypeConverter {
     return 0;
   }
 }
-
-TypeConverterManager.registerConverter(
-  StandardTypeNames.Composite,
-  CompositeTypeConverter
-);
 
 const compareStrings = (lhs: string, rhs: string, ignoreCase?: boolean) => {
   if (ignoreCase)

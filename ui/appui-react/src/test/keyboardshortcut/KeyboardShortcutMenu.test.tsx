@@ -4,10 +4,10 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { Key } from "ts-key-enum";
-import type { KeyboardShortcutProps } from "../../appui-react";
-import { CommandItemDef, KeyboardShortcutMenu } from "../../appui-react";
-import TestUtils, { userEvent } from "../TestUtils";
-import { UiFramework } from "../../appui-react/UiFramework";
+import type { KeyboardShortcutProps } from "../../appui-react.js";
+import { CommandItemDef, KeyboardShortcutMenu } from "../../appui-react.js";
+import TestUtils, { userEvent } from "../TestUtils.js";
+import { UiFramework } from "../../appui-react/UiFramework.js";
 import { render, screen, waitFor } from "@testing-library/react";
 
 describe("KeyboardShortcutMenu", () => {

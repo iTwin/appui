@@ -3,8 +3,8 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { Logger } from "@itwin/core-bentley";
-import { UiCore } from "../core-react/UiCore";
-import TestUtils from "./TestUtils";
+import { UiCore } from "../core-react/UiCore.js";
+import TestUtils from "./TestUtils.js";
 
 describe("UiCore", () => {
   beforeEach(() => {
@@ -32,10 +32,6 @@ describe("UiCore", () => {
     const spyLogger = vi.spyOn(Logger, "logError");
     expect(UiCore.translate("xyz")).toEqual("");
     expect(spyLogger).toHaveBeenCalledOnce();
-  });
-
-  it("loggerCategory passed null should return 'core-react'", () => {
-    expect(UiCore.loggerCategory(null)).toEqual("core-react");
   });
 
   it("calling initialize twice should log", async () => {

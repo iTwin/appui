@@ -4,24 +4,24 @@
  *--------------------------------------------------------------------------------------------*/
 
 import { UiError } from "@itwin/appui-abstract";
-import type { ActionCreatorsObject, ActionsUnion } from "../../appui-react";
+import type { ActionCreatorsObject, ActionsUnion } from "../../appui-react.js";
 import {
   createAction,
   FrameworkReducer,
   ReducerRegistryInstance,
-} from "../../appui-react";
-import { StateManager } from "../../appui-react/redux/StateManager";
-import type { ConfigurableUiState } from "../../appui-react/redux/ConfigurableUiState";
+} from "../../appui-react.js";
+import { StateManager } from "../../appui-react/redux/StateManager.js";
+import type { ConfigurableUiState } from "../../appui-react/redux/ConfigurableUiState.js";
 import {
   ConfigurableUiActions,
   ConfigurableUiReducer,
-} from "../../appui-react/redux/ConfigurableUiState";
+} from "../../appui-react/redux/ConfigurableUiState.js";
 import { SnapMode } from "@itwin/core-frontend";
-import { TOOLBAR_OPACITY_DEFAULT } from "@itwin/core-react";
+import { TOOLBAR_OPACITY_DEFAULT } from "@itwin/core-react/internal";
 import {
   SYSTEM_PREFERRED_COLOR_THEME,
   WIDGET_OPACITY_DEFAULT,
-} from "../../appui-react/theme/ThemeId";
+} from "../../appui-react/theme/ThemeId.js";
 
 // Fake state for the host app
 interface IAppState {

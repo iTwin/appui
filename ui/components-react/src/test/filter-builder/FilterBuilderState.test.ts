@@ -9,18 +9,18 @@ import type {
   PropertyFilterBuilderRule,
   PropertyFilterBuilderRuleGroup,
   PropertyFilterBuilderRuleGroupItem,
-} from "../../components-react/filter-builder/FilterBuilderState";
+} from "../../components-react/filter-builder/FilterBuilderState.js";
 import {
   buildPropertyFilter,
   isPropertyFilterBuilderRuleGroup,
   usePropertyFilterBuilder,
-} from "../../components-react/filter-builder/FilterBuilderState";
+} from "../../components-react/filter-builder/FilterBuilderState.js";
 import type {
   PropertyFilter,
   PropertyFilterRule,
   PropertyFilterRuleGroup,
-} from "../../components-react/filter-builder/Types";
-import { PropertyFilterBuilderRuleRangeValue } from "../../components-react";
+} from "../../components-react/filter-builder/Types.js";
+import { PropertyFilterBuilderRuleRangeValue } from "../../components-react.js";
 
 describe("usePropertyFilterBuilder", () => {
   const property = {

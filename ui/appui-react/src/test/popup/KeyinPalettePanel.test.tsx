@@ -6,14 +6,14 @@ import * as React from "react";
 import { Key } from "ts-key-enum";
 import { IModelApp, Tool } from "@itwin/core-frontend";
 import { fireEvent, render, waitFor } from "@testing-library/react";
-import type { KeyinEntry } from "../../appui-react/keyins/Keyins";
+import type { KeyinEntry } from "../../appui-react/keyins/Keyins.js";
+import { UiFramework } from "../../appui-react.js";
+import TestUtils, { storageMock } from "../TestUtils.js";
+import { UiStateStorageStatus } from "@itwin/core-react";
 import {
   clearKeyinPaletteHistory,
   KeyinPalettePanel,
-  UiFramework,
-} from "../../appui-react";
-import TestUtils, { storageMock } from "../TestUtils";
-import { UiStateStorageStatus } from "@itwin/core-react";
+} from "../../appui-react/popup/KeyinPalettePanel.js";
 
 const myLocalStorage = storageMock();
 const KEYIN_PALETTE_NAMESPACE = "KeyinPalettePanel";

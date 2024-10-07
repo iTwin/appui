@@ -5,10 +5,10 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import * as React from "react";
 import { Provider } from "react-redux";
-import { UiFramework } from "../../appui-react";
-import { ToolWidgetComposer } from "../../appui-react/widgets/ToolWidgetComposer";
-import { BackstageAppButton } from "../../appui-react/widgets/BackstageAppButton";
-import TestUtils, { childStructure, storageMock } from "../TestUtils";
+import { UiFramework } from "../../appui-react.js";
+import { ToolWidgetComposer } from "../../appui-react/widgets/ToolWidgetComposer.js";
+import { BackstageAppButton } from "../../appui-react/widgets/BackstageAppButton.js";
+import TestUtils, { childStructure, storageMock } from "../TestUtils.js";
 
 describe("FrameworkAccuDraw localStorage Wrapper", () => {
   const localStorageToRestore = Object.getOwnPropertyDescriptor(

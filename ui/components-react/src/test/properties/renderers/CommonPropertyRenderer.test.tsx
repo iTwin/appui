@@ -6,8 +6,8 @@ import React from "react";
 import { PropertyRecord } from "@itwin/appui-abstract";
 import { Orientation } from "@itwin/core-react";
 import { render } from "@testing-library/react";
-import type { HighlightingComponentProps } from "../../../components-react/common/HighlightingComponentProps";
-import { CommonPropertyRenderer } from "../../../components-react/properties/renderers/CommonPropertyRenderer";
+import type { HighlightingComponentProps } from "../../../components-react/common/HighlightingComponentProps.js";
+import { CommonPropertyRenderer } from "../../../components-react/properties/renderers/CommonPropertyRenderer.js";
 
 describe("CommonPropertyRenderer", () => {
   describe("createNewDisplayValue", () => {

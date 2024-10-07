@@ -11,16 +11,16 @@ import classnames from "classnames";
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
 import { TreeNodePlaceholder } from "@itwin/core-react";
-import type { ItemStyle } from "../../../properties/ItemStyle";
-import { ItemStyleProvider } from "../../../properties/ItemStyle";
-import type { PropertyValueRendererContext } from "../../../properties/ValueRendererManager";
-import { PropertyValueRendererManager } from "../../../properties/ValueRendererManager";
-import { PropertyContainerType } from "../../../properties/ValueRendererManager";
-import type { HighlightableTreeNodeProps } from "../../HighlightingEngine";
-import { HighlightingEngine } from "../../HighlightingEngine";
-import type { TreeModelNode } from "../TreeModel";
-import type { TreeNodeEditorRenderer } from "./TreeNodeEditor";
-import { TreeNodeEditor } from "./TreeNodeEditor";
+import type { ItemStyle } from "../../../properties/ItemStyle.js";
+import { ItemStyleProvider } from "../../../properties/ItemStyle.js";
+import type { PropertyValueRendererContext } from "../../../properties/ValueRendererManager.js";
+import { PropertyValueRendererManager } from "../../../properties/ValueRendererManager.js";
+import { PropertyContainerType } from "../../../properties/ValueRendererManager.js";
+import type { HighlightableTreeNodeProps } from "../../HighlightingEngine.js";
+import { HighlightingEngine } from "../../HighlightingEngine.js";
+import type { TreeModelNode } from "../TreeModel.js";
+import type { TreeNodeEditorRenderer } from "./TreeNodeEditor.js";
+import { TreeNodeEditor } from "./TreeNodeEditor.js";
 
 /**
  * Properties for [[TreeNodeContent]] component

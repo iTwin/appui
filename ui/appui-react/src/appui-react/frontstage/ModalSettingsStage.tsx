@@ -18,12 +18,12 @@ import {
 import { Logger } from "@itwin/core-bentley";
 import { Centered, SettingsContainer } from "@itwin/core-react";
 import { SvgSettings } from "@itwin/itwinui-icons-react";
-import type { ModalFrontstageInfo } from "../framework/FrameworkFrontstages";
-import { UiFramework } from "../UiFramework";
-import { SyncUiEventId } from "../syncui/SyncUiEventDispatcher";
-import { StageUsage } from "./StageUsage";
-import { BackstageItemUtilities } from "../backstage/BackstageItemUtilities";
-import { useTranslation } from "../hooks/useTranslation";
+import type { ModalFrontstageInfo } from "../framework/FrameworkFrontstages.js";
+import { UiFramework } from "../UiFramework.js";
+import { SyncUiEventId } from "../syncui/SyncUiEventDispatcher.js";
+import { StageUsage } from "./StageUsage.js";
+import { BackstageItemUtilities } from "../backstage/BackstageItemUtilities.js";
+import { useTranslation } from "../hooks/useTranslation.js";
 
 function ModalSettingsStage({
   initialSettingsTabId,
@@ -149,7 +149,10 @@ export class SettingsModalFrontstage implements ModalFrontstageInfo {
         OutputMessageType.Toast
       );
       IModelApp.notifications.outputMessage(info);
-      Logger.logInfo(UiFramework.loggerCategory(this), detailedMessage);
+      Logger.logInfo(
+        UiFramework.loggerCategory("SettingsModalFrontstage"),
+        detailedMessage
+      );
     }
   }
 }

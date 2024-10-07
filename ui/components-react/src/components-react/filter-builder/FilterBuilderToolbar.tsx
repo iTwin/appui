@@ -8,7 +8,7 @@
 import React from "react";
 import { Flex, IconButton } from "@itwin/itwinui-react";
 import { SvgAdd, SvgDelete } from "@itwin/itwinui-icons-react";
-import { useTranslation } from "../l10n/useTranslation";
+import { useTranslation } from "../l10n/useTranslation.js";
 /**
  * Props for [[PropertyFilterBuilderToolbar]] component.
  * @internal
@@ -30,16 +30,11 @@ export const PropertyFilterBuilderToolbar = (
   const { translate } = useTranslation();
 
   return (
-    <Flex
-      className={"fb-toolbar fb-row-toolbar"}
-      gap="0"
-      justifyContent="flex-end"
-    >
+    <Flex className={"fb-toolbar fb-row-toolbar"}>
       <IconButton
         size={"small"}
         className="fb-add-rule-button"
         label={translate("filterBuilder.add")}
-        styleType="borderless"
         onClick={onAddChild}
       >
         <SvgAdd />

@@ -6,12 +6,12 @@
  * @module Common
  */
 
-import { Rectangle } from "@itwin/core-react";
+import { Rectangle } from "@itwin/core-react/internal";
 import {
   hasSelectionModeFlag,
   SelectionMode,
   SelectionModeFlags,
-} from "./SelectionModes";
+} from "./SelectionModes.js";
 
 /** Prototype for a Selection Changed handler
  * @public

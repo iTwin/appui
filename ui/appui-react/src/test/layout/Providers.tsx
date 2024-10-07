@@ -2,18 +2,18 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { Point, Rectangle, Size } from "@itwin/core-react";
+import { Point, Rectangle } from "@itwin/core-react/internal";
 import * as React from "react";
 import {
   DragManager,
   DragManagerContext,
-} from "../../appui-react/layout/base/DragManager";
-import { createLayoutStore } from "../../appui-react/layout/base/LayoutStore";
-import type { NineZoneProviderProps } from "../../appui-react/layout/base/NineZone";
-import { NineZoneProvider } from "../../appui-react/layout/base/NineZone";
-import type { NineZoneState } from "../../appui-react/layout/state/NineZoneState";
-import { TabIdContext } from "../../appui-react/layout/widget/ContentRenderer";
-import { WidgetTab } from "../../appui-react/layout/widget/Tab";
+} from "../../appui-react/layout/base/DragManager.js";
+import { createLayoutStore } from "../../appui-react/layout/base/LayoutStore.js";
+import type { NineZoneProviderProps } from "../../appui-react/layout/base/NineZone.js";
+import { NineZoneProvider } from "../../appui-react/layout/base/NineZone.js";
+import type { NineZoneState } from "../../appui-react/layout/state/NineZoneState.js";
+import { TabIdContext } from "../../appui-react/layout/widget/ContentRenderer.js";
+import { WidgetTab } from "../../appui-react/layout/widget/Tab.js";
 
 type PartialBy<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
 
@@ -70,7 +70,7 @@ export function createDragInfo(args?: Partial<DragInfo>): DragInfo {
     initialPointerPosition: new Point(),
     lastPointerPosition: new Point(),
     pointerPosition: new Point(),
-    widgetSize: new Size(),
+    widgetSize: { height: 0, width: 0 },
     ...args,
   };
 }

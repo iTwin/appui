@@ -27,10 +27,11 @@ import type {
   ViewState,
 } from "@itwin/core-frontend";
 import { IModelApp, ScreenViewport } from "@itwin/core-frontend";
-import type { CommonProps, ListenerType } from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
+import type { ListenerType } from "@itwin/core-react/internal";
 import { Icon } from "@itwin/core-react";
-import { UiIModelComponents } from "../UiIModelComponents";
-import { ViewportComponentEvents } from "../viewport/ViewportComponentEvents";
+import { UiIModelComponents } from "../UiIModelComponents.js";
+import { ViewportComponentEvents } from "../viewport/ViewportComponentEvents.js";
 import {
   SvgAdd,
   SvgRemove,

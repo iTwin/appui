@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import type { PropertyDescription } from "@itwin/appui-abstract";
-import { EnumTypeConverter } from "../../components-react";
+import { EnumTypeConverter } from "../../components-react.js";
 
 describe("EnumTypeConverter", () => {
   let converter: EnumTypeConverter;

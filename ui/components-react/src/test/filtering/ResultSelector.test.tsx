@@ -3,9 +3,9 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { ResultSelector } from "../../components-react/filtering/ResultSelector";
+import { ResultSelector } from "../../components-react/filtering/ResultSelector.js";
 import { render, screen } from "@testing-library/react";
-import { userEvent } from "../TestUtils";
+import { userEvent } from "../TestUtils.js";
 
 describe("ResultSelector", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;

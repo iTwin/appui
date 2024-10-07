@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { Timer } from "../../core-react/utils/Timer";
+import { Timer } from "../../core-react/utils/Timer.js";
 
 describe("Timer", () => {
   it("should create timer with specified delay", () => {

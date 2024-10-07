@@ -5,10 +5,10 @@
 import * as React from "react";
 import type { PropertyRecord } from "@itwin/appui-abstract";
 import { Orientation } from "@itwin/core-react";
-import { ColumnResizingPropertyListPropsSupplier } from "../../../components-react/propertygrid/component/ColumnResizingPropertyListPropsSupplier";
-import { PropertyList } from "../../../components-react/propertygrid/component/PropertyList";
-import { userEvent } from "../../TestUtils";
-import TestUtils, { styleMatch } from "../../TestUtils";
+import { ColumnResizingPropertyListPropsSupplier } from "../../../components-react/propertygrid/component/ColumnResizingPropertyListPropsSupplier.js";
+import { PropertyList } from "../../../components-react/propertygrid/component/PropertyList.js";
+import { userEvent } from "../../TestUtils.js";
+import TestUtils, { styleMatch } from "../../TestUtils.js";
 import { render, screen, waitFor } from "@testing-library/react";
 
 describe("ColumnResizingPropertyListPropsSupplier", () => {

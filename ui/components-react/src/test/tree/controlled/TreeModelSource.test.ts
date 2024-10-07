@@ -3,11 +3,11 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as moq from "typemoq";
-import type { MutableTreeModel } from "../../../components-react/tree/controlled/TreeModel";
-import type { TreeModelChanges } from "../../../components-react/tree/controlled/TreeModelSource";
-import { TreeModelSource } from "../../../components-react/tree/controlled/TreeModelSource";
-import type { ITreeDataProvider } from "../../../components-react/tree/TreeDataProvider";
-import { createTreeNodeInput } from "./TreeHelpers";
+import type { MutableTreeModel } from "../../../components-react/tree/controlled/TreeModel.js";
+import type { TreeModelChanges } from "../../../components-react/tree/controlled/TreeModelSource.js";
+import { TreeModelSource } from "../../../components-react/tree/controlled/TreeModelSource.js";
+import type { ITreeDataProvider } from "../../../components-react/tree/TreeDataProvider.js";
+import { createTreeNodeInput } from "./TreeHelpers.js";
 
 describe("TreeModelSource", () => {
   let modelSource: TreeModelSource;

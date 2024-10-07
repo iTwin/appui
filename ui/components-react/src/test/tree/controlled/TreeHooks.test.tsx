@@ -7,7 +7,7 @@ import * as React from "react";
 import type {
   TreeEventHandler,
   TreeEventHandlerParams,
-} from "../../../components-react/tree/controlled/TreeEventHandler";
+} from "../../../components-react/tree/controlled/TreeEventHandler.js";
 import {
   useControlledTreeEventsHandler,
   usePagedTreeNodeLoader,
@@ -15,15 +15,15 @@ import {
   useTreeModel,
   useTreeModelSource,
   useTreeNodeLoader,
-} from "../../../components-react/tree/controlled/TreeHooks";
-import type { TreeModelNodeInput } from "../../../components-react/tree/controlled/TreeModel";
-import { MutableTreeModel } from "../../../components-react/tree/controlled/TreeModel";
-import { TreeModelSource } from "../../../components-react/tree/controlled/TreeModelSource";
-import type { ITreeNodeLoader } from "../../../components-react/tree/controlled/TreeNodeLoader";
+} from "../../../components-react/tree/controlled/TreeHooks.js";
+import type { TreeModelNodeInput } from "../../../components-react/tree/controlled/TreeModel.js";
+import { MutableTreeModel } from "../../../components-react/tree/controlled/TreeModel.js";
+import { TreeModelSource } from "../../../components-react/tree/controlled/TreeModelSource.js";
+import type { ITreeNodeLoader } from "../../../components-react/tree/controlled/TreeNodeLoader.js";
 import type {
   TreeDataProvider,
   TreeDataProviderRaw,
-} from "../../../components-react/tree/TreeDataProvider";
+} from "../../../components-react/tree/TreeDataProvider.js";
 import type { PrimitiveValue } from "@itwin/appui-abstract";
 import { PropertyRecord } from "@itwin/appui-abstract";
 import { render, renderHook, waitFor } from "@testing-library/react";

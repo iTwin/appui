@@ -6,8 +6,8 @@
  * @module Widget
  */
 
-import { useLayout } from "../base/LayoutStore";
-import { useActiveTabId } from "./Widget";
+import { useLayout } from "../base/LayoutStore.js";
+import { useActiveTabId } from "./Widget.js";
 
 /** @internal */
 export function useIsToolSettingsTab() {

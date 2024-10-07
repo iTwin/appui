@@ -9,15 +9,16 @@
 import "./Handle.scss";
 import classnames from "classnames";
 import * as React from "react";
-import type { CommonProps, Point } from "@itwin/core-react";
-import { useRefs, useResizeObserver } from "@itwin/core-react";
-import { useDragToolSettings } from "../base/DragManager";
+import type { CommonProps } from "@itwin/core-react";
+import type { Point } from "@itwin/core-react/internal";
+import { useRefs, useResizeObserver } from "@itwin/core-react/internal";
+import { useDragToolSettings } from "../base/DragManager.js";
 import {
   getUniqueId,
   NineZoneDispatchContext,
   useLabel,
-} from "../base/NineZone";
-import { useDrag } from "../widget/TabBar";
+} from "../base/NineZone.js";
+import { useDrag } from "../widget/TabBar.js";
 import { SvgDragHandleVertical } from "@itwin/itwinui-icons-react";
 import { Icon } from "@itwin/itwinui-react";
 

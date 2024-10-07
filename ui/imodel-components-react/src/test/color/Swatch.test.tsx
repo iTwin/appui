@@ -6,8 +6,8 @@
 import React from "react";
 import { ColorDef } from "@itwin/core-common";
 import { fireEvent, render } from "@testing-library/react";
-import { ColorSwatch } from "../../imodel-components-react/color/Swatch";
-import { TestUtils } from "../TestUtils";
+import { ColorSwatch } from "../../imodel-components-react/color/Swatch.js";
+import { TestUtils } from "../TestUtils.js";
 
 /* eslint-disable deprecation/deprecation */
 

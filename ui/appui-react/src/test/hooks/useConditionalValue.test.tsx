@@ -2,7 +2,10 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { SyncUiEventDispatcher, useConditionalValue } from "../../appui-react";
+import {
+  SyncUiEventDispatcher,
+  useConditionalValue,
+} from "../../appui-react.js";
 import { act, renderHook } from "@testing-library/react";
 
 const timeToWaitForUiSyncCallback = 10;

@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
 import * as React from "react";
-import { StandardRotationNavigationAid } from "../../appui-react";
-import { childStructure, userEvent } from "../TestUtils";
+import { StandardRotationNavigationAid } from "../../appui-react.js";
+import { childStructure, userEvent } from "../TestUtils.js";
 
 describe("StandardRotationNavigationAid", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;

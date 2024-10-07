@@ -24,13 +24,13 @@ import {
   scientificTypeToString,
   showSignOptionToString,
 } from "@itwin/core-quantity";
-import { SignOptionSelector } from "./misc/SignOption";
-import { ThousandsSeparator } from "./misc/ThousandsSeparator";
-import { DecimalSeparatorSelector } from "./misc/DecimalSeparator";
-import { ScientificTypeSelector } from "./misc/ScientificType";
-import { StationSeparatorSelector } from "./misc/StationSeparatorSelector";
-import { StationSizeSelector } from "./misc/StationSizeSelector";
-import { useTranslation } from "../useTranslation";
+import { SignOptionSelector } from "./misc/SignOption.js";
+import { ThousandsSeparator } from "./misc/ThousandsSeparator.js";
+import { DecimalSeparatorSelector } from "./misc/DecimalSeparator.js";
+import { ScientificTypeSelector } from "./misc/ScientificType.js";
+import { StationSeparatorSelector } from "./misc/StationSeparatorSelector.js";
+import { StationSizeSelector } from "./misc/StationSizeSelector.js";
+import { useTranslation } from "../useTranslation.js";
 
 /** Properties of [[MiscFormatOptions]] component.
  * @alpha

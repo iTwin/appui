@@ -2,52 +2,180 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+/* eslint-disable deprecation/deprecation */
 
-// cSpell:ignore iconpicker lineweight hocs datepicker quantityformat
+export { UiIModelComponents } from "./imodel-components-react/UiIModelComponents.js";
 
-export { UiIModelComponents } from "./imodel-components-react/UiIModelComponents";
+export {
+  AlphaSlider,
+  AlphaSliderProps,
+} from "./imodel-components-react/color/AlphaSlider.js";
+export {
+  ColorPickerButton,
+  ColorPickerProps,
+} from "./imodel-components-react/color/ColorPickerButton.js";
+export {
+  ColorPickerDialog,
+  ColorPickerDialogProps,
+} from "./imodel-components-react/color/ColorPickerDialog.js";
+export {
+  ColorPickerPopup,
+  ColorPickerPopupProps,
+} from "./imodel-components-react/color/ColorPickerPopup.js";
+export {
+  HueSlider,
+  HueSliderProps,
+} from "./imodel-components-react/color/HueSlider.js";
+export {
+  SaturationPicker,
+  SaturationPickerProps,
+} from "./imodel-components-react/color/SaturationPicker.js";
+export {
+  ColorSwatch,
+  ColorSwatchProps,
+} from "./imodel-components-react/color/Swatch.js";
 
-export * from "./imodel-components-react/color/AlphaSlider";
-export * from "./imodel-components-react/color/ColorPickerButton";
-export * from "./imodel-components-react/color/ColorPickerDialog";
-export * from "./imodel-components-react/color/ColorPickerPopup";
-export * from "./imodel-components-react/color/getCSSColorFromDef";
-export * from "./imodel-components-react/color/HueSlider";
-export * from "./imodel-components-react/color/SaturationPicker";
-export * from "./imodel-components-react/color/Swatch";
+export {
+  ColorEditor,
+  ColorPropertyEditor,
+} from "./imodel-components-react/editors/ColorEditor.js";
+export {
+  WeightEditor,
+  WeightPropertyEditor,
+} from "./imodel-components-react/editors/WeightEditor.js";
 
-export * from "./imodel-components-react/editors/ColorEditor";
-export * from "./imodel-components-react/editors/WeightEditor";
+export {
+  QuantityInput,
+  QuantityProps,
+} from "./imodel-components-react/inputs/QuantityInput.js";
+export {
+  QuantityNumberInput,
+  QuantityNumberInputProps,
+  StepFunctionProp,
+} from "./imodel-components-react/inputs/QuantityNumberInput.js";
 
-export * from "./imodel-components-react/inputs/QuantityInput";
-export * from "./imodel-components-react/inputs/QuantityNumberInput";
+export {
+  LineWeightSwatch,
+  LineWeightSwatchProps,
+} from "./imodel-components-react/lineweight/Swatch.js";
+export {
+  WeightPickerButton,
+  WeightPickerProps,
+} from "./imodel-components-react/lineweight/WeightPickerButton.js";
 
-export * from "./imodel-components-react/lineweight/Swatch";
-export * from "./imodel-components-react/lineweight/WeightPickerButton";
+export {
+  Cube,
+  CubeProps,
+  Face,
+} from "./imodel-components-react/navigationaids/Cube.js";
+export {
+  CubeNavigationAid,
+  CubeNavigationAidProps,
+  CubeNavigationHitBoxX,
+  CubeNavigationHitBoxY,
+  CubeNavigationHitBoxZ,
+} from "./imodel-components-react/navigationaids/CubeNavigationAid.js";
+export {
+  DrawingNavigationAid,
+  DrawingNavigationAidProps,
+} from "./imodel-components-react/navigationaids/DrawingNavigationAid.js";
 
-export * from "./imodel-components-react/navigationaids/Cube";
-export * from "./imodel-components-react/navigationaids/CubeNavigationAid";
-export * from "./imodel-components-react/navigationaids/DrawingNavigationAid";
+export {
+  FormatPanel,
+  FormatPanelProps,
+} from "./imodel-components-react/quantityformat/FormatPanel.js";
+export {
+  FormatPrecision,
+  FormatPrecisionProps,
+} from "./imodel-components-react/quantityformat/FormatPrecision.js";
+export {
+  FormatSample,
+  FormatSampleProps,
+} from "./imodel-components-react/quantityformat/FormatSample.js";
+export {
+  FormatTypeOption,
+  FormatTypeOptionProps,
+} from "./imodel-components-react/quantityformat/FormatType.js";
+export {
+  FormatUnitLabel,
+  FormatUnitLabelProps,
+} from "./imodel-components-react/quantityformat/FormatUnitLabel.js";
+export {
+  FormatUnits,
+  FormatUnitsProps,
+} from "./imodel-components-react/quantityformat/FormatUnits.js";
+export {
+  MiscFormatOptions,
+  MiscFormatOptionsProps,
+} from "./imodel-components-react/quantityformat/MiscFormatOptions.js";
+export {
+  QuantityFormatPanel,
+  QuantityFormatPanelProps,
+} from "./imodel-components-react/quantityformat/QuantityFormatPanel.js";
 
-export * from "./imodel-components-react/quantityformat/FormatPanel";
-export * from "./imodel-components-react/quantityformat/FormatPrecision";
-export * from "./imodel-components-react/quantityformat/FormatSample";
-export * from "./imodel-components-react/quantityformat/FormatType";
-export * from "./imodel-components-react/quantityformat/FormatUnitLabel";
-export * from "./imodel-components-react/quantityformat/FormatUnits";
-export * from "./imodel-components-react/quantityformat/MiscFormatOptions";
-export * from "./imodel-components-react/quantityformat/QuantityFormatPanel";
+export {
+  AnimationFractionChangeHandler,
+  PlaybackSettings,
+  PlaybackSettingsChangeHandler,
+  SolarDataProvider,
+  SolarPlaybackProgressHandler,
+  TimelineDataProvider,
+  TimelineDateDisplay,
+  TimelinePausePlayAction,
+  TimelinePausePlayArgs,
+  TimelineScale,
+} from "./imodel-components-react/timeline/interfaces.js";
+export { BaseTimelineDataProvider } from "./imodel-components-react/timeline/BaseTimelineDataProvider.js";
+export {
+  TimelineComponent,
+  TimelineComponentProps,
+  TimelineDateMarkerProps,
+  TimelineMenuItemOption,
+  TimelineMenuItemProps,
+} from "./imodel-components-react/timeline/TimelineComponent.js";
+export { SolarTimeline } from "./imodel-components-react/timeline/SolarTimeline.js";
+export { BaseSolarDataProvider } from "./imodel-components-react/timeline/BaseSolarDataProvider.js";
 
-export * from "./imodel-components-react/timeline/interfaces";
-export * from "./imodel-components-react/timeline/BaseTimelineDataProvider";
-export * from "./imodel-components-react/timeline/InlineEdit";
-export * from "./imodel-components-react/timeline/Scrubber";
-export * from "./imodel-components-react/timeline/TimelineComponent";
-export * from "./imodel-components-react/timeline/SolarTimeline";
-export * from "./imodel-components-react/timeline/BaseSolarDataProvider";
+export {
+  ViewStateProp,
+  ViewportComponent,
+  ViewportProps,
+} from "./imodel-components-react/viewport/ViewportComponent.js";
+export {
+  ViewportComponentEvents,
+  CubeRotationChangeEvent,
+  CubeRotationChangeEventArgs,
+  DrawingViewportChangeEvent,
+  DrawingViewportChangeEventArgs,
+  StandardRotationChangeEvent,
+  StandardRotationChangeEventArgs,
+  ViewClassFullNameChangedEvent,
+  ViewClassFullNameChangedEventArgs,
+  ViewIdChangedEvent,
+  ViewIdChangedEventArgs,
+  ViewRotationChangeEvent,
+  ViewRotationChangeEventArgs,
+} from "./imodel-components-react/viewport/ViewportComponentEvents.js";
 
-export * from "./imodel-components-react/viewport/ViewportComponent";
-export * from "./imodel-components-react/viewport/ViewportComponentEvents";
+// #region "SideEffects"
+
+import { StandardEditorNames, StandardTypeNames } from "@itwin/appui-abstract";
+import { PropertyEditorManager } from "@itwin/components-react";
+import { ColorPropertyEditor } from "./imodel-components-react/editors/ColorEditor.js";
+import { WeightPropertyEditor } from "./imodel-components-react/editors/WeightEditor.js";
+
+PropertyEditorManager.registerEditor(
+  StandardTypeNames.Number,
+  ColorPropertyEditor,
+  StandardEditorNames.ColorPicker
+);
+PropertyEditorManager.registerEditor(
+  StandardTypeNames.Number,
+  WeightPropertyEditor,
+  StandardEditorNames.WeightPicker
+);
+
+// #endregion "SideEffects"
 
 /** @docs-package-description
  * The imodel-components-react package contains React components that depend on the core-frontend, core-common or core-quantity packages.

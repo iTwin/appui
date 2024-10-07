@@ -8,16 +8,16 @@
 
 import type * as React from "react";
 import { BeUiEvent, Logger } from "@itwin/core-bentley";
-import { UiFramework } from "../UiFramework";
-import type { DialogChangedEventArgs } from "./DialogManagerBase";
-import { DialogManagerBase } from "./DialogManagerBase";
+import { UiFramework } from "../UiFramework.js";
+import type { DialogChangedEventArgs } from "./DialogManagerBase.js";
+import { DialogManagerBase } from "./DialogManagerBase.js";
 import {
   IModelApp,
   NotifyMessageDetails,
   OutputMessagePriority,
   OutputMessageType,
 } from "@itwin/core-frontend";
-import type { ModelessDialogInfo } from "../framework/FrameworkDialogs";
+import type { ModelessDialogInfo } from "../framework/FrameworkDialogs.js";
 
 // cSpell:ignore ZINDEX modeless
 
@@ -63,7 +63,7 @@ export class InternalModelessDialogManager {
     if (dialogInfo) {
       const message = `Dialog with id of '${id}' already opened`;
       Logger.logInfo(
-        UiFramework.loggerCategory(this),
+        UiFramework.loggerCategory("InternalModelessDialogManager"),
         `openDialog: ${message}`
       );
       IModelApp.notifications.outputMessage(
@@ -109,7 +109,7 @@ export class InternalModelessDialogManager {
       this.update();
     } else {
       Logger.logError(
-        UiFramework.loggerCategory(this),
+        UiFramework.loggerCategory("InternalModelessDialogManager"),
         `closeDialog: Could not find dialog with id of '${id}'`
       );
     }

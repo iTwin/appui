@@ -8,7 +8,7 @@
 
 import * as React from "react";
 import { Logger } from "@itwin/core-bentley";
-import { UiCore } from "../UiCore";
+import { UiCore } from "../UiCore.js";
 
 /* eslint-disable deprecation/deprecation */
 

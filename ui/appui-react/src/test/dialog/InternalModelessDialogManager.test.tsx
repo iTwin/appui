@@ -8,10 +8,10 @@ import {
   ModelessDialog,
   ModelessDialogRenderer,
   UiFramework,
-} from "../../appui-react";
-import { userEvent } from "../TestUtils";
+} from "../../appui-react.js";
+import { userEvent } from "../TestUtils.js";
 import { render, screen, waitFor } from "@testing-library/react";
-import { InternalModelessDialogManager } from "../../appui-react/dialog/InternalModelessDialogManager";
+import { InternalModelessDialogManager } from "../../appui-react/dialog/InternalModelessDialogManager.js";
 
 describe("InternalModelessDialogManager", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;

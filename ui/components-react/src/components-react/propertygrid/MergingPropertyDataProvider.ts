@@ -11,9 +11,9 @@ import type {
   IPropertyDataProvider,
   PropertyCategory,
   PropertyData,
-} from "./PropertyDataProvider";
-import { PropertyDataChangeEvent } from "./PropertyDataProvider";
-import { UiComponents } from "../UiComponents";
+} from "./PropertyDataProvider.js";
+import { PropertyDataChangeEvent } from "./PropertyDataProvider.js";
+import { UiComponents } from "../UiComponents.js";
 
 const SOURCE_PROVIDER_KEY = `${UiComponents.packageName}/source-provider`;
 

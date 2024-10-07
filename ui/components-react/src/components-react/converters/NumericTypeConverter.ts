@@ -7,10 +7,8 @@
  */
 
 import type { Primitives } from "@itwin/appui-abstract";
-import { StandardTypeNames } from "@itwin/appui-abstract";
-import type { LessGreaterOperatorProcessor } from "./TypeConverter";
-import { TypeConverter } from "./TypeConverter";
-import { TypeConverterManager } from "./TypeConverterManager";
+import type { LessGreaterOperatorProcessor } from "./TypeConverter.js";
+import { TypeConverter } from "./TypeConverter.js";
 
 /**
  * Base Numeric Type Converter.
@@ -91,18 +89,6 @@ export class FloatTypeConverter extends NumericTypeConverterBase {
     return FloatTypeConverter.parseString(value);
   }
 }
-TypeConverterManager.registerConverter(
-  StandardTypeNames.Float,
-  FloatTypeConverter
-);
-TypeConverterManager.registerConverter(
-  StandardTypeNames.Double,
-  FloatTypeConverter
-);
-TypeConverterManager.registerConverter(
-  StandardTypeNames.Number,
-  FloatTypeConverter
-);
 
 /**
  * Int Type Converter.
@@ -135,9 +121,3 @@ export class IntTypeConverter extends NumericTypeConverterBase {
     return IntTypeConverter.parseString(value);
   }
 }
-
-TypeConverterManager.registerConverter(StandardTypeNames.Int, IntTypeConverter);
-TypeConverterManager.registerConverter(
-  StandardTypeNames.Integer,
-  IntTypeConverter
-);

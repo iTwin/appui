@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { DockedBar } from "../../appui-react/widget-panels/DockedBar";
+import { DockedBar } from "../../appui-react/widget-panels/DockedBar.js";
 import { render, screen } from "@testing-library/react";
 
 describe("DockedBar", () => {

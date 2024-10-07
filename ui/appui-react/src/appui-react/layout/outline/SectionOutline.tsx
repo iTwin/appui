@@ -11,15 +11,15 @@ import classnames from "classnames";
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
 import type { CommonProps } from "@itwin/core-react";
-import { useTargeted } from "../base/DragManager";
+import { useTargeted } from "../base/DragManager.js";
 import {
   isHorizontalPanelSide,
   PanelSideContext,
-} from "../widget-panels/Panel";
-import { useTargetDirection } from "../target/SectionTarget";
-import { isSectionDropTargetState } from "../state/DropTargetState";
-import { useLayout } from "../base/LayoutStore";
-import { useSendBackHomeState } from "../widget/SendBack";
+} from "../widget-panels/Panel.js";
+import { useTargetDirection } from "../target/SectionTarget.js";
+import { isSectionDropTargetState } from "../state/DropTargetState.js";
+import { useLayout } from "../base/LayoutStore.js";
+import { useSendBackHomeState } from "../widget/SendBack.js";
 
 /** @internal */
 // eslint-disable-next-line deprecation/deprecation

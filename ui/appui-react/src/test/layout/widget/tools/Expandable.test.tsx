@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import { render } from "@testing-library/react";
 import * as React from "react";
-import { ExpandableButton } from "../../../../appui-react/layout/widget/tools/button/Expandable";
-import { childStructure, selectorMatches } from "../../Utils";
+import { ExpandableButton } from "../../../../appui-react/layout/widget/tools/button/Expandable.js";
+import { childStructure, selectorMatches } from "../../Utils.js";
 
 describe("<ExpandableButton  />", () => {
   it("renders correctly", () => {

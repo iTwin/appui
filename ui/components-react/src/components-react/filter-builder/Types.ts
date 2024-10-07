@@ -10,7 +10,7 @@ import type { PropertyDescription, PropertyValue } from "@itwin/appui-abstract";
 import type {
   PropertyFilterRuleGroupOperator,
   PropertyFilterRuleOperator,
-} from "./Operators";
+} from "./Operators.js";
 
 /**
  * Type that describes property filter.

@@ -9,11 +9,12 @@
 import "./Expander.scss";
 import classnames from "classnames";
 import * as React from "react";
-import type { PanelSide } from "./PanelTypes";
-import { panelSides } from "./Panel";
-import { NineZoneDispatchContext } from "../base/NineZone";
-import { Point, Timer } from "@itwin/core-react";
-import { useLayout } from "../base/LayoutStore";
+import type { PanelSide } from "./PanelTypes.js";
+import { panelSides } from "./Panel.js";
+import { NineZoneDispatchContext } from "../base/NineZone.js";
+import { Timer } from "@itwin/core-react";
+import { Point } from "@itwin/core-react/internal";
+import { useLayout } from "../base/LayoutStore.js";
 
 /** @internal */
 export interface WidgetPanelExpanderProps {

@@ -20,23 +20,18 @@ import {
   ToolbarPanelAlignment,
 } from "@itwin/components-react";
 import type { RequireAtLeastOne } from "@itwin/core-bentley";
-import {
-  DivWithOutsideClick,
-  FocusTrap,
-  MessageRenderer,
-  Point,
-  Size,
-} from "@itwin/core-react";
+import { DivWithOutsideClick, MessageRenderer } from "@itwin/core-react";
+import { FocusTrap, Point } from "@itwin/core-react/internal";
 import { Text } from "@itwin/itwinui-react";
-import { CursorPopup } from "../cursor/cursorpopup/CursorPopup";
-import type { PopupContentType, PopupPropsBase } from "./PopupManager";
-import { isReactContent, PopupManager } from "./PopupManager";
-import { PositionPopup } from "./PositionPopup";
-import { ToolbarWithOverflow } from "../toolbar/ToolbarWithOverflow";
-import type { ToolbarItem } from "../toolbar/ToolbarItem";
-import { mapToPlacement, type Placement } from "../utils/Placement";
-import { WrapperContext } from "../configurableui/ConfigurableUiContent";
-import type { SizeProps } from "../utils/SizeProps";
+import { CursorPopup } from "../cursor/cursorpopup/CursorPopup.js";
+import type { PopupContentType, PopupPropsBase } from "./PopupManager.js";
+import { isReactContent, PopupManager } from "./PopupManager.js";
+import { PositionPopup } from "./PositionPopup.js";
+import { ToolbarWithOverflow } from "../toolbar/ToolbarWithOverflow.js";
+import type { ToolbarItem } from "../toolbar/ToolbarItem.js";
+import { mapToPlacement, type Placement } from "../utils/Placement.js";
+import { WrapperContext } from "../configurableui/ConfigurableUiContent.js";
+import type { SizeProps } from "../utils/SizeProps.js";
 
 /** Props for defining a CardPopup editor.
  * @beta */
@@ -55,9 +50,8 @@ export type CardPopupProps = Omit<PopupPropsBase, "el"> & {
     placement: Placement;
   }>;
 
-/** @internal */
 interface CardPopupState {
-  size: Size;
+  size: SizeProps;
 }
 
 /** Popup component for Input Editor
@@ -72,12 +66,16 @@ export class CardPopup extends React.PureComponent<
   /** @internal */
   public declare context: React.ContextType<typeof WrapperContext>;
   public override readonly state = {
-    size: new Size(-1, -1),
+    size: { width: -1, height: -1 },
   };
 
   private _onSizeKnown = (newSize: SizeProps) => {
-    if (!this.state.size.equals(newSize))
-      this.setState({ size: Size.create(newSize) });
+    if (
+      newSize.height === this.state.size.height &&
+      newSize.width === this.state.size.width
+    )
+      return;
+    this.setState({ size: newSize });
   };
 
   private _handleKeyDown = (event: React.KeyboardEvent): void => {

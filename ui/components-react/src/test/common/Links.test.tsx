@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { matchLinks } from "../../components-react/common/Links";
+import { matchLinks } from "../../components-react/common/Links.js";
 
 describe("matchlinks", () => {
   it("detects any number of any type of url links or emails in a passed value", () => {

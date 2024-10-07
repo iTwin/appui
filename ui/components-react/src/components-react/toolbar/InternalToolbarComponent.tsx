@@ -21,30 +21,31 @@ import {
   ConditionalStringValue,
   ToolbarItemUtilities,
 } from "@itwin/appui-abstract";
-import type {
-  BadgeKind,
-  CommonProps,
-  NoChildrenProps,
-} from "@itwin/core-react";
-import { Badge, Icon, IconHelper } from "@itwin/core-react";
-import { ToolbarButtonItem } from "./Item";
-import { ToolbarItems } from "./Items";
-import { ItemWrapper, useResizeObserverSingleDimension } from "./ItemWrapper";
-import { ToolbarOverflowButton } from "./Overflow";
-import { ToolbarOverflowPanel } from "./OverflowPanel";
-import { PopupItem } from "./PopupItem";
-import { PopupItemsPanel } from "./PopupItemsPanel";
-import { PopupItemWithDrag } from "./PopupItemWithDrag";
+import type { CommonProps, NoChildrenProps } from "@itwin/core-react";
+import { Icon, IconHelper } from "@itwin/core-react";
+import type { BadgeKind } from "@itwin/core-react/internal";
+import { Badge } from "@itwin/core-react/internal";
+import { ToolbarButtonItem } from "./Item.js";
+import { ToolbarItems } from "./Items.js";
+import {
+  ItemWrapper,
+  useResizeObserverSingleDimension,
+} from "./ItemWrapper.js";
+import { ToolbarOverflowButton } from "./Overflow.js";
+import { ToolbarOverflowPanel } from "./OverflowPanel.js";
+import { PopupItem } from "./PopupItem.js";
+import { PopupItemsPanel } from "./PopupItemsPanel.js";
+import { PopupItemWithDrag } from "./PopupItemWithDrag.js";
 import {
   Direction,
   DirectionHelpers,
   OrthogonalDirection,
   OrthogonalDirectionHelpers,
-} from "./utilities/Direction";
+} from "./utilities/Direction.js";
 import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
 import type { BeEvent } from "@itwin/core-bentley";
-import { useConditionalSynchedItems } from "./useConditionalSynchedItems";
-import { useTranslation } from "../l10n/useTranslation";
+import { useConditionalSynchedItems } from "./useConditionalSynchedItems.js";
+import { useTranslation } from "../l10n/useTranslation.js";
 
 /** Describes the data needed to insert a custom `React` button into an ToolbarWithOverflow.
  * @public

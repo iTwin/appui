@@ -6,46 +6,46 @@ import * as faker from "faker";
 import { defer, from as rxjsFrom } from "rxjs";
 import { PropertyRecord } from "@itwin/appui-abstract";
 import { EmptyLocalization } from "@itwin/core-common";
-import { toRxjsObservable } from "../../../components-react/tree/controlled/Observable";
-import { MutableTreeModel } from "../../../components-react/tree/controlled/TreeModel";
-import { TreeModelSource } from "../../../components-react/tree/controlled/TreeModelSource";
+import { toRxjsObservable } from "../../../components-react/tree/controlled/Observable.js";
+import { MutableTreeModel } from "../../../components-react/tree/controlled/TreeModel.js";
+import { TreeModelSource } from "../../../components-react/tree/controlled/TreeModelSource.js";
 import {
   AbstractTreeNodeLoader,
   handleLoadedNodeHierarchy,
   PagedTreeNodeLoader,
   TreeDataSource,
   TreeNodeLoader,
-} from "../../../components-react/tree/controlled/TreeNodeLoader";
-import { UiComponents } from "../../../components-react/UiComponents";
-import { extractSequence } from "../../common/ObservableTestHelpers";
-import { ResolvablePromise } from "../../test-helpers/misc";
+} from "../../../components-react/tree/controlled/TreeNodeLoader.js";
+import { UiComponents } from "../../../components-react/UiComponents.js";
+import { extractSequence } from "../../common/ObservableTestHelpers.js";
+import { ResolvablePromise } from "../../test-helpers/misc.js";
 import {
   createRandomTreeNodeItem,
   createRandomTreeNodeItems,
   createTreeNodeInput,
-} from "./TreeHelpers";
+} from "./TreeHelpers.js";
 
 import type { Observable as RxjsObservable } from "rxjs";
 import type {
   LoadedNodeHierarchy,
   TreeNodeLoadResult,
-} from "../../../components-react/tree/controlled/TreeNodeLoader";
+} from "../../../components-react/tree/controlled/TreeNodeLoader.js";
 import type {
   Observable,
   Observer,
-} from "../../../components-react/tree/controlled/Observable";
+} from "../../../components-react/tree/controlled/Observable.js";
 import type {
   TreeModelNode,
   TreeModelNodeInput,
   TreeModelRootNode,
   TreeNodeItemData,
-} from "../../../components-react/tree/controlled/TreeModel";
+} from "../../../components-react/tree/controlled/TreeModel.js";
 import type {
   DelayLoadedTreeNodeItem,
   ImmediatelyLoadedTreeNodeItem,
   ITreeDataProvider,
   TreeDataProviderRaw,
-} from "../../../components-react/tree/TreeDataProvider";
+} from "../../../components-react/tree/TreeDataProvider.js";
 
 const extractLoadedNodeIds = async (obs: Observable<TreeNodeLoadResult>) => {
   const loadResult = await extractSequence(toRxjsObservable(obs));

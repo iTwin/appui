@@ -6,7 +6,7 @@
  * @module Item
  */
 
-import type { ItemDefBase } from "./ItemDefBase";
+import type { ItemDefBase } from "./ItemDefBase.js";
 
 /* eslint-disable deprecation/deprecation */
 

@@ -12,9 +12,10 @@ import * as React from "react";
 import { ColorByName, ColorDef } from "@itwin/core-common";
 import { RelativePosition } from "@itwin/appui-abstract";
 import type { CommonProps } from "@itwin/core-react";
-import { Icon, Popup, useRefs } from "@itwin/core-react";
-import { ColorSwatch } from "./Swatch";
-import { getCSSColorFromDef } from "./getCSSColorFromDef";
+import { Icon, Popup } from "@itwin/core-react";
+import { useRefs } from "@itwin/core-react/internal";
+import { ColorSwatch } from "./Swatch.js";
+import { getCSSColorFromDef } from "./getCSSColorFromDef.js";
 import { SvgCaretDownSmall, SvgCaretUpSmall } from "@itwin/itwinui-icons-react";
 
 // cSpell:ignore colorpicker

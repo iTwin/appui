@@ -6,11 +6,11 @@
  * @module Widget
  */
 
-import produce, { castDraft } from "immer";
+import { castDraft, produce } from "immer";
 import * as React from "react";
 import { create } from "zustand";
 import { BeEvent } from "@itwin/core-bentley";
-import type { TabState } from "../state/TabState";
+import type { TabState } from "../state/TabState.js";
 
 /** @internal */
 export interface WidgetContentManagerProps {

@@ -6,8 +6,8 @@ import * as React from "react";
 import type { ScreenViewport } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
 import { act, render, renderHook } from "@testing-library/react";
-import type { ActiveContentChangedEventArgs } from "../../appui-react";
-import { UiFramework, useActiveViewport } from "../../appui-react";
+import type { ActiveContentChangedEventArgs } from "../../appui-react.js";
+import { UiFramework, useActiveViewport } from "../../appui-react.js";
 
 describe("useActiveViewport", () => {
   const selectedView = {} as ScreenViewport;

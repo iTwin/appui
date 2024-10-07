@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
 import * as React from "react";
-import { MessageManager, ValidationTextbox } from "../../appui-react";
-import { userEvent } from "../TestUtils";
+import { MessageManager, ValidationTextbox } from "../../appui-react.js";
+import { userEvent } from "../TestUtils.js";
 
 describe("ValidationTextbox", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;

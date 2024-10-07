@@ -3,8 +3,8 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { renderHook, waitFor } from "@testing-library/react";
-import { useAsyncValue } from "../../components-react/common/UseAsyncValue";
-import { ResolvablePromise } from "../test-helpers/misc";
+import { useAsyncValue } from "../../components-react/common/UseAsyncValue.js";
+import { ResolvablePromise } from "../test-helpers/misc.js";
 
 describe("useAsyncValue", () => {
   it("returns synchronous value", () => {

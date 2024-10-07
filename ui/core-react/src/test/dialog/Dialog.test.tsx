@@ -4,11 +4,11 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { render } from "@testing-library/react";
-import { Dialog } from "../../core-react";
-import { DialogAlignment } from "../../core-react/dialog/Dialog";
-import { GlobalDialog } from "../../core-react/dialog/GlobalDialog";
+import { Dialog } from "../../core-react.js";
+import { DialogAlignment } from "../../core-react/dialog/Dialog.js";
+import { GlobalDialog } from "../../core-react/dialog/GlobalDialog.js";
 import { DialogButtonType } from "@itwin/appui-abstract";
-import userEvent from "@testing-library/user-event";
+import { userEvent } from "@testing-library/user-event";
 
 describe("Dialog", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;

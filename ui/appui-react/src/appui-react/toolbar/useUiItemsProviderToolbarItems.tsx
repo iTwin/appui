@@ -11,9 +11,9 @@ import type {
   ToolbarItem,
   ToolbarOrientation,
   ToolbarUsage,
-} from "./ToolbarItem";
-import type { ToolbarItemsManager } from "./ToolbarItemsManager";
-import { useActiveStageProvidedToolbarItems } from "./useActiveStageProvidedToolbarItems";
+} from "./ToolbarItem.js";
+import type { ToolbarItemsManager } from "./ToolbarItemsManager.js";
+import { useActiveStageProvidedToolbarItems } from "./useActiveStageProvidedToolbarItems.js";
 
 /** Hook that retrieves active frontstage toolbar items from UiItemsProviders and manage them through [[ToolbarItemsManager]].
  * @public

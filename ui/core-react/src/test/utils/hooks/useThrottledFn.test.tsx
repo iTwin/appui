@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { renderHook } from "@testing-library/react";
-import { useThrottledFn } from "../../../core-react/utils/hooks/useThrottledFn";
+import { useThrottledFn } from "../../../core-react/utils/hooks/useThrottledFn.js";
 
 interface CallInfo {
   calls: number;

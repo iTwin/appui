@@ -12,8 +12,8 @@ import type { PropertyRecord } from "@itwin/appui-abstract";
 import type {
   ActionButtonRenderer,
   ActionButtonRendererProps,
-} from "./ActionButtonRenderer";
-import { Orientation } from "../../common/Orientation";
+} from "./ActionButtonRenderer.js";
+import { Orientation } from "../../common/Orientation.js";
 
 /** Properties of [[ActionButtonList]] React component
  * @public

@@ -8,10 +8,10 @@
 
 import type { Primitives } from "@itwin/appui-abstract";
 import { StandardTypeNames } from "@itwin/appui-abstract";
-import { isPromiseLike } from "@itwin/core-react";
-import { TypeConverter } from "./TypeConverter";
-import { TypeConverterManager } from "./TypeConverterManager";
-import type { ConvertedPrimitives } from "./valuetypes/ConvertedTypes";
+import { TypeConverter } from "./TypeConverter.js";
+import { TypeConverterManager } from "./TypeConverterManager.js";
+import type { ConvertedPrimitives } from "./valuetypes/ConvertedTypes.js";
+import { isPromiseLike } from "../common/UseAsyncValue.js";
 
 // cSpell:ignore valuetypes
 
@@ -119,11 +119,6 @@ export class Point2dTypeConverter extends BasePointTypeConverter {
   }
 }
 
-TypeConverterManager.registerConverter(
-  StandardTypeNames.Point2d,
-  Point2dTypeConverter
-);
-
 /**
  * Point3d type converter.
  * @public
@@ -162,8 +157,3 @@ export class Point3dTypeConverter extends BasePointTypeConverter {
     return { ...values, z: z ? z : 0 };
   }
 }
-
-TypeConverterManager.registerConverter(
-  StandardTypeNames.Point3d,
-  Point3dTypeConverter
-);

@@ -6,8 +6,8 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import * as React from "react";
 import { Key } from "ts-key-enum";
-import { PopupButton } from "../../components-react/editors/PopupButton";
-import { selectorMatches, TestUtils, userEvent } from "../TestUtils";
+import { PopupButton } from "../../components-react/editors/PopupButton.js";
+import { selectorMatches, TestUtils, userEvent } from "../TestUtils.js";
 
 describe("<PopupButton />", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;

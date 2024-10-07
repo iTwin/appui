@@ -7,14 +7,14 @@ import type {
   ConfigurableCreateInfo,
   ContentGroupProps,
   ContentProps,
-} from "../../appui-react";
+} from "../../appui-react.js";
 import {
   ContentControl,
   ContentGroup,
   NavigationAidControl,
   StandardContentLayouts,
   UiFramework,
-} from "../../appui-react";
+} from "../../appui-react.js";
 
 describe("ContentGroup", () => {
   class TestContentControl extends ContentControl {

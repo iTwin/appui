@@ -2,18 +2,18 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import produce from "immer";
+import { produce } from "immer";
 import {
   FrontstageDef,
   StagePanelDef,
   StagePanelLocation,
   StagePanelState,
-  toPanelSide,
   UiFramework,
   WidgetDef,
-} from "../../appui-react";
-import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";
-import { createNineZoneState } from "../../appui-react/layout/state/NineZoneState";
+} from "../../appui-react.js";
+import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager.js";
+import { createNineZoneState } from "../../appui-react/layout/state/NineZoneState.js";
+import { toPanelSide } from "../../appui-react/stagepanels/StagePanelDef.js";
 
 describe("StagePanelDef", () => {
   it("Defaults, widgetDefs & widgetCount", () => {

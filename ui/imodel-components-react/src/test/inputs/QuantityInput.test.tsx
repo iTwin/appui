@@ -6,8 +6,8 @@ import * as React from "react";
 import { Key } from "ts-key-enum";
 import { act, fireEvent, render, waitFor } from "@testing-library/react";
 import { IModelApp, NoRenderApp, QuantityType } from "@itwin/core-frontend";
-import { QuantityInput } from "../../imodel-components-react/inputs/QuantityInput";
-import { TestUtils } from "../TestUtils";
+import { QuantityInput } from "../../imodel-components-react/inputs/QuantityInput.js";
+import { TestUtils } from "../TestUtils.js";
 
 describe("QuantityInput", () => {
   const rnaDescriptorToRestore = Object.getOwnPropertyDescriptor(

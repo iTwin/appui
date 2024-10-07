@@ -17,10 +17,10 @@ import {
   getTraitString,
 } from "@itwin/core-quantity";
 import { Checkbox } from "@itwin/itwinui-react";
-import { TestUtils } from "../TestUtils";
-import { FormatPanel } from "../../imodel-components-react/quantityformat/FormatPanel";
-import { FormatSample } from "../../imodel-components-react/quantityformat/FormatSample";
-import { FormatPrecision } from "../../imodel-components-react/quantityformat/FormatPrecision";
+import { TestUtils } from "../TestUtils.js";
+import { FormatPanel } from "../../imodel-components-react/quantityformat/FormatPanel.js";
+import { FormatSample } from "../../imodel-components-react/quantityformat/FormatSample.js";
+import { FormatPrecision } from "../../imodel-components-react/quantityformat/FormatPrecision.js";
 
 function setFormatTrait(
   formatProps: FormatProps,

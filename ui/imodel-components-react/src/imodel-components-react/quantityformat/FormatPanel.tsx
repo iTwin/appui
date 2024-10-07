@@ -15,12 +15,12 @@ import type {
 } from "@itwin/core-quantity";
 import { Format, FormatterSpec } from "@itwin/core-quantity";
 import type { CommonProps } from "@itwin/core-react";
-import { FormatPrecision } from "./FormatPrecision";
-import { FormatSample } from "./FormatSample";
-import { FormatTypeOption } from "./FormatType";
-import { FormatUnitLabel } from "./FormatUnitLabel";
-import { FormatUnits } from "./FormatUnits";
-import { MiscFormatOptions } from "./MiscFormatOptions";
+import { FormatPrecision } from "./FormatPrecision.js";
+import { FormatSample } from "./FormatSample.js";
+import { FormatTypeOption } from "./FormatType.js";
+import { FormatUnitLabel } from "./FormatUnitLabel.js";
+import { FormatUnits } from "./FormatUnits.js";
+import { MiscFormatOptions } from "./MiscFormatOptions.js";
 
 /** Properties of [[FormatPanel]] component.
  * @alpha

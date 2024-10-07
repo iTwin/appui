@@ -10,7 +10,7 @@ import "./CheckListBox.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { Checkbox } from "@itwin/itwinui-react";
-import type { CommonProps } from "../utils/Props";
+import type { CommonProps } from "../utils/Props.js";
 
 /** Properties for the [[CheckListBoxItem]] component
  * @public

@@ -9,26 +9,26 @@
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
 import { FillCentered } from "@itwin/core-react";
-import { DelayedSpinner } from "../../../common/DelayedSpinner";
-import type { SelectionMode } from "../../../common/selection/SelectionModes";
-import type { HighlightableTreeProps } from "../../HighlightingEngine";
-import { TreeImageLoader } from "../../ImageLoader";
-import { TreeEventDispatcher } from "../TreeEventDispatcher";
-import type { TreeEvents } from "../TreeEvents";
+import { DelayedSpinner } from "../../../common/DelayedSpinner.js";
+import type { SelectionMode } from "../../../common/selection/SelectionModes.js";
+import type { HighlightableTreeProps } from "../../HighlightingEngine.js";
+import { TreeImageLoader } from "../../ImageLoader.js";
+import { TreeEventDispatcher } from "../TreeEventDispatcher.js";
+import type { TreeEvents } from "../TreeEvents.js";
 import type {
   TreeModel,
   TreeModelNode,
   TreeModelNodePlaceholder,
   VisibleTreeNodes,
-} from "../TreeModel";
-import { computeVisibleNodes, isTreeModelNode } from "../TreeModel";
-import type { ITreeNodeLoader } from "../TreeNodeLoader";
-import type { TreeNodeRendererProps } from "./TreeNodeRenderer";
-import { TreeNodeRenderer } from "./TreeNodeRenderer";
-import type { RenderedItemsRange, TreeRendererProps } from "./TreeRenderer";
-import { TreeRenderer } from "./TreeRenderer";
-import { useElementsScrollStorage } from "../../../common/UseElementsScrollStorage";
-import { useTranslation } from "../../../l10n/useTranslation";
+} from "../TreeModel.js";
+import { computeVisibleNodes, isTreeModelNode } from "../TreeModel.js";
+import type { ITreeNodeLoader } from "../TreeNodeLoader.js";
+import type { TreeNodeRendererProps } from "./TreeNodeRenderer.js";
+import { TreeNodeRenderer } from "./TreeNodeRenderer.js";
+import type { RenderedItemsRange, TreeRendererProps } from "./TreeRenderer.js";
+import { TreeRenderer } from "./TreeRenderer.js";
+import { useElementsScrollStorage } from "../../../common/UseElementsScrollStorage.js";
+import { useTranslation } from "../../../l10n/useTranslation.js";
 
 /**
  * Properties for [[ControlledTree]]

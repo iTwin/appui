@@ -8,9 +8,9 @@
 
 import * as React from "react";
 import type { PropertyDescription } from "@itwin/appui-abstract";
-import type { PropertyFilterBuilderActions } from "./FilterBuilderState";
-import type { PropertyFilterBuilderRuleOperatorProps } from "./FilterBuilderRuleOperator";
-import type { PropertyFilterBuilderRuleValueRendererProps } from "./FilterBuilderRuleValue";
+import type { PropertyFilterBuilderActions } from "./FilterBuilderState.js";
+import type { PropertyFilterBuilderRuleOperatorProps } from "./FilterBuilderRuleOperator.js";
+import type { PropertyFilterBuilderRuleValueRendererProps } from "./FilterBuilderRuleValue.js";
 
 /**
  * Data structure that describes [[PropertyFilterBuilderContext]] value.

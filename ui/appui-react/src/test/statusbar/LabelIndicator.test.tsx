@@ -4,7 +4,10 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { render } from "@testing-library/react";
-import { StatusBarLabelIndicator, StatusBarLabelSide } from "../../appui-react";
+import {
+  StatusBarLabelIndicator,
+  StatusBarLabelSide,
+} from "../../appui-react.js";
 
 describe("LabelIndicator", () => {
   it("Should render label on left", () => {

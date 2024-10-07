@@ -7,14 +7,14 @@ import type { PropertyRecord } from "@itwin/appui-abstract";
 import {
   CompositeFilterType,
   CompositePropertyDataFilterer,
-} from "../../../../components-react/propertygrid/dataproviders/filterers/CompositePropertyDataFilterer";
-import type { IPropertyDataFilterer } from "../../../../components-react/propertygrid/dataproviders/filterers/PropertyDataFiltererBase";
+} from "../../../../components-react/propertygrid/dataproviders/filterers/CompositePropertyDataFilterer.js";
+import type { IPropertyDataFilterer } from "../../../../components-react/propertygrid/dataproviders/filterers/PropertyDataFiltererBase.js";
 import {
   FilteredType,
   PropertyFilterChangeEvent,
-} from "../../../../components-react/propertygrid/dataproviders/filterers/PropertyDataFiltererBase";
-import type { PropertyCategory } from "../../../../components-react/propertygrid/PropertyDataProvider";
-import { TestUtils } from "../../../TestUtils";
+} from "../../../../components-react/propertygrid/dataproviders/filterers/PropertyDataFiltererBase.js";
+import type { PropertyCategory } from "../../../../components-react/propertygrid/PropertyDataProvider.js";
+import { TestUtils } from "../../../TestUtils.js";
 
 describe("CompositePropertyDataFilterer", () => {
   const testRecord = TestUtils.createPrimitiveStringProperty("Test", "Test");

@@ -8,7 +8,7 @@
 
 import type { XAndY } from "@itwin/core-geometry";
 import { RelativePosition, UiEvent } from "@itwin/appui-abstract";
-import { Point } from "@itwin/core-react";
+import { Point } from "@itwin/core-react/internal";
 
 /** Enum for Cursor Direction parts
  *  @public

@@ -6,7 +6,6 @@
 
 import type { ActionButton } from '@itwin/appui-abstract';
 import { AlternateDateFormats } from '@itwin/appui-abstract';
-import type { BadgeKind } from '@itwin/core-react';
 import { BeEvent } from '@itwin/core-bentley';
 import { BeUiEvent } from '@itwin/core-bentley';
 import type { Checkbox } from '@itwin/itwinui-react';
@@ -28,18 +27,17 @@ import type { Localization } from '@itwin/core-common';
 import { LocalizationProvider as LocalizationProvider_2 } from '@itwin/core-react';
 import type { MessageSeverity } from '@itwin/appui-abstract';
 import type { NoChildrenProps } from '@itwin/core-react';
-import { Observable as Observable_2 } from 'rxjs';
 import type { OnItemExecutedFunc } from '@itwin/appui-abstract';
 import { Orientation as Orientation_2 } from '@itwin/core-react';
 import type { ParseResults } from '@itwin/appui-abstract';
 import type { Primitives } from '@itwin/appui-abstract';
 import type { PrimitiveValue } from '@itwin/appui-abstract';
+import { PropertyData as PropertyData_2 } from '../PropertyDataProvider.js';
 import { PropertyDescription } from '@itwin/appui-abstract';
 import { PropertyRecord } from '@itwin/appui-abstract';
 import type { PropertyValue } from '@itwin/appui-abstract';
 import { default as React_2 } from 'react';
 import * as React_3 from 'react';
-import { RelativePosition } from '@itwin/appui-abstract';
 import type { SelectOption } from '@itwin/itwinui-react';
 import { TimeDisplay } from '@itwin/appui-abstract';
 import { TimeFormat as TimeFormat_2 } from '@itwin/core-react';
@@ -197,9 +195,6 @@ export interface BuildFilterOptions {
     ignoreErrors?: boolean;
 }
 
-// @internal (undocumented)
-export function buildPropertyFilter(groupItem: PropertyFilterBuilderRuleGroupItem): PropertyFilter | undefined;
-
 // @public
 export interface CategorizedPropertyItem extends FlatGridItemBase {
     // (undocumented)
@@ -247,14 +242,6 @@ export interface CheckboxStateChange {
     nodeItem: TreeNodeItem;
 }
 
-// @internal
-export function Columns(props: ColumnsProps): React_3.JSX.Element;
-
-// @internal
-export interface ColumnsProps extends CommonProps {
-    children?: React_3.ReactNode;
-}
-
 // @public
 export interface CommonPropertyGridProps extends CommonProps {
     actionButtonRenderers?: ActionButtonRenderer[];
@@ -274,11 +261,6 @@ export interface CommonPropertyGridProps extends CommonProps {
     orientation?: Orientation;
     propertyValueRendererManager?: PropertyValueRendererManager;
 }
-
-// @internal
-export type CommonToolbarItemWithBadgeKind = CommonToolbarItem & {
-    badgeKind?: BadgeKind;
-};
 
 // @public
 export interface CompletionObserver<T> {
@@ -431,18 +413,6 @@ export abstract class DataControllerBase implements DataController {
     validateValue(_newValue: PropertyValue, _record: PropertyRecord): Promise<AsyncValueProcessingResult>;
 }
 
-// @internal
-export function DateField({ initialDate, onDateChange, readOnly, dateFormatter, timeDisplay, style, className, }: DateFieldProps): React_3.JSX.Element;
-
-// @internal
-export interface DateFieldProps extends CommonProps {
-    dateFormatter?: DateFormatter;
-    initialDate: Date;
-    onDateChange?: (day: Date) => void;
-    readOnly?: boolean;
-    timeDisplay?: TimeDisplay;
-}
-
 // @public
 export interface DateFormatOptions {
     // (undocumented)
@@ -476,36 +446,6 @@ export interface DatePickerProps {
     onDateChange?: (day: Date) => void;
     selected: Date;
     showFocusOutline?: boolean;
-}
-
-// @internal
-export class DateTimeEditor extends React_3.PureComponent<DateTimeEditorProps, DateTimeEditorState> implements TypeEditor {
-    // (undocumented)
-    componentDidMount(): void;
-    // (undocumented)
-    componentDidUpdate(prevProps: PropertyEditorProps): void;
-    // (undocumented)
-    componentWillUnmount(): void;
-    // (undocumented)
-    getPropertyValue(): Promise<PropertyValue | undefined>;
-    // (undocumented)
-    get hasFocus(): boolean;
-    // (undocumented)
-    get htmlElement(): HTMLElement | null;
-    // (undocumented)
-    processDateChange(typeConverter: TypeConverter, newValue: Date): Promise<void>;
-    // (undocumented)
-    render(): React_3.ReactNode;
-    // (undocumented)
-    readonly state: Readonly<DateTimeEditorState>;
-}
-
-// @internal
-export class DateTimePropertyEditor extends PropertyEditorBase {
-    // (undocumented)
-    get containerHandlesTab(): boolean;
-    // (undocumented)
-    get reactNode(): React_3.ReactNode;
 }
 
 // @public
@@ -575,18 +515,6 @@ export enum Direction {
     Top = 2
 }
 
-// @internal
-export class DirectionHelpers {
-    static readonly BOTTOM_CLASS_NAME = "components-direction-bottom";
-    // (undocumented)
-    static getCssClassName(direction: Direction): string;
-    // (undocumented)
-    static getOrthogonalDirection(direction: Direction): OrthogonalDirection;
-    static readonly LEFT_CLASS_NAME = "components-direction-left";
-    static readonly RIGHT_CLASS_NAME = "components-direction-right";
-    static readonly TOP_CLASS_NAME = "components-direction-top";
-}
-
 // @public
 export class DisplayValuePropertyDataFilterer extends PropertyRecordDataFiltererBase {
     constructor(filterText?: string);
@@ -603,16 +531,6 @@ export class DisplayValuePropertyDataFilterer extends PropertyRecordDataFilterer
 export class DoublePropertyValueRenderer implements IPropertyValueRenderer {
     canRender(record: PropertyRecord): boolean;
     render(record: PropertyRecord, context?: PropertyValueRendererContext): React_3.JSX.Element;
-}
-
-// @internal (undocumented)
-export class DragAction<Item> {
-    constructor(componentSelectionHandler: MultiSelectionHandler<Item>, itemSelectionHandlers: Array<Array<SingleSelectionHandler<Item>>>, firstItem: Item);
-    // (undocumented)
-    updateDragAction(latestItem: Item): {
-        selections: Item[];
-        deselections: Item[];
-    };
 }
 
 // @public
@@ -841,20 +759,11 @@ export class FloatTypeConverter extends NumericTypeConverterBase {
     convertToString(value?: Primitives.Float): string;
 }
 
-// @internal
-export function formatInputDate(inputDate: Date, timeDisplay?: TimeDisplay, customFormatter?: DateFormatter, alternateDateFormat?: AlternateDateFormats): string | undefined;
-
 // @public
 export function from<T>(iterable: Iterable<T> | PromiseLike<T>): Observable<T>;
 
 // @beta
 export function getPropertyFilterBuilderOperators(property: PropertyDescription): PropertyFilterBuilderRuleOperator[];
-
-// @internal
-export function getPropertyKey(propertyCategory: PropertyCategory, propertyRecord: PropertyRecord): string;
-
-// @internal (undocumented)
-export const getToolbarDirection: (expandsTo: Direction) => OrthogonalDirection;
 
 // @public
 export function getVisibleDescendants(model: TreeModel, parentNode: TreeModelNode | TreeModelRootNode, result?: Array<TreeModelNode | TreeModelNodePlaceholder>): Array<TreeModelNode | TreeModelNodePlaceholder>;
@@ -868,35 +777,6 @@ export interface GridCategoryItem extends FlatGridItemBase {
     // (undocumented)
     readonly type: FlatGridItemType.Category;
 }
-
-// @internal
-export function GroupColumn(props: GroupColumnProps): React_3.JSX.Element;
-
-// @internal
-export interface GroupColumnProps extends CommonProps {
-    children?: React_3.ReactNode;
-}
-
-// @internal
-export function GroupTool(props: GroupToolProps): React_3.JSX.Element;
-
-// @internal
-export interface GroupToolProps extends CommonProps {
-    badge?: React_3.ReactNode;
-    children?: React_3.ReactNode;
-    icon?: React_3.ReactNode;
-    isActive?: boolean;
-    isDisabled?: boolean;
-    isFocused?: boolean;
-    item: GroupButton | ActionButton;
-    label?: string;
-    onClick?: (item: GroupButton | ActionButton) => void;
-    onKeyDown?: (e: React_3.KeyboardEvent) => void;
-    onPointerUp?: (item: GroupButton | ActionButton) => void;
-}
-
-// @internal (undocumented)
-export function handleLoadedNodeHierarchy(modelSource: TreeModelSource, loadedHierarchy: LoadedNodeHierarchy): void;
 
 // @public
 export const hasChildren: (node: TreeNodeItem) => boolean;
@@ -1141,27 +1021,6 @@ export interface IMutablePropertyGridModel {
     getVisibleFlatGrid: () => IMutableFlatGridItem[];
 }
 
-// @internal
-export function InternalToolbarComponent(props: InternalToolbarComponentProps): React_3.JSX.Element;
-
-// @internal
-export interface InternalToolbarComponentProps extends CommonProps, // eslint-disable-line deprecation/deprecation
-NoChildrenProps {
-    enableOverflow?: boolean | {
-        overflowExpandsTo?: Direction;
-    };
-    expandsTo?: Direction;
-    items: CommonToolbarItemWithBadgeKind[];
-    onItemExecuted?: OnItemExecutedFunc;
-    onKeyDown?: (e: React_3.KeyboardEvent) => void;
-    panelAlignment?: ToolbarPanelAlignment;
-    syncUiEvent?: BeEvent<(args: {
-        eventIds: Set<string>;
-    }) => void>;
-    toolbarOpacitySetting?: ToolbarOpacitySetting;
-    useDragInteraction?: boolean;
-}
-
 // @alpha @deprecated
 export class IntlFormatter implements DateFormatter {
     constructor(_intlFormatter?: Intl.DateTimeFormat | undefined);
@@ -1232,9 +1091,6 @@ export interface IPropertyValueRenderer {
     canRender: (record: PropertyRecord, context?: PropertyValueRendererContext) => boolean;
     render: (record: PropertyRecord, context?: PropertyValueRendererContext) => React_3.ReactNode;
 }
-
-// @internal
-export function isCustomToolbarItem(item: ToolbarItem): item is CustomToolbarItem;
 
 // @beta
 export function isPropertyFilterBuilderRuleGroup(item: PropertyFilterBuilderRuleGroupItem): item is PropertyFilterBuilderRuleGroup;
@@ -1390,25 +1246,6 @@ export const matchLinks: (text: string) => Array<{
 export class MergedPropertyValueRenderer implements IPropertyValueRenderer {
     canRender(record: PropertyRecord): boolean;
     render(_record: PropertyRecord, context?: PropertyValueRendererContext): string | number | boolean | Iterable<React_3.ReactNode> | React_3.JSX.Element | null | undefined;
-}
-
-// @internal (undocumented)
-export class MultilineTextPropertyValueRenderer implements IPropertyValueRenderer {
-    // (undocumented)
-    canRender(record: PropertyRecord): boolean;
-    // (undocumented)
-    render(record: PropertyRecord, context?: PropertyValueRendererContext): React_3.ReactNode;
-}
-
-// @internal (undocumented)
-export const MultilineTextRenderer: React_3.FC<MultilineTextRendererProps>;
-
-// @internal
-export interface MultiSelectionHandler<TItem> {
-    areEqual: (item1: TItem, item2: TItem) => boolean;
-    deselectAll: () => void;
-    selectBetween: (item1: TItem, item2: TItem) => TItem[];
-    updateSelection: (selections: TItem[], deselections: TItem[]) => void;
 }
 
 // @public
@@ -1765,16 +1602,6 @@ export enum OrthogonalDirection {
     Vertical = 0
 }
 
-// @internal
-export class OrthogonalDirectionHelpers {
-    // (undocumented)
-    static getCssClassName(direction: OrthogonalDirection): string;
-    static readonly HORIZONTAL_CLASS_NAME = "components-horizontal";
-    // (undocumented)
-    static inverse(direction: OrthogonalDirection): OrthogonalDirection;
-    static readonly VERTICAL_CLASS_NAME = "components-vertical";
-}
-
 // @public
 export class PagedTreeNodeLoader<TDataProvider extends TreeDataProvider> extends AbstractTreeNodeLoaderWithProvider<TDataProvider> {
     constructor(dataProvider: TDataProvider, modelSource: TreeModelSource, pageSize: number);
@@ -1790,16 +1617,6 @@ export interface PageOptions {
     size?: number;
     // (undocumented)
     start?: number;
-}
-
-// @internal
-export function Panel(props: PanelProps): React_3.JSX.Element;
-
-// @internal
-export interface PanelProps extends CommonProps {
-    children?: React_3.ReactNode;
-    // (undocumented)
-    onKeyDown?: (e: React_3.KeyboardEvent) => void;
 }
 
 // @public
@@ -1835,9 +1652,6 @@ export class Point3dTypeConverter extends BasePointTypeConverter {
 
 // @public @deprecated
 export function PopupItem(props: PopupItemProps): React_3.JSX.Element;
-
-// @internal (undocumented)
-export function PopupItemPopup(props: PopupItemPopupProps): React_3.JSX.Element;
 
 // @public @deprecated
 export interface PopupItemProps extends ToolbarButtonItemProps {
@@ -1878,9 +1692,6 @@ export class PrimitivePropertyValueRenderer implements IPropertyValueRenderer {
     canRender(record: PropertyRecord): boolean;
     render(record: PropertyRecord, context?: PropertyValueRendererContext): React_3.JSX.Element;
 }
-
-// @internal (undocumented)
-export function PrimitivePropertyValueRendererImpl(props: PrimitivePropertyValueRendererImplProps): React_3.JSX.Element;
 
 // @public
 export interface PrimitiveRendererProps extends SharedRendererProps {
@@ -2160,9 +1971,6 @@ export interface PropertyFilterBuilderRuleOperatorProps {
     property: PropertyDescription;
 }
 
-// @internal
-export function PropertyFilterBuilderRuleOperatorRenderer(props: PropertyFilterBuilderRuleOperatorProps): React_3.JSX.Element;
-
 // @beta
 export interface PropertyFilterBuilderRuleRangeValue {
     // (undocumented)
@@ -2255,17 +2063,6 @@ export enum PropertyFilterRuleOperator {
     Like = "like"
 }
 
-// @internal (undocumented)
-export class PropertyGridCommons {
-    // (undocumented)
-    static getCurrentOrientation(width: number, preferredOrientation?: Orientation, isOrientationFixed?: boolean, horizontalOrientationMinWidth?: number): Orientation;
-    static getLinks: (value: string) => Array<{
-        start: number;
-        end: number;
-    }>;
-    static handleLinkClick(text: string): void;
-}
-
 // @public
 export interface PropertyGridContentHighlightProps extends HighlightingComponentProps {
     filteredTypes?: FilteredType[];
@@ -2283,39 +2080,6 @@ export class PropertyGridEventHandler {
     onExpansionToggled: (selectionKey: string) => void;
 }
 
-// @internal (undocumented)
-export type PropertyGridEventsRelatedProps = Pick<PropertyListProps, "onPropertyClicked" | "onPropertyRightClicked" | "onPropertyContextMenu" | "onEditCommit" | "onEditCancel" | "selectedPropertyKey" | "editingPropertyKey"> & Pick<CommonPropertyGridProps, "isPropertySelectionOnRightClickEnabled" | "isPropertyEditingEnabled"> & Required<Pick<CommonPropertyGridProps, "isPropertyHoverEnabled" | "isPropertySelectionEnabled">>;
-
-// @internal
-export class PropertyGridEventsRelatedPropsSupplier extends React_3.Component<PropertyGridEventsRelatedPropsSupplierProps, PropertyGridEventsRelatedPropsSupplierState> {
-    constructor(props: PropertyGridEventsRelatedPropsSupplierProps);
-    // (undocumented)
-    render(): React_3.JSX.Element;
-}
-
-// @internal
-export type PropertyGridEventsRelatedPropsSupplierProps = Pick<CommonPropertyGridProps, "onPropertyContextMenu" | "isPropertySelectionOnRightClickEnabled" | "isPropertySelectionOnRightClickEnabled" | "onPropertySelectionChanged" | "isPropertyEditingEnabled" | "onPropertyUpdated"> & Required<Pick<CommonPropertyGridProps, "isPropertyHoverEnabled" | "isPropertySelectionEnabled">> & {
-    children: (context: PropertyGridEventsRelatedProps) => React_3.ReactNode;
-};
-
-// @internal
-export interface PropertyGridInternalContext {
-    // (undocumented)
-    className?: string;
-    // (undocumented)
-    gridContext: VirtualizedPropertyGridContext;
-    // (undocumented)
-    gridEventHandler: IPropertyGridEventHandler;
-    // (undocumented)
-    gridItems: FlatGridItem[];
-    // (undocumented)
-    gridModel: IPropertyGridModel;
-    // (undocumented)
-    onItemHeightChanged: (index: number, key: string, height: number) => void;
-    // (undocumented)
-    style?: React_3.CSSProperties;
-}
-
 // @public
 export class PropertyGridModelChangeEvent extends BeEvent<PropertyGridModelChangeListener> {
 }
@@ -2331,13 +2095,6 @@ export class PropertyGridModelSource implements IPropertyGridModelSource {
     onModelChanged: PropertyGridModelChangeEvent;
     // (undocumented)
     setPropertyData(data: PropertyData): void;
-}
-
-// @internal (undocumented)
-export class PropertyLabelRenderer extends React_3.PureComponent<PropertyLabelRendererProps> {
-    static getStyle(offset?: number): React_3.CSSProperties;
-    // (undocumented)
-    render(): React_3.JSX.Element;
 }
 
 // @public
@@ -2541,21 +2298,6 @@ export interface SelectableContentProps {
     selectAriaLabel?: string;
 }
 
-// @internal (undocumented)
-export class SelectionHandler<Item> {
-    constructor(selectionMode: SelectionMode_2, onItemsSelectedCallback?: OnItemsSelectedCallback<Item>, onItemsDeselectedCallback?: OnItemsDeselectedCallback<Item>);
-    completeDragAction(): void;
-    createDragAction(componentSelectionHandler: MultiSelectionHandler<Item>, items: Array<Array<SingleSelectionHandler<Item>>>, firstItem: Item): void;
-    createSelectionFunction(componentHandler: MultiSelectionHandler<Item>, itemHandler: SingleSelectionHandler<Item>): OnSelectionChanged;
-    // (undocumented)
-    onItemsDeselectedCallback?: OnItemsDeselectedCallback<Item>;
-    // (undocumented)
-    onItemsSelectedCallback?: OnItemsSelectedCallback<Item>;
-    get processedItem(): Item | undefined;
-    selectionMode: SelectionMode_2;
-    updateDragAction(latestItem: Item): void;
-}
-
 // @public
 enum SelectionMode_2 {
     Extended = 12,
@@ -2609,14 +2351,6 @@ export interface SharedTableNonPrimitiveValueRendererProps {
     onDialogOpen?: (dialogState: PropertyDialogState) => void;
 }
 
-// @internal
-export class ShortDateTimePropertyEditor extends PropertyEditorBase {
-    // (undocumented)
-    get containerHandlesTab(): boolean;
-    // (undocumented)
-    get reactNode(): React_3.ReactNode;
-}
-
 // @public
 export class ShortDateTypeConverter extends DateTimeTypeConverterBase {
     // (undocumented)
@@ -2664,15 +2398,6 @@ export class SimpleTreeDataProvider implements ITreeDataProvider {
 // @public
 export type SimpleTreeDataProviderHierarchy = Map<string | undefined, TreeNodeItem[]>;
 
-// @internal
-export interface SingleSelectionHandler<TItem> {
-    deselect: () => void;
-    isSelected: () => boolean;
-    item: () => TItem;
-    preselect: () => void;
-    select: () => void;
-}
-
 // @public
 export class SliderEditor extends React_3.PureComponent<PropertyEditorProps, SliderEditorState> implements TypeEditor {
     // (undocumented)
@@ -2718,33 +2443,6 @@ export class SparseArray<T> implements Iterable<T | undefined> {
     remove(index: number): void;
     set(index: number, value: T): void;
     setLength(length: number): void;
-}
-
-// @internal
-export class SparseTree<T extends Node_2> {
-    // (undocumented)
-    [immerable]: boolean;
-    constructor();
-    // (undocumented)
-    deleteSubtree(parentId: string | undefined, deleteParent?: boolean): void;
-    // (undocumented)
-    getChildOffset(parentId: string | undefined, childId: string): number | undefined;
-    // (undocumented)
-    getChildren(parentId: string | undefined, createIfNotExist?: boolean): SparseArray<string> | undefined;
-    // (undocumented)
-    getNode(nodeId: string): T | undefined;
-    // (undocumented)
-    insertChild(parentId: string | undefined, child: T, offset: number): void;
-    // (undocumented)
-    moveNode(sourceParentId: string | undefined, sourceNodeId: string, targetParentId: string | undefined, targetIndex: number): void;
-    // (undocumented)
-    removeChild(parentId: string | undefined, child: string | number): void;
-    // (undocumented)
-    setChildren(parentId: string | undefined, children: T[], offset: number): void;
-    // (undocumented)
-    setNodeId(parentId: string | undefined, index: number, newId: string): boolean;
-    // (undocumented)
-    setNumChildren(parentId: string | undefined, numChildren: number): void;
 }
 
 // @public
@@ -2905,44 +2603,11 @@ export class TextEditor extends React_3.PureComponent<PropertyEditorProps, TextE
     readonly state: Readonly<TextEditorState>;
 }
 
-// @internal
-export function TimeField({ time, timeDisplay, readOnly, onTimeChange, }: TimeFieldProps): React_3.JSX.Element;
-
-// @internal
-export interface TimeFieldProps {
-    // (undocumented)
-    onTimeChange?: (time: TimeSpec) => void;
-    // (undocumented)
-    readOnly?: boolean;
-    // (undocumented)
-    time: TimeSpec;
-    // (undocumented)
-    timeDisplay: TimeDisplay;
-}
-
 // @public
 export type TimeFormat = TimeFormat_2;
 
 // @public
 export const TimeFormat: typeof TimeFormat_2;
-
-// @internal
-export interface TimeSpec {
-    // (undocumented)
-    hours: number;
-    // (undocumented)
-    minutes: number;
-    // (undocumented)
-    seconds: number;
-}
-
-// @internal
-export function Title(props: TitleProps): React_3.JSX.Element;
-
-// @internal
-export interface TitleProps extends CommonProps {
-    children?: React_3.ReactNode;
-}
 
 // @public
 export const toDateString: (date: Date, timeZoneOffset?: number, formatOptions?: DateFormatOptions) => string;
@@ -2999,59 +2664,11 @@ export interface ToolbarButtonItemProps extends CommonProps {
 // @public @deprecated
 export type ToolbarItem = ActionButton | GroupButton | CustomToolbarItem;
 
-// @internal (undocumented)
-export function ToolbarItemComponent({ item, addGroupSeparator, badgeKind, }: {
-    item: ToolbarItem;
-    addGroupSeparator: boolean;
-    badgeKind?: BadgeKind;
-}): React_3.JSX.Element | null;
-
-// @internal
-export const ToolbarItemContext: React_3.Context<ToolbarItemContextArgs>;
-
-// @internal
-export interface ToolbarItemContextArgs {
-    // (undocumented)
-    readonly hasOverflow: boolean;
-    // (undocumented)
-    readonly onResize: (w: number) => void;
-    // (undocumented)
-    readonly useHeight: boolean;
-}
-
 // @public
 export enum ToolbarOpacitySetting {
     Defaults = 0,
     Proximity = 1,
     Transparent = 2
-}
-
-// @internal (undocumented)
-export interface ToolbarOverflowContextProps {
-    // (undocumented)
-    readonly direction: OrthogonalDirection;
-    // (undocumented)
-    readonly expandsTo: Direction;
-    // (undocumented)
-    readonly onItemExecuted: OnItemExecutedFunc;
-    // (undocumented)
-    readonly onKeyDown: (e: React_3.KeyboardEvent) => void;
-    // (undocumented)
-    readonly onPopupPanelOpenClose: (isOpening: boolean) => void;
-    // (undocumented)
-    readonly openPopupCount: number;
-    // (undocumented)
-    readonly overflowDirection: OrthogonalDirection;
-    // (undocumented)
-    readonly overflowDisplayActive: boolean;
-    // (undocumented)
-    readonly overflowExpandsTo: Direction;
-    // (undocumented)
-    readonly panelAlignment: ToolbarPanelAlignment;
-    // (undocumented)
-    readonly toolbarOpacitySetting: ToolbarOpacitySetting;
-    // (undocumented)
-    readonly useDragInteraction: boolean;
 }
 
 // @public
@@ -3060,14 +2677,6 @@ export enum ToolbarPanelAlignment {
     End = 1,
     // (undocumented)
     Start = 0
-}
-
-// @internal
-export class ToolbarPanelAlignmentHelpers {
-    static readonly END_CLASS_NAME = "components-panel-alignment-end";
-    // (undocumented)
-    static getCssClassName(panelAlignment: ToolbarPanelAlignment): string;
-    static readonly START_CLASS_NAME = "components-panel-alignment-start";
 }
 
 // @public
@@ -3098,9 +2707,6 @@ export interface ToolbarProps extends CommonProps, NoChildrenProps {
 // @public @deprecated
 export function ToolbarWithOverflow(props: ToolbarWithOverflowProps): React_3.JSX.Element;
 
-// @internal
-export const ToolbarWithOverflowDirectionContext: React_3.Context<ToolbarOverflowContextProps>;
-
 // @public @deprecated
 export interface ToolbarWithOverflowProps extends CommonProps, NoChildrenProps {
     expandsTo?: Direction;
@@ -3113,14 +2719,8 @@ export interface ToolbarWithOverflowProps extends CommonProps, NoChildrenProps {
     useDragInteraction?: boolean;
 }
 
-// @internal (undocumented)
-export function toRxjsObservable<T>(observable: Observable<T>): Observable_2<T>;
-
 // @public
 export const toTimeString: (date: Date, timeZoneOffset?: number, formatOptions?: DateFormatOptions) => string;
-
-// @internal (undocumented)
-export function toToolbarPopupRelativePosition(expandsTo: Direction, alignment: ToolbarPanelAlignment): RelativePosition;
 
 // @public
 export interface TreeActions {
@@ -3161,39 +2761,9 @@ export type TreeDataProviderPromise = Promise<TreeDataProviderRaw>;
 // @public
 export type TreeDataProviderRaw = ImmediatelyLoadedTreeNodeItem[];
 
-// @internal
-export class TreeDataSource {
-    constructor(dataProvider: TreeDataProvider);
-    // (undocumented)
-    requestItems(parent: TreeNodeItem | undefined, firstItemIndex: number, numItems: number, requestNumChildren: boolean): Observable_2<TreeDataSourceResult>;
-}
-
 // @public
 export interface TreeEditingParams {
     onNodeUpdated: (node: TreeModelNode, newValue: string) => void;
-}
-
-// @internal
-export class TreeEventDispatcher implements TreeActions {
-    constructor(treeEvents: TreeEvents, nodeLoader: ITreeNodeLoader, selectionMode: SelectionMode_2, getVisibleNodes: () => VisibleTreeNodes);
-    // (undocumented)
-    onNodeCheckboxClicked(nodeId: string, newState: CheckBoxState): void;
-    // (undocumented)
-    onNodeClicked(nodeId: string, event: React.MouseEvent<Element, MouseEvent>): void;
-    // (undocumented)
-    onNodeCollapsed(nodeId: string): void;
-    // (undocumented)
-    onNodeEditorActivated(nodeId: string): void;
-    // (undocumented)
-    onNodeExpanded(nodeId: string): void;
-    // (undocumented)
-    onNodeMouseDown(nodeId: string): void;
-    // (undocumented)
-    onNodeMouseMove(nodeId: string): void;
-    // (undocumented)
-    onTreeKeyDown(event: React.KeyboardEvent): void;
-    // (undocumented)
-    onTreeKeyUp(event: React.KeyboardEvent): void;
 }
 
 // @public
@@ -3558,7 +3128,7 @@ export class UiComponents {
     static get initialized(): boolean;
     static get localizationNamespace(): string;
     // @internal (undocumented)
-    static loggerCategory(obj: any): string;
+    static loggerCategory(name: string): string;
     // @internal (undocumented)
     static get packageName(): string;
     static terminate(): void;
@@ -3607,7 +3177,7 @@ export function usePagedTreeNodeLoader<TDataProvider extends TreeDataProvider>(d
 export function usePropertyData(props: {
     dataProvider: IPropertyDataProvider;
 }): {
-    value: PropertyData | undefined;
+    value: PropertyData_2 | undefined;
     inProgress: boolean;
 };
 
@@ -3642,23 +3212,11 @@ export function usePropertyGridModelSource(props: {
     dataProvider: IPropertyDataProvider;
 }): PropertyGridModelSource;
 
-// @internal (undocumented)
-export function useRenderedStringValue(record: PropertyRecord, stringValueCalculator: (record: PropertyRecord) => string | Promise<string>, context?: PropertyValueRendererContext, linksHandler?: LinkElementsInfo): {
-    stringValue?: string;
-    element: React_3.ReactNode;
-};
-
 // @public
 export function useToolbarPopupAutoHideContext(): boolean;
 
 // @public @deprecated
 export function useToolbarPopupContext(): ToolbarPopupContextProps;
-
-// @internal (undocumented)
-export function useToolbarWithOverflowDirectionContext(): ToolbarOverflowContextProps;
-
-// @internal (undocumented)
-export function useToolItemEntryContext(): ToolbarItemContextArgs;
 
 // @public
 export function useTrackedPropertyGridModelSource(props: {
@@ -3666,11 +3224,6 @@ export function useTrackedPropertyGridModelSource(props: {
 }): {
     modelSource: PropertyGridModelSource;
     inProgress: boolean;
-};
-
-// @internal
-export function useTranslation(): {
-    translate: (key: string) => string;
 };
 
 // @public @deprecated

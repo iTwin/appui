@@ -9,9 +9,9 @@
 import * as React from "react";
 import { DropdownMenu, IconButton } from "@itwin/itwinui-react";
 import { SvgMore } from "@itwin/itwinui-icons-react";
-import { useLabelProps } from "./Item";
-import { usePopoverPlacement } from "./GroupItem";
-import { ToolbarContext } from "./Toolbar";
+import { useLabelProps } from "./Item.js";
+import { usePopoverPlacement } from "./GroupItem.js";
+import { ToolbarContext } from "./Toolbar.js";
 
 /** @internal */
 interface ToolGroupOverflow {

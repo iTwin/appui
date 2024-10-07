@@ -9,8 +9,8 @@
 import type { Patch } from "immer";
 import { produce } from "immer";
 import { BeUiEvent } from "@itwin/core-bentley";
-import type { TreeModel } from "./TreeModel";
-import { MutableTreeModel } from "./TreeModel";
+import type { TreeModel } from "./TreeModel.js";
+import { MutableTreeModel } from "./TreeModel.js";
 
 /**
  * Data structure that describes changes which happened to the tree model

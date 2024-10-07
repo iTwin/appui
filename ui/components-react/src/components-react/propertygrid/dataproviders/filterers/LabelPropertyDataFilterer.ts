@@ -7,12 +7,12 @@
  */
 
 import type { PropertyRecord } from "@itwin/appui-abstract";
-import { countMatchesInString } from "../../../common/countMatchesInString";
-import type { PropertyDataFilterResult } from "./PropertyDataFiltererBase";
+import { countMatchesInString } from "../../../common/countMatchesInString.js";
+import type { PropertyDataFilterResult } from "./PropertyDataFiltererBase.js";
 import {
   FilteredType,
   PropertyRecordDataFiltererBase,
-} from "./PropertyDataFiltererBase";
+} from "./PropertyDataFiltererBase.js";
 
 /**
  * PropertyData filter which matches on any record type label and includes descendant nodes on match

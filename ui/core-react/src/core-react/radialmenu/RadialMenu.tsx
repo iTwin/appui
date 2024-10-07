@@ -10,12 +10,12 @@ import "./RadialMenu.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { Key } from "ts-key-enum";
-import type { IconSpec } from "../icons/IconComponent";
-import { Icon } from "../icons/IconComponent";
-import { Point } from "../utils/Point";
-import type { CommonProps } from "../utils/Props";
-import { AnnularSector, Annulus } from "./Annulus";
-import type { ContextMenu } from "../contextmenu/ContextMenu";
+import type { IconSpec } from "../icons/IconComponent.js";
+import { Icon } from "../icons/IconComponent.js";
+import { Point } from "../utils/Point.js";
+import type { CommonProps } from "../utils/Props.js";
+import { AnnularSector, Annulus } from "./Annulus.js";
+import type { ContextMenu } from "../contextmenu/ContextMenu.js";
 
 /* eslint-disable deprecation/deprecation */
 

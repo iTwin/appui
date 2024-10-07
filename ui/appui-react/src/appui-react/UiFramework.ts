@@ -20,78 +20,77 @@ import type {
   PropertyRecord,
 } from "@itwin/appui-abstract";
 import { UiAdmin, UiError, UiEvent } from "@itwin/appui-abstract";
-import { getObjectClassName } from "@itwin/core-react";
 import { UiIModelComponents } from "@itwin/imodel-components-react";
-import { BackstageManager } from "./backstage/BackstageManager";
-import { InternalChildWindowManager } from "./childwindow/InternalChildWindowManager";
-import { InternalConfigurableUiManager } from "./configurableui/InternalConfigurableUiManager";
-import type { FrameworkState as ReduxFrameworkState } from "./redux/FrameworkState";
+import { BackstageManager } from "./backstage/BackstageManager.js";
+import { InternalChildWindowManager } from "./childwindow/InternalChildWindowManager.js";
+import { InternalConfigurableUiManager } from "./configurableui/InternalConfigurableUiManager.js";
+import type { FrameworkState as ReduxFrameworkState } from "./redux/FrameworkState.js";
 import type {
   CursorMenuData,
   CursorMenuPayload,
   PresentationSelectionScope,
-} from "./redux/SessionState";
-import { SessionStateActionId } from "./redux/SessionState";
-import { StateManager } from "./redux/StateManager";
-import type { HideIsolateEmphasizeActionHandler } from "./selection/HideIsolateEmphasizeManager";
-import { HideIsolateEmphasizeManager } from "./selection/HideIsolateEmphasizeManager";
-import * as keyinPaletteTools from "./tools/KeyinPaletteTools";
-import * as openSettingTools from "./tools/OpenSettingsTool";
-import * as restoreLayoutTools from "./tools/RestoreLayoutTool";
-import * as toolSettingTools from "./tools/ToolSettingsTools";
+} from "./redux/SessionState.js";
+import { SessionStateActionId } from "./redux/SessionState.js";
+import { StateManager } from "./redux/StateManager.js";
+import type { HideIsolateEmphasizeActionHandler } from "./selection/HideIsolateEmphasizeManager.js";
+import { HideIsolateEmphasizeManager } from "./selection/HideIsolateEmphasizeManager.js";
+import * as keyinPaletteTools from "./tools/KeyinPaletteTools.js";
+import * as openSettingTools from "./tools/OpenSettingsTool.js";
+import * as restoreLayoutTools from "./tools/RestoreLayoutTool.js";
+import * as toolSettingTools from "./tools/ToolSettingsTools.js";
 import {
   InternalUiShowHideManager,
   UiShowHideSettingsProvider,
-} from "./utils/InternalUiShowHideManager";
-import { WidgetManager } from "./widgets/WidgetManager";
-import { InternalFrontstageManager } from "./frontstage/InternalFrontstageManager";
-import { InternalContentViewManager } from "./content/InternalContentViewManager";
-import { InternalModalDialogManager } from "./dialog/InternalModalDialogManager";
-import { InternalModelessDialogManager } from "./dialog/InternalModelessDialogManager";
-import { InternalKeyboardShortcutManager } from "./keyboardshortcut/InternalKeyboardShortcut";
-import { InternalToolSettingsManager } from "./toolsettings/InternalToolSettingsManager";
-import type { FrameworkBackstage } from "./framework/FrameworkBackstage";
-import type { FrameworkChildWindows } from "./framework/FrameworkChildWindows";
-import type { FrameworkControls } from "./framework/FrameworkControls";
-import type { FrameworkFrontstages } from "./framework/FrameworkFrontstages";
-import type { FrameworkToolSettings } from "./framework/FrameworkToolSettings";
-import type { FrameworkContent } from "./framework/FrameworkContent";
-import type { FrameworkDialogs } from "./framework/FrameworkDialogs";
-import type { FrameworkKeyboardShortcuts } from "./framework/FrameworkKeyboardShortcuts";
-import type { FrameworkVisibility } from "./framework/FrameworkVisibility";
+} from "./utils/InternalUiShowHideManager.js";
+import { WidgetManager } from "./widgets/WidgetManager.js";
+import { InternalFrontstageManager } from "./frontstage/InternalFrontstageManager.js";
+import { InternalContentViewManager } from "./content/InternalContentViewManager.js";
+import { InternalModalDialogManager } from "./dialog/InternalModalDialogManager.js";
+import { InternalModelessDialogManager } from "./dialog/InternalModelessDialogManager.js";
+import { InternalKeyboardShortcutManager } from "./keyboardshortcut/InternalKeyboardShortcut.js";
+import { InternalToolSettingsManager } from "./toolsettings/InternalToolSettingsManager.js";
+import type { FrameworkBackstage } from "./framework/FrameworkBackstage.js";
+import type { FrameworkChildWindows } from "./framework/FrameworkChildWindows.js";
+import type { FrameworkControls } from "./framework/FrameworkControls.js";
+import type { FrameworkFrontstages } from "./framework/FrameworkFrontstages.js";
+import type { FrameworkToolSettings } from "./framework/FrameworkToolSettings.js";
+import type { FrameworkContent } from "./framework/FrameworkContent.js";
+import type { FrameworkDialogs } from "./framework/FrameworkDialogs.js";
+import type { FrameworkKeyboardShortcuts } from "./framework/FrameworkKeyboardShortcuts.js";
+import type { FrameworkVisibility } from "./framework/FrameworkVisibility.js";
 import {
   SyncUiEventDispatcher,
   SyncUiEventId,
-} from "./syncui/SyncUiEventDispatcher";
+} from "./syncui/SyncUiEventDispatcher.js";
 import type { XAndY } from "@itwin/core-geometry";
-import { PopupManager } from "./popup/PopupManager";
-import { AccuDrawPopupManager } from "./accudraw/AccuDrawPopupManager";
-import { UiDataProvidedDialog } from "./dialog/UiDataProvidedDialog";
+import { PopupManager } from "./popup/PopupManager.js";
+import { AccuDrawPopupManager } from "./accudraw/AccuDrawPopupManager.js";
+import { UiDataProvidedDialog } from "./dialog/UiDataProvidedDialog.js";
 import type { RefObject } from "react";
 import { createElement } from "react";
-import type { DialogInfo } from "./dialog/DialogManagerBase";
-import type { KeyinEntry } from "./keyins/Keyins";
-import { mapToRelativePosition, type Placement } from "./utils/Placement";
-import type { Toolbar, ToolbarProps } from "./toolbar/Toolbar";
-import type { CursorMenuItemProps } from "./shared/MenuItem";
+import type { DialogInfo } from "./dialog/DialogManagerBase.js";
+import type { KeyinEntry } from "./keyins/Keyins.js";
+import { mapToRelativePosition, type Placement } from "./utils/Placement.js";
+import type { Toolbar, ToolbarProps } from "./toolbar/Toolbar.js";
+import type { CursorMenuItemProps } from "./shared/MenuItem.js";
 import {
   SYSTEM_PREFERRED_COLOR_THEME,
   type ThemeId,
   TOOLBAR_OPACITY_DEFAULT,
   WIDGET_OPACITY_DEFAULT,
-} from "./theme/ThemeId";
-import { ConfigurableUiActionId } from "./redux/ConfigurableUiState";
+} from "./theme/ThemeId.js";
+import { ConfigurableUiActionId } from "./redux/ConfigurableUiState.js";
 import type {
   ConfigurableUiContent,
   ConfigurableUiContentProps,
-} from "./configurableui/ConfigurableUiContent";
-import type { SelectionScopeField } from "./statusfields/SelectionScope";
-import type { SnapModeField } from "./statusfields/SnapMode";
-import type { ThemeManager } from "./theme/ThemeManager";
-import { useGlobalStore } from "./uistate/useGlobalStore";
-import type { UiStateStorage } from "./uistate/UiStateStorage";
-import { LocalStateStorage } from "./uistate/LocalStateStorage";
-import { SettingsManager } from "./settings/SettingsManager";
+} from "./configurableui/ConfigurableUiContent.js";
+import type { SelectionScopeField } from "./statusfields/SelectionScope.js";
+import type { SnapModeField } from "./statusfields/SnapMode.js";
+import type { ThemeManager } from "./theme/ThemeManager.js";
+import { useGlobalStore } from "./uistate/useGlobalStore.js";
+import type { UiStateStorage } from "./uistate/UiStateStorage.js";
+import { LocalStateStorage } from "./uistate/LocalStateStorage.js";
+import { SettingsManager } from "./settings/SettingsManager.js";
 
 interface ShowInputEditorOptions {
   location: XAndY;
@@ -155,7 +154,7 @@ export class UiFramework {
     if (!UiFramework._backstageManager)
       // eslint-disable-next-line deprecation/deprecation
       throw new UiError(
-        UiFramework.loggerCategory(this),
+        UiFramework.loggerCategory("UiFramework"),
         UiFramework._complaint
       );
     return UiFramework._backstageManager;
@@ -163,7 +162,7 @@ export class UiFramework {
 
   /** Manage access to the child windows. */
   public static get childWindows(): FrameworkChildWindows {
-    return this._childWindowManager;
+    return appUi.windowManager;
   }
 
   /** Manage registered controls.
@@ -228,7 +227,6 @@ export class UiFramework {
     string,
     UserSettingsProvider
   > = new Map<string, UserSettingsProvider>();
-  private static _childWindowManager = new InternalChildWindowManager();
   public static useDefaultPopoutUrl = false;
   private static readonly CONTEXT_MENU_OFFSET = -8;
 
@@ -271,7 +269,7 @@ export class UiFramework {
     // TODO: check `arguments` to determine between redux & no-redux initializers.
     if (UiFramework._initialized) {
       Logger.logInfo(
-        UiFramework.loggerCategory(UiFramework),
+        UiFramework.loggerCategory("UiFramework"),
         `UiFramework.initialize already called`
       );
       return;
@@ -370,7 +368,7 @@ export class UiFramework {
     if (!UiFramework._hideIsolateEmphasizeActionHandler)
       // eslint-disable-next-line deprecation/deprecation
       throw new UiError(
-        UiFramework.loggerCategory(this),
+        UiFramework.loggerCategory("UiFramework"),
         UiFramework._complaint
       );
     return UiFramework._hideIsolateEmphasizeActionHandler;
@@ -390,7 +388,7 @@ export class UiFramework {
     if (!UiFramework._widgetManager)
       // eslint-disable-next-line deprecation/deprecation
       throw new UiError(
-        UiFramework.loggerCategory(this),
+        UiFramework.loggerCategory("UiFramework"),
         UiFramework._complaint
       );
     return UiFramework._widgetManager;
@@ -415,11 +413,8 @@ export class UiFramework {
   }
 
   /** @internal */
-  public static loggerCategory(obj: any): string {
-    const className = getObjectClassName(obj);
-    const category =
-      UiFramework.packageName + (className ? `.${className}` : "");
-    return category;
+  public static loggerCategory(name: string): string {
+    return `${UiFramework.packageName}.${name}`;
   }
 
   /** Show a context menu at a particular location.
@@ -1102,7 +1097,7 @@ export class UiFramework {
     const reduxStore = this.reduxStore;
     if (!reduxStore) {
       throw new UiError(
-        UiFramework.loggerCategory(this),
+        UiFramework.loggerCategory("UiFramework"),
         `Error trying to access redux store before either store or StateManager has been initialized.`
       );
     }
@@ -1496,6 +1491,22 @@ export class UiFramework {
 
   /* eslint-enable deprecation/deprecation */
 }
+
+/** @internal */
+export const appUi = (() => {
+  let _windowManager: InternalChildWindowManager | undefined;
+
+  function getWindowManager() {
+    if (!_windowManager) _windowManager = new InternalChildWindowManager();
+    return _windowManager;
+  }
+
+  return {
+    get windowManager() {
+      return getWindowManager();
+    },
+  };
+})();
 
 function dispatchSyncUiEvent(eventId: string, immediateSync = false) {
   if (immediateSync) {

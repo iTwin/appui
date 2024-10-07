@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import * as defaults from "../UiCore.json";
 import * as React from "react";
-import { UiCore } from "../UiCore";
-import { usePackageTranslation } from "./usePackageTranslation";
+import { UiCore } from "../UiCore.js";
+import { usePackageTranslation } from "./usePackageTranslation.js";
 
 /* eslint-disable deprecation/deprecation */
 

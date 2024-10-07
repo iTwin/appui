@@ -8,8 +8,8 @@
 
 import type { CommonProps } from "@itwin/core-react";
 import * as React from "react";
-import { DialogRendererBase } from "./DialogManagerBase";
-import { InternalContentDialogManager as internal } from "./InternalContentDialogManager";
+import { DialogRendererBase } from "./DialogManagerBase.js";
+import { InternalContentDialogManager as internal } from "./InternalContentDialogManager.js";
 
 /** ContentDialogRenderer React component renders modeless dialogs.
  * @public

@@ -16,50 +16,49 @@ import {
   OutputMessageType,
 } from "@itwin/core-frontend";
 import type { XAndY } from "@itwin/core-geometry";
-import { Rectangle } from "@itwin/core-react";
+import { Rectangle } from "@itwin/core-react/internal";
 import * as React from "react";
-import { UiFramework } from "../UiFramework";
-import type { ChildWindow } from "../childwindow/ChildWindowConfig";
-import { ChildWindowWidget } from "../childwindow/ChildWindowWidget";
-import { TimeTracker } from "../configurableui/TimeTracker";
-import type { ContentControl } from "../content/ContentControl";
-import type { ContentGroup } from "../content/ContentGroup";
-import { ContentGroupProvider } from "../content/ContentGroup";
-import type { ContentLayoutDef } from "../content/ContentLayout";
-import { InternalContentDialogManager } from "../dialog/InternalContentDialogManager";
-import type { ChildWindowLocationProps } from "../framework/FrameworkChildWindows";
-import type { NineZoneDispatch } from "../layout/base/NineZone";
-import type { NineZoneState } from "../layout/state/NineZoneState";
-import { NineZoneStateReducer } from "../layout/state/NineZoneStateReducer";
+import { appUi, UiFramework } from "../UiFramework.js";
+import { ChildWindowWidget } from "../childwindow/ChildWindowWidget.js";
+import { TimeTracker } from "../configurableui/TimeTracker.js";
+import type { ContentControl } from "../content/ContentControl.js";
+import type { ContentGroup } from "../content/ContentGroup.js";
+import { ContentGroupProvider } from "../content/ContentGroup.js";
+import type { ContentLayoutDef } from "../content/ContentLayout.js";
+import { InternalContentDialogManager } from "../dialog/InternalContentDialogManager.js";
+import type { ChildWindowLocationProps } from "../framework/FrameworkChildWindows.js";
+import type { NineZoneDispatch } from "../layout/base/NineZone.js";
+import type { NineZoneState } from "../layout/state/NineZoneState.js";
+import { NineZoneStateReducer } from "../layout/state/NineZoneStateReducer.js";
 import {
   getTabLocation,
   isFloatingTabLocation,
   isPanelTabLocation,
   isPopoutTabLocation,
-} from "../layout/state/TabLocation";
+} from "../layout/state/TabLocation.js";
 import {
   getWidgetLocation,
   isFloatingWidgetLocation,
   isPopoutWidgetLocation,
-} from "../layout/state/WidgetLocation";
-import type { PanelSide } from "../layout/widget-panels/PanelTypes";
-import { panelSides } from "../layout/widget-panels/Panel";
-import type { StagePanelConfig } from "../stagepanels/StagePanelConfig";
-import { StagePanelDef } from "../stagepanels/StagePanelDef";
-import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
-import { StagePanelState } from "../stagepanels/StagePanelState";
-import type { WidgetConfig } from "../widgets/WidgetConfig";
-import type { WidgetControl } from "../widgets/WidgetControl";
-import { getWidgetState, WidgetDef, WidgetType } from "../widgets/WidgetDef";
-import { WidgetState } from "../widgets/WidgetState";
-import type { FrontstageProvider } from "./FrontstageProvider";
-import { InternalFrontstageManager } from "./InternalFrontstageManager";
-import { StageUsage } from "./StageUsage";
-import type { Frontstage } from "./Frontstage";
-import { UiItemsProvider } from "../ui-items-provider/UiItemsProvider";
-import { FrameworkContent } from "../framework/FrameworkContent";
-import type { SizeProps } from "../utils/SizeProps";
-import type { RectangleProps } from "../utils/RectangleProps";
+} from "../layout/state/WidgetLocation.js";
+import type { PanelSide } from "../layout/widget-panels/PanelTypes.js";
+import { panelSides } from "../layout/widget-panels/Panel.js";
+import type { StagePanelConfig } from "../stagepanels/StagePanelConfig.js";
+import { StagePanelDef } from "../stagepanels/StagePanelDef.js";
+import { StagePanelLocation } from "../stagepanels/StagePanelLocation.js";
+import { StagePanelState } from "../stagepanels/StagePanelState.js";
+import type { WidgetConfig } from "../widgets/WidgetConfig.js";
+import type { WidgetControl } from "../widgets/WidgetControl.js";
+import { getWidgetState, WidgetDef, WidgetType } from "../widgets/WidgetDef.js";
+import { WidgetState } from "../widgets/WidgetState.js";
+import type { FrontstageProvider } from "./FrontstageProvider.js";
+import { InternalFrontstageManager } from "./InternalFrontstageManager.js";
+import { StageUsage } from "./StageUsage.js";
+import type { Frontstage } from "./Frontstage.js";
+import { UiItemsProvider } from "../ui-items-provider/UiItemsProvider.js";
+import { FrameworkContent } from "../framework/FrameworkContent.js";
+import type { SizeProps } from "../utils/SizeProps.js";
+import type { RectangleProps } from "../utils/RectangleProps.js";
 
 /** FrontstageDef class provides an API for a Frontstage.
  * @public
@@ -339,7 +338,7 @@ export class FrontstageDef {
     if (!this._contentGroup)
       // eslint-disable-next-line deprecation/deprecation
       throw new UiError(
-        UiFramework.loggerCategory(this),
+        UiFramework.loggerCategory("FrontstageDef"),
         `onActivated: Content Group not defined`
       );
 
@@ -730,15 +729,24 @@ export class FrontstageDef {
       top: bounds.top,
     };
 
-    const result = UiFramework.childWindows.open(
-      widgetContainerId,
-      widgetDef.label,
-      popoutContent,
-      position,
-      UiFramework.useDefaultPopoutUrl
-    );
+    const childWindow = appUi.windowManager.openWindow({
+      childWindowId: widgetContainerId,
+      title: widgetDef.label,
+      content: popoutContent,
+      location: position,
+      useDefaultPopoutUrl: UiFramework.useDefaultPopoutUrl,
+    });
 
-    if (!result && oldState) {
+    // Use outer size if available to avoid inner size + browser zoom issues: https://github.com/iTwin/appui/issues/563
+    const savedTab = state.savedTabs.byId[tabId];
+    if (childWindow && savedTab?.popout?.size) {
+      childWindow.resizeTo(
+        savedTab.popout.size.width,
+        savedTab.popout.size.height
+      );
+    }
+
+    if (!childWindow && oldState) {
       this.nineZoneState = oldState;
       return false;
     }
@@ -782,7 +790,7 @@ export class FrontstageDef {
   /** @internal */
   public saveChildWindowSizeAndPosition(
     childWindowId: string,
-    childWindow: ChildWindow
+    childWindow: Window
   ) {
     const state = this.nineZoneState;
     if (!state) return;
@@ -795,33 +803,21 @@ export class FrontstageDef {
     const widgetDef = this.findWidgetDef(tabId);
     if (!widgetDef) return;
 
-    let height = childWindow.innerHeight;
-    if (childWindow.deltaHeight) {
-      height += childWindow.deltaHeight;
-      if (height < 1) height = 100;
-    }
-
-    let width = childWindow.innerWidth;
-    if (childWindow.deltaWidth) {
-      width += childWindow.deltaWidth;
-      if (width < 1) width = 100;
-    }
-
-    let left = childWindow.screenLeft;
-    if (childWindow.deltaLeft) left += childWindow.deltaLeft;
-
-    let top = childWindow.screenTop;
-    if (childWindow.deltaTop) top += childWindow.deltaTop;
-
-    const bounds = Rectangle.createFromSize({ width, height }).offset({
-      x: left,
-      y: top,
-    });
-
     this.dispatch({
       type: "WIDGET_TAB_SET_POPOUT_BOUNDS",
       id: tabId,
-      bounds,
+      position: {
+        x: childWindow.screenLeft,
+        y: childWindow.screenTop,
+      },
+      size: {
+        height: childWindow.outerHeight,
+        width: childWindow.outerWidth,
+      },
+      contentSize: {
+        height: childWindow.innerHeight,
+        width: childWindow.innerWidth,
+      },
     });
   }
 

@@ -5,19 +5,19 @@
 
 import * as moq from "typemoq";
 import type { ArrayValue, PropertyRecord } from "@itwin/appui-abstract";
-import type { IPropertyDataFilterer } from "../../../components-react";
+import type { IPropertyDataFilterer } from "../../../components-react.js";
 import {
   FilteredType,
   PropertyFilterChangeEvent,
-} from "../../../components-react";
-import { FilteringPropertyDataProvider } from "../../../components-react/propertygrid/dataproviders/FilteringDataProvider";
+} from "../../../components-react.js";
+import { FilteringPropertyDataProvider } from "../../../components-react/propertygrid/dataproviders/FilteringDataProvider.js";
 import type {
   IPropertyDataProvider,
   PropertyCategory,
   PropertyData,
-} from "../../../components-react/propertygrid/PropertyDataProvider";
-import { PropertyDataChangeEvent } from "../../../components-react/propertygrid/PropertyDataProvider";
-import { TestUtils } from "../../TestUtils";
+} from "../../../components-react/propertygrid/PropertyDataProvider.js";
+import { PropertyDataChangeEvent } from "../../../components-react/propertygrid/PropertyDataProvider.js";
+import { TestUtils } from "../../TestUtils.js";
 
 describe("FilteringDataProvider", () => {
   let dataProvider: IPropertyDataProvider;

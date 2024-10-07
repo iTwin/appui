@@ -7,10 +7,10 @@
  */
 
 import { combineReducers } from "redux";
-import type { ConfigurableUiState } from "./ConfigurableUiState";
-import { ConfigurableUiReducer } from "./ConfigurableUiState";
-import type { SessionState } from "./SessionState";
-import { SessionStateReducer } from "./SessionState";
+import type { ConfigurableUiState } from "./ConfigurableUiState.js";
+import { ConfigurableUiReducer } from "./ConfigurableUiState.js";
+import type { SessionState } from "./SessionState.js";
+import { SessionStateReducer } from "./SessionState.js";
 
 /* eslint-disable deprecation/deprecation */
 

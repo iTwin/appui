@@ -9,17 +9,17 @@
 import type * as React from "react";
 import type { ScreenViewport } from "@itwin/core-frontend";
 import { UiError } from "@itwin/appui-abstract";
-import type { ConfigurableUiControlConstructor } from "../configurableui/ConfigurableUiControl";
+import type { ConfigurableUiControlConstructor } from "../configurableui/ConfigurableUiControl.js";
 import {
   ConfigurableCreateInfo,
   ConfigurableUiControlType,
-} from "../configurableui/ConfigurableUiControl";
-import { UiFramework } from "../UiFramework";
-import type { ContentControl } from "./ContentControl";
-import { InternalConfigurableUiManager } from "../configurableui/InternalConfigurableUiManager";
-import type { Frontstage } from "../frontstage/Frontstage";
-import type { ContentLayoutProps } from "./ContentLayoutProps";
-import type { ConditionalValue } from "../shared/ConditionalValue";
+} from "../configurableui/ConfigurableUiControl.js";
+import { UiFramework } from "../UiFramework.js";
+import type { ContentControl } from "./ContentControl.js";
+import { InternalConfigurableUiManager } from "../configurableui/InternalConfigurableUiManager.js";
+import type { Frontstage } from "../frontstage/Frontstage.js";
+import type { ContentLayoutProps } from "./ContentLayoutProps.js";
+import type { ConditionalValue } from "../shared/ConditionalValue.js";
 
 /** Properties for content displayed in a content view
  * @public
@@ -174,7 +174,7 @@ export class ContentGroup {
         if (classId !== undefined) content.classId = classId;
         else
           throw new UiError( // eslint-disable-line deprecation/deprecation
-            UiFramework.loggerCategory(this),
+            UiFramework.loggerCategory("ContentGroup"),
             `toJSON: ContentControl at index ${index} is NOT registered with a string id`
           );
 
@@ -255,7 +255,7 @@ export class ContentGroup {
           contentControl.getType() !== ConfigurableUiControlType.Viewport
         ) {
           throw new UiError(
-            UiFramework.loggerCategory(this),
+            UiFramework.loggerCategory("ContentGroup"),
             `getContentControl error: '${usedClassId}' is NOT a ContentControl or ViewportContentControl`
           );
         }

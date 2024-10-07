@@ -8,16 +8,16 @@
 
 import "./useMaximizedWidget.scss";
 import * as React from "react";
-import { WidgetIdContext } from "../../layout/widget/Widget";
-import { MaximizedWidgetContext } from "./MaximizedWidget";
-import { useLayout } from "../../layout/base/LayoutStore";
+import { WidgetIdContext } from "../../layout/widget/Widget.js";
+import { MaximizedWidgetContext } from "./MaximizedWidget.js";
+import { useLayout } from "../../layout/base/LayoutStore.js";
 import {
   getWidgetLocation,
   isPanelWidgetLocation,
-} from "../../layout/state/WidgetLocation";
-import type { WidgetState } from "../../layout/state/WidgetState";
-import type { PanelSide } from "../../layout/widget-panels/PanelTypes";
-import { usePreviewFeatures } from "../PreviewFeatures";
+} from "../../layout/state/WidgetLocation.js";
+import type { WidgetState } from "../../layout/state/WidgetState.js";
+import type { PanelSide } from "../../layout/widget-panels/PanelTypes.js";
+import { usePreviewFeatures } from "../PreviewFeatures.js";
 
 /** @internal */
 export function useIsMaximizedWidget() {

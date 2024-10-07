@@ -11,12 +11,12 @@ import classnames from "classnames";
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
 import type { CommonProps } from "@itwin/core-react";
-import { useTabInteractions } from "./Tab";
-import { useActiveTabId } from "./Widget";
-import { WidgetOverflowContext } from "./Overflow";
-import { ShowWidgetIconContext } from "../base/NineZone";
-import { useLayout } from "../base/LayoutStore";
-import { TabIdContext } from "./ContentRenderer";
+import { useTabInteractions } from "./Tab.js";
+import { useActiveTabId } from "./Widget.js";
+import { WidgetOverflowContext } from "./Overflow.js";
+import { ShowWidgetIconContext } from "../base/NineZone.js";
+import { useLayout } from "../base/LayoutStore.js";
+import { TabIdContext } from "./ContentRenderer.js";
 
 /** @internal */
 // eslint-disable-next-line deprecation/deprecation

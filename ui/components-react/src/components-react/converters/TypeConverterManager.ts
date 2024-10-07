@@ -6,9 +6,8 @@
  * @module TypeConverters
  */
 
-import { StandardTypeNames } from "@itwin/appui-abstract";
-import type { TypeConverter } from "./TypeConverter";
-import { StringTypeConverter } from "./StringTypeConverter";
+import type { TypeConverter } from "./TypeConverter.js";
+import { StringTypeConverter } from "./StringTypeConverter.js";
 
 /**
  * Manages Type Converters. Type Converters are registered with and obtained from the manager.
@@ -81,18 +80,3 @@ export class TypeConverterManager {
     return TypeConverterManager._defaultTypeConverter;
   }
 }
-
-// Register these here as this is also the default type register, we always want it to be registered
-// and if moved to the StringTypeConverter it causes a dependency loop issue.
-TypeConverterManager.registerConverter(
-  StandardTypeNames.Text,
-  StringTypeConverter
-);
-TypeConverterManager.registerConverter(
-  StandardTypeNames.String,
-  StringTypeConverter
-);
-TypeConverterManager.registerConverter(
-  StandardTypeNames.URL,
-  StringTypeConverter
-);

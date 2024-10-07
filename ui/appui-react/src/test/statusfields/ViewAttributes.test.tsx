@@ -6,8 +6,8 @@ import * as React from "react";
 import { Provider } from "react-redux";
 import { IModelApp } from "@itwin/core-frontend";
 import { render, screen } from "@testing-library/react";
-import { ViewAttributesStatusField } from "../../appui-react";
-import TestUtils, { userEvent } from "../TestUtils";
+import { ViewAttributesStatusField } from "../../appui-react.js";
+import TestUtils, { userEvent } from "../TestUtils.js";
 
 describe(`ViewAttributes`, () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;

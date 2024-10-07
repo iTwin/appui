@@ -8,19 +8,19 @@
 
 import { Subject, takeUntil } from "rxjs";
 import type { IDisposable } from "@itwin/core-bentley";
-import { TreeModelMutator } from "./internal/TreeModelMutator";
-import type { Subscription } from "./Observable";
-import { toRxjsObservable } from "./Observable";
+import { TreeModelMutator } from "./internal/TreeModelMutator.js";
+import type { Subscription } from "./Observable.js";
+import { toRxjsObservable } from "./Observable.js";
 import type {
   TreeCheckboxStateChangeEventArgs,
   TreeEvents,
   TreeNodeEventArgs,
   TreeSelectionModificationEventArgs,
   TreeSelectionReplacementEventArgs,
-} from "./TreeEvents";
-import type { TreeModelNode } from "./TreeModel";
-import type { TreeModelSource } from "./TreeModelSource";
-import type { ITreeNodeLoader } from "./TreeNodeLoader";
+} from "./TreeEvents.js";
+import type { TreeModelNode } from "./TreeModel.js";
+import type { TreeModelSource } from "./TreeModelSource.js";
+import type { ITreeNodeLoader } from "./TreeNodeLoader.js";
 
 /**
  * Params used for tree node editing.

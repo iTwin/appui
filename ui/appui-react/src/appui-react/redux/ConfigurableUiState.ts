@@ -7,19 +7,19 @@
  */
 
 import { SnapMode } from "@itwin/core-frontend";
-import type { ActionsUnion } from "./redux-ts";
-import { createAction } from "./redux-ts";
+import type { ActionsUnion } from "./redux-ts.js";
+import { createAction } from "./redux-ts.js";
 import {
   SYSTEM_PREFERRED_COLOR_THEME,
   type ThemeId,
   TOOLBAR_OPACITY_DEFAULT,
   WIDGET_OPACITY_DEFAULT,
-} from "../theme/ThemeId";
-import type { ConfigurableUiContent } from "../configurableui/ConfigurableUiContent";
-import type { Toolbar } from "../toolbar/Toolbar";
-import type { ThemeManager } from "../theme/ThemeManager";
-import type { SnapModeField } from "../statusfields/SnapMode";
-import type { ToolbarDragInteractionContext } from "../toolbar/DragInteraction";
+} from "../theme/ThemeId.js";
+import type { ConfigurableUiContent } from "../configurableui/ConfigurableUiContent.js";
+import type { Toolbar } from "../toolbar/Toolbar.js";
+import type { ThemeManager } from "../theme/ThemeManager.js";
+import type { SnapModeField } from "../statusfields/SnapMode.js";
+import type { ToolbarDragInteractionContext } from "../toolbar/DragInteraction.js";
 
 /* eslint-disable deprecation/deprecation */
 

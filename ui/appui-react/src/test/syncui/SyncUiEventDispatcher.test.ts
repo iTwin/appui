@@ -15,8 +15,8 @@ import type {
   NavigationAidActivatedEventArgs,
   ToolActivatedEventArgs,
   WidgetStateChangedEventArgs,
-} from "../../appui-react";
-import { SyncUiEventDispatcher, UiFramework } from "../../appui-react";
+} from "../../appui-react.js";
+import { SyncUiEventDispatcher, UiFramework } from "../../appui-react.js";
 
 const timeToWaitForUiSyncCallback = 60;
 

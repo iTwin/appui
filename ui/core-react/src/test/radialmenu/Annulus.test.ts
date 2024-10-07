@@ -2,8 +2,8 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { Annulus, Circle, Line } from "../../core-react/radialmenu/Annulus";
-import { Point } from "../../core-react/utils/Point";
+import { Annulus, Circle, Line } from "../../core-react/radialmenu/Annulus.js";
+import { Point } from "../../core-react/utils/Point.js";
 
 describe("Annulus", () => {
   describe("Point", () => {

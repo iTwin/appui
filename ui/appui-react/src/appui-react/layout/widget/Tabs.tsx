@@ -9,19 +9,19 @@
 import "./Tabs.scss";
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
-import { useResizeObserver } from "@itwin/core-react";
-import { ShowWidgetIconContext } from "../base/NineZone";
-import { getChildKey, useOverflow } from "../tool-settings/Docked";
+import { useResizeObserver } from "@itwin/core-react/internal";
+import { ShowWidgetIconContext } from "../base/NineZone.js";
+import { getChildKey, useOverflow } from "../tool-settings/Docked.js";
 import {
   isHorizontalPanelSide,
   PanelSideContext,
-} from "../widget-panels/Panel";
-import { WidgetOverflow } from "./Overflow";
-import { WidgetTabProvider } from "./Tab";
-import { TitleBarTarget } from "../target/TitleBarTarget";
-import { useLayout } from "../base/LayoutStore";
-import { WidgetIdContext } from "./Widget";
-import { getWidgetState } from "../state/internal/WidgetStateHelpers";
+} from "../widget-panels/Panel.js";
+import { WidgetOverflow } from "./Overflow.js";
+import { WidgetTabProvider } from "./Tab.js";
+import { TitleBarTarget } from "../target/TitleBarTarget.js";
+import { useLayout } from "../base/LayoutStore.js";
+import { WidgetIdContext } from "./Widget.js";
+import { getWidgetState } from "../state/internal/WidgetStateHelpers.js";
 
 /** @internal */
 export function WidgetTabs() {

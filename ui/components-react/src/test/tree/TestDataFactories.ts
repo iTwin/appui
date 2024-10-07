@@ -8,8 +8,8 @@ import type {
   ITreeDataProvider,
   PageOptions,
   TreeNodeItem,
-} from "../../components-react";
-import { ResolvablePromise } from "../test-helpers/misc";
+} from "../../components-react.js";
+import { ResolvablePromise } from "../test-helpers/misc.js";
 
 /** @internal */
 export interface TestTreeHierarchyNode {

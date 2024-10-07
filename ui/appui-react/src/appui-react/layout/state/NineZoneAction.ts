@@ -9,22 +9,23 @@
 import type {
   HorizontalPanelSide,
   PanelSide,
-} from "../widget-panels/PanelTypes";
-import type { TabState } from "./TabState";
+} from "../widget-panels/PanelTypes.js";
+import type { TabState } from "./TabState.js";
 import type {
   FloatingWidgetState,
   PopoutWidgetState,
   WidgetState,
-} from "./WidgetState";
+} from "./WidgetState.js";
 import type {
   TabDragDropTargetState,
   WidgetDragDropTargetState,
-} from "./DropTargetState";
-import type { PanelState } from "./PanelState";
-import type { XAndY } from "./internal/NineZoneStateHelpers";
-import type { StagePanelSizeSpec } from "../../stagepanels/StagePanelConfig";
-import type { SizeProps } from "../../utils/SizeProps";
-import type { RectangleProps } from "../../utils/RectangleProps";
+} from "./DropTargetState.js";
+import type { PanelState } from "./PanelState.js";
+import type { XAndY } from "./internal/NineZoneStateHelpers.js";
+import type { StagePanelSizeSpec } from "../../stagepanels/StagePanelConfig.js";
+import type { SizeProps } from "../../utils/SizeProps.js";
+import type { RectangleProps } from "../../utils/RectangleProps.js";
+import type { PopoutBounds } from "./SavedTabState.js";
 
 /** @internal */
 export interface ResizeAction {
@@ -271,10 +272,9 @@ export interface WidgetTabPopoutAction {
 }
 
 /** @internal */
-export interface WidgetTabSetPopoutBoundsAction {
+export interface WidgetTabSetPopoutBoundsAction extends PopoutBounds {
   readonly type: "WIDGET_TAB_SET_POPOUT_BOUNDS";
   readonly id: TabState["id"];
-  readonly bounds: RectangleProps | undefined;
 }
 
 /** @internal */

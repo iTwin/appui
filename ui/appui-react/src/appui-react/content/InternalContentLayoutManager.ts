@@ -6,11 +6,11 @@
  * @module ContentView
  */
 
-import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager";
-import { UiFramework } from "../UiFramework";
-import type { ContentGroup, ContentGroupProps } from "./ContentGroup";
-import { ContentLayoutDef } from "./ContentLayout";
-import type { ContentLayoutProps } from "./ContentLayoutProps";
+import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager.js";
+import { UiFramework } from "../UiFramework.js";
+import type { ContentGroup, ContentGroupProps } from "./ContentGroup.js";
+import { ContentLayoutDef } from "./ContentLayout.js";
+import type { ContentLayoutProps } from "./ContentLayoutProps.js";
 
 /** ContentLayout Manager class.
  * @internal

@@ -9,9 +9,9 @@
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
 import { ExpandableBlock } from "@itwin/itwinui-react";
-import { HighlightedText } from "../../common/HighlightedText";
-import type { HighlightingComponentProps } from "../../common/HighlightingComponentProps";
-import type { PropertyCategory } from "../PropertyDataProvider";
+import { HighlightedText } from "../../common/HighlightedText.js";
+import type { HighlightingComponentProps } from "../../common/HighlightingComponentProps.js";
+import type { PropertyCategory } from "../PropertyDataProvider.js";
 
 /**
  * Properties for the [[PropertyCategoryBlock]] React component

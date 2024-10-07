@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { act, renderHook } from "@testing-library/react";
-import { mergeRefs, useRefs } from "../../../core-react/utils/hooks/useRefs";
+import { mergeRefs, useRefs } from "../../../core-react/utils/hooks/useRefs.js";
 
 describe("useRefs", () => {
   it("should set ref objects and invoke ref callbacks", () => {

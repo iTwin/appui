@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { ViewAttributesWidgetComponent } from "../widgets/ViewAttributesWidget";
+import { ViewAttributesWidgetComponent } from "../widgets/ViewAttributesWidget.js";
 import {
   StagePanelLocation,
   StagePanelSection,
@@ -11,7 +11,7 @@ import {
   Widget,
   WidgetState,
 } from "@itwin/appui-react";
-import { LogLifecycleWidget } from "../widgets/LogLifecycleWidget";
+import { LogLifecycleWidget } from "../widgets/LogLifecycleWidget.js";
 
 /** Test UiItemsProvider that provide FloatingWidgets in any General usage stage. */
 export class FloatingWidgetsUiItemsProvider implements UiItemsProvider {

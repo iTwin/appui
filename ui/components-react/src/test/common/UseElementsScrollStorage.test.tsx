@@ -5,7 +5,7 @@
 
 import React, { forwardRef, useImperativeHandle } from "react";
 import { render } from "@testing-library/react";
-import { useElementsScrollStorage } from "../../components-react/common/UseElementsScrollStorage";
+import { useElementsScrollStorage } from "../../components-react/common/UseElementsScrollStorage.js";
 
 describe("useElementsScrollStorage", () => {
   const containerClassName = "some-container";

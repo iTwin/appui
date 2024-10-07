@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import { render } from "@testing-library/react";
 import * as React from "react";
-import { ToolAssistanceItem } from "../../../../appui-react/layout/footer/tool-assistance/Item";
-import { selectorMatches } from "../../Utils";
+import { ToolAssistanceItem } from "../../../../appui-react/layout/footer/tool-assistance/Item.js";
+import { selectorMatches } from "../../Utils.js";
 
 describe("<ToolAssistanceItem />", () => {
   it("renders correctly", () => {

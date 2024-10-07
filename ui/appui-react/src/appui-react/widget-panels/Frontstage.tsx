@@ -9,61 +9,66 @@
 import { ToolbarPopupAutoHideContext } from "@itwin/components-react";
 import { assert, Logger, ProcessDetector } from "@itwin/core-bentley";
 import { IModelApp } from "@itwin/core-frontend";
-import { Size } from "@itwin/core-react";
-import produce from "immer";
+import { produce } from "immer";
 import * as React from "react";
 import { unstable_batchedUpdates } from "react-dom";
-import type { FrontstageDef } from "../frontstage/FrontstageDef";
-import { useActiveFrontstageDef } from "../frontstage/FrontstageDef";
-import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager";
-import { useEscapeSetFocusToHome } from "../hooks/useEscapeSetFocusToHome";
-import { useUiVisibility } from "../hooks/useUiVisibility";
-import { createLayoutStore } from "../layout/base/LayoutStore";
-import type { NineZoneDispatch, NineZoneLabels } from "../layout/base/NineZone";
-import { getUniqueId, NineZone } from "../layout/base/NineZone";
-import { activateDroppedTab } from "../preview/activate-dropped-tab/activateDroppedTab";
-import type { NineZoneState } from "../layout/state/NineZoneState";
-import { createNineZoneState } from "../layout/state/NineZoneState";
-import { NineZoneStateReducer } from "../layout/state/NineZoneStateReducer";
-import { getWidgetPanelSectionId } from "../layout/state/PanelState";
-import type { TabState } from "../layout/state/TabState";
-import { FloatingWidgets } from "../layout/widget/FloatingWidgets";
-import { PreviewHorizontalPanelAlignFeatureProvider } from "../preview/horizontal-panel-alignment/PreviewHorizontalPanelAlign";
-import { usePreviewFeatures } from "../preview/PreviewFeatures";
-import { toPanelSide } from "../stagepanels/StagePanelDef";
-import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
-import { StagePanelSection } from "../stagepanels/StagePanelSection";
-import { StagePanelState } from "../stagepanels/StagePanelState";
-import { UiItemsManager } from "../ui-items-provider/UiItemsManager";
-import { UiFramework } from "../UiFramework";
-import { useUiStateStorageHandler } from "../uistate/useUiStateStorage";
-import type { WidgetDef } from "../widgets/WidgetDef";
-import { WidgetState } from "../widgets/WidgetState";
-import { WidgetContent } from "./Content";
-import { FloatingWidget } from "./FloatingWidget";
+import type { FrontstageDef } from "../frontstage/FrontstageDef.js";
+import { useActiveFrontstageDef } from "../frontstage/FrontstageDef.js";
+import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager.js";
+import { useEscapeSetFocusToHome } from "../hooks/useEscapeSetFocusToHome.js";
+import { useUiVisibility } from "../hooks/useUiVisibility.js";
+import { createLayoutStore } from "../layout/base/LayoutStore.js";
+import type {
+  NineZoneDispatch,
+  NineZoneLabels,
+} from "../layout/base/NineZone.js";
+import { getUniqueId, NineZone } from "../layout/base/NineZone.js";
+import { activateDroppedTab } from "../preview/activate-dropped-tab/activateDroppedTab.js";
+import type { NineZoneState } from "../layout/state/NineZoneState.js";
+import { createNineZoneState } from "../layout/state/NineZoneState.js";
+import { NineZoneStateReducer } from "../layout/state/NineZoneStateReducer.js";
+import { getWidgetPanelSectionId } from "../layout/state/PanelState.js";
+import type { TabState } from "../layout/state/TabState.js";
+import { FloatingWidgets } from "../layout/widget/FloatingWidgets.js";
+import { PreviewHorizontalPanelAlignFeatureProvider } from "../preview/horizontal-panel-alignment/PreviewHorizontalPanelAlign.js";
+import { usePreviewFeatures } from "../preview/PreviewFeatures.js";
+import { toPanelSide } from "../stagepanels/StagePanelDef.js";
+import { StagePanelLocation } from "../stagepanels/StagePanelLocation.js";
+import { StagePanelSection } from "../stagepanels/StagePanelSection.js";
+import { StagePanelState } from "../stagepanels/StagePanelState.js";
+import { UiItemsManager } from "../ui-items-provider/UiItemsManager.js";
+import { UiFramework } from "../UiFramework.js";
+import { useUiStateStorageHandler } from "../uistate/useUiStateStorage.js";
+import type { WidgetDef } from "../widgets/WidgetDef.js";
+import { WidgetState } from "../widgets/WidgetState.js";
+import { WidgetContent } from "./Content.js";
+import { FloatingWidget } from "./FloatingWidget.js";
 import "./Frontstage.scss";
-import { WidgetPanelsFrontstageContent } from "./FrontstageContent";
+import { WidgetPanelsFrontstageContent } from "./FrontstageContent.js";
 import {
   ModalFrontstageComposer,
   useActiveModalFrontstageInfo,
-} from "./ModalFrontstageComposer";
-import { WidgetPanelsStatusBar } from "./StatusBar";
-import { WidgetPanelsTab } from "./Tab";
-import { WidgetPanelsToolbars } from "./Toolbars";
-import { ToolSettingsContent, WidgetPanelsToolSettings } from "./ToolSettings";
-import { MaximizedWidgetProvider } from "../preview/enable-maximized-widget/MaximizedWidget";
-import { StandardLayout } from "../layout/StandardLayout";
-import { WidgetPanelProvider } from "../layout/widget-panels/Panel";
-import { WidgetContentRenderers } from "../layout/widget/ContentRenderer";
-import { useCursor } from "../layout/widget-panels/CursorOverlay";
-import { WidgetPanelExpanders } from "../layout/widget-panels/Expander";
-import { useTranslation } from "../hooks/useTranslation";
-import { PopoutWidgets } from "../preview/reparent-popout-widgets/PopoutWidgets";
-import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState";
-import { ConfigurableUiContext } from "../configurableui/ConfigurableUiContent";
-import { useSaveFrontstageSettings } from "./useSaveFrontstageSettings";
-import type { UiStateStorageResult } from "../uistate/UiStateStorage";
-import { UiStateStorageStatus } from "../uistate/UiStateStorage";
+} from "./ModalFrontstageComposer.js";
+import { WidgetPanelsStatusBar } from "./StatusBar.js";
+import { WidgetPanelsTab } from "./Tab.js";
+import { WidgetPanelsToolbars } from "./Toolbars.js";
+import {
+  ToolSettingsContent,
+  WidgetPanelsToolSettings,
+} from "./ToolSettings.js";
+import { MaximizedWidgetProvider } from "../preview/enable-maximized-widget/MaximizedWidget.js";
+import { StandardLayout } from "../layout/StandardLayout.js";
+import { WidgetPanelProvider } from "../layout/widget-panels/Panel.js";
+import { WidgetContentRenderers } from "../layout/widget/ContentRenderer.js";
+import { useCursor } from "../layout/widget-panels/CursorOverlay.js";
+import { WidgetPanelExpanders } from "../layout/widget-panels/Expander.js";
+import { useTranslation } from "../hooks/useTranslation.js";
+import { PopoutWidgets } from "../preview/reparent-popout-widgets/PopoutWidgets.js";
+import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState.js";
+import { ConfigurableUiContext } from "../configurableui/ConfigurableUiContent.js";
+import { useSaveFrontstageSettings } from "./useSaveFrontstageSettings.js";
+import type { UiStateStorageResult } from "../uistate/UiStateStorage.js";
+import { UiStateStorageStatus } from "../uistate/UiStateStorage.js";
 
 function WidgetPanelsFrontstageComponent() {
   const activeModalFrontstageInfo = useActiveModalFrontstageInfo();
@@ -170,7 +175,10 @@ export function useNineZoneDispatch(frontstageDef: FrontstageDef) {
   return React.useCallback<NineZoneDispatch>(
     (action) => {
       if (action.type === "RESIZE") {
-        InternalFrontstageManager.nineZoneSize = Size.create(action.size);
+        InternalFrontstageManager.nineZoneSize = {
+          width: action.size.width,
+          height: action.size.height,
+        };
       }
 
       const state = frontstageDef.nineZoneState;
@@ -566,7 +574,7 @@ export function initializePanel(
 }
 
 /** @internal */
-export const stateVersion = 18; // this needs to be bumped when NineZoneState is changed (to recreate the layout).
+export const stateVersion = 19; // this needs to be bumped when NineZoneState is changed (to recreate the layout).
 
 /** @internal */
 export function initializeNineZoneState(frontstageDef: FrontstageDef) {
@@ -605,7 +613,7 @@ export function restoreNineZoneState(
       const widgetDef = frontstageDef.findWidgetDef(tab.id);
       if (!widgetDef) {
         Logger.logInfo(
-          UiFramework.loggerCategory(restoreNineZoneState),
+          UiFramework.loggerCategory("restoreNineZoneState"),
           "WidgetDef is not found for saved tab.",
           {
             frontstageId: frontstageDef.id,

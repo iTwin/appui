@@ -7,18 +7,18 @@
  */
 
 import { UiEvent } from "@itwin/appui-abstract";
-import type { ContentControl } from "../content/ContentControl";
+import type { ContentControl } from "../content/ContentControl.js";
 import type {
   ContentGroup,
   ContentGroupProps,
   ContentProps,
-} from "../content/ContentGroup";
-import type { ContentLayoutDef } from "../content/ContentLayout";
-import { DialogChangedEvent } from "../dialog/DialogManagerBase";
-import type { FrameworkStackedDialog } from "./FrameworkDialogs";
-import type { UiItemsProvider } from "../ui-items-provider/UiItemsProvider";
-import type { UiFramework } from "../UiFramework";
-import type { ContentLayoutProps } from "../content/ContentLayoutProps";
+} from "../content/ContentGroup.js";
+import type { ContentLayoutDef } from "../content/ContentLayout.js";
+import { DialogChangedEvent } from "../dialog/DialogManagerBase.js";
+import type { FrameworkStackedDialog } from "./FrameworkDialogs.js";
+import type { UiItemsProvider } from "../ui-items-provider/UiItemsProvider.js";
+import type { UiFramework } from "../UiFramework.js";
+import type { ContentLayoutProps } from "../content/ContentLayoutProps.js";
 
 /** [[MouseDownChangedEvent]] Args interface.
  * @public

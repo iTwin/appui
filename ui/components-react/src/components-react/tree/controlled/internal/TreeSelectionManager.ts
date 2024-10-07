@@ -9,17 +9,20 @@
 import type { Observable } from "rxjs";
 import { Subject } from "rxjs";
 import { BeUiEvent } from "@itwin/core-bentley";
+import {
+  isNavigationKey,
+  ItemKeyboardNavigator,
+} from "@itwin/core-react/internal";
 import type {
   MultiSelectionHandler,
   SingleSelectionHandler,
-} from "../../../common/selection/SelectionHandler";
-import { SelectionHandler } from "../../../common/selection/SelectionHandler";
-import type { SelectionMode } from "../../../common/selection/SelectionModes";
-import type { TreeActions } from "../TreeActions";
-import type { TreeModelNode, VisibleTreeNodes } from "../TreeModel";
-import { isTreeModelNode } from "../TreeModel";
-import { isNavigationKey, ItemKeyboardNavigator } from "@itwin/core-react";
-import { Orientation } from "../../../common/Orientation";
+} from "../../../common/selection/SelectionHandler.js";
+import { SelectionHandler } from "../../../common/selection/SelectionHandler.js";
+import type { SelectionMode } from "../../../common/selection/SelectionModes.js";
+import type { TreeActions } from "../TreeActions.js";
+import type { TreeModelNode, VisibleTreeNodes } from "../TreeModel.js";
+import { isTreeModelNode } from "../TreeModel.js";
+import { Orientation } from "../../../common/Orientation.js";
 
 /** @internal */
 export interface SelectionReplacementEvent {

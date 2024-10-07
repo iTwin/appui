@@ -13,10 +13,10 @@ import {
 import type { QuantityTypeKey } from "@itwin/core-frontend";
 import { IModelApp, QuantityType } from "@itwin/core-frontend";
 import type { FormatProps, UnitSystemKey } from "@itwin/core-quantity";
-import TestUtils, { stubScrollIntoView } from "../TestUtils";
-import { getQuantityFormatsSettingsManagerEntry } from "../../appui-react/settings/quantityformatting/QuantityFormat";
-import { ModalDialogRenderer } from "../../appui-react/dialog/ModalDialogManager";
-import { UiFramework } from "../../appui-react/UiFramework";
+import TestUtils, { stubScrollIntoView } from "../TestUtils.js";
+import { getQuantityFormatsSettingsManagerEntry } from "../../appui-react/settings/quantityformatting/QuantityFormat.js";
+import { ModalDialogRenderer } from "../../appui-react/dialog/ModalDialogManager.js";
+import { UiFramework } from "../../appui-react/UiFramework.js";
 
 describe("QuantityFormatSettingsPage", () => {
   beforeEach(async () => {

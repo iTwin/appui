@@ -9,7 +9,7 @@
 import * as React from "react";
 import type { DialogButtonDef } from "@itwin/appui-abstract";
 import { DialogButtonType, MessageSeverity } from "@itwin/appui-abstract";
-import { useTranslation } from "@itwin/components-react";
+import { useTranslation } from "@itwin/components-react/internal";
 import {
   MessageBoxIconType,
   MessageBoxType,
@@ -18,8 +18,8 @@ import {
 import type { CommonProps } from "@itwin/core-react";
 import { MessageContainer } from "@itwin/core-react";
 import { Button, Dialog } from "@itwin/itwinui-react";
-import { DialogManagerBase } from "./DialogManagerBase";
-import { UiFramework } from "../UiFramework";
+import { DialogManagerBase } from "./DialogManagerBase.js";
+import { UiFramework } from "../UiFramework.js";
 
 /** Properties for [[StandardMessageBox]] React component
  * @public

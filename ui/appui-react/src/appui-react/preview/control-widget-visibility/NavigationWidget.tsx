@@ -10,10 +10,10 @@ import "./NavigationWidget.scss";
 import * as React from "react";
 import { DropdownButton, MenuItem } from "@itwin/itwinui-react";
 import { SvgAdd } from "@itwin/itwinui-icons-react";
-import { label, useUserControlledHiddenTabs } from "./AddWidgetButton";
-import { NineZoneDispatchContext } from "../../layout/base/NineZone";
-import { useLayout } from "../../layout/base/LayoutStore";
-import { panelSides } from "../../layout/widget-panels/Panel";
+import { label, useUserControlledHiddenTabs } from "./AddWidgetButton.js";
+import { NineZoneDispatchContext } from "../../layout/base/NineZone.js";
+import { useLayout } from "../../layout/base/LayoutStore.js";
+import { panelSides } from "../../layout/widget-panels/Panel.js";
 
 /** Displays a dropdown button to un-hide widgets in the bottom-right corner of the navigation widget area.
  * @internal

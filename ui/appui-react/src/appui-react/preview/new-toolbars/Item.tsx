@@ -10,10 +10,10 @@ import * as React from "react";
 import { assert } from "@itwin/core-bentley";
 import { Icon } from "@itwin/core-react";
 import { IconButton } from "@itwin/itwinui-react";
-import type { ToolbarItem } from "../../toolbar/ToolbarItem";
-import { useConditionalProp } from "../../hooks/useConditionalProp";
-import { Badge } from "./Badge";
-import { ToolbarContext } from "./Toolbar";
+import type { ToolbarItem } from "../../toolbar/ToolbarItem.js";
+import { useConditionalProp } from "../../hooks/useConditionalProp.js";
+import { Badge } from "./Badge.js";
+import { ToolbarContext } from "./Toolbar.js";
 
 /** @internal */
 export interface ItemProps

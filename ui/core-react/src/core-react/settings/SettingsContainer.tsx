@@ -8,8 +8,8 @@
 
 import "./SettingsContainer.scss";
 import * as React from "react";
-import type { SettingsManager, SettingsTabEntry } from "./SettingsManager";
-import { VerticalTabs } from "../tabs/VerticalTabs";
+import type { SettingsManager, SettingsTabEntry } from "./SettingsManager.js";
+import { VerticalTabs } from "../tabs/VerticalTabs.js";
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
 
 /* eslint-disable deprecation/deprecation */

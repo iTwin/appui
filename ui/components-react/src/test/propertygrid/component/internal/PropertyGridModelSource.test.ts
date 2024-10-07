@@ -2,13 +2,13 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import type { IMutableGridItemFactory } from "../../../../components-react/propertygrid/internal/flat-items/MutableGridItemFactory";
-import { MutableGridItemFactory } from "../../../../components-react/propertygrid/internal/flat-items/MutableGridItemFactory";
-import type { IPropertyGridModel } from "../../../../components-react/propertygrid/internal/PropertyGridModel";
-import { PropertyGridModelSource } from "../../../../components-react/propertygrid/internal/PropertyGridModelSource";
-import { TestUtils } from "../../../TestUtils";
-import type { PropertyGridModelTestData } from "./flat-items/FlatGridTestUtils";
-import { FlatGridTestUtils as GridUtils } from "./flat-items/FlatGridTestUtils";
+import type { IMutableGridItemFactory } from "../../../../components-react/propertygrid/internal/flat-items/MutableGridItemFactory.js";
+import { MutableGridItemFactory } from "../../../../components-react/propertygrid/internal/flat-items/MutableGridItemFactory.js";
+import type { IPropertyGridModel } from "../../../../components-react/propertygrid/internal/PropertyGridModel.js";
+import { PropertyGridModelSource } from "../../../../components-react/propertygrid/internal/PropertyGridModelSource.js";
+import { TestUtils } from "../../../TestUtils.js";
+import type { PropertyGridModelTestData } from "./flat-items/FlatGridTestUtils.js";
+import { FlatGridTestUtils as GridUtils } from "./flat-items/FlatGridTestUtils.js";
 
 describe("PropertyGridModelSource", () => {
   let factory: IMutableGridItemFactory;

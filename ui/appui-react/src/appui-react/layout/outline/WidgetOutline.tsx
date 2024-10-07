@@ -9,13 +9,13 @@
 import "./WidgetOutline.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { useTargeted } from "../base/DragManager";
-import { WidgetIdContext } from "../widget/Widget";
+import { useTargeted } from "../base/DragManager.js";
+import { WidgetIdContext } from "../widget/Widget.js";
 import {
   isTabDropTargetState,
   isWidgetDropTargetState,
-} from "../state/DropTargetState";
-import { useSendBackHomeState } from "../widget/SendBack";
+} from "../state/DropTargetState.js";
+import { useSendBackHomeState } from "../widget/SendBack.js";
 
 /** @internal */
 export function WidgetOutline() {

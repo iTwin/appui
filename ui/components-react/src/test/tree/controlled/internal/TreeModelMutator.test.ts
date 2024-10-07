@@ -5,15 +5,15 @@
 import { EMPTY } from "rxjs";
 import * as moq from "typemoq";
 import { CheckBoxState } from "@itwin/core-react";
-import { TreeModelMutator } from "../../../../components-react/tree/controlled/internal/TreeModelMutator";
-import type { CheckboxStateChange } from "../../../../components-react/tree/controlled/TreeEvents";
+import { TreeModelMutator } from "../../../../components-react/tree/controlled/internal/TreeModelMutator.js";
+import type { CheckboxStateChange } from "../../../../components-react/tree/controlled/TreeEvents.js";
 import type {
   MutableTreeModel,
   MutableTreeModelNode,
-} from "../../../../components-react/tree/controlled/TreeModel";
-import type { TreeModelSource } from "../../../../components-react/tree/controlled/TreeModelSource";
-import type { ITreeNodeLoader } from "../../../../components-react/tree/controlled/TreeNodeLoader";
-import { createRandomMutableTreeModelNode } from "../TreeHelpers";
+} from "../../../../components-react/tree/controlled/TreeModel.js";
+import type { TreeModelSource } from "../../../../components-react/tree/controlled/TreeModelSource.js";
+import type { ITreeNodeLoader } from "../../../../components-react/tree/controlled/TreeNodeLoader.js";
+import { createRandomMutableTreeModelNode } from "../TreeHelpers.js";
 import type { Mock } from "vitest";
 
 describe("TreeModelMutator", () => {

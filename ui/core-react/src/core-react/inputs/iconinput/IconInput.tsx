@@ -9,8 +9,8 @@
 import "./IconInput.scss";
 import classnames from "classnames";
 import * as React from "react";
-import type { InputProps } from "../Input";
-import { Input } from "../Input"; // NEEDSWORK - for nativeKeyHandler
+import type { InputProps } from "../Input.js";
+import { Input } from "../Input.js"; // NEEDSWORK - for nativeKeyHandler
 
 /** Properties for the [[IconInput]] component
  * @public

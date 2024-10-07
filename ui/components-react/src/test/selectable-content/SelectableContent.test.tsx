@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import React from "react";
 import { fireEvent, render } from "@testing-library/react";
-import { SelectableContent } from "../../components-react/selectable-content/SelectableContent";
+import { SelectableContent } from "../../components-react/selectable-content/SelectableContent.js";
 
 describe("<SelectableContent />", () => {
   it("lists all given content components in select box", async () => {

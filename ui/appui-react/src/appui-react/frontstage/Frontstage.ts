@@ -6,7 +6,7 @@
  * @module Frontstage
  */
 
-import type { FrontstageConfig } from "./FrontstageConfig";
+import type { FrontstageConfig } from "./FrontstageConfig.js";
 
 /** Configuration from which a frontstage is created.
  * @public

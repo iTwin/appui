@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import { render } from "@testing-library/react";
 import * as React from "react";
-import type { ModalFrontstageInfo } from "../../appui-react";
-import { ModalFrontstage, UiFramework } from "../../appui-react";
+import type { ModalFrontstageInfo } from "../../appui-react.js";
+import { ModalFrontstage, UiFramework } from "../../appui-react.js";
 
 const navigationBackSpy = vi.fn();
 const closeModalSpy = vi.fn();

@@ -9,13 +9,13 @@
 import * as React from "react";
 import type { WebFontIconProps } from "@itwin/core-react";
 import { Icon, WebFontIcon } from "@itwin/core-react";
-import { UiComponents } from "../UiComponents";
+import { UiComponents } from "../UiComponents.js";
 import type {
   Image,
   ImageFileFormat,
   LoadedBinaryImage,
   LoadedImage,
-} from "./IImageLoader";
+} from "./IImageLoader.js";
 import { UiError } from "@itwin/appui-abstract";
 
 /** A class that renders images from data provided by an image loader
@@ -152,7 +152,7 @@ export class ImageRenderer {
         const unhandledSourceType: never = loadedImage.sourceType; // Compile time check that all cases are handled
         // eslint-disable-next-line deprecation/deprecation
         throw new UiError(
-          UiComponents.loggerCategory(this),
+          UiComponents.loggerCategory("ImageRenderer"),
           `Can't handle sourceType: "${unhandledSourceType}"`
         );
     }

@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { render } from "@testing-library/react";
-import { WidgetDef, WidgetState } from "../../appui-react";
-import { ChildWindowWidget } from "../../appui-react/childwindow/ChildWindowWidget";
+import { WidgetDef, WidgetState } from "../../appui-react.js";
+import { ChildWindowWidget } from "../../appui-react/childwindow/ChildWindowWidget.js";
 
 describe("ChildWindowWidget", () => {
   const widgetDef = WidgetDef.create({

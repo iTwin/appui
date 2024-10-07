@@ -10,8 +10,8 @@ import "./Back.scss";
 import classnames from "classnames";
 import * as React from "react";
 import type { NoChildrenProps, OmitChildrenProp } from "@itwin/core-react";
-import type { ToolbarIconProps } from "./Icon";
-import { ToolbarIcon } from "./Icon";
+import type { ToolbarIconProps } from "./Icon.js";
+import { ToolbarIcon } from "./Icon.js";
 
 /** Properties of [[BackButton]] component.
  * @internal

@@ -26,27 +26,27 @@ import {
   subscribeOn,
   toArray,
 } from "rxjs";
-import type { SelectionMode } from "../../common/selection/SelectionModes";
-import type { TreeNodeItem } from "../TreeDataProvider";
+import type { SelectionMode } from "../../common/selection/SelectionModes.js";
+import type { TreeNodeItem } from "../TreeDataProvider.js";
 import type {
   IndividualSelection,
   RangeSelection,
-} from "./internal/TreeSelectionManager";
+} from "./internal/TreeSelectionManager.js";
 import {
   isRangeSelection,
   TreeSelectionManager,
-} from "./internal/TreeSelectionManager";
-import type { TreeActions } from "./TreeActions";
-import type { TreeEvents } from "./TreeEvents";
+} from "./internal/TreeSelectionManager.js";
+import type { TreeActions } from "./TreeActions.js";
+import type { TreeEvents } from "./TreeEvents.js";
 import type {
   TreeModelNode,
   TreeModelNodePlaceholder,
   VisibleTreeNodes,
-} from "./TreeModel";
-import { isTreeModelNode } from "./TreeModel";
-import type { ITreeNodeLoader } from "./TreeNodeLoader";
-import { toRxjsObservable } from "./Observable";
-import type { CheckBoxState } from "../../common/CheckBoxState";
+} from "./TreeModel.js";
+import { isTreeModelNode } from "./TreeModel.js";
+import type { ITreeNodeLoader } from "./TreeNodeLoader.js";
+import { toRxjsObservable } from "./Observable.js";
+import type { CheckBoxState } from "../../common/CheckBoxState.js";
 
 /**
  * Default event dispatcher that emits tree events according performed actions.

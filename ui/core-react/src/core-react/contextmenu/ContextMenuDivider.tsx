@@ -8,7 +8,7 @@
 
 import * as React from "react";
 import classnames from "classnames";
-import type { CommonProps } from "../utils/Props";
+import type { CommonProps } from "../utils/Props.js";
 
 /* eslint-disable deprecation/deprecation */
 

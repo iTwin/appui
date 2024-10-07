@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import type { ContentGroupProps, ContentProps } from "../../appui-react";
+import type { ContentGroupProps, ContentProps } from "../../appui-react.js";
 import {
   BackstageAppButton,
   ContentGroup,
@@ -11,11 +11,11 @@ import {
   StageUsage,
   StandardContentLayouts,
   UiFramework,
-} from "../../appui-react";
-import TestUtils from "../TestUtils";
-import type { StandardFrontstageProps } from "../../appui-react/frontstage/StandardFrontstageProvider";
-import { StandardFrontstageProvider } from "../../appui-react/frontstage/StandardFrontstageProvider";
-import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";
+} from "../../appui-react.js";
+import TestUtils from "../TestUtils.js";
+import type { StandardFrontstageProps } from "../../appui-react/frontstage/StandardFrontstageProvider.js";
+import { StandardFrontstageProvider } from "../../appui-react/frontstage/StandardFrontstageProvider.js";
+import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager.js";
 
 async function getSavedViewLayoutProps() {
   return Promise.resolve({

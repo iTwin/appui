@@ -9,7 +9,7 @@ import type {
   ConfigurableCreateInfo,
   FrontstageConfig,
   SupportsViewSelectorChange,
-} from "../../appui-react";
+} from "../../appui-react.js";
 import {
   ConfigurableUiControlType,
   ContentGroup,
@@ -19,9 +19,9 @@ import {
   StandardContentLayouts,
   UiFramework,
   ViewportContentControl,
-} from "../../appui-react";
-import TestUtils, { storageMock } from "../TestUtils";
-import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";
+} from "../../appui-react.js";
+import TestUtils, { storageMock } from "../TestUtils.js";
+import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager.js";
 
 const mySessionStorage = storageMock();
 

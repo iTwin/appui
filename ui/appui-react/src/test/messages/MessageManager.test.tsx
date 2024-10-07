@@ -21,8 +21,8 @@ import {
   AppNotificationManager,
   MessageManager,
   ReactNotifyMessageDetails,
-} from "../../appui-react";
-import { MessageRenderer } from "../../appui-react/messages/MessageRenderer";
+} from "../../appui-react.js";
+import { MessageRenderer } from "../../appui-react/messages/MessageRenderer.js";
 
 describe("MessageManager", () => {
   const notifications = new AppNotificationManager();

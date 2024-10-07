@@ -11,7 +11,7 @@ import type {
   SheetViewState,
   SpatialViewState,
 } from "@itwin/core-frontend";
-import { ViewUtilities } from "../../appui-react";
+import { ViewUtilities } from "../../appui-react.js";
 
 describe("ViewUtilities", () => {
   it("should get bis base class name", () => {

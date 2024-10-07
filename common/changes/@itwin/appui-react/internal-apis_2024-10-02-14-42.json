@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Remove `@internal` API exports from the barrel file.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}

@@ -11,8 +11,9 @@ test("keyin palette panel test", async ({ page, baseURL }) => {
   await page.getByRole("button", { name: "Popup", exact: true }).click();
 
   const keyinPalettePanel = page
-    .locator("div")
-    .filter({ hasText: /^keyin onekeyin twotest atest b$/ })
-    .first();
+    .locator(".uifw-position-popup", {
+      has: page.getByRole("option", { name: "keyin one" }),
+    })
+    .last();
   await expect(keyinPalettePanel).toHaveScreenshot();
 });

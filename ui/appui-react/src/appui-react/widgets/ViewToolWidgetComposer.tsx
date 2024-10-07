@@ -8,10 +8,10 @@
 
 import classnames from "classnames";
 import * as React from "react";
-import { ToolbarComposer } from "../toolbar/ToolbarComposer";
-import { useUiVisibility } from "../hooks/useUiVisibility";
-import { NavigationWidgetComposer } from "./NavigationWidgetComposer";
-import { ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
+import { ToolbarComposer } from "../toolbar/ToolbarComposer.js";
+import { useUiVisibility } from "../hooks/useUiVisibility.js";
+import { NavigationWidgetComposer } from "./NavigationWidgetComposer.js";
+import { ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem.js";
 
 /**
  * Props for [[ViewToolWidgetComposer]].

@@ -9,10 +9,10 @@ import {
   ToolbarUsage,
   UiItemsProvider,
 } from "@itwin/appui-react";
-import { OpenSynchronizedViewTool } from "../../tools/OpenSynchronizedViewTool";
-import { createSynchronizedViewportFrontstage } from "../frontstages/SynchronizedViewportFrontstage";
-import { AppUiTestProviders } from "../../AppUiTestProviders";
-import { getCustomViewSelectorPopupItem } from "../buttons/ViewSelectorPanel";
+import { OpenSynchronizedViewTool } from "../../tools/OpenSynchronizedViewTool.js";
+import { createSynchronizedViewportFrontstage } from "../frontstages/SynchronizedViewportFrontstage.js";
+import { AppUiTestProviders } from "../../AppUiTestProviders.js";
+import { getCustomViewSelectorPopupItem } from "../buttons/ViewSelectorPanel.js";
 
 export function createSynchronizedViewportProvider() {
   const layouts = {

@@ -9,8 +9,8 @@
 import type { CommonProps } from "@itwin/core-react";
 import classnames from "classnames";
 import * as React from "react";
-import type { SafeAreaInsets } from "../../safearea/SafeAreaInsets";
-import { SafeAreaInsetsHelpers } from "../base/SafeAreaInsets";
+import type { SafeAreaInsets } from "../../safearea/SafeAreaInsets.js";
+import { SafeAreaInsetsHelpers } from "../base/SafeAreaInsets.js";
 import "./Item.scss";
 
 /** Properties of [[BackstageItem]] component.

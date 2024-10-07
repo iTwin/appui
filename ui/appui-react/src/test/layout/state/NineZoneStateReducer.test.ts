@@ -3,33 +3,33 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { produce } from "immer";
-import { Point, Rectangle } from "@itwin/core-react";
-import { addTabs } from "../Utils";
-import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState";
-import { NineZoneStateReducer } from "../../../appui-react/layout/state/NineZoneStateReducer";
+import { Point, Rectangle } from "@itwin/core-react/internal";
+import { addTabs } from "../Utils.js";
+import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState.js";
+import { NineZoneStateReducer } from "../../../appui-react/layout/state/NineZoneStateReducer.js";
 import type {
   NineZoneAction,
   WidgetDefAddAction,
-} from "../../../appui-react/layout/state/NineZoneAction";
+} from "../../../appui-react/layout/state/NineZoneAction.js";
 import {
   addFloatingWidget,
   addPopoutWidget,
   createFloatingWidgetState,
-} from "../../../appui-react/layout/state/internal/WidgetStateHelpers";
+} from "../../../appui-react/layout/state/internal/WidgetStateHelpers.js";
 import {
   addPanelWidget,
   updatePanelState,
-} from "../../../appui-react/layout/state/internal/PanelStateHelpers";
+} from "../../../appui-react/layout/state/internal/PanelStateHelpers.js";
 import {
   addDockedToolSettings,
   addWidgetToolSettings,
-} from "../../../appui-react/layout/state/internal/ToolSettingsStateHelpers";
+} from "../../../appui-react/layout/state/internal/ToolSettingsStateHelpers.js";
 import {
   addTab,
   createDraggedTabState,
   updateSavedTabState,
-} from "../../../appui-react/layout/state/internal/TabStateHelpers";
-import { getUniqueId } from "../../../appui-react/layout/base/NineZone";
+} from "../../../appui-react/layout/state/internal/TabStateHelpers.js";
+import { getUniqueId } from "../../../appui-react/layout/base/NineZone.js";
 
 describe("NineZoneStateReducer", () => {
   it("should not update for unhandled action", () => {
@@ -1592,11 +1592,15 @@ describe("NineZoneStateReducer", () => {
           byId: {
             t1: {
               id: "t1",
-              popoutBounds: {
-                top: 10,
-                left: 20,
-                right: 300,
-                bottom: 400,
+              popout: {
+                position: {
+                  x: 20,
+                  y: 10,
+                },
+                contentSize: {
+                  height: 390,
+                  width: 280,
+                },
               },
             },
           },
@@ -2015,18 +2019,25 @@ describe("NineZoneStateReducer", () => {
       const newState = NineZoneStateReducer(state, {
         type: "WIDGET_TAB_SET_POPOUT_BOUNDS",
         id: "t1",
-        bounds: {
-          left: 10,
-          top: 20,
-          right: 300,
-          bottom: 400,
+        position: {
+          x: 10,
+          y: 20,
+        },
+        contentSize: {
+          width: 290,
+          height: 380,
         },
       });
-      expect(newState.savedTabs.byId.t1?.popoutBounds).to.eql({
-        left: 10,
-        top: 20,
-        right: 300,
-        bottom: 400,
+      expect(newState.savedTabs.byId.t1?.popout).to.eql({
+        position: {
+          x: 10,
+          y: 20,
+        },
+        contentSize: {
+          width: 290,
+          height: 380,
+        },
+        size: undefined,
       });
     });
   });

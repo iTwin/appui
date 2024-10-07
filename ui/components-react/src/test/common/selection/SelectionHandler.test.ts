@@ -3,18 +3,18 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as moq from "typemoq";
-import { SelectionMode } from "../../../components-react";
+import { SelectionMode } from "../../../components-react.js";
 import type {
   MultiSelectionHandler,
   OnItemsDeselectedCallback,
   OnItemsSelectedCallback,
   OnSelectionChanged,
   SingleSelectionHandler,
-} from "../../../components-react/common/selection/SelectionHandler";
+} from "../../../components-react/common/selection/SelectionHandler.js";
 import {
   DragAction,
   SelectionHandler,
-} from "../../../components-react/common/selection/SelectionHandler";
+} from "../../../components-react/common/selection/SelectionHandler.js";
 
 describe("SelectionHandler", () => {
   let handler: SelectionHandler<string>;

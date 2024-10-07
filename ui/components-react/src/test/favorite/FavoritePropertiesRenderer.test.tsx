@@ -5,9 +5,9 @@
 
 import * as faker from "faker";
 import { PropertyRecord } from "@itwin/appui-abstract";
-import type { PropertyCategory, PropertyData } from "../../components-react";
-import { FavoritePropertiesRenderer } from "../../components-react/favorite/FavoritePropertiesRenderer";
-import TestUtils from "../TestUtils";
+import type { PropertyCategory, PropertyData } from "../../components-react.js";
+import { FavoritePropertiesRenderer } from "../../components-react/favorite/FavoritePropertiesRenderer.js";
+import TestUtils from "../TestUtils.js";
 
 describe("FavoritePropertiesRenderer", () => {
   let dataProvider: FavoritePropertiesDataProvider;

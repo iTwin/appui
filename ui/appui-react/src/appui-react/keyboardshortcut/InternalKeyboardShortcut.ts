@@ -7,15 +7,15 @@
  */
 
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
-import { CursorInformation } from "../cursor/CursorInformation";
-import { KeyboardShortcutMenu } from "./KeyboardShortcutMenu";
+import { CursorInformation } from "../cursor/CursorInformation.js";
+import { KeyboardShortcutMenu } from "./KeyboardShortcutMenu.js";
 import {
   KeyboardShortcut,
   KeyboardShortcutContainer,
-} from "./KeyboardShortcut";
-import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
-import type { KeyboardShortcutProps } from "./KeyboardShortcutProps";
-import type { ListenerType } from "@itwin/core-react";
+} from "./KeyboardShortcut.js";
+import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher.js";
+import type { KeyboardShortcutProps } from "./KeyboardShortcutProps.js";
+import type { ListenerType } from "@itwin/core-react/internal";
 
 /* eslint-disable deprecation/deprecation */
 

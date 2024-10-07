@@ -7,9 +7,9 @@
  */
 
 import * as React from "react";
-import { StatusBarComposer } from "../statusbar/StatusBarComposer";
-import { StatusBarWidgetControl } from "../statusbar/StatusBarWidgetControl";
-import { UiFramework } from "../UiFramework";
+import { StatusBarComposer } from "../statusbar/StatusBarComposer.js";
+import { StatusBarWidgetControl } from "../statusbar/StatusBarWidgetControl.js";
+import { UiFramework } from "../UiFramework.js";
 
 /* eslint-disable deprecation/deprecation */
 

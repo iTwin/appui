@@ -2,8 +2,8 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { BaseTimelineDataProvider } from "../../imodel-components-react/timeline/BaseTimelineDataProvider";
-import type { PlaybackSettings } from "../../imodel-components-react/timeline/interfaces";
+import { BaseTimelineDataProvider } from "../../imodel-components-react/timeline/BaseTimelineDataProvider.js";
+import type { PlaybackSettings } from "../../imodel-components-react/timeline/interfaces.js";
 
 class TestTimelineDataProvider extends BaseTimelineDataProvider {
   public pointerCallbackCalled = false;

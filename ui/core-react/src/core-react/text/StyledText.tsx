@@ -8,7 +8,7 @@
 
 import classnames from "classnames";
 import * as React from "react";
-import type { TextProps } from "./TextProps";
+import type { TextProps } from "./TextProps.js";
 
 /* eslint-disable deprecation/deprecation */
 

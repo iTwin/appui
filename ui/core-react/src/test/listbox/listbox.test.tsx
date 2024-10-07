@@ -6,8 +6,8 @@ import * as React from "react";
 import { Key } from "ts-key-enum";
 
 import { fireEvent, render } from "@testing-library/react";
-import type { ListboxValue } from "../../core-react/listbox/Listbox";
-import { Listbox, ListboxItem } from "../../core-react/listbox/Listbox";
+import type { ListboxValue } from "../../core-react/listbox/Listbox.js";
+import { Listbox, ListboxItem } from "../../core-react/listbox/Listbox.js";
 
 describe("<ListBox />", () => {
   const listItems = [

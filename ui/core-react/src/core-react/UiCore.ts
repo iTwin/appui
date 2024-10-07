@@ -14,7 +14,6 @@ import "./classes.scss";
 
 import { Logger } from "@itwin/core-bentley";
 import type { Localization } from "@itwin/core-common";
-import { getObjectClassName } from "./utils/getObjectClassName";
 
 /* eslint-disable deprecation/deprecation */
 
@@ -33,7 +32,7 @@ export class UiCore {
   public static async initialize(localization: Localization): Promise<void> {
     if (UiCore._initialized) {
       Logger.logInfo(
-        UiCore.loggerCategory(UiCore),
+        UiCore.loggerCategory("UiCore"),
         `UiCore.initialize already called`
       );
       return;
@@ -71,7 +70,7 @@ export class UiCore {
   public static translate(key: string | string[]): string {
     if (!UiCore._localization) {
       Logger.logError(
-        UiCore.loggerCategory(this),
+        UiCore.loggerCategory("UiCore"),
         `translate: UiCore must be initialize with a localization provider. Returning blank string.`
       );
       return "";
@@ -87,9 +86,7 @@ export class UiCore {
   }
 
   /** @internal */
-  public static loggerCategory(obj: any): string {
-    const className = getObjectClassName(obj);
-    const category = UiCore.packageName + (className ? `.${className}` : "");
-    return category;
+  public static loggerCategory(name: string): string {
+    return `${UiCore.packageName}.${name}`;
   }
 }

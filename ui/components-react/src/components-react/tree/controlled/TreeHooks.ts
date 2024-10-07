@@ -8,12 +8,12 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useDisposable, useOptionalDisposable } from "@itwin/core-react";
-import type { TreeDataProvider } from "../TreeDataProvider";
-import type { TreeEventHandlerParams } from "./TreeEventHandler";
-import { TreeEventHandler } from "./TreeEventHandler";
-import type { TreeModel } from "./TreeModel";
-import { TreeModelSource } from "./TreeModelSource";
-import { PagedTreeNodeLoader, TreeNodeLoader } from "./TreeNodeLoader";
+import type { TreeDataProvider } from "../TreeDataProvider.js";
+import type { TreeEventHandlerParams } from "./TreeEventHandler.js";
+import { TreeEventHandler } from "./TreeEventHandler.js";
+import type { TreeModel } from "./TreeModel.js";
+import { TreeModelSource } from "./TreeModelSource.js";
+import { PagedTreeNodeLoader, TreeNodeLoader } from "./TreeNodeLoader.js";
 
 /**
  * React hook that returns an immutable `TreeModel` whenever it changes in the given

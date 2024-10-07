@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import type { FrontstageConfig } from "../../appui-react";
+import type { FrontstageConfig } from "../../appui-react.js";
 import {
   ContentGroup,
   FrontstageDef,
@@ -12,9 +12,9 @@ import {
   StandardContentLayouts,
   ToolItemDef,
   UiFramework,
-} from "../../appui-react";
-import TestUtils from "../TestUtils";
-import { TestContentControl, TestFrontstage } from "./FrontstageTestUtils";
+} from "../../appui-react.js";
+import TestUtils from "../TestUtils.js";
+import { TestContentControl, TestFrontstage } from "./FrontstageTestUtils.js";
 
 class TestNestedFrontstage extends FrontstageProvider {
   public get defaultToolDef() {

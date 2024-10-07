@@ -12,7 +12,7 @@ import type { CommonProps } from "@itwin/core-react";
 import { Icon } from "@itwin/core-react";
 import { SvgCursor } from "@itwin/itwinui-icons-react";
 import classnames from "classnames";
-import { StatusBarCornerComponentContext } from "../statusbar/StatusBarCornerComponentContext";
+import { StatusBarCornerComponentContext } from "../statusbar/StatusBarCornerComponentContext.js";
 import "./SelectionCount.scss";
 
 /** Properties for the [[SelectionCountField]] component.

@@ -4,13 +4,13 @@
  *--------------------------------------------------------------------------------------------*/
 import { fireEvent, render } from "@testing-library/react";
 import * as React from "react";
-import type { NineZoneDispatch } from "../../../appui-react/layout/base/NineZone";
-import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState";
-import { addPanelWidget } from "../../../appui-react/layout/state/internal/PanelStateHelpers";
-import { addTab } from "../../../appui-react/layout/state/internal/TabStateHelpers";
-import { PopoutToggle } from "../../../appui-react/layout/widget/PopoutToggle";
-import { WidgetIdContext } from "../../../appui-react/layout/widget/Widget";
-import { TestNineZoneProvider } from "../Providers";
+import type { NineZoneDispatch } from "../../../appui-react/layout/base/NineZone.js";
+import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState.js";
+import { addPanelWidget } from "../../../appui-react/layout/state/internal/PanelStateHelpers.js";
+import { addTab } from "../../../appui-react/layout/state/internal/TabStateHelpers.js";
+import { PopoutToggle } from "../../../appui-react/layout/widget/PopoutToggle.js";
+import { WidgetIdContext } from "../../../appui-react/layout/widget/Widget.js";
+import { TestNineZoneProvider } from "../Providers.js";
 
 describe("PopoutToggle", () => {
   it("should dispatch PANEL_TOGGLE_PINNED", () => {

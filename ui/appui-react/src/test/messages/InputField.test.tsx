@@ -12,7 +12,7 @@ import {
   InputFieldMessage,
   MessageManager,
   UiFramework,
-} from "../../appui-react";
+} from "../../appui-react.js";
 import {
   render,
   screen,

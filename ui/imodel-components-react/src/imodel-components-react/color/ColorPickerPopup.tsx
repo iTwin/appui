@@ -11,7 +11,8 @@ import classnames from "classnames";
 import { ColorByName, ColorDef } from "@itwin/core-common";
 import { RelativePosition } from "@itwin/appui-abstract";
 import type { CommonProps } from "@itwin/core-react";
-import { Icon, Popup, useRefs } from "@itwin/core-react";
+import { Icon, Popup } from "@itwin/core-react";
+import { useRefs } from "@itwin/core-react/internal";
 import {
   ColorBuilder,
   ColorInputPanel,
@@ -20,13 +21,13 @@ import {
   ColorValue,
 } from "@itwin/itwinui-react";
 import "./ColorPickerPopup.scss";
-import { getCSSColorFromDef } from "./getCSSColorFromDef";
+import { getCSSColorFromDef } from "./getCSSColorFromDef.js";
 import {
   SvgCaretDownSmall,
   SvgCaretUpSmall,
   SvgClose,
 } from "@itwin/itwinui-icons-react";
-import { useTranslation } from "../useTranslation";
+import { useTranslation } from "../useTranslation.js";
 
 /** Properties for the [[ColorPickerPopup]] React component
  * @public

@@ -10,11 +10,11 @@ import {
   getWidgetLocation,
   isFloatingWidgetLocation,
   isPopoutWidgetLocation,
-} from "../state/WidgetLocation";
-import { isAllowedSideTarget } from "./useAllowedSideTarget";
-import type { WidgetState } from "../state/WidgetState";
-import { useLayout } from "../base/LayoutStore";
-import { DraggedWidgetIdContext } from "../base/DragManager";
+} from "../state/WidgetLocation.js";
+import { isAllowedSideTarget } from "./useAllowedSideTarget.js";
+import type { WidgetState } from "../state/WidgetState.js";
+import { useLayout } from "../base/LayoutStore.js";
+import { DraggedWidgetIdContext } from "../base/DragManager.js";
 
 /** Checks the proposed docking target to see if it's allowed by the dragged widget or tab
  * @internal

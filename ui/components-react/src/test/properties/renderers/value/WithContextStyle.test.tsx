@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import { render } from "@testing-library/react";
 import * as React from "react";
-import { withContextStyle } from "../../../../components-react/properties/renderers/value/WithContextStyle";
-import { selectorMatches, styleMatch } from "../../../TestUtils";
+import { withContextStyle } from "../../../../components-react/properties/renderers/value/WithContextStyle.js";
+import { selectorMatches, styleMatch } from "../../../TestUtils.js";
 
 describe("withContextStyle", () => {
   it("returns given node when context is not provided", () => {

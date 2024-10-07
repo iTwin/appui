@@ -6,20 +6,30 @@
  * @module Base
  */
 
-import type { RectangleProps } from "../../utils/RectangleProps";
-import type { TabState } from "./TabState";
-import type { WidgetRestoreState } from "./WidgetRestoreState";
+import type { XAndY } from "@itwin/core-geometry";
+import type { TabState } from "./TabState.js";
+import type { WidgetRestoreState } from "./WidgetRestoreState.js";
+import type { SizeProps } from "../../utils/SizeProps.js";
 
 /** @internal */
 export type TabHomeState = WidgetRestoreState & {
-  tabIndex: number;
+  readonly tabIndex: number;
 };
+
+/** @internal */
+export interface PopoutBounds {
+  /** Window position. */
+  readonly position: XAndY;
+  /** Window size. */
+  readonly size?: SizeProps;
+  readonly contentSize: SizeProps;
+}
 
 /** @internal */
 export interface SavedTabState {
   readonly id: TabState["id"];
   readonly home?: TabHomeState;
-  readonly popoutBounds?: RectangleProps;
+  readonly popout?: PopoutBounds;
 }
 
 /** @internal */

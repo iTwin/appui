@@ -11,20 +11,21 @@ import {
   ConditionalStringValue,
 } from "@itwin/appui-abstract";
 import { Logger } from "@itwin/core-bentley";
-import { Badge, Icon as CoreIcon } from "@itwin/core-react";
+import { Icon as CoreIcon } from "@itwin/core-react";
+import { Badge } from "@itwin/core-react/internal";
 import * as React from "react";
-import { UiFramework } from "../UiFramework";
-import { useActiveFrontstageId } from "../frontstage/FrontstageDef";
-import { BackstageItem as NZ_BackstageItem } from "../layout/backstage/Item";
-import { isProviderItem } from "../ui-items-provider/isProviderItem";
+import { UiFramework } from "../UiFramework.js";
+import { useActiveFrontstageId } from "../frontstage/FrontstageDef.js";
+import { BackstageItem as NZ_BackstageItem } from "../layout/backstage/Item.js";
+import { isProviderItem } from "../ui-items-provider/isProviderItem.js";
 import type {
   BackstageActionItem,
   BackstageItem,
   BackstageStageLauncher,
   CommonBackstageItem,
-} from "./BackstageItem";
-import { isBackstageStageLauncher } from "./BackstageItem";
-import { useBackstageManager } from "./BackstageManager";
+} from "./BackstageItem.js";
+import { isBackstageStageLauncher } from "./BackstageItem.js";
+import { useBackstageManager } from "./BackstageManager.js";
 import { Icon } from "@itwin/itwinui-react";
 
 /** @internal */

@@ -5,9 +5,9 @@
 import type { PropertyValueFormat } from "@itwin/appui-abstract";
 import { render, screen } from "@testing-library/react";
 import * as React from "react";
-import type { IPropertyValueRenderer } from "../../components-react/properties/ValueRendererManager";
-import { PropertyValueRendererManager } from "../../components-react/properties/ValueRendererManager";
-import TestUtils from "../TestUtils";
+import type { IPropertyValueRenderer } from "../../components-react/properties/ValueRendererManager.js";
+import { PropertyValueRendererManager } from "../../components-react/properties/ValueRendererManager.js";
+import TestUtils from "../TestUtils.js";
 
 describe("PropertyValueRendererManager", () => {
   let fakeRenderer: IPropertyValueRenderer;

@@ -10,12 +10,12 @@ import "./SearchBox.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { Key } from "ts-key-enum";
-import type { CommonProps } from "../utils/Props";
+import type { CommonProps } from "../utils/Props.js";
 import { Input } from "@itwin/itwinui-react";
-import type { IconSpec } from "../icons/IconComponent";
-import { Icon } from "../icons/IconComponent";
+import type { IconSpec } from "../icons/IconComponent.js";
+import { Icon } from "../icons/IconComponent.js";
 import { SvgClose, SvgSearch } from "@itwin/itwinui-icons-react";
-import { useTranslation } from "../l10n/useTranslation";
+import { useTranslation } from "../l10n/useTranslation.js";
 
 /* eslint-disable deprecation/deprecation */
 

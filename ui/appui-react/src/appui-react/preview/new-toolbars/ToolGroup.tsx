@@ -11,13 +11,13 @@ import classnames from "classnames";
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
 import { Surface } from "@itwin/itwinui-react";
-import { ActionItem } from "./ActionItem";
-import { GroupItem } from "./GroupItem";
-import { CustomItem } from "./CustomItem";
-import { OverflowButton } from "./OverflowButton";
-import { useOverflow } from "./useOverflow";
-import { getChildKey } from "../../layout/tool-settings/Docked";
-import { ToolbarContext } from "./Toolbar";
+import { ActionItem } from "./ActionItem.js";
+import { GroupItem } from "./GroupItem.js";
+import { CustomItem } from "./CustomItem.js";
+import { OverflowButton } from "./OverflowButton.js";
+import { useOverflow } from "./useOverflow.js";
+import { getChildKey } from "../../layout/tool-settings/Docked.js";
+import { ToolbarContext } from "./Toolbar.js";
 
 // eslint-disable-next-line deprecation/deprecation
 interface ToolGroupProps extends CommonProps {

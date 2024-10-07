@@ -8,7 +8,7 @@
 
 import { BeUiEvent, Logger } from "@itwin/core-bentley";
 import type { ConditionalBooleanValue } from "@itwin/appui-abstract";
-import { UiCore } from "../UiCore";
+import { UiCore } from "../UiCore.js";
 
 /* eslint-disable deprecation/deprecation */
 
@@ -182,7 +182,7 @@ export class SettingsManager {
       this.providers = updatedProviders;
     } else {
       Logger.logInfo(
-        UiCore.loggerCategory(this),
+        UiCore.loggerCategory("SettingsManager"),
         `Settings Provider with id of ${settingsProvider.id} has already been registered`
       );
     }

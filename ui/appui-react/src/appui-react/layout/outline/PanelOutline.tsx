@@ -10,15 +10,15 @@ import "./PanelOutline.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
-import { useTargeted } from "../base/DragManager";
+import { useTargeted } from "../base/DragManager.js";
 import {
   isHorizontalPanelSide,
   PanelSideContext,
-} from "../widget-panels/Panel";
-import { isHorizontalPanelState } from "../state/PanelState";
-import { isPanelDropTargetState } from "../state/DropTargetState";
-import { useLayout } from "../base/LayoutStore";
-import { useSendBackHomeState } from "../widget/SendBack";
+} from "../widget-panels/Panel.js";
+import { isHorizontalPanelState } from "../state/PanelState.js";
+import { isPanelDropTargetState } from "../state/DropTargetState.js";
+import { useLayout } from "../base/LayoutStore.js";
+import { useSendBackHomeState } from "../widget/SendBack.js";
 
 /** @internal */
 export function PanelOutline() {

@@ -10,8 +10,8 @@
 
 import * as React from "react";
 import classnames from "classnames";
-import type { CommonProps } from "../utils/Props";
-import type { IMatch } from "../utils/matches";
+import type { CommonProps } from "../utils/Props.js";
+import type { IMatch } from "../utils/matches.js";
 import "./FilteredText.scss";
 
 /** Props supported by [FilteredText] component

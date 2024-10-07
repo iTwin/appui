@@ -8,9 +8,9 @@
 
 import "./ChildWindowWidget.scss";
 import * as React from "react";
-import type { WidgetDef } from "../widgets/WidgetDef";
-import { useReparentPopoutWidget } from "../preview/reparent-popout-widgets/useReparentPopoutWidget";
-import { ReparentedPopoutWidget } from "../preview/reparent-popout-widgets/ReparentedPopoutWidget";
+import type { WidgetDef } from "../widgets/WidgetDef.js";
+import { useReparentPopoutWidget } from "../preview/reparent-popout-widgets/useReparentPopoutWidget.js";
+import { ReparentedPopoutWidget } from "../preview/reparent-popout-widgets/ReparentedPopoutWidget.js";
 
 interface ChildWindowWidgetProps {
   widgetContainerId: string;

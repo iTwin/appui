@@ -6,10 +6,10 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import * as React from "react";
 import { Key } from "ts-key-enum";
-import { EditorContainer } from "../../components-react/editors/EditorContainer";
-import { ToggleEditor } from "../../components-react/editors/ToggleEditor";
-import TestUtils, { MineDataController, userEvent } from "../TestUtils";
-import { PropertyEditorManager } from "../../components-react/editors/PropertyEditorManager";
+import { EditorContainer } from "../../components-react/editors/EditorContainer.js";
+import { ToggleEditor } from "../../components-react/editors/ToggleEditor.js";
+import TestUtils, { MineDataController, userEvent } from "../TestUtils.js";
+import { PropertyEditorManager } from "../../components-react/editors/PropertyEditorManager.js";
 
 describe("<ToggleEditor />", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;

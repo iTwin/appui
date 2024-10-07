@@ -8,8 +8,8 @@
 
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
-import { SelectionCountField } from "./SelectionCount";
-import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState";
+import { SelectionCountField } from "./SelectionCount.js";
+import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState.js";
 
 /** `SelectionInfoField` component is designed to be specified in a status bar.
  * It is used to display the number of items in a selection set.

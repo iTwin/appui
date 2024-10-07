@@ -6,15 +6,15 @@
 import * as React from "react";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { Key } from "ts-key-enum";
-import { EditorContainer } from "../../components-react/editors/EditorContainer";
-import { EnumEditor } from "../../components-react/editors/EnumEditor";
+import { EditorContainer } from "../../components-react/editors/EditorContainer.js";
+import { EnumEditor } from "../../components-react/editors/EnumEditor.js";
 import TestUtils, {
   MineDataController,
   styleMatch,
   userEvent,
-} from "../TestUtils";
-import { PropertyEditorManager } from "../../components-react/editors/PropertyEditorManager";
-import { stubScrollIntoView } from "../test-helpers/misc";
+} from "../TestUtils.js";
+import { PropertyEditorManager } from "../../components-react/editors/PropertyEditorManager.js";
+import { stubScrollIntoView } from "../test-helpers/misc.js";
 
 describe("<EnumEditor />", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;

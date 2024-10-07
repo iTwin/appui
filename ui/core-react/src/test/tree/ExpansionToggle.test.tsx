@@ -3,10 +3,10 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { userEvent } from "@testing-library/user-event";
 import * as React from "react";
-import { ExpansionToggle } from "../../core-react";
-import TestUtils, { classesFromElement } from "../TestUtils";
+import { ExpansionToggle } from "../../core-react.js";
+import TestUtils, { classesFromElement } from "../TestUtils.js";
 
 describe("<ExpansionToggle />", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;

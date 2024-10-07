@@ -4,9 +4,9 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { act, fireEvent, render, waitFor } from "@testing-library/react";
-import { TreeNodeEditor } from "../../../../components-react/tree/controlled/component/TreeNodeEditor";
-import type { MutableTreeModelNode } from "../../../../components-react/tree/controlled/TreeModel";
-import { createRandomMutableTreeModelNode } from "../TreeHelpers";
+import { TreeNodeEditor } from "../../../../components-react/tree/controlled/component/TreeNodeEditor.js";
+import type { MutableTreeModelNode } from "../../../../components-react/tree/controlled/TreeModel.js";
+import { createRandomMutableTreeModelNode } from "../TreeHelpers.js";
 
 describe("TreeNodeEditor", () => {
   let testNode: MutableTreeModelNode;

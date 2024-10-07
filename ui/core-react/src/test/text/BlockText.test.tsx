@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
 import * as React from "react";
-import { BlockText } from "../../core-react";
+import { BlockText } from "../../core-react.js";
 
 describe("<BlockText />", () => {
   it("renders correctly", () => {

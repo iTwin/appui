@@ -28,9 +28,9 @@ import {
 } from "@itwin/appui-abstract";
 import { ITwinLocalization } from "@itwin/core-i18n";
 import { prettyDOM } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import type { AsyncValueProcessingResult } from "../components-react";
-import { DataControllerBase, UiComponents } from "../components-react";
+import { userEvent } from "@testing-library/user-event";
+import type { AsyncValueProcessingResult } from "../components-react.js";
+import { DataControllerBase, UiComponents } from "../components-react.js";
 
 export { userEvent };
 

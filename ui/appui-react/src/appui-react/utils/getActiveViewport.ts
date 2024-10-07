@@ -7,7 +7,7 @@
  */
 
 import { IModelApp } from "@itwin/core-frontend";
-import { UiFramework } from "../UiFramework";
+import { UiFramework } from "../UiFramework.js";
 
 /** A helper function used to get the active viewport in conditional definitions.
  * Uses the deprecated active content control APIs to get the active viewport or the selected view of the view manager as a fallback.

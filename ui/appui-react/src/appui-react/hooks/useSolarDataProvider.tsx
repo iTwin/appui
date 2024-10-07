@@ -9,7 +9,7 @@
 import * as React from "react";
 import type { SolarDataProvider } from "@itwin/imodel-components-react";
 import type { ScreenViewport, Viewport } from "@itwin/core-frontend";
-import { SolarTimelineDataProvider } from "../timeline/SolarTimelineDataProvider";
+import { SolarTimelineDataProvider } from "../timeline/SolarTimelineDataProvider.js";
 
 /** @internal */
 function useSupportsShadowDisplay(viewport: ScreenViewport | undefined) {

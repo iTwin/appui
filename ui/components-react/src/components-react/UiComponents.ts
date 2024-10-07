@@ -10,7 +10,6 @@ import { enablePatches } from "immer";
 import { Logger } from "@itwin/core-bentley";
 import type { Localization } from "@itwin/core-common";
 import { UiCore } from "@itwin/core-react";
-import { getObjectClassName } from "@itwin/core-react";
 
 /**
  * Manages the localization service for the components-react package.
@@ -27,7 +26,7 @@ export class UiComponents {
   public static async initialize(localization: Localization): Promise<void> {
     if (UiComponents._initialized) {
       Logger.logInfo(
-        UiComponents.loggerCategory(UiComponents),
+        UiComponents.loggerCategory("UiComponents"),
         `UiComponents.initialize already called`
       );
       return;
@@ -78,7 +77,7 @@ export class UiComponents {
   public static translate(key: string | string[]): string {
     if (!UiComponents._localization) {
       Logger.logError(
-        UiComponents.loggerCategory(this),
+        UiComponents.loggerCategory("UiComponents"),
         `translate: UiComponents.initialize has not been called. Returning blank string.`
       );
       return "";
@@ -89,10 +88,7 @@ export class UiComponents {
   }
 
   /** @internal */
-  public static loggerCategory(obj: any): string {
-    const className = getObjectClassName(obj);
-    const category =
-      UiComponents.packageName + (className ? `.${className}` : "");
-    return category;
+  public static loggerCategory(name: string): string {
+    return `${UiComponents.packageName}.${name}`;
   }
 }

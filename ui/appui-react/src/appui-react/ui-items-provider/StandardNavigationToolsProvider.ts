@@ -10,11 +10,11 @@ import type {
   ToolbarItem,
   ToolbarOrientation,
   ToolbarUsage,
-} from "../toolbar/ToolbarItem";
-import { BaseUiItemsProvider } from "./BaseUiItemsProvider";
-import type { DefaultNavigationTools } from "./StandardNavigationToolsUiItemsProvider";
-import { StandardNavigationToolsUiItemsProvider } from "./StandardNavigationToolsUiItemsProvider";
-import { UiItemsManager } from "./UiItemsManager";
+} from "../toolbar/ToolbarItem.js";
+import { BaseUiItemsProvider } from "./BaseUiItemsProvider.js";
+import type { DefaultNavigationTools } from "./StandardNavigationToolsUiItemsProvider.js";
+import { StandardNavigationToolsUiItemsProvider } from "./StandardNavigationToolsUiItemsProvider.js";
+import { UiItemsManager } from "./UiItemsManager.js";
 
 /** Provide standard tools for the ViewNavigationWidgetComposer.
  * @public

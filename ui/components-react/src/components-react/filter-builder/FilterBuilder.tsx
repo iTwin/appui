@@ -11,24 +11,24 @@ import type { PropertyDescription } from "@itwin/appui-abstract";
 import type {
   PropertyFilterBuilderContextProps,
   PropertyFilterBuilderRuleRenderingContextProps,
-} from "./FilterBuilderContext";
+} from "./FilterBuilderContext.js";
 import {
   PropertyFilterBuilderContext,
   PropertyFilterBuilderRuleRenderingContext,
-} from "./FilterBuilderContext";
-import { PropertyFilterBuilderRuleGroupRenderer } from "./FilterBuilderRuleGroup";
-import type { PropertyFilterBuilderRuleOperatorProps } from "./FilterBuilderRuleOperator";
-import type { PropertyFilterBuilderRuleValueRendererProps } from "./FilterBuilderRuleValue";
+} from "./FilterBuilderContext.js";
+import { PropertyFilterBuilderRuleGroupRenderer } from "./FilterBuilderRuleGroup.js";
+import type { PropertyFilterBuilderRuleOperatorProps } from "./FilterBuilderRuleOperator.js";
+import type { PropertyFilterBuilderRuleValueRendererProps } from "./FilterBuilderRuleValue.js";
 import {
   buildPropertyFilter,
   usePropertyFilterBuilder,
-} from "./FilterBuilderState";
-import type { PropertyFilter } from "./Types";
+} from "./FilterBuilderState.js";
+import type { PropertyFilter } from "./Types.js";
 import type {
   PropertyFilterBuilderActions,
   PropertyFilterBuilderRuleGroup,
   UsePropertyFilterBuilderProps,
-} from "./FilterBuilderState";
+} from "./FilterBuilderState.js";
 
 /**
  * Props for [[PropertyFilterBuilder]] component.

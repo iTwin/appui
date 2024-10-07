@@ -10,11 +10,11 @@ import "./ContentContainer.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
-import { WidgetContentManagerContext } from "./ContentManager";
-import { PanelSideContext } from "../widget-panels/Panel";
-import { WidgetIdContext } from "./Widget";
-import { useLayout } from "../base/LayoutStore";
-import { getWidgetState } from "../state/internal/WidgetStateHelpers";
+import { WidgetContentManagerContext } from "./ContentManager.js";
+import { PanelSideContext } from "../widget-panels/Panel.js";
+import { WidgetIdContext } from "./Widget.js";
+import { useLayout } from "../base/LayoutStore.js";
+import { getWidgetState } from "../state/internal/WidgetStateHelpers.js";
 
 /** @internal */
 export interface WidgetContentContainerProps {

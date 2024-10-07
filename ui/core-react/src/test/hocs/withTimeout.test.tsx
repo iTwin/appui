@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import { render, waitFor } from "@testing-library/react";
 import * as React from "react";
-import { withTimeout } from "../../core-react";
+import { withTimeout } from "../../core-react.js";
 
 describe("withTimeout", () => {
   const WithTimeoutDiv = withTimeout((props) => <div {...props} />);

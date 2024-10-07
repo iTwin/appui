@@ -14,7 +14,7 @@ import {
   ColorDef,
 } from "@itwin/core-common";
 import type { IModelConnection, ScreenViewport } from "@itwin/core-frontend";
-import type { SolarDataProvider } from "./interfaces";
+import type { SolarDataProvider } from "./interfaces.js";
 
 const millisecPerMinute = 1000 * 60;
 const millisecPerHour = millisecPerMinute * 60;

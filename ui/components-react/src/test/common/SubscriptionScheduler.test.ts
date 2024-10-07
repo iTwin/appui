@@ -17,12 +17,12 @@ import {
 import {
   scheduleSubscription,
   SubscriptionScheduler,
-} from "../../components-react/common/SubscriptionScheduler";
-import { ResolvablePromise } from "../test-helpers/misc";
+} from "../../components-react/common/SubscriptionScheduler.js";
+import { ResolvablePromise } from "../test-helpers/misc.js";
 import {
   extractSequence,
   waitForUnsubscription,
-} from "./ObservableTestHelpers";
+} from "./ObservableTestHelpers.js";
 
 async function expectSequence<T>(
   expectedSequence: T[],

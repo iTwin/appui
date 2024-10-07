@@ -9,10 +9,10 @@ import {
   ConfigurableUiActions,
   FrameworkReducer,
   UiFramework,
-} from "../../appui-react";
-import { ThemeManager } from "../../appui-react/theme/ThemeManager";
-import TestUtils from "../TestUtils";
-import { ColorTheme } from "../../appui-react/theme/ThemeId";
+} from "../../appui-react.js";
+import { ThemeManager } from "../../appui-react/theme/ThemeManager.js";
+import TestUtils from "../TestUtils.js";
+import { ColorTheme } from "../../appui-react/theme/ThemeId.js";
 import { combineReducers, createStore } from "redux";
 
 describe("ThemeManager", () => {

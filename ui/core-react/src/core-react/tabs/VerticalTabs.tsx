@@ -7,9 +7,9 @@
  */
 
 import * as React from "react";
-import type { TabsProps } from "./Tabs";
-import { Tabs } from "./Tabs";
-import { Orientation } from "../enums/Orientation";
+import type { TabsProps } from "./Tabs.js";
+import { Tabs } from "./Tabs.js";
+import { Orientation } from "../enums/Orientation.js";
 
 /* eslint-disable deprecation/deprecation */
 

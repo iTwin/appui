@@ -11,20 +11,20 @@ import classnames from "classnames";
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
 import type { CommonProps } from "@itwin/core-react";
-import { Rectangle, useRefs } from "@itwin/core-react";
-import type { UseDragWidgetArgs } from "../base/DragManager";
-import { useDragWidget } from "../base/DragManager";
+import { Rectangle, useRefs } from "@itwin/core-react/internal";
+import type { UseDragWidgetArgs } from "../base/DragManager.js";
+import { useDragWidget } from "../base/DragManager.js";
 import {
   getUniqueId,
   MeasureContext,
   NineZoneDispatchContext,
-} from "../base/NineZone";
-import type { WidgetState } from "../state/WidgetState";
-import { PanelSideContext } from "../widget-panels/Panel";
-import { useLayout } from "../base/LayoutStore";
-import { getWidgetState } from "../state/internal/WidgetStateHelpers";
-import { useFloatingWidgetId } from "./FloatingWidget";
-import type { SizeProps } from "../../utils/SizeProps";
+} from "../base/NineZone.js";
+import type { WidgetState } from "../state/WidgetState.js";
+import { PanelSideContext } from "../widget-panels/Panel.js";
+import { useLayout } from "../base/LayoutStore.js";
+import { getWidgetState } from "../state/internal/WidgetStateHelpers.js";
+import { useFloatingWidgetId } from "./FloatingWidget.js";
+import type { SizeProps } from "../../utils/SizeProps.js";
 
 /** @internal */
 export interface WidgetProviderProps {

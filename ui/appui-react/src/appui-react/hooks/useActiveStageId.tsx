@@ -7,7 +7,7 @@
  */
 
 import { useEffect, useState } from "react";
-import { UiFramework } from "../UiFramework";
+import { UiFramework } from "../UiFramework.js";
 
 /** React hook that maintains the active stage Id.
  * @public

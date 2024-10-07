@@ -3,18 +3,18 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { act, fireEvent, render, waitFor } from "@testing-library/react";
-import produce from "immer";
+import { produce } from "immer";
 import * as React from "react";
-import type { DragManager } from "../../../appui-react/layout/base/DragManager";
-import { DraggedPanelSideContext } from "../../../appui-react/layout/base/DragManager";
-import { createLayoutStore } from "../../../appui-react/layout/base/LayoutStore";
-import type { NineZoneDispatch } from "../../../appui-react/layout/base/NineZone";
-import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState";
-import { addPanelWidget } from "../../../appui-react/layout/state/internal/PanelStateHelpers";
-import { addTab } from "../../../appui-react/layout/state/internal/TabStateHelpers";
-import { WidgetPanelProvider } from "../../../appui-react/layout/widget-panels/Panel";
-import { createDragInfo, TestNineZoneProvider } from "../Providers";
-import { addTabs } from "../Utils";
+import type { DragManager } from "../../../appui-react/layout/base/DragManager.js";
+import { DraggedPanelSideContext } from "../../../appui-react/layout/base/DragManager.js";
+import { createLayoutStore } from "../../../appui-react/layout/base/LayoutStore.js";
+import type { NineZoneDispatch } from "../../../appui-react/layout/base/NineZone.js";
+import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState.js";
+import { addPanelWidget } from "../../../appui-react/layout/state/internal/PanelStateHelpers.js";
+import { addTab } from "../../../appui-react/layout/state/internal/TabStateHelpers.js";
+import { WidgetPanelProvider } from "../../../appui-react/layout/widget-panels/Panel.js";
+import { createDragInfo, TestNineZoneProvider } from "../Providers.js";
+import { addTabs } from "../Utils.js";
 
 describe("WidgetPanelProvider", () => {
   it("should render vertical", () => {

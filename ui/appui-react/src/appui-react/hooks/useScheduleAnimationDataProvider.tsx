@@ -7,7 +7,7 @@
  */
 
 import * as React from "react";
-import { ScheduleAnimationTimelineDataProvider } from "../timeline/ScheduleAnimationProvider";
+import { ScheduleAnimationTimelineDataProvider } from "../timeline/ScheduleAnimationProvider.js";
 import type { ScreenViewport, Viewport } from "@itwin/core-frontend";
 
 /** @internal */

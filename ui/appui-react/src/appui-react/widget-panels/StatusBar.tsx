@@ -8,10 +8,10 @@
 
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
-import { ConfigurableUiControlType } from "../configurableui/ConfigurableUiControl";
-import { StatusBar } from "../statusbar/StatusBar";
-import type { StatusBarWidgetControl } from "../statusbar/StatusBarWidgetControl";
-import { useActiveFrontstageDef } from "../frontstage/FrontstageDef";
+import { ConfigurableUiControlType } from "../configurableui/ConfigurableUiControl.js";
+import { StatusBar } from "../statusbar/StatusBar.js";
+import type { StatusBarWidgetControl } from "../statusbar/StatusBarWidgetControl.js";
+import { useActiveFrontstageDef } from "../frontstage/FrontstageDef.js";
 
 /** @internal */
 // eslint-disable-next-line deprecation/deprecation

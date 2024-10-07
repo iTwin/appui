@@ -20,15 +20,10 @@ import type {
 import {
   PropertyEditorParamTypes,
   PropertyValueFormat,
-  StandardEditorNames,
-  StandardTypeNames,
 } from "@itwin/appui-abstract";
 import { Icon } from "@itwin/core-react";
-import type { PropertyEditorProps, TypeEditor } from "./EditorContainer";
-import {
-  PropertyEditorBase,
-  PropertyEditorManager,
-} from "./PropertyEditorManager";
+import type { PropertyEditorProps, TypeEditor } from "./EditorContainer.js";
+import { PropertyEditorBase } from "./PropertyEditorManager.js";
 import svgPlaceholder from "@bentley/icons-generic/icons/placeholder.svg";
 
 // cspell:ignore buttongroup enumbuttongroup
@@ -235,9 +230,3 @@ export class EnumPropertyButtonGroupEditor extends PropertyEditorBase {
     return <EnumButtonGroupEditor />;
   }
 }
-
-PropertyEditorManager.registerEditor(
-  StandardTypeNames.Enum,
-  EnumPropertyButtonGroupEditor,
-  StandardEditorNames.EnumButtonGroup
-);

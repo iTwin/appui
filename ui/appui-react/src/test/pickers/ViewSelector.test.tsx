@@ -10,8 +10,8 @@ import {
   SheetViewState,
   SpatialViewState,
 } from "@itwin/core-frontend";
-import { ViewSelector } from "../../appui-react";
-import TestUtils, { userEvent } from "../TestUtils";
+import { ViewSelector } from "../../appui-react.js";
+import TestUtils, { userEvent } from "../TestUtils.js";
 import { Provider } from "react-redux";
 import { render, screen, waitFor } from "@testing-library/react";
 

@@ -13,20 +13,20 @@ import classnames from "classnames";
 import * as React from "react";
 import { UiEvent } from "@itwin/appui-abstract";
 import { Orientation } from "@itwin/components-react";
-import { SplitPane } from "./split-pane/SplitPane";
+import { SplitPane } from "./split-pane/SplitPane.js";
 import type { CommonProps } from "@itwin/core-react";
-import type { ContentGroup } from "./ContentGroup";
+import type { ContentGroup } from "./ContentGroup.js";
 import type {
   ContentLayoutProps,
   LayoutFragmentProps,
   LayoutHorizontalSplitProps,
   LayoutSplitPropsBase,
   LayoutVerticalSplitProps,
-} from "./ContentLayoutProps";
-import { useActiveFrontstageDef } from "../frontstage/FrontstageDef";
-import { UiFramework } from "../UiFramework";
-import { ContentOverlay, useContentOverlayStore } from "./ContentOverlay";
-import { useConditionalValue } from "../hooks/useConditionalValue";
+} from "./ContentLayoutProps.js";
+import { useActiveFrontstageDef } from "../frontstage/FrontstageDef.js";
+import { UiFramework } from "../UiFramework.js";
+import { ContentOverlay, useContentOverlayStore } from "./ContentOverlay.js";
+import { useConditionalValue } from "../hooks/useConditionalValue.js";
 
 /** Properties for [[ContentWrapper]] */
 // eslint-disable-next-line deprecation/deprecation

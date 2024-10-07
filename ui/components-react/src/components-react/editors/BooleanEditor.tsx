@@ -10,13 +10,10 @@ import "./BooleanEditor.scss";
 import classnames from "classnames";
 import * as React from "react";
 import type { PropertyValue } from "@itwin/appui-abstract";
-import { PropertyValueFormat, StandardTypeNames } from "@itwin/appui-abstract";
+import { PropertyValueFormat } from "@itwin/appui-abstract";
 import { Checkbox } from "@itwin/itwinui-react";
-import type { PropertyEditorProps, TypeEditor } from "./EditorContainer";
-import {
-  PropertyEditorBase,
-  PropertyEditorManager,
-} from "./PropertyEditorManager";
+import type { PropertyEditorProps, TypeEditor } from "./EditorContainer.js";
+import { PropertyEditorBase } from "./PropertyEditorManager.js";
 
 /** @internal */
 interface BooleanEditorState {
@@ -161,12 +158,3 @@ export class BooleanPropertyEditor extends PropertyEditorBase {
     return <BooleanEditor />;
   }
 }
-
-PropertyEditorManager.registerEditor(
-  StandardTypeNames.Bool,
-  BooleanPropertyEditor
-);
-PropertyEditorManager.registerEditor(
-  StandardTypeNames.Boolean,
-  BooleanPropertyEditor
-);

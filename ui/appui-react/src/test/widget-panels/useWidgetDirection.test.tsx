@@ -5,14 +5,14 @@
 import * as React from "react";
 import { Provider } from "react-redux";
 import { renderHook } from "@testing-library/react";
-import { useWidgetDirection } from "../../appui-react";
-import { createLayoutStore } from "../../appui-react/layout/base/LayoutStore";
-import { NineZone } from "../../appui-react/layout/base/NineZone";
-import { createNineZoneState } from "../../appui-react/layout/state/NineZoneState";
-import { addPanelWidget } from "../../appui-react/layout/state/internal/PanelStateHelpers";
-import { addTab } from "../../appui-react/layout/state/internal/TabStateHelpers";
-import { TabIdContext } from "../../appui-react/layout/widget/ContentRenderer";
-import TestUtils from "../TestUtils";
+import { useWidgetDirection } from "../../appui-react.js";
+import { createLayoutStore } from "../../appui-react/layout/base/LayoutStore.js";
+import { NineZone } from "../../appui-react/layout/base/NineZone.js";
+import { createNineZoneState } from "../../appui-react/layout/state/NineZoneState.js";
+import { addPanelWidget } from "../../appui-react/layout/state/internal/PanelStateHelpers.js";
+import { addTab } from "../../appui-react/layout/state/internal/TabStateHelpers.js";
+import { TabIdContext } from "../../appui-react/layout/widget/ContentRenderer.js";
+import TestUtils from "../TestUtils.js";
 
 describe("useWidgetDirection", () => {
   it("should return 'vertical'", async () => {

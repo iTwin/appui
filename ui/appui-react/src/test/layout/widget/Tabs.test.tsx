@@ -4,15 +4,15 @@
  *--------------------------------------------------------------------------------------------*/
 import { render } from "@testing-library/react";
 import * as React from "react";
-import { ShowWidgetIconContext } from "../../../appui-react/layout/base/NineZone";
-import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState";
-import { addPanelWidget } from "../../../appui-react/layout/state/internal/PanelStateHelpers";
-import { addTab } from "../../../appui-react/layout/state/internal/TabStateHelpers";
-import { PanelSideContext } from "../../../appui-react/layout/widget-panels/Panel";
-import { WidgetTabs } from "../../../appui-react/layout/widget/Tabs";
-import { WidgetIdContext } from "../../../appui-react/layout/widget/Widget";
-import { TestNineZoneProvider } from "../Providers";
-import { addTabs } from "../Utils";
+import { ShowWidgetIconContext } from "../../../appui-react/layout/base/NineZone.js";
+import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState.js";
+import { addPanelWidget } from "../../../appui-react/layout/state/internal/PanelStateHelpers.js";
+import { addTab } from "../../../appui-react/layout/state/internal/TabStateHelpers.js";
+import { PanelSideContext } from "../../../appui-react/layout/widget-panels/Panel.js";
+import { WidgetTabs } from "../../../appui-react/layout/widget/Tabs.js";
+import { WidgetIdContext } from "../../../appui-react/layout/widget/Widget.js";
+import { TestNineZoneProvider } from "../Providers.js";
+import { addTabs } from "../Utils.js";
 
 describe("WidgetTabs", () => {
   it("should render", () => {

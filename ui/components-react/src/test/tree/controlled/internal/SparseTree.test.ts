@@ -3,15 +3,15 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as faker from "faker";
-import type { Node } from "../../../../components-react/tree/controlled/internal/SparseTree";
+import type { Node } from "../../../../components-react/tree/controlled/internal/SparseTree.js";
 import {
   SparseArray,
   SparseTree,
-} from "../../../../components-react/tree/controlled/internal/SparseTree";
+} from "../../../../components-react/tree/controlled/internal/SparseTree.js";
 import {
   createRandomMutableTreeModelNode,
   createRandomMutableTreeModelNodes,
-} from "../TreeHelpers";
+} from "../TreeHelpers.js";
 
 describe("SparseTree", () => {
   interface TestNode extends Node {

@@ -7,9 +7,9 @@
  */
 
 import * as React from "react";
-import { withOnOutsideClick } from "../hocs/withOnOutsideClick";
-import type { CommonDivProps } from "../utils/Props";
-import type { useOnOutsideClick } from "../utils/hooks/useOnOutsideClick";
+import { withOnOutsideClick } from "../hocs/withOnOutsideClick.js";
+import type { CommonDivProps } from "../utils/Props.js";
+import type { useOnOutsideClick } from "../utils/hooks/useOnOutsideClick.js";
 
 /** Div element with Outside Click behavior
  * @public

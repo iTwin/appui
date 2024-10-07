@@ -9,8 +9,8 @@ import type {
   Viewport,
 } from "@itwin/core-frontend";
 import { IModelApp, NoRenderApp, StandardViewId } from "@itwin/core-frontend";
-import { ViewportComponentEvents } from "../../imodel-components-react/viewport/ViewportComponentEvents";
-import { TestUtils } from "../TestUtils";
+import { ViewportComponentEvents } from "../../imodel-components-react/viewport/ViewportComponentEvents.js";
+import { TestUtils } from "../TestUtils.js";
 
 describe("ViewportComponentEvents", () => {
   const onSelectedViewportChanged =

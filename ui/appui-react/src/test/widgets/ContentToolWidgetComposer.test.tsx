@@ -4,9 +4,9 @@
  *--------------------------------------------------------------------------------------------*/
 import { render } from "@testing-library/react";
 import * as React from "react";
-import { BackstageAppButton } from "../../appui-react";
-import { ContentToolWidgetComposer } from "../../appui-react/widgets/ContentToolWidgetComposer";
-import { childStructure } from "../TestUtils";
+import { BackstageAppButton } from "../../appui-react.js";
+import { ContentToolWidgetComposer } from "../../appui-react/widgets/ContentToolWidgetComposer.js";
+import { childStructure } from "../TestUtils.js";
 
 describe("ContentToolWidgetComposer", () => {
   it("ContentToolWidgetComposer should render", () => {

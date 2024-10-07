@@ -5,7 +5,7 @@
 /** @packageDocumentation
  * @module Utilities
  */
-import { SafeAreaInsets } from "../../safearea/SafeAreaInsets";
+import { SafeAreaInsets } from "../../safearea/SafeAreaInsets.js";
 
 /** @internal */
 export class SafeAreaInsetsHelpers {

@@ -9,18 +9,18 @@
 import * as React from "react";
 import type { PropertyRecord } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
-import type { HighlightingComponentProps } from "../../common/HighlightingComponentProps";
-import type { PropertyUpdatedArgs } from "../../editors/EditorContainer";
-import { EditorContainer } from "../../editors/EditorContainer";
-import type { PropertyValueRendererManager } from "../ValueRendererManager";
-import type { ActionButtonRenderer } from "./ActionButtonRenderer";
-import { CommonPropertyRenderer } from "./CommonPropertyRenderer";
-import { NonPrimitivePropertyRenderer } from "./NonPrimitivePropertyRenderer";
-import type { PrimitiveRendererProps } from "./PrimitivePropertyRenderer";
-import { PrimitivePropertyRenderer } from "./PrimitivePropertyRenderer";
-import type { PropertyGridColumnInfo } from "./PropertyGridColumns";
-import type { Orientation } from "../../common/Orientation";
-import { useTranslation } from "../../l10n/useTranslation";
+import type { HighlightingComponentProps } from "../../common/HighlightingComponentProps.js";
+import type { PropertyUpdatedArgs } from "../../editors/EditorContainer.js";
+import { EditorContainer } from "../../editors/EditorContainer.js";
+import type { PropertyValueRendererManager } from "../ValueRendererManager.js";
+import type { ActionButtonRenderer } from "./ActionButtonRenderer.js";
+import { CommonPropertyRenderer } from "./CommonPropertyRenderer.js";
+import { NonPrimitivePropertyRenderer } from "./NonPrimitivePropertyRenderer.js";
+import type { PrimitiveRendererProps } from "./PrimitivePropertyRenderer.js";
+import { PrimitivePropertyRenderer } from "./PrimitivePropertyRenderer.js";
+import type { PropertyGridColumnInfo } from "./PropertyGridColumns.js";
+import type { Orientation } from "../../common/Orientation.js";
+import { useTranslation } from "../../l10n/useTranslation.js";
 
 /** Properties shared by all renderers and PropertyView
  * @public

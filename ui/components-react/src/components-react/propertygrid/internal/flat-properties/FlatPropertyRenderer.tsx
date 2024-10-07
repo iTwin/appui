@@ -9,17 +9,17 @@
 import * as React from "react";
 import type { PropertyRecord } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
-import type { HighlightingComponentProps } from "../../../common/HighlightingComponentProps";
-import type { PropertyUpdatedArgs } from "../../../editors/EditorContainer";
-import { EditorContainer } from "../../../editors/EditorContainer";
-import { CommonPropertyRenderer } from "../../../properties/renderers/CommonPropertyRenderer";
-import type { PrimitiveRendererProps } from "../../../properties/renderers/PrimitivePropertyRenderer";
-import type { SharedRendererProps } from "../../../properties/renderers/PropertyRenderer";
-import { PropertyValueRendererManager } from "../../../properties/ValueRendererManager";
-import type { PropertyCategory } from "../../PropertyDataProvider";
-import { FlatNonPrimitivePropertyRenderer } from "./FlatNonPrimitivePropertyRenderer";
-import { CustomizablePropertyRenderer } from "../../../properties/renderers/CustomizablePropertyRenderer";
-import { Orientation } from "../../../common/Orientation";
+import type { HighlightingComponentProps } from "../../../common/HighlightingComponentProps.js";
+import type { PropertyUpdatedArgs } from "../../../editors/EditorContainer.js";
+import { EditorContainer } from "../../../editors/EditorContainer.js";
+import { CommonPropertyRenderer } from "../../../properties/renderers/CommonPropertyRenderer.js";
+import type { PrimitiveRendererProps } from "../../../properties/renderers/PrimitivePropertyRenderer.js";
+import type { SharedRendererProps } from "../../../properties/renderers/PropertyRenderer.js";
+import { PropertyValueRendererManager } from "../../../properties/ValueRendererManager.js";
+import type { PropertyCategory } from "../../PropertyDataProvider.js";
+import { FlatNonPrimitivePropertyRenderer } from "./FlatNonPrimitivePropertyRenderer.js";
+import { CustomizablePropertyRenderer } from "../../../properties/renderers/CustomizablePropertyRenderer.js";
+import { Orientation } from "../../../common/Orientation.js";
 
 /** Properties of [[FlatPropertyRenderer]] React component
  * @internal

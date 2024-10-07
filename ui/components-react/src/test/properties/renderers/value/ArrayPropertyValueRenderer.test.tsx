@@ -4,9 +4,9 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { Orientation } from "@itwin/core-react";
-import { ArrayPropertyValueRenderer } from "../../../../components-react/properties/renderers/value/ArrayPropertyValueRenderer";
-import { PropertyContainerType } from "../../../../components-react/properties/ValueRendererManager";
-import TestUtils, { userEvent } from "../../../TestUtils";
+import { ArrayPropertyValueRenderer } from "../../../../components-react/properties/renderers/value/ArrayPropertyValueRenderer.js";
+import { PropertyContainerType } from "../../../../components-react/properties/ValueRendererManager.js";
+import TestUtils, { userEvent } from "../../../TestUtils.js";
 import { render, screen } from "@testing-library/react";
 
 describe("ArrayPropertyValueRenderer", () => {

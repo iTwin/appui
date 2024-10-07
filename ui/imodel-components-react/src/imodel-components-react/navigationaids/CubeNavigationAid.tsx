@@ -22,11 +22,12 @@ import {
 } from "@itwin/core-geometry";
 import type { IModelConnection, Viewport } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
-import type { CommonProps, IconSpec, ListenerType } from "@itwin/core-react";
+import type { CommonProps, IconSpec } from "@itwin/core-react";
+import type { ListenerType } from "@itwin/core-react/internal";
 import { Icon } from "@itwin/core-react";
-import { UiIModelComponents } from "../UiIModelComponents";
-import { ViewportComponentEvents } from "../viewport/ViewportComponentEvents";
-import { Cube, Face } from "./Cube";
+import { UiIModelComponents } from "../UiIModelComponents.js";
+import { ViewportComponentEvents } from "../viewport/ViewportComponentEvents.js";
+import { Cube, Face } from "./Cube.js";
 import {
   SvgCaretDown,
   SvgCaretLeft,

@@ -9,19 +9,19 @@
 import type { PropertyRecord, PropertyValue } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
 import type { IDisposable } from "@itwin/core-bentley";
-import type { HighlightInfo } from "../../common/HighlightingComponentProps";
-import type { CategoryRecordsDict } from "../internal/flat-items/MutableGridCategory";
+import type { HighlightInfo } from "../../common/HighlightingComponentProps.js";
+import type { CategoryRecordsDict } from "../internal/flat-items/MutableGridCategory.js";
 import type {
   IPropertyDataProvider,
   PropertyCategory,
   PropertyData,
-} from "../PropertyDataProvider";
-import { PropertyDataChangeEvent } from "../PropertyDataProvider";
+} from "../PropertyDataProvider.js";
+import { PropertyDataChangeEvent } from "../PropertyDataProvider.js";
 import type {
   FilteredType,
   IPropertyDataFilterer,
   PropertyDataFilterResult,
-} from "./filterers/PropertyDataFiltererBase";
+} from "./filterers/PropertyDataFiltererBase.js";
 
 interface FilteredRecords {
   filteredRecords: PropertyRecord[];

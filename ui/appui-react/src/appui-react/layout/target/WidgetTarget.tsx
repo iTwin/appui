@@ -9,9 +9,9 @@
 import "./WidgetTarget.scss";
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
-import { WidgetIdContext } from "../widget/Widget";
-import { TargetContainer } from "./TargetContainer";
-import { MergeTarget } from "./MergeTarget";
+import { WidgetIdContext } from "../widget/Widget.js";
+import { TargetContainer } from "./TargetContainer.js";
+import { MergeTarget } from "./MergeTarget.js";
 
 /** @internal */
 export function WidgetTarget() {

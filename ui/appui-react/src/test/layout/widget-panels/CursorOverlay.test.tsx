@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { renderHook } from "@testing-library/react";
-import { CursorTypeContext } from "../../../appui-react/layout/base/NineZone";
-import { useCursor } from "../../../appui-react/layout/widget-panels/CursorOverlay";
+import { CursorTypeContext } from "../../../appui-react/layout/base/NineZone.js";
+import { useCursor } from "../../../appui-react/layout/widget-panels/CursorOverlay.js";
 
 describe("useCursor", () => {
   const wrapper = (props: {}) => (

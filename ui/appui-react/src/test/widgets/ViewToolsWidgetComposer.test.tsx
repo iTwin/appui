@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import { render } from "@testing-library/react";
 import * as React from "react";
-import { ViewToolWidgetComposer } from "../../appui-react/widgets/ViewToolWidgetComposer";
-import { childStructure } from "../TestUtils";
+import { ViewToolWidgetComposer } from "../../appui-react/widgets/ViewToolWidgetComposer.js";
+import { childStructure } from "../TestUtils.js";
 
 describe("ViewToolWidgetComposer", () => {
   it("ViewToolWidgetComposer should render correctly", () => {
