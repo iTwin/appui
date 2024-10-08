@@ -65,10 +65,6 @@ export function backstageItemLocator(page: Page, label: string) {
   return page.getByText(label, { exact: true });
 }
 
-export function popoutButtonLocator(widget: Locator) {
-  return widget.getByRole("button", { name: "Pop out active widget tab" });
-}
-
 type PanelLocatorArgs = { page: Page; side: PanelSide } | { tab: Locator };
 
 export function panelLocator(args: PanelLocatorArgs) {
@@ -269,4 +265,17 @@ export function trackConsole<T = string>(
     messages.push(selected);
   });
   return messages as ReadonlyArray<T>;
+}
+
+export async function popoutWidget(widget: Locator) {
+  const context = widget.page().context();
+  const popoutButton = widget.getByRole("button", {
+    name: "Pop out active widget tab",
+  });
+  const [popoutPage] = await Promise.all([
+    context.waitForEvent("page"),
+    popoutButton.click(),
+  ]);
+  await popoutPage.waitForLoadState(); // TODO: childWindow is only added after 'load' event
+  return popoutPage;
 }

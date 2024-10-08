@@ -42,7 +42,6 @@ export * from "./ui/providers/SynchronizedViewportProvider.js";
 export * from "./ui/providers/UpdatedUiItemsProvider.js";
 export * from "./ui/providers/WidgetContentProvider.js";
 
-export * from "./ui/widgets/ITwinUIv2Widget.js";
 export * from "./ui/widgets/LayoutWidget.js";
 export * from "./ui/widgets/LogLifecycleWidget.js";
 export * from "./ui/widgets/UseWidgetHookWidget.js";

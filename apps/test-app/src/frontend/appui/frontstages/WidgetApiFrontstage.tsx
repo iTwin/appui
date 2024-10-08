@@ -36,7 +36,6 @@ import {
 import {
   AppUiTestProviders,
   FloatingLayoutInfo,
-  ITwinUIv2Widget,
   LayoutControls,
   LayoutInfo,
   LogLifecycleWidget,
@@ -135,7 +134,7 @@ function MyCustomViewOverlay() {
   ) : null;
 }
 
-export function createWidgetApiStageProvider() {
+export function createWidgetApiFrontstageProvider() {
   return {
     id: "appui-test-app:widget-api-provider",
     getWidgets: () => {
@@ -409,14 +408,6 @@ function createBottomPanelWidgets(): Widget[] {
       content: <UseWidgetHookWidget />,
       canPopout: true,
       allowedPanels: [StagePanelLocation.Left, StagePanelLocation.Right],
-      layouts: endLayout,
-    },
-    {
-      id: "appui-test-providers:iTwinUIv2",
-      label: "iTwinUI v2",
-      icon: "icon-app-2",
-      canPopout: true,
-      content: <ITwinUIv2Widget />,
       layouts: endLayout,
     },
   ];

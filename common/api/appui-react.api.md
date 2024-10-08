@@ -4,8 +4,6 @@
 
 ```ts
 
-/// <reference types="react" />
-
 import type { AbstractMenuItemProps } from '@itwin/appui-abstract';
 import type { AbstractToolbarProps } from '@itwin/appui-abstract';
 import type { AbstractWidgetProps } from '@itwin/appui-abstract';
@@ -988,6 +986,7 @@ export function ConfigurableUiContent(props: ConfigurableUiContentProps): React_
 export interface ConfigurableUiContentProps extends CommonProps {
     animateToolSettings?: boolean;
     appBackstage?: React_2.ReactNode;
+    childWindow?: React_2.ComponentType;
     collapsePanels?: boolean;
     // @internal (undocumented)
     idleTimeout?: number;
