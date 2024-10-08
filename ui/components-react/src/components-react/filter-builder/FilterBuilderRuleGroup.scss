@@ -22,6 +22,7 @@
     text-align: center;
     background-color: var(--iui-color-background-hover);
     user-select: none;
+    -webkit-user-select: none;
     display: grid;
     place-items: center;
     box-sizing: border-box;
