@@ -38,7 +38,7 @@ Table of contents:
   }
   ```
 
-- `StatusBarPopover` component now accepts all props that are accepted by `Popover` component from `@itwin/itwinui-react`.
+- `StatusBarPopover` component now accepts all props that are accepted by `Popover` component from `@itwin/itwinui-react`. [#1068](https://github.com/iTwin/appui/pull/1068)
 
 ### Changes
 
