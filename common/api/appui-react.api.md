@@ -4499,7 +4499,7 @@ export enum StatusBarLabelSide {
 export function StatusBarLeftSection(props: CommonDivProps): React_2.JSX.Element;
 
 // @public
-export function StatusBarPopover({ content, ...props }: StatusBarPopoverProps): React_2.JSX.Element;
+export function StatusBarPopover({ content, middleware, ...other }: React_2.ComponentProps<typeof Popover>): React_2.JSX.Element;
 
 // @public
 export namespace StatusBarPopover {
