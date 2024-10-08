@@ -9,6 +9,7 @@
 
 .nz-widget-tab {
   user-select: none;
+  -webkit-user-select: none;
   white-space: nowrap;
   display: flex;
   gap: 6px;

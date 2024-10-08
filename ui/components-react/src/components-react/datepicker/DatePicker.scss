@@ -43,6 +43,7 @@ $outline-size: 2px;
       padding: 5px;
       font-size: var(--iui-font-size-2);
       user-select: none;
+      -webkit-user-select: none;
       color: $date-picker-icons-color-actionable;
 
       &:focus {
