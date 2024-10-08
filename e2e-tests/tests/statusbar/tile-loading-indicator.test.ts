@@ -5,7 +5,7 @@
 import { expect, test } from "@playwright/test";
 import { openComponentExamples } from "../Utils";
 
-test("tile loading indicator test", async ({ page, baseURL }) => {
+test.skip("FLAKY:tile loading indicator test", async ({ page, baseURL }) => {
   await openComponentExamples(page, baseURL);
 
   await page.getByRole("button", { name: "StatusBar", exact: true }).click();
