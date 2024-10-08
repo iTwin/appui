@@ -121,8 +121,8 @@ importers:
         specifier: ^3.11.2
         version: 3.11.2(@types/react@18.3.2)(react-dom@18.3.1)(react@18.3.1)
       '@itwin/itwinui-react-v2':
-        specifier: npm:@itwin/itwinui-react@^2.11.11
-        version: /@itwin/itwinui-react@2.12.20(react-dom@18.3.1)(react@18.3.1)
+        specifier: npm:@itwin/itwinui-react@^2.12.26
+        version: /@itwin/itwinui-react@2.12.26(react-dom@18.3.1)(react@18.3.1)
       '@itwin/itwinui-variables':
         specifier: ^3.0.0
         version: 3.1.0
@@ -3358,6 +3358,23 @@ packages:
 
   /@itwin/itwinui-react@2.12.20(react-dom@18.3.1)(react@18.3.1):
     resolution: {integrity: sha512-ksZ8rSRHGLjmtcW1jdCUgsj31CmbiEE9C6VsDgleYTF1470NpavNoG+frvJ6TxosisuzW8Ovcrn7QANFAF5lDA==}
+    peerDependencies:
+      react: '>=16.8.6 < 19.0.0'
+      react-dom: '>=16.8.6 < 19.0.0'
+    dependencies:
+      '@itwin/itwinui-illustrations-react': 2.1.0(react-dom@18.3.1)(react@18.3.1)
+      '@tippyjs/react': 4.2.6(react-dom@18.3.1)(react@18.3.1)
+      '@types/react-table': 7.7.19
+      classnames: 2.5.1
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+      react-table: 7.8.0(react@18.3.1)
+      react-transition-group: 4.4.5(react-dom@18.3.1)(react@18.3.1)
+      tippy.js: 6.3.7
+    dev: false
+
+  /@itwin/itwinui-react@2.12.26(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-SzedS6sz1iupq0JZm0SAfynFPR8xB9/GbTtQz/8XyuTEvrBoXyHMZJGAySR99TdLwpm3r+cxAEpFK5UOpQ+0Vw==}
     peerDependencies:
       react: '>=16.8.6 < 19.0.0'
       react-dom: '>=16.8.6 < 19.0.0'
