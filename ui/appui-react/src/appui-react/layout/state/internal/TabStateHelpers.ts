@@ -10,7 +10,7 @@ import type { Draft } from "immer";
 import { castDraft, produce } from "immer";
 import { UiError } from "@itwin/appui-abstract";
 import type { NineZoneState } from "../NineZoneState.js";
-import type { DraggedTabState, TabState } from "../TabState.js";
+import type { TabState } from "../TabState.js";
 import { category } from "./NineZoneStateHelpers.js";
 import type { SavedTabState, TabHomeState } from "../SavedTabState.js";
 import { getTabLocation } from "../TabLocation.js";
