@@ -506,6 +506,7 @@ export function NineZoneStateReducer(
     case "WIDGET_TAB_DRAG_START": {
       const tabId = action.id;
       let home: PanelWidgetRestoreState;
+
       if (action.floatingWidgetId) {
         const floatingWidget =
           state.floatingWidgets.byId[action.floatingWidgetId];
@@ -520,10 +521,14 @@ export function NineZoneStateReducer(
           widgetIndex,
         };
       }
+
+      const widget = getWidgetState(state, action.widgetId);
+      const active = action.id === widget.activeTabId;
       state = produce(state, (draft) => {
         draft.draggedTab = createDraggedTabState(tabId, {
           position: Point.create(action.position).toProps(),
           home,
+          active,
         });
       });
       return removeTabFromWidget(state, tabId);
