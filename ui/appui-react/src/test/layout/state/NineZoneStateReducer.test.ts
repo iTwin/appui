@@ -1387,6 +1387,29 @@ describe("NineZoneStateReducer", () => {
           widgetIndex: 0,
         });
       });
+
+      it("should not activate dragged tab if it was not active", () => {
+        let state = createNineZoneState();
+        state = addTabs(state, ["t1", "t2"]);
+        state = addPanelWidget(state, "left", "w1", ["t1", "t2"]);
+        state = produce(state, (draft) => {
+          draft.draggedTab = createDraggedTabState("dt", {
+            position: new Point(100, 200).toProps(),
+            active: false,
+          });
+        });
+        const newState = NineZoneStateReducer(state, {
+          type: "WIDGET_TAB_DRAG_END",
+          id: "dt",
+          target: {
+            type: "tab",
+            tabIndex: 1,
+            widgetId: "w1",
+          },
+        });
+        expect(newState.widgets.w1.tabs).toEqual(["t1", "dt", "t2"]);
+        expect(newState.widgets.w1.activeTabId).toEqual("t1");
+      });
     });
 
     describe("section target", () => {
@@ -1522,6 +1545,29 @@ describe("NineZoneStateReducer", () => {
         });
         expect(newState.widgets.fw1.tabs).toEqual(["fwt1", "dt"]);
         expect(newState.widgets.fw1.activeTabId).toEqual("dt");
+      });
+
+      it("should not activate dragged tab if it was not active", () => {
+        let state = createNineZoneState();
+        state = addTabs(state, ["dt", "t1"]);
+        state = addFloatingWidget(state, "w1", ["t1"]);
+        state = produce(state, (draft) => {
+          draft.draggedTab = createDraggedTabState("dt", {
+            position: new Point(100, 200).toProps(),
+            active: false,
+          });
+        });
+        const newState = NineZoneStateReducer(state, {
+          type: "WIDGET_TAB_DRAG_END",
+          id: "dt",
+          target: {
+            type: "widget",
+            widgetId: "w1",
+          },
+        });
+
+        expect(newState.widgets.w1.tabs).toEqual(["t1", "dt"]);
+        expect(newState.widgets.w1.activeTabId).toEqual("t1");
       });
     });
 

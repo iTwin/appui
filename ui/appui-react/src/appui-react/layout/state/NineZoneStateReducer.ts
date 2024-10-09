@@ -540,6 +540,7 @@ export function NineZoneStateReducer(
     }
     case "WIDGET_TAB_DRAG_END": {
       assert(!!state.draggedTab);
+      const wasActive = state.draggedTab.active;
       const target = action.target;
       if (isTabDropTargetState(target)) {
         state = updateHomeOfToolSettingsWidget(
@@ -551,9 +552,10 @@ export function NineZoneStateReducer(
         const tabIndex = target.tabIndex;
         const tabs = [...targetWidget.tabs];
         tabs.splice(tabIndex, 0, action.id);
+        const activeTabId = wasActive ? action.id : targetWidget.activeTabId;
         state = updateWidgetState(state, targetWidget.id, {
           tabs,
-          activeTabId: action.id,
+          activeTabId,
         });
       } else if (isPanelDropTargetState(target)) {
         state = updatePanelState(state, target.side, (draft) => {
@@ -583,9 +585,10 @@ export function NineZoneStateReducer(
         const tabIndex = targetWidget.tabs.length;
         const tabs = [...targetWidget.tabs];
         tabs.splice(tabIndex, 0, action.id);
+        const activeTabId = wasActive ? action.id : targetWidget.activeTabId;
         state = updateWidgetState(state, targetWidget.id, {
           tabs,
-          activeTabId: action.id,
+          activeTabId,
         });
       } else {
         const tab = state.tabs[state.draggedTab.tabId];

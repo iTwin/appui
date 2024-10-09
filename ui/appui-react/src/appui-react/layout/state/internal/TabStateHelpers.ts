@@ -53,6 +53,7 @@ export function createDraggedTabState(
       widgetIndex: 0,
     },
     position: { x: 0, y: 0 },
+    active: true,
     ...args,
     tabId,
   };
