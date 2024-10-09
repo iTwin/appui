@@ -11,9 +11,7 @@ import type { OnItemExecutedFunc } from "@itwin/appui-abstract";
 import type { CommonProps, NoChildrenProps } from "@itwin/core-react";
 import type { ToolbarOpacitySetting } from "@itwin/components-react";
 import { Direction, ToolbarPanelAlignment } from "@itwin/components-react";
-import { InternalToolbarComponent as CR_Toolbar } from "@itwin/components-react/internal";
 import type { ToolbarItem } from "./ToolbarItem.js";
-import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher.js";
 import { Toolbar as ToolGroupToolbar } from "../preview/new-toolbars/Toolbar.js";
 
 /**
@@ -59,17 +57,6 @@ export function Toolbar(props: ToolbarProps) {
       expandsTo={expandsTo}
       panelAlignment={panelAlignment}
       items={props.items}
-    />
-  );
-}
-
-function OriginalToolbar(props: ToolbarProps) {
-  const { items, ...other } = props;
-  return (
-    <CR_Toolbar
-      items={[]}
-      syncUiEvent={SyncUiEventDispatcher.onSyncUiEvent}
-      {...other}
     />
   );
 }
