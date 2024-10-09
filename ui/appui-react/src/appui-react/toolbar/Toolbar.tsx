@@ -13,7 +13,6 @@ import type { ToolbarOpacitySetting } from "@itwin/components-react";
 import { Direction, ToolbarPanelAlignment } from "@itwin/components-react";
 import { InternalToolbarComponent as CR_Toolbar } from "@itwin/components-react/internal";
 import type { ToolbarItem } from "./ToolbarItem.js";
-import { toUIAToolbarItem } from "./toUIAToolbarItem.js";
 import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher.js";
 import { Toolbar as ToolGroupToolbar } from "../preview/new-toolbars/Toolbar.js";
 
@@ -66,12 +65,9 @@ export function Toolbar(props: ToolbarProps) {
 
 function OriginalToolbar(props: ToolbarProps) {
   const { items, ...other } = props;
-  const uiaItems = React.useMemo(() => {
-    return items.map((item) => toUIAToolbarItem(item));
-  }, [items]);
   return (
     <CR_Toolbar
-      items={uiaItems}
+      items={[]}
       syncUiEvent={SyncUiEventDispatcher.onSyncUiEvent}
       {...other}
     />
