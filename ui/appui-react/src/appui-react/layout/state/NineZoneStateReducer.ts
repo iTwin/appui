@@ -33,7 +33,6 @@ import {
   addRemovedTab,
   addTab,
   addTabToWidget,
-  createDraggedTabState,
   removeTab,
   removeTabFromWidget,
   updateSavedTabState,
@@ -525,11 +524,12 @@ export function NineZoneStateReducer(
       const widget = getWidgetState(state, action.widgetId);
       const active = action.id === widget.activeTabId;
       state = produce(state, (draft) => {
-        draft.draggedTab = createDraggedTabState(tabId, {
+        draft.draggedTab = {
+          tabId,
           position: Point.create(action.position).toProps(),
           home,
           active,
-        });
+        };
       });
       return removeTabFromWidget(state, tabId);
     }

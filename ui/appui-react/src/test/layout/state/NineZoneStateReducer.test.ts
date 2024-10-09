@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import { produce } from "immer";
 import { Point, Rectangle } from "@itwin/core-react/internal";
-import { addTabs } from "../Utils.js";
+import { addTabs, createDraggedTabState } from "../Utils.js";
 import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState.js";
 import { NineZoneStateReducer } from "../../../appui-react/layout/state/NineZoneStateReducer.js";
 import type {
@@ -26,7 +26,6 @@ import {
 } from "../../../appui-react/layout/state/internal/ToolSettingsStateHelpers.js";
 import {
   addTab,
-  createDraggedTabState,
   updateSavedTabState,
 } from "../../../appui-react/layout/state/internal/TabStateHelpers.js";
 import { getUniqueId } from "../../../appui-react/layout/base/NineZone.js";

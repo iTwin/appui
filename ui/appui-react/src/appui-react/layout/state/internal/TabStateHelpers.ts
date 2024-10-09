@@ -42,24 +42,6 @@ export function createTabState(
 }
 
 /** @internal */
-export function createDraggedTabState(
-  tabId: DraggedTabState["tabId"],
-  args?: Partial<DraggedTabState>
-): DraggedTabState {
-  return {
-    home: {
-      side: "left",
-      widgetId: "",
-      widgetIndex: 0,
-    },
-    position: { x: 0, y: 0 },
-    active: true,
-    ...args,
-    tabId,
-  };
-}
-
-/** @internal */
 export function updateTabState(
   state: NineZoneState,
   id: TabState["id"],
