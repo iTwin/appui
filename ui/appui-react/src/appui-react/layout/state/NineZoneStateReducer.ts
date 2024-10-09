@@ -272,6 +272,7 @@ export function NineZoneStateReducer(
         tabs.splice(target.tabIndex, 0, ...draggedWidget.tabs);
         state = updateWidgetState(state, target.widgetId, {
           tabs,
+          activeTabId: draggedWidget.activeTabId,
         });
       } else if (isSectionDropTargetState(target)) {
         state = updatePanelState(state, target.side, (draft) => {
@@ -301,6 +302,7 @@ export function NineZoneStateReducer(
         tabs.splice(targetWidget.tabs.length, 0, ...draggedWidget.tabs);
         state = updateWidgetState(state, target.widgetId, {
           tabs,
+          activeTabId: draggedWidget.activeTabId,
         });
       } else {
         const panelSectionId = getWidgetPanelSectionId(target.side, 0);
@@ -551,6 +553,7 @@ export function NineZoneStateReducer(
         tabs.splice(tabIndex, 0, action.id);
         state = updateWidgetState(state, targetWidget.id, {
           tabs,
+          activeTabId: action.id,
         });
       } else if (isPanelDropTargetState(target)) {
         state = updatePanelState(state, target.side, (draft) => {
@@ -582,6 +585,7 @@ export function NineZoneStateReducer(
         tabs.splice(tabIndex, 0, action.id);
         state = updateWidgetState(state, targetWidget.id, {
           tabs,
+          activeTabId: action.id,
         });
       } else {
         const tab = state.tabs[state.draggedTab.tabId];

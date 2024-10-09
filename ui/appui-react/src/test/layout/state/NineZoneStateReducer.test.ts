@@ -360,6 +360,7 @@ describe("NineZoneStateReducer", () => {
           },
         });
         expect(newState.floatingWidgets.byId.fw1).toBeTruthy();
+        expect(newState.widgets.fw1.activeTabId).toEqual("t1");
       });
 
       it("should contain minimized", () => {
@@ -418,6 +419,7 @@ describe("NineZoneStateReducer", () => {
           },
         });
         expect(newState.widgets.w1.tabs).toEqual(["t1", "fwt1", "t2", "t3"]);
+        expect(newState.widgets.w1.activeTabId).toEqual("fwt1");
       });
 
       it("should update home of tool settings floating widget", () => {
@@ -470,6 +472,7 @@ describe("NineZoneStateReducer", () => {
           },
         });
         expect(newState.panels.left.widgets).toEqual(["w1", "newId", "w2"]);
+        expect(newState.widgets.newId.activeTabId).toEqual("fwt1");
       });
     });
 
@@ -489,6 +492,7 @@ describe("NineZoneStateReducer", () => {
           },
         });
         expect(newState.widgets.w2.tabs).toEqual(["t2", "fwt1"]);
+        expect(newState.widgets.w2.activeTabId).toEqual("fwt1");
       });
 
       it("should add tabs to a floating widget", () => {
@@ -505,6 +509,7 @@ describe("NineZoneStateReducer", () => {
           },
         });
         expect(newState.widgets.fw2.tabs).toEqual(["fwt2", "fwt1"]);
+        expect(newState.widgets.fw2.activeTabId).toEqual("fwt1");
       });
     });
 
@@ -523,6 +528,7 @@ describe("NineZoneStateReducer", () => {
           },
         });
         expect(newState.panels.left.widgets).toEqual(["leftStart"]);
+        expect(newState.widgets.leftStart.activeTabId).toEqual("fwt1");
       });
     });
   });
@@ -1323,6 +1329,7 @@ describe("NineZoneStateReducer", () => {
           },
         });
         expect(newState.widgets.leftStart.tabs).toEqual(["t1", "dt", "t2"]);
+        expect(newState.widgets.leftStart.activeTabId).toEqual("dt");
       });
 
       it("should add tab to leftEnd", () => {
@@ -1344,6 +1351,7 @@ describe("NineZoneStateReducer", () => {
           },
         });
         expect(newState.widgets.leftEnd.tabs).toEqual(["t1", "dt", "t2"]);
+        expect(newState.widgets.leftEnd.activeTabId).toEqual("dt");
       });
 
       it("should update home of tool settings floating widget", () => {
@@ -1402,6 +1410,7 @@ describe("NineZoneStateReducer", () => {
           },
         });
         expect(newState.panels.left.widgets).toEqual(["leftStart", "leftEnd"]);
+        expect(newState.widgets.leftEnd.activeTabId).toEqual("dt");
       });
 
       it("should add widget to new end panel section", () => {
@@ -1424,6 +1433,7 @@ describe("NineZoneStateReducer", () => {
           },
         });
         expect(newState.panels.left.widgets).toEqual(["leftStart", "nw1"]);
+        expect(newState.widgets.nw1.activeTabId).toEqual("dt");
       });
 
       it("should add widget to new panel start section", () => {
@@ -1446,6 +1456,7 @@ describe("NineZoneStateReducer", () => {
           },
         });
         expect(newState.panels.left.widgets).toEqual(["nw1", "leftEnd"]);
+        expect(newState.widgets.nw1.activeTabId).toEqual("dt");
       });
     });
 
@@ -1468,6 +1479,7 @@ describe("NineZoneStateReducer", () => {
           },
         });
         expect(newState.panels.left.widgets).toEqual(["leftEnd"]);
+        expect(newState.widgets.leftEnd.activeTabId).toEqual("dt");
       });
 
       it("should add widget to existing panel start section", () => {
@@ -1488,6 +1500,7 @@ describe("NineZoneStateReducer", () => {
           },
         });
         expect(newState.panels.left.widgets).toEqual(["leftStart"]);
+        expect(newState.widgets.leftStart.activeTabId).toEqual("dt");
       });
 
       it("should add tabs to a floating widget", () => {
@@ -1508,6 +1521,7 @@ describe("NineZoneStateReducer", () => {
           },
         });
         expect(newState.widgets.fw1.tabs).toEqual(["fwt1", "dt"]);
+        expect(newState.widgets.fw1.activeTabId).toEqual("dt");
       });
     });
 
@@ -1530,6 +1544,7 @@ describe("NineZoneStateReducer", () => {
           },
         });
         expect(newState.panels.left.widgets).toEqual(["newId"]);
+        expect(newState.widgets.newId.activeTabId).toEqual("dt");
       });
     });
 
@@ -1555,6 +1570,7 @@ describe("NineZoneStateReducer", () => {
           },
         });
         expect(newState.floatingWidgets.byId.newId).toBeTruthy();
+        expect(newState.widgets.newId.activeTabId).toEqual("dt");
       });
     });
   });

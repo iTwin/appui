@@ -23,7 +23,6 @@ import type {
   NineZoneLabels,
 } from "../layout/base/NineZone.js";
 import { getUniqueId, NineZone } from "../layout/base/NineZone.js";
-import { activateDroppedTab } from "../preview/activate-dropped-tab/activateDroppedTab.js";
 import type { NineZoneState } from "../layout/state/NineZoneState.js";
 import { createNineZoneState } from "../layout/state/NineZoneState.js";
 import { NineZoneStateReducer } from "../layout/state/NineZoneStateReducer.js";
@@ -161,16 +160,9 @@ const log =
 
 /** @internal */
 export function useNineZoneDispatch(frontstageDef: FrontstageDef) {
-  const features = usePreviewFeatures();
-
   const reducer = React.useMemo(() => {
-    let nineZoneStateReducer = log(NineZoneStateReducer);
-
-    nineZoneStateReducer = features.activateDroppedTab
-      ? activateDroppedTab(nineZoneStateReducer)
-      : nineZoneStateReducer;
-    return nineZoneStateReducer;
-  }, [features.activateDroppedTab]);
+    return log(NineZoneStateReducer);
+  }, []);
 
   return React.useCallback<NineZoneDispatch>(
     (action) => {

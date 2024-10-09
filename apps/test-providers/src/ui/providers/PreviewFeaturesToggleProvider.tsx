@@ -30,9 +30,6 @@ const availableFeatures: AvailableFeatures = {
   enableMaximizedPanelWidget: {
     label: "Enable maximized panel widgets",
   },
-  activateDroppedTab: {
-    label: "Change active tab after drag & drop",
-  },
   horizontalPanelAlignment: {
     label: "Horizontal panel alignment",
   },
