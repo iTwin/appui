@@ -12,6 +12,7 @@ body {
       * {
         cursor: $cursor !important;
         user-select: none;
+        -webkit-user-select: none;
       }
     }
   }

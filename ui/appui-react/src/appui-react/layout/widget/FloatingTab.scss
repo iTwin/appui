@@ -12,6 +12,7 @@
   align-items: center;
   background: $buic-background-4;
   user-select: none;
+  -webkit-user-select: none;
   white-space: nowrap;
   height: $nz-widget-tab-height;
   border-radius: $nz-widget-tab-border-radius;
