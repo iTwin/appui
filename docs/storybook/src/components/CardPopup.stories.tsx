@@ -111,12 +111,3 @@ export const NoTitle: Story = {
     title: undefined,
   },
 };
-
-export const NewToolbarsPreviewFeature: Story = {
-  args: Overflow.args,
-  decorators: (Story) => (
-    <PreviewFeaturesProvider features={{ newToolbars: true }}>
-      <Story />
-    </PreviewFeaturesProvider>
-  ),
-};

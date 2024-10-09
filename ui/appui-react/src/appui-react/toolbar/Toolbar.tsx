@@ -15,7 +15,6 @@ import { InternalToolbarComponent as CR_Toolbar } from "@itwin/components-react/
 import type { ToolbarItem } from "./ToolbarItem.js";
 import { toUIAToolbarItem } from "./toUIAToolbarItem.js";
 import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher.js";
-import { usePreviewFeatures } from "../preview/PreviewFeatures.js";
 import { Toolbar as ToolGroupToolbar } from "../preview/new-toolbars/Toolbar.js";
 
 /**
@@ -54,14 +53,6 @@ export interface ToolbarProps extends CommonProps, NoChildrenProps {
  * @beta
  */
 export function Toolbar(props: ToolbarProps) {
-  const previewFeatures = usePreviewFeatures();
-  if (previewFeatures.newToolbars) {
-    return <NewToolbar {...props} />;
-  }
-  return <OriginalToolbar {...props} />;
-}
-
-function NewToolbar(props: ToolbarProps) {
   const expandsTo = toDirection(props.expandsTo);
   const panelAlignment = toPanelAlignment(props.panelAlignment);
   return (
