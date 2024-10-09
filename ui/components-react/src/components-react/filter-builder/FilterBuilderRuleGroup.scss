@@ -4,12 +4,16 @@
  *--------------------------------------------------------------------------------------------*/
 .fb-group {
   --border-color: var(--iui-color-border);
-  --fb-operator-width: 110px;
+  --fb-operator-width: 128px;
   --divider-width: var(--iui-size-2xs);
   --divider-background-color: var(--iui-color-border-subtle);
+  gap: var(--iui-size-s);
 
   .fb-wrapper {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--iui-size-xs);
   }
 
   .fb-logical-operator {
@@ -22,14 +26,10 @@
     display: grid;
     place-items: center;
     box-sizing: border-box;
-    font-size: var(--iui-font-size-2);
     font-weight: var(--iui-font-weight-semibold);
-    padding-block: var(--iui-size-s);
   }
 
   .fb-group-operator {
-    border-style: solid;
-    border-color: var(--border-color);
-    border-width: 1px 0 1px 1px;
+    border: 1px solid var(--border-color);
   }
 }
