@@ -18,6 +18,8 @@ $line-grip-width: calc(#{$nz-grip-width} - 2px);
     position: relative;
     display: flex;
     transition: 0.2s ease-out;
+    user-select: none;
+    -webkit-user-select: none;
 
     > .nz-handle {
       position: absolute;
