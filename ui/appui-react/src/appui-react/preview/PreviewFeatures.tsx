@@ -32,11 +32,6 @@ interface KnownPreviewFeatures {
    * Discuss or upvote this feature: https://github.com/iTwin/appui/discussions/673
    */
   enableMaximizedPanelWidget: boolean;
-  /** If `true`, the active tab of a dragged widget will become active when dropped in a container.
-   *
-   * Discuss or upvote this feature: https://github.com/iTwin/appui/discussions/679
-   */
-  activateDroppedTab: boolean;
   /** If `true`, the horizontal panels will have an additional "Align" button.
    *
    * Discuss or upvote this feature: https://github.com/iTwin/appui/discussions/706
@@ -73,7 +68,6 @@ interface KnownPreviewFeatures {
  * @internal
  */
 const knownFeaturesObject: Record<keyof KnownPreviewFeatures, undefined> = {
-  activateDroppedTab: undefined,
   contentAlwaysMaxSize: undefined,
   enableMaximizedFloatingWidget: undefined,
   enableMaximizedPanelWidget: undefined,
