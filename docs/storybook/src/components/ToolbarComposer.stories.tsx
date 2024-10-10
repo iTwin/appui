@@ -11,6 +11,7 @@ import {
 import {
   CommandItemDef,
   ToolItemDef,
+  ToolbarComposer,
   ToolbarHelper,
   ToolbarItemUtilities,
   ToolbarOrientation,
@@ -29,25 +30,23 @@ import {
   SvgExport,
   SvgRemove,
 } from "@itwin/itwinui-icons-react";
-import { StoryComponent } from "./ToolbarComposer";
 import { AppUiDecorator, InitializerDecorator } from "../Decorators";
 import { withResizer } from "../../.storybook/addons/Resizer";
 import { createBumpEvent } from "../createBumpEvent";
 
 const meta = {
   title: "Components/ToolbarComposer",
-  component: StoryComponent,
+  component: ToolbarComposer,
   tags: ["autodocs"],
   decorators: [withResizer, AppUiDecorator, InitializerDecorator],
   args: {
-    newToolbars: false,
     orientation: ToolbarOrientation.Horizontal,
     usage: ToolbarUsage.ContentManipulation,
   },
   parameters: {
     layout: "centered",
   },
-} satisfies Meta<typeof StoryComponent>;
+} satisfies Meta<typeof ToolbarComposer>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
