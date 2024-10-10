@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Added 2 preview features. One to allow letters in accudraw input fields. The other one to disable colors in accudraw xyz fields. ",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
