@@ -12,7 +12,7 @@ import type { CommonProps, NoChildrenProps } from "@itwin/core-react";
 import type { ToolbarOpacitySetting } from "@itwin/components-react";
 import { Direction, ToolbarPanelAlignment } from "@itwin/components-react";
 import type { ToolbarItem } from "./ToolbarItem.js";
-import { Toolbar as ToolGroupToolbar } from "../preview/new-toolbars/Toolbar.js";
+import { Toolbar as ToolGroupToolbar } from "./new-toolbars/Toolbar.js";
 
 /**
  * Properties of [[Toolbar.enableOverflow]] component.
