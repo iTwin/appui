@@ -18,6 +18,7 @@ import { Input } from "@itwin/itwinui-react";
 import { FrameworkAccuDraw } from "./FrameworkAccuDraw.js";
 import { UiFramework } from "../UiFramework.js";
 import { SvgLock } from "@itwin/itwinui-icons-react";
+import { useAllowLettersInAccuDrawInputFields } from "../preview/allow-letters-in-accudraw-input-fields/useAllowLettersInAccuDrawInputFields.js";
 
 function isLetter(char: string): boolean {
   return char.length === 1 && char.toLowerCase() !== char.toUpperCase();
@@ -95,6 +96,8 @@ const ForwardRefAccuDrawInput = React.forwardRef<
   const inputElementRef = React.useRef<HTMLInputElement>(null);
   const refs = useRefs(inputElementRef, ref); // combine ref needed for target with the forwardRef needed by the Parent when parent is a Type Editor.
 
+  const allowLettersInAccuDrawInputFields = useAllowLettersInAccuDrawInputFields();
+
   React.useEffect(() => {
     const formattedValue = FrameworkAccuDraw.getFieldDisplayValue(field);
     setStringValue(formattedValue);
@@ -153,17 +156,18 @@ const ForwardRefAccuDrawInput = React.forwardRef<
       }
 
       if (isLetter(e.key)) {
-        e.preventDefault();
-        UiFramework.keyboardShortcuts.processKey(
-          e.key,
-          e.altKey,
-          e.ctrlKey,
-          e.shiftKey
-        );
-        return;
+        if(!allowLettersInAccuDrawInputFields){
+          e.preventDefault();
+          UiFramework.keyboardShortcuts.processKey(
+            e.key,
+            e.altKey,
+            e.ctrlKey,
+            e.shiftKey
+          );
+        }
       }
     },
-    [onEscPressed, onEnterPressed]
+    [onEscPressed, onEnterPressed, allowLettersInAccuDrawInputFields]
   );
 
   React.useEffect(() => {

@@ -22,6 +22,7 @@ import angleIconSvg from "./angle.svg";
 import distanceIconSvg from "./distance.svg";
 import { UiFramework } from "../UiFramework.js";
 import type { UiStateStorage } from "../uistate/UiStateStorage.js";
+import { useEnableColorlessAccuDrawInputFields } from "../preview/enable-colorless-accudraw-input-fields/useEnableColorlessAccuDrawInputFields.js";
 
 /** Properties for [[AccuDrawFieldContainer]] component
  * @public
@@ -70,6 +71,7 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
   const distanceInputRef = React.useRef<HTMLInputElement>(null);
   const focusField = React.useRef<ItemField | undefined>(undefined);
   const [mode, setMode] = React.useState(() => IModelApp.accuDraw.compassMode);
+  const enableColorlessAccuDrawInputFields = useEnableColorlessAccuDrawInputFields();
   const [xLock, setXLock] = React.useState(() =>
     IModelApp.accuDraw.getFieldLock(ItemField.X_Item)
   );
@@ -314,7 +316,7 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
           <AccuDrawInputField
             ref={xInputRef}
             isLocked={xLock}
-            className="uifw-accudraw-x-value"
+            className={enableColorlessAccuDrawInputFields ? undefined : "uifw-accudraw-x-value"}
             style={xStyle}
             field={ItemField.X_Item}
             id={`uifw-accudraw-x-${containerIndex}`}
@@ -333,7 +335,7 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
           <AccuDrawInputField
             ref={yInputRef}
             isLocked={yLock}
-            className="uifw-accudraw-y-value"
+            className={enableColorlessAccuDrawInputFields ? undefined : "uifw-accudraw-y-value"}
             style={yStyle}
             field={ItemField.Y_Item}
             id={`uifw-accudraw-y-${containerIndex}`}
@@ -353,7 +355,7 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
             <AccuDrawInputField
               ref={zInputRef}
               isLocked={zLock}
-              className="uifw-accudraw-z-value"
+              className={enableColorlessAccuDrawInputFields ? undefined : "uifw-accudraw-z-value"}
               style={zStyle}
               field={ItemField.Z_Item}
               id={`uifw-accudraw-z-${containerIndex}`}
