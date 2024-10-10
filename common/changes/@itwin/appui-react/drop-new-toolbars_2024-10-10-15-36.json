@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Remove `newToolbars` preview feature which is now enabled by default.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
