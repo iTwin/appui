@@ -574,7 +574,7 @@ export function initializePanel(
 }
 
 /** @internal */
-export const stateVersion = 18; // this needs to be bumped when NineZoneState is changed (to recreate the layout).
+export const stateVersion = 19; // this needs to be bumped when NineZoneState is changed (to recreate the layout).
 
 /** @internal */
 export function initializeNineZoneState(frontstageDef: FrontstageDef) {

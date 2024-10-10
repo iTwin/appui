@@ -40,7 +40,6 @@ import {
   updateTabState,
 } from "./internal/TabStateHelpers.js";
 import {
-  initRectangleProps,
   initSizeProps,
   isToolSettingsFloatingWidget,
   setPointProps,
@@ -626,6 +625,7 @@ export function NineZoneStateReducer(
         contentWidth = tab.preferredFloatingWidgetSize.width;
         contentHeight = tab.preferredFloatingWidgetSize.height;
       } else {
+        // TODO: reducers should be pure
         const popoutContentContainer = document.getElementById(
           `content-container:${id}`
         );
@@ -635,12 +635,15 @@ export function NineZoneStateReducer(
         }
       }
 
-      let preferredBounds = savedTab?.popoutBounds
-        ? Rectangle.create(savedTab.popoutBounds)
-        : Rectangle.createFromSize({
-            height: contentHeight,
-            width: contentWidth,
-          });
+      let preferredBounds = Rectangle.createFromSize({
+        height: contentHeight,
+        width: contentWidth,
+      });
+      if (savedTab?.popout) {
+        preferredBounds = Rectangle.createFromSize(savedTab.popout.contentSize);
+        preferredBounds = preferredBounds.offset(savedTab.popout.position);
+      }
+
       if (size) preferredBounds = preferredBounds.setSize(size);
       if (position) preferredBounds = preferredBounds.setPosition(position);
 
@@ -780,7 +783,11 @@ export function NineZoneStateReducer(
     }
     case "WIDGET_TAB_SET_POPOUT_BOUNDS": {
       return updateSavedTabState(state, action.id, (draft) => {
-        initRectangleProps(draft, "popoutBounds", action.bounds);
+        draft.popout = {
+          position: action.position,
+          contentSize: action.contentSize,
+          size: action.size,
+        };
       });
     }
     case "WIDGET_TAB_SHOW": {

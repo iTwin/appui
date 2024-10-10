@@ -57,6 +57,7 @@
 
     position: absolute;
     user-select: none;
+    -webkit-user-select: none;
 
     &.nz-left,
     &.nz-right {

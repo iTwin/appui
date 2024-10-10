@@ -25,6 +25,7 @@ import type { XAndY } from "./internal/NineZoneStateHelpers.js";
 import type { StagePanelSizeSpec } from "../../stagepanels/StagePanelConfig.js";
 import type { SizeProps } from "../../utils/SizeProps.js";
 import type { RectangleProps } from "../../utils/RectangleProps.js";
+import type { PopoutBounds } from "./SavedTabState.js";
 
 /** @internal */
 export interface ResizeAction {
@@ -271,10 +272,9 @@ export interface WidgetTabPopoutAction {
 }
 
 /** @internal */
-export interface WidgetTabSetPopoutBoundsAction {
+export interface WidgetTabSetPopoutBoundsAction extends PopoutBounds {
   readonly type: "WIDGET_TAB_SET_POPOUT_BOUNDS";
   readonly id: TabState["id"];
-  readonly bounds: RectangleProps | undefined;
 }
 
 /** @internal */

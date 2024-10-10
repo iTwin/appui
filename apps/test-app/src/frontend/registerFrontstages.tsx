@@ -42,11 +42,15 @@ import { createTestPanelFrontstage } from "./appui/frontstages/TestPanelFrontsta
 import { createTestPopoutFrontstage } from "./appui/frontstages/TestPopoutFrontstage";
 import {
   createWidgetApiFrontstage,
-  createWidgetApiStageProvider,
+  createWidgetApiFrontstageProvider,
 } from "./appui/frontstages/WidgetApiFrontstage";
 import { createLanguageProvider } from "./Localization";
 import { createStatusBarUiItemsProvider } from "./appui/providers/StatusbarUiItemsProvider";
 import { IModelConnection, ViewState } from "@itwin/core-frontend";
+import {
+  createITwinUIV2Frontstage,
+  createITwinUIV2FrontstageProvider,
+} from "./appui/frontstages/iTwinUIV2Frontstage";
 
 interface RegisterFrontstagesArgs {
   iModelConnection?: IModelConnection;
@@ -77,6 +81,7 @@ export function registerFrontstages({
     createContentLayoutFrontstage(),
     createSynchronizedViewportFrontstage(),
     createPopoutWindowsFrontstage(),
+    createITwinUIV2Frontstage(),
   ];
   frontstages.forEach((frontstage) => {
     UiFramework.frontstages.addFrontstage(frontstage);
@@ -111,7 +116,7 @@ export function registerFrontstages({
   UiItemsManager.register(new FloatingWidgetsUiItemsProvider(), {
     stageIds: [createWidgetApiFrontstage.stageId],
   });
-  UiItemsManager.register(createWidgetApiStageProvider(), {
+  UiItemsManager.register(createWidgetApiFrontstageProvider(), {
     stageIds: [createWidgetApiFrontstage.stageId],
   });
   UiItemsManager.register(
@@ -160,6 +165,9 @@ export function registerFrontstages({
   });
   UiItemsManager.register(createPopoutWindowsProvider(), {
     stageIds: [createPopoutWindowsFrontstage.stageId],
+  });
+  UiItemsManager.register(createITwinUIV2FrontstageProvider(), {
+    stageIds: [createITwinUIV2Frontstage.stageId],
   });
 
   if (ProcessDetector.isElectronAppFrontend) {
