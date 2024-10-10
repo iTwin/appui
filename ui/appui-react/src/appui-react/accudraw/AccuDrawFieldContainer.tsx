@@ -71,7 +71,8 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
   const distanceInputRef = React.useRef<HTMLInputElement>(null);
   const focusField = React.useRef<ItemField | undefined>(undefined);
   const [mode, setMode] = React.useState(() => IModelApp.accuDraw.compassMode);
-  const enableColorlessAccuDrawInputFields = useEnableColorlessAccuDrawInputFields();
+  const enableColorlessAccuDrawInputFields =
+    useEnableColorlessAccuDrawInputFields();
   const [xLock, setXLock] = React.useState(() =>
     IModelApp.accuDraw.getFieldLock(ItemField.X_Item)
   );
@@ -316,7 +317,11 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
           <AccuDrawInputField
             ref={xInputRef}
             isLocked={xLock}
-            className={enableColorlessAccuDrawInputFields ? undefined : "uifw-accudraw-x-value"}
+            className={
+              enableColorlessAccuDrawInputFields
+                ? undefined
+                : "uifw-accudraw-x-value"
+            }
             style={xStyle}
             field={ItemField.X_Item}
             id={`uifw-accudraw-x-${containerIndex}`}
@@ -335,7 +340,11 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
           <AccuDrawInputField
             ref={yInputRef}
             isLocked={yLock}
-            className={enableColorlessAccuDrawInputFields ? undefined : "uifw-accudraw-y-value"}
+            className={
+              enableColorlessAccuDrawInputFields
+                ? undefined
+                : "uifw-accudraw-y-value"
+            }
             style={yStyle}
             field={ItemField.Y_Item}
             id={`uifw-accudraw-y-${containerIndex}`}
@@ -355,7 +364,11 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
             <AccuDrawInputField
               ref={zInputRef}
               isLocked={zLock}
-              className={enableColorlessAccuDrawInputFields ? undefined : "uifw-accudraw-z-value"}
+              className={
+                enableColorlessAccuDrawInputFields
+                  ? undefined
+                  : "uifw-accudraw-z-value"
+              }
               style={zStyle}
               field={ItemField.Z_Item}
               id={`uifw-accudraw-z-${containerIndex}`}
