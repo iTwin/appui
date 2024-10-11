@@ -54,7 +54,9 @@ export function activeTabLocator(widget: Locator) {
 }
 
 export function toolbarItemLocator(page: Page, label: string) {
-  return page.locator(`[title="${label}"]`);
+  return page.getByRole("button", {
+    name: label,
+  });
 }
 
 export function statusBarItemLocator(page: Page, label: string) {

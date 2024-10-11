@@ -9,6 +9,7 @@ import {
   frontstageLocator,
   setWidgetState,
   tabLocator,
+  toolbarItemLocator,
   WidgetState,
 } from "./Utils";
 
@@ -171,7 +172,7 @@ test.describe("tool settings", () => {
   });
 
   test("should support dynamic tool settings", async ({ page }) => {
-    const toolButton = page.getByTitle("Tool With Dynamic Settings");
+    const toolButton = toolbarItemLocator(page, "Tool With Dynamic Settings");
     await toolButton.click();
 
     const initialState = page.getByText("Undefined", { exact: true });
@@ -205,7 +206,7 @@ test.describe("tool settings", () => {
   test("should display tool updated tool settings when switching widget/docked mode", async ({
     page,
   }) => {
-    const toolButton = page.getByTitle("Sample Tool");
+    const toolButton = toolbarItemLocator(page, "Sample Tool");
     await toolButton.click();
 
     const widgetToolSettings = tabLocator(page, "Tool Settings");
