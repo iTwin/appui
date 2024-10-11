@@ -4,10 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import type { Meta, StoryObj } from "@storybook/react";
 import { CardPopupStory } from "./CardPopup";
-import {
-  PreviewFeaturesProvider,
-  ToolbarItemUtilities,
-} from "@itwin/appui-react";
+import { ToolbarItemUtilities } from "@itwin/appui-react";
 import {
   SvgCut,
   SvgInfo,
