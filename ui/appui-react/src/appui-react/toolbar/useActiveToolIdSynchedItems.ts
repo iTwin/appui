@@ -72,7 +72,9 @@ function refreshItems<T extends ActiveToolIdSynchedItem<T>>(
 export function useActiveToolIdSynchedItems<
   T extends ActiveToolIdSynchedItem<T>
 >(itemsToSynch: readonly T[], syncHost: ActiveToolIdSynchedHost): T[] {
-  const [items, setItems] = React.useState<T[]>([]);
+  const [items, setItems] = React.useState<T[]>(() =>
+    refreshItems(itemsToSynch, syncHost.activeToolId)
+  );
   React.useEffect(() => {
     setItems(refreshItems(itemsToSynch, syncHost.activeToolId));
     return syncHost.onToolActivatedEvent.addListener(({ toolId }) => {
