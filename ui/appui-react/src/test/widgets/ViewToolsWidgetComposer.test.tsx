@@ -13,8 +13,6 @@ describe("ViewToolWidgetComposer", () => {
 
     expect(container).to.satisfy(
       childStructure([
-        ".nz-widget-navigationArea .nz-horizontal-toolbar-container:empty",
-        ".nz-widget-navigationArea .nz-vertical-toolbar-container:empty",
         ".nz-widget-navigationArea .nz-navigation-aid-container div:empty",
       ])
     );

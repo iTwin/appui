@@ -21,6 +21,7 @@ Table of contents:
 
 - Removed `FrameworkChildWindows.useCreateRoot` method which existed solely to prevent runtime warnings when using `React 18.x`. Consumers should remove usages of `useCreateRoot` when upgrading. [#1054](https://github.com/iTwin/appui/pull/1054)
 - Removed [activateDroppedTab](https://github.com/iTwin/appui/discussions/679) preview feature, since the behavior of the preview feature is now enabled by default. Additionally, a widget tab's drag-and-drop logic is updated to activate the dropped tab only if it was active when the drag interaction was initiated. It is safe for consumers to remove the preview feature from their `PreviewFeaturesProvider`. [#1071](https://github.com/iTwin/appui/pull/1071)
+- Removed [newToolbars](https://github.com/iTwin/appui/discussions/924) preview feature, since the behavior of the preview feature is now enabled by default. It is safe for consumers to remove the preview feature from their `PreviewFeaturesProvider`. [#1072](https://github.com/iTwin/appui/pull/1072)
 
 ### Additions
 
