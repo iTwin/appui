@@ -60,8 +60,6 @@ export function ToolGroup({ children, className, ...props }: ToolGroupProps) {
   const [containerRef, componentRef, visibleCount, renderOverflow] =
     useOverflow(childrenKeys, orientation, getItemSize, getOverflowSize);
 
-  console.log("ToolGroup", visibleCount, childrenKeys.length);
-
   const keyToChildEntries = Array.from(keyToChildMap.entries());
   const visibleChildren = keyToChildEntries.slice(0, visibleCount);
   const overflown = keyToChildEntries.slice(visibleCount);
