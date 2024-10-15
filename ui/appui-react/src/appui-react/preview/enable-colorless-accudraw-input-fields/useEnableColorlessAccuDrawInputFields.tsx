@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import { usePreviewFeatures } from "../PreviewFeatures.js";
 
-/** @internal
- * If `true`, the accudraw input field will not have colors for the X, Y, Z axis. Defaults to `false`.
+/** If `true`, the accudraw input field will not have colors for the X, Y, Z axis. Defaults to `false`.
+ * @internal
  */
 export function useEnableColorlessAccuDrawInputFields() {
   const { enableColorlessAccuDrawInputFields } = usePreviewFeatures();
