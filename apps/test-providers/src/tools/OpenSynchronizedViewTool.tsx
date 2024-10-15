@@ -6,7 +6,7 @@ import { UiFramework } from "@itwin/appui-react";
 import { IModelApp, Tool } from "@itwin/core-frontend";
 import * as React from "react";
 import { SynchronizedFloatingView } from "../ui/dialogs/SynchronizedFloatingViewComponent.js";
-import panoramaconSvg from "../icons/panorama.svg";
+import panoramaconSvg from "@bentley/icons-generic/icons/panorama.svg";
 import { Dialog } from "@itwin/itwinui-react";
 
 export class OpenSynchronizedViewTool extends Tool {

@@ -8,7 +8,7 @@ import {
   ConditionalBooleanValue,
   ToolbarItemUtilities,
 } from "@itwin/appui-abstract";
-import windowPopoutSvg from "@bentley/icons-generic/icons/window-new.svg";
+import windowAddSvg from "@bentley/icons-generic/icons/window-add.svg";
 import { ChildWindowLocationProps, UiFramework } from "@itwin/appui-react";
 import { PopoutDialog } from "../ui/dialogs/PopoutDialog.js";
 
@@ -19,7 +19,7 @@ import { PopoutDialog } from "../ui/dialogs/PopoutDialog.js";
  */
 export class OpenPopoutDialogTool extends Tool {
   public static override toolId = "appuiTestProviders-OpenPopoutDialogTool";
-  public static override iconSpec = windowPopoutSvg;
+  public static override iconSpec = windowAddSvg;
 
   public static override get minArgs() {
     return 0;

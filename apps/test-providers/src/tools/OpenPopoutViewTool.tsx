@@ -6,13 +6,13 @@ import { ToolbarItemUtilities } from "@itwin/appui-abstract";
 import { ChildWindowLocationProps, UiFramework } from "@itwin/appui-react";
 import { IModelApp, Tool } from "@itwin/core-frontend";
 import * as React from "react";
-import panoramaconSvg from "@bentley/icons-generic/icons/panorama.svg";
+import windowPopoutSvg from "@bentley/icons-generic/icons/window-new.svg";
 import { PopupTestView } from "../ui/dialogs/PopupTestView.js";
 
 export class OpenPopoutViewTool extends Tool {
   private static _counter = 0;
   public static override toolId = "OpenViewPopout";
-  public static override iconSpec = panoramaconSvg;
+  public static override iconSpec = windowPopoutSvg;
   public static get dialogId(): string {
     return `appui-test-app:popup-view-dialog-${OpenPopoutViewTool._counter}`;
   }

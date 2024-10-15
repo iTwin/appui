@@ -14,7 +14,7 @@ import {
   IModelApp,
   PrimitiveTool,
 } from "@itwin/core-frontend";
-import windowAddSvg from "@bentley/icons-generic/icons/window-add.svg";
+import inspectIconSvg from "@bentley/icons-generic/icons/search.svg";
 
 export class InspectUiItemInfoTool extends PrimitiveTool {
   private _timerId: number | undefined;
@@ -24,7 +24,7 @@ export class InspectUiItemInfoTool extends PrimitiveTool {
 
   private static _counter = 0;
   public static override toolId = "InspectUiItemInfoTool";
-  public static override iconSpec = windowAddSvg;
+  public static override iconSpec = inspectIconSvg;
 
   public static override get minArgs() {
     return 0;
