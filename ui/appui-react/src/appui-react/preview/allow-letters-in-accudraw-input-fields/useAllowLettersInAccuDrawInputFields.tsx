@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import { usePreviewFeatures } from "../PreviewFeatures.js";
 
-/** @internal
- *  If `true`, the accudraw input field will accept letters. Defaults to `false`.
+/**  If `true`, the accudraw input field will accept letters. Defaults to `false`.
+ * @internal
  */
 export function useAllowLettersInAccuDrawInputFields() {
   const { allowLettersInAccuDrawInputFields } = usePreviewFeatures();
