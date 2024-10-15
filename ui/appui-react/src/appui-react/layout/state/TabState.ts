@@ -37,4 +37,5 @@ export interface DraggedTabState {
   readonly tabId: TabState["id"];
   readonly position: XAndY;
   readonly home: PanelWidgetRestoreState;
+  readonly active: boolean;
 }

@@ -11,12 +11,8 @@ import type { OnItemExecutedFunc } from "@itwin/appui-abstract";
 import type { CommonProps, NoChildrenProps } from "@itwin/core-react";
 import type { ToolbarOpacitySetting } from "@itwin/components-react";
 import { Direction, ToolbarPanelAlignment } from "@itwin/components-react";
-import { InternalToolbarComponent as CR_Toolbar } from "@itwin/components-react/internal";
 import type { ToolbarItem } from "./ToolbarItem.js";
-import { toUIAToolbarItem } from "./toUIAToolbarItem.js";
-import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher.js";
-import { usePreviewFeatures } from "../preview/PreviewFeatures.js";
-import { Toolbar as ToolGroupToolbar } from "../preview/new-toolbars/Toolbar.js";
+import { Toolbar as ToolGroupToolbar } from "./new-toolbars/Toolbar.js";
 
 /**
  * Properties of [[Toolbar.enableOverflow]] component.
@@ -54,14 +50,6 @@ export interface ToolbarProps extends CommonProps, NoChildrenProps {
  * @beta
  */
 export function Toolbar(props: ToolbarProps) {
-  const previewFeatures = usePreviewFeatures();
-  if (previewFeatures.newToolbars) {
-    return <NewToolbar {...props} />;
-  }
-  return <OriginalToolbar {...props} />;
-}
-
-function NewToolbar(props: ToolbarProps) {
   const expandsTo = toDirection(props.expandsTo);
   const panelAlignment = toPanelAlignment(props.panelAlignment);
   return (
@@ -69,20 +57,6 @@ function NewToolbar(props: ToolbarProps) {
       expandsTo={expandsTo}
       panelAlignment={panelAlignment}
       items={props.items}
-    />
-  );
-}
-
-function OriginalToolbar(props: ToolbarProps) {
-  const { items, ...other } = props;
-  const uiaItems = React.useMemo(() => {
-    return items.map((item) => toUIAToolbarItem(item));
-  }, [items]);
-  return (
-    <CR_Toolbar
-      items={uiaItems}
-      syncUiEvent={SyncUiEventDispatcher.onSyncUiEvent}
-      {...other}
     />
   );
 }

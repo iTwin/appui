@@ -529,11 +529,6 @@ describe("PopupManager", () => {
         ).toEqual(1);
       });
       wrapper.getByText("Title");
-      expect(
-        wrapper.container.querySelectorAll(
-          "div.components-toolbar-overflow-sizer"
-        ).length
-      ).toEqual(1);
 
       const buttonNodes = wrapper.container.querySelectorAll("button");
       expect(buttonNodes).toBeTruthy();

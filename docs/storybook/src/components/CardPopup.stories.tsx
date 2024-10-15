@@ -4,10 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import type { Meta, StoryObj } from "@storybook/react";
 import { CardPopupStory } from "./CardPopup";
-import {
-  PreviewFeaturesProvider,
-  ToolbarItemUtilities,
-} from "@itwin/appui-react";
+import { ToolbarItemUtilities } from "@itwin/appui-react";
 import {
   SvgCut,
   SvgInfo,
@@ -110,13 +107,4 @@ export const NoTitle: Story = {
   args: {
     title: undefined,
   },
-};
-
-export const NewToolbarsPreviewFeature: Story = {
-  args: Overflow.args,
-  decorators: (Story) => (
-    <PreviewFeaturesProvider features={{ newToolbars: true }}>
-      <Story />
-    </PreviewFeaturesProvider>
-  ),
 };

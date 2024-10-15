@@ -4,10 +4,11 @@ Table of contents:
 
 - [@itwin/appui-react](#itwinappui-react)
   - [Removals](#removals)
+  - [Additions](#additions)
   - [Changes](#changes)
 - [@itwin/components-react](#itwincomponents-react)
   - [Deprecations](#deprecations)
-  - [Additions](#additions)
+  - [Additions](#additions-1)
   - [Changes](#changes-1)
 - [@itwin/core-react](#itwincore-react)
   - [Changes](#changes-2)
@@ -18,7 +19,28 @@ Table of contents:
 
 ### Removals
 
-- Removed `FrameworkChildWindows.useCreateRoot` method which existed solely to prevent runtime warnings when using `React 18.x`. [#1054](https://github.com/iTwin/appui/pull/1054)
+- Removed `FrameworkChildWindows.useCreateRoot` method which existed solely to prevent runtime warnings when using `React 18.x`. Consumers should remove usages of `useCreateRoot` when upgrading. [#1054](https://github.com/iTwin/appui/pull/1054)
+- Removed [activateDroppedTab](https://github.com/iTwin/appui/discussions/679) preview feature, since the behavior of the preview feature is now enabled by default. Additionally, a widget tab's drag-and-drop logic is updated to activate the dropped tab only if it was active when the drag interaction was initiated. It is safe for consumers to remove the preview feature from their `PreviewFeaturesProvider`. [#1071](https://github.com/iTwin/appui/pull/1071)
+- Removed [newToolbars](https://github.com/iTwin/appui/discussions/924) preview feature, since the behavior of the preview feature is now enabled by default. It is safe for consumers to remove the preview feature from their `PreviewFeaturesProvider`. [#1072](https://github.com/iTwin/appui/pull/1072)
+
+### Additions
+
+- Added `childWindow` prop to `ConfigurableUiContent` component which allows consumers to provide a wrapper component for child windows and popout widgets. [#1058](https://github.com/iTwin/appui/pull/1058)
+
+  ```tsx
+  import { ThemeProvider } from "@itwin/itwinui-react-v2";
+
+  function ChildWindow(props: React.PropsWithChildren<{}>) {
+    // Wrap content of child windows with `ThemeProvider` from iTwinUI 2.x
+    return <ThemeProvider>{props.children}</ThemeProvider>;
+  }
+
+  function App() {
+    return <ConfigurableUiContent childWindow={ChildWindow} />;
+  }
+  ```
+
+- `StatusBarPopover` component now accepts all props that are accepted by `Popover` component from `@itwin/itwinui-react`. [#1068](https://github.com/iTwin/appui/pull/1068)
 
 ### Changes
 
@@ -28,6 +50,7 @@ Table of contents:
 - Drop support for [iTwin.js 3.x](https://www.itwinjs.org/v3/) [^2]. [#1050](https://github.com/iTwin/appui/pull/1050)
 - Drop support for [React 17.x](https://react.dev/versions#react-17) [^3]. [#1054](https://github.com/iTwin/appui/pull/1054)
 - Provide file extensions in import declarations that are [mandatory for ES modules](https://nodejs.org/api/esm.html#mandatory-file-extensions). [#1056](https://github.com/iTwin/appui/pull/1056)
+- Drop support for [iTwinUI 2.x](https://itwinui.bentley.com/docs#versioning). [#1058](https://github.com/iTwin/appui/pull/1058)
 - Removed all `@internal` API exports from the barrel file. Consumers should not use `@internal` APIs directly. [#1060](https://github.com/iTwin/appui/pull/1060)
 - Use React portal instead of creating a separate element tree for each child window. [#1062](https://github.com/iTwin/appui/pull/1062)
 - Removed usage of `IModelApp.renderSystem.options.displaySolarShadows` check from 'useSolarDataProvider'. [#1066](https://github.com/iTwin/appui/pull/1066)
