@@ -8,7 +8,7 @@
 
 import { clearKeyinPaletteHistory } from "../popup/KeyinPalettePanel.js";
 import { Tool } from "@itwin/core-frontend";
-import svgRemove from "../icons/remove.svg";
+import svgRemove from "@bentley/icons-generic/icons/remove.svg";
 
 /**
  * Immediate tool that will clear the recent history of command/tool keyins shown in

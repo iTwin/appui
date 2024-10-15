@@ -14,7 +14,7 @@ import {
 import type { FrontstageDef } from "../frontstage/FrontstageDef.js";
 import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager.js";
 import { UiFramework } from "../UiFramework.js";
-import svgViewLayouts from "../icons/view-layouts.svg";
+import svgViewLayouts from "@bentley/icons-generic/icons/view-layouts.svg";
 
 /**
  * Immediate tool that will reset the layout to that specified in the stage definition. A stage Id

@@ -3,11 +3,11 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
- * @module IsoLeft
+ * @module CubeFaceIsoLeft
  */
 
 import * as React from "react";
-export function IsoLeft() {
+export function CubeFaceIsoLeft() {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
       <polygon
