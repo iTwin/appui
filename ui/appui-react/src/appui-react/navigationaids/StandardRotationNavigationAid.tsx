@@ -6,9 +6,10 @@
  * @module NavigationAids
  */
 
-import svgCubeFacesBottom from "../icons/cube-faces/bottom.svg";
+import { Bottom as CubeFacesBottom } from "../icons/cube-faces/Bottom.js";
+
 import svgCubeFacesFront from "../icons/cube-faces/front.svg";
-import svgCubeFacesIsoLeft from "../icons/cube-faces/iso-left.svg";
+import { IsoLeft as CubeFacesIsoLeft } from "../icons/cube-faces/IsoLeft.js";
 import svgCubeFacesIsoRight from "../icons/cube-faces/iso-right.svg";
 import svgCubeFacesLeft from "../icons/cube-faces/left.svg";
 import svgCubeFacesRear from "../icons/cube-faces/rear.svg";
@@ -80,7 +81,7 @@ export class StandardRotationNavigationAid extends React.Component<
       },
       {
         label: UiFramework.translate("rotations.bottom"),
-        iconsSpec: svgCubeFacesBottom,
+        iconsSpec: <CubeFacesBottom />,
       },
       {
         label: UiFramework.translate("rotations.left"),
@@ -100,7 +101,7 @@ export class StandardRotationNavigationAid extends React.Component<
       },
       {
         label: UiFramework.translate("rotations.isoLeft"),
-        iconsSpec: svgCubeFacesIsoLeft,
+        iconsSpec: <CubeFacesIsoLeft />,
       },
       {
         label: UiFramework.translate("rotations.isoRight"),
