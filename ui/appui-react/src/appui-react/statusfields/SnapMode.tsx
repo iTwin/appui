@@ -6,13 +6,13 @@
  * @module StatusBar
  */
 
-import snapModeBisector from "../icons/snaps-bisector.svg";
-import snapModeCenter from "../icons/snaps-center.svg";
-import snapModeIntersection from "../icons/snaps-intersection.svg";
-import snapModeMidpoint from "../icons/snaps-midpoint.svg";
-import snapModeNearest from "../icons/snaps-nearest.svg";
-import snapModeOrigin from "../icons/snaps-origin.svg";
-import snapModeKeypoint from "../icons/snaps.svg";
+import snapModeBisector from "@bentley/icons-generic/icons/snaps-bisector.svg";
+import snapModeCenter from "@bentley/icons-generic/icons/snaps-center.svg";
+import snapModeIntersection from "@bentley/icons-generic/icons/snaps-intersection.svg";
+import snapModeMidpoint from "@bentley/icons-generic/icons/snaps-midpoint.svg";
+import snapModeNearest from "@bentley/icons-generic/icons/snaps-nearest.svg";
+import snapModeOrigin from "@bentley/icons-generic/icons/snaps-origin.svg";
+import snapModeKeypoint from "@bentley/icons-generic/icons/snaps.svg";
 import { SnapMode } from "@itwin/core-frontend";
 import { Icon } from "@itwin/core-react";
 import type { CommonProps } from "@itwin/core-react";
