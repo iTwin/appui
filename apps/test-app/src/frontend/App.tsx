@@ -14,6 +14,7 @@ import {
   AppPreviewFeatures,
   WidgetContentProvider,
 } from "@itwin/appui-test-providers";
+import { ThemeProvider as IUI2_ThemeProvider } from "@itwin/itwinui-react-v2";
 import { useEngagementTime } from "./appui/useEngagementTime";
 import { AppLocalizationProvider } from "./Localization";
 
@@ -31,11 +32,19 @@ export function App({ featureOverrides }: AppProps) {
         <WidgetContentProvider>
           <AppPreviewFeatures featureOverrides={featureOverrides}>
             <AppLocalizationProvider>
-              <ConfigurableUiContent appBackstage={<BackstageComposer />} />
+              <ConfigurableUiContent
+                appBackstage={<BackstageComposer />}
+                childWindow={ChildWindow}
+              />
             </AppLocalizationProvider>
           </AppPreviewFeatures>
         </WidgetContentProvider>
       </SafeAreaContext.Provider>
     </ThemeManager>
   );
+}
+
+// Load iTwinUI v2 styles in popout widgets.
+function ChildWindow(props: React.PropsWithChildren<{}>) {
+  return <IUI2_ThemeProvider>{props.children}</IUI2_ThemeProvider>;
 }

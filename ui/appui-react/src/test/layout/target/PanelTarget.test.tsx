@@ -7,13 +7,11 @@ import { renderHook } from "@testing-library/react";
 import { DraggedWidgetIdContext } from "../../../appui-react/layout/base/DragManager.js";
 import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState.js";
 import { addPanelWidget } from "../../../appui-react/layout/state/internal/PanelStateHelpers.js";
-import {
-  addTab,
-  createDraggedTabState,
-} from "../../../appui-react/layout/state/internal/TabStateHelpers.js";
+import { addTab } from "../../../appui-react/layout/state/internal/TabStateHelpers.js";
 import { useAllowedPanelTarget } from "../../../appui-react/layout/target/useAllowedPanelTarget.js";
 import { PanelSideContext } from "../../../appui-react/layout/widget-panels/Panel.js";
 import { TestNineZoneProvider } from "../Providers.js";
+import { createDraggedTabState } from "../Utils.js";
 
 describe("useAllowedPanelTarget", () => {
   it("should return `true`", () => {

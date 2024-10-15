@@ -1,0 +1,15 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Fix an issue where resizing a panel would sometimes select widget contents.",
+      "type": "none"
+    },
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Add `-webkit` prefix to `user-select` CSS property to fix selection issues on Safari.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}

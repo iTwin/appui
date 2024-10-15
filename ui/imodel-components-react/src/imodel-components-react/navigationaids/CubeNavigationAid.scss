@@ -57,6 +57,7 @@ $arrow-margin: -3px;
           .face-cell {
             cursor: pointer;
             user-select: none;
+            -webkit-user-select: none;
             width: $nav-cube-side-width;
 
             &.cube-center {

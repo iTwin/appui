@@ -13,13 +13,11 @@ import {
 import { createLayoutStore } from "../../appui-react/layout/base/LayoutStore.js";
 import { createNineZoneState } from "../../appui-react/layout/state/NineZoneState.js";
 import { UiStateStorageStub } from "../TestUtils.js";
-import {
-  addTab,
-  createDraggedTabState,
-} from "../../appui-react/layout/state/internal/TabStateHelpers.js";
+import { addTab } from "../../appui-react/layout/state/internal/TabStateHelpers.js";
 import { useSaveFrontstageSettings } from "../../appui-react/widget-panels/useSaveFrontstageSettings.js";
 import { produce } from "immer";
 import type { WidgetPanelsFrontstageState } from "../../appui-react/widget-panels/Frontstage.js";
+import { createDraggedTabState } from "../layout/Utils.js";
 
 describe("useSaveFrontstageSettings", () => {
   it("should save frontstage settings", async () => {

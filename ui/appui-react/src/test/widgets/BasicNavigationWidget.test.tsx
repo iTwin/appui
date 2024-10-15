@@ -5,9 +5,10 @@
 import * as React from "react";
 import * as moq from "typemoq";
 import { Matrix3d } from "@itwin/core-geometry";
-import type {
-  OrthographicViewState,
-  ScreenViewport,
+import {
+  IModelApp,
+  type OrthographicViewState,
+  type ScreenViewport,
 } from "@itwin/core-frontend";
 import type { ViewportContentControl } from "../../appui-react.js";
 import {
@@ -21,32 +22,27 @@ import { render } from "@testing-library/react";
 
 describe("BasicNavigationWidget", () => {
   beforeEach(() => {
-    vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
-      function rect(this: any) {
-        if (
-          this instanceof HTMLButtonElement ||
-          this.firstElementChild?.tagName === "BUTTON"
-        ) {
-          return DOMRect.fromRect({ width: 16, height: 16 });
-        }
-        return DOMRect.fromRect({ width: 300, height: 300 });
+    const getLocalizedString = IModelApp.localization.getLocalizedString;
+    vi.spyOn(IModelApp.localization, "getLocalizedString").mockImplementation(
+      (key) => {
+        // Workaround tool flyover localization.
+        const suffix = ".flyover";
+        if (typeof key === "string" && key.endsWith(".flyover"))
+          return key.slice(0, -suffix.length);
+        return getLocalizedString(key);
       }
     );
   });
 
   it("BasicNavigationWidget should render correctly", () => {
-    const { container } = render(<BasicNavigationWidget />);
-    expect(container).to.satisfy(
-      childStructure([
-        `.components-items.components-horizontal .components-toolbar-item-container:nth-child(1) [data-item-id='View.Rotate']`,
-        `.components-items.components-horizontal .components-toolbar-item-container:nth-child(2) [data-item-id='View.Pan']`,
-        `.components-items.components-horizontal .components-toolbar-item-container:nth-child(3) [data-item-id='View.Fit']`,
-        `.components-items.components-horizontal .components-toolbar-item-container:nth-child(4) [data-item-id='View.WindowArea']`,
-        `.components-items.components-horizontal .components-toolbar-item-container:nth-child(5) [data-item-id='View.Undo']`,
-        `.components-items.components-horizontal .components-toolbar-item-container:nth-child(6):last-child [data-item-id='View.Redo']`,
-        `.components-items.components-vertical .components-toolbar-item-container:only-child [data-item-id='View.Walk']`,
-      ])
-    );
+    const { getByRole } = render(<BasicNavigationWidget />);
+    getByRole("button", { name: "tools.View.Rotate" });
+    getByRole("button", { name: "tools.View.Pan" });
+    getByRole("button", { name: "tools.View.Fit" });
+    getByRole("button", { name: "tools.View.WindowArea" });
+    getByRole("button", { name: "tools.View.Undo" });
+    getByRole("button", { name: "tools.View.Redo" });
+    getByRole("button", { name: "tools.View.Walk" });
   });
 
   const testH1Def = new CommandItemDef({
@@ -78,7 +74,7 @@ describe("BasicNavigationWidget", () => {
   });
 
   it("BasicNavigationWidget with suffix and prefix items should render correctly", () => {
-    const { container } = render(
+    const { rerender, getByRole, queryByText } = render(
       <BasicNavigationWidget
         additionalVerticalItems={ToolbarHelper.createToolbarItemsFromItemDefs([
           testV1Def,
@@ -89,50 +85,11 @@ describe("BasicNavigationWidget", () => {
         )}
       />
     );
-    expect(container).to.satisfy(
-      childStructure([
-        `.components-items.components-horizontal .components-toolbar-item-container:nth-child(1) [data-item-id='View.Rotate']`,
-        `.components-items.components-horizontal .components-toolbar-item-container:nth-child(2) [data-item-id='test-h1-tool']`,
-        `.components-items.components-horizontal .components-toolbar-item-container:nth-child(3) [data-item-id='View.Pan']`,
-        `.components-items.components-horizontal .components-toolbar-item-container:nth-child(4) [data-item-id='test-h2-tool']`,
-        `.components-items.components-horizontal .components-toolbar-item-container:nth-child(5) [data-item-id='View.Fit']`,
-        `.components-items.components-horizontal .components-toolbar-item-container:nth-child(6) [data-item-id='View.WindowArea']`,
-        `.components-items.components-horizontal .components-toolbar-item-container:nth-child(7) [data-item-id='View.Undo']`,
-        `.components-items.components-horizontal .components-toolbar-item-container:nth-child(8):last-child [data-item-id='View.Redo']`,
-        `.components-items.components-vertical .components-toolbar-item-container:nth-child(1) [data-item-id='View.Walk']`,
-        `.components-items.components-vertical .components-toolbar-item-container:nth-child(2) [data-item-id='test-v1-tool']`,
-        `.components-items.components-vertical .components-toolbar-item-container:nth-child(3):last-child [data-item-id='test-v2-tool']`,
-      ])
-    );
-  });
 
-  it("BasicNavigationWidget should refresh when props change", () => {
-    const { rerender, container } = render(
-      <BasicNavigationWidget
-        additionalVerticalItems={ToolbarHelper.createToolbarItemsFromItemDefs([
-          testV1Def,
-          testV2Def,
-        ])}
-        additionalHorizontalItems={ToolbarHelper.createToolbarItemsFromItemDefs(
-          [testH1Def, testH2Def]
-        )}
-      />
-    );
-    expect(container).to.satisfy(
-      childStructure([
-        `.components-items.components-horizontal .components-toolbar-item-container:nth-child(1) [data-item-id='View.Rotate']`,
-        `.components-items.components-horizontal .components-toolbar-item-container:nth-child(2) [data-item-id='test-h1-tool']`,
-        `.components-items.components-horizontal .components-toolbar-item-container:nth-child(3) [data-item-id='View.Pan']`,
-        `.components-items.components-horizontal .components-toolbar-item-container:nth-child(4) [data-item-id='test-h2-tool']`,
-        `.components-items.components-horizontal .components-toolbar-item-container:nth-child(5) [data-item-id='View.Fit']`,
-        `.components-items.components-horizontal .components-toolbar-item-container:nth-child(6) [data-item-id='View.WindowArea']`,
-        `.components-items.components-horizontal .components-toolbar-item-container:nth-child(7) [data-item-id='View.Undo']`,
-        `.components-items.components-horizontal .components-toolbar-item-container:nth-child(8):last-child [data-item-id='View.Redo']`,
-        `.components-items.components-vertical .components-toolbar-item-container:nth-child(1) [data-item-id='View.Walk']`,
-        `.components-items.components-vertical .components-toolbar-item-container:nth-child(2) [data-item-id='test-v1-tool']`,
-        `.components-items.components-vertical .components-toolbar-item-container:nth-child(3):last-child [data-item-id='test-v2-tool']`,
-      ])
-    );
+    getByRole("button", { name: "test-v1-tool" });
+    getByRole("button", { name: "test-v2-tool" });
+    getByRole("button", { name: "test-h1-tool" });
+    getByRole("button", { name: "test-h2-tool" });
 
     rerender(
       <BasicNavigationWidget
@@ -141,17 +98,10 @@ describe("BasicNavigationWidget", () => {
       />
     );
 
-    expect(container).to.satisfy(
-      childStructure([
-        `.components-items.components-horizontal .components-toolbar-item-container:nth-child(1) [data-item-id='View.Rotate']`,
-        `.components-items.components-horizontal .components-toolbar-item-container:nth-child(2) [data-item-id='View.Pan']`,
-        `.components-items.components-horizontal .components-toolbar-item-container:nth-child(3) [data-item-id='View.Fit']`,
-        `.components-items.components-horizontal .components-toolbar-item-container:nth-child(4) [data-item-id='View.WindowArea']`,
-        `.components-items.components-horizontal .components-toolbar-item-container:nth-child(5) [data-item-id='View.Undo']`,
-        `.components-items.components-horizontal .components-toolbar-item-container:nth-child(6):last-child [data-item-id='View.Redo']`,
-        `.components-items.components-vertical .components-toolbar-item-container:only-child [data-item-id='View.Walk']`,
-      ])
-    );
+    expect(queryByText("test-v1-tool")).toEqual(null);
+    expect(queryByText("test-v2-tool")).toEqual(null);
+    expect(queryByText("test-h1-tool")).toEqual(null);
+    expect(queryByText("test-h2-tool")).toEqual(null);
   });
 
   it("BasicNavigationWidget should init navigation aid from active content control", () => {

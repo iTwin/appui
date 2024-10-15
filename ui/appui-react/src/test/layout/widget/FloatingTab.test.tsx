@@ -11,12 +11,10 @@ import type { NineZoneDispatch } from "../../../appui-react/layout/base/NineZone
 import { ShowWidgetIconContext } from "../../../appui-react/layout/base/NineZone.js";
 import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState.js";
 import { addPanelWidget } from "../../../appui-react/layout/state/internal/PanelStateHelpers.js";
-import {
-  addTab,
-  createDraggedTabState,
-} from "../../../appui-react/layout/state/internal/TabStateHelpers.js";
+import { addTab } from "../../../appui-react/layout/state/internal/TabStateHelpers.js";
 import { FloatingTab } from "../../../appui-react/layout/widget/FloatingTab.js";
 import { createDragInfo, TestNineZoneProvider } from "../Providers.js";
+import { createDraggedTabState } from "../Utils.js";
 
 describe("FloatingTab", () => {
   it("should render", async () => {

@@ -58,7 +58,6 @@
     "@itwin/appui-react": "workspace:*",
     "@itwin/imodel-components-react": "workspace:*",
     "@itwin/itwinui-react": "^3.11.2",
-    "@itwin/itwinui-react-v2": "npm:@itwin/itwinui-react@^2.11.11",
     "@itwin/itwinui-icons-react": "^2.8.0",
     "@itwin/itwinui-variables": "^3.0.0",
     "@itwin/webgl-compatibility": "^4.0.0",

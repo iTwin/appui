@@ -48,6 +48,7 @@
           color: var(--iui-color-text);
           font-size: var(--iui-font-size-0);
           user-select: none;
+          -webkit-user-select: none;
         }
       }
     }

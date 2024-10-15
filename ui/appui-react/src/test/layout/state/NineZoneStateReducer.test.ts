@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import { produce } from "immer";
 import { Point, Rectangle } from "@itwin/core-react/internal";
-import { addTabs } from "../Utils.js";
+import { addTabs, createDraggedTabState } from "../Utils.js";
 import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState.js";
 import { NineZoneStateReducer } from "../../../appui-react/layout/state/NineZoneStateReducer.js";
 import type {
@@ -26,7 +26,6 @@ import {
 } from "../../../appui-react/layout/state/internal/ToolSettingsStateHelpers.js";
 import {
   addTab,
-  createDraggedTabState,
   updateSavedTabState,
 } from "../../../appui-react/layout/state/internal/TabStateHelpers.js";
 import { getUniqueId } from "../../../appui-react/layout/base/NineZone.js";
@@ -360,6 +359,7 @@ describe("NineZoneStateReducer", () => {
           },
         });
         expect(newState.floatingWidgets.byId.fw1).toBeTruthy();
+        expect(newState.widgets.fw1.activeTabId).toEqual("t1");
       });
 
       it("should contain minimized", () => {
@@ -418,6 +418,7 @@ describe("NineZoneStateReducer", () => {
           },
         });
         expect(newState.widgets.w1.tabs).toEqual(["t1", "fwt1", "t2", "t3"]);
+        expect(newState.widgets.w1.activeTabId).toEqual("fwt1");
       });
 
       it("should update home of tool settings floating widget", () => {
@@ -470,6 +471,7 @@ describe("NineZoneStateReducer", () => {
           },
         });
         expect(newState.panels.left.widgets).toEqual(["w1", "newId", "w2"]);
+        expect(newState.widgets.newId.activeTabId).toEqual("fwt1");
       });
     });
 
@@ -489,6 +491,7 @@ describe("NineZoneStateReducer", () => {
           },
         });
         expect(newState.widgets.w2.tabs).toEqual(["t2", "fwt1"]);
+        expect(newState.widgets.w2.activeTabId).toEqual("fwt1");
       });
 
       it("should add tabs to a floating widget", () => {
@@ -505,6 +508,7 @@ describe("NineZoneStateReducer", () => {
           },
         });
         expect(newState.widgets.fw2.tabs).toEqual(["fwt2", "fwt1"]);
+        expect(newState.widgets.fw2.activeTabId).toEqual("fwt1");
       });
     });
 
@@ -523,6 +527,7 @@ describe("NineZoneStateReducer", () => {
           },
         });
         expect(newState.panels.left.widgets).toEqual(["leftStart"]);
+        expect(newState.widgets.leftStart.activeTabId).toEqual("fwt1");
       });
     });
   });
@@ -1323,6 +1328,7 @@ describe("NineZoneStateReducer", () => {
           },
         });
         expect(newState.widgets.leftStart.tabs).toEqual(["t1", "dt", "t2"]);
+        expect(newState.widgets.leftStart.activeTabId).toEqual("dt");
       });
 
       it("should add tab to leftEnd", () => {
@@ -1344,6 +1350,7 @@ describe("NineZoneStateReducer", () => {
           },
         });
         expect(newState.widgets.leftEnd.tabs).toEqual(["t1", "dt", "t2"]);
+        expect(newState.widgets.leftEnd.activeTabId).toEqual("dt");
       });
 
       it("should update home of tool settings floating widget", () => {
@@ -1379,6 +1386,29 @@ describe("NineZoneStateReducer", () => {
           widgetIndex: 0,
         });
       });
+
+      it("should not activate dragged tab if it was not active", () => {
+        let state = createNineZoneState();
+        state = addTabs(state, ["t1", "t2"]);
+        state = addPanelWidget(state, "left", "w1", ["t1", "t2"]);
+        state = produce(state, (draft) => {
+          draft.draggedTab = createDraggedTabState("dt", {
+            position: new Point(100, 200).toProps(),
+            active: false,
+          });
+        });
+        const newState = NineZoneStateReducer(state, {
+          type: "WIDGET_TAB_DRAG_END",
+          id: "dt",
+          target: {
+            type: "tab",
+            tabIndex: 1,
+            widgetId: "w1",
+          },
+        });
+        expect(newState.widgets.w1.tabs).toEqual(["t1", "dt", "t2"]);
+        expect(newState.widgets.w1.activeTabId).toEqual("t1");
+      });
     });
 
     describe("section target", () => {
@@ -1402,6 +1432,7 @@ describe("NineZoneStateReducer", () => {
           },
         });
         expect(newState.panels.left.widgets).toEqual(["leftStart", "leftEnd"]);
+        expect(newState.widgets.leftEnd.activeTabId).toEqual("dt");
       });
 
       it("should add widget to new end panel section", () => {
@@ -1424,6 +1455,7 @@ describe("NineZoneStateReducer", () => {
           },
         });
         expect(newState.panels.left.widgets).toEqual(["leftStart", "nw1"]);
+        expect(newState.widgets.nw1.activeTabId).toEqual("dt");
       });
 
       it("should add widget to new panel start section", () => {
@@ -1446,6 +1478,7 @@ describe("NineZoneStateReducer", () => {
           },
         });
         expect(newState.panels.left.widgets).toEqual(["nw1", "leftEnd"]);
+        expect(newState.widgets.nw1.activeTabId).toEqual("dt");
       });
     });
 
@@ -1468,6 +1501,7 @@ describe("NineZoneStateReducer", () => {
           },
         });
         expect(newState.panels.left.widgets).toEqual(["leftEnd"]);
+        expect(newState.widgets.leftEnd.activeTabId).toEqual("dt");
       });
 
       it("should add widget to existing panel start section", () => {
@@ -1488,6 +1522,7 @@ describe("NineZoneStateReducer", () => {
           },
         });
         expect(newState.panels.left.widgets).toEqual(["leftStart"]);
+        expect(newState.widgets.leftStart.activeTabId).toEqual("dt");
       });
 
       it("should add tabs to a floating widget", () => {
@@ -1508,6 +1543,30 @@ describe("NineZoneStateReducer", () => {
           },
         });
         expect(newState.widgets.fw1.tabs).toEqual(["fwt1", "dt"]);
+        expect(newState.widgets.fw1.activeTabId).toEqual("dt");
+      });
+
+      it("should not activate dragged tab if it was not active", () => {
+        let state = createNineZoneState();
+        state = addTabs(state, ["dt", "t1"]);
+        state = addFloatingWidget(state, "w1", ["t1"]);
+        state = produce(state, (draft) => {
+          draft.draggedTab = createDraggedTabState("dt", {
+            position: new Point(100, 200).toProps(),
+            active: false,
+          });
+        });
+        const newState = NineZoneStateReducer(state, {
+          type: "WIDGET_TAB_DRAG_END",
+          id: "dt",
+          target: {
+            type: "widget",
+            widgetId: "w1",
+          },
+        });
+
+        expect(newState.widgets.w1.tabs).toEqual(["t1", "dt"]);
+        expect(newState.widgets.w1.activeTabId).toEqual("t1");
       });
     });
 
@@ -1530,6 +1589,7 @@ describe("NineZoneStateReducer", () => {
           },
         });
         expect(newState.panels.left.widgets).toEqual(["newId"]);
+        expect(newState.widgets.newId.activeTabId).toEqual("dt");
       });
     });
 
@@ -1555,6 +1615,7 @@ describe("NineZoneStateReducer", () => {
           },
         });
         expect(newState.floatingWidgets.byId.newId).toBeTruthy();
+        expect(newState.widgets.newId.activeTabId).toEqual("dt");
       });
     });
   });
