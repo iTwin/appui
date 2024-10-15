@@ -8,7 +8,7 @@ import {
   ConditionalBooleanValue,
   ToolbarItemUtilities,
 } from "@itwin/appui-abstract";
-import windowAddSvg from "@bentley/icons-generic/icons/window-add.svg";
+import windowAddSvg from "../icons/window-add.svg";
 import { ChildWindowLocationProps, UiFramework } from "@itwin/appui-react";
 import { PopoutDialog } from "../ui/dialogs/PopoutDialog.js";
 

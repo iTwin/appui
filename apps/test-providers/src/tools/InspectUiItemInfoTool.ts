@@ -14,7 +14,7 @@ import {
   IModelApp,
   PrimitiveTool,
 } from "@itwin/core-frontend";
-import inspectIconSvg from "@bentley/icons-generic/icons/search.svg";
+import inspectIconSvg from "../icons/search.svg";
 
 export class InspectUiItemInfoTool extends PrimitiveTool {
   private _timerId: number | undefined;

@@ -6,7 +6,7 @@ import { ToolbarItemUtilities } from "@itwin/appui-abstract";
 import { ChildWindowLocationProps, UiFramework } from "@itwin/appui-react";
 import { IModelApp, Tool } from "@itwin/core-frontend";
 import * as React from "react";
-import windowPopoutSvg from "@bentley/icons-generic/icons/window-new.svg";
+import windowPopoutSvg from "../icons/window-new.svg";
 import { PopupTestView } from "../ui/dialogs/PopupTestView.js";
 
 export class OpenPopoutViewTool extends Tool {

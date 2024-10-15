@@ -22,8 +22,8 @@ import {
 import { IModelConnection, ScreenViewport, Tool } from "@itwin/core-frontend";
 import { SvgWindow, SvgWindowSplitVertical } from "@itwin/itwinui-icons-react";
 
-import layoutRestoreIconSvg from "@bentley/icons-generic/icons/download.svg";
-import layoutSaveIconSvg from "@bentley/icons-generic/icons/upload.svg";
+import layoutRestoreIconSvg from "../icons/download.svg";
+import layoutSaveIconSvg from "../icons/upload.svg";
 import { ViewportContent } from "../ui/ViewportContent.js";
 
 function getIModelSpecificKey(

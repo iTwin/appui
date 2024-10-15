@@ -6,7 +6,7 @@
  * @module StatusBar
  */
 
-import svgSectionTool from "@bentley/icons-generic/icons/section-tool.svg";
+import svgSectionTool from "../icons/section-tool.svg";
 import {
   IModelApp,
   ViewClipClearTool,

@@ -18,7 +18,7 @@ import { ViewUtilities } from "../utils/ViewUtilities.js";
 import type { ListItem } from "./ListPicker.js";
 import { ListItemType, ListPicker } from "./ListPicker.js";
 import { debounce } from "lodash";
-import svgSavedView from "@bentley/icons-generic/icons/saved-view.svg";
+import svgSavedView from "../icons/saved-view.svg";
 import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState.js";
 import type { ListenerType } from "@itwin/core-react/internal";
 

@@ -7,7 +7,7 @@
  */
 import { Tool } from "@itwin/core-frontend";
 import { SettingsModalFrontstage } from "../frontstage/ModalSettingsStage.js";
-import svgSettings from "@bentley/icons-generic/icons/settings.svg";
+import svgSettings from "..icons/settings.svg";
 
 /**
  * Immediate tool that will open the Settings modal stage.

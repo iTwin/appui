@@ -6,14 +6,14 @@
  * @module NavigationAids
  */
 
-import svgCubeFacesBottom from "@bentley/icons-generic/icons/cube-faces/bottom.svg";
-import svgCubeFacesFront from "@bentley/icons-generic/icons/cube-faces/front.svg";
-import svgCubeFacesIsoLeft from "@bentley/icons-generic/icons/cube-faces/iso-left.svg";
-import svgCubeFacesIsoRight from "@bentley/icons-generic/icons/cube-faces/iso-right.svg";
-import svgCubeFacesLeft from "@bentley/icons-generic/icons/cube-faces/left.svg";
-import svgCubeFacesRear from "@bentley/icons-generic/icons/cube-faces/rear.svg";
-import svgCubeFacesRight from "@bentley/icons-generic/icons/cube-faces/right.svg";
-import svgCubeFacesTop from "@bentley/icons-generic/icons/cube-faces/top.svg";
+import svgCubeFacesBottom from "../icons/cube-faces/bottom.svg";
+import svgCubeFacesFront from "../icons/cube-faces/front.svg";
+import svgCubeFacesIsoLeft from "../icons/cube-faces/iso-left.svg";
+import svgCubeFacesIsoRight from "../icons/cube-faces/iso-right.svg";
+import svgCubeFacesLeft from "../icons/cube-faces/left.svg";
+import svgCubeFacesRear from "../icons/cube-faces/rear.svg";
+import svgCubeFacesRight from "../icons/cube-faces/right.svg";
+import svgCubeFacesTop from "../icons/cube-faces/top.svg";
 import { RelativePosition, ToolbarItemUtilities } from "@itwin/appui-abstract";
 import {
   Columns,
