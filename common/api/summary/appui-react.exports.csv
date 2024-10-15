@@ -806,4 +806,3 @@ public;class;WidgetStateChangedEvent
 deprecated;class;WidgetStateChangedEvent
 public;interface;WidgetStateChangedEventArgs
 deprecated;interface;WidgetStateChangedEventArgs
-public;enum;WidgetType
