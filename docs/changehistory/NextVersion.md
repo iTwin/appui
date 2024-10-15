@@ -53,7 +53,7 @@ Table of contents:
 - Drop support for [iTwinUI 2.x](https://itwinui.bentley.com/docs#versioning). [#1058](https://github.com/iTwin/appui/pull/1058)
 - Removed all `@internal` API exports from the barrel file. Consumers should not use `@internal` APIs directly. [#1060](https://github.com/iTwin/appui/pull/1060)
 - Use React portal instead of creating a separate element tree for each child window. [#1062](https://github.com/iTwin/appui/pull/1062)
-- Removed usage of `IModelApp.renderSystem.options.displaySolarShadows` check from 'useSolarDataProvider'. [#1066](https://github.com/iTwin/appui/pull/1066)
+- Removed incorrect usage of internal `IModelApp.renderSystem.options.displaySolarShadows` check from 'useSolarDataProvider'. `wantShadows` property of viewport display style is used instead. [#1066](https://github.com/iTwin/appui/pull/1066)
 
 ## @itwin/components-react
 
