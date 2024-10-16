@@ -12,7 +12,7 @@ import { CommandItemDef } from "../shared/CommandItemDef.js";
 import type { BaseItemState } from "../shared/ItemDefBase.js";
 import { SyncUiEventId } from "../syncui/SyncUiEventDispatcher.js";
 import { GroupItemDef } from "../toolbar/GroupItem.js";
-import { UiFramework, UiVisibilityChangedEvent } from "../UiFramework.js";
+import { UiFramework } from "../UiFramework.js";
 import { ModelIsolate } from "../icons/ModelIsolate.js";
 import { LayersIsolate } from "../icons/LayersIsolate.js";
 import { AssetIsolate } from "../icons/AssetIsolate.js";
