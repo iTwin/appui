@@ -6,7 +6,7 @@ import "./TestPopoutFrontstage.scss";
 import * as React from "react";
 import { Frontstage } from "@itwin/appui-react";
 import { createTestFrontstage } from "./createTestFrontstage";
-import { ProgressRadial } from "@itwin/itwinui-react";
+import { Button, ProgressRadial } from "@itwin/itwinui-react";
 import { Logger } from "@itwin/core-bentley";
 import { loggerCategory } from "../../logger";
 
@@ -31,6 +31,23 @@ export const createTestPopoutFrontstage = () => {
                   <div id="border-test" />
                   <FixedProgressRadial id="progress-radial" />
                   <LinkTest />
+                </>
+              ),
+            },
+          ],
+        },
+      },
+      rightPanel: {
+        sections: {
+          start: [
+            {
+              id: "error-border-widget",
+              label: "Error border widget",
+              canPopout: true,
+              content: (
+                <>
+                  <div>Widget content</div>
+                  <WidgetContentThrowError />
                 </>
               ),
             },
@@ -103,4 +120,17 @@ function LinkTest() {
     });
   }, []);
   return <div ref={ref} id="link-test" style={{ background: "red" }} />;
+}
+
+function WidgetContentThrowError() {
+  const [shouldThrow, setShouldThrow] = React.useState(false);
+  if (shouldThrow) {
+    throw new Error("Simulated error was thrown.");
+  }
+  return (
+    <>
+      <h2>Throw error button</h2>
+      <Button onClick={() => setShouldThrow(true)}>Click Me</Button>
+    </>
+  );
 }
