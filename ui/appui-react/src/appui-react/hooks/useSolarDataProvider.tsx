@@ -9,37 +9,27 @@
 import * as React from "react";
 import type { SolarDataProvider } from "@itwin/imodel-components-react";
 import type { ScreenViewport, Viewport } from "@itwin/core-frontend";
-import { IModelApp } from "@itwin/core-frontend";
 import { SolarTimelineDataProvider } from "../timeline/SolarTimelineDataProvider.js";
 
 /** @internal */
 function useSupportsShadowDisplay(viewport: ScreenViewport | undefined) {
   const [supportsShadows, setSupportsShadows] = React.useState(
-    !!viewport?.displayStyle?.wantShadows &&
-      !!IModelApp.renderSystem.options.displaySolarShadows
+    !!viewport?.displayStyle?.wantShadows
   );
 
   React.useEffect(() => {
-    setSupportsShadows(
-      !!viewport?.displayStyle?.wantShadows &&
-        !!IModelApp.renderSystem.options.displaySolarShadows
-    );
+    setSupportsShadows(!!viewport?.displayStyle?.wantShadows);
   }, [viewport]);
 
   React.useEffect(() => {
     return viewport?.onChangeView.addListener((vp): void => {
-      setSupportsShadows(
-        !!vp?.displayStyle?.wantShadows &&
-          !!IModelApp.renderSystem.options.displaySolarShadows
-      );
+      setSupportsShadows(!!vp?.displayStyle?.wantShadows);
     });
   }, [viewport]);
 
   React.useEffect(() => {
     const handleViewChanged = (vp: Viewport): void => {
-      const wantShadows =
-        !!vp.displayStyle?.wantShadows &&
-        !!IModelApp.renderSystem.options.displaySolarShadows;
+      const wantShadows = !!vp.displayStyle?.wantShadows;
       if (wantShadows !== supportsShadows) setSupportsShadows(wantShadows);
     };
     return viewport?.onChangeView.addListener(handleViewChanged);
@@ -47,9 +37,7 @@ function useSupportsShadowDisplay(viewport: ScreenViewport | undefined) {
 
   React.useEffect(() => {
     return viewport?.onDisplayStyleChanged.addListener((vp) => {
-      const wantShadows =
-        !!vp.displayStyle?.wantShadows &&
-        !!IModelApp.renderSystem.options.displaySolarShadows;
+      const wantShadows = !!vp.displayStyle?.wantShadows;
       if (wantShadows !== supportsShadows) setSupportsShadows(wantShadows);
     });
   }, [viewport, supportsShadows]);
