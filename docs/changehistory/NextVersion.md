@@ -19,7 +19,9 @@ Table of contents:
 
 ### Removals
 
-- Removed `FrameworkChildWindows.useCreateRoot` method which existed solely to prevent runtime warnings when using `React 18.x`. [#1054](https://github.com/iTwin/appui/pull/1054)
+- Removed `FrameworkChildWindows.useCreateRoot` method which existed solely to prevent runtime warnings when using `React 18.x`. Consumers should remove usages of `useCreateRoot` when upgrading. [#1054](https://github.com/iTwin/appui/pull/1054)
+- Removed [activateDroppedTab](https://github.com/iTwin/appui/discussions/679) preview feature, since the behavior of the preview feature is now enabled by default. Additionally, a widget tab's drag-and-drop logic is updated to activate the dropped tab only if it was active when the drag interaction was initiated. It is safe for consumers to remove the preview feature from their `PreviewFeaturesProvider`. [#1071](https://github.com/iTwin/appui/pull/1071)
+- Removed [newToolbars](https://github.com/iTwin/appui/discussions/924) preview feature, since the behavior of the preview feature is now enabled by default. It is safe for consumers to remove the preview feature from their `PreviewFeaturesProvider`. [#1072](https://github.com/iTwin/appui/pull/1072)
 
 ### Additions
 
@@ -38,6 +40,8 @@ Table of contents:
   }
   ```
 
+- `StatusBarPopover` component now accepts all props that are accepted by `Popover` component from `@itwin/itwinui-react`. [#1068](https://github.com/iTwin/appui/pull/1068)
+
 ### Changes
 
 - Updated `MessageManager.addMessage` and `MessageManager.outputMessage` to ignore already active messages displayed to the user. This API is used by various tools indirectly via `IModelApp.notifications.outputMessage` when `AppNotificationManager` is set up. This change should prevent the same message from being displayed multiple times unnecessarily. [#1042](https://github.com/iTwin/appui/pull/1042)
@@ -49,6 +53,7 @@ Table of contents:
 - Drop support for [iTwinUI 2.x](https://itwinui.bentley.com/docs#versioning). [#1058](https://github.com/iTwin/appui/pull/1058)
 - Removed all `@internal` API exports from the barrel file. Consumers should not use `@internal` APIs directly. [#1060](https://github.com/iTwin/appui/pull/1060)
 - Use React portal instead of creating a separate element tree for each child window. [#1062](https://github.com/iTwin/appui/pull/1062)
+- Removed incorrect usage of internal `IModelApp.renderSystem.options.displaySolarShadows` check from 'useSolarDataProvider'. `wantShadows` property of viewport display style is used instead. [#1066](https://github.com/iTwin/appui/pull/1066)
 
 ## @itwin/components-react
 

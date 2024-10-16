@@ -12,13 +12,7 @@ describe("ContentToolWidgetComposer", () => {
   it("ContentToolWidgetComposer should render", () => {
     const { container } = render(<ContentToolWidgetComposer />);
 
-    expect(container).to.satisfy(
-      childStructure([
-        ".nz-app-button:empty",
-        ".nz-vertical-toolbar-container:empty",
-        ".nz-horizontal-toolbar-container:empty",
-      ])
-    );
+    expect(container).to.satisfy(childStructure([".nz-app-button:empty"]));
   });
 
   it("ContentToolWidgetComposer with backstage button should render", () => {

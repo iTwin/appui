@@ -6,17 +6,12 @@ import * as React from "react";
 import { Provider } from "react-redux";
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
 import { render } from "@testing-library/react";
-import type {
-  FrontstageConfig,
-  ToolbarItem,
-  UiItemsProvider,
-} from "../../appui-react.js";
+import type { FrontstageConfig } from "../../appui-react.js";
 import {
   CommandItemDef,
   CustomItemDef,
   FrontstageProvider,
   GroupItemDef,
-  StageUsage,
   ToolbarComposer,
   ToolbarHelper,
   ToolbarOrientation,
@@ -31,13 +26,6 @@ describe("<ToolbarComposer  />", async () => {
   const testItemEventId = "test-event";
   const visibleState = false;
   const testIsHiddenFunc = () => !visibleState;
-
-  const tool1 = new CommandItemDef({
-    commandId: "test.tool1",
-    label: "Tool_1",
-    iconSpec: "icon-placeholder",
-    isHidden: true,
-  });
 
   const tool2 = new CommandItemDef({
     commandId: "test.tool2",
@@ -110,31 +98,6 @@ describe("<ToolbarComposer  />", async () => {
     ),
   });
 
-  class DuplicatesUiProvider implements UiItemsProvider {
-    public readonly id = "ToolbarComposer-DuplicatesUiProvider";
-
-    public provideToolbarItems(
-      _stageId: string,
-      stageUsage: string,
-      toolbarUsage: ToolbarUsage,
-      toolbarOrientation: ToolbarOrientation
-    ): ToolbarItem[] {
-      if (
-        stageUsage === StageUsage.General.valueOf() &&
-        toolbarUsage === ToolbarUsage.ContentManipulation &&
-        toolbarOrientation === ToolbarOrientation.Horizontal
-      ) {
-        return ToolbarHelper.createToolbarItemsFromItemDefs([
-          tool2,
-          group1,
-          custom1,
-          tool1e,
-        ]);
-      }
-      return [];
-    }
-  }
-
   class Frontstage1 extends FrontstageProvider {
     public static stageId = "Test1";
     public get id(): string {
@@ -158,45 +121,8 @@ describe("<ToolbarComposer  />", async () => {
     await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
   });
 
-  it("should render with specified items", async () => {
-    const renderedComponent = render(
-      <Provider store={TestUtils.store}>
-        <ToolbarComposer
-          usage={ToolbarUsage.ContentManipulation}
-          orientation={ToolbarOrientation.Horizontal}
-          items={ToolbarHelper.createToolbarItemsFromItemDefs([
-            tool1,
-            tool2,
-            group1,
-            custom1,
-          ])}
-        />
-      </Provider>
-    );
-
-    expect(renderedComponent).toBeTruthy();
-    expect(
-      renderedComponent.container.querySelector(
-        "div.components-toolbar-overflow-sizer.components-horizontal"
-      )
-    ).toBeTruthy();
-  });
-
   it("should render with updated items", async () => {
-    vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
-      function (this: HTMLElement) {
-        if (this.classList.contains("components-toolbar-overflow-sizer")) {
-          return DOMRect.fromRect({ width: 1000 });
-        } else if (
-          this.classList.contains("components-toolbar-item-container")
-        ) {
-          return DOMRect.fromRect({ width: 40 });
-        }
-        return new DOMRect();
-      }
-    );
-
-    const renderedComponent = render(
+    const { rerender, getByRole, queryByRole } = render(
       <Provider store={TestUtils.store}>
         <ToolbarComposer
           usage={ToolbarUsage.ContentManipulation}
@@ -209,66 +135,57 @@ describe("<ToolbarComposer  />", async () => {
         />
       </Provider>
     );
-    expect(renderedComponent).toBeTruthy();
-    expect(renderedComponent.queryByTitle("Tool_2")).toBeTruthy();
-    expect(renderedComponent.queryByTitle("Tool_Group")).toBeTruthy();
-    expect(renderedComponent.queryByTitle("Popup Test")).toBeTruthy();
 
-    renderedComponent.rerender(
-      <Provider store={TestUtils.store}>
-        <ToolbarComposer
-          usage={ToolbarUsage.ContentManipulation}
-          orientation={ToolbarOrientation.Horizontal}
-          items={ToolbarHelper.createToolbarItemsFromItemDefs([tool2a, tool2b])}
-        />
-      </Provider>
+    getByRole("button", { name: "Tool_2" });
+    getByRole("button", { name: "Tool_Group" });
+    getByRole("button", { name: "Popup Test" });
+
+    rerender(
+      <ToolbarComposer
+        usage={ToolbarUsage.ContentManipulation}
+        orientation={ToolbarOrientation.Horizontal}
+        items={ToolbarHelper.createToolbarItemsFromItemDefs([tool2a, tool2b])}
+      />
     );
-    expect(renderedComponent.queryByTitle("Tool_2")).toEqual(null);
-    expect(renderedComponent.queryByTitle("Tool_2A")).toBeTruthy();
-    expect(renderedComponent.queryByTitle("Tool_2B")).toBeTruthy();
+
+    expect(queryByRole("button", { name: "Tool_2" })).toEqual(null);
+    getByRole("button", { name: "Tool_2A" });
+    getByRole("button", { name: "Tool_2B" });
   });
 
-  it("should not try to render duplicate items", async () => {
-    vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
-      function (this: HTMLElement) {
-        if (this.classList.contains("components-toolbar-overflow-sizer")) {
-          return DOMRect.fromRect({ width: 1600 });
-        } else if (
-          this.classList.contains("components-toolbar-item-container")
-        ) {
-          return DOMRect.fromRect({ width: 40 });
-        }
-        return new DOMRect();
-      }
+  it("should not render duplicate items", async () => {
+    UiItemsManager.register({
+      id: "abcd1",
+      provideToolbarItems: () => {
+        return ToolbarHelper.createToolbarItemsFromItemDefs([
+          tool2,
+          group1,
+          custom1,
+          tool1e,
+        ]);
+      },
+    });
+
+    const { getByRole } = render(
+      <ToolbarComposer
+        usage={ToolbarUsage.ContentManipulation}
+        orientation={ToolbarOrientation.Horizontal}
+        items={ToolbarHelper.createToolbarItemsFromItemDefs([
+          tool2,
+          group1,
+          custom1,
+          tool2,
+          group1,
+          custom1,
+        ])}
+      />
     );
 
-    const duplicateToolsUiProvider = new DuplicatesUiProvider();
-    UiItemsManager.register(duplicateToolsUiProvider);
-    await TestUtils.flushAsyncOperations();
+    getByRole("button", { name: "Tool_2" });
+    getByRole("button", { name: "Tool_Group" });
+    getByRole("button", { name: "Popup Test" });
+    getByRole("button", { name: "Tool_1E" });
 
-    const renderedComponent = render(
-      <Provider store={TestUtils.store}>
-        <ToolbarComposer
-          usage={ToolbarUsage.ContentManipulation}
-          orientation={ToolbarOrientation.Horizontal}
-          items={ToolbarHelper.createToolbarItemsFromItemDefs([
-            tool2,
-            group1,
-            custom1,
-            tool2,
-            group1,
-            custom1,
-          ])}
-        />
-      </Provider>
-    );
-    expect(renderedComponent).toBeTruthy();
-    expect(renderedComponent.queryByTitle("Tool_2")).toBeTruthy();
-    expect(renderedComponent.queryByTitle("Tool_Group")).toBeTruthy();
-    expect(renderedComponent.queryByTitle("Popup Test")).toBeTruthy();
-    expect(renderedComponent.queryByTitle("Tool_1E")).toBeTruthy();
-
-    UiItemsManager.unregister(duplicateToolsUiProvider.id);
-    await TestUtils.flushAsyncOperations();
+    UiItemsManager.unregister("p1");
   });
 });

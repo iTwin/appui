@@ -9,32 +9,24 @@
 import * as React from "react";
 import { Popover } from "@itwin/itwinui-react";
 import { ButtonExpandIndicator } from "./ExpandIndicator.js";
-import type { CommonProps } from "@itwin/core-react";
 import { PopupContext } from "@itwin/core-react/internal";
-
-// eslint-disable-next-line deprecation/deprecation
-type StatusBarPopoverProps = CommonProps &
-  Pick<
-    React.ComponentProps<typeof Popover>,
-    | "content"
-    | "children"
-    | "visible"
-    | "onVisibleChange"
-    | "closeOnOutsideClick"
-  >;
 
 /** Popover component used in `StatusBar` component.
  * This component should wrap the element that triggers the popover.
  * @note Add the `StatusBarPopover.ExpandIndicator` to popover trigger buttons.
  * @public
  */
-export function StatusBarPopover({ content, ...props }: StatusBarPopoverProps) {
+export function StatusBarPopover({
+  content,
+  middleware,
+  ...other
+}: React.ComponentProps<typeof Popover>) {
   const [portalTarget, setPortalTarget] = React.useState<
     HTMLElement | undefined
   >(undefined);
   return (
     <Popover
-      {...props}
+      {...other}
       content={
         <PopupContext.Provider value={portalTarget}>
           {content}
@@ -43,6 +35,7 @@ export function StatusBarPopover({ content, ...props }: StatusBarPopoverProps) {
       placement="top"
       applyBackground
       middleware={{
+        ...middleware,
         offset: 4,
       }}
       ref={(el) => {
