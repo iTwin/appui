@@ -91,7 +91,8 @@ export function BackstageAppButton({
         iconProps={{ className: "uifw-widget-backstageAppButton_icon" }}
         label={label}
         labelProps={{
-          placement: "bottom-start",
+          placement: "right",
+          className: "uifw-widget-backstageAppButton_label",
         }}
       >
         {icon}
