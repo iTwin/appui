@@ -45,7 +45,7 @@ export function BackstageAppButton({
   execute,
 }: BackstageAppButtonProps) {
   const { translate } = useTranslation();
-  label = label ?? translate("commands.openBackstage");
+  label = label ?? translate("buttons.openBackstageMenu");
   const isInitialMount = React.useRef(true);
   const { onElementRef, proximityScale } = useWidgetOpacityContext();
   const ref = React.useRef<HTMLDivElement>(null);
@@ -90,7 +90,9 @@ export function BackstageAppButton({
         onClick={handleClick}
         iconProps={{ className: "uifw-widget-backstageAppButton_icon" }}
         label={label}
-        labelProps={{ placement: "bottom-end" }}
+        labelProps={{
+          placement: "bottom-start",
+        }}
       >
         {icon}
         <div className="uifw-widget-backstageAppButton_bars">
