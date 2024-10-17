@@ -1,0 +1,42 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+.uifw-widget-backstageAppButton {
+  block-size: 2.5rem;
+  aspect-ratio: 1;
+}
+
+.uifw-widget-backstageAppButton_icon {
+  font-size: 1.5rem;
+
+  svg {
+    block-size: 1.5rem;
+    inline-size: 1.5rem;
+  }
+}
+
+.uifw-widget-backstageAppButton_bars {
+  height: 100%;
+
+  position: absolute;
+  top: 0;
+  left: -1px;
+
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+
+  > .uifw-bar {
+    background-color: var(--iui-color-icon);
+    width: 4px;
+    height: 2px;
+    border-top-right-radius: var(--iui-border-radius-round);
+    border-bottom-right-radius: var(--iui-border-radius-round);
+    filter: drop-shadow(0 1px 0 var(--buic-foreground-body-reverse));
+  }
+
+  > .uifw-bar:not(:first-child) {
+    margin-top: 5px;
+  }
+}
