@@ -52,6 +52,7 @@ import { SvgMeasure, SvgProcess } from "@itwin/itwinui-icons-react";
 import { ConditionalIconItem } from "@itwin/core-react";
 import type { ToolbarItems } from "./ToolbarItems.js";
 import { getActiveViewport } from "../utils/getActiveViewport.js";
+import DOMPurify from "dompurify"
 
 /* eslint-disable deprecation/deprecation */
 
@@ -136,7 +137,7 @@ export class CoreTools {
       iconSpec: new ConditionalStringValue(() => {
         const viewport = getActiveViewport();
         if (viewport?.view.is2d()) return svgRotateLeft;
-        return svgGyroscope;
+        return this.sanitizeInput(svgGyroscope);
       }, [
         SyncUiEventId.ActiveContentChanged,
         SyncUiEventId.ActiveViewportChanged,
@@ -513,5 +514,16 @@ export class CoreTools {
         return IModelApp.tools.run(RestoreFrontstageLayoutTool.toolId);
       },
     });
+  }
+
+  private static sanitizeInput(icon: string) {
+    const sanitizerConfig = {
+      ALLOWED_TAGS: ["svg-loader"],
+      ADD_URI_SAFE_ATTR: icon.startsWith("data:")
+        ? ["src"]
+        : [],
+    };
+
+    return DOMPurify.sanitize(icon, sanitizerConfig);
   }
 }
