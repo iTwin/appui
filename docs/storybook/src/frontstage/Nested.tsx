@@ -4,7 +4,6 @@
  *--------------------------------------------------------------------------------------------*/
 import {
   NestedFrontstageAppButton,
-  StandardFrontstageProps,
   ToolbarItemUtilities,
   ToolbarOrientation,
   ToolbarUsage,
@@ -13,10 +12,6 @@ import {
 import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
 import { AppUiStory } from "../AppUiStory";
 import { createFrontstage } from "../Utils";
-
-type FrontstageStoryProps = {
-  frontstage?: Partial<StandardFrontstageProps>;
-};
 
 function createNestedFrontstage() {
   return createFrontstage({
@@ -39,7 +34,7 @@ function createNestedFrontstage() {
 createNestedFrontstage.id = "nested-frontstage";
 
 /** [openNestedFrontstage](https://www.itwinjs.org/reference/appui-react/frontstage/frameworkfrontstages/#opennestedfrontstage) can be used to open a nested frontstage. */
-export function NestedFrontstageStory(props: FrontstageStoryProps) {
+export function NestedFrontstageStory() {
   return (
     <AppUiStory
       layout="fullscreen"
@@ -73,7 +68,6 @@ export function NestedFrontstageStory(props: FrontstageStoryProps) {
           ],
         },
       ]}
-      {...props}
     />
   );
 }
