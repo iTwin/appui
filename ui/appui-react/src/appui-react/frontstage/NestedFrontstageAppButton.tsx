@@ -37,7 +37,7 @@ export function NestedFrontstageAppButton({
   return (
     <BackstageAppButton
       label={label}
-      icon={icon}
+      iconNode={icon}
       execute={() => {
         if (onClick) {
           onClick();
