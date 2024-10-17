@@ -43,12 +43,11 @@ export function NestedFrontstageStory() {
         {
           id: "toolbar",
           getToolbarItems: () => [
-            ToolbarItemUtilities.createActionItem(
-              "open",
-              10,
-              <SvgPlaceholder />,
-              "Open nested frontstage",
-              async () => {
+            ToolbarItemUtilities.createActionItem({
+              id: "open",
+              icon: <SvgPlaceholder />,
+              label: "Open nested frontstage",
+              execute: async () => {
                 const frontstageDef =
                   await UiFramework.frontstages.getFrontstageDef(
                     createNestedFrontstage.id
@@ -56,15 +55,13 @@ export function NestedFrontstageStory() {
                 if (!frontstageDef) return;
                 UiFramework.frontstages.openNestedFrontstage(frontstageDef);
               },
-              {
-                layouts: {
-                  standard: {
-                    orientation: ToolbarOrientation.Horizontal,
-                    usage: ToolbarUsage.ContentManipulation,
-                  },
+              layouts: {
+                standard: {
+                  orientation: ToolbarOrientation.Horizontal,
+                  usage: ToolbarUsage.ContentManipulation,
                 },
-              }
-            ),
+              },
+            }),
           ],
         },
       ]}

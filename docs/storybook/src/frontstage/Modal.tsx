@@ -22,26 +22,23 @@ export function ModalFrontstageStory() {
         {
           id: "toolbar",
           getToolbarItems: () => [
-            ToolbarItemUtilities.createActionItem(
-              "open",
-              10,
-              <SvgPlaceholder />,
-              "Open modal frontstage",
-              () => {
+            ToolbarItemUtilities.createActionItem({
+              id: "open",
+              icon: <SvgPlaceholder />,
+              label: "Open modal frontstage",
+              execute: () => {
                 UiFramework.frontstages.openModalFrontstage({
                   content: <>Modal frontstage content</>,
                   title: "My Modal Frontstage",
                 });
               },
-              {
-                layouts: {
-                  standard: {
-                    orientation: ToolbarOrientation.Horizontal,
-                    usage: ToolbarUsage.ContentManipulation,
-                  },
+              layouts: {
+                standard: {
+                  orientation: ToolbarOrientation.Horizontal,
+                  usage: ToolbarUsage.ContentManipulation,
                 },
-              }
-            ),
+              },
+            }),
           ],
         },
       ]}
