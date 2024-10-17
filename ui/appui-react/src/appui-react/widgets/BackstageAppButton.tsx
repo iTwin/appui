@@ -8,10 +8,8 @@
 
 import "./BackstageAppButton.scss";
 import * as React from "react";
-import { ProcessDetector } from "@itwin/core-bentley";
 import type { IconSpec } from "@itwin/core-react";
 import { Icon as CoreIcon } from "@itwin/core-react";
-import { useWidgetOpacityContext } from "@itwin/core-react/internal";
 import { SvgHome } from "@itwin/itwinui-icons-react";
 import { UiFramework } from "../UiFramework.js";
 import { useTranslation } from "../hooks/useTranslation.js";
@@ -46,8 +44,6 @@ export function BackstageAppButton({
 }: BackstageAppButtonProps) {
   const { translate } = useTranslation();
   label = label ?? translate("buttons.openBackstageMenu");
-  const isInitialMount = React.useRef(true);
-  const { onElementRef, proximityScale } = useWidgetOpacityContext();
   const ref = React.useRef<HTMLDivElement>(null);
 
   const handleClick = React.useCallback(() => {
@@ -58,24 +54,6 @@ export function BackstageAppButton({
 
     UiFramework.backstage.toggle();
   }, [execute]);
-
-  React.useEffect(() => {
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
-      onElementRef(ref);
-    }
-  }, [onElementRef]);
-
-  let buttonProximityScale: number | undefined;
-
-  if (
-    (UiFramework.visibility.useProximityOpacity || // eslint-disable-line deprecation/deprecation
-      UiFramework.visibility.snapWidgetOpacity) &&
-    !ProcessDetector.isMobileBrowser
-  ) {
-    buttonProximityScale = proximityScale;
-  }
-  buttonProximityScale; // TODO:
 
   const iconSpecElement = iconSpec ? (
     // eslint-disable-next-line deprecation/deprecation
