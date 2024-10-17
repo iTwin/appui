@@ -6,15 +6,17 @@
  * @module Widget
  */
 
+import "./BackstageAppButton.scss";
 import * as React from "react";
 import { ProcessDetector } from "@itwin/core-bentley";
 import type { IconSpec } from "@itwin/core-react";
-import { Icon } from "@itwin/core-react";
+import { Icon as CoreIcon } from "@itwin/core-react";
 import { useWidgetOpacityContext } from "@itwin/core-react/internal";
 import { SvgHome } from "@itwin/itwinui-icons-react";
 import { UiFramework } from "../UiFramework.js";
-import { AppButton } from "../layout/widget/tools/button/App.js";
 import { useTranslation } from "../hooks/useTranslation.js";
+import { Surface } from "../toolbar/new-toolbars/Surface.js";
+import { IconButton } from "@itwin/itwinui-react";
 
 /** Properties of {@link BackstageAppButton} component.
  * @public
@@ -37,13 +39,13 @@ export interface BackstageAppButtonProps {
  */
 export function BackstageAppButton({
   // eslint-disable-next-line deprecation/deprecation
-  icon,
+  icon: iconSpec,
   iconNode,
   label,
   execute,
 }: BackstageAppButtonProps) {
   const { translate } = useTranslation();
-  label = label ?? translate("commands.openBackstage");
+  label = label ?? translate("buttons.openBackstageMenu");
   const isInitialMount = React.useRef(true);
   const { onElementRef, proximityScale } = useWidgetOpacityContext();
   const ref = React.useRef<HTMLDivElement>(null);
@@ -73,18 +75,33 @@ export function BackstageAppButton({
   ) {
     buttonProximityScale = proximityScale;
   }
+  buttonProximityScale; // TODO:
 
-  // eslint-disable-next-line deprecation/deprecation
-  const specIcon = icon ? <Icon iconSpec={icon} /> : undefined;
+  const iconSpecElement = iconSpec ? (
+    // eslint-disable-next-line deprecation/deprecation
+    <CoreIcon iconSpec={iconSpec} />
+  ) : undefined;
+  const icon = iconNode ?? iconSpecElement ?? <SvgHome />;
   return (
-    <div ref={ref} className="uifw-app-button-small">
-      <AppButton
-        small={true}
-        mouseProximity={buttonProximityScale}
+    <Surface ref={ref} orientation="horizontal">
+      <IconButton
+        className="uifw-widget-backstageAppButton"
+        styleType="borderless"
         onClick={handleClick}
-        icon={iconNode ?? specIcon ?? <SvgHome />}
-        title={label}
-      />
-    </div>
+        iconProps={{ className: "uifw-widget-backstageAppButton_icon" }}
+        label={label}
+        labelProps={{
+          placement: "right",
+          className: "uifw-widget-backstageAppButton_label",
+        }}
+      >
+        {icon}
+        <div className="uifw-widget-backstageAppButton_bars">
+          <div className="uifw-bar" />
+          <div className="uifw-bar" />
+          <div className="uifw-bar" />
+        </div>
+      </IconButton>
+    </Surface>
   );
 }

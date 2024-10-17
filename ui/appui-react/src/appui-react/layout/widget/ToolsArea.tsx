@@ -45,21 +45,19 @@ export class ToolsArea extends React.PureComponent<ToolsAreaProps> {
 
     return (
       <div className={className} style={this.props.style}>
-        <div className="nz-vertical-tool-area">
-          <div
-            className="nz-app-button"
-            onMouseEnter={this.props.onMouseEnter}
-            onMouseLeave={this.props.onMouseLeave}
-          >
-            {button}
-          </div>
-          <div
-            className="nz-vertical-toolbar-container"
-            onMouseEnter={this.props.onMouseEnter}
-            onMouseLeave={this.props.onMouseLeave}
-          >
-            {this.props.verticalToolbar}
-          </div>
+        <div
+          className="nz-app-button"
+          onMouseEnter={this.props.onMouseEnter}
+          onMouseLeave={this.props.onMouseLeave}
+        >
+          {button}
+        </div>
+        <div
+          className="nz-vertical-toolbar-container"
+          onMouseEnter={this.props.onMouseEnter}
+          onMouseLeave={this.props.onMouseLeave}
+        >
+          {this.props.verticalToolbar}
         </div>
         <div
           className="nz-horizontal-toolbar-container"
