@@ -42,6 +42,13 @@ interface KnownPreviewFeatures {
    * Discuss or upvote this feature: https://github.com/iTwin/appui/discussions/723
    */
   widgetActionDropdown: { threshold: number };
+  /** If `true`, the accudraw input field will accept letters. Defaults to `false`.
+   *
+   * This allows to type in units like meters, feet, inches, bearings and more.
+   */
+  allowLettersInAccuDrawInputFields: boolean;
+  /** If `true`, the accudraw input field will not have colors for the X, Y, Z axis. Defaults to `false`.*/
+  enableColorlessAccuDrawInputFields: boolean;
   /** If `true`, popout widgets will not be rendered in a separate element tree, instead widget content will be re-parented to a popout content container.
    * Alternatively, an array of widget ids can be specified to only re-parent specific widgets.
    * @note Use {@link useTransientState} to save and restore DOM transient state when re-parenting widgets.
@@ -68,6 +75,8 @@ const knownFeaturesObject: Record<keyof KnownPreviewFeatures, undefined> = {
   enableMaximizedPanelWidget: undefined,
   horizontalPanelAlignment: undefined,
   widgetActionDropdown: undefined,
+  allowLettersInAccuDrawInputFields: undefined,
+  enableColorlessAccuDrawInputFields: undefined,
   reparentPopoutWidgets: undefined,
   controlWidgetVisibility: undefined,
 };
