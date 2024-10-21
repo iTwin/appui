@@ -11,8 +11,8 @@
   box-sizing: border-box;
   background: var(--iui-color-background);
   color: var(--iui-color-text);
-  -webkit-box-shadow: 0 3px 6px $buic-popup-boxshadow;
-  box-shadow: 0px 3px 6px $buic-popup-boxshadow;
+  -webkit-box-shadow: 0 3px 6px var(--iui-focus-box-shadow);
+  box-shadow: 0px 3px 6px var(--iui-focus-box-shadow);
 
   .uifw-command-palette-panel {
     margin: 4px;

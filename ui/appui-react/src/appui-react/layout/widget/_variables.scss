@@ -10,7 +10,7 @@ $nz-tab-width: 32px;
 $nz-tab-strip-width: 2px;
 $nz-tab-strip-margin: 2px;
 $nz-tab-background-color: var(--iui-color-background-backdrop);
-$nz-tab-color: $buic-icon-color;
+$nz-tab-color: var(--iui-color-text);
 
 $nz-active-tab-width: 36px;
 
@@ -18,8 +18,12 @@ $nz-collapsed-tab-width: 6px;
 
 $nz-hovered-tab-color: var(--iui-color-text-accent-hover);
 $nz-active-tab-color: var(--iui-color-icon-accent);
-$nz-tab-shadow: drop-shadow((-0.4px) 0.9px 0 $buic-text-color-reverse);
-$nz-active-tab-shadow: drop-shadow(0 1px 0 $buic-text-color-reverse);
+$nz-tab-shadow: drop-shadow(
+  (-0.4px) 0.9px 0 hsl(var(--iui-color-background-hsl) / var(--iui-opacity-2))
+);
+$nz-active-tab-shadow: drop-shadow(
+  0 1px 0 hsl(var(--iui-color-background-hsl) / var(--iui-opacity-2))
+);
 $nz-tab-no-shadow: drop-shadow(0 0 0 transparent);
 
 $nz-resize-grip-size: 8px;

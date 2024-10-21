@@ -165,7 +165,7 @@ $uicore-menu-top-bottom-padding: calc(#{$uicore-menu-padding} * 0.6667);
       > .core-context-menu-item.is-selected,
       > .context-submenu > .core-context-menu-item.is-selected {
         // .is-selected being applied on hover, overriding with hover color
-        background-color: $buic-row-hover;
+        background-color: var(--iui-color-background-hover);
       }
     }
 

@@ -31,7 +31,8 @@
   }
 
   &:focus {
-    box-shadow: $buic-focus-boxshadow 0px 0px 0px 2px;
+    box-shadow: hsl(var(--iui-color-accent-hsl) / var(--iui-opacity-4)) 0px 0px
+      0px 2px;
     outline: none;
   }
 }

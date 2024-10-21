@@ -26,7 +26,7 @@ $hovered-icon-color: var(--iui-color-icon-hover);
 $pressed-icon-color: var(--iui-color-text);
 $active-icon-color: var(--iui-color-icon-accent);
 $disabled-icon-color: var(--iui-color-icon-disabled);
-$icon-shadow-color: $buic-icon-color-reverse;
+$icon-shadow-color: hsl(var(--iui-color-background-hsl) / var(--iui-opacity-2));
 $icon-shadow: drop-shadow(0 1px 0 $icon-shadow-color);
 $no-shadow: drop-shadow(0 0 0 transparent);
 

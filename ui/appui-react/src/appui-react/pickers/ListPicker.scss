@@ -8,7 +8,9 @@
 @import "~@itwin/core-react/lib/cjs/core-react/typography";
 
 $no-shadow: none;
-$shadow: drop-shadow(0 1px 0 $buic-text-color-reverse);
+$shadow: drop-shadow(
+  0 1px 0 hsl(var(--iui-color-background-hsl) / var(--iui-opacity-2))
+);
 $space-after-label: 16px;
 $space-before-label: 16px;
 $label-color: var(--iui-color-text);
@@ -212,7 +214,9 @@ $item-height: 32px;
     margin-right: $space-after-label;
     margin-left: $space-before-label;
     line-height: $item-height;
-    filter: drop-shadow(0 1px 0 $buic-text-color-reverse);
+    filter: drop-shadow(
+      0 1px 0 hsl(var(--iui-color-background-hsl) / var(--iui-opacity-2))
+    );
 
     &:after {
       display: block;
@@ -232,7 +236,9 @@ $item-height: 32px;
 
     > .icon,
     .label {
-      filter: drop-shadow(0 1px 0 $buic-text-color-reverse);
+      filter: drop-shadow(
+        0 1px 0 hsl(var(--iui-color-background-hsl) / var(--iui-opacity-2))
+      );
     }
   }
 
@@ -242,7 +248,9 @@ $item-height: 32px;
 
     > .icon,
     .label {
-      filter: drop-shadow(0 1px 0 $buic-text-color-reverse);
+      filter: drop-shadow(
+        0 1px 0 hsl(var(--iui-color-background-hsl) / var(--iui-opacity-2))
+      );
     }
   }
 
@@ -256,7 +264,9 @@ $item-height: 32px;
 
     > .icon,
     .label {
-      filter: drop-shadow(0 1px 0 $buic-text-color-reverse);
+      filter: drop-shadow(
+        0 1px 0 hsl(var(--iui-color-background-hsl) / var(--iui-opacity-2))
+      );
     }
   }
 
@@ -290,7 +300,9 @@ $item-height: 32px;
   white-space: nowrap;
   text-align: center;
   color: var(--iui-color-text);
-  filter: drop-shadow(0 1px 0 $buic-text-color-reverse);
+  filter: drop-shadow(
+    0 1px 0 hsl(var(--iui-color-background-hsl) / var(--iui-opacity-2))
+  );
   margin-bottom: 9px;
   margin-left: $horizontal-margin;
   margin-right: $horizontal-margin;

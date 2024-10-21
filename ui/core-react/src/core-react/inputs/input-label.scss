@@ -77,7 +77,7 @@
       > input,
       > .uicore-inputs-input {
         border-color: rgb($color);
-        box-shadow: $buic-inputs-boxshadow 0px 1px 1px inset;
+        box-shadow: var(--iui-focus-box-shadow) 0px 1px 1px inset;
 
         &:focus {
           border-color: rgb($color);

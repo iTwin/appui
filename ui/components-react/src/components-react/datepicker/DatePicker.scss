@@ -149,7 +149,7 @@ $outline-size: 2px;
       }
 
       &:hover:not(.selected) {
-        background-color: $buic-row-hover;
+        background-color: var(--iui-color-background-hover);
         border-radius: var(--iui-border-radius-1);
         font-weight: var(--iui-font-weight-semibold);
       }
@@ -161,7 +161,7 @@ $outline-size: 2px;
         border-radius: var(--iui-border-radius-1);
 
         &:hover {
-          background-color: $buic-row-hover;
+          background-color: var(--iui-color-background-hover);
           color: var(--iui-color-text);
         }
       }

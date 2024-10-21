@@ -13,7 +13,7 @@
   background-color: var(--iui-color-background);
   border: 1px solid var(--iui-color-border-foreground);
   border-radius: var(--iui-border-radius-1);
-  box-shadow: var(--buic-inputs-boxshadow) 0px 1px 1px inset;
+  box-shadow: var(--iui-focus-box-shadow) 0px 1px 1px inset;
   box-sizing: border-box;
 
   &.has-error {

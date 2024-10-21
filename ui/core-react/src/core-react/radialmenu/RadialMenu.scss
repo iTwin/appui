@@ -26,7 +26,7 @@
       stroke-width: 1px;
 
       &.selected {
-        fill: $buic-row-selection;
+        fill: var(--iui-color-background-accent-muted);
       }
     }
 
@@ -40,7 +40,7 @@
           height: $uicore-icons-small;
           width: $uicore-icons-small;
           line-height: $uicore-icons-small;
-          color: $buic-icon-color;
+          color: var(--iui-color-text);
         }
 
         .core-radial-menu-button-content {

@@ -43,7 +43,7 @@ button.components-colorpicker-button {
 
     > .components-colorpicker-button-container {
       > .components-caret {
-        color: $buic-icon-color-disabled;
+        color: var(--iui-color-text-disabled);
       }
     }
   }
