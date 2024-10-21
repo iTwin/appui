@@ -498,7 +498,7 @@ export class ComponentExamplesProvider {
                   <ContentLayout
                     style={{
                       height: "calc(100vh - 80px)",
-                      background: "$buic-background-dialog",
+                      background: "var(--iui-color-background-hover)",
                       top: "auto",
                     }}
                     contentLayout={fourQuadrantsHorizontalLayoutDef}

@@ -48,7 +48,7 @@
 }
 .image-checkbox-border {
   border: 1px solid var(--iui-color-text-disabled);
-  background-color: $buic-background-control;
+  background-color: var(--iui-color-background);
   border-radius: var(--iui-border-radius-1);
   padding: 1px 3px 0 2px;
 }

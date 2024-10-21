@@ -39,7 +39,7 @@
 .components-date-picker-calendar-popup-panel {
   display: flex;
   flex-direction: column;
-  background-color: $buic-background-control;
+  background-color: var(--iui-color-background);
 
   .time-container {
     display: flex;

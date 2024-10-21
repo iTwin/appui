@@ -6,8 +6,8 @@
 
 // Common
 $button-stroke-width: 2px;
-$button-background-color: $buic-background-toolbar;
-$button-stroke-color: $buic-background-toolbutton-stroke;
+$button-background-color: var(--iui-color-background-hover);
+$button-stroke-color: var(--iui-color-background-disabled);
 $button-stroke-radius: 3px;
 
 $icon-color: $buic-icon-color;

@@ -6,7 +6,7 @@
 @import "~@itwin/core-react/lib/cjs/core-react/z-index";
 
 .uifw-card {
-  background-color: $buic-background-card;
+  background-color: hsl(var(--iui-color-background-hsl) / 0.9);
   @include uicore-z-index(content-card-popup);
 
   .uifw-card-content {

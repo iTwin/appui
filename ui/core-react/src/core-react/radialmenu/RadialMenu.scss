@@ -21,8 +21,8 @@
     margin-top: -50%;
 
     .core-radial-menu-sector {
-      stroke: $buic-background-panel-stroke;
-      fill: $buic-background-control;
+      stroke: var(--iui-color-background-disabled);
+      fill: var(--iui-color-background);
       stroke-width: 1px;
 
       &.selected {

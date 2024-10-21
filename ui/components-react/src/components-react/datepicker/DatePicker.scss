@@ -20,7 +20,7 @@ $outline-size: 2px;
 
 .components-date-picker-calendar {
   border-radius: var(--iui-border-radius-1) var(--iui-border-radius-1) 0 0;
-  background-color: $buic-background-control;
+  background-color: var(--iui-color-background);
   color: var(--iui-color-text);
   font-size: 14px;
 
@@ -37,7 +37,7 @@ $outline-size: 2px;
 
     button.components-previous-month,
     button.components-next-month {
-      background-color: $buic-background-control;
+      background-color: var(--iui-color-background);
       border: none;
       cursor: pointer;
       padding: 5px;
@@ -155,7 +155,7 @@ $outline-size: 2px;
       }
 
       &.selected {
-        background-color: $buic-background-primary;
+        background-color: var(--iui-color-background-accent);
         color: var(--iui-color-white);
         font-weight: var(--iui-font-weight-semibold);
         border-radius: var(--iui-border-radius-1);

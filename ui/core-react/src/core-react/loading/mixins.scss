@@ -38,7 +38,7 @@
     height: $size;
     width: $size;
 
-    border: solid $borderSize $buic-background-control-stroke;
+    border: solid $borderSize var(--iui-color-background-disabled);
     border-bottom-color: #{$activeColor};
     border-radius: 50%;
     box-sizing: border-box;

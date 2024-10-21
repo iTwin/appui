@@ -26,7 +26,7 @@ $hoverColor: var(--iui-color-text-accent-hover);
   &:focus {
     color: $hoverColor;
     border-color: $hoverColor;
-    background-color: $buic-background-focus-overlay;
+    background-color: hsl(var(--iui-opacity-6));
     outline: none;
   }
 }

@@ -9,7 +9,7 @@
   @include uicore-z-index(keyin-palette-overlay);
 
   box-sizing: border-box;
-  background: $buic-background-control;
+  background: var(--iui-color-background);
   color: var(--iui-color-text);
   -webkit-box-shadow: 0 3px 6px $buic-popup-boxshadow;
   box-shadow: 0px 3px 6px $buic-popup-boxshadow;

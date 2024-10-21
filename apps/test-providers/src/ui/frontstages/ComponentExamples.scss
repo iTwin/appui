@@ -20,7 +20,7 @@ $component-examples-rightpanel-width: 200px;
   column-gap: 8px;
 
   .component-examples-categories {
-    background: $buic-background-dialog;
+    background: var(--iui-color-background-hover);
 
     height: 100%;
     overflow-y: auto;
@@ -30,7 +30,7 @@ $component-examples-rightpanel-width: 200px;
   }
 
   .component-examples-items {
-    background: $buic-background-dialog;
+    background: var(--iui-color-background-hover);
     height: 100%;
     overflow-y: auto;
     display: flex;
@@ -81,7 +81,7 @@ $component-examples-rightpanel-width: 200px;
 
 .content-layout-fullscreen {
   height: calc(100vh - 80px);
-  background: $buic-background-dialog;
+  background: var(--iui-color-background-hover);
   top: auto;
 }
 

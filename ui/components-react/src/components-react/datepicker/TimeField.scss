@@ -10,7 +10,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  background-color: $buic-background-control;
+  background-color: var(--iui-color-background);
   border: 1px solid var(--iui-color-border-foreground);
   border-radius: var(--iui-border-radius-1);
   box-shadow: var(--buic-inputs-boxshadow) 0px 1px 1px inset;

@@ -6,7 +6,7 @@
 @import "~@itwin/core-react/lib/cjs/core-react/text/mixins";
 
 .uifw-popup-message-inputField {
-  background-color: $buic-background-control;
+  background-color: var(--iui-color-background);
   padding: 6px;
   border-radius: var(--iui-border-radius-1);
   color: var(--iui-color-text);

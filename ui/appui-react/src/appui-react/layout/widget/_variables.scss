@@ -9,7 +9,7 @@ $nz-tab-height: 60px;
 $nz-tab-width: 32px;
 $nz-tab-strip-width: 2px;
 $nz-tab-strip-margin: 2px;
-$nz-tab-background-color: $buic-background-tab-inactive;
+$nz-tab-background-color: var(--iui-color-background-backdrop);
 $nz-tab-color: $buic-icon-color;
 
 $nz-active-tab-width: 36px;
@@ -25,8 +25,8 @@ $nz-tab-no-shadow: drop-shadow(0 0 0 transparent);
 $nz-resize-grip-size: 8px;
 $nz-resize-grip-size-large: 14px;
 
-$nz-widget-background-color: $buic-background-widget;
-$nz-widget-border-color: $buic-background-widget-stroke;
+$nz-widget-background-color: var(--iui-color-background-hover);
+$nz-widget-border-color: var(--iui-color-background-disabled);
 $nz-widget-border-width: 1px;
 $nz-widget-border-radius: var(--iui-border-radius-1);
 $nz-widget-min-size: $nz-tab-height + 10px;
