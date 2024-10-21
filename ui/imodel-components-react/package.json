@@ -3,12 +3,10 @@
   "version": "5.0.0-dev.0",
   "description": "A react component library of iTwin.js UI iModel components",
   "type": "module",
-  "main": "lib/cjs/imodel-components-react.js",
-  "module": "lib/esm/imodel-components-react.js",
-  "types": "lib/cjs/imodel-components-react",
   "exports": {
     ".": "./lib/imodel-components-react.js",
     "./internal": "./lib/internal.js",
+    "./package.json": "./package.json",
     "./lib/cjs/*": {
       "sass": "./lib/*"
     },
@@ -17,10 +15,7 @@
     },
     "./*": {
       "sass": "./*"
-    },
-    "./cjs": "./lib/cjs/imodel-components-react.js",
-    "./esm": "./lib/esm/imodel-components-react.js",
-    "./package.json": "./package.json"
+    }
   },
   "license": "MIT",
   "repository": {

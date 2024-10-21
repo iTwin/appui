@@ -3,11 +3,9 @@
   "version": "5.0.0-dev.0",
   "description": "A react component library for AppUI framework",
   "type": "module",
-  "main": "lib/cjs/appui-react.js",
-  "module": "lib/esm/appui-react.js",
-  "types": "lib/cjs/appui-react",
   "exports": {
     ".": "./lib/appui-react.js",
+    "./package.json": "./package.json",
     "./lib/cjs/*": {
       "sass": "./lib/*"
     },
@@ -16,10 +14,7 @@
     },
     "./*": {
       "sass": "./*"
-    },
-    "./cjs": "./lib/cjs/appui-react.js",
-    "./esm": "./lib/esm/appui-react.js",
-    "./package.json": "./package.json"
+    }
   },
   "license": "MIT",
   "repository": {
