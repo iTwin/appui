@@ -53,9 +53,11 @@ $outline-size: 2px;
           outline: 0px;
           border: 0px solid var(--iui-color-border-foreground);
           border-radius: var(--iui-border-radius-1);
-          border-color: var(--buic-foreground-focus-border);
-          box-shadow: var(--buic-focus-boxshadow-gradient1) 0px 1px 1px,
-            var(--buic-focus-boxshadow-gradient2) 0px 0px 0px 2px;
+          border-color: hsl(
+            var(--iui-color-foreground-hsl) / var(--iui-opacity-4)
+          );
+          box-shadow: hsl(var(--iui-color-accent-hsl) / 0) 0px 1px 1px,
+            hsl(var(--iui-color-accent-hsl) / 0.65) 0px 0px 0px 2px;
         }
       }
 
@@ -111,17 +113,21 @@ $outline-size: 2px;
       &.showFocusOutline {
         border: 0px solid var(--iui-color-border-foreground);
         border-radius: var(--iui-border-radius-1);
-        border-color: var(--buic-foreground-focus-border);
-        box-shadow: var(--buic-focus-boxshadow-gradient1) 0px 1px 1px,
-          var(--buic-focus-boxshadow-gradient2) 0px 0px 0px 2px;
+        border-color: hsl(
+          var(--iui-color-foreground-hsl) / var(--iui-opacity-4)
+        );
+        box-shadow: hsl(var(--iui-color-accent-hsl) / 0) 0px 1px 1px,
+          hsl(var(--iui-color-accent-hsl) / 0.65) 0px 0px 0px 2px;
 
         .components-date-picker-calendar-day.focused {
           outline: 0px;
           border: 1px solid var(--iui-color-border-foreground);
           border-radius: var(--iui-border-radius-1);
-          border-color: var(--buic-foreground-focus-border);
-          box-shadow: var(--buic-focus-boxshadow-gradient1) 0px 1px 1px,
-            var(--buic-focus-boxshadow-gradient2) 0px 0px 0px 2px;
+          border-color: hsl(
+            var(--iui-color-foreground-hsl) / var(--iui-opacity-4)
+          );
+          box-shadow: hsl(var(--iui-color-accent-hsl) / 0) 0px 1px 1px,
+            hsl(var(--iui-color-accent-hsl) / 0.65) 0px 0px 0px 2px;
           z-index: 1;
         }
       }
