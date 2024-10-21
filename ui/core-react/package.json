@@ -9,8 +9,14 @@
   "exports": {
     ".": "./lib/core-react.js",
     "./internal": "./lib/internal.js",
+    "./lib/cjs/*": {
+      "sass": "./lib/*"
+    },
+    "./lib/esm/*": {
+      "sass": "./lib/*"
+    },
     "./*": {
-      "sass": "./*.scss"
+      "sass": "./*"
     },
     "./cjs": "./lib/cjs/core-react.js",
     "./esm": "./lib/esm/core-react.js",

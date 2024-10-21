@@ -9,8 +9,14 @@
   "exports": {
     ".": "./lib/imodel-components-react.js",
     "./internal": "./lib/internal.js",
+    "./lib/cjs/*": {
+      "sass": "./lib/*"
+    },
+    "./lib/esm/*": {
+      "sass": "./lib/*"
+    },
     "./*": {
-      "sass": "./*.scss"
+      "sass": "./*"
     },
     "./cjs": "./lib/cjs/imodel-components-react.js",
     "./esm": "./lib/esm/imodel-components-react.js",
