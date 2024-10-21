@@ -248,7 +248,7 @@ export async function openComponentExamples(
   baseURL: string | undefined
 ) {
   await page.goto(`${baseURL}/blank?frontstageId=widget-api&menu=0`);
-  await page.locator(".nz-toolbar-button-button").click();
+  await page.getByRole("button", { name: "Open backstage menu" }).click();
   await page.getByRole("menuitem", { name: "Component Examples" }).click();
 }
 

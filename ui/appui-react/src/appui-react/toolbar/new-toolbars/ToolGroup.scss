@@ -15,33 +15,3 @@
     justify-content: flex-end;
   }
 }
-
-.uifw-toolbar-group-toolGroup {
-  display: flex;
-  width: fit-content;
-  height: fit-content;
-  border-color: var(--iui-color-border-foreground);
-  transition: border-color var(--iui-duration-1) ease;
-  // TODO: needed due to opacity on toolbar container (since pointer events are disabled for center content).
-  pointer-events: all;
-
-  @supports (backdrop-filter: blur(5px)) {
-    background-color: hsl(
-      var(--iui-color-background-hsl) / var(--iui-opacity-2)
-    );
-    backdrop-filter: blur(5px);
-  }
-
-  &.uifw-vertical {
-    flex-direction: column;
-  }
-
-  &:hover,
-  &:focus-within {
-    border-color: var(--iui-color-border-foreground-hover);
-  }
-
-  &:empty {
-    display: none;
-  }
-}
