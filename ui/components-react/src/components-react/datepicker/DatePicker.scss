@@ -8,11 +8,11 @@
 
 $date-picker-m: 16px;
 $date-picker-icons-color-actionable: rgba(
-  $buic-foreground-body,
+  var(--iui-color-text),
   $uicore-opacity-2
 );
 $date-picker-icons-color-actionable-hover: rgba(
-  $buic-foreground-body,
+  var(--iui-color-text),
   $uicore-opacity-1
 );
 $date-picker-outside-month-color: var(--iui-color-text-disabled);
@@ -167,7 +167,7 @@ $outline-size: 2px;
       }
 
       &.today {
-        background-color: rgba($buic-foreground-body, $uicore-opacity-6);
+        background-color: rgba(var(--iui-color-text), $uicore-opacity-6);
         font-weight: var(--iui-font-weight-semibold);
         border-radius: 50%;
       }

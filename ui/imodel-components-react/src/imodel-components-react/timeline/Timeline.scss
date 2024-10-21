@@ -49,7 +49,7 @@
   z-index: 4;
   width: 2px;
   height: 100%;
-  background: $buic-foreground-primary;
+  background: var(--iui-color-icon-accent);
   cursor: pointer;
 }
 
@@ -63,7 +63,7 @@
   cursor: pointer;
   border: none;
   border-radius: 50%;
-  background: $buic-foreground-primary;
+  background: var(--iui-color-icon-accent);
   border: 2px solid var(--iui-color-background);
 
   > span {

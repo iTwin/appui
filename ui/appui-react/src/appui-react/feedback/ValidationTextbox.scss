@@ -23,11 +23,11 @@
   }
 
   .ValidationTextbox-invalid {
-    border-color: $buic-foreground-alert;
+    border-color: var(--iui-color-text-negative);
   }
 
   .ValidationTextbox-invalid:focus {
-    border-color: $buic-foreground-alert;
+    border-color: var(--iui-color-text-negative);
   }
 
   .ValidationTextbox-icon {

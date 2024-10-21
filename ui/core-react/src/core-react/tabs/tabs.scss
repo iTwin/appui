@@ -91,6 +91,6 @@
   }
 
   &.uicore-tabs-green > li > a::after {
-    background-color: $buic-foreground-success;
+    background-color: var(--iui-color-text-positive);
   }
 }

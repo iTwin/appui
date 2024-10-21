@@ -23,7 +23,7 @@ $font-size: var(--iui-font-size-1);
 $icon-size: 16px;
 $icon-color: var(--iui-color-icon);
 $hovered-icon-color: var(--iui-color-icon-hover);
-$pressed-icon-color: $buic-foreground-activehover;
+$pressed-icon-color: var(--iui-color-text);
 $active-icon-color: var(--iui-color-icon-accent);
 $disabled-icon-color: var(--iui-color-icon-disabled);
 $icon-shadow-color: $buic-icon-color-reverse;

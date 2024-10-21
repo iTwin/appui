@@ -28,5 +28,5 @@ $nz-backstage-item-color: var(--iui-color-text);
 $nz-backstage-item-color-disabled: var(--iui-color-text-disabled);
 $nz-backstage-item-active-background: $buic-background-tab-inactive;
 $nz-backstage-item-hover-background: $buic-row-hover;
-$nz-backstage-highlight-bar-background: $buic-foreground-primary;
+$nz-backstage-highlight-bar-background: var(--iui-color-icon-accent);
 $nz-backstage-divider-color: $buic-background-divider;

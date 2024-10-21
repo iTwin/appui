@@ -65,7 +65,7 @@ $line-grip-width: calc(#{$nz-grip-width} - 2px);
 
     &:hover,
     &.nz-resizing {
-      background-color: $buic-foreground-primary;
+      background-color: var(--iui-color-icon-accent);
     }
   }
 

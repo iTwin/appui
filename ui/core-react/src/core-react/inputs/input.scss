@@ -35,7 +35,7 @@
 
   &[disabled] {
     background-color: $buic-background-control-disabled;
-    border-color: $buic-foreground-disabled;
+    border-color: var(--iui-color-text-disabled);
     color: var(--iui-color-text-disabled);
     cursor: not-allowed;
     opacity: $uicore-opacity-disabled;
@@ -48,7 +48,7 @@
 
   &:focus {
     outline: 0px;
-    border-color: $buic-foreground-focus-border;
+    border-color: hsl(var(--iui-color-foreground-hsl) / var(--iui-opacity-4));
     box-shadow: $uicore-inputs-focus-boxshadow;
   }
 }

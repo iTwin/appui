@@ -26,6 +26,6 @@
   .uifw-history-bottom-border {
     border-bottom-width: 1px;
     border-bottom-style: solid;
-    border-bottom-color: $buic-foreground-disabled;
+    border-bottom-color: var(--iui-color-text-disabled);
   }
 }

@@ -57,7 +57,7 @@
 
   &:focus,
   &.components-popup-expanded {
-    border-color: $buic-foreground-focus;
+    border-color: var(--iui-color-text-accent-hover);
     outline: 0px;
     box-shadow: $uicore-inputs-focus-boxshadow;
 

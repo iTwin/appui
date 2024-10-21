@@ -12,7 +12,7 @@ $button-stroke-radius: 3px;
 
 $icon-color: $buic-icon-color;
 $pressed-icon-color: $buic-icon-color-reverse;
-$hovered-icon-color: $buic-foreground-primary-tone;
+$hovered-icon-color: var(--iui-color-text-accent-hover);
 $icon-shadow: drop-shadow(0 1px 0 $buic-icon-color-reverse);
 $no-shadow: drop-shadow(0 0 0 transparent);
 

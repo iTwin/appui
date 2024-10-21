@@ -26,7 +26,7 @@
     cursor: auto;
 
     svg {
-      fill: $buic-foreground-primary-tone;
+      fill: var(--iui-color-text-accent-hover);
     }
   }
 
