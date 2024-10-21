@@ -79,7 +79,7 @@ $outline-size: 2px;
 
   .components-date-picker-calendar-header-weekdays {
     display: grid;
-    background-color: $buic-background-2;
+    background-color: var(--iui-color-background-hover);
     padding-inline-start: 8px;
     padding-inline-end: 8px;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;

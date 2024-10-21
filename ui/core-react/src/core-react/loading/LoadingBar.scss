@@ -9,7 +9,7 @@
   align-items: center;
 
   > .lb-container {
-    background-color: $buic-background-5;
+    background-color: var(--iui-color-background-disabled);
     flex: 1;
 
     > .fill {
