@@ -2,67 +2,52 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect, Page, test } from "@playwright/test";
-import assert from "assert";
+import { expect, test } from "@playwright/test";
 import { popoutWidget, tabLocator, widgetLocator } from "./Utils";
 
-async function testWidgetNotPoppedOut(page: Page) {
-  const tab = tabLocator(page, "Error border widget");
-  const widget = widgetLocator({ tab });
+test.describe("error boundary tests", () => {
+  test("should catch an error", async ({ page }) => {
+    await page.goto("./blank?frontstageId=test-popout");
+    const tab = tabLocator(page, "Error border widget");
+    const widget = widgetLocator({ tab });
 
-  const button = widget.getByRole("button", { name: "Click Me" });
-  const error = widget.getByRole("alert");
+    const button = widget.getByRole("button", { name: "Throw Error" });
+    const error = widget.getByRole("alert");
 
-  await expect(error).not.toBeVisible();
-  await button.click();
-  await expect(error).toBeVisible();
-}
-
-async function testWidgetPoppedOut(page: Page) {
-  const tab = tabLocator(page, "Error border widget");
-  const widget = widgetLocator({ tab });
-
-  const popoutPage = await popoutWidget(widget);
-  const button = popoutPage.getByRole("button", { name: "Click Me" });
-  const error = popoutPage.getByRole("alert");
-
-  await expect(error).not.toBeVisible();
-  await button.click();
-  await expect(error).toBeVisible();
-}
-
-test.describe("error boundary when reparentPopoutWidgets is true", () => {
-  test.beforeEach(async ({ page, baseURL }) => {
-    assert(baseURL);
-    await page.goto(
-      `${baseURL}/blank?frontstageId=test-popout&reparentPopoutWidgets=1`
-    );
+    await expect(error).not.toBeVisible();
+    await button.click();
+    await expect(error).toBeVisible();
   });
 
-  test("should catch an error when widget is not popped out", async ({
+  test("should catch an error when widget is popped out and reparentPopoutWidgets is false", async ({
     page,
   }) => {
-    await testWidgetNotPoppedOut(page);
+    await page.goto("./blank?frontstageId=test-popout");
+    const tab = tabLocator(page, "Error border widget");
+    const widget = widgetLocator({ tab });
+
+    const popoutPage = await popoutWidget(widget);
+    const button = popoutPage.getByRole("button", { name: "Throw Error" });
+    const error = popoutPage.getByRole("alert");
+
+    await expect(error).not.toBeVisible();
+    await button.click();
+    await expect(error).toBeVisible();
   });
 
-  test("should catch an error when widget is popped out", async ({ page }) => {
-    await testWidgetPoppedOut(page);
-  });
-});
-
-test.describe("error boundary when reparentPopoutWidgets is false", () => {
-  test.beforeEach(async ({ page, baseURL }) => {
-    assert(baseURL);
-    await page.goto(`${baseURL}/blank?frontstageId=test-popout`);
-  });
-
-  test("should catch an error when widget is not popped out", async ({
+  test("should catch an error when widget is popped out and reparentPopoutWidgets is true", async ({
     page,
   }) => {
-    await testWidgetNotPoppedOut(page);
-  });
+    await page.goto("./blank?frontstageId=test-popout&reparentPopoutWidgets=1");
+    const tab = tabLocator(page, "Error border widget");
+    const widget = widgetLocator({ tab });
 
-  test("should catch an error when widget is popped out", async ({ page }) => {
-    await testWidgetPoppedOut(page);
+    const popoutPage = await popoutWidget(widget);
+    const button = popoutPage.getByRole("button", { name: "Throw Error" });
+    const error = popoutPage.getByRole("alert");
+
+    await expect(error).not.toBeVisible();
+    await button.click();
+    await expect(error).toBeVisible();
   });
 });

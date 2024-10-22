@@ -3,7 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { expect, test } from "@playwright/test";
-import assert from "assert";
 import {
   activeTabLocator,
   dragTab,
@@ -20,9 +19,8 @@ import {
 } from "./Utils";
 
 test.describe("widget state", () => {
-  test.beforeEach(async ({ page, baseURL }) => {
-    assert(baseURL);
-    await page.goto(`${baseURL}/blank?frontstageId=widget-api`);
+  test.beforeEach(async ({ page }) => {
+    await page.goto(".blank?frontstageId=widget-api");
   });
 
   test("should hide a floating widget", async ({ page }) => {
@@ -302,9 +300,8 @@ test.describe("widget state", () => {
 });
 
 test.describe("widget lifecycle", () => {
-  test.beforeEach(async ({ page, baseURL }) => {
-    assert(baseURL);
-    await page.goto(`${baseURL}/blank?frontstageId=widget-api&strict=0`);
+  test.beforeEach(async ({ page }) => {
+    await page.goto("./blank?frontstageId=widget-api&strict=0");
   });
 
   test("should mount unloaded widget on open", async ({ page }) => {

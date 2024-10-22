@@ -3,7 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { test, expect } from "@playwright/test";
-import assert from "assert";
 import {
   WidgetState,
   expectSavedFrontstageState,
@@ -18,9 +17,8 @@ import {
 } from "./Utils";
 
 test.describe("popout widget", () => {
-  test.beforeEach(async ({ page, baseURL }) => {
-    assert(baseURL);
-    await page.goto(`${baseURL}/blank?frontstageId=widget-api`);
+  test.beforeEach(async ({ page }) => {
+    await page.goto("./blank?frontstageId=widget-api");
   });
 
   test("should popout a widget", async ({ page }) => {
@@ -192,9 +190,8 @@ test.describe("popout widget", () => {
   });
 });
 
-test("should copy styles", async ({ baseURL, page }) => {
-  assert(baseURL);
-  await page.goto(`${baseURL}/blank?frontstageId=test-popout`);
+test("should copy styles", async ({ page }) => {
+  await page.goto("./blank?frontstageId=test-popout");
 
   const tab = tabLocator(page, "Widget 1");
   const widget = widgetLocator({ tab });
@@ -204,11 +201,8 @@ test("should copy styles", async ({ baseURL, page }) => {
   await expect(borders).toHaveScreenshot();
 });
 
-test("should copy shadow root styles", async ({ baseURL, page }) => {
-  assert(baseURL);
-  await page.goto(
-    `${baseURL}/blank?frontstageId=test-popout&reparentPopoutWidgets=1`
-  );
+test("should copy shadow root styles", async ({ page }) => {
+  await page.goto("./blank?frontstageId=test-popout&reparentPopoutWidgets=1");
 
   const tab = tabLocator(page, "Widget 1");
   const widget = widgetLocator({ tab });

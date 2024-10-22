@@ -59,10 +59,8 @@ import { UiItemsProvider } from "../ui-items-provider/UiItemsProvider.js";
 import { FrameworkContent } from "../framework/FrameworkContent.js";
 import type { SizeProps } from "../utils/SizeProps.js";
 import type { RectangleProps } from "../utils/RectangleProps.js";
-import { useTranslation } from "../hooks/useTranslation.js";
-import { NonIdealState } from "@itwin/itwinui-react";
-import { SvgError } from "@itwin/itwinui-illustrations-react";
 import { ErrorBoundary } from "react-error-boundary";
+import { WidgetFallback } from "../widget-panels/Content.js";
 
 /** FrontstageDef class provides an API for a Frontstage.
  * @public
@@ -1120,17 +1118,4 @@ export function useSpecificWidgetDef(widgetId: string) {
     );
   }, [frontstageDef, widgetId]);
   return widgetDef;
-}
-
-function WidgetFallback() {
-  const { translate } = useTranslation();
-
-  return (
-    <div role="alert" style={{ position: "relative", minHeight: 400 }}>
-      <NonIdealState
-        svg={<SvgError />}
-        heading={translate("widget.errorMessage.unknownError")}
-      />
-    </div>
-  );
 }
