@@ -54,6 +54,7 @@ Table of contents:
 - Removed all `@internal` API exports from the barrel file. Consumers should not use `@internal` APIs directly. [#1060](https://github.com/iTwin/appui/pull/1060)
 - Use React portal instead of creating a separate element tree for each child window. [#1062](https://github.com/iTwin/appui/pull/1062)
 - Removed incorrect usage of internal `IModelApp.renderSystem.options.displaySolarShadows` check from 'useSolarDataProvider'. `wantShadows` property of viewport display style is used instead. [#1066](https://github.com/iTwin/appui/pull/1066)
+- Updated the styling of `BackstageAppButton` and `NestedFrontstageAppButton` components to match the updated toolbars. [#1078](https://github.com/iTwin/appui/pull/1078)
 - Replaced usage of `--buic` CSS variables and `$buic` SCSS variables with [iTwinUI CSS variables](https://itwinui.bentley.com/docs/variables). [#1079](https://github.com/iTwin/appui/pull/1079)
 
 ## @itwin/components-react

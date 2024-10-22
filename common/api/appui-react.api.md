@@ -504,7 +504,7 @@ export interface BackstageActionItem extends CommonBackstageItem {
 }
 
 // @public
-export function BackstageAppButton({ icon, iconNode, label, execute, }: BackstageAppButtonProps): React_2.JSX.Element;
+export function BackstageAppButton({ icon: iconSpec, iconNode, label, execute, }: BackstageAppButtonProps): React_2.JSX.Element;
 
 // @public
 export interface BackstageAppButtonProps {
