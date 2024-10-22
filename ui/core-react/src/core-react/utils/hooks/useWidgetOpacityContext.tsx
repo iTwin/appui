@@ -33,13 +33,13 @@ export const WidgetOpacityContext =
  */
 export function useWidgetOpacityContext<T extends Element>() {
   const ref = React.useRef<T>(null);
-  const context = React.useContext(WidgetOpacityContext);
-  const { addRef, removeRef } = context;
+  const { addRef, removeRef, proximityScale } =
+    React.useContext(WidgetOpacityContext);
   React.useEffect(() => {
     addRef(ref);
     return () => {
       removeRef(ref);
     };
   }, [addRef, removeRef]);
-  return { ref, ...context };
+  return { ref, proximityScale };
 }
