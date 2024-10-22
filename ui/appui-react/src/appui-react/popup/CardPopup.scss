@@ -16,7 +16,7 @@
   .uifw-card-separator {
     height: 2px;
     margin-bottom: 1px;
-    background: rgba(--iui-color-foreground-hsl, 0.45);
+    background: rgba(var(--iui-color-foreground-hsl), 0.45);
   }
 }
 
