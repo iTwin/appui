@@ -18,6 +18,8 @@ import {
 } from "@itwin/core-react/internal";
 import { UiFramework } from "../../UiFramework.js";
 import { ProcessDetector } from "@itwin/core-bentley";
+import { useConditionalValue } from "../../hooks/useConditionalValue.js";
+import { SyncUiEventId } from "../../syncui/SyncUiEventDispatcher.js";
 
 type SurfaceProps = React.ComponentProps<typeof IUI_Surface> & {
   orientation: "horizontal" | "vertical";
@@ -29,16 +31,15 @@ export const Surface = React.forwardRef<HTMLDivElement, SurfaceProps>(
     const { ref, proximityScale } = useWidgetOpacityContext<HTMLDivElement>();
     const refs = useRefs(ref, forwardedRed);
 
+    const calculateOpacity = useConditionalValue(() => {
+      if (ProcessDetector.isMobileBrowser) return false;
+      if (UiFramework.visibility.snapWidgetOpacity) return true;
+      return false;
+    }, [SyncUiEventId.ShowHideManagerSettingChange]);
     const opacity = React.useMemo(() => {
-      if (
-        (UiFramework.visibility.useProximityOpacity || // eslint-disable-line deprecation/deprecation
-          UiFramework.visibility.snapWidgetOpacity) &&
-        !ProcessDetector.isMobileBrowser
-      ) {
-        return calculateToolbarOpacity(proximityScale);
-      }
-      return undefined;
-    }, [proximityScale]);
+      if (!calculateOpacity) return undefined;
+      return calculateToolbarOpacity(proximityScale);
+    }, [proximityScale, calculateOpacity]);
     const backgroundColor =
       opacity === undefined ? undefined : getToolbarBackgroundColor(opacity);
 
