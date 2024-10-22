@@ -5,8 +5,7 @@ Table of contents:
 - [Drop support for iTwin.js 3.x](#drop-support-for-itwinjs-3x)
 - [Drop support for React 17.x](#drop-support-for-react-17x)
 - [Drop support for iTwinUI 2.x](#drop-support-for-itwinui-2x)
-- [Add `exports` field to `package.json`](#add-exports-field-to-packagejson)
-- [Do not export `@internal` APIs](#do-not-export-internal-apis)
+- [Restrict access to `@internal` APIs](#restrict-access-to-internal-apis)
 - [Drop CommonJS modules](#drop-commonjs-modules)
 - [@itwin/appui-react](#itwinappui-react)
   - [Removals](#removals)
@@ -63,9 +62,9 @@ function App() {
 
 Support for newer versions of **iTwinUI** will be added in future AppUI releases.
 
-## Add `exports` field to `package.json`
+## Restrict access to `@internal` APIs
 
-AppUI packages now include an `exports` field in its `package.json` file to prevent consumers from importing the `@internal` APIs directly from submodules. [#1048](https://github.com/iTwin/appui/pull/1048)
+AppUI packages now correctly define an `exports` field in its `package.json` files to prevent consumers from importing the `@internal` APIs directly from submodules. [#1048](https://github.com/iTwin/appui/pull/1048)
 
 This change might break consumers that rely on importing APIs directly from unsupported submodules i.e. `@itwin/appui-react/lib/esm/appui-react`. Currently supported export paths:
 
@@ -99,11 +98,12 @@ SCSS imports and variables should be replaced with the iTwinUI CSS variables:
 }
 ```
 
-For all other cases, if the currently used API is not exported from the barrel file and there is no reasonable replacement, please [file an issue](https://github.com/iTwin/appui/issues/new/choose) and describe your use case.
+Additionally, all `@internal` API exports are removed from the barrel file, since consumers should never use `@internal` APIs directly. [#1060](https://github.com/iTwin/appui/pull/1060)
 
-## Do not export `@internal` APIs
+> [!CAUTION]
+> There is still a number of `@internal` APIs that are exported with their related public types like class methods, fields or namespace functions. These should never be used directly and are subject to change without notice.
 
-Removed all `@internal` API exports from the barrel file. Consumers should not use `@internal` APIs directly. [#1060](https://github.com/iTwin/appui/pull/1060)
+If the currently used API is not exported from the barrel file and there is no reasonable replacement, please [file an issue](https://github.com/iTwin/appui/issues/new/choose) and describe your use case.
 
 ## Drop CommonJS modules
 
