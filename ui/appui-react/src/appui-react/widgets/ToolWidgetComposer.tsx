@@ -41,12 +41,6 @@ export function ToolWidgetComposer(props: ToolWidgetComposerProps) {
   const { cornerItem, horizontalToolbar, verticalToolbar, ...otherProps } =
     props;
   const [elementSet] = React.useState(new WidgetElementSet());
-  const handleChildRef = React.useCallback(
-    (elementRef: React.RefObject<Element>) => {
-      elementSet.add(elementRef);
-    },
-    [elementSet]
-  );
   const proximityScale = useProximityToMouse(
     elementSet,
     UiFramework.visibility.snapWidgetOpacity
@@ -55,7 +49,12 @@ export function ToolWidgetComposer(props: ToolWidgetComposerProps) {
   return (
     <WidgetOpacityContext.Provider
       value={{
-        onElementRef: handleChildRef,
+        addRef: (ref) => {
+          elementSet.add(ref);
+        },
+        removeRef: (ref) => {
+          elementSet.delete(ref);
+        },
         proximityScale,
       }}
     >

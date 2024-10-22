@@ -12,8 +12,9 @@ import * as React from "react";
  * @internal
  */
 export interface WidgetOpacityContextProps {
-  readonly onElementRef: (elementRef: React.RefObject<Element>) => void;
   readonly proximityScale: number;
+  readonly addRef: (ref: React.RefObject<Element>) => void;
+  readonly removeRef: (ref: React.RefObject<Element>) => void;
 }
 
 /**
@@ -22,13 +23,23 @@ export interface WidgetOpacityContextProps {
  */
 export const WidgetOpacityContext =
   React.createContext<WidgetOpacityContextProps>({
-    onElementRef: (_elementRef: React.RefObject<Element>) => void {},
     proximityScale: 1.0,
+    addRef: () => {},
+    removeRef: () => {},
   });
 
 /** Hook for using [[WidgetOpacityContext]]
  * @internal
  */
-export function useWidgetOpacityContext() {
-  return React.useContext(WidgetOpacityContext);
+export function useWidgetOpacityContext<T extends Element>() {
+  const ref = React.useRef<T>(null);
+  const context = React.useContext(WidgetOpacityContext);
+  const { addRef, removeRef } = context;
+  React.useEffect(() => {
+    addRef(ref);
+    return () => {
+      removeRef(ref);
+    };
+  }, [addRef, removeRef]);
+  return { ref, ...context };
 }
