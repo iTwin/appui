@@ -6,6 +6,7 @@ Table of contents:
 - [Drop support for React 17.x](#drop-support-for-react-17x)
 - [Drop support for iTwinUI 2.x](#drop-support-for-itwinui-2x)
 - [Add `exports` field to `package.json`](#add-exports-field-to-packagejson)
+- [Do not export `@internal` APIs](#do-not-export-internal-apis)
 - [Drop CommonJS modules](#drop-commonjs-modules)
 - [@itwin/appui-react](#itwinappui-react)
   - [Removals](#removals)
@@ -17,8 +18,6 @@ Table of contents:
   - [Changes](#changes-1)
 - [@itwin/core-react](#itwincore-react)
   - [Changes](#changes-2)
-- [@itwin/imodel-components-react](#itwinimodel-components-react)
-  - [Changes](#changes-3)
 
 ## Drop support for iTwin.js 3.x
 
@@ -102,9 +101,13 @@ SCSS imports and variables should be replaced with the iTwinUI CSS variables:
 
 For all other cases, if the currently used API is not exported from the barrel file and there is no reasonable replacement, please [file an issue](https://github.com/iTwin/appui/issues/new/choose) and describe your use case.
 
+## Do not export `@internal` APIs
+
+Removed all `@internal` API exports from the barrel file. Consumers should not use `@internal` APIs directly. [#1060](https://github.com/iTwin/appui/pull/1060)
+
 ## Drop CommonJS modules
 
-Additionally, file extensions are provided in import declarations that are [mandatory for ES modules](https://nodejs.org/api/esm.html#mandatory-file-extensions). [#1056](https://github.com/iTwin/appui/pull/1056)
+File extensions are provided in import declarations that are [mandatory for ES modules](https://nodejs.org/api/esm.html#mandatory-file-extensions). [#1056](https://github.com/iTwin/appui/pull/1056)
 
 ## @itwin/appui-react
 
@@ -123,7 +126,6 @@ Additionally, file extensions are provided in import declarations that are [mand
 
 - Updated `MessageManager.addMessage` and `MessageManager.outputMessage` to ignore already active messages displayed to the user. This API is used by various tools indirectly via `IModelApp.notifications.outputMessage` when `AppNotificationManager` is set up. This change should prevent the same message from being displayed multiple times unnecessarily. [#1042](https://github.com/iTwin/appui/pull/1042)
 - Popout widgets are now displayed in flow layout to match the layout of floating, stage panel and popout widgets when `reparentPopoutWidgets` is enabled. [#1049](https://github.com/iTwin/appui/pull/1049)
-- Removed all `@internal` API exports from the barrel file. Consumers should not use `@internal` APIs directly. [#1060](https://github.com/iTwin/appui/pull/1060)
 - Use React portal instead of creating a separate element tree for each child window. [#1062](https://github.com/iTwin/appui/pull/1062)
 - Removed incorrect usage of internal `IModelApp.renderSystem.options.displaySolarShadows` check from 'useSolarDataProvider'. `wantShadows` property of viewport display style is used instead. [#1066](https://github.com/iTwin/appui/pull/1066)
 - Updated the styling of `BackstageAppButton` and `NestedFrontstageAppButton` components to match the updated toolbars. [#1078](https://github.com/iTwin/appui/pull/1078)
@@ -141,17 +143,9 @@ Additionally, file extensions are provided in import declarations that are [mand
 ### Changes
 
 - Update `FilterBuilder` UI according to UX team's new specification. [#1059] (https://github.com/iTwin/appui/pull/1059)
-- Removed all `@internal` API exports from the barrel file. Consumers should not use `@internal` APIs directly. [#1060](https://github.com/iTwin/appui/pull/1060)
 
 ## @itwin/core-react
 
 ### Changes
 
 - Removed the `resize-observer-polyfill` dependency because `ResizeObserver` is well supported by modern browsers, eliminating the need for a polyfill. [#1045](https://github.com/iTwin/appui/pull/1045)
-- Removed all `@internal` API exports from the barrel file. Consumers should not use `@internal` APIs directly. [#1060](https://github.com/iTwin/appui/pull/1060)
-
-## @itwin/imodel-components-react
-
-### Changes
-
-- Removed all `@internal` API exports from the barrel file. Consumers should not use `@internal` APIs directly. [#1060](https://github.com/iTwin/appui/pull/1060)
