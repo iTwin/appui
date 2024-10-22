@@ -14,9 +14,8 @@ Table of contents:
 - [@itwin/components-react](#itwincomponents-react)
   - [Deprecations](#deprecations)
   - [Additions](#additions-1)
-  - [Changes](#changes-1)
 - [@itwin/core-react](#itwincore-react)
-  - [Changes](#changes-2)
+  - [Changes](#changes-1)
 
 ## Drop support for iTwin.js 3.x
 
@@ -139,10 +138,6 @@ File extensions are provided in import declarations, which are [mandatory for ES
 ### Additions
 
 - Added the `IMergingPropertyDataProvider` interface, which combines any number of `IPropertyDataProvider` instances, and added the `createMergedPropertyDataProvider` factory function that creates an `IMergingPropertyDataProvider` instance. [#1040](https://github.com/iTwin/appui/pull/1040)
-
-### Changes
-
-- Updated the `FilterBuilder` UI according to the UX team's new specifications. [#1059](https://github.com/iTwin/appui/pull/1059)
 
 ## @itwin/core-react
 
