@@ -43,7 +43,7 @@ button.components-colorpicker-button {
 
     > .components-colorpicker-button-container {
       > .components-caret {
-        color: $buic-icon-color-disabled;
+        color: var(--iui-color-text-disabled);
       }
     }
   }
@@ -66,7 +66,7 @@ button.components-colorpicker-button {
 
   .components-colorpicker-popup-container {
     color: var(--iui-color-text);
-    background: $buic-background-control;
+    background: var(--iui-color-background);
     border-radius: 6px;
 
     > .components-colorpicker-popup-colors {

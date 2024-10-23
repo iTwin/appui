@@ -65,7 +65,7 @@
 }
 
 .uicore-autosuggest__section-container {
-  border-top: 1px dashed $buic-background-divider;
+  border-top: 1px dashed var(--iui-color-background-backdrop-hover);
 }
 
 .uicore-autosuggest__section-container--first {
@@ -75,5 +75,5 @@
 .uicore-autosuggest__section-title {
   padding: 10px 0 0 10px;
   font-size: var(--iui-font-size-0);
-  color: $buic-background-table-header;
+  color: var(--iui-color-background-backdrop-hover);
 }

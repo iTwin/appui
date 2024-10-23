@@ -5,5 +5,5 @@
 @import "../style/themecolors";
 
 @mixin uicore-text-disabled {
-  color: $buic-foreground-disabled;
+  color: var(--iui-color-text-disabled);
 }

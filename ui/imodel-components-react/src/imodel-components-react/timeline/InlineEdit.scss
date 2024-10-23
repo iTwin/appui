@@ -12,12 +12,12 @@
   padding: 0px;
 
   &:hover {
-    border: 1px solid $buic-background-5;
+    border: 1px solid var(--iui-color-background-disabled);
   }
 
   &:focus {
-    background: $buic-background-1;
-    border: 1px solid $buic-background-5;
+    background: var(--iui-color-background);
+    border: 1px solid var(--iui-color-background-disabled);
     outline: none;
     color: var(--iui-color-text-hover);
   }

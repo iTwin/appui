@@ -22,7 +22,7 @@
     width: 100%;
     height: 2px;
     pointer-events: none;
-    background: $buic-background-5;
+    background: var(--iui-color-background-disabled);
   }
 
   .scrubberHandle {
@@ -35,6 +35,6 @@
     cursor: pointer;
     border: none;
     border-radius: 50%;
-    background: $buic-foreground-primary;
+    background: var(--iui-color-icon-accent);
   }
 }
