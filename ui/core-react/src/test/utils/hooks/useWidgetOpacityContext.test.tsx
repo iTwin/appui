@@ -14,15 +14,7 @@ import {
 } from "../../../core-react/utils/hooks/useWidgetOpacityContext.js";
 
 function WidgetOpacityChild() {
-  const isInitialMount = React.useRef(true);
-  const ref = React.useRef<HTMLDivElement>(null);
-  const { onElementRef } = useWidgetOpacityContext();
-
-  if (isInitialMount.current) {
-    isInitialMount.current = false;
-    onElementRef(ref);
-  }
-
+  const { ref } = useWidgetOpacityContext<HTMLDivElement>();
   return <div ref={ref} />;
 }
 
@@ -32,18 +24,17 @@ interface WidgetOpacityParentProps {
 
 function WidgetOpacityParent(props: WidgetOpacityParentProps) {
   const { elementSet } = props;
-  const handleChildRef = React.useCallback(
-    (elementRef: React.RefObject<Element>) => {
-      elementSet.add(elementRef);
-    },
-    [elementSet]
-  );
   const proximityScale = useProximityToMouse(elementSet);
 
   return (
     <WidgetOpacityContext.Provider
       value={{
-        onElementRef: handleChildRef,
+        addRef: (ref) => {
+          elementSet.add(ref);
+        },
+        removeRef: (ref) => {
+          elementSet.delete(ref);
+        },
         proximityScale,
       }}
     >

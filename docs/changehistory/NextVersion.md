@@ -137,6 +137,7 @@ Additionally, file extensions are provided in import declarations, which are [ma
 - Use React portal instead of creating a separate element tree for each child window. [#1062](https://github.com/iTwin/appui/pull/1062)
 - Removed incorrect usage of the internal `IModelApp.renderSystem.options.displaySolarShadows` check from `useSolarDataProvider`. The `wantShadows` property of the viewport display style is used instead. [#1066](https://github.com/iTwin/appui/pull/1066)
 - Updated the styling of the `BackstageAppButton` and `NestedFrontstageAppButton` components to match the updated toolbars. [#1078](https://github.com/iTwin/appui/pull/1078)
+- The new toolbars will now handle snap opacity mode when it is enabled. [#1082](https://github.com/iTwin/appui/pull/1082)
 
 ## @itwin/components-react
 

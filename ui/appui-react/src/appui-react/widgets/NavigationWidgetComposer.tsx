@@ -148,18 +148,7 @@ export function NavigationAidHost(props: NavigationAidHostProps) {
       ),
     [activeContentControl, navigationAidId, activeContentViewport]
   );
-
-  const ref = React.useRef<HTMLDivElement>(null);
-
-  const isInitialMount = React.useRef(true);
-  const { onElementRef, proximityScale } = useWidgetOpacityContext();
-
-  React.useEffect(() => {
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
-      onElementRef(ref);
-    }
-  }, [onElementRef]);
+  const { ref, proximityScale } = useWidgetOpacityContext<HTMLDivElement>();
 
   const divStyle: React.CSSProperties = {
     minWidth: props.minWidth ? props.minWidth : "64px",
@@ -246,12 +235,6 @@ export function NavigationWidgetComposer(props: NavigationWidgetComposerProps) {
     ...otherProps
   } = props;
   const [elementSet] = React.useState(new WidgetElementSet());
-  const handleChildRef = React.useCallback(
-    (elementRef: React.RefObject<Element>) => {
-      elementSet.add(elementRef);
-    },
-    [elementSet]
-  );
   const proximityScale = useProximityToMouse(
     elementSet,
     UiFramework.visibility.snapWidgetOpacity
@@ -261,10 +244,27 @@ export function NavigationWidgetComposer(props: NavigationWidgetComposerProps) {
     ? undefined
     : navigationAidHost ?? <NavigationAidHost />;
 
+  const addRef = React.useCallback<
+    React.ContextType<typeof WidgetOpacityContext>["addRef"]
+  >(
+    (ref) => {
+      elementSet.add(ref);
+    },
+    [elementSet]
+  );
+  const removeRef = React.useCallback<
+    React.ContextType<typeof WidgetOpacityContext>["removeRef"]
+  >(
+    (ref) => {
+      elementSet.delete(ref);
+    },
+    [elementSet]
+  );
   return (
     <WidgetOpacityContext.Provider
       value={{
-        onElementRef: handleChildRef,
+        addRef,
+        removeRef,
         proximityScale,
       }}
     >

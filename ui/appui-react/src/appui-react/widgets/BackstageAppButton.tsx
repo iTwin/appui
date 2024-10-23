@@ -44,7 +44,6 @@ export function BackstageAppButton({
 }: BackstageAppButtonProps) {
   const { translate } = useTranslation();
   label = label ?? translate("buttons.openBackstageMenu");
-  const ref = React.useRef<HTMLDivElement>(null);
 
   const handleClick = React.useCallback(() => {
     if (execute) {
@@ -61,7 +60,7 @@ export function BackstageAppButton({
   ) : undefined;
   const icon = iconNode ?? iconSpecElement ?? <SvgHome />;
   return (
-    <Surface ref={ref} orientation="horizontal">
+    <Surface orientation="horizontal">
       <IconButton
         className="uifw-widget-backstageAppButton"
         styleType="borderless"
