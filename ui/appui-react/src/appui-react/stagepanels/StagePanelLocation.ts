@@ -11,7 +11,7 @@
  */
 export enum StagePanelLocation {
   Top = 101,
-  Left = 103,
-  Right = 104,
-  Bottom = 105,
+  Left,
+  Right,
+  Bottom,
 }
