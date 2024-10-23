@@ -8,7 +8,7 @@ import { popoutWidget, tabLocator, widgetLocator } from "./Utils";
 test.describe("error boundary tests", () => {
   test("should catch an error", async ({ page }) => {
     await page.goto("./blank?frontstageId=test-popout");
-    const tab = tabLocator(page, "Error border widget");
+    const tab = tabLocator(page, "Error widget");
     const widget = widgetLocator({ tab });
 
     const button = widget.getByRole("button", { name: "Throw Error" });
@@ -23,7 +23,7 @@ test.describe("error boundary tests", () => {
     page,
   }) => {
     await page.goto("./blank?frontstageId=test-popout");
-    const tab = tabLocator(page, "Error border widget");
+    const tab = tabLocator(page, "Error widget");
     const widget = widgetLocator({ tab });
 
     const popoutPage = await popoutWidget(widget);
@@ -39,7 +39,7 @@ test.describe("error boundary tests", () => {
     page,
   }) => {
     await page.goto("./blank?frontstageId=test-popout&reparentPopoutWidgets=1");
-    const tab = tabLocator(page, "Error border widget");
+    const tab = tabLocator(page, "Error widget");
     const widget = widgetLocator({ tab });
 
     const popoutPage = await popoutWidget(widget);
