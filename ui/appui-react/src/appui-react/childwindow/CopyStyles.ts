@@ -61,7 +61,7 @@ export async function copyStyles(
     targetDoc.body.appendChild(svgSymbolParent.cloneNode(true));
   }
 
-  return Promise.all(promises);
+  return Promise.all(promises).then(() => {});
 }
 
 function stringifyStyleSheet(stylesheet: CSSStyleSheet) {

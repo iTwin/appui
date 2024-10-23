@@ -8,7 +8,7 @@
 
 .nz-popup-tooltip {
   position: absolute;
-  background-color: $buic-background-tooltip;
+  background-color: hsl(var(--iui-color-background-hsl) / 0.9);
   color: var(--iui-color-text);
   display: grid;
   grid-auto-flow: column;

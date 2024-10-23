@@ -9,7 +9,7 @@
 @layer appui.component {
   .nz-widget-floatingWidget {
     position: absolute;
-    border: 1px solid $buic-background-5;
+    border: 1px solid var(--iui-color-background-disabled);
     border-radius: var(--iui-border-radius-1);
     min-width: 200px;
     min-height: 120px;
@@ -57,6 +57,7 @@
 
     position: absolute;
     user-select: none;
+    -webkit-user-select: none;
 
     &.nz-left,
     &.nz-right {

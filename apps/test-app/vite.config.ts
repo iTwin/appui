@@ -53,6 +53,10 @@ export default defineConfig(({ mode }) => {
             src: "./lib/locales",
             dest: ".",
           },
+          {
+            src: "./lib/locales/en/**",
+            dest: "./locales/en-US",
+          },
         ],
       }),
       {

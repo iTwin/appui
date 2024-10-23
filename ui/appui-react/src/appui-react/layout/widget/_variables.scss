@@ -9,24 +9,28 @@ $nz-tab-height: 60px;
 $nz-tab-width: 32px;
 $nz-tab-strip-width: 2px;
 $nz-tab-strip-margin: 2px;
-$nz-tab-background-color: $buic-background-tab-inactive;
-$nz-tab-color: $buic-icon-color;
+$nz-tab-background-color: var(--iui-color-background-backdrop);
+$nz-tab-color: var(--iui-color-text);
 
 $nz-active-tab-width: 36px;
 
 $nz-collapsed-tab-width: 6px;
 
-$nz-hovered-tab-color: $buic-foreground-primary-tone;
-$nz-active-tab-color: $buic-foreground-primary;
-$nz-tab-shadow: drop-shadow((-0.4px) 0.9px 0 $buic-text-color-reverse);
-$nz-active-tab-shadow: drop-shadow(0 1px 0 $buic-text-color-reverse);
+$nz-hovered-tab-color: var(--iui-color-text-accent-hover);
+$nz-active-tab-color: var(--iui-color-icon-accent);
+$nz-tab-shadow: drop-shadow(
+  (-0.4px) 0.9px 0 hsl(var(--iui-color-background-hsl) / var(--iui-opacity-2))
+);
+$nz-active-tab-shadow: drop-shadow(
+  0 1px 0 hsl(var(--iui-color-background-hsl) / var(--iui-opacity-2))
+);
 $nz-tab-no-shadow: drop-shadow(0 0 0 transparent);
 
 $nz-resize-grip-size: 8px;
 $nz-resize-grip-size-large: 14px;
 
-$nz-widget-background-color: $buic-background-widget;
-$nz-widget-border-color: $buic-background-widget-stroke;
+$nz-widget-background-color: var(--iui-color-background-hover);
+$nz-widget-border-color: var(--iui-color-background-disabled);
 $nz-widget-border-width: 1px;
 $nz-widget-border-radius: var(--iui-border-radius-1);
 $nz-widget-min-size: $nz-tab-height + 10px;

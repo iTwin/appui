@@ -2,21 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-.uifw-toolbar-group-toolGroup_container {
-  flex: 1 1 100%;
-  min-width: 0;
-
-  &.uifw-vertical {
-    height: 100%;
-  }
-
-  &.uifw-end {
-    display: flex;
-    justify-content: flex-end;
-  }
-}
-
-.uifw-toolbar-group-toolGroup {
+.uifw-toolbar-group-surface {
   display: flex;
   width: fit-content;
   height: fit-content;
@@ -24,6 +10,8 @@
   transition: border-color var(--iui-duration-1) ease;
   // TODO: needed due to opacity on toolbar container (since pointer events are disabled for center content).
   pointer-events: all;
+  // TODO: fixes an issues on Safari where borders and backgrounds are overlapped by the viewport.
+  position: relative;
 
   @supports (backdrop-filter: blur(5px)) {
     background-color: hsl(

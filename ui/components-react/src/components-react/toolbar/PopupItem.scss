@@ -25,7 +25,7 @@
     @include triangle-bottom-right(
       $width: $triangle-width,
       $height: $triangle-height,
-      $color: $buic-icon-color
+      $color: var(--iui-color-text)
     );
   }
 
@@ -65,8 +65,8 @@
 .components-toolbar-popupItem_popupItemPopup {
   @include uicore-z-index(toolbar-panels);
   width: fit-content;
-  background: $buic-background-1;
-  border-color: $buic-background-5;
+  background: var(--iui-color-background);
+  border-color: var(--iui-color-background-disabled);
   border-width: 1px;
   border-style: solid;
   border-radius: var(--iui-border-radius-1);

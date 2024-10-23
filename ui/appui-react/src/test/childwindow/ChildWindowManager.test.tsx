@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import type { OpenChildWindowInfo } from "../../appui-react.js";
 import { FrontstageDef, UiFramework } from "../../appui-react.js";
 import { copyStyles } from "../../appui-react/childwindow/CopyStyles.js";
 import { InternalChildWindowManager } from "../../appui-react/childwindow/InternalChildWindowManager.js";
@@ -18,14 +17,12 @@ describe("ChildWindowManager", () => {
   it("will find id", () => {
     const manager = new InternalChildWindowManager();
 
-    const childWindowInfo = {
-      childWindowId: "child",
-      window,
-      parentWindow: {} as Window,
-    };
-
     vi.spyOn(manager, "openChildWindows", "get").mockImplementation(() => [
-      childWindowInfo,
+      {
+        childWindowId: "child",
+        window,
+        parentWindow: {} as Window,
+      },
     ]);
     expect(manager.close("bogus", false)).to.eql(false);
 
@@ -46,14 +43,13 @@ describe("ChildWindowManager", () => {
     const childWindow = {
       close: () => {},
     } as Window;
-    const childWindowInfo = {
-      childWindowId: "child",
-      window: childWindow,
-      parentWindow: {} as Window,
-    };
 
     vi.spyOn(manager, "openChildWindows", "get").mockImplementation(() => [
-      childWindowInfo,
+      {
+        childWindowId: "child",
+        window: childWindow,
+        parentWindow: {} as Window,
+      },
     ]);
 
     expect(manager.findId(childWindow)).to.be.eql("child");
@@ -116,7 +112,7 @@ describe("ChildWindowManager", () => {
   it("will close and processWindowClose by default", () => {
     const manager = new InternalChildWindowManager();
     const closeSpy = vi.fn();
-    const stubbedResponse: OpenChildWindowInfo[] = [
+    vi.spyOn(manager, "openChildWindows", "get").mockImplementation(() => [
       {
         childWindowId: "childId",
         window: {
@@ -124,10 +120,7 @@ describe("ChildWindowManager", () => {
         } as any,
         parentWindow: window,
       },
-    ];
-    vi.spyOn(manager, "openChildWindows", "get").mockImplementation(
-      () => stubbedResponse
-    );
+    ]);
 
     manager.close("childId");
     expect(closeSpy).toHaveBeenCalled();

@@ -26,6 +26,7 @@
 
 .uifw-unselectable {
   user-select: none;
+  -webkit-user-select: none;
 }
 
 .uifw-centered {
@@ -41,10 +42,6 @@
   top: 0;
   height: 100%;
   width: 100%;
-}
-
-.uifw-app-button-small {
-  margin-bottom: 6px;
 }
 
 @layer appui.layout {

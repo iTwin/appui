@@ -4,8 +4,6 @@
 
 ```ts
 
-/// <reference types="react" />
-
 import type { AbstractMenuItemProps } from '@itwin/appui-abstract';
 import type { AbstractToolbarProps } from '@itwin/appui-abstract';
 import type { AbstractWidgetProps } from '@itwin/appui-abstract';
@@ -14,7 +12,7 @@ import type { ActionButton } from '@itwin/appui-abstract';
 import { ActionWithPayload as ActionWithPayload_2 } from './redux-ts.js';
 import { ActivityMessageDetails } from '@itwin/core-frontend';
 import { ActivityMessageEndReason } from '@itwin/core-frontend';
-import { BackstageActionItem as BackstageActionItem_2 } from '../backstage/BackstageItem';
+import { BackstageActionItem as BackstageActionItem_2 } from '../backstage/BackstageItem.js';
 import { BackstageToggledArgs as BackstageToggledArgs_2 } from '../framework/FrameworkBackstage.js';
 import type { BadgeKind } from '@itwin/core-react/internal';
 import type { BadgeType } from '@itwin/core-react';
@@ -506,7 +504,7 @@ export interface BackstageActionItem extends CommonBackstageItem {
 }
 
 // @public
-export function BackstageAppButton({ icon, iconNode, label, execute, }: BackstageAppButtonProps): React_2.JSX.Element;
+export function BackstageAppButton({ icon: iconSpec, iconNode, label, execute, }: BackstageAppButtonProps): React_2.JSX.Element;
 
 // @public
 export interface BackstageAppButtonProps {
@@ -988,6 +986,7 @@ export function ConfigurableUiContent(props: ConfigurableUiContentProps): React_
 export interface ConfigurableUiContentProps extends CommonProps {
     animateToolSettings?: boolean;
     appBackstage?: React_2.ReactNode;
+    childWindow?: React_2.ComponentType;
     collapsePanels?: boolean;
     // @internal (undocumented)
     idleTimeout?: number;
@@ -2068,7 +2067,7 @@ export interface FrameworkKeyboardShortcuts {
 export const FrameworkReducer: Reducer_2<CombinedState<    {
 configurableUiState: ConfigurableUiState;
 sessionState: never;
-}>, ConfigurableUiActionsUnion_2 | SessionStateActionsUnion_2>;
+}>, SessionStateActionsUnion_2 | ConfigurableUiActionsUnion_2>;
 
 // @beta @deprecated
 export interface FrameworkRootState {
@@ -2308,7 +2307,7 @@ export class FrontstageDef {
     // (undocumented)
     get rightPanel(): StagePanelDef | undefined;
     // @internal (undocumented)
-    saveChildWindowSizeAndPosition(childWindowId: string, childWindow: ChildWindow): void;
+    saveChildWindowSizeAndPosition(childWindowId: string, childWindow: Window): void;
     setActiveContent(): Promise<boolean>;
     // @deprecated
     setActiveView(newContent: ContentControl, oldContent?: ContentControl): void;
@@ -3841,7 +3840,7 @@ export const SessionStateActions: {
     setNumItemsSelected: (numSelected: number) => ActionWithPayload_2<SessionStateActionId.SetNumItemsSelected, number>;
     setIModelConnection: (iModelConnection: any) => ActionWithPayload_2<SessionStateActionId.SetIModelConnection, any>;
     setSelectionScope: (activeSelectionScope: string) => ActionWithPayload_2<SessionStateActionId.SetSelectionScope, string>;
-    updateCursorMenu: (cursorMenuData: CursorMenuData | CursorMenuPayload) => ActionWithPayload_2<SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject_2<CursorMenuData> | DeepReadonlyObject_2<CursorMenuPayload>>;
+    updateCursorMenu: (cursorMenuData: CursorMenuData | CursorMenuPayload) => ActionWithPayload_2<SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject_2<CursorMenuPayload> | DeepReadonlyObject_2<CursorMenuData>>;
 };
 
 // @beta @deprecated
@@ -3879,7 +3878,7 @@ export const sessionStateMapDispatchToProps: {
     setNumItemsSelected: (numSelected: number) => ActionWithPayload_2<SessionStateActionId.SetNumItemsSelected, number>;
     setIModelConnection: (iModelConnection: any) => ActionWithPayload_2<SessionStateActionId.SetIModelConnection, any>;
     setSelectionScope: (activeSelectionScope: string) => ActionWithPayload_2<SessionStateActionId.SetSelectionScope, string>;
-    updateCursorMenu: (cursorMenuData: CursorMenuData | CursorMenuPayload) => ActionWithPayload_2<SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject_2<CursorMenuData> | DeepReadonlyObject_2<CursorMenuPayload>>;
+    updateCursorMenu: (cursorMenuData: CursorMenuData | CursorMenuPayload) => ActionWithPayload_2<SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject_2<CursorMenuPayload> | DeepReadonlyObject_2<CursorMenuData>>;
 };
 
 // @public @deprecated
@@ -4500,7 +4499,7 @@ export enum StatusBarLabelSide {
 export function StatusBarLeftSection(props: CommonDivProps): React_2.JSX.Element;
 
 // @public
-export function StatusBarPopover({ content, ...props }: StatusBarPopoverProps): React_2.JSX.Element;
+export function StatusBarPopover({ content, middleware, ...other }: React_2.ComponentProps<typeof Popover>): React_2.JSX.Element;
 
 // @public
 export namespace StatusBarPopover {
@@ -5360,7 +5359,7 @@ export function useUiStateStorageHandler(): UiStateStorage;
 // @alpha
 export function useWidget(): {
     state: WidgetState;
-    widgetLocation: "floating" | "docked" | "popout";
+    widgetLocation: "docked" | "popout" | "floating";
     setState: (widgetState: Omit<WidgetState, WidgetState.Floating>) => void;
 };
 

@@ -47,7 +47,7 @@
 }
 
 .components-result-selector-button:hover {
-  background-color: $buic-row-hover;
+  background-color: var(--iui-color-background-hover);
   border-radius: 2px;
 }
 
@@ -63,6 +63,6 @@
 
 .components-result-selector-button:disabled,
 .components-result-selector-button[disabled]:hover {
-  background-color: $buic-background-control-disabled;
+  background-color: var(--iui-color-background-backdrop);
   cursor: default;
 }

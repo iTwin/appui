@@ -8,11 +8,11 @@
 
 $date-picker-m: 16px;
 $date-picker-icons-color-actionable: rgba(
-  $buic-foreground-body,
+  var(--iui-color-text),
   $uicore-opacity-2
 );
 $date-picker-icons-color-actionable-hover: rgba(
-  $buic-foreground-body,
+  var(--iui-color-text),
   $uicore-opacity-1
 );
 $date-picker-outside-month-color: var(--iui-color-text-disabled);
@@ -20,7 +20,7 @@ $outline-size: 2px;
 
 .components-date-picker-calendar {
   border-radius: var(--iui-border-radius-1) var(--iui-border-radius-1) 0 0;
-  background-color: $buic-background-control;
+  background-color: var(--iui-color-background);
   color: var(--iui-color-text);
   font-size: 14px;
 
@@ -37,12 +37,13 @@ $outline-size: 2px;
 
     button.components-previous-month,
     button.components-next-month {
-      background-color: $buic-background-control;
+      background-color: var(--iui-color-background);
       border: none;
       cursor: pointer;
       padding: 5px;
       font-size: var(--iui-font-size-2);
       user-select: none;
+      -webkit-user-select: none;
       color: $date-picker-icons-color-actionable;
 
       &:focus {
@@ -52,9 +53,11 @@ $outline-size: 2px;
           outline: 0px;
           border: 0px solid var(--iui-color-border-foreground);
           border-radius: var(--iui-border-radius-1);
-          border-color: var(--buic-foreground-focus-border);
-          box-shadow: var(--buic-focus-boxshadow-gradient1) 0px 1px 1px,
-            var(--buic-focus-boxshadow-gradient2) 0px 0px 0px 2px;
+          border-color: hsl(
+            var(--iui-color-foreground-hsl) / var(--iui-opacity-4)
+          );
+          box-shadow: hsl(var(--iui-color-accent-hsl) / 0) 0px 1px 1px,
+            hsl(var(--iui-color-accent-hsl) / 0.65) 0px 0px 0px 2px;
         }
       }
 
@@ -76,7 +79,7 @@ $outline-size: 2px;
 
   .components-date-picker-calendar-header-weekdays {
     display: grid;
-    background-color: $buic-background-2;
+    background-color: var(--iui-color-background-hover);
     padding-inline-start: 8px;
     padding-inline-end: 8px;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
@@ -110,17 +113,21 @@ $outline-size: 2px;
       &.showFocusOutline {
         border: 0px solid var(--iui-color-border-foreground);
         border-radius: var(--iui-border-radius-1);
-        border-color: var(--buic-foreground-focus-border);
-        box-shadow: var(--buic-focus-boxshadow-gradient1) 0px 1px 1px,
-          var(--buic-focus-boxshadow-gradient2) 0px 0px 0px 2px;
+        border-color: hsl(
+          var(--iui-color-foreground-hsl) / var(--iui-opacity-4)
+        );
+        box-shadow: hsl(var(--iui-color-accent-hsl) / 0) 0px 1px 1px,
+          hsl(var(--iui-color-accent-hsl) / 0.65) 0px 0px 0px 2px;
 
         .components-date-picker-calendar-day.focused {
           outline: 0px;
           border: 1px solid var(--iui-color-border-foreground);
           border-radius: var(--iui-border-radius-1);
-          border-color: var(--buic-foreground-focus-border);
-          box-shadow: var(--buic-focus-boxshadow-gradient1) 0px 1px 1px,
-            var(--buic-focus-boxshadow-gradient2) 0px 0px 0px 2px;
+          border-color: hsl(
+            var(--iui-color-foreground-hsl) / var(--iui-opacity-4)
+          );
+          box-shadow: hsl(var(--iui-color-accent-hsl) / 0) 0px 1px 1px,
+            hsl(var(--iui-color-accent-hsl) / 0.65) 0px 0px 0px 2px;
           z-index: 1;
         }
       }
@@ -142,25 +149,25 @@ $outline-size: 2px;
       }
 
       &:hover:not(.selected) {
-        background-color: $buic-row-hover;
+        background-color: var(--iui-color-background-hover);
         border-radius: var(--iui-border-radius-1);
         font-weight: var(--iui-font-weight-semibold);
       }
 
       &.selected {
-        background-color: $buic-background-primary;
+        background-color: var(--iui-color-background-accent);
         color: var(--iui-color-white);
         font-weight: var(--iui-font-weight-semibold);
         border-radius: var(--iui-border-radius-1);
 
         &:hover {
-          background-color: $buic-row-hover;
+          background-color: var(--iui-color-background-hover);
           color: var(--iui-color-text);
         }
       }
 
       &.today {
-        background-color: rgba($buic-foreground-body, $uicore-opacity-6);
+        background-color: rgba(var(--iui-color-text), $uicore-opacity-6);
         font-weight: var(--iui-font-weight-semibold);
         border-radius: 50%;
       }

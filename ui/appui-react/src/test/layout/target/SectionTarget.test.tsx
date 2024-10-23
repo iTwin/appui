@@ -7,15 +7,13 @@ import * as React from "react";
 import { DraggedWidgetIdContext } from "../../../appui-react/layout/base/DragManager.js";
 import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState.js";
 import { addPanelWidget } from "../../../appui-react/layout/state/internal/PanelStateHelpers.js";
-import {
-  addTab,
-  createDraggedTabState,
-} from "../../../appui-react/layout/state/internal/TabStateHelpers.js";
+import { addTab } from "../../../appui-react/layout/state/internal/TabStateHelpers.js";
 import { useTargetDirection } from "../../../appui-react/layout/target/SectionTarget.js";
 import { SectionTargets } from "../../../appui-react/layout/target/SectionTargets.js";
 import { PanelSideContext } from "../../../appui-react/layout/widget-panels/Panel.js";
 import type { TestNineZoneProviderProps } from "../Providers.js";
 import { TestNineZoneProvider } from "../Providers.js";
+import { createDraggedTabState } from "../Utils.js";
 
 describe("useTargetDirection", () => {
   it("should return `horizontal`", () => {

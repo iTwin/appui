@@ -11,7 +11,4 @@ export { Columns } from "./components-react/toolbar/groupPanel/Columns.js";
 export { Panel } from "./components-react/toolbar/groupPanel/Panel.js";
 export { Title } from "./components-react/toolbar/groupPanel/Title.js";
 
-export {
-  CommonToolbarItemWithBadgeKind,
-  InternalToolbarComponent,
-} from "./components-react/toolbar/InternalToolbarComponent.js";
+export { CommonToolbarItemWithBadgeKind } from "./components-react/toolbar/InternalToolbarComponent.js";

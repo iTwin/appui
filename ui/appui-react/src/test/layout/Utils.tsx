@@ -6,7 +6,10 @@ import { BentleyError } from "@itwin/core-bentley";
 import { prettyDOM } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
 import type { NineZoneState } from "../../appui-react/layout/state/NineZoneState.js";
-import type { TabState } from "../../appui-react/layout/state/TabState.js";
+import type {
+  DraggedTabState,
+  TabState,
+} from "../../appui-react/layout/state/TabState.js";
 import { addTab } from "../../appui-react/layout/state/internal/TabStateHelpers.js";
 import { useContainersStore } from "../../appui-react/layout/widget/ContentManager.js";
 import { useActiveSendBackWidgetIdStore } from "../../appui-react/layout/widget/SendBack.js";
@@ -68,6 +71,24 @@ export function addTabs(
     });
   }
   return state;
+}
+
+/** Used in tests to create the {@link DraggedTabState}. */
+export function createDraggedTabState(
+  tabId: DraggedTabState["tabId"],
+  args?: Partial<DraggedTabState>
+): DraggedTabState {
+  return {
+    home: {
+      side: "left",
+      widgetId: "",
+      widgetIndex: 0,
+    },
+    position: { x: 0, y: 0 },
+    active: true,
+    ...args,
+    tabId,
+  };
 }
 
 /** Helper that invokes meta data handler of a thrown BentleyError.
