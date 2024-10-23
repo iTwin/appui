@@ -41,7 +41,7 @@
     "NOTE: All tools used by scripts in this package must be listed as devDependencies"
   ],
   "devDependencies": {
-    "@itwin/build-tools": "^4.9.0",
+    "@itwin/build-tools": "4.10.0-dev.31",
     "@itwin/eslint-plugin": "^4.1.1",
     "@tanstack/router-plugin": "~1.46.6",
     "@tanstack/router-devtools": "~1.46.8",
