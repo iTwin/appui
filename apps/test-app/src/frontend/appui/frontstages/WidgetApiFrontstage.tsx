@@ -68,7 +68,6 @@ export function createWidgetApiFrontstage(): Frontstage {
     cornerButton: (
       <BackstageAppButton
         key="appui-test-providers-WidgetApi-backstage"
-        label="Toggle Backstage"
         icon="icon-bentley-systems"
       />
     ),

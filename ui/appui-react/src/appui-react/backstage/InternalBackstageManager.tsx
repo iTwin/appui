@@ -54,7 +54,7 @@ export class InternalBackstageManager {
     return new CommandItemDef({
       commandId: "UiFramework.openBackstage",
       iconSpec: overrideIconSpec ? overrideIconSpec : "icon-home",
-      labelKey: "UiFramework:commands.openBackstage",
+      labelKey: "UiFramework:buttons.openBackstageMenu",
       execute: () => {
         UiFramework.backstage.toggle();
       },

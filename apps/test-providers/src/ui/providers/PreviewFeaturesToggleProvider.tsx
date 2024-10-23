@@ -43,6 +43,12 @@ const availableFeatures: AvailableFeatures = {
   controlWidgetVisibility: {
     label: "Control widget visibility",
   },
+  allowLettersInAccuDrawInputFields: {
+    label: "Allow letters in AccuDraw input fields",
+  },
+  enableColorlessAccuDrawInputFields: {
+    label: "Enable colorless AccuDraw input fields",
+  },
 };
 
 function PreviewFeatureList() {

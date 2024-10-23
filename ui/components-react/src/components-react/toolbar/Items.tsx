@@ -43,7 +43,6 @@ export interface ToolbarItemsProps extends CommonProps {
  * @internal
  */
 export function ToolbarItems(props: ToolbarItemsProps) {
-  const ref = React.useRef<HTMLDivElement>(null);
   const { toolbarOpacitySetting, openPopupCount, overflowDisplayActive } =
     useToolbarWithOverflowDirectionContext();
   const useTransparentBackground =
@@ -65,15 +64,7 @@ export function ToolbarItems(props: ToolbarItemsProps) {
   let showSeparators =
     toolbarOpacitySetting === ToolbarOpacitySetting.Transparent ? false : true;
 
-  const isInitialMount = React.useRef(true);
-  const { onElementRef, proximityScale } = useWidgetOpacityContext();
-
-  React.useEffect(() => {
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
-      onElementRef(ref);
-    }
-  }, [onElementRef]);
+  const { ref, proximityScale } = useWidgetOpacityContext<HTMLDivElement>();
 
   if (
     toolbarOpacitySetting === ToolbarOpacitySetting.Proximity &&

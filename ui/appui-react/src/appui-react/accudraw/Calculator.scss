@@ -8,7 +8,7 @@ $button-size: 36px;
 $button-operator-size: $button-size + 10px;
 
 .uifw-position-popup.uifw-calculator-host {
-  background-color: $buic-background-window;
+  background-color: var(--iui-color-background-hover);
 }
 
 .uifw-calculator {
@@ -29,7 +29,7 @@ $button-operator-size: $button-size + 10px;
     input {
       text-align: right;
       color: var(--iui-color-text);
-      background-color: $buic-background-control;
+      background-color: var(--iui-color-background);
       cursor: default;
     }
   }

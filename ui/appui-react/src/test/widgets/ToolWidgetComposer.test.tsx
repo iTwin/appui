@@ -54,18 +54,12 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
     it("BackstageAppButtonProps should render", () => {
       const { rerender } = render(<BackstageAppButton icon={"icon-home"} />);
       expect(screen.getByRole("button")).to.satisfy(
-        childStructure([
-          ".uifw-app-button-small .icon.icon-home",
-          ".nz-bars .nz-bar + .nz-bar + .nz-bar",
-        ])
+        childStructure([".icon.icon-home"])
       );
 
       rerender(<BackstageAppButton icon={"icon-bentley"} />);
       expect(screen.getByRole("button")).to.satisfy(
-        childStructure([
-          ".uifw-app-button-small .icon.icon-bentley",
-          ".nz-bars .nz-bar + .nz-bar + .nz-bar",
-        ])
+        childStructure([".icon.icon-bentley"])
       );
     });
 
@@ -81,7 +75,7 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
           <BackstageAppButton icon={"icon-test"} execute={spy} label="Hello" />
         </Provider>
       );
-      const button = component.getByTitle("Hello");
+      const button = component.getByRole("button", { name: "Hello" });
       const icon = component.container.querySelector("i.icon.icon-test");
       expect(icon).toBeTruthy();
       fireEvent.click(button);

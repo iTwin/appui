@@ -43,7 +43,7 @@ describe("BasicToolWidget", () => {
     } as any);
     const { getByRole } = render(<BasicToolWidget />);
 
-    getByRole("button", { name: "commands.openBackstage" });
+    getByRole("button", { name: "buttons.openBackstageMenu" });
 
     getByRole("button", { name: "tools.Select" });
     getByRole("button", { name: "tools.measureTools" });

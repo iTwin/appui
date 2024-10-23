@@ -6,8 +6,8 @@
 @import "~@itwin/core-react/lib/cjs/core-react/z-index";
 @import "../outline/variables";
 
-$nz-widget-target-border-color: $buic-background-5;
-$nz-widget-target-background: $buic-background-4;
+$nz-widget-target-border-color: var(--iui-color-background-disabled);
+$nz-widget-target-background: var(--iui-color-background-backdrop-hover);
 $nz-widget-target-border-size: 2px;
 
 @mixin nz-widget-target {

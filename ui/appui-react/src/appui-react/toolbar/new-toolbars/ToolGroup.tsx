@@ -10,7 +10,6 @@ import "./ToolGroup.scss";
 import classnames from "classnames";
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
-import { Surface } from "@itwin/itwinui-react";
 import { ActionItem } from "./ActionItem.js";
 import { GroupItem } from "./GroupItem.js";
 import { CustomItem } from "./CustomItem.js";
@@ -18,6 +17,7 @@ import { OverflowButton } from "./OverflowButton.js";
 import { useOverflow } from "./useOverflow.js";
 import { getChildKey } from "../../layout/tool-settings/Docked.js";
 import { ToolbarContext } from "./Toolbar.js";
+import { Surface } from "./Surface.js";
 
 // eslint-disable-next-line deprecation/deprecation
 interface ToolGroupProps extends CommonProps {
@@ -73,14 +73,7 @@ export function ToolGroup({ children, className, ...props }: ToolGroupProps) {
       )}
       ref={containerRef}
     >
-      <Surface
-        className={classnames(
-          "uifw-toolbar-group-toolGroup",
-          `uifw-${orientation}`
-        )}
-        ref={componentRef}
-        {...props}
-      >
+      <Surface orientation={orientation} ref={componentRef} {...props}>
         {visibleChildren.map(([item, child]) => {
           if (!React.isValidElement<{ ref: React.Ref<Element> }>(child))
             return child;
