@@ -3,10 +3,12 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
- * @module Gyroscope
+ * @module Utilities
  */
 
 import * as React from "react";
+
+/** @internal */
 export function Gyroscope() {
   return (
     <svg

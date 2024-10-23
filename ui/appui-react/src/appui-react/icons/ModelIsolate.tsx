@@ -3,10 +3,12 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
- * @module ModelIsolate
+ * @module Utilities
  */
 
 import * as React from "react";
+
+/** @internal */
 export function ModelIsolate() {
   return (
     <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">

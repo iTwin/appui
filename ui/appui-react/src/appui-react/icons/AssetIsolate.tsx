@@ -3,10 +3,12 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
- * @module AssetIsolate
+ * @module Utilities
  */
 
 import * as React from "react";
+
+/** @internal */
 export function AssetIsolate() {
   return (
     <svg

@@ -3,10 +3,12 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
- * @module LayersHide
+ * @module Utilities
  */
 
 import * as React from "react";
+
+/** @internal */
 export function LayersHide() {
   return (
     <svg
