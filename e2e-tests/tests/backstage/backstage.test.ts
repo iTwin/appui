@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import { expect, test } from "@playwright/test";
 
-test("backstage test", async ({ page, baseURL }) => {
-  await page.goto(`${baseURL}/blank?frontstageId=widget-api`);
+test("backstage test", async ({ page }) => {
+  await page.goto("./blank?frontstageId=widget-api");
   await page.locator(".nz-toolbar-button-button").click();
   await page.getByRole("menuitem", { name: "Component Examples" }).click();
 

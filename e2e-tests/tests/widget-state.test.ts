@@ -20,7 +20,7 @@ import {
 
 test.describe("widget state", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto(".blank?frontstageId=widget-api");
+    await page.goto("./blank?frontstageId=widget-api");
   });
 
   test("should hide a floating widget", async ({ page }) => {

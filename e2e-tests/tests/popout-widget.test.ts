@@ -217,7 +217,7 @@ test("should render after link styles are loaded", async ({
   page,
 }) => {
   context.route("**", (route) => route.continue());
-  await page.goto(`/blank?frontstageId=test-popout`);
+  await page.goto("./blank?frontstageId=test-popout");
 
   const tab = tabLocator(page, "Widget 1");
   const widget = widgetLocator({ tab });
