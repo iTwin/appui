@@ -42,16 +42,16 @@
 }
 
 .uifw-accudraw-x-value {
-  background-color: $buic-accessory-alert;
+  background-color: var(--iui-color-background-negative-hover);
   color: var(--iui-color-white);
 }
 
 .uifw-accudraw-y-value {
-  background-color: $buic-accessory-success;
+  background-color: var(--iui-color-background-positive-hover);
   color: var(--iui-color-white);
 }
 
 .uifw-accudraw-z-value {
-  background-color: $buic-accessory-primary;
+  background-color: var(--iui-color-background-accent-hover);
   color: var(--iui-color-white);
 }

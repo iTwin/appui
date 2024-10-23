@@ -10,7 +10,7 @@
     "build": "npm run build:backend && npm run build:frontend",
     "build:backend": "npm run package:cjs && tsc -p tsconfig.backend.json",
     "build:frontend": "npm run copy:webfont && npm run pseudolocalize && vite build",
-    "package:cjs": "node ../../common/scripts/package-cjs.mjs ./lib",
+    "package:cjs": "node ./scripts/package-cjs.js ./lib",
     "preview": "vite preview --port 3000",
     "clean": "rimraf lib build dist .rush/temp/package-deps*.json",
     "electron": "run-p start:webserver start:electron",
@@ -41,7 +41,7 @@
     "NOTE: All tools used by scripts in this package must be listed as devDependencies"
   ],
   "devDependencies": {
-    "@itwin/build-tools": "^4.9.0",
+    "@itwin/build-tools": "4.10.0-dev.31",
     "@itwin/eslint-plugin": "^4.1.1",
     "@tanstack/router-plugin": "~1.46.6",
     "@tanstack/router-devtools": "~1.46.8",

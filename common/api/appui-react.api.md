@@ -12,7 +12,7 @@ import type { ActionButton } from '@itwin/appui-abstract';
 import { ActionWithPayload as ActionWithPayload_2 } from './redux-ts.js';
 import { ActivityMessageDetails } from '@itwin/core-frontend';
 import { ActivityMessageEndReason } from '@itwin/core-frontend';
-import { BackstageActionItem as BackstageActionItem_2 } from '../backstage/BackstageItem';
+import { BackstageActionItem as BackstageActionItem_2 } from '../backstage/BackstageItem.js';
 import { BackstageToggledArgs as BackstageToggledArgs_2 } from '../framework/FrameworkBackstage.js';
 import type { BadgeKind } from '@itwin/core-react/internal';
 import type { BadgeType } from '@itwin/core-react';
@@ -504,7 +504,7 @@ export interface BackstageActionItem extends CommonBackstageItem {
 }
 
 // @public
-export function BackstageAppButton({ icon, iconNode, label, execute, }: BackstageAppButtonProps): React_2.JSX.Element;
+export function BackstageAppButton({ icon: iconSpec, iconNode, label, execute, }: BackstageAppButtonProps): React_2.JSX.Element;
 
 // @public
 export interface BackstageAppButtonProps {

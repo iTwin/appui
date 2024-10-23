@@ -161,8 +161,8 @@ importers:
         version: 2.0.12
     devDependencies:
       '@itwin/build-tools':
-        specifier: ^4.9.0
-        version: 4.9.0(@types/node@18.11.5)
+        specifier: 4.10.0-dev.31
+        version: 4.10.0-dev.31(@types/node@18.11.5)
       '@itwin/eslint-plugin':
         specifier: ^4.1.1
         version: 4.1.1(eslint@8.57.1)(typescript@5.3.3)
@@ -303,8 +303,8 @@ importers:
         version: 2.0.12
     devDependencies:
       '@itwin/build-tools':
-        specifier: ^4.9.0
-        version: 4.9.0(@types/node@18.11.5)
+        specifier: 4.10.0-dev.31
+        version: 4.10.0-dev.31(@types/node@18.11.5)
       '@itwin/eslint-plugin':
         specifier: ^4.1.1
         version: 4.1.1(eslint@8.57.1)(typescript@5.3.3)
@@ -397,8 +397,8 @@ importers:
         version: 7.2.9(react-dom@18.3.1)(react@18.3.1)
     devDependencies:
       '@itwin/build-tools':
-        specifier: ^4.9.0
-        version: 4.9.0(@types/node@18.11.5)
+        specifier: 4.10.0-dev.31
+        version: 4.10.0-dev.31(@types/node@18.11.5)
       '@originjs/vite-plugin-commonjs':
         specifier: ~1.0.3
         version: 1.0.3
@@ -594,8 +594,8 @@ importers:
         specifier: ^4.0.0
         version: 4.4.0(@itwin/core-bentley@4.4.0)
       '@itwin/build-tools':
-        specifier: ^4.9.0
-        version: 4.9.0(@types/node@18.11.5)
+        specifier: 4.10.0-dev.31
+        version: 4.10.0-dev.31(@types/node@18.11.5)
       '@itwin/components-react':
         specifier: workspace:*
         version: link:../components-react
@@ -763,8 +763,8 @@ importers:
         specifier: ^4.0.0
         version: 4.4.0(@itwin/core-bentley@4.4.0)
       '@itwin/build-tools':
-        specifier: ^4.9.0
-        version: 4.9.0(@types/node@18.11.5)
+        specifier: 4.10.0-dev.31
+        version: 4.10.0-dev.31(@types/node@18.11.5)
       '@itwin/core-bentley':
         specifier: ^4.0.0
         version: 4.4.0
@@ -899,8 +899,8 @@ importers:
         specifier: ^4.0.0
         version: 4.4.0(@itwin/core-bentley@4.4.0)
       '@itwin/build-tools':
-        specifier: ^4.9.0
-        version: 4.9.0(@types/node@18.11.5)
+        specifier: 4.10.0-dev.31
+        version: 4.10.0-dev.31(@types/node@18.11.5)
       '@itwin/core-bentley':
         specifier: ^4.0.0
         version: 4.4.0
@@ -1014,8 +1014,8 @@ importers:
         specifier: ^4.0.0
         version: 4.4.0(@itwin/core-bentley@4.4.0)
       '@itwin/build-tools':
-        specifier: ^4.9.0
-        version: 4.9.0(@types/node@18.11.5)
+        specifier: 4.10.0-dev.31
+        version: 4.10.0-dev.31(@types/node@18.11.5)
       '@itwin/components-react':
         specifier: workspace:*
         version: link:../components-react
@@ -2886,8 +2886,8 @@ packages:
       - '@itwin/core-geometry'
     dev: false
 
-  /@itwin/build-tools@4.9.0(@types/node@18.11.5):
-    resolution: {integrity: sha512-2xKrz2hr+teaBiaWK+UaXMaGYPsR7h+7/NaogfhV48NDaji8c0D6ZakRJ6i4A7wbICm0+zkJaYxq4ZcUOuALKg==}
+  /@itwin/build-tools@4.10.0-dev.31(@types/node@18.11.5):
+    resolution: {integrity: sha512-KpD+15ZLJdi9eMT/FaQYeb6Tf/ri0j+LzLvStVYUVgwfCGxkIJhSbb2M+myGfHleSvrFPjRaOQFdJKKOOTmJbw==}
     hasBin: true
     dependencies:
       '@microsoft/api-extractor': 7.47.9(@types/node@18.11.5)
