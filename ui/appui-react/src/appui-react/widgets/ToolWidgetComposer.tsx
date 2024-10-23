@@ -46,15 +46,27 @@ export function ToolWidgetComposer(props: ToolWidgetComposerProps) {
     UiFramework.visibility.snapWidgetOpacity
   );
 
+  const addRef = React.useCallback<
+    React.ContextType<typeof WidgetOpacityContext>["addRef"]
+  >(
+    (ref) => {
+      elementSet.add(ref);
+    },
+    [elementSet]
+  );
+  const removeRef = React.useCallback<
+    React.ContextType<typeof WidgetOpacityContext>["removeRef"]
+  >(
+    (ref) => {
+      elementSet.delete(ref);
+    },
+    [elementSet]
+  );
   return (
     <WidgetOpacityContext.Provider
       value={{
-        addRef: (ref) => {
-          elementSet.add(ref);
-        },
-        removeRef: (ref) => {
-          elementSet.delete(ref);
-        },
+        addRef,
+        removeRef,
         proximityScale,
       }}
     >
