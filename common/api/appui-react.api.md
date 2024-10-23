@@ -2337,7 +2337,7 @@ export class FrontstageDef {
     waitUntilReady(): Promise<void>;
     // @internal
     get widgetDefs(): {
-        [Symbol.iterator](): Iterator<WidgetDef, any, undefined>;
+        [Symbol.iterator](): Iterator<WidgetDef, any, any>;
     };
 }
 
@@ -3616,11 +3616,11 @@ export interface ReactContent {
 
 // @public
 export class ReactNotifyMessageDetails {
-    constructor(priority: OutputMessagePriority, briefMessage: NotifyMessageType, detailedMessage?: MessageType | undefined, msgType?: OutputMessageType, openAlert?: OutputMessageAlert);
+    constructor(priority: OutputMessagePriority, briefMessage: NotifyMessageType, detailedMessage?: NotifyMessageType | undefined, msgType?: OutputMessageType, openAlert?: OutputMessageAlert);
     // (undocumented)
     briefMessage: NotifyMessageType;
     // (undocumented)
-    detailedMessage?: MessageType | undefined;
+    detailedMessage?: NotifyMessageType | undefined;
     get displayPoint(): Point2d | undefined;
     get displayTime(): BeDuration;
     set displayTime(duration: BeDuration);
@@ -4111,11 +4111,11 @@ export class StagePanelDef extends WidgetHost {
 // @public
 export enum StagePanelLocation {
     // (undocumented)
-    Bottom = 104,
+    Bottom = 105,
     // (undocumented)
-    Left = 102,
+    Left = 103,
     // (undocumented)
-    Right = 103,
+    Right = 104,
     // (undocumented)
     Top = 101
 }
