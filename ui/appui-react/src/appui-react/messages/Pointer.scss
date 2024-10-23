@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 @use "~@itwin/core-react/lib/cjs/core-react/style/themecolors" as *;
 @use "~@itwin/core-react/lib/cjs/core-react/text/mixins" as *;
-@import "../variables";
+@use "../variables" as *;
 
 .uifw-pointer-message {
   border: {

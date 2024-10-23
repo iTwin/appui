@@ -2,8 +2,8 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "../style/index.scss";
-@import "../inputs/index.scss";
+@use "../style/index" as *;
+@use "../inputs/index" as *;
 
 $color: var(--iui-color-icon-accent);
 $hoverColor: var(--iui-color-text-accent-hover);

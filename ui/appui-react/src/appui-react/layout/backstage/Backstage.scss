@@ -4,10 +4,10 @@
  *--------------------------------------------------------------------------------------------*/
 @use "~@itwin/core-react/lib/cjs/core-react/z-index" as *;
 @use "~@itwin/core-react/lib/cjs/core-react/style/breakpoints" as *;
-@import "../prefix";
-@import "../safearea";
-@import "../scrollbar";
-@import "variables";
+@use "../prefix" as *;
+@use "../safearea" as *;
+@use "../scrollbar" as *;
+@use "variables" as *;
 
 .nz-backstage-backstage {
   display: flex;

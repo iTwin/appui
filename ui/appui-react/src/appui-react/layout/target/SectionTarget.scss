@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 @use "~@itwin/core-react/lib/cjs/core-react/style/themecolors" as *;
-@import "variables";
+@use "variables" as *;
 
 .nz-target-sectionTarget {
   @include nz-widget-target;

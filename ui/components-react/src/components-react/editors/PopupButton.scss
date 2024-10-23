@@ -6,7 +6,7 @@
 @use "~@itwin/core-react/lib/cjs/core-react/inputs/variables" as *;
 @use "~@itwin/core-react/lib/cjs/core-react/style/baseline" as *;
 @use "~@itwin/core-react/lib/cjs/core-react/style/themecolors" as *;
-@import "./variables.scss";
+@use "./variables" as *;
 
 .components-popup-button {
   min-width: 100%;

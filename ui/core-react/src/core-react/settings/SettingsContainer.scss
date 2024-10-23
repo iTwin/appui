@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-@import "../style/themecolors";
+@use "../style/themecolors" as *;
 
 div.core-settings-container {
   display: flex;

@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 @use "sass:math";
 @use "~@itwin/core-react/lib/cjs/core-react/style/themecolors" as *;
-@import "../prefix";
-@import "variables";
+@use "../prefix" as *;
+@use "variables" as *;
 
 .nz-widget-tab {
   user-select: none;

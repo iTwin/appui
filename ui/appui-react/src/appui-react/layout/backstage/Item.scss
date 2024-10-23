@@ -3,9 +3,9 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 @use "~@itwin/core-react/lib/cjs/core-react/style/breakpoints" as *;
-@import "../prefix";
-@import "../safearea";
-@import "variables";
+@use "../prefix" as *;
+@use "../safearea" as *;
+@use "variables" as *;
 
 .nz-backstage-item {
   position: relative;

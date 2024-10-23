@@ -2,8 +2,8 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "../style/index.scss";
-@import "../icons/variables.scss";
+@use "../style/index" as *;
+@use "../icons/variables" as *;
 
 .core-image-checkbox {
   display: inline-block;

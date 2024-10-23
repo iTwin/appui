@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "./style/opacity.scss";
+@use "./style/opacity" as *;
 
 $title-weight: var(--iui-font-weight-normal);
 $title-size: var(--iui-font-size-2);

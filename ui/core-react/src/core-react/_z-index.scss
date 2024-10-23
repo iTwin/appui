@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "_helpers";
+@use "_helpers" as *;
 
 // Order matters, last is top-most on screen.
 $uicore-internal-z-index-layers: view-overlay, view-content-dialog,

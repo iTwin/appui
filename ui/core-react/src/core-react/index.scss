@@ -4,17 +4,17 @@
  *--------------------------------------------------------------------------------------------*/
 @use "sass:math";
 
-@import "./style/index";
+@use "./style/index" as *;
 
-@import "./_scrollbar";
-@import "./_z-index";
-@import "./_geometry";
-@import "./_math";
-@import "./_typography";
+@use "./_scrollbar" as *;
+@use "./_z-index" as *;
+@use "./_geometry" as *;
+@use "./_math" as *;
+@use "./_typography" as *;
 
-@import "./base/index";
-@import "./icons/index";
-@import "./inputs/index";
-@import "./loading/index";
-@import "./tabs/index";
-@import "./text/index";
+@use "./base/index" as *;
+@use "./icons/index" as *;
+@use "./inputs/index" as *;
+@use "./loading/index" as *;
+@use "./tabs/index" as *;
+@use "./text/index" as *;

@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 @use "~@itwin/core-react/lib/cjs/core-react/style/breakpoints" as *;
-@import "../layout/safearea";
+@use "../layout/safearea" as *;
 
 .uifw-statusBar {
   display: flex;

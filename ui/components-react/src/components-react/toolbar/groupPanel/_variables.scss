@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 @use "~@itwin/core-react/lib/cjs/core-react/style/themecolors" as *;
 @use "~@itwin/core-react/lib/cjs/core-react/typography" as *;
-@import "../variables";
+@use "../variables" as *;
 
 $panel-padding-left: 16px;
 $panel-padding-right: 8px;

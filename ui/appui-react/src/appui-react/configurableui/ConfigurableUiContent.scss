@@ -7,7 +7,7 @@
 @use "~@itwin/core-react/lib/cjs/core-react/inputs/variables" as *;
 @use "~@itwin/core-react/lib/cjs/core-react/style/themecolors" as *;
 @use "~@itwin/core-react/lib/cjs/core-react/z-index" as *;
-@import "../variables";
+@use "../variables" as *;
 
 #uifw-configurableui-wrapper {
   position: relative;

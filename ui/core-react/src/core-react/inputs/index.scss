@@ -2,8 +2,8 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "../style/index";
+@use "../style/index" as *;
 
-@import "./variables";
-@import "./input";
-@import "./input-label";
+@use "./variables" as *;
+@use "./input" as *;
+@use "./input-label" as *;

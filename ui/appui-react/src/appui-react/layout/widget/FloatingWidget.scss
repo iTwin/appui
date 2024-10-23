@@ -3,8 +3,8 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 @use "~@itwin/core-react/lib/cjs/core-react/z-index" as *;
-@import "../widgetopacity";
-@import "variables";
+@use "../widgetopacity" as *;
+@use "variables" as *;
 
 @layer appui.component {
   .nz-widget-floatingWidget {

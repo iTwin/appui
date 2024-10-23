@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 @use "~@itwin/core-react/lib/cjs/core-react/style/themecolors" as *;
 @use "~@itwin/core-react/lib/cjs/core-react/z-index" as *;
-@import "../outline/variables";
+@use "../outline/variables" as *;
 
 $nz-widget-target-border-color: var(--iui-color-background-disabled);
 $nz-widget-target-background: var(--iui-color-background-backdrop-hover);

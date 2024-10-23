@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 @use "~@itwin/core-react/lib/cjs/core-react/z-index" as *;
 @use "~@itwin/core-react/lib/cjs/core-react/geometry" as *;
-@import "variables";
+@use "variables" as *;
 
 .components-toolbar-expandable-button {
   $triangle-width: 4px;

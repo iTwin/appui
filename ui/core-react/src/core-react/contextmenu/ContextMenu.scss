@@ -2,12 +2,12 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "../icons/variables";
-@import "../style/baseline";
-@import "../style/colors";
-@import "../style/opacity";
-@import "../style/themecolors";
-@import "../z-index";
+@use "../icons/variables" as *;
+@use "../style/baseline" as *;
+@use "../style/colors" as *;
+@use "../style/opacity" as *;
+@use "../style/themecolors" as *;
+@use "../z-index" as *;
 
 // cspell:ignore themecolors unbordered
 

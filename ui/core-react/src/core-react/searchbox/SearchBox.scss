@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "../style/themecolors";
+@use "../style/themecolors" as *;
 
 .core-searchbox {
   font-family: var(--iui-font-sans);
