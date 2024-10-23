@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 @import "../../../target";
-@import "~@itwin/core-react/lib/cjs/core-react/typography";
+@use "~@itwin/core-react/lib/cjs/core-react/typography" as *;
 @import "variables";
 
 .components-toolbar-item-expandable-group-tool-item {

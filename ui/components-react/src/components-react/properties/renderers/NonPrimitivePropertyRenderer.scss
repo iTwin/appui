@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-@import "~@itwin/core-react/lib/cjs/core-react/style/colors";
+@use "~@itwin/core-react/lib/cjs/core-react/style/colors" as *;
 
 .components-nonprimitive-property {
   padding: 10px;

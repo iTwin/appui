@@ -2,8 +2,8 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/core-react/lib/cjs/core-react/icons/variables";
-@import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
+@use "~@itwin/core-react/lib/cjs/core-react/icons/variables" as *;
+@use "~@itwin/core-react/lib/cjs/core-react/style/themecolors" as *;
 
 .uifw-cursor-prompt {
   padding: 5px;

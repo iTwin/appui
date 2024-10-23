@@ -2,8 +2,8 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
-@import "~@itwin/core-react/lib/cjs/core-react/z-index";
+@use "~@itwin/core-react/lib/cjs/core-react/style/themecolors" as *;
+@use "~@itwin/core-react/lib/cjs/core-react/z-index" as *;
 
 .uifw-command-palette-popup-container {
   @include uicore-z-index(keyin-palette-overlay);

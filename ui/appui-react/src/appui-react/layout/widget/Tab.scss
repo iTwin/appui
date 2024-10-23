@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 @use "sass:math";
-@import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
+@use "~@itwin/core-react/lib/cjs/core-react/style/themecolors" as *;
 @import "../prefix";
 @import "variables";
 
