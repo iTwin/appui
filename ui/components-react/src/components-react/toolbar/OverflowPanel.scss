@@ -5,7 +5,7 @@
 @import "variables";
 
 .components-toolbar-overflow-panel {
-  background: $buic-background-1;
+  background: var(--iui-color-background);
   border-radius: var(--iui-border-radius-1);
   display: flex;
   height: unset;

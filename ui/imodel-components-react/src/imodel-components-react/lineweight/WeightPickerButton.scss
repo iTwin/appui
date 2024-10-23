@@ -17,7 +17,8 @@
 
   &:active,
   &:focus {
-    box-shadow: $buic-focus-boxshadow 0px 0px 0px 2px;
+    box-shadow: hsl(var(--iui-color-accent-hsl) / var(--iui-opacity-4)) 0px 0px
+      0px 2px;
   }
 }
 
@@ -29,7 +30,7 @@
 
   .components-weightpicker-popup-container {
     color: var(--iui-color-text);
-    background: $buic-background-control;
+    background: var(--iui-color-background);
     min-width: 60px;
     padding: 0 4px;
     border-radius: var(--iui-border-radius-1);
@@ -40,11 +41,11 @@
       margin: 0.25rem 0;
 
       > .components-weightpicker-swatch:hover {
-        background: $buic-row-hover;
+        background: var(--iui-color-background-hover);
       }
 
       > .components-weightpicker-swatch.active {
-        background: $buic-row-selection;
+        background: var(--iui-color-background-accent-muted);
       }
     }
   }

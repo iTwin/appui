@@ -8,7 +8,7 @@ $nz-scrollbar-width: 12px;
 $nz-scrollbar-padding: 2px;
 
 @mixin nz-scrollbar(
-  $color: $buic-background-scrollbar,
+  $color: hsl(var(--iui-color-foreground-hsl) / var(--iui-opacity-4)),
   $width: $nz-scrollbar-width,
   $padding: $nz-scrollbar-padding
 ) {

@@ -5,6 +5,6 @@
 @import "../style/themecolors";
 
 .uicore-filtered-text-match {
-  color: $buic-text-color-highlight;
+  color: var(--iui-color-icon-accent);
   font-weight: bold;
 }
