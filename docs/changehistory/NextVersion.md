@@ -107,7 +107,11 @@ If the currently used API is not exported from the barrel file and there is no r
 
 ## Drop CommonJS modules
 
-File extensions are provided in import declarations, which are [mandatory for ES modules](https://nodejs.org/api/esm.html#mandatory-file-extensions). [#1056](https://github.com/iTwin/appui/pull/1056)
+Support for CommonJS modules has been removed from all AppUI packages. [#1081](https://github.com/iTwin/appui/pull/1081)
+
+To facilitate the migration, the `exports` field has been updated to support legacy `cjs` and `esm` import paths in SCSS files. For example, `@import "@itwin/core-react/lib/cjs/core-react/base/base.scss"` will continue to work correctly by resolving to `@import "@itwin/core-react/lib/core-react/base/base.scss"`. However, consumers should avoid importing deprecated SCSS partial files, as these will be removed in the next major version.
+
+Additionally, file extensions are provided in import declarations, which are [mandatory for ES modules](https://nodejs.org/api/esm.html#mandatory-file-extensions). [#1056](https://github.com/iTwin/appui/pull/1056)
 
 ## Style sheet changes
 
