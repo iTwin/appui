@@ -20,32 +20,32 @@ Table of contents:
 
 ## Drop support for iTwin.js 3.x
 
-**iTwin.js 3.x** is in the end-of-life phase as described in the [version support status](https://www.itwinjs.org/learning/api-support-policies/#version-support-status).
+iTwin.js 3.x is in the end-of-life phase as described in the [version support policy](https://www.itwinjs.org/learning/api-support-policies/#version-support-status).
 
 iTwin.js peer dependency ranges have been updated to exclude version `^3.7.0`. [#1050](https://github.com/iTwin/appui/pull/1050)
 
-Application consumers of **AppUI** should upgrade to the latest [iTwin.js 4.x](https://www.itwinjs.org/changehistory/) version. Packages that depend on AppUI should update to the minimum required **iTwin.js 4.x** version.
+Application consumers of AppUI should upgrade to the latest [iTwin.js 4.x](https://www.itwinjs.org/changehistory/) version. Packages that depend on AppUI should update to the minimum required iTwin.js 4.x version.
 
-Support for newer versions of **iTwin.js** will be added in future AppUI releases.
+Support for newer versions of iTwin.js will be added in future AppUI releases.
 
 ## Drop support for React 17.x
 
 React peer dependency ranges have been updated to exclude version `^17.0.0`. [#1054](https://github.com/iTwin/appui/pull/1054)
 
-Application consumers of **AppUI** should upgrade to the latest [React 18.x](https://react.dev/blog/2022/03/08/react-18-upgrade-guide) version. Packages that depend on AppUI should update to the minimum required **React 18.x** version.
+Application consumers of AppUI should upgrade to the latest [React 18.x](https://react.dev/blog/2022/03/08/react-18-upgrade-guide) version. Packages that depend on AppUI should update to the minimum required React 18.x version.
 
-Support for newer versions of **React** will be added in future AppUI releases.
+Support for newer versions of React will be added in future AppUI releases.
 
 ## Drop support for iTwinUI 2.x
 
-**iTwinUI 2.x** is in the end-of-life phase as described in the [version support status](https://www.itwinjs.org/learning/api-support-policies/#version-support-status).
+iTwinUI 2.x is in the end-of-life phase as described in the [version support policy](https://github.com/iTwin/iTwinUI/wiki/Support-policy#version-support-status).
 
-AppUI packages will no longer support the iTwinUI 2.x version out of the box. Previously, AppUI would install both **iTwinUI 2.x** and **iTwinUI 3.x** to set up both versions when using the `ThemeManager` or popout windows. [#1058](https://github.com/iTwin/appui/pull/1058)
+AppUI packages will no longer support the iTwinUI 2.x version out of the box. Previously, AppUI would install both iTwinUI 2.x and iTwinUI 3.x to set up both versions when using the `ThemeManager` or popout windows. [#1058](https://github.com/iTwin/appui/pull/1058)
 
-Application consumers of **AppUI** should upgrade to the latest [iTwinUI 3.x](https://github.com/iTwin/iTwinUI/releases) version. Packages that depend on AppUI should update to the minimum required **iTwinUI 3.x** version.
+Application consumers of AppUI should upgrade to the latest [iTwinUI 3.x](https://github.com/iTwin/iTwinUI/releases) version. Packages that depend on AppUI should update to the minimum required iTwinUI 3.x version.
 
-In rare cases, to continue using **iTwinUI 2.x** in AppUI, applications need to be wrapped with `ThemeProvider` from **iTwinUI 2.x**.
-Additionally, to use **iTwinUI 2.x** in child windows and popout widgets, applications can use the newly introduced `childWindow` prop to wrap the content of child windows. For example:
+Applications that want to continue using iTwinUI 2.x in AppUI must be wrapped with the `ThemeProvider` from iTwinUI 2.x.
+Additionally, to use iTwinUI 2.x in child windows and popout widgets, applications can use the newly introduced `childWindow` prop to wrap the content of child windows. For example:
 
 ```tsx
 import { ThemeProvider } from "@itwin/itwinui-react-v2";
@@ -60,7 +60,7 @@ function App() {
 }
 ```
 
-Support for newer versions of **iTwinUI** will be added in future AppUI releases.
+Support for newer versions of iTwinUI will be added in future AppUI releases.
 
 ## Restrict access to `@internal` APIs
 
@@ -70,7 +70,7 @@ This change might break consumers that rely on importing APIs directly from unsu
 
 - Main barrel file, i.e. `@itwin/appui-react`
 - `package.json` subpath, i.e. `@itwin/appui-react/package.json`
-- All SCSS files, i.e. `@itwin/core-react/lib/core-react/_typography.scss`. SCSS files are exported using the [`sass` custom condition](https://sass-lang.com/documentation/js-api/classes/nodepackageimporter/) and are available until the next major version to facilitate the **AppUI 5.0** adoption. SCSS exports will be removed in the next major version.
+- All SCSS files, i.e. `@itwin/core-react/lib/core-react/_typography.scss`. SCSS files are exported using the [`sass` custom condition](https://sass-lang.com/documentation/js-api/classes/nodepackageimporter/) and are available until the next major version to facilitate the AppUI 5.0 adoption. SCSS exports will be removed in the next major version.
 
 To fix the issue, consumers should update their import paths to use the supported export paths. For example:
 
