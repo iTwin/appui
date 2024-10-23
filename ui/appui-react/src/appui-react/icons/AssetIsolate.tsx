@@ -19,7 +19,7 @@ export function AssetIsolate() {
       x="0px"
       y="0px"
       viewBox="0 0 16 16"
-      enable-background="new 0 0 16 16;"
+      enableBackground="new 0 0 16 16;"
       xmlSpace="preserve"
     >
       <g>
