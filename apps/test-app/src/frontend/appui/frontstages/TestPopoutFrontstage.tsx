@@ -9,6 +9,7 @@ import { createTestFrontstage } from "./createTestFrontstage";
 import { ProgressRadial } from "@itwin/itwinui-react";
 import { Logger } from "@itwin/core-bentley";
 import { loggerCategory } from "../../logger";
+import { WidgetContentThrowError } from "@itwin/appui-test-providers";
 
 export const createTestPopoutFrontstage = () => {
   {
@@ -31,6 +32,23 @@ export const createTestPopoutFrontstage = () => {
                   <div id="border-test" />
                   <FixedProgressRadial id="progress-radial" />
                   <LinkTest />
+                </>
+              ),
+            },
+          ],
+        },
+      },
+      rightPanel: {
+        sections: {
+          start: [
+            {
+              id: "error-widget",
+              label: "Error widget",
+              canPopout: true,
+              content: (
+                <>
+                  <div>Widget content</div>
+                  <WidgetContentThrowError />
                 </>
               ),
             },

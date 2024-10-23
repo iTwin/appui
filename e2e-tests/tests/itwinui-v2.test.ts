@@ -6,7 +6,7 @@ import { expect, test } from "@playwright/test";
 import { popoutWidget, tabLocator, widgetLocator } from "./Utils";
 
 test("should style in popout", async ({ page }) => {
-  await page.goto("/blank?frontstageId=itwinui-v2");
+  await page.goto("./blank?frontstageId=itwinui-v2");
 
   const tab = tabLocator(page, "iTwinUI v2");
   const widget = widgetLocator({
