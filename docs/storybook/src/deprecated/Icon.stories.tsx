@@ -4,6 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import React from "react";
 import type { Decorator, Meta, StoryObj } from "@storybook/react";
+import placeholderSvg from "../../assets/placeholder.svg";
 import { useConditionalProp } from "@itwin/appui-react-internal/lib/esm/appui-react/hooks/useConditionalProp";
 import { ImageRenderer } from "@itwin/components-react-internal/src/components-react/common/ImageRenderer";
 import { ConditionalIconItem, Icon } from "@itwin/core-react";
@@ -49,7 +50,7 @@ export const ReactNode: Story = {
 
 export const SVGPath: Story = {
   args: {
-    iconSpec: <SvgPlaceholder />,
+    iconSpec: placeholderSvg,
   },
 };
 
