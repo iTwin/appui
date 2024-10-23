@@ -23,7 +23,7 @@
   }
 
   &:focus {
-    outline: 1px solid $buic-row-selection;
+    outline: 1px solid var(--iui-color-background-accent-muted);
   }
 
   &[disabled] {
@@ -38,7 +38,7 @@
 
   > div {
     flex: 1;
-    background: $buic-foreground-body;
+    background: var(--iui-color-text);
     margin-left: 15px;
   }
 }

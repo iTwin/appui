@@ -7,7 +7,7 @@
 
 .components-iconpicker-button {
   color: var(--iui-color-text);
-  background: $buic-background-control;
+  background: var(--iui-color-background);
   box-sizing: border-box;
   border: 1px solid var(--iui-color-border-foreground);
   border-radius: var(--iui-border-radius-1);
@@ -42,7 +42,7 @@
 
   .components-iconpicker-popup-container {
     color: var(--iui-color-text);
-    background: $buic-background-control;
+    background: var(--iui-color-background);
 
     .components-iconpicker-popup-icons {
       display: grid;
@@ -57,7 +57,7 @@
         border-radius: var(--iui-border-radius-1);
         border-style: solid;
         border-color: rgba(0, 0, 0, 0.2);
-        background: $buic-background-control;
+        background: var(--iui-color-background);
         transition: scale 0.2s ease;
         cursor: pointer;
         outline: none;

@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Replace buic variables with iTwinUI CSS variables.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}

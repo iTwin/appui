@@ -55,6 +55,7 @@ Table of contents:
 - Use React portal instead of creating a separate element tree for each child window. [#1062](https://github.com/iTwin/appui/pull/1062)
 - Removed incorrect usage of internal `IModelApp.renderSystem.options.displaySolarShadows` check from 'useSolarDataProvider'. `wantShadows` property of viewport display style is used instead. [#1066](https://github.com/iTwin/appui/pull/1066)
 - Updated the styling of `BackstageAppButton` and `NestedFrontstageAppButton` components to match the updated toolbars. [#1078](https://github.com/iTwin/appui/pull/1078)
+- Replaced usage of `--buic` CSS variables and `$buic` SCSS variables with [iTwinUI CSS variables](https://itwinui.bentley.com/docs/variables). [#1079](https://github.com/iTwin/appui/pull/1079)
 
 ## @itwin/components-react
 
@@ -74,6 +75,7 @@ Table of contents:
 - Provide file extensions in import declarations that are [mandatory for ES modules](https://nodejs.org/api/esm.html#mandatory-file-extensions). [#1056](https://github.com/iTwin/appui/pull/1056)
 - Update `FilterBuilder` UI according to UX team's new specification. [#1059] (https://github.com/iTwin/appui/pull/1059)
 - Removed all `@internal` API exports from the barrel file. Consumers should not use `@internal` APIs directly. [#1060](https://github.com/iTwin/appui/pull/1060)
+- Replaced usage of `--buic` CSS variables and `$buic` SCSS variables with [iTwinUI CSS variables](https://itwinui.bentley.com/docs/variables). [#1079](https://github.com/iTwin/appui/pull/1079)
 
 ## @itwin/core-react
 
@@ -85,6 +87,7 @@ Table of contents:
 - Drop support for [React 17.x](https://react.dev/versions#react-17) [^3]. [#1054](https://github.com/iTwin/appui/pull/1054)
 - Provide file extensions in import declarations that are [mandatory for ES modules](https://nodejs.org/api/esm.html#mandatory-file-extensions). [#1056](https://github.com/iTwin/appui/pull/1056)
 - Removed all `@internal` API exports from the barrel file. Consumers should not use `@internal` APIs directly. [#1060](https://github.com/iTwin/appui/pull/1060)
+- Replaced usage of `--buic` CSS variables and `$buic` SCSS variables with [iTwinUI CSS variables](https://itwinui.bentley.com/docs/variables). [#1079](https://github.com/iTwin/appui/pull/1079)
 
 ## @itwin/imodel-components-react
 
@@ -95,6 +98,7 @@ Table of contents:
 - Drop support for [React 17.x](https://react.dev/versions#react-17) [^3]. [#1054](https://github.com/iTwin/appui/pull/1054)
 - Provide file extensions in import declarations that are [mandatory for ES modules](https://nodejs.org/api/esm.html#mandatory-file-extensions). [#1056](https://github.com/iTwin/appui/pull/1056)
 - Removed all `@internal` API exports from the barrel file. Consumers should not use `@internal` APIs directly. [#1060](https://github.com/iTwin/appui/pull/1060)
+- Replaced usage of `--buic` CSS variables and `$buic` SCSS variables with [iTwinUI CSS variables](https://itwinui.bentley.com/docs/variables). [#1079](https://github.com/iTwin/appui/pull/1079)
 
 [^1]: This change might break consumers that rely on importing `@internal` APIs directly from unsupported submodules i.e. `@itwin/appui-react/lib/esm/appui-react`. Currently supported export paths: main entry point (i.e. `@itwin/appui-react`), `package.json` subpath (i.e. `@itwin/appui-react/package.json`). Additional export paths are available until next major version to facilitate the **AppUI 5.0** adoption: ESM submodule (i.e. `@itwin/appui-react/esm`), CJS submodule (i.e. `@itwin/appui-react/cjs`), all SCSS files are exported by using `sass` custom condition (i.e. `@itwin/core-react/lib/cjs/core-react/typography`).
 [^2]: **iTwin.js 3.x** is in end-of-life phase as described in [version support status](https://www.itwinjs.org/learning/api-support-policies/#version-support-status). Consumers of **AppUI 5.0** should upgrade to latest **iTwin.js 4.x** version. Support for newer versions of **iTwin.js** will be added in future AppUI releases.

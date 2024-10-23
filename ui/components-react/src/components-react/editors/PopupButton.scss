@@ -14,10 +14,10 @@
   height: 100%;
   margin: 0;
   padding: 0;
-  background-color: $buic-background-control;
+  background-color: var(--iui-color-background);
   border: 1px solid var(--iui-color-border-foreground);
   border-radius: var(--iui-border-radius-1);
-  box-shadow: $buic-inputs-boxshadow 0px 1px 1px inset;
+  box-shadow: var(--iui-focus-box-shadow) 0px 1px 1px inset;
   box-sizing: border-box;
   cursor: pointer;
 
@@ -39,7 +39,7 @@
   }
 
   > .components-popup-button-arrow {
-    background-color: $buic-background-control;
+    background-color: var(--iui-color-background);
     width: var(--iui-size-l);
     height: var(--iui-size-l);
 
@@ -57,7 +57,7 @@
 
   &:focus,
   &.components-popup-expanded {
-    border-color: $buic-foreground-focus;
+    border-color: var(--iui-color-text-accent-hover);
     outline: 0px;
     box-shadow: $uicore-inputs-focus-boxshadow;
 
