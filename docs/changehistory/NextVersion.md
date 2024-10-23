@@ -7,6 +7,7 @@ Table of contents:
 - [Drop support for iTwinUI 2.x](#drop-support-for-itwinui-2x)
 - [Restrict access to `@internal` APIs](#restrict-access-to-internal-apis)
 - [Drop CommonJS modules](#drop-commonjs-modules)
+- [Style sheet changes](#style-sheet-changes)
 - [@itwin/appui-react](#itwinappui-react)
   - [Removals](#removals)
   - [Additions](#additions)
@@ -107,6 +108,10 @@ If the currently used API is not exported from the barrel file and there is no r
 ## Drop CommonJS modules
 
 File extensions are provided in import declarations, which are [mandatory for ES modules](https://nodejs.org/api/esm.html#mandatory-file-extensions). [#1056](https://github.com/iTwin/appui/pull/1056)
+
+## Style sheet changes
+
+- Replaced internal usage of `--buic` CSS variables and `$buic` SCSS variables with [iTwinUI CSS variables](https://itwinui.bentley.com/docs/variables). [#1079](https://github.com/iTwin/appui/pull/1079)
 
 ## @itwin/appui-react
 

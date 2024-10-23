@@ -25,7 +25,7 @@
     > .nz-content {
       display: flex;
       position: relative;
-      background: $buic-background-2;
+      background: var(--iui-color-background-hover);
     }
 
     &.nz-transition {

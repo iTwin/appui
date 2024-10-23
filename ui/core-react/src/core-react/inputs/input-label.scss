@@ -62,9 +62,9 @@
   /// Status colors ----------------------------------------------------------
 
   $status-colors: (
-    success: $buic-foreground-positive-rgb,
-    warning: $buic-foreground-warning-rgb,
-    error: $buic-foreground-negative-rgb,
+    success: var(--iui-color-positive-hsl),
+    warning: var(--iui-color-warning-hsl),
+    error: var(--iui-color-negative-hsl),
   );
 
   @each $status, $color in $status-colors {
@@ -77,7 +77,7 @@
       > input,
       > .uicore-inputs-input {
         border-color: rgb($color);
-        box-shadow: $buic-inputs-boxshadow 0px 1px 1px inset;
+        box-shadow: var(--iui-focus-box-shadow) 0px 1px 1px inset;
 
         &:focus {
           border-color: rgb($color);

@@ -12,7 +12,7 @@ $component-examples-rightpanel-width: 200px;
   width: 100%;
   height: 100%;
 
-  color: $buic-text-color;
+  color: var(--iui-color-text);
   font-size: var(--iui-font-size-1);
 
   display: grid;
@@ -20,7 +20,7 @@ $component-examples-rightpanel-width: 200px;
   column-gap: 8px;
 
   .component-examples-categories {
-    background: $buic-background-dialog;
+    background: var(--iui-color-background-hover);
 
     height: 100%;
     overflow-y: auto;
@@ -30,7 +30,7 @@ $component-examples-rightpanel-width: 200px;
   }
 
   .component-examples-items {
-    background: $buic-background-dialog;
+    background: var(--iui-color-background-hover);
     height: 100%;
     overflow-y: auto;
     display: flex;
@@ -60,7 +60,7 @@ $component-examples-rightpanel-width: 200px;
         > .description {
           margin-top: 10px;
           font-size: 12px;
-          color: $buic-text-color-muted;
+          color: var(--iui-color-text-muted);
         }
       }
 
@@ -74,14 +74,14 @@ $component-examples-rightpanel-width: 200px;
 
     .component-examples-items-separator {
       width: 100%;
-      color: $buic-inputs-border;
+      color: hsl(var(--iui-color-foreground-hsl) / var(--iui-opacity-4));
     }
   }
 }
 
 .content-layout-fullscreen {
   height: calc(100vh - 80px);
-  background: $buic-background-dialog;
+  background: var(--iui-color-background-hover);
   top: auto;
 }
 

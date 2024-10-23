@@ -158,14 +158,14 @@ $uicore-menu-top-bottom-padding: calc(#{$uicore-menu-padding} * 0.6667);
     }
 
     &:focus {
-      border: 1px solid $buic-background-divider;
+      border: 1px solid var(--iui-color-background-backdrop-hover);
       box-shadow: var(--iui-shadow-1);
       outline: 0px;
 
       > .core-context-menu-item.is-selected,
       > .context-submenu > .core-context-menu-item.is-selected {
         // .is-selected being applied on hover, overriding with hover color
-        background-color: $buic-row-hover;
+        background-color: var(--iui-color-background-hover);
       }
     }
 

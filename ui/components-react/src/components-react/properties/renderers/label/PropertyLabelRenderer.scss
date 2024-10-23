@@ -33,7 +33,7 @@
   display: flex;
 
   .components-label-popup {
-    background: $buic-background-window;
+    background: var(--iui-color-background-hover);
     width: max-content;
     padding: 5px;
   }
