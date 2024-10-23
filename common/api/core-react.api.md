@@ -399,7 +399,7 @@ export interface DivProps extends CommonDivProps {
 // @public @deprecated
 export const DivWithOutsideClick: {
     new (props: CommonDivProps & WithOnOutsideClickProps_2): {
-        outsideClickContainerDiv?: HTMLDivElement | null | undefined;
+        outsideClickContainerDiv?: HTMLDivElement | null;
         isDownOutside: boolean;
         isInCorePopup(element: HTMLElement): boolean;
         onOutsideClick(e: MouseEvent): any;
@@ -431,7 +431,7 @@ export const DivWithOutsideClick: {
         UNSAFE_componentWillUpdate?(nextProps: Readonly<CommonDivProps & WithOnOutsideClickProps_2>, nextState: Readonly<{}>, nextContext: any): void;
     };
     new (props: CommonDivProps & WithOnOutsideClickProps_2, context: any): {
-        outsideClickContainerDiv?: HTMLDivElement | null | undefined;
+        outsideClickContainerDiv?: HTMLDivElement | null;
         isDownOutside: boolean;
         isInCorePopup(element: HTMLElement): boolean;
         onOutsideClick(e: MouseEvent): any;
@@ -1659,9 +1659,9 @@ export interface WithIsPressedProps {
 }
 
 // @public @deprecated
-export const withOnOutsideClick: <ComponentProps extends {}>(Component: React_2.ComponentType<ComponentProps>, defaultOnOutsideClick?: ((event: MouseEvent) => any) | undefined, useCapture?: boolean, usePointerEvents?: boolean) => {
+export const withOnOutsideClick: <ComponentProps extends {}>(Component: React_2.ComponentType<ComponentProps>, defaultOnOutsideClick?: (event: MouseEvent) => any, useCapture?: boolean, usePointerEvents?: boolean) => {
     new (props: ComponentProps & WithOnOutsideClickProps): {
-        outsideClickContainerDiv?: HTMLDivElement | null | undefined;
+        outsideClickContainerDiv?: HTMLDivElement | null;
         isDownOutside: boolean;
         isInCorePopup(element: HTMLElement): boolean;
         onOutsideClick(e: MouseEvent): any;
@@ -1693,7 +1693,7 @@ export const withOnOutsideClick: <ComponentProps extends {}>(Component: React_2.
         UNSAFE_componentWillUpdate?(nextProps: Readonly<ComponentProps & WithOnOutsideClickProps>, nextState: Readonly<{}>, nextContext: any): void;
     };
     new (props: ComponentProps & WithOnOutsideClickProps, context: any): {
-        outsideClickContainerDiv?: HTMLDivElement | null | undefined;
+        outsideClickContainerDiv?: HTMLDivElement | null;
         isDownOutside: boolean;
         isInCorePopup(element: HTMLElement): boolean;
         onOutsideClick(e: MouseEvent): any;
