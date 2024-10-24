@@ -6,7 +6,7 @@
  * @module Settings
  */
 
-import widowSettingsIconSvg from "@bentley/icons-generic/icons/window-settings.svg";
+import { SvgWindowSettings } from "@itwin/itwinui-icons-react";
 import "./UiSettingsPage.scss";
 import * as React from "react";
 import type { SettingsTabEntry } from "@itwin/core-react";
@@ -406,7 +406,7 @@ export function getUiSettingsManagerEntry(
     itemPriority,
     tabId: "uifw:UiStateStorage",
     label: UiFramework.translate("settings.uiSettingsPage.label"),
-    icon: widowSettingsIconSvg,
+    icon: <SvgWindowSettings />,
     page: <UiSettingsPage />,
     isDisabled: false,
     tooltip: UiFramework.translate("settings.uiSettingsPage.tooltip"),
