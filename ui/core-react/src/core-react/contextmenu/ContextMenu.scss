@@ -4,11 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 @use "../icons/variables" as *;
 @use "../style/baseline" as *;
-@use "../style/colors" as *;
-@use "../style/themecolors" as *;
 @use "../z-index" as *;
-
-// cspell:ignore themecolors unbordered
 
 $uicore-menu-padding: $uicore-bordered-padding;
 $uicore-menu-top-bottom-padding: calc(#{$uicore-menu-padding} * 0.6667);

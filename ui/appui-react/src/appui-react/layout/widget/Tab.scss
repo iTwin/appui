@@ -3,8 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 @use "sass:math";
-@use "~@itwin/core-react/lib/cjs/core-react/style/themecolors" as *;
-@use "../prefix" as *;
 @use "variables" as *;
 
 .nz-widget-tab {

@@ -3,11 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 @use "~@itwin/core-react/lib/cjs/core-react/base/base" as *;
-@use "~@itwin/core-react/lib/cjs/core-react/icons/variables" as *;
-@use "~@itwin/core-react/lib/cjs/core-react/inputs/variables" as *;
-@use "~@itwin/core-react/lib/cjs/core-react/style/themecolors" as *;
 @use "~@itwin/core-react/lib/cjs/core-react/z-index" as *;
-@use "../variables" as *;
 
 #uifw-configurableui-wrapper {
   position: relative;

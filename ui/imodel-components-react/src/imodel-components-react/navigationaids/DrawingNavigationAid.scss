@@ -3,7 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 @use "~@itwin/core-react/lib/cjs/core-react/z-index" as *;
-@use "~@itwin/core-react/lib/cjs/core-react/style/themecolors" as *;
 
 #components-drawing-portal {
   @include uicore-z-index(dragged-widget);

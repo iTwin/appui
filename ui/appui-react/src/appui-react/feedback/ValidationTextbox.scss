@@ -2,9 +2,8 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@use "~@itwin/core-react/lib/cjs/core-react/icons/variables" as *;
 @use "~@itwin/core-react/lib/cjs/core-react/inputs/variables" as *;
-@use "~@itwin/core-react/lib/cjs/core-react/style/themecolors" as *;
+@use "~@itwin/core-react/lib/cjs/core-react/style/baseline" as *;
 
 .uifw-ValidationTextbox {
   font-family: var(--iui-font-sans);
