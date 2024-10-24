@@ -222,13 +222,13 @@ importers:
         version: 3.0.2
       sass:
         specifier: ^1.80.3
-        version: 1.80.3
+        version: 1.80.4
       typescript:
         specifier: ~5.3.3
         version: 5.3.3
       vite:
         specifier: ^5.4.7
-        version: 5.4.7(@types/node@18.11.5)(sass@1.80.3)
+        version: 5.4.7(@types/node@18.11.5)(sass@1.80.4)
       vite-plugin-static-copy:
         specifier: ^1.0.6
         version: 1.0.6(vite@5.4.7)
@@ -482,7 +482,7 @@ importers:
         version: 5.3.3
       vite:
         specifier: ^5.4.7
-        version: 5.4.7(@types/node@18.11.5)(sass@1.80.3)
+        version: 5.4.7(@types/node@18.11.5)(sass@1.80.4)
       vite-plugin-static-copy:
         specifier: ^1.0.6
         version: 1.0.6(vite@5.4.7)
@@ -3731,7 +3731,7 @@ packages:
       magic-string: 0.27.0
       react-docgen-typescript: 2.2.2(typescript@5.3.3)
       typescript: 5.3.3
-      vite: 5.4.7(@types/node@18.11.5)(sass@1.80.3)
+      vite: 5.4.7(@types/node@18.11.5)(sass@1.80.4)
     dev: true
 
   /@jridgewell/gen-mapping@0.3.3:
@@ -4523,7 +4523,7 @@ packages:
       storybook: 8.3.2
       ts-dedent: 2.2.0
       typescript: 5.3.3
-      vite: 5.4.7(@types/node@18.11.5)(sass@1.80.3)
+      vite: 5.4.7(@types/node@18.11.5)(sass@1.80.4)
     dev: true
 
   /@storybook/components@8.3.2(storybook@8.3.2):
@@ -4652,7 +4652,7 @@ packages:
       resolve: 1.22.8
       storybook: 8.3.2
       tsconfig-paths: 4.2.0
-      vite: 5.4.7(@types/node@18.11.5)(sass@1.80.3)
+      vite: 5.4.7(@types/node@18.11.5)(sass@1.80.4)
     transitivePeerDependencies:
       - '@preact/preset-vite'
       - '@storybook/test'
@@ -4945,7 +4945,7 @@ packages:
       babel-dead-code-elimination: 1.0.6
       chokidar: 3.6.0
       unplugin: 1.12.3
-      vite: 5.4.7(@types/node@18.11.5)(sass@1.80.3)
+      vite: 5.4.7(@types/node@18.11.5)(sass@1.80.4)
       zod: 3.23.8
     transitivePeerDependencies:
       - supports-color
@@ -5837,7 +5837,7 @@ packages:
       vite: ^4 || ^5
     dependencies:
       '@swc/core': 1.7.26
-      vite: 5.4.7(@types/node@18.11.5)(sass@1.80.3)
+      vite: 5.4.7(@types/node@18.11.5)(sass@1.80.4)
     transitivePeerDependencies:
       - '@swc/helpers'
     dev: true
@@ -5853,7 +5853,7 @@ packages:
       '@babel/plugin-transform-react-jsx-source': 7.24.7(@babel/core@7.25.2)
       '@types/babel__core': 7.20.5
       react-refresh: 0.14.2
-      vite: 5.4.7(@types/node@18.11.5)(sass@1.80.3)
+      vite: 5.4.7(@types/node@18.11.5)(sass@1.80.4)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -12074,8 +12074,8 @@ packages:
   /safer-buffer@2.1.2:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
 
-  /sass@1.80.3:
-    resolution: {integrity: sha512-ptDWyVmDMVielpz/oWy3YP3nfs7LpJTHIJZboMVs8GEC9eUmtZTZhMHlTW98wY4aEorDfjN38+Wr/XjskFWcfA==}
+  /sass@1.80.4:
+    resolution: {integrity: sha512-rhMQ2tSF5CsuuspvC94nPM9rToiAFw2h3JTrLlgmNw1MH79v8Cr3DH6KF6o6r+8oofY3iYVPUf66KzC8yuVN1w==}
     engines: {node: '>=14.0.0'}
     hasBin: true
     dependencies:
@@ -13266,7 +13266,7 @@ packages:
       debug: 4.3.4(supports-color@8.1.1)
       pathe: 1.1.2
       picocolors: 1.0.0
-      vite: 5.4.7(@types/node@18.11.5)(sass@1.80.3)
+      vite: 5.4.7(@types/node@18.11.5)(sass@1.80.4)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -13289,7 +13289,7 @@ packages:
       fast-glob: 3.3.2
       fs-extra: 11.2.0
       picocolors: 1.1.0
-      vite: 5.4.7(@types/node@18.11.5)(sass@1.80.3)
+      vite: 5.4.7(@types/node@18.11.5)(sass@1.80.4)
     dev: true
 
   /vite-tsconfig-paths@5.0.1(typescript@5.3.3)(vite@5.4.7):
@@ -13303,13 +13303,13 @@ packages:
       debug: 4.3.4(supports-color@8.1.1)
       globrex: 0.1.2
       tsconfck: 3.1.3(typescript@5.3.3)
-      vite: 5.4.7(@types/node@18.11.5)(sass@1.80.3)
+      vite: 5.4.7(@types/node@18.11.5)(sass@1.80.4)
     transitivePeerDependencies:
       - supports-color
       - typescript
     dev: true
 
-  /vite@5.4.7(@types/node@18.11.5)(sass@1.80.3):
+  /vite@5.4.7(@types/node@18.11.5)(sass@1.80.4):
     resolution: {integrity: sha512-5l2zxqMEPVENgvzTuBpHer2awaetimj2BGkhBPdnwKbPNOlHsODU+oiazEZzLK7KhAnOrO+XGYJYn4ZlUhDtDQ==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
@@ -13344,7 +13344,7 @@ packages:
       esbuild: 0.21.5
       postcss: 8.4.47
       rollup: 4.22.4
-      sass: 1.80.3
+      sass: 1.80.4
     optionalDependencies:
       fsevents: 2.3.3
     dev: true
@@ -13393,7 +13393,7 @@ packages:
       strip-literal: 2.1.0
       tinybench: 2.6.0
       tinypool: 0.8.3
-      vite: 5.4.7(@types/node@18.11.5)(sass@1.80.3)
+      vite: 5.4.7(@types/node@18.11.5)(sass@1.80.4)
       vite-node: 1.6.0(@types/node@18.11.5)
       why-is-node-running: 2.2.2
     transitivePeerDependencies:
