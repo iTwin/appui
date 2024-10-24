@@ -2,11 +2,13 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@use "../style/index" as *;
-@use "./tabs" as *;
+@use "./tabs";
+
+@forward "../style/index";
+@forward "./tabs";
 
 @mixin uicore-tabs-vertical {
-  @include uicore-tabs;
+  @include tabs.uicore-tabs;
 
   > li {
     display: block;
