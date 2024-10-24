@@ -2,8 +2,8 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@use "~@itwin/core-react/lib/cjs/core-react/base/base" as *;
-@use "~@itwin/core-react/lib/cjs/core-react/z-index" as *;
+@use "~@itwin/core-react/lib/core-react/base/base" as *;
+@use "~@itwin/core-react/lib/core-react/z-index" as *;
 
 #uifw-configurableui-wrapper {
   position: relative;
