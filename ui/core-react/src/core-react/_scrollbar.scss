@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@use "./style/themecolors" as *;
+@forward "./style/themecolors";
 
 $uicore-scrollbar-width: 12px;
 $uicore-scrollbar-padding: 2px;

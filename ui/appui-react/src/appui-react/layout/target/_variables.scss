@@ -2,9 +2,12 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@use "~@itwin/core-react/lib/cjs/core-react/style/themecolors" as *;
-@use "~@itwin/core-react/lib/cjs/core-react/z-index" as *;
-@use "../outline/variables" as *;
+@use "~@itwin/core-react/lib/cjs/core-react/z-index";
+@use "../outline/variables";
+
+@forward "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
+@forward "~@itwin/core-react/lib/cjs/core-react/z-index";
+@forward "../outline/variables";
 
 $nz-widget-target-border-color: var(--iui-color-background-disabled);
 $nz-widget-target-background: var(--iui-color-background-backdrop-hover);
@@ -26,7 +29,7 @@ $nz-widget-target-border-size: 2px;
   animation: nz-grow var(--iui-duration-1) ease-in-out,
     nz-pulse 3s ease-in-out 2s infinite;
 
-  @include uicore-z-index(drop-target);
+  @include z-index.uicore-z-index(drop-target);
 
   @media (prefers-reduced-motion: no-preference) {
     @keyframes nz-pulse {
@@ -57,7 +60,7 @@ $nz-widget-target-border-size: 2px;
 
 @mixin nz-targeted-widget-target {
   transform: scale(1.2);
-  background-color: $nz-opaque-outline-color;
+  background-color: variables.$nz-opaque-outline-color;
   box-shadow: var(--iui-shadow-4);
   animation-iteration-count: 0, 0;
 }

@@ -2,9 +2,9 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@use "./mixins" as *;
+@forward "./mixins";
 
-@use "./body" as *;
-@use "./block" as *;
-@use "./disabled" as *;
-@use "./muted" as *;
+@forward "./body";
+@forward "./block";
+@forward "./disabled";
+@forward "./muted";

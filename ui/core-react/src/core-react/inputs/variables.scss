@@ -5,6 +5,9 @@
 @use "../style/baseline" as *;
 @use "../style/themecolors" as *;
 
+@forward "../style/baseline";
+@forward "../style/themecolors";
+
 // cspell:ignore unbordered
 
 $uicore-inputs-height: 22px;

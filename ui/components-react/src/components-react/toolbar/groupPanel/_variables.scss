@@ -2,9 +2,9 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@use "~@itwin/core-react/lib/cjs/core-react/style/themecolors" as *;
-@use "~@itwin/core-react/lib/cjs/core-react/typography" as *;
-@use "../variables" as *;
+@forward "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
+@forward "~@itwin/core-react/lib/cjs/core-react/typography";
+@forward "../variables";
 
 $panel-padding-left: 16px;
 $panel-padding-right: 8px;
