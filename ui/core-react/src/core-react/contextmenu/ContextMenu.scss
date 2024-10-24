@@ -5,7 +5,6 @@
 @use "../icons/variables" as *;
 @use "../style/baseline" as *;
 @use "../style/colors" as *;
-@use "../style/opacity" as *;
 @use "../style/themecolors" as *;
 @use "../z-index" as *;
 
@@ -129,7 +128,7 @@ $uicore-menu-top-bottom-padding: calc(#{$uicore-menu-padding} * 0.6667);
         line-height: var(--iui-size-l);
         text-align: center;
         margin-right: $uicore-unbordered-padding;
-        opacity: $uicore-opacity-2;
+        opacity: var(--iui-opacity-2);
         display: flex;
         align-items: center;
 

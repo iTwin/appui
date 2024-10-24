@@ -81,7 +81,7 @@
 
         &:focus {
           border-color: rgb($color);
-          box-shadow: rgba($color, $uicore-opacity-boxshadow) 0px 0px 0px 2px;
+          box-shadow: rgba($color, var(--iui-opacity-4)) 0px 0px 0px 2px;
         }
       }
     }

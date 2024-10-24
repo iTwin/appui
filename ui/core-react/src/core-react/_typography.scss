@@ -2,19 +2,19 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@use "./style/opacity" as *;
+@forward "./style/opacity";
 
 $title-weight: var(--iui-font-weight-normal);
 $title-size: var(--iui-font-size-2);
-$title-opacity: $uicore-opacity-1;
+$title-opacity: var(--iui-opacity-1);
 
 $body-weight: var(--iui-font-weight-light);
 $body-size: var(--iui-font-size-1);
-$body-opacity: $uicore-opacity-2;
+$body-opacity: var(--iui-opacity-2);
 
 $body1-weight: var(--iui-font-weight-normal);
 $body1-size: var(--iui-font-size-1);
-$body1-opacity: $uicore-opacity-2;
+$body1-opacity: var(--iui-opacity-2);
 
 @mixin title($rgb: unset) {
   font-weight: $title-weight;

@@ -38,7 +38,7 @@
     border-color: var(--iui-color-text-disabled);
     color: var(--iui-color-text-disabled);
     cursor: not-allowed;
-    opacity: $uicore-opacity-disabled;
+    opacity: var(--iui-opacity-4);
   }
 
   &[readonly] {
