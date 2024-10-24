@@ -115,7 +115,13 @@ Additionally, file extensions are provided in import declarations, which are [ma
 
 ## Style sheet changes
 
-- Replaced internal usage of `--buic` CSS variables and `$buic` SCSS variables with [iTwinUI CSS variables](https://itwinui.bentley.com/docs/variables). [#1079](https://github.com/iTwin/appui/pull/1079)
+SCSS files have been updated to use the [`@use`](https://sass-lang.com/documentation/at-rules/use/) rule instead of the [deprecated](https://sass-lang.com/documentation/breaking-changes/import/) [`@import`](https://sass-lang.com/documentation/at-rules/import/) rule. [#1085](https://github.com/iTwin/appui/pull/1085)
+
+To avoid breaking existing SCSS of AppUI consumers, [`@forward`](https://sass-lang.com/documentation/at-rules/forward/) rules were added to SCSS partial files to forward previously imported SCSS modules.
+
+Additionally, all internal usage of `--buic` CSS variables and `$buic` SCSS variables have been replaced with [iTwinUI CSS variables](https://itwinui.bentley.com/docs/variables). [#1079](https://github.com/iTwin/appui/pull/1079)
+
+Consumers of AppUI are expected to avoid using AppUI `SCSS` partial files directly and instead use the available CSS variables from iTwinUI.
 
 ## @itwin/appui-react
 

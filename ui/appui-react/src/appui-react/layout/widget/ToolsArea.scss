@@ -2,8 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "./tools/button/variables";
-@import "../widgetopacity";
+@use "../widgetopacity" as *;
 
 .nz-tools-widget {
   transition: visibility var(--iui-duration-2) ease,

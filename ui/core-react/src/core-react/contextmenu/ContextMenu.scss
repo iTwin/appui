@@ -2,14 +2,9 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "../icons/variables";
-@import "../style/baseline";
-@import "../style/colors";
-@import "../style/opacity";
-@import "../style/themecolors";
-@import "../z-index";
-
-// cspell:ignore themecolors unbordered
+@use "../icons/variables" as *;
+@use "../style/baseline" as *;
+@use "../z-index" as *;
 
 $uicore-menu-padding: $uicore-bordered-padding;
 $uicore-menu-top-bottom-padding: calc(#{$uicore-menu-padding} * 0.6667);
@@ -129,7 +124,7 @@ $uicore-menu-top-bottom-padding: calc(#{$uicore-menu-padding} * 0.6667);
         line-height: var(--iui-size-l);
         text-align: center;
         margin-right: $uicore-unbordered-padding;
-        opacity: $uicore-opacity-2;
+        opacity: var(--iui-opacity-2);
         display: flex;
         align-items: center;
 

@@ -2,12 +2,12 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/core-react/lib/cjs/core-react/z-index";
-@import "~@itwin/core-react/lib/cjs/core-react/style/breakpoints";
-@import "../prefix";
-@import "../safearea";
-@import "../scrollbar";
-@import "variables";
+@use "~@itwin/core-react/lib/core-react/z-index" as *;
+@use "~@itwin/core-react/lib/core-react/style/breakpoints" as *;
+@use "../prefix" as *;
+@use "../safearea" as *;
+@use "../scrollbar" as *;
+@use "variables" as *;
 
 .nz-backstage-backstage {
   display: flex;

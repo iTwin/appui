@@ -3,8 +3,8 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 @use "sass:math";
-@import "../../target";
-@import "variables";
+@use "../../target" as *;
+@use "variables" as *;
 
 .components-toolbar-item-expandable-group-backArrow {
   $border: solid $back-arrow-thickness currentColor;

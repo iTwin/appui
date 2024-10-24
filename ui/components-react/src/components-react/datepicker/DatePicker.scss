@@ -2,18 +2,14 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
-@import "~@itwin/core-react/lib/cjs/core-react/style/opacity";
-@import "~@itwin/core-react/lib/cjs/core-react/icons/variables";
-
 $date-picker-m: 16px;
 $date-picker-icons-color-actionable: rgba(
   var(--iui-color-text),
-  $uicore-opacity-2
+  var(--iui-opacity-2)
 );
 $date-picker-icons-color-actionable-hover: rgba(
   var(--iui-color-text),
-  $uicore-opacity-1
+  var(--iui-opacity-1)
 );
 $date-picker-outside-month-color: var(--iui-color-text-disabled);
 $outline-size: 2px;
@@ -167,7 +163,7 @@ $outline-size: 2px;
       }
 
       &.today {
-        background-color: rgba(var(--iui-color-text), $uicore-opacity-6);
+        background-color: rgba(var(--iui-color-text), var(--iui-opacity-6));
         font-weight: var(--iui-font-weight-semibold);
         border-radius: 50%;
       }
