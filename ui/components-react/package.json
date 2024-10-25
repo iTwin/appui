@@ -3,6 +3,7 @@
   "version": "5.0.0-dev.0",
   "description": "A react component library of iTwin.js UI data-oriented components",
   "type": "module",
+  "types": "./lib/components-react.d.ts",
   "exports": {
     ".": "./lib/components-react.js",
     "./internal": "./lib/internal.js",

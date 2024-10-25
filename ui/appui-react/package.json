@@ -3,6 +3,7 @@
   "version": "5.0.0-dev.0",
   "description": "A react component library for AppUI framework",
   "type": "module",
+  "types": "./lib/appui-react.d.ts",
   "exports": {
     ".": "./lib/appui-react.js",
     "./package.json": "./package.json",
