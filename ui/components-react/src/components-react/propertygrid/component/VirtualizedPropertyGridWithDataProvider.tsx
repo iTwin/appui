@@ -38,6 +38,7 @@ export interface VirtualizedPropertyGridWithDataProviderProps
   width: number;
   /** Height of the property grid component. */
   height: number;
+  usedEditor?: "old" | "new";
 }
 
 /**
@@ -63,6 +64,7 @@ export function VirtualizedPropertyGridWithDataProvider(
           {...props}
           model={model}
           eventHandler={eventHandler}
+          usedEditor={props.usedEditor ?? "old"}
         />
       )}
     </DelayedLoaderRenderer>

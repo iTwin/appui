@@ -92,6 +92,8 @@ export {
 } from "./components-react/datepicker/DatePickerPopupButton.js";
 export { IntlFormatter } from "./components-react/datepicker/IntlFormatter.js";
 
+export { EditorInterop } from "./components-react/newEditors/EditorInterop.js";
+export * from "./components-react/newEditors/index.js";
 export {
   BooleanEditor,
   BooleanPropertyEditor,

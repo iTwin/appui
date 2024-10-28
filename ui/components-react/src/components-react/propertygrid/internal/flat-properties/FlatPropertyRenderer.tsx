@@ -20,6 +20,8 @@ import type { PropertyCategory } from "../../PropertyDataProvider.js";
 import { FlatNonPrimitivePropertyRenderer } from "./FlatNonPrimitivePropertyRenderer.js";
 import { CustomizablePropertyRenderer } from "../../../properties/renderers/CustomizablePropertyRenderer.js";
 import { Orientation } from "../../../common/Orientation.js";
+import { EditorInterop } from "../../../newEditors/EditorInterop.js";
+import { CommittingEditor } from "../../../newEditors/CommittingEditor.js";
 
 /** Properties of [[FlatPropertyRenderer]] React component
  * @internal
@@ -41,6 +43,7 @@ export interface FlatPropertyRendererProps extends SharedRendererProps {
   ) => void;
   /** Called when property edit is cancelled. */
   onEditCancel?: () => void;
+  usedEditor?: "old" | "new";
   /** Whether property value is displayed in expanded state. */
   isExpanded: boolean;
   /** Called when toggling between expanded and collapsed property value display state. */
@@ -65,7 +68,9 @@ export const FlatPropertyRenderer: React.FC<FlatPropertyRendererProps> = (
   const { propertyValueRendererManager, highlight, ...passthroughProps } =
     props;
 
-  const valueElementRenderer = () => <DisplayValue {...props} />;
+  const valueElementRenderer = () => (
+    <DisplayValue {...props} usedEditor={props.usedEditor ?? "old"} />
+  );
 
   const primitiveRendererProps: PrimitiveRendererProps = {
     ...passthroughProps,
@@ -140,6 +145,7 @@ interface DisplayValueProps {
   onClick?: (property: PropertyRecord, key?: string) => void;
   uniqueKey?: string;
   category?: PropertyCategory;
+  usedEditor: "old" | "new";
   onEditCancel?: () => void;
   onEditCommit?: (
     args: PropertyUpdatedArgs,
@@ -170,6 +176,26 @@ const DisplayValue: React.FC<DisplayValueProps> = (props) => {
     const _onEditCommit = (args: PropertyUpdatedArgs) => {
       if (props.category) props.onEditCommit?.(args, props.category);
     };
+
+    const { metadata, value } = EditorInterop.getMetadataAndValue(
+      props.propertyRecord
+    );
+    if (props.usedEditor === "new" && metadata && value) {
+      return (
+        <CommittingEditor
+          metadata={metadata}
+          value={value}
+          onCommit={(newValue) =>
+            _onEditCommit({
+              propertyRecord: props.propertyRecord,
+              newValue: EditorInterop.convertToPrimitiveValue(newValue),
+            })
+          }
+          onCancel={props.onEditCancel}
+          size="small"
+        />
+      );
+    }
 
     return (
       <EditorContainer
