@@ -13,6 +13,7 @@ import { ECSchemaRpcInterface } from "@itwin/ecschema-rpcinterface-common";
 import { ECSchemaRpcImpl } from "@itwin/ecschema-rpcinterface-impl";
 import { BackendIModelsAccess } from "@itwin/imodels-access-backend";
 import { IModelsClient } from "@itwin/imodels-client-authoring";
+import { Presentation } from "@itwin/presentation-backend";
 
 void (async () => {
   try {
@@ -44,6 +45,8 @@ void (async () => {
     } else {
       await initializeWeb(opts);
     }
+
+    Presentation.initialize();
   } catch (error: any) {
     Logger.logError(loggerCategory, error);
     process.exitCode = 1;

@@ -71,7 +71,7 @@ function Root() {
   const search = Route.useSearch();
   const menu = search.menu !== 0;
   return (
-    <ThemeProvider>
+    <ThemeProvider theme="os">
       <PageLayout>
         {menu && (
           <PageLayout.Header>

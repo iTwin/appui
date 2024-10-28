@@ -44,6 +44,9 @@
     "typescript": "~5.6.2",
     "eslint-config-prettier": "~8.8.0"
   },
+  "peerDependencies": {
+    "@itwin/presentation-components": "^5.0.0"
+  },
   "dependencies": {
     "@bentley/icons-generic": "^1.0.34",
     "@itwin/core-bentley": "^4.0.0",
@@ -59,6 +62,7 @@
     "@itwin/imodel-components-react": "workspace:*",
     "@itwin/itwinui-react": "^3.15.0",
     "@itwin/itwinui-icons-react": "^2.8.0",
+    "@itwin/presentation-components": "^5.0.0",
     "@itwin/webgl-compatibility": "^4.0.0",
     "classnames": "2.5.1",
     "react": "^18.3.1",
