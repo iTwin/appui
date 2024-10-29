@@ -463,6 +463,7 @@ export class ViewSelector extends React.Component<
         title={this.state.title}
         setEnabled={this._setEnabled}
         items={this.state.items}
+        // eslint-disable-next-line deprecation/deprecation
         icon={<Icon iconSpec={<SvgSavedView />} />}
         onExpanded={this._onExpanded}
         searchBox={this.state.searchBox}
