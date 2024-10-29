@@ -2,12 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
-@import "~@itwin/core-react/lib/cjs/core-react/scrollbar";
-
-$component-examples-leftpanel-width: 225px;
-$component-examples-rightpanel-width: 200px;
-
 .component-examples {
   width: 100%;
   height: 100%;
@@ -24,9 +18,6 @@ $component-examples-rightpanel-width: 200px;
 
     height: 100%;
     overflow-y: auto;
-
-    @include uicore-touch-scrolling;
-    @include uicore-scrollbar();
   }
 
   .component-examples-items {
@@ -35,9 +26,6 @@ $component-examples-rightpanel-width: 200px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-
-    @include uicore-touch-scrolling;
-    @include uicore-scrollbar();
 
     .component-examples-item {
       display: flex;
@@ -50,7 +38,7 @@ $component-examples-rightpanel-width: 200px;
       > .left-panel {
         flex: 1;
         flex-direction: column;
-        min-width: $component-examples-leftpanel-width;
+        min-width: 225px;
         padding: 15px;
 
         > .title {
@@ -67,7 +55,7 @@ $component-examples-rightpanel-width: 200px;
       > .right-panel {
         flex: 4;
         align-items: center;
-        min-width: $component-examples-rightpanel-width;
+        min-width: 200px;
         padding: 15px;
       }
     }

@@ -2,19 +2,17 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@use "sass:math";
+@forward "./style/index";
 
-@import "./style/index";
+@forward "./_scrollbar";
+@forward "./_z-index";
+@forward "./_geometry";
+@forward "./_math";
+@forward "./_typography";
 
-@import "./_scrollbar";
-@import "./_z-index";
-@import "./_geometry";
-@import "./_math";
-@import "./_typography";
-
-@import "./base/index";
-@import "./icons/index";
-@import "./inputs/index";
-@import "./loading/index";
-@import "./tabs/index";
-@import "./text/index";
+@forward "./base/index";
+@forward "./icons/index";
+@forward "./inputs/index";
+@forward "./loading/index";
+@forward "./tabs/index";
+@forward "./text/index";

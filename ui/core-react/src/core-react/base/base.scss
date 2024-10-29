@@ -2,7 +2,9 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "../_scrollbar";
+@use "../_scrollbar";
+
+@forward "../_scrollbar";
 
 @mixin uicore-centered {
   display: flex;
@@ -32,8 +34,8 @@
   @include uicore-full-size;
   overflow-y: auto;
 
-  @include uicore-touch-scrolling;
-  @include uicore-scrollbar();
+  @include scrollbar.uicore-touch-scrolling;
+  @include scrollbar.uicore-scrollbar();
 }
 
 @mixin uicore-flex-wrap-container {

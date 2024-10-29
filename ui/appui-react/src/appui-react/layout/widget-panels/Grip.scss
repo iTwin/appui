@@ -2,8 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
-@import "variables";
+@use "variables" as *;
 
 $line-grip-translate: 1px;
 $full-bar-width: calc(#{$nz-grip-width} * 0.5);

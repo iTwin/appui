@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 @use "sass:math";
-@import "variables";
+@use "variables" as *;
 
 .components-toolbar-item-expandable-group-tool-expander {
   > .components-expansion-indicator {

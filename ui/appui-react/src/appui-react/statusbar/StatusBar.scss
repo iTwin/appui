@@ -2,8 +2,8 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/core-react/lib/cjs/core-react/style/index";
-@import "../layout/safearea";
+@use "~@itwin/core-react/lib/core-react/style/breakpoints" as *;
+@use "../layout/safearea" as *;
 
 .uifw-statusBar {
   display: flex;

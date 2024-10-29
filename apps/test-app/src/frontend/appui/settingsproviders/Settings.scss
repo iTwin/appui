@@ -2,13 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/core-react/lib/cjs/core-react/base/base";
-
-// cspell:ignore leftpanel rightpanel
-
-$settings-leftpanel-width: 225px;
-$settings-rightpanel-width: 220px;
-
 .components-settings-container {
   height: calc(100% - 50px);
   overflow: hidden;
@@ -34,7 +27,7 @@ $settings-rightpanel-width: 220px;
 
   > .left-panel {
     flex-direction: column;
-    min-width: $settings-leftpanel-width;
+    min-width: 225px;
     padding: 20px 15px 20px 15px;
 
     > .title {
@@ -51,7 +44,7 @@ $settings-rightpanel-width: 220px;
   > .right-panel {
     display: flex;
     align-items: center;
-    min-width: $settings-rightpanel-width;
+    min-width: 220px;
     padding: 30px 50px 30px 30px;
 
     .toggle {
