@@ -2,6 +2,8 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+@use "sass:map";
+@use "sass:meta";
 
 // Generates map from array.
 // Key of each entry is ($array entry value: result of $fn call).
@@ -19,9 +21,9 @@
   $map: ();
   @each $item in $array {
     $kvp: (
-      $item: call($fn, $args...),
+      $item: meta.call($fn, $args...),
     );
-    $map: map-merge($map, $kvp);
+    $map: map.merge($map, $kvp);
   }
   @return $map;
 }
@@ -42,11 +44,11 @@
   $map: ();
   $result: $initialArg;
   @each $item in $array {
-    $result: call($fn, $result);
+    $result: meta.call($fn, $result);
     $kvp: (
       $item: $result,
     );
-    $map: map-merge($map, $kvp);
+    $map: map.merge($map, $kvp);
   }
   @return $map;
 }

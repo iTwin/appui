@@ -2,8 +2,11 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "../style/index";
-@import "../icons/variables";
+@use "../style/baseline";
+@use "../icons/variables";
+
+@forward "../style/index";
+@forward "../icons/variables";
 
 @mixin uicore-tabs {
   display: block;
@@ -27,8 +30,8 @@
     > a {
       display: block;
       position: relative;
-      padding: $uicore-bordered-padding calc(var(--iui-font-size-1) - 1px)
-        $uicore-unbordered-padding;
+      padding: baseline.$uicore-bordered-padding
+        calc(var(--iui-font-size-1) - 1px) baseline.$uicore-unbordered-padding;
       margin: 0;
       line-height: var(--iui-size-l);
       color: var(--iui-color-text);
@@ -44,8 +47,8 @@
         }
 
         .uicore-tabs-icon {
-          width: ($uicore-icons-small + 12px);
-          height: ($uicore-icons-small + 12px);
+          width: (variables.$uicore-icons-small + 12px);
+          height: (variables.$uicore-icons-small + 12px);
           display: flex;
           align-items: center;
         }

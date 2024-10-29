@@ -2,9 +2,8 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "../z-index";
-@import "../style/themecolors";
-@import "../icons/variables";
+@use "../z-index" as *;
+@use "../icons/variables" as *;
 
 .core-radial-menu {
   visibility: hidden;

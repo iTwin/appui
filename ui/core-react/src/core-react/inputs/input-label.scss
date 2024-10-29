@@ -2,12 +2,14 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "../style/index";
+@use "../style/baseline";
+
+@forward "../style/index";
 
 @mixin uicore-inputs-labeled-input {
   display: block;
   padding: 0;
-  margin: 0 0 $uicore-unbordered-padding;
+  margin: 0 0 baseline.$uicore-unbordered-padding;
   text-align: left;
   font-size: var(--iui-font-size-1);
   font-weight: var(--iui-font-weight-normal);
@@ -33,8 +35,12 @@
 
     &.with-icon {
       > input {
-        padding-right: calc(#{$uicore-bordered-padding} + var(--iui-size-l));
-        margin-right: calc(#{$uicore-bordered-padding} + var(--iui-size-l));
+        padding-right: calc(
+          #{baseline.$uicore-bordered-padding} + var(--iui-size-l)
+        );
+        margin-right: calc(
+          #{baseline.$uicore-bordered-padding} + var(--iui-size-l)
+        );
       }
     }
 
@@ -45,7 +51,7 @@
       right: 0;
       top: 0;
       bottom: 0;
-      padding: $uicore-bordered-padding;
+      padding: baseline.$uicore-bordered-padding;
 
       font-size: var(--iui-font-size-1);
       font-weight: normal;
@@ -81,7 +87,7 @@
 
         &:focus {
           border-color: rgb($color);
-          box-shadow: rgba($color, $uicore-opacity-boxshadow) 0px 0px 0px 2px;
+          box-shadow: rgba($color, var(--iui-opacity-4)) 0px 0px 0px 2px;
         }
       }
     }

@@ -2,24 +2,26 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "./variables";
+@use "./variables";
+
+@forward "./variables";
 
 @mixin uicore-icons-small {
-  width: $uicore-icons-small;
-  height: $uicore-icons-small;
+  width: variables.$uicore-icons-small;
+  height: variables.$uicore-icons-small;
 }
 
 @mixin uicore-icons-medium {
-  width: $uicore-icons-medium;
-  height: $uicore-icons-medium;
+  width: variables.$uicore-icons-medium;
+  height: variables.$uicore-icons-medium;
 }
 
 @mixin uicore-icons-large {
-  width: $uicore-icons-large;
-  height: $uicore-icons-large;
+  width: variables.$uicore-icons-large;
+  height: variables.$uicore-icons-large;
 }
 
 @mixin uicore-icons-x-large {
-  width: $uicore-icons-x-large;
-  height: $uicore-icons-x-large;
+  width: variables.$uicore-icons-x-large;
+  height: variables.$uicore-icons-x-large;
 }

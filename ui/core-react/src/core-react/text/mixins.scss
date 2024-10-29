@@ -2,7 +2,9 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "../style/themecolors";
+@use "sass:map";
+
+@forward "../style/themecolors";
 
 @mixin uicore-text-block-spacing {
   padding: 0;
@@ -15,9 +17,9 @@
     small: var(--iui-font-size-0),
   );
 
-  $type: if(map-has-key($sizes, $type), $type, body);
+  $type: if(map.has-key($sizes, $type), $type, body);
 
-  font-size: map-get($sizes, $type);
+  font-size: map.get($sizes, $type);
   font-weight: var(--iui-font-weight-normal);
   line-height: var(--iui-size-l);
   color: var(--iui-color-text);
