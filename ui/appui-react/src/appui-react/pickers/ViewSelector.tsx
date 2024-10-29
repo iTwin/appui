@@ -21,6 +21,7 @@ import { debounce } from "lodash";
 import { SvgSavedView } from "../icons/SvgSavedView.js";
 import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState.js";
 import type { ListenerType } from "@itwin/core-react/internal";
+import { Icon } from "@itwin/core-react";
 
 // cSpell:ignore Spatials
 
@@ -462,7 +463,7 @@ export class ViewSelector extends React.Component<
         title={this.state.title}
         setEnabled={this._setEnabled}
         items={this.state.items}
-        icon={<SvgSavedView />}
+        icon={<Icon iconSpec={<SvgSavedView />} />}
         onExpanded={this._onExpanded}
         searchBox={this.state.searchBox}
         onSearchValueChange={debounce((search: string) => {
