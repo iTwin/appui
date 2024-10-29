@@ -9,15 +9,13 @@
 import * as React from "react";
 
 /** @internal */
-export function CubeFaceBottom() {
+export function SvgSavedView() {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-      <polygon
-        points="0.56 12.31 5.25 15.56 15.25 13.5 10.06 10.44 0.56 12.31"
-        opacity="0.33"
-        style={{ isolation: "isolate" }}
-      />
-      <path d="M11,0H10L0,2V13l5,3H6l10-2V3Zm4,12.62-4-2.19V5l4-.8Zm-.49-9.35L11,4V1.17ZM10,1V4.19L6,5,1.69,2.68Zm0,4.2V10l-4,.8V6ZM5,5.56V11l-4,.8V3.37ZM1.49,12.73,5,12v2.82ZM6,11.81,10,11l4.32,2.32L6,15Z" />
+      <path d="M15,0H1A1,1,0,0,0,0,1V15a1,1,0,0,0,1,1H15a1,1,0,0,0,1-1V1A1,1,0,0,0,15,0Zm0,11-4,4H5L1,11V5L5,1h6l4,4Z" />
+      <path d="m2 10.5l2.5-3 2.5 3" />
+      <path d="m7.77 9.86l.53.64h5.7l-4.5-6-2.94 3.91" />
+      <path d="M2,11H14l-1,1H3Z" />
     </svg>
   );
 }

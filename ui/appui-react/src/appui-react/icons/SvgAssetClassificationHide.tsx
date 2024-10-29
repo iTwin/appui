@@ -9,7 +9,7 @@
 import * as React from "react";
 
 /** @internal */
-export function AssetClassificationHide() {
+export function SvgAssetClassificationHide() {
   return (
     <svg
       version="1.1"

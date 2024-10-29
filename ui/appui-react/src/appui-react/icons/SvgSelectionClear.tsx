@@ -9,7 +9,7 @@
 import * as React from "react";
 
 /** @internal */
-export function SelectionClear() {
+export function SvgSelectionClear() {
   return (
     <svg
       id="Calque_1"

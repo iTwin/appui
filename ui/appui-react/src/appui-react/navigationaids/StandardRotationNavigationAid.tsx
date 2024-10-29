@@ -6,14 +6,14 @@
  * @module NavigationAids
  */
 
-import { CubeFaceBottom } from "../icons/cube-faces/CubeFaceBottom.js";
-import { CubeFaceFront } from "../icons/cube-faces/CubeFaceFront.js";
-import { CubeFaceIsoLeft } from "../icons/cube-faces/CubeFaceIsoLeft.js";
-import { CubeFaceIsoRight } from "../icons/cube-faces/CubeFaceIsoRight.js";
-import { CubeFaceLeft } from "../icons/cube-faces/CubeFaceLeft.js";
-import { CubeFaceRear } from "../icons/cube-faces/CubeFaceRear.js";
-import { CubeFaceRight } from "../icons/cube-faces/CubeFaceRight.js";
-import { CubeFaceTop } from "../icons/cube-faces/CubeFaceTop.js";
+import { SvgCubeFaceBottom } from "../icons/cube-faces/SvgCubeFaceBottom.js";
+import { SvgCubeFaceFront } from "../icons/cube-faces/SvgCubeFaceFront.js";
+import { SvgCubeFaceIsoLeft } from "../icons/cube-faces/SvgCubeFaceIsoLeft.js";
+import { SvgCubeFaceIsoRight } from "../icons/cube-faces/SvgCubeFaceIsoRight.js";
+import { SvgCubeFaceLeft } from "../icons/cube-faces/SvgCubeFaceLeft.js";
+import { SvgCubeFaceRear } from "../icons/cube-faces/SvgCubeFaceRear.js";
+import { SvgCubeFaceRight } from "../icons/cube-faces/SvgCubeFaceRight.js";
+import { SvgCubeFaceTop } from "../icons/cube-faces/SvgCubeFaceTop.js";
 import { RelativePosition, ToolbarItemUtilities } from "@itwin/appui-abstract";
 import {
   Columns,
@@ -76,35 +76,35 @@ export class StandardRotationNavigationAid extends React.Component<
     const list: RotationData[] = [
       {
         label: UiFramework.translate("rotations.top"),
-        iconsSpec: <CubeFaceTop />,
+        iconsSpec: <SvgCubeFaceTop />,
       },
       {
         label: UiFramework.translate("rotations.bottom"),
-        iconsSpec: <CubeFaceBottom />,
+        iconsSpec: <SvgCubeFaceBottom />,
       },
       {
         label: UiFramework.translate("rotations.left"),
-        iconsSpec: <CubeFaceLeft />,
+        iconsSpec: <SvgCubeFaceLeft />,
       },
       {
         label: UiFramework.translate("rotations.right"),
-        iconsSpec: <CubeFaceRight />,
+        iconsSpec: <SvgCubeFaceRight />,
       },
       {
         label: UiFramework.translate("rotations.front"),
-        iconsSpec: <CubeFaceFront />,
+        iconsSpec: <SvgCubeFaceFront />,
       },
       {
         label: UiFramework.translate("rotations.rear"),
-        iconsSpec: <CubeFaceRear />,
+        iconsSpec: <SvgCubeFaceRear />,
       },
       {
         label: UiFramework.translate("rotations.isoLeft"),
-        iconsSpec: <CubeFaceIsoLeft />,
+        iconsSpec: <SvgCubeFaceIsoLeft />,
       },
       {
         label: UiFramework.translate("rotations.isoRight"),
-        iconsSpec: <CubeFaceIsoRight />,
+        iconsSpec: <SvgCubeFaceIsoRight />,
       },
     ];
     this.state = {

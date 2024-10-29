@@ -9,7 +9,7 @@
 import * as React from "react";
 
 /** @internal */
-export function LayersIsolate() {
+export function SvgLayersIsolate() {
   return (
     <svg
       version="1.1"

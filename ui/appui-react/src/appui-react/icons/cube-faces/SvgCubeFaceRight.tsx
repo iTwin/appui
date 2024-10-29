@@ -9,11 +9,11 @@
 import * as React from "react";
 
 /** @internal */
-export function CubeFaceRear() {
+export function SvgCubeFaceRight() {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
       <polygon
-        points="0.53 2.5 0.53 12.31 10.47 10.34 10.47 0.5 0.53 2.5"
+        points="10.5 0.5 10.5 10.54 15.5 13.42 15.5 3.46 10.5 0.5"
         opacity="0.33"
         style={{ isolation: "isolate" }}
       />

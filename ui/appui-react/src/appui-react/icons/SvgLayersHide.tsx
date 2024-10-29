@@ -9,7 +9,7 @@
 import * as React from "react";
 
 /** @internal */
-export function LayersHide() {
+export function SvgLayersHide() {
   return (
     <svg
       version="1.1"

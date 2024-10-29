@@ -9,7 +9,7 @@
 import * as React from "react";
 
 /** @internal */
-export function SectionTool() {
+export function SvgSectionTool() {
   return (
     <svg
       id="Calque_1"

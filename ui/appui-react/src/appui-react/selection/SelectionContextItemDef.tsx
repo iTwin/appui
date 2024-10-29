@@ -13,13 +13,13 @@ import type { BaseItemState } from "../shared/ItemDefBase.js";
 import { SyncUiEventId } from "../syncui/SyncUiEventDispatcher.js";
 import { GroupItemDef } from "../toolbar/GroupItem.js";
 import { UiFramework } from "../UiFramework.js";
-import { ModelIsolate } from "../icons/ModelIsolate.js";
-import { LayersIsolate } from "../icons/LayersIsolate.js";
-import { AssetIsolate } from "../icons/AssetIsolate.js";
+import { SvgModelIsolate } from "../icons/SvgModelIsolate.js";
+import { SvgLayersIsolate } from "../icons/SvgLayersIsolate.js";
+import { SvgAssetIsolate } from "../icons/SvgAssetIsolate.js";
 import { SvgIsolate } from "@itwin/itwinui-icons-react";
-import { ModelHide } from "../icons/ModelHide.js";
-import { LayersHide } from "../icons/LayersHide.js";
-import { AssetClassificationHide } from "../icons/AssetClassificationHide.js";
+import { SvgModelHide } from "../icons/SvgModelHide.js";
+import { SvgLayersHide } from "../icons/SvgLayersHide.js";
+import { SvgAssetClassificationHide } from "../icons/SvgAssetClassificationHide.js";
 import { SvgVisibilityHalf } from "@itwin/itwinui-icons-react";
 import { SvgVisibilityHide } from "@itwin/itwinui-icons-react";
 import { SvgVisibilityShow } from "@itwin/itwinui-icons-react";
@@ -162,7 +162,7 @@ export class SelectionContextToolDefinitions {
   public static get isolateModelsInSelectionItemDef() {
     return new CommandItemDef({
       commandId: "UiFramework.IsolateModel",
-      iconSpec: <ModelIsolate />,
+      iconSpec: <SvgModelIsolate />,
       labelKey: "UiFramework:tools.isolateModels",
       execute: async () =>
         UiFramework.hideIsolateEmphasizeActionHandler.processIsolateSelectedElementsModel(),
@@ -172,7 +172,7 @@ export class SelectionContextToolDefinitions {
   public static get isolateCategoriesInSelectionItemDef() {
     return new CommandItemDef({
       commandId: "UiFramework.IsolateCategory",
-      iconSpec: <LayersIsolate />,
+      iconSpec: <SvgLayersIsolate />,
       labelKey: "UiFramework:tools.isolateCategories",
       execute: async () =>
         UiFramework.hideIsolateEmphasizeActionHandler.processIsolateSelectedElementsCategory(),
@@ -182,7 +182,7 @@ export class SelectionContextToolDefinitions {
   public static get isolateElementsItemDef() {
     return new CommandItemDef({
       commandId: "UiFramework.IsolateSelected",
-      iconSpec: <AssetIsolate />,
+      iconSpec: <SvgAssetIsolate />,
       labelKey: "UiFramework:tools.isolateSelected",
       isHidden: getIsHiddenIfSelectionNotActive(),
       execute: async () =>
@@ -208,7 +208,7 @@ export class SelectionContextToolDefinitions {
   public static get hideModelsInSelectionItemDef() {
     return new CommandItemDef({
       commandId: "UiFramework.HideModel",
-      iconSpec: <ModelHide />,
+      iconSpec: <SvgModelHide />,
       labelKey: "UiFramework:tools.hideModels",
       execute: async () =>
         UiFramework.hideIsolateEmphasizeActionHandler.processHideSelectedElementsModel(),
@@ -218,7 +218,7 @@ export class SelectionContextToolDefinitions {
   public static get hideCategoriesInSelectionItemDef() {
     return new CommandItemDef({
       commandId: "UiFramework.HideCategory",
-      iconSpec: <LayersHide />,
+      iconSpec: <SvgLayersHide />,
       labelKey: "UiFramework:tools.hideCategories",
       execute: async () =>
         UiFramework.hideIsolateEmphasizeActionHandler.processHideSelectedElementsCategory(),
@@ -228,7 +228,7 @@ export class SelectionContextToolDefinitions {
   public static get hideElementsItemDef() {
     return new CommandItemDef({
       commandId: "UiFramework.HideSelected",
-      iconSpec: <AssetClassificationHide />,
+      iconSpec: <SvgAssetClassificationHide />,
       labelKey: "UiFramework:tools.hideSelected",
       isHidden: getIsHiddenIfSelectionNotActive(),
       execute: async () =>

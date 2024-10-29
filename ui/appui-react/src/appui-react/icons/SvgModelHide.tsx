@@ -9,7 +9,7 @@
 import * as React from "react";
 
 /** @internal */
-export function ModelHide() {
+export function SvgModelHide() {
   return (
     <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
       <path

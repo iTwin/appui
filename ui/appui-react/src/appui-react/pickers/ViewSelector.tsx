@@ -18,7 +18,7 @@ import { ViewUtilities } from "../utils/ViewUtilities.js";
 import type { ListItem } from "./ListPicker.js";
 import { ListItemType, ListPicker } from "./ListPicker.js";
 import { debounce } from "lodash";
-import { SavedView } from "../icons/SavedView.js";
+import { SvgSavedView } from "../icons/SvgSavedView.js";
 import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState.js";
 import type { ListenerType } from "@itwin/core-react/internal";
 
@@ -462,7 +462,7 @@ export class ViewSelector extends React.Component<
         title={this.state.title}
         setEnabled={this._setEnabled}
         items={this.state.items}
-        iconSpec={<SavedView />}
+        icon={<SvgSavedView />}
         onExpanded={this._onExpanded}
         searchBox={this.state.searchBox}
         onSearchValueChange={debounce((search: string) => {
