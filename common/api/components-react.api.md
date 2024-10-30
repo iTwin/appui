@@ -260,6 +260,7 @@ export interface CommonPropertyGridProps extends CommonProps {
     onPropertyUpdated?: (args: PropertyUpdatedArgs, category: PropertyCategory) => Promise<boolean>;
     orientation?: Orientation;
     propertyValueRendererManager?: PropertyValueRendererManager;
+    showOnlyEditor?: (editorName?: string) => boolean;
 }
 
 // @public
@@ -2328,6 +2329,7 @@ export interface SharedRendererProps {
     columnInfo?: PropertyGridColumnInfo;
     columnRatio?: number;
     isHoverable?: boolean;
+    isPropertyEditingEnabled?: boolean;
     isResizeHandleBeingDragged?: boolean;
     isResizeHandleHovered?: boolean;
     isSelectable?: boolean;
@@ -2342,6 +2344,7 @@ export interface SharedRendererProps {
     onRightClick?: (property: PropertyRecord, key?: string) => void;
     orientation: Orientation;
     propertyRecord: PropertyRecord;
+    showOnlyEditor?: (editorName?: string) => boolean;
     uniqueKey?: string;
     width?: number;
 }
@@ -3275,6 +3278,8 @@ export interface VirtualizedPropertyGridContext {
     // (undocumented)
     highlight?: PropertyGridContentHighlightProps;
     // (undocumented)
+    isPropertyEditingEnabled?: boolean;
+    // (undocumented)
     isPropertyHoverEnabled: boolean;
     // (undocumented)
     isPropertySelectionEnabled: boolean;
@@ -3308,6 +3313,8 @@ export interface VirtualizedPropertyGridContext {
     propertyValueRendererManager?: PropertyValueRendererManager;
     // (undocumented)
     selectedPropertyKey?: string;
+    // (undocumented)
+    showOnlyEditor?: (editorName?: string) => boolean;
 }
 
 // @public
