@@ -67,7 +67,7 @@ export interface SharedRendererProps {
   /** Information for styling property grid columns */
   columnInfo?: PropertyGridColumnInfo;
   /** Callback to determine which editors should be always visible */
-  showOnlyEditor?: (editorName?: string) => boolean;
+  showOnlyEditor?: (property: PropertyRecord) => boolean;
 }
 
 /** Properties of [[PropertyRenderer]] React component

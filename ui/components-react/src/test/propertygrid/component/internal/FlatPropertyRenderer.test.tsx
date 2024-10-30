@@ -375,7 +375,9 @@ describe("FlatPropertyRenderer", () => {
         propertyRecord={textPropertyRecord}
         isEditing={false}
         isPropertyEditingEnabled={true}
-        showOnlyEditor={(editorName) => editorName === "textEditor"}
+        showOnlyEditor={(property) =>
+          property.property.editor?.name === "textEditor"
+        }
         isExpanded={false}
         onExpansionToggled={() => {}}
       />

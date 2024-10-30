@@ -111,7 +111,7 @@ export interface VirtualizedPropertyGridContext {
   selectedPropertyKey?: string;
   isPropertyEditingEnabled?: boolean;
 
-  showOnlyEditor?: (editorName?: string) => boolean;
+  showOnlyEditor?: (property: PropertyRecord) => boolean;
   onPropertyClicked?: (property: PropertyRecord, key?: string) => void;
   onPropertyRightClicked?: (property: PropertyRecord, key?: string) => void;
   onPropertyContextMenu?: (

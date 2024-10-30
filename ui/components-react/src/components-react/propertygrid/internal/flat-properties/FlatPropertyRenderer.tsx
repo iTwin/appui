@@ -33,7 +33,7 @@ export interface FlatPropertyRendererProps extends SharedRendererProps {
   /** Indicates property is being edited */
   isEditing?: boolean;
   /** Callback to determine which editors should be always visible */
-  showOnlyEditor?: (editorName?: string) => boolean;
+  showOnlyEditor?: (property: PropertyRecord) => boolean;
   /** Called when property edit is committed. */
   onEditCommit?: (
     args: PropertyUpdatedArgs,
@@ -125,7 +125,7 @@ export const FlatPropertyRenderer: React.FC<FlatPropertyRendererProps> = (
 interface DisplayValueProps {
   isEditing?: boolean;
   isPropertyEditingEnabled?: boolean;
-  showOnlyEditor?: (editorName?: string) => boolean;
+  showOnlyEditor?: (property: PropertyRecord) => boolean;
   propertyRecord: PropertyRecord;
 
   orientation: Orientation;
@@ -157,14 +157,10 @@ const DisplayValue: React.FC<DisplayValueProps> = (props) => {
     props.isEditing,
     props.onHeightChanged
   );
-  const editorName =
-    props.propertyRecord.property.editor !== undefined
-      ? props.propertyRecord.property.editor.name
-      : undefined;
 
   if (
     props.showOnlyEditor && props.isPropertyEditingEnabled
-      ? props.showOnlyEditor(editorName)
+      ? props.showOnlyEditor(props.propertyRecord)
       : false || props.isEditing
   ) {
     const _onEditCommit = (args: PropertyUpdatedArgs) => {
