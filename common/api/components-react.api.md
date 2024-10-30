@@ -260,7 +260,7 @@ export interface CommonPropertyGridProps extends CommonProps {
     onPropertyUpdated?: (args: PropertyUpdatedArgs, category: PropertyCategory) => Promise<boolean>;
     orientation?: Orientation;
     propertyValueRendererManager?: PropertyValueRendererManager;
-    showOnlyEditor?: (editorName?: string) => boolean;
+    showOnlyEditor?: (property?: PropertyRecord) => boolean;
 }
 
 // @public
@@ -2344,7 +2344,7 @@ export interface SharedRendererProps {
     onRightClick?: (property: PropertyRecord, key?: string) => void;
     orientation: Orientation;
     propertyRecord: PropertyRecord;
-    showOnlyEditor?: (editorName?: string) => boolean;
+    showOnlyEditor?: (property?: PropertyRecord) => boolean;
     uniqueKey?: string;
     width?: number;
 }
@@ -3314,7 +3314,7 @@ export interface VirtualizedPropertyGridContext {
     // (undocumented)
     selectedPropertyKey?: string;
     // (undocumented)
-    showOnlyEditor?: (editorName?: string) => boolean;
+    showOnlyEditor?: (property?: PropertyRecord) => boolean;
 }
 
 // @public
