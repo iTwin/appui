@@ -12,16 +12,10 @@ import { PropertyValueFormat, StandardTypeNames } from "@itwin/appui-abstract";
 import type {
   IPropertyValueRenderer,
   PropertyValueRendererContext,
-<<<<<<< HEAD
 } from "../../ValueRendererManager";
 import { PrimitivePropertyValueRendererImpl } from "./PrimitivePropertyValueRenderer";
 import { convertRecordToString } from "./Common";
-=======
-} from "../../ValueRendererManager.js";
-import { PrimitivePropertyValueRendererImpl } from "./PrimitivePropertyValueRenderer.js";
-import { convertRecordToString } from "./Common.js";
-import { openLink } from "../../../common/Links.js";
->>>>>>> 673112cd7 (Fixed `pw:` links handling in property grid (#1091))
+import { openLink } from "../../../common/Links";
 
 /**
  * URL property value renderer that renders the whole value as a URL without matching it
