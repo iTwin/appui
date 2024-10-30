@@ -109,7 +109,9 @@ export interface VirtualizedPropertyGridContext {
   isPropertyHoverEnabled: boolean;
   isPropertySelectionEnabled: boolean;
   selectedPropertyKey?: string;
+  isPropertyEditingEnabled?: boolean;
 
+  showOnlyEditor?: (editorName?: string) => boolean;
   onPropertyClicked?: (property: PropertyRecord, key?: string) => void;
   onPropertyRightClicked?: (property: PropertyRecord, key?: string) => void;
   onPropertyContextMenu?: (
@@ -372,7 +374,9 @@ export class VirtualizedPropertyGrid extends React.Component<
                 isPropertySelectionEnabled:
                   selectionContext.isPropertySelectionEnabled,
                 selectedPropertyKey: selectionContext.selectedPropertyKey,
+                isPropertyEditingEnabled: this.props.isPropertyEditingEnabled,
 
+                showOnlyEditor: this.props.showOnlyEditor,
                 onPropertyClicked: selectionContext.onPropertyClicked,
                 onPropertyRightClicked: selectionContext.onPropertyRightClicked,
                 onPropertyContextMenu: selectionContext.onPropertyContextMenu,
@@ -602,6 +606,8 @@ const FlatGridItemNode = React.memo(
                 onContextMenu={gridContext.onPropertyContextMenu}
                 category={parentCategoryItem.derivedCategory}
                 isEditing={selectionKey === gridContext.editingPropertyKey}
+                isPropertyEditingEnabled={gridContext.isPropertyEditingEnabled}
+                showOnlyEditor={gridContext.showOnlyEditor}
                 onEditCommit={gridContext.onEditCommit}
                 onEditCancel={gridContext.onEditCancel}
                 isExpanded={node.isExpanded}

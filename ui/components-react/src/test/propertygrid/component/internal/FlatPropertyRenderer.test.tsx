@@ -362,6 +362,30 @@ describe("FlatPropertyRenderer", () => {
     );
   });
 
+  it("renders an editor at all times", () => {
+    const textPropertyRecord = TestUtils.createPrimitiveStringProperty(
+      "Label",
+      "Model",
+      "DisplayValue",
+      { name: "textEditor" }
+    );
+    render(
+      <FlatPropertyRenderer
+        orientation={Orientation.Horizontal}
+        propertyRecord={textPropertyRecord}
+        isEditing={false}
+        isPropertyEditingEnabled={true}
+        showOnlyEditor={(editorName) => editorName === "textEditor"}
+        isExpanded={false}
+        onExpansionToggled={() => {}}
+      />
+    );
+
+    expect(screen.getByRole("textbox")).satisfy(
+      selectorMatches(".components-text-editor")
+    );
+  });
+
   it("calls onEditCommit on Enter key when editing", async () => {
     const spy = vi.fn();
     const propertyRenderer = render(

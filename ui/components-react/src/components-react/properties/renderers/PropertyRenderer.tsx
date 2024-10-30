@@ -56,6 +56,8 @@ export interface SharedRendererProps {
   actionButtonRenderers?: ActionButtonRenderer[];
   /** Is resize handle hovered */
   isResizeHandleHovered?: boolean;
+  /** Enables/disables property editing */
+  isPropertyEditingEnabled?: boolean;
   /** Callback to hover event change */
   onResizeHandleHoverChanged?: (isHovered: boolean) => void;
   /** Is resize handle being dragged */
@@ -64,6 +66,8 @@ export interface SharedRendererProps {
   onResizeHandleDragChanged?: (isDragStarted: boolean) => void;
   /** Information for styling property grid columns */
   columnInfo?: PropertyGridColumnInfo;
+  /** Callback to determine which editors should be always visible */
+  showOnlyEditor?: (editorName?: string) => boolean;
 }
 
 /** Properties of [[PropertyRenderer]] React component

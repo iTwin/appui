@@ -32,6 +32,8 @@ export interface FlatPropertyRendererProps extends SharedRendererProps {
   indentation?: number;
   /** Indicates property is being edited */
   isEditing?: boolean;
+  /** Callback to determine which editors should be always visible */
+  showOnlyEditor?: (editorName?: string) => boolean;
   /** Called when property edit is committed. */
   onEditCommit?: (
     args: PropertyUpdatedArgs,
@@ -60,35 +62,10 @@ export interface FlatPropertyRendererProps extends SharedRendererProps {
 export const FlatPropertyRenderer: React.FC<FlatPropertyRendererProps> = (
   props
 ) => {
-  const {
-    category,
-    propertyValueRendererManager,
-    isEditing,
-    onEditCommit,
-    onEditCancel,
-    onHeightChanged,
-    highlight,
-    ...passthroughProps
-  } = props;
+  const { propertyValueRendererManager, highlight, ...passthroughProps } =
+    props;
 
-  const valueElementRenderer = () => (
-    <DisplayValue
-      propertyRecord={passthroughProps.propertyRecord}
-      orientation={passthroughProps.orientation}
-      columnRatio={passthroughProps.columnRatio}
-      width={passthroughProps.width}
-      category={category}
-      propertyValueRendererManager={propertyValueRendererManager}
-      isEditing={isEditing}
-      onEditCommit={onEditCommit}
-      onEditCancel={onEditCancel}
-      isExpanded={passthroughProps.isExpanded}
-      onExpansionToggled={passthroughProps.onExpansionToggled}
-      onHeightChanged={onHeightChanged}
-      highlight={highlight}
-      indentation={props.indentation}
-    />
-  );
+  const valueElementRenderer = () => <DisplayValue {...props} />;
 
   const primitiveRendererProps: PrimitiveRendererProps = {
     ...passthroughProps,
@@ -147,6 +124,8 @@ export const FlatPropertyRenderer: React.FC<FlatPropertyRendererProps> = (
 
 interface DisplayValueProps {
   isEditing?: boolean;
+  isPropertyEditingEnabled?: boolean;
+  showOnlyEditor?: (editorName?: string) => boolean;
   propertyRecord: PropertyRecord;
 
   orientation: Orientation;
@@ -178,35 +157,45 @@ const DisplayValue: React.FC<DisplayValueProps> = (props) => {
     props.isEditing,
     props.onHeightChanged
   );
+  const editorName =
+    props.propertyRecord.property.editor !== undefined
+      ? props.propertyRecord.property.editor.name
+      : undefined;
 
-  if (props.isEditing) {
+  if (
+    props.showOnlyEditor && props.isPropertyEditingEnabled
+      ? props.showOnlyEditor(editorName)
+      : false || props.isEditing
+  ) {
     const _onEditCommit = (args: PropertyUpdatedArgs) => {
       if (props.category) props.onEditCommit?.(args, props.category);
     };
+
+    const setFocus = props.showOnlyEditor
+      ? props.isEditing
+        ? true
+        : false
+      : true;
 
     return (
       <EditorContainer
         propertyRecord={props.propertyRecord}
         onCommit={_onEditCommit}
         onCancel={props.onEditCancel ?? (() => {})}
-        setFocus={true}
+        setFocus={setFocus}
       />
     );
   }
 
-  return (
-    <>
-      {CommonPropertyRenderer.createNewDisplayValue(
-        props.orientation,
-        props.propertyRecord,
-        props.indentation,
-        props.propertyValueRendererManager,
-        props.isExpanded,
-        props.onExpansionToggled,
-        props.onHeightChanged,
-        props.highlight
-      )}
-    </>
+  return CommonPropertyRenderer.createNewDisplayValue(
+    props.orientation,
+    props.propertyRecord,
+    props.indentation,
+    props.propertyValueRendererManager,
+    props.isExpanded,
+    props.onExpansionToggled,
+    props.onHeightChanged,
+    props.highlight
   );
 };
 
