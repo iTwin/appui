@@ -1,6 +1,13 @@
 # Change Log - @itwin/components-react
 
-This log was last generated on Wed, 09 Oct 2024 10:50:47 GMT and should not be manually modified.
+This log was last generated on Wed, 30 Oct 2024 14:46:15 GMT and should not be manually modified.
+
+## 4.17.2
+Wed, 30 Oct 2024 14:46:15 GMT
+
+### Updates
+
+- Fixed `pw:` links handling in property grid.
 
 ## 4.17.1
 Wed, 09 Oct 2024 10:50:47 GMT
