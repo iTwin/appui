@@ -15,6 +15,7 @@ import type {
 } from "../../ValueRendererManager";
 import { PrimitivePropertyValueRendererImpl } from "./PrimitivePropertyValueRenderer";
 import { convertRecordToString } from "./Common";
+import { openLink } from "../../../common/Links";
 
 /**
  * URL property value renderer that renders the whole value as a URL without matching it
@@ -51,15 +52,6 @@ export class UrlPropertyValueRenderer implements IPropertyValueRenderer {
   }
 }
 
-function handleClick(text: string) {
-  if (text.startsWith("mailto:")) {
-    location.href = text;
-  } else {
-    const windowOpen = window.open(text, "_blank");
-    windowOpen?.focus();
-  }
-}
-
 const URI_PROPERTY_LINK_HANDLER: LinkElementsInfo = {
-  onClick: handleClick,
+  onClick: openLink,
 };

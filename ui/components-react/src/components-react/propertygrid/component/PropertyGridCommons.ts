@@ -9,7 +9,7 @@
 import type { PropertyRecord } from "@itwin/appui-abstract";
 import type { CommonProps } from "@itwin/core-react";
 import type { HighlightingComponentProps } from "../../common/HighlightingComponentProps";
-import { matchLinks } from "../../common/Links";
+import { matchLinks, openLink } from "../../common/Links";
 import type { PropertyUpdatedArgs } from "../../editors/EditorContainer";
 import type { ActionButtonRenderer } from "../../properties/renderers/ActionButtonRenderer";
 import type { PropertyValueRendererManager } from "../../properties/ValueRendererManager";
@@ -133,14 +133,11 @@ export class PropertyGridCommons {
     const linksArray = matchLinks(text);
     if (linksArray.length <= 0) return;
     const foundLink = linksArray[0];
-    if (foundLink && foundLink.url) {
-      if (foundLink.schema === "mailto:") {
-        location.href = foundLink.url;
-      } else {
-        const windowOpen = window.open(foundLink.url, "_blank");
-        windowOpen?.focus();
-      }
+    if (!foundLink || !foundLink.url) {
+      return;
     }
+
+    openLink(foundLink.url);
   }
 
   /**
