@@ -8,6 +8,7 @@
 
 import type { PropertyRecord } from "@itwin/appui-abstract";
 import type { CommonProps } from "@itwin/core-react";
+<<<<<<< HEAD
 import type { HighlightingComponentProps } from "../../common/HighlightingComponentProps";
 import { matchLinks } from "../../common/Links";
 import type { PropertyUpdatedArgs } from "../../editors/EditorContainer";
@@ -16,6 +17,16 @@ import type { PropertyValueRendererManager } from "../../properties/ValueRendere
 import type { FilteredType } from "../dataproviders/filterers/PropertyDataFiltererBase";
 import type { PropertyCategory } from "../PropertyDataProvider";
 import { Orientation } from "../../common/Orientation";
+=======
+import type { HighlightingComponentProps } from "../../common/HighlightingComponentProps.js";
+import { matchLinks, openLink } from "../../common/Links.js";
+import type { PropertyUpdatedArgs } from "../../editors/EditorContainer.js";
+import type { ActionButtonRenderer } from "../../properties/renderers/ActionButtonRenderer.js";
+import type { PropertyValueRendererManager } from "../../properties/ValueRendererManager.js";
+import type { FilteredType } from "../dataproviders/filterers/PropertyDataFiltererBase.js";
+import type { PropertyCategory } from "../PropertyDataProvider.js";
+import { Orientation } from "../../common/Orientation.js";
+>>>>>>> 673112cd7 (Fixed `pw:` links handling in property grid (#1091))
 
 /** Arguments for the Property Editing event callback
  * @public
@@ -133,14 +144,11 @@ export class PropertyGridCommons {
     const linksArray = matchLinks(text);
     if (linksArray.length <= 0) return;
     const foundLink = linksArray[0];
-    if (foundLink && foundLink.url) {
-      if (foundLink.schema === "mailto:") {
-        location.href = foundLink.url;
-      } else {
-        const windowOpen = window.open(foundLink.url, "_blank");
-        windowOpen?.focus();
-      }
+    if (!foundLink || !foundLink.url) {
+      return;
     }
+
+    openLink(foundLink.url);
   }
 
   /**
