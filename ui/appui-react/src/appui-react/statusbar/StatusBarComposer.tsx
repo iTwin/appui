@@ -14,7 +14,7 @@ import type { CommonProps } from "@itwin/core-react";
 import { useRefs, useResizeObserver } from "@itwin/core-react/internal";
 import classnames from "classnames";
 import * as React from "react";
-import { eqlOverflown } from "../layout/tool-settings/Docked.js";
+import { useOverflow } from "../layout/tool-settings/Docked.js";
 import { StatusBarLabelIndicator } from "../statusbar/LabelIndicator.js";
 import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher.js";
 import { isProviderItem } from "../ui-items-provider/isProviderItem.js";
@@ -216,62 +216,6 @@ const sortItems = (items: StatusBarItem[]) => {
   return sortedItems;
 };
 
-/** local function to ensure a width value is defined for a status bar entries.  */
-function verifiedMapEntries<T>(map: Map<string, T | undefined>) {
-  for (const [, val] of map) {
-    if (val === undefined) return undefined;
-  }
-  return map as Map<string, T>;
-}
-
-/** local function to sort status bar item widths */
-const sortWidths = (
-  widths: Map<string, number>,
-  statusBarItems: StatusBarItem[]
-) => {
-  const widthsArray = Array.from(widths.entries());
-  widthsArray.sort((a, b) => {
-    const aIndex = statusBarItems.findIndex((item) => item.id === a[0]);
-    const bIndex = statusBarItems.findIndex((item) => item.id === b[0]);
-    return aIndex - bIndex;
-  });
-
-  return new Map<string, number>(widthsArray);
-};
-
-/** Returns a subset of docked entry keys that exceed given width and should be placed in overflow panel. */
-function getItemToPlaceInOverflow(
-  width: number,
-  docked: ReadonlyArray<readonly [string, number]>,
-  overflowWidth: number
-) {
-  let settingsWidth = 0;
-
-  let i = 0;
-  for (; i < docked.length; i++) {
-    const w = docked[i][1];
-    const newSettingsWidth = settingsWidth + w;
-    if (newSettingsWidth > width) {
-      settingsWidth += overflowWidth;
-      break;
-    }
-    settingsWidth = newSettingsWidth;
-  }
-
-  let j = i;
-  for (; j > 0; j--) {
-    if (settingsWidth <= width) break;
-    const w = docked[j - 1][1];
-    settingsWidth -= w;
-  }
-
-  const overflowItems = new Array<string>();
-  for (i = j; i < docked.length; i++) {
-    overflowItems.push(docked[i][0]);
-  }
-  return overflowItems;
-}
-
 function isItemInOverflow(
   id: string,
   overflowItemIds: ReadonlyArray<string> | undefined
@@ -316,7 +260,6 @@ export function StatusBarComposer(props: StatusBarComposerProps) {
   const [defaultItemsManager, setDefaultItemsManager] = React.useState(
     () => new StatusBarItemsManager(items)
   );
-  const containerWidth = React.useRef<number | undefined>(undefined);
 
   const isInitialMount = React.useRef(true);
   React.useEffect(() => {
@@ -342,67 +285,24 @@ export function StatusBarComposer(props: StatusBarComposerProps) {
   );
   useStatusBarItemSyncEffect(addonItemsManager, addonSyncIdsOfInterest);
 
-  const entryWidths = React.useRef(new Map<string, number | undefined>());
-  const overflowWidth = React.useRef<number | undefined>(undefined);
-  const [overflown, setOverflown] = React.useState<ReadonlyArray<string>>();
   const statusBarItems = React.useMemo(() => {
     const combinedItems = combineItems(defaultItems, addonItems);
     return sortItems(combinedItems);
   }, [defaultItems, addonItems]);
+
+  const statusBarItemKeys = statusBarItems.map((item) => item.id);
+  const [
+    overflown,
+    handleContainerResize,
+    handleOverflowResize,
+    getOnEntryResize,
+  ] = useOverflow(statusBarItemKeys);
+
   const notOverflown = React.useMemo(() => {
     return statusBarItems
       .filter((item) => !isItemInOverflow(item.id, overflown))
       .map((item) => item.id);
   }, [overflown, statusBarItems]);
-
-  const calculateOverflow = React.useCallback(() => {
-    const widths = verifiedMapEntries(entryWidths.current);
-
-    if (
-      containerWidth.current === undefined ||
-      widths === undefined ||
-      overflowWidth.current === undefined
-    ) {
-      setOverflown(new Array<string>());
-      return;
-    }
-
-    // Calculate overflow.
-    const newOverflown = getItemToPlaceInOverflow(
-      containerWidth.current,
-      [...widths.entries()],
-      overflowWidth.current
-    );
-    if (!eqlOverflown(overflown, newOverflown)) {
-      setOverflown(newOverflown);
-    }
-  }, [overflown]);
-
-  const handleOverflowResize = React.useCallback(
-    (w: number) => {
-      const calculate = overflowWidth.current !== w;
-      overflowWidth.current = w;
-      calculate && calculateOverflow();
-    },
-    [calculateOverflow]
-  );
-
-  const handleEntryResize = React.useCallback(
-    (key: string) => (w: number) => {
-      const oldW = entryWidths.current.get(key);
-      if (oldW === undefined || Math.abs(oldW - w) > 2) {
-        entryWidths.current.set(key, w);
-        if (oldW === undefined) {
-          const widths = verifiedMapEntries(entryWidths.current);
-          if (widths !== undefined)
-            entryWidths.current = sortWidths(widths, statusBarItems);
-        }
-
-        calculateOverflow();
-      }
-    },
-    [calculateOverflow, statusBarItems]
-  );
 
   const getSectionName = (section: StatusBarSection) => {
     switch (section) {
@@ -433,7 +333,7 @@ export function StatusBarComposer(props: StatusBarComposerProps) {
         <DockedStatusBarEntry
           key={key}
           entryKey={key}
-          getOnResize={handleEntryResize}
+          getOnResize={getOnEntryResize}
         >
           <DockedStatusBarItem
             key={key}
@@ -465,7 +365,7 @@ export function StatusBarComposer(props: StatusBarComposerProps) {
         </DockedStatusBarEntry>
       );
     },
-    [handleEntryResize, notOverflown, overflown]
+    [getOnEntryResize, notOverflown, overflown]
   );
 
   const getSectionItems = React.useCallback(
@@ -512,19 +412,6 @@ export function StatusBarComposer(props: StatusBarComposerProps) {
       </React.Fragment>
     ));
   }, [statusBarItems, overflown, getComponent]);
-
-  const handleContainerResize = React.useCallback(
-    (w: number) => {
-      if (
-        undefined === containerWidth.current ||
-        Math.abs(containerWidth.current - w) > 2
-      ) {
-        containerWidth.current = w;
-        calculateOverflow();
-      }
-    },
-    [calculateOverflow]
-  );
 
   const containerRef = React.useRef<HTMLDivElement>(null);
   const resizeObserverRef = useResizeObserver(handleContainerResize);
