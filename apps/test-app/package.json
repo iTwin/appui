@@ -42,7 +42,7 @@
   ],
   "devDependencies": {
     "@itwin/build-tools": "4.10.0-dev.34",
-    "@itwin/eslint-plugin": "^4.1.1",
+    "@itwin/eslint-plugin": "5.0.0-dev.1",
     "@tanstack/router-plugin": "~1.46.6",
     "@tanstack/router-devtools": "~1.46.8",
     "@types/node": "18.11.5",
