@@ -21,7 +21,9 @@ import { usePopoutsStore } from "./usePopoutsStore.js";
  * @note iTwinUI v2 `ThemeProvider` is not used because of https://github.com/iTwin/appui/issues/612
  * @internal
  */
-export function PopoutThemeProvider({ children }: React.PropsWithChildren<object>) {
+export function PopoutThemeProvider({
+  children,
+}: React.PropsWithChildren<object>) {
   const tabId = React.useContext(TabIdContext);
   const layoutStore = useLayoutStore();
   const stateRef = React.useRef(layoutStore.getState());
