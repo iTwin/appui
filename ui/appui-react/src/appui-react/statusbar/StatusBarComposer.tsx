@@ -104,24 +104,18 @@ export function DockedStatusBarItem(props: StatusBarItemProps) {
 
 interface DockedStatusBarEntryProps {
   children?: React.ReactNode;
-  entryKey: string;
-  getOnResize: (key: string) => (w: number) => void;
+  onResize?: (w: number) => void;
 }
 
 /** Wrapper for status bar entries so their size can be used to determine if the status bar container can display them or if they will need to be placed in an overflow panel. */
 function DockedStatusBarEntry({
   children,
-  entryKey,
-  getOnResize,
+  onResize,
 }: DockedStatusBarEntryProps) {
-  const onResize = React.useMemo(
-    () => getOnResize(entryKey),
-    [getOnResize, entryKey]
-  );
   const entry = React.useMemo<DockedStatusBarEntryContextArg>(
     () => ({
       isOverflown: false,
-      onResize,
+      onResize: onResize ?? (() => {}),
     }),
     [onResize]
   );
@@ -329,11 +323,11 @@ export function StatusBarComposer(props: StatusBarComposerProps) {
       section: StatusBarSection
     ): React.ReactNode => {
       const providerId = isProviderItem(item) ? item.providerId : undefined;
+      const isOverflown = isItemInOverflow(key, overflown);
       return (
         <DockedStatusBarEntry
           key={key}
-          entryKey={key}
-          getOnResize={getOnEntryResize}
+          onResize={isOverflown ? undefined : getOnEntryResize(key)}
         >
           <DockedStatusBarItem
             key={key}
