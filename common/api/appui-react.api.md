@@ -4111,11 +4111,11 @@ export class StagePanelDef extends WidgetHost {
 // @public
 export enum StagePanelLocation {
     // (undocumented)
-    Bottom = 105,
+    Bottom = 104,
     // (undocumented)
-    Left = 103,
+    Left = 102,
     // (undocumented)
-    Right = 104,
+    Right = 103,
     // (undocumented)
     Top = 101
 }
