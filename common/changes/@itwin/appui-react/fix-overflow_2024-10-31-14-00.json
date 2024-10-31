@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Fix a maximum update depth error in status bar overflow.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
