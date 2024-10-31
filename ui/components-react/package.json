@@ -63,7 +63,7 @@
   ],
   "devDependencies": {
     "@itwin/appui-abstract": "^4.0.0",
-    "@itwin/build-tools": "4.10.0-dev.31",
+    "@itwin/build-tools": "4.10.0-dev.34",
     "@itwin/core-bentley": "^4.0.0",
     "@itwin/core-common": "^4.0.0",
     "@itwin/core-geometry": "^4.0.0",

@@ -38,7 +38,7 @@
     "react-redux": "^7.2.2"
   },
   "devDependencies": {
-    "@itwin/build-tools": "4.10.0-dev.31",
+    "@itwin/build-tools": "4.10.0-dev.34",
     "@originjs/vite-plugin-commonjs": "~1.0.3",
     "@storybook/addon-actions": "^8.3.2",
     "@storybook/addon-essentials": "^8.3.2",

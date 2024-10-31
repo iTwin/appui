@@ -161,8 +161,8 @@ importers:
         version: 2.0.12
     devDependencies:
       '@itwin/build-tools':
-        specifier: 4.10.0-dev.31
-        version: 4.10.0-dev.31(@types/node@18.11.5)
+        specifier: 4.10.0-dev.34
+        version: 4.10.0-dev.34(@types/node@18.11.5)
       '@itwin/eslint-plugin':
         specifier: ^4.1.1
         version: 4.1.1(eslint@8.57.1)(typescript@5.6.2)
@@ -303,8 +303,8 @@ importers:
         version: 2.0.12
     devDependencies:
       '@itwin/build-tools':
-        specifier: 4.10.0-dev.31
-        version: 4.10.0-dev.31(@types/node@18.11.5)
+        specifier: 4.10.0-dev.34
+        version: 4.10.0-dev.34(@types/node@18.11.5)
       '@itwin/eslint-plugin':
         specifier: ^4.1.1
         version: 4.1.1(eslint@8.57.1)(typescript@5.6.2)
@@ -400,8 +400,8 @@ importers:
         version: 7.2.9(react-dom@18.3.1)(react@18.3.1)
     devDependencies:
       '@itwin/build-tools':
-        specifier: 4.10.0-dev.31
-        version: 4.10.0-dev.31(@types/node@18.11.5)
+        specifier: 4.10.0-dev.34
+        version: 4.10.0-dev.34(@types/node@18.11.5)
       '@originjs/vite-plugin-commonjs':
         specifier: ~1.0.3
         version: 1.0.3
@@ -597,8 +597,8 @@ importers:
         specifier: ^4.0.0
         version: 4.4.0(@itwin/core-bentley@4.4.0)
       '@itwin/build-tools':
-        specifier: 4.10.0-dev.31
-        version: 4.10.0-dev.31(@types/node@18.11.5)
+        specifier: 4.10.0-dev.34
+        version: 4.10.0-dev.34(@types/node@18.11.5)
       '@itwin/components-react':
         specifier: workspace:*
         version: link:../components-react
@@ -769,8 +769,8 @@ importers:
         specifier: ^4.0.0
         version: 4.4.0(@itwin/core-bentley@4.4.0)
       '@itwin/build-tools':
-        specifier: 4.10.0-dev.31
-        version: 4.10.0-dev.31(@types/node@18.11.5)
+        specifier: 4.10.0-dev.34
+        version: 4.10.0-dev.34(@types/node@18.11.5)
       '@itwin/core-bentley':
         specifier: ^4.0.0
         version: 4.4.0
@@ -905,8 +905,8 @@ importers:
         specifier: ^4.0.0
         version: 4.4.0(@itwin/core-bentley@4.4.0)
       '@itwin/build-tools':
-        specifier: 4.10.0-dev.31
-        version: 4.10.0-dev.31(@types/node@18.11.5)
+        specifier: 4.10.0-dev.34
+        version: 4.10.0-dev.34(@types/node@18.11.5)
       '@itwin/core-bentley':
         specifier: ^4.0.0
         version: 4.4.0
@@ -1020,8 +1020,8 @@ importers:
         specifier: ^4.0.0
         version: 4.4.0(@itwin/core-bentley@4.4.0)
       '@itwin/build-tools':
-        specifier: 4.10.0-dev.31
-        version: 4.10.0-dev.31(@types/node@18.11.5)
+        specifier: 4.10.0-dev.34
+        version: 4.10.0-dev.34(@types/node@18.11.5)
       '@itwin/components-react':
         specifier: workspace:*
         version: link:../components-react
@@ -2892,11 +2892,11 @@ packages:
       - '@itwin/core-geometry'
     dev: false
 
-  /@itwin/build-tools@4.10.0-dev.31(@types/node@18.11.5):
-    resolution: {integrity: sha512-KpD+15ZLJdi9eMT/FaQYeb6Tf/ri0j+LzLvStVYUVgwfCGxkIJhSbb2M+myGfHleSvrFPjRaOQFdJKKOOTmJbw==}
+  /@itwin/build-tools@4.10.0-dev.34(@types/node@18.11.5):
+    resolution: {integrity: sha512-RtJCqx8pTbQSzgZnkEJcA2DZVeo4MraD9ZXSudc6/q+4stYL3xiwZvkX1AU2TZW3ManbftkjCjUHQRC5BNb6yQ==}
     hasBin: true
     dependencies:
-      '@microsoft/api-extractor': 7.47.9(@types/node@18.11.5)
+      '@microsoft/api-extractor': 7.47.11(@types/node@18.11.5)
       chalk: 3.0.0
       cpx2: 3.0.2
       cross-spawn: 7.0.3
@@ -2906,9 +2906,9 @@ packages:
       mocha-junit-reporter: 2.2.1(mocha@10.2.0)
       rimraf: 3.0.2
       tree-kill: 1.2.2
-      typedoc: 0.25.13(typescript@5.3.3)
+      typedoc: 0.25.13(typescript@5.6.2)
       typedoc-plugin-merge-modules: 5.1.0(typedoc@0.25.13)
-      typescript: 5.3.3
+      typescript: 5.6.2
       wtfnode: 0.9.1
       yargs: 17.7.2
     transitivePeerDependencies:
@@ -3841,8 +3841,8 @@ packages:
       - '@types/node'
     dev: true
 
-  /@microsoft/api-extractor@7.47.9(@types/node@18.11.5):
-    resolution: {integrity: sha512-TTq30M1rikVsO5wZVToQT/dGyJY7UXJmjiRtkHPLb74Prx3Etw8+bX7Bv7iLuby6ysb7fuu1NFWqma+csym8Jw==}
+  /@microsoft/api-extractor@7.47.11(@types/node@18.11.5):
+    resolution: {integrity: sha512-lrudfbPub5wzBhymfFtgZKuBvXxoSIAdrvS2UbHjoMT2TjIEddq6Z13pcve7A03BAouw0x8sW8G4txdgfiSwpQ==}
     hasBin: true
     dependencies:
       '@microsoft/api-extractor-model': 7.29.8(@types/node@18.11.5)
@@ -3851,7 +3851,7 @@ packages:
       '@rushstack/node-core-library': 5.9.0(@types/node@18.11.5)
       '@rushstack/rig-package': 0.5.3
       '@rushstack/terminal': 0.14.2(@types/node@18.11.5)
-      '@rushstack/ts-command-line': 4.22.8(@types/node@18.11.5)
+      '@rushstack/ts-command-line': 4.23.0(@types/node@18.11.5)
       lodash: 4.17.21
       minimatch: 3.0.8
       resolve: 1.22.8
@@ -4285,8 +4285,8 @@ packages:
       supports-color: 8.1.1
     dev: true
 
-  /@rushstack/ts-command-line@4.22.8(@types/node@18.11.5):
-    resolution: {integrity: sha512-XbFjOoV7qZHJnSuFUHv0pKaFA4ixyCuki+xMjsMfDwfvQjs5MYG0IK5COal3tRnG7KCDe2l/G+9LrzYE/RJhgg==}
+  /@rushstack/ts-command-line@4.23.0(@types/node@18.11.5):
+    resolution: {integrity: sha512-jYREBtsxduPV6ptNq8jOKp9+yx0ld1Tb/Tkdnlj8gTjazl1sF3DwX2VbluyYrNd0meWIL0bNeer7WDf5tKFjaQ==}
     dependencies:
       '@rushstack/terminal': 0.14.2(@types/node@18.11.5)
       '@types/argparse': 1.0.38
@@ -12993,10 +12993,10 @@ packages:
     peerDependencies:
       typedoc: 0.24.x || 0.25.x
     dependencies:
-      typedoc: 0.25.13(typescript@5.3.3)
+      typedoc: 0.25.13(typescript@5.6.2)
     dev: true
 
-  /typedoc@0.25.13(typescript@5.3.3):
+  /typedoc@0.25.13(typescript@5.6.2):
     resolution: {integrity: sha512-pQqiwiJ+Z4pigfOnnysObszLiU3mVLWAExSPf+Mu06G/qsc3wzbuM56SZQvONhHLncLUhYzOVkjFFpFfL5AzhQ==}
     engines: {node: '>= 16'}
     hasBin: true
@@ -13007,7 +13007,7 @@ packages:
       marked: 4.3.0
       minimatch: 9.0.3
       shiki: 0.14.7
-      typescript: 5.3.3
+      typescript: 5.6.2
     dev: true
 
   /typemoq@2.1.0:
@@ -13018,12 +13018,6 @@ packages:
       circular-json: 0.3.3
       lodash: 4.17.21
       postinstall-build: 5.0.3
-    dev: true
-
-  /typescript@5.3.3:
-    resolution: {integrity: sha512-pXWcraxM0uxAS+tN0AG/BF2TyqmHO014Z070UsJ+pFvYuRSq8KH8DmWpnbXe0pEPDHXZV3FcAbJkijJ5oNEnWw==}
-    engines: {node: '>=14.17'}
-    hasBin: true
     dev: true
 
   /typescript@5.4.2:
