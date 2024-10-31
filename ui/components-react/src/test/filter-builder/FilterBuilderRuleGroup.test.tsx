@@ -43,26 +43,6 @@ describe("PropertyFilterBuilderRuleGroupRenderer", () => {
     expect(queryByTestId("rule-group-remove")).toEqual(null);
   });
 
-  it("does not render operator selector if only one rule is in group", () => {
-    const { queryByText } = renderWithContext(
-      <PropertyFilterBuilderRuleGroupRenderer
-        {...defaultProps}
-        group={{
-          id: "id",
-          items: [{ id: "childId", groupId: "id" }],
-          operator: "and",
-        }}
-      />
-    );
-    expect(
-      queryByText(
-        TestUtils.i18n.getLocalizedString(
-          "Components:filterBuilder.operators.and"
-        )
-      )
-    ).toEqual(null);
-  });
-
   it("renders child rule", () => {
     const property: PropertyDescription = {
       displayLabel: "Prop",

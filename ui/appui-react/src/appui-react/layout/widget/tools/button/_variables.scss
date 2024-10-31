@@ -2,18 +2,22 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
+@forward "~@itwin/core-react/lib/core-react/style/themecolors";
 
 // Common
 $button-stroke-width: 2px;
-$button-background-color: $buic-background-toolbar;
-$button-stroke-color: $buic-background-toolbutton-stroke;
+$button-background-color: var(--iui-color-background-hover);
+$button-stroke-color: var(--iui-color-background-disabled);
 $button-stroke-radius: 3px;
 
-$icon-color: $buic-icon-color;
-$pressed-icon-color: $buic-icon-color-reverse;
-$hovered-icon-color: $buic-foreground-primary-tone;
-$icon-shadow: drop-shadow(0 1px 0 $buic-icon-color-reverse);
+$icon-color: var(--iui-color-text);
+$pressed-icon-color: hsl(
+  var(--iui-color-background-hsl) / var(--iui-opacity-2)
+);
+$hovered-icon-color: var(--iui-color-text-accent-hover);
+$icon-shadow: drop-shadow(
+  0 1px 0 hsl(var(--iui-color-background-hsl) / var(--iui-opacity-2))
+);
 $no-shadow: drop-shadow(0 0 0 transparent);
 
 $bar-width: 8px;

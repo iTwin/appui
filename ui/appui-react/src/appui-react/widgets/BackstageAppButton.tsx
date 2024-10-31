@@ -6,15 +6,15 @@
  * @module Widget
  */
 
+import "./BackstageAppButton.scss";
 import * as React from "react";
-import { ProcessDetector } from "@itwin/core-bentley";
 import type { IconSpec } from "@itwin/core-react";
-import { Icon } from "@itwin/core-react";
-import { useWidgetOpacityContext } from "@itwin/core-react/internal";
+import { Icon as CoreIcon } from "@itwin/core-react";
 import { SvgHome } from "@itwin/itwinui-icons-react";
 import { UiFramework } from "../UiFramework.js";
-import { AppButton } from "../layout/widget/tools/button/App.js";
 import { useTranslation } from "../hooks/useTranslation.js";
+import { Surface } from "../toolbar/new-toolbars/Surface.js";
+import { IconButton } from "@itwin/itwinui-react";
 
 /** Properties of {@link BackstageAppButton} component.
  * @public
@@ -37,16 +37,13 @@ export interface BackstageAppButtonProps {
  */
 export function BackstageAppButton({
   // eslint-disable-next-line @typescript-eslint/no-deprecated
-  icon,
+  icon: iconSpec,
   iconNode,
   label,
   execute,
 }: BackstageAppButtonProps) {
   const { translate } = useTranslation();
-  label = label ?? translate("commands.openBackstage");
-  const isInitialMount = React.useRef(true);
-  const { onElementRef, proximityScale } = useWidgetOpacityContext();
-  const ref = React.useRef<HTMLDivElement>(null);
+  label = label ?? translate("buttons.openBackstageMenu");
 
   const handleClick = React.useCallback(() => {
     if (execute) {
@@ -57,34 +54,31 @@ export function BackstageAppButton({
     UiFramework.backstage.toggle();
   }, [execute]);
 
-  React.useEffect(() => {
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
-      onElementRef(ref);
-    }
-  }, [onElementRef]);
-
-  let buttonProximityScale: number | undefined;
-
-  if (
-    (UiFramework.visibility.useProximityOpacity || // eslint-disable-line @typescript-eslint/no-deprecated
-      UiFramework.visibility.snapWidgetOpacity) &&
-    !ProcessDetector.isMobileBrowser
-  ) {
-    buttonProximityScale = proximityScale;
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-deprecated
-  const specIcon = icon ? <Icon iconSpec={icon} /> : undefined;
+  const iconSpecElement = iconSpec ? (
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
+    <CoreIcon iconSpec={iconSpec} />
+  ) : undefined;
+  const icon = iconNode ?? iconSpecElement ?? <SvgHome />;
   return (
-    <div ref={ref} className="uifw-app-button-small">
-      <AppButton
-        small={true}
-        mouseProximity={buttonProximityScale}
+    <Surface orientation="horizontal">
+      <IconButton
+        className="uifw-widget-backstageAppButton"
+        styleType="borderless"
         onClick={handleClick}
-        icon={iconNode ?? specIcon ?? <SvgHome />}
-        title={label}
-      />
-    </div>
+        iconProps={{ className: "uifw-widget-backstageAppButton_icon" }}
+        label={label}
+        labelProps={{
+          placement: "right",
+          className: "uifw-widget-backstageAppButton_label",
+        }}
+      >
+        {icon}
+        <div className="uifw-widget-backstageAppButton_bars">
+          <div className="uifw-bar" />
+          <div className="uifw-bar" />
+          <div className="uifw-bar" />
+        </div>
+      </IconButton>
+    </Surface>
   );
 }

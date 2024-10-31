@@ -2,46 +2,47 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "./tools/button/variables";
-@import "../widgetopacity";
+@use "../widgetopacity" as *;
 
 .nz-tools-widget {
   transition: visibility var(--iui-duration-2) ease,
     opacity var(--iui-duration-2) ease;
-  display: grid;
   box-sizing: border-box;
   height: 100%;
-  grid-gap: 6px;
   grid-column: 1;
+
+  display: grid;
+  grid-gap: 6px;
+  grid-template:
+    "appButton htools" auto
+    "vtools ." 1fr / auto 1fr;
   align-items: start;
   justify-items: start;
-  grid-template-columns: auto 1fr;
 
   &.nz-hidden {
     opacity: 0;
     visibility: hidden;
   }
 
-  > .nz-vertical-tool-area {
+  > .nz-app-button {
+    grid-area: appButton;
+
+    pointer-events: auto;
+    @include nz-widget-opacity;
+  }
+
+  > .nz-vertical-toolbar-container {
+    grid-area: vtools;
+
+    height: calc(100% - 60px);
     display: inline-flex;
     flex-direction: column;
-    height: 100%;
-    align-items: flex-start;
-
-    > .nz-app-button {
-      pointer-events: auto;
-      @include nz-widget-opacity;
-    }
-
-    > .nz-vertical-toolbar-container {
-      height: calc(100% - 60px);
-      display: inline-flex;
-      flex-direction: column;
-      @include nz-widget-opacity;
-    }
+    @include nz-widget-opacity;
   }
 
   > .nz-horizontal-toolbar-container {
+    grid-area: htools;
+
     width: 100%;
     min-width: 0;
 

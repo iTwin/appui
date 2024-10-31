@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
+@forward "~@itwin/core-react/lib/core-react/style/themecolors";
 
 // backstage common values
 $nz-backstage-width: 300px;
@@ -23,10 +23,10 @@ $nz-backstage-highlight-bar-spacing-left: 2px;
 $nz-backstage-divider-height: 1px;
 $nz-backstage-header-divider-width: 2px;
 
-$nz-backstage-background: $buic-background-window;
+$nz-backstage-background: var(--iui-color-background-hover);
 $nz-backstage-item-color: var(--iui-color-text);
 $nz-backstage-item-color-disabled: var(--iui-color-text-disabled);
-$nz-backstage-item-active-background: $buic-background-tab-inactive;
-$nz-backstage-item-hover-background: $buic-row-hover;
-$nz-backstage-highlight-bar-background: $buic-foreground-primary;
-$nz-backstage-divider-color: $buic-background-divider;
+$nz-backstage-item-active-background: var(--iui-color-background-backdrop);
+$nz-backstage-item-hover-background: var(--iui-color-background-hover);
+$nz-backstage-highlight-bar-background: var(--iui-color-icon-accent);
+$nz-backstage-divider-color: var(--iui-color-background-backdrop-hover);

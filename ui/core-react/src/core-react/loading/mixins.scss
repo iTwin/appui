@@ -2,12 +2,12 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "../style/index";
+@forward "../style/index";
 
 @mixin uicore-spinner(
   $size,
   $borderSize: $size * 0.125,
-  $activeColor: $buic-foreground-primary,
+  $activeColor: var(--iui-color-icon-accent),
   $selector: "&::after",
   $time: 1.5s
 ) {
@@ -38,7 +38,7 @@
     height: $size;
     width: $size;
 
-    border: solid $borderSize $buic-background-control-stroke;
+    border: solid $borderSize var(--iui-color-background-disabled);
     border-bottom-color: #{$activeColor};
     border-radius: 50%;
     box-sizing: border-box;

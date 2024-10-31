@@ -2,9 +2,8 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/core-react/lib/cjs/core-react/icons/variables";
-@import "~@itwin/core-react/lib/cjs/core-react/inputs/variables";
-@import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
+@use "~@itwin/core-react/lib/core-react/inputs/variables" as *;
+@use "~@itwin/core-react/lib/core-react/style/baseline" as *;
 
 .uifw-ValidationTextbox {
   font-family: var(--iui-font-sans);
@@ -23,11 +22,11 @@
   }
 
   .ValidationTextbox-invalid {
-    border-color: $buic-foreground-alert;
+    border-color: var(--iui-color-text-negative);
   }
 
   .ValidationTextbox-invalid:focus {
-    border-color: $buic-foreground-alert;
+    border-color: var(--iui-color-text-negative);
   }
 
   .ValidationTextbox-icon {
@@ -41,7 +40,7 @@
     top: 0px;
     right: 0px;
     text-align: center;
-    color: $buic-icon-color;
+    color: var(--iui-color-text);
 
     &:hover {
       color: var(--iui-color-text-accent);

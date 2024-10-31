@@ -2,9 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "../style/themecolors";
-@import "../z-index";
-
 @function background-line($orientation) {
   @return linear-gradient(
     $orientation,
@@ -66,6 +63,7 @@
   opacity: 0;
   z-index: 1;
   user-select: none;
+  -webkit-user-select: none;
 
   &--vertical {
     width: 100%;

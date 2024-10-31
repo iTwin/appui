@@ -2,8 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
-
 .nz-widget-overflow {
   width: 2em;
   position: relative;
@@ -20,9 +18,10 @@
     height: 100%;
     cursor: pointer;
     user-select: none;
+    -webkit-user-select: none;
 
     > .nz-icon {
-      background: $buic-background-2;
+      background: var(--iui-color-background-hover);
       width: 1em;
       height: 1em;
       border-radius: 50%;
@@ -33,7 +32,7 @@
       &:after {
         content: "";
         display: block;
-        border-color: $buic-foreground-disabled;
+        border-color: var(--iui-color-text-disabled);
         border-style: solid;
         border-width: 0.15em 0.15em 0 0;
         width: 0.5em;
@@ -47,7 +46,7 @@
     &:hover {
       > .nz-icon {
         &:after {
-          border-color: $buic-foreground-activehover;
+          border-color: var(--iui-color-text);
         }
       }
     }

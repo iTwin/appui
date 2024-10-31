@@ -33,14 +33,12 @@ import {
   addRemovedTab,
   addTab,
   addTabToWidget,
-  createDraggedTabState,
   removeTab,
   removeTabFromWidget,
   updateSavedTabState,
   updateTabState,
 } from "./internal/TabStateHelpers.js";
 import {
-  initRectangleProps,
   initSizeProps,
   isToolSettingsFloatingWidget,
   setPointProps,
@@ -273,6 +271,7 @@ export function NineZoneStateReducer(
         tabs.splice(target.tabIndex, 0, ...draggedWidget.tabs);
         state = updateWidgetState(state, target.widgetId, {
           tabs,
+          activeTabId: draggedWidget.activeTabId,
         });
       } else if (isSectionDropTargetState(target)) {
         state = updatePanelState(state, target.side, (draft) => {
@@ -302,6 +301,7 @@ export function NineZoneStateReducer(
         tabs.splice(targetWidget.tabs.length, 0, ...draggedWidget.tabs);
         state = updateWidgetState(state, target.widgetId, {
           tabs,
+          activeTabId: draggedWidget.activeTabId,
         });
       } else {
         const panelSectionId = getWidgetPanelSectionId(target.side, 0);
@@ -505,6 +505,7 @@ export function NineZoneStateReducer(
     case "WIDGET_TAB_DRAG_START": {
       const tabId = action.id;
       let home: PanelWidgetRestoreState;
+
       if (action.floatingWidgetId) {
         const floatingWidget =
           state.floatingWidgets.byId[action.floatingWidgetId];
@@ -519,11 +520,16 @@ export function NineZoneStateReducer(
           widgetIndex,
         };
       }
+
+      const widget = getWidgetState(state, action.widgetId);
+      const active = action.id === widget.activeTabId;
       state = produce(state, (draft) => {
-        draft.draggedTab = createDraggedTabState(tabId, {
+        draft.draggedTab = {
+          tabId,
           position: Point.create(action.position).toProps(),
           home,
-        });
+          active,
+        };
       });
       return removeTabFromWidget(state, tabId);
     }
@@ -539,6 +545,7 @@ export function NineZoneStateReducer(
     }
     case "WIDGET_TAB_DRAG_END": {
       assert(!!state.draggedTab);
+      const wasActive = state.draggedTab.active;
       const target = action.target;
       if (isTabDropTargetState(target)) {
         state = updateHomeOfToolSettingsWidget(
@@ -550,8 +557,10 @@ export function NineZoneStateReducer(
         const tabIndex = target.tabIndex;
         const tabs = [...targetWidget.tabs];
         tabs.splice(tabIndex, 0, action.id);
+        const activeTabId = wasActive ? action.id : targetWidget.activeTabId;
         state = updateWidgetState(state, targetWidget.id, {
           tabs,
+          activeTabId,
         });
       } else if (isPanelDropTargetState(target)) {
         state = updatePanelState(state, target.side, (draft) => {
@@ -581,8 +590,10 @@ export function NineZoneStateReducer(
         const tabIndex = targetWidget.tabs.length;
         const tabs = [...targetWidget.tabs];
         tabs.splice(tabIndex, 0, action.id);
+        const activeTabId = wasActive ? action.id : targetWidget.activeTabId;
         state = updateWidgetState(state, targetWidget.id, {
           tabs,
+          activeTabId,
         });
       } else {
         const tab = state.tabs[state.draggedTab.tabId];
@@ -626,6 +637,7 @@ export function NineZoneStateReducer(
         contentWidth = tab.preferredFloatingWidgetSize.width;
         contentHeight = tab.preferredFloatingWidgetSize.height;
       } else {
+        // TODO: reducers should be pure
         const popoutContentContainer = document.getElementById(
           `content-container:${id}`
         );
@@ -635,12 +647,15 @@ export function NineZoneStateReducer(
         }
       }
 
-      let preferredBounds = savedTab?.popoutBounds
-        ? Rectangle.create(savedTab.popoutBounds)
-        : Rectangle.createFromSize({
-            height: contentHeight,
-            width: contentWidth,
-          });
+      let preferredBounds = Rectangle.createFromSize({
+        height: contentHeight,
+        width: contentWidth,
+      });
+      if (savedTab?.popout) {
+        preferredBounds = Rectangle.createFromSize(savedTab.popout.contentSize);
+        preferredBounds = preferredBounds.offset(savedTab.popout.position);
+      }
+
       if (size) preferredBounds = preferredBounds.setSize(size);
       if (position) preferredBounds = preferredBounds.setPosition(position);
 
@@ -780,7 +795,11 @@ export function NineZoneStateReducer(
     }
     case "WIDGET_TAB_SET_POPOUT_BOUNDS": {
       return updateSavedTabState(state, action.id, (draft) => {
-        initRectangleProps(draft, "popoutBounds", action.bounds);
+        draft.popout = {
+          position: action.position,
+          contentSize: action.contentSize,
+          size: action.size,
+        };
       });
     }
     case "WIDGET_TAB_SHOW": {

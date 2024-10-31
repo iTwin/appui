@@ -2,7 +2,11 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "_helpers";
+@use "sass:map";
+@use "sass:meta";
+@use "_helpers";
+
+@forward "_helpers";
 
 // Order matters, last is top-most on screen.
 $uicore-internal-z-index-layers: view-overlay, view-content-dialog,
@@ -18,16 +22,16 @@ $uicore-z-index-step: 1000;
   @return $counter + $uicore-z-index-step;
 }
 
-$uicore-internal-z-index-layer-map: uicore-map-from-array-with-result-arg(
+$uicore-internal-z-index-layer-map: helpers.uicore-map-from-array-with-result-arg(
   $uicore-internal-z-index-layers,
-  get-function(uicore-internal-get-next-z-index-step),
+  meta.get-function(uicore-internal-get-next-z-index-step),
   0
 );
 
 // Use this to get z-index value
 @function uicore-get-z-index($layer) {
-  @if map_has_key($uicore-internal-z-index-layer-map, $layer) {
-    @return map-get($uicore-internal-z-index-layer-map, $layer);
+  @if map.has-key($uicore-internal-z-index-layer-map, $layer) {
+    @return map.get($uicore-internal-z-index-layer-map, $layer);
   } @else {
     @error "Failed to get z-index for $layer: #{$layer}";
   }

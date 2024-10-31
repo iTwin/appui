@@ -2,23 +2,25 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "../style/index";
-@import "./variables";
+@use "./variables";
+
+@forward "../style/index";
+@forward "./variables";
 
 @mixin uicore-inputs-input {
   display: block;
   width: 100%;
-  padding: $uicore-iui-input-padding;
-  margin: $uicore-inputs-margin 0;
+  padding: variables.$uicore-iui-input-padding;
+  margin: variables.$uicore-inputs-margin 0;
   font-family: var(--iui-font-sans);
   font-size: var(--iui-font-size-1);
   line-height: normal;
   color: var(--iui-color-text);
-  background-color: $buic-background-control;
+  background-color: var(--iui-color-background);
   background-image: none;
   border: 1px solid var(--iui-color-border-foreground);
   border-radius: var(--iui-border-radius-1);
-  box-shadow: $buic-inputs-boxshadow 0px 1px 1px inset;
+  box-shadow: var(--iui-focus-box-shadow) 0px 1px 1px inset;
   box-sizing: border-box;
   transition: border-color var(--iui-duration-1) ease-in-out,
     box-shadow var(--iui-duration-1) ease-in-out;
@@ -34,11 +36,11 @@
   }
 
   &[disabled] {
-    background-color: $buic-background-control-disabled;
-    border-color: $buic-foreground-disabled;
+    background-color: var(--iui-color-background-backdrop);
+    border-color: var(--iui-color-text-disabled);
     color: var(--iui-color-text-disabled);
     cursor: not-allowed;
-    opacity: $uicore-opacity-disabled;
+    opacity: var(--iui-opacity-4);
   }
 
   &[readonly] {
@@ -48,7 +50,7 @@
 
   &:focus {
     outline: 0px;
-    border-color: $buic-foreground-focus-border;
-    box-shadow: $uicore-inputs-focus-boxshadow;
+    border-color: hsl(var(--iui-color-foreground-hsl) / var(--iui-opacity-4));
+    box-shadow: variables.$uicore-inputs-focus-boxshadow;
   }
 }

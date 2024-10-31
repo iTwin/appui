@@ -2,8 +2,8 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "../style/baseline";
-@import "../style/themecolors";
+@forward "../style/baseline";
+@forward "../style/themecolors";
 
 // cspell:ignore unbordered
 
@@ -29,8 +29,13 @@ $uicore-inputs-margin-large: calc(
   (#{$uicore-line-height} * 3 - #{$uicore-inputs-height-large}) * 0.5
 );
 
-$uicore-inputs-border-color: $buic-inputs-border;
+$uicore-inputs-border-color: hsl(
+  var(--iui-color-foreground-hsl) / var(--iui-opacity-4)
+);
 
-$uicore-inputs-focus-boxshadow: $buic-focus-boxshadow 0px 0px 0px 2px;
+$uicore-inputs-focus-boxshadow: hsl(
+    var(--iui-color-accent-hsl) / var(--iui-opacity-4)
+  )
+  0px 0px 0px 2px;
 
 $uicore-iui-input-padding: var(--iui-size-3xs) var(--iui-size-xs);

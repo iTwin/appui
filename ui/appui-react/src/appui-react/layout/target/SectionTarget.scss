@@ -2,12 +2,9 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
-@import "variables";
+@use "variables" as *;
 
 .nz-target-sectionTarget {
-  $section-background: $buic-background-1;
-
   @include nz-widget-target;
 
   &.nz-horizontal {
@@ -20,7 +17,7 @@
 
   > .nz-section {
     flex: 1;
-    background-color: $section-background;
+    background-color: var(--iui-color-background);
     pointer-events: none;
 
     &.nz-target {

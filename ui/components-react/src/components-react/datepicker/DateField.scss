@@ -2,8 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
-@import "~@itwin/core-react/lib/cjs/core-react/inputs/variables";
+@use "~@itwin/core-react/lib/core-react/inputs/variables" as *;
 
 .components-date-input {
   width: auto;
@@ -14,7 +13,7 @@
   }
 
   &[disabled] {
-    color: var(--buic-foreground-body);
+    color: var(--iui-color-text);
     opacity: 0.65;
   }
 }

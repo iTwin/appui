@@ -2,8 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
-@import "variables";
+@use "variables" as *;
 
 $line-grip-translate: 1px;
 $full-bar-width: calc(#{$nz-grip-width} * 0.5);
@@ -18,6 +17,8 @@ $line-grip-width: calc(#{$nz-grip-width} - 2px);
     position: relative;
     display: flex;
     transition: 0.2s ease-out;
+    user-select: none;
+    -webkit-user-select: none;
 
     > .nz-handle {
       position: absolute;
@@ -63,7 +64,7 @@ $line-grip-width: calc(#{$nz-grip-width} - 2px);
 
     &:hover,
     &.nz-resizing {
-      background-color: $buic-foreground-primary;
+      background-color: var(--iui-color-icon-accent);
     }
   }
 
@@ -83,7 +84,7 @@ $line-grip-width: calc(#{$nz-grip-width} - 2px);
 
     .nz-collapsed & {
       display: flex;
-      background-color: $buic-background-5;
+      background-color: var(--iui-color-background-disabled);
       border: 1px solid var(--iui-color-border-subtle);
       border-radius: 999px;
       box-sizing: border-box;

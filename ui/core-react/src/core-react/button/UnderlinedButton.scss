@@ -2,11 +2,8 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "../style/index.scss";
-@import "../inputs/index.scss";
-
-$color: $buic-foreground-primary;
-$hoverColor: $buic-foreground-primary-tone;
+$color: var(--iui-color-icon-accent);
+$hoverColor: var(--iui-color-text-accent-hover);
 
 .core-underlined-button {
   background: transparent;
@@ -26,7 +23,7 @@ $hoverColor: $buic-foreground-primary-tone;
   &:focus {
     color: $hoverColor;
     border-color: $hoverColor;
-    background-color: $buic-background-focus-overlay;
+    background-color: hsl(var(--iui-opacity-6));
     outline: none;
   }
 }

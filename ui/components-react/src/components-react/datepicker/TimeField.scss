@@ -2,18 +2,17 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/core-react/lib/cjs/core-react/inputs/variables";
-@import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
+@use "~@itwin/core-react/lib/core-react/inputs/variables" as *;
 
 .components-time {
   display: inline-flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  background-color: $buic-background-control;
+  background-color: var(--iui-color-background);
   border: 1px solid var(--iui-color-border-foreground);
   border-radius: var(--iui-border-radius-1);
-  box-shadow: var(--buic-inputs-boxshadow) 0px 1px 1px inset;
+  box-shadow: var(--iui-focus-box-shadow) 0px 1px 1px inset;
   box-sizing: border-box;
 
   &.has-error {
@@ -34,9 +33,9 @@
       outline: 0px;
       border: 1px solid var(--iui-color-border-foreground);
       border-radius: var(--iui-border-radius-1);
-      border-color: var(--buic-foreground-focus-border);
-      box-shadow: var(--buic-focus-boxshadow-gradient1) 0px 1px 1px,
-        var(--buic-focus-boxshadow-gradient2) 0px 0px 0px 2px;
+      border-color: hsl(var(--iui-color-foreground-hsl) / var(--iui-opacity-4));
+      box-shadow: hsl(var(--iui-color-accent-hsl) / 0) 0px 1px 1px,
+        hsl(var(--iui-color-accent-hsl) / 0.65) 0px 0px 0px 2px;
       z-index: 1;
       /* bump z-index so drop shadow in not cut off by AM/PM */
     }
@@ -56,9 +55,9 @@
       outline: 0px;
       border: 1px solid var(--iui-color-border-foreground);
       border-radius: var(--iui-border-radius-1);
-      border-color: var(--buic-foreground-focus-border);
-      box-shadow: var(--buic-focus-boxshadow-gradient1) 0px 1px 1px,
-        var(--buic-focus-boxshadow-gradient2) 0px 0px 0px 2px;
+      border-color: hsl(var(--iui-color-foreground-hsl) / var(--iui-opacity-4));
+      box-shadow: hsl(var(--iui-color-accent-hsl) / 0) 0px 1px 1px,
+        hsl(var(--iui-color-accent-hsl) / 0.65) 0px 0px 0px 2px;
     }
   }
 

@@ -1,0 +1,17 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+.uifw-toolbar-group-toolGroup_container {
+  flex: 1 1 100%;
+  min-width: 0;
+
+  &.uifw-vertical {
+    height: 100%;
+  }
+
+  &.uifw-end {
+    display: flex;
+    justify-content: flex-end;
+  }
+}

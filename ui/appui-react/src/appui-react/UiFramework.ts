@@ -162,7 +162,7 @@ export class UiFramework {
 
   /** Manage access to the child windows. */
   public static get childWindows(): FrameworkChildWindows {
-    return this._childWindowManager;
+    return appUi.windowManager;
   }
 
   /** Manage registered controls.
@@ -227,7 +227,6 @@ export class UiFramework {
     string,
     UserSettingsProvider
   > = new Map<string, UserSettingsProvider>();
-  private static _childWindowManager = new InternalChildWindowManager();
   public static useDefaultPopoutUrl = false;
   private static readonly CONTEXT_MENU_OFFSET = -8;
 
@@ -1492,6 +1491,22 @@ export class UiFramework {
 
   /* eslint-enable @typescript-eslint/no-deprecated */
 }
+
+/** @internal */
+export const appUi = (() => {
+  let _windowManager: InternalChildWindowManager | undefined;
+
+  function getWindowManager() {
+    if (!_windowManager) _windowManager = new InternalChildWindowManager();
+    return _windowManager;
+  }
+
+  return {
+    get windowManager() {
+      return getWindowManager();
+    },
+  };
+})();
 
 function dispatchSyncUiEvent(eventId: string, immediateSync = false) {
   if (immediateSync) {

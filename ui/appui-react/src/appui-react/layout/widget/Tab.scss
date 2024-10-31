@@ -3,12 +3,11 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 @use "sass:math";
-@import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
-@import "../prefix";
-@import "variables";
+@use "variables" as *;
 
 .nz-widget-tab {
   user-select: none;
+  -webkit-user-select: none;
   white-space: nowrap;
   display: flex;
   gap: 6px;

@@ -38,6 +38,13 @@ export default defineConfig(({ mode }) => {
       chunkSizeWarningLimit: 7000,
     },
     customLogger,
+    css: {
+      preprocessorOptions: {
+        scss: {
+          api: "modern-compiler",
+        },
+      },
+    },
     plugins: [
       TanStackRouterVite(),
       react(),
@@ -52,6 +59,10 @@ export default defineConfig(({ mode }) => {
             // copy localization files
             src: "./lib/locales",
             dest: ".",
+          },
+          {
+            src: "./lib/locales/en/**",
+            dest: "./locales/en-US",
           },
         ],
       }),

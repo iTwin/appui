@@ -2,16 +2,17 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/core-react/lib/cjs/core-react/z-index";
-@import "variables";
+@use "~@itwin/core-react/lib/core-react/z-index" as *;
+@use "variables" as *;
 
 .nz-widget-floatingTab {
   position: absolute;
   padding: 0 1em;
   display: flex;
   align-items: center;
-  background: $buic-background-4;
+  background: var(--iui-color-background-backdrop-hover);
   user-select: none;
+  -webkit-user-select: none;
   white-space: nowrap;
   height: $nz-widget-tab-height;
   border-radius: $nz-widget-tab-border-radius;

@@ -23,7 +23,7 @@ import { PointerMessage } from "../messages/Pointer.js";
 import { PopupRenderer } from "../popup/PopupManager.js";
 import { WidgetPanelsFrontstage } from "../widget-panels/Frontstage.js";
 import { ContentDialogRenderer } from "../dialog/ContentDialogManager.js";
-import { UiFramework } from "../UiFramework.js";
+import { appUi, UiFramework } from "../UiFramework.js";
 import { InternalConfigurableUiManager } from "./InternalConfigurableUiManager.js";
 import { MessageRenderer } from "../messages/MessageRenderer.js";
 import {
@@ -32,6 +32,7 @@ import {
 } from "../theme/ThemeId.js";
 import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState.js";
 import type { ContentProps } from "../content/ContentGroup.js";
+import { ChildWindowRenderer } from "../childwindow/ChildWindowRenderer.js";
 
 /** @internal */
 export const ConfigurableUiContext = React.createContext<
@@ -44,6 +45,7 @@ export const ConfigurableUiContext = React.createContext<
     | "collapsePanels"
     | "animateToolSettings"
     | "toolAsToolSettingsLabel"
+    | "childWindow"
   >
 >({});
 
@@ -72,6 +74,8 @@ export interface ConfigurableUiContentProps extends CommonProps {
   toolAsToolSettingsLabel?: boolean;
   /** Describes the opacity of toolbars. Uses redux store as a fallback. Defaults to {@link TOOLBAR_OPACITY_DEFAULT}. */
   toolbarOpacity?: number;
+  /** Component to wrap all popout widgets and other child windows opened via {@link UiFramework.childWindows}. */
+  childWindow?: React.ComponentType;
 
   /** @internal */
   idleTimeout?: number;
@@ -123,6 +127,7 @@ export function ConfigurableUiContent(props: ConfigurableUiContentProps) {
         collapsePanels: props.collapsePanels,
         animateToolSettings: props.animateToolSettings,
         toolAsToolSettingsLabel: props.toolAsToolSettingsLabel,
+        childWindow: props.childWindow,
       }}
     >
       <main
@@ -151,6 +156,7 @@ export function ConfigurableUiContent(props: ConfigurableUiContentProps) {
             <CursorPopupRenderer />
             <PopupRenderer />
             <MessageRenderer />
+            <ChildWindowRenderer windowManager={appUi.windowManager} />
             <div
               className="uifw-configurableui-portalContainer"
               ref={(instance) => setPortalContainer(instance ?? undefined)}

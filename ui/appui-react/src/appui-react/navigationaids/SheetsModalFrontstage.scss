@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/core-react/lib/cjs/core-react/style/colors";
+@use "~@itwin/core-react/lib/core-react/style/colors" as *;
 
 $sheets-modal-padding: 10px;
 
@@ -22,6 +22,7 @@ $sheets-modal-padding: 10px;
   border-style: solid;
   box-sizing: border-box;
   user-select: none;
+  -webkit-user-select: none;
 
   &:hover {
     cursor: pointer;

@@ -2,19 +2,17 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "../style/themecolors";
-
 .core-lb {
   display: flex;
   align-items: center;
 
   > .lb-container {
-    background-color: $buic-background-5;
+    background-color: var(--iui-color-background-disabled);
     flex: 1;
 
     > .fill {
       height: 100%;
-      background-color: $buic-foreground-primary;
+      background-color: var(--iui-color-icon-accent);
       transition: width 0.3s linear;
     }
   }

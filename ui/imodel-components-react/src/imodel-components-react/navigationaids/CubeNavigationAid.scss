@@ -2,8 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
-
 $cube-outer-width: 96px;
 $button-width: 20px;
 $nav-cube-width: 64px;
@@ -57,6 +55,7 @@ $arrow-margin: -3px;
           .face-cell {
             cursor: pointer;
             user-select: none;
+            -webkit-user-select: none;
             width: $nav-cube-side-width;
 
             &.cube-center {

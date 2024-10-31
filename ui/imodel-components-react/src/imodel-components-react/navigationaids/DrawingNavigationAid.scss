@@ -2,8 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/core-react/lib/cjs/core-react/z-index";
-@import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
+@use "~@itwin/core-react/lib/core-react/z-index" as *;
 
 #components-drawing-portal {
   @include uicore-z-index(dragged-widget);
@@ -44,8 +43,8 @@
 
     .unrotate-button {
       position: absolute;
-      background-color: $buic-background-control;
-      border: 1px solid $buic-background-toolbutton-stroke;
+      background-color: var(--iui-color-background);
+      border: 1px solid var(--iui-color-background-disabled);
       cursor: pointer;
       border-radius: var(--iui-border-radius-1);
       top: 10px;
@@ -66,8 +65,8 @@
     .close {
       position: absolute;
       cursor: pointer;
-      background-color: $buic-background-control;
-      border: 1px solid $buic-background-toolbutton-stroke;
+      background-color: var(--iui-color-background);
+      border: 1px solid var(--iui-color-background-disabled);
       border-radius: var(--iui-border-radius-1);
       right: 10px;
       top: 10px;
@@ -85,7 +84,7 @@
     .toggle-rotate-style {
       position: absolute;
       cursor: pointer;
-      background-color: $buic-background-control;
+      background-color: var(--iui-color-background);
       opacity: 0.5;
       color: var(--iui-color-text);
       border-radius: var(--iui-border-radius-1);
@@ -108,21 +107,21 @@
 
     .zoom {
       position: absolute;
-      border: 1px solid $buic-background-toolbutton-stroke;
+      border: 1px solid var(--iui-color-background-disabled);
       border-radius: var(--iui-border-radius-1);
       right: 10px;
       bottom: 10px;
 
       .zoom-button {
         cursor: pointer;
-        background-color: $buic-background-control;
+        background-color: var(--iui-color-background);
         height: 32px;
         width: 32px;
         line-height: 32px;
         text-align: center;
 
         &:first-child {
-          border-bottom: 1px solid $buic-background-toolbutton-stroke;
+          border-bottom: 1px solid var(--iui-color-background-disabled);
         }
 
         &:focus {

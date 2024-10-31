@@ -2,13 +2,13 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "./style/themecolors.scss";
+@forward "./style/themecolors";
 
 $uicore-scrollbar-width: 12px;
 $uicore-scrollbar-padding: 2px;
 
 @mixin uicore-scrollbar(
-  $color: $buic-background-scrollbar,
+  $color: hsl(var(--iui-color-foreground-hsl) / var(--iui-opacity-4)),
   $width: $uicore-scrollbar-width,
   $padding: $uicore-scrollbar-padding
 ) {
@@ -26,7 +26,9 @@ $uicore-scrollbar-padding: 2px;
     border-width: $padding;
 
     &:hover {
-      background-color: $buic-background-scrollbar-hover;
+      background-color: hsl(
+        var(--iui-color-foreground-hsl) / var(--iui-opacity-3)
+      );
     }
   }
 

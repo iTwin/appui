@@ -2,8 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
-
 $text-font-size: var(--iui-font-size-1);
 $text-font-color: var(--iui-color-text);
 
@@ -97,7 +95,7 @@ $text-font-color: var(--iui-color-text);
     white-space: nowrap;
     border: none;
     background: none;
-    color: var(--buic-foreground-primary);
+    color: var(--iui-color-icon-accent);
     font-size: 12px;
     cursor: pointer;
 

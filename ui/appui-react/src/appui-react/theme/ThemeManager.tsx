@@ -10,7 +10,6 @@ import "./ThemeManager.scss";
 import * as React from "react";
 import type { ThemeType } from "@itwin/itwinui-react";
 import { ThemeProvider } from "@itwin/itwinui-react";
-import { ThemeProvider as ThemeProviderV2 } from "@itwin/itwinui-react-v2";
 import type { ThemeId } from "./ThemeId.js";
 import { ColorTheme, SYSTEM_PREFERRED_COLOR_THEME } from "./ThemeId.js";
 import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState.js";
@@ -77,13 +76,7 @@ export function ThemeManager({ children, ...props }: ThemeManagerProps) {
       data-root-container="appui-root-id"
       includeCss={true}
     >
-      <ThemeProviderV2 /* v2 ThemeProvider is required to fix popup styling issues in widget popouts. */
-        style={{ height: "100%" }}
-        theme={providerTheme ?? "inherit"}
-        themeOptions={{ highContrast }}
-      >
-        {children}
-      </ThemeProviderV2>
+      {children}
     </ThemeProvider>
   );
 }

@@ -2,17 +2,11 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
-@import "~@itwin/core-react/lib/cjs/core-react/scrollbar";
-
-$component-examples-leftpanel-width: 225px;
-$component-examples-rightpanel-width: 200px;
-
 .component-examples {
   width: 100%;
   height: 100%;
 
-  color: $buic-text-color;
+  color: var(--iui-color-text);
   font-size: var(--iui-font-size-1);
 
   display: grid;
@@ -20,24 +14,18 @@ $component-examples-rightpanel-width: 200px;
   column-gap: 8px;
 
   .component-examples-categories {
-    background: $buic-background-dialog;
+    background: var(--iui-color-background-hover);
 
     height: 100%;
     overflow-y: auto;
-
-    @include uicore-touch-scrolling;
-    @include uicore-scrollbar();
   }
 
   .component-examples-items {
-    background: $buic-background-dialog;
+    background: var(--iui-color-background-hover);
     height: 100%;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-
-    @include uicore-touch-scrolling;
-    @include uicore-scrollbar();
 
     .component-examples-item {
       display: flex;
@@ -50,7 +38,7 @@ $component-examples-rightpanel-width: 200px;
       > .left-panel {
         flex: 1;
         flex-direction: column;
-        min-width: $component-examples-leftpanel-width;
+        min-width: 225px;
         padding: 15px;
 
         > .title {
@@ -60,28 +48,28 @@ $component-examples-rightpanel-width: 200px;
         > .description {
           margin-top: 10px;
           font-size: 12px;
-          color: $buic-text-color-muted;
+          color: var(--iui-color-text-muted);
         }
       }
 
       > .right-panel {
         flex: 4;
         align-items: center;
-        min-width: $component-examples-rightpanel-width;
+        min-width: 200px;
         padding: 15px;
       }
     }
 
     .component-examples-items-separator {
       width: 100%;
-      color: $buic-inputs-border;
+      color: hsl(var(--iui-color-foreground-hsl) / var(--iui-opacity-4));
     }
   }
 }
 
 .content-layout-fullscreen {
   height: calc(100vh - 80px);
-  background: $buic-background-dialog;
+  background: var(--iui-color-background-hover);
   top: auto;
 }
 

@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { test, Locator, expect } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import assert from "assert";
 import {
   WidgetState,
@@ -10,7 +10,7 @@ import {
   floatingWidgetLocator,
   openFrontstage,
   panelSectionLocator,
-  popoutButtonLocator,
+  popoutWidget,
   setWidgetState,
   tabLocator,
   trackConsole,
@@ -249,14 +249,3 @@ test("should render after link styles are loaded", async ({
     })
   );
 });
-
-async function popoutWidget(widget: Locator) {
-  const context = widget.page().context();
-  const popoutButton = popoutButtonLocator(widget);
-  const [popoutPage] = await Promise.all([
-    context.waitForEvent("page"),
-    popoutButton.click(),
-  ]);
-  await popoutPage.waitForLoadState(); // TODO: childWindow is only added after 'load' event
-  return popoutPage;
-}

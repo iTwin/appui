@@ -2,8 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/core-react/lib/cjs/core-react/index";
-
 .components-date-picker-calendar-popup-button {
   color: var(--iui-color-text);
   font-size: var(--iui-font-size-1);
@@ -26,12 +24,13 @@
     cursor: auto;
 
     svg {
-      fill: $buic-foreground-primary-tone;
+      fill: var(--iui-color-text-accent-hover);
     }
   }
 
   &:focus {
-    box-shadow: $buic-focus-boxshadow 0px 0px 0px 2px;
+    box-shadow: hsl(var(--iui-color-accent-hsl) / var(--iui-opacity-4)) 0px 0px
+      0px 2px;
     outline: none;
   }
 }
@@ -39,7 +38,7 @@
 .components-date-picker-calendar-popup-panel {
   display: flex;
   flex-direction: column;
-  background-color: $buic-background-control;
+  background-color: var(--iui-color-background);
 
   .time-container {
     display: flex;

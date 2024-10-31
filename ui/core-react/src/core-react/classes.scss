@@ -2,9 +2,8 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "./style/index";
-@import "./base/classes";
-@import "./icons/classes";
-@import "./inputs/classes";
-@import "./tabs/classes";
-@import "./text/classes";
+@use "./base/classes" as *;
+@use "./icons/classes" as *;
+@use "./inputs/classes" as *;
+@use "./tabs/classes" as *;
+@use "./text/classes" as *;

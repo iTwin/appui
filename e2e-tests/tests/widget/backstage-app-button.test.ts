@@ -11,7 +11,9 @@ test("backstage app button test", async ({ page, baseURL }) => {
   await page.getByRole("button", { name: "Widget", exact: true }).click();
 
   const backstageAppButton = page
-    .locator(".uifw-app-button-small > .nz-toolbar-button-button")
+    .getByRole("button", {
+      name: "Open backstage menu",
+    })
     .first();
   await expect(backstageAppButton).toHaveScreenshot();
 });

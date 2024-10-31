@@ -30,9 +30,6 @@ const availableFeatures: AvailableFeatures = {
   enableMaximizedPanelWidget: {
     label: "Enable maximized panel widgets",
   },
-  activateDroppedTab: {
-    label: "Change active tab after drag & drop",
-  },
   horizontalPanelAlignment: {
     label: "Horizontal panel alignment",
   },
@@ -40,14 +37,17 @@ const availableFeatures: AvailableFeatures = {
     label: "Render dropdown menu when widget title bar has more than 2 buttons",
     value: { threshold: 2 },
   },
-  newToolbars: {
-    label: "Enable iTwinUI based toolbars",
-  },
   reparentPopoutWidgets: {
     label: "Re-parent popout widgets",
   },
   controlWidgetVisibility: {
     label: "Control widget visibility",
+  },
+  allowLettersInAccuDrawInputFields: {
+    label: "Allow letters in AccuDraw input fields",
+  },
+  enableColorlessAccuDrawInputFields: {
+    label: "Enable colorless AccuDraw input fields",
   },
 };
 

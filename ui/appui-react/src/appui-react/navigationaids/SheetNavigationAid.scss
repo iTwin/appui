@@ -2,18 +2,16 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/core-react/lib/cjs/core-react/style/index";
-
 .uifw-sheet-navigation {
   height: 96px;
   width: 96px;
   box-sizing: border-box;
-  border-color: $buic-background-widget-stroke;
+  border-color: var(--iui-color-background-disabled);
   border-width: 1px;
   border-radius: var(--iui-border-radius-1);
   border-style: solid;
   color: var(--iui-color-text);
-  background: $buic-background-window;
+  background: var(--iui-color-background-hover);
   position: relative;
   display: flex;
   flex-wrap: wrap;

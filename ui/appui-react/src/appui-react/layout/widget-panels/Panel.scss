@@ -2,8 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
-@import "variables";
+@use "variables" as *;
 
 @layer appui.component {
   .nz-widgetPanels-panel {
@@ -25,7 +24,7 @@
     > .nz-content {
       display: flex;
       position: relative;
-      background: $buic-background-2;
+      background: var(--iui-color-background-hover);
     }
 
     &.nz-transition {
