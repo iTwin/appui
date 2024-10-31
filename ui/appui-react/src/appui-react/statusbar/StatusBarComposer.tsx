@@ -50,33 +50,24 @@ function getCombinedSectionItemPriority(item: StatusBarItem) {
   return sectionValue + item.itemPriority;
 }
 
-interface DockedStatusBarEntryContextArg {
-  readonly isOverflown: boolean;
-  readonly onResize?: (w: number) => void;
-}
-
-const DockedStatusBarEntryContext =
-  React.createContext<DockedStatusBarEntryContextArg>(null!);
-DockedStatusBarEntryContext.displayName = "nz:DockedStatusBarEntryContext";
-
 /** Properties of [[DockedStatusBarItem]] component.
- * @internal future
+ * @internal
  */
 // eslint-disable-next-line deprecation/deprecation
-export interface StatusBarItemProps extends CommonProps {
+export interface DockedStatusBarItemProps extends CommonProps {
   /** Tool setting content. */
   children?: React.ReactNode;
   itemPriority?: number;
   providerId?: string;
   section?: string;
+  onResize?: (w: number) => void;
 }
 
 /** Used in [[StatusBarComposer]] component to display a statusbar item.
- * @internal future
+ * @internal
  */
-export function DockedStatusBarItem(props: StatusBarItemProps) {
-  const { onResize } = React.useContext(DockedStatusBarEntryContext);
-  const ref = useResizeObserver<HTMLDivElement>(onResize);
+export function DockedStatusBarItem(props: DockedStatusBarItemProps) {
+  const ref = useResizeObserver<HTMLDivElement>(props.onResize);
   const className = classnames(
     "uifw-statusBar-item-container",
     props.className
@@ -296,41 +287,34 @@ export function StatusBarComposer(props: StatusBarComposerProps) {
       const providerId = isProviderItem(item) ? item.providerId : undefined;
       const isOverflown = isItemInOverflow(key, overflown);
       return (
-        <DockedStatusBarEntryContext.Provider
+        <DockedStatusBarItem
           key={key}
-          value={{
-            isOverflown,
-            onResize: isOverflown ? undefined : getOnEntryResize(key),
-          }}
+          itemId={item.id}
+          itemPriority={itemPriority}
+          providerId={providerId}
+          section={getSectionName(section)}
+          onResize={isOverflown ? undefined : getOnEntryResize(key)}
         >
-          <DockedStatusBarItem
-            key={key}
-            itemId={item.id}
-            itemPriority={itemPriority}
-            providerId={providerId}
-            section={getSectionName(section)}
+          <StatusBarCornerComponentContext.Provider
+            value={
+              key === notOverflown[0]
+                ? "left-corner"
+                : (key === notOverflown[notOverflown.length - 1] &&
+                    overflown?.length === 0) ||
+                  isItemInOverflow(key, overflown)
+                ? "right-corner"
+                : undefined
+            }
           >
-            <StatusBarCornerComponentContext.Provider
-              value={
-                key === notOverflown[0]
-                  ? "left-corner"
-                  : (key === notOverflown[notOverflown.length - 1] &&
-                      overflown?.length === 0) ||
-                    isItemInOverflow(key, overflown)
-                  ? "right-corner"
-                  : undefined
-              }
-            >
-              {isStatusBarCustomItem(item) && item.content}
-              {isStatusBarActionItem(item) && (
-                <StatusBarActionItemComponent {...item} />
-              )}
-              {isStatusBarLabelItem(item) && (
-                <StatusBarLabelItemComponent {...item} />
-              )}
-            </StatusBarCornerComponentContext.Provider>
-          </DockedStatusBarItem>
-        </DockedStatusBarEntryContext.Provider>
+            {isStatusBarCustomItem(item) && item.content}
+            {isStatusBarActionItem(item) && (
+              <StatusBarActionItemComponent {...item} />
+            )}
+            {isStatusBarLabelItem(item) && (
+              <StatusBarLabelItemComponent {...item} />
+            )}
+          </StatusBarCornerComponentContext.Provider>
+        </DockedStatusBarItem>
       );
     },
     [getOnEntryResize, notOverflown, overflown]
