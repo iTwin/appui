@@ -109,7 +109,9 @@ describe("DrawingNavigationAid", () => {
   viewState
     .setup((x) => x.classFullName)
     .returns(() => "Bis:DrawingViewDefinition");
-  viewState.setup((x) => x.is3d).returns(() => (() => false) as DrawingViewState["is3d"]);
+  viewState
+    .setup((x) => x.is3d)
+    .returns(() => (() => false) as DrawingViewState["is3d"]);
   viewState.setup((x) => x.getExtents).returns(() => () => extents);
   viewState.setup((x) => x.getOrigin).returns(() => () => origin);
   viewState.setup((x) => x.getRotation).returns(() => () => rotation);
@@ -121,7 +123,9 @@ describe("DrawingNavigationAid", () => {
   viewState3d
     .setup((x) => x.classFullName)
     .returns(() => "Bis:ViewDefinition3d");
-  viewState3d.setup((x) => x.is3d).returns(() => (() => false) as ViewState3d["is3d"]);
+  viewState3d
+    .setup((x) => x.is3d)
+    .returns(() => (() => true) as ViewState3d["is3d"]);
   viewState3d.setup((x) => x.getExtents).returns(() => () => extents);
   viewState3d.setup((x) => x.getOrigin).returns(() => () => origin);
   viewState3d.setup((x) => x.getRotation).returns(() => () => rotation);
