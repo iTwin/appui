@@ -2,9 +2,9 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "../../../target";
-@import "~@itwin/core-react/lib/cjs/core-react/typography";
-@import "variables";
+@use "~@itwin/core-react/lib/core-react/typography" as *;
+@use "../../../target" as *;
+@use "variables" as *;
 
 .components-toolbar-item-expandable-group-tool-item {
   $item-height: 32px;

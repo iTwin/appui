@@ -2,11 +2,8 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/core-react/lib/cjs/core-react/icons/variables";
-@import "~@itwin/core-react/lib/cjs/core-react/inputs/variables";
-@import "~@itwin/core-react/lib/cjs/core-react/style/baseline";
-@import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
-@import "./variables.scss";
+@use "~@itwin/core-react/lib/core-react/inputs/variables" as *;
+@use "./variables" as *;
 
 .components-popup-button {
   min-width: 100%;

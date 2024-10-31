@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "../z-index";
+@use "../z-index" as *;
 
 .core-dialog {
   @include uicore-z-index(dialog);

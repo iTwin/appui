@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/components-react",
-      "comment": "Provide file extension in import declarations.",
+      "comment": "Fixed `pw:` links handling in property grid.",
       "type": "none"
     }
   ],
