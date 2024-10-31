@@ -1594,7 +1594,7 @@ export interface WebFontIconProps extends CommonProps {
 }
 
 // @public @deprecated
-export const withIsPressed: <ComponentProps extends {}>(Component: React_2.ComponentType<ComponentProps>) => {
+export const withIsPressed: <ComponentProps extends object>(Component: React_2.ComponentType<ComponentProps>) => {
     new (props: ComponentProps & WithIsPressedProps): {
         handleOnPointerDown: () => void;
         handleOnPointerUp: () => void;
@@ -1659,7 +1659,7 @@ export interface WithIsPressedProps {
 }
 
 // @public @deprecated
-export const withOnOutsideClick: <ComponentProps extends {}>(Component: React_2.ComponentType<ComponentProps>, defaultOnOutsideClick?: (event: MouseEvent) => any, useCapture?: boolean, usePointerEvents?: boolean) => {
+export const withOnOutsideClick: <ComponentProps extends object>(Component: React_2.ComponentType<ComponentProps>, defaultOnOutsideClick?: (event: MouseEvent) => any, useCapture?: boolean, usePointerEvents?: boolean) => {
     new (props: ComponentProps & WithOnOutsideClickProps): {
         outsideClickContainerDiv?: HTMLDivElement | null;
         isDownOutside: boolean;
@@ -1734,7 +1734,7 @@ export interface WithOnOutsideClickProps {
 }
 
 // @public @deprecated
-export const withTimeout: <ComponentProps extends {}>(Component: React_2.ComponentType<ComponentProps>) => {
+export const withTimeout: <ComponentProps extends object>(Component: React_2.ComponentType<ComponentProps>) => {
     new (props: ComponentProps & WithTimeoutProps): {
         timer: Timer;
         componentDidMount(): void;

@@ -193,7 +193,7 @@ export interface AccuDrawFieldContainerProps extends CommonProps {
 }
 
 // @public @deprecated
-export class AccuDrawGrabInputFocusEvent extends BeUiEvent<{}> {
+export class AccuDrawGrabInputFocusEvent extends BeUiEvent<object> {
 }
 
 // @public
@@ -341,7 +341,7 @@ export interface AccuDrawUiSettings {
 }
 
 // @public @deprecated
-export class AccuDrawUiSettingsChangedEvent extends BeUiEvent<{}> {
+export class AccuDrawUiSettingsChangedEvent extends BeUiEvent<object> {
 }
 
 // @public
@@ -409,7 +409,7 @@ export interface ActiveContentChangedEventArgs {
 export function ActivityCenterField(props: CommonProps): React_2.JSX.Element | null;
 
 // @public @deprecated
-export class ActivityMessageCancelledEvent extends UiEvent<{}> {
+export class ActivityMessageCancelledEvent extends UiEvent<object> {
 }
 
 // @public @deprecated
@@ -1450,7 +1450,7 @@ export class CursorPopupManager {
         id: string;
     }>;
     // @internal (undocumented)
-    static readonly onCursorPopupsChangedEvent: BeUiEvent<{}>;
+    static readonly onCursorPopupsChangedEvent: BeUiEvent<object>;
     // @internal (undocumented)
     static readonly onCursorPopupUpdatePositionEvent: BeUiEvent<{
         pt: XAndY;
@@ -2067,7 +2067,7 @@ export interface FrameworkKeyboardShortcuts {
 export const FrameworkReducer: Reducer_2<CombinedState<    {
 configurableUiState: ConfigurableUiState;
 sessionState: never;
-}>, SessionStateActionsUnion_2 | ConfigurableUiActionsUnion_2>;
+}>, ConfigurableUiActionsUnion_2 | SessionStateActionsUnion_2>;
 
 // @beta @deprecated
 export interface FrameworkRootState {
@@ -2658,7 +2658,7 @@ export interface InputFieldMessageEventArgs {
 }
 
 // @public @deprecated
-export class InputFieldMessageRemovedEvent extends UiEvent<{}> {
+export class InputFieldMessageRemovedEvent extends UiEvent<object> {
 }
 
 // @alpha
@@ -3159,7 +3159,7 @@ export class MessageManager {
 }
 
 // @public @deprecated
-export class MessagesUpdatedEvent extends UiEvent<{}> {
+export class MessagesUpdatedEvent extends UiEvent<object> {
 }
 
 // @public @deprecated
@@ -3351,7 +3351,7 @@ export interface OpenChildWindowInfo {
 }
 
 // @public @deprecated
-export class OpenMessageCenterEvent extends UiEvent<{}> {
+export class OpenMessageCenterEvent extends UiEvent<object> {
 }
 
 // @public
@@ -3515,7 +3515,7 @@ export interface PopupPropsBase {
 }
 
 // @public
-export class PopupRenderer extends React_2.Component<{}, PopupRendererState> {
+export class PopupRenderer extends React_2.Component<object, PopupRendererState> {
     // (undocumented)
     componentDidMount(): void;
     // (undocumented)
@@ -3840,7 +3840,7 @@ export const SessionStateActions: {
     setNumItemsSelected: (numSelected: number) => ActionWithPayload_2<SessionStateActionId.SetNumItemsSelected, number>;
     setIModelConnection: (iModelConnection: any) => ActionWithPayload_2<SessionStateActionId.SetIModelConnection, any>;
     setSelectionScope: (activeSelectionScope: string) => ActionWithPayload_2<SessionStateActionId.SetSelectionScope, string>;
-    updateCursorMenu: (cursorMenuData: CursorMenuData | CursorMenuPayload) => ActionWithPayload_2<SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject_2<CursorMenuPayload> | DeepReadonlyObject_2<CursorMenuData>>;
+    updateCursorMenu: (cursorMenuData: CursorMenuData | CursorMenuPayload) => ActionWithPayload_2<SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject_2<CursorMenuData> | DeepReadonlyObject_2<CursorMenuPayload>>;
 };
 
 // @beta @deprecated
@@ -3878,7 +3878,7 @@ export const sessionStateMapDispatchToProps: {
     setNumItemsSelected: (numSelected: number) => ActionWithPayload_2<SessionStateActionId.SetNumItemsSelected, number>;
     setIModelConnection: (iModelConnection: any) => ActionWithPayload_2<SessionStateActionId.SetIModelConnection, any>;
     setSelectionScope: (activeSelectionScope: string) => ActionWithPayload_2<SessionStateActionId.SetSelectionScope, string>;
-    updateCursorMenu: (cursorMenuData: CursorMenuData | CursorMenuPayload) => ActionWithPayload_2<SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject_2<CursorMenuPayload> | DeepReadonlyObject_2<CursorMenuData>>;
+    updateCursorMenu: (cursorMenuData: CursorMenuData | CursorMenuPayload) => ActionWithPayload_2<SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject_2<CursorMenuData> | DeepReadonlyObject_2<CursorMenuPayload>>;
 };
 
 // @public @deprecated
