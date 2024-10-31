@@ -159,9 +159,10 @@ const DisplayValue: React.FC<DisplayValueProps> = (props) => {
   );
 
   if (
-    props.showOnlyEditor && props.isPropertyEditingEnabled
+    props.isEditing ||
+    (props.showOnlyEditor && props.isPropertyEditingEnabled
       ? props.showOnlyEditor(props.propertyRecord)
-      : false || props.isEditing
+      : false)
   ) {
     const _onEditCommit = (args: PropertyUpdatedArgs) => {
       if (props.category) props.onEditCommit?.(args, props.category);

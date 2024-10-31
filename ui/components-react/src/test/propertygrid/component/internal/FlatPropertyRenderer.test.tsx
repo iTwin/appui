@@ -5,7 +5,7 @@
 import * as React from "react";
 import type { PropertyRecord } from "@itwin/appui-abstract";
 import { Orientation } from "@itwin/core-react";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { PropertyValueRendererManager } from "../../../../components-react/properties/ValueRendererManager.js";
 import { FlatPropertyRenderer } from "../../../../components-react/propertygrid/internal/flat-properties/FlatPropertyRenderer.js";
 import TestUtils, { selectorMatches, userEvent } from "../../../TestUtils.js";
@@ -386,6 +386,29 @@ describe("FlatPropertyRenderer", () => {
     expect(screen.getByRole("textbox")).satisfy(
       selectorMatches(".components-text-editor")
     );
+  });
+
+  it("renders an editor with focus when showOnlyEditor is defined and isEditing is true", async () => {
+    const textPropertyRecord = TestUtils.createPrimitiveStringProperty(
+      "Label",
+      "Model",
+      "DisplayValue",
+      { name: "textEditor" }
+    );
+    render(
+      <FlatPropertyRenderer
+        orientation={Orientation.Horizontal}
+        propertyRecord={textPropertyRecord}
+        isEditing={true}
+        isPropertyEditingEnabled={true}
+        showOnlyEditor={() => false}
+        isExpanded={false}
+        onExpansionToggled={() => {}}
+      />
+    );
+
+    const input = await waitFor(() => screen.getByRole("textbox"));
+    await waitFor(() => expect(input).to.be.eq(document.activeElement));
   });
 
   it("calls onEditCommit on Enter key when editing", async () => {
