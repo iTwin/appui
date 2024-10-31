@@ -52,17 +52,12 @@ function getCombinedSectionItemPriority(item: StatusBarItem) {
 
 interface DockedStatusBarEntryContextArg {
   readonly isOverflown: boolean;
-  readonly onResize: (w: number) => void;
+  readonly onResize?: (w: number) => void;
 }
 
 const DockedStatusBarEntryContext =
   React.createContext<DockedStatusBarEntryContextArg>(null!);
 DockedStatusBarEntryContext.displayName = "nz:DockedStatusBarEntryContext";
-
-/** @internal */
-export function useStatusBarEntry() {
-  return React.useContext(DockedStatusBarEntryContext);
-}
 
 /** Properties of [[DockedStatusBarItem]] component.
  * @internal future
@@ -80,7 +75,7 @@ export interface StatusBarItemProps extends CommonProps {
  * @internal future
  */
 export function DockedStatusBarItem(props: StatusBarItemProps) {
-  const { onResize } = useStatusBarEntry();
+  const { onResize } = React.useContext(DockedStatusBarEntryContext);
   const ref = useResizeObserver<HTMLDivElement>(onResize);
   const className = classnames(
     "uifw-statusBar-item-container",
@@ -99,30 +94,6 @@ export function DockedStatusBarItem(props: StatusBarItemProps) {
     >
       {props.children}
     </div>
-  );
-}
-
-interface DockedStatusBarEntryProps {
-  children?: React.ReactNode;
-  onResize?: (w: number) => void;
-}
-
-/** Wrapper for status bar entries so their size can be used to determine if the status bar container can display them or if they will need to be placed in an overflow panel. */
-function DockedStatusBarEntry({
-  children,
-  onResize,
-}: DockedStatusBarEntryProps) {
-  const entry = React.useMemo<DockedStatusBarEntryContextArg>(
-    () => ({
-      isOverflown: false,
-      onResize: onResize ?? (() => {}),
-    }),
-    [onResize]
-  );
-  return (
-    <DockedStatusBarEntryContext.Provider value={entry}>
-      {children}
-    </DockedStatusBarEntryContext.Provider>
   );
 }
 
@@ -325,9 +296,12 @@ export function StatusBarComposer(props: StatusBarComposerProps) {
       const providerId = isProviderItem(item) ? item.providerId : undefined;
       const isOverflown = isItemInOverflow(key, overflown);
       return (
-        <DockedStatusBarEntry
+        <DockedStatusBarEntryContext.Provider
           key={key}
-          onResize={isOverflown ? undefined : getOnEntryResize(key)}
+          value={{
+            isOverflown,
+            onResize: isOverflown ? undefined : getOnEntryResize(key),
+          }}
         >
           <DockedStatusBarItem
             key={key}
@@ -356,7 +330,7 @@ export function StatusBarComposer(props: StatusBarComposerProps) {
               )}
             </StatusBarCornerComponentContext.Provider>
           </DockedStatusBarItem>
-        </DockedStatusBarEntry>
+        </DockedStatusBarEntryContext.Provider>
       );
     },
     [getOnEntryResize, notOverflown, overflown]
