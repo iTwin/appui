@@ -2255,7 +2255,7 @@ export interface RenderedItemsRange {
 }
 
 // @public
-export const renderLinks: (text: string, links: LinkElementsInfo, highlight?: ((text: string) => React_3.ReactNode) | undefined) => React_3.ReactNode;
+export const renderLinks: (text: string, links: LinkElementsInfo, highlight?: (text: string) => React_3.ReactNode) => React_3.ReactNode;
 
 // @public
 export class ResultSelector extends React_3.PureComponent<ResultSelectorProps, ResultSelectorState> {
@@ -3358,7 +3358,7 @@ export interface VisibleTreeNodes extends Iterable<TreeModelNode | TreeModelNode
 export const withContextStyle: (node: React_3.ReactNode, context?: PropertyValueRendererContext) => string | number | boolean | Iterable<React_3.ReactNode> | React_3.JSX.Element | null | undefined;
 
 // @public
-export const withLinks: (stringValue: string, links?: LinkElementsInfo, highlight?: ((text: string) => React_3.ReactNode) | undefined) => React_3.ReactNode;
+export const withLinks: (stringValue: string, links?: LinkElementsInfo, highlight?: (text: string) => React_3.ReactNode) => React_3.ReactNode;
 
 // (No @packageDocumentation comment for this package)
 
