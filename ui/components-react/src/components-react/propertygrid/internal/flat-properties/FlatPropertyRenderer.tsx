@@ -158,28 +158,21 @@ const DisplayValue: React.FC<DisplayValueProps> = (props) => {
     props.onHeightChanged
   );
 
-  if (
-    props.isEditing ||
-    (props.showOnlyEditor && props.isPropertyEditingEnabled
-      ? props.showOnlyEditor(props.propertyRecord)
-      : false)
-  ) {
+  const showsOnlyEditor = props.showOnlyEditor
+    ? props.showOnlyEditor(props.propertyRecord)
+    : false;
+
+  if (props.isEditing || (showsOnlyEditor && props.isPropertyEditingEnabled)) {
     const _onEditCommit = (args: PropertyUpdatedArgs) => {
       if (props.category) props.onEditCommit?.(args, props.category);
     };
-
-    const setFocus = props.showOnlyEditor
-      ? props.isEditing
-        ? true
-        : false
-      : true;
 
     return (
       <EditorContainer
         propertyRecord={props.propertyRecord}
         onCommit={_onEditCommit}
         onCancel={props.onEditCancel ?? (() => {})}
-        setFocus={setFocus}
+        setFocus={props.isEditing}
       />
     );
   }
