@@ -14,19 +14,11 @@ import type { CommonProps } from "@itwin/core-react";
 import { useRefs, useResizeObserver } from "@itwin/core-react";
 import classnames from "classnames";
 import * as React from "react";
-<<<<<<< HEAD
-import { eqlOverflown } from "../layout/tool-settings/Docked";
+import { useOverflow } from "../layout/tool-settings/Docked";
 import { StatusBarLabelIndicator } from "../statusbar/LabelIndicator";
 import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
 import { isProviderItem } from "../ui-items-provider/isProviderItem";
 import { StatusBarOverflow } from "./Overflow";
-=======
-import { useOverflow } from "../layout/tool-settings/Docked.js";
-import { StatusBarLabelIndicator } from "../statusbar/LabelIndicator.js";
-import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher.js";
-import { isProviderItem } from "../ui-items-provider/isProviderItem.js";
-import { StatusBarOverflow } from "./Overflow.js";
->>>>>>> 44a9a4c9a (Fix overflow issue in status bar overflow (#1093))
 import {
   StatusBarCenterSection,
   StatusBarLeftSection,
