@@ -27,7 +27,7 @@ import type { ToolbarItems } from "../tools/ToolbarItems.js";
 import { getActiveViewport } from "../utils/getActiveViewport.js";
 import * as React from "react";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** Return SyncEventIds that trigger selection state function refresh.
  * @beta
@@ -51,7 +51,7 @@ export function getSelectionContextSyncEventIds(): string[] {
     SyncUiEventId.SelectionSetChanged,
     SyncUiEventId.ActiveContentChanged,
     SyncUiEventId.ActiveViewportChanged,
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     SessionStateActionId.SetNumItemsSelected,
     SyncUiEventId.FeatureOverridesChanged,
     SyncUiEventId.ViewedModelsChanged,

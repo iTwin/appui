@@ -40,7 +40,7 @@ export interface ViewSelectorChangedEventArgs {
  * @beta
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class ViewSelectorChangedEvent extends UiEvent<ViewSelectorChangedEventArgs> {}
 
 /** Properties for the [[ViewSelector]] component
@@ -116,7 +116,7 @@ export class ViewSelector extends React.Component<
    * @deprecated in 4.16.0. Use {@link ViewSelectorProps.onViewSelected} prop instead.
    */
   public static readonly onViewSelectorChangedEvent =
-    new ViewSelectorChangedEvent(); // eslint-disable-line deprecation/deprecation
+    new ViewSelectorChangedEvent(); // eslint-disable-line @typescript-eslint/no-deprecated
 
   /** Updates the ViewSelector show settings.
    */
@@ -362,8 +362,8 @@ export class ViewSelector extends React.Component<
 
   // enable/disable the models
   private _setEnabled = async (item: ListItem, _enabled: boolean) => {
-    const activeContentControl = // eslint-disable-next-line deprecation/deprecation
-      UiFramework.content.getActiveContentControl() as unknown as  // eslint-disable-next-line deprecation/deprecation
+    const activeContentControl = // eslint-disable-next-line @typescript-eslint/no-deprecated
+      UiFramework.content.getActiveContentControl() as unknown as  // eslint-disable-next-line @typescript-eslint/no-deprecated
         | SupportsViewSelectorChange
         | undefined;
     if (
@@ -428,7 +428,7 @@ export class ViewSelector extends React.Component<
       );
 
       // Emit a change event
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       ViewSelector.onViewSelectorChangedEvent.emit({
         iModelConnection: this.props.imodel,
         viewDefinitionId: item.key,
@@ -499,7 +499,7 @@ export function IModelConnectedViewSelector(
   props: IModelConnectedViewSelectorProps
 ) {
   const iModel = useReduxFrameworkState(
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     (state) => state?.sessionState.iModelConnection
   );
   return <ViewSelector imodel={iModel} {...props} />;

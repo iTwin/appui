@@ -42,7 +42,7 @@ export function WidgetProvider(props: WidgetProviderProps) {
 }
 
 /** @internal */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface WidgetProps extends CommonProps {
   children?: React.ReactNode;
   onMouseEnter?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;

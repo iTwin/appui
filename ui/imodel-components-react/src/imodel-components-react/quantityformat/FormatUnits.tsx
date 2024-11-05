@@ -21,7 +21,7 @@ import { useTranslation } from "../useTranslation.js";
  * @alpha
  * @deprecated in 4.17.0. Use `React.ComponentProps<typeof FormatUnits>`
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface FormatUnitsProps extends CommonProps {
   initialFormat: FormatProps;
   persistenceUnit?: UnitProps;
@@ -32,7 +32,7 @@ export interface FormatUnitsProps extends CommonProps {
 /** Component to show/edit Units used for Quantity Formatting.
  * @alpha
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export function FormatUnits(props: FormatUnitsProps) {
   const { initialFormat, persistenceUnit, unitsProvider, onUnitsChange } =
     props;

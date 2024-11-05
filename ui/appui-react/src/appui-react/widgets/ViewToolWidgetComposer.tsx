@@ -38,7 +38,7 @@ export interface ViewToolWidgetComposerProps {
  * ```
  * @public
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export function ViewToolWidgetComposer(props: ViewToolWidgetComposerProps) {
   const uiIsVisible = useUiVisibility();
   const className = classnames(!uiIsVisible && "nz-hidden");

@@ -180,7 +180,7 @@ const TreeRendererInner = React.forwardRef<
     }
   }
 
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   const coreTreeRef = React.useRef<CoreTree>(null);
   const onLabelRendered = useScrollToActiveMatch(
     coreTreeRef,
@@ -262,7 +262,7 @@ const TreeRendererInner = React.forwardRef<
 
   return (
     <TreeRendererContextProvider value={rendererContext}>
-      {/* eslint-disable-next-line deprecation/deprecation */}
+      {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
       <CoreTree
         ref={coreTreeRef}
         className={classnames(
@@ -349,7 +349,7 @@ const Node = React.memo<React.FC<ListChildComponentProps>>(function Node(
           });
         }
 
-        // eslint-disable-next-line deprecation/deprecation
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         return <TreeNodePlaceholder level={node.depth} />;
       }, [
         node,
@@ -435,7 +435,7 @@ function getHighlightedNodeId(highlightableTreeProps?: HighlightableTreeProps) {
 }
 
 function useScrollToActiveMatch(
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   treeRef: React.RefObject<CoreTree>,
   highlightableTreeProps?: HighlightableTreeProps
 ) {
@@ -474,7 +474,7 @@ function useScrollToActiveMatch(
   return onLabelRendered;
 }
 
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 function setFocusToSelected(treeRef: React.RefObject<CoreTree>) {
   if (treeRef.current)
     treeRef.current.setFocusByClassName(".core-tree-node.is-selected");

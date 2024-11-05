@@ -29,7 +29,7 @@ import type { IconSpec } from "../icons/IconComponent.js";
 import { Icon } from "../icons/IconComponent.js";
 import { Dialog } from "../dialog/Dialog.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** Properties for the [[MessageBox]] component
  * @public

@@ -30,7 +30,7 @@ type CheckboxRendererProps = Omit<CheckboxProps, "onChange" | "onClick"> & {
  * Properties for [[TreeNodeRenderer]].
  * @public
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface TreeNodeRendererProps extends CommonProps {
   /** Tree node to render. */
   node: TreeModelNode;
@@ -96,7 +96,7 @@ export const TreeNodeRenderer = React.memo(function TreeNodeRenderer(
 
   const createCheckboxProps = (
     checkboxInfo: CheckBoxInfo
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
   ): NodeCheckboxProps => ({
     state: checkboxInfo.state,
     tooltip: checkboxInfo.tooltip,
@@ -106,7 +106,7 @@ export const TreeNodeRenderer = React.memo(function TreeNodeRenderer(
   });
 
   return (
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     <TreeNode
       data-testid={TreeComponentTestId.Node}
       className={props.className}
@@ -155,7 +155,7 @@ export interface TreeNodeIconProps {
  * React component that renders icon for [[TreeNode]].
  * @public
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export function TreeNodeIcon(props: TreeNodeIconProps) {
   const { imageLoader, node } = props;
   const image = imageLoader.load(node.item);

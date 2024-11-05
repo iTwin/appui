@@ -26,7 +26,7 @@ export interface FavoritePropertyListProps {
 /** Favorite Property List React component
  * @alpha
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export function FavoritePropertyList(props: FavoritePropertyListProps) {
   const [listWidth, setListWidth] = React.useState<number | undefined>();
   const onListResize = React.useCallback(setListWidth, [setListWidth]);
@@ -37,7 +37,7 @@ export function FavoritePropertyList(props: FavoritePropertyListProps) {
     const orientation = props.orientation ?? Orientation.Horizontal;
     return (
       <div className="components-favorite-property-list">
-        {/* eslint-disable-next-line deprecation/deprecation */}
+        {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
         <ResizableContainerObserver onResize={onListResize} />
         {listWidth ? (
           <PropertyList

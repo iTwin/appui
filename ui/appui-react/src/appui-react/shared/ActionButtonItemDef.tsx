@@ -12,7 +12,7 @@ import { ItemDefBase } from "./ItemDefBase.js";
 import type { ItemProps } from "./ItemProps.js";
 import type { SizeProps } from "../utils/SizeProps.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** Abstract base class that is used by classes to execute an action when pressed.
  * @public

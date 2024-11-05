@@ -24,7 +24,7 @@ describe("ModalDialogManager", () => {
 
   it("ModalDialogRenderer component", async () => {
     const reactNode = (
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       <StandardMessageBox
         opened={true}
         title="My Title"
@@ -51,7 +51,7 @@ describe("ModalDialogManager", () => {
 
   it("ModalDialogRenderer component with two dialogs", async () => {
     const reactNode = (
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       <StandardMessageBox
         opened={true}
         title="My Title"
@@ -60,7 +60,7 @@ describe("ModalDialogManager", () => {
       />
     );
     const reactNode2 = (
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       <StandardMessageBox
         opened={true}
         title="My Title 2"

@@ -15,7 +15,7 @@ import { useTranslation } from "../../useTranslation.js";
 /** Properties of [[StationSizeSelector]] component.
  * @internal
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface StationSizeSelectorProps extends CommonProps {
   value: number;
   disabled: boolean;

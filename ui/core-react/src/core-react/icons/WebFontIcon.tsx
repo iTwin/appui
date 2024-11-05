@@ -15,7 +15,7 @@ import type { CommonProps } from "../utils/Props.js";
  * @public
  * @deprecated in 4.15.0. Props of deprecated {@link WebFontIcon} component.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface WebFontIconProps extends CommonProps {
   /** Bentley Web Font icon name */
   iconName: string;
@@ -33,7 +33,7 @@ export interface WebFontIconProps extends CommonProps {
  * @public
  * @deprecated in 4.15.0. Not used by AppUI. Use `@itwin/itwinui-icons-react` package.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export function WebFontIcon(props: WebFontIconProps) {
   const className = classnames(
     props.iconClassName || "bui-webfont-icon",

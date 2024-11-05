@@ -7,7 +7,7 @@
  */
 import { CheckBoxState as _CheckBoxState } from "@itwin/core-react";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** State of a checkbox.
  * @public

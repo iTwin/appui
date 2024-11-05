@@ -11,7 +11,7 @@ import type { AnyItemDef } from "./AnyItemDef.js";
 import type { ItemProps } from "./ItemProps.js";
 import type { ToolbarGroupItem } from "../toolbar/ToolbarItem.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** Definition for a Group item that opens a group of items.
  * @public
@@ -20,7 +20,7 @@ import type { ToolbarGroupItem } from "../toolbar/ToolbarItem.js";
 export interface GroupItemProps extends ItemProps {
   defaultActiveItemId?: string;
   groupId?: string;
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   items: AnyItemDef[];
   itemsInColumn?: number;
   /** if set, it is used to explicitly set a label at top of open group component. */

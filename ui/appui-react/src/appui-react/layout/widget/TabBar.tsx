@@ -129,7 +129,7 @@ export function useDrag<T extends HTMLElement>(
   onTouchStart?: () => void,
   onDoubleClick?: () => void
 ) {
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   const doubleClickTimer = React.useRef(new Timer(300));
   const clickCount = React.useRef(0);
   const initialPointerPosition = React.useRef<Point>();

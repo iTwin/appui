@@ -48,7 +48,7 @@ const defaultPlaybackDuration = 40 * 1000;
 
 const offset = 6;
 
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 interface TimelineProps extends CommonProps {
   dayStartMs: number;
   sunRiseOffsetMs: number;

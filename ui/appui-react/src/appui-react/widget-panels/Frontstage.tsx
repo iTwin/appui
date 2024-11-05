@@ -222,19 +222,19 @@ export function ActiveFrontstageDefProvider({
   const labels = useLabels();
   const uiIsVisible = useUiVisibility();
   const reduxToolAsToolSettingsLabel = useReduxFrameworkState(
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     (state) => state?.configurableUiState.useToolAsToolSettingsLabel
   );
   const reduxShowWidgetIcon = useReduxFrameworkState(
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     (state) => state?.configurableUiState.showWidgetIcon
   );
   const reduxAutoCollapseUnpinnedPanels = useReduxFrameworkState(
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     (state) => state?.configurableUiState.autoCollapseUnpinnedPanels
   );
   const reduxAnimateToolSettings = useReduxFrameworkState(
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     (state) => state?.configurableUiState.autoCollapseUnpinnedPanels
   );
   const showWidgetIcon =
@@ -518,7 +518,7 @@ export function initializePanel(
   const panelDef = frontstageDef.getStagePanelDef(location);
   if (!panelDef) return;
 
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   const size = panelDef.initialConfig?.sizeSpec ?? panelDef.initialConfig?.size;
   size !== undefined &&
     frontstageDef.dispatch({
@@ -540,7 +540,7 @@ export function initializePanel(
   });
 
   const minSize =
-    panelDef.initialConfig?.minSizeSpec ?? panelDef.initialConfig?.minSize; // eslint-disable-line deprecation/deprecation
+    panelDef.initialConfig?.minSizeSpec ?? panelDef.initialConfig?.minSize; // eslint-disable-line @typescript-eslint/no-deprecated
   minSize !== undefined &&
     frontstageDef.dispatch({
       type: "PANEL_SET_MIN_SIZE",
@@ -549,7 +549,7 @@ export function initializePanel(
     });
 
   const maxSize =
-    panelDef.initialConfig?.maxSizeSpec ?? panelDef.initialConfig?.maxSize; // eslint-disable-line deprecation/deprecation
+    panelDef.initialConfig?.maxSizeSpec ?? panelDef.initialConfig?.maxSize; // eslint-disable-line @typescript-eslint/no-deprecated
   maxSize !== undefined &&
     frontstageDef.dispatch({
       type: "PANEL_SET_MAX_SIZE",
@@ -775,24 +775,14 @@ export function useFrontstageManager(
   useToolAsToolSettingsLabel?: boolean
 ) {
   const { translate } = useTranslation();
-  const uiSettingsStorage = useUiStateStorageHandler();
   React.useEffect(() => {
     return InternalFrontstageManager.onFrontstageRestoreLayoutEvent.addListener(
       (args) => {
-        // TODO: track restoring frontstages to support workflows:  i.e. prevent loading frontstage OR saving layout when delete is pending
-        void uiSettingsStorage.deleteSetting(
-          FRONTSTAGE_SETTINGS_NAMESPACE,
-          getFrontstageStateSettingName(args.frontstageDef.id)
-        );
-        if (frontstageDef.id === args.frontstageDef.id) {
-          initializeNineZoneState(frontstageDef);
-          return;
-        }
-
-        args.frontstageDef.nineZoneState = undefined;
+        if (frontstageDef.id !== args.frontstageDef.id) return;
+        initializeNineZoneState(frontstageDef);
       }
     );
-  }, [uiSettingsStorage, frontstageDef]);
+  }, [frontstageDef]);
 
   const defaultLabel = translate("widget.labels.toolSettings");
 

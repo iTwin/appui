@@ -9,7 +9,7 @@
 import type { UiStateStorage, UiStateStorageResult } from "./UiStateStorage.js";
 import { UiStateStorageStatus } from "./UiStateStorage.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** A single UI State entry that is identified by namespace and setting name.
  * @public

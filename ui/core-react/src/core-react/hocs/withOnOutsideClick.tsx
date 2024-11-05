@@ -23,14 +23,14 @@ export interface WithOnOutsideClickProps {
  * @public
  * @deprecated in 4.15.0. Used internally.
  */
-export const withOnOutsideClick = <ComponentProps extends {}>(
+export const withOnOutsideClick = <ComponentProps extends object>(
   Component: React.ComponentType<ComponentProps>,
   defaultOnOutsideClick?: (event: MouseEvent) => any,
   useCapture: boolean = true,
   usePointerEvents: boolean = true
 ) => {
   return class WithOnOutsideClick extends React.PureComponent<
-    ComponentProps & WithOnOutsideClickProps // eslint-disable-line deprecation/deprecation
+    ComponentProps & WithOnOutsideClickProps // eslint-disable-line @typescript-eslint/no-deprecated
   > {
     /** @internal */
     public outsideClickContainerDiv?: HTMLDivElement | null = null;

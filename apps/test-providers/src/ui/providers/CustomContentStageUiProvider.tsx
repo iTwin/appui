@@ -56,7 +56,7 @@ export class CustomContentStageUiProvider implements UiItemsProvider {
       },
     };
 
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     const customActionButton = ToolbarItemUtilities.createActionItem(
       "custom-action-button",
       -1,

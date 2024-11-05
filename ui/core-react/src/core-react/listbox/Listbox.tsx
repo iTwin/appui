@@ -14,7 +14,7 @@ import { Guid } from "@itwin/core-bentley";
 
 /** Ideas borrowed from  https://reacttraining.com/reach-ui/listbox */
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** `Listbox` value.
  * @public

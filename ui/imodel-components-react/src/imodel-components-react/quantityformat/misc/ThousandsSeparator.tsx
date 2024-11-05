@@ -18,7 +18,7 @@ import { useTranslation } from "../../useTranslation.js";
 /** Properties of [[ThousandsSeparator]] component.
  * @internal
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface ThousandsSeparatorProps extends CommonProps {
   formatProps: FormatProps;
   onChange?: (format: FormatProps) => void;

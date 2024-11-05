@@ -24,13 +24,13 @@ export interface WithTimeoutProps {
  * @public
  * @deprecated in 4.15.0. Not used by AppUI.
  */
-export const withTimeout = <ComponentProps extends {}>(
+export const withTimeout = <ComponentProps extends object>(
   Component: React.ComponentType<ComponentProps>
 ) => {
   return class WithTimeout extends React.PureComponent<
-    ComponentProps & WithTimeoutProps // eslint-disable-line deprecation/deprecation
+    ComponentProps & WithTimeoutProps // eslint-disable-line @typescript-eslint/no-deprecated
   > {
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     public timer: Timer = new Timer(0);
 
     public override componentDidMount(): void {
@@ -41,7 +41,7 @@ export const withTimeout = <ComponentProps extends {}>(
     }
 
     public override componentDidUpdate(
-      _prevProps: Readonly<ComponentProps & WithTimeoutProps> // eslint-disable-line deprecation/deprecation
+      _prevProps: Readonly<ComponentProps & WithTimeoutProps> // eslint-disable-line @typescript-eslint/no-deprecated
     ): void {
       this.startTimer(this.props.timeout);
     }

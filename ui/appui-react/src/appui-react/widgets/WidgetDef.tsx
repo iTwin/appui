@@ -52,7 +52,7 @@ export interface WidgetStateChangedEventArgs {
  * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class WidgetStateChangedEvent extends UiEvent<WidgetStateChangedEventArgs> {}
 
 /** Widget type enum.
@@ -76,7 +76,7 @@ export class WidgetDef {
   private _label: string | ConditionalStringValue | StringGetter = "";
   private _tooltip: string | ConditionalStringValue | StringGetter = "";
   private _widgetReactNode: React.ReactNode;
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   private _widgetControl!: WidgetControl;
   private _defaultState: WidgetState = WidgetState.Closed;
   private _id: string;
@@ -84,10 +84,10 @@ export class WidgetDef {
   private _stateChanged: boolean = false;
   private _widgetType: WidgetType = WidgetType.Rectangular;
   private _applicationData?: any;
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   private _iconSpec?: IconSpec;
   private _internalData?: Map<string, any>;
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   private _badge?: BadgeType;
   private _badgeKind?: BadgeKind;
   private _saveTransientState?: () => void;
@@ -157,23 +157,23 @@ export class WidgetDef {
   }
 
   /** @deprecated in 4.16.0. Use {@link Widget.iconNode} instead. */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   public get iconSpec(): IconSpec {
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     return this._iconSpec === IconHelper.reactIconKey
-      ? IconHelper.getIconReactNode(this._iconSpec, this._internalData) // eslint-disable-line deprecation/deprecation
+      ? IconHelper.getIconReactNode(this._iconSpec, this._internalData) // eslint-disable-line @typescript-eslint/no-deprecated
       : this._iconSpec;
   }
 
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   public set iconSpec(spec: IconSpec) {
     // Setter is deprecated as well: ae-setter-with-docs.
     this._iconSpec = this._internalData
-      ? IconHelper.getIconData(spec, this._internalData) // eslint-disable-line deprecation/deprecation
+      ? IconHelper.getIconData(spec, this._internalData) // eslint-disable-line @typescript-eslint/no-deprecated
       : spec;
   }
   /** @deprecated in 4.16.0. Use `badgeKind` instead. */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   public get badgeType(): BadgeType | undefined {
     return this._badge;
   }
@@ -278,9 +278,9 @@ export class WidgetDef {
     }
 
     this._widgetReactNode = config.content;
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     this._iconSpec = config.iconNode ?? config.icon;
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     this._badge = config.badge;
     this._badgeKind = config.badgeKind;
 
@@ -294,7 +294,7 @@ export class WidgetDef {
 
   /** Get the label string */
   public get label(): string {
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     return PropsHelper.getStringFromSpec(this._label);
   }
 
@@ -307,7 +307,7 @@ export class WidgetDef {
     const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
     if (!frontstageDef) return;
 
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     const label = PropsHelper.getStringFromSpec(labelSpec);
     frontstageDef.dispatch({
       type: "WIDGET_TAB_SET_LABEL",
@@ -318,7 +318,7 @@ export class WidgetDef {
 
   /** Get the tooltip string */
   public get tooltip(): string {
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     return PropsHelper.getStringFromSpec(this._tooltip);
   }
 
@@ -331,9 +331,9 @@ export class WidgetDef {
 
   public get reactNode(): React.ReactNode {
     if (!this._widgetReactNode) {
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       const widgetControl = this.getWidgetControl(
-        // eslint-disable-next-line deprecation/deprecation
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         ConfigurableUiControlType.Widget
       );
 
@@ -459,13 +459,13 @@ export class WidgetDef {
   }
 
   public onWidgetStateChanged(): void {
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     this.widgetControl && this.widgetControl.onWidgetStateChanged();
   }
 
   /** Overwrite to save transient DOM state (i.e. scroll offset). */
   public saveTransientState(): void {
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     this.widgetControl && this.widgetControl.saveTransientState();
     this._saveTransientState && this._saveTransientState();
   }
@@ -475,13 +475,13 @@ export class WidgetDef {
    */
   public restoreTransientState(): boolean {
     let result = true;
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     if (this.widgetControl || this._restoreTransientState) {
       let result1 = false,
         result2 = false;
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       if (this.widgetControl)
-        // eslint-disable-next-line deprecation/deprecation
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         result1 = this.widgetControl.restoreTransientState();
       if (this._restoreTransientState) result2 = this._restoreTransientState();
       result = !(result1 || result2);
@@ -531,7 +531,7 @@ export class WidgetDef {
     });
   }
 
-  /* eslint-disable deprecation/deprecation */
+  /* eslint-disable @typescript-eslint/no-deprecated */
 
   /** @deprecated in 4.16.0. Uses a deprecated type {@link ConfigurableUiControlConstructor}. */
   public get classId(): string | ConfigurableUiControlConstructor | undefined {
@@ -573,7 +573,7 @@ export class WidgetDef {
 
       if (this._widgetControl) {
         if (this._widgetControl.getType() !== type) {
-          // eslint-disable-next-line deprecation/deprecation
+          // eslint-disable-next-line @typescript-eslint/no-deprecated
           throw new UiError(
             UiFramework.loggerCategory("WidgetDef"),
             `getWidgetControl: '${usedClassId}' is NOT a ${type}; it is a ${this._widgetControl.getType()}`
@@ -599,7 +599,7 @@ export class WidgetDef {
     return this._widgetControl;
   }
 
-  /* eslint-enable deprecation/deprecation */
+  /* eslint-enable @typescript-eslint/no-deprecated */
 }
 
 /** @internal */

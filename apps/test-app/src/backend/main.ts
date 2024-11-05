@@ -18,9 +18,9 @@ void (async () => {
   try {
     // Load .env file first
     if (fs.existsSync(path.join(process.cwd(), ".env"))) {
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
       require("dotenv-expand")(
-        require("dotenv").config() // eslint-disable-line @typescript-eslint/no-var-requires
+        require("dotenv").config() // eslint-disable-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
       );
     }
 
