@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-// cSpell:ignore typemoq, tabid
 
 import * as moq from "typemoq";
 import type { IModelRpcProps } from "@itwin/core-common";

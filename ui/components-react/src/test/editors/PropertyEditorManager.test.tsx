@@ -24,8 +24,6 @@ import {
 } from "../../components-react/editors/PropertyEditorManager.js";
 import { TextEditor } from "../../components-react/editors/TextEditor.js";
 
-// cspell:ignore badeditor newvalue
-
 describe("PropertyEditorManager", () => {
   it("createEditor should create a BasicPropertyEditor for unknown type", () => {
     const propertyEditor = PropertyEditorManager.createEditor("test");

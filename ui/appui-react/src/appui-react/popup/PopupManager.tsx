@@ -45,8 +45,6 @@ import type { ToolbarProps } from "../toolbar/Toolbar.js";
 import { InternalConfigurableUiManager } from "../configurableui/InternalConfigurableUiManager.js";
 import type { SizeProps } from "../utils/SizeProps.js";
 
-// cSpell:ignore uiadmin
-
 /** Information maintained by PopupManager about a Popup
  * @public
  */

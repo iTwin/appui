@@ -22,8 +22,6 @@ import type { PropertyEditorProps, TypeEditor } from "./EditorContainer.js";
 import { PropertyEditorBase } from "./PropertyEditorManager.js";
 import { ImageCheckBox } from "@itwin/core-react";
 
-// cSpell:ignore imagecheckbox
-
 /** @internal */
 interface ImageCheckBoxEditorState {
   /** Image for the "checked" state */

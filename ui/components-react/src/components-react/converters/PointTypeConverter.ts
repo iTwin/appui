@@ -13,8 +13,6 @@ import { TypeConverterManager } from "./TypeConverterManager.js";
 import type { ConvertedPrimitives } from "./valuetypes/ConvertedTypes.js";
 import { isPromiseLike } from "../common/UseAsyncValue.js";
 
-// cSpell:ignore valuetypes
-
 /**
  * Point type converter.
  * @public

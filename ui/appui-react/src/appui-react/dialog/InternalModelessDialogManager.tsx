@@ -19,8 +19,6 @@ import {
 } from "@itwin/core-frontend";
 import type { ModelessDialogInfo } from "../framework/FrameworkDialogs.js";
 
-// cSpell:ignore ZINDEX modeless
-
 /** Modeless Dialog Manager class displays and manages multiple modeless dialogs
  * @internal
  */

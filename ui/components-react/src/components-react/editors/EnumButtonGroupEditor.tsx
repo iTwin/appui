@@ -26,8 +26,6 @@ import type { PropertyEditorProps, TypeEditor } from "./EditorContainer.js";
 import { PropertyEditorBase } from "./PropertyEditorManager.js";
 import svgPlaceholder from "@bentley/icons-generic/icons/placeholder.svg";
 
-// cspell:ignore buttongroup enumbuttongroup
-
 /** @internal */
 interface EnumButtonGroupEditorState {
   selectValue: string | number;

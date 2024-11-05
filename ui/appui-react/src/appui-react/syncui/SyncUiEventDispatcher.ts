@@ -13,12 +13,6 @@ import { UiFramework } from "../UiFramework.js";
 import type { UiSyncEvent } from "./UiSyncEvent.js";
 import { InternalSyncUiEventDispatcher } from "./InternalSyncUiEventDispatcher.js";
 
-// cSpell:ignore activecontentchanged backstageevent contentlayoutactivated contentcontrolactivated
-// cSpell:ignore frontstageactivated modalfrontstagechanged modaldialogchanged
-// cSpell:ignore navigationaidactivated toolactivated widgetstatechanged frontstageactivating
-// cSpell:ignore frontstageready activeviewportchanged selectionsetchanged viewstatechanged
-// cSpell:ignore accudrawcompassmodechanged accudrawrotationchanged
-
 /** Event Id used to sync UI components. Used to refresh visibility or enable state of control.
  * @public
  */

@@ -23,8 +23,6 @@ import { IconPickerButton } from "../iconpicker/IconPickerButton.js";
 import type { PropertyEditorProps, TypeEditor } from "./EditorContainer.js";
 import { PropertyEditorBase } from "./PropertyEditorManager.js";
 
-// cspell:ignore iconpicker
-
 /** @internal */
 interface IconEditorState {
   icon: string;

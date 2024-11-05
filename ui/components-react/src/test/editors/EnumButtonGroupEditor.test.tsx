@@ -13,8 +13,6 @@ import { EnumButtonGroupEditor } from "../../components-react/editors/EnumButton
 import TestUtils, { MineDataController } from "../TestUtils.js";
 import { PropertyEditorManager } from "../../components-react/editors/PropertyEditorManager.js";
 
-// cSpell:ignore enumbuttongroup
-
 describe("<EnumButtonGroupEditor />", () => {
   it("should render", () => {
     const renderedComponent = render(<EnumButtonGroupEditor setFocus={true} />);

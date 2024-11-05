@@ -6,8 +6,6 @@
  * @module ContentView
  */
 
-// cSpell:ignore contentlayout
-
 import "./ContentLayout.scss";
 import classnames from "classnames";
 import * as React from "react";

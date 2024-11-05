@@ -17,8 +17,6 @@ import { TypeConverter } from "./TypeConverter.js";
 import type { ConvertedPrimitives } from "./valuetypes/ConvertedTypes.js";
 import { TimeFormat } from "../common/TimeFormat.js";
 
-// cSpell:ignore datepicker valuetypes
-
 /**
  * DateTime Type Converter.
  * @public

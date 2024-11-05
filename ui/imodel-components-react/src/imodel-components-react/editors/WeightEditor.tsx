@@ -15,8 +15,6 @@ import type { PropertyEditorProps, TypeEditor } from "@itwin/components-react";
 import { PropertyEditorBase } from "@itwin/components-react";
 import { WeightPickerButton } from "../lineweight/WeightPickerButton.js";
 
-// cspell:ignore lineweight
-
 /** @internal */
 interface WeightEditorState {
   weightValue: number;

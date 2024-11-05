@@ -14,7 +14,6 @@ import type { SettingsTabEntry } from "../../core-react/settings/SettingsManager
 import { SettingsManager } from "../../core-react/settings/SettingsManager.js";
 import TestUtils from "../TestUtils.js";
 
-// cSpell:ignore sublabel
 function TestModalSettingsPage({
   settingsManager,
   title,

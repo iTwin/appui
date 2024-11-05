@@ -11,8 +11,6 @@ import type { CommonProps } from "@itwin/core-react";
 import { DialogRendererBase } from "./DialogManagerBase.js";
 import { InternalModelessDialogManager as internal } from "./InternalModelessDialogManager.js";
 
-// cSpell:ignore ZINDEX modeless
-
 /** ModelessDialogRenderer React component renders modeless dialogs.
  * @public
  */

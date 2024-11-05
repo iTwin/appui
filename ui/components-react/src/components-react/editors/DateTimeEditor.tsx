@@ -31,8 +31,6 @@ import { DateTimeTypeConverterBase } from "../converters/DateTimeTypeConverter.j
 import { Text } from "@itwin/itwinui-react";
 import { adjustDateToTimezone } from "../common/DateUtils.js";
 
-// cSpell:ignore datepicker
-
 /** @internal */
 interface DateTimeEditorState {
   value: Date;

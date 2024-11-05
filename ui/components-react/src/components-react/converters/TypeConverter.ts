@@ -6,8 +6,6 @@
  * @module TypeConverters
  */
 
-// cSpell:ignore valuetypes shortdate
-
 import type {
   Primitives,
   PrimitiveValue,

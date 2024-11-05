@@ -5,7 +5,6 @@
 /** @packageDocumentation
  * @module ConfigurableUi
  */
-// cspell:ignore visibilitychange
 
 import { InternalConfigurableUiManager } from "./InternalConfigurableUiManager.js";
 

@@ -6,8 +6,6 @@
  * @module Utilities
  */
 
-// cspell:ignore RRGGBB
-
 /** Gets best black or white color that contrasts with a given color in #RRGGBB format.
  * @internal
  */

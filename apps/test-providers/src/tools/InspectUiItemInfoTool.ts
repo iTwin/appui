@@ -6,8 +6,6 @@
  * @module Tools
  */
 
-// cSpell: ignore popout
-
 import {
   BeButtonEvent,
   EventHandled,

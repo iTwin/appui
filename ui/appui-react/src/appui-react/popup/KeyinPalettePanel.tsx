@@ -6,8 +6,6 @@
  * @module Popup
  */
 
-// cSpell:ignore focusvalue uiadmin
-
 import * as React from "react";
 import { Key } from "ts-key-enum";
 import "./KeyinPalettePanel.scss";

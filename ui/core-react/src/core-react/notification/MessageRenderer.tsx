@@ -12,8 +12,6 @@ import type { MessageType } from "./MessageType.js";
 import { isHTMLElement, isReactMessage } from "./MessageType.js";
 import type { ClassNameProps } from "../utils/Props.js";
 
-// cSpell:ignore dompurify
-
 /** Properties for the [[MessageRenderer]] component
  * @public
  * @deprecated in 4.15.0. Props of deprecated {@link MessageRenderer} component.

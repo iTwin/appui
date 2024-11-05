@@ -6,7 +6,7 @@
  * @module Tools
  */
 
-import * as React from "react"; // cSpell:ignore keyinbrowser
+import * as React from "react";
 import {
   FitViewTool,
   FlyViewTool,

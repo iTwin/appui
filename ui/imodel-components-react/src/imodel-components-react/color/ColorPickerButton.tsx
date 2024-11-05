@@ -18,8 +18,6 @@ import { ColorSwatch } from "./Swatch.js";
 import { getCSSColorFromDef } from "./getCSSColorFromDef.js";
 import { SvgCaretDownSmall, SvgCaretUpSmall } from "@itwin/itwinui-icons-react";
 
-// cSpell:ignore colorpicker
-
 function ColorOptions({
   handleColorPicked,
   options,
