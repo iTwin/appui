@@ -27,11 +27,19 @@ import {
   useSpecificWidgetDef,
   WidgetDef,
   WidgetState,
+<<<<<<< HEAD
 } from "../../appui-react";
 import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";
 import { createNineZoneState } from "../../appui-react/layout/state/NineZoneState";
 import TestUtils, { storageMock } from "../TestUtils";
 import { addTab } from "../../appui-react/layout/state/internal/TabStateHelpers";
+=======
+} from "../../appui-react.js";
+import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager.js";
+import { createNineZoneState } from "../../appui-react/layout/state/NineZoneState.js";
+import TestUtils, { storageMock, UiStateStorageStub } from "../TestUtils.js";
+import { addTab } from "../../appui-react/layout/state/internal/TabStateHelpers.js";
+>>>>>>> 515755d80 (Fix restore layout without an active frontstage (#1096))
 import {
   addFloatingWidget,
   addPopoutWidget,
@@ -434,6 +442,30 @@ describe("FrontstageDef", () => {
 
       frontstageDef.restoreLayout();
       expect(spy).toHaveBeenCalledWith(300);
+    });
+
+    it("should delete saved setting", async () => {
+      const frontstageDef = new FrontstageDef();
+      frontstageDef.nineZoneState = createNineZoneState();
+      const uiStateStorage = new UiStateStorageStub();
+      await UiFramework.setUiStateStorage(uiStateStorage);
+
+      const spy = vi.spyOn(uiStateStorage, "deleteSetting");
+      frontstageDef.restoreLayout();
+      expect(spy).toHaveBeenCalledOnce();
+    });
+
+    it("should unset nineZoneState", async () => {
+      const frontstageDef = new FrontstageDef();
+      frontstageDef.nineZoneState = createNineZoneState();
+      const uiStateStorage = new UiStateStorageStub();
+      await UiFramework.setUiStateStorage(uiStateStorage);
+
+      const frontstageDef1 = new FrontstageDef();
+      vi.spyOn(frontstageDef1, "id", "get").mockImplementation(() => "f1");
+      frontstageDef1.nineZoneState = createNineZoneState();
+      frontstageDef1.restoreLayout();
+      expect(frontstageDef1.nineZoneState).toEqual(undefined);
     });
   });
 

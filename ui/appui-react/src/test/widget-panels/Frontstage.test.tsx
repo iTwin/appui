@@ -663,38 +663,32 @@ describe("Frontstage local storage wrapper", () => {
       });
 
       describe("onFrontstageRestoreLayoutEvent", () => {
-        it("should delete saved setting", async () => {
+        it("should re-initialize layout state", async () => {
           const frontstageDef = new FrontstageDef();
+          await frontstageDef.initializeFromConfig({
+            ...defaultFrontstageConfig,
+            leftPanel: {
+              sections: {
+                start: [
+                  {
+                    id: "w1",
+                  },
+                ],
+              },
+            },
+          });
           frontstageDef.nineZoneState = createNineZoneState();
           const uiStateStorage = new UiStateStorageStub();
           await UiFramework.setUiStateStorage(uiStateStorage);
 
-          const spy = vi.spyOn(uiStateStorage, "deleteSetting");
           renderHook(() => useFrontstageManager(frontstageDef), {
             wrapper: (props: any) => <UiStateStorageHandler {...props} />,
           });
           InternalFrontstageManager.onFrontstageRestoreLayoutEvent.emit({
             frontstageDef,
           });
-          expect(spy).toHaveBeenCalledOnce();
-        });
 
-        it("should unset nineZoneState", async () => {
-          const frontstageDef = new FrontstageDef();
-          frontstageDef.nineZoneState = createNineZoneState();
-          const uiStateStorage = new UiStateStorageStub();
-          await UiFramework.setUiStateStorage(uiStateStorage);
-
-          renderHook(() => useFrontstageManager(frontstageDef), {
-            wrapper: (props: any) => <UiStateStorageHandler {...props} />,
-          });
-          const frontstageDef1 = new FrontstageDef();
-          vi.spyOn(frontstageDef1, "id", "get").mockImplementation(() => "f1");
-          frontstageDef1.nineZoneState = createNineZoneState();
-          InternalFrontstageManager.onFrontstageRestoreLayoutEvent.emit({
-            frontstageDef: frontstageDef1,
-          });
-          expect(frontstageDef1.nineZoneState).toEqual(undefined);
+          expect(Object.keys(frontstageDef.nineZoneState.tabs)).toContain("w1");
         });
       });
 
