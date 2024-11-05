@@ -41,7 +41,6 @@ import {
   getWidgetLocation,
   isFloatingWidgetLocation,
   isPopoutWidgetLocation,
-<<<<<<< HEAD
 } from "../layout/state/WidgetLocation";
 import type { PanelSide } from "../layout/widget-panels/PanelTypes";
 import { panelSides } from "../layout/widget-panels/Panel";
@@ -61,31 +60,10 @@ import { UiItemsProvider } from "../ui-items-provider/UiItemsProvider";
 import { FrameworkContent } from "../framework/FrameworkContent";
 import type { SizeProps } from "../utils/SizeProps";
 import type { RectangleProps } from "../utils/RectangleProps";
-=======
-} from "../layout/state/WidgetLocation.js";
-import type { PanelSide } from "../layout/widget-panels/PanelTypes.js";
-import { panelSides } from "../layout/widget-panels/Panel.js";
-import type { StagePanelConfig } from "../stagepanels/StagePanelConfig.js";
-import { StagePanelDef } from "../stagepanels/StagePanelDef.js";
-import { StagePanelLocation } from "../stagepanels/StagePanelLocation.js";
-import { StagePanelState } from "../stagepanels/StagePanelState.js";
-import type { WidgetConfig } from "../widgets/WidgetConfig.js";
-import type { WidgetControl } from "../widgets/WidgetControl.js";
-import { getWidgetState, WidgetDef, WidgetType } from "../widgets/WidgetDef.js";
-import { WidgetState } from "../widgets/WidgetState.js";
-import type { FrontstageProvider } from "./FrontstageProvider.js";
-import { InternalFrontstageManager } from "./InternalFrontstageManager.js";
-import { StageUsage } from "./StageUsage.js";
-import type { Frontstage } from "./Frontstage.js";
-import { UiItemsProvider } from "../ui-items-provider/UiItemsProvider.js";
-import { FrameworkContent } from "../framework/FrameworkContent.js";
-import type { SizeProps } from "../utils/SizeProps.js";
-import type { RectangleProps } from "../utils/RectangleProps.js";
 import {
   FRONTSTAGE_SETTINGS_NAMESPACE,
   getFrontstageStateSettingName,
-} from "../widget-panels/Frontstage.js";
->>>>>>> 515755d80 (Fix restore layout without an active frontstage (#1096))
+} from "../widget-panels/Frontstage";
 
 /** FrontstageDef class provides an API for a Frontstage.
  * @public

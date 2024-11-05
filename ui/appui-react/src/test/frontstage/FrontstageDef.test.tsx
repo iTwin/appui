@@ -27,19 +27,11 @@ import {
   useSpecificWidgetDef,
   WidgetDef,
   WidgetState,
-<<<<<<< HEAD
 } from "../../appui-react";
 import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";
 import { createNineZoneState } from "../../appui-react/layout/state/NineZoneState";
-import TestUtils, { storageMock } from "../TestUtils";
+import TestUtils, { storageMock, UiStateStorageStub } from "../TestUtils";
 import { addTab } from "../../appui-react/layout/state/internal/TabStateHelpers";
-=======
-} from "../../appui-react.js";
-import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager.js";
-import { createNineZoneState } from "../../appui-react/layout/state/NineZoneState.js";
-import TestUtils, { storageMock, UiStateStorageStub } from "../TestUtils.js";
-import { addTab } from "../../appui-react/layout/state/internal/TabStateHelpers.js";
->>>>>>> 515755d80 (Fix restore layout without an active frontstage (#1096))
 import {
   addFloatingWidget,
   addPopoutWidget,
