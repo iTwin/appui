@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/core-react",
+      "comment": "Fix Popup to adjust final position based on container size instead of window size.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/core-react"
+}
