@@ -17,7 +17,7 @@ import { PanelSideContext } from "../../layout/widget-panels/Panel.js";
 import type { WidgetFeature } from "../../layout/widget/Buttons.js";
 
 /** @internal */
-export function MoreButton(props: React.PropsWithChildren<{}>) {
+export function MoreButton(props: React.PropsWithChildren<object>) {
   return (
     <DropdownMenu
       placement="bottom-end"

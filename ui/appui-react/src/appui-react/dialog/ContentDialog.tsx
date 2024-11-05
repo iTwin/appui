@@ -11,7 +11,7 @@ import type { DialogProps } from "@itwin/core-react";
 import { Dialog } from "@itwin/core-react";
 import { UiFramework } from "../UiFramework.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** Properties for the [[ContentDialog]] component
  * @public

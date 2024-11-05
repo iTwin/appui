@@ -9,7 +9,7 @@ import * as React from "react";
 import { useRefEffect } from "./useRefEffect.js";
 import { useRefs } from "./useRefs.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** Uses ResizeObserver API to notify about element bound changes.
  * @internal

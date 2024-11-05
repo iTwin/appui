@@ -18,7 +18,7 @@ import { useTranslation } from "../hooks/useTranslation.js";
 /** Activity Center Field React component.
  * @public
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export function ActivityCenterField(props: CommonProps) {
   const { translate } = useTranslation();
   const [message, setMessage] = React.useState<NotifyMessageType>("");
@@ -50,7 +50,7 @@ export function ActivityCenterField(props: CommonProps) {
   const tooltip = `${message}-${moreDetails}`;
 
   return (
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     <Centered
       className={classnames("open-activity-message", props.className)}
       style={{

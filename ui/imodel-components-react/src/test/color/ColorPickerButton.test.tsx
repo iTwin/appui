@@ -8,7 +8,7 @@ import { ColorByName, ColorDef } from "@itwin/core-common";
 import { fireEvent, render } from "@testing-library/react";
 import { ColorPickerButton } from "../../imodel-components-react/color/ColorPickerButton.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 describe("<ColorPickerButton/>", () => {
   const colorDef = ColorDef.create(ColorByName.blue);

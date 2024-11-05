@@ -193,15 +193,11 @@ export class FlatGridTestUtils {
   }
 
   public static filterCategories(gridItems: IMutableFlatGridItem[]) {
-    return gridItems
-      .filter((item) => item.type === FlatGridItemType.Category)
-      .map((item) => item as IMutableGridCategoryItem);
+    return gridItems.filter((item) => item.type === FlatGridItemType.Category);
   }
 
   public static filterProperties(gridItems: IMutableFlatGridItem[]) {
-    return gridItems
-      .filter((item) => item.type !== FlatGridItemType.Category)
-      .map((item) => item as IMutableCategorizedPropertyItem);
+    return gridItems.filter((item) => item.type !== FlatGridItemType.Category);
   }
 
   public static constructCategoryRecordsDict(

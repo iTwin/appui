@@ -62,7 +62,7 @@ export interface DefaultContentToolsAppData {
  * @public
  * @deprecated in 4.17.0. Use {@link StandardContentToolsUiItemsProvider} instead. Supported frontstages can be specified when registering the provider.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class StandardContentToolsProvider extends BaseUiItemsProvider {
   private uiItemsProvider: StandardContentToolsUiItemsProvider;
   /**
@@ -83,7 +83,7 @@ export class StandardContentToolsProvider extends BaseUiItemsProvider {
       stageAppData?: any
     ) => boolean
   ) {
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     const provider = new StandardContentToolsProvider(
       providerId,
       defaultContentTools,
@@ -118,7 +118,7 @@ export class StandardContentToolsProvider extends BaseUiItemsProvider {
     toolbarOrientation: ToolbarOrientation,
     stageAppData?: any
   ): ToolbarItem[] {
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     return this.uiItemsProvider.provideToolbarItems(
       _stageId,
       _stageUsage,
@@ -133,7 +133,7 @@ export class StandardContentToolsProvider extends BaseUiItemsProvider {
     _stageUsage: string,
     _stageAppData?: any
   ): StatusBarItem[] {
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     return this.uiItemsProvider.provideStatusBarItems(
       _stageId,
       _stageUsage,

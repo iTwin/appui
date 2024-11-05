@@ -16,7 +16,7 @@ import {
 import type { ToolSettingsEntry } from "../widget-panels/ToolSettings.js";
 import type { SyncToolSettingsPropertiesEventArgs } from "../framework/FrameworkToolSettings.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** ToolUiProvider provides the Tool Settings and/or Tool Assistance UI for a tool.
  * The ToolUiProvider is registered for the tool id via UiFramework.controls.register.

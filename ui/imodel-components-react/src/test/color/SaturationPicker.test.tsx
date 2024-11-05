@@ -9,7 +9,7 @@ import { fireEvent, render } from "@testing-library/react";
 import { TestUtils } from "../TestUtils.js";
 import { SaturationPicker } from "../../imodel-components-react/color/SaturationPicker.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 describe("<SaturationPicker />", () => {
   const hsv = new HSVColor(30, 30, 30);

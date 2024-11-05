@@ -12,7 +12,7 @@ import { UiCore } from "../UiCore.js";
 import DOMPurify, * as DOMPurifyNS from "dompurify";
 import { reuseOrCreatePromise } from "./reuseOrCreatePromise.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /**
  * "getSvg" list

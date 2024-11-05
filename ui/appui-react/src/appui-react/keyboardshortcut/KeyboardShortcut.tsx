@@ -18,7 +18,7 @@ import type {
   FrameworkKeyboardShortcutContainer,
 } from "../framework/FrameworkKeyboardShortcuts.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 enum FunctionKey {
   F1 = "F1",

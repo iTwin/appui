@@ -10,7 +10,7 @@ import { BeUiEvent, Logger } from "@itwin/core-bentley";
 import type { ConditionalBooleanValue } from "@itwin/appui-abstract";
 import { UiCore } from "../UiCore.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** Interface used to populate a tab entry in the SettingContainer control
  * @public

@@ -65,14 +65,13 @@ export function registerFrontstages({
   UiItemsManager.clearAllProviders();
 
   // TODO: registration of frontstages and providers should go into initializer.
-  const mainFrontstage = createMainFrontstage({
-    contentProps: {
-      imodel: iModelConnection,
-      viewState,
-    },
-  });
   const frontstages = [
-    mainFrontstage,
+    createMainFrontstage({
+      contentProps: {
+        imodel: iModelConnection,
+        viewState,
+      },
+    }),
     createElementStackingFrontstage(),
     createTestPanelFrontstage(),
     createTestPopoutFrontstage(),
@@ -176,4 +175,7 @@ export function registerFrontstages({
       stageIds: [createEditorFrontstage.stageId],
     });
   }
+
+  const ids = frontstages.map((frontstage) => frontstage.id);
+  return ids;
 }

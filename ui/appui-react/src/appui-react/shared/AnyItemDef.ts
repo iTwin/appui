@@ -12,7 +12,7 @@ import type { ActionButtonItemDef } from "./ActionButtonItemDef.js";
 import type { CommandItemDef } from "./CommandItemDef.js";
 import type { ToolItemDef } from "./ToolItemDef.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** Union of all Item definitions that can be specified in a GroupItem
  * @public

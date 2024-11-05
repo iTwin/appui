@@ -34,11 +34,11 @@ import { SvgChevronLeft, SvgChevronRight } from "@itwin/itwinui-icons-react";
  * @public
  * @deprecated in 4.16.0. Use {@link SheetNavigationAid} component instead.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class SheetNavigationAidControl extends NavigationAidControl {
   public static navigationAidId = "SheetNavigationAid";
 
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   constructor(info: ConfigurableCreateInfo, options: any) {
     super(info, options);
     this.reactNode = <SheetNavigationAid iModelConnection={options.imodel} />;
@@ -60,7 +60,7 @@ export interface SheetData {
 /** Properties for the [[SheetNavigationAid]] component
  * @public
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface SheetNavigationProps extends CommonProps {
   iModelConnection: IModelConnection;
 }

@@ -152,7 +152,7 @@ export class ColorEditor
         className={classnames("components-color-editor", this.props.className)}
         style={this.props.style}
       >
-        <ColorPickerButton // eslint-disable-line deprecation/deprecation
+        <ColorPickerButton // eslint-disable-line @typescript-eslint/no-deprecated
           ref={this._buttonElement}
           initialColor={colorDef}
           colorDefs={

@@ -294,7 +294,7 @@ function WidgetInfo({ id }: { id: string }) {
       <div style={{ display: "flex", alignItems: "center" }}>
         <div style={{ display: "flex" }}>
           <span>X:</span>
-          {/* eslint-disable-next-line deprecation/deprecation */}
+          {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
           <NumberInput
             style={{ width: "60px" }}
             disabled={isFloating}
@@ -305,7 +305,7 @@ function WidgetInfo({ id }: { id: string }) {
         </div>
         <div style={{ display: "flex" }}>
           <span>Y:</span>
-          {/* eslint-disable-next-line deprecation/deprecation */}
+          {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
           <NumberInput
             style={{ width: "60px" }}
             disabled={isFloating}
@@ -791,7 +791,7 @@ export function FloatingLayoutInfo() {
           onChange={handleWidgetIdChanged}
         />
         <span style={{ textAlign: "end" }}>Left:</span>
-        {/* eslint-disable-next-line deprecation/deprecation */}
+        {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
         <NumberInput
           containerStyle={{ width: "80px" }}
           value={bounds.left}
@@ -799,7 +799,7 @@ export function FloatingLayoutInfo() {
           onChange={(value) => handleBoundsChanged("left", value ?? 0)}
         />
         <span style={{ textAlign: "end" }}>Top:</span>
-        {/* eslint-disable-next-line deprecation/deprecation */}
+        {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
         <NumberInput
           containerStyle={{ width: "80px" }}
           value={bounds.top}
@@ -807,7 +807,7 @@ export function FloatingLayoutInfo() {
           onChange={(value) => handleBoundsChanged("top", value ?? 0)}
         />
         <span style={{ textAlign: "end" }}>Right:</span>
-        {/* eslint-disable-next-line deprecation/deprecation */}
+        {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
         <NumberInput
           containerStyle={{ width: "80px" }}
           value={bounds.right}
@@ -815,7 +815,7 @@ export function FloatingLayoutInfo() {
           onChange={(value) => handleBoundsChanged("right", value ?? 0)}
         />
         <span style={{ textAlign: "end" }}>Bottom:</span>
-        {/* eslint-disable-next-line deprecation/deprecation */}
+        {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
         <NumberInput
           containerStyle={{ width: "80px" }}
           value={bounds.bottom}

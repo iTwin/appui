@@ -16,7 +16,7 @@ import "./Item.scss";
 /** Properties of [[BackstageItem]] component.
  * @internal
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface BackstageItemProps extends CommonProps {
   /** Backstage item label. */
   children?: string;

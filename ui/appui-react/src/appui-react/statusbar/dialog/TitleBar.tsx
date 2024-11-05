@@ -13,7 +13,7 @@ import { TitleBar } from "../../layout/footer/dialog/TitleBar.js";
 /** Properties of [[StatusBarDialogTitleBar]] component.
  * @beta
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface StatusBarDialogTitleBarProps extends CommonProps {
   /** Title bar buttons. */
   children?: React.ReactNode;

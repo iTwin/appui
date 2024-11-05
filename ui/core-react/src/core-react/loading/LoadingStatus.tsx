@@ -11,7 +11,7 @@ import classnames from "classnames";
 import * as React from "react";
 import type { CommonProps } from "../utils/Props.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** Properties for [[LoadingStatus]] component
  * @public

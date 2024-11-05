@@ -193,7 +193,7 @@ export interface AccuDrawFieldContainerProps extends CommonProps {
 }
 
 // @public @deprecated
-export class AccuDrawGrabInputFocusEvent extends BeUiEvent<{}> {
+export class AccuDrawGrabInputFocusEvent extends BeUiEvent<object> {
 }
 
 // @public
@@ -341,7 +341,7 @@ export interface AccuDrawUiSettings {
 }
 
 // @public @deprecated
-export class AccuDrawUiSettingsChangedEvent extends BeUiEvent<{}> {
+export class AccuDrawUiSettingsChangedEvent extends BeUiEvent<object> {
 }
 
 // @public
@@ -409,7 +409,7 @@ export interface ActiveContentChangedEventArgs {
 export function ActivityCenterField(props: CommonProps): React_2.JSX.Element | null;
 
 // @public @deprecated
-export class ActivityMessageCancelledEvent extends UiEvent<{}> {
+export class ActivityMessageCancelledEvent extends UiEvent<object> {
 }
 
 // @public @deprecated
@@ -1450,7 +1450,7 @@ export class CursorPopupManager {
         id: string;
     }>;
     // @internal (undocumented)
-    static readonly onCursorPopupsChangedEvent: BeUiEvent<{}>;
+    static readonly onCursorPopupsChangedEvent: BeUiEvent<object>;
     // @internal (undocumented)
     static readonly onCursorPopupUpdatePositionEvent: BeUiEvent<{
         pt: XAndY;
@@ -1465,7 +1465,7 @@ export class CursorPopupManager {
 }
 
 // @alpha
-export class CursorPopupMenu extends React_2.PureComponent<CommonProps, // eslint-disable-line deprecation/deprecation
+export class CursorPopupMenu extends React_2.PureComponent<CommonProps, // eslint-disable-line @typescript-eslint/no-deprecated
 CursorPopupMenuState> {
     // (undocumented)
     componentDidMount(): void;
@@ -1494,7 +1494,7 @@ export type CursorPopupProps = {
     title?: string;
     shadow?: boolean;
     onSizeKnown?: (size: SizeProps) => void;
-} & CommonProps & // eslint-disable-line deprecation/deprecation
+} & CommonProps & // eslint-disable-line @typescript-eslint/no-deprecated
 RequireAtLeastOne<{
     relativePosition: RelativePosition;
     placement: Placement;
@@ -1671,7 +1671,7 @@ export class DrawingNavigationAidControl extends NavigationAidControl {
 }
 
 // @public
-export class ElementTooltip extends React_2.Component<CommonProps, // eslint-disable-line deprecation/deprecation
+export class ElementTooltip extends React_2.Component<CommonProps, // eslint-disable-line @typescript-eslint/no-deprecated
 ElementTooltipState> {
     // (undocumented)
     static hideTooltip(): void;
@@ -2337,7 +2337,7 @@ export class FrontstageDef {
     waitUntilReady(): Promise<void>;
     // @internal
     get widgetDefs(): {
-        [Symbol.iterator](): Iterator<WidgetDef, any, undefined>;
+        [Symbol.iterator](): Iterator<WidgetDef, any, any>;
     };
 }
 
@@ -2658,7 +2658,7 @@ export interface InputFieldMessageEventArgs {
 }
 
 // @public @deprecated
-export class InputFieldMessageRemovedEvent extends UiEvent<{}> {
+export class InputFieldMessageRemovedEvent extends UiEvent<object> {
 }
 
 // @alpha
@@ -3159,7 +3159,7 @@ export class MessageManager {
 }
 
 // @public @deprecated
-export class MessagesUpdatedEvent extends UiEvent<{}> {
+export class MessagesUpdatedEvent extends UiEvent<object> {
 }
 
 // @public @deprecated
@@ -3351,7 +3351,7 @@ export interface OpenChildWindowInfo {
 }
 
 // @public @deprecated
-export class OpenMessageCenterEvent extends UiEvent<{}> {
+export class OpenMessageCenterEvent extends UiEvent<object> {
 }
 
 // @public
@@ -3515,7 +3515,7 @@ export interface PopupPropsBase {
 }
 
 // @public
-export class PopupRenderer extends React_2.Component<{}, PopupRendererState> {
+export class PopupRenderer extends React_2.Component<object, PopupRendererState> {
     // (undocumented)
     componentDidMount(): void;
     // (undocumented)
@@ -3616,11 +3616,11 @@ export interface ReactContent {
 
 // @public
 export class ReactNotifyMessageDetails {
-    constructor(priority: OutputMessagePriority, briefMessage: NotifyMessageType, detailedMessage?: MessageType | undefined, msgType?: OutputMessageType, openAlert?: OutputMessageAlert);
+    constructor(priority: OutputMessagePriority, briefMessage: NotifyMessageType, detailedMessage?: NotifyMessageType | undefined, msgType?: OutputMessageType, openAlert?: OutputMessageAlert);
     // (undocumented)
     briefMessage: NotifyMessageType;
     // (undocumented)
-    detailedMessage?: MessageType | undefined;
+    detailedMessage?: NotifyMessageType | undefined;
     get displayPoint(): Point2d | undefined;
     get displayTime(): BeDuration;
     set displayTime(duration: BeDuration);
@@ -4293,7 +4293,7 @@ export class StandardNavigationToolsUiItemsProvider implements UiItemsProvider {
 }
 
 // @public
-export class StandardRotationNavigationAid extends React_2.Component<CommonProps, // eslint-disable-line deprecation/deprecation
+export class StandardRotationNavigationAid extends React_2.Component<CommonProps, // eslint-disable-line @typescript-eslint/no-deprecated
 StandardRotationNavigationAidState> {
     constructor(props: any);
     // (undocumented)
@@ -4622,7 +4622,7 @@ export type ThemeId = `${ColorTheme}` | (string & {});
 export function ThemeManager({ children, ...props }: ThemeManagerProps): React_2.JSX.Element;
 
 // @public
-export class TileLoadingIndicator extends React_2.PureComponent<CommonProps, // eslint-disable-line deprecation/deprecation
+export class TileLoadingIndicator extends React_2.PureComponent<CommonProps, // eslint-disable-line @typescript-eslint/no-deprecated
 TileLoadingIndicatorState> {
     constructor(props: CommonProps);
     // (undocumented)
@@ -5047,7 +5047,7 @@ export class UiFramework {
     static getAvailableSelectionScopes(): PresentationSelectionScope[];
     // @deprecated
     static getColorTheme(): ThemeId;
-    static getCursorMenuData(): // eslint-disable-next-line deprecation/deprecation
+    static getCursorMenuData(): // eslint-disable-next-line @typescript-eslint/no-deprecated
     CursorMenuData | CursorMenuPayload | undefined;
     // @deprecated
     static getDefaultIModelViewportControlId(): string | undefined;
@@ -5374,7 +5374,7 @@ export class ValidationTextbox extends React_2.PureComponent<ValidationTextboxPr
 }
 
 // @beta
-export class ViewAttributesStatusField extends React_2.Component<CommonProps, // eslint-disable-line deprecation/deprecation
+export class ViewAttributesStatusField extends React_2.Component<CommonProps, // eslint-disable-line @typescript-eslint/no-deprecated
 ViewAttributesStatusFieldState> {
     constructor(props: CommonProps);
     // (undocumented)

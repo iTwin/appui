@@ -8,7 +8,7 @@ import { fireEvent, render } from "@testing-library/react";
 import { TestUtils } from "../TestUtils.js";
 import { HueSlider } from "../../imodel-components-react/color/HueSlider.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 describe("<HueSlider />", () => {
   const hsv = new HSVColor(60, 100, 50);

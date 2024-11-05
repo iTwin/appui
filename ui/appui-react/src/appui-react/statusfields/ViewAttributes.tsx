@@ -28,10 +28,10 @@ interface ViewAttributesStatusFieldState {
  * @beta
  */
 export class ViewAttributesStatusField extends React.Component<
-  CommonProps, // eslint-disable-line deprecation/deprecation
+  CommonProps, // eslint-disable-line @typescript-eslint/no-deprecated
   ViewAttributesStatusFieldState
 > {
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   constructor(props: CommonProps) {
     super(props);
 

@@ -9,7 +9,7 @@
 import type { PropertyRecord } from "@itwin/appui-abstract";
 import type { CommonProps } from "@itwin/core-react";
 import type { HighlightingComponentProps } from "../../common/HighlightingComponentProps.js";
-import { matchLinks } from "../../common/Links.js";
+import { matchLinks, openLink } from "../../common/Links.js";
 import type { PropertyUpdatedArgs } from "../../editors/EditorContainer.js";
 import type { ActionButtonRenderer } from "../../properties/renderers/ActionButtonRenderer.js";
 import type { PropertyValueRendererManager } from "../../properties/ValueRendererManager.js";
@@ -41,7 +41,7 @@ export interface PropertyGridContextMenuArgs {
  * Common Property Grid Props to be used by Property Grid Variants
  * @public
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface CommonPropertyGridProps extends CommonProps {
   /** Grid orientation. When not defined, it is chosen automatically based on width of the grid. */
   orientation?: Orientation;
@@ -133,14 +133,11 @@ export class PropertyGridCommons {
     const linksArray = matchLinks(text);
     if (linksArray.length <= 0) return;
     const foundLink = linksArray[0];
-    if (foundLink && foundLink.url) {
-      if (foundLink.schema === "mailto:") {
-        location.href = foundLink.url;
-      } else {
-        const windowOpen = window.open(foundLink.url, "_blank");
-        windowOpen?.focus();
-      }
+    if (!foundLink || !foundLink.url) {
+      return;
     }
+
+    openLink(foundLink.url);
   }
 
   /**

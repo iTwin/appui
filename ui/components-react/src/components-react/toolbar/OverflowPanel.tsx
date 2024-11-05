@@ -35,7 +35,7 @@ import {
 /** Properties of [[ToolbarOverflowPanel]] component.
  * @internal
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface ToolbarOverflowPanelProps extends CommonProps {
   /** Panel content. */
   children?: React.ReactNode;

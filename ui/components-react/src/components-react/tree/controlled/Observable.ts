@@ -31,7 +31,7 @@ export function from<T>(iterable: Iterable<T> | PromiseLike<T>): Observable<T> {
  *
  * @public
  */
-export interface Observable<T> extends Subscribable<T> {} // eslint-disable-line @typescript-eslint/no-empty-interface
+export interface Observable<T> extends Subscribable<T> {} // eslint-disable-line @typescript-eslint/no-empty-interface, @typescript-eslint/no-empty-object-type
 
 /**
  * Subscribable interface compatible with [rxjs](https://github.com/ReactiveX/rxjs)

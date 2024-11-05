@@ -36,7 +36,7 @@ export interface PropertyUpdatedArgs {
 /** Properties for a property editor component
  * @public
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface PropertyEditorProps extends CommonProps {
   /** The property being updated. */
   propertyRecord?: PropertyRecord;
@@ -59,7 +59,7 @@ export interface PropertyEditorProps extends CommonProps {
  * @public
  * @deprecated in 4.17.0. Use `React.ComponentProps<typeof EditorContainer>`
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface EditorContainerProps extends CommonProps {
   /** The property being updated. */
   propertyRecord: PropertyRecord;
@@ -97,7 +97,7 @@ export interface TypeEditor {
 /** EditorContainer React component used by the Tree and PropertyGrid for cell editing.
  * @public
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export function EditorContainer(props: EditorContainerProps) {
   const {
     ignoreEditorBlur,

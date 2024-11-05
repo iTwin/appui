@@ -9,7 +9,7 @@
 import { UiError } from "@itwin/appui-abstract";
 import { UiFramework } from "../UiFramework.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** NameToReducerMap used by Reducer Registry
  * @public
@@ -42,7 +42,7 @@ export class ReducerRegistry {
     reducer: (state: any, action: any) => any
   ) {
     if (this._reducers[name]) {
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       throw new UiError(
         UiFramework.loggerCategory("ReducerRegistry"),
         `Redux Reducer with matching name of '${name}' is already registered`

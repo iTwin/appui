@@ -16,7 +16,7 @@ import { BaseUiItemsProvider } from "./BaseUiItemsProvider.js";
  * @public
  * @deprecated in 4.17.0. Use {@link StandardStatusbarUiItemsProvider} instead. Supported frontstages can be specified when registering the provider.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class StandardStatusbarItemsProvider extends BaseUiItemsProvider {
   private uiItemsProvider: StandardStatusbarUiItemsProvider;
   constructor(
@@ -50,7 +50,7 @@ export class StandardStatusbarItemsProvider extends BaseUiItemsProvider {
       stageAppData?: any
     ) => boolean
   ) {
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     const provider = new StandardStatusbarItemsProvider(
       providerId,
       defaultItems,
@@ -65,7 +65,7 @@ export class StandardStatusbarItemsProvider extends BaseUiItemsProvider {
     _stageUsage: string,
     _stageAppData?: any
   ): StatusBarItem[] {
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     return this.uiItemsProvider.provideStatusBarItems(
       _stageId,
       _stageUsage,

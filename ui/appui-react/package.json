@@ -71,7 +71,7 @@
   ],
   "devDependencies": {
     "@itwin/appui-abstract": "^4.0.0",
-    "@itwin/build-tools": "4.10.0-dev.31",
+    "@itwin/build-tools": "4.10.0-dev.34",
     "@itwin/components-react": "workspace:*",
     "@itwin/core-bentley": "^4.0.0",
     "@itwin/core-common": "^4.0.0",
@@ -82,7 +82,7 @@
     "@itwin/core-react": "workspace:*",
     "@itwin/core-telemetry": "^4.0.0",
     "@itwin/ecschema-metadata": "^4.0.0",
-    "@itwin/eslint-plugin": "^4.1.1",
+    "@itwin/eslint-plugin": "5.0.0-dev.1",
     "@itwin/imodel-components-react": "workspace:*",
     "@itwin/webgl-compatibility": "^4.0.0",
     "@testing-library/dom": "^10.1.0",
@@ -112,7 +112,7 @@
     "rimraf": "^3.0.2",
     "ts-node": "^10.8.2",
     "typemoq": "^2.1.0",
-    "typescript": "~5.3.3",
+    "typescript": "~5.6.2",
     "upath": "^2.0.1",
     "vitest": "^1.6.0"
   },

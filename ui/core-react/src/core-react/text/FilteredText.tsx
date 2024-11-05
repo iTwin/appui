@@ -18,7 +18,7 @@ import "./FilteredText.scss";
  * @alpha
  * @deprecated in 4.15.0. Props of deprecated {@link FilteredText} component.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface FilteredTextProps extends CommonProps {
   /** string that matched a filter string */
   value: string;
@@ -34,7 +34,7 @@ export interface FilteredTextProps extends CommonProps {
  * @alpha
  * @deprecated in 4.15.0. Used internally.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export function FilteredText(props: FilteredTextProps) {
   const {
     value,

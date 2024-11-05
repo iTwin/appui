@@ -37,7 +37,7 @@ interface HTMLElementPopupState {
  * @deprecated in 4.11.0. Though this is alpha, the main interface to using it is not. Please use {@link @itwin/appui-react#UiFramework.showComponent}.
  */
 export class HTMLElementPopup extends React.PureComponent<
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   HTMLElementPopupProps,
   HTMLElementPopupState
 > {
@@ -76,9 +76,9 @@ export class HTMLElementPopup extends React.PureComponent<
         point={point}
         onSizeKnown={this._onSizeKnown}
       >
-        {/* eslint-disable-next-line deprecation/deprecation */}
+        {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
         <DivWithOutsideClick onOutsideClick={this.props.onCancel}>
-          {/* eslint-disable-next-line deprecation/deprecation */}
+          {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
           <MessageRenderer message={this.props.element} />
         </DivWithOutsideClick>
       </PositionPopup>

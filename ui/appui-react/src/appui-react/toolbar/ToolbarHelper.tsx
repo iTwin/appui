@@ -31,7 +31,7 @@ import { isToolbarActionItem, isToolbarGroupItem } from "./ToolbarItem.js";
 import type { ToolbarItemUtilities } from "./ToolbarItemUtilities.js";
 import type { CommonToolbarItemWithBadgeKind } from "@itwin/components-react/internal";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /**
  * Common implementation for `constructChildToolbarItems` and `createToolbarItemsFromItemDefs`.
@@ -105,7 +105,7 @@ export class ToolbarHelper {
   public static getIconReactNode(
     item: ActionButton | GroupButton
   ): React.ReactNode {
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     return IconHelper.getIconReactNode(item.icon, item.internalData);
   }
 
@@ -132,8 +132,8 @@ export class ToolbarHelper {
       isHidden: itemDef.isHidden,
       isDisabled: itemDef.isDisabled,
       icon:
-        internalData?.get(IconHelper.reactIconKey) ?? // eslint-disable-line deprecation/deprecation
-        internalData?.get(IconHelper.conditionalIconItemKey) ?? // eslint-disable-line deprecation/deprecation
+        internalData?.get(IconHelper.reactIconKey) ?? // eslint-disable-line @typescript-eslint/no-deprecated
+        internalData?.get(IconHelper.conditionalIconItemKey) ?? // eslint-disable-line @typescript-eslint/no-deprecated
         icon ??
         itemDef.iconSpec,
       label: this.getStringOrConditionalString(itemDef.rawLabel),
