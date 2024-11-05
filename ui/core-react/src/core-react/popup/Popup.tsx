@@ -579,16 +579,16 @@ export class Popup extends React.Component<PopupProps, PopupState> {
       return fittedPoint;
     }
 
-    // const popupRect = this._popup.getBoundingClientRect();
     const { popupWidth, popupHeight } = this._getPopupDimensions();
-    const { innerWidth, innerHeight } = window;
+    const container = this.getContainer();
+    const containerBounds = container.getBoundingClientRect();
 
-    if (fittedPoint.y + popupHeight > innerHeight) {
-      fittedPoint.y = innerHeight - popupHeight;
+    if (fittedPoint.y + popupHeight > containerBounds.height) {
+      fittedPoint.y = containerBounds.height - popupHeight;
     }
 
-    if (fittedPoint.x + popupWidth > innerWidth) {
-      fittedPoint.x = innerWidth - popupWidth;
+    if (fittedPoint.x + popupWidth > containerBounds.width) {
+      fittedPoint.x = containerBounds.width - popupWidth;
     }
 
     if (fittedPoint.y < 0) {
