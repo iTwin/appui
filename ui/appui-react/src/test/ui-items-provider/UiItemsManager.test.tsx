@@ -776,7 +776,7 @@ describe("UiItemsManager", () => {
         const widgets = AbstractUiItemsManager.getWidgets(
           "stage1",
           StageUsage.General,
-          StagePanelLocation.Left
+          AbstractStagePanelLocation.Left
         );
         expect(widgets[0]).toEqual(
           expect.objectContaining({
