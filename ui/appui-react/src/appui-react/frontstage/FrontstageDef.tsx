@@ -59,8 +59,6 @@ import { UiItemsProvider } from "../ui-items-provider/UiItemsProvider.js";
 import { FrameworkContent } from "../framework/FrameworkContent.js";
 import type { SizeProps } from "../utils/SizeProps.js";
 import type { RectangleProps } from "../utils/RectangleProps.js";
-import { ErrorBoundary } from "react-error-boundary";
-import { WidgetFallback } from "../widget-panels/Content.js";
 
 /** FrontstageDef class provides an API for a Frontstage.
  * @public
@@ -716,12 +714,10 @@ export class FrontstageDef {
     if (!widgetDef) return false;
 
     const popoutContent = (
-      <ErrorBoundary FallbackComponent={WidgetFallback}>
-        <ChildWindowWidget
-          widgetContainerId={widgetContainerId}
-          widgetDef={widgetDef}
-        />
-      </ErrorBoundary>
+      <ChildWindowWidget
+        widgetContainerId={widgetContainerId}
+        widgetDef={widgetDef}
+      />
     );
 
     const popoutWidget = state.popoutWidgets.byId[location.popoutWidgetId];
