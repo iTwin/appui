@@ -487,7 +487,7 @@ Fri, 20 May 2022 13:10:54 GMT
 
 ### Updates
 
-- Fix for losing viewport content after clicking PW link 
+- Fix for losing viewport content after clicking PW link
 
 ## 3.1.3
 Fri, 15 Apr 2022 13:49:25 GMT
@@ -566,6 +566,6 @@ Mon, 24 Jan 2022 14:00:52 GMT
 - UiFramework and UiIModelComponent initialize method no longer take localization argument, uses IModelApp.localization internally.
 - Add the ability for an app to mark a specific date on the rail of a TimelineComponent.
 - Update to latest types/react package
-- Update ViewportComponent to function component that properly processes async method to get viewstate.
+- Update ViewportComponent to function component that properly processes async method to get viewState.
 - Lock down and update version numbers so docs will build.
 
