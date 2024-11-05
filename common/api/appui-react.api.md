@@ -1828,7 +1828,20 @@ export interface DialogRendererProps {
 }
 
 // @internal
-export function DockedStatusBarItem(props: StatusBarItemProps): React_2.JSX.Element;
+export function DockedStatusBarItem(props: DockedStatusBarItemProps): React_2.JSX.Element;
+
+// @internal
+export interface DockedStatusBarItemProps extends CommonProps {
+    children?: React_2.ReactNode;
+    // (undocumented)
+    itemPriority?: number;
+    // (undocumented)
+    onResize?: (w: number) => void;
+    // (undocumented)
+    providerId?: string;
+    // (undocumented)
+    section?: string;
+}
 
 // @public @deprecated
 export class DrawingNavigationAidControl extends NavigationAidControl {
@@ -4679,17 +4692,6 @@ export interface StatusBarIndicatorProps extends CommonProps {
 // @public
 export type StatusBarItem = StatusBarActionItem | StatusBarLabelItem | StatusBarCustomItem;
 
-// @internal
-export interface StatusBarItemProps extends CommonProps {
-    children?: React_2.ReactNode;
-    // (undocumented)
-    itemPriority?: number;
-    // (undocumented)
-    providerId?: string;
-    // (undocumented)
-    section?: string;
-}
-
 // @public
 export namespace StatusBarItemUtilities {
     export function createActionItem(args: CreateActionItemArgs): StatusBarActionItem;
@@ -5677,9 +5679,6 @@ export function useSolarDataProvider(viewport: ScreenViewport | undefined): Sola
 
 // @public
 export function useSpecificWidgetDef(widgetId: string): WidgetDef | undefined;
-
-// @internal (undocumented)
-export function useStatusBarEntry(): DockedStatusBarEntryContextArg;
 
 // @internal (undocumented)
 export function useToolSettingsNode(): string | number | boolean | React_2.ReactElement<any, string | React_2.JSXElementConstructor<any>> | Iterable<React_2.ReactNode> | React_2.ReactPortal | null | undefined;
