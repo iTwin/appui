@@ -59,6 +59,10 @@ import { UiItemsProvider } from "../ui-items-provider/UiItemsProvider.js";
 import { FrameworkContent } from "../framework/FrameworkContent.js";
 import type { SizeProps } from "../utils/SizeProps.js";
 import type { RectangleProps } from "../utils/RectangleProps.js";
+import {
+  FRONTSTAGE_SETTINGS_NAMESPACE,
+  getFrontstageStateSettingName,
+} from "../widget-panels/Frontstage.js";
 
 /** FrontstageDef class provides an API for a Frontstage.
  * @public
@@ -626,6 +630,14 @@ export class FrontstageDef {
     for (const widgetDef of this.widgetDefs) {
       widgetDef.setWidgetState(widgetDef.defaultState);
     }
+
+    const storage = UiFramework.getUiStateStorage();
+    void storage.deleteSetting(
+      FRONTSTAGE_SETTINGS_NAMESPACE,
+      getFrontstageStateSettingName(this.id)
+    );
+    this.nineZoneState = undefined;
+
     InternalFrontstageManager.onFrontstageRestoreLayoutEvent.emit({
       frontstageDef: this,
     });
