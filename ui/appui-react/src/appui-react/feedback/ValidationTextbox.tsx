@@ -25,7 +25,7 @@ export enum InputStatus {
 /** Property interface for ValidationTextbox
  * @alpha
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 interface ValidationTextboxProps extends CommonProps {
   /** value to set ValidationTextbox to initially */
   initialValue?: string;

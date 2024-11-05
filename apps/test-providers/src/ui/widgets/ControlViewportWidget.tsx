@@ -34,7 +34,7 @@ export function ControlViewportWidget() {
     async function setupView() {
       if (undefined === viewState && activeIModelConnection) {
         const defaultViewId =
-          // eslint-disable-next-line deprecation/deprecation
+          // eslint-disable-next-line @typescript-eslint/no-deprecated
           await activeIModelConnection?.views?.queryDefaultViewId();
         if (defaultViewId && Id64.isValidId64(defaultViewId)) {
           const newViewState = await activeIModelConnection?.views.load(
@@ -95,7 +95,7 @@ export function ControlViewportWidget() {
         />
       </div>
       <div>
-        {/* eslint-disable-next-line deprecation/deprecation */}
+        {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
         <FloatingViewportContent
           contentId={contentId}
           initialViewState={viewState}

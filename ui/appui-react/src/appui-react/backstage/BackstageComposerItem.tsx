@@ -48,13 +48,13 @@ export function BackstageComposerActionItem({
       providerId={isProviderItem(item) ? item.providerId : undefined}
       itemPriority={item.itemPriority}
       groupPriority={item.groupPriority}
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       icon={<ItemIcon iconNode={item.iconNode} icon={item.icon} />}
       isActive={ConditionalBooleanValue.getValue(item.isActive)}
       isDisabled={ConditionalBooleanValue.getValue(item.isDisabled)}
       onClick={handleClick}
       subtitle={ConditionalStringValue.getValue(item.subtitle)}
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       badge={<Badge type={item.badgeKind || item.badge} />}
     >
       {ConditionalStringValue.getValue(item.label)}
@@ -91,13 +91,13 @@ export function BackstageComposerStageLauncher({
       providerId={isProviderItem(item) ? item.providerId : undefined}
       itemPriority={item.itemPriority}
       groupPriority={item.groupPriority}
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       icon={<ItemIcon iconNode={item.iconNode} icon={item.icon} />}
       isActive={isActive}
       isDisabled={ConditionalBooleanValue.getValue(item.isDisabled)}
       onClick={handleClick}
       subtitle={ConditionalStringValue.getValue(item.subtitle)}
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       badge={<Badge type={item.badgeKind || item.badge} />}
     >
       {ConditionalStringValue.getValue(item.label)}
@@ -124,7 +124,7 @@ export function BackstageComposerItem({ item }: BackstageComposerItemProps) {
 }
 
 function ItemIcon({
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   icon,
   iconNode,
 }: {
@@ -135,6 +135,6 @@ function ItemIcon({
     return <Icon>{iconNode}</Icon>;
   }
 
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   return <CoreIcon iconSpec={icon} />;
 }

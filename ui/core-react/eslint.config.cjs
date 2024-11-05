@@ -21,7 +21,7 @@ module.exports = [
   {
     files: ["src/test/**/*.{ts,tsx}"],
     rules: {
-      "deprecation/deprecation": "off",
+      "@typescript-eslint/no-deprecated": "off",
     },
   },
 ];

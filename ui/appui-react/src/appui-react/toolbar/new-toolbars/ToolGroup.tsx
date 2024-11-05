@@ -19,7 +19,7 @@ import { getChildKey } from "../../layout/tool-settings/Docked.js";
 import { ToolbarContext } from "./Toolbar.js";
 import { Surface } from "./Surface.js";
 
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 interface ToolGroupProps extends CommonProps {
   children?: React.ReactNode;
 }

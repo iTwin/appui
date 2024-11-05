@@ -15,7 +15,7 @@ import {
 } from "@itwin/appui-react";
 
 export function getCustomViewSelectorPopupItem(
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   overrides?: Omit<Partial<ToolbarCustomItem>, "icon">
 ) {
   return ToolbarItemUtilities.createCustomItem({

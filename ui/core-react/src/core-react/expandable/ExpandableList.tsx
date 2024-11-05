@@ -14,7 +14,7 @@ import type { CommonProps } from "../utils/Props.js";
  * @public
  * @deprecated in 4.12.0. Props of deprecated component {@link ExpandableList}.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface ExpandableListProps extends CommonProps {
   /** Index of the default active block */
   defaultActiveBlock?: number;
@@ -35,18 +35,18 @@ interface ExpandableListState {
  * @deprecated in 4.12.0. Use a custom container and manage {@link https://itwinui.bentley.com/docs/expandableblock expandable block} state manually.
  */
 export class ExpandableList extends React.PureComponent<
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   ExpandableListProps,
   ExpandableListState
 > {
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   constructor(props: ExpandableListProps) {
     super(props);
 
     this.state = { activeBlock: this.props.defaultActiveBlock! };
   }
 
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   public static defaultProps: Partial<ExpandableListProps> = {
     singleExpandOnly: false,
     defaultActiveBlock: 0,
@@ -82,7 +82,7 @@ export class ExpandableList extends React.PureComponent<
   }
 
   /** @internal */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   public override componentDidUpdate(prevProps: ExpandableListProps) {
     if (
       this.props.defaultActiveBlock !== prevProps.defaultActiveBlock &&

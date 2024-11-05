@@ -14,7 +14,7 @@ import type { CommonProps } from "@itwin/core-react";
 /** Item separator in the [[Backstage]] component.
  * @internal
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class BackstageSeparator extends React.PureComponent<CommonProps> {
   public override render() {
     const className = classnames(

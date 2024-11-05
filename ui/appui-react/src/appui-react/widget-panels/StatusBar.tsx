@@ -14,7 +14,7 @@ import type { StatusBarWidgetControl } from "../statusbar/StatusBarWidgetControl
 import { useActiveFrontstageDef } from "../frontstage/FrontstageDef.js";
 
 /** @internal */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export function WidgetPanelsStatusBar(props: CommonProps) {
   const frontstageDef = useActiveFrontstageDef();
   const widgetDef = frontstageDef?.statusBar;
@@ -22,15 +22,15 @@ export function WidgetPanelsStatusBar(props: CommonProps) {
   const content = widgetDef.reactNode;
   const widgetControl =
     content === undefined
-      ? // eslint-disable-next-line deprecation/deprecation
+      ? // eslint-disable-next-line @typescript-eslint/no-deprecated
         (widgetDef.getWidgetControl(
-          // eslint-disable-next-line deprecation/deprecation
+          // eslint-disable-next-line @typescript-eslint/no-deprecated
           ConfigurableUiControlType.StatusBarWidget
-          // eslint-disable-next-line deprecation/deprecation
+          // eslint-disable-next-line @typescript-eslint/no-deprecated
         ) as StatusBarWidgetControl | undefined)
       : undefined;
   return (
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     <StatusBar {...props} widgetControl={widgetControl}>
       {content}
     </StatusBar>

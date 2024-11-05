@@ -53,7 +53,7 @@ function getCombinedSectionItemPriority(item: StatusBarItem) {
 /** Properties of [[DockedStatusBarItem]] component.
  * @internal
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface DockedStatusBarItemProps extends CommonProps {
   /** Tool setting content. */
   children?: React.ReactNode;
@@ -112,18 +112,18 @@ function useStatusBarItemSyncEffect(
 
 function StatusBarLabelItemComponent(props: StatusBarLabelItem) {
   const label = ConditionalStringValue.getValue(props.label);
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   return <StatusBarLabelIndicator iconSpec={props.icon} label={label} />;
 }
 
 function StatusBarActionItemComponent(props: StatusBarActionItem) {
   const title = ConditionalStringValue.getValue(props.tooltip);
   return (
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     <StatusBarLabelIndicator
       title={title}
       onClick={props.execute}
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       iconSpec={props.icon}
     />
   );
@@ -184,7 +184,7 @@ function isItemInOverflow(
  * @public
  * @deprecated in 4.17.0. Use `React.ComponentProps<typeof StatusBarComposer>`
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface StatusBarComposerProps extends CommonProps {
   /** Status Bar items */
   items: StatusBarItem[];
@@ -202,7 +202,7 @@ export interface StatusBarComposerProps extends CommonProps {
 /** Component to load components into the [[StatusBar]].
  * @public
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export function StatusBarComposer(props: StatusBarComposerProps) {
   const {
     className,
@@ -224,7 +224,7 @@ export function StatusBarComposer(props: StatusBarComposerProps) {
       setDefaultItemsManager(new StatusBarItemsManager(items));
     }
   }, [items]);
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   const defaultItems = useDefaultStatusBarItems(defaultItemsManager);
   const syncIdsOfInterest = React.useMemo(
     () => StatusBarItemsManager.getSyncIdsOfInterest(defaultItems),
@@ -233,7 +233,7 @@ export function StatusBarComposer(props: StatusBarComposerProps) {
   useStatusBarItemSyncEffect(defaultItemsManager, syncIdsOfInterest);
 
   const [addonItemsManager] = React.useState(() => new StatusBarItemsManager());
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   const addonItems = useUiItemsProviderStatusBarItems(addonItemsManager);
   const addonSyncIdsOfInterest = React.useMemo(
     () => StatusBarItemsManager.getSyncIdsOfInterest(addonItems),

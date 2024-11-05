@@ -31,7 +31,7 @@ import { ViewUtilities } from "../utils/ViewUtilities.js";
 import type { SupportsViewSelectorChange } from "./ContentControl.js";
 import { ContentControl } from "./ContentControl.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** The base class for frontstage Viewport content controls that connects to a `ScreenViewport`
  * that is managed by the `ViewManager`.

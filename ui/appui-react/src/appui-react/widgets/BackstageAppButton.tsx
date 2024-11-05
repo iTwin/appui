@@ -23,7 +23,7 @@ export interface BackstageAppButtonProps {
   /** If specified overrides the default icon.
    * @deprecated in 4.16.0. Use {@link BackstageAppButtonProps.iconNode} instead.
    */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   icon?: IconSpec;
   iconNode?: React.ReactNode;
   /** If specified overrides the default label. */
@@ -36,7 +36,7 @@ export interface BackstageAppButtonProps {
  * @public
  */
 export function BackstageAppButton({
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   icon: iconSpec,
   iconNode,
   label,
@@ -55,7 +55,7 @@ export function BackstageAppButton({
   }, [execute]);
 
   const iconSpecElement = iconSpec ? (
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     <CoreIcon iconSpec={iconSpec} />
   ) : undefined;
   const icon = iconNode ?? iconSpecElement ?? <SvgHome />;

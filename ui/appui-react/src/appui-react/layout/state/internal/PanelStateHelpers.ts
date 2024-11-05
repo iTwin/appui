@@ -150,7 +150,7 @@ export function insertPanelWidget(
   const panel = state.panels[side];
   const maxWidgetCount = panel.maxWidgetCount;
   if (panel.widgets.length >= maxWidgetCount)
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     throw new UiError(category, "Max widget count exceeded", undefined, () => ({
       maxWidgetCount,
     }));

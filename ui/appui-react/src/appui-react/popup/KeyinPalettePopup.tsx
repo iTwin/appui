@@ -33,7 +33,7 @@ export interface KeyinPalettePopupProps {
  * @public
  */
 export function KeyinPalettePopup({
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   el,
   id,
   keyins,
@@ -89,7 +89,7 @@ export function KeyinPalettePopup({
       point={point}
       onSizeKnown={onSizeKnown}
     >
-      {/* eslint-disable-next-line deprecation/deprecation */}
+      {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
       <DivWithOutsideClick onOutsideClick={onCancel} onKeyDown={handleKeyDown}>
         <FocusTrap active={true} returnFocusOnDeactivate={true}>
           <KeyinPalettePanel keyins={keyins} onKeyinExecuted={onItemExecuted} />

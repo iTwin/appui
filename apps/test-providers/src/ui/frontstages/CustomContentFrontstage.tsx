@@ -40,7 +40,7 @@ export function createCustomContentFrontstage(): Frontstage {
       contents: [
         {
           id: "primary-content",
-          // eslint-disable-next-line deprecation/deprecation
+          // eslint-disable-next-line @typescript-eslint/no-deprecated
           classId: IModelViewportControl,
           applicationData: {
             viewState: UiFramework.getDefaultViewState,

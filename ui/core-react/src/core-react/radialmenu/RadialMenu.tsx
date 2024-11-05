@@ -17,7 +17,7 @@ import type { CommonProps } from "../utils/Props.js";
 import { AnnularSector, Annulus } from "./Annulus.js";
 import type { ContextMenu } from "../contextmenu/ContextMenu.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** Properties for [[RadialMenu]]
  * @public

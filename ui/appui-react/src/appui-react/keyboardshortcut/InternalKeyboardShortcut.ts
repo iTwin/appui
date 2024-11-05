@@ -17,7 +17,7 @@ import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher.js";
 import type { KeyboardShortcutProps } from "./KeyboardShortcutProps.js";
 import type { ListenerType } from "@itwin/core-react/internal";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 type OnShortcutFunc = (shortcut: KeyboardShortcut) => void;
 

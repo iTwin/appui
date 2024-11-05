@@ -85,12 +85,12 @@ export class FrontstageDef {
   private _bottomPanel?: StagePanelDef;
   private _contentLayoutDef?: ContentLayoutDef;
   private _contentGroup?: ContentGroup;
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   private _frontstageProvider?: FrontstageProvider;
   private _timeTracker = new TimeTracker();
   private _nineZoneState?: NineZoneState;
   private _contentGroupProvider?: ContentGroupProvider;
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   private _floatingContentControls?: ContentControl[];
   private _toolAdminDefaultToolId?: string;
   private _dispatch?: NineZoneDispatch;
@@ -310,7 +310,7 @@ export class FrontstageDef {
 
   /** Creates a [[FrontstageDef]] and initializes it. */
   public static async create(
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     providerOrFrontstage: FrontstageProvider | Frontstage
   ) {
     const def = new FrontstageDef();
@@ -340,7 +340,7 @@ export class FrontstageDef {
     }
 
     if (!this._contentGroup)
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       throw new UiError(
         UiFramework.loggerCategory("FrontstageDef"),
         `onActivated: Content Group not defined`
@@ -367,7 +367,7 @@ export class FrontstageDef {
       control.onFrontstageDeactivated();
     }
 
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     for (const control of this.contentControls) {
       control.onFrontstageDeactivated();
     }
@@ -411,7 +411,7 @@ export class FrontstageDef {
 
     if (this.contentLayoutDef) {
       const usedContentIndexes = this.contentLayoutDef.getUsedContentIndexes();
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       this.contentControls.forEach((control, index) => {
         if (usedContentIndexes.includes(index))
           controlReadyPromises.push(control.isReady);
@@ -432,7 +432,7 @@ export class FrontstageDef {
       control.onFrontstageReady();
     }
 
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     for (const control of this.contentControls) {
       control.onFrontstageReady();
     }
@@ -468,17 +468,17 @@ export class FrontstageDef {
     if (!content) return false;
 
     let contentReactNode = content.content;
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     let control: ContentControl | undefined;
     if (!contentReactNode) {
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       control = this.contentGroup.getContentControl(content, 0);
       contentReactNode = control?.reactNode;
     }
 
     if (!contentReactNode) return false;
 
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     UiFramework.content.setActive(contentReactNode, true);
     if (!control?.viewport) return true;
 
@@ -544,14 +544,14 @@ export class FrontstageDef {
   }
 
   /** Gets the list of [[WidgetControl]]s */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   private get _widgetControls(): WidgetControl[] {
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     const widgetControls = new Array<WidgetControl>();
 
     this.panelDefs.forEach((panelDef) => {
       panelDef.widgetDefs.forEach((widgetDef) => {
-        // eslint-disable-next-line deprecation/deprecation
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         const widgetControl = widgetDef.widgetControl;
         if (widgetControl) widgetControls.push(widgetControl);
       });
@@ -621,7 +621,7 @@ export class FrontstageDef {
    */
   public restoreLayout() {
     for (const panelDef of this.panelDefs) {
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       panelDef.size = panelDef.initialConfig?.size;
       panelDef.sizeSpec = panelDef.initialConfig?.sizeSpec;
       panelDef.panelState = panelDef.defaultState;
@@ -963,7 +963,7 @@ export class FrontstageDef {
     };
   }
 
-  /* eslint-disable deprecation/deprecation */
+  /* eslint-disable @typescript-eslint/no-deprecated */
 
   /** @deprecated in 4.15.0. Use {@link FrontstageDef.id} to look up a frontstage. */
   public get frontstageProvider(): FrontstageProvider | undefined {
@@ -989,7 +989,7 @@ export class FrontstageDef {
   public addFloatingContentControl(contentControl?: ContentControl) {
     if (!contentControl) return;
     if (!this._floatingContentControls)
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       this._floatingContentControls = new Array<ContentControl>();
 
     this._floatingContentControls.push(contentControl);
@@ -1029,12 +1029,12 @@ export class FrontstageDef {
    * @deprecated in 4.16.0. Use {@link FrameworkContent.setActiveId} instead.
    */
   public setActiveViewFromViewport(viewport: ScreenViewport): boolean {
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     const contentControl = this.contentControls.find(
       (control) => control.viewport === viewport
     );
     if (contentControl) {
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       UiFramework.content.setActive(contentControl.reactNode, true);
       return true;
     }
@@ -1042,7 +1042,7 @@ export class FrontstageDef {
     return false;
   }
 
-  /* eslint-enable deprecation/deprecation */
+  /* eslint-enable @typescript-eslint/no-deprecated */
 }
 
 function createWidgetDef(

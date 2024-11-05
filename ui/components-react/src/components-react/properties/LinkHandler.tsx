@@ -18,7 +18,7 @@ function renderTag(
   highlight?: (text: string) => React.ReactNode
 ) {
   return (
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     <UnderlinedButton
       onClick={(e) => {
         e.preventDefault();
@@ -139,7 +139,7 @@ export interface LinksRendererProps {
  * React component for rendering string with links.
  * @public
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export function LinksRenderer(props: LinksRendererProps) {
   return <>{withLinks(props.value, props.links, props.highlighter)}</>;
 }
