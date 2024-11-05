@@ -494,6 +494,9 @@ describe("<Popup />", () => {
       vi.spyOn(targetElement, "getBoundingClientRect").mockReturnValue(
         DOMRect.fromRect({ x: 100, y: 100, height: 50, width: 50 })
       );
+      vi.spyOn(document.body, "getBoundingClientRect").mockReturnValue(
+        DOMRect.fromRect({ x: 0, y: 0, width: 1000, height: 1000 })
+      );
     });
 
     afterEach(() => {
