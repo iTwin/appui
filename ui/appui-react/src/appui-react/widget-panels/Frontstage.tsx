@@ -775,24 +775,14 @@ export function useFrontstageManager(
   useToolAsToolSettingsLabel?: boolean
 ) {
   const { translate } = useTranslation();
-  const uiSettingsStorage = useUiStateStorageHandler();
   React.useEffect(() => {
     return InternalFrontstageManager.onFrontstageRestoreLayoutEvent.addListener(
       (args) => {
-        // TODO: track restoring frontstages to support workflows:  i.e. prevent loading frontstage OR saving layout when delete is pending
-        void uiSettingsStorage.deleteSetting(
-          FRONTSTAGE_SETTINGS_NAMESPACE,
-          getFrontstageStateSettingName(args.frontstageDef.id)
-        );
-        if (frontstageDef.id === args.frontstageDef.id) {
-          initializeNineZoneState(frontstageDef);
-          return;
-        }
-
-        args.frontstageDef.nineZoneState = undefined;
+        if (frontstageDef.id !== args.frontstageDef.id) return;
+        initializeNineZoneState(frontstageDef);
       }
     );
-  }, [uiSettingsStorage, frontstageDef]);
+  }, [frontstageDef]);
 
   const defaultLabel = translate("widget.labels.toolSettings");
 
