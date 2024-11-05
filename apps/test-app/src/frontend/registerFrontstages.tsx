@@ -175,4 +175,7 @@ export function registerFrontstages({
       stageIds: [createEditorFrontstage.stageId],
     });
   }
+
+  const ids = frontstages.map((frontstage) => frontstage.id);
+  return ids;
 }
