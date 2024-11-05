@@ -54,8 +54,11 @@ export function WidgetTabs() {
       );
     });
   }, [tabIds, activeTabIndex, showOnlyTabIcon, showWidgetIcon]);
+  const childrenKeys = React.Children.toArray(children).map((child, index) =>
+    getChildKey(child, index)
+  );
   const [overflown, handleResize, handleOverflowResize, handleEntryResize] =
-    useOverflow(children, activeTabIndex);
+    useOverflow(childrenKeys, activeTabIndex);
   const horizontal = side && isHorizontalPanelSide(side);
   const handleContainerResize = React.useCallback(
     (w: number) => {
