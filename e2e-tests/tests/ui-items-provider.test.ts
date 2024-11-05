@@ -3,7 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { Locator, Page, expect, test } from "@playwright/test";
-import assert from "assert";
 import {
   backstageItemLocator,
   dragTab,
@@ -15,9 +14,8 @@ import {
 } from "./Utils";
 
 test.describe("UiItemsProvider", () => {
-  test.beforeEach(async ({ page, baseURL }) => {
-    assert(baseURL);
-    await page.goto(`${baseURL}/blank?frontstageId=widget-api`);
+  test.beforeEach(async ({ page }) => {
+    await page.goto("./blank?frontstageId=widget-api");
   });
 
   test("should provide widgets", async ({ page }) => {
@@ -46,9 +44,8 @@ test.describe("UiItemsProvider", () => {
 });
 
 test.describe("UiItemsProvider v2", () => {
-  test.beforeEach(async ({ page, baseURL }) => {
-    assert(baseURL);
-    await page.goto(`${baseURL}/blank?frontstageId=widget-api`);
+  test.beforeEach(async ({ page }) => {
+    await page.goto("./blank?frontstageId=widget-api");
   });
 
   const providerId = "appui-test-providers:updated";
