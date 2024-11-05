@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Fix an issue where restore frontstage layout would require an active frontstage.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
