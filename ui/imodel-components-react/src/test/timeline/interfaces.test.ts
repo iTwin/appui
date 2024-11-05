@@ -24,7 +24,7 @@ describe("Timeline", () => {
   describe("Duration only timeline", () => {
     const duration = 20;
     const loop = true;
-    const testanimationFraction = 0.3;
+    const testAnimationFraction = 0.3;
 
     class Test1TimelineDataProvider extends TestTimelineDataProvider {
       public override async loadTimelineData(): Promise<boolean> {
@@ -45,7 +45,7 @@ describe("Timeline", () => {
       expect(settings.duration).toEqual(duration);
       expect(settings.loop).toEqual(loop);
       expect(timelineProvider.pointerCallbackCalled).toEqual(false);
-      timelineProvider.onAnimationFractionChanged(testanimationFraction);
+      timelineProvider.onAnimationFractionChanged(testAnimationFraction);
       expect(timelineProvider.pointerCallbackCalled).toEqual(true);
     });
   });
@@ -55,7 +55,7 @@ describe("Timeline", () => {
     const loop = true;
     const startDate = new Date(2014, 6, 6);
     const endDate = new Date(2016, 8, 12);
-    const testanimationFraction = 0.3;
+    const testAnimationFraction = 0.3;
 
     class Test2TimelineDataProvider extends TestTimelineDataProvider {
       public override async loadTimelineData(): Promise<boolean> {
@@ -81,9 +81,9 @@ describe("Timeline", () => {
       expect(timelineProvider.end).toEqual(endDate);
 
       // simulate UI updating pointer to current playback time
-      timelineProvider.onAnimationFractionChanged(testanimationFraction);
+      timelineProvider.onAnimationFractionChanged(testAnimationFraction);
       expect(timelineProvider.pointerCallbackCalled).toEqual(true);
-      expect(timelineProvider.animationFraction).toEqual(testanimationFraction);
+      expect(timelineProvider.animationFraction).toEqual(testAnimationFraction);
     });
   });
 });
