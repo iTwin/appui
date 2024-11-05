@@ -10,7 +10,7 @@ import "./LoadingSpinner.scss";
 import * as React from "react";
 import { ProgressRadial } from "@itwin/itwinui-react";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 type ProgressRadialProps = React.ComponentPropsWithoutRef<
   typeof ProgressRadial

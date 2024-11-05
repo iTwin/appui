@@ -57,7 +57,7 @@ export class ToolbarItemsManager {
     sendItemChanged: boolean
   ) {
     if (processConditions && items) {
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       const eventIds = ToolbarItemsManager.getSyncIdsOfInterest(items);
       if (0 !== eventIds.length) {
         const { itemsUpdated, updatedItems } =
@@ -136,7 +136,7 @@ export class ToolbarItemsManager {
           entry.syncEventIds.forEach((eventId: string) =>
             eventIds.add(eventId.toLowerCase())
           );
-          // eslint-disable-next-line deprecation/deprecation
+          // eslint-disable-next-line @typescript-eslint/no-deprecated
         } else if (entry instanceof ConditionalIconItem) {
           entry.syncEventIds.forEach((eventId: string) =>
             eventIds.add(eventId.toLowerCase())
@@ -188,9 +188,9 @@ export class ToolbarItemsManager {
         } else if (entry instanceof ConditionalStringValue) {
           if (ConditionalStringValue.refreshValue(entry, eventIds))
             itemsUpdated = true;
-          // eslint-disable-next-line deprecation/deprecation
+          // eslint-disable-next-line @typescript-eslint/no-deprecated
         } else if (entry instanceof ConditionalIconItem) {
-          // eslint-disable-next-line deprecation/deprecation
+          // eslint-disable-next-line @typescript-eslint/no-deprecated
           if (ConditionalIconItem.refreshValue(entry, eventIds))
             itemsUpdated = true;
         }
@@ -214,7 +214,7 @@ export class ToolbarItemsManager {
       let updatedItem = { ...item };
       if (isToolbarGroupItem(updatedItem)) {
         const { childrenUpdated, childItems } =
-          // eslint-disable-next-line deprecation/deprecation
+          // eslint-disable-next-line @typescript-eslint/no-deprecated
           ToolbarItemsManager.refreshChildItems(updatedItem, eventIds);
         if (childrenUpdated) {
           updatedItem = {
@@ -232,9 +232,9 @@ export class ToolbarItemsManager {
         } else if (entry instanceof ConditionalStringValue) {
           if (ConditionalStringValue.refreshValue(entry, eventIds))
             updateRequired = true;
-          // eslint-disable-next-line deprecation/deprecation
+          // eslint-disable-next-line @typescript-eslint/no-deprecated
         } else if (entry instanceof ConditionalIconItem) {
-          // eslint-disable-next-line deprecation/deprecation
+          // eslint-disable-next-line @typescript-eslint/no-deprecated
           if (ConditionalIconItem.refreshValue(entry, eventIds))
             updateRequired = true;
         }
@@ -281,7 +281,7 @@ export class ToolbarItemsManager {
     for (const item of this.items) {
       if (isToolbarGroupItem(item)) {
         if (
-          // eslint-disable-next-line deprecation/deprecation
+          // eslint-disable-next-line @typescript-eslint/no-deprecated
           ToolbarItemsManager.isActiveToolIdRefreshRequiredForChildren(
             item.items,
             toolId
@@ -312,7 +312,7 @@ export class ToolbarItemsManager {
       if (isToolbarGroupItem(updatedItem)) {
         updatedItem = {
           ...updatedItem,
-          // eslint-disable-next-line deprecation/deprecation
+          // eslint-disable-next-line @typescript-eslint/no-deprecated
           items: ToolbarItemsManager.refreshActiveToolIdInChildItems(
             updatedItem,
             toolId
@@ -337,7 +337,7 @@ export class ToolbarItemsManager {
       if (isToolbarGroupItem(updatedItem)) {
         updatedItem = {
           ...updatedItem,
-          // eslint-disable-next-line deprecation/deprecation
+          // eslint-disable-next-line @typescript-eslint/no-deprecated
           items: ToolbarItemsManager.refreshActiveToolIdInChildItems(
             updatedItem,
             toolId

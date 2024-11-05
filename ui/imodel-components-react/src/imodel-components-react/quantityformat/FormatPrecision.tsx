@@ -18,7 +18,7 @@ import { useTranslation } from "../useTranslation.js";
  * @alpha
  * @deprecated in 4.17.0. Use `React.ComponentProps<typeof FormatPrecision>`
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface FormatPrecisionProps extends CommonProps {
   formatProps: FormatProps;
   onChange?: (format: FormatProps) => void;
@@ -27,7 +27,7 @@ export interface FormatPrecisionProps extends CommonProps {
 /** Component to show/edit Quantity Format Precision.
  * @alpha
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export function FormatPrecision(props: FormatPrecisionProps) {
   const { formatProps, onChange } = props;
   const { translate } = useTranslation();

@@ -28,7 +28,7 @@ function isLetter(char: string): boolean {
  * @public
  * @deprecated in 4.17.0. Use `React.ComponentProps<typeof AccuDrawInputField>`
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface AccuDrawInputFieldProps extends CommonProps {
   /** Which AccuDraw field this represents */
   field: ItemField;
@@ -41,7 +41,7 @@ export interface AccuDrawInputFieldProps extends CommonProps {
   /** Icon for the input element.
    * @deprecated in 4.16.0. Use `icon` instead.
    */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   iconSpec?: IconSpec;
   /** Icon for the input element. */
   icon?: React.ReactNode;
@@ -65,16 +65,16 @@ export interface AccuDrawInputFieldProps extends CommonProps {
 
 const ForwardRefAccuDrawInput = React.forwardRef<
   HTMLInputElement,
-  /* eslint-disable-next-line deprecation/deprecation */
+  /* eslint-disable-next-line @typescript-eslint/no-deprecated */
   AccuDrawInputFieldProps
-  /* eslint-disable-next-line deprecation/deprecation */
+  /* eslint-disable-next-line @typescript-eslint/no-deprecated */
 >(function ForwardRefAccuDrawInputField(props: AccuDrawInputFieldProps, ref) {
   const {
     className,
     style,
     id,
     label,
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     iconSpec,
     icon,
     labelClassName,
@@ -208,7 +208,7 @@ const ForwardRefAccuDrawInput = React.forwardRef<
     <>
       <label htmlFor={id} className={labelClassNames} style={labelStyle}>
         {label}
-        {/* eslint-disable-next-line deprecation/deprecation */}
+        {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
         {icon ? icon : iconSpec && <Icon iconSpec={iconSpec} />}
       </label>
       <Input
@@ -232,6 +232,6 @@ const ForwardRefAccuDrawInput = React.forwardRef<
  * @public
  */
 export const AccuDrawInputField: (
-  /* eslint-disable-next-line deprecation/deprecation */
+  /* eslint-disable-next-line @typescript-eslint/no-deprecated */
   props: AccuDrawInputFieldProps
 ) => React.ReactNode = ForwardRefAccuDrawInput;

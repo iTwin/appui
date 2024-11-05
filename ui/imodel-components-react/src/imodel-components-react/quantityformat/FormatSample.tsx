@@ -19,7 +19,7 @@ import { useTranslation } from "../useTranslation.js";
  * @alpha
  * @deprecated in 4.17.0. Use `React.ComponentProps<typeof FormatSample>`
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface FormatSampleProps extends CommonProps {
   formatSpec?: FormatterSpec;
   initialMagnitude?: number;
@@ -29,7 +29,7 @@ export interface FormatSampleProps extends CommonProps {
 /** Component to show the persistence value and formatted value given a FormatterSpec.
  * @alpha
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export function FormatSample(props: FormatSampleProps) {
   const { initialMagnitude, formatSpec, hideLabels } = props;
   const { translate } = useTranslation();
@@ -103,7 +103,7 @@ export function FormatSample(props: FormatSampleProps) {
       )}
       <span data-testid="progress-forward">
         {hideLabels && formattedValue.length > 0 && (
-          // eslint-disable-next-line deprecation/deprecation
+          // eslint-disable-next-line @typescript-eslint/no-deprecated
           <Icon iconSpec={<SvgProgressForward />} />
         )}
         <span

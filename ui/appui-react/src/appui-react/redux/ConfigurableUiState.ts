@@ -21,7 +21,7 @@ import type { ThemeManager } from "../theme/ThemeManager.js";
 import type { SnapModeField } from "../statusfields/SnapMode.js";
 import type { ToolbarDragInteractionContext } from "../toolbar/DragInteraction.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** Action Ids used by Redux and to send sync UI components. Typically used to refresh visibility or enable state of control.
  *  Since these are also used as sync ids they should be in lowercase.

@@ -33,7 +33,7 @@ export interface MouseDownChangedEventArgs {
  * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class MouseDownChangedEvent extends UiEvent<MouseDownChangedEventArgs> {}
 
 /** [[ActiveContentChangedEvent]] Args interface.
@@ -57,14 +57,14 @@ export interface ActiveContentChangedEventArgs {
  * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class ActiveContentChangedEvent extends UiEvent<ActiveContentChangedEventArgs> {}
 
 /** Content Dialog Changed Event class.
  * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class ContentDialogChangedEvent extends DialogChangedEvent {}
 
 /** @public */
@@ -80,7 +80,7 @@ export interface ContentDialogInfo {
  */
 export interface FrameworkContent {
   /** Gets the [[MouseDownChangedEvent]] */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   readonly onMouseDownChangedEvent: MouseDownChangedEvent;
 
   /** Determines if the mouse is down in a content view */
@@ -90,12 +90,12 @@ export interface FrameworkContent {
   setMouseDown(mouseDown: boolean): void;
 
   /** Gets the [[ActiveContentChangedEvent]] */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   readonly onActiveContentChangedEvent: ActiveContentChangedEvent;
 
   /** Fires when floating contents are added or removed */
 
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   readonly onAvailableContentChangedEvent: UiEvent<{ contentId: string }>;
 
   /** Sets the active content. */
@@ -112,15 +112,15 @@ export interface FrameworkContent {
   /** Return the active ContentControl.
    * @deprecated in 4.16.0. Use {@link FrameworkContent.getActiveId} instead.
    */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   getActiveContentControl(): ContentControl | undefined;
 
   /** @deprecated in 4.16.0. Use {@link UiItemsProvider} to provide a floating widget. */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   addFloatingContentControl(contentControl?: ContentControl): void;
 
   /** @deprecated in 4.16.0. Unregister {@link UiItemsProvider} to remove a floating widget. */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   dropFloatingContentControl(contentControl?: ContentControl): void;
 
   /** Sets the active [[ContentControl]].
@@ -141,7 +141,7 @@ export interface FrameworkContent {
    * @param content ContentControl to check
    * @deprecated in 4.16.0. Uses a deprecated class {@link ContentControl}.
    */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   isContentSheetView(content: ContentControl | undefined): boolean;
 
   /**
@@ -149,7 +149,7 @@ export interface FrameworkContent {
    * @param content ContentControl to check
    * @deprecated in 4.16.0. Uses a deprecated class {@link ContentControl}.
    */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   isContentDrawingView(content: ContentControl | undefined): boolean;
 
   /**
@@ -157,7 +157,7 @@ export interface FrameworkContent {
    * @param content ContentControl to check
    * @deprecated in 4.16.0. Uses a deprecated class {@link ContentControl}.
    */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   isContentSpatialView(content: ContentControl | undefined): boolean;
 
   /**
@@ -165,7 +165,7 @@ export interface FrameworkContent {
    * @param content ContentControl to check
    * @deprecated in 4.16.0. Uses a deprecated class {@link ContentControl}.
    */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   isContentOrthographicView(content: ContentControl | undefined): boolean;
 
   /**
@@ -173,7 +173,7 @@ export interface FrameworkContent {
    * @param content ContentControl to check
    * @deprecated in 4.16.0. Uses a deprecated class {@link ContentControl}.
    */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   isContent3dView(content: ContentControl | undefined): boolean;
 
   /**
@@ -181,7 +181,7 @@ export interface FrameworkContent {
    * @param content ContentControl to check
    * @deprecated in 4.16.0. Uses a deprecated class {@link ContentControl}.
    */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   contentSupportsCamera(content: ContentControl | undefined): boolean;
 
   /** Manage content layouts.
@@ -242,7 +242,7 @@ export interface FrameworkContent {
    */
   readonly dialogs: FrameworkStackedDialog<ContentDialogInfo> & {
     /** Content Dialog Changed Event */
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     readonly onContentDialogChangedEvent: ContentDialogChangedEvent;
   };
 }

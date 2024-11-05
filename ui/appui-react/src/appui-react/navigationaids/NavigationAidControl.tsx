@@ -15,7 +15,7 @@ import {
   ConfigurableUiControlType,
 } from "../configurableui/ConfigurableUiControl.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** NavigationAid Activated Event Args interface.
  * @public

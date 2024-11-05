@@ -49,7 +49,7 @@ function OverflowLabelAndEditor({ wrapper }: { wrapper: React.ReactNode }) {
 /** Properties of [[DockedToolSettings]] component.
  * @internal
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface DockedToolSettingsProps extends CommonProps {
   /** Tool settings content. */
   children?: React.ReactNode;
@@ -69,13 +69,16 @@ export function DockedToolSettings(props: DockedToolSettingsProps) {
   const ref = React.useRef<HTMLDivElement>(null);
   const width = React.useRef<number | undefined>(undefined);
   const handleWidth = React.useRef<number | undefined>(undefined);
+  const childrenKeys = React.Children.toArray(props.children).map(
+    (child, index) => getChildKey(child, index)
+  );
   const [
     overflown,
     handleContainerResize,
     handleOverflowResize,
     getOnEntryResize,
     handleGapResize,
-  ] = useOverflow(props.children);
+  ] = useOverflow(childrenKeys);
   const onResize = React.useCallback(() => {
     let gapSize = 0;
     if (ref.current) {
@@ -308,10 +311,10 @@ export function getOverflown(
  * @internal
  */
 export function useOverflow(
-  children: React.ReactNode,
-  activeChildIndex?: number
+  itemKeys: ReadonlyArray<string>,
+  activeItemIndex?: number
 ): [
-  /** Keys of overflown children. */
+  /** Keys of overflown items. */
   ReadonlyArray<string> | undefined,
   /** Function to update container size. */
   (containerSize: number) => void,
@@ -344,7 +347,7 @@ export function useOverflow(
       width.current,
       [...widths.entries()],
       overflowWidth.current,
-      activeChildIndex,
+      activeItemIndex,
       gapSize.current
     );
     setOverflown((prevOverflown) => {
@@ -352,20 +355,17 @@ export function useOverflow(
         ? prevOverflown
         : newOverflown;
     });
-  }, [activeChildIndex]);
+  }, [activeItemIndex]);
 
   React.useLayoutEffect(() => {
     const newEntryWidths = new Map<string, number | undefined>();
-    const array = React.Children.toArray(children);
-    for (let i = 0; i < array.length; i++) {
-      const child = array[i];
-      const key = getChildKey(child, i);
-      const lastW = entryWidths.current.get(key);
-      newEntryWidths.set(key, lastW);
+    for (const itemKey of itemKeys) {
+      const lastW = entryWidths.current.get(itemKey);
+      newEntryWidths.set(itemKey, lastW);
     }
     entryWidths.current = newEntryWidths;
     calculateOverflow();
-  }, [children, calculateOverflow]);
+  }, [itemKeys, calculateOverflow]);
 
   const handleContainerResize = React.useCallback(
     (w: number) => {
@@ -457,7 +457,7 @@ export function eqlOverflown(
 }
 
 function getGapVariable(htmlElement: HTMLElement) {
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   const gap = getCssVariableAsNumber("gap", htmlElement);
   if (isNaN(gap)) return 0;
   return gap;

@@ -23,7 +23,7 @@ import { Widget } from "../widgets/Widget.js";
 import { UiItemsProvider } from "../ui-items-provider/UiItemsProvider.js";
 import { ContentOverlay } from "./ContentOverlay.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** ControlControl Activated Event Args interface.
  * @public
@@ -38,7 +38,7 @@ export interface ContentControlActivatedEventArgs {
  * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class ContentControlActivatedEvent extends UiEvent<ContentControlActivatedEventArgs> {}
 
 /** Interface to be implemented when the ContentControl supports ViewSelector changes

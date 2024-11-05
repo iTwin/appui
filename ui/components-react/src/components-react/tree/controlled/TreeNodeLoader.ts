@@ -589,7 +589,7 @@ export class TreeDataSource {
       this._dataProvider = await this._dataProvider;
       return this.getChildren(this._dataProvider, parent);
     }
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     throw new UiError(
       UiComponents.loggerCategory("TreeDataSource"),
       "Unsupported TreeDataProvider."

@@ -126,7 +126,7 @@ function DeprecatedTestStatusBarItem() {
   );
   return (
     <>
-      {/* eslint-disable-next-line deprecation/deprecation */}
+      {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
       <StatusBar.Field
         ref={(el) => setTarget(el ?? undefined)}
         onClick={() => setIsOpen(!isOpen)}
@@ -135,16 +135,16 @@ function DeprecatedTestStatusBarItem() {
           <SvgPlaceholder />
           <StatusBarPopover.ExpandIndicator />
         </IconButton>
-        {/* eslint-disable-next-line deprecation/deprecation */}
+        {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
       </StatusBar.Field>
-      {/* eslint-disable-next-line deprecation/deprecation */}
+      {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
       <StatusBar.Popup
         target={target}
         onClose={() => setIsOpen(false)}
         isOpen={isOpen}
       >
         <StatusBarItemContent />
-        {/* eslint-disable-next-line deprecation/deprecation */}
+        {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
       </StatusBar.Popup>
     </>
   );
@@ -264,7 +264,7 @@ function TestPopupContextMenu() {
       >
         PopupContextMenu
       </Button>
-      {/* eslint-disable-next-line deprecation/deprecation */}
+      {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
       <PopupContextMenu
         isOpen={open}
         target={target}
@@ -273,7 +273,7 @@ function TestPopupContextMenu() {
           setOpen(false);
         }}
       >
-        {/* eslint-disable-next-line deprecation/deprecation */}
+        {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
         <ContextMenuItem>
           <Select
             options={Array.from({ length: 10 }).map((_, i) => ({
@@ -285,7 +285,7 @@ function TestPopupContextMenu() {
         </ContextMenuItem>
         {Array.from({ length: 5 }).map((_, i) => {
           return (
-            // eslint-disable-next-line deprecation/deprecation
+            // eslint-disable-next-line @typescript-eslint/no-deprecated
             <ContextMenuItem
               key={i}
               onClick={() => {
@@ -316,7 +316,7 @@ function TestPopup() {
       >
         Popup
       </Button>
-      {/* eslint-disable-next-line deprecation/deprecation */}
+      {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
       <Popup
         isOpen={open}
         target={target}

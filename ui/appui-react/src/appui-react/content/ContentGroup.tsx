@@ -30,7 +30,7 @@ export interface ContentProps {
   /** The class name or [[ConfigurableUiControlConstructor]] of the content control.
    * @deprecated in 4.16.0. Use {@link ContentProps.content} instead and specify an empty string for this property. This will be made optional in 5.0.0.
    */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   classId: string | ConfigurableUiControlConstructor;
   /** Optional application data passed down to the content view.
    * @deprecated in 4.16.0. Use {@link ContentProps.content} instead.
@@ -124,7 +124,7 @@ export class ContentGroup {
         return;
       }
 
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       const control = this.getContentControl(contentProps, index);
       if (!control) return;
 
@@ -164,16 +164,16 @@ export class ContentGroup {
     };
 
     contentGroupProps.contents.forEach((content, index) => {
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       if (typeof content.classId !== "string") {
         const classId = InternalConfigurableUiManager.getConstructorClassId(
-          // eslint-disable-next-line deprecation/deprecation
+          // eslint-disable-next-line @typescript-eslint/no-deprecated
           content.classId
         );
-        // eslint-disable-next-line deprecation/deprecation
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         if (classId !== undefined) content.classId = classId;
         else
-          throw new UiError( // eslint-disable-line deprecation/deprecation
+          throw new UiError( // eslint-disable-line @typescript-eslint/no-deprecated
             UiFramework.loggerCategory("ContentGroup"),
             `toJSON: ContentControl at index ${index} is NOT registered with a string id`
           );
@@ -189,7 +189,7 @@ export class ContentGroup {
    * @internal
    */
   public getViewports(): Array<ScreenViewport | undefined> {
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     const contentControls = this.getContentControls();
     const viewports = new Array<ScreenViewport | undefined>();
 
@@ -204,7 +204,7 @@ export class ContentGroup {
     return viewports;
   }
 
-  /* eslint-disable deprecation/deprecation */
+  /* eslint-disable @typescript-eslint/no-deprecated */
 
   private _contentControls = new Map<string, ContentControl>();
   private _contentSetMap = new Map<string, ContentControl>();
@@ -308,5 +308,5 @@ export class ContentGroup {
     return contentControls;
   }
 
-  /* eslint-enable deprecation/deprecation */
+  /* eslint-enable @typescript-eslint/no-deprecated */
 }

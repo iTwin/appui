@@ -53,7 +53,7 @@ import { ConditionalIconItem } from "@itwin/core-react";
 import type { ToolbarItems } from "./ToolbarItems.js";
 import { getActiveViewport } from "../utils/getActiveViewport.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** Utility Class that provides definitions of tools provided by the ($core-frontend) core. These definitions can be used to populate the UI.
  * @public

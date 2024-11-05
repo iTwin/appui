@@ -8,7 +8,7 @@ import { CursorTypeContext } from "../../../appui-react/layout/base/NineZone.js"
 import { useCursor } from "../../../appui-react/layout/widget-panels/CursorOverlay.js";
 
 describe("useCursor", () => {
-  const wrapper = (props: {}) => (
+  const wrapper = (props: object) => (
     <CursorTypeContext.Provider value="grabbing" {...props} />
   );
 

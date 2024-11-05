@@ -6,7 +6,7 @@
  * @module Utilities
  */
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 import * as React from "react";
 import { ConditionalStringValue } from "@itwin/appui-abstract";

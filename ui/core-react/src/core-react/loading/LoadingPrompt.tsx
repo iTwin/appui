@@ -15,7 +15,7 @@ import { LoadingSpinner } from "./LoadingSpinner.js";
 import { LoadingStatus } from "./LoadingStatus.js";
 import type { CommonProps } from "../utils/Props.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** Properties for [[LoadingPrompt]] component
  * @public

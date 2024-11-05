@@ -30,7 +30,7 @@ function parseStringToCelsius(userInput: string): ParseResults {
       return { parseError: "unable to parse temperature" };
     if (convertFromFahrenheit) temperature = fahrenheitToCelsius(temperature);
     return { value: temperature };
-  } catch (_e) {
+  } catch {
     return { parseError: "unable to parse temperature" };
   }
 }

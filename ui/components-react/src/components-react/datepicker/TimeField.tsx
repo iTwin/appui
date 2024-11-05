@@ -43,7 +43,7 @@ function getValidInt(
   try {
     const newValue = parseInt(intText, 10);
     if (newValue >= min && newValue <= max) return newValue;
-  } catch (_e) {
+  } catch {
     return defaultValue;
   }
   return defaultValue;

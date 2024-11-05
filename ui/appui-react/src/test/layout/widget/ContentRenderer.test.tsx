@@ -14,7 +14,7 @@ import { WidgetContentRenderer } from "../../../appui-react/layout/widget/Conten
 import { TestNineZoneProvider } from "../Providers.js";
 
 describe("WidgetContentRenderer", () => {
-  const wrapper = (props: React.PropsWithChildren<{}>) => (
+  const wrapper = (props: React.PropsWithChildren<object>) => (
     <TestNineZoneProvider
       defaultState={addTab(createNineZoneState(), "t1")}
       {...props}

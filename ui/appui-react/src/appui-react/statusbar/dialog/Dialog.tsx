@@ -15,7 +15,7 @@ import { StatusBarDialogTitleBar } from "./TitleBar.js";
 /** Properties of [[StatusBarDialog]] component.
  * @beta
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface StatusBarDialogProps extends CommonProps {
   /** Dialog content.  */
   children?: React.ReactNode;

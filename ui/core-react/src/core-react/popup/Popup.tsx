@@ -34,7 +34,7 @@ export const PopupContext = React.createContext<HTMLElement | undefined>(
  * @public
  * @deprecated in 4.15.0. Props of deprecated {@link Popup} component.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface PopupProps extends CommonProps {
   /** Show or hide the box shadow (defaults to true) */
   showShadow: boolean;
@@ -118,7 +118,7 @@ interface PopupState {
  * @public
  * @deprecated in 4.15.0. Use {@link https://itwinui.bentley.com/docs/popover iTwinUI Popover} instead.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class Popup extends React.Component<PopupProps, PopupState> {
   private _popup: HTMLElement | null = null;
   /** @internal */
@@ -126,7 +126,7 @@ export class Popup extends React.Component<PopupProps, PopupState> {
   /** @internal */
   public declare context: React.ContextType<typeof PopupContext>;
 
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   constructor(props: PopupProps) {
     super(props);
     const parentDocument = this.props.target?.ownerDocument ?? document;
@@ -141,7 +141,7 @@ export class Popup extends React.Component<PopupProps, PopupState> {
     };
   }
 
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   public static defaultProps: Partial<PopupProps> = {
     position: RelativePosition.Bottom,
     showShadow: true,
@@ -163,7 +163,7 @@ export class Popup extends React.Component<PopupProps, PopupState> {
   }
 
   public override componentDidUpdate(
-    previousProps: PopupProps, // eslint-disable-line deprecation/deprecation
+    previousProps: PopupProps, // eslint-disable-line @typescript-eslint/no-deprecated
     prevState: PopupState
   ) {
     if (this.state.position !== prevState.position) {
@@ -579,16 +579,16 @@ export class Popup extends React.Component<PopupProps, PopupState> {
       return fittedPoint;
     }
 
-    // const popupRect = this._popup.getBoundingClientRect();
     const { popupWidth, popupHeight } = this._getPopupDimensions();
-    const { innerWidth, innerHeight } = window;
+    const container = this.getContainer();
+    const containerBounds = container.getBoundingClientRect();
 
-    if (fittedPoint.y + popupHeight > innerHeight) {
-      fittedPoint.y = innerHeight - popupHeight;
+    if (fittedPoint.y + popupHeight > containerBounds.height) {
+      fittedPoint.y = containerBounds.height - popupHeight;
     }
 
-    if (fittedPoint.x + popupWidth > innerWidth) {
-      fittedPoint.x = innerWidth - popupWidth;
+    if (fittedPoint.x + popupWidth > containerBounds.width) {
+      fittedPoint.x = containerBounds.width - popupWidth;
     }
 
     if (fittedPoint.y < 0) {

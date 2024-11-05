@@ -127,7 +127,7 @@ export const useGroupedItems = (
  * @public
  * @deprecated in 4.17.0. Use `React.ComponentProps<typeof BackstageComposer>`
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface BackstageComposerProps extends CommonProps {
   /** React node for an optional header item */
   readonly header?: React.ReactNode;
@@ -142,7 +142,7 @@ export interface BackstageComposerProps extends CommonProps {
 /** Backstage component composed from [[UiFramework.backstage]] items.
  * @public
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export function BackstageComposer(props: BackstageComposerProps) {
   const [defaultItemsManager, setDefaultItemsManager] = React.useState(
     new BackstageItemsManager(props.items)
@@ -171,7 +171,7 @@ export function BackstageComposer(props: BackstageComposerProps) {
   useBackstageItemSyncEffect(defaultItemsManager, syncIdsOfInterest);
 
   const [addonItemsManager] = React.useState(new BackstageItemsManager());
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   const addonItems = useUiItemsProviderBackstageItems(addonItemsManager);
   const addonSyncIdsOfInterest = React.useMemo(
     () => BackstageItemsManager.getSyncIdsOfInterest(addonItems),

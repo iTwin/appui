@@ -86,7 +86,7 @@ export function WidgetTabProvider({
 /** Properties of [[WidgetTab]] component.
  * @internal
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface WidgetTabProps extends CommonProps {
   badge?: React.ReactNode;
   icon?: React.ReactNode;
@@ -198,7 +198,7 @@ export function useTabInteractions<T extends HTMLElement>({
   const layoutStore = useLayoutStore();
   const tabRef = React.useRef(layoutStore.getState().tabs[id]);
   const clickCount = React.useRef(0);
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   const doubleClickTimer = React.useRef(new Timer(300));
   const initialPointerPosition = React.useRef<Point>();
 

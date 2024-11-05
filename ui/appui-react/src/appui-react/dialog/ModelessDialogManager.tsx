@@ -16,9 +16,9 @@ import { InternalModelessDialogManager as internal } from "./InternalModelessDia
 /** ModelessDialogRenderer React component renders modeless dialogs.
  * @public
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class ModelessDialogRenderer extends React.PureComponent<CommonProps> {
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   constructor(props: CommonProps) {
     super(props);
   }

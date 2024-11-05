@@ -45,7 +45,7 @@ function ColorOptions({
         style={containerStyle}
       >
         {options.map((color, index) => (
-          // eslint-disable-next-line deprecation/deprecation
+          // eslint-disable-next-line @typescript-eslint/no-deprecated
           <ColorSwatch
             className="components-colorpicker-swatch"
             key={index}
@@ -65,7 +65,7 @@ function ColorOptions({
  */
 export interface ColorPickerProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     CommonProps {
   /** Active color */
   initialColor: ColorDef;
@@ -92,7 +92,7 @@ export interface ColorPickerProps
 // Defined using following pattern (const ColorPickerButton at bottom) to ensure useful API documentation is extracted
 const ForwardRefColorPickerButton = React.forwardRef<
   HTMLButtonElement,
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   ColorPickerProps
 >(function ForwardRefColorPickerButton(
   {
@@ -191,7 +191,7 @@ const ForwardRefColorPickerButton = React.forwardRef<
             data-testid={showPopup ? "caret-up" : "caret-down"}
           />
           {showCaret && (
-            // eslint-disable-next-line deprecation/deprecation
+            // eslint-disable-next-line @typescript-eslint/no-deprecated
             <Icon
               className="components-caret"
               iconSpec={showPopup ? <SvgCaretUpSmall /> : <SvgCaretDownSmall />}
@@ -199,7 +199,7 @@ const ForwardRefColorPickerButton = React.forwardRef<
           )}
         </div>
       </button>
-      {/* eslint-disable-next-line deprecation/deprecation */}
+      {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
       <Popup
         className="components-colorpicker-popup"
         isOpen={showPopup}
@@ -226,6 +226,6 @@ const ForwardRefColorPickerButton = React.forwardRef<
  * @deprecated in 4.11.0. Use {@link https://itwinui.bentley.com/docs/colorpicker iTwinUI color picker} instead.
  */
 export const ColorPickerButton: (
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   props: ColorPickerProps
 ) => React.ReactNode = ForwardRefColorPickerButton;

@@ -17,8 +17,8 @@ import { ToolbarIcon } from "./Icon.js";
  * @internal
  */
 export interface BackButtonProps
-  extends OmitChildrenProp<ToolbarIconProps>, // eslint-disable-line deprecation/deprecation
-    NoChildrenProps {} // eslint-disable-line deprecation/deprecation
+  extends OmitChildrenProp<ToolbarIconProps>, // eslint-disable-line @typescript-eslint/no-deprecated
+    NoChildrenProps {} // eslint-disable-line @typescript-eslint/no-deprecated
 
 /** Back button which displays icon. Used in [[Toolbar]] component.
  * @note See basic button: [[ToolbarButton]]

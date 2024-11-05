@@ -35,7 +35,7 @@ export class OpenSynchronizedViewTool extends Tool {
     let y: number | undefined;
     const stage = UiFramework.frontstages.activeFrontstageDef;
     if (stage && stage.nineZoneState) {
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       const floatingContentCount = stage.floatingContentControls?.length ?? 0;
       // we should not really every support more than 8 floating views
       if (
