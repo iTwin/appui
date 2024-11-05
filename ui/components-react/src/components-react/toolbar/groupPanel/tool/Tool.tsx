@@ -16,7 +16,7 @@ import { useTargeted } from "@itwin/core-react/internal";
 /** Properties of [[GroupTool]] component.
  * @internal
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface GroupToolProps extends CommonProps {
   /** Additional content, besides icon and label. */
   children?: React.ReactNode;

@@ -82,7 +82,7 @@ function unFocus(ownerDoc: Document | undefined) {
     try {
       const winSelection = ownerDoc.defaultView?.getSelection();
       winSelection?.removeAllRanges();
-    } catch (_e) {}
+    } catch {}
   }
 }
 
@@ -114,7 +114,7 @@ function removeNullChildren(children: React.ReactNode[]) {
  * See https://github.com/tomkp/react-split-pane/blob/master/LICENSE.
  * @public
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export function SplitPane(props: SplitPaneProps) {
   const {
     style,

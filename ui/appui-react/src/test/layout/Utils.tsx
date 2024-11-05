@@ -94,7 +94,7 @@ export function createDraggedTabState(
 /** Helper that invokes meta data handler of a thrown BentleyError.
  * @internal
  */
-export function handleMetaData(fn: Function) {
+export function handleMetaData(fn: (...args: any[]) => any) {
   return () => {
     try {
       fn();

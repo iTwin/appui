@@ -18,7 +18,7 @@ import type { StringGetter } from "@itwin/appui-abstract";
 /** Properties for a Keyboard Shortcut
  * @public
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface KeyboardShortcutProps extends CommonProps {
   /** The key that invokes the shortcut.
    * This is either an alphanumeric key, a function key or a special key.
@@ -28,7 +28,7 @@ export interface KeyboardShortcutProps extends CommonProps {
   /** The item to execute when this shortcut is invoked. Either 'item' or 'shortcuts' must be specified.
    * @deprecated in 4.15.0. Use properties of this object instead.
    */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   item?: ActionButtonItemDef;
   /** Function to run when the keyboard shortcut is executed. */
   execute?: () => void;
@@ -65,12 +65,12 @@ export interface KeyboardShortcutProps extends CommonProps {
   /** Badge to be overlaid on the item.
    * @deprecated in 4.16.0. Use `badgeKind` property instead.
    */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   badgeType?: BadgeType;
   /** Abstract icon definition, used when creating itemDef from abstract item (ie. MenuItem).
    * @deprecated in 4.16.0. Use {@link KeyboardShortcutProps.iconNode} instead.
    */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   icon?: IconSpec;
 
   /** if set, it is used to explicitly set the label shown by a component. */
@@ -92,7 +92,7 @@ export interface KeyboardShortcutProps extends CommonProps {
   // #region "IconProps" properties previously extended from deprecated type.
 
   /** @deprecated in 4.16.0. Use {@link KeyboardShortcutProps.iconNode} instead. */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   iconSpec?: IconSpec;
 
   // #endregion "IconProps"

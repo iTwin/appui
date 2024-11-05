@@ -29,7 +29,7 @@ import { useMaximizedPanel } from "../../preview/enable-maximized-widget/useMaxi
 /** Resize grip of [[WidgetPanel]] component.
  * @internal
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export function WidgetPanelGrip(props: CommonProps) {
   const side = React.useContext(PanelSideContext);
   assert(!!side);
@@ -89,7 +89,7 @@ export const useResizeGrip = <T extends HTMLElement>(): [
   const [resizing, setResizing] = React.useState(false);
   const [active, setActive] = React.useState(false);
   const initialPointerPosition = React.useRef<Point>();
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   const dragStartTimer = React.useRef(new Timer(300));
   const ref = React.useRef<T | null>(null);
   const relativePosition = React.useRef(new Point());
@@ -241,7 +241,7 @@ export const useResizeGrip = <T extends HTMLElement>(): [
 
 /** @internal */
 export function useDoubleClick(onDoubleClick?: () => void): () => void {
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   const timer = React.useRef(new Timer(300));
   const clickCount = React.useRef(0);
   timer.current.setOnExecute(() => {

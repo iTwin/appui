@@ -14,7 +14,7 @@ export const WidgetContentContext = React.createContext<{
 });
 
 /** Tracks the active content id when content view is rendered in the widgets. */
-export function WidgetContentProvider(props: React.PropsWithChildren<{}>) {
+export function WidgetContentProvider(props: React.PropsWithChildren<object>) {
   const [activeId, setActiveId] = React.useState<string | undefined>(undefined);
   React.useEffect(() => {
     return UiFramework.content.onActiveContentChangedEvent.addListener(() => {

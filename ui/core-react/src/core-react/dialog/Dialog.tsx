@@ -41,7 +41,7 @@ export enum DialogAlignment {
  */
 export interface DialogProps
   extends Omit<React.AllHTMLAttributes<HTMLDivElement>, "title">,
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     CommonProps {
   /** Indicates whether to show dialog or not */
   opened: boolean;
@@ -67,7 +67,7 @@ export interface DialogProps
   buttonCluster?: DialogButtonDef[];
 
   /** Default alignment of dialog. */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   alignment?: DialogAlignment;
   /** Initial x/left position of dialog in px. */
   x?: number;
@@ -119,10 +119,10 @@ export interface DialogProps
  * @public
  * @deprecated in 4.12.0. Use {@link https://itwinui.bentley.com/docs/dialog iTwinUI dialog} instead.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class Dialog extends React.Component<DialogProps> {
   private _parentDocument = document;
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   public static defaultProps: Partial<DialogProps> = {
     maxWidth: "100%",
     width: "50%",
@@ -134,7 +134,7 @@ export class Dialog extends React.Component<DialogProps> {
     trapFocus: false,
   };
 
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   constructor(props: DialogProps) {
     super(props);
   }
@@ -216,7 +216,7 @@ export class Dialog extends React.Component<DialogProps> {
       ...minMaxStyle,
     };
 
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     const buttons = this.getFooterButtons(
       buttonCluster,
       "high-visibility",
@@ -239,7 +239,7 @@ export class Dialog extends React.Component<DialogProps> {
         {...props}
       >
         {modal && <BaseDialog.Backdrop style={backgroundStyle} />}
-        {/* eslint-disable-next-line deprecation/deprecation */}
+        {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
         <DivWithOutsideClick onOutsideClick={onOutsideClick}>
           <BaseDialog.Main
             className={classnames(
@@ -276,34 +276,34 @@ export class Dialog extends React.Component<DialogProps> {
     );
   }
 
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   private getCSSClassNameFromAlignment(alignment: DialogAlignment): string {
     switch (alignment) {
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       case DialogAlignment.TopLeft:
         return "core-align-top-left";
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       case DialogAlignment.Top:
         return "core-align-top";
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       case DialogAlignment.TopRight:
         return "core-align-top-right";
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       case DialogAlignment.Left:
         return "core-align-left";
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       case DialogAlignment.Center:
         return "core-align-center";
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       case DialogAlignment.Right:
         return "core-align-right";
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       case DialogAlignment.BottomLeft:
         return "core-align-bottom-left";
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       case DialogAlignment.Bottom:
         return "core-align-bottom";
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       case DialogAlignment.BottomRight:
         return "core-align-bottom-right";
     }

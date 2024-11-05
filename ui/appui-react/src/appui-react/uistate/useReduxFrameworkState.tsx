@@ -10,7 +10,7 @@ import { useCallback, useSyncExternalStore } from "react";
 import { UiFramework } from "../UiFramework.js";
 import type { FrameworkState as ReduxFrameworkState } from "../redux/FrameworkState.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** @internal */
 export function useReduxFrameworkState<T>(

@@ -24,7 +24,7 @@ import {
 } from "../layout/popup/Tooltip.js";
 import type { SizeProps } from "../utils/SizeProps.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** [[ElementTooltip]] state. */
 interface ElementTooltipState {
@@ -56,7 +56,7 @@ export class ElementTooltipChangedEvent extends UiEvent<ElementTooltipChangedEve
  * @public
  */
 export class ElementTooltip extends React.Component<
-  CommonProps, // eslint-disable-line deprecation/deprecation
+  CommonProps, // eslint-disable-line @typescript-eslint/no-deprecated
   ElementTooltipState
 > {
   private static _elementTooltipChangedEvent =

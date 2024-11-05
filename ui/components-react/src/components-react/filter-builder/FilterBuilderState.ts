@@ -386,7 +386,7 @@ export function useDefaultPropertyFilterBuilderRuleValidator() {
   const { translate } = useTranslation();
   return React.useCallback(
     (item: PropertyFilterBuilderRule) => {
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       const errorMessage = defaultPropertyFilterBuilderRuleValidator(item);
       return errorMessage ? translate(errorMessage) : undefined;
     },

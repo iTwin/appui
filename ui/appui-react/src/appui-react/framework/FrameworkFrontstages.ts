@@ -39,7 +39,7 @@ export interface FrontstageActivatedEventArgs {
  * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class FrontstageActivatedEvent extends UiEvent<FrontstageActivatedEventArgs> {}
 
 /** Frontstage Deactivated Event Args interface.
@@ -64,7 +64,7 @@ export interface FrontstageDeactivatedEventArgs {
  * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class FrontstageDeactivatedEvent extends UiEvent<FrontstageDeactivatedEventArgs> {}
 
 /** Frontstage Ready Event Args interface.
@@ -79,7 +79,7 @@ export interface FrontstageReadyEventArgs {
  * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class FrontstageReadyEvent extends UiEvent<FrontstageReadyEventArgs> {}
 
 /** Modal Frontstage Changed Event Args interface.
@@ -94,7 +94,7 @@ export interface ModalFrontstageChangedEventArgs {
  * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class ModalFrontstageChangedEvent extends UiEvent<ModalFrontstageChangedEventArgs> {}
 
 /** Modal Frontstage Closed Event Args interface.
@@ -121,7 +121,7 @@ export interface ModalFrontstageClosedEventArgs {
  * @alpha
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class ModalFrontstageRequestedCloseEvent extends UiEvent<ModalFrontstageRequestedCloseEventArgs> {}
 
 /** Modal Frontstage RequestedClose Event Args interface.
@@ -139,7 +139,7 @@ export interface ModalFrontstageRequestedCloseEventArgs {
  * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class ModalFrontstageClosedEvent extends UiEvent<ModalFrontstageClosedEventArgs> {}
 
 /** Tool Activated Event Args interface.
@@ -154,7 +154,7 @@ export interface ToolActivatedEventArgs {
  * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class ToolActivatedEvent extends UiEvent<ToolActivatedEventArgs> {}
 
 /** Tool Icon Changed Event Args interface.
@@ -169,7 +169,7 @@ export interface ToolIconChangedEventArgs {
  * @public
  * @deprecated in 4.13.0. This class should not be used by applications to instantiate objects.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class ToolIconChangedEvent extends UiEvent<ToolIconChangedEventArgs> {}
 
 /** Modal Frontstage information interface.
@@ -201,71 +201,71 @@ export interface FrameworkFrontstages {
   readonly isLoading: boolean;
 
   /** Get Frontstage Deactivated event. */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   readonly onFrontstageDeactivatedEvent: FrontstageDeactivatedEvent;
 
   /** Get Frontstage Activated event. */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   readonly onFrontstageActivatedEvent: FrontstageActivatedEvent;
 
   /** Get Frontstage Activated event. */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   readonly onFrontstageReadyEvent: FrontstageReadyEvent;
 
   /** Get Modal Frontstage Changed event. */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   readonly onModalFrontstageChangedEvent: ModalFrontstageChangedEvent;
 
   /** Get Modal Frontstage Closed event. */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   readonly onModalFrontstageClosedEvent: ModalFrontstageClosedEvent;
 
   /** Get Modal Frontstage Requested Closed event.
    * @alpha
    */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   readonly onCloseModalFrontstageRequestedEvent: ModalFrontstageRequestedCloseEvent;
 
   /** Get Tool Activated event. */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   readonly onToolActivatedEvent: ToolActivatedEvent;
 
   /** Get ToolSetting Reload event. */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   readonly onToolSettingsReloadEvent: UiEvent<void>;
 
   /** Get Tool Icon Changed event. */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   readonly onToolIconChangedEvent: ToolIconChangedEvent;
 
   /** Get Content Layout Activated event. */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   readonly onContentLayoutActivatedEvent: ContentLayoutActivatedEvent;
 
   /** Get Content Control Activated event.
    * @deprecated in 4.16.0. Use {@link FrameworkContent.onActiveContentChangedEvent} instead.
    */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   readonly onContentControlActivatedEvent: ContentControlActivatedEvent;
 
   /** Get Navigation Aid Activated event. */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   readonly onNavigationAidActivatedEvent: NavigationAidActivatedEvent;
 
   /** Get Widget State Changed event. */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   readonly onWidgetStateChangedEvent: WidgetStateChangedEvent;
 
   /** Get panel state changed event.
    * @alpha
    */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   readonly onPanelStateChangedEvent: PanelStateChangedEvent;
 
   /** Get panel pinned changed event.
    * @alpha
    */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   readonly onPanelPinnedChangedEvent: UiEvent<PanelPinnedChangedEventArgs>;
 
   /** Clears the Frontstage map.
@@ -284,7 +284,7 @@ export interface FrameworkFrontstages {
    * @param frontstageProvider  FrontstageProvider representing the Frontstage to add
    * @deprecated in 4.15.0. Use {@link FrameworkFrontstages.addFrontstage} instead.
    */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   addFrontstageProvider(frontstageProvider: FrontstageProvider): void;
 
   /** Adds a frontstage.
@@ -344,7 +344,7 @@ export interface FrameworkFrontstages {
   /** Gets the active tool's [[ToolInformation]].
    * @deprecated in 4.16.0. Uses a deprecated class {@link ToolInformation}.
    */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   readonly activeToolInformation: ToolInformation | undefined;
 
   /** Opens a modal Frontstage. Modal Frontstages can be stacked.

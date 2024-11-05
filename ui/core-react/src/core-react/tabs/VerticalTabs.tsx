@@ -11,7 +11,7 @@ import type { TabsProps } from "./Tabs.js";
 import { Tabs } from "./Tabs.js";
 import { Orientation } from "../enums/Orientation.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** Vertical tabs meant to represent the current position in a page/section
  * @public

@@ -28,7 +28,7 @@ export const MaximizedWidgetContext = React.createContext<MaximizedWidgetState>(
  */
 export function MaximizedWidgetProvider({
   children,
-}: React.PropsWithChildren<{}>) {
+}: React.PropsWithChildren<object>) {
   const [maximizedWidget, setMaximizedWidget] = React.useState<
     string | undefined
   >(undefined);

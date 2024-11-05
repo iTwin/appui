@@ -12,7 +12,7 @@ import {
 describe("LabelIndicator", () => {
   it("Should render label on left", () => {
     const wrapper = render(
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       <StatusBarLabelIndicator
         iconSpec={"test-icon"}
         label="test-label"
@@ -27,7 +27,7 @@ describe("LabelIndicator", () => {
 
   it("Should render label on right", () => {
     const wrapper = render(
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       <StatusBarLabelIndicator
         iconSpec={"test-icon"}
         label="test-label"
@@ -42,7 +42,7 @@ describe("LabelIndicator", () => {
 
   it("Should not render label", () => {
     const wrapper = render(
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       <StatusBarLabelIndicator
         iconSpec={"test-icon"}
         labelSide={StatusBarLabelSide.Right}

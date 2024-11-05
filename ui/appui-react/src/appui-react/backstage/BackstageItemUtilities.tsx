@@ -31,7 +31,7 @@ export namespace BackstageItemUtilities {
     itemPriority: number,
     label: string,
     subtitle?: string,
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     icon?: IconSpec,
     overrides?: Partial<BackstageStageLauncher>
   ];
@@ -110,7 +110,7 @@ export namespace BackstageItemUtilities {
     execute: () => void,
     label: string,
     subtitle?: string,
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     icon?: IconSpec,
     overrides?: Partial<BackstageActionItem>
   ];

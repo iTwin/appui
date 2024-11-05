@@ -10,7 +10,7 @@ import { Point } from "./Point.js";
 import type { PointProps } from "./PointProps.js";
 import type { SizeProps } from "./Size.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** Describes 2d bounds.
  * @public

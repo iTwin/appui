@@ -8,7 +8,7 @@
 
 import { Orientation as _Orientation } from "@itwin/core-react";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** Enumeration of orientation.
  * @public

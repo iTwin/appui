@@ -189,7 +189,7 @@ export class NumericInputEditor
     };
 
     return (
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       <NumberInput
         ref={this._inputElement}
         className={className}

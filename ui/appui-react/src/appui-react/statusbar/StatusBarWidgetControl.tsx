@@ -10,7 +10,7 @@ import type { ConfigurableCreateInfo } from "../configurableui/ConfigurableUiCon
 import { ConfigurableUiControlType } from "../configurableui/ConfigurableUiControl.js";
 import { WidgetControl } from "../widgets/WidgetControl.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** Status Bar Field type.
  * @public

@@ -31,7 +31,7 @@ interface CursorPopupMenuState {
  * @alpha
  */
 export class CursorPopupMenu extends React.PureComponent<
-  CommonProps, // eslint-disable-line deprecation/deprecation
+  CommonProps, // eslint-disable-line @typescript-eslint/no-deprecated
   CursorPopupMenuState
 > {
   private _isMounted = false; // used to ensure _handleSyncUiEvent callback is not processed after componentWillUnmount is called
@@ -51,7 +51,7 @@ export class CursorPopupMenu extends React.PureComponent<
 
     if (
       SyncUiEventDispatcher.hasEventOfInterest(args.eventIds, [
-        // eslint-disable-next-line deprecation/deprecation
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         SessionStateActionId.UpdateCursorMenu,
       ])
     ) {
@@ -96,7 +96,7 @@ export class CursorPopupMenu extends React.PureComponent<
     return (
       <div className="uifw-cursor-menu-container-div" ref={this._handleRefSet}>
         {items && items.length > 0 && menuVisible && (
-          // eslint-disable-next-line deprecation/deprecation
+          // eslint-disable-next-line @typescript-eslint/no-deprecated
           <GlobalContextMenu
             className={this.props.className}
             style={this.props.style}
@@ -109,9 +109,9 @@ export class CursorPopupMenu extends React.PureComponent<
             edgeLimit={false}
             autoflip={true}
           >
-            {/* eslint-disable-next-line deprecation/deprecation */}
+            {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
             {MenuItemHelpers.createMenuItemNodes(
-              // eslint-disable-next-line deprecation/deprecation
+              // eslint-disable-next-line @typescript-eslint/no-deprecated
               MenuItemHelpers.createMenuItems(items, this._itemPicked)
             )}
           </GlobalContextMenu>

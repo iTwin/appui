@@ -20,7 +20,7 @@ export class Timer {
   private _delay: number;
   private _isRunning = false;
   private _timerId = 0;
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   private _onExecute: ExecuteHandler | undefined;
 
   /**
@@ -45,7 +45,7 @@ export class Timer {
   }
 
   /** Set handler that is called after a set interval. */
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   public setOnExecute(onExecute: ExecuteHandler | undefined) {
     this._onExecute = onExecute;
   }

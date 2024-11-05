@@ -18,7 +18,7 @@ export interface StagePanelConfig {
   /** Maximum size of the panel.
    * @deprecated in 4.12.0. Please use {@link StagePanelConfig.maxSizeSpec}.
    */
-  readonly maxSize?: StagePanelMaxSizeSpec; // eslint-disable-line deprecation/deprecation
+  readonly maxSize?: StagePanelMaxSizeSpec; // eslint-disable-line @typescript-eslint/no-deprecated
   /** Maximum size of the panel. */
   readonly maxSizeSpec?: StagePanelSizeSpec;
   /** Minimum size of the panel.

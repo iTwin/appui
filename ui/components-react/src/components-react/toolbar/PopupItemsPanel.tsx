@@ -102,7 +102,7 @@ export function PopupItemsPanel(props: PopupItemsPanelProps) {
     }
   }, [groupArray]);
 
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   const { closePanel, setSelectedItem } = useToolbarPopupContext();
   const { onItemExecuted, onKeyDown } =
     useToolbarWithOverflowDirectionContext();
@@ -146,7 +146,7 @@ export function PopupItemsPanel(props: PopupItemsPanelProps) {
       columnToItems.map((columnItems, columnIndex) => (
         <GroupColumn key={columnIndex}>
           {columnItems.map((panelItem) => {
-            // eslint-disable-next-line deprecation/deprecation
+            // eslint-disable-next-line @typescript-eslint/no-deprecated
             const icon = IconHelper.getIconReactNode(
               panelItem.icon,
               panelItem.internalData

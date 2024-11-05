@@ -16,7 +16,7 @@ import { StatusBarPopover } from "./popup/StatusBarPopover.js";
  * @beta
  * @deprecated in 4.14.0. Props of deprecated component {@link StatusBarIndicator}.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface StatusBarIndicatorProps extends CommonProps {
   /** Indicator content. */
   children?: React.ReactNode;
@@ -34,7 +34,7 @@ export interface StatusBarIndicatorProps extends CommonProps {
  * @beta
  * @deprecated in 4.14.0. Use [iTwinUI Button](https://itwinui.bentley.com/docs/button) (or other components) and {@link StatusBarPopover AppUI StatusBarPopover} instead.
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export function StatusBarIndicator(props: StatusBarIndicatorProps) {
   const hasClickAction = !!props.onClick || !!props.popup;
   const [isOpen, setIsOpen] = React.useState(!!props.defaultIsOpen);
@@ -45,7 +45,7 @@ export function StatusBarIndicator(props: StatusBarIndicatorProps) {
   const target = React.useRef<HTMLDivElement>(null);
   return (
     <>
-      {/* eslint-disable-next-line deprecation/deprecation */}
+      {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
       <StatusBarField
         ref={target}
         className={props.className}
@@ -56,7 +56,7 @@ export function StatusBarIndicator(props: StatusBarIndicatorProps) {
         {props.children}
       </StatusBarField>
       {props.popup && (
-        // eslint-disable-next-line deprecation/deprecation
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         <StatusBarPopup
           target={target.current}
           onClose={() => setIsOpen(false)}

@@ -29,7 +29,7 @@ import { InternalKeyboardShortcutManager } from "../keyboardshortcut/InternalKey
 import { InternalModalDialogManager } from "../dialog/InternalModalDialogManager.js";
 import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher.js";
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** Configurable Ui Manager maintains controls, Frontstages, Content Groups, Content Layouts, Tasks and Workflows.
  * @internal

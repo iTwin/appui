@@ -102,7 +102,7 @@ interface WithOnRenderProps {
 }
 
 /** @internal */
-export const withOnRender = <P extends {}, C>(
+export const withOnRender = <P extends object, C>(
   Component: React.JSXElementConstructor<P> & C
 ) => {
   type Props = JSX.LibraryManagedAttributes<C, P & WithOnRenderProps>;

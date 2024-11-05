@@ -14,7 +14,7 @@ import type { CommonProps } from "@itwin/core-react";
 /** Properties of [[TitleBar]] component.
  * @internal
  */
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface TitleBarProps extends CommonProps {
   /** Title bar buttons. I.e. [[TitleBarButton]] */
   children?: React.ReactNode;
