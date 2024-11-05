@@ -263,7 +263,8 @@ public;DialogInfo
 internal;DialogManagerBase
 internal;DialogRendererBase 
 internal;DialogRendererProps
-internal;DockedStatusBarItem(props: StatusBarItemProps): React_2.JSX.Element
+internal;DockedStatusBarItem(props: DockedStatusBarItemProps): React_2.JSX.Element
+internal;DockedStatusBarItemProps 
 public;DrawingNavigationAidControl 
 deprecated;DrawingNavigationAidControl 
 public;ElementTooltipChangedEvent 
@@ -680,7 +681,6 @@ deprecated;StatusBarIndicator(props: StatusBarIndicatorProps): React_2.JSX.Eleme
 beta;StatusBarIndicatorProps 
 deprecated;StatusBarIndicatorProps 
 public;StatusBarItem = StatusBarActionItem | StatusBarLabelItem | StatusBarCustomItem
-internal;StatusBarItemProps 
 public;StatusBarItemUtilities
 beta;StatusBarLabelIndicator(props: StatusBarLabelIndicatorProps): React_2.JSX.Element
 deprecated;StatusBarLabelIndicator(props: StatusBarLabelIndicatorProps): React_2.JSX.Element
@@ -830,7 +830,6 @@ beta;UseSelectionSetSizeArgs
 internal;useShouldRenderDockedToolSettings(): boolean
 beta;useSolarDataProvider(viewport: ScreenViewport | undefined): SolarDataProvider | undefined
 public;useSpecificWidgetDef(widgetId: string): WidgetDef | undefined
-internal;useStatusBarEntry(): DockedStatusBarEntryContextArg
 internal;useToolSettingsNode(): string | number | boolean | React_2.ReactElement
 public;useTransientState(onSave?: () => void, onRestore?: () => void): void
 public;useUiItemsProviderBackstageItems: (manager: BackstageItemsManager) => readonly BackstageItem[]
