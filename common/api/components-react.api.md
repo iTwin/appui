@@ -96,7 +96,7 @@ export function adjustDateToTimezone(inDateTime: Date, utcOffset: number): Date;
 // @public
 export class ArrayPropertyValueRenderer implements IPropertyValueRenderer {
     canRender(record: PropertyRecord): boolean;
-    render(record: PropertyRecord, context?: PropertyValueRendererContext): string | number | boolean | Iterable<React_3.ReactNode> | React_3.JSX.Element | null | undefined;
+    render(record: PropertyRecord, context?: PropertyValueRendererContext): string | number | boolean | React_3.JSX.Element | Iterable<React_3.ReactNode> | null | undefined;
 }
 
 // @public
@@ -246,6 +246,7 @@ export interface CheckboxStateChange {
 export interface CommonPropertyGridProps extends CommonProps {
     actionButtonRenderers?: ActionButtonRenderer[];
     actionButtonWidth?: number;
+    alwaysShowEditor?: (property: PropertyRecord) => boolean;
     horizontalOrientationMinWidth?: number;
     isOrientationFixed?: boolean;
     isPropertyEditingEnabled?: boolean;
@@ -260,7 +261,6 @@ export interface CommonPropertyGridProps extends CommonProps {
     onPropertyUpdated?: (args: PropertyUpdatedArgs, category: PropertyCategory) => Promise<boolean>;
     orientation?: Orientation;
     propertyValueRendererManager?: PropertyValueRendererManager;
-    showOnlyEditor?: (property: PropertyRecord) => boolean;
 }
 
 // @public
@@ -548,6 +548,7 @@ export interface EditorContainerProps extends CommonProps {
     // @internal (undocumented)
     ignoreEditorBlur?: boolean;
     onCancel: () => void;
+    onClick?: () => void;
     onCommit: (args: PropertyUpdatedArgs) => void;
     propertyRecord: PropertyRecord;
     setFocus?: boolean;
@@ -1246,7 +1247,7 @@ export const matchLinks: (text: string) => Array<{
 // @public
 export class MergedPropertyValueRenderer implements IPropertyValueRenderer {
     canRender(record: PropertyRecord): boolean;
-    render(_record: PropertyRecord, context?: PropertyValueRendererContext): string | number | boolean | Iterable<React_3.ReactNode> | React_3.JSX.Element | null | undefined;
+    render(_record: PropertyRecord, context?: PropertyValueRendererContext): string | number | boolean | React_3.JSX.Element | Iterable<React_3.ReactNode> | null | undefined;
 }
 
 // @public
@@ -2326,6 +2327,7 @@ export enum SelectionModeFlags {
 // @public
 export interface SharedRendererProps {
     actionButtonRenderers?: ActionButtonRenderer[];
+    alwaysShowEditor?: (property: PropertyRecord) => boolean;
     columnInfo?: PropertyGridColumnInfo;
     columnRatio?: number;
     isHoverable?: boolean;
@@ -2344,7 +2346,6 @@ export interface SharedRendererProps {
     onRightClick?: (property: PropertyRecord, key?: string) => void;
     orientation: Orientation;
     propertyRecord: PropertyRecord;
-    showOnlyEditor?: (property: PropertyRecord) => boolean;
     uniqueKey?: string;
     width?: number;
 }
@@ -2491,7 +2492,7 @@ export class StringTypeConverter extends TypeConverter implements StringOperator
 // @public
 export class StructPropertyValueRenderer implements IPropertyValueRenderer {
     canRender(record: PropertyRecord): boolean;
-    render(record: PropertyRecord, context?: PropertyValueRendererContext): string | number | boolean | Iterable<React_3.ReactNode> | React_3.JSX.Element | null | undefined;
+    render(record: PropertyRecord, context?: PropertyValueRendererContext): string | number | boolean | React_3.JSX.Element | Iterable<React_3.ReactNode> | null | undefined;
 }
 
 // @public
@@ -3264,6 +3265,8 @@ export interface VirtualizedPropertyGridContext {
     // (undocumented)
     actionButtonRenderers?: ActionButtonRenderer[];
     // (undocumented)
+    alwaysShowEditor?: (property: PropertyRecord) => boolean;
+    // (undocumented)
     columnInfo: PropertyGridColumnInfo;
     // (undocumented)
     columnRatio: number;
@@ -3313,8 +3316,6 @@ export interface VirtualizedPropertyGridContext {
     propertyValueRendererManager?: PropertyValueRendererManager;
     // (undocumented)
     selectedPropertyKey?: string;
-    // (undocumented)
-    showOnlyEditor?: (property: PropertyRecord) => boolean;
 }
 
 // @public
@@ -3355,7 +3356,7 @@ export interface VisibleTreeNodes extends Iterable<TreeModelNode | TreeModelNode
 }
 
 // @public
-export const withContextStyle: (node: React_3.ReactNode, context?: PropertyValueRendererContext) => string | number | boolean | Iterable<React_3.ReactNode> | React_3.JSX.Element | null | undefined;
+export const withContextStyle: (node: React_3.ReactNode, context?: PropertyValueRendererContext) => string | number | boolean | React_3.JSX.Element | Iterable<React_3.ReactNode> | null | undefined;
 
 // @public
 export const withLinks: (stringValue: string, links?: LinkElementsInfo, highlight?: (text: string) => React_3.ReactNode) => React_3.ReactNode;
