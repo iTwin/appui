@@ -224,7 +224,7 @@
             "comment": "Fix an issue where widget is rendered above the dialog backdrop."
           },
           {
-            "comment": "Fixed popout widget changing position on a secondary montitor."
+            "comment": "Fixed popout widget changing position on a secondary monitor."
           }
         ]
       }
@@ -299,7 +299,7 @@
             "comment": "Fix an issue where widget is rendered above the dialog backdrop."
           },
           {
-            "comment": "Fixed popout widget changing position on a secondary montitor."
+            "comment": "Fixed popout widget changing position on a secondary monitor."
           }
         ]
       }
@@ -647,7 +647,7 @@
             "comment": "Fixed an issue where frontstage state changes would be lost when it is closed too soon after the change."
           },
           {
-            "comment": "Added PreviewFeatures and penelsAlwaysOverContent first preview"
+            "comment": "Added PreviewFeatures and panelsAlwaysOverContent first preview"
           },
           {
             "comment": "Added `enableMaximizedFloatingWidget` preview features"
@@ -824,7 +824,7 @@
             "comment": "Update sinon to 15.2.0 and @types/sinon to 10.0.15"
           },
           {
-            "comment": "Reword emtpy tool settings message to include tool name."
+            "comment": "Reword empty tool settings message to include tool name."
           },
           {
             "comment": "Use UiFramework.store instead of StateManager.store to display popout widgets."
@@ -980,7 +980,7 @@
             "comment": "Fix floating viewport content to properly synchronize active ViewportComponent with the selected view."
           },
           {
-            "comment": "Promotoe UiItemsManager/Provider APIs."
+            "comment": "Promote UiItemsManager/Provider APIs."
           },
           {
             "comment": "Remove StatusBarContext related code."
@@ -1118,7 +1118,7 @@
             "comment": "Expose AppUI specific types previously defined in @itwin/appui-abstract."
           },
           {
-            "comment": "Deprecated tree components that were movet to '@itwin/tree-widget-react' package"
+            "comment": "Deprecated tree components that were moved to '@itwin/tree-widget-react' package"
           },
           {
             "comment": "Use EmptyLocalization for localization in tests to increase test performance"
@@ -1214,10 +1214,10 @@
             "comment": "Deprecate pseudo components of frontstage provider in favor of configuration interfaces."
           },
           {
-            "comment": "Add automatic horizonal scrolling to the ListPicker's expandable blocks for small form factors or long strings."
+            "comment": "Add automatic horizontal scrolling to the ListPicker's expandable blocks for small form factors or long strings."
           },
           {
-            "comment": "Refactored many tests to remove enzyme and snaphot testing"
+            "comment": "Refactored many tests to remove enzyme and snapshot testing"
           },
           {
             "comment": "Unpin classnames package"
@@ -1394,7 +1394,7 @@
             "comment": "Deprecated `isInFooterMode` in `StatusFieldProps`, should always be considered true. Deprecated `withStatusFieldProps` which provides only deprecated props to components."
           },
           {
-            "comment": "Deprecated `isInFooterMode` in `FrontstageProps` and `ContentLayoutComponentProps`, should alays be considered true."
+            "comment": "Deprecated `isInFooterMode` in `FrontstageProps` and `ContentLayoutComponentProps`, should always be considered true."
           },
           {
             "comment": "Deprecated `withMessageCenterFieldProps`, components should directly use `MessageManager.registerAnimateOutToElement`."
@@ -1511,13 +1511,13 @@
       "comments": {
         "none": [
           {
-            "comment": "mock hydrateviewstate rpc method in SavedviewLayout tests"
+            "comment": "mock hydrateViewState rpc method in SavedViewLayout tests"
           },
           {
             "comment": "Documentation updates"
           },
           {
-            "comment": "Fix bug where widgets from UiItemProviders were not honoring Center Zonelocation in UI 1.0 mode."
+            "comment": "Fix bug where widgets from UiItemProviders were not honoring Center Zone location in UI 1.0 mode."
           },
           {
             "comment": "Fix for losing viewport content after clicking PW link."
@@ -1529,16 +1529,16 @@
             "comment": "Add option to auto-collapse unpinned widget panels."
           },
           {
-            "comment": "Allow React icons to be used on Wedget tabs, backstage, and status bar items"
+            "comment": "Allow React icons to be used on Widget tabs, backstage, and status bar items"
           },
           {
-            "comment": "Add default tool prop to StandardFrontstageProps to give apps a simple, typesafe way to specify a default tool for their frontstages."
+            "comment": "Add default tool prop to StandardFrontstageProps to give apps a simple, type safe way to specify a default tool for their frontstages."
           },
           {
             "comment": "Add an empty state message when there are no settings to display in the tool settings bar."
           },
           {
-            "comment": "Add a mousemove listener to an ElementTooltip's owner document so that it can be closed when the mouse travels over a React element."
+            "comment": "Add a mouse move listener to an ElementTooltip's owner document so that it can be closed when the mouse travels over a React element."
           },
           {
             "comment": "Fix checkbox alignment in visibility trees."
@@ -1643,13 +1643,13 @@
             "comment": "Add FrontstageDef.isWidgetDisplayed() to allow apps to query whether their widget is visible."
           },
           {
-            "comment": "Update ToolbarAutoHidePopup context when widgets autohide."
+            "comment": "Update ToolbarAutoHidePopup context when widgets autoHide."
           },
           {
             "comment": "Change initializeNineZoneState to properly handle floating widgets."
           },
           {
-            "comment": "Remove unecessary dependency on itwin/browser-authorization"
+            "comment": "Remove unnecessary dependency on itwin/browser-authorization"
           }
         ]
       }
@@ -1898,7 +1898,7 @@
             "comment": "Update standard UI item providers to require a providerId so more than one instance may be used within an app.  Usually by different packages providing stages."
           },
           {
-            "comment": "Replaced ui-core Slider with one from iTwinUi-react. Update DefaultViewOverlay to opt-in to dislay of view overlays."
+            "comment": "Replaced ui-core Slider with one from iTwinUi-react. Update DefaultViewOverlay to opt-in to display of view overlays."
           },
           {
             "comment": "Update to latest types/react package"
@@ -1913,7 +1913,7 @@
             "comment": "Update CSS used for ToolSettingEntries in grid layout."
           },
           {
-            "comment": "Get WidgetState and PanelState from NinzoneState when running in UI 2 mode - single source of truth."
+            "comment": "Get WidgetState and PanelState from NinezoneState when running in UI 2 mode - single source of truth."
           },
           {
             "comment": "Lock down and update version numbers so docs will build."
@@ -2396,7 +2396,7 @@
             "comment": "Adding ability to open Message Center on demand"
           },
           {
-            "comment": "Cache element ids when determining visbility in ModelsTree"
+            "comment": "Cache element ids when determining visibility in ModelsTree"
           },
           {
             "comment": "Fix compatibility issue when multiple versions of `rxjs` are in use."
@@ -2414,7 +2414,7 @@
       "comments": {
         "none": [
           {
-            "comment": "Update to get activeViewPort by monitoring ContentViewManager.onActiveContentChangedEvent this elimates issue where ViewManager active viewport changes occur before all UI components are mounted and listening."
+            "comment": "Update to get activeViewPort by monitoring ContentViewManager.onActiveContentChangedEvent this eliminates issue where ViewManager active viewport changes occur before all UI components are mounted and listening."
           }
         ]
       }
@@ -2675,7 +2675,7 @@
       "comments": {
         "none": [
           {
-            "comment": "Rename 'VisibilityHandler' to 'ModelsVisibilityHandler' and allow subclasses to acces more methods."
+            "comment": "Rename 'VisibilityHandler' to 'ModelsVisibilityHandler' and allow subclasses to access more methods."
           },
           {
             "comment": "Avoid throwing exception in ModelsTree VisibilityHandler if RulesetDrivenIdsProvider got undefined content"
@@ -2936,7 +2936,7 @@
             "comment": "BadgeType support for Backstage items"
           },
           {
-            "comment": "add itemschanged handler so that items provided can be conditionally hidden"
+            "comment": "add itemsChanged handler so that items provided can be conditionally hidden"
           },
           {
             "comment": "Lower case syncEventIds prior to comparison"
@@ -3152,7 +3152,7 @@
             "comment": "Provide an immediate tool that will restore the default layout for frontstage."
           },
           {
-            "comment": "Provide ability to support subclassing IModelViewportControl and allow custom overlay component without sub-classing."
+            "comment": "Provide ability to support subClassing IModelViewportControl and allow custom overlay component without sub-classing."
           },
           {
             "comment": "fix styling of docked toolsetting so controls are centered."
@@ -3266,7 +3266,7 @@
             "comment": "Make methods in HideIsolateEmphasizeManager static so they can be called by other packages."
           },
           {
-            "comment": "Update Hide, isolate, empahsize callback processing to ensure selection is not cleared until callbacks are processed."
+            "comment": "Update Hide, isolate, emphasize callback processing to ensure selection is not cleared until callbacks are processed."
           },
           {
             "comment": "Added ability for apps to display Favorite properties in Element Tooltip & Card at Cursor"
@@ -3413,7 +3413,7 @@
             "comment": "Remove comment text shown in render function."
           },
           {
-            "comment": " Updates to remove need for svg-sprite-loader, use defualt CRA svgr loader instead."
+            "comment": " Updates to remove need for svg-sprite-loader, use default CRA svgr loader instead."
           },
           {
             "comment": "For consistency add reactNode getters/setters and deprecate use of reactElement."
@@ -3527,7 +3527,7 @@
             "comment": "Ability to switch to 9-Zone 2.0"
           },
           {
-            "comment": "Refactor to remove duplicate ComponentGenerator instatiation. Rename filea nd components to remove React reference."
+            "comment": "Refactor to remove duplicate ComponentGenerator instantiation. Rename file and components to remove React reference."
           },
           {
             "comment": "Update auto-generated dialog items to work with the Tool Settings Bar."
@@ -3716,7 +3716,7 @@
             "comment": "Adjusted Categories and Models trees according changes to ControlledTree events"
           },
           {
-            "comment": "Added VisibilityWigdet implementation using ControlledTree and ability to switch to it"
+            "comment": "Added VisibilityWidget implementation using ControlledTree and ability to switch to it"
           },
           {
             "comment": "Remove content node when WidgetContentRenderer unmounts."
@@ -3749,7 +3749,7 @@
             "comment": "Code cleanup based on code analysis report from lgtm. Updated status field fade-in/out animation."
           },
           {
-            "comment": "Update to allow Sections statusfield to hide/show depending on active view clip."
+            "comment": "Update to allow Sections statusField to hide/show depending on active view clip."
           },
           {
             "comment": "Added ConditionalField and FooterModeField components. StatusBar responsive changes."
@@ -3947,10 +3947,10 @@
             "comment": "Don't try to correct clip plane handle location when plane has been moved outside project extents. Updated image for two finger drag svg."
           },
           {
-            "comment": "Changed ToolWidget, NavigatonWidget, and Toolbar render method to only render items in state and to not generate them during render."
+            "comment": "Changed ToolWidget, NavigationWidget, and Toolbar render method to only render items in state and to not generate them during render."
           },
           {
-            "comment": "Add support for panelLabel property for a GoupButton. This is the title that is shown when the group is opened."
+            "comment": "Add support for panelLabel property for a GroupButton. This is the title that is shown when the group is opened."
           },
           {
             "comment": "Added FrontstageProvider.initializeDef param for FrontstageDef"
@@ -4142,7 +4142,7 @@
       "comments": {
         "none": [
           {
-            "comment": "Update so both Tool and Navigation wigets refresh when PluginUiProvider is loaded."
+            "comment": "Update so both Tool and Navigation widgets refresh when PluginUiProvider is loaded."
           },
           {
             "comment": "Support ToolbarItemInsertSpecs with conditional visibility. Update toolbar processing to better handle situations where number of visible items change."
@@ -4469,7 +4469,7 @@
             "comment": "Minimized serialization/deserialization costs when round tripping SAML based AccessToken-s. "
           },
           {
-            "comment": "Rename AppState to SessionState to avoid collision with acutal App's state. Add AvailableSectionScopes to SessionState."
+            "comment": "Rename AppState to SessionState to avoid collision with actual App's state. Add AvailableSectionScopes to SessionState."
           },
           {
             "comment": "Move SelectionScope status field from test app to ui-framework. Update icons-generic-webfont version to latest available."
@@ -4487,7 +4487,7 @@
             "comment": "Auto close popups when clicking outside."
           },
           {
-            "comment": "Return rulset promises in Category/Model picker _initialize()"
+            "comment": "Return ruleset promises in Category/Model picker _initialize()"
           },
           {
             "comment": "Use GlobalContextMenu in category picker and modify to better follow UX standards."
@@ -4511,7 +4511,7 @@
             "comment": "Check for ruleset before removing"
           },
           {
-            "comment": "Wait for category/model rulsets to load before creating groups."
+            "comment": "Wait for category/model rulesets to load before creating groups."
           },
           {
             "comment": "Manage category picker tree nodes via id instead of node"
@@ -4934,7 +4934,7 @@
       "comments": {
         "none": [
           {
-            "comment": "More information logged from BriefcaseManager.\\nFixed deletion/cleanup of invalid briefcases.\\nAdded OIDC support for simpleviewtest application."
+            "comment": "More information logged from BriefcaseManager.\\nFixed deletion/cleanup of invalid briefcases.\\nAdded OIDC support for simpleViewTest application."
           },
           {
             "comment": "Removed ConfigurableUiManager.addFrontstageDef and other unused/old methods and components"
@@ -4973,7 +4973,7 @@
       "comments": {
         "none": [
           {
-            "comment": "Fixed OidcBrowserClient comparision of redirect path."
+            "comment": "Fixed OidcBrowserClient comparison of redirect path."
           }
         ]
       }
@@ -5024,7 +5024,7 @@
       "comments": {
         "none": [
           {
-            "comment": "OIDC related enhancments (WIP). "
+            "comment": "OIDC related enhancements (WIP). "
           },
           {
             "comment": "Updated to TypeScript 3.1"

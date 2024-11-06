@@ -106,7 +106,7 @@ Mon, 22 Jul 2024 21:27:52 GMT
 
 - Fix an issue where Popup is rendered outside of a StatusBarPopover.
 - Fix an issue where widget is rendered above the dialog backdrop.
-- Fixed popout widget changing position on a secondary montitor.
+- Fixed popout widget changing position on a secondary monitor.
 
 ## 4.15.3
 Mon, 15 Jul 2024 12:12:00 GMT
@@ -146,7 +146,7 @@ Mon, 22 Jul 2024 21:23:09 GMT
 
 - Fix an issue where Popup is rendered outside of a StatusBarPopover.
 - Fix an issue where widget is rendered above the dialog backdrop.
-- Fixed popout widget changing position on a secondary montitor.
+- Fixed popout widget changing position on a secondary monitor.
 
 ## 4.14.1
 Tue, 11 Jun 2024 15:58:29 GMT
@@ -316,7 +316,7 @@ Fri, 01 Dec 2023 20:01:16 GMT
 - `AppNotificationManager` no longer requires `StatusBar` to be displayed to show messages.
 - Fix error when `HTMLElement` used in `NotifyMessageDetails` messages.
 - Fixed an issue where frontstage state changes would be lost when it is closed too soon after the change.
-- Added PreviewFeatures and penelsAlwaysOverContent first preview
+- Added PreviewFeatures and panelsAlwaysOverContent first preview
 - Added `enableMaximizedFloatingWidget` preview features
 - Fix frontstage settings save.
 - Update active selection scope related documentation.
@@ -399,7 +399,7 @@ Mon, 17 Jul 2023 10:16:20 GMT
 ### Updates
 
 - Update sinon to 15.2.0 and @types/sinon to 10.0.15
-- Reword emtpy tool settings message to include tool name.
+- Reword empty tool settings message to include tool name.
 - Use UiFramework.store instead of StateManager.store to display popout widgets.
 - Fix empty tool settings message.
 - Fix `FrontstageDef.findWidgetDef` to correctly return `toolSettings` and `statusBar` widgets.
@@ -463,7 +463,7 @@ Mon, 01 May 2023 13:32:16 GMT
 - Removed Trees component from appui-react.
 - Add Toolbar components.
 - Fix floating viewport content to properly synchronize active ViewportComponent with the selected view.
-- Promotoe UiItemsManager/Provider APIs.
+- Promote UiItemsManager/Provider APIs.
 - Remove StatusBarContext related code.
 - Clean dependencies.
 - Refactor to use iTwinUI instead of deprecated core-react.
@@ -530,7 +530,7 @@ Wed, 08 Feb 2023 14:58:39 GMT
 ### Updates
 
 - Expose AppUI specific types previously defined in @itwin/appui-abstract.
-- Deprecated tree components that were movet to '@itwin/tree-widget-react' package
+- Deprecated tree components that were moved to '@itwin/tree-widget-react' package
 - Use EmptyLocalization for localization in tests to increase test performance
 - Deprecate UI1.0 related properties.
 - React to RPC deprecations.
@@ -583,8 +583,8 @@ Wed, 07 Dec 2022 19:12:36 GMT
 - Fix a circular dependency issue.
 - Updated pin icon for help widget.
 - Deprecate pseudo components of frontstage provider in favor of configuration interfaces.
-- Add automatic horizonal scrolling to the ListPicker's expandable blocks for small form factors or long strings.
-- Refactored many tests to remove enzyme and snaphot testing
+- Add automatic horizontal scrolling to the ListPicker's expandable blocks for small form factors or long strings.
+- Refactored many tests to remove enzyme and snapshot testing
 - Unpin classnames package
 - Rename RestoreFrontstagesLayoutTool to RestoreAllFrontstagesTool.
 - Add RestoreFrontstagesLayout tool.
@@ -685,7 +685,7 @@ Thu, 18 Aug 2022 19:08:01 GMT
 - Fix an issue where a widget is added to the layout multiple times.
 - [ModelsTree]: Make sure all child elements visibility is changed
 - Deprecated `isInFooterMode` in `StatusFieldProps`, should always be considered true. Deprecated `withStatusFieldProps` which provides only deprecated props to components.
-- Deprecated `isInFooterMode` in `FrontstageProps` and `ContentLayoutComponentProps`, should alays be considered true.
+- Deprecated `isInFooterMode` in `FrontstageProps` and `ContentLayoutComponentProps`, should always be considered true.
 - Deprecated `withMessageCenterFieldProps`, components should directly use `MessageManager.registerAnimateOutToElement`.
 - Deprecate `openWidget` and `onOpenWidget` props from `StatusBarFields` interface.
 - Add option to display active tool name as the Tool Settings tab label.
@@ -754,16 +754,16 @@ Fri, 20 May 2022 13:10:54 GMT
 
 ### Updates
 
-- mock hydrateviewstate rpc method in SavedviewLayout tests
+- mock hydrateViewState rpc method in SavedViewLayout tests
 - Documentation updates
-- Fix bug where widgets from UiItemProviders were not honoring Center Zonelocation in UI 1.0 mode.
+- Fix bug where widgets from UiItemProviders were not honoring Center Zone location in UI 1.0 mode.
 - Fix for losing viewport content after clicking PW link.
 - Add ability to pass parameters to UiItemsManager when loading items provider to specify what stages allow the provider to supply items.
 - Add option to auto-collapse unpinned widget panels.
-- Allow React icons to be used on Wedget tabs, backstage, and status bar items
-- Add default tool prop to StandardFrontstageProps to give apps a simple, typesafe way to specify a default tool for their frontstages.
+- Allow React icons to be used on Widget tabs, backstage, and status bar items
+- Add default tool prop to StandardFrontstageProps to give apps a simple, type safe way to specify a default tool for their frontstages.
 - Add an empty state message when there are no settings to display in the tool settings bar.
-- Add a mousemove listener to an ElementTooltip's owner document so that it can be closed when the mouse travels over a React element.
+- Add a mouse move listener to an ElementTooltip's owner document so that it can be closed when the mouse travels over a React element.
 - Fix checkbox alignment in visibility trees.
 
 ## 3.1.3

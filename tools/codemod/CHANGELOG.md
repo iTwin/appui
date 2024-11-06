@@ -28,7 +28,7 @@ Fri, 31 Mar 2023 07:46:24 GMT
 
 ### Patches
 
-- Update package.json dependecies and repo documentation.
+- Update package.json dependencies and repo documentation.
 
 ## 0.0.0
 Fri, 24 Mar 2023 11:59:16 GMT

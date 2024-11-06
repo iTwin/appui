@@ -12,7 +12,7 @@ import {
 import { InspectUiItemInfoTool } from "../../tools/InspectUiItemInfoTool.js";
 
 /** The InspectUiItemInfoToolProvider registers and provides the InspectUiItemInfoTool to any stage that has a usage value of StageUsage.General.
- * This tool can be used to display info about dynamically provided toolbuttons, status bar items, and widget by hovering over them
+ * This tool can be used to display info about dynamically provided tool buttons, status bar items, and widget by hovering over them
  * with mouse.
  */
 export class InspectUiItemInfoToolProvider implements UiItemsProvider {
