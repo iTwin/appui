@@ -157,7 +157,7 @@ function _getBin(scriptName) {
 }
 function _run() {
     const [nodePath /* Ex: /bin/node */, scriptPath /* /repo/common/scripts/install-run-rush.js */, ...packageBinArgs /* [build, --to, myproject] */] = process.argv;
-    // Detect if this script was directly invoked, or if the install-run-rushx script was invoked to select the
+    // Detect if this script was directly invoked, or if the install-run-rushx script was invokved to select the
     // appropriate binary inside the rush package to run
     const scriptName = path__WEBPACK_IMPORTED_MODULE_0__.basename(scriptPath);
     const bin = _getBin(scriptName);
