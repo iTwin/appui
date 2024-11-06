@@ -16,7 +16,7 @@ export type BadgeType = _BadgeType;
 
 /** Specifies type of badge, if any, that should be overlaid on UI component.
  * @public
- * @deprecated in 4.16.0. Usevalues from badge kind string union instead.
+ * @deprecated in 4.16.0. UseValues from badge kind string union instead.
  */
 export const BadgeType = _BadgeType; // eslint-disable-line @typescript-eslint/no-redeclare
 

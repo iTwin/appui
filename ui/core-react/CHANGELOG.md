@@ -167,7 +167,7 @@ Tue, 06 Feb 2024 08:56:40 GMT
 
 - ignore appui-abstract eslint deprecation m
 - Deprecated `useDisposable` hook.
-- Removed appui-layout-react metions from Readme.md
+- Removed appui-layout-react mentions from Readme.md
 
 ## 4.8.3
 Tue, 30 Jan 2024 09:04:27 GMT
@@ -216,7 +216,7 @@ Wed, 25 Oct 2023 09:39:22 GMT
 
 ### Updates
 
-- Fix broken datauri containing commas in `IconWebComponent`.
+- Fix broken dataUri containing commas in `IconWebComponent`.
 
 ## 4.6.2
 Tue, 17 Oct 2023 19:16:23 GMT
@@ -492,7 +492,7 @@ Wed, 13 Jul 2022 15:45:52 GMT
 
 ### Updates
 
-- Added a 'repositionOnResize' property on the 'Popup' component, to avoid closing the popup everythime the browser window is resized.
+- Added a 'repositionOnResize' property on the 'Popup' component, to avoid closing the popup every time the browser window is resized.
 
 ## 3.2.4
 Tue, 21 Jun 2022 18:06:33 GMT
@@ -514,7 +514,7 @@ Tue, 07 Jun 2022 15:02:56 GMT
 
 ### Updates
 
-- Backport change to update panel background to use same as buic-background-dialog so dispabled itwin ui components display properly.
+- Backport change to update panel background to use same as buic-background-dialog so disabled itwin ui components display properly.
 
 ## 3.2.0
 Fri, 20 May 2022 13:10:54 GMT
@@ -523,9 +523,9 @@ Fri, 20 May 2022 13:10:54 GMT
 
 - Added 'useCrossOriginPopup' and 'useInterval' hooks
 - ListBox component: `onKeyPress` has been deprecated, switch to `onKeyDown`
-- Fix for losing viewport content after clicking PW link 
+- Fix for losing viewport content after clicking PW link
 - Implement svg icons loading as a web component.
-- Allow React icons to be used on Wedget tabs, backstage, and status bar items
+- Allow React icons to be used on Widget tabs, backstage, and status bar items
 
 ## 3.1.3
 Fri, 15 Apr 2022 13:49:25 GMT
@@ -580,7 +580,7 @@ Mon, 24 Jan 2022 14:00:52 GMT
 - remove ClientRequestContext and its subclasses
 - Replace usage of I18N with generic Localization interface.
 - Update snapshots
-- Fix Select menu position when redered in a Popup.
+- Fix Select menu position when rendered in a Popup.
 - Support for TypeDoc v0.22.7. Fix various broken docs links.
 - Deprecate obsolete code.
 - Create empty frontstage and UiItemsProviders to populate it and update how ContentGroups are defined.
@@ -877,9 +877,9 @@ Mon, 24 May 2021 15:58:39 GMT
 ### Updates
 
 - Wrap resizeObserver in a windows animation frame to prevent loop limit exceeded error.
-- Add support for child popup windows. 
+- Add support for child popup windows.
 - Improved Multi-Value column filtering in the Table component
-- Update to latest classnames package 
+- Update to latest classnames package
 - Fix GlobalContextMenu layout issue in presentation-test-app by setting display:none on anchoring div.
 
 ## 2.15.6
@@ -950,7 +950,7 @@ Fri, 02 Apr 2021 13:18:42 GMT
 
 - Add SettingsManager and SettingsContainer for displaying app settings UI.
 - fix height in number control.
-- Fix for listbox not rerendering when selectedVaue prop is changed.
+- Fix for listbox not rerendering when selectedValue prop is changed.
 - Add option to show/hide settings category header text.
 - Improved ui-components test coverage to 100%
 - Support for Focus into Tool Settings
@@ -1007,7 +1007,7 @@ Thu, 28 Jan 2021 13:39:27 GMT
 
 ### Updates
 
-- Update components that support providing refs via React.forwardRef to work better with document generation.  
+- Update components that support providing refs via React.forwardRef to work better with document generation.
 - Add option to use a 'x-small' webfont icon.
 - Add nested popup support to components that use HOC withOnOutsideClick.
 - Fix bug processing zero value in Select options.
@@ -1278,11 +1278,11 @@ Tue, 28 Jul 2020 16:26:24 GMT
 - Add support for a basic single selection aria compliant listbox.
 - Checkboxes in lists & trees are out of place
 - Disabled component styling. Fixed Dialog focus problems.
-- Map Layer UX 
+- Map Layer UX
 - Allowing Input component user to override the type
 - Fix ThemeSelect formatOptionLabel prop to return React.ReactNode.
 - Added Arrow key navigation in Tabs components. Added ItemKeyboardNavigator.
-- Add aria props into ThemedSelectProps for accessibility. addclassName prop to ThemedSelectProps as requested for styling purposes.
+- Add aria props into ThemedSelectProps for accessibility. addClassName prop to ThemedSelectProps as requested for styling purposes.
 - Changed toolbar opacity processing to affect all components in widget.
 - Add border prop to ImageCheckBox
 - Replace slider specific Tooltip with generic Tooltip.
@@ -1371,7 +1371,7 @@ Wed, 06 May 2020 13:17:49 GMT
 - Made React functional component specifications consistent across UI packages
 - Slider component tooltipBelow prop & tooltip styling
 - Added API in MessageManager to display either a Toast or Sticky message using React components.
--  Updates to remove need for svg-sprite-loader, use defualt CRA svgr loader instead.
+-  Updates to remove need for svg-sprite-loader, use default CRA svgr loader instead.
 - Revert back to using svg-sprite-loader and sprite resourceQuery.
 - Upgrade to Rush 5.23.2
 - Fixed Safari browser issues
@@ -1399,7 +1399,7 @@ Wed, 06 May 2020 13:17:49 GMT
 - Added UiSetting. Saving/restoring settings in ui-test-app.
 - Remove support for the iModel.js module system by no longer delivering modules.
 - Update Select control to allow placeholder text to be re-displayed by setting value to undefined.
-- set z-index on toolsettings overflow panel
+- set z-index on toolSettings overflow panel
 
 ## 1.14.1
 Wed, 22 Apr 2020 19:04:00 GMT
@@ -1464,7 +1464,7 @@ Fri, 22 Nov 2019 14:03:34 GMT
 - Update Icon package version
 - Fixed Dialog position after moving or resizing. Fixed sizing on Firefox for different alignments.
 - Implemented more efficient CSS animation for Spinner component
-- Added slight delay before spinner animation. LoadingSpinnner tests in SpinnerTestDialog.
+- Added slight delay before spinner animation. LoadingSpinner tests in SpinnerTestDialog.
 - Tablet responsive UI
 - Added StatusBarComposer, StatusBarItem, StatusBarManager and StatusBarItemsManager
 - Added tslint-react-hooks to UI packages
@@ -1476,7 +1476,7 @@ Fri, 01 Nov 2019 13:28:37 GMT
 
 ### Updates
 
-- Provide a generic Form component to replace the one in Design Review Saftibase and Risk Manangement stages.
+- Provide a generic Form component to replace the one in Design Review Safetibase and Risk Management stages.
 - Added badge support to context menu items. Moved some Plugin Ui definitions to ui-abstract.
 - Added support for English key-ins in addition to translated key-ins
 - Fix centering and sizing of dialogs in FireFox.
@@ -1514,7 +1514,7 @@ Tue, 10 Sep 2019 12:09:49 GMT
 - Updated inputs and button padding for iModel.js. Fixed Popup colors & z-index.
 - Added support for content view minSize properties
 - Addressed some warnings introduced with React 16.9
-- Listening for onSelectedViewportChanged to set active content view for viewports
+- Listening for onSelectedViewportChanged to set active content view for viewPorts
 - Fixed new lint issue in getDisplayName
 - Allow an app to specify touch-specific instructions in tool assistance.
 - Add a `ScrollPositionMaintainer` helper to recursively save and restore scroll position
@@ -1601,7 +1601,7 @@ Mon, 13 May 2019 15:52:05 GMT
 - Put sourcemap in npm package.
 - Added SignIn presentational component to ui-components. Removed --ignoreMissingTags extract-api option.
 - Require React & React-dom 16.8
-- Setup a generic context for tracking client requests, and made various related enhancements to logging, usage tracking and authorization. 
+- Setup a generic context for tracking client requests, and made various related enhancements to logging, usage tracking and authorization.
 - Added ViewportDialog in ui-test-app, ui-core/ContributeGuidelines.md. TSLint rules in ui-core for no-default-export & completed-docs. @beta release tags.
 - Update icons-generic-webfont version to latest available.
 - Added TableProp to hide header and supporting style changes
@@ -1639,7 +1639,7 @@ Wed, 06 Mar 2019 15:41:22 GMT
 - Use new buildIModelJsBuild script
 - Changed Checkbox container from <label> to <span>, because the former caused weird visual glitch when clicked on.
 - Color tweaks
-- Fixed submenus, added default autoselect for hotkeys
+- Fixed submenus, added default autoSelect for hotkeys
 - Added tests for Dialog and Context Menu
 - Remove unneeded typedoc plugin dependency
 - Minor UI Color Theme changes
@@ -1771,10 +1771,10 @@ Mon, 03 Dec 2018 18:52:58 GMT
 ### Updates
 
 - Fixed Dialog modal backdrop show/hide
-- Reduced the amount of unneded event calls in Dialog component and changed it to use Pointer events instead of Mouse+Touch.
+- Reduced the amount of unneeded event calls in Dialog component and changed it to use Pointer events instead of Mouse+Touch.
 - Added a vertical/horizontal line that is visible when hovered on ElementSeparator component.
 - Renamed expandable block css class from core-property-block to core-expandable-block.
-- Added a way to put Popups in fixed position and cleand up the refs.
+- Added a way to put Popups in fixed position and cleaned up the refs.
 - Added Omit type definition to Utils.
 - Removed ConfigurableUiManager.addFrontstageDef and other unused/old methods and components
 - Add Placeholder that can be displayed instead of tree node while it's being loaded
@@ -1784,10 +1784,10 @@ Mon, 26 Nov 2018 19:38:42 GMT
 
 ### Updates
 
-- Reduced the amount of unneded event calls in Dialog component and changed it to use Pointer events instead of Mouse+Touch.
+- Reduced the amount of unneeded event calls in Dialog component and changed it to use Pointer events instead of Mouse+Touch.
 - Added a vertical/horizontal line that is visible when hovered on ElementSeparator component.
 - Renamed expandable block css class from core-property-block to core-expandable-block.
-- Added a way to put Popups in fixed position and cleand up the refs.
+- Added a way to put Popups in fixed position and cleaned up the refs.
 - Added Omit type definition to Utils.
 
 ## 0.169.0

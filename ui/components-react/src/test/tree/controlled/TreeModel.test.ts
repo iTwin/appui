@@ -498,7 +498,7 @@ describe("MutableTreeModel", () => {
       ]);
     });
 
-    it("does nothing when target parent node does not exist and returs `false`", () => {
+    it("does nothing when target parent node does not exist and returns `false`", () => {
       const resultStatus = treeModel.moveNode(
         "child1",
         "not_existing_node_id",
@@ -524,7 +524,7 @@ describe("MutableTreeModel", () => {
       expect([...treeModel.getChildren("root2")!]).to.be.deep.equal([]);
     });
 
-    it("does nothing when attempting to creata a cycle and returns `false`", () => {
+    it("does nothing when attempting to create a cycle and returns `false`", () => {
       // Make hierarchy deeper so that ancestry is not direct and thus requires more work to detect
       treeModel.insertChild(
         "child2",

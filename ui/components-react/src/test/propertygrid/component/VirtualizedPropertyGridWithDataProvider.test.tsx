@@ -1583,7 +1583,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
     } = {
       highlightedText: "Test",
       activeHighlight: {
-        highlightedItemIdentifier: "testtest",
+        highlightedItemIdentifier: "testTest",
         highlightIndex: 0,
       },
     };

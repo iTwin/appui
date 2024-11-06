@@ -140,7 +140,7 @@ describe("TreeNodeLoader", () => {
       expect(dataProvider).toHaveBeenCalledOnce();
     });
 
-    it("unschedules node load after cancellation", async () => {
+    it("unschedule node load after cancellation", async () => {
       const dataProvider = vi.fn(
         () => new ResolvablePromise<ImmediatelyLoadedTreeNodeItem[]>()
       );
@@ -155,7 +155,7 @@ describe("TreeNodeLoader", () => {
       // The first subscription no longer has any subscribers, so the initial load operation has been cancelled
 
       nodeLoader.loadNode(modelSource.getModel().getRootNode()).subscribe();
-      // Finalise the first node load to allow SubscriptionScheduler to move onto next observable. As a bonus, after the
+      // Finalize the first node load to allow SubscriptionScheduler to move onto next observable. As a bonus, after the
       // await, the second subscription will have already propagated to the node loader.
       await dataProvider.mock.results[0].value.resolve([]);
       expect(dataProvider).toHaveBeenCalledTimes(2);
@@ -200,12 +200,12 @@ describe("TreeNodeLoader", () => {
       ];
 
       it("loads all immediately loaded nodes", async () => {
-        const nodeLaoder = new TreeNodeLoader(
+        const nodeLoader = new TreeNodeLoader(
           nodesProvider,
           new TreeModelSource()
         );
-        const loadObs = nodeLaoder.loadNode(
-          nodeLaoder.modelSource.getModel().getRootNode()
+        const loadObs = nodeLoader.loadNode(
+          nodeLoader.modelSource.getModel().getRootNode()
         );
         const loadedIds = await extractLoadedNodeIds(loadObs);
         expect(loadedIds).to.be.deep.eq(["1", "1-1", "1-2", "2"]);
@@ -390,7 +390,7 @@ describe("PagedTreeNodeLoader", () => {
       expect(dataProvider).toHaveBeenCalledOnce();
     });
 
-    it("unschedules node load after cancellation", async () => {
+    it("unschedule node load after cancellation", async () => {
       const dataProvider = vi.fn(
         () => new ResolvablePromise<ImmediatelyLoadedTreeNodeItem[]>()
       );
@@ -405,7 +405,7 @@ describe("PagedTreeNodeLoader", () => {
       // The first subscription no longer has any subscribers, so the initial load operation has been cancelled
 
       nodeLoader.loadNode(modelSource.getModel().getRootNode(), 0).subscribe();
-      // Finalise the first node load to allow SubscriptionScheduler to move onto next observable. As a bonus, after the
+      // Finalize the first node load to allow SubscriptionScheduler to move onto next observable. As a bonus, after the
       // await, the second subscription will have already propagated to the node loader.
       await dataProvider.mock.results[0].value.resolve([]);
       expect(dataProvider).toHaveBeenCalledTimes(2);

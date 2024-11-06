@@ -475,7 +475,7 @@ describe("FlatPropertyRenderer", () => {
   });
 
   it("does not wrap valueElement in span if it's not a string", async () => {
-    propertyRecord.property.typename = "mycustomRenderer";
+    propertyRecord.property.typename = "myCustomRenderer";
 
     const myCustomRenderer = {
       canRender: () => true,
@@ -483,7 +483,7 @@ describe("FlatPropertyRenderer", () => {
     };
 
     PropertyValueRendererManager.defaultManager.registerRenderer(
-      "mycustomRenderer",
+      "myCustomRenderer",
       myCustomRenderer
     );
     render(

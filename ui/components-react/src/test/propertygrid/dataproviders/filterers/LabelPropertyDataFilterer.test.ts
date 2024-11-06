@@ -126,7 +126,7 @@ describe("LabelPropertyDataFilterer", () => {
         "Value"
       );
 
-      filterer.filterText = "displaySomefilteredNaMe";
+      filterer.filterText = "displaySomeFilteredNaMe";
       const matchResult = await filterer.recordMatchesFilter(record);
       expect(matchResult).to.deep.eq({
         matchesFilter: true,

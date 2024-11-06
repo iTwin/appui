@@ -169,7 +169,7 @@ describe("DisplayValuePropertyDataFilterer", () => {
         "DisplaySomeFilteredValue"
       );
 
-      filterer.filterText = "displaySomefilteredValue";
+      filterer.filterText = "displaySomeFilteredValue";
       const matchResult = await filterer.recordMatchesFilter(record);
       expect(matchResult).to.deep.eq({
         matchesFilter: true,

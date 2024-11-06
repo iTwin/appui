@@ -137,12 +137,12 @@ describe("PropertyCategoryLabelFilterer", () => {
       const filterer = new PropertyCategoryLabelFilterer();
       const category = {
         name: "Cat",
-        label: "displaySomefilteredNaMe",
+        label: "displaySomeFilteredNaMe",
         expand: true,
         childCategories: [],
       };
 
-      filterer.filterText = "displaySomefilteredNaMe";
+      filterer.filterText = "displaySomeFilteredNaMe";
       const matchResult = await filterer.categoryMatchesFilter(category);
       expect(matchResult).to.deep.eq({
         matchesFilter: true,
@@ -157,7 +157,7 @@ describe("PropertyCategoryLabelFilterer", () => {
       const filterer = new PropertyCategoryLabelFilterer();
       const category = {
         name: "Cat",
-        label: "displaySomefilteredNaMe",
+        label: "displaySomeFilteredNaMe",
         expand: true,
         childCategories: [],
       };
@@ -177,7 +177,7 @@ describe("PropertyCategoryLabelFilterer", () => {
       const filterer = new PropertyCategoryLabelFilterer("DiSpLaY");
       const category = {
         name: "Cat",
-        label: "displaySomefilteredNaMe",
+        label: "displaySomeFilteredNaMe",
         expand: true,
         childCategories: [],
       };
