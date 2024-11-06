@@ -1,6 +1,11 @@
 # Change Log - @itwin/imodel-components-react
 
-This log was last generated on Wed, 30 Oct 2024 14:46:15 GMT and should not be manually modified.
+This log was last generated on Wed, 06 Nov 2024 09:04:20 GMT and should not be manually modified.
+
+## 4.17.3
+Wed, 06 Nov 2024 09:04:20 GMT
+
+_Version update only_
 
 ## 4.17.2
 Wed, 30 Oct 2024 14:46:15 GMT

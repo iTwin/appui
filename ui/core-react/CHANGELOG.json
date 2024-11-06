@@ -2,6 +2,18 @@
   "name": "@itwin/core-react",
   "entries": [
     {
+      "version": "4.17.3",
+      "tag": "@itwin/core-react_v4.17.3",
+      "date": "Wed, 06 Nov 2024 09:04:20 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Fix Popup to adjust final position based on container size instead of window size."
+          }
+        ]
+      }
+    },
+    {
       "version": "4.17.2",
       "tag": "@itwin/core-react_v4.17.2",
       "date": "Wed, 30 Oct 2024 14:46:15 GMT",

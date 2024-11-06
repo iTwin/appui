@@ -2,6 +2,21 @@
   "name": "@itwin/appui-react",
   "entries": [
     {
+      "version": "4.17.3",
+      "tag": "@itwin/appui-react_v4.17.3",
+      "date": "Wed, 06 Nov 2024 09:04:20 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Fix a maximum update depth error in status bar overflow."
+          },
+          {
+            "comment": "Fix an issue where restore frontstage layout would require an active frontstage."
+          }
+        ]
+      }
+    },
+    {
       "version": "4.17.2",
       "tag": "@itwin/appui-react_v4.17.2",
       "date": "Wed, 30 Oct 2024 14:46:15 GMT",
