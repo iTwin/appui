@@ -423,7 +423,7 @@ const arrayMembers = [
 ];
 
 const multilineString =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\nUt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.\nExcepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n";
+  "The quick brown fox jumps over the lazy dog, wandering silently under\nmidnight skies. Swift breezes carry the scent of pine through the\nquiet forest, filling the air with a cool, comforting calm. In the\ndistance, mountains rise steeply, their rugged peaks etched against\nthe twilight. Stars begin to twinkle, casting a soft glow over winding\npaths and shimmering lakes.";
 
 function createDefaultRecords() {
   return [

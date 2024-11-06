@@ -1,9 +1,7 @@
 {
   "version": "0.2",
   "language": "en",
-  "ignorePaths": [
-    "**/pnpm-lock.yaml"
-  ],
+  "ignorePaths": ["**/pnpm-lock.yaml"],
   "words": [
     "AABBCC",
     "AABBCCFF",
@@ -19,6 +17,7 @@
     "adaptee",
     "addbuildtag",
     "ADDSUBUNIT",
+    "Älles",
     "ANDALSO",
     "appui",
     "appuiprovider",
@@ -78,6 +77,7 @@
     "Ecef",
     "ecschema",
     "ecsql",
+    "élêçtèd",
     "Elemen",
     "elementseparator",
     "enteri",
@@ -95,6 +95,7 @@
     "frontstageactivating",
     "frontstageready",
     "frontstages",
+    "gipu",
     "hackathon",
     "hexstring",
     "Highlightable",
@@ -118,6 +119,7 @@
     "imodeljs",
     "imodelopen",
     "imodels",
+    "Ítêm",
     "itwin",
     "itwinbuildcache",
     "itwincache",
@@ -134,6 +136,7 @@
     "keyinpalette",
     "Keyins",
     "Keypoint",
+    "Klar",
     "leftpanel",
     "lineweight",
     "linkify",

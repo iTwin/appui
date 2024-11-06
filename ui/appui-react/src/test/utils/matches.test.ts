@@ -35,7 +35,7 @@ function filterOk(
 describe("matchesWords", () => {
   it("works as filter", () => {
     filterOk(matchesWords, "alpha", "alpha", [{ start: 0, end: 5 }]);
-    filterOk(matchesWords, "alpha", "alphasomething", [{ start: 0, end: 5 }]);
+    filterOk(matchesWords, "alpha", "alphaSomething", [{ start: 0, end: 5 }]);
     filterNotOk(matchesWords, "alpha", "alp");
     filterOk(matchesWords, "a", "alpha", [{ start: 0, end: 1 }]);
     filterNotOk(matchesWords, "x", "alpha");

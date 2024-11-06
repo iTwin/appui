@@ -649,14 +649,13 @@ export class ComponentExamplesProvider {
                   }}
                 >
                   <div>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    Duis aute irure dolor in reprehenderit in voluptate velit
-                    esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                    occaecat cupidatat non proident, sunt in culpa qui officia
-                    deserunt mollit anim id est laborum.
+                    The quick brown fox jumps over the lazy dog, wandering
+                    silently under midnight skies. Swift breezes carry the scent
+                    of pine through the quiet forest, filling the air with a
+                    cool, comforting calm. In the distance, mountains rise
+                    steeply, their rugged peaks etched against the twilight.
+                    Stars begin to twinkle, casting a soft glow over winding
+                    paths and shimmering lakes.
                   </div>
                 </ContentDialog>,
                 "ContentDialog1"
@@ -683,14 +682,13 @@ export class ComponentExamplesProvider {
                   }
                 >
                   <div>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    Duis aute irure dolor in reprehenderit in voluptate velit
-                    esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                    occaecat cupidatat non proident, sunt in culpa qui officia
-                    deserunt mollit anim id est laborum.
+                    The quick brown fox jumps over the lazy dog, wandering
+                    silently under midnight skies. Swift breezes carry the scent
+                    of pine through the quiet forest, filling the air with a
+                    cool, comforting calm. In the distance, mountains rise
+                    steeply, their rugged peaks etched against the twilight.
+                    Stars begin to twinkle, casting a soft glow over winding
+                    paths and shimmering lakes.
                   </div>
                 </StandardMessageBox>,
                 "StandardMessageBox1"
@@ -716,14 +714,13 @@ export class ComponentExamplesProvider {
                   movable={true}
                 >
                   <div>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    Duis aute irure dolor in reprehenderit in voluptate velit
-                    esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                    occaecat cupidatat non proident, sunt in culpa qui officia
-                    deserunt mollit anim id est laborum.
+                    The quick brown fox jumps over the lazy dog, wandering
+                    silently under midnight skies. Swift breezes carry the scent
+                    of pine through the quiet forest, filling the air with a
+                    cool, comforting calm. In the distance, mountains rise
+                    steeply, their rugged peaks etched against the twilight.
+                    Stars begin to twinkle, casting a soft glow over winding
+                    paths and shimmering lakes.
                   </div>
                 </ModelessDialog>,
                 "ModelessDialog1"
@@ -1343,7 +1340,7 @@ export class ComponentExamplesProvider {
     });
 
     /**
-     * Conditonal[...] instances must not be reused in different object, so we create as many copies of them
+     * Conditional[...] instances must not be reused in different object, so we create as many copies of them
      * as toolbars (with the same behavior, to compare).
      * @returns
      */
