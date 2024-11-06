@@ -423,7 +423,7 @@ const arrayMembers = [
 ];
 
 const multilineString =
-  "The quick brown fox jumps over the lazy dog, wandering silently under\nmidnight skies. Swift breezes carry the scent of pine through the\nquiet forest, filling the air with a cool, comforting calm. In the\ndistance, mountains rise steeply, their rugged peaks etched against\nthe twilight. Stars begin to twinkle, casting a soft glow over winding\npaths and shimmering lakes.";
+  "The quick brown fox jumps over the lazy dog, wandering silently under\nmidnight skies. Swift breezes carry the scent of pine through the\nquiet forest, filling the air with a cool, comforting calm. In the\ndistance, mountains rise steeply, their rugged peaks etched against\nthe twilight. Stars begin to twinkle, casting a soft glow over winding\npaths and shimmering lakes.\n";
 
 function createDefaultRecords() {
   return [
