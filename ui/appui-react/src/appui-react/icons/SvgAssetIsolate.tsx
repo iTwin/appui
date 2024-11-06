@@ -11,26 +11,8 @@ import * as React from "react";
 /** @internal */
 export function SvgAssetIsolate() {
   return (
-    <svg
-      version="1.1"
-      id="Calque_1"
-      xmlns="http://www.w3.org/2000/svg"
-      xmlnsXlink="http://www.w3.org/1999/xlink"
-      x="0px"
-      y="0px"
-      viewBox="0 0 16 16"
-      enableBackground="new 0 0 16 16;"
-      xmlSpace="preserve"
-    >
-      <g>
-        <g transform="translate(-1-1)">
-          <path d="M9,13.5714h3.4286V17H9V13.5714z" />
-          <path d="M9,9v3.4286h3.4286V9H9z M11.8571,11.8571H9.5714V9.5714h2.2857V11.8571z" />
-          <path d="M13.5714,9v3.4286H17V9H13.5714 M16.4286,11.8571h-2.2857V9.5714h2.2857V11.8571" />
-          <path d="M13.5714,13.5714V17H17v-3.4286H13.5714z M16.4286,16.4286h-2.2857v-2.2857h2.2857V16.4286z" />
-        </g>
-        <path d="M5,0l5,5l-5,5L0,5L5,0z" />
-      </g>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+      <path d="M8 12.571h3.429V16H8zM8 8v3.429h3.429V8zm2.857 2.857H8.571V8.571h2.286zM12.571 8v3.429H16V8zm2.858 2.857h-2.286V8.571h2.286zm-2.858 1.714V16H16v-3.429zm2.858 2.858h-2.286v-2.286h2.286zM5 0l5 5-5 5-5-5z" />
     </svg>
   );
 }

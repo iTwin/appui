@@ -11,29 +11,8 @@ import * as React from "react";
 /** @internal */
 export function SvgLayersIsolate() {
   return (
-    <svg
-      version="1.1"
-      id="Calque_1"
-      xmlns="http://www.w3.org/2000/svg"
-      xmlnsXlink="http://www.w3.org/1999/xlink"
-      x="0px"
-      y="0px"
-      viewBox="0 0 16 16"
-      enableBackground="new 0 0 16 16"
-      xmlSpace="preserve"
-    >
-      <g>
-        <path d="M13,3.4938L6.5,0L0,3.4938l6.5,3.4938L13,3.4938z" />
-        <polygon points="6.5,8.21 7,7.94 7,9.24 6.5,9.51 0,6.01 1.22,5.36 	" />
-        <polygon points="13,6.01 11.16,7 8.74,7 11.78,5.36 	" />
-        <polygon points="7,10.37 7,11.67 6.5,11.94 0,8.45 1.22,7.8 6.5,10.64 	" />
-      </g>
-      <g transform="translate(-1-1)">
-        <path d="M9,13.5714h3.4286V17H9V13.5714z" />
-        <path d="M9,9v3.4286h3.4286V9H9z M11.8571,11.8571H9.5714V9.5714h2.2857V11.8571z" />
-        <path d="M13.5714,9v3.4286H17V9H13.5714 M16.4286,11.8571h-2.2857V9.5714h2.2857V11.8571" />
-        <path d="M13.5714,13.5714V17H17v-3.4286H13.5714z M16.4286,16.4286h-2.2857v-2.2857h2.2857V16.4286z" />
-      </g>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+      <path d="M13 3.494 6.5 0 0 3.494l6.5 3.494zM6.5 8.21l.5-.27v1.3l-.5.27L0 6.01l1.22-.65zm6.5-2.2L11.16 7H8.74l3.04-1.64zm-6 4.36v1.3l-.5.27L0 8.45l1.22-.65 5.28 2.84zm1 2.201h3.429V16H8zM8 8v3.429h3.429V8zm2.857 2.857H8.571V8.571h2.286zM12.571 8v3.429H16V8zm2.858 2.857h-2.286V8.571h2.286zm-2.858 1.714V16H16v-3.429zm2.858 2.858h-2.286v-2.286h2.286z" />
     </svg>
   );
 }

@@ -12,12 +12,11 @@ import * as React from "react";
 export function SvgSelectionClear() {
   return (
     <svg
-      id="Calque_1"
       data-name="Calque 1"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 16 16"
     >
-      <path d="M2,5H1V7H2ZM2,8H1v2H2ZM9,2H7V3H9ZM6,2H4V3H6ZM2,3H3V2H1V4H2Zm12,7h1V8H14Zm0,2H13v1h2V11H14Zm0-5h1V5H14ZM7,13H9V12H7Zm3,0h2V12H10Zm-6.84551.75L14.25,2.65449,12.84551,1.25,1.75,12.34551Z" />
+      <path d="M2 5H1v2h1Zm0 3H1v2h1Zm7-6H7v1h2ZM6 2H4v1h2ZM2 3h1V2H1v2h1Zm12 7h1V8h-1Zm0 2h-1v1h2v-2h-1Zm0-5h1V5h-1Zm-7 6h2v-1H7Zm3 0h2v-1h-2Zm-6.846.75L14.25 2.654 12.846 1.25 1.75 12.346Z" />
     </svg>
   );
 }
