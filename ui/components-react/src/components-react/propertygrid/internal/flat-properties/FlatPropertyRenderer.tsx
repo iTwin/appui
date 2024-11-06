@@ -33,7 +33,7 @@ export interface FlatPropertyRendererProps extends SharedRendererProps {
   /** Indicates property is being edited */
   isEditing?: boolean;
   /** Callback to determine which editors should be always visible */
-  showOnlyEditor?: (property: PropertyRecord) => boolean;
+  alwaysShowEditor?: (property: PropertyRecord) => boolean;
   /** Called when property edit is committed. */
   onEditCommit?: (
     args: PropertyUpdatedArgs,
@@ -125,7 +125,7 @@ export const FlatPropertyRenderer: React.FC<FlatPropertyRendererProps> = (
 interface DisplayValueProps {
   isEditing?: boolean;
   isPropertyEditingEnabled?: boolean;
-  showOnlyEditor?: (property: PropertyRecord) => boolean;
+  alwaysShowEditor?: (property: PropertyRecord) => boolean;
   propertyRecord: PropertyRecord;
 
   orientation: Orientation;
@@ -137,7 +137,8 @@ interface DisplayValueProps {
   isExpanded?: boolean;
   onExpansionToggled?: () => void;
   onHeightChanged?: (newHeight: number) => void;
-
+  onClick?: (property: PropertyRecord, key?: string) => void;
+  uniqueKey?: string;
   category?: PropertyCategory;
   onEditCancel?: () => void;
   onEditCommit?: (
@@ -158,11 +159,14 @@ const DisplayValue: React.FC<DisplayValueProps> = (props) => {
     props.onHeightChanged
   );
 
-  const showsOnlyEditor = props.showOnlyEditor
-    ? props.showOnlyEditor(props.propertyRecord)
+  const alwaysShowsEditor = props.alwaysShowEditor
+    ? props.alwaysShowEditor(props.propertyRecord)
     : false;
 
-  if (props.isEditing || (showsOnlyEditor && props.isPropertyEditingEnabled)) {
+  if (
+    props.isEditing ||
+    (alwaysShowsEditor && props.isPropertyEditingEnabled)
+  ) {
     const _onEditCommit = (args: PropertyUpdatedArgs) => {
       if (props.category) props.onEditCommit?.(args, props.category);
     };
@@ -173,6 +177,7 @@ const DisplayValue: React.FC<DisplayValueProps> = (props) => {
         onCommit={_onEditCommit}
         onCancel={props.onEditCancel ?? (() => {})}
         setFocus={props.isEditing}
+        onClick={() => props.onClick?.(props.propertyRecord, props.uniqueKey)}
       />
     );
   }

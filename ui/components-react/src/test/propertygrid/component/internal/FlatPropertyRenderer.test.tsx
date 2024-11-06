@@ -375,7 +375,7 @@ describe("FlatPropertyRenderer", () => {
         propertyRecord={textPropertyRecord}
         isEditing={false}
         isPropertyEditingEnabled={true}
-        showOnlyEditor={(property) =>
+        alwaysShowEditor={(property) =>
           property.property.editor?.name === "textEditor"
         }
         isExpanded={false}
@@ -388,7 +388,31 @@ describe("FlatPropertyRenderer", () => {
     );
   });
 
-  it("renders an editor with focus when showOnlyEditor is defined and isEditing is true", async () => {
+  it("calls on click when clicking on an editor", async () => {
+    const spy = vi.fn();
+    const textPropertyRecord = TestUtils.createPrimitiveStringProperty(
+      "Label",
+      "Model",
+      "DisplayValue",
+      { name: "textEditor" }
+    );
+    render(
+      <FlatPropertyRenderer
+        orientation={Orientation.Horizontal}
+        propertyRecord={textPropertyRecord}
+        isEditing={true}
+        onClick={spy}
+        isExpanded={false}
+        onExpansionToggled={() => {}}
+      />
+    );
+
+    const editor = await waitFor(() => screen.getByRole("textbox"));
+    fireEvent.click(editor);
+    expect(spy).toHaveBeenCalledOnce();
+  });
+
+  it("renders an editor with focus when alwaysShowEditor is defined and isEditing is true", async () => {
     const textPropertyRecord = TestUtils.createPrimitiveStringProperty(
       "Label",
       "Model",
@@ -401,7 +425,7 @@ describe("FlatPropertyRenderer", () => {
         propertyRecord={textPropertyRecord}
         isEditing={true}
         isPropertyEditingEnabled={true}
-        showOnlyEditor={() => false}
+        alwaysShowEditor={() => false}
         isExpanded={false}
         onExpansionToggled={() => {}}
       />

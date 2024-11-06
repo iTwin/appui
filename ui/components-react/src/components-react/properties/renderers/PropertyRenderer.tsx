@@ -67,7 +67,7 @@ export interface SharedRendererProps {
   /** Information for styling property grid columns */
   columnInfo?: PropertyGridColumnInfo;
   /** Callback to determine which editors should be always visible */
-  showOnlyEditor?: (property: PropertyRecord) => boolean;
+  alwaysShowEditor?: (property: PropertyRecord) => boolean;
 }
 
 /** Properties of [[PropertyRenderer]] React component
@@ -105,6 +105,10 @@ export const PropertyRenderer = (props: PropertyRendererProps) => {
     propertyValueRendererManager,
     onEditCommit,
     onEditCancel,
+    alwaysShowEditor,
+    isPropertyEditingEnabled,
+    onClick,
+    uniqueKey,
     ...restProps
   } = props;
 
@@ -119,14 +123,19 @@ export const PropertyRenderer = (props: PropertyRendererProps) => {
     if (onEditCancel) onEditCancel();
   }, [onEditCancel]);
 
+  const alwaysShowsEditor = props.alwaysShowEditor
+    ? props.alwaysShowEditor(props.propertyRecord)
+    : false;
+
   React.useEffect(() => {
-    if (isEditing) {
+    if (isEditing || (alwaysShowsEditor && isPropertyEditingEnabled)) {
       setDisplayValue(
         <EditorContainer
           propertyRecord={propertyRecord}
           onCommit={onCommit}
           onCancel={onCancel}
-          setFocus={true}
+          setFocus={isEditing}
+          onClick={() => onClick?.(propertyRecord, uniqueKey)}
         />
       );
       return;
@@ -148,10 +157,16 @@ export const PropertyRenderer = (props: PropertyRendererProps) => {
     onCommit,
     onCancel,
     isEditing,
+    alwaysShowsEditor,
+    isPropertyEditingEnabled,
+    onClick,
+    uniqueKey,
   ]);
 
   const primitiveRendererProps: PrimitiveRendererProps = {
     ...restProps,
+    onClick,
+    uniqueKey,
     propertyRecord,
     orientation,
     indentation,

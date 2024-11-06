@@ -93,7 +93,7 @@ export interface CommonPropertyGridProps extends CommonProps {
    */
   actionButtonRenderers?: ActionButtonRenderer[];
   /** Callback to determine which editors should be always visible */
-  showOnlyEditor?: (property: PropertyRecord) => boolean;
+  alwaysShowEditor?: (property: PropertyRecord) => boolean;
 }
 
 /**
