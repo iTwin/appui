@@ -33,7 +33,7 @@ describe("matchlinks", () => {
         linkIndexes: [{ index: 0, lastIndex: 33 }],
       },
       { link: "testLink.com", linkIndexes: [] },
-      { link: "text without any links or emai addreses", linkIndexes: [] },
+      { link: "text without any links or email addresses", linkIndexes: [] },
       {
         link: "test link string www.testLink.com",
         linkIndexes: [{ index: 17, lastIndex: 33 }],
@@ -88,7 +88,7 @@ describe("matchlinks", () => {
         linkIndexes: [{ index: 0, lastIndex: 73 }],
       },
       {
-        link: "pw:\\\\  server:datasource /Docume nts/P{7185c257-e735-4395-8655-ebeeb180c08a}/",
+        link: "pw:\\\\  server:datasource /Documents /P{7185c257-e735-4395-8655-ebeeb180c08a}/",
         linkIndexes: [{ index: 0, lastIndex: 77 }],
       },
     ];

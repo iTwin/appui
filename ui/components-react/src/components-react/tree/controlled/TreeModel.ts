@@ -246,7 +246,7 @@ export class MutableTreeModel implements TreeModel {
       return;
     }
 
-    cloneSubree(seed, this, undefined);
+    cloneSubtree(seed, this, undefined);
   }
 
   /** Returns root node of a tree. This node is not visible and is there to allow having multiple visible root nodes. */
@@ -660,7 +660,7 @@ export function getVisibleDescendants(
   return result;
 }
 
-function cloneSubree(
+function cloneSubtree(
   source: TreeModel,
   target: MutableTreeModel,
   parentId: string | undefined
@@ -679,6 +679,6 @@ function cloneSubree(
       [{ ...node, isLoading: !!node.isLoading }],
       index
     );
-    cloneSubree(source, target, childId);
+    cloneSubtree(source, target, childId);
   }
 }

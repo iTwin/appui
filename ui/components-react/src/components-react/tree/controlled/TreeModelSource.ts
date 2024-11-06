@@ -75,12 +75,12 @@ export class TreeModelSource {
         const nodeId = patch.path[2] as string;
 
         if (patch.path.length > 3) {
-          // Modification occured somewhere inside a node
+          // Modification occurred somewhere inside a node
           modifiedNodeIds.add(nodeId);
           continue;
         }
 
-        // Modification occured directly on _idToNode object
+        // Modification occurred directly on _idToNode object
         switch (patch.op) {
           case "add":
             addedNodeIds.push(nodeId);

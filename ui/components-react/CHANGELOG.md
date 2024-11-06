@@ -86,7 +86,7 @@ Fri, 28 Jun 2024 09:09:37 GMT
 
 ### Updates
 
-- `PropertyFilterBuilder`: Allow adding custom item for PropertyFilterBuilderActions 
+- `PropertyFilterBuilder`: Allow adding custom item for PropertyFilterBuilderActions
 - Portal editors to the same container used to portal other components.
 
 ## 4.14.2
@@ -621,7 +621,7 @@ Thu, 24 Feb 2022 15:26:55 GMT
 
 ### Updates
 
-- Use ToolbarAutoHidePopupContext to monitor widgets' authoidden state.
+- Use ToolbarAutoHidePopupContext to monitor widgets' autoHidden state.
 
 ## 3.0.0
 Mon, 24 Jan 2022 14:00:52 GMT
@@ -674,7 +674,7 @@ Mon, 24 Jan 2022 14:00:52 GMT
 - Remove react 16 peer dependency.
 - Remove itwinUi css overrides.
 - UiFramework and UiIModelComponent initialize method no longer take localization argument, uses IModelApp.localization internally.
-- Replaced ui-core Slider with one from iTwinUi-react. 
+- Replaced ui-core Slider with one from iTwinUi-react.
 - Update to latest types/react package
 - Skip test causing CI job failures
 - Lock down and update version numbers so docs will build.
@@ -832,7 +832,7 @@ Mon, 26 Jul 2021 12:21:25 GMT
 
 - remove internal barrel-import usage
 - Stop delivering pseudo-localized strings
-- Add window "beforeunload" event listener to ensure viewport is dropped from ViewManager.
+- Add window "beforeUnload" event listener to ensure viewport is dropped from ViewManager.
 - `MutableTreeModel`: `removeChild` method now accepts child index for the second parameter.
 - Workaround for react-data-grid blank grid after scroll and update
 - Add option prop to set time zone offset for date and time display in the TimelineComponent.
@@ -903,7 +903,7 @@ Mon, 28 Jun 2021 16:20:11 GMT
 - Added `overflow` property for `react-grid-Cell__value` element. `zIndex` is set in `TableCellContent` style property. These updates are necessary for rendering merged cells in `Table` component.
 - Updated `Table` component so that it would be possible to merge cells in it
 - Update scss to remove use of slash for division to avoid SASS deprecation warnings.
-- Publis in-use APIs
+- Public in-use APIs
 - Refactor TimelineComponent to remove experimental milestones feature.
 - `TreeRenderer`: Fix tree nodes being loaded repeatedly in some cases.
 - `VirtualizedPropertyGrid`: Remove top and bottom padding.
@@ -972,7 +972,7 @@ Mon, 24 May 2021 15:58:39 GMT
 - Improved Multi-Value column filtering in the Table component
 - Move `VirtualizedPropertyGrid` related types from @alpha to @beta.
 - Fixed getting distinct values when Table rows are updated
-- Update to latest classnames package 
+- Update to latest classnames package
 
 ## 2.15.6
 Wed, 26 May 2021 15:55:19 GMT
@@ -1127,7 +1127,7 @@ Thu, 28 Jan 2021 13:39:27 GMT
 - Added ui-core learning docs content and added Notification.md, Style.md & Tooltip.md ui-core learning doc files.
 - Fix test warnings.
 - Update to latest react-dnd version.
-- Always clone the ViewState for a ViewportComponent to avoid attaching the same ViewState to multiple viewports.
+- Always clone the ViewState for a ViewportComponent to avoid attaching the same ViewState to multiple viewPorts.
 
 ## 2.10.3
 Fri, 08 Jan 2021 18:34:03 GMT
@@ -1155,7 +1155,7 @@ Fri, 18 Dec 2020 18:24:01 GMT
 - Added highlightedRecordProps to [[VirtualizedPropertyGridProps]] to allow highlighting specific parts of rendered PropertyRecords.
 - Updated [[FilteringInput]] component. Component's `filteringInProgress` prop was deprecated and new `status` property was introduced. This allows rendering the component in any state, including `filtering finished`, without having to cycle through other states first.
 - fix but in ParsedInput control where formatted text was not updating if underlying parsed value did not change.
-- Refactor DialogItem and Property interfaces to make them eaiser to use.
+- Refactor DialogItem and Property interfaces to make them easier to use.
 - Added support for decimal point in Table numeric filter
 - Enable pointer events in Toolbar items container."
 - Fix issue where entries in ButtonGroup would not properly disable/enable.
@@ -1410,7 +1410,7 @@ Fri, 10 Jul 2020 17:23:14 GMT
 - geometry clip containment
 - Fix ToolbarWithOverflow to honor ToolbarOpacitySetting.Defaults
 - Accessibility: Improved focus borders & indicators
-- Use DelayedSpinned in ControlledTree.
+- Use DelayedSpined in ControlledTree.
 - Add support for nested property categories
 - Show tooltips for property values when rendering PropertyRecords
 - Changing SelectableContent component to use ThemedSelect in place of a pure HTML select element
@@ -1438,7 +1438,7 @@ Thu, 28 May 2020 22:48:59 GMT
 ### Updates
 
 - Fix toolbar overflow panel display.
-- Update to only show group separators if toolbar is not transparent. 
+- Update to only show group separators if toolbar is not transparent.
 - Fix toolbar error when scaling up UI.
 - Property grid horizontal layout updated according to UX requirements.
 - Fixed Table filter renderers after react-select version upgrade
@@ -1446,7 +1446,7 @@ Thu, 28 May 2020 22:48:59 GMT
 - Added ability for apps to display Favorite properties in Element Tooltip & Card at Cursor
 - Darken node descriptions in controlled tree
 - Center align ControlledTree error message
-- ControlledTree: Grow virtualized nodes' container width to fit the widest node and do not shrink it to avoid horinzontal scrollbar appearing/disappearing
+- ControlledTree: Grow virtualized nodes' container width to fit the widest node and do not shrink it to avoid horizontal scrollbar appearing/disappearing
 - Update version of react-select for ThemedSelect in ui-core.
 - ControlledTree: Fix horizontal scrollbar appearing when tree component size changes even though nodes don't exceed width of the tree
 - Only show badges on toolbar buttons if toolbar background is not transparent.
@@ -1705,7 +1705,7 @@ Mon, 01 Jul 2019 19:04:29 GMT
 
 ### Updates
 
-- Tree: Fix an issue whith multiselection where shift-selecting nodes would not select anything.
+- Tree: Fix an issue with multiSelection where shift-selecting nodes would not select anything.
 - Tree: Add ability to check or uncheck multiple selected nodes' checkboxes all at once.
 - BeInspireTree: Fix an issue with calling `updateNodesCheckboxes()` while handling `ModelLoaded` event
 - Tree: Correct TreeProps.checkboxInfo documentation.
@@ -1713,7 +1713,7 @@ Mon, 01 Jul 2019 19:04:29 GMT
 - Updated react-data-grid import statement
 - Added prefixes to Dialog & ContextMenu positioning CSS classes
 - Removed missing group descriptions
-- Call filterclear when the user enters an empty search string and clicks Search.
+- Call filterClear when the user enters an empty search string and clicks Search.
 - Added autofocus to the FilteringInput component.
 - Remove inner focus outline that is only displayed in Firefox.
 - Update WeightPicker.
@@ -1910,7 +1910,7 @@ Wed, 19 Dec 2018 18:26:14 GMT
 - Added DragDrop tests, added component withDragDrop HOC tests
 - Synchronizing navigation aids with view definition changes
 - Simplified property pane tooltips and improved Property Pane performance.
-- Simplified struct and array tooltips in Table component. 
+- Simplified struct and array tooltips in Table component.
 - Fix BeInspireTree's event listening functions to handle array inputs
 - Fix BeInspireTree's muting events with allowed number of triggers
 - Cache BeInspireTree.visible() result for better performance
@@ -2040,7 +2040,7 @@ Thu, 08 Nov 2018 17:59:21 GMT
 
 ### Updates
 
-- Deprecated dev-cors-proxy-server and use of it. 
+- Deprecated dev-cors-proxy-server and use of it.
 - Fix: Do not start search if input field is empty
 - Use strongly typed enums for identifying keyboard keys
 - PropertyGrid property editing and unit tests
@@ -2066,7 +2066,7 @@ Wed, 24 Oct 2018 19:20:07 GMT
 - Tooltips, ToolAdmin.activeToolChanged support, SheetNavigationAid/SheetsModalFrontstage improvements.
 - Ui Documentation
 - Vertical PropertyGrid layout improvements. PropertyGrid background color. Setting the widget state.
-- Changed Horizontal PropertyGrid css to use grid instead of table display and modified subcomponents accordingly.
+- Changed Horizontal PropertyGrid css to use grid instead of table display and modified subComponents accordingly.
 - Fixed property selection.
 - Added an ability to resize label/value in PropertyRenderer.
 - SelectablePropertyBlock now controls label/value ratio for every property in a category.

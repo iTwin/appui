@@ -129,7 +129,7 @@ describe("ModalSettingsStage", () => {
           tabId: "page-2",
           itemPriority: 20,
           label: "Page2",
-          subLabel: "sublabel page2",
+          subLabel: "subLabel page2",
           tooltip: <span>react-tooltip</span>,
           icon: "icon-paintbrush",
           page: <div>Page 2</div>,

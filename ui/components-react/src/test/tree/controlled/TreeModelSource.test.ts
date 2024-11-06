@@ -116,7 +116,7 @@ describe("TreeModelSource", () => {
           ]);
         });
 
-        it("does not mistake attribute addition as node addtion", () => {
+        it("does not mistake attribute addition as node addition", () => {
           const spy = vi.spyOn(modelSource.onModelChanged, "emit");
           modelSource.modifyModel((model) => {
             const node = model.getNode("root1")!;

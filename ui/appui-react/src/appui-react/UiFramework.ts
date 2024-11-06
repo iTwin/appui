@@ -1165,7 +1165,7 @@ export class UiFramework {
     );
   }
 
-  /** Set the variable that controls display of the view overlay. Applies to all viewports in the app.
+  /** Set the variable that controls display of the view overlay. Applies to all viewPorts in the app.
    * @note Requires redux provider.
    * @deprecated in 4.15.0. Use {@link ConfigurableUiContentProps.viewOverlay} prop of {@link ConfigurableUiContent}.
    */

@@ -1014,7 +1014,7 @@
       "comments": {
         "none": [
           {
-            "comment": "Use ToolbarAutoHidePopupContext to monitor widgets' authoidden state."
+            "comment": "Use ToolbarAutoHidePopupContext to monitor widgets' autoHidden state."
           }
         ]
       }
@@ -1377,7 +1377,7 @@
             "comment": "Stop delivering pseudo-localized strings"
           },
           {
-            "comment": "Add window \"beforeunload\" event listener to ensure viewport is dropped from ViewManager."
+            "comment": "Add window \"beforeUnload\" event listener to ensure viewport is dropped from ViewManager."
           },
           {
             "comment": "`MutableTreeModel`: `removeChild` method now accepts child index for the second parameter."
@@ -1509,7 +1509,7 @@
             "comment": "Update scss to remove use of slash for division to avoid SASS deprecation warnings."
           },
           {
-            "comment": "Publis in-use APIs"
+            "comment": "Public in-use APIs"
           },
           {
             "comment": "Refactor TimelineComponent to remove experimental milestones feature."
@@ -1902,7 +1902,7 @@
             "comment": "Update to latest react-dnd version."
           },
           {
-            "comment": "Always clone the ViewState for a ViewportComponent to avoid attaching the same ViewState to multiple viewports."
+            "comment": "Always clone the ViewState for a ViewportComponent to avoid attaching the same ViewState to multiple viewPorts."
           }
         ]
       }
@@ -1950,7 +1950,7 @@
             "comment": "fix but in ParsedInput control where formatted text was not updating if underlying parsed value did not change."
           },
           {
-            "comment": "Refactor DialogItem and Property interfaces to make them eaiser to use."
+            "comment": "Refactor DialogItem and Property interfaces to make them easier to use."
           },
           {
             "comment": "Added support for decimal point in Table numeric filter"
@@ -2373,7 +2373,7 @@
             "comment": "Accessibility: Improved focus borders & indicators"
           },
           {
-            "comment": "Use DelayedSpinned in ControlledTree."
+            "comment": "Use DelayedSpined in ControlledTree."
           },
           {
             "comment": "Add support for nested property categories"
@@ -2454,7 +2454,7 @@
             "comment": "Center align ControlledTree error message"
           },
           {
-            "comment": "ControlledTree: Grow virtualized nodes' container width to fit the widest node and do not shrink it to avoid horinzontal scrollbar appearing/disappearing"
+            "comment": "ControlledTree: Grow virtualized nodes' container width to fit the widest node and do not shrink it to avoid horizontal scrollbar appearing/disappearing"
           },
           {
             "comment": "Update version of react-select for ThemedSelect in ui-core."
@@ -3087,7 +3087,7 @@
       "comments": {
         "none": [
           {
-            "comment": "Tree: Fix an issue whith multiselection where shift-selecting nodes would not select anything."
+            "comment": "Tree: Fix an issue with multiSelection where shift-selecting nodes would not select anything."
           },
           {
             "comment": "Tree: Add ability to check or uncheck multiple selected nodes' checkboxes all at once."
@@ -3111,10 +3111,10 @@
             "comment": "Removed missing group descriptions"
           },
           {
-            "comment": "Call filterclear when the user enters an empty search string and clicks Search."
+            "comment": "Call filterClear when the user enters an empty search string and clicks Search."
           },
           {
-            "comment": "Added autofocus to the FilteringInput component."
+            "comment": "Added autoFocus to the FilteringInput component."
           },
           {
             "comment": "Remove inner focus outline that is only displayed in Firefox."
@@ -3891,7 +3891,7 @@
             "comment": "Vertical PropertyGrid layout improvements. PropertyGrid background color. Setting the widget state."
           },
           {
-            "comment": "Changed Horizontal PropertyGrid css to use grid instead of table display and modified subcomponents accordingly."
+            "comment": "Changed Horizontal PropertyGrid css to use grid instead of table display and modified subComponents accordingly."
           },
           {
             "comment": "Fixed property selection."

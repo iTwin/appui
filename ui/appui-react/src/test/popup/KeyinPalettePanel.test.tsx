@@ -42,7 +42,7 @@ describe("<KeyinPalettePanel>", () => {
   });
 
   afterEach(() => {
-    // restore the overriden property getter
+    // restore the overridden property getter
     Object.defineProperty(window, "localStorage", propertyDescriptorToRestore);
     Object.defineProperty(
       IModelApp,

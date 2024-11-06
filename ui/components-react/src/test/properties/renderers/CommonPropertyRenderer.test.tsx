@@ -144,7 +144,7 @@ describe("CommonPropertyRenderer", () => {
     it("should not create a value which is actively highlighted if highlighProps are provided, highlightedText matches part of propertyRecord, property name matches highlight activeMatch propertyName but applyOnLabel is true and matchIndex is in the label scope", () => {
       const propertyRecord = PropertyRecord.fromString("asdtestasd");
       propertyRecord.property.name = "testName";
-      propertyRecord.property.displayLabel = "tesTtest";
+      propertyRecord.property.displayLabel = "testTest";
       const highlight: HighlightingComponentProps & {
         applyOnLabel: boolean;
         applyOnValue: boolean;
@@ -178,7 +178,7 @@ describe("CommonPropertyRenderer", () => {
     it("should create a value which is actively highlighted if highlighProps are provided, highlightedText matches part of propertyRecord, property name matches highlight activeMatch propertyName, applyOnLabel is true and matchIndex is bigger than label matchCount and is in the value scope", () => {
       const propertyRecord = PropertyRecord.fromString("asdtestasd");
       propertyRecord.property.name = "testName";
-      propertyRecord.property.displayLabel = "tesTtest";
+      propertyRecord.property.displayLabel = "tesTest";
       const highlight: HighlightingComponentProps & {
         applyOnLabel: boolean;
         applyOnValue: boolean;

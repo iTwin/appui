@@ -119,7 +119,7 @@ describe("InternalToolSettingsManager", () => {
       testToolDescription
     );
 
-    // restore the overriden property getter
+    // restore the overridden property getter
     Object.defineProperty(
       InternalToolSettingsManager,
       "toolSettingsProperties",

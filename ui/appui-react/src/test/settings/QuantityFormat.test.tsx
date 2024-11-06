@@ -261,7 +261,7 @@ describe("QuantityFormatSettingsPage", () => {
     fireEvent.click(checkbox);
 
     // Wait that the handler have been updated, otherwise it compares with the previous version...
-    // Visual change already have been processed but scope didnt upddate.
+    // Visual change already have been processed but scope didn't update.
     await waitFor(() => {
       expect(addListenerSpy).toHaveBeenCalled();
     });
