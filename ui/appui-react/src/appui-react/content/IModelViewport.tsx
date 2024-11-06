@@ -66,7 +66,7 @@ export interface IModelViewportControlOptions {
   alwaysUseSuppliedViewState?: boolean;
   /** Optional property to supply custom view overlay. Uses when caller want to supply custom overlay component. */
   supplyViewOverlay?: (_viewport: ScreenViewport) => React.ReactNode;
-  /** Optional property to defer reactNode initialization until first reactNode property is needed. Useful when subclassing the `IModelViewportControl`. */
+  /** Optional property to defer reactNode initialization until first reactNode property is needed. Useful when subClassing the `IModelViewportControl`. */
   deferNodeInitialization?: boolean;
 }
 
