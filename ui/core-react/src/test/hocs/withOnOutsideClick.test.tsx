@@ -77,7 +77,7 @@ describe("WithOnOutsideClick", async () => {
   it("should handle empty onOutsideClick (Coverage only)", async () => {
     render(<WithOnOutsidePointerDiv />);
 
-    // Although there is an await, error in eventhandlers do not trigger errors.
+    // Although there is an await, error in eventHandlers do not trigger errors.
     // This is only adding coverage but we cant really test "nothing" to happen...
     await theUserTo.pointer("[MouseLeft]");
   });

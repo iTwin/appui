@@ -32,10 +32,10 @@ export class ScrollPositionMaintainer implements IDisposable {
     ScrollPositionMaintainer.restoreScrollPositions(this._storage);
   }
   private static saveScrollPositions(
-    elems: Element[] | HTMLCollection,
+    elements: Element[] | HTMLCollection,
     storage: Map<Element, number>
   ) {
-    for (const el of elems) {
+    for (const el of elements) {
       if (el.scrollTop) storage.set(el, el.scrollTop);
       if (el.children) this.saveScrollPositions(el.children, storage);
     }

@@ -61,7 +61,7 @@ describe("Rectangle", () => {
     expect(sut.y).toEqual(4);
   });
 
-  it("should return offsetted rectangle", () => {
+  it("should return offset rectangle", () => {
     const sut = new Rectangle(-5, 2, 5, 4).offset({ x: 2, y: 3 });
     expect(sut.left).toEqual(-3);
     expect(sut.top).toEqual(5);

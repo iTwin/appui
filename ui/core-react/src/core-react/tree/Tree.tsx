@@ -117,11 +117,12 @@ export class Tree extends React.PureComponent<TreeProps> {
   public getElementsByClassName(className: string): Element[] {
     if (!this._treeElement.current) return [];
 
-    const elems = new Array<Element>();
+    const elements = new Array<Element>();
     const collection =
       this._treeElement.current.getElementsByClassName(className);
-    for (let i = 0; i < collection.length; ++i) elems.push(collection.item(i)!);
-    return elems;
+    for (let i = 0; i < collection.length; ++i)
+      elements.push(collection.item(i)!);
+    return elements;
   }
   public setFocusByClassName(selector: string): boolean {
     let status = false;

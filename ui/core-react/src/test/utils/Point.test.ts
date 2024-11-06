@@ -34,7 +34,7 @@ describe("Point", () => {
     expect(sut.y).toEqual(8);
   });
 
-  it("should return offsetted point", () => {
+  it("should return offset point", () => {
     const sut = new Point(1, 2).offset({ x: 5, y: 10 });
     expect(sut.x).toEqual(6);
     expect(sut.y).toEqual(12);

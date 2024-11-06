@@ -782,7 +782,7 @@
       "comments": {
         "none": [
           {
-            "comment": "Avoid processing stale viewstates that reference closed imodels."
+            "comment": "Avoid processing stale viewStates that reference closed imodels."
           }
         ]
       }
@@ -875,7 +875,7 @@
             "comment": "Update to latest types/react package"
           },
           {
-            "comment": "Update ViewportComponent to function component that properly processes async method to get viewstate."
+            "comment": "Update ViewportComponent to function component that properly processes async method to get viewState."
           },
           {
             "comment": "Lock down and update version numbers so docs will build."

@@ -532,7 +532,7 @@ Thu, 24 Feb 2022 15:26:55 GMT
 
 ### Updates
 
-- Avoid processing stale viewstates that reference closed imodels.
+- Avoid processing stale viewStates that reference closed imodels.
 
 ## 3.0.0
 Mon, 24 Jan 2022 14:00:52 GMT
