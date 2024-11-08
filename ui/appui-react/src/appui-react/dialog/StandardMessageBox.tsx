@@ -9,7 +9,10 @@
 import * as React from "react";
 import type { DialogButtonDef } from "@itwin/appui-abstract";
 import { DialogButtonType, MessageSeverity } from "@itwin/appui-abstract";
+<<<<<<< HEAD
 import { useTranslation } from "@itwin/components-react";
+=======
+>>>>>>> fd3b0473c (Fix localization of `StandardMessageBox` component (#1107))
 import {
   MessageBoxIconType,
   MessageBoxType,
@@ -18,8 +21,14 @@ import {
 import type { CommonProps } from "@itwin/core-react";
 import { MessageContainer } from "@itwin/core-react";
 import { Button, Dialog } from "@itwin/itwinui-react";
+<<<<<<< HEAD
 import { DialogManagerBase } from "./DialogManagerBase";
 import { UiFramework } from "../UiFramework";
+=======
+import { DialogManagerBase } from "./DialogManagerBase.js";
+import { UiFramework } from "../UiFramework.js";
+import { useTranslation } from "../hooks/useTranslation.js";
+>>>>>>> fd3b0473c (Fix localization of `StandardMessageBox` component (#1107))
 
 /** Properties for [[StandardMessageBox]] React component
  * @public
