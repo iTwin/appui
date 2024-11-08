@@ -14,6 +14,7 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as SigninCallbackImport } from './routes/signin-callback'
+import { Route as SettingsImport } from './routes/settings'
 import { Route as LocalImport } from './routes/local'
 import { Route as ITwinsImport } from './routes/iTwins'
 import { Route as BriefcaseImport } from './routes/briefcase'
@@ -30,6 +31,11 @@ const IndexLazyImport = createFileRoute('/')()
 
 const SigninCallbackRoute = SigninCallbackImport.update({
   path: '/signin-callback',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const SettingsRoute = SettingsImport.update({
+  path: '/settings',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -114,6 +120,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LocalImport
       parentRoute: typeof rootRoute
     }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsImport
+      parentRoute: typeof rootRoute
+    }
     '/signin-callback': {
       id: '/signin-callback'
       path: '/signin-callback'
@@ -153,6 +166,7 @@ export const routeTree = rootRoute.addChildren({
   BriefcaseRoute,
   ITwinsRoute,
   LocalRoute,
+  SettingsRoute,
   SigninCallbackRoute,
   ITwinITwinIdRoute,
   LocalFileNameRoute,
@@ -172,6 +186,7 @@ export const routeTree = rootRoute.addChildren({
         "/briefcase",
         "/iTwins",
         "/local",
+        "/settings",
         "/signin-callback",
         "/iTwin/$iTwinId",
         "/local/$fileName",
@@ -192,6 +207,9 @@ export const routeTree = rootRoute.addChildren({
     },
     "/local": {
       "filePath": "local.tsx"
+    },
+    "/settings": {
+      "filePath": "settings.tsx"
     },
     "/signin-callback": {
       "filePath": "signin-callback.tsx"
