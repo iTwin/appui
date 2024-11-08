@@ -67,6 +67,7 @@ function Root() {
   const blankMatch = matchRoute({ to: "/blank", fuzzy: true });
   const iTwinsMatch = matchRoute({ to: "/iTwins", fuzzy: true });
   const iTwinMatch = matchRoute({ to: "/iTwin/$iTwinId", fuzzy: true });
+  const settingsMatch = matchRoute({ to: "/settings", fuzzy: true });
   const search = Route.useSearch();
   const menu = search.menu !== 0;
   return (
@@ -131,8 +132,13 @@ function Root() {
                 <RouterDevToolsButton key="router-dev-tools" />,
                 <SidenavButton
                   key="settings"
-                  disabled
                   startIcon={<SvgSettings />}
+                  onClick={() => {
+                    void navigate({
+                      to: "/settings",
+                    });
+                  }}
+                  isActive={!!settingsMatch}
                 >
                   Settings
                 </SidenavButton>,
