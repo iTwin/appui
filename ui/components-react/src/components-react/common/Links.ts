@@ -89,3 +89,27 @@ export const matchLinks = (
       }>)
     : [];
 };
+
+/**
+ * @internal
+ */
+export const openLink = (url: string) => {
+  if (url.startsWith("mailto:")) {
+    location.href = url;
+    return;
+  }
+
+  const openAndFocus = (link: string) => {
+    const windowOpen = window.open(link, "_blank");
+    windowOpen?.focus();
+  };
+
+  if (url.startsWith("pw:")) {
+    // remove // or \\ from the link. Links with custom schema should use opaque path like `schema:path` instead of `schema://path`
+    const validUrl = url.replace(/pw:\/\/|pw:\\\\/g, "pw:");
+    openAndFocus(validUrl);
+    return;
+  }
+
+  openAndFocus(url);
+};
