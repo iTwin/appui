@@ -1,6 +1,13 @@
 # Change Log - @itwin/appui-react
 
-This log was last generated on Wed, 06 Nov 2024 09:04:20 GMT and should not be manually modified.
+This log was last generated on Fri, 08 Nov 2024 14:41:23 GMT and should not be manually modified.
+
+## 4.17.4
+Fri, 08 Nov 2024 14:41:23 GMT
+
+### Updates
+
+- Fix localization of StandardMessageBox component.
 
 ## 4.17.3
 Wed, 06 Nov 2024 09:04:20 GMT

@@ -2,6 +2,12 @@
   "name": "@itwin/components-react",
   "entries": [
     {
+      "version": "4.17.4",
+      "tag": "@itwin/components-react_v4.17.4",
+      "date": "Fri, 08 Nov 2024 14:41:23 GMT",
+      "comments": {}
+    },
+    {
       "version": "4.17.3",
       "tag": "@itwin/components-react_v4.17.3",
       "date": "Wed, 06 Nov 2024 09:04:20 GMT",
