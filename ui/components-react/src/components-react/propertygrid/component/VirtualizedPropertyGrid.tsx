@@ -443,41 +443,39 @@ export class VirtualizedPropertyGrid extends React.Component<
   }
 }
 
-const VirtualizedPropertyGridInternal = React.forwardRef(
-  function VirtualizedPropertyGridInternal(
-    props: Omit<VariableSizeListProps, "children">,
-    ref: React.ForwardedRef<VariableSizeList>
-  ) {
-    const { gridContext } = usePropertyGridInternalContext(FlatGridItemNode);
+const VirtualizedPropertyGridInternal = React.forwardRef<
+  VariableSizeList,
+  Omit<VariableSizeListProps, "children">
+>(function VirtualizedPropertyGridInternal(props, ref) {
+  const { gridContext } = usePropertyGridInternalContext(FlatGridItemNode);
 
-    React.useEffect(() => {
-      return gridContext.dataProvider.onDataChanged.addListener(() => {
-        gridContext.onEditCancel?.();
-      });
-    }, [gridContext]);
+  React.useEffect(() => {
+    return gridContext.dataProvider.onDataChanged.addListener(() => {
+      gridContext.onEditCancel?.();
+    });
+  }, [gridContext]);
 
-    return (
-      <div
+  return (
+    <div
+      className={classnames(
+        "components-virtualized-property-grid",
+        "components-smallEditor-host"
+      )}
+    >
+      <VariableSizeList
+        {...props}
         className={classnames(
-          "components-virtualized-property-grid",
-          "components-smallEditor-host"
+          "components-property-grid-wrapper",
+          "ReactWindow__VariableSizeList",
+          props.className
         )}
+        ref={ref}
       >
-        <VariableSizeList
-          {...props}
-          className={classnames(
-            "components-property-grid-wrapper",
-            "ReactWindow__VariableSizeList",
-            props.className
-          )}
-          ref={ref}
-        >
-          {FlatGridItemNode}
-        </VariableSizeList>
-      </div>
-    );
-  }
-);
+        {FlatGridItemNode}
+      </VariableSizeList>
+    </div>
+  );
+});
 
 /**
  * Returns callbacks for persisting and restoring [[VirtualizedPropertyGrid]] layout state.
