@@ -15,7 +15,7 @@ import {
   PropertyDataChangeEvent,
   PropertyValueRendererManager,
   VirtualizedPropertyGridWithDataProvider,
-} from "@itwin/components-react-internal/src/components-react";
+} from "@itwin/components-react";
 import { MultilineTextPropertyValueRenderer } from "@itwin/components-react-internal/src/components-react/properties/renderers/value/MultilineTextPropertyValueRenderer";
 
 import { AppUiDecorator } from "../Decorators";
@@ -364,6 +364,78 @@ export const Links: Story = {
   },
 };
 
+export const AlwaysVisibleEditor: Story = {
+  args: {
+    dataProvider: {
+      getData: async () => ({
+        label: PropertyRecord.fromString("Record 1"),
+        categories: [
+          { name: "Group_1", label: "Group 1", expand: true },
+          { name: "Group_2", label: "Group 2", expand: true },
+        ],
+        records: {
+          Group_1: [
+            new PropertyRecord(
+              {
+                valueFormat: PropertyValueFormat.Primitive,
+                value: true,
+              },
+              {
+                name: "toggleProperty",
+                displayLabel: "Always visible toggle editor",
+                typename: "boolean",
+                editor: { name: "toggle" },
+              }
+            ),
+            new PropertyRecord(
+              {
+                valueFormat: PropertyValueFormat.Primitive,
+                value: false,
+              },
+              {
+                name: "toggleProperty2",
+                displayLabel: "Always visible toggle editor",
+                typename: "boolean",
+                editor: { name: "toggle" },
+              }
+            ),
+          ],
+          Group_2: [
+            new PropertyRecord(
+              {
+                valueFormat: PropertyValueFormat.Primitive,
+                value: true,
+              },
+              {
+                name: "toggleProperty3",
+                displayLabel: "Not always visible boolean editor",
+                typename: "boolean",
+              }
+            ),
+            new PropertyRecord(
+              {
+                valueFormat: PropertyValueFormat.Primitive,
+                value: "Text",
+              },
+              {
+                name: "stringProperty",
+                displayLabel: "Not always visible string editor",
+                typename: "string",
+              }
+            ),
+          ],
+          Group_3: [],
+        },
+      }),
+      onDataChanged: new PropertyDataChangeEvent(),
+    },
+    onPropertyContextMenu: undefined,
+    isPropertyEditingEnabled: true,
+    alwaysShowEditor: (propertyRecord: PropertyRecord) =>
+      propertyRecord.property.editor?.name === "toggle",
+  },
+};
+
 rendererManager.registerRenderer("customRendererStructPropertyRenderer", {
   canRender: () => true,
   render: (record) => {
@@ -401,7 +473,7 @@ rendererManager.registerRenderer("customRendererArrayPropertyRenderer", {
 rendererManager.registerRenderer("defaultRendererPropertyRenderer", {
   canRender: () => false,
   render: () => {
-    <div>Should not render</div>;
+    return <div>Should not render</div>;
   },
 });
 

@@ -71,6 +71,8 @@ export interface EditorContainerProps extends CommonProps {
   onCancel: () => void;
   /** Indicates whether the Property Editor should set focus */
   setFocus?: boolean;
+  /** Handler for click */
+  onClick?: () => void;
 
   /** @internal */
   ignoreEditorBlur?: boolean;
@@ -107,13 +109,18 @@ export function EditorContainer(props: EditorContainerProps) {
     setFocus,
     onCommit,
     onCancel,
+    onClick,
     ...rest
   } = props;
 
   const editorRef = React.useRef<TypeEditor | undefined>();
   const propertyEditorRef = React.useRef<PropertyEditorBase | undefined>();
 
-  const handleClick = (e: React.MouseEvent) => e.stopPropagation();
+  const handleClick = (e: React.MouseEvent) => {
+    onClick?.();
+    e.stopPropagation();
+  };
+  const handleContextMenu = (e: React.MouseEvent) => e.stopPropagation();
   const handleContainerBlur = (e: React.FocusEvent) => e.stopPropagation();
   const handleEditorCommit = (args: PropertyUpdatedArgs) => void commit(args);
 
@@ -269,7 +276,7 @@ export function EditorContainer(props: EditorContainerProps) {
       onBlur={handleContainerBlur}
       onKeyDown={handleKeyDown}
       onClick={handleClick}
-      onContextMenu={handleClick}
+      onContextMenu={handleContextMenu}
       title={title}
       data-testid="editor-container"
       role="presentation"
