@@ -1,4 +1,4 @@
-# Workflow to check cSpell on entire monorepo
+# Workflow to run cSpell on entire monorepo
 
 name: cSpell
 
@@ -10,7 +10,7 @@ on:
       - release/*
 
 jobs:
-  spell-check:
+  cspell:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout branch
@@ -31,7 +31,3 @@ jobs:
 
       - name: Run cSpell
         run: npx cspell lint "**" --gitignore
-
-      - name: Check for misspellings
-        if: failure()
-        run: echo "Misspellings found in code. Please fix them."
