@@ -820,6 +820,7 @@ describe("GridCategory", () => {
       const categoriesToTest: PropertyCategory[] = [
         { name: "Category1", label: "Category 1", expand: false },
         { name: "C", label: "Cat 1", expand: true },
+        // cspell:disable-next-line
         { name: "Selected", label: "$élêçtèd Ítêm(s)", expand: true },
         { name: "1", label: "1", expand: false },
       ];

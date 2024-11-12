@@ -12,6 +12,7 @@ import { CommonPropertyRenderer } from "../../../components-react/properties/ren
 describe("CommonPropertyRenderer", () => {
   describe("createNewDisplayValue", () => {
     it("should create a value which is highlighted if highlighProps are provided, applyOnLabel is set to true and highlightedText matches part of propertyRecord", () => {
+      // cspell:disable-next-line
       const propertyRecord = PropertyRecord.fromString("asdtestasd");
       const highlight: HighlightingComponentProps & {
         applyOnLabel: boolean;
@@ -37,6 +38,7 @@ describe("CommonPropertyRenderer", () => {
     });
 
     it("should create a value which is not highlighted if highlighProps are provided, applyOnLabel is set to true but highlightedText does not match any part of propertyRecord", () => {
+      // cspell:disable-next-line
       const propertyRecord = PropertyRecord.fromString("asdtestasd");
       const highlight: HighlightingComponentProps & {
         applyOnLabel: boolean;
@@ -62,6 +64,7 @@ describe("CommonPropertyRenderer", () => {
     });
 
     it("should create a value which is not highlighted if highlighProps are not provided", () => {
+      // cspell:disable-next-line
       const propertyRecord = PropertyRecord.fromString("asdtestasd");
 
       const displayValue = CommonPropertyRenderer.createNewDisplayValue(
@@ -76,6 +79,7 @@ describe("CommonPropertyRenderer", () => {
     });
 
     it("should create a value which is actively highlighted if highlighProps are provided, highlightedText matches part of propertyRecord and property name matches highlight activeMatch propertyName", () => {
+      // cspell:disable-next-line
       const propertyRecord = PropertyRecord.fromString("asdtestasd");
       propertyRecord.property.name = "testName";
       const highlight: HighlightingComponentProps & {
@@ -109,6 +113,7 @@ describe("CommonPropertyRenderer", () => {
     });
 
     it("should not create a value which is actively highlighted if highlighProps are provided, highlightedText matches part of propertyRecord but property name does not match highlight activeMatch propertyName", () => {
+      // cspell:disable-next-line
       const propertyRecord = PropertyRecord.fromString("asdtestasd");
       propertyRecord.property.name = "testName2";
       const highlight: HighlightingComponentProps & {
@@ -142,6 +147,7 @@ describe("CommonPropertyRenderer", () => {
     });
 
     it("should not create a value which is actively highlighted if highlighProps are provided, highlightedText matches part of propertyRecord, property name matches highlight activeMatch propertyName but applyOnLabel is true and matchIndex is in the label scope", () => {
+      // cspell:disable-next-line
       const propertyRecord = PropertyRecord.fromString("asdtestasd");
       propertyRecord.property.name = "testName";
       propertyRecord.property.displayLabel = "testTest";
@@ -176,6 +182,7 @@ describe("CommonPropertyRenderer", () => {
     });
 
     it("should create a value which is actively highlighted if highlighProps are provided, highlightedText matches part of propertyRecord, property name matches highlight activeMatch propertyName, applyOnLabel is true and matchIndex is bigger than label matchCount and is in the value scope", () => {
+      // cspell:disable-next-line
       const propertyRecord = PropertyRecord.fromString("asdtestasd");
       propertyRecord.property.name = "testName";
       propertyRecord.property.displayLabel = "testTest";
@@ -210,6 +217,7 @@ describe("CommonPropertyRenderer", () => {
     });
 
     it("should not create a value which is highlighted if applyOnValue is false", () => {
+      // cspell:disable-next-line
       const propertyRecord = PropertyRecord.fromString("asdtestasd");
       const highlight: HighlightingComponentProps & {
         applyOnLabel: boolean;

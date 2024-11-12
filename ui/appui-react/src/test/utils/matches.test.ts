@@ -35,6 +35,7 @@ function filterOk(
 describe("matchesWords", () => {
   it("works as filter", () => {
     filterOk(matchesWords, "alpha", "alpha", [{ start: 0, end: 5 }]);
+    // cspell:disable-next-line
     filterOk(matchesWords, "alpha", "alphasomething", [{ start: 0, end: 5 }]);
     filterNotOk(matchesWords, "alpha", "alp");
     filterOk(matchesWords, "a", "alpha", [{ start: 0, end: 1 }]);
@@ -80,6 +81,7 @@ describe("matchesWords", () => {
       { start: 5, end: 7 },
     ]);
 
+    // cspell:disable-next-line
     filterOk(matchesWords, "öäk", "Öhm: Älles Klar", [
       { start: 0, end: 1 },
       { start: 5, end: 6 },

@@ -28,7 +28,9 @@ describe("HexadecimalTypeConverter", () => {
       expect(converter.convertFromString("FF")).toEqual("0xff");
       expect(converter.convertFromString("0xFF")).toEqual("0xff");
       expect(converter.convertFromString("0x000000FF")).toEqual("0xff");
+      // cspell:disable-next-line
       expect(converter.convertFromString("AABBCC")).toEqual("0xaabbcc");
+      // cspell:disable-next-line
       expect(converter.convertFromString("AABBCCFF")).toEqual("0xaabbccff");
       expect(converter.convertFromString("0xAABBCCFF")).toEqual("0xaabbccff");
     });
