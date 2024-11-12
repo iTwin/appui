@@ -40,12 +40,12 @@ export function SampleModalDialog() {
       <Dialog.Main style={{ width: 450, height: 300 }}>
         <Dialog.TitleBar titleText={translate("Dialogs.SampleModal.title")} />
         <Dialog.Content>
-          The quick brown fox jumps over the lazy dog, wandering silently under
-          midnight skies. Swift breezes carry the scent of pine through the
-          quiet forest, filling the air with a cool, comforting calm. In the
-          distance, mountains rise steeply, their rugged peaks etched against
-          the twilight. Stars begin to twinkle, casting a soft glow over winding
-          paths and shimmering lakes.
+          {/* cSpell:disable */}
+          Lorem ipsum dolor sit amet, posse imperdiet ius in, mundi cotidieque
+          ei per. Vel scripta ornatus assentior cu. Duo nonumy equidem te, per
+          ad malis deserunt consetetur. In per invidunt conceptam. Ea pri aeque
+          corrumpit. Eum ea ipsum perfecto vulputate, an cum oblique ornatus.
+          {/* cSpell:enable */}
         </Dialog.Content>
         <Dialog.ButtonBar>
           <Button styleType="high-visibility" onClick={handleOK}>

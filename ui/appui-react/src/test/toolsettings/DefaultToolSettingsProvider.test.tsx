@@ -417,6 +417,8 @@ describe("DefaultToolUiSettingsProvider", () => {
       const toolInformation = UiFramework.frontstages.activeToolInformation;
       expect(toolInformation).toBeTruthy();
 
+      const newUseLengthValue: DialogItemValue = { value: false };
+
       if (toolInformation) {
         const toolUiProvider = toolInformation.toolUiProvider;
         expect(toolUiProvider).toBeTruthy();
@@ -430,7 +432,6 @@ describe("DefaultToolUiSettingsProvider", () => {
             value: newLengthValue,
             propertyName: lengthDescription.name,
           };
-          const newUseLengthValue: DialogItemValue = { value: false };
           const useLengthSyncItem: DialogPropertySyncItem = {
             value: newUseLengthValue,
             propertyName: useLengthDescription.name,
@@ -472,9 +473,8 @@ describe("DefaultToolUiSettingsProvider", () => {
       expect(textEditor).toBeTruthy();
 
       // simulate sync from tool
-      const newUseLengthValue1: DialogItemValue = { value: false };
       const syncItem: DialogPropertySyncItem = {
-        value: newUseLengthValue1,
+        value: newUseLengthValue,
         propertyName: useLengthDescription.name,
         isDisabled: false,
       };
