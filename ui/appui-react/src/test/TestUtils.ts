@@ -221,8 +221,6 @@ export class TestUtils {
   }
 }
 
-// cSpell:ignore testuser mailinator saml
-
 /** @internal */
 export const storageMock = () => {
   const storage: { [key: string]: any } = {};

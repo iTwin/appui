@@ -50,7 +50,7 @@ describe("SyncUiEventDispatcher", () => {
     expect(
       SyncUiEventDispatcher.hasEventOfInterest(eventIds, ["rabbit"])
     ).toEqual(true);
-    // idsOfInterest are now case insensitive - the set of eventIds held by the dispacther are in lower case.
+    // idsOfInterest are now case insensitive - the set of eventIds held by the dispatcher are in lower case.
     expect(
       SyncUiEventDispatcher.hasEventOfInterest(eventIds, ["Rabbit"])
     ).toEqual(true);

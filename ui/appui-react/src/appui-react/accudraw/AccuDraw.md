@@ -1,7 +1,3 @@
-<!---
-cSpell:ignore dont
--->
-
 # AccuDraw Source Code
 
 AccuDraw is an aide for entering coordinate data.

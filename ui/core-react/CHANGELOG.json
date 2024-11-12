@@ -263,7 +263,7 @@
             "comment": "Deprecated `useDisposable` hook."
           },
           {
-            "comment": "Removed appui-layout-react metions from Readme.md"
+            "comment": "Removed appui-layout-react mentions from Readme.md"
           }
         ]
       }
@@ -338,7 +338,7 @@
       "comments": {
         "none": [
           {
-            "comment": "Fix broken datauri containing commas in `IconWebComponent`."
+            "comment": "Fix broken dataUri containing commas in `IconWebComponent`."
           }
         ]
       }
@@ -770,7 +770,7 @@
       "comments": {
         "none": [
           {
-            "comment": "Added a 'repositionOnResize' property on the 'Popup' component, to avoid closing the popup everythime the browser window is resized."
+            "comment": "Added a 'repositionOnResize' property on the 'Popup' component, to avoid closing the popup every time the browser window is resized."
           }
         ]
       }
@@ -800,7 +800,7 @@
       "comments": {
         "none": [
           {
-            "comment": "Backport change to update panel background to use same as buic-background-dialog so dispabled itwin ui components display properly."
+            "comment": "Backport change to update panel background to use same as buic-background-dialog so disabled itwin ui components display properly."
           }
         ]
       }
@@ -824,7 +824,7 @@
             "comment": "Implement svg icons loading as a web component."
           },
           {
-            "comment": "Allow React icons to be used on Wedget tabs, backstage, and status bar items"
+            "comment": "Allow React icons to be used on Widget tabs, backstage, and status bar items"
           }
         ]
       }
@@ -917,7 +917,7 @@
             "comment": "Update snapshots"
           },
           {
-            "comment": "Fix Select menu position when redered in a Popup."
+            "comment": "Fix Select menu position when rendered in a Popup."
           },
           {
             "comment": "Support for TypeDoc v0.22.7. Fix various broken docs links."
@@ -1478,7 +1478,7 @@
             "comment": "fix height in number control."
           },
           {
-            "comment": "Fix for listbox not rerendering when selectedVaue prop is changed."
+            "comment": "Fix for listBox not rerendering when selectedValue prop is changed."
           },
           {
             "comment": "Add option to show/hide settings category header text."
@@ -2060,7 +2060,7 @@
             "comment": "Added Arrow key navigation in Tabs components. Added ItemKeyboardNavigator."
           },
           {
-            "comment": "Add aria props into ThemedSelectProps for accessibility. addclassName prop to ThemedSelectProps as requested for styling purposes."
+            "comment": "Add aria props into ThemedSelectProps for accessibility. addClassName prop to ThemedSelectProps as requested for styling purposes."
           },
           {
             "comment": "Changed toolbar opacity processing to affect all components in widget."
@@ -2255,7 +2255,7 @@
             "comment": "Added API in MessageManager to display either a Toast or Sticky message using React components."
           },
           {
-            "comment": " Updates to remove need for svg-sprite-loader, use defualt CRA svgr loader instead."
+            "comment": " Updates to remove need for svg-sprite-loader, use default CRA svgr loader instead."
           },
           {
             "comment": "Revert back to using svg-sprite-loader and sprite resourceQuery."
@@ -2339,7 +2339,7 @@
             "comment": "Update Select control to allow placeholder text to be re-displayed by setting value to undefined."
           },
           {
-            "comment": "set z-index on toolsettings overflow panel"
+            "comment": "set z-index on toolSettings overflow panel"
           }
         ]
       }
@@ -2462,7 +2462,7 @@
             "comment": "Implemented more efficient CSS animation for Spinner component"
           },
           {
-            "comment": "Added slight delay before spinner animation. LoadingSpinnner tests in SpinnerTestDialog."
+            "comment": "Added slight delay before spinner animation. LoadingSpinner tests in SpinnerTestDialog."
           },
           {
             "comment": "Tablet responsive UI"
@@ -2489,7 +2489,7 @@
       "comments": {
         "none": [
           {
-            "comment": "Provide a generic Form component to replace the one in Design Review Saftibase and Risk Manangement stages."
+            "comment": "Provide a generic Form component to replace the one in Design Review Safetibase and Risk Management stages."
           },
           {
             "comment": "Added badge support to context menu items. Moved some Plugin Ui definitions to ui-abstract."
@@ -2576,7 +2576,7 @@
             "comment": "Addressed some warnings introduced with React 16.9"
           },
           {
-            "comment": "Listening for onSelectedViewportChanged to set active content view for viewports"
+            "comment": "Listening for onSelectedViewportChanged to set active content view for viewPorts"
           },
           {
             "comment": "Fixed new lint issue in getDisplayName"
@@ -2888,7 +2888,7 @@
             "comment": "Color tweaks"
           },
           {
-            "comment": "Fixed submenus, added default autoselect for hotkeys"
+            "comment": "Fixed submenus, added default autoSelect for hotkeys"
           },
           {
             "comment": "Added tests for Dialog and Context Menu"
@@ -3122,7 +3122,7 @@
             "comment": "Fixed Dialog modal backdrop show/hide"
           },
           {
-            "comment": "Reduced the amount of unneded event calls in Dialog component and changed it to use Pointer events instead of Mouse+Touch."
+            "comment": "Reduced the amount of unneeded event calls in Dialog component and changed it to use Pointer events instead of Mouse+Touch."
           },
           {
             "comment": "Added a vertical/horizontal line that is visible when hovered on ElementSeparator component."
@@ -3131,7 +3131,7 @@
             "comment": "Renamed expandable block css class from core-property-block to core-expandable-block."
           },
           {
-            "comment": "Added a way to put Popups in fixed position and cleand up the refs."
+            "comment": "Added a way to put Popups in fixed position and cleaned up the refs."
           },
           {
             "comment": "Added Omit type definition to Utils."
@@ -3152,7 +3152,7 @@
       "comments": {
         "none": [
           {
-            "comment": "Reduced the amount of unneded event calls in Dialog component and changed it to use Pointer events instead of Mouse+Touch."
+            "comment": "Reduced the amount of unneeded event calls in Dialog component and changed it to use Pointer events instead of Mouse+Touch."
           },
           {
             "comment": "Added a vertical/horizontal line that is visible when hovered on ElementSeparator component."
@@ -3161,7 +3161,7 @@
             "comment": "Renamed expandable block css class from core-property-block to core-expandable-block."
           },
           {
-            "comment": "Added a way to put Popups in fixed position and cleand up the refs."
+            "comment": "Added a way to put Popups in fixed position and cleaned up the refs."
           },
           {
             "comment": "Added Omit type definition to Utils."

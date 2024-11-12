@@ -36,6 +36,7 @@ describe("<HighlightedText />", () => {
 
   it("renders string with highlights on edges", () => {
     const { container } = render(
+      // cspell:disable-next-line
       <HighlightedText text="baaab" searchText="b" />
     );
     const matchedNodes = container.querySelectorAll("mark");

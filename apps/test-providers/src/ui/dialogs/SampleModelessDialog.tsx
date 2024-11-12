@@ -50,7 +50,7 @@ export class SampleModelessDialog extends React.Component<
         movable={true}
       >
         <div className="sample-options">
-          <div>To demonstrate messagebox behaviour in modeless dialog</div>
+          <div>To demonstrate messagebox behavior in modeless dialog</div>
           <ComboBox
             inputProps={{
               placeholder: "Select units",

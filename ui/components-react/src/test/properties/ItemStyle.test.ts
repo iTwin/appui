@@ -25,7 +25,7 @@ describe("ItemStyleProvider", () => {
       expect(createdStyle.fontStyle).to.equal("italic");
     });
 
-    it("returns style with overriden colors", () => {
+    it("returns style with overridden colors", () => {
       const style: ItemStyle = {
         colorOverrides: {
           backgroundColor: 0xff0000,
@@ -39,7 +39,7 @@ describe("ItemStyleProvider", () => {
       expect(createdStyle.color).to.equal("#aa0000");
     });
 
-    it("returns empty style when overriden colors is an empty object", () => {
+    it("returns empty style when overridden colors is an empty object", () => {
       const style: ItemStyle = { colorOverrides: {} };
 
       const createdStyle = ItemStyleProvider.createStyle(style, false);
@@ -48,7 +48,7 @@ describe("ItemStyleProvider", () => {
       expect(createdStyle.backgroundColor).toEqual(undefined);
     });
 
-    it("returns style with overriden selection colors when cell is selected", () => {
+    it("returns style with overridden selection colors when cell is selected", () => {
       const style: ItemStyle = {
         colorOverrides: {
           backgroundColorSelected: 0xff0000,
@@ -62,7 +62,7 @@ describe("ItemStyleProvider", () => {
       expect(createdStyle.color).to.equal("#aa0000");
     });
 
-    it("returns empty style when cell is selected, but selection colors are not overriden", () => {
+    it("returns empty style when cell is selected, but selection colors are not overridden", () => {
       const style: ItemStyle = { colorOverrides: {} };
 
       const createdStyle = ItemStyleProvider.createStyle(style, true);

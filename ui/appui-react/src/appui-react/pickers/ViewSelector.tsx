@@ -23,8 +23,6 @@ import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState.js";
 import type { ListenerType } from "@itwin/core-react/internal";
 import { Icon } from "@itwin/core-react";
 
-// cSpell:ignore Spatials
-
 /** [[ViewSelectorChangedEvent]] Args interface.
  * @beta
  * @deprecated in 4.13.0. Event args are inferred from a listener. If explicit type is needed use a type helper.

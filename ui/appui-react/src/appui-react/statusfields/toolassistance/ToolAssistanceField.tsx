@@ -60,8 +60,6 @@ import {
 } from "../../uistate/UiStateStorage.js";
 import { LocalStateStorage } from "../../uistate/LocalStateStorage.js";
 
-// cSpell:ignore cursorprompt
-
 /** Properties of [[ToolAssistanceField]] component.
  * @public
  */

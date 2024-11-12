@@ -36,7 +36,7 @@ export function isAllowedSideTarget(
     const tab = tabsState[draggedTab.tabId];
     allowedPanelTargets = tab.allowedPanelTargets;
   } else if (draggedWidget && draggedWidget in widgetsState) {
-    // handle a case where DraggedWidgetIdContext exists, but dragged widget is not in WidgetsStateContet
+    // handle a case where DraggedWidgetIdContext exists, but dragged widget is not in WidgetsStateContent
     const widget = widgetsState[draggedWidget];
     const activeTabId = widget.activeTabId;
     const activeTab = tabsState[activeTabId];

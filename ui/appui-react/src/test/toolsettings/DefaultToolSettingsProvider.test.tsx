@@ -347,7 +347,7 @@ describe("DefaultToolUiSettingsProvider", () => {
       );
       InternalFrontstageManager.activeToolSettingsProvider?.reloadPropertiesFromTool();
       UiFramework.frontstages.onToolSettingsReloadEvent.emit();
-      // restore the overriden property getter
+      // restore the overridden property getter
       Object.defineProperty(
         UiFramework.toolSettings,
         "toolSettingsProperties",
@@ -417,6 +417,8 @@ describe("DefaultToolUiSettingsProvider", () => {
       const toolInformation = UiFramework.frontstages.activeToolInformation;
       expect(toolInformation).toBeTruthy();
 
+      const newUseLengthValue: DialogItemValue = { value: false };
+
       if (toolInformation) {
         const toolUiProvider = toolInformation.toolUiProvider;
         expect(toolUiProvider).toBeTruthy();
@@ -425,14 +427,13 @@ describe("DefaultToolUiSettingsProvider", () => {
           expect(toolUiProvider.toolSettingsNode).toBeTruthy();
           // simulate property update
 
-          const newlengthValue: DialogItemValue = { value: 7.5 };
+          const newLengthValue: DialogItemValue = { value: 7.5 };
           const lengthSyncItem: DialogPropertySyncItem = {
-            value: newlengthValue,
+            value: newLengthValue,
             propertyName: lengthDescription.name,
           };
-          const newUselengthValue: DialogItemValue = { value: false };
           const useLengthSyncItem: DialogPropertySyncItem = {
-            value: newUselengthValue,
+            value: newUseLengthValue,
             propertyName: useLengthDescription.name,
           };
           const defaultProvider = toolUiProvider as DefaultToolSettingsProvider;
@@ -472,7 +473,6 @@ describe("DefaultToolUiSettingsProvider", () => {
       expect(textEditor).toBeTruthy();
 
       // simulate sync from tool
-      const newUseLengthValue: DialogItemValue = { value: false };
       const syncItem: DialogPropertySyncItem = {
         value: newUseLengthValue,
         propertyName: useLengthDescription.name,
@@ -488,7 +488,7 @@ describe("DefaultToolUiSettingsProvider", () => {
       InternalFrontstageManager.activeToolSettingsProvider?.reloadPropertiesFromTool();
       UiFramework.frontstages.onToolSettingsReloadEvent.emit();
 
-      // restore the overriden property getter
+      // restore the overridden property getter
       Object.defineProperty(
         UiFramework.toolSettings,
         "toolSettingsProperties",

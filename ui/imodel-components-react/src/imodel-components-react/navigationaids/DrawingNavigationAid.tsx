@@ -39,7 +39,6 @@ import {
   SvgSortUp,
 } from "@itwin/itwinui-icons-react";
 
-// cSpell:ignore Quaternion Quaternions unrotate
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 
 /**

@@ -6,8 +6,6 @@
  * @module PropertyEditors
  */
 
-// cSpell:ignore customnumber testid
-
 import "./CustomNumberEditor.scss";
 import classnames from "classnames";
 import * as React from "react";

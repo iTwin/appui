@@ -40,10 +40,12 @@ export function SampleModalDialog() {
       <Dialog.Main style={{ width: 450, height: 300 }}>
         <Dialog.TitleBar titleText={translate("Dialogs.SampleModal.title")} />
         <Dialog.Content>
+          {/* cSpell:disable */}
           Lorem ipsum dolor sit amet, posse imperdiet ius in, mundi cotidieque
           ei per. Vel scripta ornatus assentior cu. Duo nonumy equidem te, per
           ad malis deserunt consetetur. In per invidunt conceptam. Ea pri aeque
           corrumpit. Eum ea ipsum perfecto vulputate, an cum oblique ornatus.
+          {/* cSpell:enable */}
         </Dialog.Content>
         <Dialog.ButtonBar>
           <Button styleType="high-visibility" onClick={handleOK}>

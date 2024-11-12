@@ -649,6 +649,7 @@ export class ComponentExamplesProvider {
                   }}
                 >
                   <div>
+                    {/* cSpell:disable */}
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                     do eiusmod tempor incididunt ut labore et dolore magna
                     aliqua. Ut enim ad minim veniam, quis nostrud exercitation
@@ -657,6 +658,7 @@ export class ComponentExamplesProvider {
                     esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
                     occaecat cupidatat non proident, sunt in culpa qui officia
                     deserunt mollit anim id est laborum.
+                    {/* cSpell:enable */}
                   </div>
                 </ContentDialog>,
                 "ContentDialog1"
@@ -683,6 +685,7 @@ export class ComponentExamplesProvider {
                   }
                 >
                   <div>
+                    {/* cSpell:disable */}
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                     do eiusmod tempor incididunt ut labore et dolore magna
                     aliqua. Ut enim ad minim veniam, quis nostrud exercitation
@@ -691,6 +694,7 @@ export class ComponentExamplesProvider {
                     esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
                     occaecat cupidatat non proident, sunt in culpa qui officia
                     deserunt mollit anim id est laborum.
+                    {/* cSpell:enable */}
                   </div>
                 </StandardMessageBox>,
                 "StandardMessageBox1"
@@ -716,6 +720,7 @@ export class ComponentExamplesProvider {
                   movable={true}
                 >
                   <div>
+                    {/* cSpell:disable */}
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                     do eiusmod tempor incididunt ut labore et dolore magna
                     aliqua. Ut enim ad minim veniam, quis nostrud exercitation
@@ -724,6 +729,7 @@ export class ComponentExamplesProvider {
                     esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
                     occaecat cupidatat non proident, sunt in culpa qui officia
                     deserunt mollit anim id est laborum.
+                    {/* cSpell:enable */}
                   </div>
                 </ModelessDialog>,
                 "ModelessDialog1"
@@ -1343,7 +1349,7 @@ export class ComponentExamplesProvider {
     });
 
     /**
-     * Conditonal[...] instances must not be reused in different object, so we create as many copies of them
+     * Conditional[...] instances must not be reused in different object, so we create as many copies of them
      * as toolbars (with the same behavior, to compare).
      * @returns
      */

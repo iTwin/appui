@@ -16,7 +16,7 @@ test.describe("widget auto size", () => {
     await page.goto("./blank?frontstageId=widget-api&menu=0");
   });
 
-  test("auto-sized floating widget should folow the cursor when undocked", async ({
+  test("auto-sized floating widget should follow the cursor when undocked", async ({
     page,
   }) => {
     const frontstage = frontstageLocator(page);

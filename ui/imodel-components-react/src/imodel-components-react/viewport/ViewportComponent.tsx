@@ -288,7 +288,7 @@ export function ViewportComponent(props: ViewportProps) {
     setInitialViewState(undefined);
   }, [viewDefinitionId, viewState]);
   React.useEffect(() => {
-    async function fetchInitialViewstate() {
+    async function fetchInitialViewState() {
       let currentViewState: ViewState | undefined;
       if (viewState) {
         if (typeof viewState === "function") currentViewState = viewState();
@@ -297,15 +297,15 @@ export function ViewportComponent(props: ViewportProps) {
         try {
           currentViewState = await imodel.views.load(viewDefinitionId);
           if (!currentViewState) {
-            Logger.logError("ViewportComponent", `Viewstate failed to load`);
+            Logger.logError("ViewportComponent", `ViewState failed to load`);
           }
         } catch {
-          Logger.logError("ViewportComponent", `Viewstate failed to load`);
+          Logger.logError("ViewportComponent", `ViewState failed to load`);
         }
       } else {
         Logger.logError(
           "ViewportComponent",
-          `A Viewstate or a viewId and imodel must be provided`
+          `A ViewState or a viewId and imodel must be provided`
         );
       }
       if (
@@ -315,7 +315,7 @@ export function ViewportComponent(props: ViewportProps) {
         setInitialViewState(currentViewState?.clone());
       }
     }
-    if (undefined === initialViewState) void fetchInitialViewstate();
+    if (undefined === initialViewState) void fetchInitialViewState();
   }, [imodel, initialViewState, viewDefinitionId, viewState]);
 
   const [viewOverlay, setViewOverlay] = React.useState<React.ReactNode>(null);

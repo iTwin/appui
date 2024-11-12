@@ -21,7 +21,6 @@ import { useUiItemsProviderBackstageItems } from "./useUiItemsProviderBackstageI
 
 import type { CommonProps } from "@itwin/core-react";
 import type { BackstageItem } from "./BackstageItem.js";
-// cSpell:ignore safearea
 
 /** Private function to set up sync event monitoring of backstage items */
 function useBackstageItemSyncEffect(

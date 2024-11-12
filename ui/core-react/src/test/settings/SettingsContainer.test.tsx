@@ -14,7 +14,6 @@ import type { SettingsTabEntry } from "../../core-react/settings/SettingsManager
 import { SettingsManager } from "../../core-react/settings/SettingsManager.js";
 import TestUtils from "../TestUtils.js";
 
-// cSpell:ignore sublabel
 function TestModalSettingsPage({
   settingsManager,
   title,
@@ -54,7 +53,7 @@ describe("<SettingsContainer />", () => {
       tabId: "page2",
       itemPriority: 20,
       label: "Page2",
-      subLabel: "sublabel page2",
+      subLabel: "subLabel page2",
       tooltip: <span>react-tooltip</span>,
       icon: "icon-paintbrush",
       page: <div>Page 2</div>,
@@ -63,7 +62,7 @@ describe("<SettingsContainer />", () => {
       tabId: "page3",
       itemPriority: 30,
       label: "page3",
-      subLabel: "sublabel page2",
+      subLabel: "subLabel page2",
       page: <div>Page 3</div>,
     },
     {

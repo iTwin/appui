@@ -6,8 +6,6 @@
  * @module Utilities
  */
 
-// cSpell:ignore classname
-
 import type { ScreenViewport } from "@itwin/core-frontend";
 import {
   DrawingViewState,

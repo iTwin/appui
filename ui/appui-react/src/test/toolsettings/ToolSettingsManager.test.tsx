@@ -17,8 +17,6 @@ import type { SyncToolSettingsPropertiesEventArgs } from "../../appui-react.js";
 import { SyncUiEventDispatcher } from "../../appui-react.js";
 import { InternalToolSettingsManager } from "../../appui-react/toolsettings/InternalToolSettingsManager.js";
 
-// cSpell:Ignore USELENGTH
-
 describe("InternalToolSettingsManager", () => {
   const testToolId = "InternalToolSettingsManager-TestTool";
   const testToolLabel = "TestTool";
@@ -121,7 +119,7 @@ describe("InternalToolSettingsManager", () => {
       testToolDescription
     );
 
-    // restore the overriden property getter
+    // restore the overridden property getter
     Object.defineProperty(
       InternalToolSettingsManager,
       "toolSettingsProperties",

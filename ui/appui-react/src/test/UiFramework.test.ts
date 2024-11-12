@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-// cSpell:ignore typemoq, tabid
 
 import * as moq from "typemoq";
 import type { IModelRpcProps } from "@itwin/core-common";
@@ -567,7 +566,7 @@ describe("UiFramework localStorage Wrapper", () => {
         moq.Mock.ofType<DialogLayoutDataProvider>();
       let isModal = true;
       const internalModalStub = vi.spyOn(InternalModalDialogManager, "open");
-      const internalModalessStub = vi.spyOn(
+      const internalModelessStub = vi.spyOn(
         InternalModelessDialogManager,
         "open"
       );
@@ -580,10 +579,10 @@ describe("UiFramework localStorage Wrapper", () => {
         )
       ).toEqual(true);
       expect(internalModalStub).toHaveBeenCalledOnce();
-      expect(internalModalessStub).not.toBeCalled();
+      expect(internalModelessStub).not.toBeCalled();
 
       internalModalStub.mockReset();
-      internalModalessStub.mockReset();
+      internalModelessStub.mockReset();
 
       isModal = false;
       expect(
@@ -595,14 +594,14 @@ describe("UiFramework localStorage Wrapper", () => {
         )
       ).toEqual(true);
       expect(internalModalStub).not.toBeCalled();
-      expect(internalModalessStub).toHaveBeenCalledOnce();
+      expect(internalModelessStub).toHaveBeenCalledOnce();
     });
 
-    it("closeDialog calls the modelless close method, and model close method if needed", () => {
+    it("closeDialog calls the Modeless close method, and model close method if needed", () => {
       const UiDataProvidedDialogMock =
         moq.Mock.ofType<DialogLayoutDataProvider>();
       const internalModalStub = vi.spyOn(InternalModalDialogManager, "close");
-      const internalModalessStub = vi.spyOn(
+      const internalModelessStub = vi.spyOn(
         InternalModelessDialogManager,
         "close"
       );
@@ -618,10 +617,10 @@ describe("UiFramework localStorage Wrapper", () => {
       ).toEqual(true);
       expect(UiFramework.closeDialog("one")).toEqual(true);
       expect(internalModalStub).toHaveBeenCalledOnce();
-      expect(internalModalessStub).not.toBeCalled();
+      expect(internalModelessStub).not.toBeCalled();
 
       internalModalStub.mockReset();
-      internalModalessStub.mockReset();
+      internalModelessStub.mockReset();
 
       isModal = false;
       expect(
@@ -634,7 +633,7 @@ describe("UiFramework localStorage Wrapper", () => {
       ).toEqual(true);
       expect(UiFramework.closeDialog("one")).toEqual(true);
       expect(internalModalStub).not.toBeCalled();
-      expect(internalModalessStub).toHaveBeenCalledOnce();
+      expect(internalModelessStub).toHaveBeenCalledOnce();
     });
 
     it("showKeyinPalette/hideKeyinPalette forwards to PopupManager", () => {

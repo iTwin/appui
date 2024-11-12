@@ -251,12 +251,12 @@ export abstract class MutableCategorizedProperty
       );
     }
 
-    const overridenProperty = this.makeOverridenProperty(
+    const overriddenProperty = this.makeOverriddenProperty(
       record.property,
       overrideName,
       overrideDisplayLabel
     );
-    this._derivedRecord = this.makeDerivedRecord(record, overridenProperty);
+    this._derivedRecord = this.makeDerivedRecord(record, overriddenProperty);
 
     this._selectionKey = `${this.parentSelectionKey}_${this.derivedRecord.property.name}`;
     this._isExpanded = !!record.autoExpand;
@@ -286,12 +286,12 @@ export abstract class MutableCategorizedProperty
   }
 
   /**
-   * Make new property description with overriden fields.
+   * Make new property description with overridden fields.
    * @param propertyDescription property description to override.
    * @param overrideName property description name to override.
    * @param overrideDisplay  property description display name to override.
    */
-  private makeOverridenProperty(
+  private makeOverriddenProperty(
     propertyDescription: PropertyDescription,
     overrideName?: string,
     overrideDisplay?: string
@@ -304,14 +304,14 @@ export abstract class MutableCategorizedProperty
   }
 
   /**
-   * Gets derived property record that has it's property description field overriden
+   * Gets derived property record that has it's property description field overridden
    */
   private makeDerivedRecord(
     record: PropertyRecord,
-    overridenPropertyDescription: PropertyDescription
+    overriddenPropertyDescription: PropertyDescription
   ) {
     const { value, property, ...others } = record;
-    const newRecord = new PropertyRecord(value, overridenPropertyDescription);
+    const newRecord = new PropertyRecord(value, overriddenPropertyDescription);
 
     return Object.assign(newRecord, others);
   }
@@ -340,7 +340,7 @@ export abstract class MutableCategorizedProperty
   }
 
   /**
-   * Record with overriden property description.
+   * Record with overridden property description.
    */
   public get derivedRecord() {
     return this._derivedRecord;

@@ -20,8 +20,6 @@ import {
 } from "@itwin/core-frontend";
 import type { ContentDialogInfo } from "../framework/FrameworkContent.js";
 
-// cSpell:ignore ZINDEX modeless
-
 /** Used if the 'dialog' z-index CSS variable cannot be read */
 const CONTENT_DIALOG_ZINDEX_DEFAULT = 2000;
 

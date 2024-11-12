@@ -6,8 +6,6 @@
  * @module Text
  */
 
-// cSpell:ignore focusvalue
-
 import * as React from "react";
 import classnames from "classnames";
 import type { CommonProps } from "../utils/Props.js";

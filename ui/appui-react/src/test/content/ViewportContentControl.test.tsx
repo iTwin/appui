@@ -44,7 +44,7 @@ describe("ViewportContentControl", () => {
   });
 
   afterEach(async () => {
-    // restore the overriden property getter
+    // restore the overridden property getter
     Object.defineProperty(
       window,
       "sessionStorage",

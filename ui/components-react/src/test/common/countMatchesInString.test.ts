@@ -10,10 +10,12 @@ describe("countMatchesInString", () => {
   });
 
   it("returns 2 when there're two consecutive matches", () => {
+    // cspell:disable-next-line
     expect(countMatchesInString("abbc", "b")).toEqual(2);
   });
 
   it("returns 2 when there're two non-consecutive matches", () => {
+    // cspell:disable-next-line
     expect(countMatchesInString("abcbd", "b")).toEqual(2);
   });
 

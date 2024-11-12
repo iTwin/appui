@@ -31,8 +31,6 @@ import { ViewportComponentEvents } from "../../imodel-components-react/viewport/
 import { userEvent } from "@testing-library/user-event";
 import type { Mock } from "vitest";
 
-// cspell:ignore unrotate
-
 /**
  * Will create a coords value suitable for our use of pointer events.
  * @param xAndY value to assign to x, y, clientX and clientY

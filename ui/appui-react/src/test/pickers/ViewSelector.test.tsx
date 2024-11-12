@@ -15,8 +15,6 @@ import TestUtils, { userEvent } from "../TestUtils.js";
 import { Provider } from "react-redux";
 import { render, screen, waitFor } from "@testing-library/react";
 
-// cSpell:ignore Spatials
-
 describe("ViewSelector", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
   const viewsMock = moq.Mock.ofType(IModelConnection.Views);

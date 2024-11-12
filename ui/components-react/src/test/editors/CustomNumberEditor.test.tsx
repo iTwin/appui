@@ -22,8 +22,6 @@ import TestUtils, {
 } from "../TestUtils.js";
 import { PropertyEditorManager } from "../../components-react/editors/PropertyEditorManager.js";
 
-// cSpell:ignore customnumber
-
 const numVal = 3.345689;
 const displayVal = "3.35";
 const testId = "components-customnumber-editor";

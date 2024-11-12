@@ -16,8 +16,6 @@ import type { CommonProps } from "@itwin/core-react";
 import { ElementResizeObserver, Popup } from "@itwin/core-react";
 import { LineWeightSwatch } from "./Swatch.js";
 
-// cSpell:ignore weightpicker lineweight
-
 /** Properties for the [[WeightPickerButton]] React component
  * @public
  */

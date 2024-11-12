@@ -10,8 +10,6 @@ import * as React from "react";
 import { QuantityNumberInput } from "../../imodel-components-react/inputs/QuantityNumberInput.js";
 import TestUtils from "../TestUtils.js";
 
-// cSpell:ignore decrementor QuantityNumberInput
-
 function exoticStep(direction: string) {
   if (direction === "up") return 0.5;
   return 0.1;

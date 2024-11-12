@@ -60,7 +60,7 @@
         ],
         "patch": [
           {
-            "comment": "Update package.json dependecies and repo documentation."
+            "comment": "Update package.json dependencies and repo documentation."
           }
         ]
       }

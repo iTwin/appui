@@ -32,8 +32,6 @@ import type {
 import { BeUiEvent } from "@itwin/core-bentley";
 import type { SizeProps } from "../utils/SizeProps.js";
 
-// cSpell:ignore noicon
-
 /** Properties of [[PointerMessage]] component.
  * @public
  */

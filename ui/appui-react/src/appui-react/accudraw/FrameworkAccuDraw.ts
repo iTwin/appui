@@ -29,8 +29,6 @@ import type { AccuDrawUiSettings } from "./AccuDrawUiSettings.js";
 import type { UiStateStorage } from "../uistate/UiStateStorage.js";
 import { UiStateStorageStatus } from "../uistate/UiStateStorage.js";
 
-// cspell:ignore dont
-
 const compassModeToKeyMap = new Map<CompassMode, string>([
   [CompassMode.Polar, "polar"],
   [CompassMode.Rectangular, "rectangular"],

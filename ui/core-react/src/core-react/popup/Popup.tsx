@@ -17,8 +17,6 @@ import type { CommonProps } from "../utils/Props.js";
 import { Rectangle } from "../utils/Rectangle.js";
 import { ThemeProvider } from "@itwin/itwinui-react";
 
-// cSpell:ignore focustrap focusable alertdialog
-
 /** @internal */
 interface PopupPoint {
   x: number;
