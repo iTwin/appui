@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-codemod",
+      "comment": "cSpell fixes",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-codemod"
+}

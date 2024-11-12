@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "cSpell fixes",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
