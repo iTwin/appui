@@ -30,7 +30,7 @@ jobs:
         run: node common/scripts/install-run-rush.js install
 
       - name: Run cSpell
-        run: cspell lint "**" --gitignore
+        run: npx cspell lint "**" --gitignore
 
       - name: Check for misspellings
         if: failure()
