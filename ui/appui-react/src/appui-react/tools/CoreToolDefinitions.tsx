@@ -44,11 +44,14 @@ import { SyncUiEventId } from "../syncui/SyncUiEventDispatcher.js";
 import { GroupItemDef } from "../toolbar/GroupItem.js";
 import { RestoreFrontstageLayoutTool } from "./RestoreLayoutTool.js";
 import { UiFramework } from "../UiFramework.js";
-import svgGyroscope from "@bentley/icons-generic/icons/gyroscope.svg";
-import svgRotateLeft from "@bentley/icons-generic/icons/rotate-left.svg";
-import svgSectionTool from "@bentley/icons-generic/icons/section-tool.svg";
-import svgSelectionClear from "@bentley/icons-generic/icons/selection-clear.svg";
-import { SvgMeasure, SvgProcess } from "@itwin/itwinui-icons-react";
+import { SvgGyroscope } from "../icons/SvgGyroscope.js";
+import { SvgSectionTool } from "../icons/SvgSectionTool.js";
+import { SvgSelectionClear } from "../icons/SvgSelectionClear.js";
+import {
+  SvgMeasure,
+  SvgProcess,
+  SvgRotateLeft,
+} from "@itwin/itwinui-icons-react";
 import { ConditionalIconItem } from "@itwin/core-react";
 import type { ToolbarItems } from "./ToolbarItems.js";
 import { getActiveViewport } from "../utils/getActiveViewport.js";
@@ -63,7 +66,7 @@ export class CoreTools {
   public static get keyinPaletteButtonItemDef() {
     return new ToolItemDef({
       toolId: "uif:keyinpalette",
-      iconSpec: <SvgProcess />,
+      icon: <SvgProcess />,
       labelKey: "UiFramework:keyinbrowser.label",
       execute: () => {
         UiFramework.showKeyinPalette(
@@ -133,10 +136,10 @@ export class CoreTools {
   public static get rotateViewCommand() {
     return new ToolItemDef({
       toolId: RotateViewTool.toolId,
-      iconSpec: new ConditionalStringValue(() => {
+      icon: new ConditionalIconItem(() => {
         const viewport = getActiveViewport();
-        if (viewport?.view.is2d()) return svgRotateLeft;
-        return svgGyroscope;
+        if (viewport?.view.is2d()) return <SvgRotateLeft />;
+        return <SvgGyroscope />;
       }, [
         SyncUiEventId.ActiveContentChanged,
         SyncUiEventId.ActiveViewportChanged,
@@ -386,7 +389,7 @@ export class CoreTools {
     return new GroupItemDef({
       groupId: "sectionTools-group",
       labelKey: "UiFramework:tools.sectionTools",
-      iconSpec: svgSectionTool,
+      icon: <SvgSectionTool />,
       isHidden: new ConditionalBooleanValue(() => {
         const viewport = getActiveViewport();
         return !!viewport?.view.is2d();
@@ -415,7 +418,7 @@ export class CoreTools {
       groupId: "sectionTools-group-with-panel",
       labelKey: "UiFramework:tools.sectionTools",
       panelLabelKey: "UiFramework:tools.sectionPanelLabel",
-      iconSpec: svgSectionTool,
+      icon: <SvgSectionTool />,
       isHidden: new ConditionalBooleanValue(() => {
         const viewport = getActiveViewport();
         return !!viewport?.view.is2d();
@@ -479,7 +482,7 @@ export class CoreTools {
     return new GroupItemDef({
       groupId: "measureTools-group",
       labelKey: "UiFramework:tools.measureTools",
-      iconSpec: <SvgMeasure />,
+      icon: <SvgMeasure />,
       items: [this.measureDistanceToolItemDef, this.measureLocationToolItemDef],
       itemsInColumn: 2,
     });
@@ -488,7 +491,7 @@ export class CoreTools {
   public static get clearSelectionItemDef() {
     return new CommandItemDef({
       commandId: "UiFramework.ClearSelection",
-      iconSpec: svgSelectionClear,
+      icon: <SvgSelectionClear />,
       labelKey: "UiFramework:buttons.clearSelection",
       isHidden: getIsHiddenIfSelectionNotActive(),
       execute: async () => {

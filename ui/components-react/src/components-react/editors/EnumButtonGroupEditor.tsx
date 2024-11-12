@@ -24,7 +24,7 @@ import {
 import { Icon } from "@itwin/core-react";
 import type { PropertyEditorProps, TypeEditor } from "./EditorContainer.js";
 import { PropertyEditorBase } from "./PropertyEditorManager.js";
-import svgPlaceholder from "@bentley/icons-generic/icons/placeholder.svg";
+import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
 
 /** @internal */
 interface EnumButtonGroupEditorState {
@@ -113,7 +113,7 @@ export class EnumButtonGroupEditor
 
       const numChoices = choices.length;
       const enumIcons = new Array<IconDefinition>(numChoices);
-      enumIcons.fill({ iconSpec: svgPlaceholder });
+      enumIcons.fill({ iconSpec: "" });
 
       if (
         propertyRecord.property.editor &&
@@ -194,7 +194,15 @@ export class EnumButtonGroupEditor
         onClick={() => this._handleButtonClick(index)}
       >
         {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
-        <Icon iconSpec={this.state.enumIcons[index].iconSpec} />
+        <Icon
+          iconSpec={
+            this.state.enumIcons[index].iconSpec === "" ? (
+              <SvgPlaceholder />
+            ) : (
+              this.state.enumIcons[index].iconSpec
+            )
+          }
+        />
       </button>
     );
   }

@@ -13,18 +13,19 @@ import type { BaseItemState } from "../shared/ItemDefBase.js";
 import { SyncUiEventId } from "../syncui/SyncUiEventDispatcher.js";
 import { GroupItemDef } from "../toolbar/GroupItem.js";
 import { UiFramework } from "../UiFramework.js";
-import svgModelIsolate from "@bentley/icons-generic/icons/model-isolate.svg";
-import svgLayersIsolate from "@bentley/icons-generic/icons/layers-isolate.svg";
-import svgAssetIsolate from "@bentley/icons-generic/icons/asset-isolate.svg";
-import svgIsolate from "@bentley/icons-generic/icons/isolate.svg";
-import svgModelHide from "@bentley/icons-generic/icons/model-hide.svg";
-import svgLayersHide from "@bentley/icons-generic/icons/layers-hide.svg";
-import svgAssetClassificationHide from "@bentley/icons-generic/icons/asset-classification-hide.svg";
-import svgVisibilitySemiTransparent from "@bentley/icons-generic/icons/visibility-semi-transparent.svg";
-import svgVisibilityHide from "@bentley/icons-generic/icons/visibility-hide_2.svg";
-import svgVisibility from "@bentley/icons-generic/icons/visibility.svg";
+import { SvgModelIsolate } from "../icons/SvgModelIsolate.js";
+import { SvgLayersIsolate } from "../icons/SvgLayersIsolate.js";
+import { SvgAssetIsolate } from "../icons/SvgAssetIsolate.js";
+import { SvgIsolate } from "@itwin/itwinui-icons-react";
+import { SvgModelHide } from "../icons/SvgModelHide.js";
+import { SvgLayersHide } from "../icons/SvgLayersHide.js";
+import { SvgAssetClassificationHide } from "../icons/SvgAssetClassificationHide.js";
+import { SvgVisibilityHalf } from "@itwin/itwinui-icons-react";
+import { SvgVisibilityHide } from "@itwin/itwinui-icons-react";
+import { SvgVisibilityShow } from "@itwin/itwinui-icons-react";
 import type { ToolbarItems } from "../tools/ToolbarItems.js";
 import { getActiveViewport } from "../utils/getActiveViewport.js";
+import * as React from "react";
 
 /* eslint-disable @typescript-eslint/no-deprecated */
 
@@ -161,7 +162,7 @@ export class SelectionContextToolDefinitions {
   public static get isolateModelsInSelectionItemDef() {
     return new CommandItemDef({
       commandId: "UiFramework.IsolateModel",
-      iconSpec: svgModelIsolate,
+      iconSpec: <SvgModelIsolate />,
       labelKey: "UiFramework:tools.isolateModels",
       execute: async () =>
         UiFramework.hideIsolateEmphasizeActionHandler.processIsolateSelectedElementsModel(),
@@ -171,7 +172,7 @@ export class SelectionContextToolDefinitions {
   public static get isolateCategoriesInSelectionItemDef() {
     return new CommandItemDef({
       commandId: "UiFramework.IsolateCategory",
-      iconSpec: svgLayersIsolate,
+      iconSpec: <SvgLayersIsolate />,
       labelKey: "UiFramework:tools.isolateCategories",
       execute: async () =>
         UiFramework.hideIsolateEmphasizeActionHandler.processIsolateSelectedElementsCategory(),
@@ -181,7 +182,7 @@ export class SelectionContextToolDefinitions {
   public static get isolateElementsItemDef() {
     return new CommandItemDef({
       commandId: "UiFramework.IsolateSelected",
-      iconSpec: svgAssetIsolate,
+      iconSpec: <SvgAssetIsolate />,
       labelKey: "UiFramework:tools.isolateSelected",
       isHidden: getIsHiddenIfSelectionNotActive(),
       execute: async () =>
@@ -193,7 +194,7 @@ export class SelectionContextToolDefinitions {
     return new GroupItemDef({
       groupId: "UiFramework.IsolateSelectionGroup",
       labelKey: "UiFramework:tools.isolate",
-      iconSpec: svgIsolate,
+      iconSpec: <SvgIsolate />,
       isHidden: getIsHiddenIfSelectionNotActive(),
       items: [
         this.isolateElementsItemDef,
@@ -207,7 +208,7 @@ export class SelectionContextToolDefinitions {
   public static get hideModelsInSelectionItemDef() {
     return new CommandItemDef({
       commandId: "UiFramework.HideModel",
-      iconSpec: svgModelHide,
+      iconSpec: <SvgModelHide />,
       labelKey: "UiFramework:tools.hideModels",
       execute: async () =>
         UiFramework.hideIsolateEmphasizeActionHandler.processHideSelectedElementsModel(),
@@ -217,7 +218,7 @@ export class SelectionContextToolDefinitions {
   public static get hideCategoriesInSelectionItemDef() {
     return new CommandItemDef({
       commandId: "UiFramework.HideCategory",
-      iconSpec: svgLayersHide,
+      iconSpec: <SvgLayersHide />,
       labelKey: "UiFramework:tools.hideCategories",
       execute: async () =>
         UiFramework.hideIsolateEmphasizeActionHandler.processHideSelectedElementsCategory(),
@@ -227,7 +228,7 @@ export class SelectionContextToolDefinitions {
   public static get hideElementsItemDef() {
     return new CommandItemDef({
       commandId: "UiFramework.HideSelected",
-      iconSpec: svgAssetClassificationHide,
+      iconSpec: <SvgAssetClassificationHide />,
       labelKey: "UiFramework:tools.hideSelected",
       isHidden: getIsHiddenIfSelectionNotActive(),
       execute: async () =>
@@ -239,7 +240,7 @@ export class SelectionContextToolDefinitions {
     return new GroupItemDef({
       groupId: "UiFramework.HideSelectionGroup",
       labelKey: "UiFramework:tools.hide",
-      iconSpec: svgVisibilityHide,
+      iconSpec: <SvgVisibilityHide />,
       isHidden: getIsHiddenIfSelectionNotActive(),
       items: [
         this.hideElementsItemDef,
@@ -253,7 +254,7 @@ export class SelectionContextToolDefinitions {
   public static get emphasizeElementsItemDef() {
     return new CommandItemDef({
       commandId: "UiFramework.EmphasizeSelected",
-      iconSpec: svgVisibilitySemiTransparent,
+      iconSpec: <SvgVisibilityHalf />,
       labelKey: "UiFramework:tools.emphasizeSelected",
       isHidden: getIsHiddenIfSelectionNotActive(),
       execute: async () =>
@@ -264,7 +265,7 @@ export class SelectionContextToolDefinitions {
   public static get clearHideIsolateEmphasizeElementsItemDef() {
     return new CommandItemDef({
       commandId: "UiFramework.ClearHideIsolateEmphasize",
-      iconSpec: svgVisibility,
+      iconSpec: <SvgVisibilityShow />,
       labelKey: "UiFramework:tools.clearVisibility",
       isHidden: getIsHiddenIfFeatureOverridesActive(),
       execute: async () => {

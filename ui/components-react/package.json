@@ -103,7 +103,6 @@
     "NOTE: core-frontend should remain UI technology agnostic, so no react/angular dependencies are allowed"
   ],
   "dependencies": {
-    "@bentley/icons-generic": "^1.0.34",
     "@itwin/itwinui-variables": "^3.0.0",
     "@itwin/itwinui-icons-react": "^2.8.0",
     "@itwin/itwinui-react": "^3.11.2",
