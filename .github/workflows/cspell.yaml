@@ -1,0 +1,32 @@
+# Workflow to check cSpell on entire monorepo
+
+name: cSpell
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - master
+      - release/*
+
+jobs:
+  spell-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v2
+
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Rush install
+        run: node common/scripts/install-run-rush.js install
+
+      - name: Run cSpell
+        run: cspell lint "**" --gitignore
+
+      - name: Check for misspellings
+        if: failure()
+        run: echo "Misspellings found in code. Please fix them."
