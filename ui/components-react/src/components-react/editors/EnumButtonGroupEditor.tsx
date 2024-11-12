@@ -24,7 +24,7 @@ import {
 import { Icon } from "@itwin/core-react";
 import type { PropertyEditorProps, TypeEditor } from "./EditorContainer.js";
 import { PropertyEditorBase } from "./PropertyEditorManager.js";
-import svgPlaceholder from "@bentley/icons-generic/icons/placeholder.svg";
+import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
 
 // cspell:ignore buttongroup enumbuttongroup
 
@@ -115,7 +115,7 @@ export class EnumButtonGroupEditor
 
       const numChoices = choices.length;
       const enumIcons = new Array<IconDefinition>(numChoices);
-      enumIcons.fill({ iconSpec: svgPlaceholder });
+      enumIcons.fill({ iconSpec: "" });
 
       if (
         propertyRecord.property.editor &&
@@ -195,8 +195,21 @@ export class EnumButtonGroupEditor
         key={choice.label}
         onClick={() => this._handleButtonClick(index)}
       >
+<<<<<<< HEAD
         {/* eslint-disable-next-line deprecation/deprecation */}
         <Icon iconSpec={this.state.enumIcons[index].iconSpec} />
+=======
+        {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
+        <Icon
+          iconSpec={
+            this.state.enumIcons[index].iconSpec === "" ? (
+              <SvgPlaceholder />
+            ) : (
+              this.state.enumIcons[index].iconSpec
+            )
+          }
+        />
+>>>>>>> 2810fd052 (Remove icons-generic (#1074))
       </button>
     );
   }
