@@ -45,6 +45,7 @@ import {
 import { Text, type useToaster } from "@itwin/itwinui-react";
 import { BeUiEvent } from "@itwin/core-bentley";
 import { ConfigurableUiActionId } from "../redux/ConfigurableUiState.js";
+import { useTranslation } from "../hooks/useTranslation.js";
 
 type Toaster = ReturnType<typeof useToaster>;
 type ToasterSettings = Parameters<Toaster["setSettings"]>;
@@ -709,37 +710,8 @@ export class MessageManager {
   public static showAlertMessageBox(
     messageDetails: NotifyMessageDetailsType
   ): void {
-    const iconType = this.getIconType(messageDetails);
-    const content = (
-      <>
-        {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
-        <Text variant="leading">
-          <MessageRenderer message={messageDetails.briefMessage} useSpan />
-        </Text>
-        {messageDetails.detailedMessage && (
-          <p>
-            <Text variant="body">
-              {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
-              <MessageRenderer
-                message={messageDetails.detailedMessage}
-                useSpan
-              />
-            </Text>
-          </p>
-        )}
-      </>
-    );
-
     UiFramework.dialogs.modal.open(
-      // eslint-disable-next-line @typescript-eslint/no-deprecated
-      <StandardMessageBox
-        opened={true}
-        messageBoxType={MessageBoxType.Ok}
-        iconType={iconType}
-        title={UiFramework.translate("general.alert")}
-      >
-        {content}
-      </StandardMessageBox>
+      <AlertDialog messageDetails={messageDetails} />
     );
   }
 
@@ -777,4 +749,56 @@ export class MessageManager {
     MessageManager.hideInputFieldMessage();
     MessageManager.endActivityMessage(false);
   }
+}
+
+interface AlertDialogProps {
+  messageDetails: NotifyMessageDetailsType;
+}
+
+function AlertDialog({ messageDetails }: AlertDialogProps) {
+  const { briefMessage, detailedMessage, priority } = messageDetails;
+  const iconType = MessageManager.getIconType(messageDetails);
+  const content = (
+    <>
+      {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
+      <Text variant="leading">
+        <MessageRenderer message={briefMessage} useSpan />
+      </Text>
+      {detailedMessage && (
+        <p>
+          <Text variant="body">
+            {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
+            <MessageRenderer message={detailedMessage} useSpan />
+          </Text>
+        </p>
+      )}
+    </>
+  );
+
+  const { translate } = useTranslation();
+  const title = React.useMemo(() => {
+    switch (priority) {
+      case OutputMessagePriority.Error:
+      case OutputMessagePriority.Fatal:
+        return translate("general.error");
+      case OutputMessagePriority.Warning:
+        return translate("general.warning");
+      case OutputMessagePriority.Info:
+        return translate("general.information");
+      case OutputMessagePriority.Success:
+        return translate("general.success");
+    }
+    return translate("general.alert");
+  }, [priority, translate]);
+  return (
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
+    <StandardMessageBox
+      opened={true}
+      messageBoxType={MessageBoxType.Ok}
+      iconType={iconType}
+      title={title}
+    >
+      {content}
+    </StandardMessageBox>
+  );
 }
