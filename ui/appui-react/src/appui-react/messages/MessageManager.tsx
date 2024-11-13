@@ -690,13 +690,16 @@ export class MessageManager {
         // eslint-disable-next-line @typescript-eslint/no-deprecated
         const messageElement = <MessageRenderer message={message} useSpan />;
         UiFramework.dialogs.modal.open(
-          this.standardMessageBox(
-            mbType,
-            icon,
-            UiFramework.translate("general.alert"),
-            messageElement,
-            messageBoxCallbacks
-          )
+          // eslint-disable-next-line @typescript-eslint/no-deprecated
+          <StandardMessageBox
+            opened={true}
+            messageBoxType={mbType}
+            iconType={icon}
+            title={UiFramework.translate("general.alert")}
+            onResult={messageBoxCallbacks.handleMessageBoxResult}
+          >
+            {messageElement}
+          </StandardMessageBox>
         );
       }
     );
@@ -719,35 +722,16 @@ export class MessageManager {
         )}
       </>
     );
-    UiFramework.dialogs.modal.open(
-      this.standardMessageBox(
-        MessageBoxType.Ok,
-        iconType,
-        UiFramework.translate("general.alert"),
-        content
-      )
-    );
-  }
 
-  private static standardMessageBox(
-    mbType: MessageBoxType,
-    iconType: MessageBoxIconType,
-    title: string,
-    messageElement: React.ReactNode,
-    callbacks?: MessageBoxCallbacks
-  ): React.ReactNode {
-    const onResult =
-      callbacks !== undefined ? callbacks.handleMessageBoxResult : undefined;
-    return (
+    UiFramework.dialogs.modal.open(
       // eslint-disable-next-line @typescript-eslint/no-deprecated
       <StandardMessageBox
         opened={true}
-        messageBoxType={mbType}
+        messageBoxType={MessageBoxType.Ok}
         iconType={iconType}
-        title={title}
-        onResult={onResult}
+        title={UiFramework.translate("general.alert")}
       >
-        {messageElement}
+        {content}
       </StandardMessageBox>
     );
   }
