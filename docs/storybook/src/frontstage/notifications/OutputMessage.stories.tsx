@@ -54,7 +54,15 @@ export const Pointer: Story = {
 export const Alert: Story = {
   args: {
     messageType: OutputMessageType.Alert,
-    messagePriority: OutputMessagePriority.Fatal,
+  },
+};
+
+export const DetailedAlert: Story = {
+  args: {
+    messageType: OutputMessageType.Alert,
+    messagePriority: OutputMessagePriority.Error,
+    detailedMessage:
+      "Detailed message that provides additional information to describe the reason for the alert",
   },
 };
 
