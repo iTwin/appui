@@ -71,6 +71,7 @@ export function removeProperty() {
   };
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function enumArgType(_enum: any): ArgTypes[0] {
   const options = Object.values<number>(_enum).filter(
     (value) => typeof value === "number"
