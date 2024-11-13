@@ -97,7 +97,6 @@
     "vitest": "^1.6.0"
   },
   "dependencies": {
-    "@itwin/itwinui-variables": "^3.0.0",
     "@itwin/itwinui-icons-react": "^2.8.0",
     "classnames": "2.5.1",
     "immer": "^10.1.1",
