@@ -1,0 +1,17 @@
+lockfileVersion: '6.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+dependencies:
+  cspell:
+    specifier: ^8.16.0
+    version: 8.16.0
+
+packages:
+
+  cspell@8.16.0:
+    resolution: {integrity: sha1-GJfRI/iFQwS8hKwzJZDHMOk8USM=}
+    engines: {node: '>=18'}
+    hasBin: true

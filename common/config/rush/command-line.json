@@ -141,6 +141,7 @@
       "commandKind": "global",
       "summary": "Runs cSpell for the entire monorepo.",
       "safeForSimultaneousRushProcesses": true,
+      "autoinstallerName": "rush-cspell",
       "shellCommand": "cspell lint \"**\" --gitignore"
     }
   ]

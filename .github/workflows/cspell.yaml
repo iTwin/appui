@@ -29,5 +29,5 @@ jobs:
       - name: Rush install
         run: node common/scripts/install-run-rush.js install
 
-      - name: Run cSpell
-        run: npx cspell lint "**" --gitignore
+      - name: Rush cspell
+        run: rush cspell
