@@ -21,6 +21,10 @@
   "general": {
     "sheet": "Sheet",
     "alert": "Alert",
+    "error": "Error",
+    "warning": "Warning",
+    "information": "Information",
+    "success": "Success",
     "settings": "Settings",
     "minimize": "Minimize",
     "overflow": "Overflow",

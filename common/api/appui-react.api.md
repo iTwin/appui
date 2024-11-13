@@ -117,8 +117,12 @@ import { UiStateStorage as UiStateStorage_2 } from '@itwin/core-react';
 import type { UiStateStorageResult as UiStateStorageResult_2 } from '@itwin/core-react';
 import { UiStateStorageStatus as UiStateStorageStatus_2 } from '@itwin/core-react';
 import type { UnitSystemKey } from '@itwin/core-quantity';
+<<<<<<< HEAD
 import { UseBoundStore } from 'zustand';
 import type { useToaster } from '@itwin/itwinui-react';
+=======
+import { useToaster } from '@itwin/itwinui-react';
+>>>>>>> 30e6cc130 (Update alert dialog styling (#1114))
 import type { ViewFlagProps } from '@itwin/core-common';
 import type { Viewport } from '@itwin/core-frontend';
 import type { ViewportProps } from '@itwin/imodel-components-react';
