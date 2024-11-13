@@ -3,6 +3,6 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "cspell": "^6.0.0"
+    "cspell": "^8.16.0"
   }
 }
