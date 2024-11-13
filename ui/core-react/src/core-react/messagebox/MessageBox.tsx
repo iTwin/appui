@@ -25,15 +25,9 @@ import {
   SvgStatusSuccessHollow,
   SvgStatusWarning,
 } from "@itwin/itwinui-icons-react";
-<<<<<<< HEAD
-import type { IconSpec } from "../icons/IconComponent";
-import { Icon } from "../icons/IconComponent";
-import { Dialog } from "../dialog/Dialog";
-=======
 import { Icon } from "@itwin/itwinui-react";
-import type { IconSpec } from "../icons/IconComponent.js";
-import { Dialog } from "../dialog/Dialog.js";
->>>>>>> 30e6cc130 (Update alert dialog styling (#1114))
+import type { IconSpec } from "../icons/IconComponent";
+import { Dialog } from "../dialog/Dialog";
 
 /* eslint-disable deprecation/deprecation */
 

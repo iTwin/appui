@@ -44,12 +44,8 @@ import {
 } from "@itwin/itwinui-icons-react";
 import { Text, type useToaster } from "@itwin/itwinui-react";
 import { BeUiEvent } from "@itwin/core-bentley";
-<<<<<<< HEAD
 import { ConfigurableUiActionId } from "../redux/ConfigurableUiState";
-=======
-import { ConfigurableUiActionId } from "../redux/ConfigurableUiState.js";
-import { useTranslation } from "../hooks/useTranslation.js";
->>>>>>> 30e6cc130 (Update alert dialog styling (#1114))
+import { useTranslation } from "../hooks/useTranslation";
 
 type Toaster = ReturnType<typeof useToaster>;
 type ToasterSettings = Parameters<Toaster["setSettings"]>;
@@ -691,7 +687,7 @@ export class MessageManager {
         // eslint-disable-next-line deprecation/deprecation
         const messageElement = <MessageRenderer message={message} useSpan />;
         UiFramework.dialogs.modal.open(
-          // eslint-disable-next-line @typescript-eslint/no-deprecated
+          // eslint-disable-next-line deprecation/deprecation
           <StandardMessageBox
             opened={true}
             messageBoxType={mbType}
@@ -710,54 +706,8 @@ export class MessageManager {
   public static showAlertMessageBox(
     messageDetails: NotifyMessageDetailsType
   ): void {
-<<<<<<< HEAD
-    const iconType = this.getIconType(messageDetails);
-    const content = (
-      <>
-        {/* eslint-disable-next-line deprecation/deprecation */}
-        <MessageRenderer message={messageDetails.briefMessage} useSpan />
-        {messageDetails.detailedMessage && (
-          <p>
-            {/* eslint-disable-next-line deprecation/deprecation */}
-            <MessageRenderer message={messageDetails.detailedMessage} useSpan />
-          </p>
-        )}
-      </>
-    );
-    UiFramework.dialogs.modal.open(
-      this.standardMessageBox(
-        MessageBoxType.Ok,
-        iconType,
-        UiFramework.translate("general.alert"),
-        content
-      )
-    );
-  }
-
-  private static standardMessageBox(
-    mbType: MessageBoxType,
-    iconType: MessageBoxIconType,
-    title: string,
-    messageElement: React.ReactNode,
-    callbacks?: MessageBoxCallbacks
-  ): React.ReactNode {
-    const onResult =
-      callbacks !== undefined ? callbacks.handleMessageBoxResult : undefined;
-    return (
-      // eslint-disable-next-line deprecation/deprecation
-      <StandardMessageBox
-        opened={true}
-        messageBoxType={mbType}
-        iconType={iconType}
-        title={title}
-        onResult={onResult}
-      >
-        {messageElement}
-      </StandardMessageBox>
-=======
     UiFramework.dialogs.modal.open(
       <AlertDialog messageDetails={messageDetails} />
->>>>>>> 30e6cc130 (Update alert dialog styling (#1114))
     );
   }
 
@@ -807,13 +757,13 @@ function AlertDialog({ messageDetails }: AlertDialogProps) {
   const content = (
     <>
       <Text variant="leading">
-        {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
+        {/* eslint-disable-next-line deprecation/deprecation */}
         <MessageRenderer message={briefMessage} useSpan />
       </Text>
       {detailedMessage && (
         <p>
           <Text variant="body">
-            {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
+            {/* eslint-disable-next-line deprecation/deprecation */}
             <MessageRenderer message={detailedMessage} useSpan />
           </Text>
         </p>
@@ -837,7 +787,7 @@ function AlertDialog({ messageDetails }: AlertDialogProps) {
     return translate("general.alert");
   }, [priority, translate]);
   return (
-    // eslint-disable-next-line @typescript-eslint/no-deprecated
+    // eslint-disable-next-line deprecation/deprecation
     <StandardMessageBox
       opened={true}
       messageBoxType={MessageBoxType.Ok}
