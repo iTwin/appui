@@ -42,9 +42,10 @@ import {
   SvgStatusSuccess,
   SvgStatusWarning,
 } from "@itwin/itwinui-icons-react";
-import type { useToaster } from "@itwin/itwinui-react";
+import { Text, type useToaster } from "@itwin/itwinui-react";
 import { BeUiEvent } from "@itwin/core-bentley";
 import { ConfigurableUiActionId } from "../redux/ConfigurableUiState.js";
+import { useTranslation } from "../hooks/useTranslation.js";
 
 type Toaster = ReturnType<typeof useToaster>;
 type ToasterSettings = Parameters<Toaster["setSettings"]>;
@@ -690,13 +691,16 @@ export class MessageManager {
         // eslint-disable-next-line deprecation/deprecation
         const messageElement = <MessageRenderer message={message} useSpan />;
         UiFramework.dialogs.modal.open(
-          this.standardMessageBox(
-            mbType,
-            icon,
-            UiFramework.translate("general.alert"),
-            messageElement,
-            messageBoxCallbacks
-          )
+          // eslint-disable-next-line @typescript-eslint/no-deprecated
+          <StandardMessageBox
+            opened={true}
+            messageBoxType={mbType}
+            iconType={icon}
+            title={UiFramework.translate("general.alert")}
+            onResult={messageBoxCallbacks.handleMessageBoxResult}
+          >
+            {messageElement}
+          </StandardMessageBox>
         );
       }
     );
@@ -706,6 +710,7 @@ export class MessageManager {
   public static showAlertMessageBox(
     messageDetails: NotifyMessageDetailsType
   ): void {
+<<<<<<< HEAD
     const iconType = this.getIconType(messageDetails);
     const content = (
       <>
@@ -749,6 +754,10 @@ export class MessageManager {
       >
         {messageElement}
       </StandardMessageBox>
+=======
+    UiFramework.dialogs.modal.open(
+      <AlertDialog messageDetails={messageDetails} />
+>>>>>>> 30e6cc130 (Update alert dialog styling (#1114))
     );
   }
 
@@ -786,4 +795,56 @@ export class MessageManager {
     MessageManager.hideInputFieldMessage();
     MessageManager.endActivityMessage(false);
   }
+}
+
+interface AlertDialogProps {
+  messageDetails: NotifyMessageDetailsType;
+}
+
+function AlertDialog({ messageDetails }: AlertDialogProps) {
+  const { briefMessage, detailedMessage, priority } = messageDetails;
+  const iconType = MessageManager.getIconType(messageDetails);
+  const content = (
+    <>
+      <Text variant="leading">
+        {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
+        <MessageRenderer message={briefMessage} useSpan />
+      </Text>
+      {detailedMessage && (
+        <p>
+          <Text variant="body">
+            {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
+            <MessageRenderer message={detailedMessage} useSpan />
+          </Text>
+        </p>
+      )}
+    </>
+  );
+
+  const { translate } = useTranslation();
+  const title = React.useMemo(() => {
+    switch (priority) {
+      case OutputMessagePriority.Error:
+      case OutputMessagePriority.Fatal:
+        return translate("general.error");
+      case OutputMessagePriority.Warning:
+        return translate("general.warning");
+      case OutputMessagePriority.Info:
+        return translate("general.information");
+      case OutputMessagePriority.Success:
+        return translate("general.success");
+    }
+    return translate("general.alert");
+  }, [priority, translate]);
+  return (
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
+    <StandardMessageBox
+      opened={true}
+      messageBoxType={MessageBoxType.Ok}
+      iconType={iconType}
+      title={title}
+    >
+      {content}
+    </StandardMessageBox>
+  );
 }

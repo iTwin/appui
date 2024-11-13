@@ -30,9 +30,7 @@ describe("StandardMessageBox", () => {
     );
 
     const { container } = render(reactNode);
-    expect(
-      container.querySelector(".icon.core-message-box-icon")?.classList.length
-    ).toEqual(2);
+    expect(container.querySelector(".core-message-box-icon")).toBeNull();
 
     await theUserTo.click(screen.getByRole("button", { name: "dialog.ok" }));
     expect(spy).toHaveBeenCalledOnce();
@@ -53,7 +51,7 @@ describe("StandardMessageBox", () => {
 
     render(reactNode);
     expect(screen.getByTestId("message-box-dialog-container")).to.satisfy(
-      childStructure(".icon.core-message-box-icon")
+      childStructure(".core-message-box-icon")
     );
 
     await theUserTo.click(screen.getByRole("button", { name: "dialog.ok" }));
@@ -75,7 +73,7 @@ describe("StandardMessageBox", () => {
 
     render(reactNode);
     expect(screen.getByTestId("message-box-dialog-container")).to.satisfy(
-      childStructure(".icon.core-message-box-icon")
+      childStructure(".core-message-box-icon")
     );
 
     await theUserTo.click(screen.getByRole("button", { name: "dialog.yes" }));
@@ -95,7 +93,7 @@ describe("StandardMessageBox", () => {
     );
     render(reactNode);
     expect(screen.getByTestId("message-box-dialog-container")).to.satisfy(
-      childStructure(".icon.core-message-box-icon")
+      childStructure(".core-message-box-icon")
     );
 
     await theUserTo.click(
@@ -117,7 +115,7 @@ describe("StandardMessageBox", () => {
     );
     render(reactNode);
     expect(screen.getByTestId("message-box-dialog-container")).to.satisfy(
-      childStructure(".icon.core-message-box-icon")
+      childStructure(".core-message-box-icon")
     );
 
     await theUserTo.click(screen.getByRole("button", { name: "dialog.no" }));
@@ -137,7 +135,7 @@ describe("StandardMessageBox", () => {
     );
     render(reactNode);
     expect(screen.getByTestId("message-box-dialog-container")).to.satisfy(
-      childStructure(".icon.core-message-box-icon")
+      childStructure(".core-message-box-icon")
     );
 
     await theUserTo.click(

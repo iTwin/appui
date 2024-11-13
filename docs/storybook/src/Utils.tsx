@@ -2,6 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+import type { ArgTypes } from "@storybook/react";
 import {
   ContentProps,
   Frontstage,
@@ -66,6 +67,20 @@ export function removeProperty() {
   return {
     table: {
       disable: true,
+    },
+  };
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function enumArgType(_enum: any): ArgTypes[0] {
+  const options = Object.values<number>(_enum).filter(
+    (value) => typeof value === "number"
+  );
+  return {
+    options,
+    control: {
+      type: "select",
+      labels: _enum,
     },
   };
 }
