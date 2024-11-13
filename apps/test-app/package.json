@@ -98,7 +98,7 @@
     "@itwin/imodels-access-frontend": "^3.0.0",
     "@itwin/imodels-client-authoring": "^3.0.0",
     "@itwin/imodels-client-management": "^3.0.0",
-    "@itwin/itwinui-react": "^3.11.2",
+    "@itwin/itwinui-react": "^3.15.0",
     "@itwin/itwinui-react-v2": "npm:@itwin/itwinui-react@^2.12.26",
     "@itwin/itwinui-variables": "^3.0.0",
     "@itwin/itwinui-icons-react": "^2.8.0",
