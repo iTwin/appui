@@ -760,8 +760,8 @@ function AlertDialog({ messageDetails }: AlertDialogProps) {
   const iconType = MessageManager.getIconType(messageDetails);
   const content = (
     <>
-      {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
       <Text variant="leading">
+        {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
         <MessageRenderer message={briefMessage} useSpan />
       </Text>
       {detailedMessage && (
