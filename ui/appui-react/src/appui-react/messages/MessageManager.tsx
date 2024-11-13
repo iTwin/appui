@@ -42,7 +42,7 @@ import {
   SvgStatusSuccess,
   SvgStatusWarning,
 } from "@itwin/itwinui-icons-react";
-import type { useToaster } from "@itwin/itwinui-react";
+import { Text, type useToaster } from "@itwin/itwinui-react";
 import { BeUiEvent } from "@itwin/core-bentley";
 import { ConfigurableUiActionId } from "../redux/ConfigurableUiState.js";
 
@@ -713,11 +713,18 @@ export class MessageManager {
     const content = (
       <>
         {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
-        <MessageRenderer message={messageDetails.briefMessage} useSpan />
+        <Text variant="leading">
+          <MessageRenderer message={messageDetails.briefMessage} useSpan />
+        </Text>
         {messageDetails.detailedMessage && (
           <p>
-            {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
-            <MessageRenderer message={messageDetails.detailedMessage} useSpan />
+            <Text variant="body">
+              {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
+              <MessageRenderer
+                message={messageDetails.detailedMessage}
+                useSpan
+              />
+            </Text>
           </p>
         )}
       </>
