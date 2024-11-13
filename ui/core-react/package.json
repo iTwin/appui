@@ -58,10 +58,6 @@
     "react": "^18.0.0",
     "react-dom": "^18.0.0"
   },
-  "//devDependencies": [
-    "NOTE: All peerDependencies should also be listed as devDependencies since peerDependencies are not considered by npm install",
-    "NOTE: All tools used by scripts in this package must be listed as devDependencies"
-  ],
   "devDependencies": {
     "@itwin/appui-abstract": "^4.0.0",
     "@itwin/build-tools": "4.10.0-dev.34",
@@ -96,10 +92,6 @@
     "upath": "^2.0.1",
     "vitest": "^1.6.0"
   },
-  "//dependencies": [
-    "NOTE: these dependencies should be only for things that DO NOT APPEAR IN THE API",
-    "NOTE: core-frontend should remain UI technology agnostic, so no react/angular dependencies are allowed"
-  ],
   "dependencies": {
     "@bentley/icons-generic": "^1.0.34",
     "@itwin/itwinui-variables": "^3.0.0",

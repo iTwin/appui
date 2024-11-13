@@ -37,9 +37,6 @@
     "name": "Bentley Systems, Inc.",
     "url": "http://www.bentley.com"
   },
-  "//devDependencies": [
-    "NOTE: All tools used by scripts in this package must be listed as devDependencies"
-  ],
   "devDependencies": {
     "@itwin/build-tools": "4.10.0-dev.34",
     "@itwin/eslint-plugin": "5.0.0-dev.1",
