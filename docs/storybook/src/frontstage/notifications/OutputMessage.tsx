@@ -31,16 +31,13 @@ export function NotificationsStory({
   messageAlert,
   ...props
 }: NotificationsStoryProps) {
-  React.useEffect(() => {
-    return () => {
-      UiFramework.dialogs.modal.close();
-      UiFramework.dialogs.modeless.close();
-    };
-  }, []);
   return (
     <AppUiStory
       layout="fullscreen"
       onFrontstageActivated={() => {
+        UiFramework.dialogs.modal.close();
+        UiFramework.dialogs.modeless.close();
+
         const message = new NotifyMessageDetails(
           messagePriority,
           briefMessage,
