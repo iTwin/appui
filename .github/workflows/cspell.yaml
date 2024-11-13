@@ -30,4 +30,4 @@ jobs:
         run: node common/scripts/install-run-rush.js install
 
       - name: Rush cspell
-        run: rush cspell lint "**" --gitignore
+        run: cspell lint "**" --gitignore
