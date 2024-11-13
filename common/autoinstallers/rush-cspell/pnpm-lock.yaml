@@ -11,7 +11,7 @@ dependencies:
 
 packages:
 
-  cspell@8.16.0:
+  /cspell@8.16.0:
     resolution: {integrity: sha1-GJfRI/iFQwS8hKwzJZDHMOk8USM=}
     engines: {node: '>=18'}
     hasBin: true
