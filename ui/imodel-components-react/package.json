@@ -57,12 +57,8 @@
     "@itwin/core-frontend": "^4.0.0",
     "@itwin/core-geometry": "^4.0.0",
     "@itwin/core-quantity": "^4.0.0",
-<<<<<<< HEAD
     "@itwin/core-react": "workspace:^5.0.0-dev.2",
-=======
-    "@itwin/core-react": "workspace:^5.1.0-dev.0",
     "@itwin/itwinui-react": "^3.15.0",
->>>>>>> 66f79b7cb (Move `@itwin/itwinui-react` to peerDependencies (#1115))
     "react": "^18.0.0",
     "react-dom": "^18.0.0"
   },
@@ -77,12 +73,8 @@
     "@itwin/core-orbitgt": "^4.0.0",
     "@itwin/core-quantity": "^4.0.0",
     "@itwin/core-react": "workspace:*",
-<<<<<<< HEAD
     "@itwin/eslint-plugin": "^4.1.1",
-=======
-    "@itwin/eslint-plugin": "5.0.0-dev.1",
     "@itwin/itwinui-react": "^3.15.0",
->>>>>>> 66f79b7cb (Move `@itwin/itwinui-react` to peerDependencies (#1115))
     "@itwin/webgl-compatibility": "^4.0.0",
     "@testing-library/dom": "^10.1.0",
     "@testing-library/react": "^15.0.7",
