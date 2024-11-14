@@ -53,14 +53,15 @@
   "peerDependencies": {
     "@itwin/appui-abstract": "^4.0.0",
     "@itwin/core-bentley": "^4.0.0",
+<<<<<<< HEAD
     "@itwin/core-react": "workspace:^5.0.0-dev.2",
+=======
+    "@itwin/core-react": "workspace:^5.1.0-dev.0",
+    "@itwin/itwinui-react": "^3.15.0",
+>>>>>>> 66f79b7cb (Move `@itwin/itwinui-react` to peerDependencies (#1115))
     "react": "^18.0.0",
     "react-dom": "^18.0.0"
   },
-  "//devDependencies": [
-    "NOTE: All peerDependencies should also be listed as devDependencies since peerDependencies are not considered by npm install",
-    "NOTE: All tools used by scripts in this package must be listed as devDependencies"
-  ],
   "devDependencies": {
     "@itwin/appui-abstract": "^4.0.0",
     "@itwin/build-tools": "4.10.0-dev.31",
@@ -69,7 +70,12 @@
     "@itwin/core-geometry": "^4.0.0",
     "@itwin/core-i18n": "^4.0.0",
     "@itwin/core-react": "workspace:*",
+<<<<<<< HEAD
     "@itwin/eslint-plugin": "^4.1.1",
+=======
+    "@itwin/eslint-plugin": "5.0.0-dev.1",
+    "@itwin/itwinui-react": "^3.15.0",
+>>>>>>> 66f79b7cb (Move `@itwin/itwinui-react` to peerDependencies (#1115))
     "@testing-library/dom": "^10.1.0",
     "@testing-library/react": "^15.0.7",
     "@testing-library/user-event": "^14.5.2",
@@ -98,15 +104,13 @@
     "upath": "^2.0.1",
     "vitest": "^1.6.0"
   },
-  "//dependencies": [
-    "NOTE: these dependencies should be only for things that DO NOT APPEAR IN THE API",
-    "NOTE: core-frontend should remain UI technology agnostic, so no react/angular dependencies are allowed"
-  ],
   "dependencies": {
+<<<<<<< HEAD
     "@bentley/icons-generic": "^1.0.34",
     "@itwin/itwinui-variables": "^3.0.0",
+=======
+>>>>>>> 66f79b7cb (Move `@itwin/itwinui-react` to peerDependencies (#1115))
     "@itwin/itwinui-icons-react": "^2.8.0",
-    "@itwin/itwinui-react": "^3.11.2",
     "classnames": "2.5.1",
     "immer": "^10.1.1",
     "linkify-it": "~2.2.0",
