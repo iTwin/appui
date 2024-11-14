@@ -6,6 +6,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { OutputMessagePriority, OutputMessageType } from "@itwin/core-frontend";
 import { Page } from "../../AppUiStory";
 import { NotificationsStory } from "./OutputMessage";
+import { enumArgType } from "../../Utils";
 
 const meta = {
   title: "Frontstage/Notifications/OutputMessage",
@@ -20,6 +21,10 @@ const meta = {
   args: {
     messagePriority: OutputMessagePriority.Debug,
     briefMessage: "Brief message",
+  },
+  argTypes: {
+    messageType: enumArgType(OutputMessageType),
+    messagePriority: enumArgType(OutputMessagePriority),
   },
 } satisfies Meta<typeof NotificationsStory>;
 
@@ -49,6 +54,15 @@ export const Pointer: Story = {
 export const Alert: Story = {
   args: {
     messageType: OutputMessageType.Alert,
+  },
+};
+
+export const DetailedAlert: Story = {
+  args: {
+    messageType: OutputMessageType.Alert,
+    messagePriority: OutputMessagePriority.Error,
+    detailedMessage:
+      "Detailed message that provides additional information to describe the reason for the alert",
   },
 };
 

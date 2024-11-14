@@ -25,8 +25,8 @@ import {
   SvgStatusSuccessHollow,
   SvgStatusWarning,
 } from "@itwin/itwinui-icons-react";
+import { Icon } from "@itwin/itwinui-react";
 import type { IconSpec } from "../icons/IconComponent";
-import { Icon } from "../icons/IconComponent";
 import { Dialog } from "../dialog/Dialog";
 
 /* eslint-disable deprecation/deprecation */
@@ -180,31 +180,8 @@ export class MessageContainer extends React.PureComponent<MessageContainerProps>
   /* ignore for unit tests and replace with visual testing */
 
   public static getIcon(severity: MessageSeverity, hollow?: boolean): IconSpec {
-    let iconSpec: IconSpec = "";
-    switch (severity) {
-      case MessageSeverity.None:
-        iconSpec = "";
-        break;
-      case MessageSeverity.Success:
-        iconSpec = hollow ? <SvgStatusSuccessHollow /> : <SvgStatusSuccess />;
-        break;
-      case MessageSeverity.Information:
-        iconSpec = hollow ? <SvgInfoCircularHollow /> : <SvgInfoCircular />;
-        break;
-      case MessageSeverity.Question:
-        iconSpec = hollow ? <SvgHelpCircularHollow /> : <SvgHelpCircular />;
-        break;
-      case MessageSeverity.Warning:
-        iconSpec = <SvgStatusWarning />; // TODO - need icon-status-warning-hollow icon
-        break;
-      case MessageSeverity.Error:
-        iconSpec = hollow ? <SvgStatusErrorHollow /> : <SvgStatusError />;
-        break;
-      case MessageSeverity.Fatal:
-        iconSpec = hollow ? <SvgStatusRejectedHollow /> : <SvgStatusRejected />;
-        break;
-    }
-    return iconSpec;
+    const icon = getIcon(severity, hollow);
+    return icon ?? "";
   }
 
   public override render(): React.ReactElement {
@@ -214,12 +191,18 @@ export class MessageContainer extends React.PureComponent<MessageContainerProps>
       MessageContainer.getIconClassName(this.props.severity)
     );
 
-    const iconSpec = MessageContainer.getIcon(this.props.severity);
+    const icon = getIcon(this.props.severity);
     return (
       <div className="core-message-box-container">
-        <div className={iconClassName}>
-          <Icon iconSpec={iconSpec} />
-        </div>
+        {icon ? (
+          <Icon
+            className={iconClassName}
+            size="large"
+            fill={toFill(this.props.severity)}
+          >
+            {icon}
+          </Icon>
+        ) : undefined}
         <div
           className={classnames(
             "core-message-box-content",
@@ -232,4 +215,47 @@ export class MessageContainer extends React.PureComponent<MessageContainerProps>
       </div>
     );
   }
+}
+
+function getIcon(
+  severity: MessageSeverity,
+  hollow?: boolean
+): React.ReactElement | undefined {
+  switch (severity) {
+    case MessageSeverity.None:
+      return undefined;
+    case MessageSeverity.Success:
+      return hollow ? <SvgStatusSuccessHollow /> : <SvgStatusSuccess />;
+    case MessageSeverity.Information:
+      return hollow ? <SvgInfoCircularHollow /> : <SvgInfoCircular />;
+    case MessageSeverity.Question:
+      return hollow ? <SvgHelpCircularHollow /> : <SvgHelpCircular />;
+    case MessageSeverity.Warning:
+      return <SvgStatusWarning />; // TODO - need icon-status-warning-hollow icon
+    case MessageSeverity.Error:
+      return hollow ? <SvgStatusErrorHollow /> : <SvgStatusError />;
+      break;
+    case MessageSeverity.Fatal:
+      return hollow ? <SvgStatusRejectedHollow /> : <SvgStatusRejected />;
+  }
+}
+
+type IconProps = React.ComponentProps<typeof Icon>;
+
+function toFill(severity: MessageSeverity): IconProps["fill"] {
+  switch (severity) {
+    case MessageSeverity.None:
+      return undefined;
+    case MessageSeverity.Success:
+      return "positive";
+    case MessageSeverity.Information:
+    case MessageSeverity.Question:
+      return "informational";
+    case MessageSeverity.Warning:
+      return "warning";
+    case MessageSeverity.Error:
+    case MessageSeverity.Fatal:
+      return "negative";
+  }
+  return undefined;
 }

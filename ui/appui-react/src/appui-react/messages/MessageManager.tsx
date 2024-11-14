@@ -42,9 +42,10 @@ import {
   SvgStatusSuccess,
   SvgStatusWarning,
 } from "@itwin/itwinui-icons-react";
-import type { useToaster } from "@itwin/itwinui-react";
+import { Text, type useToaster } from "@itwin/itwinui-react";
 import { BeUiEvent } from "@itwin/core-bentley";
 import { ConfigurableUiActionId } from "../redux/ConfigurableUiState";
+import { useTranslation } from "../hooks/useTranslation";
 
 type Toaster = ReturnType<typeof useToaster>;
 type ToasterSettings = Parameters<Toaster["setSettings"]>;
@@ -686,13 +687,16 @@ export class MessageManager {
         // eslint-disable-next-line deprecation/deprecation
         const messageElement = <MessageRenderer message={message} useSpan />;
         UiFramework.dialogs.modal.open(
-          this.standardMessageBox(
-            mbType,
-            icon,
-            UiFramework.translate("general.alert"),
-            messageElement,
-            messageBoxCallbacks
-          )
+          // eslint-disable-next-line deprecation/deprecation
+          <StandardMessageBox
+            opened={true}
+            messageBoxType={mbType}
+            iconType={icon}
+            title={UiFramework.translate("general.alert")}
+            onResult={messageBoxCallbacks.handleMessageBoxResult}
+          >
+            {messageElement}
+          </StandardMessageBox>
         );
       }
     );
@@ -702,49 +706,8 @@ export class MessageManager {
   public static showAlertMessageBox(
     messageDetails: NotifyMessageDetailsType
   ): void {
-    const iconType = this.getIconType(messageDetails);
-    const content = (
-      <>
-        {/* eslint-disable-next-line deprecation/deprecation */}
-        <MessageRenderer message={messageDetails.briefMessage} useSpan />
-        {messageDetails.detailedMessage && (
-          <p>
-            {/* eslint-disable-next-line deprecation/deprecation */}
-            <MessageRenderer message={messageDetails.detailedMessage} useSpan />
-          </p>
-        )}
-      </>
-    );
     UiFramework.dialogs.modal.open(
-      this.standardMessageBox(
-        MessageBoxType.Ok,
-        iconType,
-        UiFramework.translate("general.alert"),
-        content
-      )
-    );
-  }
-
-  private static standardMessageBox(
-    mbType: MessageBoxType,
-    iconType: MessageBoxIconType,
-    title: string,
-    messageElement: React.ReactNode,
-    callbacks?: MessageBoxCallbacks
-  ): React.ReactNode {
-    const onResult =
-      callbacks !== undefined ? callbacks.handleMessageBoxResult : undefined;
-    return (
-      // eslint-disable-next-line deprecation/deprecation
-      <StandardMessageBox
-        opened={true}
-        messageBoxType={mbType}
-        iconType={iconType}
-        title={title}
-        onResult={onResult}
-      >
-        {messageElement}
-      </StandardMessageBox>
+      <AlertDialog messageDetails={messageDetails} />
     );
   }
 
@@ -782,4 +745,56 @@ export class MessageManager {
     MessageManager.hideInputFieldMessage();
     MessageManager.endActivityMessage(false);
   }
+}
+
+interface AlertDialogProps {
+  messageDetails: NotifyMessageDetailsType;
+}
+
+function AlertDialog({ messageDetails }: AlertDialogProps) {
+  const { briefMessage, detailedMessage, priority } = messageDetails;
+  const iconType = MessageManager.getIconType(messageDetails);
+  const content = (
+    <>
+      <Text variant="leading">
+        {/* eslint-disable-next-line deprecation/deprecation */}
+        <MessageRenderer message={briefMessage} useSpan />
+      </Text>
+      {detailedMessage && (
+        <p>
+          <Text variant="body">
+            {/* eslint-disable-next-line deprecation/deprecation */}
+            <MessageRenderer message={detailedMessage} useSpan />
+          </Text>
+        </p>
+      )}
+    </>
+  );
+
+  const { translate } = useTranslation();
+  const title = React.useMemo(() => {
+    switch (priority) {
+      case OutputMessagePriority.Error:
+      case OutputMessagePriority.Fatal:
+        return translate("general.error");
+      case OutputMessagePriority.Warning:
+        return translate("general.warning");
+      case OutputMessagePriority.Info:
+        return translate("general.information");
+      case OutputMessagePriority.Success:
+        return translate("general.success");
+    }
+    return translate("general.alert");
+  }, [priority, translate]);
+  return (
+    // eslint-disable-next-line deprecation/deprecation
+    <StandardMessageBox
+      opened={true}
+      messageBoxType={MessageBoxType.Ok}
+      iconType={iconType}
+      title={title}
+    >
+      {content}
+    </StandardMessageBox>
+  );
 }

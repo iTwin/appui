@@ -9,19 +9,16 @@
 .core-message-box-container {
   display: flex;
   color: var(--iui-color-text);
+  gap: var(--iui-size-m);
 
   .core-message-box-icon {
-    flex: 0 0;
     font-size: $uicore-icons-medium;
-    padding: 0 $uicore-unbordered-padding $uicore-unbordered-padding
-      $uicore-unbordered-padding;
-    margin-top: 10px;
   }
 
   .core-message-box-content {
     display: flex;
-    align-items: center;
-    flex: 1 1;
+    flex: 1;
+    flex-direction: column;
 
     a {
       // iTwinUI anchor link style

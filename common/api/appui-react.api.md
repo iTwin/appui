@@ -118,7 +118,7 @@ import type { UiStateStorageResult as UiStateStorageResult_2 } from '@itwin/core
 import { UiStateStorageStatus as UiStateStorageStatus_2 } from '@itwin/core-react';
 import type { UnitSystemKey } from '@itwin/core-quantity';
 import { UseBoundStore } from 'zustand';
-import type { useToaster } from '@itwin/itwinui-react';
+import { useToaster } from '@itwin/itwinui-react';
 import type { ViewFlagProps } from '@itwin/core-common';
 import type { Viewport } from '@itwin/core-frontend';
 import type { ViewportProps } from '@itwin/imodel-components-react';

@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Fix styling of alert dialog used by notification APIs.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
