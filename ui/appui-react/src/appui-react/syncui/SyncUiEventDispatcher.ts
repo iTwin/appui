@@ -204,37 +204,41 @@ export class SyncUiEventDispatcher {
           SyncUiEventId.ActiveContentChanged
         );
       }),
-      IModelApp.viewManager.onSelectedViewportChanged.addListener((args) => {
-        SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvent(
-          SyncUiEventId.ActiveViewportChanged
-        );
+      IModelApp.initialized
+        ? IModelApp.viewManager.onSelectedViewportChanged.addListener(
+            (args) => {
+              SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvent(
+                SyncUiEventId.ActiveViewportChanged
+              );
 
-        // if this is the first view being opened up start the default tool so tool admin is happy.
-        if (undefined === args.previous) {
-          void IModelApp.toolAdmin.startDefaultTool();
-        } else {
-          args.previous.onViewChanged.removeListener(
-            SyncUiEventDispatcher._dispatchViewChange
-          );
-          args.previous.onFeatureOverridesChanged.removeListener(
-            SyncUiEventDispatcher._dispatchFeatureOverridesChange
-          );
-          args.previous.onViewedModelsChanged.removeListener(
-            SyncUiEventDispatcher._dispatchViewedModelsChanged
-          );
-        }
-        if (args.current) {
-          args.current.onViewChanged.addListener(
-            SyncUiEventDispatcher._dispatchViewChange
-          );
-          args.current.onFeatureOverridesChanged.addListener(
-            SyncUiEventDispatcher._dispatchFeatureOverridesChange
-          );
-          args.current.onViewedModelsChanged.addListener(
-            SyncUiEventDispatcher._dispatchViewedModelsChanged
-          );
-        }
-      })
+              // if this is the first view being opened up start the default tool so tool admin is happy.
+              if (undefined === args.previous) {
+                void IModelApp.toolAdmin.startDefaultTool();
+              } else {
+                args.previous.onViewChanged.removeListener(
+                  SyncUiEventDispatcher._dispatchViewChange
+                );
+                args.previous.onFeatureOverridesChanged.removeListener(
+                  SyncUiEventDispatcher._dispatchFeatureOverridesChange
+                );
+                args.previous.onViewedModelsChanged.removeListener(
+                  SyncUiEventDispatcher._dispatchViewedModelsChanged
+                );
+              }
+              if (args.current) {
+                args.current.onViewChanged.addListener(
+                  SyncUiEventDispatcher._dispatchViewChange
+                );
+                args.current.onFeatureOverridesChanged.addListener(
+                  SyncUiEventDispatcher._dispatchFeatureOverridesChange
+                );
+                args.current.onViewedModelsChanged.addListener(
+                  SyncUiEventDispatcher._dispatchViewedModelsChanged
+                );
+              }
+            }
+          )
+        : () => {}
     );
   }
 
