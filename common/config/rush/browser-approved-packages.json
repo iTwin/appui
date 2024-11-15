@@ -171,10 +171,6 @@
       "allowedCategories": [ "frontend", "internal" ]
     },
     {
-      "name": "@itwin/itwinui-variables",
-      "allowedCategories": [ "frontend", "internal" ]
-    },
-    {
       "name": "@itwin/presentation-common",
       "allowedCategories": [ "internal" ]
     },
