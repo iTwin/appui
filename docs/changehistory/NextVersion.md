@@ -70,9 +70,9 @@ This change might break consumers that rely on importing APIs directly from unsu
 
 - Main barrel file, i.e. `@itwin/appui-react`
 - `package.json` subpath, i.e. `@itwin/appui-react/package.json`
-- All SCSS files, i.e. `@itwin/core-react/lib/core-react/_typography.scss`. SCSS files are exported using the [`sass` custom condition](https://sass-lang.com/documentation/js-api/classes/nodepackageimporter/) and are available until the next major version to facilitate the AppUI 5.0 adoption. SCSS exports will be removed in the next major version.
+- All SCSS files, i.e. `@itwin/core-react/lib/core-react/_typography.scss`. Since SCSS files are exported using the `sass` custom condition, consumers should ensure that [Node.js package importer](https://sass-lang.com/documentation/js-api/classes/nodepackageimporter/) is enabled. SCSS exports are available to facilitate the AppUI 5.0 adoption and will be removed in the next major version.
 
-To fix the issue, consumers should update their import paths to use the supported export paths. For example:
+To fix the import issue, consumers should update their import paths to use the supported export paths. For example:
 
 ```tsx
 // Before
