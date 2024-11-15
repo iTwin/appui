@@ -8,6 +8,7 @@ Table of contents:
 - [Restrict access to `@internal` APIs](#restrict-access-to-internal-apis)
 - [Drop CommonJS modules](#drop-commonjs-modules)
 - [Style sheet changes](#style-sheet-changes)
+- [Move iTwinUI to `peerDependencies`](#move-itwinui-to-peerdependencies)
 - [@itwin/appui-react](#itwinappui-react)
   - [Removals](#removals)
   - [Additions](#additions)
@@ -70,9 +71,9 @@ This change might break consumers that rely on importing APIs directly from unsu
 
 - Main barrel file, i.e. `@itwin/appui-react`
 - `package.json` subpath, i.e. `@itwin/appui-react/package.json`
-- All SCSS files, i.e. `@itwin/core-react/lib/core-react/_typography.scss`. SCSS files are exported using the [`sass` custom condition](https://sass-lang.com/documentation/js-api/classes/nodepackageimporter/) and are available until the next major version to facilitate the AppUI 5.0 adoption. SCSS exports will be removed in the next major version.
+- All SCSS files, i.e. `@itwin/core-react/lib/core-react/_typography.scss`. Since SCSS files are exported using the `sass` custom condition, consumers should ensure that [Node.js package importer](https://sass-lang.com/documentation/js-api/classes/nodepackageimporter/) is enabled. SCSS exports are available to facilitate the AppUI 5.0 adoption and will be removed in the next major version.
 
-To fix the issue, consumers should update their import paths to use the supported export paths. For example:
+To fix the import issue, consumers should update their import paths to use the supported export paths. For example:
 
 ```tsx
 // Before
@@ -122,6 +123,10 @@ To avoid breaking existing SCSS of AppUI consumers, [`@forward`](https://sass-la
 Additionally, all internal usage of `--buic` CSS variables and `$buic` SCSS variables have been replaced with [iTwinUI CSS variables](https://itwinui.bentley.com/docs/variables). [#1079](https://github.com/iTwin/appui/pull/1079)
 
 Consumers of AppUI are expected to avoid using AppUI `SCSS` partial files directly and instead use the available CSS variables from iTwinUI.
+
+## Move iTwinUI to `peerDependencies`
+
+AppUI packages now specify `@itwin/itwinui-react` as a [peer dependency](https://docs.npmjs.com/cli/v10/configuring-npm/package-json#peerdependencies). This change means that application consumers should explicitly specify the latest version of iTwinUI in their `package.json` dependencies. This change simplifies the process of ensuring that a single version of the iTwinUI package is installed per major version without using version overrides. [#1115](https://github.com/iTwin/appui/pull/1115)
 
 ## @itwin/appui-react
 
