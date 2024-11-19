@@ -1,16 +1,13 @@
-lockfileVersion: '9.0'
+lockfileVersion: '6.0'
 
 settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-importers:
-
-  .:
-    dependencies:
-      cspell:
-        specifier: ^8.16.0
-        version: 8.16.0
+dependencies:
+  cspell:
+    specifier: ^8.16.0
+    version: 8.16.0
 
 packages:
 
