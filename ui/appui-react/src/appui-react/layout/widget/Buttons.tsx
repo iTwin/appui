@@ -45,6 +45,7 @@ export type WidgetFeature =
   | "addWidget";
 
 /** @internal */
+// Faaered lol
 export function TabBarButtons() {
   const features = useWidgetFeatures();
   const [sortedFeatures, isDropdown] = useDropdownFeatures(features);

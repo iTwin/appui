@@ -26,8 +26,5 @@ jobs:
         with:
           node-version: 18
 
-      - name: Rush install
-        run: node common/scripts/install-run-rush.js install
-
       - name: Rush cspell
         run: node common/scripts/install-run-rush.js cspell
