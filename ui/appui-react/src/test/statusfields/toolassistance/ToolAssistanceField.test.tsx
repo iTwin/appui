@@ -580,7 +580,9 @@ describe(`ToolAssistanceField`, () => {
     );
 
     await theUserTo.click(screen.getByRole("button"));
-    await theUserTo.click(screen.getByText("toolAssistance.pin"));
+    await theUserTo.click(
+      screen.getByRole("button", { name: "toolAssistance.pin" })
+    );
     await theUserTo.click(screen.getByTestId("outside"));
 
     expect(screen.getByText("toolAssistance.title")).to.exist;
@@ -593,7 +595,9 @@ describe(`ToolAssistanceField`, () => {
     const notifications = new AppNotificationManager();
     notifications.outputPrompt(helloWorld);
     await theUserTo.click(screen.getByRole("button"));
-    await theUserTo.click(screen.getByText("toolAssistance.pin"));
+    await theUserTo.click(
+      screen.getByRole("button", { name: "toolAssistance.pin" })
+    );
     await theUserTo.click(
       screen.getByTitle(/Hello World!.*toolAssistance\.moreInfo/)
     );
@@ -767,7 +771,9 @@ describe(`ToolAssistanceField`, () => {
     const notifications = new AppNotificationManager();
     notifications.outputPrompt(helloWorld);
     await theUserTo.click(screen.getByRole("button"));
-    await theUserTo.click(screen.getByText("toolAssistance.pin"));
+    await theUserTo.click(
+      screen.getByRole("button", { name: "toolAssistance.pin" })
+    );
     await theUserTo.click(screen.getByText("dialog.close"));
     expect(screen.queryByText("toolAssistance.title")).toEqual(null);
   });
