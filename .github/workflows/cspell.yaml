@@ -21,10 +21,5 @@ jobs:
           git config --local user.email imodeljs-admin@users.noreply.github.com
           git config --local user.name imodeljs-admin
 
-      - name: Setup node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18
-
       - name: Rush cspell
         run: node common/scripts/install-run-rush.js cspell
