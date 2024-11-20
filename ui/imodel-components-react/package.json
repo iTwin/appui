@@ -26,9 +26,12 @@
   },
   "scripts": {
     "start": "run-p -l \"build -- -w\" \"copy:** -- -w\"",
-    "build": "npm run copy:css && npm run copy:locale && tsc",
+    "build": "npm run copy:css && npm run compat:css && npm run copy:locale && tsc",
     "copy:css": "cpx \"./src/**/*.*css\" ./lib",
     "copy:locale": "cpx ./src/imodel-components-react/UiIModelComponents.json ./lib/public/locales/en",
+    "compat:css": "npm run compat:cjs && npm run compat:esm",
+    "compat:cjs": "cpx \"./src/**/*.{*css,svg}\" ./lib/cjs",
+    "compat:esm": "cpx \"./src/**/*.{*css,svg}\" ./lib/esm",
     "clean": "rimraf lib .rush/temp/package-deps*.json",
     "cover": "vitest run --coverage",
     "lint": "eslint -f visualstudio \"./src/**/*.{ts,tsx}\" 1>&2",
