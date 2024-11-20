@@ -1,6 +1,13 @@
 # Change Log - @itwin/appui-react
 
-This log was last generated on Thu, 14 Nov 2024 08:22:04 GMT and should not be manually modified.
+This log was last generated on Wed, 20 Nov 2024 14:27:46 GMT and should not be manually modified.
+
+## 4.17.6
+Wed, 20 Nov 2024 14:27:46 GMT
+
+### Updates
+
+- Update `MessageManager.addMessage` to ignore messages that are already active.
 
 ## 4.17.5
 Thu, 14 Nov 2024 08:22:04 GMT
