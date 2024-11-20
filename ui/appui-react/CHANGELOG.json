@@ -2,6 +2,18 @@
   "name": "@itwin/appui-react",
   "entries": [
     {
+      "version": "4.17.6",
+      "tag": "@itwin/appui-react_v4.17.6",
+      "date": "Wed, 20 Nov 2024 14:27:46 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Update `MessageManager.addMessage` to ignore messages that are already active."
+          }
+        ]
+      }
+    },
+    {
       "version": "4.17.5",
       "tag": "@itwin/appui-react_v4.17.5",
       "date": "Thu, 14 Nov 2024 08:22:04 GMT",
