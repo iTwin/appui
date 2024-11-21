@@ -144,7 +144,6 @@ AppUI packages now specify `@itwin/itwinui-react` as a [peer dependency](https:/
 
 ### Changes
 
-- Updated `MessageManager.addMessage` and `MessageManager.outputMessage` to ignore already active messages displayed to the user. This API is used by various tools indirectly via `IModelApp.notifications.outputMessage` when `AppNotificationManager` is set up. This change should prevent the same message from being displayed multiple times unnecessarily. [#1042](https://github.com/iTwin/appui/pull/1042)
 - Popout widgets are now displayed in a flow layout to match the layout of floating, stage panel, and popout widgets when `reparentPopoutWidgets` is enabled. [#1049](https://github.com/iTwin/appui/pull/1049)
 - Use React portal instead of creating a separate element tree for each child window. [#1062](https://github.com/iTwin/appui/pull/1062)
 - Removed incorrect usage of the internal `IModelApp.renderSystem.options.displaySolarShadows` check from `useSolarDataProvider`. The `wantShadows` property of the viewport display style is used instead. [#1066](https://github.com/iTwin/appui/pull/1066)
