@@ -12,10 +12,24 @@ import {
 } from "cesium";
 import "cesium/Build/Cesium/Widgets/widgets.css";
 
+const disableCesiumUI = {
+  animation: false,
+  baseLayerPicker: false,
+  fullscreenButton: false,
+  geocoder: false,
+  homeButton: false,
+  infoBox: false,
+  sceneModePicker: false,
+  selectionIndicator: false,
+  timeline: false,
+  navigationHelpButton: false,
+} satisfies Viewer.ConstructorOptions;
+
 export function CesiumViewer() {
   React.useEffect(() => {
     const viewer = new Viewer("cesiumContainer", {
       terrain: Terrain.fromWorldTerrain(),
+      ...disableCesiumUI,
     });
 
     viewer.camera.flyTo({
