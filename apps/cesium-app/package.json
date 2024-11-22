@@ -1,0 +1,26 @@
+{
+  "name": "cesium-app",
+  "type": "module",
+  "description": "AppUI Cesium Application",
+  "private": true,
+  "license": "MIT",
+  "version": "0.0.0",
+  "homepage": "http://localhost:3000/",
+  "scripts": {
+    "start": "vite"
+  },
+  "author": {
+    "name": "Bentley Systems, Inc.",
+    "url": "http://www.bentley.com"
+  },
+  "devDependencies": {"vite":"^5.4.7"},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iTwin/appui.git",
+    "directory": "apps/cesium-app"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
+}
