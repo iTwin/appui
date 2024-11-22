@@ -2,9 +2,42 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import React, { StrictMode } from "react";
+import "./index.css";
+import * as React from "react";
 import ReactDOM from "react-dom/client";
-import { ConfigurableUiContent, ThemeManager } from "@itwin/appui-react";
+import {
+  ConfigurableUiContent,
+  FrontstageUtilities,
+  StageUsage,
+  StandardContentLayouts,
+  ThemeManager,
+  UiFramework,
+} from "@itwin/appui-react";
+
+// Set up the application
+(() => {
+  UiFramework.frontstages.addFrontstage(
+    FrontstageUtilities.createStandardFrontstage({
+      id: "cesium-frontstage",
+      usage: StageUsage.General,
+      contentGroupProps: {
+        id: "cesium-content",
+        layout: StandardContentLayouts.singleView,
+        contents: [
+          {
+            id: "cesium-content-view",
+            classId: "",
+            content: <>Hello Cesium App</>,
+          },
+        ],
+      },
+      // TODO: tool settings rely on IModelApp
+      hideToolSettings: true,
+    })
+  );
+
+  UiFramework.frontstages.setActiveFrontstage("cesium-frontstage");
+})();
 
 // Render the app
 const rootElement = document.getElementById("root")!;
@@ -15,10 +48,10 @@ if (!rootElement.innerHTML) {
 
 function App() {
   return (
-    <StrictMode>
+    <React.StrictMode>
       <ThemeManager>
         <ConfigurableUiContent />
       </ThemeManager>
-    </StrictMode>
+    </React.StrictMode>
   );
 }
