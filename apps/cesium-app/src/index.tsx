@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import "./index.css";
-import * as React from "react";
+import React from "react";
 import ReactDOM from "react-dom/client";
 import {
   ConfigurableUiContent,
@@ -13,9 +13,14 @@ import {
   ThemeManager,
   UiFramework,
 } from "@itwin/appui-react";
+import { CesiumViewer } from "./CesiumViewer";
+import { Ion } from "cesium";
 
 // Set up the application
 (() => {
+  const ionToken = import.meta.env.VITE_ION_TOKEN;
+  Ion.defaultAccessToken = ionToken;
+
   UiFramework.frontstages.addFrontstage(
     FrontstageUtilities.createStandardFrontstage({
       id: "cesium-frontstage",
@@ -27,7 +32,7 @@ import {
           {
             id: "cesium-content-view",
             classId: "",
-            content: <>Hello Cesium App</>,
+            content: <CesiumViewer />,
           },
         ],
       },
