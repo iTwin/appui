@@ -4,6 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import React, { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
+import { ConfigurableUiContent, ThemeManager } from "@itwin/appui-react";
 
 // Render the app
 const rootElement = document.getElementById("root")!;
@@ -13,5 +14,11 @@ if (!rootElement.innerHTML) {
 }
 
 function App() {
-  return <StrictMode>Test App</StrictMode>;
+  return (
+    <StrictMode>
+      <ThemeManager>
+        <ConfigurableUiContent />
+      </ThemeManager>
+    </StrictMode>
+  );
 }
