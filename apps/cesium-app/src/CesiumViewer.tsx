@@ -57,5 +57,6 @@ async function appSpecificInitializer(viewer: Viewer) {
   });
 
   const buildingTileset = await createOsmBuildingsAsync();
+  if (viewer.isDestroyed()) return;
   viewer.scene.primitives.add(buildingTileset);
 }
