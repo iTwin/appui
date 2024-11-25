@@ -30,6 +30,9 @@
     "@itwin/appui-react": "workspace:*",
     "@itwin/core-react": "workspace:*",
     "@bentley/icons-generic": "^1.0.34",
-    "cesium": "~1.123.1"
+    "cesium": "~1.123.1",
+    "zustand": "^4.4.1",
+    "@itwin/itwinui-icons-react": "^2.8.0",
+    "@itwin/itwinui-react": "^3.15.0"
   }
 }

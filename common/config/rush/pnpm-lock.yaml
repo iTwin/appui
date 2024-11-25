@@ -24,6 +24,12 @@ importers:
       '@itwin/core-react':
         specifier: workspace:*
         version: link:../../ui/core-react
+      '@itwin/itwinui-icons-react':
+        specifier: ^2.8.0
+        version: 2.8.0(react-dom@18.3.1)(react@18.3.1)
+      '@itwin/itwinui-react':
+        specifier: ^3.15.0
+        version: 3.15.5(@types/react@18.3.12)(react-dom@18.3.1)(react@18.3.1)
       cesium:
         specifier: ~1.123.1
         version: 1.123.1
@@ -33,6 +39,9 @@ importers:
       react-dom:
         specifier: ^18.3.1
         version: 18.3.1(react@18.3.1)
+      zustand:
+        specifier: ^4.4.1
+        version: 4.5.0(@types/react@18.3.12)(immer@10.1.1)(react@18.3.1)
     devDependencies:
       '@types/react':
         specifier: ^18.3.12
