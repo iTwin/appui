@@ -17,7 +17,6 @@ import {
 import { CesiumViewer } from "./CesiumViewer";
 import { Ion } from "cesium";
 import { createCesiumUIItemsProvider } from "./CesiumUiItemsProvider";
-import { useAppStore } from "./useAppStore";
 
 // Set up the application
 (() => {
