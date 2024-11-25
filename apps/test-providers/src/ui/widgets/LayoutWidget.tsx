@@ -570,12 +570,7 @@ export function WidgetContentThrowError() {
   if (shouldThrow) {
     throw new Error("Simulated error was thrown.");
   }
-  return (
-    <>
-      <h2>Throw error button</h2>
-      <Button onClick={() => setShouldThrow(true)}>Throw Error</Button>
-    </>
-  );
+  return <Button onClick={() => setShouldThrow(true)}>Throw Error</Button>;
 }
 
 const widgetContentStyle: React.CSSProperties = {
