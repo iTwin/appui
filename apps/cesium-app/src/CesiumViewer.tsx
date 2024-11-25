@@ -26,11 +26,7 @@ const disableCesiumUI = {
   navigationHelpButton: false,
 } satisfies Viewer.ConstructorOptions;
 
-interface CesiumViewerProps {
-  viewerRef?: (viewer: Viewer | null) => void;
-}
-
-export function CesiumViewer({ viewerRef }: CesiumViewerProps) {
+export function CesiumViewer() {
   React.useEffect(() => {
     const viewer = new Viewer("cesiumContainer", {
       terrain: Terrain.fromWorldTerrain(),
@@ -41,7 +37,6 @@ export function CesiumViewer({ viewerRef }: CesiumViewerProps) {
 
     return () => {
       viewer.destroy();
-      viewerRef?.(null);
     };
   }, []);
   return <div style={{ height: "100%" }} id="cesiumContainer" />;
