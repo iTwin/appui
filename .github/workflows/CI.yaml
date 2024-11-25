@@ -51,3 +51,34 @@ jobs:
       - name: appui-react tests
         run: npm run cover
         working-directory: ui/appui-react
+
+  extract-api:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v2
+
+      - name: Configure git
+        run: |
+          git config --local user.email imodeljs-admin@users.noreply.github.com
+          git config --local user.name imodeljs-admin
+
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Rush install
+        run: node common/scripts/install-run-rush.js install
+
+      - name: Rush build
+        run: node common/scripts/install-run-rush.js build -v -p max --to-version-policy prerelease-monorepo-lockStep
+
+      - name: Rush extract-api
+        run: node common/scripts/install-run-rush.js extract-api
+
+      - name: Publish extracted api
+        uses: actions/upload-artifact@v4
+        with:
+          name: extracted-api
+          path: common/api
