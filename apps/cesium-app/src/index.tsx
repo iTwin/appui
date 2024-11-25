@@ -46,6 +46,9 @@ import { createCesiumUIItemsProvider } from "./CesiumUiItemsProvider";
   UiItemsManager.register(createCesiumUIItemsProvider());
 
   UiFramework.frontstages.setActiveFrontstage("cesium-frontstage");
+
+  // TODO: `pagehide` is not emitted when the widget is closed.
+  UiFramework.useDefaultPopoutUrl = true;
 })();
 
 // Render the app
