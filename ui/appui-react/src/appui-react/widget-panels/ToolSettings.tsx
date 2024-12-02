@@ -30,15 +30,25 @@ export interface ToolSettingsEntry {
   editorNode: React.ReactNode;
 }
 
-function EmptyToolSettingsLabel({ toolId }: { toolId: string }) {
+function EmptyToolSettingsLabel({
+  toolId,
+  customMessage,
+}: {
+  toolId: string;
+  customMessage?: string;
+}) {
   const { translate } = useTranslation();
   const tool = IModelApp.tools.find(toolId);
   const toolName = tool?.flyover;
   return (
     <Text as="i" isMuted={true} className="uifw-toolSettings-label-empty">
-      {translate("tools.noToolSettingsStart")}
-      {toolName || translate("tools.noToolSettingsPlaceholderName")}
-      {translate("tools.noToolSettingsEnd")}
+      {customMessage ?? (
+        <>
+          {translate("tools.noToolSettingsStart")}
+          {toolName || translate("tools.noToolSettingsPlaceholderName")}
+          {translate("tools.noToolSettingsEnd")}
+        </>
+      )}
     </Text>
   );
 }
@@ -70,7 +80,15 @@ export function ToolSettingsDockedContent() {
     () => [
       {
         editorNode: null,
-        labelNode: <EmptyToolSettingsLabel toolId={activeToolId} />,
+        labelNode: (
+          <EmptyToolSettingsLabel
+            toolId={activeToolId}
+            customMessage={
+              InternalFrontstageManager.activeFrontstageDef
+                ?.activeToolEmptyMessage
+            }
+          />
+        ),
       },
     ],
     [activeToolId]
@@ -184,7 +202,15 @@ export function ToolSettingsWidgetContent() {
       key={forceRefreshKey}
     >
       <ScrollableWidgetContent>
-        {node ?? <EmptyToolSettingsLabel toolId={activeToolId} />}
+        {node ?? (
+          <EmptyToolSettingsLabel
+            toolId={activeToolId}
+            customMessage={
+              InternalFrontstageManager.activeFrontstageDef
+                ?.activeToolEmptyMessage
+            }
+          />
+        )}
       </ScrollableWidgetContent>
     </div>
   );

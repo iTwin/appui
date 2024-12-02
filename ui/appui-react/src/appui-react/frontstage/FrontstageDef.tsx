@@ -76,6 +76,7 @@ export class FrontstageDef {
   private _usage?: string;
   private _version: number = 0;
   private _toolSettings?: WidgetDef;
+  private _activeToolMessage?: string;
   private _statusBar?: WidgetDef;
   private _contentManipulation?: WidgetDef;
   private _viewNavigation?: WidgetDef;
@@ -144,6 +145,10 @@ export class FrontstageDef {
   }
   public get contentGroup(): ContentGroup | undefined {
     return this._contentGroup;
+  }
+
+  public get activeToolEmptyMessage(): string | undefined {
+    return this._activeToolMessage;
   }
 
   private toStagePanelLocation(side: PanelSide): StagePanelLocation {
@@ -580,6 +585,7 @@ export class FrontstageDef {
       config.toolSettings,
       WidgetType.ToolSettings
     );
+    this._activeToolMessage = config.activeToolEmptyMessage;
     this._statusBar = createWidgetDef(config.statusBar, WidgetType.StatusBar);
     this._contentManipulation = createWidgetDef(
       config.contentManipulation,
