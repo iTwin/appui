@@ -78,6 +78,7 @@ export namespace FrontstageUtilities {
         defaultState: StagePanelState.Open,
         ...props.bottomPanelProps,
       },
+      activeToolEmptyNode: <span>No content available</span>,
     };
   }
 }
