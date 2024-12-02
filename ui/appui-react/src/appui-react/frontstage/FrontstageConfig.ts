@@ -34,7 +34,7 @@ export interface FrontstageConfig extends CommonProps {
    * Increasing the value will make sure to reinitialize App layout instead of restoring to old layout.
    */
   readonly version: number;
-  /** The defaultTool is is started when then frontstage loads and whenever any other tools exit.
+  /** The defaultTool is started when then frontstage loads and whenever any other tools exit.
    * Most of the time, this is the Element Selection Tool (SelectionTool.toolId).
    * Your app can specify its own tool or another core tool as default with this property.
    */
@@ -44,6 +44,8 @@ export interface FrontstageConfig extends CommonProps {
   readonly contentManipulation?: WidgetConfig;
   /** The settings of the active tool. */
   readonly toolSettings?: WidgetConfig;
+  /** Custom message for active tool, when tool has no settings. */
+  readonly activeToolEmptyMessage?: string;
   /** The top-right corner that shows view navigation tools. */
   readonly viewNavigation?: WidgetConfig;
   /** The status bar of the application. */
