@@ -32,6 +32,12 @@
       "shouldPublish": false
     },
     {
+      "packageName": "cesium-app",
+      "projectFolder": "apps/cesium-app",
+      "reviewCategory": "internal",
+      "shouldPublish": false
+    },
+    {
       "packageName": "test-app",
       "projectFolder": "apps/test-app",
       "reviewCategory": "internal",
