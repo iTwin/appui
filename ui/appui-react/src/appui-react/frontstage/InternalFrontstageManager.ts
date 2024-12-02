@@ -128,9 +128,10 @@ export class InternalFrontstageManager {
     UiFramework.toolSettings.onReloadToolSettingsProperties.addListener(
       InternalFrontstageManager._handleReloadToolSettingsEvent
     );
-    IModelApp.viewManager.onSelectedViewportChanged.addListener(
-      InternalFrontstageManager._handleSelectedViewportChanged
-    );
+    IModelApp.initialized &&
+      IModelApp.viewManager.onSelectedViewportChanged.addListener(
+        InternalFrontstageManager._handleSelectedViewportChanged
+      );
     UiItemsManager.onUiProviderRegisteredEvent.addListener(() => {
       const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
       if (!frontstageDef) return;

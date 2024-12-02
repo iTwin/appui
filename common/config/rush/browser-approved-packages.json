@@ -191,6 +191,10 @@
       "allowedCategories": [ "internal" ]
     },
     {
+      "name": "@react-three/fiber",
+      "allowedCategories": [ "internal" ]
+    },
+    {
       "name": "@reduxjs/toolkit",
       "allowedCategories": [ "internal" ]
     },
@@ -471,6 +475,10 @@
       "allowedCategories": [ "internal" ]
     },
     {
+      "name": "three",
+      "allowedCategories": [ "internal" ]
+    },
+    {
       "name": "ts-jest",
       "allowedCategories": [ "tools" ]
     },
@@ -520,7 +528,7 @@
     },
     {
       "name": "zustand",
-      "allowedCategories": [ "frontend" ]
+      "allowedCategories": [ "frontend", "internal" ]
     }
   ]
 }
