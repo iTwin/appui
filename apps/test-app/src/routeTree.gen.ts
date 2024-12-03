@@ -17,6 +17,7 @@ import { Route as SigninCallbackImport } from './routes/signin-callback'
 import { Route as SettingsImport } from './routes/settings'
 import { Route as LocalImport } from './routes/local'
 import { Route as ITwinsImport } from './routes/iTwins'
+import { Route as CesiumImport } from './routes/cesium'
 import { Route as BriefcaseImport } from './routes/briefcase'
 import { Route as BlankImport } from './routes/blank'
 import { Route as LocalFileNameImport } from './routes/local_.$fileName'
@@ -46,6 +47,11 @@ const LocalRoute = LocalImport.update({
 
 const ITwinsRoute = ITwinsImport.update({
   path: '/iTwins',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const CesiumRoute = CesiumImport.update({
+  path: '/cesium',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -106,6 +112,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BriefcaseImport
       parentRoute: typeof rootRoute
     }
+    '/cesium': {
+      id: '/cesium'
+      path: '/cesium'
+      fullPath: '/cesium'
+      preLoaderRoute: typeof CesiumImport
+      parentRoute: typeof rootRoute
+    }
     '/iTwins': {
       id: '/iTwins'
       path: '/iTwins'
@@ -164,6 +177,7 @@ export const routeTree = rootRoute.addChildren({
   IndexLazyRoute,
   BlankRoute,
   BriefcaseRoute,
+  CesiumRoute,
   ITwinsRoute,
   LocalRoute,
   SettingsRoute,
@@ -184,6 +198,7 @@ export const routeTree = rootRoute.addChildren({
         "/",
         "/blank",
         "/briefcase",
+        "/cesium",
         "/iTwins",
         "/local",
         "/settings",
@@ -201,6 +216,9 @@ export const routeTree = rootRoute.addChildren({
     },
     "/briefcase": {
       "filePath": "briefcase.tsx"
+    },
+    "/cesium": {
+      "filePath": "cesium.tsx"
     },
     "/iTwins": {
       "filePath": "iTwins.tsx"

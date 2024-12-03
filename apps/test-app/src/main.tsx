@@ -7,6 +7,8 @@ import ReactDOM from "react-dom/client";
 import { createRouter, RouterProvider } from "@tanstack/react-router";
 import { AuthProvider, useAuth } from "./frontend/Auth";
 import { routeTree } from "./routeTree.gen";
+import { Ion } from "cesium";
+import { config } from "./frontend/config";
 
 // Create a new router instance
 const router = createRouter({
@@ -29,6 +31,8 @@ if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement);
   root.render(<App />);
 }
+
+Ion.defaultAccessToken = config.cesiumIonKey;
 
 function InnerApp() {
   const auth = useAuth();

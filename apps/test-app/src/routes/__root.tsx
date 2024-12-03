@@ -10,6 +10,7 @@ import {
   SvgDeveloper,
   SvgExit,
   SvgFolderBrowse,
+  SvgGlobe,
   SvgImodel,
   SvgImodelHollow,
   SvgModel,
@@ -65,6 +66,7 @@ function Root() {
   const localMatch = matchRoute({ to: "/local", fuzzy: true });
   const briefcaseMatch = matchRoute({ to: "/briefcase", fuzzy: true });
   const blankMatch = matchRoute({ to: "/blank", fuzzy: true });
+  const cesiumMatch = matchRoute({ to: "/cesium", fuzzy: true });
   const iTwinsMatch = matchRoute({ to: "/iTwins", fuzzy: true });
   const iTwinMatch = matchRoute({ to: "/iTwin/$iTwinId", fuzzy: true });
   const settingsMatch = matchRoute({ to: "/settings", fuzzy: true });
@@ -126,6 +128,18 @@ function Root() {
                   isActive={!!blankMatch}
                 >
                   Blank
+                </SidenavButton>,
+                <SidenavButton
+                  key="cesium"
+                  startIcon={<SvgGlobe />}
+                  onClick={() => {
+                    void navigate({
+                      to: "/cesium",
+                    });
+                  }}
+                  isActive={!!cesiumMatch}
+                >
+                  Cesium
                 </SidenavButton>,
               ]}
               secondaryItems={[
@@ -226,7 +240,7 @@ function UserMenu() {
         </MenuItem>,
       ]}
     >
-      <IconButton styleType="borderless">
+      <IconButton styleType="borderless" label={user.givenName}>
         <Avatar size="medium" abbreviation={abbreviation} />
       </IconButton>
     </DropdownMenu>
