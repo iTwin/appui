@@ -64,7 +64,7 @@
     "classnames": "2.5.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-redux": "^7.2.2",
+    "react-redux": "^9.1.2",
     "@reduxjs/toolkit": "^1.5.0",
     "ts-key-enum": "~2.0.12"
   },
