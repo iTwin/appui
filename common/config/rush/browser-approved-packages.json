@@ -199,10 +199,6 @@
       "allowedCategories": [ "internal" ]
     },
     {
-      "name": "@reduxjs/toolkit",
-      "allowedCategories": [ "internal" ]
-    },
-    {
       "name": "@storybook/addon-actions",
       "allowedCategories": [ "internal" ]
     },
