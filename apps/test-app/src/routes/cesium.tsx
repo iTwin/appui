@@ -6,6 +6,14 @@ import React from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import * as Cesium from "cesium";
 import "cesium/Build/Cesium/Widgets/widgets.css";
+import {
+  ConfigurableUiContent,
+  FrontstageUtilities,
+  StageUsage,
+  StandardContentLayouts,
+  UiFramework,
+  UiItemsManager,
+} from "@itwin/appui-react";
 
 interface IModelDataPoint {
   fileName: string;
@@ -94,11 +102,45 @@ function CesiumViewer() {
       style={{
         /** TODO: viewer keeps growing in size */
         overflow: "auto",
+        height: "100%",
       }}
     />
   );
 }
 
+function RouteComponent() {
+  React.useEffect(() => {
+    void UiFramework.frontstages.setActiveFrontstage("cesium");
+  }, []);
+  return (
+    <>
+      <ConfigurableUiContent />
+    </>
+  );
+}
 export const Route = createFileRoute("/cesium")({
-  component: () => <CesiumViewer />,
+  loader: async () => {
+    UiFramework.frontstages.clearFrontstages();
+    UiItemsManager.clearAllProviders();
+
+    UiFramework.frontstages.addFrontstage(
+      FrontstageUtilities.createStandardFrontstage({
+        id: "cesium",
+        usage: StageUsage.General,
+        contentGroupProps: {
+          id: "cesium-content",
+          layout: StandardContentLayouts.singleView,
+          contents: [
+            {
+              id: "cesium-viewer",
+              classId: "",
+              content: <CesiumViewer />,
+            },
+          ],
+        },
+        hideToolSettings: true,
+      })
+    );
+  },
+  component: () => <RouteComponent />,
 });
