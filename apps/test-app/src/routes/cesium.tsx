@@ -9,11 +9,14 @@ import "cesium/Build/Cesium/Widgets/widgets.css";
 import {
   ConfigurableUiContent,
   FrontstageUtilities,
+  StagePanelLocation,
+  StagePanelSection,
   StageUsage,
   StandardContentLayouts,
   UiFramework,
   UiItemsManager,
 } from "@itwin/appui-react";
+import { Button, Input } from "@itwin/itwinui-react";
 
 interface IModelDataPoint {
   fileName: string;
@@ -31,6 +34,8 @@ const iModelDataPoints: IModelDataPoint[] = [
   },
 ];
 
+let cesiumViewer: Cesium.Viewer | undefined;
+
 function CesiumViewer() {
   const id = React.useId();
   const navigate = useNavigate();
@@ -38,15 +43,13 @@ function CesiumViewer() {
     const viewer = new Cesium.Viewer(id, {
       terrain: Cesium.Terrain.fromWorldTerrain(),
     });
+    cesiumViewer = viewer;
 
     void (async () => {
-      // Fly the camera to Denver, Colorado at the given longitude, latitude, and height.
-      viewer.camera.flyTo({
-        destination: Cesium.Cartesian3.fromDegrees(-104.9965, 39.74248, 4000),
-      });
-
       // Add Cesium OSM Buildings.
       const buildingsTileset = await Cesium.createOsmBuildingsAsync();
+      if (viewer.isDestroyed()) return;
+
       viewer.scene.primitives.add(buildingsTileset);
 
       // Add data points.
@@ -118,6 +121,7 @@ function RouteComponent() {
     </>
   );
 }
+
 export const Route = createFileRoute("/cesium")({
   loader: async () => {
     UiFramework.frontstages.clearFrontstages();
@@ -139,8 +143,56 @@ export const Route = createFileRoute("/cesium")({
           ],
         },
         hideToolSettings: true,
+        hideStatusBar: true,
       })
     );
+    UiItemsManager.register({
+      id: "cesium-items",
+      getWidgets: () => [
+        {
+          id: "geocoder",
+          label: "Geocoder",
+          canPopout: true,
+          content: <GeocoderWidget />,
+          layouts: {
+            standard: {
+              location: StagePanelLocation.Right,
+              section: StagePanelSection.Start,
+            },
+          },
+        },
+      ],
+    });
   },
   component: () => <RouteComponent />,
 });
+
+function GeocoderWidget() {
+  const geocoder = React.useMemo(() => {
+    if (!cesiumViewer) return undefined;
+    return new Cesium.GeocoderViewModel({
+      scene: cesiumViewer.scene,
+    });
+  }, [cesiumViewer]);
+  const inputRef = React.useRef<HTMLInputElement>(null);
+  return (
+    <div style={{ padding: 12, display: "flex", gap: 8 }}>
+      <Input defaultValue="Vilnius" ref={inputRef} />
+      <Button
+        onClick={async () => {
+          if (!inputRef.current) return;
+          if (!geocoder) return;
+          geocoder.searchText = inputRef.current.value;
+          callCommand(geocoder.search);
+        }}
+        styleType="cta"
+      >
+        Fly to
+      </Button>
+    </div>
+  );
+}
+
+function callCommand(command: Cesium.Command) {
+  return (command as unknown as () => void)();
+}
