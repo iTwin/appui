@@ -386,11 +386,7 @@ export class UiFramework {
   /** @alpha */
   public static get widgetManager(): WidgetManager {
     if (!UiFramework._widgetManager)
-      // eslint-disable-next-line @typescript-eslint/no-deprecated
-      throw new UiError(
-        UiFramework.loggerCategory("UiFramework"),
-        UiFramework._complaint
-      );
+      UiFramework._widgetManager = new WidgetManager();
     return UiFramework._widgetManager;
   }
 
