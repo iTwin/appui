@@ -11,7 +11,7 @@ import TestUtils, {
   styleMatch,
   userEvent,
 } from "../../TestUtils.js";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import type { PropertyRecord } from "@itwin/appui-abstract";
 
 describe("PropertyRenderer", () => {
@@ -280,6 +280,52 @@ describe("PropertyRenderer", () => {
     expect(screen.getByRole("textbox")).satisfy(
       selectorMatches("input.components-text-editor")
     );
+  });
+
+  it("renders an editor at all times", () => {
+    const textPropertyRecord = TestUtils.createPrimitiveStringProperty(
+      "Label",
+      "Model",
+      "DisplayValue",
+      { name: "textEditor" }
+    );
+    render(
+      <PropertyRenderer
+        orientation={Orientation.Horizontal}
+        propertyRecord={textPropertyRecord}
+        isEditing={false}
+        isPropertyEditingEnabled={true}
+        alwaysShowEditor={(property) =>
+          property.property.editor?.name === "textEditor"
+        }
+      />
+    );
+
+    expect(screen.getByRole("textbox")).satisfy(
+      selectorMatches(".components-text-editor")
+    );
+  });
+
+  it("calls on click when clicking on an editor", async () => {
+    const spy = vi.fn();
+    const textPropertyRecord = TestUtils.createPrimitiveStringProperty(
+      "Label",
+      "Model",
+      "DisplayValue",
+      { name: "textEditor" }
+    );
+    render(
+      <PropertyRenderer
+        orientation={Orientation.Horizontal}
+        propertyRecord={textPropertyRecord}
+        isEditing={true}
+        onClick={spy}
+      />
+    );
+
+    const editor = await waitFor(() => screen.getByRole("textbox"));
+    fireEvent.click(editor);
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("calls onEditCommit on Enter key when editing", async () => {

@@ -246,6 +246,7 @@ export interface CheckboxStateChange {
 export interface CommonPropertyGridProps extends CommonProps {
     actionButtonRenderers?: ActionButtonRenderer[];
     actionButtonWidth?: number;
+    alwaysShowEditor?: (property: PropertyRecord) => boolean;
     horizontalOrientationMinWidth?: number;
     isOrientationFixed?: boolean;
     isPropertyEditingEnabled?: boolean;
@@ -547,6 +548,7 @@ export interface EditorContainerProps extends CommonProps {
     // @internal (undocumented)
     ignoreEditorBlur?: boolean;
     onCancel: () => void;
+    onClick?: () => void;
     onCommit: (args: PropertyUpdatedArgs) => void;
     propertyRecord: PropertyRecord;
     setFocus?: boolean;
@@ -2325,9 +2327,11 @@ export enum SelectionModeFlags {
 // @public
 export interface SharedRendererProps {
     actionButtonRenderers?: ActionButtonRenderer[];
+    alwaysShowEditor?: (property: PropertyRecord) => boolean;
     columnInfo?: PropertyGridColumnInfo;
     columnRatio?: number;
     isHoverable?: boolean;
+    isPropertyEditingEnabled?: boolean;
     isResizeHandleBeingDragged?: boolean;
     isResizeHandleHovered?: boolean;
     isSelectable?: boolean;
@@ -3261,6 +3265,8 @@ export interface VirtualizedPropertyGridContext {
     // (undocumented)
     actionButtonRenderers?: ActionButtonRenderer[];
     // (undocumented)
+    alwaysShowEditor?: (property: PropertyRecord) => boolean;
+    // (undocumented)
     columnInfo: PropertyGridColumnInfo;
     // (undocumented)
     columnRatio: number;
@@ -3274,6 +3280,8 @@ export interface VirtualizedPropertyGridContext {
     gridWidth: number;
     // (undocumented)
     highlight?: PropertyGridContentHighlightProps;
+    // (undocumented)
+    isPropertyEditingEnabled?: boolean;
     // (undocumented)
     isPropertyHoverEnabled: boolean;
     // (undocumented)

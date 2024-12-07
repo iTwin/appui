@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/components-react",
+      "comment": "Added a callback to `VirtualizedPropertyGrid` which determines which editors should always be visible",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/components-react"
+}

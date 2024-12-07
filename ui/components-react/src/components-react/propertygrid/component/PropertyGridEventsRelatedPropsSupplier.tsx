@@ -43,7 +43,6 @@ export type PropertyGridEventsRelatedPropsSupplierProps = Pick<
   CommonPropertyGridProps,
   | "onPropertyContextMenu"
   | "isPropertySelectionOnRightClickEnabled"
-  | "isPropertySelectionOnRightClickEnabled"
   | "onPropertySelectionChanged"
   | "isPropertyEditingEnabled"
   | "onPropertyUpdated"

@@ -5,7 +5,7 @@
 import * as React from "react";
 import type { PropertyRecord } from "@itwin/appui-abstract";
 import { Orientation } from "@itwin/core-react";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { PropertyValueRendererManager } from "../../../../components-react/properties/ValueRendererManager.js";
 import { FlatPropertyRenderer } from "../../../../components-react/propertygrid/internal/flat-properties/FlatPropertyRenderer.js";
 import TestUtils, { selectorMatches, userEvent } from "../../../TestUtils.js";
@@ -360,6 +360,79 @@ describe("FlatPropertyRenderer", () => {
     expect(screen.getByRole("textbox")).satisfy(
       selectorMatches(".components-text-editor")
     );
+  });
+
+  it("renders an editor at all times", () => {
+    const textPropertyRecord = TestUtils.createPrimitiveStringProperty(
+      "Label",
+      "Model",
+      "DisplayValue",
+      { name: "textEditor" }
+    );
+    render(
+      <FlatPropertyRenderer
+        orientation={Orientation.Horizontal}
+        propertyRecord={textPropertyRecord}
+        isEditing={false}
+        isPropertyEditingEnabled={true}
+        alwaysShowEditor={(property) =>
+          property.property.editor?.name === "textEditor"
+        }
+        isExpanded={false}
+        onExpansionToggled={() => {}}
+      />
+    );
+
+    expect(screen.getByRole("textbox")).satisfy(
+      selectorMatches(".components-text-editor")
+    );
+  });
+
+  it("calls on click when clicking on an editor", async () => {
+    const spy = vi.fn();
+    const textPropertyRecord = TestUtils.createPrimitiveStringProperty(
+      "Label",
+      "Model",
+      "DisplayValue",
+      { name: "textEditor" }
+    );
+    render(
+      <FlatPropertyRenderer
+        orientation={Orientation.Horizontal}
+        propertyRecord={textPropertyRecord}
+        isEditing={true}
+        onClick={spy}
+        isExpanded={false}
+        onExpansionToggled={() => {}}
+      />
+    );
+
+    const editor = await waitFor(() => screen.getByRole("textbox"));
+    fireEvent.click(editor);
+    expect(spy).toHaveBeenCalledOnce();
+  });
+
+  it("renders an editor with focus when alwaysShowEditor is defined and isEditing is true", async () => {
+    const textPropertyRecord = TestUtils.createPrimitiveStringProperty(
+      "Label",
+      "Model",
+      "DisplayValue",
+      { name: "textEditor" }
+    );
+    render(
+      <FlatPropertyRenderer
+        orientation={Orientation.Horizontal}
+        propertyRecord={textPropertyRecord}
+        isEditing={true}
+        isPropertyEditingEnabled={true}
+        alwaysShowEditor={() => false}
+        isExpanded={false}
+        onExpansionToggled={() => {}}
+      />
+    );
+
+    const input = await waitFor(() => screen.getByRole("textbox"));
+    await waitFor(() => expect(input).to.be.eq(document.activeElement));
   });
 
   it("calls onEditCommit on Enter key when editing", async () => {
