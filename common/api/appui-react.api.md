@@ -1937,7 +1937,6 @@ export interface FrameworkFrontstages {
     readonly activeToolId: string;
     // @deprecated
     readonly activeToolInformation: ToolInformation | undefined;
-    // @beta
     addFrontstage(frontstage: Frontstage): void;
     // @deprecated
     addFrontstageProvider(frontstageProvider: FrontstageProvider): void;
