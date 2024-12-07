@@ -287,9 +287,7 @@ export interface FrameworkFrontstages {
   // eslint-disable-next-line @typescript-eslint/no-deprecated
   addFrontstageProvider(frontstageProvider: FrontstageProvider): void;
 
-  /** Adds a frontstage.
-   * @beta
-   */
+  /** Adds a frontstage. */
   addFrontstage(frontstage: Frontstage): void;
 
   /** Find a loaded Frontstage with a given id. If the id is not provided, the active Frontstage is returned. If

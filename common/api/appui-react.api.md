@@ -1937,7 +1937,6 @@ export interface FrameworkFrontstages {
     readonly activeToolId: string;
     // @deprecated
     readonly activeToolInformation: ToolInformation | undefined;
-    // @beta
     addFrontstage(frontstage: Frontstage): void;
     // @deprecated
     addFrontstageProvider(frontstageProvider: FrontstageProvider): void;
@@ -5603,7 +5602,7 @@ export class WidgetDef {
     // @internal (undocumented)
     get defaultFloatingSize(): SizeProps | undefined;
     set defaultFloatingSize(size: SizeProps | undefined);
-    // @internal (undocumented)
+    // (undocumented)
     get defaultState(): WidgetState;
     expand(): void;
     // (undocumented)
