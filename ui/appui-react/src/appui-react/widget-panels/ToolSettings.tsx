@@ -70,7 +70,10 @@ export function ToolSettingsDockedContent() {
     () => [
       {
         editorNode: null,
-        labelNode: <EmptyToolSettingsLabel toolId={activeToolId} />,
+        labelNode: InternalFrontstageManager.activeFrontstageDef
+          ?.activeToolEmptyNode ?? (
+          <EmptyToolSettingsLabel toolId={activeToolId} />
+        ),
       },
     ],
     [activeToolId]
@@ -184,7 +187,11 @@ export function ToolSettingsWidgetContent() {
       key={forceRefreshKey}
     >
       <ScrollableWidgetContent>
-        {node ?? <EmptyToolSettingsLabel toolId={activeToolId} />}
+        {node ??
+          InternalFrontstageManager.activeFrontstageDef
+            ?.activeToolEmptyNode ?? (
+            <EmptyToolSettingsLabel toolId={activeToolId} />
+          )}
       </ScrollableWidgetContent>
     </div>
   );
