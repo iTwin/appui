@@ -2,8 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect, Page, test } from "@playwright/test";
-import assert from "assert";
+import { expect, test } from "@playwright/test";
 import {
   dragWidget,
   expectSavedFrontstageState,
@@ -19,9 +18,8 @@ import {
 } from "./Utils";
 
 test.describe("floating widget", () => {
-  test.beforeEach(async ({ page, baseURL }) => {
-    assert(baseURL);
-    await page.goto(`${baseURL}/blank?frontstageId=widget-api&menu=0`);
+  test.beforeEach(async ({ page }) => {
+    await page.goto("./blank?frontstageId=widget-api&menu=0");
   });
 
   test("should float a panel section", async ({ page }) => {
@@ -115,12 +113,8 @@ test.describe("floating widget", () => {
     expect(bounds.y).toEqual(initialBounds.y + 30);
   });
 
-  test("should drag a floating widget (with header)", async ({
-    page,
-    baseURL,
-  }) => {
-    assert(baseURL);
-    await page.goto(`${baseURL}/blank?frontstageId=widget-api`);
+  test("should drag a floating widget (with header)", async ({ page }) => {
+    await page.goto("./blank?frontstageId=widget-api");
 
     const tab = tabLocator(page, "FW-1");
     const widget = widgetLocator({ tab });
@@ -207,9 +201,8 @@ test.describe("floating widget", () => {
 });
 
 test.describe("floating widget send back outline", () => {
-  test.beforeEach(async ({ page, baseURL }) => {
-    assert(baseURL);
-    await page.goto(`${baseURL}/blank?frontstageId=widget-api`);
+  test.beforeEach(async ({ page }) => {
+    await page.goto("./blank?frontstageId=widget-api");
   });
 
   test("should show a widget (with tab) outline", async ({ page }) => {

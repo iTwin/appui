@@ -3,7 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { Locator, expect, test } from "@playwright/test";
-import assert from "assert";
 import {
   StagePanelState,
   panelLocator,
@@ -12,9 +11,8 @@ import {
 } from "./Utils";
 
 test.describe("WidgetApi", () => {
-  test.beforeEach(async ({ page, baseURL }) => {
-    assert(baseURL);
-    await page.goto(`${baseURL}/blank?frontstageId=widget-api`);
+  test.beforeEach(async ({ page }) => {
+    await page.goto("./blank?frontstageId=widget-api");
   });
 
   test("should toggle pin state", async ({ page }) => {
@@ -63,28 +61,25 @@ test.describe("WidgetApi", () => {
   });
 });
 
-test("should initialize defaults", async ({ baseURL, page }) => {
-  assert(baseURL);
-  await page.goto(`${baseURL}/blank?frontstageId=test-panel`);
+test("should initialize defaults", async ({ page }) => {
+  await page.goto("./blank?frontstageId=test-panel");
 
   const panel = panelLocator({ page, side: "left" });
   await expect(panel).toBeVisible();
   expect(await getPanelSize(panel)).toBe(200);
 });
 
-test("should initialize size", async ({ baseURL, page }) => {
-  assert(baseURL);
-  await page.goto(`${baseURL}/blank?frontstageId=test-panel&size=500`);
+test("should initialize size", async ({ page }) => {
+  await page.goto("./blank?frontstageId=test-panel&size=500");
 
   const panel = panelLocator({ page, side: "left" });
   await expect(panel).toBeVisible();
   expect(await getPanelSize(panel)).toBe(500);
 });
 
-test("should initialize minimized", async ({ baseURL, page }) => {
-  assert(baseURL);
+test("should initialize minimized", async ({ page }) => {
   await page.goto(
-    `${baseURL}/blank?frontstageId=test-panel&defaultState=${StagePanelState.Minimized}`
+    `./blank?frontstageId=test-panel&defaultState=${StagePanelState.Minimized}`
   );
 
   const panel = panelLocator({ page, side: "left" });
@@ -93,18 +88,16 @@ test("should initialize minimized", async ({ baseURL, page }) => {
   expect(await getPanelSize(panel)).toBe(0);
 });
 
-test("should initialize resizable", async ({ baseURL, page }) => {
-  assert(baseURL);
-  await page.goto(`${baseURL}/blank?frontstageId=test-panel&resizable=0`);
+test("should initialize resizable", async ({ page }) => {
+  await page.goto("./blank?frontstageId=test-panel&resizable=0");
 
   const panel = panelLocator({ page, side: "left" });
   const handle = handleLocator(panel);
   await expect(handle).not.toBeVisible();
 });
 
-test("should resize (single panel)", async ({ baseURL, page }) => {
-  assert(baseURL);
-  await page.goto(`${baseURL}/blank?frontstageId=test-panel&menu=0`);
+test("should resize (single panel)", async ({ page }) => {
+  await page.goto("./blank?frontstageId=test-panel&menu=0");
 
   const panel = panelLocator({ page, side: "left" });
   const handle = handleLocator(panel);

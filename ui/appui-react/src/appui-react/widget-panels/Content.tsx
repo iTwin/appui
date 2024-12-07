@@ -20,7 +20,8 @@ import { useTransientState } from "./useTransientState.js";
 import { useTranslation } from "../hooks/useTranslation.js";
 import { PopoutThemeProvider } from "../preview/reparent-popout-widgets/PopoutThemeProvider.js";
 
-function WidgetFallback() {
+/** @internal */
+export function WidgetFallback() {
   const { translate } = useTranslation();
 
   return (
