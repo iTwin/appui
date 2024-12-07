@@ -5603,7 +5603,7 @@ export class WidgetDef {
     // @internal (undocumented)
     get defaultFloatingSize(): SizeProps | undefined;
     set defaultFloatingSize(size: SizeProps | undefined);
-    // @internal (undocumented)
+    // (undocumented)
     get defaultState(): WidgetState;
     expand(): void;
     // (undocumented)
