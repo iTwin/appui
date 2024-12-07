@@ -6,7 +6,7 @@
  * @module StatusBar
  */
 
-import svgSectionTool from "@bentley/icons-generic/icons/section-tool.svg";
+import { SvgSectionTool } from "../icons/SvgSectionTool.js";
 import {
   IModelApp,
   ViewClipClearTool,
@@ -112,8 +112,13 @@ export function SectionsStatusField(props: SectionsStatusFieldProps) {
             styleType="borderless"
             data-testid="sections-status-field-button"
           >
+<<<<<<< HEAD
             {/* eslint-disable-next-line deprecation/deprecation */}
             <Icon iconSpec={svgSectionTool} />
+=======
+            {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
+            <Icon iconSpec={<SvgSectionTool />} />
+>>>>>>> 2810fd052 (Remove icons-generic (#1074))
             <StatusBarPopover.ExpandIndicator />
           </IconButton>
         </StatusBarPopover>
