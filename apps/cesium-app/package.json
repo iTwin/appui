@@ -1,0 +1,38 @@
+{
+  "name": "cesium-app",
+  "type": "module",
+  "description": "AppUI Cesium Application",
+  "private": true,
+  "license": "MIT",
+  "version": "0.0.0",
+  "homepage": "http://localhost:3000/",
+  "scripts": {
+    "build": "vite build",
+    "start": "vite"
+  },
+  "author": {
+    "name": "Bentley Systems, Inc.",
+    "url": "http://www.bentley.com"
+  },
+  "devDependencies": {
+    "vite": "^5.4.7",
+    "@types/react": "^18.3.12",
+    "vite-plugin-static-copy": "^1.0.6"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iTwin/appui.git",
+    "directory": "apps/cesium-app"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "@itwin/appui-react": "workspace:*",
+    "@itwin/core-react": "workspace:*",
+    "@bentley/icons-generic": "^1.0.34",
+    "cesium": "~1.123.1",
+    "zustand": "^4.4.1",
+    "@itwin/itwinui-icons-react": "^2.8.0",
+    "@itwin/itwinui-react": "^3.15.0"
+  }
+}

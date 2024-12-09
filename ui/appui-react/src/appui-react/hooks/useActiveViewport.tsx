@@ -11,12 +11,16 @@ import type { ScreenViewport } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
 
 const subscribe = (onStoreChange: () => void) => {
+  if (!IModelApp.initialized) return () => {};
   return IModelApp.viewManager.onSelectedViewportChanged.addListener(
     onStoreChange
   );
 };
 
 const getSnapshot = () => {
+  if (!IModelApp.initialized) {
+    return undefined;
+  }
   return IModelApp.viewManager.selectedView;
 };
 
