@@ -561,7 +561,11 @@ function SelectWidgetControls() {
   );
 }
 
-function WidgetContentThrowError() {
+/**
+ * Returns a button that throws an error.
+ * @internal
+ */
+export function WidgetContentThrowError() {
   const [shouldThrow, setShouldThrow] = React.useState(false);
   if (shouldThrow) {
     throw new Error("Simulated error was thrown.");
@@ -569,7 +573,7 @@ function WidgetContentThrowError() {
   return (
     <>
       <h2>Throw error button</h2>
-      <Button onClick={() => setShouldThrow(true)}>Click Me</Button>
+      <Button onClick={() => setShouldThrow(true)}>Throw Error</Button>
     </>
   );
 }
