@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Removed some references on @bentley/icons-generic",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
