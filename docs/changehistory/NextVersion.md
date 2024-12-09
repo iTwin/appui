@@ -161,6 +161,7 @@ AppUI packages now specify `@itwin/itwinui-react` as a [peer dependency](https:/
 ### Additions
 
 - Added the `IMergingPropertyDataProvider` interface, which combines any number of `IPropertyDataProvider` instances, and added the `createMergedPropertyDataProvider` factory function that creates an `IMergingPropertyDataProvider` instance. [#1040](https://github.com/iTwin/appui/pull/1040)
+- Added a callback to `VirtualizedPropertyGrid` which determines which editors should always be visible. [#1090](https://github.com/iTwin/appui/pull/1090)
 
 ## @itwin/core-react
 
