@@ -195,11 +195,7 @@ export class EnumButtonGroupEditor
         key={choice.label}
         onClick={() => this._handleButtonClick(index)}
       >
-<<<<<<< HEAD
         {/* eslint-disable-next-line deprecation/deprecation */}
-        <Icon iconSpec={this.state.enumIcons[index].iconSpec} />
-=======
-        {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
         <Icon
           iconSpec={
             this.state.enumIcons[index].iconSpec === "" ? (
@@ -209,7 +205,6 @@ export class EnumButtonGroupEditor
             )
           }
         />
->>>>>>> 2810fd052 (Remove icons-generic (#1074))
       </button>
     );
   }
