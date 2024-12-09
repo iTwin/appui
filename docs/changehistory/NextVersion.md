@@ -150,6 +150,7 @@ AppUI packages now specify `@itwin/itwinui-react` as a [peer dependency](https:/
 - Add error boundary to popout widgets. [#1075](https://github.com/iTwin/appui/pull/1075)
 - Updated the styling of the `BackstageAppButton` and `NestedFrontstageAppButton` components to match the updated toolbars. [#1078](https://github.com/iTwin/appui/pull/1078)
 - The new toolbars will now handle snap opacity mode when it is enabled. [#1082](https://github.com/iTwin/appui/pull/1082)
+- Bump `FrameworkFrontstages.addFrontstage` method to `@public`. [#1134](https://github.com/iTwin/appui/pull/1134)
 
 ## @itwin/components-react
 
