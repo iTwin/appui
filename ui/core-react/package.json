@@ -57,7 +57,6 @@
   "peerDependencies": {
     "@itwin/appui-abstract": "^4.0.0",
     "@itwin/core-bentley": "^4.0.0",
-    "@itwin/core-common": "^4.0.0",
     "@itwin/itwinui-react": "^3.15.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0"
