@@ -16,6 +16,7 @@ import type { WidgetConfig } from "../widgets/WidgetConfig.js";
 import type { Frontstage } from "./Frontstage.js";
 import type { UiItemsProvider } from "../ui-items-provider/UiItemsProvider.js";
 import type { StageUsage } from "./StageUsage.js";
+import * as React from "react";
 
 /** Configuration from which a frontstage is created.
  * @public
@@ -44,6 +45,8 @@ export interface FrontstageConfig extends CommonProps {
   readonly contentManipulation?: WidgetConfig;
   /** The settings of the active tool. */
   readonly toolSettings?: WidgetConfig;
+  /** Custom node if active tool has no settings. */
+  readonly activeToolEmptyNode?: React.ReactNode;
   /** The top-right corner that shows view navigation tools. */
   readonly viewNavigation?: WidgetConfig;
   /** The status bar of the application. */
