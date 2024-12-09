@@ -1,3 +1,7 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 export * from "./Editor.js";
 export * from "./CommittingEditor.js";
 export * from "./Types.js";
@@ -15,5 +19,3 @@ export * from "./editors/text-editor/UseTextEditorProps.js";
 export * from "./editors/enum-editor/EnumEditor.js";
 export * from "./editors/enum-editor/UseEnumEditorProps.js";
 export * from "./editorsRegistry/EditorsRegistryProvider.js";
-export * from "./FormatOverrides.js";
-export * from "./WithFormatOverrides.js";

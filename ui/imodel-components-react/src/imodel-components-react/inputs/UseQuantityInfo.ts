@@ -1,9 +1,13 @@
-import type { FormatOverrides } from "@itwin/components-react";
-import { getMatchingFormatOverride } from "@itwin/components-react";
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import type { QuantityTypeArg } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
 import { Format, FormatterSpec, ParserSpec } from "@itwin/core-quantity";
 import * as React from "react";
+import type { FormatOverrides } from "./FormatOverrides.js";
+import { getMatchingFormatOverride } from "./FormatOverrides.js";
 
 interface UseQuantityInfoProps {
   type: QuantityTypeArg | undefined;

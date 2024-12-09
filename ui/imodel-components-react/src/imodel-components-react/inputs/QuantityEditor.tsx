@@ -1,11 +1,14 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { type QuantityTypeArg } from "@itwin/core-frontend";
 import { useQuantityInfo } from "./UseQuantityInfo.js";
-import type {
-  EditorPropsWithFormatOverrides,
-  EditorSpec,
-} from "@itwin/components-react";
-import { QuantityInput, useNumericEditorProps } from "@itwin/components-react";
+import type { EditorSpec } from "@itwin/components-react";
+import { useNumericEditorProps } from "@itwin/components-react";
+import type { EditorPropsWithFormatOverrides } from "./WithFormatOverrides.js";
+import { QuantityInput } from "./QuantityInput.js";
 
 export const QuantityEditorSpec: EditorSpec = {
   applies: (metadata) =>

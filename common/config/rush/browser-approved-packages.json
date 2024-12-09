@@ -179,7 +179,19 @@
       "allowedCategories": [ "frontend", "internal" ]
     },
     {
+      "name": "@itwin/presentation-backend",
+      "allowedCategories": [ "internal" ]
+    },
+    {
       "name": "@itwin/presentation-common",
+      "allowedCategories": [ "internal" ]
+    },
+    {
+      "name": "@itwin/presentation-components",
+      "allowedCategories": [ "internal" ]
+    },
+    {
+      "name": "@itwin/presentation-frontend",
       "allowedCategories": [ "internal" ]
     },
     {
