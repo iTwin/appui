@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/appui-react",
-      "comment": "Added error boundary to poppout widgets.",
+      "comment": "Added error boundary to popout widgets.",
       "type": "none"
     }
   ],

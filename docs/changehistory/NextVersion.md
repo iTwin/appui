@@ -147,6 +147,7 @@ AppUI packages now specify `@itwin/itwinui-react` as a [peer dependency](https:/
 - Popout widgets are now displayed in a flow layout to match the layout of floating, stage panel, and popout widgets when `reparentPopoutWidgets` is enabled. [#1049](https://github.com/iTwin/appui/pull/1049)
 - Use React portal instead of creating a separate element tree for each child window. [#1062](https://github.com/iTwin/appui/pull/1062)
 - Removed incorrect usage of the internal `IModelApp.renderSystem.options.displaySolarShadows` check from `useSolarDataProvider`. The `wantShadows` property of the viewport display style is used instead. [#1066](https://github.com/iTwin/appui/pull/1066)
+- Add error boundary to popout widgets. [#1075](https://github.com/iTwin/appui/pull/1075)
 - Updated the styling of the `BackstageAppButton` and `NestedFrontstageAppButton` components to match the updated toolbars. [#1078](https://github.com/iTwin/appui/pull/1078)
 - The new toolbars will now handle snap opacity mode when it is enabled. [#1082](https://github.com/iTwin/appui/pull/1082)
 
