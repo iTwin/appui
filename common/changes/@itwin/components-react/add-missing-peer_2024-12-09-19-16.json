@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/components-react",
-      "comment": "Add missing `@itwin/core-geometry` peer dependency.",
+      "comment": "Remove `@itwin/core-geometry` usage from `@itwin/components-react`",
       "type": "none"
     }
   ],
