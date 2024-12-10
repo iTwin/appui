@@ -208,7 +208,6 @@ export class WidgetDef {
     this._defaultFloatingSize = size;
   }
 
-  /** @internal */
   public get defaultState() {
     return this._defaultState;
   }
