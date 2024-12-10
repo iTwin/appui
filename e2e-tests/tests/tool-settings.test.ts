@@ -3,7 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { expect, test } from "@playwright/test";
-import assert from "assert";
 import {
   expectSavedFrontstageState,
   frontstageLocator,
@@ -14,9 +13,8 @@ import {
 } from "./Utils";
 
 test.describe("tool settings", () => {
-  test.beforeEach(async ({ page, baseURL }) => {
-    assert(baseURL);
-    await page.goto(`${baseURL}/blank?frontstageId=widget-api`);
+  test.beforeEach(async ({ page }) => {
+    await page.goto("./blank?frontstageId=widget-api");
   });
 
   test("should render tool settings", async ({ page }) => {
@@ -25,11 +23,8 @@ test.describe("tool settings", () => {
 
   test("should not render tool settings (undefined tool settings config)", async ({
     page,
-    baseURL,
   }) => {
-    await page.goto(
-      `${baseURL}/blank?frontstageId=widget-api&toolSettings=off`
-    );
+    await page.goto("./blank?frontstageId=widget-api&toolSettings=off");
     await expect(
       page.getByText("does not have tool settings.")
     ).not.toBeVisible();
@@ -37,11 +32,8 @@ test.describe("tool settings", () => {
 
   test("should not render tool settings (hidden tool settings)", async ({
     page,
-    baseURL,
   }) => {
-    await page.goto(
-      `${baseURL}/blank?frontstageId=widget-api&toolSettings=hidden`
-    );
+    await page.goto("./blank?frontstageId=widget-api&toolSettings=hidden");
     await expect(
       page.getByText("does not have tool settings.")
     ).not.toBeVisible();
@@ -57,10 +49,8 @@ test.describe("tool settings", () => {
     await expect(page.getByText("does not have tool settings.")).toBeVisible();
   });
 
-  test("should show/hide (hidden tool settings)", async ({ page, baseURL }) => {
-    await page.goto(
-      `${baseURL}/blank?frontstageId=widget-api&toolSettings=hidden`
-    );
+  test("should show/hide (hidden tool settings)", async ({ page }) => {
+    await page.goto("./blank?frontstageId=widget-api&toolSettings=hidden");
     await expect(
       page.getByText("does not have tool settings.")
     ).not.toBeVisible();
