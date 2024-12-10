@@ -1715,7 +1715,7 @@ export interface EmphasizeElementsChangedArgs {
 // @beta
 export class ExpandableSection extends React_2.PureComponent<ExpandableSectionProps, ExpandableSectionState> {
     constructor(props: ExpandableSectionProps);
-    // (undocumented)
+    // @internal (undocumented)
     componentDidUpdate(prevProps: Readonly<ExpandableSectionProps>): Promise<void>;
     render(): React_2.JSX.Element;
 }
@@ -5425,7 +5425,7 @@ export class ViewSelector extends React_2.Component<ViewSelectorProps, ViewSelec
     constructor(props: ViewSelectorProps);
     // (undocumented)
     componentDidMount(): Promise<void>;
-    // (undocumented)
+    // @internal (undocumented)
     componentDidUpdate(prevProps: ViewSelectorProps): Promise<void>;
     // (undocumented)
     componentWillUnmount(): void;
