@@ -56,7 +56,6 @@
   "peerDependencies": {
     "@itwin/appui-abstract": "^4.0.0",
     "@itwin/core-bentley": "^4.0.0",
-    "@itwin/core-geometry": "^4.0.0",
     "@itwin/core-react": "workspace:^5.1.0-dev.0",
     "@itwin/itwinui-react": "^3.15.0",
     "react": "^18.0.0",
@@ -67,7 +66,6 @@
     "@itwin/build-tools": "4.10.0-dev.34",
     "@itwin/core-bentley": "^4.0.0",
     "@itwin/core-common": "^4.0.0",
-    "@itwin/core-geometry": "^4.0.0",
     "@itwin/core-i18n": "^4.0.0",
     "@itwin/core-react": "workspace:*",
     "@itwin/eslint-plugin": "5.0.0-dev.1",
