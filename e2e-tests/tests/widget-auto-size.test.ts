@@ -12,9 +12,8 @@ import {
 } from "./Utils";
 
 test.describe("widget auto size", () => {
-  test.beforeEach(async ({ page, baseURL }) => {
-    assert(baseURL);
-    await page.goto(`${baseURL}/blank?frontstageId=widget-api&menu=0`);
+  test.beforeEach(async ({ page }) => {
+    await page.goto("./blank?frontstageId=widget-api&menu=0");
   });
 
   test("auto-sized floating widget should folow the cursor when undocked", async ({
