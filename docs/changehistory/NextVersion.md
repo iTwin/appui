@@ -153,6 +153,7 @@ AppUI packages now specify `@itwin/itwinui-react` as a [peer dependency](https:/
 - Updated the styling of the `BackstageAppButton` and `NestedFrontstageAppButton` components to match the updated toolbars. [#1078](https://github.com/iTwin/appui/pull/1078)
 - The new toolbars will now handle snap opacity mode when it is enabled. [#1082](https://github.com/iTwin/appui/pull/1082)
 - Bump `FrameworkFrontstages.addFrontstage` method to `@public`. [#1134](https://github.com/iTwin/appui/pull/1134)
+- Add `defaultState` getter that returns the default state configuration of the widget to `WidgetDef` class. [#1141](https://github.com/iTwin/appui/pull/1141)
 
 ## @itwin/components-react
 
