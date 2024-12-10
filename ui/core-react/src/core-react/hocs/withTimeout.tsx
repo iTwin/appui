@@ -40,6 +40,7 @@ export const withTimeout = <ComponentProps extends object>(
       this.startTimer(this.props.timeout);
     }
 
+    /** @internal */
     public override componentDidUpdate(
       _prevProps: Readonly<ComponentProps & WithTimeoutProps> // eslint-disable-line @typescript-eslint/no-deprecated
     ): void {

@@ -160,6 +160,7 @@ export class Popup extends React.Component<PopupProps, PopupState> {
     return this.state.parentDocument.defaultView ?? window;
   }
 
+  /** @internal */
   public override componentDidUpdate(
     previousProps: PopupProps, // eslint-disable-line @typescript-eslint/no-deprecated
     prevState: PopupState
