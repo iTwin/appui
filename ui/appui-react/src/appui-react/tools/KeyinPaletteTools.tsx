@@ -5,10 +5,11 @@
 /** @packageDocumentation
  * @module Tools
  */
-
+import * as React from "react";
 import { clearKeyinPaletteHistory } from "../popup/KeyinPalettePanel.js";
 import { Tool } from "@itwin/core-frontend";
-import svgRemove from "@bentley/icons-generic/icons/remove.svg";
+import { ToolUtilities } from "@itwin/imodel-components-react";
+import { SvgRemove } from "@itwin/itwinui-icons-react";
 
 /**
  * Immediate tool that will clear the recent history of command/tool keyins shown in
@@ -17,7 +18,7 @@ import svgRemove from "@bentley/icons-generic/icons/remove.svg";
  */
 export class ClearKeyinPaletteHistoryTool extends Tool {
   public static override toolId = "ClearKeyinPaletteHistory";
-  public static override iconSpec = svgRemove;
+  public static override iconSpec = "icon-remove";
 
   public static override get minArgs() {
     return 0;
@@ -31,3 +32,4 @@ export class ClearKeyinPaletteHistoryTool extends Tool {
     return true;
   }
 }
+ToolUtilities.defineIcon(ClearKeyinPaletteHistoryTool, <SvgRemove />);

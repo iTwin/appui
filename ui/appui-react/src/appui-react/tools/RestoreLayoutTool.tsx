@@ -5,6 +5,7 @@
 /** @packageDocumentation
  * @module Tools
  */
+import * as React from "react";
 import {
   IModelApp,
   NotifyMessageDetails,
@@ -14,7 +15,8 @@ import {
 import type { FrontstageDef } from "../frontstage/FrontstageDef.js";
 import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager.js";
 import { UiFramework } from "../UiFramework.js";
-import svgViewLayouts from "@bentley/icons-generic/icons/view-layouts.svg";
+import { SvgViewLayouts } from "../icons/SvgViewLayouts.js";
+import { ToolUtilities } from "@itwin/imodel-components-react";
 
 /**
  * Immediate tool that will reset the layout to that specified in the stage definition. A stage Id
@@ -23,7 +25,7 @@ import svgViewLayouts from "@bentley/icons-generic/icons/view-layouts.svg";
  */
 export class RestoreFrontstageLayoutTool extends Tool {
   public static override toolId = "RestoreFrontstageLayout";
-  public static override iconSpec = svgViewLayouts;
+  public static override iconSpec = "icon-view-layouts";
 
   public static override get minArgs() {
     return 0;
@@ -57,7 +59,12 @@ export class RestoreFrontstageLayoutTool extends Tool {
   public override async parseAndRun(...args: string[]): Promise<boolean> {
     return this.run(args[0]);
   }
+
+  public getIconNode() {
+    return <SvgViewLayouts />;
+  }
 }
+ToolUtilities.defineIcon(RestoreFrontstageLayoutTool, <SvgViewLayouts />);
 
 /**
  * Immediate tool that will reset the layout of all frontstages to that specified in the stage definition.
@@ -65,7 +72,7 @@ export class RestoreFrontstageLayoutTool extends Tool {
  */
 export class RestoreAllFrontstagesTool extends Tool {
   public static override toolId = "RestoreAllFrontstages";
-  public static override iconSpec = svgViewLayouts;
+  public static override iconSpec = "icon-view-layouts";
 
   public override async run() {
     const frontstages = InternalFrontstageManager.frontstageDefs;
@@ -75,3 +82,4 @@ export class RestoreAllFrontstagesTool extends Tool {
     return true;
   }
 }
+ToolUtilities.defineIcon(RestoreAllFrontstagesTool, <SvgViewLayouts />);

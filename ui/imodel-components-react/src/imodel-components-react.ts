@@ -157,6 +157,8 @@ export {
   ViewRotationChangeEventArgs,
 } from "./imodel-components-react/viewport/ViewportComponentEvents.js";
 
+export { ToolUtilities } from "./imodel-components-react/ToolUtilities.js";
+
 // #region "SideEffects"
 
 import { StandardEditorNames, StandardTypeNames } from "@itwin/appui-abstract";
