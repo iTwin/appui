@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 function createConfig() {
-  const urlPrefix = import.meta.env.IMJS_URL_PREFIX as string;
+  const urlPrefix = import.meta.env.IMJS_URL_PREFIX ?? "";
   const serverEnvironmentPrefix = toServerEnvironmentPrefix(urlPrefix);
   return {
     appClientId: import.meta.env.IMJS_APP_CLIENT_ID as string,

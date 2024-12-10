@@ -8,7 +8,7 @@ FROM mcr.microsoft.com/playwright:v1.46.1-jammy
 RUN npm install -g @microsoft/rush
 
 # Set the work directory
-WORKDIR appui
+WORKDIR /appui
 
 # Copy for `rush install`
 COPY rush.json ./
