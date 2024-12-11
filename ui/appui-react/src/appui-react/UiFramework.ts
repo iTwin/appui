@@ -258,11 +258,13 @@ export class UiFramework {
    * @deprecated in 4.15.0. Continue using redux initializer until all application components react to redux deprecations. Use overload without parameters instead.
    */
   public static async initialize(
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     store: Store<any, AnyAction> | undefined,
     // eslint-disable-next-line @typescript-eslint/unified-signatures
     frameworkStateKey?: string
   ): Promise<void>;
   public static async initialize(
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     store?: Store<any, AnyAction> | undefined,
     frameworkStateKey?: string
   ): Promise<void> {
