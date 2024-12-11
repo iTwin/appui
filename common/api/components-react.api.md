@@ -148,7 +148,7 @@ export class BasicPropertyEditor extends PropertyEditorBase {
 export class BooleanEditor extends React_3.PureComponent<PropertyEditorProps, BooleanEditorState> implements TypeEditor {
     // (undocumented)
     componentDidMount(): void;
-    // (undocumented)
+    // @internal (undocumented)
     componentDidUpdate(prevProps: PropertyEditorProps): void;
     // (undocumented)
     componentWillUnmount(): void;
@@ -561,7 +561,7 @@ export interface EditorContainerProps extends CommonProps {
 export class EnumButtonGroupEditor extends React_3.Component<PropertyEditorProps, EnumButtonGroupEditorState> implements TypeEditor {
     // (undocumented)
     componentDidMount(): void;
-    // (undocumented)
+    // @internal (undocumented)
     componentDidUpdate(prevProps: PropertyEditorProps): void;
     // (undocumented)
     getPropertyValue(): Promise<PropertyValue | undefined>;
@@ -579,7 +579,7 @@ export class EnumButtonGroupEditor extends React_3.Component<PropertyEditorProps
 export class EnumEditor extends React_3.PureComponent<PropertyEditorProps, EnumEditorState> implements TypeEditor {
     // (undocumented)
     componentDidMount(): void;
-    // (undocumented)
+    // @internal (undocumented)
     componentDidUpdate(prevProps: PropertyEditorProps): void;
     // (undocumented)
     componentWillUnmount(): void;
@@ -672,7 +672,7 @@ export enum FilteredType {
 // @public
 export class FilteringInput extends React_3.PureComponent<FilteringInputProps, FilteringInputState> {
     constructor(props: FilteringInputProps);
-    // (undocumented)
+    // @internal (undocumented)
     componentDidUpdate(prevProps: FilteringInputProps): void;
     // (undocumented)
     render(): React_3.JSX.Element;
@@ -901,7 +901,7 @@ export { Image_2 as Image }
 export class ImageCheckBoxEditor extends React_3.PureComponent<PropertyEditorProps, ImageCheckBoxEditorState> implements TypeEditor {
     // (undocumented)
     componentDidMount(): void;
-    // (undocumented)
+    // @internal (undocumented)
     componentDidUpdate(prevProps: PropertyEditorProps): void;
     // (undocumented)
     componentWillUnmount(): void;
@@ -1528,7 +1528,7 @@ export interface NullableOperatorProcessor {
 export class NumericInputEditor extends React_3.PureComponent<PropertyEditorProps, NumericInputEditorState> implements TypeEditor {
     // (undocumented)
     componentDidMount(): void;
-    // (undocumented)
+    // @internal (undocumented)
     componentDidUpdate(prevProps: PropertyEditorProps): void;
     // (undocumented)
     componentWillUnmount(): void;
@@ -2263,7 +2263,7 @@ export class ResultSelector extends React_3.PureComponent<ResultSelectorProps, R
     constructor(props: ResultSelectorProps);
     // (undocumented)
     componentDidMount(): void;
-    // (undocumented)
+    // @internal (undocumented)
     componentDidUpdate(prevProps: ResultSelectorProps): void;
     // (undocumented)
     render(): React_3.JSX.Element;
@@ -2406,7 +2406,7 @@ export type SimpleTreeDataProviderHierarchy = Map<string | undefined, TreeNodeIt
 export class SliderEditor extends React_3.PureComponent<PropertyEditorProps, SliderEditorState> implements TypeEditor {
     // (undocumented)
     componentDidMount(): void;
-    // (undocumented)
+    // @internal (undocumented)
     componentDidUpdate(prevProps: PropertyEditorProps): void;
     // (undocumented)
     componentWillUnmount(): void;
@@ -2559,7 +2559,7 @@ export class TableStructValueRenderer extends React_3.PureComponent<TableSpecifi
 export class TextareaEditor extends React_3.PureComponent<PropertyEditorProps, TextareaEditorState> implements TypeEditor {
     // (undocumented)
     componentDidMount(): void;
-    // (undocumented)
+    // @internal (undocumented)
     componentDidUpdate(prevProps: PropertyEditorProps): void;
     // (undocumented)
     componentWillUnmount(): void;
@@ -2591,7 +2591,7 @@ export class TextareaPropertyEditor extends PropertyEditorBase {
 export class TextEditor extends React_3.PureComponent<PropertyEditorProps, TextEditorState> implements TypeEditor {
     // (undocumented)
     componentDidMount(): void;
-    // (undocumented)
+    // @internal (undocumented)
     componentDidUpdate(prevProps: PropertyEditorProps): void;
     // (undocumented)
     componentWillUnmount(): void;
@@ -2620,7 +2620,7 @@ export const toDateString: (date: Date, timeZoneOffset?: number, formatOptions?:
 export class ToggleEditor extends React_3.PureComponent<PropertyEditorProps, ToggleEditorState> implements TypeEditor {
     // (undocumented)
     componentDidMount(): void;
-    // (undocumented)
+    // @internal (undocumented)
     componentDidUpdate(prevProps: PropertyEditorProps): void;
     // (undocumented)
     componentWillUnmount(): void;
@@ -3252,7 +3252,7 @@ export function useVirtualizedPropertyGridLayoutStorage<T extends Element>(): {
 // @public
 export class VirtualizedPropertyGrid extends React_3.Component<VirtualizedPropertyGridProps, VirtualizedPropertyGridState> {
     constructor(props: VirtualizedPropertyGridProps);
-    // (undocumented)
+    // @internal (undocumented)
     componentDidUpdate(prevProps: VirtualizedPropertyGridProps): void;
     // @internal (undocumented)
     static getDerivedStateFromProps(props: VirtualizedPropertyGridProps, state: VirtualizedPropertyGridState): VirtualizedPropertyGridState | null;

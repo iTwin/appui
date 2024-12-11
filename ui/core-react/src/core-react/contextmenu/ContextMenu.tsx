@@ -504,6 +504,7 @@ export class ContextMenu extends React.PureComponent<
     this.setState({ selectedIndex });
   };
 
+  /** @internal */
   public override componentDidUpdate(prevProps: ContextMenuProps) {
     if (prevProps.selectedIndex !== this.props.selectedIndex) {
       this.setState((_, props) => ({ selectedIndex: props.selectedIndex! }));

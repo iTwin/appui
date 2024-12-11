@@ -3,6 +3,14 @@
   "$schema": "https://developer.microsoft.com/json-schemas/rush/v5/approved-packages.schema.json",
   "packages": [
     {
+      "name": "@babel/core",
+      "allowedCategories": [ "tools" ]
+    },
+    {
+      "name": "@babel/preset-env",
+      "allowedCategories": [ "tools" ]
+    },
+    {
       "name": "@bentley/icons-generic",
       "allowedCategories": [ "frontend", "internal" ]
     },
@@ -80,7 +88,7 @@
     },
     {
       "name": "@itwin/ecschema-metadata",
-      "allowedCategories": [ "frontend" ]
+      "allowedCategories": [ "frontend", "internal" ]
     },
     {
       "name": "@itwin/ecschema-rpcinterface-common",
@@ -299,6 +307,10 @@
       "allowedCategories": [ "internal" ]
     },
     {
+      "name": "csstype",
+      "allowedCategories": [ "internal" ]
+    },
+    {
       "name": "dompurify",
       "allowedCategories": [ "frontend" ]
     },
@@ -349,6 +361,10 @@
     {
       "name": "immer",
       "allowedCategories": [ "frontend" ]
+    },
+    {
+      "name": "inversify",
+      "allowedCategories": [ "frontend", "internal" ]
     },
     {
       "name": "jest",
@@ -443,6 +459,10 @@
       "allowedCategories": [ "frontend", "internal" ]
     },
     {
+      "name": "reflect-metadata",
+      "allowedCategories": [ "frontend", "internal" ]
+    },
+    {
       "name": "rimraf",
       "allowedCategories": [ "frontend", "internal" ]
     },
@@ -493,6 +513,10 @@
     {
       "name": "typescript",
       "allowedCategories": [ "frontend", "internal", "tools" ]
+    },
+    {
+      "name": "typescript-eslint",
+      "allowedCategories": [ "internal" ]
     },
     {
       "name": "upath",

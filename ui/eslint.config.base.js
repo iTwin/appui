@@ -25,6 +25,7 @@ module.exports = [
         },
       ],
       "no-duplicate-imports": "off",
+      "@typescript-eslint/no-non-null-assertion": "off",
     },
   },
   {

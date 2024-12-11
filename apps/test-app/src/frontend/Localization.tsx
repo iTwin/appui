@@ -56,6 +56,7 @@ export function AppLocalizationProvider({
 }
 
 export function AppLanguageSelect() {
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const { language, onChange } = React.useContext(LanguageContext)!;
   return <LanguageSelect language={language} onChange={onChange} />;
 }

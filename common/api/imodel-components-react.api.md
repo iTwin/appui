@@ -152,7 +152,7 @@ export class BaseTimelineDataProvider implements TimelineDataProvider {
 export class ColorEditor extends React_2.PureComponent<PropertyEditorProps, ColorEditorState> implements TypeEditor {
     // (undocumented)
     componentDidMount(): void;
-    // (undocumented)
+    // @internal (undocumented)
     componentDidUpdate(prevProps: PropertyEditorProps): void;
     // (undocumented)
     getPropertyValue(): Promise<PropertyValue | undefined>;
@@ -876,7 +876,7 @@ export class WeightEditor extends React_2.PureComponent<PropertyEditorProps, Wei
     constructor(props: PropertyEditorProps);
     // (undocumented)
     componentDidMount(): void;
-    // (undocumented)
+    // @internal (undocumented)
     componentDidUpdate(prevProps: PropertyEditorProps): void;
     // (undocumented)
     componentWillUnmount(): void;
