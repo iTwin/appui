@@ -1,3 +1,7 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import {
   type ColorEditorParams,
@@ -12,10 +16,10 @@ import {
   Popover,
 } from "@itwin/itwinui-react";
 import type {
+  ConcreteEditorProps,
   EditorProps,
   EditorSpec,
   NumericValue,
-  SpecificEditorProps,
   ValueMetadata,
 } from "@itwin/components-react";
 import { isNumericValue } from "@itwin/components-react";
@@ -80,7 +84,7 @@ function useColorEditorProps({
   value,
   onChange,
   ...props
-}: EditorProps): SpecificEditorProps<NumericValue> & { colors: number[] } {
+}: EditorProps): ConcreteEditorProps<NumericValue> & { colors: number[] } {
   const params = (metadata as ColorValueMetadata).params[0];
   const colors = params.colorValues;
 

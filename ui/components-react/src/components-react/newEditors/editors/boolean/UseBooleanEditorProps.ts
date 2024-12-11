@@ -2,13 +2,10 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import type {
-  BooleanValue,
-  EditorProps,
-  SpecificEditorProps,
-  Value,
-} from "../../Types.js";
-import { isBooleanValue } from "../../Types.js";
+
+import type { ConcreteEditorProps, EditorProps } from "../../Types.js";
+import type { BooleanValue, Value } from "../../values/Values.js";
+import { isBooleanValue } from "../../values/Values.js";
 
 /**
  *
@@ -17,7 +14,7 @@ export function useBooleanEditorProps({
   value,
   onChange,
   ...rest
-}: EditorProps): SpecificEditorProps<BooleanValue> {
+}: EditorProps): ConcreteEditorProps<BooleanValue> {
   return {
     ...rest,
     value: getBooleanValue(value),

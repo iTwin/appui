@@ -4,9 +4,9 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { Input } from "@itwin/itwinui-react";
-import type { NumericValue } from "../../Types.js";
+import type { NumericValue } from "../../values/Values.js";
 
-interface ParsedNumericInputProps {
+interface FormattedNumericInputProps {
   value: NumericValue;
   onChange: (value: NumericValue) => void;
   parseValue: (value: string) => number | undefined;
@@ -19,7 +19,7 @@ interface ParsedNumericInputProps {
 /**
  *
  */
-export function ParsedNumericInput({
+export function FormattedNumericInput({
   onChange,
   value,
   parseValue,
@@ -27,7 +27,7 @@ export function ParsedNumericInput({
   disabled,
   onBlur,
   size,
-}: ParsedNumericInputProps) {
+}: FormattedNumericInputProps) {
   const { currentValue, inputProps } = useParsedNumberInput({
     initialValue: value.rawValue,
     parseValue,
@@ -47,17 +47,15 @@ export function ParsedNumericInput({
   );
 }
 
-interface HookProps {
-  initialValue: number | undefined;
-  parseValue: (value: string) => number | undefined;
-  formatValue: (num: number) => string;
-}
-
 function useParsedNumberInput({
   initialValue,
   formatValue,
   parseValue,
-}: HookProps) {
+}: {
+  initialValue: number | undefined;
+  parseValue: (value: string) => number | undefined;
+  formatValue: (num: number) => string;
+}) {
   interface State {
     value: NumericValue;
     placeholder: string;

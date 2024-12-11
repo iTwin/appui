@@ -2,16 +2,13 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import type {
-  PrimitiveValue,
-  PropertyEditorParams,
-  PropertyRecord,
-} from "@itwin/appui-abstract";
+import type { PrimitiveValue, PropertyRecord } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
 import type {
   BooleanValue,
   DateValue,
-  Value as EditorValue,
+  EnumValue,
+  Value as NewEditorValue,
   NumericValue,
   TextValue,
 } from "../values/Values.js";
@@ -22,45 +19,22 @@ import {
   isNumericValue,
   isTextValue,
 } from "../values/Values.js";
-import type { EnumValueMetadata, ValueMetadata } from "../values/Metadata.js";
+import type { OldEditorMetadata } from "./Metadata.js";
 
 export namespace EditorInterop {
   /**
    *
    */
-  export interface NumericEditorMetadata extends ValueMetadata {
-    type: "number";
-    params: PropertyEditorParams[];
-  }
-
-  /**
-   *
-   */
-  export function isNumericEditorMetadata(
-    metadata: ValueMetadata
-  ): metadata is NumericEditorMetadata {
-    return metadata.type === "number" && "params" in metadata;
-  }
-
-  /**
-   *
-   */
   export function getMetadataAndValue(propertyRecord: PropertyRecord): {
-    metadata: ValueMetadata | undefined;
-    value: EditorValue | undefined;
+    metadata: OldEditorMetadata | undefined;
+    value: NewEditorValue | undefined;
   } {
-    const baseMetadata: Omit<ValueMetadata, "type"> = {
+    const baseMetadata: Omit<OldEditorMetadata, "type"> = {
       preferredEditor: propertyRecord.property.editor?.name,
-      ...(propertyRecord.property.editor
-        ? { params: propertyRecord.property.editor.params }
-        : {}),
-      ...(propertyRecord.property.enum
-        ? { choices: propertyRecord.property.enum.choices }
-        : {}),
-      ...(propertyRecord.property.quantityType
-        ? { quantityType: propertyRecord.property.quantityType }
-        : {}),
-      ...propertyRecord.extendedData,
+      params: propertyRecord.property.editor?.params,
+      extendedData: propertyRecord.extendedData,
+      enum: propertyRecord.property.enum,
+      typename: propertyRecord.property.typename,
     };
 
     const primitiveValue = propertyRecord.value as PrimitiveValue;
@@ -107,7 +81,7 @@ export namespace EditorInterop {
           metadata: {
             ...baseMetadata,
             type: "number",
-          } as ValueMetadata,
+          },
           value: {
             rawValue: primitiveValue.value as number,
             displayValue: primitiveValue.displayValue ?? "",
@@ -118,11 +92,11 @@ export namespace EditorInterop {
           metadata: {
             ...baseMetadata,
             type: "enum",
-          } as EnumValueMetadata,
+          },
           value: {
             choice: primitiveValue.value as number | string,
             label: primitiveValue.displayValue as string,
-          },
+          } satisfies EnumValue,
         };
     }
 
@@ -136,7 +110,7 @@ export namespace EditorInterop {
    *
    */
   export function convertToPrimitiveValue(
-    newValue: EditorValue
+    newValue: NewEditorValue
   ): PrimitiveValue {
     if (isTextValue(newValue)) {
       return {

@@ -2,15 +2,11 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import type {
-  EditorProps,
-  EnumChoice,
-  EnumValue,
-  EnumValueMetadata,
-  SpecificEditorProps,
-  Value,
-} from "../../Types.js";
-import { isEnumValue } from "../../Types.js";
+
+import type { ConcreteEditorProps, EditorProps } from "../../Types.js";
+import type { EnumValueMetadata } from "../../values/Metadata.js";
+import type { EnumChoice, EnumValue, Value } from "../../values/Values.js";
+import { isEnumValue } from "../../values/Values.js";
 
 /**
  *
@@ -20,7 +16,7 @@ export function useEnumEditorProps({
   value,
   onChange,
   ...rest
-}: EditorProps): SpecificEditorProps<EnumValue> & { choices: EnumChoice[] } {
+}: EditorProps): ConcreteEditorProps<EnumValue> & { choices: EnumChoice[] } {
   const choices =
     metadata.type === "enum" ? (metadata as EnumValueMetadata).choices : [];
 

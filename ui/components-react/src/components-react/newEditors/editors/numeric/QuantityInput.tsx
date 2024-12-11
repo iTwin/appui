@@ -1,14 +1,14 @@
 import * as React from "react";
-import { ParsedNumericInput } from "./ParsedNumericInput.js";
+import { FormattedNumericInput } from "./FormattedNumericInput.js";
 import type { FormatterSpec, ParserSpec } from "@itwin/core-quantity";
 
-type ParsedNumericInputProps = React.ComponentPropsWithoutRef<
-  typeof ParsedNumericInput
+type FormattedNumericInputProps = React.ComponentPropsWithoutRef<
+  typeof FormattedNumericInput
 >;
 
 interface QuantityInputProps
   extends Omit<
-    ParsedNumericInputProps,
+    FormattedNumericInputProps,
     "parseValue" | "formatValue" | "disabled"
   > {
   formatter?: FormatterSpec;
@@ -46,7 +46,7 @@ export function QuantityInput({
   );
 
   return (
-    <ParsedNumericInput
+    <FormattedNumericInput
       {...props}
       value={props.value}
       formatValue={formatValue}

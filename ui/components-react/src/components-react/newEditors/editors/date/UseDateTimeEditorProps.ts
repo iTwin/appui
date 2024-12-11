@@ -2,13 +2,10 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import type {
-  DateValue,
-  EditorProps,
-  SpecificEditorProps,
-  Value,
-} from "../../Types.js";
-import { isDateTimeValue } from "../../Types.js";
+
+import type { ConcreteEditorProps, EditorProps } from "../../Types.js";
+import type { DateValue, Value } from "../../values/Values.js";
+import { isDateTimeValue } from "../../values/Values.js";
 
 /**
  *
@@ -17,7 +14,7 @@ export function useDateTimeEditorProps({
   value,
   onChange,
   ...rest
-}: EditorProps): SpecificEditorProps<DateValue> {
+}: EditorProps): ConcreteEditorProps<DateValue> {
   return {
     ...rest,
     value: getDateTimeValue(value),

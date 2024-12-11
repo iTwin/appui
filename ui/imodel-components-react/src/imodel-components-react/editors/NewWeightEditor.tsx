@@ -1,12 +1,16 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { StandardEditorNames } from "@itwin/appui-abstract";
 import { WeightPickerButton } from "../lineweight/WeightPickerButton.js";
+import type { ConcreteEditorProps } from "@itwin/components-react";
 import {
   type EditorProps,
   type EditorSpec,
   isNumericValue,
   type NumericValue,
-  type SpecificEditorProps,
 } from "@itwin/components-react";
 
 export const WeightEditorSpec: EditorSpec = {
@@ -40,7 +44,7 @@ function useWeightEditorProps({
   value,
   onChange,
   ...props
-}: EditorProps): SpecificEditorProps<NumericValue> {
+}: EditorProps): ConcreteEditorProps<NumericValue> {
   return {
     ...props,
     value:

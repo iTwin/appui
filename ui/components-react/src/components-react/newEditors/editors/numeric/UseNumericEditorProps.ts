@@ -2,13 +2,10 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import type {
-  EditorProps,
-  NumericValue,
-  SpecificEditorProps,
-  Value,
-} from "../../Types.js";
-import { isNumericValue } from "../../Types.js";
+
+import type { ConcreteEditorProps, EditorProps } from "../../Types.js";
+import type { NumericValue, Value } from "../../values/Values.js";
+import { isNumericValue } from "../../values/Values.js";
 
 /**
  *
@@ -17,7 +14,7 @@ export function useNumericEditorProps({
   value,
   onChange,
   ...rest
-}: EditorProps): SpecificEditorProps<NumericValue> {
+}: EditorProps): ConcreteEditorProps<NumericValue> {
   return {
     ...rest,
     value: getNumericValue(value),
