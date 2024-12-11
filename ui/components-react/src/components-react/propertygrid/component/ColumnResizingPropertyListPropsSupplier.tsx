@@ -3,7 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { Geometry } from "@itwin/core-geometry";
 import type { PropertyListProps } from "./PropertyList.js";
 import { Orientation } from "../../common/Orientation.js";
 
@@ -79,7 +78,7 @@ export class ColumnResizingPropertyListPropsSupplier extends React.Component<
     };
 
   private _onColumnRatioChanged = (ratio: number) => {
-    ratio = Geometry.clamp(ratio, this._minRatio, this._maxRatio);
+    ratio = clamp(ratio, this._minRatio, this._maxRatio);
     if (this.state.columnRatio === ratio) return { ratio };
 
     this.setState({ columnRatio: ratio });
@@ -140,11 +139,7 @@ export class ColumnResizingPropertyListPropsSupplier extends React.Component<
   }
 
   private getValidColumnRatio(): number {
-    return Geometry.clamp(
-      this.state.columnRatio,
-      this._minRatio,
-      this._maxRatio
-    );
+    return clamp(this.state.columnRatio, this._minRatio, this._maxRatio);
   }
 
   public override render() {
@@ -166,4 +161,8 @@ export class ColumnResizingPropertyListPropsSupplier extends React.Component<
     };
     return this.props.children(listProps);
   }
+}
+
+function clamp(value: number, min: number, max: number) {
+  return Math.max(min, Math.min(max, value));
 }
