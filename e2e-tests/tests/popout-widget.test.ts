@@ -243,3 +243,31 @@ test("should render after link styles are loaded", async ({
     })
   );
 });
+
+test("should persist widget state with `reparentPopoutWidgets` enabled", async ({
+  page,
+}) => {
+  await page.goto("./blank?frontstageId=test-popout&reparentPopoutWidgets=1");
+
+  const increment = page.getByRole("button", { name: "Increment: " });
+  await increment.click();
+  await increment.click();
+  await increment.click();
+  await expect(increment).toHaveText("Increment: 3");
+
+  const input = page.getByRole("textbox");
+  await input.fill("test");
+  await expect(input).toHaveValue("test");
+
+  const tab = tabLocator(page, "State widget");
+  const widget = widgetLocator({ tab });
+  const popoutPage = await popoutWidget(widget);
+
+  const popoutIncrement = popoutPage.getByRole("button", {
+    name: "Increment: 3",
+  });
+  await expect(popoutIncrement).toBeVisible();
+
+  const popoutInput = popoutPage.getByRole("textbox");
+  await expect(popoutInput).toHaveValue("test");
+});

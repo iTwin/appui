@@ -6,7 +6,7 @@ import "./TestPopoutFrontstage.scss";
 import * as React from "react";
 import { Frontstage } from "@itwin/appui-react";
 import { createTestFrontstage } from "./createTestFrontstage";
-import { ProgressRadial } from "@itwin/itwinui-react";
+import { Button, Input, ProgressRadial } from "@itwin/itwinui-react";
 import { Logger } from "@itwin/core-bentley";
 import { loggerCategory } from "../../logger";
 import { WidgetContentThrowError } from "@itwin/appui-test-providers";
@@ -51,6 +51,14 @@ export const createTestPopoutFrontstage = () => {
                   <WidgetContentThrowError />
                 </>
               ),
+            },
+          ],
+          end: [
+            {
+              id: "state-widget",
+              label: "State widget",
+              canPopout: true,
+              content: <StateWidget />,
             },
           ],
         },
@@ -121,4 +129,16 @@ function LinkTest() {
     });
   }, []);
   return <div ref={ref} id="link-test" style={{ background: "red" }} />;
+}
+
+function StateWidget() {
+  const [value, setValue] = React.useState(0);
+  return (
+    <>
+      <Input defaultValue="Default value" />
+      <Button onClick={() => setValue((prev) => prev + 1)}>
+        Increment: {value}
+      </Button>
+    </>
+  );
 }
