@@ -3666,12 +3666,12 @@ export const ReducerRegistryInstance: ReducerRegistry;
 
 // @public
 export const RestoreAllFrontstagesTool: typeof RestoreAllFrontstagesCoreTool & {
-    iconElement: React_2.ReactElement;
+    iconElement: React_2.ReactElement<any, string | React_2.JSXElementConstructor<any>>;
 };
 
 // @public
 export const RestoreFrontstageLayoutTool: typeof RestoreFrontstageLayoutCoreTool & {
-    iconElement: React_2.ReactElement;
+    iconElement: React_2.ReactElement<any, string | React_2.JSXElementConstructor<any>>;
 };
 
 // @public
