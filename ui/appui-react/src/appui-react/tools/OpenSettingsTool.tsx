@@ -5,17 +5,15 @@
 /** @packageDocumentation
  * @module Tools
  */
+import * as React from "react";
 import { Tool } from "@itwin/core-frontend";
+import { ToolUtilities } from "@itwin/imodel-components-react";
+import { SvgSettings } from "@itwin/itwinui-icons-react";
 import { SettingsModalFrontstage } from "../frontstage/ModalSettingsStage.js";
-import svgSettings from "@bentley/icons-generic/icons/settings.svg";
 
-/**
- * Immediate tool that will open the Settings modal stage.
- * @alpha
- */
-export class OpenSettingsTool extends Tool {
+class OpenSettingsCoreTool extends Tool {
   public static override toolId = "OpenSettings";
-  public static override iconSpec = svgSettings;
+  public static override iconSpec = "icon-settings";
 
   public static override get minArgs() {
     return 0;
@@ -33,3 +31,12 @@ export class OpenSettingsTool extends Tool {
     return this.run(args[0]);
   }
 }
+
+/**
+ * Immediate tool that will open the Settings modal stage.
+ * @alpha
+ */
+export const OpenSettingsTool = ToolUtilities.defineIcon(
+  OpenSettingsCoreTool,
+  <SvgSettings />
+);
