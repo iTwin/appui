@@ -3665,30 +3665,14 @@ export class ReducerRegistry {
 export const ReducerRegistryInstance: ReducerRegistry;
 
 // @public
-export class RestoreAllFrontstagesTool extends Tool {
-    // (undocumented)
-    static iconSpec: string;
-    // (undocumented)
-    run(): Promise<boolean>;
-    // (undocumented)
-    static toolId: string;
-}
+export const RestoreAllFrontstagesTool: typeof RestoreAllFrontstagesCoreTool & {
+    iconElement: React_2.ReactElement;
+};
 
 // @public
-export class RestoreFrontstageLayoutTool extends Tool {
-    // (undocumented)
-    static iconSpec: string;
-    // (undocumented)
-    static get maxArgs(): number;
-    // (undocumented)
-    static get minArgs(): number;
-    // (undocumented)
-    parseAndRun(...args: string[]): Promise<boolean>;
-    // (undocumented)
-    run(frontstageId?: string): Promise<boolean>;
-    // (undocumented)
-    static toolId: string;
-}
+export const RestoreFrontstageLayoutTool: typeof RestoreFrontstageLayoutCoreTool & {
+    iconElement: React_2.ReactElement;
+};
 
 // @public
 export const SafeAreaContext: React_2.Context<SafeAreaInsets | undefined>;

@@ -1,6 +1,13 @@
 # NextVersion <!-- omit from toc -->
 
+<<<<<<< HEAD
 Table of contents:
+=======
+- [@itwin/components-react](#itwincomponents-react)
+  - [Additions](#additions)
+- [@itwin/imodel-components-react](#itwinimodel-components-react)
+  - [Additions](#additions-1)
+>>>>>>> 87ca8e386 (Add `ToolUtilities` to define tool icon as a React element (#1150))
 
 - [Drop support for iTwin.js 3.x](#drop-support-for-itwinjs-3x)
 - [Drop support for React 17.x](#drop-support-for-react-17x)
@@ -166,6 +173,7 @@ AppUI packages now specify `@itwin/itwinui-react` as a [peer dependency](https:/
 - Added the `IMergingPropertyDataProvider` interface, which combines any number of `IPropertyDataProvider` instances, and added the `createMergedPropertyDataProvider` factory function that creates an `IMergingPropertyDataProvider` instance. [#1040](https://github.com/iTwin/appui/pull/1040)
 - Added a callback to `VirtualizedPropertyGrid` which determines which editors should always be visible. [#1090](https://github.com/iTwin/appui/pull/1090)
 
+<<<<<<< HEAD
 ### Changes
 
 - Removed a dependency to `@bentley/icons-generic` by reusing icons from `@itwin/itwinui-icons`. [#1074](https://github.com/iTwin/appui/pull/1074)
@@ -175,3 +183,48 @@ AppUI packages now specify `@itwin/itwinui-react` as a [peer dependency](https:/
 ### Changes
 
 - Removed the `resize-observer-polyfill` dependency because `ResizeObserver` is well supported by modern browsers, eliminating the need for a polyfill. [#1045](https://github.com/iTwin/appui/pull/1045)
+=======
+## @itwin/imodel-components-react
+
+### Additions
+
+- Added `ToolUtilities` namespace that contains utilities for working with iTwin.js core `Tool` class. [1150](https://github.com/iTwin/appui/pull/1150)
+
+  - `ToolUtilities.defineIcon` function allows defining an icon for a tool type using a React element. This is a supplement for an existing `Tool.iconSpec` property that adds additional `iconElement` property to the tool type.
+
+    ```tsx
+    // Before
+    export class MyTool extends Tool {
+      public static iconSpec = "icon-placeholder";
+    }
+
+    // After
+    class MyCoreTool extends Tool {
+      public static iconSpec = "icon-placeholder";
+    }
+    export const MyTool = ToolUtilities.defineIcon(
+      MyCoreTool,
+      <SvgPlaceholder />
+    );
+    ```
+
+    Alternatively, consumers can simply add an `iconElement` property of `ReactElement` type to the tool class.
+
+    ```tsx
+    export class MyTool extends Tool {
+      public static iconSpec = "icon-placeholder";
+      public static iconElement = (<SvgPlaceholder />);
+    }
+    ```
+
+    > [!NOTE]
+    > Newly defined `iconElement` property needs to be read by the consumers to display the icon in a toolbar, unless the `ToolbarItemUtilities.createForTool` helper is used when creating toolbar items.
+
+  - `ToolUtilities.isWithIcon` function is a type guard that checks if a tool has a React icon element defined. Which is useful to read the icon element from the tool type.
+
+    ```tsx
+    if (ToolUtilities.isWithIcon(MyTool)) {
+      MyTool.iconElement; // ReactElement
+    }
+    ```
+>>>>>>> 87ca8e386 (Add `ToolUtilities` to define tool icon as a React element (#1150))
