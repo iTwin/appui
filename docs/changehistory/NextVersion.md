@@ -1,13 +1,6 @@
 # NextVersion <!-- omit from toc -->
 
-<<<<<<< HEAD
 Table of contents:
-=======
-- [@itwin/components-react](#itwincomponents-react)
-  - [Additions](#additions)
-- [@itwin/imodel-components-react](#itwinimodel-components-react)
-  - [Additions](#additions-1)
->>>>>>> 87ca8e386 (Add `ToolUtilities` to define tool icon as a React element (#1150))
 
 - [Drop support for iTwin.js 3.x](#drop-support-for-itwinjs-3x)
 - [Drop support for React 17.x](#drop-support-for-react-17x)
@@ -26,6 +19,8 @@ Table of contents:
   - [Changes](#changes-1)
 - [@itwin/core-react](#itwincore-react)
   - [Changes](#changes-2)
+- [@itwin/imodel-components-react](#itwinimodel-components-react)
+  - [Additions](#additions-2)
 
 ## Drop support for iTwin.js 3.x
 
@@ -173,7 +168,6 @@ AppUI packages now specify `@itwin/itwinui-react` as a [peer dependency](https:/
 - Added the `IMergingPropertyDataProvider` interface, which combines any number of `IPropertyDataProvider` instances, and added the `createMergedPropertyDataProvider` factory function that creates an `IMergingPropertyDataProvider` instance. [#1040](https://github.com/iTwin/appui/pull/1040)
 - Added a callback to `VirtualizedPropertyGrid` which determines which editors should always be visible. [#1090](https://github.com/iTwin/appui/pull/1090)
 
-<<<<<<< HEAD
 ### Changes
 
 - Removed a dependency to `@bentley/icons-generic` by reusing icons from `@itwin/itwinui-icons`. [#1074](https://github.com/iTwin/appui/pull/1074)
@@ -183,7 +177,7 @@ AppUI packages now specify `@itwin/itwinui-react` as a [peer dependency](https:/
 ### Changes
 
 - Removed the `resize-observer-polyfill` dependency because `ResizeObserver` is well supported by modern browsers, eliminating the need for a polyfill. [#1045](https://github.com/iTwin/appui/pull/1045)
-=======
+
 ## @itwin/imodel-components-react
 
 ### Additions
@@ -227,4 +221,3 @@ AppUI packages now specify `@itwin/itwinui-react` as a [peer dependency](https:/
       MyTool.iconElement; // ReactElement
     }
     ```
->>>>>>> 87ca8e386 (Add `ToolUtilities` to define tool icon as a React element (#1150))
