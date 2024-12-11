@@ -17,7 +17,6 @@ import {
 import { ThemeProvider as IUI2_ThemeProvider } from "@itwin/itwinui-react-v2";
 import { useEngagementTime } from "./appui/useEngagementTime";
 import { AppLocalizationProvider } from "./Localization";
-import { KoqEditorSpec } from "@itwin/presentation-components";
 import {
   ColorEditorSpec,
   QuantityEditorSpec,
@@ -29,10 +28,8 @@ import {
   EditorProps,
   EditorSpec,
   EditorsRegistryProvider,
-  FormatOverrides,
   NumericEditorSpec,
   useEnumEditorProps,
-  withFormatOverrides,
 } from "@itwin/components-react";
 
 interface AppProps {
@@ -70,16 +67,6 @@ function ChildWindow(props: React.PropsWithChildren<object>) {
   return <IUI2_ThemeProvider>{props.children}</IUI2_ThemeProvider>;
 }
 
-const formatOverrides: FormatOverrides = {
-  ["Units.LENGTH"]: {
-    unitSystems: ["metric"],
-    format: {
-      type: "decimal",
-      decimalSeparator: "k",
-    },
-  },
-};
-
 const editors: EditorSpec[] = [
   NumericEditorSpec,
   WeightEditorSpec,
@@ -92,10 +79,6 @@ const rootEditors: EditorSpec[] = [
       metadata.type === "enum" &&
       metadata.preferredEditor === "enum-buttongroup",
     Editor: CustomEnumEditor,
-  },
-  {
-    ...KoqEditorSpec,
-    Editor: withFormatOverrides(KoqEditorSpec.Editor, formatOverrides),
   },
   QuantityEditorSpec,
 ];

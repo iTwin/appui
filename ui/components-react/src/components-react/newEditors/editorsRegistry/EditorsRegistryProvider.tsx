@@ -1,3 +1,7 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { useContext, useMemo } from "react";
 import type { EditorSpec } from "../Types.js";
@@ -17,7 +21,7 @@ export function EditorsRegistryProvider({
 
   const value = useMemo(() => {
     return {
-      editors: [...parentContext.editors, ...editors],
+      editors: [...editors, ...parentContext.editors],
     };
   }, [parentContext, editors]);
 

@@ -1,15 +1,17 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { useRef, useState } from "react";
-import type { Value, ValueMetadata } from "./Types.js";
 import { Editor } from "./Editor.js";
+import type { Value } from "./values/Values.js";
+import type { EditorProps } from "./Types.js";
 
-interface CommittingEditorProps {
-  metadata: ValueMetadata;
-  value?: Value;
+type CommittingEditorProps = Omit<EditorProps, "onFinish" | "onChange"> & {
   onCommit: (value: Value) => void;
   onCancel?: () => void;
-  size?: "small" | "large";
-}
+};
 
 /**
  *
@@ -20,6 +22,7 @@ export function CommittingEditor({
   onCommit,
   onCancel,
   size,
+  ...restProps
 }: CommittingEditorProps) {
   const [currentValue, setCurrentValue] = useState<Value | undefined>();
   const currentValueRef = useRef(currentValue);
@@ -52,6 +55,7 @@ export function CommittingEditor({
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions
     <div onKeyDown={handleKeyDown}>
       <Editor
+        {...restProps}
         metadata={metadata}
         value={currentValue ?? value}
         onChange={handleChange}

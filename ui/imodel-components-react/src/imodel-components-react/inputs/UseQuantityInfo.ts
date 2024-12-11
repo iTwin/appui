@@ -4,23 +4,17 @@
  *--------------------------------------------------------------------------------------------*/
 import type { QuantityTypeArg } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
-import { Format, FormatterSpec, ParserSpec } from "@itwin/core-quantity";
+import type { FormatterSpec, ParserSpec } from "@itwin/core-quantity";
 import * as React from "react";
-import type { FormatOverrides } from "./FormatOverrides.js";
-import { getMatchingFormatOverride } from "./FormatOverrides.js";
 
 interface UseQuantityInfoProps {
   type: QuantityTypeArg | undefined;
-  formatOverrides?: FormatOverrides;
 }
 
 /**
  *
  */
-export function useQuantityInfo({
-  type,
-  formatOverrides,
-}: UseQuantityInfoProps) {
+export function useQuantityInfo({ type }: UseQuantityInfoProps) {
   const [{ formatter, parser }, setState] = React.useState<{
     formatter: FormatterSpec | undefined;
     parser: ParserSpec | undefined;
@@ -42,64 +36,35 @@ export function useQuantityInfo({
       return;
     }
 
-    const persistenceUnit = defaultFormatterSpec.persistenceUnit;
-    const defaultFormat = defaultFormatterSpec.format;
+    const loadFormatterParser = () => {
+      const formatterSpec =
+        IModelApp.quantityFormatter.findFormatterSpecByQuantityType(type);
+      const parserSpec =
+        IModelApp.quantityFormatter.findParserSpecByQuantityType(type);
 
-    let disposed = false;
-    const loadFormatterParser = async () => {
-      const unitsProvider = IModelApp.quantityFormatter.unitsProvider;
-      const phenomenon = persistenceUnit.phenomenon;
-      const overrideFormatProps = getMatchingFormatOverride({
-        overrides: formatOverrides ?? {},
-        phenomenon,
-        unitSystem: IModelApp.quantityFormatter.activeUnitSystem,
-      });
-
-      const format =
-        overrideFormatProps !== undefined
-          ? await Format.createFromJSON("", unitsProvider, overrideFormatProps)
-          : defaultFormat;
-
-      const newFormatter = await FormatterSpec.create(
-        "",
-        format,
-        unitsProvider,
-        persistenceUnit
-      );
-      const newParser = await ParserSpec.create(
-        format,
-        unitsProvider,
-        persistenceUnit
-      );
-
-      if (disposed) {
-        return;
-      }
-
-      setState({ formatter: newFormatter, parser: newParser });
+      setState({ formatter: formatterSpec, parser: parserSpec });
     };
 
-    void loadFormatterParser();
+    loadFormatterParser();
     const removeListeners = [
       IModelApp.quantityFormatter.onActiveFormattingUnitSystemChanged.addListener(
-        () => void loadFormatterParser()
+        loadFormatterParser
       ),
       IModelApp.quantityFormatter.onQuantityFormatsChanged.addListener(
         ({ quantityType }) => {
           if (quantityType === type) {
-            void loadFormatterParser();
+            loadFormatterParser();
           }
         }
       ),
     ];
 
     return () => {
-      disposed = true;
       removeListeners.forEach((remove) => {
         remove();
       });
     };
-  }, [type, formatOverrides]);
+  }, [type]);
 
   return { formatter, parser };
 }

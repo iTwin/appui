@@ -5,10 +5,9 @@
 import * as React from "react";
 import { type QuantityTypeArg } from "@itwin/core-frontend";
 import { useQuantityInfo } from "./UseQuantityInfo.js";
-import type { EditorSpec } from "@itwin/components-react";
+import type { EditorProps, EditorSpec } from "@itwin/components-react";
 import { useNumericEditorProps } from "@itwin/components-react";
-import type { EditorPropsWithFormatOverrides } from "./WithFormatOverrides.js";
-import { QuantityInput } from "./QuantityInput.js";
+import { QuantityFormattedInput } from "./QuantityFormattedInput.js";
 
 export const QuantityEditorSpec: EditorSpec = {
   applies: (metadata) =>
@@ -21,7 +20,7 @@ export const QuantityEditorSpec: EditorSpec = {
 /**
  *
  */
-export function QuantityEditor(props: EditorPropsWithFormatOverrides) {
+export function QuantityEditor(props: EditorProps) {
   const { onChange, value, onFinish, size } = useNumericEditorProps(props);
   const quantityType =
     "quantityType" in props.metadata
@@ -30,11 +29,10 @@ export function QuantityEditor(props: EditorPropsWithFormatOverrides) {
 
   const { formatter, parser } = useQuantityInfo({
     type: quantityType,
-    formatOverrides: props.formatOverrides,
   });
 
   return (
-    <QuantityInput
+    <QuantityFormattedInput
       value={value}
       onChange={onChange}
       onBlur={onFinish}

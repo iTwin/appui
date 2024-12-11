@@ -1,3 +1,7 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import type {
   PrimitiveValue,
   PropertyEditorParams,
@@ -8,18 +12,17 @@ import type {
   BooleanValue,
   DateValue,
   Value as EditorValue,
-  EnumValueMetadata,
   NumericValue,
   TextValue,
-  ValueMetadata,
-} from "./Types.js";
+} from "../values/Values.js";
 import {
   isBooleanValue,
   isDateTimeValue,
   isEnumValue,
   isNumericValue,
   isTextValue,
-} from "./Types.js";
+} from "../values/Values.js";
+import type { EnumValueMetadata, ValueMetadata } from "../values/Metadata.js";
 
 export namespace EditorInterop {
   /**

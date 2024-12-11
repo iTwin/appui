@@ -1,9 +1,13 @@
-import { BooleanEditor } from "./editors/boolean-editor/BooleanEditor.js";
-import { DateTimeEditor } from "./editors/date-editor/DateTimeEditor.js";
-import { EnumEditor } from "./editors/enum-editor/EnumEditor.js";
-import { NumericEditor } from "./editors/numeric-editor/NumericEditor.js";
-import { TextEditor } from "./editors/text-editor/TextEditor.js";
-import type { EditorSpec } from "./Types.js";
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+import { BooleanEditor } from "../editors/boolean/BooleanEditor.js";
+import { DateTimeEditor } from "../editors/date/DateTimeEditor.js";
+import { EnumEditor } from "../editors/enum/EnumEditor.js";
+import { NumericEditor } from "../editors/numeric/NumericEditor.js";
+import { TextEditor } from "../editors/text/TextEditor.js";
+import type { EditorSpec } from "../Types.js";
 
 export const TextEditorSpec: EditorSpec = {
   applies: (metadata) => metadata.type === "string",
