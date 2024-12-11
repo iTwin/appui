@@ -17,7 +17,7 @@
 
 - Added `ToolUtilities` namespace that contains utilities for working with iTwin.js core `Tool` class. [1150](https://github.com/iTwin/appui/pull/1150)
 
-  - `ToolUtilities.defineIcon` function allows defining an icon for a tool type using a React element. This is a supplement for an existing `Tool.iconSpec` property.
+  - `ToolUtilities.defineIcon` function allows defining an icon for a tool type using a React element. This is a supplement for an existing `Tool.iconSpec` property that adds additional `iconElement` property to the tool type.
 
     ```tsx
     // Before
@@ -44,7 +44,10 @@
     }
     ```
 
-  - `ToolUtilities.isWithIcon` function is a type guard that checks if a tool has a React icon element defined.
+    > [!NOTE]
+    > Newly defined `iconElement` property needs to be read by the consumers to display the icon in a toolbar, unless the `ToolbarItemUtilities.createForTool` helper is used when creating toolbar items.
+
+  - `ToolUtilities.isWithIcon` function is a type guard that checks if a tool has a React icon element defined. Which is useful to read the icon element from the tool type.
 
     ```tsx
     if (ToolUtilities.isWithIcon(MyTool)) {
