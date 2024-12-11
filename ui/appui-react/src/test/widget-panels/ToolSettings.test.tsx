@@ -30,10 +30,12 @@ import { addFloatingWidget } from "../../appui-react/layout/state/internal/Widge
 import {
   ToolSettingsContent,
   ToolSettingsDockedContent,
+  ToolSettingsWidgetContent,
   useHorizontalToolSettingEntries,
   useToolSettingsNode,
   WidgetPanelsToolSettings,
 } from "../../appui-react/widget-panels/ToolSettings.js";
+import { defaultFrontstageConfig } from "../frontstage/FrontstageDef.test.js";
 
 describe("WidgetPanelsToolSettings", () => {
   it("should not render w/o tool settings top center zone", () => {
@@ -93,7 +95,7 @@ describe("ToolSettingsDockedContent", () => {
     }
   }
 
-  it("should render settings", () => {
+  it("should render settings when tool settings have entries", () => {
     const activeToolSettingsProvider = new ToolUiProviderMock(
       new ConfigurableCreateInfo("test", "test", "test"),
       undefined
@@ -117,6 +119,49 @@ describe("ToolSettingsDockedContent", () => {
       </DragManagerContext.Provider>
     );
     sut.getByText("Date");
+  });
+
+  it("should render custom node when tool settings have no entries but has custom node", async () => {
+    const frontstageDef = new FrontstageDef();
+    await frontstageDef.initializeFromConfig({
+      ...defaultFrontstageConfig,
+      toolSettings: {
+        activeToolEmptyNode: "Custom node",
+        id: `toolSettings`,
+      },
+    });
+    vi.spyOn(
+      UiFramework.frontstages,
+      "activeFrontstageDef",
+      "get"
+    ).mockImplementation(() => frontstageDef);
+    const sut = render(
+      <DragManagerContext.Provider value={new DragManager()}>
+        <ToolSettingsDockedContent />
+      </DragManagerContext.Provider>
+    );
+    sut.getByText("Custom node");
+  });
+
+  it("should render empty message when tool settings have no entries and has no custom node", async () => {
+    const frontstageDef = new FrontstageDef();
+    await frontstageDef.initializeFromConfig({
+      ...defaultFrontstageConfig,
+      toolSettings: {
+        id: `toolSettings`,
+      },
+    });
+    vi.spyOn(
+      UiFramework.frontstages,
+      "activeFrontstageDef",
+      "get"
+    ).mockImplementation(() => frontstageDef);
+    const sut = render(
+      <DragManagerContext.Provider value={new DragManager()}>
+        <ToolSettingsDockedContent />
+      </DragManagerContext.Provider>
+    );
+    sut.getByText(/tools.noToolSettingsStart/);
   });
 });
 
@@ -172,6 +217,69 @@ describe("ToolSettingsContent", () => {
       </NineZoneProvider>
     );
     component.getByText("Hello World");
+  });
+});
+
+describe("ToolSettingsWidgetContent", () => {
+  class ToolUiProviderMock extends ToolUiProvider {
+    constructor(info: ConfigurableCreateInfo, options: any) {
+      super(info, options);
+    }
+  }
+
+  it("should render settings when tool settings have entries", () => {
+    const activeToolSettingsProvider = new ToolUiProviderMock(
+      new ConfigurableCreateInfo("test", "test", "test"),
+      undefined
+    );
+    vi.spyOn(
+      InternalFrontstageManager,
+      "activeToolSettingsProvider",
+      "get"
+    ).mockImplementation(() => activeToolSettingsProvider);
+    const toolSettingsNode: React.ReactNode = "Normal node";
+    vi.spyOn(
+      activeToolSettingsProvider,
+      "toolSettingsNode",
+      "get"
+    ).mockImplementation(() => toolSettingsNode);
+    const sut = render(<ToolSettingsWidgetContent />);
+    sut.getByText("Normal node");
+  });
+
+  it("should render custom node when tool settings have no entries but has custom node", async () => {
+    const frontstageDef = new FrontstageDef();
+    await frontstageDef.initializeFromConfig({
+      ...defaultFrontstageConfig,
+      toolSettings: {
+        activeToolEmptyNode: "Custom node",
+        id: `toolSettings`,
+      },
+    });
+    vi.spyOn(
+      UiFramework.frontstages,
+      "activeFrontstageDef",
+      "get"
+    ).mockImplementation(() => frontstageDef);
+    const sut = render(<ToolSettingsWidgetContent />);
+    sut.getByText("Custom node");
+  });
+
+  it("should render empty message when tool settings have no entries and has no custom node", async () => {
+    const frontstageDef = new FrontstageDef();
+    await frontstageDef.initializeFromConfig({
+      ...defaultFrontstageConfig,
+      toolSettings: {
+        id: `toolSettings`,
+      },
+    });
+    vi.spyOn(
+      UiFramework.frontstages,
+      "activeFrontstageDef",
+      "get"
+    ).mockImplementation(() => frontstageDef);
+    const sut = render(<ToolSettingsWidgetContent />);
+    sut.getByText(/tools.noToolSettingsStart/);
   });
 });
 
