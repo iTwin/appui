@@ -6,7 +6,7 @@
  * @module Common
  */
 
-import React from "react";
+import * as React from "react";
 import type { ToolType } from "@itwin/core-frontend";
 
 /** A {@link @itwin/core-frontend#ToolType} with an icon element specified as a React element. */
@@ -41,7 +41,7 @@ export namespace ToolUtilities {
     return withIcon;
   }
 
-  /** Type guard for {@link ToolWithIcon}. */
+  /** Type guard for a {@link @itwin/core-frontend#ToolType} with an `iconElement` property. */
   export function isWithIcon<T extends ToolType>(
     toolType: T
   ): toolType is ToolWithIcon<T> {
