@@ -30,25 +30,15 @@ export interface ToolSettingsEntry {
   editorNode: React.ReactNode;
 }
 
-function EmptyToolSettingsLabel({
-  toolId,
-  customMessage,
-}: {
-  toolId: string;
-  customMessage?: string;
-}) {
+function EmptyToolSettingsLabel({ toolId }: { toolId: string }) {
   const { translate } = useTranslation();
   const tool = IModelApp.tools.find(toolId);
   const toolName = tool?.flyover;
   return (
     <Text as="i" isMuted={true} className="uifw-toolSettings-label-empty">
-      {customMessage ?? (
-        <>
-          {translate("tools.noToolSettingsStart")}
-          {toolName || translate("tools.noToolSettingsPlaceholderName")}
-          {translate("tools.noToolSettingsEnd")}
-        </>
-      )}
+      {translate("tools.noToolSettingsStart")}
+      {toolName || translate("tools.noToolSettingsPlaceholderName")}
+      {translate("tools.noToolSettingsEnd")}
     </Text>
   );
 }
@@ -80,14 +70,9 @@ export function ToolSettingsDockedContent() {
     () => [
       {
         editorNode: null,
-        labelNode: (
-          <EmptyToolSettingsLabel
-            toolId={activeToolId}
-            customMessage={
-              InternalFrontstageManager.activeFrontstageDef
-                ?.activeToolEmptyMessage
-            }
-          />
+        labelNode: InternalFrontstageManager.activeFrontstageDef?.toolSettings
+          ?.activeToolEmptyNode ?? (
+          <EmptyToolSettingsLabel toolId={activeToolId} />
         ),
       },
     ],
@@ -202,15 +187,11 @@ export function ToolSettingsWidgetContent() {
       key={forceRefreshKey}
     >
       <ScrollableWidgetContent>
-        {node ?? (
-          <EmptyToolSettingsLabel
-            toolId={activeToolId}
-            customMessage={
-              InternalFrontstageManager.activeFrontstageDef
-                ?.activeToolEmptyMessage
-            }
-          />
-        )}
+        {node ??
+          InternalFrontstageManager.activeFrontstageDef?.toolSettings
+            ?.activeToolEmptyNode ?? (
+            <EmptyToolSettingsLabel toolId={activeToolId} />
+          )}
       </ScrollableWidgetContent>
     </div>
   );

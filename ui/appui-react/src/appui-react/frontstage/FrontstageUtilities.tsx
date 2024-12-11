@@ -78,7 +78,6 @@ export namespace FrontstageUtilities {
         defaultState: StagePanelState.Open,
         ...props.bottomPanelProps,
       },
-      activeToolEmptyMessage: "",
     };
   }
 }

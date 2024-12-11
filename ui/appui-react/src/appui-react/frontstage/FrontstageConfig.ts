@@ -43,9 +43,10 @@ export interface FrontstageConfig extends CommonProps {
   /** The top-left corner that shows tools typically used to query and modify content. */
   readonly contentManipulation?: WidgetConfig;
   /** The settings of the active tool. */
-  readonly toolSettings?: WidgetConfig;
-  /** Custom message for active tool, when tool has no settings. */
-  readonly activeToolEmptyMessage?: string;
+  readonly toolSettings?: WidgetConfig & {
+    /** Custom node for active tool, when tool has no settings. */
+    activeToolEmptyNode?: React.ReactNode;
+  };
   /** The top-right corner that shows view navigation tools. */
   readonly viewNavigation?: WidgetConfig;
   /** The status bar of the application. */
