@@ -101,6 +101,7 @@ public;interface;TimelineMenuItemProps
 public;enum;TimelinePausePlayAction
 public;interface;TimelinePausePlayArgs
 public;enum;TimelineScale
+public;namespace;ToolUtilities
 public;class;UiIModelComponents
 public;class;ViewClassFullNameChangedEvent
 deprecated;class;ViewClassFullNameChangedEvent

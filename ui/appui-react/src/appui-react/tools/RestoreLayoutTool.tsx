@@ -5,6 +5,7 @@
 /** @packageDocumentation
  * @module Tools
  */
+import * as React from "react";
 import {
   IModelApp,
   NotifyMessageDetails,
@@ -14,16 +15,12 @@ import {
 import type { FrontstageDef } from "../frontstage/FrontstageDef.js";
 import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager.js";
 import { UiFramework } from "../UiFramework.js";
-import svgViewLayouts from "@bentley/icons-generic/icons/view-layouts.svg";
+import { SvgViewLayouts } from "../icons/SvgViewLayouts.js";
+import { ToolUtilities } from "@itwin/imodel-components-react";
 
-/**
- * Immediate tool that will reset the layout to that specified in the stage definition. A stage Id
- * may be passed in, if not the active stage is used. The stage Id is case sensitive.
- * @public
- */
-export class RestoreFrontstageLayoutTool extends Tool {
+class RestoreFrontstageLayoutCoreTool extends Tool {
   public static override toolId = "RestoreFrontstageLayout";
-  public static override iconSpec = svgViewLayouts;
+  public static override iconSpec = "icon-view-layouts";
 
   public static override get minArgs() {
     return 0;
@@ -57,15 +54,25 @@ export class RestoreFrontstageLayoutTool extends Tool {
   public override async parseAndRun(...args: string[]): Promise<boolean> {
     return this.run(args[0]);
   }
+
+  public getIconNode() {
+    return <SvgViewLayouts />;
+  }
 }
 
 /**
- * Immediate tool that will reset the layout of all frontstages to that specified in the stage definition.
+ * Immediate tool that will reset the layout to that specified in the stage definition. A stage Id
+ * may be passed in, if not the active stage is used. The stage Id is case sensitive.
  * @public
  */
-export class RestoreAllFrontstagesTool extends Tool {
+export const RestoreFrontstageLayoutTool = ToolUtilities.defineIcon(
+  RestoreFrontstageLayoutCoreTool,
+  <SvgViewLayouts />
+);
+
+class RestoreAllFrontstagesCoreTool extends Tool {
   public static override toolId = "RestoreAllFrontstages";
-  public static override iconSpec = svgViewLayouts;
+  public static override iconSpec = "icon-view-layouts";
 
   public override async run() {
     const frontstages = InternalFrontstageManager.frontstageDefs;
@@ -75,3 +82,12 @@ export class RestoreAllFrontstagesTool extends Tool {
     return true;
   }
 }
+
+/**
+ * Immediate tool that will reset the layout of all frontstages to that specified in the stage definition.
+ * @public
+ */
+export const RestoreAllFrontstagesTool = ToolUtilities.defineIcon(
+  RestoreAllFrontstagesCoreTool,
+  <SvgViewLayouts />
+);
