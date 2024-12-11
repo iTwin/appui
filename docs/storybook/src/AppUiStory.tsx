@@ -87,6 +87,7 @@ export function AppUiStory(props: AppUiStoryProps) {
           SnapshotIModelRpcInterface,
         ]
       );
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
       demoIModel && (await openDemoIModel(demoIModel));
       await props.onInitialize?.();
 

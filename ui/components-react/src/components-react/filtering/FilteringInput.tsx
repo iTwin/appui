@@ -135,6 +135,7 @@ export class FilteringInput extends React.PureComponent<
     this.setState({ searchText: e.target.value, searchStarted: false });
   };
 
+  /** @internal */
   public override componentDidUpdate(prevProps: FilteringInputProps) {
     if (this.props.resultSelectorProps !== prevProps.resultSelectorProps) {
       this.setState((state) => ({

@@ -156,6 +156,7 @@ export class RadialMenu extends React.Component<
     window.removeEventListener("mouseup", this._handleClick);
   }
 
+  /** @internal */
   public override componentDidUpdate(prevProps: RadialMenuProps) {
     if (
       prevProps.innerRadius !== this.props.innerRadius ||

@@ -161,6 +161,7 @@ export class ViewSelector extends React.Component<
     await this.loadViews();
   }
 
+  /** @internal */
   public override async componentDidUpdate(prevProps: ViewSelectorProps) {
     if (this.props.imodel !== prevProps.imodel) {
       await this.loadViews();

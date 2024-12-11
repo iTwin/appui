@@ -164,6 +164,7 @@ export class ContextMenuItem extends React.PureComponent<
     this._updateHotkey(this.props.children);
   }
 
+  /** @internal */
   public override componentDidUpdate(prevProps: ContextMenuItemProps) {
     if (this.props.children !== prevProps.children) {
       this._updateHotkey(this.props.children);

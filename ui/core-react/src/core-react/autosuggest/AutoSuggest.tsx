@@ -122,6 +122,7 @@ export class AutoSuggest extends React.PureComponent<
     this._isMounted = false;
   }
 
+  /** @internal */
   public override componentDidUpdate(prevProps: AutoSuggestProps) {
     if (
       this.props.value !== prevProps.value ||
