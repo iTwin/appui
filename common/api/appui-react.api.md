@@ -2206,7 +2206,9 @@ export interface FrontstageConfig extends CommonProps {
     readonly leftPanel?: StagePanelConfig;
     readonly rightPanel?: StagePanelConfig;
     readonly statusBar?: WidgetConfig;
-    readonly toolSettings?: WidgetConfig;
+    readonly toolSettings?: WidgetConfig & {
+        activeToolEmptyNode?: React.ReactNode;
+    };
     readonly topPanel?: StagePanelConfig;
     readonly usage?: string;
     readonly version: number;
@@ -2322,7 +2324,9 @@ export class FrontstageDef {
     // @internal (undocumented)
     get timeTracker(): TimeTracker;
     // (undocumented)
-    get toolSettings(): WidgetDef | undefined;
+    get toolSettings(): (WidgetDef & {
+        activeToolEmptyNode?: React_2.ReactNode;
+    }) | undefined;
     // (undocumented)
     get topPanel(): StagePanelDef | undefined;
     // @internal (undocumented)
