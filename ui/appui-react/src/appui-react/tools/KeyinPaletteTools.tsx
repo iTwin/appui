@@ -11,12 +11,7 @@ import { Tool } from "@itwin/core-frontend";
 import { ToolUtilities } from "@itwin/imodel-components-react";
 import { SvgRemove } from "@itwin/itwinui-icons-react";
 
-/**
- * Immediate tool that will clear the recent history of command/tool keyins shown in
- * the command palette.
- * @alpha
- */
-export class ClearKeyinPaletteHistoryTool extends Tool {
+class ClearKeyinPaletteHistoryCoreTool extends Tool {
   public static override toolId = "ClearKeyinPaletteHistory";
   public static override iconSpec = "icon-remove";
 
@@ -32,4 +27,13 @@ export class ClearKeyinPaletteHistoryTool extends Tool {
     return true;
   }
 }
-ToolUtilities.defineIcon(ClearKeyinPaletteHistoryTool, <SvgRemove />);
+
+/**
+ * Immediate tool that will clear the recent history of command/tool keyins shown in
+ * the command palette.
+ * @alpha
+ */
+export const ClearKeyinPaletteHistoryTool = ToolUtilities.defineIcon(
+  ClearKeyinPaletteHistoryCoreTool,
+  <SvgRemove />
+);

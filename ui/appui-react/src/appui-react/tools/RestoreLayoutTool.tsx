@@ -18,12 +18,7 @@ import { UiFramework } from "../UiFramework.js";
 import { SvgViewLayouts } from "../icons/SvgViewLayouts.js";
 import { ToolUtilities } from "@itwin/imodel-components-react";
 
-/**
- * Immediate tool that will reset the layout to that specified in the stage definition. A stage Id
- * may be passed in, if not the active stage is used. The stage Id is case sensitive.
- * @public
- */
-export class RestoreFrontstageLayoutTool extends Tool {
+class RestoreFrontstageLayoutCoreTool extends Tool {
   public static override toolId = "RestoreFrontstageLayout";
   public static override iconSpec = "icon-view-layouts";
 
@@ -64,13 +59,18 @@ export class RestoreFrontstageLayoutTool extends Tool {
     return <SvgViewLayouts />;
   }
 }
-ToolUtilities.defineIcon(RestoreFrontstageLayoutTool, <SvgViewLayouts />);
 
 /**
- * Immediate tool that will reset the layout of all frontstages to that specified in the stage definition.
+ * Immediate tool that will reset the layout to that specified in the stage definition. A stage Id
+ * may be passed in, if not the active stage is used. The stage Id is case sensitive.
  * @public
  */
-export class RestoreAllFrontstagesTool extends Tool {
+export const RestoreFrontstageLayoutTool = ToolUtilities.defineIcon(
+  RestoreFrontstageLayoutCoreTool,
+  <SvgViewLayouts />
+);
+
+class RestoreAllFrontstagesCoreTool extends Tool {
   public static override toolId = "RestoreAllFrontstages";
   public static override iconSpec = "icon-view-layouts";
 
@@ -82,4 +82,12 @@ export class RestoreAllFrontstagesTool extends Tool {
     return true;
   }
 }
-ToolUtilities.defineIcon(RestoreAllFrontstagesTool, <SvgViewLayouts />);
+
+/**
+ * Immediate tool that will reset the layout of all frontstages to that specified in the stage definition.
+ * @public
+ */
+export const RestoreAllFrontstagesTool = ToolUtilities.defineIcon(
+  RestoreAllFrontstagesCoreTool,
+  <SvgViewLayouts />
+);
