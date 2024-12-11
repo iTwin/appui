@@ -77,7 +77,7 @@ export function ToolSettingsDockedContent() {
         ),
       },
     ],
-    [activeToolId]
+    [activeToolId, frontstageDef]
   );
   const entries =
     !toolSettingEntries || toolSettingEntries.length === 0
