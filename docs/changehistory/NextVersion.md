@@ -9,10 +9,10 @@
 
 ### Additions
 
-- Added property `activeToolEmptyNode` to `FrontstageConfig.toolSettings`, which allows to use custom node if tool settings is empty. [#1090](https://github.com/iTwin/appui/pull/1090)
+- Added property `activeToolEmptyNode` to `FrontstageConfig.toolSettings`, which allows to use custom node if tool settings is empty. [#1137](https://github.com/iTwin/appui/pull/1137)
 
 ## @itwin/components-react
 
 ### Additions
 
-- Added a callback to `VirtualizedPropertyGrid` which determines which editors should always be visible. [#1137](https://github.com/iTwin/appui/pull/1137)
+- Added a callback to `VirtualizedPropertyGrid` which determines which editors should always be visible. [#1090](https://github.com/iTwin/appui/pull/1090)
