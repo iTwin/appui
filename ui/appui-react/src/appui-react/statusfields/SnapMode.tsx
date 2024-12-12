@@ -28,7 +28,7 @@ import { SvgSnaps } from "../icons/snaps/SvgSnaps.js";
 interface SnapModeFieldEntry {
   labelKey: string;
   value: number;
-  icon: React.ReactNode;
+  icon: React.ReactElement;
 }
 
 // Field entry of all possible snap modes.
@@ -141,9 +141,7 @@ export function SnapModeField(props: SnapModeFieldProps) {
         styleType="borderless"
         title={title}
         endIcon={
-          <Icon>
-            {enabledSnaps.length === 1 ? enabledSnaps[0].icon : <SvgSnaps />}
-          </Icon>
+          enabledSnaps.length === 1 ? enabledSnaps[0].icon : <SvgSnaps />
         }
       >
         {title}
