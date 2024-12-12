@@ -532,9 +532,6 @@ importers:
 
   ../../ui/appui-react:
     dependencies:
-      '@bentley/icons-generic':
-        specifier: ^1.0.34
-        version: 1.0.34
       '@itwin/itwinui-icons-react':
         specifier: ^2.8.0
         version: 2.8.0(react-dom@18.3.1)(react@18.3.1)
@@ -837,9 +834,6 @@ importers:
 
   ../../ui/core-react:
     dependencies:
-      '@bentley/icons-generic':
-        specifier: ^1.0.34
-        version: 1.0.34
       '@itwin/itwinui-icons-react':
         specifier: ^2.8.0
         version: 2.8.0(react-dom@18.3.1)(react@18.3.1)
@@ -958,9 +952,6 @@ importers:
 
   ../../ui/imodel-components-react:
     dependencies:
-      '@bentley/icons-generic':
-        specifier: ^1.0.34
-        version: 1.0.34
       '@itwin/itwinui-icons-react':
         specifier: ^2.8.0
         version: 2.8.0(react-dom@18.3.1)(react@18.3.1)

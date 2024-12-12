@@ -46,10 +46,8 @@ export class Snap extends React.PureComponent<SnapProps> {
         role="button"
         tabIndex={-1}
       >
-        {this.props.icon === undefined ? undefined : (
-          <div>{this.props.icon}</div>
-        )}
-        <div>{this.props.children}</div>
+        {this.props.icon}
+        {this.props.children}
       </div>
     );
   }
