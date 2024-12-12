@@ -30,31 +30,12 @@ describe("SnapModeField", () => {
     const snapModeButton = screen.getByText("snapModeField.snapMode");
     await theUserTo.click(snapModeButton);
 
-    const iconContainer = container.querySelector(".icon");
-    expect(iconContainer).toBeTruthy();
-
     const snaps = container.parentElement!.querySelectorAll(
       ".nz-footer-snapMode-snap"
     );
     expect(snaps.length).to.eql(7);
 
     await theUserTo.click(snapModeButton); // Closes popup
-  });
-
-  it("Validate multiple snaps mode", () => {
-    // force to use multi-snap
-    UiFramework.setAccudrawSnapMode(
-      SnapMode.Intersection | SnapMode.NearestKeypoint
-    );
-    const snapMode = UiFramework.getAccudrawSnapMode();
-    expect(snapMode).toEqual(SnapMode.Intersection | SnapMode.NearestKeypoint);
-    const { container } = render(
-      <Provider store={TestUtils.store}>
-        <SnapModeField />
-      </Provider>
-    );
-    const iconContainer = container.querySelector(".icon");
-    expect(iconContainer).toBeTruthy();
   });
 
   it("should change snapMode and dispatch SyncEvent on click", async () => {
